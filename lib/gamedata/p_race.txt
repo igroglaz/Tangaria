@@ -651,7 +651,7 @@ value:1:CON[-3+1d24]
 value:1:INFRA[1+1d7]
 value:25:RES_WATER[1]
 value:1:TUNNEL[-1+-1d15]
-obj-flag:30:REGEN
+obj-flag:1:REGEN
 player-flags:CAN_SWIM
 #temp:
 obj-flag:1:FEATHER
@@ -1785,6 +1785,7 @@ value:1:DEX[2]
 value:1:CON[-1+1d24]
 value:1:INFRA[1+1d5]
 value:1:TUNNEL[1+1d24]
+value:1:STEALTH[0+1d30]
 obj-flag:1:PROT_BLIND
 value:1:RES_DARK[1]
 player-flags:RACE_REGEN
@@ -1817,7 +1818,6 @@ value:1:BLOWS[1]
 value:30:MOVES[-1+-1d2]
 value:30:SPEED[1+1d2]
 value:1:TUNNEL[-1+-1d24]
-obj-flag:50:IMPAIR_HP
 player-flags:NO_BOOTS
 
 # chaos mutation, so resistant to it
@@ -2017,17 +2017,17 @@ value:1:DEX[-3]
 value:1:CON[-2]
 value:1:INFRA[1+1d5]
 value:1:TUNNEL[-5+-1d15]
+player-flags:SHIELD_BASH
 obj-flag:1:FEATHER
 obj-flag:1:ESP_ALL
-value:1:RES_LIGHT[-1]
-value:1:DAM_RED[-1+-1d2]
+value:1:SPEED[1]
+value:1:DAM_RED[0+-1d2]
 value:1:BLOWS[-1]
 value:1:SHOTS[-1]
-player-flags:SHIELD_BASH
-value:1:MOVES[-5+-1d9]
-value:1:SPEED[1]
-obj-flag:1:IMPAIR_MANA
 value:1:MANA[1]
+obj-flag:1:IMPAIR_MANA
+value:1:RES_LIGHT[-1]
+value:1:MOVES[-5+-1d9]
 player-flags:SHAPECHANGE
 shape:1:floating eye'
 shape:10:disenchanter eye'
