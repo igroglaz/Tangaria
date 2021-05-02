@@ -411,3 +411,8 @@ type:player
 code:NO_BOOTS
 name:No boots
 desc:You can not wear footwear.
+
+type:object
+code:SLOW_DIGEST_2
+name:Slow Digestion
+desc:You have slow metabolism.

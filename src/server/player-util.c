@@ -1763,6 +1763,9 @@ int player_digest(struct player *p)
 
     /* Slow digestion takes less food */
     if (player_of_has(p, OF_SLOW_DIGEST)) i /= 2;
+    
+    /* 2x slow digestion takes much less food */
+    if (player_of_has(p, OF_SLOW_DIGEST_2)) i /= 2;
 
     /* Minimal digestion */
     if (i < 1) i = 1;
