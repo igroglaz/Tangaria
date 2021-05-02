@@ -1264,3 +1264,13 @@ type-mult:light:0
 msg:You realise your {name} makes you want to eat more food.
 desc:Makes you need more food
 short-desc:Hunger
+
+name:slow digestion 2
+type:flag
+subtype:misc ability
+id-type:timed
+code:SLOW_DIGEST_2
+power:16
+msg:You realise your {name} is slowing your metabolism.
+desc:Slows your metabolism
+short-desc:Slow Digest
