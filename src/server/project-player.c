@@ -178,6 +178,7 @@ static void project_player_drain_stats(struct player *p, int num)
             case 3: k = STAT_WIS; act = "wise"; break;
             case 4: k = STAT_DEX; act = "agile"; break;
             case 5: k = STAT_CON; act = "hale"; break;
+            case 6: k = STAT_CHR; act = "beautiful"; break;
         }
 
         msg(p, "You're not as %s as you used to be...", act);

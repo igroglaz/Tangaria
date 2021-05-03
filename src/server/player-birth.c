@@ -1157,6 +1157,7 @@ static void quickstart_roll(struct player *p, bool character_existed, byte *prid
         stat_roll[2] = STAT_DEX;
         stat_roll[3] = STAT_WIS;
         stat_roll[4] = STAT_INT;
+        stat_roll[5] = STAT_CHR;
         stat_roll[STAT_MAX] = BR_NORMAL;
     }
 }

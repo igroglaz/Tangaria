@@ -1716,6 +1716,7 @@ static bool effect_handler_BIZARRE(effect_handler_context_t *context)
             player_stat_dec(context->origin->player, STAT_WIS, true);
             player_stat_dec(context->origin->player, STAT_DEX, true);
             player_stat_dec(context->origin->player, STAT_CON, true);
+            player_stat_dec(context->origin->player, STAT_CHR, true);
 
             /* Lose some experience (permanently) */
             player_exp_lose(context->origin->player, context->origin->player->exp / 4, true);
@@ -5558,6 +5559,7 @@ static bool effect_handler_POLY_RACE(effect_handler_context_t *context)
         player_stat_dec(context->origin->player, STAT_CON, true);
         player_stat_dec(context->origin->player, STAT_STR, true);
         player_stat_dec(context->origin->player, STAT_INT, true);
+        player_stat_dec(context->origin->player, STAT_CHR, true);
 
         /* Fail if too powerful */
         if (magik(race->level)) return true;

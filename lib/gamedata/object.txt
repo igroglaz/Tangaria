@@ -3463,6 +3463,8 @@ level:40
 weight:4
 cost:50000
 alloc:20:40 to 100
+effect:GAIN_STAT:CHR
+effect:RESTORE_STAT:CHR
 effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
 effect:GAIN_STAT:DEX

@@ -64,6 +64,14 @@ mult:15
 adjective:healthy
 neg-adjective:sickly
 
+name:charisma
+type:stat
+code:CHR
+power:5
+mult:10
+adjective:beautiful
+neg-adjective:ugly
+
 name:mana capacity
 type:mod
 code:MANA
@@ -277,6 +285,15 @@ code:SUST_CON
 power:8
 msg:Your {name} glows.
 short-desc:Sust CON
+
+name:sustain charisma
+type:flag
+subtype:sustain
+id-type:on effect
+code:SUST_CHR
+power:8
+msg:Your {name} glows.
+short-desc:Sust CHR
 
 name:protection from fear
 type:flag

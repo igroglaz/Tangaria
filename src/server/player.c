@@ -208,6 +208,7 @@ static void adjust_level(struct player *p)
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_DEX, 0, 0, 0, 0, NULL);
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
+            effect_simple(EF_RESTORE_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
 
             /* Record this event in the character history */
             if (!(p->lev % 5))
@@ -315,6 +316,7 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
         of_on(f, OF_SUST_WIS);
         of_on(f, OF_SUST_DEX);
         of_on(f, OF_SUST_CON);
+        of_on(f, OF_SUST_CHR);
     }
 
     /* Handle polymorphed players */

@@ -224,6 +224,11 @@ name:Sustain Constitution
 desc:Your constitution is sustained.
 
 type:object
+code:SUST_CHR
+name:Sustain Charisma
+desc:Your charisma is sustained.
+
+type:object
 code:PROT_FEAR
 name:Fear Immunity
 desc:You are immune to fear.

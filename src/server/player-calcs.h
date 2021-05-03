@@ -27,6 +27,7 @@
 #define PU_DISTANCE     0x00000100L /* Update distances */
 #define PU_INVEN        0x00000200L /* Update inventory */
 
+extern const int adj_chr_gold[STAT_RANGE];
 extern const int adj_str_td[STAT_RANGE];
 extern const int adj_dex_th[STAT_RANGE];
 extern const int adj_str_hold[STAT_RANGE];

@@ -241,7 +241,7 @@ player_sex sex_info[MAX_SEXES] =
  */
 const char *stat_names[STAT_MAX] =
 {
-    "STR: ", "INT: ", "WIS: ", "DEX: ", "CON: "
+    "STR: ", "INT: ", "WIS: ", "DEX: ", "CON: ", "CHR: "
 };
 
 
@@ -250,7 +250,7 @@ const char *stat_names[STAT_MAX] =
  */
 const char *stat_names_reduced[STAT_MAX] =
 {
-    "Str: ", "Int: ", "Wis: ", "Dex: ", "Con: "
+    "Str: ", "Int: ", "Wis: ", "Dex: ", "Con: ", "Chr: "
 };
 
 
