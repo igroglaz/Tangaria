@@ -215,6 +215,16 @@ effect-type:flag
 resist:SUST_CON
 lash-type:TIME
 
+name:LOSE_CHR
+power:0
+eval:20
+desc:reduce charisma
+lore-color-base:Orange
+lore-color-resist:Light Green
+effect-type:flag
+resist:SUST_CHR
+lash-type:TIME
+
 name:LOSE_ALL
 power:0
 eval:40

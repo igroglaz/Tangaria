@@ -21,6 +21,51 @@
 
 #include "s-angband.h"
 
+/*
+ * Stat Table (CHR) -- payment percentages
+ */
+const int adj_chr_gold[STAT_RANGE] =
+
+{
+    143    /* 3 */,
+    137    /* 4 */,
+    134    /* 5 */,
+    132    /* 6 */,
+    129    /* 7 */,
+    127    /* 8 */,
+    123    /* 9 */,
+    121    /* 10 */,
+    119    /* 11 */,
+    117    /* 12 */,
+    115    /* 13 */,
+    113    /* 14 */,
+    111    /* 15 */,
+    109    /* 16 */,
+    107    /* 17 */,
+    108    /* 18/00-18/09 */,
+    106    /* 18/10-18/19 */,
+    105    /* 18/20-18/29 */,
+    104    /* 18/30-18/39 */,
+    103    /* 18/40-18/49 */,
+    102    /* 18/50-18/59 */,
+    101    /* 18/60-18/69 */,
+    100    /* 18/70-18/79 */,
+    99    /* 18/80-18/89 */,
+    98    /* 18/90-18/99 */,
+    97    /* 18/100-18/109 */,
+    96    /* 18/110-18/119 */,
+    95    /* 18/120-18/129 */,
+    94    /* 18/130-18/139 */,
+    93    /* 18/140-18/149 */,
+    92    /* 18/150-18/159 */,
+    91    /* 18/160-18/169 */,
+    90    /* 18/170-18/179 */,
+    88    /* 18/180-18/189 */,
+    88    /* 18/190-18/199 */,
+    89    /* 18/200-18/209 */,
+    89    /* 18/210-18/219 */,
+    90    /* 18/220+ */
+};
 
 /*
  * Stat Table (INT) -- magic devices
@@ -2068,6 +2113,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_WIS] += modifiers[OBJ_MOD_WIS];
         state->stat_add[STAT_DEX] += modifiers[OBJ_MOD_DEX];
         state->stat_add[STAT_CON] += modifiers[OBJ_MOD_CON];
+        state->stat_add[STAT_CHR] += modifiers[OBJ_MOD_CHR];
 
         /* Affect stealth */
         state->skills[SKILL_STEALTH] += modifiers[OBJ_MOD_STEALTH];
@@ -2212,6 +2258,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_WIS] += 3;
         state->stat_add[STAT_DEX] += 3;
         state->stat_add[STAT_CON] += 3;
+        state->stat_add[STAT_CHR] -= 1;
     }
 
     /* Calculate the various stat values */

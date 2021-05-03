@@ -1072,6 +1072,14 @@ static void melee_effect_handler_LOSE_CON(melee_effect_handler_context_t *contex
 	melee_effect_stat(context, STAT_CON, OF_SUST_CON);
 }
 
+/*
+ * Melee effect handler: Drain the player's charisma.
+ */
+static void melee_effect_handler_LOSE_CHR(melee_effect_handler_context_t *context)
+{
+	melee_effect_stat(context, STAT_CHR, OF_SUST_CHR);
+}
+
 
 /*
  * Melee effect handler: Drain all of the player's stats.
@@ -1094,6 +1102,7 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_INT, 0, 0, 0, 0, NULL);
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
+            effect_simple(EF_DRAIN_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
         }
         return;
     }
@@ -1114,11 +1123,14 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
             desc_stat(STAT_INT, false));
         msg(context->p, "You feel %s for a moment, but the feeling passes.",
             desc_stat(STAT_WIS, false));
+        msg(context->p, "You feel %s for a moment, but the feeling passes.",
+            desc_stat(STAT_CHR, false));
         equip_learn_flag(context->p, OF_SUST_STR);
         equip_learn_flag(context->p, OF_SUST_INT);
         equip_learn_flag(context->p, OF_SUST_WIS);
         equip_learn_flag(context->p, OF_SUST_DEX);
         equip_learn_flag(context->p, OF_SUST_CON);
+        equip_learn_flag(context->p, OF_SUST_CHR);
         context->obvious = true;
     }
     else
@@ -1132,6 +1144,7 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_CON, 0, 0, 0, 0, &context->obvious);
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_INT, 0, 0, 0, 0, &context->obvious);
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, &context->obvious);
+        effect_simple(EF_DRAIN_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, &context->obvious);
     }
 }
 
@@ -1663,6 +1676,7 @@ melee_effect_handler_f melee_handler_for_blow_effect(const char *name)
         {"LOSE_WIS", melee_effect_handler_LOSE_WIS},
         {"LOSE_DEX", melee_effect_handler_LOSE_DEX},
         {"LOSE_CON", melee_effect_handler_LOSE_CON},
+        {"LOSE_CHR", melee_effect_handler_LOSE_CHR},
         {"LOSE_ALL", melee_effect_handler_LOSE_ALL},
         {"SHATTER", melee_effect_handler_SHATTER},
         {"EXP_10", melee_effect_handler_EXP_10},

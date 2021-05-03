@@ -100,6 +100,7 @@ value:1:INT[-4]
 value:1:WIS[-2]
 value:1:DEX[-4]
 value:1:CON[3]
+value:1:CHR[-6]
 obj-flag:1:SUST_STR
 player-flags:RACE_REGEN
 value:1:INFRA[3]

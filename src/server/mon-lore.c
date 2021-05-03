@@ -267,7 +267,7 @@ static int blow_color(struct player *p, int blow_idx)
     {
         if (of_has(p->known_state.flags, OF_SUST_STR) && of_has(p->known_state.flags, OF_SUST_INT) &&
             of_has(p->known_state.flags, OF_SUST_WIS) && of_has(p->known_state.flags, OF_SUST_DEX) &&
-            of_has(p->known_state.flags, OF_SUST_CON))
+            of_has(p->known_state.flags, OF_SUST_CON) && of_has(p->known_state.flags, OF_SUST_CHR))
         {
             return blow->lore_attr_resist;
         }

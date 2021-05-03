@@ -662,8 +662,12 @@ static bool store_will_buy(struct player *p, int sidx, const struct object *obj)
  * store_buying == true means the shop is buying, player selling
  * false means the shop is selling, player buying
  *
+ * This function takes into account the player's charisma.
+ * Please note that it's designed for Tangaria's no-selling mode.
+ *
  * The "greed" value should exceed 100 when the player is "buying" the
  * object, and should be less than 100 when the player is "selling" it.
+ * ^^^ NOT FOR NO_SELLING.
  *
  * Hack -- black markets always charge 2x and 5x/10x the normal price.
  */
@@ -706,15 +710,22 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
 
     /* Worthless items */
     if (price <= 0) return (0L);
-
-    /* The black market is always a worse deal */
-    if (store_black_market(s)) adjust = 150;
-
+    
+    /* Add in the charisma factor */
+	if (store_black_market(s))
+        adjust = 150;
+	else
+		adjust = adj_chr_gold[p->state.stat_ind[STAT_CHR]];
+        
     /* Shop is buying */
     if (store_buying)
     {
         /* Set the factor */
         adjust = 100 + (100 - adjust);
+
+        /* Angband V. 3.4 fix for factor.. no need @ Tangaria
+        if (adjust > 100) adjust = 100;
+        */
 
         /* Shops now pay 2/3 of true value */
         price = price * 2 / 3;
@@ -731,6 +742,10 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
     else
     {
         size_t i;
+        
+        /* Angband V. 3.4 fix for factor.. no need @ Tangaria
+		if (adjust < 100) adjust = 100;
+        */
 
         /* Black markets suck */
         if (s->type == STORE_B_MARKET) price = price * 2;
@@ -746,6 +761,9 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
             }
         }
     }
+    
+    /* CHArisma shouldn't influence player store prices */
+    if (s->type == STORE_PLAYER) adjust = 100;
 
     /* Compute the final price (with rounding) */
     price = floor((price * adjust + 50L) / 100L);
