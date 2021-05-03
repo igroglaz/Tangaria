@@ -161,6 +161,6 @@ DATA = sound.cfg \
 	blind.ogg                 blind1.ogg                blind2.ogg \
 	confused.ogg \
 	blind.mp3                 blind1.mp3                blind2.mp3 \
-	confused.mp3 \
+	confused.mp3
 
 PACKAGE = sounds
