@@ -102,7 +102,7 @@ value:1:DEX[-4]
 value:1:CON[3]
 value:1:CHR[-6]
 obj-flag:1:SUST_STR
-player-flags:RACE_REGEN
+obj-flag:1:REGEN
 value:1:INFRA[3]
 value:1:DAM_RED[0+1d12]
 value:1:TUNNEL[1+1d20]
@@ -151,6 +151,7 @@ value:1:INT[1]
 value:1:WIS[-1]
 value:1:DEX[1]
 value:1:CON[-1+1d24]
+value:1:CHR[1]
 obj-flag:1:SUST_DEX
 value:1:INFRA[2]
 value:1:TUNNEL[1]
@@ -180,6 +181,7 @@ value:1:INT[2]
 value:1:WIS[-1]
 value:1:DEX[1]
 value:1:CON[-1]
+value:1:CHR[2]
 obj-flag:1:SUST_DEX
 value:1:INFRA[3]
 value:1:RES_LIGHT[1]
@@ -209,6 +211,7 @@ value:1:STR[-2]
 value:1:WIS[1]
 value:1:DEX[3]
 value:1:CON[2]
+value:1:CHR[1]
 value:1:INFRA[4]
 obj-flag:1:HOLD_LIFE
 value:1:DAM_RED[0+1d15]
@@ -236,6 +239,7 @@ value:1:STR[-1]
 value:1:INT[2]
 value:1:DEX[2]
 value:1:CON[1]
+value:1:CHR[-2]
 value:1:INFRA[4]
 obj-flag:1:FREE_ACT
 value:1:TUNNEL[1+1d30]
@@ -262,6 +266,7 @@ value:1:INT[-3]
 value:1:WIS[2]
 value:1:DEX[-2]
 value:1:CON[2]
+value:1:CHR[-3]
 value:1:INFRA[5]
 obj-flag:1:PROT_BLIND
 player-flags:0:SEE_ORE
@@ -285,6 +290,7 @@ weight:135:15
 value:1:STR[2]
 value:1:INT[-1]
 value:1:CON[1]
+value:1:CHR[-4]
 value:1:INFRA[3]
 value:1:RES_DARK[1]
 value:1:TUNNEL[1]
@@ -314,6 +320,7 @@ value:1:INT[0+1d24]
 value:1:WIS[0+1d24]
 value:1:DEX[0+1d24]
 value:1:CON[0+1d16]
+value:1:CHR[2]
 value:1:STEALTH[0+1d24]
 obj-flag:35:SUST_CON
 
@@ -336,15 +343,16 @@ height:77:6
 weight:190:20
 #1 3 -1 3 1
 value:0:STR[-2+1d15]
-value:0:INT[0+1d16]
+value:0:INT[-1+1d12]
 value:0:WIS[-2+1d30]
 value:0:DEX[0+1d16]
 value:0:CON[-2+1d15]
+value:1:CHR[0+1d10]
 value:1:INFRA[1+1d16]
-value:1:DAM_RED[-1+-1d30]
+value:1:DAM_RED[-1+-1d15]
 value:15:STEALTH[1+1d15]
 obj-flag:25:SEE_INVIS
-value:50:RES_LIGHT[1]
+value:1:RES_LIGHT[1]
 
 name:Kobold
 skill-disarm-phys:10
@@ -366,6 +374,7 @@ value:1:STR[-1]
 value:1:INT[-1]
 value:1:DEX[2]
 value:1:CON[2]
+value:1:CHR[-2]
 value:1:INFRA[5]
 value:1:RES_POIS[1]
 value:1:TUNNEL[1+1d30]
@@ -396,6 +405,7 @@ value:1:INT[-1+-1d12]
 value:1:WIS[-1+-1d12]
 value:1:DEX[-1+-1d12]
 value:1:CON[-1+-1d12]
+value:1:CHR[0+-1d12]
 value:1:MOVES[1+10d24]
 value:1:DAM_RED[1+1d24]
 player-flags:FAST_THROW
@@ -461,13 +471,12 @@ skill-disarm-phys:-6
 skill-disarm-magic:-6
 skill-device:-20
 skill-save:10
-skill-stealth:-16
+skill-stealth:-13
 skill-search:-10
 skill-melee:15
 skill-shoot:5
 skill-dig:-10
-#add one more HP (V is 12)
-hitdie:11
+hitdie:12
 exp:180:125
 history:89
 age:14:6
@@ -481,12 +490,12 @@ value:1:INT[-5+1d7]
 value:1:WIS[-5+1d8]
 value:1:DEX[-6+1d7]
 value:1:CON[-6+1d4]
+value:1:CHR[-5]
 value:10:RES_FIRE[1]
 value:20:RES_COLD[1]
 value:30:RES_ACID[1]
 value:40:RES_ELEC[1]
 value:1:DAM_RED[0+-1d9]
-value:50:MANA[-1]
 player-flags:0:THUNDERLORD
 #temp
 value:1:SPEED[1]
@@ -502,8 +511,7 @@ skill-search:10
 skill-melee:15
 skill-shoot:-50
 skill-dig:0
-#13
-hitdie:10
+hitdie:13
 exp:210:125
 history:98
 age:255:70
@@ -518,6 +526,7 @@ value:1:INT[-20]
 value:1:WIS[-20]
 value:1:DEX[-20]
 value:1:CON[-20]
+value:1:CHR[-20]
 value:1:MANA[4+-1d10M40]
 #player-flags:ZERO_FAIL (could have less then 5% fail)
 player-flags:0:DRAGON | PERM_SHAPE
@@ -546,6 +555,7 @@ value:1:INT[-20]
 value:1:WIS[-20]
 value:1:DEX[-20]
 value:1:CON[-20+20d25]
+value:1:CHR[-20]
 obj-flag:1:AGGRAVATE
 value:15:SPEED[-10+2d7]
 value:15:MOVES[10]
@@ -553,6 +563,8 @@ player-flags:RACE_REGEN
 value:50:DAM_RED[5]
 value:1:MANA[4+-1d10M40]
 value:10:TUNNEL[1+1d10]
+player-flags:CAN_SWIM
+value:40:RES_CHAOS[1]
 player-flags:0:HYDRA
 attack:bite: (circular):1:0:CIRCLE
 shape:1:hydra
@@ -596,12 +608,13 @@ value:1:INT[0+1d24]
 value:1:WIS[-1]
 value:10:DEX[1]
 value:1:CON[-2+1d12]
+value:0:CHR[-3+1d12]
 value:15:INFRA[1]
 value:1:DAM_RED[0+1d24]
 value:1:TUNNEL[1]
 obj-flag:1:ESP_EVIL
 
-#immortal human
+#immortal human, highlander-like
 name:Damned
 skill-disarm-phys:-5
 skill-disarm-magic:-5
@@ -612,7 +625,7 @@ skill-search:10
 skill-melee:-5
 skill-shoot:-5
 skill-dig:-1
-hitdie:9
+hitdie:10
 exp:100:125
 history:100
 age:11:4
@@ -623,6 +636,7 @@ value:1:INT[-1+-1d27]
 value:1:WIS[-1+-1d27]
 value:1:DEX[-1+-1d27]
 value:1:CON[0]
+value:0:CHR[1+1d27]
 value:1:RES_TIME[1]
 player-flags:RACE_REGEN
 obj-flag:25:HOLD_LIFE
@@ -649,13 +663,14 @@ value:1:INT[-1+1d20M21]
 value:1:WIS[0+1d24]
 value:1:DEX[-1+1d24]
 value:1:CON[-3+1d24]
+value:0:CHR[-4]
 value:1:INFRA[1+1d7]
 value:25:RES_WATER[1]
+value:50:RES_WATER[3]
 value:1:TUNNEL[-1+-1d15]
+# make fast regen only in water
 obj-flag:1:REGEN
 player-flags:CAN_SWIM
-#temp:
-obj-flag:1:FEATHER
 
 name:Barbarian
 skill-disarm-phys:-2
@@ -675,14 +690,16 @@ height:76:7
 weight:172:23
 #3 -2 -1 1 2
 value:1:STR[0+1d5M16]
-value:1:INT[-4+-1d20]
-value:1:WIS[-3+1d20]
+value:1:INT[-2]
+value:1:WIS[-1]
 value:1:DEX[0+1d10M11]
 value:1:CON[0+1d7M15]
+value:0:CHR[-4]
 value:1:INFRA[1]
 obj-flag:1:PROT_FEAR
 value:40:RES_POIS[1]
 value:1:STEALTH[-2+1d15M16]
+value:0:DAM_RED[0+1d10]
 
 name:Black Dwarf
 skill-disarm-phys:1
@@ -706,20 +723,21 @@ value:1:INT[0]
 value:1:WIS[-1]
 value:1:DEX[0]
 value:25:CON[1]
+value:0:CHR[-3]
 value:1:INFRA[3]
 value:25:RES_DISEN[1]
 player-flags:SEE_ORE
 value:5:TUNNEL[1+1d15]
 value:10:STEALTH[1]
 
-#tiny orcs.. meluzga
+#tiny orcs.. meluzga. No HP or wow goblins! Lotr!
 name:Goblin
 skill-disarm-phys:-2
 skill-disarm-magic:-2
 skill-device:-3
 skill-save:3
 skill-stealth:1
-skill-search:2
+skill-search:8
 skill-melee:0
 skill-shoot:5
 skill-dig:2
@@ -729,16 +747,17 @@ history:100
 age:15:10
 height:40:3
 weight:66:4
-#0 -1 -4 6 2
-value:1:STR[0]
+#1 -1 -4 6 2
+value:1:STR[0+1d45]
 value:1:INT[-1]
 value:1:WIS[-4]
 value:1:DEX[2+1d10]
 value:1:CON[1+1d30]
+value:1:CHR[-6]
 value:1:INFRA[4]
 value:10:RES_DARK[1]
 value:1:TUNNEL[1]
-value:25:SPEED[1]
+value:0:SPEED[0+1d24]
 player-flags:ORC
 
 #half-giant.. giant blood, heritage
@@ -752,7 +771,6 @@ skill-search:-1
 skill-melee:20
 skill-shoot:-5
 skill-dig:0
-#add one more HP (V is 13)
 hitdie:13
 exp:100:125
 history:100
@@ -765,6 +783,7 @@ value:1:INT[-2]
 value:1:WIS[-2]
 value:1:DEX[-2]
 value:1:CON[1+1d24]
+value:1:CHR[-5]
 obj-flag:10:SUST_STR
 obj-flag:50:TRAP_IMMUNE
 obj-flag:24:PROT_CONF
@@ -791,7 +810,7 @@ skill-search:-5
 skill-melee:15
 skill-shoot:-5
 skill-dig:0
-hitdie:11
+hitdie:12
 exp:100:125
 history:100
 age:20:10
@@ -803,9 +822,10 @@ value:1:INT[-4+1d7M30]
 value:1:WIS[-5+1d12]
 value:1:DEX[0+-1d30M32]
 value:1:CON[1+1d15M32]
+value:1:CHR[-8]
 value:1:INFRA[1+1d7]
 value:1:MOVES[-9]
-value:1:STEALTH[0+1d24]
+value:1:STEALTH[0+1d30]
 obj-flag:1:SUST_INT
 value:1:TUNNEL[1]
 value:25:MANA[1]
@@ -832,6 +852,7 @@ value:1:INT[-5+-1d15]
 value:1:WIS[-4]
 value:1:DEX[-5]
 value:1:CON[1+1d8M30]
+value:1:CHR[-9]
 value:1:INFRA[1+1d10]
 obj-flag:1:SUST_STR
 player-flags:RACE_REGEN
@@ -842,6 +863,7 @@ value:50:SPEED[-1]
 value:20:RES_POIS[1]
 value:35:RES_SHARD[1]
 value:1:RES_LIGHT[-1]
+value:0:DAM_RED[1+1d5]
 player-flags:TROLL
 
 name:Orc
@@ -866,10 +888,13 @@ value:1:INT[-1]
 value:1:WIS[-1+1d45]
 value:1:DEX[1]
 value:1:CON[1]
+value:1:CHR[-6]
 value:1:INFRA[2+1d10M35]
 value:25:RES_DARK[1]
 value:40:RES_POIS[1]
 value:1:DAM_RED[0+1d24]
+value:50:STEALTH[1]
+value:50:SPEED[1]
 player-flags:ORC
 
 # in between of tiny orcs and forest 'kobolds'.. 
@@ -889,17 +914,19 @@ history:100
 age:15:10
 height:38:3
 weight:65:4
-#-5 1 2 3 -4
-value:1:STR[-5]
+#-5(-3) 1 2 3 -4(-3)
+value:1:STR[-5+1d24]
 value:40:INT[1]
 value:1:WIS[2]
 value:1:DEX[3]
-value:1:CON[-4]
+value:1:CON[-4+1d40]
+value:1:CHR[-4]
 value:1:INFRA[1+1d15]
-value:1:SPEED[1]
+value:1:SPEED[1+1d45]
 value:1:MOVES[0+10d30]
 value:25:DAM_RED[1]
 obj-flag:25:SUST_DEX
+#add dodge
 
 name:Dark Elf
 skill-disarm-phys:5
@@ -923,18 +950,19 @@ value:1:INT[0+1d20]
 value:1:WIS[-2]
 value:1:DEX[0+1d15]
 value:1:CON[0]
+value:1:CHR[-7+1d24]
 value:1:INFRA[0+1d6]
 obj-flag:25:SEE_INVIS
 value:35:RES_DARK[1]
 value:1:RES_LIGHT[-1]
-value:1:STEALTH[0+1d12]
+value:0:STEALTH[1+1d15]
 
 name:Werewolf
 skill-disarm-phys:-15
 skill-disarm-magic:-15
 skill-device:-8
 skill-save:2
-skill-stealth:-2
+skill-stealth:0
 skill-search:5
 skill-melee:7
 skill-shoot:-10
@@ -951,6 +979,7 @@ value:1:INT[0+-1d20]]
 value:1:WIS[-2+-1d20]
 value:1:DEX[0]
 value:1:CON[-1+1d10M21]
+value:0:CHR[-1+-1d7]
 value:1:INFRA[3+1d24]
 player-flags:RACE_REGEN
 obj-flag:1:HUNGER
@@ -960,7 +989,7 @@ value:1:RES_LIGHT[-1]
 value:50:SPEED[1]
 brand:15:49:CUT_1
 brand:50:50:CUT_2
-value:10:STEALTH[-1+-1d15]
+value:0:STEALTH[-1+-1d10]
 player-flags:ANIMAL
 player-flags:SHAPECHANGE
 shape:1:jackal_
@@ -977,8 +1006,8 @@ skill-device:-15
 skill-save:5
 skill-stealth:-3
 skill-search:-10
-skill-melee:-15
-skill-shoot:-25
+skill-melee:-11
+skill-shoot:-19
 skill-dig:0
 hitdie:9
 exp:100:125
@@ -992,6 +1021,7 @@ value:1:INT[-5+-1d30]
 value:1:WIS[-5+-1d30]
 value:1:DEX[-1]
 value:1:CON[-1+-1d12]
+value:1:CHR[-9]
 value:1:INFRA[0+1d5]
 value:1:SPEED[-1+1d28]
 obj-flag:10:SUST_STR
@@ -1018,8 +1048,7 @@ skill-search:-10
 skill-melee:10
 skill-shoot:-10
 skill-dig:0
-#add one more HP (V is 11)
-hitdie:10
+hitdie:11
 exp:100:125
 history:100
 age:11:4
@@ -1031,6 +1060,7 @@ value:0:INT[-5+1d7]
 value:0:WIS[-5+1d12]
 value:0:DEX[-3+1d9]
 value:0:CON[-5+1d9]
+value:1:CHR[-9+1d4]
 value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
@@ -1056,14 +1086,13 @@ shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
 
-
 ############################## GODLIKE
 # ? spirits.. of fire, elec, cold, 
 
 ########## NEXT TIME: lower initial str, con, dex for extra powerful races
 
-#Maya descendants of ancient powers;
-name:Enlightened
+#Enlightened.. Maya descendants of ancient powers;
+name:Maiar
 skill-disarm-phys:2
 skill-disarm-magic:4
 skill-device:-20
@@ -1073,9 +1102,9 @@ skill-search:1
 skill-melee:15
 skill-shoot:5
 skill-dig:0
-#11
-hitdie:10
-exp:100:125
+hitdie:11
+# EXP !
+exp:100:100
 history:100
 age:11:4
 height:70:5
@@ -1086,6 +1115,7 @@ value:0:INT[-5+1d6]
 value:0:WIS[-5+1d6]
 value:0:DEX[-5+1d8]
 value:0:CON[-5+1d8]
+value:1:CHR[3]
 value:0:INFRA[0+1d5]
 obj-flag:5:LIGHT_2
 obj-flag:10:SLOW_DIGEST
@@ -1106,10 +1136,10 @@ value:50:MANA[-1]
 #value:50:BLOWS[-1]
 #temp
 value:1:SPEED[1]
+#
 
-# 'corrupted' descendants of ancient powers;
-# re Demonic
-name:Cambion
+# cambion.. 'corrupted' descendants of ancient powers;
+name:Demonic
 skill-disarm-phys:2
 skill-disarm-magic:4
 skill-device:-20
@@ -1119,7 +1149,6 @@ skill-search:1
 skill-melee:15
 skill-shoot:5
 skill-dig:0
-#11
 hitdie:11
 exp:100:125
 history:100
@@ -1132,6 +1161,7 @@ value:0:INT[-5+1d6]
 value:0:WIS[-5+1d6]
 value:0:DEX[-5+1d8]
 value:0:CON[-5+1d8]
+value:1:CHR[9+-1d3]
 value:0:INFRA[0+1d5]
 obj-flag:1:HOLD_LIFE
 obj-flag:1:SLOW_DIGEST
@@ -1142,7 +1172,6 @@ value:1:RES_FIRE[1]
 value:1:RES_POIS[1]
 value:1:RES_LIGHT[-1]
 value:1:RES_DARK[1]
-value:1:RES_TIME[-1]
 value:1:RES_SOUND[1]
 ##########value:1:RES_NEXUS[1] ->brand instead
 brand:1:50:POIS_2
@@ -1156,13 +1185,13 @@ shape:30:succubi
 #temp
 value:1:SPEED[1]
 
-# re Angel.. Half-Angel
+# Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
 # (and they doesn’t have wings!), but very cruel race which got their
 # own goals which they would achieve no matter what. The only thing
 # which save the world from their roth is that there are not too many
-# of them. In eternal war with titans;
-name:Celestial
+# of them. In eternal war with titans
+name:Demiurge
 skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:-20
@@ -1172,19 +1201,19 @@ skill-search:2
 skill-melee:-5
 skill-shoot:0
 skill-dig:-40
-#11
-hitdie:10
+hitdie:11
 exp:100:125
 history:100
 age:11:4
 height:81:5
 weight:155:12
 #2 0 4 1 2
-value:0:STR[-5+1d7]
+value:0:STR[-4+1d8]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d6]
 value:0:DEX[-4+1d10]
-value:0:CON[-8+1d5]
+value:0:CON[-4+1d8]
+value:0:CHR[6+-1d8]
 value:1:INFRA[2+1d30]
 obj-flag:1:FEATHER
 obj-flag:10:SUST_WIS
@@ -1195,6 +1224,7 @@ obj-flag:50:PROT_BLIND
 value:1:RES_GRAVITY[1]
 brand:1:50:ELEC_2
 value:1:RES_ELEC[1]
+value:1:RES_TIME[-1]
 value:1:MOVES[-1]
 value:1:TUNNEL[-1+-1d10]
 obj-flag:50:IMPAIR_MANA
@@ -1213,8 +1243,7 @@ skill-search:1
 skill-melee:0
 skill-shoot:-5
 skill-dig:0
-#add one more HP (V is 13)
-hitdie:12
+hitdie:13
 exp:100:125
 history:100
 age:11:4
@@ -1226,6 +1255,7 @@ value:0:INT[-5+1d7]
 value:0:WIS[-5+-5d45]
 value:0:DEX[-6+1d6]
 value:0:CON[3]
+value:0:CHR[-10]
 value:1:INFRA[5]
 obj-flag:5:SLOW_DIGEST
 obj-flag:10:PROT_FEAR
@@ -1267,11 +1297,15 @@ value:1:INT[-1+1d24]
 value:1:WIS[0]
 value:1:DEX[-1+1d24]
 value:50:CON[-1]
+value:0:CHR[-1+1d24]
 value:1:RES_LIGHT[-1]
 value:1:RES_DARK[-1]
+value:25:RES_LIGHT[1]
 value:25:RES_DARK[1]
-value:50:RES_LIGHT[1]
-slay:50:50:DEMON_3
+obj-flag:1:ESP_DEMON
+slay:25:39:DEMON_3
+slay:40:50:DEMON_5
+#+vs angels
 
 name:Gargoyle
 skill-disarm-phys:-14
@@ -1295,6 +1329,7 @@ value:0:INT[-5+1d24]
 value:0:WIS[-2+1d12]
 value:0:DEX[-10+1d7]
 value:0:CON[3]
+value:0:CHR[-4]
 obj-flag:5:SUST_STR
 obj-flag:15:SUST_INT
 obj-flag:25:SUST_WIS
@@ -1322,18 +1357,19 @@ skill-search:-10
 skill-melee:15
 skill-shoot:0
 skill-dig:10
-hitdie:10
+hitdie:11
 exp:100:125
 history:100
 age:11:4
 height:82:3
 weight:244:23
-#4 -5 -5 -2 0
-value:0:STR[4]
-value:0:INT[-5]
-value:0:WIS[-5]
-value:0:DEX[-2]
+#4 -3 -3 0 0
+value:0:STR[2+2d30]
+value:0:INT[-5+2d50]
+value:0:WIS[-5+2d40]
+value:0:DEX[-2+2d20M21]
 value:0:CON[3+-1d15]
+value:0:CHR[-5]
 value:1:MOVES[-10]
 value:1:RES_POIS[1]
 obj-flag:1:FREE_ACT
@@ -1362,6 +1398,7 @@ value:1:STR[-6]
 value:1:INT[4]
 value:1:WIS[4]
 value:1:DEX[9]
+value:0:CHR[3]
 #replace with LIFE
 value:1:CON[-4+7d20M21]
 #######CHA:6
@@ -1403,6 +1440,7 @@ value:1:INT[-4+1d7]
 value:1:WIS[-5+1d7]
 value:1:DEX[-5+1d9]
 value:1:CON[-3+1d14]
+value:0:CHR[-4]
 player-flags:SHAPECHANGE
 shape:1:newborn dracon
 shape:10:baby dracon
@@ -1436,6 +1474,7 @@ value:1:INT[-5+1d15]
 value:1:WIS[-5+1d15]
 value:1:DEX[-2+1d30]
 value:1:CON[-10+1d2]
+value:0:CHR[-7]
 obj-flag:5:SUST_STR
 obj-flag:10:SUST_DEX
 obj-flag:15:SUST_CON
@@ -1490,6 +1529,7 @@ value:1:INT[1]
 value:1:WIS[-2]
 value:1:DEX[2]
 value:1:CON[-1]
+value:0:CHR[0+1d30]
 value:1:INFRA[4]
 value:1:MOVES[1+1d3]
 value:50:SPEED[1]
@@ -1520,6 +1560,7 @@ value:0:INT[-5+1d9]
 value:0:WIS[-5+1d9]
 value:0:DEX[-5+1d9]
 value:0:CON[-5+1d9]
+value:0:CHR[-7+1d24]
 ###########
 brand:20:29:ELEC_2
 brand:30:39:COLD_2
@@ -1564,14 +1605,17 @@ age:14:6
 height:170:20
 weight:240:60
 value:1:STR[2]
-value:1:INT[-4]
+value:1:INT[-4+1d24]
 value:1:WIS[-2]
 value:1:DEX[-2]
 value:1:CON[3]
+value:0:CHR[-5]
 value:25:INFRA[1]
 value:1:RES_FIRE[-1]
 value:1:RES_FIRE[1]
+value:1:RES_COLD[1]
 value:25:RES_ICE[1]
+brand:35:50:COLD_2
 slay:25:50:TROLL_3
 obj-flag:25:ESP_UNDEAD
 
@@ -1597,6 +1641,7 @@ value:1:INT[-1]
 value:1:WIS[-1+1d15]
 value:1:DEX[-1+1d30]
 value:1:CON[-1+1d24]
+value:0:CHR[-5]
 value:1:INFRA[1]
 obj-flag:1:PROT_CONF
 obj-flag:1:SUST_WIS
@@ -1628,6 +1673,7 @@ value:1:INT[-3+1d20]
 value:1:WIS[-2+1d15]
 value:1:DEX[0+1d9]
 value:1:CON[-2]
+value:0:CHR[-9]
 value:1:INFRA[1+1d6]
 value:1:STEALTH[0+1d24]
 brand:15:50:POIS_2
@@ -1672,6 +1718,7 @@ value:0:INT[0+1d8]
 value:0:WIS[0+1d8]
 value:0:DEX[0+1d8]
 value:0:CON[0+1d8]
+value:0:CHR[-9]
 obj-flag:1:FEATHER
 obj-flag:1:SLOW_DIGEST
 obj-flag:1:PROT_FEAR
@@ -1682,14 +1729,10 @@ player-flags:BEAM
 player-flags:ZERO_FAIL
 player-flags:KNOW_MUSHROOM
 player-flags:KNOW_ZAPPER
-player-flags:NO_BOOTS
 # _ // auto-id
 obj-flag:50:KNOWLEDGE
-value:1:DAM_RED[0+1d15]
 value:50:BLOWS[1]
 value:50:MIGHT[1]
-obj-flag:50:IMPAIR_HP
-obj-flag:50:IMPAIR_MANA
 value:1:RES_POIS[1]
 value:1:RES_ACID[1]
 value:10:RES_ELEC[1]
@@ -1699,6 +1742,10 @@ value:40:RES_TIME[1]
 value:50:RES_SHARD[1]
 obj-flag:1:ESP_DEMON
 slay:25:50:DEMON_3
+# -
+player-flags:NO_BOOTS
+obj-flag:50:IMPAIR_HP
+obj-flag:50:IMPAIR_MANA
 
 name:Harpy
 skill-disarm-phys:-4
@@ -1723,6 +1770,7 @@ value:1:INT[-1]
 value:1:WIS[-3]
 value:1:DEX[2+1d24]
 value:1:CON[-1+1d40]
+value:0:CHR[-6]
 obj-flag:1:PROT_BLIND
 obj-flag:1:FEATHER
 player-flags:KNOW_MUSHROOM
@@ -1754,6 +1802,7 @@ value:1:INT[-4]
 value:1:WIS[-2]
 value:1:DEX[-4]
 value:1:CON[-3+1d8]
+value:0:CHR[-8]
 value:1:INFRA[2]
 obj-flag:1:PROT_CONF
 obj-flag:1:PROT_STUN
@@ -1783,8 +1832,9 @@ weight:56:3
 value:1:STR[-1+1d24]
 value:1:INT[-1]
 value:1:WIS[-3]
-value:1:DEX[2]
+value:1:DEX[2+1d30]
 value:1:CON[-1+1d24]
+value:0:CHR[-8]
 value:1:INFRA[1+1d5]
 value:1:TUNNEL[1+1d24]
 value:1:STEALTH[0+1d30]
@@ -1814,6 +1864,7 @@ value:1:INT[-2]
 value:1:WIS[-2]
 value:1:DEX[3]
 value:1:CON[-1]
+value:0:CHR[-9]
 value:1:INFRA[6]
 obj-flag:1:FREE_ACT
 value:1:BLOWS[1]
@@ -1845,6 +1896,7 @@ value:1:INT[-2+1d24]
 value:1:WIS[-3+1d24]
 value:1:DEX[1+1d14]
 value:1:CON[0]
+value:0:CHR[-7]
 value:1:INFRA[1+1d10]
 value:30:MOVES[1]
 value:1:TUNNEL[1]
@@ -1867,11 +1919,12 @@ age:13:2
 height:69:3
 weight:145:17
 # 0 -1 -2 0 0
-value:1:STR[0]
+value:1:STR[0+1d30]
 value:1:INT[-1]
 value:1:WIS[-2]
 value:1:DEX[0]
 value:1:CON[0]
+value:0:CHR[-7]
 value:1:INFRA[4]
 value:1:DAM_RED[1+1d15]
 value:25:TUNNEL[1]
@@ -1903,6 +1956,7 @@ value:1:INT[-1+1d12]
 value:1:WIS[-3+1d24]
 value:1:DEX[-2]
 value:1:CON[-1]
+value:0:CHR[-3]
 obj-flag:30:ESP_EVIL
 player-flags:BLESS_WEAPON
 obj-flag:1:FEATHER
@@ -1931,7 +1985,7 @@ skill-search:10
 skill-melee:-7
 skill-shoot:0
 skill-dig:0
-hitdie:5
+hitdie:6
 exp:100:125
 history:100
 age:13:1
@@ -1942,6 +1996,7 @@ value:1:INT[1]
 value:1:WIS[-3]
 value:1:DEX[4]
 value:1:CON[0]
+value:0:CHR[-8]
 value:1:SPEED[1+1d9]
 value:1:MOVES[1+1d5]
 value:15:RES_FIRE[1]
@@ -1970,6 +2025,7 @@ value:0:INT[-5+1d9]
 value:0:WIS[-5+1d9]
 value:0:DEX[0]
 value:0:CON[-3+1d30]
+value:0:CHR[-9]
 value:0:INFRA[5+1d5]
 obj-flag:1:SLOW_DIGEST
 obj-flag:1:SLOW_DIGEST_2
@@ -2018,6 +2074,7 @@ value:1:INT[-2+1d10]
 value:1:WIS[-2]
 value:1:DEX[-3]
 value:1:CON[-2]
+value:0:CHR[-9]
 value:1:INFRA[1+1d5]
 value:1:TUNNEL[-5+-1d15]
 player-flags:SHIELD_BASH
