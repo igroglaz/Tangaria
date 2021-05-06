@@ -3359,12 +3359,13 @@ bool build_house(struct player *p)
         return false;
     }
 
-    /* PWMAngband: no house expansion in immediate suburbs */
+/// Tangaria comment out:
+    /* PWMAngband: no house expansion in immediate suburbs 
     if (town_suburb(&p->wpos))
     {
         msg(p, "This location is not suited for a house.");
         return false;
-    }
+    }*/
 
     /* Determine the area of the house foundation */
     if (!get_foundation_area(p, c, &begin, &end)) return false;
