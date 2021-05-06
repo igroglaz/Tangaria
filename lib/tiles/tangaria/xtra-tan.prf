@@ -140,13 +140,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -377,13 +377,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Mage] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Mage] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Mage] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Mage] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Mage] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Mage] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Mage] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Mage] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -611,13 +611,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Druid] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Druid] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Druid] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Druid] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Druid] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Druid] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Druid] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Druid] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -845,13 +845,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Priest] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Priest] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Priest] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Priest] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Priest] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Priest] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Priest] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Priest] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -1079,13 +1079,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -1313,13 +1313,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -1547,13 +1547,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -1781,13 +1781,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -2015,13 +2015,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -2249,13 +2249,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -2483,13 +2483,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -2717,13 +2717,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -2951,13 +2951,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Monk] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Monk] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Monk] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Monk] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Monk] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Monk] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Monk] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Monk] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -3185,13 +3185,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -3419,13 +3419,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -3653,13 +3653,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -3887,13 +3887,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -4122,13 +4122,13 @@ RF:<player>:0x97:0x8D
 monster:<player>:0x97:0x8E
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Archer] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Archer] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Archer] [EQU $RACE Enlightened] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Archer] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Archer] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Archer] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Archer] [EQU $RACE Cambion] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Archer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
@@ -4295,9 +4295,9 @@ monster:<player>:0x94:0x98
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Vampire] ]
 monster:<player>:0x94:0x98
-?:[AND [EQU $CLASS Ghost] [EQU $RACE Enlightened] ]
+?:[AND [EQU $CLASS Ghost] [EQU $RACE Maiar] ]
 monster:<player>:0x94:0x98
-?:[AND [EQU $CLASS Ghost] [EQU $RACE Cambion] ]
+?:[AND [EQU $CLASS Ghost] [EQU $RACE Demonic] ]
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Celestial] ]
 monster:<player>:0x94:0x98
