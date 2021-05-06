@@ -508,10 +508,11 @@ skill-device:-16
 skill-save:0
 skill-stealth:-16
 skill-search:10
-skill-melee:15
+skill-melee:0
 skill-shoot:-50
 skill-dig:0
-hitdie:13
+#13
+hitdie:11
 exp:210:125
 history:98
 age:255:70
@@ -519,7 +520,6 @@ height:170:20
 weight:240:60
 obj-flag:1:FEATHER
 value:1:INFRA[1]
-value:50:RES_NEXUS[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
 value:1:STR[-20]
 value:1:INT[-20]
@@ -528,8 +528,7 @@ value:1:DEX[-20]
 value:1:CON[-20]
 value:1:CHR[-20]
 value:1:MANA[4+-1d10M40]
-#player-flags:ZERO_FAIL (could have less then 5% fail)
-player-flags:0:DRAGON | PERM_SHAPE
+player-flags:0:DRAGON
 attack:claw:none:1:0:NONE
 attack:bite:none:5:4:DAM
 attack:crush:none:45:40:CRUSH
@@ -1092,7 +1091,7 @@ shape:40:doombat_
 ########## NEXT TIME: lower initial str, con, dex for extra powerful races
 
 #Enlightened.. Maya descendants of ancient powers;
-name:Maiar
+name:Enlightened
 skill-disarm-phys:2
 skill-disarm-magic:4
 skill-device:-20
@@ -1185,53 +1184,6 @@ shape:30:succubi
 #temp
 value:1:SPEED[1]
 
-# Celestial.. re Angel.. Half-Angel
-# Some people call them ‘angels’, but they are not kind and helpful 
-# (and they doesn’t have wings!), but very cruel race which got their
-# own goals which they would achieve no matter what. The only thing
-# which save the world from their roth is that there are not too many
-# of them. In eternal war with titans
-name:Demiurge
-skill-disarm-phys:0
-skill-disarm-magic:0
-skill-device:-20
-skill-save:8
-skill-stealth:2
-skill-search:2
-skill-melee:-5
-skill-shoot:0
-skill-dig:-40
-hitdie:11
-exp:100:125
-history:100
-age:11:4
-height:81:5
-weight:155:12
-#2 0 4 1 2
-value:0:STR[-4+1d8]
-value:0:INT[-4+1d12]
-value:0:WIS[-4+1d6]
-value:0:DEX[-4+1d10]
-value:0:CON[-4+1d8]
-value:0:CHR[6+-1d8]
-value:1:INFRA[2+1d30]
-obj-flag:1:FEATHER
-obj-flag:10:SUST_WIS
-obj-flag:20:LIGHT_2
-obj-flag:30:SLOW_DIGEST
-obj-flag:40:SEE_INVIS
-obj-flag:50:PROT_BLIND
-value:1:RES_GRAVITY[1]
-brand:1:50:ELEC_2
-value:1:RES_ELEC[1]
-value:1:RES_TIME[-1]
-value:1:MOVES[-1]
-value:1:TUNNEL[-1+-1d10]
-obj-flag:50:IMPAIR_MANA
-slay:50:50:UNDEAD_3
-#temp
-value:1:SPEED[1]
-
 #Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
 name:Balrog
 skill-disarm-phys:-3
@@ -1271,6 +1223,53 @@ value:50:RES_FIRE[3]
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 obj-flag:1:AGGRAVATE
+#temp
+value:1:SPEED[1]
+
+# Celestial.. re Angel.. Half-Angel
+# Some people call them ‘angels’, but they are not kind and helpful 
+# (and they doesn’t have wings!), but very cruel race which got their
+# own goals which they would achieve no matter what. The only thing
+# which save the world from their roth is that there are not too many
+# of them. In eternal war with balrogs
+name:Demiurge
+skill-disarm-phys:0
+skill-disarm-magic:0
+skill-device:-20
+skill-save:8
+skill-stealth:2
+skill-search:2
+skill-melee:-5
+skill-shoot:0
+skill-dig:-40
+hitdie:11
+exp:100:125
+history:100
+age:11:4
+height:81:5
+weight:155:12
+#2 0 4 1 2
+value:0:STR[-4+1d8]
+value:0:INT[-4+1d12]
+value:0:WIS[-4+1d6]
+value:0:DEX[-4+1d10]
+value:0:CON[-4+1d8]
+value:0:CHR[6+-1d8]
+value:1:INFRA[2+1d30]
+obj-flag:1:FEATHER
+obj-flag:10:SUST_WIS
+obj-flag:20:LIGHT_2
+obj-flag:30:SLOW_DIGEST
+obj-flag:40:SEE_INVIS
+obj-flag:50:PROT_BLIND
+value:1:RES_GRAVITY[1]
+brand:1:50:ELEC_2
+value:1:RES_ELEC[1]
+value:1:RES_TIME[-1]
+value:1:MOVES[-1]
+value:1:TUNNEL[-1+-1d10]
+obj-flag:50:IMPAIR_MANA
+slay:50:50:UNDEAD_3
 #temp
 value:1:SPEED[1]
 
