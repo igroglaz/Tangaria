@@ -529,7 +529,7 @@ value:1:DEX[-20]
 value:1:CON[-20]
 value:1:CHR[-20]
 value:1:MANA[4+-1d10M40]
-player-flags:0:DRAGON
+player-flags:0:DRAGON | PERM_SHAPE
 attack:claw:none:1:0:NONE
 attack:bite:none:5:4:DAM
 attack:crush:none:45:40:CRUSH
@@ -565,7 +565,21 @@ value:1:MANA[4+-1d10M40]
 value:10:TUNNEL[1+1d10]
 player-flags:0:CAN_SWIM
 value:40:RES_CHAOS[1]
-player-flags:0:HYDRA
+player-flags:0:HYDRA | PERM_SHAPE
+shape:1:hydra
+shape:10:2-headed hydra
+shape:15:3-headed hydra
+shape:20:4-headed hydra
+shape:24:5-headed hydra
+shape:28:6-headed hydra
+shape:32:7-headed hydra
+shape:36:8-headed hydra
+shape:40:9-headed hydra
+shape:42:10-headed hydra
+shape:44:11-headed hydra
+shape:46:12-headed hydra
+shape:48:13-headed hydra
+shape:50:14-headed hydra
 attack:bite: (circular):1:0:CIRCLE
 shape:1:hydra
 shape:10:2-headed hydra
