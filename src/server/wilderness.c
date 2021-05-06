@@ -2883,12 +2883,12 @@ static void wild_add_dwelling(struct player *p, struct chunk *c, bool **plot, st
     if (town_suburb(&p->wpos))
     {
         /* Chance of being a "small" house */
-        if (one_in_(2))
-            loc_init(&house_len, randint0(4) + 3, randint0(2) + 3);
+//      if (one_in_(2))
+            loc_init(&house_len, randint0(2) + 2, randint0(2) + 2);
 
-        /* A "normal" house */
-        else
-            loc_init(&house_len, randint0(10) + 6, randint0(5) + 4);
+//      /* A "normal" house */
+//      else
+//          loc_init(&house_len, randint0(10) + 6, randint0(5) + 4);
     }
 
     /* PWMAngband: 50% "large" and 50% "medium" houses/buildings elsewhere */
@@ -2907,8 +2907,8 @@ static void wild_add_dwelling(struct player *p, struct chunk *c, bool **plot, st
     }
 
     /* Houses are at least 2x2 */
-    if (house_len.x == 3) house_len.x++;
-    if (house_len.y == 3) house_len.y++;
+    if (house_len.x == 2) house_len.x++; /////////// TANGARIA -1
+    if (house_len.y == 2) house_len.y++; /////////// TANGARIA -1
 
     area = (house_len.x - 2) * (house_len.y - 2);
 
