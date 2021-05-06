@@ -237,7 +237,7 @@ value:1:CON[1]
 value:1:CHR[-2]
 value:0:SHOTS[1d6]
 #
-player-flags:FAST_SHOT
+player-flags:0:FAST_SHOT
 # class brands works both on melee and ranged. races - only on melee!
 brand:5:29:POIS_2
 brand:30:50:CUT_1
@@ -291,7 +291,7 @@ value:1:CON[1]
 value:1:CHR[-1]
 value:0:SPEED[1d10]
 value:0:BLOWS[1d1]
-player-flags:NO_MANA | MARTIAL_ARTS | FAST_THROW
+player-flags:0:NO_MANA | MARTIAL_ARTS | FAST_THROW
 title:Initiate
 title:Brother
 title:Disciple
