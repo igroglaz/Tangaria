@@ -1091,7 +1091,7 @@ shape:40:doombat_
 ########## NEXT TIME: lower initial str, con, dex for extra powerful races
 
 #Enlightened.. Maya descendants of ancient powers;
-name:Enlightened
+name:Maiar
 skill-disarm-phys:2
 skill-disarm-magic:4
 skill-device:-20
@@ -1232,7 +1232,7 @@ value:1:SPEED[1]
 # own goals which they would achieve no matter what. The only thing
 # which save the world from their roth is that there are not too many
 # of them. In eternal war with balrogs
-name:Demiurge
+name:Celestial
 skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:-20
