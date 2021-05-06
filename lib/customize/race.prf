@@ -295,28 +295,20 @@ help: They don't feel fear and got perfect infravision.
 help: They don't like light though and for them it's hard to learn anything new as 
 help: they lived a very long life already.
 ####################################################################################
-race:Enlightened
-help:Enlightened - descendants of ancient powers. Not much know about them, except 
+race:Maiar
+help:Maiar - descendants of ancient powers. Not much know about them, except 
 help: that it's very hard to kill one of them. Resistant to numerous effects and 
 help: possessing god-like abilities, they are very slow on getting new skills 
 help: though. Another weak spot is that they receive their power not at once, but 
 help: after they become experienced in this 'mortal' world.
 ####################################################################################
-race:Cambion
-help:Cambion - corrupted spirits, servants of First Gods. They are the same kind as
-help: Enlightened race, but to the other side of power. Resistant to chaos, they 
+race:Demonic
+help:Demonic - corrupted spirits, servants of First Gods. They are the same kind as
+help: maiar race, but to the other side of power. Resistant to chaos, they 
 help: are able to control nexus vibrations and possess very powerful abilities. 
 help: But there is a price for this - they are very hard to learn.. Chaos inside 
 help: of them makes it almost impossible to control their will to achieve their own 
 help: goals...
-####################################################################################
-race:Celestial
-help:Celestials.. Some people call them ‘angels’, but they are not kind and helpful 
-help: (and they doesn’t have wings!), but very cruel race which got their own goals 
-help: which they would achieve no matter what. The only thing which save the world 
-help: from their roth is that there are not too many of them; most of them perished 
-help: in 'eternal' war with Titans. Resistant to gravity, celestials could get 
-help: rejoice with of lightning when achieve certain level of development.
 ####################################################################################
 race:Balrog
 help:Balrog - undeground ancient 'race' or some would call them as a 'force'. 
@@ -331,6 +323,14 @@ help: But it's well-known that when balrog takes his true-form, he posses immens
 help: fire magic, which makes everything go mad around it, so creatures could 'feel'
 help: balrog presence from big distance, which makes this race hard to become 
 help: unnoticed in the dungeons of Enemy.
+####################################################################################
+race:Celestial
+help:Celestials.. Some people call them ‘angels’, but they are not kind and helpful 
+help: (and they doesn’t have wings!), but very cruel race which got their own goals 
+help: which they would achieve no matter what. The only thing which save the world 
+help: from their roth is that there are not too many of them; most of them perished 
+help: in 'eternal' war with balrogs. Resistant to gravity, celestials could get 
+help: rejoice with of lightning when achieve certain level of development.
 ####################################################################################
 race:Nephalem
 help:Nephalem - example what could appear if celestial would make love to balrog. 
