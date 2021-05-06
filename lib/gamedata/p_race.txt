@@ -566,20 +566,6 @@ value:10:TUNNEL[1+1d10]
 player-flags:0:CAN_SWIM
 value:40:RES_CHAOS[1]
 player-flags:0:HYDRA | PERM_SHAPE
-shape:1:hydra
-shape:10:2-headed hydra
-shape:15:3-headed hydra
-shape:20:4-headed hydra
-shape:24:5-headed hydra
-shape:28:6-headed hydra
-shape:32:7-headed hydra
-shape:36:8-headed hydra
-shape:40:9-headed hydra
-shape:42:10-headed hydra
-shape:44:11-headed hydra
-shape:46:12-headed hydra
-shape:48:13-headed hydra
-shape:50:14-headed hydra
 attack:bite: (circular):1:0:CIRCLE
 shape:1:hydra
 shape:10:2-headed hydra
