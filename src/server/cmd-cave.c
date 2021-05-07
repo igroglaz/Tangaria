@@ -3259,7 +3259,7 @@ static bool get_foundation_area(struct player *p, struct chunk *c, struct loc *b
     }
 
     /* No 1x1 house foundation */
-    if ((x + y) < 3)
+    if ((x + y) < 2)  ////////////// 3 -> TANGARIA
     {
         msg(p, "The foundation is too small!");
         return false;
@@ -3338,12 +3338,12 @@ bool build_house(struct player *p)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    /* The DM cannot create or extend houses! */
-    if (p->dm_flags & DM_HOUSE_CONTROL)
-    {
-        msg(p, "You cannot create or extend houses.");
-        return false;
-    }
+//    /* The DM cannot create or extend houses! */
+//    if (p->dm_flags & DM_HOUSE_CONTROL)
+//    {
+//        msg(p, "You cannot create or extend houses.");
+//        return false;
+//    }
 
     /* Restricted by choice */
     if ((cfg_limited_stores == 3) || OPT(p, birth_no_stores))
@@ -3352,12 +3352,12 @@ bool build_house(struct player *p)
         return false;
     }
 
-    /* Houses can only be created in the wilderness */
-    if (!in_wild(&p->wpos))
-    {
-        msg(p, "This location is not suited for a house.");
-        return false;
-    }
+//    /* Houses can only be created in the wilderness */
+//    if (!in_wild(&p->wpos))
+//    {
+//        msg(p, "This location is not suited for a house.");
+//        return false;
+//    }
 
 /// Tangaria comment out:
     /* PWMAngband: no house expansion in immediate suburbs 
