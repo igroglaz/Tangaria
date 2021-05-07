@@ -3390,8 +3390,10 @@ static void wilderness_gen_layout(struct player *p, struct chunk *c)
             /* Hack -- if close to the towns, make dwellings more likely */
             if (w_ptr->distance == 1)
             {
-                dwelling *= 80;
+                dwelling *= 8;  /// TANGARIA
                 add_park = true;
+//              dwelling *= 80;
+//              add_park = true;
             }
             if (w_ptr->distance == 2) dwelling *= 25;
             if (w_ptr->distance == 3) dwelling *= 8;
