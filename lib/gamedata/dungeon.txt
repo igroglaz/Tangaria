@@ -501,6 +501,232 @@ perma:P big dark wall 1:10000
 ####
 rule:10000:1
 
+########################## 1
+name:The Very Old Ruins
+wpos:0:1
+min-depth:1
+max-depth:1
+max-level:1
+flags:EMPTY | FAST_SPAWN
+stairs:2+1d2:0
+#
+stair:9F stair down 0:9F stair up 1:10000
+#stair:A9 stair down leaf:A9 stair up leaf:8000
+#stair:A9 stair down gloomy:A9 stair up gloomy:10000
+#
+rubble:grass mountain e rubble:grass mountain f passable rubble:10000
+#
+fountain:obj_grass 9 fountain:A9 dried fountain:9900
+fountain:obj_grass 2 well:A9 dried well:100
+# A4
+floor:flower 0 green:100
+floor:flower 1 green:100
+floor:flower 2 green:100
+floor:flower 3 green:100
+floor:flower 4 green:100
+floor:flower 5 green:100
+floor:flower 6 green:100
+#
+floor:flower 7 grass:1
+floor:flower 8 grass:1
+floor:flower 9 grass yellow:1
+floor:flower a grass brown:1
+floor:flower b orange:1
+floor:flower c white:1
+floor:flower d orange:1
+floor:flower e red:1
+floor:flower f violet:1
+floor:flower g yellow:1
+floor:flower h red:1
+floor:flower i white:1
+floor:flower j red:1
+floor:flower k yellow:1
+floor:flower l rose:1
+floor:flower m purple:1
+floor:flower n orange:1
+floor:flower o rose:1
+floor:flower p blue:1
+floor:flower q rose:1
+floor:flower r red:1
+floor:flower s rose:1
+floor:flower t white:1
+floor:flower u red white:1
+floor:flower v blue white:1
+# A5
+floor:flower w rose:1
+floor:flower x blue:1
+floor:flower y purple:1
+floor:flower z blue:1
+floor:flower A red:1
+floor:flower B orange:1
+floor:flower C pink:1
+floor:flower D red:1
+floor:flower E blue:1
+floor:flower F red:1
+# 4x grass:
+floor:A5 plants G:34
+floor:A5 plants H:33
+#common (floor 0 grass) altered:
+floor:A5 plants I:650
+floor:A5 plants J:33
+# 2x mushrooms:
+floor:A5 plants K:3
+floor:A5 plants L:2
+#1x40 ^
+#
+#
+#1x20 V
+# B1
+
+############################
+# floor:floor 0 grass:
+floor:light grass:2100
+############################
+
+###############################
+# floor:floor 1 grass:
+floor:light grass plants:2700
+#############################
+
+# B2
+################################
+#floor:floor w grass:
+floor:light grass flowers:2500
+###############################
+
+floor:floor x grass:100
+floor:floor y grass:100
+floor:floor z grass:100
+floor:floor A grass:100
+floor:floor B grass:100
+floor:floor C grass:100
+floor:floor D grass:100
+#
+floor:floor E grass:1
+floor:floor F grass:1
+#
+floor:floor G rocks:50
+#
+floor:floor H rocks:1
+#
+floor:floor I rocks:50
+floor:floor J rocks:50
+#
+floor:floor K rocks:1
+floor:floor L rock:1
+floor:floor M rock:1
+#
+floor:floor N rock:50
+floor:floor O rock:50
+#
+floor:floor P rocks:1
+floor:floor Q dirt:1
+floor:floor R dirt:1
+floor:floor S dirt:1
+floor:floor T dirt:1
+floor:floor U dirt:1
+floor:floor V dirt:1
+#
+floor:floor W hills:41
+#
+floor:floor X hill:1
+floor:floor Y hill:1
+floor:floor Z lowland:1
+floor:floor ~ lowland:1
+floor:floor ` lowland:1
+#
+#b3
+floor:B3 floors 2:100
+floor:B3 floors 3:100
+#
+floor:floor d hills dungeon:1
+#24 total; 
+#A1
+###################################################
+#a1
+wall:tree 1:100
+wall:tree 3:100
+wall:tree 4 maple:100
+wall:tree 5 maple:100
+wall:tree 6 coniferous:100
+wall:tree 8 coniferous:100
+wall:tree 9 willow:100
+wall:tree d birch:100
+wall:tree e linden:100
+wall:tree g larch:100
+wall:tree n dead tree:100
+wall:tree o dead tree:100
+#a2
+wall:tree D tree:100
+wall:tree E tree:100
+wall:tree F tree:100
+wall:tree V:100
+wall:tree W:100
+wall:tree X:100
+wall:tree Y:100
+#a7
+wall:obj_grass L ruins:300
+wall:obj_grass M ruins:100
+wall:obj_grass N ruins:300
+wall:obj_grass O ruins:300
+wall:obj_grass P ruins:300
+wall:obj_grass Q ruins:300
+wall:big dark wall 0:100
+wall:big dark wall 1:100
+wall:big dark wall 9 entrance:50
+wall:big dark wall a low entrance:50
+wall:big dark wall b window:71
+#64 total
+#=========
+# 96-wall: ....... 29 total:
+wall:dark wall:1
+# 
+wall:96 wall M:1
+wall:96 wall N:1
+wall:96 wall O:1
+wall:96 wall P:1
+wall:96 wall Q:1
+wall:96 wall R:1
+wall:96 wall S:1
+wall:96 wall T:1
+wall:96 wall U:1
+wall:96 wall V:1
+wall:96 wall W:1
+wall:96 wall X:1
+# 98-wall:
+wall:98 wall 0:1
+wall:98 wall 1:1
+wall:98 wall 2:1
+wall:98 wall 3:1
+wall:98 wall 4:1
+wall:98 wall 5:1
+wall:98 wall 6:1
+wall:98 wall 7:1
+wall:98 wall 8:1
+wall:98 wall 9:1
+wall:98 wall a:1
+wall:98 wall b:1
+wall:98 wall c:1
+wall:98 wall d:1
+# 9D-wall:
+wall:9D wall 5:1
+wall:9D wall 6:1
+############################# new addition:
+wall:obj_grass2 f:300
+wall:obj_grass2 g:300
+wall:obj_grass2 h:300
+wall:obj_grass2 i:300
+wall:obj_grass2 j:300
+wall:obj_grass2 k:300
+wall:obj_grass2 l:300
+wall:obj_grass2 m:300
+wall:obj_grass2 n:300
+wall:obj_grass2 o:300
+#
+perma:P big dark wall 1:10000
+####
+rule:10000:1
+
 ########################## 5 (boss: Baba Yaga)
 name:The Mountain Gorge
 wpos:1:0
@@ -957,7 +1183,7 @@ rule:2000:1
 
 ########################## 15 (boss: Shtukensia the Rogue)
 name:The Severs
-wpos:0:1
+wpos:-1:1
 min-depth:8
 max-depth:15
 max-level:15
