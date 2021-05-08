@@ -5475,7 +5475,7 @@ desc: impenetrable, but it might be trapped.
 
 name:& Ruined chest~
 graphics:~:s
-type:stone
+type:junk
 level:5
 weight:220
 cost:0
@@ -5788,6 +5788,7 @@ type:stone
 level:0
 weight:100
 cost:1000
+alloc:1:1 to 127
 desc:A rectangular stone. It can be used to build houses.
 
 name:& Pint~ of Fine Ale
@@ -6104,7 +6105,7 @@ armor:0:0
 flags:EASY_KNOW | AMMO_MAGIC | THROWING
 desc:An ethereal shot, made of pure mana.
 
-name:& Rock~
+name:& Throwing rock~
 graphics:*:s
 type:rock
 level:1
@@ -6116,7 +6117,7 @@ attack:1d6:0:0
 armor:0:0
 brand:STUN_1
 flags:THROWING
-desc:A simple piece of stone. It can be thrown.
+desc:A stone especially good to be thrown.
 
 name:& Shuriken~
 graphics:*:W
@@ -6550,6 +6551,20 @@ values:STR[1] | CON[1] | RES_CHAOS[1] | RES_NETHER[1]
 brand:VAMPIRIC
 curse:treacherous weapon:100
 desc:Death is all. Beware, cursed is the wielder.
+
+name:& Cobble~
+graphics:*:s
+type:cobble
+level:1
+weight:6
+cost:1
+pile:100:3d6
+alloc:20:1 to 100
+attack:1d6:0:0
+armor:0:0
+brand:STUN_1
+flags:THROWING
+desc:A simple piece of stone. It can be thrown.
 
 ##############
 #newbie items#

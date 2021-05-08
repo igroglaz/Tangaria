@@ -64,8 +64,10 @@ static const char *obj_desc_get_basename(const struct object *obj, bool aware, b
         case TV_BOTTLE:
         case TV_DEED:
         case TV_CHEST:
+        case TV_JUNK:
         case TV_HORN:
         case TV_ROCK:
+        case TV_COBBLE:
         case TV_SHOT:
         case TV_ARROW:
         case TV_BOLT:

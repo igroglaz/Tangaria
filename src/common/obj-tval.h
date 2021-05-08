@@ -84,6 +84,8 @@ extern bool tval_is_tool(const struct object *obj);
 extern bool tval_is_mstaff(const struct object *obj);
 extern bool tval_is_dark_sword(const struct object *obj);
 extern bool tval_is_crop(const struct object *obj);
+extern bool tval_is_cobble(const struct object *obj);
+extern bool tval_is_junk(const struct object *obj);
 extern int tval_wielding_cut(const struct object *obj);
 
 extern bool tval_is_poly(const struct object *obj);

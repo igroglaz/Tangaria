@@ -43,11 +43,17 @@ name:chest:Chest~
 graphics:slate
 flags:HATES_ACID | HATES_FIRE
 
-#name:junk:Junk~
-#graphics:white
-#break:75
-#flags:HATES_FIRE | HATES_ACID | HATES_SHARD | HATES_ICE |
-#flags:HATES_FORCE | EASY_KNOW
+name:junk:Junk~
+graphics:white
+break:75
+flags:HATES_FIRE | HATES_ACID | HATES_SHARD | HATES_ICE |
+flags:HATES_FORCE | EASY_KNOW
+
+name:cobble:Cobble~
+graphics:slate
+break:75
+flags:HATES_ACID
+flags:SHOW_DICE
 
 #feanorean & dwarvern lamps
 
