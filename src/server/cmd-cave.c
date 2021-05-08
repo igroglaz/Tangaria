@@ -955,7 +955,29 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Message */
             msg(p, "You have found something!");
         }
+        
+        /* Dig throwing rocks */
+        else if (one_in_(2))
+        {
+                 /* Create rocks */
+                 place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_FLOOR, TV_ROCK);
 
+                /* Observe rocks */
+                if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
+                    msg(p, "You have found a rock which is good enough to become a decent throwing ammo!");
+        }
+        
+        /* Dig house Foundation Stone */
+        else if (one_in_(3))
+        {
+                 /* Create Foundation Stone */
+                 place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_FLOOR, TV_STONE);
+
+                /* Observe the Foundation Stone */
+                if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
+                    msg(p, "You have found decent building block!");
+        }
+        
         /* Found nothing */
         else
             msg(p, "You have finished the tunnel.");
