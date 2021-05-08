@@ -77,7 +77,7 @@ turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-always:rock:Rock
+always:rock:Throwing Rock
 always:stone:House Foundation Stone
 always:scroll:House Creation
 always:potion:Stomach Water
@@ -142,7 +142,7 @@ owner:25000:Tarl Beast-Master (Halfling)
 owner:30000:Oglign Dragon-Slayer (Dwarf)
 slots:3:14
 turnover:9
-#normal:rock:Rock
+#normal:rock:Throwing Rock
 ############################ add staves and hammers
 #normal:shot:Iron Shot
 #normal:arrow:Arrow
@@ -343,7 +343,7 @@ normal:fortune cookie:Maybe its time for me to go on adventure with you
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-always:rock:Rock
+always:rock:Throwing Rock
 always:shot:Iron Shot
 always:arrow:Arrow
 always:bolt:Bolt

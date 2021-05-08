@@ -1116,7 +1116,7 @@ object:chest:Large steel chest:0x87:0x85
 
 ##### Junk #####
 
-object:stone:Ruined chest:0x87:0x86
+object:junk:Ruined chest:0x87:0x86
 object:bottle:Empty Bottle:0x87:0x96
 object:skeleton:Skeleton:0x87:0xB0
 
@@ -25277,6 +25277,12 @@ monster:evil eye':0x9A:0xF6
 monster:spectator':0x9A:0xF6
 monster:observer':0x9A:0xF6
 monster:overseer':0x9A:0xF6
+
+####################
+####################
+####################
+
+object:cobble:Cobble:0x8A:0xB6
 
 # Load the special player pictures
 %:xtra-tan.prf

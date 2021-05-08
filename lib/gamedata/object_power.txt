@@ -99,6 +99,12 @@ type:rock
 dice:2
 operation:multiply
 
+# throwing power multiplier for cobbles
+name:cobble multiplier
+type:cobble
+dice:2
+operation:multiply
+
 # launcher power multiplier for shots
 name:sling multiplier
 type:shot

@@ -623,6 +623,15 @@ bool tval_is_crop(const struct object *obj)
     return (obj->tval == TV_CROP);
 }
 
+bool tval_is_cobble(const struct object *obj)
+{
+    return (obj->tval == TV_COBBLE);
+}
+
+bool tval_is_junk(const struct object *obj)
+{
+    return (obj->tval == TV_JUNK);
+}
 
 int tval_wielding_cut(const struct object *obj)
 {

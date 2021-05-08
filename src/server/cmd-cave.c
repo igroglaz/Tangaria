@@ -870,6 +870,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
     bool gold, rubble, tree, web;
+    struct object *dig_cobble, *dig_stone;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
@@ -956,26 +957,28 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             msg(p, "You have found something!");
         }
         
-        /* Dig throwing rocks */
+        /* Dig cobbles (simple non-magical rocks) */
         else if (one_in_(2))
         {
-                 /* Create rocks */
-                 place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_FLOOR, TV_ROCK);
+                /* Make cobble */
+                dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
 
-                /* Observe rocks */
-                if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
-                    msg(p, "You have found a rock which is good enough to become a decent throwing ammo!");
+                set_origin(dig_cobble, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+
+                /* Drop the cobble (place_object won't work as it generates object at wall position which is no drop) */
+                drop_near(p, c, &dig_cobble, 0, &p->grid, true, DROP_FADE, true);
         }
         
         /* Dig house Foundation Stone */
-        else if (one_in_(3))
+        else if (one_in_(2))
         {
-                 /* Create Foundation Stone */
-                 place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_FLOOR, TV_STONE);
+                /* Make house stone */
+                dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
 
-                /* Observe the Foundation Stone */
-                if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
-                    msg(p, "You have found decent building block!");
+                set_origin(dig_stone, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+
+                /* Drop house stone */
+                drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
         }
         
         /* Found nothing */
