@@ -26,3 +26,4 @@ src/win/angband.RES
 *.ilf
 *.ils
 *.obj
+lib/user/Admin.prf
