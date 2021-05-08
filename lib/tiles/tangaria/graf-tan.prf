@@ -1205,7 +1205,7 @@ object:light:Palantir:0x87:0xB6
 
 ##### MAngband objects #####
 
-object:stone:House Foundation Stone:0x87:0xB8
+object:stone:House Foundation Stone:0x82:0xB3
 object:food:Pint of Fine Ale:0x82:0x80
 object:crop:Potato:0x82:0xAC
 object:crop:Head of Cabbage:0x82:0xAD
