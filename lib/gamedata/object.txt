@@ -5484,6 +5484,67 @@ attack:1d2:0:0
 armor:0:0
 desc:Ancient, partly rotten chest.
 
+name:& Broken Bone~
+graphics:~:s
+type:junk
+level:0
+weight:3
+cost:0
+alloc:1:5 to 30
+attack:1d1:-3:-5
+armor:0:0
+desc:Troll sat alone on his seat of stone,
+desc:And munched and mumbled a bare old bone;
+desc:For many a year he had gnawed it near,
+desc:For meat was hard to come by..
+
+name:& Broken Skull~
+graphics:~:s
+type:junk
+level:0
+weight:4
+cost:0
+alloc:1:5 to 30
+attack:1d1:-2:-5
+armor:0:0
+desc:It looks very familiar..
+
+name:& Broken Stick~
+graphics:~:s
+type:junk
+level:0
+weight:8
+cost:0
+alloc:1:5 to 30
+attack:1d1:-7:-2
+armor:0:0
+desc:You notice strange barely visible golden letters inscribed in gold:
+desc:"N..mb..s T... Th...sand"
+
+name:& Shard~ of Pottery~
+graphics:~:s
+type:junk
+level:0
+weight:2
+cost:0
+alloc:1:5 to 30
+attack:1d1:-3:-4
+armor:0:0
+desc:It could be a clue that can help to complete archaeology
+desc: findings with missing fragments.
+
+name:& Broken Pickaxe~
+graphics:~:s
+type:junk
+level:0
+weight:90
+cost:0
+alloc:1:5 to 30
+attack:1d3:-1:0
+armor:0:0
+desc:Old rusty blunt pickaxe with broken handle.
+desc: You notice blood on it's edge...
+
 name:& Empty Bottle~
 graphics:!:w
 type:bottle
