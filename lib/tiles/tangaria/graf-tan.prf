@@ -1117,6 +1117,11 @@ object:chest:Large steel chest:0x87:0x85
 ##### Junk #####
 
 object:junk:Ruined chest:0x87:0x86
+object:junk:Broken Bone:0x87:0xAD
+object:junk:Broken Skull:0x87:0xAC
+object:junk:Broken Stick:0x87:0xAB
+object:junk:Shard of Pottery:0x87:0xA3
+object:junk:Broken Pickaxe:0x87:0x9E
 object:bottle:Empty Bottle:0x87:0x96
 object:skeleton:Skeleton:0x87:0xB0
 
