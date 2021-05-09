@@ -3485,7 +3485,7 @@ cost:0
 alloc:50:65 to 100
 effect:GAIN_EXP
 dice:$B
-expr:B:PLAYER_LEVEL:* 1000 - 1000
+expr:B:PLAYER_LEVEL:* 1000 - 980
 effect:RESTORE_EXP
 
 ### Healings ###

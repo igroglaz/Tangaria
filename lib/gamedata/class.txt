@@ -183,9 +183,10 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):1:1:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-//equip:ring:Speed:2:2:none
-//equip:stone:House Foundation Stone:40:40:none
-//equip:scroll:House Creation:40:40:none
+#equip:ring:Speed:2:2:none
+#equip:stone:House Foundation Stone:40:40:none
+#equip:scroll:House Creation:40:40:none
+#equip:potion:Experience:1:1:none
 obj-flag:30:PROT_FEAR
 value:1:STR[3]
 value:1:INT[-2]
