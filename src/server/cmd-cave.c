@@ -2882,13 +2882,15 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
  * the box in each dimension for as long as all points on the perimeter are
  * either foundation stones or walls of houses the player owns.
  *
+ * CHANGED BOOL TO INT to calculate price
  */
-static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
+static int get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
     struct loc *grid2)
 {
     int x, y;
     bool done = false;
     bool n, s, e, w, ne, nw, se, sw;
+    int area, price; // house pricing
 
     /* We must be standing on a house foundation */
     if (!is_valid_foundation(p, c, &p->grid))
@@ -3012,8 +3014,29 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
         return false;
     }
 
-    /* Return the area */
-    return true;
+    /* Calculare area for price */
+    area = x * y;
+
+    /* Fix small houses price
+    (without it multiplyer would be 1 and price will be 50g per house */
+    if (area = 1)
+    {
+        area = 2;
+    }
+
+    /* Calculate price */
+    price = house_price(area, false);
+
+    /* Check for enough funds */
+    if (price > p->au)
+    {
+        /* Not enough money, message */
+        msg(p, "You do not have enough money to pay the price of %ld gold.", price);
+        return false;
+    }
+
+    /* Return the price (which is also area permission) */
+    return price;
 }
 
 
@@ -3023,7 +3046,7 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
  */
 bool create_house(struct player *p)
 {
-    int house;
+    int house, price;
     struct house_type h_local;
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
@@ -3050,8 +3073,11 @@ bool create_house(struct player *p)
 //        return false;
 //   }
 
-    /* Determine the area of the house foundation */
+    /* Determine the area of the house foundation AND calculate price */
     if (!get_house_foundation(p, c, &begin, &end)) return false;
+
+    // get the price
+    price = get_house_foundation(p, c, &begin, &end);
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
@@ -3066,12 +3092,15 @@ bool create_house(struct player *p)
         return false;
     }
 
+    /* Take some of the player's money */
+    p->au -= price;
+
     /* Setup house info */
     loc_init(&h_local.grid_1, begin.x + 1, begin.y + 1);
     loc_init(&h_local.grid_2, end.x - 1, end.y - 1);
     loc_init(&h_local.door, 0, 0);
     memcpy(&h_local.wpos, &p->wpos, sizeof(struct worldpos));
-    h_local.price = 0;   /* XXX */
+    h_local.price = price;
     set_house_owner(p, &h_local);
     h_local.state = HOUSE_CUSTOM;
 
