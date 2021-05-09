@@ -2,6 +2,7 @@ mangband.drc
 *.exe
 mangband.map
 *.tds
+mangclient.ini
 Roadmap.txt
 /debug
 lib/user/*.txt
@@ -25,4 +26,3 @@ src/win/angband.RES
 *.ils
 *.obj
 lib/user/Admin.prf
-mangclient.ini
