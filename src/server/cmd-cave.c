@@ -3074,10 +3074,7 @@ bool create_house(struct player *p)
 //   }
 
     /* Determine the area of the house foundation AND calculate price */
-    if (!get_house_foundation(p, c, &begin, &end)) return false;
-
-    // get the price
-    price = get_house_foundation(p, c, &begin, &end);
+    if ((price = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
