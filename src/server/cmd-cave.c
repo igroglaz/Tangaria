@@ -810,7 +810,7 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
     }
 
     /* No tunneling on special levels and towns */
-    if (special_level(&p->wpos) || in_town(&p->wpos))
+    if (special_level(&p->wpos)) /// REMOVED in_town(&p->wpos)
     {
         msg(p, "Nothing happens.");
         return false;
@@ -903,6 +903,11 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else
             msg(p, "This seems to be permanent rock.");
     }
+    
+    /* No diggins walls in towns */
+    else if (in_town(&p->wpos) && ((feat_is_wall(square(c, grid)->feat)) ||
+            (square_isdoor(c, grid))))
+        msg(p, "It's pointless to dig that there.");
 
     /* Mountain */
     else if (square_ismountain(c, grid))
@@ -956,6 +961,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Message */
             msg(p, "You have found something!");
         }
+        
+        /* No cobbles and stones to find in town */
+        else if (in_town(&p->wpos))
+                msg(p, "You have finished the tunnel.");
         
         /* Dig cobbles (simple non-magical rocks) */
         else if (one_in_(2))
@@ -2997,7 +3006,7 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
     }
 
     /* No 1x1 house foundation */
-    if ((x + y) < 3)
+    if ((x + y) < 2) // 3->2 TANGARIA
     {
         msg(p, "The foundation is too small!");
         return false;
@@ -3034,12 +3043,12 @@ bool create_house(struct player *p)
         return false;
     }
 
-    /* Houses can only be created in the wilderness */
-    if (!in_wild(&p->wpos))
-    {
-        msg(p, "This location is not suited for a house.");
-        return false;
-    }
+//	/* Houses can only be created in the wilderness */
+//    if (!in_wild(&p->wpos))
+//   {
+//        msg(p, "This location is not suited for a house.");
+//        return false;
+//   }
 
     /* Determine the area of the house foundation */
     if (!get_house_foundation(p, c, &begin, &end)) return false;
