@@ -3094,6 +3094,9 @@ bool create_house(struct player *p)
 
     /* Take some of the player's money */
     p->au -= price;
+    
+    /* Redraw */
+    p->upkeep->redraw |= (PR_GOLD);
 
     /* Setup house info */
     loc_init(&h_local.grid_1, begin.x + 1, begin.y + 1);
