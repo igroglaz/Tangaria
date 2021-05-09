@@ -8352,7 +8352,7 @@ desc:.
 name:wooden walls 5 door
 graphics:+:U
 priority:11
-flags:MAGMA | PASSABLE | EASY | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | FLOOR_SAFE | OBJECT
 info:0:2
 ################################################################################
 short-desc:door
@@ -8361,7 +8361,7 @@ desc:.
 name:wooden walls 6 door
 graphics:+:U
 priority:11
-flags:MAGMA | PASSABLE | EASY | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | FLOOR_SAFE | OBJECT
 info:0:2
 ################################################################################
 short-desc:door
@@ -9516,7 +9516,7 @@ desc:.
 name:big white wall 4 door
 graphics:+:U
 priority:11
-flags:QUARTZ | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
 info:0:3
 ################################################################################
 short-desc:door
@@ -10116,7 +10116,7 @@ desc:.
 name:big dark wall 5 door
 graphics:+:U
 priority:11
-flags:QUARTZ | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
 info:0:3
 ################################################################################
 short-desc:door
@@ -10125,7 +10125,7 @@ desc:.
 name:big dark wall 6 doorway
 graphics:+:'
 priority:11
-flags:QUARTZ | PASSABLE | EASY | LOS | PROJECT | TORCH
+flags:DOOR_ANY | PASSABLE | EASY | LOS | PROJECT | TORCH
 ################################################################################
 short-desc:doorway
 desc:.
@@ -10133,7 +10133,7 @@ desc:.
 name:big dark wall 7 door
 graphics:+:U
 priority:11
-flags:QUARTZ | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
 info:0:3
 ################################################################################
 short-desc:door
@@ -10142,7 +10142,7 @@ desc:.
 name:big dark wall 8 doorway
 graphics:+:'
 priority:11
-flags:QUARTZ | PASSABLE | EASY | LOS | PROJECT | TORCH
+flags:DOOR_ANY | PASSABLE | EASY | LOS | PROJECT | TORCH
 ################################################################################
 short-desc:doorway
 desc:.
@@ -10697,7 +10697,7 @@ desc:.
 name:brick wall 4 door
 graphics:+:U
 priority:11
-flags:PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
 info:0:3
 ################################################################################
 short-desc:door
@@ -10735,7 +10735,7 @@ desc:.
 name:brick wall 8
 graphics:+:U
 priority:11
-flags:PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+flags:DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
 info:0:3
 ################################################################################
 short-desc:closed door
@@ -10744,7 +10744,7 @@ desc:.
 name:brick wall 9
 graphics:+:'
 priority:11
-flags:PASSABLE | EASY | LOS | PROJECT | TORCH
+flags:DOOR_ANY | PASSABLE | EASY | LOS | PROJECT | TORCH
 info:0:3
 ################################################################################
 short-desc:entrance
