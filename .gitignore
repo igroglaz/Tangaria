@@ -1,9 +1,7 @@
-mangband.cfg
 mangband.drc
 *.exe
 mangband.map
 *.tds
-mangclient.ini
 Roadmap.txt
 /debug
 lib/user/*.txt
