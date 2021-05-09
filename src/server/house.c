@@ -100,8 +100,11 @@ int houses_owned(struct player *p)
 
     for (house = 0; house < houses_count(); house++)
     {
+        /* Count all houses */
+        if (house_owned_by(p, house)) count++;
+      
         /* Only normal or extended houses */
-        if (house_owned_by(p, house) && (houses[house].state < HOUSE_CUSTOM)) count++;
+/////   if (house_owned_by(p, house) && (houses[house].state < HOUSE_CUSTOM)) count++;
     }
 
     return count;

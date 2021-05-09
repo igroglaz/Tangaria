@@ -2822,6 +2822,7 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
+    int n; // number of owned houses
 
     /* Foundation stones are always valid */
     if (obj)
@@ -2845,10 +2846,36 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
             /* Do we own this house? */
             if (house_owned_by(p, house))
             {
+                /* Check number of already owned houses */
+                n = houses_owned(p);
+
+                /* Is it our first house? */
+                if (n > 1)
+                    {
+                    /* Too many houses, message */
+                    msg(p, "You cannot have more then one house.");
+                    return false;
+                    }
                 /* Valid, a wall or door in our own house. */
                 return true;
             }
         }
+        /* There are no houses around */
+        if (house == -1)
+        {
+            /* Check number of already owned houses */
+            n = houses_owned(p);
+
+            /* Is it our first house? */
+            if (!(n == 0))
+                {
+                /* Too many houses, message */
+                msg(p, "You cannot have more then one house.");
+                return false;
+                }
+             return true;
+        }
+
     }
 
     return false;
