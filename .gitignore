@@ -27,3 +27,5 @@ src/win/angband.RES
 *.ils
 *.obj
 lib/user/Admin.prf
+lib/user/T.prf
+src/server/__history

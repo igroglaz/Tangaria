@@ -2281,10 +2281,11 @@ static bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
     context->ident = true;
 
-    /* MAngband house creation code disabled for now */
-    /*return create_house(p);*/
-
-    return build_house(context->origin->player);
+    /* MAngband house creation */
+    return create_house(context->origin->player);
+    
+    /* PWMAngband house creation */
+//  return build_house(context->origin->player);
 }
 
 
