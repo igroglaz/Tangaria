@@ -25,3 +25,4 @@ src/win/angband.RES
 *.ils
 *.obj
 lib/user/Admin.prf
+mangclient.ini
