@@ -2822,7 +2822,7 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
-    int house_num = 0; // number of houses
+    int house_num = NULL; // number of houses
     int house; // is there a house nearby or not
 
     /* Foundation stones are always valid */
@@ -2862,7 +2862,7 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
             }
             /* There are no houses around and we don't have house also
             so we could build there */
-            if ((house == -1) && (house_num == 0))
+            if (house == -1)
             {
                  return true;
             }
