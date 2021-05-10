@@ -2823,7 +2823,7 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
 {
     struct object *obj = square_object(c, grid);
     int i_find_house; // are we staying at tile with house (door or wall)
-    int house_num = NULL; // number of houses player already owns
+    int house_num; // number of houses player already owns
 
     /* Foundation stones are always valid */
     if (obj)
@@ -2925,6 +2925,7 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
     bool done = false;
     bool n, s, e, w, ne, nw, se, sw;
     int area, price; // house pricing
+    int house_num; // number of houses player already owns
 
     /* We must be standing on a house foundation */
     if (!is_valid_foundation(p, c, &p->grid))
@@ -3058,8 +3059,15 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
         area = 2;
     }
 
-    /* Calculate price */
-    price = house_price(area, false);
+    /* how much houses does player own */
+    house_num = houses_owned(p);
+
+    /* we don't want to multiply price on 0 */
+    if (house_num < 1) house_num = 1;
+
+    /* Calculate price.
+    More houses you have - more expensive will be next one */
+    price = (house_price(area, false))*house_num;
 
     /* Check for enough funds */
     if (price > p->au)
@@ -3085,8 +3093,8 @@ bool create_house(struct player *p)
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
-    int n_house_near = NULL; // is there a house nearby or not
-    int house_num = NULL; // number of houses player already owns
+    int n_house_near; // is there a house nearby or not
+    int house_num; // number of houses player already owns
 
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
@@ -3130,12 +3138,24 @@ bool create_house(struct player *p)
         msg(p, "You cannot create houses near houses you don't own.");
         return false;
     }
+
     /* No houses found near, but we already got a house,
-    so we can build only near our house */
+    so we can build only near our house
     if ((n_house_near == -1) && (house_num > 0))
     {
         return false;
     }
+             TEMPORARY DISABLED.
+
+             all the time "house_near()" got:
+
+             n_house_near = -1
+             grid1 = 1701436
+             grid2 = 1701428
+
+             wtf... please help :)
+
+    */
 
     /* Get an empty house slot */
     house = house_add(true);
