@@ -2822,8 +2822,8 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
-    int house_num = NULL; // number of houses
-    int house; // is there a house nearby or not
+    int i_find_house; // are we staying at tile with house (door or wall)
+    int house_num = NULL; // number of houses player already owns
 
     /* Foundation stones are always valid */
     if (obj)
@@ -2836,11 +2836,11 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
     house_num = houses_owned(p);
 
     /*
-     * Now: if there is a house nearby + check how much houses we have..
-     * Because if we already got a house - we should be able to expand it,
-     * but shouldn't be able to build second one
+     * Now: are we staing on house door or wall + check how much houses we have..
+     * Because if we already got a house - we should be able to build another one
+     * only near by to it.
      *
-     * So, first: is there permahouses nearby?
+     * So, first: is square where we stand - permahouse?
      * Perma walls and doors are valid if they are part
      * of a house owned by this player
      */
@@ -2851,31 +2851,32 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
         Note: we should count from "0" because "1" means we already
         got the house and shouldn't have another one */
 
-        if (house_num == 0) // if we don't have houses
+        if (house_num == 0) // Player do not have any houses yet.
         {
-            /* Finding a unknown house. As we don't have any houses,
-            it's other player's house and we shouldn't build there */
-            house = find_house(p, grid, 0);
-            if (house >= 0)
+            /* We are staying at unknown house tile.
+            As we don't have any houses, it's other player's house
+            and we shouldn't build there */
+            i_find_house = find_house(p, grid, 0);
+            if (i_find_house >= 0)
             {
                 return false;
             }
-            /* There are no houses around and we don't have house also
-            so we could build there */
-            if (house == -1)
+            /* We are not staying on a house tile.
+            As we don't have house we may continue to try to build one */
+            if (i_find_house == -1)
             {
-                 return true;
+                return true;
             }
         }
-        if (house_num == 1) // we already own the house
+        if (house_num == 1) // Player got a house already.
         /* in this case we can build only if there is our house neaby */
         {
-            /* We found a house */
-            house = find_house(p, grid, 0);
-            if (house >= 0)
+            /* We are staying at unknown house tile. */
+            i_find_house = find_house(p, grid, 0);
+            if (i_find_house >= 0)
             {
                 /* Do we own this house? */
-                if (house_owned_by(p, house))
+                if (house_owned_by(p, i_find_house))
                 {
                     /* Valid, a wall or door in our own house. */
                     return true;
@@ -3052,7 +3053,7 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
 
     /* Fix small houses price
     (without it multiplyer would be 1 and price will be 50g per house */
-    if (area = 1)
+    if (area == 1)
     {
         area = 2;
     }
@@ -3084,6 +3085,8 @@ bool create_house(struct player *p)
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
+    int n_house_near = NULL; // is there a house nearby or not
+    int house_num = NULL; // number of houses player already owns
 
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
@@ -3111,6 +3114,28 @@ bool create_house(struct player *p)
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
+
+    /* how much houses does player own */
+    house_num = houses_owned(p);
+
+    /* Is it near a house we own? */
+    n_house_near = house_near(p, &begin, &end);
+    msg(p, "n_house_near = %d", n_house_near);
+    msg(p, "grid1 = %d", &begin);
+    msg(p, "grid2 = %d", &end);
+
+    /* House found, but it's not owned by us */
+    if (n_house_near == -2)
+    {
+        msg(p, "You cannot create houses near houses you don't own.");
+        return false;
+    }
+    /* No houses found near, but we already got a house,
+    so we can build only near our house */
+    if ((n_house_near == -1) && (house_num > 0))
+    {
+        return false;
+    }
 
     /* Get an empty house slot */
     house = house_add(true);
