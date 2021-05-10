@@ -3088,13 +3088,14 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
  */
 bool create_house(struct player *p)
 {
-    int house, price;
+    int house;
     struct house_type h_local;
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
     int n_house_near; // is there a house nearby or not
     int house_num; // number of houses player already owns
+    long int price;
 
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
@@ -3126,36 +3127,48 @@ bool create_house(struct player *p)
     /* how much houses does player own */
     house_num = houses_owned(p);
 
+
+/* 
+
+Further piece of checking near houses is useless atm...
+=============================
+This stuff doesn't work properly cause houses created with wrong coordinates..
+According to Wyrm Inc due observation at  houses|(0] we see that:
+grid 1 and grid 2 are not correct, they should be 2 squares away from the house
+146 41 should be 146 40
+=============================
+
+*/
+
     /* Is it near a house we own? */
-    n_house_near = house_near(p, &begin, &end);
-    msg(p, "n_house_near = %d", n_house_near);
-    msg(p, "grid1 = %d", &begin);
-    msg(p, "grid2 = %d", &end);
+//    n_house_near = house_near(p, &begin, &end);
+//    msg(p, "n_house_near = %d", n_house_near);
+//    msg(p, "grid1 = %d", &begin);
+//    msg(p, "grid2 = %d", &end);
 
     /* House found, but it's not owned by us */
-    if (n_house_near == -2)
-    {
-        msg(p, "You cannot create houses near houses you don't own.");
-        return false;
-    }
+//    if (n_house_near == -2)
+//    {
+//        msg(p, "You cannot create houses near houses you don't own.");
+//        return false;
+//    }
 
     /* No houses found near, but we already got a house,
-    so we can build only near our house
-    if ((n_house_near == -1) && (house_num > 0))
-    {
-        return false;
-    }
-             TEMPORARY DISABLED.
+    so we can build only near our house         */
+//    if ((n_house_near == -1) && (house_num > 0))
+//    {
+//        return false;
+//    }
+    
+/* 
 
-             all the time "house_near()" got:
+===========================================
+Yep. Waiting till better times to fix that.
+===========================================
 
-             n_house_near = -1
-             grid1 = 1701436
-             grid2 = 1701428
+*/
 
-             wtf... please help :)
 
-    */
 
     /* Get an empty house slot */
     house = house_add(true);
