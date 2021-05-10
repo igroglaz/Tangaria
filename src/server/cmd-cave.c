@@ -2822,7 +2822,8 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
-    int n; // number of owned houses
+    int house_num = 0; // number of houses
+    int house; // is there a house nearby or not
 
     /* Foundation stones are always valid */
     if (obj)
@@ -2831,51 +2832,56 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
         return false;
     }
 
+    /* Check number of already owned houses by this particular player */
+    house_num = houses_owned(p);
+
     /*
-     * Perma walls and doors are valid if they are part of a house owned
-     * by this player
+     * Now: if there is a house nearby + check how much houses we have..
+     * Because if we already got a house - we should be able to expand it,
+     * but shouldn't be able to build second one
+     *
+     * So, first: is there permahouses nearby?
+     * Perma walls and doors are valid if they are part
+     * of a house owned by this player
      */
     if (square_ispermhouse(c, grid) || square_home_iscloseddoor(c, grid))
     {
-        int house;
 
-        /* Looks like part of a house, which house? */
-        house = find_house(p, grid, 0);
-        if (house >= 0)
+        /* How much houses we already have:
+        Note: we should count from "0" because "1" means we already
+        got the house and shouldn't have another one */
+
+        if (house_num == 0) // if we don't have houses
         {
-            /* Do we own this house? */
-            if (house_owned_by(p, house))
+            /* Finding a unknown house. As we don't have any houses,
+            it's other player's house and we shouldn't build there */
+            house = find_house(p, grid, 0);
+            if (house >= 0)
             {
-                /* Check number of already owned houses */
-                n = houses_owned(p);
-
-                /* Is it our first house? */
-                if (n > 1)
-                    {
-                    /* Too many houses, message */
-                    msg(p, "You cannot have more then one house.");
-                    return false;
-                    }
-                /* Valid, a wall or door in our own house. */
-                return true;
+                return false;
+            }
+            /* There are no houses around and we don't have house also
+            so we could build there */
+            if ((house == -1) && (house_num == 0))
+            {
+                 return true;
             }
         }
-        /* There are no houses around */
-        if (house == -1)
+        if (house_num == 1) // we already own the house
+        /* in this case we can build only if there is our house neaby */
         {
-            /* Check number of already owned houses */
-            n = houses_owned(p);
-
-            /* Is it our first house? */
-            if (!(n == 0))
+            /* We found a house */
+            house = find_house(p, grid, 0);
+            if (house >= 0)
+            {
+                /* Do we own this house? */
+                if (house_owned_by(p, house))
                 {
-                /* Too many houses, message */
-                msg(p, "You cannot have more then one house.");
-                return false;
+                    /* Valid, a wall or door in our own house. */
+                    return true;
                 }
-             return true;
+            }
         }
-
     }
 
     return false;
