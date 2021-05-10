@@ -2911,7 +2911,7 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
  *
  * CHANGED BOOL TO INT to calculate price
  */
-static int get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
+static long int get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
     struct loc *grid2)
 {
     int x, y;
