@@ -2818,12 +2818,19 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 /*
  * Determine if the given location is ok to use as part of the foundation
  * of a house.
+ *
+ * This function called by get_house_foundation() when there is
+ * a need to check particular square (tile or grid) with certain x,y coords.
+ * This fuctions called a lot of times; each time when we need to check
+ * "Could we expand to certain direction?". Each time function checks:
+ * 1) is there a foundation stone lying at this square?
+ * 2) is this square is a part of a house? if so - is it our house?
+ *
  */
+
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
-    int i_find_house; // are we staying at tile with house (door or wall)
-    int house_num; // number of houses player already owns
 
     /* Foundation stones are always valid */
     if (obj)
@@ -2832,55 +2839,23 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
         return false;
     }
 
-    /* Check number of already owned houses by this particular player */
-    house_num = houses_owned(p);
-
     /*
-     * Now: are we staing on house door or wall + check how much houses we have..
-     * Because if we already got a house - we should be able to build another one
-     * only near by to it.
-     *
-     * So, first: is square where we stand - permahouse?
-     * Perma walls and doors are valid if they are part
-     * of a house owned by this player
+     * Perma walls and doors are valid if they are part of a house owned
+     * by this player
      */
     if (square_ispermhouse(c, grid) || square_home_iscloseddoor(c, grid))
     {
+        int house;
 
-        /* How much houses we already have:
-        Note: we should count from "0" because "1" means we already
-        got the house and shouldn't have another one */
-
-        if (house_num == 0) // Player do not have any houses yet.
+        /* Looks like part of a house, which house? */
+        house = find_house(p, grid, 0);
+        if (house >= 0)
         {
-            /* We are staying at unknown house tile.
-            As we don't have any houses, it's other player's house
-            and we shouldn't build there */
-            i_find_house = find_house(p, grid, 0);
-            if (i_find_house >= 0)
+            /* Do we own this house? */
+            if (house_owned_by(p, house))
             {
-                return false;
-            }
-            /* We are not staying on a house tile.
-            As we don't have house we may continue to try to build one */
-            if (i_find_house == -1)
-            {
+                /* Valid, a wall or door in our own house. */
                 return true;
-            }
-        }
-        if (house_num == 1) // Player got a house already.
-        /* in this case we can build only if there is our house neaby */
-        {
-            /* We are staying at unknown house tile. */
-            i_find_house = find_house(p, grid, 0);
-            if (i_find_house >= 0)
-            {
-                /* Do we own this house? */
-                if (house_owned_by(p, i_find_house))
-                {
-                    /* Valid, a wall or door in our own house. */
-                    return true;
-                }
             }
         }
     }
@@ -2925,7 +2900,7 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
     bool done = false;
     bool n, s, e, w, ne, nw, se, sw;
     int area, price; // house pricing
-    int house_num; // number of houses player already owns
+    int n_houses_owned; // number of houses player already owns
 
     /* We must be standing on a house foundation */
     if (!is_valid_foundation(p, c, &p->grid))
@@ -3033,7 +3008,9 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
         done = !(n || s || w || e);
     }
 
-    /* Paranoia */
+    /* Paranoia: checks is foundation from one corner to another
+    got at least 1 tile in between. So it's always a square;
+    not possible to make it unusual form */
     x = grid2->x - grid1->x - 1;
     y = grid2->y - grid1->y - 1;
     if ((x <= 0) || (y <= 0))
@@ -3042,7 +3019,8 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
         return false;
     }
 
-    /* No 1x1 house foundation */
+    /* House foundation size check.
+    Smallest house (1 floor tile) got 2 in this calculations */
     if ((x + y) < 2) // 3->2 TANGARIA
     {
         msg(p, "The foundation is too small!");
@@ -3060,14 +3038,14 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
     }
 
     /* how much houses does player own */
-    house_num = houses_owned(p);
+    n_houses_owned = houses_owned(p);
 
     /* we don't want to multiply price on 0 */
-    if (house_num < 1) house_num = 1;
+    if (n_houses_owned < 1) n_houses_owned = 1;
 
     /* Calculate price.
     More houses you have - more expensive will be next one */
-    price = (house_price(area, false))*house_num;
+    price = (house_price(area, false))*n_houses_owned;
 
     /* Check for enough funds */
     if (price > p->au)
@@ -3094,7 +3072,7 @@ bool create_house(struct player *p)
     struct loc begin, end;
     struct loc_iterator iter;
     int n_house_near; // is there a house nearby or not
-    int house_num; // number of houses player already owns
+    int n_houses_owned; // number of houses player already owns
     long int price;
 
     /* The DM cannot create houses! */
@@ -3125,49 +3103,28 @@ bool create_house(struct player *p)
     /* XXX We should check if too near other houses, roads, level edges, etc */
 
     /* how much houses does player own */
-    house_num = houses_owned(p);
+    n_houses_owned = houses_owned(p);
 
-
-/* 
-
-Further piece of checking near houses is useless atm...
-=============================
-This stuff doesn't work properly cause houses created with wrong coordinates..
-According to Wyrm Inc due observation at  houses|(0] we see that:
-grid 1 and grid 2 are not correct, they should be 2 squares away from the house
-146 41 should be 146 40
-=============================
-
-*/
 
     /* Is it near a house we own? */
-//    n_house_near = house_near(p, &begin, &end);
+    n_house_near = house_near(p, &begin, &end);
 //    msg(p, "n_house_near = %d", n_house_near);
 //    msg(p, "grid1 = %d", &begin);
-//    msg(p, "grid2 = %d", &end);
+//   msg(p, "grid2 = %d", &end);
 
     /* House found, but it's not owned by us */
-//    if (n_house_near == -2)
-//    {
-//        msg(p, "You cannot create houses near houses you don't own.");
-//        return false;
-//    }
+    if (n_house_near == -2)
+    {
+        msg(p, "You cannot create houses near houses you don't own.");
+        return false;
+    }
 
     /* No houses found near, but we already got a house,
     so we can build only near our house         */
-//    if ((n_house_near == -1) && (house_num > 0))
-//    {
-//        return false;
-//    }
-    
-/* 
-
-===========================================
-Yep. Waiting till better times to fix that.
-===========================================
-
-*/
-
+    if ((n_house_near == -1) && (n_houses_owned > 0))
+        {
+          return false;
+        }
 
 
     /* Get an empty house slot */
@@ -3190,6 +3147,7 @@ Yep. Waiting till better times to fix that.
     loc_init(&h_local.grid_1, begin.x + 1, begin.y + 1);
     loc_init(&h_local.grid_2, end.x - 1, end.y - 1);
     loc_init(&h_local.door, 0, 0);
+    // copy coordinates of world location
     memcpy(&h_local.wpos, &p->wpos, sizeof(struct worldpos));
     h_local.price = price;
     set_house_owner(p, &h_local);
