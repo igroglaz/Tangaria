@@ -639,9 +639,14 @@ bool get_player_store_name(int num, char *name, int len)
 
 
 /*
- * Return the index of a house near a location.
+ * Return the index of a house near player (in 2 tiles from character).
  *
  * Returns -3 if invalid dimensions, -2 if not owned, -1 if not found, or the index if found.
+ *
+ * Beware: MAng housing already include one row of walls of player's existing house
+ * (if there is one) to grid1,grid2.
+ * So "Check..." condition won't work on them unless we diminish it with -1
+ *
  */
 int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
 {
@@ -665,8 +670,9 @@ int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
         /* Check north and south */
         if ((grid1->y == houses[house].grid_2.y + 2) || (grid2->y == houses[house].grid_1.y - 2))
         {
-            /* Do we own this house? */
-            if (!house_owned_by(p, house)) return -2;
+            /* If we don't own this house */
+            if (!house_owned_by(p, house))
+                return -2;
 
             /* Can we extend this house? */
             if ((grid1->x == houses[house].grid_1.x - 1) && (grid2->x == houses[house].grid_2.x + 1))
@@ -678,8 +684,9 @@ int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
         /* Check east and west */
         if ((grid1->x == houses[house].grid_2.x + 2) || (grid2->x == houses[house].grid_1.x - 2))
         {
-            /* Do we own this house? */
-            if (!house_owned_by(p, house)) return -2;
+            /* If we don't own this house */
+            if (!house_owned_by(p, house))
+                return -2;
 
             /* Can we extend this house? */
             if ((grid1->y == houses[house].grid_1.y - 1) && (grid2->y == houses[house].grid_2.y + 1))
