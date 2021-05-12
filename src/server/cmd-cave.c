@@ -2814,6 +2814,59 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
     return false;
 }
 
+/*
+ * Check if the area around house foundation is allowed.
+ */
+static bool check_around_foundation (struct player *p, struct chunk *c, struct loc *begin,
+    struct loc *end)
+{
+    int x, y;
+    struct loc grid1, grid2, grid3, grid4;
+
+    loc_init(&grid1, begin->x - 1, begin->y - 1);
+    loc_init(&grid2, end->x + 1, begin->y - 1);
+    loc_init(&grid3, begin->x - 1, end->y + 1);
+    loc_init(&grid4, end->x + 1, end->y + 1);
+
+    /* Check bounds (fully) */
+    if (!square_in_bounds_fully(c, &grid1) || !square_in_bounds_fully(c, &grid2) ||
+        !square_in_bounds_fully(c, &grid3) || !square_in_bounds_fully(c, &grid4))
+    {
+        msg(p, "You cannot create houses near the location border.");
+        return false;
+    }
+
+    /* Check north and south */
+    for (x = begin->x; x <= end->x; x++)
+    {
+        loc_init(&grid1, x, begin->y - 1);
+        loc_init(&grid2, x, end->y + 1);
+
+        /* Check for house doors */
+        if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
+        {
+            msg(p, "You cannot create or extend houses near other house doors.");
+            return false;
+        }
+    }
+
+    /* Check east and west */
+    for (y = begin->y; y <= end->y; y++)
+    {
+        loc_init(&grid1, begin->x - 1, y);
+        loc_init(&grid2, end->x + 1, y);
+
+        /* Check for house doors */
+        if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
+        {
+            msg(p, "You cannot create or extend houses near other house doors.");
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 /*
  * Determine if the given location is ok to use as part of the foundation
@@ -3071,8 +3124,6 @@ bool create_house(struct player *p)
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
-    int n_house_near; // is there a house nearby or not
-    int n_houses_owned; // number of houses player already owns
     long int price;
 
     /* The DM cannot create houses! */
@@ -3089,6 +3140,9 @@ bool create_house(struct player *p)
         return false;
     }
 
+    /* Cant have more then 10 houses */
+    if (houses_owned(p) > 10) return false;
+
 //	/* Houses can only be created in the wilderness */
 //    if (!in_wild(&p->wpos))
 //   {
@@ -3101,31 +3155,7 @@ bool create_house(struct player *p)
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
-
-    /* how much houses does player own */
-    n_houses_owned = houses_owned(p);
-
-
-    /* Is it near a house we own? */
-    n_house_near = house_near(p, &begin, &end);
-//    msg(p, "n_house_near = %d", n_house_near);
-//    msg(p, "grid1 = %d", &begin);
-//   msg(p, "grid2 = %d", &end);
-
-    /* House found, but it's not owned by us */
-    if (n_house_near == -2)
-    {
-        msg(p, "You cannot create houses near houses you don't own.");
-        return false;
-    }
-
-    /* No houses found near, but we already got a house,
-    so we can build only near our house         */
-    if ((n_house_near == -1) && (n_houses_owned > 0))
-        {
-          return false;
-        }
-
+    if (!check_around_foundation(p, c, &begin, &end)) return false;
 
     /* Get an empty house slot */
     house = house_add(true);
@@ -3139,13 +3169,16 @@ bool create_house(struct player *p)
 
     /* Take some of the player's money */
     p->au -= price;
-    
+
     /* Redraw */
     p->upkeep->redraw |= (PR_GOLD);
 
     /* Setup house info */
-    loc_init(&h_local.grid_1, begin.x + 1, begin.y + 1);
-    loc_init(&h_local.grid_2, end.x - 1, end.y - 1);
+    // if in local.grid will be PWMA +1/-1 stuff -- walls won't be
+    // counted (so house will be marked only on grids with floor).
+    // So there +1/-1 are removed.
+    loc_init(&h_local.grid_1, begin.x, begin.y);
+    loc_init(&h_local.grid_2, end.x, end.y);
     loc_init(&h_local.door, 0, 0);
     // copy coordinates of world location
     memcpy(&h_local.wpos, &p->wpos, sizeof(struct worldpos));
