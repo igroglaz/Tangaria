@@ -48,8 +48,8 @@
  * Other defines
  */
 
-/* Compile in support for debug commands */
-#define DEBUG_MODE
+/* Compile in support for debug commands
+#define DEBUG_MODE */
 
 /*
  * OPTION: Do not switch to manual targeting if there are no
