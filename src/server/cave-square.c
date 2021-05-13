@@ -2507,6 +2507,10 @@ bool square_isplot(struct chunk *c, struct loc *grid)
     return tf_has(f_info[square(c, grid)->feat].flags, TF_PLOT);
 }
 
+bool square_is_no_house(struct chunk *c, struct loc *grid)
+{
+    return tf_has(f_info[square(c, grid)->feat].flags, TF_NO_HOUSE);
+}
 
 void square_actor(struct chunk *c, struct loc *grid, struct source *who)
 {

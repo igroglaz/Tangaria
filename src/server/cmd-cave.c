@@ -2832,7 +2832,7 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
     if (!square_in_bounds_fully(c, &grid1) || !square_in_bounds_fully(c, &grid2) ||
         !square_in_bounds_fully(c, &grid3) || !square_in_bounds_fully(c, &grid4))
     {
-        msg(p, "You cannot create houses near the location border.");
+        msg(p, "You cannot build house near the location border.");
         return false;
     }
 
@@ -2845,7 +2845,15 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
         /* Check for house doors */
         if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
         {
-            msg(p, "You cannot create or extend houses near other house doors.");
+            msg(p, "You cannot build house near other's players house doors.");
+            return false;
+        }
+
+        /* Check is this square allowed to have a house
+        (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
+        if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
+        {
+            msg(p, "You cannot build house there.");
             return false;
         }
     }
@@ -2859,7 +2867,15 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
         /* Check for house doors */
         if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
         {
-            msg(p, "You cannot create or extend houses near other house doors.");
+            msg(p, "You cannot build house near other's players house doors.");
+            return false;
+        }
+
+        /* Check is this square allowed to have a house
+        (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
+        if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
+        {
+            msg(p, "You cannot build house there.");
             return false;
         }
     }
