@@ -5902,10 +5902,11 @@ desc:.
 ########name:Home
 
 
+# no need NO_HOUSE or player won't be able to build houses near other player's houses
 name:safe floor
 graphics:.:u
 priority:16
-flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
 short-desc:wooden floor
 desc:An open floor or bare ground that prevents any hostile action from
 desc: monsters or other players.

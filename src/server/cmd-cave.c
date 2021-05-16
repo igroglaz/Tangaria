@@ -2821,6 +2821,7 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
     struct loc *end)
 {
     int x, y;
+    int house;
     struct loc grid1, grid2, grid3, grid4;
 
     loc_init(&grid1, begin->x - 1, begin->y - 1);
@@ -2842,13 +2843,6 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
         loc_init(&grid1, x, begin->y - 1);
         loc_init(&grid2, x, end->y + 1);
 
-        /* Check for house doors */
-        if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
-        {
-            msg(p, "You cannot build house near other's players house doors.");
-            return false;
-        }
-
         /* Check is this square allowed to have a house
         (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
         if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
@@ -2856,6 +2850,43 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
             msg(p, "You cannot build house there.");
             return false;
         }
+
+        house = 0;
+
+        /* Grid 1 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid1, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid1))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+        house = 0;
+
+        /* Grind 2 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid2, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid2))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
     }
 
     /* Check east and west */
@@ -2864,13 +2895,6 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
         loc_init(&grid1, begin->x - 1, y);
         loc_init(&grid2, end->x + 1, y);
 
-        /* Check for house doors */
-        if (square_home_iscloseddoor(c, &grid1) || square_home_iscloseddoor(c, &grid2))
-        {
-            msg(p, "You cannot build house near other's players house doors.");
-            return false;
-        }
-
         /* Check is this square allowed to have a house
         (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
         if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
@@ -2878,6 +2902,43 @@ static bool check_around_foundation (struct player *p, struct chunk *c, struct l
             msg(p, "You cannot build house there.");
             return false;
         }
+
+        house = 0;
+
+        /* Grid 1 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid1, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid1))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+        house = 0;
+
+        /* Grind 2 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid2, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid2))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
     }
 
     return true;
@@ -2916,7 +2977,8 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
     {
         int house;
 
-        /* Looks like part of a house, which house? */
+        /* Looks like part of a house, which house?
+        Given coordinates return a house to which they belong. */
         house = find_house(p, grid, 0);
         if (house >= 0)
         {
