@@ -1,3 +1,5 @@
+//#define TEST_MODE // Add DM equipment to all characters
+
 /*
  * File: config.h
  * Purpose: Angband specific configuration stuff

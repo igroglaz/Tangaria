@@ -702,7 +702,7 @@ static void player_outfit_dm(struct player *p)
      * Give the DM some interesting stuff
      * In debug mode, everyone gets all that stuff for testing purposes
      */
-#ifndef DEBUG_MODE
+#if !(defined(DEBUG_MODE) || defined(TEST_MODE))
     if (!is_dm_p(p)) return;
 #endif
 
