@@ -25291,6 +25291,38 @@ monster:overseer':0x9A:0xF6
 
 object:cobble:Cobble:0x8A:0xB6
 
+###############
+#### HOUSE
+###############
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BF - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house brick wall 0
+feat:house brick wall 0:torch:0xBF:0x80
+feat:house brick wall 0:los:0xBF:0x81
+feat:house brick wall 0:lit:0xBF:0x82
+feat:house brick wall 0:dark:0xBF:0x83
+
+# house brick wall 1 window
+feat:house brick wall 1:torch:0xBF:0x84
+feat:house brick wall 1:los:0xBF:0x85
+feat:house brick wall 1:lit:0xBF:0x86
+feat:house brick wall 1:dark:0xBF:0x87
+
+# house brick wall 2 empty window
+feat:house brick wall 2:torch:0xBF:0x88
+feat:house brick wall 2:los:0xBF:0x89
+feat:house brick wall 2:lit:0xBF:0x8A
+feat:house brick wall 2:dark:0xBF:0x8B
+
+# house brick wall 3 barred window
+feat:house brick wall 3:torch:0xBF:0x8C
+feat:house brick wall 3:los:0xBF:0x8D
+feat:house brick wall 3:lit:0xBF:0x8E
+feat:house brick wall 3:dark:0xBF:0x8F
+
 # Load the special player pictures
 %:xtra-tan.prf
 

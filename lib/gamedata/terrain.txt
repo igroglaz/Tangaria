@@ -33147,3 +33147,46 @@ info:0:5
 short-desc:.
 desc:.
 
+
+########## RANDOM PERMAHOUSE WALLS
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BF - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+name:house brick wall 0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall 1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall 2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+info:0:3
+################################################################################
+short-desc:empty window
+desc:.
+
+name:house brick wall 3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+info:0:3
+################################################################################
+short-desc:barred window
+desc:.

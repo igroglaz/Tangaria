@@ -374,6 +374,11 @@ bool square_ispermhouse(struct chunk *c, struct loc *grid)
     return (square(c, grid)->feat == FEAT_PERM_HOUSE);
 }
 
+bool square_is_new_permhouse(struct chunk *c, struct loc *grid)
+{
+    return tf_has(f_info[square(c, grid)->feat].flags, TF_HOUSE);
+}
+
 
 bool square_ispermstatic(struct chunk *c, struct loc *grid)
 {
@@ -2429,7 +2434,31 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
     square_set_feat(c, grid, FEAT_HOME_CLOSED + power);
 }
 
+    /* get random wall feat for house building */
+void square_build_new_permhouse(struct chunk *c, struct loc *grid)
+{
+    char wall[1][18] = {"house brick wall "}; // first part of the wall name
+    int rng = 0;                              // second part of the wall name
+    char wall_index[] = "";                   // full name of the house wall
+    int house_wall;                           // result: index of terrain feature
 
+    // random choice of wall number
+    rng = (rand() % 4);
+
+    // If we put int to char it will be set as 'hex' (0x..).
+    // So we need to convert it to 'int'
+    itoa(rng, wall_index, 10);
+
+    // Combine two strings
+    strcat(wall, wall_index);
+
+    // look for the feat
+    house_wall = lookup_feat(wall[0]);
+
+    square_set_feat(c, grid, house_wall);
+}
+
+// not using in new house building
 void square_build_permhouse(struct chunk *c, struct loc *grid)
 {
     square_set_feat(c, grid, FEAT_PERM_HOUSE);

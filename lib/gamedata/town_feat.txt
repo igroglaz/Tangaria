@@ -3830,4 +3830,17 @@ feat:G:v:F7 deep water F2W v
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 #H
 
+###############
+### HOUSE
+###############
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BF - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:H:0:house brick wall 0
+feat:H:1:house brick wall 1
+feat:H:2:house brick wall 2
+feat:H:3:house brick wall 3
+
 # the same No stairs / no monsters for sand, trees...

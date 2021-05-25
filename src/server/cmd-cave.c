@@ -888,7 +888,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     okay = CHANCE(chance, 1600);
 
     /* Hack -- house walls */
-    if (square_ispermhouse(c, grid))
+    if (square_is_new_permhouse(c, grid))
     {
         /* Either the player has lost his mind or he is trying to create a door! */
         create_house_door(p, c, grid);
@@ -1405,7 +1405,7 @@ void do_cmd_alter(struct player *p, int dir)
     }
 
     /* MAngband-specific: open house walls (House Creation) */
-    else if (square_ispermhouse(c, &grid))
+    else if (square_is_new_permhouse(c, &grid))
         more = do_cmd_tunnel_aux(p, c, &grid);
 
     /* Tunnel through walls, trees and rubble (allow pit walls to fool the player) */
@@ -2973,7 +2973,7 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
      * Perma walls and doors are valid if they are part of a house owned
      * by this player
      */
-    if (square_ispermhouse(c, grid) || square_home_iscloseddoor(c, grid))
+    if (square_is_new_permhouse(c, grid) || square_home_iscloseddoor(c, grid))
     {
         int house;
 
@@ -3277,7 +3277,7 @@ bool create_house(struct player *p)
 
         /* Build a wall, but don't destroy any existing door */
         if (!square_home_iscloseddoor(c, &iter.cur))
-            square_build_permhouse(c, &iter.cur);
+            square_build_new_permhouse(c, &iter.cur);
     }
     while (loc_iterator_next(&iter));
 
