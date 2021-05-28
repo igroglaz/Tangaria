@@ -3839,8 +3839,77 @@ feat:G:v:F7 deep water F2W v
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
 feat:H:0:house brick wall 0
+#window
 feat:H:1:house brick wall 1
+#empty window
 feat:H:2:house brick wall 2
+#barred window
 feat:H:3:house brick wall 3
+#door
+#feat:H:4:house brick wall 4
+feat:H:5:house brick wall 5
+feat:H:6:house brick wall 6
+feat:H:7:house brick wall 7
+feat:H:8:house brick wall 8
+feat:H:9:house brick wall 9
+feat:H:a:house brick wall a
+feat:H:b:house brick wall b
+feat:H:c:house brick wall c
+feat:H:d:house brick wall d
+feat:H:e:house brick wall e
+feat:H:f:house brick wall f
+feat:H:g:house brick wall g
+feat:H:h:house brick wall h
+feat:H:i:house brick wall i
+feat:H:j:house brick wall j
+feat:H:k:house brick wall k
+feat:H:l:house brick wall l
+feat:H:m:house brick wall m
+feat:H:n:house brick wall n
+feat:H:o:house brick wall o
+feat:H:p:house brick wall p
+feat:H:q:house brick wall q
+feat:H:r:house brick wall r
+feat:H:s:house brick wall s
+feat:H:t:house brick wall t
+feat:H:u:house brick wall u
+feat:H:v:house brick wall v
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# C0 - formen "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:H:w:house brick wall w
+feat:H:x:house brick wall x
+feat:H:y:house brick wall y
+feat:H:z:house brick wall z
+feat:H:A:house brick wall A
+feat:H:B:house brick wall B
+feat:H:C:house brick wall C
+feat:H:D:house brick wall D
+feat:H:E:house brick wall E
+feat:H:F:house brick wall F
+feat:H:G:house brick wall G
+feat:H:H:house brick wall H
+feat:H:I:house brick wall I
+feat:H:J:house brick wall J
+feat:H:K:house brick wall K
+feat:H:L:house brick wall L
+feat:H:M:house brick wall M
+feat:H:N:house brick wall N
+feat:H:O:house brick wall O
+feat:H:P:house brick wall P
+feat:H:Q:house brick wall Q
+feat:H:R:house brick wall R
+feat:H:S:house brick wall S
+feat:H:T:house brick wall T
+feat:H:U:house brick wall U
+feat:H:V:house brick wall V
+feat:H:W:house brick wall W
+feat:H:X:house brick wall X
+feat:H:Y:house brick wall Y
+feat:H:Z:house brick wall Z
+feat:H:~:house brick wall ~
+feat:H:`:house brick wall `
 
 # the same No stairs / no monsters for sand, trees...

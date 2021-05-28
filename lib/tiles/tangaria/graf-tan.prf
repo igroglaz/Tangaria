@@ -25323,6 +25323,372 @@ feat:house brick wall 3:los:0xBF:0x8D
 feat:house brick wall 3:lit:0xBF:0x8E
 feat:house brick wall 3:dark:0xBF:0x8F
 
+# house brick wall 4 door
+feat:house brick wall 4:torch:0xBF:0x90
+feat:house brick wall 4:los:0xBF:0x91
+feat:house brick wall 4:lit:0xBF:0x92
+feat:house brick wall 4:dark:0xBF:0x93
+
+# house brick wall 5 
+feat:house brick wall 5:torch:0xBF:0x94
+feat:house brick wall 5:los:0xBF:0x95
+feat:house brick wall 5:lit:0xBF:0x96
+feat:house brick wall 5:dark:0xBF:0x97
+
+# house brick wall 6 
+feat:house brick wall 6:torch:0xBF:0x98
+feat:house brick wall 6:los:0xBF:0x99
+feat:house brick wall 6:lit:0xBF:0x9A
+feat:house brick wall 6:dark:0xBF:0x9B
+
+# house brick wall 7 
+feat:house brick wall 7:torch:0xBF:0x9C
+feat:house brick wall 7:los:0xBF:0x9D
+feat:house brick wall 7:lit:0xBF:0x9E
+feat:house brick wall 7:dark:0xBF:0x9F
+
+# house brick wall 8 
+feat:house brick wall 8:torch:0xBF:0xA0
+feat:house brick wall 8:los:0xBF:0xA1
+feat:house brick wall 8:lit:0xBF:0xA2
+feat:house brick wall 8:dark:0xBF:0xA3
+
+# house brick wall 9 
+feat:house brick wall 9:torch:0xBF:0xA4
+feat:house brick wall 9:los:0xBF:0xA5
+feat:house brick wall 9:lit:0xBF:0xA6
+feat:house brick wall 9:dark:0xBF:0xA7
+
+# house brick wall a 
+feat:house brick wall a:torch:0xBF:0xA8
+feat:house brick wall a:los:0xBF:0xA9
+feat:house brick wall a:lit:0xBF:0xAA
+feat:house brick wall a:dark:0xBF:0xAB
+
+# house brick wall b 
+feat:house brick wall b:torch:0xBF:0xAC
+feat:house brick wall b:los:0xBF:0xAD
+feat:house brick wall b:lit:0xBF:0xAE
+feat:house brick wall b:dark:0xBF:0xAF
+
+# house brick wall c 
+feat:house brick wall c:torch:0xBF:0xB0
+feat:house brick wall c:los:0xBF:0xB1
+feat:house brick wall c:lit:0xBF:0xB2
+feat:house brick wall c:dark:0xBF:0xB3
+
+# house brick wall d 
+feat:house brick wall d:torch:0xBF:0xB4
+feat:house brick wall d:los:0xBF:0xB5
+feat:house brick wall d:lit:0xBF:0xB6
+feat:house brick wall d:dark:0xBF:0xB7
+
+# house brick wall e 
+feat:house brick wall e:torch:0xBF:0xB8
+feat:house brick wall e:los:0xBF:0xB9
+feat:house brick wall e:lit:0xBF:0xBA
+feat:house brick wall e:dark:0xBF:0xBB
+
+# house brick wall f 
+feat:house brick wall f:torch:0xBF:0xBC
+feat:house brick wall f:los:0xBF:0xBD
+feat:house brick wall f:lit:0xBF:0xBE
+feat:house brick wall f:dark:0xBF:0xBF
+
+# house brick wall g 
+feat:house brick wall g:torch:0xBF:0xC0
+feat:house brick wall g:los:0xBF:0xC1
+feat:house brick wall g:lit:0xBF:0xC2
+feat:house brick wall g:dark:0xBF:0xC3
+
+# house brick wall h 
+feat:house brick wall h:torch:0xBF:0xC4
+feat:house brick wall h:los:0xBF:0xC5
+feat:house brick wall h:lit:0xBF:0xC6
+feat:house brick wall h:dark:0xBF:0xC7
+
+# house brick wall i 
+feat:house brick wall i:torch:0xBF:0xC8
+feat:house brick wall i:los:0xBF:0xC9
+feat:house brick wall i:lit:0xBF:0xCA
+feat:house brick wall i:dark:0xBF:0xCB
+
+# house brick wall j 
+feat:house brick wall j:torch:0xBF:0xCC
+feat:house brick wall j:los:0xBF:0xCD
+feat:house brick wall j:lit:0xBF:0xCE
+feat:house brick wall j:dark:0xBF:0xCF
+
+# house brick wall k 
+feat:house brick wall k:torch:0xBF:0xD0
+feat:house brick wall k:los:0xBF:0xD1
+feat:house brick wall k:lit:0xBF:0xD2
+feat:house brick wall k:dark:0xBF:0xD3
+
+# house brick wall l 
+feat:house brick wall l:torch:0xBF:0xD4
+feat:house brick wall l:los:0xBF:0xD5
+feat:house brick wall l:lit:0xBF:0xD6
+feat:house brick wall l:dark:0xBF:0xD7
+
+# house brick wall m 
+feat:house brick wall m:torch:0xBF:0xD8
+feat:house brick wall m:los:0xBF:0xD9
+feat:house brick wall m:lit:0xBF:0xDA
+feat:house brick wall m:dark:0xBF:0xDB
+
+# house brick wall n 
+feat:house brick wall n:torch:0xBF:0xDC
+feat:house brick wall n:los:0xBF:0xDD
+feat:house brick wall n:lit:0xBF:0xDE
+feat:house brick wall n:dark:0xBF:0xDF
+
+# house brick wall o 
+feat:house brick wall o:torch:0xBF:0xE0
+feat:house brick wall o:los:0xBF:0xE1
+feat:house brick wall o:lit:0xBF:0xE2
+feat:house brick wall o:dark:0xBF:0xE3
+
+# house brick wall p 
+feat:house brick wall p:torch:0xBF:0xE4
+feat:house brick wall p:los:0xBF:0xE5
+feat:house brick wall p:lit:0xBF:0xE6
+feat:house brick wall p:dark:0xBF:0xE7
+
+# house brick wall q 
+feat:house brick wall q:torch:0xBF:0xE8
+feat:house brick wall q:los:0xBF:0xE9
+feat:house brick wall q:lit:0xBF:0xEA
+feat:house brick wall q:dark:0xBF:0xEB
+
+# house brick wall r 
+feat:house brick wall r:torch:0xBF:0xEC
+feat:house brick wall r:los:0xBF:0xED
+feat:house brick wall r:lit:0xBF:0xEE
+feat:house brick wall r:dark:0xBF:0xEF
+
+# house brick wall s 
+feat:house brick wall s:torch:0xBF:0xF0
+feat:house brick wall s:los:0xBF:0xF1
+feat:house brick wall s:lit:0xBF:0xF2
+feat:house brick wall s:dark:0xBF:0xF3
+
+# house brick wall t 
+feat:house brick wall t:torch:0xBF:0xF4
+feat:house brick wall t:los:0xBF:0xF5
+feat:house brick wall t:lit:0xBF:0xF6
+feat:house brick wall t:dark:0xBF:0xF7
+
+# house brick wall u 
+feat:house brick wall u:torch:0xBF:0xF8
+feat:house brick wall u:los:0xBF:0xF9
+feat:house brick wall u:lit:0xBF:0xFA
+feat:house brick wall u:dark:0xBF:0xFB
+
+# house brick wall v 
+feat:house brick wall v:torch:0xBF:0xFC
+feat:house brick wall v:los:0xBF:0xFD
+feat:house brick wall v:lit:0xBF:0xFE
+feat:house brick wall v:dark:0xBF:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# C0 - house brick wall
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house brick wall w 
+feat:house brick wall w:torch:0xC0:0x80
+feat:house brick wall w:los:0xC0:0x81
+feat:house brick wall w:lit:0xC0:0x82
+feat:house brick wall w:dark:0xC0:0x83
+
+# house brick wall x 
+feat:house brick wall x:torch:0xC0:0x84
+feat:house brick wall x:los:0xC0:0x85
+feat:house brick wall x:lit:0xC0:0x86
+feat:house brick wall x:dark:0xC0:0x87
+
+# house brick wall y 
+feat:house brick wall y:torch:0xC0:0x88
+feat:house brick wall y:los:0xC0:0x89
+feat:house brick wall y:lit:0xC0:0x8A
+feat:house brick wall y:dark:0xC0:0x8B
+
+# house brick wall z 
+feat:house brick wall z:torch:0xC0:0x8C
+feat:house brick wall z:los:0xC0:0x8D
+feat:house brick wall z:lit:0xC0:0x8E
+feat:house brick wall z:dark:0xC0:0x8F
+
+# house brick wall A 
+feat:house brick wall A:torch:0xC0:0x90
+feat:house brick wall A:los:0xC0:0x91
+feat:house brick wall A:lit:0xC0:0x92
+feat:house brick wall A:dark:0xC0:0x93
+
+# house brick wall B 
+feat:house brick wall B:torch:0xC0:0x94
+feat:house brick wall B:los:0xC0:0x95
+feat:house brick wall B:lit:0xC0:0x96
+feat:house brick wall B:dark:0xC0:0x97
+
+# house brick wall C 
+feat:house brick wall C:torch:0xC0:0x98
+feat:house brick wall C:los:0xC0:0x99
+feat:house brick wall C:lit:0xC0:0x9A
+feat:house brick wall C:dark:0xC0:0x9B
+
+# house brick wall D 
+feat:house brick wall D:torch:0xC0:0x9C
+feat:house brick wall D:los:0xC0:0x9D
+feat:house brick wall D:lit:0xC0:0x9E
+feat:house brick wall D:dark:0xC0:0x9F
+
+# house brick wall E 
+feat:house brick wall E:torch:0xC0:0xA0
+feat:house brick wall E:los:0xC0:0xA1
+feat:house brick wall E:lit:0xC0:0xA2
+feat:house brick wall E:dark:0xC0:0xA3
+
+# house brick wall F 
+feat:house brick wall F:torch:0xC0:0xA4
+feat:house brick wall F:los:0xC0:0xA5
+feat:house brick wall F:lit:0xC0:0xA6
+feat:house brick wall F:dark:0xC0:0xA7
+
+# house brick wall G 
+feat:house brick wall G:torch:0xC0:0xA8
+feat:house brick wall G:los:0xC0:0xA9
+feat:house brick wall G:lit:0xC0:0xAA
+feat:house brick wall G:dark:0xC0:0xAB
+
+# house brick wall H 
+feat:house brick wall H:torch:0xC0:0xAC
+feat:house brick wall H:los:0xC0:0xAD
+feat:house brick wall H:lit:0xC0:0xAE
+feat:house brick wall H:dark:0xC0:0xAF
+
+# house brick wall I 
+feat:house brick wall I:torch:0xC0:0xB0
+feat:house brick wall I:los:0xC0:0xB1
+feat:house brick wall I:lit:0xC0:0xB2
+feat:house brick wall I:dark:0xC0:0xB3
+
+# house brick wall J 
+feat:house brick wall J:torch:0xC0:0xB4
+feat:house brick wall J:los:0xC0:0xB5
+feat:house brick wall J:lit:0xC0:0xB6
+feat:house brick wall J:dark:0xC0:0xB7
+
+# house brick wall K 
+feat:house brick wall K:torch:0xC0:0xB8
+feat:house brick wall K:los:0xC0:0xB9
+feat:house brick wall K:lit:0xC0:0xBA
+feat:house brick wall K:dark:0xC0:0xBB
+
+# house brick wall L 
+feat:house brick wall L:torch:0xC0:0xBC
+feat:house brick wall L:los:0xC0:0xBD
+feat:house brick wall L:lit:0xC0:0xBE
+feat:house brick wall L:dark:0xC0:0xBF
+
+# house brick wall M 
+feat:house brick wall M:torch:0xC0:0xC0
+feat:house brick wall M:los:0xC0:0xC1
+feat:house brick wall M:lit:0xC0:0xC2
+feat:house brick wall M:dark:0xC0:0xC3
+
+# house brick wall N 
+feat:house brick wall N:torch:0xC0:0xC4
+feat:house brick wall N:los:0xC0:0xC5
+feat:house brick wall N:lit:0xC0:0xC6
+feat:house brick wall N:dark:0xC0:0xC7
+
+# house brick wall O 
+feat:house brick wall O:torch:0xC0:0xC8
+feat:house brick wall O:los:0xC0:0xC9
+feat:house brick wall O:lit:0xC0:0xCA
+feat:house brick wall O:dark:0xC0:0xCB
+
+# house brick wall P 
+feat:house brick wall P:torch:0xC0:0xCC
+feat:house brick wall P:los:0xC0:0xCD
+feat:house brick wall P:lit:0xC0:0xCE
+feat:house brick wall P:dark:0xC0:0xCF
+
+# house brick wall Q 
+feat:house brick wall Q:torch:0xC0:0xD0
+feat:house brick wall Q:los:0xC0:0xD1
+feat:house brick wall Q:lit:0xC0:0xD2
+feat:house brick wall Q:dark:0xC0:0xD3
+
+# house brick wall R 
+feat:house brick wall R:torch:0xC0:0xD4
+feat:house brick wall R:los:0xC0:0xD5
+feat:house brick wall R:lit:0xC0:0xD6
+feat:house brick wall R:dark:0xC0:0xD7
+
+# house brick wall S 
+feat:house brick wall S:torch:0xC0:0xD8
+feat:house brick wall S:los:0xC0:0xD9
+feat:house brick wall S:lit:0xC0:0xDA
+feat:house brick wall S:dark:0xC0:0xDB
+
+# house brick wall T 
+feat:house brick wall T:torch:0xC0:0xDC
+feat:house brick wall T:los:0xC0:0xDD
+feat:house brick wall T:lit:0xC0:0xDE
+feat:house brick wall T:dark:0xC0:0xDF
+
+# house brick wall U 
+feat:house brick wall U:torch:0xC0:0xE0
+feat:house brick wall U:los:0xC0:0xE1
+feat:house brick wall U:lit:0xC0:0xE2
+feat:house brick wall U:dark:0xC0:0xE3
+
+# house brick wall V 
+feat:house brick wall V:torch:0xC0:0xE4
+feat:house brick wall V:los:0xC0:0xE5
+feat:house brick wall V:lit:0xC0:0xE6
+feat:house brick wall V:dark:0xC0:0xE7
+
+# house brick wall W 
+feat:house brick wall W:torch:0xC0:0xE8
+feat:house brick wall W:los:0xC0:0xE9
+feat:house brick wall W:lit:0xC0:0xEA
+feat:house brick wall W:dark:0xC0:0xEB
+
+# house brick wall X 
+feat:house brick wall X:torch:0xC0:0xEC
+feat:house brick wall X:los:0xC0:0xED
+feat:house brick wall X:lit:0xC0:0xEE
+feat:house brick wall X:dark:0xC0:0xEF
+
+# house brick wall Y 
+feat:house brick wall Y:torch:0xC0:0xF0
+feat:house brick wall Y:los:0xC0:0xF1
+feat:house brick wall Y:lit:0xC0:0xF2
+feat:house brick wall Y:dark:0xC0:0xF3
+
+# house brick wall Z 
+feat:house brick wall Z:torch:0xC0:0xF4
+feat:house brick wall Z:los:0xC0:0xF5
+feat:house brick wall Z:lit:0xC0:0xF6
+feat:house brick wall Z:dark:0xC0:0xF7
+
+# house brick wall ~ 
+feat:house brick wall ~:torch:0xC0:0xF8
+feat:house brick wall ~:los:0xC0:0xF9
+feat:house brick wall ~:lit:0xC0:0xFA
+feat:house brick wall ~:dark:0xC0:0xFB
+
+# house brick wall ` 
+feat:house brick wall `:torch:0xC0:0xFC
+feat:house brick wall `:los:0xC0:0xFD
+feat:house brick wall `:lit:0xC0:0xFE
+feat:house brick wall `:dark:0xC0:0xFF
+
+
 # Load the special player pictures
 %:xtra-tan.prf
 

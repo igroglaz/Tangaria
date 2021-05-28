@@ -2439,18 +2439,94 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid)
 {
     char wall[1][18] = {"house brick wall "}; // first part of the wall name
     int rng = 0;                              // second part of the wall name
+    char wall_glyph = '\0';
     char wall_index[] = "";                   // full name of the house wall
-    int house_wall;                           // result: index of terrain feature
+    int house_wall= 0;                        // result: index of terrain feature
 
     // random choice of wall number
-    rng = (rand() % 4);
+    rng = (rand() % 63);
 
-    // If we put int to char it will be set as 'hex' (0x..).
-    // So we need to convert it to 'int'
-    itoa(rng, wall_index, 10);
+    // some walls not really good to be house-ones
+    switch(rng)
+    {   // C1 - brick wall
+        case 0: break;
+        case 1: break;
+        case 2: break;
+        case 3: break;
+        case 4: rng = 0; break; // door
+        case 5: break;
+        case 6: break;
+        case 7: break;
+        case 8: rng = 0; break; // white door
+        case 9: rng = 0; break; // empty door
+        case 10: wall_glyph = 'a'; break;
+        case 11: wall_glyph = 'b'; break;
+        case 12: wall_glyph = 'c'; break;
+        case 13: wall_glyph = 'd'; break;
+        case 14: wall_glyph = 'e'; break;
+        case 15: wall_glyph = 'f'; break;
+        case 16: wall_glyph = 'g'; break;
+        case 17: wall_glyph = 'h'; break;
+        case 18: wall_glyph = 'i'; break;
+        case 19: wall_glyph = 'j'; break;
+        case 20: wall_glyph = 'k'; break;
+        case 21: wall_glyph = 'l'; break;
+        case 22: wall_glyph = 'm'; break;
+        case 23: wall_glyph = 'n'; break;
+        case 24: wall_glyph = 'o'; break;
+        case 25: wall_glyph = 'p'; break;
+        case 26: wall_glyph = 'q'; break;
+        case 27: wall_glyph = 'r'; break;
+        case 28: wall_glyph = 's'; break;
+        case 29: wall_glyph = 't'; break;
+        case 30: wall_glyph = 'u'; break;
+        case 31: wall_glyph = 'v'; break;
+        // C0 - brick wall
+        case 32: rng = 0; break; // bulletin board
+        case 33: rng = 0; break; // bulletin board
+        case 34: rng = 0; break; // fire
+        case 35: wall_glyph = 'z'; break;
+        case 36: wall_glyph = 'A'; break;
+        case 37: wall_glyph = 'B'; break;
+        case 38: wall_glyph = 'C'; break;
+        case 39: wall_glyph = 'D'; break;
+        case 40: wall_glyph = 'E'; break;
+        case 41: wall_glyph = 'F'; break;
+        case 42: wall_glyph = 'G'; break;
+        case 43: wall_glyph = 'H'; break;
+        case 44: wall_glyph = 'I'; break;
+        case 45: wall_glyph = 'J'; break;
+        case 46: wall_glyph = 'K'; break;
+        case 47: wall_glyph = 'L'; break;
+        case 48: wall_glyph = 'M'; break;
+        case 49: wall_glyph = 'N'; break;
+        case 50: wall_glyph = 'O'; break;
+        case 51: wall_glyph = 'P'; break;
+        case 52: wall_glyph = 'Q'; break;
+        case 53: wall_glyph = 'R'; break;
+        case 54: wall_glyph = 'S'; break;
+        case 55: wall_glyph = 'T'; break;
+        case 56: wall_glyph = 'U'; break;
+        case 57: wall_glyph = 'V'; break;
+        case 58: wall_glyph = 'W'; break;
+        case 59: wall_glyph = 'X'; break;
+        case 60: wall_glyph = 'Y'; break;
+        case 61: wall_glyph = 'Z'; break;
+        case 62: wall_glyph = '~'; break;
+        case 63: wall_glyph = '`'; break;
+        default: rng = 0;
+    }
 
-    // Combine two strings
-    strcat(wall, wall_index);
+    if (rng < 9)
+    {
+        // If we put int to char it will be set as 'hex' (0x..).
+        // So we need to convert it to 'int'
+        itoa(rng, wall_index, 10);
+        // Combine two strings
+        strcat(wall, wall_index);
+    }
+    else
+        strncat(wall, &wall_glyph, 1);
 
     // look for the feat
     house_wall = lookup_feat(wall[0]);

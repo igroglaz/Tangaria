@@ -33167,7 +33167,7 @@ desc:.
 name:house brick wall 1
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
 info:0:3
 ################################################################################
 short-desc:window
@@ -33176,7 +33176,7 @@ desc:.
 name:house brick wall 2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
 info:0:3
 ################################################################################
 short-desc:empty window
@@ -33185,8 +33185,560 @@ desc:.
 name:house brick wall 3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
 info:0:3
 ################################################################################
 short-desc:barred window
+desc:.
+
+# NOT USED
+name:house brick wall 4
+graphics:+:U
+priority:11
+flags:NO_HOUSE | DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+info:0:3
+################################################################################
+short-desc:door
+desc:.
+
+name:house brick wall 5
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:statue in the wall
+desc:.
+
+name:house brick wall 6
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:fountain in the wall
+desc:.
+
+name:house brick wall 7
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:column walls
+desc:.
+
+# NOT USED
+name:house brick wall 8
+graphics:+:U
+priority:11
+flags:NO_HOUSE | DOOR_ANY | PASSABLE | EASY | TORCH | FLOOR_SAFE | OBJECT
+info:0:3
+################################################################################
+short-desc:closed door
+desc:.
+
+# NOT USED
+name:house brick wall 9
+graphics:+:'
+priority:11
+flags:NO_HOUSE | DOOR_ANY | PASSABLE | EASY | LOS | PROJECT | TORCH
+info:0:3
+################################################################################
+short-desc:entrance
+desc:.
+
+## windows further
+
+name:house brick wall a
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:narrow window
+desc:.
+
+name:house brick wall b
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall c
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall d
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall e
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall f
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall g
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall h
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall i
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall j
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall k
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall l
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall m
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall n
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall o
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall p
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall q
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall r
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall s
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall t
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:window
+desc:.
+
+name:house brick wall u
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:picture of favorite horse
+desc:.
+
+name:house brick wall v
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:picture of red flowers
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# C0 - house brick wall
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# NOT USED
+name:house brick wall w
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:bulletin board
+desc:.
+
+# NOT USED
+name:house brick wall x
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:bulletin board
+desc:.
+
+# NOT USED
+name:house brick wall y
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | BRIGHT
+info:0:3
+################################################################################
+short-desc:fireplace
+desc:.
+
+name:house brick wall z
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall A
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall B
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall C
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall D
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall E
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall F
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall G
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall H
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall I
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall J
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall K
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall L
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall M
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall N
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall O
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall P
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall Q
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall R
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall S
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall T
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall U
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall V
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall W
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall X
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall Y
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house brick wall Z
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | BRIGHT
+info:0:3
+################################################################################
+short-desc:brazier on the wall
+desc:.
+
+name:house brick wall ~
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | BRIGHT
+info:0:3
+################################################################################
+short-desc:candle on the wall
+desc:.
+
+name:house brick wall `
+graphics:#:W
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | BRIGHT
+info:0:3
+################################################################################
+short-desc:lamp on the wall
 desc:.
