@@ -2517,7 +2517,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid)
         default: rng = 0;
     }
 
-    if (rng < 9)
+    if (rng <= 9)
     {
         // If we put int to char it will be set as 'hex' (0x..).
         // So we need to convert it to 'int'
@@ -2600,6 +2600,105 @@ void square_add_grass(struct chunk *c, struct loc *grid)
     square_set_feat(c, grid, FEAT_GRASS);
 }
 
+    /* get random floor feat for house building */
+void square_add_new_safe(struct chunk *c, struct loc *grid)
+{
+    char floor[1][18] = {"house wood floor "}; // first part of the floor name
+    int rng = 0;                              // second part of the floor name
+    char floor_glyph = '\0';
+    char floor_index[] = "";                   // full name of the house floor
+    int house_floor= 0;                        // result: index of terrain feature
+
+    if (one_in_(2)) rng = 45;  // 45 is plain floor
+    else rng = (rand() % 63); // random choice of floor number
+
+    // some floor not really good to be house-ones
+    switch(rng)
+    {   // AD
+        case 0: break;
+        case 1: break;
+        case 2: break;
+        case 3: break;
+        case 4: break;
+        case 5: break;
+        case 6: break;
+        case 7: break;
+        case 8: break;
+        case 9: break;
+        case 10: floor_glyph = 'a'; break;
+        case 11: floor_glyph = 'b'; break;
+        case 12: floor_glyph = 'c'; break;
+        case 13: floor_glyph = 'd'; break;
+        case 14: floor_glyph = 'e'; break;
+        case 15: floor_glyph = 'f'; break;
+        case 16: floor_glyph = 'g'; break;
+        case 17: floor_glyph = 'h'; break;
+        case 18: floor_glyph = 'i'; break;
+        case 19: floor_glyph = 'j'; break;
+        case 20: floor_glyph = 'k'; break;
+        case 21: floor_glyph = 'l'; break;
+        case 22: floor_glyph = 'm'; break;
+        case 23: floor_glyph = 'n'; break;
+        case 24: floor_glyph = 'o'; break;
+        case 25: floor_glyph = 'p'; break;
+        case 26: floor_glyph = 'q'; break;
+        case 27: floor_glyph = 'r'; break;
+        case 28: floor_glyph = 's'; break;
+        case 29: floor_glyph = 't'; break;
+        case 30: floor_glyph = 'u'; break;
+        case 31: floor_glyph = 'v'; break;
+        // AE
+        case 32: floor_glyph = 'w'; break;
+        case 33: floor_glyph = 'x'; break;
+        case 34: floor_glyph = 'J'; break;  // 34-44 NPCs so use plain floor
+        case 35: floor_glyph = 'J'; break;
+        case 36: floor_glyph = 'J'; break;
+        case 37: floor_glyph = 'J'; break;
+        case 38: floor_glyph = 'J'; break;
+        case 39: floor_glyph = 'J'; break;
+        case 40: floor_glyph = 'J'; break;
+        case 41: floor_glyph = 'J'; break;
+        case 42: floor_glyph = 'J'; break;
+        case 43: floor_glyph = 'J'; break;
+        case 44: floor_glyph = 'J'; break;
+        case 45: floor_glyph = 'J'; break;
+        case 46: floor_glyph = 'K'; break;
+        case 47: floor_glyph = 'L'; break;
+        case 48: floor_glyph = 'M'; break;
+        case 49: floor_glyph = 'N'; break;
+        case 50: floor_glyph = 'O'; break;
+        case 51: floor_glyph = 'P'; break;
+        case 52: floor_glyph = 'Q'; break;
+        case 53: floor_glyph = 'R'; break;
+        case 54: floor_glyph = 'S'; break;
+        case 55: floor_glyph = 'T'; break;
+        case 56: floor_glyph = 'U'; break;
+        case 57: floor_glyph = 'V'; break;
+        case 58: floor_glyph = 'W'; break;
+        case 59: floor_glyph = 'X'; break;
+        case 60: floor_glyph = 'Y'; break;
+        case 61: floor_glyph = 'Z'; break;
+        case 62: floor_glyph = '~'; break;
+        case 63: floor_glyph = '`'; break;
+        default: rng = 0;
+    }
+
+    if (rng <= 9)
+    {
+        // If we put int to char it will be set as 'hex' (0x..).
+        // So we need to convert it to 'int'
+        itoa(rng, floor_index, 10);
+        // Combine two strings
+        strcat(floor, floor_index);
+    }
+    else
+        strncat(floor, &floor_glyph, 1);
+
+    // look for the feat
+    house_floor = lookup_feat(floor[0]);
+
+    square_set_feat(c, grid, house_floor);
+}
 
 void square_add_safe(struct chunk *c, struct loc *grid)
 {

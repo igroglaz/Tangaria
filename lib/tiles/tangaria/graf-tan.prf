@@ -25688,6 +25688,398 @@ feat:house brick wall `:los:0xC0:0xFD
 feat:house brick wall `:lit:0xC0:0xFE
 feat:house brick wall `:dark:0xC0:0xFF
 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+# AD - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
+# house wood floor 0 
+feat:house wood floor 0:torch:0xAD:0x80
+feat:house wood floor 0:los:0xAD:0x81
+feat:house wood floor 0:lit:0xAD:0x82
+feat:house wood floor 0:dark:0xAD:0x83
+
+# house wood floor 1 
+feat:house wood floor 1:torch:0xAD:0x84
+feat:house wood floor 1:los:0xAD:0x85
+feat:house wood floor 1:lit:0xAD:0x86
+feat:house wood floor 1:dark:0xAD:0x87
+
+# house wood floor 2 
+feat:house wood floor 2:torch:0xAD:0x88
+feat:house wood floor 2:los:0xAD:0x89
+feat:house wood floor 2:lit:0xAD:0x8A
+feat:house wood floor 2:dark:0xAD:0x8B
+
+# house wood floor 3 
+feat:house wood floor 3:torch:0xAD:0x8C
+feat:house wood floor 3:los:0xAD:0x8D
+feat:house wood floor 3:lit:0xAD:0x8E
+feat:house wood floor 3:dark:0xAD:0x8F
+
+# house wood floor 4 
+feat:house wood floor 4:torch:0xAD:0x90
+feat:house wood floor 4:los:0xAD:0x91
+feat:house wood floor 4:lit:0xAD:0x92
+feat:house wood floor 4:dark:0xAD:0x93
+
+# house wood floor 5 
+feat:house wood floor 5:torch:0xAD:0x94
+feat:house wood floor 5:los:0xAD:0x95
+feat:house wood floor 5:lit:0xAD:0x96
+feat:house wood floor 5:dark:0xAD:0x97
+
+# house wood floor 6 
+feat:house wood floor 6:torch:0xAD:0x98
+feat:house wood floor 6:los:0xAD:0x99
+feat:house wood floor 6:lit:0xAD:0x9A
+feat:house wood floor 6:dark:0xAD:0x9B
+
+# house wood floor 7 
+feat:house wood floor 7:torch:0xAD:0x9C
+feat:house wood floor 7:los:0xAD:0x9D
+feat:house wood floor 7:lit:0xAD:0x9E
+feat:house wood floor 7:dark:0xAD:0x9F
+
+# house wood floor 8 
+feat:house wood floor 8:torch:0xAD:0xA0
+feat:house wood floor 8:los:0xAD:0xA1
+feat:house wood floor 8:lit:0xAD:0xA2
+feat:house wood floor 8:dark:0xAD:0xA3
+
+# house wood floor 9 
+feat:house wood floor 9:torch:0xAD:0xA4
+feat:house wood floor 9:los:0xAD:0xA5
+feat:house wood floor 9:lit:0xAD:0xA6
+feat:house wood floor 9:dark:0xAD:0xA7
+
+# house wood floor a 
+feat:house wood floor a:torch:0xAD:0xA8
+feat:house wood floor a:los:0xAD:0xA9
+feat:house wood floor a:lit:0xAD:0xAA
+feat:house wood floor a:dark:0xAD:0xAB
+
+# house wood floor b 
+feat:house wood floor b:torch:0xAD:0xAC
+feat:house wood floor b:los:0xAD:0xAD
+feat:house wood floor b:lit:0xAD:0xAE
+feat:house wood floor b:dark:0xAD:0xAF
+
+# house wood floor c 
+feat:house wood floor c:torch:0xAD:0xB0
+feat:house wood floor c:los:0xAD:0xB1
+feat:house wood floor c:lit:0xAD:0xB2
+feat:house wood floor c:dark:0xAD:0xB3
+
+# house wood floor d 
+feat:house wood floor d:torch:0xAD:0xB4
+feat:house wood floor d:los:0xAD:0xB5
+feat:house wood floor d:lit:0xAD:0xB6
+feat:house wood floor d:dark:0xAD:0xB7
+
+# house wood floor e 
+feat:house wood floor e:torch:0xAD:0xB8
+feat:house wood floor e:los:0xAD:0xB9
+feat:house wood floor e:lit:0xAD:0xBA
+feat:house wood floor e:dark:0xAD:0xBB
+
+# house wood floor f 
+feat:house wood floor f:torch:0xAD:0xBC
+feat:house wood floor f:los:0xAD:0xBD
+feat:house wood floor f:lit:0xAD:0xBE
+feat:house wood floor f:dark:0xAD:0xBF
+
+# house wood floor g 
+feat:house wood floor g:torch:0xAD:0xC0
+feat:house wood floor g:los:0xAD:0xC1
+feat:house wood floor g:lit:0xAD:0xC2
+feat:house wood floor g:dark:0xAD:0xC3
+
+# house wood floor h 
+feat:house wood floor h:torch:0xAD:0xC4
+feat:house wood floor h:los:0xAD:0xC5
+feat:house wood floor h:lit:0xAD:0xC6
+feat:house wood floor h:dark:0xAD:0xC7
+
+# house wood floor i 
+feat:house wood floor i:torch:0xAD:0xC8
+feat:house wood floor i:los:0xAD:0xC9
+feat:house wood floor i:lit:0xAD:0xCA
+feat:house wood floor i:dark:0xAD:0xCB
+
+# house wood floor j 
+feat:house wood floor j:torch:0xAD:0xCC
+feat:house wood floor j:los:0xAD:0xCD
+feat:house wood floor j:lit:0xAD:0xCE
+feat:house wood floor j:dark:0xAD:0xCF
+
+# house wood floor k 
+feat:house wood floor k:torch:0xAD:0xD0
+feat:house wood floor k:los:0xAD:0xD1
+feat:house wood floor k:lit:0xAD:0xD2
+feat:house wood floor k:dark:0xAD:0xD3
+
+# house wood floor l 
+feat:house wood floor l:torch:0xAD:0xD4
+feat:house wood floor l:los:0xAD:0xD5
+feat:house wood floor l:lit:0xAD:0xD6
+feat:house wood floor l:dark:0xAD:0xD7
+
+# house wood floor m 
+feat:house wood floor m:torch:0xAD:0xD8
+feat:house wood floor m:los:0xAD:0xD9
+feat:house wood floor m:lit:0xAD:0xDA
+feat:house wood floor m:dark:0xAD:0xDB
+
+# house wood floor n 
+feat:house wood floor n:torch:0xAD:0xDC
+feat:house wood floor n:los:0xAD:0xDD
+feat:house wood floor n:lit:0xAD:0xDE
+feat:house wood floor n:dark:0xAD:0xDF
+
+# house wood floor o 
+feat:house wood floor o:torch:0xAD:0xE0
+feat:house wood floor o:los:0xAD:0xE1
+feat:house wood floor o:lit:0xAD:0xE2
+feat:house wood floor o:dark:0xAD:0xE3
+
+# house wood floor p 
+feat:house wood floor p:torch:0xAD:0xE4
+feat:house wood floor p:los:0xAD:0xE5
+feat:house wood floor p:lit:0xAD:0xE6
+feat:house wood floor p:dark:0xAD:0xE7
+
+# house wood floor q 
+feat:house wood floor q:torch:0xAD:0xE8
+feat:house wood floor q:los:0xAD:0xE9
+feat:house wood floor q:lit:0xAD:0xEA
+feat:house wood floor q:dark:0xAD:0xEB
+
+# house wood floor r 
+feat:house wood floor r:torch:0xAD:0xEC
+feat:house wood floor r:los:0xAD:0xED
+feat:house wood floor r:lit:0xAD:0xEE
+feat:house wood floor r:dark:0xAD:0xEF
+
+# house wood floor s 
+feat:house wood floor s:torch:0xAD:0xF0
+feat:house wood floor s:los:0xAD:0xF1
+feat:house wood floor s:lit:0xAD:0xF2
+feat:house wood floor s:dark:0xAD:0xF3
+
+# house wood floor t 
+feat:house wood floor t:torch:0xAD:0xF4
+feat:house wood floor t:los:0xAD:0xF5
+feat:house wood floor t:lit:0xAD:0xF6
+feat:house wood floor t:dark:0xAD:0xF7
+
+# house wood floor u 
+feat:house wood floor u:torch:0xAD:0xF8
+feat:house wood floor u:los:0xAD:0xF9
+feat:house wood floor u:lit:0xAD:0xFA
+feat:house wood floor u:dark:0xAD:0xFB
+
+# house wood floor v 
+feat:house wood floor v:torch:0xAD:0xFC
+feat:house wood floor v:los:0xAD:0xFD
+feat:house wood floor v:lit:0xAD:0xFE
+feat:house wood floor v:dark:0xAD:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+# AE - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
+# house wood floor w 
+feat:house wood floor w:torch:0xAE:0x80
+feat:house wood floor w:los:0xAE:0x81
+feat:house wood floor w:lit:0xAE:0x82
+feat:house wood floor w:dark:0xAE:0x83
+
+# house wood floor x 
+feat:house wood floor x:torch:0xAE:0x84
+feat:house wood floor x:los:0xAE:0x85
+feat:house wood floor x:lit:0xAE:0x86
+feat:house wood floor x:dark:0xAE:0x87
+
+# house wood floor y 
+feat:house wood floor y:torch:0xAE:0x88
+feat:house wood floor y:los:0xAE:0x89
+feat:house wood floor y:lit:0xAE:0x8A
+feat:house wood floor y:dark:0xAE:0x8B
+
+# house wood floor z 
+feat:house wood floor z:torch:0xAE:0x8C
+feat:house wood floor z:los:0xAE:0x8D
+feat:house wood floor z:lit:0xAE:0x8E
+feat:house wood floor z:dark:0xAE:0x8F
+
+# house wood floor A 
+feat:house wood floor A:torch:0xAE:0x90
+feat:house wood floor A:los:0xAE:0x91
+feat:house wood floor A:lit:0xAE:0x92
+feat:house wood floor A:dark:0xAE:0x93
+
+# house wood floor B 
+feat:house wood floor B:torch:0xAE:0x94
+feat:house wood floor B:los:0xAE:0x95
+feat:house wood floor B:lit:0xAE:0x96
+feat:house wood floor B:dark:0xAE:0x97
+
+# house wood floor C 
+feat:house wood floor C:torch:0xAE:0x98
+feat:house wood floor C:los:0xAE:0x99
+feat:house wood floor C:lit:0xAE:0x9A
+feat:house wood floor C:dark:0xAE:0x9B
+
+# house wood floor D 
+feat:house wood floor D:torch:0xAE:0x9C
+feat:house wood floor D:los:0xAE:0x9D
+feat:house wood floor D:lit:0xAE:0x9E
+feat:house wood floor D:dark:0xAE:0x9F
+
+# house wood floor E 
+feat:house wood floor E:torch:0xAE:0xA0
+feat:house wood floor E:los:0xAE:0xA1
+feat:house wood floor E:lit:0xAE:0xA2
+feat:house wood floor E:dark:0xAE:0xA3
+
+# house wood floor F 
+feat:house wood floor F:torch:0xAE:0xA4
+feat:house wood floor F:los:0xAE:0xA5
+feat:house wood floor F:lit:0xAE:0xA6
+feat:house wood floor F:dark:0xAE:0xA7
+
+# house wood floor G 
+feat:house wood floor G:torch:0xAE:0xA8
+feat:house wood floor G:los:0xAE:0xA9
+feat:house wood floor G:lit:0xAE:0xAA
+feat:house wood floor G:dark:0xAE:0xAB
+
+# house wood floor H 
+feat:house wood floor H:torch:0xAE:0xAC
+feat:house wood floor H:los:0xAE:0xAD
+feat:house wood floor H:lit:0xAE:0xAE
+feat:house wood floor H:dark:0xAE:0xAF
+
+# house wood floor I 
+feat:house wood floor I:torch:0xAE:0xB0
+feat:house wood floor I:los:0xAE:0xB1
+feat:house wood floor I:lit:0xAE:0xB2
+feat:house wood floor I:dark:0xAE:0xB3
+
+# house wood floor J 
+feat:house wood floor J:torch:0xAE:0xB4
+feat:house wood floor J:los:0xAE:0xB5
+feat:house wood floor J:lit:0xAE:0xB6
+feat:house wood floor J:dark:0xAE:0xB7
+
+# house wood floor K 
+feat:house wood floor K:torch:0xAE:0xB8
+feat:house wood floor K:los:0xAE:0xB9
+feat:house wood floor K:lit:0xAE:0xBA
+feat:house wood floor K:dark:0xAE:0xBB
+
+# house wood floor L 
+feat:house wood floor L:torch:0xAE:0xBC
+feat:house wood floor L:los:0xAE:0xBD
+feat:house wood floor L:lit:0xAE:0xBE
+feat:house wood floor L:dark:0xAE:0xBF
+
+# house wood floor M 
+feat:house wood floor M:torch:0xAE:0xC0
+feat:house wood floor M:los:0xAE:0xC1
+feat:house wood floor M:lit:0xAE:0xC2
+feat:house wood floor M:dark:0xAE:0xC3
+
+# house wood floor N 
+feat:house wood floor N:torch:0xAE:0xC4
+feat:house wood floor N:los:0xAE:0xC5
+feat:house wood floor N:lit:0xAE:0xC6
+feat:house wood floor N:dark:0xAE:0xC7
+
+# house wood floor O 
+feat:house wood floor O:torch:0xAE:0xC8
+feat:house wood floor O:los:0xAE:0xC9
+feat:house wood floor O:lit:0xAE:0xCA
+feat:house wood floor O:dark:0xAE:0xCB
+
+# house wood floor P 
+feat:house wood floor P:torch:0xAE:0xCC
+feat:house wood floor P:los:0xAE:0xCD
+feat:house wood floor P:lit:0xAE:0xCE
+feat:house wood floor P:dark:0xAE:0xCF
+
+# house wood floor Q 
+feat:house wood floor Q:torch:0xAE:0xD0
+feat:house wood floor Q:los:0xAE:0xD1
+feat:house wood floor Q:lit:0xAE:0xD2
+feat:house wood floor Q:dark:0xAE:0xD3
+
+# house wood floor R 
+feat:house wood floor R:torch:0xAE:0xD4
+feat:house wood floor R:los:0xAE:0xD5
+feat:house wood floor R:lit:0xAE:0xD6
+feat:house wood floor R:dark:0xAE:0xD7
+
+# house wood floor S 
+feat:house wood floor S:torch:0xAE:0xD8
+feat:house wood floor S:los:0xAE:0xD9
+feat:house wood floor S:lit:0xAE:0xDA
+feat:house wood floor S:dark:0xAE:0xDB
+
+# house wood floor T 
+feat:house wood floor T:torch:0xAE:0xDC
+feat:house wood floor T:los:0xAE:0xDD
+feat:house wood floor T:lit:0xAE:0xDE
+feat:house wood floor T:dark:0xAE:0xDF
+
+# house wood floor U 
+feat:house wood floor U:torch:0xAE:0xE0
+feat:house wood floor U:los:0xAE:0xE1
+feat:house wood floor U:lit:0xAE:0xE2
+feat:house wood floor U:dark:0xAE:0xE3
+
+# house wood floor V 
+feat:house wood floor V:torch:0xAE:0xE4
+feat:house wood floor V:los:0xAE:0xE5
+feat:house wood floor V:lit:0xAE:0xE6
+feat:house wood floor V:dark:0xAE:0xE7
+
+# house wood floor W 
+feat:house wood floor W:torch:0xAE:0xE8
+feat:house wood floor W:los:0xAE:0xE9
+feat:house wood floor W:lit:0xAE:0xEA
+feat:house wood floor W:dark:0xAE:0xEB
+
+# house wood floor X 
+feat:house wood floor X:torch:0xAE:0xEC
+feat:house wood floor X:los:0xAE:0xED
+feat:house wood floor X:lit:0xAE:0xEE
+feat:house wood floor X:dark:0xAE:0xEF
+
+# house wood floor Y 
+feat:house wood floor Y:torch:0xAE:0xF0
+feat:house wood floor Y:los:0xAE:0xF1
+feat:house wood floor Y:lit:0xAE:0xF2
+feat:house wood floor Y:dark:0xAE:0xF3
+
+# house wood floor Z 
+feat:house wood floor Z:torch:0xAE:0xF4
+feat:house wood floor Z:los:0xAE:0xF5
+feat:house wood floor Z:lit:0xAE:0xF6
+feat:house wood floor Z:dark:0xAE:0xF7
+
+# house wood floor ~ 
+feat:house wood floor ~:torch:0xAE:0xF8
+feat:house wood floor ~:los:0xAE:0xF9
+feat:house wood floor ~:lit:0xAE:0xFA
+feat:house wood floor ~:dark:0xAE:0xFB
+
+# house wood floor ` 
+feat:house wood floor `:torch:0xAE:0xFC
+feat:house wood floor `:los:0xAE:0xFD
+feat:house wood floor `:lit:0xAE:0xFE
+feat:house wood floor `:dark:0xAE:0xFF
+
 
 # Load the special player pictures
 %:xtra-tan.prf

@@ -3288,7 +3288,7 @@ bool create_house(struct player *p)
     do
     {
         /* Fill with safe floor */
-        square_add_safe(c, &iter.cur);
+        square_add_new_safe(c, &iter.cur);
 
         /* Declare this to be a room */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);

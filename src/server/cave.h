@@ -491,6 +491,7 @@ extern void square_add_wall(struct chunk *c, struct loc *grid);
 extern void square_add_tree(struct chunk *c, struct loc *grid);
 extern void square_add_dirt(struct chunk *c, struct loc *grid);
 extern void square_add_grass(struct chunk *c, struct loc *grid);
+extern void square_add_new_safe(struct chunk *c, struct loc *grid);
 extern void square_add_safe(struct chunk *c, struct loc *grid);
 extern bool square_isplot(struct chunk *c, struct loc *grid);
 extern bool square_is_no_house(struct chunk *c, struct loc *grid);

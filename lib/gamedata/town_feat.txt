@@ -3912,4 +3912,78 @@ feat:H:Z:house brick wall Z
 feat:H:~:house brick wall ~
 feat:H:`:house brick wall `
 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# AD - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:I:0:house wood floor 0
+feat:I:1:house wood floor 1
+feat:I:2:house wood floor 2
+feat:I:3:house wood floor 3
+feat:I:4:house wood floor 4
+feat:I:5:house wood floor 5
+feat:I:6:house wood floor 6
+feat:I:7:house wood floor 7
+feat:I:8:house wood floor 8
+feat:I:9:house wood floor 9
+feat:I:a:house wood floor a
+feat:I:b:house wood floor b
+feat:I:c:house wood floor c
+feat:I:d:house wood floor d
+feat:I:e:house wood floor e
+feat:I:f:house wood floor f
+feat:I:g:house wood floor g
+feat:I:h:house wood floor h
+feat:I:i:house wood floor i
+feat:I:j:house wood floor j
+feat:I:k:house wood floor k
+feat:I:l:house wood floor l
+feat:I:m:house wood floor m
+feat:I:n:house wood floor n
+feat:I:o:house wood floor o
+feat:I:p:house wood floor p
+feat:I:q:house wood floor q
+feat:I:r:house wood floor r
+feat:I:s:house wood floor s
+feat:I:t:house wood floor t
+feat:I:u:house wood floor u
+feat:I:v:house wood floor v
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# AE - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:I:w:house wood floor w
+feat:I:x:house wood floor x
+feat:I:y:house wood floor y
+feat:I:z:house wood floor z
+feat:I:A:house wood floor A
+feat:I:B:house wood floor B
+feat:I:C:house wood floor C
+feat:I:D:house wood floor D
+feat:I:E:house wood floor E
+feat:I:F:house wood floor F
+feat:I:G:house wood floor G
+feat:I:H:house wood floor H
+feat:I:I:house wood floor I
+feat:I:J:house wood floor J
+feat:I:K:house wood floor K
+feat:I:L:house wood floor L
+feat:I:M:house wood floor M
+feat:I:N:house wood floor N
+feat:I:O:house wood floor O
+feat:I:P:house wood floor P
+feat:I:Q:house wood floor Q
+feat:I:R:house wood floor R
+feat:I:S:house wood floor S
+feat:I:T:house wood floor T
+feat:I:U:house wood floor U
+feat:I:V:house wood floor V
+feat:I:W:house wood floor W
+feat:I:X:house wood floor X
+feat:I:Y:house wood floor Y
+feat:I:Z:house wood floor Z
+feat:I:~:house wood floor ~
+feat:I:`:house wood floor `
+
 # the same No stairs / no monsters for sand, trees...

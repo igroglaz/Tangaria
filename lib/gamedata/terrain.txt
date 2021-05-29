@@ -33742,3 +33742,591 @@ info:0:3
 ################################################################################
 short-desc:lamp on the wall
 desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+# AD - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
+
+name:house wood floor 0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor 9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor a
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor b
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor c
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor d
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor e
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor f
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor g
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor h
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor i
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor j
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor k
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor l
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor m
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor n
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor o
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor p
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor q
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor r
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor s
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor t
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor u
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor v
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+# AE - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
+
+name:house wood floor w
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor x
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor y
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor z
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor A
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor B
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor C
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor D
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor E
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor F
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor G
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor H
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor I
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor J
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor K
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor L
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor M
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor N
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor O
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor P
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor Q
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor R
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor S
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor T
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor U
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor V
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor W
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor X
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor Y
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor Z
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor ~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house wood floor `
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
