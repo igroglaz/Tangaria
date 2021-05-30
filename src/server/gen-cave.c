@@ -2723,7 +2723,7 @@ static void build_tavern(struct chunk *c, int n, struct loc *grid)
     do
     {
         /* Create the tavern, make it PvP-safe */
-        square_add_safe(c, &iter.cur);
+        square_add_new_safe(c, &iter.cur);
 
         /* Declare this to be a room */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
@@ -4535,7 +4535,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         do
         {
             /* Create the tavern, make it PvP-safe */
-            square_add_safe(c, &iter.cur);
+            square_add_new_safe(c, &iter.cur);
 
             /* Declare this to be a room */
             sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
@@ -4621,7 +4621,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         do
         {
             /* Fill with safe floor */
-            square_add_safe(c, &iter.cur);
+            square_add_new_safe(c, &iter.cur);
 
             /* Declare this to be a room */
             sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);

@@ -17,7 +17,7 @@
 /*
  * Max number of wilderness terrain features per wilderness sector
  */
-#define TERRAIN_TYPE_MAX    5
+#define TERRAIN_TYPE_MAX    30
 
 /*
  * Chance of generating this terrain feature on a given wilderness sector

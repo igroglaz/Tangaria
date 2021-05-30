@@ -54,31 +54,31 @@ chance:1:floor 1 grass::20
 chance:2:floor w grass:20
 chance:3:A5 plants I:15
 chance:4:flower 0 green:1
-#chance:5:flower 1 green:1
-#chance:6:flower 2 green:1
-#chance:7:flower 3 green:1
-#chance:8:flower 4 green:1
-#chance:9:flower 5 green:1
-#chance:10:flower 6 green:1
-#chance:11:A5 plants G:1
-#chance:12:A5 plants H:1
-#chance:13:A5 plants J:1
-#chance:14:A5 plants K:1
-#chance:15:A5 plants L:1
-#chance:16:obj_grass A puddle:1
+chance:5:flower 1 green:1
+chance:6:flower 2 green:1
+chance:7:flower 3 green:1
+chance:8:flower 4 green:1
+chance:9:flower 5 green:1
+chance:10:flower 6 green:1
+chance:11:A5 plants G:1
+chance:12:A5 plants H:1
+chance:13:A5 plants J:1
+chance:14:A5 plants K:1
+chance:15:A5 plants L:1
+chance:16:obj_grass A puddle:1
 # small trees
-#chance:17:tree H:1
-#chance:18:tree I:1
-#chance:19:tree J:1
-#chance:20:tree K:1
-#chance:21:tree L:1
-#chance:22:tree M:1
-#chance:23:tree N:1
-#chance:24:tree O:1
-#chance:25:tree P:1
-#chance:26:tree Q:1
-#chance:27:tree R:1
-#chance:28:tree S:1
+chance:17:tree H:1
+chance:18:tree I:1
+chance:19:tree J:1
+chance:20:tree K:1
+chance:21:tree L:1
+chance:22:tree M:1
+chance:23:tree N:1
+chance:24:tree O:1
+chance:25:tree P:1
+chance:26:tree Q:1
+chance:27:tree R:1
+chance:28:tree S:1
 sound:WILD_GRASS
 
 # grass, water, tree, packed dirt

@@ -2521,7 +2521,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid)
     {
         // If we put int to char it will be set as 'hex' (0x..).
         // So we need to convert it to 'int'
-        itoa(rng, wall_index, 10);
+        snprintf(wall_index, 2, "%d", rng);
         // Combine two strings
         strcat(wall, wall_index);
     }
@@ -2607,7 +2607,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     char floor_type = '\0';     // second part of floor name (type)
     int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
-    char floor_index[] = "";    // full name of the house floor
+    char floor_index[] = "";    // buffer for 0-9 rng number
     int house_floor= 0;         // result: index of terrain feature
 
     rng = (rand() % 63); // random choice of floor number
@@ -2684,49 +2684,50 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
 
     if (one_in_(9))
     {
-        floor_type = 'a';
+        floor_type = 'a'; // AD AE
         if ((rng >= 34) && (rng <= 44)) floor_glyph = 'J'; // safe floor
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'b';
+        floor_type = 'b'; // AF B0
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'c';
+        floor_type = 'c'; // D1 D2
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'd';
+        floor_type = 'd'; // D3 D4
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'e';
+        floor_type = 'e'; // D5 D6
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'f';
+        floor_type = 'f'; // D7 D8
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'g';
+        floor_type = 'g'; // D9 DA
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'h';
+        floor_type = 'h'; // DB B4
+        if (rng > 43) rng = (rand() % 43); // after carpets and pentagrams there are bad tiles
         strncat(floor, &floor_type, 1);
     }
     else if (one_in_(9))
     {
-        floor_type = 'i';
-        if (rng > 31) rng = 0; // safe floor as second part of 'i' is grassy terrain which looks bad inside atm..
+        floor_type = 'i'; // B5 A4
+        if (rng > 31) rng = 0; // safe floor as second part of 'i' is grassy A4 terrain which looks bad inside atm..
         strncat(floor, &floor_type, 1);
     }
     else
@@ -2740,7 +2741,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     {
         // If we put int to char it will be set as 'hex' (0x..).
         // So we need to convert it to 'int'
-        itoa(rng, floor_index, 10);
+        snprintf(floor_index, 2, "%d", rng);
         // Combine two strings
         strcat(floor, floor_index);
     }

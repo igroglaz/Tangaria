@@ -33165,7 +33165,7 @@ desc:.
 name:house brick wall 1
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33174,7 +33174,7 @@ desc:.
 name:house brick wall 2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:empty window
@@ -33183,7 +33183,7 @@ desc:.
 name:house brick wall 3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:barred window
@@ -33251,7 +33251,7 @@ desc:.
 name:house brick wall a
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:narrow window
@@ -33260,7 +33260,7 @@ desc:.
 name:house brick wall b
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33269,7 +33269,7 @@ desc:.
 name:house brick wall c
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33278,7 +33278,7 @@ desc:.
 name:house brick wall d
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33287,7 +33287,7 @@ desc:.
 name:house brick wall e
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33296,7 +33296,7 @@ desc:.
 name:house brick wall f
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33305,7 +33305,7 @@ desc:.
 name:house brick wall g
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33314,7 +33314,7 @@ desc:.
 name:house brick wall h
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33323,7 +33323,7 @@ desc:.
 name:house brick wall i
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33332,7 +33332,7 @@ desc:.
 name:house brick wall j
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33341,7 +33341,7 @@ desc:.
 name:house brick wall k
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33350,7 +33350,7 @@ desc:.
 name:house brick wall l
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33359,7 +33359,7 @@ desc:.
 name:house brick wall m
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33368,7 +33368,7 @@ desc:.
 name:house brick wall n
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33377,7 +33377,7 @@ desc:.
 name:house brick wall o
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33386,7 +33386,7 @@ desc:.
 name:house brick wall p
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33395,7 +33395,7 @@ desc:.
 name:house brick wall q
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33404,7 +33404,7 @@ desc:.
 name:house brick wall r
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33413,7 +33413,7 @@ desc:.
 name:house brick wall s
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window
@@ -33422,7 +33422,7 @@ desc:.
 name:house brick wall t
 graphics:#:W
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS
 info:0:3
 ################################################################################
 short-desc:window

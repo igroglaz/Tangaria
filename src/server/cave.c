@@ -1049,7 +1049,8 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     do
     {
         /* Clear previous contents, add "basic" wall */
-        square_set_feat(c, &iter.cur, wall_feature);
+        square_build_new_permhouse(c, &iter.cur);
+    ///////// old: square_set_feat(c, &iter.cur, wall_feature);
     }
     while (loc_iterator_next(&iter));
 
@@ -1061,7 +1062,8 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     do
     {
         /* Fill with floor */
-        square_set_feat(c, &iter.cur, floor_feature);
+        square_add_new_safe(c, &iter.cur);
+    ///////// square_set_feat(c, &iter.cur, floor_feature);
 
         /* Make it "icky" */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);

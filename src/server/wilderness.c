@@ -2883,12 +2883,12 @@ static void wild_add_dwelling(struct player *p, struct chunk *c, bool **plot, st
     if (town_suburb(&p->wpos))
     {
         /* Chance of being a "small" house */
-//      if (one_in_(2))
-            loc_init(&house_len, randint0(2) + 2, randint0(2) + 2);
+        if (one_in_(2))
+            loc_init(&house_len, randint0(4) + 3, randint0(2) + 3);
 
-//      /* A "normal" house */
-//      else
-//          loc_init(&house_len, randint0(10) + 6, randint0(5) + 4);
+        /* A "normal" house */
+        else
+            loc_init(&house_len, randint0(10) + 6, randint0(5) + 4);
     }
 
     /* PWMAngband: 50% "large" and 50% "medium" houses/buildings elsewhere */
@@ -3390,10 +3390,8 @@ static void wilderness_gen_layout(struct player *p, struct chunk *c)
             /* Hack -- if close to the towns, make dwellings more likely */
             if (w_ptr->distance == 1)
             {
-                dwelling *= 8;  /// TANGARIA
+                dwelling *= 80;
                 add_park = true;
-//              dwelling *= 80;
-//              add_park = true;
             }
             if (w_ptr->distance == 2) dwelling *= 25;
             if (w_ptr->distance == 3) dwelling *= 8;
@@ -3678,7 +3676,7 @@ static void wild_town_gen_layout(struct chunk *c)
             else if (feat == FEAT_FLOOR_SAFE)
             {
                 /* Create the tavern, make it PvP-safe */
-                square_add_safe(c, &grid);
+                square_add_new_safe(c, &grid);
 
                 /* Declare this to be a room */
                 sqinfo_on(square(c, &grid)->info, SQUARE_VAULT);
