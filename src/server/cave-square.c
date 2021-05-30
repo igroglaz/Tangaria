@@ -2603,18 +2603,17 @@ void square_add_grass(struct chunk *c, struct loc *grid)
     /* get random floor feat for house building */
 void square_add_new_safe(struct chunk *c, struct loc *grid)
 {
-    char floor[1][18] = {"house wood floor "}; // first part of the floor name
-    int rng = 0;                              // second part of the floor name
+    char floor[1][14] = {"house floor "}; // 1st part of floor name
+    char floor_type = '\0';     // second part of floor name (type)
+    int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
-    char floor_index[] = "";                   // full name of the house floor
-    int house_floor= 0;                        // result: index of terrain feature
+    char floor_index[] = "";    // full name of the house floor
+    int house_floor= 0;         // result: index of terrain feature
 
-    if (one_in_(2)) rng = 45;  // 45 is plain floor
-    else rng = (rand() % 63); // random choice of floor number
+    rng = (rand() % 63); // random choice of floor number
 
-    // some floor not really good to be house-ones
     switch(rng)
-    {   // AD
+    {   // 1st stroke in tileset
         case 0: break;
         case 1: break;
         case 2: break;
@@ -2647,20 +2646,20 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         case 29: floor_glyph = 't'; break;
         case 30: floor_glyph = 'u'; break;
         case 31: floor_glyph = 'v'; break;
-        // AE
+        // 1st stroke in tileset
         case 32: floor_glyph = 'w'; break;
         case 33: floor_glyph = 'x'; break;
-        case 34: floor_glyph = 'J'; break;  // 34-44 NPCs so use plain floor
-        case 35: floor_glyph = 'J'; break;
-        case 36: floor_glyph = 'J'; break;
-        case 37: floor_glyph = 'J'; break;
-        case 38: floor_glyph = 'J'; break;
-        case 39: floor_glyph = 'J'; break;
-        case 40: floor_glyph = 'J'; break;
-        case 41: floor_glyph = 'J'; break;
-        case 42: floor_glyph = 'J'; break;
-        case 43: floor_glyph = 'J'; break;
-        case 44: floor_glyph = 'J'; break;
+        case 34: floor_glyph = 'y'; break;
+        case 35: floor_glyph = 'z'; break;
+        case 36: floor_glyph = 'A'; break;
+        case 37: floor_glyph = 'B'; break;
+        case 38: floor_glyph = 'C'; break;
+        case 39: floor_glyph = 'D'; break;
+        case 40: floor_glyph = 'E'; break;
+        case 41: floor_glyph = 'F'; break;
+        case 42: floor_glyph = 'G'; break;
+        case 43: floor_glyph = 'H'; break;
+        case 44: floor_glyph = 'I'; break;
         case 45: floor_glyph = 'J'; break;
         case 46: floor_glyph = 'K'; break;
         case 47: floor_glyph = 'L'; break;
@@ -2681,6 +2680,60 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         case 62: floor_glyph = '~'; break;
         case 63: floor_glyph = '`'; break;
         default: rng = 0;
+    }
+
+    if (one_in_(9))
+    {
+        floor_type = 'a';
+        if ((rng >= 34) && (rng <= 44)) floor_glyph = 'J'; // safe floor
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'b';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'c';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'd';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'e';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'f';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'g';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'h';
+        strncat(floor, &floor_type, 1);
+    }
+    else if (one_in_(9))
+    {
+        floor_type = 'i';
+        if (rng > 31) rng = 0; // safe floor as second part of 'i' is grassy terrain which looks bad inside atm..
+        strncat(floor, &floor_type, 1);
+    }
+    else
+    {
+        floor_type = 'i';
+        rng = 0; // add some more common safe floors
+        strncat(floor, &floor_type, 1);
     }
 
     if (rng <= 9)

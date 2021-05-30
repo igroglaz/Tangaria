@@ -6056,7 +6056,7 @@ short-desc:anvil
 desc:.
 
 ############################
-# END OF AE.... Q - ` is ampty
+# END OF AE.... Q - ` is ampty.. cause of NPC vendors in AE
 ############################
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
@@ -6469,8 +6469,6 @@ flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | 
 ################################################################################
 short-desc:stone statue
 desc:.
-
-########## END FOR NOW
 
 name:B0 wood floor O
 graphics:.:s
@@ -33748,290 +33746,289 @@ desc:.
 # AD - former "wooden floor object"
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
-
-name:house wood floor 0
+name:house floor a0
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 1
+name:house floor a1
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 2
+name:house floor a2
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 3
+name:house floor a3
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 4
+name:house floor a4
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 5
+name:house floor a5
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 6
+name:house floor a6
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 7
+name:house floor a7
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 8
+name:house floor a8
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor 9
+name:house floor a9
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor a
+name:house floor aa
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor b
+name:house floor ab
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor c
+name:house floor ac
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor d
+name:house floor ad
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor e
+name:house floor ae
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor f
+name:house floor af
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor g
+name:house floor ag
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor h
+name:house floor ah
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor i
+name:house floor ai
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor j
+name:house floor aj
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor k
+name:house floor ak
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor l
+name:house floor al
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor m
+name:house floor am
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor n
+name:house floor an
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor o
+name:house floor ao
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor p
+name:house floor ap
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor q
+name:house floor aq
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor r
+name:house floor ar
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor s
+name:house floor as
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor t
+name:house floor at
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor u
+name:house floor au
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor v
+name:house floor av
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
@@ -34042,7 +34039,7 @@ desc:.
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
 
-name:house wood floor w
+name:house floor aw
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34051,7 +34048,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor x
+name:house floor ax
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34060,16 +34057,282 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor y
+name:house floor ay
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor z
+name:house floor az
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor aZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor a~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor a`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# AF - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor b0
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34078,7 +34341,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor A
+name:house floor b1
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34087,7 +34350,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor B
+name:house floor b2
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34096,7 +34359,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor C
+name:house floor b3
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34105,7 +34368,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor D
+name:house floor b4
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34114,7 +34377,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor E
+name:house floor b5
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34123,7 +34386,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor F
+name:house floor b6
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34132,7 +34395,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor G
+name:house floor b7
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34141,7 +34404,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor H
+name:house floor b8
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34150,7 +34413,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor I
+name:house floor b9
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34159,7 +34422,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor J
+name:house floor ba
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34168,7 +34431,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor K
+name:house floor bb
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34177,7 +34440,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor L
+name:house floor bc
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34186,7 +34449,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor M
+name:house floor bd
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34195,7 +34458,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor N
+name:house floor be
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34204,7 +34467,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor O
+name:house floor bf
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34213,7 +34476,7 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor P
+name:house floor bg
 graphics:.:u
 priority:11
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -34222,111 +34485,4524 @@ info:0:3
 short-desc:floor
 desc:.
 
-name:house wood floor Q
+name:house floor bh
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor R
+name:house floor bi
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor S
+name:house floor bj
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor T
+name:house floor bk
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor U
+name:house floor bl
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor V
+name:house floor bm
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor W
+name:house floor bn
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor X
+name:house floor bo
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor Y
+name:house floor bp
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor Z
+name:house floor bq
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor ~
+name:house floor br
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
-name:house wood floor `
+name:house floor bs
 graphics:.:u
 priority:11
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
 info:0:3
 ################################################################################
 short-desc:floor
 desc:.
 
+name:house floor bt
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B0 - former "wooden floor object"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor bw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor by
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor bZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor b~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor b`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D1
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor c0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ca
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cb
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cc
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cd
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ce
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cf
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ch
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ci
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cj
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ck
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cl
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cm
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cn
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor co
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cp
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cr
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cs
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ct
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D2
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor cw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor cZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor c`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D3
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor d0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor da
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor db
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dc
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dd
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor de
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor df
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dh
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor di
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dj
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dk
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dl
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dm
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dn
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor do
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dp
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dr
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ds
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dt
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor du
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D4
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor dw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor dZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor d`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D5
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor e0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ea
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eb
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ec
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ed
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ee
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ef
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eh
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ei
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ej
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ek
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor el
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor em
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor en
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eo
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ep
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor er
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor es
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor et
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ev
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D6
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor ew
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ex
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ey
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ez
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor eZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor e`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D7
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor f0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fa
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fb
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fc
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fd
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fe
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ff
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fh
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fi
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fj
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fk
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fl
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fm
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fn
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fo
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fp
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fr
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fs
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ft
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D8
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor fw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor fZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor f`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# D9
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor g0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ga
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gb
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gc
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gd
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ge
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gf
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gh
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gi
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gj
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gk
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gl
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gm
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gn
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor go
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gp
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gr
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gs
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gt
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# DA
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor gw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor gZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor g`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# DB
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor h0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ha
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hb
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hc
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hd
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor he
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hf
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hg
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hh
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hi
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hj
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hk
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hl
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hm
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hn
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ho
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hp
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hr
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hs
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ht
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# ! B4 floor with carpets...
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor hw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hx
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor hZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor h`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B5
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor i0
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i1
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i2
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i3
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i4
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i5
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i6
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i7
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i8
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i9
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ia
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ib
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ic
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor id
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ie
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor if
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ig
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ih
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ii
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ij
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ik
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor il
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor im
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor in
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor io
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ip
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iq
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ir
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor is
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor it
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iu
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iv
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# ! A4 flowers
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house floor iw
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor ix
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iy
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iz
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iA
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iB
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iC
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iD
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iE
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iF
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iG
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iH
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iI
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iJ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iK
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iL
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iM
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iN
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iO
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iP
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iQ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iR
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iS
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iT
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iU
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iV
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iW
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iX
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iY
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor iZ
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i~
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
+
+name:house floor i`
+graphics:.:u
+priority:11
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+info:0:3
+################################################################################
+short-desc:floor
+desc:.
