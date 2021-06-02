@@ -484,7 +484,7 @@ extern void square_burn_tree(struct chunk *c, struct loc *grid);
 extern void square_burn_grass(struct chunk *c, struct loc *grid);
 extern void square_colorize_door(struct chunk *c, struct loc *grid, int power);
 extern void square_build_permhouse(struct chunk *c, struct loc *grid);
-extern void square_build_new_permhouse(struct chunk *c, struct loc *grid);
+extern void square_build_new_permhouse(struct chunk *c, struct loc *grid, char floor_type);
 extern void square_dry_fountain(struct chunk *c, struct loc *grid);
 extern void square_clear_feat(struct chunk *c, struct loc *grid);
 extern void square_add_wall(struct chunk *c, struct loc *grid);

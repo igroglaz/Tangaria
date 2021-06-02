@@ -1012,6 +1012,7 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     int floor_feature = FEAT_FLOOR, wall_feature = 0, door_feature = 0;
     bool lit_room = true;
     struct loc_iterator iter;
+    char wall_type = '\0';  // second part of floor name (type) for rng walls
 
     /* Select features */
     switch (type)
@@ -1044,12 +1045,16 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     }
 
     loc_iterator_first(&iter, grid1, grid2);
-
+    
+    /* Wall type for building rng walls */
+    if (one_in_(2)) wall_type = 'a'; // BF C0
+    else wall_type = 'b';  // B7 B8
+    
     /* Build a rectangular building */
     do
     {
         /* Clear previous contents, add "basic" wall */
-        square_build_new_permhouse(c, &iter.cur);
+        square_build_new_permhouse(c, &iter.cur, wall_type);
     ///////// old: square_set_feat(c, &iter.cur, wall_feature);
     }
     while (loc_iterator_next(&iter));

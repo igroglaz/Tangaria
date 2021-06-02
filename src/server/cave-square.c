@@ -2435,30 +2435,42 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
 }
 
     /* get random wall feat for house building */
-void square_build_new_permhouse(struct chunk *c, struct loc *grid)
+void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type)
 {
-    char wall[1][18] = {"house brick wall "}; // first part of the wall name
+    char wall[1][13] = {"house wall "}; // first part of the wall name
     int rng = 0;                              // second part of the wall name
     char wall_glyph = '\0';
-    char wall_index[] = "";                   // full name of the house wall
+    char wall_index[] = "";                   // buffer for 0-9 rng number
     int house_wall= 0;                        // result: index of terrain feature
 
     // random choice of wall number
     rng = (rand() % 63);
-
+    
+    /* getting wall type from function */
+    if (wall_type == 'a') // BF C0
+    {
+        if ((rng == 4) || (rng == 8) || (rng == 9) || // door tiles.. no need as walls
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
+        strncat(wall, &wall_type, 1);
+    }
+    else // floor_type == 'b'; // B7 B8
+    {
+        strncat(wall, &wall_type, 1);
+    }    
+    
     // some walls not really good to be house-ones
     switch(rng)
-    {   // C1 - brick wall
+    {   // 1st stroke in tileset
         case 0: break;
         case 1: break;
         case 2: break;
         case 3: break;
-        case 4: rng = 0; break; // door
+        case 4: break;
         case 5: break;
         case 6: break;
         case 7: break;
-        case 8: rng = 0; break; // white door
-        case 9: rng = 0; break; // empty door
+        case 8: break;
+        case 9: break;
         case 10: wall_glyph = 'a'; break;
         case 11: wall_glyph = 'b'; break;
         case 12: wall_glyph = 'c'; break;
@@ -2481,10 +2493,10 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid)
         case 29: wall_glyph = 't'; break;
         case 30: wall_glyph = 'u'; break;
         case 31: wall_glyph = 'v'; break;
-        // C0 - brick wall
-        case 32: rng = 0; break; // bulletin board
-        case 33: rng = 0; break; // bulletin board
-        case 34: rng = 0; break; // fire
+        // 2nd stroke in tileset
+        case 32: wall_glyph = 'w'; break;
+        case 33: wall_glyph = 'x'; break;
+        case 34: wall_glyph = 'y'; break;
         case 35: wall_glyph = 'z'; break;
         case 36: wall_glyph = 'A'; break;
         case 37: wall_glyph = 'B'; break;
@@ -2516,7 +2528,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid)
         case 63: wall_glyph = '`'; break;
         default: rng = 0;
     }
-
+    
     if (rng <= 9)
     {
         // If we put int to char it will be set as 'hex' (0x..).

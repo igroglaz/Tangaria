@@ -25295,403 +25295,11 @@ object:cobble:Cobble:0x8A:0xB6
 #### HOUSE
 ###############
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# BF - former "brick wall"
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-
-# house brick wall 0
-feat:house brick wall 0:torch:0xBF:0x80
-feat:house brick wall 0:los:0xBF:0x81
-feat:house brick wall 0:lit:0xBF:0x82
-feat:house brick wall 0:dark:0xBF:0x83
-
-# house brick wall 1 window
-feat:house brick wall 1:torch:0xBF:0x84
-feat:house brick wall 1:los:0xBF:0x85
-feat:house brick wall 1:lit:0xBF:0x86
-feat:house brick wall 1:dark:0xBF:0x87
-
-# house brick wall 2 empty window
-feat:house brick wall 2:torch:0xBF:0x88
-feat:house brick wall 2:los:0xBF:0x89
-feat:house brick wall 2:lit:0xBF:0x8A
-feat:house brick wall 2:dark:0xBF:0x8B
-
-# house brick wall 3 barred window
-feat:house brick wall 3:torch:0xBF:0x8C
-feat:house brick wall 3:los:0xBF:0x8D
-feat:house brick wall 3:lit:0xBF:0x8E
-feat:house brick wall 3:dark:0xBF:0x8F
-
-# house brick wall 4 door
-feat:house brick wall 4:torch:0xBF:0x90
-feat:house brick wall 4:los:0xBF:0x91
-feat:house brick wall 4:lit:0xBF:0x92
-feat:house brick wall 4:dark:0xBF:0x93
-
-# house brick wall 5 
-feat:house brick wall 5:torch:0xBF:0x94
-feat:house brick wall 5:los:0xBF:0x95
-feat:house brick wall 5:lit:0xBF:0x96
-feat:house brick wall 5:dark:0xBF:0x97
-
-# house brick wall 6 
-feat:house brick wall 6:torch:0xBF:0x98
-feat:house brick wall 6:los:0xBF:0x99
-feat:house brick wall 6:lit:0xBF:0x9A
-feat:house brick wall 6:dark:0xBF:0x9B
-
-# house brick wall 7 
-feat:house brick wall 7:torch:0xBF:0x9C
-feat:house brick wall 7:los:0xBF:0x9D
-feat:house brick wall 7:lit:0xBF:0x9E
-feat:house brick wall 7:dark:0xBF:0x9F
-
-# house brick wall 8 
-feat:house brick wall 8:torch:0xBF:0xA0
-feat:house brick wall 8:los:0xBF:0xA1
-feat:house brick wall 8:lit:0xBF:0xA2
-feat:house brick wall 8:dark:0xBF:0xA3
-
-# house brick wall 9 
-feat:house brick wall 9:torch:0xBF:0xA4
-feat:house brick wall 9:los:0xBF:0xA5
-feat:house brick wall 9:lit:0xBF:0xA6
-feat:house brick wall 9:dark:0xBF:0xA7
-
-# house brick wall a 
-feat:house brick wall a:torch:0xBF:0xA8
-feat:house brick wall a:los:0xBF:0xA9
-feat:house brick wall a:lit:0xBF:0xAA
-feat:house brick wall a:dark:0xBF:0xAB
-
-# house brick wall b 
-feat:house brick wall b:torch:0xBF:0xAC
-feat:house brick wall b:los:0xBF:0xAD
-feat:house brick wall b:lit:0xBF:0xAE
-feat:house brick wall b:dark:0xBF:0xAF
-
-# house brick wall c 
-feat:house brick wall c:torch:0xBF:0xB0
-feat:house brick wall c:los:0xBF:0xB1
-feat:house brick wall c:lit:0xBF:0xB2
-feat:house brick wall c:dark:0xBF:0xB3
-
-# house brick wall d 
-feat:house brick wall d:torch:0xBF:0xB4
-feat:house brick wall d:los:0xBF:0xB5
-feat:house brick wall d:lit:0xBF:0xB6
-feat:house brick wall d:dark:0xBF:0xB7
-
-# house brick wall e 
-feat:house brick wall e:torch:0xBF:0xB8
-feat:house brick wall e:los:0xBF:0xB9
-feat:house brick wall e:lit:0xBF:0xBA
-feat:house brick wall e:dark:0xBF:0xBB
-
-# house brick wall f 
-feat:house brick wall f:torch:0xBF:0xBC
-feat:house brick wall f:los:0xBF:0xBD
-feat:house brick wall f:lit:0xBF:0xBE
-feat:house brick wall f:dark:0xBF:0xBF
-
-# house brick wall g 
-feat:house brick wall g:torch:0xBF:0xC0
-feat:house brick wall g:los:0xBF:0xC1
-feat:house brick wall g:lit:0xBF:0xC2
-feat:house brick wall g:dark:0xBF:0xC3
-
-# house brick wall h 
-feat:house brick wall h:torch:0xBF:0xC4
-feat:house brick wall h:los:0xBF:0xC5
-feat:house brick wall h:lit:0xBF:0xC6
-feat:house brick wall h:dark:0xBF:0xC7
-
-# house brick wall i 
-feat:house brick wall i:torch:0xBF:0xC8
-feat:house brick wall i:los:0xBF:0xC9
-feat:house brick wall i:lit:0xBF:0xCA
-feat:house brick wall i:dark:0xBF:0xCB
-
-# house brick wall j 
-feat:house brick wall j:torch:0xBF:0xCC
-feat:house brick wall j:los:0xBF:0xCD
-feat:house brick wall j:lit:0xBF:0xCE
-feat:house brick wall j:dark:0xBF:0xCF
-
-# house brick wall k 
-feat:house brick wall k:torch:0xBF:0xD0
-feat:house brick wall k:los:0xBF:0xD1
-feat:house brick wall k:lit:0xBF:0xD2
-feat:house brick wall k:dark:0xBF:0xD3
-
-# house brick wall l 
-feat:house brick wall l:torch:0xBF:0xD4
-feat:house brick wall l:los:0xBF:0xD5
-feat:house brick wall l:lit:0xBF:0xD6
-feat:house brick wall l:dark:0xBF:0xD7
-
-# house brick wall m 
-feat:house brick wall m:torch:0xBF:0xD8
-feat:house brick wall m:los:0xBF:0xD9
-feat:house brick wall m:lit:0xBF:0xDA
-feat:house brick wall m:dark:0xBF:0xDB
-
-# house brick wall n 
-feat:house brick wall n:torch:0xBF:0xDC
-feat:house brick wall n:los:0xBF:0xDD
-feat:house brick wall n:lit:0xBF:0xDE
-feat:house brick wall n:dark:0xBF:0xDF
-
-# house brick wall o 
-feat:house brick wall o:torch:0xBF:0xE0
-feat:house brick wall o:los:0xBF:0xE1
-feat:house brick wall o:lit:0xBF:0xE2
-feat:house brick wall o:dark:0xBF:0xE3
-
-# house brick wall p 
-feat:house brick wall p:torch:0xBF:0xE4
-feat:house brick wall p:los:0xBF:0xE5
-feat:house brick wall p:lit:0xBF:0xE6
-feat:house brick wall p:dark:0xBF:0xE7
-
-# house brick wall q 
-feat:house brick wall q:torch:0xBF:0xE8
-feat:house brick wall q:los:0xBF:0xE9
-feat:house brick wall q:lit:0xBF:0xEA
-feat:house brick wall q:dark:0xBF:0xEB
-
-# house brick wall r 
-feat:house brick wall r:torch:0xBF:0xEC
-feat:house brick wall r:los:0xBF:0xED
-feat:house brick wall r:lit:0xBF:0xEE
-feat:house brick wall r:dark:0xBF:0xEF
-
-# house brick wall s 
-feat:house brick wall s:torch:0xBF:0xF0
-feat:house brick wall s:los:0xBF:0xF1
-feat:house brick wall s:lit:0xBF:0xF2
-feat:house brick wall s:dark:0xBF:0xF3
-
-# house brick wall t 
-feat:house brick wall t:torch:0xBF:0xF4
-feat:house brick wall t:los:0xBF:0xF5
-feat:house brick wall t:lit:0xBF:0xF6
-feat:house brick wall t:dark:0xBF:0xF7
-
-# house brick wall u 
-feat:house brick wall u:torch:0xBF:0xF8
-feat:house brick wall u:los:0xBF:0xF9
-feat:house brick wall u:lit:0xBF:0xFA
-feat:house brick wall u:dark:0xBF:0xFB
-
-# house brick wall v 
-feat:house brick wall v:torch:0xBF:0xFC
-feat:house brick wall v:los:0xBF:0xFD
-feat:house brick wall v:lit:0xBF:0xFE
-feat:house brick wall v:dark:0xBF:0xFF
-
-
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# C0 - house brick wall
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-
-# house brick wall w 
-feat:house brick wall w:torch:0xC0:0x80
-feat:house brick wall w:los:0xC0:0x81
-feat:house brick wall w:lit:0xC0:0x82
-feat:house brick wall w:dark:0xC0:0x83
-
-# house brick wall x 
-feat:house brick wall x:torch:0xC0:0x84
-feat:house brick wall x:los:0xC0:0x85
-feat:house brick wall x:lit:0xC0:0x86
-feat:house brick wall x:dark:0xC0:0x87
-
-# house brick wall y 
-feat:house brick wall y:torch:0xC0:0x88
-feat:house brick wall y:los:0xC0:0x89
-feat:house brick wall y:lit:0xC0:0x8A
-feat:house brick wall y:dark:0xC0:0x8B
-
-# house brick wall z 
-feat:house brick wall z:torch:0xC0:0x8C
-feat:house brick wall z:los:0xC0:0x8D
-feat:house brick wall z:lit:0xC0:0x8E
-feat:house brick wall z:dark:0xC0:0x8F
-
-# house brick wall A 
-feat:house brick wall A:torch:0xC0:0x90
-feat:house brick wall A:los:0xC0:0x91
-feat:house brick wall A:lit:0xC0:0x92
-feat:house brick wall A:dark:0xC0:0x93
-
-# house brick wall B 
-feat:house brick wall B:torch:0xC0:0x94
-feat:house brick wall B:los:0xC0:0x95
-feat:house brick wall B:lit:0xC0:0x96
-feat:house brick wall B:dark:0xC0:0x97
-
-# house brick wall C 
-feat:house brick wall C:torch:0xC0:0x98
-feat:house brick wall C:los:0xC0:0x99
-feat:house brick wall C:lit:0xC0:0x9A
-feat:house brick wall C:dark:0xC0:0x9B
-
-# house brick wall D 
-feat:house brick wall D:torch:0xC0:0x9C
-feat:house brick wall D:los:0xC0:0x9D
-feat:house brick wall D:lit:0xC0:0x9E
-feat:house brick wall D:dark:0xC0:0x9F
-
-# house brick wall E 
-feat:house brick wall E:torch:0xC0:0xA0
-feat:house brick wall E:los:0xC0:0xA1
-feat:house brick wall E:lit:0xC0:0xA2
-feat:house brick wall E:dark:0xC0:0xA3
-
-# house brick wall F 
-feat:house brick wall F:torch:0xC0:0xA4
-feat:house brick wall F:los:0xC0:0xA5
-feat:house brick wall F:lit:0xC0:0xA6
-feat:house brick wall F:dark:0xC0:0xA7
-
-# house brick wall G 
-feat:house brick wall G:torch:0xC0:0xA8
-feat:house brick wall G:los:0xC0:0xA9
-feat:house brick wall G:lit:0xC0:0xAA
-feat:house brick wall G:dark:0xC0:0xAB
-
-# house brick wall H 
-feat:house brick wall H:torch:0xC0:0xAC
-feat:house brick wall H:los:0xC0:0xAD
-feat:house brick wall H:lit:0xC0:0xAE
-feat:house brick wall H:dark:0xC0:0xAF
-
-# house brick wall I 
-feat:house brick wall I:torch:0xC0:0xB0
-feat:house brick wall I:los:0xC0:0xB1
-feat:house brick wall I:lit:0xC0:0xB2
-feat:house brick wall I:dark:0xC0:0xB3
-
-# house brick wall J 
-feat:house brick wall J:torch:0xC0:0xB4
-feat:house brick wall J:los:0xC0:0xB5
-feat:house brick wall J:lit:0xC0:0xB6
-feat:house brick wall J:dark:0xC0:0xB7
-
-# house brick wall K 
-feat:house brick wall K:torch:0xC0:0xB8
-feat:house brick wall K:los:0xC0:0xB9
-feat:house brick wall K:lit:0xC0:0xBA
-feat:house brick wall K:dark:0xC0:0xBB
-
-# house brick wall L 
-feat:house brick wall L:torch:0xC0:0xBC
-feat:house brick wall L:los:0xC0:0xBD
-feat:house brick wall L:lit:0xC0:0xBE
-feat:house brick wall L:dark:0xC0:0xBF
-
-# house brick wall M 
-feat:house brick wall M:torch:0xC0:0xC0
-feat:house brick wall M:los:0xC0:0xC1
-feat:house brick wall M:lit:0xC0:0xC2
-feat:house brick wall M:dark:0xC0:0xC3
-
-# house brick wall N 
-feat:house brick wall N:torch:0xC0:0xC4
-feat:house brick wall N:los:0xC0:0xC5
-feat:house brick wall N:lit:0xC0:0xC6
-feat:house brick wall N:dark:0xC0:0xC7
-
-# house brick wall O 
-feat:house brick wall O:torch:0xC0:0xC8
-feat:house brick wall O:los:0xC0:0xC9
-feat:house brick wall O:lit:0xC0:0xCA
-feat:house brick wall O:dark:0xC0:0xCB
-
-# house brick wall P 
-feat:house brick wall P:torch:0xC0:0xCC
-feat:house brick wall P:los:0xC0:0xCD
-feat:house brick wall P:lit:0xC0:0xCE
-feat:house brick wall P:dark:0xC0:0xCF
-
-# house brick wall Q 
-feat:house brick wall Q:torch:0xC0:0xD0
-feat:house brick wall Q:los:0xC0:0xD1
-feat:house brick wall Q:lit:0xC0:0xD2
-feat:house brick wall Q:dark:0xC0:0xD3
-
-# house brick wall R 
-feat:house brick wall R:torch:0xC0:0xD4
-feat:house brick wall R:los:0xC0:0xD5
-feat:house brick wall R:lit:0xC0:0xD6
-feat:house brick wall R:dark:0xC0:0xD7
-
-# house brick wall S 
-feat:house brick wall S:torch:0xC0:0xD8
-feat:house brick wall S:los:0xC0:0xD9
-feat:house brick wall S:lit:0xC0:0xDA
-feat:house brick wall S:dark:0xC0:0xDB
-
-# house brick wall T 
-feat:house brick wall T:torch:0xC0:0xDC
-feat:house brick wall T:los:0xC0:0xDD
-feat:house brick wall T:lit:0xC0:0xDE
-feat:house brick wall T:dark:0xC0:0xDF
-
-# house brick wall U 
-feat:house brick wall U:torch:0xC0:0xE0
-feat:house brick wall U:los:0xC0:0xE1
-feat:house brick wall U:lit:0xC0:0xE2
-feat:house brick wall U:dark:0xC0:0xE3
-
-# house brick wall V 
-feat:house brick wall V:torch:0xC0:0xE4
-feat:house brick wall V:los:0xC0:0xE5
-feat:house brick wall V:lit:0xC0:0xE6
-feat:house brick wall V:dark:0xC0:0xE7
-
-# house brick wall W 
-feat:house brick wall W:torch:0xC0:0xE8
-feat:house brick wall W:los:0xC0:0xE9
-feat:house brick wall W:lit:0xC0:0xEA
-feat:house brick wall W:dark:0xC0:0xEB
-
-# house brick wall X 
-feat:house brick wall X:torch:0xC0:0xEC
-feat:house brick wall X:los:0xC0:0xED
-feat:house brick wall X:lit:0xC0:0xEE
-feat:house brick wall X:dark:0xC0:0xEF
-
-# house brick wall Y 
-feat:house brick wall Y:torch:0xC0:0xF0
-feat:house brick wall Y:los:0xC0:0xF1
-feat:house brick wall Y:lit:0xC0:0xF2
-feat:house brick wall Y:dark:0xC0:0xF3
-
-# house brick wall Z 
-feat:house brick wall Z:torch:0xC0:0xF4
-feat:house brick wall Z:los:0xC0:0xF5
-feat:house brick wall Z:lit:0xC0:0xF6
-feat:house brick wall Z:dark:0xC0:0xF7
-
-# house brick wall ~ 
-feat:house brick wall ~:torch:0xC0:0xF8
-feat:house brick wall ~:los:0xC0:0xF9
-feat:house brick wall ~:lit:0xC0:0xFA
-feat:house brick wall ~:dark:0xC0:0xFB
-
-# house brick wall ` 
-feat:house brick wall `:torch:0xC0:0xFC
-feat:house brick wall `:los:0xC0:0xFD
-feat:house brick wall `:lit:0xC0:0xFE
-feat:house brick wall `:dark:0xC0:0xFF
+########################################## HOUSE FLOORS:
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 # AD - former "wooden floor object"
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-
 
 # house floor a0 
 feat:house floor a0:torch:0xAD:0x80
@@ -29231,6 +28839,794 @@ feat:house floor i`:lit:0xA4:0xFE
 feat:house floor i`:dark:0xA4:0xFF
 
 
+########################################## HOUSE WALLS
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B7 - former "wooden walls"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall a0 
+feat:house wall a0:torch:0xB7:0x80
+feat:house wall a0:los:0xB7:0x81
+feat:house wall a0:lit:0xB7:0x82
+feat:house wall a0:dark:0xB7:0x83
+
+# house wall a1 
+feat:house wall a1:torch:0xB7:0x84
+feat:house wall a1:los:0xB7:0x85
+feat:house wall a1:lit:0xB7:0x86
+feat:house wall a1:dark:0xB7:0x87
+
+# house wall a2 
+feat:house wall a2:torch:0xB7:0x88
+feat:house wall a2:los:0xB7:0x89
+feat:house wall a2:lit:0xB7:0x8A
+feat:house wall a2:dark:0xB7:0x8B
+
+# house wall a3 
+feat:house wall a3:torch:0xB7:0x8C
+feat:house wall a3:los:0xB7:0x8D
+feat:house wall a3:lit:0xB7:0x8E
+feat:house wall a3:dark:0xB7:0x8F
+
+# house wall a4 
+feat:house wall a4:torch:0xB7:0x90
+feat:house wall a4:los:0xB7:0x91
+feat:house wall a4:lit:0xB7:0x92
+feat:house wall a4:dark:0xB7:0x93
+
+# house wall a5 
+feat:house wall a5:torch:0xB7:0x94
+feat:house wall a5:los:0xB7:0x95
+feat:house wall a5:lit:0xB7:0x96
+feat:house wall a5:dark:0xB7:0x97
+
+# house wall a6 
+feat:house wall a6:torch:0xB7:0x98
+feat:house wall a6:los:0xB7:0x99
+feat:house wall a6:lit:0xB7:0x9A
+feat:house wall a6:dark:0xB7:0x9B
+
+# house wall a7 
+feat:house wall a7:torch:0xB7:0x9C
+feat:house wall a7:los:0xB7:0x9D
+feat:house wall a7:lit:0xB7:0x9E
+feat:house wall a7:dark:0xB7:0x9F
+
+# house wall a8 
+feat:house wall a8:torch:0xB7:0xA0
+feat:house wall a8:los:0xB7:0xA1
+feat:house wall a8:lit:0xB7:0xA2
+feat:house wall a8:dark:0xB7:0xA3
+
+# house wall a9 
+feat:house wall a9:torch:0xB7:0xA4
+feat:house wall a9:los:0xB7:0xA5
+feat:house wall a9:lit:0xB7:0xA6
+feat:house wall a9:dark:0xB7:0xA7
+
+# house wall aa 
+feat:house wall aa:torch:0xB7:0xA8
+feat:house wall aa:los:0xB7:0xA9
+feat:house wall aa:lit:0xB7:0xAA
+feat:house wall aa:dark:0xB7:0xAB
+
+# house wall ab 
+feat:house wall ab:torch:0xB7:0xAC
+feat:house wall ab:los:0xB7:0xAD
+feat:house wall ab:lit:0xB7:0xAE
+feat:house wall ab:dark:0xB7:0xAF
+
+# house wall ac 
+feat:house wall ac:torch:0xB7:0xB0
+feat:house wall ac:los:0xB7:0xB1
+feat:house wall ac:lit:0xB7:0xB2
+feat:house wall ac:dark:0xB7:0xB3
+
+# house wall ad 
+feat:house wall ad:torch:0xB7:0xB4
+feat:house wall ad:los:0xB7:0xB5
+feat:house wall ad:lit:0xB7:0xB6
+feat:house wall ad:dark:0xB7:0xB7
+
+# house wall ae 
+feat:house wall ae:torch:0xB7:0xB8
+feat:house wall ae:los:0xB7:0xB9
+feat:house wall ae:lit:0xB7:0xBA
+feat:house wall ae:dark:0xB7:0xBB
+
+# house wall af 
+feat:house wall af:torch:0xB7:0xBC
+feat:house wall af:los:0xB7:0xBD
+feat:house wall af:lit:0xB7:0xBE
+feat:house wall af:dark:0xB7:0xBF
+
+# house wall ag 
+feat:house wall ag:torch:0xB7:0xC0
+feat:house wall ag:los:0xB7:0xC1
+feat:house wall ag:lit:0xB7:0xC2
+feat:house wall ag:dark:0xB7:0xC3
+
+# house wall ah 
+feat:house wall ah:torch:0xB7:0xC4
+feat:house wall ah:los:0xB7:0xC5
+feat:house wall ah:lit:0xB7:0xC6
+feat:house wall ah:dark:0xB7:0xC7
+
+# house wall ai 
+feat:house wall ai:torch:0xB7:0xC8
+feat:house wall ai:los:0xB7:0xC9
+feat:house wall ai:lit:0xB7:0xCA
+feat:house wall ai:dark:0xB7:0xCB
+
+# house wall aj 
+feat:house wall aj:torch:0xB7:0xCC
+feat:house wall aj:los:0xB7:0xCD
+feat:house wall aj:lit:0xB7:0xCE
+feat:house wall aj:dark:0xB7:0xCF
+
+# house wall ak 
+feat:house wall ak:torch:0xB7:0xD0
+feat:house wall ak:los:0xB7:0xD1
+feat:house wall ak:lit:0xB7:0xD2
+feat:house wall ak:dark:0xB7:0xD3
+
+# house wall al 
+feat:house wall al:torch:0xB7:0xD4
+feat:house wall al:los:0xB7:0xD5
+feat:house wall al:lit:0xB7:0xD6
+feat:house wall al:dark:0xB7:0xD7
+
+# house wall am 
+feat:house wall am:torch:0xB7:0xD8
+feat:house wall am:los:0xB7:0xD9
+feat:house wall am:lit:0xB7:0xDA
+feat:house wall am:dark:0xB7:0xDB
+
+# house wall an 
+feat:house wall an:torch:0xB7:0xDC
+feat:house wall an:los:0xB7:0xDD
+feat:house wall an:lit:0xB7:0xDE
+feat:house wall an:dark:0xB7:0xDF
+
+# house wall ao 
+feat:house wall ao:torch:0xB7:0xE0
+feat:house wall ao:los:0xB7:0xE1
+feat:house wall ao:lit:0xB7:0xE2
+feat:house wall ao:dark:0xB7:0xE3
+
+# house wall ap 
+feat:house wall ap:torch:0xB7:0xE4
+feat:house wall ap:los:0xB7:0xE5
+feat:house wall ap:lit:0xB7:0xE6
+feat:house wall ap:dark:0xB7:0xE7
+
+# house wall aq 
+feat:house wall aq:torch:0xB7:0xE8
+feat:house wall aq:los:0xB7:0xE9
+feat:house wall aq:lit:0xB7:0xEA
+feat:house wall aq:dark:0xB7:0xEB
+
+# house wall ar 
+feat:house wall ar:torch:0xB7:0xEC
+feat:house wall ar:los:0xB7:0xED
+feat:house wall ar:lit:0xB7:0xEE
+feat:house wall ar:dark:0xB7:0xEF
+
+# house wall as 
+feat:house wall as:torch:0xB7:0xF0
+feat:house wall as:los:0xB7:0xF1
+feat:house wall as:lit:0xB7:0xF2
+feat:house wall as:dark:0xB7:0xF3
+
+# house wall at 
+feat:house wall at:torch:0xB7:0xF4
+feat:house wall at:los:0xB7:0xF5
+feat:house wall at:lit:0xB7:0xF6
+feat:house wall at:dark:0xB7:0xF7
+
+# house wall au 
+feat:house wall au:torch:0xB7:0xF8
+feat:house wall au:los:0xB7:0xF9
+feat:house wall au:lit:0xB7:0xFA
+feat:house wall au:dark:0xB7:0xFB
+
+# house wall av 
+feat:house wall av:torch:0xB7:0xFC
+feat:house wall av:los:0xB7:0xFD
+feat:house wall av:lit:0xB7:0xFE
+feat:house wall av:dark:0xB7:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B8 - former "wooden walls"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall aw 
+feat:house wall aw:torch:0xB8:0x80
+feat:house wall aw:los:0xB8:0x81
+feat:house wall aw:lit:0xB8:0x82
+feat:house wall aw:dark:0xB8:0x83
+
+# house wall ax 
+feat:house wall ax:torch:0xB8:0x84
+feat:house wall ax:los:0xB8:0x85
+feat:house wall ax:lit:0xB8:0x86
+feat:house wall ax:dark:0xB8:0x87
+
+# house wall ay 
+feat:house wall ay:torch:0xB8:0x88
+feat:house wall ay:los:0xB8:0x89
+feat:house wall ay:lit:0xB8:0x8A
+feat:house wall ay:dark:0xB8:0x8B
+
+# house wall az 
+feat:house wall az:torch:0xB8:0x8C
+feat:house wall az:los:0xB8:0x8D
+feat:house wall az:lit:0xB8:0x8E
+feat:house wall az:dark:0xB8:0x8F
+
+# house wall aA 
+feat:house wall aA:torch:0xB8:0x90
+feat:house wall aA:los:0xB8:0x91
+feat:house wall aA:lit:0xB8:0x92
+feat:house wall aA:dark:0xB8:0x93
+
+# house wall aB 
+feat:house wall aB:torch:0xB8:0x94
+feat:house wall aB:los:0xB8:0x95
+feat:house wall aB:lit:0xB8:0x96
+feat:house wall aB:dark:0xB8:0x97
+
+# house wall aC 
+feat:house wall aC:torch:0xB8:0x98
+feat:house wall aC:los:0xB8:0x99
+feat:house wall aC:lit:0xB8:0x9A
+feat:house wall aC:dark:0xB8:0x9B
+
+# house wall aD 
+feat:house wall aD:torch:0xB8:0x9C
+feat:house wall aD:los:0xB8:0x9D
+feat:house wall aD:lit:0xB8:0x9E
+feat:house wall aD:dark:0xB8:0x9F
+
+# house wall aE 
+feat:house wall aE:torch:0xB8:0xA0
+feat:house wall aE:los:0xB8:0xA1
+feat:house wall aE:lit:0xB8:0xA2
+feat:house wall aE:dark:0xB8:0xA3
+
+# house wall aF 
+feat:house wall aF:torch:0xB8:0xA4
+feat:house wall aF:los:0xB8:0xA5
+feat:house wall aF:lit:0xB8:0xA6
+feat:house wall aF:dark:0xB8:0xA7
+
+# house wall aG 
+feat:house wall aG:torch:0xB8:0xA8
+feat:house wall aG:los:0xB8:0xA9
+feat:house wall aG:lit:0xB8:0xAA
+feat:house wall aG:dark:0xB8:0xAB
+
+# house wall aH 
+feat:house wall aH:torch:0xB8:0xAC
+feat:house wall aH:los:0xB8:0xAD
+feat:house wall aH:lit:0xB8:0xAE
+feat:house wall aH:dark:0xB8:0xAF
+
+# house wall aI 
+feat:house wall aI:torch:0xB8:0xB0
+feat:house wall aI:los:0xB8:0xB1
+feat:house wall aI:lit:0xB8:0xB2
+feat:house wall aI:dark:0xB8:0xB3
+
+# house wall aJ 
+feat:house wall aJ:torch:0xB8:0xB4
+feat:house wall aJ:los:0xB8:0xB5
+feat:house wall aJ:lit:0xB8:0xB6
+feat:house wall aJ:dark:0xB8:0xB7
+
+# house wall aK 
+feat:house wall aK:torch:0xB8:0xB8
+feat:house wall aK:los:0xB8:0xB9
+feat:house wall aK:lit:0xB8:0xBA
+feat:house wall aK:dark:0xB8:0xBB
+
+# house wall aL 
+feat:house wall aL:torch:0xB8:0xBC
+feat:house wall aL:los:0xB8:0xBD
+feat:house wall aL:lit:0xB8:0xBE
+feat:house wall aL:dark:0xB8:0xBF
+
+# house wall aM 
+feat:house wall aM:torch:0xB8:0xC0
+feat:house wall aM:los:0xB8:0xC1
+feat:house wall aM:lit:0xB8:0xC2
+feat:house wall aM:dark:0xB8:0xC3
+
+# house wall aN 
+feat:house wall aN:torch:0xB8:0xC4
+feat:house wall aN:los:0xB8:0xC5
+feat:house wall aN:lit:0xB8:0xC6
+feat:house wall aN:dark:0xB8:0xC7
+
+# house wall aO 
+feat:house wall aO:torch:0xB8:0xC8
+feat:house wall aO:los:0xB8:0xC9
+feat:house wall aO:lit:0xB8:0xCA
+feat:house wall aO:dark:0xB8:0xCB
+
+# house wall aP 
+feat:house wall aP:torch:0xB8:0xCC
+feat:house wall aP:los:0xB8:0xCD
+feat:house wall aP:lit:0xB8:0xCE
+feat:house wall aP:dark:0xB8:0xCF
+
+# house wall aQ 
+feat:house wall aQ:torch:0xB8:0xD0
+feat:house wall aQ:los:0xB8:0xD1
+feat:house wall aQ:lit:0xB8:0xD2
+feat:house wall aQ:dark:0xB8:0xD3
+
+# house wall aR 
+feat:house wall aR:torch:0xB8:0xD4
+feat:house wall aR:los:0xB8:0xD5
+feat:house wall aR:lit:0xB8:0xD6
+feat:house wall aR:dark:0xB8:0xD7
+
+# house wall aS 
+feat:house wall aS:torch:0xB8:0xD8
+feat:house wall aS:los:0xB8:0xD9
+feat:house wall aS:lit:0xB8:0xDA
+feat:house wall aS:dark:0xB8:0xDB
+
+# house wall aT 
+feat:house wall aT:torch:0xB8:0xDC
+feat:house wall aT:los:0xB8:0xDD
+feat:house wall aT:lit:0xB8:0xDE
+feat:house wall aT:dark:0xB8:0xDF
+
+# house wall aU 
+feat:house wall aU:torch:0xB8:0xE0
+feat:house wall aU:los:0xB8:0xE1
+feat:house wall aU:lit:0xB8:0xE2
+feat:house wall aU:dark:0xB8:0xE3
+
+# house wall aV 
+feat:house wall aV:torch:0xB8:0xE4
+feat:house wall aV:los:0xB8:0xE5
+feat:house wall aV:lit:0xB8:0xE6
+feat:house wall aV:dark:0xB8:0xE7
+
+# house wall aW 
+feat:house wall aW:torch:0xB8:0xE8
+feat:house wall aW:los:0xB8:0xE9
+feat:house wall aW:lit:0xB8:0xEA
+feat:house wall aW:dark:0xB8:0xEB
+
+# house wall aX 
+feat:house wall aX:torch:0xB8:0xEC
+feat:house wall aX:los:0xB8:0xED
+feat:house wall aX:lit:0xB8:0xEE
+feat:house wall aX:dark:0xB8:0xEF
+
+# house wall aY 
+feat:house wall aY:torch:0xB8:0xF0
+feat:house wall aY:los:0xB8:0xF1
+feat:house wall aY:lit:0xB8:0xF2
+feat:house wall aY:dark:0xB8:0xF3
+
+# house wall aZ 
+feat:house wall aZ:torch:0xB8:0xF4
+feat:house wall aZ:los:0xB8:0xF5
+feat:house wall aZ:lit:0xB8:0xF6
+feat:house wall aZ:dark:0xB8:0xF7
+
+# house wall a~ 
+feat:house wall a~:torch:0xB8:0xF8
+feat:house wall a~:los:0xB8:0xF9
+feat:house wall a~:lit:0xB8:0xFA
+feat:house wall a~:dark:0xB8:0xFB
+
+# house wall a` 
+feat:house wall a`:torch:0xB8:0xFC
+feat:house wall a`:los:0xB8:0xFD
+feat:house wall a`:lit:0xB8:0xFE
+feat:house wall a`:dark:0xB8:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B9 - former "dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall b0 
+feat:house wall b0:torch:0xB9:0x80
+feat:house wall b0:los:0xB9:0x81
+feat:house wall b0:lit:0xB9:0x82
+feat:house wall b0:dark:0xB9:0x83
+
+# house wall b1 
+feat:house wall b1:torch:0xB9:0x84
+feat:house wall b1:los:0xB9:0x85
+feat:house wall b1:lit:0xB9:0x86
+feat:house wall b1:dark:0xB9:0x87
+
+# house wall b2 
+feat:house wall b2:torch:0xB9:0x88
+feat:house wall b2:los:0xB9:0x89
+feat:house wall b2:lit:0xB9:0x8A
+feat:house wall b2:dark:0xB9:0x8B
+
+# house wall b3 
+feat:house wall b3:torch:0xB9:0x8C
+feat:house wall b3:los:0xB9:0x8D
+feat:house wall b3:lit:0xB9:0x8E
+feat:house wall b3:dark:0xB9:0x8F
+
+# house wall b4 
+feat:house wall b4:torch:0xB9:0x90
+feat:house wall b4:los:0xB9:0x91
+feat:house wall b4:lit:0xB9:0x92
+feat:house wall b4:dark:0xB9:0x93
+
+# house wall b5 
+feat:house wall b5:torch:0xB9:0x94
+feat:house wall b5:los:0xB9:0x95
+feat:house wall b5:lit:0xB9:0x96
+feat:house wall b5:dark:0xB9:0x97
+
+# house wall b6 
+feat:house wall b6:torch:0xB9:0x98
+feat:house wall b6:los:0xB9:0x99
+feat:house wall b6:lit:0xB9:0x9A
+feat:house wall b6:dark:0xB9:0x9B
+
+# house wall b7 
+feat:house wall b7:torch:0xB9:0x9C
+feat:house wall b7:los:0xB9:0x9D
+feat:house wall b7:lit:0xB9:0x9E
+feat:house wall b7:dark:0xB9:0x9F
+
+# house wall b8 
+feat:house wall b8:torch:0xB9:0xA0
+feat:house wall b8:los:0xB9:0xA1
+feat:house wall b8:lit:0xB9:0xA2
+feat:house wall b8:dark:0xB9:0xA3
+
+# house wall b9 
+feat:house wall b9:torch:0xB9:0xA4
+feat:house wall b9:los:0xB9:0xA5
+feat:house wall b9:lit:0xB9:0xA6
+feat:house wall b9:dark:0xB9:0xA7
+
+# house wall ba 
+feat:house wall ba:torch:0xB9:0xA8
+feat:house wall ba:los:0xB9:0xA9
+feat:house wall ba:lit:0xB9:0xAA
+feat:house wall ba:dark:0xB9:0xAB
+
+# house wall bb 
+feat:house wall bb:torch:0xB9:0xAC
+feat:house wall bb:los:0xB9:0xAD
+feat:house wall bb:lit:0xB9:0xAE
+feat:house wall bb:dark:0xB9:0xAF
+
+# house wall bc 
+feat:house wall bc:torch:0xB9:0xB0
+feat:house wall bc:los:0xB9:0xB1
+feat:house wall bc:lit:0xB9:0xB2
+feat:house wall bc:dark:0xB9:0xB3
+
+# house wall bd 
+feat:house wall bd:torch:0xB9:0xB4
+feat:house wall bd:los:0xB9:0xB5
+feat:house wall bd:lit:0xB9:0xB6
+feat:house wall bd:dark:0xB9:0xB7
+
+# house wall be 
+feat:house wall be:torch:0xB9:0xB8
+feat:house wall be:los:0xB9:0xB9
+feat:house wall be:lit:0xB9:0xBA
+feat:house wall be:dark:0xB9:0xBB
+
+# house wall bf 
+feat:house wall bf:torch:0xB9:0xBC
+feat:house wall bf:los:0xB9:0xBD
+feat:house wall bf:lit:0xB9:0xBE
+feat:house wall bf:dark:0xB9:0xBF
+
+# house wall bg 
+feat:house wall bg:torch:0xB9:0xC0
+feat:house wall bg:los:0xB9:0xC1
+feat:house wall bg:lit:0xB9:0xC2
+feat:house wall bg:dark:0xB9:0xC3
+
+# house wall bh 
+feat:house wall bh:torch:0xB9:0xC4
+feat:house wall bh:los:0xB9:0xC5
+feat:house wall bh:lit:0xB9:0xC6
+feat:house wall bh:dark:0xB9:0xC7
+
+# house wall bi 
+feat:house wall bi:torch:0xB9:0xC8
+feat:house wall bi:los:0xB9:0xC9
+feat:house wall bi:lit:0xB9:0xCA
+feat:house wall bi:dark:0xB9:0xCB
+
+# house wall bj 
+feat:house wall bj:torch:0xB9:0xCC
+feat:house wall bj:los:0xB9:0xCD
+feat:house wall bj:lit:0xB9:0xCE
+feat:house wall bj:dark:0xB9:0xCF
+
+# house wall bk 
+feat:house wall bk:torch:0xB9:0xD0
+feat:house wall bk:los:0xB9:0xD1
+feat:house wall bk:lit:0xB9:0xD2
+feat:house wall bk:dark:0xB9:0xD3
+
+# house wall bl 
+feat:house wall bl:torch:0xB9:0xD4
+feat:house wall bl:los:0xB9:0xD5
+feat:house wall bl:lit:0xB9:0xD6
+feat:house wall bl:dark:0xB9:0xD7
+
+# house wall bm 
+feat:house wall bm:torch:0xB9:0xD8
+feat:house wall bm:los:0xB9:0xD9
+feat:house wall bm:lit:0xB9:0xDA
+feat:house wall bm:dark:0xB9:0xDB
+
+# house wall bn 
+feat:house wall bn:torch:0xB9:0xDC
+feat:house wall bn:los:0xB9:0xDD
+feat:house wall bn:lit:0xB9:0xDE
+feat:house wall bn:dark:0xB9:0xDF
+
+# house wall bo 
+feat:house wall bo:torch:0xB9:0xE0
+feat:house wall bo:los:0xB9:0xE1
+feat:house wall bo:lit:0xB9:0xE2
+feat:house wall bo:dark:0xB9:0xE3
+
+# house wall bp 
+feat:house wall bp:torch:0xB9:0xE4
+feat:house wall bp:los:0xB9:0xE5
+feat:house wall bp:lit:0xB9:0xE6
+feat:house wall bp:dark:0xB9:0xE7
+
+# house wall bq 
+feat:house wall bq:torch:0xB9:0xE8
+feat:house wall bq:los:0xB9:0xE9
+feat:house wall bq:lit:0xB9:0xEA
+feat:house wall bq:dark:0xB9:0xEB
+
+# house wall br 
+feat:house wall br:torch:0xB9:0xEC
+feat:house wall br:los:0xB9:0xED
+feat:house wall br:lit:0xB9:0xEE
+feat:house wall br:dark:0xB9:0xEF
+
+# house wall bs 
+feat:house wall bs:torch:0xB9:0xF0
+feat:house wall bs:los:0xB9:0xF1
+feat:house wall bs:lit:0xB9:0xF2
+feat:house wall bs:dark:0xB9:0xF3
+
+# house wall bt 
+feat:house wall bt:torch:0xB9:0xF4
+feat:house wall bt:los:0xB9:0xF5
+feat:house wall bt:lit:0xB9:0xF6
+feat:house wall bt:dark:0xB9:0xF7
+
+# house wall bu 
+feat:house wall bu:torch:0xB9:0xF8
+feat:house wall bu:los:0xB9:0xF9
+feat:house wall bu:lit:0xB9:0xFA
+feat:house wall bu:dark:0xB9:0xFB
+
+# house wall bv 
+feat:house wall bv:torch:0xB9:0xFC
+feat:house wall bv:los:0xB9:0xFD
+feat:house wall bv:lit:0xB9:0xFE
+feat:house wall bv:dark:0xB9:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BA - former "dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall bw 
+feat:house wall bw:torch:0xBA:0x80
+feat:house wall bw:los:0xBA:0x81
+feat:house wall bw:lit:0xBA:0x82
+feat:house wall bw:dark:0xBA:0x83
+
+# house wall bx 
+feat:house wall bx:torch:0xBA:0x84
+feat:house wall bx:los:0xBA:0x85
+feat:house wall bx:lit:0xBA:0x86
+feat:house wall bx:dark:0xBA:0x87
+
+# house wall by 
+feat:house wall by:torch:0xBA:0x88
+feat:house wall by:los:0xBA:0x89
+feat:house wall by:lit:0xBA:0x8A
+feat:house wall by:dark:0xBA:0x8B
+
+# house wall bz 
+feat:house wall bz:torch:0xBA:0x8C
+feat:house wall bz:los:0xBA:0x8D
+feat:house wall bz:lit:0xBA:0x8E
+feat:house wall bz:dark:0xBA:0x8F
+
+# house wall bA 
+feat:house wall bA:torch:0xBA:0x90
+feat:house wall bA:los:0xBA:0x91
+feat:house wall bA:lit:0xBA:0x92
+feat:house wall bA:dark:0xBA:0x93
+
+# house wall bB 
+feat:house wall bB:torch:0xBA:0x94
+feat:house wall bB:los:0xBA:0x95
+feat:house wall bB:lit:0xBA:0x96
+feat:house wall bB:dark:0xBA:0x97
+
+# house wall bC 
+feat:house wall bC:torch:0xBA:0x98
+feat:house wall bC:los:0xBA:0x99
+feat:house wall bC:lit:0xBA:0x9A
+feat:house wall bC:dark:0xBA:0x9B
+
+# house wall bD 
+feat:house wall bD:torch:0xBA:0x9C
+feat:house wall bD:los:0xBA:0x9D
+feat:house wall bD:lit:0xBA:0x9E
+feat:house wall bD:dark:0xBA:0x9F
+
+# house wall bE 
+feat:house wall bE:torch:0xBA:0xA0
+feat:house wall bE:los:0xBA:0xA1
+feat:house wall bE:lit:0xBA:0xA2
+feat:house wall bE:dark:0xBA:0xA3
+
+# house wall bF 
+feat:house wall bF:torch:0xBA:0xA4
+feat:house wall bF:los:0xBA:0xA5
+feat:house wall bF:lit:0xBA:0xA6
+feat:house wall bF:dark:0xBA:0xA7
+
+# house wall bG 
+feat:house wall bG:torch:0xBA:0xA8
+feat:house wall bG:los:0xBA:0xA9
+feat:house wall bG:lit:0xBA:0xAA
+feat:house wall bG:dark:0xBA:0xAB
+
+# house wall bH 
+feat:house wall bH:torch:0xBA:0xAC
+feat:house wall bH:los:0xBA:0xAD
+feat:house wall bH:lit:0xBA:0xAE
+feat:house wall bH:dark:0xBA:0xAF
+
+# house wall bI 
+feat:house wall bI:torch:0xBA:0xB0
+feat:house wall bI:los:0xBA:0xB1
+feat:house wall bI:lit:0xBA:0xB2
+feat:house wall bI:dark:0xBA:0xB3
+
+# house wall bJ 
+feat:house wall bJ:torch:0xBA:0xB4
+feat:house wall bJ:los:0xBA:0xB5
+feat:house wall bJ:lit:0xBA:0xB6
+feat:house wall bJ:dark:0xBA:0xB7
+
+# house wall bK 
+feat:house wall bK:torch:0xBA:0xB8
+feat:house wall bK:los:0xBA:0xB9
+feat:house wall bK:lit:0xBA:0xBA
+feat:house wall bK:dark:0xBA:0xBB
+
+# house wall bL 
+feat:house wall bL:torch:0xBA:0xBC
+feat:house wall bL:los:0xBA:0xBD
+feat:house wall bL:lit:0xBA:0xBE
+feat:house wall bL:dark:0xBA:0xBF
+
+# house wall bM 
+feat:house wall bM:torch:0xBA:0xC0
+feat:house wall bM:los:0xBA:0xC1
+feat:house wall bM:lit:0xBA:0xC2
+feat:house wall bM:dark:0xBA:0xC3
+
+# house wall bN 
+feat:house wall bN:torch:0xBA:0xC4
+feat:house wall bN:los:0xBA:0xC5
+feat:house wall bN:lit:0xBA:0xC6
+feat:house wall bN:dark:0xBA:0xC7
+
+# house wall bO 
+feat:house wall bO:torch:0xBA:0xC8
+feat:house wall bO:los:0xBA:0xC9
+feat:house wall bO:lit:0xBA:0xCA
+feat:house wall bO:dark:0xBA:0xCB
+
+# house wall bP 
+feat:house wall bP:torch:0xBA:0xCC
+feat:house wall bP:los:0xBA:0xCD
+feat:house wall bP:lit:0xBA:0xCE
+feat:house wall bP:dark:0xBA:0xCF
+
+# house wall bQ 
+feat:house wall bQ:torch:0xBA:0xD0
+feat:house wall bQ:los:0xBA:0xD1
+feat:house wall bQ:lit:0xBA:0xD2
+feat:house wall bQ:dark:0xBA:0xD3
+
+# house wall bR 
+feat:house wall bR:torch:0xBA:0xD4
+feat:house wall bR:los:0xBA:0xD5
+feat:house wall bR:lit:0xBA:0xD6
+feat:house wall bR:dark:0xBA:0xD7
+
+# house wall bS 
+feat:house wall bS:torch:0xBA:0xD8
+feat:house wall bS:los:0xBA:0xD9
+feat:house wall bS:lit:0xBA:0xDA
+feat:house wall bS:dark:0xBA:0xDB
+
+# house wall bT 
+feat:house wall bT:torch:0xBA:0xDC
+feat:house wall bT:los:0xBA:0xDD
+feat:house wall bT:lit:0xBA:0xDE
+feat:house wall bT:dark:0xBA:0xDF
+
+# house wall bU 
+feat:house wall bU:torch:0xBA:0xE0
+feat:house wall bU:los:0xBA:0xE1
+feat:house wall bU:lit:0xBA:0xE2
+feat:house wall bU:dark:0xBA:0xE3
+
+# house wall bV 
+feat:house wall bV:torch:0xBA:0xE4
+feat:house wall bV:los:0xBA:0xE5
+feat:house wall bV:lit:0xBA:0xE6
+feat:house wall bV:dark:0xBA:0xE7
+
+# house wall bW 
+feat:house wall bW:torch:0xBA:0xE8
+feat:house wall bW:los:0xBA:0xE9
+feat:house wall bW:lit:0xBA:0xEA
+feat:house wall bW:dark:0xBA:0xEB
+
+# house wall bX 
+feat:house wall bX:torch:0xBA:0xEC
+feat:house wall bX:los:0xBA:0xED
+feat:house wall bX:lit:0xBA:0xEE
+feat:house wall bX:dark:0xBA:0xEF
+
+# house wall bY 
+feat:house wall bY:torch:0xBA:0xF0
+feat:house wall bY:los:0xBA:0xF1
+feat:house wall bY:lit:0xBA:0xF2
+feat:house wall bY:dark:0xBA:0xF3
+
+# house wall bZ 
+feat:house wall bZ:torch:0xBA:0xF4
+feat:house wall bZ:los:0xBA:0xF5
+feat:house wall bZ:lit:0xBA:0xF6
+feat:house wall bZ:dark:0xBA:0xF7
+
+# house wall b~ 
+feat:house wall b~:torch:0xBA:0xF8
+feat:house wall b~:los:0xBA:0xF9
+feat:house wall b~:lit:0xBA:0xFA
+feat:house wall b~:dark:0xBA:0xFB
+
+# house wall b` 
+feat:house wall b`:torch:0xBA:0xFC
+feat:house wall b`:los:0xBA:0xFD
+feat:house wall b`:lit:0xBA:0xFE
+feat:house wall b`:dark:0xBA:0xFF
 
 
 # Load the special player pictures

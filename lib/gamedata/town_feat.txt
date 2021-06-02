@@ -3806,8 +3806,6 @@ feat:G:v:F7 deep water F2W v
 # CLONE TERRAIN: FLOORS _AS_ WALLS DECORATIONS
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
-
-
 # EB - EE dirt.. No stairs / no monsters... for dungeons
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
@@ -3836,83 +3834,7 @@ feat:G:v:F7 deep water F2W v
 ### HOUSE
 ###############
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# BF - former "brick wall"
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-
-feat:H:0:house brick wall 0
-#window
-feat:H:1:house brick wall 1
-#empty window
-feat:H:2:house brick wall 2
-#barred window
-feat:H:3:house brick wall 3
-#door
-#feat:H:4:house brick wall 4
-feat:H:5:house brick wall 5
-feat:H:6:house brick wall 6
-feat:H:7:house brick wall 7
-feat:H:8:house brick wall 8
-feat:H:9:house brick wall 9
-feat:H:a:house brick wall a
-feat:H:b:house brick wall b
-feat:H:c:house brick wall c
-feat:H:d:house brick wall d
-feat:H:e:house brick wall e
-feat:H:f:house brick wall f
-feat:H:g:house brick wall g
-feat:H:h:house brick wall h
-feat:H:i:house brick wall i
-feat:H:j:house brick wall j
-feat:H:k:house brick wall k
-feat:H:l:house brick wall l
-feat:H:m:house brick wall m
-feat:H:n:house brick wall n
-feat:H:o:house brick wall o
-feat:H:p:house brick wall p
-feat:H:q:house brick wall q
-feat:H:r:house brick wall r
-feat:H:s:house brick wall s
-feat:H:t:house brick wall t
-feat:H:u:house brick wall u
-feat:H:v:house brick wall v
-
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# C0 - formen "brick wall"
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-
-feat:H:w:house brick wall w
-feat:H:x:house brick wall x
-feat:H:y:house brick wall y
-feat:H:z:house brick wall z
-feat:H:A:house brick wall A
-feat:H:B:house brick wall B
-feat:H:C:house brick wall C
-feat:H:D:house brick wall D
-feat:H:E:house brick wall E
-feat:H:F:house brick wall F
-feat:H:G:house brick wall G
-feat:H:H:house brick wall H
-feat:H:I:house brick wall I
-feat:H:J:house brick wall J
-feat:H:K:house brick wall K
-feat:H:L:house brick wall L
-feat:H:M:house brick wall M
-feat:H:N:house brick wall N
-feat:H:O:house brick wall O
-feat:H:P:house brick wall P
-feat:H:Q:house brick wall Q
-feat:H:R:house brick wall R
-feat:H:S:house brick wall S
-feat:H:T:house brick wall T
-feat:H:U:house brick wall U
-feat:H:V:house brick wall V
-feat:H:W:house brick wall W
-feat:H:X:house brick wall X
-feat:H:Y:house brick wall Y
-feat:H:Z:house brick wall Z
-feat:H:~:house brick wall ~
-feat:H:`:house brick wall `
+# 'H' walls - after house floors!
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 # AD - former "wooden floor object"
@@ -4579,3 +4501,153 @@ feat:Q:Y:house floor iY
 feat:Q:Z:house floor iZ
 feat:Q:~:house floor i~
 feat:Q:`:house floor i`
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B7 - former "wooden walls"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:H:0:house wall a0
+feat:H:1:house wall a1
+feat:H:2:house wall a2
+feat:H:3:house wall a3
+feat:H:4:house wall a4
+feat:H:5:house wall a5
+feat:H:6:house wall a6
+feat:H:7:house wall a7
+feat:H:8:house wall a8
+feat:H:9:house wall a9
+feat:H:a:house wall aa
+feat:H:b:house wall ab
+feat:H:c:house wall ac
+feat:H:d:house wall ad
+feat:H:e:house wall ae
+feat:H:f:house wall af
+feat:H:g:house wall ag
+feat:H:h:house wall ah
+feat:H:i:house wall ai
+feat:H:j:house wall aj
+feat:H:k:house wall ak
+feat:H:l:house wall al
+feat:H:m:house wall am
+feat:H:n:house wall an
+feat:H:o:house wall ao
+feat:H:p:house wall ap
+feat:H:q:house wall aq
+feat:H:r:house wall ar
+feat:H:s:house wall as
+feat:H:t:house wall at
+feat:H:u:house wall au
+feat:H:v:house wall av
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B8 - former "wooden walls"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:H:w:house wall aw
+feat:H:x:house wall ax
+feat:H:y:house wall ay
+feat:H:z:house wall az
+feat:H:A:house wall aA
+feat:H:B:house wall aB
+feat:H:C:house wall aC
+feat:H:D:house wall aD
+feat:H:E:house wall aE
+feat:H:F:house wall aF
+feat:H:G:house wall aG
+feat:H:H:house wall aH
+feat:H:I:house wall aI
+feat:H:J:house wall aJ
+feat:H:K:house wall aK
+feat:H:L:house wall aL
+feat:H:M:house wall aM
+feat:H:N:house wall aN
+feat:H:O:house wall aO
+feat:H:P:house wall aP
+feat:H:Q:house wall aQ
+feat:H:R:house wall aR
+feat:H:S:house wall aS
+feat:H:T:house wall aT
+feat:H:U:house wall aU
+feat:H:V:house wall aV
+feat:H:W:house wall aW
+feat:H:X:house wall aX
+feat:H:Y:house wall aY
+feat:H:Z:house wall aZ
+feat:H:~:house wall a~
+feat:H:`:house wall a`
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# B9 - former "dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+feat:R:0:house wall b0
+feat:R:1:house wall b1
+feat:R:2:house wall b2
+feat:R:3:house wall b3
+feat:R:4:house wall b4
+feat:R:5:house wall b5
+feat:R:6:house wall b6
+feat:R:7:house wall b7
+feat:R:8:house wall b8
+feat:R:9:house wall b9
+feat:R:a:house wall ba
+feat:R:b:house wall bb
+feat:R:c:house wall bc
+feat:R:d:house wall bd
+feat:R:e:house wall be
+feat:R:f:house wall bf
+feat:R:g:house wall bg
+feat:R:h:house wall bh
+feat:R:i:house wall bi
+feat:R:j:house wall bj
+feat:R:k:house wall bk
+feat:R:l:house wall bl
+feat:R:m:house wall bm
+feat:R:n:house wall bn
+feat:R:o:house wall bo
+feat:R:p:house wall bp
+feat:R:q:house wall bq
+feat:R:r:house wall br
+feat:R:s:house wall bs
+feat:R:t:house wall bt
+feat:R:u:house wall bu
+feat:R:v:house wall bv
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BA - former "dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+feat:R:w:house wall bw
+feat:R:x:house wall bx
+feat:R:y:house wall by
+feat:R:z:house wall bz
+feat:R:A:house wall bA
+feat:R:B:house wall bB
+feat:R:C:house wall bC
+feat:R:D:house wall bD
+feat:R:E:house wall bE
+feat:R:F:house wall bF
+feat:R:G:house wall bG
+feat:R:H:house wall bH
+feat:R:I:house wall bI
+feat:R:J:house wall bJ
+feat:R:K:house wall bK
+feat:R:L:house wall bL
+feat:R:M:house wall bM
+feat:R:N:house wall bN
+feat:R:O:house wall bO
+feat:R:P:house wall bP
+feat:R:Q:house wall bQ
+feat:R:R:house wall bR
+feat:R:S:house wall bS
+feat:R:T:house wall bT
+feat:R:U:house wall bU
+feat:R:V:house wall bV
+feat:R:W:house wall bW
+feat:R:X:house wall bX
+feat:R:Y:house wall bY
+feat:R:Z:house wall bZ
+feat:R:~:house wall b~
+feat:R:`:house wall b`
