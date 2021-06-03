@@ -39592,3 +39592,4111 @@ info:0:3
 ################################################################################
 short-desc:wall
 desc:.
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BB - former "big white wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall c0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ca
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cb
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cc
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cd
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ce
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cf
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ch
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ci
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cj
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ck
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cl
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cm
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cn
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall co
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cp
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cr
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cs
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ct
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BC - former "big white wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall cw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cx
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall cZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall c`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BD - former "big dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall d0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall da
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall db
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dc
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dd
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall de
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall df
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dh
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall di
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dj
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dk
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dl
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dm
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dn
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall do
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dp
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dr
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ds
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dt
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall du
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BE - former "big dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall dw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dx
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall dZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall d`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BF - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall e0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ea
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eb
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ec
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ed
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ee
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ef
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eh
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ei
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ej
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ek
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall el
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall em
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall en
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eo
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ep
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall er
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall es
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall et
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ev
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# C0 - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall ew
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ex
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ey
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ez
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall eZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall e`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#################################################
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# 96 - house wall (various)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall f0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fa
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fb
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fc
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fd
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fe
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ff
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fh
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fi
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fj
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fk
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fl
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fm
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fn
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fo
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fp
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fr
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fs
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ft
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# 98 - house wall (moss)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall fw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fx
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall fZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall f`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# A3 - house wall (sewers)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall g0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ga
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gb
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gc
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gd
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ge
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gf
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gh
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gi
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gj
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gk
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gl
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gm
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gn
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall go
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gp
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gr
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gs
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gt
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# AA - house wall (various)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall gw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gx
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall gZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall g`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# DC - house wall (black brick wall with paintings)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall h0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ha
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hb
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hc
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hd
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall he
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hf
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hg
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hh
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hi
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hj
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hk
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hl
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hm
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hn
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ho
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hp
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hr
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hs
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ht
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E1 - house wall (green castle)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall hw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hx
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall hZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall h`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E2 - house wall (green jail)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall i0
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i1
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i2
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i3
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i4
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i5
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i6
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i7
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i8
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i9
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ia
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ib
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ic
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall id
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ie
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall if
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ig
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ih
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ii
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ij
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ik
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall il
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall im
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall in
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall io
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ip
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iq
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ir
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall is
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall it
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iu
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iv
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E3 - house wall (black jail)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+name:house wall iw
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall ix
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iy
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iz
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iA
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iB
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iC
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iD
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iE
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iF
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iG
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iH
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iI
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iJ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iK
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iL
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iM
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iN
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iO
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iP
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iQ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iR
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iS
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iT
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iU
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iV
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iW
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iX
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iY
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall iZ
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i~
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+name:house wall i`
+graphics:#:s
+priority:11
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+info:0:3
+################################################################################
+short-desc:wall
+desc:.
+
+
+
+
+

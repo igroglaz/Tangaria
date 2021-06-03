@@ -2447,16 +2447,44 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     rng = (rand() % 63);
     
     /* getting wall type from function */
-    if (wall_type == 'a') // BF C0
+    if (wall_type == 'a')      // B7 B8     wood
     {
         if ((rng == 4) || (rng == 8) || (rng == 9) || // door tiles.. no need as walls
         (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
         strncat(wall, &wall_type, 1);
     }
-    else // floor_type == 'b'; // B7 B8
+    else if (wall_type == 'b') // B9 BA     black small bricks
     {
         strncat(wall, &wall_type, 1);
-    }    
+    }
+    else if (wall_type == 'c') // BB BC     big white
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else if (wall_type == 'd') // BD BE     big black
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else if (wall_type == 'e') // BF C0     white small bricks
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else if (wall_type == 'f') // 96 98
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else if (wall_type == 'g') // A3 AA
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else if (wall_type == 'h') // DC E1
+    {
+        strncat(wall, &wall_type, 1);
+    }
+    else                       // E2 E3
+    {
+        strncat(wall, &wall_type, 1);
+    }
     
     // some walls not really good to be house-ones
     switch(rng)

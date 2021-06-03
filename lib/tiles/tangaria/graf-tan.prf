@@ -29628,6 +29628,2763 @@ feat:house wall b`:los:0xBA:0xFD
 feat:house wall b`:lit:0xBA:0xFE
 feat:house wall b`:dark:0xBA:0xFF
 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BB - former "big white wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+# house wall c0 
+feat:house wall c0:torch:0xBB:0x80
+feat:house wall c0:los:0xBB:0x81
+feat:house wall c0:lit:0xBB:0x82
+feat:house wall c0:dark:0xBB:0x83
+
+# house wall c1 
+feat:house wall c1:torch:0xBB:0x84
+feat:house wall c1:los:0xBB:0x85
+feat:house wall c1:lit:0xBB:0x86
+feat:house wall c1:dark:0xBB:0x87
+
+# house wall c2 
+feat:house wall c2:torch:0xBB:0x88
+feat:house wall c2:los:0xBB:0x89
+feat:house wall c2:lit:0xBB:0x8A
+feat:house wall c2:dark:0xBB:0x8B
+
+# house wall c3 
+feat:house wall c3:torch:0xBB:0x8C
+feat:house wall c3:los:0xBB:0x8D
+feat:house wall c3:lit:0xBB:0x8E
+feat:house wall c3:dark:0xBB:0x8F
+
+# house wall c4 
+feat:house wall c4:torch:0xBB:0x90
+feat:house wall c4:los:0xBB:0x91
+feat:house wall c4:lit:0xBB:0x92
+feat:house wall c4:dark:0xBB:0x93
+
+# house wall c5 
+feat:house wall c5:torch:0xBB:0x94
+feat:house wall c5:los:0xBB:0x95
+feat:house wall c5:lit:0xBB:0x96
+feat:house wall c5:dark:0xBB:0x97
+
+# house wall c6 
+feat:house wall c6:torch:0xBB:0x98
+feat:house wall c6:los:0xBB:0x99
+feat:house wall c6:lit:0xBB:0x9A
+feat:house wall c6:dark:0xBB:0x9B
+
+# house wall c7 
+feat:house wall c7:torch:0xBB:0x9C
+feat:house wall c7:los:0xBB:0x9D
+feat:house wall c7:lit:0xBB:0x9E
+feat:house wall c7:dark:0xBB:0x9F
+
+# house wall c8 
+feat:house wall c8:torch:0xBB:0xA0
+feat:house wall c8:los:0xBB:0xA1
+feat:house wall c8:lit:0xBB:0xA2
+feat:house wall c8:dark:0xBB:0xA3
+
+# house wall c9 
+feat:house wall c9:torch:0xBB:0xA4
+feat:house wall c9:los:0xBB:0xA5
+feat:house wall c9:lit:0xBB:0xA6
+feat:house wall c9:dark:0xBB:0xA7
+
+# house wall ca 
+feat:house wall ca:torch:0xBB:0xA8
+feat:house wall ca:los:0xBB:0xA9
+feat:house wall ca:lit:0xBB:0xAA
+feat:house wall ca:dark:0xBB:0xAB
+
+# house wall cb 
+feat:house wall cb:torch:0xBB:0xAC
+feat:house wall cb:los:0xBB:0xAD
+feat:house wall cb:lit:0xBB:0xAE
+feat:house wall cb:dark:0xBB:0xAF
+
+# house wall cc 
+feat:house wall cc:torch:0xBB:0xB0
+feat:house wall cc:los:0xBB:0xB1
+feat:house wall cc:lit:0xBB:0xB2
+feat:house wall cc:dark:0xBB:0xB3
+
+# house wall cd 
+feat:house wall cd:torch:0xBB:0xB4
+feat:house wall cd:los:0xBB:0xB5
+feat:house wall cd:lit:0xBB:0xB6
+feat:house wall cd:dark:0xBB:0xB7
+
+# house wall ce 
+feat:house wall ce:torch:0xBB:0xB8
+feat:house wall ce:los:0xBB:0xB9
+feat:house wall ce:lit:0xBB:0xBA
+feat:house wall ce:dark:0xBB:0xBB
+
+# house wall cf 
+feat:house wall cf:torch:0xBB:0xBC
+feat:house wall cf:los:0xBB:0xBD
+feat:house wall cf:lit:0xBB:0xBE
+feat:house wall cf:dark:0xBB:0xBF
+
+# house wall cg 
+feat:house wall cg:torch:0xBB:0xC0
+feat:house wall cg:los:0xBB:0xC1
+feat:house wall cg:lit:0xBB:0xC2
+feat:house wall cg:dark:0xBB:0xC3
+
+# house wall ch 
+feat:house wall ch:torch:0xBB:0xC4
+feat:house wall ch:los:0xBB:0xC5
+feat:house wall ch:lit:0xBB:0xC6
+feat:house wall ch:dark:0xBB:0xC7
+
+# house wall ci 
+feat:house wall ci:torch:0xBB:0xC8
+feat:house wall ci:los:0xBB:0xC9
+feat:house wall ci:lit:0xBB:0xCA
+feat:house wall ci:dark:0xBB:0xCB
+
+# house wall cj 
+feat:house wall cj:torch:0xBB:0xCC
+feat:house wall cj:los:0xBB:0xCD
+feat:house wall cj:lit:0xBB:0xCE
+feat:house wall cj:dark:0xBB:0xCF
+
+# house wall ck 
+feat:house wall ck:torch:0xBB:0xD0
+feat:house wall ck:los:0xBB:0xD1
+feat:house wall ck:lit:0xBB:0xD2
+feat:house wall ck:dark:0xBB:0xD3
+
+# house wall cl 
+feat:house wall cl:torch:0xBB:0xD4
+feat:house wall cl:los:0xBB:0xD5
+feat:house wall cl:lit:0xBB:0xD6
+feat:house wall cl:dark:0xBB:0xD7
+
+# house wall cm 
+feat:house wall cm:torch:0xBB:0xD8
+feat:house wall cm:los:0xBB:0xD9
+feat:house wall cm:lit:0xBB:0xDA
+feat:house wall cm:dark:0xBB:0xDB
+
+# house wall cn 
+feat:house wall cn:torch:0xBB:0xDC
+feat:house wall cn:los:0xBB:0xDD
+feat:house wall cn:lit:0xBB:0xDE
+feat:house wall cn:dark:0xBB:0xDF
+
+# house wall co 
+feat:house wall co:torch:0xBB:0xE0
+feat:house wall co:los:0xBB:0xE1
+feat:house wall co:lit:0xBB:0xE2
+feat:house wall co:dark:0xBB:0xE3
+
+# house wall cp 
+feat:house wall cp:torch:0xBB:0xE4
+feat:house wall cp:los:0xBB:0xE5
+feat:house wall cp:lit:0xBB:0xE6
+feat:house wall cp:dark:0xBB:0xE7
+
+# house wall cq 
+feat:house wall cq:torch:0xBB:0xE8
+feat:house wall cq:los:0xBB:0xE9
+feat:house wall cq:lit:0xBB:0xEA
+feat:house wall cq:dark:0xBB:0xEB
+
+# house wall cr 
+feat:house wall cr:torch:0xBB:0xEC
+feat:house wall cr:los:0xBB:0xED
+feat:house wall cr:lit:0xBB:0xEE
+feat:house wall cr:dark:0xBB:0xEF
+
+# house wall cs 
+feat:house wall cs:torch:0xBB:0xF0
+feat:house wall cs:los:0xBB:0xF1
+feat:house wall cs:lit:0xBB:0xF2
+feat:house wall cs:dark:0xBB:0xF3
+
+# house wall ct 
+feat:house wall ct:torch:0xBB:0xF4
+feat:house wall ct:los:0xBB:0xF5
+feat:house wall ct:lit:0xBB:0xF6
+feat:house wall ct:dark:0xBB:0xF7
+
+# house wall cu 
+feat:house wall cu:torch:0xBB:0xF8
+feat:house wall cu:los:0xBB:0xF9
+feat:house wall cu:lit:0xBB:0xFA
+feat:house wall cu:dark:0xBB:0xFB
+
+# house wall cv 
+feat:house wall cv:torch:0xBB:0xFC
+feat:house wall cv:los:0xBB:0xFD
+feat:house wall cv:lit:0xBB:0xFE
+feat:house wall cv:dark:0xBB:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BC - former "big white wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+# house wall cw 
+feat:house wall cw:torch:0xBC:0x80
+feat:house wall cw:los:0xBC:0x81
+feat:house wall cw:lit:0xBC:0x82
+feat:house wall cw:dark:0xBC:0x83
+
+# house wall cx 
+feat:house wall cx:torch:0xBC:0x84
+feat:house wall cx:los:0xBC:0x85
+feat:house wall cx:lit:0xBC:0x86
+feat:house wall cx:dark:0xBC:0x87
+
+# house wall cy 
+feat:house wall cy:torch:0xBC:0x88
+feat:house wall cy:los:0xBC:0x89
+feat:house wall cy:lit:0xBC:0x8A
+feat:house wall cy:dark:0xBC:0x8B
+
+# house wall cz 
+feat:house wall cz:torch:0xBC:0x8C
+feat:house wall cz:los:0xBC:0x8D
+feat:house wall cz:lit:0xBC:0x8E
+feat:house wall cz:dark:0xBC:0x8F
+
+# house wall cA 
+feat:house wall cA:torch:0xBC:0x90
+feat:house wall cA:los:0xBC:0x91
+feat:house wall cA:lit:0xBC:0x92
+feat:house wall cA:dark:0xBC:0x93
+
+# house wall cB 
+feat:house wall cB:torch:0xBC:0x94
+feat:house wall cB:los:0xBC:0x95
+feat:house wall cB:lit:0xBC:0x96
+feat:house wall cB:dark:0xBC:0x97
+
+# house wall cC 
+feat:house wall cC:torch:0xBC:0x98
+feat:house wall cC:los:0xBC:0x99
+feat:house wall cC:lit:0xBC:0x9A
+feat:house wall cC:dark:0xBC:0x9B
+
+# house wall cD 
+feat:house wall cD:torch:0xBC:0x9C
+feat:house wall cD:los:0xBC:0x9D
+feat:house wall cD:lit:0xBC:0x9E
+feat:house wall cD:dark:0xBC:0x9F
+
+# house wall cE 
+feat:house wall cE:torch:0xBC:0xA0
+feat:house wall cE:los:0xBC:0xA1
+feat:house wall cE:lit:0xBC:0xA2
+feat:house wall cE:dark:0xBC:0xA3
+
+# house wall cF 
+feat:house wall cF:torch:0xBC:0xA4
+feat:house wall cF:los:0xBC:0xA5
+feat:house wall cF:lit:0xBC:0xA6
+feat:house wall cF:dark:0xBC:0xA7
+
+# house wall cG 
+feat:house wall cG:torch:0xBC:0xA8
+feat:house wall cG:los:0xBC:0xA9
+feat:house wall cG:lit:0xBC:0xAA
+feat:house wall cG:dark:0xBC:0xAB
+
+# house wall cH 
+feat:house wall cH:torch:0xBC:0xAC
+feat:house wall cH:los:0xBC:0xAD
+feat:house wall cH:lit:0xBC:0xAE
+feat:house wall cH:dark:0xBC:0xAF
+
+# house wall cI 
+feat:house wall cI:torch:0xBC:0xB0
+feat:house wall cI:los:0xBC:0xB1
+feat:house wall cI:lit:0xBC:0xB2
+feat:house wall cI:dark:0xBC:0xB3
+
+# house wall cJ 
+feat:house wall cJ:torch:0xBC:0xB4
+feat:house wall cJ:los:0xBC:0xB5
+feat:house wall cJ:lit:0xBC:0xB6
+feat:house wall cJ:dark:0xBC:0xB7
+
+# house wall cK 
+feat:house wall cK:torch:0xBC:0xB8
+feat:house wall cK:los:0xBC:0xB9
+feat:house wall cK:lit:0xBC:0xBA
+feat:house wall cK:dark:0xBC:0xBB
+
+# house wall cL 
+feat:house wall cL:torch:0xBC:0xBC
+feat:house wall cL:los:0xBC:0xBD
+feat:house wall cL:lit:0xBC:0xBE
+feat:house wall cL:dark:0xBC:0xBF
+
+# house wall cM 
+feat:house wall cM:torch:0xBC:0xC0
+feat:house wall cM:los:0xBC:0xC1
+feat:house wall cM:lit:0xBC:0xC2
+feat:house wall cM:dark:0xBC:0xC3
+
+# house wall cN 
+feat:house wall cN:torch:0xBC:0xC4
+feat:house wall cN:los:0xBC:0xC5
+feat:house wall cN:lit:0xBC:0xC6
+feat:house wall cN:dark:0xBC:0xC7
+
+# house wall cO 
+feat:house wall cO:torch:0xBC:0xC8
+feat:house wall cO:los:0xBC:0xC9
+feat:house wall cO:lit:0xBC:0xCA
+feat:house wall cO:dark:0xBC:0xCB
+
+# house wall cP 
+feat:house wall cP:torch:0xBC:0xCC
+feat:house wall cP:los:0xBC:0xCD
+feat:house wall cP:lit:0xBC:0xCE
+feat:house wall cP:dark:0xBC:0xCF
+
+# house wall cQ 
+feat:house wall cQ:torch:0xBC:0xD0
+feat:house wall cQ:los:0xBC:0xD1
+feat:house wall cQ:lit:0xBC:0xD2
+feat:house wall cQ:dark:0xBC:0xD3
+
+# house wall cR 
+feat:house wall cR:torch:0xBC:0xD4
+feat:house wall cR:los:0xBC:0xD5
+feat:house wall cR:lit:0xBC:0xD6
+feat:house wall cR:dark:0xBC:0xD7
+
+# house wall cS 
+feat:house wall cS:torch:0xBC:0xD8
+feat:house wall cS:los:0xBC:0xD9
+feat:house wall cS:lit:0xBC:0xDA
+feat:house wall cS:dark:0xBC:0xDB
+
+# house wall cT 
+feat:house wall cT:torch:0xBC:0xDC
+feat:house wall cT:los:0xBC:0xDD
+feat:house wall cT:lit:0xBC:0xDE
+feat:house wall cT:dark:0xBC:0xDF
+
+# house wall cU 
+feat:house wall cU:torch:0xBC:0xE0
+feat:house wall cU:los:0xBC:0xE1
+feat:house wall cU:lit:0xBC:0xE2
+feat:house wall cU:dark:0xBC:0xE3
+
+# house wall cV 
+feat:house wall cV:torch:0xBC:0xE4
+feat:house wall cV:los:0xBC:0xE5
+feat:house wall cV:lit:0xBC:0xE6
+feat:house wall cV:dark:0xBC:0xE7
+
+# house wall cW 
+feat:house wall cW:torch:0xBC:0xE8
+feat:house wall cW:los:0xBC:0xE9
+feat:house wall cW:lit:0xBC:0xEA
+feat:house wall cW:dark:0xBC:0xEB
+
+# house wall cX 
+feat:house wall cX:torch:0xBC:0xEC
+feat:house wall cX:los:0xBC:0xED
+feat:house wall cX:lit:0xBC:0xEE
+feat:house wall cX:dark:0xBC:0xEF
+
+# house wall cY 
+feat:house wall cY:torch:0xBC:0xF0
+feat:house wall cY:los:0xBC:0xF1
+feat:house wall cY:lit:0xBC:0xF2
+feat:house wall cY:dark:0xBC:0xF3
+
+# house wall cZ 
+feat:house wall cZ:torch:0xBC:0xF4
+feat:house wall cZ:los:0xBC:0xF5
+feat:house wall cZ:lit:0xBC:0xF6
+feat:house wall cZ:dark:0xBC:0xF7
+
+# house wall c~ 
+feat:house wall c~:torch:0xBC:0xF8
+feat:house wall c~:los:0xBC:0xF9
+feat:house wall c~:lit:0xBC:0xFA
+feat:house wall c~:dark:0xBC:0xFB
+
+# house wall c` 
+feat:house wall c`:torch:0xBC:0xFC
+feat:house wall c`:los:0xBC:0xFD
+feat:house wall c`:lit:0xBC:0xFE
+feat:house wall c`:dark:0xBC:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BD - former "big dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+# house wall d0 
+feat:house wall d0:torch:0xBD:0x80
+feat:house wall d0:los:0xBD:0x81
+feat:house wall d0:lit:0xBD:0x82
+feat:house wall d0:dark:0xBD:0x83
+
+# house wall d1 
+feat:house wall d1:torch:0xBD:0x84
+feat:house wall d1:los:0xBD:0x85
+feat:house wall d1:lit:0xBD:0x86
+feat:house wall d1:dark:0xBD:0x87
+
+# house wall d2 
+feat:house wall d2:torch:0xBD:0x88
+feat:house wall d2:los:0xBD:0x89
+feat:house wall d2:lit:0xBD:0x8A
+feat:house wall d2:dark:0xBD:0x8B
+
+# house wall d3 
+feat:house wall d3:torch:0xBD:0x8C
+feat:house wall d3:los:0xBD:0x8D
+feat:house wall d3:lit:0xBD:0x8E
+feat:house wall d3:dark:0xBD:0x8F
+
+# house wall d4 
+feat:house wall d4:torch:0xBD:0x90
+feat:house wall d4:los:0xBD:0x91
+feat:house wall d4:lit:0xBD:0x92
+feat:house wall d4:dark:0xBD:0x93
+
+# house wall d5 
+feat:house wall d5:torch:0xBD:0x94
+feat:house wall d5:los:0xBD:0x95
+feat:house wall d5:lit:0xBD:0x96
+feat:house wall d5:dark:0xBD:0x97
+
+# house wall d6 
+feat:house wall d6:torch:0xBD:0x98
+feat:house wall d6:los:0xBD:0x99
+feat:house wall d6:lit:0xBD:0x9A
+feat:house wall d6:dark:0xBD:0x9B
+
+# house wall d7 
+feat:house wall d7:torch:0xBD:0x9C
+feat:house wall d7:los:0xBD:0x9D
+feat:house wall d7:lit:0xBD:0x9E
+feat:house wall d7:dark:0xBD:0x9F
+
+# house wall d8 
+feat:house wall d8:torch:0xBD:0xA0
+feat:house wall d8:los:0xBD:0xA1
+feat:house wall d8:lit:0xBD:0xA2
+feat:house wall d8:dark:0xBD:0xA3
+
+# house wall d9 
+feat:house wall d9:torch:0xBD:0xA4
+feat:house wall d9:los:0xBD:0xA5
+feat:house wall d9:lit:0xBD:0xA6
+feat:house wall d9:dark:0xBD:0xA7
+
+# house wall da 
+feat:house wall da:torch:0xBD:0xA8
+feat:house wall da:los:0xBD:0xA9
+feat:house wall da:lit:0xBD:0xAA
+feat:house wall da:dark:0xBD:0xAB
+
+# house wall db 
+feat:house wall db:torch:0xBD:0xAC
+feat:house wall db:los:0xBD:0xAD
+feat:house wall db:lit:0xBD:0xAE
+feat:house wall db:dark:0xBD:0xAF
+
+# house wall dc 
+feat:house wall dc:torch:0xBD:0xB0
+feat:house wall dc:los:0xBD:0xB1
+feat:house wall dc:lit:0xBD:0xB2
+feat:house wall dc:dark:0xBD:0xB3
+
+# house wall dd 
+feat:house wall dd:torch:0xBD:0xB4
+feat:house wall dd:los:0xBD:0xB5
+feat:house wall dd:lit:0xBD:0xB6
+feat:house wall dd:dark:0xBD:0xB7
+
+# house wall de 
+feat:house wall de:torch:0xBD:0xB8
+feat:house wall de:los:0xBD:0xB9
+feat:house wall de:lit:0xBD:0xBA
+feat:house wall de:dark:0xBD:0xBB
+
+# house wall df 
+feat:house wall df:torch:0xBD:0xBC
+feat:house wall df:los:0xBD:0xBD
+feat:house wall df:lit:0xBD:0xBE
+feat:house wall df:dark:0xBD:0xBF
+
+# house wall dg 
+feat:house wall dg:torch:0xBD:0xC0
+feat:house wall dg:los:0xBD:0xC1
+feat:house wall dg:lit:0xBD:0xC2
+feat:house wall dg:dark:0xBD:0xC3
+
+# house wall dh 
+feat:house wall dh:torch:0xBD:0xC4
+feat:house wall dh:los:0xBD:0xC5
+feat:house wall dh:lit:0xBD:0xC6
+feat:house wall dh:dark:0xBD:0xC7
+
+# house wall di 
+feat:house wall di:torch:0xBD:0xC8
+feat:house wall di:los:0xBD:0xC9
+feat:house wall di:lit:0xBD:0xCA
+feat:house wall di:dark:0xBD:0xCB
+
+# house wall dj 
+feat:house wall dj:torch:0xBD:0xCC
+feat:house wall dj:los:0xBD:0xCD
+feat:house wall dj:lit:0xBD:0xCE
+feat:house wall dj:dark:0xBD:0xCF
+
+# house wall dk 
+feat:house wall dk:torch:0xBD:0xD0
+feat:house wall dk:los:0xBD:0xD1
+feat:house wall dk:lit:0xBD:0xD2
+feat:house wall dk:dark:0xBD:0xD3
+
+# house wall dl 
+feat:house wall dl:torch:0xBD:0xD4
+feat:house wall dl:los:0xBD:0xD5
+feat:house wall dl:lit:0xBD:0xD6
+feat:house wall dl:dark:0xBD:0xD7
+
+# house wall dm 
+feat:house wall dm:torch:0xBD:0xD8
+feat:house wall dm:los:0xBD:0xD9
+feat:house wall dm:lit:0xBD:0xDA
+feat:house wall dm:dark:0xBD:0xDB
+
+# house wall dn 
+feat:house wall dn:torch:0xBD:0xDC
+feat:house wall dn:los:0xBD:0xDD
+feat:house wall dn:lit:0xBD:0xDE
+feat:house wall dn:dark:0xBD:0xDF
+
+# house wall do 
+feat:house wall do:torch:0xBD:0xE0
+feat:house wall do:los:0xBD:0xE1
+feat:house wall do:lit:0xBD:0xE2
+feat:house wall do:dark:0xBD:0xE3
+
+# house wall dp 
+feat:house wall dp:torch:0xBD:0xE4
+feat:house wall dp:los:0xBD:0xE5
+feat:house wall dp:lit:0xBD:0xE6
+feat:house wall dp:dark:0xBD:0xE7
+
+# house wall dq 
+feat:house wall dq:torch:0xBD:0xE8
+feat:house wall dq:los:0xBD:0xE9
+feat:house wall dq:lit:0xBD:0xEA
+feat:house wall dq:dark:0xBD:0xEB
+
+# house wall dr 
+feat:house wall dr:torch:0xBD:0xEC
+feat:house wall dr:los:0xBD:0xED
+feat:house wall dr:lit:0xBD:0xEE
+feat:house wall dr:dark:0xBD:0xEF
+
+# house wall ds 
+feat:house wall ds:torch:0xBD:0xF0
+feat:house wall ds:los:0xBD:0xF1
+feat:house wall ds:lit:0xBD:0xF2
+feat:house wall ds:dark:0xBD:0xF3
+
+# house wall dt 
+feat:house wall dt:torch:0xBD:0xF4
+feat:house wall dt:los:0xBD:0xF5
+feat:house wall dt:lit:0xBD:0xF6
+feat:house wall dt:dark:0xBD:0xF7
+
+# house wall du 
+feat:house wall du:torch:0xBD:0xF8
+feat:house wall du:los:0xBD:0xF9
+feat:house wall du:lit:0xBD:0xFA
+feat:house wall du:dark:0xBD:0xFB
+
+# house wall dv 
+feat:house wall dv:torch:0xBD:0xFC
+feat:house wall dv:los:0xBD:0xFD
+feat:house wall dv:lit:0xBD:0xFE
+feat:house wall dv:dark:0xBD:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BE - former "big dark wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+
+# house wall dw 
+feat:house wall dw:torch:0xBE:0x80
+feat:house wall dw:los:0xBE:0x81
+feat:house wall dw:lit:0xBE:0x82
+feat:house wall dw:dark:0xBE:0x83
+
+# house wall dx 
+feat:house wall dx:torch:0xBE:0x84
+feat:house wall dx:los:0xBE:0x85
+feat:house wall dx:lit:0xBE:0x86
+feat:house wall dx:dark:0xBE:0x87
+
+# house wall dy 
+feat:house wall dy:torch:0xBE:0x88
+feat:house wall dy:los:0xBE:0x89
+feat:house wall dy:lit:0xBE:0x8A
+feat:house wall dy:dark:0xBE:0x8B
+
+# house wall dz 
+feat:house wall dz:torch:0xBE:0x8C
+feat:house wall dz:los:0xBE:0x8D
+feat:house wall dz:lit:0xBE:0x8E
+feat:house wall dz:dark:0xBE:0x8F
+
+# house wall dA 
+feat:house wall dA:torch:0xBE:0x90
+feat:house wall dA:los:0xBE:0x91
+feat:house wall dA:lit:0xBE:0x92
+feat:house wall dA:dark:0xBE:0x93
+
+# house wall dB 
+feat:house wall dB:torch:0xBE:0x94
+feat:house wall dB:los:0xBE:0x95
+feat:house wall dB:lit:0xBE:0x96
+feat:house wall dB:dark:0xBE:0x97
+
+# house wall dC 
+feat:house wall dC:torch:0xBE:0x98
+feat:house wall dC:los:0xBE:0x99
+feat:house wall dC:lit:0xBE:0x9A
+feat:house wall dC:dark:0xBE:0x9B
+
+# house wall dD 
+feat:house wall dD:torch:0xBE:0x9C
+feat:house wall dD:los:0xBE:0x9D
+feat:house wall dD:lit:0xBE:0x9E
+feat:house wall dD:dark:0xBE:0x9F
+
+# house wall dE 
+feat:house wall dE:torch:0xBE:0xA0
+feat:house wall dE:los:0xBE:0xA1
+feat:house wall dE:lit:0xBE:0xA2
+feat:house wall dE:dark:0xBE:0xA3
+
+# house wall dF 
+feat:house wall dF:torch:0xBE:0xA4
+feat:house wall dF:los:0xBE:0xA5
+feat:house wall dF:lit:0xBE:0xA6
+feat:house wall dF:dark:0xBE:0xA7
+
+# house wall dG 
+feat:house wall dG:torch:0xBE:0xA8
+feat:house wall dG:los:0xBE:0xA9
+feat:house wall dG:lit:0xBE:0xAA
+feat:house wall dG:dark:0xBE:0xAB
+
+# house wall dH 
+feat:house wall dH:torch:0xBE:0xAC
+feat:house wall dH:los:0xBE:0xAD
+feat:house wall dH:lit:0xBE:0xAE
+feat:house wall dH:dark:0xBE:0xAF
+
+# house wall dI 
+feat:house wall dI:torch:0xBE:0xB0
+feat:house wall dI:los:0xBE:0xB1
+feat:house wall dI:lit:0xBE:0xB2
+feat:house wall dI:dark:0xBE:0xB3
+
+# house wall dJ 
+feat:house wall dJ:torch:0xBE:0xB4
+feat:house wall dJ:los:0xBE:0xB5
+feat:house wall dJ:lit:0xBE:0xB6
+feat:house wall dJ:dark:0xBE:0xB7
+
+# house wall dK 
+feat:house wall dK:torch:0xBE:0xB8
+feat:house wall dK:los:0xBE:0xB9
+feat:house wall dK:lit:0xBE:0xBA
+feat:house wall dK:dark:0xBE:0xBB
+
+# house wall dL 
+feat:house wall dL:torch:0xBE:0xBC
+feat:house wall dL:los:0xBE:0xBD
+feat:house wall dL:lit:0xBE:0xBE
+feat:house wall dL:dark:0xBE:0xBF
+
+# house wall dM 
+feat:house wall dM:torch:0xBE:0xC0
+feat:house wall dM:los:0xBE:0xC1
+feat:house wall dM:lit:0xBE:0xC2
+feat:house wall dM:dark:0xBE:0xC3
+
+# house wall dN 
+feat:house wall dN:torch:0xBE:0xC4
+feat:house wall dN:los:0xBE:0xC5
+feat:house wall dN:lit:0xBE:0xC6
+feat:house wall dN:dark:0xBE:0xC7
+
+# house wall dO 
+feat:house wall dO:torch:0xBE:0xC8
+feat:house wall dO:los:0xBE:0xC9
+feat:house wall dO:lit:0xBE:0xCA
+feat:house wall dO:dark:0xBE:0xCB
+
+# house wall dP 
+feat:house wall dP:torch:0xBE:0xCC
+feat:house wall dP:los:0xBE:0xCD
+feat:house wall dP:lit:0xBE:0xCE
+feat:house wall dP:dark:0xBE:0xCF
+
+# house wall dQ 
+feat:house wall dQ:torch:0xBE:0xD0
+feat:house wall dQ:los:0xBE:0xD1
+feat:house wall dQ:lit:0xBE:0xD2
+feat:house wall dQ:dark:0xBE:0xD3
+
+# house wall dR 
+feat:house wall dR:torch:0xBE:0xD4
+feat:house wall dR:los:0xBE:0xD5
+feat:house wall dR:lit:0xBE:0xD6
+feat:house wall dR:dark:0xBE:0xD7
+
+# house wall dS 
+feat:house wall dS:torch:0xBE:0xD8
+feat:house wall dS:los:0xBE:0xD9
+feat:house wall dS:lit:0xBE:0xDA
+feat:house wall dS:dark:0xBE:0xDB
+
+# house wall dT 
+feat:house wall dT:torch:0xBE:0xDC
+feat:house wall dT:los:0xBE:0xDD
+feat:house wall dT:lit:0xBE:0xDE
+feat:house wall dT:dark:0xBE:0xDF
+
+# house wall dU 
+feat:house wall dU:torch:0xBE:0xE0
+feat:house wall dU:los:0xBE:0xE1
+feat:house wall dU:lit:0xBE:0xE2
+feat:house wall dU:dark:0xBE:0xE3
+
+# house wall dV 
+feat:house wall dV:torch:0xBE:0xE4
+feat:house wall dV:los:0xBE:0xE5
+feat:house wall dV:lit:0xBE:0xE6
+feat:house wall dV:dark:0xBE:0xE7
+
+# house wall dW 
+feat:house wall dW:torch:0xBE:0xE8
+feat:house wall dW:los:0xBE:0xE9
+feat:house wall dW:lit:0xBE:0xEA
+feat:house wall dW:dark:0xBE:0xEB
+
+# house wall dX 
+feat:house wall dX:torch:0xBE:0xEC
+feat:house wall dX:los:0xBE:0xED
+feat:house wall dX:lit:0xBE:0xEE
+feat:house wall dX:dark:0xBE:0xEF
+
+# house wall dY 
+feat:house wall dY:torch:0xBE:0xF0
+feat:house wall dY:los:0xBE:0xF1
+feat:house wall dY:lit:0xBE:0xF2
+feat:house wall dY:dark:0xBE:0xF3
+
+# house wall dZ 
+feat:house wall dZ:torch:0xBE:0xF4
+feat:house wall dZ:los:0xBE:0xF5
+feat:house wall dZ:lit:0xBE:0xF6
+feat:house wall dZ:dark:0xBE:0xF7
+
+# house wall d~ 
+feat:house wall d~:torch:0xBE:0xF8
+feat:house wall d~:los:0xBE:0xF9
+feat:house wall d~:lit:0xBE:0xFA
+feat:house wall d~:dark:0xBE:0xFB
+
+# house wall d` 
+feat:house wall d`:torch:0xBE:0xFC
+feat:house wall d`:los:0xBE:0xFD
+feat:house wall d`:lit:0xBE:0xFE
+feat:house wall d`:dark:0xBE:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# BF - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall e0 
+feat:house wall e0:torch:0xBF:0x80
+feat:house wall e0:los:0xBF:0x81
+feat:house wall e0:lit:0xBF:0x82
+feat:house wall e0:dark:0xBF:0x83
+
+# house wall e1 
+feat:house wall e1:torch:0xBF:0x84
+feat:house wall e1:los:0xBF:0x85
+feat:house wall e1:lit:0xBF:0x86
+feat:house wall e1:dark:0xBF:0x87
+
+# house wall e2 
+feat:house wall e2:torch:0xBF:0x88
+feat:house wall e2:los:0xBF:0x89
+feat:house wall e2:lit:0xBF:0x8A
+feat:house wall e2:dark:0xBF:0x8B
+
+# house wall e3 
+feat:house wall e3:torch:0xBF:0x8C
+feat:house wall e3:los:0xBF:0x8D
+feat:house wall e3:lit:0xBF:0x8E
+feat:house wall e3:dark:0xBF:0x8F
+
+# house wall e4 
+feat:house wall e4:torch:0xBF:0x90
+feat:house wall e4:los:0xBF:0x91
+feat:house wall e4:lit:0xBF:0x92
+feat:house wall e4:dark:0xBF:0x93
+
+# house wall e5 
+feat:house wall e5:torch:0xBF:0x94
+feat:house wall e5:los:0xBF:0x95
+feat:house wall e5:lit:0xBF:0x96
+feat:house wall e5:dark:0xBF:0x97
+
+# house wall e6 
+feat:house wall e6:torch:0xBF:0x98
+feat:house wall e6:los:0xBF:0x99
+feat:house wall e6:lit:0xBF:0x9A
+feat:house wall e6:dark:0xBF:0x9B
+
+# house wall e7 
+feat:house wall e7:torch:0xBF:0x9C
+feat:house wall e7:los:0xBF:0x9D
+feat:house wall e7:lit:0xBF:0x9E
+feat:house wall e7:dark:0xBF:0x9F
+
+# house wall e8 
+feat:house wall e8:torch:0xBF:0xA0
+feat:house wall e8:los:0xBF:0xA1
+feat:house wall e8:lit:0xBF:0xA2
+feat:house wall e8:dark:0xBF:0xA3
+
+# house wall e9 
+feat:house wall e9:torch:0xBF:0xA4
+feat:house wall e9:los:0xBF:0xA5
+feat:house wall e9:lit:0xBF:0xA6
+feat:house wall e9:dark:0xBF:0xA7
+
+# house wall ea 
+feat:house wall ea:torch:0xBF:0xA8
+feat:house wall ea:los:0xBF:0xA9
+feat:house wall ea:lit:0xBF:0xAA
+feat:house wall ea:dark:0xBF:0xAB
+
+# house wall eb 
+feat:house wall eb:torch:0xBF:0xAC
+feat:house wall eb:los:0xBF:0xAD
+feat:house wall eb:lit:0xBF:0xAE
+feat:house wall eb:dark:0xBF:0xAF
+
+# house wall ec 
+feat:house wall ec:torch:0xBF:0xB0
+feat:house wall ec:los:0xBF:0xB1
+feat:house wall ec:lit:0xBF:0xB2
+feat:house wall ec:dark:0xBF:0xB3
+
+# house wall ed 
+feat:house wall ed:torch:0xBF:0xB4
+feat:house wall ed:los:0xBF:0xB5
+feat:house wall ed:lit:0xBF:0xB6
+feat:house wall ed:dark:0xBF:0xB7
+
+# house wall ee 
+feat:house wall ee:torch:0xBF:0xB8
+feat:house wall ee:los:0xBF:0xB9
+feat:house wall ee:lit:0xBF:0xBA
+feat:house wall ee:dark:0xBF:0xBB
+
+# house wall ef 
+feat:house wall ef:torch:0xBF:0xBC
+feat:house wall ef:los:0xBF:0xBD
+feat:house wall ef:lit:0xBF:0xBE
+feat:house wall ef:dark:0xBF:0xBF
+
+# house wall eg 
+feat:house wall eg:torch:0xBF:0xC0
+feat:house wall eg:los:0xBF:0xC1
+feat:house wall eg:lit:0xBF:0xC2
+feat:house wall eg:dark:0xBF:0xC3
+
+# house wall eh 
+feat:house wall eh:torch:0xBF:0xC4
+feat:house wall eh:los:0xBF:0xC5
+feat:house wall eh:lit:0xBF:0xC6
+feat:house wall eh:dark:0xBF:0xC7
+
+# house wall ei 
+feat:house wall ei:torch:0xBF:0xC8
+feat:house wall ei:los:0xBF:0xC9
+feat:house wall ei:lit:0xBF:0xCA
+feat:house wall ei:dark:0xBF:0xCB
+
+# house wall ej 
+feat:house wall ej:torch:0xBF:0xCC
+feat:house wall ej:los:0xBF:0xCD
+feat:house wall ej:lit:0xBF:0xCE
+feat:house wall ej:dark:0xBF:0xCF
+
+# house wall ek 
+feat:house wall ek:torch:0xBF:0xD0
+feat:house wall ek:los:0xBF:0xD1
+feat:house wall ek:lit:0xBF:0xD2
+feat:house wall ek:dark:0xBF:0xD3
+
+# house wall el 
+feat:house wall el:torch:0xBF:0xD4
+feat:house wall el:los:0xBF:0xD5
+feat:house wall el:lit:0xBF:0xD6
+feat:house wall el:dark:0xBF:0xD7
+
+# house wall em 
+feat:house wall em:torch:0xBF:0xD8
+feat:house wall em:los:0xBF:0xD9
+feat:house wall em:lit:0xBF:0xDA
+feat:house wall em:dark:0xBF:0xDB
+
+# house wall en 
+feat:house wall en:torch:0xBF:0xDC
+feat:house wall en:los:0xBF:0xDD
+feat:house wall en:lit:0xBF:0xDE
+feat:house wall en:dark:0xBF:0xDF
+
+# house wall eo 
+feat:house wall eo:torch:0xBF:0xE0
+feat:house wall eo:los:0xBF:0xE1
+feat:house wall eo:lit:0xBF:0xE2
+feat:house wall eo:dark:0xBF:0xE3
+
+# house wall ep 
+feat:house wall ep:torch:0xBF:0xE4
+feat:house wall ep:los:0xBF:0xE5
+feat:house wall ep:lit:0xBF:0xE6
+feat:house wall ep:dark:0xBF:0xE7
+
+# house wall eq 
+feat:house wall eq:torch:0xBF:0xE8
+feat:house wall eq:los:0xBF:0xE9
+feat:house wall eq:lit:0xBF:0xEA
+feat:house wall eq:dark:0xBF:0xEB
+
+# house wall er 
+feat:house wall er:torch:0xBF:0xEC
+feat:house wall er:los:0xBF:0xED
+feat:house wall er:lit:0xBF:0xEE
+feat:house wall er:dark:0xBF:0xEF
+
+# house wall es 
+feat:house wall es:torch:0xBF:0xF0
+feat:house wall es:los:0xBF:0xF1
+feat:house wall es:lit:0xBF:0xF2
+feat:house wall es:dark:0xBF:0xF3
+
+# house wall et 
+feat:house wall et:torch:0xBF:0xF4
+feat:house wall et:los:0xBF:0xF5
+feat:house wall et:lit:0xBF:0xF6
+feat:house wall et:dark:0xBF:0xF7
+
+# house wall eu 
+feat:house wall eu:torch:0xBF:0xF8
+feat:house wall eu:los:0xBF:0xF9
+feat:house wall eu:lit:0xBF:0xFA
+feat:house wall eu:dark:0xBF:0xFB
+
+# house wall ev 
+feat:house wall ev:torch:0xBF:0xFC
+feat:house wall ev:los:0xBF:0xFD
+feat:house wall ev:lit:0xBF:0xFE
+feat:house wall ev:dark:0xBF:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# C0 - former "brick wall"
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall ew 
+feat:house wall ew:torch:0xC0:0x80
+feat:house wall ew:los:0xC0:0x81
+feat:house wall ew:lit:0xC0:0x82
+feat:house wall ew:dark:0xC0:0x83
+
+# house wall ex 
+feat:house wall ex:torch:0xC0:0x84
+feat:house wall ex:los:0xC0:0x85
+feat:house wall ex:lit:0xC0:0x86
+feat:house wall ex:dark:0xC0:0x87
+
+# house wall ey 
+feat:house wall ey:torch:0xC0:0x88
+feat:house wall ey:los:0xC0:0x89
+feat:house wall ey:lit:0xC0:0x8A
+feat:house wall ey:dark:0xC0:0x8B
+
+# house wall ez 
+feat:house wall ez:torch:0xC0:0x8C
+feat:house wall ez:los:0xC0:0x8D
+feat:house wall ez:lit:0xC0:0x8E
+feat:house wall ez:dark:0xC0:0x8F
+
+# house wall eA 
+feat:house wall eA:torch:0xC0:0x90
+feat:house wall eA:los:0xC0:0x91
+feat:house wall eA:lit:0xC0:0x92
+feat:house wall eA:dark:0xC0:0x93
+
+# house wall eB 
+feat:house wall eB:torch:0xC0:0x94
+feat:house wall eB:los:0xC0:0x95
+feat:house wall eB:lit:0xC0:0x96
+feat:house wall eB:dark:0xC0:0x97
+
+# house wall eC 
+feat:house wall eC:torch:0xC0:0x98
+feat:house wall eC:los:0xC0:0x99
+feat:house wall eC:lit:0xC0:0x9A
+feat:house wall eC:dark:0xC0:0x9B
+
+# house wall eD 
+feat:house wall eD:torch:0xC0:0x9C
+feat:house wall eD:los:0xC0:0x9D
+feat:house wall eD:lit:0xC0:0x9E
+feat:house wall eD:dark:0xC0:0x9F
+
+# house wall eE 
+feat:house wall eE:torch:0xC0:0xA0
+feat:house wall eE:los:0xC0:0xA1
+feat:house wall eE:lit:0xC0:0xA2
+feat:house wall eE:dark:0xC0:0xA3
+
+# house wall eF 
+feat:house wall eF:torch:0xC0:0xA4
+feat:house wall eF:los:0xC0:0xA5
+feat:house wall eF:lit:0xC0:0xA6
+feat:house wall eF:dark:0xC0:0xA7
+
+# house wall eG 
+feat:house wall eG:torch:0xC0:0xA8
+feat:house wall eG:los:0xC0:0xA9
+feat:house wall eG:lit:0xC0:0xAA
+feat:house wall eG:dark:0xC0:0xAB
+
+# house wall eH 
+feat:house wall eH:torch:0xC0:0xAC
+feat:house wall eH:los:0xC0:0xAD
+feat:house wall eH:lit:0xC0:0xAE
+feat:house wall eH:dark:0xC0:0xAF
+
+# house wall eI 
+feat:house wall eI:torch:0xC0:0xB0
+feat:house wall eI:los:0xC0:0xB1
+feat:house wall eI:lit:0xC0:0xB2
+feat:house wall eI:dark:0xC0:0xB3
+
+# house wall eJ 
+feat:house wall eJ:torch:0xC0:0xB4
+feat:house wall eJ:los:0xC0:0xB5
+feat:house wall eJ:lit:0xC0:0xB6
+feat:house wall eJ:dark:0xC0:0xB7
+
+# house wall eK 
+feat:house wall eK:torch:0xC0:0xB8
+feat:house wall eK:los:0xC0:0xB9
+feat:house wall eK:lit:0xC0:0xBA
+feat:house wall eK:dark:0xC0:0xBB
+
+# house wall eL 
+feat:house wall eL:torch:0xC0:0xBC
+feat:house wall eL:los:0xC0:0xBD
+feat:house wall eL:lit:0xC0:0xBE
+feat:house wall eL:dark:0xC0:0xBF
+
+# house wall eM 
+feat:house wall eM:torch:0xC0:0xC0
+feat:house wall eM:los:0xC0:0xC1
+feat:house wall eM:lit:0xC0:0xC2
+feat:house wall eM:dark:0xC0:0xC3
+
+# house wall eN 
+feat:house wall eN:torch:0xC0:0xC4
+feat:house wall eN:los:0xC0:0xC5
+feat:house wall eN:lit:0xC0:0xC6
+feat:house wall eN:dark:0xC0:0xC7
+
+# house wall eO 
+feat:house wall eO:torch:0xC0:0xC8
+feat:house wall eO:los:0xC0:0xC9
+feat:house wall eO:lit:0xC0:0xCA
+feat:house wall eO:dark:0xC0:0xCB
+
+# house wall eP 
+feat:house wall eP:torch:0xC0:0xCC
+feat:house wall eP:los:0xC0:0xCD
+feat:house wall eP:lit:0xC0:0xCE
+feat:house wall eP:dark:0xC0:0xCF
+
+# house wall eQ 
+feat:house wall eQ:torch:0xC0:0xD0
+feat:house wall eQ:los:0xC0:0xD1
+feat:house wall eQ:lit:0xC0:0xD2
+feat:house wall eQ:dark:0xC0:0xD3
+
+# house wall eR 
+feat:house wall eR:torch:0xC0:0xD4
+feat:house wall eR:los:0xC0:0xD5
+feat:house wall eR:lit:0xC0:0xD6
+feat:house wall eR:dark:0xC0:0xD7
+
+# house wall eS 
+feat:house wall eS:torch:0xC0:0xD8
+feat:house wall eS:los:0xC0:0xD9
+feat:house wall eS:lit:0xC0:0xDA
+feat:house wall eS:dark:0xC0:0xDB
+
+# house wall eT 
+feat:house wall eT:torch:0xC0:0xDC
+feat:house wall eT:los:0xC0:0xDD
+feat:house wall eT:lit:0xC0:0xDE
+feat:house wall eT:dark:0xC0:0xDF
+
+# house wall eU 
+feat:house wall eU:torch:0xC0:0xE0
+feat:house wall eU:los:0xC0:0xE1
+feat:house wall eU:lit:0xC0:0xE2
+feat:house wall eU:dark:0xC0:0xE3
+
+# house wall eV 
+feat:house wall eV:torch:0xC0:0xE4
+feat:house wall eV:los:0xC0:0xE5
+feat:house wall eV:lit:0xC0:0xE6
+feat:house wall eV:dark:0xC0:0xE7
+
+# house wall eW 
+feat:house wall eW:torch:0xC0:0xE8
+feat:house wall eW:los:0xC0:0xE9
+feat:house wall eW:lit:0xC0:0xEA
+feat:house wall eW:dark:0xC0:0xEB
+
+# house wall eX 
+feat:house wall eX:torch:0xC0:0xEC
+feat:house wall eX:los:0xC0:0xED
+feat:house wall eX:lit:0xC0:0xEE
+feat:house wall eX:dark:0xC0:0xEF
+
+# house wall eY 
+feat:house wall eY:torch:0xC0:0xF0
+feat:house wall eY:los:0xC0:0xF1
+feat:house wall eY:lit:0xC0:0xF2
+feat:house wall eY:dark:0xC0:0xF3
+
+# house wall eZ 
+feat:house wall eZ:torch:0xC0:0xF4
+feat:house wall eZ:los:0xC0:0xF5
+feat:house wall eZ:lit:0xC0:0xF6
+feat:house wall eZ:dark:0xC0:0xF7
+
+# house wall e~ 
+feat:house wall e~:torch:0xC0:0xF8
+feat:house wall e~:los:0xC0:0xF9
+feat:house wall e~:lit:0xC0:0xFA
+feat:house wall e~:dark:0xC0:0xFB
+
+# house wall e` 
+feat:house wall e`:torch:0xC0:0xFC
+feat:house wall e`:los:0xC0:0xFD
+feat:house wall e`:lit:0xC0:0xFE
+feat:house wall e`:dark:0xC0:0xFF
+
+#################################################
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# 96 - house wall (various)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall f0 
+feat:house wall f0:torch:0x96:0x80
+feat:house wall f0:los:0x96:0x81
+feat:house wall f0:lit:0x96:0x82
+feat:house wall f0:dark:0x96:0x83
+
+# house wall f1 
+feat:house wall f1:torch:0x96:0x84
+feat:house wall f1:los:0x96:0x85
+feat:house wall f1:lit:0x96:0x86
+feat:house wall f1:dark:0x96:0x87
+
+# house wall f2 
+feat:house wall f2:torch:0x96:0x88
+feat:house wall f2:los:0x96:0x89
+feat:house wall f2:lit:0x96:0x8A
+feat:house wall f2:dark:0x96:0x8B
+
+# house wall f3 
+feat:house wall f3:torch:0x96:0x8C
+feat:house wall f3:los:0x96:0x8D
+feat:house wall f3:lit:0x96:0x8E
+feat:house wall f3:dark:0x96:0x8F
+
+# house wall f4 
+feat:house wall f4:torch:0x96:0x90
+feat:house wall f4:los:0x96:0x91
+feat:house wall f4:lit:0x96:0x92
+feat:house wall f4:dark:0x96:0x93
+
+# house wall f5 
+feat:house wall f5:torch:0x96:0x94
+feat:house wall f5:los:0x96:0x95
+feat:house wall f5:lit:0x96:0x96
+feat:house wall f5:dark:0x96:0x97
+
+# house wall f6 
+feat:house wall f6:torch:0x96:0x98
+feat:house wall f6:los:0x96:0x99
+feat:house wall f6:lit:0x96:0x9A
+feat:house wall f6:dark:0x96:0x9B
+
+# house wall f7 
+feat:house wall f7:torch:0x96:0x9C
+feat:house wall f7:los:0x96:0x9D
+feat:house wall f7:lit:0x96:0x9E
+feat:house wall f7:dark:0x96:0x9F
+
+# house wall f8 
+feat:house wall f8:torch:0x96:0xA0
+feat:house wall f8:los:0x96:0xA1
+feat:house wall f8:lit:0x96:0xA2
+feat:house wall f8:dark:0x96:0xA3
+
+# house wall f9 
+feat:house wall f9:torch:0x96:0xA4
+feat:house wall f9:los:0x96:0xA5
+feat:house wall f9:lit:0x96:0xA6
+feat:house wall f9:dark:0x96:0xA7
+
+# house wall fa 
+feat:house wall fa:torch:0x96:0xA8
+feat:house wall fa:los:0x96:0xA9
+feat:house wall fa:lit:0x96:0xAA
+feat:house wall fa:dark:0x96:0xAB
+
+# house wall fb 
+feat:house wall fb:torch:0x96:0xAC
+feat:house wall fb:los:0x96:0xAD
+feat:house wall fb:lit:0x96:0xAE
+feat:house wall fb:dark:0x96:0xAF
+
+# house wall fc 
+feat:house wall fc:torch:0x96:0xB0
+feat:house wall fc:los:0x96:0xB1
+feat:house wall fc:lit:0x96:0xB2
+feat:house wall fc:dark:0x96:0xB3
+
+# house wall fd 
+feat:house wall fd:torch:0x96:0xB4
+feat:house wall fd:los:0x96:0xB5
+feat:house wall fd:lit:0x96:0xB6
+feat:house wall fd:dark:0x96:0xB7
+
+# house wall fe 
+feat:house wall fe:torch:0x96:0xB8
+feat:house wall fe:los:0x96:0xB9
+feat:house wall fe:lit:0x96:0xBA
+feat:house wall fe:dark:0x96:0xBB
+
+# house wall ff 
+feat:house wall ff:torch:0x96:0xBC
+feat:house wall ff:los:0x96:0xBD
+feat:house wall ff:lit:0x96:0xBE
+feat:house wall ff:dark:0x96:0xBF
+
+# house wall fg 
+feat:house wall fg:torch:0x96:0xC0
+feat:house wall fg:los:0x96:0xC1
+feat:house wall fg:lit:0x96:0xC2
+feat:house wall fg:dark:0x96:0xC3
+
+# house wall fh 
+feat:house wall fh:torch:0x96:0xC4
+feat:house wall fh:los:0x96:0xC5
+feat:house wall fh:lit:0x96:0xC6
+feat:house wall fh:dark:0x96:0xC7
+
+# house wall fi 
+feat:house wall fi:torch:0x96:0xC8
+feat:house wall fi:los:0x96:0xC9
+feat:house wall fi:lit:0x96:0xCA
+feat:house wall fi:dark:0x96:0xCB
+
+# house wall fj 
+feat:house wall fj:torch:0x96:0xCC
+feat:house wall fj:los:0x96:0xCD
+feat:house wall fj:lit:0x96:0xCE
+feat:house wall fj:dark:0x96:0xCF
+
+# house wall fk 
+feat:house wall fk:torch:0x96:0xD0
+feat:house wall fk:los:0x96:0xD1
+feat:house wall fk:lit:0x96:0xD2
+feat:house wall fk:dark:0x96:0xD3
+
+# house wall fl 
+feat:house wall fl:torch:0x96:0xD4
+feat:house wall fl:los:0x96:0xD5
+feat:house wall fl:lit:0x96:0xD6
+feat:house wall fl:dark:0x96:0xD7
+
+# house wall fm 
+feat:house wall fm:torch:0x96:0xD8
+feat:house wall fm:los:0x96:0xD9
+feat:house wall fm:lit:0x96:0xDA
+feat:house wall fm:dark:0x96:0xDB
+
+# house wall fn 
+feat:house wall fn:torch:0x96:0xDC
+feat:house wall fn:los:0x96:0xDD
+feat:house wall fn:lit:0x96:0xDE
+feat:house wall fn:dark:0x96:0xDF
+
+# house wall fo 
+feat:house wall fo:torch:0x96:0xE0
+feat:house wall fo:los:0x96:0xE1
+feat:house wall fo:lit:0x96:0xE2
+feat:house wall fo:dark:0x96:0xE3
+
+# house wall fp 
+feat:house wall fp:torch:0x96:0xE4
+feat:house wall fp:los:0x96:0xE5
+feat:house wall fp:lit:0x96:0xE6
+feat:house wall fp:dark:0x96:0xE7
+
+# house wall fq 
+feat:house wall fq:torch:0x96:0xE8
+feat:house wall fq:los:0x96:0xE9
+feat:house wall fq:lit:0x96:0xEA
+feat:house wall fq:dark:0x96:0xEB
+
+# house wall fr 
+feat:house wall fr:torch:0x96:0xEC
+feat:house wall fr:los:0x96:0xED
+feat:house wall fr:lit:0x96:0xEE
+feat:house wall fr:dark:0x96:0xEF
+
+# house wall fs 
+feat:house wall fs:torch:0x96:0xF0
+feat:house wall fs:los:0x96:0xF1
+feat:house wall fs:lit:0x96:0xF2
+feat:house wall fs:dark:0x96:0xF3
+
+# house wall ft 
+feat:house wall ft:torch:0x96:0xF4
+feat:house wall ft:los:0x96:0xF5
+feat:house wall ft:lit:0x96:0xF6
+feat:house wall ft:dark:0x96:0xF7
+
+# house wall fu 
+feat:house wall fu:torch:0x96:0xF8
+feat:house wall fu:los:0x96:0xF9
+feat:house wall fu:lit:0x96:0xFA
+feat:house wall fu:dark:0x96:0xFB
+
+# house wall fv 
+feat:house wall fv:torch:0x96:0xFC
+feat:house wall fv:los:0x96:0xFD
+feat:house wall fv:lit:0x96:0xFE
+feat:house wall fv:dark:0x96:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# 98 - house wall (moss)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall fw 
+feat:house wall fw:torch:0x98:0x80
+feat:house wall fw:los:0x98:0x81
+feat:house wall fw:lit:0x98:0x82
+feat:house wall fw:dark:0x98:0x83
+
+# house wall fx 
+feat:house wall fx:torch:0x98:0x84
+feat:house wall fx:los:0x98:0x85
+feat:house wall fx:lit:0x98:0x86
+feat:house wall fx:dark:0x98:0x87
+
+# house wall fy 
+feat:house wall fy:torch:0x98:0x88
+feat:house wall fy:los:0x98:0x89
+feat:house wall fy:lit:0x98:0x8A
+feat:house wall fy:dark:0x98:0x8B
+
+# house wall fz 
+feat:house wall fz:torch:0x98:0x8C
+feat:house wall fz:los:0x98:0x8D
+feat:house wall fz:lit:0x98:0x8E
+feat:house wall fz:dark:0x98:0x8F
+
+# house wall fA 
+feat:house wall fA:torch:0x98:0x90
+feat:house wall fA:los:0x98:0x91
+feat:house wall fA:lit:0x98:0x92
+feat:house wall fA:dark:0x98:0x93
+
+# house wall fB 
+feat:house wall fB:torch:0x98:0x94
+feat:house wall fB:los:0x98:0x95
+feat:house wall fB:lit:0x98:0x96
+feat:house wall fB:dark:0x98:0x97
+
+# house wall fC 
+feat:house wall fC:torch:0x98:0x98
+feat:house wall fC:los:0x98:0x99
+feat:house wall fC:lit:0x98:0x9A
+feat:house wall fC:dark:0x98:0x9B
+
+# house wall fD 
+feat:house wall fD:torch:0x98:0x9C
+feat:house wall fD:los:0x98:0x9D
+feat:house wall fD:lit:0x98:0x9E
+feat:house wall fD:dark:0x98:0x9F
+
+# house wall fE 
+feat:house wall fE:torch:0x98:0xA0
+feat:house wall fE:los:0x98:0xA1
+feat:house wall fE:lit:0x98:0xA2
+feat:house wall fE:dark:0x98:0xA3
+
+# house wall fF 
+feat:house wall fF:torch:0x98:0xA4
+feat:house wall fF:los:0x98:0xA5
+feat:house wall fF:lit:0x98:0xA6
+feat:house wall fF:dark:0x98:0xA7
+
+# house wall fG 
+feat:house wall fG:torch:0x98:0xA8
+feat:house wall fG:los:0x98:0xA9
+feat:house wall fG:lit:0x98:0xAA
+feat:house wall fG:dark:0x98:0xAB
+
+# house wall fH 
+feat:house wall fH:torch:0x98:0xAC
+feat:house wall fH:los:0x98:0xAD
+feat:house wall fH:lit:0x98:0xAE
+feat:house wall fH:dark:0x98:0xAF
+
+# house wall fI 
+feat:house wall fI:torch:0x98:0xB0
+feat:house wall fI:los:0x98:0xB1
+feat:house wall fI:lit:0x98:0xB2
+feat:house wall fI:dark:0x98:0xB3
+
+# house wall fJ 
+feat:house wall fJ:torch:0x98:0xB4
+feat:house wall fJ:los:0x98:0xB5
+feat:house wall fJ:lit:0x98:0xB6
+feat:house wall fJ:dark:0x98:0xB7
+
+# house wall fK 
+feat:house wall fK:torch:0x98:0xB8
+feat:house wall fK:los:0x98:0xB9
+feat:house wall fK:lit:0x98:0xBA
+feat:house wall fK:dark:0x98:0xBB
+
+# house wall fL 
+feat:house wall fL:torch:0x98:0xBC
+feat:house wall fL:los:0x98:0xBD
+feat:house wall fL:lit:0x98:0xBE
+feat:house wall fL:dark:0x98:0xBF
+
+# house wall fM 
+feat:house wall fM:torch:0x98:0xC0
+feat:house wall fM:los:0x98:0xC1
+feat:house wall fM:lit:0x98:0xC2
+feat:house wall fM:dark:0x98:0xC3
+
+# house wall fN 
+feat:house wall fN:torch:0x98:0xC4
+feat:house wall fN:los:0x98:0xC5
+feat:house wall fN:lit:0x98:0xC6
+feat:house wall fN:dark:0x98:0xC7
+
+# house wall fO 
+feat:house wall fO:torch:0x98:0xC8
+feat:house wall fO:los:0x98:0xC9
+feat:house wall fO:lit:0x98:0xCA
+feat:house wall fO:dark:0x98:0xCB
+
+# house wall fP 
+feat:house wall fP:torch:0x98:0xCC
+feat:house wall fP:los:0x98:0xCD
+feat:house wall fP:lit:0x98:0xCE
+feat:house wall fP:dark:0x98:0xCF
+
+# house wall fQ 
+feat:house wall fQ:torch:0x98:0xD0
+feat:house wall fQ:los:0x98:0xD1
+feat:house wall fQ:lit:0x98:0xD2
+feat:house wall fQ:dark:0x98:0xD3
+
+# house wall fR 
+feat:house wall fR:torch:0x98:0xD4
+feat:house wall fR:los:0x98:0xD5
+feat:house wall fR:lit:0x98:0xD6
+feat:house wall fR:dark:0x98:0xD7
+
+# house wall fS 
+feat:house wall fS:torch:0x98:0xD8
+feat:house wall fS:los:0x98:0xD9
+feat:house wall fS:lit:0x98:0xDA
+feat:house wall fS:dark:0x98:0xDB
+
+# house wall fT 
+feat:house wall fT:torch:0x98:0xDC
+feat:house wall fT:los:0x98:0xDD
+feat:house wall fT:lit:0x98:0xDE
+feat:house wall fT:dark:0x98:0xDF
+
+# house wall fU 
+feat:house wall fU:torch:0x98:0xE0
+feat:house wall fU:los:0x98:0xE1
+feat:house wall fU:lit:0x98:0xE2
+feat:house wall fU:dark:0x98:0xE3
+
+# house wall fV 
+feat:house wall fV:torch:0x98:0xE4
+feat:house wall fV:los:0x98:0xE5
+feat:house wall fV:lit:0x98:0xE6
+feat:house wall fV:dark:0x98:0xE7
+
+# house wall fW 
+feat:house wall fW:torch:0x98:0xE8
+feat:house wall fW:los:0x98:0xE9
+feat:house wall fW:lit:0x98:0xEA
+feat:house wall fW:dark:0x98:0xEB
+
+# house wall fX 
+feat:house wall fX:torch:0x98:0xEC
+feat:house wall fX:los:0x98:0xED
+feat:house wall fX:lit:0x98:0xEE
+feat:house wall fX:dark:0x98:0xEF
+
+# house wall fY 
+feat:house wall fY:torch:0x98:0xF0
+feat:house wall fY:los:0x98:0xF1
+feat:house wall fY:lit:0x98:0xF2
+feat:house wall fY:dark:0x98:0xF3
+
+# house wall fZ 
+feat:house wall fZ:torch:0x98:0xF4
+feat:house wall fZ:los:0x98:0xF5
+feat:house wall fZ:lit:0x98:0xF6
+feat:house wall fZ:dark:0x98:0xF7
+
+# house wall f~ 
+feat:house wall f~:torch:0x98:0xF8
+feat:house wall f~:los:0x98:0xF9
+feat:house wall f~:lit:0x98:0xFA
+feat:house wall f~:dark:0x98:0xFB
+
+# house wall f` 
+feat:house wall f`:torch:0x98:0xFC
+feat:house wall f`:los:0x98:0xFD
+feat:house wall f`:lit:0x98:0xFE
+feat:house wall f`:dark:0x98:0xFF
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# A3 - house wall (sewers)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall g0 
+feat:house wall g0:torch:0xA3:0x80
+feat:house wall g0:los:0xA3:0x81
+feat:house wall g0:lit:0xA3:0x82
+feat:house wall g0:dark:0xA3:0x83
+
+# house wall g1 
+feat:house wall g1:torch:0xA3:0x84
+feat:house wall g1:los:0xA3:0x85
+feat:house wall g1:lit:0xA3:0x86
+feat:house wall g1:dark:0xA3:0x87
+
+# house wall g2 
+feat:house wall g2:torch:0xA3:0x88
+feat:house wall g2:los:0xA3:0x89
+feat:house wall g2:lit:0xA3:0x8A
+feat:house wall g2:dark:0xA3:0x8B
+
+# house wall g3 
+feat:house wall g3:torch:0xA3:0x8C
+feat:house wall g3:los:0xA3:0x8D
+feat:house wall g3:lit:0xA3:0x8E
+feat:house wall g3:dark:0xA3:0x8F
+
+# house wall g4 
+feat:house wall g4:torch:0xA3:0x90
+feat:house wall g4:los:0xA3:0x91
+feat:house wall g4:lit:0xA3:0x92
+feat:house wall g4:dark:0xA3:0x93
+
+# house wall g5 
+feat:house wall g5:torch:0xA3:0x94
+feat:house wall g5:los:0xA3:0x95
+feat:house wall g5:lit:0xA3:0x96
+feat:house wall g5:dark:0xA3:0x97
+
+# house wall g6 
+feat:house wall g6:torch:0xA3:0x98
+feat:house wall g6:los:0xA3:0x99
+feat:house wall g6:lit:0xA3:0x9A
+feat:house wall g6:dark:0xA3:0x9B
+
+# house wall g7 
+feat:house wall g7:torch:0xA3:0x9C
+feat:house wall g7:los:0xA3:0x9D
+feat:house wall g7:lit:0xA3:0x9E
+feat:house wall g7:dark:0xA3:0x9F
+
+# house wall g8 
+feat:house wall g8:torch:0xA3:0xA0
+feat:house wall g8:los:0xA3:0xA1
+feat:house wall g8:lit:0xA3:0xA2
+feat:house wall g8:dark:0xA3:0xA3
+
+# house wall g9 
+feat:house wall g9:torch:0xA3:0xA4
+feat:house wall g9:los:0xA3:0xA5
+feat:house wall g9:lit:0xA3:0xA6
+feat:house wall g9:dark:0xA3:0xA7
+
+# house wall ga 
+feat:house wall ga:torch:0xA3:0xA8
+feat:house wall ga:los:0xA3:0xA9
+feat:house wall ga:lit:0xA3:0xAA
+feat:house wall ga:dark:0xA3:0xAB
+
+# house wall gb 
+feat:house wall gb:torch:0xA3:0xAC
+feat:house wall gb:los:0xA3:0xAD
+feat:house wall gb:lit:0xA3:0xAE
+feat:house wall gb:dark:0xA3:0xAF
+
+# house wall gc 
+feat:house wall gc:torch:0xA3:0xB0
+feat:house wall gc:los:0xA3:0xB1
+feat:house wall gc:lit:0xA3:0xB2
+feat:house wall gc:dark:0xA3:0xB3
+
+# house wall gd 
+feat:house wall gd:torch:0xA3:0xB4
+feat:house wall gd:los:0xA3:0xB5
+feat:house wall gd:lit:0xA3:0xB6
+feat:house wall gd:dark:0xA3:0xB7
+
+# house wall ge 
+feat:house wall ge:torch:0xA3:0xB8
+feat:house wall ge:los:0xA3:0xB9
+feat:house wall ge:lit:0xA3:0xBA
+feat:house wall ge:dark:0xA3:0xBB
+
+# house wall gf 
+feat:house wall gf:torch:0xA3:0xBC
+feat:house wall gf:los:0xA3:0xBD
+feat:house wall gf:lit:0xA3:0xBE
+feat:house wall gf:dark:0xA3:0xBF
+
+# house wall gg 
+feat:house wall gg:torch:0xA3:0xC0
+feat:house wall gg:los:0xA3:0xC1
+feat:house wall gg:lit:0xA3:0xC2
+feat:house wall gg:dark:0xA3:0xC3
+
+# house wall gh 
+feat:house wall gh:torch:0xA3:0xC4
+feat:house wall gh:los:0xA3:0xC5
+feat:house wall gh:lit:0xA3:0xC6
+feat:house wall gh:dark:0xA3:0xC7
+
+# house wall gi 
+feat:house wall gi:torch:0xA3:0xC8
+feat:house wall gi:los:0xA3:0xC9
+feat:house wall gi:lit:0xA3:0xCA
+feat:house wall gi:dark:0xA3:0xCB
+
+# house wall gj 
+feat:house wall gj:torch:0xA3:0xCC
+feat:house wall gj:los:0xA3:0xCD
+feat:house wall gj:lit:0xA3:0xCE
+feat:house wall gj:dark:0xA3:0xCF
+
+# house wall gk 
+feat:house wall gk:torch:0xA3:0xD0
+feat:house wall gk:los:0xA3:0xD1
+feat:house wall gk:lit:0xA3:0xD2
+feat:house wall gk:dark:0xA3:0xD3
+
+# house wall gl 
+feat:house wall gl:torch:0xA3:0xD4
+feat:house wall gl:los:0xA3:0xD5
+feat:house wall gl:lit:0xA3:0xD6
+feat:house wall gl:dark:0xA3:0xD7
+
+# house wall gm 
+feat:house wall gm:torch:0xA3:0xD8
+feat:house wall gm:los:0xA3:0xD9
+feat:house wall gm:lit:0xA3:0xDA
+feat:house wall gm:dark:0xA3:0xDB
+
+# house wall gn 
+feat:house wall gn:torch:0xA3:0xDC
+feat:house wall gn:los:0xA3:0xDD
+feat:house wall gn:lit:0xA3:0xDE
+feat:house wall gn:dark:0xA3:0xDF
+
+# house wall go 
+feat:house wall go:torch:0xA3:0xE0
+feat:house wall go:los:0xA3:0xE1
+feat:house wall go:lit:0xA3:0xE2
+feat:house wall go:dark:0xA3:0xE3
+
+# house wall gp 
+feat:house wall gp:torch:0xA3:0xE4
+feat:house wall gp:los:0xA3:0xE5
+feat:house wall gp:lit:0xA3:0xE6
+feat:house wall gp:dark:0xA3:0xE7
+
+# house wall gq 
+feat:house wall gq:torch:0xA3:0xE8
+feat:house wall gq:los:0xA3:0xE9
+feat:house wall gq:lit:0xA3:0xEA
+feat:house wall gq:dark:0xA3:0xEB
+
+# house wall gr 
+feat:house wall gr:torch:0xA3:0xEC
+feat:house wall gr:los:0xA3:0xED
+feat:house wall gr:lit:0xA3:0xEE
+feat:house wall gr:dark:0xA3:0xEF
+
+# house wall gs 
+feat:house wall gs:torch:0xA3:0xF0
+feat:house wall gs:los:0xA3:0xF1
+feat:house wall gs:lit:0xA3:0xF2
+feat:house wall gs:dark:0xA3:0xF3
+
+# house wall gt 
+feat:house wall gt:torch:0xA3:0xF4
+feat:house wall gt:los:0xA3:0xF5
+feat:house wall gt:lit:0xA3:0xF6
+feat:house wall gt:dark:0xA3:0xF7
+
+# house wall gu 
+feat:house wall gu:torch:0xA3:0xF8
+feat:house wall gu:los:0xA3:0xF9
+feat:house wall gu:lit:0xA3:0xFA
+feat:house wall gu:dark:0xA3:0xFB
+
+# house wall gv 
+feat:house wall gv:torch:0xA3:0xFC
+feat:house wall gv:los:0xA3:0xFD
+feat:house wall gv:lit:0xA3:0xFE
+feat:house wall gv:dark:0xA3:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# AA - house wall (various)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall gw 
+feat:house wall gw:torch:0xAA:0x80
+feat:house wall gw:los:0xAA:0x81
+feat:house wall gw:lit:0xAA:0x82
+feat:house wall gw:dark:0xAA:0x83
+
+# house wall gx 
+feat:house wall gx:torch:0xAA:0x84
+feat:house wall gx:los:0xAA:0x85
+feat:house wall gx:lit:0xAA:0x86
+feat:house wall gx:dark:0xAA:0x87
+
+# house wall gy 
+feat:house wall gy:torch:0xAA:0x88
+feat:house wall gy:los:0xAA:0x89
+feat:house wall gy:lit:0xAA:0x8A
+feat:house wall gy:dark:0xAA:0x8B
+
+# house wall gz 
+feat:house wall gz:torch:0xAA:0x8C
+feat:house wall gz:los:0xAA:0x8D
+feat:house wall gz:lit:0xAA:0x8E
+feat:house wall gz:dark:0xAA:0x8F
+
+# house wall gA 
+feat:house wall gA:torch:0xAA:0x90
+feat:house wall gA:los:0xAA:0x91
+feat:house wall gA:lit:0xAA:0x92
+feat:house wall gA:dark:0xAA:0x93
+
+# house wall gB 
+feat:house wall gB:torch:0xAA:0x94
+feat:house wall gB:los:0xAA:0x95
+feat:house wall gB:lit:0xAA:0x96
+feat:house wall gB:dark:0xAA:0x97
+
+# house wall gC 
+feat:house wall gC:torch:0xAA:0x98
+feat:house wall gC:los:0xAA:0x99
+feat:house wall gC:lit:0xAA:0x9A
+feat:house wall gC:dark:0xAA:0x9B
+
+# house wall gD 
+feat:house wall gD:torch:0xAA:0x9C
+feat:house wall gD:los:0xAA:0x9D
+feat:house wall gD:lit:0xAA:0x9E
+feat:house wall gD:dark:0xAA:0x9F
+
+# house wall gE 
+feat:house wall gE:torch:0xAA:0xA0
+feat:house wall gE:los:0xAA:0xA1
+feat:house wall gE:lit:0xAA:0xA2
+feat:house wall gE:dark:0xAA:0xA3
+
+# house wall gF 
+feat:house wall gF:torch:0xAA:0xA4
+feat:house wall gF:los:0xAA:0xA5
+feat:house wall gF:lit:0xAA:0xA6
+feat:house wall gF:dark:0xAA:0xA7
+
+# house wall gG 
+feat:house wall gG:torch:0xAA:0xA8
+feat:house wall gG:los:0xAA:0xA9
+feat:house wall gG:lit:0xAA:0xAA
+feat:house wall gG:dark:0xAA:0xAB
+
+# house wall gH 
+feat:house wall gH:torch:0xAA:0xAC
+feat:house wall gH:los:0xAA:0xAD
+feat:house wall gH:lit:0xAA:0xAE
+feat:house wall gH:dark:0xAA:0xAF
+
+# house wall gI 
+feat:house wall gI:torch:0xAA:0xB0
+feat:house wall gI:los:0xAA:0xB1
+feat:house wall gI:lit:0xAA:0xB2
+feat:house wall gI:dark:0xAA:0xB3
+
+# house wall gJ 
+feat:house wall gJ:torch:0xAA:0xB4
+feat:house wall gJ:los:0xAA:0xB5
+feat:house wall gJ:lit:0xAA:0xB6
+feat:house wall gJ:dark:0xAA:0xB7
+
+# house wall gK 
+feat:house wall gK:torch:0xAA:0xB8
+feat:house wall gK:los:0xAA:0xB9
+feat:house wall gK:lit:0xAA:0xBA
+feat:house wall gK:dark:0xAA:0xBB
+
+# house wall gL 
+feat:house wall gL:torch:0xAA:0xBC
+feat:house wall gL:los:0xAA:0xBD
+feat:house wall gL:lit:0xAA:0xBE
+feat:house wall gL:dark:0xAA:0xBF
+
+# house wall gM 
+feat:house wall gM:torch:0xAA:0xC0
+feat:house wall gM:los:0xAA:0xC1
+feat:house wall gM:lit:0xAA:0xC2
+feat:house wall gM:dark:0xAA:0xC3
+
+# house wall gN 
+feat:house wall gN:torch:0xAA:0xC4
+feat:house wall gN:los:0xAA:0xC5
+feat:house wall gN:lit:0xAA:0xC6
+feat:house wall gN:dark:0xAA:0xC7
+
+# house wall gO 
+feat:house wall gO:torch:0xAA:0xC8
+feat:house wall gO:los:0xAA:0xC9
+feat:house wall gO:lit:0xAA:0xCA
+feat:house wall gO:dark:0xAA:0xCB
+
+# house wall gP 
+feat:house wall gP:torch:0xAA:0xCC
+feat:house wall gP:los:0xAA:0xCD
+feat:house wall gP:lit:0xAA:0xCE
+feat:house wall gP:dark:0xAA:0xCF
+
+# house wall gQ 
+feat:house wall gQ:torch:0xAA:0xD0
+feat:house wall gQ:los:0xAA:0xD1
+feat:house wall gQ:lit:0xAA:0xD2
+feat:house wall gQ:dark:0xAA:0xD3
+
+# house wall gR 
+feat:house wall gR:torch:0xAA:0xD4
+feat:house wall gR:los:0xAA:0xD5
+feat:house wall gR:lit:0xAA:0xD6
+feat:house wall gR:dark:0xAA:0xD7
+
+# house wall gS 
+feat:house wall gS:torch:0xAA:0xD8
+feat:house wall gS:los:0xAA:0xD9
+feat:house wall gS:lit:0xAA:0xDA
+feat:house wall gS:dark:0xAA:0xDB
+
+# house wall gT 
+feat:house wall gT:torch:0xAA:0xDC
+feat:house wall gT:los:0xAA:0xDD
+feat:house wall gT:lit:0xAA:0xDE
+feat:house wall gT:dark:0xAA:0xDF
+
+# house wall gU 
+feat:house wall gU:torch:0xAA:0xE0
+feat:house wall gU:los:0xAA:0xE1
+feat:house wall gU:lit:0xAA:0xE2
+feat:house wall gU:dark:0xAA:0xE3
+
+# house wall gV 
+feat:house wall gV:torch:0xAA:0xE4
+feat:house wall gV:los:0xAA:0xE5
+feat:house wall gV:lit:0xAA:0xE6
+feat:house wall gV:dark:0xAA:0xE7
+
+# house wall gW 
+feat:house wall gW:torch:0xAA:0xE8
+feat:house wall gW:los:0xAA:0xE9
+feat:house wall gW:lit:0xAA:0xEA
+feat:house wall gW:dark:0xAA:0xEB
+
+# house wall gX 
+feat:house wall gX:torch:0xAA:0xEC
+feat:house wall gX:los:0xAA:0xED
+feat:house wall gX:lit:0xAA:0xEE
+feat:house wall gX:dark:0xAA:0xEF
+
+# house wall gY 
+feat:house wall gY:torch:0xAA:0xF0
+feat:house wall gY:los:0xAA:0xF1
+feat:house wall gY:lit:0xAA:0xF2
+feat:house wall gY:dark:0xAA:0xF3
+
+# house wall gZ 
+feat:house wall gZ:torch:0xAA:0xF4
+feat:house wall gZ:los:0xAA:0xF5
+feat:house wall gZ:lit:0xAA:0xF6
+feat:house wall gZ:dark:0xAA:0xF7
+
+# house wall g~ 
+feat:house wall g~:torch:0xAA:0xF8
+feat:house wall g~:los:0xAA:0xF9
+feat:house wall g~:lit:0xAA:0xFA
+feat:house wall g~:dark:0xAA:0xFB
+
+# house wall g` 
+feat:house wall g`:torch:0xAA:0xFC
+feat:house wall g`:los:0xAA:0xFD
+feat:house wall g`:lit:0xAA:0xFE
+feat:house wall g`:dark:0xAA:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# DC - house wall (black brick wall with paintings)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall h0 
+feat:house wall h0:torch:0xDC:0x80
+feat:house wall h0:los:0xDC:0x81
+feat:house wall h0:lit:0xDC:0x82
+feat:house wall h0:dark:0xDC:0x83
+
+# house wall h1 
+feat:house wall h1:torch:0xDC:0x84
+feat:house wall h1:los:0xDC:0x85
+feat:house wall h1:lit:0xDC:0x86
+feat:house wall h1:dark:0xDC:0x87
+
+# house wall h2 
+feat:house wall h2:torch:0xDC:0x88
+feat:house wall h2:los:0xDC:0x89
+feat:house wall h2:lit:0xDC:0x8A
+feat:house wall h2:dark:0xDC:0x8B
+
+# house wall h3 
+feat:house wall h3:torch:0xDC:0x8C
+feat:house wall h3:los:0xDC:0x8D
+feat:house wall h3:lit:0xDC:0x8E
+feat:house wall h3:dark:0xDC:0x8F
+
+# house wall h4 
+feat:house wall h4:torch:0xDC:0x90
+feat:house wall h4:los:0xDC:0x91
+feat:house wall h4:lit:0xDC:0x92
+feat:house wall h4:dark:0xDC:0x93
+
+# house wall h5 
+feat:house wall h5:torch:0xDC:0x94
+feat:house wall h5:los:0xDC:0x95
+feat:house wall h5:lit:0xDC:0x96
+feat:house wall h5:dark:0xDC:0x97
+
+# house wall h6 
+feat:house wall h6:torch:0xDC:0x98
+feat:house wall h6:los:0xDC:0x99
+feat:house wall h6:lit:0xDC:0x9A
+feat:house wall h6:dark:0xDC:0x9B
+
+# house wall h7 
+feat:house wall h7:torch:0xDC:0x9C
+feat:house wall h7:los:0xDC:0x9D
+feat:house wall h7:lit:0xDC:0x9E
+feat:house wall h7:dark:0xDC:0x9F
+
+# house wall h8 
+feat:house wall h8:torch:0xDC:0xA0
+feat:house wall h8:los:0xDC:0xA1
+feat:house wall h8:lit:0xDC:0xA2
+feat:house wall h8:dark:0xDC:0xA3
+
+# house wall h9 
+feat:house wall h9:torch:0xDC:0xA4
+feat:house wall h9:los:0xDC:0xA5
+feat:house wall h9:lit:0xDC:0xA6
+feat:house wall h9:dark:0xDC:0xA7
+
+# house wall ha 
+feat:house wall ha:torch:0xDC:0xA8
+feat:house wall ha:los:0xDC:0xA9
+feat:house wall ha:lit:0xDC:0xAA
+feat:house wall ha:dark:0xDC:0xAB
+
+# house wall hb 
+feat:house wall hb:torch:0xDC:0xAC
+feat:house wall hb:los:0xDC:0xAD
+feat:house wall hb:lit:0xDC:0xAE
+feat:house wall hb:dark:0xDC:0xAF
+
+# house wall hc 
+feat:house wall hc:torch:0xDC:0xB0
+feat:house wall hc:los:0xDC:0xB1
+feat:house wall hc:lit:0xDC:0xB2
+feat:house wall hc:dark:0xDC:0xB3
+
+# house wall hd 
+feat:house wall hd:torch:0xDC:0xB4
+feat:house wall hd:los:0xDC:0xB5
+feat:house wall hd:lit:0xDC:0xB6
+feat:house wall hd:dark:0xDC:0xB7
+
+# house wall he 
+feat:house wall he:torch:0xDC:0xB8
+feat:house wall he:los:0xDC:0xB9
+feat:house wall he:lit:0xDC:0xBA
+feat:house wall he:dark:0xDC:0xBB
+
+# house wall hf 
+feat:house wall hf:torch:0xDC:0xBC
+feat:house wall hf:los:0xDC:0xBD
+feat:house wall hf:lit:0xDC:0xBE
+feat:house wall hf:dark:0xDC:0xBF
+
+# house wall hg 
+feat:house wall hg:torch:0xDC:0xC0
+feat:house wall hg:los:0xDC:0xC1
+feat:house wall hg:lit:0xDC:0xC2
+feat:house wall hg:dark:0xDC:0xC3
+
+# house wall hh 
+feat:house wall hh:torch:0xDC:0xC4
+feat:house wall hh:los:0xDC:0xC5
+feat:house wall hh:lit:0xDC:0xC6
+feat:house wall hh:dark:0xDC:0xC7
+
+# house wall hi 
+feat:house wall hi:torch:0xDC:0xC8
+feat:house wall hi:los:0xDC:0xC9
+feat:house wall hi:lit:0xDC:0xCA
+feat:house wall hi:dark:0xDC:0xCB
+
+# house wall hj 
+feat:house wall hj:torch:0xDC:0xCC
+feat:house wall hj:los:0xDC:0xCD
+feat:house wall hj:lit:0xDC:0xCE
+feat:house wall hj:dark:0xDC:0xCF
+
+# house wall hk 
+feat:house wall hk:torch:0xDC:0xD0
+feat:house wall hk:los:0xDC:0xD1
+feat:house wall hk:lit:0xDC:0xD2
+feat:house wall hk:dark:0xDC:0xD3
+
+# house wall hl 
+feat:house wall hl:torch:0xDC:0xD4
+feat:house wall hl:los:0xDC:0xD5
+feat:house wall hl:lit:0xDC:0xD6
+feat:house wall hl:dark:0xDC:0xD7
+
+# house wall hm 
+feat:house wall hm:torch:0xDC:0xD8
+feat:house wall hm:los:0xDC:0xD9
+feat:house wall hm:lit:0xDC:0xDA
+feat:house wall hm:dark:0xDC:0xDB
+
+# house wall hn 
+feat:house wall hn:torch:0xDC:0xDC
+feat:house wall hn:los:0xDC:0xDD
+feat:house wall hn:lit:0xDC:0xDE
+feat:house wall hn:dark:0xDC:0xDF
+
+# house wall ho 
+feat:house wall ho:torch:0xDC:0xE0
+feat:house wall ho:los:0xDC:0xE1
+feat:house wall ho:lit:0xDC:0xE2
+feat:house wall ho:dark:0xDC:0xE3
+
+# house wall hp 
+feat:house wall hp:torch:0xDC:0xE4
+feat:house wall hp:los:0xDC:0xE5
+feat:house wall hp:lit:0xDC:0xE6
+feat:house wall hp:dark:0xDC:0xE7
+
+# house wall hq 
+feat:house wall hq:torch:0xDC:0xE8
+feat:house wall hq:los:0xDC:0xE9
+feat:house wall hq:lit:0xDC:0xEA
+feat:house wall hq:dark:0xDC:0xEB
+
+# house wall hr 
+feat:house wall hr:torch:0xDC:0xEC
+feat:house wall hr:los:0xDC:0xED
+feat:house wall hr:lit:0xDC:0xEE
+feat:house wall hr:dark:0xDC:0xEF
+
+# house wall hs 
+feat:house wall hs:torch:0xDC:0xF0
+feat:house wall hs:los:0xDC:0xF1
+feat:house wall hs:lit:0xDC:0xF2
+feat:house wall hs:dark:0xDC:0xF3
+
+# house wall ht 
+feat:house wall ht:torch:0xDC:0xF4
+feat:house wall ht:los:0xDC:0xF5
+feat:house wall ht:lit:0xDC:0xF6
+feat:house wall ht:dark:0xDC:0xF7
+
+# house wall hu 
+feat:house wall hu:torch:0xDC:0xF8
+feat:house wall hu:los:0xDC:0xF9
+feat:house wall hu:lit:0xDC:0xFA
+feat:house wall hu:dark:0xDC:0xFB
+
+# house wall hv 
+feat:house wall hv:torch:0xDC:0xFC
+feat:house wall hv:los:0xDC:0xFD
+feat:house wall hv:lit:0xDC:0xFE
+feat:house wall hv:dark:0xDC:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E1 - house wall (green castle)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall hw 
+feat:house wall hw:torch:0xE1:0x80
+feat:house wall hw:los:0xE1:0x81
+feat:house wall hw:lit:0xE1:0x82
+feat:house wall hw:dark:0xE1:0x83
+
+# house wall hx 
+feat:house wall hx:torch:0xE1:0x84
+feat:house wall hx:los:0xE1:0x85
+feat:house wall hx:lit:0xE1:0x86
+feat:house wall hx:dark:0xE1:0x87
+
+# house wall hy 
+feat:house wall hy:torch:0xE1:0x88
+feat:house wall hy:los:0xE1:0x89
+feat:house wall hy:lit:0xE1:0x8A
+feat:house wall hy:dark:0xE1:0x8B
+
+# house wall hz 
+feat:house wall hz:torch:0xE1:0x8C
+feat:house wall hz:los:0xE1:0x8D
+feat:house wall hz:lit:0xE1:0x8E
+feat:house wall hz:dark:0xE1:0x8F
+
+# house wall hA 
+feat:house wall hA:torch:0xE1:0x90
+feat:house wall hA:los:0xE1:0x91
+feat:house wall hA:lit:0xE1:0x92
+feat:house wall hA:dark:0xE1:0x93
+
+# house wall hB 
+feat:house wall hB:torch:0xE1:0x94
+feat:house wall hB:los:0xE1:0x95
+feat:house wall hB:lit:0xE1:0x96
+feat:house wall hB:dark:0xE1:0x97
+
+# house wall hC 
+feat:house wall hC:torch:0xE1:0x98
+feat:house wall hC:los:0xE1:0x99
+feat:house wall hC:lit:0xE1:0x9A
+feat:house wall hC:dark:0xE1:0x9B
+
+# house wall hD 
+feat:house wall hD:torch:0xE1:0x9C
+feat:house wall hD:los:0xE1:0x9D
+feat:house wall hD:lit:0xE1:0x9E
+feat:house wall hD:dark:0xE1:0x9F
+
+# house wall hE 
+feat:house wall hE:torch:0xE1:0xA0
+feat:house wall hE:los:0xE1:0xA1
+feat:house wall hE:lit:0xE1:0xA2
+feat:house wall hE:dark:0xE1:0xA3
+
+# house wall hF 
+feat:house wall hF:torch:0xE1:0xA4
+feat:house wall hF:los:0xE1:0xA5
+feat:house wall hF:lit:0xE1:0xA6
+feat:house wall hF:dark:0xE1:0xA7
+
+# house wall hG 
+feat:house wall hG:torch:0xE1:0xA8
+feat:house wall hG:los:0xE1:0xA9
+feat:house wall hG:lit:0xE1:0xAA
+feat:house wall hG:dark:0xE1:0xAB
+
+# house wall hH 
+feat:house wall hH:torch:0xE1:0xAC
+feat:house wall hH:los:0xE1:0xAD
+feat:house wall hH:lit:0xE1:0xAE
+feat:house wall hH:dark:0xE1:0xAF
+
+# house wall hI 
+feat:house wall hI:torch:0xE1:0xB0
+feat:house wall hI:los:0xE1:0xB1
+feat:house wall hI:lit:0xE1:0xB2
+feat:house wall hI:dark:0xE1:0xB3
+
+# house wall hJ 
+feat:house wall hJ:torch:0xE1:0xB4
+feat:house wall hJ:los:0xE1:0xB5
+feat:house wall hJ:lit:0xE1:0xB6
+feat:house wall hJ:dark:0xE1:0xB7
+
+# house wall hK 
+feat:house wall hK:torch:0xE1:0xB8
+feat:house wall hK:los:0xE1:0xB9
+feat:house wall hK:lit:0xE1:0xBA
+feat:house wall hK:dark:0xE1:0xBB
+
+# house wall hL 
+feat:house wall hL:torch:0xE1:0xBC
+feat:house wall hL:los:0xE1:0xBD
+feat:house wall hL:lit:0xE1:0xBE
+feat:house wall hL:dark:0xE1:0xBF
+
+# house wall hM 
+feat:house wall hM:torch:0xE1:0xC0
+feat:house wall hM:los:0xE1:0xC1
+feat:house wall hM:lit:0xE1:0xC2
+feat:house wall hM:dark:0xE1:0xC3
+
+# house wall hN 
+feat:house wall hN:torch:0xE1:0xC4
+feat:house wall hN:los:0xE1:0xC5
+feat:house wall hN:lit:0xE1:0xC6
+feat:house wall hN:dark:0xE1:0xC7
+
+# house wall hO 
+feat:house wall hO:torch:0xE1:0xC8
+feat:house wall hO:los:0xE1:0xC9
+feat:house wall hO:lit:0xE1:0xCA
+feat:house wall hO:dark:0xE1:0xCB
+
+# house wall hP 
+feat:house wall hP:torch:0xE1:0xCC
+feat:house wall hP:los:0xE1:0xCD
+feat:house wall hP:lit:0xE1:0xCE
+feat:house wall hP:dark:0xE1:0xCF
+
+# house wall hQ 
+feat:house wall hQ:torch:0xE1:0xD0
+feat:house wall hQ:los:0xE1:0xD1
+feat:house wall hQ:lit:0xE1:0xD2
+feat:house wall hQ:dark:0xE1:0xD3
+
+# house wall hR 
+feat:house wall hR:torch:0xE1:0xD4
+feat:house wall hR:los:0xE1:0xD5
+feat:house wall hR:lit:0xE1:0xD6
+feat:house wall hR:dark:0xE1:0xD7
+
+# house wall hS 
+feat:house wall hS:torch:0xE1:0xD8
+feat:house wall hS:los:0xE1:0xD9
+feat:house wall hS:lit:0xE1:0xDA
+feat:house wall hS:dark:0xE1:0xDB
+
+# house wall hT 
+feat:house wall hT:torch:0xE1:0xDC
+feat:house wall hT:los:0xE1:0xDD
+feat:house wall hT:lit:0xE1:0xDE
+feat:house wall hT:dark:0xE1:0xDF
+
+# house wall hU 
+feat:house wall hU:torch:0xE1:0xE0
+feat:house wall hU:los:0xE1:0xE1
+feat:house wall hU:lit:0xE1:0xE2
+feat:house wall hU:dark:0xE1:0xE3
+
+# house wall hV 
+feat:house wall hV:torch:0xE1:0xE4
+feat:house wall hV:los:0xE1:0xE5
+feat:house wall hV:lit:0xE1:0xE6
+feat:house wall hV:dark:0xE1:0xE7
+
+# house wall hW 
+feat:house wall hW:torch:0xE1:0xE8
+feat:house wall hW:los:0xE1:0xE9
+feat:house wall hW:lit:0xE1:0xEA
+feat:house wall hW:dark:0xE1:0xEB
+
+# house wall hX 
+feat:house wall hX:torch:0xE1:0xEC
+feat:house wall hX:los:0xE1:0xED
+feat:house wall hX:lit:0xE1:0xEE
+feat:house wall hX:dark:0xE1:0xEF
+
+# house wall hY 
+feat:house wall hY:torch:0xE1:0xF0
+feat:house wall hY:los:0xE1:0xF1
+feat:house wall hY:lit:0xE1:0xF2
+feat:house wall hY:dark:0xE1:0xF3
+
+# house wall hZ 
+feat:house wall hZ:torch:0xE1:0xF4
+feat:house wall hZ:los:0xE1:0xF5
+feat:house wall hZ:lit:0xE1:0xF6
+feat:house wall hZ:dark:0xE1:0xF7
+
+# house wall h~ 
+feat:house wall h~:torch:0xE1:0xF8
+feat:house wall h~:los:0xE1:0xF9
+feat:house wall h~:lit:0xE1:0xFA
+feat:house wall h~:dark:0xE1:0xFB
+
+# house wall h` 
+feat:house wall h`:torch:0xE1:0xFC
+feat:house wall h`:los:0xE1:0xFD
+feat:house wall h`:lit:0xE1:0xFE
+feat:house wall h`:dark:0xE1:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E2 - house wall (green jail)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall i0 
+feat:house wall i0:torch:0xE2:0x80
+feat:house wall i0:los:0xE2:0x81
+feat:house wall i0:lit:0xE2:0x82
+feat:house wall i0:dark:0xE2:0x83
+
+# house wall i1 
+feat:house wall i1:torch:0xE2:0x84
+feat:house wall i1:los:0xE2:0x85
+feat:house wall i1:lit:0xE2:0x86
+feat:house wall i1:dark:0xE2:0x87
+
+# house wall i2 
+feat:house wall i2:torch:0xE2:0x88
+feat:house wall i2:los:0xE2:0x89
+feat:house wall i2:lit:0xE2:0x8A
+feat:house wall i2:dark:0xE2:0x8B
+
+# house wall i3 
+feat:house wall i3:torch:0xE2:0x8C
+feat:house wall i3:los:0xE2:0x8D
+feat:house wall i3:lit:0xE2:0x8E
+feat:house wall i3:dark:0xE2:0x8F
+
+# house wall i4 
+feat:house wall i4:torch:0xE2:0x90
+feat:house wall i4:los:0xE2:0x91
+feat:house wall i4:lit:0xE2:0x92
+feat:house wall i4:dark:0xE2:0x93
+
+# house wall i5 
+feat:house wall i5:torch:0xE2:0x94
+feat:house wall i5:los:0xE2:0x95
+feat:house wall i5:lit:0xE2:0x96
+feat:house wall i5:dark:0xE2:0x97
+
+# house wall i6 
+feat:house wall i6:torch:0xE2:0x98
+feat:house wall i6:los:0xE2:0x99
+feat:house wall i6:lit:0xE2:0x9A
+feat:house wall i6:dark:0xE2:0x9B
+
+# house wall i7 
+feat:house wall i7:torch:0xE2:0x9C
+feat:house wall i7:los:0xE2:0x9D
+feat:house wall i7:lit:0xE2:0x9E
+feat:house wall i7:dark:0xE2:0x9F
+
+# house wall i8 
+feat:house wall i8:torch:0xE2:0xA0
+feat:house wall i8:los:0xE2:0xA1
+feat:house wall i8:lit:0xE2:0xA2
+feat:house wall i8:dark:0xE2:0xA3
+
+# house wall i9 
+feat:house wall i9:torch:0xE2:0xA4
+feat:house wall i9:los:0xE2:0xA5
+feat:house wall i9:lit:0xE2:0xA6
+feat:house wall i9:dark:0xE2:0xA7
+
+# house wall ia 
+feat:house wall ia:torch:0xE2:0xA8
+feat:house wall ia:los:0xE2:0xA9
+feat:house wall ia:lit:0xE2:0xAA
+feat:house wall ia:dark:0xE2:0xAB
+
+# house wall ib 
+feat:house wall ib:torch:0xE2:0xAC
+feat:house wall ib:los:0xE2:0xAD
+feat:house wall ib:lit:0xE2:0xAE
+feat:house wall ib:dark:0xE2:0xAF
+
+# house wall ic 
+feat:house wall ic:torch:0xE2:0xB0
+feat:house wall ic:los:0xE2:0xB1
+feat:house wall ic:lit:0xE2:0xB2
+feat:house wall ic:dark:0xE2:0xB3
+
+# house wall id 
+feat:house wall id:torch:0xE2:0xB4
+feat:house wall id:los:0xE2:0xB5
+feat:house wall id:lit:0xE2:0xB6
+feat:house wall id:dark:0xE2:0xB7
+
+# house wall ie 
+feat:house wall ie:torch:0xE2:0xB8
+feat:house wall ie:los:0xE2:0xB9
+feat:house wall ie:lit:0xE2:0xBA
+feat:house wall ie:dark:0xE2:0xBB
+
+# house wall if 
+feat:house wall if:torch:0xE2:0xBC
+feat:house wall if:los:0xE2:0xBD
+feat:house wall if:lit:0xE2:0xBE
+feat:house wall if:dark:0xE2:0xBF
+
+# house wall ig 
+feat:house wall ig:torch:0xE2:0xC0
+feat:house wall ig:los:0xE2:0xC1
+feat:house wall ig:lit:0xE2:0xC2
+feat:house wall ig:dark:0xE2:0xC3
+
+# house wall ih 
+feat:house wall ih:torch:0xE2:0xC4
+feat:house wall ih:los:0xE2:0xC5
+feat:house wall ih:lit:0xE2:0xC6
+feat:house wall ih:dark:0xE2:0xC7
+
+# house wall ii 
+feat:house wall ii:torch:0xE2:0xC8
+feat:house wall ii:los:0xE2:0xC9
+feat:house wall ii:lit:0xE2:0xCA
+feat:house wall ii:dark:0xE2:0xCB
+
+# house wall ij 
+feat:house wall ij:torch:0xE2:0xCC
+feat:house wall ij:los:0xE2:0xCD
+feat:house wall ij:lit:0xE2:0xCE
+feat:house wall ij:dark:0xE2:0xCF
+
+# house wall ik 
+feat:house wall ik:torch:0xE2:0xD0
+feat:house wall ik:los:0xE2:0xD1
+feat:house wall ik:lit:0xE2:0xD2
+feat:house wall ik:dark:0xE2:0xD3
+
+# house wall il 
+feat:house wall il:torch:0xE2:0xD4
+feat:house wall il:los:0xE2:0xD5
+feat:house wall il:lit:0xE2:0xD6
+feat:house wall il:dark:0xE2:0xD7
+
+# house wall im 
+feat:house wall im:torch:0xE2:0xD8
+feat:house wall im:los:0xE2:0xD9
+feat:house wall im:lit:0xE2:0xDA
+feat:house wall im:dark:0xE2:0xDB
+
+# house wall in 
+feat:house wall in:torch:0xE2:0xDC
+feat:house wall in:los:0xE2:0xDD
+feat:house wall in:lit:0xE2:0xDE
+feat:house wall in:dark:0xE2:0xDF
+
+# house wall io 
+feat:house wall io:torch:0xE2:0xE0
+feat:house wall io:los:0xE2:0xE1
+feat:house wall io:lit:0xE2:0xE2
+feat:house wall io:dark:0xE2:0xE3
+
+# house wall ip 
+feat:house wall ip:torch:0xE2:0xE4
+feat:house wall ip:los:0xE2:0xE5
+feat:house wall ip:lit:0xE2:0xE6
+feat:house wall ip:dark:0xE2:0xE7
+
+# house wall iq 
+feat:house wall iq:torch:0xE2:0xE8
+feat:house wall iq:los:0xE2:0xE9
+feat:house wall iq:lit:0xE2:0xEA
+feat:house wall iq:dark:0xE2:0xEB
+
+# house wall ir 
+feat:house wall ir:torch:0xE2:0xEC
+feat:house wall ir:los:0xE2:0xED
+feat:house wall ir:lit:0xE2:0xEE
+feat:house wall ir:dark:0xE2:0xEF
+
+# house wall is 
+feat:house wall is:torch:0xE2:0xF0
+feat:house wall is:los:0xE2:0xF1
+feat:house wall is:lit:0xE2:0xF2
+feat:house wall is:dark:0xE2:0xF3
+
+# house wall it 
+feat:house wall it:torch:0xE2:0xF4
+feat:house wall it:los:0xE2:0xF5
+feat:house wall it:lit:0xE2:0xF6
+feat:house wall it:dark:0xE2:0xF7
+
+# house wall iu 
+feat:house wall iu:torch:0xE2:0xF8
+feat:house wall iu:los:0xE2:0xF9
+feat:house wall iu:lit:0xE2:0xFA
+feat:house wall iu:dark:0xE2:0xFB
+
+# house wall iv 
+feat:house wall iv:torch:0xE2:0xFC
+feat:house wall iv:los:0xE2:0xFD
+feat:house wall iv:lit:0xE2:0xFE
+feat:house wall iv:dark:0xE2:0xFF
+
+
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+# E3 - house wall (black jail)
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+
+# house wall iw 
+feat:house wall iw:torch:0xE3:0x80
+feat:house wall iw:los:0xE3:0x81
+feat:house wall iw:lit:0xE3:0x82
+feat:house wall iw:dark:0xE3:0x83
+
+# house wall ix 
+feat:house wall ix:torch:0xE3:0x84
+feat:house wall ix:los:0xE3:0x85
+feat:house wall ix:lit:0xE3:0x86
+feat:house wall ix:dark:0xE3:0x87
+
+# house wall iy 
+feat:house wall iy:torch:0xE3:0x88
+feat:house wall iy:los:0xE3:0x89
+feat:house wall iy:lit:0xE3:0x8A
+feat:house wall iy:dark:0xE3:0x8B
+
+# house wall iz 
+feat:house wall iz:torch:0xE3:0x8C
+feat:house wall iz:los:0xE3:0x8D
+feat:house wall iz:lit:0xE3:0x8E
+feat:house wall iz:dark:0xE3:0x8F
+
+# house wall iA 
+feat:house wall iA:torch:0xE3:0x90
+feat:house wall iA:los:0xE3:0x91
+feat:house wall iA:lit:0xE3:0x92
+feat:house wall iA:dark:0xE3:0x93
+
+# house wall iB 
+feat:house wall iB:torch:0xE3:0x94
+feat:house wall iB:los:0xE3:0x95
+feat:house wall iB:lit:0xE3:0x96
+feat:house wall iB:dark:0xE3:0x97
+
+# house wall iC 
+feat:house wall iC:torch:0xE3:0x98
+feat:house wall iC:los:0xE3:0x99
+feat:house wall iC:lit:0xE3:0x9A
+feat:house wall iC:dark:0xE3:0x9B
+
+# house wall iD 
+feat:house wall iD:torch:0xE3:0x9C
+feat:house wall iD:los:0xE3:0x9D
+feat:house wall iD:lit:0xE3:0x9E
+feat:house wall iD:dark:0xE3:0x9F
+
+# house wall iE 
+feat:house wall iE:torch:0xE3:0xA0
+feat:house wall iE:los:0xE3:0xA1
+feat:house wall iE:lit:0xE3:0xA2
+feat:house wall iE:dark:0xE3:0xA3
+
+# house wall iF 
+feat:house wall iF:torch:0xE3:0xA4
+feat:house wall iF:los:0xE3:0xA5
+feat:house wall iF:lit:0xE3:0xA6
+feat:house wall iF:dark:0xE3:0xA7
+
+# house wall iG 
+feat:house wall iG:torch:0xE3:0xA8
+feat:house wall iG:los:0xE3:0xA9
+feat:house wall iG:lit:0xE3:0xAA
+feat:house wall iG:dark:0xE3:0xAB
+
+# house wall iH 
+feat:house wall iH:torch:0xE3:0xAC
+feat:house wall iH:los:0xE3:0xAD
+feat:house wall iH:lit:0xE3:0xAE
+feat:house wall iH:dark:0xE3:0xAF
+
+# house wall iI 
+feat:house wall iI:torch:0xE3:0xB0
+feat:house wall iI:los:0xE3:0xB1
+feat:house wall iI:lit:0xE3:0xB2
+feat:house wall iI:dark:0xE3:0xB3
+
+# house wall iJ 
+feat:house wall iJ:torch:0xE3:0xB4
+feat:house wall iJ:los:0xE3:0xB5
+feat:house wall iJ:lit:0xE3:0xB6
+feat:house wall iJ:dark:0xE3:0xB7
+
+# house wall iK 
+feat:house wall iK:torch:0xE3:0xB8
+feat:house wall iK:los:0xE3:0xB9
+feat:house wall iK:lit:0xE3:0xBA
+feat:house wall iK:dark:0xE3:0xBB
+
+# house wall iL 
+feat:house wall iL:torch:0xE3:0xBC
+feat:house wall iL:los:0xE3:0xBD
+feat:house wall iL:lit:0xE3:0xBE
+feat:house wall iL:dark:0xE3:0xBF
+
+# house wall iM 
+feat:house wall iM:torch:0xE3:0xC0
+feat:house wall iM:los:0xE3:0xC1
+feat:house wall iM:lit:0xE3:0xC2
+feat:house wall iM:dark:0xE3:0xC3
+
+# house wall iN 
+feat:house wall iN:torch:0xE3:0xC4
+feat:house wall iN:los:0xE3:0xC5
+feat:house wall iN:lit:0xE3:0xC6
+feat:house wall iN:dark:0xE3:0xC7
+
+# house wall iO 
+feat:house wall iO:torch:0xE3:0xC8
+feat:house wall iO:los:0xE3:0xC9
+feat:house wall iO:lit:0xE3:0xCA
+feat:house wall iO:dark:0xE3:0xCB
+
+# house wall iP 
+feat:house wall iP:torch:0xE3:0xCC
+feat:house wall iP:los:0xE3:0xCD
+feat:house wall iP:lit:0xE3:0xCE
+feat:house wall iP:dark:0xE3:0xCF
+
+# house wall iQ 
+feat:house wall iQ:torch:0xE3:0xD0
+feat:house wall iQ:los:0xE3:0xD1
+feat:house wall iQ:lit:0xE3:0xD2
+feat:house wall iQ:dark:0xE3:0xD3
+
+# house wall iR 
+feat:house wall iR:torch:0xE3:0xD4
+feat:house wall iR:los:0xE3:0xD5
+feat:house wall iR:lit:0xE3:0xD6
+feat:house wall iR:dark:0xE3:0xD7
+
+# house wall iS 
+feat:house wall iS:torch:0xE3:0xD8
+feat:house wall iS:los:0xE3:0xD9
+feat:house wall iS:lit:0xE3:0xDA
+feat:house wall iS:dark:0xE3:0xDB
+
+# house wall iT 
+feat:house wall iT:torch:0xE3:0xDC
+feat:house wall iT:los:0xE3:0xDD
+feat:house wall iT:lit:0xE3:0xDE
+feat:house wall iT:dark:0xE3:0xDF
+
+# house wall iU 
+feat:house wall iU:torch:0xE3:0xE0
+feat:house wall iU:los:0xE3:0xE1
+feat:house wall iU:lit:0xE3:0xE2
+feat:house wall iU:dark:0xE3:0xE3
+
+# house wall iV 
+feat:house wall iV:torch:0xE3:0xE4
+feat:house wall iV:los:0xE3:0xE5
+feat:house wall iV:lit:0xE3:0xE6
+feat:house wall iV:dark:0xE3:0xE7
+
+# house wall iW 
+feat:house wall iW:torch:0xE3:0xE8
+feat:house wall iW:los:0xE3:0xE9
+feat:house wall iW:lit:0xE3:0xEA
+feat:house wall iW:dark:0xE3:0xEB
+
+# house wall iX 
+feat:house wall iX:torch:0xE3:0xEC
+feat:house wall iX:los:0xE3:0xED
+feat:house wall iX:lit:0xE3:0xEE
+feat:house wall iX:dark:0xE3:0xEF
+
+# house wall iY 
+feat:house wall iY:torch:0xE3:0xF0
+feat:house wall iY:los:0xE3:0xF1
+feat:house wall iY:lit:0xE3:0xF2
+feat:house wall iY:dark:0xE3:0xF3
+
+# house wall iZ 
+feat:house wall iZ:torch:0xE3:0xF4
+feat:house wall iZ:los:0xE3:0xF5
+feat:house wall iZ:lit:0xE3:0xF6
+feat:house wall iZ:dark:0xE3:0xF7
+
+# house wall i~ 
+feat:house wall i~:torch:0xE3:0xF8
+feat:house wall i~:los:0xE3:0xF9
+feat:house wall i~:lit:0xE3:0xFA
+feat:house wall i~:dark:0xE3:0xFB
+
+# house wall i` 
+feat:house wall i`:torch:0xE3:0xFC
+feat:house wall i`:los:0xE3:0xFD
+feat:house wall i`:lit:0xE3:0xFE
+feat:house wall i`:dark:0xE3:0xFF
+
+
 
 # Load the special player pictures
 %:xtra-tan.prf
