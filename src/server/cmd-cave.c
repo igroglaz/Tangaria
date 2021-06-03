@@ -3204,6 +3204,7 @@ bool create_house(struct player *p)
     struct loc_iterator iter;
     long int price;
     char wall_type = '\0';  // second part of floor name (type) for rng walls
+    int wall_id = 0;  // specific wall (when we have several different walls in one row)
 
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
@@ -3269,7 +3270,7 @@ bool create_house(struct player *p)
     house_set(house, &h_local);
 
     loc_iterator_first(&iter, &begin, &end);
-    
+
     /* Wall type for building rng walls */
     if (one_in_(9)) wall_type = 'a';       // B7 B8
     else if (one_in_(9)) wall_type = 'b';  // B9 BA
@@ -3281,6 +3282,9 @@ bool create_house(struct player *p)
     else if (one_in_(9)) wall_type = 'h';  // DC E1
     else wall_type = 'i';                  // E2 E3
 
+    /* Generate special wall id  */
+    wall_id = (rand() % 9);
+
     /* Render into the terrain */
     do
     {
@@ -3289,7 +3293,7 @@ bool create_house(struct player *p)
 
         /* Build a wall, but don't destroy any existing door */
         if (!square_home_iscloseddoor(c, &iter.cur))
-            square_build_new_permhouse(c, &iter.cur, wall_type);
+            square_build_new_permhouse(c, &iter.cur, wall_type, wall_id);
     }
     while (loc_iterator_next(&iter));
 

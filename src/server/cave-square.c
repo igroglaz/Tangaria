@@ -2435,11 +2435,13 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
 }
 
     /* get random wall feat for house building */
-void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type)
+void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type, int wall_id)
 {
     char wall[1][13] = {"house wall "}; // first part of the wall name
-    int rng = 0;                              // second part of the wall name
-    char wall_glyph = '\0';
+    // wall_type - (given to this fuction) second part of the wall name
+    // wall_id - specific wall (when we have several different walls in one row)
+    int rng = 0;                              // preliminary third part of wall name
+    char wall_glyph = '\0';                   // third part of wall name
     char wall_index[] = "";                   // buffer for 0-9 rng number
     int house_wall= 0;                        // result: index of terrain feature
 
@@ -2447,42 +2449,72 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     rng = (rand() % 63);
     
     /* getting wall type from function */
-    if (wall_type == 'a')      // B7 B8     wood
-    {
+    if (wall_type == 'a')
+    {// B7 B8   wood
         if ((rng == 4) || (rng == 8) || (rng == 9) || // door tiles.. no need as walls
         (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'b') // B9 BA     black small bricks
-    {
+    else if (wall_type == 'b')
+    {// B9 BA   black small bricks
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'c') // BB BC     big white
-    {
+    else if (wall_type == 'c')
+    {// BB BC   big white
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'd') // BD BE     big black
-    {
+    else if (wall_type == 'd')
+    {// BD BE   big black
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'e') // BF C0     white small bricks
-    {
+    else if (wall_type == 'e')
+    {// BF C0   white small bricks
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'f') // 96 98
-    {
+    else if (wall_type == 'f')
+    {// 96 98
+        if (wall_id == 1) rng = 3; // brown concrete
+        if (wall_id == 2) rng = 4; // grey concrete
+        if (wall_id == 3) rng = 10; // brown sandstone
+        if (wall_id == 4) rng = 14; // deep black wall
+        if (wall_id == 5)           // brown cracked wall
+            {
+            if (one_in_(3)) rng = 16;
+            else if (one_in_(3)) rng = 17;
+            else rng = 18;
+            }
+        if (wall_id == 6)           // grey walls
+            {
+            if (one_in_(4)) rng = 19;
+            else if (one_in_(4)) rng = 20;
+            else if (one_in_(4)) rng = 21;
+            else rng = 22;
+            }
+        if (wall_id == 7)           // cracked grey walls
+            {
+            if (one_in_(3)) rng = 23;
+            else if (one_in_(3)) rng = 24;
+            else rng = 25;
+            }
+        if (wall_id == 8)           // muddy walls
+            {
+            if (one_in_(2)) rng = 26;
+            else rng = 27;
+            }
+        if (wall_id == 9) rng = 26; // metallic walls
+
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'g') // A3 AA
-    {
+    else if (wall_type == 'g')
+    {// A3 AA
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'h') // DC E1
-    {
+    else if (wall_type == 'h')
+    {// DC E1
         strncat(wall, &wall_type, 1);
     }
-    else                       // E2 E3
-    {
+    else
+    {// E2 E3
         strncat(wall, &wall_type, 1);
     }
     

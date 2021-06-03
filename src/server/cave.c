@@ -1013,6 +1013,7 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     bool lit_room = true;
     struct loc_iterator iter;
     char wall_type = '\0';  // second part of floor name (type) for rng walls
+    int wall_id = 0;  // special wall (when we have several different walls in one row)
 
     /* Select features */
     switch (type)
@@ -1056,12 +1057,15 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     else if (one_in_(9)) wall_type = 'g';  // A3 AA
     else if (one_in_(9)) wall_type = 'h';  // DC E1
     else wall_type = 'i';                  // E2 E3
+
+    /* Generate special wall id  */
+    wall_id = (rand() % 9);
     
     /* Build a rectangular building */
     do
     {
         /* Clear previous contents, add "basic" wall */
-        square_build_new_permhouse(c, &iter.cur, wall_type);
+        square_build_new_permhouse(c, &iter.cur, wall_type, wall_id);
     ///////// old: square_set_feat(c, &iter.cur, wall_feature);
     }
     while (loc_iterator_next(&iter));
