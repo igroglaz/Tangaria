@@ -1048,15 +1048,17 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     loc_iterator_first(&iter, grid1, grid2);
     
     /* Wall type for building rng walls */
-    if (one_in_(9)) wall_type = 'a';       // B7 B8 wood
+
+    if      (one_in_(9)) wall_type = 'a';  // B7 B8 wood
     else if (one_in_(9)) wall_type = 'b';  // B9 BA small black
     else if (one_in_(9)) wall_type = 'c';  // BB BC big white
     else if (one_in_(9)) wall_type = 'd';  // BD BE big black
     else if (one_in_(9)) wall_type = 'e';  // BF C0 small white
-    else if (one_in_(9)) wall_type = 'f';  // 96 98
-    else if (one_in_(9)) wall_type = 'g';  // A3 AA
+    else if (one_in_(2)) wall_type = 'f';  // 96 98
+    else if (one_in_(2)) wall_type = 'g';  // A3 AA
     else if (one_in_(9)) wall_type = 'h';  // DC E1
-    else wall_type = 'i';                  // E2 E3
+    else if (one_in_(9)) wall_type = 'i';  // E2 E3
+    else wall_type = 'a';
 
     /* Generate special wall id: starting from 1!  */
     wall_id = randint1(9);

@@ -2443,36 +2443,37 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     int rng = 0;                              // preliminary third part of wall name
     char wall_glyph = '\0';                   // third part of wall name
     char wall_index[] = "";                   // buffer for 0-9 rng number
-    int house_wall= 0;                        // result: index of terrain feature
+    int house_wall = 0;                        // result: index of terrain feature
 
     // random choice of wall number
     rng = randint0(63);
     
     /* getting wall type from function */
-    if (wall_type == 'a')
-    {// B7 B8   wood
+    if (wall_type == 'a')      // B7 B8   wood
+    {
         if ((rng == 4) || (rng == 8) || (rng == 9) || // door tiles.. no need as walls
         (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'b')
-    {// B9 BA   black small bricks
+    else if (wall_type == 'b') // B9 BA   black small bricks
+    {
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'c')
-    {// BB BC   big white
+    else if (wall_type == 'c') // BB BC   big white
+    {
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'd')
-    {// BD BE   big black
+    else if (wall_type == 'd') // BD BE   big black
+    {
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'e')
-    {// BF C0   white small bricks
+    else if (wall_type == 'e') // BF C0   white small bricks
+    {
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'f')
-    {// 96 98
+    else if (wall_type == 'f') // 96 98
+    {   // 96
+        if (wall_id > 9) wall_id = randint1(9); // cause 'f' got 9 subwalls
         if (wall_id == 1) // brown concrete
         {
             if (one_in_(2)) rng = 3;
@@ -2509,7 +2510,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(15)) wall_type == 'e'; // small white
             else { /* pick generated rng */ }
         }
-        if (wall_id == 5)           // 3x brown cracked earthy wall
+        if (wall_id == 5) // 3x brown cracked earthy wall
         {
             if (one_in_(4)) rng = 16;
             else if (one_in_(4)) rng = 17;
@@ -2521,7 +2522,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(15)) wall_type == 'e'; // small white
             else { /* pick generated rng */ }
         }
-        if (wall_id == 6)           // 4x grey walls
+        if (wall_id == 6) // 4x grey walls
         {
             if (one_in_(5)) rng = 19;
             else if (one_in_(5)) rng = 20;
@@ -2546,7 +2547,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(5))  wall_type == 'e'; // small white
             else { /* pick generated rng */ }
         }
-        if (wall_id == 8)           // 2x muddy walls
+        if (wall_id == 8) // 2x muddy walls
         {
             if (one_in_(3)) rng = 26;
             if (one_in_(3)) rng = 27;
@@ -2568,16 +2569,78 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'g')
-    {// A3 AA
+    else if (wall_type == 'g') // A3 AA
+    {   // A3
+        if (wall_id > 6) wall_id = randint1(6); // cause 'g' got 6 subwalls
+        if (wall_id == 1) // sewers A3 full + 6 AA
+        {
+            if (rng > 37) rng = randint0(37); // AA got got only 6 sewers tiles
+        }
+        if (wall_id == 2) // x6 AA big walls
+        {
+            if (one_in_(2)) rng = randint0(6);
+            else if (one_in_(50)) wall_type == 'a';  // wood
+            else if (one_in_(25)) wall_type == 'b';  // small black
+            else if (one_in_(20))  wall_type == 'c'; // big white
+            else if (one_in_(10)) wall_type == 'd';  // big black
+            else if (one_in_(25)) wall_type == 'e';  // small white
+            else { /* pick generated rng */ }
+        }
+        if (wall_id == 3) // x6 AA mossy brown walls
+        {
+            if (one_in_(2)) rng = rand_range(6, 11);
+            else if (one_in_(50)) wall_type == 'a';  // wood
+            else if (one_in_(25)) wall_type == 'b';  // small black
+            else if (one_in_(10))  wall_type == 'c'; // big white
+            else if (one_in_(5)) wall_type == 'd';   // big black
+            else if (one_in_(25)) wall_type == 'e';  // small white
+            else { /* pick generated rng */ }
+        }
+        if (wall_id == 4) // x4 AA brown small brick
+        {
+            if (one_in_(2)) rng = rand_range(20, 23);
+            if (one_in_(5)) rng = 24;                // brown big AA
+            if (one_in_(7)) rng = 25;                // light brown big AA
+            else if (one_in_(10)) wall_type == 'a';  // wood
+            else if (one_in_(5)) wall_type == 'b';   // small black
+            else if (one_in_(25))  wall_type == 'c'; // big white
+            else if (one_in_(10)) wall_type == 'd';  // big black
+            else if (one_in_(25)) wall_type == 'e';  // small white
+            else { /* pick generated rng */ }
+        }
+        if (wall_id == 5) // AA brown big wall
+        {
+            if (one_in_(2)) rng = 24;
+            if (one_in_(7)) rng = rand_range(20, 23);// brown small AA
+            if (one_in_(5)) rng = 25;                // light brown big AA
+            else if (one_in_(15)) wall_type == 'a';  // wood
+            else if (one_in_(25)) wall_type == 'b';  // small black
+            else if (one_in_(5))  wall_type == 'c';  // big white
+            else if (one_in_(7)) wall_type == 'd';   // big black
+            else if (one_in_(25)) wall_type == 'e';  // small white
+            else { /* pick generated rng */ }
+        }
+        if (wall_id == 6) // AA light brown big wall
+        {
+            if (one_in_(2)) rng = 25;
+            if (one_in_(8)) rng = rand_range(20, 23);// brown small AA
+            if (one_in_(5)) rng = 24;                // brown big AA
+            else if (one_in_(15)) wall_type == 'a';  // wood
+            else if (one_in_(25)) wall_type == 'b';  // small black
+            else if (one_in_(5))  wall_type == 'c';  // big white
+            else if (one_in_(10)) wall_type == 'd';   // big black
+            else if (one_in_(25)) wall_type == 'e';  // small white
+            else { /* pick generated rng */ }
+        }
+
         strncat(wall, &wall_type, 1);
     }
-    else if (wall_type == 'h')
-    {// DC E1
+    else if (wall_type == 'h') // DC E1
+    {
         strncat(wall, &wall_type, 1);
     }
-    else
-    {// E2 E3
+    else                       // E2 E3
+    {
         strncat(wall, &wall_type, 1);
     }
     
