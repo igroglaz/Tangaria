@@ -3284,7 +3284,7 @@ bool create_house(struct player *p)
     else wall_type = 'a';
 
     /* Generate special wall id: starting from 1! */
-    wall_id = randint1(9);
+    wall_id = randint1(12);
 
     /* Render into the terrain */
     do

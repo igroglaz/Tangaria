@@ -1061,7 +1061,7 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     else wall_type = 'a';
 
     /* Generate special wall id: starting from 1!  */
-    wall_id = randint1(9);
+    wall_id = randint1(12);
     
     /* Build a rectangular building */
     do
