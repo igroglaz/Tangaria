@@ -2446,7 +2446,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     int house_wall= 0;                        // result: index of terrain feature
 
     // random choice of wall number
-    rng = (rand() % 63);
+    rng = randint0(63);
     
     /* getting wall type from function */
     if (wall_type == 'a')
@@ -2745,7 +2745,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     char floor_index[] = "";    // buffer for 0-9 rng number
     int house_floor= 0;         // result: index of terrain feature
 
-    rng = (rand() % 63); // random choice of floor number
+    rng = randint0(63); // random choice of floor number
 
     switch(rng)
     {   // 1st stroke in tileset

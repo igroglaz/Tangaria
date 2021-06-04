@@ -1058,8 +1058,8 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     else if (one_in_(9)) wall_type = 'h';  // DC E1
     else wall_type = 'i';                  // E2 E3
 
-    /* Generate special wall id  */
-    wall_id = (rand() % 9);
+    /* Generate special wall id: starting from 1!  */
+    wall_id = randint1(9);
     
     /* Build a rectangular building */
     do
