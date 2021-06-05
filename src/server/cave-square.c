@@ -2437,13 +2437,13 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
     /* get random wall feat for house building */
 void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type, int wall_id)
 {
-    char wall[1][13] = {"house wall "}; // first part of the wall name
-    // wall_type - (given to this fuction) second part of the wall name
-    // wall_id - specific wall (when we have several different walls in one row)
+    char wall[1][13] = {"house wall "};       // first part of the wall name
+ // wall_type - (given to this fuction) second part of the wall name
+ // wall_id - specific wall (when we have several different walls in one row)
     int rng = 0;                              // preliminary third part of wall name
     char wall_glyph = '\0';                   // third part of wall name
     char wall_index[] = "";                   // buffer for 0-9 rng number
-    int house_wall = 0;                        // result: index of terrain feature
+    int house_wall = 0;                       // result: index of terrain feature
 
     // random choice of wall number
     rng = randint0(63);
@@ -2451,20 +2451,71 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     /* getting wall type from function */
     if (wall_type == 'a')      // B7 B8   wood
     {
-        if ((rng == 4) || (rng == 8) || (rng == 9) || // door tiles.. no need as walls
+        if ((rng == 4) || (rng == 8) || (rng == 9) ||       // door tiles.. no need as walls
         (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
+
         strncat(wall, &wall_type, 1);
     }
     else if (wall_type == 'b') // B9 BA   black small bricks
     {
+        if      (one_in_(5))  {wall_type = 'h'; rng = randint0(31);}       // paintings DC
+        else if (one_in_(15)) {wall_type = 'g'; rng = rand_range(44, 51);} // small black holes AA
+        else if (one_in_(10)) {wall_type = 'f'; rng = 34;}                 // moss small 98
+        else if (one_in_(20)) {wall_type = 'f'; rng = rand_range(35, 36);} // moss small holes 98
+        else if (one_in_(90)) {wall_type = 'g'; rng = rand_range(58, 60);} // bloody AA
+        else    { /* pick generated rng */ }
+
         strncat(wall, &wall_type, 1);
     }
     else if (wall_type == 'c') // BB BC   big white
     {
+        if      (one_in_(3)) rng = 0;                                      // common big white
+        else if (one_in_(25)) {wall_type = 'f'; rng = 19;}                 // grey wall 96
+        else if (one_in_(50)) {wall_type = 'f'; rng = 29;}                 // metallic wall 96
+        else if (one_in_(90)) {wall_type = 'g'; rng = rand_range(61, 63);} // big bloody AA
+        else    { /* pick generated rng */ }
+
         strncat(wall, &wall_type, 1);
     }
     else if (wall_type == 'd') // BD BE   big black
     {
+
+        if ((rng >= 5) && (rng <= 8)) rng = randint0(63); // doors rare
+        if ((rng >= 5) && (rng <= 11))rng = randint0(63); // big black windows moss rare and doors even more
+
+        if (wall_id > 2) wall_id = randint1(2);  // cause 'd' got 2 subwalls
+
+        if (wall_id == 1) // big black
+        {
+            if      (one_in_(3)) rng = 0;
+            else if (one_in_(10)) {wall_type = 'g'; rng = rand_range(12, 19);} // big holes AA
+            else if (one_in_(150)) {wall_type = 'g'; rng = rand_range(61, 63);}// big bloody AA
+            else if (one_in_(75)) {wall_type = 'f'; rng = 14;}                 // deep black 96
+            else if (one_in_(30)) {wall_type = 'f'; rng = rand_range(16, 18);} // cracked earthy wall 96
+            else if (one_in_(60)) {wall_type = 'f'; rng = rand_range(19, 28);} // etc 96
+            else    { /* pick generated rng */ }
+        }
+        if (wall_id == 2) // big black mossy
+        {
+            if (one_in_(2)) rng = 1;
+            else if (one_in_(25)) rng = rand_range(9,11);    // big black windows moss BD
+            else if (one_in_(15)) {wall_type = 'f';  rng = rand_range(32, 33);}  // moss big holes 98
+            else if (one_in_(15)) {wall_type = 'f';  rng = 34;}                  // moss small 98
+            else if (one_in_(25)) {wall_type = 'f';  rng = rand_range(35, 36);}  // moss small holes 98
+            else if (one_in_(15)) {wall_type = 'f';  rng = rand_range(37, 38);}  // moss big holes 98
+            else if (one_in_(25)) {wall_type = 'f';  rng = rand_range(39, 40);}  // big black holes 98
+            else if (one_in_(15)) {wall_type = 'f';  rng = rand_range(41, 43);}  // moss big holes 98
+            else if (one_in_(50)) {wall_type = 'f';  rng = 44;}                  // moss big white 98
+            else if (one_in_(20)) {wall_type = 'f';  rng = 45;}                  // moss big grey 98
+            else if (one_in_(90)) {wall_type = 'f';  rng = rand_range(32, 46);}  // etc 98
+            else if (one_in_(50)) {wall_type = 'f';  rng = 14;}                  // deep black 96
+            else if (one_in_(50)) {wall_type = 'f';  rng = rand_range(16, 18);}  // cracked earthy wall 96
+            else if (one_in_(90)) {wall_type = 'f';  rng = rand_range(19, 28);}  // etc 96
+            else if (one_in_(150)) {wall_type = 'g';  rng = rand_range(61, 63);} // big bloody AA
+            else    { /* pick generated rng */ }
+        }
+
+
         strncat(wall, &wall_type, 1);
     }
     else if (wall_type == 'e') // BF C0   white small bricks
@@ -2473,146 +2524,152 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     }
     else if (wall_type == 'f') // 96 98
     {   /* 96 */
-        if (wall_id > 12) wall_id = randint1(12); // cause 'f' got 9 subwalls
+        if (wall_id > 12) wall_id = randint1(12);  // cause 'f' got 9 subwalls
+
+        if ((rng == 0) || (rng == 1) || (rng == 2) || // exclude bad looking tiles
+            (rng == 7) || (rng == 8) || (rng == 9) || // eg ice, lave, nether walls
+            (rng == 11)|| (rng == 13)|| (rng == 30)||
+            (rng == 31)) rng += 3;
+
         if (wall_id == 1) // brown concrete
         {
-            if (one_in_(2)) rng = 3;
-            else if (one_in_(5)) rng = 4; // grey concrete
-            else if (one_in_(3)) wall_type == 'c'; // big white
-            else if (one_in_(2)) wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2)) rng = 3;
+            else if (one_in_(5)) rng = 4;         // grey concrete
+            else if (one_in_(4)) wall_type = 'c'; // big white
+            else if (one_in_(3)) wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 2) // grey concrete
         {
-            if (one_in_(2)) rng = 4;
-            else if (one_in_(5)) rng = 3; // brown concrete
-            else if (one_in_(2)) wall_type == 'c'; // big white
-            else if (one_in_(3)) wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2)) rng = 4;
+            else if (one_in_(5)) rng = 3;         // brown concrete
+            else if (one_in_(3)) wall_type = 'c'; // big white
+            else if (one_in_(4)) wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 3) // brown sandstone
         {
-            if (one_in_(2)) rng = 10;
-            else if (one_in_(10)) wall_type == 'a'; // wood
-            else if (one_in_(5))  wall_type == 'b'; // small black
-            else if (one_in_(7))  wall_type == 'c'; // big white
-            else if (one_in_(5))  wall_type == 'd'; // big black
-            else if (one_in_(7))  wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = 10;
+            else if (one_in_(10)) wall_type = 'a'; // wood
+            else if (one_in_(5))  wall_type = 'b'; // small black
+            else if (one_in_(3))  wall_type = 'c'; // big white
+            else if (one_in_(5))  wall_type = 'd'; // big black
+            else if (one_in_(7))  wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 4) // deep black wall
         {
-            if (one_in_(2)) rng = 14;
-            else if (one_in_(50)) wall_type == 'a'; // wood
-            else if (one_in_(5))  wall_type == 'b'; // small black
-            else if (one_in_(15)) wall_type == 'c'; // big white
-            else if (one_in_(5))  wall_type == 'd'; // big black
-            else if (one_in_(15)) wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = 14;
+            else if (one_in_(50)) wall_type = 'a'; // wood
+            else if (one_in_(5))  wall_type = 'b'; // small black
+            else if (one_in_(15)) wall_type = 'c'; // big white
+            else if (one_in_(3))  wall_type = 'd'; // big black
+            else if (one_in_(15)) wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
-        if (wall_id == 5) // 3x brown cracked earthy wall
+        if (wall_id == 5) // 3x cracked earthy wall
         {
-            if (one_in_(4)) rng = 16;
-            else if (one_in_(4)) rng = 17;
-            else if (one_in_(4)) rng = 18;
-            else if (one_in_(5))  wall_type == 'a'; // wood
-            else if (one_in_(15)) wall_type == 'b'; // small black
-            else if (one_in_(15)) wall_type == 'c'; // big white
-            else if (one_in_(15)) wall_type == 'd'; // big black
-            else if (one_in_(15)) wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(4))  rng = 16;
+            else if (one_in_(4))  rng = 17;
+            else if (one_in_(4))  rng = 18;
+            else if (one_in_(5))  wall_type = 'a'; // wood
+            else if (one_in_(15)) wall_type = 'b'; // small black
+            else if (one_in_(15)) wall_type = 'c'; // big white
+            else if (one_in_(3))  wall_type = 'd'; // big black
+            else if (one_in_(15)) wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 6) // 4x grey walls
         {
-            if (one_in_(5)) rng = 19;
-            else if (one_in_(5)) rng = 20;
-            else if (one_in_(5)) rng = 21;
-            else if (one_in_(5)) rng = 22;
-            else if (one_in_(25)) wall_type == 'a'; // wood
-            else if (one_in_(15)) wall_type == 'b'; // small black
-            else if (one_in_(5))  wall_type == 'c'; // big white
-            else if (one_in_(15)) wall_type == 'd'; // big black
-            else if (one_in_(5))  wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(5))  rng = 19;
+            else if (one_in_(5))  rng = 20;
+            else if (one_in_(5))  rng = 21;
+            else if (one_in_(5))  rng = 22;
+            else if (one_in_(25)) wall_type = 'a'; // wood
+            else if (one_in_(15)) wall_type = 'b'; // small black
+            else if (one_in_(3))  wall_type = 'c'; // big white
+            else if (one_in_(15)) wall_type = 'd'; // big black
+            else if (one_in_(5))  wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
-        if (wall_id == 7)           // 3x cracked grey walls
+        if (wall_id == 7) // 3x cracked grey walls
         {
-            if (one_in_(4)) rng = 23;
-            else if (one_in_(4)) rng = 24;
-            else if (one_in_(4)) rng = 25;
-            else if (one_in_(50)) wall_type == 'a'; // wood
-            else if (one_in_(5))  wall_type == 'b'; // small black
-            else if (one_in_(15)) wall_type == 'c'; // big white
-            else if (one_in_(5))  wall_type == 'd'; // big black
-            else if (one_in_(5))  wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(4))  rng = 23;
+            else if (one_in_(4))  rng = 24;
+            else if (one_in_(4))  rng = 25;
+            else if (one_in_(50)) wall_type = 'a'; // wood
+            else if (one_in_(5))  wall_type = 'b'; // small black
+            else if (one_in_(15)) wall_type = 'c'; // big white
+            else if (one_in_(3))  wall_type = 'd'; // big black
+            else if (one_in_(5))  wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 8) // 2x muddy walls
         {
-            if (one_in_(3)) rng = 26;
-            if (one_in_(3)) rng = 27;
-            else if (one_in_(25)) wall_type == 'a'; // wood
-            else if (one_in_(5))  wall_type == 'b'; // small black
-            else if (one_in_(5))  wall_type == 'c'; // big white
-            else if (one_in_(5))  wall_type == 'd'; // big black
-            else if (one_in_(5))  wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(3))  rng = 26;
+            else if (one_in_(3))  rng = 27;
+            else if (one_in_(25)) wall_type = 'a'; // wood
+            else if (one_in_(5))  wall_type = 'b'; // small black
+            else if (one_in_(5))  wall_type = 'c'; // big white
+            else if (one_in_(3))  wall_type = 'd'; // big black
+            else if (one_in_(5))  wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 9) // metallic walls
-            if (one_in_(2)) rng = 29;
-            else if (one_in_(25)) wall_type == 'a'; // wood
-            else if (one_in_(15)) wall_type == 'b'; // small black
-            else if (one_in_(5))  wall_type == 'c'; // big white
-            else if (one_in_(15)) wall_type == 'd'; // big black
-            else if (one_in_(10)) wall_type == 'e'; // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = 29;
+            else if (one_in_(25)) wall_type = 'a'; // wood
+            else if (one_in_(15)) wall_type = 'b'; // small black
+            else if (one_in_(3))  wall_type = 'c'; // big white
+            else if (one_in_(15)) wall_type = 'd'; // big black
+            else if (one_in_(10)) wall_type = 'e'; // small white
+            else    { /* pick generated rng */ }
 
         /* 98 */
 
         if (wall_id == 10) // moss small
         {
-            if (one_in_(2)) rng = 34;
-            else if (one_in_(2)) {wall_type = 'd'; rng = 1;} // big black moss BD
-            else if (one_in_(3)) rng = rand_range(35, 36); // moss small holes 98
+            if      (one_in_(2))  rng = 34;
+            else if (one_in_(2)) {wall_type = 'd'; rng = 1;}  // big black moss BD
+            else if (one_in_(3))  rng = rand_range(35, 36);   // moss small holes 98
             else if (one_in_(2)) {wall_type = 'd'; rng = rand_range(9,11);} // big black windows moss BD
-            else if (one_in_(2)) rng = 45; // moss big grey 98
-            else if (one_in_(7)) rng = 44; // moss big white 98
-            else if (one_in_(3)) rng = rand_range(40, 42);
-            else if (one_in_(4)) rng = rand_range(32, 33);
-            else if (one_in_(4)) rng = rand_range(36, 37);
-            else if (one_in_(5)) rng = rand_range(32, 45); // etc 98
-            else if (one_in_(10)) wall_type == 'd';   // big black
-            else { /* pick generated rng */ }
+            else if (one_in_(2))  rng = 45;                   // moss big grey 98
+            else if (one_in_(7))  rng = 44;                   // moss big white 98
+            else if (one_in_(3))  rng = rand_range(40, 42);
+            else if (one_in_(4))  rng = rand_range(32, 33);
+            else if (one_in_(4))  rng = rand_range(36, 37);
+            else if (one_in_(5))  rng = rand_range(32, 45);   // etc 98
+            else if (one_in_(10)) wall_type = 'd';          // big black
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 11) // moss big white
         {
-            if (one_in_(2)) rng = 44;
-            else if (one_in_(3)) rng = 45; // moss big grey 98
-            else if (one_in_(7)) rng = 34; // moss small 98
+            if      (one_in_(2))  rng = 44;
+            else if (one_in_(3))  rng = 45;                  // moss big grey 98
+            else if (one_in_(7))  rng = 34;                  // moss small 98
             else if (one_in_(2)) {wall_type = 'd'; rng = 1;} // moss big black BD
-            else if (one_in_(3)) rng = rand_range(35, 36); // moss small holes 98
+            else if (one_in_(3))  rng = rand_range(35, 36);  // moss small holes 98
             else if (one_in_(2)) {wall_type = 'd'; rng = rand_range(9,11);} // big black windows moss BD
-            else if (one_in_(3)) rng = rand_range(40, 42);
-            else if (one_in_(4)) rng = rand_range(32, 33);
-            else if (one_in_(4)) rng = rand_range(36, 37);
-            else if (one_in_(5)) rng = rand_range(32, 46); // etc 98
-            else if (one_in_(10)) wall_type == 'd';   // big black
-            else { /* pick generated rng */ }
+            else if (one_in_(3))  rng = rand_range(40, 42);
+            else if (one_in_(4))  rng = rand_range(32, 33);
+            else if (one_in_(4))  rng = rand_range(36, 37);
+            else if (one_in_(5))  rng = rand_range(32, 46);  // etc 98
+            else if (one_in_(10)) wall_type = 'd';           // big black
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 12) // moss big grey
         {
-            if (one_in_(2)) rng = 45;
-            else if (one_in_(7)) rng = 44; // moss big white 98
-            else if (one_in_(5)) rng = 34; // moss small 98
+            if      (one_in_(2))  rng = 45;
+            else if (one_in_(7))  rng = 44;                  // moss big white 98
+            else if (one_in_(5))  rng = 34;                  // moss small 98
             else if (one_in_(2)) {wall_type = 'd'; rng = 1;} // moss big black BD
-            else if (one_in_(3)) rng = rand_range(35, 36); // moss small holes 98
+            else if (one_in_(3))  rng = rand_range(35, 36);  // moss small holes 98
             else if (one_in_(2)) {wall_type = 'd'; rng = rand_range(9,11);} // big black windows moss BD
-            else if (one_in_(3)) rng = rand_range(40, 42);
-            else if (one_in_(4)) rng = rand_range(32, 33);
-            else if (one_in_(4)) rng = rand_range(36, 37);
-            else if (one_in_(5)) rng = rand_range(32, 46); // etc 98
-            else if (one_in_(10)) wall_type == 'd';   // big black
-            else { /* pick generated rng */ }
+            else if (one_in_(3))  rng = rand_range(40, 42);
+            else if (one_in_(4))  rng = rand_range(32, 33);
+            else if (one_in_(4))  rng = rand_range(36, 37);
+            else if (one_in_(5))  rng = rand_range(32, 46);  // etc 98
+            else if (one_in_(10)) wall_type = 'd';           // big black
+            else    { /* pick generated rng */ }
         }
 
         strncat(wall, &wall_type, 1);
@@ -2629,59 +2686,59 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
         if (wall_id == 2) // x6 AA big walls
         {
-            if (one_in_(2)) rng = randint0(6);
-            else if (one_in_(50)) wall_type == 'a';  // wood
-            else if (one_in_(25)) wall_type == 'b';  // small black
-            else if (one_in_(20)) wall_type == 'c';  // big white
-            else if (one_in_(10)) wall_type == 'd';  // big black
-            else if (one_in_(25)) wall_type == 'e';  // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = randint0(6);
+            else if (one_in_(50)) wall_type = 'a';  // wood
+            else if (one_in_(25)) wall_type = 'b';  // small black
+            else if (one_in_(20)) wall_type = 'c';  // big white
+            else if (one_in_(10)) wall_type = 'd';  // big black
+            else if (one_in_(25)) wall_type = 'e';  // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 3) // x6 AA mossy brown walls
         {
-            if (one_in_(2)) rng = rand_range(6, 11);
-            else if (one_in_(50)) wall_type == 'a';  // wood
-            else if (one_in_(25)) wall_type == 'b';  // small black
-            else if (one_in_(10)) wall_type == 'c';  // big white
-            else if (one_in_(5))  wall_type == 'd';  // big black
-            else if (one_in_(25)) wall_type == 'e';  // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = rand_range(6, 11);
+            else if (one_in_(50)) wall_type = 'a';  // wood
+            else if (one_in_(25)) wall_type = 'b';  // small black
+            else if (one_in_(10)) wall_type = 'c';  // big white
+            else if (one_in_(5))  wall_type = 'd';  // big black
+            else if (one_in_(25)) wall_type = 'e';  // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 4) // x4 AA brown small brick
         {
-            if (one_in_(2)) rng = rand_range(20, 23);
-            if (one_in_(5)) rng = 24;                // brown big AA
-            if (one_in_(7)) rng = 25;                // light brown big AA
-            else if (one_in_(10)) wall_type == 'a';  // wood
-            else if (one_in_(5))  wall_type == 'b';  // small black
-            else if (one_in_(25)) wall_type == 'c';  // big white
-            else if (one_in_(10)) wall_type == 'd';  // big black
-            else if (one_in_(25)) wall_type == 'e';  // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = rand_range(20, 23);
+            else if (one_in_(5))  rng = 24;         // brown big AA
+            else if (one_in_(7))  rng = 25;         // light brown big AA
+            else if (one_in_(10)) wall_type = 'a';  // wood
+            else if (one_in_(5))  wall_type = 'b';  // small black
+            else if (one_in_(25)) wall_type = 'c';  // big white
+            else if (one_in_(10)) wall_type = 'd';  // big black
+            else if (one_in_(25)) wall_type = 'e';  // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 5) // AA brown big wall
         {
-            if (one_in_(2)) rng = 24;
-            if (one_in_(7)) rng = rand_range(20, 23);// brown small AA
-            if (one_in_(5)) rng = 25;                // light brown big AA
-            else if (one_in_(15)) wall_type == 'a';  // wood
-            else if (one_in_(25)) wall_type == 'b';  // small black
-            else if (one_in_(5))  wall_type == 'c';  // big white
-            else if (one_in_(7))  wall_type == 'd';  // big black
-            else if (one_in_(25)) wall_type == 'e';  // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = 24;
+            else if (one_in_(7))  rng = rand_range(20, 23); // brown small AA
+            else if (one_in_(5))  rng = 25;                 // light brown big AA
+            else if (one_in_(15)) wall_type = 'a';          // wood
+            else if (one_in_(25)) wall_type = 'b';          // small black
+            else if (one_in_(5))  wall_type = 'c';          // big white
+            else if (one_in_(7))  wall_type = 'd';          // big black
+            else if (one_in_(25)) wall_type = 'e';          // small white
+            else    { /* pick generated rng */ }
         }
         if (wall_id == 6) // AA light brown big wall
         {
-            if (one_in_(2)) rng = 25;
-            if (one_in_(8)) rng = rand_range(20, 23);// brown small AA
-            if (one_in_(5)) rng = 24;                // brown big AA
-            else if (one_in_(15)) wall_type == 'a';  // wood
-            else if (one_in_(25)) wall_type == 'b';  // small black
-            else if (one_in_(5))  wall_type == 'c';  // big white
-            else if (one_in_(10)) wall_type == 'd';  // big black
-            else if (one_in_(25)) wall_type == 'e';  // small white
-            else { /* pick generated rng */ }
+            if      (one_in_(2))  rng = 25;
+            else if (one_in_(8))  rng = rand_range(20, 23); // brown small AA
+            else if (one_in_(5))  rng = 24;                 // brown big AA
+            else if (one_in_(15)) wall_type = 'a';          // wood
+            else if (one_in_(25)) wall_type = 'b';          // small black
+            else if (one_in_(5))  wall_type = 'c';          // big white
+            else if (one_in_(10)) wall_type = 'd';          // big black
+            else if (one_in_(25)) wall_type = 'e';          // small white
+            else    { /* pick generated rng */ }
         }
 
         strncat(wall, &wall_type, 1);
