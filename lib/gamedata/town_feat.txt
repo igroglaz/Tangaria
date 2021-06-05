@@ -1170,7 +1170,9 @@ feat:b:o:dark wall o up staircase
 feat:b:p:dark wall p down staircase
 feat:b:q:dark wall q jail window
 feat:b:r:dark wall r prison bars
+# HIDDEN PASSAGE FOR TOWN WIZARD SHOP
 feat:b:s:dark wall s
+# ILLUSIONARY WALL FOR DUNGEON ILL.CASTLE
 feat:b:t:dark wall t
 feat:b:u:dark wall u
 feat:b:v:dark wall v

@@ -5906,7 +5906,8 @@ desc:.
 name:safe floor
 graphics:.:u
 priority:16
-flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY
+# was | BRIGHT
 short-desc:wooden floor
 desc:An open floor or bare ground that prevents any hostile action from
 desc: monsters or other players.
@@ -9142,6 +9143,7 @@ flags:NO_HOUSE | LOS | PROJECT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TO
 short-desc:prison bars
 desc:.
 
+# HIDDEN PASSAGE FOR TOWN WIZARD SHOP
 name:dark wall s
 graphics:+:U
 priority:11
@@ -9151,6 +9153,7 @@ info:0:3
 short-desc:.
 desc:.
 
+# ILLUSIONARY WALL FOR DUNGEON ILL.CASTLE
 name:dark wall t
 graphics:+:'
 priority:11
@@ -38446,7 +38449,7 @@ desc:.
 name:house wall a2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38455,7 +38458,7 @@ desc:.
 name:house wall a3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38464,7 +38467,7 @@ desc:.
 name:house wall a4
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38509,7 +38512,7 @@ desc:.
 name:house wall a9
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38518,7 +38521,7 @@ desc:.
 name:house wall aa
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38527,7 +38530,7 @@ desc:.
 name:house wall ab
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38536,7 +38539,7 @@ desc:.
 name:house wall ac
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38545,7 +38548,7 @@ desc:.
 name:house wall ad
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38554,7 +38557,7 @@ desc:.
 name:house wall ae
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38563,7 +38566,7 @@ desc:.
 name:house wall af
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38572,7 +38575,7 @@ desc:.
 name:house wall ag
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38581,7 +38584,7 @@ desc:.
 name:house wall ah
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38590,7 +38593,7 @@ desc:.
 name:house wall ai
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38635,7 +38638,7 @@ desc:.
 name:house wall an
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38644,7 +38647,7 @@ desc:.
 name:house wall ao
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38653,7 +38656,7 @@ desc:.
 name:house wall ap
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38662,7 +38665,7 @@ desc:.
 name:house wall aq
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38671,7 +38674,7 @@ desc:.
 name:house wall ar
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38680,7 +38683,7 @@ desc:.
 name:house wall as
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38689,7 +38692,7 @@ desc:.
 name:house wall at
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38698,7 +38701,7 @@ desc:.
 name:house wall au
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -38707,7 +38710,7 @@ desc:.
 name:house wall av
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39023,7 +39026,7 @@ desc:.
 name:house wall b1
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39032,7 +39035,7 @@ desc:.
 name:house wall b2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39194,7 +39197,7 @@ desc:.
 name:house wall bk
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39203,7 +39206,7 @@ desc:.
 name:house wall bl
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39212,7 +39215,7 @@ desc:.
 name:house wall bm
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39221,7 +39224,7 @@ desc:.
 name:house wall bn
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39248,7 +39251,7 @@ desc:.
 name:house wall bq
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39257,7 +39260,7 @@ desc:.
 name:house wall br
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39609,7 +39612,7 @@ desc:.
 name:house wall c1
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39618,7 +39621,7 @@ desc:.
 name:house wall c2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39627,7 +39630,7 @@ desc:.
 name:house wall c3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39681,7 +39684,7 @@ desc:.
 name:house wall c9
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39690,7 +39693,7 @@ desc:.
 name:house wall ca
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39699,7 +39702,7 @@ desc:.
 name:house wall cb
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39708,7 +39711,7 @@ desc:.
 name:house wall cc
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39717,7 +39720,7 @@ desc:.
 name:house wall cd
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39726,7 +39729,7 @@ desc:.
 name:house wall ce
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39735,7 +39738,7 @@ desc:.
 name:house wall cf
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39744,7 +39747,7 @@ desc:.
 name:house wall cg
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39753,7 +39756,7 @@ desc:.
 name:house wall ch
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39762,7 +39765,7 @@ desc:.
 name:house wall ci
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39771,7 +39774,7 @@ desc:.
 name:house wall cj
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39780,7 +39783,7 @@ desc:.
 name:house wall ck
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39789,7 +39792,7 @@ desc:.
 name:house wall cl
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39798,7 +39801,7 @@ desc:.
 name:house wall cm
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39807,7 +39810,7 @@ desc:.
 name:house wall cn
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39816,7 +39819,7 @@ desc:.
 name:house wall co
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39825,7 +39828,7 @@ desc:.
 name:house wall cp
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39834,7 +39837,7 @@ desc:.
 name:house wall cq
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39843,7 +39846,7 @@ desc:.
 name:house wall cr
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39852,7 +39855,7 @@ desc:.
 name:house wall cs
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39861,7 +39864,7 @@ desc:.
 name:house wall ct
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39870,7 +39873,7 @@ desc:.
 name:house wall cu
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -39879,7 +39882,7 @@ desc:.
 name:house wall cv
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40204,7 +40207,7 @@ desc:.
 name:house wall d2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40213,7 +40216,7 @@ desc:.
 name:house wall d3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40222,7 +40225,7 @@ desc:.
 name:house wall d4
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40267,7 +40270,7 @@ desc:.
 name:house wall d9
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40276,7 +40279,7 @@ desc:.
 name:house wall da
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40285,7 +40288,7 @@ desc:.
 name:house wall db
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40321,7 +40324,7 @@ desc:.
 name:house wall df
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40330,7 +40333,7 @@ desc:.
 name:house wall dg
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40339,7 +40342,7 @@ desc:.
 name:house wall dh
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40348,7 +40351,7 @@ desc:.
 name:house wall di
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40357,7 +40360,7 @@ desc:.
 name:house wall dj
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40366,7 +40369,7 @@ desc:.
 name:house wall dk
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40375,7 +40378,7 @@ desc:.
 name:house wall dl
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40384,7 +40387,7 @@ desc:.
 name:house wall dm
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40393,7 +40396,7 @@ desc:.
 name:house wall dn
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40402,7 +40405,7 @@ desc:.
 name:house wall do
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40411,7 +40414,7 @@ desc:.
 name:house wall dp
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40420,7 +40423,7 @@ desc:.
 name:house wall dq
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40447,7 +40450,7 @@ desc:.
 name:house wall dt
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40456,7 +40459,7 @@ desc:.
 name:house wall du
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40465,7 +40468,7 @@ desc:.
 name:house wall dv
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40781,7 +40784,7 @@ desc:.
 name:house wall e1
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40790,7 +40793,7 @@ desc:.
 name:house wall e2
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40799,7 +40802,7 @@ desc:.
 name:house wall e3
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40862,7 +40865,7 @@ desc:.
 name:house wall ea
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40871,7 +40874,7 @@ desc:.
 name:house wall eb
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40880,7 +40883,7 @@ desc:.
 name:house wall ec
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40889,7 +40892,7 @@ desc:.
 name:house wall ed
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40898,7 +40901,7 @@ desc:.
 name:house wall ee
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40907,7 +40910,7 @@ desc:.
 name:house wall ef
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40916,7 +40919,7 @@ desc:.
 name:house wall eg
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40925,7 +40928,7 @@ desc:.
 name:house wall eh
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40934,7 +40937,7 @@ desc:.
 name:house wall ei
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40943,7 +40946,7 @@ desc:.
 name:house wall ej
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40952,7 +40955,7 @@ desc:.
 name:house wall ek
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40961,7 +40964,7 @@ desc:.
 name:house wall el
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40970,7 +40973,7 @@ desc:.
 name:house wall em
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40979,7 +40982,7 @@ desc:.
 name:house wall en
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40988,7 +40991,7 @@ desc:.
 name:house wall eo
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -40997,7 +41000,7 @@ desc:.
 name:house wall ep
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -41006,7 +41009,7 @@ desc:.
 name:house wall eq
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -41015,7 +41018,7 @@ desc:.
 name:house wall er
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -41024,7 +41027,7 @@ desc:.
 name:house wall es
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall
@@ -41033,7 +41036,7 @@ desc:.
 name:house wall et
 graphics:#:s
 priority:11
-flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW
+flags:HOUSE | WALL | ROCK | PERMANENT | PLOT | NO_SCENT | NO_FLOW | LOS | PROJECT | WINDOW
 info:0:3
 ################################################################################
 short-desc:wall

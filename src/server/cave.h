@@ -495,6 +495,7 @@ extern void square_add_new_safe(struct chunk *c, struct loc *grid);
 extern void square_add_safe(struct chunk *c, struct loc *grid);
 extern bool square_isplot(struct chunk *c, struct loc *grid);
 extern bool square_is_no_house(struct chunk *c, struct loc *grid);
+extern bool square_is_window(struct chunk *c, struct loc *grid);
 extern void square_actor(struct chunk *c, struct loc *grid, struct source *who);
 extern int square_known_feat(struct player *p, struct chunk *c, struct loc *grid);
 extern void square_illuminate(struct player *p, struct chunk *c, struct loc *grid, bool daytime,
