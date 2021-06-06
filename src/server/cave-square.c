@@ -2453,9 +2453,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     {
         if ((rng == 4) || (rng == 8) || (rng == 9) ||       // door tiles.. no need as walls
         (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'b') // B9 BA   black small bricks
     {
         if      (one_in_(5))  {wall_type = 'h'; rng = randint0(31);}       // paintings DC
@@ -2464,9 +2463,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         else if (one_in_(20)) {wall_type = 'f'; rng = rand_range(35, 36);} // moss small holes 98
         else if (one_in_(90)) {wall_type = 'g'; rng = rand_range(58, 60);} // bloody AA
         else    { /* pick generated rng */ }
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'c') // BB BC   big white
     {
         if      (one_in_(3))   rng = 0;                                    // common big white
@@ -2474,9 +2472,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         else if (one_in_(50)) {wall_type = 'f'; rng = 29;}                 // metallic wall 96
         else if (one_in_(90)) {wall_type = 'g'; rng = rand_range(61, 63);} // big bloody AA
         else    { /* pick generated rng */ }
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'd') // BD BE   big black
     {
 
@@ -2514,14 +2511,13 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(150)){wall_type = 'g'; rng = rand_range(61, 63);} // big bloody AA
             else    { /* pick generated rng */ }
         }
-
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'e') // BF C0   white small bricks
     {
-        strncat(wall, &wall_type, 1);
+        /* pick generated rng */
     }
+
     else if (wall_type == 'f') // 96 98
     {   /* 96 */
         if (wall_id > 12) wall_id = randint1(12);  // cause 'f' got 9 subwalls
@@ -2653,6 +2649,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(3))   wall_type = 'e'; // small white
             else                   wall_type = 'c'; // big white;
         }
+
         /* 98 */
 
         if (wall_id == 10) // moss small
@@ -2669,7 +2666,6 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(7))  rng = rand_range(32, 45);   // etc 98
             else if (one_in_(7))  wall_type = 'd';            // big black
             else if (one_in_(3))  wall_type = 'b';            // small black
-//
             else if (one_in_(150)){wall_type = 'g'; rng = rand_range(61, 63);} // big bloody AA
             else if (one_in_(50)) {wall_type = 'g'; rng = rand_range(38, 39);} // greenish brown moss big AA
             else if (one_in_(50)) {wall_type = 'g'; rng = 40;}                 // dark brown moss big AA
@@ -2700,9 +2696,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(125)) rng = rand_range(41, 43);  // moss big blocked walls   98
             else                   wall_type = 'c';           // big white
         }
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'g') // A3 AA
     {   /* A3 */
 
@@ -2767,9 +2762,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
             else if (one_in_(5))  rng = 56;                 // brown big AA
             else                  wall_type = 'a';  // wood
         }
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'h') // DC E1... but we use only E1
     {
 
@@ -2777,9 +2771,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
         if (rng < 32) rng = rand_range(32, 63);  // we don't want pictures there
         if ((rng >= 52) && (rng <= 55)) rng = rand_range(32, 63); // lights reroll
-
-        strncat(wall, &wall_type, 1);
     }
+
     else if (wall_type == 'i') // E2 E3 separately
     {
 
@@ -2816,14 +2809,14 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         {
             if (one_in_(3)) {wall_type = 'h'; rng = rand_range(32, 63);} // E1
         }
-
-        strncat(wall, &wall_type, 1);
     }
+
     else                       // E2 E3
     {
         wall_type = 'i';
-        strncat(wall, &wall_type, 1);
     }
+
+    strncat(wall, &wall_type, 1);
     
     // some walls not really good to be house-ones
     switch(rng)
