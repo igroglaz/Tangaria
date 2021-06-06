@@ -2987,8 +2987,9 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     if (one_in_(9))
     {
         floor_type = 'a'; // AD AE
-        if ((rng >= 35) && (rng <= 44)) rng = 45; // if roll NPC - safe floor
+        if ((rng >= 35) && (rng <= 43)) rng = 45; // if roll NPC - safe floor
         if (one_in_(3)) rng = randint0(63); // but sometimes give them chance
+        if (rng == 44) rng = 45; // if roll door - safe floor
     }
 
     else if (one_in_(9))
