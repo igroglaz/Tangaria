@@ -2984,6 +2984,66 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
 
     rng = randint0(63); // random choice of floor number
 
+    if (one_in_(9))
+    {
+        floor_type = 'a'; // AD AE
+        if ((rng >= 35) && (rng <= 44)) rng = 45; // if roll NPC - safe floor
+        if (one_in_(3)) rng = randint0(63); // but sometimes give them chance
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'b'; // AF B0
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'c'; // D1 D2
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'd'; // D3 D4
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'e'; // D5 D6
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'f'; // D7 D8
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'g'; // D9 DA
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'h'; // DB B4
+        if (rng > 43)     rng = randint0(43); // after carpets and pentagrams there are bad tiles
+        if (one_in_(50))  rng = randint0(46); // but rarely generate them too: stone plates
+        if (one_in_(500)) rng = randint0(63); // and very rare dark floors
+    }
+
+    else if (one_in_(9))
+    {
+        floor_type = 'i'; // B5 A4
+        if (rng > 31) rng = 0; // safe floor as second part of 'i' is grassy A4 terrain which looks bad inside atm..
+    }
+
+    else
+    {
+        floor_type = 'i';
+        rng = 0; // add some more common safe floors
+    }
+
+    // combine 1st ("house floor ") and 2nd (type "a-i") part of the wall name
+    strncat(floor, &floor_type, 1);
+
     switch(rng)
     {   // 1st stroke in tileset
         case 0: break;
@@ -3054,67 +3114,13 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         default: rng = 0;
     }
 
-    if (one_in_(9))
-    {
-        floor_type = 'a'; // AD AE
-        if ((rng >= 34) && (rng <= 44)) floor_glyph = 'J'; // safe floor
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'b'; // AF B0
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'c'; // D1 D2
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'd'; // D3 D4
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'e'; // D5 D6
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'f'; // D7 D8
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'g'; // D9 DA
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'h'; // DB B4
-        if (rng > 43) rng = (rand() % 43); // after carpets and pentagrams there are bad tiles
-        strncat(floor, &floor_type, 1);
-    }
-    else if (one_in_(9))
-    {
-        floor_type = 'i'; // B5 A4
-        if (rng > 31) rng = 0; // safe floor as second part of 'i' is grassy A4 terrain which looks bad inside atm..
-        strncat(floor, &floor_type, 1);
-    }
-    else
-    {
-        floor_type = 'i';
-        rng = 0; // add some more common safe floors
-        strncat(floor, &floor_type, 1);
-    }
-
     if (rng <= 9)
     {
         // If we put int to char it will be set as 'hex' (0x..).
         // So we need to convert it to 'int'
         snprintf(floor_index, 2, "%d", rng);
-        // Combine two strings
+        // Combine two strings:
+        // first two combined parts of floor name (eg "house floor a") with index
         strcat(floor, floor_index);
     }
     else
