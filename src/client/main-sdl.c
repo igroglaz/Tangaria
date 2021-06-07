@@ -69,6 +69,9 @@ static const char *DEFAULT_FONT_FILE = "6x10x.fon";
 char *FontList[MAX_FONTS];
 static int num_fonts = 0;
 
+/* Default font size */
+#define DEFAULT_FONT_SIZE    12
+
 /*
  * A font structure
  * Note that the data is only valid for a surface with matching
@@ -108,6 +111,7 @@ struct term_window
     int keys;               /* Size of keypress storage */
     sdl_Font font;          /* Font info */
     char *req_font;         /* Requested font */
+    int font_size;          /* Font size dimensions */
     int rows;               /* Dimension in tiles */
     int cols;
     int border;             /* Border width */
@@ -248,6 +252,8 @@ static int MoreFullscreen;  /* Fullscreen toggle button */
 static int MoreNiceGfx;     /* Nice graphics toggle button */
 static int MoreSnapPlus;    /* Increase snap range */
 static int MoreSnapMinus;   /* Decrease snap range */
+static int MoreFontSizePlus;    /* Increase font size range */
+static int MoreFontSizeMinus;   /* Decrease font size range */
 static int MoreWindowBorders;  /* Window Borders toggle button */
 
 static bool Moving;             /* Moving a window */
@@ -330,26 +336,26 @@ static void sdl_DrawBox(SDL_Surface *surface, SDL_Rect *rect, SDL_Color colour, 
 /*
  * Get the width and height of a given font file
  */
-static errr sdl_CheckFont(const char *fontname, int *width, int *height)
+static errr sdl_CheckFont(const char *fontname, int font_size, int *width, int *height)
 {
     char buf[MSG_LEN];
     TTF_Font *ttf_font;
-    
+
     /* Build the path */
     path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, fontname);
-    
+
     /* Attempt to load it */
-    ttf_font = TTF_OpenFont(buf, 0);
-    
+    ttf_font = TTF_OpenFont(buf, font_size);
+
     /* Bugger */
     if (!ttf_font) return (-1);
-    
+
     /* Get the size */
     if (TTF_SizeText(ttf_font, "M", width, height)) return (-1);
-    
+
     /* Finished with the font */
     TTF_CloseFont(ttf_font);
-    
+
     return (0);
 }
 
@@ -373,32 +379,32 @@ static void sdl_FontFree(sdl_Font *font)
  * Create new font data with font fontname, optimizing the data
  * for the surface given
  */
-static errr sdl_FontCreate(sdl_Font *font, const char *fontname, SDL_Surface *surface)
+static errr sdl_FontCreate(sdl_Font *font, const char *fontname, int font_size, SDL_Surface *surface)
 {
     char buf[MSG_LEN];
     TTF_Font *ttf_font;
-    
+
     /* Build the path */
     path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, fontname);
-    
+
     /* Attempt to load it */
-    ttf_font = TTF_OpenFont(buf, 0);
-    
+    ttf_font = TTF_OpenFont(buf, font_size);
+
     /* Bugger */
     if (!ttf_font) return (-1);
-    
+
     /* Get the size */
     if (TTF_SizeText(ttf_font, "M", &font->width, &font->height)) return (-1);
 
     /* Get the best quality */
     TTF_SetFontHinting(ttf_font, TTF_HINTING_LIGHT);
-    
+
     /* Fill in some of the font struct */
     if (font->name != fontname) my_strcpy(font->name, fontname, 30);
     font->pitch = surface->pitch;
     font->bpp = surface->format->BytesPerPixel;
     font->sdl_font = ttf_font;
-    
+
     /* Success */
     return (0); 
 }
@@ -412,7 +418,7 @@ static errr sdl_FontCreate(sdl_Font *font, const char *fontname, SDL_Surface *su
  * You can, I suppose, use one font on many surfaces, but it is
  * definitely not recommended. One font per surface is good enough.
  */
-static errr sdl_mapFontDraw(sdl_Font *font, SDL_Surface *surface, SDL_Color colour,
+static errr sdl_mapFontDraw(sdl_Font *font, int font_size, SDL_Surface *surface, SDL_Color colour,
     SDL_Color bg, int x, int y, int n, const char *s)
 {
     Uint8 bpp = surface->format->BytesPerPixel;
@@ -421,7 +427,7 @@ static errr sdl_mapFontDraw(sdl_Font *font, SDL_Surface *surface, SDL_Color colo
     SDL_Surface *text;
 
     if ((bpp != font->bpp) || (pitch != font->pitch))
-        sdl_FontCreate(font, font->name, surface);
+        sdl_FontCreate(font, font->name, font_size, surface);
 
     /* Lock the window surface (if necessary) */
     if (SDL_MUSTLOCK(surface))
@@ -462,7 +468,7 @@ static errr sdl_FontDraw(sdl_Font *font, SDL_Surface *surface, SDL_Color colour,
     SDL_Surface *text;
 
     if ((bpp != font->bpp) || (pitch != font->pitch))
-        sdl_FontCreate(font, font->name, surface);
+        sdl_FontCreate(font, font->name, 0, surface);
 
     /* Lock the window surface (if necessary) */
     if (SDL_MUSTLOCK(surface))
@@ -783,7 +789,7 @@ static void sdl_WindowInit(sdl_Window* window, int w, int h, SDL_Surface *owner,
         owner->format->BitsPerPixel, owner->format->Rmask, owner->format->Gmask,
         owner->format->Bmask, owner->format->Amask);
     sdl_ButtonBankInit(&window->buttons, window);
-    sdl_FontCreate(&window->font, fontname, window->surface);
+    sdl_FontCreate(&window->font, fontname, 0, window->surface);
     window->visible = true;
     window->need_update = true;
 }
@@ -1315,7 +1321,7 @@ static void SelectFont(sdl_Button *sender)
 
     window->req_font = string_make(sender->caption);
     
-    sdl_CheckFont(window->req_font, &w, &h);
+    sdl_CheckFont(window->req_font, window->font_size, &w, &h);
 
     /* Invalidate the gfx surface */
     if (window->tiles)
@@ -1374,6 +1380,7 @@ static void FontActivate(sdl_Button *sender)
 
 
 static errr load_gfx(void);
+static bool do_update_f = false;
 static bool do_update = false;
 
 static void SelectGfx(sdl_Button *sender)
@@ -1425,44 +1432,40 @@ static void AcceptChanges(sdl_Button *sender)
     sdl_Button *button;
     bool do_video_reset = false;
 
-    /* Allow only in initial phase */
-    if (!Setup.initialized)
+    if (use_graphics != SelectedGfx)
     {
-        if (use_graphics != SelectedGfx)
+        do_update = true;
+
+        use_graphics = SelectedGfx;
+    }
+
+    if (!use_graphics) reset_tile_params();
+
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
+    if (button->tag != nicegfx)
+    {
+        nicegfx = !nicegfx;
+        do_update = true;
+    }
+
+    load_gfx();
+
+    /* Reset visuals */
+    reset_visuals(true);
+
+    /* Invalidate all the gfx surfaces */
+    if (do_update)
+    {
+        int i;
+
+        for (i = 0; i < ANGBAND_TERM_MAX; i++)
         {
-            do_update = true;
+            term_window *win = &windows[i];
 
-            use_graphics = SelectedGfx;
-        }
-
-        if (!use_graphics) reset_tile_params();
-
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
-        if (button->tag != nicegfx)
-        {
-            nicegfx = !nicegfx;
-            do_update = true;
-        }
-
-        load_gfx();
-
-        /* Reset visuals */
-        reset_visuals(true);
-
-        /* Invalidate all the gfx surfaces */
-        if (do_update)
-        {
-            int i;
-
-            for (i = 0; i < ANGBAND_TERM_MAX; i++)
+            if (win->tiles)
             {
-                term_window *win = &windows[i];
-
-                if (win->tiles)
-                {
-                    SDL_FreeSurface(win->tiles);
-                    win->tiles = NULL;
-                }
+                SDL_FreeSurface(win->tiles);
+                win->tiles = NULL;
             }
         }
     }
@@ -1496,11 +1499,22 @@ static void AcceptChanges(sdl_Button *sender)
     RemovePopUp();
 
     /* Hacks */
+    if (do_update_f)
+    {
+        ResizeWin(&windows[SelectedTerm], windows[SelectedTerm].width, windows[SelectedTerm].height);
+
+        /* Show on the screen */
+        sdl_BlitAll();
+    }
+
     if (do_update)
     {
         /* Redraw */
         if (Setup.initialized)
+        {
+            ResizeWin(&windows[0], windows[0].width, windows[0].height);
             do_cmd_redraw();
+        }
 
         /* This will set up the window correctly */
         else
@@ -1520,7 +1534,8 @@ static void AcceptChanges(sdl_Button *sender)
         SDL_PushEvent(&Event);
     }
 
-	do_update = false;
+    do_update_f = false;
+    do_update = false;
 }
 
 
@@ -1553,7 +1568,7 @@ static void WidthChange(sdl_Button *sender)
 	tile_width += sender->tag;
 	if (tile_width < 1) tile_width = 1;
 	if (tile_width > 12) tile_width = 12;
-	do_update = true;
+    do_update = true;
 }
 
 
@@ -1562,12 +1577,25 @@ static void HeightChange(sdl_Button *sender)
 	tile_height += sender->tag;
 	if (tile_height < 1) tile_height = 1;
 	if (tile_height > 8) tile_height = 8;
-	do_update = true;
+    do_update = true;
+}
+
+
+static void FontSizeChange(sdl_Button *sender)
+{
+    term_window *window = &windows[SelectedTerm];
+
+    window->font_size += sender->tag;
+    if (window->font_size < 4) window->font_size = 4;
+    if (window->font_size > 64) window->font_size = 64;
+    do_update_f = true;
+    do_update = true;
 }
 
 
 static void MoreDraw(sdl_Window *win)
 {
+    term_window *window = &windows[SelectedTerm];
     SDL_Rect rc;
     sdl_Button *button;
     int y = 20;
@@ -1582,48 +1610,48 @@ static void MoreDraw(sdl_Window *win)
     /* Draw a nice box */
     sdl_DrawBox(win->surface, &rc, colour, 5);
 
+    button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+
+    if (SelectedGfx)
+    {
+        sdl_WindowText(win, colour, 20, y, format("Tile width is %d.", tile_width));
+        button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
+        sdl_ButtonMove(button, 150, y);
+
+        button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
+        sdl_ButtonMove(button, 180, y);
+
+        y += 20;
+
+        sdl_WindowText(win, colour, 20, y, format("Tile height is %d.", tile_height));
+        button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
+        sdl_ButtonMove(button, 150, y);
+
+        button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
+        sdl_ButtonMove(button, 180, y);
+
+        y += 20;
+    }
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreNiceGfx);
+    sdl_WindowText(win, colour, 20, y, "Nice graphics is:");
+
+    sdl_ButtonMove(button, 150, y);
+    y += 20;
+
     /* Allow only in initial phase */
     if (!Setup.initialized)
     {
-        button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-        if (SelectedGfx)
-        {
-	        sdl_WindowText(win, colour, 20, y, format("Tile width is %d.", tile_width));
-            button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
-            sdl_ButtonMove(button, 150, y);
-
-            button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
-            sdl_ButtonMove(button, 180, y);
-
-            y += 20;
-
-            sdl_WindowText(win, colour, 20, y, format("Tile height is %d.", tile_height));
-            button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
-            sdl_ButtonMove(button, 150, y);
-
-            button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
-            sdl_ButtonMove(button, 180, y);
-
-            y += 20;
-        }
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreNiceGfx);
-        sdl_WindowText(win, colour, 20, y, "Nice graphics is:");
-
-        sdl_ButtonMove(button, 150, y);
-        y += 20;
-
         sdl_WindowText(win, colour, 20, y, "Selected Graphics:");
 
         mode = get_graphics_mode(SelectedGfx, false);
@@ -1667,6 +1695,15 @@ static void MoreDraw(sdl_Window *win)
 
     button = sdl_ButtonBankGet(&win->buttons, MoreSnapPlus);
     sdl_ButtonMove(button, 180, y);
+
+    y += 20;
+
+    sdl_WindowText(win, colour, 20, y, format("Font size is %d.", window->font_size));
+    button = sdl_ButtonBankGet(&win->buttons, MoreFontSizeMinus);
+    sdl_ButtonMove(button, 150, y);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreFontSizePlus);
+    sdl_ButtonMove(button, 180, y);
 }
 
 
@@ -1704,66 +1741,66 @@ static void MoreActivate(sdl_Button *sender)
     PopUp.top = (AppWin->h / 2) - height / 2;
     PopUp.draw_extra = MoreDraw;
 
+    SelectedGfx = use_graphics;
+
+    MoreWidthPlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthPlus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "+");
+    button->tag = 1;
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    button->activate = WidthChange;
+
+    MoreWidthMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthMinus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "-");
+    button->tag = -1;
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    button->activate = WidthChange;
+
+    MoreHeightPlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightPlus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "+");
+    button->tag = 1;
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    button->activate = HeightChange;
+
+    MoreHeightMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightMinus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "-");
+    button->tag = -1;
+    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    button->activate = HeightChange;
+
+    MoreNiceGfx = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 50, PopUp.font.height + 2);
+    sdl_ButtonVisible(button, true);
+    sdl_ButtonCaption(button, nicegfx? "On": "Off");
+    button->tag = nicegfx;
+    button->activate = FlipTag;
+
     /* Allow only in initial phase */
     if (!Setup.initialized)
     {
-        SelectedGfx = use_graphics;
-
-        MoreWidthPlus = sdl_ButtonBankNew(&PopUp.buttons);
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthPlus);
-
-        button->unsel_colour = ucolour;
-        button->sel_colour = scolour;
-        sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-        sdl_ButtonCaption(button, "+");
-        button->tag = 1;
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-        button->activate = WidthChange;
-
-        MoreWidthMinus = sdl_ButtonBankNew(&PopUp.buttons);
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthMinus);
-
-        button->unsel_colour = ucolour;
-        button->sel_colour = scolour;
-        sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-        sdl_ButtonCaption(button, "-");
-        button->tag = -1;
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-        button->activate = WidthChange;
-
-        MoreHeightPlus = sdl_ButtonBankNew(&PopUp.buttons);
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightPlus);
-
-        button->unsel_colour = ucolour;
-        button->sel_colour = scolour;
-        sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-        sdl_ButtonCaption(button, "+");
-        button->tag = 1;
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-        button->activate = HeightChange;
-
-        MoreHeightMinus = sdl_ButtonBankNew(&PopUp.buttons);
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightMinus);
-
-        button->unsel_colour = ucolour;
-        button->sel_colour = scolour;
-        sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-        sdl_ButtonCaption(button, "-");
-        button->tag = -1;
-        sdl_ButtonVisible(button, SelectedGfx? true: false);
-	    button->activate = HeightChange;
-
-        MoreNiceGfx = sdl_ButtonBankNew(&PopUp.buttons);
-        button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
-
-        button->unsel_colour = ucolour;
-        button->sel_colour = scolour;
-        sdl_ButtonSize(button, 50, PopUp.font.height + 2);
-        sdl_ButtonVisible(button, true);
-        sdl_ButtonCaption(button, nicegfx? "On": "Off");
-        button->tag = nicegfx;
-        button->activate = FlipTag;
-
         mode = graphics_modes;
         while (mode)
         {
@@ -1828,6 +1865,28 @@ static void MoreActivate(sdl_Button *sender)
     sdl_ButtonVisible(button, true);
     button->activate = SnapChange;
 
+    MoreFontSizePlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreFontSizePlus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "+");
+    button->tag = 1;
+    sdl_ButtonVisible(button, true);
+    button->activate = FontSizeChange;
+
+    MoreFontSizeMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreFontSizeMinus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "-");
+    button->tag = -1;
+    sdl_ButtonVisible(button, true);
+    button->activate = FontSizeChange;
+
     MoreOK = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreOK);
 
@@ -1885,7 +1944,7 @@ static void ResizeWin(term_window *win, int w, int h)
     if (!win->font.data)
     {
         /* Get font dimensions */
-        sdl_CheckFont(win->req_font, &win->tile_wid, &win->tile_hgt);
+        sdl_CheckFont(win->req_font, win->font_size, &win->tile_wid, &win->tile_hgt);
 
         /* Oops */
         if (!win->tile_wid || !win->tile_hgt)
@@ -1934,7 +1993,7 @@ static void ResizeWin(term_window *win, int w, int h)
 
     /* Create the font if we need to */
     if (!win->font.data)
-        sdl_FontCreate(&win->font, win->req_font, win->surface);
+        sdl_FontCreate(&win->font, win->req_font, win->font_size, win->surface);
 
     /* This window was never visible before, or needs resizing */
     if (!angband_term[win->Term_idx])
@@ -2029,9 +2088,9 @@ static errr load_prefs(void)
         else if (strstr(buf, "Graphics"))
             use_graphics = atoi(s);
         else if (strstr(buf, "TileWidth"))
-			tile_width = atoi(s);
-		else if (strstr(buf, "TileHeight"))
-			tile_height = atoi(s);
+            tile_width = atoi(s);
+        else if (strstr(buf, "TileHeight"))
+            tile_height = atoi(s);
     }
 
     if (screen_w < MIN_SCREEN_WIDTH) screen_w = MIN_SCREEN_WIDTH;
@@ -2066,8 +2125,11 @@ static errr load_window_prefs(void)
         /* Default font */
         win->req_font = string_make(DEFAULT_FONT_FILE);
 
+        /* Default font size */
+        win->font_size = DEFAULT_FONT_SIZE;
+
         /* Default width & height */
-        sdl_CheckFont(win->req_font, &w, &h);
+        sdl_CheckFont(win->req_font, win->font_size, &w, &h);
         win->width = (NORMAL_WID * w) + (b * 2);
         win->height = (NORMAL_HGT * h) + b + StatusHeight;
 
@@ -2119,6 +2181,8 @@ static errr load_window_prefs(void)
             win->height = atoi(s);
         else if (strstr(buf, "Keys"))
             win->keys = atoi(s);
+        else if (strstr(buf, "FontSize"))
+            win->font_size = atoi(s);
         else if (strstr(buf, "Font"))
             win->req_font = string_make(s);
     }
@@ -2159,6 +2223,7 @@ static errr save_prefs(void)
         file_putf(fff, "Width = %d\n", win->width);
         file_putf(fff, "Height = %d\n", win->height);
         file_putf(fff, "Keys = %d\n", win->keys);
+        file_putf(fff, "FontSize = %d\n", win->font_size);
         file_putf(fff, "Font = %s\n", win->req_font);
     }   
 
@@ -3286,7 +3351,7 @@ static errr Term_text_sdl_aux(int col, int row, int n, u16b a, const char *s)
     }
 
     /* Draw it */
-    return (sdl_mapFontDraw(&win->font, win->surface, colour, bg, x, y, n, buf));
+    return (sdl_mapFontDraw(&win->font, win->font_size, win->surface, colour, bg, x, y, n, buf));
 }
 
 
@@ -3816,11 +3881,11 @@ static void init_sdl_local(void)
     }
 
     /* Get the height of the status bar */
-    sdl_CheckFont(DEFAULT_FONT_FILE, &w, &h);
+    sdl_CheckFont(DEFAULT_FONT_FILE, DEFAULT_FONT_SIZE, &w, &h);
     StatusHeight = h + 3;
 
     /* Font used for window titles */
-    sdl_FontCreate(&SystemFont, DEFAULT_FONT_FILE, AppWin);
+    sdl_FontCreate(&SystemFont, DEFAULT_FONT_FILE, DEFAULT_FONT_SIZE, AppWin);
 
     /* Get the icon for display in the About box */
     path_build(path, sizeof(path), ANGBAND_DIR_ICONS, "att-128.png");
@@ -3885,6 +3950,9 @@ static void init_paths(void)
     while (my_dread(dir, buf, sizeof(buf)))
     {
         /* Check for file extension */
+        if (suffix(buf, ".ttf") || suffix(buf, ".TTF"))
+            FontList[num_fonts++] = string_make(buf);
+
         if (suffix(buf, ".fon") || suffix(buf, ".FON"))
             FontList[num_fonts++] = string_make(buf);
 
