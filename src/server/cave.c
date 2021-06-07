@@ -970,6 +970,13 @@ void master_build(struct player *p, char *parms)
             master_move_hook = NULL;
             break;
         }
+        
+        /* Wipe unowned custom houses */
+        case 'w':
+        {
+            wipe_custom_houses(&p->wpos);
+            break;
+        }        
     }
 }
 

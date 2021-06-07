@@ -1153,8 +1153,10 @@ static void on_leave_level(void)
                 /* Don't deallocate special levels */
                 if (level_keep_allocated(w_ptr->chunk_list[i])) continue;
 
-                /* Hack -- deallocate custom houses */
-                wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
+/// moved to admin menu: ///
+//              /* Hack -- deallocate custom houses */
+//              wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
+////////////////////////////
 
                 /* Deallocate the level */
                 cave_wipe(w_ptr->chunk_list[i]);

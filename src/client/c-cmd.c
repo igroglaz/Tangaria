@@ -1560,6 +1560,7 @@ static int cmd_master_aux_build(void)
         Term_putstr(5, 7, -1, COLOUR_WHITE, "(4) Fill Rectangle");
         Term_putstr(5, 8, -1, COLOUR_WHITE, "(5) Build Mode On");
         Term_putstr(5, 9, -1, COLOUR_WHITE, "(6) Build Mode Off");
+        Term_putstr(5,10, -1, COLOUR_WHITE, "(7) Wipe unowned custom houses");        
 
         /* Prompt */
         Term_putstr(0, 12, -1, COLOUR_WHITE, "Command: ");
@@ -1611,6 +1612,10 @@ static int cmd_master_aux_build(void)
             /* Build Mode Off */
             else if (ke.key.code == '6')
                 buf[0] = 'x';
+                
+            /* Wipe unowned custom houses */
+            else if (ke.key.code == '7')
+                buf[0] = 'w';                
 
             else
             {
