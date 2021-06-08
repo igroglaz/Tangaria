@@ -68,6 +68,9 @@ extern void house_list(struct player *p, ang_file *fff);
 /* Determine if the level contains owned houses */
 extern bool level_has_owned_houses(struct worldpos *wpos);
 
+/* Determine if the level contains any houses */
+extern bool level_has_any_houses(struct worldpos *wpos);
+
 /* Wipe custom houses on a level */
 extern void wipe_custom_houses(struct worldpos *wpos);
 

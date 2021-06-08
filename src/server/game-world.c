@@ -2311,7 +2311,11 @@ bool level_keep_allocated(struct chunk *c)
     if (special_level(&c->wpos)) return true;
 
     /* Hack -- don't deallocate levels which contain owned houses */
-    return level_has_owned_houses(&c->wpos);
+//  return level_has_owned_houses(&c->wpos);
+
+    /* Hack -- don't deallocate levels which contain owned houses */
+    // as we don't want to remove walls of unowned custom houses
+    return level_has_any_houses(&c->wpos);
 }
 
 

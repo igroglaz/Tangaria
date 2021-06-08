@@ -1672,6 +1672,9 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
             /* Hack -- disable throwing through open house door */
             if (square_home_isopendoor(c, &path_g[i])) break;
+            
+            /* Hack -- disable throwing through house window */
+            if (square_is_window(c, &path_g[i])) break;            
 
             /* Hack -- stop before hitting walls */
             if (!square_ispassable(c, &path_g[i]) && !square_isprojectable(c, &path_g[i]))

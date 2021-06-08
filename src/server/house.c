@@ -324,6 +324,23 @@ bool level_has_owned_houses(struct worldpos *wpos)
     return false;
 }
 
+/*
+ * Determine if the level contains any houses
+ */
+bool level_has_any_houses(struct worldpos *wpos)
+{
+    int i;
+
+    for (i = 0; i < houses_count(); i++)
+    {
+        /* House on this level */
+        if (houses[i].state && wpos_eq(&houses[i].wpos, wpos))
+            return true;
+    }
+
+    return false;
+}
+
 
 /*
  * Wipe custom houses on a level
@@ -338,7 +355,7 @@ void wipe_custom_houses(struct worldpos *wpos)
         if (!wpos_eq(&houses[house].wpos, wpos)) continue;
 
         /* Wipe extended and custom houses */
-        if (houses[house].state >= HOUSE_EXTENDED)
+        if ((houses[house].state >= HOUSE_EXTENDED) && (houses[house].ownerid == 0))
         {
             memset(&houses[house], 0, sizeof(struct house_type));
             num_custom--;

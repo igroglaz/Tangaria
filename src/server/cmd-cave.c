@@ -803,7 +803,8 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
     }
 
     /* Must be a wall/door/etc */
-    if (!square_seemsdiggable(c, grid))
+    // DM need possibility to 'dig' doors to remove wiped houses
+    if (!square_seemsdiggable(c, grid) && (!(p->dm_flags & DM_HOUSE_CONTROL)))
     {
         msg(p, "You see nothing there to tunnel.");
         return false;
@@ -892,6 +893,15 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     {
         /* Either the player has lost his mind or he is trying to create a door! */
         create_house_door(p, c, grid);
+    }
+
+    /* Hack -- DM can remove wiped unowned custom houses */
+    if ((p->dm_flags & DM_HOUSE_CONTROL) && (find_house(p, grid, 0) == -1) &&
+       ((square_is_new_permhouse(c, grid)) || (square_home_iscloseddoor(c, grid)) ||
+         square_issafefloor(c, grid)))
+    {
+        /* Either the player has lost his mind or he is trying to create a door! */
+        square_burn_grass(c, grid);
     }
 
     /* Permanent */
