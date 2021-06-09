@@ -106,11 +106,11 @@ short:-1_2
 wpos:-1:2
 max-townies:10
 
-#name:Wilderland
-# was PLAYER HOUSING
-#short:-1_1
-#wpos:-1:1
-#max-townies:0
+name:Wilderland
+# PLAYER HOUSING
+short:-1_1
+wpos:-1:1
+max-townies:0
 
 name:Mosquito Marshes
 # Fetid Swamps

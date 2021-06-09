@@ -1,4 +1,4 @@
-#define TEST_MODE // Add DM equipment to all characters
+//#define TEST_MODE // Add DM equipment to all characters
 
 /*
  * File: config.h

@@ -159,7 +159,7 @@ carry-cap:thrown-quiver-mult:5
 #
 # PWMAngband: there is no birth_no_stacking option because it would be a
 # server-side option; instead set this to 1 for the same result
-carry-cap:floor-size:23
+carry-cap:floor-size:8
 
 
 #---------------------------------------------------------------------
