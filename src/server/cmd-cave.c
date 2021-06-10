@@ -982,10 +982,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Make cobble */
                 dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
 
-                set_origin(dig_cobble, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                if (dig_cobble) // check in case of NULL
+                {
+                set_origin(dig_cobble, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
-                /* Drop the cobble (place_object won't work as it generates object at wall position which is no drop) */
+                /* Drop the cobble (place_object won't work as it generates
+                   object at wall position which is no drop) */
                 drop_near(p, c, &dig_cobble, 0, &p->grid, true, DROP_FADE, true);
+                }
         }
         
         /* Dig house Foundation Stone */
@@ -994,10 +998,13 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Make house stone */
                 dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
 
-                set_origin(dig_stone, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                if (dig_stone)
+                {
+                set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
                 /* Drop house stone */
                 drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+                }
         }
         
         /* Found nothing */
