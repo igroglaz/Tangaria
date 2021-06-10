@@ -3237,8 +3237,8 @@ bool create_house(struct player *p)
         return false;
     }
 
-    /* Cant have more then 10 houses */
-    if (houses_owned(p) > 10) return false;
+    /* Can't have more than 2 houses */
+    if (houses_owned(p) >= 2) return false;
 
 //	/* Houses can only be created in the wilderness */
 //    if (!in_wild(&p->wpos))
