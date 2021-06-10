@@ -672,7 +672,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
     player_outfit_aux(p, lookup_kind_by_name(TV_DEED, "Deed of Property"), 1);
 
     /* Give the player a house creation scroll */
-    player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "House Creation"), 1);
+    player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "Small House Creation"), 1);
 }
 
 

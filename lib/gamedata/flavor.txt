@@ -399,3 +399,15 @@ fixed:307:Black Ring of Power:Light Dark:Black
 kind:amulet:"
 
 flavor:308:Light Dark:Chrysoberyl
+
+
+##### Scrolls #####
+# Scroll names are generated from randomly combined syllables
+
+kind:scroll:?
+
+flavor:309:White
+flavor:310:White
+flavor:311:White
+flavor:312:White
+flavor:313:White

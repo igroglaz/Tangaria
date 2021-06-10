@@ -1225,6 +1225,7 @@ object:shield:Orcish Shield:0x80:0xDA
 
 object:scroll:Life:0x87:0xCA
 object:scroll:House Creation:0x87:0xCD
+object:scroll:Small House Creation:0x87:0xCD
 
 ##### PWMAngband objects #####
 
