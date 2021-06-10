@@ -2437,7 +2437,7 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
     /* get random wall feat for house building */
 void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type, int wall_id)
 {
-    char wall[1][13] = {"house wall "};       // first part of the wall name
+    char wall[1][20] = {"house wall "};       // first part of the wall name
  // wall_type - (given to this fuction) second part of the wall name
  // wall_id - specific wall (when we have several different walls in one row)
     int rng = 0;                              // preliminary third part of wall name
@@ -2895,7 +2895,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         // So we need to convert it to 'int'
         snprintf(wall_index, 2, "%d", rng);
         // Combine two strings
-        strcat(wall, wall_index);
+        strncat(wall, &wall_index, 1);
     }
     else
         strncat(wall, &wall_glyph, 1);
@@ -2975,7 +2975,7 @@ void square_add_grass(struct chunk *c, struct loc *grid)
     /* get random floor feat for house building */
 void square_add_new_safe(struct chunk *c, struct loc *grid)
 {
-    char floor[1][14] = {"house floor "}; // 1st part of floor name
+    char floor[1][20] = {"house floor "}; // 1st part of floor name
     char floor_type = '\0';     // second part of floor name (type)
     int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
@@ -3122,7 +3122,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         snprintf(floor_index, 2, "%d", rng);
         // Combine two strings:
         // first two combined parts of floor name (eg "house floor a") with index
-        strcat(floor, floor_index);
+        strncat(floor, &floor_index, 1);
     }
     else
         strncat(floor, &floor_glyph, 1);
