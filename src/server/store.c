@@ -2298,6 +2298,8 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     struct loc space;
     bool space_ok = false;
     struct chunk *c = chunk_get(&h_ptr->wpos);
+    struct loc begin, end; // to define proper coods to put gold
+    int x1, y1, x2, y2;
 
     /* Full purchase */
     if (bought->number == original->number)
@@ -2321,7 +2323,18 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     /* Small sales tax */
     price = price * 9 / 10;
 
-    loc_iterator_first(&iter, &h_ptr->grid_1, &h_ptr->grid_2);
+    // We use +1/-1 cause in Tangaria borders of houses belongs to walls, not floors.
+    // Without +1/-1 adjustment gold will be dropped outside of the house
+
+    x1 = h_ptr->grid_1.x;
+    y1 = h_ptr->grid_1.y;
+    x2 = h_ptr->grid_2.x;
+    y2 = h_ptr->grid_2.y;
+
+    loc_init(&begin, x1 + 1, y1 + 1);
+    loc_init(&end, x2 - 1, y2 - 1);
+
+    loc_iterator_first(&iter, &begin, &end);
 
     /* Scan the store to find space for payment */
     do
@@ -2362,7 +2375,20 @@ static void sell_player_item(struct player *p, struct object *original, struct o
         gold_obj->pval = price;
 
         /* Put it in the house */
-        drop_near(p, c, &gold_obj, 0, &space, false, DROP_FADE, false);
+        drop_near(p, c, &gold_obj, 0, &space, false, DROP_FADE, true);
+    }
+    else // if no empty spot - drop it to the upper left corner
+    {
+        struct object *gold_obj = object_new();
+
+        /* Make some gold */
+        object_prep(p, chunk_get(&p->wpos), gold_obj, money_kind("gold", price), 0, MINIMISE);
+
+        /* How much gold to leave */
+        gold_obj->pval = price;
+
+        /* Put it in the house */
+        drop_near(p, c, &gold_obj, 0, &begin, false, DROP_FADE, true);
     }
 }
 
