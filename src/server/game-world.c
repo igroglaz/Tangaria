@@ -1308,6 +1308,52 @@ static void process_various(void)
             }
         }
     }
+    
+    /* Grow trees very occasionally */
+    if (!(turn.turn % (10L * GROW_TREE)))
+    {
+        struct loc grid;
+
+        /* Find a suitable location */
+        for (grid.y = radius_wild; grid.y >= 0 - radius_wild; grid.y--)
+        {
+            for (grid.x = 0 - radius_wild; grid.x <= radius_wild; grid.x++)
+            {
+                struct wild_type *w_ptr = get_wt_info_at(&grid);
+                struct chunk *c = w_ptr->chunk_list[0];
+                struct loc begin, end;
+                struct loc_iterator iter;
+
+                /* Must exist */
+                if (!c) continue;
+
+                /* Only town */
+                if(!in_town(&c->wpos)) continue;
+
+                loc_init(&begin, 0, 0);
+                loc_init(&end, c->width, c->height);
+                loc_iterator_first(&iter, &begin, &end);
+
+                do
+                {
+                    /* Only allow "dirt" */
+                    if (!square_isdirt(c, &iter.cur)) continue;
+
+                    /* Never grow on top of objects or monsters/players */
+                    if (square_object(c, &iter.cur)) continue;
+                    if (square(c, &iter.cur)->mon) continue;
+                    if (one_in_(2)) continue;
+
+                    /* Grow a tree here */
+                    square_add_tree(c, &iter.cur);
+
+                    /* Done */
+                    break;
+                }
+                while (loc_iterator_next_strict(&iter));
+            }
+        }
+    }    
 
     /* Update the stores */
     store_update();
