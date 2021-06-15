@@ -203,7 +203,7 @@ bool obj_can_wear(struct player *p, const struct object *obj)
         case TV_SHIELD:
         case TV_CROWN:
         case TV_HELM:
-        case TV_GLOVES:
+        case TV_GLOVES: return true;
         case TV_BOOTS:
         {
             /* NO_BOOTS racial: can't wear boots */
