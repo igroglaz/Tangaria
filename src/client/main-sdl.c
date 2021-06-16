@@ -55,9 +55,6 @@ static bool nicegfx = false;
 /* Want window borders? */
 static bool windowborders = true;
 
-/* Sound volume */
-static int volume = 50;
-
 static int overdraw = 0;
 static int overdraw_max = 0;
 
@@ -273,11 +270,6 @@ static int MoreHeightPlus;  /* Increase tile height */
 static int MoreHeightMinus; /* Decrease tile height */
 static int *GfxButtons;     /* Graphics mode buttons */
 static int SelectedGfx;     /* Current selected gfx */
-
-#ifdef SOUND_SDL
-    static int MoreVolumePlus;  /* Increase game volume */
-    static int MoreVolumeMinus; /* Decrease game volume */
-#endif
 
 
 /*
@@ -1601,13 +1593,6 @@ static void FontSizeChange(sdl_Button *sender)
 }
 
 
-static void VolumeChange(sdl_Button *sender)
-{
-    volume += sender->tag;
-    volume = set_volume(volume);
-}
-
-
 static void MoreDraw(sdl_Window *win)
 {
     term_window *window = &windows[SelectedTerm];
@@ -1636,24 +1621,6 @@ static void MoreDraw(sdl_Window *win)
 
     button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
     sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-#ifdef SOUND_SDL
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumePlus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumeMinus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-
-    sdl_WindowText(win, colour, 20, y, format("Volume is %d.", volume));
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumeMinus);
-    sdl_ButtonMove(button, 150, y);
-
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumePlus);
-    sdl_ButtonMove(button, 180, y);
-
-    y += 20;
-#endif
 
     if (SelectedGfx)
     {
@@ -1819,30 +1786,6 @@ static void MoreActivate(sdl_Button *sender)
     button->tag = -1;
     sdl_ButtonVisible(button, SelectedGfx? true: false);
     button->activate = HeightChange;
-
-#ifdef SOUND_SDL
-    MoreVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumePlus);
-
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
-    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-    sdl_ButtonCaption(button, "+");
-    button->tag = 5;
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-    button->activate = VolumeChange;
-
-    MoreVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumeMinus);
-
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
-    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-    sdl_ButtonCaption(button, "-");
-    button->tag = -5;
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-    button->activate = VolumeChange;
-#endif
 
     MoreNiceGfx = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
@@ -2148,8 +2091,6 @@ static errr load_prefs(void)
             tile_width = atoi(s);
         else if (strstr(buf, "TileHeight"))
             tile_height = atoi(s);
-        else if (strstr(buf, "Volume"))
-            volume = atoi(s);
     }
 
     if (screen_w < MIN_SCREEN_WIDTH) screen_w = MIN_SCREEN_WIDTH;
@@ -2270,7 +2211,6 @@ static errr save_prefs(void)
     file_putf(fff, "Graphics = %d\n", use_graphics);
     file_putf(fff, "TileWidth = %d\n", tile_width);
     file_putf(fff, "TileHeight = %d\n", tile_height);
-    file_putf(fff, "Volume = %d\n", volume);
 
     for (i = 0; i < ANGBAND_TERM_MAX; i++)
     {
@@ -3951,12 +3891,6 @@ static void init_sdl_local(void)
     path_build(path, sizeof(path), ANGBAND_DIR_ICONS, "att-128.png");
     if (file_exists(path))
         mratt = IMG_Load(path);
-
-#ifdef SOUND_SDL
-    /* Set global volume */
-    struct sound_config* sound = get_sound_config();
-    sound->volume = volume;
-#endif
 }
 
 

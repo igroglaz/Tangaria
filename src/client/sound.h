@@ -45,23 +45,7 @@ struct sound_hooks
     bool (*play_sound_hook)(struct sound_data *data);
 };
 
-struct sound_config
-{
-    int volume;
-};
-
 extern errr init_sound(void);
 extern errr register_sound_pref_parser(struct parser *p);
-
-/*
- * Return static variable of sound config
- */
-extern struct sound_config* get_sound_config(void);
-
-/*
- * Set volume in %
- * Return actually volume % was set
- */
-extern int set_volume(int);
 
 #endif /* INCLUDED_SOUND_H */
