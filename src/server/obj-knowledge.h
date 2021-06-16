@@ -59,6 +59,7 @@ extern void object_learn_unknown_rune(struct player *p, struct object *obj);
 extern void object_learn_obvious(struct player *p, struct object *obj, bool message);
 extern void object_learn_on_wield(struct player *p, struct object *obj);
 extern void weapon_learn_on_carry(struct player *p, struct object *obj);
+extern void boots_learn_on_carry(struct player *p, struct object *obj);
 extern void object_learn_on_use(struct player *p, struct object *obj);
 extern void object_learn_slay(struct player *p, int index);
 extern void object_learn_brand(struct player *p, int index);

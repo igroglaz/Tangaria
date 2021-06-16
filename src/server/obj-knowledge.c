@@ -1548,6 +1548,22 @@ void weapon_learn_on_carry(struct player *p, struct object *obj)
     object_learn_obvious(p, obj, false);
 }
 
+/* Learn ID for NO_BOOTS races */
+void boots_learn_on_carry(struct player *p, struct object *obj)
+{
+    /* Only deal with un-ID'd items */
+    if (object_is_known(p, obj)) return;
+
+    /* Only deal with weapons */
+    if (!(obj->tval == TV_BOOTS)) return;
+
+    /* Check the worn flag */
+    if (obj->known->notice & OBJ_NOTICE_WORN) return;
+    obj->known->notice |= OBJ_NOTICE_WORN;
+
+    object_learn_obvious(p, obj, false);
+}
+
 
 /*
  * Learn object properties that become obvious on use, mark it as

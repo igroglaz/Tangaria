@@ -624,6 +624,10 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
              */
             else if (player_has(p, PF_PERM_SHAPE) || player_has(p, PF_MARTIAL_ARTS))
                 weapon_learn_on_carry(p, obj);
+            
+            // NO_BOOTS races can't wear boots for ID, so..
+            else if (player_has(p, PF_NO_BOOTS))
+                boots_learn_on_carry(p, obj);            
         }
     }
 
