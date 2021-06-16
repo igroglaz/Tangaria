@@ -3477,7 +3477,7 @@ slay:DEMON_3
 desc:Its creator didn't believe in much, but he knew all about pain.
 
 name:'Crusher'
-base-object:rock:Throwing rock
+base-object:rock:rock
 level:10
 weight:5
 alloc:0:10 to 127
