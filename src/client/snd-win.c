@@ -49,6 +49,17 @@ typedef struct
 } win_sample;
 
 
+struct sound_config* get_sound_config() {
+    // Not used 
+    return NULL;
+}
+
+
+int set_volume(int volume) {
+    return volume;
+}
+
+
 static bool open_audio_win(void)
 {
     return true;

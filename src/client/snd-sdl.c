@@ -65,6 +65,22 @@ typedef struct
 static bool use_init = false;
 
 
+struct sound_config* get_sound_config() {
+    static struct sound_config config;
+    return &config;
+}
+
+
+int set_volume(int volume) {
+    if (volume < 0) volume = 0;
+    if (volume > 100) volume = 100;
+
+    /* Set all channels to volume */
+    Mix_Volume(-1, (volume * MIX_MAX_VOLUME) / 100);
+    return volume;
+}
+
+
 /*
  * Initialize SDL and open the mixer.
  */
@@ -92,6 +108,10 @@ static bool open_audio_sdl(void)
         plog_fmt("Couldn't open mixer: %s", SDL_GetError());
         return false;
     }
+
+    /* Set initial volume */
+    int volume = get_sound_config()->volume;
+    set_volume(volume);
 
     /* Success */
     return true;
@@ -283,4 +303,4 @@ errr init_sound_sdl(struct sound_hooks *hooks)
 }
 
 
-#endif /* USE_SDL */
+#endif /* USE_SDL */
