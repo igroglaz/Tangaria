@@ -2957,7 +2957,41 @@ void square_add_wall(struct chunk *c, struct loc *grid)
 
 void square_add_tree(struct chunk *c, struct loc *grid)
 {
-    square_set_feat(c, grid, FEAT_TREE);
+    char tr33[1][30] = {"\0"};  // tree terrain feature
+    int rng = 0;
+    int tree_index = 0;         // result: index of terrain feature
+
+    // random choice of tree
+    rng = randint0(18);
+
+    switch(rng)
+    {
+        case 0: strncpy(tr33, "tree 1", 7); break;
+        case 1: strncpy(tr33, "tree 3", 7); break;
+        case 2: strncpy(tr33, "tree 4 maple", 13); break;
+        case 3: strncpy(tr33, "tree 5 maple", 13); break;
+        case 4: strncpy(tr33, "tree 6 coniferous", 18); break;
+        case 5: strncpy(tr33, "tree 8 coniferous", 18); break;
+        case 6: strncpy(tr33, "tree 9 willow", 14); break;
+        case 7: strncpy(tr33, "tree d birch", 13); break;
+        case 8: strncpy(tr33, "tree e linden", 14); break;
+        case 9: strncpy(tr33, "tree g larch", 13); break;
+        case 10:strncpy(tr33, "tree n dead tree", 17); break;
+        case 11:strncpy(tr33, "tree o dead tree", 17); break;
+        case 12:strncpy(tr33, "tree D tree", 12); break;
+        case 13:strncpy(tr33, "tree E tree", 12); break;
+        case 14:strncpy(tr33, "tree F tree", 12); break;
+        case 15:strncpy(tr33, "tree V", 7); break;
+        case 16:strncpy(tr33, "tree W", 7); break;
+        case 17:strncpy(tr33, "tree X", 7); break;
+        case 18:strncpy(tr33, "tree Y", 7); break;
+        default:strncpy(tr33, "tree 1", 7);
+    }
+    
+    // look for the feat
+    tree_index = lookup_feat(tr33[0]);
+
+    square_set_feat(c, grid, tree_index);
 }
 
 
@@ -2980,7 +3014,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
     char floor_index[] = "";    // buffer for 0-9 rng number
-    int house_floor= 0;         // result: index of terrain feature
+    int house_floor = 0;         // result: index of terrain feature
 
     rng = randint0(63); // random choice of floor number
 
