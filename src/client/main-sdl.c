@@ -55,6 +55,9 @@ static bool nicegfx = false;
 /* Want window borders? */
 static bool windowborders = true;
 
+/* Sound volume */
+static int volume = 100;
+
 static int overdraw = 0;
 static int overdraw_max = 0;
 
@@ -254,7 +257,9 @@ static int MoreSnapPlus;    /* Increase snap range */
 static int MoreSnapMinus;   /* Decrease snap range */
 static int MoreFontSizePlus;    /* Increase font size range */
 static int MoreFontSizeMinus;   /* Decrease font size range */
-static int MoreWindowBorders;  /* Window Borders toggle button */
+static int MoreWindowBorders;   /* Window Borders toggle button */
+static int MoreVolumePlus;      /* Increase sound volume */
+static int MoreVolumeMinus;     /* Decrease sound volume */
 
 static bool Moving;             /* Moving a window */
 static bool Sizing;             /* Sizing a window */
@@ -927,6 +932,7 @@ static void hook_quit(const char *str)
     /* Free resources */
     textui_cleanup();
     cleanup_angband();
+    close_sound();
 
     /* Cleanup network stuff */
     Net_cleanup();
@@ -1383,6 +1389,7 @@ static errr load_gfx(void);
 static bool do_update_f = false;
 static bool do_update = false;
 
+
 static void SelectGfx(sdl_Button *sender)
 {
     SelectedGfx = sender->tag;
@@ -1593,6 +1600,15 @@ static void FontSizeChange(sdl_Button *sender)
 }
 
 
+static void VolumeChange(sdl_Button *sender)
+{
+    volume += sender->tag;
+    if (volume < 0) volume = 0;
+    if (volume > 100) volume = 100;
+    set_volume(volume, SV_REAL);
+}
+
+
 static void MoreDraw(sdl_Window *win)
 {
     term_window *window = &windows[SelectedTerm];
@@ -1687,6 +1703,15 @@ static void MoreDraw(sdl_Window *win)
     sdl_WindowText(win, colour, 20, y, "Window borders:");
 
     sdl_ButtonMove(button, 150, y);
+    y += 20;
+
+    sdl_WindowText(win, colour, 20, y, format("Volume is %d.", volume));
+    button = sdl_ButtonBankGet(&win->buttons, MoreVolumeMinus);
+    sdl_ButtonMove(button, 150, y);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreVolumePlus);
+    sdl_ButtonMove(button, 180, y);
+
     y += 20;
 
     sdl_WindowText(win, colour, 20, y, format("Snap range is %d.", SnapRange));
@@ -1842,6 +1867,28 @@ static void MoreActivate(sdl_Button *sender)
     sdl_ButtonCaption(button, windowborders? "On": "Off");
     button->tag = windowborders;
     button->activate = FlipTag;
+
+    MoreVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumePlus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "+");
+    button->tag = 5;
+    sdl_ButtonVisible(button, true);
+    button->activate = VolumeChange;
+
+    MoreVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumeMinus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "-");
+    button->tag = -5;
+    sdl_ButtonVisible(button, true);
+    button->activate = VolumeChange;
 
     MoreSnapPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSnapPlus);
@@ -2083,6 +2130,8 @@ static errr load_prefs(void)
             fullscreen = atoi(s);
         else if (strstr(buf, "WindowBorders"))
             windowborders = atoi(s);
+        else if (strstr(buf, "Volume"))
+            volume = atoi(s);
         else if (strstr(buf, "NiceGraphics"))
             nicegfx = atoi(s);
         else if (strstr(buf, "Graphics"))
@@ -2095,6 +2144,10 @@ static errr load_prefs(void)
 
     if (screen_w < MIN_SCREEN_WIDTH) screen_w = MIN_SCREEN_WIDTH;
     if (screen_h < MIN_SCREEN_HEIGHT) screen_h = MIN_SCREEN_HEIGHT;
+
+    if (volume < 0) volume = 0;
+    if (volume > 100) volume = 100;
+    set_volume(volume, SV_SET_DEFAULT);
 
     file_close(fff);
 
@@ -2184,7 +2237,10 @@ static errr load_window_prefs(void)
         else if (strstr(buf, "FontSize"))
             win->font_size = atoi(s);
         else if (strstr(buf, "Font"))
+        {
+            string_free(win->req_font);
             win->req_font = string_make(s);
+        }
     }
 
     file_close(fff);
@@ -2207,6 +2263,7 @@ static errr save_prefs(void)
     file_putf(fff, "Resolution = %dx%d\n", screen_w, screen_h);
     file_putf(fff, "Fullscreen = %d\n", fullscreen);
     file_putf(fff, "WindowBorders = %d\n", windowborders);
+    file_putf(fff, "Volume = %d\n", volume);
     file_putf(fff, "NiceGraphics = %d\n", nicegfx);
     file_putf(fff, "Graphics = %d\n", use_graphics);
     file_putf(fff, "TileWidth = %d\n", tile_width);

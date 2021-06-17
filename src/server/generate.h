@@ -290,7 +290,8 @@ extern void fill_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int 
 extern struct vault *random_vault(int depth, const char *typ);
 extern void generate_mark(struct chunk *c, int y1, int x1, int y2, int x2, int flag);
 extern void generate_unmark(struct chunk *c, int y1, int x1, int y2, int x2, int flag);
-extern void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, int flag);
+extern void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, int flag,
+    bool overwrite_perm);
 extern void set_marked_granite(struct chunk *c, struct loc *grid, int flag);
 extern bool generate_starburst_room(struct chunk *c, int y1, int x1, int y2, int x2, bool light,
     int feat, bool special_ok);

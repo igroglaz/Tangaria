@@ -1182,7 +1182,7 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     mem_free(dun->room_map);
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Hack -- scramble the room order */
     for (i = 0; i < dun->cent_n; i++)
@@ -1492,7 +1492,7 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
     walls = mem_zalloc(n * sizeof(int));
 
     /* Bound with perma-rock */
-    draw_rectangle(c, 0, 0, (wide? h * 2: h) + 1, (wide? w * 2: w) + 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, (wide? h * 2: h) + 1, (wide? w * 2: w) + 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Fill the labyrinth area with rock */
     if (soft)
@@ -2315,7 +2315,7 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     if (!c) return NULL;
 
     /* Surround the level with perma-rock */
-    draw_rectangle(c, 0, 0, h - 1, w - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, h - 1, w - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -2804,7 +2804,7 @@ static void town_gen_layout(struct player *p, struct chunk *c)
     fill_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
 
     /* Create walls */
-    draw_rectangle(c, 0, 0, town_hgt - 1, town_wid - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, town_hgt - 1, town_wid - 1, FEAT_PERM, SQUARE_NONE, true);
 
     while (!success)
     {
@@ -3040,7 +3040,7 @@ static void town_gen_layout(struct player *p, struct chunk *c)
     }
 
     /* Create boundary */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, feat_outer, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, feat_outer, SQUARE_NONE, true);
 
     /* Have everyone start in the tavern */
     loc_init(&grid, tavern.x + (c->width - town_wid) / 2, tavern.y + (c->height - town_hgt) / 2);
@@ -3238,7 +3238,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     fill_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
 
     /* Generate permanent walls around the generated area (temporarily!) */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Actual maximum number of blocks on this level */
     dun->row_blocks = c->height / dun->block_hgt;
@@ -3339,7 +3339,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     ensure_connectedness(c);
 
     /* Turn the outer permanent walls back to granite */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE, true);
 
     return c;
 }
@@ -3391,7 +3391,7 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     c = modified_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Add some magma streamers */
     for (i = 0; i < dun->profile->str.mag; i++)
@@ -3503,7 +3503,7 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
     fill_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
 
     /* Generate permanent walls around the generated area (temporarily!) */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Actual maximum number of blocks on this level */
     dun->row_blocks = c->height / dun->block_hgt;
@@ -3607,7 +3607,7 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
     ensure_connectedness(c);
 
     /* Turn the outer permanent walls back to granite */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE, true);
 
     return c;
 }
@@ -3652,7 +3652,7 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     c = moria_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Add some magma streamers */
     for (i = 0; i < dun->profile->str.mag; i++)
@@ -3968,7 +3968,7 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     find_empty_range(c, &floor[2], &top_left, &bottom_right);
 
     /* Encase in perma-rock */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Connect up all the caverns */
     connect_caverns(c, floor);
@@ -4142,7 +4142,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     cave_free(lair);
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Connect */
     ensure_connectedness(c);
@@ -4411,7 +4411,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     cave_free(right);
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Connect */
     ensure_connectedness(c);
@@ -4790,7 +4790,7 @@ static void mang_town_gen_layout(struct chunk *c)
     Rand_value = seed_wild + world_index(&c->wpos) * 600;
 
     /* Create boundary */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE, true);
 
     /* Create some floor */
     fill_rectangle(c, 1, 1, c->height - 2, c->width - 2, FEAT_FLOOR, SQUARE_NONE);
@@ -5062,7 +5062,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     mem_free(dun->room_map);
 
     /* Generate permanent walls around the edge of the generated area */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Hack -- scramble the room order */
     for (i = 0; i < dun->cent_n; i++)

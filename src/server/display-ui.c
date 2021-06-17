@@ -2562,7 +2562,7 @@ static void manual_design(struct player *p, struct chunk *c, bool new_level)
             daytime = true;
 
             /* Generate a new empty level */
-            draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE);
+            draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
             fill_rectangle(c, 1, 1, c->height - 2, c->width - 2, FEAT_FLOOR, SQUARE_NONE);
         }
 

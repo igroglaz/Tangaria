@@ -8,7 +8,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 beta 1
+New features in PWMAngband 1.5.0 beta 2
 =======================================
 
 User interface
@@ -75,6 +75,10 @@ PWMAngband:
 - Add option to remove borders in the SDL client
 - Display sector info the MAngband way and fix crash when using 16x16 tile size
 - Sort flags by level of application on character birth screen
+- Add TTF font support
+- Add sound volume management, implement it for the SDL client
+- Display expected number of blows per round at character birth (point-based
+  roller)
 
 Gameplay changes
 ----------------
@@ -158,6 +162,7 @@ Angband 4.2.x:
 - Ensure grids on the target path are hit by projections in project()
 - Make SMASH_WALL destroy decoys
 - Notice changes to the weight limit in update_bonuses()
+- Plug small memory leak in main-sdl.c's load_prefs()
 
 MAngband 1.5.x:
 
@@ -231,6 +236,12 @@ Angband 4.2.x:
 - Split building template rooms into two passes
 - For pillared rooms, cut off the corners when not adjacent to a floor
 - Check input values for slot_by_name() and slot_object()
+- Update comments for count_feats() to match current code
+- Treat '#' similarly for vaults and room templates
+- Add an argument to draw_rectangle() to indicate whether it should overwrite
+  permanent features
+- Have inven_carry_num() return obj->number for any valid treasure type
+- Remove uses of atexit()
 
 MAngband 1.5.x:
 

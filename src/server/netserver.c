@@ -1533,6 +1533,8 @@ int Send_class_struct_info(int ind)
     for (c = classes; c; c = c->next)
     {
         u16b tval = 0;
+        const struct start_item *si;
+        s16b weight = 0;
 
         if (c->magic.num_books)
             tval = c->magic.books[0].tval;
@@ -1623,6 +1625,24 @@ int Send_class_struct_info(int ind)
                 Destroy_connection(ind, "Send_class_struct_info write error");
                 return -1;
             }
+        }
+
+        /* Compute weight of starting weapon */
+        for (si = c->start_items; si; si = si->next)
+        {
+            struct object_kind *kind = lookup_kind(si->tval, si->sval);
+
+            if ((si->tval == TV_SWORD) || (si->tval == TV_HAFTED) || (si->tval == TV_POLEARM))
+            {
+                weight = kind->weight;
+                break;
+            }
+        }
+        if (Packet_printf(&connp->c, "%hd%hd%hd%hd", (int)weight, (int)c->att_multiply,
+            (int)c->max_attacks, (int)c->min_weight) <= 0)
+        {
+            Destroy_connection(ind, "Send_class_struct_info write error");
+            return -1;
         }
     }
 

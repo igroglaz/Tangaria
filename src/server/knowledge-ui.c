@@ -2271,17 +2271,18 @@ void do_cmd_locate(struct player *p, int dir)
     char tmp_val[NORMAL_WID];
     char out_val[160];
     int screen_hgt, screen_wid;
-    int panel_wid, panel_hgt;
+    int panel_hgt, panel_wid;
 
+    /* Use dimensions that match those in display-ui.c. */
     screen_hgt = p->screen_rows / p->tile_hgt;
     screen_wid = p->screen_cols / p->tile_wid;
 
-    panel_wid = screen_wid / 2;
     panel_hgt = screen_hgt / 2;
+    panel_wid = screen_wid / 2;
 
-    /* Paranoia */
-    if (panel_wid < 1) panel_wid = 1;
-    if (panel_hgt < 1) panel_hgt = 1;
+    /* Bound below to avoid division by zero */
+    panel_hgt = MAX(panel_hgt, 1);
+    panel_wid = MAX(panel_wid, 1);
 
     /* No direction, recenter */
     if (!dir)

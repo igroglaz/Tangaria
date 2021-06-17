@@ -3980,6 +3980,7 @@ static void hack_quit(const char *str)
 
     textui_cleanup();
     cleanup_angband();
+    close_sound();
 
     /* Cleanup WinSock */
     WSACleanup();
@@ -4054,6 +4055,7 @@ static void hook_quit(const char *str)
 
     textui_cleanup();
     cleanup_angband();
+    close_sound();
 
     /* Cleanup network stuff */
     Net_cleanup();

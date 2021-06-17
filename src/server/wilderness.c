@@ -3361,7 +3361,7 @@ static void wilderness_gen_layout(struct player *p, struct chunk *c)
     Rand_value = seed_wild + world_index(&c->wpos) * 600;
 
     /* Create boundary */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE, true);
 
     /* Hack -- start with basic floors */
     wilderness_gen_basic(c);
@@ -3701,7 +3701,7 @@ static void wild_town_gen_layout(struct chunk *c)
     }
 
     /* Create boundary */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE, true);
 
     /* Hack -- use the "complex" RNG */
     Rand_value = tmp_seed;
@@ -3792,7 +3792,7 @@ void wilderness_gen_basic_layout(struct chunk *c)
     Rand_value = seed_wild + world_index(&c->wpos) * 600;
 
     /* Create boundary */
-    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE);
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM_CLEAR, SQUARE_NONE, true);
 
     /* Hack -- start with basic floors */
     wilderness_gen_basic(c);

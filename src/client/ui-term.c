@@ -1545,7 +1545,7 @@ void Term_big_putch(int x, int y, u16b a, char c)
     if (tile_width > 1)
     {
         /* Horizontal first */
-        for (hor = 0; hor <= tile_width; hor++)
+        for (hor = 0; hor < tile_width; hor++)
         {
             /* Queue dummy character */
             if (hor != 0)
@@ -1557,7 +1557,7 @@ void Term_big_putch(int x, int y, u16b a, char c)
             }
 
             /* Now vertical */
-            for (vert = 1; vert <= tile_height; vert++)
+            for (vert = 1; vert < tile_height; vert++)
             {
                 /* Queue dummy character */
                 if (a & 0x80)
@@ -1570,7 +1570,7 @@ void Term_big_putch(int x, int y, u16b a, char c)
     else
     {
         /* Only vertical */
-        for (vert = 1; vert <= tile_height; vert++)
+        for (vert = 1; vert < tile_height; vert++)
         {
             /* Queue dummy character */
             if (a & 0x80)

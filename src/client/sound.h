@@ -43,9 +43,19 @@ struct sound_hooks
     bool (*load_sound_hook)(const char *filename, int file_type, struct sound_data *data);
     bool (*unload_sound_hook)(struct sound_data *data);
     bool (*play_sound_hook)(struct sound_data *data);
+    void (*set_volume_hook)(int pct);
+};
+
+enum
+{
+    SV_SET_DEFAULT = 0,
+    SV_DEFAULT,
+    SV_REAL
 };
 
 extern errr init_sound(void);
+extern void close_sound(void);
 extern errr register_sound_pref_parser(struct parser *p);
+extern void set_volume(int pct, int mode);
 
 #endif /* INCLUDED_SOUND_H */

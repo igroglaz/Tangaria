@@ -1365,6 +1365,27 @@ static enum birth_stage point_based_command(void)
             put_str(buf, 16 + i, 26);
         }
 
+        /* Display the expected number of blows per round */
+        put_str("Blows", 15, 35);
+        if (player->clazz->magic.spell_weight > 0)
+        {
+            int num_blows, stat_str, stat_dex, j;
+
+            j = race_modifier(player->race, STAT_STR, 1, false) +
+                class_modifier(player->clazz, STAT_STR, 1);
+            stat_str = modify_stat_value(stat_roll[STAT_STR], j);
+            stat_str = calc_stat_ind(stat_str);
+            j = race_modifier(player->race, STAT_DEX, 1, false) +
+                class_modifier(player->clazz, STAT_DEX, 1);
+            stat_dex = modify_stat_value(stat_roll[STAT_DEX], j);
+            stat_dex = calc_stat_ind(stat_dex);
+            num_blows = calc_blows_aux(player, player->clazz->magic.spell_weight, stat_str, stat_dex);
+            strnfmt(buf, sizeof(buf), "%d.%d/turn", num_blows / 100, (num_blows / 10 % 10));
+        }
+        else
+            my_strcpy(buf, "N/A", sizeof(buf));
+        put_str(buf, 16, 35);
+
         /* Prompt */
         strnfmt(buf, sizeof(buf),
             "Total Cost %2d/%d.  Use up/down to move, left/right to modify, 'Enter' to accept.",

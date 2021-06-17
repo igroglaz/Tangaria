@@ -219,8 +219,10 @@ void fill_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, i
  * y1, x1, y2, x2 inclusive room boundaries
  * feat the terrain feature
  * flag the SQUARE_* flag we are marking with
+ * overwrite_perm whether to overwrite features already marked as permanent
  */
-void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, int flag)
+void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, int flag,
+    bool overwrite_perm)
 {
     int y, x;
     struct loc grid;
@@ -228,9 +230,9 @@ void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, i
     for (y = y1; y <= y2; y++)
     {
         loc_init(&grid, x1, y);
-        square_set_feat(c, &grid, feat);
+        if (overwrite_perm || !square_isperm(c, &grid)) square_set_feat(c, &grid, feat);
         loc_init(&grid, x2, y);
-        square_set_feat(c, &grid, feat);
+        if (overwrite_perm || !square_isperm(c, &grid)) square_set_feat(c, &grid, feat);
     }
     if (flag)
     {
@@ -241,9 +243,9 @@ void draw_rectangle(struct chunk *c, int y1, int x1, int y2, int x2, int feat, i
     for (x = x1; x <= x2; x++)
     {
         loc_init(&grid, x, y1);
-        square_set_feat(c, &grid, feat);
+        if (overwrite_perm || !square_isperm(c, &grid)) square_set_feat(c, &grid, feat);
         loc_init(&grid, x, y2);
-        square_set_feat(c, &grid, feat);
+        if (overwrite_perm || !square_isperm(c, &grid)) square_set_feat(c, &grid, feat);
     }
     if (flag)
     {
@@ -1235,13 +1237,13 @@ static bool build_room_template(struct player *p, struct chunk *c, struct loc *c
             switch (*t)
             {
                 case '%': set_marked_granite(c, &grid, SQUARE_WALL_OUTER); break;
-                case '#': set_marked_granite(c, &grid, SQUARE_WALL_INNER); break;
+                case '#': set_marked_granite(c, &grid, SQUARE_WALL_SOLID); break;
                 case '+': place_closed_door(c, &grid); break;
                 case '^': if (one_in_(4)) place_trap(c, &grid, -1, c->wpos.depth); break;
                 case 'x':
                 {
                     /* If optional walls are generated, put a wall in this square */
-                    if (rndwalls) set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+                    if (rndwalls) set_marked_granite(c, &grid, SQUARE_WALL_SOLID);
                     break;
                 }
                 case '(':
@@ -1256,7 +1258,7 @@ static bool build_room_template(struct player *p, struct chunk *c, struct loc *c
                     if (!rndwalls)
                         place_secret_door(c, &grid);
                     else
-                        set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+                        set_marked_granite(c, &grid, SQUARE_WALL_SOLID);
                     break;
                 }
                 case '8':
@@ -1294,7 +1296,7 @@ static bool build_room_template(struct player *p, struct chunk *c, struct loc *c
                     if (doorpos == rnddoors)
                         place_secret_door(c, &grid);
                     else
-                        set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+                        set_marked_granite(c, &grid, SQUARE_WALL_SOLID);
 
                     break;
                 }
@@ -1322,6 +1324,21 @@ static bool build_room_template(struct player *p, struct chunk *c, struct loc *c
             /* Analyze the grid */
             switch (*t)
             {
+                case '#':
+                {
+                    /* Check consistency with first pass. */
+                    my_assert(square_isroom(c, &grid) && square_isrock(c, &grid) &&
+                        sqinfo_has(square(c, &grid)->info, SQUARE_WALL_SOLID));
+
+                    /* Convert to SQUARE_WALL_INNER if it does not touch the outside of the room. */
+                    if (count_neighbors(NULL, c, &grid, square_isroom, false) == 8)
+                    {
+                        sqinfo_off(square(c, &grid)->info, SQUARE_WALL_SOLID);
+                        sqinfo_on(square(c, &grid)->info, SQUARE_WALL_INNER);
+                    }
+
+                    break;
+                }
                 case '8':
                 {
                     /* Check consistency with first pass. */
@@ -1492,8 +1509,8 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
                     break;
                 }
 
-                /* Inner granite wall */
-                case '#': set_marked_granite(c, &grid, SQUARE_WALL_INNER); break;
+                /* Inner or non-tunnelable outside granite wall */
+                case '#': set_marked_granite(c, &grid, SQUARE_WALL_SOLID); break;
 
                 /* Permanent wall */
                 case '@':
@@ -1569,7 +1586,7 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
         }
     }
 
-    /* Place regular dungeon monsters and objects */
+    /* Place regular dungeon monsters and objects, convert inner walls */
     for (t = data, grid.y = y1; (grid.y <= y2) && *t; grid.y++)
     {
         for (grid.x = x1; (grid.x <= x2) && *t; grid.x++, t++)
@@ -1770,6 +1787,24 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
                 {
                     place_object(p, c, &grid, c->wpos.depth + 3, one_in_(4), false, ORIGIN_VAULT,
                         TV_FOOD);
+                    break;
+                }
+
+                /* Inner or non-tunnelable outside granite wall */
+                case '#':
+                {
+                    /* Check consistency with first pass. */
+                    my_assert(square_isroom(c, &grid) && square_isvault(c, &grid) &&
+                        square_isrock(c, &grid) &&
+                        sqinfo_has(square(c, &grid)->info, SQUARE_WALL_SOLID));
+
+                    /* Convert to SQUARE_WALL_INNER if it does not touch the outside of the vault. */
+                    if (count_neighbors(NULL, c, &grid, square_isroom, false) == 8)
+                    {
+                        sqinfo_off(square(c, &grid)->info, SQUARE_WALL_SOLID);
+                        sqinfo_on(square(c, &grid)->info, SQUARE_WALL_INNER);
+                    }
+
                     break;
                 }
             }
@@ -2043,7 +2078,7 @@ bool build_circular(struct player *p, struct chunk *c, struct loc *centre, int r
 
         /* Draw a room with a closed door on a random side */
         draw_rectangle(c, centre->y - 2, centre->x - 2, centre->y + 2, centre->x + 2, FEAT_GRANITE,
-            SQUARE_WALL_INNER);
+            SQUARE_WALL_INNER, false);
         loc_init(&grid, centre->x + offset.x * 2, centre->y + offset.y * 2);
         place_closed_door(c, &grid);
 
@@ -2112,7 +2147,7 @@ bool build_simple(struct player *p, struct chunk *c, struct loc *centre, int rat
     generate_room(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, light);
 
     /* Generate outer walls and inner floors */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
 
     /* Sometimes make a pillar room */
@@ -2261,10 +2296,10 @@ bool build_overlap(struct player *p, struct chunk *c, struct loc *centre, int ra
     generate_room(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, light);
 
     /* Generate outer walls (a) */
-    draw_rectangle(c, y1a - 1, x1a - 1, y2a + 1, x2a + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1a - 1, x1a - 1, y2a + 1, x2a + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate outer walls (b) */
-    draw_rectangle(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate inner floors (a) */
     fill_rectangle(c, y1a, x1a, y2a, x2a, FEAT_FLOOR, SQUARE_NONE);
@@ -2354,10 +2389,10 @@ bool build_crossed(struct player *p, struct chunk *c, struct loc *centre, int ra
     generate_room(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, light);
 
     /* Generate outer walls (a) */
-    draw_rectangle(c, y1a - 1, x1a - 1, y2a + 1, x2a + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1a - 1, x1a - 1, y2a + 1, x2a + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate outer walls (b) */
-    draw_rectangle(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1b - 1, x1b - 1, y2b + 1, x2b + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate inner floors (a) */
     fill_rectangle(c, y1a, x1a, y2a, x2a, FEAT_FLOOR, SQUARE_NONE);
@@ -2384,7 +2419,7 @@ bool build_crossed(struct player *p, struct chunk *c, struct loc *centre, int ra
         case 3:
         {
             /* Generate a small inner vault */
-            draw_rectangle(c, y1b, x1a, y2b, x2a, FEAT_GRANITE, SQUARE_WALL_INNER);
+            draw_rectangle(c, y1b, x1a, y2b, x2a, FEAT_GRANITE, SQUARE_WALL_INNER, false);
 
             /* Open the inner vault with a secret door */
             generate_hole(c, y1b, x1a, y2b, x2a, FEAT_SECRET);
@@ -2495,7 +2530,7 @@ bool build_large(struct player *p, struct chunk *c, struct loc *centre, int rati
     generate_room(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, light);
 
     /* Generate outer walls */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate inner floors */
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
@@ -2507,7 +2542,7 @@ bool build_large(struct player *p, struct chunk *c, struct loc *centre, int rati
     x2 = x2 - 2;
 
     /* Generate inner walls */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_INNER);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_INNER, false);
 
     /* Inner room variations */
     switch (randint1(5))
@@ -2533,7 +2568,7 @@ bool build_large(struct player *p, struct chunk *c, struct loc *centre, int rati
 
             /* Place another inner room */
             draw_rectangle(c, centre->y - 1, centre->x - 1, centre->y + 1, centre->x + 1,
-                FEAT_GRANITE, SQUARE_WALL_INNER);
+                FEAT_GRANITE, SQUARE_WALL_INNER, false);
 
             loc_init(&begin, centre->x - 1, centre->y - 1);
             loc_init(&end, centre->x + 1, centre->y + 1);
@@ -2599,7 +2634,7 @@ bool build_large(struct player *p, struct chunk *c, struct loc *centre, int rati
 
                 /* Inner rectangle */
                 draw_rectangle(c, centre->y - 1, centre->x - 5, centre->y + 1, centre->x + 5,
-                    FEAT_GRANITE, SQUARE_WALL_INNER);
+                    FEAT_GRANITE, SQUARE_WALL_INNER, false);
 
                 /* Secret doors (random top/bottom) */
                 loc_init(&grid, centre->x - 3, centre->y - 3 + (randint1(2) * 2));
@@ -2780,7 +2815,7 @@ bool build_nest(struct player *p, struct chunk *c, struct loc *centre, int ratin
     generate_room(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, light);
 
     /* Generate outer walls */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
 
     /* Generate inner floors */
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
@@ -2796,7 +2831,7 @@ bool build_nest(struct player *p, struct chunk *c, struct loc *centre, int ratin
 
     /* Generate inner walls */
     /* PWMAngband -- make them permanent to prevent monsters from escaping */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE, false);
 
     /* Open the inner room with a door */
     generate_hole(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_CLOSED);
@@ -2930,7 +2965,7 @@ bool build_pit(struct player *p, struct chunk *c, struct loc *centre, int rating
 
     /* Generate new room, outer walls and inner floor */
     generate_room(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, light);
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
 
     /* Advance to the center room */
@@ -2944,7 +2979,7 @@ bool build_pit(struct player *p, struct chunk *c, struct loc *centre, int rating
 
     /* Generate inner walls, and open with a door */
     /* PWMAngband -- make them permanent to prevent monsters from escaping */
-    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE);
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE, false);
     generate_hole(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_CLOSED);
 
     loc_init(&begin, x1, y1);

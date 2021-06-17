@@ -627,7 +627,8 @@ static int Receive_struct_info(void)
         /* Player Classes */
         case STRUCT_INFO_CLASS:
         {
-            s16b base, dice, sides, m_bonus, c_skills, res_level;
+            s16b base, dice, sides, m_bonus, c_skills, res_level, weight, att_multiply, max_attacks,
+                min_weight;
             byte cidx, c_mhp, total_spells, flag, lvl;
             u16b tval, sval;
             char num_books;
@@ -865,6 +866,26 @@ static int Receive_struct_info(void)
                     book->sval = sval;
                     if (strlen(realm)) book->realm = lookup_realm(realm);
                 }
+
+                if ((n = Packet_scanf(&rbuf, "%hd%hd%hd%hd", &weight, &att_multiply, &max_attacks,
+                    &min_weight)) <= 0)
+                {
+                    /* Rollback the socket buffer */
+                    Sockbuf_rollback(&rbuf, bytes_read);
+
+                    /* Packet isn't complete, graceful failure */
+                    string_free(c->name);
+                    mem_free(c);
+                    return n;
+                }
+                bytes_read += 8;
+
+                /* Hack -- put the weight in the unused "spell_weight" field */
+                c->magic.spell_weight = weight;
+
+                c->att_multiply = att_multiply;
+                c->max_attacks = max_attacks;
+                c->min_weight = min_weight;
 
                 c->next = classes;
                 classes = c;

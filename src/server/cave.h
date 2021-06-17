@@ -254,6 +254,8 @@ extern int cave_monster_max(struct chunk *c);
 extern int cave_monster_count(struct chunk *c);
 extern int count_feats(struct player *p, struct chunk *c, struct loc *grid,
     bool (*test)(struct chunk *c, struct loc *grid), bool under);
+extern int count_neighbors(struct loc *match, struct chunk *c, struct loc *grid,
+    bool (*test)(struct chunk *c, struct loc *grid), bool under);
 extern struct loc *cave_find_decoy(struct chunk *c);
 extern void update_visuals(struct worldpos *wpos);
 extern void note_viewable_changes(struct worldpos *wpos, struct loc *grid);

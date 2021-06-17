@@ -574,98 +574,6 @@ static const int adj_str_dig[STAT_RANGE] =
 
 
 /*
- * Stat Table (STR) -- help index into the "blow" table
- */
-const int adj_str_blow[STAT_RANGE] =
-{
-    3   /* 3 */,
-    4   /* 4 */,
-    5   /* 5 */,
-    6   /* 6 */,
-    7   /* 7 */,
-    8   /* 8 */,
-    9   /* 9 */,
-    10  /* 10 */,
-    11  /* 11 */,
-    12  /* 12 */,
-    13  /* 13 */,
-    14  /* 14 */,
-    15  /* 15 */,
-    16  /* 16 */,
-    17  /* 17 */,
-    20  /* 18/00-18/09 */,
-    30  /* 18/10-18/19 */,
-    40  /* 18/20-18/29 */,
-    50  /* 18/30-18/39 */,
-    60  /* 18/40-18/49 */,
-    70  /* 18/50-18/59 */,
-    80  /* 18/60-18/69 */,
-    90  /* 18/70-18/79 */,
-    100 /* 18/80-18/89 */,
-    110 /* 18/90-18/99 */,
-    120 /* 18/100-18/109 */,
-    130 /* 18/110-18/119 */,
-    140 /* 18/120-18/129 */,
-    150 /* 18/130-18/139 */,
-    160 /* 18/140-18/149 */,
-    170 /* 18/150-18/159 */,
-    180 /* 18/160-18/169 */,
-    190 /* 18/170-18/179 */,
-    200 /* 18/180-18/189 */,
-    210 /* 18/190-18/199 */,
-    220 /* 18/200-18/209 */,
-    230 /* 18/210-18/219 */,
-    240 /* 18/220+ */
-};
-
-
-/*
- * Stat Table (DEX) -- index into the "blow" table
- */
-static const int adj_dex_blow[STAT_RANGE] =
-{
-    0   /* 3 */,
-    0   /* 4 */,
-    0   /* 5 */,
-    0   /* 6 */,
-    0   /* 7 */,
-    0   /* 8 */,
-    0   /* 9 */,
-    1   /* 10 */,
-    1   /* 11 */,
-    1   /* 12 */,
-    1   /* 13 */,
-    1   /* 14 */,
-    1   /* 15 */,
-    1   /* 16 */,
-    2   /* 17 */,
-    2   /* 18/00-18/09 */,
-    2   /* 18/10-18/19 */,
-    3   /* 18/20-18/29 */,
-    3   /* 18/30-18/39 */,
-    4   /* 18/40-18/49 */,
-    4   /* 18/50-18/59 */,
-    5   /* 18/60-18/69 */,
-    5   /* 18/70-18/79 */,
-    6   /* 18/80-18/89 */,
-    6   /* 18/90-18/99 */,
-    7   /* 18/100-18/109 */,
-    7   /* 18/110-18/119 */,
-    8   /* 18/120-18/129 */,
-    8   /* 18/130-18/139 */,
-    8   /* 18/140-18/149 */,
-    9   /* 18/150-18/159 */,
-    9   /* 18/160-18/169 */,
-    9   /* 18/170-18/179 */,
-    10  /* 18/180-18/189 */,
-    10  /* 18/190-18/199 */,
-    11  /* 18/200-18/209 */,
-    11  /* 18/210-18/219 */,
-    11  /* 18/220+ */
-};
-
-
-/*
  * Stat Table (DEX) -- chance of avoiding "theft" and "falling"
  */
 const int adj_dex_safe[STAT_RANGE] =
@@ -1429,87 +1337,6 @@ void calc_digging_chances(struct player *p, struct player_state *state, int chan
 }
 
 
-/*
- * This table is used to help calculate the number of blows the player can
- * make in a single round of attacks (one player turn) with a normal weapon.
- *
- * This number ranges from a single blow/round for weak players to up to six
- * blows/round for powerful warriors.
- *
- * Note that certain artifacts and ego-items give "bonus" blows/round.
- *
- * First, from the player class, we extract some values:
- *
- *   Warrior     --> num = 6; mul = 5; div = MAX(30, weapon_weight);
- *   Mage        --> num = 4; mul = 2; div = MAX(40, weapon_weight);
- *   Druid       --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Priest      --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Necromancer --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Paladin     --> num = 5; mul = 5; div = MAX(30, weapon_weight);
- *   Rogue       --> num = 5; mul = 4; div = MAX(20, weapon_weight);
- *   Ranger      --> num = 5; mul = 4; div = MAX(35, weapon_weight);
- *   Blackguard  --> num = 5; mul = 5; div = MAX(100, weapon_weight);
- *   Sorceror    --> num = 1; mul = 2; div = MAX(40, weapon_weight);
- *   Unbeliever  --> num = 6; mul = 5; div = MAX(30, weapon_weight);
- *   Archer      --> num = 2; mul = 3; div = MAX(35, weapon_weight);
- *   Monk        --> irrelevant (barehanded damage)
- *   Telepath    --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Elemntalist --> num = 3; mul = 2; div = MAX(40, weapon_weight);
- *   Summoner    --> num = 1; mul = 2; div = MAX(40, weapon_weight);
- *   Shapechangr --> num = 5; mul = 4; div = MAX(35, weapon_weight);
- *
- * To get "P", we look up the relevant "adj_str_blow[]" (see above),
- * multiply it by "mul", and then divide it by "div", rounding down.
- *
- * To get "D", we look up the relevant "adj_dex_blow[]" (see above).
- *
- * Then we look up the energy cost of each blow using "blows_table[P][D]".
- * The player gets blows/round equal to 100/this number, up to a maximum of
- * "num" blows/round, plus any "bonus" blows/round.
- */
-static const int blows_table[12][12] =
-{
-    /* P/D */
-    /* 0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11+ */
-
-    /* 0  */
-    {  100, 100, 95,  85,  75,  60,  50,  42,  35,  30,  25,  23 },
-
-    /* 1  */
-    {  100, 95,  85,  75,  60,  50,  42,  35,  30,  25,  23,  21 },
-
-    /* 2  */
-    {  95,  85,  75,  60,  50,  42,  35,  30,  26,  23,  21,  20 },
-
-    /* 3  */
-    {  85,  75,  60,  50,  42,  36,  32,  28,  25,  22,  20,  19 },
-
-    /* 4  */
-    {  75,  60,  50,  42,  36,  33,  28,  25,  23,  21,  19,  18 },
-
-    /* 5  */
-    {  60,  50,  42,  36,  33,  30,  27,  24,  22,  21,  19,  17 },
-
-    /* 6  */
-    {  50,  42,  36,  33,  30,  27,  25,  23,  21,  20,  18,  17 },
-
-    /* 7  */
-    {  42,  36,  33,  30,  28,  26,  24,  22,  20,  19,  18,  17 },
-
-    /* 8  */
-    {  36,  33,  30,  28,  26,  24,  22,  21,  20,  19,  17,  16 },
-
-    /* 9  */
-    {  35,  32,  29,  26,  24,  22,  21,  20,  19,  18,  17,  16 },
-
-    /* 10 */
-    {  34,  30,  27,  25,  23,  22,  21,  20,  19,  18,  17,  16 },
-
-    /* 11+ */
-    {  33,  29,  26,  24,  22,  21,  20,  19,  18,  17,  16,  15 }
-};
-
-
 bool obj_kind_can_browse(struct player *p, const struct object_kind *kind)
 {
     int i;
@@ -1852,32 +1679,11 @@ static int calc_blows(struct player *p, const struct object *obj, struct player_
     int extra_blows)
 {
     int blows = 100;
-    int str_index, dex_index;
-    int div;
-    int blow_energy;
     int weight = ((obj == NULL)? 0: obj->weight);
-    int min_weight = p->clazz->min_weight;
 
     /* Monks get special barehanded attacks */
     if (!player_has(p, PF_MARTIAL_ARTS))
-    {
-        /* Enforce a minimum "weight" (tenth pounds) */
-        div = ((weight < min_weight)? min_weight: weight);
-
-        /* Get the strength vs weight */
-        str_index = (adj_str_blow[state->stat_ind[STAT_STR]] * p->clazz->att_multiply / div);
-
-        /* Maximal value */
-        if (str_index > 11) str_index = 11;
-
-        /* Index by dexterity */
-        dex_index = MIN(adj_dex_blow[state->stat_ind[STAT_DEX]], 11);
-
-        /* Use the blows table to get energy per blow */
-        blow_energy = blows_table[str_index][dex_index];
-
-        blows = MIN(10000 / blow_energy, 100 * p->clazz->max_attacks);
-    }
+        blows = calc_blows_aux(p, weight, state->stat_ind[STAT_STR], state->stat_ind[STAT_DEX]);
 
     /* Require at least one blow */
     return MAX(blows + 10 * extra_blows, 100);
@@ -2264,7 +2070,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Calculate the various stat values */
     for (i = 0; i < STAT_MAX; i++)
     {
-        int add, use, ind, r_adj;
+        int add, use, r_adj;
 
         add = state->stat_add[i];
 
@@ -2277,22 +2083,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
         state->stat_use[i] = use;
 
-        /* Values: n/a */
-        if (use <= 3) ind = 0;
-
-        /* Values: 3, 4, ..., 17 */
-        else if (use <= 18) ind = (use - 3);
-
-        /* Ranges: 18/00-18/09, ..., 18/210-18/219 */
-        else if (use <= 18+219) ind = (15 + (use - 18) / 10);
-
-        /* Range: 18/220+ */
-        else ind = (37);
-
-        my_assert((0 <= ind) && (ind < STAT_RANGE));
-
         /* Save the new index */
-        state->stat_ind[i] = ind;
+        state->stat_ind[i] = calc_stat_ind(use);
     }
 
     /* Apply race/class modifiers */

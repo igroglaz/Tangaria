@@ -93,6 +93,8 @@ static bool open_audio_sdl(void)
         return false;
     }
 
+    set_volume(-1, SV_DEFAULT);
+
     /* Success */
     return true;
 }
@@ -253,8 +255,7 @@ static bool close_audio_sdl(void)
      */
     Mix_CloseAudio();
 
-    /* XXX This may conflict with the SDL port */
-    SDL_Quit();
+    SDL_QuitSubSystem(SDL_INIT_AUDIO);
 
     return true;
 }
@@ -263,6 +264,12 @@ static bool close_audio_sdl(void)
 const struct sound_file_type *supported_files_sdl(void)
 {
     return supported_sound_files;
+}
+
+
+static void set_volume_sdl(int pct)
+{
+    Mix_Volume(-1, (pct * MIX_MAX_VOLUME) / 100);
 }
 
 
@@ -277,6 +284,7 @@ errr init_sound_sdl(struct sound_hooks *hooks)
     hooks->load_sound_hook = load_sound_sdl;
     hooks->unload_sound_hook = unload_sound_sdl;
     hooks->play_sound_hook = play_sound_sdl;
+    hooks->set_volume_hook = set_volume_sdl;
 
     /* Success */
     return (0);

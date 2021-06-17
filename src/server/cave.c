@@ -537,7 +537,13 @@ int cave_monster_count(struct chunk *c)
 
 
 /*
- * Return the number of doors/traps around (or under) the character.
+ * Return the number of matching grids around (or under) the character.
+ *
+ * grid If not NULL, *grid is set to the location of the last match.
+ * test Is the predicate to use when testing for a match.
+ * under If true, the character's grid is tested as well.
+ *
+ * Only tests grids that are known and fully in bounds.
  */
 int count_feats(struct player *p, struct chunk *c, struct loc *grid,
     bool (*test)(struct chunk *c, struct loc *grid), bool under)
@@ -570,8 +576,49 @@ int count_feats(struct player *p, struct chunk *c, struct loc *grid,
         /* Count it */
         ++count;
 
-        /* Remember the location of the last feature found */
+        /* Remember the location of the last match */
         if (grid) loc_copy(grid, &adjacent);
+    }
+
+    /* All done */
+    return count;
+}
+
+
+/*
+ * Return the number of matching grids around a location.
+ *
+ * match If not NULL, *match is set to the location of the last match.
+ * grid Is the location whose neighbors will be tested.
+ * test Is the predicate to use when testing for a match.
+ * under If true, grid is tested as well.
+ */
+int count_neighbors(struct loc *match, struct chunk *c, struct loc *grid,
+    bool (*test)(struct chunk *c, struct loc *grid), bool under)
+{
+    int dlim = (under? 9: 8);
+    int d;
+
+    /* Count how many matches */
+    int count = 0;
+
+    /* Check the grid's neighbors and, if under is true, grid */
+    for (d = 0; d < dlim; d++)
+    {
+        struct loc adjacent;
+
+        /* Extract adjacent (legal) location */
+        loc_sum(&adjacent, grid, &ddgrid_ddd[d]);
+        if (!square_in_bounds(c, &adjacent)) continue;
+
+        /* Reject those that don't match */
+        if (!((*test)(c, &adjacent))) continue;
+
+        /* Count it */
+        ++count;
+
+        /* Remember the location of the last match */
+        if (match) loc_copy(match, &adjacent);
     }
 
     /* All done */

@@ -70,6 +70,7 @@ static void quit_hook(const char *s)
 
     textui_cleanup();
     cleanup_angband();
+    close_sound();
 
 #ifdef WINDOWS
     /* Cleanup WinSock */

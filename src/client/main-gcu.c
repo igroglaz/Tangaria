@@ -1005,6 +1005,7 @@ static void hook_quit(const char *str)
     /* Free resources */
     textui_cleanup();
     cleanup_angband();
+    close_sound();
 
     /* Cleanup network stuff */
     Net_cleanup();

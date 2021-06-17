@@ -31,7 +31,6 @@ extern const int adj_chr_gold[STAT_RANGE];
 extern const int adj_str_td[STAT_RANGE];
 extern const int adj_dex_th[STAT_RANGE];
 extern const int adj_str_hold[STAT_RANGE];
-extern const int adj_str_blow[STAT_RANGE];
 extern const int adj_dex_safe[STAT_RANGE];
 extern const int adj_con_fix[STAT_RANGE];
 

@@ -8,6 +8,14 @@
 
 #define DIR_TARGET  5
 
+/*
+ * The range of possible indexes into tables based upon stats.
+ * Currently things range from 3 to 18/220 = 40.
+ */
+#define STAT_RANGE  38
+
+extern const int adj_str_blow[STAT_RANGE];
+
 extern const char *stat_names[STAT_MAX];
 extern const char *stat_names_reduced[STAT_MAX];
 extern s16b ddx[10];
@@ -64,5 +72,8 @@ extern int recharge_failure_chance(const struct object *obj, int strength);
 extern int race_modifier(const struct player_race *race, int mod, int lvl, bool poly); 
 extern int class_modifier(const struct player_class *clazz, int mod, int lvl);
 extern bool player_has(struct player *p, int flag);
+
+extern int calc_blows_aux(struct player *p, int weight, int stat_str, int stat_dex);
+extern int calc_stat_ind(int use);
 
 #endif /* INCLUDED_UTIL_H */
