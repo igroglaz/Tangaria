@@ -1574,6 +1574,9 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
                 ((context->p->psex == SEX_FEMALE) &&
                 rf_has(context->target->monster->race->flags, RF_MALE)));
 
+            if (context->p->psex == SEX_NEUTER)
+                if (one_in_(2)) opposite = true;
+
             /* Must be of opposite sex */
             if (!opposite) return;
 
@@ -1587,6 +1590,9 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
             (context->target->player->psex == SEX_FEMALE)) ||
             ((context->p->psex == SEX_FEMALE) &&
             (context->target->player->psex == SEX_MALE)));
+
+            if (context->p->psex == SEX_NEUTER)
+                if (one_in_(2)) opposite = true;
 
         /* Must be of opposite sex */
         if (!opposite) return;
@@ -1612,6 +1618,10 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
                 (rf_has(context->mon->race->flags, RF_FEMALE) &&
                 rf_has(context->target->monster->race->flags, RF_MALE)));
 
+        if (!(rf_has(context->mon->race->flags, RF_MALE)) &&
+            !(rf_has(context->mon->race->flags, RF_FEMALE)))
+            if (one_in_(2)) opposite = true;
+
         /* Must be of opposite sex */
         if (!opposite) return;
 
@@ -1619,6 +1629,8 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
         context->do_conf = true;
         return;
     }
+
+    // Last case: MVP
 
     /* Take damage */
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
@@ -1631,8 +1643,15 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
         (rf_has(context->mon->race->flags, RF_FEMALE) &&
         (context->p->psex == SEX_MALE)));
 
+    if (context->p->psex == SEX_NEUTER)
+        if (one_in_(2)) opposite = true;
+
     /* Must be of opposite sex */
     if (!opposite) return;
+
+    /* Top CHR save from undressing in ~45% cases */
+    if (adj_chr_safe[context->p->known_state.stat_ind[STAT_CHR]] >=  randint0(100))
+            return;
 
     undress(context->p);
 }

@@ -33,6 +33,7 @@ extern const int adj_dex_th[STAT_RANGE];
 extern const int adj_str_hold[STAT_RANGE];
 extern const int adj_dex_safe[STAT_RANGE];
 extern const int adj_con_fix[STAT_RANGE];
+extern const int adj_chr_safe[STAT_RANGE];
 
 extern bool obj_kind_can_browse(struct player *p, const struct object_kind *kind);
 extern bool obj_can_browse(struct player *p, const struct object *obj);
