@@ -176,23 +176,26 @@ message:MON_INSULT:w
 # MSG_MON_MOAN
 message:MON_MOAN:w
 
+# MSG_MON_HYPNOTIZE
+message:MON_HYPNOTIZE:P
+
 # MSG_RECOVER
 message:RECOVER:w
 
 # MSG_BLIND
-message:BLIND:w
+message:BLIND:y
 
 # MSG_CONFUSED
-message:CONFUSED:w
+message:CONFUSED:G
 
 # MSG_POISONED
-message:POISONED:w
+message:POISONED:g
 
 # MSG_AFRAID
 message:AFRAID:o
 
 # MSG_PARALYZED
-message:PARALYZED:w
+message:PARALYZED:R
 
 # MSG_DRUGGED
 message:DRUGGED:w
@@ -201,7 +204,7 @@ message:DRUGGED:w
 message:SPEED:w
 
 # MSG_SLOW
-message:SLOW:w
+message:SLOW:V
 
 # MSG_SHIELD
 message:SHIELD:w
@@ -535,7 +538,7 @@ message:AMBIENT_MELKOR:w
 message:HIT_HI_CRITICAL:w
 
 # MSG_ENTER_PIT
-message:ENTER_PIT:D
+message:ENTER_PIT:r
 
 # PWMAngband-specific: internal messages broadcast to all players
 

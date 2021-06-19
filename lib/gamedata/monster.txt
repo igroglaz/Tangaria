@@ -2617,7 +2617,7 @@ depth:5
 rarity:0
 weight:0
 experience:90
-blow:HIT:SEDUCE:1d8
+blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
@@ -4487,7 +4487,7 @@ blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d10
 blow:HIT:HURT:1d10
-flags:UNIQUE | PWMANG_FIXED | FORCE_DEPTH
+flags:UNIQUE | PWMANG_FIXED | FORCE_DEPTH | MALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_ELEC | IM_POIS
 friends:50:4d4:snaga:servant
@@ -14053,7 +14053,7 @@ weight:1400
 experience:500
 blow:TOUCH:LOSE_WIS
 blow:TOUCH:FORGET:3d4
-blow:TOUCH:SEDUCE
+blow:HYPNOTIZE:SEDUCE
 flags:MALE | SMART | PWMANG_BASE
 flags:DROP_1
 flags:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS
@@ -14076,7 +14076,7 @@ weight:1400
 experience:500
 blow:TOUCH:LOSE_WIS
 blow:TOUCH:FORGET:3d4
-blow:TOUCH:SEDUCE
+blow:HYPNOTIZE:SEDUCE
 flags:FEMALE | SMART | PWMANG_BASE
 flags:DROP_1
 flags:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS
@@ -19929,7 +19929,7 @@ depth:54
 rarity:3
 weight:0
 experience:7777
-blow:HIT:SEDUCE:4d6
+blow:HYPNOTIZE:SEDUCE:4d6
 blow:HIT:HURT:4d6
 blow:BITE:HALLU:5d6
 blow:BITE:FORGET:5d6
@@ -20721,7 +20721,7 @@ desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a desc:j
 desc:She is skinny, like a skeleton, with a bony leg.
 desc:She knows how to turn from old into young in a blink of an eye.
 
-#naba yaga sexy form
+#Ancient witch sexy form
 name:Young witch
 base:ainu
 color:g
@@ -20735,7 +20735,7 @@ depth:60
 rarity:9
 weight:0
 experience:3600
-blow:HIT:SEDUCE:4d5
+blow:HYPNOTIZE:SEDUCE:4d5
 blow:HIT:CONFUSE:4d6
 blow:BITE:HALLU:5d6
 blow:BITE:FORGET:6d5
@@ -20760,7 +20760,7 @@ depth:60
 rarity:4
 weight:0
 experience:3600
-blow:HIT:HURT:6d6
+blow:HYPNOTIZE:SEDUCE:6d6
 blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 blow:HIT:SHATTER:10d10
@@ -22505,7 +22505,7 @@ weight:0
 experience:7000
 blow:HIT:ELEC:10d12
 blow:HIT:ELEC:10d12
-blow:ENGULF:CONFUSE:8d10
+blow:HYPNOTIZE:SEDUCE:8d10
 blow:ENGULF:CONFUSE:8d10
 flags:MALE
 flags:DROP_4
@@ -22535,7 +22535,7 @@ weight:0
 experience:12000
 blow:TOUCH:TERRIFY:6d5
 blow:TOUCH:PARALYZE:6d5
-blow:ENGULF:ACID:6d10
+blow:TOUCH:PARALYZE:6d5
 blow:ENGULF:ACID:6d10
 flags:FEMALE
 flags:DROP_4
@@ -27608,10 +27608,10 @@ hearing:40
 armor-class:4
 sleepiness:80
 depth:0
-rarity:2
+rarity:1
 weight:90
 experience:0
-blow:TOUCH:SEDUCE
+blow:HYPNOTIZE:SEDUCE
 blow:BEG
 blow:TOUCH:DISEASE
 flags:FEMALE
@@ -30290,7 +30290,7 @@ weight:10
 experience:500
 blow:TOUCH:LOSE_WIS
 blow:TOUCH:EXP_40:3d4
-blow:TOUCH:SEDUCE
+blow:HYPNOTIZE:SEDUCE
 flags:FEMALE | SMART
 spell-freq:34
 spells:DARKNESS | FORGET | HEAL | TELE_TO | TPORT
@@ -31009,3 +31009,25 @@ desc:It blinks slowly and menacily.
 
 #///////////   H
 #///////////   H
+
+name:spirit of lust
+plural:spirits of lust
+base:ghost
+color:P
+speed:130
+hit-points:4000
+hearing:20
+armor-class:180
+sleepiness:10
+depth:102
+rarity:9
+weight:0
+experience:25000
+blow:HYPNOTIZE:SEDUCE:8d8
+blow:HIT:PARALYZE:8d8
+blow:HIT:FORGET:8d8
+blow:HIT:CONFUSE:8d8
+flags:PWMANG_EXTRA | MALE | FEMALE
+flags:FORCE_DEPTH
+desc:When you look at it you are ready to unscrew your head off from pleasure...
+locations:Utumno, Portal to the Void

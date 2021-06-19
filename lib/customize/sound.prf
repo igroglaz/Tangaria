@@ -439,6 +439,9 @@ sound:mon_insult:mco_strange_thwoink
 # Attack - moan
 sound:mon_moan:mco_strange_music
 
+# Attack - hypnotize
+sound:mon_hypnotize:mco_hypnotize
+
 # Attack - shriek
 sound:mon_shriek:mco_mouse_squeaks
 

@@ -184,3 +184,13 @@ miss:0
 phys:0
 msg:MON_MOAN
 desc:moan
+
+name:HYPNOTIZE
+cut:0
+stun:0
+miss:0
+phys:0
+msg:MON_HYPNOTIZE
+act:mesmerizes %s
+desc:hypnotize
+flavor:pleasured to death

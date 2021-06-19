@@ -1540,7 +1540,9 @@ static void undress(struct player *p)
     object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE);
 
     /* Message */
-    msg(p, "You remove your %s...", o_name);
+    msgt(p, MSG_MON_HYPNOTIZE, "     ( * ) ( * )     ");
+    msgt(p, MSG_MON_HYPNOTIZE, "You remove your %s...", o_name);
+    msgt(p, MSG_MON_HYPNOTIZE, "     ( o ) ( o )     ");
 
     /* De-equip the object */
     p->body.slots[i].obj = NULL;
