@@ -2000,10 +2000,11 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 
 void monster_set_master(struct monster *mon, struct player *p, byte status)
 {
-    /* A high wisdom will allow more slaves to be controlled */
+    /* A high wisdom and charisma will allow more slaves to be controlled */
     if (p && (mon->status <= MSTATUS_SUMMONED))
     {
-        int maxslaves = 1 + (1 + p->state.stat_ind[STAT_WIS]) / 4;
+        int maxslaves = 1 + (1 +
+        (((p->state.stat_ind[STAT_WIS]) + (p->state.stat_ind[STAT_CHR])) / 2)) / 4;
 
         if (p->slaves == maxslaves)
         {
@@ -2058,11 +2059,56 @@ static const byte summon_friendly[STAT_RANGE] =
     90  /* 18/150-18/159 */,
     92  /* 18/160-18/169 */,
     94  /* 18/170-18/179 */,
-    96  /* 18/180-18/189 */,
-    97  /* 18/190-18/199 */,
-    98  /* 18/200-18/209 */,
-    99  /* 18/210-18/219 */,
-    100 /* 18/220+ */
+    95  /* 18/180-18/189 */,
+    96  /* 18/190-18/199 */,
+    97  /* 18/200-18/209 */,
+    98  /* 18/210-18/219 */,
+    99  /* 18/220+ */
+};
+
+/*
+ * Stat Table -- chance of getting a friendly summon with CHR
+ */
+static const byte summon_chr_friendly[STAT_RANGE] =
+{
+    0   /* 3 */,
+    0   /* 4 */,
+    0   /* 5 */,
+    0   /* 6 */,
+    0   /* 7 */,
+    0   /* 8 */,
+    0   /* 9 */,
+    1   /* 10 */,
+    2   /* 11 */,
+    3   /* 12 */,
+    4   /* 13 */,
+    5   /* 14 */,
+    6   /* 15 */,
+    7   /* 16 */,
+    8   /* 17 */,
+    9   /* 18/00-18/09 */,
+    10  /* 18/10-18/19 */,
+    11  /* 18/20-18/29 */,
+    12  /* 18/30-18/39 */,
+    13  /* 18/40-18/49 */,
+    14  /* 18/50-18/59 */,
+    15  /* 18/60-18/69 */,
+    16  /* 18/70-18/79 */,
+    17  /* 18/80-18/89 */,
+    18  /* 18/90-18/99 */,
+    19  /* 18/100-18/109 */,
+    20  /* 18/110-18/119 */,
+    21  /* 18/120-18/129 */,
+    22  /* 18/130-18/139 */,
+    23  /* 18/140-18/149 */,
+    24  /* 18/150-18/159 */,
+    25  /* 18/160-18/169 */,
+    26  /* 18/170-18/179 */,
+    27  /* 18/180-18/189 */,
+    28  /* 18/190-18/199 */,
+    29  /* 18/200-18/209 */,
+    30  /* 18/210-18/219 */,
+    33  /* 18/220+ */
 };
 
 
@@ -2074,8 +2120,15 @@ bool can_charm_monster(struct player *p, int level, int stat)
     /* A high level will help a lot */
     if (!CHANCE(MAX(level - 5, 1), p->lev * 5)) return true;
 
-    /* A high stat will help a lot */
-    return (magik(summon_friendly[p->state.stat_ind[stat]]));
+    /* A high stat will help a lot */  
+    if (magik(summon_friendly[p->state.stat_ind[stat]]))
+        return true;
+    
+    /* In the end CHR could help */  
+    if (magik(summon_chr_friendly[p->state.stat_ind[STAT_CHR]]))
+        return true;
+            
+    return false;
 }
 
 

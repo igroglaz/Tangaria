@@ -50,3 +50,9 @@ spell-noun:power
 name:mimic
 verb:cast
 spell-noun:spell
+
+#name:hypnosis
+#stat:CHR
+#verb:impress
+#spell-noun:infusion
+#book-noun:hypnosis book

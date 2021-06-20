@@ -111,6 +111,13 @@ static void eat_gold(struct player *p, struct source *who)
         msg(p, "Nothing was stolen.");
         return;
     }
+    
+    /* Very rare CHR save. !We use CON table! */
+    if (adj_con_fix[p->known_state.stat_ind[STAT_CHR]] >=  randint0(100))
+        {
+            msg(p, "Thief thought to steal %d, but at the last moment changed mind..", gold);
+            return;
+        }
 
     p->au -= gold;
 
@@ -159,6 +166,13 @@ static void eat_gold(struct player *p, struct source *who)
 static void steal_player_item(struct player *p, struct source *who, bool* obvious, int* blinked)
 {
     int tries;
+    
+    /* Very rare CHR save. !We use CON table! */
+    if (adj_con_fix[p->known_state.stat_ind[STAT_CHR]] >=  randint0(150))
+        {
+            msg(p, "There was an atteamp to steal, but at the last moment opponent changed mind");
+            return;
+        }
 
     /* Find an item */
     for (tries = 0; tries < 10; tries++)
@@ -939,6 +953,13 @@ static void melee_effect_handler_CONFUSE(melee_effect_handler_context_t *context
         context->do_conf = true;
         return;
     }
+
+    /* Very rare CHR save !We use CON table! */
+    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(100))
+        {
+            msg(context->p, "Your natural magnetism and self confidence helps you to resist confusion.");
+            return;
+        }    
 
     melee_effect_timed(context, TMD_CONFUSED, 3 + randint1(context->rlev), OF_PROT_CONF, false,
         NULL, false);

@@ -22535,7 +22535,7 @@ weight:0
 experience:12000
 blow:TOUCH:TERRIFY:6d5
 blow:TOUCH:PARALYZE:6d5
-blow:TOUCH:PARALYZE:6d5
+blow:ENGULF:ACID:6d10
 blow:ENGULF:ACID:6d10
 flags:FEMALE
 flags:DROP_4
@@ -27608,7 +27608,7 @@ hearing:40
 armor-class:4
 sleepiness:80
 depth:0
-rarity:1
+rarity:3
 weight:90
 experience:0
 blow:HYPNOTIZE:SEDUCE
