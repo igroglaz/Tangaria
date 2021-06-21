@@ -93,8 +93,6 @@ static bool open_audio_sdl(void)
         return false;
     }
 
-    set_volume(-1, SV_DEFAULT);
-
     /* Success */
     return true;
 }
@@ -181,7 +179,16 @@ static bool play_sound_sdl(struct sound_data *data)
                 /*Mix_HaltChannel(-1);*/
 
                 if (sample->sample_data.chunk)
+                {
+                    /* Adjust sound volume if needed */
+                    if (sound_volume != current_sound_volume)
+                    {
+                        current_sound_volume = sound_volume;
+                        Mix_Volume(-1, (sound_volume * MIX_MAX_VOLUME) / 100);
+                    }
+
                     return (0 == Mix_PlayChannel(-1, sample->sample_data.chunk, 0));
+                }
                 break;
             }
 
@@ -191,7 +198,16 @@ static bool play_sound_sdl(struct sound_data *data)
                 data->loaded = false;
 
                 if (sample->sample_data.music)
+                {
+                    /* Adjust sound volume if needed */
+                    if (sound_volume != current_sound_volume)
+                    {
+                        current_sound_volume = sound_volume;
+                        Mix_VolumeMusic((sound_volume * MIX_MAX_VOLUME) / 100);
+                    }
+
                     return (0 == Mix_PlayMusic(sample->sample_data.music, 1));
+                }
                 break;
             }
 
@@ -267,12 +283,6 @@ const struct sound_file_type *supported_files_sdl(void)
 }
 
 
-static void set_volume_sdl(int pct)
-{
-    Mix_Volume(-1, (pct * MIX_MAX_VOLUME) / 100);
-}
-
-
 /*
  * Init the SDL sound "module".
  */
@@ -284,7 +294,6 @@ errr init_sound_sdl(struct sound_hooks *hooks)
     hooks->load_sound_hook = load_sound_sdl;
     hooks->unload_sound_hook = unload_sound_sdl;
     hooks->play_sound_hook = play_sound_sdl;
-    hooks->set_volume_hook = set_volume_sdl;
 
     /* Success */
     return (0);

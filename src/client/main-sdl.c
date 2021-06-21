@@ -55,9 +55,6 @@ static bool nicegfx = false;
 /* Want window borders? */
 static bool windowborders = true;
 
-/* Sound volume */
-static int volume = 100;
-
 static int overdraw = 0;
 static int overdraw_max = 0;
 
@@ -1602,10 +1599,9 @@ static void FontSizeChange(sdl_Button *sender)
 
 static void VolumeChange(sdl_Button *sender)
 {
-    volume += sender->tag;
-    if (volume < 0) volume = 0;
-    if (volume > 100) volume = 100;
-    set_volume(volume, SV_REAL);
+    sound_volume += sender->tag;
+    if (sound_volume < 0) sound_volume = 0;
+    if (sound_volume > 100) sound_volume = 100;
 }
 
 
@@ -1705,7 +1701,7 @@ static void MoreDraw(sdl_Window *win)
     sdl_ButtonMove(button, 150, y);
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Volume is %d.", volume));
+    sdl_WindowText(win, colour, 20, y, format("Volume is %d.", sound_volume));
     button = sdl_ButtonBankGet(&win->buttons, MoreVolumeMinus);
     sdl_ButtonMove(button, 150, y);
 
@@ -2131,7 +2127,7 @@ static errr load_prefs(void)
         else if (strstr(buf, "WindowBorders"))
             windowborders = atoi(s);
         else if (strstr(buf, "Volume"))
-            volume = atoi(s);
+            sound_volume = atoi(s);
         else if (strstr(buf, "NiceGraphics"))
             nicegfx = atoi(s);
         else if (strstr(buf, "Graphics"))
@@ -2145,9 +2141,8 @@ static errr load_prefs(void)
     if (screen_w < MIN_SCREEN_WIDTH) screen_w = MIN_SCREEN_WIDTH;
     if (screen_h < MIN_SCREEN_HEIGHT) screen_h = MIN_SCREEN_HEIGHT;
 
-    if (volume < 0) volume = 0;
-    if (volume > 100) volume = 100;
-    set_volume(volume, SV_SET_DEFAULT);
+    if (sound_volume < 0) sound_volume = 0;
+    if (sound_volume > 100) sound_volume = 100;
 
     file_close(fff);
 
@@ -2263,7 +2258,7 @@ static errr save_prefs(void)
     file_putf(fff, "Resolution = %dx%d\n", screen_w, screen_h);
     file_putf(fff, "Fullscreen = %d\n", fullscreen);
     file_putf(fff, "WindowBorders = %d\n", windowborders);
-    file_putf(fff, "Volume = %d\n", volume);
+    file_putf(fff, "Volume = %d\n", sound_volume);
     file_putf(fff, "NiceGraphics = %d\n", nicegfx);
     file_putf(fff, "Graphics = %d\n", use_graphics);
     file_putf(fff, "TileWidth = %d\n", tile_width);

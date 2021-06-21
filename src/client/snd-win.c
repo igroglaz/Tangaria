@@ -228,7 +228,6 @@ errr init_sound_win(struct sound_hooks *hooks)
     hooks->load_sound_hook = load_sound_win;
     hooks->unload_sound_hook = unload_sound_win;
     hooks->play_sound_hook = play_sound_win;
-    hooks->set_volume_hook = NULL;
 
     /* Success */
     return (0);

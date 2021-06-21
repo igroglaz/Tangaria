@@ -87,8 +87,9 @@ static struct sound_hooks hooks;
 static bool preload_sounds = false;
 
 
-/* Default sound volume */
-static int volume = 100;
+/* Sound volume */
+int current_sound_volume = 100;
+int sound_volume;
 
 
 static struct sound_data *grow_sound_list(void)
@@ -394,32 +395,4 @@ void close_sound(void)
 
     /* Close the platform's sound module */
     if (hooks.close_audio_hook) hooks.close_audio_hook();
-}
-
-
-/*
- * Set sound volume
- *
- * pct: percent value of max volume between 0 and 100
- * mode: if SV_SET_DEFAULT, sets the default value
- *       if SV_DEFAULT, sets sound volume using the default value ('pct' parameter is unused)
- *       if SV_REAL, sets sound volume using the 'pct' parameter
- */
-void set_volume(int pct, int mode)
-{
-    switch (mode)
-    {
-        case SV_SET_DEFAULT: volume = pct; break;
-        case SV_DEFAULT:
-        {
-            if (hooks.set_volume_hook) hooks.set_volume_hook(volume);
-            break;
-        }
-        case SV_REAL:
-        {
-            if (hooks.set_volume_hook) hooks.set_volume_hook(pct);
-            break;
-        }
-        default: break;
-    }
 }
