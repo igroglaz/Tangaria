@@ -866,14 +866,16 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     sum += state->stat_ind[book->realm->stat];
     count++;
     
- if (strstr(p->clazz->name, "Telepath"))
-   {
-       return (((p->state.stat_ind[STAT_INT]) + (p->state.stat_ind[STAT_CHR])) / 2);
-  }
-    
-    if (strstr(p->clazz->name, "Summoner"))
+    if (streq(p->clazz->name, "Telepath"))
     {
-        return (((p->state.stat_ind[STAT_WIS]) + (p->state.stat_ind[STAT_CHR])) / 2);
+        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_CHR]) / 2) * 80) +
+                  (p->state.stat_ind[STAT_INT] * 20)) / 100);
+    }
+    
+    if (streq(p->clazz->name, "Summoner")) // WIS+CHR - 90%; INT - 10%
+    {
+        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_CHR]) / 2) * 90) +
+                  (p->state.stat_ind[STAT_INT] * 10)) / 100);
     }
     
     for (i = 1; i < p->clazz->magic.num_books; i++)
