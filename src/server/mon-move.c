@@ -2491,7 +2491,14 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     struct monster_lore *lore = get_lore(p, mon->race);
 
     /* If player has acted this turn, use that noise value */
-    if (!has_energy(p, false)) player_noise = 1 << (30 - stealth);
+    if (!has_energy(p, false))
+    {
+        player_noise = 1 << (30 - stealth);
+
+        // base:person affected by CHR a bit
+        if (player_noise > 50 && streq(mon->race->base->name, "person"))
+            player_noise -= p->state.stat_use[STAT_CHR];
+    }
 
     /* If player hasn't acted, 1/100 chance to make noise */
     else if (one_in_(100)) player_noise = 1 << (30 - stealth);
