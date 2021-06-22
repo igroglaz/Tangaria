@@ -1260,7 +1260,7 @@ static enum birth_stage point_based_command(void)
     bool first_time = true;
     int i;
     int cost;
-    int stat = 0;
+    int stat = 0, realm_stat = STAT_STR;
     char buf[NORMAL_WID];
     struct keypress ch;
 
@@ -1385,6 +1385,37 @@ static enum birth_stage point_based_command(void)
         else
             my_strcpy(buf, "N/A", sizeof(buf));
         put_str(buf, 16, 35);
+
+        /* Display the expected fail rate of the first spell */
+        put_str("Fail", 15, 47);
+        if (player->clazz->magic.num_books > 0)
+        {
+            struct class_book *book = &player->clazz->magic.books[0];
+            int stat_ind, j, chance, minfail;
+
+            realm_stat = book->realm->stat;
+            if (realm_stat > 0)
+            {
+                j = race_modifier(player->race, realm_stat, 1, false) +
+                    class_modifier(player->clazz, realm_stat, 1);
+                stat_ind = modify_stat_value(stat_roll[realm_stat], j);
+                stat_ind = calc_stat_ind(stat_ind);
+
+                chance = player->clazz->magic.sfail;
+                chance -= 3 * (1 - player->clazz->magic.slevel);
+                chance -= adj_mag_stat[stat_ind];
+
+                minfail = adj_mag_fail[stat_ind];
+                if (chance < minfail) chance = minfail;
+                if (chance > 50) chance = 50;
+                strnfmt(buf, sizeof(buf), "%02d%%", chance);
+            }
+            else
+                my_strcpy(buf, "N/A", sizeof(buf));
+        }
+        else
+            my_strcpy(buf, "N/A", sizeof(buf));
+        put_str(buf, 16 + realm_stat, 47);
 
         /* Prompt */
         strnfmt(buf, sizeof(buf),

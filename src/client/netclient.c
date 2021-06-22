@@ -628,7 +628,7 @@ static int Receive_struct_info(void)
         case STRUCT_INFO_CLASS:
         {
             s16b base, dice, sides, m_bonus, c_skills, res_level, weight, att_multiply, max_attacks,
-                min_weight;
+                min_weight, sfail, slevel;
             byte cidx, c_mhp, total_spells, flag, lvl;
             u16b tval, sval;
             char num_books;
@@ -886,6 +886,22 @@ static int Receive_struct_info(void)
                 c->att_multiply = att_multiply;
                 c->max_attacks = max_attacks;
                 c->min_weight = min_weight;
+
+                if ((n = Packet_scanf(&rbuf, "%hd%hd", &sfail, &slevel)) <= 0)
+                {
+                    /* Rollback the socket buffer */
+                    Sockbuf_rollback(&rbuf, bytes_read);
+
+                    /* Packet isn't complete, graceful failure */
+                    string_free(c->name);
+                    mem_free(c);
+                    return n;
+                }
+                bytes_read += 4;
+
+                /* Hack -- put sfail and slevel into dummy placeholders */
+                c->magic.sfail = sfail;
+                c->magic.slevel = slevel;
 
                 c->next = classes;
                 classes = c;
@@ -1240,6 +1256,7 @@ static int Receive_struct_info(void)
         {
             char spell_noun[NORMAL_WID];
             char verb[NORMAL_WID];
+            s16b stat;
 
             realms = NULL;
 
@@ -1259,7 +1276,7 @@ static int Receive_struct_info(void)
                 bytes_read += string_bytes(name);
 
                 /* Transfer other fields here */
-                if ((n = Packet_scanf(&rbuf, "%s%s", spell_noun, verb)) <= 0)
+                if ((n = Packet_scanf(&rbuf, "%hd%s%s", &stat, spell_noun, verb)) <= 0)
                 {
                     /* Rollback the socket buffer */
                     Sockbuf_rollback(&rbuf, bytes_read);
@@ -1267,12 +1284,13 @@ static int Receive_struct_info(void)
                     /* Packet isn't complete, graceful failure */
                     return n;
                 }
-                bytes_read += string_bytes(spell_noun) + string_bytes(verb);
+                bytes_read += string_bytes(spell_noun) + string_bytes(verb) + 2;
 
                 realm = mem_zalloc(sizeof(*realm));
                 realm->name = string_make(name);
                 if (strlen(spell_noun)) realm->spell_noun = string_make(spell_noun);
                 if (strlen(verb)) realm->verb = string_make(verb);
+                realm->stat = stat;
                 realm->next = realms;
                 realms = realm;
             }

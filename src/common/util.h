@@ -15,6 +15,8 @@
 #define STAT_RANGE  38
 
 extern const int adj_str_blow[STAT_RANGE];
+extern const int adj_mag_stat[STAT_RANGE];
+extern const int adj_mag_fail[STAT_RANGE];
 
 extern const char *stat_names[STAT_MAX];
 extern const char *stat_names_reduced[STAT_MAX];

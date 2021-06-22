@@ -14,8 +14,6 @@ struct beam_info
     char inscription[20];
 };
 
-extern const int adj_mag_stat[];
-
 extern void player_spells_init(struct player *p);
 extern void player_spells_free(struct player *p);
 extern const struct class_book *object_kind_to_book(const struct object_kind *kind);

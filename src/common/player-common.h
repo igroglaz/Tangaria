@@ -334,6 +334,10 @@ struct class_magic
     int num_books;                          /* Number of spellbooks */
     struct class_book *books;               /* Details of spellbooks */
     byte total_spells;                      /* Number of spells for this class */
+
+    /* PWMAngband: dummy placeholders to display fail rate of the first spell on the client */
+    int sfail;
+    int slevel;
 };
 
 /*

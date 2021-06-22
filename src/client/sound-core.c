@@ -89,7 +89,7 @@ static bool preload_sounds = false;
 
 /* Sound volume */
 int current_sound_volume = 100;
-int sound_volume;
+int sound_volume = 100;
 
 
 static struct sound_data *grow_sound_list(void)

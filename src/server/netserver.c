@@ -1534,7 +1534,7 @@ int Send_class_struct_info(int ind)
     {
         u16b tval = 0;
         const struct start_item *si;
-        s16b weight = 0;
+        s16b weight = 0, sfail = 0, slevel = 0;
 
         if (c->magic.num_books)
             tval = c->magic.books[0].tval;
@@ -1640,6 +1640,25 @@ int Send_class_struct_info(int ind)
         }
         if (Packet_printf(&connp->c, "%hd%hd%hd%hd", (int)weight, (int)c->att_multiply,
             (int)c->max_attacks, (int)c->min_weight) <= 0)
+        {
+            Destroy_connection(ind, "Send_class_struct_info write error");
+            return -1;
+        }
+
+        /* Compute expected fail rate of the first spell */
+        if (c->magic.num_books > 0)
+        {
+            struct class_book *book = &c->magic.books[0];
+
+            if (book->num_spells > 0)
+            {
+                const struct class_spell *spell = &book->spells[0];
+
+                sfail = spell->sfail;
+                slevel = spell->slevel;
+            }
+        }
+        if (Packet_printf(&connp->c, "%hd%hd", (int)sfail, (int)slevel) <= 0)
         {
             Destroy_connection(ind, "Send_class_struct_info write error");
             return -1;
@@ -1999,7 +2018,7 @@ int Send_realm_struct_info(int ind)
         }
 
         /* Transfer other fields here */
-        if (Packet_printf(&connp->c, "%s%s", spell_noun, verb) <= 0)
+        if (Packet_printf(&connp->c, "%hd%s%s", (int)realm->stat, spell_noun, verb) <= 0)
         {
             Destroy_connection(ind, "Send_realm_struct_info write error");
             return -1;
