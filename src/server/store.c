@@ -954,8 +954,13 @@ static bool store_check_num(struct player *p, struct store *store, struct object
     bool home = ((store->type == STORE_HOME)? true: false);
     object_stack_t mode = ((store->type == STORE_HOME)? OSTACK_PACK: OSTACK_STORE);
 
-    /* Free space is always usable */
-    if (store->stock_num < store->stock_size) return true;
+    /* Free space is always usable (for stores) */
+    if (!home && (store->stock_num < store->stock_size))
+        return true;
+
+    // Storage space in home depends on CHR
+    if (home && (store->stock_num < p->state.stat_use[STAT_CHR]))
+        return true;
 
     /* The "home" acts like the player */
     /* Normal stores do special stuff */
@@ -2844,7 +2849,7 @@ void do_cmd_stash(struct player *p, int item, int amt)
     /* Check if the store has space for the items */
     if (!store_check_num(p, store, dummy))
     {
-        msg(p, "Your home is full.");
+        msg(p, "You've used all the space which you were able to bargain with storage keeper.");
         object_delete(&dummy);
         return;
     }
