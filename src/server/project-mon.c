@@ -20,6 +20,51 @@
 
 #include "s-angband.h"
 
+/*
+ * Stat Table -- chance of getting a friendly summon with CHR
+ */
+static const byte summon_chr_friendly[STAT_RANGE] =
+{
+    0   /* 3 */,
+    0   /* 4 */,
+    0   /* 5 */,
+    0   /* 6 */,
+    0   /* 7 */,
+    0   /* 8 */,
+    0   /* 9 */,
+    1   /* 10 */,
+    2   /* 11 */,
+    3   /* 12 */,
+    4   /* 13 */,
+    5   /* 14 */,
+    6   /* 15 */,
+    7   /* 16 */,
+    8   /* 17 */,
+    9   /* 18/00-18/09 */,
+    10  /* 18/10-18/19 */,
+    11  /* 18/20-18/29 */,
+    12  /* 18/30-18/39 */,
+    13  /* 18/40-18/49 */,
+    14  /* 18/50-18/59 */,
+    15  /* 18/60-18/69 */,
+    16  /* 18/70-18/79 */,
+    17  /* 18/80-18/89 */,
+    18  /* 18/90-18/99 */,
+    19  /* 18/100-18/109 */,
+    20  /* 18/110-18/119 */,
+    21  /* 18/120-18/129 */,
+    22  /* 18/130-18/139 */,
+    23  /* 18/140-18/149 */,
+    24  /* 18/150-18/159 */,
+    25  /* 18/160-18/169 */,
+    26  /* 18/170-18/179 */,
+    27  /* 18/180-18/189 */,
+    28  /* 18/190-18/199 */,
+    29  /* 18/200-18/209 */,
+    30  /* 18/210-18/219 */,
+    33  /* 18/220+ */
+};
+
 
 /*
  * Helper function -- return a "nearby" race for polymorphing
@@ -443,8 +488,9 @@ static void project_monster_dispel(project_monster_handler_context_t *context, i
  * flag is the RF_ flag that the monster must have.
  */
 static void project_monster_sleep(project_monster_handler_context_t *context, int flag)
-{
-    int dam = sleep_value(context->mon->race);
+{   // using summon_chr_friendly[] table
+    int chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_use[STAT_CHR]]);
+    int dam = sleep_value(context->mon->race) + chr_dmg;
 
     if (context->seen && flag) rf_on(context->lore->flags, flag);
 
@@ -2065,52 +2111,6 @@ static const byte summon_friendly[STAT_RANGE] =
     98  /* 18/210-18/219 */,
     99  /* 18/220+ */
 };
-
-/*
- * Stat Table -- chance of getting a friendly summon with CHR
- */
-static const byte summon_chr_friendly[STAT_RANGE] =
-{
-    0   /* 3 */,
-    0   /* 4 */,
-    0   /* 5 */,
-    0   /* 6 */,
-    0   /* 7 */,
-    0   /* 8 */,
-    0   /* 9 */,
-    1   /* 10 */,
-    2   /* 11 */,
-    3   /* 12 */,
-    4   /* 13 */,
-    5   /* 14 */,
-    6   /* 15 */,
-    7   /* 16 */,
-    8   /* 17 */,
-    9   /* 18/00-18/09 */,
-    10  /* 18/10-18/19 */,
-    11  /* 18/20-18/29 */,
-    12  /* 18/30-18/39 */,
-    13  /* 18/40-18/49 */,
-    14  /* 18/50-18/59 */,
-    15  /* 18/60-18/69 */,
-    16  /* 18/70-18/79 */,
-    17  /* 18/80-18/89 */,
-    18  /* 18/90-18/99 */,
-    19  /* 18/100-18/109 */,
-    20  /* 18/110-18/119 */,
-    21  /* 18/120-18/129 */,
-    22  /* 18/130-18/139 */,
-    23  /* 18/140-18/149 */,
-    24  /* 18/150-18/159 */,
-    25  /* 18/160-18/169 */,
-    26  /* 18/170-18/179 */,
-    27  /* 18/180-18/189 */,
-    28  /* 18/190-18/199 */,
-    29  /* 18/200-18/209 */,
-    30  /* 18/210-18/219 */,
-    33  /* 18/220+ */
-};
-
 
 /*
  * Returns true if the monster can be charmed, false otherwise.
