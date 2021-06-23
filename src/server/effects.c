@@ -4688,6 +4688,25 @@ static bool effect_handler_GAIN_STAT(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Lose a stat point. The stat index is context->subtype.
+ */
+static bool effect_handler_LOSE_STAT(effect_handler_context_t *context)
+{
+    int stat = context->subtype;
+
+    /* Attempt to increase */
+    if (player_stat_dec(context->origin->player, stat, true))
+    {
+        /* Message */
+        msg(context->origin->player, "You feel very %s!", desc_stat(stat, true));
+    }
+
+    /* Notice */
+    context->ident = true;
+
+    return true;
+}
 
 static bool effect_handler_GRANITE(effect_handler_context_t *context)
 {
@@ -8381,6 +8400,7 @@ int effect_subtype(int index, const char *type)
         /* Stat name */
         case EF_DRAIN_STAT:
         case EF_GAIN_STAT:
+        case EF_LOSE_STAT:        
         case EF_LOSE_RANDOM_STAT:
         case EF_RESTORE_STAT:
         {

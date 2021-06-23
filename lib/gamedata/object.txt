@@ -3447,14 +3447,11 @@ weight:4
 cost:0
 alloc:1:30 to 100
 pile:10:2
-effect:LOSE_RANDOM_STAT:CON
-effect:GAIN_STAT:CON
-effect:RESTORE_STAT:CON
-effect:DRAIN_STAT:WIS
-dice:15
+effect:LOSE_STAT:CHR
 effect:TIMED_INC_NO_RES:CONFUSED
-dice:1+2d2
-msg_self:You feel that something missing!
+dice:2d2
+msg_self:You feel that your features have changed.. to worse.
+msg_other: become ugly!
 
 name:Augmentation
 graphics:!:d
@@ -4089,13 +4086,14 @@ alloc:10:10 to 15
 pile:25:2
 effect:TIMED_INC:STONESKIN
 dice:20+1d20
+effect:DRAIN_STAT:CHR
 effect:DRAIN_STAT:WIS
 effect:DRAIN_STAT:INT
 effect:BATTY
 effect:TIMED_INC:SCRAMBLE
 dice:20+1d20
 effect:RANDOM
-dice:5
+dice:6
 effect:NOURISH:INC_BY
 dice:1
 

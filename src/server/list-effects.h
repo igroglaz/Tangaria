@@ -141,3 +141,4 @@ EFFECT(WAKE, false, NULL, 0, EFINFO_NONE, "awakens all nearby sleeping monsters"
 EFFECT(WEB, false, NULL, 0, EFINFO_NONE, "creates a web")
 EFFECT(WIPE_AREA, false, NULL, 0, EFINFO_NONE, "wipes everything around you")
 EFFECT(WONDER, true, NULL, 0, EFINFO_NONE, "creates random and unpredictable effects")
+EFFECT(LOSE_STAT, false, NULL, 1, EFINFO_STAT, "permanently decreases %s")
