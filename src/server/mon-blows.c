@@ -955,7 +955,7 @@ static void melee_effect_handler_CONFUSE(melee_effect_handler_context_t *context
     }
 
     /* Very rare CHR save !We use CON table! */
-    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(100))
+    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(200))
         {
             msg(context->p, "Your natural magnetism and self confidence helps you to resist confusion.");
             return;
@@ -995,6 +995,13 @@ static void melee_effect_handler_TERRIFY(melee_effect_handler_context_t *context
         context->do_fear = true;
         return;
     }
+    
+    /* Very rare CHR save !We use CON table! */
+    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(100))
+        {
+            msg(context->p, "You resist frightening this time.");
+            return;
+        }        
 
     melee_effect_timed(context, TMD_AFRAID, 3 + randint1(context->rlev), OF_PROT_FEAR, true,
         "You stand your ground!", false);

@@ -21217,6 +21217,7 @@ object:scroll:Word of Recall (rugged):0x87:0xE0
 
 trap:hunger trap:*:0x9F:0x86
 trap:squeaky board:*:0x9F:0xA3
+trap:beauty:*:0x9A:0xB7
 
 #NPC
 

@@ -1222,6 +1222,52 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
 
 
 /*
+ * Stat Table (CHR) -- fear on dmg
+ */
+static const int adj_chr_fear[STAT_RANGE] =
+{
+    0   /* 3 */,
+    0   /* 4 */,
+    0   /* 5 */,
+    0   /* 6 */,
+    0   /* 7 */,
+    0   /* 8 */,
+    0   /* 9 */,
+    1   /* 10 */,
+    1   /* 11 */,
+    1   /* 12 */,
+    1   /* 13 */,
+    1   /* 14 */,
+    1   /* 15 */,
+    2   /* 16 */,
+    2   /* 17 */,
+    2   /* 18/00-18/09 */,
+    3   /* 18/10-18/19 */,
+    3   /* 18/20-18/29 */,
+    4   /* 18/30-18/39 */,
+    5   /* 18/40-18/49 */,
+    6   /* 18/50-18/59 */,
+    7   /* 18/60-18/69 */,
+    8   /* 18/70-18/79 */,
+    9   /* 18/80-18/89 */,
+    10  /* 18/90-18/99 */,
+    11  /* 18/100-18/109 */,
+    12   /* 18/110-18/119 */,
+    13   /* 18/120-18/129 */,
+    14  /* 18/130-18/139 */,
+    15  /* 18/140-18/149 */,
+    16  /* 18/150-18/159 */,
+    17  /* 18/160-18/169 */,
+    18  /* 18/170-18/179 */,
+    19  /* 18/180-18/189 */,
+    20  /* 18/190-18/199 */,
+    21  /* 18/200-18/209 */,
+    22  /* 18/210-18/219 */,
+    25  /* 18/220+ */
+};
+
+
+/*
  * See how a monster reacts to damage
  */
 static void monster_scared_by_damage(struct player *p, struct chunk *c, struct monster *mon,
@@ -1252,9 +1298,12 @@ static void monster_scared_by_damage(struct player *p, struct chunk *c, struct m
     if (monster_can_be_scared(c, mon))
     {
         int percentage;
+        int chr_fear = randint0(adj_chr_fear[p->state.stat_use[STAT_CHR]]);
 
         /* Percentage of fully healthy */
-        percentage = (100L * mon->hp) / mon->maxhp;
+        percentage = ((100L - chr_fear) * mon->hp) / mon->maxhp;
+        
+        if (percentage < 0) percentage = 0;
 
         /*
          * Run (sometimes) if at 10% or less of max hit points,

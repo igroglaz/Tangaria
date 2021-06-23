@@ -618,4 +618,15 @@ save:FEATHER
 desc:A trap that wakes nearby monsters.
 msg:A board beneath you squeaks loudly!
 
+# beauty
 
+name:trap:beauty
+graphics:^:r
+appear:1:1:0
+visibility:10+d10
+flags:TRAP | FLOOR | MAGICAL
+effect:DRAIN_STAT:CHR
+effect:DAMAGE
+dice:1d2
+desc:A wicked magic mirror who damage self-confidence of all who look at it.
+msg:Magic mirror on the wall, who is the fairest one of all?
