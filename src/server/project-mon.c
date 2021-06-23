@@ -2144,7 +2144,9 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     if (monster_is_unique(mon->race)) return MON_MSG_UNAFFECTED;
 
     /* Too enraged to be controlled */
-    if (player_of_has(p, OF_AGGRAVATE)) return MON_MSG_HATE;
+    if (player_of_has(p, OF_AGGRAVATE) || 
+    (p->state.stat_ind[STAT_CHR] <  randint0(150)))
+        return MON_MSG_HATE;
 
     /* Only if the monster is not already under the spell */
     if (mon->status == MSTATUS_CONTROLLED) return MON_MSG_UNAFFECTED;
