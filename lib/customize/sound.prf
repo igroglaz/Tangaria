@@ -183,25 +183,33 @@ sound:blind:blind blind1 blind2
 sound:confused:confused
 
 # You become poisoned.
-sound:poisoned:pls_tone_guiro
+sound:poisoned:poison
 
 # You become afraid.
-sound:afraid:pls_man_yell
+sound:afraid:afraid
 
 # You become paralyzed.
-sound:paralyzed:pls_man_gulp_new
+sound:paralyzed:paralyzed
 
 # You feel drugged (chaos effects).
-sound:drugged:pls_breathe_in
+sound:drugged:hallucinate
+
+################### pls_breathe_in
 
 # You become slower.
-sound:slow:pls_man_sigh
+sound:slow:slow
+
+################### pls_man_sigh
 
 # You become stunned.
-sound:stun:pls_bell_mute
+sound:stun:stun1 stun2 stun3
+
+################### pls_bell_mute
 
 # You suffer a cut.
-sound:cut:pls_man_argoh
+sound:cut:cut
+
+################### pls_man_argoh
 
 # A stat is drained
 sound:drain_stat:pls_tone_headstock
@@ -283,7 +291,7 @@ sound:study:plm_book_pageturn
 sound:teleport:plm_chimes_jangle
 
 # You quaff a potion.
-sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak
+sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new
 
 # You zap a rod.
 sound:zap_rod:plm_zap_rod
@@ -371,7 +379,9 @@ sound:enter_pit:enter_pit
 #
 
 # A monster flees in terror.
-sound:flee:mco_creature_yelp
+sound:flee:pls_man_yell
+
+####################### mco_creature_yelp
 
 # A monster is killed.
 sound:kill:mco_howl_croak mco_howl_deep mco_howl_distressed mco_howl_high mco_howl_long
@@ -386,7 +396,7 @@ sound:kill_king:amb_guitar_chord
 sound:mon_hit:mco_hit_whip
 
 # Attack - touch
-sound:mon_touch:mco_click_vibra
+sound:mon_touch:mco_click_vibra pls_tone_guiro
 
 # Attack - punch
 sound:mon_punch:mco_squish_snap
