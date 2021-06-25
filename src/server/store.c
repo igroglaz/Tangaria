@@ -2109,7 +2109,8 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     char short_name[20];
     struct store *s = store_at(p);
     const char *owner_name = s->owner->name;
-    int i;
+    int c; // charisma    
+    int i; // number of welcome message
     char comment_format[NORMAL_WID];
     const char *chosen;
 
@@ -2123,8 +2124,8 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
         return;
     }
 
-    /* Store owner doesn't care about beginners */
-    if (p->lev <= 5) return;
+    /* Sometimes store owner doesn't care about beginners */
+    if (one_in_(2) && p->lev <= 5) return;
 
     /* Get the first name of the store owner (stop before the first space) */
     for (i = 0; owner_name[i] && owner_name[i] != ' '; i++)
@@ -2134,7 +2135,18 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     short_name[i] = '\0';
 
     /* Get a welcome message according to level */
-    i = (p->lev - 6) / 5;
+    c = p->state.stat_ind[STAT_CHR] + 3; // 0-40
+    
+    if      (c <= 3)  i = 0;
+    else if (c <= 6)  i = 1;
+    else if (c <= 8)  i = 2;
+    else if (c <= 11) i = 3;
+    else if (c <= 15) i = 4;
+    else if (c <= 19) i = 5;
+    else if (c <= 25) i = 6;
+    else if (c <= 35) i = 7;
+    else              i = 8;
+
     if (!STRZERO(s->comment_welcome[i])) chosen = s->comment_welcome[i];
     else chosen = comment_welcome[i];
 
