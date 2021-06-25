@@ -489,7 +489,7 @@ static void project_monster_dispel(project_monster_handler_context_t *context, i
  */
 static void project_monster_sleep(project_monster_handler_context_t *context, int flag)
 {   // using summon_chr_friendly[] table
-    int chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_use[STAT_CHR]]);
+    int chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_ind[STAT_CHR]]);
     int dam = sleep_value(context->mon->race) + chr_dmg;
 
     if (context->seen && flag) rf_on(context->lore->flags, flag);

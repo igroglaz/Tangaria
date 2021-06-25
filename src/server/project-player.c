@@ -193,7 +193,7 @@ void project_player_time_effects(struct player *p, struct source *who)
     if (one_in_(2))
     {
         int drain = (100 + (p->exp / 100) * z_info->life_drain_percent) -
-        randint0(p->state.stat_use[STAT_CHR]);
+        randint0(p->state.stat_ind[STAT_CHR]);
 
         msg(p, "You feel your life force draining away!");
         player_exp_lose(p, drain, false);

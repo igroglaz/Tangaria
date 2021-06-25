@@ -959,7 +959,7 @@ static bool store_check_num(struct player *p, struct store *store, struct object
         return true;
 
     // Storage space in home depends on CHR
-    if (home && (store->stock_num < p->state.stat_use[STAT_CHR]))
+    if (home && (store->stock_num < p->state.stat_ind[STAT_CHR]))
         return true;
 
     /* The "home" acts like the player */

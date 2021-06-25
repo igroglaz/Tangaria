@@ -1298,7 +1298,7 @@ static void monster_scared_by_damage(struct player *p, struct chunk *c, struct m
     if (monster_can_be_scared(c, mon))
     {
         int percentage;
-        int chr_fear = randint0(adj_chr_fear[p->state.stat_use[STAT_CHR]]);
+        int chr_fear = randint0(adj_chr_fear[p->state.stat_ind[STAT_CHR]]);
 
         /* Percentage of fully healthy */
         percentage = ((100L - chr_fear) * mon->hp) / mon->maxhp;

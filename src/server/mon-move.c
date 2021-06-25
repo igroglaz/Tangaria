@@ -2497,7 +2497,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
 
         // base:person affected by CHR a bit
         if (player_noise > 50 && streq(mon->race->base->name, "person"))
-            player_noise -= p->state.stat_use[STAT_CHR];
+            player_noise -= p->state.stat_ind[STAT_CHR];
     }
 
     /* If player hasn't acted, 1/100 chance to make noise */
