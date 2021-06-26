@@ -466,6 +466,10 @@ static void get_money(struct player *p, bool no_recall)
 {
     p->au = z_info->start_gold;
 
+    // 10g for each point in charisma
+    if (p->stat_birth[STAT_CHR] > 10)
+        p->au += 10*(p->stat_birth[STAT_CHR] - 10);
+
     /* Give double starting gold to no_recall characters */
     if ((cfg_diving_mode == 3) || no_recall) p->au *= 2;
 }
