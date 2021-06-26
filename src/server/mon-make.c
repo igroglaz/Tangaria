@@ -986,10 +986,18 @@ static s16b mon_pop(struct chunk *c)
  *
  * race is the monster race.
  * maximize should be set to false for a random number, true to find out the maximum count.
+ * specific if true, specific drops will be included in the total
+ * returned; otherwise they are excluded from that value.
+ * specific_count if not NULL, *specific_count will be set to the
+ * number of specific objects (either a random value or the maximum if maximize
+ * is true).
  */
-int mon_create_drop_count(const struct monster_race *race, bool maximize)
+int mon_create_drop_count(const struct monster_race *race, bool maximize, bool specific,
+    int *specific_count)
 {
     int number = 0;
+    int specnum = 0;
+    struct monster_drop *drop;
 
     if (maximize)
     {
@@ -1000,6 +1008,7 @@ int mon_create_drop_count(const struct monster_race *race, bool maximize)
         if (rf_has(race->flags, RF_DROP_3)) number += 4;
         if (rf_has(race->flags, RF_DROP_2)) number += 3;
         if (rf_has(race->flags, RF_DROP_1)) number++;
+        for (drop = race->drops; drop; drop = drop->next) specnum += drop->max;
     }
     else
     {
@@ -1010,7 +1019,14 @@ int mon_create_drop_count(const struct monster_race *race, bool maximize)
         if (rf_has(race->flags, RF_DROP_3)) number += rand_range(2, 4);
         if (rf_has(race->flags, RF_DROP_2)) number += rand_range(1, 3);
         if (rf_has(race->flags, RF_DROP_1)) number++;
+        for (drop = race->drops; drop; drop = drop->next)
+        {
+            if ((unsigned int)randint0(100) < drop->percent_chance)
+                specnum += randint0(drop->max - drop->min) + drop->min;
+        }
     }
+    if (specific) number += specnum;
+    if (specific_count) *specific_count = specnum;
 
     return number;
 }
@@ -1062,7 +1078,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
     if (monster_is_unique(mon->race)) quark = quark_add(mon->race->name);
 
     /* Determine how much we can drop */
-    number = mon_create_drop_count(mon->race, false);
+    number = mon_create_drop_count(mon->race, false, false, NULL);
 
     /* Uniques that have been stolen from get their quantity reduced */
     if (lore && rf_has(mon->race->flags, RF_UNIQUE)) number = MAX(0, number - lore->thefts);
@@ -1164,7 +1180,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
             ok = true;
         }
 
-        /* Abort if no good object is found */
+        /* Skip if the object couldn't be created. */
         if (!obj) continue;
 
         if (mon_drop_carry(p, &obj, mon, origin, num, quark, ok)) any = true;

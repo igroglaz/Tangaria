@@ -987,9 +987,9 @@ void *menu_priv(struct menu *menu)
 }
 
 
-void menu_init(struct menu *menu, skin_id skin_id, const menu_iter *iter)
+void menu_init(struct menu *menu, skin_id id, const menu_iter *iter)
 {
-    const menu_skin *skin = menu_find_skin(skin_id);
+    const menu_skin *skin = menu_find_skin(id);
 
     assert(skin && "menu skin not found!");
     assert(iter && "menu iter not found!");
@@ -1005,11 +1005,11 @@ void menu_init(struct menu *menu, skin_id skin_id, const menu_iter *iter)
 }
 
 
-struct menu *menu_new(skin_id skin_id, const menu_iter *iter)
+struct menu *menu_new(skin_id id, const menu_iter *iter)
 {
     struct menu *m = mem_alloc(sizeof(*m));
 
-    menu_init(m, skin_id, iter);
+    menu_init(m, id, iter);
     return m;
 }
 

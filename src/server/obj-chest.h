@@ -18,7 +18,7 @@ enum chest_query
 
 extern struct file_parser chest_trap_parser;
 
-extern char *chest_trap_name(const struct object *obj);
+extern const char *chest_trap_name(const struct object *obj);
 extern bool is_trapped_chest(const struct object *obj);
 extern bool is_locked_chest(const struct object *obj);
 extern int pick_chest_traps(struct object *obj);

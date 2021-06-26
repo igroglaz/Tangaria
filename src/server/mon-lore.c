@@ -443,11 +443,12 @@ bool lore_is_fully_known(struct player *p, const struct monster_race *race)
  * about the treasure (even when the monster is killed for the first
  * time, such as uniques, and the treasure has not been examined yet).
  *
- * This "indirect" method is used to prevent the player from learning
+ * This "indirect" method was used to prevent the player from learning
  * exactly how much treasure a monster can drop from observing only
  * a single example of a drop.  This method actually observes how much
  * gold and items are dropped, and remembers that information to be
- * described later by the monster recall code.
+ * described later by the monster recall code. The current recall code,
+ * however, makes no use of drop_item and drop_gold.
  */
 void lore_treasure(struct player *p, struct monster *mon, int num_item, int num_gold)
 {
@@ -1138,7 +1139,7 @@ void lore_append_exp(struct player *p, const struct monster_race *race,
 void lore_append_drop(struct player *p, const struct monster_race *race,
     const struct monster_lore *lore, bitflag known_flags[RF_SIZE])
 {
-    int n = 0;
+    int n = 0, nspec = 0;
     monster_sex_t msex = MON_SEX_NEUTER;
 
     my_assert(race && lore);
@@ -1148,39 +1149,57 @@ void lore_append_drop(struct player *p, const struct monster_race *race,
     msex = lore_monster_sex(race);
 
     /* Count maximum drop */
-    n = mon_create_drop_count(race, true);
+    n = mon_create_drop_count(race, true, false, &nspec);
 
     /* Drops gold and/or items */
-    if (n > 0)
+    if (n > 0 || nspec > 0)
     {
         bool only_item = rf_has(known_flags, RF_ONLY_ITEM);
         bool only_gold = rf_has(known_flags, RF_ONLY_GOLD);
 
         /* Paranoia */
-        if (only_item && only_gold) return;
+        if (only_item && only_gold && (nspec == 0)) return;
 
         text_out(p, "%s may carry", lore_pronoun_nominative(msex, true));
 
-        /* Count drops */
-        if (n == 1) text_out_c(p, COLOUR_BLUE, " a single ");
-        else if (n == 2) text_out_c(p, COLOUR_BLUE, " one or two ");
-        else
+        /* Report general drops */
+        if (n > 0)
         {
-            text_out(p, " up to ");
-            text_out_c(p, COLOUR_BLUE, "%d ", n);
+            /* Count drops */
+            if (n == 1) text_out_c(p, COLOUR_BLUE, " a single ");
+            else if (n == 2) text_out_c(p, COLOUR_BLUE, " one or two ");
+            else
+            {
+                text_out(p, " up to ");
+                text_out_c(p, COLOUR_BLUE, "%d ", n);
+            }
+
+            /* Quality */
+            if (rf_has(known_flags, RF_DROP_GREAT)) text_out_c(p, COLOUR_BLUE, "exceptional ");
+            else if (rf_has(known_flags, RF_DROP_GOOD)) text_out_c(p, COLOUR_BLUE, "good ");
+
+            /* Objects or treasures */
+            if (only_item && !only_gold)
+                text_out_c(p, COLOUR_BLUE, "object%s", PLURAL(n));
+            else if (!only_item && only_gold)
+                text_out_c(p, COLOUR_BLUE, "treasure%s", PLURAL(n));
+            else if (!only_item && !only_gold)
+                text_out_c(p, COLOUR_BLUE, "object%s or treasure%s", PLURAL(n), PLURAL(n));
         }
 
-        /* Quality */
-        if (rf_has(known_flags, RF_DROP_GREAT)) text_out_c(p, COLOUR_BLUE, "exceptional ");
-        else if (rf_has(known_flags, RF_DROP_GOOD)) text_out_c(p, COLOUR_BLUE, "good ");
-
-        /* Objects or treasures */
-        if (only_item && !only_gold)
-            text_out_c(p, COLOUR_BLUE, "object%s", PLURAL(n));
-        else if (!only_item && only_gold)
-            text_out_c(p, COLOUR_BLUE, "treasure%s", PLURAL(n));
-        else if (!only_item && !only_gold)
-            text_out_c(p, COLOUR_BLUE, "object%s or treasure%s", PLURAL(n), PLURAL(n));
+        /* Report specific drops (just maximum number, no types, does not include quest artifacts). */
+        if (nspec > 0)
+        {
+            if (n > 0) text_out(p, " and");
+            if (nspec == 1) text_out(p, " a single");
+            else if (nspec == 2) text_out(p, " one or two");
+            else
+            {
+                text_out(p, " up to ");
+                text_out_c(p, COLOUR_BLUE, "%d", nspec);
+            }
+            text_out(p, " specific items");
+        }
 
         text_out(p, ". ");
     }

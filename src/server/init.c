@@ -3675,7 +3675,7 @@ static enum parser_error parse_player_prop_value(struct parser *p)
 }
 
 
-struct parser *init_parse_player_prop(void)
+static struct parser *init_parse_player_prop(void)
 {
 	struct parser *p = parser_new();
 

@@ -49,17 +49,17 @@
 static void monster_get_target_dist_grid(struct chunk *c, struct monster *mon,
     int target_m_dis, int *dist, struct loc *target, struct loc *grid)
 {
-    struct loc *decoy = cave_find_decoy(c);
-
-    if (loc_is_zero(decoy))
+    if (monster_is_decoyed(c, mon))
     {
-        if (dist) *dist = target_m_dis;
-        if (grid) loc_copy(grid, target);
+        struct loc *decoy = cave_find_decoy(c);
+
+        if (dist) *dist = distance(&mon->grid, decoy);
+        if (grid) loc_copy(grid, decoy);
     }
     else
     {
-        if (dist) *dist = distance(&mon->grid, decoy);
-        if (grid) loc_copy(grid, decoy);
+        if (dist) *dist = target_m_dis;
+        if (grid) loc_copy(grid, target);
     }
 }
 

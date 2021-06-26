@@ -208,6 +208,23 @@ bool monster_can_be_scared(struct chunk *c, const struct monster *mon)
 
 
 /*
+ * Monster attracted to a decoy, not the player
+ */
+bool monster_is_decoyed(struct chunk *c, const struct monster *mon)
+{
+    struct loc *decoy = cave_find_decoy(c);
+
+    /* No decoy */
+    if (loc_is_zero(decoy)) return false;
+
+    /* Monster can't see the decoy */
+    if (!los(c, &((struct monster *)mon)->grid, decoy)) return false;
+
+    return true;
+}
+
+
+/*
  * Monster is invisible
  */
 bool monster_is_invisible(const struct monster *mon)

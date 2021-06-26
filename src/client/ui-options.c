@@ -176,15 +176,6 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
                 menu_refresh(m, false);
             }
         }
-        else if (event->key.code == '?')
-        {
-            /*
-                screen_save();
-                show_file(format("option.txt#%s", option_name(oid)), NULL, 0, 0);
-                screen_load();
-            */
-            plog("Not implemented... yet.");
-        }
         else
             return false;
     }
@@ -225,22 +216,22 @@ static void option_toggle_menu(const char *name, int page)
     ui_event ea = EVENT_ABORT;
 
     /* For all menus */
-    m->prompt = "Set option (y/n/t), '?' for information";
-    m->cmd_keys = "?YyNnTt";
+    m->prompt = "Set option (y/n/t), select with movement keys or index";
+    m->cmd_keys = "YyNnTt";
     m->selections = "abcdefghijklmopqrsuvwxz";
     m->flags = MN_DBL_TAP;
 
     /* We add 10 onto the page amount to indicate we're at birth */
     if (page == OP_BIRTH)
     {
-        m->prompt = "You can only modify these options at character birth. '?' for information";
-        m->cmd_keys = "?";
+        m->prompt = "You can only modify these options at character birth.";
+        m->cmd_keys = "";
         m->flags = MN_NO_TAGS;
     }
     else if (page == OP_BIRTH + 10)
     {
-        m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'm' to reset, '?' for help";
-        m->cmd_keys = "?YyNnTtSsRrMm";
+        m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'm' to reset";
+        m->cmd_keys = "YyNnTtSsRrMm";
         page -= 10;
     }
 

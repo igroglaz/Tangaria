@@ -31,7 +31,7 @@ extern struct object *make_object(struct player *p, struct chunk *c, int lev, bo
     bool great, bool extra_roll, s32b *value, int tval);
 extern void acquirement(struct player *p, struct chunk *c, int num, quark_t quark);
 extern struct object_kind *money_kind(const char *name, int value);
-extern struct object *make_gold(struct player *p, struct chunk *c, int lev, char *coin_type);
+extern struct object *make_gold(struct player *p, struct chunk *c, int lev, const char *coin_type);
 extern void make_randart(struct player *p, struct chunk *c, struct object *obj,
     struct artifact *art, s32b randart_seed);
 extern void copy_artifact_data(struct object *obj, const struct artifact *art);

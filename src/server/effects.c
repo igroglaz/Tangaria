@@ -105,10 +105,8 @@ static void get_target(struct chunk *c, struct source *origin, int dir, struct l
         }
         else
         {
-            struct loc *decoy = cave_find_decoy(c);
-
-            if (!loc_is_zero(decoy))
-                loc_copy(grid, decoy);
+            if (monster_is_decoyed(c, origin->monster))
+                loc_copy(grid, cave_find_decoy(c));
             else
                 loc_copy(grid, &origin->player->grid);
         }
@@ -156,18 +154,18 @@ bool project_aimed(struct source *origin, int typ, int dir, int dam, int flg, co
 /*
  * Apply the project() function to grids around the player
  */
-static bool project_touch(struct player *p, int dam, int rad, int typ, bool aware, bool mon)
+static bool project_touch(struct player *p, int dam, int rad, int typ, bool aware,
+    struct monster *mon)
 {
     struct loc pgrid;
     int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAY | PROJECT_HIDE | PROJECT_THRU;
     struct source who_body;
     struct source *who = &who_body;
     struct chunk *c = chunk_get(&p->wpos);
-    struct loc *decoy = cave_find_decoy(c);
 
-    if (!loc_is_zero(decoy) && mon)
+    if (mon && monster_is_decoyed(c, mon))
     {
-        loc_copy(&pgrid, decoy);
+        loc_copy(&pgrid, cave_find_decoy(c));
         flg |= PROJECT_JUMP;
     }
     else
@@ -1326,10 +1324,8 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
         else
         {
             /* Target player. */
-            struct loc *decoy = cave_find_decoy(context->cave);
-
-            if (!loc_is_zero(decoy))
-                loc_copy(&target, decoy);
+            if (monster_is_decoyed(context->cave, context->origin->monster))
+                loc_copy(&target, cave_find_decoy(context->cave));
             else
                 loc_copy(&target, &context->origin->player->grid);
             who->target = context->origin->player;
@@ -1405,8 +1401,8 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
     {
         /*
          * Narrower cone means energy drops off less quickly. We now have:
-         * - 30 degree regular breath  | full strength at 5 grids
-         * - 30 degree powerful breath | full strength at 9 grids
+         * - 30 degree regular breath  | full strength at 7 grids
+         * - 30 degree powerful breath | full strength at 11 grids
          * - 20 degree regular breath  | full strength at 11 grids
          * - 20 degree powerful breath | full strength at 17 grids
          * where grids are measured from the breather.
@@ -1490,10 +1486,8 @@ static bool effect_handler_BALL(effect_handler_context_t *context)
         /* Target player */
         else
         {
-            struct loc *decoy = cave_find_decoy(context->cave);
-
-            if (!loc_is_zero(decoy))
-                loc_copy(&target, decoy);
+            if (monster_is_decoyed(context->cave, context->origin->monster))
+                loc_copy(&target, cave_find_decoy(context->cave));
             else
                 loc_copy(&target, &context->origin->player->grid);
             who->target = context->origin->player;
@@ -2693,7 +2687,7 @@ static bool effect_handler_DAMAGE(effect_handler_context_t *context)
     /* A trap */
     else if (trap)
     {
-        char *article = (is_a_vowel(trap->kind->desc[0])? "an ": "a ");
+        const char *article = (is_a_vowel(trap->kind->desc[0])? "an ": "a ");
 
         strnfmt(killer, sizeof(killer), "%s%s", article, trap->kind->desc);
         non_physical = false;
@@ -2774,7 +2768,7 @@ static bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
         struct loc *decoy = cave_find_decoy(context->cave);
 
         /* Check for decoy */
-        if (!loc_is_zero(decoy) && context->origin->monster)
+        if (context->origin->monster && monster_is_decoyed(context->cave, context->origin->monster))
         {
             loc_copy(&target, decoy);
             if (!los(context->cave, &context->origin->player->grid, decoy) ||
@@ -4849,10 +4843,8 @@ static bool effect_handler_LASH(effect_handler_context_t *context)
             loc_copy(&target, &context->target_mon->grid);
         else
         {
-            struct loc *decoy = cave_find_decoy(context->cave);
-
-            if (!loc_is_zero(decoy))
-                loc_copy(&target, decoy);
+            if (monster_is_decoyed(context->cave, context->origin->monster))
+                loc_copy(&target, cave_find_decoy(context->cave));
             else
                 loc_copy(&target, &context->origin->player->grid);
             who->target = context->origin->player;
@@ -5717,7 +5709,7 @@ static bool effect_handler_PROJECT_LOS_AWARE(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, context->other? true: false);
     int typ = context->subtype;
 
-    if (context->self_msg && project_los(context, typ, dam, context->aware))
+    if (project_los(context, typ, dam, context->aware) && context->self_msg)
         msg(context->origin->player, context->self_msg);
 
     context->ident = true;
@@ -7444,12 +7436,11 @@ static bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     }
     else
     {
-        struct loc *decoy = cave_find_decoy(context->cave);
-
         /* Targeted decoys get destroyed */
-        if (!loc_is_zero(decoy) && context->origin->monster)
+        if (context->origin->monster && monster_is_decoyed(context->cave, context->origin->monster))
         {
-            square_destroy_decoy(context->origin->player, context->cave, decoy);
+            square_destroy_decoy(context->origin->player, context->cave,
+                cave_find_decoy(context->cave));
             return !used;
         }
 
@@ -7729,7 +7720,7 @@ static bool effect_handler_TOUCH(effect_handler_context_t *context)
     }
 
     if (project_touch(context->origin->player, dam, rad, context->subtype, false,
-        context->origin->monster? true: false))
+        context->origin->monster))
     {
         context->ident = true;
         if (context->self_msg) msg(context->origin->player, context->self_msg);
@@ -7748,7 +7739,7 @@ static bool effect_handler_TOUCH_AWARE(effect_handler_context_t *context)
 {
     int dam = effect_calculate_value(context, false);
 
-    if (project_touch(context->origin->player, dam, 1, context->subtype, context->aware, false))
+    if (project_touch(context->origin->player, dam, 1, context->subtype, context->aware, NULL))
         context->ident = true;
     return true;
 }

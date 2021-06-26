@@ -206,14 +206,14 @@ bool append_random_slay(bool **current, struct slay **slay)
 /*
  * Count a set of brands
  */
-int brand_count(bool *local_brands)
+int brand_count(const bool *brands_on)
 {
     int i, count = 0;
 
     /* Count the brands */
-    for (i = 0; local_brands && (i < z_info->brand_max); i++)
+    for (i = 0; brands_on && (i < z_info->brand_max); i++)
     {
-        if (local_brands[i]) count++;
+        if (brands_on[i]) count++;
     }
 
     return count;
@@ -223,14 +223,14 @@ int brand_count(bool *local_brands)
 /*
  * Count a set of slays
  */
-int slay_count(bool *local_slays)
+int slay_count(const bool *slays_on)
 {
     int i, count = 0;
 
     /* Count the slays */
-    for (i = 0; local_slays && (i < z_info->slay_max); i++)
+    for (i = 0; slays_on && (i < z_info->slay_max); i++)
     {
-        if (local_slays[i]) count++;
+        if (slays_on[i]) count++;
     }
 
     return count;

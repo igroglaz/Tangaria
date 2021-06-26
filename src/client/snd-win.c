@@ -58,9 +58,9 @@ static bool open_audio_win(void)
 /*
  * Load a sound from file.
  */
-static bool load_sample_win(const char *filename, int file_type, win_sample *sample)
+static bool load_sample_win(const char *filename, int ft, win_sample *sample)
 {
-    switch (file_type)
+    switch (ft)
     {
         case WIN_MP3:
         {
@@ -100,17 +100,17 @@ static bool load_sample_win(const char *filename, int file_type, win_sample *sam
  * Load a sound and return a pointer to the associated Windows Sound data
  * structure back to the core sound module.
  */
-static bool load_sound_win(const char *filename, int file_type, struct sound_data *data)
+static bool load_sound_win(const char *filename, int ft, struct sound_data *data)
 {
     win_sample *sample = (win_sample *)(data->plat_data);
 
     if (!sample) sample = mem_zalloc(sizeof(*sample));
 
     /* Try and load the sample file */
-    data->loaded = load_sample_win(filename, file_type, sample);
+    data->loaded = load_sample_win(filename, ft, sample);
 
     if (data->loaded)
-        sample->type = file_type;
+        sample->type = ft;
     else
     {
         mem_free(sample);

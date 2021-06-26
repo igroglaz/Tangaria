@@ -1094,7 +1094,7 @@ static void floor_carry_fail(struct player *p, struct object *drop, bool broke, 
     int mode)
 {
     char o_name[NORMAL_WID];
-    char *verb = (broke? VERB_AGREEMENT(drop->number, "breaks", "break"):
+    const char *verb = (broke? VERB_AGREEMENT(drop->number, "breaks", "break"):
         VERB_AGREEMENT(drop->number, "disappears", "disappear"));
 
     /* Carry object directly instead (if we can) */

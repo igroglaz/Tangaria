@@ -35,8 +35,8 @@ struct rune
 extern int max_runes(void);
 extern enum rune_variety rune_variety(size_t i);
 extern bool player_knows_rune(struct player *p, size_t i);
-extern char *rune_name(size_t i);
-extern char *rune_desc(size_t i);
+extern const char *rune_name(size_t i);
+extern const char *rune_desc(size_t i);
 extern bool player_knows_brand(struct player *p, int i);
 extern bool player_knows_slay(struct player *p, int i);
 extern bool player_knows_curse(struct player *p, int index);

@@ -22,6 +22,10 @@ Angband 4.2.x:
 - Allow CMD_WIELD to select from the quiver
 - Take into account sidebar/topbar in double-height tile rendering
 - Improve quiver inscriptions
+- Add a lore-color-immune entry for monster's poison breaths, bolts, and balls
+- Remove option to display help from the options screen
+- Change monster.txt's comments for specific drops
+- Add power to remove curse effect description
 
 MAngband 1.5.x:
 
@@ -81,6 +85,7 @@ PWMAngband:
   roller)
 - Display %fail of first spell at character birth (point-based roller)
 - Support color for windows border and status bar (SDL client)
+- Change manual selection of server from ctrl-m to ctrl-s
 
 Gameplay changes
 ----------------
@@ -92,6 +97,7 @@ Angband 4.2.x:
 - Nerf to all powerful modifiers
 - Disentangle IMPAIR_HP and COMBAT_REGEN
 - Allow more variation for pillar or ragged edge rooms
+- Make decoys only work when in monster's LoS
 
 MAngband 1.5.x:
 
@@ -211,6 +217,7 @@ PWMAngband:
 - Fix vulnerabilities not shown on birth screen
 - Fix crash when calculating tax price for house expansion
 - Fix "Place feature" command only allowing to place staircases
+- Fix PROJECT_LOS_AWARE
 
 Coding changes
 --------------
@@ -244,6 +251,11 @@ Angband 4.2.x:
   permanent features
 - Have inven_carry_num() return obj->number for any valid treasure type
 - Remove uses of atexit()
+- Allow configuration of SDL sound module without configuring the corresponding
+  front end
+- In vaults, automatically mark inner permanent walls with SQUARE_WALL_INNER
+- Clarify/update comments related to dungeon generation
+- Avoid more compiler warnings
 
 MAngband 1.5.x:
 

@@ -18,8 +18,8 @@ extern bool append_brand(bool **current, int index);
 extern bool copy_brands(bool **dest, bool *source);
 extern bool append_random_brand(bool **current, struct brand **brand, bool is_ammo);
 extern bool append_random_slay(bool **current, struct slay **slay);
-extern int brand_count(bool *local_brands);
-extern int slay_count(bool *local_slays);
+extern int brand_count(const bool *brands_on);
+extern int slay_count(const bool *slays_on);
 extern bool player_has_temporary_brand(struct player *p, int idx);
 extern bool player_has_temporary_slay(struct player *p, int idx);
 extern void improve_attack_modifier(struct player *p, struct object *obj, struct source *who,

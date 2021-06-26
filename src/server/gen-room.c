@@ -1514,14 +1514,7 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
                 case '#': set_marked_granite(c, &grid, SQUARE_WALL_SOLID); break;
 
                 /* Permanent wall */
-                case '@':
-                {
-                    square_set_feat(c, &grid, FEAT_PERM);
-
-                    /* PWMAngband: mark the wall as an "inner" wall */
-                    sqinfo_on(square(c, &grid)->info, SQUARE_WALL_INNER);
-                    break;
-                }
+                case '@': square_set_feat(c, &grid, FEAT_PERM); break;
 
                 /* Gold seam */
                 case '*':
@@ -1805,6 +1798,20 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
                         sqinfo_off(square(c, &grid)->info, SQUARE_WALL_SOLID);
                         sqinfo_on(square(c, &grid)->info, SQUARE_WALL_INNER);
                     }
+
+                    break;
+                }
+
+                /* Permanent wall */
+                case '@':
+                {
+                    /* Check consistency with first pass. */
+                    my_assert(square_isroom(c, &grid) && square_isvault(c, &grid) &&
+                        square_isperm(c, &grid));
+
+                    /* Mark as SQUARE_WALL_INNER if it does not touch the outside of the vault. */
+                    if (count_neighbors(NULL, c, &grid, square_isroom, false) == 8)
+                        sqinfo_on(square(c, &grid)->info, SQUARE_WALL_INNER);
 
                     break;
                 }
@@ -2135,7 +2142,7 @@ bool build_simple(struct player *p, struct chunk *c, struct loc *centre, int rat
             return false;
     }
 
-    /* Pick a room size */
+    /* Set bounds */
     y1 = centre->y - height / 2;
     x1 = centre->x - width / 2;
     y2 = y1 + height - 1;
@@ -2830,11 +2837,9 @@ bool build_nest(struct player *p, struct chunk *c, struct loc *centre, int ratin
     /* PWMAngband -- generate pit floors */
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR_PIT, SQUARE_NONE);
 
-    /* Generate inner walls */
+    /* Generate inner walls; add one door as entrance */
     /* PWMAngband -- make them permanent to prevent monsters from escaping */
     draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE, false);
-
-    /* Open the inner room with a door */
     generate_hole(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_CLOSED);
 
     loc_init(&begin, x1, y1);
@@ -2978,7 +2983,7 @@ bool build_pit(struct player *p, struct chunk *c, struct loc *centre, int rating
     /* PWMAngband -- generate pit floors */
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR_PIT, SQUARE_NONE);
 
-    /* Generate inner walls, and open with a door */
+    /* Generate inner walls; add one door as entrance */
     /* PWMAngband -- make them permanent to prevent monsters from escaping */
     draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_FAKE, false);
     generate_hole(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_CLOSED);

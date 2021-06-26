@@ -52,7 +52,7 @@
 
 static size_t rune_max;
 static struct rune *rune_list;
-static char *c_rune[] =
+static const char *c_rune[] =
 {
     "enchantment to armor",
     "enchantment to hit",
@@ -360,7 +360,7 @@ bool player_knows_rune(struct player *p, size_t i)
 /*
  * The name of a rune
  */
-char *rune_name(size_t i)
+const char *rune_name(size_t i)
 {
     struct rune *r = &rune_list[i];
 
@@ -375,7 +375,7 @@ char *rune_name(size_t i)
 /*
  * The description of a rune
  */
-char *rune_desc(size_t i)
+const char *rune_desc(size_t i)
 {
     struct rune *r = &rune_list[i];
 
@@ -1129,14 +1129,14 @@ static void player_learn_rune(struct player *p, size_t i, bool message)
             /* If the brand was unknown, add it to known brands */
             if (!player_knows_brand(p, r->index))
             {
-                int i;
+                int j;
 
-                for (i = 0; i < z_info->brand_max; i++)
+                for (j = 0; j < z_info->brand_max; j++)
                 {
                     /* Check name */
-                    if (streq(brands[r->index].name, brands[i].name))
+                    if (streq(brands[r->index].name, brands[j].name))
                     {
-                        p->obj_k->brands[i] = true;
+                        p->obj_k->brands[j] = true;
                         learned = true;
                     }
                 }
@@ -1152,14 +1152,14 @@ static void player_learn_rune(struct player *p, size_t i, bool message)
             /* If the slay was unknown, add it to known slays */
             if (!player_knows_slay(p, r->index))
             {
-                int i;
+                int j;
 
-                for (i = 0; i < z_info->slay_max; i++)
+                for (j = 0; j < z_info->slay_max; j++)
                 {
                     /* Check base and race flag */
-                    if (same_monsters_slain(r->index, i))
+                    if (same_monsters_slain(r->index, j))
                     {
-                        p->obj_k->slays[i] = true;
+                        p->obj_k->slays[j] = true;
                         learned = true;
                     }
                 }

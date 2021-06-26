@@ -1615,8 +1615,8 @@ static void WindowBordersChange(sdl_Button *sender)
     term_window *window = &windows[SelectedTerm];
 
     window->windowborders += sender->tag;
-    if (window->windowborders < 0) window->windowborders = 0;
-    if (window->windowborders > BASIC_COLORS) window->windowborders = BASIC_COLORS;
+    if (window->windowborders < 0) window->windowborders = BASIC_COLORS;
+    if (window->windowborders > BASIC_COLORS) window->windowborders = 0;
     do_update_w = true;
     do_update = true;
 }

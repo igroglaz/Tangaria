@@ -350,7 +350,7 @@ void ignore_drop(struct player *p)
 /*
  * Initialize the ignore package
  */
-void init_ignore(void)
+static void init_ignore(void)
 {
 }
 
@@ -358,7 +358,7 @@ void init_ignore(void)
 /*
  * Clean up the ignore package
  */
-void cleanup_ignore(void)
+static void cleanup_ignore(void)
 {
 }
 

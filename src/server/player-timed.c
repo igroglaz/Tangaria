@@ -977,7 +977,7 @@ static bool set_harmony(struct player *p, int v)
 /*
  * Return true if the player timed effect matches the given string
  */
-bool player_timed_grade_eq(struct player *p, int idx, char *match)
+bool player_timed_grade_eq(struct player *p, int idx, const char *match)
 {
     if (p->timed[idx])
     {

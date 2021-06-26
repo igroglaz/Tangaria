@@ -229,13 +229,13 @@ struct menu
 /*
  * Allocate and return a new, initialised, menu.
  */
-extern struct menu *menu_new(skin_id, const menu_iter *iter);
+extern struct menu *menu_new(skin_id id, const menu_iter *iter);
 extern struct menu *menu_new_action(menu_action *acts, size_t n);
 
 /*
  * Initialize a menu, using the skin and iter functions specified.
  */
-extern void menu_init(struct menu *menu, skin_id skin, const menu_iter *iter);
+extern void menu_init(struct menu *menu, skin_id id, const menu_iter *iter);
 
 /*
  * Given a predefined menu kind, return its iter functions.

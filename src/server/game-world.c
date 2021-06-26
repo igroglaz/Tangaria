@@ -533,7 +533,6 @@ static void make_noise(struct player *p)
     int noise_increment = (p->timed[TMD_COVERTRACKS]? 4: 1);
     struct queue *queue = q_new(p->cave->height * p->cave->width);
     struct chunk *c = chunk_get(&p->wpos);
-    struct loc *decoy = cave_find_decoy(c);
 
     loc_copy(&next, &p->grid);
 
@@ -541,9 +540,6 @@ static void make_noise(struct player *p)
     for (y = 1; y < p->cave->height - 1; y++)
         for (x = 1; x < p->cave->width - 1; x++)
             p->cave->noise.grids[y][x] = 0;
-
-    /* If there's a decoy, use that instead of the player */
-    if (!loc_is_zero(decoy)) loc_copy(&next, decoy);
 
     /* Player makes noise */
     p->cave->noise.grids[next.y][next.x] = noise;

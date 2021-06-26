@@ -1,15 +1,18 @@
 # === Understanding dungeon_profile.txt ===
 # // how each type of dungeon level (and the town) are generated.
 
-# name: The profile name.  This needs to match the corresponding entry in 
+# name: The profile name. This needs to match the corresponding entry in 
 # list-dun-profiles.h so the correct level-building function can be called
 
 # params: block_size : rooms : unusual : rarity
-# block_size is the size of the blocks which the dungeon is divided into; a
-# room will never cross a block boundary.  rooms is the number of rooms to
-# aim for.  unusual is a measure of how likely high rarity roooms are to
-# appear - higher values give less rare rooms.  rarity is the maximum rarity
-# room allowed with this cave profile
+# The dungeon is divided into non-overlapping square blocks of block_size by
+# block_size grids. When rooms are placed, each is assigned a rectangular
+# chunk of blocks, and those assignments won't leave a block assigned to more
+# than one room. So, block_size affects how densely the rooms can be packed
+# and the maximum number of rooms possible. rooms is the number of rooms to
+# aim for. unusual is a measure of how likely high rarity roooms are to
+# appear - higher values make the rare rooms rarer. rarity is the maximum
+# rarity room allowed with this cave profile.
 
 # tunnel: rnd : chg : con : pen : jct
 # These are percentage chances - rnd of choosing a random tunnel direction
@@ -51,7 +54,7 @@
 # level is the minimum depth at which this room can appear.
 # pit is 1 if the room is a pit/nest, 0 otherwise.
 # rarity is the room's rarity - normally 0, 1 or 2 (see comments about profile
-# rarity above).  Some rooms are chosen by a different means; in this case
+# rarity above). Some rooms are chosen by a different means; in this case
 # rarity is usually 0.
 # cutoff is used to pick between rooms once a rarity is chosen: a random value
 # from 0 to 99 is selected and a room may appear if its cutoff is greater than

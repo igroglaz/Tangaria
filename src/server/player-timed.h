@@ -59,6 +59,6 @@ extern bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx,
 extern bool player_inc_timed(struct player *p, int idx, int v, bool notify, bool check);
 extern bool player_dec_timed(struct player *p, int idx, int v, bool notify);
 extern bool player_clear_timed(struct player *p, int idx, bool notify);
-extern bool player_timed_grade_eq(struct player *p, int idx, char *match);
+extern bool player_timed_grade_eq(struct player *p, int idx, const char *match);
 
 #endif /* PLAYER_TIMED_H */

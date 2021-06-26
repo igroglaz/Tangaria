@@ -562,14 +562,14 @@ static bool player_walled(struct player *p, struct chunk *c)
 static bool get_move_advance(struct player *p, struct chunk *c, struct monster *mon, bool *track)
 {
     int i, n = 0;
-    struct loc *decoy = cave_find_decoy(c), target;
+    struct loc target;
     int base_hearing = mon->race->hearing - p->state.skills[SKILL_STEALTH] / 3;
     int best_scent, max_scent;
     int best_noise, max_noise;
     struct loc best_grid[8];
 
-    if (!loc_is_zero(decoy))
-        loc_copy(&target, decoy);
+    if (monster_is_decoyed(c, mon))
+        loc_copy(&target, cave_find_decoy(c));
     else
     {
         loc_copy(&target, &p->grid);
@@ -1103,7 +1103,7 @@ static void get_move_random(struct chunk *c, struct monster *mon, struct loc *gr
  */
 static bool get_move(struct source *who, struct chunk *c, struct monster *mon, int *dir, bool *good)
 {
-    struct loc *decoy = cave_find_decoy(c), target;
+    struct loc target;
 
     /* Offset to current position to move toward */
     struct loc grid;
@@ -1115,8 +1115,8 @@ static bool get_move(struct source *who, struct chunk *c, struct monster *mon, i
 
     loc_init(&grid, 0, 0);
 
-    if (!loc_is_zero(decoy))
-        loc_copy(&target, decoy);
+    if (monster_is_decoyed(c, mon))
+        loc_copy(&target, cave_find_decoy(c));
     else
         loc_copy(&target, &who->player->grid);
 

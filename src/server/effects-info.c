@@ -3,6 +3,9 @@
  * Purpose: Implement interfaces for displaying information about effects
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ * Copyright (c) 2004 Robert Ruehlmann
+ * Copyright (c) 2010 Andi Sidwell
+ * Copyright (c) 2020 Eric Branlund
  * Copyright (c) 2021 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it

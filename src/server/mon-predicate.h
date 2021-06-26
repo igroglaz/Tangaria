@@ -30,6 +30,7 @@ extern bool monster_is_camouflaged(const struct monster *mon);
 extern bool monster_is_obvious(struct player *p, int m_idx, const struct monster *mon);
 extern bool monster_is_mimicking(const struct monster *mon);
 extern bool monster_can_be_scared(struct chunk *c, const struct monster *mon);
+extern bool monster_is_decoyed(struct chunk *c, const struct monster *mon);
 
 extern bool monster_is_invisible(const struct monster *mon);
 extern bool monster_is_not_invisible(const struct monster *mon);

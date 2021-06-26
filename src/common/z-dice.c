@@ -589,10 +589,10 @@ void dice_random_value(dice_t *dice, void *data, random_value *v)
  *
  * dice is the dice object to evaluate.
  * level is the level value that is passed to randcalc().
- * aspect is the aspect that is passed to randcalc().
+ * asp is the aspect that is passed to randcalc().
  * v is a pointer used to return the random_value used.
  */
-int dice_evaluate(dice_t *dice, int level, aspect aspect, void *data, random_value *v)
+int dice_evaluate(dice_t *dice, int level, aspect asp, void *data, random_value *v)
 {
     random_value rv;
     dice_random_value(dice, data, &rv);
@@ -605,7 +605,7 @@ int dice_evaluate(dice_t *dice, int level, aspect aspect, void *data, random_val
         v->m_bonus = rv.m_bonus;
     }
 
-    return randcalc(rv, level, aspect);
+    return randcalc(rv, level, asp);
 }
 
 

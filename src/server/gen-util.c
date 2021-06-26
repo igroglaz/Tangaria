@@ -691,7 +691,7 @@ void place_secret_door(struct chunk *c, struct loc *grid)
 
 
 /*
- * Place a closed door at a given location.
+ * Place a closed (and possibly locked) door at a given location.
  *
  * c current chunk
  * grid location
@@ -710,7 +710,7 @@ void place_closed_door(struct chunk *c, struct loc *grid)
  * c current chunk
  * grid location
  *
- * The door generated could be closed, open, broken, or secret.
+ * The door generated could be closed (and possibly locked), open, or broken.
  */
 void place_random_door(struct chunk *c, struct loc *grid)
 {

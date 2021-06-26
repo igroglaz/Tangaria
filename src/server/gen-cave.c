@@ -25,9 +25,11 @@
 
 /*
  * In this file, we use the SQUARE_WALL flags to the info field in
- * cave->squares, which should only be applied to granite. SQUARE_WALL_SOLID
- * indicates the wall should not be tunnelled; SQUARE_WALL_INNER is the
- * inward-facing wall of a room; SQUARE_WALL_OUTER is the outer wall of a room.
+ * cave->squares. Those are usually only applied and tested on granite, but
+ * some (SQUARE_WALL_INNER) is applied and tested on permanent walls.
+ * SQUARE_WALL_SOLID indicates the wall should not be tunnelled;
+ * SQUARE_WALL_INNER marks an inward-facing wall of a room; SQUARE_WALL_OUTER
+ * marks an outer wall of a room.
  *
  * We use SQUARE_WALL_SOLID to prevent multiple corridors from piercing a wall
  * in two adjacent locations, which would be messy, and SQUARE_WALL_OUTER
@@ -641,11 +643,12 @@ static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
             length = 0;
         }
 
-        /* Avoid the edge of the dungeon */
-        if (square_isperm_outer(c, &tmp_grid)) continue;
-
-        /* Avoid "solid" granite walls */
-        if (square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_SOLID)) continue;
+        /* Avoid obstacles */
+        if (square_isperm_outer(c, &tmp_grid) ||
+            square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_SOLID))
+        {
+            continue;
+        }
 
         /* Pierce "outer" walls of rooms */
         if (square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_OUTER))
@@ -1139,9 +1142,10 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
         key = randint0(100);
 
         /*
-         * We generate a rarity number to figure out how exotic to make the
-         * room. This number has a depth/dun_unusual chance of being > 0,
-         * a depth^2/dun_unusual^2 chance of being > 1, up to dun->profile->max_rarity.
+         * We generate a rarity number to figure out how exotic to make
+         * the room. This number has a (50+depth/2)/DUN_UNUSUAL chance
+         * of being > 0, a (50+depth/2)^2/DUN_UNUSUAL^2 chance of
+         * being > 1, up to MAX_RARITY.
          */
         i = 0;
         rarity = 0;
@@ -3260,9 +3264,10 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
         key = randint0(100);
 
         /*
-         * We generate a rarity number to figure out how exotic to make the
-         * room. This number has a depth/dun_unusual chance of being > 0,
-         * a depth^2/dun_unusual^2 chance of being > 1, up to dun->profile->max_rarity.
+         * We generate a rarity number to figure out how exotic to make
+         * the room. This number has a (50+depth/2)/DUN_UNUSUAL chance
+         * of being > 0, a (50+depth/2)^2/DUN_UNUSUAL^2 chance of
+         * being > 1, up to MAX_RARITY.
          */
         i = 0;
         rarity = 0;
@@ -3528,9 +3533,10 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
         key = randint0(100);
 
         /*
-         * We generate a rarity number to figure out how exotic to make the
-         * room. This number has a depth/dun_unusual chance of being > 0,
-         * a depth^2/dun_unusual^2 chance of being > 1, up to dun->profile->max_rarity.
+         * We generate a rarity number to figure out how exotic to make
+         * the room. This number has a (50+depth/2)/DUN_UNUSUAL chance
+         * of being > 0, a (50+depth/2)^2/DUN_UNUSUAL^2 chance of
+         * being > 1, up to MAX_RARITY.
          */
         i = 0;
         rarity = 0;

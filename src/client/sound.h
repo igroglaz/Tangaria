@@ -40,7 +40,7 @@ struct sound_hooks
     bool (*open_audio_hook)(void);
     const struct sound_file_type *(*supported_files_hook)(void);
     bool (*close_audio_hook)(void);
-    bool (*load_sound_hook)(const char *filename, int file_type, struct sound_data *data);
+    bool (*load_sound_hook)(const char *filename, int ft, struct sound_data *data);
     bool (*unload_sound_hook)(struct sound_data *data);
     bool (*play_sound_hook)(struct sound_data *data);
 };

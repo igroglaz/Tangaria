@@ -1920,7 +1920,7 @@ bool get_server_name(void)
     }
 
     /* Prompt */
-    prt("Choose a server to connect to (Ctrl-m for manual selection): ", lines + 2, 1);
+    prt("Choose a server to connect to (Ctrl-s for manual selection): ", lines + 2, 1);
 
     /* Ask until happy */
     while (1)
@@ -1932,7 +1932,7 @@ bool get_server_name(void)
         if (c.code == KTRL('X')) quit(NULL);
 
         /* Check for manual selection */
-        if (c.code == KTRL('M')) return enter_server_name();
+        if (c.code == KTRL('S')) return enter_server_name();
 
         /* Index */
         j = (islower(c.code) ? A2I(c.code) : -1);

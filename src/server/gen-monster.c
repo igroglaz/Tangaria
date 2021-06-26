@@ -103,7 +103,7 @@ static bool mon_select(struct monster_race *race)
  *
  * This function is called to set restrictions, point the monster 
  * allocation function to mon_select() or mon_pit_hook(), and remake monster 
- * allocation.  
+ * allocation.
  * It undoes all of this things when called with monster_type NULL.
  * If called with a pit profile name, it will get monsters from that profile.
  * If called with monster_type "random", it will get a random monster base and 
