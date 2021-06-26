@@ -749,7 +749,13 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
 
         /* Black markets suck */
         if (s->type == STORE_B_MARKET) price = price * 2;
-        if (s->type == STORE_XBM) price = price * factor;
+        if (s->type == STORE_XBM)
+        {
+            if (p->state.stat_ind[STAT_CHR] >= 18)
+                price = price * (factor - 1);
+            else
+                price = price * factor;
+        }
 
         /* PWMAngband: apply price factor for normal items */
         for (i = 0; i < s->normal_num; i++)
