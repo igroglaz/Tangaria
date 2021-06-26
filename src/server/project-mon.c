@@ -1122,9 +1122,11 @@ static void project_monster_handler_MON_CONF(project_monster_handler_context_t *
 /* Hold (Use "dam" as "power") */
 static void project_monster_handler_MON_HOLD(project_monster_handler_context_t *context)
 {
+int hold_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
+
     if (context->charm && rf_has(context->mon->race->flags, RF_ANIMAL))
         context->dam += context->dam / 2;
-    context->mon_timed[MON_TMD_HOLD] = context->dam;
+    context->mon_timed[MON_TMD_HOLD] = context->dam + (hold_chr / 5);
     context->dam = 0;
 }
 
