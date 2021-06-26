@@ -458,9 +458,17 @@ static void project_monster_scare(project_monster_handler_context_t *context, in
  */
 static void project_monster_dispel(project_monster_handler_context_t *context, int flag)
 {
+    int dispel_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
     if (context->seen) rf_on(context->lore->flags, flag);
 
     if (rf_has(context->mon->race->flags, flag))
+    {
+        if (one_in_(dispel_chr))             // low CHR sometimes will make less damage
+            context->dam = dispel_chr;
+        context->hurt_msg = MON_MSG_SHUDDER;
+        context->die_msg = MON_MSG_DISSOLVE;
+    }
+    else if (dispel_chr / 2 > randint0(100)) // high CHR will help rarely to dispel even other mobs a bit
     {
         context->hurt_msg = MON_MSG_SHUDDER;
         context->die_msg = MON_MSG_DISSOLVE;
