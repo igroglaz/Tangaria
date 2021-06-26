@@ -2674,9 +2674,10 @@ static void get_closest_player(struct chunk *c, struct monster *mon)
         /* Skip player if dead or gone */
         if (!p->alive || p->is_dead || p->upkeep->new_level_method) continue;
 
-        /* Wanderers ignore level 1 players unless hurt or aggravated */
-        if (rf_has(mon->race->flags, RF_WANDERER) && (p->lev == 1) &&
-            !player_of_has(p, OF_AGGRAVATE) && (mon->hp == mon->maxhp))
+        /* Wanderers ignore charismatic players unless hurt or aggravated */
+        if (rf_has(mon->race->flags, RF_WANDERER) &&
+            p->state.stat_ind[STAT_CHR] > (p->wpos.depth / 3) && p->state.stat_ind[STAT_CHR] >= 10 &&
+           !player_of_has(p, OF_AGGRAVATE) && (mon->hp == mon->maxhp))
         {
             continue;
         }

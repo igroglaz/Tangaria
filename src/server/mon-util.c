@@ -295,8 +295,13 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
         /* Hack -- skip him if he's shopping */
         /* Hack -- make the dungeon master invisible to monsters */
         /* Skip player if dead or gone */
-        if (!in_store(p) && !(p->dm_flags & DM_MONSTER_FRIEND) &&
-            p->alive && !p->is_dead && !p->upkeep->new_level_method)
+        if ((!in_store(p) && !(p->dm_flags & DM_MONSTER_FRIEND) &&
+            p->alive && !p->is_dead && !p->upkeep->new_level_method) || // OR if monster is unhurted WANDERER
+            (!(rf_has(mon->race->flags, RF_WANDERER) &&
+            p->state.stat_ind[STAT_CHR] > (p->wpos.depth / 3) &&
+            p->state.stat_ind[STAT_CHR] >= 10 &&
+           !player_of_has(p, OF_AGGRAVATE) &&
+            (mon->hp == mon->maxhp))))
         {
             /* Check if monster has LOS to the player */
             bool new_los = los(c, &mon->grid, &grid);

@@ -321,7 +321,7 @@ spell-freq:25
 spell-power:2
 spells:SCARE
 flags:UNIQUE | MALE
-flags:DROP_1 | DROP_GOOD | ONLY_ITEM
+flags:DROP_1 | DROP_GOOD | ONLY_ITEM | WANDERER
 flags:NO_CONF | NO_SLEEP
 drop-base:mushroom:100:1:2
 desc:He's lost his dogs. He's had his mushrooms stolen. He's not a happy hobbit!
@@ -588,7 +588,7 @@ experience:0
 blow:BEG
 blow:TOUCH:EAT_GOLD
 blow:CRUSH:HURT:1d1
-flags:UNIQUE | FEMALE | ATTR_FLICKER
+flags:UNIQUE | FEMALE | ATTR_FLICKER | WANDERER
 flags:PWMANG_EXTRA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:TAKE_ITEM
@@ -1209,7 +1209,7 @@ name:Mad woodsman
 base:person
 color:g
 speed:110
-hit-points:21
+hit-points:31
 light:2
 hearing:10
 armor-class:1
@@ -1220,7 +1220,7 @@ weight:150
 experience:5
 blow:HIT:HURT:1d6
 flags:MALE | UNIQUE
-flags:RAND_25 | DROP_SKELETON | DROP_CORPSE
+flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WANDERER
 flags:ONLY_GOLD | DROP_1
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
 desc:He has a strong axe with a sharp edge.
@@ -1283,7 +1283,7 @@ experience:30
 blow:CLAW:HURT:1d2
 blow:CLAW:HURT:1d2
 flags:UNIQUE | BASH_DOOR
-flags:ANIMAL | NO_CONF | NO_SLEEP
+flags:ANIMAL | NO_CONF | NO_SLEEP | WANDERER
 flags:DROP_CORPSE | DROP_SKELETON
 drop-base:food:100:1:1
 desc:A striped housecat who enjoys hunting.
@@ -1622,7 +1622,7 @@ weight:0
 experience:30
 blow:BITE:HURT:1d4
 flags:UNIQUE
-flags:RAND_25 | BASH_DOOR
+flags:RAND_25 | BASH_DOOR | WANDERER
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
@@ -1642,7 +1642,7 @@ weight:0
 experience:35
 blow:BITE:HURT:1d4
 flags:UNIQUE
-flags:RAND_25 | BASH_DOOR
+flags:RAND_25 | BASH_DOOR | WANDERER
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
@@ -1755,7 +1755,7 @@ rarity:1
 weight:0
 experience:40
 blow:BITE:HURT:1d4
-flags:UNIQUE | PWMANG_BASE
+flags:UNIQUE | PWMANG_BASE | WANDERER
 flags:RAND_25 | BASH_DOOR
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
@@ -2629,7 +2629,7 @@ name:Bullroarer the Hobbit
 base:humanoid
 color:U
 speed:120
-hit-points:60
+hit-points:80
 hearing:16
 armor-class:12
 sleepiness:30
@@ -2639,9 +2639,9 @@ weight:0
 experience:90
 blow:HIT:HURT:1d8
 blow:HIT:HURT:1d8
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | WANDERER
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-friends:80:1d7:scruffy looking hobbit:servant
+#friends:80:1d7:scruffy looking hobbit:servant
 desc:He is a sturdy hobbit who is renowned for his unusual strength and vigour.
 desc: He can prove a troublesome opponent.
 
@@ -5485,7 +5485,7 @@ name:The wounded bear
 base:quadruped
 color:r
 speed:110
-hit-points:110
+hit-points:150
 hearing:10
 smell:20
 armor-class:35
@@ -5497,7 +5497,7 @@ experience:30
 blow:CLAW:HURT:1d10
 blow:CLAW:HURT:1d10
 blow:BITE:HURT:1d11
-flags:FORCE_SLEEP | UNIQUE | PWMANG_BASE
+flags:FORCE_SLEEP | UNIQUE | PWMANG_BASE | WANDERER
 flags:ANIMAL | WILD_WOOD | WILD_GRASS | WILD_MOUNTAIN
 desc:A wounded bear, who has occasionally attacked humans.
 
@@ -11212,7 +11212,7 @@ name:Beorn, the Shape-Changer
 base:person
 color:p
 speed:110
-hit-points:1400
+hit-points:2000
 hearing:25
 smell:20
 armor-class:72
@@ -11226,13 +11226,13 @@ blow:PUNCH:HURT:2d8
 blow:HIT:HURT:2d6
 blow:HIT:HURT:2d6
 flags:UNIQUE | MALE | SMART
-flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+flags:DROP_2 | DROP_GOOD | ONLY_ITEM | WANDERER
 flags:FORCE_SLEEP
 spell-freq:2
 spells:SHAPECHANGE
-friends:100:2d3:cave bear
-friends:100:2d3:grizzly bear
-friends:100:2d3:werebear
+#friends:100:2d3:cave bear
+#friends:100:2d3:grizzly bear
+#friends:100:2d3:werebear
 shape:Beorn, the Mountain Bear
 desc:Beorn is only occasionally seen in human form these days, preferring to
 desc: appear in the shape of a giant black bear: he also prefers the company of
@@ -16527,7 +16527,7 @@ experience:2000
 blow:KICK:HURT:5d5
 blow:KICK:HURT:5d5
 blow:BITE:HURT:6d6
-flags:REGENERATE | UNIQUE | ANIMAL | PWMANG_BASE
+flags:REGENERATE | UNIQUE | ANIMAL | PWMANG_BASE | WANDERER
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD | IM_ELEC
 flags:NO_HOLD
 desc:Shadowfax is the chief of the "Mearas", the greatest of all horses that are
@@ -19405,7 +19405,7 @@ flags:DROP_4 | DROP_GOOD | ONLY_ITEM | DROP_GREAT
 flags:NEVER_BLOW
 flags:TAKE_ITEM
 flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_ELEC | IM_COLD | IM_POIS
-flags:NO_HOLD
+flags:NO_HOLD | WANDERER
 spell-freq:1
 innate-freq:33
 spells:ARROW | BLINK | HASTE
@@ -19820,7 +19820,7 @@ flags:UNIQUE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_PLASMA | NO_CONF
-flags:NO_SLEEP | NO_HOLD
+flags:NO_SLEEP | NO_HOLD | WANDERER
 flags:FORCE_SLEEP
 spell-freq:3
 innate-freq:43
@@ -20617,7 +20617,7 @@ blow:HIT:HURT:8d8
 flags:UNIQUE | MALE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF
-flags:NO_SLEEP | NO_HOLD
+flags:NO_SLEEP | NO_HOLD | WANDERER
 flags:FORCE_SLEEP
 spell-freq:4
 spells:BLIND | BRAIN_SMASH | WOUND | CONF | HEAL
@@ -21532,7 +21532,7 @@ name:Radagast the Brown
 base:ainu
 color:u
 speed:130
-hit-points:7500
+hit-points:8500
 light:2
 hearing:40
 armor-class:216
@@ -21548,15 +21548,15 @@ blow:HIT:BLIND:10d10
 flags:UNIQUE | MALE | SMART
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | PWMANG_FIXED
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | WANDERER
 flags:NO_STUN
 flags:FORCE_DEPTH
 spell-freq:2
 spells:BLIND | TELE_TO
 spells:BO_MANA | BO_WATE | BO_FIRE | BO_ICE
 spells:S_AINU | S_ANIMAL | S_SPIDER | S_HOUND
-friends:60:2d3:Maia
-friends:60:2d3:Wizard
+#friends:60:2d3:Maia
+#friends:60:2d3:Wizard
 desc:A stocky, smiling man in brown robes, holding in his right hand a
 desc: gnarled walking stick. Sent to Middle-Earth by Yavanna, Radagast
 desc: has studied the plants and animals of Middle-Earth for many years
@@ -23020,7 +23020,7 @@ blow:CRUSH:HURT:9d9
 blow:CRUSH:HURT:9d9
 blow:HIT:SHATTER:9d9
 blow:HIT:SHATTER:9d9
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | WANDERER
 flags:DROP_GOOD | ONLY_ITEM
 flags:WEIRD_MIND
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS | IM_DISEN | IM_NETHER
@@ -23451,7 +23451,7 @@ blow:KICK:HURT:7d11
 blow:BITE:EXP_80:7d11
 blow:TOUCH:LOSE_ALL:7d11
 blow:TOUCH:DRAIN_CHARGES:7d11
-flags:UNIQUE | SMART
+flags:UNIQUE | SMART | WANDERER
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
