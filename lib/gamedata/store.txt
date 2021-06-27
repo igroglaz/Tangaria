@@ -77,9 +77,11 @@ turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-always:rock:Throwing Rock
-always:stone:House Foundation Stone
-always:scroll:House Creation
+always:arrow:Magic Arrow:1000
+always:bolt:Magic Bolt:1000
+always:shot:Magic Shot:1000
+#always:stone:House Foundation Stone
+#always:scroll:House Creation
 always:potion:Stomach Water
 always:light:Lantern
 # always:digger:Shovel
@@ -258,10 +260,10 @@ always:magic book
 normal:ring:Searching
 normal:ring:Levitation
 normal:ring:Protection
-normal:ring:Resist Fire and Cold:1:400
-normal:ring:Free Action:1:400
-normal:ring:See Invisible:1:400
-normal:ring:Resist Poison:1:400
+normal:ring:Resist Fire and Cold:1:350
+normal:ring:Free Action:1:350
+normal:ring:See Invisible:1:350
+normal:ring:Resist Poison:1:350
 normal:amulet:Resist Acid
 normal:wand:Slow Monster
 normal:wand:Confuse Monster
@@ -582,9 +584,9 @@ normal:shot:Iron Shot
 normal:arrow:Arrow
 normal:bolt:Bolt
 normal:shot:Rounded Pebble
-normal:arrow:Magic Arrow:1:900
-normal:bolt:Magic Bolt:1:900
-normal:shot:Magic Shot:1:900
+normal:arrow:Magic Arrow:1:800
+normal:bolt:Magic Bolt:1:800
+normal:shot:Magic Shot:1:800
 normal:bow:Sling
 normal:bow:Short Bow
 normal:bow:Long Bow
@@ -620,7 +622,7 @@ normal:fortune cookie:There always were a lot of criminal.. But not so.
 normal:fortune cookie:We thought the worse was lack of food...
 normal:fortune cookie:Outlaws, robbers..and even monsters. Gods save us
 normal:scroll:Recharging
-normal:scroll:Identify Rune:1:500
+normal:scroll:Identify Rune:1:450
 normal:scroll:*Remove Curse*:10:400
 normal:scroll:Teleport Level:10:400
 normal:scroll:Deep Descent:10:400
