@@ -5007,7 +5007,7 @@ desc:.
 name:grass mountain 0
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5015,7 +5015,7 @@ desc:A high mountain.
 name:grass mountain 1
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5023,7 +5023,7 @@ desc:A high mountain.
 name:grass mountain 2
 graphics:^:D
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5031,7 +5031,7 @@ desc:A high mountain.
 name:grass mountain 3
 graphics:^:D
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5039,7 +5039,7 @@ desc:A high mountain.
 name:grass mountain 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5047,7 +5047,7 @@ desc:A high mountain.
 name:grass mountain 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5055,7 +5055,7 @@ desc:A high mountain.
 name:grass mountain 6
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5063,7 +5063,7 @@ desc:A high mountain.
 name:grass mountain 7
 graphics:^:W
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5071,7 +5071,7 @@ desc:A high mountain.
 name:grass mountain 8
 graphics:^:W
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5079,7 +5079,7 @@ desc:A high mountain.
 name:grass mountain 9
 graphics:^:W
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5087,7 +5087,7 @@ desc:A high mountain.
 name:grass mountain a
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5095,7 +5095,7 @@ desc:A high mountain.
 name:grass mountain b
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -5288,7 +5288,7 @@ desc:.
 name:grass mountain w
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5297,7 +5297,7 @@ desc:A high mountain.
 name:grass mountain x
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5306,7 +5306,7 @@ desc:A high mountain.
 name:grass mountain y
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5315,7 +5315,7 @@ desc:A high mountain.
 name:grass mountain z
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5324,7 +5324,7 @@ desc:A high mountain.
 name:grass mountain A
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5333,7 +5333,7 @@ desc:A high mountain.
 name:grass mountain B
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5342,7 +5342,7 @@ desc:A high mountain.
 name:grass mountain C
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5351,7 +5351,7 @@ desc:A high mountain.
 name:grass mountain D
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5360,7 +5360,7 @@ desc:A high mountain.
 name:grass mountain E
 graphics:^:W
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5369,7 +5369,7 @@ desc:A high mountain.
 name:grass mountain F
 graphics:^:W
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
 short-desc:high snowy mountain
@@ -5388,7 +5388,7 @@ desc:.
 name:grass mountain H
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high rocky peaks
@@ -5397,7 +5397,7 @@ desc:.
 name:grass mountain I
 graphics:^:s
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high rocky peaks
@@ -12974,7 +12974,8 @@ desc:.
 name:road_ g
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -12982,7 +12983,8 @@ desc:.
 name:road_ h
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -12990,7 +12992,8 @@ desc:.
 name:road_ i
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -12998,7 +13001,8 @@ desc:.
 name:road_ j
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -13240,7 +13244,8 @@ desc:.
 name:road_ M
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -13248,7 +13253,8 @@ desc:.
 name:road_ N
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -13256,7 +13262,8 @@ desc:.
 name:road_ O
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -13264,7 +13271,8 @@ desc:.
 name:road_ P
 graphics:^:D
 priority:18
-flags:NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:very high mountain
 desc:.
@@ -22111,11 +22119,10 @@ desc:.
 # E9 desert
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-
 name:E9 desert 0
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22123,7 +22130,7 @@ desc:A high mountain.
 name:E9 desert 1
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22131,7 +22138,7 @@ desc:A high mountain.
 name:E9 desert 2
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22139,7 +22146,7 @@ desc:A high mountain.
 name:E9 desert 3
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22147,7 +22154,7 @@ desc:A high mountain.
 name:E9 desert 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22155,7 +22162,7 @@ desc:A high mountain.
 name:E9 desert 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22163,7 +22170,7 @@ desc:A high mountain.
 name:E9 desert 6
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22171,7 +22178,7 @@ desc:A high mountain.
 name:E9 desert 7
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22179,7 +22186,7 @@ desc:A high mountain.
 name:E9 desert 8
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22187,7 +22194,7 @@ desc:A high mountain.
 name:E9 desert 9
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22195,7 +22202,7 @@ desc:A high mountain.
 name:E9 desert a
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -22203,7 +22210,7 @@ desc:A high mountain.
 name:E9 desert b
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23126,11 +23133,10 @@ desc:.
 # ED dirt mountains
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-
 name:ED dirt 0
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23138,7 +23144,7 @@ desc:A high mountain.
 name:ED dirt 1
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23146,7 +23152,7 @@ desc:A high mountain.
 name:ED dirt 2
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23154,7 +23160,7 @@ desc:A high mountain.
 name:ED dirt 3
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23162,7 +23168,7 @@ desc:A high mountain.
 name:ED dirt 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23170,7 +23176,7 @@ desc:A high mountain.
 name:ED dirt 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23178,7 +23184,7 @@ desc:A high mountain.
 name:ED dirt 6
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23186,7 +23192,7 @@ desc:A high mountain.
 name:ED dirt 7
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23194,7 +23200,7 @@ desc:A high mountain.
 name:ED dirt 8
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23202,7 +23208,7 @@ desc:A high mountain.
 name:ED dirt 9
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23210,7 +23216,7 @@ desc:A high mountain.
 name:ED dirt a
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -23218,7 +23224,7 @@ desc:A high mountain.
 name:ED dirt b
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24452,7 +24458,7 @@ desc:.
 name:F2 snow 0
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24460,7 +24466,7 @@ desc:A high mountain.
 name:F2 snow 1
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24468,7 +24474,7 @@ desc:A high mountain.
 name:F2 snow 2
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24476,7 +24482,7 @@ desc:A high mountain.
 name:F2 snow 3
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24484,7 +24490,7 @@ desc:A high mountain.
 name:F2 snow 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24492,7 +24498,7 @@ desc:A high mountain.
 name:F2 snow 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24500,7 +24506,7 @@ desc:A high mountain.
 name:F2 snow 6
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24508,7 +24514,7 @@ desc:A high mountain.
 name:F2 snow 7
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24516,7 +24522,7 @@ desc:A high mountain.
 name:F2 snow 8
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24524,7 +24530,7 @@ desc:A high mountain.
 name:F2 snow 9
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24532,7 +24538,7 @@ desc:A high mountain.
 name:F2 snow a
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24540,7 +24546,7 @@ desc:A high mountain.
 name:F2 snow b
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24716,7 +24722,7 @@ desc:.
 name:F3 shallow water 0
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24724,7 +24730,7 @@ desc:A high mountain.
 name:F3 shallow water 1
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24732,7 +24738,7 @@ desc:A high mountain.
 name:F3 shallow water 2
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24740,7 +24746,7 @@ desc:A high mountain.
 name:F3 shallow water 3
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24748,7 +24754,7 @@ desc:A high mountain.
 name:F3 shallow water 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24756,7 +24762,7 @@ desc:A high mountain.
 name:F3 shallow water 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24764,7 +24770,7 @@ desc:A high mountain.
 name:F3 shallow water 6
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24772,7 +24778,7 @@ desc:A high mountain.
 name:F3 shallow water 7
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24780,7 +24786,7 @@ desc:A high mountain.
 name:F3 shallow water 8
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24788,7 +24794,7 @@ desc:A high mountain.
 name:F3 shallow water 9
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24796,7 +24802,7 @@ desc:A high mountain.
 name:F3 shallow water a
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -24804,7 +24810,7 @@ desc:A high mountain.
 name:F3 shallow water b
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25237,11 +25243,10 @@ desc:.
 # F5 deep water
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-
 name:F5 deep water 0
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25249,7 +25254,7 @@ desc:A high mountain.
 name:F5 deep water 1
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25257,7 +25262,7 @@ desc:A high mountain.
 name:F5 deep water 2
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25265,7 +25270,7 @@ desc:A high mountain.
 name:F5 deep water 3
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25273,7 +25278,7 @@ desc:A high mountain.
 name:F5 deep water 4
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25281,7 +25286,7 @@ desc:A high mountain.
 name:F5 deep water 5
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25289,7 +25294,7 @@ desc:A high mountain.
 name:F5 deep water 6
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25297,7 +25302,7 @@ desc:A high mountain.
 name:F5 deep water 7
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25305,7 +25310,7 @@ desc:A high mountain.
 name:F5 deep water 8
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25313,7 +25318,7 @@ desc:A high mountain.
 name:F5 deep water 9
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25321,7 +25326,7 @@ desc:A high mountain.
 name:F5 deep water a
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -25329,7 +25334,7 @@ desc:A high mountain.
 name:F5 deep water b
 graphics:^:s
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:5
 short-desc:high mountain
 desc:A high mountain.
@@ -26188,11 +26193,11 @@ desc:A staircase down to a deeper part of the dungeon.
 # F9 - end
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-
 name:end 0 mountains dark
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:dark high mountain
 desc:.
@@ -26200,7 +26205,8 @@ desc:.
 name:end 1 mountain
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:dark high mountain
 desc:.
@@ -26208,7 +26214,8 @@ desc:.
 name:end 2 mountain
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:dark high mountain
 desc:.
@@ -26216,7 +26223,8 @@ desc:.
 name:end 3 mountain
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:dark high mountain
 desc:.
@@ -26224,7 +26232,8 @@ desc:.
 name:end 4 mountain
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:dark high mountain
 desc:.
@@ -26460,7 +26469,8 @@ desc:.
 name:mountains end top 0
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26468,7 +26478,8 @@ desc:.
 name:mountains end top 1
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26476,7 +26487,8 @@ desc:.
 name:mountains end top 2
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26484,7 +26496,8 @@ desc:.
 name:mountains end top 3
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26492,7 +26505,8 @@ desc:.
 name:mountains end top 4
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26500,7 +26514,8 @@ desc:.
 name:mountains end top 5
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26508,7 +26523,8 @@ desc:.
 name:mountains end top 6
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26516,7 +26532,8 @@ desc:.
 name:mountains end top 7
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26524,7 +26541,8 @@ desc:.
 name:mountains end top 8
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26532,7 +26550,8 @@ desc:.
 name:mountains end top 9
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26540,7 +26559,8 @@ desc:.
 name:mountains end top a
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26548,7 +26568,8 @@ desc:.
 name:mountains end top b
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26556,7 +26577,8 @@ desc:.
 name:mountains end top c
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26564,7 +26586,8 @@ desc:.
 name:mountains end top d
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26572,7 +26595,8 @@ desc:.
 name:mountains end top e
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26580,7 +26604,8 @@ desc:.
 name:mountains end top f
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26588,7 +26613,8 @@ desc:.
 name:mountains end top g
 graphics:^:u
 priority:18
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+info:0:5
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 short-desc:high mountains peaks
 desc:.
@@ -26847,11 +26873,10 @@ desc: through by the player and monsters.
 # FB - mountains end bot
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-
 name:mountains end bot 0
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26860,7 +26885,7 @@ desc:.
 name:mountains end bot 1
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26869,7 +26894,7 @@ desc:.
 name:mountains end bot 2
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26878,7 +26903,7 @@ desc:.
 name:mountains end bot 3
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26887,7 +26912,7 @@ desc:.
 name:mountains end bot 4
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26896,7 +26921,7 @@ desc:.
 name:mountains end bot 5
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26905,7 +26930,7 @@ desc:.
 name:mountains end bot 6
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26914,7 +26939,7 @@ desc:.
 name:mountains end bot 7
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26923,7 +26948,7 @@ desc:.
 name:mountains end bot 8
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26932,7 +26957,7 @@ desc:.
 name:mountains end bot 9
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26941,7 +26966,7 @@ desc:.
 name:mountains end bot a
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26950,7 +26975,7 @@ desc:.
 name:mountains end bot b
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26959,7 +26984,7 @@ desc:.
 name:mountains end bot c
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26968,7 +26993,7 @@ desc:.
 name:mountains end bot d
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26977,7 +27002,7 @@ desc:.
 name:mountains end bot e
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26986,7 +27011,7 @@ desc:.
 name:mountains end bot f
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
@@ -26995,7 +27020,7 @@ desc:.
 name:mountains end bot g
 graphics:^:u
 priority:11
-flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
+flags:MOUNTAIN | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:4
 short-desc:high mountains base
