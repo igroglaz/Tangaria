@@ -865,17 +865,35 @@ static int average_spell_stat(struct player *p, struct player_state *state)
 
     sum += state->stat_ind[book->realm->stat];
     count++;
+
+    if (streq(p->clazz->name, "Priest"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }    
     
+    if (streq(p->clazz->name, "Paladin"))
+    {
+        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_STR]) / 2) * 75) +
+                  (p->state.stat_ind[STAT_CHR] * 25)) / 100);
+    }
+
+    if (streq(p->clazz->name, "Rogue"))
+    {
+        return (((p->state.stat_ind[STAT_INT] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+
     if (streq(p->clazz->name, "Telepath"))
     {
-        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_CHR]) / 2) * 80) +
-                  (p->state.stat_ind[STAT_INT] * 20)) / 100);
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
-    
-    if (streq(p->clazz->name, "Summoner")) // WIS+CHR - 90%; INT - 10%
+
+    if (streq(p->clazz->name, "Summoner"))
     {
-        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_CHR]) / 2) * 90) +
-                  (p->state.stat_ind[STAT_INT] * 10)) / 100);
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
     
     for (i = 1; i < p->clazz->magic.num_books; i++)
