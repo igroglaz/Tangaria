@@ -881,6 +881,29 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
 
+    /* Mountain in town */
+    if (square_ismountain(c, grid) && in_town(&p->wpos))
+    {
+
+    player_dec_timed(p, TMD_FOOD, 50, false);
+
+        if (one_in_(2))
+        {
+            /* Make house stone */
+            dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
+
+            if (dig_stone)
+            {
+                set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                /* Drop house stone */
+                drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+            }
+        }
+
+        return false;
+    }
+
     calc_digging_chances(p, &p->state, digging_chances);
 
     /* Do we succeed? */
