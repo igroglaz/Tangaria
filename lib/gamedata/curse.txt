@@ -323,3 +323,9 @@ type:hafted
 type:polearm
 type:sword
 desc:makes it hard to hit anything
+
+name:deformity
+type:helm
+type:crown
+values:CHR[-5]
+desc:distorts your features

@@ -372,6 +372,7 @@ power:21
 effect:HEAL_HP
 dice:5000
 effect:UPDATE_STUFF
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -1065,6 +1066,7 @@ dice:10+1d10
 name:RESTORE_ALL
 aim:0
 power:15
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -1093,6 +1095,7 @@ desc:restores mana points to maximum
 name:RESTORE_ST_LEV
 aim:0
 power:17
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
