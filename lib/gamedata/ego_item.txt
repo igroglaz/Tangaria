@@ -149,7 +149,7 @@ name:of Perpetuity
 info:6000:25
 alloc:2:20 to 127
 item:light:Wooden Torch
-flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | HOLD_LIFE | REGEN | HUNGER
+flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR | HOLD_LIFE | REGEN | HUNGER
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
 name:(Dwarven)
@@ -822,7 +822,7 @@ name:of Lordliness
 info:7500:17
 alloc:20:40 to 100
 type:crown
-flags:SUST_WIS | PROT_FEAR | RAND_POWER |
+flags:SUST_WIS | SUST_CHR | PROT_FEAR | RAND_POWER |
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 values:WIS[d3]
 min-values:WIS[1]
@@ -964,7 +964,7 @@ info:30000:30
 alloc:10:30 to 127
 combat:0:0:d20
 item:soft armour:Robe
-flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS |
+flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS | SUST_CHR |
 flags:HOLD_LIFE |
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD |
 flags:RAND_HI_RES

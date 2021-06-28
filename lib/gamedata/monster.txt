@@ -2906,7 +2906,7 @@ rarity:1
 weight:0
 experience:15
 blow:TOUCH:EAT_FOOD:2d3
-blow:TOUCH:LOSE_WIS:2d3
+blow:TOUCH:LOSE_CHR:2d3
 flags:NEVER_MOVE
 flags:HURT_LIGHT | IM_POIS | NO_CONF | NO_SLEEP | HURT_COLD
 desc:It is a large pile of rotting flesh, whose touch spoils your food. The
@@ -11969,6 +11969,7 @@ experience:130
 blow:CLAW:PARALYZE:2d4
 blow:CLAW:PARALYZE:2d4
 blow:BITE:LOSE_CON:2d4
+blow:BITE:LOSE_CHR:2d4
 flags:DROP_40
 flags:HURT_LIGHT
 spell-freq:7
@@ -21726,8 +21727,8 @@ depth:65
 rarity:2
 weight:0
 experience:13000
-blow:HIT:LOSE_WIS:6d6
-blow:HIT:LOSE_CON:6d6
+blow:HIT:LOSE_CHR:6d6
+blow:HIT:LOSE_CHR:6d6
 blow:BITE:POISON:8d8
 blow:STING:LOSE_STR:5d5
 flags:INVISIBLE | POWERFUL

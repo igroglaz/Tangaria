@@ -546,6 +546,7 @@ weight:1
 cost:800
 alloc:25:20 to 100
 pile:13:1d3
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -2541,7 +2542,7 @@ level:20
 weight:3
 cost:500
 alloc:50:20 to 90
-flags:SUST_WIS
+flags:SUST_WIS | SUST_CHR
 values:WIS[1+M5]
 desc:This magical amulet will magically make you wiser.
 
@@ -2591,7 +2592,7 @@ level:60
 weight:3
 cost:20000
 alloc:10:60 to 100
-flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON |
+flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR |
 flags:HOLD_LIFE | EASY_KNOW |
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 desc:This blessed amulet will make the wearer impervious to evil magics
@@ -2633,7 +2634,7 @@ level:70
 weight:3
 cost:30000
 alloc:10:70 to 100
-flags:HOLD_LIFE | SUST_WIS | GOOD
+flags:HOLD_LIFE | SUST_WIS | SUST_CHR | GOOD
 values:WIS[1+M3] | LIGHT[1] | RES_DARK[1] | RES_LIGHT[1] | RES_FIRE[1]
 desc:This blessed amulet will protect your wisdom and charms from
 desc: diminishing, often adding to them as well. It also grants
@@ -3274,6 +3275,8 @@ weight:5
 cost:0
 alloc:10:30 to 70
 pile:25:2
+effect:DRAIN_STAT:CHR
+dice:1
 effect:DAMAGE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
@@ -3296,6 +3299,8 @@ weight:5
 cost:0
 alloc:10:2 to 30
 pile:25:2
+effect:DRAIN_STAT:CHR
+dice:1
 effect:CURSE_ARMOR
 effect:DETECT_EVIL
 effect-yx:11:11
@@ -3611,6 +3616,7 @@ alloc:20:60 to 100
 effect:HEAL_HP
 dice:5000
 effect:UPDATE_STUFF
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -4071,7 +4077,7 @@ alloc:10:2 to 15
 pile:25:2
 effect:DRAIN_STAT:INT
 dice:3
-effect:DRAIN_STAT:WIS
+effect:DRAIN_STAT:CHR
 dice:3
 effect:NOURISH:INC_BY
 dice:1
@@ -4087,8 +4093,11 @@ pile:25:2
 effect:TIMED_INC:STONESKIN
 dice:20+1d20
 effect:DRAIN_STAT:CHR
+dice:1
 effect:DRAIN_STAT:WIS
+dice:1
 effect:DRAIN_STAT:INT
+dice:1
 effect:BATTY
 effect:TIMED_INC:SCRAMBLE
 dice:20+1d20
@@ -4135,6 +4144,8 @@ pile:70:1d3
 attack:3d6:0:0
 armor:0:0
 flags:EXPLODE
+effect:DRAIN_STAT:CHR
+dice:5
 effect:DAMAGE
 dice:$B
 expr:B:PLAYER_HP:- 7
@@ -4171,6 +4182,8 @@ dice:1
 effect:DRAIN_STAT:INT
 dice:1
 effect:DRAIN_STAT:WIS
+dice:1
+effect:DRAIN_STAT:CHR
 dice:1
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:20+1d20
@@ -6212,6 +6225,7 @@ weight:2
 cost:0
 flags:AGGRAVATE | HUNGER | HUNGER_2
 flags:INSTA_ART
+values:CHR[-5]
 desc:"Nine rings for mortal men doomed to die."
 
 name:*Teleport Level*

@@ -113,7 +113,7 @@ alloc:0:5 to 100
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION
-values:LIGHT[4] | STR[-4] | INT[-4] | WIS[-4] | DEX[-4] | CON[-4] | SPEED[3]
+values:LIGHT[4] | STR[-4] | INT[-4] | WIS[-4] | DEX[-4] | CON[-4] | CHR[-4] | SPEED[3]
 curse:siren:100
 curse:teleportation:100
 desc:It appears like the Phial of Galadriel at first - but wait! It
@@ -1936,7 +1936,7 @@ alloc:4:50 to 100
 attack:1d1:0:0
 armor:2:15
 flags:FREE_ACT |
-flags:PROT_CONF | SUST_CON
+flags:PROT_CONF | SUST_CON | SUST_CHR
 values:DEX[5] | SPEED[5] | RES_NETHER[1]
 act:REM_FEAR_POIS
 time:5
@@ -1955,7 +1955,7 @@ values:MOVES[10] | INT[2] | DEX[2] | STEALTH[2]
 act:TELE_PHASE
 time:20
 msg:Your {kind} twist{s} space around you.
-desc:A pair of running shoes once used by the treacherous Gríma son of
+desc:A pair of running shoes once used by the treacherous Grima son of
 desc: Galmód, the Wormtongue of Edoras. They are aptly suited for a
 desc: messenger, a servant, a spy... or a coward.
 
@@ -2192,7 +2192,7 @@ weight:20
 alloc:0:90 to 127
 attack:1d1:0:0
 armor:0:27
-flags:PROT_FEAR | SEE_INVIS | PROT_BLIND | SUST_INT | SUST_WIS | KNOWLEDGE
+flags:PROT_FEAR | SEE_INVIS | PROT_BLIND | SUST_INT | SUST_WIS | SUST_CHR | KNOWLEDGE
 values:RES_CHAOS[1] | INFRA[5] | INT[5] | WIS[5] | SEARCH[5] | LIGHT[1] | 
 desc:This radiating and impervious head gear will ensure
 desc: that its wearer will see nothing but the very truth.
@@ -2906,7 +2906,7 @@ weight:120
 alloc:11:40 to 100
 attack:1d5:0:0
 armor:12:20
-flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON
+flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR
 values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 desc:The great metal-bound shield of Elendil's younger son Anarion, whom
 desc: even Sauron could not corrupt.
@@ -2933,7 +2933,7 @@ weight:100
 alloc:25:70 to 127
 attack:1d4:0:0
 armor:16:20
-flags:SUST_WIS | SUST_DEX
+flags:SUST_WIS | SUST_DEX | SUST_CHR
 values:WIS[5] | LIGHT[1] | RES_ELEC[1] | RES_ACID[1] | RES_DISEN[1] |
 values:RES_DARK[1]
 act:STARLIGHT2
@@ -2988,8 +2988,8 @@ weight:2
 alloc:2:70 to 127
 attack:0d0:2:2
 armor:0:0
-flags:FREE_ACT | SEE_INVIS | SLOW_DIGEST | REGEN | ESP_ALL |
-flags:SUST_STR | SUST_CON | PROT_FEAR | HUNGER
+flags:FREE_ACT | SEE_INVIS | SLOW_DIGEST | REGEN | ESP_ALL | 
+flags:SUST_STR | SUST_CON | SUST_CHR | PROT_FEAR | HUNGER
 values:STR[1] | INT[1] | WIS[1] | DEX[1] | CON[1] | SPEED[5] | RES_FIRE[3]
 act:PROTEVIL
 time:200+4d50
@@ -3008,7 +3008,7 @@ attack:0d0:3:3
 armor:0:0
 flags:HOLD_LIFE | FREE_ACT | SEE_INVIS |
 flags:FEATHER | REGEN | HUNGER
-flags:SUST_INT | SUST_WIS | SUST_CON |
+flags:SUST_INT | SUST_WIS | SUST_CON | SUST_CHR |
 flags:PROT_BLIND | ESP_ALL
 values:STR[2] | INT[2] | WIS[2] | DEX[2] | CON[2] | SPEED[5] | RES_COLD[3]
 act:RESTORE_LIFE
@@ -3048,8 +3048,8 @@ alloc:1:100 to 127
 attack:0d0:15:15
 armor:0:0
 flags:AGGRAVATE | DRAIN_EXP | SEE_INVIS | REGEN | ESP_ALL | STICKY |
-flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS | HUNGER
-values:STR[5] | INT[5] | WIS[5] | DEX[5] | CON[5] | SPEED[5] |
+flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS | SUST_CHR | HUNGER
+values:STR[5] | INT[5] | WIS[5] | DEX[5] | CON[5] | CHR[-5] | SPEED[5] |
 values:RES_FIRE[3] | RES_COLD[3] | RES_ELEC[3] | RES_ACID[3] | RES_DARK[1] |
 values:RES_DISEN[1] | RES_POIS[1] | RES_NETHER[1]
 act:BIZARRE
@@ -3080,7 +3080,7 @@ graphics:":d
 level:65
 weight:3
 alloc:3:65 to 127
-flags:SEE_INVIS | FREE_ACT | PROT_CONF
+flags:SEE_INVIS | FREE_ACT | PROT_CONF | SUST_CHR
 values:INT[3] | WIS[3] | INFRA[4] | RES_ACID[1] | RES_COLD[1] | RES_ELEC[1]
 act:DISPEL_EVIL
 time:50+d50
@@ -3095,7 +3095,7 @@ weight:3
 alloc:2:50 to 127
 flags:SEE_INVIS | FREE_ACT | REGEN | PROT_FEAR | HUNGER
 values:STR[3] | CON[3] | INFRA[5] | LIGHT[1]
-desc:The Nauglamír, a carcanet of gold set with a multitude of shining
+desc:The Nauglamir, a carcanet of gold set with a multitude of shining
 desc: gems of Valinor. The radiant Silmaril of Feanor hangs in its midst
 desc: as its crowning glory. The sturdy spirits of Dwarvish craftsmen who
 desc: labored long in mountain smithies lie within it still, and as gossamer
@@ -3152,7 +3152,7 @@ weight:3
 alloc:0:75 to 127
 flags:SEE_INVIS | ESP_ALL |
 flags:KNOWLEDGE | PROT_BLIND | AGGRAVATE | STICKY
-values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[1] | RES_FIRE[3]
+values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[2] | RES_FIRE[3]
 act:CLAIRVOYANCE
 time:50+d50
 desc:A red jewel, one of the two Silmarils that were reclaimed by the last sons
@@ -3702,3 +3702,37 @@ desc:holding the sword was a single strong, yet feminine hand,
 desc:wearing several rings that bore jewels sparkling with the
 desc:blue-green color of the ocean.
 desc:-Knight Life, by Peter David-
+
+name:'Space-time Anchor'
+base-object:amulet:Blue Stone
+graphics:":d
+level:60
+weight:5
+alloc:0:60 to 127
+flags:NO_TELEPORT | HOLD_LIFE
+values:LIGHT[1] | RES_TIME[1]
+act:HASTE
+time:100+d100
+msg:Your {kind} whirl a blazing white light around you...
+desc:A powerful stone that provides a strong light for any who wields it.
+desc:It is rumored that it may even protect the wearer from the passing
+desc:of the time.
+
+name:of Durin
+base-object:ring:Ring
+graphics:=:d
+level:65
+weight:2
+alloc:1:65 to 75
+armor:5:0
+flags:HOLD_LIFE | ESP_EVIL | SUST_STR | SUST_CON | LIMITED_TELE
+values:STR[2] | CON[2] | BLOWS[1] | STEALTH[-3]
+values:RES_COLD[1] | RES_ACID[1] | RES_DARK[1] | RES_CHAOS[1] | RES_NETHER[1]
+act:DETECT_TREASURE
+time:50+d50
+msg:{name} flashs with a blue sparkle...
+desc:The greatest of the Seven Rings of the Dwarf-lords, and the last to be
+desc:lost. Alone among the Seven, it was not taken by Sauron when he made
+desc:war on the Elves, but was given as a gift from Celebrimbor to King Durin
+desc:III of Moria in token of friendship: Nevertheless, Sauron in disguise
+desc:had a hand in its making, and so it is cursed, and draws evil towards it.
