@@ -1879,7 +1879,7 @@ alloc:0:40 to 127
 attack:1d3:0:0
 armor:0:0
 flags:SUST_STR | SUST_CON
-values:TUNNEL[3] | STR[3] | CON[3]
+values:TUNNEL[3] | STR[3] | CON[3] | CHR[-1]
 desc:The pick of Azog, which granted him strength and stamina.
 
 name:of Nain
@@ -3726,7 +3726,7 @@ weight:2
 alloc:1:65 to 75
 armor:5:0
 flags:HOLD_LIFE | ESP_EVIL | SUST_STR | SUST_CON | LIMITED_TELE
-values:STR[2] | CON[2] | BLOWS[1] | STEALTH[-3]
+values:STR[2] | CON[2] | BLOWS[1]
 values:RES_COLD[1] | RES_ACID[1] | RES_DARK[1] | RES_CHAOS[1] | RES_NETHER[1]
 act:DETECT_TREASURE
 time:50+d50
