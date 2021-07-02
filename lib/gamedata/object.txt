@@ -4141,7 +4141,7 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:3d6:0:0
+attack:10d30:0:0
 armor:0:0
 flags:EXPLODE
 effect:DRAIN_STAT:CHR
@@ -4169,7 +4169,7 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:1d4:0:0
+attack:10d10:0:0
 armor:0:0
 effect:TIMED_INC_NO_RES:STUN
 dice:5d3
@@ -4206,7 +4206,7 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:1d10:0:0
+attack:10d20:0:0
 armor:0:0
 flags:EXPLODE
 effect:TELEPORT:NONE:0:1
@@ -6631,9 +6631,9 @@ type:cobble
 level:1
 weight:6
 cost:1
-pile:100:3d6
-alloc:20:1 to 100
-attack:1d6:0:0
+pile:100:2d6
+alloc:5:1 to 100
+attack:1d5:0:0
 armor:0:0
 brand:STUN_1
 flags:THROWING
