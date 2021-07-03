@@ -2273,13 +2273,24 @@ static bool effect_handler_CREATE_ARROWS(effect_handler_context_t *context)
 
 static bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
+    int small_house = 0;
     context->ident = true;
 
     /* MAngband house creation */
-    return create_house(context->origin->player);
+    return create_house(context->origin->player, small_house);
     
     /* PWMAngband house creation */
 //  return build_house(context->origin->player);
+}
+
+static bool effect_handler_CREATE_SMALL_HOUSE(effect_handler_context_t *context)
+{
+    int small_house = 1;
+    context->ident = true;
+
+    /* MAngband house creation */
+    return create_house(context->origin->player, small_house);
+
 }
 
 

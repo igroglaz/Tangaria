@@ -3249,7 +3249,7 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
  * Create a new house.
  * The creating player owns the house.
  */
-bool create_house(struct player *p)
+bool create_house(struct player *p, int small_house)
 {
     int house;
     struct house_type h_local;
@@ -3291,6 +3291,11 @@ bool create_house(struct player *p)
 
     /* Determine the area of the house foundation AND calculate price */
     if ((price = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
+
+    // Check is house made with Small House Creation scroll or not
+    // (parameter given to create_house() )
+    if (price > 10000 && small_house == 1)
+        return false;
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */

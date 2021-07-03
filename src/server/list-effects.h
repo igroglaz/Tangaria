@@ -41,6 +41,7 @@ EFFECT(CLOAK_CHANGT, false, "dur", 0, EFINFO_NONE, "disguises you as another pla
 EFFECT(COOKIE, false, NULL, 0, EFINFO_NONE, "displays a random hint")
 EFFECT(CREATE_ARROWS, false, NULL, 0, EFINFO_NONE, "uses a staff to create a stack of arrows")
 EFFECT(CREATE_HOUSE, false, NULL, 0, EFINFO_NONE, "allows you to create a house from House Foundation Stones")
+EFFECT(CREATE_SMALL_HOUSE, false, NULL, 0, EFINFO_NONE, "allows you to create a house from House Foundation Stones")
 EFFECT(CREATE_POISON, false, NULL, 0, EFINFO_NONE, "creates potions of poison from any potion")
 EFFECT(CREATE_STAIRS, false, NULL, 0, EFINFO_NONE, "creates a staircase beneath your feet")
 EFFECT(CREATE_TREES, false, NULL, 0, EFINFO_NONE, "creates trees next to you")
