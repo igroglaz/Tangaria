@@ -55,6 +55,11 @@ static bool nicegfx = false;
 static int overdraw = 0;
 static int overdraw_max = 0;
 
+/* Default color */
+static int d_color_r = 160;
+static int d_color_g = 160;
+static int d_color_b = 60;
+
 /*
  * Status bar color:
  *   0 = default color
@@ -667,9 +672,9 @@ static int sdl_ButtonBankNew(sdl_ButtonBank *bank)
     }
     else
     {
-        new_button->unsel_colour.r = 160;
-        new_button->unsel_colour.g = 160;
-        new_button->unsel_colour.b = 60;
+        new_button->unsel_colour.r = d_color_r;
+        new_button->unsel_colour.g = d_color_g;
+        new_button->unsel_colour.b = d_color_b;
     }
 
     new_button->sel_colour.r = 210;
@@ -1040,9 +1045,13 @@ static void draw_statusbar(sdl_Window *window)
     int x = 1;
     sdl_Button *button;
     SDL_Rect rc;
-    SDL_Color c = {160, 160, 60, 0};
+    SDL_Color c;
 
     sdl_RECT(0, StatusBar.height - 1, StatusBar.width, 1, &rc);
+
+    c.r = d_color_r;
+    c.g = d_color_g;
+    c.b = d_color_b;
 
     if ((statusbar_color > 0) && (statusbar_color < BASIC_COLORS))
     {
@@ -1120,7 +1129,11 @@ static void sdl_BlitAll(void)
     SDL_Rect rc;
     sdl_Window *window = &StatusBar;
     int i;
-    SDL_Color colour = {160, 160, 60, 0};
+    SDL_Color colour;
+
+    colour.r = d_color_r;
+    colour.g = d_color_g;
+    colour.b = d_color_b;
 
     SDL_FillRect(AppWin, NULL, back_pixel_colour);
 
@@ -2068,7 +2081,7 @@ static void ResizeWin(term_window *win, int w, int h)
             text_colours[win->windowborders].b));
     }
     else
-        SDL_FillRect(win->surface, NULL, SDL_MapRGB(AppWin->format, 160, 160, 60));
+        SDL_FillRect(win->surface, NULL, SDL_MapRGB(AppWin->format, d_color_r, d_color_g, d_color_b));
 
     /* Label it */
     sdl_FontDraw(&SystemFont, win->surface, back_colour, 1, 1,
@@ -2169,6 +2182,8 @@ static errr load_prefs(void)
             fullscreen = atoi(s);
         else if (strstr(buf, "Volume"))
             sound_volume = atoi(s);
+        else if (strstr(buf, "DefaultColor"))
+            sscanf(s, "%d,%d,%d", &d_color_r, &d_color_g, &d_color_b);
         else if (strstr(buf, "StatusBarColor"))
             statusbar_color = atoi(s);
         else if (strstr(buf, "NiceGraphics"))
@@ -2186,6 +2201,14 @@ static errr load_prefs(void)
 
     if (sound_volume < 0) sound_volume = 0;
     if (sound_volume > 100) sound_volume = 100;
+
+    if ((d_color_r < 0) || (d_color_r > 255) || (d_color_g < 0) || 
+        (d_color_g > 255) || (d_color_b < 0) || (d_color_b > 255))
+    {
+        d_color_r = 160;
+        d_color_g = 160;
+        d_color_b = 60;
+    }
 
     if ((statusbar_color < 0) || (statusbar_color >= BASIC_COLORS)) statusbar_color = 0;
 
@@ -2308,6 +2331,7 @@ static errr save_prefs(void)
     file_putf(fff, "Resolution = %dx%d\n", screen_w, screen_h);
     file_putf(fff, "Fullscreen = %d\n", fullscreen);
     file_putf(fff, "Volume = %d\n", sound_volume);
+    file_putf(fff, "DefaultColor = %d,%d,%d\n", d_color_r, d_color_g, d_color_b);
     file_putf(fff, "StatusBarColor = %d\n", statusbar_color);
     file_putf(fff, "NiceGraphics = %d\n", nicegfx);
     file_putf(fff, "Graphics = %d\n", use_graphics);

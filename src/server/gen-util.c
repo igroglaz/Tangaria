@@ -203,7 +203,7 @@ bool cave_find_in_range(struct chunk *c, struct loc *grid, struct loc *top_left,
  *
  * Returns success
  */
-static bool cave_find(struct chunk *c, struct loc *grid, square_predicate pred)
+bool cave_find(struct chunk *c, struct loc *grid, square_predicate pred)
 {
     struct loc top_left, bottom_right;
 

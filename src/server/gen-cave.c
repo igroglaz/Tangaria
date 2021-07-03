@@ -69,32 +69,6 @@
  */
 
 
-static void add_stairs(struct chunk *c, int feat)
-{
-    random_value *dir;
-    int num;
-    struct worldpos dpos;
-    struct location *dungeon;
-
-    /* Get number of stairs from dungeon profile */
-    if (feat == FEAT_MORE) dir = &((struct cave_profile *)dun->profile)->down;
-    else dir = &((struct cave_profile *)dun->profile)->up;
-    num = dir->base + damroll(dir->dice, dir->sides);
-
-    /* Get extra number of stairs from dungeon itself */
-    wpos_init(&dpos, &c->wpos.grid, 0);
-    dungeon = get_dungeon(&dpos);
-    if (dungeon && c->wpos.depth)
-    {
-        if (feat == FEAT_MORE) dir = &dungeon->down;
-        else dir = &dungeon->up;
-        num = num + dir->base + damroll(dir->dice, dir->sides);
-    }
-
-    alloc_stairs(c, feat, num);
-}
-
-
 /*
  * Check whether a square has one of the tunnelling helper flags
  *
@@ -171,6 +145,1147 @@ static void build_streamer(struct chunk *c, int feat, int chance)
         /* Stop at dungeon edge */
         if (!square_in_bounds(c, &grid)) break;
     }
+}
+
+
+/*
+ * Reset entrance data for rooms in global dun.
+ *
+ * c Is the chunk holding the rooms.
+ */
+static void reset_entrance_data(const struct chunk *c)
+{
+    int i;
+
+    for (i = 0; i < z_info->level_room_max; ++i) dun->ent_n[i] = 0;
+    if (dun->ent2room)
+    {
+        for (i = 0; dun->ent2room[i]; ++i) mem_free(dun->ent2room[i]);
+        mem_free(dun->ent2room);
+    }
+
+    /* Add a trailing NULL so the deallocation knows when to stop. */
+    dun->ent2room = mem_alloc((c->height + 1) * sizeof(*dun->ent2room));
+    for (i = 0; i < c->height; ++i)
+    {
+        int j;
+
+        dun->ent2room[i] = mem_alloc(c->width * sizeof(*dun->ent2room[i]));
+        for (j = 0; j < c->width; ++j) dun->ent2room[i][j] = -1;
+    }
+    dun->ent2room[c->height] = NULL;
+}
+
+
+/*
+ * Randomly choose a room entrance and return its coordinates.
+ *
+ * c Is the chunk holding the rooms.
+ * ridx Is the 0-based index for the room.
+ * tgt If not NULL, the choice of entrance will either be *tgt if *tgt
+ * is an entrance for the room, ridx, or can be biased to be closer to *tgt
+ * when *tgt is not an entrance for the room, ridx.
+ * bias Sets the amount of bias if tgt is not NULL and *tgt is not an
+ * entrance for the room, ridx. A larger value increases the amount of bias.
+ * A value of zero will give no bias. Must be non-negative.
+ * exc Is an array of grids whose adjacent neighbors (but not the grid
+ * itself) should be excluded from selection. May be NULL if nexc is not
+ * positive.
+ * nexc Is the number of grids to use from exc.
+ *
+ * The returned value is an entrance for the room or (0, 0) if
+ * no entrance is available. An entrance, x, satisfies these requirements:
+ * 1) x is the same as dun->ent[ridx][k] for some k between 0 and
+ * dun->ent_n[ridx - 1].
+ * 2) square_is_marked_granite(c, x, SQUARE_WALL_OUTER) is true.
+ * 3) For all m between zero and nexc - 1, ABS(x.x - exc[m].x) > 1 or
+ * ABS(x.y - exc[m].y) > 1 or (x.x == exc[m].x and x.y == exc[m].y).
+ */
+static void choose_random_entrance(struct chunk *c, int ridx, struct loc *tgt, int bias,
+    struct loc *exc, int nexc, struct loc *result)
+{
+    my_assert(ridx >= 0 && ridx < dun->cent_n);
+    if (dun->ent_n[ridx] > 0)
+    {
+        int nchoice = 0;
+        int *accum = mem_alloc((dun->ent_n[ridx] + 1) * sizeof(*accum));
+        int i;
+
+        accum[0] = 0;
+        for (i = 0; i < dun->ent_n[ridx]; ++i)
+        {
+            bool included = square_is_granite_with_flag(c, &dun->ent[ridx][i], SQUARE_WALL_OUTER);
+
+            if (included)
+            {
+                int j = 0;
+
+                while (1)
+                {
+                    struct loc diff;
+
+                    if (j >= nexc) break;
+                    loc_diff(&diff, &dun->ent[ridx][i], &exc[j]);
+                    if (ABS(diff.x) <= 1 && ABS(diff.y) <= 1 && (diff.x != 0 || diff.y != 0))
+                    {
+                        included = false;
+                        break;
+                    }
+                    ++j;
+                }
+            }
+            if (included)
+            {
+                if (tgt)
+                {
+                    int d, biased;
+
+                    my_assert(bias >= 0);
+                    d = distance(&dun->ent[ridx][i], tgt);
+                    if (d == 0)
+                    {
+                        /* There's an exact match. Use it. */
+                        mem_free(accum);
+                        loc_copy(result, &dun->ent[ridx][i]);
+                        return;
+                    }
+
+                    biased = MAX(1, bias - d);
+
+                    /* Squaring here is just a guess without any specific reason to back it. */
+                    accum[i + 1] = accum[i] + biased * biased;
+                }
+                else
+                    accum[i + 1] = accum[i] + 1;
+                ++nchoice;
+            }
+            else
+                accum[i + 1] = accum[i];
+        }
+        if (nchoice > 0)
+        {
+            int chosen = randint0(accum[dun->ent_n[ridx]]);
+            int low = 0, high = dun->ent_n[ridx];
+
+            /* Locate the selection by binary search. */
+            while (1)
+            {
+                int mid;
+
+                if (low == high - 1)
+                {
+                    my_assert(accum[low] <= chosen && accum[high] > chosen);
+                    mem_free(accum);
+                    loc_copy(result, &dun->ent[ridx][low]);
+                    return;
+                }
+                mid = (low + high) / 2;
+                if (accum[mid] <= chosen) low = mid;
+                else high = mid;
+            }
+        }
+        mem_free(accum);
+    }
+
+    /* There's no satisfactory marked entrances. */
+    loc_init(result, 0, 0);
+}
+
+
+/*
+ * Help build_tunnel(): pierce an outer wall and prevent nearby piercings.
+ *
+ * c Is the chunk to use.
+ * grid Is the location to pierce.
+ */
+static void pierce_outer_wall(struct chunk *c, struct loc *grid)
+{
+    struct loc begin, end;
+    struct loc_iterator iter;
+
+    /* Save the wall location */
+    if (dun->wall_n < z_info->wall_pierce_max)
+    {
+        loc_copy(&dun->wall[dun->wall_n], grid);
+        dun->wall_n++;
+    }
+
+    loc_init(&begin, grid->x - 1, grid->y - 1);
+    loc_init(&end, grid->x + 1, grid->y + 1);
+    loc_iterator_first(&iter, &begin, &end);
+
+    /* Forbid re-entry near this piercing */
+    do
+    {
+        /* Be sure we are "in bounds" */
+        if (!square_in_bounds_fully(c, &iter.cur)) continue;
+
+        /* Convert adjacent "outer" walls as "solid" walls */
+        if (square_is_granite_with_flag(c, &iter.cur, SQUARE_WALL_OUTER))
+            set_marked_granite(c, &iter.cur, SQUARE_WALL_SOLID);
+    }
+    while (loc_iterator_next(&iter));
+}
+
+
+/*
+ * Help build_tunnel(): handle bookkeeping, mainly if there's a diagonal step,
+ * for the first step after piercing a wall.
+ *
+ * c Is the chunk to use.
+ * grid At entry, *grid is the location at which the wall was pierced.
+ * At exit, *grid is the starting point for the next iteration of tunnel
+ * building.
+ * dir At entry, *dir is the chosen direction for the first step after
+ * the wall piercing. At exit, *dir is the direction for the next iteration of
+ * tunnel building.
+ * door_flag At entry, *door_flag is the current setting for whether a
+ * door can be added. At exit, *door_flag is the setting for whether a door
+ * can be added in the next iteration of tunnel building.
+ * bend_invl At entry, *bend_intvl is the current setting for the number
+ * of tunnel iterations to wait before applying a bend. At exit, *bend_intvl
+ * is what that interval should be for the next iteration of tunnel building.
+ */
+static void handle_post_wall_step(struct chunk *c, struct loc *grid,
+    struct loc *dir, bool *door_flag, int *bend_intvl)
+{
+    if (dir->x != 0 && dir->y != 0)
+    {
+        struct loc sum;
+
+        /* Take a diagonal step upon leaving the wall. Proceed to that. */
+        loc_sum(&sum, grid, dir);
+        loc_copy(grid, &sum);
+        my_assert(!square_is_granite_with_flag(c, grid, SQUARE_WALL_OUTER) &&
+            !square_is_granite_with_flag(c, grid, SQUARE_WALL_SOLID) &&
+            !square_is_granite_with_flag(c, grid, SQUARE_WALL_INNER) &&
+            !square_isperm(c, grid));
+
+        if (!square_isroom(c, grid) && square_isrock(c, grid))
+        {
+            /* Save the tunnel location */
+            if (dun->tunn_n < z_info->tunn_grid_max)
+            {
+                loc_copy(&dun->tunn[dun->tunn_n], grid);
+                dun->tunn_n++;
+            }
+
+            /* Allow door in next grid */
+            *door_flag = false;
+        }
+
+        /*
+         * Having pierced the wall and taken a step, can forget about
+         * what was set to suppress bends in the past.
+         */
+        *bend_intvl = 0;
+
+        /*
+         * Now choose a cardinal direction, one that is +/-45 degrees
+         * from what was used for the diagonal step, for the next step
+         * since the tunnel iterations want a cardinal direction.
+         */
+        if (randint0(32768) < 16384) dir->x = 0;
+        else dir->y = 0;
+    }
+    else
+    {
+        /*
+         * Take a cardinal step upon leaving the wall. Most of the
+         * passed in state is fine, but temporarily suppress bends so
+         * the step will be handled as is by the next iteration of
+         * tunnel building.
+         */
+        *bend_intvl = 1;
+    }
+}
+
+
+/*
+ * Help build_tunnel(): choose a direction that is approximately normal to a
+ * room's wall.
+ *
+ * c Is the chunk to use.
+ * grid Is a location on the wall.
+ * inner If true, return a direction that points to the interior of the
+ * room. Otherwise, return a direction pointing to the exterior.
+ *
+ * The returned value is the chosen direction. It may be loc(0, 0)
+ * if no feasible direction could be found.
+ */
+static void find_normal_to_wall(struct chunk *c, struct loc *grid, bool inner, struct loc *result)
+{
+    int n = 0, ncardinal = 0, i;
+    struct loc choices[8];
+
+    my_assert(square_is_granite_with_flag(c, grid, SQUARE_WALL_OUTER) ||
+        square_is_granite_with_flag(c, grid, SQUARE_WALL_SOLID));
+
+    /* Relies on the cardinal directions being first in ddgrid_ddd. */
+    for (i = 0; i < 8; ++i)
+    {
+        struct loc chk;
+
+        loc_sum(&chk, grid, &ddgrid_ddd[i]);
+
+        if (square_in_bounds(c, &chk) && !square_isperm(c, &chk) &&
+            (square_isroom(c, &chk) == inner) &&
+            !square_is_granite_with_flag(c, &chk, SQUARE_WALL_OUTER) &&
+            !square_is_granite_with_flag(c, &chk, SQUARE_WALL_SOLID) &&
+            !square_is_granite_with_flag(c, &chk, SQUARE_WALL_INNER))
+        {
+            loc_copy(&choices[n], &ddgrid_ddd[i]);
+            ++n;
+            if (i < 4) ++ncardinal;
+        }
+    }
+
+    /* Prefer a cardinal direction if available. */
+    if (n > 1 && ncardinal > 0) n = ncardinal;
+    if (n == 0) loc_init(result, 0, 0);
+    else loc_copy(result, &choices[randint0(n)]);
+}
+
+
+/*
+ * Help build_tunnel(): test if a wall-piercing location can have a door.
+ * Don't want a door that's only adjacent to terrain that is either
+ * 1) not passable and not rubble
+ * 2) a door (treat a shop like a door)
+ * on either the side facing outside the room or the side facing the room.
+ *
+ * c Is the chunk to use.
+ * grid Is the location of the wall piercing.
+ */
+static bool allows_wall_piercing_door(struct chunk *c, struct loc *grid)
+{
+    struct loc chk;
+    int n_outside_good = 0;
+    int n_inside_good = 0;
+
+    for (chk.y = grid->y - 1; chk.y <= grid->y + 1; ++chk.y)
+    {
+        for (chk.x = grid->x - 1; chk.x <= grid->x + 1; ++chk.x)
+        {
+            if ((chk.y == 0 && chk.x == 0) || !square_in_bounds(c, &chk)) continue;
+            if ((square_ispassable(c, &chk) || square_isrubble(c, &chk)) &&
+                !square_isdoor(c, &chk) && !square_isshop(c, &chk))
+            {
+                if (square_isroom(c, &chk)) ++n_inside_good;
+                else ++n_outside_good;
+            }
+        }
+    }
+    return (n_outside_good > 0 && n_inside_good > 0);
+}
+
+
+static bool square_isperm_outer(struct chunk *c, struct loc *grid)
+{
+    return (square_isperm(c, grid) && !square_iswall_inner(c, grid));
+}
+
+
+static bool pierce_outer_locate(struct chunk *c, struct loc *tmp_grid, struct loc *offset,
+    struct loc *grid1)
+{
+    struct loc grid;
+
+    /* Get the "next" location */
+    loc_sum(&grid, tmp_grid, offset);
+
+    /* Stay in bounds */
+    if (!square_in_bounds(c, &grid)) return false;
+
+    /* Hack -- avoid solid permanent walls */
+    if (square_isperm_outer(c, &grid)) return false;
+
+    /* Hack -- avoid outer/solid granite walls */
+    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
+    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
+
+    /* Accept this location */
+    if (grid1) loc_copy(grid1, tmp_grid);
+    return true;
+}
+
+
+static bool pierce_outer_wide_locate(struct chunk *c, struct loc *grid1, struct loc *offset,
+    int sign)
+{
+    struct loc grid, next;
+
+    /* Get an adjacent location */
+    loc_init(&grid, grid1->x + sign * offset->y, grid1->y + sign * offset->x);
+
+    /* Must be a valid "outer" wall */
+    if (!square_in_bounds_fully(c, &grid)) return false;
+    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
+    if (!square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
+
+    /* Get the "next" location */
+    loc_init(&next, grid.x + sign * offset->y, grid.y + sign * offset->x);
+
+    /* Must be a valid location inside the room (to avoid piercing corners) */
+    if (!square_in_bounds_fully(c, &next)) return false;
+    if (!square_isroom(c, &next)) return false;
+
+    /* Accept this location */
+    return pierce_outer_locate(c, &grid, offset, NULL);
+}
+
+
+static void pierce_outer_wide(struct chunk *c, struct loc *grid, struct loc *offset, int *sign)
+{
+    /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+    if (TURN_BASED) pierce_outer_wall(c, grid);
+
+    /* PWMAngband: try to create wide openings */
+    else if (pierce_outer_wide_locate(c, grid, offset, *sign))
+    {
+        struct loc next;
+
+        pierce_outer_wall(c, grid);
+
+        /* Current adjacent location accepted */
+        loc_init(&next, grid->x + *sign * offset->y, grid->y + *sign * offset->x);
+        pierce_outer_wall(c, &next);
+    }
+    else if (pierce_outer_wide_locate(c, grid, offset, 0 - *sign))
+    {
+        struct loc next;
+
+        pierce_outer_wall(c, grid);
+
+        /* Other adjacent location accepted */
+        *sign = 0 - *sign;
+        loc_init(&next, grid->x + *sign * offset->y, grid->y + *sign * offset->x);
+        pierce_outer_wall(c, &next);
+    }
+    else
+    {
+        pierce_outer_wall(c, grid);
+
+        /* No adjacent location accepted: duplicate the entry for later */
+        pierce_outer_wall(c, grid);
+    }
+}
+
+
+static bool possible_wide_tunnel(struct chunk *c, struct loc *grid1, struct loc *offset, int sign)
+{
+    struct loc grid;
+
+    /* Get adjacent location */
+    loc_init(&grid, grid1->x + sign * offset->y, grid1->y + sign * offset->x);
+
+    /* Must be a valid granite wall */
+    if (!square_in_bounds_fully(c, &grid)) return false;
+    if (!square_isrock(c, &grid)) return false;
+
+    /* Hack -- avoid outer/solid granite walls */
+    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
+    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
+
+    /* Accept this location */
+    return true;
+}
+
+
+/*
+ * Constructs a tunnel between two points
+ *
+ * c is the current chunk
+ * grid1 is the location of the first point
+ * grid2 is the location of the second point
+ *
+ * This function must be called BEFORE any streamers are created, since we use
+ * granite with the special SQUARE_WALL flags to keep track of legal places for
+ * corridors to pierce rooms.
+ *
+ * Locations to excavate are queued and applied afterward. The wall piercings
+ * are also queued but the outer wall grids adjacent to the piercing are marked
+ * right away to prevent adjacent piercings. That makes testing where to
+ * pierce easier (look at grid flags rather than search through the queued
+ * piercings).
+ *
+ * The solid wall check prevents silly door placement and excessively wide
+ * room entrances.
+ */
+static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
+{
+    int i;
+    int main_loop_count = 0;
+    struct loc start, tmp_grid, offset, cur_offset, grid1, grid2;
+    int sign = 1, feat, length = 0;
+
+    /* Used to prevent random bends for a while. */
+    int bend_intvl = 0;
+
+    /* Used to prevent excessive door creation along overlapping corridors. */
+    bool door_flag = false;
+
+    loc_copy(&grid1, first);
+    loc_copy(&grid2, second);
+
+    /* Reset the arrays */
+    dun->tunn_n = 0;
+    dun->wall_n = 0;
+
+    /* Save the starting location */
+    loc_copy(&start, &grid1);
+
+    /* Start out in the correct direction */
+    correct_dir(&offset, &grid1, &grid2);
+
+    loc_copy(&cur_offset, &offset);
+
+    /* Keep going until done (or bored) */
+    while (!loc_eq(&grid1, &grid2))
+    {
+        /* Hack -- paranoia -- prevent infinite loops */
+        if (main_loop_count++ > 2000) break;
+
+        /* Allow bends in the tunnel */
+        if (bend_intvl == 0)
+        {
+            if (magik(dun->profile->tun.chg))
+            {
+                /* Get the correct direction */
+                correct_dir(&offset, &grid1, &grid2);
+
+                /* Random direction */
+                if (magik(dun->profile->tun.rnd)) rand_dir(&offset);
+            }
+        }
+        else
+        {
+            my_assert(bend_intvl > 0);
+            --bend_intvl;
+        }
+
+        /* Get the next location */
+        loc_sum(&tmp_grid, &grid1, &offset);
+
+        /* Be sure we are "in bounds" */
+        while (!square_in_bounds(c, &tmp_grid))
+        {
+            /* Get the correct direction */
+            correct_dir(&offset, &grid1, &grid2);
+
+            /* Random direction */
+            if (magik(dun->profile->tun.rnd)) rand_dir(&offset);
+
+            /* Get the next location */
+            loc_sum(&tmp_grid, &grid1, &offset);
+        }
+
+        if (loc_eq(&offset, &cur_offset))
+            length++;
+        else
+        {
+            loc_copy(&cur_offset, &offset);
+            length = 0;
+        }
+
+        /* Avoid obstacles */
+        if (square_isperm_outer(c, &tmp_grid) ||
+            square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_SOLID))
+        {
+            continue;
+        }
+
+        /* Pierce "outer" walls of rooms */
+        if (square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_OUTER))
+        {
+            int iroom;
+            struct loc nxtdir;
+
+            loc_diff(&nxtdir, &grid2, &tmp_grid);
+
+            /* If it's the goal, accept and pierce the wall. */
+            if (nxtdir.x == 0 && nxtdir.y == 0)
+            {
+                loc_copy(&grid1, &tmp_grid);
+                pierce_outer_wide(c, &grid1, &offset, &sign);
+                continue;
+            }
+
+            /*
+             * If it's adjacent to the goal and that is also an
+             * outer wall, then can't pierce without making the
+             * goal unreachable.
+             */
+            if (ABS(nxtdir.x) <= 1 && ABS(nxtdir.y) <= 1 &&
+                square_is_granite_with_flag(c, &grid2, SQUARE_WALL_OUTER))
+            {
+                continue;
+            }
+
+            /* See if it is a marked entrance. */
+            iroom = dun->ent2room[tmp_grid.y][tmp_grid.x];
+            if (iroom != -1)
+            {
+                /* It is. */
+                my_assert(iroom >= 0 && iroom < dun->cent_n);
+                if (square_isroom(c, &grid1))
+                {
+                    /*
+                     * The tunnel is coming from inside the
+                     * room. See if there's somewhere on
+                     * the outside to go.
+                     */
+                    find_normal_to_wall(c, &tmp_grid, false, &nxtdir);
+                    if (nxtdir.x == 0 && nxtdir.y == 0)
+                    {
+                        /* There isn't. */
+                        continue;
+                    }
+
+                    /* There is. Accept the grid and pierce the wall. */
+                    loc_copy(&grid1, &tmp_grid);
+                    pierce_outer_wide(c, &grid1, &offset, &sign);
+                }
+                else
+                {
+                    /*
+                     * The tunnel is coming from outside the room. Choose an entrance (perhaps
+                     * the same as the one just entered) to use as the exit. Crudely adjust how
+                     * biased the entrance selection is based on how often random steps are
+                     * taken while tunneling. The rationale for a maximum bias of 80 is similar
+                     * to that in do_traditional_tunneling().
+                     */
+                    int bias = 80 - ((80 * MIN(MAX(0, dun->profile->tun.chg), 100) *
+                        MIN(MAX(0, dun->profile->tun.rnd), 100)) / 10000);
+                    int ntry = 0, mtry = 20;
+                    struct loc exc[2];
+                    struct loc chk;
+
+                    loc_copy(&exc[0], &tmp_grid);
+                    loc_copy(&exc[1], &grid2);
+                    loc_init(&chk, 0, 0);
+
+                    while (1)
+                    {
+                        if (ntry >= mtry)
+                        {
+                            /* Didn't find a usable exit. */
+                            break;
+                        }
+                        choose_random_entrance(c, iroom, &grid2, bias, exc, 2, &chk);
+                        if (chk.x == 0 && chk.y == 0)
+                        {
+                            /* No exits at all. */
+                            ntry = mtry;
+                            break;
+                        }
+                        find_normal_to_wall(c, &chk, false, &nxtdir);
+                        if (nxtdir.x != 0 || nxtdir.y != 0)
+                        {
+                            /* Found a usable exit. */
+                            break;
+                        }
+                        ++ntry;
+
+                        /* Also make it less biased. */
+                        bias = (bias * 8) / 10;
+                    }
+                    if (ntry >= mtry)
+                    {
+                        /* No usable exit was found. */
+                        continue;
+                    }
+
+                    /* Pierce the wall at the original entrance. */
+                    pierce_outer_wide(c, &tmp_grid, &offset, &sign);
+
+                    /*
+                     * And at the exit which is also the
+                     * continuation point for the rest of
+                     * the tunnel.
+                     */
+                    pierce_outer_wide(c, &chk, &offset, &sign);
+                    loc_copy(&grid1, &chk);
+                }
+                loc_copy(&offset, &nxtdir);
+                handle_post_wall_step(c, &grid1, &offset, &door_flag, &bend_intvl);
+                continue;
+            }
+
+            /* Is there a feasible location after the wall? */
+            find_normal_to_wall(c, &tmp_grid, !square_isroom(c, &grid1), &nxtdir);
+
+            if (nxtdir.x == 0 && nxtdir.y == 0)
+            {
+                /* There's no feasible location. */
+                continue;
+            }
+
+            /* Accept the location and pierce the wall. */
+            loc_copy(&grid1, &tmp_grid);
+            pierce_outer_wide(c, &grid1, &offset, &sign);
+            loc_copy(&offset, &nxtdir);
+            handle_post_wall_step(c, &grid1, &offset, &door_flag, &bend_intvl);
+        }
+
+        /* Travel quickly through rooms */
+        else if (square_isroom(c, &tmp_grid))
+        {
+            /* Accept the location */
+            loc_copy(&grid1, &tmp_grid);
+        }
+
+        /* Tunnel through all other walls */
+        else if (square_isrock(c, &tmp_grid))
+        {
+            /* Accept this location */
+            loc_copy(&grid1, &tmp_grid);
+
+            /* Save the tunnel location */
+            if (dun->tunn_n < z_info->tunn_grid_max)
+            {
+                loc_copy(&dun->tunn[dun->tunn_n], &grid1);
+                dun->tunn_n++;
+            }
+
+            /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+            if (TURN_BASED) {}
+
+            /* PWMAngband: try to create wide tunnels */
+            else if ((dun->tunn_n < z_info->tunn_grid_max) &&
+                possible_wide_tunnel(c, &grid1, &offset, sign))
+            {
+                struct loc next;
+
+                loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
+                loc_copy(&dun->tunn[dun->tunn_n], &next);
+                dun->tunn_n++;
+
+                /* Add some holes for possible stair placement in long corridors */
+                if ((length >= 10) && one_in_(20) && (dun->tunn_n < z_info->tunn_grid_max) &&
+                    possible_wide_tunnel(c, &next, &offset, sign))
+                {
+                    loc_init(&dun->tunn[dun->tunn_n], grid1.x + sign * offset.y * 2,
+                        grid1.y + sign * offset.x * 2);
+                    dun->tunn_flag[dun->tunn_n] = 1;
+                    dun->tunn_n++;
+                    length = 0;
+                }
+            }
+
+            /* Allow door in next grid */
+            door_flag = false;
+        }
+
+        /* Handle corridor intersections or overlaps */
+        else
+        {
+            my_assert(square_in_bounds_fully(c, &tmp_grid));
+
+            /* Accept the location */
+            loc_copy(&grid1, &tmp_grid);
+
+            /* Collect legal door locations */
+            if (!door_flag)
+            {
+                /* Save the door location */
+                if (dun->door_n < z_info->level_door_max)
+                {
+                    loc_copy(&dun->door[dun->door_n], &grid1);
+                    dun->door_n++;
+                }
+
+                /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+                if (TURN_BASED) {}
+
+                /* PWMAngband: try to create wide intersections */
+                else
+                {
+                    struct loc next;
+
+                    loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
+                    if (square_in_bounds_fully(c, &next) && (dun->door_n < z_info->level_door_max))
+                    {
+                        loc_copy(&dun->door[dun->door_n], &next);
+                        dun->door_n++;
+                    }
+                }
+
+                /* No door in next grid */
+                door_flag = true;
+            }
+
+            /* Hack -- allow pre-emptive tunnel termination */
+            if (!magik(dun->profile->tun.con))
+            {
+                /* Offset between grid1 and start */
+                loc_diff(&tmp_grid, &grid1, &start);
+
+                /* Terminate the tunnel */
+                if ((ABS(tmp_grid.x) > 10) || (ABS(tmp_grid.y) > 10)) break;
+            }
+        }
+    }
+
+    /* Turn the tunnel into corridor */
+    for (i = 0; i < dun->tunn_n; i++)
+    {
+        /* Clear previous contents, add a floor */
+        square_set_feat(c, &dun->tunn[i], FEAT_FLOOR);
+
+        /* Add some holes for possible stair placement in long corridors */
+        if (dun->tunn_flag[i]) sqinfo_on(square(c, &dun->tunn[i])->info, SQUARE_STAIRS);
+    }
+
+    /* Apply the piercings that we found */
+    for (i = 0; i < dun->wall_n; i++)
+    {
+        /* Convert to floor grid */
+        square_set_feat(c, &dun->wall[i], FEAT_FLOOR);
+
+        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+        if (TURN_BASED) {}
+
+        /* PWMAngband: for wide openings, duplicate the door feature */
+        else if (i % 2)
+        {
+            if (feat) square_set_feat(c, &dun->wall[i], feat);
+            feat = 0;
+            continue;
+        }
+
+        /* Place a random door */
+        if (magik(dun->profile->tun.pen) && allows_wall_piercing_door(c, &dun->wall[i]))
+        {
+            place_random_door(c, &dun->wall[i]);
+            feat = square(c, &dun->wall[i])->feat;
+        }
+        else
+            feat = 0;
+    }
+}
+
+
+/*
+ * Count the number of corridor grids adjacent to the given grid.
+ *
+ * This routine currently only counts actual "empty floor" grids which are not
+ * in rooms.
+ *
+ * c is the current chunk
+ * grid1 is the location
+ *
+ * TODO: count stairs, open doors, closed doors?
+ */
+static int next_to_corr(struct chunk *c, struct loc *grid1)
+{
+    int i, k = 0;
+
+    my_assert(square_in_bounds(c, grid1));
+
+    /* Scan adjacent grids */
+    for (i = 0; i < 4; i++)
+    {
+        struct loc grid;
+
+        /* Extract the location */
+        loc_sum(&grid, grid1, &ddgrid_ddd[i]);
+
+        /* Count only floors which aren't part of rooms */
+        if (square_isfloor(c, &grid) && !square_isroom(c, &grid)) k++;
+    }
+
+    /* Return the number of corridors */
+    return k;
+}
+
+
+/*
+ * Returns whether a doorway can be built in a space.
+ *
+ * c is the current chunk
+ * grid is the location
+ *
+ * To have a doorway, a space must be adjacent to at least two corridors and be
+ * between two walls.
+ */
+static bool possible_doorway(struct chunk *c, struct loc *grid)
+{
+    struct loc grid1, grid2;
+
+    my_assert(square_in_bounds(c, grid));
+
+    if (next_to_corr(c, grid) < 2) return false;
+
+    next_grid(&grid1, grid, DIR_N);
+    next_grid(&grid2, grid, DIR_S);
+    if (square_isstrongwall(c, &grid1) && square_isstrongwall(c, &grid2))
+        return true;
+
+    next_grid(&grid1, grid, DIR_W);
+    next_grid(&grid2, grid, DIR_E);
+    if (square_isstrongwall(c, &grid1) && square_isstrongwall(c, &grid2))
+        return true;
+
+    return false;
+}
+
+
+/*
+ * Returns whether a wide doorway can be built in a space.
+ *
+ * To have a wide doorway, a space must be adjacent to three corridors and a wall.
+ */
+static bool possible_wide_doorway(struct chunk *c, struct loc *grid, struct loc *choice)
+{
+    struct loc next;
+
+    my_assert(square_in_bounds(c, grid));
+
+    if (next_to_corr(c, grid) != 3) return false;
+
+    next_grid(&next, grid, DIR_N);
+    if (square_isstrongwall(c, &next))
+    {
+        next_grid(choice, grid, DIR_S);
+        return true;
+    }
+    next_grid(&next, grid, DIR_S);
+    if (square_isstrongwall(c, &next))
+    {
+        next_grid(choice, grid, DIR_N);
+        return true;
+    }
+    next_grid(&next, grid, DIR_W);
+    if (square_isstrongwall(c, &next))
+    {
+        next_grid(choice, grid, DIR_E);
+        return true;
+    }
+    next_grid(&next, grid, DIR_E);
+    if (square_isstrongwall(c, &next))
+    {
+        next_grid(choice, grid, DIR_W);
+        return true;
+    }
+    return false;
+}
+
+
+/*
+ * Places door or trap at y, x position if at least 2 walls found
+ *
+ * c is the current chunk
+ * grid is the location
+ */
+static void try_door(struct chunk *c, struct loc *grid)
+{
+    struct loc grid1, grid2;
+
+    my_assert(square_in_bounds(c, grid));
+
+    if (square_isstrongwall(c, grid)) return;
+    if (square_isroom(c, grid)) return;
+    if (square_isplayertrap(c, grid)) return;
+    if (square_isdoor(c, grid)) return;
+
+    if (magik(dun->profile->tun.jct))
+    {
+        if (possible_doorway(c, grid))
+            place_random_door(c, grid);
+
+        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+        else if (TURN_BASED) {}
+
+        /* PWMAngband: for wide intersections, we need two valid adjacent spaces that face each other */
+        else if (possible_wide_doorway(c, grid, &grid1) &&
+            possible_wide_doorway(c, &grid1, &grid2) && loc_eq(&grid2, grid))
+        {
+            place_random_door(c, grid);
+            square_set_feat(c, &grid1, square(c, grid)->feat);
+        }
+    }
+    else if (CHANCE(dun->profile->tun.jct, 500))
+    {
+        if (possible_doorway(c, grid))
+            place_trap(c, grid, -1, c->wpos.depth);
+
+        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
+        else if (TURN_BASED) {}
+
+        /* PWMAngband: for wide intersections, we need two valid adjacent spaces that face each other */
+        else if (possible_wide_doorway(c, grid, &grid1) &&
+            possible_wide_doorway(c, &grid1, &grid2) && loc_eq(&grid2, grid))
+        {
+            place_trap(c, grid, -1, c->wpos.depth);
+            place_trap(c, &grid1, -1, c->wpos.depth);
+        }
+    }
+}
+
+
+/*
+ * Connect the rooms with tunnels in the traditional fashion.
+ *
+ * c Is the chunk to use.
+ */
+static void do_traditional_tunneling(struct chunk *c)
+{
+    int *scrambled = mem_alloc(dun->cent_n * sizeof(*scrambled));
+    int i;
+    struct loc grid;
+
+    /*
+     * Scramble the order in which the rooms will be connected. Use
+     * indirect indexing so dun->ent2room can be left as it is.
+     */
+    for (i = 0; i < dun->cent_n; i++) scrambled[i] = i;
+    for (i = 0; i < dun->cent_n; i++)
+    {
+        int pick1 = randint0(dun->cent_n);
+        int pick2 = randint0(dun->cent_n);
+        int tmp = scrambled[pick1];
+
+        scrambled[pick1] = scrambled[pick2];
+        scrambled[pick2] = tmp;
+    }
+
+    /* Start with no tunnel doors */
+    dun->door_n = 0;
+
+    /*
+     * Link the rooms in the scrambled order with the first connecting to
+     * the last. The bias argument for choose_random_entrance() was
+     * somewhat arbitrarily chosen: i.e. if the room is more than a
+     * typical screen width away, don't particularly care which entrance is
+     * selected.
+     */
+    choose_random_entrance(c, scrambled[dun->cent_n - 1], NULL, 80, NULL, 0, &grid);
+    if (grid.x == 0 && grid.y == 0)
+    {
+        /* Use the room's center. */
+        loc_copy(&grid, &dun->cent[scrambled[dun->cent_n - 1]]);
+    }
+    for (i = 0; i < dun->cent_n; ++i)
+    {
+        struct loc next_grid;
+
+        choose_random_entrance(c, scrambled[i], &grid, 80, NULL, 0, &next_grid);
+        if (next_grid.x == 0 && next_grid.y == 0)
+            loc_copy(&next_grid, &dun->cent[scrambled[i]]);
+        build_tunnel(c, &next_grid, &grid);
+
+        /* Remember the "previous" room. */
+        loc_copy(&grid, &next_grid);
+    }
+
+    mem_free(scrambled);
+
+    /* Place intersection doors */
+    for (i = 0; i < dun->door_n; i++)
+    {
+        /* Try placing doors */
+        next_grid(&grid, &dun->door[i], DIR_W);
+        try_door(c, &grid);
+        next_grid(&grid, &dun->door[i], DIR_E);
+        try_door(c, &grid);
+        next_grid(&grid, &dun->door[i], DIR_N);
+        try_door(c, &grid);
+        next_grid(&grid, &dun->door[i], DIR_S);
+        try_door(c, &grid);
+    }
+}
+
+
+static void ensure_connectedness(struct chunk *c, bool allow_vault_disconnect);
+
+
+/*
+ * Remove unused holes in corridors.
+ *
+ * c is the current chunk
+ */
+static void remove_unused_holes(struct chunk *c)
+{
+    struct loc begin, end;
+    struct loc_iterator iter;
+
+    loc_init(&begin, 1, 1);
+    loc_init(&end, c->width - 1, c->height - 1);
+    loc_iterator_first(&iter, &begin, &end);
+
+    do
+    {
+        if (sqinfo_has(square(c, &iter.cur)->info, SQUARE_STAIRS))
+        {
+            int k = 0;
+            struct loc grid;
+
+            next_grid(&grid, &iter.cur, DIR_S);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_SE);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_E);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_NE);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_N);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_NW);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_W);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+            next_grid(&grid, &iter.cur, DIR_SW);
+            if (feat_is_wall(square(c, &grid)->feat)) k++;
+
+            /* Remove unused holes in corridors */
+            if (square_isempty(c, &iter.cur) && (k == 5))
+                square_set_feat(c, &iter.cur, FEAT_GRANITE);
+
+            sqinfo_off(square(c, &iter.cur)->info, SQUARE_STAIRS);
+        }
+    }
+    while (loc_iterator_next_strict(&iter));
+}
+
+
+static int percent_size(struct worldpos *wpos)
+{
+    int i = randint1(10) + wpos->depth / 24;
+
+    if (is_quest(wpos->depth)) return 100;
+    if (i < 2) return 75;
+    if (i < 3) return 80;
+    if (i < 4) return 85;
+    if (i < 5) return 90;
+    if (i < 6) return 95;
+    return 100;
+}
+
+
+static void add_stairs(struct chunk *c, int feat)
+{
+    random_value *dir;
+    int num;
+    struct worldpos dpos;
+    struct location *dungeon;
+
+    /* Get number of stairs from dungeon profile */
+    if (feat == FEAT_MORE) dir = &((struct cave_profile *)dun->profile)->down;
+    else dir = &((struct cave_profile *)dun->profile)->up;
+    num = dir->base + damroll(dir->dice, dir->sides);
+
+    /* Get extra number of stairs from dungeon itself */
+    wpos_init(&dpos, &c->wpos.grid, 0);
+    dungeon = get_dungeon(&dpos);
+    if (dungeon && c->wpos.depth)
+    {
+        if (feat == FEAT_MORE) dir = &dungeon->down;
+        else dir = &dungeon->up;
+        num = num + dir->base + damroll(dir->dice, dir->sides);
+    }
+
+    alloc_stairs(c, feat, num);
 }
 
 
@@ -450,605 +1565,6 @@ static void customize_features(struct chunk *c)
 }
 
 
-static bool square_isperm_outer(struct chunk *c, struct loc *grid)
-{
-    return (square_isperm(c, grid) && !square_iswall_inner(c, grid));
-}
-
-
-static bool pierce_outer_locate(struct chunk *c, struct loc *tmp_grid, struct loc *offset,
-    struct loc *grid1)
-{
-    struct loc grid;
-
-    /* Get the "next" location */
-    loc_sum(&grid, tmp_grid, offset);
-
-    /* Stay in bounds */
-    if (!square_in_bounds(c, &grid)) return false;
-
-    /* Hack -- avoid solid permanent walls */
-    if (square_isperm_outer(c, &grid)) return false;
-
-    /* Hack -- avoid outer/solid granite walls */
-    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
-    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
-
-    /* Accept this location */
-    if (grid1) loc_copy(grid1, tmp_grid);
-    return true;
-}
-
-
-static void pierce_outer_save(struct chunk *c, struct loc *grid1)
-{
-    struct loc begin, end;
-    struct loc_iterator iter;
-
-    /* Save the wall location */
-    if (dun->wall_n < z_info->wall_pierce_max)
-    {
-        loc_copy(&dun->wall[dun->wall_n], grid1);
-        dun->wall_n++;
-    }
-
-    loc_init(&begin, grid1->x - 1, grid1->y - 1);
-    loc_init(&end, grid1->x + 1, grid1->y + 1);
-    loc_iterator_first(&iter, &begin, &end);
-
-    /* Forbid re-entry near this piercing */
-    do
-    {
-        /* Be sure we are "in bounds" */
-        if (!square_in_bounds_fully(c, &iter.cur)) continue;
-
-        /* Convert adjacent "outer" walls as "solid" walls */
-        if (square_is_granite_with_flag(c, &iter.cur, SQUARE_WALL_OUTER))
-            set_marked_granite(c, &iter.cur, SQUARE_WALL_SOLID);
-    }
-    while (loc_iterator_next(&iter));
-}
-
-
-static bool pierce_outer_wide(struct chunk *c, struct loc *grid1, struct loc *offset, int sign)
-{
-    struct loc grid, next;
-
-    /* Get an adjacent location */
-    loc_init(&grid, grid1->x + sign * offset->y, grid1->y + sign * offset->x);
-
-    /* Must be a valid "outer" wall */
-    if (!square_in_bounds_fully(c, &grid)) return false;
-    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
-    if (!square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
-
-    /* Get the "next" location */
-    loc_init(&next, grid.x + sign * offset->y, grid.y + sign * offset->x);
-
-    /* Must be a valid location inside the room (to avoid piercing corners) */
-    if (!square_in_bounds_fully(c, &next)) return false;
-    if (!square_isroom(c, &next)) return false;
-
-    /* Accept this location */
-    return pierce_outer_locate(c, &grid, offset, NULL);
-}
-
-
-static bool possible_wide_tunnel(struct chunk *c, struct loc *grid1, struct loc *offset, int sign)
-{
-    struct loc grid;
-
-    /* Get adjacent location */
-    loc_init(&grid, grid1->x + sign * offset->y, grid1->y + sign * offset->x);
-
-    /* Must be a valid granite wall */
-    if (!square_in_bounds_fully(c, &grid)) return false;
-    if (!square_isrock(c, &grid)) return false;
-
-    /* Hack -- avoid outer/solid granite walls */
-    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
-    if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
-
-    /* Accept this location */
-    return true;
-}
-
-
-/*
- * Constructs a tunnel between two points
- *
- * c is the current chunk
- * grid1 is the location of the first point
- * grid2 is the location of the second point
- *
- * This function must be called BEFORE any streamers are created, since we use
- * granite with the special SQUARE_WALL flags to keep track of legal places for
- * corridors to pierce rooms.
- *
- * We queue the tunnel grids to prevent door creation along a corridor which
- * intersects itself.
- *
- * We queue the wall piercing grids to prevent a corridor from leaving
- * a room and then coming back in through the same entrance.
- *
- * We pierce grids which are outer walls of rooms, and when we do so, we change
- * all adjacent outer walls of rooms into solid walls so that no two corridors
- * may use adjacent grids for exits.
- *
- * The solid wall check prevents corridors from chopping the corners of rooms
- * off, as well as silly door placement, and excessively wide room entrances.
- */
-static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
-{
-    int i;
-    int main_loop_count = 0;
-    struct loc start, tmp_grid, offset, cur_offset, grid1, grid2;
-    int sign = 1, feat, length = 0;
-
-    /* Used to prevent excessive door creation along overlapping corridors. */
-    bool door_flag = false;
-
-    loc_copy(&grid1, first);
-    loc_copy(&grid2, second);
-
-    /* Reset the arrays */
-    dun->tunn_n = 0;
-    dun->wall_n = 0;
-
-    /* Save the starting location */
-    loc_copy(&start, &grid1);
-
-    /* Start out in the correct direction */
-    correct_dir(&offset, &grid1, &grid2);
-
-    loc_copy(&cur_offset, &offset);
-
-    /* Keep going until done (or bored) */
-    while (!loc_eq(&grid1, &grid2))
-    {
-        /* Hack -- paranoia -- prevent infinite loops */
-        if (main_loop_count++ > 2000) break;
-
-        /* Allow bends in the tunnel */
-        if (magik(dun->profile->tun.chg))
-        {
-            /* Get the correct direction */
-            correct_dir(&offset, &grid1, &grid2);
-
-            /* Random direction */
-            if (magik(dun->profile->tun.rnd)) rand_dir(&offset);
-        }
-
-        /* Get the next location */
-        loc_sum(&tmp_grid, &grid1, &offset);
-
-        /* Be sure we are "in bounds" */
-        while (!square_in_bounds(c, &tmp_grid))
-        {
-            /* Get the correct direction */
-            correct_dir(&offset, &grid1, &grid2);
-
-            /* Random direction */
-            if (magik(dun->profile->tun.rnd)) rand_dir(&offset);
-
-            /* Get the next location */
-            loc_sum(&tmp_grid, &grid1, &offset);
-        }
-
-        if (loc_eq(&offset, &cur_offset))
-            length++;
-        else
-        {
-            loc_copy(&cur_offset, &offset);
-            length = 0;
-        }
-
-        /* Avoid obstacles */
-        if (square_isperm_outer(c, &tmp_grid) ||
-            square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_SOLID))
-        {
-            continue;
-        }
-
-        /* Pierce "outer" walls of rooms */
-        if (square_is_granite_with_flag(c, &tmp_grid, SQUARE_WALL_OUTER))
-        {
-            if (!pierce_outer_locate(c, &tmp_grid, &offset, &grid1)) continue;
-
-            /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-            if (TURN_BASED) pierce_outer_save(c, &grid1);
-
-            /* PWMAngband: try to create wide openings */
-            else if (pierce_outer_wide(c, &grid1, &offset, sign))
-            {
-                struct loc next;
-
-                pierce_outer_save(c, &grid1);
-
-                /* Current adjacent location accepted */
-                loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
-                pierce_outer_save(c, &next);
-            }
-            else if (pierce_outer_wide(c, &grid1, &offset, -sign))
-            {
-                struct loc next;
-
-                pierce_outer_save(c, &grid1);
-
-                /* Other adjacent location accepted */
-                sign = -sign;
-                loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
-                pierce_outer_save(c, &next);
-            }
-            else
-            {
-                pierce_outer_save(c, &grid1);
-
-                /* No adjacent location accepted: duplicate the entry for later */
-                pierce_outer_save(c, &grid1);
-            }
-        }
-
-        /* Travel quickly through rooms */
-        else if (square_isroom(c, &tmp_grid))
-        {
-            /* Accept the location */
-            loc_copy(&grid1, &tmp_grid);
-        }
-
-        /* Tunnel through all other walls */
-        else if (square_isrock(c, &tmp_grid))
-        {
-            /* Accept this location */
-            loc_copy(&grid1, &tmp_grid);
-
-            /* Save the tunnel location */
-            if (dun->tunn_n < z_info->tunn_grid_max)
-            {
-                loc_copy(&dun->tunn[dun->tunn_n], &grid1);
-                dun->tunn_n++;
-            }
-
-            /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-            if (TURN_BASED) {}
-
-            /* PWMAngband: try to create wide tunnels */
-            else if ((dun->tunn_n < z_info->tunn_grid_max) &&
-                possible_wide_tunnel(c, &grid1, &offset, sign))
-            {
-                struct loc next;
-
-                loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
-                loc_copy(&dun->tunn[dun->tunn_n], &next);
-                dun->tunn_n++;
-
-                /* Add some holes for possible stair placement in long corridors */
-                if ((length >= 10) && one_in_(20) && (dun->tunn_n < z_info->tunn_grid_max) &&
-                    possible_wide_tunnel(c, &next, &offset, sign))
-                {
-                    loc_init(&dun->tunn[dun->tunn_n], grid1.x + sign * offset.y * 2,
-                        grid1.y + sign * offset.x * 2);
-                    dun->tunn_flag[dun->tunn_n] = 1;
-                    dun->tunn_n++;
-                    length = 0;
-                }
-            }
-
-            /* Allow door in next grid */
-            door_flag = false;
-        }
-
-        /* Handle corridor intersections or overlaps */
-        else
-        {
-            /* Accept the location */
-            loc_copy(&grid1, &tmp_grid);
-
-            /* Collect legal door locations */
-            if (!door_flag)
-            {
-                /* Save the door location */
-                if (dun->door_n < z_info->level_door_max)
-                {
-                    loc_copy(&dun->door[dun->door_n], &grid1);
-                    dun->door_n++;
-                }
-
-                /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-                if (TURN_BASED) {}
-
-                /* PWMAngband: try to create wide intersections */
-                else
-                {
-                    struct loc next;
-
-                    loc_init(&next, grid1.x + sign * offset.y, grid1.y + sign * offset.x);
-                    if (square_in_bounds_fully(c, &next) && (dun->door_n < z_info->level_door_max))
-                    {
-                        loc_copy(&dun->door[dun->door_n], &next);
-                        dun->door_n++;
-                    }
-                }
-
-                /* No door in next grid */
-                door_flag = true;
-            }
-
-            /* Hack -- allow pre-emptive tunnel termination */
-            if (!magik(dun->profile->tun.con))
-            {
-                /* Offset between grid1 and start */
-                loc_diff(&tmp_grid, &grid1, &start);
-
-                /* Terminate the tunnel */
-                if ((ABS(tmp_grid.x) > 10) || (ABS(tmp_grid.y) > 10)) break;
-            }
-        }
-    }
-
-    /* Turn the tunnel into corridor */
-    for (i = 0; i < dun->tunn_n; i++)
-    {
-        /* Clear previous contents, add a floor */
-        square_set_feat(c, &dun->tunn[i], FEAT_FLOOR);
-
-        /* Add some holes for possible stair placement in long corridors */
-        if (dun->tunn_flag[i]) sqinfo_on(square(c, &dun->tunn[i])->info, SQUARE_STAIRS);
-    }
-
-    /* Apply the piercings that we found */
-    for (i = 0; i < dun->wall_n; i++)
-    {
-        /* Convert to floor grid */
-        square_set_feat(c, &dun->wall[i], FEAT_FLOOR);
-
-        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-        if (TURN_BASED) {}
-
-        /* PWMAngband: for wide openings, duplicate the door feature */
-        else if (i % 2)
-        {
-            if (feat) square_set_feat(c, &dun->wall[i], feat);
-            feat = 0;
-            continue;
-        }
-
-        /* Place a random door */
-        if (magik(dun->profile->tun.pen))
-        {
-            place_random_door(c, &dun->wall[i]);
-            feat = square(c, &dun->wall[i])->feat;
-        }
-        else
-            feat = 0;
-    }
-}
-
-
-/*
- * Count the number of corridor grids adjacent to the given grid.
- *
- * This routine currently only counts actual "empty floor" grids which are not
- * in rooms.
- *
- * c is the current chunk
- * grid1 is the location
- *
- * TODO: count stairs, open doors, closed doors?
- */
-static int next_to_corr(struct chunk *c, struct loc *grid1)
-{
-    int i, k = 0;
-
-    my_assert(square_in_bounds(c, grid1));
-
-    /* Scan adjacent grids */
-    for (i = 0; i < 4; i++)
-    {
-        struct loc grid;
-
-        /* Extract the location */
-        loc_sum(&grid, grid1, &ddgrid_ddd[i]);
-
-        /* Count only floors which aren't part of rooms */
-        if (square_isfloor(c, &grid) && !square_isroom(c, &grid)) k++;
-    }
-
-    /* Return the number of corridors */
-    return k;
-}
-
-
-/*
- * Returns whether a doorway can be built in a space.
- *
- * c is the current chunk
- * grid is the location
- *
- * To have a doorway, a space must be adjacent to at least two corridors and be
- * between two walls.
- */
-static bool possible_doorway(struct chunk *c, struct loc *grid)
-{
-    struct loc grid1, grid2;
-
-    my_assert(square_in_bounds(c, grid));
-
-    if (next_to_corr(c, grid) < 2) return false;
-
-    next_grid(&grid1, grid, DIR_N);
-    next_grid(&grid2, grid, DIR_S);
-    if (square_isstrongwall(c, &grid1) && square_isstrongwall(c, &grid2))
-        return true;
-
-    next_grid(&grid1, grid, DIR_W);
-    next_grid(&grid2, grid, DIR_E);
-    if (square_isstrongwall(c, &grid1) && square_isstrongwall(c, &grid2))
-        return true;
-
-    return false;
-}
-
-
-/*
- * Returns whether a wide doorway can be built in a space.
- *
- * To have a wide doorway, a space must be adjacent to three corridors and a wall.
- */
-static bool possible_wide_doorway(struct chunk *c, struct loc *grid, struct loc *choice)
-{
-    struct loc next;
-
-    my_assert(square_in_bounds(c, grid));
-
-    if (next_to_corr(c, grid) != 3) return false;
-
-    next_grid(&next, grid, DIR_N);
-    if (square_isstrongwall(c, &next))
-    {
-        next_grid(choice, grid, DIR_S);
-        return true;
-    }
-    next_grid(&next, grid, DIR_S);
-    if (square_isstrongwall(c, &next))
-    {
-        next_grid(choice, grid, DIR_N);
-        return true;
-    }
-    next_grid(&next, grid, DIR_W);
-    if (square_isstrongwall(c, &next))
-    {
-        next_grid(choice, grid, DIR_E);
-        return true;
-    }
-    next_grid(&next, grid, DIR_E);
-    if (square_isstrongwall(c, &next))
-    {
-        next_grid(choice, grid, DIR_W);
-        return true;
-    }
-    return false;
-}
-
-
-/*
- * Places door or trap at y, x position if at least 2 walls found
- *
- * c is the current chunk
- * grid is the location
- */
-static void try_door(struct chunk *c, struct loc *grid)
-{
-    struct loc grid1, grid2;
-
-    my_assert(square_in_bounds(c, grid));
-
-    if (square_isstrongwall(c, grid)) return;
-    if (square_isroom(c, grid)) return;
-    if (square_isplayertrap(c, grid)) return;
-    if (square_isdoor(c, grid)) return;
-
-    if (magik(dun->profile->tun.jct))
-    {
-        if (possible_doorway(c, grid))
-            place_random_door(c, grid);
-
-        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-        else if (TURN_BASED) {}
-
-        /* PWMAngband: for wide intersections, we need two valid adjacent spaces that face each other */
-        else if (possible_wide_doorway(c, grid, &grid1) &&
-            possible_wide_doorway(c, &grid1, &grid2) && loc_eq(&grid2, grid))
-        {
-            place_random_door(c, grid);
-            square_set_feat(c, &grid1, square(c, grid)->feat);
-        }
-    }
-    else if (CHANCE(dun->profile->tun.jct, 500))
-    {
-        if (possible_doorway(c, grid))
-            place_trap(c, grid, -1, c->wpos.depth);
-
-        /* HIGHLY EXPERIMENTAL: turn-based mode (for single player games) */
-        else if (TURN_BASED) {}
-
-        /* PWMAngband: for wide intersections, we need two valid adjacent spaces that face each other */
-        else if (possible_wide_doorway(c, grid, &grid1) &&
-            possible_wide_doorway(c, &grid1, &grid2) && loc_eq(&grid2, grid))
-        {
-            place_trap(c, grid, -1, c->wpos.depth);
-            place_trap(c, &grid1, -1, c->wpos.depth);
-        }
-    }
-}
-
-
-static void ensure_connectedness(struct chunk *c);
-
-
-/*
- * Remove unused holes in corridors.
- *
- * c is the current chunk
- */
-static void remove_unused_holes(struct chunk *c)
-{
-    struct loc begin, end;
-    struct loc_iterator iter;
-
-    loc_init(&begin, 1, 1);
-    loc_init(&end, c->width - 1, c->height - 1);
-    loc_iterator_first(&iter, &begin, &end);
-
-    do
-    {
-        if (sqinfo_has(square(c, &iter.cur)->info, SQUARE_STAIRS))
-        {
-            int k = 0;
-            struct loc grid;
-
-            next_grid(&grid, &iter.cur, DIR_S);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_SE);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_E);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_NE);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_N);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_NW);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_W);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-            next_grid(&grid, &iter.cur, DIR_SW);
-            if (feat_is_wall(square(c, &grid)->feat)) k++;
-
-            /* Remove unused holes in corridors */
-            if (square_isempty(c, &iter.cur) && (k == 5))
-                square_set_feat(c, &iter.cur, FEAT_GRANITE);
-
-            sqinfo_off(square(c, &iter.cur)->info, SQUARE_STAIRS);
-        }
-    }
-    while (loc_iterator_next_strict(&iter));
-}
-
-
-static int percent_size(struct worldpos *wpos)
-{
-    int i = randint1(10) + wpos->depth / 24;
-
-    if (is_quest(wpos->depth)) return 100;
-    if (i < 2) return 75;
-    if (i < 3) return 80;
-    if (i < 4) return 85;
-    if (i < 5) return 90;
-    if (i < 6) return 95;
-    return 100;
-}
-
-
 /*
  * Generate a new dungeon level
  *
@@ -1058,7 +1574,6 @@ static int percent_size(struct worldpos *wpos)
 struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
 {
     int i, j, k;
-    struct loc grid;
     int by, bx = 0, tby, tbx, key, rarity, built;
     int num_rooms, size_percent;
     int dun_unusual = dun->profile->dun_unusual;
@@ -1101,6 +1616,7 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     /* No rooms yet, pits or otherwise. */
     dun->pit_num = 0;
     dun->cent_n = 0;
+    reset_entrance_data(c);
 
     /*
      * Build some rooms. Note that the theoretical maximum number of rooms
@@ -1188,49 +1704,9 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
-    /* Hack -- scramble the room order */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        int pick1 = randint0(dun->cent_n);
-        int pick2 = randint0(dun->cent_n);
-        struct loc tmp;
-
-        loc_copy(&tmp, &dun->cent[pick1]);
-        loc_copy(&dun->cent[pick1], &dun->cent[pick2]);
-        loc_copy(&dun->cent[pick2], &tmp);
-    }
-
-    /* Start with no tunnel doors */
-    dun->door_n = 0;
-
-    /* Hack -- connect the first room to the last room */
-    loc_copy(&grid, &dun->cent[dun->cent_n - 1]);
-
     /* Connect all the rooms together */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        /* Connect the room to the previous room */
-        build_tunnel(c, &dun->cent[i], &grid);
-
-        /* Remember the "previous" room */
-        loc_copy(&grid, &dun->cent[i]);
-    }
-
-    /* Place intersection doors */
-    for (i = 0; i < dun->door_n; i++)
-    {
-        /* Try placing doors */
-        next_grid(&grid, &dun->door[i], DIR_W);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_E);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_N);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_S);
-        try_door(c, &grid);
-    }
-
-    ensure_connectedness(c);
+    do_traditional_tunneling(c);
+    ensure_connectedness(c, true);
 
     /* Add some magma streamers */
     for (i = 0; i < dun->profile->str.mag; i++)
@@ -2073,8 +2549,11 @@ static void fix_colors(int *colors, int *counts, int from, int to, int size)
  * counts is the array of current color counts
  * color is the color of the region we want to connect
  * new_color is the color of the region we want to connect to (if used)
+ * allow_vault_disconnect If true, vaults can be included in path
+ * planning which can leave regions disconnected.
  */
-static void join_region(struct chunk *c, int *colors, int *counts, int color, int new_color)
+static void join_region(struct chunk *c, int *colors, int *counts, int color, int new_color,
+    bool allow_vault_disconnect)
 {
     int i;
     int h = c->height;
@@ -2168,13 +2647,13 @@ static void join_region(struct chunk *c, int *colors, int *counts, int color, in
             if (!square_in_bounds(c, &grid)) continue;
 
             /*
-             * If the cell hasn't already been processed and we're willing to include it
-             * (do allow a vault, unlike above; though, that can allow the vault to disconnect
-             * regions), add it to the queue
+             * If the cell hasn't already been processed and we're willing to include it,
+             * add it to the queue
              */
             n2 = grid_to_i(&grid, w);
             if (previous[n2] >= 0) continue;
             if (square_isperm(c, &grid)) continue;
+            if (square_isvault(c, &grid) && !allow_vault_disconnect) continue;
             q_push_int(queue, n2);
             previous[n2] = n1;
         }
@@ -2192,8 +2671,10 @@ static void join_region(struct chunk *c, int *colors, int *counts, int color, in
  * c is the current chunk
  * colors is the array of current point colors
  * counts is the array of current color counts
+ * allow_vault_disconnect If true, allows vaults to be included in
+ * path planning which can leave regions disconnected.
  */
-static void join_regions(struct chunk *c, int *colors, int *counts)
+static void join_regions(struct chunk *c, int *colors, int *counts, bool allow_vault_disconnect)
 {
     int h = c->height;
     int w = c->width;
@@ -2208,7 +2689,7 @@ static void join_regions(struct chunk *c, int *colors, int *counts)
     {
         int color = first_color(counts, size);
 
-        join_region(c, colors, counts, color, -1);
+        join_region(c, colors, counts, color, -1, allow_vault_disconnect);
         num--;
     }
 }
@@ -2222,14 +2703,14 @@ static void join_regions(struct chunk *c, int *colors, int *counts)
  * This function colors each connected region of the dungeon, then uses that
  * information to join them into one connected region.
  */
-static void ensure_connectedness(struct chunk *c)
+static void ensure_connectedness(struct chunk *c, bool allow_vault_disconnect)
 {
     int size = c->height * c->width;
     int *colors = mem_zalloc(size * sizeof(int));
     int *counts = mem_zalloc(size * sizeof(int));
 
     build_colors(c, colors, counts, true);
-    join_regions(c, colors, counts);
+    join_regions(c, colors, counts, allow_vault_disconnect);
 
     mem_free(colors);
     mem_free(counts);
@@ -2285,7 +2766,7 @@ static struct chunk *cavern_chunk(struct player *p, struct worldpos *wpos, int h
 
     build_colors(c, colors, counts, false);
     clear_small_regions(c, colors, counts);
-    join_regions(c, colors, counts);
+    join_regions(c, colors, counts, true);
 
     mem_free(colors);
     mem_free(counts);
@@ -3223,7 +3704,6 @@ struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height, 
 static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int height, int width)
 {
     int i;
-    struct loc grid;
     int by = 0, bx = 0, key, rarity;
     int num_floors;
     int num_rooms = dun->profile->n_room_profiles;
@@ -3256,6 +3736,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     /* No rooms yet, pits or otherwise. */
     dun->pit_num = 0;
     dun->cent_n = 0;
+    reset_entrance_data(c);
 
     /* Build rooms until we have enough floor grids and at least two rooms */
     while ((c->feat_count[FEAT_FLOOR] < num_floors) || (dun->cent_n < 2))
@@ -3299,49 +3780,9 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
         mem_free(dun->room_map[i]);
     mem_free(dun->room_map);
 
-    /* Hack -- scramble the room order */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        int pick1 = randint0(dun->cent_n);
-        int pick2 = randint0(dun->cent_n);
-        struct loc tmp;
-
-        loc_copy(&tmp, &dun->cent[pick1]);
-        loc_copy(&dun->cent[pick1], &dun->cent[pick2]);
-        loc_copy(&dun->cent[pick2], &tmp);
-    }
-
-    /* Start with no tunnel doors */
-    dun->door_n = 0;
-
-    /* Hack -- connect the first room to the last room */
-    loc_copy(&grid, &dun->cent[dun->cent_n - 1]);
-
     /* Connect all the rooms together */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        /* Connect the room to the previous room */
-        build_tunnel(c, &dun->cent[i], &grid);
-
-        /* Remember the "previous" room */
-        loc_copy(&grid, &dun->cent[i]);
-    }
-
-    /* Place intersection doors */
-    for (i = 0; i < dun->door_n; i++)
-    {
-        /* Try placing doors */
-        next_grid(&grid, &dun->door[i], DIR_W);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_E);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_N);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_S);
-        try_door(c, &grid);
-    }
-
-    ensure_connectedness(c);
+    do_traditional_tunneling(c);
+    ensure_connectedness(c, true);
 
     /* Turn the outer permanent walls back to granite */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE, true);
@@ -3489,7 +3930,6 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
 static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int height, int width)
 {
     int i;
-    struct loc grid;
     int by = 0, bx = 0, key, rarity;
     int num_floors;
     int num_rooms = dun->profile->n_room_profiles;
@@ -3522,6 +3962,7 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
     /* No rooms yet, pits or otherwise. */
     dun->pit_num = 0;
     dun->cent_n = 0;
+    reset_entrance_data(c);
 
     /*
      * Build rooms until we have enough floor grids and at least two rooms
@@ -3568,49 +4009,9 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
         mem_free(dun->room_map[i]);
     mem_free(dun->room_map);
 
-    /* Hack -- scramble the room order */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        int pick1 = randint0(dun->cent_n);
-        int pick2 = randint0(dun->cent_n);
-        struct loc tmp;
-
-        loc_copy(&tmp, &dun->cent[pick1]);
-        loc_copy(&dun->cent[pick1], &dun->cent[pick2]);
-        loc_copy(&dun->cent[pick2], &tmp);
-    }
-
-    /* Start with no tunnel doors */
-    dun->door_n = 0;
-
-    /* Hack -- connect the first room to the last room */
-    loc_copy(&grid, &dun->cent[dun->cent_n - 1]);
-
     /* Connect all the rooms together */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        /* Connect the room to the previous room */
-        build_tunnel(c, &dun->cent[i], &grid);
-
-        /* Remember the "previous" room */
-        loc_copy(&grid, &dun->cent[i]);
-    }
-
-    /* Place intersection doors */
-    for (i = 0; i < dun->door_n; i++)
-    {
-        /* Try placing doors */
-        next_grid(&grid, &dun->door[i], DIR_W);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_E);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_N);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_S);
-        try_door(c, &grid);
-    }
-
-    ensure_connectedness(c);
+    do_traditional_tunneling(c);
+    ensure_connectedness(c, true);
 
     /* Turn the outer permanent walls back to granite */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE, true);
@@ -3786,6 +4187,8 @@ static struct chunk *vault_chunk(struct player *p, struct worldpos *wpos, int he
     fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
 
     /* Build the vault in it */
+    dun->cent_n = 0;
+    reset_entrance_data(c);
     loc_init(&centre, width / 2, height / 2);
     build_vault(p, c, &centre, v, false);
 
@@ -3821,8 +4224,8 @@ static void connect_caverns(struct chunk *c, struct loc floor[])
     }
 
     /* Join left and upper, right and lower */
-    join_region(c, colors, counts, color_of_floor[0], color_of_floor[1]);
-    join_region(c, colors, counts, color_of_floor[2], color_of_floor[3]);
+    join_region(c, colors, counts, color_of_floor[0], color_of_floor[1], false);
+    join_region(c, colors, counts, color_of_floor[2], color_of_floor[3], false);
 
     /* Join the two big caverns */
     for (i = 1; i < 3; i++)
@@ -3831,7 +4234,7 @@ static void connect_caverns(struct chunk *c, struct loc floor[])
 
         color_of_floor[i] = colors[spot];
     }
-    join_region(c, colors, counts, color_of_floor[1], color_of_floor[2]);
+    join_region(c, colors, counts, color_of_floor[1], color_of_floor[2], false);
 
     mem_free(colors);
     mem_free(counts);
@@ -3895,13 +4298,56 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     int left_cavern_wid, right_cavern_wid;
     struct chunk *left_cavern;
     struct chunk *right_cavern;
-    int i, k, y, x, cavern_area;
+    int i, k, cavern_area;
     struct loc grid;
     struct loc floor[4];
     struct loc top_left, bottom_right;
 
     /* Paranoia */
     if (!c) return NULL;
+
+    /*
+     * Carve out entrances to the vault. Only use one if there aren't
+     * explicitly marked entrances since those vaults typically have empty
+     * space about them and the extra entrances aren't useful.
+     */
+    k = 1 + ((dun->ent_n[0] > 0)? randint1(3): 0);
+    dun->wall_n = 0;
+    for (i = 0; i < k; ++i)
+    {
+        if (dun->ent_n[0] == 0)
+        {
+            /* There's no explicitly marked entrances. Look for a square marked SQUARE_WALL_OUTER. */
+            if (!cave_find(c, &grid, square_iswall_outer))
+            {
+                if (i == 0)
+                {
+                    cave_free(c);
+                    return NULL;
+                }
+                break;
+            }
+        }
+        else
+        {
+            choose_random_entrance(c, 0, NULL, 0, dun->wall, i, &grid);
+            if (grid.x == 0 && grid.y == 0)
+            {
+                if (i == 0)
+                {
+                    cave_free(c);
+                    return NULL;
+                }
+                break;
+            }
+        }
+
+        /* Store position in dun->wall and mark neighbors as invalid entrances. */
+        pierce_outer_wall(c, &grid);
+
+        /* Convert it to a floor. */
+        square_set_feat(c, &grid, FEAT_FLOOR);
+    }
 
     /* Measure the vault */
     centre_cavern_ypos = (z_info->dungeon_hgt / 2) - (vhgt / 2);
@@ -3979,25 +4425,8 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     /* Connect up all the caverns */
     connect_caverns(c, floor);
 
-    /* Temporary until connecting to vault entrances works better */
-    for (y = 0; y < centre_cavern_hgt; y++)
-    {
-        loc_init(&grid, left_cavern_wid, y + centre_cavern_ypos);
-        square_set_feat(c, &grid, FEAT_FLOOR);
-        loc_init(&grid, left_cavern_wid + centre_cavern_wid - 1, y + centre_cavern_ypos);
-        square_set_feat(c, &grid, FEAT_FLOOR);
-    }
-
-    for (x = 0; x < centre_cavern_wid; x++)
-    {
-        loc_init(&grid, x + left_cavern_wid, centre_cavern_ypos);
-        square_set_feat(c, &grid, FEAT_FLOOR);
-        loc_init(&grid, x + left_cavern_wid, centre_cavern_ypos + centre_cavern_hgt - 1);
-        square_set_feat(c, &grid, FEAT_FLOOR);
-    }
-
-    /* Connect to the centre */
-    ensure_connectedness(c);
+    /* Connect to the centre entrances. */
+    ensure_connectedness(c, false);
 
     /* Free all the chunks */
     cave_free(upper_cavern);
@@ -4151,7 +4580,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Connect */
-    ensure_connectedness(c);
+    ensure_connectedness(c, true);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4420,7 +4849,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
     /* Connect */
-    ensure_connectedness(c);
+    ensure_connectedness(c, true);
 
     /* Put some rubble in corridors */
     alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
@@ -4942,7 +5371,6 @@ struct chunk *mang_town_gen(struct player *p, struct worldpos *wpos, int min_hei
 struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
 {
     int i, j, k;
-    struct loc grid;
     int by, bx = 0, tby, tbx, key, rarity, built;
     int num_rooms;
     int dun_unusual = dun->profile->dun_unusual;
@@ -4981,6 +5409,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     /* No rooms yet, pits or otherwise. */
     dun->pit_num = 0;
     dun->cent_n = 0;
+    reset_entrance_data(c);
 
     /* Hack -- set profile */
     c->profile = dun_arena;
@@ -5070,49 +5499,9 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
 
-    /* Hack -- scramble the room order */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        int pick1 = randint0(dun->cent_n);
-        int pick2 = randint0(dun->cent_n);
-        struct loc tmp;
-
-        loc_copy(&tmp, &dun->cent[pick1]);
-        loc_copy(&dun->cent[pick1], &dun->cent[pick2]);
-        loc_copy(&dun->cent[pick2], &tmp);
-    }
-
-    /* Start with no tunnel doors */
-    dun->door_n = 0;
-
-    /* Hack -- connect the first room to the last room */
-    loc_copy(&grid, &dun->cent[dun->cent_n - 1]);
-
     /* Connect all the rooms together */
-    for (i = 0; i < dun->cent_n; i++)
-    {
-        /* Connect the room to the previous room */
-        build_tunnel(c, &dun->cent[i], &grid);
-
-        /* Remember the "previous" room */
-        loc_copy(&grid, &dun->cent[i]);
-    }
-
-    /* Place intersection doors */
-    for (i = 0; i < dun->door_n; i++)
-    {
-        /* Try placing doors */
-        next_grid(&grid, &dun->door[i], DIR_W);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_E);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_N);
-        try_door(c, &grid);
-        next_grid(&grid, &dun->door[i], DIR_S);
-        try_door(c, &grid);
-    }
-
-    ensure_connectedness(c);
+    do_traditional_tunneling(c);
+    ensure_connectedness(c, true);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);

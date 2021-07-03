@@ -1709,17 +1709,21 @@ void show_splashscreen(void)
     xoffset = (Term->wid - 80) / 2;
     yoffset = (Term->hgt - 23) / 5;
 
+    /* Show each line */
     for (i = 0; i < TEXTFILE__HGT; i++)
-    {
-        /* Show each line */
         text_out_e(&Setup.text_screen[TEXTFILE_MOTD][i * TEXTFILE__WID], i + yoffset, xoffset);
-    }
+
+    Term_putstr(Term->wid / 2 - 12, Term->hgt - 1, -1, COLOUR_WHITE, "Press SPACE key to continue");
 
     /* Show it */
     Term_fresh();
 
     /* Wait for a keypress */
-    Term_inkey(&ch, true, true);
+    do
+    {
+        Term_inkey(&ch, true, true);
+    }
+    while (ch.key.code != ' ');
 
     player->screen_save_depth--;
 

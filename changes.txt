@@ -8,7 +8,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 beta 2
+New features in PWMAngband 1.5.0 beta 3
 =======================================
 
 User interface
@@ -86,6 +86,7 @@ PWMAngband:
 - Display %fail of first spell at character birth (point-based roller)
 - Support color for windows border and status bar (SDL client)
 - Change manual selection of server from ctrl-m to ctrl-s
+- Force pressing SPACE key to enter the game after the MotD is displayed
 
 Gameplay changes
 ----------------
@@ -98,6 +99,7 @@ Angband 4.2.x:
 - Disentangle IMPAIR_HP and COMBAT_REGEN
 - Allow more variation for pillar or ragged edge rooms
 - Make decoys only work when in monster's LoS
+- Modify tunneling to account for rooms with few entrances
 
 MAngband 1.5.x:
 

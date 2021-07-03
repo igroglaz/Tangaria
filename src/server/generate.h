@@ -28,6 +28,36 @@ enum
 };
 
 /*
+ * Flag for room types
+ */
+enum
+{
+    #define ROOMF(a, b) ROOMF_##a,
+    #include "list-room-flags.h"
+    #undef ROOMF
+    ROOMF_MAX
+};
+
+#define ROOMF_SIZE              FLAG_SIZE(ROOMF_MAX)
+
+#define roomf_has(f, flag)      flag_has_dbg(f, ROOMF_SIZE, flag, #f, #flag)
+#define roomf_next(f, flag)     flag_next(f, ROOMF_SIZE, flag)
+#define roomf_is_empty(f)       flag_is_empty(f, ROOMF_SIZE)
+#define roomf_is_full(f)        flag_is_full(f, ROOMF_SIZE)
+#define roomf_is_inter(f1, f2)  flag_is_inter(f1, f2, ROOMF_SIZE)
+#define roomf_is_subset(f1, f2) flag_is_subset(f1, f2, ROOMF_SIZE)
+#define roomf_is_equal(f1, f2)  flag_is_equal(f1, f2, ROOMF_SIZE)
+#define roomf_on(f, flag)       flag_on_dbg(f, ROOMF_SIZE, flag, #f, #flag)
+#define roomf_off(f, flag)      flag_off(f, ROOMF_SIZE, flag)
+#define roomf_wipe(f)           flag_wipe(f, ROOMF_SIZE)
+#define roomf_setall(f)         flag_setall(f, ROOMF_SIZE)
+#define roomf_negate(f)         flag_negate(f, ROOMF_SIZE)
+#define roomf_copy(f1, f2)      flag_copy(f1, f2, ROOMF_SIZE)
+#define roomf_union(f1, f2)     flag_union(f1, f2, ROOMF_SIZE)
+#define roomf_inter(f1, f2)     flag_inter(f1, f2, ROOMF_SIZE)
+#define roomf_diff(f1, f2)      flag_diff(f1, f2, ROOMF_SIZE)
+
+/*
  * Profile indexes
  */
 enum
@@ -100,6 +130,15 @@ struct dun_data
     /* Array of centers of rooms */
     int cent_n;
     struct loc *cent;
+
+    /* Array (cent_n elements) for counts of marked entrance points */
+    int *ent_n;
+
+    /* Array of arrays (cent_n by ent_n[i]) for locations of marked entrance points */
+    struct loc **ent;
+
+    /* Lookup for room number of a room entrance by (y,x) for the entrance */
+    int **ent2room;
 
     /* Array of possible door locations */
     int door_n;
@@ -209,15 +248,16 @@ struct room_profile
  */
 struct vault
 {
-    char *name;         /* Name */
-    char *text;         /* Text */
-    struct vault *next; /* Pointer to next vault template */
-    char *typ;          /* Vault type */
-    byte rat;           /* Vault rating */
-    byte hgt;           /* Vault height */
-    byte wid;           /* Vault width */
-    byte min_lev;       /* Minimum allowable level, if specified. */
-    byte max_lev;       /* Maximum allowable level, if specified. */
+    char *name;                 /* Name */
+    char *text;                 /* Text */
+    struct vault *next;         /* Pointer to next vault template */
+    char *typ;                  /* Vault type */
+    bitflag flags[ROOMF_SIZE];  /* Vault flags */
+    byte rat;                   /* Vault rating */
+    byte hgt;                   /* Vault height */
+    byte wid;                   /* Vault width */
+    byte min_lev;               /* Minimum allowable level, if specified. */
+    byte max_lev;               /* Maximum allowable level, if specified. */
 };
 
 /*
@@ -227,6 +267,7 @@ struct room_template
 {
     char *name;                 /* Name */
     char *text;                 /* Text */
+    bitflag flags[ROOMF_SIZE];  /* Room flags */
     struct room_template *next; /* Pointer to next room template */
     byte typ;                   /* Room type */
     byte rat;                   /* Room rating */
@@ -325,6 +366,7 @@ extern void i_to_grid(int i, int w, struct loc *grid);
 extern void shuffle(int *arr, int n);
 extern bool cave_find_in_range(struct chunk *c, struct loc *grid, struct loc *top_left,
     struct loc *bottom_right, square_predicate pred);
+extern bool cave_find(struct chunk *c, struct loc *grid, square_predicate pred);
 extern bool find_empty(struct chunk *c, struct loc *grid);
 extern bool find_emptywater(struct chunk *c, struct loc *grid);
 extern bool find_training(struct chunk *c, struct loc *grid);
