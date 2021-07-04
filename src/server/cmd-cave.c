@@ -3261,6 +3261,12 @@ bool create_house(struct player *p, int small_house)
     char wall_type = '\0';  // second part of floor name (type) for rng walls
     int wall_id = 0;  // specific wall (when we have several different walls in one row)
 
+    if (p->lev < 10)
+    {
+        msg(p, "You must be level 10 to build a house.");
+        return false;
+    }
+
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
     {

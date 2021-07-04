@@ -386,7 +386,7 @@ void start_quest(struct player *p)
 
     if (p->lev < 20)
     {
-        msg(p, "You must be 20 level to take quests.");
+        msg(p, "You must be level 20 to get quests.");
         return;
     }
 
