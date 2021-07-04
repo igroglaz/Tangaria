@@ -384,6 +384,12 @@ void start_quest(struct player *p)
     int max_num, kills = 0;
     u16b i;
 
+    if (p->lev < 20)
+    {
+        msg(p, "You must be 20 level to take quests.");
+        return;
+    }
+
     /* Quest already taken? */
     if (quest->race)
     {
