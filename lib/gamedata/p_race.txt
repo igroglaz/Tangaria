@@ -100,7 +100,7 @@ value:1:INT[-4]
 value:1:WIS[-2]
 value:1:DEX[-4]
 value:1:CON[3]
-value:1:CHR[-6]
+value:1:CHR[-4]
 obj-flag:1:SUST_STR
 obj-flag:1:REGEN
 player-flags:40:RACE_REGEN
@@ -130,6 +130,7 @@ value:0:CON[0+1d12]
 value:1:DAM_RED[0+1d15]
 value:1:TUNNEL[1+1d30]
 value:30:SPEED[1]
+# mediocre bonus.. versatile
 
 name:Half-Elf
 skill-disarm-phys:2
@@ -206,9 +207,9 @@ history:10
 age:21:12
 height:34:4
 weight:55:5
-# original: -2 2 1 3 2
+# original: -2 !2! 1 3 2
 value:1:STR[-2]
-#value:1:INT[2] ---> 0
+value:1:INT[1]
 value:1:WIS[1]
 value:1:DEX[3]
 value:1:CON[2]
@@ -240,7 +241,7 @@ value:1:STR[-1]
 value:1:INT[2]
 value:1:DEX[2]
 value:1:CON[1]
-value:1:CHR[-2]
+value:1:CHR[-1]
 value:1:INFRA[4]
 obj-flag:1:FREE_ACT
 value:1:TUNNEL[1+1d30]
@@ -267,7 +268,7 @@ value:1:INT[-3]
 value:1:WIS[2]
 value:1:DEX[-2]
 value:1:CON[2]
-value:1:CHR[-3]
+value:1:CHR[-2]
 value:1:INFRA[5]
 obj-flag:1:PROT_BLIND
 player-flags:0:SEE_ORE
@@ -291,7 +292,7 @@ weight:135:15
 value:1:STR[2]
 value:1:INT[-1]
 value:1:CON[1]
-value:1:CHR[-4]
+value:1:CHR[-3]
 value:1:INFRA[3]
 value:1:RES_DARK[1]
 value:1:TUNNEL[1]
@@ -299,6 +300,8 @@ value:1:DAM_RED[0+1d15]
 obj-flag:15:ESP_ORC
 value:35:SPEED[1]
 player-flags:0:ORC
+# start with orcish liquer (and yatagan?)
+# vigorous..stamina.. like MANA
 
 name:Dunedain
 skill-disarm-phys:4
@@ -348,7 +351,7 @@ value:0:INT[-1+1d12]
 value:0:WIS[-2+1d30]
 value:0:DEX[0+1d16]
 value:0:CON[-2+1d15]
-value:1:CHR[0+1d10]
+value:1:CHR[0+1d12]
 value:1:INFRA[1+1d16]
 value:1:DAM_RED[-1+-1d15]
 value:15:STEALTH[1+1d15]
@@ -402,11 +405,11 @@ weight:36:6
 obj-flag:1:FEATHER
 # -5 -5 -5 -5 -5
 value:1:STR[-1+-1d12]
-value:1:INT[-1+-1d12]
-value:1:WIS[-1+-1d12]
+value:1:INT[-1+-1d15]
+value:1:WIS[-1+-1d15]
 value:1:DEX[-1+-1d12]
 value:1:CON[-1+-1d12]
-value:1:CHR[0+-1d12]
+value:1:CHR[0+1d45]
 value:1:MOVES[1+10d24]
 value:1:DAM_RED[1+1d24]
 player-flags:0:FAST_THROW
@@ -418,6 +421,7 @@ shape:1:oook
 shape:12:eeek
 shape:24:yaak
 player-flags:0:ANIMAL
+value:1:MANA[1]
 
 name:Ent
 skill-disarm-phys:-5
@@ -429,8 +433,7 @@ skill-search:-2
 skill-melee:15
 skill-shoot:5
 skill-dig:0
-#hp was 13
-hitdie:11
+hitdie:13
 exp:165:125
 history:94
 age:255:70
@@ -449,22 +452,22 @@ obj-flag:45:ESP_EVIL
 obj-flag:50:ESP_RADIUS
 #str8 int-4 wis2 dex-4 con8
 value:1:STR[-8+1d3]
-value:1:INT[-4]
-value:1:WIS[-2+1d12]
+value:1:INT[0+-1d12]
+value:1:WIS[0+1d24]
 value:1:DEX[-8+1d12]
 value:1:CON[-8+1d3]
+value:1:CHR[-1]
 value:1:INFRA[1+1d12]
 value:1:RES_FIRE[-1]
 value:1:SPEED[0+-1d14M29]
 # stealth -6
-value:1:STEALTH[0+-1d5M30]
+value:0:STEALTH[-1+-1d5M25]
 value:1:TUNNEL[5]
 obj-flag:40:IMPAIR_HP
 player-flags:0:GIANT | CAN_SWIM
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
-#temp
-value:1:BLOWS[1+-1d30]
+value:0:MANA[5+-1d10]
 
 #got hardcoded full ESP with expanding radius
 name:Thunderlord
@@ -487,19 +490,19 @@ obj-flag:25:FEATHER
 obj-flag:5:ESP_DRAGON
 # 6 2 1 1 3
 value:1:STR[-6+1d4]
-value:1:INT[-4+1d8]
-value:0:WIS[-4+1d10]
+value:1:INT[0+1d24]
+value:0:WIS[0+1d30]
 value:1:DEX[-6+1d7]
 value:1:CON[-6+1d4]
-value:1:CHR[-5]
+value:1:CHR[-2]
 value:10:RES_FIRE[1]
 value:20:RES_COLD[1]
 value:30:RES_ACID[1]
 value:40:RES_ELEC[1]
-value:1:DAM_RED[0+-1d9]
+value:1:TUNNEL[-1+-1d15]
 player-flags:0:THUNDERLORD
-#temp
-value:1:SPEED[1]
+slay:1:50:ORC_3
+value:0:MANA[4+-1d6M25]
 
 #dragon got 1/2 bonuses from dragons which form they take
 name:Dragon
@@ -523,12 +526,13 @@ obj-flag:1:FEATHER
 value:1:INFRA[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
 value:1:STR[-20]
-value:1:INT[-20]
-value:1:WIS[-20]
+value:1:INT[0]
+value:1:WIS[0]
 value:1:DEX[-20]
-value:1:CON[-20]
-value:1:CHR[-20]
-value:1:MANA[4+-1d10M40]
+value:1:CON[-10]
+value:1:CHR[-5]
+value:1:MANA[5+-1d10M40]
+obj-flag:50:HUNGER
 player-flags:0:DRAGON | PERM_SHAPE
 attack:claw:none:1:0:NONE
 attack:bite:none:5:4:DAM
@@ -551,8 +555,8 @@ age:255:70
 height:170:20
 weight:240:60
 value:1:STR[-20]
-value:1:INT[-20]
-value:1:WIS[-20]
+value:1:INT[-4]
+value:1:WIS[-4]
 value:1:DEX[-20]
 value:1:CON[-20+20d25]
 value:1:CHR[-20]
@@ -561,10 +565,11 @@ value:15:SPEED[-10+2d7]
 value:15:MOVES[10]
 player-flags:0:RACE_REGEN
 value:50:DAM_RED[5]
-value:1:MANA[4+-1d10M40]
+value:0:MANA[10]
 value:10:TUNNEL[1+1d10]
 player-flags:0:CAN_SWIM
 value:40:RES_CHAOS[1]
+player-flags:0:SEE_ORE
 player-flags:0:HYDRA | PERM_SHAPE
 attack:bite: (circular):1:0:CIRCLE
 shape:1:hydra
@@ -584,7 +589,8 @@ shape:50:14-headed hydra
 #curse:siren:100
 #obj-flag:1:DRAIN_EXP
 #obj-flag:10:DRAIN_EXP do not deplete less then achieved lvl ?
-#obj-flag:1:FEATHER[-1]
+#obj-flag:1:FEATHER[-1]\
+# mana based at (INT+WIS)/2
 
 name:Black Numenorean
 skill-disarm-phys:2
@@ -663,9 +669,9 @@ value:1:INT[-1+1d20M21]
 value:1:WIS[0+1d24]
 value:1:DEX[-1+1d24]
 value:1:CON[-3+1d24]
-value:0:CHR[-4]
+value:0:CHR[-1]
 value:1:INFRA[1+1d7]
-value:25:RES_WATER[1]
+value:1:RES_WATER[1]
 value:50:RES_WATER[3]
 value:1:TUNNEL[-1+-1d15]
 # make fast regen only in water
@@ -694,7 +700,7 @@ value:1:INT[-2]
 value:1:WIS[-1]
 value:1:DEX[0+1d10M11]
 value:1:CON[0+1d7M15]
-value:0:CHR[-4]
+value:0:CHR[-2]
 value:1:INFRA[1]
 obj-flag:1:PROT_FEAR
 value:40:RES_POIS[1]
@@ -723,7 +729,7 @@ value:1:INT[0]
 value:1:WIS[-1]
 value:1:DEX[0]
 value:25:CON[1]
-value:0:CHR[-3]
+value:0:CHR[-2]
 value:1:INFRA[3]
 value:25:RES_DISEN[1]
 player-flags:15:SEE_ORE
@@ -753,10 +759,10 @@ value:1:INT[-1]
 value:1:WIS[-4]
 value:1:DEX[2+1d10]
 value:1:CON[1+1d30]
-value:1:CHR[-6]
+value:1:CHR[-4]
 value:1:INFRA[4]
 value:10:RES_DARK[1]
-value:1:TUNNEL[1]
+value:1:TUNNEL[1+1d30]
 value:0:SPEED[0+1d24]
 player-flags:0:ORC
 
@@ -783,7 +789,7 @@ value:1:INT[-2]
 value:1:WIS[-2]
 value:1:DEX[-2]
 value:1:CON[1+1d24]
-value:1:CHR[-5]
+value:1:CHR[-4]
 obj-flag:10:SUST_STR
 obj-flag:50:TRAP_IMMUNE
 obj-flag:24:PROT_CONF
@@ -797,6 +803,7 @@ value:0:DAM_RED[0+1d4]
 slay:1:50:DRAGON_3
 #########################obj-flag:1:NO_TELEPORT
 obj-flag:1:LIMITED_TELE
+value:1:MANA[5]
 value:1:TUNNEL[3+1d10]
 
 #Swamp troll
@@ -822,13 +829,13 @@ value:1:INT[-4+1d7M30]
 value:1:WIS[-4+1d15]
 value:1:DEX[0+-1d30M32]
 value:1:CON[1+1d15M32]
-value:1:CHR[-8]
+value:1:CHR[-5]
 value:1:INFRA[1+1d7]
 value:1:MOVES[-9]
 value:1:STEALTH[0+1d30]
 obj-flag:1:SUST_INT
 value:1:TUNNEL[1]
-value:25:MANA[1]
+value:1:MANA[1]
 
 name:Troll
 skill-disarm-phys:-18
@@ -848,16 +855,17 @@ height:150:5
 weight:240:22
 #7 -8 -4 -5 4
 value:1:STR[1+1d8]
-value:1:INT[-4+-1d12]
+value:1:INT[0+-1d6]
+# ! mana based at WIS
 value:1:WIS[-4]
 value:1:DEX[-5]
 value:1:CON[1+1d8M30]
-value:1:CHR[-9]
+value:1:CHR[-6]
 value:1:INFRA[1+1d10]
 obj-flag:1:SUST_STR
+obj-flag:1:SUST_INT
 player-flags:0:RACE_REGEN
 obj-flag:1:HUNGER
-#value:1:MANA[4+-1d10M40]
 value:1:MOVES[-1+-1d5]
 value:50:SPEED[-1]
 ###########value:1:SPEED[-1+-1d35]
@@ -889,14 +897,15 @@ value:1:INT[-1]
 value:1:WIS[-1+1d45]
 value:1:DEX[1]
 value:1:CON[1]
-value:1:CHR[-6]
+value:1:CHR[-4]
 value:1:INFRA[2+1d10M35]
-value:25:RES_DARK[1]
-value:40:RES_POIS[1]
+value:1:RES_DARK[1]
+value:10:RES_POIS[1]
 value:1:DAM_RED[0+1d24]
 value:50:STEALTH[1]
 value:50:SPEED[1]
 player-flags:0:ORC
+# start with heavy iron orc boots
 
 # in between of tiny orcs and forest 'kobolds'.. 
 name:Forest Goblin
@@ -915,19 +924,21 @@ history:100
 age:15:10
 height:38:3
 weight:65:4
-#-5(-3) 1 2 3 -4(-3)
+#-3 1 2 3 -3
 value:1:STR[-5+1d24]
 value:40:INT[1]
 value:1:WIS[2]
 value:1:DEX[3]
 value:1:CON[-4+1d40]
-value:1:CHR[-4]
+value:1:CHR[-3]
 value:1:INFRA[1+1d15]
 value:1:SPEED[1+1d45]
-value:1:MOVES[0+10d30]
+value:30:MOVES[1+1d6]
 value:25:DAM_RED[1]
 obj-flag:25:SUST_DEX
-#add dodge
+#add dodge.. while it's not there:
+value:0:STEALTH[1]
+# start with poison bottles
 
 name:Dark Elf
 skill-disarm-phys:5
@@ -945,18 +956,19 @@ history:100
 age:75:75
 height:58:6
 weight:111:8
-#0 2 -2 3 0
+#0 2 -1 3 1
 value:1:STR[0]
 value:1:INT[0+1d20]
-value:1:WIS[-2]
+value:1:WIS[-2+1d35]
 value:1:DEX[0+1d15]
-value:1:CON[0]
-value:1:CHR[-7+1d24]
+value:1:CON[0+1d45]
+value:0:CHR[-5+1d10]
 value:1:INFRA[0+1d6]
 obj-flag:25:SEE_INVIS
 value:35:RES_DARK[1]
 value:1:RES_LIGHT[-1]
 value:0:STEALTH[1+1d15]
+# 
 
 name:Werewolf
 skill-disarm-phys:-15
@@ -984,6 +996,7 @@ value:0:CHR[-1+-1d7]
 value:1:INFRA[3+1d24]
 player-flags:0:RACE_REGEN
 obj-flag:1:HUNGER
+# rfe: hunger reduce on flicker.. when polymorph
 obj-flag:20:ESP_ANIMAL
 value:35:RES_DARK[1]
 value:1:RES_LIGHT[-1]
@@ -991,6 +1004,7 @@ value:50:SPEED[1]
 brand:15:49:CUT_1
 brand:50:50:CUT_2
 value:0:STEALTH[-1+-1d10]
+value:0:MANA[5+-1d10]
 player-flags:0:ANIMAL
 player-flags:0:SHAPECHANGE
 shape:1:jackal_
@@ -1018,13 +1032,13 @@ height:68:5
 weight:140:12
 #2 -6 -6 -1 -5
 value:0:STR[-2+1d10M20]
-value:1:INT[-4+-1d24]
-value:1:WIS[-4+-1d24]
+value:1:INT[0+-1d8]
+value:1:WIS[0+-1d8]
 value:1:DEX[-1]
 value:1:CON[-1+-1d12]
+# !
 value:1:CHR[-9]
 value:1:INFRA[0+1d5]
-value:1:SPEED[-1+1d28]
 obj-flag:10:SUST_STR
 obj-flag:20:SUST_INT
 obj-flag:30:SUST_WIS
@@ -1036,8 +1050,8 @@ value:1:RES_POIS[1]
 value:1:RES_LIGHT[-1]
 value:1:RES_NETHER[1]
 value:50:RES_NETHER[3]
-value:50:MANA[-1]
-value:50:MOVES[-10]
+value:0:MOVES[0+-1d5]
+value:0:MANA[0+1d10]
 
 name:Vampire
 skill-disarm-phys:-2
@@ -1057,8 +1071,8 @@ height:68:5
 weight:150:10
 #2 2 -1 2 0
 value:0:STR[-3+1d9]
-value:0:INT[-4+1d8]
-value:0:WIS[-4+1d15]
+value:0:INT[0+1d24]
+value:0:WIS[-1]
 value:0:DEX[-3+1d9]
 value:0:CON[-5+1d9]
 value:1:CHR[-9+1d4]
@@ -1086,6 +1100,8 @@ shape:10:fruit bat_
 shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
+# revamp when will implement hurt from daylight
+value:0:MANA[6+-1d6M36]
 
 ############################## GODLIKE
 # ? spirits.. of fire, elec, cold, 
@@ -1133,7 +1149,7 @@ value:50:RES_TIME[1]
 brand:1:50:COLD_2
 slay:50:50:EVIL_2
 value:50:MIGHT[-1]
-value:50:MANA[-1]
+value:0:MANA[5+-1d10]
 #value:50:BLOWS[-1]
 #temp
 value:1:SPEED[1]
@@ -1182,6 +1198,7 @@ value:1:DAM_RED[-1+-1d2]
 #############^^^^^^^^################
 #######obj-flag:10:DRAIN_EXP
 player-flags:0:SHAPECHANGE
+value:0:MANA[6+-1d10]
 shape:30:succubi
 #temp
 value:1:SPEED[1]
@@ -1226,7 +1243,9 @@ brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 obj-flag:1:AGGRAVATE
 #temp
-value:1:SPEED[1]
+value:1:SPEED[1+-1d25]
+value:0:MANA[5]
+# mana based on CON
 
 # Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
@@ -1271,6 +1290,7 @@ value:1:RES_TIME[-1]
 value:1:MOVES[-1]
 value:1:TUNNEL[-1+-1d10]
 obj-flag:50:IMPAIR_MANA
+value:0:MANA[5+-1d12]
 slay:50:50:UNDEAD_3
 #temp
 value:1:SPEED[1]
@@ -1301,8 +1321,8 @@ value:50:CON[-1]
 value:0:CHR[-1+1d24]
 value:1:RES_LIGHT[-1]
 value:1:RES_DARK[-1]
-value:25:RES_LIGHT[1]
-value:25:RES_DARK[1]
+value:32:RES_LIGHT[1]
+value:33:RES_DARK[1]
 obj-flag:1:ESP_DEMON
 slay:25:39:DEMON_3
 slay:40:50:DEMON_5
@@ -1345,8 +1365,9 @@ value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 obj-flag:1:IMPAIR_HP
-obj-flag:1:IMPAIR_MANA
+value:0:MANA[10+-1d5]
 value:1:DAM_RED[1+1d1]
+# more casting flags... sleepery fingers?
 
 name:Golem
 skill-disarm-phys:-16
@@ -1378,6 +1399,8 @@ obj-flag:1:SLOW_DIGEST
 obj-flag:1:SLOW_DIGEST_2
 value:0:DAM_RED[0+1d5]
 value:1:RES_ELEC[-1]
+value:0:MANA[10+-1d5]
+# reflection
 
 name:Pixie
 skill-disarm-phys:10
@@ -1399,19 +1422,20 @@ value:1:STR[-6]
 value:1:INT[4]
 value:1:WIS[4]
 value:1:DEX[9]
-value:0:CHR[3]
 #replace with LIFE
 value:1:CON[-4+7d20M21]
-#######CHA:6
+value:0:CHR[3]
 value:1:INFRA[1+1d15]
-value:1:SPEED[1+1d12]
+value:1:SPEED[1+1d9]
 ####### bolt spells frequently turn into beams
 player-flags:5:BEAM
 ######perfect success rate with magic
 player-flags:10:ZERO_FAIL 
 obj-flag:1:FEATHER
-value:20:BLOWS[-1]
+# value:20:BLOWS[-1]
 value:20:MIGHT[-1]
+# evade... 
+value:0:MANA[5+-1d12]
 ######giving them a chance to use less spell points when they cast a spell, probably based upon their primary spell stat, (i.e., int or wis)
 #######some type of innate survival spells that they can cast every so often (like a built-in rod), things like phase door, teleport, etc.
 
@@ -1441,7 +1465,7 @@ value:1:INT[-4+1d7]
 value:1:WIS[-4+1d8]
 value:1:DEX[-5+1d9]
 value:1:CON[-3+1d14]
-value:0:CHR[-4]
+value:0:CHR[-3]
 player-flags:0:SHAPECHANGE
 shape:1:newborn dracon
 shape:10:baby dracon
@@ -1452,6 +1476,7 @@ shape:50:great dracon
 slay:50:50:GIANT_3
 #temp
 value:1:SPEED[1]
+value:0:MANA[4+-1d6M25]
 
 name:Titan
 skill-disarm-phys:-50
@@ -1475,7 +1500,7 @@ value:1:INT[-4+1d24]
 value:1:WIS[-4+1d24]
 value:1:DEX[-2+1d30]
 value:1:CON[-10+1d2]
-value:0:CHR[-7]
+value:0:CHR[0]
 obj-flag:5:SUST_STR
 obj-flag:10:SUST_DEX
 obj-flag:15:SUST_CON
@@ -1494,6 +1519,7 @@ value:1:TUNNEL[3+1d10]
 slay:1:24:DRAGON_3
 slay:25:50:DRAGON_5
 obj-flag:1:NO_TELEPORT
+value:0:MANA[10]
 player-flags:0:SHAPECHANGE
 #regular forms
 shape:10:hill giant
@@ -1586,6 +1612,7 @@ value:35:SPEED[-1+-1d3]
 value:35:DAM_RED[-1+-1d3]
 value:50:MOVES[-10]
 obj-flag:50:IMPAIR_HP
+value:0:MANA[11+-1d5]
 #temp
 value:1:BLOWS[1+-1d30]
 
@@ -1618,6 +1645,7 @@ value:1:RES_COLD[1]
 value:25:RES_ICE[1]
 brand:35:50:COLD_2
 slay:25:50:TROLL_3
+value:0:MANA[3+-1d15]
 obj-flag:25:ESP_UNDEAD
 
 name:Centaur
@@ -1642,7 +1670,7 @@ value:1:INT[-1]
 value:1:WIS[-1+1d15]
 value:1:DEX[-1+1d30]
 value:1:CON[-1+1d24]
-value:0:CHR[-5]
+value:0:CHR[-3]
 value:1:INFRA[1]
 obj-flag:1:PROT_CONF
 obj-flag:1:SUST_WIS
@@ -1682,7 +1710,7 @@ value:1:RES_POIS[1]
 value:50:RES_POIS[3]
 value:0:SPEED[0+-1d5]
 value:1:MOVES[-1]
-value:50:MANA[-1]
+value:0:MANA[5+-1d12]
 value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
 player-flags:0:SHAPECHANGE
@@ -1730,7 +1758,7 @@ player-flags:30:BEAM
 player-flags:40:ZERO_FAIL
 player-flags:25:KNOW_MUSHROOM
 player-flags:0:KNOW_ZAPPER
-# _ // auto-id
+# auto-id
 obj-flag:50:KNOWLEDGE
 value:50:BLOWS[1]
 value:50:MIGHT[1]
@@ -1797,13 +1825,14 @@ height:120:19
 weight:290:75
 obj-flag:1:SUST_STR
 obj-flag:1:SUST_CON
-# 4 -4 -2 -4 3
+# 4 -4 -2 1 3
 value:1:STR[-2+1d8]
 value:1:INT[-4]
 value:1:WIS[-2]
-value:1:DEX[-4]
+# becoming hasty...
+value:1:DEX[-4+1d10]
 value:1:CON[-3+1d8]
-value:0:CHR[-8]
+value:0:CHR[-7]
 value:1:INFRA[2]
 obj-flag:1:PROT_CONF
 obj-flag:1:PROT_STUN
@@ -1812,6 +1841,7 @@ value:1:SPEED[1]
 value:1:DAM_RED[-1+-1d5]
 value:0:MOVES[-1+-1d5]
 obj-flag:1:IMPAIR_HP
+value:0:MANA[5+-1d10]
 
 name:Troglodyte
 skill-disarm-phys:-10
@@ -1835,7 +1865,7 @@ value:1:INT[-1]
 value:1:WIS[-3]
 value:1:DEX[2+1d30]
 value:1:CON[-1+1d24]
-value:0:CHR[-8]
+value:0:CHR[-6]
 value:1:INFRA[1+1d5]
 value:1:TUNNEL[1+1d24]
 value:1:STEALTH[0+1d30]
@@ -1843,6 +1873,7 @@ obj-flag:1:PROT_BLIND
 value:1:RES_DARK[1]
 player-flags:10:RACE_REGEN
 obj-flag:1:HUNGER
+value:0:MANA[3+-1d15]
 
 name:Naga
 skill-disarm-phys:-4
@@ -1860,12 +1891,13 @@ history:100
 age:81:14
 height:47:4
 weight:155:21
+# 1 -2 -2 3 -1
 value:1:STR[1]
 value:1:INT[-2]
 value:1:WIS[-2]
 value:1:DEX[3]
 value:1:CON[-1]
-value:0:CHR[-9]
+value:0:CHR[-8]
 value:1:INFRA[6]
 obj-flag:1:FREE_ACT
 value:1:BLOWS[1]
@@ -1873,6 +1905,8 @@ value:30:MOVES[-1+-1d2]
 value:30:SPEED[1+1d2]
 value:1:TUNNEL[-1+-1d24]
 player-flags:0:NO_BOOTS
+value:0:MANA[2+-1d24]
+# throwing darts
 
 # chaos mutation, so resistant to it
 name:Gnoll
@@ -1897,7 +1931,7 @@ value:1:INT[-2+1d24]
 value:1:WIS[-3+1d24]
 value:1:DEX[1+1d14]
 value:1:CON[0]
-value:0:CHR[-7]
+value:0:CHR[-5]
 value:1:INFRA[1+1d10]
 value:30:MOVES[1]
 value:1:TUNNEL[1]
@@ -1925,7 +1959,7 @@ value:1:INT[-1]
 value:1:WIS[-2]
 value:1:DEX[0]
 value:1:CON[0]
-value:0:CHR[-7]
+value:0:CHR[-6]
 value:1:INFRA[4]
 value:1:DAM_RED[1+1d15]
 value:25:TUNNEL[1]
@@ -1967,12 +2001,12 @@ value:1:RES_POIS[1]
 value:1:RES_LIGHT[1]
 value:35:RES_LIGHT[3]
 value:50:RES_MANA[1]
+# -
 value:1:DAM_RED[0+-1d5]
 value:1:SPEED[1+-1d40]
-#value:1:SPEED[-1+-1d40]
 value:1:RES_DARK[-1]
-value:1:RES_TIME[-1]
-value:1:MOVES[-9+-10d30]
+value:1:MOVES[0+-1d1]
+value:0:MANA[10+-1d5]
 #value:1:BLOWS[1]
 #value:1:SHOTS[1]
 
@@ -1998,11 +2032,13 @@ value:1:WIS[-3]
 value:1:DEX[4]
 value:1:CON[0]
 value:0:CHR[-8]
-value:1:SPEED[1+1d9]
+value:1:SPEED[1+1d12]
 value:1:MOVES[1+1d5]
 value:15:RES_FIRE[1]
 value:30:RES_FIRE[3]
 value:1:RES_COLD[-1]
+obj-flag:0:IMPAIR_MANA
+value:0:MANA[8+-1d5]
 
 name:Wraith
 skill-disarm-phys:-50
@@ -2044,6 +2080,7 @@ value:1:TUNNEL[-10]
 value:1:MOVES[-1+-1d9]
 player-flags:0:NO_RECALL
 obj-flag:50:DRAIN_EXP
+value:0:MANA[4+-1d12]
 ##########################PASS_WALL forms:
 player-flags:0:SHAPECHANGE
 shape:1:expulsion
@@ -2085,8 +2122,8 @@ value:1:SPEED[1]
 value:1:DAM_RED[0+-1d2]
 value:1:BLOWS[-1]
 value:1:SHOTS[-1]
-value:1:MANA[1]
 obj-flag:1:IMPAIR_MANA
+value:0:MANA[8+-1d5]
 value:1:RES_LIGHT[-1]
 value:1:MOVES[-5+-1d9]
 player-flags:0:SHAPECHANGE

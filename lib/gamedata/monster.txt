@@ -7009,8 +7009,9 @@ depth:17
 rarity:2
 weight:0
 experience:55
+blow:HIT:HURT:3d4
 blow:HIT:POISON:3d4
-blow:HIT:POISON:3d4
+blow:INSULT
 flags:COLD_BLOOD | INVISIBLE | SMART | LEVITATE
 flags:DROP_1 | ONLY_ITEM
 flags:RAND_25 | BASH_DOOR
@@ -7018,7 +7019,9 @@ flags:FORCE_SLEEP
 spell-freq:10
 spells:BLIND | BLINK | CONF | SCARE | TELE_LEVEL | TELE_TO
 spells:TPORT
-desc:A poisonous little mischief-maker.
+desc:The narrow mug ended in a pig’s snout that constantly twitched and
+desc:sniffed the air; the thin brittle legs, thin tail, small goatee and
+desc:and tiny horns - a little mischief-maker also known as "chort".
 
 name:forest troll
 base:troll

@@ -866,6 +866,21 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     sum += state->stat_ind[book->realm->stat];
     count++;
 
+    if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+    {
+        return ((p->state.stat_ind[STAT_INT] + p->state.stat_ind[STAT_WIS]) / 2);
+    }        
+    
+    if (streq(p->race->name, "Troll"))
+    {
+        return (p->state.stat_ind[STAT_WIS]);
+    }      
+
+    if (streq(p->race->name, "Balrog"))
+    {
+        return (p->state.stat_ind[STAT_CON]);
+    }      
+
     if (streq(p->clazz->name, "Priest"))
     {
         return (((p->state.stat_ind[STAT_WIS] * 90) +
