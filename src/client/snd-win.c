@@ -128,8 +128,12 @@ static bool load_sound_win(const char *filename, int ft, struct sound_data *data
  */
 static bool play_sound_win(struct sound_data *data)
 {
-    win_sample *sample = (win_sample *)(data->plat_data);
+    win_sample *sample;
 
+    /* Play some music */
+    if (data == NULL) return false;
+
+    sample = (win_sample *)(data->plat_data);
     if (sample)
     {
         switch (sample->type)

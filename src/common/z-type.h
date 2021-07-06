@@ -317,6 +317,7 @@ extern char *ANGBAND_DIR_SCREENS;
 extern char *ANGBAND_DIR_FONTS;
 extern char *ANGBAND_DIR_TILES;
 extern char *ANGBAND_DIR_SOUNDS;
+extern char *ANGBAND_DIR_MUSIC;
 extern char *ANGBAND_DIR_ICONS;
 extern char *ANGBAND_DIR_USER;
 extern char *ANGBAND_DIR_SAVE;

@@ -2836,10 +2836,10 @@ static int Receive_target_info(void)
 static int Receive_sound(void)
 {
     int n;
-    byte val;
+    s16b val;
     byte ch;
 
-    if ((n = Packet_scanf(&rbuf, "%b%b", &ch, &val)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &val)) <= 0)
         return n;
 
     /* Make a sound (if allowed) */

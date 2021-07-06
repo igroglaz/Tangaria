@@ -2816,7 +2816,7 @@ int Send_sound(struct player *p, int sound)
     connection_t *connp = get_connp(p, "sound");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%b", (unsigned)PKT_SOUND, (unsigned)sound);
+    return Packet_printf(&connp->c, "%b%hd", (unsigned)PKT_SOUND, (int)sound);
 }
 
 
@@ -6245,6 +6245,9 @@ static int Enter_player(int ind)
 
     /* Tell the meta server about the new player */
     Report_to_meta(META_UPDATE);
+
+    /* Play music */
+    Send_sound(p, -1);
 
     return 0;
 }

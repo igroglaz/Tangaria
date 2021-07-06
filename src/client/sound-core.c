@@ -310,6 +310,13 @@ static void play_sound(game_event_type type, game_event_data *data, void *user)
 {
     int s, sound_id;
 
+    /* Play some music */
+    if ((data->type == -1) && hooks.play_sound_hook)
+    {
+        hooks.play_sound_hook(NULL);
+        return;
+    }
+
     if (hooks.play_sound_hook)
     {
         /* Paranoia */

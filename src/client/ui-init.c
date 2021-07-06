@@ -61,6 +61,7 @@ static void free_file_paths(void)
     string_free(ANGBAND_DIR_FONTS);
     string_free(ANGBAND_DIR_TILES);
     string_free(ANGBAND_DIR_SOUNDS);
+    string_free(ANGBAND_DIR_MUSIC);
     string_free(ANGBAND_DIR_ICONS);
     string_free(ANGBAND_DIR_USER);
 }
@@ -117,6 +118,7 @@ void init_file_paths(const char *configpath, const char *libpath, const char *da
     BUILD_DIRECTORY_PATH(ANGBAND_DIR_FONTS, libpath, "fonts");
     BUILD_DIRECTORY_PATH(ANGBAND_DIR_TILES, libpath, "tiles");
     BUILD_DIRECTORY_PATH(ANGBAND_DIR_SOUNDS, libpath, "sounds");
+    BUILD_DIRECTORY_PATH(ANGBAND_DIR_MUSIC, libpath, "music");
     BUILD_DIRECTORY_PATH(ANGBAND_DIR_ICONS, libpath, "icons");
 
 #ifdef PRIVATE_USER_PATH

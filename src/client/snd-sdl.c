@@ -63,6 +63,46 @@ typedef struct
 
 
 static bool use_init = false;
+static Mix_Music *music = NULL;
+
+
+static void play_music_sdl(void)
+{
+    char dirpath[MSG_LEN];
+    ang_dir *dir;
+    char buf[MSG_LEN];
+    int count = 0, pick;
+
+    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
+    if (!dir_exists(dirpath)) return;
+    dir = my_dopen(dirpath);
+    if (!dir) return;
+
+    /* Count every music file */
+    while (my_dread(dir, buf, sizeof(buf)))
+    {
+        /* Check for file extension */
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3")) count++;
+    }
+    my_dclose(dir);
+    if (!count) return;
+
+    /* Pick a file */
+    pick = randint1(count);
+    count = 0;
+    dir = my_dopen(dirpath);
+    while (my_dread(dir, buf, sizeof(buf)))
+    {
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3")) count++;
+        if (count == pick) break;
+    }
+    if (music) Mix_FreeMusic(music);
+    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, buf);
+    music = Mix_LoadMUS(dirpath);
+    my_dclose(dir);
+    if (!music) return;
+    Mix_PlayMusic(music, 1);
+}
 
 
 /*
@@ -92,6 +132,9 @@ static bool open_audio_sdl(void)
         plog_fmt("Couldn't open mixer: %s", SDL_GetError());
         return false;
     }
+
+    /* Callback for music */
+    Mix_HookMusicFinished(play_music_sdl);
 
     /* Success */
     return true;
@@ -167,8 +210,16 @@ static bool load_sound_sdl(const char *filename, int ft, struct sound_data *data
  */
 static bool play_sound_sdl(struct sound_data *data)
 {
-    sdl_sample *sample = (sdl_sample *)(data->plat_data);
+    sdl_sample *sample;
 
+    /* Play some music */
+    if (data == NULL)
+    {
+        play_music_sdl();
+        return true;
+    }
+
+    sample = (sdl_sample *)(data->plat_data);
     if (sample)
     {
         switch (sample->sample_type)
@@ -261,6 +312,9 @@ static bool unload_sound_sdl(struct sound_data *data)
  */
 static bool close_audio_sdl(void)
 {
+    Mix_HookMusicFinished(NULL);
+    if (music) Mix_FreeMusic(music);
+    music = NULL;
     if (use_init) Mix_Quit();
 
     /*

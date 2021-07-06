@@ -4118,6 +4118,7 @@ static void init_stuff_win(void)
     validate_dir(ANGBAND_DIR_FONTS);
     validate_dir(ANGBAND_DIR_TILES);
     validate_dir(ANGBAND_DIR_SOUNDS);
+    validate_dir(ANGBAND_DIR_MUSIC);
     validate_dir(ANGBAND_DIR_ICONS);
     validate_dir(ANGBAND_DIR_USER);
 
