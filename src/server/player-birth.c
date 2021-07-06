@@ -176,6 +176,7 @@ static void get_stats(struct player *p, s16b* stat_roll)
         stat_limit[2] = 12;
         stat_limit[3] = 8;
         stat_limit[4] = 8;
+        stat_limit[5] = 8;
 
         /* Clear "stat_ok" array */
         for (i = 0; i < STAT_MAX; i++) stat_ok[i] = 0;

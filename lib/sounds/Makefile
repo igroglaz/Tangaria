@@ -166,6 +166,7 @@ DATA = sound.cfg \
 	blind.mp3                 blind1.mp3                blind2.mp3    \
 	confused.mp3              mco_hypnotize.mp3         afraid.mp3    \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
-    poison.mp3                slow.mp3                  stun1.mp3    
+    poison.mp3                slow.mp3                  stun1.mp3     \
+    stun2.mp3                 stun3.mp3
 
 PACKAGE = sounds

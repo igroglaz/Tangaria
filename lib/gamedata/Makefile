@@ -17,5 +17,5 @@ CONFIG = activation.txt admin_stuff.txt artifact.txt blow_effects.txt \
  town_2_0.txt town_2_1.txt town_2_2.txt town_2_3.txt town_bree.txt town_empty.txt \
  town_feat.txt town_gondolin.txt town_lothlorien.txt town_minas_anor.txt town_test.txt \
  town_umbar.txt town_underground.txt town.txt trap.txt vault.txt visuals.txt \
- wild_feat.txt wild_info.txt
+ wild_feat.txt wild_info.txt town_-1_1.txt
 PACKAGE = gamedata

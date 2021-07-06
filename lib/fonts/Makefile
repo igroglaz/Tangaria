@@ -8,5 +8,8 @@ DATA = 3X5TG.fon 5X8TG.FON 5x8x.fon 6X9TG.FON 6X10TG.FON 6x10x.fon \
 	10x14xb.fon 10X16TG.FON 10X17TG.FON 10X20TG.FON 10x20x.fon 12X17TG.FON 12X18TG.FON \
 	12x18x.fon 12X24TG.FON 12x24x.fon 14X20TG.FON 16X16TG.FON 16x16x.fon 16x16xw.fon \
 	16X22TG.FON 16X24TG.FON 16x24tx.fon 16x24x.fon 17X25TG.FON 19X29TG.FON 21x31tg.fon \
-	21x31tgs.fon 21x31x.fon 24x36tg.fon
+	21x31tgs.fon 21x31x.fon 24x36tg.fon \
+	AnonymousPro-Bold.ttf Cousine-Bold.ttf IBMPlexMono-Bold.ttf JetBrainsMono-SemiBold.ttf \
+	RobotoMono-Bold.ttf SourceCodePro-SemiBold.ttf Tangaria-tg.ttf UbuntuMono-Bold.ttf \
+	UbuntuMono-Regular.ttf
 PACKAGE = fonts
