@@ -1141,7 +1141,7 @@ static enum birth_stage roller_command(void)
 {
     int i, j, k, avail[STAT_MAX];
     struct keypress c;
-    char out_val[160], stats[STAT_MAX][5];
+    char out_val[160], stats[STAT_MAX][4];
 
     /* Clear screen */
     Term_clear();
