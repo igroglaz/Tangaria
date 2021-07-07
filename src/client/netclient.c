@@ -3440,6 +3440,7 @@ static int Receive_text_screen(void)
             show_splashscreen();
 
             /* Request gameplay */
+            Setup.ready = true;
             Send_play(4);
         }
     }

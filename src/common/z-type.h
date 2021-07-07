@@ -105,6 +105,7 @@ typedef struct
     byte min_row;
     byte max_row;
     bool initialized;
+    bool ready;
 
     /* Static arrays to hold text screen loaded from TEXTFILEs */
     char text_screen[MAX_TEXTFILES][TEXTFILE__WID * TEXTFILE__HGT];

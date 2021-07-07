@@ -47,6 +47,8 @@ struct sound_hooks
 
 extern int current_sound_volume;
 extern int sound_volume;
+extern int current_music_volume;
+extern int music_volume;
 
 extern errr init_sound(void);
 extern void close_sound(void);

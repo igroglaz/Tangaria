@@ -82,7 +82,8 @@ static void play_music_sdl(void)
     while (my_dread(dir, buf, sizeof(buf)))
     {
         /* Check for file extension */
-        if (suffix(buf, ".mp3") || suffix(buf, ".MP3")) count++;
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || 
+            suffix(buf, ".ogg") || suffix(buf, ".OGG")) count++;
     }
     my_dclose(dir);
     if (!count) return;
@@ -93,7 +94,8 @@ static void play_music_sdl(void)
     dir = my_dopen(dirpath);
     while (my_dread(dir, buf, sizeof(buf)))
     {
-        if (suffix(buf, ".mp3") || suffix(buf, ".MP3")) count++;
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || 
+            suffix(buf, ".ogg") || suffix(buf, ".OGG")) count++;
         if (count == pick) break;
     }
     if (music) Mix_FreeMusic(music);
@@ -101,6 +103,14 @@ static void play_music_sdl(void)
     music = Mix_LoadMUS(dirpath);
     my_dclose(dir);
     if (!music) return;
+
+    /* Adjust music volume if needed */
+    if (music_volume != current_music_volume)
+    {
+        current_music_volume = music_volume;
+        Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
+    }
+
     Mix_PlayMusic(music, 1);
 }
 
@@ -251,10 +261,10 @@ static bool play_sound_sdl(struct sound_data *data)
                 if (sample->sample_data.music)
                 {
                     /* Adjust sound volume if needed */
-                    if (sound_volume != current_sound_volume)
+                    if (music_volume != current_music_volume)
                     {
-                        current_sound_volume = sound_volume;
-                        Mix_VolumeMusic((sound_volume * MIX_MAX_VOLUME) / 100);
+                        current_music_volume = music_volume;
+                        Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
                     }
 
                     return (0 == Mix_PlayMusic(sample->sample_data.music, 1));
@@ -354,4 +364,4 @@ errr init_sound_sdl(struct sound_hooks *hooks)
 }
 
 
-#endif /* USE_SDL */
+#endif /* USE_SDL */

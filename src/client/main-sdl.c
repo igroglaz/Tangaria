@@ -269,8 +269,10 @@ static int MoreSnapPlus;    /* Increase snap range */
 static int MoreSnapMinus;   /* Decrease snap range */
 static int MoreFontSizePlus;    /* Increase font size range */
 static int MoreFontSizeMinus;   /* Decrease font size range */
-static int MoreVolumePlus;      /* Increase sound volume */
-static int MoreVolumeMinus;     /* Decrease sound volume */
+static int MoreSoundVolumePlus;      /* Increase sound volume */
+static int MoreSoundVolumeMinus;     /* Decrease sound volume */
+static int MoreMusicVolumePlus;      /* Increase music volume */
+static int MoreMusicVolumeMinus;     /* Decrease music volume */
 static int MoreWindowBordersPlus;  /* Increase window borders */
 static int MoreWindowBordersMinus; /* Decrease window borders */
 
@@ -1635,11 +1637,19 @@ static void WindowBordersChange(sdl_Button *sender)
 }
 
 
-static void VolumeChange(sdl_Button *sender)
+static void SoundVolumeChange(sdl_Button *sender)
 {
     sound_volume += sender->tag;
     if (sound_volume < 0) sound_volume = 0;
     if (sound_volume > 100) sound_volume = 100;
+}
+
+
+static void MusicVolumeChange(sdl_Button *sender)
+{
+    music_volume += sender->tag;
+    if (music_volume < 0) music_volume = 0;
+    if (music_volume > 100) music_volume = 100;
 }
 
 
@@ -1742,11 +1752,20 @@ static void MoreDraw(sdl_Window *win)
 
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Volume is %d.", sound_volume));
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumeMinus);
+    sdl_WindowText(win, colour, 20, y, format("Sound Volume is %d.", sound_volume));
+    button = sdl_ButtonBankGet(&win->buttons, MoreSoundVolumeMinus);
     sdl_ButtonMove(button, 150, y);
 
-    button = sdl_ButtonBankGet(&win->buttons, MoreVolumePlus);
+    button = sdl_ButtonBankGet(&win->buttons, MoreSoundVolumePlus);
+    sdl_ButtonMove(button, 180, y);
+
+    y += 20;
+
+    sdl_WindowText(win, colour, 20, y, format("Music Volume is %d.", music_volume));
+    button = sdl_ButtonBankGet(&win->buttons, MoreMusicVolumeMinus);
+    sdl_ButtonMove(button, 150, y);
+
+    button = sdl_ButtonBankGet(&win->buttons, MoreMusicVolumePlus);
     sdl_ButtonMove(button, 180, y);
 
     y += 20;
@@ -1916,8 +1935,8 @@ static void MoreActivate(sdl_Button *sender)
     sdl_ButtonVisible(button, true);
     button->activate = WindowBordersChange;
 
-    MoreVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumePlus);
+    MoreSoundVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreSoundVolumePlus);
 
     button->unsel_colour = ucolour;
     button->sel_colour = scolour;
@@ -1925,10 +1944,10 @@ static void MoreActivate(sdl_Button *sender)
     sdl_ButtonCaption(button, "+");
     button->tag = 5;
     sdl_ButtonVisible(button, true);
-    button->activate = VolumeChange;
+    button->activate = SoundVolumeChange;
 
-    MoreVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreVolumeMinus);
+    MoreSoundVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreSoundVolumeMinus);
 
     button->unsel_colour = ucolour;
     button->sel_colour = scolour;
@@ -1936,7 +1955,29 @@ static void MoreActivate(sdl_Button *sender)
     sdl_ButtonCaption(button, "-");
     button->tag = -5;
     sdl_ButtonVisible(button, true);
-    button->activate = VolumeChange;
+    button->activate = SoundVolumeChange;
+
+    MoreMusicVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreMusicVolumePlus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "+");
+    button->tag = 5;
+    sdl_ButtonVisible(button, true);
+    button->activate = MusicVolumeChange;
+
+    MoreMusicVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
+    button = sdl_ButtonBankGet(&PopUp.buttons, MoreMusicVolumeMinus);
+
+    button->unsel_colour = ucolour;
+    button->sel_colour = scolour;
+    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
+    sdl_ButtonCaption(button, "-");
+    button->tag = -5;
+    sdl_ButtonVisible(button, true);
+    button->activate = MusicVolumeChange;
 
     MoreSnapPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSnapPlus);
@@ -2180,8 +2221,10 @@ static errr load_prefs(void)
         }
         else if (strstr(buf, "Fullscreen"))
             fullscreen = atoi(s);
-        else if (strstr(buf, "Volume"))
+        else if (strstr(buf, "SoundVolume"))
             sound_volume = atoi(s);
+        else if (strstr(buf, "MusicVolume"))
+            music_volume = atoi(s);
         else if (strstr(buf, "DefaultColor"))
             sscanf(s, "%d,%d,%d", &d_color_r, &d_color_g, &d_color_b);
         else if (strstr(buf, "StatusBarColor"))
@@ -2201,6 +2244,9 @@ static errr load_prefs(void)
 
     if (sound_volume < 0) sound_volume = 0;
     if (sound_volume > 100) sound_volume = 100;
+
+    if (music_volume < 0) music_volume = 0;
+    if (music_volume > 100) music_volume = 100;
 
     if ((d_color_r < 0) || (d_color_r > 255) || (d_color_g < 0) || 
         (d_color_g > 255) || (d_color_b < 0) || (d_color_b > 255))
@@ -2330,7 +2376,8 @@ static errr save_prefs(void)
 
     file_putf(fff, "Resolution = %dx%d\n", screen_w, screen_h);
     file_putf(fff, "Fullscreen = %d\n", fullscreen);
-    file_putf(fff, "Volume = %d\n", sound_volume);
+    file_putf(fff, "SoundVolume = %d\n", sound_volume);
+    file_putf(fff, "MusicVolume = %d\n", music_volume);
     file_putf(fff, "DefaultColor = %d,%d,%d\n", d_color_r, d_color_g, d_color_b);
     file_putf(fff, "StatusBarColor = %d\n", statusbar_color);
     file_putf(fff, "NiceGraphics = %d\n", nicegfx);

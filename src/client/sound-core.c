@@ -92,6 +92,11 @@ int current_sound_volume = 100;
 int sound_volume = 100;
 
 
+/* Music volume */
+int current_music_volume = 100;
+int music_volume = 100;
+
+
 static struct sound_data *grow_sound_list(void)
 {
     int new_size;
