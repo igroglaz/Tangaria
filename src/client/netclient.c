@@ -1970,8 +1970,11 @@ static int Receive_depth(void)
     byte ch;
     s16b depth, maxdepth;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s", &ch, &depth, &maxdepth, player->depths)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s%s", &ch, &depth, &maxdepth, player->depths,
+        player->locname)) <= 0)
+    {
         return n;
+    }
 
     player->wpos.depth = depth;
     player->max_depth = maxdepth;

@@ -860,6 +860,7 @@ struct player
     s16b obj_feeling;               /* Object/monster feeling (for display) */
     s16b mon_feeling;
     char depths[13];                /* Displayed coordinates */
+    char locname[NORMAL_WID];       /* Location (short name) */
     int frac_blow;                  /* Blow frac (%) */
     int frac_shot;                  /* Shot frac (%) */
     s16b square_light;              /* Square light (for display) */

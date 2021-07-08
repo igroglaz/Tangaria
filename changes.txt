@@ -87,6 +87,7 @@ PWMAngband:
 - Support color for windows border and status bar (SDL client)
 - Change manual selection of server from ctrl-m to ctrl-s
 - Force pressing SPACE key to enter the game after the MotD is displayed
+- Implement a simple music system
 
 Gameplay changes
 ----------------

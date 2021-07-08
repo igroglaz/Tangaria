@@ -66,27 +66,27 @@ static bool use_init = false;
 static Mix_Music *music = NULL;
 
 
-static void play_music_sdl(void)
+static bool play_music_aux(const char *dirpath)
 {
-    char dirpath[MSG_LEN];
     ang_dir *dir;
     char buf[MSG_LEN];
     int count = 0, pick;
+    char musicpath[MSG_LEN];
 
-    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
-    if (!dir_exists(dirpath)) return;
+    /* Check directory existence */
+    if (!dir_exists(dirpath)) return false;
     dir = my_dopen(dirpath);
-    if (!dir) return;
+    if (!dir) return false;
 
     /* Count every music file */
     while (my_dread(dir, buf, sizeof(buf)))
     {
         /* Check for file extension */
-        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || 
-            suffix(buf, ".ogg") || suffix(buf, ".OGG")) count++;
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || suffix(buf, ".ogg") || suffix(buf, ".OGG"))
+            count++;
     }
     my_dclose(dir);
-    if (!count) return;
+    if (!count) return false;
 
     /* Pick a file */
     pick = randint1(count);
@@ -94,15 +94,17 @@ static void play_music_sdl(void)
     dir = my_dopen(dirpath);
     while (my_dread(dir, buf, sizeof(buf)))
     {
-        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || 
-            suffix(buf, ".ogg") || suffix(buf, ".OGG")) count++;
+        if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || suffix(buf, ".ogg") || suffix(buf, ".OGG"))
+            count++;
         if (count == pick) break;
     }
-    if (music) Mix_FreeMusic(music);
-    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, buf);
-    music = Mix_LoadMUS(dirpath);
     my_dclose(dir);
-    if (!music) return;
+
+    /* Load music file */
+    if (music) Mix_FreeMusic(music);
+    path_build(musicpath, sizeof(musicpath), dirpath, buf);
+    music = Mix_LoadMUS(musicpath);
+    if (!music) return false;
 
     /* Adjust music volume if needed */
     if (music_volume != current_music_volume)
@@ -111,7 +113,35 @@ static void play_music_sdl(void)
         Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
     }
 
+    /* Play music file (once) */
     Mix_PlayMusic(music, 1);
+    return true;
+}
+
+
+static void play_music_sdl(void)
+{
+    char dirpath[MSG_LEN];
+    bool played = false;
+
+    /* Check main music directory */
+    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
+    if (!dir_exists(dirpath)) return;
+
+    /* Check location */
+    if (!STRZERO(player->locname))
+    {
+        /* Play music from music subdirectory */
+        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
+        played = play_music_aux(dirpath);
+    }
+
+    /* If we didn't play music from music subdirectory, use main music directory */
+    if (!played)
+    {
+        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
+        play_music_aux(dirpath);
+    }
 }
 
 

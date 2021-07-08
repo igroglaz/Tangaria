@@ -129,7 +129,7 @@ extern int Send_index(struct player *p, int i, int index, byte type);
 extern int Send_item_request(struct player *p, byte tester_hook, char *dice_string);
 extern int Send_title(struct player *p, const char *title);
 extern int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_turn);
-extern int Send_depth(struct player *p, int depth, int maxdepth, const char *depths);
+extern int Send_depth(struct player *p);
 extern int Send_status(struct player *p, s16b *effects);
 extern int Send_recall(struct player *p, s16b word_recall, s16b deep_descent);
 extern int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring,

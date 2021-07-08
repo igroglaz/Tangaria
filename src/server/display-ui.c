@@ -304,19 +304,32 @@ static void prt_speed(struct player *p)
  */
 static void prt_depth(struct player *p)
 {
+    p->locname[0] = '\0';
     if (p->wpos.depth > 0)
+    {
+        struct worldpos dpos;
+        struct location *dungeon;
+
         strnfmt(p->depths, sizeof(p->depths), "%d' (L%d)", p->wpos.depth * 50, p->wpos.depth);
+
+        wpos_init(&dpos, &p->wpos.grid, 0);
+        dungeon = get_dungeon(&dpos);
+        if (dungeon) my_strcpy(p->locname, dungeon->shortname, sizeof(p->locname));
+    }
     else
     {
         struct location *town = get_town(&p->wpos);
 
         if (town)
+        {
             my_strcpy(p->depths, town->shortname, sizeof(p->depths));
+            my_strcpy(p->locname, town->shortname, sizeof(p->locname));
+        }
         else
             strnfmt(p->depths, sizeof(p->depths), "W (%d, %d)", p->wpos.grid.x, p->wpos.grid.y);
     }
 
-    Send_depth(p, p->wpos.depth, p->max_depth, p->depths);
+    Send_depth(p);
 }
 
 

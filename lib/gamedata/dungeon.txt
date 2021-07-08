@@ -1,6 +1,7 @@
 # === Understanding dungeon.txt ===
 
 # name : dungeon name
+# short : short dungeon name (for music)
 # wpos : x coordinate : y coordinate
 # min-depth : minimum dungeon depth
 # max-depth : maximum dungeon depth
@@ -2693,7 +2694,6 @@ floor:light grass plants:1933
 #floor:floor w grass:1600
 floor:light grass flowers:1600
 ###############################
-
 
 # 3x^=7350
 floor:floor x grass:100

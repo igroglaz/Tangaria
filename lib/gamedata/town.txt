@@ -1,7 +1,7 @@
 # === Understanding town.txt ===
 
 # name : town name
-# short : short town name (for file and display)
+# short : short town name (for file, display and music)
 # wpos : x coordinate : y coordinate
 # max-townies : max number of townies in town (-1 for no max)
 # symbol : town symbol (for wilderness minimap)

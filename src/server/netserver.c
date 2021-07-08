@@ -2374,12 +2374,13 @@ int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_tu
 }
 
 
-int Send_depth(struct player *p, int depth, int maxdepth, const char *depths)
+int Send_depth(struct player *p)
 {
     connection_t *connp = get_connp(p, "depth");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%s", (unsigned)PKT_DEPTH, depth, maxdepth, depths);
+    return Packet_printf(&connp->c, "%b%hd%hd%s%s", (unsigned)PKT_DEPTH, p->wpos.depth,
+        p->max_depth, p->depths, p->locname);
 }
 
 
