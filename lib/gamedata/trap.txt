@@ -83,7 +83,7 @@ name:trap door:trap door
 graphics:^:w
 appear:1:2:0
 visibility:2d10M50
-flags:TRAP | FLOOR | DOWN
+flags:TRAP | FLOOR | DOWN | FEATHER_TRAP
 effect:DAMAGE
 dice:2d8
 save:FEATHER
@@ -98,7 +98,7 @@ name:pit:pit
 graphics:^:s
 appear:1:2:0
 visibility:90
-flags:TRAP | FLOOR | PIT
+flags:TRAP | FLOOR | PIT | FEATHER_TRAP
 effect:DAMAGE
 dice:2d6
 save:FEATHER
@@ -113,7 +113,7 @@ name:pit:spiked pit
 graphics:^:s
 appear:1:2:0
 visibility:80
-flags:TRAP | FLOOR | PIT
+flags:TRAP | FLOOR | PIT | FEATHER_TRAP
 effect:DAMAGE
 dice:2d6
 effect-xtra:TIMED_INC:CUT
@@ -133,7 +133,7 @@ name:pit:poison pit
 graphics:^:s
 appear:1:2:0
 visibility:70
-flags:TRAP | FLOOR | PIT
+flags:TRAP | FLOOR | PIT | FEATHER_TRAP
 effect:DAMAGE
 dice:2d6
 effect-xtra:TIMED_INC:POISONED
@@ -611,8 +611,8 @@ msg:You feel yourself very hungry!
 name:alarm:squeaky board
 graphics:^:R
 appear:1:1:0
-visibility:10+d10
-flags:TRAP | FLOOR
+visibility:0
+flags:TRAP | FLOOR | FEATHER_TRAP
 effect:WAKE
 save:FEATHER
 desc:A trap that wakes nearby monsters.

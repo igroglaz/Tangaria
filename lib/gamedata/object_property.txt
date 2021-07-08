@@ -1245,7 +1245,7 @@ power:43
 
 name:hunger
 type:flag
-subtype:misc ability
+subtype:bad
 id-type:timed
 code:HUNGER
 power:-3
@@ -1255,7 +1255,7 @@ short-desc:Hunger
 
 name:hunger 2
 type:flag
-subtype:misc ability
+subtype:bad
 id-type:timed
 code:HUNGER_2
 power:-3
@@ -1291,3 +1291,12 @@ power:16
 msg:You realise your {name} is slowing your metabolism.
 desc:Slows your metabolism
 short-desc:Slow Digest
+
+name:cant fly
+type:flag
+subtype:bad
+id-type:on effect
+code:CANT_FLY
+power:-3
+msg:Your {name} prevents you from flying.
+desc:Prevents flying

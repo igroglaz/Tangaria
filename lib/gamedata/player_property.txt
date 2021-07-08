@@ -421,3 +421,8 @@ type:object
 code:SLOW_DIGEST_2
 name:Slow Digestion
 desc:You have slow metabolism.
+
+type:object
+code:CANT_FLY
+name:Can not fly
+desc:You are not able to fly.

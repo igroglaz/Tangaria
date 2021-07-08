@@ -79,6 +79,14 @@
 
 # MOVES works: +10 moves is like +10 speed, but movement only
 
+# can't fly:
+#Ent
+#Hydra
+#Troll
+#Golem
+#Centaur
+#Naga
+
 name:Half-Troll
 skill-disarm-phys:-5
 skill-disarm-magic:-5
@@ -468,6 +476,7 @@ player-flags:0:GIANT | CAN_SWIM
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
 value:0:MANA[5+-1d10]
+obj-flag:1:CANT_FLY
 
 #got hardcoded full ESP with expanding radius
 name:Thunderlord
@@ -586,6 +595,7 @@ shape:44:11-headed hydra
 shape:46:12-headed hydra
 shape:48:13-headed hydra
 shape:50:14-headed hydra
+obj-flag:1:CANT_FLY
 #curse:siren:100
 #obj-flag:1:DRAIN_EXP
 #obj-flag:10:DRAIN_EXP do not deplete less then achieved lvl ?
@@ -874,6 +884,7 @@ value:35:RES_SHARD[1]
 value:1:RES_LIGHT[-1]
 value:0:DAM_RED[1+1d5]
 player-flags:0:TROLL
+obj-flag:1:CANT_FLY
 
 name:Orc
 skill-disarm-phys:-8
@@ -1401,6 +1412,7 @@ value:0:DAM_RED[0+1d5]
 value:1:RES_ELEC[-1]
 value:0:MANA[10+-1d5]
 # reflection
+obj-flag:1:CANT_FLY
 
 name:Pixie
 skill-disarm-phys:10
@@ -1678,6 +1690,7 @@ player-flags:0:KNOW_MUSHROOM
 value:1:MOVES[10+5d9]
 value:1:STEALTH[-1+-1d15]
 value:0:TUNNEL[-1+-1d10]
+obj-flag:1:CANT_FLY
 
 # should always use forms to compensate speed debuff
 name:Spider
@@ -1907,6 +1920,7 @@ value:1:TUNNEL[-1+-1d24]
 player-flags:0:NO_BOOTS
 value:0:MANA[2+-1d24]
 # throwing darts
+obj-flag:1:CANT_FLY
 
 # chaos mutation, so resistant to it
 name:Gnoll

@@ -714,7 +714,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
 
         /* Levitation makes one lightfooted. */
-        if (player_of_has(p, OF_FEATHER)) dam_taken /= 2;
+        if (player_of_has(p, OF_FEATHER)  && !player_of_has(p, OF_CANT_FLY)) dam_taken /= 2;
     }
     else if (square_islava(c, &p->grid))
     {
@@ -728,8 +728,12 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
 
-        /* Levitation and swimming prevents drowning */
-        if (player_of_has(p, OF_FEATHER) || player_has(p, PF_CAN_SWIM)) dam_taken = 0;
+        /* Levitation prevents drowning if player able to fly */
+        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) dam_taken = 0;
+        
+        /* Swimming prevents drowning */
+        if (player_has(p, PF_CAN_SWIM)) dam_taken = 0;
+
     }
     else if (square_isnether(c, &p->grid))
     {
