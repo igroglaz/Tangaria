@@ -79,6 +79,7 @@
 
 ########################## 75 Main Angband dungeon
 name:Angband
+short:Angband
 wpos:1:-3
 flags:STREAMS
 min-depth:75
@@ -278,6 +279,7 @@ rule:10000:1
 
 ########################## 1
 name:The Old Ruins
+short:Old Ruins
 wpos:0:0
 min-depth:1
 max-depth:1
@@ -504,6 +506,7 @@ rule:10000:1
 
 ########################## 1
 name:The Very Old Ruins
+short:Very Old Ruins
 wpos:0:1
 min-depth:1
 max-depth:1
@@ -730,6 +733,7 @@ rule:10000:1
 
 ########################## 5 (boss: Baba Yaga)
 name:The Mountain Gorge
+short:Mountain Gorge
 wpos:1:0
 min-depth:2
 max-depth:5
@@ -905,6 +909,7 @@ rule:3000:1
 
 ########################## 10 (boss: Solovei the Robber)
 name:The Orc Cave
+short:Orc Cave
 wpos:1:1
 min-depth:4
 max-depth:12
@@ -1184,6 +1189,7 @@ rule:2000:1
 
 ########################## 15 (boss: Shtukensia the Rogue)
 name:The Severs
+short:Severs
 wpos:-1:1
 min-depth:8
 max-depth:15
@@ -1302,6 +1308,7 @@ rule:8000:1
 
 ########################## 20 (boss: Kikimora)
 name:Fetid Swamps
+short:Fetid Swamps
 wpos:-1:0
 min-depth:12
 max-depth:20
@@ -1507,6 +1514,7 @@ rule:1000:1
 
 ########################## 20 (boss: Azog, King of the Uruk-Hai)
 name:The Orc Mountains
+short:Orc Mountains
 wpos:1:2
 min-depth:15
 max-depth:23
@@ -1787,6 +1795,7 @@ rule:2000:1
 
 ########################## 25 (boss: Old Man Willow)
 name:The Old Forest
+short:Old Forest
 wpos:0:-1
 min-depth:18
 max-depth:25
@@ -2060,6 +2069,7 @@ rule:1500:1
 
 ########################## 25 (boss: Koschei the Deathless)
 name:Abandoned Manor
+short:Abandoned Manor
 wpos:-1:2
 min-depth:21
 max-depth:27
@@ -2240,6 +2250,7 @@ rule:2000:1
 
 ########################## 30 (boss: The Sandworm Queen)
 name:The Sandworm Lair
+short:Sandworm Lair
 wpos:-2:2
 min-depth:23
 max-depth:30
@@ -2530,6 +2541,7 @@ rule:50:1
 
 ########################## 49 (boss: Trolls)
 name:Ettenmoors
+short:Ettenmoors
 wpos:2:1
 min-depth:23
 max-depth:30
@@ -2956,6 +2968,7 @@ rule:2000:1
 
 ########################## 35 (boss: Ulfang the Black)
 name:The Land Of Rhun
+short:Land Of Rhun
 wpos:0:-2
 min-depth:27
 max-depth:34
@@ -3130,6 +3143,7 @@ rule:4000:1
 
 ########################## 35 (boss: The Wight-King of the Barrow-downs)
 name:The Barrow-downs
+short:Barrow-downs
 wpos:0:2
 min-depth:28
 max-depth:35
@@ -3386,6 +3400,7 @@ rule:7500:1
 
 ########################## 35 (boss: The Minotaur of the Labyrinth)
 name:The Maze
+short:Maze
 wpos:-1:-1
 min-depth:33
 max-depth:40
@@ -3489,6 +3504,7 @@ rule:8000:1
 
 ########################## 35 (boss: The Watcher in the Water)
 name:The Small Watery Cave
+short:Small Watery Cave
 wpos:-1:3
 min-depth:35
 max-depth:45
@@ -3693,6 +3709,7 @@ rule:1000:1
 
 ########################## 40 (boss: Golgarach, the Living Rock)
 name:The Heart of the Earth
+short:Heart of the Earth
 wpos:-1:-2
 min-depth:38
 max-depth:45
@@ -3739,6 +3756,7 @@ rule:3000:1
 
 ########################## 40 (boss: The White Balrog)
 name:The Helcaraxe
+short:Helcaraxe
 wpos:0:4
 min-depth:42
 max-depth:50
@@ -3760,6 +3778,7 @@ rule:50:1
 
 ########################## 40 (boss: The Balrog of Moria)
 name:The Mines of Moria
+short:Mines of Moria
 wpos:1:3
 min-depth:43
 max-depth:50
@@ -4063,6 +4082,7 @@ rule:1000:1
 
 ########################## 45 (boss: The Glass Golem)
 name:The Illusory Castle
+short:Illusory Castle
 wpos:-2:1
 min-depth:44
 max-depth:52
@@ -4263,6 +4283,7 @@ rule:3000:1
 
 ########################## 45 (boss: Shelob, Spider of Darkness)
 name:Cirith Ungol
+short:Cirith Ungol
 wpos:-2:-1
 min-depth:47
 max-depth:55
@@ -4543,6 +4564,7 @@ rule:200:1
 
 ########################## 45 (boss: Ar-Pharazon the Golden)
 name:Numenor
+short:Numenor
 wpos:-2:3
 min-depth:47
 max-depth:55
@@ -4755,6 +4777,7 @@ rule:2000:1
 
 ########################## 49 (boss: Radagast the Brown)
 name:Mirkwood
+short:Mirkwood
 wpos:0:-3
 min-depth:55
 max-depth:64
@@ -5017,6 +5040,7 @@ rule:7500:1
 
 ########################## 49 (boss: The Mouth of Sauron)
 name:Mordor
+short:Mordor
 wpos:1:-1
 min-depth:56
 max-depth:65
@@ -5342,6 +5366,7 @@ rule:10000:1
 
 ########################## 49 (boss: Trone, the Rebel Thunderlord)
 name:The Sacred Land Of Mountains
+short:Sacred Land Of Mountains
 wpos:2:2
 min-depth:60
 max-depth:72
@@ -5749,6 +5774,7 @@ rule:10000:1
 #lonely mountain
 ########################## 49 (boss: Glaurung, Father of the Dragons)
 name:Erebor
+short:Erebor
 wpos:-1:-3
 min-depth:62
 max-depth:75
@@ -6043,6 +6069,7 @@ rule:1000:1
 
 ########################## 49 (boss: The Necromancer of Dol Guldur)
 name:Dol Guldur
+short:Dol Guldur
 wpos:-2:0
 min-depth:63
 max-depth:75
@@ -6234,6 +6261,7 @@ rule:1000:1
 
 ########################## 49 (boss: Feagwath, the Undead Sorcerer)
 name:The Paths of the Dead
+short:Paths of the Dead
 wpos:-1:-4
 min-depth:66
 max-depth:77
@@ -6306,6 +6334,7 @@ rule:500:1
 
 # Fallen Gondolin (boss: Maeglin, the Traitor of Gondolin)
 name:Fallen Gondolin
+short:Fallen Gondolin
 wpos:2:0
 min-depth:70
 max-depth:87
@@ -6484,6 +6513,7 @@ rule:4000:1
 
 ########################## 50 (boss: The Balrog of the Sammath Naur)
 name:Mount Doom
+short:Mount Doom
 wpos:1:-2
 min-depth:84
 max-depth:98
@@ -6549,6 +6579,7 @@ rule:50:1
 
 ########################## X (boss: Tulkas)
 name:The Straight Road
+short:Straight Road
 wpos:-3:0
 min-depth:101
 max-depth:124
@@ -6685,6 +6716,7 @@ rule:10000:1
 # monsters could spawn in 'walls'.. feature?
 #
 name:Valinor
+short:Valinor
 wpos:-5:0
 min-depth:101
 max-depth:126
@@ -7014,6 +7046,7 @@ rule:10000:1
 
 ########################## XXX (boss: Eru Iluvatar)
 name:Utumno, Portal to the Void
+short:Utumno
 wpos:0:-5
 min-depth:102
 max-depth:127
