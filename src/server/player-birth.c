@@ -560,6 +560,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 {
     int i;
     const struct start_item *si;
+    const struct gift *g;
 
     /* Player learns innate runes */
     player_learn_innate(p);
@@ -669,6 +670,17 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
           object_delete(&obj);
       }
       if (p->au < value) p->au = value;
+    }
+
+    /* Give the player racial gifts */
+    for (g = p->race->gifts; g; g = g->next)
+    {
+        int num = rand_range(g->min, g->max);
+        struct object_kind *kind = lookup_kind(g->tval, g->sval);
+
+        my_assert(kind);
+
+        player_outfit_aux(p, kind, (byte)num);
     }
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;

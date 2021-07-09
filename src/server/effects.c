@@ -8494,13 +8494,31 @@ bool effect_do(struct effect *effect, struct source *origin, bool *ident, bool a
         /* Deal with special random effect */
         if (effect->index == EF_RANDOM)
         {
-            int choice = randint0(random_choices);
+            int choice;
 
+            /*
+             * If it has no subeffects, act as if it completed
+             * successfully and go to the next effect.
+             */
+            if (random_choices <= 0)
+            {
+                completed = true;
+                effect = effect->next;
+                continue;
+            }
+
+            choice = randint0(random_choices);
             leftover = random_choices - choice;
 
             /* Skip to the chosen effect */
             effect = effect->next;
-            while (choice--) effect = effect->next;
+            while (choice-- && effect) effect = effect->next;
+            if (!effect)
+            {
+                /* There's fewer subeffects than expected. Act as if it ran successfully. */
+                completed = true;
+                break;
+            }
 
             /* Roll the damage, if needed */
             memset(&value, 0, sizeof(value));
@@ -8558,7 +8576,7 @@ bool effect_do(struct effect *effect, struct source *origin, bool *ident, bool a
         if (leftover)
         {
             /* Skip the remaining non-chosen effects */
-            while (leftover--) effect = effect->next;
+            while (leftover-- && effect) effect = effect->next;
         }
         else
             effect = effect->next;

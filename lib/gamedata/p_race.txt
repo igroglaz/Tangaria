@@ -16,6 +16,7 @@
 # age:agebase:agemod
 # height:hgt:modhgt
 # weight:wgt:modwgt
+# gift:tval:sval:min:max
 # obj-flag:level of application:object flag
 # value:level of application:object modifier
 # brand:min level:max level:brand code
@@ -42,6 +43,9 @@
 # 'height' is height info - base height, random height modifier.
 
 # 'weight' is weight info - base weight, random weight modifier.
+
+# 'gift' is for starting gift - tval of the item, sval of the item,
+# minimum amount, maximum amount.
 
 # 'obj-flag' is for object flags (as in list-object-flags.h) that
 # races possess innately at a certain level.

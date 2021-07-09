@@ -2362,6 +2362,41 @@ static enum parser_error parse_p_race_attack(struct parser *p)
 }
 
 
+static enum parser_error parse_p_race_gift(struct parser *p)
+{
+    struct player_race *r = parser_priv(p);
+    struct gift *g;
+    int tval, sval;
+    struct object_kind *kind;
+
+    if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
+
+    tval = tval_find_idx(parser_getsym(p, "tval"));
+    if (tval < 0) return PARSE_ERROR_UNRECOGNISED_TVAL;
+
+    sval = lookup_sval(tval, parser_getsym(p, "sval"));
+    if (sval < 0) return PARSE_ERROR_UNRECOGNISED_SVAL;
+
+    g = mem_zalloc(sizeof(*g));
+    g->tval = tval;
+    g->sval = sval;
+    g->min = parser_getuint(p, "min");
+    g->max = parser_getuint(p, "max");
+
+    kind = lookup_kind(g->tval, g->sval);
+    if ((g->min > kind->base->max_stack) || (g->max > kind->base->max_stack))
+    {
+        mem_free(g);
+        return PARSE_ERROR_INVALID_ITEM_NUMBER;
+    }
+
+    g->next = r->gifts;
+    r->gifts = g;
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static struct parser *init_parse_p_race(void)
 {
     struct parser *p = parser_new();
@@ -2390,6 +2425,7 @@ static struct parser *init_parse_p_race(void)
     parser_reg(p, "value uint level str value", parse_p_race_value);
     parser_reg(p, "shape uint level str name", parse_p_race_shape);
     parser_reg(p, "attack sym verb sym extra int level int chance str effect", parse_p_race_attack);
+    parser_reg(p, "gift sym tval sym sval uint min uint max", parse_p_race_gift);
 
     return p;
 }
@@ -2916,6 +2952,7 @@ static enum parser_error parse_class_equip(struct parser *p)
     kind = lookup_kind(si->tval, si->sval);
     if ((si->min > kind->base->max_stack) || (si->max > kind->base->max_stack))
     {
+        mem_free(si->eopts);
         mem_free(si);
         return PARSE_ERROR_INVALID_ITEM_NUMBER;
     }

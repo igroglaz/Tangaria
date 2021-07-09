@@ -161,6 +161,7 @@ PWMAngband:
 - Set FAST_SPAWN flag to the Training Cave
 - Add level of application for player flags
 - Remove AGGRAVATE from Hydra race
+- Allow starting "gifts" depending on chosen race
 
 Bugs fixed
 ----------

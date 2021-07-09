@@ -543,7 +543,7 @@ struct effect *effect_next(struct effect *effect, void *data)
     if (effect->index == EF_RANDOM)
     {
         struct effect *e = effect;
-        int num_subeffects = dice_evaluate(effect->dice, 0, AVERAGE, data, NULL);
+        int num_subeffects = MAX(0, dice_evaluate(effect->dice, 0, AVERAGE, data, NULL));
         int i;
 
         /* Skip all the sub-effects, plus one to advance beyond current */
@@ -600,17 +600,19 @@ int effect_avg_damage(const struct effect *effect, void *data, const char *name)
         /* Random effect, check the sub-effects to accumulate damage */
         int total = 0;
         struct effect *e = effect->next;
-        int num_subeffects = dice_evaluate(effect->dice, 0, AVERAGE, data, NULL);
+        int n_stated = dice_evaluate(effect->dice, 0, AVERAGE, data, NULL);
+        int n_actual = 0;
         int i;
 
-        for (i = 0; e != NULL && i < num_subeffects; i++)
+        for (i = 0; e != NULL && i < n_stated; i++)
         {
             total += effect_avg_damage(e, data, name);
+            ++n_actual;
             e = e->next;
         }
 
         /* Return an average of the sub-effects' average damages */
-        return total / num_subeffects;
+        return (n_actual > 0)? total / n_actual: 0;
     }
 
     /* Non-random effect, calculate the average damage (be sure dice is defined) */
@@ -632,11 +634,15 @@ const char *effect_projection(const struct effect *effect, void *data)
     {
         /* Random effect */
         int num_subeffects = dice_evaluate(effect->dice, 0, AVERAGE, data, NULL);
-        struct effect *e = effect->next;
-        const char *subeffect_proj = effect_projection(e, data);
+        struct effect *e;
+        const char *subeffect_proj;
         int i;
 
         /* Check if all subeffects have the same projection, and if not just give up on it */
+        if (num_subeffects <= 0 || !effect->next) return "";
+
+        e = effect->next;
+        subeffect_proj = effect_projection(e, data);
         for (i = 0; e != NULL && i < num_subeffects; i++)
         {
             if (!streq(subeffect_proj, effect_projection(e, data))) return "";

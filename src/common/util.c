@@ -42,6 +42,7 @@ void cleanup_p_race(void)
     struct player_race *next;
     struct player_shape *shape, *shape_next;
     struct barehanded_attack *attack, *attack_next;
+    struct gift *item, *item_next;
 
     while (p)
     {
@@ -65,6 +66,13 @@ void cleanup_p_race(void)
             string_free(attack->hit_extra);
             mem_free(attack);
             attack = attack_next;
+        }
+        item = p->gifts;
+        while (item)
+        {
+            item_next = item->next;
+            mem_free(item);
+            item = item_next;
         }
         mem_free(p);
         p = next;

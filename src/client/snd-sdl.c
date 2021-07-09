@@ -131,12 +131,22 @@ static void play_music_sdl(void)
     /* Check location */
     if (!STRZERO(player->locname))
     {
-        /* Play music from music subdirectory */
+        /* Play music from corresponding music subdirectory */
         path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
         played = play_music_aux(dirpath);
+
+        /* If this didn't work, try default music subdirectory */
+        if (!played)
+        {
+            if (player->wpos.depth > 0)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "generic-dungeon");
+            else
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "generic-town");
+            played = play_music_aux(dirpath);
+        }
     }
 
-    /* If we didn't play music from music subdirectory, use main music directory */
+    /* If we still didn't play music yet, try main music directory */
     if (!played)
     {
         path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");

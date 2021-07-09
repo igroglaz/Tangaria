@@ -220,6 +220,19 @@ struct barehanded_attack
 };
 
 /*
+ * Racial gifts the player starts with. Used in player_race and specified in
+ * p_race.txt.
+ */
+struct gift
+{
+    int tval;                   /* General object type (see TV_ macros) */
+    int sval;                   /* Object sub-type */
+    int min;                    /* Minimum starting amount */
+    int max;                    /* Maximum starting amount */
+    struct gift *next;
+};
+
+/*
  * Player race info
  */
 struct player_race
@@ -248,6 +261,7 @@ struct player_race
     struct element_info el_info[ELEM_MAX];  /* Resists */
     struct player_shape *shapes;
     struct barehanded_attack *attacks;
+    struct gift *gifts;         /* Racial gifts */
 };
 
 /*
