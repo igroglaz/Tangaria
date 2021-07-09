@@ -612,7 +612,7 @@ name:alarm:squeaky board
 graphics:^:R
 appear:1:1:0
 visibility:10+d10
-flags:TRAP | FLOOR
+flags:TRAP | FLOOR | FEATHER_SAVE
 effect:WAKE
 desc:A trap that wakes nearby monsters.
 msg:A board beneath you squeaks loudly!

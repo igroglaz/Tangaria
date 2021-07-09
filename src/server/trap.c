@@ -517,9 +517,12 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 if (player_of_has(p, flag)) saved = true;
             }
 
-            /* Test for save for FEATHER if player CANT FLY.
-            I had to add excessive flag TRF_FEATHER_TRAP cause I don't know
-            how to check @#$% 'save_flags'.. */
+            /* Test for save due FEATHER */
+            if (trf_has(trap->kind->flags, TRF_FEATHER_SAVE) && player_of_has(p, OF_FEATHER) &&
+                !player_of_has(p, OF_CANT_FLY))
+                saved = true;
+
+            /* Test for save for FEATHER if player CANT FLY */
             if (trf_has(trap->kind->flags, TRF_FEATHER_TRAP) && player_of_has(p, OF_CANT_FLY))
                 saved = false;
 
