@@ -611,10 +611,9 @@ msg:You feel yourself very hungry!
 name:alarm:squeaky board
 graphics:^:R
 appear:1:1:0
-visibility:0
-flags:TRAP | FLOOR | FEATHER_TRAP
+visibility:10+d10
+flags:TRAP | FLOOR
 effect:WAKE
-save:FEATHER
 desc:A trap that wakes nearby monsters.
 msg:A board beneath you squeaks loudly!
 
