@@ -646,6 +646,9 @@ static void project_feature_handler_MAKE_DOOR(project_feature_handler_context_t 
 {
     struct loc grid = context->grid;
 
+    // must be not in town
+    if (in_town(&context->cave->wpos)) return;
+
     /* Require a grid without monsters and players */
     if (square_monster(context->cave, &grid) || square_isplayer(context->cave, &grid))
         return;
