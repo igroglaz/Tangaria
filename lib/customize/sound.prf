@@ -379,9 +379,9 @@ sound:enter_pit:enter_pit
 #
 
 # A monster flees in terror.
-sound:flee:pls_man_yell
+sound:flee:mco_creature_yelp
 
-####################### mco_creature_yelp
+####################### pls_man_yell
 
 # A monster is killed.
 sound:kill:mco_howl_croak mco_howl_deep mco_howl_distressed mco_howl_high mco_howl_long
