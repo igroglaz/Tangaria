@@ -7844,6 +7844,14 @@ static bool effect_handler_WEB(effect_handler_context_t *context)
     struct loc_iterator iter;
     int spell_power;
 
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        if (context->origin->player)
+            msg(context->origin->player, "Pointless to weave webs here...");
+        return false;
+    }
+
     if (mon)
     {
         spell_power = mon->race->spell_power;

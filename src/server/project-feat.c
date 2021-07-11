@@ -646,8 +646,12 @@ static void project_feature_handler_MAKE_DOOR(project_feature_handler_context_t 
 {
     struct loc grid = context->grid;
 
-    // must be not in town
-    if (in_town(&context->cave->wpos)) return;
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "Pointless to create doors here...");
+        return false;
+    }
 
     /* Require a grid without monsters and players */
     if (square_monster(context->cave, &grid) || square_isplayer(context->cave, &grid))
