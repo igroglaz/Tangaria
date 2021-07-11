@@ -885,7 +885,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     if (square_ismountain(c, grid) && in_town(&p->wpos))
     {
 
-    player_dec_timed(p, TMD_FOOD, 50, false);
+    // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
+    player_dec_timed(p, TMD_FOOD, 200, false);
 
         if (one_in_(2))
         {
@@ -3207,6 +3208,8 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
     {
         area = 2;
     }
+    else
+        area += 5;  // adjust price a bit, so 10k free houses won't be too big
 
     /* Calculate price.
     More houses you have - more expensive will be next one */
