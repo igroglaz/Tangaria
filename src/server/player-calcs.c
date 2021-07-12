@@ -1253,6 +1253,9 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
 
     /* Extra mana capacity from race/class bonuses */
     exmsp += adj;
+    
+    if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
+        exmsp += 1;   
 
     /* Cap at +10 */
     if (exmsp > 10) exmsp = 10;
@@ -2101,6 +2104,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 if (to_d > 0) state->to_d += to_d;
             }
         }
+    }
+
+    if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
+    {
+        state->stat_add[STAT_DEX] += 2;
+        state->skills[SKILL_STEALTH] += 1;
+        state->skills[SKILL_SAVE] += 1;
     }
 
     /* Handle polymorphed players */
