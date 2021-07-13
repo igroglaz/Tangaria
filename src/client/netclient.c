@@ -1967,10 +1967,10 @@ static int Receive_turn(void)
 static int Receive_depth(void)
 {
     int n;
-    byte ch;
+    byte ch, daytime;
     s16b depth, maxdepth;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s%s", &ch, &depth, &maxdepth, player->depths,
+    if ((n = Packet_scanf(&rbuf, "%b%b%hd%hd%s%s", &ch, &daytime, &depth, &maxdepth, player->depths,
         player->locname)) <= 0)
     {
         return n;
@@ -1978,6 +1978,9 @@ static int Receive_depth(void)
 
     player->wpos.depth = depth;
     player->max_depth = maxdepth;
+
+    /* Hack -- put day/night toggle in the unused "no_disturb_icky" field */
+    player->no_disturb_icky = (daytime? true: false);
 
     player->upkeep->redraw |= (PR_DEPTH);
 

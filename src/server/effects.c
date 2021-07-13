@@ -6714,6 +6714,7 @@ static bool effect_handler_TAP_DEVICE(effect_handler_context_t *context)
 
             msg(context->origin->player, "You feel your head clear.");
             used = true;
+            player_inc_timed(context->origin->player, TMD_STUN, randint1(2), true, true);
 
             /* Hack -- redraw picture */
             redraw_picture(context->origin->player, old_num);
@@ -7582,6 +7583,9 @@ static bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
 
     /* Move player or monster */
     monster_swap(context->cave, &start, &land);
+
+    /* Cancel target if necessary */
+    if (is_player) target_set_monster(context->origin->player, NULL);
 
     /* Clear any projection marker to prevent double processing */
     sqinfo_off(square(context->cave, &land)->info, SQUARE_PROJECT);

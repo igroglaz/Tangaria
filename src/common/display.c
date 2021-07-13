@@ -569,7 +569,13 @@ static const char *show_depth(struct player *p)
 {
     static char buffer[13];
 
-    if (p->max_depth == 0) return "Surface";
+    if (p->max_depth == 0)
+    {
+        /* Hack -- compatibility with Angband ladder */
+        if (p->dump_gen) return "Town";
+
+        return "Surface";
+    }
 
     strnfmt(buffer, sizeof(buffer), "%d' (L%d)", p->max_depth * 50, p->max_depth);
     return buffer;

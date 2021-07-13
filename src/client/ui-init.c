@@ -491,6 +491,7 @@ void client_init(bool new_game)
     u32b num_name;
     size_t i, j;
     struct keypress c;
+    s32b intro;
 
     if (new_game)
     {
@@ -514,6 +515,17 @@ void client_init(bool new_game)
     init_minor();
 
     GetLocalHostName(host_name, NORMAL_WID);
+
+    /* Play intro music */
+    intro = conf_get_int("MAngband", "IntroMusic", 0);
+    if (intro)
+    {
+        /* Hack -- set location to "intro" */
+        my_strcpy(player->locname, "intro", sizeof(player->locname));
+
+        play_intro_music();
+        player->locname[0] = '\0';
+    }
 
     if (new_game)
     {

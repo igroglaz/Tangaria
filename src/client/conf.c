@@ -644,6 +644,7 @@ void conf_default_save(void)
     conf_set_string("MAngband", "meta_port", "8802");
     conf_set_string("MAngband", "DisableNumlock", "1");
     conf_set_string("MAngband", "LighterBlue", "1");
+    conf_set_string("MAngband", "IntroMusic", "0");
 
     /* conf_set_int("MAngband", "meta_port", meta_port); */
 

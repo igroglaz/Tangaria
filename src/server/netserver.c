@@ -2376,11 +2376,15 @@ int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_tu
 
 int Send_depth(struct player *p)
 {
+    byte daytime;
+
     connection_t *connp = get_connp(p, "depth");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%s%s", (unsigned)PKT_DEPTH, p->wpos.depth,
-        p->max_depth, p->depths, p->locname);
+    daytime = (is_daytime()? 1: 0);
+
+    return Packet_printf(&connp->c, "%b%b%hd%hd%s%s", (unsigned)PKT_DEPTH, (unsigned)daytime,
+        p->wpos.depth, p->max_depth, p->depths, p->locname);
 }
 
 

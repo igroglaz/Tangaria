@@ -885,6 +885,7 @@ struct player
     int monwidth;                   /* Monster list subwindow width */
     s32b extra_energy;              /* Extra energy */
     bool first_escape;
+    bool dump_gen;
 
     /*
      * In order to prevent the regeneration bonus from the first few turns, we have

@@ -52,6 +52,7 @@ extern int music_volume;
 
 extern errr init_sound(void);
 extern void close_sound(void);
+extern void play_intro_music(void);
 extern errr register_sound_pref_parser(struct parser *p);
 
 #endif /* INCLUDED_SOUND_H */

@@ -135,14 +135,35 @@ static void play_music_sdl(void)
         path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
         played = play_music_aux(dirpath);
 
+        /* Hack -- don't fall back for intro music */
+        if (streq(player->locname, "intro")) return;
+
         /* If this didn't work, try default music subdirectory */
         if (!played)
         {
+            /* For the dungeons, try generic subdirectory */
             if (player->wpos.depth > 0)
+            {
                 path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "generic-dungeon");
+                played = play_music_aux(dirpath);
+            }
+
+            /* For the towns, try daytime/nighttime subdirectory first */
             else
-                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "generic-town");
-            played = play_music_aux(dirpath);
+            {
+                if (player->no_disturb_icky)
+                    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "town-day");
+                else
+                    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "town-night");
+                played = play_music_aux(dirpath);
+
+                /* If this didn't work, try generic subdirectory */
+                if (!played)
+                {
+                    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "generic-town");
+                    played = play_music_aux(dirpath);
+                }
+            }
         }
     }
 

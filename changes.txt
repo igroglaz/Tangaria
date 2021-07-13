@@ -101,6 +101,7 @@ Angband 4.2.x:
 - Allow more variation for pillar or ragged edge rooms
 - Make decoys only work when in monster's LoS
 - Modify tunneling to account for rooms with few entrances
+- Improvements to necromancer spells
 
 MAngband 1.5.x:
 
@@ -162,6 +163,7 @@ PWMAngband:
 - Add level of application for player flags
 - Remove AGGRAVATE from Hydra race
 - Allow starting "gifts" depending on chosen race
+- Prevent creating doors outside of dungeons
 
 Bugs fixed
 ----------
@@ -175,6 +177,7 @@ Angband 4.2.x:
 - Make SMASH_WALL destroy decoys
 - Notice changes to the weight limit in update_bonuses()
 - Plug small memory leak in main-sdl.c's load_prefs()
+- Add resistances to elements monsters breathe
 
 MAngband 1.5.x:
 
@@ -222,6 +225,7 @@ PWMAngband:
 - Fix crash when calculating tax price for house expansion
 - Fix "Place feature" command only allowing to place staircases
 - Fix PROJECT_LOS_AWARE
+- Fix compatibility with Angband ladder dumps
 
 Coding changes
 --------------
@@ -260,6 +264,8 @@ Angband 4.2.x:
 - In vaults, automatically mark inner permanent walls with SQUARE_WALL_INNER
 - Clarify/update comments related to dungeon generation
 - Avoid more compiler warnings
+- Incorporate stunning into TAP_DEVICE effect handler
+- Unset target after TELEPORT_TO
 
 MAngband 1.5.x:
 
@@ -302,6 +308,7 @@ PWMAngband:
 - Prevent auto-retaliator after clear request
 - Send and check limits for race/class structure fields
 - Un-hardcode Hydra form progression
+- Add player "real" name at the end of server dumps
 
 Compilation/documentation
 -------------------------

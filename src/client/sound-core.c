@@ -408,3 +408,9 @@ void close_sound(void)
     /* Close the platform's sound module */
     if (hooks.close_audio_hook) hooks.close_audio_hook();
 }
+
+
+void play_intro_music(void)
+{
+    if (hooks.play_sound_hook) hooks.play_sound_hook(NULL);
+}

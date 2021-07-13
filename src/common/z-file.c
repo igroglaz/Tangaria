@@ -515,12 +515,22 @@ bool file_close(ang_file *f)
 ang_file *file_temp(char *fname, size_t len)
 {
 #ifdef WINDOWS
-    ang_file *fff;
     char prefix[] = "mng";
 
     /* Temporary file */
     if (!GetTempPath(len, fname)) return NULL;
     if (!GetTempFileName(fname, prefix, 0, fname)) return NULL;
+#else
+    /* UNIX VERSION */
+    int p;
+    strcpy(fname,"/tmp/pwmangXXXXXX");
+    if((p = mkstemp(fname)) < 0)
+    {
+        return(-1);
+    }
+    fclose(fdopen(p, "r"));
+#endif
+    ang_file *fff;
 
     /* Open a new file */
     fff = file_open(fname, MODE_WRITE, FTYPE_TEXT);
@@ -533,10 +543,6 @@ ang_file *file_temp(char *fname, size_t len)
     }
 
     return fff;
-#else
-    /* TODO: UNIX VERSION! */
-    return NULL;
-#endif
 }
 
 

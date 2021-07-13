@@ -472,7 +472,7 @@ effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
 spell:Door Creation:13:9:40:12:0
-effect:TOUCH:MAKE_DOOR:1
+effect:TOUCH:MAKE_DOOR:1:1
 desc:A door is created on each empty floor space that is directly
 desc: adjacent to you. These doors are closed, but not locked.
 
@@ -511,8 +511,6 @@ msg_other: sprays acid.
 desc:Sprays acid.
 
 spell:Mana Drain:22:2:30:12:0
-effect:TIMED_INC:STUN
-dice:1d2
 effect:TAP_DEVICE
 desc:Turns wand or staff energy into mana; tapping stuns the player briefly.
 
@@ -1284,7 +1282,7 @@ title:Night Lord
 
 magic:1:300:5
 
-book:shadow book:town:[Shadows for Beginners]:7:shadow
+book:shadow book:town:[Shadows for Beginners]:8:shadow
 book-graphics:?:s
 book-properties:1:30:25
 book-alloc:40:1 to 100
@@ -1350,16 +1348,23 @@ desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
+spell:Resist Cold:9:10:50:5:0
+effect:TIMED_INC:OPP_COLD
+dice:20+1d20
+desc:Grants you resistance to cold for 20+1d20 turns.
+
 book:shadow book:town:[Dark Conjurings]:7:shadow
 book-graphics:?:s
 book-properties:10:30:400
 book-alloc:30:10 to 100
 book-desc:A standard shadow book with a few rituals.
 
-spell:Resist Cold:9:10:50:20:0
-effect:TIMED_INC:OPP_COLD
-dice:20+1d20
-desc:Grants you resistance to cold for 20+1d20 turns.
+spell:Crush:10:6:40:5:0
+effect:PROJECT_LOS:MON_CRUSH
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+desc:Instantly kill any monster in line-of-sight with less than four times the
+desc: player's level in hitpoints. Other monsters are unharmed.
 
 spell:Sleep Evil:12:5:50:5:0
 effect:PROJECT_LOS_AWARE:SLEEP_EVIL
@@ -1486,12 +1491,12 @@ desc: to-dam bonus of the same weapon.
 desc: The spell has no effect if the weapon is an artifact, an ego item
 desc: or a worthless item.
 
-spell:Crush:32:30:60:130:0
-effect:PROJECT_LOS:MON_CRUSH
+spell:Zone of Unmagic:32:16:60:110:0
+effect:BLAST:DISEN:4
 dice:$B
-expr:B:PLAYER_LEVEL:* 4
-desc:Instantly kill any monster in line-of-sight with less than four times the
-desc: player's level in hitpoints. Other monsters are unharmed.
+expr:B:PLAYER_LEVEL:* 3
+desc:Produces a zone of disenchantment affecting the player and monsters
+desc: within radius 4.
 
 spell:Grond's Blow:35:35:80:115:0
 effect:DESTRUCTION:DARK:15

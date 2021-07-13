@@ -359,6 +359,13 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "\n%s\n\n", buffer_line(0));
     }
 
+    /* Dump account (server dumps) */
+    if (!p->dump_gen)
+    {
+        file_put(fff, "\n  [Player information]\n\n");
+        file_putf(fff, "Player name: %s", get_connection(p->conn)->real);
+    }
+
     mem_free(home_list);
 }
 

@@ -1823,12 +1823,17 @@ void player_dump(struct player *p, bool server)
             plog("Character dump failed!");
     }
 
+    /* Hack -- compatibility with Angband ladder */
+    p->dump_gen = true;
+
     /* Save a client-side character dump */
     strnfmt(dumpname, sizeof(dumpname), "%s.txt", p->name);
     if (dump_save(p, dumpname, false))
         plog("Character dump successful.");
     else
         plog("Character dump failed!");
+
+    p->dump_gen = false;
 }
 
 
