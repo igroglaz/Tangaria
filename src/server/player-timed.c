@@ -1240,6 +1240,12 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
     {
         /* Paralysis should be non-cumulative */
         if ((idx == TMD_PARALYZED) && (p->timed[idx] > 0)) return false;
+        
+        // some additional thresholds so conditions won't overstuck
+        if ((idx == TMD_SLOW || idx == TMD_POISONED || idx == TMD_CONFUSED || idx == TMD_AFRAID)
+        && (p->timed[idx] > 10)) return false;
+
+        if ((idx == TMD_STUN) && (p->timed[idx] > 20)) return false;        
 
         /* Hack -- permanent effect */
         if (p->timed[idx] == -1) return false;

@@ -9951,7 +9951,7 @@ flags:IM_POIS | IM_ACID | IM_FIRE
 flags:IM_COLD | IM_ELEC
 flags:IM_NETHER | IM_PLASMA | IM_DISEN
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
-flags:NO_FEAR | NO_SLEEP | SMART
+flags:NO_FEAR | NO_SLEEP | SMART | NO_DEATH
 spell-freq:5
 spells:BLINK | TPORT | HEAL
 desc:Old Tom Bombadil is a merry fellow!
