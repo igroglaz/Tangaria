@@ -2562,6 +2562,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->num_shots += extra_shots;
             state->ammo_mult += extra_might;
         }
+        
+        /* Rangers with bows are good at shooting */
+        if (player_has(p, PF_FAST_SHOT) && (state->ammo_tval == TV_ARROW))
+            state->num_shots += p->lev / 3;        
 
         /* Handle polymorphed players */
         if (p->poly_race && (rsf_has(p->poly_race->spell_flags, RSF_SHOT) ||
