@@ -940,21 +940,16 @@ msg:The {kind} let{s} out a shrill wail...
 name:RAGE_BLESS_RESIST
 aim:0
 power:21
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:50+1d50
 effect:TIMED_INC:OPP_COLD
-dice:50+1d50
 effect:TIMED_INC:OPP_FIRE
-dice:50+1d50
 effect:TIMED_INC:OPP_ELEC
-dice:50+1d50
 effect:TIMED_INC:OPP_ACID
-dice:50+1d50
 effect:TIMED_INC:BLESSED
-dice:50+1d50
 effect:TIMED_INC:SHERO
-dice:50+1d50
 effect:TIMED_INC:BOLD
+effect:SET_VALUE
 dice:50+1d50
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -1002,15 +997,13 @@ desc:removes fear and neutralizes poison
 name:RESIST_ALL
 aim:0
 power:10
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:20+1d20
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
-dice:20+1d20
 effect:TIMED_INC:OPP_ELEC
-dice:20+1d20
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:20+1d20
 msg:{name} glows many colours...
 desc:grants temporary resistance to acid, lightning, fire, cold and poison for
@@ -1019,15 +1012,13 @@ desc: {20+1d20} turns
 name:RESIST_ALL_LORDLY
 aim:0
 power:10
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:40+1d40
 effect:TIMED_INC:OPP_COLD
-dice:40+1d40
 effect:TIMED_INC:OPP_FIRE
-dice:40+1d40
 effect:TIMED_INC:OPP_ELEC
-dice:40+1d40
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:40+1d40
 msg:Your {kind} glow{s} many colours...
 desc:grants temporary resistance to acid, lightning, fire, cold and poison for
@@ -1178,9 +1169,10 @@ aim:0
 power:7
 effect:HEAL_HP
 dice:200
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
+effect:SET_VALUE
 dice:20+1d20
 effect:TIMED_INC:IMAGE
 dice:200+1d100

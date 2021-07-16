@@ -514,6 +514,8 @@ bool file_close(ang_file *f)
  */
 ang_file *file_temp(char *fname, size_t len)
 {
+    ang_file *fff;
+
 #ifdef WINDOWS
     char prefix[] = "mng";
 
@@ -521,16 +523,12 @@ ang_file *file_temp(char *fname, size_t len)
     if (!GetTempPath(len, fname)) return NULL;
     if (!GetTempFileName(fname, prefix, 0, fname)) return NULL;
 #else
-    /* UNIX VERSION */
     int p;
-    strcpy(fname,"/tmp/pwmangXXXXXX");
-    if((p = mkstemp(fname)) < 0)
-    {
-        return(-1);
-    }
+
+    strcpy(fname, "/tmp/pwmangXXXXXX");
+    if ((p = mkstemp(fname)) < 0) return NULL;
     fclose(fdopen(p, "r"));
 #endif
-    ang_file *fff;
 
     /* Open a new file */
     fff = file_open(fname, MODE_WRITE, FTYPE_TEXT);
@@ -962,8 +960,7 @@ bool my_dread(ang_dir *dir, char *fname, size_t len)
 
         /* Skip directories */
         if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ||
-            strcmp(fd.cFileName, ".") == 0 ||
-            strcmp(fd.cFileName, "..") == 0)
+            streq(fd.cFileName, ".") || streq(fd.cFileName, ".."))
                 continue;
 
         /* Take this one */

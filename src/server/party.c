@@ -993,7 +993,7 @@ hash_entry *lookup_player_by_name(const char *name)
         while (ptr)
         {
             /* Check this name */
-            if (!strcmp(ptr->name, name)) return ptr;
+            if (streq(ptr->name, name)) return ptr;
 
             /* Next entry in chain */
             ptr = ptr->next;
@@ -1091,7 +1091,7 @@ void delete_player_name(const char *name)
         while (ptr)
         {
             /* Check this name */
-            if (!strcmp(ptr->name, name))
+            if (streq(ptr->name, name))
             {
                 hash_entry *next = ptr->next;
 

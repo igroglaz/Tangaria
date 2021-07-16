@@ -51,7 +51,7 @@ extern bool target_equals(struct player *p, struct source *who);
 extern void draw_path_grid(struct player *p, struct loc *grid, byte a, char c);
 extern void flush_path_grid(struct player *p, struct chunk *cv, struct loc *grid, byte a, char c);
 extern bool panel_contains(struct player *p, struct loc *grid);
-extern struct point_set *target_get_monsters(struct player *p, int mode);
+extern struct point_set *target_get_monsters(struct player *p, int mode, bool restrict_to_panel);
 extern bool target_set_closest(struct player *p, int mode);
 
 #endif /* TARGET_H */

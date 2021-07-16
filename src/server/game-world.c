@@ -2143,7 +2143,7 @@ static void post_turn_game_loop(void)
         /* Format string */
         if (!p->alive)
         {
-            if (!strcmp(p->died_from, "divine wrath"))
+            if (streq(p->died_from, "divine wrath"))
                 my_strcpy(buf, "Killed by divine wrath", sizeof(buf));
             else if (!p->total_winner)
                 my_strcpy(buf, "Terminated", sizeof(buf));

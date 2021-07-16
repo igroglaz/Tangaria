@@ -223,7 +223,7 @@ void channel_join(struct player *p, const char *channel, bool quiet)
         if (!last_free && STRZERO(channels[i].name)) last_free = i;
 
         /* Name match */
-        if (!strcmp(channels[i].name, channel))
+        if (streq(channels[i].name, channel))
         {
             /* Not present on this channel */
             if (!on_channel(p, i))
@@ -303,7 +303,7 @@ void channel_leave(struct player *p, const char *channel)
 
     for (i = 0; i < MAX_CHANNELS; i++)
     {
-        if (!strcmp(channels[i].name, channel))
+        if (streq(channels[i].name, channel))
         {
             channel_leave_id(p, i, false);
             break;
@@ -411,7 +411,7 @@ static void player_talk_aux(struct player *p, const char *message)
             dest_chan = -1;
             for (i = 0; i < MAX_CHANNELS; i++)
             {
-                if (!strcmp(channels[i].name, tmp_chan))
+                if (streq(channels[i].name, tmp_chan))
                 {
                     dest_chan = i;
                     break;

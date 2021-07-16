@@ -544,16 +544,14 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Resistance:28:20:65:20:0
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:20+1d20
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
-dice:20+1d20
 effect:TIMED_INC:OPP_ELEC
-dice:20+1d20
 effect:END_INFO
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
@@ -573,8 +571,8 @@ effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-desc:Detects all gold, objects, doors, stairs, traps and monsters
-desc: in the immediate area.
+desc:Detects all traps, doors, stairs, treasure, objects and monsters in the
+desc: immediate area.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:5:arcane
 book-graphics:?:r
@@ -892,11 +890,14 @@ desc:Speed up digestion to increase regeneration of hitpoints for
 desc: the next 5+1d3 turns (or until hungry).
 
 spell:Herbal Curing:40:20:90:100:0
+effect:NOURISH:INC_TO
+dice:80
 effect:CURE:BLACKBREATH
 effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CUT
-desc:Cures all cuts, poison, stunning and black breath.
+desc:Cures all cuts, poison, stunning and black breath, and leaves you
+desc: well-nourished.
 
 spell:Volcanic Eruption:40:30:75:50:0
 effect:EARTHQUAKE:NONE:5
@@ -1360,11 +1361,15 @@ book-alloc:30:10 to 100
 book-desc:A standard shadow book with a few rituals.
 
 spell:Crush:10:6:40:5:0
+effect:DAMAGE
+dice:d$S
+expr:S:PLAYER_LEVEL:* 2
 effect:PROJECT_LOS:MON_CRUSH
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
 desc:Instantly kill any monster in line-of-sight with less than four times the
-desc: player's level in hitpoints. Other monsters are unharmed.
+desc: player's level in hitpoints, also hurting the player. Other monsters are
+desc: unharmed.
 
 spell:Sleep Evil:12:5:50:5:0
 effect:PROJECT_LOS_AWARE:SLEEP_EVIL
@@ -2092,9 +2097,12 @@ effect:DETECT_STAIRS
 effect-yx:22:40
 desc:Detects all stairs in the immediate area.
 
-spell:Cure Poison:9:4:30:4:0
+spell:Herbal Curing:9:6:30:4:0
+effect:CURE:BLACKBREATH
+effect:CURE:STUN
 effect:CURE:POISONED
-desc:Neutralizes poison.
+effect:CURE:CUT
+desc:Cures all cuts, poison, stunning and black breath.
 
 book:nature book:town:[Gifts of Nature]:4:nature
 
@@ -2186,13 +2194,10 @@ desc:Leaves a magical decoy that looks and sounds like the player.
 
 book:nature book:dungeon:[Wild Forces]:4:nature
 
-spell:Elemental Brand:31:60:95:180:0
-effect:BRAND_AMMO
-desc:Brands one stack of ammunition with fire, cold or poison
-desc: (selected at random) and at the same time attempts to improve
-desc: the to-hit bonus and the to-dam bonus of the same ammunition.
-desc: The spell has no effect if the ammunition is an artifact, an ego item
-desc: or a worthless item.
+spell:Power Shots:31:12:50:40:0
+effect:BOW_BRAND_SHOT:MISSILE
+dice:5
+desc:Covers your missiles with the elements.
 
 spell:Enchant Weapon:34:50:90:60:0
 effect:ENCHANT:TOBOTH
@@ -2205,12 +2210,13 @@ effect:BOW_BRAND_SHOT:POIS
 dice:5
 desc:Covers your missiles with venom.
 
-spell:Herbal Curing:40:20:90:100:0
-effect:CURE:BLACKBREATH
-effect:CURE:STUN
-effect:CURE:POISONED
-effect:CURE:CUT
-desc:Cures all cuts, poison, stunning and black breath.
+spell:Elemental Brand:40:60:95:120:0
+effect:BRAND_AMMO
+desc:Brands one stack of ammunition with fire, cold or poison
+desc: (selected at random) and at the same time attempts to improve
+desc: the to-hit bonus and the to-dam bonus of the same ammunition.
+desc: The spell has no effect if the ammunition is an artifact, an ego item
+desc: or a worthless item.
 
 
 ############### BLACKGUARD ###############
@@ -2300,9 +2306,10 @@ dice:20+1d20
 desc:Grants you resistance to draining attacks for 20+1d20 turns.
 
 spell:Grim Purpose:13:8:30:12:0
+effect:CLEAR_VALUE
 effect:TIMED_INC:FREE_ACT
-dice:12+1d12
 effect:TIMED_INC:OPP_CONF
+effect:SET_VALUE
 dice:12+1d12
 desc:Your mind becomes too focused to be slowed, paralyzed or confused
 desc: for 12+1d12 turns.
@@ -2402,16 +2409,14 @@ desc: of 66 HP.
 book:shadow book:dungeon:[Great Shadows]:5:shadow
 
 spell:Demonic Resistance:36:18:72:36:0
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:20+1d20
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
-dice:20+1d20
 effect:TIMED_INC:OPP_ELEC
-dice:20+1d20
 effect:END_INFO
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
@@ -2689,16 +2694,14 @@ desc:Shoots a radius-2 light ball.
 book:magic book:dungeon:[Sorcery and Evocations]:7:arcane
 
 spell:Resistance:28:20:55:60:1
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:20+1d20
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
-dice:20+1d20
 effect:TIMED_INC:OPP_ELEC
-dice:20+1d20
 effect:END_INFO
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
@@ -3209,8 +3212,8 @@ effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-desc:Detects all gold, objects, doors, stairs, traps and monsters
-desc: in the immediate area.
+desc:Detects all traps, doors, stairs, treasure, objects and monsters in the
+desc: immediate area.
 
 spell:Psychic Drain:24:21:50:24:0
 effect:BOLT:PSI_DRAIN
@@ -3232,16 +3235,14 @@ dice:30+1d20
 desc:Grants you +50 to AC for 30+1d20 turns.
 
 spell:Prismatic Shield:29:25:59:33:0
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:20+1d20
 effect:TIMED_INC:OPP_COLD
-dice:20+1d20
 effect:TIMED_INC:OPP_FIRE
-dice:20+1d20
 effect:TIMED_INC:OPP_ELEC
-dice:20+1d20
 effect:END_INFO
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
@@ -3778,24 +3779,14 @@ desc: Artifacts will not be destroyed by this spell.
 desc: This spell has no effect when used in the town.
 
 spell:Resistance:23:11:55:19:0
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
-dice:$B+1d$S
-expr:B:PLAYER_SPELL_POWER:* 5
-expr:S:PLAYER_SPELL_POWER:* 5
 effect:TIMED_INC:OPP_COLD
-dice:$B+1d$S
-expr:B:PLAYER_SPELL_POWER:* 5
-expr:S:PLAYER_SPELL_POWER:* 5
 effect:TIMED_INC:OPP_FIRE
-dice:$B+1d$S
-expr:B:PLAYER_SPELL_POWER:* 5
-expr:S:PLAYER_SPELL_POWER:* 5
 effect:TIMED_INC:OPP_ELEC
-dice:$B+1d$S
-expr:B:PLAYER_SPELL_POWER:* 5
-expr:S:PLAYER_SPELL_POWER:* 5
 effect:END_INFO
 effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
 expr:S:PLAYER_SPELL_POWER:* 5

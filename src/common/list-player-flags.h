@@ -9,7 +9,6 @@
 
 /* symbol */
 PF(NONE)
-PF(FAST_SHOT)
 PF(BLESS_WEAPON)
 PF(ZERO_FAIL)
 PF(BEAM)

@@ -554,7 +554,7 @@ bool panel_contains(struct player *p, struct loc *grid)
 /*
  * Return a target set of target_able monsters.
  */
-struct point_set *target_get_monsters(struct player *p, int mode)
+struct point_set *target_get_monsters(struct player *p, int mode, bool restrict_to_panel)
 {
     struct loc begin, end;
     struct loc_iterator iter;
@@ -563,7 +563,15 @@ struct point_set *target_get_monsters(struct player *p, int mode)
     struct chunk *c = chunk_get(&p->wpos);
 
     /* Get the current panel */
-    get_panel(p, &min_y, &min_x, &max_y, &max_x);
+    if (restrict_to_panel)
+        get_panel(p, &min_y, &min_x, &max_y, &max_x);
+    else
+    {
+        min_y = p->grid.y - z_info->max_range;
+        max_y = p->grid.y + z_info->max_range + 1;
+        min_x = p->grid.x - z_info->max_range;
+        max_x = p->grid.x + z_info->max_range + 1;
+    }
 
     loc_init(&begin, min_x, min_y);
     loc_init(&end, max_x, max_y);
@@ -650,7 +658,7 @@ bool target_set_closest(struct player *p, int mode)
     target_set_monster(p, NULL);
 
     /* Get ready to do targeting */
-    targets = target_get_monsters(p, mode);
+    targets = target_get_monsters(p, mode, false);
 
     /* If nothing was prepared, then return */
     if (point_set_size(targets) < 1)

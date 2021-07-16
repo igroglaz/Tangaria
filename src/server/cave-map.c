@@ -43,11 +43,12 @@
  *  - g->in_view is true if the player can currently see the grid - this can
  *    be used to indicate field-of-view.
  *  - g->lighting is set to indicate the lighting level for the grid:
- *    LIGHTING_DARK for unlit grids, LIGHTING_LIT for inherently light
- *    grids (lit rooms, etc), LIGHTING_TORCH for grids lit by the player's
- *    light source, and LIGHTING_LOS for grids in the player's line of sight.
- *    Note that lighting is always LIGHTING_LIT for known "interesting" grids
- *    like walls.
+ *    LIGHTING_LIT by default, LIGHTING_DARK for unlit but seen grids within the
+ *    detection radius of a player with the UNLIGHT ability and a light source
+ *    with an intensity of one or less, LIGHTING_TORCH for seen and lit grids
+ *    within the radius of the player's light source when the view_yellow_light
+ *    option is on, and LIGHTING_LOS for seen and lit grids that don't qualify
+ *    for LIGHTING_TORCH.
  *  - g->is_player is true if the player is on the given grid.
  *  - g->hallucinate is true if the player is hallucinating something "strange"
  *    for this grid - this should pick a random monster to show if the m_idx
@@ -60,6 +61,8 @@
  * Terrain is remembered separately from objects and monsters, so can be
  * shown even when the player can't "see" it.  This leads to things like
  * doors out of the player's view still change from closed to open and so on.
+ *
+ * PWMAngband: LIGHTING_DARK is not used, players with the UNLIGHT ability are treated normally
  */
 void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_data *g)
 {
@@ -85,13 +88,15 @@ void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_d
 
     if (g->in_view)
     {
-        g->lighting = LIGHTING_LOS;
+        bool lit = square_islit(c, grid);
 
-        /* Torchlight */
-        if (!square_isglow(c, grid))
+        if (sqinfo_has(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER))
         {
-            if (OPT(p, view_yellow_light)) g->lighting = LIGHTING_TORCH;
+            if (lit)
+                g->lighting = (OPT(p, view_yellow_light))? LIGHTING_TORCH: LIGHTING_LOS;
         }
+        else if (lit)
+            g->lighting = LIGHTING_LOS;
 
         /* Remember seen grid */
         square_memorize(p, c, grid);

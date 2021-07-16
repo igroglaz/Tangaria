@@ -1218,9 +1218,6 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Redraw */
     p->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
 
-    /* Affect light? */
-    if (mon->race->light != 0) update_view_all(&c->wpos, 0);
-
     /* Delete the monster */
     delete_monster_idx(c, mon->midx);
 }
@@ -1351,9 +1348,12 @@ bool mon_take_hit(struct player *p, struct chunk *c, struct monster *mon, int da
     source_monster(who, mon);
     update_health(who);
 
-    /* Wake it up, make it aware of the player */
-    monster_wake(p, mon, false, 100);
-    mon_clear_timed(p, mon, MON_TMD_HOLD, MON_TMD_FLG_NOTIFY);
+    /* If the hit doesn't kill, wake it up, make it aware of the player */
+    if (dam <= mon->hp)
+    {
+        monster_wake(p, mon, false, 100);
+        mon_clear_timed(p, mon, MON_TMD_HOLD, MON_TMD_FLG_NOTIFY);
+    }
 
     /* Become aware of its presence */
     if (monster_is_camouflaged(mon)) become_aware(p, c, mon);
@@ -1867,7 +1867,7 @@ void update_view_all(struct worldpos *wpos, int skip)
         struct player *player = player_get(i);
 
         if (wpos_eq(&player->wpos, wpos) && (i != skip))
-            player->upkeep->update |= PU_UPDATE_VIEW;
+            player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
     }
 }
 

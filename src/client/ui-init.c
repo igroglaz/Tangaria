@@ -546,7 +546,7 @@ void client_init(bool new_game)
         }
 
         /* Fix "localhost" */
-        if (!strcmp(server_name, "localhost"))
+        if (streq(server_name, "localhost"))
             my_strcpy(server_name, host_name, sizeof(server_name));
 
         /* Default nickname and password */

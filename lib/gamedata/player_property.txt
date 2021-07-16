@@ -51,11 +51,6 @@ desc:You are permanently polymorphed.
 ## Class player flags
 
 type:player
-code:FAST_SHOT
-name:Extra Shots
-desc:Your shooting speed improves with tension bows every 10 levels.
-
-type:player
 code:BLESS_WEAPON
 name:Blessed Fighter
 desc:You get improved melee with blessed or hafted weapons.

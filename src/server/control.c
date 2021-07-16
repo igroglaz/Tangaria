@@ -354,7 +354,7 @@ static void console_listen(int ind, char *channel)
         chan = Conn_get_console_channels(ind);
         for (i = 0; i < MAX_CHANNELS; i++)
         {
-            if (!strcmp(channels[i].name, channel))
+            if (streq(channels[i].name, channel))
             {
                 chan[i] = 1;
                 break;
@@ -592,7 +592,7 @@ static void console_wrath(int ind, char *name)
         struct player *p = player_get(i);
 
         /* Check name */
-        if (!strcmp(name, p->name))
+        if (streq(name, p->name))
         {
             /* Mark as permanent death */
             p->alive = false;
@@ -649,7 +649,7 @@ static void console_help(int ind, char *name)
         for (i = 0; i < command_len; i++)
         {
             /* Found it */
-            if (!strcmp(console_commands[i].name, name))
+            if (streq(console_commands[i].name, name))
             {
                 Packet_printf(console_buf_w, "%s", console_commands[i].name);
                 Packet_printf(console_buf_w, "%s", " ");

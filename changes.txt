@@ -88,6 +88,7 @@ PWMAngband:
 - Change manual selection of server from ctrl-m to ctrl-s
 - Force pressing SPACE key to enter the game after the MotD is displayed
 - Implement a simple music system
+- Add message when changing hitpoint warning settings via =h
 
 Gameplay changes
 ----------------
@@ -102,6 +103,12 @@ Angband 4.2.x:
 - Make decoys only work when in monster's LoS
 - Modify tunneling to account for rooms with few entrances
 - Improvements to necromancer spells
+- Allow targeting the closest to pick up a target outside the current panel
+- Improve ranger spells, update number of extra shots for archers accordingly
+- Adjust lighting model to better account for light sources that aren't
+  the player or SQUARE_GLOW
+- Implement new device failure calculation
+- Allow the equipped weapon (if it isn't stickily cursed) to be thrown
 
 MAngband 1.5.x:
 
@@ -178,6 +185,12 @@ Angband 4.2.x:
 - Notice changes to the weight limit in update_bonuses()
 - Plug small memory leak in main-sdl.c's load_prefs()
 - Add resistances to elements monsters breathe
+- Fix being able to buy back an infinite amount of non-staple items sold in the
+  General Store
+- Avoid the "can move again" monster message if monster is about to die
+- Set ego minima correctly
+- Fix message when decrementing from a stack when there are multiple similar
+  stacks (i.e. phase door scrolls or cure wounds potions)
 
 MAngband 1.5.x:
 
@@ -226,6 +239,7 @@ PWMAngband:
 - Fix "Place feature" command only allowing to place staircases
 - Fix PROJECT_LOS_AWARE
 - Fix compatibility with Angband ladder dumps
+- Fix knowledge menus under Linux
 
 Coding changes
 --------------
@@ -266,6 +280,10 @@ Angband 4.2.x:
 - Avoid more compiler warnings
 - Incorporate stunning into TAP_DEVICE effect handler
 - Unset target after TELEPORT_TO
+- Replace hard-coded depth check for caverns with min-level entry
+- Introduce effects SET_VALUE and CLEAR_VALUE to align times for multiple timed
+  effects
+- Reduce usage of standard string functions strcmp() and sprintf()
 
 MAngband 1.5.x:
 

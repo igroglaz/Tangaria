@@ -117,13 +117,14 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
     struct source actor_body;
     struct source *data = &actor_body;
     bool same_effect = false, same_value = false;
+    random_value value;
+    bool value_set = false;
 
     source_player(data, 0, p);
 
     while (e)
     {
         int roll = 0;
-        random_value value;
         char dice_string[20];
         int level, boost;
 
@@ -138,7 +139,27 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
         boost = MAX((p->state.skills[SKILL_DEVICE] - level) / 2, 0);
 
         memset(&value, 0, sizeof(value));
-        if (e->dice != NULL)
+
+        /* Deal with special clear value effect. */
+        if (e->index == EF_CLEAR_VALUE)
+        {
+            my_assert(value_set);
+            value_set = false;
+            e = e->next;
+            continue;
+        }
+
+        /* Deal with special set value effect. */
+        if (e->index == EF_SET_VALUE)
+        {
+            my_assert(e->dice != NULL);
+            roll = dice_roll(e->dice, (void *)data, &value);
+            value_set = true;
+            e = e->next;
+            continue;
+        }
+
+        if ((e->dice != NULL) && !value_set)
             roll = dice_roll(e->dice, (void *)data, &value);
 
         /* Deal with special random effect */

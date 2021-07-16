@@ -935,7 +935,7 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
     cursor_track(p, NULL);
 
     /* Prepare the "temp" array */
-    targets = target_get_monsters(p, mode);
+    targets = target_get_monsters(p, mode, true);
 
     /* Start near the player */
     if (query == '\0')
@@ -1168,7 +1168,7 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
                     {
                         /* Recalculate interesting grids */
                         point_set_dispose(targets);
-                        targets = target_get_monsters(p, mode);
+                        targets = target_get_monsters(p, mode, true);
 
                         /* Find a new monster */
                         i = target_pick(old_y, old_x, ddy[d], ddx[d], targets);
@@ -1178,7 +1178,7 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
                         {
                             /* Recalculate interesting grids */
                             point_set_dispose(targets);
-                            targets = target_get_monsters(p, mode);
+                            targets = target_get_monsters(p, mode, true);
                         }
 
                         /* Handle stuff */
@@ -1348,7 +1348,7 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
 
                     /* Recalculate interesting grids */
                     point_set_dispose(targets);
-                    targets = target_get_monsters(p, mode);
+                    targets = target_get_monsters(p, mode, true);
                 }
 
                 /* Hack -- acknowledge */

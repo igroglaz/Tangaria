@@ -1008,11 +1008,14 @@ void combine_pack(struct player *p)
 
                 if (inventory_can_stack_partial(p, obj2, obj1, stack_mode2 | stack_mode1))
                 {
-                    /* Setting this to true spams the combine message. */
-                    display_message = false;
+                    int oldn2 = obj2->number;
+                    int oldn1 = obj1->number;
 
                     redraw = true;
                     object_absorb_partial(obj2, obj1, stack_mode2, stack_mode1);
+
+                    if (obj2->number != oldn2 || obj1->number != oldn1)
+                        display_message = true;
                     break;
                 }
             }

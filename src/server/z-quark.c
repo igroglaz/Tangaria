@@ -37,7 +37,7 @@ quark_t quark_add(const char *str)
 
     for (q = 1; q < nr_quarks; q++)
     {
-        if (!strcmp(quarks[q], str)) return q;
+        if (streq(quarks[q], str)) return q;
     }
 
     if (nr_quarks == alloc_quarks)

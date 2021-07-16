@@ -129,7 +129,7 @@ void message_add(const char *str, u16b type)
     /* Fail if messages not loaded */
     if (!messages) return;
 
-    if (messages->head && (messages->head->type == type) && !strcmp(messages->head->str, str) &&
+    if (messages->head && (messages->head->type == type) && streq(messages->head->str, str) &&
         (messages->head->count != (u16b)-1))
     {
         messages->head->count++;

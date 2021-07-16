@@ -322,7 +322,7 @@ bool suffix(const char *s, const char *t)
     if (tlen > slen) return false;
 
     /* Compare "t" to the end of "s" */
-    return (!strcmp(s + slen - tlen, t));
+    return (streq(s + slen - tlen, t));
 }
 
 

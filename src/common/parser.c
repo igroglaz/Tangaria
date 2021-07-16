@@ -107,7 +107,7 @@ static struct parser_hook *findhook(struct parser *p, const char *dir)
 
     while (h)
     {
-        if (!strcmp(h->dir, dir)) break;
+        if (streq(h->dir, dir)) break;
         h = h->next;
     }
 
@@ -422,12 +422,12 @@ static int parse_type(const char *s)
         rv |= PARSE_T_OPT;
         s++;
     }
-    if (!strcmp(s, "int")) return PARSE_T_INT | rv;
-    if (!strcmp(s, "sym")) return PARSE_T_SYM | rv;
-    if (!strcmp(s, "str")) return PARSE_T_STR | rv;
-    if (!strcmp(s, "rand")) return PARSE_T_RAND | rv;
-    if (!strcmp(s, "uint")) return PARSE_T_UINT | rv;
-    if (!strcmp(s, "char")) return PARSE_T_CHR | rv;
+    if (streq(s, "int")) return PARSE_T_INT | rv;
+    if (streq(s, "sym")) return PARSE_T_SYM | rv;
+    if (streq(s, "str")) return PARSE_T_STR | rv;
+    if (streq(s, "rand")) return PARSE_T_RAND | rv;
+    if (streq(s, "uint")) return PARSE_T_UINT | rv;
+    if (streq(s, "char")) return PARSE_T_CHR | rv;
 
     return PARSE_T_NONE;
 }
@@ -593,7 +593,7 @@ bool parser_hasval(struct parser *p, const char *name)
 
     for (v = p->fhead; v; v = (struct parser_value *)v->spec.next)
     {
-        if (!strcmp(v->spec.name, name)) return true;
+        if (streq(v->spec.name, name)) return true;
     }
 
     return false;
@@ -606,7 +606,7 @@ static struct parser_value *parser_getval(struct parser *p, const char *name)
 
     for (v = p->fhead; v; v = (struct parser_value *)v->spec.next)
     {
-        if (!strcmp(v->spec.name, name)) return v;
+        if (streq(v->spec.name, name)) return v;
     }
     quit_fmt("parser_getval error: name is %s", name);
     return NULL;

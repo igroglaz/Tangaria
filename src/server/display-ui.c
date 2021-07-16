@@ -1916,7 +1916,7 @@ void player_death(struct player *p)
         strnfmt(buf, sizeof(buf), "%s %s %s the level %i %s %s %s.", brave, prompt, p->name, p->lev,
             p->race->name, p->clazz->name, p->died_flavor);
     }
-    else if (!strcmp(p->died_from, "divine wrath"))
+    else if (streq(p->died_from, "divine wrath"))
         strnfmt(buf, sizeof(buf), "%s was killed by divine wrath.", p->name);
     else if (!p->total_winner)
     {
@@ -2762,7 +2762,7 @@ static struct monster_race *race_from_name(char *name)
         clean_name(monster, r_info[i].name);
 
         /* If cleaned name matches our search string, return it */
-        if (!strcmp(monster, name)) return &r_info[i];
+        if (streq(monster, name)) return &r_info[i];
     }
 
     return NULL;
@@ -5337,7 +5337,7 @@ static void display_message_aux(struct player *p, int type, const char *msg)
             if (ptr < 0) ptr = MAX_MSG_HIST - 1;
 
             /* If this message is already in the buffer, count it as a dupe */
-            if (!strcmp(p->msg_log[ptr], msg))
+            if (streq(p->msg_log[ptr], msg))
             {
                 p->msg_hist_dupe++;
 

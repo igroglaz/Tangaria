@@ -68,7 +68,7 @@ flags:SHOW_DICE
 
 name:shot:Shot~
 graphics:light umber
-break:25
+break:0
 flags:SHOW_DICE
 
 name:arrow:Arrow~
@@ -79,7 +79,7 @@ flags:SHOW_DICE
 
 name:bolt:Bolt~
 graphics:light umber
-break:25
+break:20
 flags:HATES_ACID
 flags:SHOW_DICE
 

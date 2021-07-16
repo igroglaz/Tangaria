@@ -68,7 +68,12 @@
 # 'type' is for the base type of item, from object_base.txt.
 
 # 'level' defines how "advanced" the object is, when determining how easy it
-# is to use a wand, staff or rod.
+# is to use a wand, staff or rod. In a similar vein, it affects how likely
+# a wand or staff can be recharged without backfiring. If an object is the
+# base kind for an artifact, an extra out-of-depth check will be imposed when
+# attempting to generate an artifact whose base kind has a level greater than
+# the level assumed for the object generation. For a chest, the level affects
+# the types of traps the chest may have.
 
 # 'weight' is in tenth-pounds.
 
@@ -583,11 +588,11 @@ alloc:10:5 to 100
 pile:70:1d4
 effect:HEAL_HP
 dice:200
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_COLD
-dice:25+5d5
 effect:TIMED_INC:OPP_FIRE
-dice:25+5d5
 effect:TIMED_INC:IMAGE
+effect:SET_VALUE
 dice:25+5d5
 effect:NOURISH:INC_BY
 dice:3

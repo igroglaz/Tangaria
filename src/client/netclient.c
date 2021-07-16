@@ -4313,7 +4313,7 @@ static int Receive_channel(void)
             free = n;
             continue;
         }
-        if (!strcmp(channels[n].name, name)) return 1;
+        if (streq(channels[n].name, name)) return 1;
     }
 
     /* Found free slot */
@@ -4868,26 +4868,31 @@ int Send_use(struct command *cmd)
 }
 
 
+/* Restrict which equipment can be thrown */
+static bool restrict_for_throwing(struct player *p, const struct object *obj)
+{
+    return !object_is_equipped(p->body, obj) ||
+        (tval_is_melee_weapon(obj) && obj_can_takeoff(p, obj));
+}
+
+
 int Send_throw(struct command *cmd)
 {
     int n;
     int dir = DIR_UNKNOWN;
     struct object *obj;
 
-    /* Get arguments */
+    /*
+     * Get arguments. Never default to showing the equipment as the first
+     * list (since throwing the equipped weapon leaves that slot empty will
+     * have to choose another source anyways).
+     */
     if (cmd_get_item(cmd, "item", &obj,
         /* Prompt */ "Throw which item? ",
         /* Error */ "You have nothing to throw.",
-        /* Filter */ NULL,
-        /* Choice */ USE_QUIVER | USE_INVEN | USE_FLOOR | QUIVER_TAGS | START_INVEN | SHOW_THROWING) != CMD_OK)
+        /* Filter */ restrict_for_throwing,
+        /* Choice */ USE_EQUIP | USE_QUIVER | USE_INVEN | USE_FLOOR | QUIVER_TAGS | START_INVEN | SHOW_THROWING) != CMD_OK)
     {
-        return 0;
-    }
-
-    /* Make sure the player isn't throwing wielded items */
-    if (object_is_equipped(player->body, obj))
-    {
-        c_msg_print("You cannot throw wielded items.");
         return 0;
     }
 

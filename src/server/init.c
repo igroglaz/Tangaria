@@ -4460,16 +4460,16 @@ static bool str_to_boolean(char * str)
 static void set_server_option(const char *option, char *value)
 {
     /* Due to the lame way that C handles strings, we can't use a switch statement */
-    if (!strcmp(option, "REPORT_TO_METASERVER"))
+    if (streq(option, "REPORT_TO_METASERVER"))
         cfg_report_to_meta = str_to_boolean(value);
-    else if (!strcmp(option, "MANGBAND_METASERVER"))
+    else if (streq(option, "MANGBAND_METASERVER"))
         cfg_mang_meta = str_to_boolean(value);
-    else if (!strcmp(option, "META_ADDRESS"))
+    else if (streq(option, "META_ADDRESS"))
     {
         string_free(cfg_meta_address);
         cfg_meta_address = string_make(value);
     }
-    else if (!strcmp(option, "META_PORT"))
+    else if (streq(option, "META_PORT"))
     {
         cfg_meta_port = atoi(value);
 
@@ -4477,59 +4477,59 @@ static void set_server_option(const char *option, char *value)
         if ((cfg_meta_port > 65535) || (cfg_meta_port < 1))
             cfg_meta_port = 8800;
     }
-    else if (!strcmp(option, "BIND_NAME"))
+    else if (streq(option, "BIND_NAME"))
     {
         string_free(cfg_bind_name);
         cfg_bind_name = string_make(value);
     }
-    else if (!strcmp(option, "REPORT_ADDRESS"))
+    else if (streq(option, "REPORT_ADDRESS"))
     {
         string_free(cfg_report_address);
         cfg_report_address = string_make(value);
     }
-    else if (!strcmp(option, "CONSOLE_PASSWORD"))
+    else if (streq(option, "CONSOLE_PASSWORD"))
     {
         string_free(cfg_console_password);
         cfg_console_password = string_make(value);
     }
-    else if (!strcmp(option, "DUNGEON_MASTER_NAME"))
+    else if (streq(option, "DUNGEON_MASTER_NAME"))
     {
         string_free(cfg_dungeon_master);
         cfg_dungeon_master = string_make(value);
         plog_fmt("Dungeon Master Set as [%s]", cfg_dungeon_master);
     }
-    else if (!strcmp(option, "SECRET_DUNGEON_MASTER"))
+    else if (streq(option, "SECRET_DUNGEON_MASTER"))
         cfg_secret_dungeon_master = str_to_boolean(value);
-    else if (!strcmp(option, "FPS"))
+    else if (streq(option, "FPS"))
     {
         cfg_fps = atoi(value);
 
         /* Hack -- reinstall the timer handler to match the new FPS */
         install_timer_tick(run_game_loop, cfg_fps);
     }
-    else if (!strcmp(option, "MAX_ACCOUNT_CHARS"))
+    else if (streq(option, "MAX_ACCOUNT_CHARS"))
     {
         cfg_max_account_chars = atoi(value);
         if ((cfg_max_account_chars < 1) || (cfg_max_account_chars > 12))
             cfg_max_account_chars = 12;
     }
-    else if (!strcmp(option, "NO_STEAL"))
+    else if (streq(option, "NO_STEAL"))
         cfg_no_steal = str_to_boolean(value);
-    else if (!strcmp(option, "NEWBIES_CANNOT_DROP"))
+    else if (streq(option, "NEWBIES_CANNOT_DROP"))
         cfg_newbies_cannot_drop = str_to_boolean(value);
-    else if (!strcmp(option, "LEVEL_UNSTATIC_CHANCE"))
+    else if (streq(option, "LEVEL_UNSTATIC_CHANCE"))
         cfg_level_unstatic_chance = atoi(value);
-    else if (!strcmp(option, "RETIRE_TIMER"))
+    else if (streq(option, "RETIRE_TIMER"))
         cfg_retire_timer = atoi(value);
-    else if (!strcmp(option, "ALLOW_RANDOM_ARTIFACTS"))
+    else if (streq(option, "ALLOW_RANDOM_ARTIFACTS"))
         cfg_random_artifacts = str_to_boolean(value);
-    else if (!strcmp(option, "MORE_TOWNS"))
+    else if (streq(option, "MORE_TOWNS"))
         cfg_more_towns = str_to_boolean(value);
-    else if (!strcmp(option, "ARTIFACT_DROP_SHALLOW"))
+    else if (streq(option, "ARTIFACT_DROP_SHALLOW"))
         cfg_artifact_drop_shallow = str_to_boolean(value);
-    else if (!strcmp(option, "LIMIT_PLAYER_CONNECTIONS"))
+    else if (streq(option, "LIMIT_PLAYER_CONNECTIONS"))
         cfg_limit_player_connections = str_to_boolean(value);
-    else if (!strcmp(option, "TCP_PORT"))
+    else if (streq(option, "TCP_PORT"))
     {
         cfg_tcp_port = atoi(value);
 
@@ -4539,7 +4539,7 @@ static void set_server_option(const char *option, char *value)
         if ((cfg_tcp_port > 65535) || (cfg_tcp_port < 1))
             cfg_tcp_port = 18346;
     }
-    else if (!strcmp(option, "QUIT_TIMEOUT"))
+    else if (streq(option, "QUIT_TIMEOUT"))
     {
         cfg_quit_timeout = atoi(value);
 
@@ -4547,11 +4547,11 @@ static void set_server_option(const char *option, char *value)
         if (cfg_quit_timeout < 0) cfg_quit_timeout = 0;
         if (cfg_quit_timeout > 60) cfg_quit_timeout = 60;
     }
-    else if (!strcmp(option, "DISCONNECT_FAINTING"))
+    else if (streq(option, "DISCONNECT_FAINTING"))
         cfg_disconnect_fainting = atoi(value);
-    else if (!strcmp(option, "CHARACTER_DUMP_COLOR"))
+    else if (streq(option, "CHARACTER_DUMP_COLOR"))
         cfg_chardump_color = str_to_boolean(value);
-    else if (!strcmp(option, "PVP_HOSTILITY"))
+    else if (streq(option, "PVP_HOSTILITY"))
     {
         cfg_pvp_hostility = atoi(value);
 
@@ -4559,25 +4559,25 @@ static void set_server_option(const char *option, char *value)
         if (cfg_pvp_hostility < 0) cfg_pvp_hostility = 0;
         if (cfg_pvp_hostility > 4) cfg_pvp_hostility = 4;
     }
-    else if (!strcmp(option, "BASE_MONSTERS"))
+    else if (streq(option, "BASE_MONSTERS"))
         cfg_base_monsters = str_to_boolean(value);
-    else if (!strcmp(option, "EXTRA_MONSTERS"))
+    else if (streq(option, "EXTRA_MONSTERS"))
         cfg_extra_monsters = str_to_boolean(value);
-    else if (!strcmp(option, "GHOST_DIVING"))
+    else if (streq(option, "GHOST_DIVING"))
         cfg_ghost_diving = str_to_boolean(value);
-    else if (!strcmp(option, "CONSOLE_LOCAL_ONLY"))
+    else if (streq(option, "CONSOLE_LOCAL_ONLY"))
         cfg_console_local_only = str_to_boolean(value);
-    else if (!strcmp(option, "LOAD_PREF_FILE"))
+    else if (streq(option, "LOAD_PREF_FILE"))
     {
         string_free(cfg_load_pref_file);
         cfg_load_pref_file = string_make(value);
     }
-    else if (!strcmp(option, "CHARDUMP_LABEL"))
+    else if (streq(option, "CHARDUMP_LABEL"))
     {
         string_free(cfg_chardump_label);
         cfg_chardump_label = string_make(value);
     }
-    else if (!strcmp(option, "PRESERVE_ARTIFACTS"))
+    else if (streq(option, "PRESERVE_ARTIFACTS"))
     {
         cfg_preserve_artifacts = atoi(value);
 
@@ -4585,21 +4585,21 @@ static void set_server_option(const char *option, char *value)
         if (cfg_preserve_artifacts < 0) cfg_preserve_artifacts = 0;
         if (cfg_preserve_artifacts > 4) cfg_preserve_artifacts = 4;
     }
-    else if (!strcmp(option, "SAFE_RECHARGE"))
+    else if (streq(option, "SAFE_RECHARGE"))
         cfg_safe_recharge = str_to_boolean(value);
-    else if (!strcmp(option, "PARTY_SHARELEVEL"))
+    else if (streq(option, "PARTY_SHARELEVEL"))
         cfg_party_sharelevel = atoi(value);
-    else if (!strcmp(option, "INSTANCE_CLOSED"))
+    else if (streq(option, "INSTANCE_CLOSED"))
         cfg_instance_closed = str_to_boolean(value);
-    else if (!strcmp(option, "TURN_BASED"))
+    else if (streq(option, "TURN_BASED"))
         cfg_turn_based = str_to_boolean(value);
-    else if (!strcmp(option, "LIMITED_ESP"))
+    else if (streq(option, "LIMITED_ESP"))
         cfg_limited_esp = str_to_boolean(value);
-    else if (!strcmp(option, "DOUBLE_PURSE"))
+    else if (streq(option, "DOUBLE_PURSE"))
         cfg_double_purse = str_to_boolean(value);
-    else if (!strcmp(option, "LEVEL_REQUIREMENT"))
+    else if (streq(option, "LEVEL_REQUIREMENT"))
         cfg_level_req = str_to_boolean(value);
-    else if (!strcmp(option, "CONSTANT_TIME_FACTOR"))
+    else if (streq(option, "CONSTANT_TIME_FACTOR"))
     {
         cfg_constant_time_factor = atoi(value);
 
@@ -4607,16 +4607,16 @@ static void set_server_option(const char *option, char *value)
         if (cfg_constant_time_factor < 0) cfg_constant_time_factor = 0;
         if (cfg_constant_time_factor > MIN_TIME_SCALE) cfg_constant_time_factor = MIN_TIME_SCALE;
     }
-    else if (!strcmp(option, "CLASSIC_EXP_FACTOR"))
+    else if (streq(option, "CLASSIC_EXP_FACTOR"))
         cfg_classic_exp_factor = str_to_boolean(value);
-    else if (!strcmp(option, "HOUSE_FLOOR_SIZE"))
+    else if (streq(option, "HOUSE_FLOOR_SIZE"))
     {
         cfg_house_floor_size = atoi(value);
 
         /* Sanity checks */
         if (cfg_house_floor_size < 1) cfg_house_floor_size = 1;
     }
-    else if (!strcmp(option, "LIMIT_STAIRS"))
+    else if (streq(option, "LIMIT_STAIRS"))
     {
         cfg_limit_stairs = atoi(value);
 
@@ -4624,7 +4624,7 @@ static void set_server_option(const char *option, char *value)
         if (cfg_limit_stairs < 0) cfg_limit_stairs = 0;
         if (cfg_limit_stairs > 3) cfg_limit_stairs = 3;
     }
-    else if (!strcmp(option, "DIVING_MODE"))
+    else if (streq(option, "DIVING_MODE"))
     {
         cfg_diving_mode = atoi(value);
 
@@ -4632,9 +4632,9 @@ static void set_server_option(const char *option, char *value)
         if (cfg_diving_mode < 0) cfg_diving_mode = 0;
         if (cfg_diving_mode > 3) cfg_diving_mode = 3;
     }
-    else if (!strcmp(option, "NO_ARTIFACTS"))
+    else if (streq(option, "NO_ARTIFACTS"))
         cfg_no_artifacts = str_to_boolean(value);
-    else if (!strcmp(option, "LEVEL_FEELINGS"))
+    else if (streq(option, "LEVEL_FEELINGS"))
     {
         cfg_level_feelings = atoi(value);
 
@@ -4642,7 +4642,7 @@ static void set_server_option(const char *option, char *value)
         if (cfg_level_feelings < 0) cfg_level_feelings = 0;
         if (cfg_level_feelings > 3) cfg_level_feelings = 3;
     }
-    else if (!strcmp(option, "LIMITED_STORES"))
+    else if (streq(option, "LIMITED_STORES"))
     {
         cfg_limited_stores = atoi(value);
 
@@ -4650,13 +4650,13 @@ static void set_server_option(const char *option, char *value)
         if (cfg_limited_stores < 0) cfg_limited_stores = 0;
         if (cfg_limited_stores > 3) cfg_limited_stores = 3;
     }
-    else if (!strcmp(option, "GOLD_DROP_VANILLA"))
+    else if (streq(option, "GOLD_DROP_VANILLA"))
         cfg_gold_drop_vanilla = str_to_boolean(value);
-    else if (!strcmp(option, "NO_GHOST"))
+    else if (streq(option, "NO_GHOST"))
         cfg_no_ghost = str_to_boolean(value);
-    else if (!strcmp(option, "AI_LEARN"))
+    else if (streq(option, "AI_LEARN"))
         cfg_ai_learn = str_to_boolean(value);
-    else if (!strcmp(option, "CHALLENGING_LEVELS"))
+    else if (streq(option, "CHALLENGING_LEVELS"))
         cfg_challenging_levels = str_to_boolean(value);
     else plog_fmt("Error : unrecognized mangband.cfg option %s", option);
 }

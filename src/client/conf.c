@@ -311,7 +311,8 @@ void conf_set_string(const char* section, const char* name, const char* value)
 void conf_set_int(const char* section, const char* name, s32b value)
 {
     char s_value[100];
-    sprintf(s_value, "%" PRId32, value);
+
+    strnfmt(s_value, sizeof(s_value), "%" PRId32, value);
     conf_set_string(section, name, s_value);
 }
 
@@ -350,7 +351,8 @@ long conf_get_value(const char* section, const char* name, const char* default_v
 s32b conf_get_int(const char* section, const char* name, s32b default_value)
 {
     static char v_value[100];
-    sprintf(v_value, "%" PRId32, default_value);
+
+    strnfmt(v_value, sizeof(v_value), "%" PRId32, default_value);
     return (u32b)conf_get_value(section, name, v_value, true);
 }
 

@@ -76,9 +76,9 @@ static void remove_old_dump(const char *cur_fname, const char *mark)
     while (file_getl(cur_file, buf, sizeof(buf)))
     {
         /* Turn on at the start line, turn off at the finish line */
-        if (!strcmp(buf, start_line))
+        if (streq(buf, start_line))
             between_marks = true;
-        else if (!strcmp(buf, end_line))
+        else if (streq(buf, end_line))
         {
             between_marks = false;
             skip_one = 3;
@@ -545,7 +545,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
     sval = parser_getsym(p, "sval");
 
     /* object:*:* means handle all objects and flavors */
-    if (!strcmp(tval, "*"))
+    if (streq(tval, "*"))
     {
         byte attr = (byte)parser_getint(p, "attr");
         char chr = (char)parser_getint(p, "char");
@@ -572,7 +572,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
         if (tvi < 0) return PARSE_ERROR_UNRECOGNISED_TVAL;
 
         /* object:tval:* means handle all objects and flavors with this tval */
-        if (!strcmp(sval, "*"))
+        if (streq(sval, "*"))
         {
             byte attr = (byte)parser_getint(p, "attr");
             char chr = (char)parser_getint(p, "char");
@@ -832,7 +832,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     /* idx can be "*" or a name */
     idx_sym = parser_getsym(p, "idx");
 
-    if (!strcmp(idx_sym, "*"))
+    if (streq(idx_sym, "*"))
         trap_idx = -1;
     else
     {

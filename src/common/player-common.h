@@ -806,6 +806,7 @@ struct player
     s16b interactive_next;                  /* Which line is he on 'in the file' ? */
     s16b interactive_size;                  /* Total number of lines in file */
     char interactive_hook[26][32];          /* Sub-menu information */
+    int set_value;                          /* Set value for a chain of effects */
 
     /* Targeting */
     struct target target;                   /* Player target */

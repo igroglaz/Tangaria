@@ -181,7 +181,7 @@ struct monster_race *get_race(const char *name)
         struct monster_race *r = &r_info[race];
 
         if (!r->name) continue;
-        if (!strcmp(r->name, name)) return r;
+        if (streq(r->name, name)) return r;
     }
 
     return NULL;

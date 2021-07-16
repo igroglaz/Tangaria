@@ -95,7 +95,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
     sval = parser_getsym(p, "sval");
 
     /* object:*:* means handle all objects and flavors */
-    if (!strcmp(tval, "*"))
+    if (streq(tval, "*"))
     {
         byte attr = (byte)parser_getint(p, "attr");
         char chr = (char)parser_getint(p, "char");
@@ -122,7 +122,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
         if (tvi < 0) return PARSE_ERROR_UNRECOGNISED_TVAL;
 
         /* object:tval:* means handle all objects and flavors with this tval */
-        if (!strcmp(sval, "*"))
+        if (streq(sval, "*"))
         {
             byte attr = (byte)parser_getint(p, "attr");
             char chr = (char)parser_getint(p, "char");
@@ -291,7 +291,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     /* idx can be "*" or a name */
     idx_sym = parser_getsym(p, "idx");
 
-    if (!strcmp(idx_sym, "*"))
+    if (streq(idx_sym, "*"))
         trap_idx = -1;
     else
     {

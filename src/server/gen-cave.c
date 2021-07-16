@@ -2788,9 +2788,6 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     int w = rand_range(z_info->dungeon_wid / 2, (z_info->dungeon_wid * 3) / 4);
     struct chunk *c;
 
-    /* If we're too shallow then don't do it */
-    if (wpos->depth < 15) return NULL;
-
     /* Enforce minimum dimensions */
     h = MAX(h, min_height);
     w = MAX(w, min_width);

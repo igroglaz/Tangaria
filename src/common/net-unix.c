@@ -209,7 +209,7 @@ delete_bound_socket(char *path)
    register int i;
 
    for (i=0; i<num_bound_sockets; i++)
-      if (!strcmp(bound_socket[i], path))
+      if (streq(bound_socket[i], path))
          strcpy(bound_socket[i], bound_socket[--num_bound_sockets]);
 }
 
@@ -282,11 +282,11 @@ int	port;
     memset((char *)&addr_in, 0, sizeof(addr_in));
     addr_in.sun_family          = AF_UNIX; 
     if (port) {
-       sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+       strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
        retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
     } else {
        for (port=getpid(); port > 0; port--) {
-          sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+          strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
           retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
           if (!retval)
              break;
@@ -573,7 +573,7 @@ int	port;
     struct sockaddr_un  peer;
     memset((char *)&peer, 0, sizeof(peer));
     peer.sun_family          = AF_UNIX; 
-    sprintf(peer.sun_path, "/tmp/mangband%d", (port)? port : getpid());
+    strnfmt(peer.sun_path, sizeof(peer.sun_path), "/tmp/mangband%d", (port)? port : getpid());
     fd = socket(AF_UNIX, SOCK_STREAM, 0);
 #else
     struct hostent	*hp;
@@ -957,28 +957,28 @@ int	flag;
 #ifdef USE_FCNTL_FNDELAY
     if (fcntl(fd, F_SETFL, (flag != 0) ? FNDELAY : 0) != -1)
 	return 0;
-    sprintf(buf, "fcntl FNDELAY failed in socklib.c line %d", __LINE__);
+    strnfmt(buf, sizeof(buf), "fcntl FNDELAY failed in socklib.c line %d", __LINE__);
     perror(buf);
 #endif
 
 #ifdef USE_IOCTL_FIONBIO
     if (ioctl(fd, FIONBIO, &flag) != -1)
 	return 0;
-    sprintf(buf, "ioctl FIONBIO failed in socklib.c line %d", __LINE__);
+    strnfmt(buf, sizeof(buf), "ioctl FIONBIO failed in socklib.c line %d", __LINE__);
     perror(buf);
 #endif
 
 #ifdef USE_FCNTL_O_NONBLOCK
     if (fcntl(fd, F_SETFL, (flag != 0) ? O_NONBLOCK : 0) != -1)
 	return 0;
-    sprintf(buf, "fcntl O_NONBLOCK failed in socklib.c line %d", __LINE__);
+    strnfmt(buf, sizeof(buf), "fcntl O_NONBLOCK failed in socklib.c line %d", __LINE__);
     perror(buf);
 #endif
 
 #ifdef USE_FCNTL_O_NDELAY
     if (fcntl(fd, F_SETFL, (flag != 0) ? O_NDELAY : 0) != -1)
 	return 0;
-    sprintf(buf, "fcntl O_NDELAY failed in socklib.c line %d", __LINE__);
+    strnfmt(buf, sizeof(buf), "fcntl O_NDELAY failed in socklib.c line %d", __LINE__);
     perror(buf);
 #endif
 
@@ -1423,11 +1423,11 @@ int	port;
     }
 
     if (port) {
-       sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+       strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
        retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
     } else {
        for (port=getpid(); port > 0; port--) {
-          sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+          strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
           retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
           if (!retval)
              break;
@@ -1529,11 +1529,11 @@ int	port;
     }
 
     if (port) {
-       sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+       strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
        retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
     } else {
        for (port=getpid(); port > 0; port--) {
-          sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+          strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
           retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
           if (!retval)
              break;
@@ -1626,11 +1626,11 @@ int	port;
     addr_in.sun_family          = AF_UNIX; 
 
     if (port) {
-       sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+       strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
        retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
     } else {
        for (port=getpid(); port > 0; port--) {
-          sprintf(addr_in.sun_path, "/tmp/mangband%d", port);
+          strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", port);
           retval = bind(fd, (struct sockaddr *)&addr_in, sizeof(addr_in));
           if (!retval)
              break;
@@ -1711,7 +1711,7 @@ int	port;
     struct sockaddr_un  addr_in;
     memset((char *)&addr_in, 0, sizeof(addr_in));
     addr_in.sun_family          = AF_UNIX;
-    sprintf(addr_in.sun_path, "/tmp/mangband%d", (port)? port : getpid());
+    strnfmt(addr_in.sun_path, sizeof(addr_in.sun_path), "/tmp/mangband%d", (port)? port : getpid());
 #else
     struct hostent	*hp;
     struct sockaddr_in  addr_in;
@@ -1806,7 +1806,7 @@ char	*host, *sbuf;
     struct sockaddr_un  the_addr;
     memset((char *)&the_addr, 0, sizeof(the_addr));
     the_addr.sun_family          = AF_UNIX; 
-    sprintf(the_addr.sun_path, "/tmp/mangband%d", (port)? port : getpid());
+    strnfmt(the_addr.sun_path, sizeof(the_addr.sun_path), "/tmp/mangband%d", (port)? port : getpid());
     sl_errno = 0;
 #else
     struct hostent	*hp;
@@ -2552,7 +2552,7 @@ void GetLocalHostName(name, size)
 		char *s, buf[256];
 		while (fgets(buf, sizeof buf, fp)) {
 		    if ((s = strtok(buf, " \t\r\n")) != NULL
-			&& !strcmp(s, "domain")
+			&& streq(s, "domain")
 			&& (s = strtok(NULL, " \t\r\n")) != NULL) {
 			strcat(name, ".");
 			strcat(name, s);
@@ -2585,7 +2585,7 @@ char *inet_ntoa (struct in_addr in)
 	unsigned long addr = ntohl (in.s_addr);
 	static char ascii[16];
 
-	sprintf (ascii, "%d.%d.%d.%d",
+	strnfmt(ascii, sizeof(ascii), "%d.%d.%d.%d",
 		addr >> 24 & 0xFF,
 		addr >> 16 & 0xFF,
 		addr >> 8 & 0xFF,

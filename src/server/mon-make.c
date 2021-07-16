@@ -602,6 +602,9 @@ void delete_monster_idx(struct chunk *c, int m_idx)
     /* Decrease the number of clones */
     if (mon->clone) c->num_repro--;
 
+    /* Affect light? */
+    if (mon->race->light != 0) update_view_all(&c->wpos, 0);
+
     /* Remove him from everybody's view */
     for (i = 1; i <= NumPlayers; i++)
     {

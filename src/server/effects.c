@@ -78,6 +78,9 @@ static int effect_calculate_value(effect_handler_context_t *context, bool use_bo
 {
     int final = 0;
 
+    if (context->origin->player && context->origin->player->set_value)
+        return context->origin->player->set_value;
+
     if (context->value.base > 0 || (context->value.dice > 0 && context->value.sides > 0))
         final = context->value.base + damroll(context->value.dice, context->value.sides);
 
@@ -2147,6 +2150,17 @@ static bool effect_handler_BRAND_WEAPON(effect_handler_context_t *context)
 static bool effect_handler_BREATH(effect_handler_context_t *context)
 {
     return handler_breath(context, false);
+}
+
+
+/*
+ * Dummy effect, to tell the effect code to clear a value set by the
+ * SET_VALUE effect.
+ */
+static bool effect_handler_CLEAR_VALUE(effect_handler_context_t *context)
+{
+    if (context->origin->player) context->origin->player->set_value = 0;
+    return true;
 }
 
 
@@ -6351,6 +6365,23 @@ static bool effect_handler_SAFE_GUARD(effect_handler_context_t *context)
     }
     while (loc_iterator_next(&iter));
 
+    return true;
+}
+
+
+/*
+ * Dummy effect, to tell the effect code to set a value for a string of
+ * following effects to use, rather than setting their own value.
+ * The value will not use the device boost, which should not be a problem
+ * as it is unlikely to be used for damage (the main use case is to
+ * synchronise the end of timed effects).
+ */
+static bool effect_handler_SET_VALUE(effect_handler_context_t *context)
+{
+    if (context->origin->player)
+    {
+        context->origin->player->set_value = effect_calculate_value(context, false);
+    }
     return true;
 }
 

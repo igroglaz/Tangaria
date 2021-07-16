@@ -1234,6 +1234,12 @@ static void do_cmd_hp_warn(const char *name, int row)
 {
     ui_event ea = EVENT_ABORT;
     bool done = false;
+    byte hitpoint_warn, hitpoint_warn_toggle;
+    char buf[MSG_LEN];
+
+    /* Save old values */
+    hitpoint_warn = player->opts.hitpoint_warn;
+    hitpoint_warn_toggle = player->opts.hitpoint_warn_toggle;
 
     screen_save();
 
@@ -1272,6 +1278,18 @@ static void do_cmd_hp_warn(const char *name, int row)
     }
 
     screen_load(false);
+
+    /* Display a message if values changed */
+    if (player->opts.hitpoint_warn != hitpoint_warn)
+    {
+        strnfmt(buf, sizeof(buf), "New hitpoint warning: %d", player->opts.hitpoint_warn);
+        message_add(buf, MSG_LOCAL);
+    }
+    if (player->opts.hitpoint_warn_toggle != hitpoint_warn_toggle)
+    {
+        strnfmt(buf, sizeof(buf), "New hitpoint toggle: %d", player->opts.hitpoint_warn_toggle);
+        message_add(buf, MSG_LOCAL);
+    }
 }
 
 

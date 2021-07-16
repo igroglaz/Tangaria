@@ -88,6 +88,7 @@ name:cavern
 params:1:0:200:0
 up:1d2
 down:3+1d2
+min-level:15
 alloc:10
 
 
