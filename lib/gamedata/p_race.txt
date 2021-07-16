@@ -1664,9 +1664,9 @@ value:0:MANA[3+-1d15]
 obj-flag:25:ESP_UNDEAD
 
 name:Centaur
-skill-disarm-phys:3
-skill-disarm-magic:-2
-skill-device:-7
+skill-disarm-phys:1
+skill-disarm-magic:-4
+skill-device:-9
 skill-save:2
 skill-stealth:0
 skill-search:2
@@ -1690,7 +1690,7 @@ value:1:INFRA[1]
 obj-flag:1:PROT_CONF
 obj-flag:1:SUST_WIS
 player-flags:0:KNOW_MUSHROOM
-value:1:MOVES[10+5d9]
+value:0:MOVES[9+5d9]
 value:1:STEALTH[-1+-1d15]
 value:0:TUNNEL[-1+-1d10]
 obj-flag:1:CANT_FLY

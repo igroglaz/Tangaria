@@ -510,7 +510,9 @@ expr:D:PLAYER_LEVEL:/ 2
 msg_other: sprays acid.
 desc:Sprays acid.
 
-spell:Mana Drain:22:2:30:12:0
+spell:Mana Drain:22:2:30:12:0   
+effect:TIMED_INC:STUN
+dice:1d2
 effect:TAP_DEVICE
 desc:Turns wand or staff energy into mana; tapping stuns the player briefly.
 
@@ -891,7 +893,7 @@ desc: the next 5+1d3 turns (or until hungry).
 
 spell:Herbal Curing:40:20:90:100:0
 effect:NOURISH:INC_TO
-dice:80
+dice:15
 effect:CURE:BLACKBREATH
 effect:CURE:STUN
 effect:CURE:POISONED

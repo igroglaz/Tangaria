@@ -77,9 +77,9 @@ turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-always:arrow:Magic Arrow:700
-always:bolt:Magic Bolt:700
-always:shot:Magic Shot:700
+always:arrow:Magic Arrow:600
+always:bolt:Magic Bolt:600
+always:shot:Magic Shot:600
 #always:stone:House Foundation Stone
 #always:scroll:House Creation
 always:potion:Stomach Water
@@ -584,9 +584,9 @@ normal:shot:Iron Shot
 normal:arrow:Arrow
 normal:bolt:Bolt
 normal:shot:Rounded Pebble
-normal:arrow:Magic Arrow:1:500
-normal:bolt:Magic Bolt:1:500
-normal:shot:Magic Shot:1:500
+normal:arrow:Magic Arrow:1:450
+normal:bolt:Magic Bolt:1:450
+normal:shot:Magic Shot:1:450
 normal:bow:Sling
 normal:bow:Short Bow
 normal:bow:Long Bow
@@ -622,13 +622,13 @@ normal:fortune cookie:There always were a lot of criminal.. But not so.
 normal:fortune cookie:We thought the worse was lack of food...
 normal:fortune cookie:Outlaws, robbers..and even monsters. Gods save us
 normal:scroll:Recharging
-normal:scroll:Identify Rune:1:450
-normal:scroll:*Remove Curse*:10:400
+normal:scroll:Identify Rune:1:350
+normal:scroll:*Remove Curse*:10:350
 normal:scroll:Teleport Level:10:400
-normal:scroll:Deep Descent:10:400
-normal:scroll:Enchant Weapon To-Hit:1:400
-normal:scroll:Enchant Weapon To-Dam:1:400
-normal:scroll:Enchant Armour:1:400
+normal:scroll:Deep Descent:10:350
+normal:scroll:Enchant Weapon To-Hit:1:350
+normal:scroll:Enchant Weapon To-Dam:1:350
+normal:scroll:Enchant Armour:1:350
 buy:flask
 
 #town
