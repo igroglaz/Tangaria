@@ -363,7 +363,14 @@ static void write_character_dump(ang_file *fff, void *data)
     if (!p->dump_gen)
     {
         file_put(fff, "\n  [Player information]\n\n");
-        file_putf(fff, "Player name: %s", get_connection(p->conn)->real);
+        file_putf(fff, "Player ID: %d\n\n", p->id);
+// wrong    file_putf(fff, "Player name: %s\n\n", p->name);
+// wrong    file_putf(fff, "Player name: %s\n\n", get_connection(p->conn)->nick);
+// there should be account name (login)...
+        file_putf(fff, "Location: %s\n\n", get_connection(p->conn)->real);
+        file_putf(fff, "Time 1: %s\n\n", p->death_info.ctime);
+        file_putf(fff, "Time 2: %ld\n\n", p->death_info.time);
+
     }
 
     mem_free(home_list);
