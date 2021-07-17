@@ -43,6 +43,7 @@ typedef struct
     int             id;
     unsigned        version;
     char            *real;
+    char            *nick_account;
     char            *nick;
     char            *addr;
     char            *host;

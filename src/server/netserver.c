@@ -454,6 +454,7 @@ static int Setup_connection(u32b account, char *real, char *nick, char *addr, ch
     {
         connp->account = account;
         connp->real = string_make(real);
+        connp->nick_account = string_make(nick);
         connp->nick = string_make(nick);
         connp->host = string_make(host);
         connp->pass = string_make(pass);
