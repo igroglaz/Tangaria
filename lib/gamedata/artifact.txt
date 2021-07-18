@@ -150,6 +150,25 @@ desc:A great globe seemingly filled with moonlight, the famed Heart of the
 desc: Mountain. It splinters the light that falls upon it into ten thousand
 desc: sparks of white radiance shot with glints of the rainbow.
 
+name:of Westernesse
+base-object:light:Palantir
+graphics:~:y
+level:75
+weight:200
+alloc:1:75 to 127
+attack:10d10:0:0
+armor:0:0
+flags:NO_FUEL
+flags:SEE_INVIS | ESP_ALL | AGGRAVATE
+flags:PROT_BLIND
+values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | RES_CHAOS[1] | LIGHT[4]
+curse:anti-teleportation:100
+act:CLAIRVOYANCE
+time:50+d50
+msg:The {kind} glow{s} a deep green...
+desc:A great globe with a heart of fire, the Palantir provides the wearer with 
+desc:sight of far places - at a cost...
+
 ### Swords and Daggers ###
 
 name:'Shard'
@@ -535,6 +554,35 @@ brand:VAMPIRIC
 desc:Dark flames wreath the naked steel of the Witch-King of Angmar.
 desc: A mighty curse to all those who wield it apart from its master,
 desc: the torture of the wraithworld awaits those who dare.
+
+name:'Excalibur'
+base-object:sword:Long Sword
+level:70
+weight:120
+alloc:1:126 to 127
+attack:2d5:15:27
+armor:0:5
+flags:FREE_ACT | SEE_INVIS | HOLD_LIFE | PROT_CONF
+values:SPEED[5] | STR[3] | CON[1] | BLOWS[1]
+values:INFRA[5] | WIS[5] | SEARCH[5] | LIGHT[1]
+brand:ELEC_3
+slay:DEMON_5
+slay:DRAGON_5
+desc:Sword from another dimension...
+desc:At first only its tip was visible, but then it rose, straight,
+desc:proud, all that was noble and great and wondrous. The tip of
+desc:the blade pointed toward the moon, as if it would cleave it
+desc:in two. The blade itself gleamed like a beacon in the night.
+desc:There was no light source for the sword to be reflecting
+desc:from, for the moon had darted behind a cloud in fear. The
+desc:sword was glowing from the intensity of its strength and
+desc:power and knowledge that it was justice incarnate, and that
+desc:after a slumber of uncounted years its time had again come.
+desc:After the blade broke the surface, the hilt was visible, and
+desc:holding the sword was a single strong, yet feminine hand,
+desc:wearing several rings that bore jewels sparkling with the
+desc:blue-green color of the ocean.
+desc:-Knight Life, by Peter David-
 
 name:'Aranruth'
 base-object:sword:Broad Sword
@@ -3060,6 +3108,25 @@ desc: inscribed with hidden runes in the foul speech of Mordor, Isildur's Bane
 desc: possesses powers so great that it inevitably twists and masters any mortal
 desc: being who wears it.
 
+name:of Durin
+base-object:ring:Ring
+graphics:=:d
+level:65
+weight:2
+alloc:1:65 to 75
+armor:5:0
+flags:HOLD_LIFE | ESP_EVIL | SUST_STR | SUST_CON | LIMITED_TELE
+values:STR[2] | CON[2] | BLOWS[1]
+values:RES_COLD[1] | RES_ACID[1] | RES_DARK[1] | RES_CHAOS[1] | RES_NETHER[1]
+act:DETECT_TREASURE
+time:50+d50
+msg:{name} flashs with a blue sparkle...
+desc:The greatest of the Seven Rings of the Dwarf-lords, and the last to be
+desc:lost. Alone among the Seven, it was not taken by Sauron when he made
+desc:war on the Elves, but was given as a gift from Celebrimbor to King Durin
+desc:III of Moria in token of friendship: Nevertheless, Sauron in disguise
+desc:had a hand in its making, and so it is cursed, and draws evil towards it.
+
 
 ### Amulets ###
 
@@ -3161,6 +3228,21 @@ desc: lost forever into a fiery pit, this Silmaril, once held by Maglor and
 desc: thrown away into a deep sea, was later found and mounted as a necklace.
 desc: But beware... Though this amulet will grant the wearer great powers, it
 desc: will still carry the original Feanorian curse!
+
+name:'Space-time Anchor'
+base-object:amulet:Blue Stone
+graphics:":d
+level:60
+weight:5
+alloc:0:60 to 127
+flags:NO_TELEPORT | HOLD_LIFE
+values:LIGHT[1] | RES_TIME[1]
+act:HASTE
+time:100+d100
+msg:Your {kind} whirl a blazing white light around you...
+desc:A powerful stone that provides a strong light for any who wields it.
+desc:It is rumored that it may even protect the wearer from the passing
+desc:of the time.
 
 
 ### Dragon Scale Mails ###
@@ -3477,7 +3559,7 @@ slay:DEMON_3
 desc:Its creator didn't believe in much, but he knew all about pain.
 
 name:'Crusher'
-base-object:rock:rock
+base-object:rock:Throwing rock
 level:10
 weight:5
 alloc:0:10 to 127
@@ -3655,84 +3737,10 @@ desc:A suit of armour made of the hide of a dead water dragon.
 
 ############################
 
-name:of Westernesse
-base-object:light:Palantir
-graphics:~:y
-level:75
-weight:200
-alloc:1:75 to 127
-attack:10d10:0:0
-armor:0:0
-flags:NO_FUEL
-flags:SEE_INVIS | ESP_ALL | AGGRAVATE
-flags:PROT_BLIND
-values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | RES_CHAOS[1] | LIGHT[4]
-curse:anti-teleportation:100
-act:CLAIRVOYANCE
-time:50+d50
-msg:The {kind} glow{s} a deep green...
-desc:A great globe with a heart of fire, the Palantir provides the wearer with 
-desc:sight of far places - at a cost...
 
-name:'Excalibur'
-base-object:sword:Long Sword
-level:70
-weight:120
-alloc:1:126 to 127
-attack:2d5:15:27
-armor:0:5
-flags:FREE_ACT | SEE_INVIS | HOLD_LIFE | PROT_CONF
-values:SPEED[5] | STR[3] | CON[1] | BLOWS[1]
-values:INFRA[5] | WIS[5] | SEARCH[5] | LIGHT[1]
-brand:ELEC_3
-slay:DEMON_5
-slay:DRAGON_5
-desc:Sword from another dimension...
-desc:At first only its tip was visible, but then it rose, straight,
-desc:proud, all that was noble and great and wondrous. The tip of
-desc:the blade pointed toward the moon, as if it would cleave it
-desc:in two. The blade itself gleamed like a beacon in the night.
-desc:There was no light source for the sword to be reflecting
-desc:from, for the moon had darted behind a cloud in fear. The
-desc:sword was glowing from the intensity of its strength and
-desc:power and knowledge that it was justice incarnate, and that
-desc:after a slumber of uncounted years its time had again come.
-desc:After the blade broke the surface, the hilt was visible, and
-desc:holding the sword was a single strong, yet feminine hand,
-desc:wearing several rings that bore jewels sparkling with the
-desc:blue-green color of the ocean.
-desc:-Knight Life, by Peter David-
 
-name:'Space-time Anchor'
-base-object:amulet:Blue Stone
-graphics:":d
-level:60
-weight:5
-alloc:0:60 to 127
-flags:NO_TELEPORT | HOLD_LIFE
-values:LIGHT[1] | RES_TIME[1]
-act:HASTE
-time:100+d100
-msg:Your {kind} whirl a blazing white light around you...
-desc:A powerful stone that provides a strong light for any who wields it.
-desc:It is rumored that it may even protect the wearer from the passing
-desc:of the time.
 
-name:of Durin
-base-object:ring:Ring
-graphics:=:d
-level:65
-weight:2
-alloc:1:65 to 75
-armor:5:0
-flags:HOLD_LIFE | ESP_EVIL | SUST_STR | SUST_CON | LIMITED_TELE
-values:STR[2] | CON[2] | BLOWS[1]
-values:RES_COLD[1] | RES_ACID[1] | RES_DARK[1] | RES_CHAOS[1] | RES_NETHER[1]
-act:DETECT_TREASURE
-time:50+d50
-msg:{name} flashs with a blue sparkle...
-desc:The greatest of the Seven Rings of the Dwarf-lords, and the last to be
-desc:lost. Alone among the Seven, it was not taken by Sauron when he made
-desc:war on the Elves, but was given as a gift from Celebrimbor to King Durin
-desc:III of Moria in token of friendship: Nevertheless, Sauron in disguise
-desc:had a hand in its making, and so it is cursed, and draws evil towards it.
+
+
+
+

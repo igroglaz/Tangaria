@@ -25854,6 +25854,28 @@ flags:FORCE_DEPTH
 desc:A ghostly apparition ready to sap your mind.
 locations:Utumno, Portal to the Void
 
+name:spirit of lust
+plural:spirits of lust
+base:ghost
+color:P
+speed:130
+hit-points:4000
+hearing:20
+armor-class:180
+sleepiness:10
+depth:102
+rarity:9
+weight:0
+experience:25000
+blow:HYPNOTIZE:SEDUCE:8d8
+blow:HIT:PARALYZE:8d8
+blow:HIT:FORGET:8d8
+blow:HIT:CONFUSE:8d8
+flags:PWMANG_EXTRA | MALE | FEMALE
+flags:FORCE_DEPTH
+desc:When you look at it you are ready to unscrew your head off from pleasure...
+locations:Utumno, Portal to the Void
+
 name:spirit of greed
 plural:spirits of greed
 base:ghost
@@ -31012,27 +31034,6 @@ spells:MIND_BLAST | HOLD | BLIND | CONF | SCARE | SLOW
 desc:A weird bloodshot disembodied eye, floating a few feet above the ground.
 desc:It blinks slowly and menacily.
 
-#///////////   H
-#///////////   H
+#///////////    ^^^ FORMS
+#///////////   
 
-name:spirit of lust
-plural:spirits of lust
-base:ghost
-color:P
-speed:130
-hit-points:4000
-hearing:20
-armor-class:180
-sleepiness:10
-depth:102
-rarity:9
-weight:0
-experience:25000
-blow:HYPNOTIZE:SEDUCE:8d8
-blow:HIT:PARALYZE:8d8
-blow:HIT:FORGET:8d8
-blow:HIT:CONFUSE:8d8
-flags:PWMANG_EXTRA | MALE | FEMALE
-flags:FORCE_DEPTH
-desc:When you look at it you are ready to unscrew your head off from pleasure...
-locations:Utumno, Portal to the Void
