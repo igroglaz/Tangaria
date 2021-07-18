@@ -4146,9 +4146,10 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:10d30:0:0
+attack:1d300:0:0
 armor:0:0
-flags:EXPLODE
+effect:TIMED_INC_NO_RES:STUN
+dice:1d2
 effect:DRAIN_STAT:CHR
 dice:5
 effect:DAMAGE
@@ -4174,10 +4175,8 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:10d10:0:0
+attack:10d15:0:0
 armor:0:0
-effect:TIMED_INC_NO_RES:STUN
-dice:5d3
 effect:DRAIN_STAT:STR
 dice:1
 effect:DRAIN_STAT:DEX
@@ -4211,7 +4210,7 @@ weight:4
 cost:0
 alloc:1:2 to 40
 pile:70:1d3
-attack:10d20:0:0
+attack:10d10:0:0
 armor:0:0
 flags:EXPLODE
 effect:TELEPORT:NONE:0:1

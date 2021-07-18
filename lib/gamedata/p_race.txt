@@ -107,6 +107,7 @@ history:21
 age:20:10
 height:90:16
 weight:240:60
+gift:food:Strip of Beef Jerky:1:1
 value:1:STR[4]
 value:1:INT[-4]
 value:1:WIS[-2]
@@ -137,6 +138,7 @@ history:1
 age:14:6
 height:69:10
 weight:165:35
+gift:food:Ration of Food:1:1
 value:0:STR[0+1d24]
 value:0:CON[0+1d12]
 value:1:DAM_RED[0+1d15]
@@ -160,6 +162,7 @@ history:4
 age:24:16
 height:71:8
 weight:115:25
+gift:food:Pint of Fine Wine:1:1
 value:0:STR[0+1d30]
 value:1:INT[1]
 value:1:WIS[-1]
@@ -189,6 +192,7 @@ history:5
 age:75:75
 height:73:7
 weight:90:10
+gift:food:Piece of Elvish Waybread:1:1
 # -1 2 -1 1 -1
 value:1:STR[-1]
 value:1:INT[2]
@@ -219,6 +223,7 @@ history:10
 age:21:12
 height:34:4
 weight:55:5
+gift:food:Apple:3:7
 # original: -2 !2! 1 3 2
 value:1:STR[-2]
 value:1:INT[0+1d30]
@@ -248,6 +253,7 @@ history:13
 age:50:40
 height:40:5
 weight:80:5
+gift:wand:Magic Missile:1:1
 value:1:STR[-1]
 value:1:INT[2]
 value:1:DEX[2]
@@ -274,6 +280,7 @@ history:16
 age:35:15
 height:47:4
 weight:135:20
+gift:food:Pint of Fine Ale:1:1
 value:1:STR[2]
 value:1:INT[-3]
 value:1:WIS[2]
@@ -300,6 +307,7 @@ history:19
 age:11:4
 height:64:2
 weight:135:15
+gift:food:Swig of Orcish Liquor:1:1
 value:1:STR[2]
 value:1:INT[-1]
 value:1:CON[1]
@@ -330,6 +338,7 @@ history:1
 age:50:20
 height:80:6
 weight:190:20
+gift:food:Sprig of Athelas:1:1
 value:1:STR[0+1d49]
 value:1:INT[0+1d24]
 value:1:WIS[0+1d24]
@@ -356,6 +365,7 @@ history:7
 age:100:30
 height:77:6
 weight:190:20
+gift:food:Sip of Miruvor:1:1
 #1 3 -1 3 1
 value:0:STR[-2+1d15]
 value:0:INT[-1+1d12]
@@ -385,6 +395,7 @@ history:23
 age:15:10
 height:37:4
 weight:65:5
+gift:light:Rusty Lantern:1:1
 value:1:STR[-1]
 value:1:INT[-1]
 value:1:DEX[2]
@@ -413,6 +424,12 @@ history:1
 age:14:6
 height:23:3
 weight:36:6
+gift:crop:Potato:1:2
+gift:crop:Head of Cabbage:1:2
+gift:crop:Carrot:1:2
+gift:crop:Beet:1:2
+gift:crop:Squash:1:2
+gift:crop:Ear of Corn:1:2
 obj-flag:1:FEATHER
 # -5 -5 -5 -5 -5
 value:1:STR[-1+-1d12]
@@ -450,6 +467,7 @@ history:94
 age:255:70
 height:170:20
 weight:240:60
+gift:bottle:Empty Bottle:1:10
 obj-flag:1:SLOW_DIGEST
 obj-flag:5:SEE_INVIS
 obj-flag:10:ESP_ANIMAL
@@ -500,6 +518,7 @@ height:170:20
 weight:240:60
 obj-flag:25:FEATHER
 obj-flag:5:ESP_DRAGON
+gift:hafted:Throwing Hammer:1:1
 # 6 2 1 1 3
 value:1:STR[-6+1d4]
 value:1:INT[0+1d24]
@@ -534,6 +553,8 @@ history:98
 age:255:70
 height:170:20
 weight:240:60
+########################## Check does it works?
+gift:food:Slice of Meat:1:1
 obj-flag:1:FEATHER
 value:1:INFRA[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
@@ -566,6 +587,7 @@ history:97
 age:255:70
 height:170:20
 weight:240:60
+gift:food:Slice of Meat:1:1
 value:1:STR[-20]
 value:1:INT[-4]
 value:1:WIS[-4]
@@ -621,6 +643,7 @@ history:100
 age:60:25
 height:80:4
 weight:198:12
+gift:sword:Dark Sword:1:1
 #1 2 -1 1 2
 value:5:STR[1]
 value:1:INT[0+1d24]
@@ -650,6 +673,7 @@ history:100
 age:11:4
 height:69:5
 weight:165:23
+gift:amulet:Regeneration:1:1
 value:1:STR[-1+-1d27]
 value:1:INT[-1+-1d27]
 value:1:WIS[-1+-1d27]
@@ -676,6 +700,8 @@ history:100
 age:14:6
 height:67:5
 weight:165:23
+gift:potion:Water:7:14
+
 #0 0 2 1 -1
 value:1:STR[-1+1d27]
 value:1:INT[-1+1d20M21]
@@ -707,6 +733,7 @@ history:100
 age:14:6
 height:76:7
 weight:172:23
+gift:potion:Berserk Strength:1:1
 #3 -2 -1 1 2
 value:1:STR[0+1d5M16]
 value:1:INT[-2]
@@ -736,6 +763,7 @@ history:100
 age:35:15
 height:44:3
 weight:135:10
+gift:food:Pint of Fine Ale:1:2
 #0 0 -1 0 1
 value:1:STR[-1+1d30]
 value:1:INT[0]
@@ -766,6 +794,7 @@ history:100
 age:15:10
 height:40:3
 weight:66:4
+gift:food:Flask of Whisky:1:1
 #1 -1 -4 6 2
 value:1:STR[0+1d45]
 value:1:INT[-1]
@@ -803,6 +832,7 @@ value:1:WIS[-2]
 value:1:DEX[-2]
 value:1:CON[1+1d24]
 value:1:CHR[-4]
+gift:food:Hard Biscuit:2:5
 obj-flag:10:SUST_STR
 obj-flag:50:TRAP_IMMUNE
 obj-flag:24:PROT_CONF
@@ -836,6 +866,7 @@ history:100
 age:20:10
 height:85:9
 weight:230:45
+gift:food:Scrap of Flesh:2:3
 #3 0 -1 -1 3
 value:1:STR[1+1d15M32]
 value:1:INT[-4+1d7M30]
@@ -866,6 +897,7 @@ history:21
 age:20:10
 height:150:5
 weight:240:22
+gift:cobble:Cobble:7:13
 #7 -8 -4 -5 4
 value:1:STR[1+1d8]
 value:1:INT[0+-1d6]
@@ -905,6 +937,7 @@ history:100
 age:11:4
 height:63:4
 weight:125:5
+gift:boots:Pair of Iron Shod Boots:1:1
 #1 -1 0 1 1
 value:1:STR[1]
 value:1:INT[-1]
@@ -919,7 +952,6 @@ value:1:DAM_RED[0+1d24]
 value:50:STEALTH[1]
 value:50:SPEED[1]
 player-flags:0:ORC
-# start with heavy iron orc boots
 
 # in between of tiny orcs and forest 'kobolds'.. 
 name:Forest Goblin
@@ -938,6 +970,7 @@ history:100
 age:15:10
 height:38:3
 weight:65:4
+gift:potion:Poison:2:4
 #-3 1 2 3 -3
 value:1:STR[-5+1d24]
 value:40:INT[1]
@@ -952,7 +985,6 @@ value:25:DAM_RED[1]
 obj-flag:25:SUST_DEX
 #add dodge.. while it's not there:
 value:0:STEALTH[1]
-# start with poison bottles
 
 name:Dark Elf
 skill-disarm-phys:5
@@ -970,6 +1002,7 @@ history:100
 age:75:75
 height:58:6
 weight:111:8
+gift:sword:Scimitar:1:1
 #0 2 -1 3 1
 value:1:STR[0]
 value:1:INT[0+1d20]
@@ -1000,6 +1033,7 @@ history:100
 age:14:6
 height:69:5
 weight:165:23
+gift:mushroom:Clear Mind:2:3
 #1 -2 -4 0 1
 value:20:STR[1]
 value:1:INT[0+-1d20]]
@@ -1044,6 +1078,7 @@ history:19
 age:11:4
 height:68:5
 weight:140:12
+gift:scroll:Dispel Undead:1:1
 #2 -6 -6 -1 -5
 value:0:STR[-2+1d10M20]
 value:1:INT[0+-1d8]
@@ -1083,6 +1118,7 @@ history:100
 age:11:4
 height:68:5
 weight:150:10
+gift:scroll:Deep Descent:1:1
 #2 2 -1 2 0
 value:0:STR[-3+1d9]
 value:0:INT[0+1d24]
@@ -1140,6 +1176,7 @@ history:100
 age:11:4
 height:70:5
 weight:165:22
+gift:mage staff:Mage Staff:1:1
 #2 3 3 1 1
 value:0:STR[-5+1d7]
 value:0:INT[-4+1d7]
@@ -1186,6 +1223,7 @@ history:100
 age:11:4
 height:72:5
 weight:160:23
+gift:rock:Shuriken:3:3
 #2 3 3 1 1
 value:0:STR[-5+1d7]
 value:0:INT[-4+1d7]
@@ -1234,6 +1272,7 @@ history:100
 age:11:4
 height:145:8
 weight:210:12
+gift:scroll:Enchant Weapon To-Dam:1:2
 #4 2 -10 2 3
 value:0:STR[-6+1d5]
 value:0:INT[-4+1d8]
@@ -1283,6 +1322,7 @@ history:100
 age:11:4
 height:81:5
 weight:155:12
+gift:scroll:Holy Prayer:1:1
 #2 0 4 1 2
 value:0:STR[-4+1d8]
 value:0:INT[-4+1d12]
@@ -1326,6 +1366,7 @@ history:100
 age:14:6
 height:69:5
 weight:165:23
+gift:scroll:Identify Rune:1:1
 #1 1 0 1 1
 value:1:STR[-1+1d24]
 value:1:INT[-1+1d24]
@@ -1358,6 +1399,7 @@ history:100
 age:11:4
 height:85:5
 weight:245:23
+gift:rock:Throwing rock:30:40
 #3 -3 2 -3 3
 value:0:STR[3]
 value:0:INT[-4+1d30]
@@ -1399,6 +1441,7 @@ history:100
 age:11:4
 height:82:3
 weight:244:23
+gift:flask:Flask of oil:3:5
 #4 -3 -3 0 0
 value:0:STR[2+2d30]
 value:0:INT[-4+1d50]
@@ -1433,6 +1476,7 @@ history:100
 age:10:4
 height:21:2
 weight:12:1
+gift:food:Honey-cake:1:1
 value:1:STR[-6]
 value:1:INT[4]
 value:1:WIS[4]
@@ -1474,6 +1518,7 @@ history:100
 age:22:8
 height:190:25
 weight:220:50
+gift:potion:Dragon Breath:1:1
 # 3 1 2 0 0
 value:1:STR[-3+1d6]
 value:1:INT[-4+1d7]
@@ -1509,6 +1554,7 @@ history:100
 age:90:40
 height:170:20
 weight:430:75
+gift:ring:Lightning:1:1
 #9 -2 -2 -1 5
 value:1:STR[-3+1d4]
 value:1:INT[-4+1d24]
@@ -1565,6 +1611,8 @@ history:100
 age:60:55
 height:74:7
 weight:85:9
+gift:bow:Short Bow:1:1
+gift:arrow:Old Arrow:30:40
 # 0 1 -2 2 -1
 value:1:STR[0]
 value:1:INT[1]
@@ -1596,6 +1644,7 @@ history:100
 age:11:4
 height:82:3
 weight:244:23
+gift:scroll:Phase Door:5:9
 ###########
 value:0:STR[-5+1d9]
 value:0:INT[-4+1d12]
@@ -1647,6 +1696,7 @@ history:100
 age:14:6
 height:170:20
 weight:240:60
+gift:food:Large Trout:1:1
 value:1:STR[2]
 value:1:INT[-4+1d24]
 value:1:WIS[-2]
@@ -1679,6 +1729,7 @@ history:100
 age:30:11
 height:47:4
 weight:185:30
+gift:polearm:Spear:1:1
 # 1 -1 2 0 1
 value:1:STR[-1+1d24]
 value:1:INT[-1]
@@ -1712,6 +1763,7 @@ history:100
 age:10:5
 height:28:3
 weight:51:6
+gift:scroll:Trap Creation:1:2
 # -3 -1 1 5 -2
 value:1:STR[-3]
 value:1:INT[-3+1d20]
@@ -1758,6 +1810,7 @@ history:100
 age:10:4
 height:170:20
 weight:33:11
+gift:wand:Wonder:1:1
 value:0:STR[0+1d8]
 value:0:INT[0+1d8]
 value:0:WIS[0+1d8]
@@ -1802,6 +1855,8 @@ skill-search:9
 skill-melee:-5
 skill-shoot:-2
 skill-dig:0
+gift:ring:Levitation:1:1
+gift:amulet:Adornment:1:1
 hitdie:9
 # more exp to lvl!
 exp:100:150
@@ -1839,6 +1894,7 @@ history:100
 age:20:10
 height:120:19
 weight:290:75
+gift:potion:Cure Serious Wounds:1:3
 obj-flag:1:SUST_STR
 obj-flag:1:SUST_CON
 # 4 -4 -2 1 3
@@ -1876,6 +1932,7 @@ history:100
 age:14:4
 height:30:2
 weight:56:3
+gift:food:Slime Mold:2:3
 value:1:STR[-1+1d24]
 value:1:INT[-1]
 value:1:WIS[-3]
@@ -1907,6 +1964,7 @@ history:100
 age:81:14
 height:47:4
 weight:155:21
+gift:scroll:Monster Confusion:1:2
 # 1 -2 -2 3 -1
 value:1:STR[1]
 value:1:INT[-2]
@@ -1942,6 +2000,7 @@ history:100
 age:17:5
 height:58:4
 weight:115:4
+gift:helm:Metal Cap:1:1
 # 0 0 -1 3 0
 value:1:STR[-1+1d40]
 value:1:INT[-2+1d24]
@@ -1970,6 +2029,7 @@ history:100
 age:13:2
 height:69:3
 weight:145:17
+gift:shield:Small Metal Shield:1:1
 # 0 -1 -2 0 0
 value:1:STR[0+1d30]
 value:1:INT[-1]
@@ -2002,6 +2062,7 @@ history:100
 age:63:7
 height:35:2
 weight:5:1
+gift:scroll:Light:7:15
 # -7 3 -1 -2 -1
 value:1:STR[-5+-1d24]
 value:1:INT[-1+1d12]
@@ -2043,6 +2104,7 @@ history:100
 age:13:1
 height:34:2
 weight:40:3
+gift:potion:Detonation:1:3
 value:1:STR[-4]
 value:1:INT[1]
 value:1:WIS[-3]
@@ -2073,6 +2135,7 @@ history:100
 age:82:3
 height:98:4
 weight:31:2
+gift:scroll:Darkness:3:9
 #-3 0 0 0 -2
 value:0:STR[-3]
 value:0:INT[-4+1d12]
@@ -2123,6 +2186,7 @@ history:100
 age:50:8
 height:47:4
 weight:60:12
+gift:mushroom:Stoneskin:1:1
 #-5 3 -2 -3 -2
 value:1:STR[-5]
 value:1:INT[-2+1d10]

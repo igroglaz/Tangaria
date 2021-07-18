@@ -1020,6 +1020,15 @@ flags:SUST_INT | IGNORE_ACID | RAND_POWER
 values:INT[d2] | STEALTH[d3]
 min-values:INT[1] | STEALTH[1]
 
+name:(Dwarven)
+info:1500:15
+alloc:10:30 to 80
+combat:0:0:d5
+type:cloak:Fur Cloak
+flags:RAND_POWER
+values:DAM_RED[1]
+desc:It keeps you warm and helps identify the wearer through color-coding.
+
 name:of the Teleri
 info:20000:31
 alloc:10:30 to 127
