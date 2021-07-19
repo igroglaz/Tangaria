@@ -1816,7 +1816,12 @@ void player_dump(struct player *p, bool server)
     /* Save the server-side character dump */
     if (server)
     {
-        strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, ht_show(&turn));
+        char buf_tm[MSG_LEN];
+        struct tm *tm_info = localtime(&p->death_info.time);
+
+        strftime(buf_tm, MSG_LEN, "%H%M%S%d%m%y", tm_info);
+
+        strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, buf_tm);
         if (dump_save(p, dumpname, true))
             plog("Character dump successful.");
         else
