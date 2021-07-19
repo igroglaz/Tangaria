@@ -158,15 +158,15 @@ DATA = sound.cfg \
 	mco_man_mumble.mp3        plm_floor_creak.mp3       wild_waste.mp3 \
 	mco_mouse_squeaks.mp3     plm_glass_breaking.mp3    wild_wood.mp3 \
 	mco_rubber_thud.mp3       plm_glass_break.mp3 \
-	blind.ogg                 blind1.ogg                blind2.ogg    \
-	confused.ogg              mco_hypnotize.ogg         afraid.ogg    \
+    blind.ogg                 blind1.ogg                blind2.ogg \
+    confused.ogg              hypnotize.ogg             afraid.ogg \
     cut.ogg                   hallucinate.ogg           paralyzed.ogg \
-    poison.ogg                slow.ogg                  stun1.ogg     \
-    stun2.ogg                 stun3.ogg           \
-	blind.mp3                 blind1.mp3                blind2.mp3    \
-	confused.mp3              mco_hypnotize.mp3         afraid.mp3    \
+    poison.ogg                slow.ogg                  stun1.ogg \
+    stun2.ogg                 stun3.ogg \
+    blind.mp3                 blind1.mp3                blind2.mp3 \
+    confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
-    poison.mp3                slow.mp3                  stun1.mp3     \
+    poison.mp3                slow.mp3                  stun1.mp3 \
     stun2.mp3                 stun3.mp3
 
 PACKAGE = sounds
