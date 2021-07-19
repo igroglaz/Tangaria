@@ -1821,7 +1821,7 @@ void player_dump(struct player *p, bool server)
 
         strftime(buf_tm, MSG_LEN, "%H%M%S%d%m%y", tm_info);
 
-        strnfmt(dumpname, sizeof(dumpname), "%s-%s-%s.txt", p->name, ht_show(&turn), buf_tm);
+        strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, buf_tm);
         if (dump_save(p, dumpname, true))
             plog("Character dump successful.");
         else
