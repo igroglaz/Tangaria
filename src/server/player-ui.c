@@ -362,10 +362,14 @@ static void write_character_dump(ang_file *fff, void *data)
     /* Dump account (server dumps) */
     if (!p->dump_gen)
     {
+        char buf_tm[MSG_LEN];
+        struct tm *tm_info = localtime(&p->death_info.time);
+
+        strftime(buf_tm, MSG_LEN, "%T %d-%m-%Y", tm_info);
+
         file_put(fff, "\n  [Player information]\n\n");
         file_putf(fff, "Player ID: %s\n\n", get_connection(p->conn)->nick_account);
-        file_putf(fff, "Time: %s\n\n", p->death_info.ctime);
-        file_putf(fff, "Unix timestamp: %ld\n\n", p->death_info.time);
+        file_putf(fff, "Time: %s\n\n", buf_tm);
     }
 
     mem_free(home_list);
