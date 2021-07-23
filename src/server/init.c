@@ -2384,7 +2384,11 @@ static enum parser_error parse_p_race_gift(struct parser *p)
     g->max = parser_getuint(p, "max");
 
     kind = lookup_kind(g->tval, g->sval);
-    if ((g->min > kind->base->max_stack) || (g->max > kind->base->max_stack))
+    if (tval_is_money_k(kind))
+    {
+        /* Not an actual object, don't check max stack */
+    }
+    else if ((g->min > kind->base->max_stack) || (g->max > kind->base->max_stack))
     {
         mem_free(g);
         return PARSE_ERROR_INVALID_ITEM_NUMBER;
@@ -4185,7 +4189,6 @@ static struct
 } pl[] =
 {
     {"projections", &projection_parser},
-    {"timed effects", &player_timed_parser},
     {"player properties", &player_property_parser},
     {"features", &feat_parser},
     {"wilderness feats", &wild_feat_parser},
@@ -4212,6 +4215,7 @@ static struct
     {"DM starting items", &dm_start_items_parser},
     {"artifacts", &artifact_parser},
     {"object properties", &object_property_parser},
+    {"timed effects", &player_timed_parser},
     {"object power calculations", &object_power_parser},
     {"blow methods", &meth_parser},
     {"blow effects", &eff_parser},

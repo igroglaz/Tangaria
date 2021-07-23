@@ -155,8 +155,9 @@
 # Some friends can have special roles; these are appended to the line end.
 
 # 'desc' is for description. As many desc: lines may be used as are needed to
-# describe the monster. Leading whitespace will be removed, and a single space
-# will be added between desc: lines.
+# describe the monster. Note that lines will need spaces at their
+# ends or the beginning of the next line to prevent words from running
+# together.
 
 # 'mimic' lines give item types that this monster may mimic. Each of the objects
 # has an equal chance of being mimicked.

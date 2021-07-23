@@ -1750,7 +1750,7 @@ static bool describe_origin(struct player *p, const struct object *obj, bool ter
     /* Print an appropriate description */
     switch (origins[origin].args)
     {
-        case 0: text_out(p, desc); break;
+        case 0: text_out(p, "%s", desc); break;
         case 1: text_out(p, desc, loot_spot); break;
         case 2: text_out(p, desc, name, loot_spot); break;
         default: return false;

@@ -88,6 +88,11 @@
 # 'resist-flag' is the race flag a monster must have to be able to enter
 # damaging terrain
 
+# 'desc' is for description. As many desc: lines may be used as are needed
+# to describe the terrain. Note that lines will need spaces at their
+# ends or the beginning of the next line to prevent words from running
+# together.
+
 
 
 # Note that terrain feature zero contains the "darkness" picture.
@@ -574,8 +579,8 @@ flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:43:0
 look-prefix:the entrance to the
 look-in-preposition:at
-desc:Your safe piece of Middle Earth, and the only place you can store goods 
-desc:apart from on your person.
+desc:Your safe piece of Middle Earth, and the only place you can store goods
+desc: apart from on your person.
 
 ################################################################
 #################

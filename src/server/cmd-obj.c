@@ -1474,7 +1474,7 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
 
     /* Get the level */
     if ((*obj_address)->artifact)
-        level = get_artifact_level(*obj_address);
+        level = get_artifact_level(p, *obj_address);
     else
         level = (*obj_address)->kind->level;
 

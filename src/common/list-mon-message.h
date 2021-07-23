@@ -60,6 +60,8 @@ MON_MSG(BRIEF_PUZZLE, MSG_GENERIC, false, "look[s] briefly puzzled.")
 MON_MSG(MAINTAIN_SHAPE, MSG_GENERIC, false, "maintain[s] the same shape.")
 /* From message_pain */
 MON_MSG(UNHARMED, MSG_GENERIC, false, "[is|are] unharmed.")
+/* For mimics */
+MON_MSG(APPEAR, MSG_GENERIC, false, "appear[s]!")
 /* Dummy messages for monster pain - we use edit file info instead. */
 MON_MSG(95, MSG_GENERIC, false, "")
 MON_MSG(75, MSG_GENERIC, false, "")

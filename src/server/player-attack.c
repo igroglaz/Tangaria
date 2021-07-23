@@ -1719,22 +1719,19 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 int dmg = result.dmg;
                 u32b msg_type = result.msg_type;
                 const char *verb = result.verb;
-                bool mimicking;
 
                 /* Target info */
                 if (who->monster)
                 {
-                    visible = monster_is_visible(p, who->idx);
+                    visible = monster_is_obvious(p, who->idx, who->monster);
                     monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_OBJE);
                     if (monster_is_destroyed(who->monster->race))
                         note_dies = MON_MSG_DESTROYED;
-                    mimicking = monster_is_camouflaged(who->monster);
                 }
                 else
                 {
-                    visible = player_is_visible(p, who->idx);
+                    visible = (player_is_visible(p, who->idx) && !who->player->k_idx);
                     my_strcpy(m_name, who->player->name, sizeof(m_name));
-                    mimicking = who->player->k_idx;
                 }
 
                 if (result.success)
@@ -1910,7 +1907,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 }
                 else
                 {
-                    if (visible && !mimicking)
+                    if (visible)
                     {
                         /* Handle visible monster/player */
                         msgt(p, MSG_MISS, "The %s misses %s.", o_name, m_name);
@@ -1972,7 +1969,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
     {
         /* Paranoia: only process living monsters */
         /* This is necessary to take into account monsters killed by ball effects */
-        if (effects->mon->race && monster_is_visible(p, effects->mon->midx))
+        if (effects->mon->race && monster_is_obvious(p, effects->mon->midx, effects->mon))
         {
             if (effects->dmg) message_pain(p, effects->mon, effects->dmg);
             if (effects->poison) add_monster_message(p, effects->mon, MON_MSG_POISONED, true);
@@ -2014,12 +2011,12 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
     square_actor(c, grid, target);
     if (target->monster)
     {
-        visible = monster_is_visible(p, target->idx);
+        visible = monster_is_obvious(p, target->idx, target->monster);
         ac = target->monster->ac;
     }
     else
     {
-        visible = player_is_visible(p, target->idx);
+        visible = (player_is_visible(p, target->idx) && !target->player->k_idx);
         ac = target->player->state.ac + target->player->state.to_a;
     }
 
@@ -2070,12 +2067,12 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
     square_actor(c, grid, target);
     if (target->monster)
     {
-        visible = monster_is_visible(p, target->idx);
+        visible = monster_is_obvious(p, target->idx, target->monster);
         ac = target->monster->ac;
     }
     else
     {
-        visible = player_is_visible(p, target->idx);
+        visible = (player_is_visible(p, target->idx) && !target->player->k_idx);
         ac = target->player->state.ac + target->player->state.to_a;
     }
 

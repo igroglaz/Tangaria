@@ -680,7 +680,9 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
         my_assert(kind);
 
-        player_outfit_aux(p, kind, (byte)num);
+        /* Hack -- money gift */
+        if (tval_is_money_k(kind)) p->au += num;
+        else player_outfit_aux(p, kind, (byte)num);
     }
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
@@ -1038,7 +1040,7 @@ static void player_setup(struct player *p, int id, u32b account, bool no_recall)
         if (!scatter(c, &new_grid, &p->grid, d, false)) continue;
 
         /* Require an "empty" floor grid */
-        if (square_isemptyfloor(c, &new_grid))
+        if (square_isemptyfloor(c, &new_grid) && !square_isno_stairs(c, &new_grid))
         {
             /* Set the player's location */
             loc_copy(&p->grid, &new_grid);

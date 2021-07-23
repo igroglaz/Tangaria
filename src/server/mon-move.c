@@ -1338,6 +1338,15 @@ bool multiply_monster(struct player *p, struct chunk *c, struct monster *mon)
         /* Create a new monster (awake, no groups) */
         result = place_new_monster(p, c, &grid, mon->race, MON_CLONE, &info, ORIGIN_DROP_BREED);
 
+        /* Fix so multiplying a revealed mimic creates another revealed mimic. */
+        if (result)
+        {
+            struct monster *child = square_monster(c, &grid);
+
+            if (child && monster_is_mimicking(child) && !monster_is_mimicking(mon))
+                become_aware(p, c, child);
+        }
+
         /* Done */
         break;
     }

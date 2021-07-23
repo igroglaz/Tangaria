@@ -502,6 +502,7 @@ bool scatter(struct chunk *c, struct loc *place, struct loc *grid, int d, bool n
         return true;
     }
 
+    loc_copy(place, grid);
     return false;
 }
 

@@ -2623,9 +2623,131 @@ static void add_ability_aux(struct artifact *art, int r, int target_power,
 
 
 /*
+ * Help remove_contradictory(): remove the activation if it conflicts or is
+ * redundant with the other properties of the artifact.
+ *
+ * art Is the artifact. Must not be NULL.
+ */
+static void remove_contradictory_activation(struct player *p, struct artifact *art)
+{
+    bool redundant = true;
+    int unsummarized_count;
+    struct effect_object_property *props, *pcurr;
+
+    if (!art->activation) return;
+
+    props = effect_summarize_properties(p, art->activation->effect, &unsummarized_count);
+
+    if (unsummarized_count > 0)
+    {
+        /*
+         * The activation does at least one thing that doesn't
+         * correspond to an object property.
+         */
+        redundant = false;
+    }
+    else
+    {
+        for (pcurr = props; pcurr && redundant; pcurr = pcurr->next)
+        {
+            int i, maxmult;
+
+            switch (pcurr->kind)
+            {
+                case EFPROP_BRAND:
+                {
+                    maxmult = 1;
+                    for (i = 0; i < z_info->brand_max; ++i)
+                    {
+                        if (!art->brands[i]) continue;
+                        if (brands[i].resist_flag != brands[pcurr->idx].resist_flag) continue;
+                        maxmult = MAX(brands[i].multiplier, maxmult);
+                    }
+                    if (maxmult < brands[pcurr->idx].multiplier) redundant = false;
+                    break;
+                }
+
+                case EFPROP_SLAY:
+                {
+                    maxmult = 1;
+                    for (i = 0; i < z_info->slay_max; ++i)
+                    {
+                        if (!art->slays[i]) continue;
+                        if (!same_monsters_slain(i, pcurr->idx)) continue;
+                        maxmult = MAX(slays[i].multiplier, maxmult);
+                    }
+                    if (maxmult < slays[pcurr->idx].multiplier) redundant = false;
+                    break;
+                }
+
+                case EFPROP_RESIST:
+                case EFPROP_CONFLICT_RESIST:
+                case EFPROP_CONFLICT_VULN:
+                {
+                    if (art->el_info[pcurr->idx].res_level >= pcurr->reslevel_min &&
+                        art->el_info[pcurr->idx].res_level <= pcurr->reslevel_max)
+                    {
+                        redundant = false;
+                    }
+                    break;
+                }
+
+                case EFPROP_OBJECT_FLAG:
+                {
+                    /*
+                     * It does something more than just the object
+                     * flag so don't call it redundant. To screen
+                     * out HERO and SHERO activations when the
+                     * object has OF_PROT_FEAR, use the same
+                     * handling for this case as for
+                     * EFPROP_OBJECT_FLAG_EXACT.
+                     */
+                    redundant = false;
+                    break;
+                }
+
+                case EFPROP_OBJECT_FLAG_EXACT:
+                case EFPROP_CURE_FLAG:
+                case EFPROP_CONFLICT_FLAG:
+                {
+                    /*
+                     * If the object doesn't have the flag, it's
+                     * not redundant.
+                     */
+                    if (!of_has(art->flags, pcurr->idx))
+                        redundant = false;
+                    break;
+                }
+
+                default:
+                {
+                    /*
+                     * effect_summarize_properties() gave use
+                     * something unexpected. Assume the effect is
+                     * useful.
+                     */
+                    redundant = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    while (props)
+    {
+        pcurr = props;
+        props = props->next;
+        mem_free(pcurr);
+    }
+
+    if (redundant) art->activation = NULL;
+}
+
+
+/*
  * Clean up the artifact by removing illogical combinations of powers.
  */
-static void remove_contradictory(struct artifact *art)
+static void remove_contradictory(struct player *p, struct artifact *art)
 {
     if (of_has(art->flags, OF_AGGRAVATE))
         art->modifiers[OBJ_MOD_STEALTH] = 0;
@@ -2661,6 +2783,8 @@ static void remove_contradictory(struct artifact *art)
         of_diff(art->flags, f2);
         of_on(art->flags, OF_ESP_ALL);
     }
+
+    remove_contradictory_activation(p, art);
 }
 
 
@@ -2806,7 +2930,7 @@ static void artifact_gen_name(char *buffer, int len, const char ***words)
  * close enough to the target power - currently this means between 19/20 and
  * 23/20 of the target power.
  */
-static bool design_artifact(struct artifact *art, struct artifact_set_data *data)
+static bool design_artifact(struct player *p, struct artifact *art, struct artifact_set_data *data)
 {
     struct object_kind *kind = lookup_kind(art->tval, art->sval);
     int art_freq[ART_IDX_TOTAL];
@@ -2877,7 +3001,7 @@ static bool design_artifact(struct artifact *art, struct artifact_set_data *data
         if (hurt_me) make_bad(art);
 
         /* Now remove contradictory or redundant powers. */
-        remove_contradictory(art);
+        remove_contradictory(p, art);
 
         /* Check the power, handle negative power */
         ap = artifact_power(art);
@@ -2958,7 +3082,8 @@ static char dummy[6] = "dummy";
 /*
  * Create a random artifact
  */
-static struct artifact* create_artifact(struct artifact *a, struct artifact_set_data *data)
+static struct artifact* create_artifact(struct player *p, struct artifact *a,
+    struct artifact_set_data *data)
 {
     struct artifact *art = mem_zalloc(sizeof(*art));
 
@@ -2983,7 +3108,7 @@ static struct artifact* create_artifact(struct artifact *a, struct artifact_set_
     }
 
     /* Randomize the artifact */
-    if (!design_artifact(art, data))
+    if (!design_artifact(p, art, data))
     {
         /* Failure */
         free_artifact(art);
@@ -2998,7 +3123,7 @@ static struct artifact* create_artifact(struct artifact *a, struct artifact_set_
 /*
  * Generate a random artifact
  */
-struct artifact* do_randart(s32b randart_seed, struct artifact *a)
+struct artifact* do_randart(struct player *p, s32b randart_seed, struct artifact *a)
 {
     u32b tmp_seed;
     bool rand_old;
@@ -3013,7 +3138,7 @@ struct artifact* do_randart(s32b randart_seed, struct artifact *a)
     Rand_quick = true;
 
     /* Generate the random artifact */
-    art = create_artifact(a, &local_data);
+    art = create_artifact(p, a, &local_data);
 
     /* When done, resume use of the Angband "complex" RNG. */
     Rand_value = tmp_seed;
@@ -3075,13 +3200,13 @@ void init_randart_generator(void)
 }
 
 
-int get_artifact_level(const struct object *obj)
+int get_artifact_level(struct player *p, const struct object *obj)
 {
     int lev;
     struct artifact *art = obj->artifact;
 
     if (obj->randart_seed)
-        art = do_randart(obj->randart_seed, obj->artifact);
+        art = do_randart(p, obj->randart_seed, obj->artifact);
 
     lev = art->level;
 

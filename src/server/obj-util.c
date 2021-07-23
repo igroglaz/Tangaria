@@ -546,7 +546,7 @@ int get_use_device_chance(struct player *p, const struct object *obj)
 
     /* Extract the item level, which is the difficulty rating */
     if (obj->artifact)
-        lev = get_artifact_level(obj);
+        lev = get_artifact_level(p, obj);
     else
         lev = obj->kind->level;
 

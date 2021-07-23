@@ -504,11 +504,14 @@ static void equip_notice_flags(struct player *p, int index)
  */
 bool player_has_temporary_brand(struct player *p, int idx)
 {
-    if (p->timed[TMD_ATT_ACID] && streq(brands[idx].code, "ACID_3")) return true;
-    if (p->timed[TMD_ATT_ELEC] && streq(brands[idx].code, "ELEC_3")) return true;
-    if (p->timed[TMD_ATT_FIRE] && streq(brands[idx].code, "FIRE_3")) return true;
-    if (p->timed[TMD_ATT_COLD] && streq(brands[idx].code, "COLD_3")) return true;
-    if (p->timed[TMD_ATT_POIS] && streq(brands[idx].code, "POIS_3")) return true;
+    int i = 0;
+
+    while (i < TMD_MAX)
+    {
+        if (timed_effects[i].temp_brand == idx && p->timed[i]) return true;
+        ++i;
+    }
+
     return false;
 }
 
@@ -518,8 +521,14 @@ bool player_has_temporary_brand(struct player *p, int idx)
  */
 bool player_has_temporary_slay(struct player *p, int idx)
 {
-    if (p->timed[TMD_ATT_EVIL] && streq(slays[idx].code, "EVIL_2")) return true;
-    if (p->timed[TMD_ATT_DEMON] && streq(slays[idx].code, "DEMON_5")) return true;
+    int i = 0;
+
+    while (i < TMD_MAX)
+    {
+        if (timed_effects[i].temp_slay == idx && p->timed[i]) return true;
+        ++i;
+    }
+
     return false;
 }
 

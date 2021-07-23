@@ -173,7 +173,7 @@ static void html_screenshot(const char *path, int mode)
     const char *change_color_fmt = ((mode == 0)?
         "</font><font color=\"#%02X%02X%02X\" style=\"background-color: #%02X%02X%02X\">":
         "[/COLOR][COLOR=\"#%02X%02X%02X\"]");
-    const char *close_color_fmt = ((mode == 0)? "</font>": "[/COLOR]");
+    const char *close_color_str = ((mode == 0)? "</font>": "[/COLOR]");
     ang_file *fp;
 
     fp = file_open(path, MODE_WRITE, FTYPE_TEXT);
@@ -235,7 +235,7 @@ static void html_screenshot(const char *path, int mode)
 
                 /* From another color to the default white */
                 else if ((fg_colour == COLOUR_WHITE) && (bg_colour == COLOUR_DARK))
-                    file_put(fp, close_color_fmt);
+                    file_putf(fp, "%s", close_color_str);
 
                 /* Change colors */
                 else
@@ -263,7 +263,7 @@ static void html_screenshot(const char *path, int mode)
     }
 
     /* Close the last font-color tag if necessary */
-    if (oa != COLOUR_WHITE) file_put(fp, close_color_fmt);
+    if (oa != COLOUR_WHITE) file_putf(fp, "%s", close_color_str);
 
     if (mode == 0)
     {

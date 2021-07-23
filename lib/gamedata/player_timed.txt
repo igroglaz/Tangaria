@@ -4,9 +4,20 @@
 #
 # Descriptions, messages and message types can be edited without bad effects.
 # Changing fail may have unpredictable results.
-# Changing the name, reordering, or adding whole new entires will severely
+# Changing the name, reordering, or adding whole new entries will severely
 # disrupt the game, and should only be done when list-player-timed.h
 # (and other code) is also being changed, and the game recompiled.
+# Changing a resist line will have to match to one of the hard-coded elements
+# from list-elements.h; currently, those resist lines are used to filter out
+# unnecessary messages when timed effects lapse and to affect selection of
+# randart activations.
+# Changing a brand or slay line will have to match to an entry in brand.txt or
+# slay.txt, respectively; besides the effect on combat, those lines also
+# affect selection of randart activations.
+# Changing a flag-synonym line will have to match to an entry, of type flag, in
+# object_property.txt; those lines are currently used to filter out unnecessary
+# messages when timed effects lapse and to affect selection of randart
+# activations.
 
 # === Understanding player_timed.txt ===
 
@@ -28,7 +39,21 @@
 #          3 - vulnerability
 #        param two:
 #          the actual flag that causes the failure
-#
+# resist - (optional) when this timed property is active, the recipient gain
+#          a temporary resistance to the named element
+# brand - (optional) when this timed property is active, the recipient gains
+#         the given brand (by its code in brand.txt) on equipped weapons; when
+#         there's no brand line, the timed property does not induce a brand
+# slay - (optional) when this timed property is active, the recipient gains
+#        the given slay (by its code in slay.txt) on equipped weapons; when
+#        there's no slay line, the timed property does not induce a slay
+# flag-synonym - (optional) indicate that this timed property is (largely)
+#         synonymous to the object property of type flag in
+#         object_property.txt with the code given by the first parameter; if
+#         the second parameter is not zero, this timed property is an exact
+#         synonym, except for duration; if the second parameter is zero, the
+#         timed property has other effects that are not implied by the named
+#         object property
 
 
 name:FAST
@@ -172,6 +197,7 @@ on-decrease:You feel less heroic.
 near-begin: appears heroic.
 near-end: appears less heroic.
 msgt:HERO
+flag-synonym:PROT_FEAR:0
 
 name:SHERO
 desc:berserk strength (a bonus of {+24} to-hit, and a penalty of {-10} to AC)
@@ -182,6 +208,7 @@ on-decrease:You feel less berserk.
 near-begin: enters a battle rage.
 near-end: calms down.
 msgt:BERSERK
+flag-synonym:PROT_FEAR:0
 
 name:SHIELD
 grade:G:10000:Shield:A mystic shield forms around your body!
@@ -211,6 +238,7 @@ on-decrease:Your eyes feel less sensitive.
 near-begin:'s eyes glow brightly.
 near-end:'s eyes are back to normal.
 msgt:SEE_INVIS
+flag-synonym:SEE_INVIS:1
 
 name:SINFRA
 desc:extra infravision ({+50} feet)
@@ -231,6 +259,7 @@ near-begin: is surrounded by an acidic aura.
 near-end:'s acidic aura disappears.
 msgt:RES_ACID
 fail:3:ACID
+resist:ACID
 
 name:OPP_ELEC
 desc:temporary resistance to lightning
@@ -242,6 +271,7 @@ near-begin: is surrounded by an electric aura.
 near-end:'s electric aura disappears.
 msgt:RES_ELEC
 fail:3:ELEC
+resist:ELEC
 
 name:OPP_FIRE
 desc:temporary resistance to fire
@@ -253,6 +283,7 @@ near-begin: is surrounded by a fiery aura.
 near-end:'s fiery aura disappears.
 msgt:RES_FIRE
 fail:3:FIRE
+resist:FIRE
 
 name:OPP_COLD
 desc:temporary resistance to cold
@@ -264,6 +295,7 @@ near-begin: is surrounded by a chilling aura.
 near-end:'s chilling aura disappears.
 msgt:RES_COLD
 fail:3:COLD
+resist:COLD
 
 name:OPP_POIS
 desc:temporary resistance to poison
@@ -275,6 +307,7 @@ near-begin: is surrounded by a toxic aura.
 near-end:'s toxic aura disappears.
 msgt:RES_POIS
 fail:3:POIS
+resist:POIS
 
 name:OPP_CONF
 desc:temporary resistance to confusion
@@ -284,6 +317,7 @@ on-increase:You feel more resistant to confusion!
 on-decrease:You feel less resistant to confusion.
 near-begin: is surrounded by a clear aura.
 near-end:'s clear aura disappears.
+flag-synonym:PROT_CONF:1
 
 name:AMNESIA
 desc:amnesia
@@ -299,6 +333,7 @@ on-end:Your mind retracts.
 on-increase:Your mind expands further.
 near-begin: appears receptive.
 near-end: appears less receptive.
+flag-synonym:ESP_ALL:1
 
 name:STONESKIN
 desc:stoneskin (a bonus of {+40} to AC, and a penalty of {-5} to speed)
@@ -332,6 +367,7 @@ on-decrease:You feel less bold.
 near-begin: feels bold.
 near-end: no longer feels bold.
 msgt:BOLD
+flag-synonym:PROT_FEAR:1
 
 name:SCRAMBLE
 desc:scrambled stats
@@ -351,6 +387,7 @@ on-increase:You feel even safer from traps!
 on-decrease:You feel less safe from traps.
 near-begin: appears stealthy.
 near-end: appears less stealthy.
+flag-synonym:TRAP_IMMUNE:1
 
 name:FASTCAST
 grade:i:10000:FastCast:You feel your mind accelerate.
@@ -364,6 +401,7 @@ grade:s:10000:AttAcid:Your {kind} start{s} to drip with acid!
 on-end:The acid disappears from your {kind}.
 near-begin:'s weapon is surrounded by an acidic aura.
 near-end:'s weapon's acidic aura disappears.
+brand:ACID_3
 
 name:ATT_ELEC
 desc:temporary lightning brand
@@ -371,6 +409,7 @@ grade:b:10000:AttElec:Sparks gather around your {kind}!
 on-end:The sparks fade from your {kind}.
 near-begin:'s weapon is surrounded by an electric aura.
 near-end:'s weapon's electric aura disappears.
+brand:ELEC_3
 
 name:ATT_FIRE
 desc:temporary fire brand
@@ -378,6 +417,7 @@ grade:r:10000:AttFire:Flames surround your {kind}!
 on-end:The flames on your {kind} subside.
 near-begin:'s weapon is surrounded by a fiery aura.
 near-end:'s weapon's fiery aura disappears.
+brand:FIRE_3
 
 name:ATT_COLD
 desc:temporary cold brand
@@ -385,6 +425,7 @@ grade:w:10000:AttCold:Your {kind} {is} covered in frost!
 on-end:The frost evaporates from your {kind}.
 near-begin:'s weapon is surrounded by a chilling aura.
 near-end:'s weapon's chilling aura disappears.
+brand:COLD_3
 
 name:ATT_POIS
 desc:temporary poison brand
@@ -392,6 +433,7 @@ grade:g:10000:AttPois:Your {kind} drip{s} with poison!
 on-end:The poison disappears from your {kind}.
 near-begin:'s weapon is surrounded by a toxic aura.
 near-end:'s weapon's toxic aura disappears.
+brand:POIS_3
 
 name:ATT_CONF
 desc:temporary monster confusion
@@ -406,6 +448,7 @@ grade:w:10000:AttEvil:Your {kind} {is} imbued with holy force!
 on-end:Holy force fades from your {kind}.
 near-begin:'s weapon is surrounded by a holy aura.
 near-end:'s weapon's holy aura disappears.
+slay:EVIL_2
 
 name:ATT_DEMON
 desc:temporary slay demon
@@ -413,6 +456,7 @@ grade:R:10000:AttDemon:Your {kind} become{s} a bane of demons!
 on-end:Your {kind} return{s} to normal.
 near-begin:'s weapon is surrounded by a demonbane aura.
 near-end:'s weapon's demonbane aura disappears.
+slay:DEMON_5
 
 name:ATT_VAMP
 grade:p:10000:AttVamp:Your touch becomes vampiric!
@@ -474,6 +518,7 @@ on-end:Your limbs return to normal.
 on-increase:Your limbs feel more energetic!
 near-begin:'s limbs fill with energy.
 near-end:'s limbs return to normal.
+flag-synonym:FREE_ACT:1
 
 # PWMAngband
 

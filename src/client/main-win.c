@@ -1147,6 +1147,10 @@ static errr term_force_font(term_data *td, const char *path)
 
 static void force_font(term_data *td, char *tmp, int len)
 {
+    /* Remember if tile size matched the font size. */
+    bool tile_match_size = !arg_graphics_nice && td->tile_wid == td->font_wid &&
+        td->tile_hgt == td->font_hgt;
+
     /* Force the font */
     if (term_force_font(td, tmp))
     {
@@ -1164,8 +1168,8 @@ static void force_font(term_data *td, char *tmp, int len)
         td->bizarre = true;
     }
 
-    /* Reset the tile info */
-    if ((td != &data[0]) || !td->tile_wid || !td->tile_hgt)
+    /* Reset the tile info (if not already set or if matching the font size) */
+    if ((td != &data[0]) || !td->tile_wid || !td->tile_hgt || tile_match_size)
     {
         td->tile_wid = td->font_wid;
         td->tile_hgt = td->font_hgt;

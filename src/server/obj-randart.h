@@ -76,10 +76,10 @@ struct artifact_set_data
 };
 
 extern int get_new_esp(bitflag flags[OF_SIZE]);
-extern struct artifact* do_randart(s32b randart_seed, struct artifact *art);
+extern struct artifact* do_randart(struct player *p, s32b randart_seed, struct artifact *art);
 extern void do_randart_name(s32b randart_seed, char *buffer, int len);
 extern void init_randart_generator(void);
-extern int get_artifact_level(const struct object *obj);
+extern int get_artifact_level(struct player *p, const struct object *obj);
 extern void free_artifact(struct artifact *art);
 
 #endif /* OBJECT_RANDART_H */

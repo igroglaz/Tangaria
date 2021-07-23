@@ -765,6 +765,9 @@ void become_aware(struct player *p, struct chunk *c, struct monster *mon)
         /* Otherwise delete the mimicked object */
         if (!rf_has(mon->race->flags, RF_MIMIC_INV) || !monster_carry(mon, obj, true))
             object_delete(&obj);
+
+        /* Since mimicry affects visibility, update that. */
+        update_mon(mon, c, false);
     }
 
     /* Delete any false features */

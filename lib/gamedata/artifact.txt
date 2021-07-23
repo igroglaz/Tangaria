@@ -65,11 +65,11 @@
 
 # 'curse' is for curses
 
-# 'desc' is for the artifact description. These appear when the item is 
+# 'desc' is for the artifact description. These appear when the item is
 # identified. Special thanks to J.R.R Tolkien, without whom the words would
 # be unwritten, the images unconceived, the deed undone.
 # Contributors: Jeff Butler, Neal Hackler, Ethan Sicotte, Pat Tracy,
-# Yuanli Zhou 
+# Yuanli Zhou
 
 ### IMPORTANT NOTES ###
 # (1.) Any changes or additions to the file may have influence on randarts

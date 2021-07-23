@@ -507,7 +507,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
         if (valid)
         {
             /* Give a message */
-            if (trap->kind->msg) msg(p, trap->kind->msg);
+            if (trap->kind->msg) msg(p, "%s", trap->kind->msg);
 
             /* Test for save due to flag */
             for (flag = of_next(trap->kind->save_flags, FLAG_START); flag != FLAG_END;
@@ -537,7 +537,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
             /* Save, or fire off the trap */
             if (saved)
             {
-                if (trap->kind->msg_good) msg(p, trap->kind->msg_good);
+                if (trap->kind->msg_good) msg(p, "%s", trap->kind->msg_good);
             }
             else
             {
@@ -547,7 +547,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 source_player(who, get_player_index(get_connection(p->conn)), p);
                 who->trap = trap;
 
-                if (trap->kind->msg_bad) msg(p, trap->kind->msg_bad);
+                if (trap->kind->msg_bad) msg(p, "%s", trap->kind->msg_bad);
 
                 effect = trap->kind->effect;
                 effect_do(effect, who, &ident, false, 0, NULL, 0, 0, NULL);
@@ -558,7 +558,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 /* Do any extra effects */
                 if (trap->kind->effect_xtra && one_in_(2))
                 {
-                    if (trap->kind->msg_xtra) msg(p, trap->kind->msg_xtra);
+                    if (trap->kind->msg_xtra) msg(p, "%s", trap->kind->msg_xtra);
                     effect = trap->kind->effect_xtra;
                     effect_do(effect, who, &ident, false, 0, NULL, 0, 0, NULL);
 

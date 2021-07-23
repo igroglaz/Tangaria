@@ -1575,7 +1575,7 @@ cost:4
 alloc:20:1 to 100
 attack:1d1:0:0
 armor:1:0
-desc:A set of open-topped footgear with soft calfskin lacings and a sturdy 
+desc:A set of open-topped footgear with soft calfskin lacings and a sturdy
 desc: cured leather base.
 
 name:& Pair~ of Leather Boots
@@ -1994,7 +1994,7 @@ alloc:8:40 to 100
 attack:0d0:0:0
 armor:6:0
 values:STEALTH[1] | SPEED[1]
-desc:A mantle made of curious silken material by the Galadrim that wondrously 
+desc:A mantle made of curious silken material by the Galadrim that wondrously
 desc: takes on the hues and shapes of its surroundings.
 
 name:& Ethereal Cloak~

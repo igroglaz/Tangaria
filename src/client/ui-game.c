@@ -272,14 +272,21 @@ static void textui_process_command_aux(ui_event e)
     /* Null command */
     if (!key && done)
     {
-        if (first_escape) Send_clear();
-        first_escape = false;
+        /* Only process "first_escape" while playing */
+        if (Setup.ready)
+        {
+            if (first_escape) Send_clear();
+            first_escape = false;
+        }
         return;
     }
 
     /* Use command menus */
-    if ((key == KC_ENTER) && !OPT(player, disable_enter) && Setup.ready)
+    if (key == KC_ENTER)
+    {
+        if (OPT(player, disable_enter) || !Setup.ready) return;
         cmd = textui_action_menu_choose();
+    }
 
     /* Command key */
     else

@@ -1072,7 +1072,7 @@ bool create_randart_drop(struct player *p, struct chunk *c, struct object **obj_
     randart_seed += randint0(0xFFFF);
 
     /* Attempt to change the object into a random artifact */
-    art = do_randart(randart_seed, &a_info[a_idx]);
+    art = do_randart(p, randart_seed, &a_info[a_idx]);
 
     /* Skip "empty" items */
     if (!art) return false;
@@ -2087,7 +2087,7 @@ void reroll_randart(struct player *p, struct chunk *c)
     }
 
     /* Reroll (with same seed) */
-    art = do_randart(obj->randart_seed, obj->artifact);
+    art = do_randart(p, obj->randart_seed, obj->artifact);
 
     /* Skip "empty" items */
     if (!art)

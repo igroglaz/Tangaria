@@ -8,7 +8,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 beta 4
+New features in PWMAngband 1.5.0 beta 6
 =======================================
 
 User interface
@@ -109,6 +109,8 @@ Angband 4.2.x:
   the player or SQUARE_GLOW
 - Implement new device failure calculation
 - Allow the equipped weapon (if it isn't stickily cursed) to be thrown
+- Avoid randart activations that duplicate or conflict with other artifact
+  properties
 
 MAngband 1.5.x:
 
@@ -171,6 +173,7 @@ PWMAngband:
 - Remove AGGRAVATE from Hydra race
 - Allow starting "gifts" depending on chosen race
 - Prevent creating doors outside of dungeons
+- Don't reposition the player on NO_STAIRS terrain when logging back in dungeons
 
 Bugs fixed
 ----------
@@ -191,6 +194,8 @@ Angband 4.2.x:
 - Set ego minima correctly
 - Fix message when decrementing from a stack when there are multiple similar
   stacks (i.e. phase door scrolls or cure wounds potions)
+- Change handling of projections with unrevealed mimics
+- Change lighting of walls on surface
 
 MAngband 1.5.x:
 
@@ -240,6 +245,11 @@ PWMAngband:
 - Fix PROJECT_LOS_AWARE
 - Fix compatibility with Angband ladder dumps
 - Fix knowledge menus under Linux
+- Fix crash when trying to write a parsing error message to server log during
+  setup phase
+- Fix disable_enter option
+- Don't send a "clear" packet when pressing SPACE during setup phase
+- Changing font size on Windows doesn't refresh terms properly
 
 Coding changes
 --------------
@@ -284,6 +294,7 @@ Angband 4.2.x:
 - Introduce effects SET_VALUE and CLEAR_VALUE to align times for multiple timed
   effects
 - Reduce usage of standard string functions strcmp() and sprintf()
+- Always initialize second argument passed to scatter()
 
 MAngband 1.5.x:
 
@@ -342,3 +353,4 @@ Compilation/documentation
 - Update comments for room templates' rating and type
 - Update .gitignore
 - Update version.rst with bits of MAngband history
+- Fill out comments describing curse.txt
