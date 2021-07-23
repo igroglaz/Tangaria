@@ -224,16 +224,16 @@ void cleanup_body(void)
 player_sex sex_info[MAX_SEXES] =
 {
     {
-        "Female",
-        "Queen",
-        "Empress",
-        "Goddess"
-    },
-    {
         "Male",
         "King",
         "Emperor",
         "God"
+    },
+    {
+        "Female",
+        "Queen",
+        "Empress",
+        "Goddess"
     },
     {
         "Neuter",

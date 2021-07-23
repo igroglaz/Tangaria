@@ -1270,7 +1270,7 @@ struct player *player_birth(int id, u32b account, const char *name, const char *
     /* Do some consistency checks */
     if (ridx >= player_rmax()) ridx = 0;
     if (cidx >= player_cmax()) cidx = 0;
-    if (psex >= MAX_SEXES) psex = SEX_FEMALE;
+    if (psex >= MAX_SEXES) psex = SEX_MALE;
 
     /* Allocate player and set pointer */
     p = mem_zalloc(sizeof(struct player));

@@ -588,7 +588,7 @@ static void setup_menus(void)
     init_birth_menu(&sex_menu, MAX_SEXES, player->psex, &gender_region, true, NULL);
     mdata = sex_menu.menu_data;
     for (i = 0; i < MAX_SEXES; i++) mdata->items[i] = sex_info[i].title;
-    mdata->hint = "Man, woman or beast... what is it going to be?";
+    mdata->hint = "It is not the strength of the body, but the strength of the spirit..";
 
     /* Count the races */
     n = player_rmax();

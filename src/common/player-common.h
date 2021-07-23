@@ -27,8 +27,8 @@
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */
-#define SEX_FEMALE  0
-#define SEX_MALE    1
+#define SEX_MALE  0
+#define SEX_FEMALE    1
 #define SEX_NEUTER  2
 
 /*
