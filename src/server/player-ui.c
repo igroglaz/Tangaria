@@ -330,7 +330,7 @@ static void write_character_dump(ang_file *fff, void *data)
                 /* Hack for the player who is already dead and gone */
                 if (player_is_at(p, &grid))
                 {
-                    c = (victory? '@': '†');
+                    c = (victory? '@': '@');
                     a = COLOUR_WHITE;
                 }
 
