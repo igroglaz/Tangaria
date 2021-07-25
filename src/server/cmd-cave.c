@@ -3404,6 +3404,8 @@ bool create_house(struct player *p, int small_house)
     }
     while (loc_iterator_next_strict(&iter));
 
+    msg(p, "To create a door - 'T'unnel the wall in desirable place.");
+
     return true;
 }
 
