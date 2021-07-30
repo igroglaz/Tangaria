@@ -263,7 +263,7 @@ stairs.
 
 In the dungeon, there are many things to find, but your character must
 survive many horrible and challenging encounters to find the treasure lying
-about and take it safely back to the town to sell.
+about.
 
 There are two sources for light once inside the dungeon. Permanent light
 which has been magically placed within rooms, and a light source carried by
@@ -508,7 +508,8 @@ The possible messages are:
   * $ - "you sense an item of wondrous power!"
 
 The last message indicates an artifact is present and is only possible
-if the preserve option is disabled.
+if the preserve option is disabled (if preserve is enabled, an artifact will
+guarantee a feeling of 5 or better).
 
 You may review your level feeling any time by using the ^F command.
 You may also consult it by checking the LF: indicator at the bottom

@@ -265,6 +265,33 @@ static void spell_check_for_fail_rune(struct player *p, const struct monster_spe
 
 
 /*
+ * Calculate the base to-hit value for a monster spell based on race only
+ * See also: chance_of_monster_hit_base
+ */
+static int chance_of_spell_hit_base(const struct monster_race *race,
+    const struct monster_spell *spell)
+{
+    return MAX(race->level, 1) * 3 + spell->hit;
+}
+
+
+/*
+ * Calculate the to-hit value of a monster spell for a specific monster
+ */
+static int chance_of_spell_hit(const struct monster *mon, const struct monster_spell *spell)
+{
+    int to_hit = chance_of_spell_hit_base(mon->race, spell);
+    int i;
+
+    /* Apply confusion hit reduction for each level of confusion */
+    for (i = 0; i < monster_effect_level(mon, MON_TMD_CONF); i++)
+        to_hit = to_hit * (100 - CONF_HIT_REDUCTION) / 100;
+
+    return to_hit;
+}
+
+
+/*
  * Process a monster spell
  *
  * p is the affected player
@@ -296,15 +323,10 @@ void do_mon_spell(struct player *p, struct chunk *c, struct monster *target_mon,
         hits = false;
     else
     {
-        int rlev = MAX(mon->race->level, 1);
-        int accuracy = monster_effect_accuracy(mon, MON_TMD_CONF, CONF_HIT_REDUCTION);
-        struct source target_body;
-        struct source *target = &target_body;
-
-        if (target_mon) source_monster(target, target_mon);
-        else source_player(target, get_player_index(get_connection(p->conn)), p);
-
-        hits = check_hit(target, spell->hit, rlev, accuracy);
+        if (target_mon)
+            hits = test_hit(chance_of_spell_hit(mon, spell), target_mon->race->ac);
+        else
+            hits = check_hit(p, chance_of_spell_hit(mon, spell));
     }
 
     /* Tell the player what's going on */

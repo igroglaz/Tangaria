@@ -408,17 +408,6 @@ bool square_reveal_trap(struct player *p, struct loc *grid, bool always, bool do
 }
 
 
-/*
- * Determine if a trap affects the player.
- * Always miss 5% of the time, always hit 12% of the time.
- * Otherwise, match trap power against player armor.
- */
-bool trap_check_hit(struct player *p, int power)
-{
-    return test_hit(power, p->state.ac + p->state.to_a, true);
-}
-
-
 void trap_msg_death(struct player *p, struct trap *trap, char *msg, int len)
 {
     if (trap->kind->msg_death)
@@ -527,7 +516,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 saved = false;
 
             /* Test for save due to armor */
-            if (trf_has(trap->kind->flags, TRF_SAVE_ARMOR) && !trap_check_hit(p, 125))
+            if (trf_has(trap->kind->flags, TRF_SAVE_ARMOR) && !check_hit(p, 125))
                 saved = true;
 
             /* Test for save due to saving throw */

@@ -812,8 +812,8 @@ struct player
     struct target target;                   /* Player target */
     bool target_fixed;                      /* Is the target fixed (for the duration of a spell)? */
     struct target old_target;               /* Old player target */
-    bool tt_flag;                           /* Interesting grids */
-    s16b tt_m;                              /* Current index */
+    bool show_interesting;                  /* Interesting grids */
+    s16b target_index;                      /* Current index */
     struct loc tt_grid;                     /* Current location */
     struct object *tt_o;                    /* Current object */
     byte tt_step;                           /* Current step */

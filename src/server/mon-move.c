@@ -1557,6 +1557,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     {
         /* Remove the wall */
         square_destroy_wall(c, grid);
+        if (c->wpos.depth == 0) expose_to_sun(c, grid, is_daytime());
 
         /* Note changes to viewable region */
         note_viewable_changes(&c->wpos, grid);

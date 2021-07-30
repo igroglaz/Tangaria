@@ -26,6 +26,7 @@ Angband 4.2.x:
 - Remove option to display help from the options screen
 - Change monster.txt's comments for specific drops
 - Add power to remove curse effect description
+- Allow ignore while looking
 
 MAngband 1.5.x:
 
@@ -250,6 +251,7 @@ PWMAngband:
 - Fix disable_enter option
 - Don't send a "clear" packet when pressing SPACE during setup phase
 - Changing font size on Windows doesn't refresh terms properly
+- Initialize the RNG on the client
 
 Coding changes
 --------------
@@ -295,6 +297,10 @@ Angband 4.2.x:
   effects
 - Reduce usage of standard string functions strcmp() and sprintf()
 - Always initialize second argument passed to scatter()
+- Refactor hit chance calculation
+- Update visuals after successfully tunneling
+- For town generation, also clear room flag on the walls
+- Remove redundant item testers
 
 MAngband 1.5.x:
 
@@ -354,3 +360,4 @@ Compilation/documentation
 - Update .gitignore
 - Update version.rst with bits of MAngband history
 - Fill out comments describing curse.txt
+- Update help

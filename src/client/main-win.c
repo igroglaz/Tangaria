@@ -4224,6 +4224,9 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, in
 
     turn_off_numlock();
 
+    /* Initialize RNG */
+    Rand_init();
+
     /* Initialize everything, contact the server, and start the loop */
     client_init(true);
 

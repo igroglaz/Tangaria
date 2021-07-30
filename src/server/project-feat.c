@@ -127,6 +127,8 @@ static void project_feature_handler_FIRE(project_feature_handler_context_t *cont
     {
         /* Forget the floor, make lava. */
         square_set_feat(context->cave, &context->grid, FEAT_LAVA);
+        if (context->cave->wpos.depth == 0)
+            expose_to_sun(context->cave, &context->grid, is_daytime());
 
         /* Objects that have survived should move */
         push_object(context->origin->player, context->cave, &context->grid);
@@ -150,6 +152,8 @@ static void project_feature_handler_COLD(project_feature_handler_context_t *cont
             square_set_rubble(context->cave, &context->grid, FEAT_RUBBLE);
         else
             square_set_rubble(context->cave, &context->grid, FEAT_PASS_RUBBLE);
+        if (context->cave->wpos.depth == 0)
+            expose_to_sun(context->cave, &context->grid, is_daytime());
     }
 }
 
@@ -278,6 +282,8 @@ static void project_feature_handler_ICE(project_feature_handler_context_t *conte
             square_set_rubble(context->cave, &context->grid, FEAT_RUBBLE);
         else
             square_set_rubble(context->cave, &context->grid, FEAT_PASS_RUBBLE);
+        if (context->cave->wpos.depth == 0)
+            expose_to_sun(context->cave, &context->grid, is_daytime());
     }
 }
 
@@ -320,6 +326,8 @@ static void project_feature_handler_PLASMA(project_feature_handler_context_t *co
     {
         /* Forget the floor, make lava. */
         square_set_feat(context->cave, &context->grid, FEAT_LAVA);
+        if (context->cave->wpos.depth == 0)
+            expose_to_sun(context->cave, &context->grid, is_daytime());
 
         /* Objects that have survived should move */
         push_object(context->origin->player, context->cave, &context->grid);
@@ -424,6 +432,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
         /* Destroy the rubble */
         square_destroy_rubble(context->cave, &grid);
 
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
+
         /* Update the visuals */
         update_visuals(&context->cave->wpos);
 
@@ -470,6 +481,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
             /* Destroy the feature */
             square_destroy_door(context->cave, &grid);
 
+            /* On the surface, new terrain may be exposed to the sun. */
+            if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
+
             /* Update the visuals */
             update_visuals(&context->cave->wpos);
         }
@@ -486,6 +500,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
 
         /* Destroy the wall */
         square_destroy_wall(context->cave, &grid);
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
         /* Update the visuals */
         update_visuals(&context->cave->wpos);
@@ -509,6 +526,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
         /* Destroy the wall */
         square_destroy_wall(context->cave, &grid);
 
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
+
         /* Update the visuals */
         update_visuals(&context->cave->wpos);
 
@@ -526,6 +546,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
 
         /* Destroy the wall */
         square_destroy_wall(context->cave, &grid);
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
         /* Update the visuals */
         update_visuals(&context->cave->wpos);
@@ -545,6 +568,9 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
 
         /* Destroy the wall */
         square_destroy_wall(context->cave, &grid);
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
         /* Update the visuals */
         update_visuals(&context->cave->wpos);
@@ -584,6 +610,9 @@ static void project_feature_handler_KILL_DOOR(project_feature_handler_context_t 
 
         /* Destroy the feature */
         square_destroy_door(context->cave, &grid);
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
         /* Visibility change */
         if (square_issecretdoor(context->cave, &grid) ||
@@ -710,6 +739,7 @@ static void project_feature_handler_STONE_WALL(project_feature_handler_context_t
 
     /* Place a wall */
     square_add_wall(context->cave, &grid);
+    if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
     /* Observe */
     if (context->line_sound) context->obvious = true;

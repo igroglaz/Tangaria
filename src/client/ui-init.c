@@ -524,7 +524,6 @@ void client_init(bool new_game)
         my_strcpy(player->locname, "intro", sizeof(player->locname));
 
         play_intro_music();
-        player->locname[0] = '\0';
     }
 
     if (new_game)

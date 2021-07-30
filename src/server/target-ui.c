@@ -22,15 +22,25 @@
 
 
 /*
+ * Check if a UI event matches a certain keycode ('a', 'b', etc)
+ */
+static bool event_is_key(u32b e, u32b key)
+{
+    return (e == key);
+}
+
+
+/*
  * Display targeting help at the bottom of the screen
  */
-void target_display_help(char *help, size_t len, bool monster, bool free)
+static void target_display_help(char *help, size_t len, bool monster, bool object, bool free)
 {
     /* Display help */
     my_strcpy(help, "[Press <dir>, 'p', 'q', 'r'", len);
     if (free) my_strcat(help, ", 'm'", len);
     else my_strcat(help, ", '+', '-', 'o'", len);
     if (monster || free) my_strcat(help, ", 't'", len);
+    if (object) my_strcat(help, ", 'i'", len);
     my_strcat(help, ", Return, or Space]", len);
 }
 
@@ -286,16 +296,10 @@ static bool target_set_interactive_aux(struct player *p, struct loc *grid, int m
                 strnfmt(player_name, sizeof(player_name), "%s the %s %s", who->player->name,
                     who->player->race->name, who->player->clazz->name);
 
-                /* Hack -- track this player */
+                /* Track this player */
                 monster_race_track(p->upkeep, who);
-
-                /* Hack -- health bar for this player */
                 health_track(p->upkeep, who);
-
-                /* Hack -- track cursor for this player */
                 cursor_track(p, who);
-
-                /* Hack -- handle stuff */
                 handle_stuff(p);
 
                 /* Interact */
@@ -360,16 +364,10 @@ static bool target_set_interactive_aux(struct player *p, struct loc *grid, int m
                 /* Get the monster name ("a kobold") */
                 monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_IND_VIS);
 
-                /* Hack -- track this monster race */
+                /* Track this monster */
                 monster_race_track(p->upkeep, who);
-
-                /* Hack -- health bar for this monster */
                 health_track(p->upkeep, who);
-
-                /* Hack -- track cursor for this monster */
                 cursor_track(p, who);
-
-                /* Hack -- handle stuff */
                 handle_stuff(p);
 
                 /* Interact */
@@ -537,14 +535,12 @@ static bool target_set_interactive_aux(struct player *p, struct loc *grid, int m
                 /* Done */
                 break;
             }
-
-            /* Only one object to display */
             else
             {
                 bool recall = false;
                 char o_name[NORMAL_WID];
 
-                /* Get the single object in the list */
+                /* Only one object to display */
                 struct object *obj = floor_list[0];
 
                 /* Not boring */
@@ -803,6 +799,27 @@ void load_path(struct player *p, u16b path_n, struct loc *path_g)
 
 
 /*
+ * Return true if the object pile contains the player's tracked object
+ *
+ * PWMAngband: simplified by using the "known" pile and checking vs visible and known objects
+ */
+static bool pile_is_tracked(struct player *p, struct chunk *c, struct loc *grid)
+{
+    struct object *obj;
+
+    for (obj = square_known_pile(p, c, grid); obj; obj = obj->next)
+    {
+        /* Must be known and visible */
+        if (is_unknown(obj) || ignore_item_ok(p, obj)) continue;
+
+        if (p->upkeep->object == obj) return true;
+    }
+
+    return false;
+}
+
+
+/*
  * Extract a direction (or zero) from a character
  */
 static int target_dir(u32b ch)
@@ -833,28 +850,25 @@ static int target_dir(u32b ch)
 }
 
 
-static void set_tt_m(struct player *p, s16b m)
+static void set_target_index(struct player *p, s16b index)
 {
-    p->tt_m = m;
+    p->target_index = index;
     p->tt_o = NULL;
 }
 
 
 /*
- * Handle "target" and "look".
+ * Handle "target" and "look". May be called from commands or "get_aim_dir()".
  *
- * Note that this code can be called from "get_aim_dir()".
+ * Currently, when "interesting" grids are being used, and a directional key is
+ * pressed, we only scroll by a single panel, in the direction requested, and
+ * check for any interesting grids on that panel. The "correct" solution would
+ * actually involve scanning a larger set of grids, including ones in panels
+ * which are adjacent to the one currently scanned, but this is overkill for
+ * this function.
  *
- * Currently, when "flag" is true, that is, when
- * "interesting" grids are being used, and a directional key is used, we
- * only scroll by a single panel, in the direction requested, and check
- * for any interesting grids on that panel.  The "correct" solution would
- * actually involve scanning a larger set of grids, including ones in
- * panels which are adjacent to the one currently scanned, but this is
- * overkill for this function.  XXX XXX
- *
- * Hack -- targeting/observing an "outer border grid" may induce
- * problems, so this is not currently allowed.
+ * Targetting/observing an "outer border grid" may induce problems, so this is
+ * not currently allowed.
  *
  * The player can use the direction keys to move among "interesting"
  * grids in a heuristic manner, or the "space", "+", and "-" keys to
@@ -886,12 +900,10 @@ static void set_tt_m(struct player *p, s16b m)
  * or -1 if no location is specified.
  * Returns true if a target has been successfully set, false otherwise.
  */
-bool target_set_interactive(struct player *p, int mode, u32b query)
+bool target_set_interactive(struct player *p, int mode, u32b press)
 {
-    int i, d, t, bd;
     bool done = false;
     struct point_set *targets;
-    bool good_target;
     char help[NORMAL_WID];
     struct target old_target_body;
     struct target *old_target = &old_target_body;
@@ -912,15 +924,15 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
         auto_target = true;
     }
 
-    if (query == '\0')
+    if (press == '\0')
     {
-        p->tt_flag = true;
+        p->show_interesting = true;
         p->tt_step = TARGET_NONE;
         p->tt_help = false;
     }
 
     /* Start on the player */
-    if (query == '\0')
+    if (press == '\0')
     {
         loc_copy(&p->tt_grid, &p->grid);
 
@@ -934,17 +946,19 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
     /* Cancel tracking */
     cursor_track(p, NULL);
 
-    /* Prepare the "temp" array */
+    /* Prepare the target set */
     targets = target_get_monsters(p, mode, true);
 
     /* Start near the player */
-    if (query == '\0')
+    if (press == '\0')
     {
-        set_tt_m(p, 0);
+        set_target_index(p, 0);
 
         /* Hack -- auto-target if requested */
         if (auto_target)
         {
+            int i;
+
             /* Find the old target */
             for (i = 0; i < point_set_size(targets); i++)
             {
@@ -955,7 +969,7 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
 
                 if (source_equal(temp_who, &old_target->target_who))
                 {
-                    set_tt_m(p, i);
+                    set_target_index(p, i);
                     break;
                 }
             }
@@ -965,25 +979,28 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
     /* Interact */
     while (tries-- && !done)
     {
-        bool ret;
+        bool use_interesting_mode, use_free_mode, has_target, has_object;
+        struct source who_body;
+        struct source *who = &who_body;
 
         /* Paranoia: grids could have changed! */
-        if (p->tt_m >= point_set_size(targets)) set_tt_m(p, point_set_size(targets) - 1);
-        if (p->tt_m < 0) set_tt_m(p, 0);
+        if (p->target_index >= point_set_size(targets))
+            set_target_index(p, point_set_size(targets) - 1);
+        if (p->target_index < 0) set_target_index(p, 0);
 
 #ifdef NOTARGET_PROMPT
         /* No targets */
-        if (p->tt_flag && !point_set_size(targets))
+        if (p->show_interesting && !point_set_size(targets))
         {
             /* Analyze */
-            switch (query)
+            switch (press)
             {
                 case ESCAPE:
                 case 'q': break;
 
                 case 'p':
                 {
-                    p->tt_flag = false;
+                    p->show_interesting = false;
                     break;
                 }
 
@@ -1008,342 +1025,242 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
         }
 #endif
 
-        /* Interesting grids if chosen and there are any, otherwise arbitrary */
-        if (p->tt_flag && point_set_size(targets))
-        {
-            struct source who_body;
-            struct source *who = &who_body;
+        use_interesting_mode = p->show_interesting && point_set_size(targets);
+        use_free_mode = !use_interesting_mode;
 
-            loc_copy(&p->tt_grid, &targets->pts[p->tt_m].grid);
+        /* Use an interesting grid if requested and there are any */
+        if (use_interesting_mode)
+        {
+            loc_copy(&p->tt_grid, &targets->pts[p->target_index].grid);
 
             /* Adjust panel if needed */
             if (adjust_panel_help(p, p->tt_grid.y, p->tt_grid.x)) handle_stuff(p);
+        }
 
-            /* Update help */
-            square_actor(c, &targets->pts[p->tt_m].grid, who);
-            good_target = target_able(p, who);
-            target_display_help(help, sizeof(help), good_target, false);
+        /* Update help */
+        square_actor(c, &p->tt_grid, who);
+        has_target = target_able(p, who);
+        has_object = !(mode & TARGET_KILL) && pile_is_tracked(p, c, &p->tt_grid);
+        target_display_help(help, sizeof(help), has_target, has_object, use_free_mode);
 
-            /* Find the path. */
-            p->path_n = project_path(p, p->path_g, z_info->max_range, c, &p->grid,
-                &targets->pts[p->tt_m].grid, PROJECT_THRU | PROJECT_INFO);
+        /* Find the path. */
+        p->path_n = project_path(p, p->path_g, z_info->max_range, c, &p->grid, &p->tt_grid,
+            PROJECT_THRU | PROJECT_INFO);
 
-            /* Draw the path in "target" mode. If there is one */
-            if (mode & TARGET_KILL)
-                p->path_drawn = draw_path(p, p->path_n, p->path_g, &p->grid);
+        /* Draw the path in "target" mode. If there is one */
+        if (mode & TARGET_KILL)
+            p->path_drawn = draw_path(p, p->path_n, p->path_g, &p->grid);
 
-            /* Describe and Prompt */
-            ret = target_set_interactive_aux(p, &p->tt_grid, mode, help, query);
+        /* Describe and Prompt */
+        if (target_set_interactive_aux(p, &p->tt_grid, mode | (use_free_mode? TARGET_LOOK: 0),
+            help, press))
+        {
+            point_set_dispose(targets);
+            return false;
+        }
 
-            if (ret)
+        /* Remove the path */
+        if (p->path_drawn) load_path(p, p->path_n, p->path_g);
+
+        /* Handle an input event */
+        if (event_is_key(press, ESCAPE) || event_is_key(press, 'q') || event_is_key(press, 'r'))
+        {
+            /* Cancel */
+            done = true;
+        }
+        else if (event_is_key(press, ' ') || event_is_key(press, '(') || event_is_key(press, '*') ||
+            event_is_key(press, '+'))
+        {
+            /* Cycle interesting target forward */
+            if (use_interesting_mode)
             {
-                point_set_dispose(targets);
-                return false;
+                set_target_index(p, p->target_index + 1);
+                if (p->target_index == point_set_size(targets)) set_target_index(p, 0);
             }
 
-            /* Remove the path */
-            if (p->path_drawn) load_path(p, p->path_n, p->path_g);
-
-            /* Assume no "direction" */
-            d = 0;
-
-            /* Analyze */
-            switch (query)
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else if (event_is_key(press, '-'))
+        {
+            /* Cycle interesting target backwards */
+            if (use_interesting_mode)
             {
-                case ESCAPE:
-                case 'q':
-                case 'r':
+                set_target_index(p, p->target_index - 1);
+                if (p->target_index == -1) set_target_index(p, point_set_size(targets) - 1);
+            }
+
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else if (event_is_key(press, 'p'))
+        {
+            /* Focus the player and switch to free mode */
+            loc_copy(&p->tt_grid, &p->grid);
+            p->show_interesting = false;
+
+            /* Recenter around player */
+            verify_panel(p);
+            handle_stuff(p);
+
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else if (event_is_key(press, 'o'))
+        {
+            /* Switch to free mode */
+            p->show_interesting = false;
+
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else if (event_is_key(press, 'm'))
+        {
+            /* Switch to interesting mode */
+            if (use_free_mode && point_set_size(targets) > 0)
+            {
+                int min_dist = 999, i;
+
+                p->show_interesting = true;
+                set_target_index(p, 0);
+
+                /* Pick a nearby monster */
+                for (i = 0; i < point_set_size(targets); i++)
                 {
-                    done = true;
-                    break;
-                }
+                    int dist = distance(&p->tt_grid, &targets->pts[i].grid);
 
-                case ' ':
-                case '(':
-                case '*':
-                case '+':
-                {
-                    set_tt_m(p, p->tt_m + 1);
-                    if (p->tt_m == point_set_size(targets)) set_tt_m(p, 0);
-
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case '-':
-                {
-                    set_tt_m(p, p->tt_m - 1);
-                    if (p->tt_m == -1) set_tt_m(p, point_set_size(targets) - 1);
-
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 'p':
-                {
-                    /* Recenter around player */
-                    verify_panel(p);
-
-                    /* Handle stuff */
-                    handle_stuff(p);
-
-                    loc_copy(&p->tt_grid, &p->grid);
-                }
-
-                /* fallthrough */
-                case 'o':
-                {
-                    p->tt_flag = false;
-
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 'm':
-                {
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 't':
-                case '5':
-                case '0':
-                case '.':
-                {
-                    square_actor(c, &p->tt_grid, who);
-
-                    if (target_able(p, who))
+                    /* Pick closest */
+                    if (dist < min_dist)
                     {
-                        health_track(p->upkeep, who);
-                        target_set_monster(p, who);
+                        set_target_index(p, i);
+                        min_dist = dist;
                     }
-
-                    done = true;
-
-                    break;
                 }
 
-                default:
+                /* Nothing interesting */
+                if (min_dist == 999) p->show_interesting = false;
+            }
+
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else if (event_is_key(press, 't') || event_is_key(press, '5') || event_is_key(press, '0') ||
+            event_is_key(press, '.'))
+        {
+            /* Set a target and done */
+            if (use_interesting_mode)
+            {
+                square_actor(c, &p->tt_grid, who);
+
+                if (target_able(p, who))
                 {
-                    /* Extract direction */
-                    d = target_dir(query);
+                    health_track(p->upkeep, who);
+                    target_set_monster(p, who);
+                }
+            }
+            else
+                target_set_location(p, &p->tt_grid);
 
-                    /* Oops */
-                    if (!d)
+            done = true;
+        }
+        else if (event_is_key(press, 'i'))
+        {
+            /* Ignore the tracked object, set by target_set_interactive_aux() */
+            if (has_object)
+            {
+                struct object *base_obj;
+
+                /* PWMAngband: get this item's base object (because we track the known copy of it) */
+                for (base_obj = square_object(c, &p->tt_grid); base_obj; base_obj = base_obj->next)
+                {
+                    if (base_obj->oidx == p->upkeep->object->oidx)
                     {
-                        /* Hack -- acknowledge */
-                        if (query != KC_ENTER) query = '\0';
-                    }
+                        /*textui_cmd_ignore_menu(p->upkeep->object);*/
 
-                    break;
+                        /* PWMAngband: just toggle ignore for now */
+                        do_cmd_destroy_aux(p, base_obj, false);
+                        square_know_pile(p, c, &p->tt_grid);
+                        p->upkeep->update |= (PU_UPDATE_VIEW);
+                        p->upkeep->redraw |= (PR_MAP | PR_OBJECT | PR_ITEMLIST);
+
+                        /* Recalculate interesting grids */
+                        point_set_dispose(targets);
+                        targets = target_get_monsters(p, mode, true);
+
+                        break;
+                    }
                 }
             }
 
-            /* Hack -- move around */
-            if (d)
+            /* Hack -- acknowledge */
+            press = '\0';
+        }
+        else
+        {
+            /* Try to extract a direction from the key press */
+            int dir = target_dir(press);
+
+            if (!dir)
             {
-                int old_y = targets->pts[p->tt_m].grid.y;
-                int old_x = targets->pts[p->tt_m].grid.x;
+                /* Hack -- acknowledge */
+                if (press != KC_ENTER) press = '\0';
+            }
+            else if (use_interesting_mode)
+            {
+                /* Interesting mode direction: Pick new interesting grid */
+                int old_y = targets->pts[p->target_index].grid.y;
+                int old_x = targets->pts[p->target_index].grid.x;
+                int new_index;
 
-                /* Find a new monster */
-                i = target_pick(old_y, old_x, ddy[d], ddx[d], targets);
+                /* Look for a new interesting grid */
+                new_index = target_pick(old_y, old_x, ddy[dir], ddx[dir], targets);
 
-                /* Scroll to find interesting grid */
-                if (i < 0)
+                /* If none found, try in the next panel */
+                if (new_index < 0)
                 {
                     struct loc offset_grid;
 
                     loc_copy(&offset_grid, &p->offset_grid);
-
-                    /* Change if legal */
-                    if (change_panel(p, d))
+                    if (change_panel(p, dir))
                     {
                         /* Recalculate interesting grids */
                         point_set_dispose(targets);
                         targets = target_get_monsters(p, mode, true);
 
-                        /* Find a new monster */
-                        i = target_pick(old_y, old_x, ddy[d], ddx[d], targets);
+                        /* Look for a new interesting grid again */
+                        new_index = target_pick(old_y, old_x, ddy[dir], ddx[dir], targets);
 
-                        /* Restore panel if needed */
-                        if ((i < 0) && modify_panel(p, &offset_grid))
+                        /* If none found again, reset the panel and do nothing */
+                        if ((new_index < 0) && modify_panel(p, &offset_grid))
                         {
                             /* Recalculate interesting grids */
                             point_set_dispose(targets);
                             targets = target_get_monsters(p, mode, true);
                         }
 
-                        /* Handle stuff */
                         handle_stuff(p);
                     }
                 }
 
                 /* Use interesting grid if found */
-                if (i >= 0) set_tt_m(p, i);
+                if (new_index >= 0) set_target_index(p, new_index);
 
                 /* Hack -- acknowledge */
-                query = '\0';
+                press = '\0';
             }
-        }
-        else
-        {
-            struct source who_body;
-            struct source *who = &who_body;
-
-            /* Update help */
-            square_actor(c, &p->tt_grid, who);
-            good_target = target_able(p, who);
-            target_display_help(help, sizeof(help), good_target, true);
-
-            /* Find the path. */
-            p->path_n = project_path(p, p->path_g, z_info->max_range, c, &p->grid, &p->tt_grid,
-                PROJECT_THRU | PROJECT_INFO);
-
-            /* Draw the path in "target" mode. If there is one */
-            if (mode & TARGET_KILL)
-                p->path_drawn = draw_path(p, p->path_n, p->path_g, &p->grid);
-
-            /* Describe and Prompt (enable "TARGET_LOOK") */
-            ret = target_set_interactive_aux(p, &p->tt_grid, mode | TARGET_LOOK,
-                help, query);
-
-            if (ret)
+            else
             {
-                point_set_dispose(targets);
-                return false;
-            }
+                /* Free mode direction: Move cursor */
+                p->tt_grid.x += ddx[dir];
+                p->tt_grid.y += ddy[dir];
 
-            /* Remove the path */
-            if (p->path_drawn) load_path(p, p->path_n, p->path_g);
-
-            /* Assume no "direction" */
-            d = 0;
-
-            /* Analyze */
-            switch (query)
-            {
-                case ESCAPE:
-                case 'q':
-                case 'r':
-                {
-                    done = true;
-                    break;
-                }
-
-                case ' ':
-                case '(':
-                case '*':
-                case '+':
-                case '-':
-                {
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 'p':
-                {
-                    /* Recenter around player */
-                    verify_panel(p);
-
-                    /* Handle stuff */
-                    handle_stuff(p);
-
-                    loc_copy(&p->tt_grid, &p->grid);
-                }
-
-                case 'o':
-                {
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 'm':
-                {
-                    p->tt_flag = true;
-
-                    set_tt_m(p, 0);
-                    bd = 999;
-
-                    /* Pick a nearby monster */
-                    for (i = 0; i < point_set_size(targets); i++)
-                    {
-                        t = distance(&p->tt_grid, &targets->pts[i].grid);
-
-                        /* Pick closest */
-                        if (t < bd)
-                        {
-                            set_tt_m(p, i);
-                            bd = t;
-                        }
-                    }
-
-                    /* Nothing interesting */
-                    if (bd == 999) p->tt_flag = false;
-
-                    /* Hack -- acknowledge */
-                    query = '\0';
-
-                    break;
-                }
-
-                case 't':
-                case '5':
-                case '0':
-                case '.':
-                {
-                    target_set_location(p, &p->tt_grid);
-                    done = true;
-
-                    break;
-                }
-
-                default:
-                {
-                    /* Extract a direction */
-                    d = target_dir(query);
-
-                    /* Oops */
-                    if (!d)
-                    {
-                        /* Hack -- acknowledge */
-                        if (query != KC_ENTER) query = '\0';
-                    }
-
-                    break;
-                }
-            }
-
-            /* Handle "direction" */
-            if (d)
-            {
-                /* Move */
-                p->tt_grid.x += ddx[d];
-                p->tt_grid.y += ddy[d];
-
-                /* Slide into legality */
-                if (p->tt_grid.x >= c->width - 1) p->tt_grid.x--;
-                else if (p->tt_grid.x <= 0) p->tt_grid.x++;
-
-                /* Slide into legality */
-                if (p->tt_grid.y >= c->height - 1) p->tt_grid.y--;
-                else if (p->tt_grid.y <= 0) p->tt_grid.y++;
+                /* Keep 1 away from the edge */
+                p->tt_grid.x = MAX(1, MIN(p->tt_grid.x, c->width - 2));
+                p->tt_grid.y = MAX(1, MIN(p->tt_grid.y, c->height - 2));
 
                 /* Adjust panel if needed */
                 if (adjust_panel_help(p, p->tt_grid.y, p->tt_grid.x))
                 {
-                    /* Handle stuff */
                     handle_stuff(p);
 
                     /* Recalculate interesting grids */
@@ -1352,26 +1269,20 @@ bool target_set_interactive(struct player *p, int mode, u32b query)
                 }
 
                 /* Hack -- acknowledge */
-                query = '\0';
+                press = '\0';
             }
         }
     }
 
     /* Paranoia */
-    if (!tries) plog_fmt("Infinite loop in target_set_interactive: %lu", query);
+    if (!tries) plog_fmt("Infinite loop in target_set_interactive: %lu", press);
 
     /* Forget */
     point_set_dispose(targets);
 
     /* Recenter around player */
     verify_panel(p);
-
-    /* Handle stuff */
     handle_stuff(p);
 
-    /* Failure to set target */
-    if (!p->target.target_set) return false;
-
-    /* Success */
-    return true;
+    return p->target.target_set;
 }

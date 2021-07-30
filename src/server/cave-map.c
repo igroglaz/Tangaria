@@ -711,6 +711,21 @@ void cave_illuminate(struct player *p, struct chunk *c, bool daytime)
 }
 
 
+/*
+ * Expose one grid on the surface to the sun.
+ *
+ * Update the SQUARE_GLOW flag for one grid as cave_illuminate() would do based
+ * on the new terrain in the grid.
+ */
+void expose_to_sun(struct chunk *c, struct loc *grid, bool daytime)
+{
+    if (square_isnormal(c, grid) || daytime)
+        sqinfo_on(square(c, grid)->info, SQUARE_GLOW);
+    else
+        square_unglow(c, grid);
+}
+
+
 void square_forget_all(struct chunk *c, struct loc *grid)
 {
     int i;

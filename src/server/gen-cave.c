@@ -3295,12 +3295,8 @@ static void town_gen_layout(struct player *p, struct chunk *c)
 
         /* Initialize to ROCK for build_streamer precondition */
         for (grid.y = 1; grid.y < town_hgt - 1; grid.y++)
-        {
             for (grid.x = 1; grid.x < town_wid - 1; grid.x++)
-            {
                 square_set_feat(c, &grid, FEAT_GRANITE);
-            }
-        }
 
         /* Make some lava streamers */
         for (n = 0; n < 3 + num_lava; n++) build_streamer(c, FEAT_LAVA, 0);
@@ -3313,11 +3309,8 @@ static void town_gen_layout(struct player *p, struct chunk *c)
         {
             for (grid.x = 1; grid.x < town_wid - 1; grid.x++)
             {
-                if (square_isfloor(c, &grid))
-                {
-                    sqinfo_off(square(c, &grid)->info, SQUARE_ROOM);
-                    sqinfo_off(square(c, &grid)->info, SQUARE_NO_STAIRS);
-                }
+                sqinfo_off(square(c, &grid)->info, SQUARE_ROOM);
+                sqinfo_off(square(c, &grid)->info, SQUARE_NO_STAIRS);
             }
         }
 

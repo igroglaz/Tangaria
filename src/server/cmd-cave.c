@@ -1034,6 +1034,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Found nothing */
         else
             msg(p, "You have finished the tunnel.");
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (c->wpos.depth == 0) expose_to_sun(c, grid, is_daytime());
+
+        /* Update the visuals. */
+        square_memorize(p, c, grid);
+        square_light_spot_aux(p, c, grid);
+        update_visuals(&p->wpos);
     }
 
     /* Failure, continue digging */

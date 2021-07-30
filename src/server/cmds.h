@@ -48,6 +48,7 @@ extern void do_cmd_observe(struct player *p, int item);
 extern void do_cmd_takeoff(struct player *p, int item);
 extern void do_cmd_wield(struct player *p, int item, int slot);
 extern void do_cmd_drop(struct player *p, int item, int quantity);
+extern void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des);
 extern void do_cmd_destroy(struct player *p, int item, bool des);
 extern void do_cmd_study(struct player *p, int book_index, int spell_index);
 extern bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir);

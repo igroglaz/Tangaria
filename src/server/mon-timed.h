@@ -32,7 +32,7 @@ extern bool mon_inc_timed(struct player *p, struct monster *mon, int effect_type
 extern bool mon_dec_timed(struct player *p, struct monster *mon, int effect_type, int timer,
     int flag);
 extern bool mon_clear_timed(struct player *p, struct monster *mon, int effect_type, int flag);
-extern int monster_effect_level(struct monster *mon, int effect_type);
+extern int monster_effect_level(const struct monster *mon, int effect_type);
 extern int monster_effect_accuracy(struct monster *mon, int effect_type, int chance);
 
 #endif /* MONSTER_TIMED_H */

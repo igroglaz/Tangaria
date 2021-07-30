@@ -1503,7 +1503,7 @@ int scan_distant_floor(struct player *p, struct chunk *c, struct object **items,
         /* Visible */
         if (!is_unknown(obj) && ignore_item_ok(p, obj)) continue;
 
-        /* Accept this item */
+        /* Accept this object */
         items[num++] = obj;
     }
 
