@@ -1819,7 +1819,7 @@ void player_dump(struct player *p, bool server)
         char buf_tm[MSG_LEN];
         struct tm *tm_info = localtime(&p->death_info.time);
 
-        strftime(buf_tm, MSG_LEN, "%Y%m%d%H%M%S", tm_info);
+        strftime(buf_tm, MSG_LEN, "%H%M%S%d%m%Y", tm_info);
 
         strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, buf_tm);
         if (dump_save(p, dumpname, true))

@@ -368,9 +368,10 @@ static void write_character_dump(ang_file *fff, void *data)
         strftime(buf_tm, MSG_LEN, "%T %d-%m-%Y", tm_info);
 
         file_put(fff, "\n  [Player information]\n\n");
-        file_putf(fff, "Player ID: %s\n\n", get_connection(p->conn)->nick_account);
-        file_putf(fff, "Time: %s\n\n", buf_tm);
-        file_putf(fff, "Server Turns: %s\n\n", ht_show(&turn));
+        file_putf(fff, "Player ID: %s\n", get_connection(p->conn)->nick_account);
+        file_putf(fff, "Time: %s\n", buf_tm);
+        file_putf(fff, "Server Turns: %s\n", ht_show(&turn));
+        file_putf(fff, "Timestamp: %ld", p->death_info.time);        
     }
 
     mem_free(home_list);
