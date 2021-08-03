@@ -2531,6 +2531,12 @@ void display_feeling(struct player *p, bool obj_only)
 static int can_buy_house(struct player *p, int price)
 {
     int i;
+    
+    if (p->lev < 8)
+    {
+        msg(p, "You must be level 8 to buy a house.");
+        return false;
+    }    
 
     /* Check for deeds of property */
     if (price < 10000)
@@ -3272,9 +3278,9 @@ bool create_house(struct player *p, int small_house)
     char wall_type = '\0';  // second part of floor name (type) for rng walls
     int wall_id = 0;  // specific wall (when we have several different walls in one row)
 
-    if (p->lev < 10)
+    if (p->lev < 8)
     {
-        msg(p, "You must be level 10 to build a house.");
+        msg(p, "You must be level 8 to build a house.");
         return false;
     }
 
