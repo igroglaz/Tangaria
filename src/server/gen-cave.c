@@ -4105,14 +4105,14 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     i = z_info->level_monster_min + randint1(8) + k;
 
     /* Moria levels have a high proportion of cave dwellers. */
-    mon_restrict(p, "Moria dwellers", wpos->depth, true);
+    mon_restrict("Moria dwellers", wpos->depth, wpos->depth, true);
 
     /* Put some monsters in the dungeon */
     for (; i > 0; i--)
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
     /* Remove our restrictions. */
-    mon_restrict(p, NULL, wpos->depth, false);
+    mon_restrict(NULL, wpos->depth, wpos->depth, false);
 
     /* Put some objects in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, 3), wpos->depth,
@@ -4615,7 +4615,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
         set_pit_type(wpos->depth, 0);
 
         /* Set monster generation restrictions */
-        if (mon_restrict(p, dun->pit_type->name, wpos->depth, true)) break;
+        if (mon_restrict(dun->pit_type->name, wpos->depth, wpos->depth, true)) break;
     }
 
     /* Place lair monsters */
@@ -4623,7 +4623,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
         x_size / 2 + x_size / 4, y_size / 2, x_size / 4, ORIGIN_CAVERN);
 
     /* Remove our restrictions. */
-    mon_restrict(p, NULL, wpos->depth, false);
+    mon_restrict(NULL, wpos->depth, wpos->depth, false);
 
     /* Put some objects in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, 3), wpos->depth,
@@ -4788,7 +4788,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
         set_pit_type(wpos->depth, 0);
 
         /* Set monster generation restrictions */
-        if (mon_restrict(p, dun->pit_type->name, wpos->depth, true)) break;
+        if (mon_restrict(dun->pit_type->name, wpos->depth, wpos->depth, true)) break;
     }
 
     /* Place labyrinth monsters */
@@ -4796,7 +4796,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
         x_size + gauntlet->width / 2, gauntlet->height / 2, gauntlet->width / 2, ORIGIN_LABYRINTH);
 
     /* Remove our restrictions. */
-    mon_restrict(p, NULL, wpos->depth, false);
+    mon_restrict(NULL, wpos->depth, wpos->depth, false);
 
     /* PWMAngband: add the right cavern */
     chunk_copy(c, right, 0, line2);

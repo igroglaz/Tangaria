@@ -986,7 +986,7 @@ static void cursor_redraw(struct player *p)
             load_path(p, p->path_n, p->path_g);
 
             /* Redraw new targeting path */
-            p->path_n = project_path(NULL, p->path_g, z_info->max_range, c, &p->grid, &grid,
+            p->path_n = project_path(NULL, c, p->path_g, z_info->max_range, &p->grid, &grid,
                 PROJECT_THRU);
             p->path_drawn = draw_path(p, p->path_n, p->path_g, &p->grid);
         }
@@ -4875,7 +4875,7 @@ void do_cmd_social(struct player *p, const char *buf, int dir)
         }
 
         /* Calculate the path */
-        path_n = project_path(NULL, path_g, (s->max_dist? s->max_dist: z_info->max_range), c,
+        path_n = project_path(NULL, c, path_g, (s->max_dist? s->max_dist: z_info->max_range),
             &p->grid, &grid, flg);
         if (!path_n) return;
 

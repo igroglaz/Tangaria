@@ -1,39 +1,29 @@
-/* -*-C-*-
+/*
+ * File: net-unix.c
+ * Purpose: Network module (Linux)
  *
- * Project :	 TRACE
+ * Copyright (c) 2021 MAngband and PWMAngband Developers
  *
- * File    :	 socklib.c
+ * This work is free software; you can redistribute it and/or modify it
+ * under the terms of either:
  *
- * Description
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation, version 2, or
  *
- * Copyright (C) 1991 by Arne Helme, The TRACE project
- *
- * Rights to use this source is granted for all non-commercial and research
- * uses. Creation of derivate forms of this software may be subject to
- * restriction. Please obtain written permission from the author.
- *
- * This software is provided "as is" without any express or implied warranty.
- *
- * RCS:      $Id: net-unix.c,v 1.5 2000/08/08 16:27:54 mangadm Exp $
- *
- * Revision 1.1.1.1  1992/05/11  12:32:34  bjoerns
- * XPilot v1.0
- *
- * Revision 1.2  91/10/02  08:38:01  08:38:01  arne (Arne Helme)
- * "ANSI C prototypes added.
- * Timeout interface changed."
- *
- * Revision 1.1  91/10/02  08:34:45  08:34:45  arne (Arne Helme)
- * Initial revision
- *
+ * b) the "Angband licence":
+ *    This software may be copied and distributed for educational, research,
+ *    and not for profit purposes provided that this copyright and statement
+ *    are included in all such copies.  Other copyrights may also apply.
  */
 #include "angband.h"
 
 #ifdef UNIX
 
+/* Sleep "time" milliseconds */
 void Sleep(int time)
 {
-	sleep(time);
+	/* Since we can use values of "time" lower than 1000, we use usleep(µs) instead of sleep(s) */
+    usleep(time * 1000);
 }
 
 #ifndef lint

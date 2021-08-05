@@ -341,6 +341,8 @@ static bool limit_townies(struct chunk *c)
 /*
  * Chooses a monster race that seems "appropriate" to the given level
  *
+ * generated_level is the level to use when choosing the race.
+ *
  * This function uses the "prob2" field of the "monster allocation table",
  * and various local information, to calculate the "prob3" field of the
  * same table, which is then used to choose an "appropriate" monster, in
@@ -359,7 +361,7 @@ static bool limit_townies(struct chunk *c)
  * Note that if no monsters are appropriate, then this function will
  * fail, and return zero, but this should *almost* never happen.
  */
-struct monster_race *get_mon_num(struct chunk *c, int level, bool summon)
+struct monster_race *get_mon_num(struct chunk *c, int generated_level, bool summon)
 {
     int i, p;
     long total;
@@ -380,7 +382,7 @@ struct monster_race *get_mon_num(struct chunk *c, int level, bool summon)
 
     /* Occasionally produce a nastier monster in the dungeon */
     if ((c->wpos.depth > 0) && one_in_(z_info->ood_monster_chance))
-        level += MIN(level / 4 + 2, z_info->ood_monster_amount);
+        generated_level += MIN(generated_level / 4 + 2, z_info->ood_monster_amount);
 
     total = 0L;
 
@@ -388,7 +390,7 @@ struct monster_race *get_mon_num(struct chunk *c, int level, bool summon)
     for (i = 0; i < alloc_race_size; i++)
     {
         /* Monsters are sorted by depth */
-        if (table[i].level > level) break;
+        if (table[i].level > generated_level) break;
 
         /* Default */
         table[i].prob3 = 0;
@@ -421,7 +423,7 @@ struct monster_race *get_mon_num(struct chunk *c, int level, bool summon)
     race = get_mon_race_aux(total, table);
 
     /* Always try for a "harder" monster if too weak */
-    if (race->level < (level / 2))
+    if (race->level < (generated_level / 2))
     {
         struct monster_race *old = race;
 
@@ -433,7 +435,7 @@ struct monster_race *get_mon_num(struct chunk *c, int level, bool summon)
     }
 
     /* Always try for a "harder" monster deep in the dungeon */
-    if (level >= 100)
+    if (generated_level >= 100)
     {
         struct monster_race *old = race;
 

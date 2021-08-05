@@ -213,7 +213,7 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
 }
 
 
-static enum parser_error parse_prefs_feat(struct parser *p)
+static enum parser_error parse_prefs_feat_aux(struct parser *p)
 {
     int idx;
     const char *lighting;
@@ -254,6 +254,22 @@ static enum parser_error parse_prefs_feat(struct parser *p)
     }
 
     return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_feat(struct parser *p)
+{
+    return parse_prefs_feat_aux(p);
+}
+
+
+static enum parser_error parse_prefs_feat_win(struct parser *p)
+{
+#ifdef WINDOWS
+    return parse_prefs_feat_aux(p);
+#else
+    return PARSE_ERROR_NONE;
+#endif
 }
 
 
@@ -466,6 +482,7 @@ static struct parser *init_parse_prefs(void)
     parser_reg(p, "monster sym name int attr int char", parse_prefs_monster);
     parser_reg(p, "monster-base sym name int attr int char", parse_prefs_monster_base);
     parser_reg(p, "feat sym idx sym lighting int attr int char", parse_prefs_feat);
+    parser_reg(p, "feat-win sym idx sym lighting int attr int char", parse_prefs_feat_win);
     parser_reg(p, "trap sym idx sym lighting int attr int char", parse_prefs_trap);
     parser_reg(p, "GF sym type sym direction uint attr uint char", parse_prefs_gf);
     parser_reg(p, "flavor uint idx int attr int char", parse_prefs_flavor);

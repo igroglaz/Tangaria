@@ -10,66 +10,114 @@
 ##### Race Specific Subfiles #####
 
 ?:[EQU $RACE Human]
-%:human.prf
+%:Human.prf
 
 ?:[EQU $RACE Half-Elf]
-%:half-elf.prf
+%:Half-Elf.prf
 
 ?:[EQU $RACE Elf]
-%:elf.prf
+%:Elf.prf
 
 ?:[EQU $RACE Hobbit]
-%:hobbit.prf
+%:Hobbit.prf
 
 ?:[EQU $RACE Gnome]
-%:gnome.prf
+%:Gnome.prf
 
 ?:[EQU $RACE Dwarf]
-%:dwarf.prf
+%:Dwarf.prf
 
 ?:[EQU $RACE Half-Orc]
-%:half-orc.prf
+%:Half-Orc.prf
 
 # "Half-Troll.prf" is too long for stupid 8.3 filenames,
 # so try to load the shortened filename too.
 ?:[EQU $RACE Half-Troll]
-%:half-troll.prf
-%:h-troll.prf
+%:Half-Troll.prf
+%:H-Troll.prf
 
 ?:[EQU $RACE Dunadan]
-%:dunadan.prf
+%:Dunadan.prf
 
 ?:[EQU $RACE High-Elf]
-%:high-elf.prf
+%:High-Elf.prf
 
 ?:[EQU $RACE Kobold]
-%:kobold.prf
+%:Kobold.prf
 
-# Race Specific Subfiles not implemented yet
-# TODO: add new races
+?:[EQU $RACE Yeek]
+%:Yeek.prf
+
+?:[EQU $RACE Ent]
+%:Ent.prf
+
+?:[EQU $RACE Thunderlord]
+%:Thunderlord.prf
+%:Tlord.prf
+
+?:[EQU $RACE Dragon]
+%:Dragon.prf
+
+?:[EQU $RACE Hydra]
+%:Hydra.prf
 
 
 ##### Class Specific Subfiles #####
 
 ?:[EQU $CLASS Warrior]
-%:warrior.prf
+%:Warrior.prf
 
 ?:[EQU $CLASS Mage]
-%:mage.prf
+%:Mage.prf
+
+?:[EQU $CLASS Druid]
+%:Druid.prf
 
 ?:[EQU $CLASS Priest]
 %:priest.prf
 
-?:[EQU $CLASS Rogue]
-%:rogue.prf
-
-?:[EQU $CLASS Ranger]
-%:ranger.prf
+?:[EQU $CLASS Necromancer]
+%:Necromancer.prf
+%:Necro.prf
 
 ?:[EQU $CLASS Paladin]
-%:paladin.prf
+%:Paladin.prf
 
-# Class Specific Subfiles not implemented yet
-# TODO: add new classes
+?:[EQU $CLASS Rogue]
+%:Rogue.prf
+
+?:[EQU $CLASS Ranger]
+%:Ranger.prf
+
+?:[EQU $CLASS Blackguard]
+%:Blackguard.prf
+%:BG.prf
+
+?:[EQU $CLASS Sorceror]
+%:Sorceror.prf
+
+?:[EQU $CLASS Unbeliever]
+%:Unbeliever.prf
+%:Unbe.prf
+
+?:[EQU $CLASS Archer]
+%:Archer.prf
+
+?:[EQU $CLASS Monk]
+%:Monk.prf
+
+?:[EQU $CLASS Telepath]
+%:Telepath.prf
+
+?:[EQU $CLASS Elementalist]
+%:Elementalist.prf
+%:Element.prf
+
+?:[EQU $CLASS Summoner]
+%:Summoner.prf
+
+?:[EQU $CLASS Shapechanger]
+%:Shapechanger.prf
+%:Changer.prf
 
 ?:1

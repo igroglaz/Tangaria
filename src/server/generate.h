@@ -318,7 +318,7 @@ extern bool chunk_has_players(struct worldpos *wpos);
 extern s16b chunk_get_player_count(struct worldpos *wpos);
 
 /* gen-monster.c */
-extern bool mon_restrict(struct player *p, const char *monster_type, int depth, bool unique_ok);
+extern bool mon_restrict(const char *monster_type, int depth, int current_depth, bool unique_ok);
 extern void spread_monsters(struct player *p, struct chunk *c, const char *type, int depth, int num,
     int y0, int x0, int dy, int dx, byte origin);
 extern void get_vault_monsters(struct player *p, struct chunk *c, char racial_symbol[],

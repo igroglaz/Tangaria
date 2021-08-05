@@ -850,6 +850,7 @@ static errr Term_text_gcu(int x, int y, int n, u16b a, const char *s)
 
     mbstowcs(buf, s, n);
 
+#ifdef WINDOWS
     /* Hack -- replace magma/quartz by semi-solid blocks */
     for (i = 0; i < n; i++)
     {
@@ -884,6 +885,7 @@ static errr Term_text_gcu(int x, int y, int n, u16b a, const char *s)
                 buf[i] = '@';
         }
     }
+#endif
 
 #ifdef A_COLOR
     if (can_use_color)

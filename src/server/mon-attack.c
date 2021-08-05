@@ -103,7 +103,7 @@ static bool monster_can_cast(struct player *p, struct chunk *c, struct monster *
         struct loc *path = mem_alloc(z_info->max_range * sizeof(*path));
         int npath, ipath;
 
-        npath = project_path(p, path, z_info->max_range, c, &mon->grid, &tgrid, PROJECT_SHORT);
+        npath = project_path(p, c, path, z_info->max_range, &mon->grid, &tgrid, PROJECT_SHORT);
         ipath = 0;
         while (1)
         {

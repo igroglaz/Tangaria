@@ -121,7 +121,7 @@ static void path_analyse(struct player *p, struct chunk *c, struct loc *grid)
     struct loc path_g[256];
 
     /* Plot the path. */
-    path_n = project_path(NULL, path_g, z_info->max_range, c, &p->grid, grid, PROJECT_NONE);
+    path_n = project_path(NULL, c, path_g, z_info->max_range, &p->grid, grid, PROJECT_NONE);
 
     /* Project along the path */
     for (i = 0; i < path_n; ++i)
@@ -783,7 +783,8 @@ void become_aware(struct player *p, struct chunk *c, struct monster *mon)
     /* Update monster and item lists */
     if (p)
     {
-        p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+        if (mon->race->light != 0)
+            p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
         p->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
     }
 

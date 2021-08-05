@@ -1745,7 +1745,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         loc_copy(&grid, &p->grid);
 
         /* Calculate the path */
-        path_n = project_path(NULL, path_g, range, c, &grid, &target, (pierce? PROJECT_THRU: 0));
+        path_n = project_path(NULL, c, path_g, range, &grid, &target, (pierce? PROJECT_THRU: 0));
 
         /* Hack -- handle stuff */
         handle_stuff(p);

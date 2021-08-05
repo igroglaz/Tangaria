@@ -7,7 +7,7 @@
 #define OBJECT_UTIL_H
 
 /* Maximum number of scroll titles generated */
-#define MAX_TITLES 50
+#define MAX_TITLES 60
 
 /*
  * Per-player artifact states

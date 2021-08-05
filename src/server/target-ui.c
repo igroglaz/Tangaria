@@ -1044,7 +1044,7 @@ bool target_set_interactive(struct player *p, int mode, u32b press)
         target_display_help(help, sizeof(help), has_target, has_object, use_free_mode);
 
         /* Find the path. */
-        p->path_n = project_path(p, p->path_g, z_info->max_range, c, &p->grid, &p->tt_grid,
+        p->path_n = project_path(p, c, p->path_g, z_info->max_range, &p->grid, &p->tt_grid,
             PROJECT_THRU | PROJECT_INFO);
 
         /* Draw the path in "target" mode. If there is one */

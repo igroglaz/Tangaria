@@ -159,7 +159,7 @@ void thrust_away(struct chunk *c, struct source *origin, struct loc *centre, int
     loc_copy(&grid, &target);
 
     /* Calculate the path */
-    path_n = project_path(NULL, path_g, z_info->max_range, c, centre, &target, PROJECT_THRU);
+    path_n = project_path(NULL, c, path_g, z_info->max_range, centre, &target, PROJECT_THRU);
 
     /* Project along the path */
     for (i = 0; i < path_n; i++)

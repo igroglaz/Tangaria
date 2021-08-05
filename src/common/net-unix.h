@@ -1,30 +1,7 @@
-/* -*-C-*-
- *
- * Project :	 TRACE
- *
- * File    :	 socklib.h
- *
- * Description
- *
- * Copyright (C) 1991 by Arne Helme, The TRACE project
- *
- * Rights to use this source is granted for all non-commercial and research
- * uses. Creation of derivate forms of this software may be subject to
- * restriction. Please obtain written permission from the author.
- *
- * This software is provided "as is" without any express or implied warranty.
- *
- * RCS:      $Id: net-unix.h,v 1.1.1.1 1999/10/26 19:20:49 root Exp $
- *
- * Revision 1.1.1.1  1992/05/11  12:32:34  bjoerns
- * XPilot v1.0
- *
- * Revision 1.2  91/10/02  08:38:20  08:38:20  arne (Arne Helme)
- * "ANSI C prototypes added."
- *
- * Revision 1.1  91/10/02  08:34:53  08:34:53  arne (Arne Helme)
- * Initial revision
- *
+#ifdef UNIX
+/*
+ * File: net-unix.h
+ * Purpose: Network module (Linux)
  */
 
 #ifndef _SOCKLIB_INCLUDED
@@ -114,6 +91,8 @@ extern char	*DgramLastname(void);
 extern int	DgramLastport(void);
 extern void	DgramClose(int);
 extern void	GetLocalHostName(char *, unsigned);
+extern const char *GetSocketErrorMessageAux(int error);
+extern void Sleep(int time);
 #else /* __STDC__ */
 extern void	SetTimeout();
 extern int	CreateServerSocket();
@@ -149,6 +128,8 @@ extern char	*DgramLastname();
 extern int	DgramLastport();
 extern void	DgramClose();
 extern void	GetLocalHostName();
+extern const char *GetSocketErrorMessageAux();
+extern void Sleep();
 #endif /* __STDC__ */
 /*
 #if !defined(select) && defined(__linux__)
@@ -157,5 +138,6 @@ extern void	GetLocalHostName();
 #endif
 */
 #endif /* _SOCKLIB_INCLUDED */
+#endif /* UNIX */
 
 
