@@ -1129,7 +1129,6 @@ value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
 obj-flag:10:HOLD_LIFE
-obj-flag:1:IMPAIR_HP
 value:1:RES_LIGHT[-1]
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
@@ -1150,6 +1149,7 @@ shape:30:bat of Gorgoroth_
 shape:40:doombat_
 # revamp when will implement hurt from daylight
 value:0:MANA[4+-1d6M25]
+obj-flag:1:IMPAIR_HP
 
 ############################## GODLIKE
 # ? spirits.. of fire, elec, cold, 
@@ -1198,7 +1198,7 @@ value:50:RES_TIME[1]
 brand:1:50:COLD_2
 slay:50:50:EVIL_2
 value:50:MIGHT[-1]
-value:0:MANA[3+-1d10M30]
+value:0:MANA[4+-1d10M40]
 #value:50:BLOWS[-1]
 #temp
 value:1:SPEED[1]
@@ -1214,10 +1214,11 @@ skill-save:3
 skill-stealth:0
 skill-search:1
 skill-melee:15
-skill-shoot:5
+skill-shoot:7
 skill-dig:0
 hitdie:11
-exp:100:125
+# +10% exp
+exp:100:135
 history:100
 age:11:4
 height:72:5
@@ -1241,8 +1242,8 @@ value:1:RES_POIS[1]
 value:1:RES_LIGHT[-1]
 value:1:RES_DARK[1]
 value:1:RES_SOUND[1]
-##########value:1:RES_NEXUS[1] ->brand instead
 brand:1:50:POIS_2
+##########value:1:RES_NEXUS[1] ->brand instead
 value:50:RES_CHAOS[1]
 #############################
 value:1:DAM_RED[-1+-1d2]
@@ -1253,7 +1254,6 @@ value:0:MANA[5+-1d12]
 shape:30:succubi
 #temp
 value:1:SPEED[1]
-value:1:MOVES[-1]
 
 #Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
 name:Balrog
@@ -1579,7 +1579,7 @@ value:1:RES_NEXUS[1]
 value:1:TUNNEL[3+1d10]
 slay:1:24:DRAGON_3
 slay:25:50:DRAGON_5
-value:0:MANA[10]
+value:0:MANA[1d5]
 #
 obj-flag:1:NO_TELEPORT
 obj-flag:1:HUNGER
@@ -1678,7 +1678,7 @@ value:50:RES_ACID[3]
 value:1:STEALTH[-1+-1d9]
 value:35:SPEED[-1+-1d3]
 value:35:DAM_RED[-1+-1d3]
-value:50:MOVES[-10]
+value:0:MOVES[-1+-10d48]
 obj-flag:1:IMPAIR_HP
 value:0:MANA[6+-1d10]
 #temp
@@ -1767,7 +1767,7 @@ history:100
 age:10:5
 height:28:3
 weight:51:6
-gift:scroll:Trap Creation:1:2
+gift:scroll:Trap Creation:1:3
 # -3 -1 1 5 -2
 value:1:STR[-3]
 value:1:INT[-3+1d20]
@@ -1782,7 +1782,7 @@ value:1:RES_POIS[1]
 value:50:RES_POIS[3]
 value:0:SPEED[0+-1d5]
 value:1:MOVES[-1]
-value:0:MANA[5+-1d12]
+value:0:MANA[4+-1d12]
 value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
 obj-flag:1:TRAP_IMMUNE
@@ -1803,7 +1803,7 @@ name:Djinn
 skill-disarm-phys:20
 skill-disarm-magic:20
 skill-device:20
-skill-save:15
+skill-save:-15
 skill-stealth:3
 skill-search:20
 skill-melee:0
@@ -2162,6 +2162,7 @@ value:40:RES_NETHER[1]
 value:50:RES_TIME[1]
 value:1:TUNNEL[-10]
 value:1:MOVES[-1+-1d9]
+# !
 player-flags:0:NO_RECALL
 obj-flag:50:DRAIN_EXP
 value:0:MANA[4+-1d12]
