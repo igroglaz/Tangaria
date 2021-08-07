@@ -2081,6 +2081,8 @@ static bool clear_web(struct player *p, struct chunk *c)
 {
     if (!square_iswebbed(c, &p->grid)) return false;
 
+    if (streq(p->race->name, "Spider")) return false;
+
     /* Handle polymorphed players */
     if (p->poly_race)
     {

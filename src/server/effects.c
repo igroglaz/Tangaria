@@ -7821,6 +7821,41 @@ static bool effect_handler_WAKE(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Create a SPIDER WEB.
+ */
+static bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
+{
+    /* Hack -- already used up */
+    bool used = (context->radius == 1);
+
+    /* Always notice */
+    context->ident = true;
+
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Floor grid with no existing traps or glyphs; open and no objects */
+    if (square_isplayertrap(context->cave, &context->origin->player->grid) &&
+       !square_isopen(context->cave, &context->origin->player->grid) &&
+        square_object(context->cave, &context->origin->player->grid))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Create a web */
+    square_add_web(context->cave, &context->origin->player->grid);
+    msg_misc(context->origin->player, " weaves a web.");
+
+    player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+
+    return true;
+}
 
 /*
  * Create a web.
@@ -7879,6 +7914,9 @@ static bool effect_handler_WEB(effect_handler_context_t *context)
         square_add_web(context->cave, &iter.cur);
     }
     while (loc_iterator_next(&iter));
+
+    // if player weave web - reduce his satiation greatly
+    if (!mon) player_dec_timed(context->origin->player, TMD_FOOD, 450, false);
 
     return true;
 }

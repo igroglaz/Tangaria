@@ -143,6 +143,26 @@ void do_cmd_breath(struct player *p, int dir)
         msg(p, "You need a tangible body to breathe!");
         return;
     }
+    
+    /* Spider weaves web */
+    if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
+    {
+
+        /* Take a turn */
+        use_energy(p);
+
+        /* Make the breath attack an effect */
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_WEB_SPIDER;
+
+        /* Cast the breath attack */
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+        
+        return;
+    }    
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);
