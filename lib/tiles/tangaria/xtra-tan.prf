@@ -198,9 +198,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -435,9 +435,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -669,9 +669,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -903,9 +903,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -1137,9 +1137,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -1371,9 +1371,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -1605,9 +1605,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -1839,9 +1839,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -2073,9 +2073,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -2307,9 +2307,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -2541,9 +2541,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -2775,9 +2775,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -3009,9 +3009,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -3243,9 +3243,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -3477,9 +3477,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -3711,9 +3711,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -3945,9 +3945,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Djinn] [EQU $GENDER Female] ]
@@ -4180,9 +4180,9 @@ monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Spider] ]
-monster:<player>:0x97:0x9D
+monster:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Spider] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x9D
+RF:<player>:0x84:0xF0
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Djinn] [EQU $GENDER Female] ]

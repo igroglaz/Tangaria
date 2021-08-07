@@ -1752,11 +1752,11 @@ obj-flag:1:CANT_FLY
 
 # should always use forms to compensate speed debuff
 name:Spider
-skill-disarm-phys:-15
-skill-disarm-magic:-15
-skill-device:-15
-skill-save:0
-skill-stealth:2
+skill-disarm-phys:-50
+skill-disarm-magic:-50
+skill-device:-50
+skill-save:-20
+skill-stealth:0
 skill-search:10
 skill-melee:-10
 skill-shoot:-10
@@ -1776,18 +1776,16 @@ value:1:DEX[0+1d9]
 value:1:CON[-2]
 value:0:CHR[-9]
 value:1:INFRA[1+1d6]
-value:1:STEALTH[0+1d24]
 brand:15:50:POIS_2
 value:1:RES_POIS[1]
 value:50:RES_POIS[3]
-value:0:SPEED[0+-1d5]
-value:1:MOVES[-1]
 value:0:MANA[4+-1d12]
 value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
 obj-flag:1:TRAP_IMMUNE
-player-flags:0:SHAPECHANGE
-shape:1:s'spider
+value:0:STEALTH[1+1d12]
+player-flags:0:PERM_SHAPE
+shape:3:s'spider
 shape:5:s'weaver
 shape:10:s'warrior
 shape:15:s'guard
@@ -1798,6 +1796,12 @@ shape:35:s'aranea
 shape:40:s'elder
 shape:45:s'ancient
 shape:50:s'lord
+#attack:verb:hit_extra:min_level:chance:effect
+#attack:strike: with your talons:3:1:DICE
+#attack:strike:none:11:5:SLOW
+#attack:strike:none:15:6:STUN
+#attack:hit:none:20:7:CUT
+#attack:hit:none:45:16:CRUSH
 
 name:Djinn
 skill-disarm-phys:20
