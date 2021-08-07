@@ -7840,8 +7840,8 @@ static bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
     }
 
     /* Floor grid with no existing traps or glyphs; open and no objects */
-    if (square_isplayertrap(context->cave, &context->origin->player->grid) &&
-       !square_isopen(context->cave, &context->origin->player->grid) &&
+    if (square_isplayertrap(context->cave, &context->origin->player->grid) ||
+       !square_isanyfloor(context->cave, &context->origin->player->grid) ||
         square_object(context->cave, &context->origin->player->grid))
     {
         msg(context->origin->player, "You cannot weave webs here...");
