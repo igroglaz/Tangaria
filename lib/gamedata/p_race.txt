@@ -1495,6 +1495,7 @@ obj-flag:1:FEATHER
 value:20:MIGHT[-1]
 # evade... 
 value:0:MANA[5+-1d12]
+obj-flag:1:TRAP_IMMUNE
 ######giving them a chance to use less spell points when they cast a spell, probably based upon their primary spell stat, (i.e., int or wis)
 #######some type of innate survival spells that they can cast every so often (like a built-in rod), things like phase door, teleport, etc.
 
@@ -1767,7 +1768,7 @@ history:100
 age:10:5
 height:28:3
 weight:51:6
-gift:scroll:Trap Creation:1:3
+gift:food:Handful of Dried Fruits:2:3
 # -3 -1 1 5 -2
 value:1:STR[-3]
 value:1:INT[-3+1d20]
@@ -1777,12 +1778,11 @@ value:1:CON[-2]
 value:0:CHR[-9]
 value:1:INFRA[1+1d6]
 brand:15:50:POIS_2
-value:1:RES_POIS[1]
-value:50:RES_POIS[3]
+# value:1:RES_POIS[1] bugged order.. so leaving imminity only for now
+value:1:RES_POIS[3]
 value:0:MANA[4+-1d12]
 value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
-obj-flag:1:TRAP_IMMUNE
 value:0:STEALTH[1+1d12]
 player-flags:0:PERM_SHAPE
 shape:3:s'spider
@@ -2228,6 +2228,7 @@ shape:40:observer'
 shape:50:overseer'
 #+ mind flayer @ 50
 #+hallucinating (effect decreases with increased int,wis)
+
 
 
 #player-flags:0:SHAPECHANGE

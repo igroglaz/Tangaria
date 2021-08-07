@@ -30497,6 +30497,7 @@ weight:25
 experience:7
 blow:BITE:HURT:1d4
 flags:ANIMAL
+flags:HURT_LIGHT
 desc:It is a black spider that moves in fits and starts.
 
 #name:wood spider
@@ -30516,7 +30517,7 @@ experience:15
 blow:BITE:HURT:1d3
 blow:STING:POISON:1d4
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:HURT_LIGHT
 spell-freq:34
 innate-freq:100
 spells:WEAVE
@@ -30541,7 +30542,7 @@ blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 blow:BITE:HURT:1d10
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:HURT_LIGHT
 desc:It is a vast black spider with bulbous bloated body.
 
 #name:giant tarantula
@@ -30562,7 +30563,8 @@ blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-freq:34
 innate-freq:100
 spells:WEAVE
@@ -30585,8 +30587,9 @@ experience:25
 blow:BITE:HURT:1d8
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
-flags:EVIL | ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:ANIMAL
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:20
 innate-freq:50
@@ -30611,9 +30614,9 @@ experience:250
 blow:STING:POISON:2d8
 blow:CLAW:HURT:1d8
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:25
 innate-freq:50
@@ -30637,9 +30640,9 @@ blow:CLAW:POISON:2d8
 blow:CLAW:POISON:2d8
 blow:BITE:POISON:2d6
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:30
 innate-freq:50
@@ -30663,9 +30666,9 @@ blow:CLAW:POISON:2d8
 blow:CLAW:POISON:2d8
 blow:BITE:POISON:2d6
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:35
 innate-freq:50
@@ -30690,8 +30693,9 @@ blow:CLAW:HURT:2d8
 blow:STING:POISON:2d6
 blow:STING:POISON:2d6
 blow:BITE:CONFUSE:1d3
-flags:EVIL | ANIMAL
-flags:WEIRD_MIND | HURT_LIGHT | IM_POIS
+flags:ANIMAL
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-power:40
 spell-freq:34
 innate-freq:50
@@ -30717,9 +30721,9 @@ blow:CLAW:POISON:5d8
 blow:CLAW:POISON:5d8
 blow:BITE:HALLU:5d6
 blow:BITE:EAT_LIGHT:5d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:45
 innate-freq:50
@@ -30745,9 +30749,9 @@ blow:CLAW:POISON:5d8
 blow:CLAW:POISON:5d8
 blow:BITE:HALLU:5d6
 blow:BITE:EAT_LIGHT:5d6
-flags:EVIL | ANIMAL | SMART
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_FIRE | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:50
 innate-freq:50
