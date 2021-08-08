@@ -1744,13 +1744,13 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -2189,10 +2189,13 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     k = (3 * k * (h * w)) / (z_info->dungeon_hgt * z_info->dungeon_wid);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_BOTH, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_BOTH, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -2814,6 +2817,9 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
     /* Customize */
     customize_features(c);
@@ -3865,13 +3871,13 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4087,13 +4093,13 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4442,6 +4448,9 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
     /* Customize */
     customize_features(c);
@@ -4589,13 +4598,13 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     remove_unused_holes(c);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
     /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4846,6 +4855,9 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
     /* Customize */
     customize_features(c);
@@ -5504,13 +5516,13 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
