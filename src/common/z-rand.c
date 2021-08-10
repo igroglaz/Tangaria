@@ -587,6 +587,33 @@ bool randcalc_varies(random_value v)
 
 
 /*
+ * Roll on a random chance and check for success.
+ *
+ * c The random_chance to roll on
+ */
+bool random_chance_check(random_chance *c)
+{
+    /* Calculated so that high rolls pass the check */
+    return randint0(c->denominator) >= c->denominator - c->numerator;
+}
+
+
+/*
+ * Scales a random chance to use the denominator provided in the scale argument
+ * and returns the appropriate numerator. For example, a chance of 7 / 13 (53.8%)
+ * with scale 100 would be 53. For extra integer precision, a scale of 1000 would
+ * yield 538.
+ *
+ * c The random_chance to scale
+ * scale The scale by which the ratio is multiplied
+ */
+int random_chance_scaled(random_chance *c, int scale)
+{
+    return scale * c->numerator / c->denominator;
+}
+
+
+/*
  * Extract a "random" number from 0 to m - 1, via "modulus"
  *
  * Note that "m" should probably be less than 500000, or the

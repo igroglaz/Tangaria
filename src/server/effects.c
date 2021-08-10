@@ -312,24 +312,6 @@ static int enchant_table[16] =
 
 
 /*
- * Hook to specify "weapon"
- */
-static bool item_tester_hook_weapon(const struct object *obj)
-{
-    return tval_is_weapon(obj);
-}
-
-
-/*
- * Hook to specify "armour"
- */
-static bool item_tester_hook_armour(const struct object *obj)
-{
-    return tval_is_armor(obj);
-}
-
-
-/*
  * Tries to increase an items bonus score, if possible
  *
  * Returns true if the bonus was increased
@@ -559,42 +541,6 @@ static void brand_object(struct player *p, struct object *obj, const char *brand
     }
     else
         msg(p, "The branding failed.");
-}
-
-
-/*
- * Hook to specify rechargeable items
- */
-static bool item_tester_hook_recharge(const struct object *obj)
-{
-    /* Recharge staves and wands */
-    if (tval_can_have_charges(obj)) return true;
-
-    return false;
-}
-
-
-/*
- * Hook to specify "ammo"
- */
-static bool item_tester_hook_ammo(const struct object *obj)
-{
-    /* Ammo */
-    if (!tval_is_ammo(obj)) return false;
-
-    /* Normal magic ammo cannot be branded */
-    if (of_has(obj->flags, OF_AMMO_MAGIC)) return false;
-
-    return true;
-}
-
-
-/*
- * Hook to specify a staff
- */
-static bool item_tester_hook_staff(const struct object *obj)
-{
-    return tval_is_staff(obj);
 }
 
 
@@ -2086,7 +2032,7 @@ static bool effect_handler_BRAND_AMMO(effect_handler_context_t *context)
     }
 
     /* Paranoia: requires ammo */
-    if (!item_tester_hook_ammo(obj)) return false;
+    if (!tval_is_ammo(obj) || of_has(obj->flags, OF_AMMO_MAGIC)) return false;
 
     /* Select the brand */
     if (one_in_(3))
@@ -2255,7 +2201,7 @@ static bool effect_handler_CREATE_ARROWS(effect_handler_context_t *context)
     }
 
     /* Paranoia: requires a staff */
-    if (!item_tester_hook_staff(obj)) return false;
+    if (!tval_is_staff(obj)) return false;
 
     /* Extract the object "level" */
     lev = obj->kind->level;
@@ -4593,7 +4539,7 @@ static bool effect_handler_ENCHANT(effect_handler_context_t *context)
 {
     int value = effect_calculate_value(context, false);
     struct object *obj;
-    bool (*item_tester)(const struct object *obj);
+    bool (*tester)(const struct object *obj);
     char o_name[NORMAL_WID];
 
     context->ident = true;
@@ -4629,13 +4575,13 @@ static bool effect_handler_ENCHANT(effect_handler_context_t *context)
     }
 
     /* Assume enchant weapon */
-    item_tester = item_tester_hook_weapon;
+    tester = tval_is_weapon;
 
     /* Enchant armor if requested */
-    if (context->subtype == ENCH_TOAC) item_tester = item_tester_hook_armour;
+    if (context->subtype == ENCH_TOAC) tester = tval_is_armor;
 
     /* Paranoia: requires proper item */
-    if (!item_tester(obj)) return false;
+    if (!tester(obj)) return false;
 
     /* Description */
     object_desc(context->origin->player, o_name, sizeof(o_name), obj, ODESC_BASE);
@@ -4737,6 +4683,7 @@ static bool effect_handler_GRANITE(effect_handler_context_t *context)
     struct trap *trap = context->origin->trap;
 
     square_add_wall(context->cave, &trap->grid);
+    if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &trap->grid, is_daytime());
 
     context->origin->player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
     context->origin->player->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
@@ -5946,7 +5893,7 @@ static bool effect_handler_RECHARGE(effect_handler_context_t *context)
     }
 
     /* Paranoia: requires rechargeable item */
-    if (!item_tester_hook_recharge(obj)) return false;
+    if (!tval_can_have_charges(obj)) return false;
 
     /* Chance of failure */
     i = recharge_failure_chance(obj, strength);
@@ -6263,6 +6210,8 @@ static bool effect_handler_RUBBLE(effect_handler_context_t *context)
                     square_set_rubble(context->cave, &grid, FEAT_PASS_RUBBLE);
                 else
                     square_set_rubble(context->cave, &grid, FEAT_RUBBLE);
+                if (context->cave->wpos.depth == 0)
+                    expose_to_sun(context->cave, &grid, is_daytime());
                 rubble_grids--;
             }
         }
@@ -6703,7 +6652,7 @@ static bool effect_handler_TAP_DEVICE(effect_handler_context_t *context)
     }
 
     /* Paranoia: requires rechargeable item */
-    if (!item_tester_hook_recharge(obj)) return false;
+    if (!tval_can_have_charges(obj)) return false;
 
     /* Extract the object "level" */
     lev = obj->kind->level;
@@ -7872,6 +7821,41 @@ static bool effect_handler_WAKE(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Create a SPIDER WEB.
+ */
+static bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
+{
+    /* Hack -- already used up */
+    bool used = (context->radius == 1);
+
+    /* Always notice */
+    context->ident = true;
+
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Floor grid with no existing traps or glyphs; open and no objects */
+    if (square_isplayertrap(context->cave, &context->origin->player->grid) ||
+       !square_isanyfloor(context->cave, &context->origin->player->grid) ||
+        square_object(context->cave, &context->origin->player->grid))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Create a web */
+    square_add_web(context->cave, &context->origin->player->grid);
+    msg_misc(context->origin->player, " weaves a web.");
+
+    player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+
+    return true;
+}
 
 /*
  * Create a web.
@@ -7930,6 +7914,9 @@ static bool effect_handler_WEB(effect_handler_context_t *context)
         square_add_web(context->cave, &iter.cur);
     }
     while (loc_iterator_next(&iter));
+
+    // if player weave web - reduce his satiation greatly
+    if (!mon) player_dec_timed(context->origin->player, TMD_FOOD, 450, false);
 
     return true;
 }

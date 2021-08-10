@@ -573,9 +573,8 @@ void do_cmd_drop(struct player *p, int item, int quantity)
 /*
  * Destroy an item
  */
-void do_cmd_destroy(struct player *p, int item, bool des)
+void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
 {
-    struct object *obj = object_from_index(p, item, true, true);
     char o_name[NORMAL_WID];
 
     /* Paranoia: requires an item */
@@ -682,6 +681,17 @@ void do_cmd_destroy(struct player *p, int item, bool des)
         else
             obj->known->notice |= OBJ_NOTICE_IGNORE;
     }
+}
+
+
+/*
+ * Destroy an item (by index)
+ */
+void do_cmd_destroy(struct player *p, int item, bool des)
+{
+    struct object *obj = object_from_index(p, item, true, true);
+
+    do_cmd_destroy_aux(p, obj, des);
 }
 
 

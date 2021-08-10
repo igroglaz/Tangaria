@@ -113,7 +113,7 @@ const char *proj_idx_to_name(int type)
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
  */
-int project_path(struct player *p, struct loc *gp, int range, struct chunk *c, struct loc *grid1,
+int project_path(struct player *p, struct chunk *c, struct loc *gp, int range, struct loc *grid1,
     struct loc *grid2, int flg)
 {
     int y, x;
@@ -390,7 +390,7 @@ bool projectable(struct player *p, struct chunk *c, struct loc *grid1, struct lo
     if ((flg & PROJECT_SHORT) && p && p->timed[TMD_COVERTRACKS]) max_range /= 4;
 
     /* Check the projection path */
-    grid_n = project_path(NULL, grid_g, max_range, c, grid1, grid2, flg);
+    grid_n = project_path(NULL, c, grid_g, max_range, grid1, grid2, flg);
 
     /* No grid is ever projectable from itself */
     if (!grid_n) return false;
@@ -741,7 +741,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
 
         /* Calculate the projection path */
         /* Hack -- remove PROJECT_STOP flag to handle friendly targets separately */
-        num_path_grids = project_path(NULL, path_grid, z_info->max_range, cv, &start, finish,
+        num_path_grids = project_path(NULL, cv, path_grid, z_info->max_range, &start, finish,
             (flg & ~PROJECT_STOP));
 
         /* Some beams have limited length. */

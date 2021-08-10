@@ -552,7 +552,11 @@ bool panel_contains(struct player *p, struct loc *grid)
 
 
 /*
- * Return a target set of target_able monsters.
+ * Return a target set of interesting locations including monsters, objects,
+ * traps, and features.
+ *
+ * mode If mode includes TARGET_KILL, only hostile targets are included
+ * restrict_to_panel Restricts the interesting points to the current panel
  */
 struct point_set *target_get_monsters(struct player *p, int mode, bool restrict_to_panel)
 {

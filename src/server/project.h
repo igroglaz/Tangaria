@@ -84,7 +84,7 @@ extern char proj_to_char[PROJ_MAX][BOLT_MAX];
 /* project.c */
 extern int proj_name_to_idx(const char *name);
 extern const char *proj_idx_to_name(int type);
-extern int project_path(struct player *p, struct loc *gp, int range, struct chunk *c,
+extern int project_path(struct player *p, struct chunk *c, struct loc *gp, int range,
     struct loc *grid1, struct loc *grid2, int flg);
 extern bool projectable(struct player *p, struct chunk *c, struct loc *grid1, struct loc *grid2,
     int flg, bool nowall);

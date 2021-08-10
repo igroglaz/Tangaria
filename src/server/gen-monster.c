@@ -28,7 +28,8 @@
  */
 static bool allow_unique;
 static char base_d_char[15];
-static int base_depth;
+
+static int select_current_level;
 
 
 /*
@@ -73,7 +74,7 @@ static bool mon_select(struct monster_race *race)
     }
 
     /* No invisible undead until deep. */
-    if ((base_depth < 40) && rf_has(race->flags, RF_UNDEAD) && race_is_invisible(race))
+    if ((select_current_level < 40) && rf_has(race->flags, RF_UNDEAD) && race_is_invisible(race))
         return false;
 
     /* Usually decline unique monsters. */
@@ -95,6 +96,7 @@ static bool mon_select(struct monster_race *race)
  *
  * monster_type the monster type to be selected, as described below
  * depth the native depth to choose monsters
+ * current_depth is the depth at which the monsters will be placed
  * unique_ok whether to allow uniques to be chosen
  *
  * Returns success if the monster allocation table has been rebuilt
@@ -109,7 +111,7 @@ static bool mon_select(struct monster_race *race)
  * If called with monster_type "random", it will get a random monster base and 
  * describe the monsters by its name (for use by cheat_room).
  */
-bool mon_restrict(struct player *p, const char *monster_type, int depth, bool unique_ok)
+bool mon_restrict(const char *monster_type, int depth, int current_depth, bool unique_ok)
 {
     int i, j = 0;
     struct pit_profile *profile;
@@ -118,7 +120,7 @@ bool mon_restrict(struct player *p, const char *monster_type, int depth, bool un
     allow_unique = unique_ok;
     for (i = 0; i < 10; i++)
         base_d_char[i] = '\0';
-    base_depth = p->wpos.depth;
+    select_current_level = current_depth;
 
     /* No monster type specified, no restrictions. */
     if (monster_type == NULL)
@@ -143,7 +145,7 @@ bool mon_restrict(struct player *p, const char *monster_type, int depth, bool un
             {
                 if (!monster_is_unique(&r_info[j]) && (r_info[j].level != 0) &&
                     (r_info[j].level <= depth) &&
-                    (ABS(r_info[j].level - p->wpos.depth) < 1 + (p->wpos.depth / 4)))
+                    (ABS(r_info[j].level - current_depth) < 1 + (current_depth / 4)))
                 {
                     break;
                 }
@@ -215,12 +217,12 @@ void spread_monsters(struct player *p, struct chunk *c, const char *type, int de
     loc_init(&grid, x0, y0);
 
     /* Restrict monsters. Allow uniques. Leave area empty if none found. */
-    if (!mon_restrict(p, type, depth, true)) return;
+    if (!mon_restrict(type, depth, c->wpos.depth, true)) return;
 
     /* Build the monster probability table. */
     if (!get_mon_num(c, depth, false))
     {
-        mon_restrict(p, NULL, depth, false);
+        mon_restrict(NULL, depth, c->wpos.depth, false);
         return;
     }
 
@@ -233,7 +235,7 @@ void spread_monsters(struct player *p, struct chunk *c, const char *type, int de
             loc_init(&grid, x0, y0);
             if (!square_in_bounds(c, &grid))
             {
-                mon_restrict(p, NULL, depth, false);
+                mon_restrict(NULL, depth, c->wpos.depth, false);
                 return;
             }
         }
@@ -248,7 +250,7 @@ void spread_monsters(struct player *p, struct chunk *c, const char *type, int de
                         continue;
                     else
                     {
-                        mon_restrict(p, NULL, depth, false);
+                        mon_restrict(NULL, depth, c->wpos.depth, false);
                         return;
                     }
                 }
@@ -263,7 +265,7 @@ void spread_monsters(struct player *p, struct chunk *c, const char *type, int de
         pick_and_place_monster(p, c, &grid, depth, MON_ASLEEP | MON_GROUP, origin);
 
         /* Restrict monsters again (could have been reset if friends are generated) */
-        mon_restrict(p, type, depth, true);
+        mon_restrict(type, depth, c->wpos.depth, true);
 
         /* Rein in monster groups and escorts a little. */
         if (c->mon_max - start_mon_num > num * 2) break;
@@ -274,7 +276,7 @@ void spread_monsters(struct player *p, struct chunk *c, const char *type, int de
     }
 
     /* Remove monster restrictions. */
-    mon_restrict(p, NULL, depth, true);
+    mon_restrict(NULL, depth, c->wpos.depth, true);
 }
 
 
@@ -303,17 +305,17 @@ void get_vault_monsters(struct player *p, struct chunk *c, char racial_symbol[],
         /* Require correct race, allow uniques. */
         allow_unique = true;
         my_strcpy(base_d_char, format("%c", racial_symbol[i]), sizeof(base_d_char));
-        base_depth = p->wpos.depth;
+        select_current_level = c->wpos.depth;
 
         /* Determine level of monster */
         if (strstr(vault_type, "Lesser vault"))
-            depth = p->wpos.depth + 2;
+            depth = c->wpos.depth + 2;
         else if (strstr(vault_type, "Medium vault"))
-            depth = p->wpos.depth + 4;
+            depth = c->wpos.depth + 4;
         else if (strstr(vault_type, "Greater vault"))
-            depth = p->wpos.depth + 6;
+            depth = c->wpos.depth + 6;
         else
-            depth = p->wpos.depth;
+            depth = c->wpos.depth;
 
         /* Prepare allocation table */
         get_mon_num_prep(mon_select);
@@ -380,19 +382,19 @@ void get_chamber_monsters(struct player *p, struct chunk *c, int y1, int x1, int
     /* Set monster generation restrictions. Occasionally random. */
     if (random)
     {
-        if (!mon_restrict(p, "random", depth, true)) return;
+        if (!mon_restrict("random", depth, c->wpos.depth, true)) return;
         my_strcpy(name, "random", sizeof(name));
     }
     else
     {
-        if (!mon_restrict(p, dun->pit_type->name, depth, true)) return;
+        if (!mon_restrict(dun->pit_type->name, depth, c->wpos.depth, true)) return;
         my_strcpy(name, dun->pit_type->name, sizeof(name));
     }
 
     /* Build the monster probability table. */
     if (!get_mon_num(c, depth, false))
     {
-        mon_restrict(p, NULL, depth, false);
+        mon_restrict(NULL, depth, c->wpos.depth, false);
         name = NULL;
         return;
     }
@@ -426,5 +428,5 @@ void get_chamber_monsters(struct player *p, struct chunk *c, int y1, int x1, int
     }
 
     /* Remove our restrictions. */
-    mon_restrict(p, NULL, depth, false);
+    mon_restrict(NULL, depth, c->wpos.depth, false);
 }

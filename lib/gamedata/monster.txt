@@ -30485,7 +30485,7 @@ desc:A truly enormous dracon.
 name:s'spider
 base:spider
 color:p
-speed:112
+speed:110
 hit-points:15
 hearing:8
 armor-class:0
@@ -30493,17 +30493,18 @@ sleepiness:80
 #1
 depth:2
 rarity:0
-weight:1
+weight:25
 experience:7
 blow:BITE:HURT:1d4
 flags:ANIMAL
+flags:HURT_LIGHT
 desc:It is a black spider that moves in fits and starts.
 
 #name:wood spider
 name:s'weaver
 base:spider
 color:U
-speed:114
+speed:110
 hit-points:40
 hearing:8
 armor-class:0
@@ -30511,12 +30512,12 @@ sleepiness:80
 #5
 depth:7
 rarity:0
-weight:1
+weight:50
 experience:15
 blow:BITE:HURT:1d3
 blow:STING:POISON:1d4
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:HURT_LIGHT
 spell-freq:34
 innate-freq:100
 spells:WEAVE
@@ -30526,7 +30527,7 @@ desc:It scuttles around weaving spider silk.
 name:s'warrior
 base:spider
 color:V
-speed:116
+speed:110
 hit-points:80
 hearing:8
 armor-class:0
@@ -30534,21 +30535,21 @@ sleepiness:40
 #10
 depth:10
 rarity:0
-weight:1
+weight:70
 experience:35
 blow:BITE:HURT:1d10
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 blow:BITE:HURT:1d10
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:HURT_LIGHT
 desc:It is a vast black spider with bulbous bloated body.
 
 #name:giant tarantula
 name:s'guard
 base:spider
 color:o
-speed:118
+speed:110
 hit-points:140
 hearing:8
 armor-class:0
@@ -30556,13 +30557,14 @@ sleepiness:20
 #15
 depth:15
 rarity:0
-weight:1
+weight:80
 experience:70
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
 flags:ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-freq:34
 innate-freq:100
 spells:WEAVE
@@ -30572,7 +30574,7 @@ desc:A giant, fast-moving spider with hairy black and red legs.
 name:s'apprentice
 base:spider
 color:g
-speed:120
+speed:110
 hit-points:190
 hearing:15
 armor-class:0
@@ -30580,13 +30582,14 @@ sleepiness:80
 #20
 depth:20
 rarity:0
-weight:1
+weight:90
 experience:25
 blow:BITE:HURT:1d8
 blow:BITE:POISON:1d6
 blow:BITE:POISON:1d6
-flags:EVIL | ANIMAL
-flags:IM_POIS | HURT_LIGHT
+flags:ANIMAL
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:20
 innate-freq:50
@@ -30598,7 +30601,7 @@ desc: seeks to taste your juicy insides.
 name:s'adept
 base:spider
 color:R
-speed:122
+speed:110
 hit-points:240
 hearing:20
 armor-class:0
@@ -30606,14 +30609,14 @@ sleepiness:50
 # 25
 depth:38
 rarity:0
-weight:1
+weight:100
 experience:250
 blow:STING:POISON:2d8
 blow:CLAW:HURT:1d8
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:25
 innate-freq:50
@@ -30623,7 +30626,7 @@ desc:An intelligent arachnid whose hairy legs weave spells in the air.
 #name:aranea
 name:s'master
 color:R
-speed:124
+speed:110
 hit-points:330
 hearing:20
 armor-class:0
@@ -30631,15 +30634,15 @@ sleepiness:50
 # 30
 depth:38
 rarity:0
-weight:1
+weight:110
 experience:250
 blow:CLAW:POISON:2d8
 blow:CLAW:POISON:2d8
 blow:BITE:POISON:2d6
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:30
 innate-freq:50
@@ -30649,7 +30652,7 @@ desc:Fast and furious spider. Master of the web and poison.
 #name:aranea
 name:s'aranea
 color:R
-speed:126
+speed:110
 hit-points:370
 hearing:20
 armor-class:0
@@ -30657,15 +30660,15 @@ sleepiness:50
 # 35
 depth:38
 rarity:0
-weight:1
+weight:120
 experience:250
 blow:CLAW:POISON:2d8
 blow:CLAW:POISON:2d8
 blow:BITE:POISON:2d6
 blow:BITE:POISON:2d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:35
 innate-freq:50
@@ -30676,7 +30679,7 @@ desc:An intelligent arachnid whose hairy legs weave spells in the air.
 name:s'elder
 base:spider
 color:G
-speed:128
+speed:110
 hit-points:450
 hearing:20
 armor-class:0
@@ -30684,14 +30687,15 @@ sleepiness:50
 # 40
 depth:38
 rarity:0
-weight:1
+weight:130
 experience:250
 blow:CLAW:HURT:2d8
 blow:STING:POISON:2d6
 blow:STING:POISON:2d6
 blow:BITE:CONFUSE:1d3
-flags:EVIL | ANIMAL
-flags:WEIRD_MIND | HURT_LIGHT | IM_POIS
+flags:ANIMAL
+flags:OPEN_DOOR
+flags:HURT_LIGHT
 spell-power:40
 spell-freq:34
 innate-freq:50
@@ -30703,7 +30707,7 @@ desc: spined legs.
 name:s'ancient
 base:spider
 color:r
-speed:130
+speed:110
 hit-points:700
 hearing:20
 armor-class:0
@@ -30711,15 +30715,15 @@ sleepiness:50
 # 45
 depth:48
 rarity:0
-weight:1
+weight:140
 experience:2500
 blow:CLAW:POISON:5d8
 blow:CLAW:POISON:5d8
 blow:BITE:HALLU:5d6
 blow:BITE:EAT_LIGHT:5d6
-flags:EVIL | ANIMAL
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:45
 innate-freq:50
@@ -30731,7 +30735,7 @@ desc:A foul creature of spider form, older even than the pits of Angband.
 name:s'lord
 base:spider
 color:r
-speed:132
+speed:110
 hit-points:950
 hearing:20
 armor-class:0
@@ -30739,15 +30743,15 @@ sleepiness:50
 # 50
 depth:48
 rarity:0
-weight:1
+weight:150
 experience:3000
 blow:CLAW:POISON:5d8
 blow:CLAW:POISON:5d8
 blow:BITE:HALLU:5d6
 blow:BITE:EAT_LIGHT:5d6
-flags:EVIL | ANIMAL | SMART
+flags:ANIMAL
 flags:OPEN_DOOR
-flags:HURT_LIGHT | IM_FIRE | IM_POIS
+flags:HURT_LIGHT
 spell-freq:34
 spell-power:50
 innate-freq:50

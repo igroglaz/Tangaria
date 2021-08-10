@@ -519,9 +519,12 @@ static void wield_all(struct player *p)
 }
 
 
-static void player_outfit_aux(struct player *p, struct object_kind *k, byte number)
+static void player_outfit_aux(struct player *p, struct object_kind *k, byte number, bool gift)
 {
     struct object *obj = object_new();
+
+    /* PWMAngband: food and light are free, as well as gifts */
+    bool free = (tval_is_food_k(k) || tval_is_light_k(k) || gift);
 
     /* Prepare the item */
     object_prep(p, chunk_get(&p->wpos), obj, k, 0, MINIMISE);
@@ -541,9 +544,7 @@ static void player_outfit_aux(struct player *p, struct object_kind *k, byte numb
     obj->ignore_protect = 1;
 
     /* Deduct the cost of the item from starting cash */
-    /* PWMAngband: food and light are free */
-    if (!tval_is_food_k(k) && !tval_is_light_k(k))
-        p->au -= (s32b)object_value(p, obj, obj->number);
+    if (!free) p->au -= (s32b)object_value(p, obj, obj->number);
 
     /* Carry the item */
     inven_carry(p, obj, true, false);
@@ -615,7 +616,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
             if (!included) continue;
         }
 
-        player_outfit_aux(p, kind, (byte)num);
+        player_outfit_aux(p, kind, (byte)num, false);
     }
 
     /* Sanity check */
@@ -682,16 +683,16 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
         /* Hack -- money gift */
         if (tval_is_money_k(kind)) p->au += num;
-        else player_outfit_aux(p, kind, (byte)num);
+        else player_outfit_aux(p, kind, (byte)num, true);
     }
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
     /* Give the player a deed of property */
-    player_outfit_aux(p, lookup_kind_by_name(TV_DEED, "Deed of Property"), 1);
+    player_outfit_aux(p, lookup_kind_by_name(TV_DEED, "Deed of Property"), 1, true);
 
     /* Give the player a house creation scroll */
-    player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "Small House Creation"), 1);
+    player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "Small House Creation"), 1, true);
 }
 
 
@@ -734,7 +735,7 @@ static void player_outfit_dm(struct player *p)
         struct class_book *book = &p->clazz->magic.books[i];
 
         if (book->realm->book_noun)
-            player_outfit_aux(p, lookup_kind(book->tval, book->sval), 1);
+            player_outfit_aux(p, lookup_kind(book->tval, book->sval), 1, true);
     }
 
     /* Other useful stuff */
@@ -743,7 +744,7 @@ static void player_outfit_dm(struct player *p)
         struct object_kind *kind = lookup_kind(si->tval, si->sval);
 
         my_assert(kind);
-        player_outfit_aux(p, kind, (byte)si->min);
+        player_outfit_aux(p, kind, (byte)si->min, true);
     }
 
     /* Max recall depth */

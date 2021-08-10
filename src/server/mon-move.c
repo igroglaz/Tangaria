@@ -42,7 +42,7 @@ static bool monster_near_permwall(struct player *p, const struct monster *mon, s
         return false;
 
     /* Find the shortest path */
-    path_grids = project_path(p, gp, z_info->max_sight, c, &((struct monster *)mon)->grid, &p->grid,
+    path_grids = project_path(p, c, gp, z_info->max_sight, &((struct monster *)mon)->grid, &p->grid,
         PROJECT_ROCK);
 
     /* See if we can "see" the player without hitting permanent wall */
@@ -602,7 +602,7 @@ static bool get_move_advance(struct player *p, struct chunk *c, struct monster *
         struct loc path_grid[512];
 
         /* Check path for damaging grid */
-        num_path_grids = project_path(NULL, path_grid, z_info->max_range, c, &mon->grid, &target, 0);
+        num_path_grids = project_path(NULL, c, path_grid, z_info->max_range, &mon->grid, &target, 0);
         if ((num_path_grids > 0) && !monster_hates_grid(c, mon, &path_grid[0]))
         {
           loc_copy(&mon->target.grid, &target);
@@ -1557,6 +1557,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     {
         /* Remove the wall */
         square_destroy_wall(c, grid);
+        if (c->wpos.depth == 0) expose_to_sun(c, grid, is_daytime());
 
         /* Note changes to viewable region */
         note_viewable_changes(&c->wpos, grid);

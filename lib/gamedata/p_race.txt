@@ -138,12 +138,13 @@ history:1
 age:14:6
 height:69:10
 weight:165:35
-gift:food:Ration of Food:1:1
+gift:food:Ration of Food:1:2
 value:0:STR[0+1d24]
 value:0:CON[0+1d12]
 value:1:DAM_RED[0+1d15]
 value:1:TUNNEL[1+1d30]
 value:30:SPEED[1]
+
 # mediocre bonus.. versatile
 
 name:Half-Elf
@@ -587,7 +588,7 @@ history:97
 age:255:70
 height:170:20
 weight:240:60
-gift:food:Slice of Meat:1:1
+gift:food:Slice of Meat:1:2
 value:1:STR[-20]
 value:1:INT[-4]
 value:1:WIS[-4]
@@ -701,7 +702,6 @@ age:14:6
 height:67:5
 weight:165:23
 gift:potion:Water:7:14
-
 #0 0 2 1 -1
 value:1:STR[-1+1d27]
 value:1:INT[-1+1d20M21]
@@ -834,7 +834,6 @@ value:1:CON[1+1d24]
 value:1:CHR[-4]
 gift:food:Hard Biscuit:2:5
 obj-flag:10:SUST_STR
-obj-flag:50:TRAP_IMMUNE
 obj-flag:24:PROT_CONF
 obj-flag:48:PROT_STUN
 #value:1:SPEED[-1+-1d30]
@@ -1078,7 +1077,7 @@ history:19
 age:11:4
 height:68:5
 weight:140:12
-gift:scroll:Dispel Undead:1:1
+gift:scroll:Dispel Undead:1:2
 #2 -6 -6 -1 -5
 value:0:STR[-2+1d10M20]
 value:1:INT[0+-1d8]
@@ -1118,7 +1117,7 @@ history:100
 age:11:4
 height:68:5
 weight:150:10
-gift:scroll:Deep Descent:1:1
+gift:scroll:Deep Descent:1:3
 #2 2 -1 2 0
 value:0:STR[-3+1d9]
 value:0:INT[0+1d24]
@@ -1130,7 +1129,6 @@ value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
 obj-flag:10:HOLD_LIFE
-obj-flag:1:IMPAIR_HP
 value:1:RES_LIGHT[-1]
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
@@ -1141,7 +1139,6 @@ value:1:DAM_RED[-1+-1d15]
 value:1:TUNNEL[-1+-1d30]
 #temp
 value:1:SPEED[1+-2d48]
-#value:50:SPEED[-1]
 value:1:MOVES[-1]
 value:1:STEALTH[0+1d24]
 player-flags:0:SHAPECHANGE
@@ -1151,7 +1148,8 @@ shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
 # revamp when will implement hurt from daylight
-value:0:MANA[6+-1d6M36]
+value:0:MANA[4+-1d6M25]
+obj-flag:1:IMPAIR_HP
 
 ############################## GODLIKE
 # ? spirits.. of fire, elec, cold, 
@@ -1200,10 +1198,11 @@ value:50:RES_TIME[1]
 brand:1:50:COLD_2
 slay:50:50:EVIL_2
 value:50:MIGHT[-1]
-value:0:MANA[5+-1d10]
+value:0:MANA[4+-1d10M40]
 #value:50:BLOWS[-1]
 #temp
 value:1:SPEED[1]
+value:1:MOVES[-1]
 #
 
 # cambion.. 'corrupted' descendants of ancient powers;
@@ -1215,15 +1214,16 @@ skill-save:3
 skill-stealth:0
 skill-search:1
 skill-melee:15
-skill-shoot:5
+skill-shoot:7
 skill-dig:0
 hitdie:11
-exp:100:125
+# +10% exp
+exp:100:135
 history:100
 age:11:4
 height:72:5
 weight:160:23
-gift:rock:Shuriken:3:3
+gift:rock:Shuriken:2:3
 #2 3 3 1 1
 value:0:STR[-5+1d7]
 value:0:INT[-4+1d7]
@@ -1242,15 +1242,15 @@ value:1:RES_POIS[1]
 value:1:RES_LIGHT[-1]
 value:1:RES_DARK[1]
 value:1:RES_SOUND[1]
-##########value:1:RES_NEXUS[1] ->brand instead
 brand:1:50:POIS_2
+##########value:1:RES_NEXUS[1] ->brand instead
 value:50:RES_CHAOS[1]
 #############################
 value:1:DAM_RED[-1+-1d2]
 #############^^^^^^^^################
 #######obj-flag:10:DRAIN_EXP
 player-flags:0:SHAPECHANGE
-value:0:MANA[6+-1d10]
+value:0:MANA[5+-1d12]
 shape:30:succubi
 #temp
 value:1:SPEED[1]
@@ -1341,13 +1341,13 @@ value:1:RES_GRAVITY[1]
 brand:1:50:ELEC_2
 value:1:RES_ELEC[1]
 value:1:RES_TIME[-1]
-value:1:MOVES[-1]
 value:1:TUNNEL[-1+-1d10]
 obj-flag:50:IMPAIR_MANA
 value:0:MANA[5+-1d12]
 slay:50:50:UNDEAD_3
 #temp
 value:1:SPEED[1]
+value:1:MOVES[-1]
 
 #Nephalem – example what could appear if celestial would make love to balrog. Amazingly it happens sometimes, so such creatures could be met.. very-very rare, but there they are.
 name:Nephalem
@@ -1495,6 +1495,7 @@ obj-flag:1:FEATHER
 value:20:MIGHT[-1]
 # evade... 
 value:0:MANA[5+-1d12]
+obj-flag:1:TRAP_IMMUNE
 ######giving them a chance to use less spell points when they cast a spell, probably based upon their primary spell stat, (i.e., int or wis)
 #######some type of innate survival spells that they can cast every so often (like a built-in rod), things like phase door, teleport, etc.
 
@@ -1536,6 +1537,7 @@ shape:50:great dracon
 slay:50:50:GIANT_3
 #temp
 value:1:SPEED[1]
+value:1:MOVES[-1]
 value:0:MANA[4+-1d6M25]
 
 name:Titan
@@ -1565,7 +1567,6 @@ value:0:CHR[0]
 obj-flag:5:SUST_STR
 obj-flag:10:SUST_DEX
 obj-flag:15:SUST_CON
-obj-flag:1:TRAP_IMMUNE
 #value:1:SPEED[-1+-1d30]
 value:1:MOVES[10+10d10]
 value:1:BLOWS[1+1d45]
@@ -1579,8 +1580,11 @@ value:1:RES_NEXUS[1]
 value:1:TUNNEL[3+1d10]
 slay:1:24:DRAGON_3
 slay:25:50:DRAGON_5
+value:0:MANA[1d5]
+#
 obj-flag:1:NO_TELEPORT
-value:0:MANA[10]
+obj-flag:1:HUNGER
+#
 player-flags:0:SHAPECHANGE
 #regular forms
 shape:10:hill giant
@@ -1611,6 +1615,7 @@ history:100
 age:60:55
 height:74:7
 weight:85:9
+# elven short bow
 gift:bow:Short Bow:1:1
 gift:arrow:Old Arrow:30:40
 # 0 1 -2 2 -1
@@ -1674,9 +1679,9 @@ value:50:RES_ACID[3]
 value:1:STEALTH[-1+-1d9]
 value:35:SPEED[-1+-1d3]
 value:35:DAM_RED[-1+-1d3]
-value:50:MOVES[-10]
-obj-flag:50:IMPAIR_HP
-value:0:MANA[11+-1d5]
+value:0:MOVES[-1+-10d48]
+obj-flag:1:IMPAIR_HP
+value:0:MANA[6+-1d10]
 #temp
 value:1:BLOWS[1+-1d30]
 
@@ -1696,7 +1701,7 @@ history:100
 age:14:6
 height:170:20
 weight:240:60
-gift:food:Large Trout:1:1
+gift:food:Large Trout:1:2
 value:1:STR[2]
 value:1:INT[-4+1d24]
 value:1:WIS[-2]
@@ -1748,11 +1753,11 @@ obj-flag:1:CANT_FLY
 
 # should always use forms to compensate speed debuff
 name:Spider
-skill-disarm-phys:-15
-skill-disarm-magic:-15
-skill-device:-15
-skill-save:0
-skill-stealth:2
+skill-disarm-phys:-50
+skill-disarm-magic:-50
+skill-device:-50
+skill-save:-20
+skill-stealth:0
 skill-search:10
 skill-melee:-10
 skill-shoot:-10
@@ -1763,7 +1768,7 @@ history:100
 age:10:5
 height:28:3
 weight:51:6
-gift:scroll:Trap Creation:1:2
+gift:food:Handful of Dried Fruits:2:3
 # -3 -1 1 5 -2
 value:1:STR[-3]
 value:1:INT[-3+1d20]
@@ -1772,17 +1777,15 @@ value:1:DEX[0+1d9]
 value:1:CON[-2]
 value:0:CHR[-9]
 value:1:INFRA[1+1d6]
-value:1:STEALTH[0+1d24]
 brand:15:50:POIS_2
-value:1:RES_POIS[1]
-value:50:RES_POIS[3]
-value:0:SPEED[0+-1d5]
-value:1:MOVES[-1]
-value:0:MANA[5+-1d12]
+# value:1:RES_POIS[1] bugged order.. so leaving imminity only for now
+value:1:RES_POIS[3]
+value:0:MANA[4+-1d12]
 value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
-player-flags:0:SHAPECHANGE
-shape:1:s'spider
+value:0:STEALTH[1+1d12]
+player-flags:0:PERM_SHAPE
+shape:3:s'spider
 shape:5:s'weaver
 shape:10:s'warrior
 shape:15:s'guard
@@ -1793,12 +1796,18 @@ shape:35:s'aranea
 shape:40:s'elder
 shape:45:s'ancient
 shape:50:s'lord
+#attack:verb:hit_extra:min_level:chance:effect
+#attack:strike: with your talons:3:1:DICE
+#attack:strike:none:11:5:SLOW
+#attack:strike:none:15:6:STUN
+#attack:hit:none:20:7:CUT
+#attack:hit:none:45:16:CRUSH
 
 name:Djinn
 skill-disarm-phys:20
 skill-disarm-magic:20
 skill-device:20
-skill-save:15
+skill-save:-15
 skill-stealth:3
 skill-search:20
 skill-melee:0
@@ -1818,7 +1827,6 @@ value:0:DEX[0+1d8]
 value:0:CON[0+1d8]
 value:0:CHR[-20]
 obj-flag:1:FEATHER
-obj-flag:1:SLOW_DIGEST
 obj-flag:1:PROT_FEAR
 obj-flag:25:SEE_INVIS
 value:1:INFRA[1+1d15]
@@ -1842,8 +1850,8 @@ obj-flag:1:ESP_DEMON
 slay:25:50:DEMON_3
 # -
 player-flags:0:NO_BOOTS
-obj-flag:50:IMPAIR_HP
-obj-flag:50:IMPAIR_MANA
+obj-flag:1:IMPAIR_HP
+obj-flag:1:IMPAIR_MANA
 
 name:Harpy
 skill-disarm-phys:-4
@@ -1913,7 +1921,7 @@ value:1:SPEED[1]
 value:1:DAM_RED[-1+-1d5]
 value:0:MOVES[-1+-1d5]
 obj-flag:1:IMPAIR_HP
-value:0:MANA[5+-1d10]
+value:0:MANA[4+-1d6M25]
 
 name:Troglodyte
 skill-disarm-phys:-10
@@ -2158,6 +2166,7 @@ value:40:RES_NETHER[1]
 value:50:RES_TIME[1]
 value:1:TUNNEL[-10]
 value:1:MOVES[-1+-1d9]
+# !
 player-flags:0:NO_RECALL
 obj-flag:50:DRAIN_EXP
 value:0:MANA[4+-1d12]
@@ -2219,6 +2228,7 @@ shape:40:observer'
 shape:50:overseer'
 #+ mind flayer @ 50
 #+hallucinating (effect decreases with increased int,wis)
+
 
 
 #player-flags:0:SHAPECHANGE

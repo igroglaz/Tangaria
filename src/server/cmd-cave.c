@@ -1034,6 +1034,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Found nothing */
         else
             msg(p, "You have finished the tunnel.");
+
+        /* On the surface, new terrain may be exposed to the sun. */
+        if (c->wpos.depth == 0) expose_to_sun(c, grid, is_daytime());
+
+        /* Update the visuals. */
+        square_memorize(p, c, grid);
+        square_light_spot_aux(p, c, grid);
+        update_visuals(&p->wpos);
     }
 
     /* Failure, continue digging */
@@ -2073,6 +2081,8 @@ static bool clear_web(struct player *p, struct chunk *c)
 {
     if (!square_iswebbed(c, &p->grid)) return false;
 
+    if (streq(p->race->name, "Spider")) return false;
+
     /* Handle polymorphed players */
     if (p->poly_race)
     {
@@ -2523,6 +2533,12 @@ void display_feeling(struct player *p, bool obj_only)
 static int can_buy_house(struct player *p, int price)
 {
     int i;
+    
+    if (p->lev < 8)
+    {
+        msg(p, "You must be level 8 to buy a house.");
+        return false;
+    }    
 
     /* Check for deeds of property */
     if (price < 10000)
@@ -3264,9 +3280,9 @@ bool create_house(struct player *p, int small_house)
     char wall_type = '\0';  // second part of floor name (type) for rng walls
     int wall_id = 0;  // specific wall (when we have several different walls in one row)
 
-    if (p->lev < 10)
+    if (p->lev < 8)
     {
-        msg(p, "You must be level 10 to build a house.");
+        msg(p, "You must be level 8 to build a house.");
         return false;
     }
 
@@ -3403,6 +3419,8 @@ bool create_house(struct player *p, int small_house)
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_ROOM);
     }
     while (loc_iterator_next_strict(&iter));
+
+    msg(p, "To create a door - 'T'unnel the wall in desirable place.");
 
     return true;
 }

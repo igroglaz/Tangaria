@@ -24,19 +24,11 @@ Fix (reduce) the alpha on your screen, or use the "Interact with colors" screen
 under the options (``=``) menu. Navigate to the ``8`` using ``n`` and increase
 the color intensity with r(ed)/g(reen)/b(lue).
 
-I'm playing in a terminal and the Escape key isn't working as it should
-***********************************************************************
-
-This is a feature of terminals to allow you to enter keypresses that can't be
-sent directly. Use the backtick ``\`` key instead - it's equivalent in every way
-to Escape. (This is unverified for PWMAngband.)
-
 Is there a way to disable that thing that pops up when you hit the enter key?
 *****************************************************************************
 
 Go into the options menu, choose "Edit keymaps", then "Create a keymap". Press
-Enter at the "Keypress" prompt and a single space as the "Action".
-In short: ``=m8 <enter> <enter>``.
+Enter at the "Key" prompt and a single space as the "Action".
 
 And then you'll probably want to choose to "Append keymaps to a file" so that it
 persists for next time you load the game.
@@ -44,6 +36,9 @@ persists for next time you load the game.
 This just replaces the default action of Enter with a "do nothing but don't tell
 me about help" action. If you want to keep the menu available, say on the 'Tab'
 key, you can also remap the Tab keypress to the ``\n`` action.
+
+In PWMAngband, you can also use the disable_enter option from the Options menu,
+Advanced options section.
 
 Development
 -----------

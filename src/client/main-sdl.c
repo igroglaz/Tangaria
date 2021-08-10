@@ -4077,12 +4077,20 @@ static int cmp_font(const void *f1, const void *f2)
 {
     const char *font1 = *(const char **)f1;
     const char *font2 = *(const char **)f2;
-    int height1, height2;
-    int width1, width2;
-    char face1[5], face2[5];
+    int width1 = 0;
+    int width2 = 0;
+    int height1 = 0;
+    int height2 = 0;
+    char face1[5] = {0};
+    char face2[5] = {0};
 
     sscanf(font1, "%dx%d%4s.", &width1, &height1, face1);
     sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
+
+    if (width1 == NULL && height1 == NULL && width2 == NULL && height2 == NULL)
+    {
+        return strcmp(font1, font2);
+    }
 
     if (width1 < width2)
         return -1;

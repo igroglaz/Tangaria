@@ -2,7 +2,7 @@ Version Information
 ===================
 
 PWMAngband 1.5.0 is based on Angband 4.2.x and MAngband 1.5.x. The latest
-build for PWMAngband 1.5.0 is beta 6.
+build for PWMAngband 1.5.0 is beta 7.
 
 Angband information was last updated for Angband 4.2.x.
 MAngband information was last updated for MAngband 1.5.x.
@@ -12,8 +12,8 @@ Angband Version Information
 ---------------------------
 
 Detailed information about current and previous versions can be found at
-http://rephial.org. Also additional information can be found at the Angband
-forums (http://angband.oook.cz).
+http://angband.github.io/angband. Also additional information can be found at
+the Angband forums (http://angband.oook.cz).
 
 This file was last updated for Angband 3.1.2 and remains here mainly
 for historical purposes.
@@ -165,10 +165,10 @@ properly to Ben Harrison's fractional speed system (Angband 2.7.0) or the
 addition of the other attack forms such as shards, sound, chaos, nexus and
 so on (even before Ben.)
 
-The Official Angband Home Page (http://rephial.org/) serves not only as the
-most up to date description of Angband, but also lists changes made between
-versions, and changes planned for upcoming versions, and lists various
-email addresses and web sites related to Angband.
+The Official Angband Home Page (http://angband.github.io/angband) serves
+not only as the most up to date description of Angband, but also lists changes
+made between versions, and changes planned for upcoming versions, and lists
+various email addresses and web sites related to Angband.
 
 Some of the changes between Angband 2.6.1 and 3.0.6
 ---------------------------------------------------

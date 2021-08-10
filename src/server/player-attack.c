@@ -54,11 +54,16 @@ int breakage_chance(const struct object *obj, bool hit_target)
 
 
 /*
- * Return the player's chance to hit with a particular weapon.
+ * Calculate the player's base melee to-hit value without regard to a specific
+ * monster.
+ * See also: chance_of_missile_hit_base
+ *
+ * p The player
+ * weapon The player's weapon
  */
-int chance_of_melee_hit(struct player *p, const struct object *weapon)
+int chance_of_melee_hit_base(const struct player *p, const struct object *weapon)
 {
-    int chance, bonus = p->state.to_h;
+    int bonus = p->state.to_h;
 
     if (weapon)
     {
@@ -67,17 +72,39 @@ int chance_of_melee_hit(struct player *p, const struct object *weapon)
         object_to_h(weapon, &to_h);
         bonus += to_h;
     }
-    chance = p->state.skills[SKILL_TO_HIT_MELEE] + bonus * BTH_PLUS_ADJ;
 
-    return chance;
+    return p->state.skills[SKILL_TO_HIT_MELEE] + bonus * BTH_PLUS_ADJ;
 }
 
 
 /*
- * Return the player's chance to hit with a particular missile and (optionally) launcher.
+ * Calculate the player's melee to-hit value against a specific target.
+ * See also: chance_of_missile_hit
+ *
+ * p The player
+ * weapon The player's weapon
+ * visible If the target is visible
  */
-static int chance_of_missile_hit(struct player *p, struct object *missile,
-    struct object *launcher, struct loc *grid)
+static int chance_of_melee_hit(const struct player *p, const struct object *weapon, bool visible)
+{
+    int chance = chance_of_melee_hit_base(p, weapon);
+
+    /* Non-visible targets have a to-hit penalty of 50% */
+    return (visible? chance: chance / 2);
+}
+
+
+/*
+ * Calculate the player's base missile to-hit value without regard to a specific
+ * monster.
+ * See also: chance_of_melee_hit_base
+ *
+ * p The player
+ * missile The missile to launch
+ * launcher The launcher to use (optional)
+ */
+static int chance_of_missile_hit_base(struct player *p, struct object *missile,
+    struct object *launcher)
 {
     int bonus = missile->to_h;
     int chance;
@@ -106,28 +133,87 @@ static int chance_of_missile_hit(struct player *p, struct object *missile,
         chance = p->state.skills[SKILL_TO_HIT_BOW] + bonus * BTH_PLUS_ADJ;
     }
 
-    return chance - distance(&p->grid, grid);
+    return chance;
 }
 
 
 /*
- * Determine if the player "hits" a monster.
+ * Calculate the player's missile to-hit value against a specific target.
+ * See also: chance_of_melee_hit
+ *
+ * p The player
+ * missile The missile to launch
+ * launcher The launcher to use (optional)
+ * grid The target grid
+ * visible If the target is visible
  */
-bool test_hit(int chance, int ac, int vis)
+static int chance_of_missile_hit(struct player *p, struct object *missile,
+    struct object *launcher, struct loc *grid, bool visible)
 {
-    int k = randint0(100);
+    int chance = chance_of_missile_hit_base(p, missile, launcher);
 
-    /* There is an automatic 12% chance to hit and 5% chance to miss */
-    if (k < 17) return (k < 12);
+    /* Penalize for distance */
+    chance -= distance(&p->grid, grid);
 
-    /* Penalize invisible targets */
-    if (!vis) chance = chance / 2;
+    /* Non-visible targets have a to-hit penalty of 50% */
+    return (visible? chance: chance / 2);
+}
 
-    /* Starting a bit higher up on the scale */
-    if (chance < 9) chance = 9;
 
-    /* Power competes against armor */
-    return (randint0(chance) >= (ac * 2 / 3));
+/*
+ * Determine if a hit roll is successful against the target AC.
+ * See also: hit_chance
+ *
+ * to_hit To total to-hit value to use
+ * ac The AC to roll against
+ */
+bool test_hit(int to_hit, int ac)
+{
+    random_chance c;
+
+    hit_chance(&c, to_hit, ac);
+    return random_chance_check(&c);
+}
+
+
+/*
+ * Return a random_chance by reference, which represents the likelihood of a
+ * hit roll succeeding for the given to_hit and ac values. The hit calculation
+ * will:
+ *
+ * Always hit 12% of the time
+ * Always miss 5% of the time
+ * Put a floor of 9 on the to-hit value
+ * Roll between 0 and the to-hit value
+ * The outcome must be >= AC*2/3 to be considered a hit
+ *
+ * chance The random_chance to return-by-reference
+ * to_hit The to-hit value to use
+ * ac The AC to roll against
+ */
+void hit_chance(random_chance *chance, int to_hit, int ac)
+{
+    /* Percentages scaled to 10,000 to avoid rounding error */
+    const int HUNDRED_PCT = 10000;
+    const int ALWAYS_HIT = 1200;
+    const int ALWAYS_MISS = 500;
+
+    /* Put a floor on the to_hit */
+    to_hit = MAX(9, to_hit);
+
+    /* Calculate the hit percentage */
+    chance->numerator = MAX(0, to_hit - ac * 2 / 3);
+    chance->denominator = to_hit;
+
+    /* Convert the ratio to a scaled percentage */
+    chance->numerator = HUNDRED_PCT * chance->numerator / chance->denominator;
+    chance->denominator = HUNDRED_PCT;
+
+    /* The calculated rate only applies when the guaranteed hit/miss don't */
+    chance->numerator = chance->numerator * (HUNDRED_PCT - ALWAYS_MISS - ALWAYS_HIT) / HUNDRED_PCT;
+
+    /* Add in the guaranteed hit */
+    chance->numerator += ALWAYS_HIT;
 }
 
 
@@ -656,7 +742,6 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     struct object *obj = equipped_item_by_slot_name(p, "weapon");
 
     /* Information about the attack */
-    int chance = chance_of_melee_hit(p, obj);
     int splash = 0;
     bool do_quake = false;
     bool success = false;
@@ -729,7 +814,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         disturb(target->player, 0);
 
     /* See if the player hit */
-    success = test_hit(chance, ac, visible);
+    success = test_hit(chance_of_melee_hit(p, obj, visible), ac);
 
     /* Extract killer name */
     if (target->player)
@@ -1660,7 +1745,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         loc_copy(&grid, &p->grid);
 
         /* Calculate the path */
-        path_n = project_path(NULL, path_g, range, c, &grid, &target, (pierce? PROJECT_THRU: 0));
+        path_n = project_path(NULL, c, path_g, range, &grid, &target, (pierce? PROJECT_THRU: 0));
 
         /* Hack -- handle stuff */
         handle_stuff(p);
@@ -1995,7 +2080,6 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
 {
     struct attack_result result;
     struct object *bow = equipped_item_by_slot_name(p, "shooting");
-    int chance = chance_of_missile_hit(p, ammo, bow, grid);
     int multiplier = (bow? p->state.ammo_mult: 1);
     int best_mult = 1;
     struct chunk *c = chunk_get(&p->wpos);
@@ -2020,8 +2104,8 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
         ac = target->player->state.ac + target->player->state.to_a;
     }
 
-    /* Did we hit it (penalize distance travelled) */
-    if (!test_hit(chance, ac, visible)) return result;
+    /* Did we hit it */
+    if (!test_hit(chance_of_missile_hit(p, ammo, bow, grid, visible), ac)) return result;
 
     result.success = true;
 
@@ -2050,7 +2134,6 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
 static struct attack_result make_ranged_throw(struct player *p, struct object *obj, struct loc *grid)
 {
     struct attack_result result;
-    int chance = chance_of_missile_hit(p, obj, NULL, grid);
     int multiplier = 1;
     int best_mult = 1;
     struct chunk *c = chunk_get(&p->wpos);
@@ -2077,7 +2160,7 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
     }
 
     /* If we missed then we're done */
-    if (!test_hit(chance, ac, visible)) return result;
+    if (!test_hit(chance_of_missile_hit(p, obj, NULL, grid, visible), ac)) return result;
 
     result.success = true;
 
@@ -2279,8 +2362,9 @@ bool do_cmd_throw(struct player *p, int dir, int item)
 
     if (object_is_equipped(p->body, obj))
     {
-        my_assert(obj_can_takeoff(obj) && tval_is_melee_weapon(obj));
-        inven_takeoff(p, obj);
+        /* Restrict which equipment can be thrown */
+        if (obj_can_takeoff(obj) && tval_is_melee_weapon(obj)) inven_takeoff(p, obj);
+        else return false;
     }
 
     weight = MAX(obj->weight, 10);

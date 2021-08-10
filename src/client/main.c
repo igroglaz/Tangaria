@@ -168,6 +168,9 @@ int main(int argc, char *argv[])
     /* Create save default config */
     conf_default_save();
 
+    /* Initialize RNG */
+    Rand_init();
+
     /* Initialize everything, contact the server, and start the loop */
     client_init(true);
 

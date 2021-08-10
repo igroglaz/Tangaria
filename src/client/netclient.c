@@ -19,6 +19,10 @@
 
 #include "c-angband.h"
 
+#ifdef UNIX
+#include <sys/time.h>
+#endif
+
 
 /* Client shutdown attempts to send a quit packet to the server when it exits  */
 bool send_quit = true;

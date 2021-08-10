@@ -671,6 +671,9 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
 
         /* Drop gold */
         else if (strstr(pmsgbuf, "gold")) textui_cmd_drop_gold();
+        
+        /* Kill character */
+        else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();        
 
         return;
     }

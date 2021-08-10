@@ -1025,7 +1025,6 @@ void lore_append_toughness(struct player *p, const struct monster_race *race,
     const struct monster_lore *lore, bitflag known_flags[RF_SIZE])
 {
     monster_sex_t msex = MON_SEX_NEUTER;
-    long chance = 0, chance2 = 0;
     struct object *weapon = equipped_item_by_slot_name(p, "weapon");
 
     my_assert(race && lore);
@@ -1036,28 +1035,27 @@ void lore_append_toughness(struct player *p, const struct monster_race *race,
     /* Describe monster "toughness" */
     if (lore->armour_known)
     {
-        /* Armor */
-        text_out(p, "%s has an armor rating of ", lore_pronoun_nominative(msex, true));
-        text_out_c(p, COLOUR_L_BLUE, "%d", race->ac);
+        random_chance c;
+        int percent;
 
         /* Hitpoints */
-        text_out(p, ", and a");
+        text_out(p, "%s has a", lore_pronoun_nominative(msex, true));
         if (!rf_has(known_flags, RF_UNIQUE)) text_out(p, "n average");
         text_out(p, " life rating of ");
         text_out_c(p, COLOUR_L_BLUE, "%d", race->avg_hp);
+
+        /* Armor */
+        text_out(p, ", and an armor rating of ");
+        text_out_c(p, COLOUR_L_BLUE, "%d", race->ac);
         text_out(p, ". ");
 
         /* Player's base chance to hit */
-        chance = chance_of_melee_hit(p, weapon);
-
-        /* The following calculations are based on test_hit(); make sure to keep it in sync */
-        if (chance < 9) chance = 9;
-        chance2 = 12 + (100 - 12 - 5) * (chance - (race->ac * 2 / 3)) / chance;
-        if (chance2 < 12) chance2 = 12;
+        hit_chance(&c, chance_of_melee_hit_base(p, weapon), race->ac);
+        percent = random_chance_scaled(&c, 100);
 
         text_out(p, "You have a");
-        if ((chance2 / 10) == 8) text_out(p, "n");
-        text_out_c(p, COLOUR_L_BLUE, " %d", chance2);
+        if (percent == 8 || percent / 10 == 8) text_out(p, "n");
+        text_out_c(p, COLOUR_L_BLUE, " %d", percent);
         text_out(p, " percent chance to hit such a creature in melee (if you can see it). ");
     }
 }
@@ -1594,7 +1592,8 @@ void lore_append_attack(struct player *p, const struct monster_race *race,
         if (effect_str && (strlen(effect_str) > 0))
         {
             int index = blow_effect_index(race->blow[i].effect->name);
-            long chance = 0, chance2 = 0;
+            random_chance c;
+            int percent;
 
             /* Describe the attack type */
             text_out(p, " to ");
@@ -1609,18 +1608,15 @@ void lore_append_attack(struct player *p, const struct monster_race *race,
                 text_out(p, ", ");
             }
 
-            /* Monster's base chance to hit */
-            chance = (race->blow[i].effect->power + (race->level * 3));
+            /* Describe hit chances */
+            hit_chance(&c, chance_of_monster_hit_base(race, race->blow[i].effect),
+                p->state.ac + p->state.to_a);
+            percent = random_chance_scaled(&c, 100);
 
-            /* The following calculations are based on check_hit(); make sure to keep it in sync */
-            if (chance < 9) chance = 9;
-            chance2 = 12 + (100 - 12 - 5) * (chance - ((p->state.ac + p->state.to_a) * 2 / 3)) / chance;
-            if (chance2 < 12) chance2 = 12;
-
-            text_out_c(p, COLOUR_L_BLUE, "%d", chance2);
+            text_out_c(p, COLOUR_L_BLUE, "%d", percent);
             text_out(p, "%%)");
 
-            total_centidamage += (chance2 * randcalc(dice, 0, AVERAGE));
+            total_centidamage += (percent * randcalc(dice, 0, AVERAGE));
         }
 
         described_count++;
