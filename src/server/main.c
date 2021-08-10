@@ -149,7 +149,8 @@ static void server_log(const char *str)
         strftime(file, 30, "pwmangband%d%m%y.log", local);
         path_build(path, sizeof(path), ANGBAND_DIR_SCORES, file);
         fp = file_open(path, MODE_APPEND, FTYPE_TEXT);
-        if (fp == NULL) {
+        if (fp == NULL)
+        {
             printf("Unable to open %s for writing!\n", path);
             return;
         }
