@@ -40,11 +40,7 @@ static void quit_hook(const char *s)
     else cleanup_angband();
 
     /* Close the daily log file */
-    if (fp)
-    {
-        file_close(fp);
-        fp = NULL;
-    }
+    if (fp) file_close(fp);
 }
 
 
@@ -141,16 +137,13 @@ static void server_log(const char *str)
     /* Output the message timestamped */
     fprintf(stderr, "%s %s\n", buf, ascii);
 
-    /* Paranoia */
-    if (!fp) return;
-
     /* Open the daily log file */
     if (tm_mday != local->tm_mday)
     {
         tm_mday = local->tm_mday;
 
         /* Close the daily log file */
-        file_close(fp);
+        if (fp) file_close(fp);
 
         /* Open a new daily log file */
         strftime(file, 30, "pwmangband%d%m%y.log", local);
