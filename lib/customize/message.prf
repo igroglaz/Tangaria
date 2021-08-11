@@ -611,4 +611,22 @@ message:WHISPER:w
 # MSG_CHAT
 message:CHAT:w
 
+############################ Tangaria
+
+# MSG_UNAFFECTED
+message:UNAFFECTED:P
+
+# MSG_IMMUNE
+message:IMMUNE:i
+
+# MSG_RESIST_A_LOT
+message:RESIST_A_LOT:I
+
+# MSG_RESIST
+message:RESIST:V
+
+# MSG_RESIST_SOMEWHAT
+message:RESIST_SOMEWHAT:V
+
+
 ?:1

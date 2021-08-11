@@ -162,11 +162,21 @@ DATA = sound.cfg \
     confused.ogg              hypnotize.ogg             afraid.ogg \
     cut.ogg                   hallucinate.ogg           paralyzed.ogg \
     poison.ogg                slow.ogg                  stun1.ogg \
-    stun2.ogg                 stun3.ogg \
+    stun2.ogg                 stun3.ogg                 immune1.ogg \
+    immune2.ogg               immune3.ogg               immune4.ogg \
+    immune5.ogg               immune6.ogg               immune7.ogg \
+    immune8.ogg               resist_a_lot1.ogg         resist_a_lot2.ogg \
+    resist_a_lot3.ogg         resist_a_lot4.ogg         resist_a_lot5.ogg \
+    resist_a_lot6.ogg         resist_a_lot7.ogg         resist.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
     poison.mp3                slow.mp3                  stun1.mp3 \
-    stun2.mp3                 stun3.mp3
+    stun2.mp3                 stun3.mp3                 immune1.mp3 \
+    immune2.mp3               immune3.mp3               immune4.mp3 \
+    immune5.mp3               immune6.mp3               immune7.mp3 \
+    immune8.mp3               resist_a_lot1.mp3         resist_a_lot2.mp3 \
+    resist_a_lot3.mp3         resist_a_lot4.mp3         resist_a_lot5.mp3 \
+    resist_a_lot6.mp3         resist_a_lot7.mp3         resist.mp3
 
 PACKAGE = sounds

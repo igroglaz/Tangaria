@@ -213,5 +213,12 @@ MSG(LOCAL, NULL)
 MSG(WHISPER, NULL)
 MSG(CHAT, NULL)
 
+/* Tangaria */
+MSG(UNAFFECTED, "unaffected")
+MSG(IMMUNE, "immune")
+MSG(RESIST_A_LOT, "resist_a_lot")
+MSG(RESIST, "resist")
+MSG(RESIST_SOMEWHAT, "resist_somewhat")
+
 /* Max message index (message) */
 MSG(MAX_PARSE, NULL)
