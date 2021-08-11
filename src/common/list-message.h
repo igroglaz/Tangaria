@@ -180,6 +180,11 @@ MSG(AMBIENT_XAKAZE, "ambient_xakaze")
 MSG(AMBIENT_MELKOR, "ambient_melkor")
 MSG(HIT_HI_CRITICAL, "hit_hi_critical")
 MSG(ENTER_PIT, "enter_pit")
+MSG(UNAFFECTED, "unaffected")
+MSG(IMMUNE, "immune")
+MSG(RESIST_A_LOT, "resist_a_lot")
+MSG(RESIST, "resist")
+MSG(RESIST_SOMEWHAT, "resist_somewhat")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
@@ -212,13 +217,6 @@ MSG(MON_OTHER, NULL)
 MSG(LOCAL, NULL)
 MSG(WHISPER, NULL)
 MSG(CHAT, NULL)
-
-/* Tangaria */
-MSG(UNAFFECTED, "unaffected")
-MSG(IMMUNE, "immune")
-MSG(RESIST_A_LOT, "resist_a_lot")
-MSG(RESIST, "resist")
-MSG(RESIST_SOMEWHAT, "resist_somewhat")
 
 /* Max message index (message) */
 MSG(MAX_PARSE, NULL)

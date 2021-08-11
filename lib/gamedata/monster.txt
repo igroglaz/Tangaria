@@ -611,7 +611,7 @@ weight:0
 experience:0
 flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
-flags:IM_FIRE | UNDEAD
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD
 desc:An indestructible golem used for target practice.
 locations:Farfest
 
