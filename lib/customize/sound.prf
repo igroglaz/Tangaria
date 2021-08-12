@@ -602,3 +602,5 @@ sound:resist_a_lot:resist_a_lot1 resist_a_lot2 resist_a_lot3 resist_a_lot4 resis
 sound:resist:resist
 
 sound:resist_somewhat:resist
+
+sound:spell_fail:spell_fail

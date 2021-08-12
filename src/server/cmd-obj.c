@@ -965,7 +965,7 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
 
     /* Fail or succeed */
     if (magik(chance))
-        msg(p, "You failed to concentrate hard enough!");
+        msgt(p, MSG_SPELL_FAIL, "You failed to concentrate hard enough!");
     else
     {
         struct source who_body;

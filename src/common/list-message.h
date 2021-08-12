@@ -185,6 +185,7 @@ MSG(IMMUNE, "immune")
 MSG(RESIST_A_LOT, "resist_a_lot")
 MSG(RESIST, "resist")
 MSG(RESIST_SOMEWHAT, "resist_somewhat")
+MSG(SPELL_FAIL, "spell_fail")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
