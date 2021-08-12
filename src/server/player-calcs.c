@@ -866,6 +866,12 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     sum += state->stat_ind[book->realm->stat];
     count++;
 
+
+/*
+Removing this for now. For example, if you start a mage - 
+class bonus to stat will be INT.. So we need to think how to 
+make primary race stat bonuses work right.
+
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
     {
         return ((p->state.stat_ind[STAT_INT] + p->state.stat_ind[STAT_WIS]) / 2);
@@ -879,7 +885,8 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     if (streq(p->race->name, "Balrog"))
     {
         return (p->state.stat_ind[STAT_CON]);
-    }      
+    }
+*/
 
     if (streq(p->clazz->name, "Priest"))
     {
@@ -889,8 +896,8 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     
     if (streq(p->clazz->name, "Paladin"))
     {
-        return (((((p->state.stat_ind[STAT_WIS] + p->state.stat_ind[STAT_STR]) / 2) * 75) +
-                  (p->state.stat_ind[STAT_CHR] * 25)) / 100);
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
 
     if (streq(p->clazz->name, "Rogue"))
