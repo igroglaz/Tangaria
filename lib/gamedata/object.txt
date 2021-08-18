@@ -3516,7 +3516,7 @@ dice:0
 effect:RANDOM
 dice:4
 effect:TIMED_DEC:CONFUSED
-dice:20
+dice:10
 effect:TIMED_DEC:CUT
 dice:20
 effect:CURE:BLIND
@@ -3541,6 +3541,8 @@ effect:NOURISH:INC_BY
 dice:0
 effect:RANDOM
 dice:3
+effect:TIMED_DEC:POISONED
+dice:5
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:CURE:CUT
