@@ -2452,7 +2452,7 @@ effect:EARTHQUAKE:NONE:13
 desc:Causes a radius 13 earthquake centered around the player.
 
 
-############### SORCEROR ###############
+############### SORCERER ###############
 name:Sorceror
 color:R
 skill-disarm-phys:35:9
@@ -2596,6 +2596,8 @@ desc: is susceptible to rock remover takes 20+1d30 points of damage.
 
 spell:Identify Rune:12:7:40:6:0
 effect:IDENTIFY
+effect:NOURISH:DEC_BY
+dice:1
 desc:Reveals an unknown rune on an object.
 
 spell:Map Area:13:10:45:7:0

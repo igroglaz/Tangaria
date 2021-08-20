@@ -3542,7 +3542,7 @@ dice:0
 effect:RANDOM
 dice:3
 effect:TIMED_DEC:POISONED
-dice:5
+dice:2
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:CURE:CUT
