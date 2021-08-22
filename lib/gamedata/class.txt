@@ -742,10 +742,6 @@ desc: is susceptible to rock remover takes 20+1d30 points of damage.
 spell:Sense Surroundings:9:4:35:6:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
 effect:TIMED_INC_NO_RES:IMAGE
 dice:11+1d24
 desc:Maps out a portion of the level around you.
@@ -1542,12 +1538,8 @@ spell:Fume of Mordor:40:50:80:150:0
 effect:DARKEN_LEVEL:NONE:1
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 desc:Darkens, maps out, and detects all objects on the complete current
 desc: dungeon level.
 
@@ -2138,10 +2130,6 @@ book:nature book:town:[Creature Dominion]:4:nature
 spell:Sense Surroundings:20:8:35:8:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
 effect:TIMED_INC_NO_RES:IMAGE
 dice:11+1d24
 desc:Maps out a portion of the level around you.
@@ -2612,7 +2600,7 @@ dice:3d1
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
 effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
+dice:11+1d13
 desc:Maps out a portion of the level around you.
 
 spell:Radiate Fear:14:12:45:8:0
@@ -2987,12 +2975,8 @@ book:nature book:dungeon:[Nature Craft]:4:nature
 spell:Sense Surroundings:28:14:56:28:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 desc:Maps out a portion of the level around you.
 
 spell:Piercing Shots:30:11:50:50:0
@@ -3171,12 +3155,6 @@ desc:Attempts to put to sleep each monster within line of sight.
 spell:Sense Surroundings:12:10:34:12:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 desc:Maps out a portion of the level around you.
 
 spell:Psychometry:14:12:37:14:0
