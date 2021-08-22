@@ -2540,6 +2540,8 @@ effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:BLIND
+dice:1d3
 desc:Detects all traps, doors and stairs in the immediate area.
 
 spell:Fire Ball:3:2:17:3:0
@@ -2552,6 +2554,8 @@ desc:Shoots a radius-2 fire ball.
 spell:Detect Treasure:4:4:18:4:0
 effect:DETECT_TREASURES
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:BLIND
+dice:1+1d4
 desc:Detects all treasure in the immediate area.
 
 spell:Lightning Beam:5:4:20:4:0
