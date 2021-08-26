@@ -319,7 +319,7 @@ store:Halbarad, the old ranger
 owner:5000:Halbarad, the old ranger
 owner:5000:Halbarad, the old ranger
 slots:0:1
-turnover:1
+turnover:0
 welcome:0:looks at you with interest.
 welcome:1:curses.
 welcome:2:grunts.
@@ -350,7 +350,6 @@ always:shot:Iron Shot
 always:arrow:Arrow
 always:bolt:Bolt
 always:shot:Rounded Pebble
-#always:potion:Stomach Water
 #######################################################################
 buy:light
 buy:digger
