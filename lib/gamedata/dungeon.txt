@@ -745,7 +745,7 @@ stair:9F stair down 0:9F stair up 1:10000
 #
 rubble:ED dirt e:ED dirt f:10000
 #
-floor:packed dirt:3650
+floor:packed dirt:3750
 #20 + (1+8) + 71
 #900+2k^
 floor:EB dirt 0:1400
@@ -763,8 +763,8 @@ floor:EB dirt b:5
 floor:EB dirt c:5
 # 1700 - 150 - 100 = 1450
 # 2x dry tree
-floor:EB dirt d:100
-floor:EB dirt e:100
+floor:EB dirt d:50
+floor:EB dirt e:50
 #
 floor:EB dirt f:15
 floor:EB dirt g:15

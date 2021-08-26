@@ -338,9 +338,9 @@ always:fortune cookie:north-east from my tavern. But I don't complain..
 always:fortune cookie:Finally I could get a few coins by selling some
 always:fortune cookie:of this goods.. Take a look at them...
 #######################################################################
-normal:fortune cookie:Be careful in Mountain Gorge to the east..
-normal:fortune cookie:I didn't visit town for some time already..
-normal:fortune cookie:Maybe its time for me to go on adventure with you
+#normal:fortune cookie:Be careful in Mountain Gorge to the east..
+#normal:fortune cookie:I didn't visit town for some time already..
+#normal:fortune cookie:Maybe its time for me to go on adventure with you
 #######################################################################
 always:cloak:Cloak
 always:light:Wooden Torch
@@ -350,7 +350,7 @@ always:shot:Iron Shot
 always:arrow:Arrow
 always:bolt:Bolt
 always:shot:Rounded Pebble
-always:potion:Stomach Water
+#always:potion:Stomach Water
 #######################################################################
 buy:light
 buy:digger
