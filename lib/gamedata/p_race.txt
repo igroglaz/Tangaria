@@ -1195,7 +1195,7 @@ value:0:CON[-5+1d8]
 value:1:CHR[3]
 value:0:INFRA[0+1d5]
 obj-flag:1:SLOW_DIGEST
-obj-flag:10:LIGHT[1]
+value:10:LIGHT[1]
 obj-flag:20:PROT_FEAR
 obj-flag:30:SEE_INVIS
 obj-flag:40:HOLD_LIFE
@@ -1328,7 +1328,7 @@ value:0:CON[-4+1d8]
 value:0:CHR[6+-1d8]
 value:1:INFRA[2+1d30]
 obj-flag:1:FEATHER
-obj-flag:1:LIGHT[1]
+value:1:LIGHT[1]
 obj-flag:10:SUST_WIS
 obj-flag:20:SLOW_DIGEST
 obj-flag:30:SEE_INVIS
