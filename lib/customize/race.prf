@@ -12,9 +12,7 @@ help: other character race. They are also very stupid and slow. They will make
 help: great warriors and iffy priests. They are bad at searching, disarming,
 help: perception, and stealth. They are so ugly that a Half-Orc grimaces in
 help: their presence. Half-trolls always have their strength sustained, and
-help: they regenerate quickly like other trolls. Unfortunately, this
-help: regeneration also requires them to eat more food than other races. They
-help: have fair infravision.
+help: they regenerate quickly like other trolls. They have fair infravision.
 
 race:Human
 help:The human is the base character. All other races are compared to them.
@@ -93,8 +91,7 @@ help: the sun and moon were made, and lived in the Blessed Realm for many
 help: thousands of years before returning to mortal lands. Because of this,
 help: they are far superior in terms of abilities when compared to their lesser
 help: Elven kindred. They can also see into the invisible world of ghosts and
-help: wraiths. However, they find new experience even harder to come by than
-help: Dunedain. Like normal Elves, they resist attacks involving bright light.
+help: wraiths. Like normal Elves, they resist attacks involving bright light.
 help: They have good infravision and can even see cold-blooded invisible
 help: creatures.
 
@@ -111,9 +108,7 @@ race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
 help: stats and hit points available to a race. Yeeks are average at everything
-help: and tend to go up levels much faster than any other race because of their
-help: very short life spans. No racial adjustments to skills occur to characters
-help: choosing yeek.
+help: and tend to go up levels much slower than any other race.
 
 race:Ent
 help:The Ents are a powerful race dating from the beginning of the world, eldest
@@ -124,26 +119,24 @@ help: Trees, they can learn to sense the presence of others, such as animals at
 help: level 10, orcs at 15, trolls at 20, giants at 25, dragons at 30, demons at
 help: 35, undead at 40, all evil-minded creatures at 45, and even every minded
 help: creatures in a short range at level 50. At level 5 they learn to see
-help: invisible things. They accumulate experience very slowly. They make great
-help: fighters, priests and paladins. Unfortunately, as they're made almost
-help: exclusively of wood, they're also vulnerable to fire.
+help: invisible things. They make great fighters, priests and paladins.
+help: Unfortunately, as they're made almost exclusively of wood,
+help: they're also vulnerable to fire.
 
 race:Thunderlord
 help:Thunderlords are an old and powerful race of dragon hunters. They have an
 help: intrinsic telepathic vision of all nearby creatures, the radius expands as
 help: they gain levels. At level 5, they can spot dragons anywhere on a level. They
-help: even gain intrinsic basic resistances, fire at 10, cold at 15, acid at 20
-help: and lightning at 25. Thunderlords have tamed the Great Eagles of Middle-Earth
-help: and use them in their hunts. They need a very long time to gain experience,
-help: as both bird and man need to gain levels. They need to eat often.
+help: even gain intrinsic basic resistances, fire at 10, cold at 20, acid at 30
+help: and lightning at 40. Thunderlords have tamed the Great Eagles of Middle-Earth
+help: and use them in their hunts. They need to eat often.
 help: Thunderlords can fall like a feather from birth.
 
 race:Dragon
 help:ATTENTION! If you decided to take dragon race:
 help: for new players it's strongly recommended to play Monk class in this case.
 help: Other classes are VERY hard to play being a dragon. |
-help: They are creatures legends are made of. Dragons have a great health, but need
-help: much more experience to advance in levels compared to humans. They have a bad
+help: They are creatures legends are made of. Dragons have a great health, but bad
 help: stealth. They can fall like a feather and resist nexus intrinsically. The
 help: Dragon race is a very special race. Dragons evolve physically as they gain
 help: experience. At level 1, they start as newborn dragons. At level 5, the color
@@ -154,8 +147,9 @@ help: dragon. At level 45, they polymorph into a mighty wyrm. Finally, at level 
 help: they become an ancient wyrm. Dragons cannot wield any weapons; they get
 help: special melee attacks instead (biting and clawing) that increase in power as
 help: they gain levels. Starting at level 5, Dragons are able to breathe their
-help: corresponding element, but using this ability costs them hit points. At that
-help: level, they also gain the innate resistances and abilities of their type.
+help: corresponding element, but using this ability costs them hit points and
+help: satiation. At that level, they also gain the innate resistances and
+help: abilities of their type.
 
 race:Hydra
 help:ATTENTION! If you decided to take hydra race:
@@ -228,9 +222,9 @@ help: capable of destruction. Goblins are resistant of darkness and very agile.
 ####################################################################################
 race:Half-Giant
 help:Half-Giant are descendants of Titans... And they still got pieces of their 
-help: power. Huge size makes it hard for them to use teleportation magic thought. 
-help: At the same time they are protected from gravity effects, could stun their 
-help: opponents and are very hard to kill.
+help: power. Huge size makes it hard for them to use full power of teleportation
+help: magic thought. At the same time they are protected from gravity effects, 
+help: could stun their opponents and are very hard to kill.
 ####################################################################################
 race:Ogre
 help:Ogres or swamp trolls - it's ancient race. Some say that they was the first of
@@ -256,7 +250,7 @@ help: it happen. Orc resistant to darkness and poison.
 race:Forest Goblin
 help:Forest goblins – look like a nice little creatures. Indeed, some of them are 
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are 
-help: sneaky and fast, but not quite weak in term of physical strenght.
+help: sneaky and fast, but quite weak in term of physical strenght.
 ####################################################################################
 race:Dark Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
@@ -439,7 +433,7 @@ help:Mythical magic creatures.
 help: It seems some of them managed to get freedom and come to our world
 help: from other dimensions. They are very dangerous as their nature gives them
 help: raw magical power in almost unlimited qualities; thought this interfere with
-help: spatial fields, so they can not use teleportation which is vital for
+help: spatial fields, they can not use boots and restore fast which is vital for
 help: surviving in our deadly world... But djinny don't complain.
 ####################################################################################
 race:Harpy
