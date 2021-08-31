@@ -17,22 +17,33 @@ help: throwing, but bad at most other skills. A warrior has bad stealth and
 help: cannot learn any spells.
 
 class:Archer
-help:Archer could shoot squirell to the eye so fur will not be spoiled. Very good
+help:Archer could shoot squirrel to the eye so fur will not be spoiled. Very good
 help: in archery, they don't really know from which side to hold a sword; they 
-help: don't need one honestly. Archers like bows; which shooting with them, 
-help: they could achieve incredible speed and precision; much better then with 
-help: crossbow or a sling.
+help: don't need one honestly. With the ability to hurl multiple arrows at long 
+help: distances, an Archer can inflict more damage in a single turn than any other
+help: character class, including mages. However, outside of his powerful bow,
+help: an Archer is relatively weak compared to the other classes. He does
+help: not have any healing nor defensive spells like the magical classes to
+help: compensate. Archers especially like bows; shooting with them, 
+help: they could achieve incredible speed and precision; much better than with 
+help: a crossbow or a sling.
 
 class:Monk
-help:Monks are warriors who decide to fight barehanded. As they advance in levels,
-help: they gain some new martial arts techniques to hit their opponents more
-help: effectively. With levels, they also gain interesting abilities: at level 10,
-help: they learn to fall like a feather; at level 15, they become resistant to
-help: fear; at level 20, they become resistant to confusion; finally, at level 25,
-help: they learn to resist paralysis effects. They can't wield weapons, but get
-help: extra damage, defense and attacks per round as they advance in levels.
-help: However, they must wear light armor to stay unencumbered and fully benefit
-help: from their class bonuses.
+help:Monks are very different from all other classes. Monks are warriors who
+help: decide to fight barehanded cannot use weapons or bows. However, their
+help: training in martial arts makes them much more powerful with no armour
+help: nor weapons. As they advance in levels, they gain some new martial arts
+help: techniques to hit their opponents more effectively. In time monk can learn
+help: how to to stun and slow his opponents. With levels, they also gain
+help: interesting abilities: at level 10, they learn to fall like a feather;
+help: at level 15, they become resistant to fear; at level 20, they become
+help: resistant to confusion; finally, at level 25, they learn to resist
+help: paralysis effects. They can't wield weapons, but get extra damage, defense 
+help: and attacks per round as they advance in levels. However, they must wear
+help: light armor to stay unencumbered and fully benefit from their class bonuses.
+help: It is rumoured that the monastic training even makes monks faster than any
+help: other character class!
+
 
 class:Mage
 help:A Mage must live by their wits. They cannot hope to simply hack their way
@@ -118,10 +129,12 @@ help: and killing. Blackguards prefer heavy weapons and shields, and learn a few
 help: spells for the purpose of wreaking more destruction. Their lust for blood
 help: is legendary, with a blackguard in full cry nigh on impossible to kill.
 help: Blackguards scorn skills apart from slaughter, and require strength and
-help: intelligence (or rat-cunning) to thrive in the dungeon.
+help: intelligence (or rat-cunning) to thrive in the dungeon. Blackguard can 
+help: polymorph into werewolf, can heal by spending rage and got additional 
+help: BpR by using his battle skills.
 
 class:Sorceror
-help:Sorcerors use intelligence primarily, determining how much mana they have to
+help:Sorcerers use intelligence primarily, determining how much mana they have to
 help: cast spells and how low their failure rate is. They are the all-around best
 help: magicians, having the most powerful spells. A high-level Sorceror can be very
 help: powerful, but getting there can be a difficult journey. On the downside, they
@@ -145,12 +158,17 @@ help:Hunters aren't good at fighting, but can deliever extremely high damage wit
 help: their ranged weapons. They can die quickly too, however. Hunters are to bows
 help: what warriors are to melee. They are the best class around with any
 help: bow/xbow/sling. Hunter is very bad at melee, being only better than the
-help: Sorceror. Wisdom and Dexterity are the archer's primary stats.
+help: Sorceror. Wisdom and Dexterity are the archer's primary stats. They could 
+help: use wide-range of tricks, traps and even magic in their hunt in the dungeons.
 
 class:Telepath
-help:Telepaths are mindcrafters who use the powers of their mind to weaken or even
-help: kill creatures. They are weak in melee, although they can use weapons just
-help: like mages or priests. Wisdom is their primary stat.
+help:The Telepath is a character who uses the powers of mind instead of magic;
+help: mindcrafters who use the powers of their mind to weaken or even kill
+help: creatures. Their powers vary from simple extrasensory powers to mental
+help: domination of others. A Telepath uses the Wisdom score to determine how 
+help: well he can perform these psychic powers. In solo combat a Telepath is 
+help: slightly weaker than a Priest, although a Telepath is never penalized for
+help: wielding an edged weapon (unlike a Priest).
 
 class:Elementalist
 help:Elementalists are spellcasters specialized in offensive spells. They share
@@ -171,10 +189,15 @@ help: determine how many of them they can control and how effectively they can
 help: control them.
 
 class:Shapechanger
-help:Shapechangers are fighters that get abilities from the forms they can mimic.
-help: Basically, Shapechangers will melee a lot with the benefits from their
-help: current form (resists, melee brands, defense, speed and damage boosts...).
-help: Some of those forms will provide innate spells and even breath attacks.
-help: Shapechangers get basic mana points to cast those spells (note that breath
-help: attacks, like for the Dragon race, don't cost mana, but hit points
-help: instead...).
+help:Shapechangers possess the ability to transform into various creatures by 
+help: defeating them in battle. They are fighters that get abilities from the forms
+help: they can mimic. Basically, Shapechangers will melee a lot with the benefits
+help: from their current form (resists, melee brands, defense, speed and damage 
+help: boosts...). Some of those forms will provide innate spells and even breath 
+help: attacks. Shapechangers get basic mana points to cast those spells (note that
+help: breath attacks, like for the Dragon race, don't cost mana, but hit points 
+help: instead...). The higher level the monster, the more the Mimic is required 
+help: to vanquish before he can assume their form. While transformed, they lose 
+help: their intrinsic abilities, and gain those of the creature they have 
+help: transformed into, plus whatever abilities and resistances provided by their
+help: equipment.

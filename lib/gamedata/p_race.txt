@@ -837,7 +837,8 @@ skill-melee:20
 skill-shoot:-5
 skill-dig:0
 hitdie:13
-exp:100:125
+# -10%
+exp:100:115
 history:100
 age:20:10
 height:88:9
@@ -859,7 +860,6 @@ value:30:RES_GRAVITY[1]
 brand:1:50:STUN_1
 value:0:DAM_RED[0+1d4]
 slay:1:50:DRAGON_3
-#########################obj-flag:1:NO_TELEPORT
 obj-flag:1:LIMITED_TELE
 value:1:MANA[5]
 value:1:TUNNEL[3+1d10]
@@ -1195,7 +1195,7 @@ value:0:CON[-5+1d8]
 value:1:CHR[3]
 value:0:INFRA[0+1d5]
 obj-flag:1:SLOW_DIGEST
-value:10:LIGHT[1]
+value:25:LIGHT[1]
 obj-flag:20:PROT_FEAR
 obj-flag:30:SEE_INVIS
 obj-flag:40:HOLD_LIFE
@@ -1277,6 +1277,7 @@ value:0:DEX[-6+1d6]
 value:0:CON[3]
 value:0:CHR[-10]
 value:1:INFRA[5]
+value:50:LIGHT[1]
 obj-flag:5:SLOW_DIGEST
 obj-flag:10:PROT_FEAR
 obj-flag:15:SEE_INVIS
@@ -1313,7 +1314,8 @@ skill-melee:-5
 skill-shoot:0
 skill-dig:-40
 hitdie:11
-exp:100:125
+# -25%
+exp:100:100
 history:100
 age:11:4
 height:81:5
@@ -1416,7 +1418,8 @@ value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 obj-flag:1:IMPAIR_HP
 value:0:MANA[10+-1d5]
-value:1:DAM_RED[1+1d1]
+# replace with % dam red
+value:1:DAM_RED[1+1d2]
 # more casting flags... sleepery fingers?
 
 name:Golem
@@ -1545,7 +1548,8 @@ skill-melee:25
 skill-shoot:-15
 skill-dig:40
 hitdie:14
-exp:100:125
+# -25%
+exp:100:100
 history:100
 age:90:40
 height:170:20
@@ -1567,7 +1571,8 @@ value:1:BLOWS[1+1d45]
 value:1:RES_GRAVITY[1]
 brand:1:35:STUN_1
 brand:36:50:STUN_2
-value:1:DAM_RED[1+1d1]
+# will be replaced to -x%
+value:1:DAM_RED[0+1d2]
 brand:1:50:ELEC_2
 value:1:RES_ELEC[3]
 value:1:RES_NEXUS[1]
@@ -1579,17 +1584,17 @@ value:0:MANA[1d5]
 obj-flag:1:NO_TELEPORT
 obj-flag:1:HUNGER
 #
-player-flags:0:SHAPECHANGE
+#player-flags:0:SHAPECHANGE
 #regular forms
-shape:10:hill giant
-shape:15:frost giant
-shape:20:fire giant
-shape:25:stone giant
-shape:30:cloud giant
-shape:35:sand giant
-shape:40:storm giant
-shape:45:lesser titan
-shape:50:greater titan
+#shape:10:hill giant
+#shape:15:frost giant
+#shape:20:fire giant
+#shape:25:stone giant
+#shape:30:cloud giant
+#shape:35:sand giant
+#shape:40:storm giant
+#shape:45:lesser titan
+#shape:50:greater titan
 
 # Nandor..  Silvan Elves and Green-elves
 # lives in Lorien and Mirkwood
@@ -2077,6 +2082,7 @@ value:1:WIS[-3+1d24]
 value:1:DEX[-2]
 value:1:CON[-1]
 value:0:CHR[-3]
+value:0:LIGHT[1+1d24]
 obj-flag:30:ESP_EVIL
 player-flags:0:BLESS_WEAPON
 obj-flag:1:FEATHER
@@ -2085,6 +2091,7 @@ obj-flag:1:SLOW_DIGEST
 value:1:RES_POIS[1]
 value:1:RES_LIGHT[1]
 value:35:RES_LIGHT[3]
+# op? [3] doesn't work atm though..
 value:50:RES_MANA[1]
 # -
 value:1:DAM_RED[0+-1d5]
@@ -2231,6 +2238,7 @@ shape:50:overseer'
 #+hallucinating (effect decreases with increased int,wis)
 
 
+#value:50:RES_MANA[1]
 
 #player-flags:0:SHAPECHANGE
 #shape:10:mold
