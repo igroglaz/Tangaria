@@ -858,7 +858,7 @@ value:1:MOVES[5+5d10]
 value:1:BLOWS[1]
 value:30:RES_GRAVITY[1]
 brand:1:50:STUN_1
-value:0:DAM_RED[0+1d4]
+value:0:DAM_RED[0+1d3]
 slay:1:50:DRAGON_3
 obj-flag:1:LIMITED_TELE
 value:1:MANA[5]
@@ -1249,7 +1249,7 @@ player-flags:0:SHAPECHANGE
 value:0:MANA[5+-1d12]
 shape:30:succubi
 value:1:SPEED[1]
-value:1:DAM_RED[-1+-1d2]
+value:1:DAM_RED[-1+-1d3]
 
 #Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
 name:Balrog
@@ -1416,7 +1416,6 @@ value:20:RES_FIRE[1]
 value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
-obj-flag:1:IMPAIR_HP
 value:0:MANA[10+-1d5]
 # replace with % dam red
 value:1:DAM_RED[1+1d2]
@@ -1451,7 +1450,8 @@ value:1:RES_POIS[1]
 obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:1:SLOW_DIGEST_2
-value:0:DAM_RED[0+1d5]
+obj-flag:1:IMPAIR_HP
+value:0:DAM_RED[0+1d4]
 value:1:RES_ELEC[-1]
 value:0:MANA[10+-1d5]
 # reflection
@@ -1566,6 +1566,7 @@ obj-flag:5:SUST_STR
 obj-flag:10:SUST_DEX
 obj-flag:15:SUST_CON
 #value:1:SPEED[-1+-1d30]
+value:0:LIGHT[1]
 value:1:MOVES[10+10d10]
 value:1:BLOWS[1+1d45]
 value:1:RES_GRAVITY[1]
@@ -2218,7 +2219,7 @@ player-flags:0:SHIELD_BASH
 obj-flag:1:FEATHER
 obj-flag:1:ESP_ALL
 value:1:SPEED[1]
-value:1:DAM_RED[0+-1d2]
+value:1:DAM_RED[0+-1d3]
 value:1:BLOWS[-1]
 value:1:SHOTS[-1]
 value:0:MANA[8+-1d5]
