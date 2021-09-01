@@ -2077,12 +2077,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect blows */
         extra_blows += (modifiers[OBJ_MOD_BLOWS] * 10);
         
-        if ((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") || 
-        streq(p->clazz->name, "Unbeliever")) &&
-        (streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
-        (p->lev < 35))
-            extra_blows -= 10;
-
         /* Affect shots */
         extra_shots += modifiers[OBJ_MOD_SHOTS];
 
@@ -2280,6 +2274,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect movement speed */
         if (i == OBJ_MOD_MOVES) extra_moves += (r_adj + c_adj);
     }
+
+    if ((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+    streq(p->clazz->name, "Unbeliever")) &&
+    (streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
+    (p->lev < 35) && extra_blows > 9)
+        extra_blows -= 10;
 
     /* Unencumbered monks get extra ac for wearing very light or no armour at all */
     if (unencumbered_monk)
