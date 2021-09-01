@@ -653,9 +653,15 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
     {
         /* Purchase a house */
         if (strstr(pmsgbuf, "house")) do_cmd_purchase_house();
+        
+        /* Purchase a house */
+        else if (strstr(pmsgbuf, "h")) do_cmd_purchase_house();        
 
         /* Display current time */
         else if (strstr(pmsgbuf, "time")) do_cmd_time();
+        
+        /* Display current time */
+        else if (strstr(pmsgbuf, "t")) do_cmd_time();        
 
         /* Check knowledge */
         else if (strstr(pmsgbuf, "know")) textui_browse_knowledge();
@@ -663,14 +669,23 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         /* Access party menu */
         else if (strstr(pmsgbuf, "party")) do_cmd_party();
 
+        /* Access party menu */
+        else if (strstr(pmsgbuf, "p")) do_cmd_party();
+
         /* Display connected players */
         else if (strstr(pmsgbuf, "who")) do_cmd_players();
+
+        /* Display connected players */
+        else if (strstr(pmsgbuf, "@")) do_cmd_players();
 
         /* View abilities */
         else if (strstr(pmsgbuf, "abi")) do_cmd_abilities();
 
         /* Drop gold */
         else if (strstr(pmsgbuf, "gold")) textui_cmd_drop_gold();
+
+        /* Drop gold */
+        else if (strstr(pmsgbuf, "g")) textui_cmd_drop_gold();
         
         /* Kill character */
         else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();
@@ -679,7 +694,14 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         else if (strstr(pmsgbuf, "quit")) textui_quit();
         
         /* Quit/exit */
-        else if (strstr(pmsgbuf, "exit")) textui_quit();        
+        else if (strstr(pmsgbuf, "q")) textui_quit();        
+        
+        /* Quit/exit */
+        else if (strstr(pmsgbuf, "exit")) textui_quit(); 
+
+// most of such commands could be 'summoned' by \ command which make changed key work at regular basis
+// thought \ command is very dangerous and could lead to death
+// (eg if you accidentally press \ and then ctrl+x if you have there macro for spell..
 
         return;
     }
@@ -761,7 +783,7 @@ static bool askfor_aux_msg(char *buf, int len)
     int l = 0;  /* Is the cursor location on line */
     int j = 0;  /* Loop iterator */
 
-	/* Terminal width */
+    /* Terminal width */
 	int wid = NORMAL_WID;
 
     /* Visible length on the screen */
