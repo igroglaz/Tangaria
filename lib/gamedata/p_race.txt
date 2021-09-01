@@ -857,7 +857,7 @@ obj-flag:48:PROT_STUN
 value:1:MOVES[5+5d10]
 value:1:BLOWS[1]
 value:30:RES_GRAVITY[1]
-brand:1:50:STUN_1
+brand:35:50:STUN_1
 value:0:DAM_RED[0+1d3]
 slay:1:50:DRAGON_3
 obj-flag:1:LIMITED_TELE
@@ -1566,12 +1566,12 @@ obj-flag:5:SUST_STR
 obj-flag:10:SUST_DEX
 obj-flag:15:SUST_CON
 #value:1:SPEED[-1+-1d30]
-value:0:LIGHT[1]
+value:25:LIGHT[1]
 value:1:MOVES[10+10d10]
 value:1:BLOWS[1+1d45]
 value:1:RES_GRAVITY[1]
-brand:1:35:STUN_1
-brand:36:50:STUN_2
+brand:35:49:STUN_1
+brand:50:50:STUN_2
 # will be replaced to -x%
 value:1:DAM_RED[0+1d2]
 brand:1:50:ELEC_2
