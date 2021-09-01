@@ -882,7 +882,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
 
     /* Mountain in town */
-    if (square_ismountain(c, grid) && in_town(&p->wpos))
+    if (square_ismountain(c, grid) && in_town(&p->wpos) && p->lev > 7)
     {
 
     // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
@@ -1017,7 +1017,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         }
         
         /* Dig house Foundation Stone */
-        else if (one_in_(2))
+        else if (one_in_(2) && p->lev > 7)
         {
                 /* Make house stone */
                 dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
