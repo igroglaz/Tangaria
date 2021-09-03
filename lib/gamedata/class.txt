@@ -4078,6 +4078,8 @@ desc:Prevents summoning around you for a level-dependent duration.
 
 ############### SHAPECHANGER ###############
 name:Shapechanger
+# Add exp penalty? so it will be easier to hunt forms
+# in our dungeon bracket system
 color:M
 skill-disarm-phys:36:10
 skill-disarm-magic:34:8
