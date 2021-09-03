@@ -593,9 +593,9 @@ sound:identify_art:id_good_hey id_good_hey2 id_good_hmm id_good_huh id_good_ooh 
 
 #monster's resist/immunes:
 
-sound:unaffected:immune1 immune2 immune3 immune4 immune5 immune6 immune7 immune8 
+sound:unaffected:immune1 immune2 immune3 immune4 immune5 immune6 immune7 immune8
 
-sound:immune:immune1 immune2 immune3 immune4 immune5 immune6 immune7 immune8 
+sound:immune:immune1 immune2 immune3 immune4 immune5 immune6 immune7 immune8
 
 sound:resist_a_lot:resist_a_lot1 resist_a_lot2 resist_a_lot3 resist_a_lot4 resist_a_lot5 resist_a_lot6 resist_a_lot7
 
