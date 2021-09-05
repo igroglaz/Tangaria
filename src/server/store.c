@@ -2358,7 +2358,20 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     if (!price) return;
 
     /* Small sales tax */
-    price = price * 9 / 10;
+    if (p->state.stat_ind[STAT_CHR] < 10)
+        price = price * 9 / 10;
+    else if (p->state.stat_ind[STAT_CHR] < 18)
+        price = price * 10 / 11;
+    else if (p->state.stat_ind[STAT_CHR] < 25)
+        price = price * 11 / 12;
+    else if (p->state.stat_ind[STAT_CHR] < 31)
+        price = price * 12 / 13;
+    else if (p->state.stat_ind[STAT_CHR] < 33)
+        price = price * 13 / 14;    
+    else if (p->state.stat_ind[STAT_CHR] < 35)
+        price = price * 14 / 15;     
+    else
+        price = price * 15 / 16;        
 
     // We use +1/-1 cause in Tangaria borders of houses belongs to walls, not floors.
     // Without +1/-1 adjustment gold will be dropped outside of the house
