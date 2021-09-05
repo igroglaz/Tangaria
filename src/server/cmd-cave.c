@@ -803,8 +803,10 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
     }
 
     /* Must be a wall/door/etc */
-    // DM need possibility to 'dig' doors to remove wiped houses
-    if (!square_seemsdiggable(c, grid) && (!(p->dm_flags & DM_HOUSE_CONTROL)))
+    // 1) DM need possibility to 'dig' doors to remove wiped houses
+    // 2) allow dig fountains
+    if (!square_seemsdiggable(c, grid) && (!(p->dm_flags & DM_HOUSE_CONTROL)) &&
+        !square_isfountain(c, grid))
     {
         msg(p, "You see nothing there to tunnel.");
         return false;
@@ -885,22 +887,22 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     if (square_ismountain(c, grid) && in_town(&p->wpos) && p->lev > 7)
     {
 
-    // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
-    player_dec_timed(p, TMD_FOOD, 200, false);
+        // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
+        player_dec_timed(p, TMD_FOOD, 200, false);
 
-        if (one_in_(2))
-        {
-            /* Make house stone */
-            dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
-
-            if (dig_stone)
+            if (one_in_(2))
             {
-                set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                /* Make house stone */
+                dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
 
-                /* Drop house stone */
-                drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+                if (dig_stone)
+                {
+                    set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                    /* Drop house stone */
+                    drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+                }
             }
-        }
 
         return false;
     }
@@ -954,15 +956,161 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         more = true;
     }
 
+////////// DIG DRY FOUNTAIN:
+    else if (okay && square_isdryfountain(c, grid))
+    {
+        /* Message */
+        msg(p, "You have split the dry fountain.");
+        
+        if (one_in_(4))
+        {
+            msg(p, "Water gushes forth from the hole in fountain!");
+            square_set_feat(c, grid, FEAT_WATER);
+        }
+        else if (one_in_(7))
+        {   /* pit trap */
+            square_tunnel_wall(c, grid);
+            msg(p, "Suddenly you hear that some floor under ruined fountain fall!");
+            place_trap(c, grid, 5, c->wpos.depth);
+        }
+        else if (one_in_(7) && c->wpos.depth > 1) // no trap pit on 1st lvl
+        {   /* trap door */
+            square_tunnel_wall(c, grid);
+            msg(p, "Suddenly you hear that some floor under ruined fountain fall!");
+            place_trap(c, grid, 4, c->wpos.depth);
+        }
+        else
+            /* Remove the feature */
+            square_tunnel_wall(c, grid);
+
+        /* Place an object */
+        if (magik(10))
+        {
+            /* Create a simple object */
+            place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_RUBBLE, 0);
+
+            /* Observe the new object */
+            if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
+                msg(p, "You have found something!");
+        }        
+        /* Summon creature */
+        else if (one_in_(4))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                byte minlev;
+                byte chance;
+            } summon_chance[] =
+            {
+                {"creeping copper coins", 0, 100},
+                {"clay golem", 7, 90},
+                {"stone golem", 15, 80},
+                {"livingstone", 17, 70},
+                {"lesser wall monster", 23, 60},
+                {"gargoyle", 28, 50},
+                {"silent watcher", 30, 40},
+                {"malicious leprechaun", 33, 30}
+            };
+            int i;
+
+            msg(p, "Something crawls out of the fountain rubbles!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }        
+
+        /* Sound */
+        sound(p, MSG_DIG);
+
+        /* Update the visuals */
+        update_visuals(&p->wpos);
+
+        /* Fully update the flow */
+        fully_update_flow(&p->wpos);
+    }
+
+////////// DIG FOUNTAIN WITH WATER:
+    else if (okay && square_isfountain(c, grid))
+    {
+        /* Message */
+        msg(p, "Oops. You have split the fountain.");
+        
+        /* Fall in */
+        if (one_in_(15))
+        {
+            msg(p, "You slip and fall in the water.");
+            if (!player_passwall(p) && !can_swim(p))
+                take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a water");
+            return;
+        }        
+        else if (one_in_(2))
+        {
+            msg(p, "Water gushes forth from the overflowing ruined fountain!");
+            square_set_feat(c, grid, FEAT_WATER);                    
+            // add PROJ SHALLOW WATER fire_ball(context->origin->player, PROJ_SH_WATER, 0, 1, 2, false);
+        }            
+        else
+        {
+            /* Remove the feature */
+            square_tunnel_wall(c, grid);        
+            msg(p, "Water suddenly disappears. You hear bubbling sound.");    
+        }
+
+        /* Summon water creature */
+        if (one_in_(2))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                byte minlev;
+                byte chance;
+            } summon_chance[] =
+            {
+                {"giant green frog", 0, 100},
+                {"giant red frog", 3, 90},
+                {"water spirit", 8, 80},
+                {"water vortex", 11, 70},
+                {"water elemental", 16, 60},
+                {"water hound", 21, 50},
+                {"Djinn", 33, 40}
+            };
+            int i;
+
+            msg(p, "Caramba! Something pops out of the fountain depths!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+        
+        /* Place an object */
+        else if (magik(10))
+        {
+            /* Create a simple object */
+            place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_RUBBLE, 0);
+
+            /* Observe the new object */
+            if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
+                msg(p, "You have found something!");
+        }        
+
+        /* Sound */
+        sound(p, MSG_DIG);
+
+        /* Update the visuals */
+        update_visuals(&p->wpos);
+
+        /* Fully update the flow */
+        fully_update_flow(&p->wpos);
+    }
+
+////////// REGULAR DIGGING:
     /* Success */
     else if (okay && twall(p, c, grid))
     {
         /* Mow down the vegetation */
         if (tree)
-        {
-            /* Message */
             msg(p, "You hack your way through the vegetation.");
-        }
 
         /* Clear some web */
         else if (web)
@@ -971,7 +1119,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Remove the rubble */
         else if (rubble)
         {
-            /* Message */
             msg(p, "You have removed the rubble.");
 
             /* Place an object */
@@ -992,7 +1139,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Place some gold */
             place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
 
-            /* Message */
             msg(p, "You have found something!");
         }
         
@@ -1003,32 +1149,32 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Dig cobbles (simple non-magical rocks) */
         else if (one_in_(2))
         {
-                /* Make cobble */
-                dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
+            /* Make cobble */
+            dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
 
-                if (dig_cobble) // check in case of NULL
-                {
+            if (dig_cobble) // check in case of NULL
+            {
                 set_origin(dig_cobble, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
                 /* Drop the cobble (place_object won't work as it generates
-                   object at wall position which is no drop) */
+                object at wall position which is no drop) */
                 drop_near(p, c, &dig_cobble, 0, &p->grid, true, DROP_FADE, true);
-                }
+            }
         }
         
         /* Dig house Foundation Stone */
         else if (one_in_(2) && p->lev > 7)
         {
-                /* Make house stone */
-                dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
+            /* Make house stone */
+            dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
 
-                if (dig_stone)
-                {
+            if (dig_stone)
+            {
                 set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
                 /* Drop house stone */
                 drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
-                }
+            }
         }
         
         /* Found nothing */

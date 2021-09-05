@@ -763,6 +763,7 @@ name:fountain
 graphics:_:B
 priority:22
 flags:LOS | PROJECT | PASSABLE | FOUNTAIN | BORING | EASY | INTERESTING | TORCH
+info:0:4
 short-desc:fountain filled with water
 desc:An ornate basin filled with water.
 
@@ -770,6 +771,7 @@ name:fountain (dried out)
 graphics:_:s
 priority:22
 flags:LOS | PROJECT | PASSABLE | FOUNTAIN | DRIED | BORING | EASY | INTERESTING
+info:0:3
 short-desc:empty ornate basin
 desc:An empty ornate basin.
 
@@ -3575,6 +3577,7 @@ name:obj_grass 2 well
 graphics:_:B
 priority:22
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FOUNTAIN | BORING | EASY | INTERESTING | TORCH
+info:0:4
 short-desc:well filled with water
 desc:A well with clear water.
 
@@ -3636,6 +3639,7 @@ name:obj_grass 9 fountain
 graphics:_:B
 priority:22
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FOUNTAIN | BORING | EASY | INTERESTING | TORCH
+info:0:4
 short-desc:fountain filled with water
 desc:An ornate basin filled with water.
 
@@ -4500,6 +4504,7 @@ name:A9 dried fountain
 graphics:_:s
 priority:22
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FOUNTAIN | DRIED | BORING | EASY | INTERESTING
+info:0:4
 short-desc:empty ornate basin
 desc:An empty ornate basin.
 
@@ -4507,6 +4512,7 @@ name:A9 dried well
 graphics:_:s
 priority:22
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FOUNTAIN | DRIED | BORING | EASY | INTERESTING
+info:0:4
 short-desc:empty well
 desc:An empty well.
 
@@ -8389,8 +8395,8 @@ priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW
 info:0:2
 ################################################################################
-short-desc:fountain
-desc:.
+short-desc:mirage fountain
+desc:It looks so real.. But it's only magic mirage.
 
 ### WINDOWS FURTHER ON
 
@@ -8998,8 +9004,8 @@ priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:3
 ################################################################################
-short-desc:fountain in the wall
-desc:.
+short-desc:fountain mirage
+desc:It looks so real.. But it's only magic mirage.
 
 name:dark wall b portrait
 graphics:#:D
@@ -9553,8 +9559,8 @@ priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:3
 ################################################################################
-short-desc:fountain in the wall
-desc:.
+short-desc:fountain mirage
+desc:It looks so real.. But it's only magic mirage.
 
 # windows further on
 
@@ -10725,8 +10731,8 @@ priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 info:0:3
 ################################################################################
-short-desc:fountain in the wall
-desc:.
+short-desc:fountain mirage
+desc:It looks so real.. But it's only magic mirage.
 
 name:brick wall 7
 graphics:#:W
