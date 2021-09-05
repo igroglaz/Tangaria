@@ -479,6 +479,7 @@ history:94
 age:255:70
 height:170:20
 weight:240:60
+# water restore hp and satiation (< merf; / 2)
 gift:bottle:Empty Bottle:3:10
 #str8 int-4 wis2 dex-4 con8
 value:1:STR[-8+1d3]
@@ -567,8 +568,7 @@ history:98
 age:255:70
 height:170:20
 weight:240:60
-########################## Check does it works?
-gift:food:Slice of Meat:1:1
+gift:gold:gold:84:126
 obj-flag:1:FEATHER
 value:1:INFRA[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
@@ -714,6 +714,7 @@ history:100
 age:14:6
 height:67:5
 weight:165:23
+# water restore hp and satiation
 gift:potion:Water:7:14
 #0 0 2 1 -1
 value:1:STR[-1+1d27]
@@ -727,7 +728,6 @@ value:1:RES_WATER[1]
 value:50:RES_WATER[3]
 value:1:TUNNEL[-1+-1d15]
 # make fast regen only in water
-# water potons works as cure light (<10)/serious (<20)/critical wounds?
 obj-flag:1:REGEN
 player-flags:0:CAN_SWIM
 

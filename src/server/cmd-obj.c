@@ -1712,6 +1712,22 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     /* Take a turn if device failed */
     else
         use_energy(p);
+    
+/// potion of water
+    if (streq(obj->kind->name, "Water"))
+    {
+        if (streq(p->race->name, "Merfolk"))
+        {
+            player_inc_timed(p, TMD_FOOD, 100, false, false);
+            hp_player(p, p->wpos.depth);
+        }
+        if (streq(p->race->name, "Ent"))
+        {
+            player_inc_timed(p, TMD_FOOD, 50, false, false);
+            hp_player(p, p->wpos.depth / 2);
+        }
+        hp_player(p, 1);
+    }
 
     /* If the item is a null pointer or has been wiped, be done now */
     if (!obj) return;

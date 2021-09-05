@@ -2420,6 +2420,18 @@ void do_cmd_fountain(struct player *p, int item)
 
     /* Take a turn */
     use_energy(p);
+    
+    if (streq(p->race->name, "Merfolk"))
+    {
+        player_inc_timed(p, TMD_FOOD, 100, false, false);
+        hp_player(p, p->wpos.depth);
+    }
+    
+    if (streq(p->race->name, "Ent"))
+    {
+        player_inc_timed(p, TMD_FOOD, 50, false, false);    
+        hp_player(p, p->wpos.depth / 2);
+    }
 
     /* Fruit bat! */
     if (item == -1)
