@@ -873,7 +873,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
     bool gold, rubble, tree, web;
-    struct object *dig_cobble, *dig_stone;
+    struct object *dig_cobble, *dig_stone, *dig_dry, *dig_fountain;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
@@ -987,11 +987,15 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         if (magik(10))
         {
             /* Create a simple object */
-            place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_RUBBLE, 0);
+            dig_dry = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
 
-            /* Observe the new object */
-            if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
-                msg(p, "You have found something!");
+                if (dig_dry) // to prevent obj null in case of `water` tile which is not `floor`
+                {
+                    set_origin(dig_dry, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                    /* Drop house stone */
+                    drop_near(p, c, &dig_dry, 0, &p->grid, true, DROP_FADE, false);
+                }
         }        
         /* Summon creature */
         else if (one_in_(4))
@@ -1087,11 +1091,15 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else if (magik(10))
         {
             /* Create a simple object */
-            place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_RUBBLE, 0);
+            dig_fountain = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
 
-            /* Observe the new object */
-            if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
-                msg(p, "You have found something!");
+                if (dig_fountain) // to prevent obj null in case of `water` tile which is not `floor`
+                {
+                    set_origin(dig_fountain, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                    /* Drop house stone */
+                    drop_near(p, c, &dig_fountain, 0, &p->grid, true, DROP_FADE, false);
+                }
         }        
 
         /* Sound */
