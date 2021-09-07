@@ -32389,6 +32389,10 @@ feat:house wall i`:los:0xE3:0xFD
 feat:house wall i`:lit:0xE3:0xFE
 feat:house wall i`:dark:0xE3:0xFF
 
+###################
+### ADD AFTER WIPE:
+monster:darkling:0x9C:0xF5
+monster:shadow of nazgul:0x9B:0xF5
 
 
 # Load the special player pictures

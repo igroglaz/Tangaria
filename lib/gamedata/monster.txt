@@ -15336,7 +15336,7 @@ depth:38
 rarity:4
 weight:0
 experience:500
-blow:HIT:HURT:1d9
+blow:HIT:EAT_LIGHT:1d9
 blow:HIT:HURT:1d9
 blow:HIT:HALLU:1d9
 flags:INVISIBLE | SMART
@@ -15556,7 +15556,7 @@ depth:38
 rarity:2
 weight:0
 experience:1700
-blow:HIT:HALLU:1d9
+blow:HIT:EAT_LIGHT:1d9
 blow:HIT:HALLU:1d9
 blow:HIT:HALLU:1d9
 blow:HIT:HALLU:1d9
@@ -23272,7 +23272,7 @@ depth:75
 rarity:1
 weight:0
 experience:35000
-blow:CLAW:POISON:8d6
+blow:CLAW:EAT_LIGHT:8d6
 blow:CLAW:POISON:8d6
 blow:BITE:PARALYZE:8d10
 blow:STING:LOSE_STR:8d4
@@ -31076,3 +31076,53 @@ desc:It blinks slowly and menacily.
 #///////////    ^^^ FORMS
 #///////////   
 
+
+
+##### ADD after wipe:
+
+
+name:darkling
+base:minor demon
+color:u
+speed:111
+hit-points:75
+light:-2
+hearing:20
+armor-class:42
+sleepiness:35
+depth:13
+rarity:4
+weight:140
+experience:75
+blow:HIT:EAT_LIGHT:1d7
+blow:HIT:EAT_LIGHT:1d7
+flags:OPEN_DOOR | BASH_DOOR
+flags:DROP_40
+flags:NO_FEAR
+spell-freq:7
+spells:DARKNESS
+desc:Corrupted fey-demons which feed on light.
+
+name:shadow of nazgul
+base:wraith
+color:p
+speed:115
+hit-points:250
+light:-2
+hearing:90
+smell:50
+armor-class:72
+sleepiness:10
+depth:30
+rarity:6
+weight:0
+experience:666
+blow:MOAN:TERRIFY:2d5
+blow:HIT:EAT_LIGHT:4d5
+blow:HIT:BLACK_BREATH:3d7
+flags:MALE | LEVITATE
+flags:DROP_1 | ONLY_ITEM
+flags:OPEN_DOOR | BASH_DOOR
+desc:Nazguls don't dissapear for ever.. They return. Always.
+desc:But till the moment when they will reclaim, 
+desc:they dwell aas shadowless shapes.
