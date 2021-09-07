@@ -564,7 +564,8 @@ static void project_monster_handler_LIGHT(project_monster_handler_context_t *con
 {
     if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
 
-    if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT))
+    if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT) ||
+        rf_has(context->mon->race->flags, RF_IM_LIGHT))
     {
         /* Learn about breathers through resistance */
         if (context->seen) rsf_on(context->lore->spell_flags, RSF_BR_LIGHT);

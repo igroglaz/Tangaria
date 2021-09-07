@@ -1318,10 +1318,12 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
         if ((idx == TMD_PARALYZED) && (p->timed[idx] > 0)) return false;
         
         // some additional thresholds so conditions won't overstuck
-        if ((idx == TMD_SLOW || idx == TMD_POISONED || idx == TMD_CONFUSED || idx == TMD_AFRAID)
+        if ((idx == TMD_SLOW || idx == TMD_CONFUSED || idx == TMD_AFRAID)
         && (p->timed[idx] > 10)) return false;
 
-        if ((idx == TMD_STUN) && (p->timed[idx] > 20)) return false;        
+        if ((idx == TMD_POISONED) && (p->timed[idx] > 15)) return false;
+        
+        if ((idx == TMD_STUN) && (p->timed[idx] > 35)) return false;
 
         /* Hack -- permanent effect */
         if (p->timed[idx] == -1) return false;

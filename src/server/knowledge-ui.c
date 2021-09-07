@@ -2470,7 +2470,9 @@ void do_cmd_fountain(struct player *p, int item)
             {"water spirit", 17, 80},
             {"water vortex", 21, 70},
             {"water elemental", 33, 60},
-            {"water hound", 43, 50}
+            {"water hound", 35, 50},
+            {"seahorse", 37, 40},                
+            {"Djinn", 45, 5}            
         };
         int i;
 

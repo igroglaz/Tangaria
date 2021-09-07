@@ -532,6 +532,8 @@ dice:5+1d5
 desc:Doubles spellcasting speed for 5+1d5 turns.
 
 spell:Mana Bolt:25:8:60:30:0
+# 8-14 @ 24 (~60)
+# 8-40 @ 50 (~164)
 effect:BOLT_OR_BEAM:MANA
 dice:$Dd8
 expr:D:PLAYER_LEVEL:- 10
@@ -2444,7 +2446,7 @@ skill-disarm-phys:35:9
 skill-disarm-magic:50:12
 skill-device:40:15
 skill-save:30:9
-skill-stealth:2:0
+skill-stealth:0:0
 skill-search:10:12
 skill-melee:30:11
 skill-shoot:20:15
@@ -2464,7 +2466,8 @@ equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:1:STR[-5]
 value:1:INT[5]
 value:1:CON[-3]
-value:1:CHR[2]
+# sullen old sorcerer who focused on magical arts to get POWER beyond imagination
+value:1:CHR[-2]
 value:1:MANA[5]
 player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
 title:Novice
@@ -2484,6 +2487,8 @@ book:magic book:town:[Magic for Beginners]:8:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Missile:1:1:12:4:0
+# 6-42  @ 24 (~24)
+# 9-108 @ 50 (~58)
 effect:BOLT_OR_BEAM:MISSILE:0:-10
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:- 1 / 5 + 3

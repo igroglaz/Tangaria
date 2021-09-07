@@ -796,7 +796,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     else
     {
         /* Digest quickly when gorged */
-        player_dec_timed(p, TMD_FOOD, 5000 / z_info->food_value, false);
+        player_dec_timed(p, TMD_FOOD, 1000 / z_info->food_value, false);
     }
 
     /* Faint or starving */

@@ -611,7 +611,7 @@ weight:0
 experience:0
 flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
-flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | IM_LIGHT
 desc:An indestructible golem used for target practice.
 locations:Farfest
 
@@ -779,7 +779,9 @@ experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
 flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_40 | ONLY_GOLD
+flags:DROP_40 | ONLY_GOLD
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_DISEN | IM_NETHER
+flags:IM_COLD | IM_ELEC | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
 spell-freq:100
 spells:S_ANIMAL | S_SPIDER | S_MONSTER
 desc:An old barrel. When you hit it, you hear hollow sound. Is it empty?
@@ -1439,6 +1441,7 @@ flags:DROP_40
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL
+flags:IM_LIGHT
 spell-freq:12
 spells:HEAL | SCARE
 drop-base:prayer book:5:1:1
@@ -2305,6 +2308,7 @@ blow:HIT:HURT:1d2
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
 spell-freq:8
 spells:HEAL | SLOW | CONF
 drop-base:nature book:5:1:1
@@ -2346,6 +2350,7 @@ depth:4
 rarity:3
 weight:0
 experience:9
+flags:IM_LIGHT
 blow:HIT:HURT:1d4
 blow:TOUCH:POISON:2d4
 desc:It appears to be a pile of copper coins.
@@ -2575,7 +2580,9 @@ experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
 flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_40
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_DISEN | IM_NETHER
+flags:IM_COLD | IM_ELEC | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
+flags:DROP_40
 spell-freq:100
 spells:S_ANIMAL | S_SPIDER | S_MONSTER
 desc:Crude wooden crate. Small beetle sits on it's lid.
@@ -2596,6 +2603,7 @@ blow:HIT:HURT:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+flags:IM_POIS
 flags:FORCE_DEPTH
 friends:100:1d3:rattlesnake:servant
 spell-freq:3
@@ -2624,6 +2632,7 @@ blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+flags:IM_LIGHT
 desc:Beautiful girl with long hair. She give you a wink..
 locations:The Mountain Gorge
 
@@ -3000,6 +3009,7 @@ depth:6
 rarity:3
 weight:0
 experience:18
+flags:IM_LIGHT
 blow:HIT:HURT:1d6
 blow:TOUCH:POISON:2d6
 desc:It appears to be a pile of silver coins.
@@ -4249,8 +4259,9 @@ weight:0
 experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
-flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_60
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_DISEN | IM_NETHER
+flags:IM_COLD | IM_ELEC | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
+flags:DROP_60
 spell-freq:100
 spells:S_MONSTER
 desc:Some one made a meal there.. It's sad but pot is empty.
@@ -4348,6 +4359,7 @@ blow:BITE:HURT:1d5
 flags:DROP_40 | DROP_1 | ONLY_GOLD
 flags:OPEN_DOOR | BASH_DOOR | NO_STUN
 flags:DROP_CORPSE
+flags:IM_LIGHT
 spell-freq:12
 innate-freq:100
 spells:BR_SOUN
@@ -4613,7 +4625,7 @@ weight:0
 experience:32
 blow:HIT:HURT:2d5
 blow:TOUCH:POISON:3d5
-flags:IM_ACID
+flags:IM_ACID | IM_LIGHT
 desc:It appears to be a pile of gold coins, until it starts crawling towards you
 desc: on tiny legs.
 mimic:gold:gold
@@ -5252,6 +5264,7 @@ flags:DROP_60
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
 spell-freq:3
 spell-power:6
 spells:HEAL | SCARE | HEAL_KIN
@@ -5724,7 +5737,7 @@ weight:0
 experience:45
 blow:HIT:HURT:2d5
 blow:TOUCH:POISON:3d5
-flags:IM_ACID
+flags:IM_ACID | IM_LIGHT
 desc:It appears to be a pile of sentient mithril coins that doesn't like being
 desc: picked up.
 mimic:gold:mithril
@@ -6152,7 +6165,9 @@ experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
 flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_40
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_PLASMA | IM_DISEN | IM_NETHER
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
+flags:DROP_40
 spell-freq:100
 innate-freq:25
 spells:S_UNDEAD | SHRIEK | DARKNESS | SCARE
@@ -6779,6 +6794,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 flags:MALE | EVIL
 flags:OPEN_DOOR | TAKE_ITEM
+flags:IM_LIGHT
 spell-freq:7
 spells:HEAL
 desc:A short and swarthy mutant. He was paladin.
@@ -7231,7 +7247,8 @@ rarity:1
 weight:0
 experience:50
 blow:ENGULF:ELEC:8d8
-flags:IM_ELEC | NO_FEAR | NO_CONF | NO_SLEEP | PWMANG_BASE
+flags:NO_FEAR | NO_CONF | NO_SLEEP | PWMANG_BASE
+flags:IM_ELEC | IM_LIGHT
 flags:FORCE_SLEEP
 desc:A crackling ball of energy, zooming about seemingly at random.
 
@@ -7272,6 +7289,7 @@ weight:0
 experience:80
 blow:BITE:CONFUSE:2d2
 flags:SMART | LEVITATE | COLD_BLOOD
+flags:IM_LIGHT
 spell-freq:15
 spells:BLINK | CONF | TELE_LEVEL
 spells:TPORT
@@ -7620,6 +7638,7 @@ blow:BITE:DISEASE:4d2
 flags:UNIQUE | PWMANG_BASE
 flags:BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
+flags:DROP_3 | ONLY_GOLD
 friends-base:100:1d5:rodent:servant
 friends-base:75:1d5:rodent:servant
 friends-base:50:1d5:rodent:servant
@@ -7794,7 +7813,10 @@ experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
 flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_40
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_PLASMA | IM_DISEN | IM_NETHER
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
+flags:DROP_40
+flags:IM_LIGHT
 spell-freq:100
 innate-freq:25
 spells:S_ANIMAL | S_SPIDER
@@ -8201,6 +8223,7 @@ flags:MALE
 flags:DROP_1
 flags:OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
 spell-freq:4
 spells:HEAL | SLOW
 drop-base:prayer book:5:1:1
@@ -8777,7 +8800,6 @@ flags:MALE | PWMANG_BASE
 flags:DROP_20 | WILD_WASTE | WILD_MOUNTAIN
 flags:DROP_SKELETON | DROP_CORPSE
 flags:HURT_FIRE | REGENERATE
-flags:HURT_LIGHT
 spell-freq:8
 spells:HEAL | HEAL_KIN
 spells:WOUND
@@ -9652,7 +9674,9 @@ experience:0
 flags:NEVER_BLOW
 flags:FORCE_SLEEP | NEVER_MOVE | STUPID | EMPTY_MIND | PWMANG_BASE
 flags:COLD_BLOOD
-flags:NO_CONF | NO_SLEEP | NO_FEAR | DROP_40
+flags:DROP_40
+flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_PLASMA | IM_DISEN | IM_NETHER
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | IM_WATER | NO_SLOW | IM_LIGHT
 spell-freq:100
 innate-freq:25
 spells:S_MONSTER | ANIM_DEAD | TRAPS | DARKNESS | HEAL_KIN | HEAL | SLOW
@@ -9948,9 +9972,8 @@ depth:25
 rarity:10
 weight:0
 experience:100000
-flags:EMPTY_MIND | MALE | REGENERATE | RAND_50
-flags:IM_POIS | IM_ACID | IM_FIRE
-flags:IM_COLD | IM_ELEC
+flags:EMPTY_MIND | MALE | REGENERATE | RAND_50 | WANDERER
+flags:IM_POIS | IM_ACID | IM_FIRE | IM_COLD | IM_ELEC
 flags:IM_NETHER | IM_PLASMA | IM_DISEN
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:NO_FEAR | NO_SLEEP | SMART | NO_DEATH
@@ -10001,6 +10024,7 @@ blow:BITE:BLIND:1d2
 blow:SPIT:POISON:1d2
 blow:HIT:DISENCHANT
 flags:SMART | LEVITATE | COLD_BLOOD
+flags:IM_LIGHT
 spell-freq:12
 spells:BLINK | CONF | TELE_LEVEL
 spells:TPORT | BLIND
@@ -10050,7 +10074,7 @@ blow:HIT:HURT:1d8
 blow:BITE:HURT:3d4
 flags:MALE
 flags:DROP_60
-flags:HURT_LIGHT | NO_CONF | NO_SLEEP
+flags:NO_CONF | NO_SLEEP
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:5
@@ -10238,7 +10262,7 @@ blow:HIT:HURT:3d4
 flags:DROP_2
 flags:IM_ACID
 flags:NO_STUN | NO_CONF | LEVITATE
-flags:IM_ACID | IM_POIS
+flags:IM_ACID | IM_POIS | IM_LIGHT
 flags:OPEN_DOOR | BASH_DOOR | NO_SLEEP
 spell-freq:3
 spell-power:26
@@ -10427,7 +10451,7 @@ blow:BITE:POISON:3d4
 blow:TOUCH:POISON:3d5
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
-flags:IM_ACID
+flags:IM_ACID | IM_LIGHT
 desc:It appears to be a pile of coins made of precious adamant, slithering
 desc: toward you on lots of tiny legs.
 mimic:gold:adamantite
@@ -10967,6 +10991,8 @@ blow:HIT:HURT:4d6
 flags:UNIQUE | MALE | EVIL
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
+flags:NO_STUN | NO_CONF | NO_SLEEP | NO_SLOW
+flags:IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 spell-freq:7
 spells:BLIND | HOLD | SCARE
 spells:S_KIN
@@ -11440,12 +11466,12 @@ blow:WAIL:EXP_20
 blow:WAIL:TERRIFY
 blow:WAIL:PARALYZE
 flags:UNDEAD | PWMANG_EXTRA
-flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | IM_LIGHT
 flags:NO_SLEEP | NO_STUN
 spell-freq:15
 innate-freq:100
 spells:SHRIEK
-desc:Often found in graveyards.
+desc:Not all that glitters is gold...
 
 name:jellyfish
 base:aquatic
@@ -11663,6 +11689,7 @@ blow:BITE:HURT:3d6
 flags:DROP_2
 flags:OPEN_DOOR | BASH_DOOR | NO_STUN
 flags:DROP_CORPSE | WILD_MOUNTAIN
+flags:IM_LIGHT
 spell-freq:10
 innate-freq:50
 spells:SCARE
@@ -11738,7 +11765,7 @@ weight:0
 experience:140
 blow:ENGULF:ELEC:3d4
 flags:ATTR_FLICKER
-flags:IM_ELEC
+flags:IM_ELEC | IM_LIGHT
 flags:NO_STUN
 spell-freq:4
 innate-freq:75
@@ -13004,7 +13031,7 @@ blow:BITE:HURT:3d5
 blow:BITE:HURT:3d5
 flags:MALE
 flags:DROP_60
-flags:HURT_LIGHT | NO_CONF | NO_SLEEP
+flags:NO_CONF | NO_SLEEP
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:5
@@ -13060,7 +13087,7 @@ blow:HIT:HURT:3d5
 flags:DROP_2
 flags:IM_ACID
 flags:NO_STUN | NO_CONF | LEVITATE
-flags:IM_POIS | IM_FIRE | IM_COLD
+flags:IM_POIS | IM_FIRE | IM_COLD | IM_LIGHT
 flags:OPEN_DOOR | BASH_DOOR | NO_SLEEP
 spell-freq:3
 spells:BLIND | CONF | HASTE | HEAL | SCARE
@@ -14139,6 +14166,7 @@ flags:DROP_4
 flags:OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_STUN
 flags:DROP_CORPSE | WILD_MOUNTAIN
+flags:IM_LIGHT
 spell-freq:8
 spell-power:35
 innate-freq:33
@@ -14246,7 +14274,7 @@ blow:HIT:ELEC:3d8
 blow:HIT:ELEC:3d8
 flags:COLD_BLOOD | LEVITATE
 flags:BASH_DOOR
-flags:IM_POIS
+flags:IM_POIS | IM_LIGHT
 flags:FORCE_SLEEP
 flags:NO_STUN
 spell-freq:3
@@ -15313,7 +15341,7 @@ blow:HIT:HURT:1d9
 blow:HIT:HALLU:1d9
 flags:INVISIBLE | SMART
 flags:RAND_50 | PASS_WALL
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 flags:FORCE_SLEEP
 flags:WILD_SWAMP
 spell-freq:2
@@ -15535,7 +15563,7 @@ blow:HIT:HALLU:1d9
 flags:DROP_2 | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:FORCE_SLEEP | LEVITATE | SMART
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 spell-freq:7
 spell-power:38
 spells:BLINK | WOUND | HOLD | TELE_AWAY | TELE_LEVEL | TELE_TO
@@ -15691,7 +15719,7 @@ blow:HIT:HURT:3d8
 flags:SMART
 flags:DROP_2
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 flags:NO_STUN | NO_CONF | LEVITATE
 flags:IM_POIS
 flags:OPEN_DOOR | BASH_DOOR | NO_SLEEP
@@ -16404,6 +16432,7 @@ flags:OPEN_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
 spell-freq:2
 spells:BLIND | HEAL | HEAL_KIN | MIND_BLAST
 spells:BA_LIGHT | BA_ELEC | BA_HOLY
@@ -16855,6 +16884,7 @@ blow:CLAW:HURT:4d8
 blow:BITE:HURT:7d9
 flags:OPEN_DOOR | BASH_DOOR | NO_STUN
 flags:DROP_CORPSE
+flags:IM_LIGHT
 spell-freq:6
 spell-power:41
 innate-freq:25
@@ -17376,6 +17406,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 flags:FEMALE | INVISIBLE
 flags:DROP_2
+flags:IM_LIGHT
 spell-freq:3
 spells:BLIND | HASTE | HEAL | SCARE
 spells:BO_MANA
@@ -17686,7 +17717,7 @@ smell:20
 armor-class:120
 sleepiness:200
 depth:44
-rarity:9
+rarity:8
 weight:0
 experience:666
 blow:KICK:HURT:4d4
@@ -17696,7 +17727,7 @@ blow:TOUCH:DRAIN_CHARGES
 flags:SMART
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD
-flags:IM_ACID | IM_ELEC | IM_POIS
+flags:IM_ACID | IM_ELEC | IM_POIS | IM_LIGHT
 spell-freq:4
 spell-power:44
 spells:DRAIN_MANA | HEAL | WOUND | TELE_AWAY
@@ -17753,6 +17784,7 @@ flags:DROP_2 | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:NO_FEAR | NO_CONF | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | IM_NEXUS | IM_DISEN | IM_NETHER | NO_STUN
+flags:IM_LIGHT
 spell-freq:4
 spell-power:44
 spells:BLIND | WOUND | MISSILE | HASTE | HEAL | SCARE
@@ -17815,7 +17847,7 @@ blow:CLAW:HURT:3d10
 blow:BITE:FIRE:6d10
 blow:BITE:FIRE:6d10
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_FIRE | IM_POIS
+flags:IM_FIRE | IM_POIS | IM_LIGHT
 flags:NO_STUN
 flags:FORCE_SLEEP
 spell-freq:5
@@ -17953,7 +17985,7 @@ flags:BASH_DOOR
 flags:ATTR_MULTI
 flags:FORCE_SLEEP
 flags:NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | NO_CUT
-flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN
+flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | IM_LIGHT
 flags:IM_NETHER
 desc:A deadly blade of chaos lurking for prey. Beware!
 drop:sword:'Stormbringer':100:1:1
@@ -18030,7 +18062,7 @@ flags:SMART
 flags:DROP_2
 flags:MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | NO_FEAR | SMART
-flags:NO_STUN | NO_CONF | LEVITATE
+flags:NO_STUN | NO_CONF | LEVITATE | IM_LIGHT
 spell-freq:9
 spell-power:45
 spells:CONF | HASTE | HEAL | TELE_AWAY
@@ -18052,7 +18084,7 @@ hearing:30
 armor-class:68
 sleepiness:255
 depth:45
-rarity:9
+rarity:8
 weight:0
 experience:5000
 blow:HIT:HURT:4d6
@@ -18402,7 +18434,7 @@ blow:HIT:HURT:5d6
 blow:HIT:HURT:5d6
 flags:UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
-flags:PASS_WALL | KILL_BODY
+flags:PASS_WALL | KILL_BODY | IM_LIGHT
 flags:IM_ELEC | HURT_ROCK
 flags:FORCE_DEPTH | FORCE_SLEEP
 spell-freq:7
@@ -19564,7 +19596,7 @@ blow:HIT:FORGET:3d6
 flags:POWERFUL | UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED | LEVITATE
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR | KILL_WALL
-flags:IM_FIRE | IM_ELEC | NO_STUN
+flags:IM_FIRE | IM_ELEC | NO_STUN | IM_LIGHT
 flags:FORCE_DEPTH
 spell-freq:4
 innate-freq:22
@@ -19683,7 +19715,7 @@ blow:HIT:HURT:5d5
 blow:HIT:HALLU:5d5
 flags:MALE | REGENERATE
 flags:ONLY_ITEM | DROP_4 | DROP_CORPSE | DROP_SKELETON
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | IM_DISEN
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | IM_DISEN | IM_LIGHT
 flags:OPEN_DOOR
 flags:ONLY_ITEM | DROP_4
 flags:ANTI_MAGIC | NO_STUN
@@ -20125,7 +20157,7 @@ flags:SMART | ATTR_FLICKER
 flags:DROP_4
 flags:MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | NO_FEAR | SMART
-flags:NO_STUN | NO_CONF | LEVITATE
+flags:NO_STUN | NO_CONF | LEVITATE | IM_LIGHT
 spell-freq:3
 spell-power:55
 spells:BLIND | WOUND | BA_LIGHT | SCARE | TELE_TO | HEAL | MISSILE
@@ -20679,7 +20711,7 @@ hearing:30
 armor-class:96
 sleepiness:15
 depth:60
-rarity:3
+rarity:6
 weight:0
 experience:6000
 blow:HIT:COLD:9d10
@@ -20999,7 +21031,7 @@ flags:UNIQUE | MALE | SMART | ATTR_FLICKER
 flags:DROP_3 | DROP_GOOD
 flags:MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_PLASMA
-flags:NO_STUN
+flags:NO_STUN | IM_LIGHT
 spell-freq:2
 innate-freq:15
 spells:BLIND | TELE_TO
@@ -21515,7 +21547,7 @@ blow:HIT:BLIND:10d10
 flags:UNIQUE | MALE | SMART
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM | LEVITATE
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 flags:NO_STUN
 spell-freq:2
 spells:BLIND | TELE_TO
@@ -22074,6 +22106,7 @@ flags:DROP_40 | DROP_60 | ONLY_ITEM
 flags:BASH_DOOR
 flags:ATTR_MULTI | FORCE_SLEEP | NO_CONF
 flags:DROP_CORPSE
+flags:IM_LIGHT
 spell-freq:5
 innate-freq:50
 spells:WOUND
@@ -23278,7 +23311,7 @@ blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
 flags:DEMON | COLD_BLOOD
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_ACID | IM_FIRE | IM_POIS
+flags:IM_ACID | IM_FIRE | IM_POIS | IM_LIGHT
 flags:FORCE_SLEEP
 flags:NO_STUN
 spell-freq:8
@@ -23461,7 +23494,7 @@ flags:UNIQUE | SMART | WANDERER
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
-flags:NO_STUN | IM_PLASMA | IM_DISEN
+flags:NO_STUN | IM_PLASMA | IM_DISEN | IM_LIGHT
 spell-freq:4
 innate-freq:15
 spells:DRAIN_MANA | HEAL | WOUND | TELE_AWAY | BR_LIGHT | BR_MANA
@@ -24855,7 +24888,7 @@ blow:HIT:DISENCHANT:11d11
 flags:UNIQUE | MALE | SMART
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM | LEVITATE
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 flags:NO_STUN
 spell-freq:2
 innate-freq:17
@@ -25018,7 +25051,7 @@ blow:BEG:HURT:9d13
 flags:UNIQUE | MALE | SMART
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM | LEVITATE
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
 flags:NO_STUN
 spell-freq:2
 innate-freq:15
@@ -25400,7 +25433,7 @@ blow:HIT:HURT:10d10
 flags:PWMANG_EXTRA | REGENERATE | LEVITATE
 flags:BASH_DOOR | NEVER_BLOW | KILL_WALL
 flags:IM_FIRE | IM_COLD | IM_POIS | IM_PLASMA | IM_NETHER | IM_ACID
-flags:NO_STUN | IM_ELEC
+flags:NO_STUN | IM_ELEC | IM_LIGHT
 flags:FORCE_DEPTH
 spell-freq:3
 innate-freq:33

@@ -1077,7 +1077,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"water vortex", 11, 70},
                 {"water elemental", 16, 60},
                 {"water hound", 21, 50},
-                {"Djinn", 33, 40}
+                {"seahorse", 30, 40},                
+                {"Djinn", 45, 30}
             };
             int i;
 

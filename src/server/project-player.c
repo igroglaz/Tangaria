@@ -893,7 +893,8 @@ static int project_player_handler_PLASMA(project_player_handler_context_t *conte
     }
 
     /* Stun */
-    player_inc_timed(p, TMD_STUN, MIN(5 + randint1(context->dam * 3 / 4), 35), true, check);
+    if (one_in_(2)) // make it more rare to prevent plasma hounds insta-stun
+        player_inc_timed(p, TMD_STUN, MIN(5 + randint1(context->dam * 3 / 4), 35), true, check);
 
     return 0;
 }

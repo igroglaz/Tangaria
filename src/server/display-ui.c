@@ -896,6 +896,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
             el_info[ELEM_DISEN].res_level = 1;
         if (rsf_has(p->poly_race->spell_flags, RSF_BR_TIME)) el_info[ELEM_TIME].res_level = 1;
         if (rsf_has(p->poly_race->spell_flags, RSF_BR_MANA)) el_info[ELEM_MANA].res_level = 1;
+        if (rf_has(p->poly_race->flags, RF_IM_LIGHT))        el_info[ELEM_LIGHT].res_level = 1;
     }
 
     for (i = 0; i < ELEM_MAX; i++)
