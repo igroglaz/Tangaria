@@ -1730,7 +1730,8 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
                 return true;
 
             /* Note the appearance of the new one if it is visible but the old one wasn't. */
-            if (!context->seen && context->mon && monster_is_visible(context->origin->player, *m_idx))
+            if (!context->seen && context->mon && context->origin->player &&
+			monster_is_visible(context->origin->player, *m_idx))
                 add_monster_message(context->origin->player, context->mon, MON_MSG_APPEAR, false);
         }
     }
