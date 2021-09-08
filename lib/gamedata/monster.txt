@@ -31122,7 +31122,7 @@ blow:HIT:EAT_LIGHT:4d5
 blow:HIT:BLACK_BREATH:3d7
 flags:MALE | LEVITATE
 flags:DROP_1 | ONLY_ITEM
-flags:OPEN_DOOR | BASH_DOOR
+flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 desc:Nazguls don't dissapear for ever.. They return. Always.
 desc:But till the moment when they will reclaim, 
 desc:they dwell aas shadowless shapes.

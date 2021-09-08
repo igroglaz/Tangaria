@@ -60,7 +60,7 @@
 # 'player-flags' is for player flags (as in list-player-flags.h) that
 # races possess innately at a certain level.
 
-# 'shape' is for shapes that races can polymorph into at a certain level.
+# 'shape' is for shapes that races can polymorph into at a certain level. PERM_SHAPE MUST HAVE 1 lvl form!
 
 # 'attack' is for barehanded attacks.
 #
@@ -1800,7 +1800,7 @@ value:1:DAM_RED[-1+-1d5]
 value:1:RES_LIGHT[-1]
 value:0:STEALTH[1+1d12]
 player-flags:0:PERM_SHAPE
-shape:3:s'spider
+shape:1:s'spider
 shape:5:s'weaver
 shape:10:s'warrior
 shape:15:s'guard
