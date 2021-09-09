@@ -147,22 +147,42 @@ void do_cmd_breath(struct player *p, int dir)
     /* Spider weaves web */
     if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
     {
+        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+        streq(p->clazz->name, "Unbeliever"))
+        {
+            /* Take a turn */
+            use_energy(p);
 
-        /* Take a turn */
-        use_energy(p);
+            /* Make the breath attack an effect */
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_WEB_SPIDER;
 
-        /* Make the breath attack an effect */
-        effect = mem_zalloc(sizeof(struct effect));
-        effect->index = EF_WEB_SPIDER;
+            /* Cast the breath attack */
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
 
-        /* Cast the breath attack */
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+            free_effect(effect);
+            
+            return;
+        }
+        else // all classes except warr, monk, unbeliever
+        {
+            /* Take a turn */
+            use_energy(p);
 
-        free_effect(effect);
-        
-        return;
-    }    
+            /* Make the breath attack an effect */
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_WEB;
+
+            /* Cast the breath attack */
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+            
+            return;
+        }            
+    }
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);

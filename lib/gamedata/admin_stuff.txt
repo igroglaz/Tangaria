@@ -14,13 +14,15 @@
 # 'equip' is for starting equipment - tval of the item, sval of the item,
 # amount.
 
-equip:dragon armour:Power Dragon Scale Mail:2
+#equip:dragon armour:Power Dragon Scale Mail:2
 equip:potion:Augmentation:40
 equip:potion:Experience:40
 equip:potion:Experience:40
 equip:potion:Experience:40
+equip:potion:Philosopher's stone:40
+equip:potion:Philosopher's stone:40
 equip:ring:Speed:6
 equip:rod:Recall:1
 equip:light:Lantern:2
-equip:stone:House Foundation Stone:40
-equip:scroll:House Creation:40
+#equip:stone:House Foundation Stone:40
+#equip:scroll:House Creation:40

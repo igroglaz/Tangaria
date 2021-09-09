@@ -1331,6 +1331,9 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
 
     /* Meditation increase mana at the cost of hp */
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
+    
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+        mhp = mhp * 13 / 14;
 
     /* Return if no updates */
     if (!update) return;
@@ -2146,7 +2149,40 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_DEX] += 2;
         state->skills[SKILL_STEALTH] += 1;
         state->skills[SKILL_SAVE] += 1;
+        // ? state->num_moves += 1;
     }
+
+    // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
+    if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
+    !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+    streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
+        extra_blows += 10;
+
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        state->skills[SKILL_DISARM_PHYS] -= 15;
+        state->skills[SKILL_DISARM_MAGIC] -= 25;
+        state->skills[SKILL_DEVICE] -= 25;
+        state->skills[SKILL_SAVE] += 2;
+        // makes accidental (rare) howls?
+        state->skills[SKILL_STEALTH] -= 1;
+        state->skills[SKILL_SEARCH] += 10;
+        state->skills[SKILL_TO_HIT_MELEE] += 7;
+        state->skills[SKILL_TO_HIT_BOW] -= 10;
+        state->skills[SKILL_DIGGING] += 1;
+        state->stat_add[STAT_STR] += 2;
+        state->stat_add[STAT_INT] -= 4;
+        state->stat_add[STAT_WIS] -= 3;
+        state->stat_add[STAT_DEX] += 2;
+        state->stat_add[STAT_CON] += 2;
+        state->stat_add[STAT_CHR] -= 8;
+        state->see_infra += 4;
+        state->speed += 1;
+        /* resistances taken from both places: from there and from display-ui.c
+        // to prevent duplicates we will use only display-ui.c
+        if (state->el_info[ELEM_DARK].res_level < 2)
+            state->el_info[ELEM_DARK].res_level++; */
+    }    
 
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))
@@ -2274,12 +2310,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect movement speed */
         if (i == OBJ_MOD_MOVES) extra_moves += (r_adj + c_adj);
     }
-
-    if ((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-    streq(p->clazz->name, "Unbeliever")) &&
-    (streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
-    (p->lev < 35) && extra_blows > 9)
-        extra_blows -= 10;
 
     /* Unencumbered monks get extra ac for wearing very light or no armour at all */
     if (unencumbered_monk)

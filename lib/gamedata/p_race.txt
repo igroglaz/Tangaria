@@ -854,8 +854,7 @@ obj-flag:10:SUST_STR
 obj-flag:24:PROT_CONF
 obj-flag:48:PROT_STUN
 value:1:MOVES[5+1d2]
-# monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:1:BLOWS[1]
+# got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 value:30:RES_GRAVITY[1]
 brand:32:50:STUN_1
 value:0:DAM_RED[0+1d3]
@@ -1034,16 +1033,17 @@ value:0:STEALTH[1+1d15]
 # 
 
 name:Werewolf
-skill-disarm-phys:-15
-skill-disarm-magic:-15
-skill-device:-8
-skill-save:2
-skill-stealth:0
-skill-search:5
-skill-melee:7
-skill-shoot:-10
-skill-dig:1
-hitdie:11
+skill-disarm-phys:0
+skill-disarm-magic:0
+skill-device:0
+skill-save:0
+skill-stealth:1
+skill-search:3
+skill-melee:1
+skill-shoot:-1
+skill-dig:0
+##// + night
+hitdie:10
 # +10%
 exp:100:135
 history:100
@@ -1051,32 +1051,29 @@ age:14:6
 height:69:5
 weight:165:23
 gift:mushroom:Clear Mind:2:3
-#1 -2 -4 0 1
-value:20:STR[1]
-value:1:INT[0+-1d20]]
-value:1:WIS[-2+-1d20]
+#2 -3 -3 1 2 -8 // 'night' bonuses
+value:1:STR[0]
+value:1:INT[0]
+value:1:WIS[0]
 value:1:DEX[0]
-value:1:CON[-1+1d10M21]
-value:0:CHR[-1+-1d7]
-value:1:INFRA[3+1d24]
+value:1:CON[0]
+value:0:CHR[0]
+value:1:INFRA[1]
 player-flags:0:RACE_REGEN
 obj-flag:1:HUNGER
 obj-flag:20:ESP_ANIMAL
-value:35:RES_DARK[1]
 value:1:RES_LIGHT[-1]
-value:50:SPEED[1]
 brand:15:49:CUT_1
 brand:50:50:CUT_2
-value:0:STEALTH[-1+-1d10]
-value:0:MANA[5+-1d10]
+value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
-player-flags:0:SHAPECHANGE
-shape:1:jackal_
-shape:10:wolf_
-shape:20:warg_
-shape:30:werewolf_
-shape:40:hellwolf_
-shape:50:volkodlak_
+#player-flags:0:SHAPECHANGE
+#shape:1:jackal_
+#shape:10:wolf_
+#shape:20:warg_
+#shape:30:werewolf_
+#shape:40:hellwolf_
+#shape:50:volkodlak_
 # rfe: hunger reduce on flicker.. when polymorph
 # shapechange should work only at night (or auto-change)
 
@@ -1581,7 +1578,7 @@ obj-flag:15:SUST_CON
 value:25:LIGHT[1]
 value:1:MOVES[10+1d1]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:1:BLOWS[1+1d45]
+value:1:BLOWS[0+1d45]
 value:1:RES_GRAVITY[1]
 brand:32:49:STUN_1
 brand:50:50:STUN_2

@@ -31126,3 +31126,21 @@ flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 desc:Nazguls don't dissapear for ever.. They return. Always.
 desc:But till the moment when they will reclaim, 
 desc:they dwell aas shadowless shapes.
+
+name:Test dummy
+base:golem
+color:y
+speed:100
+hit-points:1000
+hearing:1
+armor-class:0
+sleepiness:0
+depth:1
+############### make 0!
+rarity:0
+weight:0
+experience:0
+spell-freq:1
+spells:BO_TEST
+flags:NEVER_MOVE
+desc:An indestructible golem used for testing purposes.

@@ -1196,3 +1196,14 @@ lore:summon spirits
 lore-color-base:Light Red
 message-vis:{name} summons some spirits.
 message-invis:You feel hollow things appear nearby!
+
+name:BO_TEST
+hit:100
+effect:BOLT:DARK
+dice:10d1
+lore:produce bolts of test
+lore-color-base:Orange
+lore-color-resist:Yellow
+lore-color-immune:Light Green
+message-vis:{name} casts a bolt of test.
+message-invis:Something tests.

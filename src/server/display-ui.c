@@ -838,6 +838,13 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         el_info[ELEM_TIME].res_level = 1;
     }
 
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        if (el_info[ELEM_DARK].res_level < 2)
+            el_info[ELEM_DARK].res_level++;
+    }
+
+
     /* Handle polymorphed players */
     if (p->poly_race)
     {

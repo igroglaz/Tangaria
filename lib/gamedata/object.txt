@@ -3354,43 +3354,46 @@ level:100
 weight:4
 cost:0
 alloc:1:126 to 127
-effect:TELEPORT:NONE:0:1
-dice:10
-effect:CURE:IMAGE
-effect:TIMED_INC:SHERO
-dice:25+1d25
-effect:TIMED_INC:SINVIS
-dice:50+2d6
-effect:TIMED_INC:SINFRA
-dice:100+4d25
-effect:TIMED_INC:INVIS:0:5
-dice:$B+1d20
-effect:NOURISH:INC_BY
-dice:1
-effect:NOURISH:DEC_BY
-dice:1
-effect:BOLT_AWARE:TURN_ALL
-dice:10
-effect:BOLT_OR_BEAM:ACID
-dice:10d8
-flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-effect:BOLT_STATUS_DAM:MON_DRAIN
-dice:250
-effect:EARTHQUAKE:NONE:10
-effect:PROJECT_LOS_AWARE:MON_CONF
-dice:5+1d5
-effect:PROJECT_LOS_AWARE:MON_SLOW
-dice:10+1d10
-effect:PROJECT_LOS_AWARE:SLEEP_ALL
-effect:DETECT_INVISIBLE_MONSTERS
-effect-yx:22:40
-effect:DETECT_EVIL
-effect-yx:22:40
-effect:PROJECT_LOS_AWARE:DISP_EVIL:0:1
-dice:60
-effect:DESTRUCTION:LIGHT:15
-effect:MASS_BANISH
-effect:DARKEN_LEVEL
+#self-inducing dmg doesn't work; for such test - check test dummy
+effect:SPOT:DARK:1
+dice:10d1
+#effect:TELEPORT:NONE:0:1
+#dice:10
+#effect:CURE:IMAGE
+#effect:TIMED_INC:SHERO
+#dice:25+1d25
+#effect:TIMED_INC:SINVIS
+#dice:50+2d6
+#effect:TIMED_INC:SINFRA
+#dice:100+4d25
+#effect:TIMED_INC:INVIS:0:5
+#dice:$B+1d20
+#effect:NOURISH:INC_BY
+#dice:1
+#effect:NOURISH:DEC_BY
+#dice:1
+#effect:BOLT_AWARE:TURN_ALL
+#dice:10
+#effect:BOLT_OR_BEAM:ACID
+#dice:10d8
+#flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+#effect:BOLT_STATUS_DAM:MON_DRAIN
+#dice:250
+#effect:EARTHQUAKE:NONE:10
+#effect:PROJECT_LOS_AWARE:MON_CONF
+#dice:5+1d5
+#effect:PROJECT_LOS_AWARE:MON_SLOW
+#dice:10+1d10
+#effect:PROJECT_LOS_AWARE:SLEEP_ALL
+#effect:DETECT_INVISIBLE_MONSTERS
+#effect-yx:22:40
+#effect:DETECT_EVIL
+#effect-yx:22:40
+#effect:PROJECT_LOS_AWARE:DISP_EVIL:0:1
+#dice:60
+#effect:DESTRUCTION:LIGHT:15
+#effect:MASS_BANISH
+#effect:DARKEN_LEVEL
 
 ### Statgain ###
 
