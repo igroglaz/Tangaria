@@ -1046,7 +1046,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             msg(p, "You slip and fall in the water.");
             if (!player_passwall(p) && !can_swim(p))
                 take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a water");
-            return;
+            return false;
         }        
         else if (one_in_(2))
         {
