@@ -1504,7 +1504,8 @@ ui_event textui_get_command(void)
 
     if (ke.type == EVT_KBRD)
     {
-        bool keymap_ok = true;
+        /* PWMAngband: bypass keymaps during setup phase */
+        bool keymap_ok = Setup.ready;
 
         switch (ke.key.code)
         {

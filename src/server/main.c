@@ -24,6 +24,7 @@
 /* Daily log file */
 static int tm_mday = 0;
 static ang_file *fp = NULL;
+static bool fp_closed = false;
 
 
 /*
@@ -40,7 +41,11 @@ static void quit_hook(const char *s)
     else cleanup_angband();
 
     /* Close the daily log file */
-    if (fp) file_close(fp);
+    if (fp)
+    {
+        file_close(fp);
+        fp_closed = true;
+    }
 }
 
 
@@ -136,6 +141,9 @@ static void server_log(const char *str)
 
     /* Output the message timestamped */
     fprintf(stderr, "%s %s\n", buf, ascii);
+
+    /* Paranoia */
+    if (fp_closed) return;
 
     /* Open the daily log file */
     if (tm_mday != local->tm_mday)

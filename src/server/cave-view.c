@@ -470,7 +470,16 @@ static void mark_wasseen(struct player *p, struct chunk *c)
     do
     {
         if (square_isseen(p, &iter.cur))
-            sqinfo_on(square(c, &iter.cur)->info, SQUARE_WASSEEN);
+            sqinfo_on(square_p(p, &iter.cur)->info, SQUARE_WASSEEN);
+
+        /* PWMAngband: save the old "SQUARE_CLOSE_PLAYER" flag */
+        if (sqinfo_has(square_p(p, &iter.cur)->info, SQUARE_CLOSE_PLAYER))
+            sqinfo_on(square_p(p, &iter.cur)->info, SQUARE_WASCLOSE);
+
+        /* PWMAngband: save the old "lit" flag */
+        if (square_islit(c, &iter.cur))
+            sqinfo_on(square(c, &iter.cur)->info, SQUARE_WASLIT);
+
         sqinfo_off(square_p(p, &iter.cur)->info, SQUARE_VIEW);
         sqinfo_off(square_p(p, &iter.cur)->info, SQUARE_SEEN);
         sqinfo_off(square_p(p, &iter.cur)->info, SQUARE_CLOSE_PLAYER);
@@ -945,6 +954,11 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
  */
 static void update_one(struct player *p, struct chunk *c, struct loc *grid)
 {
+    bool is_close = sqinfo_has(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER);
+    bool was_close = sqinfo_has(square_p(p, grid)->info, SQUARE_WASCLOSE);
+    bool is_lit = square_islit(c, grid);
+    bool was_lit = sqinfo_has(square(c, grid)->info, SQUARE_WASLIT);
+
     /* Remove view if blind, check visible squares for traps */
     if (p->timed[TMD_BLIND])
     {
@@ -955,7 +969,7 @@ static void update_one(struct player *p, struct chunk *c, struct loc *grid)
         square_reveal_trap(p, grid, false, true);
 
     /* Square went from unseen -> seen */
-    if (square_isseen(p, grid) && !square_wasseen(c, grid))
+    if (square_isseen(p, grid) && !square_wasseen(p, grid))
     {
         if (square_isfeel(c, grid) && square_ispfeel(p, grid))
         {
@@ -975,10 +989,22 @@ static void update_one(struct player *p, struct chunk *c, struct loc *grid)
     }
 
     /* Square went from seen -> unseen */
-    if (!square_isseen(p, grid) && square_wasseen(c, grid))
+    if (!square_isseen(p, grid) && square_wasseen(p, grid))
         square_light_spot_aux(p, c, grid);
 
-    sqinfo_off(square(c, grid)->info, SQUARE_WASSEEN);
+    /* PWMAngband: square went from torchlit to lit or lit to torchlit */
+    if ((is_close && !was_close) || (!is_close && was_close))
+        square_light_spot_aux(p, c, grid);
+
+    /* PWMAngband: square went from unlit to lit or lit to unlit */
+    if ((is_lit && !was_lit) || (!is_lit && was_lit))
+        square_light_spot_aux(p, c, grid);
+
+    sqinfo_off(square_p(p, grid)->info, SQUARE_WASSEEN);
+
+    /* PWMAngband: also clear "SQUARE_WASCLOSE" and "SQUARE_WASLIT" flags */
+    sqinfo_off(square_p(p, grid)->info, SQUARE_WASCLOSE);
+    sqinfo_off(square(c, grid)->info, SQUARE_WASLIT);
 }
 
 

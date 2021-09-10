@@ -2914,37 +2914,12 @@ static bool effect_handler_DEEP_DESCENT(effect_handler_context_t *context)
 }
 
 
-/*
- * The destruction effect
- *
- * This effect "deletes" monsters (instead of killing them).
- *
- * This is always an effect centered on the player; it is similar to the
- * earthquake effect.
- *
- * PWMAngband: the radius can be set in context->value.base (Major Havoc); if
- * context->other is set, destroy the area silently.
- */
-static bool effect_handler_DESTRUCTION(effect_handler_context_t *context)
+/* Helper for destruction and wipe effects */
+static int wreck_havoc(effect_handler_context_t *context, int r, int *hurt, bool wipe)
 {
-    int k, r = effect_calculate_value(context, false);
-    int elem = context->subtype;
-    int hurt[MAX_PLAYERS];
-    int count = 0;
     struct loc begin, end;
     struct loc_iterator iter;
-
-    if (context->radius) r = context->radius;
-    context->ident = true;
-
-    /* Only on random levels */
-    if (!random_level(&context->origin->player->wpos))
-    {
-        if (!context->other) msg(context->origin->player, "The ground shakes for a moment.");
-        return true;
-    }
-
-    if (!context->other) msg_misc(context->origin->player, " unleashes great power!");
+    int k, count = 0;
 
     loc_init(&begin, context->origin->player->grid.x - r, context->origin->player->grid.y - r);
     loc_init(&end, context->origin->player->grid.x + r, context->origin->player->grid.y + r);
@@ -3003,10 +2978,48 @@ static bool effect_handler_DESTRUCTION(effect_handler_context_t *context)
             /* Delete objects */
             square_forget_pile_all(context->cave, &iter.cur);
             square_excise_pile(context->cave, &iter.cur);
-            square_destroy(context->cave, &iter.cur);
+            if (wipe) square_clear_feat(context->cave, &iter.cur);
+            else square_destroy(context->cave, &iter.cur);
         }
     }
     while (loc_iterator_next(&iter));
+
+    return count;
+}
+
+
+/*
+ * The destruction effect
+ *
+ * This effect "deletes" monsters (instead of killing them).
+ *
+ * This is always an effect centered on the player; it is similar to the
+ * earthquake effect.
+ *
+ * PWMAngband: the radius can be set in context->value.base (Major Havoc); if
+ * context->other is set, destroy the area silently.
+ */
+static bool effect_handler_DESTRUCTION(effect_handler_context_t *context)
+{
+    int k, r = effect_calculate_value(context, false);
+    int elem = context->subtype;
+    int hurt[MAX_PLAYERS];
+    int count;
+
+    if (context->radius) r = context->radius;
+    context->ident = true;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        if (!context->other) msg(context->origin->player, "The ground shakes for a moment.");
+        return true;
+    }
+
+    if (!context->other) msg_misc(context->origin->player, " unleashes great power!");
+
+    /* Big area of affect */
+    count = wreck_havoc(context, r, hurt, false);
 
     /* Hack -- affect players */
     for (k = 0; k < count; k++)
@@ -7938,12 +7951,12 @@ static bool effect_handler_WEB(effect_handler_context_t *context)
 /* Wipe everything */
 static bool effect_handler_WIPE_AREA(effect_handler_context_t *context)
 {
-    int r = context->radius;
-    int k;
+    int k, r = context->radius;
     int hurt[MAX_PLAYERS];
-    int count = 0;
-    struct loc begin, end;
-    struct loc_iterator iter;
+    int count;
+
+    /* Paranoia -- enforce maximum range */
+    if (r > 12) r = 12;
 
     /* Only on random levels */
     if (!random_level(&context->origin->player->wpos))
@@ -7952,59 +7965,8 @@ static bool effect_handler_WIPE_AREA(effect_handler_context_t *context)
         return true;
     }
 
-    /* Paranoia -- enforce maximum range */
-    if (r > 12) r = 12;
-
-    loc_init(&begin, context->origin->player->grid.x - r, context->origin->player->grid.y - r);
-    loc_init(&end, context->origin->player->grid.x + r, context->origin->player->grid.y + r);
-    loc_iterator_first(&iter, &begin, &end);
-
     /* Check around the epicenter */
-    do
-    {
-        /* Skip illegal grids */
-        if (!square_in_bounds_fully(context->cave, &iter.cur)) continue;
-
-        /* Skip distant grids */
-        if (distance(&context->origin->player->grid, &iter.cur) > r) continue;
-
-        /* Take note of any player */
-        if (square(context->cave, &iter.cur)->mon < 0)
-        {
-            hurt[count] = 0 - square(context->cave, &iter.cur)->mon;
-            count++;
-        }
-
-        /* Lose room and vault */
-        sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_VAULT);
-        sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_ROOM);
-        sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_NO_TELEPORT);
-        sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_LIMITED_TELE);
-        if (square_ispitfloor(context->cave, &iter.cur))
-            square_clear_feat(context->cave, &iter.cur);
-
-        /* Forget completely */
-        square_unglow(context->cave, &iter.cur);
-        square_forget_all(context->cave, &iter.cur);
-        square_light_spot(context->cave, &iter.cur);
-
-        /* Delete monsters */
-        delete_monster(context->cave, &iter.cur);
-        if (square_ispitfloor(context->cave, &iter.cur))
-            square_clear_feat(context->cave, &iter.cur);
-
-        /* Destroy "valid" grids */
-        if (square_changeable(context->cave, &iter.cur))
-        {
-            /* Delete objects */
-            square_forget_pile_all(context->cave, &iter.cur);
-            square_excise_pile(context->cave, &iter.cur);
-
-            /* Turn into basic floor */
-            square_clear_feat(context->cave, &iter.cur);
-        }
-    }
-    while (loc_iterator_next(&iter));
+    count = wreck_havoc(context, r, hurt, true);
 
     /* Hack -- affect players */
     for (k = 0; k < count; k++)

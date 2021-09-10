@@ -11,7 +11,7 @@ SQUARE(VAULT, "part of a vault")                        /* global */
 SQUARE(ROOM, "part of a room")                          /* global */
 SQUARE(SEEN, "seen flag")                               /* player */
 SQUARE(VIEW, "view flag")                               /* player */
-SQUARE(WASSEEN, "previously seen (during update)")      /* global */
+SQUARE(WASSEEN, "previously seen (during update)")      /* player */
 SQUARE(FEEL, "hidden points to trigger feelings")       /* player + global */
 SQUARE(TRAP, "square containing a known trap")          /* global */
 /*SQUARE(INVIS, "square containing an unknown trap")*/      /* global */
@@ -33,3 +33,5 @@ SQUARE(NOTRASH, "square cannot contain trash")          /* global */
 SQUARE(FAKE, "is a fake permawall")                     /* global */
 SQUARE(CUSTOM_WALL, "is a custom wall")                 /* global */
 SQUARE(LIMITED_TELE, "allows limited teleportation")    /* global */
+SQUARE(WASCLOSE, "previously close (during update)")    /* player */
+SQUARE(WASLIT, "previously lit (during update)")        /* global */

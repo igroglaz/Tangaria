@@ -816,11 +816,11 @@ bool square_isview(struct player *p, struct loc *grid)
 /*
  * True if the square was seen before the current update
  */
-bool square_wasseen(struct chunk *c, struct loc *grid)
+bool square_wasseen(struct player *p, struct loc *grid)
 {
-    my_assert(square_in_bounds(c, grid));
+    my_assert(player_square_in_bounds(p, grid));
 
-    return sqinfo_has(square(c, grid)->info, SQUARE_WASSEEN);
+    return sqinfo_has(square_p(p, grid)->info, SQUARE_WASSEEN);
 }
 
 

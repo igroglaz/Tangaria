@@ -1021,7 +1021,7 @@ static void calc_spells(struct player *p)
     }
 
     /* Forget spells if we know too many spells */
-    for (i = num_total; i >= 0; i--)
+    for (i = num_total - 1; i >= 0; i--)
     {
         /* Stop when possible */
         if (p->upkeep->new_spells >= 0) break;

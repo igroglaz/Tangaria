@@ -377,7 +377,7 @@ extern bool square_notrash(struct chunk *c, struct loc *grid);
 extern bool square_isroom(struct chunk *c, struct loc *grid);
 extern bool square_isseen(struct player *p, struct loc *grid);
 extern bool square_isview(struct player *p, struct loc *grid);
-extern bool square_wasseen(struct chunk *c, struct loc *grid);
+extern bool square_wasseen(struct player *p, struct loc *grid);
 extern bool square_isdtrap(struct player *p, struct loc *grid);
 extern bool square_isfeel(struct chunk *c, struct loc *grid);
 extern bool square_ispfeel(struct player *p, struct loc *grid);

@@ -8,8 +8,8 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 beta 7
-=======================================
+New features in PWMAngband 1.5.0 build 1
+========================================
 
 User interface
 --------------
@@ -256,6 +256,13 @@ PWMAngband:
 - Fix "implicit declaration of function" warnings under Linux
 - Only apply non-ASCII terrain redefinitions from font-gcu.prf if using the
   Windows console
+- Allow resizing the GCU client on Windows without a crash
+- Make object_flag_is_known() return true if object is fully known
+- Fix crash when a monster breathes chaos on another monster
+- Attach WASSEEN flag to player instead of being global to the cave
+- Fix Wipe spell not removing artifacts
+- Fix crash when forgetting spells
+- Fix visible equipment slots when using the 'e' command
 
 Coding changes
 --------------
@@ -349,6 +356,8 @@ PWMAngband:
 - Send and check limits for race/class structure fields
 - Un-hardcode Hydra form progression
 - Add player "real" name at the end of server dumps
+- Add WASCLOSE and WASLIT flags to fix a lighting bug
+- Disable keymaps during setup phase
 
 Compilation/documentation
 -------------------------

@@ -845,9 +845,10 @@ static errr Term_wipe_gcu(int x, int y, int n)
 static errr Term_text_gcu(int x, int y, int n, u16b a, const char *s)
 {
     term_data *td = (term_data *)(Term->data);
-    wchar_t buf[NORMAL_WID + 1];
+    wchar_t *buf;
     int i;
 
+    buf = mem_zalloc((n + 1) * sizeof(wchar_t));
     mbstowcs(buf, s, n);
 
 #ifdef WINDOWS
@@ -916,11 +917,13 @@ static errr Term_text_gcu(int x, int y, int n, u16b a, const char *s)
         mvwaddnwstr(td->win, y, x, buf, n);
         wattrset(td->win, A_NORMAL);
 
+        mem_free(buf);
         return 0;
     }
 #endif
 
     mvwaddnwstr(td->win, y, x, buf, n);
+    mem_free(buf);
     return 0;
 }
 

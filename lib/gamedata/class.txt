@@ -2676,8 +2676,8 @@ spell:Wipe:27:20:65:50:0
 effect:WIPE_AREA:NONE:10
 msg_other: wrecks havoc.
 desc:Wipes everything in a 10-square radius around you.
-desc: Only artifacts and permanent features (stairs and permanent
-desc: doors/walls) will not be affected by this spell.
+desc: All monsters, objects and terrain features in the area of
+desc: effect are wiped, except stairs and permanent walls.
 desc: This spell has no effect when used in the town.
 
 spell:Sunfire:28:15:60:35:0

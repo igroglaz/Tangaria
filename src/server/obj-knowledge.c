@@ -793,6 +793,9 @@ bool object_flag_is_known(struct player *p, const struct object *obj, int flag)
 {
     bitflag known_flags[OF_SIZE];
 
+    /* Object fully known means OK */
+    if (object_fully_known(p, obj)) return true;
+
     if (easy_know(obj, object_flavor_is_aware(p, obj))) return true;
 
     /* Get known flags */
