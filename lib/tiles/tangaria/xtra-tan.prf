@@ -148,14 +148,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Warrior] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -384,14 +384,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Archer] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Archer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Archer] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Archer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -619,14 +619,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Monk] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Monk] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Monk] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Monk] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -855,14 +855,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Mage] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Mage] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Mage] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Mage] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -1089,14 +1089,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Druid] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Druid] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Druid] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Druid] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -1323,14 +1323,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Priest] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Priest] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Priest] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Priest] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -1557,14 +1557,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Necromancer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -1791,14 +1791,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Paladin] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -2025,14 +2025,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Rogue] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -2259,14 +2259,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Ranger] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -2493,14 +2493,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Blackguard] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -2727,14 +2727,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Sorceror] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -2961,14 +2961,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -3195,14 +3195,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Hunter] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -3429,14 +3429,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Telepath] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -3663,14 +3663,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Elementalist] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -3897,14 +3897,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Summoner] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -4131,14 +4131,14 @@ RF:<player>:0x97:0x8F
 monster:<player>:0x97:0x90
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Celestial] ]
-monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
@@ -4301,9 +4301,9 @@ monster:<player>:0x94:0x98
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Demonic] ]
 monster:<player>:0x94:0x98
-?:[AND [EQU $CLASS Ghost] [EQU $RACE Celestial] ]
-monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Balrog] ]
+monster:<player>:0x94:0x98
+?:[AND [EQU $CLASS Ghost] [EQU $RACE Celestial] ]
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Nephalem] ]
 monster:<player>:0x94:0x98
