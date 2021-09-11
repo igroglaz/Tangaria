@@ -108,6 +108,7 @@ code:SPEED
 power:20
 mult:6
 
+#physical only
 name:damage reduction
 type:mod
 code:DAM_RED

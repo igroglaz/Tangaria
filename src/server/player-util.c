@@ -155,8 +155,10 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         damage -= damage * p->lev / 100;
     }
 
-    /* Apply damage reduction */
-    damage -= p->state.dam_red;
+    /* Apply damage reduction // ONLY for physical damage */
+    if (!non_physical)
+        damage -= p->state.dam_red;
+    
     if (damage <= 0)
     {
         p->died_flavor[0] = '\0';

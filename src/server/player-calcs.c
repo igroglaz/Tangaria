@@ -2074,7 +2074,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect speed */
         state->speed += modifiers[OBJ_MOD_SPEED];
 
-        /* Affect damage reduction */
+        /* Affect PHYSICAL damage reduction */
         state->dam_red += modifiers[OBJ_MOD_DAM_RED];
 
         /* Affect blows */
@@ -2289,7 +2289,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->speed += (r_adj + c_adj);
         }
 
-        /* Affect damage reduction */
+        /* Affect PHYSICAL damage reduction */
         if (i == OBJ_MOD_DAM_RED) state->dam_red += (r_adj + c_adj);
 
         /* Affect blows */
@@ -2608,7 +2608,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         
         /* Rangers with bows are good at shooting */
         if (player_has(p, PF_FAST_SHOT) && (state->ammo_tval == TV_ARROW))
-            state->num_shots += p->lev / 3;        
+            state->num_shots += p->lev / 3;
 
         /* Handle polymorphed players */
         if (p->poly_race && (rsf_has(p->poly_race->spell_flags, RSF_SHOT) ||

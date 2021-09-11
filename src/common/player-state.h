@@ -89,7 +89,7 @@ struct player_state
     int ammo_mult;              /* Ammo multiplier */
     int ammo_tval;              /* Ammo variety */
     int ac;                     /* Base ac */
-    int dam_red;                /* Damage reduction */
+    int dam_red;                /* PHYSICAL damage reduction */
     int to_a;                   /* Bonus to ac */
     int to_h;                   /* Bonus to hit */
     int to_d;                   /* Bonus to dam */
