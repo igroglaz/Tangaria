@@ -495,7 +495,11 @@ static void melee_effect_experience(melee_effect_handler_context_t *context, int
     if (resist_undead_attacks(context->p, context->mon->race))
         msg(context->p, "You keep hold of your life force!");
     else
+    {
         drain_xp(context->p, drain_amount);
+        if (context->p->lev < 50)
+            player_set_timed(context->p, TMD_FOOD, 10, false);
+    }
 }
 
 

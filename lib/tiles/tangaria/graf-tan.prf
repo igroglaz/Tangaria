@@ -1175,6 +1175,9 @@ object:light:Arkenstone:0x87:0xB6
 # The Palantir of Westernesse
 object:light:Palantir:0x87:0xB6
 
+# Stormbringer (sword)
+object:sword:'Stormbringer':0x8A:0xC3
+
 # The Amulet of Carlammas
 #object:amulet:Amulet:0x85:0xAD
 
@@ -1298,6 +1301,7 @@ monster:Lobelia Sackville-Baggins:0x8B:0xA6
 monster:Mountain Gorge's grey mold:0x8E:0xC2
 monster:Target dummy:0x8B:0xB0
 monster:Test dummy:0x8B:0xB0
+monster:Test drop:0x8B:0xB0
 monster:blinking dot:0x9A:0xC9
 monster:grid bug:0x9D:0xF3
 monster:Wooden barrel:0xA0:0xEA

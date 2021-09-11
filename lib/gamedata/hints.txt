@@ -5,7 +5,571 @@
 
 # H : Hint text.
 
-
+#Tolkien
+H:Little by little, one travels far.
+H:Never laugh at live dragons.
+H:All we have to decide is what to do with the time that is given us.
+H:Faithless is he that says farewell when the road darkens.
+H:Not all tears are an evil.
+H:Courage is found in unlikely places.
+H:May it be a light to you in dark places, when all other lights go out.
+H:Moonlight drowns out all but the brightest stars.
+H:Do not meddle in the affairs of wizards...
+H:Flying from fear may lead to a short cut of meeting it.
+H:It does not do to leave a live dragon out of your calculations..
+H:So comes snow after fire, and even dragons have their endings.
+H:Many that live deserve death. And some that die deserve life..
+H:Where there's life there's hope.
+H:You can only come to the morning through the shadows.
+H:Short cuts make long delays.
+H:All that is gold does not glitter, not all those who wander are lost.
+H:Often hope is born when all is forlorn.
+H:Not strength of the body that counts, but the strength of spirit.
+H:Beware to become butter scraped over too much bread.
+H:Even the very wise cannot see all ends.
+H:Fair speech may hide a foul heart.
+H:Advice is a dangerous gift, even from the wise to the wise.
+H:All's well that ends better.
+H:The road goes ever on and on...
+H:False hopes are more dangerous than fears.
+H:Even the smallest person can change the course of the future.
+H:The wise speak only of what they know.
+H:Voiceless cries, wingless flutters, toothless bites, mouthless mutters.
+H:..better to begin than to refuse, even though the end may be dark.
+H:The treacherous are ever distrustful.
+H:Deep roots are not reached by the frost.
+H:There's some good in this world and it's worth fighting for.
+H:There is nothing like looking, if you want to find something.
+H:One Ring to rule them all, one Ring to find them...
+H:One Ring to bring them all and in the darkness bind them...
+H:A red sun rises. Blood has been spilled this night.
+H:Time doesn't seem to pass here: it just is.
+H:Towards danger; but not too rashly, nor too straight.
+H:Trolls simply detest the very sight of dwarves (uncooked).
+H:There's no hope as long as the Ring exists.
+H:Courage will now be your best defence against the storm that is at hand.
+H:No dragon can resist the fascination of riddling talk...
+H:Someone else always has to carry on the story..
+H:Let him not vow to walk in the dark, who has not seen the nightfall.
+H:Praise from the praise-worthy is beyond all rewards.
+H:You cannot pass!
+H:There are older and fouler things than Orcs in the deep places of the world.
+H:And yet their wills did not yield, and they struggled on..
+H:Out of the frying pan and into the fire..
+H:Deeds will not be less valiant because they are unpraised.
+H:There is no curse in Elvish, Entish, or the tongues of Men for this..
+################ etc
+H:Nobody ever got anywhere by standing still.
+H:Progress, not perfection.
+H:Every new beginning comes from some other beginning's end.
+H:A person who never made a mistake never tried anything new.
+H:Everything in life is just a season.
+H:When there’s nothing left to lose, there's everything left to gain.
+H:The future belongs to those who believe in the power of their dreams.
+H:A bird sitting on a tree is never afraid of the branch breaking...
+H:Think it and you can say it. Say it and you can do it.
+H:Yesterday is gone. Tomorrow has not yet come. We have only today.
+H:Every day, in every way, I am getting better and better.
+H:Say yes, then figure it out.
+H:There is always some reason in madness.
+H:Don't live the poetry you cannot write.
+H:What good are wings, without the courage to fly.
+H:I can't go back to yesterday because I was a different person then.
+H:Don't let yesterday take up too much of today.
+H:Never dream about success. Work for it.
+H:Be the hero of your life, not the victim.
+H:The question isn't who is going to let me, it's who is going to stop me.
+H:The challenge is not to be perfect. It's to be whole.
+H:In order to be irreplaceable one must always be different.
+H:What you do makes a difference, but what kind of a difference you make?
+H:If you don't like the road you're walking, start paving another one.
+H:When the whole world is silent, even one voice becomes powerful.
+H:Don't let other people to decide what you are. Decide that for yourself.
+H:Stop comparing yourself to others.
+H:Owning up to your vulnerabilities is a form of strength.
+H:When in doubt, slay.
+H:You have to be where you are to get where you need to go.
+H:No matter what people tell you, words and ideas can change the world.
+H:Sometimes good things fall apart so better things can fall together.
+H:Wanting to be someone else is a waste of the person you are.
+H:The roughest roads often lead to the top.
+H:Imagination creates reality.
+H:Without deviation from the norm, progress is not possible.
+H:If everything was perfect, you would never learn and you would never grow.
+H:If you are not living this moment, you are not really living.
+H:You can only lose something that you have, but not that you are.
+H:Whatever the present moment contains, accept it as if you had chosen it.
+H:Point of gained experience is the evolution of your consciousness.
+H:Embracing chaos might be the journey we take to finding peace.
+H:Never break a promise to yourself.
+H:Nobody gets to tell you how big your dreams can be.
+H:Who you are is defined by the next decision you make, not the last one.
+H:Only you are responsible for who you become and how happy you are.
+H:We can’t become what we need to be by remaining what we are.
+H:Go ahead. Fall down. The world looks different from the ground.
+H:Gratitude turns what we have into enough.
+H:I have never met an interesting person who had an easy life.
+H:Life is a web of intersections and choices. Do you see intersection?
+H:Appreciation makes what is excellent in others belong to us as well.
+H:Be thankful for everything that happens. It's all an experience.
+H:Your victory is right around the corner. Don't give up.
+H:Whatever happens around you, don't take it personally.
+H:Nothing other people do is because of you. It's because of themselves.
+H:Grace means that all of your mistakes serve a purpose, not a shame.
+H:You only live once, but if you do it right, once is enough.
+H:Don't just count your years. Make your years count.
+H:Look forward to the future. For the best things are yet to come.
+H:Another birthday means your life journey is incomplete.
+H:Success doesn't come with a manual. It comes with an experience.
+H:There is no death. Only a change of charcters.
+H:A human life is a story told by gods.
+H:The world is full of suffering. It is also full of overcoming.
+H:Self-reverence, self-knowledge, self-control... lead to power.
+H:A person who never made a mistake never tried anything new.
+H:Everything has beauty, but not everyone can see.
+H:Believe and act as if it were impossible to fail.
+H:Life shrinks or expands in proportion to one’s courage.
+H:I haven't failed. I've just found 10,000 ways that won't work.
+H:To thine own self be true.
+H:Be yourself. Everyone else is already taken.
+H:Nothing is a miracle or everything is a miracle?
+H:Put yourself in situations that reveal what you're made of.
+H:Just breathe.
+H:<------The bigger they are, the harder they drop------>
+H:The wound is the place where the light enters you.
+H:Everything in the universe is within you.
+H:Travel light, live light, spread the light, be the light.
+H:May the flowers remind us why the rain was so necessary.
+H:You are braver than you believe..
+H:You are stronger than you seem..
+H:You are smarter than you think..
+H:A ship in harbor is safe, but that's not why ships are built.
+H:All of our dreams can come true, if we have the courage to pursue them.
+H:Wonders ahead, but you must endure many trials for a little while.
+H:Get lost in the right direction.
+H:Embrace a new narrative.
+H:Follow what calls you.
+H:Be humble and proud of yourself at the same time.
+H:You can't do everything by yourself. It's okay to ask for help.
+H:Fear will always be a thing. But don't let it get in your way.
+H:Make self-care a non-negotiable.
+H:Evolve.
+H:Change comes from embracing the future, not fighting your past.
+H:Decisions don't determine right and wrong. They determine outcomes.
+H:The only person who has to believe in you is you.
+H:Self Acceptance -> Self Improvement
+H:Trust the wait. Enjoy not knowing.
+H:Turn your life upside down. On purpose.
+H:If you want to grow, you have to be willing to learn.
+H:Let go and let the universe do its thing.
+H:Whatever you can do, you must do.
+H:It's better to wait for the right answer than rush into the wrong one.
+H:Give yourself a chance to see what happens when you don't give up.
+H:Good instincts are worthless if you don't follow them.
+H:Love bad things from a good distance.
+H:Do the thing.
+H:Accept all experiences as potentially good.
+H:Don't focus on the tributary when you need to focus on the lake.
+H:Be easily awed, not easily impressed.
+H:Don't make a wish. Make a decision.
+H:Do things on purpose.
+H:Do the thing that scares you most (don't)
+H:Everyone you'll ever meet is smarter about something than you are.
+H:You can't fail if you're willing to.
+H:Adjust your eyes. See the same things differently.
+H:Some things are just too heavy to haul around.
+H:Heighten your vibes, lighten your strides.
+H:Be unwilling to lie to yourself.
+H:Everything and everyone is your teacher.
+H:It's time for a good ol' fashioned adventure.
+H:Follow it and see what turns up.
+H:You will know it when you see it. It will know you when it sees you.
+H:Be resilient.
+H:Your instincts know things before you do. Trust them.
+H:Note from the future: I'm not intimidated by your past.
+H:Listen for the whispers. Look for the signs.
+H:Take nothing personally.
+H:It's good to be prepared, but stay open to surprises.
+H:Win your mind. Win your life.
+H:Tap into your magic.
+H:Practice not-so-random acts of discipline.
+H:Hurry up and fail so you can win.
+H:Mad is easier than sad, but it's far less effective.
+H:If you're not where you want to be, don't stay there for too long.
+H:Don't sit around and wait. Get up and fight for it.
+H:Don't take credit for your talents. Take credit for how you use them.
+H:Unlearn everything that you aren't. Relearn everything that you are.
+H:Be the ____________ you want to see in the world.
+H:Keep your next move quiet.
+H:Be a product of your decisions, not your circumstances.
+H:Seek adventure.
+H:Go out and kick some serious ass.
+H:Slay hard. Stay soft.
+H:Stop trying to skip the struggle.
+H:Stay focused.
+H:Be passionate and totally worth the chaos.
+H:You will see it when you believe it.
+H:Be slow to respond, not quick to react.
+H:Dare BIG. Fear small.
+H:No matter what you do today, absolutely kill it.
+H:Pay attention to where your mind wanders when you allow it to wonder.
+H:Flow with things rather than insist they flow with you.
+H:Things are unfolding exactly as they should.
+H:Do what people say you can't, just because you can.
+H:Enter unknown territory.
+H:Don't hurry in short things you want to last for the long term.
+H:You should definitely go for it.
+H:Unbecome everything that isn't you. Become everything that is.
+H:Take no for an answer.
+H:Nature is self-correcting. Let it do its thing.
+H:Switch your frequency.
+H:Do what you love. The rest will fall into place.
+H:Pay attention to the patterns
+H:Don't be scared of stuff.
+H:To be found: stop hiding.
+H:Master your worries.
+H:Don't give up and eventually everything starts to fall into place.
+H:Be real with yourself or you can't be real with anyone else.
+H:The middle of the process is no place to determine the end of it.
+H:Being right all of the time is boring.
+H:Pretend it's your first time.
+H:Do. Chill. Do again.
+H:Focus on the magic of things; yourself.
+H:Be warm inside even when the temperature outside is cold.
+H:Make mistake. Repeat. Mistake. Repeat. Mistake. Do something different.
+H:More money only solves the less money problem. Nothing else.
+H:Get your hopes up.
+H:Things don't always go the way you planned. fortunately.
+H:Make the invisible visible.
+H:Follow your hunches. Explore your doubts.
+H:Go with what feels right even if it ends up being wrong.
+H:Learn to say "I don't know" and inherit the knowledge of the world.
+H:Sweat the small stuff. The small stuff is the big stuff.
+H:Act with purpose.
+H:Consistency is the key to mastery.
+H:The quiet speaks volumes.
+H:Don't take the bait.
+H:Be quiet. Hear more.
+H:When you make a decision, you commit to its journey.
+H:You know what to do.
+H:The only way to get there is to decide to.
+H:If it's supposed to, it will.
+H:Do first. Talk second.
+H:The truth is not confusing.
+H:Make the big decisions and the little decisions will make themselves.
+H:Guilt serves no purpose.
+H:Identify with everything. Align with nothing.
+H:Figure out where you're going. Then go there.
+H:Win like a rookie. Lose like a pro.
+H:Redefine everything.
+H:You can't force a thing to work when it's not supposed to.
+H:Go outside and play.
+H:You are better than your knee-jerk reactions.
+H:Be really great at taking criticism.
+H:Invest less in proving why things won't work.
+H:Let it be sign if you want. If you fear it's a sign, don't let it be.
+H:Let disruption and discomfort be your guides.
+H:Don't just plant a seed and let it grow: take pleasure in its growth.
+H:Be better at being wrong.
+H:Not getting what you want usually gives you information that you need.
+H:Go all in. Forego the backup plan.
+H:Marvel at what happens when you stop interfering.
+H:You don't need to figure it out right now.
+H:It's all in your head.
+H:You're courageous because you feel fear.. and keep going anyway.
+H:When doing something doesn't work, do something different instead.
+H:Change your mind.
+H:Keep looking for the lessons even when you don't think you need them.
+H:Let 'yes' be the answer already.
+H:Do it anyway.
+H:Nothing means anything until you make something of nothing.
+H:What others think about you doesn't define you. Vice versa.
+H:It's allowed to be easy.
+H:Beware the grand gesture.
+H:Resist the urge to resist temptation.
+H:Consider that the opposite of your theory is true.
+H:Don't confuse the learning tool with the lesson.
+H:Don't go until you're ready. Feel free to change it after that.
+H:Don't seek approval from others. Seek it from yourself.
+H:Be more process oriented. You're too focused on the goal.
+H:Never let them see you coming.
+H:No sudden moves.
+H:Let things unfold. Relinquish control.
+H:Change the way you look at things. They'll return the favor.
+H:The silent person isn't thinking what you think he is. You are.
+H:Instincts are habitual. Intuition is wisdom.
+H:Directions: Start here. Keep going.
+H:Innocence is bliss.
+H:Learn as much from joy as you do from pain.
+H:What you are seeking is also seeking you.
+H:Don't expect to see in your mind the same in the mind of others.
+H:First impressions are overrated.
+H:Learn to delay gratification.
+H:Master living in a perpetual state of not knowing. You are here.
+H:You simply haven't lived until you've learned to let go.
+###########NetHack
+H:DAIYEN FOOELS
+H:ELBIB YLOH
+H:PRATYAVAYAH
+H:ETAOIN SHRDLU
+H:LOREM IPSUM
+H:EIRIS SAZUN IDISI
+H:PHOL ENDE WODAN
+H:GHOTI
+H:MAPIRO MAHAMA DIROMAT
+H:STRC PRST SKRZ KRK
+###########TomeNET
+H:Help me! I'm being held captive in a Vault at 2850'!
+H:You will encounter a dark, tall stranger...
+H:Why are you wasting time reading fortunes?
+H:Fear ~> Anger -> Hate => Suffering >> The Dark Side
+###########Russian
+H:A spoken word is not a sparrow. Once it flies out, you can't catch it.
+H:In a quiet lagoon, devils dwell.
+H:Your elbow is close, yet you can't bite it.
+H:Don’t go to another monastery with your own rules.
+H:Live for a century, learn for a century.
+H:If you are going to call yourself a milk-mushroom, get in the basket!
+H:Hasty climbers have sudden falls.
+H:Measure seven times, cut once.
+H:Don’t blame a mirror for ugly face in it.
+H:An uninvited guest is worse than an orc.
+H:Gods like trinity.
+H:Don’t make an elephant out of a fly.
+H:It will heal before your wedding.
+H:That’s where the dog is buried.
+H:Pancake!
+H:Take yourself into your hands.
+H:The matter is in the hat.
+H:Neither down, nor feather!
+H:It’s good to be a guest, but being home is better..
+H:The appetite comes with eating
+H:Trouble never comes alone.
+H:Without a cat, mice feel free.
+H:Take care of clothes from new, take care of honor from when young.
+H:Gods keep those safe who keep themselves safe.
+H:Gods gave, gods took back.
+H:The bird is known by its flight.
+H:The eye can see it, but the tooth can't bite it.
+H:There is no truth in feet.
+H:The raven won't peck out the eye of another raven.
+H:Every sandpiper praises his own swamp.
+H:Every cricket must know its hearth.
+H:In another's eye one can notice a mote, but in one's own, cannot see even a log.
+H:It will snap where it is thinnest.
+H:The eyes are might be afraid, but the hands are doing..
+H:One doesn't shear naked sheep.
+H:Only grave will cure the hunchback.
+H:Unless thunder strikes, a man won't pray.
+H:A goose is not a pig's friend.
+H:Two deaths will not happen, but one is inevitable.
+H:Don't divide the pelt of a bear not yet killed.
+H:When at home, even the walls help you.
+H:A spoon is valuable at dinner.
+H:If the fool ties a knot, even a clever person can't untie it.
+H:If you take a day trip, take a week's supply of food.
+H:If only youth would know.. if only old age were able..
+H: What you go looking for, you will find.
+H:You can't have the wolves sated and leave the sheeps intact.
+H:Choose lesser of two evils.
+H:From fire to flame.
+H:Extinguish the spark before the the house is on fire.
+H:Don't look for wind in a field.
+H:Even one matters in the battlefield.
+H:One can't spoil porridge with butter.
+H:Use a wedge to knock out a wedge.
+H:If the claw is stuck, the whole bird is lost.
+H:Beware the goat from its front, horse - from its back, evil man - from any side.
+H:A horse has four leg, but still stumbles.
+H:Where goes a horse with its hoof, there goes a crayfish with its pincer.
+H:Who sups with the devil must use a long spoon..
+H:Damned if you do, cursed if you don't..
+H:Strike while the iron is hot..
+H:You cannot break a wall with your forehead.
+H:When wood is chopped, woodchips will fly.
+H:A spoonful of tar spoils a barrel of honey.
+H:The good is the enemy of the best.
+H:It's better to see once than hear a hundred times.
+H:Better late than never.
+H:Don't look for trouble - trouble will find you by itself.
+H:On a fishing lull, even a crayfish is fish..
+H:Hope for gods, but do not be reliant.
+H:On the belly there is silk, but in the belly - just a click..
+H: Prey runs into a trapper..
+H:With company, even death loses its sting.
+H:The pike in the sea is there to make the crucian to stay alert.
+H:Don't open your mouth on other people's bread.
+H:The scythe has hit a stone...
+H:It's not gods who make pots.
+H:Don't afraid the dog who barks, but the one, who is silent and wags its tail.
+H:Don't say "hop", until you jumped over.
+H:The wolf is beaten not for being grey, but for having eaten a sheep.
+H:Don't wade into a river without knowing a ford.
+H:Don't cast beads in front of pigs.
+H:Only he who does nothing makes no mistakes.
+H:Do not spit into a well..
+H:Don't ask the old one, ask the experienced one.
+H:There is no smoke without fire.
+H:There's no bad without the good.
+H:A new broom sweeps in a new way.
+H:One can wait three years for what just was promised..
+H:If you got burned by hot milk once, don't blow on water every time.
+H:Sometimes lambskin is not worth currying..
+H:For one with a plow — there's seven with a spoon.
+H:One cup is for health, second one is for fun, third one is for nothing.
+H:Beware to ran from the wolf and come into a bear.
+H:Do not look for further good from good.
+H:The first pancake is always a blob.
+H:Every pitcher which goes too often to the well will be broken eventually.
+H:Repetition is the mother of learning.
+H:The wolf spared the mare: left a tail and mane.
+H:Let's wait and see what will happen..
+H:Don't swing fists when the fight is over..
+H:For a drunk, the sea is knee-deep and a puddle - ear-deep.
+H:Each time it's different.
+H:Fish seek a deep place, men seek a better place.. for fishing.
+H:To live with wolves, you have to howl like a wolf.
+H:One's own shirt is closer to the body..
+H:A holy place is never empty.
+H:Grey hair into beard, devil into rib..
+H:Seven people don't wait for one..
+H:Seven troubles - one responce.
+H:Seven miles to heaven, and all the way through the forest..
+H:Seven axes lie together, two distaffs apart.
+H:However much you feed the wolf, he still looks at the woods..
+H:A tale is told quickly, but the job is done slowly.
+H:One thread from everyone in the world — makes a shirt for the naked.
+H:The nightingale can't be fed by fables.
+H:After cutting off the head one shouldn't grieve over the hair.
+H:You can't escape your fate even riding it around with a horse.
+H:It's good there, where we are not.
+H:Patience and courage will fray through anything.
+H:Put up with it, squire.. and you'll be a knight.
+H:Go slower — you'll get further.
+H:A loss is a gain for the mind.
+H:Fear has big eyes..
+H:A clever head may be given to a fool.
+H:A drowning man will cling to a straw.
+H:Morning is wiser than the evening.
+H:Bragging is unlike mowing; it won't make your back ache.
+H:Bread is the staff of life.
+H:Horseradish is no sweeter than radish.
+H:A bad peace is better than a good quarrel.
+H:Man proposes, gods dispose.
+H:The further into the woods, the more firewood you'll encounter.
+H:What used to be - is now gone.
+H:What we own - we don't appreciate properly; when we lose it - we cry..
+H:What was written by a pen can't be erased by an axe..
+H:You reap what you sow..
+H:What's on sober's mind, is on drunk's tongue..
+H:Another person's soul is in darkness..
+H:You cannot hide an awl in a sack.
+H:These are just flowers, berries will come soon..
+H:Trust, but verify.
+H:The bad head does not give rest to the legs..
+########### English proverbs
+H:Loose lips sink ships.
+H:Many hands make light work.
+H:The cat shuts its eyes when stealing cream.
+H:When the cat is away, the mice will play.
+H:It's harder than it looks.
+H:All good comes in threes.
+H:Paper is forbearing.
+H:East or West - home is best.
+H:In the house of the hanged man, mention not the rope.
+H:We are to learn as long as we live.
+H:A tree is known by its fruit.
+H:One's reach exceeds one's grasp.
+H:Fear the wolf in sheep's clothing.
+H:Hawks will not pick out hawk's eyes.
+H:That’s where the shoe pinches.
+H:Time heals all wounds.
+H:All's well that ends well.
+H:Every cook praises his own broth.
+H:Everything is good in its season.
+H:A blind man should not judge of colours.
+H:Do not cross the brook for water.
+H:When in Tangaria, do as the Tangarians do.
+H:The chain is no stronger than its weakest link.
+H:The dog gnaws the bone because he cannot swallow it..
+H:You never know what you can do till you try.
+H:A beggar can never be bankrupt.
+H:Necessity is the mother of invention.
+H:The leopard cannot change his spots.
+H:You don't miss the cow until the barn is empty.
+H:Don't look a gift horse in the mouth.
+H:Sell not the bear's skin before you have caught him.
+H:One good turn deserves another.
+H:A stitch in time saves nine.
+H:There is no law for fools.
+H:A fool may throw a stone into a well which a hundred wise men cannot pull out.
+H:If wishes were fishes, there'd be no room in the river for water.
+H:Don't shoot the messenger.
+H:Out of the frying pan and into the fire..
+H:A word dropped from a song makes it all wrong.
+H:Prevention is better than cure.
+H:An ounce of prevention is worth a pound of cure.
+H:Little strokes fell great oaks.
+H:You can't catch the wind in a net.
+H:As one calls into the forest, so it echoes back.
+H:Plenty is no plague.
+H:One nail drives out another.
+H:Take heed of an oxe before, an ass behind and a monk on all sides.
+H:Don't change horses in the midstream.
+H:Take care of the copper and the silver will take care of themselves.
+H:Make hay while the sun shines.
+H:Don't kick against the pricks - don't try to remove a thorn by pushing it in deeper.
+H:You can’t make an omelette without breaking an egg.
+H:A good beginning makes a good ending.
+H:The rotten apple spoils the barrel.
+H:One look is worth a thousand words.
+H:Often velvet paws hide sharp claws..
+H:Don't trouble trouble until trouble troubles you.
+H:Don't make a mountain out of a molehill.
+H:Something is better than nothing.
+H:If you pledge, don't hedge.
+H:Speak of the devil, and he appears..
+H:You will meet your match...
+H:Beware a honey tongue and a heart of gall..
+H:Barking dogs seldom bite.
+H:It's the quiet ones you gotta watch.
+H:You've asked for trouble..
+H:It won't be all wine and roses..
+H:Don't count your chickens before they hatch
+H:Wait for the cat to jump.
+H:Cast not your pearls before swine.
+H:Who ventured nothing - nothing gained.
+H:Who never climbed - never fell..
+H:Never cast dirt into that fountain of which you have sometime drunk.
+H:Every cloud has a silver lining.
+H:Once bitten, twice shy.
+H:Not every game worth the candle..
+H:Leave well enough alone.
+H:A burden of one's own choice is not felt.
+H:You have to learn to crawl before you can learn to walk.
+H:Don't lock the stable door after the horse has bolted.
+H:Who keeps company with the wolves, will learn to howl.
+H:A burden of one's own choice is not too heavy.
+H:The throne is never vacant..
+H:Nature abhors a vacuum.
+H:As well be hanged for a sheep as for a lamb.
+H:Those who sleep with dogs will rise with fleas.
+H:Fine words butter no parsnips.
+H:What's done is done.
+H:On the other side grass is greener.
+H:Time works wonders.
+H:Winning is earning, losing is learning.
+H:If the beard were all, the goat might preach.
+H:People tend to overestimate the danger when scared.
+H:Six of one, half a dozen the other.
+H:You never miss the water till the well runs dry.
+H:Don't be the pot who calls the kettle black.
+H:Do you smell a rat?
+H:The only stupid question is the one not asked.
+#############
+H:Haste makes waste. Unless it's a potion of speed.
+H:Studying is light; not studying is darkness. Unless you are warlock.
+H:The light at the end of the tunnel could be dragon's breath.
 H:_.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._
 H:_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~
 H:_,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._
