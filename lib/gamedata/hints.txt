@@ -7,64 +7,68 @@
 
 #Tolkien
 H:Little by little, one travels far.
-H:Never laugh at live dragons.
-H:All we have to decide is what to do with the time that is given us.
+H:Never laugh at live dragons..
+H:All we have to decide is what to do with the time that is given us..
 H:Faithless is he that says farewell when the road darkens.
 H:Not all tears are an evil.
 H:Courage is found in unlikely places.
-H:May it be a light to you in dark places, when all other lights go out.
+H:May the hope will be a light to you in dark places, when all other lights go out.
 H:Moonlight drowns out all but the brightest stars.
-H:Do not meddle in the affairs of wizards...
+H:Do not meddle in the affairs of wizards... or dragons.
 H:Flying from fear may lead to a short cut of meeting it.
 H:It does not do to leave a live dragon out of your calculations..
-H:So comes snow after fire, and even dragons have their endings.
-H:Many that live deserve death. And some that die deserve life..
-H:Where there's life there's hope.
+H:So comes snow after fire, and even dragons have their endings..
+H:Many that live deserve death and some that die deserve life. Can you give it?..
+H:While there is life - there is hope.
 H:You can only come to the morning through the shadows.
 H:Short cuts make long delays.
-H:All that is gold does not glitter, not all those who wander are lost.
-H:Often hope is born when all is forlorn.
-H:Not strength of the body that counts, but the strength of spirit.
-H:Beware to become butter scraped over too much bread.
+H:All that is gold does not glitter, not all those who wander are lost..
+H:Often hope is born when all is forlorn..
+H:Not the strength of the body that counts, but the strength of the spirit.
+H:Rings of Power eventually make you feel like a butter scraped over too much bread.
 H:Even the very wise cannot see all ends.
 H:Fair speech may hide a foul heart.
 H:Advice is a dangerous gift, even from the wise to the wise.
 H:All's well that ends better.
-H:The road goes ever on and on...
+H:The Road goes ever on and on... now far ahead the Road has gone..
 H:False hopes are more dangerous than fears.
-H:Even the smallest person can change the course of the future.
+H:Even the smallest person can change the course of the future..
 H:The wise speak only of what they know.
-H:Voiceless cries, wingless flutters, toothless bites, mouthless mutters.
+H:Voiceless cries, wingless flutters, toothless bites, mouthless mutters?
 H:..better to begin than to refuse, even though the end may be dark.
 H:The treacherous are ever distrustful.
 H:Deep roots are not reached by the frost.
-H:There's some good in this world and it's worth fighting for.
 H:There is nothing like looking, if you want to find something.
 H:One Ring to rule them all, one Ring to find them...
 H:One Ring to bring them all and in the darkness bind them...
-H:A red sun rises. Blood has been spilled this night.
+H:A red sun rises.. Blood has been spilled this night.
 H:Time doesn't seem to pass here: it just is.
 H:Towards danger; but not too rashly, nor too straight.
 H:Trolls simply detest the very sight of dwarves (uncooked).
-H:There's no hope as long as the Ring exists.
-H:Courage will now be your best defence against the storm that is at hand.
+H:There is no hope as long as the Ring exists.
+H:Courage will now be your best defence against the storm that is at hand..
 H:No dragon can resist the fascination of riddling talk...
 H:Someone else always has to carry on the story..
 H:Let him not vow to walk in the dark, who has not seen the nightfall.
 H:Praise from the praise-worthy is beyond all rewards.
-H:You cannot pass!
-H:There are older and fouler things than Orcs in the deep places of the world.
+H:You cannot pass.
+H:There are older and fouler things than Orcs in the deep places of the world..
 H:And yet their wills did not yield, and they struggled on..
 H:Out of the frying pan and into the fire..
 H:Deeds will not be less valiant because they are unpraised.
 H:There is no curse in Elvish, Entish, or the tongues of Men for this..
+################ lotr movie
+H:There is some good in this world and it alone is worth fighting for.
+################ reworked
+H:Three for elves, seven for dwarfs, nine for men and One for the Dark Lord..
+H:Come in the Land of Mordor where the Shadows lie..
 ################ etc
 H:Nobody ever got anywhere by standing still.
 H:Progress, not perfection.
 H:Every new beginning comes from some other beginning's end.
 H:A person who never made a mistake never tried anything new.
 H:Everything in life is just a season.
-H:When there’s nothing left to lose, there's everything left to gain.
+H:When there's nothing left to lose, there's everything left to gain.
 H:The future belongs to those who believe in the power of their dreams.
 H:A bird sitting on a tree is never afraid of the branch breaking...
 H:Think it and you can say it. Say it and you can do it.
@@ -105,7 +109,7 @@ H:Never break a promise to yourself.
 H:Nobody gets to tell you how big your dreams can be.
 H:Who you are is defined by the next decision you make, not the last one.
 H:Only you are responsible for who you become and how happy you are.
-H:We can’t become what we need to be by remaining what we are.
+H:We can't become what we need to be by remaining what we are.
 H:Go ahead. Fall down. The world looks different from the ground.
 H:Gratitude turns what we have into enough.
 H:I have never met an interesting person who had an easy life.
@@ -128,7 +132,7 @@ H:Self-reverence, self-knowledge, self-control... lead to power.
 H:A person who never made a mistake never tried anything new.
 H:Everything has beauty, but not everyone can see.
 H:Believe and act as if it were impossible to fail.
-H:Life shrinks or expands in proportion to one’s courage.
+H:Life shrinks or expands in proportion to one's courage.
 H:I haven't failed. I've just found 10,000 ways that won't work.
 H:To thine own self be true.
 H:Be yourself. Everyone else is already taken.
@@ -324,34 +328,31 @@ H:You will encounter a dark, tall stranger...
 H:Why are you wasting time reading fortunes?
 H:Fear ~> Anger -> Hate => Suffering >> The Dark Side
 ###########Russian
-H:A spoken word is not a sparrow. Once it flies out, you can't catch it.
 H:In a quiet lagoon, devils dwell.
 H:Your elbow is close, yet you can't bite it.
-H:Don’t go to another monastery with your own rules.
-H:Live for a century, learn for a century.
-H:If you are going to call yourself a milk-mushroom, get in the basket!
+H:Don't go to another's monastery with your own rules.
 H:Hasty climbers have sudden falls.
 H:Measure seven times, cut once.
-H:Don’t blame a mirror for ugly face in it.
-H:An uninvited guest is worse than an orc.
-H:Gods like trinity.
-H:Don’t make an elephant out of a fly.
-H:It will heal before your wedding.
-H:That’s where the dog is buried.
-H:Pancake!
-H:Take yourself into your hands.
-H:The matter is in the hat.
-H:Neither down, nor feather!
-H:It’s good to be a guest, but being home is better..
-H:The appetite comes with eating
+H:Don't blame a mirror for ugly face in it.
+H:Gods like trinity. If you fail once - try again.
+H:Don't make an oliphaunt out of a fly.
+H:This wound will heal before your wedding..
+H:That's where the dog is buried.. You found the root of the problem!
+H:Take your will into your hands.
+H:Luck is on your side this time. Neither down, nor feather!
+H:It's good to be a guest, but being at home is better..
+H:The appetite comes with eating..
+H:Don't buy a cat in a sack.. Evaluate first.
+H:Let's return to our sheep.. Refocus the attention on a real thing!
 H:Trouble never comes alone.
 H:Without a cat, mice feel free.
-H:Take care of clothes from new, take care of honor from when young.
-H:Gods keep those safe who keep themselves safe.
+H:It seems you feel like a fish in the water..
+H:Take care of clothes while it new and keep your honor from young age.
+H:Gods keep those safe, who keep themselves safe.
 H:Gods gave, gods took back.
 H:The bird is known by its flight.
 H:The eye can see it, but the tooth can't bite it.
-H:There is no truth in feet.
+H:There is no truth in feet..
 H:The raven won't peck out the eye of another raven.
 H:Every sandpiper praises his own swamp.
 H:Every cricket must know its hearth.
@@ -362,53 +363,53 @@ H:One doesn't shear naked sheep.
 H:Only grave will cure the hunchback.
 H:Unless thunder strikes, a man won't pray.
 H:A goose is not a pig's friend.
-H:Two deaths will not happen, but one is inevitable.
+H:Two deaths will not happen, but you can't get away from one..
 H:Don't divide the pelt of a bear not yet killed.
 H:When at home, even the walls help you.
-H:A spoon is valuable at dinner.
+H:A spoon is valuable at the dinner, not after..
 H:If the fool ties a knot, even a clever person can't untie it.
 H:If you take a day trip, take a week's supply of food.
-H:If only youth would know.. if only old age were able..
-H: What you go looking for, you will find.
+H:If only youth would know.. if only old age were able...
+H:What you go looking for - you will find.
 H:You can't have the wolves sated and leave the sheeps intact.
 H:Choose lesser of two evils.
-H:From fire to flame.
+H:From fire to flame..
 H:Extinguish the spark before the the house is on fire.
-H:Don't look for wind in a field.
-H:Even one matters in the battlefield.
+H:Don't look for wind in a field..
+H:Even one matters in the battlefield..
 H:One can't spoil porridge with butter.
-H:Use a wedge to knock out a wedge.
-H:If the claw is stuck, the whole bird is lost.
-H:Beware the goat from its front, horse - from its back, evil man - from any side.
-H:A horse has four leg, but still stumbles.
-H:Where goes a horse with its hoof, there goes a crayfish with its pincer.
+H:Use another wedge to knock out a wedge.
+H:If the claw is stuck, the whole bird will be lost.
+H:Beware the goat from its front, horse - from its back, evil man - from anywhere.
+H:A horse has four legs, but still stumbles..
+H:Where goes a horse with a hoof, there goes a crayfish with a pincer..
 H:Who sups with the devil must use a long spoon..
 H:Damned if you do, cursed if you don't..
 H:Strike while the iron is hot..
 H:You cannot break a wall with your forehead.
-H:When wood is chopped, woodchips will fly.
-H:A spoonful of tar spoils a barrel of honey.
+H:When wood is chopped, woodchips will fly..
+H:A spoonful of tar spoils a barrel of honey..
 H:The good is the enemy of the best.
 H:It's better to see once than hear a hundred times.
 H:Better late than never.
 H:Don't look for trouble - trouble will find you by itself.
-H:On a fishing lull, even a crayfish is fish..
-H:Hope for gods, but do not be reliant.
-H:On the belly there is silk, but in the belly - just a click..
-H: Prey runs into a trapper..
-H:With company, even death loses its sting.
+H:On a fishing lull, even a crayfish is a fish..
+H:Hope for gods, but don't be idling yourself.
+H:Belly clothed in silk.. inside of belly - just a click..
+H:Prey runs into a trapper..
+H:With friends even a death is not so scary.
 H:The pike in the sea is there to make the crucian to stay alert.
-H:Don't open your mouth on other people's bread.
+H:Don't open your mouth on other's bread.
 H:The scythe has hit a stone...
 H:It's not gods who make pots.
-H:Don't afraid the dog who barks, but the one, who is silent and wags its tail.
+H:Don't afraid the dog who barks, but the one, who is silent and wags.
 H:Don't say "hop", until you jumped over.
 H:The wolf is beaten not for being grey, but for having eaten a sheep.
 H:Don't wade into a river without knowing a ford.
 H:Don't cast beads in front of pigs.
-H:Only he who does nothing makes no mistakes.
+H:Only who does nothing, makes no mistakes.
 H:Do not spit into a well..
-H:Don't ask the old one, ask the experienced one.
+H:Don't ask the old one, ask the experienced.
 H:There is no smoke without fire.
 H:There's no bad without the good.
 H:A new broom sweeps in a new way.
@@ -420,74 +421,69 @@ H:One cup is for health, second one is for fun, third one is for nothing.
 H:Beware to ran from the wolf and come into a bear.
 H:Do not look for further good from good.
 H:The first pancake is always a blob.
-H:Every pitcher which goes too often to the well will be broken eventually.
-H:Repetition is the mother of learning.
-H:The wolf spared the mare: left a tail and mane.
+H:Every pitcher which goes too often to the well will be broken soon.
+H:"Repetition" is the mother of "learning".
+H:The wolf spared the mare: left a tail and mane..
 H:Let's wait and see what will happen..
 H:Don't swing fists when the fight is over..
 H:For a drunk, the sea is knee-deep and a puddle - ear-deep.
-H:Each time it's different.
+H:Each time it's different..
 H:Fish seek a deep place, men seek a better place.. for fishing.
 H:To live with wolves, you have to howl like a wolf.
 H:One's own shirt is closer to the body..
-H:A holy place is never empty.
+H:A holy place is never empty..
 H:Grey hair into beard, devil into rib..
-H:Seven people don't wait for one..
+H:Seven don't wait for one..
 H:Seven troubles - one responce.
 H:Seven miles to heaven, and all the way through the forest..
-H:Seven axes lie together, two distaffs apart.
-H:However much you feed the wolf, he still looks at the woods..
+H:Seven axes lie together, two pickaxes apart.
+H:However much you feed the wolf, he still looks in the forest..
 H:A tale is told quickly, but the job is done slowly.
-H:One thread from everyone in the world — makes a shirt for the naked.
+H:One thread from everyone — makes a shirt for the naked..
 H:The nightingale can't be fed by fables.
-H:After cutting off the head one shouldn't grieve over the hair.
-H:You can't escape your fate even riding it around with a horse.
+H:After cutting off the head, one shouldn't grieve over its hair.
+H:You can't escape your fate even going it around by horse.
 H:It's good there, where we are not.
-H:Patience and courage will fray through anything.
+H:Patience and training will fray through anything.
 H:Put up with it, squire.. and you'll be a knight.
-H:Go slower — you'll get further.
-H:A loss is a gain for the mind.
+H:Going slower you'll get further..
+H:Any loss is a gain for the mind.
 H:Fear has big eyes..
 H:A clever head may be given to a fool.
-H:A drowning man will cling to a straw.
+H:A drowning man will cling even to a straw.
 H:Morning is wiser than the evening.
-H:Bragging is unlike mowing; it won't make your back ache.
-H:Bread is the staff of life.
-H:Horseradish is no sweeter than radish.
+H:Bragging is not mowing; it won't make your back ache.
+H:Horseradish is no sweeter than radish..
 H:A bad peace is better than a good quarrel.
 H:Man proposes, gods dispose.
-H:The further into the woods, the more firewood you'll encounter.
-H:What used to be - is now gone.
-H:What we own - we don't appreciate properly; when we lose it - we cry..
+H:The further into the woods, the more drywood you'll encounter..
+H:What should be - will happen anyway.
+H:We don't appreciate what we already got, but when we lose it - we cry..
 H:What was written by a pen can't be erased by an axe..
 H:You reap what you sow..
 H:What's on sober's mind, is on drunk's tongue..
-H:Another person's soul is in darkness..
+H:Other person's soul is in darkness..
 H:You cannot hide an awl in a sack.
 H:These are just flowers, berries will come soon..
 H:Trust, but verify.
-H:The bad head does not give rest to the legs..
 ########### English proverbs
-H:Loose lips sink ships.
+H:Loose lips sink ships..
 H:Many hands make light work.
-H:The cat shuts its eyes when stealing cream.
-H:When the cat is away, the mice will play.
+H:When the cat is away, the mice will play..
 H:It's harder than it looks.
 H:All good comes in threes.
-H:Paper is forbearing.
-H:East or West - home is best.
 H:In the house of the hanged man, mention not the rope.
 H:We are to learn as long as we live.
 H:A tree is known by its fruit.
 H:One's reach exceeds one's grasp.
 H:Fear the wolf in sheep's clothing.
 H:Hawks will not pick out hawk's eyes.
-H:That’s where the shoe pinches.
-H:Time heals all wounds.
-H:All's well that ends well.
+H:That's where the shoe pinches..
+H:Time heals all wounds..
+H:All's well that ends well..
 H:Every cook praises his own broth.
 H:Everything is good in its season.
-H:A blind man should not judge of colours.
+H:A blind man should not judge of colours..
 H:Do not cross the brook for water.
 H:When in Tangaria, do as the Tangarians do.
 H:The chain is no stronger than its weakest link.
@@ -504,22 +500,22 @@ H:A stitch in time saves nine.
 H:There is no law for fools.
 H:A fool may throw a stone into a well which a hundred wise men cannot pull out.
 H:If wishes were fishes, there'd be no room in the river for water.
-H:Don't shoot the messenger.
+H:Don't shoot the messenger..
 H:Out of the frying pan and into the fire..
 H:A word dropped from a song makes it all wrong.
 H:Prevention is better than cure.
 H:An ounce of prevention is worth a pound of cure.
 H:Little strokes fell great oaks.
-H:You can't catch the wind in a net.
-H:As one calls into the forest, so it echoes back.
+H:You can't catch the wind in a net..
+H:As you call into the woods, so it echoes..
 H:Plenty is no plague.
 H:One nail drives out another.
 H:Take heed of an oxe before, an ass behind and a monk on all sides.
 H:Don't change horses in the midstream.
 H:Take care of the copper and the silver will take care of themselves.
 H:Make hay while the sun shines.
-H:Don't kick against the pricks - don't try to remove a thorn by pushing it in deeper.
-H:You can’t make an omelette without breaking an egg.
+H:Don't kick against the pricks - you won't remove a thorn by pushing it deeper.
+H:You can't make an omelette without breaking an egg.
 H:A good beginning makes a good ending.
 H:The rotten apple spoils the barrel.
 H:One look is worth a thousand words.
@@ -530,19 +526,18 @@ H:Something is better than nothing.
 H:If you pledge, don't hedge.
 H:Speak of the devil, and he appears..
 H:You will meet your match...
-H:Beware a honey tongue and a heart of gall..
+H:Beware a honey tongue and a heart of ice..
 H:Barking dogs seldom bite.
 H:It's the quiet ones you gotta watch.
-H:You've asked for trouble..
-H:It won't be all wine and roses..
-H:Don't count your chickens before they hatch
-H:Wait for the cat to jump.
+H:If you've asked for trouble - it will come.
+H:Don't count your chickens before they hatch.
+H:Wait for the cat to jump..
 H:Cast not your pearls before swine.
 H:Who ventured nothing - nothing gained.
 H:Who never climbed - never fell..
 H:Never cast dirt into that fountain of which you have sometime drunk.
 H:Every cloud has a silver lining.
-H:Once bitten, twice shy.
+H:Once bitten, twice shy..
 H:Not every game worth the candle..
 H:Leave well enough alone.
 H:A burden of one's own choice is not felt.
@@ -559,9 +554,9 @@ H:What's done is done.
 H:On the other side grass is greener.
 H:Time works wonders.
 H:Winning is earning, losing is learning.
-H:If the beard were all, the goat might preach.
-H:People tend to overestimate the danger when scared.
-H:Six of one, half a dozen the other.
+H:If the beard were all, the goat might cast spells.
+H:People tend to overestimate the danger when scared..
+H:Six of one, half a dozen the other. Choose any, no matters.
 H:You never miss the water till the well runs dry.
 H:Don't be the pot who calls the kettle black.
 H:Do you smell a rat?
@@ -570,6 +565,10 @@ H:The only stupid question is the one not asked.
 H:Haste makes waste. Unless it's a potion of speed.
 H:Studying is light; not studying is darkness. Unless you are warlock.
 H:The light at the end of the tunnel could be dragon's breath.
+H:If you cannot pass - get around or flee.
+H:If you are going to call yourself a hero, get to to the dragon den!
+H:An uninvited guest is worse than an orc.
+H:Blin... Pancake.. Merde. Dammit!
 H:_.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._
 H:_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~
 H:_,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._

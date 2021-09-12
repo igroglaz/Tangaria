@@ -495,11 +495,7 @@ static void melee_effect_experience(melee_effect_handler_context_t *context, int
     if (resist_undead_attacks(context->p, context->mon->race))
         msg(context->p, "You keep hold of your life force!");
     else
-    {
         drain_xp(context->p, drain_amount);
-        if (context->p->lev < 50)
-            player_set_timed(context->p, TMD_FOOD, 10, false);
-    }
 }
 
 
@@ -1361,8 +1357,11 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
 
     /* Increase Black Breath counter a *small* amount, maybe */
-    if (one_in_(5) && player_inc_timed(context->p, TMD_BLACKBREATH, context->damage / 10, true, false))
-        context->obvious = true;
+    if (one_in_(5) && (one_in_(2) && streq(context->p->race->name, "Halfling")))
+    {
+        if (player_inc_timed(context->p, TMD_BLACKBREATH, context->damage / 10, true, false))
+            context->obvious = true;
+    }
 }
 
 

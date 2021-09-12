@@ -272,6 +272,9 @@ void player_exp_lose(struct player *p, s32b amount, bool permanent)
     /* Lose some experience */
     p->exp -= amount;
     if (permanent) p->max_exp -= amount;
+    
+    if (context->p->lev < 50)
+        player_set_timed(context->p, TMD_FOOD, 10, false);
 
     /* Adjust experience levels */
     adjust_level(p);
