@@ -563,8 +563,14 @@ static void project_monster_handler_POIS(project_monster_handler_context_t *cont
 static void project_monster_handler_LIGHT(project_monster_handler_context_t *context)
 {
     if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
-
-    if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT) ||
+    
+    if (rf_has(context->mon->race->flags, RF_RES_LIGHT))
+    {
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 2;
+        context->dam += randint0(10);
+    }
+    else if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT) ||
         rf_has(context->mon->race->flags, RF_IM_LIGHT))
     {
         /* Learn about breathers through resistance */

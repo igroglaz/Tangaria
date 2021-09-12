@@ -611,7 +611,7 @@ weight:0
 experience:0
 flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
-flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | IM_LIGHT
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | RES_LIGHT
 desc:An indestructible golem used for target practice.
 locations:Farfest
 
@@ -2632,7 +2632,7 @@ blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-flags:IM_LIGHT
+flags:RES_LIGHT
 desc:Beautiful girl with long hair. She give you a wink..
 locations:The Mountain Gorge
 
@@ -11026,7 +11026,6 @@ blow:HIT:HURT:4d6
 flags:UNIQUE | MALE | EVIL
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
-drop:fortune cookie:Fortune Cookie:70:1:1
 spell-freq:10
 spells:S_KIN
 desc:An evil and cunning man from the East. Having once sworn allegiance to the
@@ -12074,7 +12073,7 @@ blow:BITE:HURT:3d10
 flags:UNIQUE | MALE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:MOVE_BODY | TAKE_ITEM
-flags:HURT_ROCK | HURT_LIGHT | IM_COLD
+flags:HURT_ROCK | IM_COLD
 flags:FORCE_DEPTH
 spell-freq:11
 innate-freq:100
@@ -13279,6 +13278,8 @@ flags:UNIQUE | MALE | EVIL | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_DEPTH
+flags:RES_LIGHT
+drop:fortune cookie:Fortune Cookie:70:1:1
 spell-freq:9
 spells:S_KIN
 friends:60:1d3:mumak
@@ -14072,6 +14073,7 @@ blow:TOUCH:EXP_80:4d8
 flags:SMART | UNIQUE | PWMANG_BASE | PWMANG_FIXED | LEVITATE
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
+flags:RES_LIGHT
 spell-freq:4
 spells:WOUND | HOLD | SCARE
 spells:BO_NETH
@@ -15350,7 +15352,7 @@ blow:HIT:HURT:1d9
 blow:HIT:HALLU:1d9
 flags:INVISIBLE | SMART
 flags:RAND_50 | PASS_WALL
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | RES_LIGHT
 flags:FORCE_SLEEP
 flags:WILD_SWAMP
 spell-freq:2
@@ -15572,7 +15574,7 @@ blow:HIT:HALLU:1d9
 flags:DROP_2 | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:FORCE_SLEEP | LEVITATE | SMART
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | RES_LIGHT
 spell-freq:7
 spell-power:38
 spells:BLINK | WOUND | HOLD | TELE_AWAY | TELE_LEVEL | TELE_TO
@@ -15728,7 +15730,7 @@ blow:HIT:HURT:3d8
 flags:SMART
 flags:DROP_2
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_LIGHT
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | RES_LIGHT
 flags:NO_STUN | NO_CONF | LEVITATE
 flags:IM_POIS
 flags:OPEN_DOOR | BASH_DOOR | NO_SLEEP
@@ -16661,6 +16663,7 @@ blow:BUTT:HURT:3d6
 flags:EVIL | UNIQUE | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR | HYBRID
+flags:RES_LIGHT
 flags:FORCE_DEPTH
 desc:It is a cross between a human and a bull.
 locations:The Maze
@@ -17743,7 +17746,7 @@ blow:TOUCH:DRAIN_CHARGES
 flags:SMART
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD
-flags:IM_ACID | IM_ELEC | IM_POIS | IM_LIGHT
+flags:IM_ACID | IM_ELEC | IM_POIS | RES_LIGHT
 spell-freq:4
 spell-power:44
 spells:DRAIN_MANA | HEAL | WOUND | TELE_AWAY
@@ -17863,7 +17866,7 @@ blow:CLAW:HURT:3d10
 blow:BITE:FIRE:6d10
 blow:BITE:FIRE:6d10
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_FIRE | IM_POIS | IM_LIGHT
+flags:IM_FIRE | IM_POIS | RES_LIGHT
 flags:NO_STUN
 flags:FORCE_SLEEP
 spell-freq:5
@@ -18001,7 +18004,7 @@ flags:BASH_DOOR
 flags:ATTR_MULTI
 flags:FORCE_SLEEP
 flags:NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | NO_CUT
-flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | IM_LIGHT
+flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | RES_LIGHT
 flags:IM_NETHER
 desc:A deadly blade of chaos lurking for prey. Beware!
 drop:sword:'Stormbringer':100:1:1
@@ -18396,6 +18399,7 @@ flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_POIS
 flags:NO_CONF | NO_FEAR
 flags:FORCE_DEPTH | FORCE_SLEEP
+flags:RES_LIGHT
 spell-freq:3
 spells:BO_WATE | BO_ICE
 spells:HOLD | TELE_TO
@@ -18450,8 +18454,8 @@ blow:HIT:HURT:5d6
 blow:HIT:HURT:5d6
 flags:UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
-flags:PASS_WALL | KILL_BODY | IM_LIGHT
-flags:IM_ELEC | HURT_ROCK
+flags:PASS_WALL | KILL_BODY
+flags:IM_ELEC | HURT_ROCK | RES_LIGHT
 flags:FORCE_DEPTH | FORCE_SLEEP
 spell-freq:7
 spells:BA_FIRE
@@ -19612,7 +19616,7 @@ blow:HIT:FORGET:3d6
 flags:POWERFUL | UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED | LEVITATE
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR | KILL_WALL
-flags:IM_FIRE | IM_ELEC | NO_STUN | IM_LIGHT
+flags:IM_FIRE | IM_ELEC | NO_STUN | RES_LIGHT
 flags:FORCE_DEPTH
 spell-freq:4
 innate-freq:22
@@ -21047,7 +21051,7 @@ flags:UNIQUE | MALE | SMART | ATTR_FLICKER
 flags:DROP_3 | DROP_GOOD
 flags:MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_PLASMA
-flags:NO_STUN | IM_LIGHT
+flags:NO_STUN | RES_LIGHT
 spell-freq:2
 innate-freq:15
 spells:BLIND | TELE_TO
@@ -23330,7 +23334,7 @@ blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
 flags:DEMON | COLD_BLOOD
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_ACID | IM_FIRE | IM_POIS | IM_LIGHT
+flags:IM_ACID | IM_FIRE | IM_POIS | RES_LIGHT
 flags:FORCE_SLEEP
 flags:NO_STUN
 spell-freq:8
@@ -23513,7 +23517,7 @@ flags:UNIQUE | SMART | WANDERER
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
-flags:NO_STUN | IM_PLASMA | IM_DISEN | IM_LIGHT
+flags:NO_STUN | IM_PLASMA | IM_DISEN | RES_LIGHT
 drop-base:rod:50:1:2
 spell-freq:4
 innate-freq:15

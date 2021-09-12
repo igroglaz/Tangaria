@@ -772,7 +772,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             msg(p, "The Black Breath dims your life force.");
             player_exp_lose(p, drain, false);
             // makes you additionally hungry (+10 on regular exp drain)
-            player_set_timed(context->p, TMD_FOOD, 50, false);
+            player_set_timed(p, TMD_FOOD, 50, false);
         }
     }
 

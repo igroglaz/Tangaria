@@ -121,3 +121,4 @@ RF(WILD_ONLY, RFT_NONE, "")
 
 // Tangaria
 RF(IM_LIGHT, RFT_RES, "light")
+RF(RES_LIGHT, RFT_RES, "somewhat light")
