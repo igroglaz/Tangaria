@@ -18457,6 +18457,7 @@ flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:PASS_WALL | KILL_BODY
 flags:IM_ELEC | HURT_ROCK | RES_LIGHT
 flags:FORCE_DEPTH | FORCE_SLEEP
+drop:food:Slime Mold:100:2:3
 spell-freq:7
 spells:BA_FIRE
 spells:BO_ACID

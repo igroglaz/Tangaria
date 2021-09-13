@@ -1357,7 +1357,16 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
 
     /* Increase Black Breath counter a *small* amount, maybe */
-    if (one_in_(5) && (one_in_(2) && streq(context->p->race->name, "Halfling")))
+    if    ((streq(context->p->race->name, "Halfling") ||
+            streq(context->p->race->name, "Demonic") ||
+            streq(context->p->race->name, "Gargoyle")) && one_in_(2))
+                return;
+    else if(streq(context->p->race->name, "Undead") ||
+            streq(context->p->race->name, "Vampire") ||
+            streq(context->p->race->name, "Wraith") ||
+            streq(context->p->race->name, "Golem"))
+                return;
+    else if (one_in_(5))
     {
         if (player_inc_timed(context->p, TMD_BLACKBREATH, context->damage / 10, true, false))
             context->obvious = true;
