@@ -522,6 +522,20 @@ static void project_monster_sleep(project_monster_handler_context_t *context, in
 /* Acid */
 static void project_monster_handler_ACID(project_monster_handler_context_t *context)
 {
+    if (rf_has(context->mon->race->flags, RF_SRES_ACID))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_ACID);
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 3;
+        context->dam /= 2;
+    }    
+    else if (rf_has(context->mon->race->flags, RF_RES_ACID))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_ACID);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }            
+    else    
     project_monster_resist_element(context, RF_IM_ACID, 9);
 }
 
@@ -529,7 +543,21 @@ static void project_monster_handler_ACID(project_monster_handler_context_t *cont
 /* Electricity */
 static void project_monster_handler_ELEC(project_monster_handler_context_t *context)
 {
-    project_monster_resist_element(context, RF_IM_ELEC, 9);
+    if (rf_has(context->mon->race->flags, RF_SRES_ELEC))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_ELEC);
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 3;
+        context->dam /= 2;
+    }    
+    else if (rf_has(context->mon->race->flags, RF_RES_ELEC))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_ELEC);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }            
+    else
+        project_monster_resist_element(context, RF_IM_ELEC, 9);
 }
 
 
@@ -562,32 +590,37 @@ static void project_monster_handler_POIS(project_monster_handler_context_t *cont
 /* Light -- opposite of Dark */
 static void project_monster_handler_LIGHT(project_monster_handler_context_t *context)
 {
-    if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
-
     if (rf_has(context->mon->race->flags, RF_SRES_LIGHT))
     {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_LIGHT);
         context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
         context->dam /= 3;
         context->dam *= 2;
-        context->dam += randint0(5);
     }    
     else if (rf_has(context->mon->race->flags, RF_RES_LIGHT))
     {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_LIGHT);
         context->hurt_msg = MON_MSG_RESIST;
         context->dam /= 2;
     }
-    else if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT) ||
-        rf_has(context->mon->race->flags, RF_IM_LIGHT))
+    else if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT))
     {
         /* Learn about breathers through resistance */
         if (context->seen) rsf_on(context->lore->spell_flags, RSF_BR_LIGHT);
-
+        context->hurt_msg = MON_MSG_RESIST_A_LOT;
+        context->dam *= 2;
+        context->dam /= (randint1(6) + 6);
+    }
+    else if (rf_has(context->mon->race->flags, RF_IM_LIGHT))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_IM_LIGHT);
         context->hurt_msg = MON_MSG_RESIST_A_LOT;
         context->dam *= 2;
         context->dam /= (randint1(6) + 6);
     }
     else if (rf_has(context->mon->race->flags, RF_HURT_LIGHT))
     {
+        if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
         context->hurt_msg = MON_MSG_CRINGE_LIGHT;
         context->die_msg = MON_MSG_SHRIVEL_LIGHT;
         context->dam *= 2;

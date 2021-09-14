@@ -2579,13 +2579,15 @@ desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
-spell:Dig:9:7:34:8:0
+spell:Dig:10:7:34:8:0
 effect:LINE:KILL_WALL
-dice:20+1d30
+# regular damage, not vuln
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 * 50
 msg_other: makes a moving gesture.
 desc:Produces a beam that destroys the first section of wall it hits,
 desc: unless it is a permanent wall. Each monster caught in the beam that
-desc: is susceptible to rock remover takes 20+1d30 points of damage.
+desc: is susceptible to rock remover takes damage.
 
 spell:Identify Rune:12:7:40:6:0
 effect:IDENTIFY

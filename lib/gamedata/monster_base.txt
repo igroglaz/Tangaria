@@ -503,7 +503,7 @@ glyph:y
 pain:1
 flags:ANIMAL | SPIRIT | LEVITATE
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
-flags:IM_ACID
+flags:RES_ACID
 flags:HUMANOID
 desc:Yeek
 

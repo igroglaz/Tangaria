@@ -611,7 +611,7 @@ weight:0
 experience:0
 flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
-flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | RES_LIGHT
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | RES_LIGHT | HURT_ROCK
 desc:An indestructible golem used for target practice.
 locations:Farfest
 
@@ -2606,7 +2606,7 @@ flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_POIS
 flags:FORCE_DEPTH
 friends:100:1d3:rattlesnake:servant
-spell-freq:3
+spell-freq:7
 spells:SHAPECHANGE
 shape:Vasilisa the Beautiful
 desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a 
@@ -2632,7 +2632,6 @@ blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-flags:RES_LIGHT
 desc:Beautiful girl with long hair. She give you a wink..
 locations:The Mountain Gorge
 
@@ -10267,7 +10266,6 @@ blow:HIT:HURT:3d4
 blow:HIT:HURT:3d4
 blow:HIT:HURT:3d4
 flags:DROP_2
-flags:IM_ACID
 flags:NO_STUN | NO_CONF | LEVITATE
 flags:IM_ACID | IM_POIS | IM_LIGHT
 flags:OPEN_DOOR | BASH_DOOR | NO_SLEEP
@@ -10382,11 +10380,13 @@ blow:BITE:EXP_20:2d6
 flags:UNIQUE | MALE | EMPTY_MIND
 flags:DROP_GOOD | DROP_3 | ONLY_ITEM | PASS_WALL
 flags:FORCE_DEPTH | PWMANG_FIXED
-spell-freq:7
-spells:WOUND | DARKNESS | MIND_BLAST | TELE_TO
-spells:HOLD | SCARE
-desc:It is a humanoid with an aura of power. You notice a sharp set of front
-desc: teeth.
+flags:RES_ELEC
+spell-freq:6
+spells:WOUND | HEAL | MIND_BLAST | TELE_TO
+spells:DARKNESS | HOLD | SCARE
+desc:They say His death is in the needle inside an egg, that inside a duck,
+desc: that inside a hare, that nests in a hollow log, that floats in pond,
+desc: found on a far island..
 locations:Abandoned Manor
 
 name:Mim, Betrayer of Turin
@@ -10999,7 +10999,7 @@ flags:UNIQUE | MALE | EVIL
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:NO_STUN | NO_CONF | NO_SLEEP | NO_SLOW
-flags:IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
+flags:IM_COLD | RES_ELEC | IM_FIRE | IM_POIS
 spell-freq:7
 spells:BLIND | HOLD | SCARE
 spells:S_KIN
@@ -12155,7 +12155,7 @@ blow:BITE:ELEC:5d4
 flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
-flags:NO_CONF
+flags:NO_CONF | RES_LIGHT
 flags:FORCE_DEPTH
 spell-freq:2
 innate-freq:50
@@ -12376,7 +12376,7 @@ blow:BUTT:HURT:1d9
 flags:ANIMAL
 flags:DROP_CORPSE
 flags:BASH_DOOR | MOVE_BODY
-flags:IM_POIS | IM_ACID
+flags:IM_POIS | RES_ACID | RES_ELEC
 flags:FORCE_SLEEP
 flags:WILD_WOOD
 spell-freq:8
@@ -12810,7 +12810,7 @@ blow:KICK:HURT:10d2
 flags:MALE | INVISIBLE
 flags:DROP_1 | ONLY_ITEM
 flags:OPEN_DOOR
-flags:IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
+flags:RES_ACID | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:6
@@ -18383,7 +18383,7 @@ name:The Watcher in the Water
 base:aquatic
 color:v
 speed:120
-hit-points:2700
+hit-points:3500
 hearing:30
 armor-class:100
 sleepiness:80
@@ -18399,15 +18399,10 @@ flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_POIS
 flags:NO_CONF | NO_FEAR
 flags:FORCE_DEPTH | FORCE_SLEEP
-flags:SRES_LIGHT
 drop:food:Large Trout:100:4:5
 spell-freq:3
 spells:BO_WATE | BO_ICE
 spells:HOLD | TELE_TO
-friends:100:1d3:giant octopus:servant
-friends:100:1d3:seahorse:servant
-friends:100:1d3:giant squid:servant
-friends:100:1d3:mermaid
 desc:A vile creature which seems to consist mostly of tentacles, it seeks to 
 desc: drag people to their doom in the water. Few have ever escaped its grasp.
 locations:The Small Watery Cave
@@ -18456,8 +18451,8 @@ blow:HIT:HURT:5d6
 flags:UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:PASS_WALL | KILL_BODY
-flags:IM_ELEC | HURT_ROCK
 flags:FORCE_DEPTH | FORCE_SLEEP
+flags:IM_ELEC | RES_LIGHT | HURT_ROCK
 drop:food:Slime Mold:100:2:3
 spell-freq:7
 spells:BA_FIRE
