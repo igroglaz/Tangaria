@@ -375,6 +375,8 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
                         /* Easy to see */
                         easy = flag = true;
                     }
+                    else if (streq(p->clazz->name, "Unbeliever") && d < 2)
+                        easy = flag = true;
                 }
                 else
                 {

@@ -557,6 +557,9 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail = -370 * x;
     fail /= (10 + ABS(x));
     fail += 380;
+    
+    if (streq(p->clazz->name, "Unbeliever"))
+        fail = 999;
 
     return fail;
 }
