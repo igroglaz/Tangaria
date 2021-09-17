@@ -896,7 +896,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     }
 
     /* Never drop items in wrong house */
-    if (!check_store_drop(p))
+    if (!check_store_drop(p) && !(p->dm_flags & DM_HOUSE_CONTROL))
     {
         if (!bypass_inscr) msg(p, "You cannot drop this here.");
         return false;

@@ -2605,7 +2605,7 @@ flags:UNIQUE | FEMALE | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_POIS
 flags:FORCE_DEPTH
-drop:food:Apple:100:1:1
+drop:food:Apple of Youth:100:1:1
 friends:100:1d3:rattlesnake:servant
 spell-freq:7
 spells:SHAPECHANGE
@@ -2633,7 +2633,7 @@ blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
 flags:UNIQUE | FEMALE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-drop:food:Apple:100:1:1
+drop:food:Apple of Youth:100:1:1
 desc:Beautiful girl with long hair. She give you a wink..
 locations:The Mountain Gorge
 
