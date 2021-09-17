@@ -302,7 +302,8 @@ type:food
 level:1
 weight:8
 cost:0
-alloc:25:1 to 50
+# alloc 25 before adding food to bosses
+alloc:5:1 to 50
 pile:100:1d2
 effect:NOURISH:INC_BY
 dice:40
@@ -320,7 +321,7 @@ alloc:30:50 to 100
 pile:50:1d3
 effect:NOURISH:SET_TO
 dice:7+1d4
-effect:NOURISH:SET_TO
+effect:NOURISH:DEC_BY
 dice:7+3d2
 effect:NOURISH:INC_BY
 dice:10
@@ -343,10 +344,9 @@ cost:0
 alloc:3:10 to 50
 pile:50:1d3
 effect:NOURISH:INC_BY
-dice:40
-msg_self:That tastes good.
-desc:A thick slice of pork, salted to keep it from spoiling. It is very
-desc: filling.
+dice:34
+msg_self:That tastes porky. Nice!
+desc:Salted slice of pork.
 
 name:& Strip~ of Beef Jerky
 graphics:,:W
@@ -359,7 +359,7 @@ pile:50:1d3
 effect:NOURISH:INC_BY
 dice:40
 msg_self:That tastes good.
-desc:A thick slice of pork, salted to keep it from spoiling. It is very
+desc:A thick slice of beef, salted to keep it from spoiling. It is very
 desc: filling.
 
 name:& Honey-cake~
@@ -501,11 +501,10 @@ weight:10
 cost:22000
 alloc:3:60 to 100
 effect:GAIN_STAT:CON
-effect:GAIN_STAT:STR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:STR
 effect:NOURISH:INC_TO
-dice:80
+dice:45
 msg_self:Refreshing!
 desc:This looks like pure water, but its scent reminds you of the smell of a
 desc: distant wood borne from afar by a cool breeze at night.
@@ -610,7 +609,7 @@ dice:25+5d5
 effect:TIMED_SET:TERROR
 dice:25+5d5
 effect:NOURISH:INC_BY
-dice:3
+dice:4
 desc:It allows you to run for your life.
 
 name:Stoneskin
@@ -701,7 +700,9 @@ effect:TIMED_INC:STEALTH
 dice:5+1d5
 effect:NOURISH:INC_BY
 dice:3
-desc:It allows you to run for your life.
+desc:Mirkwood mushrooms.. Eat it and you will be terrified to the bones..
+desc: Is it a bush? Or a dwarf?..
+desc: Is it a tree? Or a troll?..
 
 name:Hallucination
 graphics:,:d
@@ -715,7 +716,7 @@ effect:TIMED_INC_NO_RES:IMAGE
 dice:5+5d5
 effect:NOURISH:INC_BY
 dice:5
-desc:It allows you to run for your life.
+desc:Not everyone can overcome madness of lengthy hallucination..
 
 name:Toadstool
 graphics:,:d
@@ -733,7 +734,10 @@ effect:NOURISH:SET_TO
 dice:5
 effect:TIMED_INC:POISONED
 dice:10+2d7
-desc:It allows you to run for your life.
+msg_self:You tried small piece... Blecch! The world spins and goes dark
+msg_other: pukes and slap against the ground!
+desc:Amanita phalloides or Death cap...
+desc: Even small bite is enough to put you on a verge of death.
 
 
 ##### Weapons #####
@@ -3595,6 +3599,8 @@ effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:HEAL_HP
 dice:300+m35
+effect:TIMED_INC:OPP_CONF
+dice:1d1
 effect:NOURISH:DEC_BY
 dice:1
 
@@ -3613,6 +3619,8 @@ effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:HEAL_HP
 dice:1200
+effect:TIMED_INC:OPP_CONF
+dice:1d1
 effect:NOURISH:INC_BY
 dice:1
 
@@ -9220,3 +9228,189 @@ level:0
 weight:5
 cost:99999999
 desc:.
+
+name:& Cram Bread~
+graphics:,:U
+type:food
+level:0
+weight:6
+cost:0
+effect:NOURISH:INC_BY
+dice:27
+msg_self:That tastes... crunchy.
+desc:Nutritious dry pancakes-biscuits which provide sustenance
+desc: on long journeys. It's made from tightly pressed flour.
+desc: Quite tasteless, but with honey or milk it becomes
+desc: quite palatable.
+
+name:Petty-dwarf roots
+graphics:,:U
+type:food
+level:1
+weight:4
+cost:0
+effect:NOURISH:INC_BY
+dice:14
+msg_self:That tastes like.. earth-bread.
+desc:An edible root known only to the Dwarves. 
+desc: White and fleshy; just boil it and it will taste like bread.
+
+name:Salted Pork from Isengard
+graphics:,:U
+type:food
+level:1
+weight:5
+cost:0
+effect:NOURISH:INC_BY
+dice:38
+msg_self:That tastes particularly good.
+desc:The salted pork is particularly good.
+
+name:Pipe-weed
+graphics:,:U
+type:food
+level:1
+weight:1
+cost:0
+effect:RESTORE_STAT:WIS
+effect:TIMED_INC:IMAGE
+dice:1
+effect:NOURISH:INC_BY
+dice:1
+# make random amount and draw them like:
+# o0OoO0Oo O oO0oO oO o 0oO o
+msg_self:*You blow several smoke rings*
+msg_other: blows several smoke rings
+desc:Also called as sweet galenas or westmansweed.
+desc: Hm... Which sort is this one? Longbottom Leaf, Old Toby,
+desc: or Southern Star?
+
+name:Elvish wine
+graphics:,:U
+type:food
+level:1
+weight:7
+cost:0
+effect:NOURISH:INC_BY
+dice:14
+effect:RESTORE_STAT:STR
+effect:TIMED_INC:CONFUSED
+dice:4+1d4
+msg_self:Ooogh.. It must be potent wine!
+desc:This wine origins from Dorwinion, to the south of Dale, carried up
+desc: along the River Running to Laketown and then to Thranduil.
+
+name:& Cold chicken~
+graphics:,:U
+type:food
+level:1
+weight:6
+cost:0
+effect:NOURISH:INC_BY
+dice:19
+msg_self:Cold, but tasty!
+desc:But, funny little birds, they had no wings!
+desc: O what shall we do with the funny little things?
+desc: Roast ’em alive, or stew them in a pot;
+desc: fry them, boil them and eat them hot?
+desc: ..
+desc: Who brought there the cold chicken? No pickles sadly...
+
+name:Maggoty bread
+graphics:,:U
+type:food
+level:1
+weight:8
+cost:0
+effect:NOURISH:DEC_BY
+dice:7+1d2
+effect:NOURISH:INC_BY
+dice:7
+effect:NOURISH:INC_BY
+dice:8
+effect:NOURISH:INC_BY
+dice:9
+effect:NOURISH:INC_BY
+dice:10
+effect:RANDOM
+dice:5
+msg_self:Hurk.. Hurk... That tastes awful!!
+desc:Maggoty Bread, no good when you're on the road..
+desc: But it's better than nothing.
+desc:"I'm starving!
+desc: We ain't had nothing but maggoty bread for three stinking days!"
+
+name:& Flagon of mead~
+graphics:,:U
+type:food
+level:1
+weight:5
+cost:0
+effect:NOURISH:INC_BY
+dice:11
+msg_self:Yummy!
+desc:The more the merrier!
+
+name:One Ring Cake~
+graphics:,:U
+type:food
+level:1
+weight:12
+cost:0
+effect:NOURISH:INC_BY
+dice:42
+msg_self:It is mine, I tell you. My own. My precious. Yes, my precious..
+desc:Deliciousssssss!.. You don't want to share this cake with anyone,
+desc: but eat it by yourself somewhere in the corner...
+
+name:& Stolen mushroom~
+graphics:,:d
+type:food
+level:10
+weight:2
+cost:0
+effect:NOURISH:INC_BY
+dice:5
+msg_self:Did you just heard the barking of dogs?.. Ugh, no, it seemed..
+desc:You also have a passion for mushrooms?
+desc: For legendary mushrooms, mysteriously obtained, if not positively
+desc: ill gotten, is, as every one knows, any one’s for the finding,
+desc: unless the search is interrupted.
+
+name:Elvish water
+graphics:,:U
+type:food
+level:1
+weight:8
+cost:0
+effect:NOURISH:INC_BY
+dice:6
+effect:TIMED_INC:BLESSED
+dice:6+1d12
+msg_self:Ho! Ho! Ho! To the bottle I go! To heal my heart and drown my woe!
+desc:Clear drink, pale golden in colour: it has the scent of a honey
+desc: made of many flowers, and is wonderfully refreshing.
+
+name:& Apple of Youth
+graphics:,:I
+type:food
+level:0
+weight:3
+cost:0
+effect:NOURISH:INC_BY
+dice:13
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:CHR
+effect:CURE:AMNESIA
+effect:CURE:CUT
+effect:CURE:STUN
+effect:CURE:POISONED
+effect:CURE:CONFUSED
+effect:CURE:BLIND
+effect:RESTORE_EXP
+effect:HEAL_HP
+dice:42
+msg_self:You feel how your wrinkles smoothing..
+desc:Legandary apples of immortality... You can't believe you found one.
+
+#small box of salt 

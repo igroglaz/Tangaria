@@ -32399,6 +32399,18 @@ feat:house wall i`:dark:0xE3:0xFF
 monster:darkling:0x9C:0xF5
 monster:shadow of nazgul:0x9B:0xF5
 
+object:food:Cram Bread:0x82:0x86
+object:food:Petty-dwarf roots:0x9F:0xDC
+object:food:Salted Pork from Isengard:0x82:0x83
+object:food:Pipe-weed:0x82:0x83
+object:food:Elvish wine:0x82:0x83
+object:food:Cold chicken:0x82:0x93
+object:food:Maggoty bread:0x9F:0xDD
+object:food:Flagon of mead:0x88:0x83
+object:food:One Ring Cake:0x9F:0xDB
+object:food:Stolen mushroom:0x82:0x97
+object:food:Elvish water:88:0xC8
+object:food:Apple of Youth:0x82:0xA1
 
 # Load the special player pictures
 %:xtra-tan.prf

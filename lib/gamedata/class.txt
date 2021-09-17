@@ -173,7 +173,7 @@ hitdie:10
 max-attacks:6
 min-weight:30
 strength-multiplier:5
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:sword:Dagger:1:1:none
@@ -221,7 +221,7 @@ hitdie:5
 max-attacks:2
 min-weight:35
 strength-multiplier:4
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Rusty Lantern:1:1:none
 equip:sword:Dagger:1:1:none
 equip:bow:Short Bow:1:1:birth_no_recall
@@ -273,7 +273,7 @@ skill-melee:64:40
 skill-shoot:60:30
 skill-dig:10:5
 hitdie:8
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
@@ -332,7 +332,7 @@ hitdie:1
 max-attacks:4
 min-weight:40
 strength-multiplier:2
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -631,7 +631,7 @@ hitdie:2
 max-attacks:4
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:1:3:none
+#equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Whip:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -937,7 +937,7 @@ hitdie:2
 max-attacks:4
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Mace:1:1:none
 equip:potion:Cure Serious Wounds:2:3:none
@@ -1250,7 +1250,7 @@ hitdie:1
 max-attacks:4
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:1:3:none
+#equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Main Gauche:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -1587,7 +1587,7 @@ hitdie:7
 max-attacks:5
 min-weight:30
 strength-multiplier:5
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Protection from Evil:1:1:birth_no_recall
@@ -1820,7 +1820,7 @@ hitdie:5
 max-attacks:5
 min-weight:20
 strength-multiplier:4
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 ####################equip:shadow book:[Robbers Handbook]:1:1:1
 equip:sword:Dagger:1:1:none
@@ -2042,7 +2042,7 @@ hitdie:6
 max-attacks:5
 min-weight:35
 strength-multiplier:4
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 ##########equip:magic book:[Magic for Beginners]:1:1:1
 equip:sword:Main Gauche:1:1:none
@@ -2224,7 +2224,7 @@ hitdie:9
 max-attacks:5
 min-weight:100
 strength-multiplier:5
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Tulwar:1:1:none
 equip:shield:Leather Shield:1:1:none
@@ -2455,7 +2455,7 @@ hitdie:0
 max-attacks:1
 min-weight:40
 strength-multiplier:2
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 ######################equip:sorcery book:[Apprentice Handbook]:1:1:1
 equip:sword:Dagger:1:1:none
@@ -2826,7 +2826,7 @@ hitdie:9
 max-attacks:6
 min-weight:30
 strength-multiplier:5
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:sword:Dagger:1:1:none
@@ -2871,7 +2871,7 @@ hitdie:4
 max-attacks:2
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Rusty Lantern:1:1:none
 ###################equip:hunt book:[Hunting and Tracking]:1:1:1
 equip:sword:Dagger:1:1:none
@@ -3032,7 +3032,7 @@ hitdie:3
 max-attacks:4
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -3387,7 +3387,7 @@ hitdie:1
 max-attacks:3
 min-weight:40
 strength-multiplier:2
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -3864,7 +3864,7 @@ hitdie:0
 max-attacks:1
 min-weight:40
 strength-multiplier:2
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 ###################### equip:summoning book:[Survival]:1:1:1
 equip:hafted:Quarterstaff:1:1:none
@@ -4101,7 +4101,7 @@ hitdie:5
 max-attacks:5
 min-weight:35
 strength-multiplier:4
-equip:food:Ration of Food:2:4:none
+#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:sword:Dagger:1:1:none

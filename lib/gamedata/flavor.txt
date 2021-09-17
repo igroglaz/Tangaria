@@ -412,5 +412,14 @@ flavor:311:White
 flavor:312:White
 flavor:313:White
 
+##### Mushrooms #####
+
+kind:mushroom:,
+
+flavor:314:Orange:Soft
+flavor:315:Red:Pimpled
+flavor:316:Pink:Beautiful
+flavor:317:Beige:Ordinary
+
 
 # when adding - check flvr-tan.prf

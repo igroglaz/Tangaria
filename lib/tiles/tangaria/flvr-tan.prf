@@ -953,5 +953,17 @@ flavor:312:0x87:0x95
 # Scroll
 flavor:313:0x87:0x95
 
+# Orange mushroom
+flavor:314:0x82:0x8A
+
+# Red mushroom
+flavor:315:0x82:0x8B
+
+# Pink mushroom
+flavor:316:0x82:0x98
+
+# Beige mushroom
+flavor:317:0x82:0x9A
+
 
 # when adding - check flavor.txt
