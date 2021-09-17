@@ -2118,6 +2118,10 @@ static void post_turn_game_loop(void)
     for (i = 1; i <= NumPlayers; i++)
     {
         struct player *p = player_get(i);
+        
+        // pre-PWMA fix ///////////////
+        if (p->upkeep->funeral) continue;
+        //////////////////////////////
 
         /* Full refresh (includes monster/object lists) */
         p->full_refresh = true;
