@@ -71,3 +71,4 @@ OF(SLOW_DIGEST_2, "Digests food very slowly")
 OF(SUST_CHR, "Sustains charisma")
 OF(CANT_FLY, "Forbids flying")
 OF(NO_DROP, "Forbids dropping item")
+OF(PROT_AMNESIA, "Resists amnesia") // not in UI

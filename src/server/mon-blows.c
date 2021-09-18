@@ -1384,7 +1384,7 @@ static void melee_effect_handler_FORGET(melee_effect_handler_context_t *context)
         /* PvP: forget attack */
         if (magik(context->target->player->state.skills[SKILL_SAVE]))
             msg(context->p, "%s is unaffected.", context->ddesc);
-        else
+        else if (!player_of_has(context->target->player, OF_PROT_AMNESIA))
             player_inc_timed(context->target->player, TMD_AMNESIA, 4, true, true);
         return;
     }
@@ -1399,7 +1399,7 @@ static void melee_effect_handler_FORGET(melee_effect_handler_context_t *context)
         msg(context->p, "You resist the effects!");
         context->obvious = true;
     }
-    else
+    else if (!player_of_has(context->target->player, OF_PROT_AMNESIA))
         context->obvious = player_inc_timed(context->p, TMD_AMNESIA, 4, true, true);
 }
 

@@ -426,3 +426,8 @@ type:object
 code:CANT_FLY
 name:Can not fly
 desc:You are not able to fly.
+
+type:object
+code:PROT_AMNESIA
+name:Amnesia Immunity
+desc:You cannot have amnesia.

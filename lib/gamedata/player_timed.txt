@@ -679,3 +679,13 @@ near-end:'s demon wings disappear.
 
 name:SAFELOGIN
 grade:G:10000:Safe:xxx
+
+name:OPP_AMNESIA
+desc:temporary resistance to amnesia
+grade:v:10000:RAmne:You feel resistant to amnesia!
+on-end:You are no longer resistant to amnesia.
+on-increase:You feel more resistant to amnesia!
+on-decrease:You feel less resistant to amnesia.
+near-begin: is surrounded by a clear aura.
+near-end:'s clear aura disappears.
+flag-synonym:PROT_AMNESIA:1

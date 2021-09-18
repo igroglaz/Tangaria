@@ -504,7 +504,7 @@ static int project_player_handler_DARK(project_player_handler_context_t *context
         }
 
         /* Amnesia */
-        if (randint0(context->dam) > 300)
+        if (randint0(context->dam) > 300 && !player_of_has(p, OF_PROT_AMNESIA))
         {
             msg(p, "Darkness penetrates your mind!");
             player_inc_timed(p, TMD_AMNESIA, context->dam / 100, true, false);
@@ -1363,7 +1363,8 @@ static int project_player_handler_FORGET(project_player_handler_context_t *conte
     struct player *p = player_get(0 - square(context->cave, &context->grid)->mon);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 8, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))
+        player_inc_timed(p, TMD_AMNESIA, 8, true, true);
 
     return 0;
 }
@@ -1380,7 +1381,8 @@ static int project_player_handler_BLAST(project_player_handler_context_t *contex
         player_inc_timed(p, TMD_CONFUSED, 3 + randint1(4), true, true);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 4, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))    
+        player_inc_timed(p, TMD_AMNESIA, 4, true, true);
 
     return 0;
 }
@@ -1412,7 +1414,8 @@ static int project_player_handler_SMASH(project_player_handler_context_t *contex
         player_inc_timed(p, TMD_PARALYZED, 3 + randint1(4), true, true);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 4, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))
+        player_inc_timed(p, TMD_AMNESIA, 4, true, true);
 
     return 0;
 }

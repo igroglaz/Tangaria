@@ -293,6 +293,7 @@ value:1:CHR[-1]
 value:0:SPEED[1d10]
 value:0:BLOWS[1d1]
 player-flags:0:NO_MANA | MARTIAL_ARTS | FAST_THROW
+# reduce aggro radius?
 title:Initiate
 title:Brother
 title:Disciple
@@ -2818,10 +2819,10 @@ skill-disarm-magic:21:7
 skill-device:0:0
 skill-save:32:14
 skill-stealth:0:0
-skill-search:10:12
+skill-search:18:15
 skill-melee:70:45
 skill-shoot:55:45
-skill-dig:0:0
+skill-dig:5:2
 hitdie:9
 max-attacks:6
 min-weight:30
@@ -2836,13 +2837,27 @@ equip:scroll:Remove Hunger (tattered):1:1:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 value:1:STR[3]
-value:1:INT[-4]
+# Believing in science (or religion) instead of magic is not the reason to be stupid...
+value:0:INT[-4+1d10]
+# ...but in magical world it's definitely not wise.
 value:1:WIS[-3]
 value:1:DEX[2]
 value:1:CON[2]
-value:1:CHR[-3]
+value:0:CHR[0+1d24]
 value:0:ANTI_MAGIC[1d1]
 player-flags:0:NO_MANA
+# + SEE_INVIS in 1 range
+########################
+#player-flags:0:CAN_SWIM .. make swimming movement slower.. rework it.
+#obj-flag:0:CANT_FLY
+#obj-flag:0:SLOW_DIGEST
+#value:1:STEALTH[1]
+#value:50:RES_DISEN[1]
+# some ideas..
+# - drain magic? -> restore life when hit p/h
+# - make curse works rare (like save)
+# - remove buffs from mobs
+# - drink from fountains only water
 title:Asker
 title:Thinker
 title:Faithless
@@ -2889,6 +2904,7 @@ value:1:DEX[2]
 value:1:CHR[-1]
 value:0:SHOTS[1d3]
 player-flags:0:CHOOSE_SPELLS | FAST_THROW
+# increase vision radius?
 title:Rock Thrower
 title:Slinger
 title:Fowler
@@ -3045,6 +3061,7 @@ value:1:WIS[3]
 value:1:DEX[-1]
 value:1:CHR[0+1d15]
 player-flags:0:BEAM | CHOOSE_SPELLS
+obj-flag:0:PROT_AMNESIA
 title:Novice
 title:Talent
 title:Empath

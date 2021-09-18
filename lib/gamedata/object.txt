@@ -3582,6 +3582,8 @@ effect:HEAL_HP
 dice:60
 effect:TIMED_INC:OPP_CONF
 dice:1d1
+effect:TIMED_INC:OPP_AMNESIA
+dice:1d1
 
 name:Healing
 graphics:!:d

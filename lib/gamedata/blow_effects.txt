@@ -303,6 +303,9 @@ power:60
 eval:10
 desc:cause amnesia
 lore-color-base:Yellow
+lore-color-resist:Light Green
+effect-type:flag
+resist:PROT_AMNESIA
 lash-type:TIME
 
 name:DISEASE

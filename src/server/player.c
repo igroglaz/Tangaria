@@ -390,6 +390,7 @@ void player_flags_timed(struct player *p, bitflag f[OF_SIZE])
     if (p->timed[TMD_FREE_ACT]) of_on(f, OF_FREE_ACT);
     if (p->timed[TMD_AFRAID] || p->timed[TMD_TERROR]) of_on(f, OF_AFRAID);
     if (p->timed[TMD_OPP_CONF]) of_on(f, OF_PROT_CONF);
+    if (p->timed[TMD_OPP_AMNESIA]) of_on(f, OF_PROT_AMNESIA);
 }
 
 

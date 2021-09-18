@@ -1909,8 +1909,7 @@ skill-melee:25
 skill-shoot:-15
 skill-dig:0
 hitdie:13
-# -10%
-exp:100:115
+exp:100:125
 history:100
 age:20:10
 height:120:19
@@ -2229,6 +2228,7 @@ value:1:TUNNEL[-5+-1d15]
 player-flags:0:SHIELD_BASH
 obj-flag:1:FEATHER
 obj-flag:1:ESP_ALL
+obj-flag:1:PROT_AMNESIA
 value:1:SPEED[1]
 value:1:DAM_RED[0+-1d4]
 value:1:BLOWS[-1]
