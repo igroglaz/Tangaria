@@ -3359,8 +3359,9 @@ weight:4
 cost:0
 alloc:1:126 to 127
 #self-inducing dmg doesn't work; for such test - check test dummy
-effect:SPOT:DARK:1
-dice:10d1
+effect:FORGET_LEVEL:NONE:1
+#effect:SPOT:DARK:1
+#dice:10d1
 #effect:TELEPORT:NONE:0:1
 #dice:10
 #effect:CURE:IMAGE
@@ -3397,7 +3398,7 @@ dice:10d1
 #dice:60
 #effect:DESTRUCTION:LIGHT:15
 #effect:MASS_BANISH
-#effect:DARKEN_LEVEL
+#effect:DARKEN_LEVEL:NONE:1
 
 ### Statgain ###
 
@@ -3603,6 +3604,8 @@ effect:HEAL_HP
 dice:300+m35
 effect:TIMED_INC:OPP_CONF
 dice:1d1
+effect:TIMED_INC:OPP_AMNESIA
+dice:1d1
 effect:NOURISH:DEC_BY
 dice:1
 
@@ -3622,6 +3625,8 @@ effect:CURE:BLIND
 effect:HEAL_HP
 dice:1200
 effect:TIMED_INC:OPP_CONF
+dice:1d1
+effect:TIMED_INC:OPP_AMNESIA
 dice:1d1
 effect:NOURISH:INC_BY
 dice:1
@@ -3650,6 +3655,10 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:RESTORE_EXP
+effect:TIMED_INC:OPP_CONF
+dice:1d1
+effect:TIMED_INC:OPP_AMNESIA
+dice:1d1
 effect:NOURISH:INC_BY
 dice:1
 msg_self:You feel life flow through your body!
@@ -6628,7 +6637,7 @@ effect:BATTY
 effect:SUMMON:UNDEAD:0:-1
 dice:1d1
 effect:UNDEAD_FORM
-effect:DARKEN_LEVEL
+effect:DARKEN_LEVEL:NONE:1
 effect:READ_MINDS
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:/ 10 + 1
@@ -6636,7 +6645,7 @@ expr:S:PLAYER_LEVEL:/ 10 + 1
 effect:DETECT_SOUL
 effect-yx:22:40
 #positive:
-effect:DESTRUCTION:LIGHT:15
+effect:DESTRUCTION:LIGHT:13
 effect:MASS_BANISH
 msg_self:Why did you touch it!.. It was CURSED!
 desc:You feel wicked evil energy oozing through this object...

@@ -282,6 +282,7 @@ extern void square_light_spot(struct chunk *c, struct loc *grid);
 extern void light_room(struct player *p, struct chunk *c, struct loc *grid, bool light);
 extern void wiz_light(struct player *p, struct chunk *c, int mode);
 extern void wiz_dark(struct player *p, struct chunk *c, bool full);
+extern void wiz_forget(struct player *p, struct chunk *c, bool full);
 extern void cave_illuminate(struct player *p, struct chunk *c, bool daytime);
 extern void expose_to_sun(struct chunk *c, struct loc *grid, bool daytime);
 extern void square_forget_all(struct chunk *c, struct loc *grid);

@@ -2777,6 +2777,33 @@ static bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     return true;
 }
 
+static bool effect_handler_FORGET_LEVEL(effect_handler_context_t *context)
+{
+    bool full = (context->other? true: false);
+    int i;
+
+    /* No effect outside of the dungeon during day */
+    if ((context->origin->player->wpos.depth == 0) && is_daytime())
+    {
+        msg(context->origin->player, "Nothing happens.");
+        return true;
+    }
+
+    /* No effect on special levels */
+    if (special_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "Nothing happens.");
+        return true;
+    }
+
+    if (full)
+        msg(context->origin->player, "Your mind suddenly become blank... you don't remember this place.");
+    wiz_forget(context->origin->player, context->cave, full);
+    context->ident = true;
+
+    return true;
+}
+
 
 static bool effect_handler_DARKEN_LEVEL(effect_handler_context_t *context)
 {
