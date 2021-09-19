@@ -319,10 +319,10 @@ weight:5
 cost:0
 alloc:30:50 to 100
 pile:50:1d3
-effect:NOURISH:SET_TO
-dice:7+1d4
 effect:NOURISH:DEC_BY
-dice:7+3d2
+dice:20+3d2
+effect:NOURISH:DEC_BY
+dice:10+3d2
 effect:NOURISH:INC_BY
 dice:10
 effect:NOURISH:INC_BY
