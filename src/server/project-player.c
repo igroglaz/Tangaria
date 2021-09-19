@@ -17,6 +17,24 @@
  *    are included in all such copies.  Other copyrights may also apply.
  */
 
+/*
+
+! This code is for PvP !
+
+eg in monster-spell.txt:
+
+effect:TIMED_INC:AMNESIA
+dice:8
+effect:PROJECT:FORGET
+dice:5+1d5
+
+first line is monster -> player
+second line is PvP.
+
+So all PROJECT is PvP.
+
+*/
+
 
 #include "s-angband.h"
 

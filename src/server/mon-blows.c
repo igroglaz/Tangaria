@@ -1399,8 +1399,20 @@ static void melee_effect_handler_FORGET(melee_effect_handler_context_t *context)
         msg(context->p, "You resist the effects!");
         context->obvious = true;
     }
-    else if (!player_of_has(context->target->player, OF_PROT_AMNESIA))
+    else if (!player_of_has(context->p, OF_PROT_AMNESIA))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+
         context->obvious = player_inc_timed(context->p, TMD_AMNESIA, 4, true, true);
+        
+        if (one_in_(5))
+        {
+            source_both(who, context->p, who->monster);
+            msg(context->p, "Your mind suddenly become blank... you don't remember this place.");
+            effect_simple(EF_FORGET_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
+        }
+    }
 }
 
 

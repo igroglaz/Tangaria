@@ -31189,9 +31189,10 @@ depth:1
 ############### make 0!
 rarity:0
 weight:0
-experience:0
+experience:1
 spell-freq:1
-spells:BO_TEST
+spell-power:50
+spells:FORGET
 flags:NEVER_MOVE
 desc:An indestructible golem used for testing purposes.
 
@@ -31199,7 +31200,7 @@ name:Test drop
 base:golem
 color:y
 speed:100
-hit-points:1
+hit-points:1000
 hearing:1
 armor-class:0
 sleepiness:0
@@ -31209,7 +31210,7 @@ rarity:0
 weight:0
 experience:1
 spell-freq:1
-blow:HIT:HURT:1d1
+blow:HIT:FORGET:10d1
 flags:NEVER_MOVE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 #drop:sword:'Stormbringer':100:1:1

@@ -2780,7 +2780,9 @@ static bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
 static bool effect_handler_FORGET_LEVEL(effect_handler_context_t *context)
 {
     bool full = (context->other? true: false);
-    int i;
+
+    if (one_in_(2))
+        return true;
 
     /* No effect outside of the dungeon during day */
     if ((context->origin->player->wpos.depth == 0) && is_daytime())

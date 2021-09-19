@@ -986,6 +986,7 @@ message-invis:Something cackles evilly.
 
 name:FORGET
 hit:100
+effect:FORGET_LEVEL
 effect:TIMED_INC:AMNESIA
 dice:8
 effect:PROJECT:FORGET
