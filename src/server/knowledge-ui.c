@@ -2703,7 +2703,14 @@ void do_cmd_check_players(struct player *p, int line)
         /* Print extra info if these people are not 'red' aka hostile */
         /* Hack -- always show extra info to dungeon master */
         if ((attr != 'r') || (p->dm_flags & DM_SEE_PLAYERS))
-            file_putf(fff, " at %d ft (%d, %d)", q->wpos.depth * 50, q->wpos.grid.x, q->wpos.grid.y);
+        {
+            /* Newline */
+            file_put(fff, "\n");
+            file_putf(fff, "%c", attr);
+            file_putf(fff, "     %s at %d ft (%d, %d)",
+                STRZERO(q->locname)? "Wilderness": q->locname,
+                q->wpos.depth * 50, q->wpos.grid.x, q->wpos.grid.y);
+        }
 
         /* Newline */
         file_put(fff, "\n");

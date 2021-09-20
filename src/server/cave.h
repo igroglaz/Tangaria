@@ -83,7 +83,6 @@ struct square
 {
     u16b feat;
     bitflag *info;
-    int light;
     s16b mon;
     struct object *obj;
     struct trap *trap;
@@ -409,7 +408,7 @@ extern bool square_iswall(struct chunk *c, struct loc *grid);
 extern bool square_isstrongwall(struct chunk *c, struct loc *grid);
 extern bool square_isbright(struct chunk *c, struct loc *grid);
 extern bool square_isfiery(struct chunk *c, struct loc *grid);
-extern bool square_islit(struct chunk *c, struct loc *grid);
+extern bool square_islit(struct player *p, struct loc *grid);
 extern bool square_isdamaging(struct chunk *c, struct loc *grid);
 extern bool square_isnoflow(struct chunk *c, struct loc *grid);
 extern bool square_isnoscent(struct chunk *c, struct loc *grid);
@@ -431,7 +430,7 @@ extern bool square_isbelievedwall(struct player *p, struct chunk *c, struct loc 
 extern struct square *square(struct chunk *c, struct loc *grid);
 extern struct player_square *square_p(struct player *p, struct loc *grid);
 extern struct feature *square_feat(struct chunk *c, struct loc *grid);
-extern int square_light(struct chunk *c, struct loc *grid);
+extern int square_light(struct player *p, struct loc *grid);
 extern struct monster *square_monster(struct chunk *c, struct loc *grid);
 extern struct object *square_object(struct chunk *c, struct loc *grid);
 extern struct trap *square_trap(struct chunk *c, struct loc *grid);

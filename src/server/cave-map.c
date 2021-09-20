@@ -88,7 +88,7 @@ void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_d
 
     if (g->in_view)
     {
-        bool lit = square_islit(c, grid);
+        bool lit = square_islit(p, grid);
 
         if (sqinfo_has(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER))
         {

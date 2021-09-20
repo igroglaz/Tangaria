@@ -563,6 +563,7 @@ struct player_square
 {
     u16b feat;
     bitflag *info;
+    int light;
     struct object *obj;
     struct trap *trap;
 };

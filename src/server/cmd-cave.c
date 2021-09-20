@@ -1133,11 +1133,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Place an object */
             if (magik(10) && !square_ishardrubble(c, grid))
             {
+                struct object *new_obj;
+
                 /* Create a simple object */
                 place_object(p, c, grid, object_level(&p->wpos), false, false, ORIGIN_RUBBLE, 0);
 
                 /* Observe the new object */
-                if (!ignore_item_ok(p, square_object(c, grid)) && square_isseen(p, grid))
+                new_obj = square_object(c, grid);
+                if (new_obj && !ignore_item_ok(p, new_obj) && square_isseen(p, grid))
                     msg(p, "You have found something!");
             }
         }

@@ -597,6 +597,18 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     m1 = square(c, &from)->mon;
     m2 = square(c, &to)->mon;
 
+    /* Don't move NO_DEATH monsters */
+    if (m1 > 0)
+    {
+        mon = cave_monster(c, m1);
+        if (rf_has(mon->race->flags, RF_NO_DEATH)) return;
+    }
+    if (m2 > 0)
+    {
+        mon = cave_monster(c, m2);
+        if (rf_has(mon->race->flags, RF_NO_DEATH)) return;
+    }
+
     /* Update grids */
     square_set_mon(c, &from, m2);
     square_set_mon(c, &to, m1);
@@ -649,7 +661,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     /* Monster 2 */
     if (m2 > 0)
     {
-        mon = cave_monster(c, m2); 
+        mon = cave_monster(c, m2);
 
         /* Hack -- save previous monster location */
         loc_copy(&mon->old_grid, &mon->grid);

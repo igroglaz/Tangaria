@@ -1831,7 +1831,7 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     if (get_connection(p->conn)->q.len > 0) return false;
 
     /* Don't auto-retalitate after a clear request */
-    if (p->first_escape) return false;
+    /*if (p->first_escape) return false;*/
 
     /* Check preventive inscription '^O' */
     if (check_prevent_inscription(p, INSCRIPTION_RETALIATE) && (mode == AR_NORMAL)) return false;

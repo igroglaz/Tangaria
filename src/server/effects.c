@@ -7054,13 +7054,6 @@ static bool effect_handler_TELEPORT(effect_handler_context_t *context)
         return !used;
     }
 
-    /* Don't teleport NO_DEATH monsters */
-    if (!is_player && rf_has(context->origin->monster->race->flags, RF_NO_DEATH))
-    {
-        if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
-        return !used;
-    }
-
     /* Hack -- hijack teleport in Arena */
     if (is_player && (context->origin->player->arena_num != -1))
     {

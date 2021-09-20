@@ -34,4 +34,4 @@ SQUARE(FAKE, "is a fake permawall")                     /* global */
 SQUARE(CUSTOM_WALL, "is a custom wall")                 /* global */
 SQUARE(LIMITED_TELE, "allows limited teleportation")    /* global */
 SQUARE(WASCLOSE, "previously close (during update)")    /* player */
-SQUARE(WASLIT, "previously lit (during update)")        /* global */
+SQUARE(WASLIT, "previously lit (during update)")        /* player */

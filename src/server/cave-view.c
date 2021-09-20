@@ -477,8 +477,8 @@ static void mark_wasseen(struct player *p, struct chunk *c)
             sqinfo_on(square_p(p, &iter.cur)->info, SQUARE_WASCLOSE);
 
         /* PWMAngband: save the old "lit" flag */
-        if (square_islit(c, &iter.cur))
-            sqinfo_on(square(c, &iter.cur)->info, SQUARE_WASLIT);
+        if (square_islit(p, &iter.cur))
+            sqinfo_on(square_p(p, &iter.cur)->info, SQUARE_WASLIT);
 
         sqinfo_off(square_p(p, &iter.cur)->info, SQUARE_VIEW);
         sqinfo_off(square_p(p, &iter.cur)->info, SQUARE_SEEN);
@@ -707,12 +707,12 @@ static void add_light(struct chunk *c, struct player *p, struct loc *sgrid, int 
         if (inten > 0)
         {
             /* Light getting less further away */
-            square(c, &grid)->light += inten - dist;
+            square_p(p, &grid)->light += inten - dist;
         }
         else
         {
             /* Light getting greater further away */
-            square(c, &grid)->light += inten + dist;
+            square_p(p, &grid)->light += inten + dist;
         }
     }
     while (loc_iterator_next(&iter));
@@ -741,15 +741,15 @@ static void calc_lighting(struct player *p, struct chunk *c)
         if (square_isglow(c, &iter.cur) &&
             (!square_iswall(c, &iter.cur) || glow_can_light_wall(c, p, &iter.cur, sunlit)))
         {
-            square(c, &iter.cur)->light = 1;
+            square_p(p, &iter.cur)->light = 1;
         }
         else
-            square(c, &iter.cur)->light = 0;
+            square_p(p, &iter.cur)->light = 0;
 
         /* Squares with bright terrain have intensity 2 */
         if (square_isbright(c, &iter.cur))
         {
-            square(c, &iter.cur)->light += 2;
+            square_p(p, &iter.cur)->light += 2;
             for (dir = 0; dir < 8; dir++)
             {
                 struct loc adj_grid;
@@ -760,7 +760,7 @@ static void calc_lighting(struct player *p, struct chunk *c)
                 /* Only brighten a wall if the player is in position to view the face that's lit up. */
                 if (square_iswall(c, &adj_grid) && !source_can_light_wall(c, p, &iter.cur, &adj_grid))
                     continue;
-                square(c, &adj_grid)->light += 1;
+                square_p(p, &adj_grid)->light += 1;
             }
         }
     }
@@ -825,9 +825,9 @@ static void calc_lighting(struct player *p, struct chunk *c)
     }
 
     /* Update light level indicator */
-    if (square_light(c, &p->grid) != old_light)
+    if (square_light(p, &p->grid) != old_light)
     {
-        p->square_light = square_light(c, &p->grid);
+        p->square_light = square_light(p, &p->grid);
         p->upkeep->redraw |= PR_STATE;
     }
 }
@@ -853,7 +853,7 @@ static void become_viewable(struct player *p, struct chunk *c, struct loc *grid,
     }
 
     /* Mark lit grids, and walls near to them, as seen */
-    if (square_islit(c, grid))
+    if (square_islit(p, grid))
     {
         /* For walls, check for a lit grid closer to the player */
         if (square_iswall(c, grid))
@@ -862,7 +862,7 @@ static void become_viewable(struct player *p, struct chunk *c, struct loc *grid,
 
             loc_init(&gridc, ((x < p->grid.x)? (x + 1): (x > p->grid.x)? (x - 1): x),
                 ((y < p->grid.y)? (y + 1): (y > p->grid.y)? (y - 1): y));
-            if (square_islit(c, &gridc))
+            if (square_islit(p, &gridc))
                 sqinfo_on(square_p(p, grid)->info, SQUARE_SEEN);
         }
         else
@@ -956,8 +956,8 @@ static void update_one(struct player *p, struct chunk *c, struct loc *grid)
 {
     bool is_close = sqinfo_has(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER);
     bool was_close = sqinfo_has(square_p(p, grid)->info, SQUARE_WASCLOSE);
-    bool is_lit = square_islit(c, grid);
-    bool was_lit = sqinfo_has(square(c, grid)->info, SQUARE_WASLIT);
+    bool is_lit = square_islit(p, grid);
+    bool was_lit = sqinfo_has(square_p(p, grid)->info, SQUARE_WASLIT);
 
     /* Remove view if blind, check visible squares for traps */
     if (p->timed[TMD_BLIND])
@@ -1004,7 +1004,7 @@ static void update_one(struct player *p, struct chunk *c, struct loc *grid)
 
     /* PWMAngband: also clear "SQUARE_WASCLOSE" and "SQUARE_WASLIT" flags */
     sqinfo_off(square_p(p, grid)->info, SQUARE_WASCLOSE);
-    sqinfo_off(square(c, grid)->info, SQUARE_WASLIT);
+    sqinfo_off(square_p(p, grid)->info, SQUARE_WASLIT);
 }
 
 
@@ -1024,7 +1024,7 @@ void update_view(struct player *p, struct chunk *c)
 
     /* Assume we can view the player grid */
     sqinfo_on(square_p(p, &p->grid)->info, SQUARE_VIEW);
-    if ((p->state.cur_light > 0) || square_islit(c, &p->grid))
+    if ((p->state.cur_light > 0) || square_islit(p, &p->grid))
     {
         sqinfo_on(square_p(p, &p->grid)->info, SQUARE_SEEN);
         sqinfo_on(square_p(p, &p->grid)->info, SQUARE_CLOSE_PLAYER);

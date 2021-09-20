@@ -1173,11 +1173,11 @@ bool square_isfiery(struct chunk *c, struct loc *grid)
 /*
  * True if the cave square is lit.
  */
-bool square_islit(struct chunk *c, struct loc *grid)
+bool square_islit(struct player *p, struct loc *grid)
 {
-    my_assert(square_in_bounds(c, grid));
+    my_assert(player_square_in_bounds(p, grid));
 
-    return ((square_light(c, grid) > 0)? true: false);
+    return ((square_light(p, grid) > 0)? true: false);
 }
 
 
@@ -1418,10 +1418,10 @@ struct feature *square_feat(struct chunk *c, struct loc *grid)
 }
 
 
-int square_light(struct chunk *c, struct loc *grid)
+int square_light(struct player *p, struct loc *grid)
 {
-    my_assert(square_in_bounds(c, grid));
-    return square(c, grid)->light;
+    my_assert(player_square_in_bounds(p, grid));
+    return square_p(p, grid)->light;
 }
 
 
@@ -2134,9 +2134,8 @@ void square_destroy_decoy(struct player *p, struct chunk *c, struct loc *grid)
 
 void square_tunnel_wall(struct chunk *c, struct loc *grid)
 {
-    int feat = ((c->wpos.depth > 0)? FEAT_FLOOR: FEAT_DIRT);
-
-    square_set_floor(c, grid, feat);
+    square_set_feat(c, grid, FEAT_DIRT);
+    sqinfo_off(square(c, grid)->info, SQUARE_CUSTOM_WALL);
 }
 
 
