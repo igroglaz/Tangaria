@@ -4157,9 +4157,9 @@ type:potion
 level:3
 weight:4
 cost:1
-effect:NOURISH:SET_TO
-dice:2
-msg_self:The potion calms your stomach, but leaves you very hungry.
+effect:NOURISH:DEC_BY
+dice:25
+msg_self:The potion calms your stomach, but leaves you more hungry.
 msg_other: hiccups.
 
 name:Death
@@ -9426,3 +9426,14 @@ msg_self:You feel how your wrinkles smoothing..
 desc:Legandary apples of immortality... You can't believe you found one.
 
 #small box of salt 
+
+name:& Club~
+graphics:\:u
+type:hafted
+level:0
+weight:20
+cost:0
+alloc:2:1 to 100
+attack:1d3:0:0
+armor:0:0
+desc:A simple oak club.. it's quite old, but still do the job.
