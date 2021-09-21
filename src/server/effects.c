@@ -242,7 +242,7 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     loc_copy(&grid, &obj->grid);
 
     /* Curse is permanent */
-    if (curse->power >= 100) return false;
+    if (curse->power >= 100 || streq(context->origin->player->clazz->name, "Unbeliever")) return false;
 
     /* Successfully removed this curse */
     if (strength >= curse->power)
@@ -2510,7 +2510,7 @@ static bool effect_handler_CURSE_ARMOR(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "body");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -2563,7 +2563,7 @@ static bool effect_handler_CURSE_WEAPON(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "weapon");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;

@@ -80,6 +80,9 @@ help: mage in their use. Priests have great saving throws, and make passable
 help: fighters, better if they can find a blessed weapon. Wisdom is the priest's
 help: primary stat and at high enough levels they can cast many prayers without
 help: a chance of failure. Priests have poor stealth.
+help: Although weak in the beginning, priests could become decent fighters 
+help: who strongly prefer blunt weapons over edged ones; if they wield one that
+help: isn't blessed, they receive an additional severe penalty.
 
 class:Necromancer
 help:A Necromancer seeks to master the spirits of sentient creatures, creating
@@ -147,11 +150,13 @@ help: not recommended for beginners. Intelligence is the sorceror's primary stat
 class:Unbeliever
 help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
 help: not only do they refuse to use magic spells, they refuse all training in the
-help: use of magic items, which leaves them almost totally incompetent when trying
+help: use of magic items, which leaves them totally incompetent when trying
 help: to use a magic item, although they can still quaff potions and read scrolls.
 help: Because they are so unattuned to magic, Unbelievers can prevent magical gates
 help: from opening around them, eventually extending to a complete suppression of
 help: teleportation abilities and all magic in the area around them.
+help: Unbelievers can replenish their forces when making damage to non-natural 
+help: magic users. Also they could sense invisible creatures in melee range.
 
 class:Hunter
 help:Hunters aren't good at fighting, but can deliever extremely high damage with

@@ -376,6 +376,10 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
         if (p->body.slots[i].obj == NULL) continue;
         curse = p->body.slots[i].obj->curses;
+
+        if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
+            curse = 0;
+        
         for (j = 0; curse && (j < z_info->curse_max); j++)
         {
             if (curse[j].power == 0) continue;
