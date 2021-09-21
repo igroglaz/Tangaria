@@ -156,7 +156,8 @@ help: Because they are so unattuned to magic, Unbelievers can prevent magical ga
 help: from opening around them, eventually extending to a complete suppression of
 help: teleportation abilities and all magic in the area around them.
 help: Unbelievers can replenish their forces when making damage to non-natural 
-help: magic users. Also they could sense invisible creatures in melee range.
+help: magic users. Also they could sense invisible creatures in melee range,
+help: can resist item's curses and cancel some other magic effects...
 
 class:Hunter
 help:Hunters aren't good at fighting, but can deliever extremely high damage with

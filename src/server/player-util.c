@@ -1556,6 +1556,12 @@ void poly_bat(struct player *p, int chance, char *killer)
         msg(p, "Nothing happens.");
         return;
     }
+    
+    if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
+    {
+        msg(p, "Your strong metabolism prevented malicious attempt of polymorph.");
+        return;
+    }
 
     if (p->poly_race != race_fruit_bat)
     {

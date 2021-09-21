@@ -2498,9 +2498,16 @@ void do_cmd_fountain(struct player *p, int item)
 
     /* Message */
     if (item == -1) msg(p, "You drink from the fountain.");
+    
+    /* Unbeliever unmagics water */
+    if (streq(p->clazz->name, "Unbeliever") && fountain && !one_in_(4))
+    {    
+        msg(p, "This tepid water is tasteless.");
+        kind = lookup_kind_by_name(TV_POTION, "Water");
+    }
 
     /* Ale */
-    if (fountain && one_in_(10))
+    else if (fountain && one_in_(10))
     {
         msg(p, "Wow! Pure dwarven ale!");
         kind = lookup_kind_by_name(TV_FOOD, "Pint of Fine Ale");

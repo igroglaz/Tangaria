@@ -242,7 +242,7 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     loc_copy(&grid, &obj->grid);
 
     /* Curse is permanent */
-    if (curse->power >= 100 || streq(context->origin->player->clazz->name, "Unbeliever")) return false;
+    if (curse->power >= 100 || streq(p->clazz->name, "Unbeliever")) return false;
 
     /* Successfully removed this curse */
     if (strength >= curse->power)
