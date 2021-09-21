@@ -464,7 +464,15 @@ static void blow_side_effects(struct player *p, struct source *target,
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
         hp_player_safe(p, 1 + drain / 2);
-    }
+    }   
+    else if (streq(p->clazz->name, "Unbeliever") && target->monster &&
+        target->monster->race->freq_spell && !target->monster->race->freq_innate &&
+        !monster_is_powerful(target->monster))
+    {
+        int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
+
+        hp_player_safe(p, 1 + drain / 2);
+    }    
 
     /* Confusion attack */
     if (p->timed[TMD_ATT_CONF])
