@@ -2656,6 +2656,15 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_DIGGING] += (weapon->weight / 10);
         }
 
+        /* Priest weapon penalty for non-blessed edged weapons */
+        if (streq(p->clazz->name, "Priest") && !of_has(state->flags, OF_BLESSED) &&
+            ((weapon->tval == TV_SWORD) || (weapon->tval == TV_POLEARM)))
+        {
+            state->to_h -= 2;
+            state->to_d -= 2;
+            state->skills[SKILL_SAVE] -= 10;
+        }
+
         /* Divine weapon bonus for blessed weapons */
         if (player_has(p, PF_BLESS_WEAPON) && of_has(state->flags, OF_BLESSED))
         {

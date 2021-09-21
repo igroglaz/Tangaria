@@ -2847,6 +2847,7 @@ value:0:CHR[0+1d24]
 value:0:ANTI_MAGIC[1d1]
 player-flags:0:NO_MANA
 # + SEE_INVIS in 1 range
+# + drain magic -> restore life
 ########################
 #player-flags:0:CAN_SWIM .. make swimming movement slower.. rework it.
 #obj-flag:0:CANT_FLY
@@ -2854,7 +2855,6 @@ player-flags:0:NO_MANA
 #value:0:STEALTH[1]
 #value:50:RES_DISEN[1]
 # some ideas..
-# - drain magic? -> restore life when hit p/h
 # - make curse works rare (like save)
 # - remove buffs from mobs
 # - drink from fountains only water
