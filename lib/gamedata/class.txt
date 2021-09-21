@@ -187,12 +187,12 @@ equip:potion:Cure Light Wounds:2:3:birth_no_recall
 #equip:scroll:House Creation:40:40:none
 #equip:potion:Experience:1:1:none
 obj-flag:30:PROT_FEAR
-value:1:STR[3]
-value:1:INT[-2]
-value:1:WIS[-2]
-value:1:DEX[2]
-value:1:CON[2]
-value:1:CHR[-2]
+value:0:STR[3]
+value:0:INT[-2]
+value:0:WIS[-2]
+value:0:DEX[2]
+value:0:CON[2]
+value:0:CHR[-2]
 player-flags:0:NO_MANA | SHIELD_BASH
 title:Rookie
 title:Soldier
@@ -231,12 +231,12 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-1]
-value:1:INT[-2]
-value:1:WIS[-1]
-value:1:DEX[3]
-value:1:CON[1]
-value:1:CHR[-2]
+value:0:STR[-1]
+value:0:INT[-2]
+value:0:WIS[-1]
+value:0:DEX[3]
+value:0:CON[1]
+value:0:CHR[-2]
 value:0:SHOTS[1d6]
 #
 player-flags:0:FAST_SHOT
@@ -285,11 +285,11 @@ obj-flag:10:FEATHER
 obj-flag:15:PROT_FEAR
 obj-flag:20:PROT_CONF
 obj-flag:25:FREE_ACT
-value:1:STR[1]
-value:1:INT[-2]
-value:1:DEX[2]
-value:1:CON[1]
-value:1:CHR[-1]
+value:0:STR[1]
+value:0:INT[-2]
+value:0:DEX[2]
+value:0:CON[1]
+value:0:CHR[-1]
 value:0:SPEED[1d10]
 value:0:BLOWS[1d1]
 player-flags:0:NO_MANA | MARTIAL_ARTS | FAST_THROW
@@ -340,10 +340,10 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-3]
-value:1:INT[3]
-value:1:CON[-2]
-value:1:CHR[1+1d35]
+value:0:STR[-3]
+value:0:INT[3]
+value:0:CON[-2]
+value:0:CHR[1+1d35]
 player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
 title:Novice
 title:Apprentice
@@ -639,9 +639,9 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-2]
-value:1:WIS[3]
-value:1:DEX[-2]
+value:0:STR[-2]
+value:0:WIS[3]
+value:0:DEX[-2]
 value:0:CHR[1+1d24]
 player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | CHARM | SHAPECHANGE
 shape:5:cave bear
@@ -945,11 +945,11 @@ equip:potion:Cure Serious Wounds:2:3:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
-value:1:STR[-1]
-value:1:INT[-3]
-value:1:WIS[3]
-value:1:DEX[-1]
-value:1:CON[1]
+value:0:STR[-1]
+value:0:INT[-3]
+value:0:WIS[3]
+value:0:DEX[-1]
+value:0:CON[1]
 value:0:CHR[2+1d24]
 player-flags:0:BLESS_WEAPON | ZERO_FAIL
 title:Believer
@@ -1258,11 +1258,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-3]
-value:1:INT[3]
-value:1:CON[-2]
-value:1:CHR[-4]
-value:1:RES_DARK[1]
+value:0:STR[-3]
+value:0:INT[3]
+value:0:CON[-2]
+value:0:CHR[-4]
+value:0:RES_DARK[1]
 player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS
 ########################### MOVE TO SEPARATE FORMS
 shape:5:fruit bat_
@@ -1596,11 +1596,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[1]
-value:1:INT[-3]
-value:1:WIS[1]
-value:1:DEX[-1]
-value:1:CON[2]
+value:0:STR[1]
+value:0:INT[-3]
+value:0:WIS[1]
+value:0:DEX[-1]
+value:0:CON[2]
 value:0:CHR[1+1d24]
 player-flags:0:BLESS_WEAPON | SHIELD_BASH
 title:Gallant
@@ -1830,11 +1830,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:INT[1]
-value:1:WIS[-3]
-value:1:DEX[3]
-value:1:CON[-1]
-value:1:CHR[-1+-1d40]
+value:0:INT[1]
+value:0:WIS[-3]
+value:0:DEX[3]
+value:0:CON[-1]
+value:0:CHR[-1+-1d40]
 value:5:SPEED[1+1d15]
 player-flags:0:CHOOSE_SPELLS | STEAL
 player-flags:0:BACK_STAB | STEALING_IMPROV | STEALTH_MODE
@@ -2054,10 +2054,10 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:WIS[2]
-value:1:DEX[1]
-value:1:CON[-1]
-value:1:CHR[0]
+value:0:WIS[2]
+value:0:DEX[1]
+value:0:CON[-1]
+value:0:CHR[0]
 player-flags:0:FAST_SHOT | CHOOSE_SPELLS
 title:Runner
 title:Strider
@@ -2234,10 +2234,10 @@ equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 obj-flag:1:IMPAIR_HP
-value:1:STR[2]
-value:1:WIS[-3]
-value:1:CON[2]
-value:1:CHR[0+-1d15]
+value:0:STR[2]
+value:0:WIS[-3]
+value:0:CON[2]
+value:0:CHR[0+-1d15]
 player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
 shape:20:werewolf
 shape:40:volkodlak
@@ -2464,12 +2464,12 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-5]
-value:1:INT[5]
-value:1:CON[-3]
+value:0:STR[-5]
+value:0:INT[5]
+value:0:CON[-3]
 # sullen old sorcerer who focused on magical arts to get POWER beyond imagination
-value:1:CHR[-2]
-value:1:MANA[5]
+value:0:CHR[-2]
+value:0:MANA[5]
 player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
 title:Novice
 title:Apprentice
@@ -2836,13 +2836,13 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
-value:1:STR[3]
+value:0:STR[3]
 # Believing in science (or religion) instead of magic is not the reason to be stupid...
 value:0:INT[-4+1d10]
 # ...but in magical world it's definitely not wise.
-value:1:WIS[-3]
-value:1:DEX[2]
-value:1:CON[2]
+value:0:WIS[-3]
+value:0:DEX[2]
+value:0:CON[2]
 value:0:CHR[0+1d24]
 value:0:ANTI_MAGIC[1d1]
 player-flags:0:NO_MANA
@@ -2851,7 +2851,7 @@ player-flags:0:NO_MANA
 #player-flags:0:CAN_SWIM .. make swimming movement slower.. rework it.
 #obj-flag:0:CANT_FLY
 #obj-flag:0:SLOW_DIGEST
-#value:1:STEALTH[1]
+#value:0:STEALTH[1]
 #value:50:RES_DISEN[1]
 # some ideas..
 # - drain magic? -> restore life when hit p/h
@@ -2897,11 +2897,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-2]
-value:1:INT[-2]
-value:1:WIS[2]
-value:1:DEX[2]
-value:1:CHR[-1]
+value:0:STR[-2]
+value:0:INT[-2]
+value:0:WIS[2]
+value:0:DEX[2]
+value:0:CHR[-1]
 value:0:SHOTS[1d3]
 player-flags:0:CHOOSE_SPELLS | FAST_THROW
 # increase vision radius?
@@ -3055,11 +3055,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-1]
-value:1:INT[-2]
-value:1:WIS[3]
-value:1:DEX[-1]
-value:1:CHR[0+1d15]
+value:0:STR[-1]
+value:0:INT[-2]
+value:0:WIS[3]
+value:0:DEX[-1]
+value:0:CHR[0+1d15]
 player-flags:0:BEAM | CHOOSE_SPELLS
 obj-flag:0:PROT_AMNESIA
 title:Novice
@@ -3411,11 +3411,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-4]
-value:1:INT[4]
-value:1:CON[-2]
-value:1:CHR[1]
-value:1:MANA[3]
+value:0:STR[-4]
+value:0:INT[4]
+value:0:CON[-2]
+value:0:CHR[1]
+value:0:MANA[3]
 value:10:RES_FIRE[1]
 value:15:RES_COLD[1]
 value:20:RES_ACID[1]
@@ -3890,11 +3890,11 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:1:STR[-5]
-value:1:INT[-5]
-value:1:WIS[5]
-value:1:DEX[-5]
-value:1:CON[-5]
+value:0:STR[-5]
+value:0:INT[-5]
+value:0:WIS[5]
+value:0:DEX[-5]
+value:0:CON[-5]
 value:0:CHR[1+1d12]
 player-flags:0:BLESS_WEAPON | ZERO_FAIL | CHOOSE_SPELLS | SUMMON_SPELLS
 title:Novice
@@ -4127,12 +4127,12 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Remove Hunger (tattered):2:2:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
-value:1:STR[1]
-value:1:INT[-1]
-value:1:WIS[-1]
-value:1:DEX[1]
-value:1:CON[1]
-value:1:CHR[-5]
+value:0:STR[1]
+value:0:INT[-1]
+value:0:WIS[-1]
+value:0:DEX[1]
+value:0:CON[1]
+value:0:CHR[-5]
 player-flags:0:MONSTER_SPELLS | SHAPECHANGE
 title:Pretender
 title:Modifier
