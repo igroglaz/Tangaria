@@ -216,7 +216,7 @@ s16b spell_chance(struct player *p, int spell_index)
          (streq(p->clazz->name, "Paladin" ))  ||
          (streq(p->clazz->name, "Rogue"   ))  ||
          (streq(p->clazz->name, "Telepath"))  ||
-         (streq(p->clazz->name, "Summoner"))) && (chance > 95))
+         (streq(p->clazz->name, "Summoner"))) && (chance > 94))
         chance -= (p->state.stat_ind[STAT_CHR] / 8);
         
 

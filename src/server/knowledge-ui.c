@@ -2499,7 +2499,7 @@ void do_cmd_fountain(struct player *p, int item)
     /* Message */
     if (item == -1) msg(p, "You drink from the fountain.");
     
-    /* Unbeliever unmagics water */
+    /* Unbeliever unmagics fountain */
     if (streq(p->clazz->name, "Unbeliever") && fountain && !one_in_(4))
     {    
         msg(p, "This tepid water is tasteless.");

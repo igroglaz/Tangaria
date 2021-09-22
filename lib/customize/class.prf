@@ -26,7 +26,7 @@ help: an Archer is relatively weak compared to the other classes. He does
 help: not have any healing nor defensive spells like the magical classes to
 help: compensate. Archers especially like bows; shooting with them, 
 help: they could achieve incredible speed and precision; much better than with 
-help: a crossbow or a sling.
+help: a crossbow or a sling. They can see farther than others.
 
 class:Monk
 help:Monks are very different from all other classes. Monks are warriors who
@@ -157,7 +157,9 @@ help: from opening around them, eventually extending to a complete suppression o
 help: teleportation abilities and all magic in the area around them.
 help: Unbelievers can replenish their forces when making damage to non-natural 
 help: magic users. Also they could sense invisible creatures in melee range,
-help: can resist item's curses and cancel some other magic effects...
+help: can resist item's curses and cancel some other magic effects, eg when they
+help: drink from magic fountains they often can unmagic it. They can't remove
+help: curse from items.
 
 class:Hunter
 help:Hunters aren't good at fighting, but can deliever extremely high damage with
