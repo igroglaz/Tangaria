@@ -2675,10 +2675,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         
         /* Necrotic malus for blessed weapons */
         if (of_has(state->flags, OF_BLESSED) &&
-           (streq(context->p->race->name, "Undead") ||
-            streq(context->p->race->name, "Vampire") ||
-            streq(context->p->race->name, "Wraith") ||
-            streq(context->p->race->name, "Demonic")))
+           (streq(p->race->name, "Undead") ||
+            streq(p->race->name, "Vampire") ||
+            streq(p->race->name, "Wraith") ||
+            streq(p->race->name, "Demonic")))
         {
             state->to_h -= 3;
             state->to_d -= 3;

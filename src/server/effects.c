@@ -3182,7 +3182,10 @@ static bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
         if (!square_in_bounds_fully(context->cave, &iter.cur)) continue;
 
         /* Detect secret doors */
-        if (square_issecretdoor(context->cave, &iter.cur))
+        // Mages of good searching races shouldn't have problem
+        if (square_issecretdoor(context->cave, &iter.cur) &&
+            ((context->origin->player->state.skills[SKILL_SEARCH] > context->cave->wpos.depth) ||
+            context->cave->wpos.depth > 60))
         {
             /* Put an actual door */
             place_closed_door(context->cave, &iter.cur);
