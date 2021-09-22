@@ -2672,6 +2672,19 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->to_d += 2;
             state->bless_wield = true;
         }
+        
+        /* Necrotic malus for blessed weapons */
+        if (of_has(state->flags, OF_BLESSED) &&
+           (streq(context->p->race->name, "Undead") ||
+            streq(context->p->race->name, "Vampire") ||
+            streq(context->p->race->name, "Wraith") ||
+            streq(context->p->race->name, "Demonic")))
+        {
+            state->to_h -= 3;
+            state->to_d -= 3;
+            state->skills[SKILL_SAVE] -= 15;
+            state->bless_wield = true;
+        }
     }
     else
     {
