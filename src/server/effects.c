@@ -3183,8 +3183,8 @@ static bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
 
         /* Detect secret doors */
         // Mages of good searching races shouldn't have problem
-        if (square_issecretdoor(context->cave, &iter.cur) &&
-            ((context->origin->player->state.skills[SKILL_SEARCH] > context->cave->wpos.depth) ||
+        if (square_issecretdoor(context->cave, &iter.cur) && context->cave->wpos.depth > 19 &&
+            (context->origin->player->state.skills[SKILL_SEARCH] > context->cave->wpos.depth ||
             context->cave->wpos.depth > 60))
         {
             /* Put an actual door */
@@ -3626,6 +3626,16 @@ static bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     loc_init(&begin, x1, y1);
     loc_init(&end, x2, y2);
     loc_iterator_first(&iter, &begin, &end);
+    
+    if (context->cave->wpos.depth < 20 &&
+       (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth ||
+        context->cave->wpos.depth < 60))
+    {
+        if (!context->cave->wpos.depth < 20)
+            msg(context->origin->player, "You are not so good in searching to detect traps with magic.");
+        context->ident = true;
+        return true;
+    }
 
     /* Scan the dungeon */
     do
