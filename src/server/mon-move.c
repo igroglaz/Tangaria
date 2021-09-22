@@ -2517,7 +2517,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     else player_noise = 0;
 
     /* MvM or aggravation */
-    if (mvm || player_of_has(p, OF_AGGRAVATE))
+    if ((mvm || player_of_has(p, OF_AGGRAVATE)) && !streq(p->race->name, "Yeek"))
     {
         /* Wake the monster, make it aware */
         monster_wake(p, mon, true, 100);

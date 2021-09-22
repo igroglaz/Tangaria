@@ -15,10 +15,15 @@ help: their presence. Half-trolls always have their strength sustained, and
 help: they regenerate quickly like other trolls. They have fair infravision.
 
 race:Human
-help:The human is the base character. All other races are compared to them.
-help: Humans are average at everything and tend to go up levels faster than any
-help: other race due to their shorter life spans. No racial adjustments or
-help: intrinsics occur to human characters. Humans do not have any infravision.
+help:Humans are.. humans. All other races are compared to them.
+help: Humans are average at everything, allrounders with no special weaknesses
+help: or strengths. Due to their shorter life spans they rarely could become
+help: a real paragon, but they got an advantage: tending to go up levels slower
+help: than any other race, they can explore all kinds of dungeons without haste,
+help: searching for every hidden treasure. Humans do not have any infravision.
+help: There are a lot of different kinds of humans live in Tangaria, but most
+help: of them are just common folk, which being mediocre became powerful in
+help: a certain way, as they don't have drawbacks.
 
 race:Half-Elf
 help:Half-elves tend to be smarter and faster than a human, but not as wise or
@@ -107,8 +112,8 @@ help: fact that they are not the biggest of creatures, and have few hit points.
 race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
-help: stats and hit points available to a race. Yeeks are average at everything
-help: and tend to go up levels much slower than any other race.
+help: stats and bad health. Yeeks are average at everything, but they have an
+help: important advantage - they are so pitiful that they do not aggravate others.
 
 race:Ent
 help:The Ents are a powerful race dating from the beginning of the world, eldest

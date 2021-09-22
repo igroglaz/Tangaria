@@ -131,22 +131,13 @@ skill-melee:0
 skill-shoot:0
 skill-dig:0
 hitdie:10
-# +25%
-exp:100:150
+# +50%
+exp:100:175
 history:1
 age:14:6
 height:69:10
 weight:165:35
 gift:food:Hard Biscuit:1:1
-value:50:STR[1]
-value:50:INT[1]
-value:50:WIS[1]
-value:50:DEX[1]
-value:50:CON[1]
-value:50:CHR[1]
-value:50:DAM_RED[1]
-value:50:TUNNEL[1]
-obj-flag:50:SLOW_DIGEST
 #+ inv slot
 
 # mediocre bonus.. versatile
@@ -422,36 +413,27 @@ name:Yeek
 skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:0
-skill-save:20
+skill-save:0
 skill-stealth:0
 skill-search:0
 skill-melee:0
 skill-shoot:0
 skill-dig:0
 hitdie:6
-# +50%
-exp:80:175
+exp:80:125
 history:1
 age:14:6
 height:23:3
 weight:36:6
 gift:crop:Beet:1:1
-# -5 -4 -4 -5 -5 1
-value:0:STR[-1+-1d12]
-value:0:INT[-1+-1d15]
-value:0:WIS[-1+-1d15]
-value:0:DEX[-1+-1d12]
-value:0:CON[-1+-1d12]
-value:0:CHR[0+1d45]
+value:0:STR[-5]
+value:0:INT[-5]
+value:0:WIS[-5]
+value:0:DEX[-5]
+value:0:CON[-5]
+value:0:CHR[-5]
 obj-flag:1:FEATHER
-value:0:MOVES[1+1d24]
-value:0:DAM_RED[1+1d24]
-value:0:TUNNEL[1]
-value:0:SPEED[1]
-# ! 5
-value:0:STEALTH[1+1d12]
-player-flags:0:FAST_THROW
-obj-flag:1:SLOW_DIGEST
+# + no agro!
 player-flags:0:SHAPECHANGE
 shape:1:oook
 shape:12:eeek
@@ -2241,6 +2223,7 @@ shape:50:overseer'
 #+ mind flayer @ 50
 #+hallucinating (effect decreases with increased int,wis)
 
+#player-flags:0:FAST_THROW
 
 #value:50:RES_MANA[1]
 
