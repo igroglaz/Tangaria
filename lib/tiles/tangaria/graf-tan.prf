@@ -32409,7 +32409,7 @@ object:food:Maggoty bread:0x9F:0xDD
 object:food:Flagon of mead:0x88:0x83
 object:food:One Ring Cake:0x9F:0xDB
 object:food:Stolen mushroom:0x82:0x97
-object:food:Elvish water:88:0xC8
+object:food:Elvish water:0x88:0xC8
 object:food:Apple of Youth:0x82:0xA1
 object:hafted:Club:0x8A:0xEF
 
