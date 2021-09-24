@@ -491,6 +491,7 @@ value:0:RES_FIRE[-1]
 value:0:MOVES[-2+2d48]
 value:48:SPEED[-2]
 obj-flag:40:IMPAIR_HP
+# + stay silent
 # _ when staying in the water - feeding?
 
 #got hardcoded full ESP with expanding radius
