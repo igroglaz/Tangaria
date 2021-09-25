@@ -448,7 +448,7 @@ skill-save:20
 skill-stealth:0
 skill-search:-2
 skill-melee:15
-skill-shoot:5
+skill-shoot:-5
 skill-dig:20
 hitdie:13
 exp:165:125
@@ -458,27 +458,21 @@ height:170:20
 weight:240:60
 # water restore hp and satiation (< merfolk; / 2)
 gift:bottle:Empty Bottle:3:4
-#str8 int-4 wis2 dex-4 con8
-value:0:STR[-8+1d3]
+#8 -4 2 -4 8
+value:0:STR[0+1d6]
 value:0:INT[0+-1d12]
 value:0:WIS[0+1d24]
 value:0:DEX[-8+1d12]
-value:0:CON[-8+1d3]
-value:0:CHR[-1]
+value:0:CON[0+1d6]
+value:0:CHR[-3]
 value:0:INFRA[1+1d12]
+# very good at tunneling ("crushing stone")..
+#..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
 value:0:TUNNEL[5]
 # 50% stun which got lowered each lvl
-obj-flag:1:SLOW_DIGEST
-obj-flag:5:SEE_INVIS
-obj-flag:10:ESP_ANIMAL
-obj-flag:15:ESP_ORC
-obj-flag:20:ESP_TROLL
-obj-flag:25:ESP_GIANT
-obj-flag:30:ESP_DRAGON
-obj-flag:35:ESP_DEMON
-obj-flag:40:ESP_UNDEAD
-obj-flag:45:ESP_EVIL
-obj-flag:50:ESP_RADIUS
+obj-flag:0:SLOW_DIGEST
+obj-flag:25:SEE_INVIS
+obj-flag:25:ESP_ANIMAL
 player-flags:0:GIANT
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
@@ -488,11 +482,15 @@ obj-flag:1:CANT_FLY
 # stealth -6
 value:0:STEALTH[-1+-1d5M25]
 value:0:RES_FIRE[-1]
-value:0:MOVES[-2+2d48]
-value:48:SPEED[-2]
-obj-flag:40:IMPAIR_HP
-# + stay silent
+# what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
+value:0:MOVES[-2]
+value:0:SPEED[0+-1d25]
+# barky
+value:0:DAM_RED[1+1d5]
+obj-flag:0:IMPAIR_HP
+# + stay at one place very silent
 # _ when staying in the water - feeding?
+# 'y' grow tree?
 
 #got hardcoded full ESP with expanding radius
 name:Thunderlord
@@ -543,8 +541,7 @@ skill-melee:0
 skill-shoot:-50
 skill-dig:0
 hitdie:13
-# -15%
-exp:210:110
+exp:210:125
 history:98
 age:255:70
 height:170:20
@@ -589,10 +586,10 @@ value:0:INT[-4]
 value:0:WIS[-4]
 value:0:DEX[-20]
 value:0:CON[-20+20d25]
-value:0:CHR[-20]
-obj-flag:1:AGGRAVATE
+value:0:CHR[-20+1d5]
+# AGGRAVATE 20 range hardcoded
 value:15:SPEED[-10+2d7]
-value:15:MOVES[10]
+value:15:MOVES[10+-2d7]
 player-flags:0:RACE_REGEN
 value:50:DAM_RED[5]
 value:0:MANA[10]
@@ -1029,7 +1026,7 @@ age:14:6
 height:69:5
 weight:165:23
 gift:mushroom:Clear Mind:1:1
-#2 -3 -3 1 2 -8 // 'night' bonuses
+#2 -3 -3 1 2 -8 // 'night' bonuses + regen hp
 value:0:STR[0]
 value:0:INT[0]
 value:0:WIS[0]
@@ -1116,7 +1113,19 @@ value:0:CHR[-9+1d4]
 value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
+# got progressing ESP
 obj-flag:10:HOLD_LIFE
+# ? obj-flag:10:ESP_ANIMAL
+# add race 'human' for p..
+obj-flag:15:ESP_ORC
+obj-flag:20:ESP_TROLL
+obj-flag:25:ESP_GIANT
+obj-flag:30:ESP_DRAGON
+obj-flag:35:ESP_DEMON
+obj-flag:40:ESP_UNDEAD
+obj-flag:45:ESP_EVIL
+obj-flag:50:ESP_RADIUS
+# malus during the day... -regen HP
 value:0:RES_LIGHT[-1]
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
@@ -1128,7 +1137,7 @@ value:0:TUNNEL[-1+-1d30]
 #temp
 value:0:SPEED[1+-2d48]
 value:0:MOVES[-1]
-value:0:STEALTH[0+1d24]
+value:0:STEALTH[2]
 player-flags:0:SHAPECHANGE
 shape:5:vampiric mist_
 shape:10:fruit bat_
@@ -1138,7 +1147,6 @@ shape:40:doombat_
 # revamp when will implement hurt from daylight
 # nourish from vampirism + !blood
 value:0:MANA[4+-1d6M25]
-obj-flag:1:IMPAIR_HP
 
 ############################## GODLIKE
 # ? spirits.. of fire, elec, cold, 
@@ -1235,7 +1243,7 @@ skill-disarm-phys:-3
 skill-disarm-magic:-3
 skill-device:-20
 skill-save:15
-skill-stealth:-2
+skill-stealth:0
 skill-search:1
 skill-melee:0
 skill-shoot:-5
@@ -1247,33 +1255,38 @@ age:11:4
 height:145:8
 weight:210:12
 gift:potion:Infravision:2:3
-#4 2 -4 2 3
-value:0:STR[-6+1d5]
+#6 2 -4 2 3
+value:0:STR[1+1d10]
 value:0:INT[-4+1d8]
 value:0:WIS[-4]
 value:0:DEX[-6+1d6]
 value:0:CON[3]
-value:0:CHR[-10]
+value:0:CHR[-10+1d25]
 value:0:INFRA[5]
-value:50:LIGHT[1]
-obj-flag:5:SLOW_DIGEST
-obj-flag:10:PROT_FEAR
-obj-flag:15:SEE_INVIS
-obj-flag:20:HOLD_LIFE
-obj-flag:30:FEATHER
 value:0:RES_FIRE[1]
 value:0:RES_COLD[-1]
 value:0:RES_LIGHT[-1]
-value:10:RES_DARK[1]
-value:25:RES_TIME[1]
-value:50:RES_FIRE[3]
+# no fear prot.. it run away from G after all
+value:0:RES_POIS[1]
+obj-flag:10:SLOW_DIGEST
+value:15:RES_DARK[1]
+obj-flag:20:SEE_INVIS
+obj-flag:25:HOLD_LIFE
+value:35:LIGHT[1]
+value:35:RES_FIRE[3]
+obj-flag:40:FEATHER
+value:45:RES_CHAOS[1]
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
-obj-flag:1:AGGRAVATE
-#temp
-value:0:SPEED[1+-1d25]
-value:0:MANA[5]
+# AGGRAVATE 40 range hardcoded
+value:0:STEALTH[-2+-1d10]
+#not speedy (reacted  too late at G)
+value:0:SPEED[-1+-1d25]
+value:0:MOVES[1+1d25]
+# kinda vulnerable to steel (fight in depths)
+value:0:DAM_RED[-1+-1d5]
 # /rfe CON as mana stat
+value:0:MANA[5+-1d10]
 
 # Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
@@ -1522,7 +1535,6 @@ value:0:SPEED[1]
 value:0:MOVES[-1]
 value:0:MANA[4+-1d6M25]
 obj-flag:50:SLOW_DIGEST
-
 
 name:Titan
 skill-disarm-phys:-50

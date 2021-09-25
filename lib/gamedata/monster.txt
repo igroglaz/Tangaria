@@ -24139,6 +24139,7 @@ spells:S_HI_DEMON | S_UNDEAD
 desc:Originally of the semi-divine Maiar, this evil spirit swore allegiance to
 desc: Morgoth at the beginning of time and is now one of his most terrible
 desc: demonic servants. With its flaming whip and sword it seeks to destroy you.
+
 name:Ancalagon the Black
 base:ancient dragon
 color:D

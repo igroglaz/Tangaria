@@ -2499,6 +2499,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     int player_noise;
     int notice = randint0(1024);
     struct monster_lore *lore = get_lore(p, mon->race);
+    int mon_distance = distance(&p->grid, &mon->grid);
 
     /* If player has acted this turn, use that noise value */
     if (!has_energy(p, false))
@@ -2551,6 +2552,12 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
             lore_update(mon->race, lore);
         }
     }
+
+    else if (streq(p->race->name, "Hydra") && (mon_distance > 0 && mon_distance < 21))
+        monster_wake(p, mon, true, 100);
+
+    else if (streq(p->race->name, "Balrog") && (mon_distance > 0 && mon_distance < 41))
+        monster_wake(p, mon, true, 100);
 }
 
 

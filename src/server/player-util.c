@@ -336,6 +336,12 @@ void player_regen_hp(struct player *p, struct chunk *c)
 
     /* Some things slow it down */
     if (player_of_has(p, OF_IMPAIR_HP)) percent /= 2;
+    
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+        percent *= 2;
+    
+    if (streq(p->race->name, "Vampire") && is_daytime())
+        percent /= 2;
 
     /* Various things interfere with physical healing */
     else

@@ -1333,7 +1333,10 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
     
     if (streq(p->race->name, "Werewolf") && !is_daytime())
-        mhp = mhp * 13 / 14;
+        mhp = mhp * 14 / 13;
+    
+    if (streq(p->race->name, "Vampire") && is_daytime())
+        mhp = mhp * 11 / 12;
 
     /* Return if no updates */
     if (!update) return;
@@ -2182,7 +2185,40 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // to prevent duplicates we will use only display-ui.c
         if (state->el_info[ELEM_DARK].res_level < 2)
             state->el_info[ELEM_DARK].res_level++; */
-    }    
+    }
+    
+    if (streq(p->race->name, "Vampire") && is_daytime())
+    {
+        if (p->lev > 5)
+        {
+            state->see_infra -= 2;            
+            state->skills[SKILL_DISARM_PHYS] -= 15;
+            state->skills[SKILL_DISARM_MAGIC] -= 25;
+            state->skills[SKILL_DEVICE] -= 15;
+        }
+        if (p->lev > 10)
+            state->skills[SKILL_SAVE] -= 10;
+        if (p->lev > 15)
+            state->skills[SKILL_STEALTH] -= 1;
+        if (p->lev > 20)
+            state->skills[SKILL_SEARCH] -= 20;
+        if (p->lev > 25)
+        {
+            state->skills[SKILL_TO_HIT_MELEE] -= 3;
+            state->skills[SKILL_TO_HIT_BOW] -= 7;
+        }
+        if (p->lev > 30)
+            state->skills[SKILL_DIGGING] -= 2;
+        if (p->lev > 32)
+        {
+        state->stat_add[STAT_STR] -= 3;
+        state->stat_add[STAT_INT] -= 1;
+        state->stat_add[STAT_WIS] -= 1;
+        state->stat_add[STAT_DEX] -= 2;
+        state->stat_add[STAT_CON] -= 2;
+        state->stat_add[STAT_CHR] -= 2;
+        }
+    } 
 
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))
