@@ -625,6 +625,16 @@ struct bow_brand
 };
 
 /*
+ * Special values for escape key
+ */
+enum
+{
+    ES_KEY = 0,
+    ES_BEGIN_MACRO,
+    ES_END_MACRO
+};
+
+/*
  * Most of the "player" information goes here.
  *
  * This stucture gives us a large collection of player variables.

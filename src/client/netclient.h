@@ -68,7 +68,7 @@ extern int Send_suicide(void);
 extern int Send_steal(struct command *cmd);
 extern int Send_master(s16b command, const char *buf);
 extern int Send_mimic(int page, int spell, int dir);
-extern int Send_clear(void);
+extern int Send_clear(int mode);
 extern int Send_observe(struct command *cmd);
 extern int Send_store_examine(int item, bool describe);
 extern int Send_alter(struct command *cmd);

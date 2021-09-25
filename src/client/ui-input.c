@@ -31,10 +31,6 @@ bool inkey_flag = false;
 byte trap_indicator;
 
 
-/* Escape command */
-bool first_escape = true;
-
-
 /* Top line is icky */
 bool topline_icky;
 
@@ -97,9 +93,6 @@ static ui_event inkey_aux(char scan_cutoff)
 
         return empty;
     }
-
-    /* Efficiency hack -- ignore escape key for keymaps */
-    if (is_escape(ke)) first_escape = true;
     
     return (ke);
 }
@@ -112,6 +105,7 @@ static ui_event inkey_aux(char scan_cutoff)
  * the stream of keys returned by "inkey()".  We use it to implement keymaps.
  */
 struct keypress *inkey_next = NULL;
+bool first_escape = false;
 
 
 /*
@@ -153,6 +147,7 @@ ui_event inkey_ex(void)
     {
         Term_flush();
         inkey_next = NULL;
+        first_escape = false;
         inkey_xtra = false;
     }
 
@@ -170,8 +165,12 @@ ui_event inkey_ex(void)
         return (ke);
     }
 
+    if (inkey_next && first_escape)
+        Send_clear(ES_END_MACRO);
+
     /* Forget pointer */
     inkey_next = NULL;
+    first_escape = false;
 
     /* Get the cursor state */
     Term_get_cursor(&cursor_state);
@@ -930,9 +929,6 @@ void flush_now(void)
     /* Clear various flags */
     inkey_xtra = false;
 
-    /* Restore "first escape" */
-    first_escape = true;
-
     /* Forgot old keypresses */
     Term_flush();
 }
@@ -1548,8 +1544,6 @@ ui_event textui_get_command(void)
         /* Start using the buffer */
         inkey_next = request_command_buffer;
 
-        first_escape = true;
-
         /* Continue */
         return ke0;
     }
@@ -1569,6 +1563,18 @@ bool textui_process_key(struct keypress kp, unsigned char *c)
     keycode_t key = kp.code;
 
     if (key == ' ') msg_flush();
+
+    /* Only process escape key while playing */
+    if ((key == ESCAPE) && Setup.ready)
+    {
+        if (inkey_next)
+        {
+            Send_clear(ES_BEGIN_MACRO);
+            first_escape = true;
+        }
+        else
+            Send_clear(ES_KEY);
+    }
 
     /* Null command */
     if ((key == '\0') || (key == ESCAPE) || (key == ' ') || (key == '\a'))

@@ -5210,28 +5210,41 @@ static int Receive_mimic(int ind)
 
 static int Receive_clear(int ind)
 {
-    byte ch;
     connection_t *connp = get_connection(ind);
     struct player *p;
+    char mode;
+    int n;
+    byte ch;
 
     /* Remove the clear command from the queue */
-    if (Packet_scanf(&connp->r, "%b", &ch) != 1)
+    if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &mode)) <= 0)
     {
-        errno = 0;
-        plog("Cannot receive clear packet");
-        Destroy_connection(ind, "Cannot receive clear packet");
+        if (n == -1) Destroy_connection(ind, "Cannot receive clear packet");
+        return n;
+    }
+
+    if ((mode < ES_KEY) || (mode > ES_END_MACRO))
+    {
+        Destroy_connection(ind, "Incorrect mode in Receive_clear");
         return -1;
     }
 
     /* Clear any queued commands prior to this clear request */
-    Sockbuf_clear(&connp->q);
+    if (mode != ES_END_MACRO) Sockbuf_clear(&connp->q);
 
     if (connp->id != -1)
     {
         p = player_get(get_player_index(connp));
 
         /* Hack -- set clear request */
-        p->first_escape = true;
+        p->first_escape = ((mode == ES_BEGIN_MACRO)? true: false);
+
+        /* Cancel repeated commands */
+        if (mode != ES_END_MACRO)
+        {
+            if (p->digging_request) p->digging_request = 0;
+            if (p->firing_request) p->firing_request = 0;
+        }
     }
 
     return 2;
@@ -7650,7 +7663,7 @@ bool process_pending_commands(int ind)
         if ((type < PKT_UNDEFINED) || (type >= PKT_MAX)) type = PKT_UNDEFINED;
 
         /* Cancel repeated commands */
-        if ((type != PKT_KEEPALIVE) && (type != PKT_MONWIDTH))
+        if ((type != PKT_KEEPALIVE) && (type != PKT_MONWIDTH) && (type != PKT_CLEAR))
         {
             if ((type != PKT_TUNNEL) && p->digging_request)
                 p->digging_request = 0;

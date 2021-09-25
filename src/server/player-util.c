@@ -1802,9 +1802,6 @@ void use_energy_aux(struct player *p, int perc_turn)
 
     /* Hack -- reset the surplus in case we need more due to negative moves */
     p->extra_energy = 0;
-
-    /* Hack -- reset clear request */
-    p->first_escape = false;
 }
 
 
@@ -1843,7 +1840,7 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     if (get_connection(p->conn)->q.len > 0) return false;
 
     /* Don't auto-retalitate after a clear request */
-    /*if (p->first_escape) return false;*/
+    if (p->first_escape) return false;
 
     /* Check preventive inscription '^O' */
     if (check_prevent_inscription(p, INSCRIPTION_RETALIATE) && (mode == AR_NORMAL)) return false;

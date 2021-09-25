@@ -5416,11 +5416,11 @@ int Send_mimic(int page, int spell, int dir)
 }
 
 
-int Send_clear(void)
+int Send_clear(int mode)
 {
     int n;
 
-    if ((n = Packet_printf(&wbuf, "%b", (unsigned)PKT_CLEAR)) <= 0)
+    if ((n = Packet_printf(&wbuf, "%b%c", (unsigned)PKT_CLEAR, mode)) <= 0)
         return n;
 
     return 1;

@@ -48,10 +48,10 @@ typedef bool (*keypress_handler)(char *buf, size_t buflen, size_t *curs, size_t 
     struct keypress keypress, bool firsttime);
 
 extern struct keypress *inkey_next;
+extern bool first_escape;
 extern char inkey_scan;
 extern bool inkey_flag;
 extern byte trap_indicator;
-extern bool first_escape;
 extern bool topline_icky;
 extern int dis_dd;
 extern int dis_ds;

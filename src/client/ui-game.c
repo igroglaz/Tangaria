@@ -270,16 +270,7 @@ static void textui_process_command_aux(ui_event e)
     if (e.type == EVT_KBRD) done = textui_process_key(e.key, &key);
 
     /* Null command */
-    if (!key && done)
-    {
-        /* Only process "first_escape" while playing */
-        if (Setup.ready)
-        {
-            if (first_escape) Send_clear();
-            first_escape = false;
-        }
-        return;
-    }
+    if (!key && done) return;
 
     /* Use command menus */
     if (key == KC_ENTER)

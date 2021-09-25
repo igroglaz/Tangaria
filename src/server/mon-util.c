@@ -1391,6 +1391,9 @@ bool mon_take_hit(struct player *p, struct chunk *c, struct monster *mon, int da
     {
         player_kill_monster(p, c, who, note);
 
+        /* Cancel fire-till-kill */
+        p->firing_request = 0;
+
         /* Not afraid */
         (*fear) = false;
 
