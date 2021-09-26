@@ -917,7 +917,10 @@ static void player_turn_undead(struct player *p)
     restore_sp(p);
 
     /* Feed him */
-    player_set_timed(p, TMD_FOOD, PY_FOOD_FULL - 1, false);
+    //  player_set_timed(p, TMD_FOOD, PY_FOOD_FULL - 1, false);
+    // too fat.. instead lets do:
+    if (p->timed[TMD_FOOD] < 1500)
+        player_set_timed(p, TMD_FOOD, 1500, false);
 
     /* Cancel any WOR spells */
     p->word_recall = 0;
@@ -5541,7 +5544,7 @@ static bool effect_handler_NOURISH(effect_handler_context_t *context)
     amount *= z_info->food_value;
 
     /* Increase food level by amount */
-    if (context->subtype == 0)
+    if ((context->subtype == 0) && !streq(context->origin->player->race->name, "Ent"))
         player_inc_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false, false);
 
     /* Decrease food level by amount */

@@ -1713,20 +1713,25 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     else
         use_energy(p);
     
-/// potion of water
+/// potion of water. gives additional satiation (+ to object.txt) if hungry
     if (streq(obj->kind->name, "Water"))
     {
-        if (streq(p->race->name, "Merfolk"))
-        {
-            player_inc_timed(p, TMD_FOOD, 100, false, false);
-            hp_player(p, p->wpos.depth);
-        }
         if (streq(p->race->name, "Ent"))
-        {
-            player_inc_timed(p, TMD_FOOD, 50, false, false);
+        {   // main source of food
+            player_inc_timed(p, TMD_FOOD, 200, false, false);
             hp_player(p, p->wpos.depth / 2);
         }
-        hp_player(p, 1);
+        else if (streq(p->race->name, "Merfolk"))
+        {
+            if (p->timed[TMD_FOOD] < 1500)
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
+            hp_player(p, p->wpos.depth);
+        }
+        else if (p->timed[TMD_FOOD] < 1000)
+        {
+            player_inc_timed(p, TMD_FOOD, 75, false, false);        
+            hp_player(p, 1); // water is good for your health ;)
+        }
     }
 
     /* If the item is a null pointer or has been wiped, be done now */

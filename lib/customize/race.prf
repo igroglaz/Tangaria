@@ -120,14 +120,14 @@ help:The Ents are a powerful race dating from the beginning of the world, eldest
 help: of all animals or plants who inhabit Arda. Spirits of the land, they were
 help: summoned to guard the forests of Middle-earth. Being much like trees they are
 help: very slow but strong and do not have to eat as often. As the Shepherds of the
-help: Trees, they can learn to sense the presence of others, such as animals at
-help: level 10, orcs at 15, trolls at 20, giants at 25, dragons at 30, demons at
-help: 35, undead at 40, all evil-minded creatures at 45, and even every minded
-help: creatures in a short range at level 50. At level 5 they learn to see
-help: invisible things. They make great fighters, priests and paladins.
-help: Unfortunately, as they're made almost exclusively of wood,
-help: they're also vulnerable to fire. Ents can be completely silent if they stand
-help: still.
+help: Trees, they can learn to sense the presence of animals and to see invisible.
+help: They make great fighters, priests and paladins. Unfortunately, as they're
+help: made almost exclusively of wood, so they're also vulnerable to fire.
+help: Ents can be completely silent if they stand still.|
+help: They do not eat food, but got refreshments from drinking from magic fountains.
+help: Also ents could get some nourishment by drinking from any source of water,
+help: including rivers and lakes; though it will not make them full. Using water
+help: also somewhat helps them in healing wounds. Ents immune to polymorph.
 
 race:Thunderlord
 help:Thunderlords are an old and powerful race of dragon hunters. They have an
@@ -196,7 +196,10 @@ help: of Big Step coast, but plenty of then dwelles on river banks and sea shore
 help: They spend a lot of time in water and know how to communicate with water 
 help: creatures. They know waters so well that they even get their own magic from 
 help: it's source. They are resistant to water and good in infravision. But digging 
-help: isn't really their big passion.
+help: isn't really their big passion.|
+help: They got some nourishment from drinking from magic fountains and even a bit
+help: from drinking from any open water, though it will not make them full. 
+help: Using water also helps them in healing wounds.
 
 race:Barbarian
 help:Barbarian - wildlings from the North who spread across all Tangaria after
@@ -297,9 +300,9 @@ help: although most of races scared of them. Indeed.. They are very powerful, bu
 help: not too many survived the Last War, which make them live quietly in their 
 help: lands.. Vampires don't regenerate, but they are able to restore their help 
 help: with a blood of slain enemies. They resist time, poison, nether and darkness. 
-help: They don't feel fear and got perfect infravision. 
-help: They don't like light though and for them it's hard to learn anything new as 
-help: they lived a very long life already.
+help: They don't feel fear, got perfect infravision and could read minds...
+help: Night creatures, they don't like light and feel bad during the day hours;
+help: but still they can tolerate daylight, thought become weakened.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much know about them, except 

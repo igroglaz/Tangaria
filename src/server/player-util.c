@@ -338,7 +338,7 @@ void player_regen_hp(struct player *p, struct chunk *c)
     if (player_of_has(p, OF_IMPAIR_HP)) percent /= 2;
     
     if (streq(p->race->name, "Werewolf") && !is_daytime())
-        percent *= 2;
+        percent *= 3 / 2;
     
     if (streq(p->race->name, "Vampire") && is_daytime())
         percent /= 2;
@@ -1568,6 +1568,12 @@ void poly_bat(struct player *p, int chance, char *killer)
         msg(p, "Your strong metabolism prevented malicious attempt of polymorph.");
         return;
     }
+    
+    if (streq(p->clazz->name, "Ent") && !one_in_(100))
+    {
+        msg(p, "You feel malicious attempt of polymorph, but resist it.");
+        return;
+    }    
 
     if (p->poly_race != race_fruit_bat)
     {

@@ -882,6 +882,13 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
+    
+    if (p->timed[TMD_FOOD] < 2000 && in_town(&p->wpos))
+    {
+        msg(p, "You are too tired and hungry for mining. Eat some food.");
+        return false;        
+    }
+        
 
     /* Mountain in town */
     if (square_ismountain(c, grid) && in_town(&p->wpos) && p->lev > 7)

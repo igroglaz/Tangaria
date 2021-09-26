@@ -2412,29 +2412,26 @@ void do_cmd_fountain(struct player *p, int item)
     }
 
     /* Allow filling empty bottles from water tiles */
-    else if (!square_iswater(c, &p->grid) || (item == -1))
+    else if (!square_iswater(c, &p->grid))
     {
-        msg(p, "You need an empty bottle and a source of water.");
+        msg(p, "You need a source of water.");
         return;
     }
+
+/*  No need as we allow everyone to drink from any water tile now
+
+    else if ((item == -1) && !(streq(p->race->name, "Ent") || streq(p->race->name, "Merfolk")))
+    {
+        msg(p, "You need an empty bottle.");
+        return;
+    }
+*/
 
     /* Take a turn */
     use_energy(p);
     
-    if (streq(p->race->name, "Merfolk"))
-    {
-        player_inc_timed(p, TMD_FOOD, 100, false, false);
-        hp_player(p, p->wpos.depth);
-    }
-    
-    if (streq(p->race->name, "Ent"))
-    {
-        player_inc_timed(p, TMD_FOOD, 50, false, false);    
-        hp_player(p, p->wpos.depth / 2);
-    }
-
     /* Fruit bat! */
-    if (item == -1)
+    if ((item == -1) && fountain)
     {
         struct monster_race *race_fruit_bat = get_race("fruit bat");
         bool poly = false;
@@ -2497,12 +2494,22 @@ void do_cmd_fountain(struct player *p, int item)
     }
 
     /* Message */
-    if (item == -1) msg(p, "You drink from the fountain.");
+    if ((item == -1) && fountain)
+        msg(p, "You drink from the fountain.");
+    else
+        msg(p, "You take a handful of water and make a gulp.");
     
-    /* Unbeliever unmagics fountain */
+    // Unbeliever unmagics fountain
     if (streq(p->clazz->name, "Unbeliever") && fountain && !one_in_(4))
     {    
         msg(p, "This tepid water is tasteless.");
+        kind = lookup_kind_by_name(TV_POTION, "Water");
+    }
+
+    // Ent turns fresh (not bottled) fountain water into nourishing draught
+    else if (streq(p->race->name, "Ent") && fountain)
+    {
+        msg(p, "After you touch the water becomes sparky and clean.");
         kind = lookup_kind_by_name(TV_POTION, "Water");
     }
 
@@ -2589,10 +2596,39 @@ void do_cmd_fountain(struct player *p, int item)
         drop_near(p, c, &obj, 0, &p->grid, true, DROP_FADE, false);
     }
 
-    /* Drink from a fountain */
+    /* Drink from a fountain OR water tile */
     else
     {
         drink_fountain(p, obj);
+
+        // Magic fountains nourishment (only ent and merfolk)
+        if (streq(p->race->name, "Ent") && fountain)
+        {
+            player_inc_timed(p, TMD_FOOD, 330, false, false);
+            hp_player(p, p->wpos.depth / 2);
+        }
+        else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
+        {
+            player_inc_timed(p, TMD_FOOD, 75, false, false);
+            hp_player(p, p->wpos.depth);
+        }
+        // Now water tile. They provide nourishment until certain fed status
+        else if (streq(p->race->name, "Ent"))
+        {
+            if (p->timed[TMD_FOOD] < 1500)
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
+        }
+        else if (streq(p->race->name, "Merfolk"))
+        {
+            if (p->timed[TMD_FOOD] < 1000)
+                player_inc_timed(p, TMD_FOOD, 75, false, false);
+        }
+        else // everyone else
+        {
+            if (p->timed[TMD_FOOD] < 500)
+                player_inc_timed(p, TMD_FOOD, 50, false, false);
+        }        
+
         object_delete(&obj);
     }
 

@@ -9400,8 +9400,9 @@ dice:6
 effect:TIMED_INC:BLESSED
 dice:6+1d12
 msg_self:Ho! Ho! Ho! To the bottle I go! To heal my heart and drown my woe!
-desc:Clear drink, pale golden in colour: it has the scent of a honey
+desc:Clear fragrant draught, pale golden in colour: it has the scent of a honey
 desc: made of many flowers, and is wonderfully refreshing.
+desc: It is cool as a clear fountain, golden as a summer afternoon...
 
 name:& Apple of Youth
 graphics:,:I
