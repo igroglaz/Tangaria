@@ -1728,10 +1728,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             hp_player(p, p->wpos.depth);
         }
         else if (p->timed[TMD_FOOD] < 1000)
-        {
-            player_inc_timed(p, TMD_FOOD, 75, false, false);        
-            hp_player(p, 1); // water is good for your health ;)
-        }
+            player_inc_timed(p, TMD_FOOD, 100, false, false);
     }
 
     /* If the item is a null pointer or has been wiped, be done now */

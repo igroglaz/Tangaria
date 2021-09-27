@@ -2512,6 +2512,10 @@ void do_cmd_fountain(struct player *p, int item)
         msg(p, "After you touch the water becomes sparky and clean.");
         kind = lookup_kind_by_name(TV_POTION, "Water");
     }
+    
+    // Open water source (lake, river...)
+    else if (!fountain)
+        kind = lookup_kind_by_name(TV_POTION, "Water");
 
     /* Ale */
     else if (fountain && one_in_(10))
@@ -2527,7 +2531,7 @@ void do_cmd_fountain(struct player *p, int item)
         kind = lookup_kind_by_name(TV_POTION, "Water");
     }
 
-    /* Random potion effect */
+    /* Random potion effect for fountains */
     else
     {
         int sval;
@@ -2604,7 +2608,7 @@ void do_cmd_fountain(struct player *p, int item)
         // Magic fountains nourishment (only ent and merfolk)
         if (streq(p->race->name, "Ent") && fountain)
         {
-            player_inc_timed(p, TMD_FOOD, 330, false, false);
+            player_inc_timed(p, TMD_FOOD, 400, false, false);
             hp_player(p, p->wpos.depth / 2);
         }
         else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
@@ -2616,17 +2620,17 @@ void do_cmd_fountain(struct player *p, int item)
         else if (streq(p->race->name, "Ent"))
         {
             if (p->timed[TMD_FOOD] < 1500)
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
+                player_inc_timed(p, TMD_FOOD, 200, false, false);
         }
         else if (streq(p->race->name, "Merfolk"))
         {
             if (p->timed[TMD_FOOD] < 1000)
-                player_inc_timed(p, TMD_FOOD, 75, false, false);
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
         }
         else // everyone else
         {
             if (p->timed[TMD_FOOD] < 500)
-                player_inc_timed(p, TMD_FOOD, 50, false, false);
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
         }        
 
         object_delete(&obj);

@@ -6129,12 +6129,9 @@ weight:4
 cost:0
 alloc:50:0 to 100
 pile:70:1d3
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
+#hardcoded
+effect:HEAL_HP
 dice:1
-effect:RANDOM
-dice:2
 msg_self:You feel less thirsty.
 
 
