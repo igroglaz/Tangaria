@@ -7372,28 +7372,25 @@ feat:B6 floors luquid S:los:0xB6:0xD9
 feat:B6 floors luquid S:lit:0xB6:0xDA
 feat:B6 floors luquid S:dark:0xB6:0xDB
 
-#murky water
 # B6 floors luquid T 
 feat:B6 floors luquid T:torch:0xB6:0xDC
 feat:B6 floors luquid T:los:0xB6:0xDD
 feat:B6 floors luquid T:lit:0xB6:0xDE
 feat:B6 floors luquid T:dark:0xB6:0xDF
 
-#waterfall 1
+#murky water:
 # B6 floors luquid U 
 feat:B6 floors luquid U:torch:0xB6:0xE0
 feat:B6 floors luquid U:los:0xB6:0xE1
 feat:B6 floors luquid U:lit:0xB6:0xE2
 feat:B6 floors luquid U:dark:0xB6:0xE3
 
-#waterfall 2
 # B6 floors luquid V 
 feat:B6 floors luquid V:torch:0xB6:0xE4
 feat:B6 floors luquid V:los:0xB6:0xE5
 feat:B6 floors luquid V:lit:0xB6:0xE6
 feat:B6 floors luquid V:dark:0xB6:0xE7
 
-#waterfall 3
 # B6 floors luquid W 
 feat:B6 floors luquid W:torch:0xB6:0xE8
 feat:B6 floors luquid W:los:0xB6:0xE9
@@ -17107,6 +17104,7 @@ feat:E7 desert p:los:0xE7:0xE5
 feat:E7 desert p:lit:0xE7:0xE6
 feat:E7 desert p:dark:0xE7:0xE7
 
+# water puddle
 # E7 desert q 
 feat:E7 desert q:torch:0xE7:0xE8
 feat:E7 desert q:los:0xE7:0xE9

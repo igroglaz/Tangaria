@@ -2411,8 +2411,11 @@ void do_cmd_fountain(struct player *p, int item)
         fountain = true;
     }
 
-    /* Allow filling empty bottles from water tiles */
-    else if (!square_iswater(c, &p->grid))
+    /* Allow only on water tiles */
+    else if (!square_iswater(c, &p->grid) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_SHALLOW_WATER) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_BAD_WATER) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_FOUL_WATER))
     {
         msg(p, "You need a source of water.");
         return;
@@ -2631,8 +2634,20 @@ void do_cmd_fountain(struct player *p, int item)
         {
             if (p->timed[TMD_FOOD] < 500)
                 player_inc_timed(p, TMD_FOOD, 100, false, false);
-        }        
-
+        }
+        
+        if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_BAD_WATER) && !streq(p->race->name, "Ent"))
+        {
+            msg(p, "This water is no good!");
+            player_inc_timed(p, TMD_POISONED, 10, true, false);
+        }
+        else if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_FOUL_WATER))
+        {
+            msg(p, "What a sickening liquid!");
+            player_inc_timed(p, TMD_CONFUSED, 10 + randint0(20), true, false);
+            player_inc_timed(p, TMD_IMAGE, randint1(10), true, false);
+            player_inc_timed(p, TMD_POISONED, 10, true, false);
+        }
         object_delete(&obj);
     }
 
