@@ -618,7 +618,8 @@ static void project_monster_handler_LIGHT(project_monster_handler_context_t *con
         context->dam *= 2;
         context->dam /= (randint1(6) + 6);
     }
-    else if (rf_has(context->mon->race->flags, RF_HURT_LIGHT))
+
+    if (rf_has(context->mon->race->flags, RF_HURT_LIGHT))
     {
         if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
         context->hurt_msg = MON_MSG_CRINGE_LIGHT;

@@ -611,7 +611,7 @@ weight:0
 experience:0
 flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
-flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | RES_LIGHT | HURT_ROCK
+flags:IM_FIRE | IM_ELEC | IM_POIS | IM_ACID | UNDEAD | HURT_ROCK | IM_LIGHT | HURT_LIGHT
 desc:An indestructible golem used for target practice.
 locations:Farfest
 
@@ -16332,6 +16332,7 @@ blow:HIT:EXP_80:4d6
 flags:UNIQUE | MALE | LEVITATE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
+flags:RES_LIGHT
 drop:ring:Black Ring of Power:100:1:1
 desc:A tall black cloaked Ringwraith, he is a master of horsemanship. He longs
 desc: to taste your blood.
@@ -17550,6 +17551,7 @@ flags:UNIQUE | FEMALE | INVISIBLE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:PASS_WALL | MOVE_BODY
 flags:FORCE_SLEEP
+flags:RES_LIGHT
 spell-freq:3
 spell-power:43
 spells:BLIND | WOUND | FORGET | HOLD | SCARE
@@ -18180,6 +18182,7 @@ flags:UNIQUE | MALE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:FORCE_SLEEP
+flags:RES_LIGHT
 spell-freq:3
 spell-power:45
 spells:BLIND | WOUND | DARKNESS | HOLD | SCARE
@@ -18751,7 +18754,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | INVISIBLE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_FIRE
+flags:IM_FIRE | RES_LIGHT
 flags:FORCE_SLEEP
 spell-freq:3
 spell-power:48
@@ -19571,7 +19574,7 @@ blow:TOUCH:EXP_40:6d7
 flags:UNIQUE | MALE | INVISIBLE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_FIRE
+flags:IM_FIRE | RES_LIGHT
 flags:FORCE_SLEEP
 spell-freq:3
 spell-power:52
@@ -20397,7 +20400,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_LIGHT
 spell-freq:3
 spell-power:56
 spells:BLIND | WOUND | HOLD | SCARE
@@ -21553,7 +21556,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_LIGHT
 spell-freq:3
 spell-power:64
 spells:BLIND | WOUND | MISSILE | HOLD | MIND_BLAST | SCARE
@@ -22884,7 +22887,7 @@ blow:TOUCH:EXP_40:7d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_ACID | IM_FIRE
+flags:IM_ACID | IM_FIRE | RES_LIGHT
 flags:FORCE_SLEEP
 spell-freq:2
 spell-power:72
@@ -23872,7 +23875,7 @@ blow:HIT:EXP_80:7d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_LIGHT
 spell-freq:2
 spell-power:80
 spells:BLIND | BRAIN_SMASH | WOUND | HOLD | SCARE | TELE_AWAY
@@ -31160,9 +31163,9 @@ name:shadow of nazgul
 base:wraith
 color:p
 speed:115
-hit-points:250
+hit-points:500
 light:-2
-hearing:90
+hearing:40
 smell:50
 armor-class:72
 sleepiness:10
@@ -31176,6 +31179,7 @@ blow:HIT:BLACK_BREATH:3d7
 flags:MALE | LEVITATE
 flags:DROP_1 | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
+flags:RES_LIGHT
 desc:Nazguls don't dissapear for ever.. They return. Always.
 desc:But till the moment when they will reclaim, 
 desc:they dwell aas shadowless shapes.
