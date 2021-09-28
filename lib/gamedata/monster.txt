@@ -1224,7 +1224,7 @@ weight:150
 experience:5
 blow:HIT:HURT:1d6
 flags:MALE | UNIQUE
-flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WANDERER
+flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WANDERER | WILD_WOOD
 flags:ONLY_GOLD | DROP_1
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
 desc:He has a strong axe with a sharp edge.

@@ -1540,6 +1540,12 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
 
     /* Monster may be able to deal with walls and doors */
     if (rf_has(mon->race->flags, RF_PASS_WALL)) return true;
+    
+    /* Monster may be able to move through trees */
+    if (square_istree(c, grid) && one_in_(3) && (rf_has(mon->race->flags, RF_WILD_WOOD) ||
+        rf_has(mon->race->flags, RF_ANIMAL)))
+        return true;
+    
     if (rf_has(mon->race->flags, RF_SMASH_WALL))
     {
         /* Remove the wall and much of what's nearby */
