@@ -2475,8 +2475,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_h += 10;
         adjust_skill_scale(&state->skills[SKILL_DEVICE], 1, 20, 0);
     }
-    if (p->timed[TMD_SHIELD])
+    //// <--
+    if (p->timed[TMD_SHIELD] && streq(p->clazz->name, "Mage"))
+    {
+        state->skills[SKILL_STEALTH] -= 5;
+        state->el_info[ELEM_COLD].res_level++;
+        extra_moves -= 1 + (p->lev / 5);
+    }
+    else if (p->timed[TMD_SHIELD])
         state->to_a += 50;
+    //// -->
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;

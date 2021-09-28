@@ -316,7 +316,6 @@ attack:hit: with a jump kick:25:20:JUMP
 attack:hit: with a circle kick:35:30:CIRCLE
 attack:hit: with a crushing blow:45:35:CRUSH
 
-
 ############### MAGE ###############
 name:Mage
 color:r
@@ -333,7 +332,6 @@ hitdie:1
 max-attacks:4
 min-weight:40
 strength-multiplier:2
-#equip:food:Ration of Food:2:4:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -358,7 +356,7 @@ title:Arch-Mage
 
 magic:1:300:5
 
-book:magic book:town:[Magic for Beginners]:7:arcane
+book:magic book:town:[Magic for Beginners]:8:arcane
 book-graphics:?:R
 book-properties:1:30:25
 book-alloc:40:1 to 100
@@ -420,6 +418,20 @@ dice:$Dd6
 expr:D:PLAYER_LEVEL:- 1 / 5 + 3
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
+
+spell:Frost Shield:6:6:33:4:0
+effect:TIMED_INC:SHIELD
+dice:$B
+expr:B:PLAYER_LEVEL:+ 20
+effect:TIMED_INC:ICY_AURA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 20
+effect:TIMED_INC:ATT_COLD:0:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 20
+desc:Grants you cold resistance, provide freezing aura, brands
+desc: your physical attacks with cold... but also greatly reduce stealth
+desc: and your movement speed.
 
 book:magic book:town:[Conjurings and Tricks]:7:arcane
 book-graphics:?:R
