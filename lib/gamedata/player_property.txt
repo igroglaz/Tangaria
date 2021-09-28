@@ -431,3 +431,8 @@ type:object
 code:PROT_AMNESIA
 name:Amnesia Immunity
 desc:You cannot have amnesia.
+
+type:object
+code:FLYING
+name:Allow flying
+desc:You are able to fly.

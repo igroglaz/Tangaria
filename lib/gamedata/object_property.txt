@@ -1396,3 +1396,32 @@ type-mult:light:0
 msg:Your {name} clears your mind.
 desc:amnesia
 short-desc:Amnes
+
+name:flying
+type:flag
+subtype:misc ability
+id-type:on effect
+code:FLYING
+power:40
+# only boots, cloak and pre-defined in object.txt ring
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+#type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+#type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:Your {name} makes you levitate a few feet above the floor.
+desc:Makes you levitate a few feet above the floor.
