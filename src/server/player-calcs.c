@@ -2478,8 +2478,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     //// <--
     if (p->timed[TMD_SHIELD] && streq(p->clazz->name, "Mage"))
     {
+        state->to_a += 10;
         state->skills[SKILL_STEALTH] -= 5;
-        state->el_info[ELEM_COLD].res_level++;
+        if (state->el_info[ELEM_COLD].res_level < 2)
+            state->el_info[ELEM_COLD].res_level++;
         extra_moves -= 1 + (p->lev / 5);
     }
     else if (p->timed[TMD_SHIELD])

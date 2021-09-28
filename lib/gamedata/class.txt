@@ -412,7 +412,7 @@ expr:B:PLAYER_LEVEL:+ 10
 msg_other: fires a fire ball.
 desc:Shoots a radius-2 fire ball.
 
-spell:Lightning Beam:5:4:30:4:0
+spell:Lightning Beam:5:3:30:4:0
 effect:BEAM:ELEC
 dice:$Dd6
 expr:D:PLAYER_LEVEL:- 1 / 5 + 3
@@ -452,16 +452,6 @@ expr:B:PLAYER_LEVEL:* 5
 msg_other: teleports away.
 desc:Teleports you randomly within the current level.
 
-spell:Frost Bolt:7:3:40:6:0
-effect:BOLT_OR_BEAM:COLD
-dice:$Dd8
-expr:D:PLAYER_LEVEL:- 5 / 3 + 6
-msg_other: fires a frost bolt.
-desc:Fires a frost bolt that always hits its target.
-desc: Sometimes a beam is fired instead that hurts each monster
-desc: in its path.
-desc: The chance to get a beam goes up with your character level.
-
 spell:Recharging:9:7:75:6:0
 effect:RECHARGE
 dice:$B
@@ -471,12 +461,22 @@ desc: Chance of success and number of charges gained increase with your
 desc: level and decrease with level of wand or staff and number of charges.
 desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
-spell:Detect Treasure:10:3:60:5:0
+spell:Frost Bolt:10:3:40:6:0
+effect:BOLT_OR_BEAM:COLD
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 * 40
+msg_other: fires a frost bolt.
+desc:Fires a frost bolt that always hits its target.
+desc: Sometimes a beam is fired instead that hurts each monster
+desc: in its path.
+desc: The chance to get a beam goes up with your character level.
+
+spell:Detect Treasure:11:3:60:5:0
 effect:DETECT_TREASURES
 effect-yx:22:40
 desc:Detects all treasure in the immediate area.
 
-spell:Identify Rune:11:7:25:8:0
+spell:Identify Rune:12:7:25:8:0
 effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
@@ -497,7 +497,7 @@ effect-yx:22:40
 desc:Detects all monsters in the immediate area, for one turn only.
 
 spell:Shock Wave:16:5:40:10:0
-effect:BALL:SOUND:2
+effect:BALL:SOUND:3
 dice:$B
 expr:B:PLAYER_LEVEL:+ 10
 msg_other: fires a sonic ball.
@@ -508,14 +508,14 @@ desc: each monster in the area of effect.
 spell:Explosion:20:10:50:12:0
 effect:BALL:SHARD:2
 dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 20
+expr:B:PLAYER_LEVEL:* 2 + 40
 msg_other: fires an exploding missile.
 desc:Shoots a radius-2 shards ball.
 
 spell:Acid Spray:20:7:30:12:0
 effect:BREATH:ACID:0:30
 dice:$Dd8
-expr:D:PLAYER_LEVEL:/ 2
+expr:D:PLAYER_LEVEL:+ 1
 msg_other: sprays acid.
 desc:Sprays acid.
 
@@ -539,12 +539,7 @@ book-properties:40:30:20000
 book-alloc:15:40 to 100
 book-desc:An advanced arcane book with a few spells.
 
-spell:Mana Channel:25:10:50:20:0
-effect:TIMED_INC:FASTCAST
-dice:5+1d5
-desc:Doubles spellcasting speed for 5+1d5 turns.
-
-spell:Mana Bolt:25:8:60:30:0
+spell:Mana Bolt:24:8:60:30:0
 # 8-14 @ 24 (~60)
 # 8-40 @ 50 (~164)
 effect:BOLT_OR_BEAM:MANA
@@ -555,6 +550,11 @@ desc:Fires a mana bolt that always hits its target.
 desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
+
+spell:Mana Channel:25:10:50:20:0
+effect:TIMED_INC:FASTCAST
+dice:5+1d5
+desc:Doubles spellcasting speed for 5+1d5 turns.
 
 spell:Resistance:28:20:65:20:0
 effect:CLEAR_VALUE
