@@ -1987,8 +1987,12 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         return;
     }
 
+    
+    // Druids pass trees
+    if (square_istree(c, &grid) && one_in_(2) && streq(p->clazz->name, "Druid"))
+        ;
     /* Normal players can not walk through "walls" */
-    if (!player_passwall(p) && !square_ispassable(c, &grid))
+    else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
         disturb(p, 0);
 
@@ -2040,7 +2044,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 msgt(p, MSG_HITWALL, "There is a door blocking your way.");
 
             /* Tree */
-            else if (square_istree(c, &grid))
+            else if (square_istree(c, &grid) && !streq(p->clazz->name, "Druid"))
                 msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
 
             /* Wall (or secret door) */
