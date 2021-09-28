@@ -1991,6 +1991,12 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     // Druids pass trees
     if (square_istree(c, &grid) && one_in_(2) && streq(p->clazz->name, "Druid"))
         ;
+    else if (square_istree(c, &grid) && one_in_(2) && streq(p->clazz->name, "Ranger"))
+        ;    
+    else if (square_istree(c, &grid) && one_in_(2) && streq(p->race->name, "Ent"))
+        ;
+    else if (square_istree(c, &grid) && one_in_(5) && of_on(f, OF_FEATHER))
+        ;
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
