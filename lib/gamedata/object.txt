@@ -4157,6 +4157,12 @@ type:potion
 level:3
 weight:4
 cost:1
+effect:CURE:POISONED
+effect:CURE:STUN
+effect:CURE:POISONED
+effect:CURE:CONFUSED
+effect:HEAL_HP
+dice:40
 effect:NOURISH:DEC_BY
 dice:25
 msg_self:The potion calms your stomach, but leaves you more hungry.
