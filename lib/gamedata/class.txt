@@ -426,9 +426,6 @@ expr:B:PLAYER_LEVEL:+ 20
 effect:TIMED_INC:ICY_AURA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 20
-effect:TIMED_INC:ATT_COLD:0:5
-dice:$B
-expr:B:PLAYER_LEVEL:+ 20
 desc:Grants you cold resistance, provide freezing aura, brands
 desc: your physical attacks with cold... but also greatly reduce stealth
 desc: and your movement speed.
@@ -464,7 +461,13 @@ desc: A failed attempt to recharge destroys one wand or staff from the stack.
 spell:Frost Bolt:10:3:40:6:0
 effect:BOLT_OR_BEAM:COLD
 dice:$B
-expr:B:PLAYER_LEVEL:/ 10 * 40
+expr:B:PLAYER_LEVEL:/ 10 * 35
+#                 sorc vs mage
+# @10: 7d8   7-56  ~31 vs 35
+# @20: 11d8 11-88  ~50 vs 70
+# @30: 14d8 14-112 ~63 vs 105
+# @40: 17d8 17-136 ~77 vs 140
+# @50: 21d8 21-168 ~95 vs 175
 msg_other: fires a frost bolt.
 desc:Fires a frost bolt that always hits its target.
 desc: Sometimes a beam is fired instead that hurts each monster
@@ -508,14 +511,14 @@ desc: each monster in the area of effect.
 spell:Explosion:20:10:50:12:0
 effect:BALL:SHARD:2
 dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 40
+expr:B:PLAYER_LEVEL:* 2 + 30
 msg_other: fires an exploding missile.
 desc:Shoots a radius-2 shards ball.
 
 spell:Acid Spray:20:7:30:12:0
 effect:BREATH:ACID:0:30
 dice:$Dd8
-expr:D:PLAYER_LEVEL:+ 1
+expr:D:PLAYER_LEVEL:- 5
 msg_other: sprays acid.
 desc:Sprays acid.
 

@@ -472,7 +472,13 @@ static void blow_side_effects(struct player *p, struct source *target,
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
         hp_player_safe(p, 1 + drain / 2);
-    }    
+    }
+
+    // Mage's "Frost Shield" spell gives cold brand
+    if (p->timed[TMD_SHIELD] && streq(p->clazz->name, "Mage") && p->lev > 20)
+    {
+        player_inc_timed(p, TMD_ATT_COLD, 5, true, true);
+    }
 
     /* Confusion attack */
     if (p->timed[TMD_ATT_CONF])
