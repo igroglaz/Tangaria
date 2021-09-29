@@ -1295,6 +1295,7 @@ flags:ANIMAL | NO_CONF | NO_SLEEP | WANDERER
 flags:DROP_CORPSE | DROP_SKELETON
 drop:fortune cookie:Fortune Cookie:80:1:1
 desc:A striped housecat who enjoys hunting.
+locations:The Mountain Gorge|The Orc Cave|The Severs
 
 name:kobold
 base:kobold

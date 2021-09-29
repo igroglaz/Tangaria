@@ -2480,8 +2480,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         state->to_a += 10;
         state->skills[SKILL_STEALTH] -= 5;
-        if (p->lev > 20)
-            state->el_info[ELEM_COLD].res_level == 2;
+        if (state->el_info[ELEM_COLD].res_level < 2 && p->lev > 20)
+            state->el_info[ELEM_COLD].res_level++;
         if (p->lev > 49)
             state->el_info[ELEM_COLD].res_level == 3;        
         extra_moves -= 1 + (p->lev / 5);
