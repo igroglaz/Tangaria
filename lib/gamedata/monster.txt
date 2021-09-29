@@ -1113,7 +1113,6 @@ experience:1
 blow:BITE:HURT:1d1
 flags:GROUP_AI
 flags:DROP_CORPSE | DROP_SKELETON | WILD_GRASS | WILD_WOOD
-flags:NO_PASS_TREE
 friends:100:2d7:Same
 desc:It is a yapping snarling dog, dangerous when in a pack.
 
@@ -1148,7 +1147,6 @@ weight:2
 experience:1
 blow:BITE:HURT:1d1
 flags:DROP_CORPSE | WILD_WOOD | WILD_SWAMP | RAND_25
-flags:NO_PASS_TREE
 desc:A fast-moving pest.
 
 #towny
@@ -1233,7 +1231,6 @@ flags:MALE | UNIQUE
 flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WANDERER | WILD_WOOD
 flags:ONLY_GOLD | DROP_1
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
-flags:NO_PASS_TREE
 desc:He has a strong axe with a sharp edge.
 desc:He looks pale.. and got strange crimson gleal in his eyes..
 
@@ -1296,7 +1293,6 @@ blow:CLAW:HURT:1d2
 flags:UNIQUE | BASH_DOOR
 flags:ANIMAL | NO_CONF | NO_SLEEP | WANDERER
 flags:DROP_CORPSE | DROP_SKELETON
-flags:NO_PASS_TREE
 drop:fortune cookie:Fortune Cookie:80:1:1
 desc:A striped housecat who enjoys hunting.
 
@@ -1637,7 +1633,6 @@ blow:BITE:HURT:1d4
 flags:UNIQUE
 flags:RAND_25 | BASH_DOOR | WANDERER
 flags:NO_CONF | NO_SLEEP
-flags:NO_PASS_TREE
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
 
@@ -1658,7 +1653,6 @@ blow:BITE:HURT:1d4
 flags:UNIQUE
 flags:RAND_25 | BASH_DOOR | WANDERER
 flags:NO_CONF | NO_SLEEP
-flags:NO_PASS_TREE
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
 
@@ -1736,7 +1730,6 @@ blow:CLAW:HURT:1d3
 blow:CLAW:HURT:1d3
 flags:BASH_DOOR
 flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL
-flags:NO_PASS_TREE
 desc:A larger than normal feline, hissing loudly. Its velvet paws conceal a
 desc: fistful of needles.
 
@@ -1755,7 +1748,6 @@ experience:8
 blow:BITE:HURT:1d3
 blow:BITE:HURT:1d3
 flags:DROP_CORPSE | WILD_WOOD
-flags:NO_PASS_TREE
 desc:It is a hooded crow, gray except for the black wings and head.
 
 name:Wolf, Farmer Maggot's Dog
@@ -1775,7 +1767,6 @@ blow:BITE:HURT:1d4
 flags:UNIQUE | PWMANG_BASE | WANDERER
 flags:RAND_25 | BASH_DOOR
 flags:NO_CONF | NO_SLEEP
-flags:NO_PASS_TREE
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
 
@@ -1908,7 +1899,6 @@ depth:3
 rarity:1
 weight:0
 experience:1
-flags:NO_PASS_TREE
 blow:BITE:HURT:1d1
 desc:It is six inches long.
 
@@ -2490,7 +2480,6 @@ blow:BITE:HURT:1d4
 blow:BITE:HURT:1d3
 blow:TOUCH:EAT_GOLD
 flags:DROP_CORPSE | WILD_WOOD
-flags:NO_PASS_TREE
 # | LEVITATE
 desc:It is gray except for the black wings and head.
 desc:It likes shiny items.
@@ -3190,7 +3179,6 @@ experience:10
 blow:BITE:HURT:1d3
 blow:BITE:HURT:1d2
 flags:DROP_CORPSE | WILD_WOOD
-flags:NO_PASS_TREE
 spell-freq:9
 spell-power:4
 spells:WOUND
@@ -3834,7 +3822,6 @@ depth:8
 rarity:3
 weight:80
 experience:22
-flags:NO_PASS_TREE
 blow:CLAW:HURT:1d3
 blow:CLAW:HURT:1d3
 blow:BITE:HURT:1d4
@@ -3878,7 +3865,6 @@ depth:9
 rarity:1
 weight:0
 experience:3
-flags:NO_PASS_TREE
 blow:BITE:HURT:1d2
 desc:It makes you itch just to look at it.
 
@@ -4206,7 +4192,6 @@ blow:BITE:HURT:1d12
 blow:BITE:HURT:1d12
 flags:BASH_DOOR | WILD_GRASS | WILD_WOOD | PWMANG_BASE
 flags:UNIQUE | MALE
-flags:NO_PASS_TREE
 drop:food:Scrap of Flesh:30:1:1
 desc:It has been terrorizing the nearby villages.
 
@@ -4694,7 +4679,6 @@ depth:10
 rarity:3
 weight:0
 experience:4
-flags:NO_PASS_TREE
 blow:BITE:HURT:1d2
 desc:A fast-breeding, annoying pest.
 
@@ -6008,7 +5992,6 @@ depth:14
 rarity:1
 weight:0
 experience:3
-flags:NO_PASS_TREE
 blow:BITE:HURT:1d2
 desc:It makes you itch just to look at it.
 
@@ -6026,7 +6009,6 @@ weight:0
 experience:4
 blow:BITE:HURT:1d2
 flags:BASH_DOOR
-flags:NO_PASS_TREE
 desc:It makes you itch just to look at it.
 
 name:Ufthak of Cirith Ungol
@@ -6473,7 +6455,6 @@ blow:BITE:POISON:1d6
 flags:EVIL | ANIMAL | WEIRD_MIND
 flags:IM_POIS | GROUP_AI
 flags:DROP_SKELETON | WILD_WOOD | MULTIPLY
-flags:NO_PASS_TREE
 spell-freq:7
 innate-freq:100
 spells:SPIT
@@ -6785,7 +6766,6 @@ depth:16
 rarity:5
 weight:0
 experience:4
-flags:NO_PASS_TREE
 blow:BITE:CONFUSE:2d2
 desc:A giant buzzing wasp, its stinger drips venom.
 
@@ -7796,7 +7776,6 @@ experience:4
 blow:BITE:POISON:2d2
 flags:EVIL
 flags:WILD_SWAMP
-flags:NO_PASS_TREE
 spell-freq:12
 spell-power:19
 innate-freq:100
@@ -7876,7 +7855,7 @@ smell:20
 armor-class:2
 sleepiness:10
 depth:20
-rarity:3
+rarity:4
 weight:80
 experience:50
 blow:CLAW:HURT:2d10
@@ -9599,7 +9578,6 @@ depth:24
 rarity:7
 weight:0
 experience:4
-flags:NO_PASS_TREE
 blow:BITE:BLIND:1d2
 desc:Clouds of these monsters light up the dungeon - so brightly that you can
 desc: barely see through them.
@@ -22180,7 +22158,6 @@ flags:BASH_DOOR
 flags:ATTR_MULTI | FORCE_SLEEP | NO_CONF
 flags:DROP_CORPSE
 flags:IM_LIGHT
-flags:NO_PASS_TREE
 spell-freq:5
 innate-freq:50
 spells:WOUND

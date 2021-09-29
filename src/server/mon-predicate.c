@@ -59,10 +59,15 @@ bool monster_is_destroyed(const struct monster_race *race)
  */
 bool monster_passes_walls(const struct monster_race *race)
 {
-    if (flags_test(race->flags, RF_SIZE, RF_NO_PASS_TREE, FLAG_END))
+    if (flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, RF_WILD_WOOD, RF_ANIMAL, FLAG_END))
+    {
+        if (flags_test(race->flags, RF_SIZE, RF_NO_PASS_TREE, FLAG_END))
+            return false;
+        else
+            return true;
+    }
+    else
         return false;
-    else if (flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, RF_WILD_WOOD, RF_ANIMAL, FLAG_END))
-        return true;
 }
 
 

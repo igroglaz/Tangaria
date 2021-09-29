@@ -1989,19 +1989,18 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     
     // Some can pass trees
-    if (square_istree(c, &grid) && !one_in_(3) && streq(p->clazz->name, "Druid"))
+    if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
         ;
-    else if (square_istree(c, &grid) && one_in_(2) && streq(p->clazz->name, "Ranger"))
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
         ;    
-    else if (square_istree(c, &grid) && !one_in_(4) && streq(p->race->name, "Ent"))
+    else if (square_istree(c, &grid) && streq(p->race->name, "Ent") && !one_in_(4))
         ;
-    else if (square_istree(c, &grid) && !one_in_(5) && player_of_has(p, OF_FLYING) &&
-        !player_of_has(p, OF_CANT_FLY))
+    else if (square_istree(c, &grid) && player_of_has(p, OF_FLYING) &&
+        !player_of_has(p, OF_CANT_FLY) && !one_in_(5))
         ;
-/*    else if (square_istree(c, &grid) && one_in_(5) && player_of_has(p, OF_FEATHER) &&
-        !player_of_has(p, OF_CANT_FLY))
+    else if (square_istree(c, &grid) && player_of_has(p, OF_FEATHER) &&
+        !player_of_has(p, OF_CANT_FLY) && one_in_(3) && p->lev > 35)
         ;
-*/
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {

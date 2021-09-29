@@ -722,7 +722,9 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
 
         /* Levitation makes one lightfooted. */
-        if (player_of_has(p, OF_FEATHER)  && !player_of_has(p, OF_CANT_FLY)) dam_taken /= 2;
+        if ((player_of_has(p, OF_FEATHER) || player_of_has(p, OF_FLYING)) &&
+            !player_of_has(p, OF_CANT_FLY))
+            dam_taken /= 2;
     }
     else if (square_islava(c, &p->grid))
     {
