@@ -1998,9 +1998,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     else if (square_istree(c, &grid) && !one_in_(5) && player_of_has(p, OF_FLYING) &&
         !player_of_has(p, OF_CANT_FLY))
         ;
-    else if (square_istree(c, &grid) && one_in_(5) && player_of_has(p, OF_FEATHER) &&
+/*    else if (square_istree(c, &grid) && one_in_(5) && player_of_has(p, OF_FEATHER) &&
         !player_of_has(p, OF_CANT_FLY))
         ;
+*/
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {

@@ -212,6 +212,7 @@ flags:ONLY_GOLD
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:FORCE_SLEEP | HURT_COLD
 flags:HAS_LEGS
+flags:NO_PASS_TREE
 desc:Hydra
 
 # Non-descript early monsters that demonstrate some stuff but are mostly filler
@@ -505,6 +506,7 @@ flags:ANIMAL | SPIRIT | LEVITATE
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:RES_ACID
 flags:HUMANOID
+flags:NO_PASS_TREE
 desc:Yeek
 
 # Yetis are a couple of niche monsters, big furry bear-like creatures
@@ -524,6 +526,7 @@ glyph:Z
 pain:3
 flags:ANIMAL | GROUP_AI | CLEAR_WEB
 flags:HAS_LEGS
+flags:NO_PASS_TREE
 desc:Zephyr Hound
 
 # Animated corpses, frequently with no mind of their own. Mostly fairly weak
@@ -556,6 +559,7 @@ pain:1
 desc:Aquatic
 flags:ANIMAL | AQUATIC | CLEAR_WEB
 flags:IM_WATER
+flags:NO_PASS_TREE
 
 name:ball
 glyph:*
