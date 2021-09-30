@@ -598,7 +598,7 @@ msg:You feel yourself turning to stone!
 
 name:trap:hunger trap
 graphics:^:light yellow
-appear:1:1:0
+appear:2:2:2
 visibility:10d50
 flags:TRAP | FLOOR | MAGICAL | ONETIME
 effect:NOURISH:SET_TO

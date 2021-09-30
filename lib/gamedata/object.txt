@@ -4143,12 +4143,12 @@ weight:4
 cost:0
 alloc:10:3 to 15
 pile:100:1d2
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:4
 effect:CURE:POISONED
 effect:NOURISH:SET_TO
-dice:5
-msg_self:The potion makes you queasy.
+dice:6
+effect:RESTORE_MANA
+dice:15
+msg_self:The potion makes you queasy, but makes you awake.
 msg_other: vomits!
 
 name:Stomach Water
@@ -4165,6 +4165,8 @@ effect:HEAL_HP
 dice:40
 effect:NOURISH:DEC_BY
 dice:25
+effect:RESTORE_MANA
+dice:7
 msg_self:The potion calms your stomach, but leaves you more hungry.
 msg_other: hiccups.
 
@@ -6725,7 +6727,7 @@ name:& Spade~
 graphics:\:s
 type:digger
 level:5
-weight:50
+weight:200
 cost:10
 alloc:20:5 to 100
 attack:1d1:0:0

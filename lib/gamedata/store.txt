@@ -72,26 +72,28 @@ owner:5000:Erkenbrand
 owner:10000:Erkenbrand
 owner:20000:Erkenbrand
 owner:30000:Erkenbrand
-slots:2:4
+slots:2:9
 turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-always:arrow:Magic Arrow:600
-always:bolt:Magic Bolt:600
-always:shot:Magic Shot:600
+always:rock:Throwing Rock
+normal:arrow:Magic Arrow:1:450
+normal:bolt:Magic Bolt:1:450
+normal:shot:Magic Shot:1:450
 #always:stone:House Foundation Stone
 #always:scroll:House Creation
 always:potion:Stomach Water
 always:light:Lantern
-# always:digger:Shovel
-# always:digger:Pick
+always:digger:Spade
+#always:digger:Shovel
+#always:digger:Pick
 normal:potion:Cure Critical Wounds
 normal:potion:Restore Life Levels
-normal:bottle:Empty Bottle:1:500
+normal:bottle:Empty Bottle:1:900
 normal:food:Hard Biscuit:1:500
-#normal:food:Handful of Dried Fruits:9:500
-#normal:food:Ration of Food:10:500
+normal:food:Handful of Dried Fruits:1:500
+normal:food:Ration of Food:1:500
 buy:light
 buy:food
 buy:mushroom

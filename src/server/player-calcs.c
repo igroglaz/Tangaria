@@ -2483,7 +2483,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_COLD].res_level < 2 && p->lev > 20)
             state->el_info[ELEM_COLD].res_level++;
         if (p->lev > 49)
-            state->el_info[ELEM_COLD].res_level == 3;        
+            state->el_info[ELEM_COLD].res_level = 3;        
         extra_moves -= 1 + (p->lev / 5);
     }
     else if (p->timed[TMD_SHIELD])
@@ -2508,6 +2508,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->timed[TMD_FAST] || p->timed[TMD_SPRINT]) state->speed += 10;
     if (p->timed[TMD_FLIGHT]) state->speed += 5;
     if (p->timed[TMD_SLOW]) state->speed -= 10;
+    if (p->timed[TMD_MOVE_FAST]) extra_moves += 10;
     if (p->timed[TMD_SINFRA]) state->see_infra += 5;
     if (of_has(state->flags, OF_ESP_ALL))
     {

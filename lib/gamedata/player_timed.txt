@@ -689,3 +689,11 @@ on-decrease:You feel less resistant to amnesia.
 near-begin: is surrounded by a clear aura.
 near-end:'s clear aura disappears.
 flag-synonym:PROT_AMNESIA:1
+
+name:MOVE_FAST
+desc:haste ({+10} to movement)
+grade:G:10000:Haste:You feel yourself running faster!
+on-end:You feel your movement slow down.
+near-begin: starts running faster.
+near-end: slows movement down.
+#msgt:SPEED

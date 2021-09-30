@@ -2561,6 +2561,9 @@ void do_cmd_fountain(struct player *p, int item)
             /* Success */
             break;
         }
+        
+        if (streq(kind->name, "Salt Water"))
+            kind = lookup_kind_by_name(TV_POTION, "Water");
 
         /* Message */
         if (!kind->cost)
@@ -2632,7 +2635,7 @@ void do_cmd_fountain(struct player *p, int item)
         }
         else // everyone else
         {
-            if (p->timed[TMD_FOOD] < 500)
+            if (p->timed[TMD_FOOD] < 700)
                 player_inc_timed(p, TMD_FOOD, 100, false, false);
         }
         

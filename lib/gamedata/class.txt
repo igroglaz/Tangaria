@@ -381,10 +381,14 @@ desc:Detects all non-invisible monsters in the immediate area,
 desc: for one turn only.
 
 spell:Phase Door:1:2:24:4:0
+effect:TIMED_INC:MOVE_FAST
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 5
 effect:TELEPORT
 dice:10
 msg_other: blinks away.
-desc:Teleports you randomly up to 10 squares away.
+desc:Teleports you randomly up to 10 squares away and make you
+desc: hasty for some time.
 
 spell:Light Room:1:2:26:4:0
 effect:BLAST:LIGHT_WEAK:2
@@ -419,7 +423,7 @@ expr:D:PLAYER_LEVEL:- 1 / 5 + 3
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
-spell:Frost Shield:6:6:33:4:0
+spell:Frost Shield:6:4:5:4:0
 effect:TIMED_INC:SHIELD
 dice:$B
 expr:B:PLAYER_LEVEL:+ 20
@@ -458,16 +462,16 @@ desc: Chance of success and number of charges gained increase with your
 desc: level and decrease with level of wand or staff and number of charges.
 desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
-spell:Frost Bolt:10:3:40:6:0
+spell:Frost Bolt:10:3:30:6:0
 effect:BOLT_OR_BEAM:COLD
 dice:$B
-expr:B:PLAYER_LEVEL:/ 10 * 35
+expr:B:PLAYER_LEVEL:/ 10 * 40
 #                 sorc vs mage
-# @10: 7d8   7-56  ~31 vs 35
-# @20: 11d8 11-88  ~50 vs 70
-# @30: 14d8 14-112 ~63 vs 105
-# @40: 17d8 17-136 ~77 vs 140
-# @50: 21d8 21-168 ~95 vs 175
+# @10: 7d8   7-56  ~31 vs 40
+# @20: 11d8 11-88  ~50 vs 80
+# @30: 14d8 14-112 ~63 vs 120
+# @40: 17d8 17-136 ~77 vs 160
+# @50: 21d8 21-168 ~95 vs 200
 msg_other: fires a frost bolt.
 desc:Fires a frost bolt that always hits its target.
 desc: Sometimes a beam is fired instead that hurts each monster
