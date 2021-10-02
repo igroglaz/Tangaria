@@ -2003,7 +2003,7 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     *newx = grid->x;
 
     /* Walls protect monsters */
-    if (!square_ispassable(c, grid)) return;
+    if (!square_ispassable(c, grid) && !(square_istree(c, grid) && !one_in_(4))) return;
 
     /* No monster here */
     if (m_idx <= 0) return;

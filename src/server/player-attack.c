@@ -1777,7 +1777,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
             /* Hack -- stop before hitting walls */
             if (!square_ispassable(c, &path_g[i]) && !square_isprojectable(c, &path_g[i]) &&
-                !square_istree(c, &path_g[i]))
+                !(square_istree(c, &path_g[i]) && !one_in_(4)))
             {
                 /* Special case: potion VS house door */
                 if (tval_is_potion(obj) && square_home_iscloseddoor(c, &path_g[i]))
