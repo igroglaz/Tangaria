@@ -700,6 +700,10 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
     {
         /* Disable selling true artifacts */
         if (true_artifact_p(obj)) return (0L);
+        
+        // no nazgul rings for sale
+//        if (kf_has(obj->kind->kind_flags, KF_INSTA_ART)) return (0L);
+        if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return (0L);
 
         /* Get the desired value of the given quantity of items */
         price = (double)obj->askprice * qty;

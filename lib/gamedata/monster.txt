@@ -31204,7 +31204,6 @@ hearing:1
 armor-class:0
 sleepiness:0
 depth:1
-############### make 0!
 rarity:0
 weight:0
 experience:1
@@ -31218,12 +31217,11 @@ name:Test drop
 base:golem
 color:y
 speed:100
-hit-points:1000
+hit-points:100
 hearing:1
 armor-class:0
 sleepiness:0
 depth:1
-############### make 0!
 rarity:0
 weight:0
 experience:1
@@ -31231,5 +31229,6 @@ spell-freq:1
 blow:HIT:FORGET:10d1
 flags:NEVER_MOVE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+#drop:ring:Black Ring of Power:100:1:1
 #drop:sword:'Stormbringer':100:1:1
 desc:An indestructible golem used for testing purposes.
