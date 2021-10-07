@@ -175,6 +175,14 @@ bool race_hates_grid(struct chunk *c, struct monster_race *race, struct loc *gri
  */
 bool monster_hates_grid(struct chunk *c, struct monster *mon, struct loc *grid)
 {
+    // If water - swimming creatures can cross it
+    if (square_iswater(c, grid))
+    {
+        if (rf_has(mon->race->flags, RF_SWIM_GOOD)) return false;
+        else if (rf_has(mon->race->flags, RF_HUMANOID)) return false;
+        else if (rf_has(mon->race->flags, RF_SWIM_BAD)) return false;
+    }
+
     return race_hates_grid(c, mon->race, grid);
 }
 
@@ -1495,8 +1503,9 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     /* Always allow an attack upon the player or decoy. */
     if (square_isplayer(c, grid) || square_isdecoyed(c, grid)) return true;
 
-    /* Dangerous terrain in the way */
-    if (!confused && monster_hates_grid(c, mon, grid)) return false;
+    // For every damaging tile besides water (because water calculated down below)
+    if (!confused && monster_hates_grid(c, mon, grid) && !square_iswater(c, grid))
+        return false;
 
     /* Safe floor */
     if (square_issafefloor(c, grid)) return false;
@@ -1697,6 +1706,23 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
             note_viewable_changes(&c->wpos, grid);
         }
     }
+    // Swimming creatures can _sometimes_ cross water.
+    /*
+       We put there this condition cause monster shouldn't fail to move
+       on the step of "decision" should he move or not.
+       If we will add one_in_() condition previously (eg to monster_swim_grid(),
+       monster may turn back after it enters water which is stupid.
+    */
+    else if (!confused && square_iswater(c, grid))
+    {
+        if (rf_has(mon->race->flags, RF_SWIM_GOOD) && one_in_(2))
+            return true;
+        if (rf_has(mon->race->flags, RF_HUMANOID) && one_in_(3))
+            return true;
+        if (rf_has(mon->race->flags, RF_SWIM_BAD) && one_in_(4))
+            return true;
+        return false;
+    }    
     else if (confused)
     {
         *did_something = true;

@@ -148,6 +148,7 @@ pain:1
 flags:EMPTY_MIND | CLEAR_WEB
 flags:IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP
 flags:NONLIVING
+# some can swim
 desc:Elemental
 
 # Fast moving, bash doors, hit hard in melee
@@ -177,6 +178,7 @@ pain:1
 flags:GIANT | EVIL | SPIRIT
 flags:BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+# some can swim
 desc:Giant Humanoid
 
 # Mostly slow with lots of hitpoints and armor
@@ -186,6 +188,7 @@ pain:1
 flags:EMPTY_MIND | CLEAR_WEB
 flags:IM_ELEC | NO_FEAR | NO_CONF | NO_SLEEP
 flags:NONLIVING
+# some can swim
 desc:Golem
 
 name:humanoid
@@ -193,6 +196,8 @@ glyph:h
 pain:1
 flags:OPEN_DOOR | BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:HUMANOID
+# hardcoded: all HUMANOID flag mediocre in swimming, not only 'base:'.
+# some also may swim better (with additional flags in monster.txt)
 desc:Hobbit/Elf/Dwarf
 
 # Weird legendary stuff, mostly without spells, sometimes with breath
@@ -212,6 +217,7 @@ flags:ONLY_GOLD
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:FORCE_SLEEP | HURT_COLD
 flags:HAS_LEGS
+flags:SWIM_GOOD
 desc:Hydra
 
 # Non-descript early monsters that demonstrate some stuff but are mostly filler
@@ -334,6 +340,7 @@ pain:1
 flags:FEMALE | EVIL | HURT_COLD | SPIRIT
 flags:BASH_DOOR | CLEAR_WEB
 flags:HAS_LEGS | HYBRID
+flags:SWIM_GOOD
 desc:Naga
 
 # Ogres are like small giants, or large orcs. Mostly straightforward melee
@@ -387,6 +394,7 @@ glyph:R
 pain:5
 flags:ANIMAL | HURT_COLD | CLEAR_WEB
 flags:HAS_LEGS
+flags:SWIM_GOOD
 desc:Reptile/Amphibian
 
 # Small, weak, early breeders, with one surprise non-breeder
@@ -414,6 +422,7 @@ glyph:J
 pain:5
 flags:ANIMAL | HURT_COLD
 flags:BASH_DOOR | CLEAR_WEB
+flags:SWIM_GOOD
 desc:Snake
 
 # Spiders are frequently poisonous and weave webs, and tend to have an
@@ -439,6 +448,7 @@ glyph:l
 pain:9
 flags:CLEAR_WEB | COLD_BLOOD | REGENERATE
 flags:NO_FEAR | NO_CONF | HURT_FIRE | IM_WATER
+flags:SWIM_GOOD
 desc:Tree/Ent
 
 # Trolls are evil, larger than human-size humanoids. They have strong melee

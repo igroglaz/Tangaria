@@ -1545,7 +1545,12 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
 
     /* Hack -- check if monster race can be generated at that location */
     if (!allow_race(race, &c->wpos)) return false;
-    if (race_hates_grid(c, race, grid)) return false;
+    
+    // allow water + monster-swimmer
+    if (square_iswater(c, grid) && rf_has(race->flags, RF_SWIM_GOOD))
+        ; // cause race_hates_grid() include water
+    else if (race_hates_grid(c, race, grid)) return false;
+    
     if (rf_has(race->flags, RF_NO_DEATH) && !square_istraining(c, grid)) return false;
 
     /* Get local monster */
