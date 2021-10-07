@@ -18016,18 +18016,23 @@ glyph:|
 color:v
 light:1
 speed:120
-hit-points:1500
+# was hit-points:1500 before KO nerf
+hit-points:2500
 hearing:0
-armor-class:99
+#armor-class:99
+armor-class:150
 sleepiness:20
 depth:45
 rarity:3
 weight:0
 experience:13000
 blow:WAIL:TERRIFY
-blow:HIT:EXP_80:64d1
-blow:HIT:EXP_80:64d1
-blow:HIT:EXP_80:8d8
+# prevent insta KO
+#blow:HIT:EXP_80:64d1
+#blow:HIT:EXP_80:64d1
+#blow:HIT:EXP_80:8d8
+blow:HIT:EXP_80:32d1
+blow:HIT:EXP_80:32d1
 flags:UNIQUE | EVIL | NONLIVING | LEVITATE
 flags:COLD_BLOOD | EMPTY_MIND | UNAWARE
 flags:BASH_DOOR
@@ -19004,6 +19009,7 @@ flags:UNIQUE | MALE | EVIL | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
+drop:food:Piece of Elvish Waybread:50:1:1
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | DARKNESS | HEAL
 spells:TELE_TO
@@ -25511,16 +25517,21 @@ color:D
 speed:140
 hit-points:2800
 hearing:100
-armor-class:96
+#armor-class:96
+armor-class:150
 sleepiness:0
 depth:110
 #4
 rarity:3
 weight:0
 experience:15000
-blow:ENGULF:HURT:100d1
-blow:ENGULF:PARALYZE:50d1
-blow:ENGULF:HURT:100d1
+# prevent insta KO
+#blow:ENGULF:HURT:100d1
+#blow:ENGULF:PARALYZE:50d1
+#blow:ENGULF:HURT:100d1
+blow:ENGULF:HURT:20d10
+blow:ENGULF:PARALYZE:10d12
+blow:ENGULF:HURT:20d10
 flags:PWMANG_EXTRA
 flags:NO_STUN | IM_FIRE | IM_COLD | IM_ELEC | IM_ACID
 flags:FORCE_DEPTH
