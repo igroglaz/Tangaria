@@ -682,7 +682,7 @@ static bool blow_after_effects(struct player *p, struct chunk *c, struct loc *gr
     /* Apply circular kick: do damage to anything around the attacker */
     if (circle)
     {
-        fire_ball(p, PROJ_MISSILE, 0, splash, 1, false);
+        fire_ball(p, PROJ_MISSILE, 0, splash, 1, false, true);
         show_monster_messages(p);
 
         /* Target may be dead */
@@ -1056,6 +1056,10 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     /* Apply the player damage bonuses */
     dmg += player_damage_bonus(&p->state);
 
+    /* PWMAngband: freezing aura reduces damage  */
+    if (target->player && (target->player->timed[TMD_ICY_AURA] > 0))
+        dmg = (dmg * 90) / 100;
+
     /* No negative damage; change verb if no damage done */
     if (dmg <= 0)
     {
@@ -1116,12 +1120,10 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         stop = take_hit(target->player, dmg, p->name, false, df);
 
         /* Handle freezing aura */
-        if (!stop && target->player->timed[TMD_ICY_AURA] && dmg)
+        if (!stop && target->player->timed[TMD_ICY_AURA])
         {
-            if (magik(50))
-                fire_ball(target->player, PROJ_ICE, 0, 1, 1, false);
-            else
-                fire_ball(target->player, PROJ_COLD, 0, 1 + target->player->lev / 5, 1, false);
+            fire_ball(target->player, PROJ_ICE, 0,
+                1 + target->player->lev / 5 + randint0(dmg) / 10, 1, false, true);
 
             /* Stop if player is dead */
             if (p->is_dead) stop = true;
@@ -2407,9 +2409,6 @@ bool do_cmd_fire_at_nearest(struct player *p)
     struct object *bow = equipped_item_by_slot_name(p, "shooting");
     bool result;
 
-    /* Cancel repeat */
-    if (!p->firing_request) return true;
-
     /* Check energy */
     if (!has_energy(p, true)) return false;
 
@@ -2462,7 +2461,6 @@ bool do_cmd_fire_at_nearest(struct player *p)
     }
 
     /* Repeat */
-    if (p->firing_request > 0) p->firing_request--;
-    if (p->firing_request > 0) cmd_fire_at_nearest(p);
+    if (p->firing_request) cmd_fire_at_nearest(p);
     return true;
 }

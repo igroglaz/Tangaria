@@ -1164,11 +1164,17 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Take note of the killer (only the first time!) */
     if (monster_is_unique(mon->race) && !lore->pkills)
     {
+        int type = MSG_BROADCAST_KILL_UNIQUE;
+
+        if (mon->race->base == lookup_monster_base("Morgoth"))
+            type = MSG_BROADCAST_KILL_KING;
+
         /* Give credit to the killer */
         strnfmt(buf, sizeof(buf), "%s was slain by %s %s.", mon->race->name, title, p->name);
 
-        /* Tell every player */
-        msg_broadcast(p, buf, soundfx);
+        /* Tell every player (including the killer because it's easy to miss in message window) */
+        msg_broadcast(p, buf, type);
+        msg_print(p, buf, type);
 
         /* Message for event history */
         strnfmt(logbuf, sizeof(logbuf), "Killed %s", mon->race->name);
@@ -1386,13 +1392,16 @@ bool mon_take_hit(struct player *p, struct chunk *c, struct monster *mon, int da
     mon->hp -= dam;
     mflag_on(p->mflag[mon->midx], MFLAG_HURT);
 
+    /* Hack -- icy aura knocks unconscious instead of killing */
+    if (p->icy_aura && (mon->hp < 0)) mon->hp = 0;
+
     /* It is dead now */
     if (mon->hp < 0)
     {
         player_kill_monster(p, c, who, note);
 
         /* Cancel fire-till-kill */
-        p->firing_request = 0;
+        p->firing_request = false;
 
         /* Not afraid */
         (*fear) = false;
@@ -1750,9 +1759,11 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
             mflag_on(p->pflag[id], MFLAG_VIEW);
 
             /* Disturb on appearance (except friendlies and hidden mimics) */
-            if (OPT(p, disturb_near) && pvp_check(p, q, PVP_CHECK_ONE, true, 0x00) && !q->k_idx &&
-                 !p->firing_request)
+            if (OPT(p, disturb_near) && pvp_check(p, q, PVP_CHECK_ONE, true, 0x00) && !q->k_idx)
             {
+                /* Hack -- do not cancel fire_till_kill on appearance */
+                if (p->firing_request) p->cancel_firing = false;
+
                 /* Disturb */
                 disturb(p, 0);
             }

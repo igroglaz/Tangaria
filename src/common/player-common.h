@@ -871,7 +871,7 @@ struct player
     bool full_refresh;              /* Full refresh (includes monster/object lists) */
     byte digging_request;
     byte digging_dir;
-    byte firing_request;
+    bool firing_request;
     bool cancel_firing;
     bool shimmer;                   /* Hack -- optimize multi-hued code (players) */
     bool delayed_display;           /* Hack -- delay messages after character creation */
@@ -898,6 +898,7 @@ struct player
     s32b extra_energy;              /* Extra energy */
     bool first_escape;
     bool dump_gen;
+    bool icy_aura;
 
     /*
      * In order to prevent the regeneration bonus from the first few turns, we have

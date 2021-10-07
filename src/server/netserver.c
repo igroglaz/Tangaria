@@ -3364,6 +3364,9 @@ int Send_flush(struct player *p, bool fresh, bool delay)
     connection_t *connp = get_connp(p, "flush");
     if (connp == NULL) return 0;
 
+    /* Hack -- don't display animations if fire_till_kill is enabled */
+    if (p->firing_request) delay = false;
+
     return Packet_printf(&connp->c, "%b%c%c", (unsigned)PKT_FLUSH, (int)fresh, (int)delay);
 }
 
@@ -4143,11 +4146,10 @@ static int Receive_cast(int ind, char *errmsg)
         /* Break mind link */
         break_mind_link(p);
 
-        /* Repeat casting 99 times if fire-till-kill mode is active */
+        /* Repeat casting if fire-till-kill mode is active */
         if (starting)
         {
-            if (OPT(p, fire_till_kill) && (dir == DIR_TARGET)) p->firing_request = 99;
-            else p->firing_request = 1;
+            if (OPT(p, fire_till_kill) && (dir == DIR_TARGET)) p->firing_request = true;
             starting = 0;
         }
 
@@ -5242,8 +5244,8 @@ static int Receive_clear(int ind)
         /* Cancel repeated commands */
         if (mode != ES_END_MACRO)
         {
-            if (p->digging_request) p->digging_request = 0;
-            if (p->firing_request) p->firing_request = 0;
+            p->digging_request = 0;
+            p->firing_request = false;
         }
     }
 
@@ -5369,11 +5371,10 @@ static int Receive_fire_at_nearest(int ind)
         /* Break mind link */
         break_mind_link(p);
 
-        /* Repeat firing 99 times if fire-till-kill mode is active */
+        /* Repeat firing if fire-till-kill mode is active */
         if (starting)
         {
-            if (OPT(p, fire_till_kill)) p->firing_request = 99;
-            else p->firing_request = 1;
+            if (OPT(p, fire_till_kill)) p->firing_request = true;
             starting = 0;
         }
 
@@ -7668,7 +7669,7 @@ bool process_pending_commands(int ind)
             if ((type != PKT_TUNNEL) && p->digging_request)
                 p->digging_request = 0;
             if ((type != PKT_FIRE_AT_NEAREST) && (type != PKT_SPELL) && p->firing_request)
-                p->firing_request = 0;
+                p->firing_request = false;
         }
 
         result = (*receive_tbl[type])(ind);

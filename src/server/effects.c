@@ -1108,7 +1108,7 @@ static bool set_recall_depth(struct player *p, quark_t note, int current_value, 
  * Allow "target" mode to pass over monsters
  * Affect grids, objects, and monsters
  */
-bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obvious)
+bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obvious, bool constant)
 {
     struct loc target;
     bool result;
@@ -1120,8 +1120,8 @@ bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obviou
 
     if (obvious) flg |= PROJECT_AWARE;
 
-    /* Hack -- heal self */
-    if (typ == PROJ_MON_HEAL) flg |= PROJECT_CONST;
+    /* Hack -- heal self && blasts */
+    if ((typ == PROJ_MON_HEAL) || constant) flg |= PROJECT_CONST;
 
     /* Ensure "dir" is in ddx/ddy array bounds */
     if (!VALID_DIR(dir)) return false;
@@ -1512,7 +1512,7 @@ static bool effect_handler_BALL_OBVIOUS(effect_handler_context_t *context)
         return false;
     }
 
-    if (fire_ball(context->origin->player, context->subtype, context->dir, dam, rad, true))
+    if (fire_ball(context->origin->player, context->subtype, context->dir, dam, rad, true, false))
         context->ident = true;
     return true;
 }
@@ -1686,7 +1686,7 @@ static bool effect_handler_BIZARRE(effect_handler_context_t *context)
         case 6:
         {
             /* Mana Ball */
-            fire_ball(context->origin->player, PROJ_MANA, context->dir, 300, 3, false);
+            fire_ball(context->origin->player, PROJ_MANA, context->dir, 300, 3, false, false);
 
             break;
         }
@@ -1718,7 +1718,7 @@ static bool effect_handler_BLAST(effect_handler_context_t *context)
     rad = rad + context->beam.spell_power / 2;
     rad = rad * (20 + context->beam.elem_power) / 20;
 
-    if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false))
+    if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
         context->ident = true;
     return true;
 }
@@ -1749,7 +1749,7 @@ static bool effect_handler_BLAST_OBVIOUS(effect_handler_context_t *context)
     }
 
     /* Player */
-    else if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, true))
+    else if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, true, false))
         context->ident = true;
 
     return true;
@@ -2380,7 +2380,7 @@ static bool effect_handler_CREATE_TREES(effect_handler_context_t *context)
         return false;
     }
 
-    fire_ball(context->origin->player, PROJ_TREES, 0, 1, 3, false);
+    fire_ball(context->origin->player, PROJ_TREES, 0, 1, 3, false, false);
     return true;
 }
 
@@ -2417,7 +2417,7 @@ static bool effect_handler_CREATE_WALLS(effect_handler_context_t *context)
         return true;
     }
 
-    fire_ball(context->origin->player, PROJ_STONE_WALL, 0, 1, 1, false);
+    fire_ball(context->origin->player, PROJ_STONE_WALL, 0, 1, 1, false, false);
     return true;
 }
 
@@ -6464,7 +6464,10 @@ static bool effect_handler_STAR_BALL(effect_handler_context_t *context)
     if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
         msg(context->origin->player, context->self_msg);
     for (i = 0; i < 8; i++)
-        fire_ball(context->origin->player, context->subtype, ddd[i], dam, context->radius, false);
+    {
+        fire_ball(context->origin->player, context->subtype, ddd[i], dam, context->radius, false,
+            false);
+    }
     if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
 
     context->self_msg = NULL;

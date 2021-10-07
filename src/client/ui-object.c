@@ -1048,7 +1048,23 @@ static bool get_item_action(struct menu *menu, const ui_event *event, int oid)
                 r = get_item_by_name(&k);
                 if (!r)
                 {
-                    selection = choice[k].object;
+                    int i;
+                    struct object *menu_obj;
+
+                    /* Find the book in the list of choices */
+                    struct class_book *book = &player->clazz->magic.books[k];
+
+                    for (i = 0; i < menu->count; i++)
+                    {
+                        menu_obj = choice[i].object;
+                        if ((menu_obj->tval == book->tval) && (menu_obj->sval == book->sval))
+                        {
+                            /* Found it */
+                            selection = menu_obj;
+                            break;
+                        }
+                    }
+
                     return true;
                 }
                 else if (r < 0)

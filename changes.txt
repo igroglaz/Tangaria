@@ -8,8 +8,32 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 build 3
+New features in PWMAngband 1.5.0 build 4
 ========================================
+
+Gameplay changes
+----------------
+
+PWMAngband:
+
+- Make blast damage constant
+
+Bugs fixed
+----------
+
+PWMAngband:
+
+- Fix fire-till-kill freezing client if base delay factor is too high by
+  disabling spell/shooting animations while fire-till-kill is ongoing
+- Fix ICY_AURA effect
+- Bring back missing unique kill chat messages
+- Fix keymap by spell/casting by spell name when not all books in inventory have
+  learned spells
+- Add missing LEVITATE flag to ancient dragons
+- Fix disturbance preventing any form of casting or shooting
+
+Features in PWMAngband 1.5.0 build 3
+====================================
 
 Coding changes
 --------------

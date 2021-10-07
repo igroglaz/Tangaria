@@ -2488,7 +2488,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
     else if (p->timed[TMD_SHIELD])
         state->to_a += 50;
-    //// -->
+    if (p->timed[TMD_ICY_AURA])
+        state->to_a += 10;
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;

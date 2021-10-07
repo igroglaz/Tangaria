@@ -660,6 +660,10 @@ bool make_attack_normal(struct monster *mon, struct source *who)
             /* Reduce damage when stunned */
             if (mon->m_timed[MON_TMD_STUN]) damage = (damage * (100 - STUN_DAM_REDUCTION)) / 100;
 
+            /* PWMAngband: freezing aura reduces damage  */
+            if ((who->player->timed[TMD_ICY_AURA] > 0) && !who->monster)
+                damage = (damage * 90) / 100;
+
             /* Message */
             if (act)
             {
@@ -832,15 +836,15 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         }
 
         /* Handle freezing aura */
-        if (who->player->timed[TMD_ICY_AURA] && damage && !who->monster)
+        if (who->player->timed[TMD_ICY_AURA] && !who->monster)
         {
-            if (magik(50))
-                 fire_ball(who->player, PROJ_ICE, 0, 1, 1, false);
-            else
-                 fire_ball(who->player, PROJ_COLD, 0, 1 + who->player->lev / 5, 1, false);
+            who->player->icy_aura = true;
+            fire_ball(who->player, PROJ_ICE, 0, 1 + who->player->lev / 5 + randint0(damage) / 10, 1,
+                false, true);
+            who->player->icy_aura = false;
 
-            /* Stop if monster is dead */
-            if (mon->hp < 0) break;
+            /* Stop if monster is unconscious */
+            if (mon->hp == 0) break;
         }
 
         /* Skip the other blows if the player has moved */

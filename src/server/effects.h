@@ -20,7 +20,8 @@ typedef enum
 extern const char *desc_stat(int stat, bool positive);
 extern bool project_aimed(struct source *origin, int typ, int dir, int dam, int flg,
     const char *what);
-extern bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obvious);
+extern bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obvious,
+    bool constant);
 extern bool effect_aim(const struct effect *effect);
 extern const char *effect_info(const struct effect *effect, const char *name);
 extern const char *effect_desc(const struct effect *effect);

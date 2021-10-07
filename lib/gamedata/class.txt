@@ -3679,7 +3679,8 @@ effect:TIMED_INC:ICY_AURA
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
 expr:S:PLAYER_SPELL_POWER:* 5
-desc:Surrounds you with an icy aura that chills monsters dumb enough to hit you.
+desc:Creates a curtain of ice around you to block enemy attacks, damaging and
+desc: freezing them in the process.
 
 spell:Frost Bolt:7:3:27:5:0
 effect:BOLT_OR_BEAM:COLD

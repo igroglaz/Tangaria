@@ -40,7 +40,7 @@
 name:ancient dragon
 glyph:D
 pain:1
-flags:DRAGON | EVIL | POWERFUL | SMART | SPIRIT
+flags:DRAGON | EVIL | POWERFUL | SMART | SPIRIT | LEVITATE
 flags:DROP_4
 flags:MOVE_BODY | CLEAR_WEB
 flags:NO_CONF | NO_SLEEP | NO_HOLD

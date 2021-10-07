@@ -1073,9 +1073,6 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
     const struct class_book *book;
     int sidx;
 
-    /* Cancel repeat */
-    if (!p->firing_request) return true;
-
     /* Check energy */
     if (!has_energy(p, true)) return false;
 
@@ -1234,8 +1231,7 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
     else use_energy(p);
 
     /* Repeat */
-    if (p->firing_request > 0) p->firing_request--;
-    if (p->firing_request > 0) cmd_cast(p, book_index, spell_index, dir);
+    if (p->firing_request) cmd_cast(p, book_index, spell_index, dir);
     return true;
 }
 

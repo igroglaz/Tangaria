@@ -1635,8 +1635,8 @@ static bool project_m_player_attack(project_monster_handler_context_t *context)
     struct monster *mon = context->mon;
 
     /* PWMAngband: cancel fire-till-kill if active and no damage */
-    if ((context->origin->player->firing_request > 1) && !dam)
-        context->origin->player->firing_request = 1;
+    if (context->origin->player->firing_request && !dam)
+        context->origin->player->firing_request = false;
 
     /* PWMAngband: add message */
     if (OPT(context->origin->player, show_damage) && (dam > 0))
@@ -1655,7 +1655,8 @@ static bool project_m_player_attack(project_monster_handler_context_t *context)
      * ensures it doesn't print any death message and allows correct ordering
      * of messages.
      */
-    if ((dam > mon->hp) && !rf_has(mon->race->flags, RF_NO_DEATH))
+    if ((dam > mon->hp) && !rf_has(mon->race->flags, RF_NO_DEATH) &&
+        !context->origin->player->icy_aura)
     {
         if (!seen) die_msg = MON_MSG_MORIA_DEATH;
         add_monster_message(context->origin->player, mon, die_msg, false);
