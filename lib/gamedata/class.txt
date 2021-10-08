@@ -423,16 +423,24 @@ expr:D:PLAYER_LEVEL:- 1 / 5 + 3
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
-spell:Frost Shield:6:4:5:4:0
-effect:TIMED_INC:SHIELD
-dice:$B
-expr:B:PLAYER_LEVEL:+ 20
+spell:Frost Attunement:6:4:5:4:0
 effect:TIMED_INC:ICY_AURA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 20
-desc:Grants you cold resistance, provide freezing aura, brands
-desc: your physical attacks with cold... but also greatly reduce stealth
-desc: and your movement speed.
+desc:Creates a curtain of ice around you to block enemy attacks, damaging and
+desc: freezing them in the process, grants cold resistance, but also
+desc: greatly reduce stealth, movement and can make you vulnerable to fire.
+desc: 10 level: + 10 to AC
+desc: 20 level:
+desc: - brands your physical attacks with cold
+desc: - you are not vulnerable to fire, but can not have double resist or immunity
+desc: 30 level:
+desc: - grants double cold resistance
+desc: - you can not have fire immunity
+desc: 40 level:
+desc: - reduce malus to stealth and movement
+desc: - no more fire resist limitations
+desc: 50 level: grants cold immunity
 
 book:magic book:town:[Conjurings and Tricks]:7:arcane
 book-graphics:?:R
@@ -2453,6 +2461,20 @@ effect:TIMED_INC:ZFARSIGHT
 dice:10+1d10
 desc:Grants infravision, telepathic powers, and surrounds you with an icy aura
 desc: for 10+1d10 turns, but also teleports you around.
+desc: Icy aura creates a curtain of ice around you to block enemy attacks,
+desc: damaging and freezing them in the process, grants cold resistance, but also
+desc: greatly reduce stealth, movement and can make you vulnerable to fire.
+desc: 10 level: + 10 to AC
+desc: 20 level:
+desc: - brands your physical attacks with cold
+desc: - you are not vulnerable to fire, but can not have double resist or immunity
+desc: 30 level:
+desc: - grants double cold resistance
+desc: - you can not have fire immunity
+desc: 40 level:
+desc: - reduce malus to stealth and movement
+desc: - no more fire resist limitations
+desc: 50 level: grants cold immunity
 
 spell:Quake:44:39:55:175:0
 effect:EARTHQUAKE:NONE:13
@@ -3679,8 +3701,20 @@ effect:TIMED_INC:ICY_AURA
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
 expr:S:PLAYER_SPELL_POWER:* 5
-desc:Creates a curtain of ice around you to block enemy attacks, damaging and
-desc: freezing them in the process.
+desc: Creates a curtain of ice around you to block enemy attacks,
+desc: damaging and freezing them in the process, grants cold resistance, but also
+desc: greatly reduce stealth, movement and can make you vulnerable to fire.
+desc: 10 level: + 10 to AC
+desc: 20 level:
+desc: - brands your physical attacks with cold
+desc: - you are not vulnerable to fire, but can not have double resist or immunity
+desc: 30 level:
+desc: - grants double cold resistance
+desc: - you can not have fire immunity
+desc: 40 level:
+desc: - reduce malus to stealth and movement
+desc: - no more fire resist limitations
+desc: 50 level: grants cold immunity
 
 spell:Frost Bolt:7:3:27:5:0
 effect:BOLT_OR_BEAM:COLD

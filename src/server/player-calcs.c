@@ -2475,21 +2475,37 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_h += 10;
         adjust_skill_scale(&state->skills[SKILL_DEVICE], 1, 20, 0);
     }
-    //// <-- Mage's "Frost Shield" spell
-    if (p->timed[TMD_SHIELD] && streq(p->clazz->name, "Mage"))
-    {
-        state->to_a += 10;
-        state->skills[SKILL_STEALTH] -= 5;
-        if (state->el_info[ELEM_COLD].res_level < 2 && p->lev > 20)
-            state->el_info[ELEM_COLD].res_level++;
-        if (p->lev > 49)
-            state->el_info[ELEM_COLD].res_level = 3;        
-        extra_moves -= 1 + (p->lev / 5);
-    }
-    else if (p->timed[TMD_SHIELD])
-        state->to_a += 50;
     if (p->timed[TMD_ICY_AURA])
-        state->to_a += 10;
+    {
+        if (p->lev > 9)        
+            state->to_a += 10;
+        // res -> double res -> imm
+        if (p->lev > 49)
+            state->el_info[ELEM_COLD].res_level = 3;
+        else if (p->lev > 29 && state->el_info[ELEM_COLD].res_level < 2)
+            state->el_info[ELEM_COLD].res_level++;        
+        else if (state->el_info[ELEM_COLD].res_level < 1)
+            state->el_info[ELEM_COLD].res_level++;        
+        // cons:
+        if (p->lev < 40)
+        {
+            state->skills[SKILL_STEALTH] -= 5;
+            extra_moves -= 1 + (p->lev / 5);
+        }
+        else
+        {
+            state->skills[SKILL_STEALTH] -= 4;
+            extra_moves -= 8;
+        }
+        if (p->lev < 20 && state->el_info[ELEM_FIRE].res_level >= 0)
+            state->el_info[ELEM_FIRE].res_level--;
+        else if (p->lev < 30 && state->el_info[ELEM_FIRE].res_level >= 2)
+            state->el_info[ELEM_FIRE].res_level--;
+        else if (p->lev < 40 && state->el_info[ELEM_FIRE].res_level > 2)
+            state->el_info[ELEM_FIRE].res_level--;
+    }
+    if (p->timed[TMD_SHIELD])
+        state->to_a += 50;
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;

@@ -1059,7 +1059,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             msg(p, "Water gushes forth from the overflowing ruined fountain!");
             square_set_feat(c, grid, FEAT_WATER);                    
-            // add PROJ SHALLOW WATER fire_ball(context->origin->player, PROJ_SH_WATER, 0, 1, 2, false);
+            // add PROJ SHALLOW WATER fire_ball(context->origin->player, PROJ_SH_WATER, 0, 1, 2, false, false);
         }            
         else
         {
