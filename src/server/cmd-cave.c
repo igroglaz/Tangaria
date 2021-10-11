@@ -1989,7 +1989,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     
     // Some can pass trees
-    if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
+    // allow pass trees in town by running
+    if (square_istree(c, &grid) && (p->wpos.depth == 0))
+        ;
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
         ;
     else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
         ;    
@@ -2405,6 +2408,10 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
 
     /* Hack -- walking obtains knowledge XXX XXX */
     if (!square_isknown(p, grid)) return true;
+
+    // allow pass trees in town by running
+    if (square_istree(c, grid) && (p->wpos.depth == 0))
+        return true;
 
     /* Require open space */
     if (!square_ispassable(c, grid))
