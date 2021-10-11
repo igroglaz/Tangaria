@@ -1048,22 +1048,28 @@ static bool get_item_action(struct menu *menu, const ui_event *event, int oid)
                 r = get_item_by_name(&k);
                 if (!r)
                 {
-                    int i;
-                    struct object *menu_obj;
-
-                    /* Find the book in the list of choices */
-                    struct class_book *book = &player->clazz->magic.books[k];
-
-                    for (i = 0; i < menu->count; i++)
+                    /* Hack -- spellcasting mode (select book by spell) */
+                    if (spellcasting)
                     {
-                        menu_obj = choice[i].object;
-                        if ((menu_obj->tval == book->tval) && (menu_obj->sval == book->sval))
+                        int i;
+                        struct object *menu_obj;
+
+                        /* Find the book in the list of choices */
+                        struct class_book *book = &player->clazz->magic.books[k];
+
+                        for (i = 0; i < menu->count; i++)
                         {
-                            /* Found it */
-                            selection = menu_obj;
-                            break;
+                            menu_obj = choice[i].object;
+                            if ((menu_obj->tval == book->tval) && (menu_obj->sval == book->sval))
+                            {
+                                /* Found it */
+                                selection = menu_obj;
+                                break;
+                            }
                         }
                     }
+                    else
+                        selection = choice[k].object;
 
                     return true;
                 }

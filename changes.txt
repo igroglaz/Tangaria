@@ -8,8 +8,19 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 build 4
+New features in PWMAngband 1.5.0 build 5
 ========================================
+
+Bugs fixed
+----------
+
+PWMAngband:
+
+- Fix death vortex melee dice
+- Fix get_item_by_name()
+
+Features in PWMAngband 1.5.0 build 4
+====================================
 
 Gameplay changes
 ----------------
