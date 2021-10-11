@@ -1548,7 +1548,7 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
     
     // allow water + monster-swimmer
     if (square_iswater(c, grid) && rf_has(race->flags, RF_SWIM_GOOD))
-        ; // cause race_hates_grid() include water
+        ; // cause RACE_hates_grid() include water. RACE, not monster_hates_grid()
     else if (race_hates_grid(c, race, grid)) return false;
     
     if (rf_has(race->flags, RF_NO_DEATH) && !square_istraining(c, grid)) return false;

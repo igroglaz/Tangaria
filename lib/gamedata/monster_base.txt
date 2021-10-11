@@ -148,7 +148,6 @@ pain:1
 flags:EMPTY_MIND | CLEAR_WEB
 flags:IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP
 flags:NONLIVING
-# some can swim
 desc:Elemental
 
 # Fast moving, bash doors, hit hard in melee
@@ -178,7 +177,6 @@ pain:1
 flags:GIANT | EVIL | SPIRIT
 flags:BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
-# some can swim
 desc:Giant Humanoid
 
 # Mostly slow with lots of hitpoints and armor
@@ -188,7 +186,6 @@ pain:1
 flags:EMPTY_MIND | CLEAR_WEB
 flags:IM_ELEC | NO_FEAR | NO_CONF | NO_SLEEP
 flags:NONLIVING
-# some can swim
 desc:Golem
 
 name:humanoid
@@ -196,8 +193,7 @@ glyph:h
 pain:1
 flags:OPEN_DOOR | BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:HUMANOID
-# hardcoded: all HUMANOID flag mediocre in swimming, not only 'base:'.
-# some also may swim better (with additional flags in monster.txt)
+flags:SWIM_NORM
 desc:Hobbit/Elf/Dwarf
 
 # Weird legendary stuff, mostly without spells, sometimes with breath
@@ -262,6 +258,7 @@ flags:EVIL
 flags:OPEN_DOOR | BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:IM_POIS
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Kobold
 
 # Powerful undead spellcasters, tending to drain dexterity and charges in melee
@@ -351,6 +348,7 @@ pain:1
 flags:GIANT | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_BAD
 desc:Ogre
 
 # Orcs are the foot-soldiers of Morgoth. They melee and use archery, but
@@ -361,6 +359,7 @@ pain:1
 flags:MALE | ORC | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Orc
 
 name:person
@@ -368,6 +367,7 @@ glyph:p
 pain:1
 flags:BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Person/Human
 
 # A grab-bag of four-legged things with no real defining quality
@@ -460,6 +460,7 @@ pain:1
 flags:TROLL | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_BAD
 desc:Troll
 
 # Powerful undead which drain experience
@@ -516,6 +517,7 @@ flags:ANIMAL | SPIRIT | LEVITATE
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:RES_ACID
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Yeek
 
 # Yetis are a couple of niche monsters, big furry bear-like creatures

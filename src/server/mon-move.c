@@ -152,6 +152,7 @@ static bool monster_can_move(struct chunk *c, struct monster *mon, struct loc *g
 bool race_hates_grid(struct chunk *c, struct monster_race *race, struct loc *grid)
 {
     /* Only some creatures can handle damaging terrain */
+    // eg AQUATIC mobs are water immune
     if (square_isdamaging(c, grid) && !rf_has(race->flags, square_feat(c, grid)->resist_flag))
     {
         /* Hack -- passwall creatures can cross any damaging terrain */
@@ -179,7 +180,7 @@ bool monster_hates_grid(struct chunk *c, struct monster *mon, struct loc *grid)
     if (square_iswater(c, grid))
     {
         if (rf_has(mon->race->flags, RF_SWIM_GOOD)) return false;
-        else if (rf_has(mon->race->flags, RF_HUMANOID)) return false;
+        else if (rf_has(mon->race->flags, RF_SWIM_NORM)) return false;
         else if (rf_has(mon->race->flags, RF_SWIM_BAD)) return false;
     }
 
@@ -1503,9 +1504,8 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     /* Always allow an attack upon the player or decoy. */
     if (square_isplayer(c, grid) || square_isdecoyed(c, grid)) return true;
 
-    // For every damaging tile besides water (because water calculated down below)
-    if (!confused && monster_hates_grid(c, mon, grid) && !square_iswater(c, grid))
-        return false;
+    /* Dangerous terrain in the way */
+    if (!confused && monster_hates_grid(c, mon, grid)) return false;
 
     /* Safe floor */
     if (square_issafefloor(c, grid)) return false;
@@ -1717,7 +1717,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     {
         if (rf_has(mon->race->flags, RF_SWIM_GOOD) && one_in_(2))
             return true;
-        if (rf_has(mon->race->flags, RF_HUMANOID) && one_in_(3))
+        if (rf_has(mon->race->flags, RF_SWIM_NORM) && one_in_(3))
             return true;
         if (rf_has(mon->race->flags, RF_SWIM_BAD) && one_in_(4))
             return true;

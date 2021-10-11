@@ -6077,6 +6077,7 @@ weight:0
 experience:50
 blow:HIT:HURT:1d6
 blow:HIT:HURT:1d6
+flags:SWIM_NORM
 flags:BASH_DOOR
 desc:A shambling humanoid monster with long scars.
 
@@ -6542,6 +6543,7 @@ flags:COLD_BLOOD
 flags:BASH_DOOR
 flags:HURT_ROCK | IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 desc:It is a massive animated statue made out of hardened clay.
 
 name:giant tan bat
@@ -7188,6 +7190,7 @@ blow:HIT:HURT:1d8
 flags:COLD_BLOOD
 flags:RAND_25 | PASS_WALL
 flags:HURT_ROCK | IM_COLD | IM_ELEC | IM_FIRE
+flags:SWIM_BAD
 desc:A whirling form of sentient rock.
 
 name:sphinx
@@ -7739,6 +7742,7 @@ flags:COLD_BLOOD
 flags:BASH_DOOR
 flags:HURT_ROCK | IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 desc:It is a massive animated statue.
 
 name:red mold
@@ -8937,6 +8941,7 @@ flags:BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:7
 spells:SLOW
 desc:It is a massive metal statue that moves steadily towards you.
@@ -9783,6 +9788,7 @@ blow:HIT:HURT:4d8
 flags:DROP_40
 flags:OPEN_DOOR
 flags:DROP_CORPSE | DROP_SKELETON | WILD_MOUNTAIN
+flags:SWIM_NORM
 spell-freq:10
 innate-freq:100
 spells:BOULDER
@@ -9810,6 +9816,7 @@ flags:BASH_DOOR
 flags:HURT_ROCK | IM_COLD | IM_FIRE | IM_POIS
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:4
 spells:CONF | SLOW
 spells:BO_ACID
@@ -10694,6 +10701,7 @@ flags:BASH_DOOR
 flags:IM_POIS | IM_ACID
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:3
 spell-power:27
 spells:BO_ACID
@@ -10910,6 +10918,7 @@ flags:DROP_40
 flags:OPEN_DOOR
 flags:IM_COLD
 flags:DROP_CORPSE | DROP_SKELETON | WILD_WASTE | WILD_MOUNTAIN | WILD_GLACIER
+flags:SWIM_GOOD
 spell-freq:10
 innate-freq:100
 spells:BOULDER
@@ -11855,6 +11864,7 @@ flags:DROP_2 | ONLY_GOLD
 flags:BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 desc:It is a massive statue of purest mithril. It looks expensive!
 
 name:skeleton troll
@@ -12784,6 +12794,7 @@ blow:HIT:HURT:7d8
 flags:DROP_40
 flags:OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON | WILD_MOUNTAIN
+flags:SWIM_BAD
 spell-freq:5
 innate-freq:100
 spells:BOULDER
@@ -12913,6 +12924,7 @@ flags:EMPTY_MIND | REGENERATE
 flags:OPEN_DOOR | BASH_DOOR
 flags:NO_STUN | COLD_BLOOD
 flags:DROP_2 | ONLY_GOLD
+flags:SWIM_BAD
 desc:It's lighter and faster than other golems.
 
 name:fire elemental
@@ -12982,6 +12994,7 @@ flags:UNIQUE | MALE | PWMANG_BASE
 flags:ONLY_ITEM | DROP_2 | DROP_GOOD
 flags:TAKE_ITEM | OPEN_DOOR
 flags:IM_COLD | IM_POIS
+flags:SWIM_NORM
 spell-freq:7
 innate-freq:100
 spells:BOULDER
@@ -13381,6 +13394,7 @@ flags:COLD_BLOOD
 flags:PASS_WALL | KILL_BODY | KILL_ITEM
 flags:HURT_ROCK | IM_COLD | IM_ELEC | IM_FIRE
 flags:FORCE_SLEEP
+flags:SWIM_BAD
 spell-freq:8
 spells:BO_ACID
 desc:It is a towering form composed of rock with fists of awesome power.
@@ -13429,6 +13443,7 @@ flags:DROP_2 | ONLY_GOLD
 flags:BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 desc:It is a massive deep brown statue, striding towards you with an
 desc: all-too-familiar purpose. Your magic surprisingly feels much less powerful
 desc: now.
@@ -13685,6 +13700,7 @@ flags:MALE | REGENERATE
 flags:DROP_20
 flags:HURT_LIGHT | IM_COLD
 flags:DROP_CORPSE | DROP_SKELETON | WILD_SHORE | WILD_SWAMP
+flags:SWIM_GOOD
 friends:50:1d5:water hound
 friends:100:4d4:Same
 desc:He is a troll that reeks of brine.
@@ -13976,6 +13992,7 @@ flags:EVIL | COLD_BLOOD
 flags:NEVER_MOVE
 flags:HURT_ROCK | HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:6
 innate-freq:14
 spells:CONF | DRAIN_MANA | HOLD | MIND_BLAST | SHRIEK
@@ -14315,6 +14332,7 @@ flags:BASH_DOOR
 flags:IM_POIS | IM_LIGHT
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:3
 spell-power:20
 spells:BO_ELEC | BE_ELEC | TELE_SELF_TO
@@ -14339,6 +14357,7 @@ flags:DROP_60
 flags:OPEN_DOOR | TAKE_ITEM
 flags:IM_ELEC
 flags:DROP_CORPSE | DROP_SKELETON
+flags:SWIM_BAD
 spell-freq:8
 innate-freq:100
 spells:BOULDER
@@ -14392,6 +14411,7 @@ flags:BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_FIRE
 flags:FORCE_SLEEP
 flags:WILD_SHORE | WILD_SWAMP
+flags:SWIM_NORM
 spell-freq:5
 spells:BA_ACID
 spells:BO_ACID
@@ -14509,6 +14529,7 @@ flags:COLD_BLOOD
 flags:BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
+flags:SWIM_BAD
 desc:An enormous construct resembling a titan made from stone. It strides
 desc: purposefully towards you, swinging its slow fists with earth-shattering
 desc: power.
@@ -14979,6 +15000,7 @@ flags:BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | HURT_FIRE
 flags:FORCE_SLEEP
 flags:WILD_GLACIER
+flags:SWIM_GOOD
 spell-freq:5
 spells:BA_COLD
 spells:BO_ICE
@@ -18385,6 +18407,7 @@ flags:OPEN_DOOR | MOVE_BODY | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_FIRE
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WILD_SHORE | WILD_MOUNTAIN
+flags:SWIM_BAD
 spell-freq:8
 innate-freq:100
 spells:BOULDER
@@ -18928,6 +18951,7 @@ flags:OPEN_DOOR | TAKE_ITEM
 flags:IM_COLD | IM_ELEC
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WILD_MOUNTAIN
+flags:SWIM_BAD
 spell-freq:8
 innate-freq:14
 spells:BLINK | CONF | SCARE | TELE_TO
@@ -19945,6 +19969,7 @@ flags:OPEN_DOOR | BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
 flags:FORCE_SLEEP
+flags:SWIM_BAD
 spell-freq:5
 innate-freq:40
 spells:ARROW | BLIND | CONF | SLOW
@@ -20388,6 +20413,7 @@ flags:DROP_4 | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
+flags:SWIM_NORM
 spell-freq:3
 innate-freq:25
 spells:HEAL | TELE_TO | BOULDER
@@ -21912,6 +21938,7 @@ flags:DROP_4 | ONLY_ITEM
 flags:TAKE_ITEM
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
+flags:SWIM_NORM
 spell-freq:3
 innate-freq:25
 spells:HEAL | TELE_TO | BOULDER
@@ -22222,6 +22249,7 @@ flags:UNDEAD | COLD_BLOOD
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_STUN
 flags:FORCE_SLEEP
+flags:SWIM_BAD
 spell-freq:8
 spells:BRAIN_SMASH | WOUND | DRAIN_MANA | TELE_TO
 spells:BA_NETH
@@ -22278,7 +22306,7 @@ blow:HIT:HURT:12d12
 blow:HIT:HURT:12d12
 blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
-flags:UNIQUE | MALE | SMART | ATTR_FLICKER
+flags:UNIQUE | MALE | SMART | ATTR_FLICKER | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:TAKE_ITEM | IM_FIRE
 flags:FORCE_SLEEP
@@ -22346,7 +22374,7 @@ blow:HIT:SHATTER:11d10
 flags:UNIQUE | MALE
 flags:DROP_3 | DROP_GOOD | ONLY_ITEM
 flags:RAND_25 | KILL_BODY | KILL_ITEM
-flags:IM_ACID | IM_COLD | IM_FIRE
+flags:IM_ACID | IM_COLD | IM_FIRE | IM_WATER
 flags:FORCE_SLEEP
 spell-freq:5
 innate-freq:20
@@ -23375,6 +23403,7 @@ flags:OPEN_DOOR | BASH_DOOR
 flags:IM_ACID | IM_FIRE | IM_POIS | RES_LIGHT
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_BAD
 spell-freq:8
 innate-freq:17
 spells:TELE_TO
@@ -23526,6 +23555,7 @@ flags:OPEN_DOOR | KILL_WALL | KILL_BODY | TAKE_ITEM
 flags:HURT_ROCK | IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 flags:FORCE_SLEEP
 flags:NO_STUN
+flags:SWIM_NORM
 spell-freq:5
 spell-power:76
 innate-freq:100
@@ -24276,6 +24306,7 @@ flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:MOVE_BODY | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_STUN | NO_CUT
 flags:FORCE_SLEEP
+flags:SWIM_NORM
 spell-freq:3
 spell-power:87
 innate-freq:35
@@ -25591,6 +25622,7 @@ flags:BASH_DOOR | NEVER_BLOW
 flags:IM_FIRE | IM_COLD | IM_POIS | IM_PLASMA | IM_NETHER
 flags:NO_STUN
 flags:FORCE_DEPTH
+flags:SWIM_BAD
 spell-freq:8
 spells:HOLD
 desc:An artificial bird completely made of hardened iron, kept in the air by
@@ -25618,6 +25650,7 @@ flags:MOVE_BODY | KILL_ITEM | BASH_DOOR
 flags:IM_WATER | IM_PLASMA | IM_NEXUS | IM_FIRE | IM_POIS | IM_ACID
 flags:IM_NETHER | NO_STUN | IM_COLD
 flags:FORCE_DEPTH | NO_PIT
+flags:SWIM_BAD
 spell-freq:5
 spells:HEAL | TELE_TO
 spells:BA_NETH
