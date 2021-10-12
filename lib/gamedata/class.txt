@@ -1896,6 +1896,7 @@ desc:Teleports you randomly up to 10 squares away.
 spell:Create Poison:8:3:60:5:0
 effect:CREATE_POISON
 desc:Allows to create potions of poison from any potion.
+desc: Attention! It will turn full stack of potions to poison.
 
 spell:Detect Objects:10:3:60:5:0
 effect:DETECT_TREASURES:NONE:1

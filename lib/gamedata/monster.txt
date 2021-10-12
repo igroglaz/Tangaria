@@ -19033,7 +19033,7 @@ flags:UNIQUE | MALE | EVIL | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
-drop:food:Piece of Elvish Waybread:50:1:1
+#drop:food:Piece of Elvish Waybread:50:1:1
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | DARKNESS | HEAL
 spells:TELE_TO
