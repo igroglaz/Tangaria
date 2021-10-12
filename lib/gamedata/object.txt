@@ -413,10 +413,10 @@ effect:TIMED_INC:POISONED
 dice:8+1d8
 effect:TIMED_INC:SLOW
 dice:11+1d11
-effect:RANDOM
-dice:6
 effect:NOURISH:INC_BY
 dice:1
+effect:RANDOM
+dice:7
 effect:TIMED_INC:CONFUSED
 dice:8+1d8
 effect:TIMED_INC:BOLD
@@ -434,7 +434,7 @@ graphics:,:v
 type:food
 level:0
 weight:10
-cost:100
+cost:300
 alloc:10:0 to 50
 effect:TIMED_INC_NO_RES:PARALYZED
 dice:1+1d8
@@ -451,7 +451,7 @@ dice:1+1d8
 effect:RANDOM
 dice:6
 effect:NOURISH:INC_BY
-dice:3
+dice:2
 effect:TIMED_INC:CONFUSED
 dice:1+1d8
 effect:TIMED_INC:BOLD
@@ -5904,7 +5904,7 @@ graphics:,:Y
 type:food
 level:0
 weight:5
-cost:50
+cost:150
 alloc:10:0 to 50
 effect:TIMED_INC_NO_RES:PARALYZED
 dice:1+1d4
@@ -5921,7 +5921,7 @@ dice:1+1d11
 effect:RANDOM
 dice:6
 effect:NOURISH:INC_BY
-dice:2
+dice:1
 effect:TIMED_INC:CONFUSED
 dice:1+1d8
 effect:TIMED_INC:BOLD
@@ -6140,7 +6140,7 @@ pile:70:1d3
 #hardcoded
 effect:HEAL_HP
 dice:1
-msg_self:You feel less thirsty.
+msg_self:You feel less thirsty. Could be especially useful if hungry.
 
 
 ##### PWMAngband objects #####

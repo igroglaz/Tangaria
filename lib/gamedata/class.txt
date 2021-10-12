@@ -1882,6 +1882,7 @@ book:shadow book:town:[Shadows for Beginners]:5:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
 spell:Detect Creatures:5:1:50:4:0
+# make it detect noisy monsters
 effect:DETECT_VISIBLE_MONSTERS
 effect-yx:22:40
 desc:Detects all non-invisible monsters in the immediate area,
@@ -1894,8 +1895,19 @@ msg_other: blinks away.
 desc:Teleports you randomly up to 10 squares away.
 
 spell:Create Poison:8:3:60:5:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:4
 effect:CREATE_POISON
-desc:Allows to create potions of poison from any potion.
+desc:Allows to create potions of poison from any potion and
+desc: rarely isolate a nutrious substance.
 desc: Attention! It will turn full stack of potions to poison.
 
 spell:Detect Objects:10:3:60:5:0
@@ -1958,10 +1970,17 @@ desc:Prepares you to teleport a short distance after stealing.
 
 spell:Stair Creation:24:12:40:25:0
 effect:CREATE_STAIRS
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:1d1
+effect:TIMED_INC:SLOW
+dice:5+1d10
+effect:NOURISH:DEC_BY
+dice:1
 desc:A stair (going up or down, chosen at random) is created on the space
 desc: where you are standing. This will destroy any terrain feature that
 desc: was there before. It will also destroy all items currently on the
 desc: floor where the spell is cast.
+desc: You've become tired after building stairs and it reduce your satiation a bit.
 
 spell:Reveal Creatures:25:3:40:8:0
 effect:DETECT_MONSTERS
@@ -1992,7 +2011,11 @@ spell:Cloak of Changement:28:15:75:15:0
 effect:CLOAK_CHANGT
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
+effect:TIMED_INC:MOVE_FAST
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Disguises you as another player's class.
+desc: Also makes you walk faster for a short while.
 
 spell:Teleport to Target:29:20:65:20:0
 effect:TELEPORT_TO
@@ -2008,11 +2031,15 @@ msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
 
-spell:Create Traps:31:15:75:25:0
+spell:Hide Tracks:31:15:75:25:0
 effect:TOUCH:MAKE_TRAP:3:1
-desc:A trap is created on each empty floor space that is directly
+effect:TIMED_INC:COVERTRACKS:0:5
+dice:$B+1d20
+expr:B:PLAYER_LEVEL:/ 2
+desc:Prevents you from leaving scent for monsters to track you by for a
+desc: level-dependent duration.
+desc: Also a trap is created on each empty floor space that is directly
 desc: adjacent to you.
-desc: This spell has no effect when used in the town.
 
 book:shadow book:dungeon:[Great Shadows]:4:shadow
 
@@ -2033,7 +2060,10 @@ desc: a penalty of -10 to AC) for 30+1d30 turns.
 
 spell:Far Escape:35:17:65:80:0
 effect:TELEPORT_LEVEL
+effect:NOURISH:DEC_BY
+dice:1
 desc:Teleports you 1 level up or 1 level down (chosen at random).
+desc: You spend some satiation on this magic.
 
 spell:Fast Recall:36:40:80:18:0
 effect:RECALL
@@ -2046,14 +2076,21 @@ desc: The recall effect is not immediate; it is delayed by a level-dependent
 desc: duration. During that delay, the effect can be canceled by invoking
 desc: the spell of recall again.
 
-spell:Summon Monsters:38:37:90:50:0
+spell:Trick or Treat:38:37:90:50:0
 effect:SUMMON:MONSTERS:0:5
 dice:8
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:END_INFO
+effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
 msg_other: summons some monsters.
-desc:Attempts to summon up to eight monsters generated at the current dungeon
-desc: level.
-desc: This spell has no effect when used in the town.
-
+desc:Challenge gods for a bet: they summon a rival to you and
+desc: for such daring they rewards you with a blessing.
 
 ############### RANGER ###############
 name:Ranger
