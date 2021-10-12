@@ -2296,6 +2296,13 @@ static bool effect_handler_CREATE_POISON(effect_handler_context_t *context)
 
     /* Paranoia: requires a potion */
     if (!tval_is_potion(obj)) return false;
+    
+    // Can't turn poison into poison
+    if (streq(obj->kind->name, "Poison"))
+    {
+        msg(context->origin->player, "That's already poisonous enough.");
+        return false;
+    }
 
     /* Amount */
     amt = obj->number;
