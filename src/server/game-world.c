@@ -1789,6 +1789,12 @@ static void generate_new_level(struct player *p)
     if (square_limited_teleport(c, &p->grid))
         msgt(p, MSG_ENTER_PIT, "The air feels very still!");
 
+    if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && p->wpos.depth == 30)
+    {
+        msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
+        msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
+    }
+
     /* Add the player */
     square_set_mon(c, &p->grid, 0 - id);
 
