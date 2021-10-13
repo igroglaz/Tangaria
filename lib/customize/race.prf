@@ -249,9 +249,10 @@ help: pressure.
 race:Troll
 help:Trolls - huge piece of walking rock. Their skin is hard to pierce even with a 
 help: sharp blade. They are slow though. Don't fear poison (they eat literraly 
-help: everything, resistant to magical shards. Regenerate fast. Very healthy. Very 
-help: hungery. Not too bright.. There are plenty of trolls in Middle-lands, they 
-help: often work as bodyguards protecting caravans.
+help: everything, resistant to magical shards. Regenerate VERY fast. Very healthy.
+help: Very hungry. Not too bright, so they don't get level feelings...
+help: There are plenty of trolls in Middle-lands, they often work as bodyguards
+help: protecting caravans.
 
 race:Orc
 help:Huge orc hordes settles to the southeren Banlands. They try to get their own 
@@ -451,6 +452,7 @@ help: from other dimensions. They are very dangerous as their nature gives them
 help: raw magical power in almost unlimited qualities; thought this interfere with
 help: spatial fields, they can not use boots and restore fast which is vital for
 help: surviving in our deadly world... But djinny don't complain.
+help: They are so powerful that they don't feel any danger in the dungeons...
 
 race:Harpy
 help:Winged humanoids with nasty temper. Can not be blinded; mature species could

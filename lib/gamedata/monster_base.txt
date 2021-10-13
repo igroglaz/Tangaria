@@ -193,7 +193,6 @@ glyph:h
 pain:1
 flags:OPEN_DOOR | BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:HUMANOID
-flags:SWIM_NORM
 desc:Hobbit/Elf/Dwarf
 
 # Weird legendary stuff, mostly without spells, sometimes with breath

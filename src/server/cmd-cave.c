@@ -2611,7 +2611,10 @@ void display_feeling(struct player *p, bool obj_only)
     byte set = 0;
 
     /* Don't show feelings for cold-hearted characters */
-    if (!cfg_level_feelings || !OPT(p, birth_feelings)) return;
+    // and some races
+    if (!cfg_level_feelings || !OPT(p, birth_feelings) ||
+        streq(p->race->name, "Troll") || streq(p->race->name, "Djinn"))
+        return;
 
     /* No feeling in towns */
     if (forbid_town(&p->wpos))
