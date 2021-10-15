@@ -794,6 +794,7 @@ static void melee_effect_handler_EAT_FOOD(melee_effect_handler_context_t *contex
 	if (monster_damage_target(context)) return;
 
     eat_fud(context->p, NULL, &context->obvious);
+    msgt(context->p, MSG_MON_SWALLOW, ":E~~~ FOOD eater ATTACK //\(oo)/\\");
 }
 
 
@@ -824,8 +825,9 @@ static void melee_effect_handler_EAT_LIGHT(melee_effect_handler_context_t *conte
 	if (monster_damage_target(context)) return;
 
     /* Drain the light source */
+    msgt(context->p, MSG_MON_DEVOUR, "O__* Some of your light was stolen!");
     source_player(who, get_player_index(get_connection(context->p->conn)), context->p);
-    effect_simple(EF_DRAIN_LIGHT, who, "250+1d250", 0, 0, 0, 0, 0, &context->obvious);
+    effect_simple(EF_DRAIN_LIGHT, who, "500+1d50", 0, 0, 0, 0, 0, &context->obvious);
 }
 
 
@@ -1527,7 +1529,7 @@ static void melee_effect_handler_FAMINE(melee_effect_handler_context_t *context)
     /* Take "hunger" effect */
     if (!context->p->ghost)
     {
-        msg(context->p, "You have a sudden attack of hunger!");
+        msgt(context->p, MSG_MON_SWALLOW, ":E~~~ You have a sudden attack of hunger!");
         player_set_timed(context->p, TMD_FOOD, context->p->timed[TMD_FOOD] / 2, false);
         context->obvious = true;
     }

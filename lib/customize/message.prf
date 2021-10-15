@@ -179,6 +179,12 @@ message:MON_MOAN:w
 # MSG_MON_HYPNOTIZE
 message:MON_HYPNOTIZE:P
 
+# MSG_MON_SWALLOW for food
+message:MON_SWALLOW:Y
+
+# MSG_MON_DEVOUR for light
+message:MON_DEVOUR:o
+
 # MSG_RECOVER
 message:RECOVER:w
 

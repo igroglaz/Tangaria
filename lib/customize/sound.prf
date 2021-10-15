@@ -452,6 +452,12 @@ sound:mon_moan:mco_strange_music
 # Attack - hypnotize
 sound:mon_hypnotize:hypnotize
 
+# Attack - swallow (only for EAT_FOOD and FAMINE!)
+sound:mon_swallow:mon_swallow
+
+# Attack - devour (only for EAT_LIGHT!)
+sound:mon_devour:mon_devour
+
 # Attack - shriek
 sound:mon_shriek:mco_mouse_squeaks
 

@@ -194,3 +194,23 @@ msg:MON_HYPNOTIZE
 act:mesmerizes %s
 desc:hypnotize
 flavor:pleasured to death
+
+name:SWALLOW
+cut:0
+stun:0
+miss:1
+phys:0
+msg:MON_SWALLOW
+act:swallows %s
+desc:swallow
+flavor:swallowed
+
+name:DEVOUR
+cut:0
+stun:0
+miss:1
+phys:0
+msg:MON_DEVOUR
+act:devours %s
+desc:devour
+flavor:devoured
