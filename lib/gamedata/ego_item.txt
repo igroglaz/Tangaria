@@ -115,8 +115,9 @@ info:2500:10
 alloc:100:1 to 100
 item:light:Lantern
 item:light:Lamp
-values:STEALTH[1]
+values:STEALTH[d3]
 flags:NO_FUEL
+min-values:STEALTH[-2]
 
 name:of True Sight
 info:6000:10

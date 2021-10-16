@@ -367,6 +367,25 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             p->no_disturb_icky = false;
         }
     }
+    
+    // Imp got 'perma-curse' - rng teleport
+    // at first it's more often and at bigger distance, but later
+    // it becomes more stable
+    if (streq(p->race->name, "Imp") && !p->wpos.depth == 0)
+    {
+        int tele_chance = 100 + (p->lev * 2);
+        if (one_in_(tele_chance))
+        {
+            char dice[5];
+            int tele_dist = 200 - (p->lev * 4) + 2;
+            struct source who_body;
+            struct source *who = &who_body;
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            strnfmt(dice, sizeof(dice), "%d", tele_dist);
+            effect_simple(EF_TELEPORT, who, dice, 0, 0, 0, 0, 0, NULL);
+        }
+    }
 
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
@@ -379,7 +398,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
         if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
             curse = 0;
-        
+
         for (j = 0; curse && (j < z_info->curse_max); j++)
         {
             if (curse[j].power == 0) continue;
