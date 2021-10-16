@@ -175,7 +175,7 @@ dice:5+1d13
 effect:TIMED_INC_NO_RES:IMAGE
 dice:11+1d24
 effect:NOURISH:DEC_BY
-dice:10
+dice:5
 msg:The {kind} form{s} an image in your mind...
 desc:completely lights up and magically maps the current level, sensing all
 desc: objects
@@ -733,7 +733,7 @@ aim:0
 power:25
 effect:LIGHT_LEVEL:NONE:1
 effect:NOURISH:DEC_BY
-dice:10
+dice:5
 
 name:FIRE_BALL72
 aim:1
@@ -1137,7 +1137,7 @@ aim:0
 power:7
 effect:NOURISH:INC_TO
 dice:15
-desc:magically renders you well-fed (but not satiated)
+desc:magically gives possibility to survive hunger from death
 
 name:SHERO
 aim:0
@@ -1379,3 +1379,32 @@ power:9
 effect:WONDER
 dice:$B+1d100
 expr:B:PLAYER_LEVEL:/ 5
+
+name:GALADRIEL
+aim:0
+power:5
+effect:LIGHT_AREA
+effect:STAR:LIGHT_WEAK
+dice:4d10
+msg_other: calls bright light.
+msg:The {kind} well{s} with clear bright light...
+
+name:STONE_OF_LORE
+aim:0
+power:30
+effect:TIMED_INC_NO_RES:CONFUSED
+dice:10d5
+effect:DRAIN_STAT:WIS
+dice:1
+effect:DRAIN_STAT:INT
+dice:1
+effect:MAP_AREA
+effect-yx:15:32
+effect:NOURISH:DEC_BY
+dice:1+1d2
+effect:RANDOM
+dice:5
+effect:STAR_BALL:LIGHT_WEAK:3
+dice:2d8
+effect:IDENTIFY
+msg_other: looks into stone depths..

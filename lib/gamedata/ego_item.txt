@@ -115,6 +115,7 @@ info:2500:10
 alloc:100:1 to 100
 item:light:Lantern
 item:light:Lamp
+values:STEALTH[1]
 flags:NO_FUEL
 
 name:of True Sight
@@ -149,15 +150,17 @@ name:of Perpetuity
 info:6000:25
 alloc:2:20 to 127
 item:light:Wooden Torch
-flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR | HOLD_LIFE | REGEN | HUNGER
+flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR
+flags:REGEN | HUNGER | HOLD_LIFE
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 
 name:(Dwarven)
 info:6000:20
 alloc:2:20 to 127
 item:light:Lamp
-values:LIGHT[2]
-min-values:LIGHT[2]
+values:LIGHT[1]
+values:STEALTH[1] | TUNNEL[1] | INFRA[2]
+min-values:LIGHT[1]
 flags:PROT_FEAR
 flags:IGNORE_FIRE | IGNORE_COLD
 flags:NO_FUEL

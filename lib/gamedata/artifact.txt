@@ -94,13 +94,13 @@ base-object:light:Phial
 graphics:~:y
 level:5
 weight:10
-alloc:40:5 to 100
+alloc:4:5 to 100
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL
 values:LIGHT[4]
-act:ILLUMINATION
-time:10+d10
+act:GALADRIEL
+time:15+d10
 desc:A small crystal phial containing the light of Earendil's Star.
 desc: Its light is imperishable, and near it darkness cannot endure.
 
@@ -109,11 +109,11 @@ base-object:light:Phial
 graphics:~:y
 level:5
 weight:10
-alloc:0:5 to 100
+alloc:40:5 to 100
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION
-values:LIGHT[4] | STR[-4] | INT[-4] | WIS[-4] | DEX[-4] | CON[-4] | CHR[-4] | SPEED[3]
+values:LIGHT[3] | STR[-4] | INT[-4] | WIS[-4] | DEX[-4] | CON[-4] | CHR[-4] | SPEED[3]
 curse:siren:100
 curse:teleportation:100
 desc:It appears like the Phial of Galadriel at first - but wait! It
@@ -125,7 +125,7 @@ base-object:light:Star
 graphics:~:y
 level:30
 weight:5
-alloc:4:30 to 100
+alloc:3:30 to 100
 attack:1d1:0:0
 armor:0:0
 flags:SEE_INVIS | NO_FUEL
@@ -154,18 +154,18 @@ name:of Westernesse
 base-object:light:Palantir
 graphics:~:y
 level:75
-weight:200
+weight:12
 alloc:1:75 to 127
 attack:10d10:0:0
 armor:0:0
-flags:NO_FUEL
-flags:SEE_INVIS | ESP_ALL | AGGRAVATE
-flags:PROT_BLIND
-values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | RES_CHAOS[1] | LIGHT[4]
-curse:anti-teleportation:100
+values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | LIGHT[4]
+flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND | PROT_STUN |
+# -
+flags:LIMITED_TELE
+#
 act:CLAIRVOYANCE
 time:50+d50
-msg:The {kind} glow{s} a deep green...
+msg:The palantir clouds, then clears...
 desc:A great globe with a heart of fire, the Palantir provides the wearer with 
 desc:sight of far places - at a cost...
 
@@ -3737,10 +3737,140 @@ desc:A suit of armour made of the hide of a dead water dragon.
 
 ############################
 
+name:of Gwindor
+base-object:light:Lamp
+level:1
+weight:10
+alloc:3:1 to 50
+attack:1d1:0:0
+armor:0:0
+flags:NO_FUEL
+values:STEALTH[1] | LIGHT[1]
+act:ILLUMINATION
+time:10+d10
+msg:The lantern wells with clear light...
+desc:One of the legendary lamps of the Noldor, burning with a clear blue light.
+desc: Its light is imperishable, and near it darkness cannot endure.
 
+name:'Nimphelos'
+base-object:light:Pearl
+graphics:~:w
+level:40
+weight:5
+alloc:3:40 to 100
+attack:1d1:0:0
+armor:0:0
+flags:SEE_INVIS | NO_FUEL
+values:LIGHT[3]
+act:MAPPING
+time:40+d40
+msg:The pearl shines brightly...
+desc:The greatest pearl from the Bay of Balar, its sheen was as starlight on the
+desc: foam of the sea.  It was given to the chieftain of the Dwarves of Belegost
+desc: by Thingol Greycloak, master of his surroundings.
 
+name:of Lore
+base-object:light:Stone
+graphics:~:y
+level:5
+weight:11
+alloc:1:5 to 100
+attack:1d1:0:0
+armor:0:0
+flags:NO_FUEL
+values:LIGHT[3] | MANA[1] | INT[1]
+# replace with mana regen
+act:STONE_OF_LORE
+time:500
+msg:The stone reveals hidden mysteries...
+desc:A great emerald that fills your mind with images of knowledge and dreadful
+desc: understanding as you stare into its depths.
 
+name:of Avallone
+base-object:light:Palantir
+graphics:~:s
+level:90
+weight:12
+alloc:1:101 to 127
+attack:1d1:0:0
+armor:0:0
+values:LIGHT[3]
+flags:SEE_INVIS | HOLD_LIFE | NO_FUEL | ESP_ALL | PROT_BLIND
+act:DETECT_ALL
+time:120+d120
+msg:The {kind} glow{s} a deep green...
+desc:A crystal made by Feanor in Aman, wherein things far away could be seen
+desc: small but clear, as with the eyes of eagles. This one was lost in the
+desc: ocean.. It's a mystery how you come on it.
 
+name:of Orthanc
+base-object:light:Palantir
+graphics:~:y
+level:50
+weight:12
+alloc:1:50 to 127
+attack:10d10:0:0
+armor:0:0
+values:CHR[-3] | INT[3] | WIS[1] | INFRA[4] |  SEARCH[2] | RES_DISEN[1] | LIGHT[4]
+flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
+# -
+flags:IMPAIR_MANA
+curse:siren:100
+#
+act:CLAIRVOYANCE
+time:50+d50
+msg:The palantir clouds, then clears...
+desc:A shining white ball of unbreakable crystal, the ancient Palantiri
+desc: were used by kings of Numenor and later by the Exiles for rapid
+desc: communication between distant lands. Nothing is hidden from one who
+desc: gazes into a Palantir: but the observed will also be aware of the
+desc: observer, as was Sauron when Saruman tried to spy on him with this
+desc: particular Palantir.
 
+name:of Minas Ithil
+base-object:light:Palantir
+graphics:~:y
+level:25
+weight:12
+alloc:1:25 to 127
+attack:10d10:0:0
+armor:0:0
+values:INT[3] | WIS[3] | CON[3] | INFRA[5] |  SEARCH[5] | RES_NETHER[1] | LIGHT[4]
+flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
+# - 
+flags:STICKY
+curse:undead summon:100
+#
+act:CLAIRVOYANCE
+time:50+d50
+msg:The palantir clouds, then clears...
+desc:A shining white ball of unbreakable crystal, the ancient Palantiri
+desc: were used by kings of Numenor and later by the Exiles for rapid
+desc: communication between distant lands. This Palantir, however, was
+desc: taken by Sauron long ago, and mastered to his evil uses, to the
+desc: destruction of all others who would gaze into it.
 
-
+name:of Minas Tirith
+base-object:light:Palantir
+graphics:~:y
+level:25
+weight:12
+alloc:1:25 to 127
+attack:10d10:0:0
+armor:0:0
+values:INT[2] | WIS[1] | INFRA[1] |  SEARCH[1] | LIGHT[4] | RES_CHAOS[1]
+flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
+# -
+flags:AFRAID
+curse:hallucination:100
+curse:siren:100
+#
+act:CLAIRVOYANCE
+time:50+d50
+msg:The palantir clouds, then clears...
+desc:A shining white ball of unbreakable crystal, the ancient Palantiri
+desc: were used by kings of Numenor and later by the Exiles for rapid
+desc: communication between distant lands.
+desc: If any man looked in that Stone, unless he had a great strength of
+desc: will to turn it to other purpose, he saw only two aged hands
+desc: withering in flame.

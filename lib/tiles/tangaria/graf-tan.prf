@@ -1175,6 +1175,12 @@ object:light:Arkenstone:0x87:0xB6
 # The Palantir of Westernesse
 object:light:Palantir:0x87:0xB6
 
+# 'Nimphelos' (light, white pearl)
+object:light:Pearl:0x88:0xC9
+
+# Stone of Lore (light, green sphere)
+object:light:Stone:0x88:0xCA
+
 # Stormbringer (sword)
 object:sword:'Stormbringer':0x8A:0xC3
 
@@ -1826,7 +1832,7 @@ monster:Young white dragon:0x8C:0x8A
 monster:Young green dragon:0x8C:0x8B
 monster:Stairway to hell:0xA0:0x8D
 monster:Stairway to heaven:0xA0:0x8E
-monster:green elf archer:0x8B:0xAA
+monster:green elf archer:0x9B:0xE9
 monster:Giant black scorpion:0x92:0xCD
 monster:Purple worm:0x91:0x98
 monster:Catoblepas:0x93:0x9B
@@ -2403,6 +2409,7 @@ monster:Melkor, Lord of Darkness:0xA0:0xC2
 monster:Eru Iluvatar:0xA0:0xFC
 
 #monster:Arch-vile:0x8D:0xAD
+#monster:Ghost female tile - for new ghost boss:0xA0:0xFA
 
 
 ##### Tangaria objects #####

@@ -193,6 +193,7 @@ alloc:70:10 to 100
 attack:1d1:0:0
 armor:0:0
 flags:TAKES_FUEL | LIGHT_3 | IGNORE_FIRE
+values:STEALTH[-1]
 desc:A brass container with a wick emerging from it, protected from draughts by
 desc: a sheet of greased paper. It can be carried by a handle.
 
@@ -6155,6 +6156,7 @@ alloc:20:20 to 100
 attack:1d1:0:0
 armor:0:0
 flags:TAKES_FUEL | LIGHT_4 | IGNORE_FIRE
+values:STEALTH[-2]
 desc:A brass container, larger than a lantern, with a wick emerging from it,
 desc: protected from draughts by a sheet of greased paper. It can be carried by
 desc: a handle.
@@ -6498,6 +6500,7 @@ alloc:70:1 to 10
 flags:BURNS_OUT | LIGHT_3
 attack:3d3:0:0
 flags:EXPLODE
+values:STEALTH[-1]
 desc:An old glass light source with a crackling emerging from it.
 desc:It can be carried by a handle. You don't think it can be refilled.
 desc:It looks like good idea to throw it and burn your enemies!
@@ -6708,6 +6711,7 @@ weight:70
 cost:0
 attack:1d3:0:0
 flags:BURNS_OUT | LIGHT_3 | IGNORE_FIRE
+values:STEALTH[-1]
 desc:A tiny brass light source with a soft emerging from it,
 desc: protected from draughts by a sheet of dirty paper. It can be carried by
 desc: a handle. It looks so old that you don't think it can be refilled.
