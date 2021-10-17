@@ -643,5 +643,11 @@ message:RESIST_SOMEWHAT:V
 # MSG_SPELL_FAIL
 message:SPELL_FAIL:Y
 
+# MSG_HOWL
+message:HOWL:Z
+
+# MSG_IMP
+message:IMP:p
+
 
 ?:1

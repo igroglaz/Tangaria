@@ -188,6 +188,8 @@ MSG(RESIST_A_LOT, "resist_a_lot")
 MSG(RESIST, "resist")
 MSG(RESIST_SOMEWHAT, "resist_somewhat")
 MSG(SPELL_FAIL, "spell_fail")
+MSG(HOWL, "werewolf_howl")
+MSG(IMP, "imp_giggles")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

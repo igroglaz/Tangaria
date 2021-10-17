@@ -1333,7 +1333,7 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
     
     if (streq(p->race->name, "Werewolf") && !is_daytime())
-        mhp = mhp * 14 / 13;
+        mhp = mhp * 13 / 12;
     
     if (streq(p->race->name, "Vampire") && is_daytime())
         mhp = mhp * 11 / 12;
@@ -2166,21 +2166,22 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->skills[SKILL_DISARM_PHYS] -= 15;
         state->skills[SKILL_DISARM_MAGIC] -= 25;
         state->skills[SKILL_DEVICE] -= 25;
-        state->skills[SKILL_SAVE] += 2;
+        state->skills[SKILL_SAVE] += 20;
         // makes accidental (rare) howls?
-        state->skills[SKILL_STEALTH] -= 1;
+        state->skills[SKILL_STEALTH] = 1;
         state->skills[SKILL_SEARCH] += 10;
         state->skills[SKILL_TO_HIT_MELEE] += 7;
-        state->skills[SKILL_TO_HIT_BOW] -= 10;
+        state->skills[SKILL_TO_HIT_BOW] -= 15;
         state->skills[SKILL_DIGGING] += 1;
-        state->stat_add[STAT_STR] += 2;
-        state->stat_add[STAT_INT] -= 4;
-        state->stat_add[STAT_WIS] -= 3;
-        state->stat_add[STAT_DEX] += 2;
-        state->stat_add[STAT_CON] += 2;
+        state->stat_add[STAT_STR] += 3;
+        state->stat_add[STAT_INT] -= 3;
+        state->stat_add[STAT_WIS] -= 2;
+        state->stat_add[STAT_DEX] += 3;
+        state->stat_add[STAT_CON] += 3;
         state->stat_add[STAT_CHR] -= 8;
-        state->see_infra += 4;
-        state->speed += 1;
+        state->see_infra += 5;
+        // extra_moves += (p->lev / 5);
+        state->speed += 1 + (p->lev / 24);
         /* resistances taken from both places: from there and from display-ui.c
         // to prevent duplicates we will use only display-ui.c
         if (state->el_info[ELEM_DARK].res_level < 2)

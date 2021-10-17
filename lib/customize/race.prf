@@ -284,7 +284,9 @@ help: Werewolf polymorphs into a horrific wolf-humanoid hybrid during night and
 help: become more terrible and powerful than ever before.. They could use their huge
 help: claws and teeth in battle to tear their enemies in pieces. They feel animals
 help: from the distance, could regenerate and resistant to dark. They don't like
-help: light magic though.
+help: light magic though. |
+help: During the night they sometimes can't handle animal nature and howl on top
+help: of your lungs...
 
 race:Undead
 help:Undeads occupy most of the far north at the moment. This is intelligent race 
@@ -495,9 +497,13 @@ help: immune to light. At the same time they don't move fast and prefer carry on
 help: without haste.
 
 race:Imp
-help:Imps - small creatures with reddish skin. They do not fear fire, but
-help: don't like frost. They came not from the hell, but from other dimension which
-help: were destroyed long time ago. Weak, but pretty fast and stealthy.
+help:Imps - little mischievous tricksters with reddish skin. They do not fear fire,
+help: but don't like frost. They came not from the hell, but from other dimension
+help: which were destroyed long time ago. Weak, but pretty fast and stealthy.
+help: From time to time they may teleport around, just for fun.. In time you will
+help: be able to 'tame' them, but at start they will jerk around putting you into
+help: different adventurous situations. Imps got high magic resistance. |
+help: Tip: imps can enter 'Stealth Mode' - to do so use [shift+s]
 
 race:Wraith
 help:Magic emanation of dead who ought to stay in mortal world as bodiless spirits.

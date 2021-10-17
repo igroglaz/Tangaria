@@ -378,14 +378,47 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         {
             char dice[5];
             int tele_dist = 200 - (p->lev * 4) + 2;
+            int msg_imp = randint1(13);
             struct source who_body;
             struct source *who = &who_body;
+            
+            // learn black speech.. more or less canonic:
+            if (msg_imp == 1) msgt(p, MSG_IMP, "How do you like it?");
+            else if (msg_imp == 2) msgt(p, MSG_IMP, "Lat brogb za amol?");
+            else if (msg_imp == 3) msgt(p, MSG_IMP, "Brogbzalat amol?");
+            else if (msg_imp == 4) msgt(p, MSG_IMP, "Guz latur za?");
+            else if (msg_imp == 5) msgt(p, MSG_IMP, "Gur latur za?");
+            else if (msg_imp == 6) msgt(p, MSG_IMP, "Mor kiyu moz?");
+            else if (msg_imp == 7) msgt(p, MSG_IMP, "Amol latu za?");
+            // mixed:
+            else if (msg_imp == 8) msgt(p, MSG_IMP, "Amol kiyu ajog?");
+            else if (msg_imp == 9) msgt(p, MSG_IMP, "Arz lat alag?");
+            else if (msg_imp == 10) msgt(p, MSG_IMP, "Gur sun za?");
+            else if (msg_imp == 11) msgt(p, MSG_IMP, "Guz kiyu zab?");
+            else if (msg_imp == 12) msgt(p, MSG_IMP, "Narz lat zalo?");
+            else if (msg_imp == 13) msgt(p, MSG_IMP, "Amol sun zaurz?");
 
             source_player(who, get_player_index(get_connection(p->conn)), p);
             strnfmt(dice, sizeof(dice), "%d", tele_dist);
             effect_simple(EF_TELEPORT, who, dice, 0, 0, 0, 0, 0, NULL);
         }
     }
+
+    // Werewolves howl from time to time at night waking everyone :D
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        int howl_chance = 10;
+        if (one_in_(howl_chance))
+        {
+            struct source who_body;
+            struct source *who = &who_body;
+
+            msgt(p, MSG_HOWL, "You can't handle your animal nature and "
+            "howl on top of your lungs!");
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+        }
+    }    
 
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)

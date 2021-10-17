@@ -1029,7 +1029,7 @@ age:14:6
 height:69:5
 weight:165:23
 gift:mushroom:Clear Mind:1:1
-#2 -3 -3 1 2 -8 // 'night' bonuses + regen hp
+#2 -3 -3 1 2 -8 // 'night' bonuses + regen hp.. but howls
 value:0:STR[0]
 value:0:INT[0]
 value:0:WIS[0]
@@ -2107,7 +2107,7 @@ name:Imp
 skill-disarm-phys:7
 skill-disarm-magic:5
 skill-device:4
-skill-save:5
+skill-save:20
 skill-stealth:2
 skill-search:10
 skill-melee:-7
@@ -2130,10 +2130,13 @@ value:0:CHR[-8]
 value:0:SPEED[1+1d15]
 value:0:MOVES[1+1d5]
 value:15:RES_FIRE[1]
-value:30:RES_FIRE[3]
+value:30:RES_FIRE[2]
+value:40:RES_FIRE[3]
 value:0:RES_COLD[-1]
 obj-flag:0:IMPAIR_MANA
-value:0:MANA[8+-1d5]
+# can teleport around from time to time
+player-flags:0:STEALTH_MODE
+value:0:MANA[8+-1d6]
 
 name:Wraith
 skill-disarm-phys:-50
