@@ -361,6 +361,10 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
     *d_dam = dmg;
 
     dmg *= best_mult;
+    
+    // Werewolves got CUT bonus at night
+    if (streq(p->race->name, "Werewolf") && p->lev > 49 && best_mult < 2 && !is_daytime())
+        dmg *= 2;
 
     if (target->monster)
     {
@@ -541,6 +545,10 @@ static void blow_side_effects(struct player *p, struct source *target,
 
     /* Ghosts get fear attacks */
     if (p->ghost && !player_can_undead(p)) do_fear = true;
+
+    // Werewolves got CUT at night
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+        seffects->do_cut = true;
 
     /* Hack -- only one of cut or stun */
     if (seffects->do_cut && seffects->do_stun)
