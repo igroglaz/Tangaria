@@ -512,4 +512,8 @@ help: They can not teleport, but could move through walls.
 race:Beholder
 help:Intelligent floating in air orb-shaped eyes. They got several tentacle 
 help: eyestalks which gives the capacity to see in all directions at once.
-help: As they develop in time, they could get obtain magic powers.
+help: As they develop in time, they could get obtain magic powers. |
+help: Beholders may try to predict future from time to time which
+help: cause hallucinations.
+
+# leave empty line for EOF

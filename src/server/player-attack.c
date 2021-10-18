@@ -547,7 +547,7 @@ static void blow_side_effects(struct player *p, struct source *target,
     if (p->ghost && !player_can_undead(p)) do_fear = true;
 
     // Werewolves got CUT at night
-    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    if (streq(p->race->name, "Werewolf") && !is_daytime() && p->lev > 14)
         seffects->do_cut = true;
 
     /* Hack -- only one of cut or stun */

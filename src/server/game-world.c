@@ -407,7 +407,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // Werewolves howl from time to time at night waking everyone :D
     if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
-        int howl_chance = 10;
+        int howl_chance = 100 + (p->lev * 2);
         if (one_in_(howl_chance))
         {
             struct source who_body;
@@ -418,7 +418,11 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
         }
-    }    
+    }
+
+    // Beholders may hallucinate from time to time
+    if (streq(p->race->name, "Beholder") && one_in_(500 + (p->lev * 10)))
+        player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
