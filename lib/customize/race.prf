@@ -132,11 +132,11 @@ help: also somewhat helps them in healing wounds. Ents immune to polymorph.
 race:Thunderlord
 help:Thunderlords are an old and powerful race of dragon hunters. They have an
 help: intrinsic telepathic vision of all nearby creatures, the radius expands as
-help: they gain levels. At level 5, they can spot dragons anywhere on a level. They
-help: even gain intrinsic basic resistances, fire at 10, cold at 20, acid at 30
-help: and lightning at 40. Thunderlords have tamed the Great Eagles of Middle-Earth
-help: and use them in their hunts. They need to eat often.
-help: Thunderlords can fall like a feather from birth.
+help: they gain levels. At level 5, they can spot dragons anywhere. Thunderlords
+help: have tamed the Great Eagles of Middle-Earth and use them in their hunts.
+help: They need to eat often to feed themselves and their eagle. |
+help: They are intensely proud and value honour, so they won't attack sleeping
+help: enemies - they hail them when at close distance.
 
 race:Dragon
 help:ATTENTION! If you decided to take dragon race:
@@ -399,7 +399,9 @@ help:Ancient race of draconoids - people who could transform into dracons.
 help: Peaceful folk which was almost exterminated by titans during
 help: the ancient war. Only a few survived by hiding in high mountains caves.
 help: They are born as a tender as whelplings, very vulnerable.. but if they
-help: manage to survive to mature age - they become very powerful.
+help: manage to survive to mature age - they become very powerful. |
+help: They gain intrinsic basic resistances, fire at 10, cold at 20,
+help: acid at 30 and lightning at 40.
 
 race:Titan
 help:Titans or giants...

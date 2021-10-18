@@ -31282,3 +31282,85 @@ flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 #drop:ring:Black Ring of Power:100:1:1
 #drop:sword:'Stormbringer':100:1:1
 desc:An indestructible golem used for testing purposes.
+
+name:tamed young eagle
+base:bird
+color:m
+speed:111
+hit-points:1
+hearing:30
+armor-class:4
+sleepiness:10
+depth:1
+rarity:0
+weight:20
+experience:2
+blow:CLAW:HURT:1d1
+blow:BITE:HURT:1d1
+flags:WILD_WASTE | WILD_MOUNTAIN | WILD_WOOD | PWMANG_BASE
+desc:A magnificent youngling of predatory bird.
+
+name:tamed eagle
+base:bird
+color:m
+speed:115
+#hit-points:45
+hit-points:1
+hearing:30
+armor-class:25
+sleepiness:10
+depth:10
+rarity:0
+weight:60
+experience:22
+blow:CLAW:HURT:1d3
+#blow:CLAW:HURT:1d3
+blow:BITE:HURT:1d6
+flags:WILD_WASTE | WILD_MOUNTAIN | WILD_WOOD | PWMANG_BASE
+desc:A magnificent huge predatory bird.
+
+name:tamed great eagle
+base:bird
+color:M
+speed:120
+#hit-points:300
+hit-points:1
+hearing:20
+armor-class:65
+sleepiness:20
+depth:20
+rarity:0
+weight:100
+experience:1
+blow:CLAW:HURT:3d6
+#blow:CLAW:HURT:6d3
+blow:BITE:HURT:3d6
+flags:PWMANG_BASE
+flags:WILD_MOUNTAIN | WILD_VOLCANO | WILD_WASTE | WILD_WOOD
+flags:WILD_DESERT
+desc:Greater and more intelligent than most of its kind, this great eagle is
+desc: a messenger between the forces of good.
+
+name:tamed giant eagle
+base:bird
+color:u
+speed:121
+#hit-points:560
+hit-points:1
+hearing:20
+armor-class:84
+sleepiness:10
+depth:40
+rarity:0
+weight:150
+experience:1
+blow:CLAW:HURT:4d8
+blow:BITE:HURT:4d12
+flags:BASH_DOOR
+flags:DROP_CORPSE | WILD_WOOD | WILD_MOUNTAIN
+desc:A vast legendary bird, its iron talons rake the most impenetrable of
+desc: surfaces and its screech echoes through the many winding dungeon
+desc: corridors.
+
+
+# # leave empty line for EOF
