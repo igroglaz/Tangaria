@@ -504,28 +504,28 @@ skill-melee:15
 skill-shoot:5
 skill-dig:-10
 hitdie:12
-# -10%
-exp:180:115
+# -15%
+exp:180:110
 history:89
 age:14:6
 height:170:20
 weight:240:60
 obj-flag:5:ESP_DRAGON
 gift:food:Hard Biscuit:1:1
-# 4 0 0 1 3
+# 4 0 0 0 3
 value:0:STR[-6+1d5]
 value:0:INT[-1+1d30]
 value:0:WIS[-1+1d30]
-value:0:DEX[-6+1d7]
+value:0:DEX[-7+1d7]
 value:0:CON[-6+1d4]
-value:0:CHR[-2]
+value:0:CHR[-4]
 value:0:TUNNEL[-1+-1d15]
-player-flags:0:THUNDERLORD
 #got hardcoded full ESP with expanding radius
 #got eagle :)
+obj-flag:1:AGGRAVATE
 obj-flag:1:HUNGER
-obj-flag:1:HUNGER_2
-# AGGRAVATE 3 range hardcoded
+
+############## player-flags:0:THUNDERLORD - rename to ESP_RADIUS
 
 value:0:MANA[4+-1d6M25]
 
@@ -1911,7 +1911,7 @@ gift:potion:Cure Serious Wounds:1:1
 obj-flag:1:SUST_STR
 obj-flag:1:SUST_CON
 # 4 -4 -2 1 3
-value:0:STR[-2+1d8]
+value:0:STR[1+1d15]
 value:0:INT[-4]
 value:0:WIS[-2]
 # becoming hasty...
@@ -1923,10 +1923,9 @@ obj-flag:1:PROT_CONF
 obj-flag:1:PROT_STUN
 value:0:STEALTH[-4+-1d10]
 value:0:SPEED[1]
-value:0:DAM_RED[-1+-1d7]
-value:0:MOVES[-1+-1d7]
 obj-flag:1:IMPAIR_HP
 value:0:MANA[4+-1d6M25]
+# AGGRAVATE 3 range hardcoded
 
 name:Troglodyte
 skill-disarm-phys:-10
@@ -2245,7 +2244,7 @@ shape:50:overseer'
 
 
 # slay:1:50:ORC_3 .. dunedains?
-
+#obj-flag:1:HUNGER_2
 
 #player-flags:0:FAST_THROW
 

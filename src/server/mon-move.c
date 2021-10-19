@@ -2587,7 +2587,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
         }
     }
 
-    else if (streq(p->race->name, "Thunderlord") && (mon_distance > 0 && mon_distance < 3))
+    else if (streq(p->race->name, "Minotaur") && (mon_distance > 0 && mon_distance < 3))
         monster_wake(p, mon, true, 100);
 
     else if (streq(p->race->name, "Hydra") && (mon_distance > 0 && mon_distance < 21))

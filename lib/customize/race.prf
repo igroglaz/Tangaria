@@ -135,8 +135,8 @@ help: intrinsic telepathic vision of all nearby creatures, the radius expands as
 help: they gain levels. At level 5, they can spot dragons anywhere. Thunderlords
 help: have tamed the Great Eagles of Middle-Earth and use them in their hunts.
 help: They need to eat often to feed themselves and their eagle. |
-help: They are intensely proud and value honour, so they won't attack sleeping
-help: enemies - they hail them when at close distance.
+help: Thunderlords easily discovered by enemies as they sing their battle songs
+help: loudly and their eagle piercingly screams seeking for pray...
 
 race:Dragon
 help:ATTENTION! If you decided to take dragon race:
@@ -439,7 +439,7 @@ help: their freedom and independence. Their movement speed, wisdom and knowledge
 help: of nature gives them a lot of benefits in adventures. Also it's widly known
 help: that you can not confuse centaur. Though they got disadvantage - it's very
 help: hard for them to dig tunnels and also their hooves makes a lot of noice
-help: echoing in the dungeon passages.
+help: echoing in the dungeon passages. They are intensely proud and value honour.
 
 race:Spider
 help:Likes dark places...
@@ -464,7 +464,8 @@ help: become quite speedy and perilous.
 
 race:Minotaur
 help:Huge figure which got the body of a human and the head of a bull.
-help: Stubborn, but righteous. Prefering to live in mountain caverns, they don't
+help: Stubborn, but righteous, they won't attack sleeping enemies - they hail them
+help: when at close distance. Prefering to live in mountain caverns, they don't
 help: like strangers there. They are famours because of their strength and vitality.
 
 race:Troglodite

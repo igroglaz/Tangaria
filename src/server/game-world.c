@@ -424,9 +424,9 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     if (streq(p->race->name, "Beholder") && one_in_(500 + (p->lev * 10)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
-    /* Summon water creature */
+    /* Thunderlord's eagle-companion */
     if (streq(p->race->name, "Thunderlord") && !p->wpos.depth == 0 &&
-        p->slaves < 1 && one_in_(12 - (p->lev / 10)))
+        p->slaves < 1) // one_in_(12 - (p->lev / 10))
     {
         static const struct summon_chance_t
         {
