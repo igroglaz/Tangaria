@@ -649,15 +649,15 @@ obj-flag:1:ESP_EVIL
 
 #immortal human, highlander-like
 name:Damned
-skill-disarm-phys:-5
-skill-disarm-magic:-5
-skill-device:-5
-skill-save:20
-skill-stealth:-1
+skill-disarm-phys:5
+skill-disarm-magic:5
+skill-device:5
+skill-save:10
+skill-stealth:1
 skill-search:10
-skill-melee:-5
-skill-shoot:-5
-skill-dig:-1
+skill-melee:5
+skill-shoot:0
+skill-dig:1
 hitdie:10
 # +10%
 exp:100:135
@@ -666,15 +666,19 @@ age:11:4
 height:69:5
 weight:165:23
 gift:food:Apple:1:1
-value:0:STR[-1+-1d27]
-value:0:INT[-1+-1d27]
-value:0:WIS[-1+-1d27]
-value:0:DEX[-1+-1d27]
+value:0:STR[0+1d24]
+value:0:INT[0+1d27]
+value:0:WIS[0+1d27]
+value:0:DEX[0+1d24]
 value:0:CON[0]
 value:0:CHR[1+1d27]
 value:0:RES_TIME[1]
+obj-flag:0:PROT_FEAR
 player-flags:0:RACE_REGEN
 obj-flag:25:HOLD_LIFE
+# hunted by gods... rethink boni:
+# - chance to survive fatal blow?
+# - give expanded esp?
 
 name:Merfolk
 skill-disarm-phys:-2

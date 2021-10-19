@@ -421,7 +421,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     // Beholders may hallucinate from time to time
-    if (streq(p->race->name, "Beholder") && one_in_(500 + (p->lev * 10)))
+    if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
     /* Thunderlord's eagle-companion */
@@ -446,6 +446,18 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
         summon_specific_race_aux(p, c, &p->grid, get_race(summon_chance[i].race), 1, true);        
     }
+    
+    /* Damned constantly hunted by monsters */
+    if (streq(p->race->name, "Damned") && !p->wpos.depth == 0 &&
+        one_in_(50 + (p->lev * 9)))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+
+        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+		effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+    }    
 
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
