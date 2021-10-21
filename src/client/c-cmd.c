@@ -103,6 +103,11 @@ void do_cmd_target_closest(void)
 
 void do_cmd_fire_at_nearest(void)
 {
+
+    // clear key buffer, so if user press 'h' key several times,
+    // it won't jamm input or 'r', 'q' and other keys
+    Send_clear(ES_KEY);
+    
     /* Send it */
     Send_fire_at_nearest();
 }
