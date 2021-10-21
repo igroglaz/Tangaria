@@ -2219,7 +2219,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_CON] -= 2;
         state->stat_add[STAT_CHR] -= 2;
         }
-    } 
+    }
+
+    if (streq(p->race->name, "Gargoyle"))
+        state->to_a += p->lev;
 
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))

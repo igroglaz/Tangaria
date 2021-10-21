@@ -1408,8 +1408,8 @@ obj-flag:25:SUST_WIS
 obj-flag:35:SUST_DEX
 obj-flag:45:SUST_CON
 value:0:INFRA[1+1d9]
-value:0:SPEED[-1+-1d5]
-value:0:MOVES[1+1d5]
+value:0:SPEED[-1+-1d24]
+value:0:MOVES[1+1d24]
 value:0:RES_ACID[-1]
 value:0:RES_POIS[1]
 value:20:RES_FIRE[1]
@@ -1417,9 +1417,8 @@ value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 value:0:MANA[10+-1d5]
-# replace with % dam red
-value:0:DAM_RED[1+1d2]
-obj-flag:50:SLOW_DIGEST
+# + lev AC hardcoded
+obj-flag:0:SLOW_DIGEST
 # more casting flags... sleepery fingers?
 
 name:Golem
@@ -1455,7 +1454,7 @@ obj-flag:1:IMPAIR_HP
 value:0:DAM_RED[0+1d4]
 value:0:RES_ELEC[-1]
 value:0:MANA[10+-1d5]
-# reflection
+# rfe reflection
 obj-flag:1:CANT_FLY
 
 name:Pixie
