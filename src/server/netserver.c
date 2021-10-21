@@ -3365,7 +3365,7 @@ int Send_flush(struct player *p, bool fresh, bool delay)
     if (connp == NULL) return 0;
 
     /* Hack -- don't display animations if fire_till_kill is enabled */
-    if (p->firing_request) delay = false;
+    if (p->firing_request && !one_in_(5)) delay = 0;
 
     return Packet_printf(&connp->c, "%b%c%c", (unsigned)PKT_FLUSH, (int)fresh, (int)delay);
 }

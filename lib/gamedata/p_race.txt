@@ -520,11 +520,11 @@ value:0:DEX[-7+1d7]
 value:0:CON[-6+1d4]
 value:0:CHR[-4]
 value:0:TUNNEL[-1+-1d15]
-#got hardcoded full ESP with expanding radius
 #got eagle :)
 obj-flag:1:AGGRAVATE
 obj-flag:1:HUNGER
 
+#hardcoded full ESP with expanding radius
 ############## player-flags:0:THUNDERLORD - rename to ESP_RADIUS
 
 value:0:MANA[4+-1d6M25]
