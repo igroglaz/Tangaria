@@ -3868,7 +3868,7 @@ effect:CURE:AFRAID
 name:Resist Heat
 graphics:!:d
 type:potion
-level:30
+level:1
 weight:4
 cost:30
 alloc:40:30 to 100
@@ -3880,7 +3880,7 @@ dice:50+1d10
 name:Resist Cold
 graphics:!:d
 type:potion
-level:30
+level:1
 weight:4
 cost:30
 alloc:40:30 to 100

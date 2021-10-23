@@ -83,6 +83,10 @@
 
 # MOVES works: +10 moves is like +10 speed, but movement only
 
+# Note: currently in p_race.txt only one entry of the same resistance
+# element is allowed; meaning that it's possible to assign 
+# an element to a race or class only once. So we hardcode such cases.
+
 # can't fly:
 #Ent
 #Hydra
@@ -706,8 +710,8 @@ value:0:DEX[-1+1d24]
 value:0:CON[-3+1d24]
 value:0:CHR[-1]
 value:0:INFRA[1+1d7]
-value:0:RES_WATER[1]
-value:50:RES_WATER[3]
+#value:0:RES_WATER[1]
+#value:50:RES_WATER[3] hardcoded
 value:0:TUNNEL[-1+-1d15]
 # make fast regen only in water
 obj-flag:1:REGEN
@@ -1048,6 +1052,7 @@ value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
 #/// 'night' bonuses + regen hp.. but howls
 #/// hardcoded CUT_1 (15) & CUT_2 (50) at night
+#value:50:RES_DARK[++] at night
 #player-flags:0:SHAPECHANGE
 #shape:1:jackal_
 #shape:10:wolf_
@@ -1088,9 +1093,9 @@ obj-flag:5:HOLD_LIFE
 obj-flag:1:IMPAIR_HP
 value:0:RES_POIS[1]
 value:0:RES_LIGHT[-1]
-value:0:RES_NETHER[1]
-value:50:RES_NETHER[3]
-value:0:MOVES[0+-1d5]
+#value:0:RES_NETHER[1]
+#value:50:RES_NETHER[++] hardcoded
+value:0:MOVES[-1]
 
 name:Vampire
 skill-disarm-phys:-2
@@ -1269,7 +1274,8 @@ value:0:DEX[-6+1d6]
 value:0:CON[3]
 value:0:CHR[-10+1d25]
 value:0:INFRA[5]
-value:0:RES_FIRE[1]
+#value:0:RES_FIRE[1]
+#value:35:RES_FIRE[3] hardcoded
 value:0:RES_COLD[-1]
 value:0:RES_LIGHT[-1]
 # no fear prot.. it run away from G after all
@@ -1279,7 +1285,6 @@ value:15:RES_DARK[1]
 obj-flag:20:SEE_INVIS
 obj-flag:25:HOLD_LIFE
 value:35:LIGHT[1]
-value:35:RES_FIRE[3]
 obj-flag:40:FEATHER
 value:45:RES_CHAOS[1]
 brand:1:50:FIRE_2
@@ -1366,16 +1371,14 @@ value:0:WIS[0]
 value:0:DEX[-1+1d24]
 value:50:CON[-1]
 value:0:CHR[-1+1d24]
-# atm -1 still works.. only 3 will disable it. change?
-# add [2] - resist a lot
-value:24:RES_DARK[1]
-value:24:RES_LIGHT[1]
-value:0:RES_LIGHT[-1]
-value:0:RES_DARK[-1]
+#value:35:RES_DARK[2]
+#value:35:RES_LIGHT[2]
+#value:0:RES_LIGHT[-1]
+#value:0:RES_DARK[-1] hardcoded: -- 35++ 50++
 obj-flag:1:ESP_DEMON
-slay:1:39:DEMON_3
-slay:40:50:DEMON_5
-obj-flag:50:HUNGER
+slay:35:49:DEMON_3
+slay:49:50:DEMON_5
+obj-flag:1:HUNGER
 #+vs angels
 
 name:Gargoyle
@@ -1670,29 +1673,17 @@ brand:30:39:COLD_2
 brand:40:49:FIRE_2
 brand:50:50:ACID_2
 ###########
-value:0:RES_ELEC[-1]
-#
-value:20:RES_ELEC[3]
-value:20:RES_COLD[-1]
-#
-value:30:RES_COLD[3]
-value:30:RES_FIRE[-1]
-#
-value:40:RES_FIRE[3]
-value:40:RES_ACID[-1]
-#
-value:50:RES_ACID[3]
-#
-# imm broken for now due bug..
+#value:0:RES_ELEC[-1]
+#value:20:RES_ELEC[++]
+#value:20:RES_COLD[-1]
+#value:30:RES_COLD[++]
+#value:30:RES_FIRE[--]
+#value:40:RES_FIRE[++]
+#value:40:RES_ACID[--]
+#value:50:RES_ACID[++] hardcoded
 #############
-value:0:STEALTH[-1+-1d9]
-value:35:SPEED[-1+-1d3]
-value:35:DAM_RED[-1+-1d4]
-value:0:MOVES[-1+-10d48]
-obj-flag:1:IMPAIR_HP
-value:0:MANA[6+-1d10]
-#temp
-value:0:BLOWS[1+-1d30]
+value:0:STEALTH[-1+-1d8]
+value:0:MANA[5+-1d10]
 
 name:Frostmen
 skill-disarm-phys:-15
@@ -1718,12 +1709,12 @@ value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-5]
 value:25:INFRA[1]
-value:0:RES_FIRE[1]
-value:0:RES_FIRE[-1]
-value:0:RES_COLD[1]
-value:25:RES_ICE[1]
-brand:1:50:COLD_2
-slay:25:50:TROLL_3
+#value:35:RES_FIRE[1]
+#value:0:RES_FIRE[-1]
+#value:0:RES_COLD[1]
+#value:35:RES_COLD[2] hardcoded
+brand:45:50:COLD_2
+slay:32:50:TROLL_3
 value:0:MANA[3+-1d15]
 obj-flag:25:ESP_UNDEAD
 
@@ -1787,8 +1778,8 @@ value:0:CON[-2]
 value:0:CHR[-9]
 value:0:INFRA[1+1d6]
 brand:15:50:POIS_2
-# value:0:RES_POIS[1] bugged order.. so leaving imminity only for now
-value:0:RES_POIS[3]
+# value:0:RES_POIS[1]
+#value:30:RES_POIS[3] hardcoded
 value:0:MANA[4+-1d12]
 value:0:DAM_RED[-1+-1d5]
 value:0:RES_LIGHT[-1]
@@ -1859,7 +1850,8 @@ slay:25:50:DEMON_3
 player-flags:0:NO_BOOTS
 obj-flag:1:IMPAIR_HP
 obj-flag:1:IMPAIR_MANA
-# hardcoded: no feelings (monster/object)
+# hardcoded: no feelings (monster/object).
+# rethink...
 
 name:Harpy
 skill-disarm-phys:-4
@@ -2080,14 +2072,15 @@ age:63:7
 height:35:2
 weight:5:1
 gift:scroll:Light:6:12
-# -7 3 -1 -2 -1
-value:0:STR[-5+-1d24]
+# -5 3 -1 -2 -1
+value:0:STR[-3+-1d24]
 value:0:INT[-1+1d12]
 value:0:WIS[-3+1d24]
 value:0:DEX[-2]
 value:0:CON[-1]
 value:0:CHR[-3]
 value:0:LIGHT[1+1d24]
+# make ESP increasing by radius?
 obj-flag:30:ESP_EVIL
 player-flags:0:BLESS_WEAPON
 obj-flag:1:FEATHER
@@ -2095,15 +2088,14 @@ obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
-value:0:RES_LIGHT[1]
-value:35:RES_LIGHT[3]
-# op? [3] doesn't work atm though..
+#value:0:RES_LIGHT[1]
+#value:35:RES_LIGHT[++] hardcoded
 value:50:RES_MANA[1]
 # -
 value:0:DAM_RED[0+-1d5]
 value:0:SPEED[1+-1d40]
 value:0:RES_DARK[-1]
-value:0:MOVES[0+-1d1M30]
+value:0:MOVES[0+-1d1M25]
 value:0:MANA[10+-1d5]
 #value:0:BLOWS[1]
 #value:0:SHOTS[1]
@@ -2134,9 +2126,9 @@ value:0:CON[0]
 value:0:CHR[-8]
 value:0:SPEED[1+1d15]
 value:0:MOVES[1+1d5]
-value:15:RES_FIRE[1]
-value:30:RES_FIRE[2]
-value:40:RES_FIRE[3]
+#value:15:RES_FIRE[1]
+#value:30:RES_FIRE[2]
+#value:40:RES_FIRE[3] hardcoded
 value:0:RES_COLD[-1]
 obj-flag:0:IMPAIR_MANA
 # can teleport around from time to time

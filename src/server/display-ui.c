@@ -812,6 +812,130 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         }
     }
 
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        if (el_info[ELEM_DARK].res_level < 3)
+            el_info[ELEM_DARK].res_level++;
+    }
+
+    // currently in p_race.txt only one entry of the same resistance
+    // element is allowed; meaning that it's possible to assign an element
+    // to a race or class only once.
+
+    if (streq(p->race->name, "Merfolk"))
+    {
+        if (el_info[ELEM_WATER].res_level < 3)
+            el_info[ELEM_WATER].res_level++;
+        if (p->lev > 49 && el_info[ELEM_WATER].res_level < 3)
+            el_info[ELEM_WATER].res_level++;
+    }
+
+    if (streq(p->race->name, "Undead"))
+    {
+        if (el_info[ELEM_NETHER].res_level < 3)
+            el_info[ELEM_NETHER].res_level++;
+        if (p->lev > 49 && el_info[ELEM_NETHER].res_level < 3)
+            el_info[ELEM_NETHER].res_level++;
+    }
+
+    if (streq(p->race->name, "Balrog"))
+    {
+        if (el_info[ELEM_FIRE].res_level < 1)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 34)
+            el_info[ELEM_FIRE].res_level = 3;
+    }
+
+    if (streq(p->race->name, "Nephalem"))
+    {
+        if (el_info[ELEM_DARK].res_level > -1)
+            el_info[ELEM_DARK].res_level--;
+        if (el_info[ELEM_LIGHT].res_level > -1)
+            el_info[ELEM_LIGHT].res_level--;
+        if (p->lev > 34)
+        {
+            if (el_info[ELEM_DARK].res_level < 3)
+                el_info[ELEM_DARK].res_level++;
+            if (el_info[ELEM_LIGHT].res_level < 3)
+                el_info[ELEM_LIGHT].res_level++;
+        }
+        if (p->lev > 49)
+        {
+            if (el_info[ELEM_DARK].res_level < 3)
+                el_info[ELEM_DARK].res_level++;
+            if (el_info[ELEM_LIGHT].res_level < 3)
+                el_info[ELEM_LIGHT].res_level++;
+        }
+    }
+
+    if (streq(p->race->name, "Elemental"))
+    {
+        if (p->lev < 20)
+            el_info[ELEM_ELEC].res_level = -1;
+        if (p->lev > 19)
+        {
+            if (el_info[ELEM_ELEC].res_level < 3)
+                el_info[ELEM_ELEC].res_level++;
+            if (p->lev < 30)
+                el_info[ELEM_COLD].res_level = -1;
+        }
+        if (p->lev > 29)
+        {
+            if (el_info[ELEM_COLD].res_level < 3)
+                el_info[ELEM_COLD].res_level++;
+            if (p->lev < 40 && el_info[ELEM_FIRE].res_level > -1)
+                el_info[ELEM_FIRE].res_level--;
+        }
+        if (p->lev > 39)
+        {
+            if (el_info[ELEM_FIRE].res_level < 3)
+                el_info[ELEM_FIRE].res_level++;
+            if (p->lev < 50 && el_info[ELEM_ACID].res_level > -1)
+                el_info[ELEM_ACID].res_level--;
+        }
+        if (p->lev > 49)
+        {
+            if (el_info[ELEM_ACID].res_level < 3)
+                el_info[ELEM_ACID].res_level++;
+        }
+    }
+
+    if (streq(p->race->name, "Frostmen"))
+    {
+        if (el_info[ELEM_COLD].res_level < 3)
+            el_info[ELEM_COLD].res_level++;
+        if (p->lev < 35 && el_info[ELEM_FIRE].res_level > -1)
+            el_info[ELEM_FIRE].res_level--;
+        if (p->lev > 34 && el_info[ELEM_COLD].res_level < 3)
+            el_info[ELEM_COLD].res_level++;
+    }
+
+    if (streq(p->race->name, "Spider"))
+    {
+        if (el_info[ELEM_POIS].res_level < 3)
+            el_info[ELEM_POIS].res_level++;
+        if (p->lev > 29 && el_info[ELEM_POIS].res_level < 3)
+            el_info[ELEM_POIS].res_level++;
+    }
+
+    if (streq(p->race->name, "Wisp"))
+    {
+        if (el_info[ELEM_LIGHT].res_level < 3)
+            el_info[ELEM_LIGHT].res_level++;
+        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level < 3)
+            el_info[ELEM_LIGHT].res_level++;
+    }
+
+    if (streq(p->race->name, "Imp"))
+    {
+        if (p->lev > 19 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 29 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 39 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+    }
+
     /* Add class flags */
     for (i = 0; i < ELEM_MAX; i++)
     {
@@ -837,13 +961,6 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         el_info[ELEM_SHARD].res_level = 1;
         el_info[ELEM_TIME].res_level = 1;
     }
-
-    if (streq(p->race->name, "Werewolf") && !is_daytime())
-    {
-        if (el_info[ELEM_DARK].res_level < 2)
-            el_info[ELEM_DARK].res_level++;
-    }
-
 
     /* Handle polymorphed players */
     if (p->poly_race)
@@ -1253,7 +1370,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             bitflag f[OF_SIZE];
             byte attr = (COLOUR_WHITE | (j % 2) * 8); /* Alternating columns */
             char sym = '.';
-            bool res = false, imm = false, vul = false, rune = false;
+            bool res = false, d_res = false, imm = false, vul = false, rune = false;
             bool timed = false;
             bool known = true;
 
@@ -1328,6 +1445,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                     player_elements(p, el_info);
 
                     imm = (el_info[rec[i].element].res_level == 3);
+                    d_res = (el_info[rec[i].element].res_level == 2);                    
                     res = (el_info[rec[i].element].res_level == 1);
                     vul = (el_info[rec[i].element].res_level == -1);
                 }
@@ -1344,6 +1462,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             /* Set the symbols and print them */
             if (imm) sym = '*';
             else if (res && !vul) sym = '+';
+            else if (d_res && !vul) {sym = '#'; attr = COLOUR_WHITE;}
             else if (vul && !res) sym = '-';
             else if (timed) {sym = '!'; attr = COLOUR_L_GREEN;}
             else if (!known && !rune) sym = '?';
