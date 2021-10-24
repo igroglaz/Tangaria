@@ -1987,7 +1987,13 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         return;
     }
 
-    
+    // Slippery grounds
+    if (streq(p->terrain, "\tIce\0") && one_in_(6))
+    {
+        msgt(p, MSG_TERRAIN_SLIP, "You slip on the icy floor!");
+        return;
+    }
+
     // Some can pass trees
     // allow pass trees in town by running
     if (square_istree(c, &grid) && (p->wpos.depth == 0))

@@ -615,4 +615,6 @@ sound:werewolf_howl:werewolf_howl
 
 sound:imp_giggles:imp_giggles
 
+sound:terrain_slip:terrain_slip
+
 # leave empty line for EOF

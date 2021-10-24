@@ -649,5 +649,8 @@ message:HOWL:Z
 # MSG_IMP
 message:IMP:p
 
+# MSG_TERRAIN_SLIP
+message:TERRAIN_SLIP:z
+
 
 ?:1

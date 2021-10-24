@@ -190,6 +190,7 @@ MSG(RESIST_SOMEWHAT, "resist_somewhat")
 MSG(SPELL_FAIL, "spell_fail")
 MSG(HOWL, "werewolf_howl")
 MSG(IMP, "imp_giggles")
+MSG(TERRAIN_SLIP, "terrain_slip")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
