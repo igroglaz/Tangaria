@@ -621,7 +621,7 @@ locations:Farfest
 name:goldfish
 base:aquatic
 color:r
-speed:100
+speed:90
 hit-points:1
 hearing:30
 armor-class:4
@@ -632,7 +632,7 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE | FRIENDLY
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:Beautiful red fish in ponds.
 locations:Hunter's Valley|Farfest
 
@@ -640,7 +640,7 @@ locations:Hunter's Valley|Farfest
 name:roach fish
 base:aquatic
 color:r
-speed:105
+speed:95
 hit-points:1
 hearing:30
 armor-class:4
@@ -651,14 +651,14 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
 #ersh
 name:ruff fish
 base:aquatic
 color:r
-speed:110
+speed:100
 hit-points:1
 hearing:30
 armor-class:4
@@ -669,14 +669,14 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
 #karas
 name:crucian fish
 base:aquatic
 color:r
-speed:115
+speed:100
 hit-points:1
 hearing:30
 armor-class:4
@@ -687,14 +687,14 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
 #okun
 name:perch fish
 base:aquatic
 color:r
-speed:115
+speed:100
 hit-points:1
 hearing:30
 armor-class:4
@@ -705,14 +705,14 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
 #karp
 name:carp fish
 base:aquatic
 color:r
-speed:115
+speed:95
 hit-points:1
 hearing:30
 armor-class:4
@@ -723,7 +723,7 @@ weight:0
 experience:0
 blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE
-flags:RAND_50 | COLD_BLOOD | NO_SLEEP
+flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
 ### Dungeon level 1 ###

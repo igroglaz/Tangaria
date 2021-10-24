@@ -1456,6 +1456,12 @@ static enum monster_stagger monster_turn_should_stagger(struct player *p, struct
         chance += 50;
         if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_50);
     }
+    
+    if (rf_has(mon->race->flags, RF_RAND_100))
+    {
+        chance = 100;
+        if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_100);
+    }    
 
     roll = randint0(100);
     return ((roll < confused_chance)? CONFUSED_STAGGER: ((roll < chance)? INNATE_STAGGER: NO_STAGGER));
@@ -2283,6 +2289,10 @@ static void monster_turn(struct source *who, struct chunk *c, struct monster *mo
 
     /* Work out what kind of movement to use - random movement or AI */
     stagger = monster_turn_should_stagger(who->player, mon);
+    
+    // erratic monsters (towny fish) should sometimes stay at one place (pass turn)
+    if (rf_has(mon->race->flags, RF_RAND_100) && one_in_(2))
+        return;
 
     /* If there's no sensible move, we're done */
     if ((stagger == NO_STAGGER) && !get_move(who, c, mon, &dir, &tracking)) return;
