@@ -617,4 +617,10 @@ sound:imp_giggles:imp_giggles
 
 sound:terrain_slip:terrain_slip
 
+sound:tunnel_wall:dig1 dig2 dig3 dig4 dig5 dig6
+
+sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6
+
+sound:chop_tree_fall:chop_tree_fall
+
 # leave empty line for EOF

@@ -839,9 +839,6 @@ static bool twall(struct player *p, struct chunk *c, struct loc *grid)
     /* Paranoia -- require a wall or door or some such */
     if (!square_seemsdiggable(c, grid)) return false;
 
-    /* Sound */
-    sound(p, MSG_DIG);
-
     /* Remove the feature */
     square_tunnel_wall(c, grid);
 
@@ -904,8 +901,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
                 if (dig_stone)
                 {
+                    sound(p, MSG_DIG);
                     set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
-
                     /* Drop house stone */
                     drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
                 }
@@ -1110,7 +1107,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 }
         }        
 
-        /* Sound */
         sound(p, MSG_DIG);
 
         /* Update the visuals */
@@ -1126,11 +1122,17 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     {
         /* Mow down the vegetation */
         if (tree)
+        {
+            sound(p, MSG_CHOP_TREE_FALL);
             msg(p, "You hack your way through the vegetation.");
+        }
 
         /* Clear some web */
         else if (web)
+        {
+            sound(p, MSG_DIG);
             msg(p, "You hack your way through the web.");
+        }
 
         /* Remove the rubble */
         else if (rubble)
@@ -1148,7 +1150,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Observe the new object */
                 new_obj = square_object(c, grid);
                 if (new_obj && !ignore_item_ok(p, new_obj) && square_isseen(p, grid))
+                {
+                    sound(p, MSG_DIG);
                     msg(p, "You have found something!");
+                }
             }
         }
 
@@ -1157,13 +1162,16 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             /* Place some gold */
             place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
-
+            sound(p, MSG_DIG);
             msg(p, "You have found something!");
         }
         
         /* No cobbles and stones to find in town */
         else if (in_town(&p->wpos))
-                msg(p, "You have finished the tunnel.");
+        {
+            sound(p, MSG_DIG);
+            msg(p, "You have finished the tunnel.");
+        }
         
         /* Dig cobbles (simple non-magical rocks) */
         else if (one_in_(2))
@@ -1174,6 +1182,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             if (dig_cobble) // check in case of NULL
             {
                 set_origin(dig_cobble, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                sound(p, MSG_DIG);
 
                 /* Drop the cobble (place_object won't work as it generates
                 object at wall position which is no drop) */
@@ -1190,7 +1199,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             if (dig_stone)
             {
                 set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
-
+                sound(p, MSG_DIG);
                 /* Drop house stone */
                 drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
             }
@@ -1212,12 +1221,32 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     /* Failure, continue digging */
     else if (chance > 0)
     {
+
+    // Tunnel sound frequency: taking last number from turns counter and
+    // checking is it equal to zero (odd/even number method).
+    // For slow chars sounds should be more often.
+
+    int turn_last_digit = p->active_turn.turn % 10;
+    int sound_freq = 2 + ((p->state.speed - 110) / 10);
+
         if (tree || web)
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_CHOP_TREE);
             msg(p, "You attempt to clear a path.");
+        }
         else if (rubble)
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_TUNNEL_WALL);
             msg(p, "You dig in the rubble.");
+        }
         else
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_TUNNEL_WALL);
             msg(p, "You tunnel into the %s.", square_apparent_name(p, c, grid));
+        }
          more = true;
     }
 

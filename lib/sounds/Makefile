@@ -170,6 +170,11 @@ DATA = sound.cfg \
     resist_a_lot6.ogg         resist_a_lot7.ogg         resist.ogg \
     spell_fail.ogg            mon_devour.ogg            mon_swallow.ogg \
     imp_giggles.ogg           werewolf_howl.ogg         terrain_slip.ogg \
+    dig1.ogg                  dig2.ogg                  dig3.ogg \
+    dig4.ogg                  dig5.ogg                  dig6.ogg \
+    chop1.ogg                 chop2.ogg                 chop3.ogg \
+    chop4.ogg                 chop5.ogg                 chop6.ogg \
+    chop_tree_fall.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -181,6 +186,11 @@ DATA = sound.cfg \
     resist_a_lot3.mp3         resist_a_lot4.mp3         resist_a_lot5.mp3 \
     resist_a_lot6.mp3         resist_a_lot7.mp3         resist.mp3 \
     spell_fail.mp3            mon_devour.mp3            mon_swallow.mp3 \
-    imp_giggles.mp3           werewolf_howl.mp3         terrain_slip.mp3
+    imp_giggles.mp3           werewolf_howl.mp3         terrain_slip.mp3 \
+    dig1.mp3                  dig2.mp3                  dig3.mp3 \
+    dig4.mp3                  dig5.mp3                  dig6.mp3 \
+    chop1.mp3                 chop2.mp3                 chop3.mp3 \
+    chop4.mp3                 chop5.mp3                 chop6.mp3 \
+    chop_tree_fall.mp3
 
 PACKAGE = sounds

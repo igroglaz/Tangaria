@@ -652,5 +652,14 @@ message:IMP:p
 # MSG_TERRAIN_SLIP
 message:TERRAIN_SLIP:z
 
+# MSG_TUNNEL_WALL
+message:TUNNEL_WALL:w
+
+# MSG_CHOP_TREE
+message:CHOP_TREE:w
+
+# MSG_CHOP_TREE_FALL
+message:CHOP_TREE_FALL:w
+
 
 ?:1

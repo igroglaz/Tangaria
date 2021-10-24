@@ -191,6 +191,9 @@ MSG(SPELL_FAIL, "spell_fail")
 MSG(HOWL, "werewolf_howl")
 MSG(IMP, "imp_giggles")
 MSG(TERRAIN_SLIP, "terrain_slip")
+MSG(TUNNEL_WALL, "tunnel_wall")
+MSG(CHOP_TREE, "chop_tree")
+MSG(CHOP_TREE_FALL, "chop_tree_fall")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
