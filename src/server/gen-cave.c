@@ -132,7 +132,7 @@ static void build_streamer(struct chunk *c, int feat, int chance)
                     /* Turn the rock into the vein type */
                     square_set_feat(c, &change, feat);
 
-                    /* Sometimes add known treasure */
+                    /* Sometimes add known treasure. Works only on MAGMA and QUARTZ */
                     if (one_in_(chance)) square_upgrade_mineral(c, &change);
                 }
             }
@@ -1306,8 +1306,33 @@ static void add_streamer(struct chunk *c, int feat, int flag, int chance)
     dungeon = get_dungeon(&dpos);
 
     /* Place streamer into dungeon */
-    if (dungeon && c->wpos.depth && df_has(dungeon->flags, flag))
-        build_streamer(c, feat, chance);
+    if (dungeon && c->wpos.depth)
+    {
+        // Regular PWMA case
+        if (df_has(dungeon->flags, flag))
+            build_streamer(c, feat, chance);
+        // If there are no flags for the dungeon - Tangaria cases:
+        else
+        {
+            // All dungeons got 1% chance for feature with treasure
+            if (one_in_(100))
+            {
+                int rng_feat = randint1(4);
+
+                if      (rng_feat == 1)
+                    build_streamer(c, FEAT_WATER, 0);
+                else if (rng_feat == 2)
+                    build_streamer(c, FEAT_QUARTZ, 30);
+                else if (rng_feat == 3)
+                    build_streamer(c, FEAT_MAGMA, 30);
+                else if (rng_feat == 4)
+                    build_streamer(c, FEAT_SANDWALL, 0);
+            }
+            // Special cases for particular dungeons
+            else if (streq (dungeon->name, "The Old Ruins") && one_in_(25))
+                    build_streamer(c, FEAT_WATER, 0);
+        }
+    }
 }
 
 

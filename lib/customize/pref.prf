@@ -43,13 +43,13 @@ X:center_player
 Y:disturb_near
 
 # Option 'Show damage player deals to monsters'
-X:show_damage
+Y:show_damage
 
 # Option 'Color: Illuminate torchlight in yellow'
 X:view_yellow_light
 
 # Option 'Color: Shimmer multi-colored things'
-X:animate_flicker
+Y:animate_flicker
 
 # Option 'Color: Player color indicates % hit points'
 Y:hp_changes_color
