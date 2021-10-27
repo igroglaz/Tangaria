@@ -2450,12 +2450,24 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     /* getting wall type from function */
     if (wall_type == 'a')      // B7 B8   wood
     {
-        if ((rng == 4) || (rng == 8) || (rng == 9) ||       // door tiles.. no need as walls
-        (rng == 32) || (rng == 33) || (rng == 34)) rng = 0; // bullutin boards and fire
+        if ((rng == 5) || (rng == 6) ||       // door tiles.. bullutin boards and fire -> rare
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 5) || (rng == 6) ||       // very rare
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 5) || (rng == 6) ||       // really rare :)
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);  
     }
 
     else if (wall_type == 'b') // B9 BA   black small bricks
     {
+        // bullutin boards and fire + stairs -> rare
+        if ((rng == 32) || (rng == 33) || (rng == 34) ||
+        (rng == 24) || (rng == 25)) rng = randint0(63);
+        if ((rng == 32) || (rng == 33) || (rng == 34) ||
+        (rng == 24) || (rng == 25)) rng = randint0(63);
+        if ((rng == 32) || (rng == 33) || (rng == 34) ||
+        (rng == 24) || (rng == 25)) rng = randint0(63);
+        
         if      (one_in_(5))  {wall_type = 'h'; rng = randint0(31);}       // paintings DC
         else if (one_in_(15)) {wall_type = 'g'; rng = rand_range(44, 51);} // small black holes AA
         else if (one_in_(10)) {wall_type = 'f'; rng = 34;}                 // moss small 98
@@ -2466,6 +2478,12 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
     else if (wall_type == 'c') // BB BC   big white
     {
+        // door tiles.. bullutin boards and fire -> rare
+        if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);        
+        if ((rng == 28) rng = 0; // no need big empty window
+        
         if      (one_in_(3))   rng = 0;                                    // common big white
         else if (one_in_(25)) {wall_type = 'f'; rng = 19;}                 // grey wall 96
         else if (one_in_(50)) {wall_type = 'f'; rng = 29;}                 // metallic wall 96
@@ -2476,8 +2494,11 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     else if (wall_type == 'd') // BD BE   big black
     {
 
-        if ((rng >= 5) && (rng <= 8)) rng = randint0(63); // doors rare
-        if ((rng >= 5) && (rng <= 11))rng = randint0(63); // big black windows moss rare and doors even more
+        if ((rng >= 9) && (rng <= 11))rng = randint0(63); // big black windows moss rare
+        if ((rng >= 9) && (rng <= 11))rng = randint0(63);
+        if ((rng == 5) || (rng == 7)) rng = randint0(63); // doors rare
+        if ((rng == 5) || (rng == 7)) rng = randint0(63);
+        if ((rng == 6) || (rng == 8)) rng = 1; // no need open doors (ugly)
 
         if (wall_id > 2) wall_id = randint1(2);  // cause 'd' got 2 subwalls
 
@@ -2514,6 +2535,13 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
     else if (wall_type == 'e') // BF C0   white small bricks
     {
+        if ((rng == 4) || (rng == 8) ||       // door tiles.. bullutin boards and fire -> rare
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 4) || (rng == 8) ||       // very rare
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
+        if ((rng == 4) || (rng == 8) ||       // really rare :)
+        (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);  
+        if (rng == 9) rng = 1; // no need open doors (ugly)
         /* pick generated rng */
     }
 
