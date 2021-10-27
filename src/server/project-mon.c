@@ -2003,6 +2003,9 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     *newy = grid->y;
     *newx = grid->x;
 
+    /* Disable magic projectiles through house window */
+    if (square_is_window(c, grid)) return;
+
     /* Walls protect monsters */
     if (!square_ispassable(c, grid) && !(square_istree(c, grid) && !one_in_(4))) return;
 

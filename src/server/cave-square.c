@@ -2482,7 +2482,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);        
-        if ((rng == 28) rng = 0; // no need big empty window
+        if ((rng == 28)) rng = 0; // no need big empty window
         
         if      (one_in_(3))   rng = 0;                                    // common big white
         else if (one_in_(25)) {wall_type = 'f'; rng = 19;}                 // grey wall 96

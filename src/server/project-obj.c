@@ -658,6 +658,9 @@ bool project_o(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 {
     struct object *obj = square_object(c, grid), *next;
     bool obvious = false;
+    
+    // do not affect/destroy objects on the safe floor
+    if (square_issafefloor(c, grid)) return false;
 
     /* Scan all objects in the grid */
     while (obj)
