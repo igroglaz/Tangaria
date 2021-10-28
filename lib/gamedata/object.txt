@@ -6731,11 +6731,12 @@ desc:Smelly... It looks like someone covered fish with this scroll.
 name:& Spade~
 graphics:\:s
 type:digger
-level:5
+level:1
 weight:200
-cost:10
+cost:400
 alloc:20:5 to 100
 attack:1d1:0:0
+armor:0:0
 flags:DIG_1
 desc:A primitive digging tool for removing away soil and rubble.
 

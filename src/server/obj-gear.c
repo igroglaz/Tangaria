@@ -854,6 +854,8 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     bool quiver = false;
     char name[NORMAL_WID];
     char label;
+    struct curse_data *c = obj->curses;
+    size_t i; // for curse check
 
     /* Error check */
     if (amt <= 0) return true;
@@ -886,6 +888,20 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     {
         if (!bypass_inscr) msg(p, "You cannot drop this here.");
         return false;
+    }
+
+    // Can not drop regular cursed items
+    if (obj->curses && !obj->artifact)
+    {
+        for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
+        {
+            if (c[i].power == 0) continue;
+            if (c[i].power < 100)
+            {
+               msg(p, "You can not drop this item. It seems it's wickedly cursed.");
+               return;
+            }
+        }
     }
 
     /* Never drop deeds of property */

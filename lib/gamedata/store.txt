@@ -81,14 +81,15 @@ always:light:Wooden Torch
 always:flask:Flask of Oil
 #always:stone:House Foundation Stone
 #always:scroll:House Creation
+always:digger:Spade
 always:potion:Stomach Water
-always:light:Lantern
+#always:light:Lantern
 # always:digger:Shovel
 # always:digger:Pick
 normal:potion:Cure Critical Wounds
 normal:potion:Restore Life Levels
 normal:bottle:Empty Bottle:1:500
-normal:food:Hard Biscuit:1:500
+normal:food:Hard Biscuit:1:350
 #normal:food:Handful of Dried Fruits:9:500
 #normal:food:Ration of Food:10:500
 buy:light
@@ -512,9 +513,9 @@ normal:fortune cookie:Someone should give a lesson to this thiefs...
 ###
 ### INSECTS? bleach,, Rotten food!!!!
 ###
-normal:food:Flask of Whisky:2:150
-normal:food:Pint of Fine Wine:5:150
-normal:food:Pint of Fine Ale:3:150
+normal:food:Flask of Whisky:1:160
+normal:food:Pint of Fine Wine:3:160
+normal:food:Pint of Fine Ale:2:160
 normal:potion:Resist Poison:1:500
 normal:potion:Healing:1:500
 normal:potion:Speed:1:500
