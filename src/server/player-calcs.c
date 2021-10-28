@@ -888,12 +888,24 @@ make primary race stat bonuses work right.
     }
 */
 
+// Another problem:
+// when player exits the dungeon and enters it again - mana become 0 at first
+// for now temporary disabling mana CHR-mana for physically weak chars.
+// ..for other classes it's 'feature' :D
+
+    /*
+    if (streq(p->clazz->name, "Summoner"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+
     if (streq(p->clazz->name, "Priest"))
     {
         return (((p->state.stat_ind[STAT_WIS] * 90) +
                  (p->state.stat_ind[STAT_CHR] * 10)) / 100);
-    }    
-    
+    } */
+
     if (streq(p->clazz->name, "Paladin"))
     {
         return (((p->state.stat_ind[STAT_WIS] * 90) +
@@ -912,12 +924,6 @@ make primary race stat bonuses work right.
                  (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
 
-    if (streq(p->clazz->name, "Summoner"))
-    {
-        return (((p->state.stat_ind[STAT_WIS] * 90) +
-                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
-    }
-    
     for (i = 1; i < p->clazz->magic.num_books; i++)
     {
         book = &p->clazz->magic.books[i];
