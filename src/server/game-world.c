@@ -428,23 +428,14 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     if (streq(p->race->name, "Thunderlord") && !p->wpos.depth == 0 &&
         p->slaves < 1) // one_in_(12 - (p->lev / 10))
     {
-        static const struct summon_chance_t
-        {
-            const char *race;
-            byte minlev;
-            byte chance;
-        } summon_chance[] =
-        {
-            {"tamed young eagle", 0, 100},
-            {"tamed eagle", 20, 100},
-            {"tamed great eagle", 30, 100},
-            {"tamed giant eagle", 50, 100}
-        };
-        int i;
-
-        do {i = randint0(N_ELEMENTS(summon_chance));}
-        while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
-        summon_specific_race_aux(p, c, &p->grid, get_race(summon_chance[i].race), 1, true);        
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
+        else if (p->lev < 30) // else if, so no need to set lower border req.
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
     }
     
     /* Damned constantly hunted by monsters */
