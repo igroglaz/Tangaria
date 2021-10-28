@@ -23622,6 +23622,7 @@ blow:TOUCH:LOSE_DEX:6d12
 flags:UNIQUE | MALE | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
+drop:mushroom:Terror:100:6:8
 spell-freq:2
 spells:BLIND | BLINK | WOUND | HOLD | SCARE | BRAIN_SMASH
 spells:TELE_TO | TRAPS

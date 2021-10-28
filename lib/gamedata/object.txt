@@ -305,7 +305,7 @@ weight:8
 cost:0
 # alloc 25 before adding food to bosses
 alloc:5:1 to 50
-pile:100:1d2
+pile:50:1d2
 effect:NOURISH:INC_BY
 dice:40
 msg_self:That tastes good.
@@ -343,7 +343,7 @@ level:10
 weight:5
 cost:0
 alloc:3:10 to 50
-pile:50:1d3
+pile:25:1d2
 effect:NOURISH:INC_BY
 dice:25
 msg_self:That tastes porky. Nice!
@@ -356,7 +356,7 @@ level:10
 weight:7
 cost:0
 alloc:3:10 to 50
-pile:50:1d3
+pile:25:1d2
 effect:NOURISH:INC_BY
 dice:30
 msg_self:That tastes good.
@@ -370,7 +370,6 @@ level:20
 weight:7
 cost:0
 alloc:3:20 to 70
-pile:40:1d3
 effect:NOURISH:INC_BY
 dice:30
 msg_self:Delicious!
@@ -384,7 +383,7 @@ type:food
 level:30
 weight:3
 cost:0
-alloc:5:30 to 100
+alloc:3:30 to 100
 pile:10:1d2
 effect:CURE:POISONED
 effect:HEAL_HP
@@ -679,7 +678,7 @@ type:mushroom
 level:50
 weight:1
 cost:1500
-alloc:20:50 to 100
+alloc:5:5 to 100
 pile:70:1d3
 effect:TIMED_INC:STEALTH
 dice:10+1d10
@@ -3053,7 +3052,7 @@ type:scroll
 level:5
 weight:5
 cost:0
-alloc:20:20 to 100
+alloc:10:20 to 100
 pile:100:1d1
 effect:NOURISH:INC_TO
 dice:50

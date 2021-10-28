@@ -2224,8 +2224,6 @@ static void post_turn_game_loop(void)
         if (p->upkeep->funeral) continue;
         //////////////////////////////
 
-        if (p->upkeep->funeral) continue;
-
         /* Full refresh (includes monster/object lists) */
         p->full_refresh = true;
 

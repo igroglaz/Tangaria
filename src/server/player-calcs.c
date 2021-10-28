@@ -2536,7 +2536,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         of_diff(state->flags, f2);
         of_on(state->flags, OF_ESP_ALL);
     }
-    if (p->timed[TMD_TERROR]) state->speed += 10;
+    // early-game mushrooms should not be end-game imba buff
+    if (p->timed[TMD_TERROR])
+        state->speed += 10 - (p->lev / 10);
     if (p->timed[TMD_OPP_ACID])
     {
         if (state->el_info[ELEM_ACID].res_level < 2)
@@ -2581,7 +2583,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         extra_blows += p->timed[TMD_BLOODLUST] / 2;
     }
     if (p->timed[TMD_STEALTH])
-        state->skills[SKILL_STEALTH] += 10;
+        state->skills[SKILL_STEALTH] += 10 - (p->lev / 10);
 
     /* Analyze flags - check for fear */
     if (of_has(state->flags, OF_AFRAID))
