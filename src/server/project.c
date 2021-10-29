@@ -479,8 +479,8 @@ static bool stop_project(struct source *who, struct loc *grid, struct chunk *cv,
     if ((typ == PROJ_PROJECT) && (m_idx < 0))
         return true;
 
-    /* Stop if an order hits a friendly monster */
-    if ((typ == PROJ_COMMAND) && (m_idx > 0))
+    /* Stop if useful spell hits a friendly monster */
+    if (((typ == PROJ_COMMAND) || (typ == PROJ_MON_HEAL)) && (m_idx > 0))
         return true;
 
     /* Let everything else pass through */

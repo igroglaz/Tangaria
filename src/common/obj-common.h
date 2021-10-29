@@ -423,7 +423,7 @@ struct object_xtra
     byte fail;              /* Fail flag */
     s16b slot;              /* Slot flag */
     byte max;               /* Max amount */
-    byte owned;             /* Owned amount */
+    s16b owned;             /* Owned amount */
     byte stuck;             /* Stuck flag */
     byte known;             /* Known flag */
     byte known_effect;      /* Known effect flag */

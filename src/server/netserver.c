@@ -2780,15 +2780,15 @@ int Send_special_other(struct player *p, char *header, byte peruse, bool protect
 }
 
 
-int Send_store(struct player *p, char pos, byte attr, s16b wgt, byte number, byte owned,
+int Send_store(struct player *p, char pos, byte attr, s16b wgt, byte number, s16b owned,
     s32b price, u16b tval, byte max, s16b bidx, const char *name)
 {
     connection_t *connp = get_connp(p, "store");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%c%b%hd%b%b%ld%hu%b%hd%s", (unsigned)PKT_STORE,
-        (int)pos, (unsigned)attr, (int)wgt, (unsigned)number, (unsigned)owned,
-        price, (unsigned)tval, (unsigned)max, (int)bidx, name);
+    return Packet_printf(&connp->c, "%b%c%b%hd%b%hd%ld%hu%b%hd%s", (unsigned)PKT_STORE, (int)pos,
+        (unsigned)attr, (int)wgt, (unsigned)number, (int)owned, price, (unsigned)tval,
+        (unsigned)max, (int)bidx, name);
 }
 
 
@@ -6622,14 +6622,14 @@ static int Receive_keepalive(int ind)
     int n;
     connection_t *connp = get_connection(ind);
     byte ch;
-    u32b ctime;
+    s32b ctime;
 
-    if ((n = Packet_scanf(&connp->r, "%b%lu", &ch, &ctime)) <= 0)
+    if ((n = Packet_scanf(&connp->r, "%b%ld", &ch, &ctime)) <= 0)
     {
         if (n == -1) Destroy_connection(ind, "Keepalive read error");
         return n;
     }
-    Packet_printf(&connp->c, "%b%lu", (unsigned)PKT_KEEPALIVE, ctime);
+    Packet_printf(&connp->c, "%b%ld", (unsigned)PKT_KEEPALIVE, ctime);
 
     return 2;
 }

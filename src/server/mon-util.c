@@ -307,7 +307,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
             bool new_los = los(c, &mon->grid, &grid);
 
             /* Remember this player if closest */
-            if (is_closest(p, mon, *blos, new_los, d, *dis_to_closest, *lowhp))
+            if (is_closest(p, c, mon, *blos, new_los, d, *dis_to_closest, *lowhp))
             {
                 *blos = new_los;
                 *dis_to_closest = d;
@@ -515,6 +515,20 @@ void update_mon(struct monster *mon, struct chunk *c, bool full)
     /* Track closest player */
     if (full)
     {
+        /* Controlled monsters without a target will always try to reach their master */
+        if ((mon->status == MSTATUS_CONTROLLED) && !closest)
+        {
+            for (i = 1; i <= NumPlayers; i++)
+            {
+                struct player *p = player_get(i);
+
+                if (p->id != mon->master) continue;
+
+                closest = p;
+                dis_to_closest = distance(&p->grid, &mon->grid);
+            }
+        }
+
         /* Forget player status */
         if (closest != mon->closest_player)
         {

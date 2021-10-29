@@ -56,15 +56,10 @@ int cursor_y = 0;
 
 /* Similar to server's connp->state */
 static int conn_state;
-static u32b last_sent = 0, last_received = 0;
 
 
-/* Keeps track of time in milliseconds */
-static u32b mticks = 0;
-#ifndef WINDOWS
-/* Helper variable to keep track of time on UNIX */
-static u32b ticks = 0;
-#endif
+/* Keeps track of time in 100ms "ticks" */
+static int ticks = 0, last_sent = 0, last_received = 0;
 
 
 static bool request_redraw;
@@ -118,39 +113,34 @@ int Flush_queue(void)
 }
 
 
-/* Keep track of time in milliseconds */
-static void updateTicks(void)
+/* Update the current time, which is stored in 100 ms "ticks". */
+static void update_ticks(void)
 {
-#ifdef WINDOWS
-	SYSTEMTIME st;
-
-    /* Retrieve the current system date and time */
-    GetSystemTime(&st);
-
-    /* Keep track of time in milliseconds */
-    mticks = ((st.wHour * 60L + st.wMinute) * 60L + st.wSecond) * 1000L + st.wMilliseconds;
-#else
     struct timeval cur_time;
-    float scale = 100000;
-    float mscale = 100;
+    int newticks;
 
-	/* Set the new ticks to the old ticks rounded down to the number of seconds. */
-	int newticks = ticks - (ticks % 10);
+#ifdef WINDOWS
+	/* Use the multimedia timer function */
+    DWORD systime_ms = timeGetTime();
 
+    cur_time.tv_sec = systime_ms / 1000;
+    cur_time.tv_usec = (systime_ms % 1000) * 1000;
+#else
     gettimeofday(&cur_time, NULL);
+#endif
 
-	/* Find the new least significant digit of the ticks */
-	newticks += cur_time.tv_usec / scale;
+    /* Set the new ticks to the old ticks rounded down to the number of seconds. */
+    newticks = ticks - (ticks % 10);
 
-	/* Assume that it has not been more than one second since this function was last called */
+    /* Find the new least significant digit of the ticks */
+	newticks += cur_time.tv_usec / 100000;
+
+    /* Assume that it has not been more than one second since this function was last called */
 	if (newticks < ticks) newticks += 10;
 	ticks = newticks;
 
-	/* RLS */
-	mticks = (cur_time.tv_sec * 10000) + (long)(cur_time.tv_usec / mscale / 10);
-#endif
     /* Wrap every day */
-    if ((mticks < last_sent) || (mticks < last_received))
+    if ((ticks < last_sent) || (ticks < last_received))
         last_sent = last_received = 0;
 }
 
@@ -159,17 +149,17 @@ static void updateTicks(void)
 void do_keepalive(void)
 {
     /* Keep track of time in milliseconds */
-    updateTicks();
+    update_ticks();
 
     /* Check to see if it has been 1 second since we last sent anything */
-    if ((mticks - last_sent) > 1000)
+    if ((ticks - last_sent) > 10)
     {
         if ((last_received < last_sent) && (conn_state == CONN_PLAYING))
         {
-            lag_mark = 1000;
+            lag_mark = 10;
             player->upkeep->redraw |= (PR_LAG);
         }
-        last_sent = mticks;
+        last_sent = ticks;
         Send_keepalive();
     }
 }
@@ -2745,15 +2735,15 @@ static int Receive_store(void)
     int n;
     char name[MSG_LEN];
     byte attr;
-    s16b wgt, bidx;
+    s16b wgt, bidx, owned;
     char pos;
     s32b price;
-    byte num, owned, max;
+    byte num, max;
     u16b tval;
     byte ch;
 
-    if ((n = Packet_scanf(&rbuf, "%b%c%b%hd%b%b%ld%hu%b%hd%s", &ch, &pos, &attr, &wgt, &num, &owned,
-        &price, &tval, &max, &bidx, name)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%c%b%hd%b%hd%ld%hu%b%hd%s", &ch, &pos, &attr, &wgt, &num,
+        &owned, &price, &tval, &max, &bidx, name)) <= 0)
     {
         return n;
     }
@@ -3468,21 +3458,21 @@ static int Receive_keepalive(void)
 {
     int n;
     byte ch;
-    u32b ctime;
+    s32b ctime;
 
-    if ((n = Packet_scanf(&rbuf, "%b%lu", &ch, &ctime)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%ld", &ch, &ctime)) <= 0)
         return n;
 
     /* Make sure it's the same one we sent... */
     if ((ctime == last_sent) && (conn_state == CONN_PLAYING))
     {
         /* Keep track of time in milliseconds */
-        updateTicks();
-        last_received = mticks;
+        update_ticks();
+        last_received = ticks;
 
         /* Update lag bar */
-        lag_mark = (last_received - last_sent);
-        if (lag_mark > 1000) lag_mark = 1000;
+        if ((last_received - last_sent) > 10L) lag_mark = 10;
+        else lag_mark = (last_received - last_sent);
         player->upkeep->redraw |= (PR_LAG);
     }
 
@@ -5726,7 +5716,7 @@ int Send_keepalive(void)
 {
     int n;
 
-    if ((n = Packet_printf(&wbuf, "%b%lu", (unsigned)PKT_KEEPALIVE, last_sent)) <= 0)
+    if ((n = Packet_printf(&wbuf, "%b%ld", (unsigned)PKT_KEEPALIVE, last_sent)) <= 0)
         return n;
 
     return 1;

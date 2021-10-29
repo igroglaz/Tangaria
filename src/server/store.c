@@ -1717,7 +1717,7 @@ void store_shuffle(struct store *s, bool force)
 /*
  * Return the quantity of a given item in the pack (include quiver).
  */
-static byte find_inven(struct player *p, struct object *obj)
+static s16b find_inven(struct player *p, struct object *obj)
 {
     int i;
     struct object *gear_obj;
@@ -1901,8 +1901,7 @@ static void display_entry(struct player *p, struct object *obj, bool home)
     s32b price = -1, amt = 0;
     char o_name[NORMAL_WID];
     byte attr;
-    s16b wgt, bidx;
-    byte num;
+    s16b wgt, bidx, num;
     struct store *s = store_at(p);
 
     /* Describe the object - preserving inscriptions in the home */

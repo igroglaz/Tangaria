@@ -8,8 +8,52 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.5.0 build 5
+New features in PWMAngband 1.5.0 build 6
 ========================================
+
+User interface
+--------------
+
+PWMAngband:
+
+- Add number of turns remaining when checking current quest
+
+Gameplay changes
+----------------
+
+PWMAngband:
+
+- Allow wands of heal monster to heal controlled summons
+
+Bugs fixed
+----------
+
+PWMAngband:
+
+- Don't make poison out of poison in CREATE_POISON effect
+- Fix crash when combining pack after buying eight stacks of 40 missiles
+- Fix "you have xxx" number of owned similar items limited to 256 when buying
+  from a store
+  
+Coding changes
+--------------
+
+PWMAngband:
+
+- Rewrite update_ticks() in a much simpler way to make it work under both
+  Windows and Linux
+- Simplify controlled summons movement code: attack any visible hostile monster,
+  if none attack any visible hostile player, if none follow the master
+
+Compilation/documentation
+-------------------------
+
+PWMAngband:
+
+- Update setup.bat
+
+Features in PWMAngband 1.5.0 build 5
+====================================
 
 Bugs fixed
 ----------

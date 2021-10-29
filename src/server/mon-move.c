@@ -2324,15 +2324,14 @@ static void monster_turn(struct source *who, struct chunk *c, struct monster *mo
 
 
 /*
- * Find the closest target
+ * Find the closest visible target
  */
-static struct monster *get_closest_target(struct chunk *c, struct monster *mon, int *target_dis,
-    bool *target_los)
+static struct monster *get_closest_target(struct chunk *c, struct monster *mon, int *target_dis)
 {
     int i, j;
     struct monster *target_mon = NULL;
     int target_m_dis = 9999, target_m_hp = 99999;
-    bool target_m_los = false, new_los;
+    struct player *p = mon->closest_player;
 
     /* Process the monsters */
     for (i = cave_monster_max(c) - 1; i >= 1; i--)
@@ -2349,37 +2348,29 @@ static struct monster *get_closest_target(struct chunk *c, struct monster *mon, 
         /* Skip controlled monsters */
         if (master_in_party(current_m_ptr->master, mon->master)) continue;
 
+        /* Check if monster has LOS to the target */
+        if (!los(c, &mon->grid, &current_m_ptr->grid)) continue;
+
         /* Compute distance */
         j = distance(&current_m_ptr->grid, &mon->grid);
 
-        /* Check if monster has LOS to the target */
-        new_los = los(c, &mon->grid, &current_m_ptr->grid);
+        /* Check that the closest target gets selected */
+        if (j > target_m_dis) continue;
 
-        /* Check that the closest VISIBLE target gets selected */
-        /* If no visible one available just take the closest */
-        if (((target_m_los >= new_los) && (j > target_m_dis)) || (target_m_los > new_los))
-            continue;
-
-        /* Skip if same distance and stronger and same visibility */
-        if ((j == target_m_dis) && (current_m_ptr->hp > target_m_hp) && (target_m_los == new_los))
-            continue;
+        /* Skip if same distance and stronger */
+        if ((j == target_m_dis) && (current_m_ptr->hp > target_m_hp)) continue;
 
         /* Remember this target */
-        target_m_los = new_los;
         target_m_dis = j;
         target_mon = current_m_ptr;
         target_m_hp = current_m_ptr->hp;
     }
 
-    /* Forget player status */
-    of_wipe(mon->known_pstate.flags);
-    pf_wipe(mon->known_pstate.pflags);
-    for (i = 0; i < ELEM_MAX; i++)
-        mon->known_pstate.el_info[i].res_level = 0;
+    /* Bypass if a hostile player is closest */
+    if ((mon->master != p->id) && (mon->cdis < target_m_dis)) return NULL;
 
     /* Always track closest target */
     (*target_dis) = target_m_dis;
-    (*target_los) = target_m_los;
     return target_mon;
 }
 
@@ -2391,48 +2382,63 @@ static bool monster_check_active(struct chunk *c, struct monster *mon, int *targ
     struct source *who)
 {
     struct player *p = mon->closest_player;
-    bool target_m_los, is_hurt = false, can_hear = false, can_smell = false;
+    bool target_m_los, is_hurt, can_hear, can_smell;
+
+    *target_m_dis = mon->cdis;
+    target_m_los = square_isview(p, &mon->grid);
+    is_hurt = ((mon->hp < mon->maxhp)? true: false);
+    can_hear = monster_can_hear(p, mon);
+    can_smell = monster_can_smell(p, mon);
+    source_player(who, get_player_index(get_connection(p->conn)), p);
 
     /* Hack -- MvM */
     if (mon->status == MSTATUS_CONTROLLED)
     {
-        /* Find the closest monster */
-        struct monster *target_mon = get_closest_target(c, mon, target_m_dis, &target_m_los);
+        int target_dis;
+
+        /* Find the closest visible monster */
+        struct monster *closest = get_closest_target(c, mon, &target_dis);
+
+        /* Forget player status */
+        if (closest != mon->closest_target)
+        {
+            int i;
+
+            of_wipe(mon->known_pstate.flags);
+            pf_wipe(mon->known_pstate.pflags);
+            for (i = 0; i < ELEM_MAX; i++)
+                mon->known_pstate.el_info[i].res_level = 0;
+        }
+
+        /* Always track closest target */
+        mon->closest_target = closest;
 
         /* Paranoia -- make sure we found a closest monster */
-        if (target_mon && target_m_los)
+        if (closest)
         {
-            /* Bypass MvM if a player is closest */
-            if (master_in_party(mon->master, p->id) || (mon->cdis >= *target_m_dis))
-            {
-                *mvm = true;
-                source_both(who, p, target_mon);
-            }
+            *target_m_dis = target_dis;
+            target_m_los = true;
+            is_hurt = false;
+            can_hear = false;
+            can_smell = false;
+            *mvm = true;
+            source_both(who, p, closest);
         }
     }
-    if (!(*mvm))
-    {
-        *target_m_dis = mon->cdis;
-        target_m_los = square_isview(p, &mon->grid);
-        is_hurt = ((mon->hp < mon->maxhp)? true: false);
-        can_hear = monster_can_hear(p, mon);
-        can_smell = monster_can_smell(p, mon);
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-    }
 
-    /* Character is inside scanning range, monster can go straight there */
+    /* Target is inside scanning range, monster can go straight there */
     if (*target_m_dis <= mon->race->hearing) mflag_on(mon->mflag, MFLAG_ACTIVE);
 
     /* Monster is hurt */
     else if (is_hurt) mflag_on(mon->mflag, MFLAG_ACTIVE);
 
-    /* Monster can "see" the player (checked backwards) */
+    /* Monster can "see" the target (checked backwards) */
     else if (target_m_los) mflag_on(mon->mflag, MFLAG_ACTIVE);
 
-    /* Monster can hear the player */
+    /* Monster can hear the target */
     else if (can_hear) mflag_on(mon->mflag, MFLAG_ACTIVE);
 
-    /* Monster can smell the player */
+    /* Monster can smell the target */
     else if (can_smell) mflag_on(mon->mflag, MFLAG_ACTIVE);
 
     /* Monster is taking damage from the terrain */
@@ -2756,12 +2762,26 @@ static void get_closest_player(struct chunk *c, struct monster *mon)
         new_los = los(c, &mon->grid, &p->grid);
 
         /* Remember this player if closest */
-        if (is_closest(p, mon, blos, new_los, d, dis_to_closest, lowhp))
+        if (is_closest(p, c, mon, blos, new_los, d, dis_to_closest, lowhp))
         {
             blos = new_los;
             dis_to_closest = d;
             closest = p;
             lowhp = p->chp;
+        }
+    }
+
+    /* Controlled monsters without a target will always try to reach their master */
+    if ((mon->status == MSTATUS_CONTROLLED) && !closest)
+    {
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *p = player_get(i);
+
+            if (p->id != mon->master) continue;
+
+            closest = p;
+            dis_to_closest = distance(&p->grid, &mon->grid);
         }
     }
 
@@ -2856,36 +2876,6 @@ void process_monsters(struct chunk *c, bool more_energy)
                 update_monlist(mon);
                 delete_monster_idx(c, i);
                 continue;
-            }
-        }
-
-        /* Hack -- controlled monsters need to "sense" their master */
-        if (mon->master)
-        {
-            /* Check everyone */
-            for (j = 1; j <= NumPlayers; j++)
-            {
-                struct player *q = player_get(j);
-                int d;
-
-                /* Find the master */
-                if (q->id != mon->master) continue;
-
-                /* Compute distance */
-                d = distance(&q->grid, &mon->grid);
-
-                /* Player is inside scanning range */
-                if (d <= mon->race->hearing) break;
-
-                /* The monster is visible */
-                if (monster_is_visible(q, mon->midx)) break;
-
-                /* Sometimes free monster from slavery */
-                if (one_in_(100))
-                {
-                    msg(q, "You feel a change of heart in a being close to you.");
-                    monster_set_master(mon, NULL, MSTATUS_HOSTILE);
-                }
             }
         }
 
@@ -3003,11 +2993,28 @@ static bool player_invis(struct player *p, struct monster *mon)
 /*
  * Determine whether the player is closest to a monster
  */
-bool is_closest(struct player *p, struct monster *mon, bool blos, bool new_los, int j,
-    int dis_to_closest, int lowhp)
+bool is_closest(struct player *p, struct chunk *c, struct monster *mon, bool blos, bool new_los,
+    int j, int dis_to_closest, int lowhp)
 {
-    /* Controlled monsters will try to reach their master */
-    if ((mon->status == MSTATUS_CONTROLLED) && (mon->master != p->id)) return false;
+    /* Controlled monsters will attack hostile players if visible */
+    if (mon->status == MSTATUS_CONTROLLED)
+    {
+        int i;
+
+        /* Skip if not visible */
+        if (!new_los) return false;
+
+        /* Find the master */
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *q = player_get(i);
+
+            if (q->id != mon->master) continue;
+
+            /* Skip if not hostile */
+            if (!pvp_check(q, p, PVP_CHECK_BOTH, true, square(c, &p->grid)->feat)) return false;
+        }
+    }
 
     /* Skip if the monster can't see the player */
     if (player_invis(p, mon)) return false;

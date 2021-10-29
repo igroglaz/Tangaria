@@ -448,6 +448,10 @@ bool object_stackable(struct player *p, const struct object *obj1, const struct 
     /* Require compatible inscriptions */
     if (obj1->note && obj2->note && (obj1->note != obj2->note)) return false;
 
+    /* PWMAngband: can't stack if one stack is already full */
+    if (obj1->number == obj1->kind->base->max_stack) return false;
+    if (obj2->number == obj2->kind->base->max_stack) return false;
+
     /* They must be similar enough */
     return true;
 }

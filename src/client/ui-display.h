@@ -11,7 +11,7 @@ extern s16b cur_line;
 
 extern int health_amt;
 extern byte health_attr;
-extern u32b lag_mark;
+extern int lag_mark;
 extern s16b view_channel;
 extern cave_view_type remote_info[ANGBAND_TERM_MAX][MAX_TXT_INFO][NORMAL_WID];
 extern s16b last_remote_line[ANGBAND_TERM_MAX];

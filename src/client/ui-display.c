@@ -36,7 +36,7 @@ byte health_attr;
 
 
 /* Lag bar parameters */
-u32b lag_mark;
+int lag_mark;
 
 
 /* Chat channels */
@@ -340,36 +340,29 @@ static void prt_health(int row, int col)
  */
 static void prt_lag(int row, int col)
 {
-    int num;
     byte attr;
-    static u32b lag_cur = 0;
 
     /* Default to "unknown" */
     Term_erase(col, row, 12);
     Term_putstr(col, row, 12, COLOUR_L_DARK, "LAG:[------]");
 
     /* Time Out */
-    if ((lag_cur == 1000) || (lag_mark == 1000)) lag_cur = lag_mark;
-    if (lag_cur == 1000)
+    if (lag_mark == 10)
     {
         c_msg_print("Time Out");
-        num = 6;
         attr = COLOUR_VIOLET;
     }
 
     /* Normal lag */
     else
     {
-        lag_cur = (lag_cur + lag_mark) / 2L;
-        num = lag_cur / 100;
-        if (num > 6) num = 6;
         attr = COLOUR_L_GREEN;
-        if (num > 3) attr = COLOUR_YELLOW;
-        if (num > 5) attr = COLOUR_RED;
+        if (lag_mark > 3) attr = COLOUR_YELLOW;
+        if (lag_mark > 5) attr = COLOUR_RED;
     }
 
     /* Display */
-    Term_putstr(col + 5, row, num, attr, "******");
+    Term_putstr(col + 5, row, MIN(lag_mark, 6), attr, "******");
 }  
 
 

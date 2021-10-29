@@ -393,8 +393,8 @@ void start_quest(struct player *p)
     /* Quest already taken? */
     if (quest->race)
     {
-        msg(p, "You still need to kill %d of the %s race!", quest->max_num - quest->cur_num,
-            quest->race->name);
+        msg(p, "You still need to kill %d of the %s race (%d turns remaining)!",
+            quest->max_num - quest->cur_num, quest->race->name, quest->timer);
         return;
     }
 

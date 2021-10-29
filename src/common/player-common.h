@@ -442,6 +442,20 @@ struct history_chart
 };
 
 /*
+ * Player history table
+ */
+struct history_info
+{
+    bitflag type[HIST_SIZE];    /* Kind of history item */
+    s16b dlev;                  /* Dungeon level when this item was recorded */
+    s16b clev;                  /* Character level when this item was recorded */
+    struct artifact *art;       /* Artifact this item relates to */
+    char name[NORMAL_WID];      /* Artifact name */
+    hturn turn;                 /* Turn this item was recorded on */
+    char event[NORMAL_WID];     /* The text of the item */
+};
+
+/*
  * Player history information
  *
  * See player-history.c/.h
@@ -500,20 +514,6 @@ struct player_upkeep
     bool skip_redraw_equip;         /* Skip redraw_equip object */
     struct object *redraw_inven;    /* Single inventory object to redraw */
     bool skip_redraw_inven;         /* Skip redraw_inven object */
-};
-
-/*
- * Player history table
- */
-struct history_info
-{
-    bitflag type[HIST_SIZE];    /* Kind of history item */
-    s16b dlev;                  /* Dungeon level when this item was recorded */
-    s16b clev;                  /* Character level when this item was recorded */
-    struct artifact *art;       /* Artifact this item relates to */
-    char name[NORMAL_WID];      /* Artifact name */
-    hturn turn;                 /* Turn this item was recorded on */
-    char event[NORMAL_WID];     /* The text of the item */
 };
 
 /*

@@ -340,6 +340,7 @@ struct monster
     byte origin;                            /* How this monster was created */
     u16b feat;                              /* Terrain under monster (for feature mimics) */
     struct loc old_grid;                    /* Previous monster location */
+    struct monster *closest_target;         /* The target closest to this monster (transient) */
 };
 
 /*
