@@ -900,7 +900,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             {
                msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
                msg(p, "bring it outside; sunlight might help to take off weakly cursed items.");
-               return;
+               return false;
             }
         }
     }
@@ -915,13 +915,13 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             {
                msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
                msg(p, "wait till the day cames to bring it under the sunlight to weaken the curse.");
-               return;
+               return false;
             }
             else if (c[i].power > 20 && c[i].power < 100) // no drop heavy cursed items even at daytime
             {
                msg(p, "You can not drop this item. It seems it's heavely cursed. Current curse is");
                msg(p, "too strong, so even sunlight don't weaken it. Try to uncurse it by other means.");
-               return;
+               return false;
             }
         }
     }
