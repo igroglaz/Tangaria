@@ -1187,7 +1187,10 @@ desc: cut damage, neutralizes poison, and cures amnesia.
 spell:Enchant Weapon:32:50:80:120:0
 effect:ENCHANT:TOBOTH
 dice:1d4
+effect:NOURISH:DEC_BY
+dice:1
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
+desc: This prayer reduce your nourishment.
 
 spell:Restoration:35:70:90:130:1
 effect:RESTORE_STAT:CHR
@@ -1201,7 +1204,10 @@ desc:Restores to maximum all stats that are currently below maximum.
 spell:Enchant Armour:35:60:85:150:0
 effect:ENCHANT:TOAC
 dice:1+1d3
+effect:NOURISH:DEC_BY
+dice:1
 desc:Attempts to improve the armour class bonus of a piece of armour.
+desc: This prayer reduce your nourishment.
 
 book:prayer book:dungeon:[Wrath of the Valar]:5:divine
 book-graphics:?:g
@@ -1518,11 +1524,14 @@ desc: Does not affect undead, demons, golems, elementals or vortices.
 
 spell:Cold Brand:31:60:95:150:0
 effect:BRAND_WEAPON:NONE:1
+effect:NOURISH:DEC_BY
+dice:1
 desc:Brands the currently wielded melee weapon with cold
 desc: and at the same time attempts to improve the to-hit bonus and the
 desc: to-dam bonus of the same weapon.
 desc: The spell has no effect if the weapon is an artifact, an ego item
 desc: or a worthless item.
+desc: This spell reduce your nourishment.
 
 spell:Zone of Unmagic:32:16:60:110:0
 effect:BLAST:DISEN:4
@@ -1733,11 +1742,14 @@ book:prayer book:town:[Chants and Blessings]:5:divine
 
 spell:Elemental Brand:20:30:85:40:0
 effect:BRAND_WEAPON
+effect:NOURISH:DEC_BY
+dice:1
 desc:Brands the currently wielded melee weapon with fire (50%) or cold (50%),
 desc: and at the same time attempts to improve the to-hit bonus and the
 desc: to-dam bonus of the same weapon.
 desc: The prayer has no effect if the weapon is an artifact, an ego item
 desc: or a worthless item.
+desc: This prayer reduce your nourishment.
 
 spell:Protection from Evil:22:15:50:5:0
 effect:TIMED_INC:PROTEVIL
@@ -1778,7 +1790,10 @@ desc: of recall again.
 spell:Enchant Weapon:32:50:80:120:0
 effect:ENCHANT:TOBOTH
 dice:1d4
+effect:NOURISH:DEC_BY
+dice:1
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
+desc: This prayer reduce your nourishment.
 
 spell:Sanctuary:34:20:75:80:1
 effect:TIMED_INC:SHIELD
@@ -1788,7 +1803,10 @@ desc:Grants you +50 to AC for 30+1d20 turns.
 spell:Enchant Armour:35:60:85:150:0
 effect:ENCHANT:TOAC
 dice:1+1d3
+effect:NOURISH:DEC_BY
+dice:1
 desc:Attempts to improve the armour class bonus of a piece of armour.
+desc: This prayer reduce your nourishment.
 
 book:prayer book:dungeon:[Wrath of the Valar]:4:divine
 
@@ -2258,7 +2276,10 @@ spell:Enchant Weapon:34:50:90:60:0
 effect:ENCHANT:TOBOTH
 dice:$B+1d4
 expr:B:PLAYER_LEVEL:/ 20
+effect:NOURISH:DEC_BY
+dice:1
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
+desc: This spell reduce your nourishment.
 
 spell:Poison Shots:37:20:85:45:0
 effect:BOW_BRAND_SHOT:POIS

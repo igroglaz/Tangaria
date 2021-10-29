@@ -891,14 +891,36 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     }
 
     // Can not drop regular cursed items
-    if (obj->curses && !obj->artifact)
+    if (obj->curses && !obj->artifact && !p->wpos.depth == 0)
     {
         for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
         {
             if (c[i].power == 0) continue;
             if (c[i].power < 100)
             {
-               msg(p, "You can not drop this item. It seems it's wickedly cursed.");
+               msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
+               msg(p, "bring it outside; sunlight might help to take off weakly cursed items.");
+               return;
+            }
+        }
+    }
+    // If we outside - we can drop cursed item, but only light curses and only during the day 
+    else if (obj->curses && !obj->artifact && p->wpos.depth == 0)
+    {
+        for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
+        {
+            if (c[i].power == 0) continue;
+
+            if (c[i].power < 100 && !is_daytime()) // can't drop cursed items at night
+            {
+               msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
+               msg(p, "wait till the day cames to bring it under the sunlight to weaken the curse.");
+               return;
+            }
+            else if (c[i].power > 20 && c[i].power < 100) // no drop heavy cursed items even at daytime
+            {
+               msg(p, "You can not drop this item. It seems it's heavely cursed. Current curse is");
+               msg(p, "too strong, so even sunlight don't weaken it. Try to uncurse it by other means.");
                return;
             }
         }
