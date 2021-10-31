@@ -3481,6 +3481,10 @@ weight:4
 cost:50000
 alloc:20:40 to 100
 effect:GAIN_STAT:CHR
+effect:NOURISH:INC_BY
+dice:0
+effect:RANDOM
+dice:2
 effect:RESTORE_STAT:CHR
 effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
