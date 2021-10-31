@@ -18,7 +18,7 @@ copy ..\lib\music\town-night\*.* ..\setup\lib\music\town-night
 copy ..\lib\screens\*.* ..\setup\lib\screens
 copy ..\lib\sounds\*.* ..\setup\lib\sounds
 copy ..\lib\tiles\*.* ..\setup\lib\tiles
-copy ..\lib\tiles\gervais\*.* ..\setup\lib\tiles\gervais
+copy ..\lib\tiles\tangaria\*.* ..\setup\lib\tiles\tangaria
 copy ..\lib\user\save\*.* ..\setup\lib\user\save
 copy *.* ..\setup\src
 copy _SDL\*.* ..\setup\src\_SDL

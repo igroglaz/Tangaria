@@ -2441,12 +2441,12 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
  // wall_id - specific wall (when we have several different walls in one row)
     int rng = 0;                              // preliminary third part of wall name
     char wall_glyph = '\0';                   // third part of wall name
-    char wall_index[] = "";                   // buffer for 0-9 rng number
+    char wall_index[2] = "";                   // buffer for 0-9 rng number
     int house_wall = 0;                       // result: index of terrain feature
 
     // random choice of wall number
     rng = randint0(63);
-    
+
     /* getting wall type from function */
     if (wall_type == 'a')      // B7 B8   wood
     {
@@ -2482,8 +2482,8 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);
         if ((rng == 4) || (rng == 32) || (rng == 33) || (rng == 34)) rng = randint0(63);        
-        if ((rng == 28)) rng = 0; // no need big empty window
-        
+        if (rng == 28) rng = 0; // no need big empty window
+
         if      (one_in_(3))   rng = 0;                                    // common big white
         else if (one_in_(25)) {wall_type = 'f'; rng = 19;}                 // grey wall 96
         else if (one_in_(50)) {wall_type = 'f'; rng = 29;}                 // metallic wall 96
@@ -2844,7 +2844,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
     }
 
     strncat(wall, &wall_type, 1);
-    
+
     // some walls not really good to be house-ones
     switch(rng)
     {   // 1st stroke in tileset
@@ -2915,7 +2915,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         case 63: wall_glyph = '`'; break;
         default: rng = 0;
     }
-    
+
     if (rng <= 9)
     {
         // If we put int to char it will be set as 'hex' (0x..).
@@ -3040,7 +3040,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     char floor_type = '\0';     // second part of floor name (type)
     int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
-    char floor_index[] = "";    // buffer for 0-9 rng number
+    char floor_index[2] = "";    // buffer for 0-9 rng number
     int house_floor = 0;         // result: index of terrain feature
 
     rng = randint0(63); // random choice of floor number

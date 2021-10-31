@@ -3510,12 +3510,14 @@ bool create_house(struct player *p, int small_house)
         return false;
     }
 
+#ifndef TEST_MODE
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
     {
         msg(p, "You cannot create or extend houses.");
         return false;
     }
+#endif
 
     /* Restricted by choice */
     if ((cfg_limited_stores == 3) || OPT(p, birth_no_stores))
@@ -3911,12 +3913,14 @@ bool build_house(struct player *p)
     struct loc begin, end;
     struct loc_iterator iter;
 
-//    /* The DM cannot create or extend houses! */
-//    if (p->dm_flags & DM_HOUSE_CONTROL)
-//    {
-//        msg(p, "You cannot create or extend houses.");
-//        return false;
-//    }
+#ifndef TEST_MODE
+    /* The DM cannot create or extend houses! */
+    if (p->dm_flags & DM_HOUSE_CONTROL)
+    {
+        msg(p, "You cannot create or extend houses.");
+        return false;
+    }
+#endif
 
     /* Restricted by choice */
     if ((cfg_limited_stores == 3) || OPT(p, birth_no_stores))
