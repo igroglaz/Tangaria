@@ -704,6 +704,7 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
         // no nazgul rings for sale
 //        if (kf_has(obj->kind->kind_flags, KF_INSTA_ART)) return (0L);
         if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return (0L);
+        if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")) return (0L);
 
         /* Get the desired value of the given quantity of items */
         price = (double)obj->askprice * qty;
@@ -783,7 +784,10 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
             }
         }
     }
-    
+
+    if (s->type != STORE_B_MARKET && obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
+        price = 248;
+
     /* CHArisma shouldn't influence player store prices */
     if (s->type == STORE_PLAYER) adjust = 100;
 

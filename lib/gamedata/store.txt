@@ -8,7 +8,7 @@
 #
 #
 #
-#MAX SHOULD BE EQUAL TO NUMBER OF 'NORMAL' ITEMS in shop
+# MAX SHOULD BE EQUAL TO NUMBER OF 'NORMAL' ITEMS in shop
 #(exception - if there is no 'always' items, lie in 'weapons' shop).
 #
 #
@@ -43,15 +43,15 @@
 # example: if you add "Cure Critical Wounds" to the BM as a staple, you need to remove
 # them from  # the Temple as "normal" items), otherwise the item would not appear in the BM.
 #
-#3) Max store item is 24 (possible to change that in constants.txt). This means that slots:
-#max + number of "always" items in a store should never be greater than 24.
+# 3) Max store item is 24 (possible to change that in constants.txt). This means that slots:
+# max + number of "always" items in a store should never be greater than 24.
 #
-#Store must have more than one owner, otherwise the shuffle feature will loop 
-#endlessly (Angband stores all have 4). If you #want only one, just duplicate the entry.
+# Store must have more than one owner, otherwise the shuffle feature will loop 
+# endlessly (Angband stores all have 4). If you #want only one, just duplicate the entry.
 #
-#example of normal:food:Ration of Food:10:300:
-#'10' means it would be 10 times less often then for common (1) items
-#300 is 300% price increase from 'cost' from object.txt
+# example of normal:food:Ration of Food:10:300:
+# '10' means it would be 10 times less often then for common (1) items
+# 300 is 300% price increase from 'cost' from object.txt
 #
 
 # Default welcome messages
@@ -74,24 +74,25 @@ owner:5000:Erkenbrand
 owner:10000:Erkenbrand
 owner:20000:Erkenbrand
 owner:30000:Erkenbrand
-slots:2:4
+slots:2:7
 turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
-#always:stone:House Foundation Stone
-#always:scroll:House Creation
 always:digger:Spade
-always:potion:Stomach Water
-#always:light:Lantern
-# always:digger:Shovel
-# always:digger:Pick
+always:rock:Throwing Rock
+always:light:Old Lantern
+#always:potion:Stomach Water
+#always:digger:Shovel
+#always:digger:Pick
+#always:stone:House Foundation Stone
+normal:scroll:House Creation
 normal:potion:Cure Critical Wounds
 normal:potion:Restore Life Levels
 normal:bottle:Empty Bottle:1:500
 normal:food:Hard Biscuit:1:350
-#normal:food:Handful of Dried Fruits:9:500
-#normal:food:Ration of Food:10:500
+normal:food:Handful of Dried Fruits:1:350
+normal:food:Ration of Food:9:290
 buy:light
 buy:food
 buy:mushroom
@@ -144,7 +145,6 @@ owner:25000:Tarl Beast-Master (Halfling)
 owner:30000:Oglign Dragon-Slayer (Dwarf)
 slots:3:14
 turnover:9
-#normal:rock:Throwing Rock
 ############################ add staves and hammers
 #normal:shot:Iron Shot
 #normal:arrow:Arrow
@@ -342,6 +342,7 @@ always:fortune cookie:of this goods.. Take a look at them...
 #normal:fortune cookie:I didn't visit town for some time already..
 #normal:fortune cookie:Maybe its time for me to go on adventure with you
 #######################################################################
+always:digger:Spade
 always:cloak:Cloak
 always:light:Wooden Torch
 always:flask:Flask of Oil
@@ -621,7 +622,7 @@ normal:fortune cookie:There always were a lot of criminal.. But not so.
 normal:fortune cookie:We thought the worse was lack of food...
 normal:fortune cookie:Outlaws, robbers..and even monsters. Gods save us
 normal:scroll:Recharging
-normal:scroll:Identify Rune:1:350
+normal:scroll:Identify:1:350
 normal:scroll:*Remove Curse*:10:350
 normal:scroll:Teleport Level:10:400
 normal:scroll:Deep Descent:10:350

@@ -814,7 +814,7 @@ object:food:Scrap of Flesh:0x82:0xA3
 object:food:Slice of Meat:0x82:0xA4
 object:food:Strip of Beef Jerky:0x82:0xA4
 object:food:Honey-cake:0x82:0xA5
-object:food:Piece of Elvish Waybread:0x82:0xA6
+object:food:Lembas:0x82:0xA6
 object:food:Flask of Whisky:0x82:0xA7
 object:food:Pint of Fine Wine:0x82:0xA8
 object:food:Sip of Miruvor:0x82:0xA9
@@ -1030,8 +1030,8 @@ object:scroll:Mass Banishment:0x87:0xEA
 
 ### Utility ###
 
-object:scroll:Remove Hunger:0x87:0xE7
-object:scroll:Identify Rune:0x87:0xCE
+object:scroll:Satisfy Hunger:0x87:0xE7
+object:scroll:Identify:0x87:0xCE
 object:scroll:Light:0x87:0xD4
 object:scroll:Word of Recall:0x87:0xE0
 object:scroll:Recharging:0x87:0xDC
@@ -21211,7 +21211,7 @@ feat:FD double Z:dark:0xFD:0xFD
 feat:FD double ~:dark:0xFD:0xFE
 feat:FD double `:dark:0xFD:0xFF
 
-################ NEW ADDITIONS 2019
+################ NEW ADDITIONS 2019+ Tangaria
 
 object:arrow:Old Arrow:0x8A:0xB1
 
@@ -21224,12 +21224,29 @@ object:food:Cursed Jar:0x8A:0xED
 object:food:Sprig of Athelas:0x9A:0x83
 
 object:light:Rusty Lantern:0x87:0x99
-object:scroll:Remove Hunger (tattered):0x87:0xE7
+object:scroll:Satisfy Hunger (tattered):0x87:0xE7
 object:scroll:Word of Recall (rugged):0x87:0xE0
 
 trap:hunger trap:*:0x9F:0x86
 trap:squeaky board:*:0x9F:0xA3
 trap:beauty:*:0x9A:0xB7
+
+object:food:Cram Bread:0x82:0x86
+object:food:Petty-dwarf roots:0x9F:0xDC
+object:food:Salted Pork from Isengard:0x82:0x83
+object:food:Pipe-weed:0x82:0x83
+object:food:Elvish wine:0x82:0x83
+object:food:Cold chicken:0x82:0x93
+object:food:Maggoty bread:0x9F:0xDD
+object:food:Flagon of mead:0x88:0x83
+object:food:One Ring Cake:0x9F:0xDB
+object:food:Stolen mushroom:0x82:0x97
+object:food:Elvish water:0x88:0xC8
+object:food:Apple of Youth:0x82:0xA1
+object:hafted:Club:0x8A:0xEF
+
+monster:darkling:0x9C:0xF5
+monster:shadow of nazgul:0x9B:0xF5
 
 #NPC
 
@@ -32405,22 +32422,7 @@ feat:house wall i`:dark:0xE3:0xFF
 
 ###################
 ### ADD AFTER WIPE:
-monster:darkling:0x9C:0xF5
-monster:shadow of nazgul:0x9B:0xF5
 
-object:food:Cram Bread:0x82:0x86
-object:food:Petty-dwarf roots:0x9F:0xDC
-object:food:Salted Pork from Isengard:0x82:0x83
-object:food:Pipe-weed:0x82:0x83
-object:food:Elvish wine:0x82:0x83
-object:food:Cold chicken:0x82:0x93
-object:food:Maggoty bread:0x9F:0xDD
-object:food:Flagon of mead:0x88:0x83
-object:food:One Ring Cake:0x9F:0xDB
-object:food:Stolen mushroom:0x82:0x97
-object:food:Elvish water:0x88:0xC8
-object:food:Apple of Youth:0x82:0xA1
-object:hafted:Club:0x8A:0xEF
 
 # Load the special player pictures
 %:xtra-tan.prf

@@ -275,7 +275,7 @@ graphics:,:u
 type:food
 level:0
 weight:2
-cost:0
+cost:415
 alloc:3:1 to 50
 effect:NOURISH:INC_BY
 dice:7
@@ -302,7 +302,7 @@ graphics:,:U
 type:food
 level:1
 weight:8
-cost:0
+cost:2500
 # alloc 25 before adding food to bosses
 alloc:5:1 to 50
 pile:50:1d2
@@ -377,7 +377,7 @@ desc:The Beornings are renowned as the best bakers among men, and their
 desc: honey-cakes are deservedly prized. Made of wheat flour with nuts and
 desc: honey and twice baked, they will sustain you through a long march.
 
-name:& Piece~ of Elvish Waybread
+name:& Lembas~
 graphics:,:T
 type:food
 level:30
@@ -391,8 +391,9 @@ dice:20
 effect:NOURISH:INC_BY
 dice:40
 msg_self:That tastes great.
-desc:Food of the elves is always good; their waybread is no exception. These
-desc: thin cakes are wrapped in leaves and keep their tastiness for months.
+desc:Piece of Elvish Waybread.. Food of the elves is always good;
+desc: their waybread is no exception. These thin cakes are wrapped in leaves and
+desc: keep their tastiness for months.
 
 name:& Flask~ of Whisky
 graphics:,:p
@@ -2495,6 +2496,7 @@ flags:SLOW_DIGEST | EASY_KNOW
 desc:This magical bauble grants you some sustenance, allowing you to subsist on
 desc: less food.
 
+# mostly works like swimming... rename? though helps vs lava
 name:Levitation
 graphics:=:d
 type:ring
@@ -3046,7 +3048,7 @@ effect:MASS_BANISH
 
 ### Utility ###
 
-name:Remove Hunger
+name:Satisfy Hunger
 graphics:?:w
 type:scroll
 level:5
@@ -3057,7 +3059,7 @@ pile:100:1d1
 effect:NOURISH:INC_TO
 dice:50
 
-name:Identify Rune
+name:Identify
 graphics:?:w
 type:scroll
 level:1
@@ -6112,7 +6114,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:10000
+cost:31000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 desc:It creates a new house, starting at the House Foundation Stone
@@ -6488,7 +6490,7 @@ dice:5
 desc:A biscuit containing a small piece of paper telling your fortune.
 
 ##############
-# new items  #
+# new items Tangaria  #
 ##############
 
 name:& Old Lantern~
@@ -6717,7 +6719,7 @@ desc:A tiny brass light source with a soft emerging from it,
 desc: protected from draughts by a sheet of dirty paper. It can be carried by
 desc: a handle. It looks so old that you don't think it can be refilled.
 
-name:Remove Hunger (tattered)
+name:Satisfy Hunger (tattered)
 graphics:?:w
 type:scroll
 level:0
@@ -6749,6 +6751,241 @@ cost:0
 effect:RECALL
 dice:14+1d20
 desc:This parchment is oily and ragged, but looks readable.
+
+name:& Cram Bread~
+graphics:,:U
+type:food
+level:0
+weight:5
+cost:0
+effect:NOURISH:INC_BY
+dice:20
+msg_self:That tastes... crunchy.
+desc:Nutritious dry pancakes-biscuits which provide sustenance
+desc: on long journeys. It's made from tightly pressed flour.
+desc: Quite tasteless, but with honey or milk it becomes
+desc: quite palatable.
+
+name:Petty-dwarf roots
+graphics:,:U
+type:food
+level:1
+weight:3
+cost:0
+effect:NOURISH:INC_BY
+dice:14
+msg_self:That tastes like.. earth-bread.
+desc:An edible root known only to the Dwarves. 
+desc: White and fleshy; just boil it and it will taste like bread.
+
+name:Salted Pork from Isengard
+graphics:,:U
+type:food
+level:1
+weight:3
+cost:0
+effect:NOURISH:INC_BY
+dice:15
+msg_self:That tastes particularly good.
+desc:The salted pork is particularly good.
+
+name:Pipe-weed
+graphics:,:U
+type:food
+level:1
+weight:1
+cost:0
+effect:RESTORE_STAT:WIS
+effect:TIMED_INC:IMAGE
+dice:1
+effect:NOURISH:INC_BY
+dice:1
+# make random amount and draw them like:
+# o0OoO0Oo O oO0oO oO o 0oO o
+msg_self:*You blow several smoke rings*
+msg_other: blows several smoke rings
+desc:Also called as sweet galenas or westmansweed.
+desc: Hm... Which sort is this one? Longbottom Leaf, Old Toby,
+desc: or Southern Star?
+
+name:Elvish wine
+graphics:,:U
+type:food
+level:1
+weight:7
+cost:0
+effect:NOURISH:INC_BY
+dice:14
+effect:RESTORE_STAT:STR
+effect:TIMED_INC:CONFUSED
+dice:4+1d4
+msg_self:Ooogh.. It must be potent wine!
+desc:This wine origins from Dorwinion, to the south of Dale, carried up
+desc: along the River Running to Laketown and then to Thranduil.
+
+name:& Cold chicken~
+graphics:,:U
+type:food
+level:1
+weight:4
+cost:0
+effect:NOURISH:INC_BY
+dice:19
+msg_self:Cold, but tasty!
+desc:But, funny little birds, they had no wings!
+desc: O what shall we do with the funny little things?
+desc: Roast ’em alive, or stew them in a pot;
+desc: fry them, boil them and eat them hot?
+desc: ..
+desc: Who brought there the cold chicken? No pickles sadly...
+
+name:Maggoty bread
+graphics:,:U
+type:food
+level:1
+weight:8
+cost:0
+effect:NOURISH:DEC_BY
+dice:7+1d2
+effect:NOURISH:INC_BY
+dice:5
+effect:NOURISH:INC_BY
+dice:8
+effect:NOURISH:INC_BY
+dice:9
+effect:NOURISH:INC_BY
+dice:10
+effect:RANDOM
+dice:5
+msg_self:Hurk.. Hurk... That tastes awful!!
+desc:Maggoty Bread, no good when you're on the road..
+desc: But it's better than nothing.
+desc:"I'm starving!
+desc: We ain't had nothing but maggoty bread for three stinking days!"
+
+name:& Flagon of mead~
+graphics:,:U
+type:food
+level:1
+weight:5
+cost:0
+effect:NOURISH:INC_BY
+dice:11
+msg_self:Yummy!
+desc:The more the merrier!
+
+name:One Ring Cake~
+graphics:,:U
+type:food
+level:1
+weight:6
+cost:0
+effect:NOURISH:INC_BY
+dice:32
+msg_self:It is mine, I tell you. My own. My precious. Yes, my precious..
+desc:Deliciousssssss!.. You don't want to share this cake with anyone,
+desc: but eat it by yourself somewhere in the corner...
+
+name:& Stolen mushroom~
+graphics:,:d
+type:food
+level:10
+weight:2
+cost:0
+effect:NOURISH:INC_BY
+dice:5
+msg_self:Did you just heard the barking of dogs?.. Ugh, no, it seemed..
+desc:You also have a passion for mushrooms?
+desc: For legendary mushrooms, mysteriously obtained, if not positively
+desc: ill gotten, is, as every one knows, any one’s for the finding,
+desc: unless the search is interrupted.
+
+name:Elvish water
+graphics:,:U
+type:food
+level:1
+weight:8
+cost:0
+effect:NOURISH:INC_BY
+dice:6
+effect:TIMED_INC:BLESSED
+dice:6+1d12
+msg_self:Ho! Ho! Ho! To the bottle I go! To heal my heart and drown my woe!
+desc:Clear fragrant draught, pale golden in colour: it has the scent of a honey
+desc: made of many flowers, and is wonderfully refreshing.
+desc: It is cool as a clear fountain, golden as a summer afternoon...
+
+name:& Apple of Youth
+graphics:,:I
+type:food
+level:0
+weight:3
+cost:0
+effect:NOURISH:INC_BY
+dice:13
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:CHR
+effect:CURE:AMNESIA
+effect:CURE:CUT
+effect:CURE:STUN
+effect:CURE:POISONED
+effect:CURE:CONFUSED
+effect:CURE:BLIND
+effect:RESTORE_EXP
+effect:HEAL_HP
+dice:42
+msg_self:You feel how your wrinkles smoothing..
+desc:Legandary apples of immortality... You can't believe you found one.
+
+#small box of salt 
+
+name:& Club~
+graphics:\:u
+type:hafted
+level:0
+weight:20
+cost:0
+alloc:2:1 to 100
+attack:1d3:0:0
+armor:0:0
+desc:A simple oak club.. it's quite old, but still do the job.
+
+# instead of ring 'of levitation' which now became 'of swimming'
+name:Flying
+graphics:=:d
+type:ring
+level:25
+weight:2
+cost:7000
+alloc:13:25 to 100
+flags:FLYING | EASY_KNOW
+desc:When you put on this ring, you will be able to levitate a few feet 
+desc: above the floor. It works only if you have solid ground below.
+
+name:Holy Water
+graphics:!:z
+type:potion
+level:1
+weight:3
+cost:0
+flags:NO_DROP
+effect:TIMED_INC:BLESSED
+dice:12+1d24
+effect:TIMED_INC:PROTEVIL
+dice:$B+1d25
+expr:B:PLAYER_LEVEL:* 3
+effect:CURE:BLACKBREATH
+effect:CURE:CONFUSED
+effect:CURE:BLIND
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:6
+effect:RESTORE_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
+desc:A potion of holy water blessed by a good deity.
+desc: You can not drop it on the ground as it will be blasphemy...
 
 #name:Small House Creation
 
@@ -9251,240 +9488,5 @@ level:0
 weight:5
 cost:99999999
 desc:.
-
-name:& Cram Bread~
-graphics:,:U
-type:food
-level:0
-weight:5
-cost:0
-effect:NOURISH:INC_BY
-dice:20
-msg_self:That tastes... crunchy.
-desc:Nutritious dry pancakes-biscuits which provide sustenance
-desc: on long journeys. It's made from tightly pressed flour.
-desc: Quite tasteless, but with honey or milk it becomes
-desc: quite palatable.
-
-name:Petty-dwarf roots
-graphics:,:U
-type:food
-level:1
-weight:3
-cost:0
-effect:NOURISH:INC_BY
-dice:14
-msg_self:That tastes like.. earth-bread.
-desc:An edible root known only to the Dwarves. 
-desc: White and fleshy; just boil it and it will taste like bread.
-
-name:Salted Pork from Isengard
-graphics:,:U
-type:food
-level:1
-weight:3
-cost:0
-effect:NOURISH:INC_BY
-dice:15
-msg_self:That tastes particularly good.
-desc:The salted pork is particularly good.
-
-name:Pipe-weed
-graphics:,:U
-type:food
-level:1
-weight:1
-cost:0
-effect:RESTORE_STAT:WIS
-effect:TIMED_INC:IMAGE
-dice:1
-effect:NOURISH:INC_BY
-dice:1
-# make random amount and draw them like:
-# o0OoO0Oo O oO0oO oO o 0oO o
-msg_self:*You blow several smoke rings*
-msg_other: blows several smoke rings
-desc:Also called as sweet galenas or westmansweed.
-desc: Hm... Which sort is this one? Longbottom Leaf, Old Toby,
-desc: or Southern Star?
-
-name:Elvish wine
-graphics:,:U
-type:food
-level:1
-weight:7
-cost:0
-effect:NOURISH:INC_BY
-dice:14
-effect:RESTORE_STAT:STR
-effect:TIMED_INC:CONFUSED
-dice:4+1d4
-msg_self:Ooogh.. It must be potent wine!
-desc:This wine origins from Dorwinion, to the south of Dale, carried up
-desc: along the River Running to Laketown and then to Thranduil.
-
-name:& Cold chicken~
-graphics:,:U
-type:food
-level:1
-weight:4
-cost:0
-effect:NOURISH:INC_BY
-dice:19
-msg_self:Cold, but tasty!
-desc:But, funny little birds, they had no wings!
-desc: O what shall we do with the funny little things?
-desc: Roast ’em alive, or stew them in a pot;
-desc: fry them, boil them and eat them hot?
-desc: ..
-desc: Who brought there the cold chicken? No pickles sadly...
-
-name:Maggoty bread
-graphics:,:U
-type:food
-level:1
-weight:8
-cost:0
-effect:NOURISH:DEC_BY
-dice:7+1d2
-effect:NOURISH:INC_BY
-dice:5
-effect:NOURISH:INC_BY
-dice:8
-effect:NOURISH:INC_BY
-dice:9
-effect:NOURISH:INC_BY
-dice:10
-effect:RANDOM
-dice:5
-msg_self:Hurk.. Hurk... That tastes awful!!
-desc:Maggoty Bread, no good when you're on the road..
-desc: But it's better than nothing.
-desc:"I'm starving!
-desc: We ain't had nothing but maggoty bread for three stinking days!"
-
-name:& Flagon of mead~
-graphics:,:U
-type:food
-level:1
-weight:5
-cost:0
-effect:NOURISH:INC_BY
-dice:11
-msg_self:Yummy!
-desc:The more the merrier!
-
-name:One Ring Cake~
-graphics:,:U
-type:food
-level:1
-weight:6
-cost:0
-effect:NOURISH:INC_BY
-dice:32
-msg_self:It is mine, I tell you. My own. My precious. Yes, my precious..
-desc:Deliciousssssss!.. You don't want to share this cake with anyone,
-desc: but eat it by yourself somewhere in the corner...
-
-name:& Stolen mushroom~
-graphics:,:d
-type:food
-level:10
-weight:2
-cost:0
-effect:NOURISH:INC_BY
-dice:5
-msg_self:Did you just heard the barking of dogs?.. Ugh, no, it seemed..
-desc:You also have a passion for mushrooms?
-desc: For legendary mushrooms, mysteriously obtained, if not positively
-desc: ill gotten, is, as every one knows, any one’s for the finding,
-desc: unless the search is interrupted.
-
-name:Elvish water
-graphics:,:U
-type:food
-level:1
-weight:8
-cost:0
-effect:NOURISH:INC_BY
-dice:6
-effect:TIMED_INC:BLESSED
-dice:6+1d12
-msg_self:Ho! Ho! Ho! To the bottle I go! To heal my heart and drown my woe!
-desc:Clear fragrant draught, pale golden in colour: it has the scent of a honey
-desc: made of many flowers, and is wonderfully refreshing.
-desc: It is cool as a clear fountain, golden as a summer afternoon...
-
-name:& Apple of Youth
-graphics:,:I
-type:food
-level:0
-weight:3
-cost:0
-effect:NOURISH:INC_BY
-dice:13
-effect:RESTORE_STAT:CON
-effect:RESTORE_STAT:CHR
-effect:CURE:AMNESIA
-effect:CURE:CUT
-effect:CURE:STUN
-effect:CURE:POISONED
-effect:CURE:CONFUSED
-effect:CURE:BLIND
-effect:RESTORE_EXP
-effect:HEAL_HP
-dice:42
-msg_self:You feel how your wrinkles smoothing..
-desc:Legandary apples of immortality... You can't believe you found one.
-
-#small box of salt 
-
-name:& Club~
-graphics:\:u
-type:hafted
-level:0
-weight:20
-cost:0
-alloc:2:1 to 100
-attack:1d3:0:0
-armor:0:0
-desc:A simple oak club.. it's quite old, but still do the job.
-
-# rename to Levitation... while rename current leviation to Swimming
-name:Flying
-graphics:=:d
-type:ring
-level:25
-weight:2
-cost:7000
-alloc:13:25 to 100
-flags:FLYING | EASY_KNOW
-desc:When you put on this ring, you will be able to levitate a few feet 
-desc: above the floor. It works only if you have solid ground below.
-
-name:Holy Water
-graphics:!:z
-type:potion
-level:1
-weight:3
-cost:0
-flags:NO_DROP
-effect:TIMED_INC:BLESSED
-dice:12+1d24
-effect:TIMED_INC:PROTEVIL
-dice:$B+1d25
-expr:B:PLAYER_LEVEL:* 3
-effect:CURE:BLACKBREATH
-effect:CURE:CONFUSED
-effect:CURE:BLIND
-effect:NOURISH:INC_BY
-dice:1
-effect:RANDOM
-dice:6
-effect:RESTORE_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 1
-desc:A potion of holy water blessed by a good deity.
-desc: You can not drop it on the ground as it will be blasphemy...
 
 # add empty line EOF

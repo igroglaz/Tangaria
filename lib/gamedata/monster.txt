@@ -5607,6 +5607,28 @@ desc: scales shimmering blue.
 
 ### Dungeon level 13 ###
 
+name:darkling
+base:minor demon
+color:u
+speed:111
+hit-points:75
+light:-2
+hearing:20
+armor-class:42
+sleepiness:35
+depth:13
+rarity:4
+weight:140
+experience:75
+blow:DEVOUR:EAT_LIGHT:1d7
+blow:DEVOUR:EAT_LIGHT:1d7
+flags:OPEN_DOOR | BASH_DOOR
+flags:DROP_40
+flags:NO_FEAR
+spell-freq:7
+spells:DARKNESS
+desc:Corrupted fey-demons which feed on light.
+
 name:giant gnat
 base:killer beetle
 color:u
@@ -11822,6 +11844,31 @@ desc:A shimmering tornado of air and water, sparks crackle along its length.
 ########## DUNGEON LEVELS 30-39 ##########
 
 ### Dungeon level 30 ###
+
+name:shadow of nazgul
+base:wraith
+color:p
+speed:115
+hit-points:500
+light:-2
+hearing:40
+smell:50
+armor-class:72
+sleepiness:10
+depth:30
+rarity:6
+weight:0
+experience:666
+blow:MOAN:TERRIFY:2d5
+blow:DEVOUR:EAT_LIGHT:4d5
+blow:HIT:BLACK_BREATH:3d7
+flags:MALE | LEVITATE
+flags:DROP_1 | ONLY_ITEM
+flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
+flags:RES_LIGHT
+desc:Nazguls don't dissapear for ever.. They return. Always.
+desc:But till the moment when they will reclaim, 
+desc:they dwell aas shadowless shapes.
 
 name:fire giant
 base:giant
@@ -19039,7 +19086,7 @@ flags:UNIQUE | MALE | EVIL | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
-#drop:food:Piece of Elvish Waybread:50:1:1
+#drop:food:Lembas:50:1:1
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | DARKNESS | HEAL
 spells:TELE_TO
@@ -21412,7 +21459,7 @@ spell-freq:4
 innate-freq:33
 spells:WOUND | CONF
 spells:BR_FIRE
-desc:Smaug is one of the Urulóki that still survive, a fire-drake of immense
+desc:Smaug is one of the Urul'ki that still survive, a fire-drake of immense
 desc: cunning and intelligence. His speed through air is matched by few other
 desc: dragons and his dragonfire is what legends are made of; he is believed to
 desc: be the greatest dragon still surviving into the Third Age.
@@ -31195,94 +31242,9 @@ desc:It blinks slowly and menacily.
 #///////////   
 
 
-
-##### ADD after wipe:
-
-
-name:darkling
-base:minor demon
-color:u
-speed:111
-hit-points:75
-light:-2
-hearing:20
-armor-class:42
-sleepiness:35
-depth:13
-rarity:4
-weight:140
-experience:75
-blow:DEVOUR:EAT_LIGHT:1d7
-blow:DEVOUR:EAT_LIGHT:1d7
-flags:OPEN_DOOR | BASH_DOOR
-flags:DROP_40
-flags:NO_FEAR
-spell-freq:7
-spells:DARKNESS
-desc:Corrupted fey-demons which feed on light.
-
-name:shadow of nazgul
-base:wraith
-color:p
-speed:115
-hit-points:500
-light:-2
-hearing:40
-smell:50
-armor-class:72
-sleepiness:10
-depth:30
-rarity:6
-weight:0
-experience:666
-blow:MOAN:TERRIFY:2d5
-blow:DEVOUR:EAT_LIGHT:4d5
-blow:HIT:BLACK_BREATH:3d7
-flags:MALE | LEVITATE
-flags:DROP_1 | ONLY_ITEM
-flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:RES_LIGHT
-desc:Nazguls don't dissapear for ever.. They return. Always.
-desc:But till the moment when they will reclaim, 
-desc:they dwell aas shadowless shapes.
-
-name:Test dummy
-base:golem
-color:y
-speed:100
-hit-points:1000
-hearing:1
-armor-class:0
-sleepiness:0
-depth:1
-rarity:0
-weight:0
-experience:1
-spell-freq:1
-spell-power:50
-spells:FORGET
-flags:NEVER_MOVE
-desc:An indestructible golem used for testing purposes.
-
-name:Test drop
-base:golem
-color:y
-speed:100
-hit-points:100
-hearing:1
-armor-class:0
-sleepiness:0
-depth:1
-rarity:0
-weight:0
-experience:1
-spell-freq:1
-blow:HIT:FORGET:10d1
-flags:NEVER_MOVE
-flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-#drop:ring:Black Ring of Power:100:1:1
-#drop:sword:'Stormbringer':100:1:1
-desc:An indestructible golem used for testing purposes.
+#############
+#############
+############# Thunderlord race pet
 
 name:tamed young eagle
 base:bird
@@ -31362,6 +31324,49 @@ flags:DROP_CORPSE | WILD_WOOD | WILD_MOUNTAIN
 desc:A vast legendary bird, its iron talons rake the most impenetrable of
 desc: surfaces and its screech echoes through the many winding dungeon
 desc: corridors.
+
+
+#######
+###############
+######################### Test stuff
+
+name:Test dummy
+base:golem
+color:y
+speed:100
+hit-points:1000
+hearing:1
+armor-class:0
+sleepiness:0
+depth:1
+rarity:0
+weight:0
+experience:1
+spell-freq:1
+spell-power:50
+spells:FORGET
+flags:NEVER_MOVE
+desc:An indestructible golem used for testing purposes.
+
+name:Test drop
+base:golem
+color:y
+speed:100
+hit-points:100
+hearing:1
+armor-class:0
+sleepiness:0
+depth:1
+rarity:0
+weight:0
+experience:1
+spell-freq:1
+blow:HIT:FORGET:10d1
+flags:NEVER_MOVE
+flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+#drop:ring:Black Ring of Power:100:1:1
+drop:sword:'Stormbringer':100:1:1
+desc:An indestructible golem used for testing purposes.
 
 
 # # leave empty line for EOF
