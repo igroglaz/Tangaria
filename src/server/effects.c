@@ -2256,6 +2256,79 @@ static bool effect_handler_CREATE_SMALL_HOUSE(effect_handler_context_t *context)
 
 }
 
+/*
+ * Create potions of holy water from any potion
+ */
+static bool effect_handler_CREATE_HOLY_WATER(effect_handler_context_t *context)
+{
+    struct object *obj, *holy_water;
+    int amt;
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_POISON, ""); // we use POISON, but actually it's POTION :)
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a potion */
+    if (!tval_is_potion(obj)) return false;
+
+    // Can't turn it again
+    if (streq(obj->kind->name, "Holy Water"))
+    {
+        msg(context->origin->player, "That's already blessed enough.");
+        return false;
+    }
+
+    /* Amount */
+    amt = obj->number;
+    
+    // gods require some sacrifice for miracles
+    player_dec_timed(context->origin->player, TMD_FOOD, 100*amt, false);
+
+    /* Message */
+    msg(context->origin->player, "You create %d potions of holy water.", amt);
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    /* Create the potions */
+    holy_water = object_new();
+    object_prep(context->origin->player, context->cave, holy_water,
+        lookup_kind_by_name(TV_POTION, "Holy Water"), 0, MINIMISE);
+    holy_water->number = amt;
+
+    /* Set origin */
+    set_origin(holy_water, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    drop_near(context->origin->player, context->cave, &holy_water, 0, &context->origin->player->grid,
+        true, DROP_FADE, true);
+
+    return true;
+}
 
 /*
  * Create potions of poison from any potion
@@ -2306,6 +2379,10 @@ static bool effect_handler_CREATE_POISON(effect_handler_context_t *context)
 
     /* Amount */
     amt = obj->number;
+
+    // Occasionally restore some mana
+    if (one_in_(2))
+        context->origin->player->csp += (10 * amt) + (context->origin->player->lev / 2);
 
     /* Message */
     msg(context->origin->player, "You create %d potions of poison.", amt);

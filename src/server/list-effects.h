@@ -44,6 +44,7 @@ EFFECT(CREATE_ARROWS, false, NULL, 0, EFINFO_NONE, "uses a staff to create a sta
 EFFECT(CREATE_HOUSE, false, NULL, 0, EFINFO_NONE, "allows you to create a house from House Foundation Stones")
 EFFECT(CREATE_SMALL_HOUSE, false, NULL, 0, EFINFO_NONE, "allows you to create a house from House Foundation Stones")
 EFFECT(CREATE_POISON, false, NULL, 0, EFINFO_NONE, "creates potions of poison from any potion")
+EFFECT(CREATE_HOLY_WATER, false, NULL, 0, EFINFO_NONE, "creates holy water from any potion")
 EFFECT(CREATE_STAIRS, false, NULL, 0, EFINFO_NONE, "creates a staircase beneath your feet")
 EFFECT(CREATE_TREES, false, NULL, 0, EFINFO_NONE, "creates trees next to you")
 EFFECT(CREATE_WALLS, false, NULL, 0, EFINFO_NONE, "creates a wall next to you")

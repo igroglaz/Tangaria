@@ -9461,3 +9461,30 @@ alloc:13:25 to 100
 flags:FLYING | EASY_KNOW
 desc:When you put on this ring, you will be able to levitate a few feet 
 desc: above the floor. It works only if you have solid ground below.
+
+name:Holy Water
+graphics:!:z
+type:potion
+level:1
+weight:3
+cost:0
+flags:NO_DROP
+effect:TIMED_INC:BLESSED
+dice:12+1d24
+effect:TIMED_INC:PROTEVIL
+dice:$B+1d25
+expr:B:PLAYER_LEVEL:* 3
+effect:CURE:BLACKBREATH
+effect:CURE:CONFUSED
+effect:CURE:BLIND
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:6
+effect:RESTORE_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
+desc:A potion of holy water blessed by a good deity.
+desc: You can not drop it on the ground as it will be blasphemy...
+
+# add empty line EOF

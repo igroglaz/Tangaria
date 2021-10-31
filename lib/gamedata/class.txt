@@ -1061,7 +1061,7 @@ msg_other:'s hands project a line of shimmering blue light.
 desc:Fires a beam that lights up each square and hurts each
 desc: light-sensitive monster in its path.
 
-book:prayer book:town:[Words of Wisdom]:7:divine
+book:prayer book:town:[Words of Wisdom]:8:divine
 book-graphics:?:G
 book-properties:10:30:400
 book-alloc:30:10 to 100
@@ -1114,6 +1114,12 @@ dice:1d$S
 expr:S:PLAYER_LEVEL:* 5
 msg_other: dispels evil.
 desc:Inflicts unresistable damage on each evil monster within line of sight.
+
+spell:Holy Water:19:25:80:15:0
+effect:CREATE_HOLY_WATER
+desc:Allows to bless any potions and turn it to holy water.
+desc: Attention! It will bless full stack of potions.
+desc: This prayer requires nutrition.
 
 book:prayer book:town:[Chants and Blessings]:6:divine
 book-graphics:?:G
@@ -1913,19 +1919,9 @@ msg_other: blinks away.
 desc:Teleports you randomly up to 10 squares away.
 
 spell:Create Poison:8:3:60:5:0
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:1
-effect:RANDOM
-dice:4
 effect:CREATE_POISON
 desc:Allows to create potions of poison from any potion and
-desc: rarely isolate a nutrious substance.
+desc: rarely isolate a nutrious substance to restore mana.
 desc: Attention! It will turn full stack of potions to poison.
 
 spell:Detect Objects:10:3:60:5:0

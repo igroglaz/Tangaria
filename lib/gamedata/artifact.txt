@@ -3874,3 +3874,8 @@ desc: communication between distant lands.
 desc: If any man looked in that Stone, unless he had a great strength of
 desc: will to turn it to other purpose, he saw only two aged hands
 desc: withering in flame.
+
+# ! do not add artifacts without wipe !
+# the rings of power (from nazguls) are not in the artifact.txt but are generated after
+# so in the artifact list you have all the artifacts from the txt file + 9 entries for the nazgul rings
+# if you added entries and the end all nazgul rings have been shifted in the list
