@@ -650,6 +650,14 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
         return;
     }
 
+    // Can't destroy cursed items
+    if (des && obj->curses)
+    {
+        msg(p, "You cannot destroy %s as it's cursed.", o_name);
+        msg(p, "Try to uncurse it first and then simply throw it away.");
+        return;
+    }
+
     /* Destroying or ignoring from equipment? Update object flags! */
     if (object_is_equipped(p->body, obj)) set_redraw_equip(p, NULL);
 
