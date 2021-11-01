@@ -1254,7 +1254,8 @@ void mon_create_mimicked_object(struct player *p, struct chunk *c, struct monste
             if (!kind->tval) continue;
 
             /* Skip insta arts! */
-            if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_QUEST_ART))
+            if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_QUEST_ART) ||
+                kf_has(kind->kind_flags, KF_EPIC))
                 continue;
 
             /* Force race attr */

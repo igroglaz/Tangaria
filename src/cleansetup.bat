@@ -18,7 +18,7 @@ del /Q ..\setup\lib\music\town-night\*.*
 del /Q ..\setup\lib\screens\*.*
 del /Q ..\setup\lib\sounds\*.*
 del /Q ..\setup\lib\tiles\*.*
-del /Q ..\setup\lib\tiles\gervais\*.*
+del /Q ..\setup\lib\tiles\tangaria\*.*
 del /Q ..\setup\lib\user\save\*.*
 del /Q ..\setup\src\*.*
 del /Q ..\setup\src\_SDL\*.*

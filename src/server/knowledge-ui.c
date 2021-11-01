@@ -1799,7 +1799,8 @@ static struct object *get_random_monster_object(struct monster *mon)
     for (obj = mon->held_obj; obj; obj = obj->next)
     {
         /* Check it isn't a quest artifact */
-        if (obj->artifact && kf_has(obj->kind->kind_flags, KF_QUEST_ART))
+        if (obj->artifact && (kf_has(obj->kind->kind_flags, KF_QUEST_ART) ||
+            kf_has(obj->kind->kind_flags, KF_EPIC)))
             continue;
 
         if (one_in_(i)) pick = obj;

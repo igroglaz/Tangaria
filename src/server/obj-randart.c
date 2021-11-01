@@ -2952,7 +2952,7 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
 
     /* Skip fixed artifacts */
     if (strstr(art->name, "The One Ring") || kf_has(kind->kind_flags, KF_QUEST_ART) ||
-        strstr(art->name, "of Maglor"))
+        strstr(art->name, "of Maglor") || kf_has(kind->kind_flags, KF_EPIC))
     {
         mem_free(a_old);
         return false;

@@ -6674,7 +6674,8 @@ weight:180
 cost:0
 attack:6d6:16:16
 armor:0:0
-flags:FREE_ACT | HOLD_LIFE | PROT_CONF | AGGRAVATE
+flags:EPIC | FREE_ACT | HOLD_LIFE | PROT_CONF | AGGRAVATE |
+flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 values:STR[1] | CON[1] | RES_CHAOS[1] | RES_NETHER[1]
 brand:VAMPIRIC
 curse:treacherous weapon:100

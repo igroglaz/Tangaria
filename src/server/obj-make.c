@@ -1117,7 +1117,7 @@ static bool create_randart_aux(struct player *p, struct chunk *c, struct object 
         if (!kind) continue;
 
         /* Skip special artifacts */
-        if (kf_has(kind->kind_flags, KF_INSTA_ART)) continue;
+        if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_EPIC)) continue;
 
         /* Must have the correct fields */
         if (art->tval != obj->tval) continue;
@@ -1174,7 +1174,7 @@ static bool make_artifact(struct player *p, struct chunk *c, struct object *obj)
             if (!kind) continue;
 
             /* Skip special artifacts */
-            if (kf_has(kind->kind_flags, KF_INSTA_ART)) continue;
+            if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_EPIC)) continue;
 
             /* Cannot make an artifact twice */
             if (art->created) continue;
