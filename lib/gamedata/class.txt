@@ -2543,7 +2543,7 @@ skill-disarm-phys:35:9
 skill-disarm-magic:50:12
 skill-device:40:15
 skill-save:30:9
-skill-stealth:0:0
+skill-stealth:1:0
 skill-search:10:12
 skill-melee:30:11
 skill-shoot:20:15

@@ -193,7 +193,6 @@ alloc:70:10 to 100
 attack:1d1:0:0
 armor:0:0
 flags:TAKES_FUEL | LIGHT_3 | IGNORE_FIRE
-values:STEALTH[-1]
 desc:A brass container with a wick emerging from it, protected from draughts by
 desc: a sheet of greased paper. It can be carried by a handle.
 
@@ -2456,7 +2455,7 @@ cost:100
 alloc:50:10 to 50
 attack:0d0:0:-3d5
 armor:0:0
-values:DEX[d4] | STEALTH[d4]
+values:DEX[d4] | STEALTH[d3]
 
 name:the Dog
 graphics:=:d
@@ -2689,7 +2688,7 @@ cost:0
 alloc:1:70 to 100
 flags:IGNORE_ELEC | GOOD
 flags:HOLD_LIFE | SEE_INVIS
-values:SEARCH[1+d4M5] | STEALTH[1+d2M3] | INFRA[1+d4M5] | SPEED[2+d4M6] | MOVES[10]
+values:SEARCH[1+d4M5] | STEALTH[1+d2M3] | INFRA[1+d4M5] | SPEED[2+d4M6] | MOVES[5]
 values:LIGHT[-1] | DAM_RED[-3] | WIS[-5]
 desc:This medallions were ones worn by one of Beruthiel's cats.
 desc:Maybe it will be good idea to try to wear it.. even though you are
@@ -2740,7 +2739,7 @@ cost:10
 alloc:20:10 to 40
 flags:EASY_KNOW
 curse:teleportation:100
-values:SEARCH[d5M5] | MOVES[10]
+values:DEX[1] | MOVES[5]
 desc:This amulet will randomly teleport you all over the place.
 
 name:Slow Digestion
@@ -6163,7 +6162,6 @@ alloc:20:20 to 100
 attack:1d1:0:0
 armor:0:0
 flags:TAKES_FUEL | LIGHT_4 | IGNORE_FIRE
-values:STEALTH[-2]
 desc:A brass container, larger than a lantern, with a wick emerging from it,
 desc: protected from draughts by a sheet of greased paper. It can be carried by
 desc: a handle.
@@ -6507,7 +6505,6 @@ alloc:70:1 to 10
 flags:BURNS_OUT | LIGHT_3
 attack:3d3:0:0
 flags:EXPLODE
-values:STEALTH[-1]
 desc:An old glass light source with a crackling emerging from it.
 desc:It can be carried by a handle. You don't think it can be refilled.
 desc:It looks like good idea to throw it and burn your enemies!
@@ -6719,7 +6716,6 @@ weight:70
 cost:0
 attack:1d3:0:0
 flags:BURNS_OUT | LIGHT_3 | IGNORE_FIRE
-values:STEALTH[-1]
 desc:A tiny brass light source with a soft emerging from it,
 desc: protected from draughts by a sheet of dirty paper. It can be carried by
 desc: a handle. It looks so old that you don't think it can be refilled.
@@ -6794,6 +6790,8 @@ dice:15
 msg_self:That tastes particularly good.
 desc:The salted pork is particularly good.
 
+# make random amount and draw them like:
+# o0OoO0Oo O oO0oO oO o 0oO o
 name:Pipe-weed
 graphics:,:U
 type:food
@@ -6805,8 +6803,6 @@ effect:TIMED_INC:IMAGE
 dice:1
 effect:NOURISH:INC_BY
 dice:1
-# make random amount and draw them like:
-# o0OoO0Oo O oO0oO oO o 0oO o
 msg_self:*You blow several smoke rings*
 msg_other: blows several smoke rings
 desc:Also called as sweet galenas or westmansweed.

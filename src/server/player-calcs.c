@@ -2799,6 +2799,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
     /* Call individual functions for other state fields */
     calc_light(p, state, update);
+
+    // Stealth boni if without light in darkness
+    if (state->cur_light < 1 && p -> square_light < 1)
+        state->skills[SKILL_STEALTH] += 3;
+    
     calc_mana(p, state, update);
     if (!p->msp) pf_on(state->pflags, PF_NO_MANA);
     calc_hitpoints(p, state, update);

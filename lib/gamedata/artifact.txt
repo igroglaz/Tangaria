@@ -113,7 +113,7 @@ alloc:40:5 to 100
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION
-values:LIGHT[3] | STR[-4] | INT[-4] | WIS[-4] | DEX[-4] | CON[-4] | CHR[-4] | SPEED[3]
+values:LIGHT[4] | STEALTH[-5] | CON[-4] | CHR[-4] | SPEED[2]
 curse:siren:100
 curse:teleportation:100
 desc:It appears like the Phial of Galadriel at first - but wait! It
