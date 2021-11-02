@@ -584,9 +584,9 @@ normal:shot:Iron Shot
 normal:arrow:Arrow
 normal:bolt:Bolt
 normal:shot:Rounded Pebble
-normal:arrow:Magic Arrow:1:450
-normal:bolt:Magic Bolt:1:450
-normal:shot:Magic Shot:1:450
+normal:arrow:Magic Arrow:1:350
+normal:bolt:Magic Bolt:1:350
+normal:shot:Magic Shot:1:350
 normal:bow:Sling
 normal:bow:Short Bow
 normal:bow:Long Bow

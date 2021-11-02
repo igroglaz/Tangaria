@@ -148,6 +148,13 @@
 # ends or the beginning of the next line to prevent words from running
 # together.
 
+##################
+#
+# Many items (except mushrooms and some others) MUST have & and ~
+# OR server will crush when you 'd'rop item ('pipe-weed' case)
+#
+##################
+
 
 ##### Non-kind (things treated like objects) #####
 
@@ -5575,7 +5582,7 @@ armor:0:0
 desc:You notice strange barely visible golden letters inscribed in gold:
 desc:"N..mb..s T... Th...sand"
 
-name:& Shard~ of Pottery~
+name:& Shard~ of Pottery
 graphics:~:s
 type:junk
 level:0
@@ -6198,6 +6205,7 @@ graphics:{:v
 type:arrow
 level:10
 weight:2
+# price hc
 cost:100
 alloc:10:10 to 100
 attack:1d4:0:0
@@ -6210,6 +6218,7 @@ graphics:{:b
 type:bolt
 level:10
 weight:3
+# price hc
 cost:100
 alloc:10:10 to 100
 attack:1d5:0:0
@@ -6222,6 +6231,7 @@ graphics:{:D
 type:shot
 level:10
 weight:2
+# price hc
 cost:100
 alloc:10:10 to 100
 attack:1d3:0:0
@@ -6500,6 +6510,7 @@ graphics:~:U
 type:light
 level:5
 weight:100
+# price hc
 cost:100
 alloc:70:1 to 10
 flags:BURNS_OUT | LIGHT_3
@@ -6509,7 +6520,7 @@ desc:An old glass light source with a crackling emerging from it.
 desc:It can be carried by a handle. You don't think it can be refilled.
 desc:It looks like good idea to throw it and burn your enemies!
 
-name:Ancient Vessel
+name:& Ancient Vessel~
 graphics:,:U
 type:food
 level:30
@@ -6573,7 +6584,7 @@ dice:1
 msg_self:You rubbed an ancient vessel...
 desc:Rumours say that such vessels could contain a djinn...
 
-name:Magic Lamp
+name:& Magic Lamp~
 graphics:,:U
 type:food
 level:30
@@ -6638,7 +6649,7 @@ dice:1
 msg_self:You rubbed an ancient vessel...
 desc:Rumours say that such lamps could contain a djinn...
 
-name:Cursed Jar
+name:& Cursed Jar~
 graphics:,:U
 type:food
 level:30
@@ -6663,7 +6674,7 @@ msg_self:Why did you touch it!.. It was CURSED!
 desc:You feel wicked evil energy oozing through this object...
 desc: It's better to do not touch it. RUN!
 
-name:'Stormbringer'
+name:& 'Stormbringer'~
 graphics:|:x
 type:sword
 level:45
@@ -6767,7 +6778,7 @@ desc: on long journeys. It's made from tightly pressed flour.
 desc: Quite tasteless, but with honey or milk it becomes
 desc: quite palatable.
 
-name:Petty-dwarf roots
+name:& Petty-dwarf roots~
 graphics:,:U
 type:food
 level:1
@@ -6779,7 +6790,7 @@ msg_self:That tastes like.. earth-bread.
 desc:An edible root known only to the Dwarves. 
 desc: White and fleshy; just boil it and it will taste like bread.
 
-name:Salted Pork from Isengard
+name:& Salted Pork~ from Isengard
 graphics:,:U
 type:food
 level:1
@@ -6792,7 +6803,7 @@ desc:The salted pork is particularly good.
 
 # make random amount and draw them like:
 # o0OoO0Oo O oO0oO oO o 0oO o
-name:Pipe-weed
+name:& Pipe-weed~
 graphics:,:U
 type:food
 level:1
@@ -6809,7 +6820,7 @@ desc:Also called as sweet galenas or westmansweed.
 desc: Hm... Which sort is this one? Longbottom Leaf, Old Toby,
 desc: or Southern Star?
 
-name:Elvish wine
+name:& Elvish wine~
 graphics:,:U
 type:food
 level:1
@@ -6840,7 +6851,7 @@ desc: fry them, boil them and eat them hot?
 desc: ..
 desc: Who brought there the cold chicken? No pickles sadly...
 
-name:Maggoty bread
+name:& Maggoty bread~
 graphics:,:U
 type:food
 level:1
@@ -6875,7 +6886,7 @@ dice:11
 msg_self:Yummy!
 desc:The more the merrier!
 
-name:One Ring Cake~
+name:& One Ring Cake~
 graphics:,:U
 type:food
 level:1
@@ -6901,7 +6912,7 @@ desc: For legendary mushrooms, mysteriously obtained, if not positively
 desc: ill gotten, is, as every one knows, any one’s for the finding,
 desc: unless the search is interrupted.
 
-name:Elvish water
+name:& Elvish water~
 graphics:,:U
 type:food
 level:1
@@ -6916,7 +6927,7 @@ desc:Clear fragrant draught, pale golden in colour: it has the scent of a honey
 desc: made of many flowers, and is wonderfully refreshing.
 desc: It is cool as a clear fountain, golden as a summer afternoon...
 
-name:& Apple of Youth
+name:& Apple~ of Youth
 graphics:,:I
 type:food
 level:0
