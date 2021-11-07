@@ -70,15 +70,14 @@
 ?:[EQU $CLASS Mage]
 %:Mage.prf
 
-?:[EQU $CLASS Druid]
-%:Druid.prf
+?:[EQU $CLASS Shaman]
+%:Shaman.prf
 
 ?:[EQU $CLASS Priest]
 %:priest.prf
 
-?:[EQU $CLASS Necromancer]
-%:Necromancer.prf
-%:Necro.prf
+?:[EQU $CLASS Warlock]
+%:Warlock.prf
 
 ?:[EQU $CLASS Paladin]
 %:Paladin.prf
@@ -119,5 +118,8 @@
 ?:[EQU $CLASS Shapechanger]
 %:Shapechanger.prf
 %:Changer.prf
+
+?:[EQU $CLASS Tamer]
+%:Tamer.prf
 
 ?:1

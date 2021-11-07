@@ -2845,7 +2845,7 @@ static bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     /* Darken the room */
     light_room(context->origin->player, context->cave, &target, false);
     
-    if (streq(context->origin->player->clazz->name, "Necromancer"))
+    if (streq(context->origin->player->clazz->name, "Warlock"))
     {
         context->origin->player->chp += 1;
     }        
@@ -3394,6 +3394,44 @@ static bool effect_handler_DETECT_FEARFUL_MONSTERS(effect_handler_context_t *con
     return true;
 }
 
+/*
+ * Detect lmonsters animals around the player. The height to detect
+ * above and below the player is context->y, the width either side of
+ * the player context->x.
+ */
+static bool effect_handler_DETECT_ANIMALS(effect_handler_context_t *context)
+{
+    bool monsters = detect_monsters(context->origin->player, context->y, context->x,
+        monster_is_animal, 0, NULL);
+
+    /* Note effects and clean up */
+    if (monsters)
+    {
+        /* Hack -- fix the monsters */
+        update_monsters(context->cave, false);
+
+        /* Full refresh (includes monster/object lists) */
+        context->origin->player->full_refresh = true;
+
+        /* Handle Window stuff */
+        handle_stuff(context->origin->player);
+
+        /* Normal refresh (without monster/object lists) */
+        context->origin->player->full_refresh = false;
+
+        /* Describe, and wait for acknowledgement */
+        msg(context->origin->player, "You feel animals around.");
+        party_msg_near(context->origin->player, " senses the presence of animals!");
+
+        /* Hack -- pause */
+        if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
+    }
+    else if (context->aware)
+        msg(context->origin->player, "You smell no animal scent in the air.");
+
+    context->ident = true;
+    return true;
+}
 
 /*
  * Detect buried gold around the player. The height to detect above and below

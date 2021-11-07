@@ -480,7 +480,8 @@ static bool stop_project(struct source *who, struct loc *grid, struct chunk *cv,
         return true;
 
     /* Stop if useful spell hits a friendly monster */
-    if (((typ == PROJ_COMMAND) || (typ == PROJ_MON_HEAL)) && (m_idx > 0))
+    if (((typ == PROJ_COMMAND) || (typ == PROJ_MON_HEAL) ||
+         (typ == PROJ_MON_SPEED)) && (m_idx > 0))
         return true;
 
     /* Let everything else pass through */

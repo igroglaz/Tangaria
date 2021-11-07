@@ -31257,7 +31257,7 @@ sleepiness:10
 depth:1
 rarity:0
 weight:20
-experience:2
+experience:0
 blow:CLAW:HURT:1d1
 blow:BITE:HURT:1d1
 flags:WILD_WASTE | WILD_MOUNTAIN | WILD_WOOD | PWMANG_BASE
@@ -31275,7 +31275,7 @@ sleepiness:10
 depth:10
 rarity:0
 weight:60
-experience:22
+experience:0
 blow:CLAW:HURT:1d3
 #blow:CLAW:HURT:1d3
 blow:BITE:HURT:1d6
@@ -31294,7 +31294,7 @@ sleepiness:20
 depth:20
 rarity:0
 weight:100
-experience:1
+experience:0
 blow:CLAW:HURT:3d6
 #blow:CLAW:HURT:6d3
 blow:BITE:HURT:3d6
@@ -31316,7 +31316,7 @@ sleepiness:10
 depth:40
 rarity:0
 weight:150
-experience:1
+experience:0
 blow:CLAW:HURT:4d8
 blow:BITE:HURT:4d12
 flags:BASH_DOOR
@@ -31368,5 +31368,274 @@ flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 drop:sword:'Stormbringer':100:1:1
 desc:An indestructible golem used for testing purposes.
 
+# tamer class pets
+
+# giant white rat
+name:tamed rat
+base:rodent
+color:W
+speed:110
+hit-points:1
+hearing:8
+smell:20
+armor-class:3
+sleepiness:30
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d3
+flags:RAND_25
+flags:NO_PASS_TREE
+desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
+
+# copperhead snake
+name:tamed snake
+base:snake
+color:o
+speed:110
+hit-points:3
+hearing:6
+armor-class:5
+sleepiness:10
+depth:5
+rarity:0
+weight:20
+experience:0
+blow:BITE:POISON:2d4
+flags:RAND_50
+flags:IM_POIS
+desc:Tamed sssnake dangerousss for everyone excccept itsss massster. 
+desc: It hass a copper head and sssharp venomouss fangssss.
+
+# nighthawk
+name:tamed hawk
+base:bird
+color:u
+speed:110
+hit-points:7
+hearing:30
+armor-class:10
+sleepiness:10
+depth:10
+rarity:0
+weight:30
+experience:0
+blow:CLAW:HURT:1d3
+blow:CLAW:HURT:1d3
+blow:BITE:HURT:1d4
+flags:NO_FEAR
+desc:Trained to hunt and kill without fear, this glorious bird can bring its prey
+desc: corpses to the master.
+
+name:tamed boar
+base:quadruped
+color:u
+speed:110
+hit-points:12
+hearing:12
+smell:20
+armor-class:20
+sleepiness:40
+depth:15
+rarity:0
+weight:100
+experience:0
+blow:HIT:HURT:3d4
+blow:BITE:HURT:2d6
+# 3-12 2-12
+#  7    7 = 14
+flags:ANIMAL
+flags:BASH_DOOR
+desc:Huge ill-tempered wild boar covered in brown coarse thick fur with large sharp
+desc: tusks and watery snout. It's got good sense of smell and will charge anyone
+desc: who threat its master.
+
+# werewolf
+name:tamed wolf
+base:canine
+color:D
+speed:110
+hit-points:17
+hearing:15
+smell:50
+armor-class:30
+sleepiness:70
+depth:20
+rarity:0
+weight:90
+experience:0
+blow:CLAW:HURT:2d6
+blow:CLAW:HURT:2d6
+blow:BITE:HURT:2d10
+# 2-12  2-12  2-20
+#  7     7     11 = 25
+flags:BASH_DOOR
+desc:It is a huge wolf with eyes that glow with manly intelligence.
+desc: Not many managed to time it...
+
+# werebear
+name:tamed bear
+base:quadruped
+color:D
+speed:112
+hit-points:25
+hearing:20
+smell:20
+armor-class:40
+sleepiness:40
+depth:25
+rarity:0
+weight:300
+experience:0
+blow:CLAW:HURT:1d10
+blow:CLAW:HURT:1d10
+blow:BITE:HURT:2d8
+blow:CRUSH:HURT:2d6
+# 1-10  1-10  2-16  2-12
+#  5     5     9     7 = 26 (*1.2x speed)
+flags:BASH_DOOR
+desc:In the eyes of this bear, there glimmers the bright light of
+desc: intelligence. The combination of animal cunning, nearly human intelligence
+desc: and the great physical strength makes this bear valuable ally.
+
+# basilisk
+name:tamed reptile
+base:reptile
+color:s
+speed:115
+hit-points:35
+hearing:15
+smell:20
+armor-class:50
+sleepiness:30
+depth:30
+rarity:0
+weight:200
+experience:0
+blow:BITE:HURT:2d12
+blow:BITE:HURT:2d12
+blow:BITE:HURT:2d12
+# 2-24  2-24  2-24
+#  13    13    13 = 39 (*1.5x speed)
+flags:BASH_DOOR
+flags:IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
+spell-freq:12
+spells:BO_POIS
+desc:A vile reptile that preys on unsuspecting travellers. Its eyes stare deeply
+desc: at your enemies soul starts to wilt..
+desc: It's a miracle that someone managed to tame it!
+
+name:tamed hellcat
+base:feline
+color:r
+speed:120
+hit-points:50
+light:1
+hearing:25
+smell:50
+armor-class:60
+sleepiness:10
+depth:35
+rarity:0
+weight:120
+experience:0
+blow:BITE:FIRE:4d4
+blow:BITE:FIRE:4d4
+blow:CLAW:FIRE:4d4
+# 4-16 4-16 4-16
+#  10   10   10 = 30 (*2x speed)
+flags:BASH_DOOR
+flags:IM_FIRE | HURT_ROCK | HURT_LIGHT
+spell-freq:8
+spells:BO_FIRE
+desc:Giant fiery panther that glows with heat. Flames pour from its nostrils.
+desc: Sometimes it purrs to you.
+
+name:tamed young unicorn
+base:quadruped
+color:w
+speed:120
+hit-points:70
+light:1
+hearing:20
+smell:20
+armor-class:70
+sleepiness:10
+depth:40
+rarity:0
+weight:300
+experience:0
+blow:KICK:HURT:3d12
+blow:BITE:HURT:3d12
+blow:BUTT:HURT:3d12
+# 3-36  3-36  3-36
+#  20    20    20 = 60 (*2x speed)
+flags:BASH_DOOR
+flags:REGENERATE
+flags:NO_CONF | NO_SLEEP | NO_FEAR | RES_LIGHT
+spell-freq:8
+spells:HEAL | WOUND
+desc:Innocent holy stallion in blinding white color with silky flowing manes,
+desc: sapphire blue eyes and horn which sparks with magic, walking with
+desc: dignified grace. Their neighing is like bells on the wind, sparkling like
+desc: a warm stream.
+
+# great balance drake
+name:tamed drake
+base:dragon
+color:r
+speed:125
+hit-points:100
+light:1
+hearing:20
+armor-class:84
+sleepiness:70
+depth:45
+rarity:0
+weight:4000
+experience:0
+blow:CLAW:HURT:4d8
+blow:CLAW:HURT:4d8
+blow:CRUSH:HURT:4d8
+blow:BITE:HURT:7d9
+# 4-32 4-32 4-32 7-63
+#  18   18   18   35 = 89 (*2.5x speed)
+flags:BASH_DOOR
+flags:IM_FIRE | NO_STUN | NO_CUT
+spell-freq:8
+spells:BLIND | CONF | SCARE
+spells:BA_FIRE | BO_FIRE
+desc:A quite large young dragon with shimmering scales tinted deep red.
+desc: It seems it's in deep affection to its master.
+
+# ancient red dragon
+name:tamed dragon
+base:dragon
+color:r
+speed:130
+hit-points:150
+light:2
+hearing:20
+armor-class:120
+sleepiness:80
+depth:50
+rarity:0
+weight:9000
+experience:0
+# 4-40 4-40 4-40 7-70
+# 22    22   22   38 = 104 (*3x speed)
+blow:CLAW:HURT:4d10
+blow:CLAW:HURT:4d10
+blow:CRUSH:HURT:4d10
+blow:BITE:HURT:7d10
+flags:BASH_DOOR
+flags:IM_FIRE
+spell-freq:6
+spells:BA_FIRE
+desc:A tamed full-grown dragon. Dream of many tamers of Middle-Earth.
+desc: Very intelligent, dragon consider you not as master, but rather like a friend.
+desc: Wisps of smoke steam from its nostrils and the extreme heat surrounding
+desc: it makes you gasp for breath.
 
 # # leave empty line for EOF

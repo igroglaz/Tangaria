@@ -7,8 +7,8 @@
 #define INCLUDED_PLAYER_COMMON_H
 
 /* Maximum number of spells per page */
-/* Note: this must be greater than the maximum number of spells in all books (currently 9) */
-#define MAX_SPELLS_PER_PAGE 10
+/* Note: this must be greater than the maximum number of spells in all books (PWMA: 9, T: 11) */
+#define MAX_SPELLS_PER_PAGE 12
 
 /*
  * Player constants
@@ -98,7 +98,7 @@ enum birth_rollers
     MAX_BIRTH_ROLLERS
 };
 
-/* Necromancers can turn into an undead being */
+/* Warlocks can turn into an undead being */
 #define player_can_undead(P) \
     (player_has((P), PF_UNDEAD_POWERS) && ((P)->state.stat_use[STAT_INT] >= 18+70))
 

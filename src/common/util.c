@@ -1442,9 +1442,9 @@ static const int adj_dex_blow[STAT_RANGE] =
  *
  *   Warrior     --> num = 6; mul = 5; div = MAX(30, weapon_weight);
  *   Mage        --> num = 4; mul = 2; div = MAX(40, weapon_weight);
- *   Druid       --> num = 4; mul = 3; div = MAX(35, weapon_weight);
+ *   Shaman      --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *   Priest      --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Necromancer --> num = 4; mul = 3; div = MAX(35, weapon_weight);
+ *   Warlock     --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *   Paladin     --> num = 5; mul = 5; div = MAX(30, weapon_weight);
  *   Rogue       --> num = 5; mul = 4; div = MAX(20, weapon_weight);
  *   Ranger      --> num = 5; mul = 4; div = MAX(35, weapon_weight);

@@ -2027,7 +2027,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     // allow pass trees in town by running
     if (square_istree(c, &grid) && (p->wpos.depth == 0))
         ;
-    else if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Shaman") && !one_in_(3))
         ;
     else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
         ;    
@@ -2092,7 +2092,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 msgt(p, MSG_HITWALL, "There is a door blocking your way.");
 
             /* Tree */
-            else if (square_istree(c, &grid) && !streq(p->clazz->name, "Druid"))
+            else if (square_istree(c, &grid) && !streq(p->clazz->name, "Shaman"))
                 msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
 
             /* Wall (or secret door) */

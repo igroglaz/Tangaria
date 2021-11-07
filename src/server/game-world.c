@@ -424,9 +424,35 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
-    /* Thunderlord's eagle-companion */
-    if (streq(p->race->name, "Thunderlord") && !p->wpos.depth == 0 &&
-        p->slaves < 1) // one_in_(12 - (p->lev / 10))
+    /* Tamer class: pets */
+    if (streq(p->clazz->name, "Tamer") && !p->wpos.depth == 0 && p->slaves < 1)
+    {
+        if (p->lev < 5)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed rat"), 1, true);
+        else if (p->lev < 10)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed snake"), 1, true);
+        else if (p->lev < 15)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hawk"), 1, true);
+        else if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed boar"), 1, true);
+        else if (p->lev < 25)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed bear"), 1, true);
+        else if (p->lev < 35)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed reptile"), 1, true);
+        else if (p->lev < 40)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hellcat"), 1, true);
+        else if (p->lev < 45)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young unicorn"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed drake"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
+    }
+
+    /* Thunderlord race: eagle-companion */
+    if (streq(p->race->name, "Thunderlord") && !p->wpos.depth == 0 && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);

@@ -62,6 +62,7 @@ EFFECT(DETECT_ALL_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects all creatures 
 EFFECT(DETECT_DOORS, false, NULL, 0, EFINFO_NONE, "detects all doors in the immediate area")
 EFFECT(DETECT_EVIL, false, NULL, 0, EFINFO_NONE, "detects all evil monsters in the immediate area")
 EFFECT(DETECT_FEARFUL_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects all fearful monsters in the immediate area")
+EFFECT(DETECT_ANIMALS, false, NULL, 0, EFINFO_NONE, "detects all animals in the immediate area")
 EFFECT(DETECT_GOLD, false, NULL, 0, EFINFO_NONE, "detects gold nearby")
 EFFECT(DETECT_INVISIBLE_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects all invisible monsters in the immediate area")
 EFFECT(DETECT_LIVING_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects living creatures nearby")

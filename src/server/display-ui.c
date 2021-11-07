@@ -2074,7 +2074,7 @@ void player_death(struct player *p)
     /*
      * Handle permanent death:
      * - all characters have a chance to die permanently (based on number of past deaths)
-     * - no ghost characters (except Necromancers that can turn into an undead being)
+     * - no ghost characters (except Warclocks that can turn into an undead being)
      * - permanently polymorphed characters
      * - ghosts
      * - suiciding characters
@@ -2092,7 +2092,7 @@ void player_death(struct player *p)
     /*
      * Handle every item (including gold):
      * - delete them for all characters that will permanently die
-     * - keep them for Necromancers that can turn into an undead being
+     * - keep them for Warlocks that can turn into an undead being
      * - drop them on the floor for all other characters
      */
     if (perma_death || !player_can_undead(p)) player_strip(p, perma_death);

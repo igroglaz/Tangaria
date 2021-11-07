@@ -59,14 +59,14 @@ help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm and they will get fewer blows with melee weapons than
 help: other classes.
 
-class:Druid
-help:A Druid is a lover of nature, and at one with the natural world. Druids
+class:Shaman
+help:A Shaman is a lover of nature, and at one with the natural world. Shamans
 help: have control of their environment and direct power over creatures, leading
-help: even to the ability to take their forms. Druid skills are moderate, and
-help: they have some fighting ability, especially when transformed. A druid will
+help: even to the ability to take their forms. Shaman skills are moderate, and
+help: they have some fighting ability, especially when transformed. A shaman will
 help: usually seek to shape the flow of events to their purpose rather than
 help: using devices or missiles, but at high levels they do gain access to
-help: potent nature-based magic. Druids rely on their wisdom, and have good
+help: potent nature-based magic. Shamans rely on their wisdom, and have good
 help: saving throws.
 
 class:Priest
@@ -84,14 +84,14 @@ help: Although weak in the beginning, priests could become decent fighters
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.
 
-class:Necromancer
-help:A Necromancer seeks to master the spirits of sentient creatures, creating
+class:Warlock
+help:A Warlock seeks to master the spirits of sentient creatures, creating
 help: servants of their own will. They have chosen a dark and wicked path, and
-help: run a continual risk of harm to their own body and mind. Necromancers love
+help: run a continual risk of harm to their own body and mind. Warlocks love
 help: shadows and hate light, automatically shrouding themselves in darkness.
 help: Their spells require high intelligence, and frequently harm the caster or
 help: place them in danger. In return they achieve awesome power at high levels.
-help: The ultimate aim of the necromancer is to supplant the Dark Enemy and set
+help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
 help: up a tyranny in his place.
 
 class:Paladin
@@ -209,3 +209,14 @@ help: to vanquish before he can assume their form. While transformed, they lose
 help: their intrinsic abilities, and gain those of the creature they have 
 help: transformed into, plus whatever abilities and resistances provided by their
 help: equipment.
+
+class:Tamer
+help:Scar-covered hands of tamer - person devoted his life and (remaining) limbs
+help: to take care of wild creatures - is an evidence what a tideous and dangerous
+help: job it is. Going through dense dim-lit thickets, hot sands and insidious
+help: mountains to stalk a dragon in its den.. to make friends with it - this is
+help: your life ambition. |
+help: You will start not with a dragons though, but with rat companion. If you will
+help: take a good care of it - it will give you certain powers eventually..
+help: Each new pet which you will acquire will teach you something and fight for
+help: your life.
