@@ -4168,8 +4168,8 @@ desc: You take 1d4 points of damage for every monster removed.
 spell:Elemental Harmony:42:42:72:20:0
 effect:TIMED_INC:HARMONY
 dice:10+1d10
-desc:Attunes you to nature, increasing your defensive abilities for 10+1d10
-desc: turns.
+desc:Attunes you to nature, increasing your defensive abilities turns.
+desc: Each cast of this spell when it is active promotes it to the next stage.
 desc: At a first stage, blesses you, giving a bonus of +5 to AC and +10 to-hit.
 desc: At a second stage, increases strength, dexterity and constitution.
 desc: At a third stage, shields you, granting +50 to AC.
@@ -5794,8 +5794,8 @@ equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Fiery Blow:1:2:30:1:0
 effect:MELEE_BLOWS:FIRE
-dice:2d$B
-expr:B:PLAYER_LEVEL:* 4
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC:OPP_FIRE
 dice:20+1d20
 desc:Attempts a fiery melee attack and grants fire resistance.
@@ -5803,7 +5803,7 @@ desc:Attempts a fiery melee attack and grants fire resistance.
 spell:Phase Nova:5:4:24:3:0
 effect:BLAST:ELEC:2
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:+ 0
 effect:TELEPORT
 dice:10
 effect:TIMED_INC:OPP_ELEC
@@ -5827,10 +5827,10 @@ dice:$B
 expr:B:PLAYER_LEVEL:/ 5
 desc:Phase to chosen target.
 
-spell:Frost Attunement:20:20:35:12:0
+spell:Frost Aura:20:20:35:12:0
 effect:TIMED_INC:ICY_AURA
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 0
 desc:Creates a curtain of ice around you to block enemy attacks, damaging and
 desc: freezing them in the process, grants cold resistance, but also
 desc: greatly reduce stealth, movement and can make you vulnerable to fire.
@@ -5878,23 +5878,164 @@ desc: within radius 4 and has a chance of teleporting it away.
 
 spell:Inferno Breath:40:45:55:50:0
 effect:BREATH:PLASMA:0:20
-dice:$Dd8
-expr:D:PLAYER_LEVEL:+ 10
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
 desc:Spews plasma in a long narrow cone from the player.
 
 spell:Lighting Surge:45:50:30:70:0
-effect:LASH:ELEC
-dice:$Dd6
-expr:D:PLAYER_LEVEL:* 4
+effect:BEAM:ELEC
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
 spell:Raw Magic:50:70:40:100:0
 effect:ARC:MANA:0:30
-dice:$Dd4
-expr:D:PLAYER_LEVEL:+ 10
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: subzeroes air into a sharp icicle.
 desc:Sends forward sharp icicle that will damage any creature.
+
+############### CLASS TEMPLATE for Necromancer ###############
+name:Necromancer
+color:Y
+skill-disarm-phys:25:9
+skill-disarm-magic:42:11
+skill-device:35:14
+skill-save:30:9
+skill-stealth:1:0
+skill-search:10:12
+skill-melee:30:20
+skill-shoot:20:15
+skill-dig:1:1
+hitdie:0
+max-attacks:2
+min-weight:40
+strength-multiplier:3
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[-4]
+value:0:INT[4]
+value:0:CON[-3]
+value:0:CHR[-5]
+value:0:RES_NETHER[1]
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:300:1
+
+book:shadow book:town:[Shadows for Beginners]:11:shadow
+equip:shadow book:[Shadows for Beginners]:1:1:none
+
+spell:Poison Dagger:1:1:25:1:0
+effect:MELEE_BLOWS:POIS
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
+effect:TIMED_INC:ATT_POIS:0:5
+dice:2
+effect:CURE:POISONED
+desc:Inflict a blow imbued by deadly poison.
+desc: Also cures your poison.
+
+spell:Bone Armour:5:2:30:3:0
+effect:TIMED_INC:SHIELD
+dice:$B
+expr:B:PLAYER_LEVEL:+ 10
+effect:CURE:CUT
+desc:Grants you AC bonus and cure cut.
+
+spell:Nether Bolt:10:3:35:4:0
+effect:BOLT_OR_BEAM:NETHER:0:-10
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+msg_other: fires a nether bolt.
+desc:Fires a magic missile that always hits its target and does
+desc: unresistable damage.
+desc: Sometimes a beam is fired instead that hurts each monster
+desc: in its path.
+desc: The chance to get a beam goes up with your character level.
+
+spell:Summon Golem:15:8:1:7:0
+cooldown:10
+effect:TIMED_INC:GOLEM
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: summons a golem.
+desc:Attempts to summon golem.
+
+spell:Dark Portal:20:12:30:10:0
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:DETECT_EVIL
+effect-yx:22:40
+msg_other: blinks away.
+desc:Teleports you randomly over a short distance.
+desc: This travel through astral grants ability to feel presence of evil.
+
+spell:Cry Of Cthulhu:25:15:30:15:0
+effect:PROJECT_LOS_AWARE:MON_STUN
+dice:3+1d3
+effect:PROJECT_LOS_AWARE:MON_CONF
+dice:5+1d5
+desc:Curse your enemies into oblivion.
+
+spell:Exhaust Life:30:20:35:25:0
+effect:BLAST:MON_DRAIN:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: dispels life.
+desc:Inflicts unresistable damage on each living monster around you.
+
+spell:Dungeons Flavour:35:20:55:20:0
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:END_INFO
+effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
+effect:DEEP_DESCENT
+desc:Send you to the deepest depths of the dungeon.
+desc: There you get resistance to acid, cold, fire, lightning and poison for
+desc: 20+1d20 turns.
+
+spell:Necromancy Mastery:40:30:35:33:0
+effect:SUMMON:UNDEAD:0:100
+dice:1
+desc:Summon undead remains to fight on your side.
+
+spell:Detonate Skeleton:45:40:40:40:0
+effect:DETONATE
+desc:Makes all your animated skeleton within line of sight explode.
+
+spell:Bone Shell:50:50:40:50:0
+effect:BALL:POIS:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:BOLT:MISSILE
+dice:$B+10d10
+expr:B:PLAYER_LEVEL:* 3
+msg_other: fires a bone bolt.
+desc:Fires a dead sharp bolt that always hits its target.
+desc: After hit it blow up making poison damage.
+
+# HARMONY!
 
 # effect:DEEP_DESCENT
 # effect:BIZARRE

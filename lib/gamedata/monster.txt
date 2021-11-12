@@ -31638,4 +31638,241 @@ desc: Very intelligent, dragon consider you not as master, but rather like a fri
 desc: Wisps of smoke steam from its nostrils and the extreme heat surrounding
 desc: it makes you gasp for breath.
 
+#### Necromancer summons
+
+name:clay_golem
+base:golem
+color:U
+speed:110
+hit-points:30
+hearing:12
+armor-class:30
+sleepiness:10
+depth:15
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d8
+blow:HIT:HURT:1d8
+flags:COLD_BLOOD
+flags:BASH_DOOR
+flags:HURT_ROCK | IM_COLD | IM_FIRE | IM_POIS
+flags:NO_STUN
+flags:SWIM_BAD
+desc:It is a massive animated statue made out of hardened clay.
+
+name:stone_golem
+base:golem
+color:s
+speed:110
+hit-points:70
+hearing:12
+armor-class:40
+sleepiness:20
+depth:25
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d12
+flags:COLD_BLOOD
+flags:BASH_DOOR
+flags:IM_COLD | IM_FIRE | IM_POIS
+flags:FORCE_SLEEP
+flags:NO_STUN
+flags:SWIM_BAD
+desc:It is a massive metal statue that moves steadily towards you.
+
+name:iron_golem
+base:golem
+color:w
+speed:110
+hit-points:100
+hearing:20
+armor-class:50
+sleepiness:50
+depth:35
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d9
+blow:HIT:HURT:1d9
+blow:HIT:HURT:1d9
+blow:HIT:HURT:1d9
+flags:IM_COLD | IM_FIRE | IM_POIS
+flags:EMPTY_MIND | REGENERATE
+flags:OPEN_DOOR | BASH_DOOR
+flags:NO_STUN | COLD_BLOOD
+flags:SWIM_BAD
+desc:It's lighter and faster than other golems.
+
+name:fire_golem
+base:golem
+color:g
+speed:120
+hit-points:150
+light:2
+hearing:25
+armor-class:70
+sleepiness:80
+depth:45
+rarity:0
+weight:0
+experience:0
+blow:CLAW:HURT:3d10
+blow:CLAW:HURT:3d10
+blow:BITE:FIRE:6d10
+blow:BITE:FIRE:6d10
+flags:OPEN_DOOR | BASH_DOOR
+flags:IM_FIRE | IM_POIS | RES_LIGHT
+flags:NO_STUN
+flags:FORCE_SLEEP
+desc:Golem consisted entirely from living flame... summoned by
+desc:accelerating particles of the air at an ever increasing pace
+desc: till the will ignite and the Golem crackles to the world of living to BURN..
+
+name:drolem_
+base:golem
+color:g
+speed:120
+hit-points:250
+hearing:25
+armor-class:100
+sleepiness:80
+depth:50
+rarity:0
+weight:0
+experience:0
+blow:CLAW:HURT:3d10
+blow:CLAW:HURT:3d10
+blow:BITE:POISON:5d10
+blow:BITE:POISON:5d10
+flags:DRAGON | COLD_BLOOD
+flags:OPEN_DOOR | BASH_DOOR
+flags:IM_COLD | IM_FIRE | IM_POIS
+flags:NO_STUN
+flags:FORCE_SLEEP
+flags:SWIM_BAD
+spell-freq:7
+innate-freq:100
+spells:ARROW
+desc:A constructed dragon, the drolem has massive strength. Powerful spells
+desc: weaved during its creation make it a fearsome adversary. Its eyes show
+desc: little intelligence, but it has been instructed to destroy all it meets.
+
+### Necromancer's skeletons
+
+name:skel
+base:skeleton
+color:w
+speed:110
+hit-points:7
+hearing:20
+armor-class:20
+sleepiness:80
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d4
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+name:skelet
+base:skeleton
+color:w
+speed:110
+hit-points:20
+hearing:20
+armor-class:30
+sleepiness:80
+depth:10
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d5
+blow:HIT:HURT:1d5
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+name:skeleton_
+base:skeleton
+color:w
+speed:110
+hit-points:40
+hearing:20
+armor-class:40
+sleepiness:80
+depth:20
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d5
+blow:HIT:HURT:1d5
+blow:HIT:HURT:1d5
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+name:skeleton warrior
+base:skeleton
+color:w
+speed:110
+hit-points:70
+hearing:20
+armor-class:50
+sleepiness:80
+depth:30
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:1d6
+blow:HIT:HURT:1d6
+blow:HIT:HURT:2d6
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+name:skeleton knight
+base:skeleton
+color:w
+speed:110
+hit-points:100
+hearing:20
+armor-class:60
+sleepiness:80
+depth:40
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:2d6
+blow:HIT:HURT:2d6
+blow:HIT:HURT:2d6
+blow:HIT:HURT:2d6
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+name:skeleton warlord
+base:skeleton
+color:w
+speed:120
+hit-points:150
+hearing:20
+armor-class:80
+sleepiness:80
+depth:50
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:6d6
+blow:HIT:HURT:6d6
+blow:HIT:HURT:6d6
+blow:HIT:HURT:6d6
+flags:EMPTY_MIND
+flags:OPEN_DOOR | BASH_DOOR
+desc:It is a small animated skeleton.
+
+
 # # leave empty line for EOF

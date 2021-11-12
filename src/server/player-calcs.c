@@ -2515,7 +2515,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->el_info[ELEM_FIRE].res_level--;
     }
     if (p->timed[TMD_SHIELD])
-        state->to_a += 50;
+        state->to_a += p->lev;
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;

@@ -1574,7 +1574,33 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
             add_monster_message(p, mon, die_msg, false);
 
             /* Reward the master with some experience */
-            if (attacker && (p->id == attacker->master)) monster_give_xp(p, c, mon, true);
+            if (attacker && (p->id == attacker->master))
+            {
+                monster_give_xp(p, c, mon, true);
+
+                // Necromancer class
+                // if monster were killed by minion - raise a skeleton
+                if (streq(p->clazz->name, "Necromancer") && rf_has(mon->race->flags, RF_DROP_CORPSE))
+                {
+                    if (p->slaves < (p->lev / 10) + 1)
+                    {
+                        int duration = (p->lev * 2) + 20;
+
+                        if (p->lev < 10)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
+                        else if (p->lev < 20)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skelet"), 1, true);
+                        else if (p->lev < 30)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton_"), 1, true);
+                        else if (p->lev < 40)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warrior"), 1, true);
+                        else if (p->lev < 50)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton knight"), 1, true);
+                        else if (p->lev > 49)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warlord"), 1, true);
+                    }
+                }
+            }
 
             /* Redraw */
             p->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
@@ -2132,8 +2158,8 @@ void monster_set_master(struct monster *mon, struct player *p, byte status)
     /* A high wisdom and charisma will allow more slaves to be controlled */
     if (p && (mon->status <= MSTATUS_SUMMONED))
     {
-        int maxslaves = 1 + (1 +
-        (((p->state.stat_ind[STAT_WIS]) + (p->state.stat_ind[STAT_CHR])) / 2)) / 4;
+        int maxslaves = 1 + (1 + p->state.stat_ind[STAT_WIS]) / 4;
+        if (p->state.stat_ind[STAT_CHR] > 18) maxslaves++;
 
         if (p->slaves == maxslaves)
         {

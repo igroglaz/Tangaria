@@ -2836,6 +2836,33 @@ void process_monsters(struct chunk *c, bool more_energy)
         /* Ignore monsters that have already been handled */
         if (mflag_has(mon->mflag, MFLAG_HANDLED)) continue;
 
+        // Necromancer class routine
+        if (mon->master)
+        {
+            for (j = 1; j <= NumPlayers; j++)
+            {
+                // use 'b' instead of 'p' there (also other dev used 'q' in code below)
+                struct player *b = player_get(j);
+
+                if (b->id != mon->master) continue;
+
+                if (streq(b->clazz->name, "Necromancer"))
+                {
+                    // Necromancer class lifespan bonus
+                    if (mon->lifespan < b->lev && !one_in_(10))
+                        mon->lifespan++;
+
+                    // Purge necromancer class "unconscious" minions
+                    if (mon->hp == 0)
+                    {
+                        update_monlist(mon);
+                        delete_monster_idx(c, i);
+                        continue;
+                    }
+                }
+            }
+        }
+
         /* Skip "unconscious" monsters */
         if (mon->hp == 0) continue;
 

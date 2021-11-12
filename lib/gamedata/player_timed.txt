@@ -697,3 +697,6 @@ on-end:You feel your movement slow down.
 near-begin: starts running faster.
 near-end: slows movement down.
 #msgt:SPEED
+
+name:GOLEM
+grade:G:10000:Golem:xxx

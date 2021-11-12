@@ -463,7 +463,41 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         else if (p->lev > 49)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
     }
-    
+
+    /* Necromancer class golem */
+    if (p->timed[TMD_GOLEM] && !p->wpos.depth == 0)
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got golem - no need to summon another one
+                if (streq(mon->race->name, "clay_golem")) break;
+                if (streq(mon->race->name, "stone_golem")) break;
+                if (streq(mon->race->name, "iron_golem")) break;
+                if (streq(mon->race->name, "fire_golem")) break;
+                if (streq(mon->race->name, "drolem_")) break;
+            }
+
+            // if we checked all monsters and no golem among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 20 && p->lev > 9)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("clay_golem"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("stone_golem"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("iron_golem"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire_golem"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("drolem_"), 1, true);
+            }
+        }
+    }
+
     /* Damned constantly hunted by monsters */
     if (streq(p->race->name, "Damned") && !p->wpos.depth == 0 &&
         one_in_(50 + (p->lev * 9)))

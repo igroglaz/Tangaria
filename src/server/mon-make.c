@@ -2186,8 +2186,28 @@ void monster_drop_carried(struct player *p, struct chunk *c, struct monster *mon
  */
 void monster_drop_corpse(struct player *p, struct chunk *c, struct monster *mon)
 {
+    /* Necromancer class special case */
+    if (p && rf_has(mon->race->flags, RF_DROP_CORPSE) && streq(p->clazz->name, "Necromancer") &&
+        p->slaves < (p->lev / 10) + 1)
+    {
+        int duration = (p->lev * 2) + 20;
+
+        if (p->lev < 10)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
+        else if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skelet"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton_"), 1, true);
+        else if (p->lev < 40)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warrior"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton knight"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warlord"), 1, true);
+    }
+
     /* Sometimes, a dead monster leaves a corpse */
-    if (rf_has(mon->race->flags, RF_DROP_CORPSE) && one_in_(20))
+    else if (rf_has(mon->race->flags, RF_DROP_CORPSE) && one_in_(20))
     {
         struct object *corpse = object_new();
         s32b timeout;
