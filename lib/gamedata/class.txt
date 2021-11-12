@@ -1058,7 +1058,7 @@ msg_other:'s hands project a line of shimmering blue light.
 desc:Fires a beam that lights up each square and hurts each
 desc: light-sensitive monster in its path.
 
-book:prayer book:town:[Words of Wisdom]:8:divine
+book:prayer book:town:[Words of Wisdom]:7:divine
 book-graphics:?:G
 book-properties:10:30:400
 book-alloc:30:10 to 100
@@ -1111,12 +1111,6 @@ dice:1d$S
 expr:S:PLAYER_LEVEL:* 5
 msg_other: dispels evil.
 desc:Inflicts unresistable damage on each evil monster within line of sight.
-
-spell:Holy Water:19:25:80:15:0
-effect:CREATE_HOLY_WATER
-desc:Allows to bless any potions and turn it to holy water.
-desc: Attention! It will bless full stack of potions.
-desc: This prayer requires nutrition.
 
 book:prayer book:town:[Chants and Blessings]:6:divine
 book-graphics:?:G
@@ -6001,6 +5995,7 @@ msg_other: dispels life.
 desc:Inflicts unresistable damage on each living monster around you.
 
 spell:Dungeons Flavour:35:20:55:20:0
+effect:DEEP_DESCENT
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
@@ -6010,7 +6005,6 @@ effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
-effect:DEEP_DESCENT
 desc:Send you to the deepest depths of the dungeon.
 desc: There you get resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
@@ -6034,6 +6028,173 @@ expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a bone bolt.
 desc:Fires a dead sharp bolt that always hits its target.
 desc: After hit it blow up making poison damage.
+
+############### CLASS TEMPLATE for Cleric ###############
+name:Cleric
+color:G
+skill-disarm-phys:34:8
+skill-disarm-magic:27:7
+skill-device:30:10
+skill-save:32:12
+skill-stealth:2:0
+skill-search:10:14
+skill-melee:45:20
+skill-shoot:35:20
+skill-dig:0:0
+hitdie:1
+min-weight:35
+strength-multiplier:3
+equip:light:Wooden Torch:1:3:none
+equip:hafted:Mace:1:1:none
+equip:potion:Cure Serious Wounds:2:3:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+value:0:STR[-2]
+value:0:INT[-3]
+value:0:WIS[3]
+value:0:DEX[-1]
+value:0:CON[0]
+value:0:CHR[3]
+value:0:BLOWS[1d1]
+player-flags:0:ZERO_FAIL | MARTIAL_ARTS | BEAM
+title:Believer
+title:Acolyte
+title:Devotee
+title:Adept
+title:Evangelist
+title:Chaplain
+title:Elder
+title:Prophet
+title:Patriarch
+title:Cardinal
+
+magic:1:350:1
+
+book:prayer book:town:[Beginners Handbook]:11:divine
+book-graphics:?:G
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A standard divine book with a few prayers.
+equip:prayer book:[Beginners Handbook]:1:1:none
+
+spell:Light Ray:1:1:22:3:0
+effect:BOLT_OR_BEAM:LIGHT:0:-10
+dice:$Dd4
+expr:D:PLAYER_LEVEL:- 1 / 5 + 3
+effect:LIGHT_AREA
+msg_other: fires a light missile.
+desc:Fires a light missile that always hits its target and does
+desc: unresistable damage.
+desc: Sometimes a beam is fired instead that hurts each monster
+desc: in its path.
+desc: The chance to get a beam goes up with your character level.
+desc: If you are in a room, the entire room will be lit up as well.
+
+spell:Safe Guard:5:3:35:7:0
+effect:TELEPORT
+dice:10
+effect:TIMED_INC:HERO
+dice:25+1d25
+effect:TIMED_INC:BOLD
+dice:25+1d25
+effect:CURE:AFRAID
+effect:HEAL_HP
+dice:10
+msg_other: blinks away.
+desc:Your guardian teleports you randomly up to 10 squares away.
+desc: Cures 10 points of damage, removes fear and grants you heroism
+desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
+
+spell:Anathema:10:4:30:11:0
+effect:CURSE
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+desc:Deals non-resistable damage to a single monster.
+
+spell:Art Of Healing:15:8:32:16:0
+effect:TIMED_INC:REGEN
+dice:20+1d20
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 10
+expr:M:PLAYER_LEVEL:/ 3 + 12
+desc:Cures a level-dependent percentage of your wounds.
+desc: Also greatly increases your regeneration rate for 20+1d20 turns.
+desc: The effect of this spell is cumulative with other means of regeneration.
+
+spell:Vasa Sacra:20:14:40:20:0
+effect:CREATE_HOLY_WATER
+effect:GLYPH:WARDING
+desc:Allows to bless any potions and turn it to holy water.
+desc: Blessing ritual makes floor beneath you blessed.
+desc: Summoned monsters can't appear on the blessed floor.
+desc: If a monster attempts to move onto the blessed floor or melee you while you
+desc: are standing on the blessed floor, it must first succeed in desecrating the
+desc: blessed floor.
+desc: Higher level monsters are more likely to desecrate the blessed floor.
+desc: The blessed floor will remain where it is, until a monster succeeds in
+desc: desecrating it or until you leave the level.
+desc: Attention! It will bless full stack of potions.
+desc: Also this ritual requires nutrition.
+
+spell:Holy Force:25:19:50:30:0
+effect:BOLT_MELEE:FORCE
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+desc:Hits the target with force, knocking it back with a chance to stun it.
+
+spell:Rage Of Inquisition:30:25:37:50:0
+effect:TIMED_INC:BLOODLUST:0:-1
+dice:10
+desc:Gives you a powerful desire to kill, increased every time you satisfy it.
+desc: Gives you extra melee damage and extra blows, but comes
+desc: with dangerous side-effects.
+
+spell:Repentance:35:35:42:62:0
+effect:RESTORE_EXP
+effect:RESTORE_STAT:CHR
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:DEX
+effect:RESTORE_STAT:WIS
+effect:RESTORE_STAT:INT
+effect:RESTORE_STAT:STR
+effect:CURE:AFRAID
+effect:CURE:AMNESIA
+effect:CURE:POISONED
+effect:CURE:CUT
+effect:CURE:STUN
+desc:Remove all negative conditions and restore stats.
+
+spell:Path of Light:40:45:75:100:0
+effect:BREATH:LIGHT:0:20
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:BALL:HOLY_ORB:2:30
+dice:$B+3d6
+expr:B:PLAYER_LEVEL:* 3
+msg_other: fires a holy orb!
+desc:Shoots a ball that does unresistable damage and spews light in a long
+desc: narrow cone from the player. Evil monsters take double damage.
+desc: The bigger area of effect is attained at character level 30.
+
+spell:Greater Heal:45:60:75:140:0
+effect:HEAL_HP
+dice:1000
+desc:Cures significant amount of damage.
+
+spell:Salvation:50:100:44:200:0
+cooldown:200
+effect:TIMED_INC:REVIVE
+dice:10+1d10
+effect:TIMED_INC:INVULN
+dice:4+1d5
+desc:Allows you to avoid death once in a while.
+desc: Can be used every 200 turns.
+desc: Also grants you resistance against non-physical attacks for a moment.
+desc: The shield absorbs a percentage of damage from such attacks
+desc: equal to your character level.
+
 
 # HARMONY!
 
