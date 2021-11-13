@@ -350,7 +350,7 @@ title:Spellbinder
 title:Evoker
 title:Conjurer
 title:Magician
-title:Sorcerer
+title:Mage
 title:Arch-Mage
 
 magic:1:300:5
@@ -3503,8 +3503,8 @@ title:Spellbinder
 title:Evoker
 title:Conjurer
 title:Magician
-title:Sorcerer
-title:Arch-Mage
+title:Master
+title:Elementalist
 
 magic:1:300:5
 
@@ -5054,7 +5054,7 @@ book-desc:A standard nature book with a few verses.
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Emit Poison:1:2:27:4:0
-effect:BLAST:POIS:2
+effect:BLAST:POIS:1
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2 + 10
 msg_other: emites a stinking cloud.
@@ -5108,15 +5108,15 @@ dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
 
 spell:Toxic Moisture:33:20:75:24:0
-effect:BALL:ICE:3
+effect:BALL:ICE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 50
-effect:BALL:WATER:3
+expr:B:PLAYER_LEVEL:* 3
+effect:BALL:WATER:2
 dice:$B
-expr:B:PLAYER_LEVEL:+ 50
+expr:B:PLAYER_LEVEL:* 2
 effect:BALL:POIS:3
 dice:$B
-expr:B:PLAYER_LEVEL:+ 50
+expr:B:PLAYER_LEVEL:* 2
 msg_other: invokes a toxic storm.
 desc:Shoots a radius-3 toxic ball. Each ball will do 1/3 damage from poison,
 desc: 1/3 damage from water and 1/3 damage from ice.
@@ -5221,7 +5221,7 @@ equip:shadow book:[Shadows for Beginners]:1:1:none
 spell:Lunge:1:2:25:1:0
 effect:DAMAGE
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:WEAPON_DAMAGE:+ 0
 effect:MELEE_BLOWS:MISSILE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -5274,7 +5274,7 @@ desc:Attempts to improve the armour class bonus of a piece of armour.
 desc: This prayer reduce your nourishment.
 
 spell:Whirlwind:40:16:60:110:0
-effect:BLAST:CURSE:3
+effect:BLAST:CURSE:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 desc:Make rain of blows in a dance of killing machine.
@@ -5358,6 +5358,9 @@ desc:Lights up a small magical fire.
 desc: It removes fear and give resistance to fear for 25+1d25 turns.
 
 spell:Charge:10:8:16:7:0
+effect:MELEE_BLOWS:MISSILE
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
 effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 1
@@ -5453,7 +5456,7 @@ magic:1:300:1
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Magic Missile:1:1:22:4:0
+spell:Magic Missile:1:1:22:2:0
 effect:BOLT_OR_BEAM:MISSILE:0:-10
 dice:$Dd4
 expr:D:PLAYER_LEVEL:- 1 / 5 + 3
@@ -5470,7 +5473,7 @@ dice:10
 msg_other: blinks away.
 desc:Teleports you randomly up to 10 squares away.
 
-spell:Light Room:10:2:26:4:0
+spell:Light Room:10:4:26:8:0
 effect:BLAST:LIGHT_WEAK:2
 dice:2d$S
 expr:S:PLAYER_LEVEL:/ 2
@@ -5480,21 +5483,21 @@ desc:Lights up all squares within 2 grids of the player and hurts
 desc: all light-sensitive monsters in the area of effect.
 desc: If you are in a room, the entire room will be lit up as well.
 
-spell:Confuse Monster:15:3:30:5:0
+spell:Confuse Monster:15:5:30:16:0
 effect:BOLT_AWARE:MON_CONF
 dice:5+1d$S
 expr:S:PLAYER_LEVEL:+ 0
 msg_other: makes a complicated gesture.
 desc:Attempts to confuse a single monster. More effective against animals.
 
-spell:Minor Healing:20:2:15:4:1
+spell:Minor Healing:20:7:15:32:1
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds.
 
-spell:Heroism:25:2:30:5:0
+spell:Heroism:25:12:30:50:0
 effect:TIMED_INC:HERO
 dice:25+1d25
 effect:TIMED_INC:BOLD
@@ -5505,35 +5508,34 @@ dice:10
 desc:Cures 10 points of damage, removes fear and grants you heroism
 desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
 
-spell:Detect Evil:30:1:10:4:0
+spell:Detect Evil:30:15:10:70:0
 effect:DETECT_EVIL
 effect-yx:22:40
 desc:Detects all evil monsters in the immediate area,
 desc: for one turn only.
 
-spell:Fire Ball:35:2:17:3:0
-effect:BALL:FIRE:2
+spell:Fire Ball:35:20:17:90:0
+effect:BALL:FIRE:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a fire ball.
 desc:Shoots a radius-2 fire ball.
 
-spell:Portal:40:4:30:4:0
+spell:Portal:40:30:30:120:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: blinks away.
 desc:Teleports you randomly over a short distance.
 
-spell:Lightning:45:3:30:4:0
-effect:BEAM:ELEC
-dice:$Dd6
-expr:D:PLAYER_LEVEL:* 2
+spell:Lightning:45:25:30:140:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
-spell:Glyph of Warding:50:40:90:35:0
-cooldown:150
+spell:Glyph of Warding:50:50:30:150:0
+cooldown:100
 effect:GLYPH:WARDING
 desc:Inscribes a glyph of warding beneath you.
 desc: Summoned monsters can't appear on the glyph.
@@ -5602,7 +5604,7 @@ equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Brave Song:1:2:30:1:0
 effect:WAKE
-effect:BLAST:SOUND:3
+effect:BLAST:SOUND:2
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC:BOLD
@@ -5672,7 +5674,7 @@ desc: Attempts to confuse each monster within line of sight.
 
 spell:Thunderclap:30:30:30:35:0
 effect:WAKE
-effect:BLAST:FORCE:2
+effect:BLAST:FORCE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 effect:CURE:BLACKBREATH
@@ -5711,7 +5713,7 @@ desc: Hastes you (+10 to speed) for a level-dependent duration.
 
 spell:Resonance:45:90:65:100:0
 effect:WAKE
-effect:EARTHQUAKE:NONE:2
+effect:EARTHQUAKE:NONE:1
 effect:TIMED_INC:SAFE
 dice:20+1d20
 msg_other: invokes an earsplitting sound!
@@ -5720,7 +5722,7 @@ desc: May destroys everything in a 2-square radius circle around you.
 
 spell:Ballad of Elements:50:100:35:150:0
 effect:WAKE
-effect:STRIKE:PLASMA:3
+effect:STRIKE:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
 effect:CLEAR_VALUE
@@ -5795,7 +5797,7 @@ dice:20+1d20
 desc:Attempts a fiery melee attack and grants fire resistance.
 
 spell:Phase Nova:5:4:24:3:0
-effect:BLAST:ELEC:2
+effect:BLAST:ELEC:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TELEPORT
@@ -5848,8 +5850,8 @@ expr:B:PLAYER_LEVEL:/ 2 + 30
 expr:M:PLAYER_LEVEL:/ 20 + 2
 effect:TIMED_INC:OPP_ACID
 dice:20+1d20
-msg_other: fires a swarm of meteors.
-desc:Shoots a swarm of 3 or 4 meteors.
+msg_other: fires a swarm of acid meteors.
+desc:Shoots a swarm of 3 or 4 acid meteors.
 desc: Meteors will travel until hitting a wall, a monster
 desc: or reaching the target location.
 desc: Meteors will explode as a radius-1 ball that does unresistable
@@ -5883,12 +5885,15 @@ expr:B:PLAYER_LEVEL:* 4
 msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
-spell:Raw Magic:50:70:40:100:0
-effect:ARC:MANA:0:30
+spell:Mana Bolt:50:60:40:100:0
+effect:LINE:KILL_WALL
+dice:20+1d30
+effect:BOLT_OR_BEAM:MANA:0:-10
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: subzeroes air into a sharp icicle.
-desc:Sends forward sharp icicle that will damage any creature.
+expr:B:PLAYER_LEVEL:* 7
+msg_other: fires a magic bolt.
+desc:Fires a magic bolt that always hits its target, does
+desc: unresistable damage and may crush stone walls.
 
 ############### CLASS TEMPLATE for Necromancer ###############
 name:Necromancer
@@ -5934,7 +5939,7 @@ magic:1:300:1
 book:shadow book:town:[Shadows for Beginners]:11:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
-spell:Poison Dagger:1:1:25:1:0
+spell:Poison Jab:1:1:25:1:0
 effect:MELEE_BLOWS:POIS
 dice:$B
 expr:B:PLAYER_LEVEL:+ 1
@@ -5988,7 +5993,7 @@ dice:5+1d5
 desc:Curse your enemies into oblivion.
 
 spell:Exhaust Life:30:20:35:25:0
-effect:BLAST:MON_DRAIN:2
+effect:BLAST:MON_DRAIN:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: dispels life.
@@ -6195,6 +6200,170 @@ desc: Also grants you resistance against non-physical attacks for a moment.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
 
+############### CLASS TEMPLATE for Wizard ###############
+
+name:Wizard
+color:Z
+skill-disarm-phys:35:9
+skill-disarm-magic:50:12
+skill-device:40:15
+skill-save:30:9
+skill-stealth:1:0
+skill-search:10:12
+skill-melee:30:11
+skill-shoot:20:15
+skill-dig:0:0
+hitdie:0
+max-attacks:2
+min-weight:40
+strength-multiplier:2
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[-4]
+value:0:INT[5]
+value:0:CON[-2]
+value:0:CHR[-2]
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+title:Novice
+title:Apprentice
+title:Trickster
+title:Illusionist
+title:Spellbinder
+title:Evoker
+title:Conjurer
+title:Magician
+title:Enchanter
+title:Wizard
+
+magic:1:300:2
+
+book:magic book:town:[Magic for Beginners]:11:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
+
+spell:Fireball:1:1:27:2:0
+effect:BALL:FIRE:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
+msg_other: fires a fire ball.
+desc:Shoots a radius-2 fire ball.
+
+spell:Teleport:5:2:35:5:0
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+msg_other: teleports away.
+desc:Teleports you randomly within the current level and
+desc: restore some vigor.
+
+spell:Cold Ray:10:3:30:6:0
+effect:BEAM:COLD
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 * 30
+msg_other: fires a cold ray.
+desc:Fires a cold ray that hurts each monster in its path.
+
+spell:Protection:15:5:34:11:0
+effect:TIMED_INC:SHIELD
+dice:20+1d20
+desc:Grants you +50 to AC for 20+1d20 turns.
+
+spell:Static Charge:20:7:32:24:0
+effect:STAR:ELEC:2
+dice:$Dd$S&m8
+expr:D:PLAYER_LEVEL:- 5 / 4 + 6
+expr:S:PLAYER_LEVEL:/ 5
+msg_other: strikes lightning from above.
+desc:Strikes surrounding targets with a lightning.
+
+spell:Invisibility:25:15:45:30:0
+effect:TIMED_INC:INVIS:0:5
+dice:$B+1d20
+expr:B:PLAYER_LEVEL:+ 20
+desc:Makes you invisible for a short duration.
+desc: High level, questor, invisible and injured monsters
+desc: cannot be fooled by this trick.
+
+spell:Energy Bolt:30:15:27:40:0
+effect:BALL:PLASMA:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+effect:BALL:PLASMA:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:RANDOM
+dice:2
+effect:BOLT:PLASMA
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which explodes upon impact.
+
+spell:Magic Reflection:35:20:45:50:0
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:END_INFO
+effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
+effect:TIMED_INC:SAFE
+dice:20+1d20
+desc:Grants you resistance to acid, cold, fire, lightning and poison for
+desc: 20+1d20 turns and also protect from bad effects.
+
+spell:Flamestrike:40:25:33:70:0
+effect:STRIKE:FIRE:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+msg_other: strikes fire from below.
+desc:Strikes a target from below with a fire.
+desc: Target grid must be targetable and known to the player;
+desc: no target grid will mean the player grid is hit.
+
+spell:Blizzard:45:40:40:100:0
+effect:ARC:ICE:0:30
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
+msg_other: subzeroes air into a sharp icicles.
+desc:Sends forward sharp icicle storm.
+
+spell:Armageddon:50:50:40:150:0
+effect:SWARM:MANA:1
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:* 2
+# testing note: won't work on the surface as number of Meteors depends of depth
+expr:M:DUNGEON_LEVEL:/ 30
+msg_other: fires a swarm of mana meteors.
+desc:Shoots a swarm of 3 or 4 mana meteors.
+desc: Meteors will travel until hitting a wall, a monster
+desc: or reaching the target location.
+desc: Meteors will explode as a radius-1 ball that does
+desc: damage to each monster in its area of effect.
+desc: If this kills the monster that blocked the path to the target
+desc: location, the next meteor may continue to find another target.
+
+book:magic book:dungeon:[Wizard's Tome of Power]:1:arcane
+
+spell:Summon Demon:50:100:42:200:0
+cooldown:100
+effect:SUMMON:DEMON:0:100
+dice:1
+msg_other: summons a demon.
+desc:Attempts to summon a demon.
+
+
+#effect:MELEE_BLOWS:MISSILE
+#dice:$B
+#expr:B:WEAPON_DAMAGE:+ 0
 
 # HARMONY!
 
@@ -6293,6 +6462,13 @@ desc: equal to your character level.
 #WEB - add some other terrain types
 
 #WONDER
+
+# find the formula to make RANDOM reduce with level so
+# it will be possible to make extra hit...
+# just for fun :) as it's easier to hardcode such mechanics.
+#effect:RANDOM
+#dice:$B
+#expr:B:PLAYER_LEVEL: ...
 
 ############### GHOST ###############
 # Hack -- not a real class, used for ghost realm spells
