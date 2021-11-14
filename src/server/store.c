@@ -628,7 +628,7 @@ static bool store_will_buy(struct player *p, int sidx, const struct object *obj)
     if ((s->type == STORE_GENERAL) && !object_fully_known(p, obj)) return false;
 
     /* PWMAngband: store doesn't buy anything */
-    if (cfg_limited_stores == 2) return false;
+    if (cfg_limited_stores == 2 && !streq(p->clazz->name, "Trader")) return false;
 
     /* Ignore "worthless" items */
     unknown = ((cfg_limited_stores || OPT(p, birth_no_selling)) && tval_has_variable_power(obj) &&
@@ -747,12 +747,17 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
         /* Shops now pay 2/3 of true value */
         price = price * 2 / 3;
 
+        // Trader class can sell for miserable price
+        if (streq(p->clazz->name, "Trader"))
+            price /= 7 - (p->lev / 10);
+
         /* Black markets suck */
         if (s->type == STORE_B_MARKET) price = floor(price / 2);
         if (s->type == STORE_XBM) price = floor(price / factor);
 
         /* Check for no_selling option */
-        if (cfg_limited_stores || OPT(p, birth_no_selling)) return (0L);
+        if ((cfg_limited_stores || OPT(p, birth_no_selling)) &&
+            !streq(p->clazz->name, "Trader")) return (0L);
     }
 
     /* Shop is selling */
@@ -3004,7 +3009,7 @@ void store_confirm(struct player *p)
     object_desc(p, o_name, sizeof(o_name), sold_item, ODESC_PREFIX | ODESC_FULL);
 
     /* Describe the result (in message buffer) */
-    if (cfg_limited_stores || OPT(p, birth_no_selling))
+    if ((cfg_limited_stores || OPT(p, birth_no_selling)) && !streq(p->clazz->name, "Trader"))
         msg(p, "You had %s (%c).", o_name, label);
     else
     {

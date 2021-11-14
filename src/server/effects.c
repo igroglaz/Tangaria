@@ -1153,6 +1153,13 @@ static bool effect_handler_ACQUIRE(effect_handler_context_t *context)
 {
     int num = effect_calculate_value(context, false);
 
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You cannot get anything while on surface...");
+        return false;
+    }
+
     acquirement(context->origin->player, context->cave, num, 0);
     context->ident = true;
     return true;

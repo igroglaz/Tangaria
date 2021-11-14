@@ -1950,7 +1950,12 @@ struct object *make_gold(struct player *p, struct chunk *c, int lev, const char 
         if (cfg_gold_drop_vanilla && (p->wpos.depth > 0)) value *= 5;
 
         /* PWMAngband method: multiply by a depth dependent factor */
-        else value = (value * level_golds[p->wpos.depth]) / 10;
+        else
+        {
+            value = (value * level_golds[p->wpos.depth]) / 10;
+            if (streq(p->clazz->name, "Trader"))
+                value /= 2;
+        }
     }
 
     /* Cap gold at max short (or alternatively make pvals s32b) */

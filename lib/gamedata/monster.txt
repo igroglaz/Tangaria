@@ -31874,5 +31874,77 @@ flags:EMPTY_MIND
 flags:OPEN_DOOR | BASH_DOOR
 desc:It is a small animated skeleton.
 
+###### trader's cat
+
+name:kitten
+base:feline
+color:z
+speed:110
+hit-points:1
+hearing:30
+smell:30
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d1
+flags:RAND_50 | RAND_25
+flags:NO_PASS_TREE
+desc:Your meowing cat. It walks by itself, but sometimes can guard you from threats.
+
+name:cat
+base:feline
+color:z
+speed:110
+hit-points:1
+hearing:30
+smell:30
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d3
+flags:RAND_50
+flags:NO_PASS_TREE
+desc:Your meowing cat. It walks by itself, but sometimes can guard you from threats.
+
+name:housecat
+base:feline
+color:z
+speed:120
+hit-points:1
+hearing:30
+smell:30
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d6
+flags:RAND_25
+flags:NO_PASS_TREE
+desc:Your meowing cat. It walks by itself, but sometimes can guard you from threats.
+
+name:big cat
+base:feline
+color:z
+speed:130
+hit-points:1
+hearing:30
+smell:30
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d12
+flags:NO_PASS_TREE
+desc:Your meowing cat. It walks by itself, but sometimes can guard you from threats.
 
 # # leave empty line for EOF
