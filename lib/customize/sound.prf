@@ -623,4 +623,6 @@ sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6
 
 sound:chop_tree_fall:chop_tree_fall
 
+sound:sentry:sentry
+
 # leave empty line for EOF

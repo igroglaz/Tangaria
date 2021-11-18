@@ -511,6 +511,44 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
+    /* Assassins class sentry */
+    if (p->timed[TMD_SENTRY] && !p->wpos.depth == 0)
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got golem - no need to summon another one
+                if (streq(mon->race->name, "blade sentry")) break;
+                if (streq(mon->race->name, "dart sentry")) break;
+                if (streq(mon->race->name, "spear sentry")) break;
+                if (streq(mon->race->name, "acid sentry")) break;
+                if (streq(mon->race->name, "fire sentry")) break;
+                if (streq(mon->race->name, "lightning sentry")) break;
+            }
+
+            // if we checked all monsters and no golem among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 10)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("blade sentry"), 1, true);
+                else if (p->lev < 20)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("dart sentry"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("spear sentry"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("acid sentry"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire sentry"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("lightning sentry"), 1, true);
+                sound(p, MSG_SENTRY);
+            }
+        }
+    }
+
     /* Damned constantly hunted by monsters */
     if (streq(p->race->name, "Damned") && !p->wpos.depth == 0 &&
         one_in_(50 + (p->lev * 9)))

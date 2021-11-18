@@ -159,6 +159,11 @@
 # ! Don't rename classes - it will make savefiles broken
 ###
 
+#effect:TIMED_INC:SENTRY
+#dice:1
+#will work only for current turn. So to make it summoned - it should be min 2. 
+#but to buff next blow - it's alright to have 1
+
 ############### WARRIOR ###############
 name:Warrior
 color:u
@@ -6275,7 +6280,7 @@ dice:20+1d20
 desc:Grants you +50 to AC for 20+1d20 turns.
 
 spell:Static Charge:20:7:32:24:0
-effect:STAR:ELEC:2
+effect:STAR:ELEC
 dice:$Dd$S&m8
 expr:D:PLAYER_LEVEL:- 5 / 4 + 6
 expr:S:PLAYER_LEVEL:/ 5
@@ -6502,6 +6507,229 @@ effect:NOURISH:SET_TO
 dice:5
 desc:You venture into dangerous business for a trade deal.
 
+############### CLASS TEMPLATE for Assassin ###############
+name:Assassin
+color:p
+skill-disarm-phys:43:11
+skill-disarm-magic:36:10
+skill-device:32:10
+skill-save:28:10
+skill-stealth:0:1
+skill-search:18:13
+skill-melee:45:45
+skill-shoot:66:40
+skill-dig:0:0
+hitdie:1
+max-attacks:6
+min-weight:25
+strength-multiplier:4
+equip:light:Wooden Torch:1:3:none
+equip:hafted:Club:1:1:none
+equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[1]
+value:0:INT[2]
+value:0:WIS[-2]
+value:0:DEX[2]
+value:0:CON[0]
+value:0:CHR[-2]
+player-flags:0:CHOOSE_SPELLS
+player-flags:0:BACK_STAB
+title:Vagabond
+title:Cutpurse
+title:Footpad
+title:Robber
+title:Burglar
+title:Filcher
+title:Sharper
+title:Eliminator
+title:Assassin
+title:Master Assassin
+
+magic:5:350:2
+
+book:shadow book:town:[Shadows for Beginners]:11:shadow
+equip:shadow book:[Shadows for Beginners]:1:1:none
+
+spell:Sentry:1:1:20:1:0
+#cooldown:10
+effect:TIMED_INC:SENTRY
+dice:2
+effect:DRAIN_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: activate sentry.
+desc:Setup battle sentry.
+desc:  1 level: blade sentry
+desc: 10 level: dart sentry
+desc: 20 level: spear sentry
+desc: 30 level: acid sentry
+desc: 40 level: fire sentry
+desc: 50 level: lightning sentry
+desc: Requires additional mana when you get each level.
+desc: If you cast the spell without enough mana - you suffer severe exhaustion.
+
+spell:Bad Feeling:5:1:1:3:0
+effect:TIMED_INC:ESP
+dice:1
+desc:Grants you the power of telepathy for a moment.
+
+spell:Lightning Reflex:10:3:25:5:0
+effect:TIMED_INC:FAST:0:5
+dice:2
+effect:MELEE_BLOWS:CURSE
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
+msg_other: stubbed a tearing blow.
+desc:Makes a wounding blow and hastes you for a moment.
+desc: This also has a chance to cause open wounds.
+
+spell:Adrenaline Splash:15:5:30:10:0
+cooldown:10
+effect:MELEE_BLOWS:FORCE
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
+desc:Makes melee attack and hits the target with force, knocking it back
+desc: with a chance to stun it.
+
+spell:Shadowstep:20:7:16:17:0
+cooldown:12
+effect:MELEE_BLOWS:MON_STUN
+dice:2
+effect:TELEPORT_TO
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 1
+effect:TIMED_INC:FAST:0:5
+dice:1
+desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
+
+spell:Shadow Decoy:25:15:40:25:0
+cooldown:15
+effect:GLYPH:DECOY
+desc:Leaves a magical decoy that looks and sounds like the player.
+
+spell:Infiltration:30:20:22:30:0
+effect:BOLT:SLEEP_ALL
+effect:BOLT:PSI
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+msg_other: hurls a mind blast.
+desc:Fires a mental blast that will damage minded creatures with some
+desc: side effects like stun, confuse, scare.
+desc: Also attempts to put asleep every adjacent, non-resistant monster for a level-dependent
+desc: number of turns. Animals are entranced for longer.
+
+spell:Shield of Blades:35:25:27:40:0
+effect:BLAST:MISSILE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+effect:TIMED_SET:DEADLY
+dice:2
+effect:TIMED_INC:BIOFEEDBACK
+dice:2
+desc:Makes powerful whirl attack.
+desc: Also gives your melee blows a chance to score a critical hit,
+desc: increases regeneration rate, reduces damage from missile,
+desc: shards or sound attacks.
+desc: This power can cause additional nasty effects when Adrenaline Charging is
+desc: activated.
+
+spell:Finishing Move:40:35:30:60:0
+cooldown:11
+effect:CURSE
+dice:$Dd$S
+expr:D:PLAYER_LEVEL:/ 8 + 1
+expr:S:MONSTER_PERCENT_HP_GONE:+ 0
+desc:Deals direct damage to a single monster, more the more damaged the monster
+desc: is already.
+
+spell:Traumaturgy:45:50:35:80:0
+cooldown:15
+effect:STRIKE:PSI_DRAIN:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+msg_other: strikes with psi energy.
+desc:Drains part of the life-force from a nearby monster and replenishes
+desc: your mana with it. Does not affect undead, demons, golems, elementals or
+desc: vortices.
+desc:Strikes a target from above with a lightning bolt, followed by a clap
+desc: of thunder. Target grid must be targetable and known to the player;
+desc: no target grid will mean the player grid is hit.
+
+spell:Flower of Death:50:10:32:100:0
+effect:STAR:POIS
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
+effect:DRAIN_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: activate fire trap.
+desc:Activate fire trap that shoots poison in each of
+desc: the eight directions starting from your character.
+desc: Beware to use on low mana.
+
+# 1st dungeon book
+book:shadow book:dungeon:[Dark Evocations]:6:shadow
+
+spell:Fade in Shadows:25:15:30:25:0
+cooldown:50
+effect:TIMED_INC:STEALTH
+dice:10+1d10
+desc:Makes your more silent for a while.
+
+spell:Sneak to Depths:30:20:30:40:0
+effect:TIMED_INC:PROBTRAVEL
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Allows you to go 1 level down at will immediately.
+
+spell:Dissolve into Shadow:35:30:40:50:0
+effect:TIMED_INC:INVIS:0:5
+dice:$B+1d20
+expr:B:PLAYER_LEVEL:+ 20
+desc:Makes you invisible for a short duration.
+desc: High level, questor, invisible and injured monsters
+desc: cannot be fooled by this trick.
+
+spell:Assassin's Potion:40:30:20:70:0
+cooldown:50
+effect:TIMED_INC:SHERO:0:5
+dice:12+1d12
+effect:TIMED_INC:HERO
+dice:12+1d12
+effect:TIMED_INC:SINFRA
+dice:12+1d12
+effect:TIMED_INC:BOLD:0:5
+dice:12+1d12
+effect:CURE:AFRAID
+desc:Grants you resistance to fear and a bonus of +36 to-hit
+desc: and a penalty of -10 to AC.
+desc: Also you can see in the dark like a cat for a little while.
+
+spell:Preparation:45:50:30:90:0
+cooldown:100
+effect:TIMED_INC:HOLD_WEAPON
+dice:20+1d20
+desc:Grants extra damage each turn and makes you immune to disarming
+desc: for 20+1d20 turns.
+
+spell:Inception:50:40:33:120:0
+effect:TIMED_INC:ADRENALINE
+dice:10+1d10
+desc:Attempts to get full control over your mind and body, increasing your
+desc: fighting abilities each time you apply this meditation while it's active.
+desc: At a first stage, cures 30 points of damage, removes fear and grants
+desc: you berserk strength (resistance to fear, a bonus of +24 to-hit and a
+desc: penalty of -10 to AC).
+desc: At a second stage, increases strength, dexterity and constitution.
+desc: At a third stage, grants a bonus of +8 to-dam.
+desc: At a fourth stage, increases attack speed by 1.
+desc: At a fifth and last stage, hastes you (+10 to speed).
+desc: This power can cause damage if used too often or when Biofeedback is
+desc: activated.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
@@ -6604,6 +6832,9 @@ desc:You venture into dangerous business for a trade deal.
 #WEB - add some other terrain types
 
 #WONDER
+
+#TOUCH_AWARE
+#Affect adjacent grids (radius 1 ball attack)
 
 # find the formula to make RANDOM reduce with level so
 # it will be possible to make extra hit...

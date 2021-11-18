@@ -46,7 +46,9 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* Verify stairs */
-    if (!square_isupstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
+    if (p->timed[TMD_PROBTRAVEL] && !streq(p->clazz->name, "Assassin"))
+        ;
+    else if (!square_isupstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
     {
         msg(p, "I see no up staircase here.");
         return;
@@ -135,7 +137,9 @@ void do_cmd_go_down(struct player *p)
     }
 
     /* Verify stairs */
-    if (!square_isdownstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
+    if (p->timed[TMD_PROBTRAVEL] && streq(p->clazz->name, "Assassin"))
+        ;
+    else if (!square_isdownstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
     {
         msg(p, "I see no down staircase here.");
         return;
@@ -1996,7 +2000,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     /* Prob travel */
-    if (p->timed[TMD_PROBTRAVEL] && !square_ispassable(c, &grid))
+    if (p->timed[TMD_PROBTRAVEL] && !square_ispassable(c, &grid) &&
+        !streq(p->clazz->name, "Assassin"))
     {
         do_prob_travel(p, c, dir);
         return;

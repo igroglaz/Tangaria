@@ -658,3 +658,8 @@ name:vegetal
 glyph:l
 pain:1
 desc:Vegetal
+
+name:sentry
+glyph:#
+pain:1
+desc:Sentry

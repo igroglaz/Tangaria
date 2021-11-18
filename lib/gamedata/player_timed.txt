@@ -699,4 +699,7 @@ near-end: slows movement down.
 #msgt:SPEED
 
 name:GOLEM
-grade:G:10000:Golem:xxx
+grade:D:10000:Golem:You summoned golem.
+
+name:SENTRY
+grade:D:10000:Sentry:You setted sentry.

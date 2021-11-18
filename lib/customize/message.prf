@@ -661,5 +661,7 @@ message:CHOP_TREE:w
 # MSG_CHOP_TREE_FALL
 message:CHOP_TREE_FALL:w
 
+# MSG_SENTRY
+message:SENTRY:w
 
 ?:1

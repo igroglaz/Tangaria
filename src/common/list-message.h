@@ -194,6 +194,7 @@ MSG(TERRAIN_SLIP, "terrain_slip")
 MSG(TUNNEL_WALL, "tunnel_wall")
 MSG(CHOP_TREE, "chop_tree")
 MSG(CHOP_TREE_FALL, "chop_tree_fall")
+MSG(SENTRY, "sentry")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

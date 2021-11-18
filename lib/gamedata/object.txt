@@ -6302,6 +6302,7 @@ effect:TIMED_INC:PROBTRAVEL
 dice:20+1d20
 effect:TIMED_INC_NO_RES:IMAGE
 dice:5+5d5
+desc:Won't work properly for Assassin class.
 
 name:*Restore Mana*
 graphics:!:d
