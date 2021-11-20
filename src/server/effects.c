@@ -7187,14 +7187,16 @@ static bool effect_handler_TELEPORT(effect_handler_context_t *context)
     }
 
     /* Check for a no teleport grid */
-    if (square_isno_teleport(context->cave, &start) && !safe_ghost)
+    if (square_isno_teleport(context->cave, &start) && !safe_ghost &&
+        !streq(context->origin->player->clazz->name, "Phaseblade"))
     {
         if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
         return !used;
     }
 
     /* Check for a limited teleport grid */
-    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10))
+    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10) &&
+        !streq(context->origin->player->clazz->name, "Phaseblade"))
     {
         if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
         return !used;

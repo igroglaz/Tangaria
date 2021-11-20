@@ -2743,6 +2743,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->skills[SKILL_SAVE] -= 10;
         }
 
+        if (streq(p->clazz->name, "Phaseblade") && !weapon->tval == TV_SWORD)
+        {
+            state->to_h -= 10;
+            state->to_d -= 2;
+            state->stat_add[STAT_DEX] -= 1;
+        }
+
         /* Divine weapon bonus for blessed weapons */
         if (player_has(p, PF_BLESS_WEAPON) && of_has(state->flags, OF_BLESSED))
         {
