@@ -2153,6 +2153,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
     }
 
+    if (streq(p->clazz->name, "Mesmer") && p->lev > 30)
+        state->speed += (p->lev - 30) / 2;
+
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
     {
         state->stat_add[STAT_DEX] += 2;
