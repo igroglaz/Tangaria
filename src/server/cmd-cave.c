@@ -2022,7 +2022,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     // Slippery grounds
-    if (streq(p->terrain, "\tIce\0") && one_in_(6))
+    if (streq(p->terrain, "\tIce\0") && !streq(p->clazz->name, "Cryokinetic") && one_in_(6))
     {
         msgt(p, MSG_TERRAIN_SLIP, "You slip on the icy floor!");
         return;

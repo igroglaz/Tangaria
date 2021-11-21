@@ -6308,7 +6308,7 @@ desc:Strikes a target from below with a fire.
 desc: Target grid must be targetable and known to the player;
 desc: no target grid will mean the player grid is hit.
 
-spell:Blizzard:45:40:40:100:0
+spell:Ice Storm:45:40:40:100:0
 effect:ARC:ICE:0:30
 dice:$B
 expr:B:PLAYER_LEVEL:* 7
@@ -6833,6 +6833,7 @@ dice:6
 desc:Attempts get in range and score a melee circle hits to the targets.
 
 spell:Phase Skimming:50:40:33:100:0
+cooldown:4
 effect:BLAST:FORCE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
@@ -6856,6 +6857,154 @@ dice:5
 msg_other: blinks away.
 desc:You teleport around battlefield times bringing havoc with you.
 
+
+############### CLASS TEMPLATE for Weathermaster / Cryokinetic ###############
+name:Cryokinetic
+color:B
+skill-disarm-phys:20:15
+skill-disarm-magic:32:10
+skill-device:32:10
+skill-save:25:10
+skill-stealth:1:0
+skill-search:15:12
+skill-melee:42:32
+skill-shoot:35:25
+skill-dig:0:0
+hitdie:3
+max-attacks:4
+min-weight:35
+strength-multiplier:3
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:30:RES_FIRE[1]
+value:30:RES_COLD[1]
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:400:1
+
+book:magic book:town:[Magic for Beginners]:11:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
+
+# fog, clouds; freeze water; create lava
+
+spell:Pyrokinetic Touch:1:3:20:1:0
+effect:TIMED_INC:OPP_FIRE
+dice:20+1d20
+effect:BOLT_MELEE:FIRE
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other:'s hands are covered with fire.
+desc:Covers your hands with fire to burn your foes.
+desc: Grants fire resistance.
+
+spell:Cryokinetic Touch:5:3:20:2:0
+effect:TIMED_INC:OPP_COLD
+dice:20+1d20
+effect:BOLT_MELEE:COLD
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other:'s hands are covered with frost.
+desc:Covers your hands with frost to freeze your foes.
+desc: Grants cold resistance.
+
+spell:Ice and Fire:10:7:30:3:0
+effect:TIMED_INC:ATT_FIRE:0:5
+dice:20+1d20
+effect:TIMED_INC:ATT_COLD:0:5
+dice:20+1d20
+desc:Temporarily makes your melee attacks imbued with heat or frost,
+desc: depending on situation.
+
+spell:Cryo Hybernation:15:10:32:10:0
+cooldown:150
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:5d1
+effect:TIMED_INC:INVULN
+dice:5
+effect:CURE:STUN
+effect:CURE:CUT
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: become frozen.
+desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
+desc: of cuts and stunning.
+desc: Also grants you resistance against non-physical attacks.
+desc: The shield absorbs a percentage of damage from such attacks
+desc: equal to your character level.
+
+spell:Pyrokinesis:20:10:32:20:0
+effect:STRIKE:FIRE:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 9
+msg_other: strikes with heat.
+desc:Strikes a target with immense heat.
+desc: Target grid must be targetable and known to the player;
+desc: no target grid will mean the player grid is hit.
+
+spell:Cryokinetic Ray:25:10:32:30:0
+effect:BOLT:COLD
+dice:$B
+expr:B:PLAYER_LEVEL:* 9
+msg_other: fires a ray of frost.
+desc:Fires a ray of frost that always hits its target and knocks it away.
+desc: This ray does not penetrate target.
+
+spell:Plasma Nova:30:15:32:40:0
+effect:BLAST:PLASMA:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: radiates a powerful wave of heat.
+desc:Creates a fire ball around you.
+
+spell:Frost Orb:35:20:33:50:0
+effect:BALL:ICE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: invokes an ice storm.
+desc:Shoots an ice ball.
+
+spell:Cryofire:40:30:34:70:0
+effect:STRIKE:COLD:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 6
+effect:STRIKE:FIRE:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 6
+msg_other: strikes with cryofire.
+desc:Cryokinetic technique which makes target feel heat and cold at the
+desc: same time.
+desc: Target grid must be targetable and known to the player;
+desc: no target grid will mean the player grid is hit.
+
+spell:Blizzard:45:40:35:100:0
+cooldown:2
+effect:BLAST:ICE:4
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+msg_other: subzeroes surrounding air into a sharp icicles.
+desc:Starts icy blizzard around you.
+
+spell:Firestorm:50:50:39:150:0
+cooldown:3
+effect:ARC:FIRE:0:30
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
+msg_other: invokes a hellish storm.
+desc:Spews fire in a long narrow cone from you.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
