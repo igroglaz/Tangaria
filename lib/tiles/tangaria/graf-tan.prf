@@ -32428,7 +32428,7 @@ feat:house wall i`:dark:0xE3:0xFF
 ###################
 ### ADD AFTER WIPE:
 
-monster:tamed rat:0x9B:0x9F
+monster:tamed frog:0x9B:0xA0
 monster:tamed snake:0x9B:0x95
 monster:tamed hawk:0x9B:0x89
 monster:tamed boar:0x9B:0xC4
@@ -32458,6 +32458,11 @@ monster:spear sentry:0x87:0xA6
 monster:acid sentry:0x87:0xAA
 monster:fire sentry:0x87:0xA8
 monster:lightning sentry:0x87:0xA9
+
+# scavenger's
+monster:baby rat:0x9B:0x9F
+monster:rat:0x9B:0x9F
+monster:fancy rat:0x9B:0x9F
 
 # Load the special player pictures
 %:xtra-tan.prf

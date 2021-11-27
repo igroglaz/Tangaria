@@ -437,11 +437,22 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
     }
 
+    /* Scavenger's rat */
+    if (streq(p->clazz->name, "Scavenger") && !p->wpos.depth == 0 && p->slaves < 1)
+    {
+        if (p->lev > 9 && p->lev < 32)
+            summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
+        else if (p->lev < 44)
+            summon_specific_race_aux(p, c, &p->grid, get_race("rat"), 1, true);
+        else if (p->lev > 43)
+            summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
+    }
+
     /* Tamer class: pets */
     if (streq(p->clazz->name, "Tamer") && !p->wpos.depth == 0 && p->slaves < 1)
     {
         if (p->lev < 5)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed rat"), 1, true);
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
         else if (p->lev < 10)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed snake"), 1, true);
         else if (p->lev < 15)

@@ -1953,7 +1953,7 @@ struct object *make_gold(struct player *p, struct chunk *c, int lev, const char 
         else
         {
             value = (value * level_golds[p->wpos.depth]) / 10;
-            if (streq(p->clazz->name, "Trader"))
+            if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger"))
                 value /= 2;
         }
     }

@@ -2240,6 +2240,124 @@ static bool effect_handler_CREATE_ARROWS(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Turn a items into gold
+ */
+static bool effect_handler_SALVAGE(effect_handler_context_t *context)
+{
+    struct object *obj;
+    long int price_value;
+    int amt;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can salvage items only inside of the dungeon...");
+        return false;
+    }
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_WEARABLE, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a wearable item */
+    if (!tval_is_wearable(obj)) return false;
+
+    // can't salvage worthless items
+    if (!obj->kind->cost) return false;
+
+    // no dark swords etc
+    if (tval_is_dark_sword(obj)) return false;
+    if (true_artifact_p(obj) && strstr(obj->artifact->name, "of Morgoth")) return false;
+    if (true_artifact_p(obj) && strstr(obj->artifact->name, "Grond")) return false;
+    if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return false;
+
+    // salvage progress with leveling
+    if (obj->ego && context->origin->player->lev < 20) return false;
+    else if (obj->artifact && context->origin->player->lev < 30) return false;
+    else if (true_artifact_p(obj) && context->origin->player->lev < 40) return false;
+
+    /* Amount */
+    amt = obj->number;
+    
+    // you need to spend some effort into the process
+    player_dec_timed(context->origin->player, TMD_FOOD, 100*amt, false);
+
+    /* Message */
+    msg(context->origin->player, "You salvage it into valuables..");
+
+    // value by price
+    price_value = (long)object_value(context->origin->player, obj, amt);
+
+    // player level factor
+    price_value /= 7 - (context->origin->player->lev / 10);
+
+    /* If you don't know object properties - can't salvage it properly */
+    if (!object_fully_known(context->origin->player, obj))
+        price_value /= 2;
+
+    // paranoia
+    if (price_value <= 0) price_value = 1;
+
+    // lvl adjustment
+    if (price_value > 100 && context->origin->player->lev < 10)
+        price_value = 100 + randint0(100);
+    else if (price_value > 200 && context->origin->player->lev < 20)
+        price_value = 200 + randint0(200);
+    else if (price_value > 300 && context->origin->player->lev < 30)
+        price_value = 300 + randint0(300);
+    else if (price_value > 500 && context->origin->player->lev < 40)
+        price_value = 500 + randint0(500);
+    else if (price_value > 1000 && context->origin->player->lev < 50)
+        price_value = 1000 + randint0(500);
+    else if (price_value > 1700 && context->origin->player->lev > 49)
+        price_value = 1700 + randint0(500);
+
+    if (obj->artifact)
+    {
+        // bonus for salvaging artifacts
+        price_value *= 2;
+        if (true_artifact_p(obj)) price_value *= 2;
+
+        // now properly delete artifacts
+        preserve_artifact_aux(obj);
+        history_lose_artifact(context->origin->player, obj);
+    }
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    // Make us rich!
+    context->origin->player->au += price_value;
+    context->origin->player->upkeep->redraw |= (PR_GOLD);
+
+    return true;
+}
 
 static bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {

@@ -31370,9 +31370,8 @@ desc:An indestructible golem used for testing purposes.
 
 # tamer class pets
 
-# giant white rat
-name:tamed rat
-base:rodent
+name:tamed frog
+base:reptile
 color:W
 speed:110
 hit-points:1
@@ -31384,10 +31383,10 @@ depth:1
 rarity:0
 weight:0
 experience:0
-blow:BITE:HURT:1d3
+blow:TOUCH:POISON:1d3
 flags:RAND_25
 flags:NO_PASS_TREE
-desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
+desc:Very vicious... frog. Be careful - it's poisonous.
 
 # copperhead snake
 name:tamed snake
@@ -32072,5 +32071,57 @@ spell-freq:3
 innate-freq:100
 spells:BR_ELEC
 desc:Simple, but yet effective.
+
+# scavenger's
+name:baby rat
+base:rodent
+color:W
+speed:110
+hit-points:1
+hearing:8
+smell:20
+armor-class:3
+sleepiness:30
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d1
+flags:NO_PASS_TREE
+desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
+
+name:rat
+base:rodent
+color:W
+speed:120
+hit-points:1
+hearing:8
+smell:20
+armor-class:3
+sleepiness:30
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d2
+flags:NO_PASS_TREE
+desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
+
+name:fancy rat
+base:rodent
+color:W
+speed:130
+hit-points:1
+hearing:8
+smell:20
+armor-class:3
+sleepiness:30
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d3
+flags:NO_PASS_TREE
+desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
 
 # # leave empty line for EOF
