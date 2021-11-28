@@ -380,6 +380,7 @@ static const grouper object_text_order[] =
     {TV_FLASK, NULL},
     {TV_COBBLE, NULL},
     {TV_JUNK, NULL},
+    {TV_REAGENT, NULL},
     {0, NULL}
 };
 

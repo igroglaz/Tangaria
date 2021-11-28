@@ -6985,8 +6985,8 @@ expr:B:PLAYER_LEVEL:* 7
 msg_other: invokes a hellish storm.
 desc:Spews fire in a long narrow cone from you.
 
-############### CLASS TEMPLATE for Chronowarrior / Timeturner / Predictor
-name:Mesmer
+############### CLASS TEMPLATE for Chronowarrior / Mesmer / Predictor
+name:Timeturner
 color:v
 skill-disarm-phys:28:8
 skill-disarm-magic:28:8
@@ -7245,6 +7245,96 @@ spell:Emergency Ration:50:50:25:100:0
 effect:NOURISH:INC_TO
 dice:15
 desc:Magically renders you comfortably fed (but not satiated).
+
+############### CLASS TEMPLATE for Alchemist ###############
+name:Alchemist
+color:y
+skill-disarm-phys:30:10
+skill-disarm-magic:35:10
+skill-device:35:12
+skill-save:24:8
+skill-stealth:1:0
+skill-search:12:12
+skill-melee:40:20
+skill-shoot:25:20
+skill-dig:0:0
+hitdie:2
+max-attacks:4
+min-weight:35
+strength-multiplier:3
+equip:light:Wooden Torch:1:3:none
+equip:hafted:Club:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[-2]
+value:0:INT[2]
+value:0:WIS[1]
+value:0:DEX[0]
+value:0:CON[-1]
+value:0:CHR[-1]
+# brew special potions which are bound to player
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:300:1
+
+book:magic book:town:[Magic for Beginners]:7:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
+
+spell:Gather Ingredients:1:1:30:3:0
+cooldown:100
+effect:TIMED_INC:SLOW
+dice:1+1d2
+msg_other: carefully looking around.
+desc:Prepare to look for rare reagents used in alchemy.
+
+spell:Brew a Potion:5:2:30:5:0
+effect:TIMED_INC:SLOW
+dice:1+1d2
+msg_other: starts brewing a potion.
+desc:You try to brew a potion from selected reagents.
+
+spell:Disenchant Device:10:5:30:7:0
+effect:TIMED_INC:SLOW
+dice:1+1d2
+desc:You can try to to salvage magic wand or staff into magic powders.
+
+spell:Herbal Tea:20:7:30:15:0
+effect:CURE:POISONED
+effect:HEAL_HP
+dice:10
+desc:Cures 10 points of damage and neutralizes poison.
+
+spell:Remove Curse:30:15:30:35:0
+effect:REMOVE_CURSE
+dice:$B+1d$S
+expr:B:PLAYER_LEVEL:+ 0
+expr:S:PLAYER_LEVEL:+ 0
+desc:Attempts to remove a curse from an item.
+
+spell:Construct Golem:40:35:30:50:0
+cooldown:10
+effect:SUMMON:GOLEM:0:100
+dice:1
+msg_other: summons a golem.
+desc:Attempts to summon one golem generated at the current dungeon level.
+
+spell:Elixir of Immortality:50:70:90:100:0
+cooldown:1000
+effect:TIMED_INC:REVIVE
+dice:5+1d5
+desc:Allows you to avoid death once in a while.
+desc: Can be used every 1000 turns.
 
 # Crafter..
 

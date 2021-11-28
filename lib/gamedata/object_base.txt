@@ -55,6 +55,10 @@ break:75
 flags:HATES_ACID
 flags:SHOW_DICE
 
+name:reagent:Reagent~
+graphics:yellow
+flags:EASY_KNOW
+
 #feanorean & dwarvern lamps
 
 name:horn:Horn~

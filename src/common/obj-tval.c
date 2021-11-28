@@ -628,6 +628,11 @@ bool tval_is_cobble(const struct object *obj)
     return (obj->tval == TV_COBBLE);
 }
 
+bool tval_is_reagent(const struct object *obj)
+{
+    return (obj->tval == TV_REAGENT);
+}
+
 bool tval_is_junk(const struct object *obj)
 {
     return (obj->tval == TV_JUNK);

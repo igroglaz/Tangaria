@@ -646,6 +646,7 @@ effect:DRAIN_STAT:STR
 effect:RANDOM
 dice:2
 effect:RESTORE_MANA
+dice:30
 effect:NOURISH:INC_BY
 dice:3
 
@@ -4190,7 +4191,7 @@ type:potion
 level:0
 weight:4
 cost:0
-alloc:1:2 to 40
+alloc:1:2 to 20
 pile:70:1d3
 attack:1d300:0:0
 armor:0:0
@@ -4219,7 +4220,7 @@ type:potion
 level:0
 weight:4
 cost:0
-alloc:1:2 to 40
+alloc:1:2 to 30
 pile:70:1d3
 attack:10d15:0:0
 armor:0:0
@@ -6704,6 +6705,32 @@ brand:STUN_1
 flags:THROWING
 desc:A simple piece of stone. It can be thrown.
 
+# alchemy
+
+name:& Rare Herb~
+graphics:*:g
+type:reagent
+level:0
+weight:1
+cost:0
+desc:A very rare plant which can be used for potions brewing.
+
+name:& Rare Mineral~
+graphics:*:t
+type:reagent
+level:0
+weight:1
+cost:0
+desc:A very rare mineral used in alchemy.
+
+name:& Magic Essence~
+graphics:*:y
+type:reagent
+level:0
+weight:1
+cost:0
+desc:A magic residue which could be used as reagent for alchemy.
+
 ##############
 #newbie items#
 ##############
@@ -6997,8 +7024,11 @@ dice:6
 effect:RESTORE_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 1
+effect:PROJECT_LOS_AWARE:DISP_UNDEAD:0:1
+dice:30
 desc:A potion of holy water blessed by a good deity.
 desc: You can not drop it on the ground as it will be blasphemy...
+
 
 #name:Small House Creation
 

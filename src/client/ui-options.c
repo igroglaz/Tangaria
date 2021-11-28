@@ -1861,6 +1861,7 @@ static bool ignore_tval_extra(int tval)
         case TV_SKELETON:
         case TV_BOTTLE:
         case TV_CORPSE:
+        case TV_JUNK:
         case TV_CROP: return true;
     }
 
