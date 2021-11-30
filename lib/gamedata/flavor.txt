@@ -421,5 +421,22 @@ flavor:315:Red:Pimpled
 flavor:316:Pink:Beautiful
 flavor:317:Beige:Ordinary
 
+##### Potions #####
+
+kind:potion:!
+
+flavor:318:Red:Bloody
+flavor:319:Green:Acidulous
+flavor:320:Blue:Skyey
+flavor:321:White:Transparent
+flavor:322:Light Dark:Earthy
+flavor:323:Umber:Turbid
+flavor:324:Mud:Mucky
+flavor:325:Slate:Dusty
+flavor:326:Orange:Faded
+flavor:327:Purple:Luminous
+flavor:328:Teal:Bright
+flavor:329:Mustard:Sooty
+flavor:330:Yellow:Canary
 
 # when adding - check flvr-tan.prf

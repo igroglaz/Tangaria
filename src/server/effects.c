@@ -2359,6 +2359,106 @@ static bool effect_handler_SALVAGE(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Turn a reagents into potions
+ */
+static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
+{
+    struct object *obj, *new_potion;
+    int amt;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can brew potions only inside of the dungeon...");
+        return false;
+    }
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_REAGENT, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a reagent */
+    if (!tval_is_reagent(obj)) return false;
+
+    /* Amount */
+    amt = obj->number;
+    
+    /* Message */
+    msg(context->origin->player, "You brew %d potions...", amt);
+
+    /* Create the potions */
+    new_potion = object_new();
+
+    // What to brew
+    if (obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Herb"))
+    {
+        if (one_in_(2) && context->origin->player->lev > 9)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Polymorph"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 19)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Rejuvenation"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 29)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Resistance"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 39)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Plant Growth"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 49)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Haste"), 0, MINIMISE);
+        else
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Herbal Tea"), 0, MINIMISE);
+    }
+    else if (obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Mineral"))
+    {
+        if (one_in_(2) && context->origin->player->lev > 24)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Blast"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 34)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Explosion"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 44)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Deadly Poison"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 49)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Devilry of Saruman"), 0, MINIMISE);
+        else
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Acid"), 0, MINIMISE);
+    }
+
+    new_potion->number = amt;
+
+    /* Set origin */
+    set_origin(new_potion, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    drop_near(context->origin->player, context->cave, &new_potion, 0, &context->origin->player->grid,
+        true, DROP_FADE, true);
+
+    return true;
+}
+
 static bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
     int small_house = 0;
@@ -2422,7 +2522,7 @@ static bool effect_handler_CREATE_HOLY_WATER(effect_handler_context_t *context)
     if (!tval_is_potion(obj)) return false;
 
     // Can't turn it again
-    if (streq(obj->kind->name, "Holy Water"))
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Holy Water"))
     {
         msg(context->origin->player, "That's already blessed enough.");
         return false;

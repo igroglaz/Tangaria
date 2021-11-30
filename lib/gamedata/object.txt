@@ -7029,6 +7029,150 @@ dice:30
 desc:A potion of holy water blessed by a good deity.
 desc: You can not drop it on the ground as it will be blasphemy...
 
+# Alchemist potions
+
+name:Herbal Tea
+graphics:!:d
+type:potion
+level:1
+weight:2
+cost:0
+#tradable
+effect:CURE:POISONED
+effect:HEAL_HP
+dice:10
+desc:Cures 10 points of damage and neutralizes poison.
+
+name:Polymorph
+graphics:!:d
+type:potion
+level:10
+weight:4
+cost:0
+#tradable
+effect:BATTY
+desc:This potion can be used to transform into bat or either to restore
+desc: normal form if transformation went wrong.
+
+name:Acid
+graphics:!:d
+type:potion
+level:15
+weight:4
+cost:0
+flags:NO_DROP | EXPLODE | THROWING
+attack:2d3:0:0
+armor:0:0
+brand:ACID_2
+msg_self:It feels very bad.
+msg_other: was corroded by an acid potion.
+
+name:Rejuvenation
+graphics:!:d
+type:potion
+level:20
+weight:4
+cost:0
+flags:NO_DROP
+effect:HEAL_HP
+dice:200+m35
+effect:RESTORE_MANA
+dice:50
+
+name:Blast
+graphics:!:d
+type:potion
+level:25
+weight:4
+cost:0
+flags:NO_DROP | EXPLODE | THROWING
+attack:3d3:0:0
+armor:0:0
+brand:FIRE_2
+effect:TIMED_INC:CONFUSED
+dice:10+4d5
+msg_self:You are on fire!
+msg_other: was blown by a detonation potion.
+
+name:Resistance
+graphics:!:d
+type:potion
+level:30
+weight:4
+cost:0
+flags:NO_DROP
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:END_INFO
+effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
+
+name:Explosion
+graphics:!:d
+type:potion
+level:35
+weight:4
+cost:0
+flags:NO_DROP | EXPLODE | THROWING
+attack:4d4:0:0
+armor:0:0
+brand:CUT_2
+msg_self:You feel badly!
+msg_other: was blown by a blast potion.
+
+name:Plant Growth
+graphics:!:d
+type:potion
+level:40
+weight:4
+cost:0
+flags:NO_DROP
+effect:CREATE_TREES
+msg_self:You spoil potion and trees starting to grow around!
+msg_other: grows trees around!
+
+name:Deadly Poison
+graphics:!:d
+type:potion
+level:45
+weight:4
+cost:0
+flags:NO_DROP | EXPLODE | THROWING
+attack:5d5:0:0
+armor:0:0
+brand:POIS_3
+effect:TIMED_INC:POISONED
+dice:10+2d7
+msg_self:You are on fire!
+msg_other: was blown by a detonation potion.
+
+name:Haste
+graphics:!:d
+type:potion
+level:50
+weight:4
+cost:0
+effect:TIMED_INC:FAST:0:5
+dice:20+1d20
+
+name:Devilry of Saruman
+graphics:!:d
+type:potion
+level:50
+weight:4
+cost:0
+flags:NO_DROP | EXPLODE | THROWING
+attack:5d6:0:0
+armor:0:0
+brand:FIRE_3
+effect:TIMED_INC:CONFUSED
+dice:10+4d5
+msg_self:You are on fire!
+msg_other: was blown by a detonation potion.
 
 #name:Small House Creation
 

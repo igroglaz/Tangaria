@@ -135,8 +135,9 @@
 #define HOOK_DRAIN      9
 #define HOOK_STAFF      10
 #define HOOK_WEARABLE   11
+#define HOOK_REAGENT    12
 
-#define N_HOOKS         12
+#define N_HOOKS         13
 
 /* Special hooks */
 #define HOOK_CONFIRM    252

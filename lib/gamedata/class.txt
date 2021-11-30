@@ -7288,7 +7288,7 @@ title:Grandmaster
 
 magic:1:300:1
 
-book:magic book:town:[Magic for Beginners]:7:arcane
+book:magic book:town:[Magic for Beginners]:4:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Gather Ingredients:1:1:30:3:0
@@ -7298,31 +7298,12 @@ dice:1+1d2
 msg_other: carefully looking around.
 desc:Prepare to look for rare reagents used in alchemy.
 
-spell:Brew a Potion:5:2:30:5:0
-effect:TIMED_INC:SLOW
-dice:1+1d2
+spell:Brew a Potion:1:1:30:5:0
+effect:ALCHEMY
 msg_other: starts brewing a potion.
 desc:You try to brew a potion from selected reagents.
 
-spell:Disenchant Device:10:5:30:7:0
-effect:TIMED_INC:SLOW
-dice:1+1d2
-desc:You can try to to salvage magic wand or staff into magic powders.
-
-spell:Herbal Tea:20:7:30:15:0
-effect:CURE:POISONED
-effect:HEAL_HP
-dice:10
-desc:Cures 10 points of damage and neutralizes poison.
-
-spell:Remove Curse:30:15:30:35:0
-effect:REMOVE_CURSE
-dice:$B+1d$S
-expr:B:PLAYER_LEVEL:+ 0
-expr:S:PLAYER_LEVEL:+ 0
-desc:Attempts to remove a curse from an item.
-
-spell:Construct Golem:40:35:30:50:0
+spell:Construct Golem:35:35:30:50:0
 cooldown:10
 effect:SUMMON:GOLEM:0:100
 dice:1
