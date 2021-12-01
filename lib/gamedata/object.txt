@@ -6475,7 +6475,7 @@ type:deed
 level:0
 weight:5
 cost:0
-flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
+flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 desc:A deed of property. It can be used to claim a house.
 
 name:Wilderness Mapping
@@ -7040,7 +7040,7 @@ type:potion
 level:1
 weight:2
 cost:0
-#tradable
+flags:NO_DROP
 effect:CURE:POISONED
 effect:HEAL_HP
 dice:10
@@ -7157,6 +7157,7 @@ type:potion
 level:50
 weight:4
 cost:0
+flags:NO_DROP
 effect:TIMED_INC:FAST:0:5
 dice:20+1d20
 

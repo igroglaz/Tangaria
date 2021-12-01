@@ -2371,8 +2371,8 @@ bool do_cmd_throw(struct player *p, int dir, int item)
         return false;
     }
 
-    /* Never drop deeds of property */
-    if (tval_is_deed(obj))
+    /* NO_DROP flag */
+    if (of_has(obj->flags, OF_NO_DROP) && !of_has(obj->flags, OF_THROWING))
     {
         msg(p, "You cannot throw this.");
         return false;
