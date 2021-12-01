@@ -926,17 +926,10 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
         }
     }
 
-    /* Never drop deeds of property */
-    if (tval_is_deed(obj))
-    {
-        if (!bypass_inscr) msg(p, "You cannot drop this.");
-        return false;
-    }
-    
     /* NO_DROP object flag */
     if (of_has(obj->flags, OF_NO_DROP) && !(p->dm_flags & DM_HOUSE_CONTROL))
     {
-        if (!bypass_inscr) msg(p, "You cannot drop this item.");
+        msg(p, "You cannot drop this item.");
         return false;
     }    
 
