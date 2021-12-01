@@ -6711,24 +6711,27 @@ name:& Rare Herb~
 graphics:*:g
 type:reagent
 level:0
-weight:1
+weight:5
 cost:0
+flags:NO_DROP
 desc:A very rare plant which can be used for potions brewing.
 
 name:& Rare Mineral~
 graphics:*:t
 type:reagent
 level:0
-weight:1
+weight:10
 cost:0
+flags:NO_DROP
 desc:A very rare mineral used in alchemy.
 
 name:& Magic Essence~
 graphics:*:y
 type:reagent
 level:0
-weight:1
+weight:2
 cost:0
+flags:NO_DROP
 desc:A magic residue which could be used as reagent for alchemy.
 
 ##############
@@ -7147,8 +7150,6 @@ armor:0:0
 brand:POIS_3
 effect:TIMED_INC:POISONED
 dice:10+2d7
-msg_self:You are on fire!
-msg_other: was blown by a detonation potion.
 
 name:Haste
 graphics:!:d

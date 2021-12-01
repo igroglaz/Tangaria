@@ -874,7 +874,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
     bool gold, rubble, tree, web;
-    struct object *dig_cobble, *dig_stone, *dig_dry, *dig_fountain;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
@@ -900,6 +899,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
             if (one_in_(2))
             {
+                struct object *dig_stone;
                 /* Make house stone */
                 dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
 
@@ -994,6 +994,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Place an object */
         if (magik(10))
         {
+            struct object *dig_dry;
             /* Create a simple object */
             dig_dry = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
 
@@ -1099,6 +1100,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Place an object */
         else if (magik(10))
         {
+            struct object *dig_fountain;
             /* Create a simple object */
             dig_fountain = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
 
@@ -1129,6 +1131,16 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             sound(p, MSG_CHOP_TREE_FALL);
             msg(p, "You hack your way through the vegetation.");
+
+            /* Make rare herb */
+            if (streq(p->clazz->name, "Alchemist") && !p->wpos.depth == 0 && one_in_(5))
+            {
+                struct object *dig_herb;
+                dig_herb = object_new();
+                object_prep(p, c, dig_herb, lookup_kind_by_name(TV_REAGENT, "Rare Herb"), 0, MINIMISE);
+                set_origin(dig_herb, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                drop_near(p, c, &dig_herb, 0, &p->grid, true, DROP_FADE, true);
+            }
         }
 
         /* Clear some web */
@@ -1176,10 +1188,21 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             sound(p, MSG_DIG);
             msg(p, "You have finished the tunnel.");
         }
+
+        /* Alchemist can find rare mineral */
+        else if (streq(p->clazz->name, "Alchemist") && !p->wpos.depth == 0 && one_in_(5))
+        {
+            struct object *dig_mineral;
+            dig_mineral = object_new();
+            object_prep(p, c, dig_mineral, lookup_kind_by_name(TV_REAGENT, "Rare Mineral"), 0, MINIMISE);
+            set_origin(dig_mineral, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+            drop_near(p, c, &dig_mineral, 0, &p->grid, true, DROP_FADE, true);
+        }
         
         /* Dig cobbles (simple non-magical rocks) */
         else if (one_in_(2))
         {
+            struct object *dig_cobble;
             /* Make cobble */
             dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
 
@@ -1197,6 +1220,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Dig house Foundation Stone */
         else if (one_in_(2) && p->lev > 7)
         {
+            struct object *dig_stone;
             /* Make house stone */
             dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
 
