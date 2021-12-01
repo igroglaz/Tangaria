@@ -7300,6 +7300,9 @@ equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Brew a Potion:1:1:30:5:0
 effect:ALCHEMY
+effect:TIMED_INC:OCCUPIED
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10
 msg_other: starts brewing a potion.
 desc:You try to brew a potion from selected reagents.
 

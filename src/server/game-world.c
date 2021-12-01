@@ -2056,7 +2056,7 @@ static void energize_player(struct player *p)
     /* Player is idle */
     bool is_idle = has_energy(p, false);
 
-    if (p->timed[TMD_PARALYZED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
+    if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
         is_idle = true;
 
     /* Update idle turn */
@@ -2087,7 +2087,7 @@ static void energize_player(struct player *p)
         p->extra_energy += energy;
 
     /* Paralyzed or Knocked Out player gets no turn */
-    if (p->timed[TMD_PARALYZED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
+    if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
         do_cmd_sleep(p);
 
     /* Hack -- if player has energy and we are in a slow time bubble, blink faster */
