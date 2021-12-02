@@ -7040,7 +7040,6 @@ type:potion
 level:1
 weight:2
 cost:0
-flags:NO_DROP
 effect:CURE:POISONED
 effect:HEAL_HP
 dice:10
@@ -7063,10 +7062,12 @@ type:potion
 level:15
 weight:4
 cost:0
-flags:NO_DROP | EXPLODE | THROWING
+flags:EXPLODE | THROWING
 attack:2d3:0:0
 armor:0:0
 brand:ACID_2
+effect:TIMED_INC:CONFUSED
+dice:5+3d4
 msg_self:It feels very bad.
 msg_other: was corroded by an acid potion.
 
@@ -7076,7 +7077,6 @@ type:potion
 level:20
 weight:4
 cost:0
-flags:NO_DROP
 effect:HEAL_HP
 dice:200+m35
 effect:RESTORE_MANA
@@ -7088,7 +7088,7 @@ type:potion
 level:25
 weight:4
 cost:0
-flags:NO_DROP | EXPLODE | THROWING
+flags:EXPLODE | THROWING
 attack:3d3:0:0
 armor:0:0
 brand:FIRE_2
@@ -7103,7 +7103,6 @@ type:potion
 level:30
 weight:4
 cost:0
-flags:NO_DROP
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
@@ -7120,10 +7119,12 @@ type:potion
 level:35
 weight:4
 cost:0
-flags:NO_DROP | EXPLODE | THROWING
+flags:EXPLODE | THROWING
 attack:4d4:0:0
 armor:0:0
 brand:CUT_2
+effect:TIMED_INC:CONFUSED
+dice:10+4d5
 msg_self:You feel badly!
 msg_other: was blown by a blast potion.
 
@@ -7133,7 +7134,6 @@ type:potion
 level:40
 weight:4
 cost:0
-flags:NO_DROP
 effect:CREATE_TREES
 msg_self:You spoil potion and trees starting to grow around!
 msg_other: grows trees around!
@@ -7144,7 +7144,7 @@ type:potion
 level:45
 weight:4
 cost:0
-flags:NO_DROP | EXPLODE | THROWING
+flags:EXPLODE | THROWING
 attack:5d5:0:0
 armor:0:0
 brand:POIS_3
@@ -7157,8 +7157,8 @@ type:potion
 level:50
 weight:4
 cost:0
-flags:NO_DROP
-effect:TIMED_INC:FAST:0:5
+# movement speed
+effect:TIMED_INC:MOVE_FAST
 dice:20+1d20
 
 name:Devilry of Saruman
@@ -7167,7 +7167,7 @@ type:potion
 level:50
 weight:4
 cost:0
-flags:NO_DROP | EXPLODE | THROWING
+flags:EXPLODE | THROWING
 attack:5d6:0:0
 armor:0:0
 brand:FIRE_3

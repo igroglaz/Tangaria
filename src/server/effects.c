@@ -2450,6 +2450,9 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     /* Set origin */
     set_origin(new_potion, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
 
+    if (!strstr(new_potion->kind->name, "Polymorph"))
+        new_potion->soulbound = true;
+
     /* Eliminate the item */
     use_object(context->origin->player, obj, amt, false);
 

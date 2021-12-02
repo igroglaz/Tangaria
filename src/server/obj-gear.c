@@ -927,7 +927,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     }
 
     /* NO_DROP object flag */
-    if (of_has(obj->flags, OF_NO_DROP) && !(p->dm_flags & DM_HOUSE_CONTROL))
+    if (obj->soulbound || (of_has(obj->flags, OF_NO_DROP) && !(p->dm_flags & DM_HOUSE_CONTROL)))
     {
         msg(p, "You cannot drop this item.");
         return false;

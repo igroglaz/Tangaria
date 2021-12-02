@@ -2372,7 +2372,7 @@ bool do_cmd_throw(struct player *p, int dir, int item)
     }
 
     /* NO_DROP flag */
-    if (of_has(obj->flags, OF_NO_DROP) && !of_has(obj->flags, OF_THROWING))
+    if (obj->soulbound || (of_has(obj->flags, OF_NO_DROP) && !of_has(obj->flags, OF_THROWING)))
     {
         msg(p, "You cannot throw this.");
         return false;

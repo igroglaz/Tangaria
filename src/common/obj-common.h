@@ -556,6 +556,7 @@ struct object
     byte attr;                          /* "attr" last used for drawing object */
     s16b decay;                         /* Decay timeout for corpses */
     byte bypass_aware;                  /* Bypasses the "aware" flag */
+    byte soulbound;                     /* Can't drop this item */
     quark_t origin_player;              /* Original owner */
 };
 
