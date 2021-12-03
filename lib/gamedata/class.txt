@@ -7161,9 +7161,9 @@ value:0:DEX[1]
 value:0:CON[0]
 value:0:CHR[-1]
 player-flags:0:STEAL
-# later on: create rubble with with 'y' key?
 # got rat
 # cant join party
+# 20+ ego, 30 randart, 40 trueart
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -7178,6 +7178,7 @@ title:Grandmaster
 magic:1:300:1
 
 # brainstorm for later:
+# create rubble with with 'y' key?
 # quest for gold
 # additional gold + 25%
 # make food from bodies? strangely looking meat
@@ -7320,7 +7321,60 @@ desc:You try to brew a potion from selected reagents.
 #desc:Allows you to avoid death once in a while.
 #desc: Can be used every 1000 turns.
 
-# Crafter..
+############### CLASS TEMPLATE for Crafter ###############
+name:Crafter
+color:w
+skill-disarm-phys:42:10
+skill-disarm-magic:30:9
+skill-device:24:10
+skill-save:20:10
+skill-stealth:1:0
+skill-search:8:10
+skill-melee:50:30
+skill-shoot:35:25
+skill-dig:0:0
+hitdie:3
+max-attacks:4
+min-weight:35
+strength-multiplier:4
+equip:light:Wooden Torch:1:3:none
+equip:hafted:Club:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[1]
+value:0:INT[0+1d32]
+value:0:WIS[0+1d32]
+value:0:DEX[0]
+value:0:CON[0]
+value:0:CHR[0]
+# disassemble: 20+ ego, 30 randart, 40 trueart
+# can create items which are bound to player
+# if item not needed - it should be destroyed with 'k'
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:300:1
+
+book:nature book:town:[Lesser Charms]:6:nature
+equip:nature book:[Lesser Charms]:1:1:none
+
+spell:Crafting Mastery:1:1:30:5:0
+effect:CRAFT
+#effect:TIMED_INC:OCCUPIED
+#dice:$B
+#expr:B:PLAYER_LEVEL:/ 10
+msg_other: starts recrafting an item.
+desc:You try to recraft an item.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B

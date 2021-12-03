@@ -28,8 +28,11 @@ equip:potion:Experience:10
 #equip:potion:Deadly Poison:10
 #equip:potion:Haste:10
 #equip:potion:Devilry of Saruman:10
-equip:reagent:Rare Herb:40
-equip:reagent:Rare Mineral:40
+#equip:reagent:Rare Herb:40
+#equip:reagent:Rare Mineral:40
+equip:reagent:Crafting Material:40
+equip:reagent:Crafting Material:40
+equip:reagent:Crafting Material:40
 #equip:potion:Philosopher's stone:40
 equip:ring:Speed:6
 #equip:rod:Recall:1

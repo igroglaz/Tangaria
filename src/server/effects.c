@@ -2462,6 +2462,130 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     return true;
 }
 
+/*
+ * Craft items from resources (Crafter class)
+ */
+static bool effect_handler_CRAFT(effect_handler_context_t *context)
+{
+    struct object *obj, *new_obj;
+    int amt;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can craft items only inside of the dungeon...");
+        return false;
+    }
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_REAGENT, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a reagent item */
+    if (!tval_is_reagent(obj)) return false;
+
+    /* Amount */
+    amt = obj->number;
+    
+    // type and number of reagent
+    if (!obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material") && amt < 40)
+    {
+        msg(context->origin->player, "You need at least 40 crafting materials!");
+        return false;
+    }
+
+    // init object (to be able to wipe it)
+    new_obj = object_new();
+
+    // lets craft an item
+    do
+    {
+        // wipe it for trueart case (in 'while')
+        object_wipe(new_obj);
+        // now crafting progress with leveling
+        if (context->origin->player->lev < 20)
+            new_obj = make_object(context->origin->player, context->cave, context->origin->player->lev, false, false, false, NULL, 0);
+        else if (context->origin->player->lev < 30)
+            new_obj = make_object(context->origin->player, context->cave, context->origin->player->lev + object_level(&context->origin->player->wpos) / 2, false, false, false, NULL, 0);
+        else if (context->origin->player->lev < 40)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos) - 10, true, false, false, NULL, 0);
+        else if (context->origin->player->lev < 50)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos) - 5, true, true, false, NULL, 0);
+        else if (context->origin->player->lev > 49)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, true, NULL, 0);
+    }
+    // as we make sounbounded items, the only way to get rid of them is 'k'
+    // but 'k' won't work on true arts, so we reroll if we crafted it
+    // (also crafting true arts is bad for lore)
+    while (true_artifact_p(new_obj));
+
+    set_origin(new_obj, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    // make soulbound
+    new_obj->soulbound = true;
+
+    /* Pack is too full */
+    if (!inven_carry_okay(context->origin->player, new_obj))
+    {
+        object_delete(new_obj);
+        msg(context->origin->player, "Your backpack if too full!");
+        return false;
+    }
+
+    /* Pack is too heavy */
+    if (!weight_okay(context->origin->player, new_obj))
+    {
+        object_delete(new_obj);
+        msg(context->origin->player, "Your backpack if too heavy!");
+        return false;
+    }
+
+    /* Message */
+    msg(context->origin->player, "You make an attempt to craft an item..");
+
+    // ID it
+    object_know_everything(context->origin->player, new_obj);    
+
+    /* Give it to the player */
+    inven_carry(context->origin->player, new_obj, true, true);
+
+    /* Handle stuff */
+    handle_stuff(context->origin->player);
+    
+    // you need to spend some effort into the process
+    player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+
+    /* Spend materials */
+    use_object(context->origin->player, obj, amt, false);
+
+    return true;
+}
+
 static bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
     int small_house = 0;

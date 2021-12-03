@@ -32467,7 +32467,8 @@ monster:fancy rat:0x9B:0x9F
 # alchemy
 object:reagent:Rare Herb:0x9A:0xB5
 object:reagent:Rare Mineral:0x9A:0xB9
-object:reagent:Magic Essence:0x9A:0xC3
+object:reagent:Crafting Material:0x87:0x86
+#object:reagent:Magic Essence:0x9A:0xC3
 
 # Load the special player pictures
 %:xtra-tan.prf

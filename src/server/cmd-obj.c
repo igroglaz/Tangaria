@@ -641,7 +641,8 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
     object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
 
     /* Artifacts cannot be destroyed */
-    if (des && obj->artifact)
+    // exception: soundbound randarts made by crafter class
+    if (des && obj->artifact && !obj->soulbound)
     {
         /* Message */
         msg(p, "You cannot destroy %s.", o_name);
@@ -650,8 +651,9 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
         return;
     }
 
-    // Can't destroy cursed items
-    if (des && obj->curses)
+    // Can't destroy cursed items.
+    // exception: you can destroy soundbound cursed items made by crafter class
+    if (des && obj->curses && !obj->soulbound)
     {
         msg(p, "You cannot destroy %s as it's cursed.", o_name);
         msg(p, "Try to uncurse it first and then simply throw it away.");
@@ -666,6 +668,14 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
     {
         /* Message */
         msgt(p, MSG_DESTROY, "You destroy %s.", o_name);
+
+        // soulbound randarts made by crafter class should be destroyed in special way
+        if (obj->artifact && !obj->soulbound)
+        {
+            // now properly delete artifacts
+            preserve_artifact_aux(obj);
+            history_lose_artifact(p, obj);
+        }
 
         /* Eliminate the item */
         use_object(p, obj, obj->number, true);
