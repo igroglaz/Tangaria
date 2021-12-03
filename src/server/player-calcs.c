@@ -2545,9 +2545,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         of_diff(state->flags, f2);
         of_on(state->flags, OF_ESP_ALL);
     }
-    // early-game mushrooms should not be end-game imba buff
+    // Terror prevents you to attack, cast spells etc. Only run
     if (p->timed[TMD_TERROR])
-        state->speed += 10 - (p->lev / 10);
+        state->speed += 10;
     if (p->timed[TMD_OPP_ACID])
     {
         if (state->el_info[ELEM_ACID].res_level < 2)

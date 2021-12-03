@@ -2526,7 +2526,12 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
     do
     {
         // wipe it for trueart case (in 'while')
-        object_wipe(new_obj);
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+            object_wipe(new_obj);
+        }
         // now crafting progress with leveling
         if (context->origin->player->lev < 20)
             new_obj = make_object(context->origin->player, context->cave, context->origin->player->lev, false, false, false, NULL, 0);
@@ -2552,6 +2557,11 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
     /* Pack is too full */
     if (!inven_carry_okay(context->origin->player, new_obj))
     {
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+        }
         object_delete(new_obj);
         msg(context->origin->player, "Your backpack if too full!");
         return false;
@@ -2560,6 +2570,11 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
     /* Pack is too heavy */
     if (!weight_okay(context->origin->player, new_obj))
     {
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+        }
         object_delete(new_obj);
         msg(context->origin->player, "Your backpack if too heavy!");
         return false;
