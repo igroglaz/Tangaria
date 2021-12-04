@@ -2403,8 +2403,13 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
         return false;
     }
 
-    /* Paranoia: requires a reagent */
-    if (!tval_is_reagent(obj)) return false;
+    /* Paranoia: requires an alchemy reagents */
+    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Herb")) &&
+        !(obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Mineral")))
+    {
+        msg(context->origin->player, "For alchemy you need ingredients.");
+        return false;
+    }
 
     /* Amount */
     amt = obj->number;
@@ -2450,14 +2455,34 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     /* Set origin */
     set_origin(new_potion, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
 
+    // make soulbound all except potions which should be tradable
     if (!strstr(new_potion->kind->name, "Polymorph"))
         new_potion->soulbound = true;
+
+    /* Pack is too full */
+    if (!inven_carry_okay(context->origin->player, new_potion))
+    {
+        object_delete(new_potion);
+        msg(context->origin->player, "Your backpack if too full!");
+        return false;
+    }
+
+    /* Pack is too heavy */
+    if (!weight_okay(context->origin->player, new_potion))
+    {
+        object_delete(new_potion);
+        msg(context->origin->player, "Your backpack if too heavy!");
+        return false;
+    }
 
     /* Eliminate the item */
     use_object(context->origin->player, obj, amt, false);
 
-    drop_near(context->origin->player, context->cave, &new_potion, 0, &context->origin->player->grid,
-        true, DROP_FADE, true);
+    /* Give it to the player */
+    inven_carry(context->origin->player, new_potion, true, true);
+
+    /* Handle stuff */
+    handle_stuff(context->origin->player);
 
     return true;
 }
