@@ -6713,7 +6713,6 @@ type:reagent
 level:0
 weight:5
 cost:0
-flags:NO_DROP
 desc:A very rare plant which can be used for potions brewing.
 
 name:& Rare Mineral~
@@ -6722,7 +6721,6 @@ type:reagent
 level:0
 weight:10
 cost:0
-flags:NO_DROP
 desc:A very rare mineral used in alchemy.
 
 name:& Crafting Material~
@@ -6731,7 +6729,6 @@ type:reagent
 level:0
 weight:10
 cost:0
-flags:NO_DROP
 desc:Ore, wood and other resources may be used for creating new items by crafters.
 
 # Magic Essence graphics:*:u weight:2

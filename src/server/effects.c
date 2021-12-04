@@ -2533,16 +2533,34 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
             object_wipe(new_obj);
         }
         // now crafting progress with leveling
-        if (context->origin->player->lev < 20)
-            new_obj = make_object(context->origin->player, context->cave, context->origin->player->lev, false, false, false, NULL, 0);
+        //1-9
+        if (context->origin->player->lev < 10)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        //10-19
+        else if (context->origin->player->lev < 20 && one_in_(3))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        else if (context->origin->player->lev < 20)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        //20-29
+        else if (context->origin->player->lev < 30 && one_in_(2))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
         else if (context->origin->player->lev < 30)
-            new_obj = make_object(context->origin->player, context->cave, context->origin->player->lev + object_level(&context->origin->player->wpos) / 2, false, false, false, NULL, 0);
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        // 30-39
         else if (context->origin->player->lev < 40)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos) - 10, true, false, false, NULL, 0);
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        // 40-49
+        else if (context->origin->player->lev < 50 && one_in_(3))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
         else if (context->origin->player->lev < 50)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos) - 5, true, true, false, NULL, 0);
-        else if (context->origin->player->lev > 49)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        // 50
+        else if (context->origin->player->lev > 49 && one_in_(3))
             new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, true, NULL, 0);
+        else if (context->origin->player->lev > 49 && one_in_(2))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
+        else if (context->origin->player->lev > 49)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
     }
     // as we make sounbounded items, the only way to get rid of them is 'k'
     // but 'k' won't work on true arts, so we reroll if we crafted it
