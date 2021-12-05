@@ -1149,7 +1149,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Pack is too full */
                 if (!inven_carry_okay(p, dig_reagent))
                 {
-                    object_delete(dig_reagent);
+                    object_delete(&dig_reagent);
                     msg(p, "Your backpack if too full to find herbs!");
                     return false;
                 }
@@ -1157,7 +1157,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Pack is too heavy */
                 if (!weight_okay(p, dig_reagent))
                 {
-                    object_delete(dig_reagent);
+                    object_delete(&dig_reagent);
                     msg(p, "Your backpack if too heavy to get wood!");
                     return false;
                 }
@@ -1235,7 +1235,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Pack is too full */
             if (!inven_carry_okay(p, dig_reagent))
             {
-                object_delete(dig_reagent);
+                object_delete(&dig_reagent);
                 msg(p, "Your backpack if too full to find minerals!");
                 return false;
             }
@@ -1243,7 +1243,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Pack is too heavy */
             if (!weight_okay(p, dig_reagent))
             {
-                object_delete(dig_reagent);
+                object_delete(&dig_reagent);
                 msg(p, "Your backpack if too heavy to get materials!");
                 return false;
             }

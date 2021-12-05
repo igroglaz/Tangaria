@@ -2462,7 +2462,7 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     /* Pack is too full */
     if (!inven_carry_okay(context->origin->player, new_potion))
     {
-        object_delete(new_potion);
+        object_delete(&new_potion);
         msg(context->origin->player, "Your backpack if too full!");
         return false;
     }
@@ -2470,7 +2470,7 @@ static bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     /* Pack is too heavy */
     if (!weight_okay(context->origin->player, new_potion))
     {
-        object_delete(new_potion);
+        object_delete(&new_potion);
         msg(context->origin->player, "Your backpack if too heavy!");
         return false;
     }
@@ -2605,7 +2605,7 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
             preserve_artifact_aux(new_obj);
             history_lose_artifact(context->origin->player, new_obj);
         }
-        object_delete(new_obj);
+        object_delete(&new_obj);
         msg(context->origin->player, "Your backpack if too full!");
         return false;
     }
@@ -2618,7 +2618,7 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
             preserve_artifact_aux(new_obj);
             history_lose_artifact(context->origin->player, new_obj);
         }
-        object_delete(new_obj);
+        object_delete(&new_obj);
         msg(context->origin->player, "Your backpack if too heavy!");
         return false;
     }
@@ -8444,9 +8444,6 @@ static bool effect_handler_WAKE(effect_handler_context_t *context)
  */
 static bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
 {
-    /* Hack -- already used up */
-    bool used = (context->radius == 1);
-
     /* Always notice */
     context->ident = true;
 
@@ -8536,7 +8533,7 @@ static bool effect_handler_WEB(effect_handler_context_t *context)
     // if player weave web - reduce his satiation greatly
     if (!mon)
     {   
-        if (streq(context->origin->player, "Spider"))
+        if (streq(context->origin->player->race->name, "Spider"))
             player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
         else
             player_dec_timed(context->origin->player, TMD_FOOD, 450, false);
