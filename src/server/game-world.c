@@ -371,7 +371,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // Imp got 'perma-curse' - rng teleport
     // at first it's more often and at bigger distance, but later
     // it becomes more stable
-    if (streq(p->race->name, "Imp") && !p->wpos.depth == 0)
+    if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
     {
         int tele_chance = 100 + (p->lev * 2);
         if (one_in_(tele_chance))
@@ -425,7 +425,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
     /* Trader's cat */
-    if (streq(p->clazz->name, "Trader") && !p->wpos.depth == 0 && p->slaves < 1)
+    if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
@@ -438,7 +438,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Scavenger's rat */
-    if (streq(p->clazz->name, "Scavenger") && !p->wpos.depth == 0 && p->slaves < 1)
+    if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev > 9 && p->lev < 32)
             summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
@@ -449,7 +449,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Tamer class: pets */
-    if (streq(p->clazz->name, "Tamer") && !p->wpos.depth == 0 && p->slaves < 1)
+    if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev < 5)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
@@ -476,7 +476,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Thunderlord race: eagle-companion */
-    if (streq(p->race->name, "Thunderlord") && !p->wpos.depth == 0 && p->slaves < 1)
+    if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
@@ -489,7 +489,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Necromancer class golem */
-    if (p->timed[TMD_GOLEM] && !p->wpos.depth == 0)
+    if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -523,7 +523,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Assassins class sentry */
-    if (p->timed[TMD_SENTRY] && !p->wpos.depth == 0)
+    if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -561,7 +561,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Damned constantly hunted by monsters */
-    if (streq(p->race->name, "Damned") && !p->wpos.depth == 0 &&
+    if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
         one_in_(50 + (p->lev * 9)))
     {
         struct source who_body;

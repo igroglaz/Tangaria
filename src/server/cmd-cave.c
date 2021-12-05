@@ -1135,7 +1135,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Make Rare Herb or Crafting Material */
             if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
                  (streq(p->clazz->name, "Crafter")   && one_in_(3))) &&
-                !p->wpos.depth == 0)
+                !(p->wpos.depth == 0))
             {
                 struct object *dig_reagent;
 
@@ -1221,7 +1221,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         // make Rare Mineral or Crafting Material
         else if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
                   (streq(p->clazz->name, "Crafter")   && one_in_(2))) &&
-                  !p->wpos.depth == 0)
+                  !(p->wpos.depth == 0))
         {
             struct object *dig_reagent;
 

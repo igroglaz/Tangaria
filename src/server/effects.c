@@ -2538,7 +2538,7 @@ static bool effect_handler_CRAFT(effect_handler_context_t *context)
     amt = obj->number;
     
     // type and number of reagent
-    if (!obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material") && amt < 40)
+    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material")) && amt < 40)
     {
         msg(context->origin->player, "You need at least 40 crafting materials!");
         return false;

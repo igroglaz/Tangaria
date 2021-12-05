@@ -891,7 +891,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     }
 
     // Can not drop regular cursed items
-    if (obj->curses && !obj->artifact && !p->wpos.depth == 0)
+    if (obj->curses && !obj->artifact && !(p->wpos.depth == 0))
     {
         for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
         {

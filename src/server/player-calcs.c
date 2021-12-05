@@ -2746,7 +2746,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->skills[SKILL_SAVE] -= 10;
         }
 
-        if (streq(p->clazz->name, "Phaseblade") && !weapon->tval == TV_SWORD)
+        if (streq(p->clazz->name, "Phaseblade") && !(weapon->tval == TV_SWORD))
         {
             state->to_h -= 10;
             state->to_d -= 2;
