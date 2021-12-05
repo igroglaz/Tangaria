@@ -3663,6 +3663,18 @@ static bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    // Detect works starting with dlvl 20...
+    // ..and player must be good in searching.
+    // On high dlvl detect doors works always.
+    // (note: mages of good searching races shouldn't have problem)
+    if (context->cave->wpos.depth < 20 ||
+        (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
+        context->cave->wpos.depth < 60))
+    {
+        msg(context->origin->player, "You are not so good in searching yet to detect doors with magic.");
+        return false;
+    }            
+
     /* Pick an area to map */
     y1 = context->origin->player->grid.y - context->y;
     y2 = context->origin->player->grid.y + context->y;
@@ -3679,10 +3691,7 @@ static bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
         if (!square_in_bounds_fully(context->cave, &iter.cur)) continue;
 
         /* Detect secret doors */
-        // Mages of good searching races shouldn't have problem
-        if (square_issecretdoor(context->cave, &iter.cur) && context->cave->wpos.depth > 19 &&
-            (context->origin->player->state.skills[SKILL_SEARCH] > context->cave->wpos.depth ||
-            context->cave->wpos.depth > 60))
+        if (square_issecretdoor(context->cave, &iter.cur))
         {
             /* Put an actual door */
             place_closed_door(context->cave, &iter.cur);
@@ -4152,6 +4161,16 @@ static bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    // detect traps works starting with 20 lvl and depends on searching skills.
+    // At dlvl 60+ it works for all players alright.
+    if (context->cave->wpos.depth < 20 || 
+       (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
+        context->cave->wpos.depth < 60))
+    {
+        msg(context->origin->player, "You are not so good in searching to detect traps with magic.");
+        return false;
+    }
+
     /* Pick an area to map */
     y1 = context->origin->player->grid.y - context->y;
     y2 = context->origin->player->grid.y + context->y;
@@ -4162,16 +4181,6 @@ static bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     loc_init(&end, x2, y2);
     loc_iterator_first(&iter, &begin, &end);
     
-    if (context->cave->wpos.depth < 20 &&
-       (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth ||
-        context->cave->wpos.depth < 60))
-    {
-        if (!context->cave->wpos.depth < 20)
-            msg(context->origin->player, "You are not so good in searching to detect traps with magic.");
-        context->ident = true;
-        return true;
-    }
-
     /* Scan the dungeon */
     do
     {
