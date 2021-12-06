@@ -31637,6 +31637,78 @@ desc: Very intelligent, dragon consider you not as master, but rather like a fri
 desc: Wisps of smoke steam from its nostrils and the extreme heat surrounding
 desc: it makes you gasp for breath.
 
+###### adventurer's dog
+
+name:cub
+base:canine
+color:u
+speed:110
+hit-points:1
+hearing:20
+smell:50
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:1d2
+flags:RAND_50
+flags:NO_PASS_TREE
+desc:Tiny wild dog which you found accidentally.
+
+name:puppy
+base:canine
+color:u
+speed:110
+hit-points:1
+hearing:20
+smell:50
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:2d3
+flags:RAND_25
+flags:NO_PASS_TREE
+desc:Small puppy, it recognizes you as a master.
+
+name:dog
+base:canine
+color:u
+speed:120
+hit-points:1
+hearing:20
+smell:50
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:4d4
+flags:NO_PASS_TREE
+desc:Your faithful dog. It wags tail all the time, even when it pursue enemies.
+
+name:hound
+base:canine
+color:u
+speed:130
+hit-points:1
+hearing:20
+smell:50
+armor-class:1
+sleepiness:10
+depth:1
+rarity:0
+weight:0
+experience:0
+blow:BITE:HURT:5d5
+flags:NO_PASS_TREE
+desc:Huge hound. You can't believe that it was a small cub one day..
+
 #### Necromancer summons
 
 name:clay_golem

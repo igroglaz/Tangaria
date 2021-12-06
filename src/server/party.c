@@ -266,10 +266,11 @@ static bool party_add(struct player *q, const char *name)
     }
 
     /* Some classes bound to play solo */
-    if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger"))
+    if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger") ||
+        streq(p->clazz->name, "Crafter") || streq(p->clazz->name, "Alchemist"))
     {
         /* Message */
-        msg(q, "Traders or Scavengers can not join the party.");
+        msg(q, "Traders, Scavengers, Alchemists and Crafters can not join the party.");
 
         /* Abort */
         return false;

@@ -424,6 +424,19 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
 
+    /* Adventurer's dog */
+    if (streq(p->clazz->name, "Adventurer") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("puppy"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("dog"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
+    }
+
     /* Trader's cat */
     if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
     {

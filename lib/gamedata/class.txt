@@ -4845,6 +4845,7 @@ value:0:DEX[-5]
 value:0:CON[-4]
 value:0:CHR[0+1d15]
 player-flags:0:CHOOSE_SPELLS
+# got different pets
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -5058,6 +5059,7 @@ expr:D:PLAYER_LEVEL:/ 2
 msg_other: emits a healing blast.
 desc:Creates a radius-5 healing ball around you.
 
+#4
 book:nature book:dungeon:[Nature Craft]:5:nature
 
 spell:Turn Stone to Mud:20:7:25:5:0
@@ -5101,6 +5103,7 @@ effect:RESTORE_STAT:INT
 effect:RESTORE_STAT:STR
 desc:Restores all stats and experience points to maximum.
 
+#5
 book:nature book:dungeon:[Wild Forces]:5:nature
 
 spell:Ancient Lore:35:30:80:20:0
@@ -5143,7 +5146,7 @@ color:u
 skill-disarm-phys:20:6
 skill-disarm-magic:15:6
 skill-device:18:7
-skill-save:18:9
+skill-save:33:7
 skill-stealth:0:0
 skill-search:10:12
 skill-melee:65:45
@@ -5167,7 +5170,6 @@ value:0:WIS[-1]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-1]
-player-flags:0:SHIELD_BASH
 title:Rookie
 title:Soldier
 title:Swordsman
@@ -5252,11 +5254,11 @@ expr:B:PLAYER_LEVEL:* 3
 desc:Attempts a skillful attack that knocking enemy back with a chance to stun it.
 
 spell:Last Chance:50:70:90:90:0
-cooldown:300
+cooldown:777
 effect:TIMED_INC:REVIVE
-dice:5+1d5
+dice:3+1d7
 desc:Allows you to avoid death once in a while.
-desc: Can be used every 200 turns.
+desc: Can be used every 777 turns.
 
 ############### CLASS TEMPLATE for Knight ###############
 name:Knight
@@ -5378,6 +5380,7 @@ dice:4+1d4
 desc:Grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
+desc: Can be used every 300 turns.
 
 ############### CLASS TEMPLATE for Adventurer ###############
 name:Adventurer
@@ -5394,7 +5397,7 @@ skill-dig:0:0
 hitdie:3
 max-attacks:3
 min-weight:35
-strength-multiplier:3
+strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -5407,6 +5410,7 @@ value:0:WIS[0]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[0]
+#/// + dog
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -6311,12 +6315,12 @@ desc: location, the next meteor may continue to find another target.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:1:arcane
 
-spell:Summon Demon:50:100:42:200:0
+spell:Summon Daemon:50:100:42:200:0
 cooldown:100
 effect:SUMMON:DEMON:0:100
 dice:1
-msg_other: summons a demon.
-desc:Attempts to summon a demon.
+msg_other: summons a daemon.
+desc:Attempts to summon a daemon.
 
 ############### CLASS TEMPLATE for Trader ###############
 name:Trader

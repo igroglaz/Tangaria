@@ -216,7 +216,116 @@ help: to take care of wild creatures - is an evidence what a tideous and dangero
 help: job it is. Going through dense dim-lit thickets, hot sands and insidious
 help: mountains to stalk a dragon in its den.. to make friends with it - this is
 help: your life ambition. |
-help: You will start not with a dragons though, but with rat companion. If you will
+help:You will start not with a dragons though, but with rat companion. If you will
 help: take a good care of it - it will give you certain powers eventually..
 help: Each new pet which you will acquire will teach you something and fight for
 help: your life.
+
+class:Druid
+help:Nature magic and can shift to animals. Good in martial arts and do not use
+help: weapons. Every 5 levels can learn a new animal form to transform; some
+help: forms can cast magic spells or have innate abilities.
+
+class:Fighter
+help:Mercenary who uses different fighting tricks and blows to survive at all cost.
+help: Like all mercenaries, they are very good in armor and weapon care.
+help: Fighters are very superstitious and believe in fortune.
+help: As they care a lot about signs and omens they may get lucky to survive
+help: blows which will be mortal wound for anyone else.
+
+class:Knight
+help:Noble knight in heavy armour who charges into enemies with immense power.
+help: They can not be confused and can use their shield with astonishing mastery.
+
+class:Adventurer
+help:Common person who know some basic magic and not too bad in fighting..
+help: He is not alone in his wanderings - he's got a four-legged friend.
+
+class:Bard
+help:Expert in musicanship and singing, you can not only give joy to people,
+help: but also know how to use music magic to bring cure and wreak havoc.
+help: He is resistant to sound attacks.
+
+class:Battlemage
+help:Specialise in destruction of his enemies not only with power of elements,
+help: but also uses all melee fighting skills making his universal death machine.
+
+class:Necromancer
+help:Weak and fragile, necromancer has powers to raise and command armies of dead.
+help: Resistant to nether, he can summon power of bone and poison for his profit.
+help: Most powerful necromancers can also command golems.
+
+class:Cleric
+help:Spiritual guide, this holy monk sworn not to take weapon in his hand.
+help: This sacred vow does not interfere with his ability to crush enemies
+help: skulls with his bare hands.
+
+class:Wizard
+help:Legendary magician who obtained ancient secrets which were forgotten for ages.
+help: There is a rumour that wizards even can summon and control daemons.
+
+class:Trader
+help:Enterprising merchant who went into the dungeon to fulfil his life ambition:
+help: get enought money to open his own tavern. Trader proud of his cat who
+help: follows him during adventures. |
+help:Trader can sell items to NPC stores. With higher lvls he has better prices. |
+help:They can not form party with other players.
+
+class:Assassin
+help:Stealthy slayers who know 100500 different ways to kill it's prey fast and
+help: effective. Their ambushing especially deadly to enemies which are not
+help: expecting an attack.
+help: Most powerful assassins specialises on sentries - special magic traps which
+help: shoot poison, blades and magic elements to enemies on sight.
+
+class:Phaseblade
+help:Warrior who dwells in two worlds and doesn't feel space/weight burden. It can
+help: teleport around and using his phase technics to cut enemies to pieces.
+help: They prefer swords and not good with other types of weapons.
+help: They can teleport from non/limited-teleport area.
+
+class:Cryokinetic
+help:Some also call them 'Weathermasters'. Cryokinetic can instantly change
+help: surrounding temperature to extremums. Not much creatures can endure their
+help: freezing roth which change in a flash to blazing fire.
+help: They doesn't fear lava and can not slip on ice.
+
+class:Timeturner
+help:Extreamely brittle, but lightning fast, they commands time by void magic.
+help: Some call them 'Mesmers' as they also got battle telepathic powers.
+help: They become especially speedy after level 30.
+
+class:Scavenger
+help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,
+help: but also won't say no to maraudering corpses of other adventurers.
+help: He can salvage equipment into valuables right in the dungeon, so he does not
+help: need to get distracted on going to town every now and then.
+help: They are good in stealing, but not so good as rogues.
+help: Also they got a pet - rat which is trained to divert enemies attention. |
+help: Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
+help: true artifacts at 40+ lvl. |
+help:The higher level it got - the more valuables he can get from salvaging. |
+help: They can not form party with other players.
+
+class:Alchemist
+help:Can brew potions and concoct elixirs which can not only bring devastation and
+help: exterminate all living creatures, but also may bring cure and hope.
+help: To make a potion they should first gather a reagent. Some reagents are
+help: organic and may be found in plants. Some are mineral and may be gathered by
+help: mining. Brewing potion takes some time and concentration during which
+help: alchemist is very vulnerable. |
+help:Brewed potions are soulbound and can be used only by creator; you can not
+help: neither trade it, nor drop it on the ground.
+help: To get rid of crafted equipment which you don't need:
+help: use 'k' key to destroy it or simply drink it or throw into enemies. |
+help:They can not form party with other players.
+
+class:Crafter
+help:Can gather resources by chopping trees for logs or mining mountains for ore,
+help: to use this materials in crafting equipment. |
+help:Crafter equipment is soulbound and can be fitted only on creator; you can not
+help: neither trade it, nor drop it on the ground. |
+help:To get rid of crafted equipment which you don't need:
+help: use 'k' key to destroy it. |
+help:They can not form party with other players.
+
