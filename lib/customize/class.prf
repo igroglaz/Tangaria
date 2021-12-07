@@ -255,7 +255,7 @@ help:Weak and fragile, necromancer has powers to raise and command armies of dea
 help: Resistant to nether, he can summon power of bone and poison for his profit.
 help: Most powerful necromancers can also command golems.
 
-class:Cleric
+class:Hermit
 help:Spiritual guide, this holy monk sworn not to take weapon in his hand.
 help: This sacred vow does not interfere with his ability to crush enemies
 help: skulls with his bare hands.
@@ -316,7 +316,7 @@ help: mining. Brewing potion takes some time and concentration during which
 help: alchemist is very vulnerable. |
 help:Brewed potions are soulbound and can be used only by creator; you can not
 help: neither trade it, nor drop it on the ground.
-help: To get rid of crafted equipment which you don't need:
+help: To get rid of potions which you don't need:
 help: use 'k' key to destroy it or simply drink it or throw into enemies. |
 help:They can not form party with other players.
 
@@ -329,3 +329,14 @@ help:To get rid of crafted equipment which you don't need:
 help: use 'k' key to destroy it. |
 help:They can not form party with other players.
 
+class:Inquisitor
+help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.
+help: They hate sorcery and witchcraft which they judge as black magic and idolatry.
+help: They themself refuse to use common magic, they refuse all
+help: training in the use of magic items, although they can still quaff potions
+help: and read scrolls which they accept as minor evil to fight greater evil.
+help: Because they are so hateful towards magic, Inquisitors can prevent magical
+help: gates from opening around them, eventually extending to a complete
+help: suppression all magic in the area around them. |
+help:They prefer not to use weapons, but to break bones with bare hands... |
+help:Inquisitors replenish their life forces by hurting victims which fear them.

@@ -477,6 +477,13 @@ static void blow_side_effects(struct player *p, struct source *target,
 
         hp_player_safe(p, 1 + drain / 2);
     }
+    else if (streq(p->clazz->name, "Inquisitor") && target->monster &&
+        monster_is_fearful(target->monster) && !monster_is_unique(target->monster->race) && !monster_is_powerful(target->monster))
+    {
+        int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
+
+        hp_player_safe(p, 1 + drain / 2);
+    }
 
     // Mage's "Frost Shield" spell gives cold brand
     if (p->timed[TMD_SHIELD] && streq(p->clazz->name, "Mage") && p->lev > 20)

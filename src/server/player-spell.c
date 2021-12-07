@@ -745,6 +745,10 @@ bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
                     msg(p, "%s fails to cast a spell.", m_name);
                 }
                 else
+                    // Inquisitor can cast his weird spells
+                    if (streq(p->clazz->name, "Inquisitor"))
+                        return false;
+                    // others classes will fail
                     msg(p, "Your anti-magic field disrupts your attempt.");
                 return true;
             }
