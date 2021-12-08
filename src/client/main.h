@@ -15,6 +15,9 @@ struct module
 #ifdef USE_SDL
 extern errr init_sdl(void);
 #endif
+#ifdef USE_SDL2
+extern errr init_sdl2(void);
+#endif
 #ifdef USE_GCU
 extern errr init_gcu(void);
 #endif

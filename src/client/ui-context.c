@@ -258,7 +258,10 @@ int context_menu_object(struct object *obj)
     {
         ADD_LABEL("Uninscribe", CMD_UNINSCRIBE, MN_ROW_VALID);
     }
-    ADD_LABEL((obj->info_xtra.ignored? "Unignore": "Ignore"), CMD_IGNORE, MN_ROW_VALID);
+    if (!obj->ignore_protect)
+    {
+        ADD_LABEL((obj->info_xtra.ignored? "Unignore": "Ignore"), CMD_IGNORE, MN_ROW_VALID);
+    }
 
     menu_dynamic_calc_location(m);
 

@@ -406,6 +406,7 @@ void init_file_paths(const char *configpath, const char *libpath, const char *da
  */
 void create_needed_dirs(void)
 {
+#if !defined(USE_SDL2)
     char dirpath[MSG_LEN];
 
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_USER, "");
@@ -416,6 +417,7 @@ void create_needed_dirs(void)
 
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_SCORES, "");
     if (!dir_create(dirpath)) quit_fmt("Cannot create '%s'", dirpath);
+#endif
 }
 
 

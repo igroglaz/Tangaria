@@ -1789,34 +1789,40 @@ void textui_cmd_ignore_menu(struct object *obj)
     m->selections = lower_case;
 
     /* Basic ignore option */
-    if (!obj->notice)
-        menu_dynamic_add(m, "Ignore this item", IGNORE_THIS_ITEM);
-    else
-        menu_dynamic_add(m, "Unignore this item", UNIGNORE_THIS_ITEM);
+    if (!obj->ignore_protect)
+    {
+        if (!obj->notice)
+            menu_dynamic_add(m, "Ignore this item", IGNORE_THIS_ITEM);
+        else
+            menu_dynamic_add(m, "Unignore this item", UNIGNORE_THIS_ITEM);
+    }
 
     /* PWMAngband: keep destruction as an option */
     menu_dynamic_add(m, "Destroy this item", DESTROY_THIS_ITEM);
 
     /* Flavour-aware ignoring */
-    artifact = (kf_has(obj->kind->kind_flags, KF_INSTA_ART) ||
-        kf_has(obj->kind->kind_flags, KF_QUEST_ART));
-    if (ignore_tval(obj->tval) && player->kind_aware[obj->kind->kidx] &&
-        !artifact)
+    if (!obj->ignore_protect)
     {
-        if (!player->kind_ignore[obj->kind->kidx])
+        artifact = (kf_has(obj->kind->kind_flags, KF_INSTA_ART) ||
+            kf_has(obj->kind->kind_flags, KF_QUEST_ART));
+        if (ignore_tval(obj->tval) && player->kind_aware[obj->kind->kidx] &&
+            !artifact)
         {
-            strnfmt(out_val, sizeof(out_val), "Ignore all %s", obj->info_xtra.name_base);
-            menu_dynamic_add(m, out_val, IGNORE_THIS_FLAVOR);
-        }
-        else
-        {
-            strnfmt(out_val, sizeof(out_val), "Unignore all %s", obj->info_xtra.name_base);
-            menu_dynamic_add(m, out_val, UNIGNORE_THIS_FLAVOR);
+            if (!player->kind_ignore[obj->kind->kidx])
+            {
+                strnfmt(out_val, sizeof(out_val), "Ignore all %s", obj->info_xtra.name_base);
+                menu_dynamic_add(m, out_val, IGNORE_THIS_FLAVOR);
+            }
+            else
+            {
+                strnfmt(out_val, sizeof(out_val), "Unignore all %s", obj->info_xtra.name_base);
+                menu_dynamic_add(m, out_val, UNIGNORE_THIS_FLAVOR);
+            }
         }
     }
 
     /* Ego ignoring */
-    if ((obj->info_xtra.eidx >= 0) && (obj->info_xtra.eidx < z_info->e_max))
+    if ((obj->info_xtra.eidx >= 0) && (obj->info_xtra.eidx < z_info->e_max) && !obj->ignore_protect)
     {
         struct ego_desc choice;
         char tmp[NORMAL_WID] = "";
@@ -1838,14 +1844,17 @@ void textui_cmd_ignore_menu(struct object *obj)
     }
 
     /* Quality ignoring */
-    value = obj->info_xtra.quality_ignore;
-    type = ignore_type_of(obj);
-    if ((value != IGNORE_MAX) && (type != ITYPE_MAX))
+    if (!obj->ignore_protect)
     {
-        strnfmt(out_val, sizeof(out_val), "Ignore all %s %s", quality_name_for_value(value),
-            ignore_name_for_type(type));
+        value = obj->info_xtra.quality_ignore;
+        type = ignore_type_of(obj);
+        if ((value != IGNORE_MAX) && (type != ITYPE_MAX))
+        {
+            strnfmt(out_val, sizeof(out_val), "Ignore all %s %s", quality_name_for_value(value),
+                ignore_name_for_type(type));
 
-        menu_dynamic_add(m, out_val, IGNORE_THIS_QUALITY);
+            menu_dynamic_add(m, out_val, IGNORE_THIS_QUALITY);
+        }
     }
 
     menu_dynamic_calc_location(m);

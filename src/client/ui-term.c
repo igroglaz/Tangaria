@@ -1199,7 +1199,7 @@ errr Term_fresh(void)
             int tx = old->cx;
             int ty = old->cy;
 
-            #if !defined(USE_GCU) && !defined(USE_SDL)
+            #if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
             if ((old->a[ty][tx] == scr->a[ty][tx]) && (old->c[ty][tx] == scr->c[ty][tx]) &&
                 (old->ta[ty][tx] == scr->ta[ty][tx]) && (old->tc[ty][tx] == scr->tc[ty][tx]) &&
                 (tx == scr->cx) && (ty == scr->cy) && (old->cv == scr->cv))
@@ -1216,7 +1216,7 @@ errr Term_fresh(void)
             if (Term->x1[ty] > tx) Term->x1[ty] = tx;
             if (Term->x2[ty] < tx) Term->x2[ty] = tx;
 
-            #if !defined(USE_GCU) && !defined(USE_SDL)
+            #if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
             }
             #endif
         }

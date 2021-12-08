@@ -186,7 +186,7 @@ extern int Send_fullmap(struct player *p, int y);
 extern int Send_poly(struct player *p, int race);
 extern int Send_store_leave(struct player *p);
 extern int Send_ignore(struct player *p);
-extern int Send_flush(struct player *p, bool fresh, bool delay);
+extern int Send_flush(struct player *p, bool fresh, char delay);
 extern int Send_channel(struct player *p, byte n, const char *virt);
 
 /*** Commands ***/

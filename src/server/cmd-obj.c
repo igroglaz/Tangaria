@@ -698,6 +698,12 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
             obj->known->notice &= ~OBJ_NOTICE_IGNORE;
         else
             obj->known->notice |= OBJ_NOTICE_IGNORE;
+
+        set_redraw_inven(p, obj);
+        if (object_is_carried(p, obj))
+            set_redraw_inven(p, obj);
+        else
+            redraw_floor(&p->wpos, &obj->grid, NULL);
     }
 }
 
@@ -1501,16 +1507,6 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
         level = get_artifact_level(p, *obj_address);
     else
         level = (*obj_address)->kind->level;
-
-    /* Check for "obvious" effects beforehand */
-    if (effect->index == EF_IDENTIFY)
-    {
-        object_flavor_aware(p, *obj_address);
-
-        /* PWMAngband: mark "aware" and redisplay */
-        set_redraw_inven(p, *obj_address);
-        redraw_stuff(p);
-    }
 
     /* Boost damage effects if skill > difficulty */
     boost = MAX((p->state.skills[SKILL_DEVICE] - level) / 2, 0);

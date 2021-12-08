@@ -773,8 +773,8 @@ int draw_path(struct player *p, u16b path_n, struct loc *path_g, struct loc *gri
     }
 
     /* Flush and wait (delay for consistency) */
-    if (i) Send_flush(p, true, true);
-    else Send_flush(p, true, false);
+    if (i) Send_flush(p, true, p->do_visuals? 4: 1);
+    else Send_flush(p, true, 0);
 
     return i;
 }
@@ -793,7 +793,7 @@ void load_path(struct player *p, u16b path_n, struct loc *path_g)
         square_light_spot_aux(p, chunk_get(&p->wpos), &path_g[i]);
     }
 
-    Send_flush(p, true, false);
+    Send_flush(p, true, 0);
     p->path_drawn = false;
 }
 

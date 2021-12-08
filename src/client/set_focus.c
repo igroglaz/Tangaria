@@ -18,7 +18,7 @@
 
 #include "c-angband.h"
 
-#if defined(USE_GCU) || defined(USE_SDL)
+#if defined(USE_GCU) || defined(USE_SDL) || defined(USE_SDL2)
 
 /*
  * This is required for large graphical tiles where we cant have an

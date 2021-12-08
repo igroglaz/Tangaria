@@ -491,12 +491,12 @@ void flush_path_grid(struct player *p, struct chunk *cv, struct loc *grid, byte 
     draw_path_grid(p, grid, a, c);
 
     /* Flush and wait */
-    Send_flush(p, true, true);
+    Send_flush(p, true, p->do_visuals? 4: 1);
 
     /* Restore */
     square_light_spot_aux(p, cv, grid);
 
-    Send_flush(p, true, false);
+    Send_flush(p, true, 0);
 }
 
 

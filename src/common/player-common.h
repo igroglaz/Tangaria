@@ -876,6 +876,7 @@ struct player
     bool shimmer;                   /* Hack -- optimize multi-hued code (players) */
     bool delayed_display;           /* Hack -- delay messages after character creation */
     bool did_visuals;               /* Hack -- projection indicator (visuals) */
+    bool do_visuals;                /* Hack -- projection indicator (visuals) */
     struct loc old_grid;            /* Previous player location */
     bool path_drawn;                /* NPP's visible targeting */
     int path_n;

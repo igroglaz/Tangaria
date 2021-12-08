@@ -41,6 +41,10 @@ static const struct module modules[] =
     {"sdl", init_sdl},
 #endif
 
+#ifdef USE_SDL2
+	{"sdl2", init_sdl2},
+#endif
+
 #ifdef USE_GCU
     {"gcu", init_gcu},
 #endif

@@ -963,7 +963,7 @@ void do_cmd_message(void)
     char buf[240];
     bool ok;
 
-#if !defined(USE_GCU) && !defined(USE_SDL)
+#if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
     /* Hack to just change the window focus in Windows client */
     if (term_chat->user)
     {

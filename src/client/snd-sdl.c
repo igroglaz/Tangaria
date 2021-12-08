@@ -29,7 +29,12 @@
 #  include <SDL/SDL.h>
 #  include <SDL/SDL_mixer.h>
 # endif
+#endif /* USE_SDL */
 
+#ifdef SOUND_SDL2
+#  include <SDL.h>
+#  include <SDL_mixer.h>
+#endif /* USE_SDL2 */
 
 /* Supported file types */
 enum
@@ -423,6 +428,3 @@ errr init_sound_sdl(struct sound_hooks *hooks)
     /* Success */
     return (0);
 }
-
-
-#endif /* USE_SDL */

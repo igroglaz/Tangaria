@@ -233,6 +233,9 @@ void square_note_spot(struct chunk *c, struct loc *grid)
     {
         struct player *p = player_get(i);
 
+        /* Skip player if he just left the level */
+        if (p->upkeep->new_level_method) continue;
+
         /* Memorize interesting viewable object/features in the given grid for that player */
         square_note_spot_aux(p, c, grid);
     }

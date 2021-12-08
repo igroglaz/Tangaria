@@ -2747,8 +2747,9 @@ int Send_floor(struct player *p, byte num, const struct object *obj, struct obje
     if (connp == NULL) return 0;
 
     Packet_printf(&connp->c, "%b%b%b", (unsigned)PKT_FLOOR, (unsigned)num, (unsigned)force);
-    Packet_printf(&connp->c, "%hu%hu%hd%lu%ld%b%hd", (unsigned)obj->tval, (unsigned)obj->sval,
-        obj->number, obj->note, obj->pval, (unsigned)ignore, obj->oidx);
+    Packet_printf(&connp->c, "%hu%hu%hd%lu%ld%b%hd%b", (unsigned)obj->tval, (unsigned)obj->sval,
+        obj->number, obj->note, obj->pval, (unsigned)ignore, obj->oidx,
+        (unsigned)obj->ignore_protect);
     Packet_printf(&connp->c, "%b%b%b%b%b%hd%b%b%b%b%b%b%hd%b%hd%b", (unsigned)info_xtra->attr,
         (unsigned)info_xtra->act, (unsigned)info_xtra->aim, (unsigned)info_xtra->fuel,
         (unsigned)info_xtra->fail, info_xtra->slot, (unsigned)info_xtra->known,
@@ -3219,8 +3220,8 @@ int Send_item(struct player *p, const struct object *obj, int wgt, s32b price,
         (unsigned)info_xtra->equipped);
 
     /* Object info */
-    Packet_printf(&connp->c, "%hu%hd%hd%ld%lu%ld%b%hd", (unsigned)obj->sval, wgt, obj->number,
-        price, obj->note, obj->pval, (unsigned)ignore, obj->oidx);
+    Packet_printf(&connp->c, "%hu%hd%hd%ld%lu%ld%b%hd%b", (unsigned)obj->sval, wgt, obj->number,
+        price, obj->note, obj->pval, (unsigned)ignore, obj->oidx, (unsigned)obj->ignore_protect);
 
     /* Extra info */
     Packet_printf(&connp->c, "%b%b%b%b%b%hd%b%b%b%b%b%b%b%hd%b%hd%b", (unsigned)info_xtra->attr,
@@ -3359,7 +3360,7 @@ int Send_ignore(struct player *p)
 }
 
 
-int Send_flush(struct player *p, bool fresh, bool delay)
+int Send_flush(struct player *p, bool fresh, char delay)
 {
     connection_t *connp = get_connp(p, "flush");
     if (connp == NULL) return 0;
@@ -7460,6 +7461,10 @@ static int Receive_flush(int ind)
 
         /* Clear */
         p->current_value = 0;
+
+        /* Notice */
+        p->upkeep->notice &= ~(PN_WAIT);
+        notice_stuff(p);
     }
 
     return 1;

@@ -6997,8 +6997,10 @@ static bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
         msg(context->origin->player, context->self_msg);
+    context->origin->player->do_visuals = true;
     for (i = 0; i < 8; i++)
         light_line_aux(context->origin, ddd[i], context->subtype, dam);
+    context->origin->player->do_visuals = false;
     if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
 
     context->self_msg = NULL;

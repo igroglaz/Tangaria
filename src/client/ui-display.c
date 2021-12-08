@@ -795,7 +795,7 @@ static void update_messages_subwindow(game_event_type type, game_event_data *dat
         /* Hack -- re-color message from string template */
         message_color_hack(msg, &color);
 
-#if defined(USE_GCU) || defined(USE_SDL)
+#if defined(USE_GCU) || defined(USE_SDL) || defined(USE_SDL2)
         if (term_chat && ((type >= MSG_WHISPER) || TYPE_BROADCAST(type))) continue;
 #else
         if (term_chat->user && ((type >= MSG_WHISPER) || TYPE_BROADCAST(type))) continue;

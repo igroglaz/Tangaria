@@ -26,7 +26,7 @@ int graphics_mode_high_id;
 
 
 /* Efficiency */
-static graphics_mode *current_graphics_mode = NULL;
+graphics_mode *current_graphics_mode = NULL;
 
 
 static enum parser_error parse_graf_name(struct parser *p)
@@ -161,6 +161,9 @@ static errr finish_parse_grafmode(struct parser *p)
     my_strcpy(graphics_modes[count].menuname, "None", 32);
 
     graphics_mode_high_id = max;
+
+    /* set the default graphics mode to be no graphics */
+    current_graphics_mode = &(graphics_modes[count]);
 
     if (p)
     {

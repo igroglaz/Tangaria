@@ -2603,7 +2603,7 @@ static int Receive_floor(void)
 {
     int n, bytes_read;
     byte ch, num, notice, attr, act, aim, fuel, fail, known, known_effect, identified, carry,
-        quality_ignore, ignored, magic, throwable, force;
+        quality_ignore, ignored, magic, throwable, force, ignore_protect;
     u16b tval, sval;
     s16b amt, slot, oidx, eidx, bidx;
     s32b pval;
@@ -2619,8 +2619,8 @@ static int Receive_floor(void)
         return n;
     bytes_read = 3;
 
-    if ((n = Packet_scanf(&rbuf, "%hu%hu%hd%lu%ld%b%hd", &tval, &sval, &amt, &note, &pval, &notice,
-        &oidx)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%hu%hu%hd%lu%ld%b%hd%b", &tval, &sval, &amt, &note, &pval,
+        &notice, &oidx, &ignore_protect)) <= 0)
     {
         /* Rollback the socket buffer */
         Sockbuf_rollback(&rbuf, bytes_read);
@@ -2628,7 +2628,7 @@ static int Receive_floor(void)
         /* Packet isn't complete, graceful failure */
         return n;
     }
-    bytes_read += 17;
+    bytes_read += 18;
 
     if ((n = Packet_scanf(&rbuf, "%b%b%b%b%b%hd%b%b%b%b%b%b%hd%b%hd%b", &attr, &act, &aim, &fuel,
         &fail, &slot, &known, &known_effect, &identified, &carry, &quality_ignore, &ignored, &eidx,
@@ -2640,7 +2640,7 @@ static int Receive_floor(void)
         /* Packet isn't complete, graceful failure */
         return n;
     }
-    bytes_read += 18;
+    bytes_read += 19;
 
     if ((n = Packet_scanf(&rbuf, "%s%s%s%s%s", name, name_terse, name_base, name_curse,
         name_power)) <= 0)
@@ -2687,6 +2687,7 @@ static int Receive_floor(void)
         obj->pval = pval;
         obj->notice = notice;
         obj->oidx = oidx;
+        obj->ignore_protect = ignore_protect;
 
         /* Hack -- extra information used by the client */
         obj->info_xtra.attr = attr;
@@ -3758,7 +3759,7 @@ static int Receive_item(void)
 {
     int n, bytes_read;
     byte ch, equipped, notice, attr, act, aim, fuel, fail, stuck, known, known_effect, identified,
-        sellable, quality_ignore, ignored, magic, throwable;
+        sellable, quality_ignore, ignored, magic, throwable, ignore_protect;
     u16b tval, sval;
     s16b wgt, amt, oidx, slot, eidx, bidx;
     s32b price, pval;
@@ -3775,8 +3776,8 @@ static int Receive_item(void)
     bytes_read = 4;
 
     /* Object info */
-    if ((n = Packet_scanf(&rbuf, "%hu%hd%hd%ld%lu%ld%b%hd", &sval, &wgt, &amt, &price, &note, &pval,
-        &notice, &oidx)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%hu%hd%hd%ld%lu%ld%b%hd%b", &sval, &wgt, &amt, &price, &note,
+        &pval, &notice, &oidx, &ignore_protect)) <= 0)
     {
         /* Rollback the socket buffer */
         Sockbuf_rollback(&rbuf, bytes_read);
@@ -3784,7 +3785,7 @@ static int Receive_item(void)
         /* Packet isn't complete, graceful failure */
         return n;
     }
-    bytes_read += 21;
+    bytes_read += 22;
 
     /* Extra info */
     if ((n = Packet_scanf(&rbuf, "%b%b%b%b%b%hd%b%b%b%b%b%b%b%hd%b%hd%b", &attr, &act, &aim, &fuel,
@@ -3797,7 +3798,7 @@ static int Receive_item(void)
         /* Packet isn't complete, graceful failure */
         return n;
     }
-    bytes_read += 19;
+    bytes_read += 20;
 
     /* Descriptions */
     if ((n = Packet_scanf(&rbuf, "%s%s%s%s%s", name, name_terse, name_base, name_curse,
@@ -3844,6 +3845,7 @@ static int Receive_item(void)
         obj->pval = pval;
         obj->notice = notice;
         obj->oidx = oidx;
+        obj->ignore_protect = ignore_protect;
 
         obj->info_xtra.attr = attr;
         obj->info_xtra.act = act;
@@ -4241,7 +4243,7 @@ static int Receive_flush(void)
     if (fresh) Term_fresh();
 
     /* Wait */
-    if (delay) Term_xtra(TERM_XTRA_DELAY, player->opts.delay_factor);
+    if (delay) Term_xtra(TERM_XTRA_DELAY, player->opts.delay_factor / delay);
 
     return 1;
 }
