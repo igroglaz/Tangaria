@@ -237,9 +237,12 @@ class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
 help: They can not be confused and can use their shield with astonishing mastery.
 
-class:Adventurer
+class:Traveller
 help:Common person who know some basic magic and not too bad in fighting..
 help: He is not alone in his wanderings - he's got a four-legged friend.
+help: Travellers are pretty sure that they knows well about navigation and 
+help: direction, maps and cardinal points...
+help: but often they come into real adventure due to this overconfidence.
 
 class:Bard
 help:Expert in musicanship and singing, you can not only give joy to people,
@@ -340,3 +343,8 @@ help: gates from opening around them, eventually extending to a complete
 help: suppression all magic in the area around them. |
 help:They prefer not to use weapons, but to break bones with bare hands... |
 help:Inquisitors replenish their life forces by hurting victims which fear them.
+
+class:Adventurer
+help:Jack of all trades, master of none... He knows a lot of stuff and tried
+help: lots professions. Very versatile, but also very mediocre in every regard..
+help: ...though oftentimes better than master of one.

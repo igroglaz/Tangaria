@@ -5165,237 +5165,237 @@ monster:<player>:0x97:0xA8
 RF:<player>:0x97:0xA8
 ########################################################
 
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Troll] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0xE9
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Troll] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Troll] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE9
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Human] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Human] ]
 monster:<player>:0x83:0xE2
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Human] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Human] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE2
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Elf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Elf] ]
 monster:<player>:0x83:0xE3
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Elf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Elf] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE3
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Elf] ]
 monster:<player>:0x83:0xE4
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Elf] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE4
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Halfling] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Halfling] ]
 monster:<player>:0x83:0xE5
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Halfling] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Halfling] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE5
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnome] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gnome] ]
 monster:<player>:0x83:0xE6
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnome] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gnome] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE6
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dwarf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dwarf] ]
 monster:<player>:0x83:0xE7
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dwarf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dwarf] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE7
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Orc] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Orc] ]
 monster:<player>:0x83:0xE8
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Orc] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Orc] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xE8
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dunadan] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dunadan] ]
 monster:<player>:0x83:0xEA
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dunadan] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dunadan] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xEA
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE High-Elf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE High-Elf] ]
 monster:<player>:0x83:0xEB
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE High-Elf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE High-Elf] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xEB
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Kobold] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Kobold] ]
 monster:<player>:0x83:0xEC
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Kobold] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Kobold] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xEC
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Yeek] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Yeek] ]
 monster:<player>:0x83:0xED
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Yeek] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Yeek] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xED
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ent] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ent] ]
 monster:<player>:0x83:0xEE
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ent] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ent] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xEE
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Thunderlord] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Thunderlord] ]
 monster:<player>:0x83:0xEF
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Thunderlord] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Thunderlord] [EQU $GENDER Female] ]
 RF:<player>:0x83:0xEF
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dragon] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dragon] ]
 monster:<player>:0x80:0x80
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dragon] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dragon] [EQU $GENDER Female] ]
 RF:<player>:0x80:0x80
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Hydra] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Hydra] ]
 monster:<player>:0x80:0x80
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Hydra] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Hydra] [EQU $GENDER Female] ]
 RF:<player>:0x80:0x80
 #
 #
 #
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Numenorean] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Black_Numenorean] ]
 monster:<player>:0x97:0x80
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Numenorean] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Black_Numenorean] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x80
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Damned] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Damned] ]
 monster:<player>:0x97:0x81
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Damned] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Damned] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x81
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Merfolk] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Merfolk] ]
 monster:<player>:0x97:0x82
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Merfolk] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Merfolk] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x82
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Barbarian] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Barbarian] ]
 monster:<player>:0x97:0x83
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Barbarian] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Barbarian] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x83
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Dwarf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Black_Dwarf] ]
 monster:<player>:0x97:0x84
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Dwarf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Black_Dwarf] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x84
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Goblin] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Goblin] ]
 monster:<player>:0x97:0x85
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Goblin] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Goblin] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x85
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Giant] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Giant] ]
 monster:<player>:0x97:0x86
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Giant] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Giant] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x86
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ogre] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ogre] ]
 monster:<player>:0x97:0x87
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ogre] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ogre] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x87
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troll] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Troll] ]
 monster:<player>:0x97:0x88
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troll] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Troll] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x88
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Orc] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Orc] ]
 monster:<player>:0x97:0x89
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Orc] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Orc] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x89
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Forest_Goblin] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Forest_Goblin] ]
 monster:<player>:0x97:0x8A
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Forest_Goblin] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Forest_Goblin] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8A
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dark_Elf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dark_Elf] ]
 monster:<player>:0x97:0x8B
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dark_Elf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Dark_Elf] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8B
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Werewolf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Werewolf] ]
 monster:<player>:0x97:0x8C
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Werewolf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Werewolf] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8C
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Undead] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Undead] ]
 monster:<player>:0x97:0x8D
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Undead] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Undead] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8D
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Vampire] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Vampire] ]
 monster:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Vampire] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Vampire] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8E
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Maiar] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Maiar] ]
 monster:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Maiar] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Maiar] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x8F
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Demonic] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Demonic] ]
 monster:<player>:0x97:0x90
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Demonic] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x90
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Balrog] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Balrog] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Celestial] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Celestial] ]
 monster:<player>:0x97:0x91
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Celestial] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x91
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Nephalem] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Nephalem] ]
 monster:<player>:0x97:0x93
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x93
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gargoyle] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gargoyle] ]
 monster:<player>:0x97:0x94
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gargoyle] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gargoyle] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x94
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Golem] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Golem] ]
 monster:<player>:0x97:0x95
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Golem] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Golem] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x95
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Pixie] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Pixie] ]
 monster:<player>:0x97:0x96
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Pixie] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Pixie] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x96
 ########################
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Draconian] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Draconian] ]
 monster:<player>:0x97:0x97
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Draconian] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Draconian] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x97
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Titan] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Titan] ]
 monster:<player>:0x97:0x98
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Titan] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Titan] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x98
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wood-Elf] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wood-Elf] ]
 monster:<player>:0x97:0x99
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wood-Elf] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wood-Elf] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x99
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elemental] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Elemental] ]
 monster:<player>:0x97:0x9A
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elemental] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Elemental] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9A
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Frostmen] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Frostmen] ]
 monster:<player>:0x97:0x9B
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Frostmen] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Frostmen] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9B
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Centaur] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Centaur] ]
 monster:<player>:0x97:0x9C
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Centaur] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Centaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9C
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Spider] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Spider] ]
 monster:<player>:0x84:0xF0
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Spider] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Spider] [EQU $GENDER Female] ]
 RF:<player>:0x84:0xF0
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Djinn] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Djinn] ]
 monster:<player>:0x97:0x9E
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Djinn] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Djinn] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9E
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Harpy] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Harpy] ]
 monster:<player>:0x97:0x9F
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Harpy] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Harpy] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9F
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Minotaur] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Minotaur] ]
 monster:<player>:0x97:0xA0
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Minotaur] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Minotaur] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA0
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troglodyte] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Troglodyte] ]
 monster:<player>:0x97:0xA1
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troglodyte] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Troglodyte] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA1
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Naga] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Naga] ]
 monster:<player>:0x97:0xA2
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Naga] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Naga] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA2
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnoll] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gnoll] ]
 monster:<player>:0x97:0xA3
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnoll] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Gnoll] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA3
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Lizardmen] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Lizardmen] ]
 monster:<player>:0x97:0xA4
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Lizardmen] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Lizardmen] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA4
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wisp] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wisp] ]
 monster:<player>:0x97:0xA5
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wisp] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wisp] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA5
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Imp] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Imp] ]
 monster:<player>:0x97:0xA6
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Imp] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Imp] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA6
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wraith] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wraith] ]
 monster:<player>:0x97:0xA7
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wraith] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Wraith] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA7
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Beholder] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Beholder] ]
 monster:<player>:0x97:0xA8
-?:[AND [EQU $CLASS Adventurer] [EQU $RACE Beholder] [EQU $GENDER Female] ]
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
 ########################################################
 
@@ -8673,6 +8673,239 @@ RF:<player>:0x97:0xA7
 ?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Beholder] ]
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Beholder] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA8
+
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Troll] ]
+monster:<player>:0x83:0x87
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Troll] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x87
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Human] ]
+monster:<player>:0x83:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Human] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Elf] ]
+monster:<player>:0x83:0x81
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Elf] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x81
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elf] ]
+monster:<player>:0x83:0x82
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elf] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x82
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Halfling] ]
+monster:<player>:0x83:0x83
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Halfling] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x83
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnome] ]
+monster:<player>:0x83:0x84
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnome] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x84
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dwarf] ]
+monster:<player>:0x83:0x85
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dwarf] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x85
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Orc] ]
+monster:<player>:0x83:0x86
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Orc] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x86
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dunadan] ]
+monster:<player>:0x83:0x88
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dunadan] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x88
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE High-Elf] ]
+monster:<player>:0x83:0x89
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE High-Elf] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x89
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Kobold] ]
+monster:<player>:0x83:0x8A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Kobold] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x8A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Yeek] ]
+monster:<player>:0x83:0x8B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Yeek] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x8B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ent] ]
+monster:<player>:0x83:0x8C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ent] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x8C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Thunderlord] ]
+monster:<player>:0x83:0x8D
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Thunderlord] [EQU $GENDER Female] ]
+RF:<player>:0x83:0x8D
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dragon] ]
+monster:<player>:0x80:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dragon] [EQU $GENDER Female] ]
+RF:<player>:0x80:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Hydra] ]
+monster:<player>:0x80:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Hydra] [EQU $GENDER Female] ]
+RF:<player>:0x80:0x80
+#
+#
+#
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Numenorean] ]
+monster:<player>:0x97:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Numenorean] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x80
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Damned] ]
+monster:<player>:0x97:0x81
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Damned] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x81
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Merfolk] ]
+monster:<player>:0x97:0x82
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Merfolk] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x82
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Barbarian] ]
+monster:<player>:0x97:0x83
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Barbarian] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x83
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Dwarf] ]
+monster:<player>:0x97:0x84
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Black_Dwarf] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x84
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Goblin] ]
+monster:<player>:0x97:0x85
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Goblin] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x85
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Giant] ]
+monster:<player>:0x97:0x86
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Half-Giant] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x86
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ogre] ]
+monster:<player>:0x97:0x87
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Ogre] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x87
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troll] ]
+monster:<player>:0x97:0x88
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troll] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x88
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Orc] ]
+monster:<player>:0x97:0x89
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Orc] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x89
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Forest_Goblin] ]
+monster:<player>:0x97:0x8A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Forest_Goblin] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dark_Elf] ]
+monster:<player>:0x97:0x8B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Dark_Elf] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Werewolf] ]
+monster:<player>:0x97:0x8C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Werewolf] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Undead] ]
+monster:<player>:0x97:0x8D
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Undead] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8D
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Vampire] ]
+monster:<player>:0x97:0x8E
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Vampire] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8E
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Maiar] ]
+monster:<player>:0x97:0x8F
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Maiar] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x8F
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Demonic] ]
+monster:<player>:0x97:0x90
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Demonic] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x90
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Balrog] ]
+monster:<player>:0x97:0x92
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Balrog] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x92
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Celestial] ]
+monster:<player>:0x97:0x91
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Celestial] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x91
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Nephalem] ]
+monster:<player>:0x97:0x93
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x93
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gargoyle] ]
+monster:<player>:0x97:0x94
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gargoyle] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x94
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Golem] ]
+monster:<player>:0x97:0x95
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Golem] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x95
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Pixie] ]
+monster:<player>:0x97:0x96
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Pixie] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x96
+########################
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Draconian] ]
+monster:<player>:0x97:0x97
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Draconian] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x97
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Titan] ]
+monster:<player>:0x97:0x98
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Titan] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x98
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wood-Elf] ]
+monster:<player>:0x97:0x99
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wood-Elf] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x99
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elemental] ]
+monster:<player>:0x97:0x9A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Elemental] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x9A
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Frostmen] ]
+monster:<player>:0x97:0x9B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Frostmen] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x9B
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Centaur] ]
+monster:<player>:0x97:0x9C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Centaur] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x9C
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Spider] ]
+monster:<player>:0x84:0xF0
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Spider] [EQU $GENDER Female] ]
+RF:<player>:0x84:0xF0
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Djinn] ]
+monster:<player>:0x97:0x9E
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Djinn] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x9E
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Harpy] ]
+monster:<player>:0x97:0x9F
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Harpy] [EQU $GENDER Female] ]
+RF:<player>:0x97:0x9F
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Minotaur] ]
+monster:<player>:0x97:0xA0
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Minotaur] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA0
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troglodyte] ]
+monster:<player>:0x97:0xA1
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Troglodyte] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA1
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Naga] ]
+monster:<player>:0x97:0xA2
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Naga] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA2
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnoll] ]
+monster:<player>:0x97:0xA3
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Gnoll] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA3
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Lizardmen] ]
+monster:<player>:0x97:0xA4
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Lizardmen] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA4
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wisp] ]
+monster:<player>:0x97:0xA5
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wisp] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA5
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Imp] ]
+monster:<player>:0x97:0xA6
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Imp] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA6
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wraith] ]
+monster:<player>:0x97:0xA7
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Wraith] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xA7
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Beholder] ]
+monster:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Adventurer] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
 
 # Hack -- not a real class, used for ghost realm spells
