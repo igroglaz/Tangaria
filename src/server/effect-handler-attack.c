@@ -1306,6 +1306,20 @@ bool effect_handler_DETONATE(effect_handler_context_t *context)
             /* Delete the monster */
             delete_monster_idx(context->cave, i);
         }
+
+        // Necromancer's skeletons explode with a ball effect
+        else if (match_monster_bases(mon->race->base, "skeleton", NULL))
+        {
+            struct source who_body;
+            struct source *who = &who_body;
+
+            source_monster(who, mon);
+            project(who, 2, context->cave, &mon->grid, 300, PROJ_MISSILE, p_flag, 0, 0, "killed");
+
+            /* Delete the monster */
+            delete_monster_idx(context->cave, i);
+        }
+
     }
     return true;
 }
