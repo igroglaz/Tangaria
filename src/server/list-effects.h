@@ -79,6 +79,7 @@ EFFECT(DETECT_VISIBLE_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects visible cr
 EFFECT(DETONATE, false, NULL, 0, EFINFO_NONE, "makes all summoned jellies and vortices explode")
 EFFECT(DISENCHANT, false, NULL, 0, EFINFO_NONE, "disenchants one of your wielded items")
 EFFECT(DRAIN_LIGHT, false, NULL, 0, EFINFO_NONE, "drains your light source")
+EFFECT(SPEND_MANA, false, NULL, 0, EFINFO_NONE, "spends some mana")
 EFFECT(DRAIN_MANA, false, NULL, 0, EFINFO_NONE, "drains some mana")
 EFFECT(DRAIN_STAT, false, NULL, 1, EFINFO_STAT, "reduces your %s")
 EFFECT(EARTHQUAKE, true, NULL, 1, EFINFO_QUAKE, "causes a radius-%s earthquake")

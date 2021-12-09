@@ -4866,7 +4866,7 @@ spell:Heal Pet:1:1:26:1:0
 effect:BOLT_STATUS:MON_HEAL
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: project healing energy.
@@ -4875,7 +4875,7 @@ desc:Cures a level-dependent amount of damage points, and heals all cut and stun
 spell:Once Bitten:5:3:32:5:0
 effect:TIMED_INC:OPP_POIS
 dice:20+1d20
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
 desc:Grants you resistance to poison for 20+1d20 turns.
@@ -4883,7 +4883,7 @@ desc:Grants you resistance to poison for 20+1d20 turns.
 spell:Falcon Gift:10:5:37:10:0
 effect:NOURISH:INC_TO
 dice:15
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_self:Your falcon brought to you some food.
@@ -4892,7 +4892,7 @@ desc:Falcon shares with you his prey. It's not much, but still..
 spell:Sensitive Snout:15:10:42:15:0
 effect:DETECT_ANIMALS
 effect-yx:22:40
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
 desc:Detects all animals in the immediate area, for one turn only.
@@ -4902,7 +4902,7 @@ spell:Growl and Howl:20:15:47:20:0
 effect:PROJECT_LOS_AWARE:TURN_ALL
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
 msg_other: makes a complicated gesture to his wolf.
@@ -4911,7 +4911,7 @@ desc:Your wolf makes long terrifying howl.
 spell:Bear Therapy:25:20:53:30:0
 effect:CURE:BLACKBREATH
 effect:CURE:AMNESIA
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 desc:Your pet's magic cures amnesia and black breath.
@@ -4919,7 +4919,7 @@ desc:Your pet's magic cures amnesia and black breath.
 spell:Chase!:30:20:58:40:0
 effect:BOLT_STATUS:MON_SPEED
 dice:100
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: makes a lengthy gesture.
@@ -4930,7 +4930,7 @@ effect:TIMED_INC:STEALTH
 dice:10+1d10
 effect:TIMED_INC:SINFRA
 dice:10+1d10
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
 desc:Grants ability to walk silently and infravision.
@@ -6534,7 +6534,7 @@ spell:Sentry:1:1:20:1:0
 #cooldown:10
 effect:TIMED_INC:SENTRY
 dice:2
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: activate sentry.
@@ -6636,7 +6636,7 @@ spell:Flower of Death:50:10:32:100:0
 effect:STAR:POIS
 dice:$B
 expr:B:PLAYER_LEVEL:* 7
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: activate fire trap.
@@ -7438,7 +7438,7 @@ desc:Restores your mana.
 desc:Does not affect undead, demons, golems, elementals or vortices.
 
 spell:Sniff Fear:5:1:33:3:0
-effect:DRAIN_MANA
+effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:DETECT_FEARFUL_MONSTERS

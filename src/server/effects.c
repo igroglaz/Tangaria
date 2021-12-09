@@ -4581,6 +4581,36 @@ static bool effect_handler_DRAIN_LIGHT(effect_handler_context_t *context)
     return true;
 }
 
+// Player spend some mana on spell
+static bool effect_handler_SPEND_MANA(effect_handler_context_t *context)
+{
+    int drain = effect_calculate_value(context, false);
+    int old_num = get_player_num(context->origin->player);
+
+    // if no mana - paralyze
+    if (!context->origin->player->csp)
+        player_inc_timed(context->origin->player, TMD_PARALYZED, 1, true, true);
+
+    /* Drain the given amount if the player has that much, or all of it */
+    if (drain >= context->origin->player->csp)
+    {
+        drain = context->origin->player->csp;
+        context->origin->player->csp = 0;
+        context->origin->player->csp_frac = 0;
+        player_clear_timed(context->origin->player, TMD_MANASHIELD, true);
+    }
+    else
+        context->origin->player->csp -= drain;
+
+    /* Hack -- redraw picture */
+    redraw_picture(context->origin->player, old_num);
+    
+    /* Redraw mana */
+    context->origin->player->upkeep->redraw |= (PR_MANA);
+
+    context->self_msg = NULL;
+    return true;
+}
 
 /*
  * Drain mana from the player, healing the caster.
@@ -5348,7 +5378,6 @@ static bool effect_handler_HEAL_HP(effect_handler_context_t *context)
     context->self_msg = NULL;
     return true;
 }
-
 
 /*
  * Identify an unknown rune of an item.
