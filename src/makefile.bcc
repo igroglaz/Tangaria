@@ -111,6 +111,8 @@ SERV_SRCS = \
   server\cmd-pickup.c \
   server\control.c \
   server\display-ui.c \
+  server\effect-handler-attack.c \
+  server\effect-handler-general.c \
   server\effects.c \
   server\effects-info.c \
   server\game-world.c \
@@ -240,6 +242,8 @@ SERV_OBJS = \
   server\cmd-pickup.obj \
   server\control.obj \
   server\display-ui.obj \
+  server\effect-handler-attack.obj \
+  server\effect-handler-general.obj \
   server\effects.obj \
   server\effects-info.obj \
   server\game-world.obj \

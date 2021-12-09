@@ -199,7 +199,7 @@ static bool spell_okay_list(bool (*spell_test)(int, int), int book, int n_spells
 /*
  * Create and initialize a spell menu, given a book and a validity hook
  */
-static struct menu *spell_menu_new(int book, bool (*is_valid)(int, int))
+static struct menu *spell_menu_new(int book, bool (*is_valid)(int, int), bool show_description)
 {
     struct menu *m = menu_new(MN_SKIN_SCROLL, &spell_menu_iter);
     struct spell_menu_data *d = mem_alloc(sizeof(*d));
@@ -219,7 +219,7 @@ static struct menu *spell_menu_new(int book, bool (*is_valid)(int, int))
     d->is_valid = is_valid;
     d->selected_spell = -1;
     d->browse = false;
-    d->show_description = false;
+    d->show_description = show_description;
 
     menu_setpriv(m, d->n_spells, d);
 
@@ -316,7 +316,7 @@ void textui_book_browse(int book)
 {
     struct menu *m;
 
-    m = spell_menu_new(book, spell_okay_to_browse);
+    m = spell_menu_new(book, spell_okay_to_browse, true);
     if (m)
     {
         spell_menu_browse(m, book_info[book].realm->spell_noun);
@@ -334,7 +334,7 @@ static int textui_get_spell_from_book(int book, const char *verb, bool (*spell_f
 {
     struct menu *m;
 
-    m = spell_menu_new(book, spell_filter);
+    m = spell_menu_new(book, spell_filter, false);
     if (m)
     {
         int spell_index = spell_menu_select(m, book_info[book].realm->spell_noun, verb);

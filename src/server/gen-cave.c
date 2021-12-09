@@ -1783,7 +1783,11 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Pick a base number of monsters */
     i = z_info->level_monster_min + randint1(8) + k;
@@ -2230,7 +2234,11 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Put some monsters in the dungeon */
     for (i = z_info->level_monster_min + randint1(8) + k; i > 0; i--)
@@ -2856,7 +2864,11 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Put some monsters in the dungeon */
     for (i = randint1(8) + k; i > 0; i--)
@@ -3281,7 +3293,7 @@ static bool find_empty_range(struct chunk *c, struct loc *grid, struct loc *top_
  * p is the player
  * c is the current chunk
  */
-static void town_gen_layout(struct player *p, struct chunk *c)
+static bool town_gen_layout(struct player *p, struct chunk *c)
 {
     int n;
     struct loc grid, pgrid, xroads, tavern, training;
@@ -3577,7 +3589,7 @@ static void town_gen_layout(struct player *p, struct chunk *c)
         square_set_upstairs(c, &grid);
 
         /* Determine the character location */
-        new_player_spot(c, p);
+        if (!new_player_spot(c, p)) return false;
     }
 
     /* PWMAngband: cover the base town in dirt, and make some exits */
@@ -3657,6 +3669,8 @@ static void town_gen_layout(struct player *p, struct chunk *c)
     /* Hack -- use the "complex" RNG */
     Rand_value = tmp_seed;
     Rand_quick = rand_old;
+
+    return true;
 }
 
 
@@ -3701,7 +3715,11 @@ struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height, 
     }
 
     /* Build stuff */
-    town_gen_layout(p, c);
+    if (!town_gen_layout(p, c))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Apply illumination */
     player_cave_clear(p, true);
@@ -3916,7 +3934,11 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Pick a base number of monsters */
     i = z_info->level_monster_min + randint1(8) + k;
@@ -4140,7 +4162,11 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Pick a base number of monsters */
     i = z_info->level_monster_min + randint1(8) + k;
@@ -4189,13 +4215,11 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
 static struct chunk *vault_chunk(struct player *p, struct worldpos *wpos, int height, int width,
     int *vhgt, int *vwid)
 {
-    struct vault *v;
+    const char *vname = ((one_in_(2))? "Greater vault (new)": "Greater vault");
+    struct vault *v = random_vault(wpos->depth, vname);
     struct chunk *c;
     struct loc centre;
     int y1, x1, y2, x2;
-
-    if (one_in_(2)) v = random_vault(wpos->depth, "Greater vault (new)");
-    else v = random_vault(wpos->depth, "Greater vault");
 
     /* Paranoia */
     if (!v) return NULL;
@@ -4221,7 +4245,11 @@ static struct chunk *vault_chunk(struct player *p, struct worldpos *wpos, int he
     dun->cent_n = 0;
     reset_entrance_data(c);
     loc_init(&centre, width / 2, height / 2);
-    build_vault(p, c, &centre, v, false);
+    if (!build_vault(p, c, &centre, v, false))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     *vhgt = v->hgt;
     *vwid = v->wid;
@@ -4493,7 +4521,11 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Put some monsters in the dungeon */
     for (i = randint1(8) + k; i > 0; i--)
@@ -4624,9 +4656,17 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     if (!cfg_limit_stairs)
     {
         generate_mark(c, 0, x_size / 2, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
-        find_start(c, &grid);
+        if (!find_start(c, &grid))
+        {
+            cave_free(c);
+            return NULL;
+        }
         place_stairs(c, &grid, FEAT_LESS);
-        find_start(c, &grid);
+        if (!find_start(c, &grid))
+        {
+            cave_free(c);
+            return NULL;
+        }
         place_stairs(c, &grid, FEAT_MORE);
         generate_unmark(c, 0, x_size / 2, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
     }
@@ -4650,7 +4690,11 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
 
     /* Put the character in the normal half */
     generate_mark(c, 0, x_size / 2, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
     generate_unmark(c, 0, x_size / 2, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
 
     /* Pick a larger number of monsters for the lair */
@@ -4905,12 +4949,20 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     /* Put the character in the arrival cavern */
     generate_mark(c, 0, line1, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
     generate_unmark(c, 0, line1, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
     if (cfg_limit_stairs)
     {
         generate_mark(c, 0, 0, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
-        find_start(c, &grid);
+        if (!find_start(c, &grid))
+        {
+            cave_free(c);
+            return NULL;
+        }
         square_set_join_up(c, &grid);
         generate_unmark(c, 0, 0, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
     }
@@ -5571,7 +5623,11 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     customize_features(c);
 
     /* Determine the character location */
-    new_player_spot(c, p);
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
 
     /* Pick a base number of monsters */
     i = z_info->level_monster_min + randint1(8) + k;

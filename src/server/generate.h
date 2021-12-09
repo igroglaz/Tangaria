@@ -350,8 +350,11 @@ extern bool build_pit(struct player *p, struct chunk *c, struct loc *centre, int
 extern bool build_template(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_interesting(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_lesser_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
+extern bool build_lesser_new_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_medium_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
+extern bool build_medium_new_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_greater_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
+extern bool build_greater_new_vault(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_moria(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_room_of_chambers(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_huge(struct player *p, struct chunk *c, struct loc *centre, int rating);
@@ -375,7 +378,7 @@ extern void correct_dir(struct loc *offset, struct loc *grid1, struct loc *grid2
 extern void rand_dir(struct loc *offset);
 extern bool find_start(struct chunk *c, struct loc *grid);
 extern void add_down_stairs(struct chunk *c);
-extern void new_player_spot(struct chunk *c, struct player *p);
+extern bool new_player_spot(struct chunk *c, struct player *p);
 extern void place_stairs(struct chunk *c, struct loc *grid, int feat);
 extern void place_random_stairs(struct chunk *c, struct loc *grid);
 extern void place_object(struct player *p, struct chunk *c, struct loc *grid, int level,

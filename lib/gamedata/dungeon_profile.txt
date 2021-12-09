@@ -58,10 +58,13 @@
 # rarity is usually 0.
 # cutoff is used to pick between rooms once a rarity is chosen: a random value
 # from 0 to 99 is selected and a room may appear if its cutoff is greater than
-# that value. It is IMPORTANT that non-zero cutoffs appear in ascending order
-# within the rooms of the same rarity for a given profile: a room with a
-# smaller cutoff appearing after one with a larger cutoff will never be
-# selected.
+# that value. Non-zero cutoffs normally appear in ascending order within the
+# rooms of the same rarity for a given profile. A room with a smaller cutoff
+# appearing after one with a larger cutoff will only be selected if an attempt
+# to place the earlier room fails. One way that can happen is because of the
+# depth restrictions set in this file. For greater vaults and huge rooms,
+# there are also restrictions in the code that make their generation fail
+# frequently.
 
 # Note that getting a smaller cave profile cutoff or room cutoff after a larger
 # one will result in the smaller one never appearing.
@@ -133,15 +136,18 @@ down:3+1d2
 alloc:97
 
 # Really big rooms only have rarity 0 but they have other checks
-room:Greater vault:0:44:66:35:0:0:100
+room:Greater vault:0:44:66:35:0:0:50
+room:Greater vault (new):0:44:66:35:0:0:100
 room:huge room:0:44:66:40:0:0:100
 
 # Very rare rooms (rarity = 2)
 room:room of chambers:0:44:66:10:0:2:4
 room:monster pit:0:11:33:5:1:2:12
 room:monster nest:0:11:33:5:1:2:20
-room:Medium vault:0:22:33:30:0:2:40
-room:Lesser vault:0:22:33:20:0:2:60
+room:Medium vault:0:22:33:30:0:2:30
+room:Medium vault (new):0:22:33:30:0:2:40
+room:Lesser vault:0:22:33:20:0:2:50
+room:Lesser vault (new):0:22:33:20:0:2:60
 
 # Unusual rooms (rarity = 1)
 room:Interesting room:0:44:55:0:0:1:10
@@ -168,14 +174,17 @@ down:3+1d2
 alloc:-1
 
 # Really big rooms only have rarity 0 but they have other checks
-room:Greater vault:0:44:66:35:0:0:100
+room:Greater vault:0:44:66:35:0:0:50
+room:Greater vault (new):0:44:66:35:0:0:100
 
 # Very rare rooms (rarity = 2)
 room:room of chambers:0:44:66:10:0:2:4
 room:monster pit:0:11:33:5:1:2:12
 room:monster nest:0:11:33:5:1:2:20
-room:Medium vault:0:22:33:30:0:2:40
-room:Lesser vault:0:22:33:20:0:2:60
+room:Medium vault:0:22:33:30:0:2:30
+room:Medium vault (new):0:22:33:30:0:2:40
+room:Lesser vault:0:22:33:20:0:2:50
+room:Lesser vault (new):0:22:33:20:0:2:60
 room:Interesting room:0:44:55:0:0:2:100
 
 # Normal moria-style rooms (rarity = 0)
@@ -193,15 +202,18 @@ min-level:20
 alloc:1
 
 # Really big rooms only have rarity 0 but they have other checks
-room:Greater vault:0:44:66:35:0:0:100
+room:Greater vault:0:44:66:35:0:0:50
+room:Greater vault (new):0:44:66:35:0:0:100
 room:huge room:0:44:66:40:0:0:100
 
 # Very rare rooms (rarity = 2)
 room:room of chambers:0:44:66:10:0:2:4
 room:monster pit:0:11:33:5:1:2:12
 room:monster nest:0:11:33:5:1:2:20
-room:Medium vault:0:22:33:30:0:2:40
-room:Lesser vault:0:22:33:20:0:2:60
+room:Medium vault:0:22:33:30:0:2:30
+room:Medium vault (new):0:22:33:30:0:2:40
+room:Lesser vault:0:22:33:20:0:2:50
+room:Lesser vault (new):0:22:33:20:0:2:60
 
 # Unusual rooms (rarity = 1)
 room:Interesting room:0:44:55:0:0:1:10

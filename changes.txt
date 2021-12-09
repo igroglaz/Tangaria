@@ -16,7 +16,7 @@ User interface
 
 Angband 4.2.x:
 
--
+- Show spell description by default when browsing
 
 MAngband 1.5.x:
 
@@ -29,13 +29,33 @@ PWMAngband:
 Gameplay changes
 ----------------
 
+Angband 4.2.x:
+
+- Apply temporary and off-weapon slays and brands to unarmed combat
+
 Bugs fixed
 ----------
+
+PWMAngband:
+
+- Fix unarmed rogues able to "stab" monsters
 
 Coding changes
 --------------
 
+Angband 4.2.x:
+
+- Add a return value to new_player_spot() to indicate success/failure
+- Restart cave generation in case of failure in new_player_spot() instead of
+  generating a panic save
+- Tidy up vault_chunk()
+- In ranged_helper() get the object description after the knowledge updates
+- Split effect handlers into multiple files
+- Move choice between the old and new vaults to dungeon_profile.txt
+- In TAP_UNLIFE, cancel the target set if the creature dies
+
 Compilation/documentation
 -------------------------
 
-- SDL2 client support
+- Support for SDL2 client
+- Modify the comment about room cutoffs in dungeon_profile.txt

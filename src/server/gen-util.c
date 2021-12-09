@@ -382,8 +382,8 @@ bool find_start(struct chunk *c, struct loc *grid)
         walls--;
     }
 
+    plog("Failed to place player; please report. Restarting generation.");
     dump_level_simple(NULL, "Player Placement Failure", c);
-    quit("Failed to place player!");
     return false;
 }
 
@@ -421,13 +421,15 @@ void add_down_stairs(struct chunk *c)
  *
  * c current chunk
  * p the player
+ *
+ * Returns true on success or false on failure
  */
-void new_player_spot(struct chunk *c, struct player *p)
+bool new_player_spot(struct chunk *c, struct player *p)
 {
     struct loc grid;
 
     /* Place the player */
-    find_start(c, &grid);
+    if (!find_start(c, &grid)) return false;
 
     /* Save the new grid */
     square_set_join_rand(c, &grid);
@@ -436,17 +438,19 @@ void new_player_spot(struct chunk *c, struct player *p)
     if (cfg_limit_stairs)
     {
         /* Set this to be the starting location for people going down */
-        find_start(c, &grid);
+        if (!find_start(c, &grid)) return false;
         square_set_join_down(c, &grid);
 
         /* Set this to be the starting location for people going up */
-        find_start(c, &grid);
+        if (!find_start(c, &grid)) return false;
         square_set_join_up(c, &grid);
     }
 
     /* Hack -- stay in bounds (to avoid asserts during cave generation) */
     p->grid.y = MIN(MAX(p->grid.y, 1), c->height - 2);
     p->grid.x = MIN(MAX(p->grid.x, 1), c->width - 2);
+
+    return true;
 }
 
 

@@ -85,6 +85,7 @@
 #include "player-quest.h"
 #include "player-spell.h"
 #include "effects.h"
+#include "effect-handler.h"
 #include "player-timed.h"
 #include "player-ui.h"
 #include "player-util.h"

@@ -366,9 +366,9 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
     if (streq(p->race->name, "Werewolf") && p->lev > 49 && best_mult < 2 && !is_daytime())
         dmg *= 2;
 
-    if (target->monster)
+    /* Stabbing attacks (require a weapon) */
+    if (target->monster && obj)
     {
-        /* Stabbing attacks */
         if (effects->stab_sleep) dmg *= (3 + p->lev / 40);
         if (effects->stab_flee) dmg = dmg * 3 / 2;
     }
@@ -775,24 +775,22 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     bool do_quake = false;
     bool success = false;
 
-    /* Default to punching for one damage */
     char verb[30], hit_extra[30];
-    int dmg = 1;
     u32b msg_type = MSG_HIT;
+    int dmg, d_dam;
 
     /* Information about the attacker */
     char killer_name[NORMAL_WID];
     random_value dice;
     int show_mhit, show_mdam;
     int show_shit, show_sdam;
-    int d_dam = 1;
     bool do_circle = false;
     bool do_slow = false, do_fear = false, do_conf = false, do_blind = false, do_para = false;
     struct side_effects seffects;
 
     memset(&seffects, 0, sizeof(seffects));
 
-    /* Default to punching for one damage */
+    /* Default to punching */
     my_strcpy(verb, "punch", sizeof(verb));
     if (obj) my_strcpy(verb, "hit", sizeof(verb));
     hit_extra[0] = '\0';
@@ -1028,24 +1026,32 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 my_strcpy(hit_extra, " with your tail", sizeof(hit_extra));
             }
         }
-
-        /* Handle normal weapon */
-        else if (obj)
+        else
         {
-            s16b to_h;
-            int weight = obj->weight;
+            int weight = 0;
 
-            /* Handle the weapon itself */
-            improve_attack_modifier(p, obj, target, &best_mult, &seffects, verb, sizeof(verb),
-                false);
+            /* Handle normal weapon */
+            if (obj)
+            {
+                weight = obj->weight;
+                improve_attack_modifier(p, obj, target, &best_mult, &seffects, verb, sizeof(verb),
+                    false);
+            }
 
             /* Get the damage */
             dmg = melee_damage(p, obj, dice, best_mult, target, effects, &d_dam);
-            object_to_h(obj, &to_h);
-            dmg = critical_melee(p, target, weight, to_h, dmg, &msg_type);
 
-            /* Learn by use for the weapon */
-            object_notice_attack_plusses(p, obj);
+            /* For now, exclude criticals on unarmed combat */
+            if (obj)
+            {
+                s16b to_h;
+
+                object_to_h(obj, &to_h);
+                dmg = critical_melee(p, target, weight, to_h, dmg, &msg_type);
+
+                /* Learn by use for the weapon */
+                object_notice_attack_plusses(p, obj);
+            }
 
             /* Splash damage and earthquakes */
             splash = (weight * dmg) / 100;
@@ -1054,14 +1060,6 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 do_quake = true;
                 equip_learn_flag(p, OF_IMPACT);
             }
-        }
-
-        /* Default barehanded attack */
-        else
-        {
-            /* Compute the damage */
-            dmg = d_dam = randcalc(dice, 0, RANDOMISE);
-            dmg *= best_mult;
         }
     }
 
@@ -1718,7 +1716,6 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
     bool ranged_effect)
 {
     int i, j;
-    char o_name[NORMAL_WID];
     int path_n;
     struct loc path_g[256];
     struct loc grid, target;
@@ -1753,9 +1750,6 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
     /* Sound */
     sound(p, MSG_SHOOT);
-
-    /* Describe the object */
-    object_desc(p, o_name, sizeof(o_name), obj, ODESC_FULL | ODESC_SINGULAR);
 
     /* Take a turn */
     use_energy(p);
@@ -1853,6 +1847,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                 if (result.success)
                 {
+                    char o_name[NORMAL_WID];
                     bool dead = false;
 
                     hit_target = true;
@@ -1861,6 +1856,9 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                     /* Learn by use for other equipped items */
                     equip_learn_on_ranged_attack(p);
+
+                    /* Describe the object */
+                    object_desc(p, o_name, sizeof(o_name), obj, ODESC_FULL | ODESC_SINGULAR);
 
                     /* No negative damage; change verb if no damage done */
                     if (dmg <= 0)
@@ -2026,7 +2024,10 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 {
                     if (visible)
                     {
+                        char o_name[NORMAL_WID];
+
                         /* Handle visible monster/player */
+                        object_desc(p, o_name, sizeof(o_name), obj, ODESC_FULL | ODESC_SINGULAR);
                         msgt(p, MSG_MISS, "The %s misses %s.", o_name, m_name);
 
                         /* Track this target */

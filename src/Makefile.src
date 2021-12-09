@@ -140,6 +140,8 @@ SERVER_ANGFILES = \
 	server/cmd-obj.o \
 	server/cmd-pickup.o \
 	common/datafile.o \
+	server/effect-handler-attack.o \
+	server/effect-handler-general.o \
 	server/effects.o \
 	server/effects-info.o \
 	server/game-world.o \
