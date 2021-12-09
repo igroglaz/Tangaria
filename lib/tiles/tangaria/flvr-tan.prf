@@ -965,5 +965,43 @@ flavor:316:0x82:0x98
 # Beige mushroom
 flavor:317:0x82:0x9A
 
+# Bloody Red potion
+flavor:318:0x88:0xB9
+
+# Acidulous Green potion
+flavor:319:0x88:0x9B
+
+# Skyey Blue potion
+flavor:320:0x88:0x84
+
+# Transparent White potion
+flavor:321:0x88:0xAB
+
+# Earthy Light Dark potion
+flavor:322:0x88:0x81
+
+# Turbid Umber potion
+flavor:323:0x88:0x89
+
+# Mucky Mud potion
+flavor:324:0x88:0x88
+
+# Dusty Slate potion
+flavor:325:0x88:0x88
+
+# Faded Orange potion
+flavor:326:0x88:0xB3
+
+# Luminous Purple potion
+flavor:327:0x88:0x8E
+
+# Bright Teal potion
+flavor:328:0x88:0xBE
+
+# Sooty Mustard potion
+flavor:329:0x88:0x8D
+
+# Canary Yellow potion
+flavor:330:0x88:0xBA
 
 # when adding - check flavor.txt

@@ -725,8 +725,10 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         if ((player_of_has(p, OF_FEATHER) || player_of_has(p, OF_FLYING)) &&
             !player_of_has(p, OF_CANT_FLY))
             dam_taken /= 2;
+        if (streq(p->clazz->name, "Cryokinetic"))
+            dam_taken /= 2;
     }
-    else if (square_islava(c, &p->grid))
+    else if (square_islava(c, &p->grid) && !streq(p->clazz->name, "Cryokinetic"))
     {
         int damage = p->mhp / 100 + randint1(3);
 
