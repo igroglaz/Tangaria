@@ -42,7 +42,7 @@ bool beta_version(void)
  */
 #define VERSION_MAJOR   1
 #define VERSION_MINOR   6
-#define VERSION_PATCH   0
+#define VERSION_PATCH   1
 #define VERSION_EXTRA   0
 
 
@@ -57,7 +57,7 @@ u16b current_version(void)
  */
 #define MIN_VERSION_MAJOR   1
 #define MIN_VERSION_MINOR   6
-#define MIN_VERSION_PATCH   0
+#define MIN_VERSION_PATCH   1
 #define MIN_VERSION_EXTRA   0
 
 
