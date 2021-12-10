@@ -7561,6 +7561,7 @@ magic:1:300:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
+
 #/// temp spells so it will be playable till PWMA update
 spell:Magic Missile:1:1:22:2:0
 effect:BOLT_OR_BEAM:MISSILE:0:-10

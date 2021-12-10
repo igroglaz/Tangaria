@@ -27509,7 +27509,7 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest
 
 ### dog - in other place of tileset
-name:dog
+name:small dog
 base:townsfolk
 color:B
 speed:110

@@ -1776,6 +1776,29 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
@@ -2226,7 +2249,30 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
-    
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);
 
@@ -2856,7 +2902,30 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
-    
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);
 
@@ -3927,6 +3996,29 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
@@ -4154,6 +4246,29 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
@@ -4513,7 +4628,30 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
     
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);    
-    
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
@@ -4681,6 +4819,29 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
@@ -4940,6 +5101,29 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
@@ -5615,6 +5799,29 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);

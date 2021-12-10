@@ -3738,14 +3738,15 @@ desc:A suit of armour made of the hide of a dead water dragon.
 ############################
 
 name:of Gwindor
-base-object:light:Lamp
+base-object:light:Phial
+graphics:~:y
 level:1
 weight:10
 alloc:3:1 to 50
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL
-values:STEALTH[1] | LIGHT[1]
+values:STEALTH[1] | LIGHT[4]
 act:ILLUMINATION
 time:10+d10
 msg:The lantern wells with clear light...

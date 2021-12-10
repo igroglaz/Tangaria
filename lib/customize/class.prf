@@ -85,6 +85,9 @@ help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.
 
 class:Warlock
+help:A Warlock must live by his wits. He cannot hope to simply hack his way
+help: through the dungeon, and so must therefore use his magic to defeat,
+help: deceive, confuse, and escape. |
 help:A Warlock seeks to master the spirits of sentient creatures, creating
 help: servants of their own will. They have chosen a dark and wicked path, and
 help: run a continual risk of harm to their own body and mind. Warlocks love
@@ -216,7 +219,7 @@ help: to take care of wild creatures - is an evidence what a tideous and dangero
 help: job it is. Going through dense dim-lit thickets, hot sands and insidious
 help: mountains to stalk a dragon in its den.. to make friends with it - this is
 help: your life ambition. |
-help:You will start not with a dragons though, but with rat companion. If you will
+help:You will start not with a dragons though, but with frog companion. If you will
 help: take a good care of it - it will give you certain powers eventually..
 help: Each new pet which you will acquire will teach you something and fight for
 help: your life.
@@ -252,6 +255,8 @@ help: He is resistant to sound attacks.
 class:Battlemage
 help:Specialise in destruction of his enemies not only with power of elements,
 help: but also uses all melee fighting skills making his universal death machine.
+help:There is no reason a Battlemage cannot become a good fighter, but spells
+help: are their true realm.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.
