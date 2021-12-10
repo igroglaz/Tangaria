@@ -5519,6 +5519,7 @@ expr:B:PLAYER_LEVEL: + 20
 desc:Makes you walk faster for some time.
 
 spell:Lightning:45:25:30:140:0
+effect:BEAM:ELEC
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a lightning beam.
@@ -7634,6 +7635,7 @@ msg_other: blinks away.
 desc:Teleports you randomly over a short distance.
 
 spell:Lightning:45:25:30:140:0
+effect:BEAM:ELEC
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a lightning beam.

@@ -769,8 +769,9 @@ static int valid_inscription(struct player *p, const char *inscription, int curr
                 if ((3 == sscanf(inscription, "%d,%d%s", &grid.x, &grid.y, buf)) ||
                     (2 == sscanf(inscription, "%d,%d", &grid.x, &grid.y)))
                 {
-                    /* Forbid if no wilderness */
-                    if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall))
+                    // Forbid if no wilderness
+                    if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall) ||
+						player_has(p, PF_NO_RECALL))
                     {
                         /* Deactivate recall */
                         memcpy(&p->recall_wpos, &p->wpos, sizeof(struct worldpos));
@@ -1054,6 +1055,9 @@ bool effect_handler_BIZARRE(effect_handler_context_t *context)
             player_stat_dec(context->origin->player, STAT_WIS, true);
             player_stat_dec(context->origin->player, STAT_DEX, true);
             player_stat_dec(context->origin->player, STAT_CON, true);
+            // + CHR
+            if (one_in_(50))
+                player_stat_dec(context->origin->player, STAT_CHR, true);
 
             /* Lose some experience (permanently) */
             player_exp_lose(context->origin->player, context->origin->player->exp / 4, true);
@@ -2100,7 +2104,7 @@ bool effect_handler_CURSE_ARMOR(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "body");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -2153,7 +2157,7 @@ bool effect_handler_CURSE_WEAPON(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "weapon");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -4199,7 +4203,7 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     amount *= z_info->food_value;
 
     /* Increase food level by amount */
-    if (context->subtype == 0)
+    if ((context->subtype == 0) && !streq(context->origin->player->race->name, "Ent"))
         player_inc_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false, false);
 
     /* Decrease food level by amount */
@@ -4268,6 +4272,7 @@ bool effect_handler_POLY_RACE(effect_handler_context_t *context)
         player_stat_dec(context->origin->player, STAT_CON, true);
         player_stat_dec(context->origin->player, STAT_STR, true);
         player_stat_dec(context->origin->player, STAT_INT, true);
+        // + CHR
         player_stat_dec(context->origin->player, STAT_CHR, true);
 
         /* Fail if too powerful */
@@ -4420,8 +4425,9 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
 
     context->ident = true;
 
-    /* No recall */
-    if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall)) &&
+    // No recall
+        if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
+		player_has(context->origin->player, PF_NO_RECALL)) &&
         !context->origin->player->total_winner)
     {
         msg(context->origin->player, "Nothing happens.");
