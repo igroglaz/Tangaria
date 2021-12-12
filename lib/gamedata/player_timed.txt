@@ -708,3 +708,8 @@ grade:D:10000:Sentry:You setted sentry.
 name:OCCUPIED
 desc:occupation
 grade:w:10000:Occupied:You are occupied.
+
+# tamer class skill
+name:REVIVE_PET
+desc:call your pet
+grade:w:10000:Pet:You called your pet.

@@ -31386,7 +31386,8 @@ experience:0
 blow:TOUCH:POISON:1d3
 flags:RAND_25
 flags:NO_PASS_TREE
-desc:Very vicious... frog. Be careful - it's poisonous.
+desc:Very vicious... little frog. You may laugh at it, but don't be so sure:
+desc: it is very poisonous.
 
 # copperhead snake
 name:tamed snake

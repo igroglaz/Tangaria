@@ -2826,7 +2826,7 @@ void process_monsters(struct chunk *c, bool more_energy)
         /* Ignore monsters that have already been handled */
         if (mflag_has(mon->mflag, MFLAG_HANDLED)) continue;
 
-        // Necromancer class routine
+        // Necro, tamer etc class pets routine
         if (mon->master)
         {
             for (j = 1; j <= NumPlayers; j++)
@@ -2839,11 +2839,25 @@ void process_monsters(struct chunk *c, bool more_energy)
                 if (streq(b->clazz->name, "Necromancer"))
                 {
                     // Necromancer class lifespan bonus
-                    if (mon->lifespan < b->lev && !one_in_(10))
+                    if (mon->lifespan < b->lev && !one_in_(7))
                         mon->lifespan++;
 
                     // Purge necromancer class "unconscious" minions
                     if (mon->hp == 0)
+                    {
+                        update_monlist(mon);
+                        delete_monster_idx(c, i);
+                        continue;
+                    }
+                }
+                else if (streq(b->clazz->name, "Tamer"))
+                {
+                    // make pet constant
+                    if (mon->lifespan < b->lev)
+                        mon->lifespan++;
+
+                    // Tamer can resurrect its pet
+                    if (mon->hp == 0 && b->timed[TMD_REVIVE_PET])
                     {
                         update_monlist(mon);
                         delete_monster_idx(c, i);
