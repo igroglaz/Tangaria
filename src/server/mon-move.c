@@ -2856,8 +2856,8 @@ void process_monsters(struct chunk *c, bool more_energy)
                     if (mon->lifespan < b->lev)
                         mon->lifespan++;
 
-                    // Tamer can resurrect its pet
-                    if (mon->hp == 0 && b->timed[TMD_REVIVE_PET])
+                    // Tamers can resummon their pets
+                    if (b->timed[TMD_REVIVE_PET])
                     {
                         update_monlist(mon);
                         delete_monster_idx(c, i);
