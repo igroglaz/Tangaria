@@ -10058,7 +10058,7 @@ hearing:10
 armor-class:25
 sleepiness:10
 depth:26
-rarity:3
+rarity:4
 weight:0
 experience:6
 blow:CRAWL:EXP_10:1d5
@@ -22324,7 +22324,7 @@ smell:50
 armor-class:120
 sleepiness:0
 depth:69
-rarity:5
+rarity:6
 weight:0
 experience:7000
 blow:CLAW:HURT:2d12
@@ -23568,7 +23568,7 @@ hearing:30
 armor-class:192
 sleepiness:15
 depth:76
-rarity:7
+rarity:6
 weight:0
 experience:37000
 blow:HIT:SHATTER:13d13
@@ -23595,7 +23595,7 @@ hearing:30
 armor-class:192
 sleepiness:15
 depth:76
-rarity:3
+rarity:4
 weight:0
 experience:37000
 blow:HIT:SHATTER:13d13
@@ -23882,7 +23882,7 @@ blow:CRUSH:HURT:7d12
 blow:TOUCH:DRAIN_CHARGES
 flags:POWERFUL | ATTR_FLICKER | LEVITATE
 flags:DROP_4
-flags:MOVE_BODY
+flags:MOVE_BODY | KILL_WALL
 flags:IM_ELEC | IM_FIRE | IM_POIS | IM_PLASMA
 flags:IM_NETHER | SMART
 spell-freq:3
@@ -24230,7 +24230,7 @@ blow:CRUSH:HURT:9d12
 blow:TOUCH:DRAIN_CHARGES
 flags:POWERFUL | ATTR_FLICKER | LEVITATE
 flags:DROP_4
-flags:MOVE_BODY | KILL_WALL
+flags:MOVE_BODY
 flags:IM_ELEC | IM_FIRE | IM_POIS | IM_PLASMA
 flags:IM_NETHER
 spell-freq:4
@@ -25065,7 +25065,7 @@ hearing:50
 armor-class:48
 sleepiness:0
 depth:95
-rarity:3
+rarity:4
 weight:0
 experience:17000
 blow:ENGULF:EXP_80:5d7

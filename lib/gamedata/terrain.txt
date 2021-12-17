@@ -152,7 +152,7 @@ desc:A staircase down to a deeper part of the dungeon.
 name:General Store
 graphics:1:U
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:1:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -161,7 +161,7 @@ desc:The General Store sells food, ammunition and lighting supplies.
 name:Armoury
 graphics:2:s
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:2:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -171,7 +171,7 @@ desc: your enemies.
 name:Weapon Smiths
 graphics:3:w
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:3:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -181,7 +181,7 @@ desc: backroom of this enticing shop.
 name:Temple
 graphics:4:g
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:4:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -191,7 +191,7 @@ desc: magical and hallowed goods for the pure of heart.
 name:Alchemy Shop
 graphics:5:b
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:5:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -200,7 +200,7 @@ desc:A dim, scented room where potions and scrolls are traded.
 name:Magic Shop
 graphics:6:r
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:6:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -210,7 +210,7 @@ desc: mystical tomes.
 name:Bookseller
 graphics:9:o
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:7:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -231,7 +231,7 @@ desc:A shop that sells and buys magical and mystical books.
 name:Halbarad, the old ranger
 graphics:p:G
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:8:0
 ################################################################################
 short-desc:not too old man with weathered face. He looks at you mindfully.
@@ -240,7 +240,7 @@ desc:Old ranger. He isn't glad to see you, but look at you with pity.
 name:Sonya the cat
 graphics:f:W
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:9:0
 ################################################################################
 short-desc:tiny cream colored siamese cat with yellowish brown-green eyes.
@@ -249,7 +249,7 @@ desc:Cat looks at you with interest.
 name:Morinehtar the Wizard
 graphics:p:r
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:10:0
 ################################################################################
 short-desc:old man with bright hazel eyes. He's a wizard it seems. No hat though
@@ -258,7 +258,7 @@ desc:.
 name:Old guard Barry
 graphics:p:w
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:11:0
 ################################################################################
 short-desc:red eyed battle-scared face. It smells heavy alchohol and garlic odor
@@ -267,7 +267,7 @@ desc:.
 name:Bob the villager
 graphics:p:u
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:12:0
 ################################################################################
 short-desc:middle-aged man with bright ginger hair 'n beard. He looks frightened
@@ -276,7 +276,7 @@ desc:.
 name:Marta the villager
 graphics:p:t
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:13:0
 ################################################################################
 short-desc:fancy looking green-eyed woman. She is not too young, but pretty.
@@ -285,7 +285,7 @@ desc:.
 name:Shtukensia the tavernkeeper
 graphics:p:P
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:14:0
 ################################################################################
 short-desc:beautiful young woman with big brown eyes and long eyelashes. *winks*
@@ -294,7 +294,7 @@ desc:.
 name:Danny the dog
 graphics:C:u
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:15:0
 ################################################################################
 short-desc:old dog who growl sometimes, but looks harmless..
@@ -303,7 +303,7 @@ desc:.
 name:Arthur the Archer
 graphics:p:G
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:16:0
 ################################################################################
 short-desc:young man with grey eyes and tiny beard-goatee. He grins.
@@ -312,7 +312,7 @@ desc:.
 name:Deckard Coin
 graphics:p:D
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:17:0
 ################################################################################
 short-desc:very old bended man. He looks ancient, but you see sparks in his eyes
@@ -321,7 +321,7 @@ desc:.
 name:Boris the Guard
 graphics:p:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:18:0
 ################################################################################
 short-desc:grim faced warrior with long stubble. His armour got some blood on it
@@ -330,7 +330,7 @@ desc:.
 name:Tom Bombadil
 graphics:p:y
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:19:0
 ################################################################################
 short-desc:wrinkled and ruddy face, bright blue eyes and a bristling brown beard
@@ -339,7 +339,7 @@ desc:.
 name:Mr. Underhill
 graphics:h:W
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:20:0
 ################################################################################
 short-desc:taller than some and fairer than most, perky chap with a bright eye
@@ -348,7 +348,7 @@ desc:.
 name:Gildor
 graphics:p:u
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:21:0
 ################################################################################
 short-desc:tall elf. You feel that he possess ethereal grace and various powers.
@@ -357,7 +357,7 @@ desc:.
 name:Squint-eyed Southerner
 graphics:o:t
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:22:0
 ################################################################################
 short-desc:looks more than half like a goblin, full of mischief...
@@ -366,7 +366,7 @@ desc:.
 name:Bill Ferny
 graphics:p:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:23:0
 ################################################################################
 short-desc:swarthy sneering fellow; he would sell anything to anybody
@@ -377,7 +377,7 @@ desc: he took it out of his mouth and spat.
 name:Boromir
 graphics:p:W
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:24:0
 ################################################################################
 short-desc:a tall man with a fair and noble face, dark-haired and grey-eyed
@@ -386,7 +386,7 @@ desc:.
 name:Barliman
 graphics:p:m
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:25:0
 ################################################################################
 short-desc:good-hearted fat man but notorious for his very bad memory
@@ -395,7 +395,7 @@ desc:.
 name:Torog
 graphics:O:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:26:0
 ################################################################################
 short-desc:looks like a troll, more then in a half.. strong and dim-witted
@@ -404,7 +404,7 @@ desc:.
 name:Nob, a servant
 graphics:h:u
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:27:0
 ################################################################################
 short-desc:"Nob! ... Where are you, you wolly-footed slow-coach?"
@@ -413,7 +413,7 @@ desc:.
 name:Rose
 graphics:h:P
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:28:0
 ################################################################################
 short-desc:bright and funny little girl
@@ -424,7 +424,7 @@ desc:.
 name:NPC l
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:29:0
 ################################################################################
 short-desc:.
@@ -433,7 +433,7 @@ desc:.
 name:NPC m
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:30:0
 ################################################################################
 short-desc:.
@@ -442,7 +442,7 @@ desc:.
 name:NPC n
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:31:0
 ################################################################################
 short-desc:.
@@ -451,7 +451,7 @@ desc:.
 name:NPC o
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:32:0
 ################################################################################
 short-desc:.
@@ -460,7 +460,7 @@ desc:.
 name:NPC p
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:33:0
 ################################################################################
 short-desc:.
@@ -469,7 +469,7 @@ desc:.
 name:NPC q
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:34:0
 ################################################################################
 short-desc:.
@@ -478,7 +478,7 @@ desc:.
 name:NPC r
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:35:0
 ################################################################################
 short-desc:.
@@ -487,7 +487,7 @@ desc:.
 name:NPC s
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:36:0
 ################################################################################
 short-desc:.
@@ -496,7 +496,7 @@ desc:.
 name:NPC t
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:37:0
 ################################################################################
 short-desc:.
@@ -505,7 +505,7 @@ desc:.
 name:NPC u
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:38:0
 ################################################################################
 short-desc:.
@@ -514,7 +514,7 @@ desc:.
 name:NPC v
 graphics:@:s
 priority:18
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:39:0
 ################################################################################
 short-desc:.
@@ -542,7 +542,7 @@ desc:.
 name:Black Market
 graphics:7:D
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:40:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -552,7 +552,7 @@ desc: haunt - and do not expect friendly service or good bargains.
 name:Expensive Black Market
 graphics:7:v
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:41:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -565,7 +565,7 @@ desc: them!
 name:Tavern
 graphics:8:y
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY | FLOOR_SAFE | OBJECT | NO_GENERATION
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY | FLOOR_SAFE | OBJECT | NO_GENERATION
 info:42:0
 look-prefix:the entrance to the
 look-in-preposition:at
@@ -575,7 +575,7 @@ desc:A safe place, perfect for drinking a pint of ale or two.
 name:Home
 graphics:+:y
 priority:24
-flags:NO_HOUSE | SHOP | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
+flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
 info:43:0
 look-prefix:the entrance to the
 look-in-preposition:at
