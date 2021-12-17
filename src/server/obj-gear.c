@@ -373,6 +373,7 @@ struct object *gear_object_for_use(struct player *p, struct object *obj, int num
  * Check how many missiles can be put in the quiver with a limit on whether
  * the quiver can expand to take more slots in the pack.
  *
+ * p Is the player with the quiver to use.
  * obj is the object to add
  *
  * At entry, *n_add_pack is the maximum number of additional

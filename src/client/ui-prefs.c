@@ -479,16 +479,16 @@ static const char *process_pref_file_expr(char **sp, char *fp)
             else if (streq(b+1, "FONTNAME")) v = ANGBAND_FONTNAME;
 
             /* Race */
-            else if (streq(b+1, "RACE")) v = player->race->name;
+            else if (streq(b+1, "RACE") && player->race) v = player->race->name;
 
             /* Class */
-            else if (streq(b+1, "CLASS")) v = player->clazz->name;
+            else if (streq(b+1, "CLASS") && player->clazz) v = player->clazz->name;
 
             /* Player */
             else if (streq(b+1, "PLAYER")) v = strip_suffix(nick);
 
             /* Gender */
-            else if (streq(b+1, "GENDER")) v = player->sex->title;
+            else if (streq(b+1, "GENDER") && player->sex) v = player->sex->title;
         }
         else
             v = b;

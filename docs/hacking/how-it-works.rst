@@ -59,22 +59,22 @@ The lowest-level code in PWMAngband is the "Z" layer, which provides
 platform-independent abstractions and generic data structures. Currently, the Z
 layer provides:
 
-=================   ========================================
-``z-bitflag``       Densely-packed bit flag arrays
-``z-color``         Colors
-``z-dice``          Dice expressions
-``z-expression``    Mathematical expressions
-``z-file``          File I/O
-``z-form``          String formatting
-``z-quark``         String interning
-``z-queue``         Queues
-``z-rand``          Randomness
-``z-set``           Sets
-``z-textblock``     Wrapped text
-``z-type``          Basic types
-``z-util``          Random utility macros
-``z-virt``          malloc() wrappers
-=================   ========================================
+=================  ========================================
+``z-bitflag``      Densely-packed bit flag arrays
+``z-color``        Colors
+``z-dice``         Dice expressions
+``z-expression``   Mathematical expressions
+``z-file``         File I/O
+``z-form``         String formatting
+``z-quark``        String interning
+``z-queue``        Queues
+``z-rand``         Randomness
+``z-set``          Sets
+``z-textblock``    Wrapped text
+``z-type``         Basic types
+``z-util``         Random utility macros
+``z-virt``         malloc() wrappers
+=================  ========================================
 
 Code in the Z layer may not depend on files outside the Z layer.
 
@@ -229,15 +229,15 @@ Keeping the UI up to date
 Four related horribly-named functions in player-calcs.h are responsible for
 keeping the UI in sync with the simulated character's state:
 
-==================  ============================================================
-``notice_stuff()``  which deals with pack combining and dropping ignored items;
-``update_stuff()``  which recalculates derived bonuses, AI data, vision, seen
-                    monsters, and other things based on the flags in
-                    ``player->upkeep->update``;
-``redraw_stuff()``  which signals the UI to redraw changed sections of the
-                    game state;
-``handle_stuff()``  which calls update_stuff() and redraw_stuff() if needed.
-==================  ============================================================
+================== ============================================================
+``notice_stuff()`` which deals with pack combining and dropping ignored items;
+``update_stuff()`` which recalculates derived bonuses, AI data, vision, seen
+                   monsters, and other things based on the flags in
+                   ``player->upkeep->update``;
+``redraw_stuff()`` which signals the UI to redraw changed sections of the
+                   game state;
+``handle_stuff()`` which calls update_stuff() and redraw_stuff() if needed.
+================== ============================================================
 
 These functions are called during every game loop, after the player and all
 monsters have acted.
@@ -250,3 +250,55 @@ day/night transition in town, restocking the stores, generating new creatures
 over time, dealing poison/cut damage, applying hunger, regeneration, ticking
 down timed effects, consuming light fuel, and applying a litany of spell effects
 that happen 'at random' from the player's point of view.
+
+Dungeon Generation
+******************
+
+prepare_next_level() in generate.c controls the process of generating or loading
+a level. To signal that run_game_loop() in game-world.c should call
+prepare_next_level(), game logic calls dungeon_change_level() in player-util.c
+to set the necessary data in the player structure. When a level change happens
+by traversing a staircase, some other data in the player structure is set to
+indicate what should be done to connect stairs. That doesn't happen in
+dungeon_change_level() and is instead set directly, currently in do_cmd_go_up()
+and do_cmd_go_down() in cmd-cave.c.
+
+With the default for non-persistent levels, loading only happens when
+returning to the town or when returning from a single combat arena. The code
+and global data for handling stored levels is in gen-chunk.c.
+
+When a new level is needed, prepare_next_level() calls cave_generate(), also in
+generate.c. That initializes a global bit of state, a dun_data structure called
+dun declared in generate.h, for passing a lot of the details needed when
+generating a level. It then selects a level profile via choose_profile() in
+generate.c. The level profile controls the layout of the level. The available
+level profiles are those listed in list-dun-profiles.h and several aspects of
+each profile are configured at runtime from the contents of
+lib/gamedata/dungeon_profile.txt. With a profile selected, cave_generate()
+uses the profile's builder function pointer to attempt to layout the new level.
+Those function pointers are initialized when list-dun-profiles.h is included
+in generate.c. The level layout functions all have names with the name of
+the profile followed by *_gen*, classic_gen() for classic levels as an
+example. Those functions are defined in gen-cave.c.
+
+Three of the level layout functions, classic_gen(), modified_gen(), and
+moria_gen() follow the same basic procedure. They divide the level into a
+grid of rectangular blocks where, in general, each block can only contain
+one room though a room could occupy many blocks. They then try to randomly
+place rooms in those blocks until some criteria is met. Room selection is
+configurable from lib/gamedata/dungeon_profile.txt and uses the predefined
+room types listed in list-rooms.h. When building a room, those level layout
+functions use the convenience function, room_build() from gen-room.c. That, in
+turn, calls the appropriate function to build the type of room chosen. The
+names of the room building functions have *build_* followed by the name of the
+room type, build_simple() for instance. Those functions are defined in
+gen-room.c. Once the rooms are built, there's an initial pass to connect them
+with corridors. That happens in gen-cave.c's do_traditional_tunneling().
+A second pass, to try and ensure connectedness though vault areas can disrupt
+that, is then done with ensure_connectedness(). At that point, most other
+features (mineral veins, staircases, objects, and monsters) are added. Some
+features will have already been added through some of the types of rooms.
+
+The other layout functions are more of a grab bag. They are all in gen-cave.c.
+Many of them have portions that are caverns or labyrinths. Those are generated
+using cavern_chunk() or labyrinth_chunk(), respectively, in gen-cave.c.

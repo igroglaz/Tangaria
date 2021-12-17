@@ -99,6 +99,7 @@ enum
 
 extern struct object_base *kb_info;
 extern struct artifact *a_info;
+extern struct artifact_upkeep *aup_info;
 extern struct flavor *flavors;
 
 #endif /* INCLUDED_OBJECT_H */

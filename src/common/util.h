@@ -77,5 +77,6 @@ extern bool player_has(struct player *p, int flag);
 
 extern int calc_blows_aux(struct player *p, int weight, int stat_str, int stat_dex);
 extern int calc_stat_ind(int use);
+extern int calc_blows_expected(struct player *p, int weight, int roll_str, int roll_dex);
 
 #endif /* INCLUDED_UTIL_H */

@@ -112,6 +112,15 @@ bool feat_is_shop(int feat)
 
 
 /*
+ * True if the feature allows line-of-sight.
+ */
+bool feat_is_los(int feat)
+{
+    return tf_has(f_info[feat].flags, TF_LOS);
+}
+
+
+/*
  * True if the feature is passable by the player.
  */
 bool feat_is_passable(int feat)
@@ -260,7 +269,7 @@ bool feat_ismetamap(int feat)
  * square_isrock() will return false for a secret door, even though it will
  * behave like a rock wall until the player determines it's a door.
  *
- * Use functions like square_isdiggable, square_iswall, etc. in these cases.
+ * Use functions like square_isdiggable, square_allowslos, etc. in these cases.
  */
 
 
@@ -1110,8 +1119,6 @@ bool square_ispassable(struct chunk *c, struct loc *grid)
 
 /*
  * True if any projectable can pass through the square.
- *
- * This function is the logical negation of square_iswall().
  */
 bool square_isprojectable(struct chunk *c, struct loc *grid)
 {
@@ -1122,15 +1129,13 @@ bool square_isprojectable(struct chunk *c, struct loc *grid)
 
 
 /*
- * True if the square is a wall square (impedes the player).
- *
- * This function is the logical negation of square_isprojectable().
+ * True if the square allows line-of-sight.
  */
-bool square_iswall(struct chunk *c, struct loc *grid)
+bool square_allowslos(struct chunk *c, struct loc *grid)
 {
     my_assert(square_in_bounds(c, grid));
 
-    return !square_isprojectable(c, grid);
+    return feat_is_los(square(c, grid)->feat);
 }
 
 
@@ -1387,6 +1392,15 @@ bool square_isbelievedwall(struct player *p, struct chunk *c, struct loc *grid)
 
     /* Report what we think (we may be wrong) */
     return !feat_is_projectable(square_p(p, grid)->feat);
+}
+
+
+/*
+ * Checks if a square is appropriate for placing a summoned creature.
+ */
+bool square_allows_summon(struct chunk *c, struct loc *grid)
+{
+    return (square_isemptyfloor(c, grid) && !square_trap_flag(c, grid, TRF_GLYPH));
 }
 
 

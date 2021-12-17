@@ -17,6 +17,11 @@ User interface
 Angband 4.2.x:
 
 - Show spell description by default when browsing
+- Update scalable 16x16xw.woff to the newest upstream version
+- Allow '@' to fast forward the birth process using random choices and a default
+  point buy for the statistics
+- Change keymap terminator to =
+- Change key to reset birth options to the Angband defaults
 
 MAngband 1.5.x:
 
@@ -32,13 +37,22 @@ Gameplay changes
 Angband 4.2.x:
 
 - Apply temporary and off-weapon slays and brands to unarmed combat
+- Reduce monsters passing through or tunneling walls
 
 Bugs fixed
 ----------
 
+Angband 4.2.x:
+
+- A couple of minor fixes
+- Stop monsters hasting themselves
+
 PWMAngband:
 
 - Fix unarmed rogues able to "stab" monsters
+- Fix crash when enabling/disabling tiles during character creation
+- Fix crash during ego/artifact generation by saving ego/artifact indexes as
+  u16b instead of byte
 
 Coding changes
 --------------
@@ -53,9 +67,29 @@ Angband 4.2.x:
 - Split effect handlers into multiple files
 - Move choice between the old and new vaults to dungeon_profile.txt
 - In TAP_UNLIFE, cancel the target set if the creature dies
+- Rewrite scatter() and add an extended version
+- Make calc_inventory() more efficient
+- Simplify prepare_next_level()
+- Split target_set_interactive_aux()
+- Move the modifiable bits of the artifact structure into their own structure
+  and make the artifact structure const
+- Limit the maximum number of attempts at rooms for modified and moria chunks
+- Cache the result of is_quest() in the dun_data structure for cave generation
+- Don't set player upkeep flags when using an item from the floor
+- Relax assumption that ignore_type_of() for all ego items is not ITYPE_MAX
+- Tidy logic for message about revealed object when rubble cleared
+- Use TF_LOS, remove square_iswall()
+- Perform the extra color table set up for more than 16 colors in init_gcu
+- Improve object origin merging
+
+PWMAngband:
+
+- Remove random roller, use default roller instead
 
 Compilation/documentation
 -------------------------
 
 - Support for SDL2 client
 - Modify the comment about room cutoffs in dungeon_profile.txt
+- Update attack.rst
+- Put in first draft of "how it works" documentation for dungeon generation

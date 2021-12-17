@@ -724,12 +724,12 @@ static int create_color(int i, int scale)
 }
 
 
-/*
- * React to changes
- */
-static errr Term_xtra_gcu_react(void)
-{
 #ifdef A_COLOR
+/*
+ * Adjust the color tables if there's more than 16 available.
+ */
+static void handle_extended_color_tables(void)
+{
     if (COLORS == 256 || COLORS == 88)
     {
         /*
@@ -757,10 +757,8 @@ static errr Term_xtra_gcu_react(void)
             same_colortable[i] = COLOR_PAIR(BASIC_COLORS + i) | isbold;
         }
     }
-#endif
-
-    return 0;
 }
+#endif
 
 
 /*
@@ -791,8 +789,8 @@ static errr Term_xtra_gcu(int n, int v)
         /* Delay */
         case TERM_XTRA_DELAY: if (v > 0) Sleep(v); return 0;
 
-        /* React to events */
-        case TERM_XTRA_REACT: Term_xtra_gcu_react(); return 0;
+        /* React to events; nothing special is done */
+        case TERM_XTRA_REACT: return 0;
     }
 
     /* Unknown event */
@@ -1174,6 +1172,8 @@ errr init_gcu(void)
 		same_colortable[COLOUR_MUSTARD]     = (COLOR_PAIR(PAIR_YELLOW));
 		same_colortable[COLOUR_BLUE_SLATE]  = (COLOR_PAIR(PAIR_BLUE));
 		same_colortable[COLOUR_DEEP_L_BLUE] = (COLOR_PAIR(PAIR_BLUE));
+
+        handle_extended_color_tables();
     }
 #endif
 

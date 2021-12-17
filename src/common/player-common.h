@@ -91,6 +91,7 @@ enum
 /* Character rolling methods */
 enum birth_rollers
 {
+    BR_DEFAULT = -3,
     BR_QDYNA = -2,
     BR_QUICK = -1,
     BR_POINTBASED = 0,
@@ -449,7 +450,7 @@ struct history_info
     bitflag type[HIST_SIZE];    /* Kind of history item */
     s16b dlev;                  /* Dungeon level when this item was recorded */
     s16b clev;                  /* Character level when this item was recorded */
-    struct artifact *art;       /* Artifact this item relates to */
+    const struct artifact *art; /* Artifact this item relates to */
     char name[NORMAL_WID];      /* Artifact name */
     hturn turn;                 /* Turn this item was recorded on */
     char event[NORMAL_WID];     /* The text of the item */

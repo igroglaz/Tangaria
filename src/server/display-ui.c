@@ -3716,7 +3716,7 @@ static void apply_base_magic(struct object *obj)
 }
 
 
-static struct artifact *item_art_fuzzy(const struct object *obj, char *name)
+static const struct artifact *item_art_fuzzy(const struct object *obj, char *name)
 {
     char match[NORMAL_WID];
     char *str;
@@ -3741,10 +3741,10 @@ static struct artifact *item_art_fuzzy(const struct object *obj, char *name)
     /* For each artifact */
     for (i = 0; i < z_info->a_max; i++)
     {
-        struct artifact *art = &a_info[i];
+        const struct artifact *art = &a_info[i];
 
         if (!art->name) continue;
-        if (art->created) continue;
+        if (is_artifact_created(art)) continue;
         if (kind && (kind != lookup_kind(art->tval, art->sval))) continue;
 
         /* Clean up its name */
@@ -4191,7 +4191,7 @@ static void master_generate(struct player *p, char *parms)
         /* Generate a true artifact */
         case 'a':
         {
-            struct artifact *art = item_art_fuzzy(obj, &parms[1]);
+            const struct artifact *art = item_art_fuzzy(obj, &parms[1]);
             struct object_kind *kind;
             struct object *obj;
 
@@ -4215,7 +4215,7 @@ static void master_generate(struct player *p, char *parms)
             copy_artifact_data(obj, art);
 
             /* Mark that the artifact has been created. */
-            obj->artifact->created++;
+            mark_artifact_created(obj->artifact, true);
 
             /* Mark the artifact as "generated" */
             set_artifact_info(p, obj, ARTS_GENERATED);

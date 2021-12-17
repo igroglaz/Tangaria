@@ -550,7 +550,7 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
     }
 
     /* Look for a location */
-    if (!summon_location(c, &grid, &context->grid, 60))
+    if (!summon_location(c, &grid, &context->grid, 4))
     {
         msg(context->origin->player, "Can't find a suitable location to raise any %s here.", race->name);
         return;

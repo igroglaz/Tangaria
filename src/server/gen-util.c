@@ -642,6 +642,7 @@ void place_object(struct player *p, struct chunk *c, struct loc *grid, int level
     /* Give it to the floor */
     if (!floor_carry(p, c, grid, new_obj, &dummy))
     {
+        preserve_artifact_aux(new_obj);
         object_delete(&new_obj);
         return;
     }
@@ -977,11 +978,8 @@ void vault_monsters(struct player *p, struct chunk *c, struct loc *grid, int dep
         {
             struct loc nearby;
 
-            /* Pick a nearby location */
-            if (!scatter(c, &nearby, grid, 1, true)) continue;
-
-            /* Require "empty" floor grids */
-            if (!square_isemptyfloor(c, &nearby)) continue;
+            /* Pick a nearby empty location. */
+            if (scatter_ext(c, &nearby, 1, grid, 1, true, square_isemptyfloor) == 0) continue;
 
             /* Place the monster (allow groups) */
             pick_and_place_monster(p, c, &nearby, depth, MON_ASLEEP | MON_GROUP, ORIGIN_DROP_SPECIAL);

@@ -167,7 +167,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
                 }
             }
         }
-        else if (event->key.code == 'm' || event->key.code == 'M')
+        else if (event->key.code == 'x' || event->key.code == 'X')
         {
             /* Hack -- birth options can not be reset after birth */
             if (!(m->flags == MN_NO_TAGS))
@@ -230,8 +230,8 @@ static void option_toggle_menu(const char *name, int page)
     }
     else if (page == OP_BIRTH + 10)
     {
-        m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'm' to reset";
-        m->cmd_keys = "YyNnTtSsRrMm";
+        m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'x' to reset";
+        m->cmd_keys = "YyNnTtSsRrXx";
         page -= 10;
     }
 
@@ -549,9 +549,9 @@ static void keymap_create(const char *title, int kmode)
         return;
     }
 
-    if (c.code == '$')
+    if (c.code == '=')
     {
-        c_prt(COLOUR_L_RED, "The '$' key is reserved.", 16, 2);
+        c_prt(COLOUR_L_RED, "The '=' key is reserved.", 16, 2);
         prt("Press any key to continue.", 18, 0);
         ke = inkey_ex();
         if (is_abort(ke)) Term_event_push(&ea);
@@ -708,7 +708,7 @@ static void keymap_create(const char *title, int kmode)
         keypress_to_text(tmp, sizeof(tmp), keymap_buffer, false);
         c_prt(color, format("Action: %s", tmp), 15, 0);
 
-        c_prt(COLOUR_L_BLUE, "  Press '$' when finished.", 17, 0);
+        c_prt(COLOUR_L_BLUE, "  Press '=' when finished.", 17, 0);
         c_prt(COLOUR_L_BLUE, "  Use 'CTRL-U' to reset.", 18, 0);
         c_prt(COLOUR_L_BLUE, format("(Maximum keymap length is %d keys.)", KEYMAP_ACTION_MAX), 19, 0);
 
@@ -723,7 +723,7 @@ static void keymap_create(const char *title, int kmode)
 
         if (ke.type != EVT_KBRD) continue;
 
-        if (kp.code == '$')
+        if (kp.code == '=')
         {
             done = true;
             continue;

@@ -171,6 +171,9 @@ struct dun_data
 
     /* Current pit profile in use */
     struct pit_profile *pit_type;
+
+    /*  Whether or not this is a quest level */
+    bool quest;
 };
 
 struct tunnel_profile
@@ -407,7 +410,7 @@ extern bool alloc_object(struct player *p, struct chunk *c, int set, int typ, in
 /* generate.c */
 extern void cave_wipe(struct chunk *c);
 extern bool allow_location(struct monster_race *race, struct worldpos *wpos);
-extern struct chunk *prepare_next_level(struct player *p, struct worldpos *wpos);
+extern struct chunk *prepare_next_level(struct player *p);
 extern void player_place_feeling(struct player *p, struct chunk *c);
 
 #endif /* GENERATE_H */

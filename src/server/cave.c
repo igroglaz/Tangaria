@@ -477,33 +477,72 @@ void cave_free(struct chunk *c)
  */
 bool scatter(struct chunk *c, struct loc *place, struct loc *grid, int d, bool need_los)
 {
-    int tries = 0;
+    return (scatter_ext(c, place, 1, grid, d, need_los, NULL) != 0);
+}
 
-    /* Pick a location, try many times */
-    while (tries < 1000)
+
+/*
+ * Try to find a given number of distinct, randomly selected, locations that
+ * are within a given distance of a grid, fully in bounds, and, optionally,
+ * are in the line of sight of the given grid and satisfy an additional
+ * condition.
+ *
+ * c Is the chunk to search.
+ * places Points to the storage for the locations found. That storage
+ * must have space for at least n grids.
+ * n Is the number of locations to find.
+ * grid Is the location to use as the origin for the search.
+ * d Is the maximum distance, in grids, that a location can be from
+ * grid and still be accepted.
+ * need_los If true, any locations found will also be in the line of
+ * sight from grid.
+ * pred If not NULL, evaluating that function at a found location, lct,
+ * will return true, i.e. (*pred)(c, lct) will be true.
+ *
+ * Returns the number of locations found. That number will be less
+ * than or equal to n if n is not negative and will be zero if n is negative.
+ */
+int scatter_ext(struct chunk *c, struct loc *places, int n, struct loc *grid, int d, bool need_los,
+    bool (*pred)(struct chunk *, struct loc *))
+{
+    int result = 0;
+
+    /* Stores feasible locations. */
+    struct loc *feas = mem_alloc(MIN(c->width, (1 + 2 * MAX(0, d))) *
+        (size_t)MIN(c->height, (1 + 2 * MAX(0, d))) * sizeof(*feas));
+    int nfeas = 0;
+    struct loc g;
+
+    /* Get the feasible locations. */
+    for (g.y = grid->y - d; g.y <= grid->y + d; ++g.y)
     {
-        struct loc new_grid;
-
-        /* Pick a new location */
-        rand_loc(&new_grid, grid, d, d);
-        tries++;
-
-        /* Ignore annoying locations */
-        if (!square_in_bounds_fully(c, &new_grid)) continue;
-
-        /* Ignore "excessively distant" locations */
-        if ((d > 1) && (distance(grid, &new_grid) > d)) continue;
-
-        /* Require "line of sight" if set */
-        if (need_los && !los(c, grid, &new_grid)) continue;
-
-        /* Set the location and return */
-        loc_copy(place, &new_grid);
-        return true;
+        for (g.x = grid->x - d; g.x <= grid->x + d; ++g.x)
+        {
+            if (!square_in_bounds_fully(c, &g)) continue;
+            if ((d > 1) && (distance(grid, &g) > d)) continue;
+            if (need_los && !los(c, grid, &g)) continue;
+            if (pred && !(*pred)(c, &g)) continue;
+            loc_copy(&feas[nfeas], &g);
+            ++nfeas;
+        }
     }
 
-    loc_copy(place, grid);
-    return false;
+    /* Assemble the result. */
+    while (result < n && nfeas > 0)
+    {
+        /* Choose one at random and append it to the outgoing list. */
+        int choice = randint0(nfeas);
+
+        loc_copy(&places[result], &feas[choice]);
+        ++result;
+
+        /* Shift the last feasible one to replace the one selected. */
+        --nfeas;
+        loc_copy(&feas[choice], &feas[nfeas]);
+    }
+
+    mem_free(feas);
+    return result;
 }
 
 

@@ -1821,14 +1821,17 @@ void textui_cmd_ignore_menu(struct object *obj)
         }
     }
 
+    type = ignore_type_of(obj);
+
     /* Ego ignoring */
-    if ((obj->info_xtra.eidx >= 0) && (obj->info_xtra.eidx < z_info->e_max) && !obj->ignore_protect)
+    if ((obj->info_xtra.eidx >= 0) && (obj->info_xtra.eidx < z_info->e_max) &&
+        !obj->ignore_protect && (type != ITYPE_MAX))
     {
         struct ego_desc choice;
         char tmp[NORMAL_WID] = "";
 
         choice.e_idx = obj->info_xtra.eidx;
-        choice.itype = ignore_type_of(obj);
+        choice.itype = type;
         choice.short_name = "";
         ego_item_name(tmp, sizeof(tmp), &choice);
         if (!player->ego_ignore_types[choice.e_idx][choice.itype])
@@ -1847,7 +1850,6 @@ void textui_cmd_ignore_menu(struct object *obj)
     if (!obj->ignore_protect)
     {
         value = obj->info_xtra.quality_ignore;
-        type = ignore_type_of(obj);
         if ((value != IGNORE_MAX) && (type != ITYPE_MAX))
         {
             strnfmt(out_val, sizeof(out_val), "Ignore all %s %s", quality_name_for_value(value),

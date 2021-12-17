@@ -1253,7 +1253,7 @@ static int percent_size(struct worldpos *wpos)
 {
     int i = randint1(10) + wpos->depth / 24;
 
-    if (is_quest(wpos->depth)) return 100;
+    if (dun->quest) return 100;
     if (i < 2) return 75;
     if (i < 3) return 80;
     if (i < 4) return 85;
@@ -3822,6 +3822,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     int num_floors;
     int num_rooms = dun->profile->n_room_profiles;
     int dun_unusual = dun->profile->dun_unusual;
+    int n_attempt;
 
     /* Make the cave */
     struct chunk *c = cave_new(height, width);
@@ -3852,9 +3853,32 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     dun->cent_n = 0;
     reset_entrance_data(c);
 
-    /* Build rooms until we have enough floor grids and at least two rooms */
-    while ((c->feat_count[FEAT_FLOOR] < num_floors) || (dun->cent_n < 2))
+    /*
+     * Build rooms until we have enough floor grids and at least two rooms
+     * or we appear to be stuck and can't match those criteria.
+     */
+    n_attempt = 0;
+    while (1)
     {
+        if ((c->feat_count[FEAT_FLOOR] >= num_floors) && (dun->cent_n >= 2)) break;
+
+        /*
+         * At an average of roughly 22 successful rooms per level
+         * (and a standard deviation of 4.5 or so for that) and a
+         * room failure rate that's less than .5 failures per success
+         * (4.2.x profile doesn't use full allocation for rarity two
+         * rooms - only up to 60; and the last type tried in that
+         * rarity has a failure rate per successful rooms of all types
+         * of around .024). 500 attempts is a generous cutoff for
+         * saying no further progress is likely.
+         */
+        if (n_attempt > 500)
+        {
+            cave_free(c);
+            return NULL;
+        }
+        ++n_attempt;
+
         /* Roll for random key (to be compared against a profile's cutoff) */
         key = randint0(100);
 
@@ -3949,6 +3973,7 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     dun->block_wid = dun->profile->block_size;
 
     c = modified_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
+    if (!c) return NULL;
 
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
@@ -4077,6 +4102,7 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
     int num_floors;
     int num_rooms = dun->profile->n_room_profiles;
     int dun_unusual = dun->profile->dun_unusual;
+    int n_attempt;
 
     /* Make the cave */
     struct chunk *c = cave_new(height, width);
@@ -4109,10 +4135,31 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
 
     /*
      * Build rooms until we have enough floor grids and at least two rooms
-     * (the latter is to make it easier to satisfy the constraints for player placement)
+     * (the latter is to make it easier to satisfy the constraints for
+     * player placement) or we appear to be stuck and can't match those
+     * criteria.
      */
-    while ((c->feat_count[FEAT_FLOOR] < num_floors) || (dun->cent_n < 2))
+    n_attempt = 0;
+    while (1)
     {
+        if ((c->feat_count[FEAT_FLOOR] >= num_floors) && (dun->cent_n >= 2)) break;
+
+        /*
+         * At an average of around 10 successful rooms per level
+         * (and a standard deviation of 3.1 or so for that) and a
+         * room failure rate that's less than .5 failures per success
+         * (4.2.x profile doesn't specify any rarity 1 rooms; the
+         * moria rooms at rarity zero have around .49 failures per
+         * successful room of any type), 500 attempts is a generous
+         * cutoff for saying no further progress is likely.
+         */
+        if (n_attempt > 500)
+        {
+            cave_free(c);
+            return NULL;
+        }
+        ++n_attempt;
+
         /* Roll for random key (to be compared against a profile's cutoff) */
         key = randint0(100);
 
@@ -4200,6 +4247,7 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     dun->block_wid = dun->profile->block_size;
 
     c = moria_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
+    if (!c) return NULL;
 
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);

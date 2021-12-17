@@ -452,7 +452,7 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
     if (forbid_town(&c->wpos)) return 0;
 
     /* Look for a location, allow up to 4 squares away */
-    if (!summon_location(c, &nearby, grid, 60)) return 0;
+    if (!summon_location(c, &nearby, grid, 4)) return 0;
 
     /* Hack -- monster summoned by the player */
     if (chance) status = MSTATUS_SUMMONED;
@@ -581,7 +581,7 @@ bool summon_specific_race_aux(struct player *p, struct chunk *c, struct loc *gri
         struct loc new_grid;
 
         /* Look for a location */
-        if (!summon_location(c, &new_grid, grid, 200)) return false;
+        if (!summon_location(c, &new_grid, grid, 13)) return false;
 
         /* Aquatic monsters suffocate if not in water */
         if (!square_iswater(c, &new_grid) && rf_has(race->flags, RF_AQUATIC)) return false;
@@ -681,24 +681,15 @@ int summon_monster_aux(struct player *p, struct chunk *c, struct loc *grid, int 
 /*
  * Get a location for summoned monsters.
  */
-bool summon_location(struct chunk *c, struct loc *place, struct loc *grid, int tries)
+bool summon_location(struct chunk *c, struct loc *place, struct loc *grid, int dmax)
 {
-    int i;
+    int d;
 
     /* Look for a location */
-    for (i = 0; i < tries; ++i)
+    for (d = 1; d <= dmax; ++d)
     {
-        /* Pick a distance */
-        int d = (i / 15) + 1;
-
         /* Pick a location */
-        if (!scatter(c, place, grid, d, true)) continue;
-
-        /* Require "empty" floor grid */
-        if (!square_isemptyfloor(c, place)) continue;
-
-        /* No summon on glyphs */
-        if (square_trap_flag(c, place, TRF_GLYPH)) continue;
+        if (scatter_ext(c, place, 1, grid, d, true, square_allows_summon) == 0) continue;
 
         /* Okay */
         return true;

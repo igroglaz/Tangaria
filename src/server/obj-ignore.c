@@ -294,12 +294,11 @@ bool object_is_ignored(struct player *p, const struct object *obj)
     if (object_flavor_is_aware(p, obj) && p->kind_ignore[obj->kind->kidx]) return true;
 
     type = ignore_type_of(obj);
+    if (type == ITYPE_MAX) return false;
 
     /* Ignore ego items if known */
     if (obj->ego && obj->known->ego && p->ego_ignore_types[obj->ego->eidx][type])
         return true;
-
-    if (type == ITYPE_MAX) return false;
 
     /* Ignore items known not to be artifacts */
     if (!obj->artifact && obj->known->artifact && (p->opts.ignore_lvl[type] == IGNORE_ALL))

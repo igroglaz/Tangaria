@@ -172,6 +172,17 @@ static void highscore_write(const struct high_score scores[], size_t sz)
 }
 
 
+/*
+ * Fill in a score record for the given player.
+ *
+ * entry points to the record to fill in.
+ * p is the player whose score should be recorded.
+ * died_from is the reason for death. In typical use, that will be
+ * p->died_from, but when the player isn't dead yet, the caller may want to
+ * use something else: "nobody (yet!)" is traditional.
+ * death_time points to the time at which the player died. May be NULL
+ * when the player isn't dead.
+ */
 void build_score(struct player *p, struct high_score *entry, const char *died_from,
     time_t *death_time)
 {
@@ -245,7 +256,11 @@ void build_score(struct player *p, struct high_score *entry, const char *died_fr
 
 
 /*
- * Enters a players name on a hi-score table, if "legal".
+ * Enter a player's name on a hi-score table, if "legal".
+ *
+ * p is the player to enter
+ * death_time points to the time at which the player died; may be NULL
+ * for a player that's not dead yet
  */
 void enter_score(struct player *p, time_t *death_time)
 {

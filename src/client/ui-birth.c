@@ -67,6 +67,26 @@ static byte roller_type = 0;
 
 
 /*
+ * Construct a random player name appropriate for the setting.
+ *
+ * buf is the buffer to contain the name. Must have space for at
+ * least buflen characters.
+ * buflen is the maximum number of character that can be written to
+ * buf.
+ *
+ * return the number of characters, excluding the terminating null, written
+ * to the buffer
+ */
+static size_t player_random_name(char *buf, size_t buflen)
+{
+    size_t result = randname_make(RANDNAME_TOLKIEN, 4, 8, buf, buflen, name_sections);
+
+    my_strcap(buf);
+    return result;
+}
+
+
+/*
  * A "keypress" handling function for askfor_aux, that handles the special
  * case of '*' for a new random "name" and passes any other "keypress"
  * through to the default "editing" handler.
@@ -80,8 +100,7 @@ static bool get_name_keypress(char *buf, size_t buflen, size_t *curs,
     {
         case '*':
         {
-            *len = randname_make(RANDNAME_TOLKIEN, 4, 8, buf, buflen, name_sections);
-            my_strcap(buf);
+            *len = player_random_name(buf, buflen);
             *curs = 0;
             result = false;
             break;
@@ -668,9 +687,9 @@ static void print_menu_instructions(void)
     /* Display some helpful information */
     text_out_e("{light blue}Please select your character traits from the menus below:{/}", 0, 0);
     text_out_e("Use the {light green}movement keys{/} to scroll the menu, {light green}Enter{/} to select the current menu", 2, 0);
-    text_out_e("item, '{light green}*{/}' for a random menu item, '{light green}ESC{/}' to step back through the birth", 3, 0);
-    text_out_e("process, '{light green}={/}' for the birth options, '{light green}?{/}' for help, '{light green}!{/}' for stat gains, ", 4, 0);
-    text_out_e("or '{light green}Ctrl-X{/}' to quit.", 5, 0);
+    text_out_e("item, '{light green}*{/}' for a random menu item, '{light green}@{/}' to finish the character with random", 3, 0);
+    text_out_e("selections,  '{light green}ESC{/}' to step back through the birth process, '{light green}={/}' for the birth", 4, 0);
+    text_out_e("options, '{light green}?{/}' for help, '{light green}!{/}' for stat gains, or '{light green}Ctrl-X{/}' to quit.", 5, 0);
 }
 
 
@@ -1034,6 +1053,43 @@ static void menu_stats(enum birth_stage current, int cursor)
 
 
 /*
+ * Advance character generation to the confirmation step using random choices
+ * and a default point buy for the statistics.
+ */
+static void finish_with_random_choices(enum birth_stage current)
+{
+    if (current == BIRTH_SEX_CHOICE)
+    {
+        int n, i;
+
+        n = MAX_SEXES;
+        i = randint0(n);
+        player->psex = i;
+    }
+
+    if (current <= BIRTH_RACE_CHOICE)
+    {
+        int n, i;
+
+        n = player_rmax();
+        i = randint0(n);
+        player->race = player_id2race(i);
+    }
+
+    if (current <= BIRTH_CLASS_CHOICE)
+    {
+        int n, i;
+
+        n = player_cmax() - 1;
+        i = randint0(n);
+        player->clazz = player_id2class(i);
+    }
+
+    stat_roll[STAT_MAX] = BR_DEFAULT;
+}
+
+
+/*
  * Allow the user to select from the current menu, and return the
  * corresponding command to the game. Some actions are handled entirely
  * by the UI (displaying help text, for instance).
@@ -1048,7 +1104,7 @@ static enum birth_stage menu_question(enum birth_stage current, struct menu *cur
     clear_question();
     Term_putstr(QUESTION_COL, QUESTION_ROW, -1, COLOUR_YELLOW, menu_data->hint);
 
-    current_menu->cmd_keys = "?=*Q!";
+    current_menu->cmd_keys = "?=*@Q!";
 
     while (next == BIRTH_RESET)
     {
@@ -1114,6 +1170,11 @@ static enum birth_stage menu_question(enum birth_stage current, struct menu *cur
             {
                 do_cmd_options_birth();
                 next = current;
+            }
+            else if (cx.key.code == '@')
+            {
+                finish_with_random_choices(current);
+                next = BIRTH_FINAL_CONFIRM;
             }
             else if (cx.key.code == KTRL('X'))
                 next = BIRTH_QUIT;
@@ -1369,17 +1430,9 @@ static enum birth_stage point_based_command(void)
         put_str("Blows", 15, 35);
         if (player->clazz->magic.spell_weight > 0)
         {
-            int num_blows, stat_str, stat_dex, j;
+            int num_blows = calc_blows_expected(player, player->clazz->magic.spell_weight,
+                stat_roll[STAT_STR], stat_roll[STAT_DEX]);
 
-            j = race_modifier(player->race, STAT_STR, 1, false) +
-                class_modifier(player->clazz, STAT_STR, 1);
-            stat_str = modify_stat_value(stat_roll[STAT_STR], j);
-            stat_str = calc_stat_ind(stat_str);
-            j = race_modifier(player->race, STAT_DEX, 1, false) +
-                class_modifier(player->clazz, STAT_DEX, 1);
-            stat_dex = modify_stat_value(stat_roll[STAT_DEX], j);
-            stat_dex = calc_stat_ind(stat_dex);
-            num_blows = calc_blows_aux(player, player->clazz->magic.spell_weight, stat_str, stat_dex);
             strnfmt(buf, sizeof(buf), "%d.%d/turn", num_blows / 100, (num_blows / 10 % 10));
         }
         else

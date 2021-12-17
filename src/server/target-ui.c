@@ -21,6 +21,41 @@
 #include "s-angband.h"
 
 
+enum target_aux_result
+{
+    TAR_TRUE,       /* Handler returns true */
+    TAR_FALSE,      /* Handler returns false */
+    TAR_BREAK,      /* Handler breaks loop */
+    TAR_CONTINUE,   /* Handler restarts loop */
+    TAR_NEXT        /* Call next handler */
+};
+
+
+/*
+ * Holds state passed between target_set_interactive_aux() and the handlers
+ * that help it handle different types of grids or situations. In general,
+ * the handlers should only modify press (passed back from
+ * target_set_interactive_aux() to target_set_interactive()) and boring
+ * (modulates how later handlers act).
+ */
+struct target_aux_state
+{
+    char coord_desc[20];
+    const char *phrase1;
+    const char *phrase2;
+    struct loc *grid;
+    u32b press;
+    int mode;
+    bool boring;
+    struct source *who;
+    const char *help;
+};
+
+
+typedef enum target_aux_result (*target_aux_handler)(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst);
+
+
 /*
  * Check if a UI event matches a certain keycode ('a', 'b', etc)
  */
@@ -144,6 +179,565 @@ static bool target_info(struct player *p, struct loc *grid, const char *info, co
 
 
 /*
+ * Help target_set_interactive_aux(): reset the state for another pass
+ * through the handlers.
+ */
+static enum target_aux_result aux_reinit(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    /* Bail if looking at a forbidden grid. Don't run any more handlers. */
+    if (!square_in_bounds(c, auxst->grid)) return TAR_BREAK;
+
+    /* Assume boring */
+    auxst->boring = true;
+
+    /* Looking at the player's grid */
+    if (auxst->who->player && (auxst->who->player == p))
+    {
+        auxst->phrase1 = "You are ";
+        auxst->phrase2 = "on ";
+    }
+
+    /* Default */
+    else
+    {
+        auxst->phrase1 = "You see ";
+        auxst->phrase2 = "";
+    }
+
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle hallucination.
+ */
+static enum target_aux_result aux_hallucinate(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    const char *name_strange = "something strange";
+    char out_val[256];
+
+    /* Hallucination messes things up */
+    if (!p->timed[TMD_IMAGE]) return TAR_NEXT;
+
+    /* Display a message */
+    strnfmt(out_val, sizeof(out_val), "%s%s%s, %s.", auxst->phrase1, auxst->phrase2, name_strange,
+        auxst->coord_desc);
+
+    /* Inform client */
+    if (need_target_info(p, auxst->press, TARGET_NONE))
+    {
+        return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+            TAR_FALSE);
+    }
+
+    /* Stop on everything but "return" */
+    if (auxst->press == KC_ENTER)
+    {
+        auxst->press = '\0';
+        return TAR_CONTINUE;
+    }
+
+    return TAR_FALSE;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle players.
+ *
+ * Note that if a player is in the grid, we update both the player
+ * recall info and the health bar info to track that player.
+ */
+static enum target_aux_result aux_player(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    char player_name[NORMAL_WID];
+    char out_val[256];
+    bool recall;
+
+    /* Actual visible players */
+    if (!auxst->who->player) return TAR_NEXT;
+    if (auxst->who->player == p) return TAR_NEXT;
+    if (!player_is_visible(p, auxst->who->idx)) return TAR_NEXT;
+
+    /* Not boring */
+    auxst->boring = false;
+
+    /* Unaware players get a pseudo description */
+    if (auxst->who->player->k_idx)
+    {
+        const char *s3 = "";
+
+        /* Acting as an object: get a pseudo object description */
+        if (auxst->who->player->k_idx > 0)
+        {
+            struct object_kind *kind = &k_info[auxst->who->player->k_idx];
+            struct object *fake = object_new();
+
+            object_prep(p, c, fake, kind, 0, MINIMISE);
+            if (tval_is_money_k(kind)) fake->pval = 1;
+            object_desc(p, player_name, sizeof(player_name), fake, ODESC_PREFIX | ODESC_BASE);
+            object_delete(&fake);
+        }
+
+        /* Acting as a feature: get a pseudo feature description */
+        else
+        {
+            int feat = feat_pseudo(auxst->who->player->poly_race->d_char);
+
+            my_strcpy(player_name, f_info[feat].name, sizeof(player_name));
+            s3 = (is_a_vowel(player_name[0])? "an ": "a ");
+        }
+
+        /* Describe the player */
+        strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", auxst->phrase1, auxst->phrase2, s3,
+            player_name, auxst->coord_desc);
+
+        /* Inform client */
+        if (need_target_info(p, auxst->press, TARGET_MON))
+        {
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                TAR_FALSE);
+        }
+
+        /* Stop on everything but "return" */
+        if (auxst->press != KC_ENTER) return TAR_BREAK;
+
+        /* Paranoia */
+        return TAR_TRUE;
+    }
+
+    /* Get the player name */
+    strnfmt(player_name, sizeof(player_name), "%s the %s %s", auxst->who->player->name,
+        auxst->who->player->race->name, auxst->who->player->clazz->name);
+
+    /* Track this player */
+    monster_race_track(p->upkeep, auxst->who);
+    health_track(p->upkeep, auxst->who);
+    cursor_track(p, auxst->who);
+    handle_stuff(p);
+
+    /* Interact */
+    recall = false;
+    if ((auxst->press == 'r') && (p->tt_step == TARGET_MON))
+        recall = true;
+
+    /* Recall or target */
+    if (recall)
+    {
+        do_cmd_describe(p);
+        return TAR_FALSE;
+    }
+    else
+    {
+        char buf[NORMAL_WID];
+
+        /* Describe the player */
+        look_player_desc(auxst->who->player, buf, sizeof(buf));
+
+        /* Describe, and prompt for recall */
+        strnfmt(out_val, sizeof(out_val), "%s%s%s (%s), %s.", auxst->phrase1, auxst->phrase2,
+            player_name, buf, auxst->coord_desc);
+
+        /* Inform client */
+        if (need_target_info(p, auxst->press, TARGET_MON))
+        {
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                TAR_FALSE);
+        }
+    }
+
+    /* Stop on everything but "return"/"space" */
+    if ((auxst->press != KC_ENTER) && (auxst->press != ' ')) return TAR_BREAK;
+
+    /* Sometimes stop at "space" key */
+    if ((auxst->press == ' ') && !(auxst->mode & (TARGET_LOOK))) return TAR_BREAK;
+
+    /* Take account of gender */
+    if (auxst->who->player->psex == SEX_FEMALE) auxst->phrase1 = "She is ";
+    else if (auxst->who->player->psex == SEX_MALE) auxst->phrase1 = "He is ";
+    else auxst->phrase1 = "It is ";
+
+    /* Use a preposition */
+    auxst->phrase2 = "on ";
+
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle monsters.
+ *
+ * Note that if a monster is in the grid, we update both the monster
+ * recall info and the health bar info to track that monster.
+ */
+static enum target_aux_result aux_monster(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    char m_name[NORMAL_WID];
+    char out_val[256];
+    bool recall;
+
+    /* Actual visible monsters */
+    if (!auxst->who->monster) return TAR_NEXT;
+    if (!monster_is_obvious(p, auxst->who->idx, auxst->who->monster)) return TAR_NEXT;
+
+    /* Not boring */
+    auxst->boring = false;
+
+    /* Get the monster name ("a kobold") */
+    monster_desc(p, m_name, sizeof(m_name), auxst->who->monster, MDESC_IND_VIS);
+
+    /* Track this monster */
+    monster_race_track(p->upkeep, auxst->who);
+    health_track(p->upkeep, auxst->who);
+    cursor_track(p, auxst->who);
+    handle_stuff(p);
+
+    /* Interact */
+    recall = false;
+    if ((auxst->press == 'r') && (p->tt_step == TARGET_MON))
+        recall = true;
+
+    /* Recall or target */
+    if (recall)
+    {
+        do_cmd_describe(p);
+        return TAR_FALSE;
+    }
+    else
+    {
+        char buf[NORMAL_WID];
+
+        /* Describe the monster */
+        look_mon_desc(auxst->who->monster, buf, sizeof(buf));
+
+        /* Describe, and prompt for recall */
+        strnfmt(out_val, sizeof(out_val), "%s%s%s (%s), %s.", auxst->phrase1, auxst->phrase2,
+            m_name, buf, auxst->coord_desc);
+
+        /* Inform client */
+        if (need_target_info(p, auxst->press, TARGET_MON))
+        {
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                TAR_FALSE);
+        }
+    }
+
+    /* Stop on everything but "return"/"space" */
+    if ((auxst->press != KC_ENTER) && (auxst->press != ' ')) return TAR_BREAK;
+
+    /* Sometimes stop at "space" key */
+    if ((auxst->press == ' ') && !(auxst->mode & (TARGET_LOOK))) return TAR_BREAK;
+
+    /* Take account of gender */
+    if (rf_has(auxst->who->monster->race->flags, RF_FEMALE)) auxst->phrase1 = "She is ";
+    else if (rf_has(auxst->who->monster->race->flags, RF_MALE)) auxst->phrase1 = "He is ";
+    else auxst->phrase1 = "It is ";
+
+    /* Describe carried objects (DMs only) */
+    if (is_dm_p(p))
+    {
+        /* Use a verb */
+        auxst->phrase2 = "carrying ";
+
+        /* Change the intro */
+        if (p->tt_o) auxst->phrase2 = "also carrying ";
+
+        /* Scan all objects being carried */
+        if (!p->tt_o) p->tt_o = auxst->who->monster->held_obj;
+        else p->tt_o = p->tt_o->next;
+        if (p->tt_o)
+        {
+            char o_name[NORMAL_WID];
+
+            /* Obtain an object description */
+            object_desc(p, o_name, sizeof(o_name), p->tt_o, ODESC_PREFIX | ODESC_FULL);
+
+            /* Describe the object */
+            strnfmt(out_val, sizeof(out_val), "%s%s%s, %s.", auxst->phrase1, auxst->phrase2, o_name,
+                auxst->coord_desc);
+
+            /* Inform client */
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                TAR_FALSE);
+        }
+    }
+
+    /* Use a preposition */
+    auxst->phrase2 = "on ";
+
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle visible traps.
+ */
+static enum target_aux_result aux_trap(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    struct trap *trap;
+    char out_val[256];
+    const char *lphrase3;
+
+    /* A trap */
+    trap = square_known_trap(p, c, auxst->grid);
+    if (trap)
+    {
+        bool recall = false;
+
+        /* Not boring */
+        auxst->boring = false;
+
+        /* Pick proper indefinite article */
+        lphrase3 = (is_a_vowel(trap->kind->desc[0])? "an ": "a ");
+
+        /* Interact */
+        if ((auxst->press == 'r') && (p->tt_step == TARGET_TRAP))
+            recall = true;
+
+        /* Recall */
+        if (recall)
+        {
+            /* Recall on screen */
+            describe_trap(p, trap);
+            return TAR_FALSE;
+        }
+
+        /* Normal */
+        else
+        {
+            /* Describe, and prompt for recall */
+            strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", auxst->phrase1, auxst->phrase2,
+                lphrase3, trap->kind->desc, auxst->coord_desc);
+
+            /* Inform client */
+            if (need_target_info(p, auxst->press, TARGET_TRAP))
+            {
+                return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                    TAR_FALSE);
+            }
+        }
+
+        /* Stop on everything but "return"/"space" */
+        if ((auxst->press != KC_ENTER) && (auxst->press != ' ')) return TAR_BREAK;
+
+        /* Sometimes stop at "space" key */
+        if ((auxst->press == ' ') && !(auxst->mode & (TARGET_LOOK))) return TAR_BREAK;
+    }
+
+    /* Double break */
+    if (square_known_trap(p, c, auxst->grid)) return TAR_BREAK;
+
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle objects.
+ */
+static enum target_aux_result aux_object(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    int floor_max = z_info->floor_size;
+    struct object **floor_list = mem_zalloc(floor_max * sizeof(*floor_list));
+    char out_val[256];
+    int floor_num;
+
+    /* Scan all sensed objects in the grid */
+    floor_num = scan_distant_floor(p, c, floor_list, floor_max, auxst->grid);
+    if (floor_num == 0)
+    {
+        mem_free(floor_list);
+        return TAR_NEXT;
+    }
+
+    /* Not boring */
+    auxst->boring = false;
+
+    track_object(p->upkeep, floor_list[0]);
+    handle_stuff(p);
+
+    /* If there is more than one item... */
+    if (floor_num > 1)
+    {
+        /* Describe the pile */
+        strnfmt(out_val, sizeof(out_val), "%s%sa pile of %d objects, %s.", auxst->phrase1,
+            auxst->phrase2, floor_num, auxst->coord_desc);
+
+        /* Inform client */
+        if (need_target_info(p, auxst->press, TARGET_OBJ))
+        {
+            mem_free(floor_list);
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                    TAR_FALSE);
+        }
+
+        /* Display objects */
+        if (auxst->press == 'r')
+        {
+            msg(p, "You see:");
+            display_floor(p, c, floor_list, floor_num, false);
+            show_floor(p, OLIST_WEIGHT | OLIST_GOLD);
+            mem_free(floor_list);
+            return TAR_FALSE;
+        }
+
+        /* Done */
+        mem_free(floor_list);
+        return TAR_BREAK;
+    }
+    else
+    {
+        bool recall = false;
+        char o_name[NORMAL_WID];
+
+        /* Only one object to display */
+        struct object *obj = floor_list[0];
+
+        /* Not boring */
+        auxst->boring = false;
+
+        /* Obtain an object description */
+        object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
+
+        /* Interact */
+        if ((auxst->press == 'r') && (p->tt_step == TARGET_OBJ))
+            recall = true;
+
+        /* Recall */
+        if (recall)
+        {
+            /* Recall on screen */
+            display_object_recall_interactive(p, obj, o_name);
+            mem_free(floor_list);
+            return TAR_FALSE;
+        }
+
+        /* Normal */
+        else
+        {
+            /* Describe, and prompt for recall */
+            strnfmt(out_val, sizeof(out_val), "%s%s%s, %s.", auxst->phrase1, auxst->phrase2, o_name,
+                auxst->coord_desc);
+
+            /* Inform client */
+            if (need_target_info(p, auxst->press, TARGET_OBJ))
+            {
+                mem_free(floor_list);
+                return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                        TAR_FALSE);
+            }
+        }
+
+        /* Stop on everything but "return"/"space" */
+        if ((auxst->press != KC_ENTER) && (auxst->press != ' '))
+        {
+            mem_free(floor_list);
+            return TAR_BREAK;
+        }
+
+        /* Sometimes stop at "space" key */
+        if ((auxst->press == ' ') && !(auxst->mode & (TARGET_LOOK)))
+        {
+            mem_free(floor_list);
+            return TAR_BREAK;
+        }
+
+        /* Plurals */
+        auxst->phrase1 = VERB_AGREEMENT(obj->number, "It is ", "They are ");
+
+        /* Preposition */
+        auxst->phrase2 = "on ";
+    }
+
+    mem_free(floor_list);
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): handle terrain.
+ */
+static enum target_aux_result aux_terrain(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    const char *name, *lphrase3;
+    char out_val[256];
+    int feat = square_apparent_feat(p, c, auxst->grid);
+    bool recall = false;
+    struct location *dungeon = get_dungeon(&p->wpos);
+
+    if (!auxst->boring && !feat_isterrain(feat)) return TAR_NEXT;
+
+    /* Terrain feature if needed */
+    name = square_apparent_name(p, c, auxst->grid);
+
+    /* Pick a preposition if needed */
+    if (*auxst->phrase2) auxst->phrase2 = square_apparent_look_in_preposition(p, c, auxst->grid);
+
+    /* Pick prefix for the name */
+    lphrase3 = square_apparent_look_prefix(p, c, auxst->grid);
+
+    /* Hack -- dungeon entrance */
+    if (dungeon && square_isdownstairs(c, auxst->grid))
+    {
+        lphrase3 = "the entrance to ";
+        name = dungeon->name;
+    }
+
+    /* Interact */
+    if ((auxst->press == 'r') && (p->tt_step == TARGET_FEAT))
+        recall = true;
+
+    /* Recall */
+    if (recall)
+    {
+        /* Recall on screen */
+        describe_feat(p, &f_info[feat]);
+        return TAR_FALSE;
+    }
+
+    /* Normal */
+    else
+    {
+        /* Message */
+        strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", auxst->phrase1, auxst->phrase2, lphrase3,
+            name, auxst->coord_desc);
+
+        /* Inform client */
+        if (need_target_info(p, auxst->press, TARGET_FEAT))
+        {
+            return (target_info(p, auxst->grid, out_val, auxst->help, auxst->press)? TAR_TRUE:
+                TAR_FALSE);
+        }
+    }
+
+    /* Stop on everything but "return"/"space" */
+    if ((auxst->press != KC_ENTER) && (auxst->press != ' ')) return TAR_BREAK;
+
+    return TAR_NEXT;
+}
+
+
+/*
+ * Help target_set_interactive_aux(): check what's in press to decide whether
+ * to do another pass through the handlers.
+ */
+static enum target_aux_result aux_wrapup(struct chunk *c, struct player *p,
+    struct target_aux_state *auxst)
+{
+    /* Stop on everything but "return" */
+    if (auxst->press != KC_ENTER) return TAR_BREAK;
+
+    /* Paranoia */
+    return TAR_TRUE;
+}
+
+
+/*
  * Examine a grid, return a keypress.
  *
  * The "mode" argument contains the "TARGET_LOOK" bit flag, which
@@ -151,13 +745,6 @@ static bool target_info(struct player *p, struct loc *grid, const char *info, co
  * of the grid, instead of simply returning immediately.  This lets
  * the "look" command get complete information, without making the
  * "target" command annoying.
- *
- * The "info" argument contains the "commands" which should be shown
- * inside the "[xxx]" text.  This string must never be empty, or grids
- * containing monsters will be displayed with an extra comma.
- *
- * Note that if a monster is in the grid, we update both the monster
- * recall info and the health bar info to track that monster.
  *
  * This function correctly handles multiple objects per grid, and objects
  * and terrain features in the same grid, though the latter never happens.
@@ -167,495 +754,55 @@ static bool target_info(struct player *p, struct loc *grid, const char *info, co
 static bool target_set_interactive_aux(struct player *p, struct loc *grid, int mode,
     const char *help, u32b query)
 {
-    const char *s1, *s2, *s3;
-    bool boring;
-    int feat;
-    int floor_max = z_info->floor_size;
-    struct object **floor_list = mem_zalloc(floor_max * sizeof(*floor_list));
-    int floor_num;
-    char out_val[256];
-    char coords[20];
+    /*
+     * If there's other types to be handled, insert a function to do so
+     * between aux_hallucinate and aux_wrapup. Because each handler
+     * can signal that the sequence be halted, these are ordered in
+     * decreasing order of precedence.
+     */
+    target_aux_handler handlers[] =
+    {
+        aux_reinit,
+        aux_hallucinate,
+        aux_player,
+        aux_monster,
+        aux_trap,
+        aux_object,
+        aux_terrain,
+        aux_wrapup
+    };
+    struct target_aux_state auxst;
+    int ihandler;
     int tries = 200;
     struct chunk *c = chunk_get(&p->wpos);
     struct source who_body;
-    struct source *who = &who_body;
 
-    square_actor(c, grid, who);
+    auxst.mode = mode;
+    auxst.press = query;
+    auxst.who = &who_body;
+    square_actor(c, grid, auxst.who);
+    auxst.help = help;
 
     /* Describe the square location */
-    grid_desc(p, coords, sizeof(coords), grid);
+    auxst.grid = grid;
+    grid_desc(p, auxst.coord_desc, sizeof(auxst.coord_desc), grid);
 
-    /* Repeat forever */
+    /* Apply the handlers in order until done */
+    ihandler = 0;
     while (tries--)
     {
-        struct trap *trap;
-
-        /* Assume boring */
-        boring = true;
-
-        /* Default */
-        s1 = "You see ";
-        s2 = "";
-        s3 = "";
-
-        /* Bail if looking at a forbidden grid */
-        if (!square_in_bounds(c, grid)) break;
-
-        /* The player */
-        if (who->player && (who->player == p))
-        {
-            /* Description */
-            s1 = "You are ";
-
-            /* Preposition */
-            s2 = "on ";
-        }
-
-        /* Hallucination messes things up */
-        if (p->timed[TMD_IMAGE])
-        {
-            const char *name = "something strange";
-
-            /* Display a message */
-            strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, name, coords);
-
-            /* Inform client */
-            if (need_target_info(p, query, TARGET_NONE))
-            {
-                mem_free(floor_list);
-                return target_info(p, grid, out_val, help, query);
-            }
-
-            /* Stop on everything but "return" */
-            if (query == KC_ENTER)
-            {
-                query = '\0';
-                continue;
-            }
-
-            mem_free(floor_list);
-            return false;
-        }
-
-        /* Actual players */
-        if (who->player && (who->player != p))
-        {
-            /* Visible */
-            if (player_is_visible(p, who->idx))
-            {
-                bool recall = false;
-                char player_name[NORMAL_WID];
-
-                /* Not boring */
-                boring = false;
-
-                /* Unaware players get a pseudo description */
-                if (who->player->k_idx)
-                {
-                    /* Acting as an object: get a pseudo object description */
-                    if (who->player->k_idx > 0)
-                    {
-                        struct object_kind *kind = &k_info[who->player->k_idx];
-                        struct object *fake = object_new();
-
-                        object_prep(p, c, fake, kind, 0, MINIMISE);
-                        if (tval_is_money_k(kind)) fake->pval = 1;
-                        object_desc(p, player_name, sizeof(player_name), fake,
-                            ODESC_PREFIX | ODESC_BASE);
-                        object_delete(&fake);
-                    }
-
-                    /* Acting as a feature: get a pseudo feature description */
-                    else
-                    {
-                        feat = feat_pseudo(who->player->poly_race->d_char);
-                        my_strcpy(player_name, f_info[feat].name, sizeof(player_name));
-                        s3 = (is_a_vowel(player_name[0])? "an ": "a ");
-                    }
-
-                    /* Describe the player */
-                    strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, player_name,
-                        coords);
-
-                    /* Inform client */
-                    if (need_target_info(p, query, TARGET_MON))
-                    {
-                        mem_free(floor_list);
-                        return target_info(p, grid, out_val, help, query);
-                    }
-
-                    /* Stop on everything but "return" */
-                    if (query != KC_ENTER) break;
-
-                    /* Paranoia */
-                    mem_free(floor_list);
-                    return true;
-                }
-
-                /* Get the player name */
-                strnfmt(player_name, sizeof(player_name), "%s the %s %s", who->player->name,
-                    who->player->race->name, who->player->clazz->name);
-
-                /* Track this player */
-                monster_race_track(p->upkeep, who);
-                health_track(p->upkeep, who);
-                cursor_track(p, who);
-                handle_stuff(p);
-
-                /* Interact */
-                if ((query == 'r') && (p->tt_step == TARGET_MON))
-                    recall = true;
-
-                /* Recall or target */
-                if (recall)
-                {
-                    /* Recall on screen */
-                    do_cmd_describe(p);
-                    mem_free(floor_list);
-                    return false;
-                }
-                else
-                {
-                    char buf[NORMAL_WID];
-
-                    /* Describe the player */
-                    look_player_desc(who->player, buf, sizeof(buf));
-
-                    /* Describe, and prompt for recall */
-                    strnfmt(out_val, sizeof(out_val), "%s%s%s%s (%s), %s.",
-                        s1, s2, s3, player_name, buf, coords);
-
-                    /* Inform client */
-                    if (need_target_info(p, query, TARGET_MON))
-                    {
-                        mem_free(floor_list);
-                        return target_info(p, grid, out_val, help, query);
-                    }
-                }
-
-                /* Stop on everything but "return"/"space" */
-                if ((query != KC_ENTER) && (query != ' ')) break;
-
-                /* Sometimes stop at "space" key */
-                if ((query == ' ') && !(mode & (TARGET_LOOK))) break;
-
-                /* Take account of gender */
-                if (who->player->psex == SEX_FEMALE) s1 = "She is ";
-                else if (who->player->psex == SEX_MALE) s1 = "He is ";
-                else s1 = "It is ";
-
-                /* Use a preposition */
-                s2 = "on ";
-            }
-        }
-
-        /* Actual monsters */
-        if (who->monster)
-        {
-            /* Visible */
-            if (monster_is_obvious(p, who->idx, who->monster))
-            {
-                bool recall = false;
-                char m_name[NORMAL_WID];
-
-                /* Not boring */
-                boring = false;
-
-                /* Get the monster name ("a kobold") */
-                monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_IND_VIS);
-
-                /* Track this monster */
-                monster_race_track(p->upkeep, who);
-                health_track(p->upkeep, who);
-                cursor_track(p, who);
-                handle_stuff(p);
-
-                /* Interact */
-                if ((query == 'r') && (p->tt_step == TARGET_MON))
-                    recall = true;
-
-                /* Recall */
-                if (recall)
-                {
-                    /* Recall on screen */
-                    do_cmd_describe(p);
-                    mem_free(floor_list);
-                    return false;
-                }
-
-                /* Normal */
-                else
-                {
-                    char buf[NORMAL_WID];
-
-                    /* Describe the monster */
-                    look_mon_desc(who->monster, buf, sizeof(buf));
-
-                    /* Describe, and prompt for recall */
-                    strnfmt(out_val, sizeof(out_val), "%s%s%s%s (%s), %s.", s1, s2, s3, m_name, buf,
-                        coords);
-
-                    /* Inform client */
-                    if (need_target_info(p, query, TARGET_MON))
-                    {
-                        mem_free(floor_list);
-                        return target_info(p, grid, out_val, help, query);
-                    }
-                }
-
-                /* Stop on everything but "return"/"space" */
-                if ((query != KC_ENTER) && (query != ' ')) break;
-
-                /* Sometimes stop at "space" key */
-                if ((query == ' ') && !(mode & (TARGET_LOOK))) break;
-
-                /* Take account of gender */
-                if (rf_has(who->monster->race->flags, RF_FEMALE)) s1 = "She is ";
-                else if (rf_has(who->monster->race->flags, RF_MALE)) s1 = "He is ";
-                else s1 = "It is ";
-
-                /* Describe carried objects (DMs only) */
-                if (is_dm_p(p))
-                {
-                    /* Use a verb */
-                    s2 = "carrying ";
-
-                    /* Change the intro */
-                    if (p->tt_o) s2 = "also carrying ";
-
-                    /* Scan all objects being carried */
-                    if (!p->tt_o) p->tt_o = who->monster->held_obj;
-                    else p->tt_o = p->tt_o->next;
-                    if (p->tt_o)
-                    {
-                        char o_name[NORMAL_WID];
-
-                        /* Obtain an object description */
-                        object_desc(p, o_name, sizeof(o_name), p->tt_o, ODESC_PREFIX | ODESC_FULL);
-
-                        /* Describe the object */
-                        strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, o_name,
-                            coords);
-
-                        /* Inform client */
-                        mem_free(floor_list);
-                        return target_info(p, grid, out_val, help, query);
-                    }
-                }
-
-                /* Use a preposition */
-                s2 = "on ";
-            }
-        }
-
-        /* A trap */
-        trap = square_known_trap(p, c, grid);
-		if (trap)
-		{
-			bool recall = false;
-
-			/* Not boring */
-			boring = false;
-
-            /* Pick proper indefinite article */
-            s3 = (is_a_vowel(trap->kind->desc[0])? "an ": "a ");
-
-            /* Interact */
-            if ((query == 'r') && (p->tt_step == TARGET_TRAP))
-                recall = true;
-
-            /* Recall */
-            if (recall)
-            {
-                /* Recall on screen */
-                describe_trap(p, trap);
-                mem_free(floor_list);
-                return false;
-            }
-
-            /* Normal */
-            else
-            {
-                /* Describe, and prompt for recall */
-                strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, trap->kind->desc,
-                    coords);
-
-                /* Inform client */
-                if (need_target_info(p, query, TARGET_TRAP))
-                {
-                    mem_free(floor_list);
-                    return target_info(p, grid, out_val, help, query);
-                }
-            }
-
-            /* Stop on everything but "return"/"space" */
-            if ((query != KC_ENTER) && (query != ' ')) break;
-
-            /* Sometimes stop at "space" key */
-            if ((query == ' ') && !(mode & (TARGET_LOOK))) break;
-		}
-
-		/* Double break */
-		if (square_known_trap(p, c, grid)) break;
-
-        /* Scan all sensed objects in the grid */
-        floor_num = scan_distant_floor(p, c, floor_list, floor_max, grid);
-        if (floor_num > 0)
-        {
-            /* Not boring */
-            boring = false;
-
-            track_object(p->upkeep, floor_list[0]);
-            handle_stuff(p);
-
-            /* If there is more than one item... */
-            if (floor_num > 1)
-            {
-                /* Describe the pile */
-                strnfmt(out_val, sizeof(out_val), "%s%s%sa pile of %d objects, %s.",
-                    s1, s2, s3, floor_num, coords);
-
-                /* Inform client */
-                if (need_target_info(p, query, TARGET_OBJ))
-                {
-                    mem_free(floor_list);
-                    return target_info(p, grid, out_val, help, query);
-                }
-
-                /* Display objects */
-                if (query == 'r')
-                {
-                    msg(p, "You see:");
-                    display_floor(p, c, floor_list, floor_num, false);
-                    show_floor(p, OLIST_WEIGHT | OLIST_GOLD);
-                    mem_free(floor_list);
-                    return false;
-                }
-
-                /* Done */
-                break;
-            }
-            else
-            {
-                bool recall = false;
-                char o_name[NORMAL_WID];
-
-                /* Only one object to display */
-                struct object *obj = floor_list[0];
-
-                /* Not boring */
-                boring = false;
-
-                /* Obtain an object description */
-                object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
-
-                /* Interact */
-                if ((query == 'r') && (p->tt_step == TARGET_OBJ))
-                    recall = true;
-
-                /* Recall */
-                if (recall)
-                {
-                    /* Recall on screen */
-                    display_object_recall_interactive(p, obj, o_name);
-                    mem_free(floor_list);
-                    return false;
-                }
-
-                /* Normal */
-                else
-                {
-                    /* Describe, and prompt for recall */
-                    strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, o_name, coords);
-
-                    /* Inform client */
-                    if (need_target_info(p, query, TARGET_OBJ))
-                    {
-                        mem_free(floor_list);
-                        return target_info(p, grid, out_val, help, query);
-                    }
-                }
-
-                /* Stop on everything but "return"/"space" */
-                if ((query != KC_ENTER) && (query != ' ')) break;
-
-                /* Sometimes stop at "space" key */
-                if ((query == ' ') && !(mode & (TARGET_LOOK))) break;
-
-                /* Plurals */
-                s1 = VERB_AGREEMENT(obj->number, "It is ", "They are ");
-
-                /* Preposition */
-                s2 = "on ";
-            }
-        }
-
-        feat = square_apparent_feat(p, c, grid);
-
-        /* Terrain feature if needed */
-        if (boring || feat_isterrain(feat))
-        {
-            const char *name = square_apparent_name(p, c, grid);
-            bool recall = false;
-            struct location *dungeon = get_dungeon(&p->wpos);
-
-            /* Pick a preposition if needed */
-            if (*s2) s2 = square_apparent_look_in_preposition(p, c, grid);
-
-            /* Pick prefix for the name */
-            s3 = square_apparent_look_prefix(p, c, grid);
-
-            /* Hack -- dungeon entrance */
-            if (dungeon && square_isdownstairs(c, grid))
-            {
-                s3 = "the entrance to ";
-                name = dungeon->name;
-            }
-
-            /* Interact */
-            if ((query == 'r') && (p->tt_step == TARGET_FEAT))
-                recall = true;
-
-            /* Recall */
-            if (recall)
-            {
-                /* Recall on screen */
-                describe_feat(p, &f_info[feat]);
-                mem_free(floor_list);
-                return false;
-            }
-
-            /* Normal */
-            else
-            {
-                /* Message */
-                strnfmt(out_val, sizeof(out_val), "%s%s%s%s, %s.", s1, s2, s3, name, coords);
-
-                /* Inform client */
-                if (need_target_info(p, query, TARGET_FEAT))
-                {
-                    mem_free(floor_list);
-                    return target_info(p, grid, out_val, help, query);
-                }
-            }
-
-            /* Stop on everything but "return"/"space" */
-            if ((query != KC_ENTER) && (query != ' ')) break;
-        }
-
-        /* Stop on everything but "return" */
-        if (query != KC_ENTER) break;
-
-        /* Paranoia */
-        mem_free(floor_list);
-        return true;
+        enum target_aux_result result = (*handlers[ihandler])(c, p, &auxst);
+
+        if (result == TAR_TRUE) return true;
+        if (result == TAR_FALSE) return false;
+        if (result == TAR_BREAK) break;
+        if (result == TAR_CONTINUE) continue;
+        ++ihandler;
+        if (ihandler >= (int) N_ELEMENTS(handlers)) ihandler = 0;
     }
 
     /* Paranoia */
-    if (!tries)
-        plog_fmt("Infinite loop in target_set_interactive_aux: %c", query);
-
-    mem_free(floor_list);
+    if (!tries) plog_fmt("Infinite loop in target_set_interactive_aux: %c", query);
 
     /* Keep going */
     return false;

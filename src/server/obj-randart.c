@@ -3082,7 +3082,7 @@ static char dummy[6] = "dummy";
 /*
  * Create a random artifact
  */
-static struct artifact* create_artifact(struct player *p, struct artifact *a,
+static struct artifact* create_artifact(struct player *p, const struct artifact *a,
     struct artifact_set_data *data)
 {
     struct artifact *art = mem_zalloc(sizeof(*art));
@@ -3123,7 +3123,7 @@ static struct artifact* create_artifact(struct player *p, struct artifact *a,
 /*
  * Generate a random artifact
  */
-struct artifact* do_randart(struct player *p, s32b randart_seed, struct artifact *a)
+struct artifact* do_randart(struct player *p, s32b randart_seed, const struct artifact *a)
 {
     u32b tmp_seed;
     bool rand_old;
@@ -3202,18 +3202,18 @@ void init_randart_generator(void)
 
 int get_artifact_level(struct player *p, const struct object *obj)
 {
-    int lev;
-    struct artifact *art = obj->artifact;
-
     if (obj->randart_seed)
-        art = do_randart(p, obj->randart_seed, obj->artifact);
+    {
+        int lev;
+        struct artifact *art = do_randart(p, obj->randart_seed, obj->artifact);
 
-    lev = art->level;
-
-    if (obj->randart_seed)
+        lev = art->level;
         free_artifact(art);
 
-    return lev;
+        return lev;
+    }
+
+    return obj->artifact->level;
 }
 
 

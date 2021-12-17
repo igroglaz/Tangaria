@@ -68,9 +68,13 @@ extern bool object_marked_aware(struct player *p, const struct object *obj);
 extern struct object *object_from_index(struct player *p, int item, bool prompt,
     bool check_ignore);
 extern struct ego_item *lookup_ego_item(const char *name, struct object_kind *kind);
-extern struct artifact *lookup_artifact_name(const char *name);
+extern const struct artifact *lookup_artifact_name(const char *name);
 extern void print_custom_message(struct player *p, struct object *obj, const char *string,
     int msg_type);
 extern s32b get_askprice(const char *inscription);
+extern bool is_artifact_created(const struct artifact *art);
+extern s32b get_artifact_owner(const struct artifact *art);
+extern void mark_artifact_created(const struct artifact *art, bool created);
+extern void mark_artifact_owned(const struct artifact *art, s32b owner);
 
 #endif /* OBJECT_UTIL_H */

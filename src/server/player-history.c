@@ -92,7 +92,7 @@ void history_add_full(struct player *p, struct history_info *entry)
 static void history_add_with_flags(struct player *p, const char *text, bitflag flags[HIST_SIZE],
     const struct object *obj)
 {
-    struct artifact *art = NULL;
+    const struct artifact *art = NULL;
     char o_name[NORMAL_WID];
     struct history_info entry;
 

@@ -78,7 +78,7 @@ static void rd_tval_sval(u16b *tval, u16b *sval)
 }
 
 
-static struct artifact *rd_artifact(bool randart)
+static const struct artifact *rd_artifact(bool randart)
 {
 #ifdef SAVE_AS_STRINGS
     char buf[NORMAL_WID];
@@ -86,14 +86,14 @@ static struct artifact *rd_artifact(bool randart)
 
     rd_string(buf, sizeof(buf));
     aux = atoi(buf);
-    if (aux == 1) return (struct artifact *)1;
+    if (aux == 1) return (const struct artifact *)1;
     if (randart && (aux >= z_info->a_max) && (aux < z_info->a_max + 9)) return &a_info[aux];
     if (buf[0]) return lookup_artifact_name(buf);
 #else
-    byte art_idx;
+    u16b art_idx;
 
-    rd_byte(&art_idx);
-    if (art_idx == EGO_ART_KNOWN) return (struct artifact *)1;
+    rd_u16b(&art_idx);
+    if (art_idx == EGO_ART_KNOWN) return (const struct artifact *)1;
     if ((art_idx > 0) && (art_idx <= z_info->a_max)) return &a_info[art_idx - 1];
     if (randart && (art_idx > z_info->a_max) && (art_idx <= z_info->a_max + 9))
         return &a_info[art_idx - 1];
@@ -111,9 +111,9 @@ static struct ego_item *rd_ego(struct object_kind *kind)
     if (streq(buf, "1")) return (struct ego_item *)1;
     if (buf[0]) return lookup_ego_item(buf, kind);
 #else
-    byte ego_idx;
+    u16b ego_idx;
 
-    rd_byte(&ego_idx);
+    rd_u16b(&ego_idx);
     if (ego_idx == EGO_ART_KNOWN) return (struct ego_item *)1;
     if ((ego_idx > 0) && (ego_idx <= z_info->e_max)) return &e_info[ego_idx - 1];
 #endif
@@ -881,10 +881,11 @@ int rd_artifacts(struct player *unused)
     /* Read the artifact flags */
     for (i = 0; i < tmp16u; i++)
     {
-        struct artifact *art = &a_info[i];
+        byte tmp8u;
 
-        rd_byte(&art->created);
-        rd_s32b(&art->owner);
+        rd_byte(&tmp8u);
+        aup_info[i].created = (tmp8u? true: false);
+        rd_s32b(&aup_info[i].owner);
     }
 
     /* Success */
@@ -974,8 +975,8 @@ static int rd_gear_aux(struct player *p, rd_item_t rd_item_version)
         {
             if (true_artifact_p(obj))
             {
-                if (!obj->artifact->created) obj->artifact->created = 1;
-                if (obj->owner) obj->artifact->owner = p->id;
+                mark_artifact_created(obj->artifact, true);
+                mark_artifact_owned(obj->artifact, p->id);
             }
             else
             {

@@ -23,6 +23,7 @@
 
 struct object_base *kb_info;
 struct artifact *a_info;
+struct artifact_upkeep *aup_info;
 struct flavor *flavors;
 
 
@@ -1034,7 +1035,7 @@ void object_own(struct player *p, struct object *obj)
     obj->owner = p->id;
 
     /* Artifact is now owned */
-    if (true_artifact_p(obj)) obj->artifact->owner = p->id;
+    if (true_artifact_p(obj)) mark_artifact_owned(obj->artifact, p->id);
 }
 
 
@@ -1063,8 +1064,8 @@ void preserve_artifact_aux(const struct object *obj)
     /* True artifacts */
     if (true_artifact_p(obj))
     {
-        if (obj->artifact->created) obj->artifact->created--;
-        obj->artifact->owner = 0;
+        mark_artifact_created(obj->artifact, false);
+        mark_artifact_owned(obj->artifact, 0);
     }
 
     /* Randarts */
@@ -1253,15 +1254,15 @@ struct ego_item *lookup_ego_item(const char *name, struct object_kind *kind)
 /*
  * Return the artifact with the given name
  */
-struct artifact *lookup_artifact_name(const char *name)
+const struct artifact *lookup_artifact_name(const char *name)
 {
     int i;
-    struct artifact *match = NULL;
+    const struct artifact *match = NULL;
 
     /* Look for it */
     for (i = 0; i < z_info->a_max; i++)
     {
-        struct artifact *art = &a_info[i];
+        const struct artifact *art = &a_info[i];
 
         /* Test for equality */
         if (art->name && streq(name, art->name)) return art;
@@ -1427,4 +1428,48 @@ s32b get_askprice(const char *inscription)
     /* Get ask price, skip inscription */
     c += len;
     return atoi(c);
+}
+
+
+/*
+ * Return if the given artifact has been created.
+ */
+bool is_artifact_created(const struct artifact *art)
+{
+    my_assert(art->aidx == aup_info[art->aidx].aidx);
+
+    return aup_info[art->aidx].created;
+}
+
+
+/*
+ * Return the owner of the given artifact.
+ */
+s32b get_artifact_owner(const struct artifact *art)
+{
+    my_assert(art->aidx == aup_info[art->aidx].aidx);
+
+    return aup_info[art->aidx].owner;
+}
+
+
+/*
+ * Set whether the given artifact has been created or not.
+ */
+void mark_artifact_created(const struct artifact *art, bool created)
+{
+    my_assert(art->aidx == aup_info[art->aidx].aidx);
+
+    aup_info[art->aidx].created = created;
+}
+
+
+/*
+ * Set owner of the given artifact.
+ */
+void mark_artifact_owned(const struct artifact *art, s32b owner)
+{
+    my_assert(art->aidx == aup_info[art->aidx].aidx);
+
+    aup_info[art->aidx].owner = owner;
 }

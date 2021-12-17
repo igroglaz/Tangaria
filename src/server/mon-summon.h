@@ -48,7 +48,7 @@ extern bool summon_specific_race_somewhere(struct player *p, struct chunk *c,
     struct monster_race *race, unsigned char size);
 extern int summon_monster_aux(struct player *p, struct chunk *c, struct loc *grid, int flag,
     int rlev, int max, int chance, struct monster *mon);
-extern bool summon_location(struct chunk *c, struct loc *place, struct loc *grid, int tries);
+extern bool summon_location(struct chunk *c, struct loc *place, struct loc *grid, int dmax);
 extern struct monster_race *select_shape(struct player *p, struct monster *mon, int type);
 
 #endif /* MONSTER_SUMMON_H */

@@ -2025,7 +2025,7 @@ bool monster_change_shape(struct player *p, struct monster *mon)
 
         source_monster(mon1, mon);
 
-        monster_desc(p, m_name, sizeof(m_name), mon, MDESC_IND_HID);
+        monster_desc(p, m_name, sizeof(m_name), mon, MDESC_STANDARD);
         msgt(p, MSG_GENERIC, "%s %s", m_name, "shimmers and changes!");
         if (source_equal(health_who, mon1)) p->upkeep->redraw |= (PR_HEALTH);
         p->upkeep->redraw |= (PR_MONLIST);
@@ -2041,7 +2041,7 @@ bool monster_change_shape(struct player *p, struct monster *mon)
     }
 
     /* Emergency teleport if needed */
-    if (!monster_passes_walls(mon->race) && square_iswall(c, &mon->grid))
+    if (!monster_passes_walls(mon->race) && !square_is_monster_walkable(c, &mon->grid))
     {
         struct source origin_body;
         struct source *origin = &origin_body;
@@ -2074,7 +2074,7 @@ bool monster_revert_shape(struct player *p, struct monster *mon)
 
             source_monster(mon1, mon);
 
-            monster_desc(p, m_name, sizeof(m_name), mon, MDESC_IND_HID);
+            monster_desc(p, m_name, sizeof(m_name), mon, MDESC_STANDARD);
             msgt(p, MSG_GENERIC, "%s %s", m_name, "shimmers and changes!");
             if (source_equal(health_who, mon1)) p->upkeep->redraw |= (PR_HEALTH);
             p->upkeep->redraw |= (PR_MONLIST);
@@ -2085,7 +2085,7 @@ bool monster_revert_shape(struct player *p, struct monster *mon)
         mon->original_race = NULL;
 
         /* Emergency teleport if needed */
-        if (!monster_passes_walls(mon->race) && square_iswall(c, &mon->grid))
+        if (!monster_passes_walls(mon->race) && !square_is_monster_walkable(c, &mon->grid))
         {
             struct source origin_body;
             struct source *origin = &origin_body;

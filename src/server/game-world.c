@@ -1869,7 +1869,7 @@ static void generate_new_level(struct player *p)
         new_level = true;
 
         /* Generate a dungeon level there */
-        c = prepare_next_level(p, &p->wpos);
+        c = prepare_next_level(p);
 
         wild_deserted_message(p);
     }

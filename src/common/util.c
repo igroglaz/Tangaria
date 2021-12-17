@@ -1556,6 +1556,20 @@ int calc_stat_ind(int use)
 }
 
 
+int calc_blows_expected(struct player *p, int weight, int roll_str, int roll_dex)
+{
+    int stat_str, stat_dex, j;
+
+    j = race_modifier(p->race, STAT_STR, 1, false) + class_modifier(p->clazz, STAT_STR, 1);
+    stat_str = modify_stat_value(roll_str, j);
+    stat_str = calc_stat_ind(stat_str);
+    j = race_modifier(p->race, STAT_DEX, 1, false) + class_modifier(p->clazz, STAT_DEX, 1);
+    stat_dex = modify_stat_value(roll_dex, j);
+    stat_dex = calc_stat_ind(stat_dex);
+    return calc_blows_aux(p, weight, stat_str, stat_dex);
+}
+
+
 /*
  * Stat Table (INT/WIS) -- failure rate adjustment
  */

@@ -170,70 +170,70 @@ but not all do.
 ..
 
 Hold Monster:
-  Paralyses a monster until you hit them
-  Increases chance of player getting a critical hit
-  Normal duration 3-8 turns
+  Paralyses a monster until you hit them.
+  Increases chance of player getting a critical hit.
+  Normal duration 3-8 turns.
   
 ..
 
 Stun Monster:
-  Reduces the monster's melee accuracy and damage by 25%
-  1 in 10 chance that the monster will miss the turn
-  Increases chance of player getting a critical hit
-  Normal duration 5-10 turns
+  Reduces the monster's melee accuracy and damage by 25%.
+  1 in 10 chance that the monster will miss the turn.
+  Increases chance of player getting a critical hit.
+  Normal duration 5-10 turns.
 
 ..
 
 Confuse Monster:
-  Monster spells fail 50% more often
-  Monster at least 40% more likely to miss target with spells/ranged attacks
-  Monster ball & bolt spells sometimes go in the wrong direction
-  30% chance of erratic movement, more when more confused
-  Increases chance of player getting a critical hit
-  Normal duration 5-10 turns
+  Monster spells fail 50% more often.
+  Monster at least 40% more likely to miss target with spells/ranged attacks.
+  Monster ball & bolt spells sometimes go in the wrong direction.
+  30% chance of erratic movement, more when more confused.
+  Increases chance of player getting a critical hit.
+  Normal duration 5-10 turns.
 
 ..
 
 Slow Monster:
-  -2 speed, more if more slowed
-  Normal duration 10 or more turns
+  -2 speed, more if more slowed.
+  Normal duration 10 or more turns.
 
 ..
 
 Sleep Monster:
-  Puts monsters to sleep, but they can wake up again quite easily
+  Puts monsters to sleep, but they can wake up again quite easily.
 
 ..
 
 Scare Monster:
-  Monster will run away
-  Monster spells fail 20% more often
+  Monster will run away.
+  Monster spells fail 20% more often.
 
 ..
 
 Disenchant Monster:
-  Monster spells fail 50% more often
-  Normal duration 5-10 turns
+  Monster spells fail 50% more often.
+  Normal duration 5-10 turns.
 
 ..
 
 Haste Monster (bad effect):
-  +10 speed
+  +10 speed.
 
 ..
 
 Blind Monster:
-  Monsters cannot cast spells
-  Monsters move erratically
-  Increased chance of critical hit
-  Normal duration 5-10 turns
+  Monsters cannot cast spells.
+  Monsters move erratically.
+  Increased chance of critical hit.
+  Normal duration 5-10 turns.
 
 ..
 
 Monsters can also suffer from two status ailments, poison and bleeding:
-  Prevents regeneration
-  1 hp loss per turn
-  Normal duration 5-10 turns
+  Prevents regeneration.
+  1 hp loss per turn.
+  Normal duration 5-10 turns.
 
 Non-melee attacks and resistances
 ---------------------------------

@@ -275,6 +275,8 @@ void object_free(struct object *obj)
 
 /*
  * Delete an object and free its memory, and set its pointer to NULL
+ *
+ * obj_address is the address of the struct object* to be deleted
  */
 void object_delete(struct object **obj_address)
 {
@@ -306,6 +308,8 @@ void object_delete(struct object **obj_address)
 
 /*
  * Free an entire object pile
+ *
+ * obj is the pointer to the start of the pile to excise.
  */
 void object_pile_free(struct object *obj)
 {
@@ -504,8 +508,6 @@ bool object_similar(struct player *p, const struct object *obj1, const struct ob
  */
 void object_origin_combine(struct object *obj1, struct object *obj2)
 {
-    int act = 2;
-
     /* Forget original owner */
     if (obj1->origin_player != obj2->origin_player) obj1->origin_player = 0;
 
@@ -517,27 +519,23 @@ void object_origin_combine(struct object *obj1, struct object *obj2)
         bool uniq1 = monster_is_unique(obj1->origin_race);
         bool uniq2 = monster_is_unique(obj2->origin_race);
 
-        if (uniq1 && !uniq2) act = 0;
-        else if (uniq2 && !uniq1) act = 1;
-        else act = 2;
-    }
-
-    switch (act)
-    {
-        /* Overwrite with obj2 */
-        case 1:
+        if (uniq1 && !uniq2)
         {
+            /* Favour keeping record for a unique */
+        }
+        else if (uniq2 && !uniq1)
+        {
+            /* Favour keeping record for a unique */
             set_origin(obj1, obj2->origin, obj2->origin_depth, obj2->origin_race);
-            break;
         }
-
-        /* Set as "mixed" */
-        case 2:
+        else
         {
+            /* Different monsters, neither or both unique, mixed origin */
             set_origin(obj1, ORIGIN_MIXED, 0, NULL);
-            break;
         }
     }
+    else
+        set_origin(obj1, ORIGIN_MIXED, 0, NULL);
 }
 
 
@@ -831,7 +829,8 @@ struct object *object_split(struct object *src, int amt)
 
 /*
  * Remove an amount of an object from the floor, returning a detached object
- * which can be used - it is assumed that the object is on the player grid.
+ * which can be used - it is assumed that the object is being manipulated by
+ * given player and is on that player's grid.
  *
  * Optionally describe what remains.
  */
@@ -879,10 +878,6 @@ struct object *floor_object_for_use(struct player *p, struct chunk *c, struct ob
     }
 
     /* Housekeeping */
-    p->upkeep->update |= (PU_BONUS | PU_INVEN);
-    p->upkeep->notice |= (PN_COMBINE);
-    set_redraw_equip(p, NULL);
-    set_redraw_inven(p, NULL);
     redraw_floor(&p->wpos, &grid, NULL);
 
     /* Print a message if desired */
@@ -1393,7 +1388,7 @@ void push_object(struct player *p, struct chunk *c, struct loc *grid)
     bool rune = square_iswarded(c, grid), glyph = square_isdecoyed(c, grid);
     struct monster *mon = square_monster(c, grid);
 
-    /* XXX */
+    /* PWMAngband: if this is a mimic, just reveal it instead of pushing the mimicked object */
     if (mon && mon->mimicked_obj) become_aware(p, c, mon);
     obj = square_object(c, grid);
     if (!obj) return;

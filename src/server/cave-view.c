@@ -564,7 +564,7 @@ static bool source_can_light_wall(struct chunk *c, struct player *p, struct loc 
      * have line of sight to the wall, '1', but the face of '1' that would
      * be lit is blocked by the wall immediately to the left of '1'.
      */
-    return !square_iswall(c, &cn);
+    return square_allowslos(c, &cn);
 }
 
 
@@ -593,7 +593,7 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
      * If the grid in the direction of the player is not a wall, is either
      * sunlit or in a room, and is glowing, it'll illuminate the wall.
      */
-    if (!square_iswall(c, &pn) && (sunlit || square_isroom(c, &pn)) && square_isglow(c, &pn))
+    if (square_allowslos(c, &pn) && (sunlit || square_isroom(c, &pn)) && square_isglow(c, &pn))
         return true;
 
     /*
@@ -608,14 +608,14 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
         {
             chk.x = pn.x;
             chk.y = wgrid->y;
-            if (!square_iswall(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
+            if (square_allowslos(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
                 square_isglow(c, &chk) && source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
             }
             chk.x = wgrid->x;
             chk.y = pn.y;
-            if (!square_iswall(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
+            if (square_allowslos(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
                 square_isglow(c, &chk) && source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
@@ -625,14 +625,14 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
         {
             chk.x = pn.x;
             chk.y = wgrid->y - 1;
-            if (square_in_bounds(c, &chk) && !square_iswall(c, &chk) &&
+            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
                 (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
                 source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
             }
             chk.y = wgrid->y + 1;
-            if (square_in_bounds(c, &chk) && !square_iswall(c, &chk) &&
+            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
                 (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
                 source_can_light_wall(c, p, &chk, wgrid))
             {
@@ -644,14 +644,14 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
     {
         chk.y = pn.y;
         chk.x = wgrid->x - 1;
-        if (square_in_bounds(c, &chk) && !square_iswall(c, &chk) &&
+        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
             (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
             source_can_light_wall(c, p, &chk, wgrid))
         {
             return true;
         }
         chk.x = wgrid->x + 1;
-        if (square_in_bounds(c, &chk) && !square_iswall(c, &chk) &&
+        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
             (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
             source_can_light_wall(c, p, &chk, wgrid))
         {
@@ -701,7 +701,7 @@ static void add_light(struct chunk *c, struct player *p, struct loc *sgrid, int 
         if (!los(c, sgrid, &grid)) continue;
 
         /* Only light a wall if the face lit is possibly visible to the player. */
-        if (square_iswall(c, &grid) && !source_can_light_wall(c, p, sgrid, &grid)) continue;
+        if (!square_allowslos(c, &grid) && !source_can_light_wall(c, p, sgrid, &grid)) continue;
 
         /* Adjust the light level */
         if (inten > 0)
@@ -743,7 +743,7 @@ static void calc_lighting(struct player *p, struct chunk *c)
     do
     {
         if (square_isglow(c, &iter.cur) &&
-            (!square_iswall(c, &iter.cur) || glow_can_light_wall(c, p, &iter.cur, sunlit)))
+            (square_allowslos(c, &iter.cur) || glow_can_light_wall(c, p, &iter.cur, sunlit)))
         {
             square_p(p, &iter.cur)->light = 1;
         }
@@ -762,8 +762,11 @@ static void calc_lighting(struct player *p, struct chunk *c)
                 if (!square_in_bounds(c, &adj_grid)) continue;
 
                 /* Only brighten a wall if the player is in position to view the face that's lit up. */
-                if (square_iswall(c, &adj_grid) && !source_can_light_wall(c, p, &iter.cur, &adj_grid))
+                if (!square_allowslos(c, &adj_grid) &&
+                    !source_can_light_wall(c, p, &iter.cur, &adj_grid))
+                {
                     continue;
+                }
                 square_p(p, &adj_grid)->light += 1;
             }
         }
@@ -860,7 +863,7 @@ static void become_viewable(struct player *p, struct chunk *c, struct loc *grid,
     if (square_islit(p, grid))
     {
         /* For walls, check for a lit grid closer to the player */
-        if (square_iswall(c, grid))
+        if (!square_allowslos(c, grid))
         {
             struct loc gridc;
 
@@ -905,7 +908,7 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
      * where the wall cell marked '1' would not be lit because the LOS
      * algorithm runs into the adjacent wall cell.
      */
-    if (square_iswall(c, grid))
+    if (!square_allowslos(c, grid))
     {
         int dx = grid->x - p->grid.x;
         int dy = grid->y - p->grid.y;
@@ -923,7 +926,7 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
          * wall. If we don't do this, double-thickness walls will have
          * both sides visible.
          */
-        if (square_iswall(c, &cgrid)) loc_copy(&cgrid, grid);
+        if (!square_allowslos(c, &cgrid)) loc_copy(&cgrid, grid);
 
         /* Check if we got here via the 'knight's move' rule and, if so, don't steal LOS. */
         if ((ax == 2) && (ay == 1))
@@ -932,8 +935,8 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
 
             loc_init(&grid1, grid->x - sx, grid->y);
             loc_init(&grid2, grid->x - sx, grid->y - sy);
-            if (square_in_bounds(c, &grid1) && !square_iswall(c, &grid1) &&
-                square_in_bounds(c, &grid2) && square_iswall(c, &grid2))
+            if (square_in_bounds(c, &grid1) && square_allowslos(c, &grid1) &&
+                square_in_bounds(c, &grid2) && !square_allowslos(c, &grid2))
             {
                 loc_copy(&cgrid, grid);
             }
@@ -944,8 +947,8 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
 
             loc_init(&grid1, grid->x, grid->y - sy);
             loc_init(&grid2, grid->x - sx, grid->y - sy);
-            if (square_in_bounds(c, &grid1) && !square_iswall(c, &grid1) &&
-                square_in_bounds(c, &grid2) && square_iswall(c, &grid2))
+            if (square_in_bounds(c, &grid1) && square_allowslos(c, &grid1) &&
+                square_in_bounds(c, &grid2) && !square_allowslos(c, &grid2))
             {
                 loc_copy(&cgrid, grid);
             }

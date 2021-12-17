@@ -148,14 +148,12 @@ h7 {
 </style>
 </head>
 <body>
-<header id="pageheader">
-    <div style="display: flex; align-items: baseline;">
-        <h1>The PWMAngband Manual</h1>
-        <span class="version">v1.5.0</span>
-    </div>
-    <img src="lib/icons/att.svg" style="height: 4rem;">
-</header>
 <div class="document">
+
+
+<pre class="literal-block">
+# Delete this section and add the \docs\_templates\layout.html code just after the &lt;body&gt; tag
+</pre>
 <div class="section" id="welcome-to-pwmangband">
 <h1><a class="toc-backref" href="#id18">1&nbsp;&nbsp;&nbsp;Welcome to PWMAngband</a></h1>
 <p>PWMAngband is a complex multiplayer dungeon simulation. A player (you!)
@@ -471,18 +469,19 @@ experiences. Don't be shy!</p>
 <li><a class="reference internal" href="#game-world-c-process-player" id="id241">5.4.6.10&nbsp;&nbsp;&nbsp;game-world.c - process_player()</a></li>
 <li><a class="reference internal" href="#keeping-the-ui-up-to-date" id="id242">5.4.6.11&nbsp;&nbsp;&nbsp;Keeping the UI up to date</a></li>
 <li><a class="reference internal" href="#game-world-c-process-world" id="id243">5.4.6.12&nbsp;&nbsp;&nbsp;game-world.c - process_world()</a></li>
+<li><a class="reference internal" href="#dungeon-generation" id="id244">5.4.6.13&nbsp;&nbsp;&nbsp;Dungeon Generation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#documentation-on-documentation" id="id244">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a><ul class="auto-toc">
-<li><a class="reference internal" href="#conventions" id="id245">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a><ul class="auto-toc">
-<li><a class="reference internal" href="#markup-for-sectioning" id="id246">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></li>
-<li><a class="reference internal" href="#blank-and-spaces" id="id247">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></li>
+<li><a class="reference internal" href="#documentation-on-documentation" id="id245">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a><ul class="auto-toc">
+<li><a class="reference internal" href="#conventions" id="id246">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a><ul class="auto-toc">
+<li><a class="reference internal" href="#markup-for-sectioning" id="id247">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></li>
+<li><a class="reference internal" href="#blank-and-spaces" id="id248">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#inline-help-parser-syntax" id="id248">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></li>
-<li><a class="reference internal" href="#tricks" id="id249">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></li>
+<li><a class="reference internal" href="#inline-help-parser-syntax" id="id249">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></li>
+<li><a class="reference internal" href="#tricks" id="id250">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></li>
 </ul>
 </li>
 </ul>
@@ -4159,70 +4158,70 @@ but not all do.</p>
 <!--  -->
 <dl class="docutils">
 <dt>Hold Monster:</dt>
-<dd>Paralyses a monster until you hit them
-Increases chance of player getting a critical hit
-Normal duration 3-8 turns</dd>
+<dd>Paralyses a monster until you hit them.
+Increases chance of player getting a critical hit.
+Normal duration 3-8 turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Stun Monster:</dt>
-<dd>Reduces the monster's melee accuracy and damage by 25%
-1 in 10 chance that the monster will miss the turn
-Increases chance of player getting a critical hit
-Normal duration 5-10 turns</dd>
+<dd>Reduces the monster's melee accuracy and damage by 25%.
+1 in 10 chance that the monster will miss the turn.
+Increases chance of player getting a critical hit.
+Normal duration 5-10 turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Confuse Monster:</dt>
-<dd>Monster spells fail 50% more often
-Monster at least 40% more likely to miss target with spells/ranged attacks
-Monster ball &amp; bolt spells sometimes go in the wrong direction
-30% chance of erratic movement, more when more confused
-Increases chance of player getting a critical hit
-Normal duration 5-10 turns</dd>
+<dd>Monster spells fail 50% more often.
+Monster at least 40% more likely to miss target with spells/ranged attacks.
+Monster ball &amp; bolt spells sometimes go in the wrong direction.
+30% chance of erratic movement, more when more confused.
+Increases chance of player getting a critical hit.
+Normal duration 5-10 turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Slow Monster:</dt>
-<dd>-2 speed, more if more slowed
-Normal duration 10 or more turns</dd>
+<dd>-2 speed, more if more slowed.
+Normal duration 10 or more turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Sleep Monster:</dt>
-<dd>Puts monsters to sleep, but they can wake up again quite easily</dd>
+<dd>Puts monsters to sleep, but they can wake up again quite easily.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Scare Monster:</dt>
-<dd>Monster will run away
-Monster spells fail 20% more often</dd>
+<dd>Monster will run away.
+Monster spells fail 20% more often.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Disenchant Monster:</dt>
-<dd>Monster spells fail 50% more often
-Normal duration 5-10 turns</dd>
+<dd>Monster spells fail 50% more often.
+Normal duration 5-10 turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Haste Monster (bad effect):</dt>
-<dd>+10 speed</dd>
+<dd>+10 speed.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Blind Monster:</dt>
-<dd>Monsters cannot cast spells
-Monsters move erratically
-Increased chance of critical hit
-Normal duration 5-10 turns</dd>
+<dd>Monsters cannot cast spells.
+Monsters move erratically.
+Increased chance of critical hit.
+Normal duration 5-10 turns.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
 <dt>Monsters can also suffer from two status ailments, poison and bleeding:</dt>
-<dd>Prevents regeneration
-1 hp loss per turn
-Normal duration 5-10 turns</dd>
+<dd>Prevents regeneration.
+1 hp loss per turn.
+Normal duration 5-10 turns.</dd>
 </dl>
 </div>
 <div class="section" id="non-melee-attacks-and-resistances">
@@ -6590,7 +6589,7 @@ options, there are handful of commands to make it easier to get to a
 well-known state for all the birth options. They are: 's' to save the
 current selections so that they will be used as the starting point for
 future characters, 'r' to reset the current selections to the defaults
-for a new character, and 'm' to reset the current selections to the
+for a new character, and 'x' to reset the current selections to the
 Angband maintainer's defaults for the birth options.</p>
 <!--  -->
 <dl class="docutils">
@@ -7188,11 +7187,11 @@ the next time you start the SDL interface.</p>
 <h1><a class="toc-backref" href="#id181">4&nbsp;&nbsp;&nbsp;Meta</a></h1>
 <div class="section" id="version-information">
 <h2><a class="toc-backref" href="#id182">4.1&nbsp;&nbsp;&nbsp;Version Information</a></h2>
-<p>PWMAngband 1.5.0 is based on Angband 4.2.x and MAngband 1.5.x. The latest
-build for PWMAngband 1.5.0 is build 8.</p>
+<p>PWMAngband 1.6.0 is based on Angband 4.2.x and MAngband 1.5.x. The latest
+build for PWMAngband 1.6.0 is beta 0.</p>
 <p>Angband information was last updated for Angband 4.2.x.
 MAngband information was last updated for MAngband 1.5.x.
-PWMAngband information was last updated for PWMAngband 1.5.0.</p>
+PWMAngband information was last updated for PWMAngband 1.6.0.</p>
 <div class="section" id="angband-version-information">
 <h3><a class="toc-backref" href="#id183">4.1.1&nbsp;&nbsp;&nbsp;Angband Version Information</a></h3>
 <p>Detailed information about current and previous versions can be found at
@@ -7916,6 +7915,7 @@ vanilla Angband and MAngband.</p>
 <li>PWMAngband 1.2.0    : 03/01/2019 (Angband 4.1.x  + MAngband 1.1.4)</li>
 <li>PWMAngband 1.3.0    : 09/28/2019 (Angband 4.1.3  + MAngband 1.4.0)</li>
 <li>PWMAngband 1.4.0    : 09/08/2020 (Angband 4.2.x  + MAngband 1.4.0)</li>
+<li>PWMAngband 1.5.0    : 09/10/2021 (Angband 4.2.x  + MAngband 1.5.x)</li>
 </ul>
 </div>
 </div>
@@ -8050,7 +8050,7 @@ of a change of theme, this is a good way of displaying the new theme.</dd>
 used for ego items (see Cloaks of Lordly Resistance). Some standard artifacts
 from artifact.txt have activations, and random artifacts may have any
 activation from this file chosen for them. Activations can be made up of
-any effects (see effects.c and list-effects.h).</dd>
+any effects (see list-effects.h and effect-handler-xxx.c).</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -8147,7 +8147,7 @@ for it to appear.</dd>
 <dl class="docutils">
 <dt>trap.txt</dt>
 <dd>This defines all traps, door locks and runes. Actual trap effects appear in
-effects.c and list-effects.h.</dd>
+list-effects.h and effect-handler-xxx.c.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -9065,18 +9065,65 @@ over time, dealing poison/cut damage, applying hunger, regeneration, ticking
 down timed effects, consuming light fuel, and applying a litany of spell effects
 that happen 'at random' from the player's point of view.</p>
 </div>
+<div class="section" id="dungeon-generation">
+<h4><a class="toc-backref" href="#id244">5.4.6.13&nbsp;&nbsp;&nbsp;Dungeon Generation</a></h4>
+<p>prepare_next_level() in generate.c controls the process of generating or loading
+a level. To signal that run_game_loop() in game-world.c should call
+prepare_next_level(), game logic calls dungeon_change_level() in player-util.c
+to set the necessary data in the player structure. When a level change happens
+by traversing a staircase, some other data in the player structure is set to
+indicate what should be done to connect stairs. That doesn't happen in
+dungeon_change_level() and is instead set directly, currently in do_cmd_go_up()
+and do_cmd_go_down() in cmd-cave.c.</p>
+<p>With the default for non-persistent levels, loading only happens when
+returning to the town or when returning from a single combat arena. The code
+and global data for handling stored levels is in gen-chunk.c.</p>
+<p>When a new level is needed, prepare_next_level() calls cave_generate(), also in
+generate.c. That initializes a global bit of state, a dun_data structure called
+dun declared in generate.h, for passing a lot of the details needed when
+generating a level. It then selects a level profile via choose_profile() in
+generate.c. The level profile controls the layout of the level. The available
+level profiles are those listed in list-dun-profiles.h and several aspects of
+each profile are configured at runtime from the contents of
+lib/gamedata/dungeon_profile.txt. With a profile selected, cave_generate()
+uses the profile's builder function pointer to attempt to layout the new level.
+Those function pointers are initialized when list-dun-profiles.h is included
+in generate.c. The level layout functions all have names with the name of
+the profile followed by <em>_gen</em>, classic_gen() for classic levels as an
+example. Those functions are defined in gen-cave.c.</p>
+<p>Three of the level layout functions, classic_gen(), modified_gen(), and
+moria_gen() follow the same basic procedure. They divide the level into a
+grid of rectangular blocks where, in general, each block can only contain
+one room though a room could occupy many blocks. They then try to randomly
+place rooms in those blocks until some criteria is met. Room selection is
+configurable from lib/gamedata/dungeon_profile.txt and uses the predefined
+room types listed in list-rooms.h. When building a room, those level layout
+functions use the convenience function, room_build() from gen-room.c. That, in
+turn, calls the appropriate function to build the type of room chosen. The
+names of the room building functions have <em>build_</em> followed by the name of the
+room type, build_simple() for instance. Those functions are defined in
+gen-room.c. Once the rooms are built, there's an initial pass to connect them
+with corridors. That happens in gen-cave.c's do_traditional_tunneling().
+A second pass, to try and ensure connectedness though vault areas can disrupt
+that, is then done with ensure_connectedness(). At that point, most other
+features (mineral veins, staircases, objects, and monsters) are added. Some
+features will have already been added through some of the types of rooms.</p>
+<p>The other layout functions are more of a grab bag. They are all in gen-cave.c.
+Many of them have portions that are caverns or labyrinths. Those are generated
+using cavern_chunk() or labyrinth_chunk(), respectively, in gen-cave.c.</p>
+</div>
 </div>
 </div>
 <div class="section" id="documentation-on-documentation">
-<h2><a class="toc-backref" href="#id244">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a></h2>
+<h2><a class="toc-backref" href="#id245">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a></h2>
 <p>Documentation is now written in ReStructuredText, a lightweight and
 readable markup language designed for Python.</p>
 <div class="section" id="conventions">
-<h3><a class="toc-backref" href="#id245">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a></h3>
+<h3><a class="toc-backref" href="#id246">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a></h3>
 <p>ReStructuredText leaves much freedom in the syntax - in our help files we
 try to stick to consistent conventions as in the following.</p>
 <div class="section" id="markup-for-sectioning">
-<h4><a class="toc-backref" href="#id246">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></h4>
+<h4><a class="toc-backref" href="#id247">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></h4>
 <pre class="literal-block">
 ==============
 Document title
@@ -9093,13 +9140,13 @@ Subsection title
 </pre>
 </div>
 <div class="section" id="blank-and-spaces">
-<h4><a class="toc-backref" href="#id247">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></h4>
+<h4><a class="toc-backref" href="#id248">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></h4>
 <p>One blank line before and after every paragraph.
 Two-char indent in definition lists.</p>
 </div>
 </div>
 <div class="section" id="inline-help-parser-syntax">
-<h3><a class="toc-backref" href="#id248">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></h3>
+<h3><a class="toc-backref" href="#id249">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></h3>
 <p>As to the time when this documentation was last updated, the online help
 parser programmed into PWMAngband does the following:</p>
 <ul class="simple">
@@ -9116,7 +9163,7 @@ with the following format (<tt class="docutils literal">g</tt> is the hotkey her
 </pre>
 </div>
 <div class="section" id="tricks">
-<h3><a class="toc-backref" href="#id249">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></h3>
+<h3><a class="toc-backref" href="#id250">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></h3>
 <p>Sometimes it is tricky to get a thing to display in the correct way in both
 the online help and the compiled RST. This is often due to the complex
 interaction between backslashes and backticks in RST. In particular, in

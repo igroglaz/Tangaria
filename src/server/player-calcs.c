@@ -1554,135 +1554,158 @@ bool earlier_object(struct player *p, struct object *orig, struct object *newobj
  */
 void calc_inventory(struct player *p)
 {
-    int i;
     int old_inven_cnt = p->upkeep->inven_cnt;
     int n_stack_split = 0;
     int n_pack_remaining = z_info->pack_size - pack_slots_used(p);
-    struct object **old_quiver = mem_zalloc(z_info->quiver_size * sizeof(struct object *));
-    struct object **old_pack = mem_zalloc(z_info->pack_size * sizeof(struct object *));
+    int n_max = 1 + z_info->pack_size + z_info->quiver_size + p->body.count;
+    struct object **old_quiver = mem_zalloc(z_info->quiver_size * sizeof(*old_quiver));
+    struct object **old_pack = mem_zalloc(z_info->pack_size * sizeof(*old_pack));
+    bool *assigned = mem_alloc(n_max * sizeof(*assigned));
+    struct object *current;
+    int i, j;
     bool redraw = false;
+
+    /*
+     * Equipped items are already taken care of. Only the others need
+     * to be tested for assignment to the quiver or pack.
+     */
+    for (current = p->gear, j = 0; current; current = current->next, ++j)
+    {
+        my_assert(j < n_max);
+        assigned[j] = object_is_equipped(p->body, current);
+    }
+    for (; j < n_max; ++j) assigned[j] = false;
 
     /* Prepare to fill the quiver */
     p->upkeep->quiver_cnt = 0;
 
-    /* Copy the current quiver */
-    memcpy(old_quiver, p->upkeep->quiver, z_info->quiver_size * sizeof(struct object *));
-
-    /* First, allocate inscribed items */
+    /* Copy the current quiver and then leave it empty. */
     for (i = 0; i < z_info->quiver_size; i++)
     {
-        struct object *current;
-
-        /* Start with an empty slot */
-        p->upkeep->quiver[i] = NULL;
-
-        /* Find the first quiver object with the correct label */
-        for (current = p->gear; current; current = current->next)
+        if (p->upkeep->quiver[i])
         {
-            /* Allocate inscribed objects if it's the right slot */
-            if (preferred_quiver_slot(p, current) == i)
+            old_quiver[i] = p->upkeep->quiver[i];
+            p->upkeep->quiver[i] = NULL;
+        }
+    }
+
+    /* Fill quiver. First, allocate inscribed items. */
+    for (current = p->gear, j = 0; current; current = current->next, ++j)
+    {
+        int prefslot;
+
+        /* Skip already assigned (i.e. equipped) items. */
+        if (assigned[j]) continue;
+
+        prefslot = preferred_quiver_slot(p, current);
+        if (prefslot >= 0 && prefslot < z_info->quiver_size && !p->upkeep->quiver[prefslot])
+        {
+            /*
+             * The preferred slot is empty. Split the stack if
+             * necessary. Don't allow splitting if it could
+             * result in overfilling the pack by more than one slot.
+             */
+            int mult = (tval_is_ammo(current)? 1: z_info->thrown_quiver_mult);
+            struct object *to_quiver;
+
+            if (current->number * mult <= z_info->quiver_slot_size)
+                to_quiver = current;
+            else
             {
-                int mult = (tval_is_ammo(current)? 1: z_info->thrown_quiver_mult);
-                struct object *to_quiver;
+                int nsplit = z_info->quiver_slot_size / mult;
 
-                /*
-                 * Split the stack if necessary. Don't allow
-                 * splitting if it could result in overfilling
-                 * the pack by more than one slot.
-                 */
-                if (current->number * mult <= z_info->quiver_slot_size)
+                my_assert(nsplit < current->number);
+                if ((nsplit > 0) && (n_stack_split <= n_pack_remaining))
+                {
+                    /*
+                     * Split off the portion that go to the pack. Since the
+                     * stack in the quiver is earlier in the gear list
+                     * it will prefer to remain in the quiver in future
+                     * calls to calc_inventory() and will be the preferential
+                     * destination for merges in combine_pack().
+                     */
                     to_quiver = current;
+                    gear_insert_end(p, object_split(current, current->number - nsplit));
+                    ++n_stack_split;
+                }
                 else
-                {
-                    int nsplit = z_info->quiver_slot_size / mult;
+                    to_quiver = NULL;
+            }
 
-                    my_assert(nsplit < current->number);
-                    if ((nsplit > 0) && (n_stack_split <= n_pack_remaining))
-                    {
-                        /*
-                         * Split off the portion that go to the pack. Since the
-                         * stack in the quiver is earlier in the gear list
-                         * it will prefer to remain in the quiver in future
-                         * calls to calc_inventory() and will be the preferential
-                         * destination for merges in combine_pack().
-                         */
-                        to_quiver = current;
-                        gear_insert_end(p, object_split(current, current->number - nsplit));
-                        ++n_stack_split;
-                    }
-                    else
-                        to_quiver = NULL;
-                }
+            if (to_quiver)
+            {
+                to_quiver->oidx = z_info->pack_size + p->body.count + prefslot;
+                p->upkeep->quiver[prefslot] = to_quiver;
+                p->upkeep->quiver_cnt += to_quiver->number * mult;
 
-                if (to_quiver)
-                {
-                    to_quiver->oidx = z_info->pack_size + p->body.count + i;
-                    p->upkeep->quiver[i] = to_quiver;
-                    p->upkeep->quiver_cnt += to_quiver->number * mult;
+                /* In the quiver counts as worn. */
+                object_learn_on_wield(p, to_quiver);
 
-                    /* In the quiver counts as worn */
-                    object_learn_on_wield(p, to_quiver);
-
-                    /* Done with this slot */
-                    break;
-                }
+                /* That part of the gear has been dealt with. */
+                assigned[j] = true;
             }
         }
     }
 
-    /* Now fill the rest of the slots in order */
-    for (i = 0; i < z_info->quiver_size; i++)
+    /* Now fill the rest of the slots in order. */
+    for (i = 0; i < z_info->quiver_size; ++i)
     {
-        struct object *current, *to_quiver, *first = NULL;
-        int j;
+        struct object *first = NULL;
+        int jfirst = -1;
 
-        /* If the slot is full, move on */
+        /* If the slot is full, move on. */
         if (p->upkeep->quiver[i]) continue;
 
-        /* Find the first quiver object not yet allocated */
-        for (current = p->gear; current; current = current->next)
+        /* Find the quiver object that should go there. */
+        j = 0;
+        current = p->gear;
+        while (1)
         {
-            bool already = false;
+            if (!current) break;
+            my_assert(j < n_max);
 
-            /* Ignore non-ammo */
-            if (!tval_is_ammo(current)) continue;
-
-            /* Ignore stuff already quivered */
-            for (j = 0; j < z_info->quiver_size; j++)
+            /*
+             * Only try to assign if not assigned, ammo, and,
+             * if necessary to split, have room for the split
+             * stacks.
+             */
+            if (!assigned[j] && tval_is_ammo(current) &&
+                (current->number <= z_info->quiver_slot_size ||
+                (z_info->quiver_slot_size > 0 && n_stack_split <= n_pack_remaining)))
             {
-                if (p->upkeep->quiver[j] == current) already = true;
+                /* Choose the first in order. */
+                if (earlier_object(p, first, current, false))
+                {
+                    first = current;
+                    jfirst = j;
+                }
             }
-            if (already) continue;
 
-            /* Choose the first in order */
-            if (earlier_object(p, first, current, false)) first = current;
+            current = current->next;
+            ++j;
         }
 
-        /* Stop looking if there's nothing left */
+        /* Stop looking if there's nothing left. */
         if (!first) break;
 
-        /* If we have an item, slot it, splitting if needed, to fit. */
-        if (first->number <= z_info->quiver_slot_size)
-            to_quiver = first;
-        else if ((z_info->quiver_slot_size > 0) && (n_stack_split <= n_pack_remaining))
+        /* Put the item in the slot, splitting (if needed) to fit. */
+        if (first->number > z_info->quiver_slot_size)
         {
-            /* As above, split off the portion that goes to the pack. */
-            to_quiver = first;
+            my_assert(z_info->quiver_slot_size > 0 && n_stack_split <= n_pack_remaining);
+
+            /* As above, split off the portion going to the pack. */
             gear_insert_end(p, object_split(first, first->number - z_info->quiver_slot_size));
-            ++n_stack_split;
         }
-        else
-            to_quiver = NULL;
 
-        if (to_quiver)
-        {
-            to_quiver->oidx = z_info->pack_size + p->body.count + i;
-            p->upkeep->quiver[i] = to_quiver;
-            p->upkeep->quiver_cnt += to_quiver->number;
+        first->oidx = z_info->pack_size + p->body.count + i;
+        p->upkeep->quiver[i] = first;
+        p->upkeep->quiver_cnt += first->number;
 
-            /* In the quiver counts as worn */
-            object_learn_on_wield(p, to_quiver);
-        }
+        /* In the quiver counts as worn. */
+        object_learn_on_wield(p, first);
+
+        /* That part of the gear has been dealt with. */
+        assigned[jfirst] = true;
     }
 
     /* Note reordering */
@@ -1705,44 +1728,47 @@ void calc_inventory(struct player *p)
     }
 
     /* Copy the current pack */
-    memcpy(old_pack, p->upkeep->inven, z_info->pack_size * sizeof(struct object *));
+    for (i = 0; i < z_info->pack_size; i++) old_pack[i] = p->upkeep->inven[i];
 
     /* Prepare to fill the inventory */
     p->upkeep->inven_cnt = 0;
 
     for (i = 0; i <= z_info->pack_size; i++)
     {
-        struct object *current, *first = NULL;
+        struct object *first = NULL;
+        int jfirst = -1;
 
-        for (current = p->gear; current; current = current->next)
+        /* Find the object that should go there. */
+        j = 0;
+        current = p->gear;
+        while (1)
         {
-            bool possible = true;
-            int j;
+            if (!current) break;
+            my_assert(j < n_max);
 
-            /* Skip equipment */
-            if (object_is_equipped(p->body, current)) possible = false;
-
-            /* Skip quivered objects */
-            for (j = 0; j < z_info->quiver_size; j++)
+            /* Consider it if it hasn't already been handled. */
+            if (!assigned[j])
             {
-                if (p->upkeep->quiver[j] == current) possible = false;
+                /* Choose the first in order. */
+                if (earlier_object(p, first, current, false))
+                {
+                    first = current;
+                    jfirst = j;
+                }
             }
 
-            /* Skip objects already allocated to the inventory */
-            for (j = 0; j < p->upkeep->inven_cnt; j++)
-            {
-                if (p->upkeep->inven[j] == current) possible = false;
-            }
-
-            /* If still possible, choose the first in order */
-            if (!possible) continue;
-            if (earlier_object(p, first, current, false)) first = current;
+            current = current->next;
+            ++j;
         }
 
         /* Allocate */
         if (first) first->oidx = i;
         p->upkeep->inven[i] = first;
-        if (first) p->upkeep->inven_cnt++;
+        if (first)
+        {
+            ++p->upkeep->inven_cnt;
+            assigned[jfirst] = true;
+        }
     }
 
     /* Note reordering */
@@ -1771,8 +1797,9 @@ void calc_inventory(struct player *p)
     /* Redraw */
     if (redraw) set_redraw_inven(p, NULL);
 
-    mem_free(old_quiver);
+    mem_free(assigned);
     mem_free(old_pack);
+    mem_free(old_quiver);
 }
 
 

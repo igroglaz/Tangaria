@@ -541,7 +541,7 @@ static bool player_walled(struct player *p, struct chunk *c)
         struct loc grid;
 
         loc_sum(&grid, &p->grid, &ddgrid_ddd[d]);
-        if (square_iswall(c, &grid)) n++;
+        if (!square_allowslos(c, &grid)) n++;
     }
 
     return (n == 9);
@@ -1314,8 +1314,8 @@ static bool get_move(struct source *who, struct chunk *c, struct monster *mon, i
  */
 bool multiply_monster(struct player *p, struct chunk *c, struct monster *mon)
 {
-    int i;
-    bool result = false;
+    struct loc grid;
+    bool result;
     struct monster_group_info info = {0, 0};
 
     my_assert(mon);
@@ -1332,18 +1332,9 @@ bool multiply_monster(struct player *p, struct chunk *c, struct monster *mon)
     /* Limit number of clones */
     if (c->num_repro == z_info->repro_monster_max) return false;
 
-    /* Try up to 18 times */
-    for (i = 0; i < 18; i++)
+    /* Pick an empty location. */
+    if (scatter_ext(c, &grid, 1, &mon->grid, 1, true, square_isemptyfloor) > 0)
     {
-        int d = 1;
-        struct loc grid;
-
-        /* Pick a location */
-        if (!scatter(c, &grid, &mon->grid, d, true)) continue;
-
-        /* Require an "empty" floor grid */
-        if (!square_isemptyfloor(c, &grid)) continue;
-
         /* Create a new monster (awake, no groups) */
         result = place_new_monster(p, c, &grid, mon->race, MON_CLONE, &info, ORIGIN_DROP_BREED);
 
@@ -1355,10 +1346,9 @@ bool multiply_monster(struct player *p, struct chunk *c, struct monster *mon)
             if (child && monster_is_mimicking(child) && !monster_is_mimicking(mon))
                 become_aware(p, c, child);
         }
-
-        /* Done */
-        break;
     }
+    else
+        result = false;
 
     /* Result */
     return (result);

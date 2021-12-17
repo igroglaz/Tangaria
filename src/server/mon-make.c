@@ -1050,8 +1050,7 @@ static bool mon_drop_carry(struct player *p, struct object **obj_address, struct
 
     /* Try to carry */
     if (ok && monster_carry(mon, *obj_address, true)) return true;
-    if ((*obj_address)->artifact && (*obj_address)->artifact->created)
-        (*obj_address)->artifact->created--;
+    preserve_artifact_aux(*obj_address);
     object_delete(obj_address);
     return false;
 }
@@ -1109,7 +1108,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
         /* Search all the artifacts */
         for (j = 0; j < z_info->a_max; j++)
         {
-            struct artifact *art = &a_info[j];
+            const struct artifact *art = &a_info[j];
             struct object_kind *kind = lookup_kind(art->tval, art->sval);
             if (!kf_has(kind->kind_flags, KF_QUEST_ART)) continue;
 
@@ -1118,7 +1117,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
             object_prep(p, c, obj, kind, mon->level, RANDOMISE);
             obj->artifact = art;
             copy_artifact_data(obj, obj->artifact);
-            obj->artifact->created++;
+            mark_artifact_created(obj->artifact, true);
             if (p)
             {
                 if (!ht_zero(&c->generated))
@@ -1809,24 +1808,18 @@ static bool place_friends(struct player *p, struct chunk *c, struct loc *grid,
     /* No monsters in this group */
     if (total > 0)
     {
-        int j;
-        bool success;
+        struct loc new_grid;
 
         /* Handle friends same as original monster */
         if (race->ridx == friends_race->ridx)
             return place_new_monster_group(p, c, grid, race, mon_flag, group_info, total, origin);
 
         /* Find a nearby place to put the other groups */
-        for (j = 0; j < 50; j++)
+        if (scatter_ext(c, &new_grid, 1, grid, z_info->monster_group_dist, false, square_isopen) > 0)
         {
-            struct loc new_grid;
-
-            if (!scatter(c, &new_grid, grid, z_info->monster_group_dist, false)) continue;
-            if (!square_isopen(c, &new_grid)) continue;
-
             /* Place the monsters */
-            success = place_new_monster_one(p, c, &new_grid, friends_race, mon_flag, group_info,
-                origin);
+            bool success = place_new_monster_one(p, c, &new_grid, friends_race, mon_flag,
+                group_info, origin);
             if (total > 1)
             {
                 success = place_new_monster_group(p, c, &new_grid, friends_race, mon_flag,

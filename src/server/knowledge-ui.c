@@ -531,25 +531,24 @@ static int collect_known_artifacts(struct player *p, struct cmp_art *artifacts)
         if (!art->name) continue;
 
         /* Skip "uncreated + unfound" artifacts */
-        if ((p->art_info[i] < ARTS_FOUND) && !art->created) continue;
+        if ((p->art_info[i] < ARTS_FOUND) && !is_artifact_created(art)) continue;
 
         /* Artifact is "uncreated" */
-        if (!art->created) h = highlight_unknown(p, i);
+        if (!is_artifact_created(art)) h = highlight_unknown(p, i);
 
         /* Special case: artifact is owned by a non-connected player */
         if (!h)
         {
+            s32b owner = get_artifact_owner(art);
+
             /* Artifact is owned */
-            if (art->owner)
+            if (owner)
             {
                 h = 'D';
 
                 /* Dungeon Masters see extra info */
                 if (is_dm_p(p))
-                {
-                    strnfmt(&owners[i * NORMAL_WID], NORMAL_WID, " (%s)",
-                        lookup_player_name(art->owner));
-                }
+                    strnfmt(&owners[i * NORMAL_WID], NORMAL_WID, " (%s)", lookup_player_name(owner));
             }
 
             /* Artifact is unknown */

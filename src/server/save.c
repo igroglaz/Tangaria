@@ -61,18 +61,18 @@ static void wr_tval_sval(u16b tval, u16b sval)
 }
 
 
-static void wr_artifact(struct artifact *art)
+static void wr_artifact(const struct artifact *art)
 {
 #ifdef SAVE_AS_STRINGS
     if (!art) wr_string("");
-    else if (art == (struct artifact *)1) wr_string("1");
+    else if (art == (const struct artifact *)1) wr_string("1");
     else if ((art->aidx >= (u32b)z_info->a_max) && (art->aidx < (u32b)z_info->a_max + 9))
         wr_string(format("%d", art->aidx));
     else wr_string(art->name);
 #else
-    if (!art) wr_byte(0);
-    else if (art == (struct artifact *)1) wr_byte(EGO_ART_KNOWN);
-    else wr_byte(art->aidx + 1);
+    if (!art) wr_u16b(0);
+    else if (art == (const struct artifact *)1) wr_u16b(EGO_ART_KNOWN);
+    else wr_u16b(art->aidx + 1);
 #endif
 }
 
@@ -84,9 +84,9 @@ static void wr_ego(struct ego_item *ego)
     else if (ego == (struct ego_item *)1) wr_string("1");
     else wr_string(ego->name);
 #else
-    if (!ego) wr_byte(0);
-    else if (ego == (struct ego_item *)1) wr_byte(EGO_ART_KNOWN);
-    else wr_byte(ego->eidx + 1);
+    if (!ego) wr_u16b(0);
+    else if (ego == (struct ego_item *)1) wr_u16b(EGO_ART_KNOWN);
+    else wr_u16b(ego->eidx + 1);
 #endif
 }
 
@@ -337,10 +337,10 @@ void wr_artifacts(void *unused)
     wr_u16b(z_info->a_max);
     for (i = 0; i < z_info->a_max; i++)
     {
-        struct artifact *art = &a_info[i];
+        const struct artifact_upkeep *au = &aup_info[i];
 
-        wr_byte(art->created);
-        wr_s32b(art->owner);
+        wr_byte(au->created? 1: 0);
+        wr_s32b(au->owner);
     }
 }
 

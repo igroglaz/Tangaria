@@ -102,16 +102,272 @@ static const int birth_stat_costs[9] = {0, 1, 2, 3, 4, 5, 6, 8, 12};
 #define MAX_BIRTH_POINTS 20
 
 
-/*
- * Roll for a characters stats
- *
- * For efficiency, we include a chunk of "calc_bonuses()".
- */
-static void get_stats(struct player *p, s16b* stat_roll)
+static int get_birth_stat_cost(s16b stat)
+{
+    return birth_stat_costs[stat - 10] - birth_stat_costs[stat - 11];
+}
+
+
+static void reset_stats(s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+    int points_inc_local[STAT_MAX], int *points_left_local)
 {
     int i;
-    bool rand_roller = false;
-    s16b stats[STAT_MAX];
+
+    /* Calculate and signal initial stats and points totals. */
+    *points_left_local = MAX_BIRTH_POINTS;
+
+    /* Initial stats are all 10 and costs are zero */
+    for (i = 0; i < STAT_MAX; i++)
+    {
+        stats_local[i] = 10;
+        points_spent_local[i] = 0;
+        points_inc_local[i] = get_birth_stat_cost(stats_local[i] + 1);
+    }
+}
+
+
+static bool buy_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+    int points_inc_local[STAT_MAX], int *points_left_local)
+{
+    /* Must be a valid stat, and have a "base" of below 18 to be adjusted */
+    if (!(choice >= STAT_MAX || choice < 0) && (stats_local[choice] < 18))
+    {
+        /* Get the cost of buying the extra point (beyond what it has already cost to get this far). */
+        int stat_cost = get_birth_stat_cost(stats_local[choice] + 1);
+
+        my_assert(stat_cost == points_inc_local[choice]);
+        if (stat_cost <= *points_left_local)
+        {
+            stats_local[choice]++;
+            points_spent_local[choice] += stat_cost;
+            points_inc_local[choice] = get_birth_stat_cost(stats_local[choice] + 1);
+            *points_left_local -= stat_cost;
+
+            return true;
+        }
+    }
+
+    /* Didn't adjust stat. */
+    return false;
+}
+
+
+static bool sell_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+    int points_inc_local[STAT_MAX], int *points_left_local)
+{
+    /* Must be a valid stat, and we can't "sell" stats below the base of 10. */
+    if (!(choice >= STAT_MAX || choice < 0) && (stats_local[choice] > 10))
+    {
+        int stat_cost = get_birth_stat_cost(stats_local[choice]);
+
+        stats_local[choice]--;
+        points_spent_local[choice] -= stat_cost;
+        points_inc_local[choice] = get_birth_stat_cost(stats_local[choice] + 1);
+        *points_left_local += stat_cost;
+
+        return true;
+    }
+
+    /* Didn't adjust stat. */
+    return false;
+}
+
+
+/*
+ * This picks some reasonable starting values for stats based on the
+ * current race/class combo, etc. using the discussion from
+ * http://angband.oook.cz/forum/showthread.php?t=1691:
+ *
+ * 0. buy base STR 17
+ * 1. buy base DEX of up to 17, stopping at the last breakpoint for blows
+ * 2. spend up to half remaining points on each of spell-stat and con,
+ *    but only up to max base of 16 unless a pure class
+ *    [mage or priest or warrior]
+ * 3. If there are any points left, spend as much as possible in order
+ *    on DEX and then the non-spell-stat.
+ */
+static void generate_stats(struct player *p, s16b st[STAT_MAX], int spent[STAT_MAX],
+    int inc[STAT_MAX], int *left)
+{
+    int step = 0;
+    bool maxed[STAT_MAX];
+
+    /* Hack - for now, just use stat of first book */
+    int spell_stat = (p->clazz->magic.total_spells? p->clazz->magic.books[0].realm->stat: 0);
+
+    bool caster = (p->clazz->max_attacks < 5? true: false);
+    bool warrior = (p->clazz->max_attacks > 5? true: false);
+    int blows = 10;
+    int dex_break = 10;
+    int i, weight = 0;
+    const struct start_item *si;
+
+    for (i = 0; i < STAT_MAX; i++) maxed[i] = false;
+
+    /* PWMAngband: compute weight of starting weapon */
+    for (si = p->clazz->start_items; si; si = si->next)
+    {
+        struct object_kind *kind = lookup_kind(si->tval, si->sval);
+
+        if ((si->tval == TV_SWORD) || (si->tval == TV_HAFTED) || (si->tval == TV_POLEARM))
+        {
+            weight = kind->weight;
+            break;
+        }
+    }
+
+    while (*left && step >= 0)
+    {
+        switch (step)
+        {
+            /* Buy base STR 17 */
+            case 0:
+            {
+                if (!maxed[STAT_STR] && st[STAT_STR] < 17)
+                {
+                    if (!buy_stat(STAT_STR, st, spent, inc, left))
+                        maxed[STAT_STR] = true;
+                }
+                else
+                {
+                    step++;
+
+                    /* If pure caster skip to step 3 */
+                    if (caster) step = 3;
+                }
+
+                break;
+            }
+
+            /* Buy base DEX of 17, record best breakpoint */
+            case 1:
+            {
+                if (!maxed[STAT_DEX] && st[STAT_DEX] < 17)
+                {
+                    int num_blows;
+
+                    if (!buy_stat(STAT_DEX, st, spent, inc, left))
+                        maxed[STAT_DEX] = true;
+
+                    /* PWMAngband: calculate the expected number of blows per round */
+                    num_blows = calc_blows_expected(p, weight, st[STAT_STR], st[STAT_DEX]);
+
+                    if (num_blows / 10 > blows)
+                    {
+                        blows = num_blows / 10;
+                        dex_break = st[STAT_DEX];
+                    }
+                }
+                else
+                    step++;
+
+                break;
+            }
+
+            /* Sell back DEX that isn't getting us an extra blow. */
+            case 2:
+            {
+                while (st[STAT_DEX] > dex_break)
+                {
+                    sell_stat(STAT_DEX, st, spent, inc, left);
+                    maxed[STAT_DEX] = false;
+                }
+                step++;
+                break;
+            }
+
+            /*
+             * Spend up to half remaining points on each of spell-stat and
+             * con, but only up to max base of 16 unless a pure class
+             * [caster or warrior]
+             */
+            case 3:
+            {
+                int points_trigger = *left / 2;
+
+                if (warrior)
+                    points_trigger = *left;
+                else
+                {
+                    while (!maxed[spell_stat] && (caster || st[spell_stat] < 18) &&
+                        spent[spell_stat] < points_trigger)
+                    {
+                        if (!buy_stat(spell_stat, st, spent, inc, left))
+                            maxed[spell_stat] = true;
+
+                        if (spent[spell_stat] > points_trigger)
+                        {
+                            sell_stat(spell_stat, st, spent, inc, left);
+                            maxed[spell_stat] = true;
+                        }
+                    }
+                }
+
+                while (!maxed[STAT_CON] && st[STAT_CON] < 16 && spent[STAT_CON] < points_trigger)
+                {
+                    if (!buy_stat(STAT_CON, st, spent, inc, left))
+                        maxed[STAT_CON] = true;
+
+                    if (spent[STAT_CON] > points_trigger)
+                    {
+                        sell_stat(STAT_CON, st, spent, inc, left);
+                        maxed[STAT_CON] = true;
+                    }
+                }
+
+                step++;
+                break;
+            }
+
+            /*
+             * If there are any points left, spend as much as possible in
+             * order on DEX, and the non-spell-stat.
+             */
+            case 4:
+            {
+                int next_stat;
+
+                if (!maxed[STAT_DEX])
+                    next_stat = STAT_DEX;
+                else if (!maxed[STAT_INT] && spell_stat != STAT_INT)
+                    next_stat = STAT_INT;
+                else if (!maxed[STAT_WIS] && spell_stat != STAT_WIS)
+                    next_stat = STAT_WIS;
+                else
+                {
+                    step++;
+                    break;
+                }
+
+                /* Buy until we can't buy any more. */
+                while (buy_stat(next_stat, st, spent, inc, left));
+                maxed[next_stat] = true;
+
+                break;
+            }
+
+            default:
+            {
+                step = -1;
+                break;
+            }
+        }
+    }
+}
+
+
+/*
+ * Roll for a characters stats using either point-based or standard roller
+ *
+ * Returns true if stats were rolled, false otherwise (in this case, apply default roller)
+ */
+static bool get_stats_aux(struct player *p, s16b* stat_roll)
+{
+    int i, j;
+    s16b stats[STAT_MAX], stat_order[STAT_MAX], stat_limit[STAT_MAX], stat_ok[STAT_MAX];
+
+    /* Default roller */
+    if (stat_roll[STAT_MAX] == BR_DEFAULT) return false;
 
     /* Point-based roller */
     if (stat_roll[STAT_MAX] == BR_POINTBASED)
@@ -124,146 +380,137 @@ static void get_stats(struct player *p, s16b* stat_roll)
             /* Check data */
             if ((stat_roll[i] < 10) || (stat_roll[i] > 18))
             {
-                /* Incorrect data: use random roller */
-                rand_roller = true;
-                break;
+                /* Incorrect data: use default roller */
+                return false;
             }
 
             /* Total cost */
             cost += birth_stat_costs[stat_roll[i] - 10];
         }
 
-        /* Incorrect data: use random roller */
-        if (cost > MAX_BIRTH_POINTS) rand_roller = true;
+        /* Incorrect data: use default roller */
+        if (cost > MAX_BIRTH_POINTS) return false;
 
-        /* Point-based roller: use "stat_roll" directly */
-        if (!rand_roller)
-        {
-            /* Stats are given by "stat_roll" directly */
-            for (i = 0; i < STAT_MAX; i++) p->stat_max[i] = stat_roll[i];
-        }
+        /* Stats are given by "stat_roll" directly */
+        for (i = 0; i < STAT_MAX; i++) p->stat_max[i] = stat_roll[i];
 
-        /* Random roller: roll and accept whatever stats we get */
-        else
-        {
-            /* Roll and verify some stats */
-            roll_stats(stats);
-
-            /* Accept whatever stats we get */
-            for (i = 0; i < STAT_MAX; i++) p->stat_max[i] = stats[i];
-        }
+        return true;
     }
 
     /* Standard roller */
-    else
+
+    /* Clear "stats" array */
+    for (i = 0; i < STAT_MAX; i++) stats[i] = 0;
+
+    /* Stat order is given by "stat_roll" directly */
+    for (i = 0; i < STAT_MAX; i++) stat_order[i] = stat_roll[i];
+
+    /*
+     * Ensure a minimum value of 17 for the first stat, 15 for the second
+     * stat and 12 for the third stat; other stats have the legal minimum
+     * value of 8
+     */
+    stat_limit[0] = 17;
+    stat_limit[1] = 15;
+    stat_limit[2] = 12;
+    stat_limit[3] = 8;
+    stat_limit[4] = 8;
+
+    /* Clear "stat_ok" array */
+    for (i = 0; i < STAT_MAX; i++) stat_ok[i] = 0;
+
+    /* Check over the given stat order */
+    for (i = 0; i < STAT_MAX; i++)
     {
-        s16b stat_order[STAT_MAX], stat_limit[STAT_MAX], stat_ok[STAT_MAX];
-        int j;
+        /* Check data */
+        if ((stat_order[i] < 0) || (stat_order[i] >= STAT_MAX))
+        {
+            /* Incorrect data: use default roller */
+            return false;
+        }
 
-        /* Clear "stats" array */
-        for (i = 0; i < STAT_MAX; i++) stats[i] = 0;
+        /* Increment "stat_ok" */
+        stat_ok[stat_order[i]]++;
+    }
 
-        /* Stat order is given by "stat_roll" directly */
-        for (i = 0; i < STAT_MAX; i++) stat_order[i] = stat_roll[i];
+    /* Check for duplicated or missing entries */
+    for (i = 0; i < STAT_MAX; i++)
+    {
+        /* Check "stat_ok" flag */
+        if (stat_ok[i] != 1)
+        {
+            /* Incorrect order: use default roller */
+            return false;
+        }
+    }
 
-        /*
-         * Ensure a minimum value of 17 for the first stat, 15 for the second
-         * stat and 12 for the third stat; other stats have the legal minimum
-         * value of 8
-         */
-        stat_limit[0] = 17;
-        stat_limit[1] = 15;
-        stat_limit[2] = 12;
-        stat_limit[3] = 8;
-        stat_limit[4] = 8;
-        stat_limit[5] = 8;
+    /* Roll */
+    while (true)
+    {
+        bool accept = true;
+
+        /* Roll and verify some stats */
+        roll_stats(stats);
 
         /* Clear "stat_ok" array */
         for (i = 0; i < STAT_MAX; i++) stat_ok[i] = 0;
 
-        /* Check over the given stat order */
+        /* Count acceptable stats */
         for (i = 0; i < STAT_MAX; i++)
         {
-            /* Check data */
-            if ((stat_order[i] < 0) || (stat_order[i] >= STAT_MAX))
+            /* Increment count of acceptable stats */
+            for (j = 0; j < STAT_MAX; j++)
             {
-                /* Incorrect data: use random roller */
-                rand_roller = true;
-                break;
+                /* This stat is okay */
+                if (stats[j] >= stat_limit[i]) stat_ok[i]++;
             }
-
-            /* Increment "stat_ok" */
-            stat_ok[stat_order[i]]++;
         }
 
-        /* Check for duplicated or missing entries */
+        /* Check acceptable stats */
         for (i = 0; i < STAT_MAX; i++)
         {
-            /* Check "stat_ok" flag */
-            if (stat_ok[i] != 1)
+            /* This stat is not okay */
+            if (stat_ok[i] <= i)
             {
-                /* Incorrect order: use random roller */
-                rand_roller = true;
+                accept = false;
                 break;
             }
         }
 
-        /* Roll */
-        while (true)
-        {
-            bool accept = true;
+        /* Break if "happy" */
+        if (accept) break;
+    }
 
-            /* Roll and verify some stats */
-            roll_stats(stats);
+    /* Sort the stats */
+    sort_stats(stats, NULL);
 
-            /* Random roller: accept whatever stats we get */
-            if (rand_roller) break;
+    /* Put stats in the correct order */
+    for (i = 0; i < STAT_MAX; i++) p->stat_max[stat_order[i]] = stats[i];
 
-            /* Clear "stat_ok" array */
-            for (i = 0; i < STAT_MAX; i++) stat_ok[i] = 0;
+    return true;
+}
 
-            /* Count acceptable stats */
-            for (i = 0; i < STAT_MAX; i++)
-            {
-                /* Increment count of acceptable stats */
-                for (j = 0; j < STAT_MAX; j++)
-                {
-                    /* This stat is okay */
-                    if (stats[j] >= stat_limit[i]) stat_ok[i]++;
-                }
-            }
 
-            /* Check acceptable stats */
-            for (i = 0; i < STAT_MAX; i++)
-            {
-                /* This stat is not okay */
-                if (stat_ok[i] <= i)
-                {
-                    accept = false;
-                    break;
-                }
-            }
+/*
+ * Roll for a characters stats
+ *
+ * For efficiency, we include a chunk of "calc_bonuses()".
+ */
+static void get_stats(struct player *p, s16b* stat_roll)
+{
+    int i;
 
-            /* Break if "happy" */
-            if (accept) break;
-        }
+    /* Default roller */
+    if (!get_stats_aux(p, stat_roll))
+    {
+        s16b stats[STAT_MAX];
+        int points_spent[STAT_MAX];
+        int points_inc[STAT_MAX];
+        int points_left;
 
-        /* Standard roller: sort and put stats in the correct order */
-        if (!rand_roller)
-        {
-            /* Sort the stats */
-            sort_stats(stats, NULL);
-
-            /* Put stats in the correct order */
-            for (i = 0; i < STAT_MAX; i++) p->stat_max[stat_order[i]] = stats[i];
-        }
-
-        /* Random roller: accept whatever stats we get */
-        else
-        {
-            /* Accept whatever stats we get */
-            for (i = 0; i < STAT_MAX; i++) p->stat_max[i] = stats[i];
-        }
+        reset_stats(stats, points_spent, points_inc, &points_left);
+        generate_stats(p, stats, points_spent, points_inc, &points_left);
+        for (i = 0; i < STAT_MAX; i++) p->stat_max[i] = stats[i];
     }
 
     /* Save the stats */
@@ -945,7 +1192,7 @@ static void player_setup(struct player *p, int id, u32b account, bool no_recall)
     if (!c)
     {
         /* Generate a dungeon level there */
-        c = prepare_next_level(p, &p->wpos);
+        c = prepare_next_level(p);
 
         /* Player is now on the level */
         chunk_increase_player_count(&p->wpos);

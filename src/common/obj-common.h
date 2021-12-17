@@ -312,9 +312,7 @@ struct object_kind
 extern struct object_kind *k_info;
 
 /*
- * Information about artifacts.
- *
- * Note that "created" and "owned" are written to the savefile.
+ * Unchanging information about artifacts.
  */
 struct artifact
 {
@@ -340,12 +338,21 @@ struct artifact
     int alloc_prob;                 /* Chance of being generated (i.e. rarity) */
     int alloc_min;                  /* Minimum depth (can appear earlier) */
     int alloc_max;                  /* Maximum depth (will NEVER appear deeper) */
-    byte created;                   /* Artifact is created */
-    s32b owner;                     /* Artifact owner (if any) */
     struct activation *activation;  /* Artifact activation */
     char *alt_msg;
     random_value time;              /* Recharge time (if appropriate) */
     bool negative_power;            /* Negative power (for randarts) */
+};
+
+/*
+ * Information about artifacts that changes during the course of play;
+ * except for aidx, saved to the save file
+ */
+struct artifact_upkeep
+{
+    u32b aidx;      /* For cross-indexing with struct artifact */
+    bool created;   /* Artifact is created */
+    s32b owner;     /* Artifact owner (if any) */
 };
 
 /*
@@ -494,7 +501,7 @@ struct object
 {
     struct object_kind *kind;           /* Kind of the object */
     struct ego_item *ego;               /* Ego item info of the object, if any */
-    struct artifact *artifact;          /* Artifact info of the object, if any */
+    const struct artifact *artifact;    /* Artifact info of the object, if any */
 
     struct object *prev;                /* Previous object in a pile */
     struct object *next;                /* Next object in a pile */

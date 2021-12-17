@@ -552,15 +552,21 @@ static size_t obj_desc_aware(struct player *p, const struct object *obj, char *b
 /*
  * Describes item "obj" into buffer "buf" of size "max".
  *
- * ODESC_BASE results in a base description.
- * ODESC_COMBAT will add to-hit, to-dam and AC info.
- * ODESC_EXTRA will add pval/charge/inscription/ignore info.
- * ODESC_STORE turns off ignore markers, for in-store display.
- * ODESC_PLURAL will pluralise regardless of the number in the stack.
- * ODESC_SINGULAR will never pluralise regardless of the number in the stack.
- * ODESC_ARTIFACT results in a description for artifacts (aware + known + without flavor).
- * ODESC_PREFIX prepends a 'the', 'a' or number.
- * ODESC_SALE turns off unseen and ignore markers, for items purchased from floor
+ * buf is the buffer for the description. Must have space for at least max bytes.
+ * max is the size of the buffer, in bytes.
+ * obj is the object to describe.
+ * mode must be a bitwise-or of zero or one more of the following:
+ *   ODESC_BASE results in a base description.
+ *   ODESC_COMBAT will add to-hit, to-dam and AC info.
+ *   ODESC_EXTRA will add pval/charge/inscription/ignore info.
+ *   ODESC_STORE turns off ignore markers, for in-store display.
+ *   ODESC_PLURAL will pluralise regardless of the number in the stack.
+ *   ODESC_SINGULAR will never pluralise regardless of the number in the stack.
+ *   ODESC_ARTIFACT results in a description for artifacts (aware + known + without flavor).
+ *   ODESC_PREFIX prepends a 'the', 'a' or number.
+ *   ODESC_SALE turns off unseen and ignore markers, for items purchased from floor
+ * p is the player whose knowledge is factored into the description.
+ * If p is NULL, the description is for an omniscient observer.
  */
 size_t object_desc(struct player *p, char *buf, size_t max, const struct object *obj, int mode)
 {

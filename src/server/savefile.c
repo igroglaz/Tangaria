@@ -66,7 +66,7 @@
 /*
  * Magic bits at beginning of savefile
  */
-static const byte savefile_magic[4] = {1, 5, 0, 2};
+static const byte savefile_magic[4] = {1, 6, 0, 0};
 static const byte savefile_name[4] = "PWMG";
 
 

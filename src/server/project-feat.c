@@ -444,13 +444,19 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
         /* Hack -- place an object */
         if (magik(10))
         {
-            /* Found something */
-            if (context->line_sound)
-                msg(context->origin->player, "There was something buried in the rubble!");
+            struct object *new_obj;
 
             /* Place object */
             place_object(context->origin->player, context->cave, &grid,
                 object_level(&context->cave->wpos), false, false, ORIGIN_RUBBLE, 0);
+
+            /* Found something */
+            new_obj = square_object(context->cave, &grid);
+            if (new_obj && !ignore_item_ok(context->origin->player, new_obj) && context->line_sound)
+            {
+                msg(context->origin->player, "There was something buried in the rubble!");
+                context->obvious = true;
+            }
         }
     }
     else if (square_home_iscloseddoor(context->cave, &grid))

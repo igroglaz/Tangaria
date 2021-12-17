@@ -3173,19 +3173,24 @@ static errr finish_parse_artifact(struct parser *p)
 
     /* Allocate the direct access list and copy the data to it */
     a_info = mem_zalloc((z_info->a_max + 9) * sizeof(*a));
+    aup_info = mem_zalloc((z_info->a_max + 9) * sizeof(*aup_info));
     aidx = z_info->a_max - 1;
     for (a = parser_priv(p); a; a = n, aidx--)
     {
         memcpy(&a_info[aidx], a, sizeof(*a));
         a_info[aidx].aidx = aidx;
         n = a->next;
-        if (aidx < z_info->a_max - 1) a_info[aidx].next = &a_info[aidx + 1];
-        else a_info[aidx].next = NULL;
+        a_info[aidx].next = ((aidx < z_info->a_max - 1)? &a_info[aidx + 1]: NULL);
         mem_free(a);
+        aup_info[aidx].aidx = aidx;
     }
 
     /* Hack -- create 9 empty shelves for Rings of Power */
-    for (i = z_info->a_max; i < z_info->a_max + 9; i++) a_info[i].aidx = i;
+    for (i = z_info->a_max; i < z_info->a_max + 9; i++)
+    {
+        a_info[i].aidx = i;
+        aup_info[aidx].aidx = i;
+    }
 
     /* Now we're done with object kinds, deal with object-like things */
     none = tval_find_idx("none");
@@ -3219,6 +3224,7 @@ static void cleanup_artifact(void)
         mem_free(art->curses);
     }
     mem_free(a_info);
+    mem_free(aup_info);
 }
 
 

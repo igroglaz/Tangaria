@@ -794,8 +794,8 @@ static void place_feeling(struct player *p, struct chunk *c)
             /* Pick a random dungeon coordinate */
             loc_init(&grid, randint0(c->width), randint0(c->height));
 
-            /* Check to see if it is not a wall */
-            if (square_iswall(c, &grid)) continue;
+            /* Check to see if it is not passable */
+            if (!square_ispassable(c, &grid)) continue;
 
             /* Check to see if it is already marked */
             if (square_isfeel(c, &grid)) continue;
@@ -1240,6 +1240,7 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
         dun->wall = mem_zalloc(z_info->wall_pierce_max * sizeof(struct loc));
         dun->tunn = mem_zalloc(z_info->tunn_grid_max * sizeof(struct loc));
         dun->tunn_flag = mem_zalloc(z_info->tunn_grid_max * sizeof(byte));
+        dun->quest = is_quest(wpos->depth);
 
         /* Choose a profile and build the level */
         dun->profile = choose_profile(wpos);
@@ -1350,11 +1351,30 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
 }
 
 
+static void check_level_size(struct worldpos *wpos, int n, int *min_height, int *min_width)
+{
+    struct worldpos check;
+
+    wpos_init(&check, &wpos->grid, n);
+    if (random_level(&check))
+    {
+        struct chunk *c = chunk_get(&check);
+
+        if (c)
+        {
+            *min_height = MAX(*min_height, c->height);
+            *min_width = MAX(*min_width, c->width);
+        }
+    }
+}
+
+
 /*
  * Prepare the level the player is about to enter
  */
-struct chunk *prepare_next_level(struct player *p, struct worldpos *wpos)
+struct chunk *prepare_next_level(struct player *p)
 {
+    struct worldpos *wpos = &p->wpos;
     int min_height = 0, min_width = 0;
     struct chunk *c;
 
@@ -1370,19 +1390,7 @@ struct chunk *prepare_next_level(struct player *p, struct worldpos *wpos)
         {
             if (dungeon_get_next_level(p, n, 1) == wpos->depth)
             {
-                struct worldpos check;
-
-                wpos_init(&check, &wpos->grid, n);
-                if (random_level(&check))
-                {
-                    c = chunk_get(&check);
-                    if (c)
-                    {
-                        min_height = c->height;
-                        min_width = c->width;
-                    }
-                }
-
+                check_level_size(wpos, n, &min_height, &min_width);
                 break;
             }
         }
@@ -1393,19 +1401,7 @@ struct chunk *prepare_next_level(struct player *p, struct worldpos *wpos)
         {
             if (dungeon_get_next_level(p, n, -1) == wpos->depth)
             {
-                struct worldpos check;
-
-                wpos_init(&check, &wpos->grid, n);
-                if (random_level(&check))
-                {
-                    c = chunk_get(&check);
-                    if (c)
-                    {
-                        min_height = MAX(min_height, c->height);
-                        min_width = MAX(min_width, c->width);
-                    }
-                }
-
+                check_level_size(wpos, n, &min_height, &min_width);
                 break;
             }
         }

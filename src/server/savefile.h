@@ -16,7 +16,7 @@
 
 #define FINISHED_CODE 255
 #define ITEM_VERSION 1
-#define EGO_ART_KNOWN 255
+#define EGO_ART_KNOWN 0xFFFF
 
 /* Writing bits */
 extern void wr_byte(byte v);

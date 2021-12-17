@@ -896,7 +896,7 @@ bool make_fake_artifact(struct object **obj_address, const struct artifact *arti
 }
 
 
-static bool artifact_pass_checks(struct artifact *art, int depth)
+static bool artifact_pass_checks(const struct artifact *art, int depth)
 {
     /* Enforce minimum "depth" (loosely) */
     if (art->alloc_min > depth)
@@ -942,7 +942,7 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
     {
         for (i = 0; i < z_info->a_max; i++)
         {
-            struct artifact *art = &a_info[i];
+            const struct artifact *art = &a_info[i];
             struct object_kind *kind = lookup_kind(art->tval, art->sval);
             char o_name[NORMAL_WID];
 
@@ -956,7 +956,7 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
             if (!kf_has(kind->kind_flags, KF_INSTA_ART)) continue;
 
             /* Cannot make an artifact twice */
-            if (art->created) continue;
+            if (is_artifact_created(art)) continue;
 
             /* Cannot generate an artifact if disallowed by preservation mode  */
             if (p && (p->art_info[i] > cfg_preserve_artifacts)) continue;
@@ -990,7 +990,7 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
             copy_artifact_data(new_obj, art);
 
             /* Mark the artifact as "created" */
-            art->created++;
+            mark_artifact_created(art, true);
             if (p)
             {
                 /* Mark the artifact as "generated" if dungeon is ready */
@@ -1014,7 +1014,7 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
     {
         for (i = 0; i < z_info->a_max; i++)
         {
-            struct artifact *art = &a_info[i];
+            const struct artifact *art = &a_info[i];
             struct object_kind *kind = lookup_kind(art->tval, art->sval);
 
             /* Skip "empty" artifacts */
@@ -1107,7 +1107,7 @@ static bool create_randart_aux(struct player *p, struct chunk *c, struct object 
 
     for (i = 0; i < z_info->a_max; i++)
     {
-        struct artifact *art = &a_info[i];
+        const struct artifact *art = &a_info[i];
         struct object_kind *kind = lookup_kind(art->tval, art->sval);
 
         /* Skip "empty" items */
@@ -1163,7 +1163,7 @@ static bool make_artifact(struct player *p, struct chunk *c, struct object *obj)
     {
         for (i = 0; !obj->artifact && (i < z_info->a_max); i++)
         {
-            struct artifact *art = &a_info[i];
+            const struct artifact *art = &a_info[i];
             struct object_kind *kind = lookup_kind(art->tval, art->sval);
             char o_name[NORMAL_WID];
 
@@ -1177,7 +1177,7 @@ static bool make_artifact(struct player *p, struct chunk *c, struct object *obj)
             if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_EPIC)) continue;
 
             /* Cannot make an artifact twice */
-            if (art->created) continue;
+            if (is_artifact_created(art)) continue;
 
             /* Cannot generate an artifact if disallowed by preservation mode  */
             if (p && (p->art_info[i] > cfg_preserve_artifacts)) continue;
@@ -1201,7 +1201,7 @@ static bool make_artifact(struct player *p, struct chunk *c, struct object *obj)
             copy_artifact_data(obj, obj->artifact);
 
             /* Mark the artifact as "created" */
-            obj->artifact->created++;
+            mark_artifact_created(obj->artifact, true);
             if (p)
             {
                 /* Mark the artifact as "generated" if dungeon is ready */
