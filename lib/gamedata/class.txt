@@ -5006,9 +5006,6 @@ skill-melee:45:20
 skill-shoot:40:30
 skill-dig:0:0
 hitdie:5
-max-attacks:4
-min-weight:35
-strength-multiplier:3
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Whip:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
@@ -5022,6 +5019,8 @@ value:0:DEX[-2]
 value:0:CON[-2]
 value:0:CHR[1]
 player-flags:0:MARTIAL_ARTS | SHAPECHANGE
+# later: can wear only light (<10) armor - penalties
+value:0:BLOWS[1d1]
 shape:5:cave bear
 shape:5:panther
 shape:10:grizzly bear
@@ -5060,12 +5059,12 @@ magic:1:350:3
 book:nature book:town:[Lesser Charms]:5:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
-spell:Emit Poison:1:2:27:4:0
-effect:BLAST:POIS:1
+spell:Poison Cloud:1:2:27:4:0
+effect:BALL:POIS:1
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2 + 10
-msg_other: emites a stinking cloud.
-desc:Creates sphere of poison around you.
+msg_other: invokes a stinking cloud.
+desc:Shoots a radius-1 stinking cloud.
 
 spell:Lick wounds:4:4:30:4:0
 effect:CURE:POISONED
@@ -5102,9 +5101,12 @@ desc:Destroys the first section of wall it hits, unless it is a permanent wall.
 desc: Each monster caught in the beam that is susceptible to rock remover
 desc: takes 20+1d30 points of damage.
 
-spell:Nature's Call:24:20:40:12:0
-effect:CREATE_TREES
-desc:Grow trees around you.
+spell:Emit Poison:24:20:40:12:0
+effect:BLAST:POIS:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: emites a poison cloud.
+desc:Creates sphere of poison around you.
 
 spell:Extra Growth:28:20:40:12:0
 effect:TIMED_INC:GROWTH
@@ -5136,7 +5138,7 @@ effect:RESTORE_STAT:STR
 desc:Restores all stats and experience points to maximum.
 
 #5
-book:nature book:dungeon:[Wild Forces]:5:nature
+book:nature book:dungeon:[Wild Forces]:6:nature
 
 spell:Ancient Lore:35:30:80:20:0
 effect:IDENTIFY
@@ -5170,6 +5172,10 @@ effect:TIMED_INC:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
+
+spell:Nature's Call:50:30:40:12:0
+effect:CREATE_TREES
+desc:Grow trees around you.
 
 ############### CLASS TEMPLATE for Fighter ###############
 
@@ -6065,8 +6071,6 @@ skill-melee:45:20
 skill-shoot:35:20
 skill-dig:0:0
 hitdie:1
-min-weight:35
-strength-multiplier:3
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Mace:1:1:none
 equip:potion:Cure Serious Wounds:2:3:none
@@ -7445,6 +7449,7 @@ hitdie:3
 value:0:ANTI_MAGIC[1d1]
 player-flags:0:MARTIAL_ARTS
 # harming fearful enemies -> restore life
+value:0:BLOWS[1d1]
 title:Rookie
 title:Initiate
 title:Neophyte

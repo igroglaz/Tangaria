@@ -2114,7 +2114,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     // allow pass trees in town by running
     if (square_istree(c, &grid) && (p->wpos.depth == 0))
         ;
-    else if (square_istree(c, &grid) && streq(p->clazz->name, "Shaman") && !one_in_(3))
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
+        ;
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Shaman") && one_in_(3))
         ;
     else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
         ;    
