@@ -5976,9 +5976,12 @@ desc: Also cures your poison.
 spell:Bone Armour:5:2:30:3:0
 effect:TIMED_INC:SHIELD
 dice:$B
-expr:B:PLAYER_LEVEL:+ 10
+expr:B:PLAYER_LEVEL:+ 50
+effect:TIMED_INC:UNSUMMON_MINIONS
+dice:1
 effect:CURE:CUT
-desc:Grants you AC bonus and cure cut.
+desc:Annihilate your minions and creates armour from their flesh and bones.
+desc: Also cures cut.
 
 spell:Nether Bolt:10:3:35:4:0
 effect:BOLT_OR_BEAM:NETHER:0:-10

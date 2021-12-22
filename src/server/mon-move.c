@@ -2826,6 +2826,14 @@ void process_monsters(struct chunk *c, bool more_energy)
 
                 if (b->id != mon->master) continue;
 
+                // Class spell to unsummon pets (necromancer)
+                if (b->timed[TMD_UNSUMMON_MINIONS])
+                {
+                    update_monlist(mon);
+                    delete_monster_idx(c, i);
+                    continue;
+                }
+
                 if (streq(b->clazz->name, "Necromancer"))
                 {
                     // Necromancer class lifespan bonus

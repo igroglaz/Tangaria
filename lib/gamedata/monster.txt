@@ -29626,14 +29626,14 @@ locations:Mountain Gorge
 name:Mountain Gorge's wild cat
 base:feline
 color:U
-speed:115
+speed:111
 hit-points:9
 hearing:40
 smell:30
-armor-class:14
+armor-class:3
 sleepiness:0
 depth:0
-rarity:3
+rarity:4
 weight:20
 experience:0
 blow:CLAW:HURT:1d2

@@ -698,9 +698,11 @@ near-begin: starts running faster.
 near-end: slows movement down.
 #msgt:SPEED
 
+# necromancer spell
 name:GOLEM
 grade:D:10000:Golem:You summoned golem.
 
+# assassin spell
 name:SENTRY
 grade:D:10000:Sentry:You setted sentry.
 
@@ -709,7 +711,12 @@ name:OCCUPIED
 desc:occupation
 grade:w:10000:Occupied:You are occupied.
 
-# tamer class skill
+# tamer skill
 name:REVIVE_PET
 desc:call your pet
 grade:w:10000:Pet:You called your pet.
+
+# class spell
+name:UNSUMMON_MINIONS
+desc:unsummon your minions
+grade:w:10000:Unsummon:You unsummon your minions.

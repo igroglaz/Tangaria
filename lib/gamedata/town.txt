@@ -212,7 +212,7 @@ name:Mountain Gorge
 # The Mountain Gorge
 short:1_0
 wpos:1:0
-max-townies:4
+max-townies:3
 #high rocky peaks (brown)
 symbol:grass mountain H
 
