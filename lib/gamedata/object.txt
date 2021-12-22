@@ -7032,6 +7032,7 @@ desc:A potion of holy water blessed by a good deity.
 desc: You can not drop it on the ground as it will be blasphemy...
 
 # Alchemist potions
+# Alchemist battle potions can not be dropped, but can be thrown
 
 name:Herbal Tea
 graphics:!:d

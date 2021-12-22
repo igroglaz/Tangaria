@@ -2379,8 +2379,9 @@ bool do_cmd_throw(struct player *p, int dir, int item)
         return false;
     }
 
-    /* NO_DROP flag */
-    if (obj->soulbound || (of_has(obj->flags, OF_NO_DROP) && !of_has(obj->flags, OF_THROWING)))
+    // Can't throw NO_DROP and soulbound items;
+    // with exception of EXPLODE object flag for Alchemist class potions
+    if ((obj->soulbound || of_has(obj->flags, OF_NO_DROP)) && !of_has(obj->flags, OF_EXPLODE))
     {
         msg(p, "You cannot throw this.");
         return false;
