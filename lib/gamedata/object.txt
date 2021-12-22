@@ -2212,6 +2212,7 @@ graphics:=:d
 type:ring
 level:75
 weight:2
+# price hc in store.c
 cost:100000
 alloc:40:75 to 100
 flags:GOOD
@@ -6206,7 +6207,7 @@ graphics:{:v
 type:arrow
 level:10
 weight:2
-# price hc
+# price hc in obj-power.c
 cost:100
 alloc:10:10 to 100
 attack:1d4:0:0
@@ -6219,7 +6220,7 @@ graphics:{:b
 type:bolt
 level:10
 weight:3
-# price hc
+# price hc in obj-power.c
 cost:100
 alloc:10:10 to 100
 attack:1d5:0:0
@@ -6232,7 +6233,7 @@ graphics:{:D
 type:shot
 level:10
 weight:2
-# price hc
+# price hc in obj-power.c
 cost:100
 alloc:10:10 to 100
 attack:1d3:0:0
@@ -6512,7 +6513,7 @@ graphics:~:U
 type:light
 level:5
 weight:100
-# price hc
+# price hc in store.c
 cost:100
 alloc:70:1 to 10
 flags:BURNS_OUT | LIGHT_3

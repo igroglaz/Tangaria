@@ -790,8 +790,22 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
         }
     }
 
-    if (s->type != STORE_B_MARKET && obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
-        price = 248;
+    // Hardcode prices at certain items.
+    // We use it because 'cost:' field in object.txt doesn't work;
+    // only way to change price atm is to adjust power in object property file,
+    // which can influence randart generation... So we use this way:
+    if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
+                price = 248;
+    // ego: speed boots
+    else if (s->type != STORE_PLAYER && obj->ego &&
+            (strstr(obj->ego->name, "of Speed") ||
+             strstr(obj->ego->name, "of Elvenkind")))
+                price *= 5 / 2;
+    // regular: speed ring
+    else if (s->type != STORE_PLAYER &&
+            obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
+                price *= 2;
 
     /* CHArisma shouldn't influence player store prices */
     if (s->type == STORE_PLAYER) adjust = 100;

@@ -752,6 +752,7 @@ flags:FREE_ACT
 min-values:STEALTH[-2]
 
 name:of Speed
+# price hc in store.c
 info:100000:25
 alloc:3:20 to 127
 type:boots
