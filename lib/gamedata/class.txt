@@ -1852,7 +1852,7 @@ skill-search:20:16
 skill-melee:35:45
 skill-shoot:66:30
 skill-dig:0:0
-hitdie:5
+hitdie:4
 max-attacks:5
 min-weight:20
 strength-multiplier:4
@@ -1868,7 +1868,8 @@ value:0:WIS[-3]
 value:0:DEX[3]
 value:0:CON[-1]
 value:0:CHR[-1+-1d40]
-value:5:SPEED[1+1d15]
+# too cheezy as players are able to grind same depth with stealth mode for long time
+# value:5:SPEED[1+1d15]
 player-flags:0:CHOOSE_SPELLS | STEAL
 player-flags:0:BACK_STAB | STEALING_IMPROV | STEALTH_MODE
 title:Vagabond
@@ -1896,9 +1897,9 @@ desc: for one turn only.
 
 spell:Smoke Bomb:7:2:55:4:0
 effect:TELEPORT
-dice:10
+dice:9
 msg_other: blinks away.
-desc:Teleports you randomly up to 10 squares away.
+desc:Teleports you randomly up to 9 squares away.
 
 spell:Create Poison:8:3:60:5:0
 effect:CREATE_POISON
@@ -1925,7 +1926,7 @@ desc:Neutralizes poison.
 spell:Escape:17:6:35:5:0
 effect:TELEPORT
 dice:$B
-expr:B:PLAYER_LEVEL:* 5
+expr:B:PLAYER_LEVEL:* 2
 msg_other: teleports away.
 desc:Teleports you randomly within the current level.
 
@@ -2022,7 +2023,7 @@ desc:Teleports you next to a chosen target.
 spell:Begone:30:10:30:50:0
 effect:BOLT_STATUS:AWAY_ALL:1
 dice:$B
-expr:B:MAX_SIGHT:* 5
+expr:B:MAX_SIGHT:* 4
 msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
@@ -2039,7 +2040,13 @@ desc: adjacent to you.
 
 book:shadow book:dungeon:[Great Shadows]:4:shadow
 
-spell:Day of the Misrule:32:25:70:65:0
+spell:Day of the Misrule:35:25:70:65:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:1
+effect:RANDOM
+dice:2
 effect:TIMED_INC:SHERO:0:5
 dice:30+1d30
 effect:TIMED_INC:BOLD:0:5
@@ -2053,15 +2060,16 @@ msg_self:%s of the Night rejoice! It's the Day of the Misrule!
 desc:Hastes you (+10 to speed), cures 30 points of damage, removes fear and
 desc: grants you berserk strength (resistance to fear, a bonus of +24 to-hit and
 desc: a penalty of -10 to AC) for 30+1d30 turns.
+desc: You may spend some satiation on this magic.
 
-spell:Far Escape:35:17:65:80:0
+spell:Far Escape:40:17:65:80:0
 effect:TELEPORT_LEVEL
 effect:NOURISH:DEC_BY
 dice:1
 desc:Teleports you 1 level up or 1 level down (chosen at random).
 desc: You spend some satiation on this magic.
 
-spell:Fast Recall:36:40:80:18:0
+spell:Fast Recall:45:40:80:18:0
 effect:RECALL
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:n + 50
@@ -2072,8 +2080,8 @@ desc: The recall effect is not immediate; it is delayed by a level-dependent
 desc: duration. During that delay, the effect can be canceled by invoking
 desc: the spell of recall again.
 
-spell:Trick or Treat:38:37:90:50:0
-effect:SUMMON:MONSTERS:0:5
+spell:Trick or Treat:50:37:90:50:0
+effect:SUMMON:MONSTERS:0:1
 dice:8
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
