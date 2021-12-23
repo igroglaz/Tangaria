@@ -5936,7 +5936,7 @@ skill-device:35:14
 skill-save:30:9
 skill-stealth:1:0
 skill-search:10:12
-skill-melee:30:20
+skill-melee:35:20
 skill-shoot:20:15
 skill-dig:1:1
 hitdie:0
@@ -5949,10 +5949,10 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[-4]
+value:0:STR[-1+-1d15]
 value:0:INT[4]
-value:0:CON[-3]
-value:0:CHR[-5]
+value:0:CON[-1+-1d20]
+value:0:CHR[-1+-1d12]
 value:0:RES_NETHER[1]
 player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
 title:Rookie
@@ -5991,7 +5991,7 @@ effect:CURE:CUT
 desc:Annihilate your minions and creates armour from their flesh and bones.
 desc: Also cures cut.
 
-spell:Nether Bolt:10:3:35:4:0
+spell:Nether Bolt:10:3:33:4:0
 effect:BOLT_OR_BEAM:NETHER:0:-10
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
