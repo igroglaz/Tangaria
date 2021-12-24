@@ -1310,7 +1310,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"giant salamander", 8, 50},
                 {"moaning spirit", 12, 50},
                 {"earth spirit", 16, 50},
-                {"earth hound", 20, 50},
+                {"earth hound", 19, 50},
                 {"sandworm", 20, 90},
                 {"adult sandworm", 25, 60},
                 {"earth elemental", 34, 40},
@@ -1336,8 +1336,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             } summon_chance[] =
             {
                 {"grey mold", 0, 100},
-                {"creeping copper coins", 4, 10},
-                {"green glutton ghost", 4, 10},
+                {"green glutton ghost", 4, 5},
+                {"creeping copper coins", 5, 10},
                 {"undead mass", 10, 80},
                 {"moaning spirit", 12, 70},
                 {"freezing sphere", 17, 60},
@@ -1346,10 +1346,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"ice skeleton", 23, 50},
                 {"statue of ancient god", 25, 5},
                 {"ice troll", 28, 10},
-                {"frost giant", 28, 10},
+                {"frost giant", 29, 10},
                 {"mithril golem", 30, 5},
                 {"ice elemental", 37, 50},
-                {"death knight", 37, 10},
+                {"death knight", 38, 10},
                 {"great ice wyrm", 60, 1}
             };
             int i;

@@ -2507,7 +2507,6 @@ desc: damaging and freezing them in the process, grants cold resistance, but als
 desc: greatly reduce stealth, movement and can make you vulnerable to fire.
 desc: 10 level: + 10 to AC
 desc: 20 level:
-desc: - brands your physical attacks with cold
 desc: - you are not vulnerable to fire, but can not have double resist or immunity
 desc: 30 level:
 desc: - grants double cold resistance
@@ -3730,7 +3729,6 @@ desc: damaging and freezing them in the process, grants cold resistance, but als
 desc: greatly reduce stealth, movement and can make you vulnerable to fire.
 desc: 10 level: + 10 to AC
 desc: 20 level:
-desc: - brands your physical attacks with cold
 desc: - you are not vulnerable to fire, but can not have double resist or immunity
 desc: 30 level:
 desc: - grants double cold resistance

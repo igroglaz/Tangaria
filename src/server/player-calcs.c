@@ -2529,13 +2529,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // cons:
         if (p->lev < 40)
         {
-            state->skills[SKILL_STEALTH] -= 5;
-            extra_moves -= 1 + (p->lev / 5);
+            state->skills[SKILL_STEALTH] -= 4;
+            extra_moves -= 1 + (p->lev / 10);
         }
         else
         {
-            state->skills[SKILL_STEALTH] -= 4;
-            extra_moves -= 8;
+            state->skills[SKILL_STEALTH] -= 3;
+            extra_moves -= 5;
         }
         if (p->lev < 20 && state->el_info[ELEM_FIRE].res_level >= 0)
             state->el_info[ELEM_FIRE].res_level--;
