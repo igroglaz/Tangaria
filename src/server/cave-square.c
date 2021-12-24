@@ -431,6 +431,17 @@ bool square_ismineral_other(struct chunk *c, struct loc *grid)
         tf_has(f_info[square(c, grid)->feat].flags, TF_DARK));
 }
 
+// True if the square is sand
+bool square_is_sand(struct chunk *c, struct loc *grid)
+{
+    return (tf_has(f_info[square(c, grid)->feat].flags, TF_SAND));
+}
+
+// True if the square is ice
+bool square_is_ice(struct chunk *c, struct loc *grid)
+{
+    return (tf_has(f_info[square(c, grid)->feat].flags, TF_ICE));
+}
 
 /*
  * True if the square is a mineral wall.

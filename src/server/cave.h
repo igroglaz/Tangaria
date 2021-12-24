@@ -335,6 +335,8 @@ extern bool square_ispermfake(struct chunk *c, struct loc *grid);
 extern bool square_ismagma(struct chunk *c, struct loc *grid);
 extern bool square_isquartz(struct chunk *c, struct loc *grid);
 extern bool square_ismineral_other(struct chunk *c, struct loc *grid);
+extern bool square_is_sand(struct chunk *c, struct loc *grid);
+extern bool square_is_ice(struct chunk *c, struct loc *grid);
 extern bool square_ismineral(struct chunk *c, struct loc *grid);
 extern bool square_hasgoldvein(struct chunk *c, struct loc *grid);
 extern bool square_hasgoldvein_p(struct player *p, struct loc *grid);

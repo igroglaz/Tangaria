@@ -1256,9 +1256,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Handle stuff */
             handle_stuff(p);
         }
-        
+
         /* Dig cobbles (simple non-magical rocks) */
-        else if (one_in_(2))
+        else if (one_in_(2) && !square_is_ice(c, grid) &&
+                (!square_is_sand(c, grid) || one_in_(3)))
         {
             struct object *dig_cobble;
             /* Make cobble */
@@ -1274,9 +1275,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 drop_near(p, c, &dig_cobble, 0, &p->grid, true, DROP_FADE, true);
             }
         }
-        
+
         /* Dig house Foundation Stone */
-        else if (one_in_(2) && p->lev > 7)
+        else if (one_in_(2) && p->lev > 7 && !square_is_ice(c, grid) &&
+                (!square_is_sand(c, grid) || one_in_(5)))
         {
             struct object *dig_stone;
             /* Make house stone */
@@ -1290,7 +1292,115 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
             }
         }
-        
+
+        /* You may dig out monster... */
+
+        // sand monsters
+        else if (one_in_(20) && square_is_sand(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                byte minlev;
+                byte chance;
+            } summon_chance[] =
+            {
+                {"soldier ant", 0, 100},
+                {"viper", 3, 50},
+                {"giant salamander", 8, 50},
+                {"moaning spirit", 12, 50},
+                {"earth spirit", 16, 50},
+                {"earth hound", 20, 50},
+                {"sandworm", 20, 90},
+                {"adult sandworm", 25, 60},
+                {"earth elemental", 34, 40},
+                {"sand giant", 40, 30},
+                {"great earth elemental", 60, 5}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged the sand!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
+        // ice monsters
+        else if (one_in_(20) && square_is_ice(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                byte minlev;
+                byte chance;
+            } summon_chance[] =
+            {
+                {"grey mold", 0, 100},
+                {"creeping copper coins", 4, 10},
+                {"green glutton ghost", 4, 10},
+                {"undead mass", 10, 80},
+                {"moaning spirit", 12, 70},
+                {"freezing sphere", 17, 60},
+                {"ancient obelisk", 20, 5},
+                {"cold vortex", 21, 50},
+                {"ice skeleton", 23, 50},
+                {"statue of ancient god", 25, 5},
+                {"ice troll", 28, 10},
+                {"frost giant", 28, 10},
+                {"mithril golem", 30, 5},
+                {"ice elemental", 37, 50},
+                {"death knight", 37, 10},
+                {"great ice wyrm", 60, 1}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged ice!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
+        // other monsters in walls/rocks
+        else if (one_in_(20) && !square_is_ice(c, grid) && !square_is_sand(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                byte minlev;
+                byte chance;
+            } summon_chance[] =
+            {
+                {"soldier ant", 0, 100},
+                {"Weaver spider", 1, 50},
+                {"giant cockroach", 2, 50},
+                {"viper", 3, 50},
+                {"cave lizard", 4, 50},
+                {"brown mold", 6, 50},
+                {"crypt creep", 7, 20},
+                {"giant salamander", 8, 20},
+                {"giant red ant", 9, 50},
+                {"hairy mold", 10, 40},
+                {"moaning spirit", 12, 30},
+                {"earth spirit", 16, 60},
+                {"earth hound", 20, 30},
+                {"pukelman", 25, 10},
+                {"rusty golem", 27, 10},
+                {"earth elemental", 33, 60},
+                {"xaren", 40, 40},
+                {"Boggart", 43, 10},
+                {"prizrak", 44, 5},
+                {"shadow", 50, 10},
+                {"great earth elemental", 60, 5}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged the wall!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
+
         /* Found nothing */
         else
             msg(p, "You have finished the tunnel.");
