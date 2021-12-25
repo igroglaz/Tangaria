@@ -3421,9 +3421,10 @@ cost:8000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:STR
+effect:GAIN_STAT:STR
 effect:RESTORE_STAT:STR
 effect:RANDOM
-dice:2
+dice:3
 effect:RESTORE_STAT:STR
 
 name:Intelligence
@@ -3435,9 +3436,10 @@ cost:8000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:INT
+effect:GAIN_STAT:INT
 effect:RESTORE_STAT:INT
 effect:RANDOM
-dice:2
+dice:3
 effect:RESTORE_STAT:INT
 
 name:Wisdom
@@ -3449,9 +3451,10 @@ cost:8000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:WIS
+effect:GAIN_STAT:WIS
 effect:RESTORE_STAT:WIS
 effect:RANDOM
-dice:2
+dice:3
 effect:RESTORE_STAT:WIS
 
 name:Dexterity
@@ -3463,9 +3466,10 @@ cost:8000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:DEX
+effect:GAIN_STAT:DEX
 effect:RESTORE_STAT:DEX
 effect:RANDOM
-dice:2
+dice:3
 effect:RESTORE_STAT:DEX
 
 name:Constitution
@@ -3477,9 +3481,10 @@ cost:8000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:CON
+effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
 effect:RANDOM
-dice:2
+dice:3
 effect:RESTORE_STAT:CON
 
 name:Ugliness

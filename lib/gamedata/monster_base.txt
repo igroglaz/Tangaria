@@ -60,6 +60,16 @@ flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
 flags:FORCE_SLEEP
 desc:Ainu/Maia
 
+name:angel
+glyph:A
+pain:1
+flags:POWERFUL | SPIRIT | SMART | LEVITATE
+flags:ONLY_ITEM
+flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB
+flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
+flags:FORCE_SLEEP
+desc:Angel
+
 # Ants have lowish HP but highish armor class, and powerful melee for their
 # depth
 name:ant

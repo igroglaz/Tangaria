@@ -480,6 +480,9 @@ sound:summon_monster:sum_chime_jangle
 # Summon ainur.
 sound:summon_ainu:sum_angel_song
 
+# Summon angel.
+sound:summon_angel:sum_angel_song
+
 # Summon undead.
 sound:summon_undead:sum_ghost_oooo
 

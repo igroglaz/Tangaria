@@ -92,6 +92,12 @@ uniques:0
 base:ainu
 desc:ainur
 
+name:ANGEL
+msgt:SUM_ANGEL
+uniques:0
+base:angel
+desc:angels
+
 name:DEMON
 msgt:SUM_DEMON
 uniques:0

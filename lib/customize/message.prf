@@ -366,6 +366,9 @@ message:SUM_MONSTER:w
 # MSG_SUM_AINU
 message:SUM_AINU:w
 
+# MSG_SUM_ANGEL
+message:SUM_ANGEL:w
+
 # MSG_SUM_UNDEAD
 message:SUM_UNDEAD:w
 

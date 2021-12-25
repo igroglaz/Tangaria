@@ -332,6 +332,12 @@ alloc:1:90
 obj-rarity:0
 mon-base:ainu
 
+name:Angel
+room:1
+alloc:1:90
+obj-rarity:0
+mon-base:angel
+
 # New chosen monster types
 
 name:Insects

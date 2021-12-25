@@ -10304,8 +10304,7 @@ flags:DROP_CORPSE
 desc:A giant bat which feeds on raw magical energy.
 
 name:Angel
-#base:angel
-base:ainu
+base:angel
 color:o
 speed:110
 hit-points:450
@@ -13168,8 +13167,7 @@ desc: you know is that it stands before you, its eyes ablaze as it prepares its
 desc: next volley of spells.
 
 name:Archangel
-#base:angel
-base:ainu
+base:angel
 color:o
 speed:110
 hit-points:850
@@ -15813,8 +15811,7 @@ desc: spined legs.
 ### Dungeon level 39 ###
 
 name:Cherub
-#base:angel
-base:ainu
+base:angel
 color:G
 speed:120
 hit-points:1300
@@ -18170,8 +18167,7 @@ desc:A giant beetle with a gleaming white carapace. The air condenses around
 desc: its mandibles as it scuttles toward you.
 
 name:Seraph
-#base:angel
-base:ainu
+base:angel
 color:b
 speed:120
 hit-points:1800
@@ -18196,8 +18192,7 @@ spell-freq:9
 spell-power:45
 spells:CONF | HASTE | HEAL | TELE_AWAY
 spells:BO_MANA | BO_PLAS
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 spells:S_MONSTERS
 desc:It is an angel, fast and strong. You are stunned by its extreme holiness
 desc:and try to resist all desires to obey it.
@@ -19129,7 +19124,7 @@ desc:A Maia spirit, which was mighty once, but dared defy its Creator.
 
 name:fallen angel
 plural:angel
-base:ainu
+base:angel
 color:m
 speed:120
 hit-points:1300
@@ -20268,8 +20263,7 @@ locations:Cirith Ungol
 
 #was name:Istar , removed in V
 name:Archon
-#base:angel
-base:ainu
+base:angel
 color:y
 speed:130
 hit-points:1800
@@ -20294,8 +20288,7 @@ spell-freq:3
 spell-power:55
 spells:BLIND | WOUND | BA_LIGHT | SCARE | TELE_TO | HEAL | MISSILE
 spells:BO_MANA
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 desc:Never a more heavenly being have you seen. The very holiness of its
 desc:presence makes you deeply respect it. Few creatures can match the powers
 desc:of an Archon; fewer still live to tell the tale after attacking one.
@@ -21145,8 +21138,7 @@ desc: and your mind loses all will to fight as you stand in awe of this mighty
 desc: being.
 
 name:Uriel, Angel of Fire
-#base:angel
-base:ainu
+base:angel
 color:R
 speed:130
 hit-points:5500
@@ -21173,8 +21165,7 @@ spells:BLIND | TELE_TO
 spells:BA_FIRE
 spells:BO_FIRE | BO_MANA | BO_PLAS
 spells:BR_FIRE | BR_PLAS
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 desc:A creature of godly appearance, you dare not challenge Uriel's supremacy.
 desc:Those who stood against him before are but a memory, cremated by his
 desc:mastery of elemental fire.
@@ -21330,8 +21321,7 @@ desc: Unbelievable, but actually occasionally he creates magical chaos
 desc: disturbance himself, even disbelieving in it.
 
 name:Azriel, Angel of Death
-#base:angel
-base:ainu
+base:angel
 color:w
 speed:130
 hit-points:6000
@@ -21357,7 +21347,7 @@ spells:BLIND | TELE_TO
 spells:BLINK | BRAIN_SMASH | CONF | DRAIN_MANA
 spells:BA_NETH
 spells:ANIM_DEAD
-spells:S_AINU
+spells:S_ANGEL
 desc:Encrusted with barnacles, slimy and dripping, the Giant of the untamed
 desc: waters has dragged himself down into the dungeon to send you
 desc: to a watery grave.
@@ -21662,8 +21652,7 @@ desc:A Ringwraith powerful in fell sorcery, he yearns for the life he has lost
 desc: for an unlife of everlasting torment.
 
 name:Gabriel, the Messenger
-#base:angel
-base:ainu
+base:angel
 color:u
 speed:130
 hit-points:7500
@@ -21687,8 +21676,7 @@ flags:NO_STUN
 spell-freq:2
 spells:BLIND | TELE_TO
 spells:BO_MANA | BO_WATE | BO_FIRE | BO_ICE
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 friends:50:1d3:Angel
 friends:50:1d3:Archangel
 friends:50:1d3:Cherub
@@ -25021,8 +25009,7 @@ desc: insects to be crushed underfoot.
 ### Dungeon level 94 ###
 
 name:Michael, the Guardian
-#base:angel
-base:ainu
+base:angel
 color:u
 speed:130
 hit-points:8500
@@ -25047,8 +25034,7 @@ spell-freq:2
 innate-freq:17
 spells:BLIND | TELE_TO
 spells:BO_MANA | BO_WATE | BO_FIRE | BO_ICE | BR_LIGHT
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 friends:100:1d3:Seraph
 friends:100:1d5:Archon
 desc:Michael leads angel's armies against evil forces.
@@ -25184,8 +25170,7 @@ desc:A gigantic ancient dragon whose scales shimmer in myriad hues.
 ### Dungeon level 96 ###
 
 name:Raphael, the Healer
-#base:angel
-base:ainu
+base:angel
 color:u
 speed:130
 hit-points:9000
@@ -25210,8 +25195,7 @@ spell-freq:2
 innate-freq:15
 spells:HEAL | HEAL_KIN | TELE_TO | BLINK | TPORT
 spells:BO_MANA | BR_LIGHT
-#spells:S_ANGEL
-spells:S_AINU
+spells:S_ANGEL
 friends:100:1d7:Fallen angel
 desc:"Stop fighting! It's time to unity our strength, to overcome our
 desc: differences and to give a new breath to the world
@@ -31338,13 +31322,13 @@ hit-points:1000
 hearing:1
 armor-class:0
 sleepiness:0
-depth:1
+depth:30
 rarity:0
 weight:0
 experience:1
-spell-freq:1
-spell-power:50
-spells:FORGET
+spell-freq:2
+spell-power:30
+spells:S_ANGEL
 flags:NEVER_MOVE
 desc:An indestructible golem used for testing purposes.
 
@@ -31365,7 +31349,7 @@ blow:HIT:FORGET:10d1
 flags:NEVER_MOVE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 #drop:ring:Black Ring of Power:100:1:1
-drop:sword:'Stormbringer':100:1:1
+#drop:sword:'Stormbringer':100:1:1
 desc:An indestructible golem used for testing purposes.
 
 # tamer class pets
@@ -32196,5 +32180,8 @@ experience:0
 blow:BITE:HURT:1d3
 flags:NO_PASS_TREE
 desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
+
+### !!! move Test dummy there, to the bottom... so it will be easier to change it
+
 
 # # leave empty line for EOF

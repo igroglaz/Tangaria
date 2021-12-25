@@ -1096,6 +1096,16 @@ lore-color-base:Orange
 message-vis:{name} summons an ainu.
 message-invis:You hear something appear nearby!
 
+name:S_ANGEL
+msgt:SUM_ANGEL
+hit:100
+effect:SUMMON:ANGEL
+dice:1
+lore:summon an angel
+lore-color-base:Orange
+message-vis:{name} summons an angel.
+message-invis:You hear something holy appear nearby!
+
 #message-invis:You feel something holy appear nearby!
 
 name:S_DEMON
