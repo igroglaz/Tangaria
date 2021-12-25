@@ -468,7 +468,7 @@ static void blow_side_effects(struct player *p, struct source *target,
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
         hp_player_safe(p, 1 + drain / 2);
-    }   
+    }
     else if (streq(p->clazz->name, "Unbeliever") && target->monster &&
         target->monster->race->freq_spell && !target->monster->race->freq_innate &&
         !monster_is_powerful(target->monster))
@@ -484,6 +484,11 @@ static void blow_side_effects(struct player *p, struct source *target,
 
         hp_player_safe(p, 1 + drain / 2);
     }
+
+    // Necromancer got small additional life leech (traumaturgy)
+    if (streq(p->clazz->name, "Necromancer") && target->monster &&
+        monster_is_living(target->monster))
+            hp_player_safe(p, 1 + (p->lev / 10));
 
     // Mage's "Frost Shield" spell gives cold brand
     if (p->timed[TMD_SHIELD] && (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Battlemage")) && p->lev > 20)
