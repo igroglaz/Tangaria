@@ -267,7 +267,19 @@ static void textui_process_command_aux(ui_event e)
     unsigned char key = '\0';
     int mode = (OPT(player, rogue_like_commands)? KEYMAP_MODE_ROGUE: KEYMAP_MODE_ORIG);
 
-    if (e.type == EVT_KBRD) done = textui_process_key(e.key, &key);
+    if (e.type == EVT_KBRD)
+    {
+        /* Hack -- discard some keys if not playing */
+        switch (e.key.code)
+        {
+            case KC_ENTER:
+            case ESCAPE:
+            case '@': if (!Setup.ready) return;
+            default: break;
+        }
+
+        done = textui_process_key(e.key, &key);
+    }
 
     /* Null command */
     if (!key && done) return;
@@ -275,7 +287,7 @@ static void textui_process_command_aux(ui_event e)
     /* Use command menus */
     if (key == KC_ENTER)
     {
-        if (OPT(player, disable_enter) || !Setup.ready) return;
+        if (OPT(player, disable_enter)) return;
         cmd = textui_action_menu_choose();
     }
 

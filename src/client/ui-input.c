@@ -1564,8 +1564,8 @@ bool textui_process_key(struct keypress kp, unsigned char *c)
 
     if (key == ' ') msg_flush();
 
-    /* Only process escape key while playing */
-    if ((key == ESCAPE) && Setup.ready)
+    /* Process escape key */
+    if (key == ESCAPE)
     {
         if (inkey_next)
         {
@@ -1577,12 +1577,10 @@ bool textui_process_key(struct keypress kp, unsigned char *c)
     }
 
     /* Null command */
-    if ((key == '\0') || (key == ESCAPE) || (key == ' ') || (key == '\a'))
-        return true;
+    if ((key == '\0') || (key == ESCAPE) || (key == ' ') || (key == '\a')) return true;
 
     /* Invalid keypress */
-    if (key > UCHAR_MAX)
-        return false;
+    if (key > UCHAR_MAX) return false;
 
     *c = key;
     return true;

@@ -148,12 +148,14 @@ h7 {
 </style>
 </head>
 <body>
+<header id="pageheader">
+    <div style="display: flex; align-items: baseline;">
+        <h1>The PWMAngband Manual</h1>
+        <span class="version">v1.6.0</span>
+    </div>
+    <img src="lib/icons/att.svg" style="height: 4rem;">
+</header>
 <div class="document">
-
-
-<pre class="literal-block">
-# Delete this section and add the \docs\_templates\layout.html code just after the &lt;body&gt; tag
-</pre>
 <div class="section" id="welcome-to-pwmangband">
 <h1><a class="toc-backref" href="#id18">1&nbsp;&nbsp;&nbsp;Welcome to PWMAngband</a></h1>
 <p>PWMAngband is a complex multiplayer dungeon simulation. A player (you!)
@@ -6737,6 +6739,11 @@ a tileset.</dd>
 <dt>Confirm recall out of non-reentrable dungeons <tt class="docutils literal">confirm_recall</tt></dt>
 <dd>This option triggers a confirmation message when recalling from a dungeon
 with an entrance level lower than the current character level.</dd>
+</dl>
+<!--  -->
+<dl class="docutils">
+<dt>Hide controlled monsters in monster lists <tt class="docutils literal">hide_slaves</tt></dt>
+<dd>This option hides controlled monsters in monster lists.</dd>
 </dl>
 </div>
 <div class="section" id="window-flags">

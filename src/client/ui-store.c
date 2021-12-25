@@ -187,7 +187,9 @@ static void store_display_entry(struct menu *menu, int oid, bool cursor, int row
         /* The price is not available if 0 (the item is not for sale) */
         if (x == 0)
             c_put_str(COLOUR_SLATE, "N/A", row, ctx->scr_places_x[LOC_PRICE] + 5);
-        else
+
+        /* Hack -- objects in stores not for buying have price of PY_MAX_GOLD */
+        else if (x < PY_MAX_GOLD)
             c_put_str(colour, out_val, row, ctx->scr_places_x[LOC_PRICE]);
     }
 }
@@ -438,12 +440,16 @@ static bool store_purchase(struct store_context *ctx, int item)
     int amt, num;
     ui_event ea = EVENT_ABORT;
     struct store *store = ctx->store;
+    bool obj_can_use = true;
+    const char *verb = "Buy", *can_use = "";
 
     /* Clear all current messages */
     prt("", 0, 0);
 
     if (store->type != STORE_HOME)
     {
+        bool obj_is_book;
+
         /* Price of one */
         s32b price = obj->askprice;
 
@@ -463,6 +469,9 @@ static bool store_purchase(struct store_context *ctx, int item)
             /* Abort now */
             return false;
         }
+
+        obj_is_book = tval_is_book(obj);
+        obj_can_use = !obj_is_book || obj_can_browse(player, obj);
     }
 
     /* Work out how many the player can afford */
@@ -477,9 +486,15 @@ static bool store_purchase(struct store_context *ctx, int item)
 
     /* Find the number of this item in the inventory */
     num = obj->info_xtra.owned;
-    strnfmt(o_name, sizeof(o_name), "%s how many%s? (max %d) ",
-        ((store->type == STORE_HOME)? "Take": "Buy"),
-        (num? format(" (you have %d)", num): ""), amt);
+    if (store->type == STORE_HOME) verb = "Take";
+    if (!obj_can_use) can_use = ", can't use!";
+    if (num)
+    {
+        strnfmt(o_name, sizeof(o_name), "%s how many (you have %d)? (max %d%s) ", verb, num, amt,
+            can_use);
+    }
+    else
+        strnfmt(o_name, sizeof(o_name), "%s how many? (max %d%s) ", verb, amt, can_use);
 
     /* Hack -- get single items directly from home */
     if ((store->type == STORE_HOME) && (amt == 1)) {}

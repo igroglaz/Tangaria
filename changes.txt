@@ -22,6 +22,7 @@ Angband 4.2.x:
   point buy for the statistics
 - Change keymap terminator to =
 - Change key to reset birth options to the Angband defaults
+- Changed purchase message to show if a book is not usable
 
 MAngband 1.5.x:
 
@@ -29,7 +30,8 @@ MAngband 1.5.x:
 
 PWMAngband:
 
--
+- Allow negative cost for object kinds to tag them "not for buying" in stores
+- Add option to hide controlled monsters in monster lists
 
 Gameplay changes
 ----------------
@@ -53,6 +55,7 @@ PWMAngband:
 - Fix crash when enabling/disabling tiles during character creation
 - Fix crash during ego/artifact generation by saving ego/artifact indexes as
   u16b instead of byte
+- Prevent calling exit_game_panic() after shutdown_server() succeeds
 
 Coding changes
 --------------

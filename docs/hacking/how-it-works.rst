@@ -59,22 +59,22 @@ The lowest-level code in PWMAngband is the "Z" layer, which provides
 platform-independent abstractions and generic data structures. Currently, the Z
 layer provides:
 
-=================  ========================================
-``z-bitflag``      Densely-packed bit flag arrays
-``z-color``        Colors
-``z-dice``         Dice expressions
-``z-expression``   Mathematical expressions
-``z-file``         File I/O
-``z-form``         String formatting
-``z-quark``        String interning
-``z-queue``        Queues
-``z-rand``         Randomness
-``z-set``          Sets
-``z-textblock``    Wrapped text
-``z-type``         Basic types
-``z-util``         Random utility macros
-``z-virt``         malloc() wrappers
-=================  ========================================
+=================   ========================================
+``z-bitflag``       Densely-packed bit flag arrays
+``z-color``         Colors
+``z-dice``          Dice expressions
+``z-expression``    Mathematical expressions
+``z-file``          File I/O
+``z-form``          String formatting
+``z-quark``         String interning
+``z-queue``         Queues
+``z-rand``          Randomness
+``z-set``           Sets
+``z-textblock``     Wrapped text
+``z-type``          Basic types
+``z-util``          Random utility macros
+``z-virt``          malloc() wrappers
+=================   ========================================
 
 Code in the Z layer may not depend on files outside the Z layer.
 
@@ -229,15 +229,15 @@ Keeping the UI up to date
 Four related horribly-named functions in player-calcs.h are responsible for
 keeping the UI in sync with the simulated character's state:
 
-================== ============================================================
-``notice_stuff()`` which deals with pack combining and dropping ignored items;
-``update_stuff()`` which recalculates derived bonuses, AI data, vision, seen
-                   monsters, and other things based on the flags in
-                   ``player->upkeep->update``;
-``redraw_stuff()`` which signals the UI to redraw changed sections of the
-                   game state;
-``handle_stuff()`` which calls update_stuff() and redraw_stuff() if needed.
-================== ============================================================
+==================  ============================================================
+``notice_stuff()``  which deals with pack combining and dropping ignored items;
+``update_stuff()``  which recalculates derived bonuses, AI data, vision, seen
+                    monsters, and other things based on the flags in
+                    ``player->upkeep->update``;
+``redraw_stuff()``  which signals the UI to redraw changed sections of the
+                    game state;
+``handle_stuff()``  which calls update_stuff() and redraw_stuff() if needed.
+==================  ============================================================
 
 These functions are called during every game loop, after the player and all
 monsters have acted.

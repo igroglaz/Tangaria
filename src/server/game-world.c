@@ -2862,7 +2862,11 @@ void shutdown_server(void)
     /* Successful save of server info */
     else plog("Server state save succeeded!");
 
-    save_account_info();
+    if (!save_account_info()) plog("Account info save failed!");
+    else plog("Account info save succeeded!");
+
+    /* Don't re-enter */
+    server_generated = false;
 
     /* Tell the metaserver that we're gone */
     Report_to_meta(META_DIE);
@@ -2941,7 +2945,8 @@ void exit_game_panic(void)
     /* Successful panic save of server info */
     else plog("Server panic info save succeeded!");
 
-    save_account_info();
+    if (!save_account_info()) plog("Account panic info save failed!");
+    else plog("Account panic info save succeeded!");
 
     /* Don't re-enter */
     server_generated = false;

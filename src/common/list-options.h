@@ -51,4 +51,5 @@ OP(ascii_mon, "Display monsters in ASCII", ADVANCED, false, true)
 OP(disturb_nomove, "Nonmoving monsters disturb running", ADVANCED, true, true)
 OP(disturb_effect_end, "Disturb when effects end", ADVANCED, true, true)
 OP(confirm_recall, "Confirm recall out of non-reentrable dungeons", ADVANCED, true, true)
+OP(hide_slaves, "Hide controlled monsters in monster lists", ADVANCED, false, true)
 

@@ -1996,6 +1996,9 @@ static void display_entry(struct player *p, struct object *obj, bool home)
     /* Find the number of this item in the inventory */
     num = find_inven(p, obj);
 
+    /* Hack -- objects in stores not for buying */
+    if (obj->kind->cost == PY_MAX_GOLD) price = PY_MAX_GOLD;
+
     /* Send the info */
     dump_spells(p, obj);
     bidx = (s16b)object_to_book_index(p, obj);

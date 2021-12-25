@@ -330,6 +330,11 @@ Confirm recall out of non-reentrable dungeons ``confirm_recall``
   This option triggers a confirmation message when recalling from a dungeon
   with an entrance level lower than the current character level.
 
+..
+
+Hide controlled monsters in monster lists ``hide_slaves``
+  This option hides controlled monsters in monster lists.
+
 Window flags
 ------------
 

@@ -152,6 +152,9 @@ void monster_list_collect(struct player *p, monster_list_t *list)
         /* Skip dead monsters */
         if (!mon->race) continue;
 
+        /* Skip controlled monsters */
+        if (OPT(p, hide_slaves) && (p->id == mon->master)) continue;
+
 		/* Only consider visible, known monsters */
         if (!monster_is_obvious(p, i, mon)) continue;
 

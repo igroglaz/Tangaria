@@ -1880,6 +1880,9 @@ static enum parser_error parse_object_cost(struct parser *p)
     my_assert(k);
     k->cost = parser_getint(p, "cost");
 
+    /* Hack -- objects in stores not for buying */
+    if (k->cost < 0) k->cost = PY_MAX_GOLD;
+
     return PARSE_ERROR_NONE;
 }
 
