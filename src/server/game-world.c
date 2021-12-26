@@ -502,7 +502,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     /* Necromancer class golem */
-    if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0))
+    if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {

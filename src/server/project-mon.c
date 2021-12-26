@@ -2160,8 +2160,7 @@ void monster_set_master(struct monster *mon, struct player *p, byte status)
     {
         int maxslaves = 1 + (1 + p->state.stat_ind[STAT_WIS]) / 4;
         if (p->state.stat_ind[STAT_CHR] > 18) maxslaves++;
-        if (streq(p->clazz->name, "Necromancer"))
-            maxslaves = maxslaves++;
+        if (streq(p->clazz->name, "Necromancer")) maxslaves++;
 
         if (p->slaves == maxslaves)
         {
