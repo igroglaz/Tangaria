@@ -6006,10 +6006,9 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Summon Golem:15:8:1:7:0
-cooldown:10
+cooldown:6
 effect:TIMED_INC:GOLEM
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+dice:2
 msg_other: summons a golem.
 desc:Attempts to summon golem.
 
@@ -6053,6 +6052,7 @@ desc: There you get resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns.
 
 spell:Necromancy Mastery:40:30:35:33:0
+cooldown:45
 effect:SUMMON:UNDEAD:0:100
 dice:1
 desc:Summon undead remains to fight on your side.
