@@ -4963,7 +4963,7 @@ dice:12
 msg_other: magically summons animals.
 desc:Attempts to summon up to twelve animals and then prevents summoning
 desc: around you for some time. Makes you blind for a tiny moment.
-desc: You can use this skill once per 30 seconds.
+desc: You can use this skill once per 30 turns.
 
 #2
 book:nature book:town:[Gifts of Nature]:3:nature
@@ -4987,6 +4987,7 @@ desc:Summon your pet. If it was unconscious - it will even come to senses
 desc: to come at your call.
 desc: You can use this skill once per minute.
 desc: Mana which you spend on this skill depends on your level.
+desc: You can use this skill once per 60 turns.
 
 spell:Heal Pet:10:1:26:1:0
 effect:BOLT_STATUS:MON_HEAL
@@ -5378,6 +5379,7 @@ effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 1
 desc:Reckless charge to chosen target.
+desc: You can use this skill once per 5 turns.
 
 spell:First Aid:15:15:32:12:0
 effect:TIMED_INC:REGEN
@@ -5579,6 +5581,7 @@ desc: are standing on the glyph, it must first succeed in breaking the glyph.
 desc: Higher level monsters are more likely to break the glyph.
 desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
+desc: You can cast this spell every 100 turns.
 
 ############### CLASS TEMPLATE for Bard ###############
 name:Bard
@@ -5888,6 +5891,7 @@ desc: Meteors will explode as a radius-1 ball that does unresistable
 desc: damage to each monster in its area of effect.
 desc: If this kills the monster that blocked the path to the target
 desc: location, the next meteor may continue to find another target.
+desc: You can cast this spell every 10 turns.
 
 spell:Stoneskin:30:35:40:20:0
 effect:TIMED_INC:SHIELD
@@ -5999,8 +6003,7 @@ effect:BOLT_OR_BEAM:NETHER:0:-10
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a nether bolt.
-desc:Fires a magic missile that always hits its target and does
-desc: unresistable damage.
+desc:Fires a nether missile that always hits its target.
 desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
@@ -6011,6 +6014,7 @@ effect:TIMED_INC:GOLEM
 dice:2
 msg_other: summons a golem.
 desc:Attempts to summon golem.
+desc: Cooldown 6 turns.
 
 spell:Dark Portal:20:12:30:10:0
 effect:TELEPORT
@@ -6019,7 +6023,7 @@ expr:B:PLAYER_LEVEL:* 2
 effect:DETECT_EVIL
 effect-yx:22:40
 msg_other: blinks away.
-desc:Teleports you randomly over a short distance.
+desc:Teleports you randomly over a medium distance.
 desc: This travel through astral grants ability to feel presence of evil.
 
 spell:Cry Of Cthulhu:25:15:30:15:0
@@ -6056,6 +6060,7 @@ cooldown:45
 effect:SUMMON:UNDEAD:0:100
 dice:1
 desc:Summon undead remains to fight on your side.
+desc: Cooldown 45 turns.
 
 spell:Detonate Skeleton:45:40:40:40:0
 effect:DETONATE
@@ -6391,6 +6396,7 @@ effect:SUMMON:DEMON:0:100
 dice:1
 msg_other: summons a daemon.
 desc:Attempts to summon a daemon.
+desc: Cooldown 100 turns.
 
 ############### CLASS TEMPLATE for Trader ###############
 name:Trader
@@ -6459,9 +6465,10 @@ msg_other: blinks away.
 desc:Teleports you randomly to a short distance.
 
 spell:Pray:15:11:35:20:0
-cooldown:100
+cooldown:42
 effect:WONDER
 desc:You pray to gods for unknown effect.
+desc: Cooldown 42 turns.
 
 spell:Tunnel:20:12:35:25:0
 effect:BOLT_MELEE:KILL_WALL
@@ -6533,6 +6540,7 @@ dice:1
 effect:NOURISH:SET_TO
 dice:5
 desc:You venture into dangerous business for a trade deal.
+desc: Cooldown 10000 turns.
 
 ############### CLASS TEMPLATE for Assassin ###############
 name:Assassin
@@ -6621,6 +6629,7 @@ dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
+desc: Cooldown 10 turns.
 
 spell:Shadowstep:20:7:16:17:0
 cooldown:12
@@ -6632,11 +6641,13 @@ expr:B:PLAYER_LEVEL:/ 10 + 1
 effect:TIMED_INC:FAST:0:5
 dice:1
 desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
+desc: Cooldown 12 turns.
 
 spell:Shadow Decoy:25:15:40:25:0
 cooldown:15
 effect:GLYPH:DECOY
 desc:Leaves a magical decoy that looks and sounds like the player.
+desc: Cooldown 15 turns.
 
 spell:Infiltration:30:20:22:30:0
 effect:BOLT:SLEEP_ALL
@@ -6672,6 +6683,7 @@ expr:D:PLAYER_LEVEL:/ 8 + 1
 expr:S:MONSTER_PERCENT_HP_GONE:+ 0
 desc:Deals direct damage to a single monster, more the more damaged the monster
 desc: is already.
+desc: Cooldown 11 turns.
 
 spell:Traumaturgy:45:50:35:80:0
 cooldown:15
@@ -6682,6 +6694,7 @@ msg_other: strikes with psi energy.
 desc:Drains part of the life-force from a nearby monster and replenishes
 desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
+desc: Cooldown 15 turns.
 
 spell:Flower of Death:50:10:32:100:0
 effect:STAR:POIS
@@ -6703,6 +6716,7 @@ cooldown:50
 effect:TIMED_INC:STEALTH
 dice:10+1d10
 desc:Makes your more silent for a while.
+desc: Cooldown 50 turns.
 
 spell:Sneak to Depths:30:20:30:40:0
 effect:TIMED_INC:PROBTRAVEL
@@ -6732,6 +6746,7 @@ effect:CURE:AFRAID
 desc:Grants you resistance to fear and a bonus of +36 to-hit
 desc: and a penalty of -10 to AC.
 desc: Also you can see in the dark like a cat for a little while.
+desc: Cooldown 50 turns.
 
 spell:Preparation:45:50:30:90:0
 cooldown:100
@@ -6739,6 +6754,7 @@ effect:TIMED_INC:HOLD_WEAPON
 dice:20+1d20
 desc:Grants extra damage each turn and makes you immune to disarming
 desc: for 20+1d20 turns.
+desc: Cooldown 100 turns.
 
 spell:Inception:50:40:33:120:0
 effect:TIMED_INC:ADRENALINE
@@ -6909,6 +6925,7 @@ effect:TELEPORT
 dice:5
 msg_other: blinks away.
 desc:You teleport around battlefield times bringing havoc with you.
+desc: Cooldown 4 turns.
 
 
 ############### CLASS TEMPLATE for Weathermaster / Cryokinetic ###############
@@ -6998,6 +7015,7 @@ desc: of cuts and stunning.
 desc: Also grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
+desc: Cooldown 150 turns.
 
 spell:Pyrokinesis:20:10:32:20:0
 effect:STRIKE:FIRE:0
@@ -7050,6 +7068,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 4
 msg_other: subzeroes surrounding air into a sharp icicles.
 desc:Starts icy blizzard around you.
+desc: Cooldown 2 turns.
 
 spell:Firestorm:50:50:39:150:0
 cooldown:3
@@ -7058,6 +7077,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 7
 msg_other: invokes a hellish storm.
 desc:Spews fire in a long narrow cone from you.
+desc: Cooldown 3 turns.
 
 ############### CLASS TEMPLATE for Chronowarrior / Mesmer / Predictor
 name:Timeturner
@@ -7115,6 +7135,7 @@ dice:500
 msg_self:Your body begins to rapidly recover.
 desc:Cures 500 points of damage, cures all stunning, heals all
 desc: cut damage, neutralizes poison, and cures amnesia.
+desc: Cooldown 100 turns.
 
 spell:Fastest Recall:5:5:35:10:0
 effect:RECALL
@@ -7139,6 +7160,7 @@ cooldown:75
 effect:TIMED_INC:FASTCAST
 dice:5+1d5
 desc:Doubles spellcasting speed for 5+1d5 turns.
+desc: Cooldown 75 turns.
 
 spell:Temporal Paradox:20:15:45:30:0
 effect:TIMED_INC:ANCHOR
@@ -7509,6 +7531,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: scorches the victim.
 desc:Scorches victim with a fire.
+desc: Cooldown 5 turns.
 
 spell:Confession:15:9:33:7:0
 effect:TIMED_INC:TAUNT
@@ -7527,6 +7550,7 @@ msg_other: makes devious torture to the victim.
 desc:Hits the victim in a weak spot to cause a pain.
 desc: Restores your mana.
 desc: Does not affect undead, demons, golems, elementals or vortices.
+desc: Cooldown 13 turns.
 
 spell:Get to Hell:25:20:33:15:0
 effect:DEEP_DESCENT
@@ -7555,6 +7579,7 @@ msg_other: attempts to drain soul from victim.
 desc:Drains part of the life-force from a nearby victim and replenishes
 desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
+desc: Cooldown 13 turns.
 
 spell:Surge of Sin:45:50:33:80:0
 effect:BEAM:DISEN
@@ -7567,6 +7592,7 @@ spell:Retribution:50:70:33:120:0
 cooldown:333
 effect:BIZARRE
 desc:Bring retribution to heretics...
+desc: Cooldown 333 turns.
 
 ############### Additional class slot for incoming PWMA Adventurer ###############
 name:Adventurer
@@ -7703,6 +7729,7 @@ desc: are standing on the glyph, it must first succeed in breaking the glyph.
 desc: Higher level monsters are more likely to break the glyph.
 desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
+desc: Cooldown 100 turns.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B

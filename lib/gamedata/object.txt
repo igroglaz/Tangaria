@@ -2428,6 +2428,7 @@ type:ring
 level:10
 weight:2
 cost:200
+flags:SUST_STR | SUST_CON
 alloc:30:10 to 50
 attack:0d0:2+d3:2+d3
 armor:0:-8+4d3

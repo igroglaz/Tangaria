@@ -697,7 +697,7 @@ static void project_monster_handler_NETHER(project_monster_handler_context_t *co
         context->dam *= 3;
         context->dam /= (randint1(6) + 6);
     }
-    else if (monster_is_evil(context->mon))
+    else if (monster_is_evil(context->mon) && !streq(context->origin->player->clazz->name, "Necromancer"))
     {
         context->dam /= 2;
         context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
