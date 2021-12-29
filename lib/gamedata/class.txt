@@ -1855,7 +1855,7 @@ skill-dig:0:0
 hitdie:4
 ##### WE USE CLASSIC EXP FACTOR; 2nd value
 # -10% (harder)
-exp:100:90
+# exp:100:90  /// Doesn't work for now.
 max-attacks:5
 min-weight:20
 strength-multiplier:4
