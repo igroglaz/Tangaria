@@ -544,7 +544,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
             if (mon->race)
             {
-                // if we already got golem - no need to summon another one
+                // if we already got sentry - no need to summon another one
                 if (streq(mon->race->name, "blade sentry")) break;
                 if (streq(mon->race->name, "dart sentry")) break;
                 if (streq(mon->race->name, "spear sentry")) break;
@@ -553,7 +553,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
                 if (streq(mon->race->name, "lightning sentry")) break;
             }
 
-            // if we checked all monsters and no golem among them: summon one!
+            // if we checked all monsters and no sentry among them: summon one!
             if (i+1 == cave_monster_max(c))
             {
                 if (p->lev < 10)

@@ -2826,7 +2826,7 @@ void process_monsters(struct chunk *c, bool more_energy)
 
                 if (b->id != mon->master) continue;
 
-                // Class spell to unsummon pets (necromancer)
+                // Class spell to unsummon pets (necromancer, assassin)
                 if (b->timed[TMD_UNSUMMON_MINIONS])
                 {
                     update_monlist(mon);
@@ -2841,6 +2841,20 @@ void process_monsters(struct chunk *c, bool more_energy)
                         mon->lifespan++;
 
                     // Purge necromancer class "unconscious" minions
+                    if (mon->hp == 0)
+                    {
+                        update_monlist(mon);
+                        delete_monster_idx(c, i);
+                        continue;
+                    }
+                }
+                else if (streq(b->clazz->name, "Assassin"))
+                {
+                    // Assassin class lifespan bonus
+                    if (mon->lifespan < b->lev && one_in_(2))
+                        mon->lifespan++;
+
+                    // Purge "unconscious" sentry
                     if (mon->hp == 0)
                     {
                         update_monlist(mon);

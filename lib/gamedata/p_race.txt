@@ -2131,7 +2131,7 @@ value:0:MOVES[1+1d5]
 #value:40:RES_FIRE[3] hardcoded
 value:0:RES_COLD[-1]
 obj-flag:0:IMPAIR_MANA
-# can teleport around from time to time
+# randomly teleports around from time to time
 player-flags:0:STEALTH_MODE
 value:0:MANA[8+-1d6]
 
