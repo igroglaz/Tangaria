@@ -119,7 +119,8 @@ help: the more fighting oriented classes with magical devices, but still cannot
 help: rely on their performance. Rogues can also learn a few spells, but not the
 help: powerful offensive spells mages can use, and there will always be a chance
 help: of failure even with the simplest spells. A rogue's primary stats are
-help: dexterity and intelligence.
+help: dexterity and intelligence. |
+help: They receive experience a bit faster than others.
 
 class:Ranger
 help:A Ranger is at home in nature, and good at turning the environment to

@@ -246,6 +246,10 @@ static void adjust_level(struct player *p)
  */
 void player_exp_gain(struct player *p, s32b amount)
 {
+    // Rogue class get exp faster (which make gameplay a bit harder)
+    if (streq(p->clazz->name, "Rogue"))
+        amount = (amount * 10) / 9;
+
     /* Gain some experience */
     p->exp += amount;
 
