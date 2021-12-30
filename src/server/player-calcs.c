@@ -2457,7 +2457,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
             /* Apply effects progressively */
             state->to_h -= lack;
-            state->to_d -= lack;
+            // ..make less damage when hungry
+            state->to_d -= 1 + (p->lev / 10);
+            // ..and even less damage for 25+lvl players
+            if (p->lev > 24)
+                state->to_d -= p->lev / 10;
             if ((lack > 10) && (lack <= 15))
                 adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 10, 0);
             else if ((lack > 15) && (lack <= 18))
