@@ -175,6 +175,10 @@ bool mon_restrict(const char *monster_type, int depth, int current_depth, bool u
     /* Use a pit profile */
     profile = lookup_pit_profile(monster_type);
 
+    // restrict tengu pits on dlvl < 25
+    if (profile && depth < 25 && streq(profile->bases->base->text, "tengu"))
+        return false;
+
     /* Accept the profile or leave area empty if none found */
     if (profile)
         dun->pit_type = profile;
