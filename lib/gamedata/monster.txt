@@ -7894,7 +7894,7 @@ blow:CLAW:HURT:2d10
 blow:CLAW:HURT:2d10
 blow:BITE:HURT:3d8
 flags:NO_FEAR
-flags:DROP_CORPSE | WILD_WOOD | NO_PIT
+flags:DROP_CORPSE | WILD_WOOD
 flags:NO_PASS_TREE
 desc:A blinding whirlwind of fear and feathers. Its razor sharp beak and talons
 desc: fill its foes with terror as it seeks to rend flesh from bone with
