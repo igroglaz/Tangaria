@@ -98,7 +98,7 @@
 # 'attack' is for barehanded attacks.
 
 # 'magic' is for general magic info - level of the first spell, weight that
-# hurts spells, number of books used.
+# hurts spells (max armor weight to avoid mana penalties), number of books used.
 
 # 'book' defines one of these books - object base, whether a town or a dungeon
 # book, name, number of spells, book realm. A book needs to be defined for
@@ -4863,7 +4863,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:600:2
+magic:1:350:2
 
 book:nature book:town:[Lesser Charms]:11:nature
 equip:nature book:[Lesser Charms]:1:1:none
@@ -5348,7 +5348,7 @@ title:Chevalier
 title:Lord
 title:Glorious Lord
 
-magic:1:500:1
+magic:1:600:1
 
 book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
@@ -5469,7 +5469,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:1
+magic:1:350:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
@@ -5624,7 +5624,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:400:1
+magic:1:350:1
 
 book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
@@ -5814,7 +5814,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:1
+magic:1:350:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
@@ -6439,7 +6439,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:2
+magic:1:350:2
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
@@ -6550,7 +6550,7 @@ skill-disarm-phys:43:11
 skill-disarm-magic:36:10
 skill-device:32:10
 skill-save:28:10
-skill-stealth:0:1
+skill-stealth:1:1
 skill-search:18:13
 skill-melee:45:45
 skill-shoot:66:40
@@ -6572,7 +6572,7 @@ value:0:WIS[-2]
 value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-2]
-value:0:MANA[1]
+value:0:MANA[3]
 player-flags:0:CHOOSE_SPELLS
 player-flags:0:BACK_STAB
 title:Vagabond
@@ -6586,7 +6586,7 @@ title:Eliminator
 title:Assassin
 title:Master Assassin
 
-magic:3:350:2
+magic:1:400:2
 
 book:shadow book:town:[Shadows for Beginners]:11:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
@@ -6626,8 +6626,8 @@ msg_other: stubbed a tearing blow.
 desc:Makes a wounding blow and hastes you for a moment.
 desc: This also has a chance to cause open wounds.
 
-spell:Adrenaline Splash:15:5:30:10:0
-cooldown:10
+spell:Adrenaline Splash:15:4:30:10:0
+cooldown:7
 effect:MELEE_BLOWS:FORCE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
@@ -6636,24 +6636,24 @@ desc: with a chance to stun it.
 desc: Cooldown 10 turns.
 
 spell:Shadowstep:20:7:16:17:0
-cooldown:12
+cooldown:11
 effect:MELEE_BLOWS:MON_STUN
 dice:2
 effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 1
 effect:TIMED_INC:FAST:0:5
-dice:1
+dice:2
 desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
 desc: Cooldown 12 turns.
 
-spell:Shadow Decoy:25:15:40:25:0
+spell:Shadow Decoy:25:10:40:25:0
 cooldown:15
 effect:GLYPH:DECOY
 desc:Leaves a magical decoy that looks and sounds like the player.
 desc: Cooldown 15 turns.
 
-spell:Infiltration:30:20:22:30:0
+spell:Infiltration:30:15:22:30:0
 effect:BOLT:SLEEP_ALL
 effect:BOLT:PSI
 dice:$B
@@ -6664,22 +6664,16 @@ desc: side effects like stun, confuse, scare.
 desc: Also attempts to put asleep every adjacent, non-resistant monster for a level-dependent
 desc: number of turns. Animals are entranced for longer.
 
-spell:Shield of Blades:35:25:27:40:0
+spell:Shield of Blades:35:17:27:40:0
 effect:BLAST:MISSILE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 effect:TIMED_SET:DEADLY
 dice:2
-effect:TIMED_INC:BIOFEEDBACK
-dice:2
 desc:Makes powerful whirl attack.
-desc: Also gives your melee blows a chance to score a critical hit,
-desc: increases regeneration rate, reduces damage from missile,
-desc: shards or sound attacks.
-desc: This power can cause additional nasty effects when Adrenaline Charging is
-desc: activated.
+desc: Also gives your melee blows a chance to score a critical hit.
 
-spell:Finishing Move:40:35:30:60:0
+spell:Finishing Move:40:20:30:60:0
 cooldown:11
 effect:CURSE
 dice:$Dd$S
@@ -6689,7 +6683,7 @@ desc:Deals direct damage to a single monster, more the more damaged the monster
 desc: is already.
 desc: Cooldown 11 turns.
 
-spell:Traumaturgy:45:50:35:80:0
+spell:Traumaturgy:45:40:35:80:0
 cooldown:15
 effect:STRIKE:PSI_DRAIN:0
 dice:$B
@@ -6700,27 +6694,24 @@ desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
 desc: Cooldown 15 turns.
 
-spell:Flower of Death:50:10:32:100:0
+spell:Flower of Death:50:25:32:100:0
+cooldown:60
 effect:STAR:POIS
 dice:$B
-expr:B:PLAYER_LEVEL:* 7
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: activate fire trap.
-desc:Activate fire trap that shoots poison in each of
+expr:B:PLAYER_LEVEL:* 10
+msg_other: opens Flower of Death.
+desc:Activate trap that shoots spray of poison in each of
 desc: the eight directions starting from your character.
-desc: Beware to use on low mana.
 
 # 1st dungeon book
 book:shadow book:dungeon:[Dark Evocations]:6:shadow
 
 spell:Fade in Shadows:25:15:30:25:0
-cooldown:50
+cooldown:60
 effect:TIMED_INC:STEALTH
 dice:10+1d10
 desc:Makes your more silent for a while.
-desc: Cooldown 50 turns.
+desc: Cooldown 60 turns.
 
 spell:Sneak to Depths:30:20:30:40:0
 effect:TIMED_INC:PROBTRAVEL
@@ -6772,8 +6763,7 @@ desc: At a second stage, increases strength, dexterity and constitution.
 desc: At a third stage, grants a bonus of +8 to-dam.
 desc: At a fourth stage, increases attack speed by 1.
 desc: At a fifth and last stage, hastes you (+10 to speed).
-desc: This power can cause damage if used too often or when Biofeedback is
-desc: activated.
+desc: This power can cause damage if used too often.
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
 name:Phaseblade
@@ -6967,7 +6957,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:400:1
+magic:1:350:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
@@ -7123,7 +7113,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:400:5
+magic:1:350:5
 
 book:psi book:town:of Telepathy:11:psi
 equip:psi book:of Telepathy:1:1:none
@@ -7275,7 +7265,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:1
+magic:1:350:1
 
 # brainstorm for later:
 # create rubble with with 'y' key?
@@ -7463,7 +7453,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:1
+magic:1:350:1
 
 book:nature book:town:[Lesser Charms]:6:nature
 equip:nature book:[Lesser Charms]:1:1:none
@@ -7638,7 +7628,7 @@ title:Adept
 title:Master
 title:Grandmaster
 
-magic:1:300:1
+magic:1:350:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none

@@ -2851,7 +2851,7 @@ void process_monsters(struct chunk *c, bool more_energy)
                 else if (streq(b->clazz->name, "Assassin"))
                 {
                     // Assassin class lifespan bonus
-                    if (mon->lifespan < b->lev && one_in_(2))
+                    if (mon->lifespan < b->lev)
                         mon->lifespan++;
 
                     // Purge "unconscious" sentry
