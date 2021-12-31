@@ -5260,7 +5260,7 @@ desc:Gives your next melee blow in current fight a high chance to score
 desc: a critical hit.
 
 spell:Gush:20:15:22:30:0
-effect:MELEE_BLOWS:CURSE
+effect:MELEE_BLOWS:MISSILE
 dice:$Dd5
 expr:D:PLAYER_LEVEL:/ 3 * 2
 msg_other: stubbed a tearing blow.
@@ -5288,7 +5288,7 @@ desc:Attempts to improve the armour class bonus of a piece of armour.
 desc: This prayer reduce your nourishment.
 
 spell:Whirlwind:40:16:60:110:0
-effect:BLAST:CURSE:2
+effect:BLAST:MISSILE:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 desc:Make rain of blows in a dance of killing machine.
@@ -6575,6 +6575,7 @@ value:0:CHR[-2]
 value:0:MANA[3]
 player-flags:0:CHOOSE_SPELLS
 player-flags:0:BACK_STAB
+#player-flags:50:SHIELD_BASH
 title:Vagabond
 title:Cutpurse
 title:Footpad
@@ -6592,6 +6593,7 @@ book:shadow book:town:[Shadows for Beginners]:11:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
 spell:Sentry:1:1:20:1:0
+cooldown:5
 effect:TIMED_INC:SENTRY
 dice:2
 effect:SPEND_MANA
@@ -6607,64 +6609,61 @@ desc: 40 level: fire sentry
 desc: 50 level: lightning sentry
 desc: Requires additional mana when you get each level.
 desc: If you cast the spell without enough mana - you suffer severe exhaustion.
+desc: Cooldown 5 turns.
 
 spell:Bad Feeling:5:1:1:3:0
 effect:TIMED_INC:ESP
 dice:1
 effect:TIMED_INC:UNSUMMON_MINIONS
-dice:1
+dice:2
 desc:Grants you the power of telepathy for a moment.
 desc: Also you loose control over your magic sentries and they become demolished.
 
 spell:Lightning Reflex:10:3:25:5:0
 effect:TIMED_INC:FAST:0:5
 dice:2
-effect:MELEE_BLOWS:CURSE
+effect:MELEE_BLOWS:MISSILE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
 msg_other: stubbed a tearing blow.
 desc:Makes a wounding blow and hastes you for a moment.
-desc: This also has a chance to cause open wounds.
 
 spell:Adrenaline Splash:15:4:30:10:0
-cooldown:7
+cooldown:10
+effect:TIMED_INC:FAST:0:5
+dice:2
 effect:MELEE_BLOWS:FORCE
 dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
+expr:B:PLAYER_LEVEL:* 2
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
 desc: Cooldown 10 turns.
 
-spell:Shadowstep:20:7:16:17:0
-cooldown:11
+spell:Shadowstep:20:7:16:15:0
+cooldown:5
 effect:MELEE_BLOWS:MON_STUN
 dice:2
 effect:TELEPORT_TO
 dice:$B
-expr:B:PLAYER_LEVEL:/ 10 + 1
+expr:B:PLAYER_LEVEL:/ 5 + 10
 effect:TIMED_INC:FAST:0:5
 dice:2
 desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
-desc: Cooldown 12 turns.
+desc: Cooldown 5 turns.
 
-spell:Shadow Decoy:25:10:40:25:0
-cooldown:15
-effect:GLYPH:DECOY
-desc:Leaves a magical decoy that looks and sounds like the player.
-desc: Cooldown 15 turns.
-
-spell:Infiltration:30:15:22:30:0
-effect:BOLT:SLEEP_ALL
-effect:BOLT:PSI
+spell:Nuke:25:10:30:17:0
+cooldown:60
+effect:TELEPORT
 dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: hurls a mind blast.
-desc:Fires a mental blast that will damage minded creatures with some
-desc: side effects like stun, confuse, scare.
-desc: Also attempts to put asleep every adjacent, non-resistant monster for a level-dependent
-desc: number of turns. Animals are entranced for longer.
+expr:B:PLAYER_LEVEL:* 4
+effect:BLAST:POIS:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: blasts cloud of poison.
+desc:Sprays thick poison cloud and teleports away.
+desc: Cooldown 60 turns.
 
-spell:Shield of Blades:35:17:27:40:0
+spell:Shield of Blades:30:15:27:20:0
 effect:BLAST:MISSILE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
@@ -6673,18 +6672,29 @@ dice:2
 desc:Makes powerful whirl attack.
 desc: Also gives your melee blows a chance to score a critical hit.
 
-spell:Finishing Move:40:20:30:60:0
-cooldown:11
+spell:Magic Dagger:35:5:45:30:0
+effect:BOLT:MISSILE
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+msg_other: fires a magic dagger.
+desc:Fires a magic dagger that always hits its target and does
+desc: unresistable damage.
+
+spell:Finishing Move:40:20:30:40:0
+cooldown:30
 effect:CURSE
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:/ 8 + 1
 expr:S:MONSTER_PERCENT_HP_GONE:+ 0
-desc:Deals direct damage to a single monster, more the more damaged the monster
-desc: is already.
-desc: Cooldown 11 turns.
+effect:TELEPORT_TO
+dice:$B
+expr:B:PLAYER_LEVEL:/ 5 + 10
+desc:Teleports to target and deals direct damage to a single monster,
+desc: more the more damaged the monster is already.
+desc: Cooldown 30 turns.
 
-spell:Traumaturgy:45:40:35:80:0
-cooldown:15
+spell:Traumaturgy:45:30:35:80:0
+cooldown:45
 effect:STRIKE:PSI_DRAIN:0
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
@@ -6692,34 +6702,49 @@ msg_other: strikes with psi energy.
 desc:Drains part of the life-force from a nearby monster and replenishes
 desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
-desc: Cooldown 15 turns.
+desc: Cooldown 45 turns.
 
-spell:Flower of Death:50:25:32:100:0
-cooldown:60
+spell:Flower of Death:50:35:32:100:0
+cooldown:10
 effect:STAR:POIS
 dice:$B
 expr:B:PLAYER_LEVEL:* 10
 msg_other: opens Flower of Death.
 desc:Activate trap that shoots spray of poison in each of
 desc: the eight directions starting from your character.
+desc: Cooldown 10 turns.
 
 # 1st dungeon book
 book:shadow book:dungeon:[Dark Evocations]:6:shadow
 
-spell:Fade in Shadows:25:15:30:25:0
+spell:Shadow Decoy:25:20:40:25:0
 cooldown:60
+effect:GLYPH:DECOY
 effect:TIMED_INC:STEALTH
 dice:10+1d10
-desc:Makes your more silent for a while.
+desc:Leaves a magical decoy that looks and sounds like the player.
+desc:Also makes your more silent for a while.
 desc: Cooldown 60 turns.
 
-spell:Sneak to Depths:30:20:30:40:0
+spell:Sneak to Depths:30:10:30:30:0
 effect:TIMED_INC:PROBTRAVEL
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+dice:2
 desc:Allows you to go 1 level down at will immediately.
 
-spell:Dissolve into Shadow:35:30:40:50:0
+spell:Inception:35:20:22:40:0
+effect:PROJECT_LOS_AWARE:SLEEP_ALL
+desc:Attempts to put to sleep each monster within line of sight.
+
+spell:Inner Power:40:30:50:70:0
+cooldown:60
+effect:TIMED_INC:MANASHIELD
+dice:8+1d10
+desc:Creates a shield of mana around you that absorbs all damage
+desc: inflicted to your character... as long as you have mana
+desc: to fuel it.
+desc: Cooldown 60 turns.
+
+spell:Fade in Shadows:45:40:40:90:0
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
@@ -6727,43 +6752,20 @@ desc:Makes you invisible for a short duration.
 desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
 
-spell:Assassin's Potion:40:30:20:70:0
-cooldown:50
-effect:TIMED_INC:SHERO:0:5
-dice:12+1d12
-effect:TIMED_INC:HERO
-dice:12+1d12
-effect:TIMED_INC:SINFRA
-dice:12+1d12
-effect:TIMED_INC:BOLD:0:5
-dice:12+1d12
-effect:CURE:AFRAID
-desc:Grants you resistance to fear and a bonus of +36 to-hit
-desc: and a penalty of -10 to AC.
-desc: Also you can see in the dark like a cat for a little while.
-desc: Cooldown 50 turns.
-
-spell:Preparation:45:50:30:90:0
-cooldown:100
-effect:TIMED_INC:HOLD_WEAPON
-dice:20+1d20
-desc:Grants extra damage each turn and makes you immune to disarming
-desc: for 20+1d20 turns.
-desc: Cooldown 100 turns.
-
-spell:Inception:50:40:33:120:0
-effect:TIMED_INC:ADRENALINE
-dice:10+1d10
-desc:Attempts to get full control over your mind and body, increasing your
-desc: fighting abilities each time you apply this meditation while it's active.
-desc: At a first stage, cures 30 points of damage, removes fear and grants
-desc: you berserk strength (resistance to fear, a bonus of +24 to-hit and a
-desc: penalty of -10 to AC).
-desc: At a second stage, increases strength, dexterity and constitution.
-desc: At a third stage, grants a bonus of +8 to-dam.
-desc: At a fourth stage, increases attack speed by 1.
-desc: At a fifth and last stage, hastes you (+10 to speed).
-desc: This power can cause damage if used too often.
+spell:Dark Mark:50:50:33:120:0
+cooldown:500
+effect:SAFE_GUARD
+effect:NOURISH:DEC_BY
+dice:5
+desc:Inscribes a Dark Mark beneath you.
+desc: Summoned monsters can't appear on the Dark Mark.
+desc: If a monster attempts to move onto the mark or melee you while you
+desc: are standing on the mark, it must first succeed in breaking the mark.
+desc: Higher level monsters are more likely to break the mark.
+desc: The mark will remain where it is, until a monster succeeds in
+desc: breaking it or until you leave the level.
+desc: Inscribing the Dark Mark reduces your nourishment.
+desc: Cooldown 500 turns.
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
 name:Phaseblade
