@@ -7007,7 +7007,7 @@ name:& Club~
 graphics:\:u
 type:hafted
 level:0
-weight:20
+weight:35
 cost:0
 alloc:2:1 to 100
 attack:1d3:0:0
