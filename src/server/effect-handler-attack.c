@@ -140,9 +140,8 @@ bool project_los(effect_handler_context_t *context, int typ, int dam, bool obvio
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
-        // New V feature to stop monsters hasting themselves.. disable in T for now:
         /* Don't affect the caster */
-        // if (context->origin->monster && (context->origin->monster == mon)) continue;
+        if (context->origin->monster && (context->origin->monster == mon)) continue;
 
         /* Require line of sight */
         if (!los(c, &origin, &mon->grid)) continue;

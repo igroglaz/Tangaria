@@ -6572,7 +6572,7 @@ value:0:WIS[-2]
 value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-2]
-value:0:MANA[3]
+value:0:MANA[0+1d5]
 player-flags:0:CHOOSE_SPELLS
 player-flags:0:BACK_STAB
 #player-flags:50:SHIELD_BASH
@@ -6587,7 +6587,7 @@ title:Eliminator
 title:Assassin
 title:Master Assassin
 
-magic:1:400:2
+magic:1:550:2
 
 book:shadow book:town:[Shadows for Beginners]:11:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
@@ -6598,7 +6598,7 @@ effect:TIMED_INC:SENTRY
 dice:2
 effect:SPEND_MANA
 dice:$B
-expr:B:PLAYER_LEVEL:/ 2
+expr:B:PLAYER_LEVEL:/ 3
 msg_other: activate sentry.
 desc:Setup battle sentry.
 desc:  1 level: blade sentry
@@ -6613,23 +6613,26 @@ desc: Cooldown 5 turns.
 
 spell:Bad Feeling:5:1:1:3:0
 effect:TIMED_INC:ESP
-dice:1
+dice:2
 effect:TIMED_INC:UNSUMMON_MINIONS
 dice:2
 desc:Grants you the power of telepathy for a moment.
 desc: Also you loose control over your magic sentries and they become demolished.
 
-spell:Lightning Reflex:10:3:25:5:0
-effect:TIMED_INC:FAST:0:5
-dice:2
+spell:Lightning Reflex:10:2:25:5:0
 effect:MELEE_BLOWS:MISSILE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
+effect:TIMED_INC:BOLD
+dice:2
+effect:CURE:AFRAID
+effect:TIMED_INC:FAST:0:5
+dice:2
 msg_other: stubbed a tearing blow.
-desc:Makes a wounding blow and hastes you for a moment.
+desc:Makes a wounding blow and hastes you for a moment and makes fearful.
 
-spell:Adrenaline Splash:15:4:30:10:0
-cooldown:10
+spell:Adrenaline Splash:15:3:30:10:0
+cooldown:5
 effect:TIMED_INC:FAST:0:5
 dice:2
 effect:MELEE_BLOWS:FORCE
@@ -6637,33 +6640,34 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 2
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
-desc: Cooldown 10 turns.
+Cooldown 5 turns.
 
-spell:Shadowstep:20:7:16:15:0
-cooldown:5
+spell:Shadowstep:20:4:16:15:0
+effect:TIMED_INC:FAST:0:5
+dice:2
 effect:MELEE_BLOWS:MON_STUN
 dice:2
 effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 5 + 10
-effect:TIMED_INC:FAST:0:5
-dice:2
 desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
-desc: Cooldown 5 turns.
 
-spell:Nuke:25:10:30:17:0
-cooldown:60
+spell:Nuke:25:1:30:17:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
-effect:BLAST:POIS:5
+effect:BLAST:POIS:3:10
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:/ 2
+effect:SPEND_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
 msg_other: blasts cloud of poison.
-desc:Sprays thick poison cloud and teleports away.
-desc: Cooldown 60 turns.
+desc:Explode around thick 7-8 radius poison cloud and teleports away.
+desc: Requires additional mana when you get each level.
+desc: If you cast the spell without enough mana - you suffer severe exhaustion.
 
-spell:Shield of Blades:30:15:27:20:0
+spell:Shield of Blades:30:10:27:20:0
 effect:BLAST:MISSILE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
@@ -6754,6 +6758,7 @@ desc: cannot be fooled by this trick.
 
 spell:Dark Mark:50:50:33:120:0
 cooldown:500
+effect:WAKE
 effect:SAFE_GUARD
 effect:NOURISH:DEC_BY
 dice:5
@@ -6765,6 +6770,7 @@ desc: Higher level monsters are more likely to break the mark.
 desc: The mark will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: Inscribing the Dark Mark reduces your nourishment.
+desc: It wakes up surrounding monsters.
 desc: Cooldown 500 turns.
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
