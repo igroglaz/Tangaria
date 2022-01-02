@@ -8926,6 +8926,7 @@ blow:HIT:HURT:2d6
 blow:HIT:HURT:2d6
 blow:HIT:HURT:2d6
 flags:UNIQUE | MALE
+flags:DROP_1
 drop-base:food:50:1:2
 friends:100:2d4:half-orc
 friends:100:2d4:uruk:bodyguard
@@ -32036,7 +32037,7 @@ depth:10
 rarity:8
 weight:10
 experience:0
-blow:HIT:HURT:1d8
+blow:HIT:HURT:2d4
 flags:NEVER_MOVE
 flags:FORCE_SLEEP | COLD_BLOOD | STUPID | EMPTY_MIND
 flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_PLASMA | IM_DISEN | IM_NETHER
@@ -32059,7 +32060,7 @@ depth:20
 rarity:8
 weight:10
 experience:0
-blow:HIT:HURT:1d16
+blow:HIT:HURT:4d4
 flags:NEVER_MOVE
 flags:FORCE_SLEEP | COLD_BLOOD | STUPID | EMPTY_MIND
 flags:NO_STUN | NO_CONF | NO_SLEEP | IM_NEXUS | IM_PLASMA | IM_DISEN | IM_NETHER

@@ -6640,7 +6640,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 2
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
-Cooldown 5 turns.
+desc: Cooldown 5 turns.
 
 spell:Shadowstep:20:4:16:15:0
 effect:TIMED_INC:FAST:0:5
