@@ -6573,7 +6573,7 @@ value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-2]
 value:0:MANA[0+1d5]
-value:0:BLOWS[10]
+value:0:BLOWS[1d5]
 player-flags:0:CHOOSE_SPELLS
 player-flags:0:BACK_STAB
 #player-flags:50:SHIELD_BASH
@@ -6633,15 +6633,15 @@ msg_other: stubbed a tearing blow.
 desc:Makes a wounding blow and hastes you for a moment and makes fearful.
 
 spell:Adrenaline Splash:15:4:30:10:0
-cooldown:5
+cooldown:10
 effect:TIMED_INC:FAST:0:5
 dice:2
 effect:MELEE_BLOWS:FORCE
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:* 2
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
-desc: Cooldown 5 turns.
+desc: Cooldown 10 turns.
 
 spell:Shadowstep:20:5:16:15:0
 effect:TIMED_INC:FAST:0:5
@@ -6686,7 +6686,7 @@ desc:Fires a magic dagger that always hits its target and does
 desc: unresistable damage.
 
 spell:Finishing Move:40:15:30:40:0
-cooldown:30
+cooldown:60
 effect:CURSE
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:/ 8 + 1
@@ -6696,7 +6696,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:/ 5 + 10
 desc:Teleports to target and deals direct damage to a single monster,
 desc: more the more damaged the monster is already.
-desc: Cooldown 30 turns.
+desc: Cooldown 60 turns.
 
 spell:Traumaturgy:45:30:35:80:0
 cooldown:45
@@ -6748,16 +6748,7 @@ desc:Makes you invisible for a short duration.
 desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
 
-spell:Inner Power:45:30:50:90:0
-cooldown:360
-effect:TIMED_INC:MANASHIELD
-dice:8+1d10
-desc:Creates a shield of mana around you that absorbs all damage
-desc: inflicted to your character... as long as you have mana
-desc: to fuel it.
-desc: Cooldown 360 turns.
-
-spell:Dark Mark:50:50:33:120:0
+spell:Dark Mark:45:50:33:120:0
 cooldown:300
 effect:WAKE
 effect:SAFE_GUARD
@@ -6773,6 +6764,15 @@ desc: breaking it or until you leave the level.
 desc: Inscribing the Dark Mark reduces your nourishment.
 desc: It wakes up surrounding monsters.
 desc: Cooldown 300 turns.
+
+spell:Inner Power:50:40:50:90:0
+cooldown:60
+effect:TIMED_INC:MANASHIELD
+dice:8+1d10
+desc:Creates a shield of mana around you that absorbs all damage
+desc: inflicted to your character... as long as you have mana
+desc: to fuel it.
+desc: Cooldown 60 turns.
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
 name:Phaseblade
