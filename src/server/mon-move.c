@@ -2826,7 +2826,7 @@ void process_monsters(struct chunk *c, bool more_energy)
 
                 if (b->id != mon->master) continue;
 
-                // Class spell to unsummon pets (necromancer, assassin)
+                // Class spell to unsummon pets (necromancer, assassin, tamer)
                 if (b->timed[TMD_UNSUMMON_MINIONS])
                 {
                     update_monlist(mon);
@@ -2868,13 +2868,9 @@ void process_monsters(struct chunk *c, bool more_energy)
                     if (mon->lifespan < b->lev)
                         mon->lifespan++;
 
-                    // Tamers can resummon their pets
-                    if (b->timed[TMD_REVIVE_PET])
-                    {
-                        update_monlist(mon);
-                        delete_monster_idx(c, i);
-                        continue;
-                    }
+                    // Tamers can treat their pets to heal them in time
+                    if (b->timed[TMD_REGEN_PET])
+                        regen_monster(mon);
                 }
             }
         }

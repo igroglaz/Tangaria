@@ -712,9 +712,9 @@ desc:occupation
 grade:w:10000:Occupied:You are occupied.
 
 # tamer skill
-name:REVIVE_PET
-desc:call your pet
-grade:w:10000:Pet:You called your pet.
+name:REGEN_PET
+desc:treat your pet
+grade:w:10000:Pet:You treat your pet.
 
 # class spell
 name:UNSUMMON_MINIONS

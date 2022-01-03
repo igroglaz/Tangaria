@@ -4869,10 +4869,15 @@ book:nature book:town:[Lesser Charms]:11:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Froggie's Jump:1:1:26:1:0
+cooldown:60
 effect:TELEPORT
 dice:2
+effect:TIMED_INC:UNSUMMON_MINIONS
+dice:1
 msg_other: jumps away like a frog.
 desc:You retreat at random to a short distance.
+desc: Also you resummon your pet.
+desc: Cooldown 60 turns.
 
 spell:Once Bitten:5:3:32:5:0
 effect:TIMED_INC:OPP_POIS
@@ -4977,16 +4982,14 @@ msg_other: project healing energy.
 desc:Cures a level-dependent amount of damage points, and heals all cut and stun damage.
 desc: Requires to be in close range.
 
-spell:Summon Pet:5:1:32:5:0
+spell:Good Treatment:5:1:32:5:0
 cooldown:60
-effect:TIMED_INC:REVIVE_PET
-dice:2
+effect:TIMED_INC:REGEN_PET
+dice:5
 effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
-desc:Summon your pet. If it was unconscious - it will even come to senses
-desc: to come at your call.
-desc: You can use this skill once per minute.
+desc:You treat your pet so it regen it's wounds.
 desc: Mana which you spend on this skill depends on your level.
 desc: You can use this skill once per 60 turns.
 
@@ -6614,7 +6617,7 @@ desc: Cooldown 5 turns.
 
 spell:Bad Feeling:5:1:1:3:0
 effect:TIMED_INC:ESP
-dice:1
+dice:2
 effect:TIMED_INC:UNSUMMON_MINIONS
 dice:2
 desc:Grants you the power of telepathy for a moment.
@@ -6653,7 +6656,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:/ 5 + 10
 desc:Teleports you next to a chosen target and shrewdly hit it to stun it.
 
-spell:Nuke:25:1:30:17:0
+spell:Nuke:25:1:1:17:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 4

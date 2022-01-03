@@ -7023,6 +7023,7 @@ weight:2
 cost:3400
 # price hardcoded in store.c
 alloc:13:25 to 100
+# should be more useful? most of players will use swimming...
 flags:FLYING | EASY_KNOW
 desc:When you put on this ring, you will be able to levitate a few feet 
 desc: above the floor. It works only if you have solid ground below.
