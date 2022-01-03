@@ -7020,7 +7020,8 @@ graphics:=:d
 type:ring
 level:25
 weight:2
-cost:7000
+cost:3400
+# price hardcoded in store.c
 alloc:13:25 to 100
 flags:FLYING | EASY_KNOW
 desc:When you put on this ring, you will be able to levitate a few feet 

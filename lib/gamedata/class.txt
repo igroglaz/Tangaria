@@ -6740,22 +6740,22 @@ spell:Inception:35:20:22:40:0
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
 desc:Attempts to put to sleep each monster within line of sight.
 
-spell:Inner Power:40:30:50:70:0
-cooldown:60
-effect:TIMED_INC:MANASHIELD
-dice:8+1d10
-desc:Creates a shield of mana around you that absorbs all damage
-desc: inflicted to your character... as long as you have mana
-desc: to fuel it.
-desc: Cooldown 60 turns.
-
-spell:Fade in Shadows:45:40:40:90:0
+spell:Fade in Shadows:40:40:40:70:0
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
 desc:Makes you invisible for a short duration.
 desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
+
+spell:Inner Power:45:30:50:90:0
+cooldown:360
+effect:TIMED_INC:MANASHIELD
+dice:8+1d10
+desc:Creates a shield of mana around you that absorbs all damage
+desc: inflicted to your character... as long as you have mana
+desc: to fuel it.
+desc: Cooldown 360 turns.
 
 spell:Dark Mark:50:50:33:120:0
 cooldown:300

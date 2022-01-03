@@ -802,10 +802,14 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
             (strstr(obj->ego->name, "of Speed") ||
              strstr(obj->ego->name, "of Elvenkind")))
                 price *= 5 / 2;
-    // regular: speed ring
-    else if (s->type != STORE_PLAYER &&
-            obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
+    // regular items (speed ring, ring of flying etc)
+    else if (s->type != STORE_PLAYER)
+    {
+        if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
                 price *= 2;
+        else if (obj->kind == lookup_kind_by_name(TV_RING, "Flying"))
+                price = 3400;
+    }
 
     /* CHArisma shouldn't influence player store prices */
     if (s->type == STORE_PLAYER) adjust = 100;
