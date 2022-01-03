@@ -6573,6 +6573,7 @@ value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-2]
 value:0:MANA[0+1d5]
+value:0:BLOWS[10]
 player-flags:0:CHOOSE_SPELLS
 player-flags:0:BACK_STAB
 #player-flags:50:SHIELD_BASH
@@ -6613,13 +6614,13 @@ desc: Cooldown 5 turns.
 
 spell:Bad Feeling:5:1:1:3:0
 effect:TIMED_INC:ESP
-dice:2
+dice:1
 effect:TIMED_INC:UNSUMMON_MINIONS
 dice:2
 desc:Grants you the power of telepathy for a moment.
 desc: Also you loose control over your magic sentries and they become demolished.
 
-spell:Lightning Reflex:10:2:25:5:0
+spell:Lightning Reflex:10:3:25:5:0
 effect:MELEE_BLOWS:MISSILE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0
@@ -6631,18 +6632,18 @@ dice:2
 msg_other: stubbed a tearing blow.
 desc:Makes a wounding blow and hastes you for a moment and makes fearful.
 
-spell:Adrenaline Splash:15:3:30:10:0
+spell:Adrenaline Splash:15:4:30:10:0
 cooldown:5
 effect:TIMED_INC:FAST:0:5
 dice:2
 effect:MELEE_BLOWS:FORCE
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:+ 0
 desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
 desc: Cooldown 5 turns.
 
-spell:Shadowstep:20:4:16:15:0
+spell:Shadowstep:20:5:16:15:0
 effect:TIMED_INC:FAST:0:5
 dice:2
 effect:MELEE_BLOWS:MON_STUN
@@ -6684,7 +6685,7 @@ msg_other: fires a magic dagger.
 desc:Fires a magic dagger that always hits its target and does
 desc: unresistable damage.
 
-spell:Finishing Move:40:20:30:40:0
+spell:Finishing Move:40:15:30:40:0
 cooldown:30
 effect:CURSE
 dice:$Dd$S
@@ -6708,7 +6709,7 @@ desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
 desc: Cooldown 45 turns.
 
-spell:Flower of Death:50:35:32:100:0
+spell:Flower of Death:50:30:32:100:0
 cooldown:10
 effect:STAR:POIS
 dice:$B
@@ -6721,7 +6722,7 @@ desc: Cooldown 10 turns.
 # 1st dungeon book
 book:shadow book:dungeon:[Dark Evocations]:6:shadow
 
-spell:Shadow Decoy:25:20:40:25:0
+spell:Shadow Decoy:25:15:40:25:0
 cooldown:60
 effect:GLYPH:DECOY
 effect:TIMED_INC:STEALTH
@@ -6757,7 +6758,7 @@ desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
 
 spell:Dark Mark:50:50:33:120:0
-cooldown:500
+cooldown:300
 effect:WAKE
 effect:SAFE_GUARD
 effect:NOURISH:DEC_BY
@@ -6771,7 +6772,7 @@ desc: The mark will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: Inscribing the Dark Mark reduces your nourishment.
 desc: It wakes up surrounding monsters.
-desc: Cooldown 500 turns.
+desc: Cooldown 300 turns.
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
 name:Phaseblade

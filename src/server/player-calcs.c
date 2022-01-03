@@ -2197,6 +2197,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
         extra_blows += 10;
 
+    // naga assassin got additional BpRs not immediately
+    if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))
+        extra_blows -= ((50 - p->lev) * 2) / 10;
+
     if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
         state->skills[SKILL_DISARM_PHYS] -= 15;
