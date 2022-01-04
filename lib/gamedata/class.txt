@@ -2029,14 +2029,9 @@ msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
 
-spell:Hide Tracks:31:15:75:25:0
+spell:Create Traps:31:15:75:25:0
 effect:TOUCH:MAKE_TRAP:3:1
-effect:TIMED_INC:COVERTRACKS:0:5
-dice:$B+1d20
-expr:B:PLAYER_LEVEL:/ 2
-desc:Prevents you from leaving scent for monsters to track you by for a
-desc: level-dependent duration.
-desc: Also a trap is created on each empty floor space that is directly
+desc:A trap is created on each empty floor space that is directly
 desc: adjacent to you.
 
 book:shadow book:dungeon:[Great Shadows]:4:shadow
@@ -4849,7 +4844,7 @@ value:0:INT[-1]
 value:0:WIS[3]
 value:0:DEX[-1]
 value:0:CON[-1]
-value:0:CHR[0+1d15]
+value:0:CHR[1+1d15]
 player-flags:0:CHOOSE_SPELLS
 # got different pets
 title:Rookie
@@ -4882,21 +4877,16 @@ desc: Cooldown 60 turns.
 spell:Once Bitten:5:3:32:5:0
 effect:TIMED_INC:OPP_POIS
 dice:20+1d20
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
-desc:Grants you resistance to poison for 20+1d20 turns.
-desc: Mana which you spend on this skill depends on your level.
+effect:CURE:POISONED
+desc:Neutralizes poison and grants you resistance to poison for 20+1d20 turns.
 
 spell:Falcon Gift:10:5:37:10:0
+cooldown:300
 effect:NOURISH:INC_TO
 dice:15
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
 msg_self:Your falcon brought to you some food.
 desc:Falcon shares with you his prey. It's not much, but still..
-desc: Mana which you spend on this skill depends on your level.
+desc: Cooldown 300 turns.
 
 spell:Sensitive Snout:15:10:42:15:0
 effect:DETECT_ANIMALS
@@ -4904,34 +4894,29 @@ effect-yx:22:40
 desc:Detects all animals in the immediate area, for one turn only.
 
 spell:Growl and Howl:20:15:47:20:0
+cooldown:30
 effect:PROJECT_LOS_AWARE:TURN_ALL
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
 msg_other: makes a complicated gesture to his wolf.
 desc:Your wolf makes long terrifying howl.
-desc: Mana which you spend on this skill depends on your level.
+desc: Cooldown 30 turns.
 
 spell:Bear Therapy:25:20:53:30:0
 effect:CURE:BLACKBREATH
 effect:CURE:AMNESIA
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
-desc:Your pet's magic cures amnesia and black breath.
-desc: Mana which you spend on this skill depends on your level.
+effect:CURE:CUT
+desc:Your pet licks you wounds to cure them. Also its warm helps you to remember
+desc: everything and cures amnesia.
+desc: There are rumours that it also cure black breath.
 
 spell:Chase!:30:20:58:40:0
+cooldown:60
 effect:BOLT_STATUS:MON_SPEED
 dice:100
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
 msg_other: makes a lengthy gesture.
 desc:Your pet will attack the target with double diligence.
-desc: Mana which you spend on this skill depends on your level.
+desc: Cooldown 60 turns.
 
 spell:Cat Magnetism:35:30:63:50:0
 effect:TIMED_INC:STEALTH
@@ -4941,7 +4926,7 @@ dice:10+1d10
 effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 2
-desc:Grants ability to walk silently and infravision.
+desc:Grants infravision and ability to walk silently.
 desc: Mana which you spend on this skill depends on your level.
 
 spell:Shoo:40:75:55:50:0
@@ -4958,23 +4943,24 @@ desc:Destroys an adjacent section of wall or rubble, unless it is a permanent
 desc: wall. Deals 100+10d30 damage to monsters vulnerable to rock remover.
 
 spell:Dragon Friends:50:75:50:100:0
-cooldown:30
+cooldown:300
 effect:TIMED_INC_NO_RES:BLIND
 dice:1
 effect:TIMED_INC:ANTISUMMON
-dice:25+1d5
-effect:SUMMON:ANIMAL:0:5
+dice:50+1d20
+effect:SUMMON:ANIMAL:0:1
 flag:S_ANIMAL
 dice:12
 msg_other: magically summons animals.
 desc:Attempts to summon up to twelve animals and then prevents summoning
 desc: around you for some time. Makes you blind for a tiny moment.
-desc: You can use this skill once per 30 turns.
+desc: You can use this skill once per 300 turns.
 
 #2
 book:nature book:town:[Gifts of Nature]:3:nature
 
 spell:Veterinary:1:1:26:1:0
+# free mana
 effect:BOLT_MELEE:MON_HEAL
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -4982,18 +4968,16 @@ msg_other: project healing energy.
 desc:Cures a level-dependent amount of damage points, and heals all cut and stun damage.
 desc: Requires to be in close range.
 
-spell:Good Treatment:5:1:32:5:0
+spell:Good Treatment:10:1:32:5:0
 cooldown:60
 effect:TIMED_INC:REGEN_PET
-dice:5
-effect:SPEND_MANA
 dice:$B
-expr:B:PLAYER_LEVEL:/ 2
-desc:You treat your pet so it regen it's wounds.
-desc: Mana which you spend on this skill depends on your level.
+expr:B:PLAYER_LEVEL:/ 10 + 1
+desc:You treat your pet so it regen its wounds.
 desc: You can use this skill once per 60 turns.
 
-spell:Heal Pet:10:1:26:1:0
+spell:Heal Pet:15:1:26:1:0
+# mana costy
 effect:BOLT_STATUS:MON_HEAL
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
@@ -7628,7 +7612,7 @@ value:0:WIS[0]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[0]
-#/// will have it's own pet for summoning
+#/// will have its own pet for summoning
 title:Rookie
 title:Initiate
 title:Neophyte

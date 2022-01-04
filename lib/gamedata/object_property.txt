@@ -1400,7 +1400,7 @@ short-desc:Amnes
 name:flying
 type:flag
 subtype:misc ability
-id-type:on effect
+id-type:on wield
 code:FLYING
 power:20
 # only boots, cloak and pre-defined in object.txt ring
