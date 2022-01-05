@@ -4866,34 +4866,58 @@ book:nature book:town:[Lesser Charms]:11:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Froggie's Jump:1:1:26:1:0
-cooldown:60
+cooldown:30
 effect:TELEPORT
 dice:2
+effect:BLAST:POIS:1
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
 effect:TIMED_INC:UNSUMMON_MINIONS
 dice:1
-msg_other: jumps away like a frog.
-desc:You retreat at random to a short distance.
+msg_other: emits a poison cloud and jumps away like a frog.
+desc:You emit poison cloud and retreat at random to a short distance.
 desc: Also you resummon your pet.
-desc: Cooldown 60 turns.
+desc: Cooldown 30 turns.
+# we need lvl dependent cooldown for this.
 
 spell:Once Bitten:5:3:32:5:0
 effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 effect:CURE:POISONED
-desc:Neutralizes poison and grants you resistance to poison for 20+1d20 turns.
+effect:MELEE_BLOWS:POIS
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
+effect:MELEE_BLOWS:MISSILE
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: attacks enemy like a snake.
+desc:You make fast attack, like a snake.
+desc: Also neutralizes poison and grants you resistance to poison for 20+1d20 turns.
 
 spell:Falcon Gift:10:5:37:10:0
-cooldown:300
+cooldown:60
+effect:STRIKE:MISSILE:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
 effect:NOURISH:INC_TO
 dice:15
-msg_self:Your falcon brought to you some food.
-desc:Falcon shares with you his prey. It's not much, but still..
-desc: Cooldown 300 turns.
+effect:TIMED_INC:HERO
+dice:25+1d25
+msg_self:Your falcon flew to the hunt...
+desc:Falcon strikes a target and then it will shares with you his prey by
+desc: restoring some satiation. It's not much, but still..
+desc: Also it grants you precision bonus for 25+1d25 turns.
+desc: Target grid must be targetable and known to the player.
+desc: no target grid will mean the player grid is hit.
+desc: Cooldown 60 turns.
 
 spell:Sensitive Snout:15:10:42:15:0
 effect:DETECT_ANIMALS
 effect-yx:22:40
+effect:TIMED_INC:SINVIS
+dice:24+1d24
 desc:Detects all animals in the immediate area, for one turn only.
+desc: Also you feel invisible monsters for 24+1d24 turns.
 
 spell:Growl and Howl:20:15:47:20:0
 cooldown:30
@@ -4906,11 +4930,21 @@ desc: Cooldown 30 turns.
 
 spell:Bear Therapy:25:20:53:30:0
 effect:CURE:BLACKBREATH
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:0
+effect:RANDOM
+dice:3
 effect:CURE:AMNESIA
 effect:CURE:CUT
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 10
+expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Your pet licks you wounds to cure them. Also its warm helps you to remember
-desc: everything and cures amnesia.
-desc: There are rumours that it also cure black breath.
+desc: who you are and cures amnesia.
+desc: There are rumours that it also cure black breath sometimes.
 
 spell:Chase!:30:20:58:40:0
 cooldown:60

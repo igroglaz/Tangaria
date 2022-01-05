@@ -31368,7 +31368,8 @@ depth:1
 rarity:0
 weight:0
 experience:0
-blow:TOUCH:POISON:1d3
+blow:TOUCH:POISON:1d1
+blow:TOUCH:HURT:1d2
 flags:IM_POIS
 flags:NO_PASS_TREE
 desc:Very vicious... little frog. You may laugh at it, but don't be so sure:
@@ -31387,7 +31388,8 @@ depth:5
 rarity:0
 weight:20
 experience:0
-blow:BITE:POISON:2d4
+blow:BITE:POISON:1d1
+blow:BITE:HURT:2d4
 flags:IM_POIS
 desc:Tamed sssnake dangerousss for everyone excccept itsss massster. 
 desc: It hass a copper head and sssharp venomouss fangssss.
@@ -31525,8 +31527,8 @@ rarity:0
 weight:120
 experience:0
 blow:BITE:FIRE:4d4
-blow:BITE:FIRE:4d4
-blow:CLAW:FIRE:4d4
+blow:BITE:HURT:4d4
+blow:CLAW:HURT:4d4
 # 4-16 4-16 4-16
 #  10   10   10 = 30 (*2x speed)
 flags:BASH_DOOR
