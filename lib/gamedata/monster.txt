@@ -31369,7 +31369,7 @@ rarity:0
 weight:0
 experience:0
 blow:TOUCH:POISON:1d3
-flags:RAND_25
+flags:IM_POIS
 flags:NO_PASS_TREE
 desc:Very vicious... little frog. You may laugh at it, but don't be so sure:
 desc: it is very poisonous.
@@ -31388,7 +31388,6 @@ rarity:0
 weight:20
 experience:0
 blow:BITE:POISON:2d4
-flags:RAND_50
 flags:IM_POIS
 desc:Tamed sssnake dangerousss for everyone excccept itsss massster. 
 desc: It hass a copper head and sssharp venomouss fangssss.

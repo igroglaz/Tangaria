@@ -2043,8 +2043,6 @@ effect:NOURISH:DEC_BY
 dice:1
 effect:RANDOM
 dice:2
-effect:TIMED_INC:SHERO:0:5
-dice:30+1d30
 effect:TIMED_INC:BOLD:0:5
 dice:30+1d30
 effect:CURE:AFRAID
@@ -2053,19 +2051,22 @@ dice:30
 effect:TIMED_SET:FAST
 dice:30+1d30
 msg_self:%s of the Night rejoice! It's the Day of the Misrule!
-desc:Hastes you (+10 to speed), cures 30 points of damage, removes fear and
-desc: grants you berserk strength (resistance to fear, a bonus of +24 to-hit and
-desc: a penalty of -10 to AC) for 30+1d30 turns.
+desc:Hastes you (+10 to speed), cures 30 points of damage, removes fear
+desc: for 30+1d30 turns.
 desc: You may spend some satiation on this magic.
 
-spell:Far Escape:40:17:65:80:0
+spell:Far Escape:40:17:35:80:0
 effect:TELEPORT_LEVEL
 effect:NOURISH:DEC_BY
 dice:1
 desc:Teleports you 1 level up or 1 level down (chosen at random).
 desc: You spend some satiation on this magic.
 
-spell:Fast Recall:45:40:80:18:0
+spell:Fast Recall:45:40:40:18:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:1
 effect:RECALL
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:n + 50
@@ -2075,8 +2076,9 @@ desc: deepest level you have visited in the dungeon.
 desc: The recall effect is not immediate; it is delayed by a level-dependent
 desc: duration. During that delay, the effect can be canceled by invoking
 desc: the spell of recall again.
+desc: You may spend some satiation on this magic.
 
-spell:Trick or Treat:50:37:90:50:0
+spell:Trick or Treat:50:37:30:50:0
 effect:SUMMON:MONSTERS:0:1
 dice:8
 effect:CLEAR_VALUE
@@ -4875,7 +4877,7 @@ desc: Also you resummon your pet.
 desc: Cooldown 60 turns.
 
 spell:Once Bitten:5:3:32:5:0
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 effect:CURE:POISONED
 desc:Neutralizes poison and grants you resistance to poison for 20+1d20 turns.
