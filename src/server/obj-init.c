@@ -3192,7 +3192,7 @@ static errr finish_parse_artifact(struct parser *p)
     for (i = z_info->a_max; i < z_info->a_max + 9; i++)
     {
         a_info[i].aidx = i;
-        aup_info[aidx].aidx = i;
+        aup_info[i].aidx = i;
     }
 
     /* Now we're done with object kinds, deal with object-like things */

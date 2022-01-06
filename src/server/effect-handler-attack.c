@@ -934,51 +934,6 @@ bool effect_handler_BOLT_AWARE(effect_handler_context_t *context)
 
 
 /*
- * Cast a melee range spell
- * Affect monsters (not grids or objects)
- */
-bool effect_handler_BOLT_MELEE(effect_handler_context_t *context)
-{
-    int dam = effect_calculate_value(context, false);
-    struct loc target;
-    struct source who_body;
-    struct source *who = &who_body;
-
-    source_player(who, get_player_index(get_connection(context->origin->player->conn)),
-        context->origin->player);
-
-    /* Ensure "dir" is in ddx/ddy array bounds */
-    if (!VALID_DIR(context->dir)) return false;
-
-    /* Use the given direction */
-    next_grid(&target, &context->origin->player->grid, context->dir);
-
-    /* Hack -- use an actual "target" */
-    if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
-    {
-        target_get(context->origin->player, &target);
-
-        /* Check distance */
-        if (distance(&context->origin->player->grid, &target) > 1)
-        {
-            msg(context->origin->player, "Target out of range.");
-            context->ident = true;
-            return true;
-        }
-    }
-
-    /* Analyze the "dir" and the "target", do NOT explode */
-    if (project(who, 0, context->cave, &target, dam, context->subtype,
-        PROJECT_GRID | PROJECT_KILL | PROJECT_PLAY, 0, 0, "annihilated"))
-    {
-        context->ident = true;
-    }
-
-    return true;
-}
-
-
-/*
  * Cast a bolt spell, or rarely, a beam spell
  * context->other is used as any adjustment to the regular beam chance
  */
@@ -2037,6 +1992,88 @@ bool effect_handler_PROJECT_LOS_AWARE(effect_handler_context_t *context)
 
     context->ident = true;
     context->self_msg = NULL;
+    return true;
+}
+
+
+/*
+ * Cast a defined length beam spell.
+ * Affect the player, grids, objects, and monsters
+ * context->subtype is element, context->radius radius
+ */
+bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
+{
+    int dam = effect_calculate_value(context, false);
+    int type = context->subtype;
+    int rad = context->radius;
+    int flg = PROJECT_ARC | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAY;
+    int diameter_of_source;
+    struct loc target;
+    struct source who_body;
+    struct source *who = &who_body;
+
+    /* Paranoia */
+    if (rad > z_info->max_range) rad = z_info->max_range;
+
+    /*
+     * Diameter of source is the same as the radius, so the effect is
+     * essentially full strength for its entire length.
+     */
+    diameter_of_source = rad;
+
+    /* Ensure "dir" is in ddx/ddy array bounds */
+    if (!VALID_DIR(context->dir)) return false;
+
+    /* Player or monster? */
+    if (context->origin->monster)
+    {
+        source_monster(who, context->origin->monster);
+
+        /* Target player or monster? */
+        if (context->target_mon)
+            loc_copy(&target, &context->target_mon->grid);
+        else
+        {
+            if (monster_is_decoyed(context->cave, context->origin->monster))
+                loc_copy(&target, cave_find_decoy(context->cave));
+            else
+                loc_copy(&target, &context->origin->player->grid);
+            who->target = context->origin->player;
+        }
+    }
+    else
+    {
+        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+            context->origin->player);
+
+        /* Ask for a target if no direction given */
+        if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
+            target_get(context->origin->player, &target);
+        else
+        {
+            /* Hack -- no target available, default to random direction */
+            if (context->dir == DIR_TARGET) context->dir = 0;
+
+            /* Hack -- no direction given, default to random direction */
+            if (!context->dir) context->dir = ddd[randint0(8)];
+
+            /* Use the given direction */
+            next_grid(&target, &context->origin->player->grid, context->dir);
+        }
+    }
+
+    /* Check bounds */
+    if (diameter_of_source > 25) diameter_of_source = 25;
+
+    /* Aim at the target */
+    context->origin->player->current_sound = -2;
+    if (project(who, rad, context->cave, &target, dam, type, flg, 0, diameter_of_source,
+        "annihilated"))
+    {
+        context->ident = true;
+    }
+    context->origin->player->current_sound = -1;
+
     return true;
 }
 

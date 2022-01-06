@@ -148,7 +148,6 @@ int effect_subtype(int index, const char *type)
         case EF_BLAST_OBVIOUS:
         case EF_BOLT:
         case EF_BOLT_AWARE:
-        case EF_BOLT_MELEE:
         case EF_BOLT_OR_BEAM:
         case EF_BOLT_STATUS:
         case EF_BOLT_STATUS_DAM:
@@ -163,6 +162,7 @@ int effect_subtype(int index, const char *type)
         case EF_PROJECT:
         case EF_PROJECT_LOS:
         case EF_PROJECT_LOS_AWARE:
+        case EF_SHORT_BEAM:
         case EF_SPOT:
         case EF_STAR:
         case EF_STAR_BALL:

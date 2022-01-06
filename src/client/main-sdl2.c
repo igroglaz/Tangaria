@@ -20,9 +20,15 @@
 
 #ifdef USE_SDL2
 
+#ifdef WINDOWS
+#include "..\_SDL2\SDL.h"
+#include "..\_SDL2\SDL_image.h"
+#include "..\_SDL2\SDL_ttf.h"
+#else
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
+#endif
 
 #define MAX_SUBWINDOWS \
     ANGBAND_TERM_MAX
@@ -550,7 +556,7 @@ static SDL_Color g_colors[MAX_COLORS];
 static struct font_info g_font_info[MAX_FONTS];
 /* True if KC_MOD_KEYPAD will be sent for numeric keypad keys at the expense
  * of not handling some keyboard layouts properly. */
-static int g_kp_as_mod = 0;
+static int g_kp_as_mod = 1;
 
 /* Forward declarations */
 
@@ -5756,6 +5762,8 @@ static void dump_config_file(void)
         }
     }
     file_putf(config, "kp-as-modifier:%d\n", (g_kp_as_mod) ? 1 : 0);
+    file_putf(config, "sound-volume:%d\n", sound_volume);
+    file_putf(config, "music-volume:%d\n", music_volume);
 
     file_close(config);
 }
@@ -6059,6 +6067,18 @@ static enum parser_error config_kp_as_mod(struct parser *parser)
     return PARSE_ERROR_NONE;
 }
 
+static enum parser_error config_sound_volume(struct parser *parser)
+{
+    sound_volume = parser_getint(parser, "sound_volume");
+    return PARSE_ERROR_NONE;
+}
+
+static enum parser_error config_music_volume(struct parser *parser)
+{
+    music_volume = parser_getint(parser, "music_volume");
+    return PARSE_ERROR_NONE;
+}
+
 static struct parser *init_parse_config(void)
 {
     struct parser *parser = parser_new();
@@ -6095,6 +6115,8 @@ static struct parser *init_parse_config(void)
     parser_reg(parser, "subwindow-alpha uint index int alpha",
             config_subwindow_alpha);
     parser_reg(parser, "kp-as-modifier int enabled", config_kp_as_mod);
+    parser_reg(parser, "sound-volume int sound_volume", config_sound_volume);
+    parser_reg(parser, "music-volume int music_volume", config_music_volume);
 
     return parser;
 }

@@ -161,7 +161,7 @@ AC_ARG_WITH(sdl2-prefix,[  --with-sdl2-prefix=PFX   Prefix where SDL2 is install
             sdl2_prefix="$withval", sdl2_prefix="")
 AC_ARG_WITH(sdl2-exec-prefix,[  --with-sdl2-exec-prefix=PFX Exec prefix where SDL2 is installed (optional)],
             sdl2_exec_prefix="$withval", sdl2_exec_prefix="")
-AC_ARG_ENABLE(sdl2test, [  --disable-sdl2test       Do not try to compile and run a test SDL2 program],
+AC_ARG_ENABLE(sdl2test, [  --disable-sdl2test      Do not try to compile and run a test SDL2 program],
 		    , enable_sdl2test=yes)
 
   if test x$sdl2_exec_prefix != x ; then
@@ -499,7 +499,7 @@ AC_ARG_WITH(ncurses-prefix,[  --with-ncurses-prefix=PFX   Prefix where ncurses i
             ncurses_prefix="$withval", ncurses_prefix="")
 AC_ARG_WITH(ncurses-exec-prefix,[  --with-ncurses-exec-prefix=PFX Exec prefix where ncurses is installed (optional)],
             ncurses_exec_prefix="$withval", ncurses_exec_prefix="")
-AC_ARG_ENABLE(ncursestest, [  --disable-ncursestest       Do not try to compile and run a test ncurses program],
+AC_ARG_ENABLE(ncursestest, [  --disable-ncursestest   Do not try to compile and run a test ncurses program],
 		    , enable_ncursestest=yes)
 
   if test x$ncurses_exec_prefix != x ; then

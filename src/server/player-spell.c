@@ -361,6 +361,12 @@ void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
                 if (effect->radius) special = format(", rad %d", effect->radius);
                 break;
             }
+            case EF_SHORT_BEAM:
+            {
+                /* Append length of beam */
+                special = format(", len %d", effect->radius);
+                break;
+            }
             case EF_BOLT_OR_BEAM:
             case EF_STAR:
             case EF_STAR_BALL:

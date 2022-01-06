@@ -433,6 +433,14 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                 break;
             }
 
+            /* Currently no object generated short beams */
+            case EFINFO_SHORT:
+            {
+                strnfmt(desc, sizeof(desc), effect_desc(e), projections[e->subtype].desc, e->radius,
+                    dice_string);
+                break;
+            }
+
             /* Currently no object generated lashes */
             case EFINFO_LASH:
             {

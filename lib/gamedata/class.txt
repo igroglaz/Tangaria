@@ -2343,7 +2343,7 @@ effect:SWEEP
 desc:Deals a melee attack to each adjacent enemy.
 
 spell:Shatter Stone:7:3:20:8:0
-effect:BOLT_MELEE:KILL_WALL
+effect:SHORT_BEAM:KILL_WALL:1
 dice:20+1d30
 desc:Destroys an adjacent section of wall or rubble, unless it is a permanent
 desc: wall. Deals 20+1d30 damage to monsters vulnerable to rock remover.
@@ -3575,7 +3575,7 @@ book-desc:A standard spellbook with a few spells.
 equip:elemental book:[Fire]:1:1:none
 
 spell:Burning Hands:1:1:17:4:0
-effect:BOLT_MELEE:FIRE
+effect:SHORT_BEAM:FIRE:1
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:- 1 / 4 + 4
 expr:S:PLAYER_SPELL_POWER:+ 3

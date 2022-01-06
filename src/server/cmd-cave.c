@@ -1957,7 +1957,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     struct source who_body;
     struct source *who = &who_body;
     bool trapsafe = player_is_trapsafe(p);
-    bool trap, door;
+    bool trap, door, switched = false;
     struct loc grid;
 
     /* Ensure "dir" is in ddx/ddy array bounds */
@@ -2083,6 +2083,18 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         /* Don't bump into self! */
         if (who->player != p)
         {
+            /*
+             * Players can switch places if:
+             * - none of them is wraithed
+             * - they're moving toward each other
+             * - player initiating the switch doesn't stand on potentially harmful terrain
+             */
+            bool can_switch = (!player_passwall(p) && !player_passwall(who->player) &&
+                (ddy[who->player->last_dir] == (0 - ddy[dir])) &&
+                (ddx[who->player->last_dir] == (0 - ddx[dir])) &&
+                square_ispassable(c, &p->grid) && !square_isplayertrap(c, &p->grid) &&
+                !square_isdamaging(c, &p->grid));
+
             /* Reveal mimics */
             if (who->player->k_idx)
                 aware_player(p, who->player);
@@ -2096,36 +2108,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 msg(p, "You cannot move!");
 
             /* Switch places */
-            else if ((!player_passwall(p) && !player_passwall(who->player) &&
-                (ddy[who->player->last_dir] == (0 - ddy[dir])) &&
-                (ddx[who->player->last_dir] == (0 - ddx[dir]))) ||
-                (who->player->dm_flags & DM_SECRET_PRESENCE))
-            {
-                monster_swap(c, &p->grid, &who->player->grid);
-
-                /* Don't tell people they bumped into the Dungeon Master */
-                if (!(who->player->dm_flags & DM_SECRET_PRESENCE))
-                {
-                    char p_name[NORMAL_WID], q_name[NORMAL_WID];
-
-                    player_desc(p, q_name, sizeof(q_name), who->player, false);
-                    player_desc(who->player, p_name, sizeof(p_name), p, false);
-
-                    /* Tell both of them */
-                    msg(p, "You switch places with %s.", q_name);
-                    msg(who->player, "You switch places with %s.", p_name);
-
-                    /* Disturb both of them */
-                    disturb(p, 0);
-                    disturb(who->player, 0);
-                }
-
-                /* Unhack both of them */
-                who->player->last_dir = p->last_dir = 5;
-
-                player_know_floor(p, c);
-                player_know_floor(who->player, c);
-            }
+            else if (can_switch || (who->player->dm_flags & DM_SECRET_PRESENCE))
+                switched = true;
 
             /* Bump into other players */
             else if (!(p->dm_flags & DM_SECRET_PRESENCE))
@@ -2145,12 +2129,14 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             }
         }
 
-        return;
+        if (!switched) return;
     }
 
     /* Bump into monsters */
     if (who->monster)
     {
+        bool swap = false;
+
         /* Check for an attack */
         if (pvm_check(p, who->monster))
         {
@@ -2176,12 +2162,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
         /* Switch places */
         else
-        {
-            monster_swap(c, &p->grid, &who->monster->grid);
-            player_know_floor(p, c);
-        }
+            swap = true;
 
-        return;
+        if (!swap) return;
     }
 
     /* Arena */
@@ -2358,6 +2341,33 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     /* Move player */
     monster_swap(c, &p->grid, &grid);
     p->upkeep->redraw |= PR_STATE;
+
+    /* Switch places */
+    if (switched)
+    {
+        /* Don't tell people they bumped into the Dungeon Master */
+        if (!(who->player->dm_flags & DM_SECRET_PRESENCE))
+        {
+            char p_name[NORMAL_WID], q_name[NORMAL_WID];
+
+            player_desc(p, q_name, sizeof(q_name), who->player, false);
+            player_desc(who->player, p_name, sizeof(p_name), p, false);
+
+            /* Tell both of them */
+            msg(p, "You switch places with %s.", q_name);
+            msg(who->player, "You switch places with %s.", p_name);
+
+            /* Disturb both of them */
+            disturb(p, 0);
+            disturb(who->player, 0);
+        }
+
+        /* Unhack both of them */
+        who->player->last_dir = p->last_dir = 5;
+
+        /* No checks for the player that got moved, but at least notice objects */
+        player_know_floor(who->player, c);
+    }
 
     /* Handle store doors, or notice objects */
     if (!p->ghost && square_isshop(c, &grid))

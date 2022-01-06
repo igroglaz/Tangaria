@@ -32,8 +32,13 @@
 #endif /* USE_SDL */
 
 #ifdef SOUND_SDL2
+# ifdef WINDOWS
+#  include "..\_SDL2\SDL.h"
+#  include "..\_SDL2\SDL_mixer.h"
+# else
 #  include <SDL.h>
 #  include <SDL_mixer.h>
+# endif
 #endif /* USE_SDL2 */
 
 /* Supported file types */

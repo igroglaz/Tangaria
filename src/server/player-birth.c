@@ -413,9 +413,7 @@ static bool get_stats_aux(struct player *p, s16b* stat_roll)
     stat_limit[0] = 17;
     stat_limit[1] = 15;
     stat_limit[2] = 12;
-    stat_limit[3] = 8;
-    stat_limit[4] = 8;
-    stat_limit[5] = 8;
+    for (i = 3; i < STAT_MAX; i++) stat_limit[i] = 8;
 
     /* Clear "stat_ok" array */
     for (i = 0; i < STAT_MAX; i++) stat_ok[i] = 0;

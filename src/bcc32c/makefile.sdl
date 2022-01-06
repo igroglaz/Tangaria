@@ -9,7 +9,7 @@
 #
 # Set tool and version names:
 !ifndef BCCDIR
-BCCDIR     = "C:\Data\extra\PWMAngband workspace\BCC102"
+BCCDIR     = "C:\BCC102"
 !endif
 
 CPP        = $(BCCDIR)\bin\bcc32c

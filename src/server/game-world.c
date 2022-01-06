@@ -904,20 +904,32 @@ static void process_player_world(struct player *p, struct chunk *c)
     /* Hack -- fade monster detect over time */
     for (i = 1; i < cave_monster_max(c); i++)
     {
-        if (p->mon_det[i])
+        if (!p->mon_det[i]) continue;
+        p->mon_det[i]--;
+        if (!p->mon_det[i])
         {
-            p->mon_det[i]--;
-            if (!p->mon_det[i]) update_mon(cave_monster(c, i), c, false);
+            struct monster *mon = cave_monster(c, i);
+
+            /* Paranoia -- skip dead monsters */
+            if (!mon->race) continue;
+
+            update_mon(mon, c, false);
         }
     }
 
     /* Hack -- fade player detect over time */
     for (i = 1; i <= NumPlayers; i++)
     {
-        if (p->play_det[i])
+        if (!p->play_det[i]) continue;
+        p->play_det[i]--;
+        if (!p->play_det[i])
         {
-            p->play_det[i]--;
-            if (!p->play_det[i]) update_player(player_get(i));
+            struct player *q = player_get(i);
+
+            /* Paranoia -- skip dead players */
+            if (q->upkeep->new_level_method || q->upkeep->funeral) continue;
+
+            update_player(q);
         }
     }
 

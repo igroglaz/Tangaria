@@ -59,6 +59,7 @@ void conf_init(void* param)
 
     /* Remove ANGBAND_SYS suffix */
     if (suffix(path, "_sdl") || suffix(path, "_gcu")) path[strlen(path) - 4] = '\0';
+    if (suffix(path, "_sdl2")) path[strlen(path) - 5] = '\0';
 
     /* Append ".ini" */
     my_strcpy(config_name, path, sizeof(config_name));

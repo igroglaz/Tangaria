@@ -56,6 +56,11 @@ PWMAngband:
 - Fix crash during ego/artifact generation by saving ego/artifact indexes as
   u16b instead of byte
 - Prevent calling exit_game_panic() after shutdown_server() succeeds
+- Add missing checks when switching place with a friendly monster or another
+  player
+- Prevent switching place with another player if standing on potentially harmful
+  terrain
+- Check for dead monster/player when fading detect over time
 
 Coding changes
 --------------
@@ -88,11 +93,14 @@ Angband 4.2.x:
 PWMAngband:
 
 - Remove random roller, use default roller instead
+- Fix potential crash with standard roller
+- Implement SHORT_BEAM effect, replace BOLT_MELEE effect by SHORT_BEAM with
+  length 1
 
 Compilation/documentation
 -------------------------
 
-- Support for SDL2 client
+- Support for SDL2 client (compiling using Embarcadero C++ 7.30)
 - Modify the comment about room cutoffs in dungeon_profile.txt
 - Update attack.rst
 - Put in first draft of "how it works" documentation for dungeon generation

@@ -780,7 +780,7 @@ message-invis:Something mumbles.
 
 name:BE_ELEC
 hit:100
-effect:BEAM:ELEC
+effect:SHORT_BEAM:ELEC:5
 dice:$B+5d5
 expr:B:SPELL_POWER:* 2 + 30
 lore:shoot sparks of lightning
@@ -792,7 +792,7 @@ message-invis:You feel a crackling in the air.
 
 name:BE_NETH
 hit:100
-effect:BEAM:NETHER
+effect:SHORT_BEAM:NETHER:10
 dice:$B+5d5
 expr:B:SPELL_POWER:* 2 + 30
 lore:hurl lances of nether
