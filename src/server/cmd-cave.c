@@ -644,7 +644,9 @@ static bool do_cmd_close_test(struct player *p, struct chunk *c, struct loc *gri
     }
 
     /* Handle polymorphed players */
-    if (p->poly_race && !OPT(p, birth_fruit_bat))
+    
+    // can't close only if player is inside dungeon (to have access to houses)
+    if (p->poly_race && !OPT(p, birth_fruit_bat) && !(p->wpos.depth == 0))
     {
         bool can_open = rf_has(p->poly_race->flags, RF_OPEN_DOOR);
         bool can_bash = rf_has(p->poly_race->flags, RF_BASH_DOOR);
