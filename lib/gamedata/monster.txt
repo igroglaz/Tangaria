@@ -1142,11 +1142,12 @@ hearing:20
 armor-class:3
 sleepiness:10
 depth:1
-rarity:1
+rarity:2
 weight:2
 experience:1
 blow:BITE:HURT:1d1
-flags:DROP_CORPSE | WILD_WOOD | WILD_SWAMP | RAND_25
+flags:DROP_CORPSE | WILD_WOOD | WILD_SWAMP
+# | RAND_25 removed.. hardcoded confusion if in bat form
 desc:A fast-moving pest.
 
 #towny
