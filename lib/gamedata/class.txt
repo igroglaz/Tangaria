@@ -4868,7 +4868,7 @@ equip:nature book:[Lesser Charms]:1:1:none
 spell:Froggie's Jump:1:1:26:1:0
 cooldown:30
 effect:TELEPORT
-dice:2
+dice:1
 effect:BLAST:POIS:1
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 0

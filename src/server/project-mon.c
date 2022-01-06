@@ -691,13 +691,27 @@ static void project_monster_handler_NETHER(project_monster_handler_context_t *co
         context->hurt_msg = MON_MSG_IMMUNE;
         context->dam = 0;
     }
-    else if (rf_has(context->mon->race->flags, RF_IM_NETHER))
+	else if (rf_has(context->mon->race->flags, RF_IM_NETHER))
     {
         context->hurt_msg = MON_MSG_RESIST;
         context->dam *= 3;
         context->dam /= (randint1(6) + 6);
     }
-    else if (monster_is_evil(context->mon) && !streq(context->origin->player->clazz->name, "Necromancer"))
+	// adding it in case if BR_NETHER made by not by player, but by monster AND it hit other monsters.
+	// eg ethereal drake breath at player, but also hit some surrounding monsters
+	// so.. if BR_NETHER was made by a monster - player will not exist in the structure (context->origin->player)
+	// which cause streq() crush, so we have to make the check:
+	else if (context->origin->player)
+    {
+        if (!streq(context->origin->player->clazz->name, "Necromancer"))
+        {
+            context->dam /= 2;
+            context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        }
+    }
+	// next price is PWMA universal case.. without class check it works alright.
+	// but as we have class check above, we will use this case for monster vs monster attack:
+	else if (monster_is_evil(context->mon))
     {
         context->dam /= 2;
         context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
