@@ -368,16 +368,17 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
+    // polymorphed into 'fruit bats' can run.. but sometimes get side effects
     if (p->poly_race && !(p->wpos.depth == 0) && one_in_(10))
     {
         struct monster_race *race_fruit_bat = get_race("fruit bat");
         
         if (p->poly_race == race_fruit_bat)
         {
-            if (one_in_(2))
-                player_inc_timed(p, TMD_CONFUSED, randint1(2), true, false);
+            if (!one_in_(3))
+                player_inc_timed(p, TMD_CONFUSED, randint1(2), false, false);
             else
-                player_inc_timed(p, TMD_IMAGE, randint1(2), true, false); 
+                player_inc_timed(p, TMD_IMAGE, randint1(2), false, false); 
         }
     }
 
