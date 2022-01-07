@@ -6,8 +6,12 @@
 #ifndef INCLUDED_PLAYER_COMMON_H
 #define INCLUDED_PLAYER_COMMON_H
 
-/* Maximum number of spells per page */
-/* Note: this must be greater than the maximum number of spells in all books (PWMA: 9, T: 11) */
+/* Maximum number of spells per page
+/* Note: this must be greater than the maximum number of spells in all books (currently 9)
+ // must be +1 from real number, eg in PWMA:
+ // MAX_SPELLS_PER_PAGE 10
+ // but actual max spells in-game are 9)
+ */
 #define MAX_SPELLS_PER_PAGE 25
 
 /*

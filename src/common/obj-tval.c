@@ -200,6 +200,7 @@ bool tval_is_ammo(const struct object *obj)
         case TV_ARROW:
         case TV_BOLT:
         case TV_ROCK:
+        case TV_COBBLE:
             return true;
         default:
             return false;
