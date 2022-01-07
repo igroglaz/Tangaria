@@ -8,7 +8,7 @@
 
 /* Maximum number of spells per page */
 /* Note: this must be greater than the maximum number of spells in all books (PWMA: 9, T: 11) */
-#define MAX_SPELLS_PER_PAGE 12
+#define MAX_SPELLS_PER_PAGE 25
 
 /*
  * Player constants
