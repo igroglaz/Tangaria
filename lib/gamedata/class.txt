@@ -4862,7 +4862,7 @@ title:Grandmaster
 
 magic:1:350:2
 
-book:nature book:town:[Lesser Charms]:13:nature
+book:nature book:town:[Lesser Charms]:12:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Froggie's Jump:1:1:26:1:0
@@ -4980,14 +4980,6 @@ msg_self:The power of nature banishes animals!
 msg_other: speaks an order on nearby animals!
 desc:Teleports away each animal within line of sight.
 
-spell:Good Treatment:43:1:32:60:0
-cooldown:60
-effect:TIMED_INC:REGEN_PET
-dice:$B
-expr:B:PLAYER_LEVEL:/ 10 + 1
-desc:You treat your pet so it regen its wounds.
-desc: You can use this skill once per 60 turns.
-
 spell:Burn A Hole:45:50:50:75:0
 effect:SHORT_BEAM:KILL_WALL:1
 dice:100+10d30
@@ -5011,7 +5003,7 @@ desc: You can use this skill once per 300 turns.
 #2
 book:nature book:town:[Gifts of Nature]:3:nature
 
-spell:Rhosgobel Rabbits:13:1:33:10:0
+spell:Rabbit's Feet:23:1:33:10:0
 cooldown:300
 effect:TIMED_INC:MOVE_FAST
 dice:$B
@@ -5019,20 +5011,20 @@ expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Increases you movement speed for a short while.
 desc: Cooldown 300 turns.
 
-spell:Eagles Help:23:10:33:20:0
-effect:TELEPORT
+spell:Good Treatment:33:1:33:60:0
+cooldown:60
+effect:TIMED_INC:REGEN_PET
 dice:$B
-expr:B:PLAYER_LEVEL:* 4
-msg_other: blinks away.
-desc:Brings you far away from current spot.
+expr:B:PLAYER_LEVEL:/ 10 + 1
+desc:You treat your pet so it regen its wounds.
+desc: You can use this skill once per 60 turns.
 
-spell:Radagast Gift:33:15:42:30:0
-effect:TIMED_INC:PROTEVIL
-dice:$B+1d25
-expr:B:PLAYER_LEVEL:+ 10
-desc:Protects you from evil for a level-dependent duration:
-desc: all melee attacks by evil monsters have a chance to be repelled,
-desc: unless the monster's level is higher than your character level.
+spell:Eagles Help:43:1:33:20:0
+cooldown:300
+effect:TELEPORT_LEVEL
+msg_other: blinks away.
+desc:Brings you far away from current spot to another level.
+cooldown:300
 
 ############### CLASS TEMPLATE for Druid ###############
 name:Druid
