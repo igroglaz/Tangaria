@@ -1221,7 +1221,7 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
     if (p->spell_cooldown[spell->sidx])
     {
         /* Warning */
-        msg(p, "This %s is on cooldown.", spell->realm->spell_noun);
+        msg(p, "This %s is on cooldown for %d turns.", spell->realm->spell_noun, p->spell_cooldown[spell->sidx]);
 
         /* Cancel repeat */
         disturb(p, 1);
