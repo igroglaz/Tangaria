@@ -305,7 +305,7 @@ bool monster_is_fearful(const struct monster *mon)
  */
 bool monster_is_animal(const struct monster *mon)
 {
-    return (rf_has(mon->race->flags, RF_ANIMAL)? false: true);
+    return rf_has(mon->race->flags, RF_ANIMAL);
 }
 
 /*
