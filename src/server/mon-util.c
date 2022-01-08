@@ -168,8 +168,8 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL)) return true;
     if (rf_has(mflags, RF_ANIMAL) && player_of_has(p, OF_ESP_ANIMAL)) return true;
 
-    /* Radius ESP */
-    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= z_info->max_sight);
+    // Radius ESP (Telepathic Awareness) less than full ESP
+    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= z_info->max_sight - 5);
 
     /* No ESP */
     return false;
@@ -1580,8 +1580,8 @@ static bool is_detected_p(struct player *p, struct player *q, int dis_esp)
     if (player_has(q, PF_HYDRA) && player_of_has(p, OF_ESP_ANIMAL)) return true;
     if (q->ghost && player_of_has(p, OF_ESP_UNDEAD)) return true;
 
-    /* Radius ESP */
-    if (player_of_has(p, OF_ESP_RADIUS)) return (dis_esp <= z_info->max_sight);
+    // Radius ESP (Telepathic Awareness) less than full ESP
+    if (player_of_has(p, OF_ESP_RADIUS)) return (dis_esp <= z_info->max_sight - 5);
 
     /* No ESP */
     return false;
