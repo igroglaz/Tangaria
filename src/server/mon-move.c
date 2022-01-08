@@ -1822,6 +1822,16 @@ static bool monster_turn_try_push(struct source *who, struct chunk *c, struct mo
             rf_on(lore->flags, RF_MOVE_BODY);
         }
 
+        // monster can't move/destroy minion if it's the only minion of the player
+        // (to make fights with MOVE_BODY uniques less painful for Tamer/Necromancer)
+        if (mon1->master && who->player->slaves < 2 &&
+			(streq(who->player->clazz->name, "Necromancer") ||
+            streq(who->player->clazz->name, "Tamer")))
+        {
+            kill_ok = false;
+            move_ok = false;
+        }
+
         if (kill_ok || move_ok)
         {
             char n_name[NORMAL_WID];
