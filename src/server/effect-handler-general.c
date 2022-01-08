@@ -5407,6 +5407,10 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
             become_aware(context->origin->player, context->cave, context->origin->monster);
     }
 
+    // Unsummon minions after teleporting far away to prevent cheezing (killing unaware mobs by minions)
+    if (is_player && dis > 10)
+        player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
+
     /* Move the target */
     monster_swap(context->cave, &start, &iter.cur);
 
@@ -5628,6 +5632,9 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
         new_level_method = LEVEL_RAND;
     }
+
+    // Unsummon minions after teleport to prevent cheezing (killing unaware mobs by minions)
+    player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Tell the player */
     msgt(context->origin->player, MSG_TPLEVEL, message);
