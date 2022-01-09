@@ -596,7 +596,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
         msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
         source_player(who, get_player_index(get_connection(p->conn)), p);
-		effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
     }    
 
     /* Curse effects always decrement by 1 */
@@ -616,6 +616,11 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             if (curse[j].power == 0) continue;
             if (curse[j].timeout == 0) continue;
             curse[j].timeout--;
+
+            // hardcode cursed Ring of Teleportation for more often tp
+            if (streq(p->body.slots[i].obj->kind->name, "Teleportation") && one_in_(4))
+                curse[j].timeout = 0;
+
             if (!curse[j].timeout)
             {
                 do_curse_effect(p, j);
