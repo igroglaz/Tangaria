@@ -491,7 +491,8 @@ static void blow_side_effects(struct player *p, struct source *target,
             hp_player_safe(p, 1 + (p->lev / 10));
 
     // Mage's "Frost Shield" spell gives cold brand
-    if (p->timed[TMD_SHIELD] && (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Battlemage")) && p->lev > 20)
+    if (p->timed[TMD_ICY_AURA] && (streq(p->clazz->name, "Mage") ||
+        streq(p->clazz->name, "Battlemage") || streq(p->clazz->name, "Elementalist")) && p->lev > 20)
     {
         player_inc_timed(p, TMD_ATT_COLD, 5, true, true);
     }

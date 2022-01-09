@@ -2527,13 +2527,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (p->lev > 9)        
             state->to_a += 10;
-        // res -> double res -> imm
-        if (p->lev > 49)
-            state->el_info[ELEM_COLD].res_level = 3;
-        else if (p->lev > 29 && state->el_info[ELEM_COLD].res_level < 2)
-            state->el_info[ELEM_COLD].res_level++;        
-        else if (state->el_info[ELEM_COLD].res_level < 1)
-            state->el_info[ELEM_COLD].res_level++;        
         // cons:
         if (p->lev < 40)
         {
@@ -2542,15 +2535,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
         else
         {
-            state->skills[SKILL_STEALTH] -= 3;
+            state->skills[SKILL_STEALTH] -= 2;
             extra_moves -= 5;
         }
-        if (p->lev < 20 && state->el_info[ELEM_FIRE].res_level >= 0)
-            state->el_info[ELEM_FIRE].res_level--;
-        else if (p->lev < 30 && state->el_info[ELEM_FIRE].res_level >= 2)
-            state->el_info[ELEM_FIRE].res_level--;
-        else if (p->lev < 40 && state->el_info[ELEM_FIRE].res_level > 2)
-            state->el_info[ELEM_FIRE].res_level--;
     }
     if (p->timed[TMD_SHIELD])
         state->to_a += p->lev;
