@@ -573,7 +573,7 @@ void show_floor(int mode, item_tester tester)
     if (floor_num > z_info->floor_size) floor_num = z_info->floor_size;
 
     /* Build the object list */
-    build_obj_list(floor_num, floor_items, tester, mode);
+    build_obj_list(floor_num - 1, floor_items, tester, mode);
 
     /* Display the object list */
     num_head = 0;

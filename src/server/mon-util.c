@@ -155,6 +155,8 @@ void player_desc(struct player *p, char *desc, size_t max, struct player *q, boo
 
 static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d_esp)
 {
+    int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
+
     /* Full ESP */
     if (player_of_has(p, OF_ESP_ALL)) return true;
 
@@ -169,7 +171,7 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     if (rf_has(mflags, RF_ANIMAL) && player_of_has(p, OF_ESP_ANIMAL)) return true;
 
     /* Radius ESP */
-    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= z_info->max_sight);
+    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= radius);
 
     /* No ESP */
     return false;
@@ -253,6 +255,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
     struct source who_body;
     struct source *who = &who_body;
     struct loc grid1, grid2, grid;
+    int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
 
     /* Seen at all */
     bool flag = false;
@@ -328,8 +331,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
     if ((d <= z_info->max_sight) || !cfg_limited_esp || isDM)
     {
         bool hasESP = is_detected_m(p, mon->race->flags, d_esp);
-        bool isTL = (player_has(p, PF_THUNDERLORD) &&
-            (d_esp <= (p->lev * z_info->max_sight / PY_MAX_LEVEL)));
+        bool isTL = (player_has(p, PF_THUNDERLORD) && (d_esp <= (p->lev * radius / PY_MAX_LEVEL)));
 
         basic = (isDM || ((hasESP || isTL) && telepathy_ok));
 
@@ -1567,6 +1569,8 @@ bool monster_carry(struct monster *mon, struct object *obj, bool force)
 
 static bool is_detected_p(struct player *p, struct player *q, int dis_esp)
 {
+    int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
+
     /* Full ESP */
     if (player_of_has(p, OF_ESP_ALL)) return true;
 
@@ -1581,7 +1585,7 @@ static bool is_detected_p(struct player *p, struct player *q, int dis_esp)
     if (q->ghost && player_of_has(p, OF_ESP_UNDEAD)) return true;
 
     /* Radius ESP */
-    if (player_of_has(p, OF_ESP_RADIUS)) return (dis_esp <= z_info->max_sight);
+    if (player_of_has(p, OF_ESP_RADIUS)) return (dis_esp <= radius);
 
     /* No ESP */
     return false;
@@ -1593,6 +1597,7 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
     int d, d_esp;
     int id = get_player_index(get_connection(q->conn));
     struct loc grid1, grid2;
+    int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
 
     /* Seen at all */
     bool flag = false;
@@ -1631,8 +1636,7 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
     if ((d <= z_info->max_sight) || !cfg_limited_esp || isDM || inParty)
     {
         bool hasESP = is_detected_p(p, q, d_esp);
-        bool isTL = (player_has(p, PF_THUNDERLORD) &&
-            (d_esp <= (p->lev * z_info->max_sight / PY_MAX_LEVEL)));
+        bool isTL = (player_has(p, PF_THUNDERLORD) && (d_esp <= (p->lev * radius / PY_MAX_LEVEL)));
 
         /* Basic telepathy */
         if (isDM || inParty || ((hasESP || isTL) && telepathy_ok))

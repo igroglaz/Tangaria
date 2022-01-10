@@ -677,6 +677,12 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         /* Drop gold */
         else if (strstr(pmsgbuf, "gold")) textui_cmd_drop_gold();
 
+        /* View race stats */
+        else if (strstr(pmsgbuf, "race")) do_cmd_race_stats((struct player_race *)player->race);
+
+        /* View class stats */
+        else if (strstr(pmsgbuf, "class")) do_cmd_class_stats((struct player_class *)player->clazz);
+
         /* Kill character */
         else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();
 

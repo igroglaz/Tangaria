@@ -300,21 +300,25 @@ static void write_character_dump(ang_file *fff, void *data)
         if (y1 < 0)
         {
             y2 = y2 - y1;
+            if (y2 > cv->height - 1) y2 = cv->height - 1;
             y1 = 0;
         }
         if (x1 < 0)
         {
             x2 = x2 - x1;
+            if (x2 > cv->width - 1) x2 = cv->width - 1;
             x1 = 0;
         }
         if (y2 > cv->height - 1)
         {
             y1 = y1 - (y2 - (cv->height - 1));
+            if (y1 < 0) y1 = 0;
             y2 = cv->height - 1;
         }
         if (x2 > cv->width - 1)
         {
             x1 = x1 - (x2 - (cv->width - 1));
+            if (x1 < 0) x1 = 0;
             x2 = cv->width - 1;
         }
 

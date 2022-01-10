@@ -32,6 +32,8 @@ PWMAngband:
 
 - Allow negative cost for object kinds to tag them "not for buying" in stores
 - Add option to hide controlled monsters in monster lists
+- Add /race and /class custom commands to display race and class stats during
+  play
 
 Gameplay changes
 ----------------
@@ -40,6 +42,10 @@ Angband 4.2.x:
 
 - Apply temporary and off-weapon slays and brands to unarmed combat
 - Reduce monsters passing through or tunneling walls
+
+PWMAngband:
+
+- Limit ESP_RADIUS to 75% of z_info->max_sight if LIMITED_ESP is set
 
 Bugs fixed
 ----------
@@ -61,6 +67,9 @@ PWMAngband:
 - Prevent switching place with another player if standing on potentially harmful
   terrain
 - Check for dead monster/player when fading detect over time
+- Fix out of bounds crash when generating a death dump from a small labyrinth
+  level
+- Fix moronic crash when looking at a pile of floor-size items on the floor
 
 Coding changes
 --------------
