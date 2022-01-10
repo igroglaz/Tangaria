@@ -12797,7 +12797,7 @@ blow:CRUSH:HURT:8d4
 blow:CRUSH:PARALYZE:8d4
 flags:PWMANG_BASE | WILD_SHORE | WILD_OCEAN
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_FEAR | SMART | WEIRD_MIND | COLD_BLOOD
-spell-freq:15
+spell-freq:10
 spells:DARKNESS | SLOW | CONF | SCARE
 desc:A cunning and dangerous undersea opponent.
 
