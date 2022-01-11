@@ -2086,7 +2086,8 @@ void player_death(struct player *p)
     if (perma_death) death_knowledge(p);
 
     /* Death dump (except ghosts and retiring winners) */
-    if ((p->ghost != 1) && !(p->total_winner && !p->alive))
+    // ...also don't make auto server dump for 1 lvl chars (to exclude from ladder)
+    if ((p->ghost != 1) && !(p->total_winner && !p->alive) && p->lev > 1)
         player_dump(p, p->alive);
 
     /*
