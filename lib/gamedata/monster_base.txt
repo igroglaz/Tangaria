@@ -53,7 +53,7 @@ desc:Ancient Dragon/Wyrm
 name:ainu
 glyph:A
 pain:1
-flags:POWERFUL | SPIRIT | SMART | LEVITATE
+flags:POWERFUL | SPIRIT | SMART | LEVITATE | NEUTRAL
 flags:ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
@@ -63,7 +63,7 @@ desc:Ainu/Maia
 name:angel
 glyph:A
 pain:1
-flags:POWERFUL | SPIRIT | SMART | LEVITATE
+flags:POWERFUL | SPIRIT | SMART | LEVITATE | GOOD
 flags:ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
@@ -448,7 +448,7 @@ desc:Spider/Scorpion/Tick
 name:townsfolk
 glyph:t
 pain:4
-flags:HUMANOID | SPIRIT | CLEAR_WEB
+flags:HUMANOID | SPIRIT | CLEAR_WEB | NEUTRAL
 desc:Townsfolk
 
 # High hitpoints and armor class
@@ -457,7 +457,7 @@ glyph:l
 pain:9
 flags:CLEAR_WEB | COLD_BLOOD | REGENERATE
 flags:NO_FEAR | NO_CONF | HURT_FIRE | IM_WATER
-flags:SWIM_GOOD
+flags:SWIM_GOOD | NEUTRAL
 desc:Tree/Ent
 
 # Trolls are evil, larger than human-size humanoids. They have strong melee

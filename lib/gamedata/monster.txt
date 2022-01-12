@@ -278,7 +278,7 @@ rarity:3
 weight:10
 experience:0
 blow:CLAW:HURT:1d1
-flags:RAND_25
+flags:RAND_25 | NEUTRAL
 flags:DROP_CORPSE | DROP_SKELETON
 flags:NO_PASS_TREE
 desc:A skinny little furball with sharp claws and a menacing look.
@@ -299,7 +299,7 @@ rarity:3
 weight:30
 experience:0
 blow:BITE:HURT:1d1
-flags:RAND_25
+flags:RAND_25 | NEUTRAL
 flags:DROP_CORPSE | DROP_SKELETON
 flags:NO_PASS_TREE
 desc:A thin flea-ridden mutt, growling as you get close.
@@ -324,7 +324,7 @@ spell-freq:25
 spell-power:2
 spells:SCARE
 flags:UNIQUE | MALE
-flags:DROP_1 | DROP_GOOD | ONLY_ITEM | WANDERER
+flags:DROP_1 | DROP_GOOD | ONLY_ITEM | GOOD
 flags:NO_CONF | NO_SLEEP
 drop-base:mushroom:100:1:2
 desc:He's lost his dogs. He's had his mushrooms stolen. He's not a happy hobbit!
@@ -549,7 +549,7 @@ rarity:3
 weight:0
 experience:0
 blow:BITE:HURT:1d1
-flags:FRIGHTENED | PWMANG_BASE
+flags:FRIGHTENED | PWMANG_BASE | NEUTRAL
 flags:PASS_WALL
 flags:DROP_SKELETON
 flags:RAND_25
@@ -592,7 +592,7 @@ experience:0
 blow:BEG
 blow:TOUCH:EAT_GOLD
 blow:CRUSH:HURT:1d1
-flags:UNIQUE | FEMALE | ATTR_FLICKER | WANDERER
+flags:UNIQUE | FEMALE | ATTR_FLICKER | NEUTRAL
 flags:PWMANG_EXTRA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:TAKE_ITEM
@@ -1228,8 +1228,8 @@ rarity:4
 weight:150
 experience:5
 blow:HIT:HURT:1d6
-flags:MALE | UNIQUE
-flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WANDERER | WILD_WOOD
+flags:MALE | UNIQUE | NEUTRAL | WANDERER
+flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WILD_WOOD
 flags:ONLY_GOLD | DROP_1
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
 desc:He has a strong axe with a sharp edge.
@@ -1291,8 +1291,8 @@ weight:25
 experience:30
 blow:CLAW:HURT:1d2
 blow:CLAW:HURT:1d2
-flags:UNIQUE | BASH_DOOR
-flags:ANIMAL | NO_CONF | NO_SLEEP | WANDERER
+flags:UNIQUE | BASH_DOOR | NEUTRAL
+flags:ANIMAL | NO_CONF | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 drop:fortune cookie:Fortune Cookie:80:1:1
 desc:A striped housecat who enjoys hunting.
@@ -1633,7 +1633,7 @@ weight:0
 experience:30
 blow:BITE:HURT:1d4
 flags:UNIQUE
-flags:RAND_25 | BASH_DOOR | WANDERER
+flags:RAND_25 | BASH_DOOR | NEUTRAL
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
@@ -1653,7 +1653,7 @@ weight:0
 experience:35
 blow:BITE:HURT:1d4
 flags:UNIQUE
-flags:RAND_25 | BASH_DOOR | WANDERER
+flags:RAND_25 | BASH_DOOR | NEUTRAL
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
 desc: mushrooms.
@@ -1766,7 +1766,7 @@ rarity:1
 weight:0
 experience:40
 blow:BITE:HURT:1d4
-flags:UNIQUE | PWMANG_BASE | WANDERER
+flags:UNIQUE | PWMANG_BASE | NEUTRAL
 flags:RAND_25 | BASH_DOOR
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
@@ -1823,7 +1823,7 @@ rarity:2
 weight:0
 experience:50
 blow:TOUCH:EAT_GOLD:1d4
-flags:UNIQUE | MALE | EVIL | INVISIBLE
+flags:UNIQUE | MALE | INVISIBLE | EVIL | NEUTRAL
 flags:DROP_1 | DROP_GOOD | DROP_GREAT
 flags:RAND_25 | RAND_50 | TAKE_ITEM
 flags:HURT_LIGHT
@@ -2611,7 +2611,7 @@ weight:0
 experience:90
 blow:HIT:HURT:1d8
 blow:HIT:HURT:1d8
-flags:UNIQUE | FEMALE | PWMANG_FIXED
+flags:UNIQUE | FEMALE | PWMANG_FIXED | NEUTRAL
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_POIS
 flags:FORCE_DEPTH
@@ -2642,7 +2642,7 @@ weight:0
 experience:90
 blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
-flags:UNIQUE | FEMALE
+flags:UNIQUE | FEMALE | NEUTRAL
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:SWIM_NORM
 drop:food:Apple of Youth:100:1:1
@@ -2664,7 +2664,7 @@ weight:0
 experience:90
 blow:HIT:HURT:1d8
 blow:HIT:HURT:1d8
-flags:UNIQUE | MALE | WANDERER
+flags:UNIQUE | MALE | GOOD
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 #friends:80:1d7:scruffy looking hobbit:servant
 desc:He is a sturdy hobbit who is renowned for his unusual strength and vigour.
@@ -4520,7 +4520,7 @@ blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d10
 blow:HIT:HURT:1d10
-flags:UNIQUE | PWMANG_FIXED | FORCE_DEPTH | MALE
+flags:UNIQUE | PWMANG_FIXED | FORCE_DEPTH | MALE | NEUTRAL
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_ELEC | IM_POIS
 drop:mushroom:Hallucination:100:7:9
@@ -5279,7 +5279,7 @@ weight:150
 experience:36
 blow:HIT:HURT:2d3
 blow:HIT:HURT:2d3
-flags:MALE | SMART
+flags:MALE | SMART | GOOD
 flags:DROP_60
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
@@ -5533,7 +5533,7 @@ experience:30
 blow:CLAW:HURT:1d10
 blow:CLAW:HURT:1d10
 blow:BITE:HURT:1d11
-flags:FORCE_SLEEP | UNIQUE | PWMANG_BASE | WANDERER
+flags:FORCE_SLEEP | UNIQUE | PWMANG_BASE | NEUTRAL | WANDERER
 flags:ANIMAL | WILD_WOOD | WILD_GRASS | WILD_MOUNTAIN
 drop:food:Handful of Dried Fruits:75:1:1
 desc:A wounded bear, who has occasionally attacked humans.
@@ -6236,7 +6236,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:TOUCH:EAT_GOLD
-flags:UNIQUE | FEMALE
+flags:UNIQUE | FEMALE | NEUTRAL
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_DEPTH | PWMANG_FIXED
@@ -6840,7 +6840,7 @@ experience:50
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:MALE | EVIL
+flags:MALE | NEUTRAL
 flags:OPEN_DOOR | TAKE_ITEM
 flags:IM_LIGHT
 spell-freq:7
@@ -7129,7 +7129,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NEUTRAL
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -8271,7 +8271,7 @@ weight:170
 experience:55
 blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
-flags:MALE
+flags:MALE | GOOD
 flags:DROP_1
 flags:OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
@@ -8327,7 +8327,7 @@ experience:150
 blow:CLAW:HURT:6d3
 blow:CLAW:HURT:6d3
 blow:BITE:HURT:3d6
-flags:PWMANG_BASE
+flags:PWMANG_BASE | NEUTRAL
 flags:WILD_MOUNTAIN | WILD_VOLCANO | WILD_WASTE | WILD_WOOD
 flags:WILD_DESERT | DROP_CORPSE
 desc:Greater and more intelligent than most of its kind, this great eagle is
@@ -9247,7 +9247,7 @@ desc:It is a sharp-tailed bat, wreathed in fire.
 name:magic maggot
 base:killer beetle
 color:w
-speed:110
+speed:111
 hit-points:81
 hearing:14
 armor-class:66
@@ -10036,7 +10036,7 @@ depth:25
 rarity:10
 weight:0
 experience:100000
-flags:EMPTY_MIND | MALE | REGENERATE | RAND_50 | WANDERER
+flags:EMPTY_MIND | MALE | REGENERATE | RAND_50 | GOOD | WANDERER
 flags:IM_POIS | IM_ACID | IM_FIRE | IM_COLD | IM_ELEC
 flags:IM_NETHER | IM_PLASMA | IM_DISEN
 flags:DROP_1 | DROP_GREAT | ONLY_ITEM
@@ -10434,7 +10434,7 @@ blow:HIT:HURT:1d11
 blow:HIT:HURT:2d3
 blow:HIT:HURT:3d2
 blow:BITE:EXP_20:2d6
-flags:UNIQUE | MALE | EMPTY_MIND
+flags:UNIQUE | MALE | EMPTY_MIND | NEUTRAL
 flags:DROP_GOOD | DROP_3 | ONLY_ITEM | PASS_WALL
 flags:FORCE_DEPTH | PWMANG_FIXED
 flags:RES_ELEC
@@ -11325,7 +11325,7 @@ blow:PUNCH:HURT:2d8
 blow:HIT:HURT:2d6
 blow:HIT:HURT:2d6
 flags:UNIQUE | MALE | SMART
-flags:DROP_2 | DROP_GOOD | ONLY_ITEM | WANDERER
+flags:DROP_2 | DROP_GOOD | ONLY_ITEM | GOOD
 flags:FORCE_SLEEP
 spell-freq:2
 spells:SHAPECHANGE
@@ -11354,7 +11354,7 @@ blow:CLAW:HURT:2d10
 blow:CLAW:HURT:2d10
 blow:BITE:HURT:4d8
 blow:CRUSH:HURT:3d6
-flags:UNIQUE | MALE | ANIMAL | SMART | SPIRIT
+flags:UNIQUE | MALE | ANIMAL | SMART | SPIRIT | GOOD
 flags:MOVE_BODY
 drop:food:Honey-cake:50:1:1
 desc:Beorn in his form as a great black bear of the mountains, grown to
@@ -12243,7 +12243,7 @@ blow:CLAW:POISON:5d4
 blow:BITE:FIRE:5d4
 blow:BITE:ELEC:5d4
 flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
-flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
+flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | NEUTRAL
 flags:OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | RES_LIGHT
 flags:FORCE_DEPTH
@@ -14995,7 +14995,7 @@ experience:500
 blow:BITE:PARALYZE:4d5
 blow:BITE:LOSE_DEX:4d5
 blow:BITE:LOSE_CON:4d5
-flags:PWMANG_BASE | WILD_SHORE | WILD_OCEAN
+flags:PWMANG_BASE | WILD_SHORE | WILD_OCEAN | NEUTRAL
 flags:FORCE_SLEEP | IM_COLD | IM_POIS | IM_FIRE | IM_ELEC
 spell-freq:5
 spells:BO_WATE | BO_COLD | BO_ICE | BO_MANA
@@ -15892,7 +15892,7 @@ blow:HIT:HURT:1d12
 flags:DROP_3 | ONLY_ITEM
 flags:PASS_WALL
 flags:FORCE_SLEEP
-spell-freq:6
+spell-freq:5
 innate-freq:33
 spells:SHRIEK | MIND_BLAST | SCARE
 desc:Do you fear me? I know, you are. I will come for you while you asleep.
@@ -15945,7 +15945,7 @@ flags:UNDEAD | EVIL | COLD_BLOOD | LEVITATE
 flags:DROP_2 | ONLY_GOLD
 flags:OPEN_DOOR
 flags:IM_COLD | IM_POIS | NO_CONF | NO_SLEEP | NO_STUN
-desc:A fearsome skeletal horse with glowing eyes, that watch you with little
+desc:A fearsome black horse with glowing eyes, that watch you with little
 desc: more than a hatred of all that lives.
 
 name:mature power dragon
@@ -16540,7 +16540,7 @@ experience:1800
 blow:HIT:HURT:3d4
 blow:HIT:HURT:3d4
 blow:HIT:HURT:3d5
-flags:MALE | SMART
+flags:MALE | SMART | GOOD
 flags:DROP_2 | ONLY_ITEM
 flags:OPEN_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
@@ -16676,7 +16676,7 @@ experience:2000
 blow:KICK:HURT:5d5
 blow:KICK:HURT:5d5
 blow:BITE:HURT:6d6
-flags:REGENERATE | UNIQUE | ANIMAL | PWMANG_BASE | WANDERER
+flags:REGENERATE | UNIQUE | ANIMAL | PWMANG_BASE | GOOD
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD | IM_ELEC
 flags:NO_HOLD
 drop-base:crop:100:1:3
@@ -17602,7 +17602,7 @@ blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:UNIQUE | COLD_BLOOD | POWERFUL
+flags:UNIQUE | COLD_BLOOD | POWERFUL | NEUTRAL
 flags:RAND_25 | BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_FIRE | IM_WATER
 flags:FORCE_SLEEP
@@ -17709,7 +17709,7 @@ blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
 blow:HIT:CONFUSE:4d4
 blow:HIT:CONFUSE:4d4
-flags:UNIQUE | FEMALE | COLD_BLOOD | POWERFUL | LEVITATE
+flags:UNIQUE | FEMALE | COLD_BLOOD | POWERFUL | LEVITATE | NEUTRAL
 flags:RAND_25 | BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC
 flags:FORCE_SLEEP
@@ -17902,7 +17902,7 @@ experience:2000
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:MALE | SMART
+flags:MALE | SMART | GOOD
 flags:DROP_2 | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:NO_FEAR | NO_CONF | NO_SLEEP
@@ -19566,12 +19566,12 @@ depth:51
 rarity:3
 weight:0
 experience:20000
-flags:MALE | PWMANG_EXTRA | UNIQUE
+flags:MALE | PWMANG_EXTRA | UNIQUE | GOOD
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM | DROP_GREAT
 flags:NEVER_BLOW
 flags:TAKE_ITEM
 flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_ELEC | IM_COLD | IM_POIS
-flags:NO_HOLD | WANDERER
+flags:NO_HOLD
 spell-freq:1
 innate-freq:33
 spells:ARROW | BLINK | HASTE
@@ -19982,11 +19982,11 @@ blow:BITE:FIRE:12d6
 blow:BITE:FIRE:12d6
 blow:HIT:FIRE:9d12
 blow:HIT:FIRE:9d12
-flags:UNIQUE
+flags:UNIQUE | NEUTRAL
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_PLASMA | NO_CONF
-flags:NO_SLEEP | NO_HOLD | WANDERER
+flags:NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
 spell-freq:3
 innate-freq:43
@@ -20781,10 +20781,10 @@ blow:HIT:HURT:8d8
 blow:HIT:HURT:8d8
 blow:HIT:HURT:8d8
 blow:HIT:HURT:8d8
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | GOOD
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF
-flags:NO_SLEEP | NO_HOLD | WANDERER
+flags:NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
 spell-freq:4
 spells:BLIND | BRAIN_SMASH | WOUND | CONF | HEAL
@@ -21711,7 +21711,7 @@ blow:HIT:BLIND:10d10
 flags:UNIQUE | MALE | SMART
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | PWMANG_FIXED
 flags:MOVE_BODY
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | WANDERER
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
 flags:NO_STUN
 flags:FORCE_DEPTH
 drop:food:Handful of Dried Fruits:100:3:5
@@ -22007,7 +22007,7 @@ blow:CLAW:CONFUSE:12d12
 blow:CLAW:LOSE_DEX:2d12
 blow:CLAW:BLIND:10d5
 blow:BITE:PARALYZE:15d1
-flags:UNIQUE | MALE | INVISIBLE
+flags:UNIQUE | MALE | INVISIBLE | NEUTRAL
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_COLD | IM_FIRE | NO_CONF | NO_SLEEP | NO_HOLD
@@ -22615,7 +22615,7 @@ blow:CLAW:HURT:5d12
 blow:CLAW:HURT:5d12
 blow:BITE:POISON:8d14
 blow:BITE:FIRE:8d14
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NEUTRAL
 flags:DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
 flags:IM_FIRE | IM_POIS
@@ -23190,7 +23190,7 @@ blow:CRUSH:HURT:9d9
 blow:CRUSH:HURT:9d9
 blow:HIT:SHATTER:9d9
 blow:HIT:SHATTER:9d9
-flags:UNIQUE | MALE | WANDERER
+flags:UNIQUE | MALE | GOOD
 flags:DROP_GOOD | ONLY_ITEM
 flags:WEIRD_MIND
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS | IM_DISEN | IM_NETHER
@@ -23626,7 +23626,7 @@ blow:KICK:HURT:7d11
 blow:BITE:EXP_80:7d11
 blow:TOUCH:LOSE_ALL:7d11
 blow:TOUCH:DRAIN_CHARGES:7d11
-flags:UNIQUE | SMART | WANDERER
+flags:UNIQUE | SMART | NEUTRAL
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
@@ -25257,7 +25257,7 @@ experience:50000
 blow:KICK:SHATTER:11d11
 blow:BITE:HURT:11d11
 blow:TOUCH:DISENCHANT:11d11
-flags:UNIQUE | SMART
+flags:UNIQUE | SMART | GOOD
 flags:REGENERATE | ANIMAL
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD | IM_ELEC
 flags:IM_NETHER | NO_STUN | IM_PLASMA | IM_DISEN
@@ -25570,7 +25570,7 @@ blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
-flags:PWMANG_EXTRA | REGENERATE | LEVITATE
+flags:PWMANG_EXTRA | REGENERATE | LEVITATE | NEUTRAL
 flags:BASH_DOOR | NEVER_BLOW | KILL_WALL
 flags:IM_FIRE | IM_COLD | IM_POIS | IM_PLASMA | IM_NETHER | IM_ACID
 flags:NO_STUN | IM_ELEC | IM_LIGHT
@@ -25742,7 +25742,7 @@ blow:TOUCH:DISENCHANT:10d10
 blow:HIT:TIME:10d10
 blow:GAZE:FORGET:10d10
 blow:CRUSH:TERRIFY:10d5
-flags:POWERFUL | UNIQUE | WEIRD_MIND
+flags:POWERFUL | UNIQUE | WEIRD_MIND | NEUTRAL
 flags:PWMANG_BASE | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_FIRE | IM_ACID | IM_ELEC
@@ -25948,7 +25948,7 @@ blow:HIT:PARALYZE:20d15
 blow:HIT:EXP_80:20d17
 blow:HIT:LOSE_ALL:10d12
 blow:TOUCH:FORGET:12d9
-flags:EVIL | SMART | UNIQUE | MALE | INVISIBLE | POWERFUL | SPIRIT
+flags:EVIL | SMART | UNIQUE | MALE | INVISIBLE | POWERFUL | SPIRIT | NEUTRAL
 flags:WEIRD_MIND | REGENERATE
 flags:PWMANG_EXTRA | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
@@ -27930,7 +27930,7 @@ weight:170
 experience:5
 blow:HIT:HURT:5d4
 blow:HIT:HURT:5d4
-flags:MALE
+flags:MALE | NEUTRAL
 flags:OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:4
@@ -28013,7 +28013,7 @@ weight:170
 experience:5
 blow:HIT:HURT:5d4
 blow:HIT:HURT:5d4
-flags:MALE
+flags:MALE | NEUTRAL
 flags:OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:4
@@ -28046,7 +28046,7 @@ experience:35
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:MALE | INVISIBLE
+flags:MALE | INVISIBLE | NEUTRAL
 flags:OPEN_DOOR | TAKE_ITEM
 flags:IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:DROP_CORPSE | DROP_SKELETON
@@ -28081,7 +28081,7 @@ experience:35
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:MALE | INVISIBLE
+flags:MALE | INVISIBLE | NEUTRAL
 flags:OPEN_DOOR | TAKE_ITEM
 flags:IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:DROP_CORPSE | DROP_SKELETON
@@ -28504,7 +28504,7 @@ weight:140
 experience:5
 blow:HIT:HURT:2d4
 blow:HIT:HURT:2d4
-flags:MALE | EVIL | SMART
+flags:MALE | EVIL | SMART | NEUTRAL
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WILD_WOOD
@@ -28928,10 +28928,9 @@ experience:20
 blow:CRUSH:HURT:8d12
 blow:CRUSH:HURT:8d12
 blow:HIT:ELEC:12d12
-flags:BASH_DOOR
+flags:BASH_DOOR | NEUTRAL | WANDERER
 flags:IM_ELEC
 flags:DROP_CORPSE | WILD_WOOD | WILD_MOUNTAIN
-flags:WANDERER
 desc:A vast legendary bird, its iron talons rake the most impenetrable of
 desc: surfaces and its screech echoes through the many winding dungeon
 desc: corridors.
