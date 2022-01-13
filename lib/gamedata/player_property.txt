@@ -419,7 +419,7 @@ desc:You can not wear footwear.
 
 type:object
 code:SLOW_DIGEST_2
-name:Slow Digestion
+name:Additional Slow Digestion
 desc:You have slow metabolism.
 
 type:object

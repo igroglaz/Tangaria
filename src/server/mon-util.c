@@ -1139,8 +1139,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 msgt(p, soundfx, "You have killed %s.", m_name);
             }
 
-            // WANDERER ('good' or 'neutral' monster)
-            else if (rf_has(mon->race->flags, RF_WANDERER))
+            // good/neutral monsters not slain, but defeated
+            else if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                     rf_has(mon->race->flags, RF_NEUTRAL))
             {
                 msg_format_near(p, MSG_GENERIC, " has defeated %s.", m_name);
                 msgt(p, soundfx, "You have defeated %s.", m_name);
@@ -1175,15 +1176,17 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             switch (note)
             {
                 case MON_MSG_DESTROYED:
-                    // WANDERER ('good' or 'neutral' monster)
-                    if (rf_has(mon->race->flags, RF_WANDERER))
+                    // good/neutral monsters not slain, but defeated
+                    if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                        rf_has(mon->race->flags, RF_NEUTRAL))
                         msg_format_complex_near(p, MSG_GENERIC, "%s is defeated.", name);
                     else
                         msg_format_complex_near(p, MSG_GENERIC, "%s is destroyed.", name);
                     break;
                 default:
-                    // WANDERER ('good' or 'neutral' monster)
-                    if (rf_has(mon->race->flags, RF_WANDERER))
+                    // good/neutral monsters not slain, but defeated
+                    if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                        rf_has(mon->race->flags, RF_NEUTRAL))
                         msg_format_complex_near(p, MSG_GENERIC, "%s defeated.", name);
                     else
                         msg_format_complex_near(p, MSG_GENERIC, "%s dies.", name);
@@ -1201,8 +1204,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             type = MSG_BROADCAST_KILL_KING;
 
         /* Give credit to the killer */
-        // WANDERER ('good' or 'neutral' monster)
-        if (rf_has(mon->race->flags, RF_WANDERER))        
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
             strnfmt(buf, sizeof(buf), "%s was defeated by %s %s.", mon->race->name, title, p->name);
         else
             strnfmt(buf, sizeof(buf), "%s was slain by %s %s.", mon->race->name, title, p->name);
@@ -1212,8 +1216,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         msg_print(p, buf, type);
 
         /* Message for event history */
-        // WANDERER ('good' or 'neutral' monster)
-        if (rf_has(mon->race->flags, RF_WANDERER))        
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
             strnfmt(logbuf, sizeof(logbuf), "Defeated %s", mon->race->name);
         else
             strnfmt(logbuf, sizeof(logbuf), "Killed %s", mon->race->name);
@@ -1232,8 +1237,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             if (party_share_with(p, p->party, q) && mflag_has(q->mflag[mon->midx], MFLAG_HURT))
             {
                 /* Message for event history */
-                // WANDERER ('good' or 'neutral' monster)
-                if (rf_has(mon->race->flags, RF_WANDERER))     
+                // good/neutral monsters not slain, but defeated
+                if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                    rf_has(mon->race->flags, RF_NEUTRAL))
                     strnfmt(logbuf, sizeof(logbuf), "Helped to defeat %s", mon->race->name);
                 else
                     strnfmt(logbuf, sizeof(logbuf), "Helped to kill %s", mon->race->name);
@@ -1267,9 +1273,10 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     {
         int drain = 1 + (mon->level / 2) + p->lev * 4 / 5;
         if (drain > mon->maxhp) drain = mon->maxhp;
-        // WANDERER ('good' or 'neutral' monster)
-        if (rf_has(mon->race->flags, RF_WANDERER))  
-            msg(p, "You absorb the morale of the fleeing opponent.");
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
+            msg(p, "You morale raises by seeing the fleeing opponent.");
         else
             msg(p, "You absorb the life of the dying soul.");
         hp_player_safe(p, 1 + drain / 2);
