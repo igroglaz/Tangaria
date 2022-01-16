@@ -212,7 +212,9 @@ help: instead...). The higher level the monster, the more the Mimic is required
 help: to vanquish before he can assume their form. While transformed, they lose 
 help: their intrinsic abilities, and gain those of the creature they have 
 help: transformed into, plus whatever abilities and resistances provided by their
-help: equipment.
+help: equipment. |
+help: Some races which got their own polymorph or shape forms got certain
+help: restrictions on being shapechanges.
 
 class:Tamer
 help:Scar-covered hands of tamer - person devoted his life and (remaining) limbs

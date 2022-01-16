@@ -731,6 +731,14 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
                 context->origin->player);
 
+            // Fireball spell (2 mana)
+            if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
+            {
+                // dmg
+                if (dam > 10)
+                    dam *= context->origin->player->lev / 10;
+            }
+
             /* Ask for a target if no direction given */
             if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             {
@@ -2045,6 +2053,17 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
     {
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
+
+        // Magic Blade spell (mana 1)
+        if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 1))
+        {
+            // distance
+            rad += context->origin->player->lev / 10;
+            if (rad > 5) rad = 5;
+            // dmg
+            if (dam > 10)
+                dam *= context->origin->player->lev / 10;
+        }
 
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))

@@ -2837,7 +2837,7 @@ desc: and does unresistable damage.
 spell:Clairvoyance:40:50:95:200:0
 effect:LIGHT_LEVEL
 effect:NOURISH:DEC_BY
-dice:3
+dice:2
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
 
@@ -6274,69 +6274,111 @@ title:Wizard
 
 magic:1:300:2
 
-book:magic book:town:[Magic for Beginners]:11:arcane
+# spells hardcoded (hc) by mana cost! (to ease adding new spells)
+
+book:magic book:town:[Magic for Beginners]:16:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Fireball:1:1:27:2:0
+spell:Magic Blade:1:1:12:1:0
+effect:TELEPORT
+dice:1
+#hc
+effect:SHORT_BEAM:MISSILE:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: strikes with a magic blade.
+desc:Strikes with a magic blade that always hits its target and does
+desc: unresistable damage.
+desc: Distance of the attack and damage depends on your level.
+desc: Each cast cause recoil which shifts you to random direction.
+
+spell:Fireball:3:2:27:2:0
+#ball dmg hc
 effect:BALL:FIRE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 10
 msg_other: fires a fire ball.
-desc:Shoots a radius-2 fire ball.
+desc:Shoots a small radius fire ball.
+desc: It's damage increase with levels.
 
-spell:Teleport:5:2:35:5:0
-effect:HEAL_HP
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
+spell:Teleport:5:4:35:5:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 msg_other: teleports away.
-desc:Teleports you randomly within the current level and
-desc: restore some vigor.
+desc:Teleports you randomly within the current level.
 
-spell:Cold Ray:10:3:30:6:0
+spell:Cold Ray:10:4:30:6:0
 effect:BEAM:COLD
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 * 30
 msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts each monster in its path.
 
-spell:Protection:15:5:34:11:0
-effect:TIMED_INC:SHIELD
-dice:20+1d20
-desc:Grants you +50 to AC for 20+1d20 turns.
+spell:Acid Bolt:15:5:27:40:0
+effect:BOLT:ACID
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: fires an acid bolt.
+desc:Shoots an acid bolt.
 
 spell:Static Charge:20:7:32:24:0
+cooldown:5
+effect:TIMED_INC_NO_RES:BLIND
+dice:1
 effect:STAR:ELEC
-dice:$Dd$S&m8
-expr:D:PLAYER_LEVEL:- 5 / 4 + 6
-expr:S:PLAYER_LEVEL:/ 5
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
 msg_other: strikes lightning from above.
 desc:Strikes surrounding targets with a lightning.
+desc: This spell causes blindness which pass almost instantly.
+desc: Cooldown 5 turns.
 
 spell:Invisibility:25:15:45:30:0
+cooldown:150
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
 desc:Makes you invisible for a short duration.
 desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
+desc: Cooldown 150 turns.
 
 spell:Energy Bolt:30:15:27:40:0
+cooldown:10
 effect:BALL:PLASMA:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 3
+expr:B:PLAYER_LEVEL:* 5
 effect:BALL:PLASMA:2
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
-effect:RANDOM
-dice:2
+expr:B:PLAYER_LEVEL:* 5
+effect:BALL:PLASMA:3
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
 effect:BOLT:PLASMA
 dice:$B
-expr:B:PLAYER_LEVEL:* 4
+expr:B:PLAYER_LEVEL:* 5
+effect:RANDOM
+dice:4
+#stun monsters
+effect:BOLT:PLASMA
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:TIMED_INC_NO_RES:SLOW
+dice:2
 msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which explodes upon impact.
+desc:Shoots an energy bolt which may explode upon impact.
+desc: This spell causes weakness which pass in short time.
+desc: Cooldown 10 turns.
+
+spell:Dimension Shift:33:17:35:20:0
+cooldown:100
+effect:TIMED_INC:WRAITHFORM
+dice:5
+effect:TELEPORT_LEVEL
+desc:Teleports you 1 level up or 1 level down (chosen at random) and
+desc: grants you the ability to pass through non-permanent walls for a moment.
+desc: Cooldown 100 turns.
 
 spell:Magic Reflection:35:20:45:50:0
 effect:CLEAR_VALUE
@@ -6353,6 +6395,23 @@ dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
 desc: 20+1d20 turns and also protect from bad effects.
 
+spell:Armageddon:37:20:35:50:0
+effect:DRAIN_STAT:CHR
+dice:1
+effect:WIPE_AREA:NONE:3
+effect:EARTHQUAKE:NONE:7
+effect:DESTRUCTION:DARK:15
+msg_other: wrecks havoc.
+desc:You bring devastation around you.
+desc: Epicenter: wipes everything in a close radius around you.
+desc: Medium area: causes an earthquake.
+desc: At the distance: Destroys everything in a certain radius.
+desc: All monsters, objects and terrain features in the area of
+desc: effect are destroyed, except stairs and permanent walls.
+desc: You will also be blinded for 10+1d10 turns, unless you
+desc: have resistance to blindness or dark.
+desc: Each cast of this spell bring big reputation loss and recude your charisma.
+
 spell:Flamestrike:40:25:33:70:0
 effect:STRIKE:FIRE:0
 dice:$B
@@ -6362,6 +6421,26 @@ desc:Strikes a target from below with a fire.
 desc: Target grid must be targetable and known to the player;
 desc: no target grid will mean the player grid is hit.
 
+spell:Turn Into Stone:43:10:32:10:0
+cooldown:300
+effect:TIMED_INC_NO_RES:SCRAMBLE
+dice:10
+effect:CREATE_WALLS
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:3d1
+effect:TIMED_INC:INVULN
+dice:3
+effect:CURE:STUN
+effect:CURE:CUT
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: become stone statue.
+desc:Turns you into stone statue for some time, healing and curing stun or cuts.
+desc: It also grants you resistance against non-physical attacks.
+desc: This spell causes internal injuries which recover after some time.
+desc: Cooldown 300 turns.
+
 spell:Ice Storm:45:40:40:100:0
 effect:ARC:ICE:0:30
 dice:$B
@@ -6369,10 +6448,19 @@ expr:B:PLAYER_LEVEL:* 7
 msg_other: subzeroes air into a sharp icicles.
 desc:Sends forward sharp icicle storm.
 
-spell:Armageddon:50:50:40:150:0
+spell:Summon Daemon:49:100:42:200:0
+cooldown:150
+effect:SUMMON:DEMON:0:100
+dice:1
+effect:GLYPH:WARDING
+msg_other: summons a daemon.
+desc:Draws a pentagram and attempts to summon a daemon.
+desc: Cooldown 150 turns.
+
+spell:Pure Magic:50:50:40:150:0
 effect:SWARM:MANA:1
 dice:$B+m$M
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 3
 # testing note: won't work on the surface as number of Meteors depends of depth
 expr:M:DUNGEON_LEVEL:/ 30
 msg_other: fires a swarm of mana meteors.
@@ -6384,15 +6472,18 @@ desc: damage to each monster in its area of effect.
 desc: If this kills the monster that blocked the path to the target
 desc: location, the next meteor may continue to find another target.
 
+#remove this book
 book:magic book:dungeon:[Wizard's Tome of Power]:1:arcane
 
-spell:Summon Daemon:50:100:42:200:0
-cooldown:100
-effect:SUMMON:DEMON:0:100
-dice:1
-msg_other: summons a daemon.
-desc:Attempts to summon a daemon.
-desc: Cooldown 100 turns.
+spell:Town Portal:1:3:33:5:0
+effect:RECALL
+dice:10+1d20
+desc:Teleports you from the dungeon to the town or from the town to the
+desc: deepest level you have visited in the dungeon.
+desc: The recall effect is not immediate; it is delayed by some turns.
+desc: During that delay, the effect can be canceled by invoking the prayer
+desc: of recall again.
+
 
 ############### CLASS TEMPLATE for Trader ###############
 name:Trader
