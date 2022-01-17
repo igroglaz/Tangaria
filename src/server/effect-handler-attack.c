@@ -2055,7 +2055,7 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
             context->origin->player);
 
         // Magic Blade spell (mana 1)
-        if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 1))
+        if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 1)
         {
             // distance
             rad += context->origin->player->lev / 10;
