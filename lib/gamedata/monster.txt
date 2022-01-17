@@ -9308,7 +9308,7 @@ spell-freq:5
 spells:CONF | DARKNESS | MISSILE
 spells:BO_MANA
 drop-base:magic book:5:1:1
-friends:100:4d4:Same
+friends:100:1d2:Same
 desc:A dark elven mage with spells of frightening destructive power.
 
 name:ice skeleton

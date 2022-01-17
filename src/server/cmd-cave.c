@@ -2798,7 +2798,7 @@ bool do_cmd_rest(struct player *p, s16b resting)
 void do_cmd_sleep(struct player *p)
 {
     /* Take a turn */
-    if (has_energy(p, true)) use_energy(p);
+    use_energy(p);
 }
 
 

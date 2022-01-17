@@ -1823,7 +1823,37 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
             /* Don't allow if not hostile */
             square_actor(c, &grid, who);
             if (!pvx_check(p, who, square(c, &grid)->feat))
+            {
+                /* Allow curative potions to heal non hostile targets */
+                if (tval_is_potion(obj))
+                {
+                    struct effect *e = object_effect(obj);
+
+                    while (e)
+                    {
+                        if (e->index == EF_HEAL_HP)
+                        {
+                            random_value v;
+                            char dice[5];
+
+                            dice_random_value(e->dice, NULL, &v);
+                            strnfmt(dice, sizeof(dice), "%d", v.base);
+
+                            if (who->monster)
+                            {
+                                who->player = p;
+                                effect_simple(EF_MON_HEAL_HP, who, dice, 0, 0, 0, 0, 0, NULL);
+                            }
+                            else if (who->player)
+                                effect_simple(EF_HEAL_HP, who, dice, 0, 0, 0, 0, 0, NULL);
+                            break;
+                        }
+                        e = e->next;
+                    }
+                }
+
                 memset(who, 0, sizeof(struct source));
+            }
 
             /* Try the attack on the target at (x, y) if any */
             if (!source_null(who))

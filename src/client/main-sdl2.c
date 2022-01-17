@@ -313,7 +313,6 @@ struct subwindow {
 
     int rows;
     int cols;
-    int max_rows;
 
     /* struct ttf also has this information; these members are
      * just for convinience */
@@ -2946,7 +2945,7 @@ static void resize_subwindow(struct subwindow *subwindow)
 
     term *old = Term;
     Term_activate(subwindow->term);
-    Term_resize(subwindow->cols, subwindow->rows, subwindow->max_rows);
+    Term_resize(subwindow->cols, subwindow->rows, subwindow->rows);
     /* XXX if we don't redraw the term, resizing in birth screen is buggy */
     Term_redraw();
     Term_activate(old);
@@ -5217,7 +5216,7 @@ static void load_term(struct subwindow *subwindow)
 
     term_init(subwindow->term,
             subwindow->cols, subwindow->rows,
-            subwindow->max_rows,
+            subwindow->rows,
             SUBWINDOW_KEYQ_SIZE(subwindow));
 
     link_term(subwindow);
@@ -5513,7 +5512,7 @@ static void init_font_info(const char *directory)
             g_font_info[i].name = string_make(name);
             g_font_info[i].path = string_make(path);
             g_font_info[i].loaded = true;
-            if (suffix(path, ".fon")) {
+            if (suffix(path, ".fon") || suffix(path, ".FON")) {
                 g_font_info[i].type = FONT_TYPE_RASTER;
                 g_font_info[i].size = 0;
             } else {
@@ -5585,6 +5584,40 @@ static void init_systems(void)
     SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
 }
 
+/*
+ * Display warning message (see "z-util.c")
+ * plog() hook to display a message box. similar to WIN32 client
+ */
+static void hack_plog(const char *str)
+{
+    const SDL_MessageBoxButtonData buttons[] = {
+    { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "OK" } };
+    const SDL_MessageBoxColorScheme colorScheme = { 
+        { /* .colors (.r, .g, .b) */
+            { 0x28, 0x28, 0x28 }, /* [SDL_MESSAGEBOX_COLOR_BACKGROUND] */
+            { 0xff, 0xff, 0xff }, /* [SDL_MESSAGEBOX_COLOR_TEXT] */
+            { 0x60, 0x60, 0x60 }, /* [SDL_MESSAGEBOX_COLOR_BUTTON_BORDER] */
+            { 0x28, 0x28, 0x28 }, /* [SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND] */
+            { 0xc0, 0xc0, 0xc0 }  /* [SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED] */
+        }
+    };
+    const SDL_MessageBoxData messageboxdata = {
+        SDL_MESSAGEBOX_INFORMATION, /* .flags */
+        NULL, /* .window */
+        VERSION_NAME, /* .title */
+        str, /* .message */
+        SDL_arraysize(buttons), /* .numbuttons */
+        buttons, /* .buttons */
+        &colorScheme /* .colorScheme */
+    };
+    int buttonid;
+    if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
+        SDL_Log("error displaying message box");
+    }
+    printf("%s\n", str);
+    return;
+}
+
 errr init_sdl2(void)
 {
     init_systems();
@@ -5602,6 +5635,8 @@ errr init_sdl2(void)
     start_windows();
     load_terms();
 
+    /* Activate hooks */
+    plog_aux = hack_plog;
     quit_aux = quit_hook;
 
     return 0;

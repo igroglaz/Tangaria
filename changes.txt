@@ -46,6 +46,8 @@ Angband 4.2.x:
 PWMAngband:
 
 - Limit ESP_RADIUS to 75% of z_info->max_sight if LIMITED_ESP is set
+- Drastically reduce dark elven warlock group size
+- Allow curative spells/potions to heal controlled monsters
 
 Bugs fixed
 ----------
@@ -70,6 +72,7 @@ PWMAngband:
 - Fix out of bounds crash when generating a death dump from a small labyrinth
   level
 - Fix moronic crash when looking at a pile of floor-size items on the floor
+- Fix moronic bug allowing players to walk while paralyzed
 
 Coding changes
 --------------

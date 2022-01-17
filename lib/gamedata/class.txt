@@ -3993,6 +3993,10 @@ effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
+effect:BOLT_STATUS:MON_HEAL
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 10
+expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
 desc: of cuts and stunning.
 

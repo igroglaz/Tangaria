@@ -4088,9 +4088,7 @@ static int cmp_font(const void *f1, const void *f2)
     sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
 
     if (width1 == NULL && height1 == NULL && width2 == NULL && height2 == NULL)
-    {
         return strcmp(font1, font2);
-    }
 
     if (width1 < width2)
         return -1;

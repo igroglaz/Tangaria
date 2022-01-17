@@ -101,8 +101,10 @@
 #ifdef _MSC_VER
 #pragma warning(disable: 4103)
 #endif
+#ifndef __BORLANDC__
 #ifdef __clang__
 #pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
 #endif
 #ifdef __BORLANDC__
 #pragma nopackwarning

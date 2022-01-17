@@ -601,34 +601,29 @@ struct point_set *target_get_monsters(struct player *p, int mode, bool restrict_
         square_actor(c, &iter.cur, who);
 
         /* Special modes */
-        if (mode & (TARGET_KILL))
+        if (mode & (TARGET_KILL | TARGET_HELP))
         {
             /* Must be a targetable monster (or player) */
             if (!target_able(p, who)) continue;
 
-            /* Skip non hostile monsters */
-            if (who->monster && !pvm_check(p, who->monster)) continue;
+            /* Skip friendly/hostile monsters depending on mode */
+            if (who->monster)
+            {
+                if ((mode & (TARGET_KILL)) && !pvm_check(p, who->monster)) continue;
+                if ((mode & (TARGET_HELP)) && pvm_check(p, who->monster)) continue;
+            }
 
             /* Don't target yourself */
             if (who->player && (who->player == p)) continue;
 
-            /* Ignore players we aren't hostile to */
+            /* Skip friendly/hostile players depending on mode */
             if (who->player && !pvp_check(p, who->player, PVP_CHECK_BOTH, true, feat))
-                continue;
-        }
-        else if (mode & (TARGET_HELP))
-        {
-            /* Must contain a player */
-            if (!who->player) continue;
-
-            /* Must be a targetable player */
-            if (!target_able(p, who)) continue;
-
-            /* Don't target yourself */
-            if (who->player == p) continue;
-
-            /* Ignore players we aren't friends with */
-            if (pvp_check(p, who->player, PVP_CHECK_BOTH, true, 0x00)) continue;
+            {
+                if ((mode & (TARGET_KILL)) && !pvp_check(p, who->player, PVP_CHECK_BOTH, true, feat))
+                    continue;
+                if ((mode & (TARGET_HELP)) && pvp_check(p, who->player, PVP_CHECK_BOTH, true, 0x00))
+                    continue;
+            }
         }
 
         /* Save the location */
