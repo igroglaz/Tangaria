@@ -17,7 +17,7 @@ help: throwing, but bad at most other skills. A warrior has bad stealth and
 help: cannot learn any spells.
 
 class:Archer
-help:Archer could shoot squirrel to the eye so fur will not be spoiled. Very good
+help:Archer could shoot squirrel in the eye so fur would not be spoiled. Very good
 help: in archery, they don't really know from which side to hold a sword; they 
 help: don't need one honestly. With the ability to hurl multiple arrows at long 
 help: distances, an Archer can inflict more damage in a single turn than any other
@@ -30,11 +30,11 @@ help: a crossbow or a sling. They can see farther than others.
 
 class:Monk
 help:Monks are very different from all other classes. Monks are warriors who
-help: decide to fight barehanded cannot use weapons or bows. However, their
+help: decide to fight barehanded and cannot use weapons or bows. However, their
 help: training in martial arts makes them much more powerful with no armour
 help: nor weapons. As they advance in levels, they gain some new martial arts
-help: techniques to hit their opponents more effectively. In time monk can learn
-help: how to to stun and slow his opponents. With levels, they also gain
+help: techniques to hit their opponents more effectively. In time, monk can learn
+help: how to stun and slow his opponents. With levels, they also gain
 help: interesting abilities: at level 10, they learn to fall like a feather;
 help: at level 15, they become resistant to fear; at level 20, they become
 help: resistant to confusion; finally, at level 25, they learn to resist
@@ -47,7 +47,7 @@ help: other character class!
 
 class:Mage
 help:A Mage must live by their wits. They cannot hope to simply hack their way
-help: through the dungeon, and so must therefore use his magic to defeat,
+help: through the dungeon, and so must therefore use their magic to defeat,
 help: deceive, confuse, and escape. A mage is not really complete without an
 help: assortment of magical devices to use in addition to his spells. They can
 help: master the higher level magical devices far easier than anyone else, and
@@ -56,7 +56,7 @@ help: However, they are incredibly weak, getting few hit dice and suffering stro
 help: penalties to strength and constitution. Intelligence is their primary stat
 help: and at high levels they can cast many spells without a chance of failure.
 help: There is no rule that says a mage cannot become a good fighter, but spells
-help: are their true realm and they will get fewer blows with melee weapons than
+help: are their true realm, and they will get fewer blows with melee weapons than
 help: other classes.
 
 class:Shaman
@@ -92,8 +92,8 @@ help:A Warlock seeks to master the spirits of sentient creatures, creating
 help: servants of their own will. They have chosen a dark and wicked path, and
 help: run a continual risk of harm to their own body and mind. Warlocks love
 help: shadows and hate light, automatically shrouding themselves in darkness.
-help: Their spells require high intelligence, and frequently harm the caster or
-help: place them in danger. In return they achieve awesome power at high levels.
+help: Their spells require high intelligence and frequently harm the caster or
+help: place them in danger. In return, they achieve awesome power at high levels.
 help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
 help: up a tyranny in his place.
 
@@ -111,7 +111,7 @@ help:A Rogue is a character that prefers to live by their cunning, but is
 help: capable of fighting their way out of a tight spot. The master of traps and
 help: locks, to the experienced rogue no device is impossible to overcome. A rogue
 help: has a high stealth enabling sneaking around many creatures without
-help: having to fight, or sneaking up and get the first blow. They can steal items
+help: having to fight, or sneak up and get the first blow. They can steal items
 help: from monsters, but need to be wary of being caught in the act. Rogues'
 help: perception is higher than any other class, and many times they will notice
 help: a trap or secret door before having to search. A rogue is better than
@@ -120,7 +120,7 @@ help: rely on their performance. Rogues can also learn a few spells, but not the
 help: powerful offensive spells mages can use, and there will always be a chance
 help: of failure even with the simplest spells. A rogue's primary stats are
 help: dexterity and intelligence. |
-help: They receive experience a bit faster than others.
+help: They gain experience a bit faster than others.
 
 class:Ranger
 help:A Ranger is at home in nature, and good at turning the environment to
@@ -138,7 +138,7 @@ help: is legendary, with a blackguard in full cry nigh on impossible to kill.
 help: Blackguards scorn skills apart from slaughter, and require strength and
 help: intelligence (or rat-cunning) to thrive in the dungeon. Blackguard can 
 help: polymorph into werewolf, can heal by spending rage and got additional 
-help: BpR by using his battle skills.
+help: blows per round (BpR) by using his battle skills.
 
 class:Sorceror
 help:Sorcerers use intelligence primarily, determining how much mana they have to
@@ -158,32 +158,32 @@ help: use of magic items, which leaves them totally incompetent when trying
 help: to use a magic item, although they can still quaff potions and read scrolls.
 help: Because they are so unattuned to magic, Unbelievers can prevent magical gates
 help: from opening around them, eventually extending to a complete suppression of
-help: teleportation abilities and all magic in the area around them.
-help: Unbelievers can replenish their forces when making damage to non-natural 
-help: magic users. Also they could sense invisible creatures in melee range,
+help: teleportation abilities and all magic in the surrounding area.
+help: Unbelievers can replenish their forces when doing damage to non-natural 
+help: magic users. Also they can sense invisible creatures in melee range,
 help: can resist item's curses and cancel some other magic effects, eg when they
-help: drink from magic fountains they often can unmagic it. They can't remove
+help: drink from magic fountains, they often unmagic it. They can't remove
 help: curse from items.
 
 class:Hunter
-help:Hunters aren't good at fighting, but can deliever extremely high damage with
-help: their ranged weapons. They can die quickly too, however. Hunters are to bows
+help:Hunters aren't good at fighting, but can deliver extremely high damage with
+help: their ranged weapons. They can die quickly too, however. Hunters are to arrows
 help: what warriors are to melee. They are the best class around with any
-help: bow/xbow/sling. Hunter is very bad at melee, being only better than the
-help: Sorceror. Wisdom and Dexterity are the archer's primary stats. They could 
+help: bow, crossbow or sling. Hunter is very bad at melee, being only better than the
+help: Sorceror. Wisdom and dexterity are the archer's primary stats. They could 
 help: use wide-range of tricks, traps and even magic in their hunt in the dungeons.
 
 class:Telepath
 help:The Telepath is a character who uses the powers of mind instead of magic;
-help: mindcrafters who use the powers of their mind to weaken or even kill
-help: creatures. Their powers vary from simple extrasensory powers to mental
+help: mindcrafters, they can weaken or even kill with their wits.
+help: Their powers vary from simple extrasensory powers to mental
 help: domination of others. A Telepath uses the Wisdom score to determine how 
-help: well he can perform these psychic powers. In solo combat a Telepath is 
+help: well he can perform these psychic powers. In solo combat, a Telepath is 
 help: slightly weaker than a Priest, although a Telepath is never penalized for
 help: wielding an edged weapon (unlike a Priest).
 
 class:Elementalist
-help:Elementalists are spellcasters specialized in offensive spells. They share
+help:Elementalists are spellcasters specializing in offensive spells. They share
 help: the same stats as mages, but get almost no support spells at all. They rely
 help: on the powers of the four elements (Air, Fire, Earth, Water) and can combine
 help: them to cast powerful Elemental spells. Elementalists have the innate ability
@@ -193,7 +193,7 @@ help: they level, fire at 10, cold at 15, acid at 20 and lightning at 25.
 
 class:Summoner
 help:A Summoner is the weakest of all classes you may choose. They have pathetic
-help: stats, no fighting abilities, and little spells to kill enemies with magic.
+help: stats, no fighting abilities, and a few spells to kill enemies with magic.
 help: However, all these weaknesses don't trouble them much, because they can
 help: summon creatures to help them in battle, and still gain some experience from
 help: their kills. Summoners use wisdom to cast spells and summon allies, and to
@@ -213,8 +213,8 @@ help: to vanquish before he can assume their form. While transformed, they lose
 help: their intrinsic abilities, and gain those of the creature they have 
 help: transformed into, plus whatever abilities and resistances provided by their
 help: equipment. |
-help: Some races which got their own polymorph or shape forms got certain
-help: restrictions on being shapechanges.
+help: Some races that have their own polymorph or shape forms got certain
+help: restrictions on being shapechangers.
 
 class:Tamer
 help:Scar-covered hands of tamer - person devoted his life and (remaining) limbs
@@ -222,137 +222,138 @@ help: to take care of wild creatures - is an evidence what a tideous and dangero
 help: job it is. Going through dense dim-lit thickets, hot sands and insidious
 help: mountains to stalk a dragon in its den.. to make friends with it - this is
 help: your life ambition. |
-help:You will start not with a dragons though, but with frog companion. If you will
-help: take a good care of it - it will give you certain powers eventually..
-help: Each new pet which you will acquire will teach you something and fight for
+help:You will start not with dragons though, but with a frog companion. If you
+help: take good care of it - frog will eventually give you certain powers..
+help: Each new pet that you acquire will teach you something and fight for
 help: your life.
 
 class:Druid
-help:Nature magic and can shift to animals. Good in martial arts and do not use
+help:Nature magic and can shift to animals. Good at martial arts and do not use
 help: weapons. Every 5 levels can learn a new animal form to transform; some
 help: forms can cast magic spells or have innate abilities.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.
-help: Like all mercenaries, they are very good in armor and weapon care.
+help: Like all mercenaries, they are very good at armor and weapon care.
 help: Fighters are very superstitious and believe in fortune.
-help: As they care a lot about signs and omens they may get lucky to survive
-help: blows which will be mortal wound for anyone else.
+help: As they care a lot about signs and omens, they may get lucky to survive
+help: blows that would be mortal wounds for anyone else.
 
 class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
-help: They can not be confused and can use their shield with astonishing mastery.
+help: They cannot be confused and can use their shield with astonishing mastery.
 
 class:Traveller
-help:Common person who know some basic magic and not too bad in fighting..
+help:Common person who know some basic magic and are not too bad at fighting..
 help: He is not alone in his wanderings - he's got a four-legged friend.
-help: Travellers are pretty sure that they knows well about navigation and 
+help: Travellers are pretty sure that they know well about navigation and 
 help: direction, maps and cardinal points...
 help: but often they come into real adventure due to this overconfidence.
 
 class:Bard
-help:Expert in musicanship and singing, you can not only give joy to people,
+help:Expert in musicianship and singing, you can not only give joy to people,
 help: but also know how to use music magic to bring cure and wreak havoc.
 help: He is resistant to sound attacks.
 
 class:Battlemage
-help:Specialise in destruction of his enemies not only with power of elements,
-help: but also uses all melee fighting skills making his universal death machine.
-help:There is no reason a Battlemage cannot become a good fighter, but spells
-help: are their true realm.
+help:Specialized in destruction of his enemies not only with power of elements,
+help: but also uses all melee fighting skills makes him universal death machine.
+help:There is no reason a Battlemage cannot become a good fighter, but magic
+help: is their true realm.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.
 help: Resistant to nether, he can summon power of bone and poison for his profit.
-help: Most powerful necromancers can also command golems.
+help: The most powerful necromancers can also command golems.
 
 class:Hermit
-help:Spiritual guide, this holy monk sworn not to take weapon in his hand.
-help: This sacred vow does not interfere with his ability to crush enemies
+help:A spiritual guide, this holy monk has sworn not to take a weapon in his hand.
+help: This sacred vow does not interfere with his ability to crush enemies'
 help: skulls with his bare hands.
 
 class:Wizard
-help:Legendary magician who obtained ancient secrets which were forgotten for ages.
+help:A legendary magician who obtained ancient secrets that were forgotten for ages.
 help: There is a rumour that wizards even can summon and control daemons.
 
 class:Trader
-help:Enterprising merchant who went into the dungeon to fulfil his life ambition:
-help: get enought money to open his own tavern. Trader proud of his cat who
+help:An enterprising merchant who went into the dungeon to fulfill his life ambition:
+help: get enough money to open his own tavern. Trader proud of his cat, who
 help: follows him during adventures. |
-help:Trader can sell items to NPC stores. With higher lvls he has better prices. |
-help:They can not form party with other players.
+help:Trader can sell items to NPC stores.
+help: With higher levels they have better prices. |
+help:They can not form a party with other players.
 
 class:Assassin
-help:Stealthy slayers who know 100500 different ways to kill it's prey fast and
-help: effective. Their ambushing especially deadly to enemies which are not
+help:Stealthy slayers who know 100500 different ways to kill its prey fast and
+help: effectively. Their ambushing is especially deadly to enemies who are not
 help: expecting an attack.
-help: Most powerful assassins specialises on sentries - special magic traps which
-help: shoot poison, blades and magic elements to enemies on sight.
+help: Most powerful assassins specializes in sentries - special magic traps which
+help: shoot poison, blades and magic elements at enemies on sight.
 
 class:Phaseblade
 help:Warrior who dwells in two worlds and doesn't feel space/weight burden. It can
-help: teleport around and using his phase technics to cut enemies to pieces.
-help: They prefer swords and not good with other types of weapons.
+help: teleport around and using its phase techniques to cut enemies to pieces.
+help: They prefer swords and are not good with other types of weapons.
 help: They can teleport from non/limited-teleport area.
 
 class:Cryokinetic
 help:Some also call them 'Weathermasters'. Cryokinetic can instantly change
-help: surrounding temperature to extremums. Not much creatures can endure their
-help: freezing roth which change in a flash to blazing fire.
-help: They doesn't fear lava and can not slip on ice.
+help: surrounding temperature to extremums. Not many creatures can endure their
+help: freezing roth which changes in a flash to blazing fire.
+help: They don't fear lava and can't slip on ice.
 
 class:Timeturner
-help:Extreamely brittle, but lightning fast, they commands time by void magic.
-help: Some call them 'Mesmers' as they also got battle telepathic powers.
+help:Extremely brittle, but lightning fast, they command time by void magic.
+help: Some call them 'Mesmers' as they also have battle telepathic powers.
 help: They become especially speedy after level 30.
 
 class:Scavenger
 help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,
-help: but also won't say no to maraudering corpses of other adventurers.
+help: but also won't say no to marauding corpses of other adventurers.
 help: He can salvage equipment into valuables right in the dungeon, so he does not
-help: need to get distracted on going to town every now and then.
-help: They are good in stealing, but not so good as rogues.
-help: Also they got a pet - rat which is trained to divert enemies attention. |
+help: need to get distracted by going to town every now and then.
+help: They are good at stealing, but not so good as rogues.
+help: Also they got a pet rat, which is trained to divert enemies' attention. |
 help: Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
 help: true artifacts at 40+ lvl. |
 help:The higher level it got - the more valuables he can get from salvaging. |
-help: They can not form party with other players.
+help: They can not form a party with other players.
 
 class:Alchemist
 help:Can brew potions and concoct elixirs which can not only bring devastation and
 help: exterminate all living creatures, but also may bring cure and hope.
-help: To make a potion they should first gather a reagent. Some reagents are
-help: organic and may be found in plants. Some are mineral and may be gathered by
-help: mining. Brewing potion takes some time and concentration during which
-help: alchemist is very vulnerable. |
+help: To make a potion, they should first gather a reagent. Some reagents are
+help: organic and may be found in plants. Some are minerals and may be gathered by
+help: mining. Brewing a potion takes some time and concentration, during which
+help: the alchemist is very vulnerable. |
 help:Brewed potions are soulbound and can be used only by creator; you can not
 help: neither trade it, nor drop it on the ground.
-help: To get rid of potions which you don't need:
+help: To get rid of potions that you don't need:
 help: use 'k' key to destroy it or simply drink it or throw into enemies. |
-help:They can not form party with other players.
+help:They can not form a party with other players.
 
 class:Crafter
 help:Can gather resources by chopping trees for logs or mining mountains for ore,
-help: to use this materials in crafting equipment. |
+help: to use these materials in crafting equipment. |
 help:Crafter equipment is soulbound and can be fitted only on creator; you can not
 help: neither trade it, nor drop it on the ground. |
-help:To get rid of crafted equipment which you don't need:
+help:To get rid of crafted equipment that you don't need:
 help: use 'k' key to destroy it. |
-help:They can not form party with other players.
+help:They can not form a party with other players.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.
-help: They hate sorcery and witchcraft which they judge as black magic and idolatry.
-help: They themself refuse to use common magic, they refuse all
+help: They hate sorcery and witchcraft, which they judge as black magic and idolatry.
+help: They themselves refuse to use common magic, they refuse all
 help: training in the use of magic items, although they can still quaff potions
-help: and read scrolls which they accept as minor evil to fight greater evil.
+help: and read scrolls, which they accept as minor evils to fight greater evil.
 help: Because they are so hateful towards magic, Inquisitors can prevent magical
 help: gates from opening around them, eventually extending to a complete
-help: suppression all magic in the area around them. |
-help:They prefer not to use weapons, but to break bones with bare hands... |
-help:Inquisitors replenish their life forces by hurting victims which fear them.
+help: suppression of all magic in the area around them. |
+help:They prefer not to use weapons, but to break bones with their bare hands... |
+help:Inquisitors replenish their life forces by hurting victims who fear them.
 
 class:Adventurer
-help:Jack of all trades, master of none... He knows a lot of stuff and tried
+help:Jack of all trades, master of none... He knows a lot of stuff and has tried
 help: lots professions. Very versatile, but also very mediocre in every regard..
 help: ...though oftentimes better than master of one.
