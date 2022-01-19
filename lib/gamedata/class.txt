@@ -6284,17 +6284,24 @@ book:magic book:town:[Magic for Beginners]:16:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:1:12:1:0
+effect:RESTORE_MANA
+dice:1
+effect:RESTORE_MANA
+dice:0
+effect:RANDOM
+dice:2
 effect:TELEPORT
 dice:1
 #hc
 effect:SHORT_BEAM:MISSILE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 1
 msg_other: strikes with a magic blade.
 desc:Strikes with a magic blade that always hits its target and does
 desc: unresistable damage.
 desc: Distance of the attack and damage depends on your level.
 desc: Each cast cause recoil which shifts you to random direction.
+desc: Sometimes projecting this spell not consuming mana.
 
 spell:Fireball:3:2:27:2:0
 #ball dmg hc

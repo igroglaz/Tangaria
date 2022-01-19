@@ -913,7 +913,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             if (c[i].power == 0) continue;
 
             // can drop only light cursed items at night
-            if ((c[i].power > 20 && c[i].power < 100 && !is_daytime())
+            if (c[i].power > 20 && c[i].power < 100 && !is_daytime())
             {
                msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
                msg(p, "wait till the day cames to bring it under the sunlight to weaken the curse.");

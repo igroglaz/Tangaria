@@ -735,7 +735,7 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
             {
                 // dmg
-                if (dam > 10 && context->origin->player->lev > 10)
+                if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
             }
 
