@@ -134,6 +134,9 @@ static void play_music_sdl(void)
     char dirpath[MSG_LEN];
     bool played = false;
 
+    /* If music_volume = 0 then disable music playback */
+    if (music_volume == 0) return;
+
     /* Check main music directory */
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
     if (!dir_exists(dirpath)) return;

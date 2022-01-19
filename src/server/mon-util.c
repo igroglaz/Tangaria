@@ -1572,7 +1572,7 @@ bool monster_carry(struct monster *mon, struct object *obj, bool force)
     for (held_obj = mon->held_obj; held_obj; held_obj = held_obj->next)
     {
         /* Check for combination */
-        if (object_similar(NULL, held_obj, obj, OSTACK_MONSTER))
+        if (object_mergeable(NULL, held_obj, obj, OSTACK_MONSTER))
         {
             /* Combine the items */
             object_absorb(held_obj, obj);

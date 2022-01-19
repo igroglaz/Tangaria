@@ -402,6 +402,8 @@ static errr term_win_copy(term_win *s, term_win *f, int w, int h)
     }
 
     /* Copy cursor */
+    s->cnx = f->cnx;
+    s->cny = f->cny;
     s->cx = f->cx;
     s->cy = f->cy;
     s->cu = f->cu;
@@ -1127,7 +1129,8 @@ errr Term_fresh(void)
 
     /* Trivial Refresh */
     if ((y1 > y2) && (scr->cu == old->cu) && (scr->cv == old->cv) &&
-        (scr->cx == old->cx) && (scr->cy == old->cy) && !(Term->total_erase))
+        (scr->cx == old->cx) && (scr->cy == old->cy) &&
+        (scr->cnx == old->cnx) && (scr->cny == old->cny) && !(Term->total_erase))
     {
         /* Nothing */
         if (Term == term_screen) Term->minimap_active = false;
@@ -1153,6 +1156,7 @@ errr Term_fresh(void)
         /* Hack -- clear all "cursor" data */
         old->cv = old->cu = false;
         old->cx = old->cy = 0;
+        old->cnx = old->cny = 1;
 
         /* Wipe each row */
         for (y = 0; y < h; y++)
@@ -1196,9 +1200,24 @@ errr Term_fresh(void)
              * Fake a change at the old cursor position so that
              * position will be redrawn along with any other changes.
              */
-            int tx = old->cx;
-            int ty = old->cy;
+            int mty = MAX(old->cy, MIN(old->cy + old->cny - 1, h - 1));
+            int mtx = MAX(old->cx, MIN(old->cx + old->cnx - 1, w - 1));
+            int ty;
 
+            for (ty = old->cy; ty <= mty; ++ty)
+            {
+                int tx;
+
+                for (tx = old->cx; tx <= mtx; ++tx)
+                {
+                    old->c[ty][tx] = ~scr->c[ty][tx];
+                }
+                if (Term->x1[ty] > old->cx) Term->x1[ty] = old->cx;
+                if (Term->x2[ty] < mtx) Term->x2[ty] = mtx;
+            }
+            if (y1 > old->cy) y1 = old->cy;
+            if (y2 < mty) y2 = mty;
+#if 0
             #if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
             if ((old->a[ty][tx] == scr->a[ty][tx]) && (old->c[ty][tx] == scr->c[ty][tx]) &&
                 (old->ta[ty][tx] == scr->ta[ty][tx]) && (old->tc[ty][tx] == scr->tc[ty][tx]) &&
@@ -1211,14 +1230,15 @@ errr Term_fresh(void)
             #endif
 
             old->c[ty][tx] = ~scr->c[ty][tx];
-            if (y1 > ty) y1 = ty;
-            if (y2 < ty) y2 = ty;
             if (Term->x1[ty] > tx) Term->x1[ty] = tx;
             if (Term->x2[ty] < tx) Term->x2[ty] = tx;
+            if (y1 > ty) y1 = ty;
+            if (y2 < ty) y2 = ty;
 
             #if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
             }
             #endif
+#endif
         }
     }
     else
@@ -1281,13 +1301,19 @@ errr Term_fresh(void)
     }
 
     /* Cursor update -- show new cursor */
+    scr->cnx = 1;
+    scr->cny = 1;
     if (Term->soft_cursor)
     {
         /* Draw the (large or small) cursor */
         if (!scr->cu && scr->cv && !Term->no_cursor)
         {
             if (Setup.initialized && !Term->saved && (scr->cy > 0))
+            {
                 (*Term->bigcurs_hook)(scr->cx, scr->cy);
+                scr->cnx = tile_width;
+                scr->cny = tile_height;
+            }
             else
                 (*Term->curs_hook)(scr->cx, scr->cy);
         }
@@ -1320,6 +1346,8 @@ errr Term_fresh(void)
     old->cv = scr->cv;
     old->cx = scr->cx;
     old->cy = scr->cy;
+    old->cnx = scr->cnx;
+    old->cny = scr->cny;
 
     /* Actually flush the output */
     Term_xtra(TERM_XTRA_FRESH, 0);

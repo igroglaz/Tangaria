@@ -73,6 +73,8 @@ PWMAngband:
   level
 - Fix moronic crash when looking at a pile of floor-size items on the floor
 - Fix moronic bug allowing players to walk while paralyzed
+- Fix spell info/description for spells using SET_VALUE or spell power
+  (elementalists)
 
 Coding changes
 --------------
@@ -101,6 +103,12 @@ Angband 4.2.x:
 - Use TF_LOS, remove square_iswall()
 - Perform the extra color table set up for more than 16 colors in init_gcu
 - Improve object origin merging
+- Remove some suspect uses of format()
+- Refactor object_similar()
+- Refine combining origins
+- Account for SET_VALUE/CLEAR_VALUE effects in get_spell_info()
+- Remember cursor size
+- Stop treating quiver items as wielded for learning of runes
 
 PWMAngband:
 
@@ -108,6 +116,7 @@ PWMAngband:
 - Fix potential crash with standard roller
 - Implement SHORT_BEAM effect, replace BOLT_MELEE effect by SHORT_BEAM with
   length 1
+- Remove bogus END_INFO effect
 
 Compilation/documentation
 -------------------------

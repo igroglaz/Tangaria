@@ -7,7 +7,7 @@
 #define OBJECT_PILE_H
 
 /*
- * Modes for stacking by object_similar()
+ * Modes for stacking by object_similar()/object_stackable()/object_mergeable()
  */
 typedef enum
 {
@@ -41,10 +41,12 @@ extern struct object *object_new(void);
 extern void object_free(struct object *obj);
 extern void object_delete(struct object **obj_address);
 extern void object_pile_free(struct object *obj);
-extern bool object_stackable(struct player *p, const struct object *obj1,
-    const struct object *obj2, object_stack_t mode);
-extern bool object_similar(struct player *p, const struct object *obj1,
-    const struct object *obj2, object_stack_t mode);
+extern bool object_similar(struct player *p, const struct object *obj1, const struct object *obj2,
+    object_stack_t mode);
+extern bool object_stackable(struct player *p, const struct object *obj1, const struct object *obj2,
+    object_stack_t mode);
+extern bool object_mergeable(struct player *p, const struct object *obj1, const struct object *obj2,
+    object_stack_t mode);
 extern void object_origin_combine(struct object *obj1, struct object *obj2);
 extern void object_absorb_partial(struct object *obj1, struct object *obj2, object_stack_t mode1,
     object_stack_t mode2);

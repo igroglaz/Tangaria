@@ -325,7 +325,8 @@ void object_pile_free(struct object *obj)
 
 
 /*
- * Determine if an item can "absorb" a second item
+ * Determine if, ignoring any inscriptions, one item like obj1 can be stacked
+ * with one item like obj2.
  *
  * See "object_absorb()" for the actual "absorption" code.
  *
@@ -339,10 +340,11 @@ void object_pile_free(struct object *obj)
  * Chests, and activatable items, except rods, never stack (for various
  * reasons).
  */
-bool object_stackable(struct player *p, const struct object *obj1, const struct object *obj2,
+bool object_similar(struct player *p, const struct object *obj1, const struct object *obj2,
     object_stack_t mode)
 {
     int i;
+    struct loc *grid1, *grid2;
 
     /* Equipment items don't stack */
     if (p && object_is_equipped(p->body, obj1)) return false;
@@ -353,8 +355,9 @@ bool object_stackable(struct player *p, const struct object *obj1, const struct 
     if ((mode & OSTACK_LIST) && object_marked_aware(p, obj2)) return false;
 
     /* Hack -- requires same location (object list) */
-    if ((mode & OSTACK_LIST) && !loc_eq(&((struct object *)obj1)->grid, &((struct object *)obj2)->grid))
-        return false;
+    grid1 = &((struct object *)obj1)->grid;
+    grid2 = &((struct object *)obj2)->grid;
+    if ((mode & OSTACK_LIST) && !loc_eq(grid1, grid2)) return false;
 
     /* Hack -- identical items cannot be stacked */
     if (obj1 == obj2) return false;
@@ -449,14 +452,23 @@ bool object_stackable(struct player *p, const struct object *obj1, const struct 
         /* Probably okay */
     }
 
+    /* They must be similar enough */
+    return true;
+}
+
+
+/*
+ * Determine if one item like obj1 can be stacked with one item like obj2
+ * (i.e. identical to object_similar() except for the inscription check).
+ */
+bool object_stackable(struct player *p, const struct object *obj1, const struct object *obj2,
+    object_stack_t mode)
+{
+    if (!object_similar(p, obj1, obj2, mode)) return false;
+
     /* Require compatible inscriptions */
     if (obj1->note && obj2->note && (obj1->note != obj2->note)) return false;
 
-    /* PWMAngband: can't stack if one stack is already full */
-    if (obj1->number == obj1->kind->base->max_stack) return false;
-    if (obj2->number == obj2->kind->base->max_stack) return false;
-
-    /* They must be similar enough */
     return true;
 }
 
@@ -464,7 +476,7 @@ bool object_stackable(struct player *p, const struct object *obj1, const struct 
 /*
  * Return whether each stack of objects can be merged into one stack.
  */
-bool object_similar(struct player *p, const struct object *obj1, const struct object *obj2,
+bool object_mergeable(struct player *p, const struct object *obj1, const struct object *obj2,
     object_stack_t mode)
 {
     int total;
@@ -514,10 +526,10 @@ void object_origin_combine(struct object *obj1, struct object *obj2)
     if ((obj1->origin == obj2->origin) && (obj1->origin_depth == obj2->origin_depth) &&
         (obj1->origin_race == obj2->origin_race)) return;
 
-    if (obj1->origin_race && obj2->origin_race)
+    if (obj1->origin_race != obj2->origin_race)
     {
-        bool uniq1 = monster_is_unique(obj1->origin_race);
-        bool uniq2 = monster_is_unique(obj2->origin_race);
+        bool uniq1 = obj1->origin_race && monster_is_unique(obj1->origin_race);
+        bool uniq2 = obj2->origin_race && monster_is_unique(obj2->origin_race);
 
         if (uniq1 && !uniq2)
         {
@@ -534,7 +546,7 @@ void object_origin_combine(struct object *obj1, struct object *obj2)
             set_origin(obj1, ORIGIN_MIXED, 0, NULL);
         }
     }
-    else
+    else if (obj1->origin != obj2->origin || obj1->origin_depth != obj2->origin_depth)
         set_origin(obj1, ORIGIN_MIXED, 0, NULL);
 }
 
@@ -590,7 +602,7 @@ static void object_absorb_known(struct object *known_obj1, struct object *known_
  * In both these cases, we can simply use the existing note, unless the
  * blending object has a note, in which case we use that note.
  *
- * These assumptions are enforced by the "object_similar()" code.
+ * These assumptions are enforced by the "object_mergeable()" code.
  */
 static void object_absorb_merge(struct object *obj1, struct object *obj2)
 {
@@ -1000,7 +1012,7 @@ bool floor_carry(struct player *p, struct chunk *c, struct loc *grid, struct obj
     for (obj = square_object(c, grid); obj; obj = obj->next)
     {
         /* Check for combination */
-        if (object_similar(p, obj, drop, OSTACK_FLOOR))
+        if (object_mergeable(p, obj, drop, OSTACK_FLOOR))
         {
             /* Combine the items */
             object_absorb(obj, drop);
@@ -1179,7 +1191,7 @@ static bool drop_find_grid(struct player *p, struct chunk *c, struct object *dro
             for (obj = square_object(c, &loc_try); obj; obj = obj->next)
             {
                 /* Check for possible combination */
-                if (object_similar(p, obj, drop, OSTACK_FLOOR)) combine = true;
+                if (object_mergeable(p, obj, drop, OSTACK_FLOOR)) combine = true;
 
                 /* Count objects */
                 if (!(p && ignore_item_ok(p, obj))) num_shown++;

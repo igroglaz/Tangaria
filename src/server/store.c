@@ -1016,7 +1016,7 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     for (stock_obj = s->stock; stock_obj; stock_obj = stock_obj->next)
     {
         /* Can the new object be combined with the old one? */
-        if (object_similar(home? p: NULL, stock_obj, obj, mode)) return true;
+        if (object_mergeable(home? p: NULL, stock_obj, obj, mode)) return true;
     }
 
     /* But there was no room at the inn... */
@@ -1038,7 +1038,7 @@ struct object *home_carry(struct player *p, struct store *s, struct object *obj)
     for (temp_obj = s->stock; temp_obj; temp_obj = temp_obj->next)
     {
         /* The home acts just like the player */
-        if (object_similar(p, temp_obj, obj, OSTACK_PACK))
+        if (object_mergeable(p, temp_obj, obj, OSTACK_PACK))
         {
             /* Save the new number of items */
             object_absorb(temp_obj, obj);
@@ -1134,7 +1134,7 @@ struct object *store_carry(struct player *p, struct store *s, struct object *obj
     for (temp_obj = s->stock; temp_obj; temp_obj = temp_obj->next)
     {
         /* Can the existing items be incremented? */
-        if (object_similar(p, temp_obj, obj, OSTACK_STORE))
+        if (object_mergeable(p, temp_obj, obj, OSTACK_STORE))
         {
             /* Absorb (some of) the object */
             store_object_absorb(temp_obj, obj);

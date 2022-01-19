@@ -198,7 +198,7 @@ void object_list_collect(struct player *p, object_list_t *list)
 
                 /* Use a matching object if we find one. */
                 if (!is_unknown(obj) &&
-                    object_similar(p, obj, list->entries[entry_index].object, OSTACK_LIST))
+                    object_mergeable(p, obj, list->entries[entry_index].object, OSTACK_LIST))
                 {
                     /* We found a matching object and we'll use that. */
                     entry = &list->entries[entry_index];

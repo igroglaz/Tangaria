@@ -3664,15 +3664,6 @@ bool effect_handler_ENCHANT(effect_handler_context_t *context)
 }
 
 
-/*
- * Dummy effect, to tell the effect code to stop appending info (for spells).
- */
-bool effect_handler_END_INFO(effect_handler_context_t *context)
-{
-    return true;
-}
-
-
 bool effect_handler_GAIN_EXP(effect_handler_context_t *context)
 {
     int amount = effect_calculate_value(context, false);

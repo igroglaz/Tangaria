@@ -28,6 +28,7 @@ typedef struct _term_win
 {
     bool cu, cv;
     byte cx, cy;
+    byte cnx, cny;
     u16b **a;
     char **c;
     u16b *va;

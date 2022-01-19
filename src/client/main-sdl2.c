@@ -218,6 +218,12 @@ enum button_tile_scale {
     BUTTON_TILE_SIZE_HEIGHT
 };
 
+enum button_volume {
+    BUTTON_VOLUME_INVALID = 0,
+    BUTTON_VOLUME_SOUND,
+    BUTTON_VOLUME_MUSIC
+};
+
 enum button_caption_position {
     CAPTION_POSITION_INVALID = 0,
     CAPTION_POSITION_CENTER,
@@ -1313,6 +1319,25 @@ static void render_button_menu_tile_set(const struct window *window, struct butt
             button, button->data.value.int_value == current_graphics_mode->grafID);
 }
 
+static void render_button_menu_tile_sets(const struct window *window, struct button *button)
+{
+    SDL_Color *bg;
+    SDL_Color *fg;
+
+    if (!Setup.initialized) {
+        fg = &g_colors[DEFAULT_MENU_TOGGLE_FG_ACTIVE_COLOR];
+    } else {
+        fg = &g_colors[DEFAULT_MENU_TOGGLE_FG_INACTIVE_COLOR];
+    }
+    if (button->highlighted) {
+        bg = &g_colors[DEFAULT_MENU_BG_ACTIVE_COLOR];
+    } else {
+        bg = &g_colors[DEFAULT_MENU_BG_INACTIVE_COLOR];
+    }
+
+    render_button_menu(window, button, fg, bg);
+}
+
 static void render_button_menu_font_size(const struct window *window,
         struct button *button)
 {
@@ -1373,6 +1398,40 @@ static void render_button_menu_font_name(const struct window *window, struct but
             NULL, &button->full_rect, bg);
     render_utf8_string(window, window->status_bar.font, NULL, 
             fg, rect, button->caption);
+}
+
+static void render_button_menu_sound_volume(const struct window *window,
+        struct button *button)
+{
+    CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_INT);
+
+    assert(button->data.value.int_value == BUTTON_VOLUME_SOUND
+            || button->data.value.int_value == BUTTON_VOLUME_MUSIC);
+
+    SDL_Color fg;
+    SDL_Color *bg;
+
+    fg = g_colors[DEFAULT_MENU_TOGGLE_FG_ACTIVE_COLOR];
+
+    if (button->highlighted) {
+        bg = &g_colors[DEFAULT_MENU_BG_ACTIVE_COLOR];
+    } else {
+        bg = &g_colors[DEFAULT_MENU_BG_INACTIVE_COLOR];
+    }
+
+    SDL_Rect rect = get_button_caption_rect(button);
+
+    int scale = 0;
+    if (button->data.value.int_value == BUTTON_VOLUME_SOUND) {
+        scale = sound_volume;
+    } else if (button->data.value.int_value == BUTTON_VOLUME_MUSIC) {
+        scale = music_volume;
+    }
+
+    render_fill_rect(window,
+            NULL, &button->full_rect, bg);
+    render_utf8_string(window, window->status_bar.font, NULL, 
+            fg, rect, format(button->caption, scale));
 }
 
 static void render_button_menu_window(const struct window *window,
@@ -1860,6 +1919,72 @@ static bool click_menu_button(struct button *button,
     }
 }
 
+static void handle_menu_sound_volume(struct window *window,
+        struct button *button, const SDL_Event *event,
+        struct menu_panel *menu_panel)
+{
+    CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_INT);
+
+    if (!click_menu_button(button, menu_panel, event)) {
+        return;
+    }
+
+    int increment =
+        (event->button.x - button->full_rect.x < button->full_rect.w / 2) ? -5 : +5;
+
+    if (button->data.value.int_value == BUTTON_VOLUME_SOUND) {
+        sound_volume += increment;
+        if (sound_volume < 0) {
+            sound_volume = 0;
+        } else if (sound_volume > 100) {
+            sound_volume = 100;
+        }
+    } else if (button->data.value.int_value == BUTTON_VOLUME_MUSIC) {
+        music_volume += increment;
+        if (music_volume < 0) {
+            music_volume = 0;
+        } else if (music_volume > 100) {
+            music_volume = 100;
+        }
+    } else {
+        quit_fmt("bad int_value in button '%s'", button->caption);
+    }
+}
+
+static void handle_menu_sound(struct window *window,
+        struct button *button, const SDL_Event *event,
+        struct menu_panel *menu_panel)
+{
+    CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_NONE);
+
+    if (!select_menu_button(button, menu_panel, event)) {
+        return;
+    }
+
+    struct menu_elem elems[] = {
+        {
+            "< Sound Volume: %d >",
+            {
+                BUTTON_DATA_INT,
+                {.int_value = BUTTON_VOLUME_SOUND},
+            },
+            render_button_menu_sound_volume,
+            handle_menu_sound_volume
+        },
+        {
+            "< Music Volume: %d >",
+            {
+                BUTTON_DATA_INT,
+                {.int_value = BUTTON_VOLUME_MUSIC},
+            },
+            render_button_menu_sound_volume,
+            handle_menu_sound_volume
+        }
+    };
+
+    load_next_menu_panel(window, menu_panel, button, N_ELEMENTS(elems), elems);
+}
+
 static void handle_menu_window(struct window *window,
         struct button *button, const SDL_Event *event,
         struct menu_panel *menu_panel)
@@ -2060,6 +2185,9 @@ static void handle_menu_tile_sets(struct window *window,
     if (!select_menu_button(button, menu_panel, event)) {
         return;
     }
+    if (Setup.initialized) {
+        return;
+    }
 
     size_t num_elems = 0;
 
@@ -2100,7 +2228,7 @@ static void handle_menu_tiles(struct window *window,
     };
 
     struct menu_elem elems[] = {
-        {"Set", data, render_button_menu_simple, handle_menu_tile_sets},
+        {"Set", data, render_button_menu_tile_sets, handle_menu_tile_sets},
         {"Size", data, render_button_menu_simple, handle_menu_tile_sizes}
     };
 
@@ -2473,6 +2601,10 @@ static void load_main_menu_panel(struct status_bar *status_bar)
         {
             status_bar->window->index == MAIN_WINDOW ? "Send Keypad Modifier" : NULL,
             data, render_button_menu_kp_mod, handle_menu_kp_mod
+        },
+        {
+            status_bar->window->index == MAIN_WINDOW ? "Sound" : NULL,
+            data, render_button_menu_simple, handle_menu_sound
         },
         {
             status_bar->window->index == MAIN_WINDOW ? "Windows" : NULL,
@@ -5590,28 +5722,7 @@ static void init_systems(void)
  */
 static void hack_plog(const char *str)
 {
-    const SDL_MessageBoxButtonData buttons[] = {
-    { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "OK" } };
-    const SDL_MessageBoxColorScheme colorScheme = { 
-        { /* .colors (.r, .g, .b) */
-            { 0x28, 0x28, 0x28 }, /* [SDL_MESSAGEBOX_COLOR_BACKGROUND] */
-            { 0xff, 0xff, 0xff }, /* [SDL_MESSAGEBOX_COLOR_TEXT] */
-            { 0x60, 0x60, 0x60 }, /* [SDL_MESSAGEBOX_COLOR_BUTTON_BORDER] */
-            { 0x28, 0x28, 0x28 }, /* [SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND] */
-            { 0xc0, 0xc0, 0xc0 }  /* [SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED] */
-        }
-    };
-    const SDL_MessageBoxData messageboxdata = {
-        SDL_MESSAGEBOX_INFORMATION, /* .flags */
-        NULL, /* .window */
-        VERSION_NAME, /* .title */
-        str, /* .message */
-        SDL_arraysize(buttons), /* .numbuttons */
-        buttons, /* .buttons */
-        &colorScheme /* .colorScheme */
-    };
-    int buttonid;
-    if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
+    if (SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, VERSION_NAME, str, NULL) < 0) {
         SDL_Log("error displaying message box");
     }
     printf("%s\n", str);

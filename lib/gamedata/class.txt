@@ -573,7 +573,6 @@ effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC:OPP_ELEC
-effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
@@ -1705,10 +1704,10 @@ expr:S:PLAYER_LEVEL:+ 0
 desc:Attempts to remove a curse from an item.
 
 spell:Resist Elements:15:13:45:4:1
+effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_COLD
-dice:10+1d10
-effect:END_INFO
 effect:TIMED_INC:OPP_FIRE
+effect:SET_VALUE
 dice:10+1d10
 desc:Gives you temporary resistance to cold and fire, for 10+1d10 turns each.
 
@@ -2461,7 +2460,6 @@ effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC:OPP_ELEC
-effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
@@ -2681,17 +2679,12 @@ desc:Detects all monsters in the immediate area, for one turn only.
 book:magic book:town:[Incantations and Illusions]:8:arcane
 
 spell:Elemental Bolt:17:9:40:14:0
+effect:CLEAR_VALUE
 effect:BOLT_OR_BEAM:ACID:0:-10
-dice:$Dd8
-expr:D:PLAYER_LEVEL:- 5 / 4 + 5
 effect:BOLT_OR_BEAM:FIRE:0:-10
-dice:$Dd8
-expr:D:PLAYER_LEVEL:- 5 / 4 + 5
 effect:BOLT_OR_BEAM:COLD:0:-10
-dice:$Dd8
-expr:D:PLAYER_LEVEL:- 5 / 4 + 5
-effect:END_INFO
 effect:BOLT_OR_BEAM:ELEC:0:-10
+effect:SET_VALUE
 dice:$Dd8&m4
 expr:D:PLAYER_LEVEL:- 5 / 4 + 5
 msg_other: fires an elemental bolt.
@@ -2757,7 +2750,6 @@ effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC:OPP_ELEC
-effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
@@ -3290,7 +3282,6 @@ effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC:OPP_ELEC
-effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
@@ -3796,20 +3787,12 @@ desc:Calls the power of the elements to boost the effectiveness
 desc: of all other spells for 20+1d20 turns.
 
 spell:Elemental Bolt:11:6:35:9:0
+effect:CLEAR_VALUE
 effect:BOLT_OR_BEAM:ACID:0:-10
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
 effect:BOLT_OR_BEAM:FIRE:0:-10
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
 effect:BOLT_OR_BEAM:COLD:0:-10
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
-effect:END_INFO
 effect:BOLT_OR_BEAM:ELEC:0:-10
+effect:SET_VALUE
 dice:$Dd$S&m4
 expr:D:PLAYER_LEVEL:- 5 / 4 + 4
 expr:S:PLAYER_SPELL_POWER:/ 2 + 6
@@ -3835,7 +3818,6 @@ effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC:OPP_ELEC
-effect:END_INFO
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:$B+1d$S
@@ -3844,17 +3826,12 @@ expr:S:PLAYER_SPELL_POWER:* 5
 desc:Grants you temporary resistance to acid, cold, fire, lightning and poison.
 
 spell:Elemental Ball:29:14:65:24:0
+effect:CLEAR_VALUE
 effect:BALL:ACID:2
-dice:$B
-expr:B:XBALL_ELEMENT:+ 10
 effect:BALL:FIRE:2
-dice:$B
-expr:B:XBALL_ELEMENT:+ 10
 effect:BALL:COLD:2
-dice:$B
-expr:B:XBALL_ELEMENT:+ 10
-effect:END_INFO
 effect:BALL:ELEC:2
+effect:SET_VALUE
 dice:$B+m4
 expr:B:XBALL_ELEMENT:+ 10
 msg_other: fires an elemental ball.
@@ -3881,33 +3858,21 @@ desc: have resistance to blindness or light.
 desc: This spell has no effect when used in the town.
 
 spell:Elemental Storm:41:21:85:34:0
+effect:CLEAR_VALUE
 effect:STAR:ACID
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
-effect:BLAST:ACID:3
-dice:$B
-expr:B:XBLAST_ELEMENT:+ 200
 effect:STAR:FIRE
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
-effect:BLAST:FIRE:3
-dice:$B
-expr:B:XBLAST_ELEMENT:+ 200
 effect:STAR:COLD
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 5 / 4 + 4
-expr:S:PLAYER_SPELL_POWER:/ 2 + 6
-effect:BLAST:COLD:3
-dice:$B
-expr:B:XBLAST_ELEMENT:+ 200
-effect:END_INFO
 effect:STAR:ELEC
+effect:SET_VALUE
 dice:$Dd$S&m8
 expr:D:PLAYER_LEVEL:- 5 / 4 + 4
 expr:S:PLAYER_SPELL_POWER:/ 2 + 6
+effect:CLEAR_VALUE
+effect:BLAST:ACID:3
+effect:BLAST:FIRE:3
+effect:BLAST:COLD:3
 effect:BLAST:ELEC:3
+effect:SET_VALUE
 dice:$B
 expr:B:XBLAST_ELEMENT:+ 200
 msg_other: invokes an elemental storm.
@@ -4061,14 +4026,11 @@ desc:Attempts to summon one golem generated at the current dungeon level.
 desc: This spell has no effect when used in the town.
 
 spell:Thunderstorm:25:10:65:25:0
+effect:CLEAR_VALUE
 effect:STAR:LIGHT:3
-dice:$B
-expr:B:PLAYER_LEVEL:+ 20
 effect:STAR:SOUND:3
-dice:$B
-expr:B:PLAYER_LEVEL:+ 20
-effect:END_INFO
 effect:STAR:ELEC:3
+effect:SET_VALUE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 20
 msg_other: invokes a thunderstorm!

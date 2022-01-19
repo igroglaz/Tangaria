@@ -548,7 +548,7 @@ void inven_item_charges(struct player *p, struct object *obj)
  * Add an item to the players inventory.
  *
  * If the new item can combine with an existing item in the inventory,
- * it will do so, using object_similar() and object_absorb(), otherwise,
+ * it will do so, using object_mergeable() and object_absorb(), otherwise,
  * the item will be placed into the first available gear array index.
  *
  * This function can be used to "over-fill" the player's pack, but only
@@ -581,7 +581,7 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
                 OSTACK_PACK);
 
             if (!object_is_equipped(p->body, combine_item) &&
-                object_similar(p, combine_item, obj, stack_mode))
+                object_mergeable(p, combine_item, obj, stack_mode))
             {
                 break;
             }
@@ -984,41 +984,50 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
 /*
  * Return whether each stack of objects can be merged into two uneven stacks.
  */
-static bool inventory_can_stack_partial(struct player *p, const struct object *obj1,
-    const struct object *obj2, object_stack_t mode)
+static bool inven_can_stack_partial(struct player *p, const struct object *obj1,
+    const struct object *obj2, object_stack_t mode1, object_stack_t mode2)
 {
-    if (!(mode & OSTACK_STORE))
+    object_stack_t cmode = mode1 | mode2;
+
+    if (!object_stackable(p, obj1, obj2, cmode)) return false;
+
+    /*
+     * Now verify the numbers are suitable for uneven stacks. Want the
+     * leading stack, obj1, to have its count maximized.
+     */
+    if (!(cmode & OSTACK_STORE))
     {
-        int total = obj1->number + obj2->number;
-
         /* The quiver may have stricter limits. */
-        if (mode & OSTACK_QUIVER)
+        if (mode1 & OSTACK_QUIVER)
         {
-            int limit = z_info->quiver_slot_size / (tval_is_ammo(obj1)? 1: z_info->thrown_quiver_mult);
+            int qlimit = z_info->quiver_slot_size /
+                (tval_is_ammo(obj1)? 1: z_info->thrown_quiver_mult);
 
-            if (mode & ~OSTACK_QUIVER)
+            /* These's no reason to combine if already at the limit. */
+            if (obj1->number == qlimit) return false;
+
+            /*
+             * Checked the per-stack limits. If trying to move
+             * items to the quiver, also check the overall quiver
+             * limits to avoid combining and then splitting in
+             * calc_inventory().
+             */
+            if (mode2 & ~OSTACK_QUIVER)
             {
-                /* May be combining between stacks with different limits. */
-                int remainder = total - obj1->kind->base->max_stack;
+                int n_free_slot = z_info->pack_size - pack_slots_used(p);
+                int num_to_quiver;
 
-                if (remainder > limit) return false;
-            }
-            else
-            {
-                int remainder = total - limit;
-
-                if (remainder > limit) return false;
+                quiver_absorb_num(p, obj2, &n_free_slot, &num_to_quiver);
+                if (num_to_quiver <= 0) return false;
             }
         }
-        else
-        {
-            int remainder = total - obj1->kind->base->max_stack;
 
-            if (remainder > obj1->kind->base->max_stack) return false;
-        }
+        /* These's no reason to combine if already at the limit. */
+        else if (obj1->number == obj1->kind->base->max_stack)
+            return false;
     }
 
-    return object_stackable(p, obj1, obj2, mode);
+    return true;
 }
 
 
@@ -1044,7 +1053,7 @@ void combine_pack(struct player *p)
             object_stack_t stack_mode2 = (object_is_in_quiver(p, obj2)? OSTACK_QUIVER: OSTACK_PACK);
 
             /* Can we drop "obj1" onto "obj2"? */
-            if (object_similar(p, obj2, obj1, stack_mode2))
+            if (object_mergeable(p, obj2, obj1, stack_mode2))
             {
                 display_message = true;
 
@@ -1056,7 +1065,7 @@ void combine_pack(struct player *p)
             {
                 object_stack_t stack_mode1 = (object_is_in_quiver(p, obj1)? OSTACK_QUIVER: OSTACK_PACK);
 
-                if (inventory_can_stack_partial(p, obj2, obj1, stack_mode2 | stack_mode1))
+                if (inven_can_stack_partial(p, obj2, obj1, stack_mode2, stack_mode1))
                 {
                     int oldn2 = obj2->number;
                     int oldn1 = obj1->number;

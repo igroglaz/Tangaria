@@ -254,170 +254,212 @@ static size_t append_random_value_string(char *buffer, size_t size, random_value
 }
 
 
-void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
+static void spell_effect_append_value_info(struct player *p, const struct effect *effect, char *buf,
+    size_t len, const struct class_spell *spell, size_t *offset, byte *have_shared,
+    random_value *shared_rv)
 {
-    struct effect *effect;
-    const struct player_class *c = p->clazz;
-    const struct class_spell *spell;
-    bool first = true;
-    size_t offset = 0;
+    random_value rv;
+    const char *type;
+    char special[40];
     struct source actor_body;
     struct source *data = &actor_body;
 
     source_player(data, 0, p);
 
-    if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
-    spell = spell_by_index(&c->magic, spell_index);
-
-    /* Blank 'buf' first */
-    buf[0] = '\0';
-
-    while (true)
+    if (effect->index == EF_CLEAR_VALUE)
+        *have_shared = 0;
+    else if (effect->index == EF_SET_VALUE && effect->dice)
     {
-        random_value rv;
-        const char *type;
-        const char *special = NULL;
         s16b current_spell;
 
-        if (first) effect = spell->effect;
-        else effect = effect->next;
-
-        type = effect_info(effect, spell->realm->name);
+        *have_shared = 1;
 
         /* Hack -- set current spell (for spell_value_base_by_name) */
         current_spell = p->current_spell;
-        p->current_spell = spell_index;
+        p->current_spell = spell->sidx;
 
-        memset(&rv, 0, sizeof(rv));
-
-        /* Hack -- mana drain (show real value) */
-        if ((effect->index == EF_BOLT_AWARE) && (effect->subtype == PROJ_DRAIN_MANA))
-        {
-            rv.base = 6;
-            rv.dice = 3;
-            rv.sides = p->lev;
-        }
-
-        /* Normal case -- use dice */
-        else if (effect->dice != NULL)
-            dice_roll(effect->dice, (void *)data, &rv);
+        dice_roll(effect->dice, (void *)data, shared_rv);
 
         /* Hack -- reset current spell */
         p->current_spell = current_spell;
+    }
 
-        /* Handle some special cases where we want to append some additional info. */
-        switch (effect->index)
+    type = effect_info(effect, spell->realm->name);
+    if (type == NULL) return;
+
+    memset(&rv, 0, sizeof(rv));
+    special[0] = '\0';
+
+    /* Hack -- mana drain (show real value) */
+    if ((effect->index == EF_BOLT_AWARE) && (effect->subtype == PROJ_DRAIN_MANA))
+    {
+        rv.base = 6;
+        rv.dice = 3;
+        rv.sides = p->lev;
+    }
+
+    /* Normal case -- use dice */
+    else if (effect->dice != NULL)
+    {
+        s16b current_spell;
+
+        /* Hack -- set current spell (for spell_value_base_by_name) */
+        current_spell = p->current_spell;
+        p->current_spell = spell->sidx;
+
+        dice_roll(effect->dice, (void *)data, &rv);
+
+        /* Hack -- reset current spell */
+        p->current_spell = current_spell;
+    }
+    else if (*have_shared)
+    {
+        /* PWMAngband: don't repeat shared info */
+        if (*have_shared == 1)
         {
-            case EF_HEAL_HP:
+            memcpy(&rv, shared_rv, sizeof(random_value));
+            *have_shared = 2;
+        }
+        else return;
+    }
+
+    /* Handle some special cases where we want to append some additional info. */
+    switch (effect->index)
+    {
+        case EF_HEAL_HP:
+        {
+            /* Append percentage only, as the fixed value is always displayed */
+            if (rv.m_bonus) strnfmt(special, sizeof(special), "/%d%%", rv.m_bonus);
+            break;
+        }
+        case EF_BALL:
+        {
+            /* Append number of projectiles. */
+            if (rv.m_bonus) strnfmt(special, sizeof(special), "x%d", rv.m_bonus);
+
+            /* Append radius */
+            else
             {
-                /* Append percentage only, as the fixed value is always displayed */
-                if (rv.m_bonus) special = format("/%d%%", rv.m_bonus);
-                break;
-            }
-            case EF_BALL:
-            {
-                /* Append number of projectiles. */
-                if (rv.m_bonus) special = format("x%d", rv.m_bonus);
-
-                /* Append radius */
-                else
-                {
-                    int rad = (effect->radius? effect->radius: 2);
-                    struct beam_info beam;
-
-                    if (effect->other) rad += p->lev / effect->other;
-                    if (p->poly_race && monster_is_powerful(p->poly_race)) rad++;
-
-                    fill_beam_info(p, spell_index, &beam);
-
-                    rad = rad + beam.spell_power / 2;
-                    rad = rad * (20 + beam.elem_power) / 20;
-
-                    special = format(", rad %d", rad);
-                }
-
-                break;
-            }
-            case EF_BLAST:
-            {
-                /* Append radius */
                 int rad = (effect->radius? effect->radius: 2);
                 struct beam_info beam;
 
                 if (effect->other) rad += p->lev / effect->other;
                 if (p->poly_race && monster_is_powerful(p->poly_race)) rad++;
 
-                fill_beam_info(p, spell_index, &beam);
+                fill_beam_info(p, spell->sidx, &beam);
 
                 rad = rad + beam.spell_power / 2;
                 rad = rad * (20 + beam.elem_power) / 20;
 
-                special = format(", rad %d", rad);
-                break;
+                strnfmt(special, sizeof(special), ", rad %d", rad);
             }
-            case EF_STRIKE:
-            {
-                /* Append radius */
-                if (effect->radius) special = format(", rad %d", effect->radius);
-                break;
-            }
-            case EF_SHORT_BEAM:
-            {
-                /* Append length of beam */
-                special = format(", len %d", effect->radius);
-                break;
-            }
-            case EF_BOLT_OR_BEAM:
-            case EF_STAR:
-            case EF_STAR_BALL:
-            case EF_SWARM:
-            {
-                /* Append number of projectiles. */
-                if (rv.m_bonus) special = format("x%d", rv.m_bonus);
-                break;
-            }
-            case EF_BOW_BRAND_SHOT:
-            {
-                /* Append "per shot" */
-                special = "/shot";
-                break;
-            }
-            case EF_TIMED_INC:
-            {
-                if (rv.m_bonus)
-                {
-                    /* Append percentage only, as the fixed value is always displayed */
-                    if (effect->subtype == TMD_EPOWER)
-                        special = format("/+%d%%", rv.m_bonus);
 
-                    /* Append the bonus only, since the duration is always displayed. */
-                    else
-                        special = format("/+%d", rv.m_bonus);
-                }
-                break;
-            }
-            default:
-                break;
+            break;
         }
-
-        if (type == NULL) return;
-
-        if ((rv.base > 0) || (rv.dice > 0 && rv.sides > 0))
+        case EF_BLAST:
         {
-            if (first) offset += strnfmt(buf, len, " %s ", type);
-            else offset += strnfmt(buf + offset, len - offset, "+");
-            offset += append_random_value_string(buf + offset, len - offset, &rv);
+            /* Append radius */
+            int rad = (effect->radius? effect->radius: 2);
+            struct beam_info beam;
 
-            if (special != NULL)
-                strnfmt(buf + offset, len - offset, "%s", special);
+            if (effect->other) rad += p->lev / effect->other;
+            if (p->poly_race && monster_is_powerful(p->poly_race)) rad++;
 
-            first = false;
+            fill_beam_info(p, spell->sidx, &beam);
+
+            rad = rad + beam.spell_power / 2;
+            rad = rad * (20 + beam.elem_power) / 20;
+
+            strnfmt(special, sizeof(special), ", rad %d", rad);
+            break;
         }
+        case EF_STRIKE:
+        {
+            /* Append radius */
+            if (effect->radius) strnfmt(special, sizeof(special), ", rad %d", effect->radius);
+            break;
+        }
+        case EF_SHORT_BEAM:
+        {
+            /* Append length of beam */
+            strnfmt(special, sizeof(special), ", len %d", effect->radius);
+            break;
+        }
+        case EF_BOLT_OR_BEAM:
+        case EF_STAR:
+        case EF_STAR_BALL:
+        case EF_SWARM:
+        {
+            /* Append number of projectiles. */
+            if (rv.m_bonus) strnfmt(special, sizeof(special), "x%d", rv.m_bonus);
+            break;
+        }
+        case EF_BOW_BRAND_SHOT:
+        {
+            /* Append "per shot" */
+            my_strcpy(special, "/shot", sizeof(special));
+            break;
+        }
+        case EF_TIMED_INC:
+        {
+            if (rv.m_bonus)
+            {
+                /* Append percentage only, as the fixed value is always displayed */
+                if (effect->subtype == TMD_EPOWER)
+                    strnfmt(special, sizeof(special), "/+%d%%", rv.m_bonus);
+
+                /* Append the bonus only, since the duration is always displayed. */
+                else
+                    strnfmt(special, sizeof(special), "/+%d", rv.m_bonus);
+            }
+            break;
+        }
+        default:
+            break;
+    }
+
+    if ((rv.base > 0) || (rv.dice > 0 && rv.sides > 0))
+    {
+        if (!*offset) *offset = strnfmt(buf, len, " %s ", type);
+        else *offset += strnfmt(buf + *offset, len - *offset, "+");
+        *offset += append_random_value_string(buf + *offset, len - *offset, &rv);
+
+        if (special[0])
+            strnfmt(buf + *offset, len - *offset, "%s", special);
+    }
+}
+
+
+void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
+{
+    struct effect *effect;
+    byte have_shared = 0;
+    random_value shared_rv;
+    const struct player_class *c = p->clazz;
+    const struct class_spell *spell;
+    size_t offset = 0;
+
+    if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
+    spell = spell_by_index(&c->magic, spell_index);
+    effect = spell->effect;
+
+    /* Blank 'buf' first */
+    buf[0] = '\0';
+
+    while (effect)
+    {
+        spell_effect_append_value_info(p, effect, buf, len, spell, &offset, &have_shared, &shared_rv);
 
         /* Hack -- if next effect has the same tip, also append that info */
-        if (!effect->next) return;
-        if (!effect_info(effect->next, spell->realm->name)) return;
-        if (strcmp(effect_info(effect->next, spell->realm->name), type)) return;
+        if (effect->next)
+        {
+            const char *type = effect_info(effect, spell->realm->name);
+            const char *nexttype = effect_info(effect->next, spell->realm->name);
+
+            if (type && nexttype && strcmp(nexttype, type)) return;
+        }
+
+        effect = effect->next;
     }
 }
 
@@ -1171,12 +1213,17 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
     struct source *data = &actor_body;
     char buf[NORMAL_WID];
     bool valid;
+    s16b current_spell;
 
     source_player(data, 0, p);
 
     c = p->clazz;
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
+
+    /* Hack -- set current spell (for spell_value_base_by_name) */
+    current_spell = p->current_spell;
+    p->current_spell = spell->sidx;
 
     /* Spell description */
     if (flag == -1) my_strcpy(out_desc, spell->text, size);
@@ -1194,10 +1241,20 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
     if ((num_damaging > 0) && valid)
     {
         int i = 0;
+        bool have_shared = false;
+        random_value shared_rv;
 
         my_strcat(out_desc, " Inflicts an average of", size);
         for (e = spell->effect; e != NULL; e = effect_next(e, data))
         {
+            if (e->index == EF_CLEAR_VALUE)
+                have_shared = false;
+            else if (e->index == EF_SET_VALUE && e->dice)
+            {
+                have_shared = true;
+                dice_random_value(e->dice, data, &shared_rv);
+            }
+
             if (effect_damages(e, data, spell->realm->name))
             {
                 const char *projection = effect_projection(e, data);
@@ -1206,7 +1263,8 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
                     my_strcat(out_desc, ",", size);
                 if ((num_damaging > 1) && (i == num_damaging - 1))
                     my_strcat(out_desc, " and", size);
-                strnfmt(buf, sizeof(buf), " {%d}", effect_avg_damage(e, data, spell->realm->name));
+                strnfmt(buf, sizeof(buf), " {%d}",
+                    effect_avg_damage(e, data, spell->realm->name, &have_shared, &shared_rv));
                 my_strcat(out_desc, buf, size);
                 if (strlen(projection) > 0)
                 {
@@ -1218,4 +1276,7 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
         }
         my_strcat(out_desc, " damage.", size);
     }
+
+    /* Hack -- reset current spell */
+    p->current_spell = current_spell;
 }
