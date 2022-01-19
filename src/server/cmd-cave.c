@@ -934,9 +934,11 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     }
 
     /* Hack -- DM can remove wiped unowned custom houses */
+    // ...to prevent case when admin can accidently destroy NPC stores' doors
+    // (I did it several times already) - destroy only whe drink ?Heroism
     if ((p->dm_flags & DM_HOUSE_CONTROL) && (find_house(p, grid, 0) == -1) &&
        ((square_is_new_permhouse(c, grid)) || (square_home_iscloseddoor(c, grid)) ||
-         square_issafefloor(c, grid)))
+         square_issafefloor(c, grid)) && p->timed[TMD_HERO])
     {
         /* Either the player has lost his mind or he is trying to create a door! */
         square_burn_grass(c, grid);
