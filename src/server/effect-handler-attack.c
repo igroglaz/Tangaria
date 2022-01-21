@@ -385,6 +385,13 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
 
+        if (streq(context->origin->player->clazz->name, "Wizard") && !context->origin->player->poly_race)
+        {
+            // Acid Breath spell (mana 9)
+            if (context->origin->player->spell_cost == 9)
+                dam *= context->origin->player->lev / 4;
+        }
+
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             target_get(context->origin->player, &target);
@@ -824,6 +831,16 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     /* Hack -- elementalists */
     rad = rad + context->beam.spell_power / 2;
     rad = rad * (20 + context->beam.elem_power) / 20;
+
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Manablast spell (mana 9)
+        if (context->origin->player->spell_cost == 9)
+        {
+            rad += context->origin->player->lev / 12;
+            dam *= context->origin->player->lev / 5;
+        }
+    }
 
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
         context->ident = true;
@@ -2147,6 +2164,13 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->radius) dam /= context->radius;
 
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Dark Storm spell (mana 8)
+        if (context->origin->player->spell_cost == 8)
+            dam *= context->origin->player->lev / 5;
+    }
+
     if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
         msg(context->origin->player, context->self_msg);
     context->origin->player->do_visuals = true;
@@ -2200,12 +2224,17 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     source_player(who, get_player_index(get_connection(context->origin->player->conn)),
         context->origin->player);
 
-    // Electrocute spell (mana 2)
-    if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
-    {
-        // dmg
-        if (context->origin->player->lev > 10)
-            dam *= context->origin->player->lev / 10;
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Electrocute spell (mana 2)
+        if (context->origin->player->spell_cost == 2)
+        {
+            if (context->origin->player->lev > 10)
+                dam *= context->origin->player->lev / 10;
+        }
+        // Flamestrike spell (mana 10)
+        else if (context->origin->player->spell_cost == 10)
+            dam *= context->origin->player->lev / 5;
     }
 
     /* Ask for a target; if no direction given, the player is struck  */
