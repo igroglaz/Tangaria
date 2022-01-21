@@ -544,11 +544,24 @@ msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
 
-book:magic book:dungeon:[Sorcery and Evocations]:5:arcane
+book:magic book:dungeon:[Sorcery and Evocations]:6:arcane
 book-graphics:?:r
 book-properties:40:30:20000
 book-alloc:15:40 to 100
 book-desc:An advanced arcane book with a few spells.
+
+spell:Elbereth:21:19:37:18:0
+cooldown:144
+effect:GLYPH:WARDING
+desc:Engraves 'Elbereth' in glyphs on the floor beneath you.
+desc: Summoned monsters can't appear on this glyphs.
+desc: If a monster attempts to move onto the glyphs or melee you while you
+desc: are standing on the glyphs, it must first succeed in erasing the glyphs.
+desc: Higher level monsters are more likely to erase the glyphs.
+desc: The glyphs will remain where it is, until a monster succeeds in
+desc: erasing it or until you leave the level.
+desc: You can inscribe this sacred writings not too often or its magic will not work.
+desc: Cooldown 144 turns.
 
 spell:Mana Bolt:24:8:60:30:0
 # 8-14 @ 24 (~60)
@@ -6210,7 +6223,7 @@ skill-melee:30:11
 skill-shoot:20:15
 skill-dig:0:0
 hitdie:0
-max-attacks:2
+max-attacks:3
 min-weight:40
 strength-multiplier:2
 equip:light:Wooden Torch:1:3:none
@@ -6223,6 +6236,7 @@ value:0:STR[-4]
 value:0:INT[5]
 value:0:CON[-2]
 value:0:CHR[-2]
+# restore mana when polymorph monsters
 player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
 title:Novice
 title:Apprentice
@@ -6239,7 +6253,7 @@ magic:1:300:2
 
 # spells hardcoded (hc) by mana cost! (to ease adding new spells)
 
-book:magic book:town:[Magic for Beginners]:16:arcane
+book:magic book:town:[Magic for Beginners]:21:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:1:12:1:0
@@ -6254,29 +6268,62 @@ dice:1
 #hc
 effect:SHORT_BEAM:MISSILE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
-msg_other: strikes with a magic blade.
+expr:B:PLAYER_LEVEL:+ 3
+msg_other: bents index finger.. Blades appears from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: unresistable damage.
 desc: Distance of the attack and damage depends on your level.
 desc: Each cast cause recoil which shifts you to random direction.
 desc: Sometimes projecting this spell not consuming mana.
 
-spell:Fireball:3:2:27:2:0
-#ball dmg hc
-effect:BALL:FIRE:1
+spell:Electrocute:2:2:27:2:0
+effect:STRIKE:ELEC:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 10
-msg_other: fires a fire ball.
-desc:Shoots a small radius fire ball.
-desc: It's damage increase with levels.
+msg_other: claps hands together.. Lightning!
+desc:Summon lighting upon an enemy.
+desc: Its damage increase with levels.
+
+spell:Luminous Fog:3:2:20:5:0
+cooldown:10
+# hc distance (max dist should be 20) and damage
+effect:SHORT_BEAM:LIGHT_WEAK:10
+dice:4d4
+effect:LIGHT_AREA
+msg_self:A line of bright yellowish fog appears.
+msg_other: slowly nods. Bright yellowish fog appears!
+desc:Fires a beam that magic fog which lights up each square and hurts each
+desc: light-sensitive monster in its path.
+desc: If you are in a room, the entire room will be lit up as well.
+desc: Cooldown 10 turns.
 
 spell:Teleport:5:4:35:5:0
+effect:RESTORE_MANA
+dice:2
+effect:RESTORE_MANA
+dice:3
+effect:RANDOM
+dice:2
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
-msg_other: teleports away.
-desc:Teleports you randomly within the current level.
+msg_other: winks... and dissapears!
+desc:Teleports you randomly within medium distance.
+desc: It takes some mana before displacement, but some of it become restored
+desc: upon getting to destination.
+
+spell:Polymorph:7:4:35:5:0
+cooldown:5
+effect:RESTORE_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 5
+effect:BOLT_AWARE:MON_POLY:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: snaps fingers. Polymorph!
+desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
+desc: Ordering chaotic energy restore your magic power.
+desc: Cooldown 5 turns.
 
 spell:Cold Ray:10:4:30:6:0
 effect:BEAM:COLD
@@ -6285,27 +6332,59 @@ expr:B:PLAYER_LEVEL:/ 10 * 30
 msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts each monster in its path.
 
-spell:Acid Bolt:15:5:27:40:0
-effect:BOLT:ACID
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-msg_other: fires an acid bolt.
-desc:Shoots an acid bolt.
-
-spell:Static Charge:20:7:32:24:0
-cooldown:5
+spell:Dark Storm:13:7:32:24:0
+cooldown:30
 effect:TIMED_INC_NO_RES:BLIND
 dice:1
-effect:STAR:ELEC
+effect:STAR:DARK
 dice:$B
 expr:B:PLAYER_LEVEL:* 7
-msg_other: strikes lightning from above.
-desc:Strikes surrounding targets with a lightning.
+msg_other: exhales sharply.. dark cloud fill surroundings!
+desc:Strikes surrounding targets with a dark magic.
 desc: This spell causes blindness which pass almost instantly.
-desc: Cooldown 5 turns.
+desc: Cooldown 30 turns.
+
+spell:Stone Curse:15:10:32:10:0
+cooldown:240
+effect:TIMED_INC_NO_RES:SCRAMBLE
+dice:10
+effect:CREATE_WALLS
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:3d1
+effect:TIMED_INC:INVULN
+dice:3
+effect:TIMED_INC:SHIELD
+dice:3
+msg_other: become stone statue.
+desc:Turns you into stone statue for some time.
+desc: While you stoned - you have resistance against all attacks.
+desc: After some time you recover from stone, but stone rock still stay
+desc: in place protecting you.
+desc: This spell may causes internal injuries which recover after some time.
+desc: Cooldown 240 turns.
+
+spell:Flamestrike:17:10:33:70:0
+# hardcode it!
+effect:STRIKE:FIRE:0
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: strikes fire from below.
+desc:Strikes a target from below with a fire.
+desc: Target grid must be targetable and known to the player;
+desc: no target grid will mean the player grid is hit.
+
+spell:Manaball:20:7:30:6:0
+cooldown:7
+effect:BLAST:MANA:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: explode with a power.
+desc:Expands a sphere of power that explode around you.
+desc: Cooldown 7 turns.
 
 spell:Invisibility:25:15:45:30:0
 cooldown:150
+# make it also give 1 turn wraithform (vs walls only). effect:TIMED_INC:WRAITHFORM
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
@@ -6314,32 +6393,17 @@ desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
 desc: Cooldown 150 turns.
 
-spell:Energy Bolt:30:15:27:40:0
-cooldown:10
-effect:BALL:PLASMA:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:BALL:PLASMA:2
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:BALL:PLASMA:3
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:BOLT:PLASMA
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:RANDOM
-dice:4
-#stun monsters
-effect:BOLT:PLASMA
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TIMED_INC_NO_RES:SLOW
-dice:2
-msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which may explode upon impact.
-desc: This spell causes weakness which pass in short time.
-desc: Cooldown 10 turns.
+spell:Acid Breath:30:9:30:12:0
+cooldown:60
+effect:TIMED_INC_NO_RES:STUN
+dice:1
+effect:BREATH:ACID:0:30
+dice:$Dd8
+expr:D:PLAYER_LEVEL:* 4
+msg_other: breathes acid.
+desc:Breathes acid.
+desc: This spell makes you stunned for a moment.
+desc: Cooldown 60 turns.
 
 spell:Dimension Shift:33:17:35:20:0
 cooldown:100
@@ -6381,34 +6445,37 @@ desc: You will also be blinded for 10+1d10 turns, unless you
 desc: have resistance to blindness or dark.
 desc: Each cast of this spell bring big reputation loss and recude your charisma.
 
-spell:Flamestrike:40:25:33:70:0
-effect:STRIKE:FIRE:0
+spell:Battle Telekinesis:40:5:27:40:0
+effect:BOLT:SHARD
 dice:$B
-expr:B:PLAYER_LEVEL:* 10
-msg_other: strikes fire from below.
-desc:Strikes a target from below with a fire.
-desc: Target grid must be targetable and known to the player;
-desc: no target grid will mean the player grid is hit.
+expr:B:PLAYER_LEVEL:* 4
+msg_other: flings a sharp piece of rock.
+desc:Hurls a sharp piece of rock into the target.
 
-spell:Turn Into Stone:43:10:32:10:0
-cooldown:300
-effect:TIMED_INC_NO_RES:SCRAMBLE
-dice:10
-effect:CREATE_WALLS
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
-effect:TIMED_INC:INVULN
-dice:3
-effect:CURE:STUN
-effect:CURE:CUT
-effect:HEAL_HP
+spell:Energy Bolt:43:20:27:120:0
+#stun monsters
+effect:BALL:PLASMA:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
-msg_other: become stone statue.
-desc:Turns you into stone statue for some time, healing and curing stun or cuts.
-desc: It also grants you resistance against non-physical attacks.
-desc: This spell causes internal injuries which recover after some time.
-desc: Cooldown 300 turns.
+effect:BALL:PLASMA:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:BALL:PLASMA:3
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:BOLT:PLASMA
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:RANDOM
+dice:4
+effect:BOLT:PLASMA
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:TIMED_INC_NO_RES:SLOW
+dice:2
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which may explode upon impact.
+desc: This spell causes weakness which pass in short time.
 
 spell:Ice Storm:45:40:40:100:0
 effect:ARC:ICE:0:30
@@ -6417,13 +6484,26 @@ expr:B:PLAYER_LEVEL:* 7
 msg_other: subzeroes air into a sharp icicles.
 desc:Sends forward sharp icicle storm.
 
+spell:Mind Reading:47:14:10:6:0
+cooldown:180
+effect:READ_MINDS
+dice:$Dd$S
+expr:D:PLAYER_LEVEL:/ 10 + 1
+expr:S:PLAYER_LEVEL:/ 10 + 1
+effect:DETECT_SOUL
+effect-yx:22:40
+desc:Detects all monsters which have a spirit in the surrounding area,
+desc: and then maps in a region around them, increasing in size with
+desc: character level.
+desc: Cooldown 180 turns.
+
 spell:Summon Daemon:49:100:42:200:0
 cooldown:150
 effect:SUMMON:DEMON:0:100
 dice:1
 effect:GLYPH:WARDING
 msg_other: summons a daemon.
-desc:Draws a pentagram and attempts to summon a daemon.
+desc:Draws a protecting pentagram and attempts to summon a daemon.
 desc: Cooldown 150 turns.
 
 spell:Pure Magic:50:50:40:150:0
@@ -6777,14 +6857,20 @@ desc: Cooldown 10 turns.
 # 1st dungeon book
 book:shadow book:dungeon:[Dark Evocations]:6:shadow
 
-spell:Shadow Decoy:25:15:40:25:0
-cooldown:60
-effect:GLYPH:DECOY
+spell:Vampirism:25:15:40:25:0
+cooldown:360
 effect:TIMED_INC:STEALTH
 dice:10+1d10
-desc:Leaves a magical decoy that looks and sounds like the player.
-desc:Also makes your more silent for a while.
-desc: Cooldown 60 turns.
+effect:TIMED_INC:ATT_VAMP
+dice:$B+1d$S
+expr:B:PLAYER_LEVEL:* 3 / 10 + 20
+expr:S:PLAYER_LEVEL:* 4 / 10 + 10
+effect:NOURISH:DEC_BY
+dice:1
+desc:You change your metabolism and get ability of draining life from
+desc: monsters when you hit them and become silent as night.
+desc: This spell require satiation.
+desc: Cooldown 360 turns.
 
 spell:Sneak to Depths:30:10:30:30:0
 effect:TIMED_INC:PROBTRAVEL
@@ -6796,19 +6882,21 @@ effect:PROJECT_LOS_AWARE:SLEEP_ALL
 desc:Attempts to put to sleep each monster within line of sight.
 
 spell:Fade in Shadows:40:40:40:70:0
+effect:GLYPH:DECOY
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
-desc:Makes you invisible for a short duration.
+desc:Leaves a magical decoy that looks and sounds like the player.
+desc: Also makes you invisible for a while.
 desc: High level, questor, invisible and injured monsters
-desc: cannot be fooled by this trick.
+desc: can see through invisibility.
 
 spell:Dark Mark:45:50:33:120:0
 cooldown:300
 effect:WAKE
 effect:SAFE_GUARD
 effect:NOURISH:DEC_BY
-dice:5
+dice:4
 desc:Inscribes a Dark Mark beneath you.
 desc: Summoned monsters can't appear on the Dark Mark.
 desc: If a monster attempts to move onto the mark or melee you while you

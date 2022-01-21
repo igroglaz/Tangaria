@@ -731,7 +731,7 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
                 context->origin->player);
 
-            // Fireball spell (2 mana)
+            // !!!! not used atm.. Fireball spell (2 mana)
             if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
             {
                 // dmg
@@ -2054,15 +2054,25 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
 
-        // Magic Blade spell (mana 1)
-        if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 1)
+        if (streq(context->origin->player->clazz->name, "Wizard"))
         {
-            // distance
-            rad += context->origin->player->lev / 10;
-            if (rad > 5) rad = 5;
-            // dmg
-            if (dam > 10)
-                dam *= context->origin->player->lev / 10;
+            // Magic Blade spell (mana 1)
+            if (context->origin->player->spell_cost == 1)
+                {
+                    // distance
+                    rad += context->origin->player->lev / 10;
+                    if (rad > 5) rad = 5;
+                    // dmg
+                    if (context->origin->player->lev > 10)
+                        dam *= context->origin->player->lev / 10;
+                }
+            // Luminous Fog spell (mana 2)
+            else if (context->origin->player->spell_cost == 2)
+            {
+                rad += context->origin->player->lev / 5;
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 3;
+            }
         }
 
         /* Ask for a target if no direction given */
@@ -2189,6 +2199,14 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     loc_copy(&target, &context->origin->player->grid);
     source_player(who, get_player_index(get_connection(context->origin->player->conn)),
         context->origin->player);
+
+    // Electrocute spell (mana 2)
+    if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
+    {
+        // dmg
+        if (context->origin->player->lev > 10)
+            dam *= context->origin->player->lev / 10;
+    }
 
     /* Ask for a target; if no direction given, the player is struck  */
     if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))

@@ -2521,13 +2521,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (p->lev > 9)        
             state->to_a += 10;
-        // cons:
-        if (p->lev < 40)
+        // cons for all except Mage:
+        if (p->lev < 40 && !streq(p->clazz->name, "Mage"))
         {
             state->skills[SKILL_STEALTH] -= 4;
             extra_moves -= 1 + (p->lev / 10);
         }
-        else
+        else if (!streq(p->clazz->name, "Mage"))
         {
             state->skills[SKILL_STEALTH] -= 2;
             extra_moves -= 5;
