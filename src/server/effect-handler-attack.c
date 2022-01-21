@@ -387,8 +387,8 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
 
         if (streq(context->origin->player->clazz->name, "Wizard") && !context->origin->player->poly_race)
         {
-            // Acid Breath spell (mana 9)
-            if (context->origin->player->spell_cost == 9)
+            // Acid Breath spell (mana 10)
+            if (context->origin->player->spell_cost == 10)
                 dam *= context->origin->player->lev / 4;
         }
 
@@ -738,8 +738,8 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
                 context->origin->player);
 
-            // !!!! not used atm.. Fireball spell (2 mana)
-            if (streq(context->origin->player->clazz->name, "Wizard") && context->origin->player->spell_cost == 2)
+            // Fireball spell (2 mana)
+            if (streq(context->origin->player->clazz->name, "Mage") && context->origin->player->spell_cost == 2)
             {
                 // dmg
                 if (context->origin->player->lev > 10)
@@ -834,8 +834,8 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Manablast spell (mana 9)
-        if (context->origin->player->spell_cost == 9)
+        // Manablast spell (mana 10)
+        if (context->origin->player->spell_cost == 10)
         {
             rad += context->origin->player->lev / 12;
             dam *= context->origin->player->lev / 5;
@@ -2166,8 +2166,8 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Dark Storm spell (mana 8)
-        if (context->origin->player->spell_cost == 8)
+        // Obscuration spell (mana 10)
+        if (context->origin->player->spell_cost == 10)
             dam *= context->origin->player->lev / 5;
     }
 
