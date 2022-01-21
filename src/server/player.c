@@ -250,6 +250,10 @@ void player_exp_gain(struct player *p, s32b amount)
     if (streq(p->clazz->name, "Rogue"))
         amount = (amount * 10) / 9;
 
+    // Dragon at 49+ get exp factor 900% (cause of great final form)
+    if (streq(p->race->name, "Dragon") && p->lev > 48 && amount > 9)
+        amount /= 9;
+
     /* Gain some experience */
     p->exp += amount;
 
