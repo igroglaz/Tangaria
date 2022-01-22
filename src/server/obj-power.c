@@ -1174,11 +1174,16 @@ int object_value(struct player *p, const struct object *obj, int qty)
     else
         value = object_value_base(p, obj) * qty;
 
-    // Custom prices
+/*
+    // Custom prices 
+    ////// update: moved to store.c
+    ////// might be useful in future to change value (to re item's generation),
+    ////// but for prices better use store.c
     if (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
         obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
         obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot"))
         value = 230;
+*/
 
     /* Return the final value */
     return value;

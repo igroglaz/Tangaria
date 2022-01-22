@@ -797,6 +797,15 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
     if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
         obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
                 price = 248;
+    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        obj->kind == lookup_kind_by_name(TV_BOW, "Sling") && !obj->ego &&
+        obj->to_h == 0 && obj->to_d == 0)
+                price = 55;
+    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
+        obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
+        obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
+                price = 800;
     // ego: speed boots
     else if (s->type != STORE_PLAYER && obj->ego &&
             (strstr(obj->ego->name, "of Speed") ||

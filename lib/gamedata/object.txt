@@ -1349,6 +1349,7 @@ graphics:}:u
 type:bow
 level:1
 weight:5
+# basic sling price hc
 cost:5
 alloc:20:1 to 100
 flags:SHOOTS_SHOTS
