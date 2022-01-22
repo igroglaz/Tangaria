@@ -838,7 +838,7 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
         if (context->origin->player->spell_cost == 10)
         {
             rad += context->origin->player->lev / 12;
-            dam *= context->origin->player->lev / 5;
+            dam *= context->origin->player->lev / 10;
         }
     }
 
@@ -978,6 +978,13 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
         }
         if (one_in_(3))
             player_clear_timed(context->origin->player, TMD_ANCHOR, true);
+    }
+
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Cold Ray spell (mana 4)
+        if (context->origin->player->spell_cost == 4)
+            dam *= context->origin->player->lev / 5;
     }
 
     if (magik(beam))
@@ -2081,14 +2088,20 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (rad > 5) rad = 5;
                     // dmg
                     if (context->origin->player->lev > 10)
-                        dam *= context->origin->player->lev / 10;
+                        dam *= context->origin->player->lev / 8;
                 }
-            // Luminous Fog spell (mana 2)
-            else if (context->origin->player->spell_cost == 2)
+            // Luminous Fog spell (mana 3)
+            else if (context->origin->player->spell_cost == 3)
             {
                 rad += context->origin->player->lev / 5;
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 3;
+            }
+            // Electrocute spell (mana 2)
+            else if (context->origin->player->spell_cost == 2)
+            {
+                rad += context->origin->player->lev / 5;
+                dam *= context->origin->player->lev / 5;
             }
         }
 
@@ -2226,14 +2239,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Electrocute spell (mana 2)
-        if (context->origin->player->spell_cost == 2)
-        {
-            if (context->origin->player->lev > 10)
-                dam *= context->origin->player->lev / 10;
-        }
         // Flamestrike spell (mana 10)
-        else if (context->origin->player->spell_cost == 10)
+        if (context->origin->player->spell_cost == 10)
             dam *= context->origin->player->lev / 5;
     }
 

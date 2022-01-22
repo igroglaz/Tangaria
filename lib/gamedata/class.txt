@@ -6258,11 +6258,13 @@ magic:1:300:2
 
 # spells hardcoded (hc) by mana cost! (to ease adding new spells)
 
+#add 'Sometimes ray fizzles and it spell appear other forms'.
+
 book:magic book:town:[Magic for Beginners]:18:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:1:12:1:0
-#hc
+#hc 1d8
 effect:RESTORE_MANA
 dice:1
 effect:RESTORE_MANA
@@ -6282,27 +6284,30 @@ desc: Each cast cause recoil which shifts you to random direction.
 desc: Sometimes projecting this spell not consuming mana.
 
 spell:Electrocute:2:2:27:2:0
-#hc
-effect:STRIKE:ELEC:1
+# hc 1d5; distance -> ~15
+effect:SHORT_BEAM:ELEC:6
 dice:$B
-expr:B:PLAYER_LEVEL:+ 10
-effect:STRIKE:ELEC:0
+expr:B:PLAYER_LEVEL:+ 0
+effect:SHORT_BEAM:ELEC:5
 dice:$B
-expr:B:PLAYER_LEVEL:+ 12
+expr:B:PLAYER_LEVEL:+ 0
+effect:SHORT_BEAM:ELEC:4
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:RANDOM
-dice:2
-msg_other: claps hands together.. Lightning!
+dice:3
+msg_other: helds out a hand.. Lightning!
 desc:Summon lighting upon an enemy. Sometimes it affects several foes at once.
-desc: Its damage increase with levels.
+desc: At first you summon short lightning; it become longer with levels.
 
-spell:Luminous Fog:3:2:20:3:0
+spell:Luminous Fog:3:3:20:3:0
 cooldown:10
-# hc distance (max dist should be 20) and damage
+# hc distance (max dist should be 20) and damage 1d3
 effect:SHORT_BEAM:LIGHT_WEAK:10
 dice:4d4
 effect:LIGHT_AREA
 msg_self:A line of bright yellowish fog appears.
-msg_other: slowly nods. Bright yellowish fog appears!
+msg_other: claps hands together.. Bright yellowish fog appears!
 desc:Fires a beam that magic fog which lights up each square and hurts each
 desc: light-sensitive monster in its path.
 desc: If you are in a room, the entire room will be lit up as well.
@@ -6339,13 +6344,12 @@ desc: Ordering chaotic energy restore your magic power.
 desc: Cooldown 5 turns.
 
 spell:Cold Ray:10:4:30:10:0
-effect:CURE:CUT
-effect:BEAM:COLD
+# hc 1d5
+effect:BOLT_OR_BEAM:COLD
 dice:$B
-expr:B:PLAYER_LEVEL:/ 10 * 30
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a cold ray.
-desc:Fires a cold ray that hurts each monster in its path.
-desc: Also cryo treatment cures your cuts.
+desc:Fires a cold ray that hurts first monster in its path.
 
 spell:Stone Curse:15:10:32:15:0
 cooldown:240
@@ -6358,7 +6362,7 @@ effect:TIMED_INC:INVULN
 dice:3
 effect:TIMED_INC:SHIELD
 dice:3
-msg_other: become stone statue.
+msg_other: slowly nods.. and becomes stone statue.
 desc:Turns you into stone statue for some time.
 desc: While you stoned - you have resistance against all attacks.
 desc: After some time you recover from stone, but stone rock still stay
@@ -6367,7 +6371,7 @@ desc: This spell may causes internal injuries which recover after some time.
 desc: Cooldown 240 turns.
 
 spell:Flamestrike:17:10:33:20:0
-# hc up to 10x
+# hc 1d5
 effect:STRIKE:FIRE:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6399,7 +6403,7 @@ desc: Require satiation.
 
 spell:Manablast:25:10:30:30:0
 cooldown:3
-#hc dam and rad 1-4
+#hc dam 1d10 and rad 1-4
 effect:BLAST:MANA:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6418,7 +6422,7 @@ desc: Cooldown 100 turns.
 
 spell:Acid Breath:33:10:30:50:0
 cooldown:60
-# hc up to x12
+# hc 1d4 (up to x12)
 effect:TIMED_INC_NO_RES:STUN
 dice:1d2
 effect:BREATH:ACID:0:30
@@ -6431,7 +6435,7 @@ desc: Cooldown 60 turns.
 
 spell:Obscuration:35:10:32:70:0
 cooldown:30
-# hc up to 10x
+# hc 1d5
 effect:TIMED_INC_NO_RES:BLIND
 dice:1d2
 effect:READ_MINDS
@@ -6510,6 +6514,7 @@ desc:Draws a protecting pentagram and attempts to summon a daemon.
 desc: Cooldown 150 turns.
 
 spell:Armageddon:50:42:35:666:0
+# add rng variations
 effect:DRAIN_STAT:CHR
 dice:1
 effect:WIPE_AREA:NONE:3
