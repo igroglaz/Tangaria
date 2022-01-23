@@ -462,8 +462,6 @@ history:94
 age:255:70
 height:170:20
 weight:240:60
-# + don't eat normal food, but drink from fountains
-# + immune to polymorph
 gift:bottle:Empty Bottle:3:4
 #8 -4 2 -4 8
 value:0:STR[0+1d6]
@@ -472,14 +470,18 @@ value:0:WIS[0+1d24]
 value:0:DEX[-8+1d12]
 value:0:CON[0+1d6]
 value:0:CHR[-3]
+# + don't eat normal food, but drink from fountains
+# + immune to polymorph
+# + stay at one place very silent
+# + 5 lvl: 'y' grow trees
 value:0:INFRA[1+1d12]
 # very good at tunneling ("crushing stone")..
 #..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
 value:0:TUNNEL[5]
-# ? /rfe 50% stun which got lowered each lvl
+# need to test food consumption.. maybe remove slow digest
 obj-flag:0:SLOW_DIGEST
-obj-flag:25:SEE_INVIS
-obj-flag:25:ESP_ANIMAL
+#obj-flag:25:SEE_INVIS
+#obj-flag:25:ESP_ANIMAL
 player-flags:0:GIANT
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
@@ -488,6 +490,7 @@ player-flags:0:CAN_SWIM
 obj-flag:1:CANT_FLY
 # stealth -6
 value:0:STEALTH[-1+-1d5M25]
+# make it perma vulnerability, even with fire imm.. but make much less cruel
 value:0:RES_FIRE[-1]
 # /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
 value:0:MOVES[-2]
@@ -495,9 +498,8 @@ value:0:SPEED[0+-1d25]
 # barky
 value:0:DAM_RED[1+1d5]
 obj-flag:0:IMPAIR_HP
-# + stay at one place very silent
-# _ when staying in the water - feeding?
-# 'y' grow tree?
+# ? _ when staying in the water - feeding
+# ? /rfe 50% stun which got lowered each lvl
 
 name:Thunderlord
 skill-disarm-phys:-6

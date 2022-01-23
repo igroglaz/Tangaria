@@ -2400,7 +2400,7 @@ book:shadow book:town:[Shadows and Illusions]:5:shadow
 spell:Phantoms Weapon:20:10:40:20:0
 effect:TIMED_INC:HOLD_WEAPON
 dice:20+1d20
-desc:Grants extra damage each turn and makes you immune to disarming
+desc:Grants extra blows sometimes and makes you immune to disarming
 desc: for 20+1d20 turns.
 
 spell:Soul Harvest:22:11:44:22:0
@@ -5391,7 +5391,7 @@ desc:Temporarily makes your melee attacks deadly to evil enemies.
 spell:Favorite Weapon:35:35:40:20:0
 effect:TIMED_INC:HOLD_WEAPON
 dice:10+1d10
-desc:Grants extra damage each turn and makes you immune to disarming.
+desc:Grants extra blows sometimes and makes you immune to disarming.
 
 spell:Defensive Stance:40:40:64:32:0
 effect:TIMED_INC:SHIELD
