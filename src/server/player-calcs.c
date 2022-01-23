@@ -1337,11 +1337,12 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
 
     /* Meditation increase mana at the cost of hp */
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
-    
+
     if (streq(p->race->name, "Werewolf") && !is_daytime())
         mhp = mhp * 13 / 12;
-    
-    if (streq(p->race->name, "Vampire") && is_daytime())
+    else if (streq(p->race->name, "Dragon"))
+        mhp = mhp * 12 / 13;
+    else if (streq(p->race->name, "Vampire") && is_daytime())
         mhp = mhp * 11 / 12;
 
     /* Return if no updates */
@@ -2190,6 +2191,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
     streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
         extra_blows += 10;
+
+    // Dragon/Hydra Monks too OP
+    if ((streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+        && streq(p->clazz->name, "Monk") && p->lev > 10)
+        extra_blows -= p->lev / 10;
 
     // naga assassin got additional BpRs not immediately
     if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))

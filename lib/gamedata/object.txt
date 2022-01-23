@@ -9702,4 +9702,16 @@ weight:5
 cost:-1
 desc:.
 
+# admin cookie to test permashape races
+name:& Testing~
+graphics:,:d
+type:fortune cookie
+level:0
+weight:1
+cost:0
+effect:GAIN_EXP
+dice:500000
+effect:RESTORE_EXP
+desc:.
+
 # add empty line EOF
