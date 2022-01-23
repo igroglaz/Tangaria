@@ -472,6 +472,7 @@ value:0:CHR[-3]
 # + immune to polymorph
 # + stay at one place very silent
 # + 5 lvl: 'y' grow trees
+# - after 30 lvl got malus to MOVES up to -10 (&& -2 there)
 value:0:INFRA[1+1d12]
 # very good at tunneling ("crushing stone")..
 #..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
@@ -491,7 +492,7 @@ value:0:STEALTH[-1+-1d5M25]
 # make it perma vulnerability, even with fire imm.. but make much less cruel
 value:0:RES_FIRE[-1]
 # /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
-value:0:MOVES[-2+-5d25]
+value:0:MOVES[-2]
 value:0:SPEED[0+-1d25]
 # barky
 value:0:DAM_RED[1+1d5]
