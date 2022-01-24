@@ -19,7 +19,7 @@
 
 /*
 
-! This code is for PvP !
+! This code _mainly_ for PvP
 
 eg in monster-spell.txt:
 
@@ -112,8 +112,24 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     if (dam <= 0) return 0;
 
-    /* Immune */
-    if (resist == 3) return 0;
+    // Immune
+    if (resist == 3)
+    {
+        // I'm not sure does resistances' limits (damage-cap) works at this
+        // particular stage.. So cap just in case:
+        if (dam > 1600) dam = 1600;
+
+        // custom vulnerable races
+        if (p && streq(p->race->name, "Ent") && (type == PROJ_FIRE))
+            dam /= 10;
+        // everyone else with immunity
+        else
+            dam /= 15;
+
+        // should make at least 1 damage
+        if (dam < 1) dam = 1;
+        return dam;
+    }
 
     /* Hack -- acid damage is halved by armour */
     if ((type == PROJ_ACID) && p && minus_ac(p)) dam = (dam + 1) / 2;

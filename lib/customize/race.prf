@@ -121,15 +121,18 @@ help: of all animals or plants who inhabit Arda. Spirits of the land, they were
 help: summoned to guard the forests of Middle-earth. Being much like trees they are
 help: very slow but strong and do not have to eat as often.
 help: They make great fighters, priests and paladins. Unfortunately, as they're
-help: made almost exclusively of wood, so they're also vulnerable to fire.
+help: made almost exclusively of wood, so they're also vulnerable to fire.|
+help: They do not eat 'normal' food, but got refreshments from drinking from
+help: magic fountains. Also ents could get some nourishment by drinking from 
+help: any source of water, including rivers and lakes; though it will not 
+help: make them full. Using water also somewhat helps them in healing wounds.|
+help: Ents immune to polymorph.|
 help: Ents can be completely silent if they stand still.|
-help: They do not eat food, but got refreshments from drinking from magic fountains.
-help: Also ents could get some nourishment by drinking from any source of water,
-help: including rivers and lakes; though it will not make them full. Using water
-help: also somewhat helps them in healing wounds. Ents immune to polymorph.|
 help: As the Shepherds of the Trees, Ents can create forest around themselves with
 help: 'y' key. They spend satiation to do it, but in time they need much less
-help: effort for growing trees.
+help: effort for growing trees.|
+help: Can move through trees. |
+help: After 30 lvl become huornish and got malus to movement speed.
 
 race:Thunderlord
 help:Thunderlords are an old and powerful race of dragon hunters. They have an

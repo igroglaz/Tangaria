@@ -713,6 +713,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
 
     if (player_passwall(p)) return 0;
 
+    // terrain in the wilderness (islava - is outside)
     if (square_isfiery(c, &p->grid))
     {
         int base_dam = 100 + randint1(100);
@@ -728,6 +729,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         if (streq(p->clazz->name, "Cryokinetic"))
             dam_taken /= 2;
     }
+    // terrain in the dungeon (isfiery - is the wilderness)
     else if (square_islava(c, &p->grid) && !streq(p->clazz->name, "Cryokinetic"))
     {
         int damage = p->mhp / 100 + randint1(3);

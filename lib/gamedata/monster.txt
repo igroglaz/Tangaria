@@ -31328,8 +31328,8 @@ rarity:0
 weight:0
 experience:1
 spell-freq:2
-spell-power:30
-spells:S_ANGEL
+spell-power:10
+spells:BA_FIRE
 flags:NEVER_MOVE
 desc:An indestructible golem used for testing purposes.
 

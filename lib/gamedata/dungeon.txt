@@ -2355,7 +2355,7 @@ floor:E9 desert t:1
 floor:E9 desert u:1
 floor:E9 desert v:1
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# EA 1000
+# EA 2600
 floor:EA sand w:1
 floor:EA sand x:1
 floor:EA sand y:1
@@ -2366,7 +2366,8 @@ floor:EA sand C:400
 floor:EA sand D:100
 floor:EA sand E:500
 floor:EA sand F:10
-floor:EA sand G:685
+floor:EA sand G:686
+# 1000 V
 floor:EA sand H:100
 floor:EA sand I:600
 floor:EA sand J:200
@@ -2390,7 +2391,9 @@ floor:EA sand Y:10
 floor:EA sand Z:10
 floor:EA sand ~:10
 floor:EA sand `:14
-####
+#####################################
+#############  WALLS  ###############
+#####################################
 wall:E4 wall w:1250
 wall:E4 wall x:1250
 wall:E4 wall y:1250

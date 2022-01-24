@@ -472,6 +472,7 @@ value:0:CHR[-3]
 # + immune to polymorph
 # + stay at one place very silent
 # + 5 lvl: 'y' grow trees
+# + can move through trees somewhat
 # - after 30 lvl got malus to MOVES up to -10 (&& -2 there)
 value:0:INFRA[1+1d12]
 # very good at tunneling ("crushing stone")..
@@ -479,8 +480,6 @@ value:0:INFRA[1+1d12]
 value:0:TUNNEL[5]
 # need to test food consumption.. maybe remove slow digest
 obj-flag:0:SLOW_DIGEST
-#obj-flag:25:SEE_INVIS
-#obj-flag:25:ESP_ANIMAL
 player-flags:0:GIANT
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
@@ -489,7 +488,7 @@ player-flags:0:CAN_SWIM
 obj-flag:1:CANT_FLY
 # stealth -6
 value:0:STEALTH[-1+-1d5M25]
-# make it perma vulnerability, even with fire imm.. but make much less cruel
+# perma vulnerability; fire imm makes it less harsh
 value:0:RES_FIRE[-1]
 # /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
 value:0:MOVES[-2]
@@ -499,6 +498,8 @@ value:0:DAM_RED[1+1d5]
 obj-flag:0:IMPAIR_HP
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
+#obj-flag:25:SEE_INVIS
+#obj-flag:25:ESP_ANIMAL
 
 name:Thunderlord
 skill-disarm-phys:-6
@@ -1308,6 +1309,7 @@ value:0:MOVES[1+1d25]
 value:0:DAM_RED[-1+-1d5]
 # /rfe CON as mana stat
 value:0:MANA[5+-1d10]
+# task: make balrog cool and stylish, but not faceroll
 
 # Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
@@ -1569,8 +1571,7 @@ skill-melee:25
 skill-shoot:-15
 skill-dig:40
 hitdie:14
-# -15%
-exp:100:110
+exp:100:125
 history:100
 age:90:40
 height:170:20
@@ -1583,25 +1584,26 @@ value:0:WIS[-4+1d24]
 value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
-obj-flag:5:SUST_STR
-obj-flag:10:SUST_DEX
-obj-flag:15:SUST_CON
+#obj-flag:5:SUST_STR
+#obj-flag:10:SUST_DEX
+#obj-flag:15:SUST_CON
 #value:0:SPEED[-1+-1d30]
-value:25:LIGHT[1]
+#value:25:LIGHT[1]
 value:0:MOVES[10+1d1]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 value:0:BLOWS[0+10d45]
-value:0:RES_GRAVITY[1]
+#value:0:RES_GRAVITY[1]
 brand:32:49:STUN_1
 brand:50:50:STUN_2
-# will be replaced to -x%
+# >>>>>>>>>>>>>>>>>>> will be replaced to -x%
 value:0:DAM_RED[0+1d2]
 brand:1:50:ELEC_2
+# !!!!!!!!!!!!!!!!!! hardcode tomorrow... ++
 value:0:RES_ELEC[3]
 value:0:RES_NEXUS[1]
 value:0:TUNNEL[3+1d10]
-slay:1:24:DRAGON_3
-slay:25:50:DRAGON_5
+slay:1:49:DRAGON_3
+slay:50:50:DRAGON_5
 value:0:MANA[1d5]
 #
 obj-flag:1:NO_TELEPORT
