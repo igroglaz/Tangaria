@@ -1259,7 +1259,7 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     /* Extra mana capacity from weapon */
     exmsp += modifiers[OBJ_MOD_MANA];
 
-    /* Cap extra mana capacity from items at +10 */
+    /* Cap extra mana capacity from _items_ at +10 */
     if (exmsp > 10) exmsp = 10;
 
     /* Polymorphed players only get half adjustment from race */
@@ -1273,8 +1273,10 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
         exmsp += 1;   
 
-    /* Cap extra mana capacity at +15 */
+    // Cap extra mana capacity from _racial_ boni at +15..
     if (exmsp > 15) exmsp = 15;
+    // ..but only at lvl 50
+    if (p->lev < 50 && exmsp > 10) exmsp = 10;
 
     /* 1 point = 10% more mana */
     msp = ((10 + exmsp) * msp) / 10;
