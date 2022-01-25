@@ -1542,8 +1542,8 @@ static void show_about(const struct window *window)
 {
     const char *about_text[] = {
         version_build(VERSION_NAME, true),
-        "See http://www.rephial.org",
-        "Visit our forum at http://angband.oook.cz/forum"
+        "See https://tangaria.com",
+        "Visit our Discord at https://discord.gg/zBNG369"
     };
 
     struct { SDL_Rect rect; const char *text; } elems[N_ELEMENTS(about_text)];
