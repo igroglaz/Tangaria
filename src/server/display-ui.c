@@ -4369,6 +4369,9 @@ static void master_player(struct player *p, char *parms)
         {
             if (!check_permissions(p, dm_ptr, true)) return;
 
+            /* Cannot toggle ghost if permanently polymorphed or in fruit bat mode */
+            if (player_has(dm_ptr, PF_PERM_SHAPE) || OPT(dm_ptr, birth_fruit_bat)) return;
+
             if (dm_ptr->poly_race && !dm_ptr->ghost) do_cmd_poly(dm_ptr, NULL, false, true);
             set_ghost_flag(dm_ptr, (dm_ptr->ghost? 0: 1), true);
             dm_ptr->upkeep->redraw |= (PR_BASIC | PR_SPELL);

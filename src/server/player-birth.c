@@ -954,14 +954,24 @@ static void player_outfit_dm(struct player *p)
     if (is_dm_p(p))
     {
         p->exp = p->max_exp = 50000000;
-        p->lev = p->max_lev = PY_MAX_LEVEL;
+        if (player_has(p, PF_PERM_SHAPE))
+        {
+            for (i = 1; i <= PY_MAX_LEVEL; i++)
+            {
+                p->lev = p->max_lev = i;
+                if (player_has(p, PF_DRAGON)) poly_dragon(p, false);
+                else poly_shape(p, false);
+            }
+        }
+        else
+            p->lev = p->max_lev = PY_MAX_LEVEL;
         if (p->dm_flags & DM_INVULNERABLE)
         {
             p->timed[TMD_INVULN] = -1;
             p->upkeep->update |= (PU_MONSTERS);
             p->upkeep->redraw |= (PR_MAP | PR_STATUS);
         }
-        set_ghost_flag(p, 1, false);
+        if (!player_has(p, PF_PERM_SHAPE)) set_ghost_flag(p, 1, false);
         p->noscore = 1;
         get_bonuses(p);
         p->timed[TMD_TRAPSAFE] = -1;
@@ -1016,10 +1026,6 @@ static void player_generate(struct player *p, byte psex, const struct player_rac
 
     /* Initialize the spells */
     player_spells_init(p);
-
-    /* No permanently polymorphed DMs, turn into a Human instead */
-    if (player_has(p, PF_PERM_SHAPE) && is_dm_p(p))
-        p->race = player_id2race(0);
 
     p->sex = &sex_info[p->psex];
 

@@ -111,6 +111,9 @@ static enum parser_error write_dummy_object_record(struct artifact *art, const c
     dummy->level = -1;
     dummy->weight = -1;
 
+    /* PWMAngband: set bogus cost, so they don't appear as junk at the bottom of object list */
+    dummy->cost = 1;
+
     /* Register this as an INSTA_ART object */
     kf_on(dummy->kind_flags, KF_INSTA_ART);
 

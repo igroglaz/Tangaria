@@ -48,6 +48,8 @@ PWMAngband:
 - Limit ESP_RADIUS to 75% of z_info->max_sight if LIMITED_ESP is set
 - Drastically reduce dark elven warlock group size
 - Allow curative spells/potions to heal controlled monsters
+- Allow permanently polymorphed DMs, turn ghost mode off in that case
+- Tweak dragons a bit, reduce HP bonus from high level forms by roughly 5%
 
 Bugs fixed
 ----------
@@ -56,6 +58,7 @@ Angband 4.2.x:
 
 - A couple of minor fixes
 - Stop monsters hasting themselves
+- Set kind's cost for special artifacts
 
 PWMAngband:
 
@@ -75,6 +78,8 @@ PWMAngband:
 - Fix moronic bug allowing players to walk while paralyzed
 - Fix spell info/description for spells using SET_VALUE or spell power
   (elementalists)
+- Fix Cloud room template
+- Correctly set mana pool cap to +10 from items and +15 overall
 
 Coding changes
 --------------

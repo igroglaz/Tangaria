@@ -1259,6 +1259,9 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     /* Extra mana capacity from weapon */
     exmsp += modifiers[OBJ_MOD_MANA];
 
+    /* Cap extra mana capacity from items at +10 */
+    if (exmsp > 10) exmsp = 10;
+
     /* Polymorphed players only get half adjustment from race */
     adj = race_modifier(p->race, OBJ_MOD_MANA, p->lev, p->poly_race? true: false);
 
@@ -1270,8 +1273,8 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
         exmsp += 1;   
 
-    /* Cap at +10 */
-    if (exmsp > 10) exmsp = 10;
+    /* Cap extra mana capacity at +15 */
+    if (exmsp > 15) exmsp = 15;
 
     /* 1 point = 10% more mana */
     msp = ((10 + exmsp) * msp) / 10;
@@ -1333,7 +1336,7 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
 
     /* Handle polymorphed players */
     if (p->poly_race)
-        mhp = mhp * 3 / 5 + (1500 * p->poly_race->avg_hp) / (p->poly_race->avg_hp + 4500);
+        mhp = mhp * 3 / 5 + (1400 * p->poly_race->avg_hp) / (p->poly_race->avg_hp + 4200);
 
     /* Meditation increase mana at the cost of hp */
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
