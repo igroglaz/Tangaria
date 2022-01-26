@@ -496,9 +496,16 @@ static void project_monster_dispel(project_monster_handler_context_t *context, i
  * flag is the RF_ flag that the monster must have.
  */
 static void project_monster_sleep(project_monster_handler_context_t *context, int flag)
-{   // using summon_chr_friendly[] table
-    int chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_ind[STAT_CHR]]);
-    int dam = sleep_value(context->mon->race) + chr_dmg;
+{
+    int chr_dmg = 0;
+    int dam = sleep_value(context->mon->race);
+
+    // using summon_chr_friendly[] table
+    if (context->origin->player)
+    {
+        chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_ind[STAT_CHR]]) / 4;
+        dam += chr_dmg;
+    }
 
     if (context->seen && flag) rf_on(context->lore->flags, flag);
 
@@ -1183,7 +1190,10 @@ static void project_monster_handler_MON_CONF(project_monster_handler_context_t *
 /* Hold (Use "dam" as "power") */
 static void project_monster_handler_MON_HOLD(project_monster_handler_context_t *context)
 {
-int hold_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
+int hold_chr = 0;
+    
+    if (context->origin->player)
+        hold_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
 
     if (context->charm && rf_has(context->mon->race->flags, RF_ANIMAL))
         context->dam += context->dam / 2;

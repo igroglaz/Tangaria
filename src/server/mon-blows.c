@@ -1708,7 +1708,7 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
 
     /* Top CHR save from undressing in ~45% cases */
     if (adj_chr_safe[context->p->known_state.stat_ind[STAT_CHR]] >=  randint0(100))
-            return;
+        return;
 
     undress(context->p);
 }

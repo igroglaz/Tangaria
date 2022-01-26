@@ -2219,6 +2219,8 @@ value:0:MOVES[-1+-1d9]
 player-flags:0:NO_RECALL
 # add minor drain exp? drain_exp_0
 #obj-flag:50:DRAIN_EXP
+# ? aggro ?
+# remove forms.. hardcode passwall
 value:0:MANA[4+-1d12]
 ##########################PASS_WALL forms:
 player-flags:0:SHAPECHANGE
