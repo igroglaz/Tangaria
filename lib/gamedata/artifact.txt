@@ -5,7 +5,7 @@
 # graphics: symbol : color
 # level: level
 # weight: weight
-# alloc: allocation probability : min depth : max depth
+# alloc: allocation probability : min " to " max
 # attack: base damage : plus to-hit : plus to-dam
 # armor: base armor class : plus to-armor class
 # flags: flag | flag | etc
@@ -13,9 +13,9 @@
 # time: recharge time
 # msg: alternate message when activated
 # values: label[value] | label[value] | etc.
-# brand: brand code
-# slay: slay code
-# curse: curse name : power
+# brand: code
+# slay: code
+# curse: name : power
 # desc: description
 
 # 'name' indicates the beginning of an entry.
@@ -44,16 +44,6 @@
 # fairly self-explanatory. As many flags: lines may be used as are needed to
 # specify all the flags and flags are separated by the '|' symbol.
 
-# 'values' is for properties that take a value and a random expression for that
-# value. Valid properties are object modifiers (as found in list-stats.h and
-# list-object-modifiers.h) and resistances (based on list-elements.h).
-
-# 'brand' is for brands as listed in brand.txt (based on the first 5 entries
-# from list-elements.h).
-
-# 'slay' is for slays as listed in slay.txt (based on racial monster flags in
-# list-mon-race-flags.h or monster bases in monster_base.txt).
-
 # 'act' is for activation. The activation is the effect the artifact
 # activates for.
 
@@ -63,7 +53,28 @@
 # 'msg' is for activation message text, if different from the regular effect
 # message.
 
-# 'curse' is for curses
+# 'values' is for properties that take a value. Valid properties are the
+# object modifiers (as found in list-stats.h and list-object-modifiers.h) or
+# resistances ('RES_' prepended to the element name from list-elements.h).
+# The value appears in brackets after the property name and must be an integer.
+# For resistances, the useful values are 1 (resist), 3 (immune), and -1
+# (vulnerable). Use as many 'values' lines as are needed to specify the
+# properties of the object. If listing more than one property on a line,
+# separate them with '|'.
+
+# 'brand' adds a brand to the artifact. It should be omitted for artifacts
+# without brands and may appear more than once for artifacts with multiple
+# brands. Specify the brand to be added by its code in brand.txt.
+
+# 'slay' adds a slay to the artifact. It should be omitted for artifacts
+# without slays and may appear more than once for artifacts with multiple
+# slays. Specify the slay to be added by its code in slay.txt.
+
+# 'curse' adds a curse to the artifact. It should be omitted for artifacts
+# without curses and may appear more than once for artifacts with multiple
+# curses. A curse has a name (as given in curse.txt) and a power. The power
+# is a positive integer and indicates how hard it is to remove the curse. A
+# larger power is more difficult to remove.
 
 # 'desc' is for the artifact description. These appear when the item is
 # identified. Special thanks to J.R.R Tolkien, without whom the words would

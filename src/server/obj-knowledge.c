@@ -2023,7 +2023,8 @@ static bool object_all_modifiers_are_known(const struct object *obj, bool aware)
 
     for (i = 0; i < OBJ_MOD_MAX; i++)
     {
-        if (!obj->known->modifiers[i])
+        /* Only check if the modifiers are set if there's something to look at */
+        if (obj->modifiers[i] && !obj->known->modifiers[i])
             return false;
     }
 

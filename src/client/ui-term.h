@@ -188,6 +188,7 @@ typedef struct _term
     errr (*text_hook)(int x, int y, int n, u16b a, const char *s);
     errr (*pict_hook)(int x, int y, int n, const u16b *ap, const char *cp,
         const u16b *tap, const char *tcp);
+    void (*view_map_hook)(struct _term *t);
 } term;
 
 /*

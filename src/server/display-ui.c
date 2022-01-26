@@ -462,7 +462,7 @@ void dump_spells(struct player *p, struct object *obj)
     int j;
     spell_flags flags;
     char out_val[NORMAL_WID];
-    char out_desc[MSG_LEN];
+    char out_desc[MSG_LEN], out_name[NORMAL_WID];
     char help[20];
     const char *comment = help;
     byte line_attr;
@@ -495,9 +495,10 @@ void dump_spells(struct player *p, struct object *obj)
 
             my_strcpy(out_val, "(illegible)", sizeof(out_val));
             my_strcpy(out_desc, "", sizeof(out_desc));
+            my_strcpy(out_name, "", sizeof(out_name));
 
             Send_spell_info(p, bidx, j, out_val, &flags);
-            Send_spell_desc(p, bidx, j, out_desc);
+            Send_spell_desc(p, bidx, j, out_desc, out_name);
             continue;
         }
 
@@ -554,9 +555,10 @@ void dump_spells(struct player *p, struct object *obj)
         strnfmt(out_val, sizeof(out_val), "%-30s%2d %4d %3d%%%s", spell_name, spell->slevel,
             spell->smana, spell_chance(p, spell_index), comment);
         spell_description(p, spell_index, -1, true, out_desc, sizeof(out_desc));
+        my_strcpy(out_name, spell->name, sizeof(out_name));
 
         Send_spell_info(p, bidx, j, out_val, &flags);
-        Send_spell_desc(p, bidx, j, out_desc);
+        Send_spell_desc(p, bidx, j, out_desc, out_name);
     }
 }
 

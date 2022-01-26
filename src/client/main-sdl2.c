@@ -563,6 +563,9 @@ static struct font_info g_font_info[MAX_FONTS];
  * of not handling some keyboard layouts properly. */
 static int g_kp_as_mod = 1;
 
+/* term_view_map_hook */
+static int view_map_hook_mod = 0;
+
 /* Forward declarations */
 
 static void init_globals(void);
@@ -911,85 +914,91 @@ static void render_cursor(struct subwindow *subwindow,
     SDL_Rect rect = {
         subwindow->inner_rect.x + subwindow->font_width * col,
         subwindow->inner_rect.y + subwindow->font_height * row,
-        subwindow->font_width * (big ? tile_width : 1),
-        subwindow->font_height * (big ? tile_height : 1)
+        subwindow->font_width * (!Term->minimap_active ? (big ? tile_width : 1) : 1),
+        subwindow->font_height * (!Term->minimap_active ? (big ? tile_height : 1) : 1)
     };
 
     render_outline_rect(subwindow->window, subwindow->texture,
             &rect, &color);
 }
 
-//static void render_grid_cell_text(const struct subwindow *subwindow,
-//        SDL_Texture *texture, int x, int y)
-//{
+static void render_grid_cell_text(const struct subwindow *subwindow,
+        SDL_Texture *texture, int x, int y)
+{
 //    struct grid_data grid_data;
-//    int a;
-//    int ta;
-//    wchar_t c;
-//    wchar_t tc;
-//
+    int a;
+    int ta;
+    wchar_t c;
+    wchar_t tc;
+
+    /* map_info(); */
+    a = player->scr_info[y][x].a;
+    c = player->scr_info[y][x].c;
+    ta = player->trn_info[y][x].a;
+    tc = player->trn_info[y][x].c;
+
 //    map_info(loc(x, y), &grid_data);
 //    grid_data_as_text(&grid_data, &a, &c, &ta, &tc);
-//    /* apparently either the same as a or obscured by a */
-//    (void) tc;
-//
-//    SDL_Color fg = g_colors[a % MAX_COLORS];
-//    SDL_Color bg;
-//
-//    switch (ta / MAX_COLORS) {
-//        case BG_BLACK:
-//            bg = subwindow->color;
-//            break;
-//        case BG_SAME:
-//            bg = fg;
-//            break;
-//        case BG_DARK:
-//            bg = g_colors[DEFAULT_SHADE_COLOR];
-//            break;
-//        default:
-//            /* debugging */
-//            bg = g_colors[DEFAULT_ERROR_COLOR];
-//    }
-//
-//    SDL_Rect rect = {
-//        x * subwindow->font_width,
-//        y * subwindow->font_height,
-//        subwindow->font_width,
-//        subwindow->font_height
-//    };
-//
-//    render_fill_rect(subwindow->window, texture, &rect, &bg);
-//    render_glyph_mono(subwindow->window,
-//            subwindow->font, texture, rect.x, rect.y, &fg, (uint32_t) c);
-//}
+    /* apparently either the same as a or obscured by a */
+    (void) tc;
+
+    SDL_Color fg = g_colors[a % MAX_COLORS];
+    SDL_Color bg;
+
+    switch (ta / MAX_COLORS) {
+        case BG_BLACK:
+            bg = subwindow->color;
+            break;
+        case BG_SAME:
+            bg = fg;
+            break;
+        case BG_DARK:
+            bg = g_colors[DEFAULT_SHADE_COLOR];
+            break;
+        default:
+            /* debugging */
+            bg = g_colors[DEFAULT_ERROR_COLOR];
+    }
+
+    SDL_Rect rect = {
+        x * subwindow->font_width,
+        y * subwindow->font_height,
+        subwindow->font_width,
+        subwindow->font_height
+    };
+
+    render_fill_rect(subwindow->window, texture, &rect, &bg);
+    render_glyph_mono(subwindow->window,
+            subwindow->font, texture, rect.x, rect.y, &fg, (uint32_t) c);
+}
 
 /* does not SetRenderTarget */
-//static void render_tile_rect_scaled(const struct subwindow *subwindow,
-//        int col, int row, SDL_Rect dst, int a, int c)
-//{
-//    struct graphics *graphics = &subwindow->window->graphics;
-//
-//    SDL_Rect src = {0, 0, graphics->tile_pixel_w, graphics->tile_pixel_h};
-//
-//    int src_row = a & 0x7f;
-//    int src_col = c & 0x7f;
-//
-//    src.x = src_col * src.w;
-//    src.y = src_row * src.h;
-//
-//    if (graphics->overdraw_row != 0
-//            && src_row >= graphics->overdraw_row
-//            && src_row <= graphics->overdraw_max)
-//    {
-//        src.y -= src.h;
-//        dst.y -= dst.h;
-//        dst.h *= 2;
-//        src.h *= 2;
-//    }
-//
-//    SDL_RenderCopy(subwindow->window->renderer,
-//            graphics->texture, &src, &dst);
-//}
+static void render_tile_rect_scaled(const struct subwindow *subwindow,
+        int col, int row, SDL_Rect dst, int a, int c)
+{
+    struct graphics *graphics = &subwindow->window->graphics;
+
+    SDL_Rect src = {0, 0, graphics->tile_pixel_w, graphics->tile_pixel_h};
+
+    int src_row = a & 0x7f;
+    int src_col = c & 0x7f;
+
+    src.x = src_col * src.w;
+    src.y = src_row * src.h;
+
+    if (graphics->overdraw_row != 0
+            && src_row >= graphics->overdraw_row
+            && src_row <= graphics->overdraw_max)
+    {
+        src.y -= src.h;
+        dst.y -= dst.h;
+        dst.h *= 2;
+        src.h *= 2;
+    }
+
+    SDL_RenderCopy(subwindow->window->renderer,
+            graphics->texture, &src, &dst);
+}
 
 static void render_tile_font_scaled(const struct subwindow *subwindow,
         int col, int row, int a, int c, bool fill)
@@ -999,8 +1008,8 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     SDL_Rect dst = {
         subwindow->inner_rect.x + col * subwindow->font_width,
         subwindow->inner_rect.y + row * subwindow->font_height,
-        subwindow->font_width * tile_width,
-        subwindow->font_height * tile_height
+        subwindow->font_width * (!Term->minimap_active ? tile_width : 1),
+        subwindow->font_height * (!Term->minimap_active ? tile_height : 1)
     };
 
     if (fill) {
@@ -1038,28 +1047,34 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     }
 }
 
-//static void render_grid_cell_tile(const struct subwindow *subwindow,
-//        SDL_Texture *texture, SDL_Rect tile, int x, int y)
-//{
+static void render_grid_cell_tile(const struct subwindow *subwindow,
+        SDL_Texture *texture, SDL_Rect tile, int x, int y)
+{
 //    struct grid_data grid_data;
-//    int a;
-//    int ta;
-//    wchar_t c;
-//    wchar_t tc;
-//
+    int a;
+    int ta;
+    wchar_t c;
+    wchar_t tc;
+
+    /* map_info(); */
+    a = player->scr_info[y][x].a;
+    c = player->scr_info[y][x].c;
+    ta = player->trn_info[y][x].a;
+    tc = player->trn_info[y][x].c;
+
 //    map_info(loc(x, y), &grid_data);
 //    grid_data_as_text(&grid_data, &a, &c, &ta, &tc);
-//
-//    SDL_SetRenderTarget(subwindow->window->renderer, texture);
-//
-//    render_tile_rect_scaled(subwindow, x, y, tile, ta, tc);
-//
-//    if (a == ta && c == tc) {
-//        return;
-//    }
-//
-//    render_tile_rect_scaled(subwindow, x, y, tile, a, c);
-//}
+
+    SDL_SetRenderTarget(subwindow->window->renderer, texture);
+
+    render_tile_rect_scaled(subwindow, x, y, tile, ta, tc);
+
+    if (a == ta && c == tc) {
+        return;
+    }
+
+    render_tile_rect_scaled(subwindow, x, y, tile, a, c);
+}
 
 static void clear_all_borders(struct window *window)
 {
@@ -2799,23 +2814,23 @@ static void fit_rect_in_rect_by_xy(SDL_Rect *small, const SDL_Rect *big)
     }
 }
 
-//static void fit_rect_in_rect_proportional(SDL_Rect *small, const SDL_Rect *big)
-//{
-//    if (small->x < big->x) {
-//        small->x = big->x;
-//    }
-//    if (small->y < big->y) {
-//        small->y = big->y;
-//    }
-//    if (small->w > big->w) {
-//        small->h = small->h * big->w / small->w;
-//        small->w = big->w;
-//    }
-//    if (small->h > big->h) {
-//        small->w = small->w * big->h / small->h;
-//        small->h = big->h;
-//    }
-//}
+static void fit_rect_in_rect_proportional(SDL_Rect *small, const SDL_Rect *big)
+{
+    if (small->x < big->x) {
+        small->x = big->x;
+    }
+    if (small->y < big->y) {
+        small->y = big->y;
+    }
+    if (small->w > big->w) {
+        small->h = small->h * big->w / small->w;
+        small->w = big->w;
+    }
+    if (small->h > big->h) {
+        small->w = small->w * big->h / small->h;
+        small->h = big->h;
+    }
+}
 
 static void resize_rect(SDL_Rect *rect,
         int left, int top, int right, int bottom)
@@ -4005,144 +4020,144 @@ static errr term_pict_hook(int col, int row, int n,
     return 0;
 }
 
-//static void term_view_map_shared(struct subwindow *subwindow,
-//        SDL_Texture *map, int w, int h)
-//{
-//    render_all(subwindow->window);
-//
-//    SDL_Rect dst = {
-//        0, 0,
-//        w + 2 * DEFAULT_VISIBLE_BORDER,
-//        h + 2 * DEFAULT_VISIBLE_BORDER
-//    };
-//    SDL_Rect full = {
-//        0, 0,
-//        subwindow->window->full_rect.w,
-//        subwindow->window->full_rect.h
-//    };
-//    fit_rect_in_rect_proportional(&dst, &full);
-//
-//    dst.x = (subwindow->window->full_rect.w - dst.w) / 2;
-//    dst.y = (subwindow->window->full_rect.h - dst.h) / 2;
-//    resize_rect(&dst,
-//            DEFAULT_VISIBLE_BORDER, DEFAULT_VISIBLE_BORDER,
-//            -DEFAULT_VISIBLE_BORDER, -DEFAULT_VISIBLE_BORDER);
-//
-//    render_all(subwindow->window);
-//    SDL_SetRenderTarget(subwindow->window->renderer, NULL);
-//    SDL_RenderCopy(subwindow->window->renderer, map, NULL, &dst);
-//
-//    /* render borders around the whole map */
-//    resize_rect(&dst,
-//            -DEFAULT_VISIBLE_BORDER, -DEFAULT_VISIBLE_BORDER,
-//            DEFAULT_VISIBLE_BORDER, DEFAULT_VISIBLE_BORDER);
-//    render_outline_rect_width(subwindow->window,
-//            NULL, &dst, &subwindow->borders.color, DEFAULT_VISIBLE_BORDER);
-//
-//    SDL_RenderPresent(subwindow->window->renderer);
-//
-//    wait_anykey();
-//}
+static void term_view_map_shared(struct subwindow *subwindow,
+        SDL_Texture *map, int w, int h)
+{
+    render_all(subwindow->window);
 
-//static void term_view_map_tile(struct subwindow *subwindow)
-//{
-//    assert(subwindow->window->graphics.id != GRAPHICS_NONE);
-//
-//    SDL_Rect tile = {
-//        0, 0, REASONABLE_MAP_TILE_WIDTH, REASONABLE_MAP_TILE_HEIGHT
-//    };
-//    SDL_Rect source = {
-//        0, 0,
-//        subwindow->window->graphics.tile_pixel_w,
-//        subwindow->window->graphics.tile_pixel_h
-//    };
-//
-//    fit_rect_in_rect_proportional(&tile, &source);
-//
-//    int w = tile.w * cave->width;
-//    int h = tile.h * cave->height;
-//
-//    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-//
-//    SDL_Texture *map = make_subwindow_texture(subwindow->window, w, h);
-//    assert(map != NULL);
-//
-//    render_clear(subwindow->window, map, &subwindow->color);
-//
-//    for (int y = 0; y < cave->height; y++) {
-//        tile.y = y * tile.w;
-//        for (int x = 0; x < cave->width; x++) {
-//            tile.x = x * tile.h;
-//            render_grid_cell_tile(subwindow, map, tile, x, y);
-//        }
-//    }
-//
-//    SDL_Rect cursor = {player->grid.x * tile.w, player->grid.y * tile.h, tile.w,
-//                       tile.h};
-//
-//    /* render cursor around player */
-//    render_outline_rect_width(subwindow->window,
-//            map, &cursor, &g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR],
-//            /* XXX some arbitrary values that look ok at the moment */
-//            MIN(MIN(tile.w / 4, tile.h / 4),
-//                DEFAULT_VISIBLE_BORDER));
-//
-//    term_view_map_shared(subwindow, map, w, h);
-//
-//    SDL_DestroyTexture(map);
-//
-//    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-//}
-//
-//static void term_view_map_text(struct subwindow *subwindow)
-//{
-//    int w = subwindow->font_width * cave->width;
-//    int h = subwindow->font_height * cave->height;
-//
-//    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-//
-//    SDL_Texture *map = make_subwindow_texture(subwindow->window, w, h);
-//    assert(map != NULL);
-//
-//    render_clear(subwindow->window, map, &subwindow->color);
-//
-//    for (int y = 0; y < cave->height; y++) {
-//        for (int x = 0; x < cave->width; x++) {
-//            render_grid_cell_text(subwindow, map, x, y);
-//        }
-//    }
-//
-//    SDL_Rect cursor = {
-//        player->grid.x * subwindow->font_width,
-//        player->grid.y * subwindow->font_height,
-//        subwindow->font_width,
-//        subwindow->font_height
-//    };
-//
-//    /* render cursor around player */
-//    render_outline_rect_width(subwindow->window,
-//            map, &cursor, &g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR],
-//            /* XXX some arbitrary values that look reasonable at the moment */
-//            MIN(MIN(subwindow->font_width / 4,
-//                    subwindow->font_height / 4),
-//                DEFAULT_VISIBLE_BORDER));
-//
-//    term_view_map_shared(subwindow, map, w, h);
-//
-//    SDL_DestroyTexture(map);
-//
-//    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-//}
+    SDL_Rect dst = {
+        0, 0,
+        w + 2 * DEFAULT_VISIBLE_BORDER,
+        h + 2 * DEFAULT_VISIBLE_BORDER
+    };
+    SDL_Rect full = {
+        0, 0,
+        subwindow->window->full_rect.w,
+        subwindow->window->full_rect.h
+    };
+    fit_rect_in_rect_proportional(&dst, &full);
 
-//static void term_view_map_hook(term *term)
-//{
-//    struct subwindow *subwindow = term->data;
-//    if (subwindow->window->graphics.id == GRAPHICS_NONE) {
-//        term_view_map_text(subwindow);
-//    } else {
-//        term_view_map_tile(subwindow);
-//    }
-//}
+    dst.x = (subwindow->window->full_rect.w - dst.w) / 2;
+    dst.y = (subwindow->window->full_rect.h - dst.h) / 2;
+    resize_rect(&dst,
+            DEFAULT_VISIBLE_BORDER, DEFAULT_VISIBLE_BORDER,
+            -DEFAULT_VISIBLE_BORDER, -DEFAULT_VISIBLE_BORDER);
+
+    render_all(subwindow->window);
+    SDL_SetRenderTarget(subwindow->window->renderer, NULL);
+    SDL_RenderCopy(subwindow->window->renderer, map, NULL, &dst);
+
+    /* render borders around the whole map */
+    resize_rect(&dst,
+            -DEFAULT_VISIBLE_BORDER, -DEFAULT_VISIBLE_BORDER,
+            DEFAULT_VISIBLE_BORDER, DEFAULT_VISIBLE_BORDER);
+    render_outline_rect_width(subwindow->window,
+            NULL, &dst, &subwindow->borders.color, DEFAULT_VISIBLE_BORDER);
+
+    SDL_RenderPresent(subwindow->window->renderer);
+
+    wait_anykey();
+}
+
+static void term_view_map_tile(struct subwindow *subwindow)
+{
+    assert(subwindow->window->graphics.id != GRAPHICS_NONE);
+
+    SDL_Rect tile = {
+        0, 0, REASONABLE_MAP_TILE_WIDTH, REASONABLE_MAP_TILE_HEIGHT
+    };
+    SDL_Rect source = {
+        0, 0,
+        subwindow->window->graphics.tile_pixel_w,
+        subwindow->window->graphics.tile_pixel_h
+    };
+
+    fit_rect_in_rect_proportional(&tile, &source);
+
+    int w = tile.w * Setup.max_col;
+    int h = tile.h * Setup.max_row;
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+    SDL_Texture *map = make_subwindow_texture(subwindow->window, w, h);
+    assert(map != NULL);
+
+    render_clear(subwindow->window, map, &subwindow->color);
+
+    for (int y = 0; y < Setup.max_row; y++) {
+        tile.y = y * tile.w;
+        for (int x = 0; x < Setup.max_col; x++) {
+            tile.x = x * tile.h;
+            render_grid_cell_tile(subwindow, map, tile, x, y);
+        }
+    }
+
+    SDL_Rect cursor = {player->grid.x * tile.w, player->grid.y * tile.h, tile.w,
+                       tile.h};
+
+    /* render cursor around player */
+    render_outline_rect_width(subwindow->window,
+            map, &cursor, &g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR],
+            /* XXX some arbitrary values that look ok at the moment */
+            MIN(MIN(tile.w / 4, tile.h / 4),
+                DEFAULT_VISIBLE_BORDER));
+
+    term_view_map_shared(subwindow, map, w, h);
+
+    SDL_DestroyTexture(map);
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+}
+
+static void term_view_map_text(struct subwindow *subwindow)
+{
+    int w = subwindow->font_width * Setup.max_col;
+    int h = subwindow->font_height * Setup.max_row;
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+    SDL_Texture *map = make_subwindow_texture(subwindow->window, w, h);
+    assert(map != NULL);
+
+    render_clear(subwindow->window, map, &subwindow->color);
+
+    for (int y = 0; y < Setup.max_row; y++) {
+        for (int x = 0; x < Setup.max_col; x++) {
+            render_grid_cell_text(subwindow, map, x, y);
+        }
+    }
+
+    SDL_Rect cursor = {
+        player->grid.x * subwindow->font_width,
+        player->grid.y * subwindow->font_height,
+        subwindow->font_width,
+        subwindow->font_height
+    };
+
+    /* render cursor around player */
+    render_outline_rect_width(subwindow->window,
+            map, &cursor, &g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR],
+            /* XXX some arbitrary values that look reasonable at the moment */
+            MIN(MIN(subwindow->font_width / 4,
+                    subwindow->font_height / 4),
+                DEFAULT_VISIBLE_BORDER));
+
+    term_view_map_shared(subwindow, map, w, h);
+
+    SDL_DestroyTexture(map);
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+}
+
+static void term_view_map_hook(term *term)
+{
+    struct subwindow *subwindow = term->data;
+    if (subwindow->window->graphics.id == GRAPHICS_NONE) {
+        term_view_map_text(subwindow);
+    } else {
+        term_view_map_tile(subwindow);
+    }
+}
 
 static SDL_Texture *load_image(const struct window *window, const char *path)
 {
@@ -5324,7 +5339,10 @@ static void link_term(struct subwindow *subwindow)
     subwindow->term->wipe_hook = term_wipe_hook;
     subwindow->term->text_hook = term_text_hook;
     subwindow->term->pict_hook = term_pict_hook;
-//    subwindow->term->view_map_hook = term_view_map_hook;
+
+    if (view_map_hook_mod) {
+        subwindow->term->view_map_hook = term_view_map_hook;
+    }
 
     subwindow->term->data = subwindow;
     angband_term[subwindow->index] = subwindow->term;
@@ -5898,6 +5916,7 @@ static void dump_config_file(void)
         }
     }
     file_putf(config, "kp-as-modifier:%d\n", (g_kp_as_mod) ? 1 : 0);
+    file_putf(config, "map-modifier:%d\n", (view_map_hook_mod) ? 1 : 0);
     file_putf(config, "sound-volume:%d\n", sound_volume);
     file_putf(config, "music-volume:%d\n", music_volume);
 
@@ -6203,6 +6222,12 @@ static enum parser_error config_kp_as_mod(struct parser *parser)
     return PARSE_ERROR_NONE;
 }
 
+static enum parser_error config_view_map_hook_mod(struct parser *parser)
+{
+    view_map_hook_mod = parser_getint(parser, "enabled");
+    return PARSE_ERROR_NONE;
+}
+
 static enum parser_error config_sound_volume(struct parser *parser)
 {
     sound_volume = parser_getint(parser, "sound_volume");
@@ -6251,6 +6276,7 @@ static struct parser *init_parse_config(void)
     parser_reg(parser, "subwindow-alpha uint index int alpha",
             config_subwindow_alpha);
     parser_reg(parser, "kp-as-modifier int enabled", config_kp_as_mod);
+    parser_reg(parser, "map-modifier int enabled", config_view_map_hook_mod);
     parser_reg(parser, "sound-volume int sound_volume", config_sound_volume);
     parser_reg(parser, "music-volume int music_volume", config_music_volume);
 

@@ -360,7 +360,7 @@ static int get_ghost_spell_by_name(void)
     /* Check for end of the book */
     while (book_info[0].spell_info[i].info[0] != '\0')
     {
-        if (my_stristr(book_info[0].spell_info[i].info, buf)) return i;
+        if (streq(book_info[0].spell_info[i].name, buf)) return i;
         i++;
     }
 
@@ -618,7 +618,7 @@ errr get_spell_by_name(int *book, int *spell)
 
             while (book_info[i].spell_info[sn].info[0] != '\0')
             {
-                if (my_stristr(book_info[i].spell_info[sn].info, tok))
+                if (streq(book_info[i].spell_info[sn].name, tok))
                 {
                     (*book) = i;
                     (*spell) = sn;

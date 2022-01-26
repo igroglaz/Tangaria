@@ -2989,12 +2989,13 @@ int Send_objflags(struct player *p, int line)
 }
 
 
-int Send_spell_desc(struct player *p, int book, int i, char *out_val)
+int Send_spell_desc(struct player *p, int book, int i, char *out_desc, char *out_name)
 {
     connection_t *connp = get_connp(p, "spell description");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%S", (unsigned)PKT_SPELL_DESC, book, i, out_val);
+    return Packet_printf(&connp->c, "%b%hd%hd%S%s", (unsigned)PKT_SPELL_DESC, book, i, out_desc,
+        out_name);
 }
 
 
@@ -3211,15 +3212,17 @@ int Send_message(struct player *p, const char *msg, u16b typ)
 int Send_item(struct player *p, const struct object *obj, int wgt, s32b price,
     struct object_xtra *info_xtra)
 {
-    byte ignore = ((obj->known->notice & OBJ_NOTICE_IGNORE)? 1: 0);
+    byte quiver, ignore;
     connection_t *connp = get_connp(p, "item");
     if (connp == NULL) return 0;
 
     /* Packet and base info */
-    Packet_printf(&connp->c, "%b%hu%b", (unsigned)PKT_ITEM, (unsigned)obj->tval,
-        (unsigned)info_xtra->equipped);
+    quiver = (object_is_in_quiver(p, obj)? 1: 0);
+    Packet_printf(&connp->c, "%b%hu%b%b", (unsigned)PKT_ITEM, (unsigned)obj->tval,
+        (unsigned)info_xtra->equipped, (unsigned)quiver);
 
     /* Object info */
+    ignore = ((obj->known->notice & OBJ_NOTICE_IGNORE)? 1: 0);
     Packet_printf(&connp->c, "%hu%hd%hd%ld%lu%ld%b%hd%b", (unsigned)obj->sval, wgt, obj->number,
         price, obj->note, obj->pval, (unsigned)ignore, obj->oidx, (unsigned)obj->ignore_protect);
 

@@ -188,7 +188,7 @@ static bool get_mimic_spell_by_name(int *book, int *spell)
             /* Spell is available */
             num++;
 
-            if (my_stristr(book_info[cur_page].spell_info[i].info, buf))
+            if (streq(book_info[cur_page].spell_info[i].name, buf))
             {
                 *book = cur_page;
                 *spell = i;

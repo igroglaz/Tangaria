@@ -165,6 +165,16 @@ static void view_map_aux(byte mode)
     /* Hack -- if the screen is already icky, ignore this command */
     if (player->screen_save_depth) return;
 
+    if (Term->view_map_hook)
+    {
+        (*(Term->view_map_hook))(Term);
+
+        /* Send the request */
+        Send_map(mode);
+
+        return;
+    }    
+
     /* Save the screen */
     screen_save();
 
@@ -776,7 +786,7 @@ static bool askfor_aux_msg(char *buf, int len)
     int l = 0;  /* Is the cursor location on line */
     int j = 0;  /* Loop iterator */
 
-    /* Terminal width */
+	/* Terminal width */
 	int wid = NORMAL_WID;
 
     /* Visible length on the screen */

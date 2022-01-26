@@ -22,9 +22,9 @@
 # flags: flag | flag | etc.
 # pval: pval
 # values: mod[value] | mod[value] | etc.
-# brand: brand code
-# slay: slay code
-# curse: curse name : power
+# brand: code
+# slay: code
+# curse: name : power
 # desc: description
 
 # Some fields accept randomized numbers of the form "10+2d3M4" where
@@ -131,17 +131,28 @@
 # 'pval' is for pval - an auxiliary value that can mean food value, launcher
 # multiplier or turns of light. A pval can take a random value.
 
-# 'values' is for object modifiers which take a value - stats,
-# resistances and so on. Like flags, values are separated by '|' and as many
-# values: lines as needed can be used.
+# 'values' is for properties that take a value. Valid properties are the
+# object modifiers (as found in list-stats.h and list-object-modifiers.h)
+# or resistances ('RES_' prepended to the element name from list-elements.h).
+# The value appears in brackets after the property name. For object modifiers,
+# the value can be any random expression. For resistances, it must be a plain
+# integer value with the useful ones being 1 (resist), 3 (immune), and -1
+# (vulnerable). Like flags, values are separated by '|' and as many values:
+# lines as needed can be used.
 
-# 'brand' is for brands as listed in brand.txt.
+# 'brand' adds a brand to the object. It should be omitted for objects
+# without brands and may appear more than once for objects with multiple brands.
+# Specify the brand to be added by its code in brand.txt.
 
-# 'slay' is for slays as listed in slay.txt. An example is slay:UNDEAD_3, which
-# denotes that the weapon concerned has a basic 3x slay against undead
-# creatures.
+# 'slay' adds a slay to the object. It should be omitted for objects without
+# slays and may appear more than once for objects with multiple slays. Specify
+# the slay to be added by its code in slay.txt.
 
-# 'curse' is for curses
+# 'curse' adds a curse to the object. It should be omitted for objects without
+# curses and may appear more than once for objects with multiple curses. A
+# curse has a name (as given in curse.txt) and a power. The power
+# is a positive integer and indicates how hard it is to remove the curse. A
+# larger power is more difficult to remove.
 
 # 'desc' is for description. As many desc: lines may be used as are needed
 # to describe the object. Note that lines will need spaces at their

@@ -15,6 +15,7 @@ struct spell_info
     char info[NORMAL_WID];
     spell_flags flag;
     char desc[MSG_LEN];
+    char name[NORMAL_WID];
 };
 
 struct book_info

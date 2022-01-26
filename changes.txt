@@ -80,6 +80,10 @@ PWMAngband:
   (elementalists)
 - Fix Cloud room template
 - Correctly set mana pool cap to +10 from items and +15 overall
+- Add spell name to spell info sent to client to allow keymap by spell to work
+  properly
+- Fix object_all_modifiers_are_known()
+- Redraw equip subwindow when inscribing items in the quiver
 
 Coding changes
 --------------
@@ -130,3 +134,4 @@ Compilation/documentation
 - Modify the comment about room cutoffs in dungeon_profile.txt
 - Update attack.rst
 - Put in first draft of "how it works" documentation for dungeon generation
+- Update comments in artifact.txt, ego_item.txt and object.txt

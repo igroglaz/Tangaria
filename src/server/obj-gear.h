@@ -9,6 +9,7 @@
 
 extern bool slot_type_is(struct player *p, int slot, int type);
 extern bool object_is_carried(struct player *p, const struct object *obj);
+extern bool object_is_in_quiver(struct player *p, const struct object *obj);
 extern int pack_slots_used(struct player *p);
 extern s16b wield_slot(struct player *p, const struct object *obj);
 extern bool minus_ac(struct player *p);

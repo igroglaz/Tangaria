@@ -163,7 +163,7 @@ extern int Send_everseen(struct player *p, u16b num);
 extern int Send_ego_everseen(struct player *p, u16b num);
 extern int Send_cursor(struct player *p, char vis, char x, char y);
 extern int Send_objflags(struct player *p, int line);
-extern int Send_spell_desc(struct player *p, int book, int i, char *out_val);
+extern int Send_spell_desc(struct player *p, int book, int i, char *out_desc, char *out_name);
 extern int Send_dtrap(struct player *p, byte dtrap);
 extern int Send_term_info(struct player *p, int mode, u16b arg);
 extern int Send_player_pos(struct player *p);

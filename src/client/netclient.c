@@ -3168,13 +3168,14 @@ static int Receive_spell_desc(void)
     byte ch;
     int n;
     s16b book, line;
-    char buf[MSG_LEN];
+    char desc[MSG_LEN], name[NORMAL_WID];
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%S", &ch, &book, &line, buf)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%S%s", &ch, &book, &line, desc, name)) <= 0)
         return n;
 
     /* Save the info */
-    my_strcpy(book_info[book].spell_info[line].desc, buf, MSG_LEN);
+    my_strcpy(book_info[book].spell_info[line].desc, desc, MSG_LEN);
+    my_strcpy(book_info[book].spell_info[line].name, name, NORMAL_WID);
 
     return 1;
 }
@@ -3758,8 +3759,8 @@ static int Receive_message(void)
 static int Receive_item(void)
 {
     int n, bytes_read;
-    byte ch, equipped, notice, attr, act, aim, fuel, fail, stuck, known, known_effect, identified,
-        sellable, quality_ignore, ignored, magic, throwable, ignore_protect;
+    byte ch, equipped, quiver, notice, attr, act, aim, fuel, fail, stuck, known, known_effect,
+        identified, sellable, quality_ignore, ignored, magic, throwable, ignore_protect;
     u16b tval, sval;
     s16b wgt, amt, oidx, slot, eidx, bidx;
     s32b price, pval;
@@ -3771,9 +3772,9 @@ static int Receive_item(void)
     char name_power[NORMAL_WID];
 
     /* Packet and base info */
-    if ((n = Packet_scanf(&rbuf, "%b%hu%b", &ch, &tval, &equipped)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hu%b%b", &ch, &tval, &equipped, &quiver)) <= 0)
         return n;
-    bytes_read = 4;
+    bytes_read = 5;
 
     /* Object info */
     if ((n = Packet_scanf(&rbuf, "%hu%hd%hd%ld%lu%ld%b%hd%b", &sval, &wgt, &amt, &price, &note,
@@ -3873,7 +3874,13 @@ static int Receive_item(void)
     }
 
     /* Redraw */
-    player->upkeep->redraw |= (equipped? PR_EQUIP: PR_INVEN);
+    if (equipped)
+        player->upkeep->redraw |= PR_EQUIP;
+    else
+    {
+        player->upkeep->redraw |= PR_INVEN;
+        if (quiver) player->upkeep->redraw |= PR_EQUIP;
+    }
 
     return 1;
 }
