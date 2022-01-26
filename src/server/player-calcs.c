@@ -2240,32 +2240,23 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (p->lev > 5)
         {
-            state->see_infra -= 2;            
+            state->see_infra -= p->lev / 4;
             state->skills[SKILL_DISARM_PHYS] -= 15;
             state->skills[SKILL_DISARM_MAGIC] -= 25;
             state->skills[SKILL_DEVICE] -= 15;
-        }
-        if (p->lev > 10)
+            state->stat_add[STAT_STR] -= 1;
+            state->stat_add[STAT_DEX] -= 1;
+            state->stat_add[STAT_CON] -= 1;
+            state->stat_add[STAT_CHR] -= p->lev / 4;
             state->skills[SKILL_SAVE] -= 10;
-        if (p->lev > 15)
             state->skills[SKILL_STEALTH] -= 1;
-        if (p->lev > 20)
             state->skills[SKILL_SEARCH] -= 20;
+            state->skills[SKILL_DIGGING] -= 2;
+        }
         if (p->lev > 25)
         {
             state->skills[SKILL_TO_HIT_MELEE] -= 3;
             state->skills[SKILL_TO_HIT_BOW] -= 7;
-        }
-        if (p->lev > 30)
-            state->skills[SKILL_DIGGING] -= 2;
-        if (p->lev > 32)
-        {
-        state->stat_add[STAT_STR] -= 3;
-        state->stat_add[STAT_INT] -= 1;
-        state->stat_add[STAT_WIS] -= 1;
-        state->stat_add[STAT_DEX] -= 2;
-        state->stat_add[STAT_CON] -= 2;
-        state->stat_add[STAT_CHR] -= 2;
         }
     }
 
