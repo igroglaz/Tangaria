@@ -138,7 +138,7 @@ skill-melee:0
 skill-shoot:0
 skill-dig:0
 hitdie:10
-# +50%
+# +50% / @49: -50%
 exp:100:175
 history:1
 age:14:6
@@ -1476,6 +1476,7 @@ height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
 #4 -3 -3 0 0
+# rethink
 value:0:STR[2+2d30]
 value:0:INT[-4+1d50]
 value:0:WIS[-4+1d40]

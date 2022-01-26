@@ -254,35 +254,39 @@ void player_exp_gain(struct player *p, s32b amount)
     if (p->lev > 48 && amount > 10)
     {
         // ... races:
-        if (streq(p->race->name, "Dragon") || streq(p->race->name, "Wraith"))
-            amount /= 9;
-        else if (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||
-                 streq(p->race->name, "Wisp"))
-            amount /= 5;
-        else if (streq(p->race->name, "Ent") || streq(p->race->name, "Troll") ||
-                 streq(p->race->name, "Beholder"))
+        if      (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||
+                 streq(p->race->name, "Dragon"))
             amount /= 4;
+        else if (streq(p->race->name, "Ent") || streq(p->race->name, "Maiar") ||
+                 streq(p->race->name, "Beholder") || streq(p->race->name, "Wisp") ||
+                 streq(p->race->name, "Wraith"))
+            amount /= 3;
         else if (streq(p->race->name, "High-Elf") || streq(p->race->name, "Thunderlord") ||
-                 streq(p->race->name, "Maiar") || streq(p->race->name, "Naga"))
-            amount /= 3;
-        else if (streq(p->race->name, "Half-Giant") || streq(p->race->name, "Hydra") ||
-                 streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire") ||
-                 streq(p->race->name, "Balrog"))
+                 streq(p->race->name, "Troll") || streq(p->race->name, "Naga") ||
+                 streq(p->race->name, "Balrog") || streq(p->race->name, "Half-Giant") ||
+                 streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem"))
             amount /= 2;
+        else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
+                 streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
+            amount /= (amount * 2) / 3;
         else if (streq(p->race->name, "Black Numenorean") || streq(p->race->name, "Dunedain") ||
-                 streq(p->race->name, "Dark Elf") || streq(p->race->name, "Minotaur"))
-            amount = (amount * 2) / 3;
+                 streq(p->race->name, "Dark Elf") || streq(p->race->name, "Draconian"))
+            amount = (amount * 3) / 4;
+        // buff
+        else if (streq(p->race->name, "Human"))
+            pamount = (amount * 3) / 2;
+
         // ... classes:
-        else if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-                 streq(p->clazz->name, "Archer") || streq(p->clazz->name, "Shapechanger"))
-            amount /= 4;
+        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+                 streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever"))
+            amount /= 2;
         else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
-                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Unbeliever"))
-            amount /= 3;
+                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
+            amount /= (amount * 2) / 3;
         else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
                  streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||
                  streq(p->clazz->name, "Wizard"))
-            amount /= 2;
+            amount /= (amount * 3) / 4;
     }
 
     /* Gain some experience */
