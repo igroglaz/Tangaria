@@ -1741,6 +1741,16 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             player_inc_timed(p, TMD_FOOD, 100, false, false);
     }
 
+    if (streq(obj->kind->name, "Scrap of Flesh"))
+    {
+        if (streq(p->race->name, "Hydra"))
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+        else if (one_in_(3))
+            player_dec_timed(p, TMD_FOOD, 2000, false);
+        else
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+    }
+
     /* If the item is a null pointer or has been wiped, be done now */
     if (!obj) return;
 

@@ -274,7 +274,7 @@ void player_exp_gain(struct player *p, s32b amount)
             amount = (amount * 3) / 4;
         // buff
         else if (streq(p->race->name, "Human"))
-            pamount = (amount * 3) / 2;
+            amount = (amount * 3) / 2;
 
         // ... classes:
         if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||

@@ -887,7 +887,7 @@ history:100
 age:20:10
 height:85:9
 weight:230:45
-gift:food:Scrap of Flesh:1:1
+gift:mushroom:Vigor:1:1
 #3 0 -1 -1 3
 value:0:STR[1+1d15M32]
 value:0:INT[-4+1d7M30]

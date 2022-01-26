@@ -337,18 +337,9 @@ weight:5
 cost:0
 alloc:30:50 to 100
 pile:50:1d3
-effect:NOURISH:DEC_BY
-dice:20+3d2
-effect:NOURISH:DEC_BY
-dice:10+3d2
+# hc cmd-obj.c
 effect:NOURISH:INC_BY
-dice:10
-effect:NOURISH:INC_BY
-dice:20
-effect:NOURISH:INC_BY
-dice:20
-effect:RANDOM
-dice:5
+dice:1
 msg_self:That tastes disgusting.
 desc:A grey-looking piece of dried flesh of you dare not guess what creature.
 desc: You would have to be desperate to eat this.
