@@ -667,4 +667,7 @@ message:CHOP_TREE_FALL:w
 # MSG_SENTRY
 message:SENTRY:w
 
+# MSG_DOOR_BROKEN
+message:DOOR_BROKEN:w
+
 ?:1

@@ -628,4 +628,6 @@ sound:chop_tree_fall:chop_tree_fall
 
 sound:sentry:sentry
 
+sound:door_broken:door_broken
+
 # leave empty line for EOF

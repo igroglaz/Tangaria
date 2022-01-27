@@ -408,7 +408,7 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
         {
             if (can_bash && !can_open)
             {
-                msgt(p, MSG_HIT, "You have bashed down the door.");
+                msgt(p, MSG_DOOR_BROKEN, "You have bashed down the door.");
                 square_smash_door(c, grid);
             }
             else
@@ -444,8 +444,13 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
     else
     {
         /* Open the door */
-        if (can_bash && !can_open) square_smash_door(c, grid);
-        else square_open_door(c, grid);
+        if (can_bash && !can_open)
+        {
+            msgt(p, MSG_DOOR_BROKEN, "Can't open.. You have bashed down the door.");
+            square_smash_door(c, grid);
+        }
+        else
+            square_open_door(c, grid);
 
         /* Update the visuals */
         square_memorize(p, c, grid);
@@ -1132,6 +1137,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         // hack doors
         if (door)
         {
+            sound(p, MSG_DOOR_BROKEN);
             msg(p, "Wham! You bashed through the door.");
             square_set_feat(c, grid, FEAT_BROKEN);
         }
