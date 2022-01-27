@@ -877,17 +877,18 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     bool more = false;
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
-    bool gold, rubble, tree, web;
+    bool gold, rubble, tree, web, door;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
     tree = square_istree(c, grid);
     web = square_iswebbed(c, grid);
+    door = square_isdoor(c, grid);
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
     
-    if (p->timed[TMD_FOOD] < 2000 && in_town(&p->wpos))
+    if (in_town(&p->wpos) && p->timed[TMD_FOOD] < 2000)
     {
         msg(p, "You are too tired and hungry for mining. Eat some food.");
         return false;        
@@ -900,13 +901,11 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
         // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
         player_dec_timed(p, TMD_FOOD, 200, false);
-
             if (one_in_(2))
             {
                 struct object *dig_stone;
                 /* Make house stone */
                 dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
-
                 if (dig_stone)
                 {
                     sound(p, MSG_DIG);
@@ -915,7 +914,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                     drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
                 }
             }
-
         return false;
     }
 
@@ -1007,7 +1005,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 if (dig_dry) // to prevent obj null in case of `water` tile which is not `floor`
                 {
                     set_origin(dig_dry, ORIGIN_FLOOR, p->wpos.depth, NULL);
-
                     /* Drop house stone */
                     drop_near(p, c, &dig_dry, 0, &p->grid, true, DROP_FADE, false);
                 }
@@ -1066,7 +1063,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else if (one_in_(2))
         {
             msg(p, "Water gushes forth from the overflowing ruined fountain!");
-            square_set_feat(c, grid, FEAT_WATER);                    
+            square_set_feat(c, grid, FEAT_WATER);
             // add PROJ SHALLOW WATER fire_ball(context->origin->player, PROJ_SH_WATER, 0, 1, 2, false, false);
         }            
         else
@@ -1132,8 +1129,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     /* Success */
     else if (okay && twall(p, c, grid))
     {
+        // hack doors
+        if (door)
+        {
+            msg(p, "Wham! You bashed through the door.");
+            square_set_feat(c, grid, FEAT_BROKEN);
+        }
         /* Mow down the vegetation */
-        if (tree)
+        else if (tree)
         {
             sound(p, MSG_CHOP_TREE_FALL);
             msg(p, "You hack your way through the vegetation.");
@@ -1216,7 +1219,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             sound(p, MSG_DIG);
             msg(p, "You have found something!");
         }
-        
+
         /* No cobbles and stones to find in town */
         else if (in_town(&p->wpos))
         {
@@ -3748,7 +3751,7 @@ bool create_house(struct player *p, int small_house)
         return false;
     }
 
-//	/* Houses can only be created in the wilderness */
+//  /* Houses can only be created in the wilderness */
 //    if (!in_wild(&p->wpos))
 //   {
 //        msg(p, "This location is not suited for a house.");

@@ -1408,10 +1408,10 @@ value:0:CHR[-1+1d24]
 #value:0:RES_LIGHT[-1]
 #value:0:RES_DARK[-1] hardcoded: -- 35++ 50++
 obj-flag:1:ESP_DEMON
-slay:35:48:DEMON_3
-slay:49:50:DEMON_5
+slay:35:50:DEMON_3
 obj-flag:1:HUNGER
 #+vs angels
+#slay:49:50:DEMON_5
 
 name:Gargoyle
 skill-disarm-phys:-14
@@ -1610,7 +1610,6 @@ value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:0:BLOWS[0+10d45]
 value:0:MOVES[10+1d1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
 value:0:DAM_RED[0+1d2]
@@ -1619,8 +1618,7 @@ value:30:RES_ELEC[3]
 brand:40:49:STUN_1
 brand:50:50:STUN_2
 value:0:TUNNEL[3+1d10]
-slay:35:49:DRAGON_3
-slay:50:50:DRAGON_5
+slay:35:50:DRAGON_3
 value:0:MANA[1d5]
 # /// -
 obj-flag:1:NO_TELEPORT
@@ -1632,6 +1630,8 @@ obj-flag:1:HUNGER
 #value:0:SPEED[-1+-1d30]
 #value:25:LIGHT[1]
 #value:0:RES_NEXUS[1]
+#slay:50:50:DRAGON_5
+#value:0:BLOWS[0+10d45]
 #
 #player-flags:0:SHAPECHANGE
 #regular forms
@@ -2022,7 +2022,7 @@ value:0:CON[-1]
 value:0:CHR[-8]
 value:0:INFRA[6]
 obj-flag:1:FREE_ACT
-value:0:BLOWS[10]
+value:0:BLOWS[1d5]
 value:30:MOVES[-1+-1d2]
 value:30:SPEED[1+1d2]
 value:0:TUNNEL[-1+-1d24]
