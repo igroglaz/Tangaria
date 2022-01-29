@@ -1613,6 +1613,19 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
      */
     size_percent = percent_size(wpos);
 
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 0)
+    {
+        if (wpos->depth < 11 && !one_in_(4))
+            size_percent = 75;
+        else if (wpos->depth < 21 && !one_in_(3))
+            size_percent = 75;
+        else if (wpos->depth < 31 && one_in_(2))
+            size_percent = 75;
+        else if (wpos->depth < 41 && one_in_(3))
+            size_percent = 75;
+    }
+
     /* Scale the various generation variables */
     num_rooms = dun->profile->dun_rooms * size_percent / 100;
     dun->block_hgt = dun->profile->block_size;
@@ -3928,6 +3941,193 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     return c;
 }
 
+// Tangaria tiny levels
+struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
+{
+    int i, k;
+    int size_percent, y_size, x_size;
+    struct chunk *c;
+
+    /* Scale the level */
+    size_percent = percent_size(wpos);
+
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 1)
+    {
+        if (wpos->depth < 5)
+        {
+            if      (one_in_(15)) size_percent = 30;
+            else if (one_in_(12)) size_percent = 35;
+            else if (one_in_(10)) size_percent = 40;
+            else if (one_in_(8))  size_percent = 45;
+            else if (one_in_(6))  size_percent = 50;
+            else if (one_in_(5))  size_percent = 55;
+            else if (one_in_(4))  size_percent = 60;
+            else if (one_in_(3))  size_percent = 65;
+            else if (one_in_(2))  size_percent = 70;
+        }
+        else if (wpos->depth < 11)
+        {
+            if      (one_in_(15)) size_percent = 40;
+            else if (one_in_(12)) size_percent = 45;
+            else if (one_in_(10)) size_percent = 50;
+            else if (one_in_(8))  size_percent = 55;
+            else if (one_in_(6))  size_percent = 60;
+            else if (one_in_(5))  size_percent = 65;
+            else if (one_in_(4))  size_percent = 70;
+        }
+        if (wpos->depth < 21)
+        {
+            if      (one_in_(17)) size_percent = 45;
+            else if (one_in_(15)) size_percent = 50;
+            else if (one_in_(12)) size_percent = 55;
+            else if (one_in_(10)) size_percent = 60;
+            else if (one_in_(8))  size_percent = 65;
+            else if (one_in_(6))  size_percent = 70;
+        }
+        if (wpos->depth < 31)
+        {
+            if      (one_in_(17)) size_percent = 50;
+            else if (one_in_(15)) size_percent = 55;
+            else if (one_in_(12)) size_percent = 60;
+            else if (one_in_(10)) size_percent = 65;
+            else if (one_in_(7))  size_percent = 70;
+        }
+        else if (wpos->depth < 41)
+        {
+            if      (one_in_(17)) size_percent = 55;
+            else if (one_in_(15)) size_percent = 60;
+            else if (one_in_(12)) size_percent = 65;
+            else if (one_in_(10)) size_percent = 70;
+        }   
+        else
+        {
+            if      (one_in_(wpos->depth))     size_percent = 60;
+            else if (one_in_(wpos->depth / 2)) size_percent = 65;
+            else if (one_in_(wpos->depth / 3)) size_percent = 70;
+        }
+    }
+
+    y_size = z_info->dungeon_hgt * (size_percent - 5 + randint0(10)) / 100;
+    x_size = z_info->dungeon_wid * (size_percent - 5 + randint0(10)) / 100;
+
+    /* Enforce minimum dimensions */
+    y_size = MAX(y_size, min_height);
+    x_size = MAX(x_size, min_width);
+
+    // as above 'enforcing' doens't really works (as min_height/width always 0)
+    if (y_size < 20) y_size = 20;
+
+    /* Set the block height and width */
+    dun->block_hgt = dun->profile->block_size;
+    dun->block_wid = dun->profile->block_size;
+
+    c = modified_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
+    if (!c) return NULL;
+
+    /* Generate permanent walls around the edge of the generated area */
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
+
+    /* Add some magma streamers */
+    for (i = 0; i < dun->profile->str.mag; i++)
+        add_streamer(c, FEAT_MAGMA, DF_STREAMS, dun->profile->str.mc);
+
+    /* Add some quartz streamers */
+    for (i = 0; i < dun->profile->str.qua; i++)
+        add_streamer(c, FEAT_QUARTZ, DF_STREAMS, dun->profile->str.qc);
+
+    /* Add some streamers */
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_LAVA, DF_LAVA_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_WATER, DF_WATER_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
+    }
+
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
+    /* Remove holes in corridors that were not used for stair placement */
+    remove_unused_holes(c);
+
+    /* General amount of rubble, traps and monsters */
+    k = MAX(MIN(wpos->depth / 3, 10), 2);
+
+    /* Put some rubble in corridors */
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
+
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps in rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+
+    /* Customize */
+    customize_features(c);
+
+    /* Determine the character location */
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
+
+    /* Pick a base number of monsters */
+    i = z_info->level_monster_min + randint1(8) + k;
+
+    // scale number of monsters in tiny levels accordingly to the size
+    i = i * (size_percent - 5 + randint0(10)) / 100;
+    // also some tiniest levels should have less monsters
+    if (size_percent < 31 && i > 15) i /= 2;
+
+    /* Put some monsters in the dungeon */
+    for (; i > 0; i--)
+        pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
+
+    // scale number of objects in rooms
+    // we use there 'i' again as it's not used anymore below, so it's safe
+    if (size_percent < 70) i = size_percent / 20;
+    if (i > 3) i = 3;
+    else if (i < 1) i = 1;
+
+    /* Put some objects in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Put some objects/gold in the dungeon */
+    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(z_info->both_item_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+    alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(z_info->both_gold_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Apply illumination */
+    player_cave_clear(p, true);
+    cave_illuminate(p, c, true);
+
+    /* Hack -- set profile */
+    c->profile = dun_modified;
+
+    return c;
+}
 
 /*
  * Generate a new dungeon level
@@ -4235,6 +4435,20 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
 
     /* Scale the level */
     size_percent = percent_size(wpos);
+
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 0)
+    {
+        if (wpos->depth < 11 && !one_in_(4))
+            size_percent = 75;
+        else if (wpos->depth < 21 && !one_in_(3))
+            size_percent = 75;
+        else if (wpos->depth < 31 && one_in_(2))
+            size_percent = 75;
+        else if (wpos->depth < 41 && one_in_(3))
+            size_percent = 75;
+    }
+
     y_size = z_info->dungeon_hgt * (size_percent - 5 + randint0(10)) / 100;
     x_size = z_info->dungeon_wid * (size_percent - 5 + randint0(10)) / 100;
 
