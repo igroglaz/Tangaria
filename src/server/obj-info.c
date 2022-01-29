@@ -323,7 +323,13 @@ static bool describe_misc_magic(struct player *p, const bitflag flags[OF_SIZE])
         {
             continue;
         }
-        if (of_has(flags, prop->index) && prop->desc)
+        // perma-sticky in red ink..
+        if (of_has(flags, prop->index) && prop->desc && streq(prop->name, "stuck on"))
+        {
+            text_out_c(p, COLOUR_L_RED, "%s! ", prop->desc);
+            printed = true;
+        }
+        else if (of_has(flags, prop->index) && prop->desc)
         {
             text_out(p, "%s. ", prop->desc);
             printed = true;
