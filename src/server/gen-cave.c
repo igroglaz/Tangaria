@@ -3941,17 +3941,19 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     return c;
 }
 
-// Tangaria tiny levels
+// Tangaria 'tiny' levels
 struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
 {
     int i, k;
     int size_percent, y_size, x_size;
     struct chunk *c;
+    // T:
+    int t;
 
     /* Scale the level */
     size_percent = percent_size(wpos);
 
-    // low lvls have chance to generate smaller versions
+    // T: low dlvls have chance to generate 'tiny' levels
     if (wpos->depth > 1)
     {
         if (wpos->depth < 5)
@@ -4015,7 +4017,8 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     y_size = MAX(y_size, min_height);
     x_size = MAX(x_size, min_width);
 
-    // as above 'enforcing' doens't really works (as min_height/width always 0)
+    // T: as above 'enforcing' doesn't really works (min_height/width always 0),
+    // we limit it for 'tiny' levels
     if (y_size < 20) y_size = 20;
 
     /* Set the block height and width */
@@ -4058,7 +4061,9 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     add_stairs(c, FEAT_LESS);
 
     /* Remove holes in corridors that were not used for stair placement */
-    remove_unused_holes(c);
+    // T: let it be additional shelter on small levels
+    if (size_percent < 51)
+        remove_unused_holes(c);
 
     /* General amount of rubble, traps and monsters */
     k = MAX(MIN(wpos->depth / 3, 10), 2);
@@ -4070,16 +4075,46 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
     alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
 
-    // Additional traps in rooms
-    if (one_in_(5))
-        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
-    else if (one_in_(10))
-        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
-    else if (one_in_(20))
-        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    // T: scale number of additional traps
+    if (size_percent > 39)
+    {
+        // corridors
+        if (one_in_(5))
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+        else if (size_percent > 49)
+        {
+            if (one_in_(10))
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+        }
+        else if (size_percent > 59)
+        {
+            if (one_in_(20))
+            {
+                alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+                alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+            }
+        }
+
+        // rooms
+        if (one_in_(5))
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+        else if (one_in_(10))
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+        else if (one_in_(20))
+        {
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        }
+    }
+
+    // T: scale number of additional fountains
+    if (size_percent < 75)
+        t = size_percent / 25;
+    else
+        t = 2;
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + t, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4094,20 +4129,18 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     /* Pick a base number of monsters */
     i = z_info->level_monster_min + randint1(8) + k;
 
-    // scale number of monsters in tiny levels accordingly to the size
-    i = i * (size_percent - 5 + randint0(10)) / 100;
-    // also some tiniest levels should have less monsters
+    // T: scale number of monsters in tiny levels accordingly to the size
+    i = i * (size_percent - 5 + randint0(5)) / 100;
+    // also some tiniest levels _maybe_ should have less monsters (test!)
     if (size_percent < 31 && i > 15) i /= 2;
 
     /* Put some monsters in the dungeon */
     for (; i > 0; i--)
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
-    // scale number of objects in rooms
-    // we use there 'i' again as it's not used anymore below, so it's safe
-    if (size_percent < 70) i = size_percent / 20;
-    if (i > 3) i = 3;
-    else if (i < 1) i = 1;
+    // T: scale number of objects
+    t = size_percent / 20;
+    if (t > 3) t = 3;
 
     /* Put some objects in rooms */
     alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, i), wpos->depth,
