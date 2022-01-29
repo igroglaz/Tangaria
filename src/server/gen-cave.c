@@ -126,8 +126,9 @@ static void build_streamer(struct chunk *c, int feat, int chance)
             if (square_isrock(c, &change))
             {
                 /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
+                // T: also don't do it if too deep
                 if (!square_ispermfake(c, &change) ||
-                    (cfg_challenging_levels && one_in_(c->wpos.depth)))
+                    (cfg_challenging_levels && one_in_(c->wpos.depth) && c->wpos.depth < 50))
                 {
                     /* Turn the rock into the vein type */
                     square_set_feat(c, &change, feat);
