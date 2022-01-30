@@ -85,6 +85,61 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
 }
 
 
+// Places a lake in the dungeon.
+ static void build_lake(struct chunk *c)
+{
+    int dir;
+    struct loc grid;
+    int size, t = 0;
+
+    // Pick a lake size
+    if (one_in_(2))      size = 100 + randint1(100);
+    else if (one_in_(5)) size = 100 + randint1(500);
+    else if (one_in_(10)) size = 100 + randint1(1000);
+    else size = 100 + randint1(300);
+
+    /* Hack -- choose starting point */
+    loc_init(&grid, rand_spread(c->width / 2, 15), rand_spread(c->height / 2, 10));
+
+    /* Place lake into dungeon */
+    while (t <= size)
+    {
+        struct loc change;
+        t++;
+
+        /* Pick a nearby grid */
+        find_nearby_grid(c, &change, &grid, 0, 0);
+
+        // Water flow only through rocks, empty floors.. doors will drown
+        if (square_isrock(c, &change) || square_isempty(c, &change) || square_isdoor(c, &change))
+        {
+            /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
+            // T: also don't do it if too deep
+            if (!square_ispermfake(c, &change) ||
+                (cfg_challenging_levels && one_in_(c->wpos.depth) && c->wpos.depth < 50))
+            {
+                /* Turn the into the water */
+                square_set_feat(c, &change, FEAT_WATER);
+
+                /* Sometimes add known treasure. Works only on MAGMA and QUARTZ */
+                // T: must be rock.. maybe enhance into different water tiles later
+                if (one_in_(50) && square_isrock(c, &change)) square_upgrade_mineral(c, &change);
+            }
+        }
+
+        /* Choose a random direction */
+        dir = ddd[randint0(8)];
+
+        // Advance building further
+        grid.y += ddy[dir];
+        grid.x += ddx[dir];
+
+        /* Stop at dungeon edge */
+        if (!square_in_bounds(c, &grid)) break;
+    }
+}
+
+
 /*
  * Places a streamer of rock through dungeon.
  *
@@ -1772,6 +1827,12 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -2245,6 +2306,10 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
         h *= 2;
         w *= 2;
     }
+
+    // Add lake
+    if (one_in_(20))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -2898,6 +2963,10 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
 
     /* Surround the level with perma-rock */
     draw_rectangle(c, 0, 0, h - 1, w - 1, FEAT_PERM, SQUARE_NONE, true);
+
+    // Add lake
+    if (one_in_(10))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4057,6 +4126,12 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -4236,6 +4311,12 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     {
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
+
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4524,6 +4605,10 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     {
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
+
+    // Add lake
+    if (one_in_(5))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4907,6 +4992,10 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     cavern_area = (left_cavern_wid + right_cavern_wid) * z_info->dungeon_hgt +
         centre_cavern_wid * (upper_cavern_hgt + lower_cavern_hgt);
 
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -5083,6 +5172,10 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
 
     /* Connect */
     ensure_connectedness(c, true);
+
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -5349,6 +5442,10 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     /* PWMAngband: add the right cavern */
     chunk_copy(c, right, 0, line2);
+
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
 
     /* Place down stairs in the right cavern */
     generate_mark(c, 0, line1, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
@@ -6077,6 +6174,10 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     /* Connect all the rooms together */
     do_traditional_tunneling(c);
     ensure_connectedness(c, true);
+
+    // Add lake
+    if (one_in_(5))
+        build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
