@@ -281,7 +281,8 @@ help: get enough money to open his own tavern. Trader proud of his cat, who
 help: follows him during adventures. |
 help:Trader can sell items to NPC stores.
 help: With higher levels they have better prices. |
-help:They can not form a party with other players.
+help:They can not form a party with other players.|
+help:They got less speed penalty due overweight.
 
 class:Assassin
 help:Stealthy slayers who know 100500 different ways to kill its prey fast and
@@ -317,7 +318,8 @@ help: Also they got a pet rat, which is trained to divert enemies' attention. |
 help: Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
 help: true artifacts at 40+ lvl. |
 help:The higher level it got - the more valuables he can get from salvaging. |
-help: They can not form a party with other players.
+help: They can not form a party with other players.|
+help:They got less speed penalty due overweight.
 
 class:Alchemist
 help:Can brew potions and concoct elixirs which can not only bring devastation and
@@ -339,7 +341,8 @@ help:Crafter equipment is soulbound and can be fitted only on creator; you can n
 help: neither trade it, nor drop it on the ground. |
 help:To get rid of crafted equipment that you don't need:
 help: use 'k' key to destroy it. |
-help:They can not form a party with other players.
+help:They can not form a party with other players.|
+help:They got less speed penalty due overweight.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.

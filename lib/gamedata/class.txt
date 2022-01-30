@@ -6573,6 +6573,7 @@ value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
 #/// +cat
+# + less speed penalty due overweight
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -7416,6 +7417,7 @@ player-flags:0:STEAL
 # got rat
 # cant join party
 # 20+ ego, 30 randart, 40 trueart
+# + less speed penalty due overweight
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -7604,6 +7606,7 @@ value:0:CHR[0]
 # disassemble: 20+ ego, 30 randart, 40 trueart
 # can create items which are bound to player
 # if item not needed - it should be destroyed with 'k'
+# + less speed penalty due overweight
 title:Rookie
 title:Initiate
 title:Neophyte

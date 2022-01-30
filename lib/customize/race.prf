@@ -390,7 +390,8 @@ help: knows, would you ever get a liberty?
 help: Should you deserve it or take it by force? |
 help: Golems are extreamely strong, but a bit slow. They can not be paralized, 
 help: or poisoned. They could see invisible and good in digging. They are miserable
-help: in stealth, good at fighting and somehow resistant to malicious spell effects.
+help: in stealth, good at fighting and somehow resistant to malicious spell effects.|
+help:They got less speed penalty due overweight.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.

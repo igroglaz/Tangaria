@@ -1462,7 +1462,7 @@ name:Golem
 skill-disarm-phys:-16
 skill-disarm-magic:-16
 skill-device:-15
-skill-save:7
+skill-save:-5
 skill-stealth:-3
 skill-search:-10
 skill-melee:15
@@ -1475,12 +1475,13 @@ age:11:4
 height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
-#4 -3 -3 0 0
+#4 -3 -3 -2 0
 # rethink
+# + less speed penalty due overweight
 value:0:STR[2+2d30]
 value:0:INT[-4+1d50]
 value:0:WIS[-4+1d40]
-value:0:DEX[-2+2d20M21]
+value:0:DEX[-2]
 value:0:CON[3+-1d15]
 value:0:CHR[-5]
 value:0:MOVES[-10]

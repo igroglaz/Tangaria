@@ -2627,7 +2627,15 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     j = p->upkeep->total_weight;
     if (j > (1 << 14)) j = (1 << 14);
     i = weight_limit(state);
-    if (j > i / 2) state->speed -= ((j - (i / 2)) / (i / 10));
+    if (j > i / 2)
+    {
+        // mitigate speed penalty due overweight for some races/classes
+        if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger") ||
+        streq(p->clazz->name, "Crafter") || streq(p->race->name, "Golem"))
+            state->speed -= ((j - (i / 2)) / (i / 10)) / 2;
+        else
+            state->speed -= ((j - (i / 2)) / (i / 10));
+    }
 
     /* Adding "stealth mode" for rogues */
     if (p->stealthy)
