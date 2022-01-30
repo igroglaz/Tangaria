@@ -1611,7 +1611,8 @@ static bool describe_effect(struct player *p, const struct object *obj, bool onl
             text_out(p, "When activated, it ");
         print_effect(p, obj->activation->desc);
     }
-    else
+    // except food (to hide enormous food properties which ruins narrative)
+    else if (!tval_is_food_k(obj->kind))
     {
         /* Get descriptions for all the effects */
         effect = object_effect(obj);
