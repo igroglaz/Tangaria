@@ -155,10 +155,13 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         damage -= damage * p->lev / 100;
     }
 
-    /* Apply damage reduction // ONLY for physical damage */
-    if (!non_physical)
-        damage -= p->state.dam_red;
-    
+    // Apply damage reduction: ONLY for _pure_ physical damage
+    if (p->state.dam_red != 0 && !non_physical && strcmp(hit_from, "fading") &&
+        strcmp(hit_from, "hypoxia") && strcmp(hit_from, "poison") &&
+        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation") &&
+        strcmp(hit_from, "an earthquake") && strcmp(hit_from, "adrenaline poisoning") &&
+        strcmp(hit_from, "over-exertion") && strcmp(hit_from, "drowning"))
+            damage -= p->state.dam_red;
     if (damage <= 0)
     {
         p->died_flavor[0] = '\0';
