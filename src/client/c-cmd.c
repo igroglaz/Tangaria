@@ -168,12 +168,8 @@ static void view_map_aux(byte mode)
     if (Term->view_map_hook)
     {
         (*(Term->view_map_hook))(Term);
-
-        /* Send the request */
-        Send_map(mode);
-
         return;
-    }    
+    }
 
     /* Save the screen */
     screen_save();
@@ -203,6 +199,31 @@ static void view_map_aux(byte mode)
 
     /* Restore the screen */
     screen_load(true);
+}
+
+
+void do_cmd_view_map_w(void)
+{
+    ui_event ke = EVENT_EMPTY;
+
+    /* Hack -- if the screen is already icky, ignore this command */
+    if (player->screen_save_depth) return;
+
+    /* Reset the line counter */
+    last_line_info = -2;
+
+    /* Send the request */
+    Send_map(0);
+
+    /* Wait until we get the whole thing */
+    while (last_line_info != -1)
+    {
+        /* Loop, looking for net input and responding to keypresses */
+        ke = Net_loop(Term_inkey, map_callback_begin, NULL, SCAN_OFF, true);
+
+        /* Check for user abort */
+        if (is_exit(ke)) break;
+    }
 }
 
 

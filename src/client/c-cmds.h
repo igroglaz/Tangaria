@@ -13,6 +13,7 @@ extern void do_cmd_target_friendly(void);
 extern void do_cmd_target_closest(void);
 extern void do_cmd_fire_at_nearest(void);
 extern void textui_cmd_drop_gold(void);
+extern void do_cmd_view_map_w(void);
 extern void do_cmd_view_map(void);
 extern void do_cmd_wild_map(void);
 extern void do_cmd_help(void);

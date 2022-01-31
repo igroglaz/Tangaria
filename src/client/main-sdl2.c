@@ -35,7 +35,7 @@
 /* that should be plenty... */
 #define MAX_WINDOWS 4
 #define MAX_FONTS 128
-#define MAX_BUTTONS 60
+#define MAX_BUTTONS 32
 
 #define INIT_SDL_FLAGS \
     (SDL_INIT_VIDEO)
@@ -572,6 +572,9 @@ static int g_kp_as_mod = 1;
 /* term_view_map_hook */
 static int view_map_hook_mod = 0;
 
+/* handle_menu_font_names_page */
+static bool font_page = false;
+
 /* Forward declarations */
 
 static void init_globals(void);
@@ -1014,8 +1017,10 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     SDL_Rect dst = {
         subwindow->inner_rect.x + col * subwindow->font_width,
         subwindow->inner_rect.y + row * subwindow->font_height,
-        subwindow->font_width * (!Term->minimap_active ? tile_width : 1),
-        subwindow->font_height * (!Term->minimap_active ? tile_height : 1)
+        subwindow->font_width * (subwindow->index == MAIN_SUBWINDOW && 
+            !Term->minimap_active ? tile_width : 1),
+        subwindow->font_height * (subwindow->index == MAIN_SUBWINDOW && 
+            !Term->minimap_active ? tile_height : 1)
     };
 
     if (fill) {
@@ -2383,7 +2388,36 @@ static void handle_menu_font_names(struct window *window,
     struct menu_elem elems[N_ELEMENTS(g_font_info)];
 
     size_t num_elems = 0;
-    for (size_t i = 0; i < N_ELEMENTS(g_font_info); i++) {
+    for (size_t i = 0; i < MAX_BUTTONS; i++) {
+        if (g_font_info[i].loaded) {
+            elems[num_elems].caption = g_font_info[i].name;
+            elems[num_elems].data.type = BUTTON_DATA_FONT;
+            elems[num_elems].data.value.font_value.subwindow = button->data.value.subwindow_value;
+            elems[num_elems].data.value.font_value.size_ok = true;
+            elems[num_elems].data.value.font_value.index = i;
+            elems[num_elems].on_render = render_button_menu_font_name;
+            elems[num_elems].on_menu = handle_menu_font_name;
+            num_elems++;
+        }
+    }
+
+    load_next_menu_panel(window, menu_panel, button, num_elems, elems);
+}
+
+static void handle_menu_font_names_page(struct window *window,
+        struct button *button, const SDL_Event *event,
+        struct menu_panel *menu_panel)
+{
+    CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_SUBWINDOW);
+
+    if (!select_menu_button(button, menu_panel, event)) {
+        return;
+    }
+
+    struct menu_elem elems[N_ELEMENTS(g_font_info)];
+
+    size_t num_elems = 0;
+    for (size_t i = MAX_BUTTONS; i < N_ELEMENTS(g_font_info); i++) {
         if (g_font_info[i].loaded) {
             elems[num_elems].caption = g_font_info[i].name;
             elems[num_elems].data.type = BUTTON_DATA_FONT;
@@ -2444,12 +2478,25 @@ static void handle_menu_font(struct window *window,
         BUTTON_DATA_SUBWINDOW, {.subwindow_value = button->data.value.subwindow_value}
     };
 
-    struct menu_elem elems[] = {
-        {"Name", data, render_button_menu_simple, handle_menu_font_names},
-        {"Size", data, render_button_menu_simple, handle_menu_font_sizes}
-    };
+    if (!font_page)
+    {
+        struct menu_elem elems[] = {
+            {"Name", data, render_button_menu_simple, handle_menu_font_names},
+            {"Size", data, render_button_menu_simple, handle_menu_font_sizes}
+        };
 
-    load_next_menu_panel(window, menu_panel, button, N_ELEMENTS(elems), elems);
+        load_next_menu_panel(window, menu_panel, button, N_ELEMENTS(elems), elems);
+    }
+    else
+    {
+        struct menu_elem elems[] = {
+            {"Name", data, render_button_menu_simple, handle_menu_font_names},
+            {" >>>", data, render_button_menu_simple, handle_menu_font_names_page},
+            {"Size", data, render_button_menu_simple, handle_menu_font_sizes}
+        };
+
+        load_next_menu_panel(window, menu_panel, button, N_ELEMENTS(elems), elems);
+    }
 }
 
 static void handle_menu_borders(struct window *window,
@@ -4087,8 +4134,8 @@ static void term_view_map_tile(struct subwindow *subwindow)
 
     fit_rect_in_rect_proportional(&tile, &source);
 
-    int w = tile.w * subwindow->cols;
-    int h = tile.h * subwindow->rows;
+    int w = tile.w * (subwindow->cols - 14);
+    int h = tile.h * (subwindow->rows - 2);
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
@@ -4097,15 +4144,15 @@ static void term_view_map_tile(struct subwindow *subwindow)
 
     render_clear(subwindow->window, map, &subwindow->color);
 
-    for (int y = 0; y < subwindow->rows; y++) {
+    for (int y = 0; y < subwindow->rows - 2; y++) {
         tile.y = y * tile.w;
-        for (int x = 0; x < subwindow->cols; x++) {
+        for (int x = 0; x < subwindow->cols - 14; x++) {
             tile.x = x * tile.h;
             render_grid_cell_tile(subwindow, map, tile, x, y);
         }
     }
 
-    SDL_Rect cursor = {player->grid.x * tile.w, player->grid.y * tile.h, tile.w,
+    SDL_Rect cursor = {cursor_x * tile.w, cursor_y * tile.h, tile.w,
                        tile.h};
 
     /* render cursor around player */
@@ -4124,8 +4171,8 @@ static void term_view_map_tile(struct subwindow *subwindow)
 
 static void term_view_map_text(struct subwindow *subwindow)
 {
-    int w = subwindow->font_width * subwindow->cols;
-    int h = subwindow->font_height * subwindow->rows;
+    int w = subwindow->font_width * (subwindow->cols - 14);
+    int h = subwindow->font_height * (subwindow->rows - 2);
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
@@ -4134,15 +4181,15 @@ static void term_view_map_text(struct subwindow *subwindow)
 
     render_clear(subwindow->window, map, &subwindow->color);
 
-    for (int y = 0; y < subwindow->rows; y++) {
-        for (int x = 0; x < subwindow->cols; x++) {
+    for (int y = 0; y < subwindow->rows - 2; y++) {
+        for (int x = 0; x < subwindow->cols - 14; x++) {
             render_grid_cell_text(subwindow, map, x, y);
         }
     }
 
     SDL_Rect cursor = {
-        player->grid.x * subwindow->font_width,
-        player->grid.y * subwindow->font_height,
+        cursor_x * subwindow->font_width,
+        cursor_y * subwindow->font_height,
         subwindow->font_width,
         subwindow->font_height
     };
@@ -4165,6 +4212,12 @@ static void term_view_map_text(struct subwindow *subwindow)
 static void term_view_map_hook(term *term)
 {
     struct subwindow *subwindow = term->data;
+
+    subwindow->term->view_map_hook = NULL;
+    /* do_cmd_view_map(); waiting for a keypress inkey_ex();*/
+    do_cmd_view_map_w();
+    subwindow->term->view_map_hook = term_view_map_hook;
+
     if (subwindow->window->graphics.id == GRAPHICS_NONE) {
         term_view_map_text(subwindow);
     } else {
@@ -5681,6 +5734,11 @@ static void init_font_info(const char *directory)
 
     for (size_t j = 0; j < i; j++) {
         g_font_info[j].index = j;
+    }
+
+    /* checking font_page */
+    if (i > MAX_BUTTONS) {
+        font_page = true;
     }
 
     my_dclose(dir);
