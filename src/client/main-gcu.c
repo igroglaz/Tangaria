@@ -746,6 +746,8 @@ static void handle_extended_color_tables(void)
         int i;
         int scale = ((COLORS == 256)? 6: 4);
 
+        bg_color = create_color(COLOUR_DARK, scale);
+
         for (i = 0; i < BASIC_COLORS; i++)
         {
             int fg = create_color(i, scale);
@@ -755,6 +757,11 @@ static void handle_extended_color_tables(void)
             colortable[i] = COLOR_PAIR(i + 1) | isbold;
             init_pair(BASIC_COLORS + i, fg, fg);
             same_colortable[i] = COLOR_PAIR(BASIC_COLORS + i) | isbold;
+        }
+
+        for (i = 0; i < term_count; ++i)
+        {
+            if (data[i].win) wbkgdset(data[i].win, ' ' | colortable[COLOUR_DARK]);
         }
     }
 }
@@ -789,8 +796,8 @@ static errr Term_xtra_gcu(int n, int v)
         /* Delay */
         case TERM_XTRA_DELAY: if (v > 0) Sleep(v); return 0;
 
-        /* React to events; nothing special is done */
-        case TERM_XTRA_REACT: return 0;
+        /* React to events */
+        case TERM_XTRA_REACT: handle_extended_color_tables(); return 0;
     }
 
     /* Unknown event */
@@ -831,7 +838,12 @@ static errr Term_wipe_gcu(int x, int y, int n)
     if (x + n >= td->t.wid) wclrtoeol(td->win);
 
     /* Clear some characters */
-    else whline(td->win, ' ', n);
+    else
+    {
+        if (can_use_color) wattrset(td->win, colortable[COLOUR_DARK] | A_NORMAL);
+        whline(td->win, ' ', n);
+        if (can_use_color) wattrset(td->win, A_NORMAL);
+    }
 
     return 0;
 }

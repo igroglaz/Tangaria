@@ -23,6 +23,8 @@ Angband 4.2.x:
 - Change keymap terminator to =
 - Change key to reset birth options to the Angband defaults
 - Changed purchase message to show if a book is not usable
+- More consistent background handling
+- Allow yes/no interface options to carry over between characters
 
 MAngband 1.5.x:
 
@@ -59,6 +61,7 @@ Angband 4.2.x:
 - A couple of minor fixes
 - Stop monsters hasting themselves
 - Set kind's cost for special artifacts
+- Allow dumping a color with all zero components if in the basic colors
 
 PWMAngband:
 
@@ -118,6 +121,7 @@ Angband 4.2.x:
 - Account for SET_VALUE/CLEAR_VALUE effects in get_spell_info()
 - Remember cursor size
 - Stop treating quiver items as wielded for learning of runes
+- Add Term_redraw_all()
 
 PWMAngband:
 

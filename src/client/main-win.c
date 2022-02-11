@@ -1504,18 +1504,16 @@ static errr Term_xtra_win_clear(void)
     term_data *td = (term_data*)(Term->data);
     HDC hdc;
     RECT rc;
+    HBRUSH brush;
 
     /* Rectangle to erase */
-    rc.left = td->size_ow1;
-    rc.right = rc.left + td->cols * td->tile_wid;
-    rc.top = td->size_oh1;
-    rc.bottom = rc.top + td->rows * td->tile_hgt;
+    GetClientRect(td->w, &rc);
 
     /* Erase it */
     hdc = GetDC(td->w);
-    SetBkColor(hdc, RGB(0, 0, 0));
-    SelectObject(hdc, td->font_id);
-    ExtTextOut(hdc, 0, 0, ETO_OPAQUE, &rc, NULL, 0, NULL);
+    brush = CreateSolidBrush(colors16? RGB(0, 0, 0): win_clr[0]);
+    FillRect(hdc, &rc, brush);
+    DeleteObject(brush);
     ReleaseDC(td->w, hdc);
 
     /* Success */
@@ -1692,7 +1690,7 @@ static errr Term_wipe_win(int x, int y, int n)
     rc.bottom = rc.top + tile_hgt;
 
     hdc = GetDC(td->w);
-    SetBkColor(hdc, RGB(0, 0, 0));
+    SetBkColor(hdc, colors16? RGB(0, 0, 0): win_clr[0]);
     SelectObject(hdc, td->font_id);
     ExtTextOut(hdc, 0, 0, ETO_OPAQUE, &rc, NULL, 0, NULL);
     ReleaseDC(td->w, hdc);
@@ -1728,12 +1726,14 @@ static void Term_text_win_aux(int x, int y, int n, u16b a, const char *s)
     /* Acquire DC */
     hdc = GetDC(td->w);
 
-    /* Background color */
-    SetBkColor(hdc, RGB(0, 0, 0));
-
     /* Foreground color */
     if (colors16)
+    {
         SetTextColor(hdc, PALETTEINDEX(win_pal[a % MAX_COLORS]));
+
+        /* Background color */
+        SetBkColor(hdc, RGB(0, 0, 0));
+    }
     else
     {
         if (paletted)
@@ -1744,14 +1744,15 @@ static void Term_text_win_aux(int x, int y, int n, u16b a, const char *s)
         /* Handle background */
         switch (a / MAX_COLORS)
         {
-            /* Default Background */
-            case BG_BLACK: SetBkColor(hdc, win_clr[0]); break;
-
             /* Background same as foreground */
             case BG_SAME: SetBkColor(hdc, win_clr[a % MAX_COLORS]); break;
 
             /* Highlight Background */
             case BG_DARK: SetBkColor(hdc, win_clr[COLOUR_SHADE]); break;
+
+            /* Default Background */
+            case BG_BLACK:
+            default: SetBkColor(hdc, win_clr[0]); break;
         }
     }
 

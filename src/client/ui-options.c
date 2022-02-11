@@ -107,6 +107,7 @@ static void option_toggle_display(struct menu *m, int oid, bool cursor, int row,
 static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
 {
     bool next = false;
+    int page = option_type(oid);
 
     if (event->type == EVT_SELECT)
     {
@@ -140,7 +141,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
                 struct keypress dummy;
 
                 screen_save();
-                if (options_save_custom_birth(player->opts.opt))
+                if (options_save_custom(player->opts.opt, page))
                     get_com("Successfully saved. Press any key to continue.", &dummy);
                 else
                     get_com("Save failed. Press any key to continue.", &dummy);
@@ -153,7 +154,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
             if (!(m->flags == MN_NO_TAGS))
             {
                 screen_save();
-                if (options_restore_custom_birth(player->opts.opt))
+                if (options_restore_custom(player->opts.opt, page))
                 {
                     screen_load(false);
                     menu_refresh(m, false);
@@ -172,7 +173,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
             /* Hack -- birth options can not be reset after birth */
             if (!(m->flags == MN_NO_TAGS))
             {
-                options_reset_birth(player->opts.opt);
+                options_restore_maintainer(player->opts.opt, page);
                 menu_refresh(m, false);
             }
         }
@@ -228,11 +229,12 @@ static void option_toggle_menu(const char *name, int page)
         m->cmd_keys = "";
         m->flags = MN_NO_TAGS;
     }
-    else if (page == OP_BIRTH + 10)
+    else
     {
         m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'x' to reset";
         m->cmd_keys = "YyNnTtSsRrXx";
-        page -= 10;
+        m->selections = "abcdefghijklmopquvwzABC";
+        if (page == OP_BIRTH + 10) page -= 10;
     }
 
     /* For this particular menu */
@@ -1004,7 +1006,7 @@ static void colors_pref_load(const char *title, int row)
 
     /* Should probably be a cleaner way to tell UI about colour changes */
     Term_xtra(TERM_XTRA_REACT, use_graphics);
-    Term_redraw();
+    Term_redraw_all();
 }
 
 
@@ -1108,7 +1110,7 @@ static void colors_modify(const char *title, int row)
         Term_xtra(TERM_XTRA_REACT, use_graphics);
 
         /* Hack -- redraw */
-        Term_redraw();
+        Term_redraw_all();
     }
 
     if (is_abort(ke)) Term_event_push(&ea);

@@ -74,6 +74,7 @@ extern int option_page[OP_MAX][OPT_PAGE_PER];
 /*
  * Functions
  */
+extern const char *option_type_name(int page);
 extern const char *option_name(int opt);
 extern const char *option_desc(int opt);
 extern int option_type(int opt);

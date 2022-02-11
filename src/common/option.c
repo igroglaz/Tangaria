@@ -44,6 +44,26 @@ static struct option_entry
 
 
 /*
+ * Given the option type, return a short name in all lower case.
+ */
+const char *option_type_name(int page)
+{
+    const char *result;
+
+    switch (page)
+    {
+        case OP_INTERFACE: result = "interface"; break;
+        case OP_MANGBAND: result = "mangband"; break;
+        case OP_BIRTH: result = "birth"; break;
+        case OP_ADVANCED: result = "advanced"; break;
+        default: result = "unknown"; break;
+    }
+
+    return result;
+}
+
+
+/*
  * Given an option index, return its name
  */
 const char *option_name(int opt)

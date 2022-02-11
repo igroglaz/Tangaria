@@ -90,23 +90,25 @@ void options_init_defaults(struct player_options *opts)
 
 
 /*
- * Record the birth options for later recall.
+ * Record the options of type, page, for later recall.
  *
  * Return true if successful. Return false if the operation failed.
  */
-bool options_save_custom_birth(bool *opts)
+bool options_save_custom(bool *opts, int page)
 {
+    const char *page_name = option_type_name(page);
     bool success = true;
-    char path[MSG_LEN];
+    char path[MSG_LEN], file_name[NORMAL_WID];
     ang_file *f;
 
-    path_build(path, sizeof(path), ANGBAND_DIR_USER, "customized_birth_options.txt");
+    strnfmt(file_name, sizeof(file_name), "customized_%s_options.txt", page_name);
+    path_build(path, sizeof(path), ANGBAND_DIR_USER, file_name);
     f = file_open(path, MODE_WRITE, FTYPE_TEXT);
     if (f)
     {
         int opt;
 
-        if (!file_put(f, "# These are customized defaults for the birth options.\n"))
+        if (!file_putf(f, "# These are customized defaults for the %s options.\n", page_name))
             success = false;
         if (!file_put(f, "# All lines begin with \"option:\" followed by the internal option name.\n"))
             success = false;
@@ -114,7 +116,7 @@ bool options_save_custom_birth(bool *opts)
             success = false;
         for (opt = 0; opt < OPT_MAX; opt++)
         {
-            if (option_type(opt) == OP_BIRTH)
+            if (option_type(opt) == page)
             {
                 if (!file_putf(f, "# %s\n", option_desc(opt)))
                     success = false;
@@ -133,19 +135,21 @@ bool options_save_custom_birth(bool *opts)
 
 
 /*
- * Reset the birth options to the customized defaults.
+ * Reset the options of type, page, to the customized defaults.
  *
  * Return true if successful. That includes the case where no customized
- * defaults are available. When that happens, the birth options are reset
- * to the maintainer's defaults. Return false if the customized defaults
- * are present but unreadable.
+ * defaults are available. When that happens, the options are reset to the
+ * maintainer's defaults. Return false if the customized defaults are
+ * present but unreadable.
  */
-bool options_restore_custom_birth(bool *opts)
+bool options_restore_custom(bool *opts, int page)
 {
+    const char *page_name = option_type_name(page);
     bool success = true;
-    char path[MSG_LEN];
+    char path[MSG_LEN], file_name[NORMAL_WID];
 
-    path_build(path, sizeof(path), ANGBAND_DIR_USER, "customized_birth_options.txt");
+    strnfmt(file_name, sizeof(file_name), "customized_%s_options.txt", page_name);
+    path_build(path, sizeof(path), ANGBAND_DIR_USER, file_name);
     if (file_exists(path))
     {
         /* Could use run_parser(), but that exits the application if there are syntax errors */
@@ -170,10 +174,11 @@ bool options_restore_custom_birth(bool *opts)
 
                         if (opt >= OPT_MAX)
                         {
-                            plog_fmt("Unrecognized birth option at line %d of the customized birth options.", linenum);
+                            plog_fmt("Unrecognized option at line %d of the customized %s options.",
+                                linenum, page_name);
                             break;
                         }
-                        if (!option_name(opt))
+                        if ((option_type(opt) != page) || !option_name(opt))
                         {
                             ++opt;
                             continue;
@@ -193,7 +198,10 @@ bool options_restore_custom_birth(bool *opts)
                                 opts[opt] = false;
                             }
                             else
-                                plog_fmt("Value at line %d of the customized birth options is not yes or no.", linenum);
+                            {
+                                plog_fmt("Value at line %d of the customized %s options is not yes or no.",
+                                    linenum, page_name);
+                            }
                             break;
                         }
                         ++opt;
@@ -205,7 +213,8 @@ bool options_restore_custom_birth(bool *opts)
                     if (sscanf(buf, "#%n*s", &offset) == 0 && offset == 0 &&
                         !contains_only_spaces(buf))
                     {
-                        plog_fmt("Line %d of the customized birth options is not parseable.", linenum);
+                        plog_fmt("Line %d of the customized %s options is not parseable.", linenum,
+                            page_name);
                     }
                 }
                 ++linenum;
@@ -217,21 +226,23 @@ bool options_restore_custom_birth(bool *opts)
             success = false;
     }
     else
-        options_reset_birth(opts);
+        options_restore_maintainer(opts, page);
 
     return success;
 }
 
 
 /*
- * Reset the birth options to the maintainer's defaults.
+ * Reset the options of type, page, to the maintainer's defaults.
  */
-void options_reset_birth(bool *opts)
+void options_restore_maintainer(bool *opts, int page)
 {
     int opt;
 
     for (opt = 0; opt < OPT_MAX; opt++)
-        opts[opt] = option_normal(opt);
+    {
+        if (option_type(opt) == page) opts[opt] = option_normal(opt);
+    }
 }
 
 
@@ -244,8 +255,14 @@ void init_options(bool *opts)
     option_init();
 
     /* Set defaults */
-    options_reset_birth(opts);
+    options_restore_maintainer(opts, OP_BIRTH);
+    options_restore_maintainer(opts, OP_INTERFACE);
+    options_restore_maintainer(opts, OP_MANGBAND);
+    options_restore_maintainer(opts, OP_ADVANCED);
 
     /* Override with customized birth options. */
-    options_restore_custom_birth(opts);
+    options_restore_custom(opts, OP_BIRTH);
+    options_restore_custom(opts, OP_INTERFACE);
+    options_restore_custom(opts, OP_MANGBAND);
+    options_restore_custom(opts, OP_ADVANCED);
 }

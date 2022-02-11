@@ -560,11 +560,12 @@ struct font_info {
     bool loaded;
 };
 
-/* there are also global arrays of subwindows and windows
- * those are at the end of the file */
 const char help_sdl2[] = "SDL2 frontend";
 static SDL_Color g_colors[MAX_COLORS];
 static struct font_info g_font_info[MAX_FONTS];
+/* these arrays contain windows and terms that the ui operates on */
+static struct subwindow g_subwindows[MAX_SUBWINDOWS];
+static struct window g_windows[MAX_WINDOWS];
 /* True if KC_MOD_KEYPAD will be sent for numeric keypad keys at the expense
  * of not handling some keyboard layouts properly. */
 static int g_kp_as_mod = 1;
@@ -3841,13 +3842,7 @@ static void refresh_angband_terms(void)
 //        handle_stuff(player);
 //        move_cursor_relative(player->grid.x, player->grid.y);
 
-        for (size_t i = 0; i < ANGBAND_TERM_MAX; i++) {
-            if (angband_term[i] == NULL) {
-                continue;
-            }
-            Term_activate(angband_term[i]);
-            Term_redraw();
-        }
+        Term_redraw_all();
     }
 
     /* Redraw */
@@ -5685,14 +5680,20 @@ static void free_window(struct window *window)
 
 static void init_colors(void)
 {
+    size_t i;
+
     assert(N_ELEMENTS(g_colors) == N_ELEMENTS(angband_color_table));
 
-    for (size_t i = 0; i < N_ELEMENTS(g_colors); i++) {
+    for (i = 0; i < N_ELEMENTS(g_colors); i++) {
         g_colors[i].r = angband_color_table[i][1];
         g_colors[i].g = angband_color_table[i][2];
         g_colors[i].b = angband_color_table[i][3];
         g_colors[i].a = DEFAULT_ALPHA_FULL;
     }
+    for (i = 0; i < N_ELEMENTS(g_windows); i++)
+        g_windows[i].color = g_colors[DEFAULT_WINDOW_BG_COLOR];
+    for (i = 0; i < N_ELEMENTS(g_subwindows); i++)
+        g_subwindows[i].color = g_colors[DEFAULT_SUBWINDOW_BG_COLOR];
 }
 
 static void init_font_info(const char *directory)
@@ -5832,9 +5833,6 @@ errr init_sdl2(void)
     return 0;
 }
 
-/* these arrays contain windows and terms that the ui operates on */
-static struct subwindow g_subwindows[MAX_SUBWINDOWS];
-static struct window g_windows[MAX_WINDOWS];
 /* the string ANGBAND_DIR_USER is freed before calling quit_hook(),
  * so we need to save the path to config file here */
 static char g_config_file[4096];
