@@ -110,8 +110,10 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
     p->upkeep->new_level_method = new_level_method;
     p->upkeep->redraw |= (PR_DTRAP);
 
-    /* Hack -- deactivate recall for force_descend players */
-    if (((cfg_limit_stairs == 3) || OPT(p, birth_force_descend)) && p->word_recall)
+    // Always deactivate recall to prevent cheeze
+    // (when player use stairs after waiting some time with active WoR to be able 
+    // to get on surface immediately if lvl is dangerous or stay by cancelling it)
+    if (p->word_recall)
     {
         p->word_recall = 0;
         msg(p, "A tension leaves the air around you...");
