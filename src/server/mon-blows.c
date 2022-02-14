@@ -1356,6 +1356,110 @@ static void melee_effect_handler_HALLU(melee_effect_handler_context_t *context)
  */
 static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *context)
 {
+    // later: archers and ranger classes - shooter should be destroyed..
+
+    // Nazgul attack may destroy your weapon
+    if (one_in_(3))
+    {
+        struct object *obj;
+        char o_name[NORMAL_WID];
+
+        /* Choose the weapon */
+        obj = equipped_item_by_slot_name(context->p, "weapon");
+
+        if (obj)
+        {
+            // flag - should we redraw or not
+            int weap_change = 0;
+            
+            /* Describe */
+            object_desc(context->p, o_name, sizeof(o_name), obj, ODESC_FULL);
+
+            // Artifacts
+            if (obj->artifact || (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")))
+            {
+                // 2H arts additional resistance
+                if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED) && one_in_(5))
+                    ;
+                // Dark Swords arts resist
+                else if (tval_is_dark_sword(obj) && one_in_(4))
+                    ;
+                // ~6.6% total chance (without counting 2H)
+                else if (one_in_(5))
+                {
+                    // Damage the artifact
+                    obj->to_h -= 1;
+                    obj->to_d -= 1;
+                    weap_change = 1;
+                }
+                // ~3.3%
+                else if (one_in_(10))
+                {
+                    // Destroy artifact
+                    preserve_artifact_aux(obj);
+                    history_lose_artifact(context->p, obj);
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Dark Swords
+            else if (tval_is_dark_sword(obj))
+            {
+                // Ego additional resist
+                if (obj->ego && one_in_(5))
+                    ;
+                // regular dark swords
+                else if (one_in_(5))
+                {
+                    // Destroy
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Two-handed weapons
+            else if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED))
+            {
+                if (one_in_(5))
+                {
+                    // Damage
+                    obj->to_h -= randint1(2);
+                    obj->to_d -= randint1(2);
+                    weap_change = 1;
+                }
+                else if (one_in_(5))
+                {
+                    // Destroy
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Regular weapons damage
+            else if (one_in_(4))
+            {
+                obj->to_h -= randint1(3);
+                obj->to_d -= randint1(3);
+                weap_change = 1;
+            }
+            // Regular weapons destroy
+            else if (one_in_(3))
+            {
+                // Destroy
+                use_object(context->p, obj, 1, false);
+                weap_change = 1;
+            }
+
+            // redraw if flag active
+            if (weap_change)
+            {
+                /* Recalculate bonuses */
+                context->p->upkeep->update |= (PU_BONUS);
+
+                // Redraw
+                context->p->upkeep->redraw |= (PR_EQUIP);
+            }
+        }
+    }
+
     /* Take damage */
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
 
