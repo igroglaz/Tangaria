@@ -1176,6 +1176,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             switch (note)
             {
                 case MON_MSG_DESTROYED:
+                {
                     // good/neutral monsters not slain, but defeated
                     if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
                         rf_has(mon->race->flags, RF_NEUTRAL))
@@ -1183,13 +1184,16 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                     else
                         msg_format_complex_near(p, MSG_GENERIC, "%s is destroyed.", name);
                     break;
+                }
                 default:
+                {
                     // good/neutral monsters not slain, but defeated
                     if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
                         rf_has(mon->race->flags, RF_NEUTRAL))
                         msg_format_complex_near(p, MSG_GENERIC, "%s defeated.", name);
                     else
                         msg_format_complex_near(p, MSG_GENERIC, "%s dies.", name);
+                }
             }
             add_monster_message(p, mon, note, true);
         }

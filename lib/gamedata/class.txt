@@ -6263,7 +6263,7 @@ magic:1:300:2
 book:magic book:town:[Magic for Beginners]:18:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Magic Blade:1:1:12:1:0
+spell:Magic Blade:1:2:12:1:0
 #hc 1d8
 effect:RESTORE_MANA
 dice:1
@@ -6283,7 +6283,7 @@ desc: Distance of the attack and damage depends on your level.
 desc: Each cast cause recoil which shifts you to random direction.
 desc: Sometimes projecting this spell not consuming mana.
 
-spell:Electrocute:2:2:27:2:0
+spell:Electrocute:2:3:27:2:0
 # hc 1d5; distance -> ~15
 effect:SHORT_BEAM:ELEC:6
 dice:$B
@@ -6300,18 +6300,20 @@ msg_other: helds out a hand.. Lightning!
 desc:Summon lighting upon an enemy. Sometimes it affects several foes at once.
 desc: At first you summon short lightning; it become longer with levels.
 
-spell:Luminous Fog:3:3:20:3:0
-cooldown:10
-# hc distance (max dist should be 20) and damage 1d3
-effect:SHORT_BEAM:LIGHT_WEAK:10
-dice:4d4
-effect:LIGHT_AREA
-msg_self:A line of bright yellowish fog appears.
-msg_other: claps hands together.. Bright yellowish fog appears!
-desc:Fires a beam that magic fog which lights up each square and hurts each
-desc: light-sensitive monster in its path.
-desc: If you are in a room, the entire room will be lit up as well.
-desc: Cooldown 10 turns.
+spell:Polymorph:3:1:20:3:0
+# restore mana only when successful? and make more mana in this case..
+# or make some dmg when applied on bosses? (%?)
+cooldown:5
+effect:RESTORE_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 5
+effect:BOLT_AWARE:MON_POLY:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: snaps fingers. Polymorph!
+desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
+desc: Ordering chaotic energy restore your magic power.
+desc: Cooldown 5 turns.
 
 spell:Teleport:5:4:35:5:0
 effect:RESTORE_MANA
@@ -6328,22 +6330,20 @@ desc:Teleports you randomly within medium distance.
 desc: It takes some mana before displacement, but some of it become restored
 desc: upon getting to destination.
 
-spell:Polymorph:7:4:35:7:0
-# restore mana only when successful? and make more mana in this case..
-# or make some dmg when applied on bosses? (%?)
-cooldown:5
-effect:RESTORE_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 5
-effect:BOLT_AWARE:MON_POLY:1
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: snaps fingers. Polymorph!
-desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
-desc: Ordering chaotic energy restore your magic power.
-desc: Cooldown 5 turns.
+spell:Luminous Fog:7:5:35:7:0
+cooldown:10
+# hc distance (max dist should be 20) and damage 1d3
+effect:SHORT_BEAM:LIGHT_WEAK:10
+dice:4d4
+effect:LIGHT_AREA
+msg_self:A line of bright yellowish fog appears.
+msg_other: claps hands together.. Bright yellowish fog appears!
+desc:Fires a beam that magic fog which lights up each square and hurts each
+desc: light-sensitive monster in its path.
+desc: If you are in a room, the entire room will be lit up as well.
+desc: Cooldown 10 turns.
 
-spell:Cold Ray:10:4:30:10:0
+spell:Cold Ray:10:5:30:10:0
 # hc 1d5
 effect:BOLT_OR_BEAM:COLD
 dice:$B
@@ -6352,6 +6352,7 @@ msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts first monster in its path.
 
 spell:Stone Curse:15:10:32:15:0
+# later: replace to stone wall
 cooldown:240
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:7d2
@@ -6380,7 +6381,7 @@ desc:Strikes a target from below with a fire.
 desc: Target grid must be targetable and known to the player;
 desc: no target grid will mean the player grid is hit.
 
-spell:Magic Reflection:20:15:45:25:0
+spell:Magic Reflection:20:15:11:25:0
 effect:NOURISH:DEC_BY
 dice:1
 effect:NOURISH:DEC_BY
