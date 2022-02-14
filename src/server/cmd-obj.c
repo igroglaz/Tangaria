@@ -1724,7 +1724,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         use_energy(p);
     
 /// potion of water. gives additional satiation (+ to object.txt) if hungry
-    if (streq(obj->kind->name, "Water"))
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
     {
         if (streq(p->race->name, "Ent"))
         {   // main source of food
@@ -1749,6 +1749,18 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             player_dec_timed(p, TMD_FOOD, 2000, false);
         else
             player_inc_timed(p, TMD_FOOD, 2000, false, false);
+    }
+
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
+    {
+        // cheated death? :)
+        if (p->chp == 1)
+            p->chp = p->mhp;
+        else
+            p->chp /= 2;
+
+        /* Display the hitpoints */
+        p->upkeep->redraw |= (PR_HP);
     }
 
     /* If the item is a null pointer or has been wiped, be done now */

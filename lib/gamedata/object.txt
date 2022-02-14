@@ -4224,9 +4224,7 @@ effect:TIMED_INC_NO_RES:STUN
 dice:1d2
 effect:DRAIN_STAT:CHR
 dice:5
-effect:DAMAGE
-dice:$B
-expr:B:PLAYER_HP:- 7
+# damage hc
 effect:DRAIN_MANA
 dice:$Dd1
 expr:D:DUNGEON_LEVEL:* 4
