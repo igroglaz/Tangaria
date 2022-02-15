@@ -1,7 +1,7 @@
 MKPATH=../../mk/
 include $(MKPATH)buildsys.mk
 
-DATA = sound.cfg \
+DATA = sound.cfg credits.txt \
 	amb_bell_metal1.ogg       mco_scurry_dry.ogg        plm_glass_smashing.ogg \
 	amb_bell_metal2.ogg       mco_shake_roll.ogg        plm_jar_ding.ogg \
 	amb_bell_tibet1.ogg       mco_snarl_short.ogg       plm_levelup.ogg \
@@ -174,7 +174,7 @@ DATA = sound.cfg \
     dig4.ogg                  dig5.ogg                  dig6.ogg \
     chop1.ogg                 chop2.ogg                 chop3.ogg \
     chop4.ogg                 chop5.ogg                 chop6.ogg \
-    chop_tree_fall.ogg \
+    chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -191,6 +191,6 @@ DATA = sound.cfg \
     dig4.mp3                  dig5.mp3                  dig6.mp3 \
     chop1.mp3                 chop2.mp3                 chop3.mp3 \
     chop4.mp3                 chop5.mp3                 chop6.mp3 \
-    chop_tree_fall.mp3
+    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3
 
 PACKAGE = sounds
