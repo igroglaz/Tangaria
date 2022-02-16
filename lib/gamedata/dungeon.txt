@@ -284,7 +284,7 @@ wpos:0:0
 min-depth:1
 max-depth:1
 max-level:1
-flags:EMPTY | FAST_SPAWN
+flags:EMPTY
 stairs:2+1d2:0
 #
 stair:9F stair down 0:9F stair up 1:10000
@@ -7055,7 +7055,7 @@ min-depth:102
 max-depth:127
 stairs:0:1
 #########################
-flags:EMPTY | WINNERS_ONLY
+flags:EMPTY | WINNERS_ONLY | FAST_SPAWN
 # EMPTY.. ?
 stair:9F stair down 0:9F stair up 1:10000
 #

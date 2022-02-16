@@ -712,10 +712,41 @@ static void process_world(struct player *p, struct chunk *c)
     wpos_init(&dpos, &c->wpos.grid, 0);
     dungeon = get_dungeon(&dpos);
 
-    /* Hack -- increase respawn rate on no_recall servers and FAST_SPAWN dungeons */
     respawn_rate = 1;
-    if (dungeon && c->wpos.depth && df_has(dungeon->flags, DF_FAST_SPAWN)) respawn_rate = 2;
-    if (cfg_diving_mode == 3) respawn_rate = 4;
+    /* Hack -- increase respawn rate on no_recall server */
+    // if (cfg_diving_mode == 3) respawn_rate = 4;
+
+    // Monster respawn rate based on number of players at the level
+    if (dungeon && c->wpos.depth)
+    {
+        int num_on_depth = 0, i;
+
+        /* Count the number of players actually in game on this level */
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *q = player_get(i);
+
+            if (!q->upkeep->funeral && wpos_eq(&q->wpos, &c->wpos))
+                num_on_depth++;
+        }
+
+        // newbie dungeons with multiple players should have especially
+        // fast respawn to avoid boredom
+        if (c->wpos.depth == 1)
+            respawn_rate *= num_on_depth;
+        // moar monsters for big crowds
+        else if (num_on_depth > 9)
+            respawn_rate *= 5;
+        else if (num_on_depth > 6)
+            respawn_rate *= 4;
+        else if (num_on_depth > 3)
+            respawn_rate *= 3;
+        else if (num_on_depth > 1)
+            respawn_rate *= 2;
+
+        // some dungeons might have even faster spawn
+        if (df_has(dungeon->flags, DF_FAST_SPAWN)) respawn_rate *= 2;
+    }
 
     /* Check for creature generation */
     if (one_in_(z_info->alloc_monster_chance / respawn_rate))
