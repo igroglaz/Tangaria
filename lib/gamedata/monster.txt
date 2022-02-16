@@ -19599,7 +19599,8 @@ blow:HIT:HURT:6d5
 blow:HIT:HURT:4d6
 blow:HIT:HURT:6d5
 flags:MALE
-flags:DROP_2
+# rare multiply hardcoded
+flags:MULTIPLY
 spell-freq:9
 innate-freq:33
 spells:SHAPECHANGE
@@ -22539,6 +22540,8 @@ flags:COLD_BLOOD | KILL_BODY | KILL_ITEM |
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 flags:NO_CONF | NO_SLEEP | NEVER_MOVE
+# rare multiply hardcoded
+flags:MULTIPLY
 spell-freq:25
 spells:SHAPECHANGE
 shape:slimer
@@ -22567,7 +22570,6 @@ flags:COLD_BLOOD
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | PASS_WALL
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 flags:NO_CONF | NO_SLEEP
-spell-freq:25
 desc:Incredibly foul-smelling potato-shape ghost with gigantic appetite,
 desc: he eats anything on it's way. When he passes through solid objects,
 desc: he leaves behind a nasty bright-green slime.
