@@ -1394,11 +1394,11 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
         if (!rf_has(mon->race->flags, RF_MULTIPLY)) return false;
 
         // some monsters can multiply very rare (they got the flag; see above)
-        if (streq(mon->race->name, "ectoplasm")
+        if (streq(mon->race->name, "ectoplasm"))
         {
             if (!one_in_(10)) return false;
         }
-        else if (streq(mon->race->name, "Doppleganger")
+        else if (streq(mon->race->name, "Doppleganger"))
         {
             if (!one_in_(15)) return false;
         }

@@ -170,6 +170,17 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         return false;
     }
 
+    // instead of DAM_RED (raw reducement), hc % reducement
+    // 1) to ALL dmg
+    if (streq(p->race->name, "Gargoyle"))
+        damage = (damage * 17) / 18;
+    // 2) to physical dmg
+    else if (streq(p->race->name, "Half-Giant") && !non_physical)
+        damage = (damage * 12) / 13;
+    // 3) magic dmg
+    else if (streq(p->race->name, "Golem") && non_physical)
+        damage = (damage * 9) / 10;
+
     /* Disturb */
     if (strcmp(hit_from, "fading") && strcmp(hit_from, "hypoxia") && !nodisturb) disturb(p, 0);
 

@@ -856,7 +856,7 @@ value:0:CON[1+1d24]
 value:0:CHR[-4]
 gift:food:Hard Biscuit:1:1
 value:0:MOVES[5+1d2]
-value:0:DAM_RED[0+1d3]
+# + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 obj-flag:1:LIMITED_TELE
 # allow certain escapes..
@@ -1419,9 +1419,9 @@ skill-disarm-magic:-14
 skill-device:-5
 skill-save:9
 skill-stealth:-2
-skill-search:-3
-skill-melee:10
-skill-shoot:-10
+skill-search:-5
+skill-melee:3
+skill-shoot:-12
 skill-dig:0
 hitdie:12
 exp:100:125
@@ -1438,12 +1438,7 @@ value:0:DEX[-10+1d7]
 value:0:CON[3]
 value:0:CHR[-4]
 # + AC hardcoded
-# rethink
-obj-flag:5:SUST_STR
-obj-flag:15:SUST_INT
-obj-flag:25:SUST_WIS
-obj-flag:35:SUST_DEX
-obj-flag:45:SUST_CON
+# + -5% _all_ damage hc
 value:0:INFRA[1+1d9]
 value:0:MOVES[1+1d24]
 value:0:RES_POIS[1]
@@ -1465,8 +1460,8 @@ skill-device:-15
 skill-save:-5
 skill-stealth:-3
 skill-search:-10
-skill-melee:15
-skill-shoot:0
+skill-melee:7
+skill-shoot:-5
 skill-dig:10
 hitdie:11
 exp:100:125
@@ -1476,7 +1471,7 @@ height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
 #4 -3 -3 -2 0
-# rethink
+# + -10% phys damage hc
 # + less speed penalty due overweight
 value:0:STR[2+2d30]
 value:0:INT[-4+1d50]
@@ -1490,7 +1485,6 @@ obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:1:SLOW_DIGEST_2
 obj-flag:1:IMPAIR_HP
-value:0:DAM_RED[0+1d4]
 value:0:RES_ELEC[-1]
 value:0:MANA[10+-1d5]
 # ? rfe reflection
