@@ -1684,7 +1684,8 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
                     /* Make sure this player is on this level */
                     if (!wpos_eq(&player->wpos, &who->player->wpos)) continue;
 
-                    msgt(player, MSG_DOOR_BROKEN, "You hear a door burst open!");
+                    // print with sound
+                    msgt(who->player, MSG_DOOR_BROKEN, "You hear a door burst open!");
                 }
 
                 /* Disturb if necessary */
