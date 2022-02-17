@@ -422,7 +422,7 @@ name:skeleton
 glyph:s
 pain:9
 flags:UNDEAD | EVIL | COLD_BLOOD | CLEAR_WEB
-flags:IM_COLD | IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN
+flags:IM_COLD | IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | IM_ELEC
 desc:Skeleton
 
 # Snakes are typically slow, but have high armor class

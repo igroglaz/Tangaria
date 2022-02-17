@@ -6242,7 +6242,7 @@ value:0:CON[-2]
 value:0:CHR[-2]
 value:25:STEALTH[1]
 # restore mana when polymorph monsters
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+player-flags:0:ZERO_FAIL | BEAM
 title:Novice
 title:Apprentice
 title:Trickster
@@ -6264,7 +6264,7 @@ book:magic book:town:[Magic for Beginners]:18:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:2:12:1:0
-#hc 1d8
+#hc 1d8 .. mana 1->6
 effect:RESTORE_MANA
 dice:1
 effect:RESTORE_MANA
@@ -6386,8 +6386,14 @@ effect:NOURISH:DEC_BY
 dice:1
 effect:NOURISH:DEC_BY
 dice:0
+effect:NOURISH:DEC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:0
 effect:RANDOM
-dice:2
+dice:5
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
@@ -6396,10 +6402,8 @@ effect:TIMED_INC:OPP_ELEC
 effect:TIMED_INC:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
-effect:TIMED_INC:SAFE
-dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
-desc: 20+1d20 turns and also protect from bad effects.
+desc: 20+1d20 turns.
 desc: Require satiation.
 
 spell:Manablast:25:10:30:30:0
@@ -6434,7 +6438,7 @@ desc:Breathes acid.
 desc: This spell makes you stunned for a moment.
 desc: Cooldown 60 turns.
 
-spell:Obscuration:35:10:32:70:0
+spell:Dark Ritual:35:10:32:70:0
 cooldown:30
 # hc 1d5
 effect:TIMED_INC_NO_RES:BLIND
@@ -7393,12 +7397,14 @@ skill-disarm-phys:36:10
 skill-disarm-magic:42:10
 skill-device:32:10
 skill-save:28:10
-skill-stealth:3:0
+# 3:0
+skill-stealth:2:1
 skill-search:15:15
 skill-melee:60:40
 skill-shoot:72:45
 skill-dig:0:0
-hitdie:4
+# 4
+hitdie:5
 max-attacks:4
 min-weight:35
 strength-multiplier:3
@@ -7509,12 +7515,14 @@ skill-disarm-phys:30:10
 skill-disarm-magic:35:10
 skill-device:35:12
 skill-save:24:8
-skill-stealth:1:0
+# 1:0
+skill-stealth:1:1
 skill-search:12:12
 skill-melee:40:20
 skill-shoot:25:20
 skill-dig:0:0
-hitdie:2
+# 2
+hitdie:3
 max-attacks:4
 min-weight:35
 strength-multiplier:3
@@ -7531,6 +7539,7 @@ value:0:DEX[0]
 value:0:CON[-1]
 value:0:CHR[-1]
 # brew special potions which are bound to player
+# can summon golem
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -7544,7 +7553,7 @@ title:Grandmaster
 
 magic:1:300:1
 
-book:magic book:town:[Magic for Beginners]:1:arcane
+book:magic book:town:[Magic for Beginners]:2:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 #spell:Gather Ingredients:1:1:30:3:0
@@ -7562,12 +7571,13 @@ expr:B:PLAYER_LEVEL:/ 10
 msg_other: starts brewing a potion.
 desc:You try to brew a potion from selected reagents.
 
-#spell:Construct Golem:35:35:30:50:0
-#cooldown:10
-#effect:SUMMON:GOLEM:0:100
-#dice:1
-#msg_other: summons a golem.
-#desc:Attempts to summon one golem generated at the current dungeon level.
+spell:Create Golem:5:3:1:7:0
+cooldown:7
+effect:TIMED_INC:GOLEM
+dice:2
+msg_other: summons a golem.
+desc:Attempts to create golem. You don't need materials for it.
+desc: Cooldown 7 turns.
 
 #spell:Elixir of Immortality:50:70:90:100:0
 #cooldown:1000
@@ -7583,12 +7593,14 @@ skill-disarm-phys:42:10
 skill-disarm-magic:30:9
 skill-device:24:10
 skill-save:20:10
-skill-stealth:1:0
+# 1:0
+skill-stealth:1:1
 skill-search:8:10
 skill-melee:50:30
 skill-shoot:35:25
 skill-dig:0:0
-hitdie:3
+# 3
+hitdie:4
 max-attacks:4
 min-weight:35
 strength-multiplier:4
@@ -7621,13 +7633,33 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:nature book:town:[Lesser Charms]:6:nature
+book:nature book:town:[Lesser Charms]:2:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Crafting Mastery:1:1:30:5:0
 effect:CRAFT
 msg_other: starts recrafting an item.
 desc:You try to recraft an item.
+
+spell:Create Sentry:5:1:20:1:0
+cooldown:6
+effect:TIMED_INC:SENTRY
+dice:2
+effect:SPEND_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+msg_other: activate sentry.
+desc:Setup battle sentry.
+desc:  1 level: blade sentry
+desc: 10 level: dart sentry
+desc: 20 level: spear sentry
+desc: 30 level: acid sentry
+desc: 40 level: fire sentry
+desc: 50 level: lightning sentry
+desc: Requires additional mana when you get each level.
+desc: If you cast the spell without enough mana - you suffer severe exhaustion.
+desc: You don't need additional material to create it.
+desc: Cooldown 6 turns.
 
 ############### Inquisitor ###############
 name:Inquisitor
