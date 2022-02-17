@@ -982,8 +982,8 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Cold Ray spell (mana 4)
-        if (context->origin->player->spell_cost == 4)
+        // Cold Ray spell (mana 5)
+        if (context->origin->player->spell_cost == 5)
             dam *= context->origin->player->lev / 5;
     }
 
@@ -2089,16 +2089,19 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     // dmg
                     if (context->origin->player->lev > 10)
                         dam *= context->origin->player->lev / 8;
+                    // spend additional mana
+                    if (context->origin->player->lev > 9)
+                        p->csp -= context->origin->player->lev / 10;
                 }
-            // Luminous Fog spell (mana 3)
-            else if (context->origin->player->spell_cost == 3)
+            // Luminous Fog spell (mana 5)
+            else if (context->origin->player->spell_cost == 5)
             {
                 rad += context->origin->player->lev / 5;
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 3;
             }
-            // Electrocute spell (mana 2)
-            else if (context->origin->player->spell_cost == 2)
+            // Electrocute spell (mana 3)
+            else if (context->origin->player->spell_cost == 3)
             {
                 rad += context->origin->player->lev / 5;
                 dam *= context->origin->player->lev / 5;
