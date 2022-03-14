@@ -617,6 +617,22 @@ static void setup_menus(void)
         race_help);
     mdata = race_menu.menu_data;
     for (r = races; r; r = r->next) mdata->items[r->ridx] = r->name;
+    
+    // preliminary test code to exclude certain combos
+    // ...just to play around for now
+    /*
+    for (r = races, i = 0; r; r = r->next)
+    {
+        if (streq(r->name, "Human"))
+        {
+            n--;
+            i++;
+            continue;
+        }
+        mdata->items[r->ridx - i] = r->name;
+    }
+    */
+
     mdata->hint = "Race affects stats and skills, and may confer resistances and abilities.";
 
     /* Count the classes */
