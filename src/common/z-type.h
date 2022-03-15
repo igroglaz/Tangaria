@@ -322,6 +322,7 @@ extern char *ANGBAND_DIR_MUSIC;
 extern char *ANGBAND_DIR_ICONS;
 extern char *ANGBAND_DIR_USER;
 extern char *ANGBAND_DIR_SAVE;
+extern char *ANGBAND_DIR_PANIC;
 extern char *ANGBAND_DIR_SCORES;
 
 /*

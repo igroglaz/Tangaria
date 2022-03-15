@@ -180,8 +180,6 @@ static void path_process(char *buf, size_t len, size_t *cur_len, const char *pat
  *
  * On Unixes, we convert a tidle at the beginning of a basename to mean the
  * directory, complicating things a little, but better now than later.
- *
- * Remember to free the return value.
  */
 size_t path_build(char *buf, size_t len, const char *base, const char *leaf)
 {
@@ -372,7 +370,9 @@ bool file_newer(const char *first, const char *second)
 
     /* Remove W8080 warning: _fstat is declared but never used */
 #ifdef WINDOWS
-    _fstat(0, NULL);
+    struct _stat dummy;
+
+    _fstat(0, &dummy);
 #endif
 
     /* If the first doesn't exist, the first is not newer. */
@@ -1065,3 +1065,4 @@ void my_dclose(ang_dir *dir)
 
 #endif /* HAVE_DIRENT_H */
 #endif /* WINDOWS */
+

@@ -498,8 +498,8 @@ void conf_init(void* param)
 #endif
 
     /* Hack -- make this file easier to find */
-#if defined(__APPLE__) || defined(ON_XDG)
-    strcpy(buf, "/mangclient.ini");
+#if defined(__APPLE__) || defined(ON_XDG) || defined(ON_ANDROID)
+    strcpy(buf, "/pwmangclient.ini");
 #endif
 
     /* Try to find home directory */

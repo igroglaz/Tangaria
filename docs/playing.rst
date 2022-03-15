@@ -54,8 +54,8 @@ specify that you wish to use the current "target", by pressing ``t`` or
 ``5``, or that you wish to select a new target, by pressing ``*`` (see
 "Target" below).
 
-        Original Keyset Directions 
-                 =  =  =                           
+        Original Keyset Directions
+                 =  =  =
                  7  8  9
                  4     6
                  1  2  3
@@ -84,17 +84,17 @@ Original Keyset Command Summary
 ====== ============================= ====== ============================
 ``a``  Aim a wand                    ``A``  Activate an object
 ``b``  Browse a book                 ``B``  (unused)
-``c``  Close a door                  ``C``  Character description
+``c``  Close a door                  ``C``  Display character sheet
 ``d``  Drop an item                  ``D``  Disarm a trap or lock a door
-``e``  Equipment list                ``E``  Eat some food
+``e``  List equipped items           ``E``  Eat some food
 ``f``  Fire an item                  ``F``  Fuel your lantern/torch
 ``g``  Get objects on floor          ``G``  Gain new spells/prayers
 ``h``  Fire default ammo at target   ``H``  Buy a house
-``i``  Inventory list                ``I``  Observe an item
+``i``  List contents of pack         ``I``  Inspect an item
 ``j``  (unused)                      ``J``  (unused)
 ``k``  Ignore an item                ``K``  Toggle ignore
 ``l``  Look around                   ``L``  Locate player on map
-``m``  Cast a spell                  ``M``  Full dungeon map
+``m``  Cast a spell                  ``M``  Display map of entire level
 ``n``  (unused)                      ``N``  (unused)
 ``o``  Open a door or chest          ``O``  (unused)
 ``p``  Project a spell               ``P``  Access party menu
@@ -117,7 +117,7 @@ Original Keyset Command Summary
 ``&``  Enter Dungeon Master menu     ``^G`` (special - bell)
 ``*``  Target monster or location    ``^H`` (unused)
 ``(``  Target friendly player        ``^I`` (special - tab)
-``)``  Save screen dump              ``^J`` (special - linefeed)
+``)``  Dump screen to a file         ``^J`` (special - linefeed)
 ``{``  Inscribe an object            ``^K`` (unused)
 ``}``  Uninscribe an object          ``^L`` Center map
 ``[``  Display visible monster list  ``^M`` (special - return)
@@ -135,72 +135,73 @@ Original Keyset Command Summary
 ``.``  Run                           ``^Y`` (unused)
 ``>``  Go down staircase             ``^Z`` Use chat command
 ``\``  (special - bypass keymap)     ``~``  Check knowledge
-``\``` (special - escape)            ``?``  Help
-``/``  Identify monster              ``|``  Quiver list
+  \`   (special - escape)            ``?``  Display help
+``/``  Identify monster              ``|``  List contents of quiver
 ====== ============================= ====== ============================
 
 Roguelike Keyset Command Summary
 --------------------------------
 
-====== ============================= ====== ============================
-  a    Zap a rod (Activate)            A    Activate an object
-  b    (walk - south west)             B    (run - south west)
-  c    Close a door                    C    Character description
-  d    Drop an item                    D    Disarm a trap or lock a door
-  e    Equipment list                  E    Eat some food
-  f    Use dragon breath attack        F    Fuel your lantern/torch
-  g    Get objects on floor            G    Gain new spells/prayers
-  h    (walk - west)                   H    (run - west)
-  i    Inventory list                  I    Observe an item
-  j    (walk - south)                  J    (run - south)
-  k    (walk - north)                  K    (run - north)
-  l    (walk - east)                   L    (run - east)
-  m    Cast a spell                    M    Full dungeon map
-  n    (walk - south east)             N    (run - south east)
-  o    Open a door or chest            O    Toggle ignore
-  p    Project a spell                 P    Browse a book (Peruse)
-  q    Quaff a potion                  Q    End character & quit
-  r    Read a scroll                   R    Rest for a period
-  s    Steal                           S    Toggle stealth mode
-  t    Fire an item                    T    Take off equipment
-  u    (walk - north east)             U    (run - north east)
-  v    Throw an item                   V    Polymorph into a monster
-  w    Wear/wield equipment            W    Locate player on map (Where)
-  x    Look around (Examine)           X    Use an item
-  y    (walk - north west)             Y    (run - north west)
-  z    Aim a wand (Zap)                Z    Use a staff (Zap)
-  !    Access party menu               ^A   Do autopickup
-  @    Center map                      ^B   (alter - south west)
-  #    See abilities                   ^C   End character & quit
-  $    Drop gold                       ^D   Ignore an item
-  %    Interact with keymaps           ^E   Toggle inven/equip window
-  ^    (special - control key)         ^F   Repeat level feeling
-  &    Enter Dungeon Master menu       ^G   (special - bell)
- '*'   Target monster or location      ^H   (alter - west)
-  (    Target friendly player          ^I   (special - tab)
-  )    Save screen dump                ^J   (alter - south)
-  {    Inscribe an object              ^K   (alter - north)
-  }    Uninscribe an object            ^L   (alter - east)
-  [    Display visible monster list    ^M   (special - return)
-  ]    Display visible object list     ^N   (alter - south east)
- '-'   Walk into a trap                ^O   Show previous message
-  _    Drink/fill an empty bottle      ^P   Show previous messages
- '+'   Alter grid                      ^Q   Get a quest
-  =    Set options                     ^R   Redraw the screen
-  ;    Walk (with pickup)              ^S   Socials
-  :    Enter chat mode                 ^T   Dig a tunnel
-  '    Target closest monster          ^U   (alter - north east)
-  "    Enter a user pref command       ^V   Display connected players
-  ,    Run                             ^W   Full wilderness map
-  <    Go up staircase                 ^X   Save and quit
-  .    Stay still (with pickup)        ^Y   (alter - north west)
-  >    Go down staircase               ^Z   Use chat command
-  \    (special - bypass keymap)        ~   Check knowledge
- '`'   (special - escape)               ?   Help
-  /    Identify monster                '|'  Quiver list
-  £    Buy a house
- TAB   Fire default ammo at target     BKS  Describe object
-====== ============================= ====== ============================
+======= ============================= ====== ============================
+ ``a``  Zap a rod (Activate)          ``A``  Activate an object
+ ``b``  (walk - south west)           ``B``  (run - south west)
+ ``c``  Close a door                  ``C``  Display character sheet
+ ``d``  Drop an item                  ``D``  Disarm a trap or lock a door
+ ``e``  List equipped items           ``E``  Eat some food
+ ``f``  Use dragon breath attack      ``F``  Fuel your lantern/torch
+ ``g``  Get objects on floor          ``G``  Gain new spells/prayers
+ ``h``  (walk - west)                 ``H``  (run - west)
+ ``i``  List contents of pack         ``I``  Inspect an item
+ ``j``  (walk - south)                ``J``  (run - south)
+ ``k``  (walk - north)                ``K``  (run - north)
+ ``l``  (walk - east)                 ``L``  (run - east)
+ ``m``  Cast a spell                  ``M``  Display map of entire level
+ ``n``  (walk - south east)           ``N``  (run - south east)
+ ``o``  Open a door or chest          ``O``  Toggle ignore
+ ``p``  Project a spell               ``P``  Browse a book
+ ``q``  Quaff a potion                ``Q``  End character & quit
+ ``r``  Read a scroll                 ``R``  Rest for a period
+ ``s``  Steal                         ``S``  Toggle stealth mode
+ ``t``  Fire an item                  ``T``  Take off equipment
+ ``u``  (walk - north east)           ``U``  (run - north east)
+ ``v``  Throw an item                 ``V``  Polymorph into a monster
+ ``w``  Wear/wield equipment          ``W``  Locate player on map (Where)
+ ``x``  Look around                   ``X``  Use an item
+ ``y``  (walk - north west)           ``Y``  (run - north west)
+ ``z``  Aim a wand (Zap)              ``Z``  Use a staff (Zap)
+ ``!``  Access party menu             ``^A`` Do autopickup
+ ``@``  Center map                    ``^B`` (alter - south west)
+ ``#``  See abilities                 ``^C`` End character & quit
+ ``$``  Drop gold                     ``^D`` Ignore an item
+ ``%``  Interact with keymaps         ``^E`` Toggle inven/equip window
+ ``^``  (special - control key)       ``^F`` Repeat level feeling
+ ``&``  Enter Dungeon Master menu     ``^G`` (special - bell)
+ ``*``  Target monster or location    ``^H`` (alter - west)
+ ``(``  Target friendly player        ``^I`` (special - tab)
+ ``)``  Dump screen to a file         ``^J`` (alter - south)
+ ``{``  Inscribe an object            ``^K`` (alter - north)
+ ``}``  Uninscribe an object          ``^L`` (alter - east)
+ ``[``  Display visible monster list  ``^M`` (special - return)
+ ``]``  Display visible object list   ``^N`` (alter - south east)
+ ``-``  Walk into a trap              ``^O`` Show previous message
+ ``_``  Drink/fill an empty bottle    ``^P`` Show previous messages
+ ``+``  Alter grid                    ``^Q`` Get a quest
+ ``=``  Set options                   ``^R`` Redraw the screen
+ ``;``  Walk (with pickup)            ``^S`` Socials
+ ``:``  Enter chat mode               ``^T`` Dig a tunnel
+ ``'``  Target closest monster        ``^U`` (alter - north east)
+ ``"``  Enter a user pref command     ``^V`` Display connected players
+ ``,``  Run                           ``^W`` Full wilderness map
+ ``<``  Go up staircase               ``^X`` Save and quit
+ ``.``  Stay still (with pickup)      ``^Y`` (alter - north west)
+ ``>``  Go down staircase             ``^Z`` Use chat command
+ ``\``  (special - bypass keymap)     ``~``  Check knowledge
+  \`    (special - escape)            ``?``  Display help
+ ``/``  Identify monster              ``|``  List contents of quiver
+ ``£``  Buy a house
+``TAB`` Fire default ammo at target
+``BKS`` Describe object
+======= ============================= ====== ============================
 
 Note: 'BKS' is equal to the BACKSPACE key.
 

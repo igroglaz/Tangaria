@@ -1018,10 +1018,8 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     SDL_Rect dst = {
         subwindow->inner_rect.x + col * subwindow->font_width,
         subwindow->inner_rect.y + row * subwindow->font_height,
-        subwindow->font_width * (subwindow->index == MAIN_SUBWINDOW && 
-            !Term->minimap_active ? tile_width : 1),
-        subwindow->font_height * (subwindow->index == MAIN_SUBWINDOW && 
-            !Term->minimap_active ? tile_height : 1)
+        subwindow->font_width * (!Term->minimap_active ? tile_width : 1),
+        subwindow->font_height * (!Term->minimap_active ? tile_height : 1)
     };
 
     if (fill) {
@@ -4332,6 +4330,9 @@ static void load_graphics(struct window *window, graphics_mode *mode)
 
         window->graphics.overdraw_row = mode->overdrawRow;
         window->graphics.overdraw_max = mode->overdrawMax;
+
+        /* Use ASCII symbol for distorted tiles */
+        tile_distorted = is_tile_distorted(use_graphics, tile_width, tile_height);
     }
 
     if (Setup.initialized) {
@@ -5692,8 +5693,8 @@ static void init_colors(void)
     }
     for (i = 0; i < N_ELEMENTS(g_windows); i++)
         g_windows[i].color = g_colors[DEFAULT_WINDOW_BG_COLOR];
-    for (i = 0; i < N_ELEMENTS(g_subwindows); i++)
-        g_subwindows[i].color = g_colors[DEFAULT_SUBWINDOW_BG_COLOR];
+/*  for (i = 0; i < N_ELEMENTS(g_subwindows); i++) */
+/*      g_subwindows[i].color = g_colors[DEFAULT_SUBWINDOW_BG_COLOR]; */
 }
 
 static void init_font_info(const char *directory)
@@ -5811,6 +5812,9 @@ static void hack_plog(const char *str)
 
 errr init_sdl2(void)
 {
+#ifdef ON_ANDROID
+    SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
+#endif
     init_systems();
     init_globals();
 

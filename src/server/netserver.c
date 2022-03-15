@@ -914,7 +914,7 @@ static void Delete_player(int id)
     if (chunk_inhibit_players(&p->wpos)) chunk_set_player_count(&p->wpos, 0);
 
     /* Try to save his character */
-    save_player(p);
+    save_player(p, false);
 
     /* Un-hostile the player */
     for (i = 1; i <= NumPlayers; i++)

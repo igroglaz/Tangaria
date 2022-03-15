@@ -1,6 +1,6 @@
 MKPATH=../../mk/
 include $(MKPATH)buildsys.mk
 
-SUBDIRS = save scores
+SUBDIRS = panic save scores
 PACKAGE = user
 

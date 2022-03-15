@@ -3358,7 +3358,7 @@ void do_cmd_store(struct player *p, int pstore)
         p->player_store_num = pstore;
     }
 
-    sound(p, MSG_STORE_ENTER);
+    sound(p, (s->type == STORE_HOME)? MSG_STORE_HOME: MSG_STORE_ENTER);
 
     /* Display the store */
     display_store(p, true);

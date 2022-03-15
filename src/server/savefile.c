@@ -517,13 +517,31 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
 /*
  * Attempt to save the player in a savefile
  */
-bool save_player(struct player *p)
+bool save_player(struct player *p, bool panic)
 {
     ang_file *file;
     int count = 0;
     char new_savefile[MSG_LEN];
     char old_savefile[MSG_LEN];
     bool character_saved = false;
+
+    /* Panic save is quick */
+    if (panic)
+    {
+        file = file_open(p->panicfile, MODE_WRITE, FTYPE_SAVE);
+        if (file)
+        {
+            file_write(file, (char *)&savefile_magic, 4);
+            file_write(file, (char *)&savefile_name, 4);
+
+            character_saved = try_save((void *)p, file, (savefile_saver *)player_savers,
+                N_ELEMENTS(player_savers));
+            file_close(file);
+        }
+        if (character_saved) return true;
+        if (file) file_delete(p->panicfile);
+        return false;
+    }
 
     /* New savefile */
     strnfmt(old_savefile, sizeof(old_savefile), "%s%u.old", p->savefile, Rand_simple(1000000));
@@ -616,13 +634,32 @@ void save_dungeon_special(struct worldpos *wpos, bool town)
 /*
  * Save the server state to a "server" savefile.
  */
-bool save_server_info(void)
+bool save_server_info(bool panic)
 {
     ang_file *file;
     int count = 0;
     char new_savefile[MSG_LEN], new_name[MSG_LEN];
     char old_savefile[MSG_LEN], old_name[MSG_LEN];
     bool server_saved = false;
+
+    /* Panic save is quick */
+    if (panic)
+    {
+        path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_PANIC, "server");
+        file = file_open(new_savefile, MODE_WRITE, FTYPE_SAVE);
+        if (file)
+        {
+            file_write(file, (char *)&savefile_magic, 4);
+            file_write(file, (char *)&savefile_name, 4);
+
+            server_saved = try_save(NULL, file, (savefile_saver *)server_savers,
+                N_ELEMENTS(server_savers));
+            file_close(file);
+        }
+        if (server_saved) return true;
+        if (file) file_delete(new_savefile);
+        return false;
+    }
 
     /* New savefile */
     strnfmt(old_name, sizeof(old_name), "server%u.old", Rand_simple(1000000));
@@ -686,13 +723,32 @@ bool save_server_info(void)
 /*
  * Save the player names to a "players" savefile.
  */
-bool save_account_info(void)
+bool save_account_info(bool panic)
 {
     ang_file *file;
     int count = 0;
     char new_savefile[MSG_LEN], new_name[MSG_LEN];
     char old_savefile[MSG_LEN], old_name[MSG_LEN];
     bool account_saved = false;
+
+    /* Panic save is quick */
+    if (panic)
+    {
+        path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_PANIC, "players");
+        file = file_open(new_savefile, MODE_WRITE, FTYPE_SAVE);
+        if (file)
+        {
+            file_write(file, (char *)&savefile_magic, 4);
+            file_write(file, (char *)&savefile_name, 4);
+
+            account_saved = try_save(NULL, file, (savefile_saver *)account_savers,
+                N_ELEMENTS(account_savers));
+            file_close(file);
+        }
+        if (account_saved) return true;
+        if (file) file_delete(new_savefile);
+        return false;
+    }
 
     /* New savefile */
     strnfmt(old_name, sizeof(old_name), "players%u.old", Rand_simple(1000000));
@@ -1096,10 +1152,10 @@ static int try_scoop(ang_file *f, char *pass_word, byte *pridx, byte *pcidx, byt
 /*
  * Load a savefile.
  */
-bool load_player(struct player *p)
+bool load_player(struct player *p, const char *loadpath)
 {
     bool ok;
-    ang_file *f = file_open(p->savefile, MODE_READ, FTYPE_RAW);
+    ang_file *f = file_open(loadpath, MODE_READ, FTYPE_RAW);
 
     if (!f)
     {
@@ -1129,19 +1185,27 @@ int scoop_player(char *nick, char *pass, byte *pridx, byte *pcidx, byte *psex)
 {
     int err;
     ang_file *f;
-    char tmp[MSG_LEN];
+    char savefile[MSG_LEN];
+    char panicfile[MSG_LEN];
+    char path[128];
+    const char *loadpath;
 
-    my_strcpy(tmp, nick, sizeof(tmp));
+    player_safe_name(path, sizeof(path), nick);
 
-    if (!savefile_set_name(NULL, tmp, nick))
+    /* Error */
+    if (strlen(path) > MAX_NAME_LEN)
     {
-        /* Error already! */
         plog_fmt("Incorrect player name %s.", nick);
         return -1;
     }
 
+    /* Try loading */
+    path_build(savefile, MSG_LEN, ANGBAND_DIR_SAVE, path);
+    path_build(panicfile, MSG_LEN, ANGBAND_DIR_PANIC, path);
+    loadpath = savefile_get_name(savefile, panicfile);
+
     /* No file */
-    if (!file_exists(tmp))
+    if (!loadpath)
     {
         /* Give a message */
         plog_fmt("Savefile does not exist for player %s.", nick);
@@ -1151,7 +1215,7 @@ int scoop_player(char *nick, char *pass, byte *pridx, byte *pcidx, byte *psex)
     }
 
     /* Open savefile */
-    f = file_open(tmp, MODE_READ, FTYPE_RAW);
+    f = file_open(loadpath, MODE_READ, FTYPE_RAW);
     if (!f)
     {
         plog("Couldn't open savefile.");
@@ -1306,12 +1370,16 @@ bool load_server_info(void)
 {
     bool ok;
     ang_file *f;
-    char buf[MSG_LEN];
+    char savefile[MSG_LEN];
+    char panicfile[MSG_LEN];
+    const char *loadpath;
 
-    path_build(buf, sizeof(buf), ANGBAND_DIR_SAVE, "server");
+    path_build(savefile, sizeof(savefile), ANGBAND_DIR_SAVE, "server");
+    path_build(panicfile, sizeof(panicfile), ANGBAND_DIR_PANIC, "server");
+    loadpath = savefile_get_name(savefile, panicfile);
 
     /* No file */
-    if (!file_exists(buf))
+    if (!loadpath)
     {
         /* Give message */
         plog("Server savefile does not exist.");
@@ -1328,7 +1396,7 @@ bool load_server_info(void)
     }
 
     /* Open savefile */
-    f = file_open(buf, MODE_READ, FTYPE_RAW);
+    f = file_open(loadpath, MODE_READ, FTYPE_RAW);
 
     if (!f)
     {
@@ -1361,12 +1429,16 @@ bool load_account_info(void)
 {
     bool ok;
     ang_file *f;
-    char buf[MSG_LEN];
+    char savefile[MSG_LEN];
+    char panicfile[MSG_LEN];
+    const char *loadpath;
 
-    path_build(buf, sizeof(buf), ANGBAND_DIR_SAVE, "players");
+    path_build(savefile, sizeof(savefile), ANGBAND_DIR_SAVE, "players");
+    path_build(panicfile, sizeof(panicfile), ANGBAND_DIR_PANIC, "players");
+    loadpath = savefile_get_name(savefile, panicfile);
 
     /* No file */
-    if (!file_exists(buf))
+    if (!loadpath)
     {
         /* Give message */
         plog("Player names savefile does not exist.");
@@ -1376,7 +1448,7 @@ bool load_account_info(void)
     }
 
     /* Open savefile */
-    f = file_open(buf, MODE_READ, FTYPE_RAW);
+    f = file_open(loadpath, MODE_READ, FTYPE_RAW);
 
     if (!f)
     {

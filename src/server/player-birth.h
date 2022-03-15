@@ -8,7 +8,8 @@
 
 extern s32b player_id;
 
-extern bool savefile_set_name(struct player *p, char *savefile, const char *fname);
+extern bool savefile_set_name(struct player *p);
+extern const char *savefile_get_name(char *savefile, char *panicfile);
 extern struct player *player_birth(int id, u32b account, const char *name, const char *pass,
     int conn, byte ridx, byte cidx, byte psex, s16b* stat_roll, bool options[OPT_MAX]);
 extern void server_birth(void);

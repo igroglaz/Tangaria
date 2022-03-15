@@ -25,6 +25,7 @@ Angband 4.2.x:
 - Changed purchase message to show if a book is not usable
 - More consistent background handling
 - Allow yes/no interface options to carry over between characters
+- Generate sounds when entering or leaving stores
 
 MAngband 1.5.x:
 
@@ -87,6 +88,7 @@ PWMAngband:
   properly
 - Fix object_all_modifiers_are_known()
 - Redraw equip subwindow when inscribing items in the quiver
+- Fix crash in file_newer()
 
 Coding changes
 --------------
@@ -122,6 +124,8 @@ Angband 4.2.x:
 - Remember cursor size
 - Stop treating quiver items as wielded for learning of runes
 - Add Term_redraw_all()
+- Don't overwrite a normal save with a panic save
+- Fix some comments in z-file.c
 
 PWMAngband:
 
@@ -139,3 +143,4 @@ Compilation/documentation
 - Update attack.rst
 - Put in first draft of "how it works" documentation for dungeon generation
 - Update comments in artifact.txt, ego_item.txt and object.txt
+- Adjust brief description for commands

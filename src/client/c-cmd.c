@@ -168,7 +168,7 @@ static void view_map_aux(byte mode)
     if (Term->view_map_hook)
     {
         (*(Term->view_map_hook))(Term);
-        return;
+        if (mode == 0) return;
     }
 
     /* Save the screen */

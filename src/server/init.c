@@ -300,6 +300,7 @@ static void free_file_paths(void)
     string_free(ANGBAND_DIR_TILES);
     string_free(ANGBAND_DIR_USER);
     string_free(ANGBAND_DIR_SAVE);
+    string_free(ANGBAND_DIR_PANIC);
     string_free(ANGBAND_DIR_SCORES);
 }
 
@@ -392,7 +393,8 @@ void init_file_paths(const char *configpath, const char *libpath, const char *da
 
     /* Build the path to the score and save directories */
     BUILD_DIRECTORY_PATH(ANGBAND_DIR_SCORES, userpath, "scores");
-    BUILD_DIRECTORY_PATH(ANGBAND_DIR_SAVE, userpath, "save");
+    BUILD_DIRECTORY_PATH(ANGBAND_DIR_SAVE, userpath, "save"); 
+    BUILD_DIRECTORY_PATH(ANGBAND_DIR_PANIC, userpath, "panic");
 
 #undef BUILD_DIRECTORY_PATH
 }
@@ -412,6 +414,9 @@ void create_needed_dirs(void)
     if (!dir_create(dirpath)) quit_fmt("Cannot create '%s'", dirpath);
 
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_SAVE, "");
+    if (!dir_create(dirpath)) quit_fmt("Cannot create '%s'", dirpath);
+
+    path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_PANIC, "");
     if (!dir_create(dirpath)) quit_fmt("Cannot create '%s'", dirpath);
 
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_SCORES, "");

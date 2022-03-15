@@ -753,6 +753,7 @@ struct player
     unsigned int version;                           /* His version */
     hostile_type *hostile;                          /* List of players we wish to attack */
     char savefile[MSG_LEN];                         /* Name of the savefile */
+    char panicfile[MSG_LEN];                        /* Name of the panic save corresponding to savefile */
     bool alive;                                     /* Are we alive */
     struct worldpos recall_wpos;                    /* Where to recall */
     cave_view_type* hist_flags[N_HISTORY_FLAGS];    /* Player's sustains/resists/flags */

@@ -65,6 +65,14 @@
 # define USE_PRIVATE_PATHS
 #endif
 
+#if defined(ON_ANDROID)
+
+#if !defined(USE_PRIVATE_PATHS)
+# define USE_PRIVATE_PATHS 1
+#endif
+
+#else
+
 /**
  * OPTION: Create and use a hidden directory in the users home directory
  * for storing pref files and character dumps.
@@ -72,5 +80,7 @@
 #if defined(UNIX) && !defined(MACH_O_CARBON) && !defined(PRIVATE_USER_PATH)
 # define PRIVATE_USER_PATH "~/.pwmangband"
 #endif
+
+#endif /* ON_ANDROID */
 
 #endif /* INCLUDED_CONFIG_H */

@@ -233,11 +233,33 @@ void init_stuff(void)
     char libpath[MSG_LEN];
     char datapath[MSG_LEN];
 
+#ifdef ON_ANDROID
+    char app_configpath[MSG_LEN];
+    char app_libpath[MSG_LEN];
+    char app_datapath[MSG_LEN];
+
+    if (getenv("ANDROID_APP_PATH"))
+    {
+        my_strcpy(app_configpath, getenv("ANDROID_APP_PATH"), 1024);
+        my_strcat(app_configpath, DEFAULT_CONFIG_PATH, 1024);
+        my_strcpy(app_libpath, getenv("ANDROID_APP_PATH"), 1024);
+        my_strcat(app_libpath, DEFAULT_LIB_PATH, 1024);
+        my_strcpy(app_datapath, getenv("ANDROID_APP_PATH"), 1024);
+        my_strcat(app_datapath, DEFAULT_DATA_PATH, 1024);
+    }
+
+    my_strcpy(configpath, app_configpath, sizeof(configpath));
+    my_strcpy(libpath, app_libpath, sizeof(libpath));
+    my_strcpy(datapath, app_datapath, sizeof(datapath));
+    /* LOGD("app_configpath: %s", app_configpath); */
+    /* LOGD("app_libpath: %s", app_libpath); */
+    /* LOGD("app_datapath: %s", app_datapath); */
+#else
     /* Use default */
     my_strcpy(configpath, DEFAULT_CONFIG_PATH, sizeof(configpath));
     my_strcpy(libpath, DEFAULT_LIB_PATH, sizeof(libpath));
     my_strcpy(datapath, DEFAULT_DATA_PATH, sizeof(datapath));
-
+#endif
     /* Hack -- add a path separator (only if needed) */
     if (!suffix(configpath, PATH_SEP))
         my_strcat(configpath, PATH_SEP, sizeof(configpath));

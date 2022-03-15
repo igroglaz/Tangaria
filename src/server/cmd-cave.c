@@ -359,9 +359,6 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
             square_memorize(p, c, grid);
             square_light_spot_aux(p, c, grid);
             update_visuals(&p->wpos);
-
-            /* Sound */
-            sound(p, MSG_STORE_HOME);
         }
 
         /* He's not the owner, check if owned */

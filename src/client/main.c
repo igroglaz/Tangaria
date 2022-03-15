@@ -25,6 +25,9 @@
 
 #include "c-angband.h"
 
+#ifdef ON_ANDROID
+#include <SDL.h>
+#endif
 
 static errr init_error(void)
 {

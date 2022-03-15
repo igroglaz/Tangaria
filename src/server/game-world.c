@@ -1484,8 +1484,8 @@ static void process_various(void)
         int i;
 
         /* Save server state + player names */
-        save_server_info();
-        save_account_info();
+        save_server_info(false);
+        save_account_info(false);
 
         /* Save each player */
         for (i = 1; i <= NumPlayers; i++)
@@ -1493,7 +1493,7 @@ static void process_various(void)
             struct player *p = player_get(i);
 
             /* Save this player */
-            if (!p->upkeep->funeral) save_player(p);
+            if (!p->upkeep->funeral) save_player(p, false);
         }
     }
 
@@ -2696,7 +2696,7 @@ static void save_game(struct player *p)
 #endif
 
     /* Save the player */
-    if (save_player(p))
+    if (save_player(p, false))
         msg(p, "Saving game... done.");
 
     /* Save failed (oops) */
@@ -2798,7 +2798,7 @@ static void close_game(void)
             if (p->total_winner) kingly(p);
 
             /* Save memories */
-            if (!save_player(p)) msg(p, "death save failed!");
+            if (!save_player(p, false)) msg(p, "death save failed!");
 
             /* Handle score, show Top scores */
             enter_score(p, &p->death_info.time);
@@ -2816,8 +2816,8 @@ static void close_game(void)
     preserve_artifacts();
 
     /* Try to save the server information + player names */
-    save_server_info();
-    save_account_info();
+    save_server_info(false);
+    save_account_info(false);
 
 #ifndef WINDOWS
     /* Allow suspending now */
@@ -2909,7 +2909,7 @@ void shutdown_server(void)
         my_strcpy(p->died_from, "server shutdown", sizeof(p->died_from));
 
         /* Try to save */
-        if (!save_player(p)) Destroy_connection(p->conn, "Server shutdown (save failed)");
+        if (!save_player(p, false)) Destroy_connection(p->conn, "Server shutdown (save failed)");
 
         /* Successful save */
         Destroy_connection(p->conn, "Server shutdown (save succeeded)");
@@ -2919,12 +2919,12 @@ void shutdown_server(void)
     preserve_artifacts();
 
     /* Try to save the server information + player names */
-    if (!save_server_info()) plog("Server state save failed!");
+    if (!save_server_info(false)) plog("Server state save failed!");
 
     /* Successful save of server info */
     else plog("Server state save succeeded!");
 
-    if (!save_account_info()) plog("Account info save failed!");
+    if (!save_account_info(false)) plog("Account info save failed!");
     else plog("Account info save succeeded!");
 
     /* Don't re-enter */
@@ -2994,7 +2994,7 @@ void exit_game_panic(void)
          * Try to save the player, don't worry if this fails because there
          * is nothing we can do now anyway
          */
-        save_player(p);
+        save_player(p, true);
         i++;
     }
 
@@ -3002,12 +3002,12 @@ void exit_game_panic(void)
     preserve_artifacts();
 
     /* Try to save the server information + player names */
-    if (!save_server_info()) plog("Server panic info save failed!");
+    if (!save_server_info(true)) plog("Server panic info save failed!");
 
     /* Successful panic save of server info */
     else plog("Server panic info save succeeded!");
 
-    if (!save_account_info()) plog("Account panic info save failed!");
+    if (!save_account_info(true)) plog("Account panic info save failed!");
     else plog("Account panic info save succeeded!");
 
     /* Don't re-enter */

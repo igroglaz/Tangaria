@@ -1441,23 +1441,49 @@ static void quickstart_roll(struct player *p, bool character_existed, byte *prid
 /*
  * Set the savefile name.
  */
-bool savefile_set_name(struct player *p, char *savefile, const char *fname)
+bool savefile_set_name(struct player *p)
 {
     char path[128];
 
-    player_safe_name(path, sizeof(path), fname);
+    player_safe_name(path, sizeof(path), p->name);
 
     /* Error */
     if (strlen(path) > MAX_NAME_LEN)
     {
-        if (p) Destroy_connection(p->conn, "Your name is too long!");
+        Destroy_connection(p->conn, "Your name is too long!");
         return false;
     }
 
     /* Build the filename */
-    path_build(savefile, MSG_LEN, ANGBAND_DIR_SAVE, path);
+    path_build(p->savefile, MSG_LEN, ANGBAND_DIR_SAVE, path);
+    path_build(p->panicfile, MSG_LEN, ANGBAND_DIR_PANIC, path);
 
     return true;
+}
+
+
+/*
+ * Get the savefile name.
+ */
+const char *savefile_get_name(char *savefile, char *panicfile)
+{
+    if (panicfile[0] && file_exists(panicfile))
+    {
+        /* Use panic save */
+        if (!(savefile[0] && file_exists(savefile)) || file_newer(panicfile, savefile))
+            return panicfile;
+
+        /* Remove the out-of-date panic save. */
+        file_delete(panicfile);
+
+        /* Use normal save */
+        return savefile;
+    }
+
+    /* Use normal save */
+    if (savefile[0] && file_exists(savefile)) return savefile;
+
+    return NULL;
 }
 
 
@@ -1469,6 +1495,7 @@ bool savefile_set_name(struct player *p, char *savefile, const char *fname)
 static int quickstart_ok(struct player *p, const char *name, int conn, bool no_recall)
 {
     char previous[NORMAL_WID];
+    const char *loadpath;
 
     /* Get last incarnation */
     my_strcpy(previous, name, sizeof(previous));
@@ -1481,18 +1508,20 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool no_r
     my_strcpy(p->name, previous, sizeof(p->name));
 
     /* Verify his name and create a savefile name */
-    if (!savefile_set_name(p, p->savefile, p->name)) return -1;
+    if (!savefile_set_name(p)) return -1;
 
     /* Try to load the savefile */
     p->is_dead = true;
-    if (!(p->savefile[0] && file_exists(p->savefile)))
+    loadpath = savefile_get_name(p->savefile, p->panicfile);
+    if (!loadpath)
     {
         /* Last incarnation: if "Foo I" doesn't exist, try "Foo" */
         my_strcpy(p->name, strip_suffix(previous), sizeof(p->name));
-        if (!savefile_set_name(p, p->savefile, p->name)) return -1;
-        if (!(p->savefile[0] && file_exists(p->savefile))) return 0;
+        if (!savefile_set_name(p)) return -1;
+        loadpath = savefile_get_name(p->savefile, p->panicfile);
+        if (!loadpath) return 0;
     }
-    if (!load_player(p)) return -1;
+    if (!load_player(p, loadpath)) return -1;
 
     /* Still alive */
     if (!p->is_dead) return 0;
@@ -1519,6 +1548,7 @@ struct player *player_birth(int id, u32b account, const char *name, const char *
     int i;
     bool character_existed = false;
     bool old_history = false;
+    const char *loadpath;
 
     /* Do some consistency checks */
     if (ridx >= player_rmax()) ridx = 0;
@@ -1555,7 +1585,7 @@ struct player *player_birth(int id, u32b account, const char *name, const char *
     player_admin(p);
 
     /* Verify his name and create a savefile name */
-    if (!savefile_set_name(p, p->savefile, p->name))
+    if (!savefile_set_name(p))
     {
         cleanup_player(p);
         mem_free(p);
@@ -1566,11 +1596,12 @@ struct player *player_birth(int id, u32b account, const char *name, const char *
     /*** Try to load the savefile ***/
 
     p->is_dead = true;
+    loadpath = savefile_get_name(p->savefile, p->panicfile);
 
     /* Try loading */
-    if (file_exists(p->savefile))
+    if (loadpath)
     {
-        if (!load_player(p))
+        if (!load_player(p, loadpath))
         {
             cleanup_player(p);
             mem_free(p);
@@ -1615,7 +1646,7 @@ struct player *player_birth(int id, u32b account, const char *name, const char *
         my_strcpy(p->pass, pass, sizeof(p->pass));
 
         /* Reprocess his name */
-        if (!savefile_set_name(p, p->savefile, p->name))
+        if (!savefile_set_name(p))
         {
             cleanup_player(p);
             mem_free(p);

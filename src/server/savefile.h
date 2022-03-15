@@ -112,11 +112,11 @@ extern void wr_player_names(void *unused);
  */
 extern const char *savefile_get_description(const char *path);
 
-extern bool save_player(struct player *p);
+extern bool save_player(struct player *p, bool panic);
 extern void save_dungeon_special(struct worldpos *wpos, bool town);
-extern bool save_server_info(void);
-extern bool save_account_info(void);
-extern bool load_player(struct player *p);
+extern bool save_server_info(bool panic);
+extern bool save_account_info(bool panic);
+extern bool load_player(struct player *p, const char *loadpath);
 extern int scoop_player(char *nick, char *pass, byte *pridx, byte *pcidx, byte *psex);
 extern bool load_server_info(void);
 extern bool load_account_info(void);
