@@ -6301,13 +6301,9 @@ msg_other: helds out a hand.. Lightning!
 desc:Summon lighting upon an enemy. Sometimes it affects several foes at once.
 desc: At first you summon short lightning; it become longer with levels.
 
+# number 2 spell.. hc for mana restore in project-mon.c
 spell:Polymorph:3:1:20:3:0
-# restore mana only when successful? and make more mana in this case..
-# or make some dmg when applied on bosses? (%?)
 cooldown:5
-effect:RESTORE_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 5
 effect:BOLT_AWARE:MON_POLY:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0

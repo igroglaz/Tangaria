@@ -2090,8 +2090,9 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (context->origin->player->lev > 10)
                         dam *= context->origin->player->lev / 8;
                     // spend additional mana
-                    if (context->origin->player->lev > 9)
-                        context->origin->player->csp -= context->origin->player->lev / 10;
+                    if (context->origin->player->lev > 9 &&
+                        context->origin->player->csp > context->origin->player->lev / 10)
+                            context->origin->player->csp -= context->origin->player->lev / 10;
                 }
             // Luminous Fog spell (mana 5)
             else if (context->origin->player->spell_cost == 5)

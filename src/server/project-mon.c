@@ -1815,6 +1815,12 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
             if (context->seen)
                 add_monster_message(context->origin->player, context->mon, MON_MSG_CHANGE, false);
 
+            // Wizard polymorph spell (spell position in class.txt: 2) restore mana
+            if (streq(context->origin->player->clazz->name, "Wizard") &&
+                context->origin->player->current_spell == 2 &&
+                context->origin->player->csp < context->origin->player->msp)
+                    context->origin->player->csp += context->origin->player->lev + 5;
+
             /* Delete the old monster, and return a new one */
             delete_monster_idx(context->cave, *m_idx);
             if (place_new_monster(context->origin->player, context->cave, &grid, new_race, 0, &info,
