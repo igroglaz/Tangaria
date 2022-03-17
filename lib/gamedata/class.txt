@@ -6259,6 +6259,9 @@ magic:1:300:2
 
 # spells hardcoded (hc) by mana cost! (to ease adding new spells)
 
+### !! Also Polymorph hardcoded by spell number (#2)!
+### Careful in changing order of first 3 spells!
+
 #add 'Sometimes ray fizzles and it spell appear other forms'.
 
 book:magic book:town:[Magic for Beginners]:18:arcane
@@ -6266,12 +6269,6 @@ equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:1:12:1:0
 #hc 1d8 .. mana 1->6
-effect:RESTORE_MANA
-dice:1
-effect:RESTORE_MANA
-dice:0
-effect:RANDOM
-dice:2
 effect:TELEPORT
 dice:1
 effect:SHORT_BEAM:MISSILE:1
@@ -6281,11 +6278,10 @@ msg_other: bents index finger.. Blades appears from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: unresistable damage.
 desc: Distance of the attack and damage depends on your level.
-desc: Each cast cause recoil which shifts you to random direction.
-desc: Sometimes projecting this spell not consuming mana.
+desc: Each cast cause a recoil which shifts you to random direction.
 
 spell:Electrocute:2:3:27:2:0
-# hc 1d5; distance -> ~15
+# hc 1d5; distance -> ~15; mana -> 8
 effect:SHORT_BEAM:ELEC:6
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6298,8 +6294,8 @@ expr:B:PLAYER_LEVEL:+ 0
 effect:RANDOM
 dice:3
 msg_other: helds out a hand.. Lightning!
-desc:Summon lighting upon an enemy. Sometimes it affects several foes at once.
-desc: At first you summon short lightning; it become longer with levels.
+desc:Summon lighting upon an enemies.
+desc: At first you summon short bolt of lightning; it become longer with levels.
 
 # number 2 spell.. hc for mana restore in project-mon.c
 spell:Polymorph:3:1:20:3:0
@@ -6340,8 +6336,8 @@ desc: light-sensitive monster in its path.
 desc: If you are in a room, the entire room will be lit up as well.
 desc: Cooldown 10 turns.
 
-spell:Cold Ray:10:5:30:10:0
-# hc 1d5
+spell:Cold Ray:10:3:30:10:0
+# hc 1d5 .. mana -> 13
 effect:BOLT_OR_BEAM:COLD
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6368,8 +6364,8 @@ desc: in place protecting you.
 desc: This spell may causes internal injuries which recover after some time.
 desc: Cooldown 240 turns.
 
-spell:Flamestrike:17:10:33:20:0
-# hc 1d5
+spell:Flamestrike:17:8:33:20:0
+# hc 1d5; mana -> 13
 effect:STRIKE:FIRE:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6387,10 +6383,8 @@ effect:NOURISH:DEC_BY
 dice:0
 effect:NOURISH:DEC_BY
 dice:0
-effect:NOURISH:DEC_BY
-dice:0
 effect:RANDOM
-dice:5
+dice:4
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_POIS
 effect:TIMED_INC:OPP_COLD
