@@ -982,8 +982,8 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Cold Ray spell (mana 5)
-        if (context->origin->player->spell_cost == 5)
+        // Cold Ray spell (mana 3)
+        if (context->origin->player->spell_cost == 3)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
         if (context->origin->player->csp > context->origin->player->lev / 5)
@@ -2091,7 +2091,7 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (rad > 5) rad = 5;
                     // dmg
                     if (context->origin->player->lev > 10)
-                        dam *= context->origin->player->lev / 8;
+                        dam *= context->origin->player->lev / 7;
                     // spend additional mana
                     if (context->origin->player->lev > 9 &&
                         context->origin->player->csp > context->origin->player->lev / 10)
@@ -2190,7 +2190,7 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Obscuration spell (mana 10)
+        // Dark Ritual spell (mana 10)
         if (context->origin->player->spell_cost == 10)
             dam *= context->origin->player->lev / 5;
     }
@@ -2250,8 +2250,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
 
     if (streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Flamestrike spell (mana 10)
-        if (context->origin->player->spell_cost == 10)
+        // Flamestrike spell (mana 8)
+        if (context->origin->player->spell_cost == 8)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
         if (context->origin->player->csp > context->origin->player->lev / 10)

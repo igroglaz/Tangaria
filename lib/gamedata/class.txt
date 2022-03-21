@@ -6268,7 +6268,7 @@ book:magic book:town:[Magic for Beginners]:18:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 spell:Magic Blade:1:1:12:1:0
-#hc 1d8 .. mana 1->6
+#hc 1d7 .. mana 1->6
 effect:TELEPORT
 dice:1
 effect:SHORT_BEAM:MISSILE:1
