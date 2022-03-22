@@ -1692,8 +1692,8 @@ static void undress(struct player *p)
         /* Item is stuck */
         if (!obj_can_takeoff(obj)) continue;
 
-		// ignore items with free action (to prevent insta-death by paralyze)
-		if (of_has(obj->flags, OF_FREE_ACT)) continue;
+        // ignore items with free action (to prevent insta-death by paralyze)
+        if (of_has(obj->flags, OF_FREE_ACT)) continue;
 
         if (one_in_(count--)) break;
     }
