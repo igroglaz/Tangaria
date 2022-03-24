@@ -2370,10 +2370,12 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
     /* Put some objects/gold in the dungeon */
-    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(k * 6, 2), wpos->depth,
+    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(k * 3, 2), wpos->depth,
         ORIGIN_LABYRINTH);
-    alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(k * 3, 2), wpos->depth, ORIGIN_LABYRINTH);
-    alloc_objects(p, c, SET_BOTH, TYP_GOOD, randint1(2), wpos->depth, ORIGIN_LABYRINTH);
+    if (one_in_(2))
+        alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(k * 3, 2), wpos->depth, ORIGIN_LABYRINTH);
+    if (one_in_(2))
+        alloc_objects(p, c, SET_BOTH, TYP_GOOD, randint1(2), wpos->depth, ORIGIN_LABYRINTH);
 
     /* Notify if we want the player to see the maze layout */
     player_cave_clear(p, true);
