@@ -454,6 +454,8 @@ aim:0
 power:6
 effect:DETECT_TREASURES
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 
 name:DISABLE_TRAPS
 aim:1

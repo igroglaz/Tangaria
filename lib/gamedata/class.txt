@@ -486,6 +486,8 @@ desc: The chance to get a beam goes up with your character level.
 spell:Detect Treasure:11:3:60:5:0
 effect:DETECT_TREASURES
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 desc:Detects all treasure in the immediate area.
 
 spell:Identify Rune:12:7:25:8:0
@@ -603,15 +605,15 @@ desc:Teleports you 1 level up or 1 level down (chosen at random).
 spell:Detection:30:10:70:30:0
 effect:DETECT_MONSTERS
 effect-yx:22:40
-effect:DETECT_TREASURES
-effect-yx:22:40
+#effect:DETECT_TREASURES
+#effect-yx:22:40
 effect:DETECT_STAIRS
 effect-yx:22:40
 effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-desc:Detects all traps, doors, stairs, treasure, objects and monsters in the
+desc:Detects all traps, doors, stairs, objects and monsters in the
 desc: immediate area.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:5:arcane
@@ -1919,6 +1921,8 @@ desc: Attention! It will turn full stack of potions to poison.
 spell:Detect Objects:10:3:60:5:0
 effect:DETECT_TREASURES:NONE:1
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 desc:Detects all objects in the immediate area.
 
 spell:Detect Stairs:12:3:50:5:0
@@ -2621,6 +2625,8 @@ effect:DETECT_TREASURES
 effect-yx:22:40
 effect:TIMED_INC_NO_RES:BLIND
 dice:1+1d4
+effect:TIMED_INC_NO_RES:IMAGE
+dice:6+1d12
 desc:Detects all treasure in the immediate area.
 
 spell:Lightning Beam:5:4:20:4:0
@@ -3262,15 +3268,13 @@ desc:Fires a beam of pure mental force that crushes each monster in its path.
 spell:Precognition:22:17:48:22:0
 effect:DETECT_MONSTERS
 effect-yx:22:40
-effect:DETECT_TREASURES
-effect-yx:22:40
 effect:DETECT_STAIRS
 effect-yx:22:40
 effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-desc:Detects all traps, doors, stairs, treasure, objects and monsters in the
+desc:Detects all traps, doors, stairs, objects and monsters in the
 desc: immediate area.
 
 spell:Psychic Drain:24:21:50:24:0

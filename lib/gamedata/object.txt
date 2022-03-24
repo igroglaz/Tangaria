@@ -5170,6 +5170,8 @@ alloc:30:8 to 75
 attack:1d1:0:0
 armor:0:0
 act:DETECT_TREASURE
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 time:50
 
 name:Detection
