@@ -2263,7 +2263,7 @@ static void display_store(struct player *p, bool entering)
     flags.proj_attr = 0;
 
     /* Wipe the spell array (for browsing books in store) */
-    Send_spell_info(p, 0, 0, "", &flags);
+    Send_spell_info(p, 0, 0, "", &flags, 0);
 
     /* Send the inventory */
     if (s->type != STORE_PLAYER)

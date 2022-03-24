@@ -335,6 +335,29 @@ void do_cmd_save_screen(void)
 
 
 /*
+ * Return whether a key triggers a running action.
+ */
+static bool is_running_keymap(struct keypress ch)
+{
+    int mode = (OPT(player, rogue_like_commands)? KEYMAP_MODE_ROGUE: KEYMAP_MODE_ORIG);
+    const struct keypress *act = keymap_find(mode, ch);
+
+    if (act)
+    {
+        unsigned char run_key = cmd_lookup_key(CMD_RUN, mode);
+        const struct keypress *cur;
+
+        for (cur = act; cur->type == EVT_KBRD; cur++)
+        {
+            if ((unsigned char)cur->code == run_key) return true;
+        }
+    }
+
+    return false;
+}
+
+
+/*
  * Handle "target" and "look".
  *
  * Note that this code can be called from "get_aim_dir()".
@@ -390,12 +413,13 @@ bool cmd_target_interactive(int mode)
     Term->cursor_icky = true;
 
     /* Tell the server to init targeting */
-    Send_target_interactive(mode, '\0');
+    Send_target_interactive(mode, '\0', 1);
 
     /* Interact */
     while (!done)
     {
         keycode_t code;
+        int step;
 
         /* Describe and Prompt */
         query = inkey();
@@ -405,7 +429,9 @@ bool cmd_target_interactive(int mode)
         code = (keycode_t)target_dir(query);
         if (code == 0) code = query.code;
 
-        Send_target_interactive(mode, code);
+        step = (is_running_keymap(query)? 10: 1);
+
+        Send_target_interactive(mode, code, step);
 
         switch (query.code)
         {

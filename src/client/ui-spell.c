@@ -489,6 +489,8 @@ static int textui_obj_cast_aux(int book, bool project, int *dir)
                 flags[flag_count].flag = book_info[cur_page].spell_info[i].flag.flag;
                 flags[flag_count].dir_attr = book_info[cur_page].spell_info[i].flag.dir_attr;
                 flags[flag_count].proj_attr = book_info[cur_page].spell_info[i].flag.proj_attr;
+                flags[flag_count].smana = book_info[cur_page].spell_info[i].flag.smana;
+                flags[flag_count].page = cur_page;
                 flag_count++;
 
                 /* Note min and max flags */
@@ -521,6 +523,14 @@ static int textui_obj_cast_aux(int book, bool project, int *dir)
         /* Projectable */
         if (project && flags[i].proj_attr) spell = 0 - spell;
 
+        /* Check mana */
+        if ((flags[i].smana > player->csp) && !OPT(player, risky_casting))
+        {
+            c_msg_print(format("You do not have enough mana to %s this %s.",
+                book_info[flags[i].page].realm->verb, book_info[flags[i].page].realm->spell_noun));
+            return -1;
+        }
+
         /* Needs a direction */
         if (flags[i].dir_attr || (project && flags[i].proj_attr))
         {
@@ -533,6 +543,7 @@ static int textui_obj_cast_aux(int book, bool project, int *dir)
     else
     {
         spell_flags flag;
+        bool ghost = ((player->ghost && !player_can_undead(player))? true: false);
 
         /* Ask for a spell, allow cancel */
         spell = get_spell(book, book_info[book].realm->verb, spell_okay_to_cast);
@@ -541,6 +552,14 @@ static int textui_obj_cast_aux(int book, bool project, int *dir)
         /* Projectable */
         flag = book_info[book].spell_info[spell].flag;
         if (project && flag.proj_attr) spell += c->magic.total_spells;
+
+        /* Check mana */
+        if ((flag.smana > player->csp) && !OPT(player, risky_casting) && !ghost)
+        {
+            c_msg_print(format("You do not have enough mana to %s this %s.",
+                book_info[book].realm->verb, book_info[book].realm->spell_noun));
+            return -1;
+        }
 
         /* Needs a direction */
         if (flag.dir_attr || (project && flag.proj_attr))

@@ -1621,6 +1621,28 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
         }
     }
 
+    /* Adjust difficulty for more players (on random levels) */
+    if (p && random_level(&c->wpos) && loc_eq(&c->wpos.grid, &p->wpos.grid))
+    {
+        int count = 0;
+
+        /* Find how many players in the party are actually in the dungeon (or on the surface) */
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *q = player_get(i);
+
+            if (q == p) continue;
+            if (!in_party(q, p->party)) continue;
+            if (!loc_eq(&q->wpos.grid, &p->wpos.grid)) continue;
+
+            count++;
+        }
+
+        /* Adjust difficulty for more players: 20% extra speed and hp per extra player */
+        mon->maxhp += mon->maxhp * count / 5;
+        if (mspeed > 110) mspeed += (mspeed - 110) * count / 5;
+    }
+
     /* And start out fully healthy */
     mon->hp = mon->maxhp;
 

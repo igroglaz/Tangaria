@@ -255,19 +255,8 @@ void do_cmd_mimic(struct player *p, int page, int spell_index, int dir)
     struct class_spell *spell;
     bool projected = false;
 
-    /* Restrict ghosts */
-    if (p->ghost && !is_dm_p(p))
-    {
-        msg(p, "You cannot cast monster spells!");
-        return;
-    }
-
-    /* Not when confused */
-    if (p->timed[TMD_CONFUSED])
-    {
-        msg(p, "You are too confused!");
-        return;
-    }
+    /* Check the player can cast mimic spells at all */
+    if (player_cannot_cast_mimic(p, true)) return;
 
     /* Check each spell */
     for (i = 0; i < p->clazz->magic.books[0].num_spells; i++)
@@ -334,7 +323,8 @@ void do_cmd_mimic(struct player *p, int page, int spell_index, int dir)
     /* Check mana */
     if ((spell->smana > p->csp) && !OPT(p, risky_casting))
     {
-        msg(p, "You do not have enough mana.");
+        msg(p, "You do not have enough mana to %s this %s.", spell->realm->verb,
+            spell->realm->spell_noun);
         return;
     }
 

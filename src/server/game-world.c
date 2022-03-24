@@ -2423,6 +2423,29 @@ static void post_turn_game_loop(void)
         p->full_refresh = false;
     }
 
+    /* Process extra stuff */
+    for (i = 1; i <= NumPlayers; i++)
+    {
+        struct player *p = player_get(i);
+        bool cannot_cast, cannot_cast_mimic, send = false;
+
+        if (p->upkeep->funeral) continue;
+
+        cannot_cast = player_cannot_cast(p, false);
+        if (cannot_cast != p->cannot_cast)
+        {
+            p->cannot_cast = cannot_cast;
+            send = true;
+        }
+        cannot_cast_mimic = player_cannot_cast_mimic(p, false);
+        if (cannot_cast_mimic != p->cannot_cast_mimic)
+        {
+            p->cannot_cast_mimic = cannot_cast_mimic;
+            send = true;
+        }
+        if (send) Send_extra(p);
+    }
+
     /* Send any information over the network */
     Net_output();
 

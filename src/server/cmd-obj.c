@@ -812,7 +812,7 @@ void do_cmd_study(struct player *p, int book_index, int spell_index)
         return;
     }
 
-    if (!player_can_cast(p, true)) return;
+    if (player_cannot_cast(p, true)) return;
 
     /* Check preventive inscription '^G' */
     if (check_prevent_inscription(p, INSCRIPTION_STUDY))
@@ -1112,7 +1112,7 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
     current_clear(p);
 
     /* Check the player can cast spells at all */
-    if (!player_can_cast(p, true))
+    if (player_cannot_cast(p, true))
     {
         /* Cancel repeat */
         disturb(p, 1);

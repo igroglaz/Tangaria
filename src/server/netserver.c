@@ -2375,6 +2375,16 @@ int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_tu
 }
 
 
+int Send_extra(struct player *p)
+{
+    connection_t *connp = get_connp(p, "extra");
+    if (connp == NULL) return 0;
+
+    return Packet_printf(&connp->c, "%b%b%b", (unsigned)PKT_EXTRA, (unsigned)p->cannot_cast,
+        (unsigned)p->cannot_cast_mimic);
+}
+
+
 int Send_depth(struct player *p)
 {
     byte daytime;
@@ -2718,15 +2728,15 @@ int Send_char(struct player *p, struct loc *grid, u16b a, char c, u16b ta, char 
 }
 
 
-int Send_spell_info(struct player *p, int book, int i, const char *out_val,
-    spell_flags *flags)
+int Send_spell_info(struct player *p, int book, int i, const char *out_val, spell_flags *flags,
+    int smana)
 {
     connection_t *connp = get_connp(p, "spell info");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%s%b%b%b%b", (unsigned)PKT_SPELL_INFO,
+    return Packet_printf(&connp->c, "%b%hd%hd%s%b%b%b%b%hd", (unsigned)PKT_SPELL_INFO,
         book, i, out_val, (unsigned)flags->line_attr, (unsigned)flags->flag,
-        (unsigned)flags->dir_attr, (unsigned)flags->proj_attr);
+        (unsigned)flags->dir_attr, (unsigned)flags->proj_attr, smana);
 }
 
 
@@ -4470,9 +4480,10 @@ static int Receive_target_interactive(int ind)
     struct player *p;
     byte ch, mode;
     u32b query;
+    s16b step;
     int n;
 
-    if ((n = Packet_scanf(&connp->r, "%b%b%lu", &ch, &mode, &query)) <= 0)
+    if ((n = Packet_scanf(&connp->r, "%b%b%lu%hd", &ch, &mode, &query, &step)) <= 0)
     {
         if (n == -1) Destroy_connection(ind, "Receive_target_interactive read error");
         return n;
@@ -4485,7 +4496,7 @@ static int Receive_target_interactive(int ind)
         /* Break mind link */
         break_mind_link(p);
 
-        target_set_interactive(p, mode, query);
+        target_set_interactive(p, mode, query, step);
     }
 
     return 1;

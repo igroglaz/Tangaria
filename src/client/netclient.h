@@ -45,7 +45,7 @@ extern int Send_use(struct command *cmd);
 extern int Send_throw(struct command *cmd);
 extern int Send_wield(struct command *cmd);
 extern int Send_zap(struct command *cmd);
-extern int Send_target_interactive(int mode, keycode_t query);
+extern int Send_target_interactive(int mode, keycode_t query, int step);
 extern int Send_inscribe(struct command *cmd);
 extern int Send_uninscribe(struct command *cmd);
 extern int Send_activate(struct command *cmd);

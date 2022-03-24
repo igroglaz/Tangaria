@@ -1974,6 +1974,22 @@ static int Receive_turn(void)
 }
 
 
+static int Receive_extra(void)
+{
+    int n;
+    byte ch;
+    byte cannot_cast, cannot_cast_mimic;
+
+    if ((n = Packet_scanf(&rbuf, "%b%b%b", &ch, &cannot_cast, &cannot_cast_mimic)) <= 0)
+        return n;
+
+    player->cannot_cast = cannot_cast;
+    player->cannot_cast_mimic = cannot_cast_mimic;
+
+    return 1;
+}
+
+
 static int Receive_depth(void)
 {
     int n;
@@ -2550,12 +2566,12 @@ static int Receive_spell_info(void)
 {
     byte ch;
     int n;
-    s16b book, line;
+    s16b book, line, smana;
     char buf[NORMAL_WID];
     byte line_attr, dir_attr, flag, proj_attr;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s%b%b%b%b", &ch, &book, &line, buf, &line_attr, &flag,
-        &dir_attr, &proj_attr)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s%b%b%b%b%hd", &ch, &book, &line, buf, &line_attr, &flag,
+        &dir_attr, &proj_attr, &smana)) <= 0)
     {
         return n;
     }
@@ -2571,6 +2587,7 @@ static int Receive_spell_info(void)
         book_info[book].spell_info[line].flag.flag = flag;
         book_info[book].spell_info[line].flag.dir_attr = dir_attr;
         book_info[book].spell_info[line].flag.proj_attr = proj_attr;
+        book_info[book].spell_info[line].flag.smana = smana;
         my_strcpy(book_info[book].spell_info[line].info, buf, NORMAL_WID);
     }
 
@@ -5059,12 +5076,15 @@ int Send_zap(struct command *cmd)
 }
 
 
-int Send_target_interactive(int mode, keycode_t query)
+int Send_target_interactive(int mode, keycode_t query, int step)
 {
     int n;
 
-    if ((n = Packet_printf(&wbuf, "%b%b%lu", (unsigned)PKT_TARGET, (unsigned)mode, query)) <= 0)
+    if ((n = Packet_printf(&wbuf, "%b%b%lu%hd", (unsigned)PKT_TARGET, (unsigned)mode, query,
+        step)) <= 0)
+    {
         return n;
+    }
 
     return 1;
 }
@@ -6110,6 +6130,17 @@ int cmd_cast(struct command *cmd)
 
         spell = spellcasting_spell;
 
+        /* Check mana */
+        if ((flag.smana > player->csp) && !OPT(player, risky_casting))
+        {
+            c_msg_print(format("You do not have enough mana to %s this %s.",
+                    book_info[book->info_xtra.bidx].realm->verb,
+                    book_info[book->info_xtra.bidx].realm->spell_noun));
+            spellcasting = false;
+            spellcasting_spell = -1;
+            return 0;
+        }
+
         /* Needs a direction */
         if (flag.dir_attr)
         {
@@ -6164,6 +6195,17 @@ int cmd_project(struct command *cmd)
 
         /* Projectable */
         if (flag.proj_attr) spell += c->magic.total_spells;
+
+        /* Check mana */
+        if ((flag.smana > player->csp) && !OPT(player, risky_casting))
+        {
+            c_msg_print(format("You do not have enough mana to %s this %s.",
+                    book_info[book->info_xtra.bidx].realm->verb,
+                    book_info[book->info_xtra.bidx].realm->spell_noun));
+            spellcasting = false;
+            spellcasting_spell = -1;
+            return 0;
+        }
 
         /* Needs a direction */
         if (flag.dir_attr || flag.proj_attr)

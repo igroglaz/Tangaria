@@ -130,6 +130,7 @@ extern int Send_index(struct player *p, int i, int index, byte type);
 extern int Send_item_request(struct player *p, byte tester_hook, char *dice_string);
 extern int Send_title(struct player *p, const char *title);
 extern int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_turn);
+extern int Send_extra(struct player *p);
 extern int Send_depth(struct player *p);
 extern int Send_status(struct player *p, s16b *effects);
 extern int Send_recall(struct player *p, s16b word_recall, s16b deep_descent);
@@ -143,7 +144,7 @@ extern int Send_count(struct player *p, byte type, s16b count);
 extern int Send_show_floor(struct player *p, byte mode);
 extern int Send_char(struct player *p, struct loc *grid, u16b a, char c, u16b ta, char tc);
 extern int Send_spell_info(struct player *p, int book, int i, const char *out_val,
-    spell_flags *flags);
+    spell_flags *flags, int smana);
 extern int Send_book_info(struct player *p, int book, const char *name);
 extern int Send_floor(struct player *p, byte num, const struct object *obj,
     struct object_xtra *info_xtra, byte force);

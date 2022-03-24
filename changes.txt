@@ -26,6 +26,8 @@ Angband 4.2.x:
 - More consistent background handling
 - Allow yes/no interface options to carry over between characters
 - Generate sounds when entering or leaving stores
+- Reorder checks/confirmations so they happen before additional prompts
+- In open targeting mode, allow running keys to step 10 grids at a time
 
 MAngband 1.5.x:
 
@@ -126,6 +128,8 @@ Angband 4.2.x:
 - Add Term_redraw_all()
 - Don't overwrite a normal save with a panic save
 - Fix some comments in z-file.c
+- Constrain search in drop_find_grid() to avoid out-of-bounds access
+- Make highscore_read return value consistent
 
 PWMAngband:
 
@@ -144,3 +148,5 @@ Compilation/documentation
 - Put in first draft of "how it works" documentation for dungeon generation
 - Update comments in artifact.txt, ego_item.txt and object.txt
 - Adjust brief description for commands
+- Update comment about swap weapons keymap in pref.prf
+- Add configure option to store gamedata on libpath

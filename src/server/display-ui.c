@@ -497,7 +497,7 @@ void dump_spells(struct player *p, struct object *obj)
             my_strcpy(out_desc, "", sizeof(out_desc));
             my_strcpy(out_name, "", sizeof(out_name));
 
-            Send_spell_info(p, bidx, j, out_val, &flags);
+            Send_spell_info(p, bidx, j, out_val, &flags, 0);
             Send_spell_desc(p, bidx, j, out_desc, out_name);
             continue;
         }
@@ -557,7 +557,7 @@ void dump_spells(struct player *p, struct object *obj)
         spell_description(p, spell_index, -1, true, out_desc, sizeof(out_desc));
         my_strcpy(out_name, spell->name, sizeof(out_name));
 
-        Send_spell_info(p, bidx, j, out_val, &flags);
+        Send_spell_info(p, bidx, j, out_val, &flags, spell->smana);
         Send_spell_desc(p, bidx, j, out_desc, out_name);
     }
 }
@@ -598,7 +598,7 @@ static void fix_spell(struct player *p)
     flags.proj_attr = 0;
 
     /* Wipe the spell array */
-    Send_spell_info(p, 0, 0, "", &flags);
+    Send_spell_info(p, 0, 0, "", &flags, 0);
 
     /* Scan for appropriate books (in the pack) */
     for (i = 0; i < z_info->pack_size; i++)

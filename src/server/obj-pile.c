@@ -1235,6 +1235,10 @@ static bool drop_find_grid(struct player *p, struct chunk *c, struct object *dro
         {
             best.y = rand_spread(best.y, 1);
             best.x = rand_spread(best.x, 1);
+
+            /* Keep in bounds. */
+            best.x = MAX(0, MIN(best.x, c->width - 1));
+            best.y = MAX(0, MIN(best.y, c->height - 1));
         }
 
         /* Now go to purely random locations */

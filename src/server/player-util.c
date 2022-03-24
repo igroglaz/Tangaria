@@ -1025,31 +1025,56 @@ bool player_is_immune(struct player *p, int element)
 
 
 /*
- * Return true if the player can cast a spell.
+ * Return true if the player cannot cast a spell.
  *
  * show_msg should be set to true if a failure message should be displayed.
  */
-bool player_can_cast(struct player *p, bool show_msg)
+byte player_cannot_cast(struct player *p, bool show_msg)
 {
     if (!p->clazz->magic.total_spells)
     {
         if (show_msg) msg(p, "You cannot pray or produce magics.");
-        return false;
+        return 1;
     }
 
     if (p->timed[TMD_BLIND] || no_light(p))
     {
         if (show_msg) msg(p, "You cannot see!");
-        return false;
+        return 2;
     }
 
     if (p->timed[TMD_CONFUSED])
     {
         if (show_msg) msg(p, "You are too confused!");
-        return false;
+        return 3;
     }
 
-    return true;
+    return 0;
+}
+
+
+/*
+ * Return true if the player cannot cast a mimic spell.
+ *
+ * show_msg should be set to true if a failure message should be displayed.
+ */
+byte player_cannot_cast_mimic(struct player *p, bool show_msg)
+{
+    /* Restrict ghosts */
+    if (p->ghost && !is_dm_p(p))
+    {
+        if (show_msg) msg(p, "You cannot cast monster spells!");
+        return 1;
+    }
+
+    /* Not when confused */
+    if (p->timed[TMD_CONFUSED])
+    {
+        if (show_msg) msg(p, "You are too confused!");
+        return 2;
+    }
+
+    return 0;
 }
 
 
@@ -1120,7 +1145,7 @@ bool player_book_has_unlearned_spells(struct player *p)
     int item_num;
 
     /* Check if the player can cast spells */
-    if (!player_can_cast(p, false)) return false;
+    if (player_cannot_cast(p, false)) return false;
 
     /* Check if the player can learn new spells */
     if (!p->upkeep->new_spells) return false;

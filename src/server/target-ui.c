@@ -1047,7 +1047,7 @@ static void set_target_index(struct player *p, s16b index)
  * or -1 if no location is specified.
  * Returns true if a target has been successfully set, false otherwise.
  */
-bool target_set_interactive(struct player *p, int mode, u32b press)
+bool target_set_interactive(struct player *p, int mode, u32b press, int step)
 {
     bool done = false;
     struct point_set *targets;
@@ -1398,8 +1398,8 @@ bool target_set_interactive(struct player *p, int mode, u32b press)
             else
             {
                 /* Free mode direction: Move cursor */
-                p->tt_grid.x += ddx[dir];
-                p->tt_grid.y += ddy[dir];
+                p->tt_grid.x += step * ddx[dir];
+                p->tt_grid.y += step * ddy[dir];
 
                 /* Keep 1 away from the edge */
                 p->tt_grid.x = MAX(1, MIN(p->tt_grid.x, c->width - 2));

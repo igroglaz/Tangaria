@@ -906,6 +906,8 @@ struct player
     bool first_escape;
     bool dump_gen;
     bool icy_aura;
+    byte cannot_cast;               /* Player cannot cast spells */
+    byte cannot_cast_mimic;         /* Player cannot cast mimic spells */
 
     /*
      * In order to prevent the regeneration bonus from the first few turns, we have

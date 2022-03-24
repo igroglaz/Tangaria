@@ -192,6 +192,8 @@ typedef struct
     byte line_attr; /* "Color" of the spell (learned, worked, forgotten) */
     byte dir_attr;  /* Directional info */
     byte proj_attr; /* Can be projected */
+    int smana;      /* Mana cost */
+    int page;       /* Spell page */
 } spell_flags;
 
 /*

@@ -658,7 +658,7 @@ void show_ghost_spells(struct player *p)
     flags.proj_attr = 0;
 
     /* Wipe the spell array */
-    Send_spell_info(p, 0, 0, "", &flags);
+    Send_spell_info(p, 0, 0, "", &flags, 0);
 
     Send_book_info(p, 0, book->realm->name);
 
@@ -687,7 +687,7 @@ void show_ghost_spells(struct player *p)
         flags.proj_attr = spell->sproj;
 
         /* Send it */
-        Send_spell_info(p, 0, i, out_val, &flags);
+        Send_spell_info(p, 0, i, out_val, &flags, spell->smana);
         Send_spell_desc(p, 0, i, out_desc, out_name);
     }
 }
@@ -1012,7 +1012,7 @@ void show_mimic_spells(struct player *p)
     flags.proj_attr = 0;
 
     /* Wipe the spell array */
-    Send_spell_info(p, 0, 0, "", &flags);
+    Send_spell_info(p, 0, 0, "", &flags, 0);
 
     Send_book_info(p, 0, book->realm->name);
 
@@ -1047,7 +1047,7 @@ void show_mimic_spells(struct player *p)
         flags.proj_attr = spell->sproj;
 
         /* Send it */
-        Send_spell_info(p, k, j, out_val, &flags);
+        Send_spell_info(p, k, j, out_val, &flags, spell->smana);
         Send_spell_desc(p, k, j, out_desc, out_name);
 
         /* Next spell */

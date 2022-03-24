@@ -235,6 +235,14 @@ bool obj_cast_pre(void)
             return false;
         }
 
+        /* Check the player can cast mimic spells at all */
+        switch (player->cannot_cast_mimic)
+        {
+            case 1: c_msg_print("You cannot cast monster spells!"); return false;
+            case 2: c_msg_print("You are too confused!"); return false;
+            default: break;
+        }
+
         /* Hack -- don't get out of icky screen if disturbed */
         allow_disturb_icky = false;
 
@@ -264,6 +272,14 @@ bool obj_cast_pre(void)
             }
 
             flag = book_info[book].spell_info[spell].flag;
+
+            /* Check mana */
+            if ((flag.smana > player->csp) && !OPT(player, risky_casting))
+            {
+                c_msg_print(format("You do not have enough mana to %s this %s.",
+                    book_info[book].realm->verb, book_info[book].realm->spell_noun));
+                return false;
+            }
 
             /* Needs a direction */
             if (flag.dir_attr)
@@ -310,11 +326,13 @@ bool obj_cast_pre(void)
         return false;
     }
 
-    /* Require spell ability */
-    if (!player->clazz->magic.total_spells)
+    /* Check the player can cast spells at all */
+    switch (player->cannot_cast)
     {
-        c_msg_print("You cannot pray or produce magics.");
-        return false;
+        case 1: c_msg_print("You cannot pray or produce magics."); return false;
+        case 2: c_msg_print("You cannot see!"); return false;
+        case 3: c_msg_print("You are too confused!"); return false;
+        default: break;
     }
 
     return true;
