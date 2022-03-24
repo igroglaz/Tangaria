@@ -986,8 +986,8 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
         if (context->origin->player->spell_cost == 3)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
-        if (context->origin->player->csp > context->origin->player->lev / 5)
-                context->origin->player->csp -= context->origin->player->lev / 5;
+        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                context->origin->player->csp = context->origin->player->csp * 96 / 100;
     }
 
     if (magik(beam))
@@ -2110,9 +2110,8 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 rad += context->origin->player->lev / 5;
                 dam *= context->origin->player->lev / 5;
                 // spend additional mana
-                if (context->origin->player->lev > 9 &&
-                    context->origin->player->csp > context->origin->player->lev / 10)
-                        context->origin->player->csp -= context->origin->player->lev / 10;
+                if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                        context->origin->player->csp = context->origin->player->csp * 96 / 100;
             }
         }
 
@@ -2254,8 +2253,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
         if (context->origin->player->spell_cost == 8)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
-        if (context->origin->player->csp > context->origin->player->lev / 10)
-                context->origin->player->csp -= context->origin->player->lev / 10;
+        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                context->origin->player->csp = context->origin->player->csp * 96 / 100;
     }
 
     /* Ask for a target; if no direction given, the player is struck  */

@@ -14046,7 +14046,7 @@ flags:NEVER_MOVE
 flags:HURT_ROCK | HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS
 flags:NO_STUN
 flags:SWIM_BAD
-spell-freq:6
+spell-freq:5
 innate-freq:14
 spells:CONF | DRAIN_MANA | HOLD | MIND_BLAST | SHRIEK
 spells:S_MONSTER | S_MONSTERS
