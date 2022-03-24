@@ -693,6 +693,8 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     char o_name[NORMAL_WID];
     bool dummy = false;
     struct chunk *c = chunk_get(&p->wpos);
+    // to prevent ground-swap-curse-cheeze:
+    struct object *equip_obj;
 
     /* Increase equipment counter if empty slot */
     if (old == NULL) p->upkeep->equip_cnt++;
@@ -726,6 +728,20 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     }
     else
     {
+        // 1) to prevent ground-swap-curse-cheeze:
+        equip_obj = slot_object(p, slot);
+
+        // Don't allow replacing cursed items
+        // (anticheeze: when you replace cursed item with normal one from the ground)
+        // (note: `equip_obj` at 1st place there is to prevent "empty slot crush")
+        if (equip_obj && equip_obj->curses)
+        {
+            msg(p, "Can't swap cursed item with the item from ground. Try to 't'ake if off first.");
+            return;
+        }
+
+        // 2) regular case:
+
         /* Get a floor item and carry it */
         wielded = floor_object_for_use(p, c, obj, 1, false, &dummy);
         inven_carry(p, wielded, false, false);
