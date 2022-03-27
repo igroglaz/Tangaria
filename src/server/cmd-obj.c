@@ -332,7 +332,13 @@ void do_cmd_takeoff(struct player *p, int item)
 
         /* Nope */
         return;
-    }       
+    }
+
+    if (obj->curses && !one_in_(8))
+    {
+        msg(p, "You fail to take off cursed item this time. Try ones more..");
+        return;
+    }
 
     /* Take a turn */
     use_energy(p);
