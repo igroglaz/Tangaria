@@ -6387,19 +6387,21 @@ effect:NOURISH:DEC_BY
 dice:0
 effect:NOURISH:DEC_BY
 dice:0
+effect:NOURISH:DEC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:0
+effect:NOURISH:DEC_BY
+dice:0
 effect:RANDOM
-dice:4
-effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
+dice:8
 effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
-effect:SET_VALUE
 dice:20+1d20
-desc:Grants you resistance to acid, cold, fire, lightning and poison for
-desc: 20+1d20 turns.
-desc: Require satiation.
+desc:Grants you resistance to fire (20), cold (25), lightning (30), poison (35),
+desc: acid (40) for 20+1d20 turns. Also increase magic resistance.
+desc: Require some satiation.
 
 spell:Manablast:25:10:30:30:0
 cooldown:3
