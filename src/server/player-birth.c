@@ -932,6 +932,12 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
         else player_outfit_aux(p, kind, (byte)num, true);
     }
 
+    // some got too much gold
+    if (streq(p->clazz->name, "Phaseblade") || streq(p->clazz->name, "Telepath") ||
+        streq(p->clazz->name, "Timeturner") || streq(p->race->name, "Djinn") ||
+        streq(p->race->name, "Half-Giant") || streq(p->race->name, "Titan"))
+            p->au /= 2;
+
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
     /* Give the player a deed of property */

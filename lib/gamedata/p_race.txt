@@ -860,6 +860,7 @@ value:0:MOVES[5+1d2]
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 obj-flag:1:LIMITED_TELE
 # allow certain escapes..
+# - less gold at start
 value:0:MANA[5]
 value:0:TUNNEL[2+1d10]
 obj-flag:34:SUST_STR
@@ -1616,6 +1617,7 @@ value:0:TUNNEL[3+1d10]
 slay:35:50:DRAGON_3
 value:0:MANA[1d5]
 # /// -
+# less money at start
 obj-flag:1:NO_TELEPORT
 obj-flag:1:HUNGER
 #obj-flag:5:SUST_STR
@@ -1880,6 +1882,7 @@ value:50:RES_SHARD[1]
 obj-flag:1:ESP_DEMON
 slay:25:50:DEMON_3
 # -
+# got less gold at start
 player-flags:0:NO_BOOTS
 obj-flag:1:IMPAIR_HP
 obj-flag:1:IMPAIR_MANA
