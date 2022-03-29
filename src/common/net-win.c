@@ -1621,7 +1621,7 @@ GetSockAddr(int fd)
  *  namelen     - Maximum length of the peer name.
  *
  * Output Parameters
- *  The hostname of the peer in a uint8_t array.
+ *  The hostname of the peer in a byte array.
  *
  * Return Value
  *  -1 on failure, 0 on success.

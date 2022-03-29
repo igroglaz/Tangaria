@@ -53,7 +53,7 @@
 #define NOATOM            /* Atom management */
 #define NOLANGUAGE        /* Character test routines */
 #define NOLSTRING         /* lstr* string management routines */
-#define NODBCS            /* Double-uint8_t character set routines */
+#define NODBCS            /* Double-byte character set routines */
 #define NOKEYBOARDINFO    /* Keyboard driver routines */
 #define NOCOLOR           /* COLOR_* color values */
 #define NODRAWTEXT        /* DrawText() and related definitions */

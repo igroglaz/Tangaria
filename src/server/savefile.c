@@ -25,14 +25,14 @@
  * The savefile code.
  *
  * Savefiles since ~3.1 have used a block-based system.  Each savefile
- * consists of an 8-uint8_t header, the first four bytes of which mark this
+ * consists of an 8-byte header, the first four bytes of which mark this
  * as a savefile, the second four bytes provide a variant ID.
  *
  * After that, each block has the format:
- * - 16-uint8_t string giving the type of block
- * - 4-uint8_t block version
- * - 4-uint8_t block size
- * - 4-uint8_t block checksum
+ * - 16-byte string giving the type of block
+ * - 4-byte block version
+ * - 4-byte block size
+ * - 4-byte block checksum
  * ... data ...
  * padding so that block is a multiple of 4 bytes
  *
@@ -485,7 +485,7 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
 
         savers[i].save(data);
 
-        /* 16-uint8_t block name */
+        /* 16-byte block name */
         pos = my_strcpy((char *)savefile_head, savers[i].name, sizeof(savefile_head));
         while (pos < 16) savefile_head[pos++] = 0;
 
@@ -504,7 +504,7 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
         file_write(file, (char *)savefile_head, SAVEFILE_HEAD_SIZE);
         file_write(file, (char *)buffer, buffer_pos);
 
-        /* Pad to 4 uint8_t multiples */
+        /* Pad to 4 byte multiples */
         if (buffer_pos % 4) file_write(file, "xxx", 4 - (buffer_pos % 4));
     }
 

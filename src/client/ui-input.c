@@ -429,7 +429,7 @@ bool askfor_aux(char *buf, int len, keypress_handler keypress_h)
 {
     int y, x;
     size_t k = 0;   /* Cursor position */
-    size_t nul = 0; /* Position of the null uint8_t in the string */
+    size_t nul = 0; /* Position of the null byte in the string */
     struct keypress ch;
     bool done = false;
     bool firsttime = true;
@@ -456,7 +456,7 @@ bool askfor_aux(char *buf, int len, keypress_handler keypress_h)
     /* Truncate the default entry */
     buf[len - 1] = '\0';
 
-    /* Get the position of the null uint8_t */
+    /* Get the position of the null byte */
     nul = strlen(buf);
 
     /* Display the default answer */
@@ -507,7 +507,7 @@ int askfor_ex(char *buf, int len, keypress_handler keypress_h, bool priv)
 {
     int y, x;
     size_t i, k = 0;   /* Cursor position */
-    size_t nul = 0; /* Position of the null uint8_t in the string */
+    size_t nul = 0; /* Position of the null byte in the string */
     ui_event ke = EVENT_EMPTY;
     bool done = false;
     bool firsttime = true;
@@ -532,7 +532,7 @@ int askfor_ex(char *buf, int len, keypress_handler keypress_h, bool priv)
     /* Truncate the default entry */
     buf[len - 1] = '\0';
 
-    /* Get the position of the null uint8_t */
+    /* Get the position of the null byte */
     nul = strlen(buf);
 
     /* Display the default answer */

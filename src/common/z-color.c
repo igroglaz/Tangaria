@@ -170,7 +170,7 @@ int color_char_to_attr(char c)
 
 
 /*
- * Converts a string to a terminal color uint8_t.
+ * Converts a string to a terminal color byte.
  */
 int color_text_to_attr(const char *name)
 {

@@ -3680,7 +3680,7 @@ static keycode_t utf8_to_codepoint(const char *utf8_string)
 
 #define IS_UTF8_INFO(mask, result) (((unsigned char) utf8_string[0] & (mask)) == (result))
 #define EXTRACT_UTF8_INFO(pos, mask, shift) (((unsigned char) utf8_string[(pos)] & (mask)) << (shift))
-    /* 6 is the number of information bits in a utf8 continuation uint8_t (10xxxxxx) */
+    /* 6 is the number of information bits in a utf8 continuation byte (10xxxxxx) */
     if (IS_UTF8_INFO(0x80, 0)) {
         key = utf8_string[0];
     } else if (IS_UTF8_INFO(0xe0, 0xc0)) {

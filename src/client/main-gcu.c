@@ -439,7 +439,7 @@ static void gcu_keypress(int i)
      * This might be a bad idea, but...
      *
      * Here we try to second-guess ncurses. In some cases, keypad() mode will
-     * fail to translate multi-uint8_t escape sequences into things like number-
+     * fail to translate multi-byte escape sequences into things like number-
      * pad actions, function keys, etc. So we can hardcode a small list of some
      * of the most common sequences here, just in case.
      *

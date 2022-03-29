@@ -227,7 +227,7 @@
  * that the contents of "cp" are null-terminated.  This hook is optional,
  * unless the setting of the "always_pict" or "higher_pict" flags make
  * it required.  Note that recently, this hook was changed from taking
- * a uint8_t "a" and a char "c" to taking a length "n", an array of bytes
+ * a byte "a" and a char "c" to taking a length "n", an array of bytes
  * "ap" and an array of chars "cp".  Old implementations of this hook
  * should now iterate over all "n" attr/char pairs.
  * The two new arrays "tap" and "tcp" can contain the attr/char pairs

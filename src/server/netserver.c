@@ -61,7 +61,7 @@
  * Communication between the server and the clients is only done
  * using UDP datagrams.  The first client/serverized version of XPilot
  * was using TCP only, but this was too unplayable across the Internet,
- * because TCP is a data stream always sending the next uint8_t.
+ * because TCP is a data stream always sending the next byte.
  * If a packet gets lost then the server has to wait for a
  * timeout before a retransmission can occur.  This is too slow
  * for a real-time program like this game, which is more interested
@@ -73,11 +73,11 @@
  * enabled reliable data transmission.  Here this is done by creating
  * a data stream which is piggybacked on top of the unreliable data
  * packets.  The client acknowledges this reliable data by sending
- * its uint8_t position in the reliable data stream.  So if the client gets
+ * its byte position in the reliable data stream.  So if the client gets
  * a new reliable data packet and it has not had this data before and
  * there is also no data packet missing inbetween, then it advances
- * its uint8_t position and acknowledges this new position to the server.
- * Otherwise it discards the packet and sends its old uint8_t position
+ * its byte position and acknowledges this new position to the server.
+ * Otherwise it discards the packet and sends its old byte position
  * to the server meaning that it detected a packet loss.
  * The server maintains an acknowledgement timeout timer for each
  * connection so that it can retransmit a reliable data packet
@@ -2584,7 +2584,7 @@ static connection_t* get_mind_link(struct player *p)
  * As an attempt to lower bandwidth requirements, each line is run length
  * encoded.  Non-encoded grids are sent as normal, but if a grid is
  * repeated at least twice, then bit 0x40 of the attribute is set, and
- * the next uint8_t contains the number of repetitions of the previous grid.
+ * the next byte contains the number of repetitions of the previous grid.
  */
 #define DUNGEON_RLE_MODE(P) ((P)->use_graphics? RLE_LARGE: RLE_CLASSIC)
 int Send_line_info(struct player *p, int y)
