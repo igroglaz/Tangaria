@@ -23,7 +23,7 @@
 /*
  * Stat Table -- chance of getting a friendly summon with CHR
  */
-static const byte summon_chr_friendly[STAT_RANGE] =
+static const uint8_t summon_chr_friendly[STAT_RANGE] =
 {
     0   /* 3 */,
     0   /* 4 */,

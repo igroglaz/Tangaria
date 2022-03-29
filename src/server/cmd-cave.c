@@ -1017,8 +1017,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             static const struct summon_chance_t
             {
                 const char *race;
-                byte minlev;
-                byte chance;
+                uint8_t minlev;
+                uint8_t chance;
             } summon_chance[] =
             {
                 {"creeping copper coins", 0, 100},
@@ -1081,8 +1081,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             static const struct summon_chance_t
             {
                 const char *race;
-                byte minlev;
-                byte chance;
+                uint8_t minlev;
+                uint8_t chance;
             } summon_chance[] =
             {
                 {"giant green frog", 0, 100},
@@ -1313,8 +1313,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             static const struct summon_chance_t
             {
                 const char *race;
-                byte minlev;
-                byte chance;
+                uint8_t minlev;
+                uint8_t chance;
             } summon_chance[] =
             {
                 {"soldier ant", 0, 100},
@@ -1343,8 +1343,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             static const struct summon_chance_t
             {
                 const char *race;
-                byte minlev;
-                byte chance;
+                uint8_t minlev;
+                uint8_t chance;
             } summon_chance[] =
             {
                 {"grey mold", 0, 100},
@@ -1378,8 +1378,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             static const struct summon_chance_t
             {
                 const char *race;
-                byte minlev;
-                byte chance;
+                uint8_t minlev;
+                uint8_t chance;
             } summon_chance[] =
             {
                 {"soldier ant", 0, 100},

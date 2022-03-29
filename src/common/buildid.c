@@ -46,7 +46,7 @@ bool beta_version(void)
 #define VERSION_EXTRA   0
 #define VERSION_TANGARIA   4
 
-// Note that it's u16b, so max version after << operations might be 65535.. 
+// Note that it's uint16_t, so max version after << operations might be 65535.. 
 // ..which new T version marker will overflow. So for comparison we will use just T version
 uint16_t current_version(void)
 {
