@@ -3363,7 +3363,7 @@ bool effect_handler_DRAIN_LIGHT(effect_handler_context_t *context)
         /* Notice */
         if (!context->origin->player->timed[TMD_BLIND])
         {
-            msg(context->origin->player, "Your light dims.");
+            msgt(context->origin->player, MSG_MON_DEVOUR, "O__* Your light dims.");
             context->ident = true;
         }
 
