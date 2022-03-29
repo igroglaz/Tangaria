@@ -629,3 +629,13 @@ effect:DAMAGE
 dice:1d2
 desc:A wicked magic mirror who damage self-confidence of all who look at it.
 msg:Magic mirror on the wall, who is the fairest one of all?
+
+name:trap:drain light
+graphics:^:light yellow
+appear:2:2:2
+visibility:10d50
+flags:TRAP | FLOOR | MAGICAL | ONETIME
+effect:DRAIN_LIGHT
+dice:14950
+desc:A trap that drain light from your light source.
+msg:Suddenly your light goes out!

@@ -805,7 +805,7 @@ weight:0
 experience:4
 blow:CRUSH:HURT:1d3
 blow:CRUSH:HURT:1d3
-blow:CRUSH:HURT:1d3
+blow:DEVOUR:EAT_LIGHT:1d3
 flags:DROP_40 | NO_SLEEP | WEIRD_MIND
 flags:IM_COLD | NEVER_MOVE
 spell-freq:5
@@ -829,7 +829,7 @@ weight:0
 experience:4
 blow:CRUSH:HURT:1d3
 blow:CRUSH:HURT:1d3
-blow:CRUSH:HURT:1d3
+blow:DEVOUR:EAT_LIGHT:1d3
 flags:DROP_40 | NO_SLEEP | WEIRD_MIND
 flags:IM_COLD | NEVER_MOVE
 spell-freq:13
@@ -4300,7 +4300,7 @@ weight:400
 experience:45
 blow:CRUSH:HURT:1d6
 blow:CRUSH:HURT:1d6
-blow:CRUSH:HURT:1d6
+blow:DEVOUR:EAT_LIGHT:1d6
 flags:DROP_40 | NO_SLEEP | NO_CONF | WEIRD_MIND | HURT_FIRE | PWMANG_BASE
 flags:IM_WATER | IM_COLD | NEVER_MOVE
 spell-freq:8
@@ -5021,6 +5021,7 @@ rarity:2
 weight:0
 experience:100
 blow:CRUSH:HURT:1d20
+blow:DEVOUR:EAT_LIGHT:1d3
 flags:NEVER_MOVE | WEIRD_MIND
 flags:NO_STUN | NO_SLOW
 spell-freq:12
@@ -7835,7 +7836,7 @@ experience:120
 blow:CRUSH:HURT:3d6
 blow:CRUSH:HURT:3d6
 blow:CRUSH:HURT:3d6
-blow:CRUSH:HURT:3d6
+blow:DEVOUR:EAT_LIGHT:3d6
 flags:DROP_40 | NO_SLEEP | WEIRD_MIND
 flags:IM_COLD | NEVER_MOVE
 spell-freq:9
@@ -10005,7 +10006,7 @@ rarity:3
 weight:0
 experience:1500
 blow:TOUCH:PARALYZE:1d14
-blow:TOUCH:PARALYZE:1d14
+blow:DEVOUR:EAT_LIGHT:1d14
 blow:CRUSH:HURT:2d12
 flags:NEVER_MOVE
 flags:UNIQUE | FORCE_SLEEP | EVIL
@@ -16049,7 +16050,7 @@ experience:800
 blow:CRUSH:HURT:5d8
 blow:CRUSH:HURT:5d8
 blow:CRUSH:HURT:5d8
-blow:CRUSH:HURT:5d8
+blow:DEVOUR:EAT_LIGHT:5d8
 flags:DROP_40 | NO_SLEEP | WEIRD_MIND
 flags:IM_COLD | NEVER_MOVE
 spell-freq:9
@@ -27884,7 +27885,7 @@ experience:7
 blow:CRUSH:HURT:3d6
 blow:CRUSH:HURT:3d6
 blow:CRUSH:HURT:3d6
-blow:CRUSH:HURT:3d6
+blow:DEVOUR:EAT_LIGHT:3d6
 flags:NO_SLEEP | NO_CONF | WEIRD_MIND | HURT_FIRE | PWMANG_BASE
 flags:IM_WATER | IM_COLD | NEVER_MOVE | WILD_ONLY | WILD_WOOD
 spell-freq:9
