@@ -828,7 +828,7 @@ static void melee_effect_handler_EAT_LIGHT(melee_effect_handler_context_t *conte
     /* Drain the light source */
     msgt(context->p, MSG_MON_DEVOUR, "O__* Some of your light was stolen!");
     source_player(who, get_player_index(get_connection(context->p->conn)), context->p);
-    effect_simple(EF_DRAIN_LIGHT, who, "500+1d50", 0, 0, 0, 0, 0, &context->obvious);
+    effect_simple(EF_DRAIN_LIGHT, who, "1000+1d50", 0, 0, 0, 0, 0, &context->obvious);
 }
 
 
