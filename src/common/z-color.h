@@ -81,17 +81,17 @@ typedef struct
 {
     char index_char;                /* Character index:  'r' = red, etc. */
     char name[32];                  /* Color name */
-    byte color_translate[MAX_ATTR]; /* Index for various in-game translations */
+    uint8_t color_translate[MAX_ATTR]; /* Index for various in-game translations */
 } color_type;
 
-extern byte angband_color_table[MAX_COLORS][4];
+extern uint8_t angband_color_table[MAX_COLORS][4];
 extern color_type color_table[MAX_COLORS];
 
 extern int color_char_to_attr(char c);
 extern int color_text_to_attr(const char *name);
-extern byte get_color(byte a, int attr, int n);
+extern uint8_t get_color(uint8_t a, int attr, int n);
 
 extern void build_gamma_table(int gamma);
-extern byte gamma_table[256];
+extern uint8_t gamma_table[256];
 
 #endif

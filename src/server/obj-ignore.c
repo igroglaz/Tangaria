@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 David T. Blackston, Iain McFall, DarkGod, Jeff Greene,
  * David Vestal, Pete Mack, Andi Sidwell.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -62,7 +62,7 @@ static int cmp_object_trait(int bonus, random_value base)
 static int is_object_good(const struct object *obj)
 {
     int good = 0;
-    s16b to_h, to_d, to_a;
+    int16_t to_h, to_d, to_a;
 
     object_to_h(obj, &to_h);
     object_to_d(obj, &to_d);
@@ -228,7 +228,7 @@ void assess_object(struct player *p, struct object *obj, bool tocarry)
  * The main point is when the value is undetermined given current info,
  * return the maximum possible value.
  */
-byte ignore_level_of(struct player *p, const struct object *obj)
+uint8_t ignore_level_of(struct player *p, const struct object *obj)
 {
     bool fullid = object_is_known(p, obj);
 
@@ -276,7 +276,7 @@ byte ignore_level_of(struct player *p, const struct object *obj)
  */
 bool object_is_ignored(struct player *p, const struct object *obj)
 {
-    byte type;
+    uint8_t type;
 
     /* Don't ignore artifacts */
     if (obj->artifact) return false;
@@ -418,7 +418,7 @@ int apply_autoinscription(struct player *p, struct object *obj)
 /*
  * Deregister an object kind autoinscription
  */
-int remove_autoinscription(struct player *p, s16b kind)
+int remove_autoinscription(struct player *p, int16_t kind)
 {
     struct object_kind *k = &k_info[kind];
 
@@ -433,7 +433,7 @@ int remove_autoinscription(struct player *p, s16b kind)
 /*
  * Register an object kind autoinscription
  */
-int add_autoinscription(struct player *p, s16b kind, const char *inscription)
+int add_autoinscription(struct player *p, int16_t kind, const char *inscription)
 {
     struct object_kind *k = &k_info[kind];
 

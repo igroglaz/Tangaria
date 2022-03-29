@@ -3,7 +3,7 @@
  * Purpose: Show player and terrain context menus
  *
  * Copyright (c) 2011 Brett Reid
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -400,7 +400,7 @@ int context_menu_object(struct object *obj)
  */
 static void cmd_sub_entry(struct menu *menu, int oid, bool cursor, int row, int col, int width)
 {
-    byte attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
+    uint8_t attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
     const struct cmd_info *commands = menu_priv(menu);
     int mode = (OPT(player, rogue_like_commands)? KEYMAP_MODE_ROGUE: KEYMAP_MODE_ORIG);
     struct keypress kp;
@@ -470,7 +470,7 @@ static bool cmd_list_action(struct menu *m, const ui_event *event, int oid)
 static void cmd_list_entry(struct menu *menu, int oid, bool cursor, int row,
     int col, int width)
 {
-    byte attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
+    uint8_t attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
 
     Term_putstr(col, row, -1, attr, cmds_all[oid].name);
 }

@@ -216,19 +216,19 @@ extern size_t file_read(ang_file *f, char *buf, size_t n);
 extern bool file_write(ang_file *f, const char *buf, size_t n);
 
 /*
- * Read a byte from the file represented by `f` and place it at the location
+ * Read a uint8_t from the file represented by `f` and place it at the location
  * specified by 'b'.
  *
  * Returns true if successful, false otherwise.
  */
-extern bool file_readc(ang_file *f, byte *b);
+extern bool file_readc(ang_file *f, uint8_t *b);
 
 /*
- * Write the byte `b` to the file represented by `f`.
+ * Write the uint8_t `b` to the file represented by `f`.
  *
  * Returns true if successful, false otherwise.
  */
-extern bool file_writec(ang_file *f, byte b);
+extern bool file_writec(ang_file *f, uint8_t b);
 
 /* fflush, ftell, rewind */
 extern void file_flush(ang_file *f);

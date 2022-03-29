@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2007-9 Andi Sidwell, Chris Carr, Ed Graham, Erik Osheim
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -164,7 +164,7 @@ void do_cmd_inscribe(struct player *p, int item, const char *inscription)
 {
     struct object *obj = object_from_index(p, item, true, true);
     char o_name[NORMAL_WID];
-    s32b price;
+    int32_t price;
 
     /* Paranoia: requires an item */
     if (!obj) return;
@@ -1007,7 +1007,7 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         p->current_spell = spell_index;
 
         /* Save current inscription */
-        p->current_item = (s16b)note;
+        p->current_item = (int16_t)note;
 
         /* Only fire in direction 5 if we have a target */
         if ((dir == DIR_TARGET) && !target_okay(p)) return false;
@@ -1387,7 +1387,7 @@ enum
 /* Command parameters */
 typedef struct
 {
-    u32b dm_flag;
+    uint32_t dm_flag;
     bool player_undead;
     const char *msg_ghost;
     int p_note;
@@ -1501,7 +1501,7 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
 {
     struct beam_info beam;
     int boost, level;
-    u16b tval;
+    uint16_t tval;
     quark_t note;
     bool no_ident = false;
     struct effect *e = effect;

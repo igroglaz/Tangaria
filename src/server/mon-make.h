@@ -27,15 +27,15 @@ extern int mon_create_drop_count(const struct monster_race *race, bool maximize,
 extern void mon_create_drops(struct player *p, struct chunk *c, struct monster *mon);
 extern void mon_create_mimicked_object(struct player *p, struct chunk *c, struct monster *mon,
     int index);
-extern s16b place_monster(struct player *p, struct chunk *c, struct monster *mon, byte origin);
+extern int16_t place_monster(struct player *p, struct chunk *c, struct monster *mon, uint8_t origin);
 extern int mon_hp(const struct monster_race *race, aspect hp_aspect);
 extern int sleep_value(const struct monster_race *race);
 extern bool place_new_monster(struct player *p, struct chunk *c, struct loc *grid,
-    struct monster_race *race, byte mon_flag, struct monster_group_info *group_info, byte origin);
+    struct monster_race *race, uint8_t mon_flag, struct monster_group_info *group_info, uint8_t origin);
 extern bool pick_and_place_monster(struct player *p, struct chunk *c, struct loc *grid, int depth,
-    byte mon_flag, byte origin);
+    uint8_t mon_flag, uint8_t origin);
 extern bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis,
-    byte mon_flag);
+    uint8_t mon_flag);
 extern void monster_give_xp(struct player *p, struct chunk *c, struct monster *mon, bool split);
 extern void monster_drop_carried(struct player *p, struct chunk *c, struct monster *mon,
     int num, bool visible, int *dump_item, int *dump_gold);

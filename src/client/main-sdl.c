@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Ben Harrison, Gregory Velichansky, Eric Stevens,
  * Leon Marrick, Iain McFall, and others
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -119,7 +119,7 @@ struct term_window
     term term_data;
     SDL_Surface *surface;   /* The surface for this window */
     SDL_Surface *tiles;     /* The appropriately sized tiles for this window */
-    byte Term_idx;          /* Index of term that relates to this */
+    uint8_t Term_idx;          /* Index of term that relates to this */
     int top;                /* Window Coordinates on the main screen */
     int left;
     int keys;               /* Size of keypress storage */
@@ -2720,7 +2720,7 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
  */
 static void sdl_keypress(SDL_keysym keysym)
 {
-    u16b key_code = keysym.unicode;
+    uint16_t key_code = keysym.unicode;
     SDLKey key_sym = keysym.sym;
     int ch = 0;
 
@@ -2731,7 +2731,7 @@ static void sdl_keypress(SDL_keysym keysym)
 	bool mm = ((keysym.mod & KMOD_META) > 0);
     /*bool mg = ((keysym.mod & KMOD_MODE) > 0);*/
     bool kp = false;
-    byte mods = ((ma? KC_MOD_ALT: 0) | (mm? KC_MOD_META: 0));
+    uint8_t mods = ((ma? KC_MOD_ALT: 0) | (mm? KC_MOD_META: 0));
 
     /* Hack -- for keyboards with Alt-Gr translated into KMOD_RALT | KMOD_LCTRL */
     /*if ((keysym.mod & KMOD_RALT) && (keysym.mod & KMOD_LCTRL)) mg = true;*/
@@ -3129,7 +3129,7 @@ static errr Term_bigcurs_sdl(int col, int row)
     term_window *win = (term_window*)(Term->data);
     SDL_Color colour = text_colours[COLOUR_YELLOW];
     SDL_Rect rc;
-    /*u16b a, ta;
+    /*uint16_t a, ta;
     char c, tc;
     int j = 0;*/
 
@@ -3406,7 +3406,7 @@ static errr sdl_BuildTileset(term_window *win)
  * If "prc" is not null, only draw the portion of the tile inside that rectangle. We suppose here
  * that the two rectangles "rc" and "prc" are overlapping.
  */
-static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Rect *prc, u16b a,
+static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Rect *prc, uint16_t a,
     char c, bool background)
 {
     int j = (a & 0x7F);
@@ -3473,8 +3473,8 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
  * If "prc" is not null, only draw the portion of the tiles inside that rectangle. We suppose here
  * that the two rectangles "rc" and "prc" are overlapping.
  */
-static void sdl_DrawTiles(term_window *win, int col, int row, SDL_Rect rc, SDL_Rect *prc, u16b a,
-    char c, u16b ta, char tc)
+static void sdl_DrawTiles(term_window *win, int col, int row, SDL_Rect rc, SDL_Rect *prc, uint16_t a,
+    char c, uint16_t ta, char tc)
 {
     /* Draw the terrain tile */
     sdl_DrawTile(win, col, row, rc, prc, ta, tc, true);
@@ -3490,7 +3490,7 @@ static void sdl_DrawTiles(term_window *win, int col, int row, SDL_Rect rc, SDL_R
 /*
  * Draw some text to a window
  */
-static errr Term_text_sdl_aux(int col, int row, int n, u16b a, const char *s)
+static errr Term_text_sdl_aux(int col, int row, int n, uint16_t a, const char *s)
 {
     term_window *win = (term_window*)(Term->data);
     SDL_Color colour = text_colours[a % MAX_COLORS];
@@ -3539,12 +3539,12 @@ static errr Term_text_sdl_aux(int col, int row, int n, u16b a, const char *s)
  *
  * For double-height tiles, we redraw all double-height tiles below.
  */
-static errr Term_text_sdl(int col, int row, int n, u16b a, const char *s)
+static errr Term_text_sdl(int col, int row, int n, uint16_t a, const char *s)
 {
     term_window *win = (term_window*)(Term->data);
     SDL_Rect rc;
     int i;
-    u16b fa, ta;
+    uint16_t fa, ta;
     char fc, tc;
     int tile_wid = 1, tile_hgt = 1;
 
@@ -3604,14 +3604,14 @@ static errr Term_text_sdl(int col, int row, int n, u16b a, const char *s)
  *
  * For double-height tiles, we redraw the tile just above and all double-height tiles below.
  */
-static errr Term_pict_sdl(int col, int row, int n, const u16b *ap, const char *cp,
-    const u16b *tap, const char *tcp)
+static errr Term_pict_sdl(int col, int row, int n, const uint16_t *ap, const char *cp,
+    const uint16_t *tap, const char *tcp)
 {
     /* Get the right window */
     term_window *win = (term_window*)(Term->data);
     SDL_Rect rc, rc2;
 	int i;
-    u16b a, ta;
+    uint16_t a, ta;
     char c, tc;
     int tile_wid = 1, tile_hgt = 1;
 

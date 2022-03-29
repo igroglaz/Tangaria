@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2010 Andi Sidwell
  * Copyright (c) 2011 Peter Denison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -69,7 +69,7 @@ void text_out_done(struct player *p)
  * You must be careful to end all file output with a newline character
  * to "flush" the stored line position.
  */
-static void text_out_aux(struct player *p, byte a, const char *str)
+static void text_out_aux(struct player *p, uint8_t a, const char *str)
 {
     const char *s;
     char buf[MSG_LEN];
@@ -199,7 +199,7 @@ void text_out(struct player *p, const char *fmt, ...)
  * Output text to the screen (in color) or to a file depending on the
  * selected hook.
  */
-void text_out_c(struct player *p, byte a, const char *fmt, ...)
+void text_out_c(struct player *p, uint8_t a, const char *fmt, ...)
 {
     char buf[MSG_LEN];
     va_list vp;

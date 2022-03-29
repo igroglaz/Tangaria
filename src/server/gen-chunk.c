@@ -3,7 +3,7 @@
  * Purpose: Handling of chunks of cave
  *
  * Copyright (c) 2014 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -142,7 +142,7 @@ void chunk_decrease_player_count(struct worldpos *wpos)
 }
 
 
-void chunk_set_player_count(struct worldpos *wpos, s16b value)
+void chunk_set_player_count(struct worldpos *wpos, int16_t value)
 {
     struct wild_type *w_ptr = get_wt_info_at(&wpos->grid);
 
@@ -167,7 +167,7 @@ bool chunk_has_players(struct worldpos *wpos)
 }
 
 
-s16b chunk_get_player_count(struct worldpos *wpos)
+int16_t chunk_get_player_count(struct worldpos *wpos)
 {
     struct wild_type *w_ptr = get_wt_info_at(&wpos->grid);
 

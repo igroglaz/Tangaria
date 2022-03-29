@@ -83,7 +83,7 @@ struct pit_monster_profile
 struct pit_color_profile
 {
      struct pit_color_profile *next;
-     byte color;
+     uint8_t color;
 };
 
 /*
@@ -151,7 +151,7 @@ struct dun_data
     /* Array of tunnel grids */
     int tunn_n;
     struct loc *tunn;
-    byte *tunn_flag;
+    uint8_t *tunn_flag;
 
     /* Number of grids in each block (vertically) */
     int block_hgt;
@@ -256,11 +256,11 @@ struct vault
     struct vault *next;         /* Pointer to next vault template */
     char *typ;                  /* Vault type */
     bitflag flags[ROOMF_SIZE];  /* Vault flags */
-    byte rat;                   /* Vault rating */
-    byte hgt;                   /* Vault height */
-    byte wid;                   /* Vault width */
-    byte min_lev;               /* Minimum allowable level, if specified. */
-    byte max_lev;               /* Maximum allowable level, if specified. */
+    uint8_t rat;                   /* Vault rating */
+    uint8_t hgt;                   /* Vault height */
+    uint8_t wid;                   /* Vault width */
+    uint8_t min_lev;               /* Minimum allowable level, if specified. */
+    uint8_t max_lev;               /* Maximum allowable level, if specified. */
 };
 
 /*
@@ -272,12 +272,12 @@ struct room_template
     char *text;                 /* Text */
     bitflag flags[ROOMF_SIZE];  /* Room flags */
     struct room_template *next; /* Pointer to next room template */
-    byte typ;                   /* Room type */
-    byte rat;                   /* Room rating */
-    byte hgt;                   /* Room height */
-    byte wid;                   /* Room width */
-    byte dor;                   /* Random door options */
-    u16b tval;                  /* tval for objects in this room */
+    uint8_t typ;                   /* Room type */
+    uint8_t rat;                   /* Room rating */
+    uint8_t hgt;                   /* Room height */
+    uint8_t wid;                   /* Room width */
+    uint8_t dor;                   /* Random door options */
+    uint16_t tval;                  /* tval for objects in this room */
 };
 
 extern struct dun_data *dun;
@@ -317,15 +317,15 @@ extern void chunk_validate_objects(struct chunk *c);
 extern struct chunk *chunk_get(struct worldpos *wpos);
 extern bool chunk_inhibit_players(struct worldpos *wpos);
 extern void chunk_decrease_player_count(struct worldpos *wpos);
-extern void chunk_set_player_count(struct worldpos *wpos, s16b value);
+extern void chunk_set_player_count(struct worldpos *wpos, int16_t value);
 extern void chunk_increase_player_count(struct worldpos *wpos);
 extern bool chunk_has_players(struct worldpos *wpos);
-extern s16b chunk_get_player_count(struct worldpos *wpos);
+extern int16_t chunk_get_player_count(struct worldpos *wpos);
 
 /* gen-monster.c */
 extern bool mon_restrict(const char *monster_type, int depth, int current_depth, bool unique_ok);
 extern void spread_monsters(struct player *p, struct chunk *c, const char *type, int depth, int num,
-    int y0, int x0, int dy, int dx, byte origin);
+    int y0, int x0, int dy, int dx, uint8_t origin);
 extern void get_vault_monsters(struct player *p, struct chunk *c, char racial_symbol[],
     char *vault_type, const char *data, int y1, int y2, int x1, int x2);
 extern void get_chamber_monsters(struct player *p, struct chunk *c, int y1, int x1, int y2, int x2,
@@ -367,7 +367,7 @@ extern bool room_build(struct player *p, struct chunk *c, int by0, int bx0,
     struct room_profile profile, bool finds_own_space);
 
 /* gen-util.c */
-extern byte get_angle_to_grid[41][41];
+extern uint8_t get_angle_to_grid[41][41];
 
 extern int grid_to_i(struct loc *grid, int w);
 extern void i_to_grid(int i, int w, struct loc *grid);
@@ -387,8 +387,8 @@ extern bool new_player_spot(struct chunk *c, struct player *p);
 extern void place_stairs(struct chunk *c, struct loc *grid, int feat);
 extern void place_random_stairs(struct chunk *c, struct loc *grid);
 extern void place_object(struct player *p, struct chunk *c, struct loc *grid, int level,
-    bool good, bool great, byte origin, int tval);
-extern void place_gold(struct player *p, struct chunk *c, struct loc *grid, int level, byte origin);
+    bool good, bool great, uint8_t origin, int tval);
+extern void place_gold(struct player *p, struct chunk *c, struct loc *grid, int level, uint8_t origin);
 extern void place_secret_door(struct chunk *c, struct loc *grid);
 extern void place_closed_door(struct chunk *c, struct loc *grid);
 extern void place_random_door(struct chunk *c, struct loc *grid);
@@ -405,9 +405,9 @@ extern void dump_level_body(ang_file *fo, const char *title, struct chunk *c, in
 extern void dump_level_footer(ang_file *fo);
 
 extern void alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num,
-    int depth, byte origin);
+    int depth, uint8_t origin);
 extern bool alloc_object(struct player *p, struct chunk *c, int set, int typ, int depth,
-    byte origin);
+    uint8_t origin);
 
 /* generate.c */
 extern void cave_wipe(struct chunk *c);

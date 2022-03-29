@@ -3,7 +3,7 @@
  * Purpose: Creating, storing, and deserializing simple math expressions
  *
  * Copyright (c) 2013 Ben Semmler
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -23,8 +23,8 @@
 
 struct expression_operation_s
 {
-    byte operator;
-    s16b operand;
+    uint8_t operator;
+    int16_t operand;
 };
 
 
@@ -238,10 +238,10 @@ void expression_set_base_value(expression_t *expression, expression_base_value_f
  * Evaluate the given expression. If the base value function is NULL, expression is
  * evaluated from zero.
  */
-s32b expression_evaluate(expression_t const * const expression, void *data)
+int32_t expression_evaluate(expression_t const * const expression, void *data)
 {
     size_t i;
-    s32b value = 0;
+    int32_t value = 0;
 
     if (expression->base_value != NULL)
         value = expression->base_value(data);
@@ -303,7 +303,7 @@ static void expression_add_operation(expression_t *expression, const expression_
  * string is the string to be parsed.
  * Return the number of operations added to the expression or an error (expression_err_e).
  */
-s16b expression_add_operations_string(expression_t *expression, const char *string)
+int16_t expression_add_operations_string(expression_t *expression, const char *string)
 {
     char *parse_string;
     expression_operation_t operations[EXPRESSION_MAX_OPERATIONS];
@@ -354,7 +354,7 @@ s16b expression_add_operations_string(expression_t *expression, const char *stri
     while (token != NULL)
     {
         char *end = NULL;
-        s16b value = strtol(token, &end, 0);
+        int16_t value = strtol(token, &end, 0);
 
         if (end == token)
         {

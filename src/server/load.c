@@ -3,7 +3,7 @@
  * Purpose: Savefile loading functions
  *
  * Copyright (c) 1997 Ben Harrison, and others
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -24,36 +24,36 @@
 /*
  * Dungeon constants
  */
-static byte square_size = 0;
+static uint8_t square_size = 0;
 
 
 /*
  * Player constants
  */
-static byte hist_size = 0;
+static uint8_t hist_size = 0;
 
 
 /*
  * Object constants
  */
-static byte obj_mod_max = OBJ_MOD_MAX;
-static byte of_size = OF_SIZE;
-static byte elem_max = ELEM_MAX;
-static byte brand_max;
-static byte slay_max;
-static byte curse_max;
+static uint8_t obj_mod_max = OBJ_MOD_MAX;
+static uint8_t of_size = OF_SIZE;
+static uint8_t elem_max = ELEM_MAX;
+static uint8_t brand_max;
+static uint8_t slay_max;
+static uint8_t curse_max;
 
 
 /*
  * Monster constants
  */
-static byte mflag_size = 0;
+static uint8_t mflag_size = 0;
 
 
 /*
  * Trap constants
  */
-static byte trf_size = 0;
+static uint8_t trf_size = 0;
 
 
 /*
@@ -62,7 +62,7 @@ static byte trf_size = 0;
 typedef struct object *(*rd_item_t)(void);
 
 
-static void rd_tval_sval(u16b *tval, u16b *sval)
+static void rd_tval_sval(uint16_t *tval, uint16_t *sval)
 {
 #ifdef SAVE_AS_STRINGS
     char buf[MSG_LEN];
@@ -90,7 +90,7 @@ static const struct artifact *rd_artifact(bool randart)
     if (randart && (aux >= z_info->a_max) && (aux < z_info->a_max + 9)) return &a_info[aux];
     if (buf[0]) return lookup_artifact_name(buf);
 #else
-    u16b art_idx;
+    uint16_t art_idx;
 
     rd_u16b(&art_idx);
     if (art_idx == EGO_ART_KNOWN) return (const struct artifact *)1;
@@ -111,7 +111,7 @@ static struct ego_item *rd_ego(struct object_kind *kind)
     if (streq(buf, "1")) return (struct ego_item *)1;
     if (buf[0]) return lookup_ego_item(buf, kind);
 #else
-    u16b ego_idx;
+    uint16_t ego_idx;
 
     rd_u16b(&ego_idx);
     if (ego_idx == EGO_ART_KNOWN) return (struct ego_item *)1;
@@ -123,7 +123,7 @@ static struct ego_item *rd_ego(struct object_kind *kind)
 
 static struct activation *rd_activation(void)
 {
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     rd_u16b(&tmp16u);
     if ((tmp16u > 0) && (tmp16u <= z_info->act_max)) return &activations[tmp16u - 1];
@@ -137,9 +137,9 @@ static struct activation *rd_activation(void)
 static struct object *rd_item(void)
 {
     struct object *obj = object_new();
-    byte tmp8u, tmp8x, tmp8y;
-    s16b tmp16s, tmp16x, tmp16y;
-    byte effect;
+    uint8_t tmp8u, tmp8x, tmp8y;
+    int16_t tmp16s, tmp16x, tmp16y;
+    uint8_t effect;
     size_t i;
     char buf[128];
 
@@ -317,10 +317,10 @@ static struct object *rd_item(void)
 int rd_monster_memory(struct player *p)
 {
     int r;
-    u16b tmp16u;
-    byte monster_blow_max;
-    byte rf_size;
-    byte rsf_size;
+    uint16_t tmp16u;
+    uint8_t monster_blow_max;
+    uint8_t rf_size;
+    uint8_t rsf_size;
 
     /* Monster Memory */
     rd_u16b(&tmp16u);
@@ -404,8 +404,8 @@ int rd_monster_memory(struct player *p)
 int rd_object_memory(struct player *p)
 {
     int i, j;
-    u16b tmp16u;
-    u16b itype_size;
+    uint16_t tmp16u;
+    uint16_t itype_size;
 
     /* Object flags */
     rd_byte(&of_size);
@@ -468,7 +468,7 @@ int rd_object_memory(struct player *p)
     /* Read the object memory */
     for (i = 0; i < tmp16u; i++)
     {
-        byte flags;
+        uint8_t flags;
 
         /* Read and extract the flags */
         rd_byte(&flags);
@@ -526,8 +526,8 @@ int rd_object_memory(struct player *p)
 int rd_player(struct player *p)
 {
     int i;
-    byte num;
-    s16b tmp16s, tmp16x, tmp16y;
+    uint8_t num;
+    int16_t tmp16s, tmp16x, tmp16y;
 
     rd_s32b(&p->id);
 
@@ -562,7 +562,7 @@ int rd_player(struct player *p)
     loc_init(&p->death_info.wpos.grid, tmp16x, tmp16y);
     rd_s16b(&p->death_info.wpos.depth);
     rd_string(p->death_info.died_from, NORMAL_WID);
-    rd_s32b((s32b*)&p->death_info.time);
+    rd_s32b((int32_t*)&p->death_info.time);
     rd_string(p->death_info.ctime, NORMAL_WID);
 
     for (i = 0; i < N_HIST_LINES; i++) rd_string(p->history[i], N_HIST_WRAP);
@@ -640,7 +640,7 @@ int rd_player(struct player *p)
 
         /* Initialize any entries not read */
         if (num < TMD_MAX)
-            memset(p->timed + num, 0, (TMD_MAX - num) * sizeof(s16b));
+            memset(p->timed + num, 0, (TMD_MAX - num) * sizeof(int16_t));
     }
     else
     {
@@ -670,7 +670,7 @@ int rd_player(struct player *p)
 int rd_ignore(struct player *p)
 {
     size_t i;
-    byte tmp8u;
+    uint8_t tmp8u;
 
     /* Read how many ignore bytes we have */
     rd_byte(&tmp8u);
@@ -709,7 +709,7 @@ static struct monster_race *rd_race(void)
     rd_string(race_name, sizeof(race_name));
     if (strcmp(race_name, "none")) return lookup_monster(race_name);
 #else
-    u16b race;
+    uint16_t race;
 
     rd_u16b(&race);
     if (race >= z_info->r_max) race = 0;
@@ -723,8 +723,8 @@ int rd_player_misc(struct player *p)
 {
     struct quest *quest = &p->quest;
     size_t i;
-    byte tmp8u;
-    s16b tmp16s;
+    uint8_t tmp8u;
+    int16_t tmp16s;
 
     /* Special stuff */
     rd_u16b(&p->total_winner);
@@ -840,7 +840,7 @@ int rd_misc(struct player *unused)
 int rd_player_artifacts(struct player *p)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read the character artifact info */
     rd_u16b(&tmp16u);
@@ -868,7 +868,7 @@ int rd_player_artifacts(struct player *p)
 int rd_artifacts(struct player *unused)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Load the Artifacts */
     rd_u16b(&tmp16u);
@@ -881,7 +881,7 @@ int rd_artifacts(struct player *unused)
     /* Read the artifact flags */
     for (i = 0; i < tmp16u; i++)
     {
-        byte tmp8u;
+        uint8_t tmp8u;
 
         rd_byte(&tmp8u);
         aup_info[i].created = (tmp8u? true: false);
@@ -896,7 +896,7 @@ int rd_artifacts(struct player *unused)
 int rd_player_hp(struct player *p)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read the player_hp array */
     rd_u16b(&tmp16u);
@@ -920,7 +920,7 @@ int rd_player_hp(struct player *p)
 int rd_player_spells(struct player *p)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read the number of spells */
     rd_u16b(&tmp16u);
@@ -952,7 +952,7 @@ int rd_player_spells(struct player *p)
  */
 static int rd_gear_aux(struct player *p, rd_item_t rd_item_version)
 {
-    byte code;
+    uint8_t code;
     struct object *last_gear_obj = NULL;
 
     /* Get the first item code */
@@ -1031,8 +1031,8 @@ typedef struct object *(*store_carry_t)(struct player *p, struct store *store, s
 static int rd_store(struct player *p, struct store **store, store_carry_t store_carry_fn,
     rd_item_t rd_item_version)
 {
-    byte own;
-    s16b num;
+    uint8_t own;
+    int16_t num;
 
     /* Read the basic info */
     rd_byte(&own);
@@ -1072,7 +1072,7 @@ static int rd_store(struct player *p, struct store **store, store_carry_t store_
 static int rd_stores_aux(rd_item_t rd_item_version)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read the stores */
     rd_u16b(&tmp16u);
@@ -1110,12 +1110,12 @@ int rd_stores(struct player *unused) {return rd_stores_aux(rd_item);}
 int rd_player_dungeon(struct player *p)
 {
     int i, n;
-    u16b height, width;
-    byte count;
-    byte tmp8u;
-    u16b tmp16u;
+    uint16_t height, width;
+    uint8_t count;
+    uint8_t tmp8u;
+    uint16_t tmp16u;
     struct loc grid;
-    s16b tmp16x, tmp16y;
+    int16_t tmp16x, tmp16y;
 
     /* Only if the player's alive */
     if (p->is_dead) return 0;
@@ -1197,11 +1197,11 @@ int rd_player_dungeon(struct player *p)
 int rd_level(struct player *unused)
 {
     int i, n;
-    s16b tmp16s, tmp16x, tmp16y;
-    u16b height, width;
-    byte count;
-    byte tmp8u;
-    u16b tmp16u;
+    int16_t tmp16s, tmp16x, tmp16y;
+    uint16_t height, width;
+    uint8_t count;
+    uint8_t tmp8u;
+    uint16_t tmp16u;
     hturn generated;
     struct worldpos wpos;
     struct chunk *c;
@@ -1321,7 +1321,7 @@ int rd_level(struct player *unused)
  */
 int rd_dungeon(struct player *unused)
 {
-    u32b i, tmp32u;
+    uint32_t i, tmp32u;
 
     /* Header info */
     rd_byte(&square_size);
@@ -1414,9 +1414,9 @@ int rd_player_objects(struct player *p)
  */
 int rd_objects(struct player *unused)
 {
-    u32b num, tmp32u;
+    uint32_t num, tmp32u;
     struct worldpos wpos;
-    s16b tmp16x, tmp16y;
+    int16_t tmp16x, tmp16y;
 
     /* Read the number of levels to be loaded */
     rd_u32b(&tmp32u);
@@ -1443,11 +1443,11 @@ int rd_objects(struct player *unused)
  */
 static bool rd_monster_aux(struct chunk *c, struct monster *mon, rd_item_t rd_item_version)
 {
-    byte tmp8u;
-    u16b tmp16u;
+    uint8_t tmp8u;
+    uint16_t tmp16u;
     size_t j;
     bool remove = false;
-    s16b tmp16x, tmp16y;
+    int16_t tmp16x, tmp16y;
 
     /* Read the monster race */
     rd_u16b(&tmp16u);
@@ -1584,7 +1584,7 @@ static bool rd_monster(struct chunk *c, struct monster *mon)
 static int rd_monsters_aux(struct chunk *c)
 {
     int i;
-    u16b limit;
+    uint16_t limit;
 
     /* Read the monster count */
     rd_u16b(&limit);
@@ -1633,9 +1633,9 @@ static int rd_monsters_aux(struct chunk *c)
  */
 int rd_monsters(struct player *unused)
 {
-    u32b num, tmp32u;
+    uint32_t num, tmp32u;
     struct worldpos wpos;
-    s16b tmp16x, tmp16y;
+    int16_t tmp16x, tmp16y;
 
     /* Monster temporary flags */
     rd_byte(&mflag_size);
@@ -1675,7 +1675,7 @@ static struct trap_kind *rd_trap_kind(void)
     rd_string(buf, sizeof(buf));
     if (buf[0]) return lookup_trap(buf);
 #else
-    byte tidx;
+    uint8_t tidx;
 
     rd_byte(&tidx);
     if (tidx >= z_info->trap_max) tidx = 0;
@@ -1691,7 +1691,7 @@ static struct trap_kind *rd_trap_kind(void)
 static void rd_trap(struct trap *trap)
 {
     int i;
-    byte tmp8x, tmp8y;
+    uint8_t tmp8x, tmp8y;
 
     trap->kind = rd_trap_kind();
     rd_byte(&tmp8y);
@@ -1737,7 +1737,7 @@ static int rd_level_traps(void)
     struct trap *trap;
     struct worldpos wpos;
     struct chunk *c;
-    s16b tmp16x, tmp16y;
+    int16_t tmp16x, tmp16y;
 
     /* Read the coordinates */
     rd_s16b(&tmp16y);
@@ -1779,7 +1779,7 @@ static int rd_level_traps(void)
  */
 int rd_traps(struct player *unused)
 {
-    u32b i, tmp32u;
+    uint32_t i, tmp32u;
 
     rd_byte(&trf_size);
 
@@ -1799,7 +1799,7 @@ int rd_traps(struct player *unused)
 
 int rd_history(struct player *p)
 {
-    s16b tmp16s;
+    int16_t tmp16s;
     int i, j;
 
     history_clear(p);
@@ -1895,7 +1895,7 @@ int rd_header(struct player *p)
 int rd_wild_map(struct player *p)
 {
     int x, y;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Get the map size */
     rd_u16b(&tmp16u);
@@ -1940,7 +1940,7 @@ static void rd_party(int n)
 int rd_parties(struct player *unused)
 {
     int i;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read the parties */
     rd_u16b(&tmp16u);
@@ -1965,8 +1965,8 @@ static int rd_house(void)
 {
     int house;
     struct house_type h_local;
-    byte tmpx, tmpy;
-    s16b tmp16x, tmp16y;
+    uint8_t tmpx, tmpy;
+    int16_t tmp16x, tmp16y;
 
     memset(&h_local, 0, sizeof(struct house_type));
 
@@ -2004,7 +2004,7 @@ static int rd_house(void)
 
 int rd_houses(struct player *unused)
 {
-    u16b i, count;
+    uint16_t i, count;
 
     /* Read house info */
     rd_u16b(&count);
@@ -2030,8 +2030,8 @@ int rd_houses(struct player *unused)
 static void rd_arena(int n)
 {
     struct arena_type *arena_ptr = &arenas[n];
-    byte tmpx, tmpy;
-    s16b tmp16x, tmp16y;
+    uint8_t tmpx, tmpy;
+    int16_t tmp16x, tmp16y;
 
     rd_byte(&tmpx);
     rd_byte(&tmpy);
@@ -2069,7 +2069,7 @@ int rd_arenas(struct player *unused)
 int rd_wilderness(struct player *unused)
 {
     struct loc grid;
-    u16b tmp16u;
+    uint16_t tmp16u;
 
     /* Read wilderness info */
     rd_u16b(&tmp16u);
@@ -2084,7 +2084,7 @@ int rd_wilderness(struct player *unused)
     {
         for (grid.x = 0 - radius_wild; grid.x <= radius_wild; grid.x++)
         {
-            byte tmp;
+            uint8_t tmp;
             struct wild_type *w_ptr = get_wt_info_at(&grid);
 
             /* Read wilderness info */
@@ -2102,7 +2102,7 @@ int rd_wilderness(struct player *unused)
 int rd_player_names(struct player *unused)
 {
     size_t i;
-    u32b tmp32u;
+    uint32_t tmp32u;
     char name[NORMAL_WID];
 
     /* Current player ID */
@@ -2114,8 +2114,8 @@ int rd_player_names(struct player *unused)
     /* Read the available records */
     for (i = 0; i < tmp32u; i++)
     {
-        s32b id;
-        u32b account;
+        int32_t id;
+        uint32_t account;
         hturn death_turn;
 
         /* Read the ID */

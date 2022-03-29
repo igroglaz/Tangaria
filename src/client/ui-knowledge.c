@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2000-2007 Eytan Zweig, Andrew Doull, Pete Mack.
  * Copyright (c) 2010 Peter Denison, Chris Carr.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -276,8 +276,8 @@ void do_cmd_players(void)
  */
 void do_cmd_message_one(void)
 {
-    byte color = message_color(0);
-    u16b count = message_count(0);
+    uint8_t color = message_color(0);
+    uint16_t count = message_count(0);
     const char *str = message_str(0);
     const char *msg;
 
@@ -344,8 +344,8 @@ void do_cmd_messages(void)
         {
             const char *msg;
             const char *str = message_str(i + j);
-            byte attr = message_color(i + j);
-            u16b count = message_count(i + j);
+            uint8_t attr = message_color(i + j);
+            uint16_t count = message_count(i + j);
 
             if (count <= 1) msg = str;
             else msg = format("%s <%dx>", str, count);
@@ -469,7 +469,7 @@ void do_cmd_messages(void)
             /* Find the next item */
             if ((ke.key.code == '-') && strlen(shower))
             {
-                s16b z;
+                int16_t z;
 
                 /* Scan messages */
                 for (z = i + 1; z < n; z++)

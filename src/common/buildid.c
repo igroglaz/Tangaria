@@ -3,7 +3,7 @@
  * Purpose: Version strings
  *
  * Copyright (c) 2011 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -48,7 +48,7 @@ bool beta_version(void)
 
 // Note that it's u16b, so max version after << operations might be 65535.. 
 // ..which new T version marker will overflow. So for comparison we will use just T version
-u16b current_version(void)
+uint16_t current_version(void)
 {
 /*
     return ((VERSION_MAJOR << 16) | (VERSION_MINOR << 12) | (VERSION_PATCH << 8) |
@@ -68,7 +68,7 @@ u16b current_version(void)
 #define MIN_VERSION_TANGARIA   4
 
 
-u16b min_version(void)
+uint16_t min_version(void)
 {
 /*
     return ((MIN_VERSION_MAJOR << 16) | (MIN_VERSION_MINOR << 12) |

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Andi Sidwell
  * Copyright (c) 2016 Ben Semmler, Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -181,7 +181,7 @@ static int enchant_table[16] =
  *
  * Returns true if the bonus was increased
  */
-static bool enchant_score(s16b *score, bool is_artifact)
+static bool enchant_score(int16_t *score, bool is_artifact)
 {
     int chance;
 
@@ -208,7 +208,7 @@ static bool enchant_score(s16b *score, bool is_artifact)
  *
  * Returns true if a bonus was increased
  */
-static bool enchant_aux(struct player *p, struct object *obj, s16b *score)
+static bool enchant_aux(struct player *p, struct object *obj, int16_t *score)
 {
     bool result = false;
     bool is_artifact = (obj->artifact? true: false);
@@ -3670,7 +3670,7 @@ bool effect_handler_GAIN_EXP(effect_handler_context_t *context)
 
     if (context->origin->player->exp < PY_MAX_EXP)
     {
-        s32b ee = (context->origin->player->exp / 2) + 10;
+        int32_t ee = (context->origin->player->exp / 2) + 10;
 
         if (ee > amount) ee = amount;
         msg(context->origin->player, "You feel more experienced.");
@@ -5439,7 +5439,7 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
     struct wild_type *w_ptr = get_wt_info_at(&context->origin->player->wpos.grid);
     char *message;
     struct worldpos wpos;
-    byte new_level_method;
+    uint8_t new_level_method;
     struct loc *decoy = cave_find_decoy(context->cave);
 
     /* Hack -- already used up */

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Pete Mack
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -25,7 +25,7 @@
 /*
  * Cursor colours
  */
-const byte curs_attrs[2][2] =
+const uint8_t curs_attrs[2][2] =
 {
     { COLOUR_SLATE, COLOUR_BLUE },      /* Greyed row */
     { COLOUR_WHITE, COLOUR_L_BLUE }     /* Valid row */
@@ -51,7 +51,7 @@ static bool menu_calc_size(struct menu *menu);
 /*
  * Display an event, with possible preference overrides
  */
-static void display_action_aux(menu_action *act, byte color, int row, int col, int wid)
+static void display_action_aux(menu_action *act, uint8_t color, int row, int col, int wid)
 {
     /* TODO: add preference support */
     /* TODO: wizard mode should show more data */
@@ -93,7 +93,7 @@ static void menu_action_display(struct menu *m, int oid, bool cursor, int row, i
     int width)
 {
     menu_action *acts = menu_priv(m);
-    byte color = curs_attrs[!(acts[oid].flags & (MN_ACT_GRAYED))][0 != cursor];
+    uint8_t color = curs_attrs[!(acts[oid].flags & (MN_ACT_GRAYED))][0 != cursor];
 
     display_action_aux(&acts[oid], color, row, col, width);
 }
@@ -140,7 +140,7 @@ static const menu_iter menu_iter_actions =
 static void display_string(struct menu *m, int oid, bool cursor, int row, int col, int width)
 {
     const char **items = menu_priv(m);
-    byte color = curs_attrs[CURS_KNOWN][0 != cursor];
+    uint8_t color = curs_attrs[CURS_KNOWN][0 != cursor];
 
     Term_putstr(col, row, width, color, items[oid]);
 }
@@ -615,7 +615,7 @@ static void display_menu_row(struct menu *menu, int pos, int top, bool cursor, i
     if (sel)
     {
         menu_row_style_t style = menu_row_style_for_validity(row_valid);
-        byte color = curs_attrs[style][0 != (cursor)];
+        uint8_t color = curs_attrs[style][0 != (cursor)];
 
         Term_putstr(col, row, 3, color, format("%c) ", sel));
         col += 3;
@@ -1058,7 +1058,7 @@ static int dynamic_valid(struct menu *m, int oid)
 static void dynamic_display(struct menu *m, int oid, bool cursor, int row, int col, int width)
 {
     struct menu_entry *entry;
-    byte color = curs_attrs[MN_ROW_STYLE_ENABLED][0 != cursor];
+    uint8_t color = curs_attrs[MN_ROW_STYLE_ENABLED][0 != cursor];
 
     /* While row_funcs is private, we need to be consistent with what the menu will do */
     if (m->row_funcs->valid_row)

@@ -130,6 +130,7 @@ Angband 4.2.x:
 - Fix some comments in z-file.c
 - Constrain search in drop_find_grid() to avoid out-of-bounds access
 - Make highscore_read return value consistent
+- Use C99 types for the fixed size integers
 
 PWMAngband:
 

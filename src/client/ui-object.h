@@ -7,7 +7,7 @@
 #define UI_OBJECT_H
 
 extern struct object **floor_items;
-extern byte floor_num;
+extern uint8_t floor_num;
 
 extern void show_inven(int mode, item_tester tester);
 extern void show_quiver(int mode, item_tester tester);

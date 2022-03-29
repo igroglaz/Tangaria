@@ -3,7 +3,7 @@
  * Purpose: Object utilities
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -58,7 +58,7 @@ static void flavor_assign_fixed(void)
 }
 
 
-static void flavor_assign_random(u16b tval)
+static void flavor_assign_random(uint16_t tval)
 {
     int i;
     int flavor_count = 0;
@@ -304,11 +304,11 @@ void object_flags_known(const struct object *obj, bitflag flags[OF_SIZE], bool a
 /*
  * Obtain the modifiers for an item
  */
-void object_modifiers(const struct object *obj, s32b modifiers[OBJ_MOD_MAX])
+void object_modifiers(const struct object *obj, int32_t modifiers[OBJ_MOD_MAX])
 {
     int i, j;
 
-    memset(modifiers, 0, OBJ_MOD_MAX * sizeof(s32b));
+    memset(modifiers, 0, OBJ_MOD_MAX * sizeof(int32_t));
 
     if (!obj) return;
 
@@ -329,7 +329,7 @@ void object_modifiers(const struct object *obj, s32b modifiers[OBJ_MOD_MAX])
 /*
  * Obtain the to-hit for an item
  */
-void object_to_h(const struct object *obj, s16b *to_h)
+void object_to_h(const struct object *obj, int16_t *to_h)
 {
     size_t i;
 
@@ -352,7 +352,7 @@ void object_to_h(const struct object *obj, s16b *to_h)
 /*
  * Obtain the to-dam for an item
  */
-void object_to_d(const struct object *obj, s16b *to_d)
+void object_to_d(const struct object *obj, int16_t *to_d)
 {
     size_t i;
 
@@ -375,7 +375,7 @@ void object_to_d(const struct object *obj, s16b *to_d)
 /*
  * Obtain the to-ac for an item
  */
-void object_to_a(const struct object *obj, s16b *to_a)
+void object_to_a(const struct object *obj, int16_t *to_a)
 {
     size_t i;
 
@@ -698,7 +698,7 @@ int obj_needs_aim(struct player *p, const struct object *obj)
 /*** PWMAngband ***/
 
 
-void get_object_info(struct player *p, struct object *obj, byte equipped,
+void get_object_info(struct player *p, struct object *obj, uint8_t equipped,
     struct object_xtra *info_xtra)
 {
     struct curse_data *c = obj->known->curses;
@@ -790,9 +790,9 @@ int get_owner_id(const struct object *obj)
 }
 
 
-void set_artifact_info(struct player *p, const struct object *obj, byte info)
+void set_artifact_info(struct player *p, const struct object *obj, uint8_t info)
 {
-    byte *pinfo;
+    uint8_t *pinfo;
 
     /* Paranoia */
     if (!p) return;
@@ -845,7 +845,7 @@ bool kind_is_good_other(const struct object_kind *kind)
 }
 
 
-void set_origin(struct object *obj, byte origin, s16b origin_depth, struct monster_race *origin_race)
+void set_origin(struct object *obj, uint8_t origin, int16_t origin_depth, struct monster_race *origin_race)
 {
     obj->origin = origin;
     obj->origin_depth = origin_depth;
@@ -1408,7 +1408,7 @@ void print_custom_message(struct player *p, struct object *obj, const char *stri
 /*
  * Get price from an inscription
  */
-s32b get_askprice(const char *inscription)
+int32_t get_askprice(const char *inscription)
 {
     const char *c;
     int len = 0;
@@ -1445,7 +1445,7 @@ bool is_artifact_created(const struct artifact *art)
 /*
  * Return the owner of the given artifact.
  */
-s32b get_artifact_owner(const struct artifact *art)
+int32_t get_artifact_owner(const struct artifact *art)
 {
     my_assert(art->aidx == aup_info[art->aidx].aidx);
 
@@ -1467,7 +1467,7 @@ void mark_artifact_created(const struct artifact *art, bool created)
 /*
  * Set owner of the given artifact.
  */
-void mark_artifact_owned(const struct artifact *art, s32b owner)
+void mark_artifact_owned(const struct artifact *art, int32_t owner)
 {
     my_assert(art->aidx == aup_info[art->aidx].aidx);
 

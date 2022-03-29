@@ -2,7 +2,7 @@
  * File: netclient.c
  * Purpose: The client side of the networking stuff
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -37,12 +37,12 @@ struct angband_constants z_info_struct;
 /*
  * Maximum number of flavors
  */
-u16b flavor_max;
+uint16_t flavor_max;
 
 
 /* Section is icky */
-s16b section_icky_col;
-byte section_icky_row;
+int16_t section_icky_col;
+uint8_t section_icky_row;
 
 
 /* Get out of icky screen if requested */
@@ -67,7 +67,7 @@ static sockbuf_t rbuf, wbuf, qbuf;
 static char talk_pend[MSG_LEN], initialized = 0;
 static ang_file *fp = NULL;
 static bool dump_only = false;
-static byte chardump = 0;
+static uint8_t chardump = 0;
 
 
 /* Packet types */
@@ -266,7 +266,7 @@ static int Receive_undefined(void)
 static int Receive_basic_info(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     /* Clear any old info */
     Setup.frames_per_second = Setup.min_col = Setup.min_row = Setup.max_col = Setup.max_row = 0;
@@ -298,7 +298,7 @@ static int Receive_basic_info(void)
 static int Receive_end(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -309,10 +309,10 @@ static int Receive_end(void)
 
 static int Receive_struct_info(void)
 {
-    byte ch;
+    uint8_t ch;
     int i, n, j;
     char typ;
-    u16b max;
+    uint16_t max;
     char name[NORMAL_WID];
     int bytes_read;
 
@@ -328,7 +328,7 @@ static int Receive_struct_info(void)
         /* Various Limits */
         case STRUCT_INFO_LIMITS:
         {
-            u16b a_max, e_max, k_max, r_max, f_max, trap_max, pack_size, quiver_size, floor_size,
+            uint16_t a_max, e_max, k_max, r_max, f_max, trap_max, pack_size, quiver_size, floor_size,
                 quiver_slot_size, store_inven_max, curse_max;
 
             if ((n = Packet_scanf(&rbuf, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", &a_max, &e_max,
@@ -354,12 +354,12 @@ static int Receive_struct_info(void)
 
             /* k_info */
             z_info->k_max = k_max;
-            Client_setup.k_attr = mem_zalloc(z_info->k_max * sizeof(byte));
+            Client_setup.k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
             Client_setup.k_char = mem_zalloc(z_info->k_max * sizeof(char));
 
             /* r_info */
             z_info->r_max = r_max;
-            Client_setup.r_attr = mem_zalloc(z_info->r_max * sizeof(byte));
+            Client_setup.r_attr = mem_zalloc(z_info->r_max * sizeof(uint8_t));
             Client_setup.r_char = mem_zalloc(z_info->r_max * sizeof(char));
 
             /* f_info */
@@ -373,7 +373,7 @@ static int Receive_struct_info(void)
             Client_setup.t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
 
             /* Flavors */
-            Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(byte));
+            Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(uint8_t));
             Client_setup.flvr_x_char = mem_zalloc(flavor_max * sizeof(char));
 
             /* Autoinscriptions */
@@ -381,12 +381,12 @@ static int Receive_struct_info(void)
 
             /* Alloc */
             player->kind_aware = mem_zalloc(z_info->k_max * sizeof(bool));
-            player->kind_ignore = mem_zalloc(z_info->k_max * sizeof(byte));
-            player->kind_everseen = mem_zalloc(z_info->k_max * sizeof(byte));
-            player->ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(byte*));
+            player->kind_ignore = mem_zalloc(z_info->k_max * sizeof(uint8_t));
+            player->kind_everseen = mem_zalloc(z_info->k_max * sizeof(uint8_t));
+            player->ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(uint8_t*));
             for (i = 0; i < z_info->e_max; i++)
-                player->ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(byte));
-            player->ego_everseen = mem_zalloc(z_info->e_max * sizeof(byte));
+                player->ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(uint8_t));
+            player->ego_everseen = mem_zalloc(z_info->e_max * sizeof(uint8_t));
 
             /* Carrying capacity constants */
             z_info->pack_size = pack_size;
@@ -413,9 +413,9 @@ static int Receive_struct_info(void)
         /* Player Races */
         case STRUCT_INFO_RACE:
         {
-            s16b base, dice, sides, m_bonus, r_skills, r_exp, res_level;
-            byte ridx, r_mhp, flag, lvl;
-            s16b obj_mod_max, skill_max, pf_size, pf_max, of_size, of_max, elem_max;
+            int16_t base, dice, sides, m_bonus, r_skills, r_exp, res_level;
+            uint8_t ridx, r_mhp, flag, lvl;
+            int16_t obj_mod_max, skill_max, pf_size, pf_max, of_size, of_max, elem_max;
 
             /* Hack -- receive limits for client compatibility */
             if ((n = Packet_scanf(&rbuf, "%hd%hd%hd%hd%hd%hd%hd", &obj_mod_max, &skill_max,
@@ -476,7 +476,7 @@ static int Receive_struct_info(void)
                     r->modifiers[j].value.m_bonus = m_bonus;
                     r->modifiers[j].lvl = lvl;
                 }
-                memset(r->r_skills, 0, SKILL_MAX * sizeof(s16b));
+                memset(r->r_skills, 0, SKILL_MAX * sizeof(int16_t));
                 for (j = 0; j < skill_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%hd", &r_skills)) <= 0)
@@ -527,7 +527,7 @@ static int Receive_struct_info(void)
 
                     r->pflags[j] = flag;
                 }
-                memset(r->pflvl, 0, PF__MAX * sizeof(byte));
+                memset(r->pflvl, 0, PF__MAX * sizeof(uint8_t));
                 for (j = 1; j < pf_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%b", &lvl)) <= 0)
@@ -567,7 +567,7 @@ static int Receive_struct_info(void)
 
                     r->flags[j] = flag;
                 }
-                memset(r->flvl, 0, OF_MAX * sizeof(byte));
+                memset(r->flvl, 0, OF_MAX * sizeof(uint8_t));
                 for (j = 1; j < of_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%b", &lvl)) <= 0)
@@ -621,13 +621,13 @@ static int Receive_struct_info(void)
         /* Player Classes */
         case STRUCT_INFO_CLASS:
         {
-            s16b base, dice, sides, m_bonus, c_skills, res_level, weight, att_multiply, max_attacks,
+            int16_t base, dice, sides, m_bonus, c_skills, res_level, weight, att_multiply, max_attacks,
                 min_weight, sfail, slevel;
-            byte cidx, c_mhp, total_spells, flag, lvl;
-            u16b tval, sval;
+            uint8_t cidx, c_mhp, total_spells, flag, lvl;
+            uint16_t tval, sval;
             char num_books;
             char realm[NORMAL_WID];
-            s16b obj_mod_max, skill_max, pf_size, pf_max, of_size, of_max, elem_max;
+            int16_t obj_mod_max, skill_max, pf_size, pf_max, of_size, of_max, elem_max;
 
             /* Hack -- receive limits for client compatibility */
             if ((n = Packet_scanf(&rbuf, "%hd%hd%hd%hd%hd%hd%hd", &obj_mod_max, &skill_max,
@@ -688,7 +688,7 @@ static int Receive_struct_info(void)
                     c->modifiers[j].value.m_bonus = m_bonus;
                     c->modifiers[j].lvl = lvl;
                 }
-                memset(c->c_skills, 0, SKILL_MAX * sizeof(s16b));
+                memset(c->c_skills, 0, SKILL_MAX * sizeof(int16_t));
                 for (j = 0; j < skill_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%hd", &c_skills)) <= 0)
@@ -739,7 +739,7 @@ static int Receive_struct_info(void)
 
                     c->pflags[j] = flag;
                 }
-                memset(c->pflvl, 0, PF__MAX * sizeof(byte));
+                memset(c->pflvl, 0, PF__MAX * sizeof(uint8_t));
                 for (j = 1; j < pf_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%b", &lvl)) <= 0)
@@ -779,7 +779,7 @@ static int Receive_struct_info(void)
 
                     c->flags[j] = flag;
                 }
-                memset(c->flvl, 0, OF_MAX * sizeof(byte));
+                memset(c->flvl, 0, OF_MAX * sizeof(uint8_t));
                 for (j = 1; j < of_max; j++)
                 {
                     if ((n = Packet_scanf(&rbuf, "%b", &lvl)) <= 0)
@@ -907,7 +907,7 @@ static int Receive_struct_info(void)
         /* Player Bodies */
         case STRUCT_INFO_BODY:
         {
-            s16b count, type;
+            int16_t count, type;
 
             bodies = NULL;
 
@@ -960,7 +960,7 @@ static int Receive_struct_info(void)
         /* Socials */
         case STRUCT_INFO_SOCIALS:
         {
-            byte target;
+            uint8_t target;
 
             /* Alloc */
             soc_info = mem_zalloc(max * sizeof(struct social));
@@ -1003,10 +1003,10 @@ static int Receive_struct_info(void)
         /* Object kinds */
         case STRUCT_INFO_KINDS:
         {
-            u16b tval, sval;
-            u32b kidx;
-            s16b ac;
-            byte flag;
+            uint16_t tval, sval;
+            uint32_t kidx;
+            int16_t ac;
+            uint8_t flag;
 
             /* Alloc */
             k_info = mem_zalloc(max * sizeof(struct object_kind));
@@ -1071,8 +1071,8 @@ static int Receive_struct_info(void)
         /* Object egos */
         case STRUCT_INFO_EGOS:
         {
-            u32b eidx, kidx;
-            u16b p, pmax;
+            uint32_t eidx, kidx;
+            uint16_t p, pmax;
 
             /* Alloc */
             e_info = mem_zalloc(max * sizeof(struct ego_item));
@@ -1137,7 +1137,7 @@ static int Receive_struct_info(void)
         /* Monster races */
         case STRUCT_INFO_RINFO:
         {
-            byte attr;
+            uint8_t attr;
 
             /* Alloc */
             r_info = mem_zalloc(max * sizeof(struct monster_race));
@@ -1250,7 +1250,7 @@ static int Receive_struct_info(void)
         {
             char spell_noun[NORMAL_WID];
             char verb[NORMAL_WID];
-            s16b stat;
+            int16_t stat;
 
             realms = NULL;
 
@@ -1353,8 +1353,8 @@ static int Receive_struct_info(void)
         /* Player timed effects */
         case STRUCT_INFO_TIMED:
         {
-            byte grade_color, dummy;
-            s16b grade_max;
+            uint8_t grade_color, dummy;
+            int16_t grade_max;
             struct timed_grade *current, *l;
 
             i = -1;
@@ -1395,8 +1395,8 @@ static int Receive_struct_info(void)
         /* Player abilities */
         case STRUCT_INFO_PROPS:
         {
-            u16b index;
-            s16b value;
+            uint16_t index;
+            int16_t value;
             char type[NORMAL_WID], desc[NORMAL_WID];
 
             player_abilities = NULL;
@@ -1438,7 +1438,7 @@ static int Receive_struct_info(void)
 static int Receive_death_cause(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%s%hd%ld%ld%hd%hd%hd%s%s", &ch, player->death_info.title,
         &player->death_info.lev, &player->death_info.exp, &player->death_info.au,
@@ -1458,7 +1458,7 @@ static int Receive_death_cause(void)
 static int Receive_winner(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0) return n;
 
@@ -1471,8 +1471,8 @@ static int Receive_winner(void)
 static int Receive_lvl(void)
 {
     int n;
-    byte ch;
-    s16b lev, mlev;
+    uint8_t ch;
+    int16_t lev, mlev;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &lev, &mlev)) <= 0)
         return n;
@@ -1490,8 +1490,8 @@ static int Receive_lvl(void)
 static int Receive_weight(void)
 {
     int n;
-    byte ch;
-    s16b weight, max_weight;
+    uint8_t ch;
+    int16_t weight, max_weight;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &weight, &max_weight)) <= 0)
         return n;
@@ -1511,8 +1511,8 @@ static int Receive_weight(void)
 static int Receive_plusses(void)
 {
     int n;
-    byte ch;
-    s16b dd, ds, mhit, mdam, shit, sdam;
+    uint8_t ch;
+    int16_t dd, ds, mhit, mdam, shit, sdam;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd", &ch, &dd, &ds, &mhit, &mdam, &shit,
         &sdam)) <= 0)
@@ -1537,8 +1537,8 @@ static int Receive_plusses(void)
 static int Receive_ac(void)
 {
     int n;
-    byte ch;
-    s16b base, plus;
+    uint8_t ch;
+    int16_t base, plus;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &base, &plus)) <= 0)
         return n;
@@ -1555,9 +1555,9 @@ static int Receive_ac(void)
 static int Receive_exp(void)
 {
     int n;
-    byte ch;
-    s32b max, cur;
-    s16b expfact;
+    uint8_t ch;
+    int32_t max, cur;
+    int16_t expfact;
 
     if ((n = Packet_scanf(&rbuf, "%b%ld%ld%hd", &ch, &max, &cur, &expfact)) <= 0)
         return n;
@@ -1575,8 +1575,8 @@ static int Receive_exp(void)
 static int Receive_gold(void)
 {
     int n;
-    byte ch;
-    s32b gold;
+    uint8_t ch;
+    int32_t gold;
 
     if ((n = Packet_scanf(&rbuf, "%b%ld", &ch, &gold)) <= 0)
         return n;
@@ -1594,8 +1594,8 @@ static int Receive_gold(void)
 static int Receive_hp(void)
 {
     int n;
-    byte ch;
-    s16b max, cur;
+    uint8_t ch;
+    int16_t max, cur;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &max, &cur)) <= 0)
         return n;
@@ -1613,8 +1613,8 @@ static int Receive_hp(void)
 static int Receive_sp(void)
 {
     int n;
-    byte ch;
-    s16b max, cur;
+    uint8_t ch;
+    int16_t max, cur;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &max, &cur)) <= 0)
         return n;
@@ -1632,8 +1632,8 @@ static int Receive_sp(void)
 static int Receive_various(void)
 {
     int n;
-    byte ch;
-    s16b hgt, wgt, age;
+    uint8_t ch;
+    int16_t hgt, wgt, age;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd", &ch, &hgt, &wgt, &age)) <= 0)
         return n;
@@ -1652,9 +1652,9 @@ static int Receive_various(void)
 static int Receive_stat(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
     char stat;
-    s16b stat_top, stat_use, stat_max, stat_add, stat_cur;
+    int16_t stat_top, stat_use, stat_max, stat_add, stat_cur;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%hd%hd%hd%hd%hd", &ch, &stat, &stat_top, &stat_use, &stat_max,
         &stat_add, &stat_cur)) <= 0)
@@ -1691,8 +1691,8 @@ static struct object *object_from_index(int item)
 static int Receive_index(void)
 {
     int n;
-    byte ch, type;
-    s16b slot, index;
+    uint8_t ch, type;
+    int16_t slot, index;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%b", &ch, &slot, &index, &type)) <= 0)
         return n;
@@ -1869,9 +1869,9 @@ static struct tester_hook tester_hook_item[N_HOOKS] =
 
 static int Receive_item_request(void)
 {
-    byte ch;
+    uint8_t ch;
     int n, item = -1, curse = -1;
-    byte tester_hook;
+    uint8_t tester_hook;
     bool result = false;
     char dice_string[NORMAL_WID];
 
@@ -1936,7 +1936,7 @@ static int Receive_item_request(void)
 static int Receive_title(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%s", &ch, title)) <= 0)
         return n;
@@ -1954,8 +1954,8 @@ static int Receive_title(void)
 static int Receive_turn(void)
 {
     int n;
-    byte ch;
-    u32b game_turn, player_turn, active_turn;
+    uint8_t ch;
+    uint32_t game_turn, player_turn, active_turn;
 
     if ((n = Packet_scanf(&rbuf, "%b%lu%lu%lu", &ch, &game_turn, &player_turn, &active_turn)) <= 0)
         return n;
@@ -1977,8 +1977,8 @@ static int Receive_turn(void)
 static int Receive_extra(void)
 {
     int n;
-    byte ch;
-    byte cannot_cast, cannot_cast_mimic;
+    uint8_t ch;
+    uint8_t cannot_cast, cannot_cast_mimic;
 
     if ((n = Packet_scanf(&rbuf, "%b%b%b", &ch, &cannot_cast, &cannot_cast_mimic)) <= 0)
         return n;
@@ -1993,8 +1993,8 @@ static int Receive_extra(void)
 static int Receive_depth(void)
 {
     int n;
-    byte ch, daytime;
-    s16b depth, maxdepth;
+    uint8_t ch, daytime;
+    int16_t depth, maxdepth;
 
     if ((n = Packet_scanf(&rbuf, "%b%b%hd%hd%s%s", &ch, &daytime, &depth, &maxdepth, player->depths,
         player->locname)) <= 0)
@@ -2017,8 +2017,8 @@ static int Receive_depth(void)
 static int Receive_status(void)
 {
     int n, i;
-    byte ch;
-    s16b effect;
+    uint8_t ch;
+    int16_t effect;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
@@ -2049,8 +2049,8 @@ static int Receive_status(void)
 static int Receive_recall(void)
 {
     int n;
-    byte ch;
-    s16b word_recall, deep_descent;
+    uint8_t ch;
+    int16_t word_recall, deep_descent;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &word_recall, &deep_descent)) <= 0)
         return n;
@@ -2067,8 +2067,8 @@ static int Receive_recall(void)
 static int Receive_state(void)
 {
     int n;
-    byte ch;
-    s16b stealthy, resting, unignoring, obj_feeling, mon_feeling, square_light, num_moves;
+    uint8_t ch;
+    int16_t stealthy, resting, unignoring, obj_feeling, mon_feeling, square_light, num_moves;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd%hd%s", &ch, &stealthy, &resting, &unignoring,
         &obj_feeling, &mon_feeling, &square_light, &num_moves, player->terrain)) <= 0)
@@ -2077,8 +2077,8 @@ static int Receive_state(void)
     }
 
     player->upkeep->resting = resting;
-    player->stealthy = (byte)stealthy;
-    player->unignoring = (byte)unignoring;
+    player->stealthy = (uint8_t)stealthy;
+    player->unignoring = (uint8_t)unignoring;
     player->obj_feeling = obj_feeling;
     player->mon_feeling = mon_feeling;
     player->square_light = square_light;
@@ -2103,7 +2103,7 @@ static int rle_decode(sockbuf_t* buf, cave_view_type* lineref, int max_col, int 
 {
     int x, i, nread;
     char c;
-    u16b a, n = 0;
+    uint16_t a, n = 0;
 
     for (x = 0; x < max_col; x++)
     {
@@ -2185,7 +2185,7 @@ static int rle_decode(sockbuf_t* buf, cave_view_type* lineref, int max_col, int 
  *
  * Given location and values may or not be valid.
  */
-static void Term_queue_char_safe(int x, int y, u16b a, char c, u16b ta, char tc)
+static void Term_queue_char_safe(int x, int y, uint16_t a, char c, uint16_t ta, char tc)
 {
     int w = Term->wid;
     int h = Term->hgt;
@@ -2204,7 +2204,7 @@ static void Term_queue_char_safe(int x, int y, u16b a, char c, u16b ta, char tc)
  *
  * Given location and values may or not be valid.
  */
-static void Term_big_queue_char_safe(int x, int y, u16b a, char c, u16b a1, char c1)
+static void Term_big_queue_char_safe(int x, int y, uint16_t a, char c, uint16_t a1, char c1)
 {
     int hor, vert;
 
@@ -2252,11 +2252,11 @@ static void Term_big_queue_char_safe(int x, int y, u16b a, char c, u16b a1, char
 #define DUNGEON_RLE_MODE() (use_graphics? RLE_LARGE: RLE_CLASSIC)
 static int Receive_line_info(void)
 {
-    byte ch, r;
-    s16b y = 0;
+    uint8_t ch, r;
+    int16_t y = 0;
     char n;
     int mode;
-    s16b cols, xoff = 0, coff = 0;
+    int16_t cols, xoff = 0, coff = 0;
     cave_view_type *dest, *trn;
     bool draw;
     int bytes_read;
@@ -2382,7 +2382,7 @@ static int Receive_line_info(void)
 
                 if ((ch != PKT_MINI_MAP) && (tile_width * tile_height > 1))
                 {
-                    u16b a_dummy = (use_graphics? COLOUR_WHITE: 0);
+                    uint16_t a_dummy = (use_graphics? COLOUR_WHITE: 0);
                     char c_dummy = (use_graphics? ' ': 0);
 
                     Term_big_queue_char_safe(x, y, scr_info->a, scr_info->c, a_dummy, c_dummy);
@@ -2398,8 +2398,8 @@ static int Receive_line_info(void)
 static int Receive_speed(void)
 {
     int n;
-    byte ch;
-    s16b speed, mult;
+    uint8_t ch;
+    int16_t speed, mult;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &speed, &mult)) <= 0)
         return n;
@@ -2416,8 +2416,8 @@ static int Receive_speed(void)
 static int Receive_study(void)
 {
     int n;
-    byte ch;
-    s16b study;
+    uint8_t ch;
+    int16_t study;
     char can_study_book;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%c", &ch, &study, &can_study_book)) <= 0)
@@ -2435,8 +2435,8 @@ static int Receive_study(void)
 static int Receive_count(void)
 {
     int n;
-    byte ch, type;
-    s16b count;
+    uint8_t ch, type;
+    int16_t count;
 
     if ((n = Packet_scanf(&rbuf, "%b%b%hd", &ch, &type, &count)) <= 0)
         return n;
@@ -2454,8 +2454,8 @@ static int Receive_count(void)
 static int Receive_show_floor(void)
 {
     int n;
-    byte ch;
-    byte mode;
+    uint8_t ch;
+    uint8_t mode;
 
     if ((n = Packet_scanf(&rbuf, "%b%b", &ch, &mode)) <= 0)
         return n;
@@ -2475,10 +2475,10 @@ static int Receive_show_floor(void)
 static int Receive_char(void)
 {
     int n;
-    byte ch;
-    byte x, y, x_off;
+    uint8_t ch;
+    uint8_t x, y, x_off;
     char c, tcp;
-    u16b a, tap;
+    uint16_t a, tap;
     bool draw = true;
     int bytes_read;
 
@@ -2542,7 +2542,7 @@ static int Receive_char(void)
         Term_queue_char_safe(x_off, y, a, c, tap, tcp);
         if (tile_width * tile_height > 1)
         {
-            u16b a_dummy = (use_graphics? COLOUR_WHITE: 0);
+            uint16_t a_dummy = (use_graphics? COLOUR_WHITE: 0);
             char c_dummy = (use_graphics? ' ': 0);
 
             Term_big_queue_char_safe(x_off, y, a, c, a_dummy, c_dummy);
@@ -2564,11 +2564,11 @@ static int Receive_char(void)
 
 static int Receive_spell_info(void)
 {
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b book, line, smana;
+    int16_t book, line, smana;
     char buf[NORMAL_WID];
-    byte line_attr, dir_attr, flag, proj_attr;
+    uint8_t line_attr, dir_attr, flag, proj_attr;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%s%b%b%b%b%hd", &ch, &book, &line, buf, &line_attr, &flag,
         &dir_attr, &proj_attr, &smana)) <= 0)
@@ -2600,9 +2600,9 @@ static int Receive_spell_info(void)
 
 static int Receive_book_info(void)
 {
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b book;
+    int16_t book;
     char realm[NORMAL_WID];
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%s", &ch, &book, realm)) <= 0)
@@ -2619,11 +2619,11 @@ static int Receive_book_info(void)
 static int Receive_floor(void)
 {
     int n, bytes_read;
-    byte ch, num, notice, attr, act, aim, fuel, fail, known, known_effect, identified, carry,
+    uint8_t ch, num, notice, attr, act, aim, fuel, fail, known, known_effect, identified, carry,
         quality_ignore, ignored, magic, throwable, force, ignore_protect;
-    u16b tval, sval;
-    s16b amt, slot, oidx, eidx, bidx;
-    s32b pval;
+    uint16_t tval, sval;
+    int16_t amt, slot, oidx, eidx, bidx;
+    int32_t pval;
     quark_t note;
     char name[NORMAL_WID];
     char name_terse[NORMAL_WID];
@@ -2742,7 +2742,7 @@ static int Receive_floor(void)
 static int Receive_special_other(void)
 {
     int n;
-    byte ch, peruse;
+    uint8_t ch, peruse;
     char buf[NORMAL_WID];
 
     if ((n = Packet_scanf(&rbuf, "%b%s%b", &ch, buf, &peruse)) <= 0)
@@ -2768,13 +2768,13 @@ static int Receive_store(void)
 {
     int n;
     char name[MSG_LEN];
-    byte attr;
-    s16b wgt, bidx, owned;
+    uint8_t attr;
+    int16_t wgt, bidx, owned;
     char pos;
-    s32b price;
-    byte num, max;
-    u16b tval;
-    byte ch;
+    int32_t price;
+    uint8_t num, max;
+    uint16_t tval;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%b%hd%b%hd%ld%hu%b%hd%s", &ch, &pos, &attr, &wgt, &num,
         &owned, &price, &tval, &max, &bidx, name)) <= 0)
@@ -2803,12 +2803,12 @@ static int Receive_store(void)
 static int Receive_store_info(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
     char store_name[NORMAL_WID];
     char store_owner_name[NORMAL_WID];
-    s16b num_items;
-    s32b max_cost;
-    s16b type;
+    int16_t num_items;
+    int32_t max_cost;
+    int16_t type;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%s%s%s%hd%ld", &ch, &type, store_name, store_owner_name,
         welcome, &num_items, &max_cost)) <= 0)
@@ -2836,8 +2836,8 @@ static int Receive_target_info(void)
 {
     int n;
     char x, y, buf[NORMAL_WID];
-    byte ch;
-    s16b dble;
+    uint8_t ch;
+    int16_t dble;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%c%hd%s", &ch, &x, &y, &dble, buf)) <= 0)
         return n;
@@ -2870,8 +2870,8 @@ static int Receive_target_info(void)
 static int Receive_sound(void)
 {
     int n;
-    s16b val;
-    byte ch;
+    int16_t val;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &val)) <= 0)
         return n;
@@ -2886,8 +2886,8 @@ static int Receive_sound(void)
 static int Receive_skills(void)
 {
     int n, i;
-    s16b tmp[11];
-    byte ch;
+    int16_t tmp[11];
+    uint8_t ch;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
@@ -2931,7 +2931,7 @@ static int Receive_skills(void)
 static int Receive_pause(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -2973,7 +2973,7 @@ static int Receive_monster_health(void)
 {
     int n;
     char num;
-    byte ch, attr;
+    uint8_t ch, attr;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%b", &ch, &num, &attr)) <= 0)
         return n;
@@ -2990,9 +2990,9 @@ static int Receive_monster_health(void)
 static int Receive_aware(void)
 {
     int n, i;
-    byte ch;
-    u16b num;
-    byte setting;
+    uint8_t ch;
+    uint16_t num;
+    uint8_t setting;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b%hu", &ch, &num)) <= 0)
@@ -3038,9 +3038,9 @@ static int Receive_aware(void)
 static int Receive_everseen(void)
 {
     int n, i;
-    byte ch;
-    u16b num;
-    byte setting;
+    uint8_t ch;
+    uint16_t num;
+    uint8_t setting;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b%hu", &ch, &num)) <= 0)
@@ -3086,9 +3086,9 @@ static int Receive_everseen(void)
 static int Receive_ego_everseen(void)
 {
     int n, i;
-    byte ch;
-    u16b num;
-    byte setting;
+    uint8_t ch;
+    uint16_t num;
+    uint8_t setting;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b%hu", &ch, &num)) <= 0)
@@ -3134,7 +3134,7 @@ static int Receive_ego_everseen(void)
 static int Receive_cursor(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
     char vis, x, y;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%c%c", &ch, &vis, &x, &y)) <= 0)
@@ -3161,9 +3161,9 @@ static int Receive_cursor(void)
 
 static int Receive_objflags()
 {
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b y;
+    int16_t y;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &y)) <= 0) return n;
@@ -3182,9 +3182,9 @@ static int Receive_objflags()
 
 static int Receive_spell_desc(void)
 {
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b book, line;
+    int16_t book, line;
     char desc[MSG_LEN], name[NORMAL_WID];
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%S%s", &ch, &book, &line, desc, name)) <= 0)
@@ -3201,8 +3201,8 @@ static int Receive_spell_desc(void)
 static int Receive_dtrap(void)
 {
     int n;
-    byte ch;
-    byte dtrap;
+    uint8_t ch;
+    uint8_t dtrap;
 
     if ((n = Packet_scanf(&rbuf, "%b%b", &ch, &dtrap)) <= 0)
         return n;
@@ -3219,8 +3219,8 @@ static int Receive_term_info(void)
 {
     int n, last;
     char mode;
-    u16b arg;
-    byte ch;
+    uint16_t arg;
+    uint8_t ch;
 
     mode = arg = 0;
 
@@ -3299,7 +3299,7 @@ static int Receive_term_info(void)
 static int Receive_player_pos(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd", &ch, &player->grid.x, &player->offset_grid.x,
         &player->grid.y, &player->offset_grid.y)) <= 0)
@@ -3314,7 +3314,7 @@ static int Receive_player_pos(void)
 static int Receive_minipos(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &cursor_y, &cursor_x)) <= 0)
     {
@@ -3328,7 +3328,7 @@ static int Receive_minipos(void)
 static int Receive_message_flush(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -3344,7 +3344,7 @@ static int Receive_message_flush(void)
 static int Receive_play(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -3398,8 +3398,8 @@ static int Receive_quit(void)
 static int Receive_features(void)
 {
     int n;
-    byte ch;
-    s16b lighting, off;
+    uint8_t ch;
+    int16_t lighting, off;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &lighting, &off)) <= 0)
         return n;
@@ -3428,9 +3428,9 @@ static int Receive_features(void)
 static int Receive_text_screen(void)
 {
     int n, i;
-    byte ch;
-    s16b type;
-    s32b off, len;
+    uint8_t ch;
+    int16_t type;
+    int32_t off, len;
     int bytes_read;
 
     len = off = 0;
@@ -3492,8 +3492,8 @@ static int Receive_text_screen(void)
 static int Receive_keepalive(void)
 {
     int n;
-    byte ch;
-    s32b ctime;
+    uint8_t ch;
+    int32_t ctime;
 
     if ((n = Packet_scanf(&rbuf, "%b%ld", &ch, &ctime)) <= 0)
         return n;
@@ -3518,8 +3518,8 @@ static int Receive_keepalive(void)
 static int Receive_char_info_conn(void)
 {
     int n;
-    byte ch;
-    byte mode, ridx, cidx, psex;
+    uint8_t ch;
+    uint8_t mode, ridx, cidx, psex;
     static bool newchar = false;
 
     /* Clear any old info */
@@ -3568,8 +3568,8 @@ static int Receive_char_info_conn(void)
 static int Receive_char_info(void)
 {
     int n;
-    byte ch;
-    byte ridx, cidx, psex;
+    uint8_t ch;
+    uint8_t ridx, cidx, psex;
     bool update_body = true;
 
     /* Clear any old info */
@@ -3612,7 +3612,7 @@ static int Receive_char_info(void)
 static int Receive_options(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
     char force_descend, no_recall, no_artifacts, feelings, no_selling, start_kit, no_stores,
         no_ghost, fruit_bat;
 
@@ -3640,7 +3640,7 @@ static int Receive_options(void)
 static int Receive_char_dump(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
     char buf[MSG_LEN];
 
     if ((n = Packet_scanf(&rbuf, "%b%s", &ch, buf)) <= 0)
@@ -3707,8 +3707,8 @@ static int Receive_message(void)
 {
     int n;
     size_t c;
-    byte ch;
-    u16b type = 0;
+    uint8_t ch;
+    uint16_t type = 0;
     char buf[MSG_LEN], search[MSG_LEN], *ptr;
     bool extended_char = false;
 
@@ -3776,11 +3776,11 @@ static int Receive_message(void)
 static int Receive_item(void)
 {
     int n, bytes_read;
-    byte ch, equipped, quiver, notice, attr, act, aim, fuel, fail, stuck, known, known_effect,
+    uint8_t ch, equipped, quiver, notice, attr, act, aim, fuel, fail, stuck, known, known_effect,
         identified, sellable, quality_ignore, ignored, magic, throwable, ignore_protect;
-    u16b tval, sval;
-    s16b wgt, amt, oidx, slot, eidx, bidx;
-    s32b price, pval;
+    uint16_t tval, sval;
+    int16_t wgt, amt, oidx, slot, eidx, bidx;
+    int32_t price, pval;
     quark_t note;
     char name[NORMAL_WID];
     char name_terse[NORMAL_WID];
@@ -3906,9 +3906,9 @@ static int Receive_item(void)
 static int Receive_sell(void)
 {
     int n;
-    byte ch;
-    s32b price;
-    s16b reset;
+    uint8_t ch;
+    int32_t price;
+    int16_t reset;
 
     if ((n = Packet_scanf(&rbuf, "%b%ld%hd", &ch, &price, &reset)) <= 0)
         return n;
@@ -3924,7 +3924,7 @@ static int Receive_party(void)
 {
     int n;
     char buf[160];
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%S", &ch, buf)) <= 0)
         return n;
@@ -3948,9 +3948,9 @@ static int Receive_special_line(void)
 {
     int n;
     size_t i;
-    s16b max, last, line;
+    int16_t max, last, line;
     char buf[NORMAL_WID];
-    byte r, ch, attr;
+    uint8_t r, ch, attr;
     int max_hgt = Client_setup.settings[SETTING_MAX_HGT];
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%b%s", &ch, &max, &last, &line, &attr, buf)) <= 0)
@@ -3962,7 +3962,7 @@ static int Receive_special_line(void)
     /* Hack -- COLOUR_DARK means that we indent the line, print a symbol and then a string */
     if (attr == COLOUR_DARK)
     {
-        byte a = (byte)buf[0];
+        uint8_t a = (uint8_t)buf[0];
 
         /* Put some blank characters first */
         for (i = 0; i < 5; i++)
@@ -3996,7 +3996,7 @@ static int Receive_special_line(void)
         for (i = 0; i < strlen(buf); i++)
         {
             if ((i % 2) == 0)
-                remote_info[r][line][i / 2].a = (u16b)buf[i];
+                remote_info[r][line][i / 2].a = (uint16_t)buf[i];
             else
                 remote_info[r][line][i / 2].c = buf[i];
         }
@@ -4006,11 +4006,11 @@ static int Receive_special_line(void)
     else if (attr == COLOUR_SYMBOL)
     {
         /* Add symbol */
-        remote_info[r][line][0].a = (u16b)buf[0];
+        remote_info[r][line][0].a = (uint16_t)buf[0];
         remote_info[r][line][0].c = buf[1];
 
         /* Copy the rest */
-        cavestr(remote_info[r][line] + 1, buf + 3, (byte)buf[2], NORMAL_WID);
+        cavestr(remote_info[r][line] + 1, buf + 3, (uint8_t)buf[2], NORMAL_WID);
     }
 
     /* Copy to local buffer */
@@ -4076,8 +4076,8 @@ static int Receive_special_line(void)
 
 static int Receive_fullmap(void)
 {
-    byte ch;
-    s16b y = 0;
+    uint8_t ch;
+    int16_t y = 0;
     char n;
     int x;
     int bytes_read;
@@ -4117,8 +4117,8 @@ static int Receive_fullmap(void)
 static int Receive_poly(void)
 {
     int n;
-    byte ch;
-    s16b race;
+    uint8_t ch;
+    int16_t race;
 
     if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &race)) <= 0)
         return n;
@@ -4134,7 +4134,7 @@ static int Receive_poly(void)
 
 static int Receive_purchase(void)
 {
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
@@ -4150,7 +4150,7 @@ static int Receive_purchase(void)
 static int Receive_store_leave(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -4164,7 +4164,7 @@ static int Receive_store_leave(void)
 
 static int Receive_store_confirm(void)
 {
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
@@ -4180,8 +4180,8 @@ static int Receive_store_confirm(void)
 static int Receive_ignore(void)
 {
     int n, i, j, k;
-    byte ch;
-    byte setting;
+    uint8_t ch;
+    uint8_t setting;
     int bytes_read;
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
@@ -4209,8 +4209,8 @@ static int Receive_ignore(void)
     j = 0;
     while (i < z_info->e_max)
     {
-        s16b repeat;
-        byte last;
+        int16_t repeat;
+        uint8_t last;
 
         if ((n = Packet_scanf(&rbuf, "%hd%b", &repeat, &last)) <= 0)
         {
@@ -4258,7 +4258,7 @@ static int Receive_flush(void)
 {
     char fresh, delay;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%c%c", &ch, &fresh, &delay)) <= 0)
         return n;
@@ -4276,10 +4276,10 @@ static int Receive_flush(void)
 static int Receive_channel(void)
 {
     int n, j, free = -1;
-    byte i;
+    uint8_t i;
     char name[MAX_CHAN_LEN];
     char buf[NORMAL_WID];
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%b%s", &ch, &i, buf)) <= 0) return n;
 
@@ -4297,7 +4297,7 @@ static int Receive_channel(void)
 
                 for (j = 0; j < messages_num(); j++)
                 {
-                    u16b type = message_type(j);
+                    uint16_t type = message_type(j);
 
                     if (type == MSG_CHAT + i) message_del(j);
                 }
@@ -4377,8 +4377,8 @@ static int Receive_channel(void)
 static int Receive_history(void)
 {
     int n;
-    byte ch;
-    s16b line;
+    uint8_t ch;
+    int16_t line;
     char buf[NORMAL_WID];
 
     if ((n = Packet_scanf(&rbuf, "%b%hd%s", &ch, &line, buf)) <= 0)
@@ -4396,8 +4396,8 @@ static int Receive_history(void)
 static int Receive_autoinscriptions(void)
 {
     int n;
-    byte ch;
-    u32b kidx;
+    uint8_t ch;
+    uint32_t kidx;
     char note_aware[4];
 
     if ((n = Packet_scanf(&rbuf, "%b%lu%s", &ch, &kidx, note_aware)) <= 0)
@@ -4412,7 +4412,7 @@ static int Receive_autoinscriptions(void)
 static int Receive_play_setup(void)
 {
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&rbuf, "%b%b", &ch, &chardump)) <= 0)
         return n;
@@ -4431,7 +4431,7 @@ static int Receive_play_setup(void)
 int Send_features(int lighting, int off)
 {
     int n, i, size, max, offset = off;
-    byte a;
+    uint8_t a;
     char c;
 
     /* Paranoia */
@@ -4464,7 +4464,7 @@ int Send_features(int lighting, int off)
 int Send_verify(int type)
 {
     int n, i, size;
-    byte a;
+    uint8_t a;
     char c;
 
     /* Size */
@@ -4601,7 +4601,7 @@ int Send_tunnel(struct command *cmd)
 {
     int n;
     int dir = DIR_UNKNOWN;
-    byte starting = 1;
+    uint8_t starting = 1;
 
     if (cmd_get_target(cmd, "direction", &dir) != CMD_OK)
         return 0;
@@ -4761,7 +4761,7 @@ int Send_target_closest(int mode)
 int Send_cast(int book, int spell, int dir)
 {
     int n;
-    byte starting = 1;
+    uint8_t starting = 1;
 
     n = Packet_printf(&wbuf, "%b%hd%hd%c%b", (unsigned)PKT_SPELL, book, spell, dir,
         (unsigned)starting);
@@ -5244,7 +5244,7 @@ int Send_locate(int dir)
 }
 
 
-int Send_map(byte mode)
+int Send_map(uint8_t mode)
 {
     int n;
 
@@ -5356,7 +5356,7 @@ int Send_go_down(struct command *cmd)
 }
 
 
-int Send_drop_gold(s32b amt)
+int Send_drop_gold(int32_t amt)
 {
     int n;
 
@@ -5381,7 +5381,7 @@ int Send_redraw(void)
 }
 
 
-int Send_rest(s16b resting)
+int Send_rest(int16_t resting)
 {
     int n;
 
@@ -5429,7 +5429,7 @@ int Send_steal(struct command *cmd)
 }
 
 
-int Send_master(s16b command, const char *buf)
+int Send_master(int16_t command, const char *buf)
 {
     int n;
 
@@ -5516,7 +5516,7 @@ int Send_alter(struct command *cmd)
 int Send_fire_at_nearest(void)
 {
     int n;
-    byte starting = 1;
+    uint8_t starting = 1;
 
     if ((n = Packet_printf(&wbuf, "%b%b", (unsigned)PKT_FIRE_AT_NEAREST, (unsigned)starting)) <= 0)
         return n;
@@ -5743,10 +5743,10 @@ int Send_play(int phase)
 }
 
 
-int Send_text_screen(int type, s32b off)
+int Send_text_screen(int type, int32_t off)
 {
     int n;
-    s32b offset = off;
+    int32_t offset = off;
 
     if (offset < 0) offset = 0;
 
@@ -5876,7 +5876,7 @@ int Send_store_sell(int item, int amt)
 }
 
 
-int Send_party(s16b command, const char *buf)
+int Send_party(int16_t command, const char *buf)
 {
     int n;
 
@@ -5969,7 +5969,7 @@ int Send_store_confirm(void)
 int Send_ignore(void)
 {
     int i, j, n, repeat = 0;
-    byte last = player->ego_ignore_types[0][0];
+    uint8_t last = player->ego_ignore_types[0][0];
 
     if ((n = Packet_printf(&wbuf, "%b", (unsigned)PKT_IGNORE)) <= 0)
         return n;

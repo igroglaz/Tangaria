@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2007 Antony Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -82,7 +82,7 @@ static void prt_gold(struct player *p)
 static void prt_equippy(struct player *p)
 {
     int i;
-    byte a;
+    uint8_t a;
     char c;
     struct object *obj;
 
@@ -237,7 +237,7 @@ static void prt_health(struct player *p)
         int len;
 
         /* Default to almost dead */
-        byte attr = COLOUR_RED;
+        uint8_t attr = COLOUR_RED;
 
         /* Badly wounded */
         if (pct >= 10) attr = COLOUR_L_RED;
@@ -292,7 +292,7 @@ static void prt_health(struct player *p)
  */
 static void prt_speed(struct player *p)
 {
-    s16b speed = get_speed(p);
+    int16_t speed = get_speed(p);
     int mult = 10 * frame_energy(speed + 110) / frame_energy(110);
 
     Send_speed(p, speed, mult);
@@ -465,7 +465,7 @@ void dump_spells(struct player *p, struct object *obj)
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
     char help[20];
     const char *comment = help;
-    byte line_attr;
+    uint8_t line_attr;
     char spell_name[31];
 
     /* Get the book */
@@ -1126,14 +1126,14 @@ static void prt_player_sust_info(struct player *p)
     int i, stat;
     struct object *obj;
     bitflag f[OF_SIZE];
-    byte a;
+    uint8_t a;
     char c;
     bool aware;
 
     /* Process equipment */
     for (i = 0; i < p->body.count; ++i)
     {
-        s32b modifiers[OBJ_MOD_MAX];
+        int32_t modifiers[OBJ_MOD_MAX];
 
         /* Get the object */
         obj = slot_object(p, i);
@@ -1370,7 +1370,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
         for (j = 0; j <= p->body.count; j++)
         {
             bitflag f[OF_SIZE];
-            byte attr = (COLOUR_WHITE | (j % 2) * 8); /* Alternating columns */
+            uint8_t attr = (COLOUR_WHITE | (j % 2) * 8); /* Alternating columns */
             char sym = '.';
             bool res = false, d_res = false, imm = false, vul = false, rune = false;
             bool timed = false;
@@ -1399,7 +1399,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                 /* Get resistance, immunity and vulnerability info */
                 if (rec[i].mod != -1)
                 {
-                    s32b modifiers[OBJ_MOD_MAX];
+                    int32_t modifiers[OBJ_MOD_MAX];
 
                     object_modifiers(obj, modifiers);
 
@@ -1598,7 +1598,7 @@ static void prt_objectlist(struct player *p)
 
 typedef struct
 {
-    u32b flag;
+    uint32_t flag;
     void (*hook)(struct player *);
     bool remove_flag;
 } flag_event_trigger;
@@ -1811,12 +1811,12 @@ static int cmp_value(const void *a, const void *b)
 {
     const struct cmp_val *pa = a;
     const struct cmp_val *pb = b;
-    s32b va = 0, vb = 0;
+    int32_t va = 0, vb = 0;
 
     if (pa->obj->tval)
-        va = (s32b)object_value(pa->player, pa->obj, 1);
+        va = (int32_t)object_value(pa->player, pa->obj, 1);
     if (pb->obj->tval)
-        vb = (s32b)object_value(pb->player, pb->obj, 1);
+        vb = (int32_t)object_value(pb->player, pb->obj, 1);
 
     if (va > vb) return -1;
     if (va < vb) return 1;
@@ -2003,7 +2003,7 @@ void player_death(struct player *p)
     const char *prompt = get_title(p);
     bool perma_death, suicided = false;
     int i;
-    u16b type = MSG_BROADCAST_DIED;
+    uint16_t type = MSG_BROADCAST_DIED;
     bool no_ghost = (OPT(p, birth_no_ghost) || OPT(p, birth_fruit_bat) || cfg_no_ghost);
     struct source who_body;
     struct source *who = &who_body;
@@ -2372,7 +2372,7 @@ void center_panel(struct player *p)
  * unhasted monsters. Game speed has been greatly reduced on quest levels (depths 100/124+)
  * to get the same turn duration against "Fast (+30)" questors.
  */
-static u16b level_speeds[] =
+static uint16_t level_speeds[] =
 {
      75,  90,  91,  92,  93,  94,  95,  96,  97,  98,   /* Town - 450' */
      99, 100, 101, 102, 103, 104, 105, 106, 107, 108,   /* 500' - 950' */
@@ -3344,7 +3344,7 @@ static bool tohit_varies(const struct object *obj)
 }
 
 
-static s16b tohit_min(const struct object *obj)
+static int16_t tohit_min(const struct object *obj)
 {
     int base;
 
@@ -3364,7 +3364,7 @@ static s16b tohit_min(const struct object *obj)
 }
 
 
-static s16b tohit_max(const struct object *obj)
+static int16_t tohit_max(const struct object *obj)
 {
     int base;
 
@@ -3404,7 +3404,7 @@ static bool todam_varies(const struct object *obj)
 }
 
 
-static s16b todam_min(const struct object *obj)
+static int16_t todam_min(const struct object *obj)
 {
     int base;
 
@@ -3424,7 +3424,7 @@ static s16b todam_min(const struct object *obj)
 }
 
 
-static s16b todam_max(const struct object *obj)
+static int16_t todam_max(const struct object *obj)
 {
     int base;
 
@@ -3458,7 +3458,7 @@ static bool toac_varies(const struct object *obj)
 }
 
 
-static s16b toac_min(const struct object *obj)
+static int16_t toac_min(const struct object *obj)
 {
     int base;
 
@@ -3478,7 +3478,7 @@ static s16b toac_min(const struct object *obj)
 }
 
 
-static s16b toac_max(const struct object *obj)
+static int16_t toac_max(const struct object *obj)
 {
     int base;
 
@@ -3569,7 +3569,7 @@ static void mod_add(struct object *obj, int mod, int incr)
 {
     int value;
     bool mod_varies = false;
-    s16b mod_min, mod_max;
+    int16_t mod_min, mod_max;
 
     /* Need a modifier */
     if (mod == -1) return;
@@ -4262,7 +4262,7 @@ static const char *dm_flags_str[17] =
 
 static bool check_permissions(struct player *p, struct player *who, bool silent)
 {
-    u32b access_flag = DM_CAN_MUTATE_SELF;
+    uint32_t access_flag = DM_CAN_MUTATE_SELF;
 
     /* No player */
     if (!who)
@@ -4339,7 +4339,7 @@ static void master_player(struct player *p, char *parms)
         /* Change */
         case 'x':
         {
-            u32b new_flag = (1L << dm_player_off);
+            uint32_t new_flag = (1L << dm_player_off);
 
             if (!check_permissions(p, dm_ptr, true)) return;
 
@@ -4454,7 +4454,7 @@ static void master_visuals(struct player *p)
         for (i = 0; i < BOLT_MAX; i++)
         {
             bool use_gfx = (p->use_graphics && !p->tile_distorted);
-            byte a = (use_gfx? p->proj_attr[type][i]: proj_color(type));
+            uint8_t a = (use_gfx? p->proj_attr[type][i]: proj_color(type));
             char c = (use_gfx? p->proj_char[type][i]: chars[i]);
 
             p->info[type][i * 2 + 32].c = a;
@@ -4527,12 +4527,12 @@ static void master_order(struct player *p, char *parms)
  * This is a nice utility function; it determines if a (NULL-terminated)
  * string consists of only digits (starting with a non-zero digit).
  */
-static s16b get_idx_from_name(char *s)
+static int16_t get_idx_from_name(char *s)
 {
     char *endptr = NULL;
     long l = strtol(s, &endptr, 10);
 
-    return ((*endptr == '\0')? (s16b)l: 0);
+    return ((*endptr == '\0')? (int16_t)l: 0);
 }
 
 
@@ -4673,7 +4673,7 @@ static void master_debug(struct player *p, char *parms)
 }
 
 
-void do_cmd_master(struct player *p, s16b command, char *buf)
+void do_cmd_master(struct player *p, int16_t command, char *buf)
 {
     switch (command)
     {
@@ -5202,7 +5202,7 @@ void describe_feat(struct player *p, struct feature *feat)
  * It is moving (or has moved) from start to end; if the distance is not
  * "one", we (may) return "*".
  */
-void bolt_pict(struct player *p, struct loc *start, struct loc *end, int typ, byte *a, char *c)
+void bolt_pict(struct player *p, struct loc *start, struct loc *end, int typ, uint8_t *a, char *c)
 {
     int motion;
 
@@ -5273,7 +5273,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
             /* Only do visuals if the player can see the blast */
             if (square_isview(p, &blast_grid[i]))
             {
-                byte a;
+                uint8_t a;
                 char c;
 
                 drawn[j] = true;
@@ -5382,7 +5382,7 @@ void display_bolt(struct chunk *cv, struct bolt *data, bool *drawing)
         /* Only do visuals if the player can "see" the bolt */
         if (square_isview(p, &data->grid))
         {
-            byte a;
+            uint8_t a;
             char c;
 
             /* Obtain the bolt pict */
@@ -5452,7 +5452,7 @@ static void display_message_aux(struct player *p, int type, const char *msg)
     bool add = false;
     bool dup = false;
     char multiplier[12];
-    s16b ptr;
+    int16_t ptr;
 
     /* Excludes all channels but #public from the log file */
     if (type > MSG_CHAT) log = false;

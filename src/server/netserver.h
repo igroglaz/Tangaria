@@ -38,8 +38,8 @@ typedef struct
     hturn           start;
     long            timeout;
     bool            has_setup;
-    u16b            conntype;
-    byte            char_state;
+    uint16_t            conntype;
+    uint8_t            char_state;
     int             id;
     unsigned        version;
     char            *real;
@@ -48,16 +48,16 @@ typedef struct
     char            *addr;
     char            *host;
     char            *pass;
-    byte            ridx;
-    byte            cidx;
-    byte            psex;
-    s16b            stat_roll[STAT_MAX + 1];
+    uint8_t            ridx;
+    uint8_t            cidx;
+    uint8_t            psex;
+    int16_t            stat_roll[STAT_MAX + 1];
     client_setup_t  Client_setup;
     bool            options[OPT_MAX];
     bool            console_authenticated;
     bool            console_listen;
-    byte            console_channels[MAX_CHANNELS];
-    u32b            account;
+    uint8_t            console_channels[MAX_CHANNELS];
+    uint32_t            account;
     char            *quit_msg;
 } connection_t;
 
@@ -91,7 +91,7 @@ extern bool Conn_is_alive(int ind);
 extern void Conn_set_console_setting(int ind, int set, bool val);
 extern bool Conn_get_console_setting(int ind, int set);
 extern int Init_setup(void);
-extern byte *Conn_get_console_channels(int ind);
+extern uint8_t *Conn_get_console_channels(int ind);
 
 /*** Sending ***/
 extern int Send_basic_info(int ind);
@@ -117,8 +117,8 @@ extern int Send_weight(struct player *p, int weight, int max_weight);
 extern int Send_plusses(struct player *p, int dd, int ds, int mhit, int mdam, int shit,
     int sdam);
 extern int Send_ac(struct player *p, int base, int plus);
-extern int Send_exp(struct player *p, s32b max, s32b cur, s16b expfact);
-extern int Send_gold(struct player *p, s32b gold);
+extern int Send_exp(struct player *p, int32_t max, int32_t cur, int16_t expfact);
+extern int Send_gold(struct player *p, int32_t gold);
 extern int Send_hp(struct player *p, int mhp, int chp);
 extern int Send_sp(struct player *p, int msp, int csp);
 extern int Send_various(struct player *p, int height, int weight, int age);
@@ -126,77 +126,77 @@ extern int Send_stat(struct player *p, int stat, int stat_top, int stat_use, int
     int stat_add, int stat_cur);
 extern int Send_history(struct player *p, int line, const char *hist);
 extern int Send_autoinscription(struct player *p, struct object_kind *kind);
-extern int Send_index(struct player *p, int i, int index, byte type);
-extern int Send_item_request(struct player *p, byte tester_hook, char *dice_string);
+extern int Send_index(struct player *p, int i, int index, uint8_t type);
+extern int Send_item_request(struct player *p, uint8_t tester_hook, char *dice_string);
 extern int Send_title(struct player *p, const char *title);
-extern int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_turn);
+extern int Send_turn(struct player *p, uint32_t game_turn, uint32_t player_turn, uint32_t active_turn);
 extern int Send_extra(struct player *p);
 extern int Send_depth(struct player *p);
-extern int Send_status(struct player *p, s16b *effects);
-extern int Send_recall(struct player *p, s16b word_recall, s16b deep_descent);
+extern int Send_status(struct player *p, int16_t *effects);
+extern int Send_recall(struct player *p, int16_t word_recall, int16_t deep_descent);
 extern int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring,
     const char *terrain);
 extern int Send_line_info(struct player *p, int y);
 extern int Send_remote_line(struct player *p, int y);
 extern int Send_speed(struct player *p, int speed, int mult);
 extern int Send_study(struct player *p, int study, bool can_study_book);
-extern int Send_count(struct player *p, byte type, s16b count);
-extern int Send_show_floor(struct player *p, byte mode);
-extern int Send_char(struct player *p, struct loc *grid, u16b a, char c, u16b ta, char tc);
+extern int Send_count(struct player *p, uint8_t type, int16_t count);
+extern int Send_show_floor(struct player *p, uint8_t mode);
+extern int Send_char(struct player *p, struct loc *grid, uint16_t a, char c, uint16_t ta, char tc);
 extern int Send_spell_info(struct player *p, int book, int i, const char *out_val,
     spell_flags *flags, int smana);
 extern int Send_book_info(struct player *p, int book, const char *name);
-extern int Send_floor(struct player *p, byte num, const struct object *obj,
-    struct object_xtra *info_xtra, byte force);
-extern int Send_special_other(struct player *p, char *header, byte peruse, bool protect);
-extern int Send_store(struct player *p, char pos, byte attr, s16b wgt, byte number, s16b owned,
-    s32b price, u16b tval, byte max, s16b bidx, const char *name);
+extern int Send_floor(struct player *p, uint8_t num, const struct object *obj,
+    struct object_xtra *info_xtra, uint8_t force);
+extern int Send_special_other(struct player *p, char *header, uint8_t peruse, bool protect);
+extern int Send_store(struct player *p, char pos, uint8_t attr, int16_t wgt, uint8_t number, int16_t owned,
+    int32_t price, uint16_t tval, uint8_t max, int16_t bidx, const char *name);
 extern int Send_store_info(struct player *p, int num, char *name, char *owner, char *welcome,
-    int items, s32b purse);
+    int items, int32_t purse);
 extern int Send_target_info(struct player *p, int x, int y, bool dble, const char *buf);
 extern int Send_sound(struct player *p, int sound);
-extern int Send_mini_map(struct player *p, int y, s16b w);
+extern int Send_mini_map(struct player *p, int y, int16_t w);
 extern int Send_skills(struct player *p);
 extern int Send_pause(struct player *p);
-extern int Send_monster_health(struct player *p, int num, byte attr);
-extern int Send_aware(struct player *p, u16b num);
-extern int Send_everseen(struct player *p, u16b num);
-extern int Send_ego_everseen(struct player *p, u16b num);
+extern int Send_monster_health(struct player *p, int num, uint8_t attr);
+extern int Send_aware(struct player *p, uint16_t num);
+extern int Send_everseen(struct player *p, uint16_t num);
+extern int Send_ego_everseen(struct player *p, uint16_t num);
 extern int Send_cursor(struct player *p, char vis, char x, char y);
 extern int Send_objflags(struct player *p, int line);
 extern int Send_spell_desc(struct player *p, int book, int i, char *out_desc, char *out_name);
-extern int Send_dtrap(struct player *p, byte dtrap);
-extern int Send_term_info(struct player *p, int mode, u16b arg);
+extern int Send_dtrap(struct player *p, uint8_t dtrap);
+extern int Send_term_info(struct player *p, int mode, uint16_t arg);
 extern int Send_player_pos(struct player *p);
 extern int Send_minipos(struct player *p, int y, int x);
 extern int Send_play(int ind);
 extern int Send_features(int ind, int lighting, int off);
-extern int Send_text_screen(int ind, int type, s32b offset);
+extern int Send_text_screen(int ind, int type, int32_t offset);
 extern int Send_char_info_conn(int ind);
-extern int Send_char_info(struct player *p, byte ridx, byte cidx, byte psex);
+extern int Send_char_info(struct player *p, uint8_t ridx, uint8_t cidx, uint8_t psex);
 extern int Send_birth_options(int ind, struct birth_options *options);
 extern bool Send_dump_character(connection_t *connp, const char *dumpname, int mode);
-extern int Send_message(struct player *p, const char *msg, u16b typ);
-extern int Send_item(struct player *p, const struct object *obj, int wgt, s32b price,
+extern int Send_message(struct player *p, const char *msg, uint16_t typ);
+extern int Send_item(struct player *p, const struct object *obj, int wgt, int32_t price,
     struct object_xtra *info_xtra);
-extern int Send_store_sell(struct player *p, s32b price, bool reset);
+extern int Send_store_sell(struct player *p, int32_t price, bool reset);
 extern int Send_party(struct player *p);
-extern int Send_special_line(struct player *p, int max, int last, int line, byte attr,
+extern int Send_special_line(struct player *p, int max, int last, int line, uint8_t attr,
     const char *buf);
 extern int Send_fullmap(struct player *p, int y);
 extern int Send_poly(struct player *p, int race);
 extern int Send_store_leave(struct player *p);
 extern int Send_ignore(struct player *p);
 extern int Send_flush(struct player *p, bool fresh, char delay);
-extern int Send_channel(struct player *p, byte n, const char *virt);
+extern int Send_channel(struct player *p, uint8_t n, const char *virt);
 
 /*** Commands ***/
 extern int cmd_ignore_drop(struct player *p);
 extern int cmd_run(struct player *p, int dir);
-extern int cmd_rest(struct player *p, s16b resting);
+extern int cmd_rest(struct player *p, int16_t resting);
 extern int cmd_tunnel(struct player *p);
 extern int cmd_fire_at_nearest(struct player *p);
-extern int cmd_cast(struct player *p, s16b book, s16b spell, int dir);
+extern int cmd_cast(struct player *p, int16_t book, int16_t spell, int dir);
 
 /*** General network functions ***/
 extern bool process_pending_commands(int ind);
@@ -206,7 +206,7 @@ extern int Net_output_p(struct player *p);
 extern bool process_turn_based(void);
 
 /* account.c */
-extern u32b get_account(const char *name, const char *pass);
+extern uint32_t get_account(const char *name, const char *pass);
 
 /* control.c */
 extern void console_print(char *msg, int chan);

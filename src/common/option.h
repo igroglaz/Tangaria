@@ -62,11 +62,11 @@ typedef enum
 struct player_options
 {
     bool opt[OPT_MAX];              /* Options */
-    byte hitpoint_warn;             /* Hitpoint warning (0 to 9) */
-    byte hitpoint_warn_toggle;
-    byte lazymove_delay;            /* Delay in cs before moving to allow another keypress */
-    byte delay_factor;              /* Delay factor (0 to 255) */
-    byte ignore_lvl[ITYPE_MAX];     /* Auto-ignore level (0 to 4) */
+    uint8_t hitpoint_warn;             /* Hitpoint warning (0 to 9) */
+    uint8_t hitpoint_warn_toggle;
+    uint8_t lazymove_delay;            /* Delay in cs before moving to allow another keypress */
+    uint8_t delay_factor;              /* Delay factor (0 to 255) */
+    uint8_t ignore_lvl[ITYPE_MAX];     /* Auto-ignore level (0 to 4) */
 };
 
 extern int option_page[OP_MAX][OPT_PAGE_PER];

@@ -3,7 +3,7 @@
  * Purpose: Character creation
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -22,11 +22,11 @@
 
 
 /* Current player ID */
-s32b player_id;
+int32_t player_id;
 
 
 /* Basic sort algorithm */
-static void sort_stats(s16b* stats, s16b* stat_order)
+static void sort_stats(int16_t* stats, int16_t* stat_order)
 {
     int i, j;
 
@@ -37,7 +37,7 @@ static void sort_stats(s16b* stats, s16b* stat_order)
         {
             if (stats[j] < stats[j + 1])
             {
-                s16b stat, order;
+                int16_t stat, order;
 
                 /* Swap stats */
                 stat = stats[j];
@@ -58,7 +58,7 @@ static void sort_stats(s16b* stats, s16b* stat_order)
 
 
 /* Roll some stats */
-static void roll_stats(s16b* stats)
+static void roll_stats(int16_t* stats)
 {
     int i, j;
     int dice[3 * STAT_MAX];
@@ -102,13 +102,13 @@ static const int birth_stat_costs[9] = {0, 1, 2, 3, 4, 5, 6, 8, 12};
 #define MAX_BIRTH_POINTS 20
 
 
-static int get_birth_stat_cost(s16b stat)
+static int get_birth_stat_cost(int16_t stat)
 {
     return birth_stat_costs[stat - 10] - birth_stat_costs[stat - 11];
 }
 
 
-static void reset_stats(s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+static void reset_stats(int16_t stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
     int points_inc_local[STAT_MAX], int *points_left_local)
 {
     int i;
@@ -126,7 +126,7 @@ static void reset_stats(s16b stats_local[STAT_MAX], int points_spent_local[STAT_
 }
 
 
-static bool buy_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+static bool buy_stat(int choice, int16_t stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
     int points_inc_local[STAT_MAX], int *points_left_local)
 {
     /* Must be a valid stat, and have a "base" of below 18 to be adjusted */
@@ -152,7 +152,7 @@ static bool buy_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_lo
 }
 
 
-static bool sell_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
+static bool sell_stat(int choice, int16_t stats_local[STAT_MAX], int points_spent_local[STAT_MAX],
     int points_inc_local[STAT_MAX], int *points_left_local)
 {
     /* Must be a valid stat, and we can't "sell" stats below the base of 10. */
@@ -186,7 +186,7 @@ static bool sell_stat(int choice, s16b stats_local[STAT_MAX], int points_spent_l
  * 3. If there are any points left, spend as much as possible in order
  *    on DEX and then the non-spell-stat.
  */
-static void generate_stats(struct player *p, s16b st[STAT_MAX], int spent[STAT_MAX],
+static void generate_stats(struct player *p, int16_t st[STAT_MAX], int spent[STAT_MAX],
     int inc[STAT_MAX], int *left)
 {
     int step = 0;
@@ -361,10 +361,10 @@ static void generate_stats(struct player *p, s16b st[STAT_MAX], int spent[STAT_M
  *
  * Returns true if stats were rolled, false otherwise (in this case, apply default roller)
  */
-static bool get_stats_aux(struct player *p, s16b* stat_roll)
+static bool get_stats_aux(struct player *p, int16_t* stat_roll)
 {
     int i, j;
-    s16b stats[STAT_MAX], stat_order[STAT_MAX], stat_limit[STAT_MAX], stat_ok[STAT_MAX];
+    int16_t stats[STAT_MAX], stat_order[STAT_MAX], stat_limit[STAT_MAX], stat_ok[STAT_MAX];
 
     /* Default roller */
     if (stat_roll[STAT_MAX] == BR_DEFAULT) return false;
@@ -495,14 +495,14 @@ static bool get_stats_aux(struct player *p, s16b* stat_roll)
  *
  * For efficiency, we include a chunk of "calc_bonuses()".
  */
-static void get_stats(struct player *p, s16b* stat_roll)
+static void get_stats(struct player *p, int16_t* stat_roll)
 {
     int i;
 
     /* Default roller */
     if (!get_stats_aux(p, stat_roll))
     {
-        s16b stats[STAT_MAX];
+        int16_t stats[STAT_MAX];
         int points_spent[STAT_MAX];
         int points_inc[STAT_MAX];
         int points_left;
@@ -765,7 +765,7 @@ static void wield_all(struct player *p)
 }
 
 
-static void player_outfit_aux(struct player *p, struct object_kind *k, byte number, bool gift)
+static void player_outfit_aux(struct player *p, struct object_kind *k, uint8_t number, bool gift)
 {
     struct object *obj = object_new();
 
@@ -790,7 +790,7 @@ static void player_outfit_aux(struct player *p, struct object_kind *k, byte numb
     obj->ignore_protect = 1;
 
     /* Deduct the cost of the item from starting cash */
-    if (!free) p->au -= (s32b)object_value(p, obj, obj->number);
+    if (!free) p->au -= (int32_t)object_value(p, obj, obj->number);
 
     /* Carry the item */
     inven_carry(p, obj, true, false);
@@ -862,7 +862,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
             if (!included) continue;
         }
 
-        player_outfit_aux(p, kind, (byte)num, false);
+        player_outfit_aux(p, kind, (uint8_t)num, false);
     }
 
     /* Sanity check */
@@ -929,7 +929,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
         /* Hack -- money gift */
         if (tval_is_money_k(kind)) p->au += num;
-        else player_outfit_aux(p, kind, (byte)num, true);
+        else player_outfit_aux(p, kind, (uint8_t)num, true);
     }
 
     // some got too much gold
@@ -1006,7 +1006,7 @@ static void player_outfit_dm(struct player *p)
         struct object_kind *kind = lookup_kind(si->tval, si->sval);
 
         my_assert(kind);
-        player_outfit_aux(p, kind, (byte)si->min, true);
+        player_outfit_aux(p, kind, (uint8_t)si->min, true);
     }
 
     /* Max recall depth */
@@ -1021,7 +1021,7 @@ static void player_outfit_dm(struct player *p)
  * This fleshes out a full player based on the choices currently made,
  * and so is called whenever things like race or class are chosen.
  */
-static void player_generate(struct player *p, byte psex, const struct player_race *r,
+static void player_generate(struct player *p, uint8_t psex, const struct player_race *r,
     const struct player_class *c)
 {
     int i;
@@ -1087,7 +1087,7 @@ static bool depth_is_valid(struct wild_type *w_ptr, int depth)
 }
 
 
-static void player_setup(struct player *p, int id, u32b account, bool no_recall)
+static void player_setup(struct player *p, int id, uint32_t account, bool no_recall)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool reposition = false, push_up = false;
@@ -1316,7 +1316,7 @@ static void player_setup(struct player *p, int id, u32b account, bool no_recall)
 
     /* Initialize bubble speed */
     p->bubble_speed = NORMAL_TIME;
-    p->blink_speed = (u32b)cfg_fps;
+    p->blink_speed = (uint32_t)cfg_fps;
 
     /* Redraw */
     square_light_spot(c, &p->grid);
@@ -1404,8 +1404,8 @@ static void player_admin(struct player *p)
 /*
  * Handle quick-start creation
  */
-static void quickstart_roll(struct player *p, bool character_existed, byte *pridx, byte *pcidx,
-    byte *psex, bool *old_history, s16b *stat_roll)
+static void quickstart_roll(struct player *p, bool character_existed, uint8_t *pridx, uint8_t *pcidx,
+    uint8_t *psex, bool *old_history, int16_t *stat_roll)
 {
     /* A character existed in the savefile */
     if (character_existed)
@@ -1547,8 +1547,8 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool no_r
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-struct player *player_birth(int id, u32b account, const char *name, const char *pass, int conn,
-    byte ridx, byte cidx, byte psex, s16b* stat_roll, bool options[OPT_MAX])
+struct player *player_birth(int id, uint32_t account, const char *name, const char *pass, int conn,
+    uint8_t ridx, uint8_t cidx, uint8_t psex, int16_t* stat_roll, bool options[OPT_MAX])
 {
     struct player *p;
     int i;
@@ -1778,7 +1778,7 @@ void server_birth(void)
 /*  
  * Check if the given connection type is valid.
  */
-u16b connection_type_ok(u16b conntype)
+uint16_t connection_type_ok(uint16_t conntype)
 {
     if (conntype == CONNTYPE_PLAYER) return CONNTYPE_PLAYER;
     if (conntype == 8202 || conntype == 8205) return CONNTYPE_CONSOLE;

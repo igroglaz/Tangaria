@@ -3,7 +3,7 @@
  * Purpose: Random name generation
  *
  * Copyright (c) 2007 Antony Sidwell, Sheldon Simms
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -27,7 +27,7 @@
 /*
  * Array[RANDNAME_NUM_TYPES][num_names] of random names
  */
-u32b *num_names;
+uint32_t *num_names;
 const char ***name_sections;
 
 typedef unsigned short name_probs[S_WORD+1][S_WORD+1][TOTAL+1];

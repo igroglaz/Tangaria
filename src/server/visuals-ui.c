@@ -3,7 +3,7 @@
  * Purpose: Appearance for screen elements
  *
  * Copyright (c) 2016 Ben Semmler
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -31,7 +31,7 @@ static size_t const VISUALS_CYCLES_MAX = 64;
 static size_t const VISUALS_STEPS_MAX = 32;
 
 /* Value to mark unused or otherwise invalid colors in a color cycle. */
-static byte const VISUALS_INVALID_COLOR = 0xFF;
+static uint8_t const VISUALS_INVALID_COLOR = 0xFF;
 
 
 /*
@@ -44,10 +44,10 @@ static byte const VISUALS_INVALID_COLOR = 0xFF;
  */
 struct visuals_color_cycle
 {
-    byte *steps;            /* An array of color indexes. Colors will be cycled in this order. */
+    uint8_t *steps;            /* An array of color indexes. Colors will be cycled in this order. */
     size_t max_steps;       /* The size of the steps array. */
     char *cycle_name;       /* The identifier of the color cycle. */
-    byte invalid_color;     /* A value to mark locations in steps that should not be considered a valid color. */
+    uint8_t invalid_color;     /* A value to mark locations in steps that should not be considered a valid color. */
 };
 
 
@@ -62,7 +62,7 @@ struct visuals_color_cycle
  * return: A new color cycle instance or NULL if an error occurred.
  */
 static struct visuals_color_cycle *visuals_color_cycle_new(const char *name,
-    const size_t step_count, const byte invalid_color)
+    const size_t step_count, const uint8_t invalid_color)
 {
     struct visuals_color_cycle *cycle = NULL;
 
@@ -161,7 +161,7 @@ static struct visuals_color_cycle *visuals_color_cycle_copy(const struct visuals
  * frame An arbitrary value used to select the color step.
  * return: A color or BASIC_COLORS if an error occurred.
  */
-static byte visuals_color_cycle_attr_for_frame(const struct visuals_color_cycle *cycle,
+static uint8_t visuals_color_cycle_attr_for_frame(const struct visuals_color_cycle *cycle,
     const size_t frame)
 {
     size_t step = 0;
@@ -370,7 +370,7 @@ static struct visuals_color_cycle *visuals_cycler_cycle_by_name(const struct vis
  * return: An attribute in the color cycle, or BASIC_COLORS if an error
  *         occurred.
  */
-byte visuals_cycler_get_attr_for_frame(const char *group_name, const char *cycle_name,
+uint8_t visuals_cycler_get_attr_for_frame(const char *group_name, const char *cycle_name,
     const size_t frame)
 {
 	struct visuals_cycler *table = visuals_cycler_table;
@@ -454,7 +454,7 @@ void visuals_cycler_set_cycle_for_race(const struct monster_race *race, const ch
  * frame An arbitrary value used to select which color in the flicker cycle to return.
  * return: An attribute in the color cycle, or BASIC_COLORS if an error occurred.
  */
-byte visuals_cycler_get_attr_for_race(const struct monster_race *race, const size_t frame)
+uint8_t visuals_cycler_get_attr_for_race(const struct monster_race *race, const size_t frame)
 {
 	struct visuals_color_cycle *cycle = NULL;
 
@@ -486,7 +486,7 @@ byte visuals_cycler_get_attr_for_race(const struct monster_race *race, const siz
  */
 struct visuals_flicker
 {
-    byte *cycles;               /* Array of max_cycles * colors_per_cycle colors. */
+    uint8_t *cycles;               /* Array of max_cycles * colors_per_cycle colors. */
     size_t max_cycles;          /* Maximum number of cycles in this table; not all may be used. */
     size_t colors_per_cycle;    /* Maximum number of steps in each cycle. */
 };
@@ -562,7 +562,7 @@ static void visuals_flicker_free(struct visuals_flicker *table)
  * attr The actual color to use.
  */
 static void visuals_flicker_set_color(struct visuals_flicker *table, const size_t cycle_index,
-    const size_t color_index, const byte attr)
+    const size_t color_index, const uint8_t attr)
 {
     if (table == NULL) return;
     if (cycle_index >= table->max_cycles) return;
@@ -581,7 +581,7 @@ static void visuals_flicker_set_color(struct visuals_flicker *table, const size_
  * color_index The desired step in the cycle.
  * return: The color at the given step in the given cycle.
  */
-static byte visuals_flicker_get_color(struct visuals_flicker *table, const size_t cycle_index,
+static uint8_t visuals_flicker_get_color(struct visuals_flicker *table, const size_t cycle_index,
     const size_t color_index)
 {
     if (table == NULL) return 0;
@@ -600,7 +600,7 @@ static byte visuals_flicker_get_color(struct visuals_flicker *table, const size_
  * frame An arbitrary value used to select which color in the flicker cycle to return.
  * return: An attribute in the flicker cycle, or BASIC_COLORS if an error occurred.
  */
-byte visuals_flicker_get_attr_for_frame(const byte selection_attr, const size_t frame)
+uint8_t visuals_flicker_get_attr_for_frame(const uint8_t selection_attr, const size_t frame)
 {
     size_t color_index = 0;
 
@@ -804,7 +804,7 @@ static enum parser_error visuals_parse_flicker(struct parser *parser)
     if (attr < 0) return PARSE_ERROR_INVALID_COLOR;
 
     /* Set the search attribute for the following colors. */
-    context->flicker_cycle_index = (byte)attr;
+    context->flicker_cycle_index = (uint8_t)attr;
     context->flicker_color_index = 0;
 
     return PARSE_ERROR_NONE;
@@ -832,7 +832,7 @@ static enum parser_error visuals_parse_flicker_color(struct parser *parser)
     if (attr < 0) return PARSE_ERROR_INVALID_COLOR;
 
     visuals_flicker_set_color(visuals_flicker_table, context->flicker_cycle_index,
-        context->flicker_color_index, (byte)attr);
+        context->flicker_color_index, (uint8_t)attr);
 
     context->flicker_color_index++;
 

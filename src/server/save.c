@@ -3,7 +3,7 @@
  * Purpose: Individual saving functions
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -41,7 +41,7 @@ void wr_description(void *data)
 }
 
 
-static void wr_tval_sval(u16b tval, u16b sval)
+static void wr_tval_sval(uint16_t tval, uint16_t sval)
 {
 #ifdef SAVE_AS_STRINGS
     wr_string(tval_find_name(tval));
@@ -66,7 +66,7 @@ static void wr_artifact(const struct artifact *art)
 #ifdef SAVE_AS_STRINGS
     if (!art) wr_string("");
     else if (art == (const struct artifact *)1) wr_string("1");
-    else if ((art->aidx >= (u32b)z_info->a_max) && (art->aidx < (u32b)z_info->a_max + 9))
+    else if ((art->aidx >= (uint32_t)z_info->a_max) && (art->aidx < (uint32_t)z_info->a_max + 9))
         wr_string(format("%d", art->aidx));
     else wr_string(art->name);
 #else
@@ -278,7 +278,7 @@ void wr_object_memory(void *data)
     wr_u16b(z_info->k_max);
     for (i = 0; i < z_info->k_max; i++)
     {
-        byte flags = 0;
+        uint8_t flags = 0;
 
         /* Figure out and write the flags */
         if (p->kind_aware[i]) flags |= 0x01;
@@ -369,7 +369,7 @@ void wr_player(void *data)
     wr_s16b(p->death_info.wpos.grid.x);
     wr_s16b(p->death_info.wpos.depth);
     wr_string(p->death_info.died_from);
-    wr_s32b((s32b)p->death_info.time);
+    wr_s32b((int32_t)p->death_info.time);
     wr_string(p->death_info.ctime);
 
     for (i = 0; i < N_HIST_LINES; i++) wr_string(p->history[i]);
@@ -668,9 +668,9 @@ void wr_player_dungeon(void *data)
     struct loc begin, end;
     struct loc_iterator iter;
     size_t i;
-    byte tmp8u, prev_char;
-    byte count;
-    u16b tmp16u, prev_feat;
+    uint8_t tmp8u, prev_char;
+    uint8_t count;
+    uint16_t tmp16u, prev_feat;
 
     if (p->is_dead) return;
 
@@ -696,7 +696,7 @@ void wr_player_dungeon(void *data)
     /* Run length encoding of cave->squares[y][x].feat */
     do
     {
-        /* Extract a byte */
+        /* Extract a uint8_t */
         tmp16u = square_p(p, &iter.cur)->feat;
 
         /* If the run is broken, or too full, flush it */
@@ -738,8 +738,8 @@ void wr_player_dungeon(void *data)
             /* If the run is broken, or too full, flush it */
             if ((tmp8u != prev_char) || (count == UCHAR_MAX))
             {
-                wr_byte((byte)count);
-                wr_byte((byte)prev_char);
+                wr_byte((uint8_t)count);
+                wr_byte((uint8_t)prev_char);
                 prev_char = tmp8u;
                 count = 1;
             }
@@ -753,8 +753,8 @@ void wr_player_dungeon(void *data)
         /* Flush the data (if any) */
         if (count)
         {
-            wr_byte((byte)count);
-            wr_byte((byte)prev_char);
+            wr_byte((uint8_t)count);
+            wr_byte((uint8_t)prev_char);
         }
     }
 }
@@ -768,11 +768,11 @@ void wr_level(void *data)
     struct loc begin, end;
     struct loc_iterator iter;
     size_t i;
-    byte tmp8u;
-    byte count;
-    byte prev_char;
-    u16b tmp16u;
-    u16b prev_feat;
+    uint8_t tmp8u;
+    uint8_t count;
+    uint8_t prev_char;
+    uint16_t tmp16u;
+    uint16_t prev_feat;
     struct chunk *c = chunk_get((struct worldpos *)data);
 
     /* Dungeon specific info follows */
@@ -808,7 +808,7 @@ void wr_level(void *data)
     /* Run length encoding of cave->squares[y][x].feat */
     do
     {
-        /* Extract a byte */
+        /* Extract a uint8_t */
         tmp16u = square(c, &iter.cur)->feat;
 
         /* If the run is broken, or too full, flush it */
@@ -850,8 +850,8 @@ void wr_level(void *data)
             /* If the run is broken, or too full, flush it */
             if ((tmp8u != prev_char) || (count == UCHAR_MAX))
             {
-                wr_byte((byte)count);
-                wr_byte((byte)prev_char);
+                wr_byte((uint8_t)count);
+                wr_byte((uint8_t)prev_char);
                 prev_char = tmp8u;
                 count = 1;
             }
@@ -865,8 +865,8 @@ void wr_level(void *data)
         /* Flush the data (if any) */
         if (count)
         {
-            wr_byte((byte)count);
-            wr_byte((byte)prev_char);
+            wr_byte((uint8_t)count);
+            wr_byte((uint8_t)prev_char);
         }
     }
 }
@@ -879,7 +879,7 @@ void wr_dungeon(void *unused)
 {
     int i;
     struct loc grid;
-    u32b tmp32u = 0;
+    uint32_t tmp32u = 0;
 
     wr_byte(SQUARE_SIZE);
 
@@ -1014,7 +1014,7 @@ void wr_objects(void *unused)
 {
     int i;
     struct loc grid;
-    u32b tmp32u = 0;
+    uint32_t tmp32u = 0;
 
     /* Get the number of levels to dump */
     for (grid.y = radius_wild; grid.y >= 0 - radius_wild; grid.y--)
@@ -1149,7 +1149,7 @@ static void wr_monster(const struct monster *mon)
 static void wr_monsters_aux(struct chunk *c)
 {
     int i;
-    u16b limit = 1;
+    uint16_t limit = 1;
 
     /* Total monsters */
     for (i = 1; i < cave_monster_max(c); i++)
@@ -1177,7 +1177,7 @@ void wr_monsters(void *unused)
 {
     int i;
     struct loc grid;
-    u32b tmp32u = 0;
+    uint32_t tmp32u = 0;
 
     wr_byte(MFLAG_SIZE);
 
@@ -1325,7 +1325,7 @@ void wr_traps(void *unused)
 {
     int i;
     struct loc grid;
-    u32b tmp32u = 0;
+    uint32_t tmp32u = 0;
 
     wr_byte(TRF_SIZE);
 
@@ -1476,7 +1476,7 @@ static void wr_house(struct house_type *house)
 
 void wr_houses(void *unused)
 {
-    u16b i, count = (u16b)houses_count();
+    uint16_t i, count = (uint16_t)houses_count();
 
     /* Note the number of houses */
     wr_u16b(count);
@@ -1527,7 +1527,7 @@ void wr_wilderness(void *unused)
         {
             struct wild_type *w_ptr = get_wt_info_at(&grid);
 
-            wr_byte((byte)w_ptr->generated);
+            wr_byte((uint8_t)w_ptr->generated);
         }
     }
 }
@@ -1539,7 +1539,7 @@ void wr_wilderness(void *unused)
 void wr_player_names(void *unused)
 {
     int *id_list = NULL;
-    u32b num;
+    uint32_t num;
     size_t i;
     hash_entry *ptr;
 

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke (attacking code)
  * Copyright (c) 1997 Ben Harrison, David Reeve Sward, Keldon Jones (AI routines).
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -95,8 +95,8 @@ static bool monster_can_smell(struct player *p, struct monster *mon)
  */
 static int compare_monsters(const struct monster *mon1, const struct monster *mon2)
 {
-    u32b mexp1 = (mon1->original_race? mon1->original_race->mexp: mon1->race->mexp);
-    u32b mexp2 = (mon2->original_race? mon2->original_race->mexp: mon2->race->mexp);
+    uint32_t mexp1 = (mon1->original_race? mon1->original_race->mexp: mon1->race->mexp);
+    uint32_t mexp2 = (mon2->original_race? mon2->original_race->mexp: mon2->race->mexp);
 
     /* Compare */
     if (mexp1 < mexp2) return (-1);
@@ -205,10 +205,10 @@ bool monster_hates_grid(struct chunk *c, struct monster *mon, struct loc *grid)
  */
 static void get_move_find_range(struct player *p, struct monster *mon)
 {
-    u16b p_lev, m_lev;
-    u16b p_chp, p_mhp;
-    u32b m_chp, m_mhp;
-    u32b p_val, m_val;
+    uint16_t p_lev, m_lev;
+    uint16_t p_chp, p_mhp;
+    uint32_t m_chp, m_mhp;
+    uint32_t p_val, m_val;
 
     /* Monsters will run up to z_info->flee_range grids out of sight */
     int flee_range = z_info->max_sight + z_info->flee_range;
@@ -3010,7 +3010,7 @@ void reset_monsters(struct chunk *c)
  */
 static bool player_invis(struct player *p, struct monster *mon)
 {
-    s16b mlv;
+    int16_t mlv;
 
     /* Player should be invisible */
     if (!p->timed[TMD_INVIS]) return false;
@@ -3028,7 +3028,7 @@ static bool player_invis(struct player *p, struct monster *mon)
     /* Invisible monsters see invisible */
     if (monster_is_invisible(mon)) return false;
 
-    mlv = (s16b)mon->level;
+    mlv = (int16_t)mon->level;
     if (rf_has(mon->race->flags, RF_NO_SLEEP)) mlv += 10;
     if (rf_has(mon->race->flags, RF_DRAGON)) mlv += 20;
     if (rf_has(mon->race->flags, RF_UNDEAD)) mlv += 15;

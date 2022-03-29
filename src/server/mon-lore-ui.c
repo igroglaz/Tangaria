@@ -3,7 +3,7 @@
  * Purpose: Monster memory UI
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -32,7 +32,7 @@
  */
 static void lore_title(struct player *p, const struct monster_race *race)
 {
-    byte standard_attr, optional_attr;
+    uint8_t standard_attr, optional_attr;
     char standard_char, optional_char;
 
     my_assert(race);

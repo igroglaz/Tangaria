@@ -3,7 +3,7 @@
  * Purpose: In-game help
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -124,7 +124,7 @@ bool show_file(struct player *p, const char *name, const char *what, int line, i
     /* Dump the next 20 lines of the file */
     for (i = 0; i < 20; )
     {
-        byte attr = COLOUR_WHITE;
+        uint8_t attr = COLOUR_WHITE;
 
         /* Hack -- track the "first" line */
         if (!i) line = next;
@@ -204,7 +204,7 @@ static void copy_file_info(struct player *p, const char *name, int line, int col
     /* Parse the file */
     while (true)
     {
-        byte attr = COLOUR_WHITE;
+        uint8_t attr = COLOUR_WHITE;
 
         /* Read a line or stop */
         if (!file_getl(fff, buf, sizeof(buf))) break;
@@ -285,7 +285,7 @@ static void copy_file_info(struct player *p, const char *name, int line, int col
  * This function manages a virtual 'window' which buffers file
  * contents using "copy_file_info" function.
  */
-void common_file_peruse(struct player *p, u32b query)
+void common_file_peruse(struct player *p, uint32_t query)
 {
     int next = p->interactive_next;
 

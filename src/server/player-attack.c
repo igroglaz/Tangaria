@@ -3,7 +3,7 @@
  * Purpose: Attacks (both throwing and melee) by the player
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -67,7 +67,7 @@ int chance_of_melee_hit_base(const struct player *p, const struct object *weapon
 
     if (weapon)
     {
-        s16b to_h;
+        int16_t to_h;
 
         object_to_h(weapon, &to_h);
         bonus += to_h;
@@ -126,7 +126,7 @@ static int chance_of_missile_hit_base(struct player *p, struct object *missile,
     }
     else
     {
-        s16b to_h;
+        int16_t to_h;
 
         object_to_h(launcher, &to_h);
         bonus += p->state.to_h + to_h;
@@ -249,7 +249,7 @@ static bool is_debuffed(struct source *target)
  * Factor in item weight, total plusses, and player level.
  */
 static int critical_shot(struct player *p, struct source *target, int weight, int plus, int dam,
-    u32b *msg_type)
+    uint32_t *msg_type)
 {
     int debuff_to_hit = (is_debuffed(target)? DEBUFF_CRITICAL_HIT: 0);
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 4 + p->lev * 2;
@@ -284,7 +284,7 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
  * Factor in weapon weight, total plusses, player level.
  */
 static int critical_melee(struct player *p, struct source *target, int weight, int plus, int dam,
-    u32b *msg_type)
+    uint32_t *msg_type)
 {
     int debuff_to_hit = (is_debuffed(target)? DEBUFF_CRITICAL_HIT: 0);
     int power = weight + randint1(650);
@@ -355,7 +355,7 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
     struct source *target, struct delayed_effects *effects, int *d_dam)
 {
     int dmg = randcalc(dice, 0, RANDOMISE);
-    s16b to_d;
+    int16_t to_d;
 
     /* Base damage for Shadow touch and cuts/stuns */
     *d_dam = dmg;
@@ -402,7 +402,7 @@ static int ranged_damage(struct player *p, struct object *missile, struct object
     dam += missile->to_d;
     if (launcher)
     {
-        s16b to_d;
+        int16_t to_d;
 
         object_to_d(launcher, &to_d);
         dam += to_d;
@@ -782,7 +782,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     bool success = false;
 
     char verb[30], hit_extra[30];
-    u32b msg_type = MSG_HIT;
+    uint32_t msg_type = MSG_HIT;
     int dmg, d_dam;
 
     /* Information about the attacker */
@@ -1050,7 +1050,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             /* For now, exclude criticals on unarmed combat */
             if (obj)
             {
-                s16b to_h;
+                int16_t to_h;
 
                 object_to_h(obj, &to_h);
                 dmg = critical_melee(p, target, weight, to_h, dmg, &msg_type);
@@ -1293,7 +1293,7 @@ void py_attack(struct player *p, struct chunk *c, struct loc *grid)
     /* Reward blackguards with 5% of max SPs, min 1/2 point */
     if (player_has(p, PF_COMBAT_REGEN))
     {
-        s32b sp_gain = (s32b)(MAX(p->msp, 10) << 16) / 20;
+        int32_t sp_gain = (int32_t)(MAX(p->msp, 10) << 16) / 20;
         player_adjust_mana_precise(p, sp_gain);
     }
 
@@ -1503,7 +1503,7 @@ void drain_xp(struct player *p, int amt)
         msg(p, "You keep hold of your life force!");
     else
     {
-        s32b d = damroll(amt, 6) + (p->exp / 100) * z_info->life_drain_percent;
+        int32_t d = damroll(amt, 6) + (p->exp / 100) * z_info->life_drain_percent;
         if (player_of_has(p, OF_HOLD_LIFE))
         {
             msg(p, "You feel your life slipping away!");
@@ -1574,7 +1574,7 @@ void drop_weapon(struct player *p, int damage)
 /*
  * Check for hostility (player vs target).
  */
-static bool pvx_check(struct player *p, struct source *who, u16b feat)
+static bool pvx_check(struct player *p, struct source *who, uint16_t feat)
 {
     /* Player here */
     if (who->player)
@@ -1678,7 +1678,7 @@ static void wipe_delayed_ranged_effects(ranged_effects **effects, struct monster
  * It is moving (or has moved) from start to end.
  */
 static void missile_pict(struct player *p, const struct object *obj, struct loc *start,
-    struct loc *end, byte *a, char *c)
+    struct loc *end, uint8_t *a, char *c)
 {
     /* Get a nice missile picture for arrows and bolts */
     if (tval_is_arrow(obj))
@@ -1864,7 +1864,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 int note_dies = MON_MSG_DIE;
                 struct attack_result result = attack(p, obj, &grid);
                 int dmg = result.dmg;
-                u32b msg_type = result.msg_type;
+                uint32_t msg_type = result.msg_type;
                 const char *verb = result.verb;
 
                 /* Target info */
@@ -2210,7 +2210,7 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
     struct source *target = &target_body;
     bool visible;
     int ac;
-    s16b to_h;
+    int16_t to_h;
 
     memset(&result, 0, sizeof(result));
     my_strcpy(result.verb, "hits", sizeof(result.verb));

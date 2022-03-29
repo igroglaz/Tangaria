@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Robert A. Koeneke, James E. Wilson, Ben Harrison
  * Copyright (c) 2007 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -683,7 +683,7 @@ static bool store_will_buy(struct player *p, int sidx, const struct object *obj)
  *
  * Hack -- black markets always charge 2x and 5x/10x the normal price.
  */
-s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty)
+int32_t price_item(struct player *p, struct object *obj, bool store_buying, int qty)
 {
     int adjust = 100;
     double price;
@@ -716,7 +716,7 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
         if (price > PY_MAX_GOLD) return PY_MAX_GOLD;
 
         /* Return the price */
-        return (s32b)price;
+        return (int32_t)price;
     }
 
     /* Get the value of the stack of wands, or a single item */
@@ -841,7 +841,7 @@ s32b price_item(struct player *p, struct object *obj, bool store_buying, int qty
     if (price > PY_MAX_GOLD) return PY_MAX_GOLD;
 
     /* Return the price */
-    return (s32b)price;
+    return (int32_t)price;
 }
 
 
@@ -1105,11 +1105,11 @@ static bool str_contains(const char *str, const char *substr)
 struct object *store_carry(struct player *p, struct store *s, struct object *obj)
 {
     unsigned int i;
-    s32b value;
+    int32_t value;
     struct object *temp_obj;
 
     /* Evaluate the object */
-    value = (s32b)object_value(p, obj, 1);
+    value = (int32_t)object_value(p, obj, 1);
 
     /* Cursed/Worthless items "disappear" when sold */
     if (!value) return NULL;
@@ -1753,7 +1753,7 @@ void store_shuffle(struct store *s, bool force)
 /*
  * Return the quantity of a given item in the pack (include quiver).
  */
-static s16b find_inven(struct player *p, struct object *obj)
+static int16_t find_inven(struct player *p, struct object *obj)
 {
     int i;
     struct object *gear_obj;
@@ -1934,10 +1934,10 @@ static s16b find_inven(struct player *p, struct object *obj)
  */
 static void display_entry(struct player *p, struct object *obj, bool home)
 {
-    s32b price = -1, amt = 0;
+    int32_t price = -1, amt = 0;
     char o_name[NORMAL_WID];
-    byte attr;
-    s16b wgt, bidx, num;
+    uint8_t attr;
+    int16_t wgt, bidx, num;
     struct store *s = store_at(p);
 
     /* Describe the object - preserving inscriptions in the home */
@@ -2014,14 +2014,14 @@ static void display_entry(struct player *p, struct object *obj, bool home)
 
     /* Send the info */
     dump_spells(p, obj);
-    bidx = (s16b)object_to_book_index(p, obj);
-    Send_store(p, obj->oidx, attr, wgt, obj->number, num, price, obj->tval, (byte)amt, bidx, o_name);
+    bidx = (int16_t)object_to_book_index(p, obj);
+    Send_store(p, obj->oidx, attr, wgt, obj->number, num, price, obj->tval, (uint8_t)amt, bidx, o_name);
 }
 
 
 static bool set_askprice(struct object *obj)
 {
-    s32b price = get_askprice(quark_str(obj->note));
+    int32_t price = get_askprice(quark_str(obj->note));
 
     if (price >= 0)
     {
@@ -2252,7 +2252,7 @@ static void display_store(struct player *p, bool entering)
     int stockcount;
     char store_name[NORMAL_WID];
     char store_owner_name[NORMAL_WID];
-    s32b purse;
+    int32_t purse;
     spell_flags flags;
     struct store *s = store_at(p);
     char welcome[NORMAL_WID];
@@ -2371,7 +2371,7 @@ static struct object *player_store_object(struct player *p, int item, struct obj
  */
 static void sell_player_item(struct player *p, struct object *original, struct object *bought)
 {
-    s32b price;
+    int32_t price;
     struct house_type *h_ptr = house_get(p->player_store_num);
     struct loc_iterator iter;
     struct loc space;
@@ -2492,9 +2492,9 @@ void do_cmd_buy(struct player *p, int item, int amt)
 {
     struct object *obj, *original, *bought;
     char o_name[NORMAL_WID];
-    s32b price;
+    int32_t price;
     struct store *s = store_at(p);
-    byte origin = ((s->type == STORE_PLAYER)? ORIGIN_PLAYER: ORIGIN_STORE);
+    uint8_t origin = ((s->type == STORE_PLAYER)? ORIGIN_PLAYER: ORIGIN_STORE);
 
     /* Paranoia */
     if (item < 0) return;
@@ -2791,7 +2791,7 @@ bool store_will_buy_tester(struct player *p, const struct object *obj)
 void do_cmd_sell(struct player *p, int item, int amt)
 {
     struct store *s = store_at(p);
-    s32b price;
+    int32_t price;
     struct object *obj, *dummy;
 
     /* Paranoia */
@@ -3389,7 +3389,7 @@ bool check_store_drop(struct player *p)
 /*
  * Determine the price of an item for direct sale
  */
-s32b player_price_item(struct player *p, struct object *obj)
+int32_t player_price_item(struct player *p, struct object *obj)
 {
     double price;
 
@@ -3405,7 +3405,7 @@ s32b player_price_item(struct player *p, struct object *obj)
     if (price > PY_MAX_GOLD) return PY_MAX_GOLD;
 
     /* Done */
-    return (s32b)price;
+    return (int32_t)price;
 }
 
 

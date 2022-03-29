@@ -43,7 +43,7 @@ extern char welcome[NORMAL_WID];
 extern void store_enter(void);
 extern void store_prt_gold(void);
 extern void store_prt_frame(void);
-extern void store_sell_accept(s32b price, s16b reset);
+extern void store_sell_accept(int32_t price, int16_t reset);
 extern void store_purchase_end(void);
 extern void store_sell_end(void);
 extern void store_leave(void);

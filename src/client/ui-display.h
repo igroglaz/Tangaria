@@ -6,24 +6,24 @@
 #ifndef INCLUDED_UI_DISPLAY_H
 #define INCLUDED_UI_DISPLAY_H
 
-extern s16b max_line;
-extern s16b cur_line;
+extern int16_t max_line;
+extern int16_t cur_line;
 
 extern int health_amt;
-extern byte health_attr;
+extern uint8_t health_attr;
 extern int lag_mark;
-extern s16b view_channel;
+extern int16_t view_channel;
 extern cave_view_type remote_info[ANGBAND_TERM_MAX][MAX_TXT_INFO][NORMAL_WID];
-extern s16b last_remote_line[ANGBAND_TERM_MAX];
+extern int16_t last_remote_line[ANGBAND_TERM_MAX];
 
 extern const char *window_flag_desc[PW_MAX_FLAGS];
 
-extern void display_player_screen(byte mode);
+extern void display_player_screen(uint8_t mode);
 extern void toggle_inven_equip(void);
 extern void redraw_stuff(void);
 extern int find_whisper_tab(const char *msg, char *text, size_t len);
-extern void message_color_hack(const char *msg, byte *ap);
-extern void subwindows_set_flags(u32b *new_flags, size_t n_subwindows);
+extern void message_color_hack(const char *msg, uint8_t *ap);
+extern void subwindows_set_flags(uint32_t *new_flags, size_t n_subwindows);
 extern void subwindows_init_flags(void);
 extern void subwindows_reinit_flags(void);
 extern void init_display(void);

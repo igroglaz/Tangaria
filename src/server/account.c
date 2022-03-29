@@ -2,7 +2,7 @@
  * File: account.c
  * Purpose: Account management
  *
- * Copyright (c) 2021 PWMAngband Developers
+ * Copyright (c) 2022 PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -20,12 +20,12 @@
 #include "s-angband.h"
 
 
-u32b get_account(const char *name, const char *pass)
+uint32_t get_account(const char *name, const char *pass)
 {
     ang_file *fh;
     char filename[MSG_LEN];
     char filebuf[MSG_LEN];
-    u32b account_id = 1;
+    uint32_t account_id = 1;
     bool check_name = true, name_ok = false, pass_ok = false;
     char *str;
 

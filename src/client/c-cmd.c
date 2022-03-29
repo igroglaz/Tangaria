@@ -3,7 +3,7 @@
  * Purpose: Deal with command processing
  *
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -145,7 +145,7 @@ void textui_cmd_drop_gold(void)
     if (amt < 0) amt = 0;
 
     /* Send it */
-    if (amt) Send_drop_gold((s32b)amt);
+    if (amt) Send_drop_gold((int32_t)amt);
 }
 
 
@@ -158,7 +158,7 @@ static void map_callback_begin(ui_event *cp)
 
 
 /* Information access commands */
-static void view_map_aux(byte mode)
+static void view_map_aux(uint8_t mode)
 {
     ui_event ke = EVENT_EMPTY;
 
@@ -495,7 +495,7 @@ static int cmd_changehistory(void)
 
 
 /* Display player mode */
-static byte char_screen_mode = 0;
+static uint8_t char_screen_mode = 0;
 
 
 /*
@@ -782,7 +782,7 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
 }
 
 
-static void c_prt_last(byte attr, char *str, int y, int x, int n)
+static void c_prt_last(uint8_t attr, char *str, int y, int x, int n)
 {
     int len = strlen(str);
 
@@ -793,7 +793,7 @@ static void c_prt_last(byte attr, char *str, int y, int x, int n)
 }
 
 
-static void c_prt_n(byte attr, char *str, int y, int x, int n)
+static void c_prt_n(uint8_t attr, char *str, int y, int x, int n)
 {
     Term_putstr(x, y, n, attr, str);
 }

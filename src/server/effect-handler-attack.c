@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Andi Sidwell
  * Copyright (c) 2016 Ben Semmler, Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1275,7 +1275,7 @@ bool effect_handler_DETONATE(effect_handler_context_t *context)
         {
             bitflag f[RSF_SIZE];
             int num = 0, j;
-            byte spells[RSF_MAX];
+            uint8_t spells[RSF_MAX];
             struct source who_body;
             struct source *who = &who_body;
 

@@ -3,7 +3,7 @@
  * Purpose: Lists of objects and object pictures
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -26,7 +26,7 @@
  * Use "flavor" if available.
  * Default to user definitions.
  */
-byte object_kind_attr(struct player *p, const struct object_kind *kind)
+uint8_t object_kind_attr(struct player *p, const struct object_kind *kind)
 {
     return (p->kind_aware[kind->kidx]? p->k_attr[kind->kidx]: p->d_attr[kind->kidx]);
 }
@@ -48,7 +48,7 @@ char object_kind_char(struct player *p, const struct object_kind *kind)
  * Use "flavor" if available.
  * Default to user definitions.
  */
-byte object_attr(struct player *p, const struct object *obj)
+uint8_t object_attr(struct player *p, const struct object *obj)
 {
     return object_kind_attr(p, obj->kind);
 }
@@ -65,14 +65,14 @@ char object_char(struct player *p, const struct object *obj)
 }
 
 
-void display_item(struct player *p, struct object *obj, byte equipped)
+void display_item(struct player *p, struct object *obj, uint8_t equipped)
 {
     struct object_xtra info_xtra;
     char o_name[NORMAL_WID];
     char o_name_terse[NORMAL_WID];
     char o_name_base[NORMAL_WID];
     int wgt;
-    s32b price = 0;
+    int32_t price = 0;
 
     memset(&info_xtra, 0, sizeof(info_xtra));
 
@@ -97,12 +97,12 @@ void display_item(struct player *p, struct object *obj, byte equipped)
 
     /* Get the "ignore" flags */
     info_xtra.quality_ignore = ignore_level_of(p, obj);
-    info_xtra.ignored = (byte)object_is_ignored(p, obj);
-    info_xtra.eidx = ((obj->ego && obj->known->ego)? (s16b)obj->ego->eidx: -1);
+    info_xtra.ignored = (uint8_t)object_is_ignored(p, obj);
+    info_xtra.eidx = ((obj->ego && obj->known->ego)? (int16_t)obj->ego->eidx: -1);
 
     info_xtra.equipped = equipped;
     if (of_has(obj->flags, OF_AMMO_MAGIC)) info_xtra.magic = 1;
-    info_xtra.bidx = (s16b)object_to_book_index(p, obj);
+    info_xtra.bidx = (int16_t)object_to_book_index(p, obj);
     if (of_has(obj->flags, OF_THROWING)) info_xtra.throwable = 1;
 
     my_strcpy(info_xtra.name, o_name, sizeof(info_xtra.name));
@@ -304,12 +304,12 @@ void display_floor(struct player *p, struct chunk *c, struct object **floor_list
 
         /* Get the "ignore" flags */
         info_xtra.quality_ignore = ignore_level_of(p, floor_list[i]);
-        info_xtra.ignored = (byte)object_is_ignored(p, floor_list[i]);
+        info_xtra.ignored = (uint8_t)object_is_ignored(p, floor_list[i]);
         info_xtra.eidx = ((floor_list[i]->ego && floor_list[i]->known->ego)?
-            (s16b)floor_list[i]->ego->eidx: -1);
+            (int16_t)floor_list[i]->ego->eidx: -1);
 
         if (of_has(floor_list[i]->flags, OF_AMMO_MAGIC)) info_xtra.magic = 1;
-        info_xtra.bidx = (s16b)object_to_book_index(p, floor_list[i]);
+        info_xtra.bidx = (int16_t)object_to_book_index(p, floor_list[i]);
         if (of_has(floor_list[i]->flags, OF_THROWING)) info_xtra.throwable = 1;
 
         my_strcpy(info_xtra.name, o_name, sizeof(info_xtra.name));
@@ -337,11 +337,11 @@ void display_floor(struct player *p, struct chunk *c, struct object **floor_list
  */
 void show_floor(struct player *p, int mode)
 {
-    Send_show_floor(p, (byte)mode);
+    Send_show_floor(p, (uint8_t)mode);
 }
 
 
-bool get_item(struct player *p, byte tester_hook, char *dice_string)
+bool get_item(struct player *p, uint8_t tester_hook, char *dice_string)
 {
     /* Pending */
     p->current_value = ITEM_PENDING;

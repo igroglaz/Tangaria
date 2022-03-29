@@ -3,7 +3,7 @@
  * Purpose: INI file configuration
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -115,7 +115,7 @@ const char *conf_get_string(const char *section, const char *name, const char *d
 }
 
 
-s32b conf_get_int(const char *section, const char *name, s32b default_value)
+int32_t conf_get_int(const char *section, const char *name, int32_t default_value)
 {
     return GetPrivateProfileInt(section, name, default_value, config_name);
 }
@@ -127,7 +127,7 @@ void conf_set_string(const char *section, const char *name, const char *value)
 }
 
 
-void conf_set_int(const char *section, const char *name, s32b value)
+void conf_set_int(const char *section, const char *name, int32_t value)
 {
     char s_value[100];
 
@@ -309,7 +309,7 @@ void conf_set_string(const char* section, const char* name, const char* value)
 }
 
 /* Change an "integer" value. All values are stored as strings. */
-void conf_set_int(const char* section, const char* name, s32b value)
+void conf_set_int(const char* section, const char* name, int32_t value)
 {
     char s_value[100];
 
@@ -349,12 +349,12 @@ long conf_get_value(const char* section, const char* name, const char* default_v
     return (long)default_value;
 }
 
-s32b conf_get_int(const char* section, const char* name, s32b default_value)
+int32_t conf_get_int(const char* section, const char* name, int32_t default_value)
 {
     static char v_value[100];
 
     strnfmt(v_value, sizeof(v_value), "%" PRId32, default_value);
-    return (u32b)conf_get_value(section, name, v_value, true);
+    return (uint32_t)conf_get_value(section, name, v_value, true);
 }
 
 const char* conf_get_string(const char* section, const char* name, const char* default_value)
@@ -780,7 +780,7 @@ static bool clia_cpy_string(char *dst, int len, int i)
 }
 
 
-static bool clia_cpy_int(s32b *dst, int i)
+static bool clia_cpy_int(int32_t *dst, int i)
 {
     if (i > 0 && i < p_argc)
     {
@@ -799,7 +799,7 @@ bool clia_read_string(char *dst, int len, const char *key)
 }
 
 
-bool clia_read_int(s32b *dst, const char *key)
+bool clia_read_int(int32_t *dst, const char *key)
 {
     int i = clia_find(key);
 

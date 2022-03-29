@@ -3,7 +3,7 @@
  * Purpose: Generic color definitions
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -29,7 +29,7 @@
 /*
  * Global table of color definitions (mostly zeros)
  */
-byte angband_color_table[MAX_COLORS][4] =
+uint8_t angband_color_table[MAX_COLORS][4] =
 {
     {0x00, 0x00, 0x00, 0x00}, /* 0  COLOUR_DARK */
     {0x00, 0xff, 0xff, 0xff}, /* 1  COLOUR_WHITE */
@@ -170,7 +170,7 @@ int color_char_to_attr(char c)
 
 
 /*
- * Converts a string to a terminal color byte.
+ * Converts a string to a terminal color uint8_t.
  */
 int color_text_to_attr(const char *name)
 {
@@ -198,7 +198,7 @@ int color_text_to_attr(const char *name)
  * that e.g. the lighter version of yellow becomes white in a 16 color term, but
  * light yellow in a full colour term.
  */
-byte get_color(byte a, int attr, int n)
+uint8_t get_color(uint8_t a, int attr, int n)
 {
     /* Accept any graphical attr (high bit set) */
     if (a & (0x80)) return (a);
@@ -264,12 +264,12 @@ byte get_color(byte a, int attr, int n)
 /*
  * Table of gamma values
  */
-byte gamma_table[256];
+uint8_t gamma_table[256];
 
 /*
  * Table of ln(x / 256) * 256 for x going from 0 -> 255
  */
-static const s16b gamma_helper[256] =
+static const int16_t gamma_helper[256] =
 {
     0, -1420, -1242, -1138, -1065, -1007, -961, -921, -887, -857, -830,
     -806, -783, -762, -744, -726, -710, -694, -679, -666, -652, -640,
@@ -358,6 +358,6 @@ void build_gamma_table(int gamma)
          * Store the value in the table so that the
          * floating point pow function isn't needed.
          */
-        gamma_table[i] = (byte)(((long)(value / 256) * i) / 256);
+        gamma_table[i] = (uint8_t)(((long)(value / 256) * i) / 256);
     }
 }

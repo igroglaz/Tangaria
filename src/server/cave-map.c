@@ -3,7 +3,7 @@
  * Purpose: Lighting and map management functions
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -257,7 +257,7 @@ void square_light_spot_aux(struct player *p, struct chunk *cv, struct loc *grid)
     /* Redraw if on screen */
     if (panel_contains(p, grid))
     {
-        u16b a, ta;
+        uint16_t a, ta;
         char c, tc;
         struct grid_data g;
 

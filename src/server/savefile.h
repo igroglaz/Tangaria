@@ -19,23 +19,23 @@
 #define EGO_ART_KNOWN 0xFFFF
 
 /* Writing bits */
-extern void wr_byte(byte v);
-extern void wr_u16b(u16b v);
-extern void wr_s16b(s16b v);
-extern void wr_u32b(u32b v);
-extern void wr_s32b(s32b v);
+extern void wr_byte(uint8_t v);
+extern void wr_u16b(uint16_t v);
+extern void wr_s16b(int16_t v);
+extern void wr_u32b(uint32_t v);
+extern void wr_s32b(int32_t v);
 extern void wr_hturn(hturn* pv);
 extern void wr_loc(struct loc *l);
 extern void wr_string(const char *str);
 extern void wr_quark(quark_t v);
 
 /* Reading bits */
-extern void rd_byte(byte *ip);
+extern void rd_byte(uint8_t *ip);
 extern void rd_bool(bool *ip);
-extern void rd_u16b(u16b *ip);
-extern void rd_s16b(s16b *ip);
-extern void rd_u32b(u32b *ip);
-extern void rd_s32b(s32b *ip);
+extern void rd_u16b(uint16_t *ip);
+extern void rd_s16b(int16_t *ip);
+extern void rd_u32b(uint32_t *ip);
+extern void rd_s32b(int32_t *ip);
 extern void rd_hturn(hturn *ip);
 extern void rd_loc(struct loc *l);
 extern void rd_string(char *str, int max);
@@ -117,7 +117,7 @@ extern void save_dungeon_special(struct worldpos *wpos, bool town);
 extern bool save_server_info(bool panic);
 extern bool save_account_info(bool panic);
 extern bool load_player(struct player *p, const char *loadpath);
-extern int scoop_player(char *nick, char *pass, byte *pridx, byte *pcidx, byte *psex);
+extern int scoop_player(char *nick, char *pass, uint8_t *pridx, uint8_t *pcidx, uint8_t *psex);
 extern bool load_server_info(void);
 extern bool load_account_info(void);
 extern bool special_level(struct worldpos *wpos);

@@ -47,6 +47,6 @@ extern size_t highscore_add(const struct high_score *entry, struct high_score sc
 extern void build_score(struct player *p, struct high_score *entry, const char *died_from,
     time_t *death_time);
 extern void enter_score(struct player *p, time_t *death_time);
-extern long total_points(struct player *p, s32b max_exp, s16b max_depth);
+extern long total_points(struct player *p, int32_t max_exp, int16_t max_depth);
 
 #endif /* INCLUDED_SCORE_H */

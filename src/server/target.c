@@ -3,7 +3,7 @@
  * Purpose: Targeting code
  *
  * Copyright (c) 1997-2007 Angband contributors
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -339,7 +339,7 @@ int cmp_distance(const void *a, const void *b)
  * Help select a location. This function picks the closest from a set in
  * (roughly) a given direction.
  */
-s16b target_pick(int y1, int x1, int dy, int dx, struct point_set *targets)
+int16_t target_pick(int y1, int x1, int dy, int dx, struct point_set *targets)
 {
     int i, v;
     int x2, y2, x3, y3, x4, y4;
@@ -469,7 +469,7 @@ bool target_equals(struct player *p, struct source *who)
 }
 
 
-void draw_path_grid(struct player *p, struct loc *grid, byte a, char c)
+void draw_path_grid(struct player *p, struct loc *grid, uint8_t a, char c)
 {
     struct loc disp;
 
@@ -485,7 +485,7 @@ void draw_path_grid(struct player *p, struct loc *grid, byte a, char c)
 }
 
 
-void flush_path_grid(struct player *p, struct chunk *cv, struct loc *grid, byte a, char c)
+void flush_path_grid(struct player *p, struct chunk *cv, struct loc *grid, uint8_t a, char c)
 {
     /* Draw, Highlight, Fresh, Pause, Erase */
     draw_path_grid(p, grid, a, c);

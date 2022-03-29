@@ -3,7 +3,7 @@
  * Purpose: UI for targeting code
  *
  * Copyright (c) 1997-2014 Angband contributors
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -44,7 +44,7 @@ struct target_aux_state
     const char *phrase1;
     const char *phrase2;
     struct loc *grid;
-    u32b press;
+    uint32_t press;
     int mode;
     bool boring;
     struct source *who;
@@ -59,7 +59,7 @@ typedef enum target_aux_result (*target_aux_handler)(struct chunk *c, struct pla
 /*
  * Check if a UI event matches a certain keycode ('a', 'b', etc)
  */
-static bool event_is_key(u32b e, u32b key)
+static bool event_is_key(uint32_t e, uint32_t key)
 {
     return (e == key);
 }
@@ -119,7 +119,7 @@ static bool adjust_panel_help(struct player *p, int y, int x)
 /*
  * Do we need to inform client about target info?
  */
-static bool need_target_info(struct player *p, u32b query, byte step)
+static bool need_target_info(struct player *p, uint32_t query, uint8_t step)
 {
     bool need_info = false;
 
@@ -147,7 +147,7 @@ static bool need_target_info(struct player *p, u32b query, byte step)
  * Inform client about target info
  */
 static bool target_info(struct player *p, struct loc *grid, const char *info, const char *help,
-    u32b query)
+    uint32_t query)
 {
     int col = grid->x - p->offset_grid.x;
     int row = grid->y - p->offset_grid.y + 1;
@@ -752,7 +752,7 @@ static enum target_aux_result aux_wrapup(struct chunk *c, struct player *p,
  * This function must handle blindness/hallucination.
  */
 static bool target_set_interactive_aux(struct player *p, struct loc *grid, int mode,
-    const char *help, u32b query)
+    const char *help, uint32_t query)
 {
     /*
      * If there's other types to be handled, insert a function to do so
@@ -824,7 +824,7 @@ static bool target_set_interactive_aux(struct player *p, struct loc *grid, int m
  * The first two result from information being lost from the dungeon arrays,
  * which requires changes elsewhere.
  */
-int draw_path(struct player *p, u16b path_n, struct loc *path_g, struct loc *grid)
+int draw_path(struct player *p, uint16_t path_n, struct loc *path_g, struct loc *grid)
 {
     int i;
     bool on_screen;
@@ -843,7 +843,7 @@ int draw_path(struct player *p, u16b path_n, struct loc *path_g, struct loc *gri
     /* Draw the path. */
     for (i = 0; i < path_n; i++)
     {
-        byte colour;
+        uint8_t colour;
         struct object *obj = square_known_pile(p, c, &path_g[i]);
         struct source who_body;
         struct source *who = &who_body;
@@ -930,7 +930,7 @@ int draw_path(struct player *p, u16b path_n, struct loc *path_g, struct loc *gri
 /*
  * Load the attr/char at each point along "path" which is on screen.
  */
-void load_path(struct player *p, u16b path_n, struct loc *path_g)
+void load_path(struct player *p, uint16_t path_n, struct loc *path_g)
 {
     int i;
 
@@ -969,7 +969,7 @@ static bool pile_is_tracked(struct player *p, struct chunk *c, struct loc *grid)
 /*
  * Extract a direction (or zero) from a character
  */
-static int target_dir(u32b ch)
+static int target_dir(uint32_t ch)
 {
     int d = 0;
 
@@ -997,7 +997,7 @@ static int target_dir(u32b ch)
 }
 
 
-static void set_target_index(struct player *p, s16b index)
+static void set_target_index(struct player *p, int16_t index)
 {
     p->target_index = index;
     p->tt_o = NULL;
@@ -1047,7 +1047,7 @@ static void set_target_index(struct player *p, s16b index)
  * or -1 if no location is specified.
  * Returns true if a target has been successfully set, false otherwise.
  */
-bool target_set_interactive(struct player *p, int mode, u32b press, int step)
+bool target_set_interactive(struct player *p, int mode, uint32_t press, int step)
 {
     bool done = false;
     struct point_set *targets;

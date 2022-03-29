@@ -20,7 +20,7 @@ extern const struct class_book *object_kind_to_book(const struct object_kind *ki
 extern const struct class_book *player_object_to_book(struct player *p, const struct object *obj);
 extern int object_to_book_index(struct player *p, const struct object *obj);
 extern const struct class_spell *spell_by_index(const struct class_magic *magic, int index);
-extern s16b spell_chance(struct player *p, int spell_index);
+extern int16_t spell_chance(struct player *p, int spell_index);
 extern bool spell_is_identify(struct player *p, int spell_index);
 extern void get_spell_info(struct player *p, int spell_index, char *buf, size_t len);
 extern expression_base_value_f spell_value_base_by_name(const char *name);

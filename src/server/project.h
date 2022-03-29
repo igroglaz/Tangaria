@@ -69,7 +69,7 @@ struct projection
     bool obvious;
     bool wake;
     int color;
-    byte flags;
+    uint8_t flags;
     char *threat;
     int threat_flag;
     struct projection *next;
@@ -78,7 +78,7 @@ struct projection
 extern struct projection *projections;
 
 /* Display attrs and chars */
-extern byte proj_to_attr[PROJ_MAX][BOLT_MAX];
+extern uint8_t proj_to_attr[PROJ_MAX][BOLT_MAX];
 extern char proj_to_char[PROJ_MAX][BOLT_MAX];
 
 /* project.c */
@@ -88,10 +88,10 @@ extern int project_path(struct player *p, struct chunk *c, struct loc *gp, int r
     struct loc *grid1, struct loc *grid2, int flg);
 extern bool projectable(struct player *p, struct chunk *c, struct loc *grid1, struct loc *grid2,
     int flg, bool nowall);
-extern byte proj_color(int type);
+extern uint8_t proj_color(int type);
 extern void origin_get_loc(struct loc *ploc, struct source *origin);
 extern bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finish, int dam,
-    int typ, int flg, int degrees_of_arc, byte diameter_of_source, const char *what);
+    int typ, int flg, int degrees_of_arc, uint8_t diameter_of_source, const char *what);
 
 /* project-feat.c */
 extern bool project_f(struct source *origin, int r, struct chunk *c, struct loc *grid, int dam,
@@ -100,10 +100,10 @@ extern bool project_f(struct source *origin, int r, struct chunk *c, struct loc 
 /* project-mon.c */
 extern void thrust_away(struct chunk *c, struct source *origin, struct loc *centre, int grids_away);
 extern bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c,
-    struct monster *mon, int dam, byte note);
+    struct monster *mon, int dam, uint8_t note);
 extern void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, int dam,
     int typ, int flg, bool *did_hit, bool *was_obvious, int *newy, int *newx);
-extern void monster_set_master(struct monster *mon, struct player *p, byte status);
+extern void monster_set_master(struct monster *mon, struct player *p, uint8_t status);
 extern bool can_charm_monster(struct player *p, int level, int stat);
 extern int charm_monster(struct player *p, struct monster *mon, int stat);
 

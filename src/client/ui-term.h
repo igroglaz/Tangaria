@@ -27,15 +27,15 @@
 typedef struct _term_win
 {
     bool cu, cv;
-    byte cx, cy;
-    byte cnx, cny;
-    u16b **a;
+    uint8_t cx, cy;
+    uint8_t cnx, cny;
+    uint16_t **a;
     char **c;
-    u16b *va;
+    uint16_t *va;
     char *vc;
-    u16b **ta;
+    uint16_t **ta;
     char **tc;
-    u16b *vta;
+    uint16_t *vta;
     char *vtc;
     struct _term_win *next;
 } term_win;
@@ -149,24 +149,24 @@ typedef struct _term
     bool no_cursor;
     bool never_bored;
     bool never_frosh;
-    u16b attr_blank;
+    uint16_t attr_blank;
     char char_blank;
     bool complex_input;
     ui_event *key_queue;
-    u16b key_head;
-    u16b key_tail;
-    u16b key_length;
-    u16b key_size, key_size_orig;
-    byte wid;
-    byte hgt, max_hgt;
-    byte y1;
-    byte y2;
-    byte *x1;
-    byte *x2;
+    uint16_t key_head;
+    uint16_t key_tail;
+    uint16_t key_length;
+    uint16_t key_size, key_size_orig;
+    uint8_t wid;
+    uint8_t hgt, max_hgt;
+    uint8_t y1;
+    uint8_t y2;
+    uint8_t *x1;
+    uint8_t *x2;
 
     /* Offsets used by the map subwindows */
-    byte offset_x;
-    byte offset_y;
+    uint8_t offset_x;
+    uint8_t offset_y;
 
     term_win *old;
     term_win *scr;
@@ -174,7 +174,7 @@ typedef struct _term
     term_win *mem;
 
     /* Number of times saved */
-    byte saved;
+    uint8_t saved;
 
     /* Term is used to display a minimap */
     bool minimap_active;
@@ -185,9 +185,9 @@ typedef struct _term
     errr (*curs_hook)(int x, int y);
     errr (*bigcurs_hook)(int x, int y);
     errr (*wipe_hook)(int x, int y, int n);
-    errr (*text_hook)(int x, int y, int n, u16b a, const char *s);
-    errr (*pict_hook)(int x, int y, int n, const u16b *ap, const char *cp,
-        const u16b *tap, const char *tcp);
+    errr (*text_hook)(int x, int y, int n, uint16_t a, const char *s);
+    errr (*pict_hook)(int x, int y, int n, const uint16_t *ap, const char *cp,
+        const uint16_t *tap, const char *tcp);
     void (*view_map_hook)(struct _term *t);
 } term;
 
@@ -233,12 +233,12 @@ typedef struct _term
  */
 
 extern term *Term;
-extern byte tile_width;
-extern byte tile_height;
+extern uint8_t tile_width;
+extern uint8_t tile_height;
 extern bool tile_distorted;
 extern term *angband_term[ANGBAND_TERM_MAX];
 extern const char *angband_term_name[ANGBAND_TERM_MAX];
-extern u32b window_flag[ANGBAND_TERM_MAX];
+extern uint32_t window_flag[ANGBAND_TERM_MAX];
 
 /*
  * Hack -- the main "screen"
@@ -254,19 +254,19 @@ extern u32b window_flag[ANGBAND_TERM_MAX];
 extern errr Term_redraw_all(void);
 extern errr Term_xtra(int n, int v);
 
-extern void Term_queue_char(term *t, int x, int y, u16b a, char c, u16b ta, char tc);
-extern void Term_big_queue_char(term *t, int x, int y, u16b a, char c, u16b a1, char c1);
-extern void Term_queue_chars(int x, int y, int n, u16b a, const char *s);
+extern void Term_queue_char(term *t, int x, int y, uint16_t a, char c, uint16_t ta, char tc);
+extern void Term_big_queue_char(term *t, int x, int y, uint16_t a, char c, uint16_t a1, char c1);
+extern void Term_queue_chars(int x, int y, int n, uint16_t a, const char *s);
 
 extern errr Term_fresh(void);
 extern errr Term_set_cursor(bool v);
 extern errr Term_gotoxy(int x, int y);
-extern errr Term_draw(int x, int y, u16b a, char c);
-extern errr Term_addch(u16b a, char c);
-extern errr Term_addstr(int n, u16b a, const char *buf);
-extern errr Term_putch(int x, int y, u16b a, char c);
-extern void Term_big_putch(int x, int y, u16b a, char c);
-extern errr Term_putstr(int x, int y, int n, u16b a, const char *s);
+extern errr Term_draw(int x, int y, uint16_t a, char c);
+extern errr Term_addch(uint16_t a, char c);
+extern errr Term_addstr(int n, uint16_t a, const char *buf);
+extern errr Term_putch(int x, int y, uint16_t a, char c);
+extern void Term_big_putch(int x, int y, uint16_t a, char c);
+extern errr Term_putstr(int x, int y, int n, uint16_t a, const char *s);
 extern errr Term_erase(int x, int y, int n);
 extern errr Term_erase_icky(int x, int y, int n);
 extern errr Term_clear(void);
@@ -277,11 +277,11 @@ extern errr Term_mark(int x, int y);
 extern errr Term_get_cursor(bool *v);
 extern errr Term_get_size(int *w, int *h);
 extern errr Term_locate(int *x, int *y);
-extern errr Term_what(int x, int y, u16b *a, char *c);
-extern errr Term_info(int x, int y, u16b *a, char *c, u16b *ta, char *tc);
+extern errr Term_what(int x, int y, uint16_t *a, char *c);
+extern errr Term_info(int x, int y, uint16_t *a, char *c, uint16_t *ta, char *tc);
 
 extern errr Term_flush(void);
-extern errr Term_keypress(keycode_t k, byte mods);
+extern errr Term_keypress(keycode_t k, uint8_t mods);
 extern errr Term_key_push(int k);
 extern errr Term_event_push(const ui_event *ke);
 extern errr Term_inkey(ui_event *ch, bool wait, bool take);

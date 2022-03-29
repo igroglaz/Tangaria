@@ -3,7 +3,7 @@
  * Purpose: Character screens and dumps
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -60,7 +60,7 @@ static void update_statusline(struct player *p)
  * Similar to the function in "ui-display.c" but modified to work server-side.
  * This is used for server-side character dumps.
  */
-static void display_player_file(struct player *p, byte mode)
+static void display_player_file(struct player *p, uint8_t mode)
 {
     /* Set the hooks */
     clear_hook = buffer_clear;
@@ -108,7 +108,7 @@ static void write_character_dump(ang_file *fff, void *data)
 {
     struct player *p = (struct player *)data;
     int i;
-    u16b a;
+    uint16_t a;
     char c;
     struct store *home = p->home;
     struct object **home_list = mem_zalloc(sizeof(struct object *) * z_info->store_inven_max);

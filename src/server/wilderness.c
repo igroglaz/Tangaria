@@ -2,7 +2,7 @@
  * File: wilderness.c
  * Purpose: Wilderness generation
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -53,20 +53,20 @@ struct location *dungeons = NULL;
 /*
  * Wilderness radius.
  */
-u16b radius_wild;
+uint16_t radius_wild;
 
 
 /*
  * Hack -- consistent wilderness layout
  */
-u32b seed_wild;
+uint32_t seed_wild;
 
 
 /*
  * The information about arenas
  */
 struct arena_type arenas[MAX_ARENAS];
-u16b num_arenas = 0;
+uint16_t num_arenas = 0;
 
 
 /*
@@ -1555,7 +1555,7 @@ void init_wild_info(void)
             /* Chunks */
             size = w_ptr->max_depth - w_ptr->min_depth + 1;
             w_ptr->chunk_list = mem_zalloc(size * sizeof(struct chunk *));
-            w_ptr->players_on_depth = mem_zalloc(size * sizeof(s16b));
+            w_ptr->players_on_depth = mem_zalloc(size * sizeof(int16_t));
 
             /* Type */
             w_ptr->type = WILD_UNDEFINED;
@@ -2342,7 +2342,7 @@ static void bleed_with_neighbors(struct chunk *c)
     int dir, d, tmp, side[2], start, end, opposite;
     bool do_bleed[4], bleed_zero[4];
     int share_point[4][2];
-    u32b old_seed = Rand_value;
+    uint32_t old_seed = Rand_value;
     bool rand_old = Rand_quick;
 
     /* Hack -- use the "simple" RNG */
@@ -2650,7 +2650,7 @@ static void wild_furnish_dwelling(struct player *p, struct chunk *c, bool **plot
     int trys;
     int size = (grid2->x - grid1->x) * (grid2->y - grid1->y);
     struct loc gridmin, gridmax;
-    u32b old_seed;
+    uint32_t old_seed;
     struct object_kind *kind;
     struct monster_race *race;
 
@@ -3343,7 +3343,7 @@ static void wilderness_gen_basic(struct chunk *c)
 static void wilderness_gen_layout(struct player *p, struct chunk *c)
 {
     int y;
-    u32b tmp_seed = Rand_value;
+    uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     int dwelling = 0;
@@ -3613,7 +3613,7 @@ static void wild_town_gen_layout(struct chunk *c)
     int i;
     struct loc grid;
 
-    u32b tmp_seed = Rand_value;
+    uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
     parser_setpriv(p, NULL);
@@ -3782,7 +3782,7 @@ struct chunk *wilderness_gen(struct player *p, struct worldpos *wpos, int min_he
 
 void wilderness_gen_basic_layout(struct chunk *c)
 {
-    u32b tmp_seed = Rand_value;
+    uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
     /* Hack -- use the "simple" RNG */

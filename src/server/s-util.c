@@ -3,7 +3,7 @@
  * Purpose: Utility functions
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -56,7 +56,7 @@ void fill_prevent_inscription(bool *arr, quark_t quark)
             if (end_of_segment(*ax)) break;
 
             /* Found a "Preventing Inscription" */
-            arr[MIN(127, (byte)(*ax))] = true;
+            arr[MIN(127, (uint8_t)(*ax))] = true;
         }
     }
 }
@@ -109,7 +109,7 @@ void alloc_info_icky(struct player *p)
 }
 
 
-s16b get_last_info_line(struct player *p)
+int16_t get_last_info_line(struct player *p)
 {
     if (p->info_icky) return p->last_info_line_icky;
     return p->last_info_line;
@@ -155,7 +155,7 @@ void free_header_icky(struct player *p)
 }
 
 
-void set_ghost_flag(struct player *p, s16b flag, bool report)
+void set_ghost_flag(struct player *p, int16_t flag, bool report)
 {
     p->ghost = flag;
     if (flag)
@@ -170,7 +170,7 @@ void set_ghost_flag(struct player *p, s16b flag, bool report)
 }
 
 
-void notify_player_popup(struct player *p, char *header, u16b term, u16b pop)
+void notify_player_popup(struct player *p, char *header, uint16_t term, uint16_t pop)
 {
     int i;
 
@@ -188,7 +188,7 @@ void notify_player_popup(struct player *p, char *header, u16b term, u16b pop)
 }
 
 
-void notify_player(struct player *p, char *header, u16b term, bool symbol)
+void notify_player(struct player *p, char *header, uint16_t term, bool symbol)
 {
     /* Notify player */
     if (p->last_info_line >= p->max_hgt - 4)
@@ -269,9 +269,9 @@ const char *get_title(struct player *p)
 }
 
 
-s16b get_speed(struct player *p)
+int16_t get_speed(struct player *p)
 {
-    s16b speed = p->state.speed;
+    int16_t speed = p->state.speed;
 
     /* Hack -- visually "undo" the "Stealth Mode" slowdown */
     if (p->stealthy) speed += 10;
@@ -312,7 +312,7 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
         /* If known, add the wielded weapon bonuses */
         if (obj->known->to_h && obj->known->to_d)
         {
-            s16b to_h, to_d;
+            int16_t to_h, to_d;
 
             object_to_h(obj, &to_h);
             object_to_d(obj, &to_d);
@@ -329,7 +329,7 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
         /* If known, add the wielded bow bonuses */
         if (obj->known->to_h && obj->known->to_d)
         {
-            s16b to_h, to_d;
+            int16_t to_h, to_d;
 
             object_to_h(obj, &to_h);
             object_to_d(obj, &to_d);
@@ -341,19 +341,19 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
 }
 
 
-s16b get_melee_skill(struct player *p)
+int16_t get_melee_skill(struct player *p)
 {
     return (p->state.skills[SKILL_TO_HIT_MELEE] * 10) / BTH_PLUS_ADJ;
 }
 
 
-s16b get_ranged_skill(struct player *p)
+int16_t get_ranged_skill(struct player *p)
 {
     return (p->state.skills[SKILL_TO_HIT_BOW] * 10) / BTH_PLUS_ADJ;
 }
 
 
-byte get_dtrap(struct player *p)
+uint8_t get_dtrap(struct player *p)
 {
     /* Only on random levels */
     if (!random_level(&p->wpos)) return 0;

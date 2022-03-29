@@ -19,7 +19,7 @@ typedef enum
   RANDNAME_NUM_TYPES
 } randname_type;
 
-extern u32b *num_names;
+extern uint32_t *num_names;
 extern const char ***name_sections;
 
 /*

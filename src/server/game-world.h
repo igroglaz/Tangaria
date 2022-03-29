@@ -25,7 +25,7 @@
 
 extern bool server_generated;
 extern bool server_state_loaded;
-extern u32b seed_flavor;
+extern uint32_t seed_flavor;
 extern hturn turn;
 
 extern bool is_daytime_turn(hturn *ht_ptr);

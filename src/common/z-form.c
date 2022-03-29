@@ -3,7 +3,7 @@
  * Purpose: Low-level text formatting (snprintf() replacement)
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -137,7 +137,7 @@
 /*
  * Basic "vararg" format function.
  *
- * This function takes a buffer, a max byte count, a format string, and
+ * This function takes a buffer, a max uint8_t count, a format string, and
  * a va_list of arguments to the format string, and uses the format string
  * and the arguments to create a string to the buffer.  The string is
  * derived from the format string and the arguments in the manner of the
@@ -620,7 +620,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
             {
                 int arg;
                 size_t i, max = 32;
-                u32b bitmask;
+                uint32_t bitmask;
                 char out[32 + 1];
 
                 /* Get the next argument */

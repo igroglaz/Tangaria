@@ -221,19 +221,19 @@ struct monster_shape
  */
 struct monster_lore
 {
-    byte spawned;                       /* Unique has spawned (global) */
-    byte seen;                          /* Unique has been seen (global) */
-    byte pseen;                         /* Race has been seen (player) */
-    s16b pdeaths;                       /* Count deaths from this monster (player) */
-    s16b tdeaths;                       /* Count all deaths from this monster (global) */
-    s16b pkills;                        /* Count monsters killed in this life (player) */
-    s16b thefts;                        /* Count objects stolen in this life (player) */
-    s16b tkills;                        /* Count monsters killed in all lives (global) */
-    byte wake;                          /* Number of times woken up (player) */
-    byte ignore;                        /* Number of times ignored (player) */
-    byte cast_innate;                   /* Max number of innate spells seen (player) */
-    byte cast_spell;                    /* Max number of other spells seen (player) */
-    byte *blows;                        /* Number of times each blow type was seen (player) */
+    uint8_t spawned;                       /* Unique has spawned (global) */
+    uint8_t seen;                          /* Unique has been seen (global) */
+    uint8_t pseen;                         /* Race has been seen (player) */
+    int16_t pdeaths;                       /* Count deaths from this monster (player) */
+    int16_t tdeaths;                       /* Count all deaths from this monster (global) */
+    int16_t pkills;                        /* Count monsters killed in this life (player) */
+    int16_t thefts;                        /* Count objects stolen in this life (player) */
+    int16_t tkills;                        /* Count monsters killed in all lives (global) */
+    uint8_t wake;                          /* Number of times woken up (player) */
+    uint8_t ignore;                        /* Number of times ignored (player) */
+    uint8_t cast_innate;                   /* Max number of innate spells seen (player) */
+    uint8_t cast_spell;                    /* Max number of other spells seen (player) */
+    uint8_t *blows;                        /* Number of times each blow type was seen (player) */
     bitflag flags[RF_SIZE];             /* Observed racial flags (player) */
     bitflag spell_flags[RSF_SIZE];      /* Observed racial spell flags (player) */
 
@@ -275,9 +275,9 @@ struct monster_race
     struct monster_blow *blow;              /* Melee blows */
     int level;                              /* Level of creature */
     int rarity;                             /* Rarity of creature */
-    byte d_attr;                            /* Default monster attribute */
+    uint8_t d_attr;                            /* Default monster attribute */
     char d_char;                            /* Default monster character */
-    s16b weight;                            /* Corpse weight */
+    int16_t weight;                            /* Corpse weight */
     struct monster_lore lore;               /* Monster "lore" information */
     struct monster_drop *drops;
     struct monster_friends *friends;
@@ -307,38 +307,38 @@ struct monster
     struct monster_race *original_race;     /* Changed monster's original race */
     int midx;
     struct loc grid;                        /* Location on map */
-    s32b hp;                                /* Current Hit points */
-    s32b maxhp;                             /* Max Hit points */
-    s16b m_timed[MON_TMD_MAX];              /* Timed monster status effects */
-    byte mspeed;                            /* Monster "speed" */
-    s32b energy;                            /* Monster "energy" */
-    byte cdis;                              /* Current dis from player (transient) */
+    int32_t hp;                                /* Current Hit points */
+    int32_t maxhp;                             /* Max Hit points */
+    int16_t m_timed[MON_TMD_MAX];              /* Timed monster status effects */
+    uint8_t mspeed;                            /* Monster "speed" */
+    int32_t energy;                            /* Monster "energy" */
+    uint8_t cdis;                              /* Current dis from player (transient) */
     bitflag mflag[MFLAG_SIZE];              /* Temporary monster flags */
     struct object *mimicked_obj;            /* Object this monster is mimicking */
     struct object *held_obj;                /* Object being held (if any) */
-    byte attr;                              /* "attr" last used for drawing monster */
+    uint8_t attr;                              /* "attr" last used for drawing monster */
     struct player_state known_pstate;       /* Known player state */
     struct target target;                   /* Monster target (transient) */
     struct monster_group_info group_info[GROUP_MAX];    /* Monster group details */
-    byte min_range;                         /* Minimum combat range (transient) */
-    byte best_range;                        /* How close we want to be (transient) */
+    uint8_t min_range;                         /* Minimum combat range (transient) */
+    uint8_t best_range;                        /* How close we want to be (transient) */
 
     /* MAngband */
     struct worldpos wpos;                   /* Position on the world map */
     struct player *closest_player;          /* The player closest to this monster (transient) */
 
     /* PWMAngband */
-    s16b ac;                                /* Armour Class */
+    int16_t ac;                                /* Armour Class */
     struct monster_blow *blow;              /* Melee blows */
-    s16b level;                             /* Level of creature */
-    s16b master;                            /* The player controlling this monster */
-    byte lifespan;                          /* Lifespan of controlled creature */
-    byte resilient;                         /* Controlled creature is resilient */
-    byte status;                            /* Monster status: hostile, guard, follower, attacker */
-    byte clone;                             /* Monster is a clone */
-    s16b mimicked_k_idx;                    /* Object kind this monster is mimicking (random mimics) */
-    byte origin;                            /* How this monster was created */
-    u16b feat;                              /* Terrain under monster (for feature mimics) */
+    int16_t level;                             /* Level of creature */
+    int16_t master;                            /* The player controlling this monster */
+    uint8_t lifespan;                          /* Lifespan of controlled creature */
+    uint8_t resilient;                         /* Controlled creature is resilient */
+    uint8_t status;                            /* Monster status: hostile, guard, follower, attacker */
+    uint8_t clone;                             /* Monster is a clone */
+    int16_t mimicked_k_idx;                    /* Object kind this monster is mimicking (random mimics) */
+    uint8_t origin;                            /* How this monster was created */
+    uint16_t feat;                              /* Terrain under monster (for feature mimics) */
     struct loc old_grid;                    /* Previous monster location */
     struct monster *closest_target;         /* The target closest to this monster (transient) */
 };

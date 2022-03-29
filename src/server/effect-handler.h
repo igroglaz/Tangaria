@@ -39,7 +39,7 @@ typedef bool (*effect_handler_f)(effect_handler_context_t *);
  */
 struct effect_kind
 {
-    u16b index;                 /* Effect index */
+    uint16_t index;                 /* Effect index */
     bool aim;                   /* Whether the effect requires aiming */
     const char *info;           /* Effect info (for spell tips) */
     effect_handler_f handler;   /* Function to perform the effect */

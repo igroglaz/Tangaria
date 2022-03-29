@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2013 Ben Semmler
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -114,8 +114,8 @@ void object_list_reset(object_list_t *list)
 	if ((list == NULL) || (list->entries == NULL)) return;
 
 	memset(list->entries, 0, list->entries_size * sizeof(object_list_entry_t));
-	memset(list->total_entries, 0, OBJECT_LIST_SECTION_MAX * sizeof(u16b));
-	memset(list->total_objects, 0, OBJECT_LIST_SECTION_MAX * sizeof(u16b));
+	memset(list->total_entries, 0, OBJECT_LIST_SECTION_MAX * sizeof(uint16_t));
+	memset(list->total_objects, 0, OBJECT_LIST_SECTION_MAX * sizeof(uint16_t));
     list->distinct_entries = 0;
 	list->sorted = false;
 }
@@ -305,9 +305,9 @@ void object_list_sort(object_list_t *list, int (*compare)(const void *, const vo
  *
  * entry is the object list entry to display.
  */
-byte object_list_entry_line_attribute(struct player *p, const object_list_entry_t *entry)
+uint8_t object_list_entry_line_attribute(struct player *p, const object_list_entry_t *entry)
 {
-	byte attr;
+	uint8_t attr;
 
 	if ((entry == NULL) || (entry->object == NULL) || (entry->object->kind == NULL))
 		return COLOUR_WHITE;
@@ -356,7 +356,7 @@ void object_list_format_name(struct player *p, const object_list_entry_t *entry,
     bool has_singular_prefix;
     bool los = false;
     int field;
-    byte old_number;
+    uint8_t old_number;
     bool object_is_recognized_artifact;
     struct chunk *c = chunk_get(&p->wpos);
 

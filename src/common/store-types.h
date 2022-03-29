@@ -30,7 +30,7 @@ enum
 struct object_buy
 {
     struct object_buy *next;
-    u16b tval;
+    uint16_t tval;
     size_t flag;
 };
 
@@ -42,14 +42,14 @@ struct owner
     char *name;         /* Name */
     unsigned int oidx;  /* Index */
     struct owner *next;
-    s32b max_cost;      /* Purse limit */
+    int32_t max_cost;      /* Purse limit */
 };
 
 struct normal_entry
 {
     struct object_kind *kind;
-    s16b rarity;
-    s16b factor;
+    int16_t rarity;
+    int16_t factor;
 };
 
 /*
@@ -64,8 +64,8 @@ struct store
     int type;                   /* Type */
     char *name;
     struct store *next;
-    s16b stock_num;             /* Stock -- number of entries */
-    s16b stock_size;            /* Stock -- size of array (transient) */
+    int16_t stock_num;             /* Stock -- number of entries */
+    int16_t stock_size;            /* Stock -- size of array (transient) */
     struct object *stock;       /* Stock -- actual stock items */
 
     /* Always stock these items */
@@ -85,7 +85,7 @@ struct store
     int normal_stock_min;
     int normal_stock_max;
 
-    s16b max_depth;             /* Max level of last customer */
+    int16_t max_depth;             /* Max level of last customer */
 
     char comment_welcome[N_WELCOME][NORMAL_WID];
 };

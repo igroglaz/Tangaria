@@ -3,7 +3,7 @@
  * Purpose: Player utility functions
  *
  * Copyright (c) 2011 The Angband Developers. See COPYING.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -75,7 +75,7 @@ int dungeon_get_next_level(struct player *p, int dlev, int added)
  * Change dungeon level - e.g. by going up stairs or with WoR
  */
 void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *new_wpos,
-    byte new_level_method)
+    uint8_t new_level_method)
 {
     /* Paranoia */
     if (!c)
@@ -229,7 +229,7 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation"))
     {
         /* lose X% of hitpoints get X% of spell points */
-        s32b sp_gain = (MAX((s32b)p->msp, 10) << 16) / (s32b)p->mhp * damage;
+        int32_t sp_gain = (MAX((int32_t)p->msp, 10) << 16) / (int32_t)p->mhp * damage;
 
         player_adjust_mana_precise(p, sp_gain);
     }
@@ -329,7 +329,7 @@ bool has_energy_per_move(struct player *p)
  */
 void player_regen_hp(struct player *p, struct chunk *c)
 {
-    s32b hp_gain;
+    int32_t hp_gain;
     int percent = 0;    /* max 32k -> 50% of mhp; more accurately "per two bytes" */
     int fed_pct, old_chp = p->chp;
     int old_num = get_player_num(p);
@@ -375,7 +375,7 @@ void player_regen_hp(struct player *p, struct chunk *c)
         percent += randint1(0x400) + percent;
 
     /* Extract the new hitpoints */
-    hp_gain = (s32b)(p->mhp * percent) + PY_REGEN_HPBASE;
+    hp_gain = (int32_t)(p->mhp * percent) + PY_REGEN_HPBASE;
     player_adjust_hp_precise(p, hp_gain);
 
     /* Notice changes */
@@ -396,7 +396,7 @@ void player_regen_hp(struct player *p, struct chunk *c)
  */
 void player_regen_mana(struct player *p)
 {
-    s32b sp_gain;
+    int32_t sp_gain;
     int percent, old_csp = p->csp;
     int old_num = get_player_num(p);
 
@@ -415,7 +415,7 @@ void player_regen_mana(struct player *p)
     else if (player_of_has(p, OF_IMPAIR_MANA)) percent /= 2;
 
     /* Regenerate mana */
-    sp_gain = (s32b)(p->msp * percent);
+    sp_gain = (int32_t)(p->msp * percent);
     if (percent >= 0) sp_gain += PY_REGEN_MNBASE;
     sp_gain = player_adjust_mana_precise(p, sp_gain);
 
@@ -436,13 +436,13 @@ void player_regen_mana(struct player *p)
 }
 
 
-void player_adjust_hp_precise(struct player *p, s32b hp_gain)
+void player_adjust_hp_precise(struct player *p, int32_t hp_gain)
 {
-	s32b new_chp;
+	int32_t new_chp;
 	int num, old_chp = p->chp;
 
-	/* Load it all into 4 byte format*/
-	new_chp = (s32b)((p->chp << 16) + p->chp_frac) + hp_gain;
+	/* Load it all into 4 uint8_t format*/
+	new_chp = (int32_t)((p->chp << 16) + p->chp_frac) + hp_gain;
 
 	/* Check for overflow */
 	if ((new_chp < 0) && (old_chp > 0) && (hp_gain > 0))
@@ -451,8 +451,8 @@ void player_adjust_hp_precise(struct player *p, s32b hp_gain)
 		new_chp = LONG_MIN;
 
 	/* Break it back down */
-	p->chp = (s16b)(new_chp >> 16);   /* div 65536 */
-	p->chp_frac = (u16b)(new_chp & 0xFFFF); /* mod 65536 */
+	p->chp = (int16_t)(new_chp >> 16);   /* div 65536 */
+	p->chp_frac = (uint16_t)(new_chp & 0xFFFF); /* mod 65536 */
 
 	/* Fully healed */
 	if (p->chp >= p->mhp)
@@ -469,18 +469,18 @@ void player_adjust_hp_precise(struct player *p, s32b hp_gain)
 
 
 /*
- * Accept a 4 byte signed int, divide it by 65k, and add
+ * Accept a 4 uint8_t signed int, divide it by 65k, and add
  * to current spell points. p->csp and csp_frac are 2 bytes each.
  */
-s32b player_adjust_mana_precise(struct player *p, s32b sp_gain)
+int32_t player_adjust_mana_precise(struct player *p, int32_t sp_gain)
 {
-	s32b old_csp_long, new_csp_long;
+	int32_t old_csp_long, new_csp_long;
 	int old_csp_short = p->csp;
 
 	if (sp_gain == 0) return 0;
 
-	/* Load it all into 4 byte format*/
-	old_csp_long = (s32b)((p->csp << 16) + p->csp_frac);
+	/* Load it all into 4 uint8_t format*/
+	old_csp_long = (int32_t)((p->csp << 16) + p->csp_frac);
 	new_csp_long = old_csp_long + sp_gain;
 
 	/* Check for overflow */
@@ -496,8 +496,8 @@ s32b player_adjust_mana_precise(struct player *p, s32b sp_gain)
 	}
 
 	/* Break it back down */
-	p->csp = (s16b)(new_csp_long >> 16);   /* div 65536 */
-	p->csp_frac = (u16b)(new_csp_long & 0xFFFF);    /* mod 65536 */
+	p->csp = (int16_t)(new_csp_long >> 16);   /* div 65536 */
+	p->csp_frac = (uint16_t)(new_csp_long & 0xFFFF);    /* mod 65536 */
 
 	/* Max/min SP */
 	if (p->csp >= p->msp)
@@ -519,7 +519,7 @@ s32b player_adjust_mana_precise(struct player *p, s32b sp_gain)
 	if (sp_gain == 0)
     {
 		/* Recalculate */
-		new_csp_long = (s32b)((p->csp << 16) + p->csp_frac);
+		new_csp_long = (int32_t)((p->csp << 16) + p->csp_frac);
 		sp_gain = new_csp_long - old_csp_long;
 	}
 
@@ -527,20 +527,20 @@ s32b player_adjust_mana_precise(struct player *p, s32b sp_gain)
 }
 
 
-void convert_mana_to_hp(struct player *p, s32b sp_long)
+void convert_mana_to_hp(struct player *p, int32_t sp_long)
 {
-	s32b hp_gain, sp_ratio;
+	int32_t hp_gain, sp_ratio;
 
 	if (sp_long <= 0 || p->msp == 0 || p->mhp == p->chp) return;
 
 	/* Total HP from max */
-	hp_gain = (s32b)((p->mhp - p->chp) << 16);
-	hp_gain -= (s32b)p->chp_frac;
+	hp_gain = (int32_t)((p->mhp - p->chp) << 16);
+	hp_gain -= (int32_t)p->chp_frac;
 
 	/* Spend X% of SP get X/2% of lost HP. E.g., at 50% HP get X/4% */
 	/* Gain stays low at msp < 10 because MP gains are generous at msp < 10 */
 	/* sp_ratio is max sp to spent sp, doubled to suit target rate. */
-	sp_ratio = (MAX(10, (s32b)p->msp) << 16) * 2 / sp_long;
+	sp_ratio = (MAX(10, (int32_t)p->msp) << 16) * 2 / sp_long;
 
 	/* Limit max healing to 25% of damage; ergo spending > 50% msp is inefficient */
 	if (sp_ratio < 4) sp_ratio = 4;
@@ -830,7 +830,7 @@ bool player_confuse_dir(struct player *p, int *dp)
 /*
  * Return true if the provided count is one of the conditional REST_ flags.
  */
-bool player_resting_is_special(s16b count)
+bool player_resting_is_special(int16_t count)
 {
     switch (count)
     {
@@ -858,7 +858,7 @@ bool player_is_resting(struct player *p)
 /*
  * Return the remaining number of resting turns.
  */
-s16b player_resting_count(struct player *p)
+int16_t player_resting_count(struct player *p)
 {
     return p->upkeep->resting;
 }
@@ -869,7 +869,7 @@ s16b player_resting_count(struct player *p)
  *
  * count is the number of turns to rest or one of the REST_ constants.
  */
-void player_resting_set_count(struct player *p, s16b count)
+void player_resting_set_count(struct player *p, int16_t count)
 {
     /* Cancel if player is disturbed */
     if (p->player_rest_disturb)
@@ -1029,7 +1029,7 @@ bool player_is_immune(struct player *p, int element)
  *
  * show_msg should be set to true if a failure message should be displayed.
  */
-byte player_cannot_cast(struct player *p, bool show_msg)
+uint8_t player_cannot_cast(struct player *p, bool show_msg)
 {
     if (!p->clazz->magic.total_spells)
     {
@@ -1058,7 +1058,7 @@ byte player_cannot_cast(struct player *p, bool show_msg)
  *
  * show_msg should be set to true if a failure message should be displayed.
  */
-byte player_cannot_cast_mimic(struct player *p, bool show_msg)
+uint8_t player_cannot_cast_mimic(struct player *p, bool show_msg)
 {
     /* Restrict ghosts */
     if (p->ghost && !is_dm_p(p))
@@ -1715,7 +1715,7 @@ void drain_mana(struct player *p, struct source *who, int drain, bool seen)
  */
 void recall_player(struct player *p, struct chunk *c)
 {
-    byte new_level_method;
+    uint8_t new_level_method;
     const char *msg_self, *msg_others;
 
     /* From dungeon to surface */
@@ -1879,7 +1879,7 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     struct source who_body;
     struct source *who = &who_body;
     struct loc target, targets[8];
-    s16b target_dir, targets_dir[8];
+    int16_t target_dir, targets_dir[8];
     struct object *weapon = equipped_item_by_slot_name(p, "weapon");
     struct object *launcher = ((mode == AR_BLOODLUST)? NULL:
         equipped_item_by_slot_name(p, "shooting"));

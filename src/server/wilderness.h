@@ -91,7 +91,7 @@ enum
 struct dun_rule
 {
     int chance;                     /* 1/10000 chance of monsters to obey this rule */
-    byte all;                       /* Rule applies to all monsters */
+    uint8_t all;                       /* Rule applies to all monsters */
     bitflag flags[RF_SIZE];         /* Flags */
 	bitflag spell_flags[RSF_SIZE];  /* Spell flags */
     char sym[5];                    /* Symbols */
@@ -159,8 +159,8 @@ extern struct file_parser town_info_parser;
 extern struct location *dungeons;
 extern struct file_parser dungeon_info_parser;
 
-extern u16b radius_wild;
-extern u32b seed_wild;
+extern uint16_t radius_wild;
+extern uint32_t seed_wild;
 
 /*
  * Information about "Arena" (special building for PvP)
@@ -180,7 +180,7 @@ struct arena_type
 #define MAX_ARENAS  10
 
 extern struct arena_type arenas[MAX_ARENAS];
-extern u16b num_arenas;
+extern uint16_t num_arenas;
 
 /*
  * Different types of terrain, used for the wilderness.
@@ -230,7 +230,7 @@ struct wild_type
     int max_depth;              /* Max depth (transient) */
 
     struct chunk **chunk_list;  /* List of pointers to saved chunks */
-    s16b *players_on_depth;     /* How many players are at each depth */
+    int16_t *players_on_depth;     /* How many players are at each depth */
 
     int type;                   /* What kind of terrain we are in (transient) */
     int distance;               /* Distance from towns (transient) */

@@ -386,7 +386,7 @@ struct font_value {
 
 struct term_flag_value {
     struct subwindow *subwindow;
-    u32b flag;
+    uint32_t flag;
 };
 
 struct alpha_value {
@@ -1219,7 +1219,7 @@ static void render_button_menu_pw(const struct window *window, struct button *bu
     CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_TERM_FLAG);
 
     struct subwindow *subwindow = button->data.value.term_flag_value.subwindow;
-    u32b flag = button->data.value.term_flag_value.flag;
+    uint32_t flag = button->data.value.term_flag_value.flag;
 
     assert(subwindow->index != MAIN_SUBWINDOW);
     assert(subwindow->index < N_ELEMENTS(window_flag));
@@ -2258,7 +2258,7 @@ static void handle_menu_pw(struct window *window,
         return;
     }
 
-    u32b new_flags[N_ELEMENTS(window_flag)];
+    uint32_t new_flags[N_ELEMENTS(window_flag)];
     assert(sizeof(new_flags) == sizeof(window_flag));
     memcpy(new_flags, window_flag, sizeof(new_flags));
 
@@ -3424,10 +3424,10 @@ static bool get_colrow_from_xy(const struct subwindow *subwindow,
     return true;
 }
 
-static byte translate_key_mods(Uint16 mods)
+static uint8_t translate_key_mods(Uint16 mods)
 {
 #define TRANSLATE_K_MOD(m, k) ((m) & mods ? (k) : 0)
-    byte angband_mods =
+    uint8_t angband_mods =
         TRANSLATE_K_MOD(KMOD_SHIFT, KC_MOD_SHIFT)
         | TRANSLATE_K_MOD(KMOD_CTRL, KC_MOD_CONTROL)
         | TRANSLATE_K_MOD(KMOD_ALT, KC_MOD_ALT)
@@ -3478,7 +3478,7 @@ static bool handle_mousebuttondown(const SDL_MouseButtonEvent *mouse)
         return false;
     }
 
-    byte mods = translate_key_mods(SDL_GetModState());
+    uint8_t mods = translate_key_mods(SDL_GetModState());
     /* apparently mouse buttons dont get this */
     mods &= ~KC_MOD_META;
 
@@ -3494,7 +3494,7 @@ static bool handle_mousebuttondown(const SDL_MouseButtonEvent *mouse)
 
 static bool handle_keydown(const SDL_KeyboardEvent *key)
 {
-    byte mods = translate_key_mods(key->keysym.mod);
+    uint8_t mods = translate_key_mods(key->keysym.mod);
     keycode_t ch = 0;
 
     /* SDL will give us both keydown and text input events in many cases.
@@ -3545,7 +3545,7 @@ static bool handle_keydown(const SDL_KeyboardEvent *key)
     if (g_kp_as_mod) {
         /* If numlock is set and shift is not pressed, numpad numbers
          * produce regular numbers and not keypad numbers */
-        byte keypad_num_mod = ((key->keysym.mod & KMOD_NUM) && !(key->keysym.mod & KMOD_SHIFT))
+        uint8_t keypad_num_mod = ((key->keysym.mod & KMOD_NUM) && !(key->keysym.mod & KMOD_SHIFT))
             ? 0x00 : KC_MOD_KEYPAD;
 
         switch (key->keysym.sym) {
@@ -3680,7 +3680,7 @@ static keycode_t utf8_to_codepoint(const char *utf8_string)
 
 #define IS_UTF8_INFO(mask, result) (((unsigned char) utf8_string[0] & (mask)) == (result))
 #define EXTRACT_UTF8_INFO(pos, mask, shift) (((unsigned char) utf8_string[(pos)] & (mask)) << (shift))
-    /* 6 is the number of information bits in a utf8 continuation byte (10xxxxxx) */
+    /* 6 is the number of information bits in a utf8 continuation uint8_t (10xxxxxx) */
     if (IS_UTF8_INFO(0x80, 0)) {
         key = utf8_string[0];
     } else if (IS_UTF8_INFO(0xe0, 0xc0)) {
@@ -3729,7 +3729,7 @@ static bool handle_text_input(const SDL_TextInputEvent *input)
         }
     }
 
-    byte mods = translate_key_mods(SDL_GetModState());
+    uint8_t mods = translate_key_mods(SDL_GetModState());
 
     /* Shift is already encoded in characters we receive here */
     if (!MODS_INCLUDE_SHIFT(ch)) {
@@ -4002,7 +4002,7 @@ static errr term_wipe_hook(int col, int row, int n)
     return 0;
 }
 
-static errr term_text_hook(int col, int row, int n, u16b a, const char *s)
+static errr term_text_hook(int col, int row, int n, uint16_t a, const char *s)
 {
     struct subwindow *subwindow = Term->data;
     assert(subwindow != NULL);
@@ -4051,7 +4051,7 @@ static errr term_text_hook(int col, int row, int n, u16b a, const char *s)
 }
 
 static errr term_pict_hook(int col, int row, int n,
-        const u16b *ap, const char *cp, const u16b *tap, const char *tcp)
+        const uint16_t *ap, const char *cp, const uint16_t *tap, const char *tcp)
 {
     struct subwindow *subwindow = Term->data;
     assert(subwindow != NULL);
@@ -5357,7 +5357,7 @@ static void clear_pw_flag(struct subwindow *subwindow)
 {
     assert(subwindow->index < N_ELEMENTS(angband_term));
 
-    u32b new_flags[N_ELEMENTS(window_flag)];
+    uint32_t new_flags[N_ELEMENTS(window_flag)];
     assert(sizeof(new_flags) == sizeof(window_flag));
     memcpy(new_flags, window_flag, sizeof(new_flags));
 

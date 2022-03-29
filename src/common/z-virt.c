@@ -3,7 +3,7 @@
  * Purpose: Memory management routines
  *
  * Copyright (c) 1997 Ben Harrison.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -123,7 +123,7 @@ void string_free(char *str)
 
 char *string_append(char *s1, const char *s2)
 {
-    u32b len;
+    uint32_t len;
 
     if (!s1 && !s2) return NULL;
     if (s1 && !s2) return s1;
@@ -156,7 +156,7 @@ void mem_nfree(void **p, size_t len)
 
 
 /* Free a bidimentional array of length "len" with its variable lengths "plen" */
-void strings_free(const char ***p, u32b *plen, size_t len)
+void strings_free(const char ***p, uint32_t *plen, size_t len)
 {
     size_t i, j;
 

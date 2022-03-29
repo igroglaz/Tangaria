@@ -31,10 +31,10 @@ extern void flavor_init(void);
 extern void object_flags_aux(const struct object *obj, bitflag flags[OF_SIZE]);
 extern void object_flags(const struct object *obj, bitflag flags[OF_SIZE]);
 extern void object_flags_known(const struct object *obj, bitflag flags[OF_SIZE], bool aware);
-extern void object_modifiers(const struct object *obj, s32b modifiers[OBJ_MOD_MAX]);
-extern void object_to_h(const struct object *obj, s16b *to_h);
-extern void object_to_d(const struct object *obj, s16b *to_d);
-extern void object_to_a(const struct object *obj, s16b *to_a);
+extern void object_modifiers(const struct object *obj, int32_t modifiers[OBJ_MOD_MAX]);
+extern void object_to_h(const struct object *obj, int16_t *to_h);
+extern void object_to_d(const struct object *obj, int16_t *to_d);
+extern void object_to_a(const struct object *obj, int16_t *to_a);
 extern void object_elements(const struct object *obj, struct element_info el_info[ELEM_MAX]);
 extern struct effect *object_effect(const struct object *obj);
 extern bool is_unknown(const struct object *obj);
@@ -47,12 +47,12 @@ extern int number_charging(const struct object *obj);
 extern bool recharge_timeout(struct object *obj);
 extern bool obj_can_takeoff(const struct object *obj);
 extern int obj_needs_aim(struct player *p, const struct object *obj);
-extern void get_object_info(struct player *p, struct object *obj, byte equipped,
+extern void get_object_info(struct player *p, struct object *obj, uint8_t equipped,
     struct object_xtra *info_xtra);
 extern int get_owner_id(const struct object *obj);
-extern void set_artifact_info(struct player *p, const struct object *obj, byte info);
+extern void set_artifact_info(struct player *p, const struct object *obj, uint8_t info);
 extern bool kind_is_good_other(const struct object_kind *kind);
-extern void set_origin(struct object *obj, byte origin, s16b origin_depth,
+extern void set_origin(struct object *obj, uint8_t origin, int16_t origin_depth,
     struct monster_race *origin_race);
 extern void shimmer_objects(struct player *p, struct chunk *c);
 extern void process_objects(struct chunk *c);
@@ -71,10 +71,10 @@ extern struct ego_item *lookup_ego_item(const char *name, struct object_kind *ki
 extern const struct artifact *lookup_artifact_name(const char *name);
 extern void print_custom_message(struct player *p, struct object *obj, const char *string,
     int msg_type);
-extern s32b get_askprice(const char *inscription);
+extern int32_t get_askprice(const char *inscription);
 extern bool is_artifact_created(const struct artifact *art);
-extern s32b get_artifact_owner(const struct artifact *art);
+extern int32_t get_artifact_owner(const struct artifact *art);
 extern void mark_artifact_created(const struct artifact *art, bool created);
-extern void mark_artifact_owned(const struct artifact *art, s32b owner);
+extern void mark_artifact_owned(const struct artifact *art, int32_t owner);
 
 #endif /* OBJECT_UTIL_H */

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2007 Leon Marrick
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -27,7 +27,7 @@
  */
 static void player_pickup_gold(struct player *p, struct chunk *c)
 {
-    s32b total_gold = 0L;
+    int32_t total_gold = 0L;
     char name[30] = "";
     int sound_msg;
     bool at_most_one = true;
@@ -72,7 +72,7 @@ static void player_pickup_gold(struct player *p, struct chunk *c)
             my_strcpy(name, kind->name, sizeof(name));
 
         /* Increment total value */
-        total_gold += (s32b)obj->pval;
+        total_gold += (int32_t)obj->pval;
 
         /* Pile of gold is now owned */
         object_own(p, obj);
@@ -428,7 +428,7 @@ static bool floor_purchase(struct player *p, struct chunk *c, int pickup, struct
         struct player *q;
         bool okay = false;
         struct object *full = object_new();
-        s32b price;
+        int32_t price;
         char buf[NORMAL_WID];
 
         /* Get item owner */
@@ -550,7 +550,7 @@ static bool floor_purchase(struct player *p, struct chunk *c, int pickup, struct
  *
  * obj is the floor item to pick up.
  */
-byte player_pickup_item(struct player *p, struct chunk *c, int pickup, struct object *o)
+uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct object *o)
 {
     struct object *current = NULL;
     int floor_max = z_info->floor_size;
@@ -560,7 +560,7 @@ byte player_pickup_item(struct player *p, struct chunk *c, int pickup, struct ob
     bool domsg = true;
 
     /* Objects picked up */
-    byte objs_picked_up = 0;
+    uint8_t objs_picked_up = 0;
 
     /* Nothing else to pick up -- return */
     if (!square_object(c, &p->grid))
@@ -720,10 +720,10 @@ byte player_pickup_item(struct player *p, struct chunk *c, int pickup, struct ob
 /*
  * Pick up everything on the floor that requires no player action
  */
-byte do_autopickup(struct player *p, struct chunk *c, int pickup)
+uint8_t do_autopickup(struct player *p, struct chunk *c, int pickup)
 {
     struct object *obj, *next;
-    byte objs_picked_up = 0;
+    uint8_t objs_picked_up = 0;
 
     /* Nothing to pick up -- return */
     if (!square_object(c, &p->grid)) return 0;

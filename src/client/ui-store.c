@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Robert A. Koeneke, James E. Wilson, Ben Harrison
  * Copyright (c) 1998-2014 Angband developers
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -147,10 +147,10 @@ static void store_display_recalc(struct store_context *ctx)
 static void store_display_entry(struct menu *menu, int oid, bool cursor, int row, int col, int width)
 {
     struct object *obj;
-    s32b x;
+    int32_t x;
     char o_name[NORMAL_WID];
     char out_val[160];
-    byte colour;
+    uint8_t colour;
     struct store_context *ctx = menu_priv(menu);
     struct store *store = ctx->store;
 
@@ -257,7 +257,7 @@ static void store_display_frame(struct store_context *ctx)
 }
 
 
-static void text_out_c(byte attr, const char *text, int y, int* px)
+static void text_out_c(uint8_t attr, const char *text, int y, int* px)
 {
     int x;
 
@@ -451,7 +451,7 @@ static bool store_purchase(struct store_context *ctx, int item)
         bool obj_is_book;
 
         /* Price of one */
-        s32b price = obj->askprice;
+        int32_t price = obj->askprice;
 
         /* Check "shown" items */
         if (price == 0)
@@ -920,7 +920,7 @@ void store_prt_frame(void)
 }
 
 
-void store_sell_accept(s32b price, s16b reset)
+void store_sell_accept(int32_t price, int16_t reset)
 {
     char buf[NORMAL_WID];
     int res;

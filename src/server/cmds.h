@@ -24,7 +24,7 @@ extern void move_player(struct player *p, struct chunk *c, int dir, bool disarm,
 extern void do_cmd_walk(struct player *p, int dir);
 extern void do_cmd_jump(struct player *p, int dir);
 extern void do_cmd_run(struct player *p, int dir);
-extern bool do_cmd_rest(struct player *p, s16b resting);
+extern bool do_cmd_rest(struct player *p, int16_t resting);
 extern void do_cmd_sleep(struct player *p);
 extern void display_feeling(struct player *p, bool obj_only);
 extern void do_cmd_purchase_house(struct player *p, int dir);
@@ -69,8 +69,8 @@ extern void do_cmd_zap_rod_end(struct player *p, struct object *obj, bool ident,
 extern void do_cmd_activate_end(struct player *p, struct object *obj, bool ident, bool used);
 
 /* cmd-pickup.c */
-extern byte player_pickup_item(struct player *p, struct chunk *c, int pickup, struct object *o);
-extern byte do_autopickup(struct player *p, struct chunk *c, int pickup);
+extern uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct object *o);
+extern uint8_t do_autopickup(struct player *p, struct chunk *c, int pickup);
 extern void do_cmd_pickup(struct player *p, int item);
 extern void do_cmd_autopickup(struct player *p);
 extern void leave_depth(struct player *p, struct chunk *c);
@@ -78,12 +78,12 @@ extern bool weight_okay(struct player *p, struct object *obj);
 extern void do_cmd_hold(struct player *p, int item);
 
 /* game-ui.c */
-extern void do_cmd_master(struct player *p, s16b command, char *buf);
+extern void do_cmd_master(struct player *p, int16_t command, char *buf);
 extern void do_cmd_social(struct player *p, const char *buf, int dir);
 
 /* knowledge-ui.c */
 extern void do_cmd_redraw(struct player *p);
-extern void do_cmd_drop_gold(struct player *p, s32b amt);
+extern void do_cmd_drop_gold(struct player *p, int32_t amt);
 extern void do_cmd_steal(struct player *p, int dir);
 extern void do_cmd_locate(struct player *p, int dir);
 extern void do_cmd_query_symbol(struct player *p, const char *buf);
@@ -99,9 +99,9 @@ extern void do_cmd_poly(struct player *p, struct monster_race *race, bool check_
     bool domsg);
 extern void do_cmd_check_poly(struct player *p, int line);
 extern void do_cmd_check_socials(struct player *p, int line);
-extern void do_cmd_interactive(struct player *p, int type, u32b query);
+extern void do_cmd_interactive(struct player *p, int type, uint32_t query);
 
 /* party.c */
-extern void do_cmd_party(struct player *p, s16b command, char *buf);
+extern void do_cmd_party(struct player *p, int16_t command, char *buf);
 
 #endif

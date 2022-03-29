@@ -3,7 +3,7 @@
  * Purpose: Pref file handling code
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -21,15 +21,15 @@
 #include "s-angband.h"
 
 
-byte *monster_x_attr;
+uint8_t *monster_x_attr;
 char *monster_x_char;
-byte *kind_x_attr;
+uint8_t *kind_x_attr;
 char *kind_x_char;
-byte (*feat_x_attr)[LIGHTING_MAX];
+uint8_t (*feat_x_attr)[LIGHTING_MAX];
 char (*feat_x_char)[LIGHTING_MAX];
-byte (*trap_x_attr)[LIGHTING_MAX];
+uint8_t (*trap_x_attr)[LIGHTING_MAX];
 char (*trap_x_char)[LIGHTING_MAX];
-byte *flavor_x_attr;
+uint8_t *flavor_x_attr;
 char *flavor_x_char;
 
 
@@ -97,7 +97,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
     /* object:*:* means handle all objects and flavors */
     if (streq(tval, "*"))
     {
-        byte attr = (byte)parser_getint(p, "attr");
+        uint8_t attr = (uint8_t)parser_getint(p, "attr");
         char chr = (char)parser_getint(p, "char");
         int i;
 
@@ -124,7 +124,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
         /* object:tval:* means handle all objects and flavors with this tval */
         if (streq(sval, "*"))
         {
-            byte attr = (byte)parser_getint(p, "attr");
+            uint8_t attr = (uint8_t)parser_getint(p, "attr");
             char chr = (char)parser_getint(p, "char");
             int i;
 
@@ -151,7 +151,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
             kind = lookup_kind(tvi, svi);
             if (!kind) return PARSE_ERROR_UNRECOGNISED_SVAL;
 
-            kind_x_attr[kind->kidx] = (byte)parser_getint(p, "attr");
+            kind_x_attr[kind->kidx] = (uint8_t)parser_getint(p, "attr");
             kind_x_char[kind->kidx] = (char)parser_getint(p, "char");
         }
     }
@@ -173,7 +173,7 @@ static enum parser_error parse_prefs_monster(struct parser *p)
     monster = lookup_monster(name);
     if (!monster) return PARSE_ERROR_NO_KIND_FOUND;
 
-    monster_x_attr[monster->ridx] = (byte)parser_getint(p, "attr");
+    monster_x_attr[monster->ridx] = (uint8_t)parser_getint(p, "attr");
     monster_x_char[monster->ridx] = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -186,7 +186,7 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
     struct monster_base *mb;
     int i;
     struct prefs_data *d = parser_priv(p);
-    byte a;
+    uint8_t a;
     char c;
 
     my_assert(d != NULL);
@@ -196,7 +196,7 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
     mb = lookup_monster_base(name);
     if (!mb) return PARSE_ERROR_INVALID_MONSTER_BASE;
 
-    a = (byte)parser_getint(p, "attr");
+    a = (uint8_t)parser_getint(p, "attr");
     c = (char)parser_getint(p, "char");
 
     for (i = 0; i < z_info->r_max; i++)
@@ -241,14 +241,14 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
 
     if (light_idx < LIGHTING_MAX)
     {
-        feat_x_attr[idx][light_idx] = (byte)parser_getint(p, "attr");
+        feat_x_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
         feat_x_char[idx][light_idx] = (char)parser_getint(p, "char");
     }
     else
     {
         for (light_idx = 0; light_idx < LIGHTING_MAX; light_idx++)
         {
-            feat_x_attr[idx][light_idx] = (byte)parser_getint(p, "attr");
+            feat_x_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
             feat_x_char[idx][light_idx] = (char)parser_getint(p, "char");
         }
     }
@@ -273,7 +273,7 @@ static enum parser_error parse_prefs_feat_win(struct parser *p)
 }
 
 
-static void set_trap_graphic(int trap_idx, int light_idx, byte attr, char ch)
+static void set_trap_graphic(int trap_idx, int light_idx, uint8_t attr, char ch)
 {
     if (light_idx < LIGHTING_MAX)
     {
@@ -298,7 +298,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     int trap_idx;
     int light_idx;
     struct prefs_data *d = parser_priv(p);
-    byte attr;
+    uint8_t attr;
     char chr;
 
     my_assert(d != NULL);
@@ -331,7 +331,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     else
         return PARSE_ERROR_INVALID_LIGHTING;
 
-    attr = (byte)parser_getint(p, "attr");
+    attr = (uint8_t)parser_getint(p, "attr");
     chr = (char)parser_getint(p, "char");
 
     if (trap_idx == -1)
@@ -421,13 +421,13 @@ static enum parser_error parse_prefs_gf(struct parser *p)
     {
         if (!types[i]) continue;
 
-        proj_to_attr[i][motion] = (byte)parser_getuint(p, "attr");
+        proj_to_attr[i][motion] = (uint8_t)parser_getuint(p, "attr");
         proj_to_char[i][motion] = (char)parser_getuint(p, "char");
 
         /* Default values */
         if (motion2)
         {
-            proj_to_attr[i][motion2] = (byte)parser_getuint(p, "attr");
+            proj_to_attr[i][motion2] = (uint8_t)parser_getuint(p, "attr");
             proj_to_char[i][motion2] = (char)parser_getuint(p, "char");
         }
     }
@@ -453,7 +453,7 @@ static enum parser_error parse_prefs_flavor(struct parser *p)
 
     if (flavor)
     {
-        flavor_x_attr[idx] = (byte)parser_getint(p, "attr");
+        flavor_x_attr[idx] = (uint8_t)parser_getint(p, "attr");
         flavor_x_char[idx] = (char)parser_getint(p, "char");
     }
 
@@ -575,7 +575,7 @@ static enum parser_error parse_xprefs_monster(struct parser *p)
     /* Hack -- default player presets */
     for (i = 0; i < MAX_SEXES; i++)
     {
-        d->ps->player_presets[i][d->ps->cidx][d->ps->ridx].a = (u16b)parser_getint(p, "attr");
+        d->ps->player_presets[i][d->ps->cidx][d->ps->ridx].a = (uint16_t)parser_getint(p, "attr");
         d->ps->player_presets[i][d->ps->cidx][d->ps->ridx].c = (char)parser_getint(p, "char");
     }
 
@@ -593,7 +593,7 @@ static enum parser_error parse_xprefs_rf(struct parser *p)
     parser_getsym(p, "name");
 
     /* Hack -- player presets for female characters */
-    d->ps->player_presets[SEX_FEMALE][d->ps->cidx][d->ps->ridx].a = (u16b)parser_getint(p, "attr");
+    d->ps->player_presets[SEX_FEMALE][d->ps->cidx][d->ps->ridx].a = (uint16_t)parser_getint(p, "attr");
     d->ps->player_presets[SEX_FEMALE][d->ps->cidx][d->ps->ridx].c = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -701,7 +701,7 @@ static enum parser_error parse_pprefs_n(struct parser *p)
 
     idx = parser_getint(p, "idx");
 
-    ps->player_numbers[idx].a = (u16b)parser_getint(p, "attr");
+    ps->player_numbers[idx].a = (uint16_t)parser_getint(p, "attr");
     ps->player_numbers[idx].c = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -717,7 +717,7 @@ static enum parser_error parse_pprefs_b(struct parser *p)
 
     idx = parser_getint(p, "idx");
 
-    ps->player_bubbles[idx].a = (u16b)parser_getint(p, "attr");
+    ps->player_bubbles[idx].a = (uint16_t)parser_getint(p, "attr");
     ps->player_bubbles[idx].c = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -882,9 +882,9 @@ void textui_prefs_init(void)
     struct flavor *f;
     unsigned int flavor_max = 0;
 
-    monster_x_attr = mem_zalloc(z_info->r_max * sizeof(byte));
+    monster_x_attr = mem_zalloc(z_info->r_max * sizeof(uint8_t));
     monster_x_char = mem_zalloc(z_info->r_max * sizeof(char));
-    kind_x_attr = mem_zalloc(z_info->k_max * sizeof(byte));
+    kind_x_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     kind_x_char = mem_zalloc(z_info->k_max * sizeof(char));
     feat_x_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
     feat_x_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
@@ -894,7 +894,7 @@ void textui_prefs_init(void)
     {
         if (f->fidx > flavor_max) flavor_max = f->fidx;
     }
-    flavor_x_attr = mem_zalloc((flavor_max + 1) * sizeof(byte));
+    flavor_x_attr = mem_zalloc((flavor_max + 1) * sizeof(uint8_t));
     flavor_x_char = mem_zalloc((flavor_max + 1) * sizeof(char));
 
     reset_visuals();

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, Skirmantas Kligys, Robert Ruehlmann,
  * and others
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -53,7 +53,7 @@
 #define NOATOM            /* Atom management */
 #define NOLANGUAGE        /* Character test routines */
 #define NOLSTRING         /* lstr* string management routines */
-#define NODBCS            /* Double-byte character set routines */
+#define NODBCS            /* Double-uint8_t character set routines */
 #define NOKEYBOARDINFO    /* Keyboard driver routines */
 #define NOCOLOR           /* COLOR_* color values */
 #define NODRAWTEXT        /* DrawText() and related definitions */
@@ -259,7 +259,7 @@ static COLORREF win_clr[MAX_COLORS];
  *
  * Note that many of the choices below suck, but so do crappy monitors.
  */
-static byte win_pal[MAX_COLORS] =
+static uint8_t win_pal[MAX_COLORS] =
 {
     VID_BLACK,                  /* Dark */
     VID_WHITE,                  /* White */
@@ -1270,7 +1270,7 @@ static void term_data_redraw_section(term_data *td, int x1, int y1, int x2, int 
  */
 
 
-static errr Term_pict_win(int x, int y, int n, const u16b *ap, const char *cp, const u16b *tap,
+static errr Term_pict_win(int x, int y, int n, const uint16_t *ap, const char *cp, const uint16_t *tap,
     const char *tcp);
 
 
@@ -1297,7 +1297,7 @@ static errr Term_xtra_win_react(int v)
     else
     {
         COLORREF code;
-        byte rv, gv, bv;
+        uint8_t rv, gv, bv;
         bool change = false;
 
         /* Save the default colors */
@@ -1638,7 +1638,7 @@ static errr Term_bigcurs_win(int x, int y)
     /* If we are using overdraw, draw a double height cursor */
     if (overdraw && Term->double_cursor)
     {
-        u16b a, ta;
+        uint16_t a, ta;
         char c, tc;
         int j = 0;
 
@@ -1711,7 +1711,7 @@ static errr Term_wipe_win(int x, int y, int n)
  * what color it should be using to draw with, but perhaps simply changing
  * it every time is not too inefficient.  XXX XXX XXX
  */
-static void Term_text_win_aux(int x, int y, int n, u16b a, const char *s)
+static void Term_text_win_aux(int x, int y, int n, uint16_t a, const char *s)
 {
     term_data *td = (term_data*)(Term->data);
     RECT rc;
@@ -1808,7 +1808,7 @@ static void Term_text_win_aux(int x, int y, int n, u16b a, const char *s)
  *
  * If "graphics" is not available, we simply "wipe" the given grids.
  */
-static void Term_pict_win_aux(int x, int y, int n, const u16b *ap, const char *cp, const u16b *tap,
+static void Term_pict_win_aux(int x, int y, int n, const uint16_t *ap, const char *cp, const uint16_t *tap,
     const char *tcp)
 {
     term_data *td = (term_data*)(Term->data);
@@ -1875,7 +1875,7 @@ static void Term_pict_win_aux(int x, int y, int n, const u16b *ap, const char *c
     /* Draw attr/char pairs */
     for (i = n - 1; i >= 0; i--, x2 -= w2)
     {
-        u16b a = ap[i];
+        uint16_t a = ap[i];
         char c = cp[i];
 
         /* Extract picture */
@@ -2036,10 +2036,10 @@ static void Term_pict_win_aux(int x, int y, int n, const u16b *ap, const char *c
  *
  * For double-height tiles, we redraw all double-height tiles below.
  */
-static errr Term_text_win(int x, int y, int n, u16b a, const char *s)
+static errr Term_text_win(int x, int y, int n, uint16_t a, const char *s)
 {
     int i;
-    u16b fa, ta;
+    uint16_t fa, ta;
     char fc, tc;
     int tile_wid = 1, tile_hgt = 1;
     term_data *td = (term_data*)(Term->data);
@@ -2098,11 +2098,11 @@ static errr Term_text_win(int x, int y, int n, u16b a, const char *s)
  *
  * For double-height tiles, we redraw the tile just above and all double-height tiles below.
  */
-static errr Term_pict_win(int x, int y, int n, const u16b *ap, const char *cp, const u16b *tap,
+static errr Term_pict_win(int x, int y, int n, const uint16_t *ap, const char *cp, const uint16_t *tap,
     const char *tcp)
 {
     int i;
-    u16b a, ta;
+    uint16_t a, ta;
     char c, tc;
     int tile_wid = 1, tile_hgt = 1;
     term_data *td = (term_data*)(Term->data);
@@ -2175,7 +2175,7 @@ static errr Term_pict_win(int x, int y, int n, const u16b *ap, const char *cp, c
 }
 
 
-static void map_info(int y, int x, u16b *ap, char *cp, u16b *tap, char *tcp)
+static void map_info(int y, int x, uint16_t *ap, char *cp, uint16_t *tap, char *tcp)
 {
     *ap = player->scr_info[y][x].a;
     *cp = player->scr_info[y][x].c;
@@ -2187,11 +2187,11 @@ static void map_info(int y, int x, u16b *ap, char *cp, u16b *tap, char *tcp)
 static void windows_map_aux(void)
 {
     term_data *td = &data[0];
-    u16b a;
+    uint16_t a;
     char c;
     int x, min_x, max_x;
     int y, min_y, max_y;
-    u16b ta;
+    uint16_t ta;
     char tc;
 
     /* Paranoia */
@@ -4192,7 +4192,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, in
     /* Initialize the colors */
     for (i = 0; i < MAX_COLORS; i++)
     {
-        byte rv, gv, bv;
+        uint8_t rv, gv, bv;
 
         /* Extract desired values */
         rv = angband_color_table[i][1];

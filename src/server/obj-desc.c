@@ -3,7 +3,7 @@
  * Purpose: Create object name descriptions
  *
  * Copyright (c) 1997 - 2007 Angband contributors
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -309,7 +309,7 @@ static size_t obj_desc_chest(const struct object *obj, char *buf, size_t max, si
 static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, size_t end,
     bool known)
 {
-    s16b to_h, to_d;
+    int16_t to_h, to_d;
 
     object_to_h(obj, &to_h);
     object_to_d(obj, &to_d);
@@ -326,7 +326,7 @@ static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, s
     /* Display shooting power as part of the multiplier */
     if (kf_has(obj->kind->kind_flags, KF_SHOW_MULT))
     {
-        s32b modifiers[OBJ_MOD_MAX];
+        int32_t modifiers[OBJ_MOD_MAX];
 
         object_modifiers(obj, modifiers);
 
@@ -364,7 +364,7 @@ static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, s
     /* Show armor bonuses */
     if (known || obj->known->to_a)
     {
-        s16b to_a;
+        int16_t to_a;
 
         object_to_a(obj, &to_a);
 
@@ -412,7 +412,7 @@ static size_t obj_desc_mods(const struct object *obj, char *buf, size_t max, siz
 {
     int i, j, num_mods = 0;
     int mods[OBJ_MOD_MAX];
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     object_modifiers(obj, modifiers);
 

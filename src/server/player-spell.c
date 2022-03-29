@@ -3,7 +3,7 @@
  * Purpose: Spell and prayer casting/praying
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -32,10 +32,10 @@ void player_spells_init(struct player *p)
     if (!num_spells) return;
 
     /* Allocate */
-    p->spell_flags = mem_zalloc(num_spells * sizeof(byte));
-    p->spell_order = mem_zalloc(num_spells * sizeof(byte));
-    p->spell_power = mem_zalloc(num_spells * sizeof(byte));
-    p->spell_cooldown = mem_zalloc(num_spells * sizeof(byte));
+    p->spell_flags = mem_zalloc(num_spells * sizeof(uint8_t));
+    p->spell_order = mem_zalloc(num_spells * sizeof(uint8_t));
+    p->spell_power = mem_zalloc(num_spells * sizeof(uint8_t));
+    p->spell_cooldown = mem_zalloc(num_spells * sizeof(uint8_t));
 
     /* None of the spells have been learned yet */
     for (i = 0; i < num_spells; i++) p->spell_order[i] = 99;
@@ -164,7 +164,7 @@ static int min_fail(struct player *p, const struct class_spell *spell)
 /*
  * Returns chance of failure for a spell
  */
-s16b spell_chance(struct player *p, int spell_index)
+int16_t spell_chance(struct player *p, int spell_index)
 {
     int chance = 100, minfail;
     const struct class_spell *spell;
@@ -255,7 +255,7 @@ static size_t append_random_value_string(char *buffer, size_t size, random_value
 
 
 static void spell_effect_append_value_info(struct player *p, const struct effect *effect, char *buf,
-    size_t len, const struct class_spell *spell, size_t *offset, byte *have_shared,
+    size_t len, const struct class_spell *spell, size_t *offset, uint8_t *have_shared,
     random_value *shared_rv)
 {
     random_value rv;
@@ -270,7 +270,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
         *have_shared = 0;
     else if (effect->index == EF_SET_VALUE && effect->dice)
     {
-        s16b current_spell;
+        int16_t current_spell;
 
         *have_shared = 1;
 
@@ -301,7 +301,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     /* Normal case -- use dice */
     else if (effect->dice != NULL)
     {
-        s16b current_spell;
+        int16_t current_spell;
 
         /* Hack -- set current spell (for spell_value_base_by_name) */
         current_spell = p->current_spell;
@@ -433,7 +433,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
 void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
 {
     struct effect *effect;
-    byte have_shared = 0;
+    uint8_t have_shared = 0;
     random_value shared_rv;
     const struct player_class *c = p->clazz;
     const struct class_spell *spell;
@@ -647,7 +647,7 @@ void show_ghost_spells(struct player *p)
     int i;
     char out_val[NORMAL_WID];
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
-    byte line_attr;
+    uint8_t line_attr;
     char help[20];
     const char *comment = help;
     spell_flags flags;
@@ -708,7 +708,7 @@ int antimagic_field(const struct object *obj, bitflag flags[OF_SIZE])
  */
 bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
 {
-    s16b id;
+    int16_t id;
     int i, amchance, amrad, dist;
     struct loc grid;
 
@@ -898,7 +898,7 @@ bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
  */
 bool check_antisummon(struct player *p, struct monster *mon)
 {
-    s16b id;
+    int16_t id;
     int i, amchance, amrad, dist;
     struct loc grid;
 
@@ -1000,7 +1000,7 @@ void show_mimic_spells(struct player *p)
     int i, j = 0, k = 0;
     char out_val[NORMAL_WID];
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
-    byte line_attr;
+    uint8_t line_attr;
     char help[20];
     const char *comment = help;
     int flag;
@@ -1215,7 +1215,7 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
     struct source *data = &actor_body;
     char buf[NORMAL_WID];
     bool valid;
-    s16b current_spell;
+    int16_t current_spell;
 
     source_player(data, 0, p);
 

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison
  * Copyright (c) 2011 noz
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1878,7 +1878,7 @@ static errr finish_parse_monster(struct parser *p)
     {
         struct monster_lore *l = &r_info[i].lore;
 
-        l->blows = mem_zalloc(z_info->mon_blows_max * sizeof(byte));
+        l->blows = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
         l->blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(bool));
     }
 

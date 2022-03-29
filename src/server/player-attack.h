@@ -19,7 +19,7 @@ struct attack_result
 {
     bool success;
     int dmg;
-    u32b msg_type;
+    uint32_t msg_type;
     char verb[30];
     struct side_effects effects;
 };
@@ -29,7 +29,7 @@ struct attack_result
  */
 struct hit_types
 {
-    u32b msg_type;
+    uint32_t msg_type;
     const char *text;
 };
 

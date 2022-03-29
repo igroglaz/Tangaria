@@ -21,12 +21,12 @@ struct house_type
     struct loc grid_2;
     struct loc door;            /* Location of door */
     struct worldpos wpos;       /* Position on the world map */
-    s32b price;                 /* Cost of buying */
-    s32b ownerid;               /* Owner ID */
+    int32_t price;                 /* Cost of buying */
+    int32_t ownerid;               /* Owner ID */
     char ownername[NORMAL_WID]; /* Owner name */
-    byte color;                 /* Door color */
-    byte state;                 /* State */
-    byte free;                  /* House is free (bought with a Deed of Property) */
+    uint8_t color;                 /* Door color */
+    uint8_t state;                 /* State */
+    uint8_t free;                  /* House is free (bought with a Deed of Property) */
 };
 
 /* Initialize the house package */

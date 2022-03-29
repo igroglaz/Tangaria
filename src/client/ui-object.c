@@ -5,7 +5,7 @@
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2007-9 Andi Sidwell, Chris Carr, Ed Graham, Erik Osheim
  * Copyright (c) 2015 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -25,7 +25,7 @@
 
 /* Floor items */
 struct object **floor_items;
-byte floor_num;
+uint8_t floor_num;
 
 
 /*
@@ -146,7 +146,7 @@ static void show_obj(int obj_num, int row, int col, bool cursor, int mode)
     /* Price */
     if ((mode & OLIST_PRICE) && obj->askprice)
     {
-        s32b price = obj->askprice;
+        int32_t price = obj->askprice;
 
         strnfmt(buf, sizeof(buf), "%6d au", price);
         put_str(buf, row + obj_num, col + ex_offset_ctr);
@@ -156,7 +156,7 @@ static void show_obj(int obj_num, int row, int col, bool cursor, int mode)
     /* Failure chance for magic devices and activations */
     if (mode & OLIST_FAIL)
     {
-        byte fail = obj->info_xtra.fail;
+        uint8_t fail = obj->info_xtra.fail;
 
         if (fail != 255)
         {
@@ -596,7 +596,7 @@ static int throwing_num;
 static int olist_mode;
 static cmd_code item_cmd;
 static bool newmenu = false;
-static s16b command_wrk;
+static int16_t command_wrk;
 static bool hidden;
 
 
@@ -1778,7 +1778,7 @@ void textui_cmd_ignore_menu(struct object *obj)
     char out_val[160];
     struct menu *m;
     int selected;
-    byte value;
+    uint8_t value;
     int type;
     bool artifact;
     int idx;

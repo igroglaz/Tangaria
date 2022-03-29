@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2013 Erik Osheim, Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -3463,7 +3463,7 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
     struct loc_iterator iter;
 
     /* divide the town into lots */
-    u16b lot_hgt = 4, lot_wid = 6;
+    uint16_t lot_hgt = 4, lot_wid = 6;
 
     /* Town dimensions (PWMAngband: make town twice as big as Angband) */
     int town_hgt = 44;
@@ -3473,7 +3473,7 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
     int feat_outer = (((cfg_diving_mode > 1) || dynamic_town(&c->wpos))? FEAT_PERM:
         FEAT_PERM_CLEAR);
 
-    u32b tmp_seed = Rand_value;
+    uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
     /* Hack -- use the "simple" RNG */
@@ -5889,7 +5889,7 @@ static void mang_town_gen_layout(struct chunk *c)
     int y0 = (z_info->town_hgt - n_rows) / 2;
     int x0 = (z_info->town_wid - n_cols) / 2;
 
-    u32b tmp_seed = Rand_value;
+    uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
     /* Hack -- use the "simple" RNG */

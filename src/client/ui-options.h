@@ -9,8 +9,8 @@
 
 struct ego_desc
 {
-    s16b e_idx;
-    u16b itype;
+    int16_t e_idx;
+    uint16_t itype;
     const char *short_name;
 };
 
@@ -19,7 +19,7 @@ extern void do_cmd_options_birth(void);
 extern void do_cmd_options(void);
 extern void cleanup_options(void);
 extern const char *ignore_name_for_type(ignore_type_t type);
-extern const char *quality_name_for_value(byte value);
+extern const char *quality_name_for_value(uint8_t value);
 extern bool ignore_tval(int tval);
 extern void do_cmd_keymaps_shortcut(void);
 

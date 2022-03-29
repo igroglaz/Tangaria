@@ -216,18 +216,6 @@ typedef char bool;
 #define true    1
 #define false   0
 
-/* Use guaranteed-size types */
-typedef uint8_t byte;
-
-typedef uint16_t u16b;
-typedef int16_t s16b;
-
-typedef uint32_t u32b;
-typedef int32_t s32b;
-
-typedef uint64_t u64b;
-typedef int64_t s64b;
-
 /* MAngband hacks */
 #if (UINT_MAX == 0xFFFFFFFFUL) && (ULONG_MAX > 0xFFFFFFFFUL)
     #define PRId32 "d"
@@ -238,7 +226,7 @@ typedef int64_t s64b;
 /* MAngband types */
 typedef int sint;
 typedef unsigned int uint;
-typedef byte *byte_ptr;
+typedef uint8_t *byte_ptr;
 
 /* Turn counter type "huge turn" (largest number ever) */
 #define HTURN_ERA_FLIP 1000000
@@ -246,8 +234,8 @@ typedef byte *byte_ptr;
 
 typedef struct
 {
-    u32b era;
-    u32b turn;
+    uint32_t era;
+    uint32_t turn;
 } hturn;
 
 /*

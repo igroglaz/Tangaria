@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2016 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -38,7 +38,7 @@ struct curse_menu_data
 static void get_curse_display(struct menu *menu, int oid, bool cursor, int row, int col, int width)
 {
     struct curse_menu_data *choice = menu_priv(menu);
-    byte attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
+    uint8_t attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
     char buf[NORMAL_WID];
     int power = choice[oid].power;
     char *name = curses[choice[oid].index].name;

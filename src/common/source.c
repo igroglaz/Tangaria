@@ -3,7 +3,7 @@
  * Purpose: Type that allows various different origins for an effect
  *
  * Copyright (c) 2016 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

@@ -3,7 +3,7 @@
  * Purpose: Utility functions
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -265,11 +265,11 @@ const char *stat_names_reduced[STAT_MAX] =
 /*
  * Global arrays for converting "keypad direction" into offsets
  */
-s16b ddx[10] =
+int16_t ddx[10] =
 { 0, -1, 0, 1, -1, 0, 1, -1, 0, 1 };
 
 
-s16b ddy[10] =
+int16_t ddy[10] =
 { 0, 1, 1, 1, 0, 0, 0, -1, -1, -1 };
 
 
@@ -716,7 +716,7 @@ const char *strip_suffix(const char *name)
  * Returns a "rating" of x depending on y, and sets "attr" to the
  * corresponding "attribute".
  */
-const char *likert(int x, int y, byte *attr)
+const char *likert(int x, int y, uint8_t *attr)
 {
     /* Paranoia */
     if (y <= 0) y = 1;
@@ -793,7 +793,7 @@ const char *likert(int x, int y, byte *attr)
 /*
  * Base experience levels, may be adjusted up for race and/or class
  */
-static s32b player_exp[PY_MAX_LEVEL] =
+static int32_t player_exp[PY_MAX_LEVEL] =
 {
     10,
     25,
@@ -848,16 +848,16 @@ static s32b player_exp[PY_MAX_LEVEL] =
 };
 
 
-s32b adv_exp(s16b lev, s16b expfact)
+int32_t adv_exp(int16_t lev, int16_t expfact)
 {
     /* Max reached */
     if (lev >= PY_MAX_LEVEL) return 0L;
 
     /* High exp: first divide by 100 to avoid overflow */
-    if (lev >= 20) return (s32b)((player_exp[lev - 1] / 100L) * expfact);
+    if (lev >= 20) return (int32_t)((player_exp[lev - 1] / 100L) * expfact);
 
     /* Low exp */
-    return (s32b)(player_exp[lev - 1] * expfact / 100L);
+    return (int32_t)(player_exp[lev - 1] * expfact / 100L);
 }
 
 
@@ -1136,7 +1136,7 @@ struct monster_race *lookup_monster(const char *name)
  * Stats go down: 18/220, 18/210,..., 18/10, 18, 17, ..., 3
  * Or even: 18/13, 18/03, 18, 17, ..., 3
  */
-s16b modify_stat_value(int value, int amount)
+int16_t modify_stat_value(int value, int amount)
 {
     int i;
 

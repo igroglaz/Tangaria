@@ -3,7 +3,7 @@
  * Purpose: Putting text on the screen, screen saving and loading, panel handling
  *
  * Copyright (c) 2007 Pete Mack and others.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -99,7 +99,7 @@ void region_erase(const region *loc)
  * This function will correctly handle any width up to the maximum legal
  * value of 256, though it works best for a standard 80 character width.
  */
-void text_out_to_screen(byte a, const char *str)
+void text_out_to_screen(uint8_t a, const char *str)
 {
     int text_out_wrap = 0, text_out_indent, text_out_pad = 1;
     int x, y;
@@ -152,7 +152,7 @@ void text_out_to_screen(byte a, const char *str)
         if ((x >= wrap - 1) && (ch != ' '))
         {
             int i, n = 0;
-            u16b av[256];
+            uint16_t av[256];
             char cv[256];
 
             /* Wrap word */
@@ -219,7 +219,7 @@ void text_out_to_screen(byte a, const char *str)
  * At the given location, using the given attribute, if allowed,
  * add the given string. Do not clear the line.
  */
-void c_put_str(byte attr, const char *str, int row, int col)
+void c_put_str(uint8_t attr, const char *str, int row, int col)
 {
     /* Position cursor, Dump the attr/text */
     Term_putstr(col, row, -1, attr, str);
@@ -240,7 +240,7 @@ void put_str(const char *str, int row, int col)
  * Display a string on the screen using an attribute, and clear
  * to the end of the line.
  */
-void c_prt(byte attr, const char *str, int row, int col)
+void c_prt(uint8_t attr, const char *str, int row, int col)
 {
     /* Clear line, position cursor */
     Term_erase(col, row, 255);

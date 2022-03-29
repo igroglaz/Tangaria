@@ -3,7 +3,7 @@
  * Purpose: Monster summoning
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -440,7 +440,7 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
 {
     struct monster *mon;
     struct monster_race *race;
-    byte status = MSTATUS_HOSTILE, status_player = MSTATUS_SUMMONED;
+    uint8_t status = MSTATUS_HOSTILE, status_player = MSTATUS_SUMMONED;
     int summon_level = (monster_level(&p->wpos) + lev) / 2 + 5;
     struct loc nearby;
     struct monster_group_info info = {0, 0};

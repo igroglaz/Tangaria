@@ -2,7 +2,7 @@
  * File: display.c
  * Purpose: Display the character on the screen or in a file
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -20,7 +20,7 @@
 #include "angband.h"
 
 
-s16b cfg_fps = 50;
+int16_t cfg_fps = 50;
 
 
 /*
@@ -33,7 +33,7 @@ s16b cfg_fps = 50;
  */
 struct panel_line
 {
-    byte attr;
+    uint8_t attr;
     const char *label;
     char value[20];
 };
@@ -79,7 +79,7 @@ static void panel_free(struct panel *p)
 /*
  * Add a new line to the panel
  */
-static void panel_line(struct panel *p, byte attr, const char *label, const char *fmt, ...)
+static void panel_line(struct panel *p, uint8_t attr, const char *label, const char *fmt, ...)
 {
     va_list vp;
     struct panel_line *pl;
@@ -122,8 +122,8 @@ static char display_buffer[NORMAL_HGT][NORMAL_WID + 1];
 
 errr (*clear_hook)(void);
 void (*region_erase_hook)(const region *loc);
-errr (*put_ch_hook)(int x, int y, u16b a, char c);
-errr (*put_str_hook)(int x, int y, int n, u16b a, const char *s);
+errr (*put_ch_hook)(int x, int y, uint16_t a, char c);
+errr (*put_str_hook)(int x, int y, int n, uint16_t a, const char *s);
 bool use_bigtile_hook;
 
 
@@ -152,7 +152,7 @@ errr buffer_clear(void)
 /*
  * Add a character to the buffer
  */
-errr buffer_put_ch(int x, int y, u16b a, char c)
+errr buffer_put_ch(int x, int y, uint16_t a, char c)
 {
     display_buffer[y - 1][x] = c;
 
@@ -163,7 +163,7 @@ errr buffer_put_ch(int x, int y, u16b a, char c)
 /*
  * Add a string to the buffer
  */
-errr buffer_put_str(int x, int y, int n, u16b a, const char *s)
+errr buffer_put_str(int x, int y, int n, uint16_t a, const char *s)
 {
     char *cursor = display_buffer[y - 1], *str = (char *)s;
     int col = x, size = n;
@@ -275,7 +275,7 @@ static const char *player_flag_table[(RES_PANELS + 1) * RES_ROWS] =
 static void display_equippy(struct player *p, int row, int col)
 {
     int i;
-    byte a;
+    uint8_t a;
     char c;
 
     /* No equippy chars in distorted mode */
@@ -314,12 +314,12 @@ static void display_resistance_panel(struct player *p, const char **rec, const r
     /* Lines */
     for (i = 0; i < RES_ROWS; i++, row++)
     {
-        byte name_attr = COLOUR_WHITE;
+        uint8_t name_attr = COLOUR_WHITE;
 
         /* Draw dots */
         for (j = 0; j <= p->body.count; j++)
         {
-            byte attr = p->hist_flags[off + i][j].a;
+            uint8_t attr = p->hist_flags[off + i][j].a;
             char sym = (strlen(rec[i])? p->hist_flags[off + i][j].c: ' ');
             bool rune = false;
 
@@ -485,7 +485,7 @@ static void display_player_stat_info(struct player *p)
 static void display_player_sust_info(struct player *p)
 {
     int i, row, col, stat;
-    byte a;
+    uint8_t a;
     char c;
 
     /* Row */
@@ -585,7 +585,7 @@ static const char *show_depth(struct player *p)
 static const char *show_speed(struct player *p)
 {
     static char buffer[10];
-    s16b speed = get_speed(p);
+    int16_t speed = get_speed(p);
 
     if (speed == 0) return "Normal";
 
@@ -594,7 +594,7 @@ static const char *show_speed(struct player *p)
 }
 
 
-static byte max_color(int val, int max)
+static uint8_t max_color(int val, int max)
 {
     return ((val < max)? COLOUR_YELLOW: COLOUR_L_GREEN);
 }
@@ -603,7 +603,7 @@ static byte max_color(int val, int max)
 /*
  * Colours for table items
  */
-static const byte colour_table[] =
+static const uint8_t colour_table[] =
 {
     COLOUR_RED, COLOUR_RED, COLOUR_RED, COLOUR_L_RED, COLOUR_ORANGE,
     COLOUR_YELLOW, COLOUR_YELLOW, COLOUR_GREEN, COLOUR_GREEN, COLOUR_L_GREEN,
@@ -634,7 +634,7 @@ static struct panel *get_panel_midleft(struct player *pplayer)
 {
     struct panel *p = panel_allocate(9);
     int diff = get_diff(pplayer);
-    byte attr = ((diff < 0)? COLOUR_L_RED: COLOUR_L_GREEN);
+    uint8_t attr = ((diff < 0)? COLOUR_L_RED: COLOUR_L_GREEN);
 
     panel_line(p, max_color(pplayer->lev, pplayer->max_lev), "Level", "%d", pplayer->lev);
     panel_line(p, max_color(pplayer->exp, pplayer->max_exp), "Cur Exp", "%d", pplayer->exp);
@@ -695,7 +695,7 @@ static struct panel *get_panel_skills(struct player *pplayer)
 {
     struct panel *p = panel_allocate(8);
     int skill;
-    byte attr;
+    uint8_t attr;
     const char *desc;
     int depth = pplayer->wpos.depth;
 
@@ -740,9 +740,9 @@ static struct panel *get_panel_skills(struct player *pplayer)
 static struct panel *get_panel_misc(struct player *pplayer)
 {
     struct panel *p = panel_allocate(7);
-    u32b game_turn = ht_div(&pplayer->game_turn, cfg_fps);
-    u32b player_turn = ht_div(&pplayer->player_turn, 1);
-    u32b active_turn = ht_div(&pplayer->active_turn, 1);
+    uint32_t game_turn = ht_div(&pplayer->game_turn, cfg_fps);
+    uint32_t player_turn = ht_div(&pplayer->player_turn, 1);
+    uint32_t active_turn = ht_div(&pplayer->active_turn, 1);
 
     panel_line(p, COLOUR_L_BLUE, "Age", "%d", pplayer->age);
     panel_line(p, COLOUR_L_BLUE, "Height", "%d'%d\"", pplayer->ht / 12, pplayer->ht % 12);
@@ -811,7 +811,7 @@ static void display_player_xtra_info(struct player *pplayer)
  * Mode 1 = special display with equipment flags
  * Mode 2 = special display with equipment flags (ESP flags)
  */
-void display_player(struct player *pplayer, byte mode)
+void display_player(struct player *pplayer, uint8_t mode)
 {
     /* Clear */
     clear_hook();
@@ -877,7 +877,7 @@ struct state_info
     int value;
     const char *str;
     size_t len;
-    byte attr;
+    uint8_t attr;
 };
 
 
@@ -914,7 +914,7 @@ static size_t prt_tmd(struct player *p, int row, int col)
 }
 
 
-static const byte obj_feeling_color[] =
+static const uint8_t obj_feeling_color[] =
 {
     /* Colors used to display each obj feeling */
     COLOUR_WHITE, /* "this looks like any other level." */
@@ -931,7 +931,7 @@ static const byte obj_feeling_color[] =
 };
 
 
-static const byte mon_feeling_color[] =
+static const uint8_t mon_feeling_color[] =
 {
     /* Colors used to display each monster feeling */
     COLOUR_WHITE, /* "You are still uncertain about this place" */
@@ -955,7 +955,7 @@ static size_t prt_level_feeling(struct player *p, int row, int col)
     char obj_feeling_str[6];
     char mon_feeling_str[6];
     int new_col;
-    byte obj_feeling_color_print;
+    uint8_t obj_feeling_color_print;
 
     /* No feeling */
     if ((p->obj_feeling == -1) && (p->mon_feeling == -1)) return 0;
@@ -1101,7 +1101,7 @@ static size_t prt_descent(struct player *p, int row, int col)
  */
 static size_t prt_state(struct player *p, int row, int col)
 {
-    byte attr = COLOUR_WHITE;
+    uint8_t attr = COLOUR_WHITE;
     const char *text = "";
 
     /* Resting */
@@ -1154,9 +1154,9 @@ static size_t prt_study(struct player *p, int row, int col)
  */
 static size_t prt_dtrap(struct player *p, int row, int col)
 {
-    byte attr = COLOUR_WHITE;
+    uint8_t attr = COLOUR_WHITE;
     const char *text = "";
-    byte dtrap = get_dtrap(p);
+    uint8_t dtrap = get_dtrap(p);
 
     if (dtrap == 2)
     {

@@ -3,7 +3,7 @@
  * Purpose: Object generation functions
  *
  * Copyright (c) 1987-2007 Angband contributors
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -24,19 +24,19 @@
 /*
  * This table provides for different gold drop rates at different dungeon depths.
  */
-u16b level_golds[128];
+uint16_t level_golds[128];
 
 
 /** Arrays holding an index of objects to generate for a given level */
-static u32b *obj_total;
-static byte *obj_alloc;
+static uint32_t *obj_total;
+static uint8_t *obj_alloc;
 
 
-static u32b *obj_total_great;
-static byte *obj_alloc_great;
+static uint32_t *obj_total_great;
+static uint8_t *obj_alloc_great;
 
 
-static s16b alloc_ego_size = 0;
+static int16_t alloc_ego_size = 0;
 static alloc_entry *alloc_ego_table;
 
 
@@ -51,14 +51,14 @@ static struct money *money_type;
 static int num_money_types;
 
 
-static byte get_artifact_rarity(s32b value, struct object_kind *kind)
+static uint8_t get_artifact_rarity(int32_t value, struct object_kind *kind)
 {
-    s32b alloc = 50000000 / (value * (kind->alloc_prob? kind->alloc_prob: 100));
+    int32_t alloc = 50000000 / (value * (kind->alloc_prob? kind->alloc_prob: 100));
 
     if (alloc > 990) return 99;
     if (alloc < 10) return 1;
 
-    return (byte)(((alloc - (alloc / 10) * 10) >= 5)? alloc / 10 + 1: alloc / 10);
+    return (uint8_t)(((alloc - (alloc / 10) * 10) >= 5)? alloc / 10 + 1: alloc / 10);
 }
 
 
@@ -72,10 +72,10 @@ static void alloc_init_objects(void)
     int i;
 
     /* Allocate and wipe */
-    obj_alloc = mem_zalloc((z_info->max_obj_depth + 1) * k_max * sizeof(byte));
-    obj_alloc_great = mem_zalloc((z_info->max_obj_depth + 1) * k_max * sizeof(byte));
-    obj_total = mem_zalloc(z_info->max_depth * sizeof(u32b));
-    obj_total_great = mem_zalloc(z_info->max_depth * sizeof(u32b));
+    obj_alloc = mem_zalloc((z_info->max_obj_depth + 1) * k_max * sizeof(uint8_t));
+    obj_alloc_great = mem_zalloc((z_info->max_obj_depth + 1) * k_max * sizeof(uint8_t));
+    obj_total = mem_zalloc(z_info->max_depth * sizeof(uint32_t));
+    obj_total_great = mem_zalloc(z_info->max_depth * sizeof(uint32_t));
 
     /* Init allocation data */
     for (item = 0; item < k_max; item++)
@@ -109,7 +109,7 @@ static void alloc_init_objects(void)
     {
         struct artifact *art = &a_info[i];
         struct object *fake;
-        s32b value;
+        int32_t value;
 
         /* PWMAngband artifacts don't have a rarity */
         if (art->alloc_prob) continue;
@@ -118,7 +118,7 @@ static void alloc_init_objects(void)
         if (!make_fake_artifact(&fake, art)) continue;
 
         /* Get the value */
-        value = (s32b)object_value_real(NULL, fake, 1);
+        value = (int32_t)object_value_real(NULL, fake, 1);
 
         /* Allocation probability */
         art->alloc_prob = get_artifact_rarity(value, fake->kind);
@@ -1058,7 +1058,7 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
 bool create_randart_drop(struct player *p, struct chunk *c, struct object **obj_address, int a_idx,
     bool check)
 {
-    s32b randart_seed;
+    int32_t randart_seed;
     struct artifact *art;
 
     /* Cannot make a randart twice */
@@ -1420,7 +1420,7 @@ int apply_magic(struct player *p, struct chunk *c, struct object *obj, int lev,
     bool allow_artifacts, bool good, bool great, bool extra_roll)
 {
     int i;
-    s16b power = 0;
+    int16_t power = 0;
 
     /* Chance of being `good` and `great` */
     int good_chance = MIN(z_info->good_obj + lev, 100);
@@ -1589,9 +1589,9 @@ bool kind_is_good(const struct object_kind *kind)
 static struct object_kind *get_obj_num_by_kind(int level, bool good, int tval)
 {
     size_t ind, item;
-    u32b value;
+    uint32_t value;
     int total = 0;
-    byte *objects = (good? obj_alloc_great: obj_alloc);
+    uint8_t *objects = (good? obj_alloc_great: obj_alloc);
 
     /* This is the base index into obj_alloc for this dlev */
     ind = level * z_info->k_max;
@@ -1612,7 +1612,7 @@ static struct object_kind *get_obj_num_by_kind(int level, bool good, int tval)
     {
         if (k_info[item].tval == tval)
         {
-            if (value < (u32b)objects[ind + item]) break;
+            if (value < (uint32_t)objects[ind + item]) break;
             value -= objects[ind + item];
         }
     }
@@ -1630,7 +1630,7 @@ static struct object_kind *get_obj_num_by_kind(int level, bool good, int tval)
 struct object_kind *get_obj_num(int level, bool good, int tval)
 {
     size_t ind, item;
-    u32b value;
+    uint32_t value;
 
     /* Occasional level boost */
     if ((level > 0) && one_in_(z_info->great_obj))
@@ -1655,7 +1655,7 @@ struct object_kind *get_obj_num(int level, bool good, int tval)
         for (item = 0; item < (size_t)z_info->k_max; item++)
         {
             /* Found it */
-            if (value < (u32b)obj_alloc[ind + item]) break;
+            if (value < (uint32_t)obj_alloc[ind + item]) break;
 
             /* Decrement */
             value -= obj_alloc[ind + item];
@@ -1667,7 +1667,7 @@ struct object_kind *get_obj_num(int level, bool good, int tval)
         for (item = 0; item < (size_t)z_info->k_max; item++)
         {
             /* Found it */
-            if (value < (u32b)obj_alloc_great[ind + item]) break;
+            if (value < (uint32_t)obj_alloc_great[ind + item]) break;
 
             /* Decrement */
             value -= obj_alloc_great[ind + item];
@@ -1717,7 +1717,7 @@ static struct object *make_fake_object(const struct object *obj)
  * Returns a pointer to the newly allocated object, or NULL on failure.
  */
 static struct object *make_object_aux(struct player *p, struct chunk *c, int lev, bool good,
-    bool great, bool extra_roll, s32b *value, int tval)
+    bool great, bool extra_roll, int32_t *value, int tval)
 {
     int base;
     struct object_kind *kind = NULL;
@@ -1738,7 +1738,7 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
                 /* PWMAngband: we use a fake (identified) object to get the real value */
                 struct object *fake = make_fake_object(new_obj);
 
-                *value = (s32b)object_value_real(p, fake, 1);
+                *value = (int32_t)object_value_real(p, fake, 1);
                 object_delete(&fake);
             }
             return new_obj;
@@ -1756,7 +1756,7 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
 
     for (i = 1; i <= tries; i++)
     {
-        s16b res;
+        int16_t res;
         int reroll = 3;
         bool in_dungeon = (p && c && (c->wpos.depth > 0));
 
@@ -1817,7 +1817,7 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
         /* PWMAngband: we use a fake (identified) object to get the real value */
         struct object *fake = make_fake_object(new_obj);
 
-        *value = (s32b)object_value_real(p, fake, fake->number);
+        *value = (int32_t)object_value_real(p, fake, fake->number);
         object_delete(&fake);
     }
 
@@ -1846,7 +1846,7 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
  * Returns a pointer to the newly allocated object, or NULL on failure.
  */
 struct object *make_object(struct player *p, struct chunk *c, int lev, bool good, bool great,
-    bool extra_roll, s32b *value, int tval)
+    bool extra_roll, int32_t *value, int tval)
 {
     struct object *new_obj = make_object_aux(p, c, lev, good, great, extra_roll, value, tval);
 
@@ -1958,7 +1958,7 @@ struct object *make_gold(struct player *p, struct chunk *c, int lev, const char 
         }
     }
 
-    /* Cap gold at max short (or alternatively make pvals s32b) */
+    /* Cap gold at max short (or alternatively make pvals int32_t) */
     if (value >= SHRT_MAX) value = SHRT_MAX - randint0(200);
 
     new_gold->pval = value;
@@ -1968,7 +1968,7 @@ struct object *make_gold(struct player *p, struct chunk *c, int lev, const char 
 
 
 void make_randart(struct player *p, struct chunk *c, struct object *obj, struct artifact *art,
-    s32b randart_seed)
+    int32_t randart_seed)
 {
     char o_name[NORMAL_WID];
 
@@ -2065,9 +2065,9 @@ void reroll_randart(struct player *p, struct chunk *c)
 {
     struct object *obj;
     struct artifact *art;
-    s32b randart_seed;
-    byte origin;
-    s16b origin_depth;
+    int32_t randart_seed;
+    uint8_t origin;
+    int16_t origin_depth;
     struct monster_race *origin_race;
 
     if (!cfg_random_artifacts)

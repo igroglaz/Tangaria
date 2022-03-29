@@ -2,7 +2,7 @@
  * File: channel.c
  * Purpose: Chat channels
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -240,7 +240,7 @@ void channel_join(struct player *p, const char *channel, bool quiet)
                 /* Enter channel */
                 channels[i].num++;
                 p->on_channel[i] |= UCM_EAR;
-                Send_channel(p, (byte)i, NULL);
+                Send_channel(p, (uint8_t)i, NULL);
                 if (!quiet) msg(p, "Listening to channel %s", channel);
             }
 
@@ -248,7 +248,7 @@ void channel_join(struct player *p, const char *channel, bool quiet)
             else
             {
                 p->main_channel = i;
-                Send_channel(p, (byte)i, "");
+                Send_channel(p, (uint8_t)i, "");
                 if (!quiet) msg(p, "Channel changed to %s", channel);
             }
             return;
@@ -264,7 +264,7 @@ void channel_join(struct player *p, const char *channel, bool quiet)
         my_strcpy(channels[last_free].name, channel, sizeof(channels[0].name));
         channels[last_free].num = 1;
         p->on_channel[last_free] |= (UCM_EAR | UCM_OPER);
-        Send_channel(p, (byte)last_free, false);
+        Send_channel(p, (uint8_t)last_free, false);
         if (!quiet) msg(p, "Listening to channel %s", channel);
     }
 
@@ -292,7 +292,7 @@ static void channel_leave_id(struct player *p, int i, bool quiet)
         p->main_channel = 0;
     p->on_channel[i] &= ~(UCM_LEAVE);
     if (!quiet)
-        Send_channel(p, (byte)i, "-");
+        Send_channel(p, (uint8_t)i, "-");
 }
 
 
@@ -325,7 +325,7 @@ void channels_leave(struct player *p)
 }
 
 
-static void msg_format_type(struct player *p, u16b type, const char *fmt, ...)
+static void msg_format_type(struct player *p, uint16_t type, const char *fmt, ...)
 {
     va_list vp;
     char buf[MSG_LEN];

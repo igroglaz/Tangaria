@@ -3,7 +3,7 @@
  * Purpose: Monster attacks
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -252,7 +252,7 @@ static bool summon_possible(struct chunk *c, struct loc *grid)
 static int choose_attack_spell(bitflag *f, bool innate)
 {
     int num = 0;
-    byte spells[RSF_MAX];
+    uint8_t spells[RSF_MAX];
     int i;
 
     /* Paranoid initialization */
@@ -563,7 +563,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
     int blinked = 0;
 
     /* Assume a default death */
-    byte note_dies = MON_MSG_DIE;
+    uint8_t note_dies = MON_MSG_DIE;
 
     /* Some monsters get "destroyed" */
     if (monster_is_destroyed(mon->race))

@@ -51,7 +51,7 @@ struct cmp_loc
 struct worldpos
 {
     struct loc grid;    /* The wilderness coordinates */
-    s16b depth;         /* Cur depth */
+    int16_t depth;         /* Cur depth */
     struct worldpos *next;
 };
 
@@ -64,7 +64,7 @@ extern bool wpos_eq(struct worldpos *wpos1, struct worldpos *wpos2);
  */
 typedef struct
 {
-	u16b tval;
+	uint16_t tval;
 	const char *name;
 } grouper;
 
@@ -99,11 +99,11 @@ extern int point_set_contains(struct point_set *ps, struct loc *grid);
 /* The setup data that the server transmits to the client */
 typedef struct
 {
-    s16b frames_per_second;
-    byte min_col;
-    byte max_col;
-    byte min_row;
-    byte max_row;
+    int16_t frames_per_second;
+    uint8_t min_col;
+    uint8_t max_col;
+    uint8_t min_row;
+    uint8_t max_row;
     bool initialized;
     bool ready;
 
@@ -138,7 +138,7 @@ enum grid_light_level
     LIGHTING_MAX
 };
 
-typedef byte byte_lit[LIGHTING_MAX];
+typedef uint8_t byte_lit[LIGHTING_MAX];
 typedef char char_lit[LIGHTING_MAX];
 
 typedef char char_note[4];
@@ -146,18 +146,18 @@ typedef char char_note[4];
 /* The setup data that the client transmits to the server */
 typedef struct
 {
-    s16b settings[SETTING_MAX];
-    byte *flvr_x_attr;
+    int16_t settings[SETTING_MAX];
+    uint8_t *flvr_x_attr;
     char *flvr_x_char;
-    byte (*f_attr)[LIGHTING_MAX];
+    uint8_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    byte (*t_attr)[LIGHTING_MAX];
+    uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
-    byte *k_attr;
+    uint8_t *k_attr;
     char *k_char;
-    byte *r_attr;
+    uint8_t *r_attr;
     char *r_char;
-    byte proj_attr[PROJ_MAX][BOLT_MAX];
+    uint8_t proj_attr[PROJ_MAX][BOLT_MAX];
     char proj_char[PROJ_MAX][BOLT_MAX];
     char (*note_aware)[4];
 } client_setup_t;
@@ -173,9 +173,9 @@ extern client_setup_t Client_setup;
 typedef struct
 {
     char name[MAX_CHAN_LEN];
-    s32b id;
-    s32b num;
-    byte mode;
+    int32_t id;
+    int32_t num;
+    uint8_t mode;
 } channel_type;
 
 /*
@@ -189,9 +189,9 @@ extern channel_type channels[MAX_CHANNELS];
 typedef struct
 {
     int flag;       /* Actual spell flag */
-    byte line_attr; /* "Color" of the spell (learned, worked, forgotten) */
-    byte dir_attr;  /* Directional info */
-    byte proj_attr; /* Can be projected */
+    uint8_t line_attr; /* "Color" of the spell (learned, worked, forgotten) */
+    uint8_t dir_attr;  /* Directional info */
+    uint8_t proj_attr; /* Can be projected */
     int smana;      /* Mana cost */
     int page;       /* Spell page */
 } spell_flags;
@@ -202,110 +202,110 @@ typedef struct
 struct angband_constants
 {
     /* Array bounds, set on parsing edit files */
-    u16b f_max;                 /* Maximum number of terrain features */
-    u16b trap_max;              /* Maximum number of trap kinds */
-    u16b k_max;                 /* Maximum number of object base kinds */
-    u16b a_max;                 /* Maximum number of artifact kinds */
-    u16b e_max;                 /* Maximum number of ego item kinds */
-    u16b r_max;                 /* Maximum number of monster races */
-    u16b mp_max;                /* Maximum number of monster pain message sets */
-    u16b s_max;                 /* Maximum number of magic spells */
-    u16b pit_max;               /* Maximum number of monster pit types */
-    u16b act_max;               /* Maximum number of activations */
-    u16b curse_max;             /* Maximum number of curses */
-    u16b slay_max;              /* Maximum number of slays */
-    u16b brand_max;             /* Maximum number of brands */
-    u16b mon_blows_max;         /* Maximum number of monster blows */
-    u16b blow_methods_max;      /* Maximum number of monster blow methods */
-    u16b blow_effects_max;      /* Maximum number of monster blow effects */
-    u16b equip_slots_max;       /* Maximum number of player equipment slots */
-    u16b profile_max;           /* Maximum number of cave_profiles */
-    u16b quest_max;             /* Maximum number of quests */
-    u16b projection_max;        /* Maximum number of projection types */
-    u16b calculation_max;       /* Maximum number of object power calculations */
-    u16b property_max;          /* Maximum number of object properties */
-    u16b summon_max;            /* Maximum number of summon types */
-    u16b soc_max;               /* Maximum number of socials */
-    u16b wf_max;                /* Maximum number of wilderness terrain features */
-    u16b tf_max;                /* Maximum number of town terrain features */
-    u16b town_max;              /* Maximum number of towns */
-    u16b dungeon_max;           /* Maximum number of dungeons */
+    uint16_t f_max;                 /* Maximum number of terrain features */
+    uint16_t trap_max;              /* Maximum number of trap kinds */
+    uint16_t k_max;                 /* Maximum number of object base kinds */
+    uint16_t a_max;                 /* Maximum number of artifact kinds */
+    uint16_t e_max;                 /* Maximum number of ego item kinds */
+    uint16_t r_max;                 /* Maximum number of monster races */
+    uint16_t mp_max;                /* Maximum number of monster pain message sets */
+    uint16_t s_max;                 /* Maximum number of magic spells */
+    uint16_t pit_max;               /* Maximum number of monster pit types */
+    uint16_t act_max;               /* Maximum number of activations */
+    uint16_t curse_max;             /* Maximum number of curses */
+    uint16_t slay_max;              /* Maximum number of slays */
+    uint16_t brand_max;             /* Maximum number of brands */
+    uint16_t mon_blows_max;         /* Maximum number of monster blows */
+    uint16_t blow_methods_max;      /* Maximum number of monster blow methods */
+    uint16_t blow_effects_max;      /* Maximum number of monster blow effects */
+    uint16_t equip_slots_max;       /* Maximum number of player equipment slots */
+    uint16_t profile_max;           /* Maximum number of cave_profiles */
+    uint16_t quest_max;             /* Maximum number of quests */
+    uint16_t projection_max;        /* Maximum number of projection types */
+    uint16_t calculation_max;       /* Maximum number of object power calculations */
+    uint16_t property_max;          /* Maximum number of object properties */
+    uint16_t summon_max;            /* Maximum number of summon types */
+    uint16_t soc_max;               /* Maximum number of socials */
+    uint16_t wf_max;                /* Maximum number of wilderness terrain features */
+    uint16_t tf_max;                /* Maximum number of town terrain features */
+    uint16_t town_max;              /* Maximum number of towns */
+    uint16_t dungeon_max;           /* Maximum number of dungeons */
 
     /* Maxima of things on a given level, read from constants.txt */
-    u16b level_monster_max;     /* Maximum number of monsters on a given level */
+    uint16_t level_monster_max;     /* Maximum number of monsters on a given level */
 
     /* Monster generation constants, read from constants.txt */
-    u16b alloc_monster_chance;  /* 1/per-turn-chance of generation */
-    u16b level_monster_min;     /* Minimum number generated */
-    u16b town_monsters_day;     /* Townsfolk generated - day */
-    u16b town_monsters_night;   /* Townsfolk generated  - night */
-    u16b repro_monster_max;     /* Maximum breeders on a level */
-    u16b ood_monster_chance;    /* Chance of OoD monster is 1 in this */
-    u16b ood_monster_amount;    /* Max number of levels OoD */
-    u16b monster_group_max;     /* Maximum size of a group */
-    u16b monster_group_dist;    /* Max dist of a group from a related group */
+    uint16_t alloc_monster_chance;  /* 1/per-turn-chance of generation */
+    uint16_t level_monster_min;     /* Minimum number generated */
+    uint16_t town_monsters_day;     /* Townsfolk generated - day */
+    uint16_t town_monsters_night;   /* Townsfolk generated  - night */
+    uint16_t repro_monster_max;     /* Maximum breeders on a level */
+    uint16_t ood_monster_chance;    /* Chance of OoD monster is 1 in this */
+    uint16_t ood_monster_amount;    /* Max number of levels OoD */
+    uint16_t monster_group_max;     /* Maximum size of a group */
+    uint16_t monster_group_dist;    /* Max dist of a group from a related group */
 
     /* Monster gameplay constants, read from constants.txt */
-    u16b glyph_hardness;        /* How hard for a monster to break a glyph */
-    u16b repro_monster_rate;    /* Monster reproduction rate-slower */
-    u16b life_drain_percent;    /* Percent of player life drained */
-    u16b flee_range;            /* Monsters run this many grids out of view */
-    u16b turn_range;            /* Monsters turn to fight closer than this */
+    uint16_t glyph_hardness;        /* How hard for a monster to break a glyph */
+    uint16_t repro_monster_rate;    /* Monster reproduction rate-slower */
+    uint16_t life_drain_percent;    /* Percent of player life drained */
+    uint16_t flee_range;            /* Monsters run this many grids out of view */
+    uint16_t turn_range;            /* Monsters turn to fight closer than this */
 
     /* Dungeon generation constants, read from constants.txt */
-    u16b level_room_max;        /* Maximum number of rooms on a level */
-    u16b level_door_max;        /* Maximum number of potential doors on a level */
-    u16b wall_pierce_max;       /* Maximum number of potential wall piercings */
-    u16b tunn_grid_max;         /* Maximum number of tunnel grids */
-    u16b room_item_av;          /* Average number of items in rooms */
-    u16b both_item_av;          /* Average number of items in random places */
-    u16b both_gold_av;          /* Average number of money items */
-    u16b level_pit_max;         /* Maximum number of pits on a level */
-    u16b lab_depth_lit;         /* Depth where labyrinths start to be generated unlit */
-    u16b lab_depth_known;       /* Depth where labyrinths start to be generated unknown */
-    u16b lab_depth_soft;        /* Depth where labyrinths start to be generated with hard walls */
+    uint16_t level_room_max;        /* Maximum number of rooms on a level */
+    uint16_t level_door_max;        /* Maximum number of potential doors on a level */
+    uint16_t wall_pierce_max;       /* Maximum number of potential wall piercings */
+    uint16_t tunn_grid_max;         /* Maximum number of tunnel grids */
+    uint16_t room_item_av;          /* Average number of items in rooms */
+    uint16_t both_item_av;          /* Average number of items in random places */
+    uint16_t both_gold_av;          /* Average number of money items */
+    uint16_t level_pit_max;         /* Maximum number of pits on a level */
+    uint16_t lab_depth_lit;         /* Depth where labyrinths start to be generated unlit */
+    uint16_t lab_depth_known;       /* Depth where labyrinths start to be generated unknown */
+    uint16_t lab_depth_soft;        /* Depth where labyrinths start to be generated with hard walls */
 
     /* World shape constants, read from constants.txt */
-    u16b max_depth;             /* Maximum dungeon level */
-    u16b day_length;            /* Number of turns from dawn to dawn */
-    u16b dungeon_hgt;           /* Maximum number of vertical grids on a level */
-    u16b dungeon_wid;           /* Maximum number of horizontal grids on a level */
-    u16b town_hgt;              /* Number of features in the starting town (vertically) */
-    u16b town_wid;              /* Number of features in the starting town (horizontally) */
-    u16b feeling_total;         /* Total number of feeling squares per level */
-    u16b feeling_need;          /* Squares needed to see to get first feeling */
-    u16b stair_skip;            /* Number of levels to skip for each down stair */
-    u16b move_energy;           /* Energy the player or monster needs to move */
+    uint16_t max_depth;             /* Maximum dungeon level */
+    uint16_t day_length;            /* Number of turns from dawn to dawn */
+    uint16_t dungeon_hgt;           /* Maximum number of vertical grids on a level */
+    uint16_t dungeon_wid;           /* Maximum number of horizontal grids on a level */
+    uint16_t town_hgt;              /* Number of features in the starting town (vertically) */
+    uint16_t town_wid;              /* Number of features in the starting town (horizontally) */
+    uint16_t feeling_total;         /* Total number of feeling squares per level */
+    uint16_t feeling_need;          /* Squares needed to see to get first feeling */
+    uint16_t stair_skip;            /* Number of levels to skip for each down stair */
+    uint16_t move_energy;           /* Energy the player or monster needs to move */
 
     /* Carrying capacity constants, read from constants.txt */
-    u16b pack_size;             /* Maximum number of pack slots */
-    u16b quiver_size;           /* Maximum number of quiver slots */
-    u16b quiver_slot_size;      /* Maximum number of missiles per quiver slot */
-    u16b thrown_quiver_mult;    /* Size multiplier for non-ammo in quiver */
-    u16b floor_size;            /* Maximum number of items per floor grid */
+    uint16_t pack_size;             /* Maximum number of pack slots */
+    uint16_t quiver_size;           /* Maximum number of quiver slots */
+    uint16_t quiver_slot_size;      /* Maximum number of missiles per quiver slot */
+    uint16_t thrown_quiver_mult;    /* Size multiplier for non-ammo in quiver */
+    uint16_t floor_size;            /* Maximum number of items per floor grid */
 
     /* Store parameters, read from constants.txt */
-    u16b store_inven_max;       /* Maximum number of objects in store inventory */
-    u16b home_inven_max;        /* Maximum number of objects in home inventory */
-    u16b store_turns;           /* Number of turns between turnovers */
-    u16b store_shuffle;         /* 1/per-day-chance of owner changing */
-    u16b store_magic_level;     /* Level for apply_magic() in normal stores */
+    uint16_t store_inven_max;       /* Maximum number of objects in store inventory */
+    uint16_t home_inven_max;        /* Maximum number of objects in home inventory */
+    uint16_t store_turns;           /* Number of turns between turnovers */
+    uint16_t store_shuffle;         /* 1/per-day-chance of owner changing */
+    uint16_t store_magic_level;     /* Level for apply_magic() in normal stores */
 
     /* Object creation constants, read from constants.txt */
-    u16b max_obj_depth;         /* Maximum depth used in object allocation */
-    u16b good_obj;              /* Chance of object being "good" */
-    u16b ego_obj;               /* Chance of object being "great" */
-    u16b great_obj;             /* 1/chance of inflating the requested object level */
-    u16b great_ego;             /* 1/chance of inflating the requested ego item level */
-    u16b fuel_torch;            /* Maximum amount of fuel in a torch */
-    u16b fuel_lamp;             /* Maximum amount of fuel in a lamp */
-    u16b default_lamp;          /* Default amount of fuel in a lamp */
+    uint16_t max_obj_depth;         /* Maximum depth used in object allocation */
+    uint16_t good_obj;              /* Chance of object being "good" */
+    uint16_t ego_obj;               /* Chance of object being "great" */
+    uint16_t great_obj;             /* 1/chance of inflating the requested object level */
+    uint16_t great_ego;             /* 1/chance of inflating the requested ego item level */
+    uint16_t fuel_torch;            /* Maximum amount of fuel in a torch */
+    uint16_t fuel_lamp;             /* Maximum amount of fuel in a lamp */
+    uint16_t default_lamp;          /* Default amount of fuel in a lamp */
 
     /* Player constants, read from constants.txt */
-    u16b max_sight;             /* Maximum visual range */
-    u16b max_range;             /* Maximum missile and spell range */
-    u16b start_gold;            /* Amount of gold the player starts with */
-    u16b food_value;            /* Number of turns 1% of food lasts */
+    uint16_t max_sight;             /* Maximum visual range */
+    uint16_t max_range;             /* Maximum missile and spell range */
+    uint16_t start_gold;            /* Amount of gold the player starts with */
+    uint16_t food_value;            /* Number of turns 1% of food lasts */
 };
 
 extern struct angband_constants *z_info;
@@ -336,8 +336,8 @@ struct social
     char *text;         /* Text */
     unsigned int sidx;  /* Index */
     struct social *next;
-    byte target;        /* Target type (target/no target) */
-    byte max_dist;      /* Max distance of target allowed */
+    uint8_t target;        /* Target type (target/no target) */
+    uint8_t max_dist;      /* Max distance of target allowed */
 };
 
 extern struct social *soc_info;

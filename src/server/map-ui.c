@@ -3,7 +3,7 @@
  * Purpose: Writing level map info to the screen
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -24,7 +24,7 @@
 /*
  * Hack -- hallucinatory monster
  */
-static void hallucinatory_monster(struct player *p, bool server, u16b *a, char *c)
+static void hallucinatory_monster(struct player *p, bool server, uint16_t *a, char *c)
 {
     while (1)
     {
@@ -55,7 +55,7 @@ static void hallucinatory_monster(struct player *p, bool server, u16b *a, char *
 /*
  * Hack -- hallucinatory object
  */
-static void hallucinatory_object(struct player *p, bool server, u16b *a, char *c)
+static void hallucinatory_object(struct player *p, bool server, uint16_t *a, char *c)
 {
     while (1)
     {
@@ -89,7 +89,7 @@ static void hallucinatory_object(struct player *p, bool server, u16b *a, char *c
 /*
  * Return the correct "color" of another player
  */
-static byte player_color(struct player *p)
+static uint8_t player_color(struct player *p)
 {
     /* Ghosts */
     if (p->ghost) return COLOUR_L_WHITE;
@@ -105,8 +105,8 @@ static byte player_color(struct player *p)
 typedef struct
 {
     int flag;
-    byte first_color;
-    byte second_color;
+    uint8_t first_color;
+    uint8_t second_color;
 } breath_attr_struct;
 
 
@@ -151,13 +151,13 @@ static breath_attr_struct breath_to_attr[] =
  *
  * If a monster does not breath anything, it can be any color.
  */
-static byte multi_hued_attr_breath(struct monster_race *race)
+static uint8_t multi_hued_attr_breath(struct monster_race *race)
 {
     bitflag mon_breath[RSF_SIZE];
     size_t i;
     int j, breaths = 0, stored_colors = 0;
-    byte allowed_attrs[15];
-    byte second_color = 0;
+    uint8_t allowed_attrs[15];
+    uint8_t second_color = 0;
 
     /* Monsters with no ranged attacks can be any color */
     if (!race->freq_spell) return randint1(BASIC_COLORS - 1);
@@ -170,7 +170,7 @@ static byte multi_hued_attr_breath(struct monster_race *race)
     for (i = 0; i < N_ELEMENTS(breath_to_attr); i++)
     {
         bool stored = false;
-        byte first_color;
+        uint8_t first_color;
 
         /* Don't have that breath */
         if (!rsf_has(mon_breath, breath_to_attr[i].flag)) continue;
@@ -223,9 +223,9 @@ static byte multi_hued_attr_breath(struct monster_race *race)
 }
 
 
-static byte get_flicker_attr(struct player *p, const struct monster_race *race, const byte base_attr)
+static uint8_t get_flicker_attr(struct player *p, const struct monster_race *race, const uint8_t base_attr)
 {
-    byte attr;
+    uint8_t attr;
 
     /* Get the color cycled attribute, if available. */
     attr = visuals_cycler_get_attr_for_race(race, p->flicker);
@@ -245,7 +245,7 @@ static byte get_flicker_attr(struct player *p, const struct monster_race *race, 
 /*
  * Return the correct attr/char pair for any player
  */
-static void player_pict(struct player *p, struct chunk *cv, struct player *q, bool server, u16b *a,
+static void player_pict(struct player *p, struct chunk *cv, struct player *q, bool server, uint16_t *a,
     char *c)
 {
     int life, timefactor;
@@ -337,7 +337,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             if (rf_has(q->poly_race->flags, RF_ATTR_MULTI))
                 *a = multi_hued_attr_breath(q->poly_race);
             else if (rf_has(q->poly_race->flags, RF_ATTR_FLICKER))
-                *a = get_flicker_attr(p, q->poly_race, (byte)*a);
+                *a = get_flicker_attr(p, q->poly_race, (uint8_t)*a);
         }
     }
 
@@ -406,7 +406,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
                 p->bubble_colour = true;
 
                 /* Delay next blink */
-                p->blink_speed = (u32b)cfg_fps * 2;
+                p->blink_speed = (uint32_t)cfg_fps * 2;
             }
 
             /* Switch between normal and bubble color */
@@ -419,7 +419,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
                 p->bubble_colour = !p->bubble_colour;
 
                 /* Remove first time delay */
-                if (p->blink_speed > (u32b)cfg_fps) p->blink_speed = (u32b)cfg_fps;
+                if (p->blink_speed > (uint32_t)cfg_fps) p->blink_speed = (uint32_t)cfg_fps;
             }
         }
         else
@@ -428,7 +428,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             p->bubble_colour = false;
 
             /* Reset blink speed */
-            p->blink_speed = (u32b)cfg_fps;
+            p->blink_speed = (uint32_t)cfg_fps;
         }
 
         p->bubble_speed = timefactor;
@@ -482,10 +482,10 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
 /*
  * Apply text lighting effects
  */
-static void grid_get_attr(struct player *p, struct grid_data *g, u16b *a)
+static void grid_get_attr(struct player *p, struct grid_data *g, uint16_t *a)
 {
     /* Save the high-bit, since it's used for attr inversion in GCU */
-    u16b a0 = (*a & 0x80);
+    uint16_t a0 = (*a & 0x80);
 
     /* Remove the high bit so we can add it back again at the end */
     *a = (*a & 0x7F);
@@ -529,7 +529,7 @@ static void grid_get_attr(struct player *p, struct grid_data *g, u16b *a)
  * wait until we do, in fact, have stacked traps under normal conditions.
  */
 static bool get_trap_graphics(struct player *p, struct chunk *c, bool server,
-    struct grid_data *g, u16b *a, char *ch)
+    struct grid_data *g, uint16_t *a, char *ch)
 {
     struct trap *trap = g->trap;
 
@@ -591,9 +591,9 @@ static bool get_trap_graphics(struct player *p, struct chunk *c, bool server,
  * though.
  */
 void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct grid_data *g,
-    u16b *ap, char *cp, u16b *tap, char *tcp)
+    uint16_t *ap, char *cp, uint16_t *tap, char *tcp)
 {
-    u16b a;
+    uint16_t a;
     char c;
     bool use_graphics;
 
@@ -723,7 +723,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
         }
         else if (!monster_is_camouflaged(mon))
         {
-            byte da;
+            uint8_t da;
             char dc;
 
             /* Desired attr & char */
@@ -822,7 +822,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
     {
         if (g->hallucinate)
         {
-            s16b k_idx = player_get(0 - g->m_idx)->k_idx;
+            int16_t k_idx = player_get(0 - g->m_idx)->k_idx;
 
             /* Player mimics an object -- just pick a random object to display. */
             if (k_idx > 0)
@@ -853,7 +853,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
  */
 void prt_map(struct player *p)
 {
-    u16b a, ta;
+    uint16_t a, ta;
     char c, tc;
     struct grid_data g;
     struct loc grid;
@@ -919,17 +919,17 @@ void display_map(struct player *p, bool subwindow)
     int row, col;
     int x, y;
     struct grid_data g;
-    u16b a, ta;
+    uint16_t a, ta;
     char c, tc;
-    byte tp;
+    uint8_t tp;
     struct chunk *cv = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
 
     /* Priority array */
-    byte **mp;
+    uint8_t **mp;
 
-    u16b **ma;
+    uint16_t **ma;
     char **mc;
 
     /* Desired map size */
@@ -950,13 +950,13 @@ void display_map(struct player *p, bool subwindow)
     /* Prevent accidents */
     if ((map_wid < 1) || (map_hgt < 1)) return;
 
-    mp = mem_zalloc(cv->height * sizeof(byte*));
-    ma = mem_zalloc(cv->height * sizeof(u16b*));
+    mp = mem_zalloc(cv->height * sizeof(uint8_t*));
+    ma = mem_zalloc(cv->height * sizeof(uint16_t*));
     mc = mem_zalloc(cv->height * sizeof(char*));
     for (y = 0; y < cv->height; y++)
     {
-        mp[y] = mem_zalloc(cv->width * sizeof(byte));
-        ma[y] = mem_zalloc(cv->width * sizeof(u16b));
+        mp[y] = mem_zalloc(cv->width * sizeof(uint8_t));
+        ma[y] = mem_zalloc(cv->width * sizeof(uint16_t));
         mc[y] = mem_zalloc(cv->width * sizeof(char));
     }
 
@@ -1104,10 +1104,10 @@ static void wild_display_map(struct player *p)
     int col;
     int x, y;
     struct grid_data g;
-    u16b a, ta;
+    uint16_t a, ta;
     char c, tc;
     struct chunk *cv = chunk_get(&p->wpos);
-    u16b **ma;
+    uint16_t **ma;
     char **mc;
     char buf[NORMAL_WID];
 
@@ -1122,11 +1122,11 @@ static void wild_display_map(struct player *p)
     /* Prevent accidents */
     if ((map_wid < 1) || (map_hgt < 1)) return;
 
-    ma = mem_zalloc(cv->height * sizeof(u16b*));
+    ma = mem_zalloc(cv->height * sizeof(uint16_t*));
     mc = mem_zalloc(cv->height * sizeof(char*));
     for (y = 0; y < cv->height; y++)
     {
-        ma[y] = mem_zalloc(cv->width * sizeof(u16b));
+        ma[y] = mem_zalloc(cv->width * sizeof(uint16_t));
         mc[y] = mem_zalloc(cv->width * sizeof(char));
     }
 

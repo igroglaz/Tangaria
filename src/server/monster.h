@@ -86,8 +86,8 @@ enum monster_flag_type
  */
 struct monster_flag
 {
-    u16b index;         /* the RF_ index */
-    u16b type;          /* RFT_ category */
+    uint16_t index;         /* the RF_ index */
+    uint16_t type;          /* RFT_ category */
     const char *desc;   /* lore description */
 };
 
@@ -99,9 +99,9 @@ struct monster_spell_level
     struct monster_spell_level *next;
     int power;              /* Spell power at which this level starts */
     char *lore_desc;        /* Description of the attack used in lore text */
-    byte lore_attr;         /* Color of the attack used in lore text */
-    byte lore_attr_resist;  /* Color used in lore text when resisted */
-    byte lore_attr_immune;  /* Color used in lore text when resisted strongly */
+    uint8_t lore_attr;         /* Color of the attack used in lore text */
+    uint8_t lore_attr_resist;  /* Color used in lore text when resisted */
+    uint8_t lore_attr_immune;  /* Color used in lore text when resisted strongly */
     char *message;          /* Description of the attack */
     char *blind_message;    /* Description of the attack if unseen */
     char *miss_message;     /* Description of a missed attack */
@@ -115,7 +115,7 @@ struct monster_spell_level
 struct monster_spell
 {
     struct monster_spell *next;
-    u16b index;                         /* Numerical index (RSF_FOO) */
+    uint16_t index;                         /* Numerical index (RSF_FOO) */
     int msgt;                           /* Flag for message colouring */
     int hit;                            /* To-hit level for the attack */
     struct effect *effect;              /* Effect(s) of the spell */

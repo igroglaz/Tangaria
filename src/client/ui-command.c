@@ -3,7 +3,7 @@
  * Purpose: Deal with UI only command processing.
  *
  * Copyright (c) 1997-2014 Angband developers
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -80,7 +80,7 @@ void textui_cmd_rest(void)
 {
     const char *p = "Rest (1-9999, '!' HP or SP, '*' both, '&' full, 'm' till morning): ";
     char out_val[5] = "&";
-    s16b resting;
+    int16_t resting;
 
     /* Ask for duration */
     if (!get_string(p, out_val, sizeof(out_val))) return;
@@ -123,7 +123,7 @@ void textui_quit(void)
  * At a given location, determine the "current" attr and char.
  * Display walls and floors properly.
  */
-static void Term_what_hack(int x, int y, u16b *a, char *c)
+static void Term_what_hack(int x, int y, uint16_t *a, char *c)
 {
     /* Get the attr/char */
     Term_what(x, y, a, c);
@@ -162,10 +162,10 @@ static void html_screenshot(const char *path, int mode)
 {
     int y, x;
     int wid, hgt;
-    u16b a = COLOUR_WHITE;
-    u16b oa = COLOUR_WHITE;
-    u16b fg_colour = COLOUR_WHITE;
-    u16b bg_colour = COLOUR_DARK;
+    uint16_t a = COLOUR_WHITE;
+    uint16_t oa = COLOUR_WHITE;
+    uint16_t fg_colour = COLOUR_WHITE;
+    uint16_t bg_colour = COLOUR_DARK;
     char c = ' ';
     const char *new_color_fmt = ((mode == 0)?
         "<font color=\"#%02X%02X%02X\" style=\"background-color: #%02X%02X%02X\">":
@@ -501,7 +501,7 @@ void cmd_chat_close(int n)
 
 void cmd_chat_cycle(int dir)
 {
-    s16b new_channel = view_channel;
+    int16_t new_channel = view_channel;
 
     while (true)
     {

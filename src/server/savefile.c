@@ -3,7 +3,7 @@
  * Purpose: Savefile loading and saving main routines
  *
  * Copyright (c) 2009 Andi Sidwell <andi@takkaria.org>
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -25,14 +25,14 @@
  * The savefile code.
  *
  * Savefiles since ~3.1 have used a block-based system.  Each savefile
- * consists of an 8-byte header, the first four bytes of which mark this
+ * consists of an 8-uint8_t header, the first four bytes of which mark this
  * as a savefile, the second four bytes provide a variant ID.
  *
  * After that, each block has the format:
- * - 16-byte string giving the type of block
- * - 4-byte block version
- * - 4-byte block size
- * - 4-byte block checksum
+ * - 16-uint8_t string giving the type of block
+ * - 4-uint8_t block version
+ * - 4-uint8_t block size
+ * - 4-uint8_t block checksum
  * ... data ...
  * padding so that block is a multiple of 4 bytes
  *
@@ -66,8 +66,8 @@
 /*
  * Magic bits at beginning of savefile
  */
-static const byte savefile_magic[4] = {1, 6, 0, 0};
-static const byte savefile_name[4] = "PWMG";
+static const uint8_t savefile_magic[4] = {1, 6, 0, 0};
+static const uint8_t savefile_name[4] = "PWMG";
 
 
 /* Some useful types */
@@ -77,8 +77,8 @@ typedef int (*loader_t)(struct player *);
 struct blockheader
 {
     char name[16];
-    u32b version;
-    u32b size;
+    uint32_t version;
+    uint32_t size;
 };
 
 
@@ -86,7 +86,7 @@ struct blockinfo
 {
     char name[16];
     loader_t loader;
-    u32b version;
+    uint32_t version;
 };
 
 
@@ -97,7 +97,7 @@ typedef struct
 {
     char name[16];
     void (*save)(void *);
-    u32b version;
+    uint32_t version;
 } savefile_saver;
 
 
@@ -236,10 +236,10 @@ static const struct blockinfo account_loaders[] =
 
 
 /* Buffer bits */
-static byte *buffer;
-static u32b buffer_size;
-static u32b buffer_pos;
-static u32b buffer_check;
+static uint8_t *buffer;
+static uint32_t buffer_size;
+static uint32_t buffer_pos;
+static uint32_t buffer_check;
 
 
 #define BUFFER_INITIAL_SIZE     1024
@@ -252,7 +252,7 @@ static u32b buffer_check;
  */
 
 
-static void sf_put(byte v)
+static void sf_put(uint8_t v)
 {
     my_assert(buffer != NULL);
     my_assert(buffer_size > 0);
@@ -269,7 +269,7 @@ static void sf_put(byte v)
 }
 
 
-static byte sf_get(void)
+static uint8_t sf_get(void)
 {
     if ((buffer == NULL) || (buffer_size <= 0) || (buffer_pos >= buffer_size))
         quit("Broken savefile - probably from a development version");
@@ -283,37 +283,37 @@ static byte sf_get(void)
 /** Writing bits **/
 
 
-void wr_byte(byte v)
+void wr_byte(uint8_t v)
 {
     sf_put(v);
 }
 
 
-void wr_u16b(u16b v)
+void wr_u16b(uint16_t v)
 {
-    sf_put((byte)(v & 0xFF));
-    sf_put((byte)((v >> 8) & 0xFF));
+    sf_put((uint8_t)(v & 0xFF));
+    sf_put((uint8_t)((v >> 8) & 0xFF));
 }
 
 
-void wr_s16b(s16b v)
+void wr_s16b(int16_t v)
 {
-    wr_u16b((u16b)v);
+    wr_u16b((uint16_t)v);
 }
 
 
-void wr_u32b(u32b v)
+void wr_u32b(uint32_t v)
 {
-    sf_put((byte)(v & 0xFF));
-    sf_put((byte)((v >> 8) & 0xFF));
-    sf_put((byte)((v >> 16) & 0xFF));
-    sf_put((byte)((v >> 24) & 0xFF));
+    sf_put((uint8_t)(v & 0xFF));
+    sf_put((uint8_t)((v >> 8) & 0xFF));
+    sf_put((uint8_t)((v >> 16) & 0xFF));
+    sf_put((uint8_t)((v >> 24) & 0xFF));
 }
 
 
-void wr_s32b(s32b v)
+void wr_s32b(int32_t v)
 {
-    wr_u32b((u32b)v);
+    wr_u32b((uint32_t)v);
 }
 
 
@@ -326,8 +326,8 @@ void wr_hturn(hturn* pv)
 
 void wr_loc(struct loc *l)
 {
-    wr_byte((byte)l->y);
-    wr_byte((byte)l->x);
+    wr_byte((uint8_t)l->y);
+    wr_byte((uint8_t)l->x);
 }
 
 
@@ -352,7 +352,7 @@ void wr_quark(quark_t v)
 /** Reading bits **/
 
 
-void rd_byte(byte *ip)
+void rd_byte(uint8_t *ip)
 {
     *ip = sf_get();
 }
@@ -360,44 +360,44 @@ void rd_byte(byte *ip)
 
 void rd_bool(bool *ip)
 {
-    byte tmp8u;
+    uint8_t tmp8u;
 
     rd_byte(&tmp8u);
     *ip = tmp8u;
 }
 
 
-void rd_u16b(u16b *ip)
+void rd_u16b(uint16_t *ip)
 {
     (*ip) = sf_get();
-    (*ip) |= ((u16b)(sf_get()) << 8);
+    (*ip) |= ((uint16_t)(sf_get()) << 8);
 }
 
 
-void rd_s16b(s16b *ip)
+void rd_s16b(int16_t *ip)
 {
-    rd_u16b((u16b*)ip);
+    rd_u16b((uint16_t*)ip);
 }
 
 
-void rd_u32b(u32b *ip)
+void rd_u32b(uint32_t *ip)
 {
     (*ip) = sf_get();
-    (*ip) |= ((u32b)(sf_get()) << 8);
-    (*ip) |= ((u32b)(sf_get()) << 16);
-    (*ip) |= ((u32b)(sf_get()) << 24);
+    (*ip) |= ((uint32_t)(sf_get()) << 8);
+    (*ip) |= ((uint32_t)(sf_get()) << 16);
+    (*ip) |= ((uint32_t)(sf_get()) << 24);
 }
 
 
-void rd_s32b(s32b *ip)
+void rd_s32b(int32_t *ip)
 {
-    rd_u32b((u32b*)ip);
+    rd_u32b((uint32_t*)ip);
 }
 
 
 void rd_hturn(hturn *ip)
 {
-    u32b scan_era, scan_turn;
+    uint32_t scan_era, scan_turn;
 
     rd_u32b(&scan_era);
     rd_u32b(&scan_turn);
@@ -410,7 +410,7 @@ void rd_hturn(hturn *ip)
 
 void rd_loc(struct loc *l)
 {
-    byte tmp8u;
+    uint8_t tmp8u;
 
     rd_byte(&tmp8u);
     l->y = tmp8u;
@@ -421,7 +421,7 @@ void rd_loc(struct loc *l)
 
 void rd_string(char *str, int max)
 {
-    byte tmp8u;
+    uint8_t tmp8u;
     int i = 0;
 
     do
@@ -448,7 +448,7 @@ void rd_quark(quark_t *ip)
 
 void strip_bytes(int n)
 {
-    byte tmp8u;
+    uint8_t tmp8u;
 
     while (n--) rd_byte(&tmp8u);
 }
@@ -471,7 +471,7 @@ void strip_string(int max)
 
 static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t n_savers)
 {
-    byte savefile_head[SAVEFILE_HEAD_SIZE];
+    uint8_t savefile_head[SAVEFILE_HEAD_SIZE];
     size_t i, pos;
 
     /* Start off the buffer */
@@ -485,7 +485,7 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
 
         savers[i].save(data);
 
-        /* 16-byte block name */
+        /* 16-uint8_t block name */
         pos = my_strcpy((char *)savefile_head, savers[i].name, sizeof(savefile_head));
         while (pos < 16) savefile_head[pos++] = 0;
 
@@ -504,7 +504,7 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
         file_write(file, (char *)savefile_head, SAVEFILE_HEAD_SIZE);
         file_write(file, (char *)buffer, buffer_pos);
 
-        /* Pad to 4 byte multiples */
+        /* Pad to 4 uint8_t multiples */
         if (buffer_pos % 4) file_write(file, "xxx", 4 - (buffer_pos % 4));
     }
 
@@ -819,7 +819,7 @@ bool save_account_info(bool panic)
  */
 static bool check_header(ang_file *f)
 {
-    byte head[8];
+    uint8_t head[8];
 
     if ((file_read(f, (char *)&head, 8) == 8) && (memcmp(&head[0], savefile_magic, 4) == 0) &&
         (memcmp(&head[4], savefile_name, 4) == 0))
@@ -843,7 +843,7 @@ static void throw_err(struct player *p, const char *str)
  */
 static errr next_blockheader(ang_file *f, struct blockheader *b, bool scoop)
 {
-    byte savefile_head[SAVEFILE_HEAD_SIZE];
+    uint8_t savefile_head[SAVEFILE_HEAD_SIZE];
     size_t len;
 
     len = file_read(f, (char *)savefile_head, SAVEFILE_HEAD_SIZE);
@@ -859,10 +859,10 @@ static errr next_blockheader(ang_file *f, struct blockheader *b, bool scoop)
         return -1;
 
 #define RECONSTRUCT_U32B(from) \
-    ((u32b)savefile_head[from]) | \
-    ((u32b)savefile_head[from + 1] << 8) | \
-    ((u32b)savefile_head[from + 2] << 16) | \
-    ((u32b)savefile_head[from + 3] << 24);
+    ((uint32_t)savefile_head[from]) | \
+    ((uint32_t)savefile_head[from + 1] << 8) | \
+    ((uint32_t)savefile_head[from + 2] << 16) | \
+    ((uint32_t)savefile_head[from + 3] << 24);
 
     my_strcpy(b->name, (char *)&savefile_head, sizeof(b->name));
     b->version = RECONSTRUCT_U32B(16);
@@ -1024,7 +1024,7 @@ const char *savefile_get_description(const char *path)
 }
 
 
-static int try_scoop(ang_file *f, char *pass_word, byte *pridx, byte *pcidx, byte *psex)
+static int try_scoop(ang_file *f, char *pass_word, uint8_t *pridx, uint8_t *pcidx, uint8_t *psex)
 {
     struct blockheader b;
     errr err;
@@ -1181,7 +1181,7 @@ bool load_player(struct player *p, const char *loadpath)
  * The actual read is performed by "try_scoop", which is a simplified code
  * duplication from "try_load".
  */
-int scoop_player(char *nick, char *pass, byte *pridx, byte *pcidx, byte *psex)
+int scoop_player(char *nick, char *pass, uint8_t *pridx, uint8_t *pcidx, uint8_t *psex)
 {
     int err;
     ang_file *f;

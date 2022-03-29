@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1998 Greg Wooledge, Ben Harrison, Robert Ruhlmann
  * Copyright (c) 2001 Chris Carr, Chris Robertson
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -35,7 +35,7 @@ struct activation *activations;
 /*
  * Arrays of indices by item type, used in frequency generation
  */
-static s16b art_idx_bow[] =
+static int16_t art_idx_bow[] =
 {
     ART_IDX_BOW_SHOTS,
     ART_IDX_BOW_MIGHT,
@@ -43,14 +43,14 @@ static s16b art_idx_bow[] =
     ART_IDX_BOW_SLAY
 };
 
-static s16b art_idx_weapon[] =
+static int16_t art_idx_weapon[] =
 {
     ART_IDX_WEAPON_HIT,
     ART_IDX_WEAPON_DAM,
     ART_IDX_WEAPON_AGGR
 };
 
-static s16b art_idx_nonweapon[] =
+static int16_t art_idx_nonweapon[] =
 {
     ART_IDX_NONWEAPON_HIT,
     ART_IDX_NONWEAPON_DAM,
@@ -62,7 +62,7 @@ static s16b art_idx_nonweapon[] =
     ART_IDX_NONWEAPON_SHOTS
 };
 
-static s16b art_idx_melee[] =
+static int16_t art_idx_melee[] =
 {
     ART_IDX_MELEE_BLESS,
     ART_IDX_MELEE_BRAND,
@@ -76,12 +76,12 @@ static s16b art_idx_melee[] =
     ART_IDX_MELEE_ANTIMAGIC
 };
 
-static s16b art_idx_allarmor[] =
+static int16_t art_idx_allarmor[] =
 {
     ART_IDX_ALLARMOR_WEIGHT
 };
 
-static s16b art_idx_boot[] =
+static int16_t art_idx_boot[] =
 {
     ART_IDX_BOOT_AC,
     ART_IDX_BOOT_FEATHER,
@@ -91,7 +91,7 @@ static s16b art_idx_boot[] =
     ART_IDX_BOOT_MOVES
 };
 
-static s16b art_idx_glove[] =
+static int16_t art_idx_glove[] =
 {
     ART_IDX_GLOVE_AC,
     ART_IDX_GLOVE_FA,
@@ -101,7 +101,7 @@ static s16b art_idx_glove[] =
     ART_IDX_GLOVE_ID
 };
 
-static s16b art_idx_headgear[] =
+static int16_t art_idx_headgear[] =
 {
     ART_IDX_HELM_AC,
     ART_IDX_HELM_RBLIND,
@@ -112,19 +112,19 @@ static s16b art_idx_headgear[] =
     ART_IDX_HELM_ID
 };
 
-static s16b art_idx_shield[] =
+static int16_t art_idx_shield[] =
 {
     ART_IDX_SHIELD_AC,
     ART_IDX_SHIELD_LRES
 };
 
-static s16b art_idx_cloak[] =
+static int16_t art_idx_cloak[] =
 {
     ART_IDX_CLOAK_AC,
     ART_IDX_CLOAK_STEALTH
 };
 
-static s16b art_idx_armor[] =
+static int16_t art_idx_armor[] =
 {
     ART_IDX_ARMOR_AC,
     ART_IDX_ARMOR_STEALTH,
@@ -135,12 +135,12 @@ static s16b art_idx_armor[] =
     ART_IDX_ARMOR_HRES
 };
 
-static s16b art_idx_digger[] =
+static int16_t art_idx_digger[] =
 {
     ART_IDX_DIGGER_TUNN
 };
 
-static s16b art_idx_mstaff[] =
+static int16_t art_idx_mstaff[] =
 {
     ART_IDX_MSTAFF_INT,
     ART_IDX_MSTAFF_SINV,
@@ -151,14 +151,14 @@ static s16b art_idx_mstaff[] =
     ART_IDX_MSTAFF_MANA
 };
 
-static s16b art_idx_missile[] =
+static int16_t art_idx_missile[] =
 {
     ART_IDX_MISSILE_BRAND,
     ART_IDX_MISSILE_SLAY,
     ART_IDX_MISSILE_DICE
 };
 
-static s16b art_idx_gen[] =
+static int16_t art_idx_gen[] =
 {
     ART_IDX_GEN_STAT,
     ART_IDX_GEN_SUST,
@@ -198,7 +198,7 @@ static s16b art_idx_gen[] =
     ART_IDX_GEN_HUNGER
 };
 
-static s16b art_idx_high_resist[] =
+static int16_t art_idx_high_resist[] =
 {
     ART_IDX_GEN_RPOIS,
     ART_IDX_GEN_RFEAR,
@@ -1471,8 +1471,8 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
             /* Dark swords never get enchantments */
             if (!art_is_dark_sword(art))
             {
-                art->to_h += (s16b)(data->hit_startval / 2 + randint0(data->hit_startval));
-                art->to_d += (s16b)(data->dam_startval / 2 + randint0(data->dam_startval));
+                art->to_h += (int16_t)(data->hit_startval / 2 + randint0(data->hit_startval));
+                art->to_d += (int16_t)(data->dam_startval / 2 + randint0(data->dam_startval));
             }
             break;
         }
@@ -1486,7 +1486,7 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
         case TV_HARD_ARMOR:
         case TV_DRAG_ARMOR:
         {
-            art->to_a += (s16b)(data->ac_startval / 2 + randint0(data->ac_startval));
+            art->to_a += (int16_t)(data->ac_startval / 2 + randint0(data->ac_startval));
             break;
         }
 
@@ -2081,7 +2081,7 @@ static void add_slay(struct artifact *art)
 static void add_damage_dice(struct artifact *art)
 {
     /* Changed this to increments 1 or 2 only */
-    art->dd += (byte)randint1(2);
+    art->dd += (uint8_t)randint1(2);
     if (art->dd > MAX_WEAPON_DICE) art->dd = MAX_WEAPON_DICE;
 }
 
@@ -2106,7 +2106,7 @@ static void add_to_hit(struct artifact *art, int fixed, int random)
         if (!INHIBIT_WEAK) return;
     }
 
-    art->to_h += (s16b)(fixed + randint0(random));
+    art->to_h += (int16_t)(fixed + randint0(random));
 }
 
 
@@ -2130,7 +2130,7 @@ static void add_to_dam(struct artifact *art, int fixed, int random)
         if (!INHIBIT_WEAK) return;
     }
 
-    art->to_d += (s16b)(fixed + randint0(random));
+    art->to_d += (int16_t)(fixed + randint0(random));
 }
 
 
@@ -2153,7 +2153,7 @@ static void add_to_AC(struct artifact *art, int fixed, int random)
         /* Weakly inhibit */
         if (!INHIBIT_WEAK) return;
     }
-    art->to_a += (s16b)(fixed + randint0(random));
+    art->to_a += (int16_t)(fixed + randint0(random));
 }
 
 
@@ -2890,7 +2890,7 @@ static void artifact_gen_name(char *buffer, int len, const char ***words)
 {
     char word[MAX_RNAME_LEN + 1];
     const char **wordlist = words[RANDNAME_TOLKIEN];
-    u32b i;
+    uint32_t i;
     bool nok = true;
 
     /* Take a random name */
@@ -2945,7 +2945,7 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
     int power = Rand_sample(data->avg_tv_power[art->tval], data->max_tv_power[art->tval],
         data->min_tv_power[art->tval], 20, 20);
 
-    if (art->aidx >= (u32b)z_info->a_max) power = AGGR_POWER * (70 + randint0(41)) / 100;
+    if (art->aidx >= (uint32_t)z_info->a_max) power = AGGR_POWER * (70 + randint0(41)) / 100;
 
     /* Choose a name */
     /* PWMAngband: easier to regenerate the name from the randart seed when needed */
@@ -3042,7 +3042,7 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
     /* Flip cursed items to avoid overflows */
     if (ap < 0) ap = 0 - ap;
 
-    if (art->aidx < (u32b)z_info->a_max)
+    if (art->aidx < (uint32_t)z_info->a_max)
     {
         /* Set rarity based on power */
         art->alloc_prob = 4000000 / (ap * ap);
@@ -3096,7 +3096,7 @@ static struct artifact* create_artifact(struct player *p, const struct artifact 
     art->curses = NULL;
 
     /* Hack in some values for Rings of Power */
-    if (art->aidx >= (u32b)z_info->a_max)
+    if (art->aidx >= (uint32_t)z_info->a_max)
     {
         art->tval = TV_RING;
         art->sval = lookup_sval(art->tval, "Black Ring of Power");
@@ -3123,9 +3123,9 @@ static struct artifact* create_artifact(struct player *p, const struct artifact 
 /*
  * Generate a random artifact
  */
-struct artifact* do_randart(struct player *p, s32b randart_seed, const struct artifact *a)
+struct artifact* do_randart(struct player *p, int32_t randart_seed, const struct artifact *a)
 {
-    u32b tmp_seed;
+    uint32_t tmp_seed;
     bool rand_old;
     struct artifact *art;
 
@@ -3152,9 +3152,9 @@ struct artifact* do_randart(struct player *p, s32b randart_seed, const struct ar
 /*
  * Generate a random artifact name
  */
-void do_randart_name(s32b randart_seed, char *buffer, int len)
+void do_randart_name(int32_t randart_seed, char *buffer, int len)
 {
-    u32b tmp_seed;
+    uint32_t tmp_seed;
     bool rand_old;
 
     /* Save the RNG */

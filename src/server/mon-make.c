@@ -3,7 +3,7 @@
  * Purpose: Monster creation / placement code.
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -37,7 +37,7 @@
  */
 
 
-static s16b alloc_race_size;
+static int16_t alloc_race_size;
 static alloc_entry *alloc_race_table;
 
 
@@ -49,8 +49,8 @@ static void init_race_allocs(void)
     int i;
     struct monster_race *race;
     alloc_entry *table;
-    s16b *num = mem_zalloc(z_info->max_depth * sizeof(s16b));
-    s16b *already_counted = mem_zalloc(z_info->max_depth * sizeof(s16b));
+    int16_t *num = mem_zalloc(z_info->max_depth * sizeof(int16_t));
+    int16_t *already_counted = mem_zalloc(z_info->max_depth * sizeof(int16_t));
 
     /*** Analyze monster allocation info ***/
 
@@ -942,7 +942,7 @@ void wipe_mon_list(struct chunk *c)
  * This routine should almost never fail, but it *can* happen.
  * The calling code must check for and handle a 0 return.
  */
-static s16b mon_pop(struct chunk *c)
+static int16_t mon_pop(struct chunk *c)
 {
     int m_idx;
 
@@ -1038,7 +1038,7 @@ int mon_create_drop_count(const struct monster_race *race, bool maximize, bool s
 
 
 static bool mon_drop_carry(struct player *p, struct object **obj_address, struct monster *mon,
-    byte origin, int num, quark_t quark, bool ok)
+    uint8_t origin, int num, quark_t quark, bool ok)
 {
     /* Set origin details */
     set_origin(*obj_address, origin, mon->wpos.depth, mon->race);
@@ -1060,7 +1060,7 @@ static bool mon_drop_carry(struct player *p, struct object **obj_address, struct
  * Creates a specific monster's drop, including any drops specified
  * in the monster.txt file.
  */
-static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *mon, byte origin)
+static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *mon, uint8_t origin)
 {
     struct monster_drop *drop;
     struct monster_lore *lore = (p? get_lore(p, mon->race): NULL);
@@ -1371,9 +1371,9 @@ int mon_hp(const struct monster_race *race, aspect hp_aspect)
  *
  * Returns the m_idx of the newly copied monster, or 0 if the placement fails.
  */
-s16b place_monster(struct player *p, struct chunk *c, struct monster *mon, byte origin)
+int16_t place_monster(struct player *p, struct chunk *c, struct monster *mon, uint8_t origin)
 {
-    s16b m_idx;
+    int16_t m_idx;
     struct monster *new_mon;
     struct monster_group_info *info = mon->group_info;
     bool loading = (mon->midx > 0);
@@ -1518,12 +1518,12 @@ int sleep_value(const struct monster_race *race)
  * mon_flag = (MON_ASLEEP, MON_CLONE)
  */
 static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc *grid,
-    struct monster_race *race, byte mon_flag, struct monster_group_info *group_info, byte origin)
+    struct monster_race *race, uint8_t mon_flag, struct monster_group_info *group_info, uint8_t origin)
 {
     int i, mlvl;
     struct monster *mon;
     struct monster monster_body;
-    byte mspeed;
+    uint8_t mspeed;
 
     my_assert(square_in_bounds(c, grid));
     my_assert(race && race->name);
@@ -1722,8 +1722,8 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
  * mon_flag = (MON_ASLEEP)
  */
 static bool place_new_monster_group(struct player *p, struct chunk *c, struct loc *grid,
-    struct monster_race *race, byte mon_flag, struct monster_group_info *group_info, int total,
-    byte origin)
+    struct monster_race *race, uint8_t mon_flag, struct monster_group_info *group_info, int total,
+    uint8_t origin)
 {
     int n, i;
     int loc_num;
@@ -1797,8 +1797,8 @@ static bool place_monster_base_okay(struct monster_race *race)
  * Helper function to place monsters that appear as friends or escorts
  */
 static bool place_friends(struct player *p, struct chunk *c, struct loc *grid,
-    struct monster_race *race, struct monster_race *friends_race, int total, byte mon_flag,
-    struct monster_group_info *group_info, byte origin)
+    struct monster_race *race, struct monster_race *friends_race, int total, uint8_t mon_flag,
+    struct monster_group_info *group_info, uint8_t origin)
 {
     int extra_chance;
 
@@ -1872,7 +1872,7 @@ static bool place_friends(struct player *p, struct chunk *c, struct loc *grid,
  * mon_flag = (MON_ASLEEP, MON_GROUP, MON_CLONE)
  */
 bool place_new_monster(struct player *p, struct chunk *c, struct loc *grid,
-    struct monster_race *race, byte mon_flag, struct monster_group_info *group_info, byte origin)
+    struct monster_race *race, uint8_t mon_flag, struct monster_group_info *group_info, uint8_t origin)
 {
     struct monster_friends *friends;
     struct monster_friends_base *friends_base;
@@ -1965,7 +1965,7 @@ bool place_new_monster(struct player *p, struct chunk *c, struct loc *grid,
  * mon_flag = (MON_ASLEEP, MON_GROUP)
  */
 bool pick_and_place_monster(struct player *p, struct chunk *c, struct loc *grid, int depth,
-    byte mon_flag, byte origin)
+    uint8_t mon_flag, uint8_t origin)
 {
     /* Pick a monster race, no specified group */
     struct monster_race *race = get_mon_num(c, depth, false);
@@ -1992,7 +1992,7 @@ bool pick_and_place_monster(struct player *p, struct chunk *c, struct loc *grid,
  *
  * mon_flag = (MON_ASLEEP)
  */
-bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis, byte mon_flag)
+bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis, uint8_t mon_flag)
 {
     struct loc grid;
     int attempts_left = 10000;
@@ -2050,11 +2050,11 @@ bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis, 
 /*
  * Split some experience between master and slaves.
  */
-static void master_exp_gain(struct player *p, struct chunk *c, s32b *amount)
+static void master_exp_gain(struct player *p, struct chunk *c, int32_t *amount)
 {
     int i;
     struct monster *mon;
-    s32b average_lev = p->lev, num_members = 1, modified_level;
+    int32_t average_lev = p->lev, num_members = 1, modified_level;
 
     /* Calculate the average level */
     for (i = 1; i < cave_monster_max(c); i++)
@@ -2102,7 +2102,7 @@ static void master_exp_gain(struct player *p, struct chunk *c, s32b *amount)
  */
 void monster_give_xp(struct player *p, struct chunk *c, struct monster *mon, bool split)
 {
-    s32b new_exp, new_exp_frac, amount_exp;
+    int32_t new_exp, new_exp_frac, amount_exp;
 
     /* Amount of experience earned */
     amount_exp = (long)mon->race->mexp * mon->level;
@@ -2225,7 +2225,7 @@ void monster_drop_corpse(struct player *p, struct chunk *c, struct monster *mon)
     else if (rf_has(mon->race->flags, RF_DROP_CORPSE) && one_in_(20))
     {
         struct object *corpse = object_new();
-        s32b timeout;
+        int32_t timeout;
         int sval;
 
         /* Is the monster humanoid? */

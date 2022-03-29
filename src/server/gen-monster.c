@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2013 Nick McConnell, Leon Marrick
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -216,7 +216,7 @@ bool mon_restrict(const char *monster_type, int depth, int current_depth, bool u
  * if y0 or x0 are out of bounds, or the area is already occupied).
  */
 void spread_monsters(struct player *p, struct chunk *c, const char *type, int depth, int num,
-    int y0, int x0, int dy, int dx, byte origin)
+    int y0, int x0, int dy, int dx, uint8_t origin)
 {
     int i, j;           /* Limits on loops */
     int count;
@@ -366,7 +366,7 @@ void get_chamber_monsters(struct player *p, struct chunk *c, int y1, int x1, int
     char *name, int area)
 {
     int i;
-    s16b monsters_left, depth;
+    int16_t monsters_left, depth;
     bool random = one_in_(20);
 
     /* Get a legal depth. */

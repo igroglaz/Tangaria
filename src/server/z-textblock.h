@@ -10,7 +10,7 @@ typedef void (*text_writer)(ang_file *f, void *data);
 
 extern void text_out_init(struct player *p);
 extern void text_out(struct player *p, const char *fmt, ...);
-extern void text_out_c(struct player *p, byte a, const char *fmt, ...);
+extern void text_out_c(struct player *p, uint8_t a, const char *fmt, ...);
 extern void text_out_done(struct player *p);
 extern void text_out_done_no_newline(struct player *p);
 extern errr text_lines_to_file(const char *path, text_writer writer, void *data);

@@ -3,7 +3,7 @@
  * Purpose: Highscore handling
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -286,7 +286,7 @@ void enter_score(struct player *p, time_t *death_time)
 /*
  * Calculates the total number of points earned
  */
-long total_points(struct player *p, s32b max_exp, s16b max_depth)
+long total_points(struct player *p, int32_t max_exp, int16_t max_depth)
 {
     /* Standard scoring */
     return max_exp + (100 * max_depth);

@@ -3,7 +3,7 @@
  * Purpose: Player implementation
  *
  * Copyright (c) 2011 elly+angband@leptoquark.net. See COPYING.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -244,7 +244,7 @@ static void adjust_level(struct player *p)
 /*
  * Gain experience
  */
-void player_exp_gain(struct player *p, s32b amount)
+void player_exp_gain(struct player *p, int32_t amount)
 {
     // Rogue class get exp faster (which make gameplay a bit harder)
     if (streq(p->clazz->name, "Rogue") && p->lev < 50)
@@ -307,7 +307,7 @@ void player_exp_gain(struct player *p, s32b amount)
 /*
  * Lose experience
  */
-void player_exp_lose(struct player *p, s32b amount, bool permanent)
+void player_exp_lose(struct player *p, int32_t amount, bool permanent)
 {
     /* Never drop below zero experience */
     if (amount > p->exp) amount = p->exp;
@@ -536,15 +536,15 @@ void player_cave_new(struct player *p, int height, int width)
     p->cave->width = width;
 
     p->cave->squares = mem_zalloc(p->cave->height * sizeof(struct player_square*));
-    p->cave->noise.grids = mem_zalloc(p->cave->height * sizeof(u16b*));
-    p->cave->scent.grids = mem_zalloc(p->cave->height * sizeof(u16b*));
+    p->cave->noise.grids = mem_zalloc(p->cave->height * sizeof(uint16_t*));
+    p->cave->scent.grids = mem_zalloc(p->cave->height * sizeof(uint16_t*));
     for (grid.y = 0; grid.y < p->cave->height; grid.y++)
     {
         p->cave->squares[grid.y] = mem_zalloc(p->cave->width * sizeof(struct player_square));
         for (grid.x = 0; grid.x < p->cave->width; grid.x++)
             square_p(p, &grid)->info = mem_zalloc(SQUARE_SIZE * sizeof(bitflag));
-        p->cave->noise.grids[grid.y] = mem_zalloc(p->cave->width * sizeof(u16b));
-        p->cave->scent.grids[grid.y] = mem_zalloc(p->cave->width * sizeof(u16b));
+        p->cave->noise.grids[grid.y] = mem_zalloc(p->cave->width * sizeof(uint16_t));
+        p->cave->scent.grids[grid.y] = mem_zalloc(p->cave->width * sizeof(uint16_t));
     }
     p->cave->allocated = true;
 }
@@ -579,7 +579,7 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
     p->upkeep = mem_zalloc(sizeof(struct player_upkeep));
     p->upkeep->inven = mem_zalloc((z_info->pack_size + 1) * sizeof(struct object *));
     p->upkeep->quiver = mem_zalloc(z_info->quiver_size * sizeof(struct object *));
-    p->timed = mem_zalloc(TMD_MAX * sizeof(s16b));
+    p->timed = mem_zalloc(TMD_MAX * sizeof(int16_t));
     p->obj_k = object_new();
     p->obj_k->brands = mem_zalloc(z_info->brand_max * sizeof(bool));
     p->obj_k->slays = mem_zalloc(z_info->slay_max * sizeof(bool));
@@ -589,53 +589,53 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
     p->lore = mem_zalloc(z_info->r_max * sizeof(struct monster_lore));
     for (i = 0; i < z_info->r_max; i++)
     {
-        p->lore[i].blows = mem_zalloc(z_info->mon_blows_max * sizeof(byte));
+        p->lore[i].blows = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
         p->lore[i].blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(bool));
     }
-    p->current_lore.blows = mem_zalloc(z_info->mon_blows_max * sizeof(byte));
-    p->current_lore.blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(byte));
+    p->current_lore.blows = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
+    p->current_lore.blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
 
     /* Allocate memory for artifact array */
-    p->art_info = mem_zalloc(z_info->a_max * sizeof(byte));
+    p->art_info = mem_zalloc(z_info->a_max * sizeof(uint8_t));
 
     /* Allocate memory for randart arrays */
-    p->randart_info = mem_zalloc((z_info->a_max + 9) * sizeof(byte));
-    p->randart_created = mem_zalloc((z_info->a_max + 9) * sizeof(byte));
+    p->randart_info = mem_zalloc((z_info->a_max + 9) * sizeof(uint8_t));
+    p->randart_created = mem_zalloc((z_info->a_max + 9) * sizeof(uint8_t));
 
     /* Allocate memory for dungeon flags array */
     p->kind_aware = mem_zalloc(z_info->k_max * sizeof(bool));
     p->note_aware = mem_zalloc(z_info->k_max * sizeof(quark_t));
     p->kind_tried = mem_zalloc(z_info->k_max * sizeof(bool));
-    p->kind_ignore = mem_zalloc(z_info->k_max * sizeof(byte));
-    p->kind_everseen = mem_zalloc(z_info->k_max * sizeof(byte));
-    p->ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(byte*));
+    p->kind_ignore = mem_zalloc(z_info->k_max * sizeof(uint8_t));
+    p->kind_everseen = mem_zalloc(z_info->k_max * sizeof(uint8_t));
+    p->ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(uint8_t*));
     for (i = 0; i < z_info->e_max; i++)
-        p->ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(byte));
-    p->ego_everseen = mem_zalloc(z_info->e_max * sizeof(byte));
+        p->ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(uint8_t));
+    p->ego_everseen = mem_zalloc(z_info->e_max * sizeof(uint8_t));
 
     /* Allocate memory for visuals */
     p->f_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
     p->f_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
     p->t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
     p->t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
-    p->k_attr = mem_zalloc(z_info->k_max * sizeof(byte));
+    p->k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     p->k_char = mem_zalloc(z_info->k_max * sizeof(char));
-    p->d_attr = mem_zalloc(z_info->k_max * sizeof(byte));
+    p->d_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     p->d_char = mem_zalloc(z_info->k_max * sizeof(char));
-    p->r_attr = mem_zalloc(z_info->r_max * sizeof(byte));
+    p->r_attr = mem_zalloc(z_info->r_max * sizeof(uint8_t));
     p->r_char = mem_zalloc(z_info->r_max * sizeof(char));
 
     /* Allocate memory for object and monster lists */
     p->mflag = mem_zalloc(z_info->level_monster_max * MFLAG_SIZE * sizeof(bitflag));
-    p->mon_det = mem_zalloc(z_info->level_monster_max * sizeof(byte));
+    p->mon_det = mem_zalloc(z_info->level_monster_max * sizeof(uint8_t));
 
     /* Allocate memory for current cave grid info */
     p->cave = mem_zalloc(sizeof(struct player_cave));
 
     /* Allocate memory for wilderness knowledge */
-    p->wild_map = mem_zalloc((2 * radius_wild + 1) * sizeof(byte *));
+    p->wild_map = mem_zalloc((2 * radius_wild + 1) * sizeof(uint8_t *));
     for (i = 0; i <= 2 * radius_wild; i++)
-        p->wild_map[i] = mem_zalloc((2 * radius_wild + 1) * sizeof(byte));
+        p->wild_map[i] = mem_zalloc((2 * radius_wild + 1) * sizeof(uint8_t));
 
     /* Allocate memory for home storage */
     p->home = mem_zalloc(sizeof(struct store));

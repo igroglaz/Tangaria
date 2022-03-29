@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2001 Chris Carr, Chris Robertson
  * Revised in 2009-11 by Chris Carr, Peter Denison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -47,7 +47,7 @@ static int object_power_calculation_TO_DAM(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s16b to_d = 0;
+    int16_t to_d = 0;
 
     if (power_obj->known->to_d) object_to_d(power_obj, &to_d);
     return to_d;
@@ -58,7 +58,7 @@ static int object_power_calculation_DICE(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     if (tval_is_melee_weapon(power_obj) || tval_is_mstaff(power_obj) || tval_is_ammo(power_obj))
         return power_obj->dd * (power_obj->ds + 1);
@@ -99,7 +99,7 @@ static int object_power_calculation_EXTRA_BLOWS(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     object_modifiers(power_obj, modifiers);
 
@@ -114,7 +114,7 @@ static int object_power_calculation_EXTRA_SHOTS(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     object_modifiers(power_obj, modifiers);
 
@@ -129,7 +129,7 @@ static int object_power_calculation_EXTRA_MIGHT(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     object_modifiers(power_obj, modifiers);
 
@@ -244,7 +244,7 @@ static int object_power_calculation_TO_HIT(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s16b to_h = 0;
+    int16_t to_h = 0;
 
     if (power_obj->known->to_h) object_to_h(power_obj, &to_h);
     return to_h;
@@ -273,7 +273,7 @@ static int object_power_calculation_TOTAL_ARMOR(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s16b to_a;
+    int16_t to_a;
 
     object_to_a(power_obj, &to_a);
     return power_obj->ac + to_a;
@@ -293,7 +293,7 @@ static int object_power_calculation_TO_ARMOR(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    s16b to_a = 0;
+    int16_t to_a = 0;
 
     if (power_obj->known->to_a) object_to_a(power_obj, &to_a);
     return to_a;
@@ -307,7 +307,7 @@ static int object_power_calculation_MODIFIER(void *data)
 
     if (calc->known || power_obj->known->modifiers[calc->iter])
     {
-        s32b modifiers[OBJ_MOD_MAX];
+        int32_t modifiers[OBJ_MOD_MAX];
 
         object_modifiers(power_obj, modifiers);
         return modifiers[calc->iter];

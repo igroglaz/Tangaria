@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2014 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -955,7 +955,7 @@ static void calc_spells(struct player *p)
     int num_allowed, num_known, num_total = p->clazz->magic.total_spells, num_forgotten;
     int percent_spells;
     const struct class_spell *spell;
-    s16b old_spells;
+    int16_t old_spells;
 
     /* Hack -- must be literate */
     if (!p->clazz->magic.total_spells) return;
@@ -1175,7 +1175,7 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     int i, msp, levels, cur_wgt, max_wgt, adj;
     struct object *obj;
     int exmsp = 0;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     /* Shapechangers get arbitrary mana */
     if (player_has(p, PF_MONSTER_SPELLS))
@@ -1404,7 +1404,7 @@ static void calc_light(struct player *p, struct player_state *state, bool update
     {
         int amt = 0;
         struct object *obj = slot_object(p, i);
-        s32b modifiers[OBJ_MOD_MAX];
+        int32_t modifiers[OBJ_MOD_MAX];
 
         /* Skip empty slots */
         if (!obj) continue;
@@ -2002,7 +2002,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     bool vuln[ELEM_MAX];
     bool unencumbered_monk = monk_armor_ok(p);
     bool restrict_ = (player_has(p, PF_MARTIAL_ARTS) && !unencumbered_monk);
-    byte cumber_shield = 0;
+    uint8_t cumber_shield = 0;
     struct element_info el_info[ELEM_MAX];
     struct object *tool = equipped_item_by_slot_name(p, "tool");
     int eq_to_a = 0;
@@ -2055,7 +2055,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         int dig = 0;
         struct object *obj = slot_object(p, i);
-        s32b modifiers[OBJ_MOD_MAX];
+        int32_t modifiers[OBJ_MOD_MAX];
         bool aware;
 
         /* Skip non-objects */
@@ -2150,7 +2150,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Apply the bonuses to armor class */
         if (!known_only || object_is_known(p, obj) || obj->known->to_a)
         {
-            s16b to_a;
+            int16_t to_a;
 
             object_to_a(obj, &to_a);
             eq_to_a += to_a;
@@ -2163,7 +2163,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Apply the bonuses to hit/damage */
         if (!known_only || object_is_known(p, obj) || (obj->known->to_h && obj->known->to_d))
         {
-            s16b to_h, to_d;
+            int16_t to_h, to_d;
 
             object_to_h(obj, &to_h);
             object_to_d(obj, &to_d);
@@ -2287,7 +2287,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Adrenaline effects (part 1) */
     if (p->timed[TMD_ADRENALINE])
     {
-        s16b fx = (p->timed[TMD_ADRENALINE] - 1) / 20;
+        int16_t fx = (p->timed[TMD_ADRENALINE] - 1) / 20;
 
         /* Increase strength, dexterity, constitution */
         state->stat_add[STAT_STR] += fx;
@@ -2298,7 +2298,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Elemental harmony */
     if (p->timed[TMD_HARMONY])
     {
-        s16b fx = (p->timed[TMD_HARMONY] - 1) / 20;
+        int16_t fx = (p->timed[TMD_HARMONY] - 1) / 20;
 
         /* Increase strength, dexterity, constitution */
         state->stat_add[STAT_STR] += fx;
@@ -2509,7 +2509,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
     if (p->timed[TMD_ADRENALINE])
     {
-        s16b fx = (p->timed[TMD_ADRENALINE] - 1) / 20;
+        int16_t fx = (p->timed[TMD_ADRENALINE] - 1) / 20;
 
         if (fx >= 2) state->to_d += 8;
         if (fx >= 3) extra_blows += 10;
@@ -3284,7 +3284,7 @@ void refresh_stuff(struct player *p)
 /* Monks cannot use heavy armor */
 bool monk_armor_ok(struct player *p)
 {
-    u16b monk_arm_wgt = 0;
+    uint16_t monk_arm_wgt = 0;
     int i;
 
     if (!player_has(p, PF_MARTIAL_ARTS)) return false;

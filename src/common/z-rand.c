@@ -3,7 +3,7 @@
  * Purpose: A Random Number Generator for Angband
  *
  * Copyright (c) 1997 Ben Harrison, Randy Hutson
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * See below for copyright on the WELL random number generator.
  *
@@ -56,15 +56,15 @@
 #define MAT0NEG(t, v) (v ^ (v << (-(t))))
 #define Identity(v) (v)
 
-u32b state_i = 0;
-u32b STATE[RAND_DEG] =
+uint32_t state_i = 0;
+uint32_t STATE[RAND_DEG] =
 {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
 };
-u32b z0, z1, z2;
+uint32_t z0, z1, z2;
 
 #define V0    STATE[state_i]
 #define VM1   STATE[(state_i + M1) & 0x0000001fU]
@@ -74,7 +74,7 @@ u32b z0, z1, z2;
 #define newV0 STATE[(state_i + 31) & 0x0000001fU]
 #define newV1 STATE[state_i]
 
-static u32b WELLRNG1024a(void)
+static uint32_t WELLRNG1024a(void)
 {
     z0      = VRm1;
     z1      = Identity(V0) ^ MAT0POS(8, VM1);
@@ -101,13 +101,13 @@ bool Rand_quick = true;
 /*
  * The current "seed" of the simple RNG
  */
-u32b Rand_value;
+uint32_t Rand_value;
 
 
 /*
  * Initialize the "complex" RNG using a new seed
  */
-void Rand_state_init(u32b seed)
+void Rand_state_init(uint32_t seed)
 {
     int i, j;
 
@@ -140,7 +140,7 @@ void Rand_init(void)
     /* Init RNG */
     if (Rand_quick)
     {
-        u32b seed;
+        uint32_t seed;
 
         /* Basic seed */
         seed = (time(NULL));
@@ -165,9 +165,9 @@ void Rand_init(void)
  * This method has no bias, and is much less affected by patterns
  * in the "low" bits of the underlying RNG's.
  */
-u32b Rand_div(u32b m)
+uint32_t Rand_div(uint32_t m)
 {
-    u32b n, r = 0;
+    uint32_t n, r = 0;
 
     my_assert(m <= 0x10000000);
 
@@ -231,7 +231,7 @@ u32b Rand_div(u32b m)
 /*
  * The normal distribution table for the "Rand_normal()" function (below)
  */
-static s16b Rand_normal_table[RANDNOR_NUM] =
+static int16_t Rand_normal_table[RANDNOR_NUM] =
 {
     206,     613,     1022,    1430,    1838,   2245,    2652,    3058,
     3463,    3867,    4271,    4673,    5075,   5475,    5874,    6271,
@@ -290,18 +290,18 @@ static s16b Rand_normal_table[RANDNOR_NUM] =
  *
  * Note that the binary search takes up to 16 quick iterations.
  */
-s16b Rand_normal(int mean, int stand)
+int16_t Rand_normal(int mean, int stand)
 {
-    s16b tmp, offset;
+    int16_t tmp, offset;
 
-    s16b low = 0;
-    s16b high = RANDNOR_NUM;
+    int16_t low = 0;
+    int16_t high = RANDNOR_NUM;
 
     /* Paranoia */
     if (stand < 1) return (mean);
 
     /* Roll for probability */
-    tmp = (s16b)randint0(32768);
+    tmp = (int16_t)randint0(32768);
 
     /* Binary Search */
     while (low < high)
@@ -318,7 +318,7 @@ s16b Rand_normal(int mean, int stand)
     }
 
     /* Convert the index into an offset */
-    offset = (s16b)((long)stand * (long)low / RANDNOR_STD);
+    offset = (int16_t)((long)stand * (long)low / RANDNOR_STD);
 
     /* One half should be negative */
     if (one_in_(2)) return (mean - offset);
@@ -370,13 +370,13 @@ int Rand_sample(int mean, int upper, int lower, int stand_u, int stand_l)
  * "external" program parts like the main-*.c files.  It preserves
  * the current RNG state to prevent influences on game-play.
  */
-u32b Rand_simple(u32b m)
+uint32_t Rand_simple(uint32_t m)
 {
     static bool initialized = false;
-    static u32b simple_rand_value;
+    static uint32_t simple_rand_value;
     bool old_rand_quick;
-    u32b old_rand_value;
-    u32b result;
+    uint32_t old_rand_value;
+    uint32_t result;
 
     /* Save RNG state */
     old_rand_quick = Rand_quick;
@@ -453,7 +453,7 @@ int rand_range(int A, int B)
     if (A == B) return A;
     my_assert(A < B);
 
-    return A + (s32b)Rand_div(1 + B - A);
+    return A + (int32_t)Rand_div(1 + B - A);
 }
 
 
@@ -510,7 +510,7 @@ static int simulate_division(int dividend, int divisor)
  * 120    0.03  0.11  0.31  0.46  1.31  2.48  4.60  7.78 11.67 25.53 45.72
  * 128    0.02  0.01  0.13  0.33  0.83  1.41  3.24  6.17  9.57 14.22 64.07
  */
-s16b m_bonus(int max, int level)
+int16_t m_bonus(int max, int level)
 {
     int bonus, stand, value;
 
@@ -536,7 +536,7 @@ s16b m_bonus(int max, int level)
 /*
  * Calculation helper function for m_bonus
  */
-s16b m_bonus_calc(int max, int level, aspect bonus_aspect)
+int16_t m_bonus_calc(int max, int level, aspect bonus_aspect)
 {
     switch (bonus_aspect)
     {
@@ -619,9 +619,9 @@ int random_chance_scaled(random_chance *c, int scale)
  * Note that "m" should probably be less than 500000, or the
  * results may be rather biased towards low values.
  */
-u32b Rand_mod(u32b m)
+uint32_t Rand_mod(uint32_t m)
 {
-    u32b r;
+    uint32_t r;
 
     /* Hack -- simple case */
     if (m <= 1) return (0);
@@ -654,12 +654,12 @@ u32b Rand_mod(u32b m)
 /*
  * Test the integrity of the RNG
  */
-u32b Rand_test(u32b seed)
+uint32_t Rand_test(uint32_t seed)
 {
     int i;
-    u32b outcome = 0;
+    uint32_t outcome = 0;
     bool randquick;
-    u32b randvalue, randstate_i, randstate[RAND_DEG];
+    uint32_t randvalue, randstate_i, randstate[RAND_DEG];
 
     /* Preserve current RNG state */
     randquick = Rand_quick;

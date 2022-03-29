@@ -3,7 +3,7 @@
  * Purpose: Chest and door opening/closing, disarming, running, resting, ...
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -27,7 +27,7 @@
 void do_cmd_go_up(struct player *p)
 {
     int ascend_to;
-    byte new_level_method;
+    uint8_t new_level_method;
     struct chunk *c = chunk_get(&p->wpos);
     struct worldpos wpos;
 
@@ -110,7 +110,7 @@ void do_cmd_go_up(struct player *p)
 void do_cmd_go_down(struct player *p)
 {
     int descend_to;
-    byte new_level_method;
+    uint8_t new_level_method;
     struct chunk *c = chunk_get(&p->wpos);
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     struct worldpos wpos;
@@ -2756,7 +2756,7 @@ void do_cmd_run(struct player *p, int dir)
 /*
  * Rest (restores hit points and mana and such)
  */
-bool do_cmd_rest(struct player *p, s16b resting)
+bool do_cmd_rest(struct player *p, int16_t resting)
 {
     /*
      * A little sanity checking on the input - only the specified negative
@@ -2861,10 +2861,10 @@ static const char *mon_feeling_text[][2] =
  */
 void display_feeling(struct player *p, bool obj_only)
 {
-    s16b obj_feeling;
-    s16b mon_feeling;
+    int16_t obj_feeling;
+    int16_t mon_feeling;
     const char *join;
-    byte set = 0;
+    uint8_t set = 0;
 
     /* Don't show feelings for cold-hearted characters */
     // and some races

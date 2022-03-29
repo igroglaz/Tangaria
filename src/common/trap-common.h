@@ -51,7 +51,7 @@ struct trap_kind
     struct trap_kind *next;
     unsigned int tidx;              /* Trap kind index */
 
-    byte d_attr;                    /* Default trap attribute */
+    uint8_t d_attr;                    /* Default trap attribute */
     char d_char;                    /* Default trap character */
 
     int rarity;                     /* Rarity */
@@ -82,8 +82,8 @@ struct trap
 
     struct loc grid;            /* Location of trap */
 
-    byte power;                 /* Power for door locks, visibility for traps */
-    byte timeout;               /* Timer for disabled traps */
+    uint8_t power;                 /* Power for door locks, visibility for traps */
+    uint8_t timeout;               /* Timer for disabled traps */
 
     bitflag flags[TRF_SIZE];    /* Trap flags (only this particular trap) */
 };

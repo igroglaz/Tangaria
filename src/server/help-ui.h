@@ -7,6 +7,6 @@
 #define HELP_UI_H
 
 extern bool show_file(struct player *p, const char *name, const char *what, int line, int color);
-extern void common_file_peruse(struct player *p, u32b query);
+extern void common_file_peruse(struct player *p, uint32_t query);
 
 #endif /* HELP_UI_H */

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, and others
  * Copyright (c) 2009-2015 Erik Osheim
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -439,7 +439,7 @@ static void gcu_keypress(int i)
      * This might be a bad idea, but...
      *
      * Here we try to second-guess ncurses. In some cases, keypad() mode will
-     * fail to translate multi-byte escape sequences into things like number-
+     * fail to translate multi-uint8_t escape sequences into things like number-
      * pad actions, function keys, etc. So we can hardcode a small list of some
      * of the most common sequences here, just in case.
      *
@@ -852,7 +852,7 @@ static errr Term_wipe_gcu(int x, int y, int n)
 /*
  * Place some text on the screen using an attribute
  */
-static errr Term_text_gcu(int x, int y, int n, u16b a, const char *s)
+static errr Term_text_gcu(int x, int y, int n, uint16_t a, const char *s)
 {
     term_data *td = (term_data *)(Term->data);
     wchar_t *buf;

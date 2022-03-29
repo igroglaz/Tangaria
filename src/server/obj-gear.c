@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2014 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -153,7 +153,7 @@ int pack_slots_used(struct player *p)
  * For items where multiple slots could work (e.g. rings), the function
  * will try to a return an open slot if possible.
  */
-s16b wield_slot(struct player *p, const struct object *obj)
+int16_t wield_slot(struct player *p, const struct object *obj)
 {
     /* Slot for equipment */
     switch (obj->tval)

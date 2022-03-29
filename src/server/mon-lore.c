@@ -3,7 +3,7 @@
  * Purpose: Monster memory code.
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -488,12 +488,12 @@ void monster_flags_known(const struct monster_race *race, const struct monster_l
  *
  * awareness is the inactivity counter of the race (monster_race.sleep).
  */
-static const char *lore_describe_awareness(s16b awareness)
+static const char *lore_describe_awareness(int16_t awareness)
 {
     /* Value table ordered descending, for priority. Terminator is {SHRT_MAX, NULL}. */
     static const struct lore_awareness
     {
-        s16b threshold;
+        int16_t threshold;
         const char *description;
     } lore_awareness_description[] =
     {
@@ -530,12 +530,12 @@ static const char *lore_describe_awareness(s16b awareness)
  *
  * speed is the speed rating of the race (monster_race.speed).
  */
-static const char *lore_describe_speed(byte speed)
+static const char *lore_describe_speed(uint8_t speed)
 {
     /* Value table ordered descending, for priority. Terminator is {UCHAR_MAX, NULL}. */
     static const struct lore_speed
     {
-        byte threshold;
+        uint8_t threshold;
         const char *description;
     } lore_speed_description[] =
     {
@@ -589,9 +589,9 @@ static void lore_multiplier_speed(struct player *p, const struct monster_race *r
 {
     char buf[13] = "";
     int multiplier = 10 * frame_energy(race->speed) / frame_energy(110);
-    byte int_mul = multiplier / 10;
-    byte dec_mul = multiplier % 10;
-    byte attr = COLOUR_ORANGE;
+    uint8_t int_mul = multiplier / 10;
+    uint8_t dec_mul = multiplier % 10;
+    uint8_t attr = COLOUR_ORANGE;
 
     text_out(p, "at ");
 
@@ -702,7 +702,7 @@ static const char *lore_pronoun_possessive(monster_sex_t sex, bool title_case)
  * conjunction is a string that is added before the last item.
  * end is a string that is added after the last item.
  */
-static void lore_append_clause(struct player *p, bitflag *f, byte attr, const char *start,
+static void lore_append_clause(struct player *p, bitflag *f, uint8_t attr, const char *start,
     const char *conjunction, const char *end)
 {
     int count = rf_count(f);
@@ -948,7 +948,7 @@ void lore_append_movement(struct player *p, const struct monster_race *race,
         text_out(p, " lives in a town");
     else
     {
-        byte colour = (race->level > p->max_depth)? COLOUR_RED: COLOUR_L_BLUE;
+        uint8_t colour = (race->level > p->max_depth)? COLOUR_RED: COLOUR_L_BLUE;
 
         if (rf_has(known_flags, RF_FORCE_DEPTH))
             text_out(p, " is found ");
@@ -1078,7 +1078,7 @@ void lore_append_exp(struct player *p, const struct monster_race *race,
     const char *ordinal, *article;
     char buf[20] = "";
     long exp_integer, exp_fraction;
-    s16b level;
+    int16_t level;
 
     /* Check legality and that this is a placeable monster */
     my_assert(race && lore);
@@ -1646,8 +1646,8 @@ void get_global_lore(struct player *p, const struct monster_race *race,
     memcpy(lore, lp_ptr, sizeof(struct monster_lore));
 
     /* Hack -- allocate space for the monster lore, copy again */
-    lore->blows = mem_zalloc(z_info->mon_blows_max * sizeof(byte));
-    memcpy(lore->blows, lp_ptr->blows, z_info->mon_blows_max * sizeof(byte));
+    lore->blows = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
+    memcpy(lore->blows, lp_ptr->blows, z_info->mon_blows_max * sizeof(uint8_t));
     lore->blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(bool));
     memcpy(lore->blow_known, lp_ptr->blow_known, z_info->mon_blows_max * sizeof(bool));
 

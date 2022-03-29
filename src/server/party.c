@@ -2,7 +2,7 @@
  * File: party.c
  * Purpose: Support for the "party" system
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -99,7 +99,7 @@ bool is_party_owner(struct player *p, struct player *q)
 /*
  * Check if two players given by their IDs are in the same party
  */
-bool master_in_party(s16b p1_id, s16b p2_id)
+bool master_in_party(int16_t p1_id, int16_t p2_id)
 {
     struct player *p1_ptr = NULL;
     struct player *p2_ptr = NULL;
@@ -516,11 +516,11 @@ bool party_share_with(struct player *p, int party_id, struct player *q)
  * 3) Higher-leveled members of a party get higher percentages of the
  * experience.
  */
-void party_exp_gain(struct player *p, int party_id, s32b amount)
+void party_exp_gain(struct player *p, int party_id, int32_t amount)
 {
     int i;
-    s32b new_exp, new_exp_frac, average_lev = 0, num_members = 0;
-    s32b modified_level;
+    int32_t new_exp, new_exp_frac, average_lev = 0, num_members = 0;
+    int32_t modified_level;
 
     /* Calculate the average level */
     for (i = 1; i <= NumPlayers; i++)
@@ -736,7 +736,7 @@ static bool remove_hostility(struct player *attacker, struct player *target, boo
  *
  * Returns true if a hostile response must be taken
  */
-bool pvp_check(struct player *attacker, struct player *target, int mode, bool silent, u16b feat)
+bool pvp_check(struct player *attacker, struct player *target, int mode, bool silent, uint16_t feat)
 {
     /* Paranoia: we cannot be hostile toward self! */
     if (attacker == target) return false;
@@ -853,7 +853,7 @@ bool pvp_check(struct player *attacker, struct player *target, int mode, bool si
 }
 
 
-void do_cmd_party(struct player *p, s16b command, char *buf)
+void do_cmd_party(struct player *p, int16_t command, char *buf)
 {
     /* Check arena */
     if (p->arena_num != -1)
@@ -1031,7 +1031,7 @@ char *lookup_player_name(int id)
 /*
  * Add a name to the hash table.
  */
-void add_player_name(int id, u32b account, const char *name, hturn *death_turn)
+void add_player_name(int id, uint32_t account, const char *name, hturn *death_turn)
 {
     int slot;
     hash_entry *ptr;
@@ -1136,10 +1136,10 @@ void delete_player_name(const char *name)
 /*
  * Return a list of the player ID's stored in the table.
  */
-u32b player_id_count(u32b account)
+uint32_t player_id_count(uint32_t account)
 {
     int i;
-    u16b len = 0;
+    uint16_t len = 0;
     hash_entry *ptr;
 
     /* Count up the number of valid entries */
@@ -1167,10 +1167,10 @@ u32b player_id_count(u32b account)
 /*
  * Return a list of the player ID's stored in the table.
  */
-u32b player_id_list(int **list, u32b account)
+uint32_t player_id_list(int **list, uint32_t account)
 {
     int i, k = 0;
-    u32b len = player_id_count(account);
+    uint32_t len = player_id_count(account);
     hash_entry *ptr;
 
     /* Nothing to do */

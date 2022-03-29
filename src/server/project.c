@@ -3,7 +3,7 @@
  * Purpose: The project() function and helpers
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -27,7 +27,7 @@ struct projection *projections;
 /*
  * Specify attr/char pairs for visual special effects for project()
  */
-byte proj_to_attr[PROJ_MAX][BOLT_MAX];
+uint8_t proj_to_attr[PROJ_MAX][BOLT_MAX];
 char proj_to_char[PROJ_MAX][BOLT_MAX];
 
 
@@ -409,7 +409,7 @@ bool projectable(struct player *p, struct chunk *c, struct loc *grid1, struct lo
 /*
  * Get a legal "multi-hued" color for drawing "spells"
  */
-static byte mh_attr(void)
+static uint8_t mh_attr(void)
 {
     switch (randint1(9))
     {
@@ -428,7 +428,7 @@ static byte mh_attr(void)
 }
 
 
-byte proj_color(int type)
+uint8_t proj_color(int type)
 {
     if (type < 0 || type >= PROJ_MAX) return COLOUR_WHITE;
 
@@ -447,7 +447,7 @@ byte proj_color(int type)
 
 static bool stop_project(struct source *who, struct loc *grid, struct chunk *cv, int typ)
 {
-    s16b p1_id, p2_id;
+    int16_t p1_id, p2_id;
     int m_idx;
 
     /* Possible decoy */
@@ -650,10 +650,10 @@ void origin_get_loc(struct loc *ploc, struct source *origin)
  * and "update_view()" and "update_monsters()" need to be called.
  */
 bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finish, int dam, int typ,
-    int flg, int degrees_of_arc, byte diameter_of_source, const char *what)
+    int flg, int degrees_of_arc, uint8_t diameter_of_source, const char *what)
 {
     int i, j, k, dist_from_centre;
-    u32b dam_temp;
+    uint32_t dam_temp;
     struct loc centre;
     struct loc start;
     int n1y = 0;
@@ -990,7 +990,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
         else
         {
             dam_temp = (diameter_of_source * dam) / (i + 1);
-            if (dam_temp > (u32b)dam) dam_temp = dam;
+            if (dam_temp > (uint32_t)dam) dam_temp = dam;
         }
 
         /* Store it. */

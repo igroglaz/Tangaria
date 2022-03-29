@@ -2,7 +2,7 @@
  * File: control.c
  * Purpose: Support for the "remote console"
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -261,7 +261,7 @@ void console_print(char *msg, int chan)
     int i;
     sockbuf_t *console_buf_w;
     char terminator = '\n';
-    byte *chan_ptr;
+    uint8_t *chan_ptr;
     bool hint;
 
     for (i = 0; i < MAX_PLAYERS; i++)
@@ -347,7 +347,7 @@ static void console_debug(int ind, char *dummy)
 static void console_listen(int ind, char *channel)
 {
     int i;
-    byte *chan;
+    uint8_t *chan;
 
     if (channel && !STRZERO(channel))
     {
@@ -371,7 +371,7 @@ static void console_listen(int ind, char *channel)
 static void console_whois(int ind, char *name)
 {
     int i, len;
-    u16b major, minor, patch, extra;
+    uint16_t major, minor, patch, extra;
     struct player *p = NULL, *p_ptr_search;
     char brave[30];
     const char *batty = "";
@@ -489,12 +489,12 @@ static void console_kick_player(int ind, char *name)
  */
 static void console_rng_test(int ind, char *dummy)
 {
-    u32b outcome;
+    uint32_t outcome;
     sockbuf_t *console_buf_w = (sockbuf_t*)console_buffer(ind, CONSOLE_WRITE);
     char terminator = '\n';
 
     /* This is the expected outcome, generated on our reference platform */
-    u32b reference = 0x08EACDD3;
+    uint32_t reference = 0x08EACDD3;
 
     /* Don't run this if any players are connected */
     if (NumPlayers > 0)

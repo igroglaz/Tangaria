@@ -34,14 +34,14 @@ extern void screen_load(bool flush);
 /*
  * text_out hook for screen display
  */
-extern void text_out_to_screen(byte a, const char *str);
+extern void text_out_to_screen(uint8_t a, const char *str);
 
 /*
  * Simple text display
  */
-extern void c_put_str(byte attr, const char *str, int row, int col);
+extern void c_put_str(uint8_t attr, const char *str, int row, int col);
 extern void put_str(const char *str, int row, int col);
-extern void c_prt(byte attr, const char *str, int row, int col);
+extern void c_prt(uint8_t attr, const char *str, int row, int col);
 extern void prt(const char *str, int row, int col);
 extern int prt_multi(int sx, int sy, int n, int m, int attr, const char *msg);
 

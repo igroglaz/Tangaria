@@ -3,7 +3,7 @@
  * Purpose: Various game initialisation routines
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -44,8 +44,8 @@ bool play_again = false;
 
 
 /* Character list */
-u16b max_account_chars;
-u16b char_num;
+uint16_t max_account_chars;
+uint16_t char_num;
 char **char_name;
 char *char_expiry;
 
@@ -187,7 +187,7 @@ static void init_minor(void)
     int i;
 
     /* Chat channels */
-    player->on_channel = mem_zalloc(MAX_CHANNELS * sizeof(byte));
+    player->on_channel = mem_zalloc(MAX_CHANNELS * sizeof(uint8_t));
     for (i = 0; i < MAX_CHANNELS; i++)
     {
         channels[i].name[0] = '\0';
@@ -212,7 +212,7 @@ static void init_player(void)
 
     /* Allocate player sub-structs */
     player->upkeep = mem_zalloc(sizeof(struct player_upkeep));
-    player->timed = mem_zalloc(TMD_MAX * sizeof(s16b));
+    player->timed = mem_zalloc(TMD_MAX * sizeof(int16_t));
 
     options_init_defaults(&player->opts);
 }
@@ -342,7 +342,7 @@ static void Input_loop(void)
 bool gather_settings(void)
 {
     int i;
-    s16b new_settings[SETTING_MAX];
+    int16_t new_settings[SETTING_MAX];
     bool changed = false;
 
     /* Initialize */
@@ -392,7 +392,7 @@ void client_ready(bool newchar)
     init_options(player->opts.opt);
 
     /* Initialize window options that will be overridden by the savefile */
-    memset(window_flag, 0, sizeof(u32b) * ANGBAND_TERM_MAX);
+    memset(window_flag, 0, sizeof(uint32_t) * ANGBAND_TERM_MAX);
     window_flag[0] |= (PW_PLAYER_2 | PW_STATUS);
     window_flag[1] |= (PW_MESSAGE);
     window_flag[2] |= (PW_EQUIP);
@@ -481,11 +481,11 @@ static void cleanup_player(void)
 }
 
 
-static char *server_version(u16b version, u16b beta)
+static char *server_version(uint16_t version, uint16_t beta)
 {
     return format("%d", version);
 /*
-    u16b major, minor, patch, extra;
+    uint16_t major, minor, patch, extra;
 
     major = version >> 12;
     minor = (version % (1 << 12)) >> 8;
@@ -506,17 +506,17 @@ void client_init(bool new_game)
     char status, num_types, expiry;
     int trycount;
     char host_name[NORMAL_WID], trymsg[NORMAL_WID];
-    u16b conntype = CONNTYPE_PLAYER;
+    uint16_t conntype = CONNTYPE_PLAYER;
     char buffer[NORMAL_WID];
 #ifdef WINDOWS
     DWORD nSize = NORMAL_WID;
 #endif
     bool done = false;
-    u16b num, max;
-    u32b num_name;
+    uint16_t num, max;
+    uint32_t num_name;
     size_t i, j;
     struct keypress c;
-    s32b intro;
+    int32_t intro;
 
     if (new_game)
     {
@@ -723,7 +723,7 @@ void client_init(bool new_game)
         quit("Failed to retrieve random name fragments.");
 
     /* Initialize the random name fragments */
-    num_names = mem_zalloc(RANDNAME_NUM_TYPES * sizeof(u32b));
+    num_names = mem_zalloc(RANDNAME_NUM_TYPES * sizeof(uint32_t));
     name_sections = mem_zalloc(sizeof(char**) * RANDNAME_NUM_TYPES);
     for (i = 0; i < RANDNAME_NUM_TYPES; i++)
     {

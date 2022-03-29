@@ -5,7 +5,7 @@
  * Copyright (c) 2003 Takeshi Mogami, Robert Ruehlmann
  * Copyright (c) 2007 Pete Mack
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -547,7 +547,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
     /* object:*:* means handle all objects and flavors */
     if (streq(tval, "*"))
     {
-        byte attr = (byte)parser_getint(p, "attr");
+        uint8_t attr = (uint8_t)parser_getint(p, "attr");
         char chr = (char)parser_getint(p, "char");
         int i;
 
@@ -574,7 +574,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
         /* object:tval:* means handle all objects and flavors with this tval */
         if (streq(sval, "*"))
         {
-            byte attr = (byte)parser_getint(p, "attr");
+            uint8_t attr = (uint8_t)parser_getint(p, "attr");
             char chr = (char)parser_getint(p, "char");
             int i;
 
@@ -601,7 +601,7 @@ static enum parser_error parse_prefs_object(struct parser *p)
             kind = lookup_kind(tvi, svi);
             if (!kind) return PARSE_ERROR_UNRECOGNISED_SVAL;
 
-            Client_setup.k_attr[kind->kidx] = (byte)parser_getint(p, "attr");
+            Client_setup.k_attr[kind->kidx] = (uint8_t)parser_getint(p, "attr");
             Client_setup.k_char[kind->kidx] = (char)parser_getint(p, "char");
         }
     }
@@ -623,7 +623,7 @@ static enum parser_error parse_prefs_monster(struct parser *p)
     monster = lookup_monster(name);
     if (!monster) return PARSE_ERROR_NO_KIND_FOUND;
 
-    Client_setup.r_attr[monster->ridx] = (byte)parser_getint(p, "attr");
+    Client_setup.r_attr[monster->ridx] = (uint8_t)parser_getint(p, "attr");
     Client_setup.r_char[monster->ridx] = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -684,7 +684,7 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
     struct monster_base *mb;
     int i;
     struct prefs_data *d = parser_priv(p);
-    byte a;
+    uint8_t a;
     char c;
 
     assert(d != NULL);
@@ -694,7 +694,7 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
     mb = lookup_monster_base(name);
     if (!mb) return PARSE_ERROR_INVALID_MONSTER_BASE;
 
-    a = (byte)parser_getint(p, "attr");
+    a = (uint8_t)parser_getint(p, "attr");
     c = (char)parser_getint(p, "char");
 
     for (i = 0; i < z_info->r_max; i++)
@@ -762,14 +762,14 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
 
     if (light_idx < LIGHTING_MAX)
     {
-        Client_setup.f_attr[idx][light_idx] = (byte)parser_getint(p, "attr");
+        Client_setup.f_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
         Client_setup.f_char[idx][light_idx] = (char)parser_getint(p, "char");
     }
     else
     {
         for (light_idx = 0; light_idx < LIGHTING_MAX; light_idx++)
         {
-            Client_setup.f_attr[idx][light_idx] = (byte)parser_getint(p, "attr");
+            Client_setup.f_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
             Client_setup.f_char[idx][light_idx] = (char)parser_getint(p, "char");
         }
     }
@@ -814,7 +814,7 @@ static enum parser_error parse_prefs_glyph(struct parser *p)
 }
 
 
-static void set_trap_graphic(int trap_idx, int light_idx, byte attr, char ch)
+static void set_trap_graphic(int trap_idx, int light_idx, uint8_t attr, char ch)
 {
     if (light_idx < LIGHTING_MAX)
     {
@@ -839,7 +839,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     int trap_idx;
     int light_idx;
     struct prefs_data *d = parser_priv(p);
-    byte attr;
+    uint8_t attr;
     char chr;
 
     assert(d != NULL);
@@ -872,7 +872,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     else
         return PARSE_ERROR_INVALID_LIGHTING;
 
-    attr = (byte)parser_getint(p, "attr");
+    attr = (uint8_t)parser_getint(p, "attr");
     chr = (char)parser_getint(p, "char");
 
     if (trap_idx == -1)
@@ -992,13 +992,13 @@ static enum parser_error parse_prefs_gf(struct parser *p)
     {
         if (!types[i]) continue;
 
-        Client_setup.proj_attr[i][motion] = (byte)parser_getuint(p, "attr");
+        Client_setup.proj_attr[i][motion] = (uint8_t)parser_getuint(p, "attr");
         Client_setup.proj_char[i][motion] = (char)parser_getuint(p, "char");
 
         /* Default values */
         if (motion2)
         {
-            Client_setup.proj_attr[i][motion2] = (byte)parser_getuint(p, "attr");
+            Client_setup.proj_attr[i][motion2] = (uint8_t)parser_getuint(p, "attr");
             Client_setup.proj_char[i][motion2] = (char)parser_getuint(p, "char");
         }
     }
@@ -1018,7 +1018,7 @@ static enum parser_error parse_prefs_flavor(struct parser *p)
     idx = parser_getuint(p, "idx");
     if (idx >= (unsigned int)flavor_max) return PARSE_ERROR_OUT_OF_BOUNDS;
 
-    Client_setup.flvr_x_attr[idx] = (byte)parser_getint(p, "attr");
+    Client_setup.flvr_x_attr[idx] = (uint8_t)parser_getint(p, "attr");
     Client_setup.flvr_x_char[idx] = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
@@ -1118,7 +1118,7 @@ static enum parser_error parse_prefs_message(struct parser *p)
     if ((a < COLOUR_DARK) || (a > COLOUR_DEEP_L_BLUE))
         return PARSE_ERROR_INVALID_COLOR;
 
-    message_color_define(msg_index, (byte)a);
+    message_color_define(msg_index, (uint8_t)a);
 
     return PARSE_ERROR_NONE;
 }
@@ -1509,15 +1509,15 @@ void reset_visuals(bool load_prefs)
     if (!z_info) return;
 
     /* Reset the Client_setup info */
-    memset(Client_setup.flvr_x_attr, 0, flavor_max * sizeof(byte));
+    memset(Client_setup.flvr_x_attr, 0, flavor_max * sizeof(uint8_t));
     memset(Client_setup.flvr_x_char, 0, flavor_max * sizeof(char));
     memset(Client_setup.f_attr, 0, z_info->f_max * sizeof(byte_lit));
     memset(Client_setup.f_char, 0, z_info->f_max * sizeof(char_lit));
     memset(Client_setup.t_attr, 0, z_info->trap_max * sizeof(byte_lit));
     memset(Client_setup.t_char, 0, z_info->trap_max * sizeof(char_lit));
-    memset(Client_setup.k_attr, 0, z_info->k_max * sizeof(byte));
+    memset(Client_setup.k_attr, 0, z_info->k_max * sizeof(uint8_t));
     memset(Client_setup.k_char, 0, z_info->k_max * sizeof(char));
-    memset(Client_setup.r_attr, 0, z_info->r_max * sizeof(byte));
+    memset(Client_setup.r_attr, 0, z_info->r_max * sizeof(uint8_t));
     memset(Client_setup.r_char, 0, z_info->r_max * sizeof(char));
     memset(Client_setup.proj_attr, 0, sizeof(Client_setup.proj_attr));
     memset(Client_setup.proj_char, 0, sizeof(Client_setup.proj_char));

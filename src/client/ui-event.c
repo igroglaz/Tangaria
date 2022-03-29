@@ -3,7 +3,7 @@
  * Purpose: Utility functions relating to UI events
  *
  * Copyright (c) 2011 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -115,7 +115,7 @@ static int dehex(char c)
 void keypress_from_text(struct keypress *buf, size_t len, const char *str)
 {
     size_t cur = 0;
-    byte mods = 0;
+    uint8_t mods = 0;
 
     memset(buf, 0, len * sizeof(*buf));
 
@@ -123,7 +123,7 @@ void keypress_from_text(struct keypress *buf, size_t len, const char *str)
     { \
         int p = (pos); \
         keycode_t c = (cod); \
-        byte m = (mod); \
+        uint8_t m = (mod); \
 \
         if ((m & KC_MOD_CONTROL) && ENCODE_KTRL(c)) \
         { \

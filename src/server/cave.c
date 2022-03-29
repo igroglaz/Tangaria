@@ -3,7 +3,7 @@
  * Purpose: Chunk allocation and utility functions
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -88,7 +88,7 @@ struct feature *f_info;
 /*
  * Global array for looping through the "keypad directions"
  */
-s16b ddd[9] =
+int16_t ddd[9] =
 { 2, 8, 6, 4, 3, 1, 9, 7, 5 };
 
 
@@ -106,10 +106,10 @@ struct loc ddgrid[10] =
  * This means that each entry in this array corresponds to the direction
  * with the same array index in ddd[].
  */
-s16b ddx_ddd[9] =
+int16_t ddx_ddd[9] =
 { 0, 0, 1, -1, 1, -1, 1, -1, 0 };
 
-s16b ddy_ddd[9] =
+int16_t ddy_ddd[9] =
 { 1, -1, 0, 0, 1, 1, -1, -1, 0 };
 
 struct loc ddgrid_ddd[9] =
@@ -244,7 +244,7 @@ const int *dist_offsets_x[10] =
  * first. If the left, it must add 10 to the central direction to
  * access the second part of the table.
  */
-const byte side_dirs[20][8] =
+const uint8_t side_dirs[20][8] =
 {
     /* bias right */
     {0, 0, 0, 0, 0, 0, 0, 0},
@@ -755,7 +755,7 @@ void display_fullmap(struct player *p)
         /* Scan the columns of row "y" */
         for (grid.x = 0; grid.x < z_info->dungeon_wid; grid.x++)
         {
-            u16b a, ta;
+            uint16_t a, ta;
             char c, tc;
             struct grid_data g;
 

@@ -3,7 +3,7 @@
  * Purpose: Monster spell casting and selection
  *
  * Copyright (c) 2010-14 Chris Carr and Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -231,9 +231,9 @@ const struct monster_spell *monster_spell_by_index(int index)
  */
 static const struct mon_spell_info
 {
-    u16b index; /* Numerical index (RSF_FOO) */
+    uint16_t index; /* Numerical index (RSF_FOO) */
     int type;   /* Type bitflag */
-    byte save;  /* Type of saving throw */
+    uint8_t save;  /* Type of saving throw */
 } mon_spell_types[] =
 {
     #define RSF(a, b, c) {RSF_##a, b, c},

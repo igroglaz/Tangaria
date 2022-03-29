@@ -22,7 +22,7 @@ extern char *string_append(char *s1, const char *s2);
 extern void mem_nfree(void **p, size_t len);
 
 /* Free a bidimentional array of length "len" with its variable lengths "plen" */
-extern void strings_free(const char ***p, u32b *plen, size_t len);
+extern void strings_free(const char ***p, uint32_t *plen, size_t len);
 
 enum
 {

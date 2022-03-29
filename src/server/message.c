@@ -3,7 +3,7 @@
  * Purpose: Message handling
  *
  * Copyright (c) 2007 Elly, Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -41,7 +41,7 @@ void sound(struct player *p, int val)
 }
 
 
-void msg_broadcast(struct player *p, const char *msg, u16b type)
+void msg_broadcast(struct player *p, const char *msg, uint16_t type)
 {
     int i;
 
@@ -62,7 +62,7 @@ void msg_broadcast(struct player *p, const char *msg, u16b type)
 }
 
 
-void msg_all(struct player *p, const char *msg, u16b type)
+void msg_all(struct player *p, const char *msg, uint16_t type)
 {
     int i;
 
@@ -106,7 +106,7 @@ void msg(struct player *p, const char *fmt, ...)
  * by a player. The message is not sent to the player who performed
  * the action.
  */
-void msg_print_complex_near(struct player *p, struct player *q, u16b type, const char *msg)
+void msg_print_complex_near(struct player *p, struct player *q, uint16_t type, const char *msg)
 {
     int i;
 
@@ -138,7 +138,7 @@ void msg_print_complex_near(struct player *p, struct player *q, u16b type, const
 /*
  * Same as above, except send a formatted message.
  */
-void msg_format_complex_near(struct player *p, u16b type, const char *fmt, ...)
+void msg_format_complex_near(struct player *p, uint16_t type, const char *fmt, ...)
 {
     va_list vp;
     char buf[MSG_LEN];
@@ -163,7 +163,7 @@ void msg_format_complex_near(struct player *p, u16b type, const char *fmt, ...)
  * This serves two functions: a dungeon level-wide chat, and a way
  * to attract attention of other nearby players.
  */
-void msg_format_complex_far(struct player *p, u16b type, const char *fmt, const char *sender, ...)
+void msg_format_complex_far(struct player *p, uint16_t type, const char *fmt, const char *sender, ...)
 {
     va_list vp;
     int i;
@@ -221,7 +221,7 @@ void msg_format_complex_far(struct player *p, u16b type, const char *fmt, const 
  * The content of the message will depend on whether or not the player is visible.
  * The function supposes that the message is in the form "(foo) does something..."
  */
-void msg_print_near(struct player *p, u16b type, const char *msg)
+void msg_print_near(struct player *p, uint16_t type, const char *msg)
 {
     char p_name[NORMAL_WID], buf[NORMAL_WID];
     int i;
@@ -254,7 +254,7 @@ void msg_print_near(struct player *p, u16b type, const char *msg)
 /*
  * Same as above, except send a formatted message.
  */
-void msg_format_near(struct player *p, u16b type, const char *fmt, ...)
+void msg_format_near(struct player *p, uint16_t type, const char *fmt, ...)
 {
     va_list vp;
     char buf[MSG_LEN];
@@ -300,7 +300,7 @@ void msgt(struct player *p, unsigned int type, const char *fmt, ...)
 /*
  * Print a simple message
  */
-void msg_print(struct player *p, const char *msg, u16b type)
+void msg_print(struct player *p, const char *msg, uint16_t type)
 {
     struct message data;
 

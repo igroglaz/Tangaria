@@ -5,7 +5,7 @@
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2009 Brian Bull
  * Copyright (c) 2016 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1406,7 +1406,7 @@ void object_learn_obvious(struct player *p, struct object *obj, bool message)
     int i, flag;
     char o_name[NORMAL_WID];
     bool obvious = false;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     /* EASY_KNOW is now known */
     if (easy_know(obj, object_flavor_is_aware(p, obj)))
@@ -1699,7 +1699,7 @@ void equip_learn_on_ranged_attack(struct player *p)
         if (obj && !obj->known->to_h)
         {
             bool has_standard_to_h;
-            s16b to_h;
+            int16_t to_h;
 
             obj->known->to_h = 1;
             object_check_for_ident(p, obj);
@@ -2486,7 +2486,7 @@ void object_notice_effect(struct player *p, struct object *obj)
 void object_notice_defence_plusses(struct player *p, struct object *obj)
 {
     char o_name[NORMAL_WID];
-    s16b to_a;
+    int16_t to_a;
 
     if (!obj) return;
     if (obj->known->to_a) return;
@@ -2519,7 +2519,7 @@ void object_notice_attack_plusses(struct player *p, struct object *obj)
 {
     char o_name[NORMAL_WID];
     bool aware, has_standard_to_h;
-    s16b to_h, to_d;
+    int16_t to_h, to_d;
 
     if (!obj) return;
 
@@ -2621,7 +2621,7 @@ void object_notice_sensing(struct player *p, struct object *obj)
 void object_know_everything(struct player *p, struct object *obj)
 {
     char o_name[NORMAL_WID];
-    u32b msg_type = 0;
+    uint32_t msg_type = 0;
     bool bad = (obj->curses || worthless_p(obj));
 
     /* Identify it */

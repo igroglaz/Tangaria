@@ -35,7 +35,7 @@ typedef enum _menu_row_validity_t
 } menu_row_validity_t;
 
 /* Cursor colours for different states */
-extern const byte curs_attrs[2][2];
+extern const uint8_t curs_attrs[2][2];
 
 /* Standard menu orderings */
 extern const char lower_case[];     /* abc..z */

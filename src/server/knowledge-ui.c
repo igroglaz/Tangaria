@@ -5,7 +5,7 @@
  * Copyright (c) 1997-2007 Robert A. Koeneke, James E. Wilson, Ben Harrison,
  * Eytan Zweig, Andrew Doull, Pete Mack.
  * Copyright (c) 2004 DarkGod (HTML dump code)
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -274,7 +274,7 @@ static void do_cmd_knowledge_monsters(struct player *p, int line)
         struct monster_lore *lore = get_lore(p, race);
 
         /* Find graphics bits */
-        byte a = p->r_attr[oid];
+        uint8_t a = p->r_attr[oid];
         char c = p->r_char[oid];
 
         /* Paranoia */
@@ -539,7 +539,7 @@ static int collect_known_artifacts(struct player *p, struct cmp_art *artifacts)
         /* Special case: artifact is owned by a non-connected player */
         if (!h)
         {
-            s32b owner = get_artifact_owner(art);
+            int32_t owner = get_artifact_owner(art);
 
             /* Artifact is owned */
             if (owner)
@@ -933,10 +933,10 @@ static void do_cmd_knowledge_objects(struct player *p, int line)
 
         /* Choose a color */
         bool aware = p->kind_aware[kind->kidx];
-        byte attr = (aware? COLOUR_WHITE: COLOUR_SLATE);
+        uint8_t attr = (aware? COLOUR_WHITE: COLOUR_SLATE);
 
         /* Find graphics bits -- versions of the object_char and object_attr defines */
-        byte a = object_kind_attr(p, kind);
+        uint8_t a = object_kind_attr(p, kind);
         char c = object_kind_char(p, kind);
 
         /* Paranoia */
@@ -1143,7 +1143,7 @@ static void do_cmd_knowledge_features(struct player *p, int line)
         int gid = feat_order(features[i]);
 
         /* Find graphics bits */
-        byte a = p->f_attr[features[i]][LIGHTING_LIT];
+        uint8_t a = p->f_attr[features[i]][LIGHTING_LIT];
         char c = p->f_char[features[i]][LIGHTING_LIT];
 
         /* Paranoia */
@@ -1255,7 +1255,7 @@ static void do_cmd_knowledge_traps(struct player *p, int line)
         int gid = trap_order(traps[i]);
 
         /* Find graphics bits */
-        byte a = p->t_attr[traps[i]][LIGHTING_LIT];
+        uint8_t a = p->t_attr[traps[i]][LIGHTING_LIT];
         char c = p->t_char[traps[i]][LIGHTING_LIT];
 
         /* Paranoia */
@@ -1364,7 +1364,7 @@ static void do_cmd_knowledge_uniques(struct player *p, int line)
         /* For each unique */
         for (l = total - 1; l >= 0; l--)
         {
-            byte ok = false;
+            uint8_t ok = false;
             char highlight = 'D';
 
             race = &r_info[idx[l]];
@@ -1436,7 +1436,7 @@ static void do_cmd_knowledge_gear(struct player *p, int line)
     char file_name[MSG_LEN];
     struct object *obj;
     char o_name[NORMAL_WID];
-    byte color;
+    uint8_t color;
 
     /* Temporary file */
     fff = file_temp(file_name, sizeof(file_name));
@@ -1699,7 +1699,7 @@ void do_cmd_redraw(struct player *p)
 /*
  * Drop some gold
  */
-void do_cmd_drop_gold(struct player *p, s32b amt)
+void do_cmd_drop_gold(struct player *p, int32_t amt)
 {
     struct object *obj;
 
@@ -2462,8 +2462,8 @@ void do_cmd_fountain(struct player *p, int item)
         static const struct summon_chance_t
         {
             const char *race;
-            byte minlev;
-            byte chance;
+            uint8_t minlev;
+            uint8_t chance;
         } summon_chance[] =
         {
             {"giant green frog", 0, 100},
@@ -2721,7 +2721,7 @@ void do_cmd_check_players(struct player *p, int line)
     for (k = 1; k <= NumPlayers; k++)
     {
         struct player *q = player_get(k);
-        byte attr = 'w';
+        uint8_t attr = 'w';
         char brave[30];
         char winner[20];
         const char *batty = "";
@@ -2749,7 +2749,7 @@ void do_cmd_check_players(struct player *p, int line)
         /* Print potential hostile players in yellow */
         else if (pvp_check(p, q, PVP_CHECK_ONE, true, 0x00)) attr = 'y';
 
-        /* Output color byte */
+        /* Output color uint8_t */
         file_putf(fff, "%c", attr);
 
         /* Challenge options */
@@ -2801,7 +2801,7 @@ void do_cmd_check_other(struct player *p, int line)
 {
     char buf[NORMAL_WID + 1];
     int i, j;
-    s16b last_info_line = get_last_info_line(p);
+    int16_t last_info_line = get_last_info_line(p);
 
     /* Make sure the player is allowed to */
     if (!p->special_file_type) return;
@@ -2809,7 +2809,7 @@ void do_cmd_check_other(struct player *p, int line)
     /* Dump the next 20 lines of the file */
     for (i = 0; i < 20; i++)
     {
-        byte attr = COLOUR_WHITE;
+        uint8_t attr = COLOUR_WHITE;
 
         /* We're done */
         if (line + i > MAX_TXT_INFO) break;
@@ -3233,7 +3233,7 @@ void do_cmd_check_socials(struct player *p, int line)
 }
 
 
-void do_cmd_interactive(struct player *p, int type, u32b query)
+void do_cmd_interactive(struct player *p, int type, uint32_t query)
 {
     /* Hack -- use special term */
     Send_term_info(p, NTERM_ACTIVATE, NTERM_WIN_SPECIAL);

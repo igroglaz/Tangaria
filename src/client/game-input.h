@@ -27,8 +27,8 @@
 
 extern bool (*get_string_hook)(const char *prompt, char *buf, int len);
 extern int (*get_string_ex_hook)(const char *prompt, char *buf, int len, bool priv);
-extern s32b (*get_quantity_hook)(const char *prompt, s32b max);
-extern s32b (*get_quantity_ex_hook)(const char *prompt, s32b max);
+extern int32_t (*get_quantity_hook)(const char *prompt, int32_t max);
+extern int32_t (*get_quantity_ex_hook)(const char *prompt, int32_t max);
 extern bool (*get_check_hook)(const char *prompt);
 extern int (*get_check_ex_hook)(const char *prompt);
 extern bool (*get_com_hook)(const char *prompt, struct keypress *command);
@@ -42,8 +42,8 @@ extern bool (*get_curse_hook)(int *choice, struct object *obj, char *dice_string
 
 extern bool get_string(const char *prompt, char *buf, int len);
 extern int get_string_ex(const char *prompt, char *buf, int len, bool priv);
-extern s32b get_quantity(const char *prompt, s32b max);
-extern s32b get_quantity_ex(const char *prompt, s32b max);
+extern int32_t get_quantity(const char *prompt, int32_t max);
+extern int32_t get_quantity_ex(const char *prompt, int32_t max);
 extern bool get_check(const char *prompt);
 extern int get_check_ex(const char *prompt);
 extern bool get_com(const char *prompt, struct keypress *command);

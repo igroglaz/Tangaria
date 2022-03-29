@@ -9,6 +9,6 @@
 #define VERSION_NAME    "Tangaria"
 
 extern bool beta_version(void);
-extern u16b current_version(void);
-extern u16b min_version(void);
+extern uint16_t current_version(void);
+extern uint16_t min_version(void);
 extern char *version_build(const char *label, bool build);

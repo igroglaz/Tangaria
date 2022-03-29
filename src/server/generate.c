@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2013 Erik Osheim, Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -817,7 +817,7 @@ static void place_feeling(struct player *p, struct chunk *c)
  */
 static int calc_obj_feeling(struct chunk *c)
 {
-    u32b x;
+    uint32_t x;
 
     /* Non-random level gets no feeling */
     if (!random_level(&c->wpos)) return 0;
@@ -850,7 +850,7 @@ static int calc_obj_feeling(struct chunk *c)
  */
 static int calc_mon_feeling(struct chunk *c)
 {
-    u32b x;
+    uint32_t x;
 
     /* Non-random level gets no feeling */
     if (!random_level(&c->wpos)) return 0;
@@ -1082,7 +1082,7 @@ static void set_artifacts_generated(struct player *p, struct chunk *c)
     {
         for (obj = square_object(c, &iter.cur); obj; obj = obj->next)
         {
-            byte *pinfo;
+            uint8_t *pinfo;
 
             /* Skip non artifacts */
             if (!obj->artifact) continue;
@@ -1245,7 +1245,7 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
         dun->door = mem_zalloc(z_info->level_door_max * sizeof(struct loc));
         dun->wall = mem_zalloc(z_info->wall_pierce_max * sizeof(struct loc));
         dun->tunn = mem_zalloc(z_info->tunn_grid_max * sizeof(struct loc));
-        dun->tunn_flag = mem_zalloc(z_info->tunn_grid_max * sizeof(byte));
+        dun->tunn_flag = mem_zalloc(z_info->tunn_grid_max * sizeof(uint8_t));
         dun->quest = is_quest(wpos->depth);
 
         /* Choose a profile and build the level */

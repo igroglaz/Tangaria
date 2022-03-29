@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997-2020 Ben Harrison, James E. Wilson, Robert A. Koeneke,
  * Leon Marrick, Bahman Rabii, Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -105,7 +105,7 @@ static void view_ability_display(struct menu *menu, int oid, bool cursor, int ro
     int width)
 {
 	char buf[NORMAL_WID];
-	byte color;
+	uint8_t color;
 	struct player_ability *choices = menu->menu_data;
 
 	switch (choices[oid].group)
@@ -250,7 +250,7 @@ static const char *obj_mods[] =
  * Interact with stats
  */
 static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bitflag flags[OF_SIZE],
-    byte flvl[OF_MAX], bitflag pflags[PF_SIZE], byte pflvl[PF__MAX],
+    uint8_t flvl[OF_MAX], bitflag pflags[PF_SIZE], uint8_t pflvl[PF__MAX],
     struct element_info el_info[ELEM_MAX])
 {
     int mod, row = 2, n_abilities, ability_row, i;

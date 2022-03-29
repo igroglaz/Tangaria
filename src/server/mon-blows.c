@@ -5,7 +5,7 @@
  * Copyright (c) 1997 Ben Harrison, David Reeve Sward, Keldon Jones.
  * Copyright (c) 2013 Ben Semmler
  * Copyright (c) 2016 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -101,7 +101,7 @@ const char *monster_blow_method_action(struct blow_method *method)
 
 static void eat_gold(struct player *p, struct source *who)
 {
-    s32b gold = (p->au / 10) + randint1(25);
+    int32_t gold = (p->au / 10) + randint1(25);
 
     if (gold < 2) gold = 2;
     if (gold > 5000) gold = (p->au / 20) + randint1(3000);
@@ -1889,11 +1889,11 @@ melee_effect_handler_f melee_handler_for_blow_effect(const char *name)
 }
 
 
-byte blow_method_index(const char *name)
+uint8_t blow_method_index(const char *name)
 {
-    byte i;
+    uint8_t i;
 
-    for (i = 0; i < (byte)z_info->blow_methods_max; i++)
+    for (i = 0; i < (uint8_t)z_info->blow_methods_max; i++)
     {
         struct blow_method *meth = &blow_methods[i];
 
@@ -1901,15 +1901,15 @@ byte blow_method_index(const char *name)
     }
 
     /* We should never come here... */
-    return (byte)z_info->blow_methods_max;
+    return (uint8_t)z_info->blow_methods_max;
 }
 
 
-byte blow_effect_index(const char *name)
+uint8_t blow_effect_index(const char *name)
 {
-    byte i;
+    uint8_t i;
 
-    for (i = 0; i < (byte)z_info->blow_effects_max; i++)
+    for (i = 0; i < (uint8_t)z_info->blow_effects_max; i++)
     {
         struct blow_effect *effect = &blow_effects[i];
 
@@ -1917,5 +1917,5 @@ byte blow_effect_index(const char *name)
     }
 
     /* We should never come here... */
-    return (byte)z_info->blow_effects_max;
+    return (uint8_t)z_info->blow_effects_max;
 }

@@ -47,11 +47,11 @@ struct feature
     unsigned int fidx;          /* Index */
     struct feature *next;
     char *mimic;                /* Name of feature to mimic */
-    byte priority;              /* Display priority */
-    byte shopnum;               /* Which shop does it take you to? */
-    byte dig;                   /* How hard is it to dig through? */
+    uint8_t priority;              /* Display priority */
+    uint8_t shopnum;               /* Which shop does it take you to? */
+    uint8_t dig;                   /* How hard is it to dig through? */
     bitflag flags[TF_SIZE];     /* Terrain flags */
-    byte d_attr;                /* Default feature attribute */
+    uint8_t d_attr;                /* Default feature attribute */
     char d_char;                /* Default feature character */
     char *hurt_msg;             /* Message on being hurt by feature */
     char *died_flavor;          /* Flavored message on dying to feature */
@@ -66,7 +66,7 @@ extern struct feature *f_info;
 
 struct grid_data
 {
-    s16b m_idx;                     /* Monster index */
+    int16_t m_idx;                     /* Monster index */
     int f_idx;                      /* Feature index */
     struct object *first_obj;       /* The first item on the grid */
     struct trap *trap;              /* Trap */
@@ -81,9 +81,9 @@ struct grid_data
 
 struct square
 {
-    u16b feat;
+    uint16_t feat;
     bitflag *info;
-    s16b mon;
+    int16_t mon;
     struct object *obj;
     struct trap *trap;
 };
@@ -98,8 +98,8 @@ struct connector
 struct chunk
 {
     struct worldpos wpos;
-    u32b obj_rating;
-    u32b mon_rating;
+    uint32_t obj_rating;
+    uint32_t mon_rating;
     bool good_item;
     int height;
     int width;
@@ -109,8 +109,8 @@ struct chunk
     struct loc decoy;
 
     struct monster *monsters;
-    u16b mon_max;
-    u16b mon_cnt;
+    uint16_t mon_max;
+    uint16_t mon_cnt;
     int num_repro;
 
     struct monster_group **monster_groups;
@@ -217,14 +217,14 @@ extern int FEAT_CROP_CORN;
 extern int FEAT_HARD_RUBBLE;
 extern int FEAT_HARD_PASS_RUBBLE;
 
-extern s16b ddd[9];
+extern int16_t ddd[9];
 extern struct loc ddgrid[10];
-extern s16b ddx_ddd[9];
-extern s16b ddy_ddd[9];
+extern int16_t ddx_ddd[9];
+extern int16_t ddy_ddd[9];
 extern struct loc ddgrid_ddd[9];
 extern const int *dist_offsets_y[10];
 extern const int *dist_offsets_x[10];
-extern const byte side_dirs[20][8];
+extern const uint8_t side_dirs[20][8];
 
 enum
 {

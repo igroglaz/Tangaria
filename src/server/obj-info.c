@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2004 Robert Ruehlmann
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -129,7 +129,7 @@ static bool describe_curses(struct player *p, const struct object *obj)
 static bool describe_stats(struct player *p, const struct object *obj, bool aware)
 {
     size_t count = 0, i;
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     /* Fact of but not size of mods is known for egos and flavoured items the player is aware of */
     bool known_effect = false;
@@ -728,7 +728,7 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
     /* Add object to-dam (x10) */
     if (obj->known->to_d)
     {
-        s16b to_d;
+        int16_t to_d;
 
         object_to_d(obj, &to_d);
         dam += to_d * 10;
@@ -739,7 +739,7 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
     {
         if (obj->known->to_h)
         {
-            s16b to_h;
+            int16_t to_h;
 
             object_to_h(obj, &to_h);
             plus = to_h;
@@ -753,7 +753,7 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
     /* Add shooter to-dam (x10) for missile weapons */
     if (ammo && bow && bow->known->to_d)
     {
-        s16b to_d;
+        int16_t to_d;
 
         object_to_d(bow, &to_d);
         dam += to_d * 10;
@@ -1298,7 +1298,7 @@ static bool obj_known_digging(struct player *p, const struct object *obj, int de
     int slot;
     struct object *current;
     bool equipped = object_is_equipped(p->body, obj);
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
 
     object_modifiers(obj, modifiers);
 
@@ -1403,7 +1403,7 @@ static bool obj_known_light(struct player *p, const struct object *obj, int mode
 {
     bool no_fuel;
     bool is_light = tval_is_light(obj);
-    s32b modifiers[OBJ_MOD_MAX];
+    int32_t modifiers[OBJ_MOD_MAX];
     bool known = object_is_known(p, obj);
     bool known_light = (known || obj->known->modifiers[OBJ_MOD_LIGHT]);
     bitflag flags[OF_SIZE];
@@ -1927,7 +1927,7 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
         double price = (double)object_value(p, obj, 1) * 2;
 
         text_out(p, "\n");
-        text_out_c(p, COLOUR_YELLOW, "Preferred price per unit: %ld au", (s32b)price);
+        text_out_c(p, COLOUR_YELLOW, "Preferred price per unit: %ld au", (int32_t)price);
     }
 }
 

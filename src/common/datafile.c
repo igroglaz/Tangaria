@@ -3,7 +3,7 @@
  * Purpose: Data file reading and writing routines
  *
  * Copyright (c) 2017 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

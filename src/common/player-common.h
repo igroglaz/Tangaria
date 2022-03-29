@@ -135,7 +135,7 @@ enum
 struct timed_grade
 {
     int grade;
-    byte color;
+    uint8_t color;
     int max;
     char *name;
     char *up_msg;
@@ -153,13 +153,13 @@ struct timed_grade
 struct quest
 {
     struct quest *next;
-    byte index;
+    uint8_t index;
     char *name;
-    byte level;                 /* Dungeon level */
+    uint8_t level;                 /* Dungeon level */
     struct monster_race *race;  /* Monster race */
-    s16b cur_num;               /* Number killed */
-    s16b max_num;               /* Number required */
-    s16b timer;                 /* Time left before quest is over */
+    int16_t cur_num;               /* Number killed */
+    int16_t max_num;               /* Number required */
+    int16_t timer;                 /* Time left before quest is over */
 };
 
 /*
@@ -169,7 +169,7 @@ struct equip_slot
 {
     struct equip_slot *next;
 
-    s16b type;
+    int16_t type;
     char *name;
     struct object *obj;
 };
@@ -181,35 +181,35 @@ struct player_body
 {
     struct player_body *next;
     char *name;
-    s16b count;
+    int16_t count;
     struct equip_slot *slots;
 };
 
 struct brand_info
 {
     bool brand;
-    byte minlvl;
-    byte maxlvl;
+    uint8_t minlvl;
+    uint8_t maxlvl;
 };
 
 struct slay_info
 {
     bool slay;
-    byte minlvl;
-    byte maxlvl;
+    uint8_t minlvl;
+    uint8_t maxlvl;
 };
 
 struct modifier
 {
     random_value value;
-    byte lvl;
+    uint8_t lvl;
 };
 
 struct player_shape
 {
     struct player_shape *next;
     char *name;
-    byte lvl;
+    uint8_t lvl;
 };
 
 
@@ -245,8 +245,8 @@ struct player_race
     struct player_race *next;
     char *name;                 /* Name */
     unsigned int ridx;          /* Index */
-    byte r_mhp;                 /* Hit-dice modifier */
-    s16b r_exp;                 /* Experience factor */
+    uint8_t r_mhp;                 /* Hit-dice modifier */
+    int16_t r_exp;                 /* Experience factor */
     int b_age;                  /* Base age */
     int m_age;                  /* Mod age */
     int base_hgt;               /* Base height */
@@ -255,13 +255,13 @@ struct player_race
     int mod_wgt;                /* Mod weight */
     int body;                   /* Race body */
     struct modifier modifiers[OBJ_MOD_MAX]; /* Modifiers */
-    s16b r_skills[SKILL_MAX];   /* Skills */
+    int16_t r_skills[SKILL_MAX];   /* Skills */
     bitflag flags[OF_SIZE];     /* Racial (object) flags */
-    byte flvl[OF_MAX];          /* Application level for racial (object) flags */
+    uint8_t flvl[OF_MAX];          /* Application level for racial (object) flags */
     struct brand_info *brands;  /* Racial brands */
     struct slay_info *slays;    /* Racial slays */
     bitflag pflags[PF_SIZE];    /* Racial (player) flags */
-    byte pflvl[PF__MAX];        /* Application level for racial (player) flags */
+    uint8_t pflvl[PF__MAX];        /* Application level for racial (player) flags */
     struct history_chart *history;
     struct element_info el_info[ELEM_MAX];  /* Resists */
     struct player_shape *shapes;
@@ -276,12 +276,12 @@ struct dragon_breed
 {
     struct dragon_breed *next;
     char *d_name;               /* Dragon name */
-    byte d_fmt;                 /* Dragon name format ("dragon" or "drake") */
+    uint8_t d_fmt;                 /* Dragon name format ("dragon" or "drake") */
     char *w_name;               /* Wyrm name */
-    byte w_fmt;                 /* Wyrm name format ("xxx wyrm" or "wyrm of xxx") */
-    byte commonness;            /* Commonness of the breed */
-    s16b r_exp;                 /* Experience factor */
-    byte immune;                /* Immunity to element? */
+    uint8_t w_fmt;                 /* Wyrm name format ("xxx wyrm" or "wyrm of xxx") */
+    uint8_t commonness;            /* Commonness of the breed */
+    int16_t r_exp;                 /* Experience factor */
+    uint8_t immune;                /* Immunity to element? */
 };
 
 /*
@@ -335,7 +335,7 @@ struct class_spell
  */
 struct class_book
 {
-    u16b tval;                          /* Item type of the book */
+    uint16_t tval;                          /* Item type of the book */
     int sval;                           /* Item sub-type for book (book number) */
     bool dungeon;                       /* Whether this is a dungeon book */
     const struct magic_realm *realm;    /* The magic realm of this book */
@@ -348,11 +348,11 @@ struct class_book
  */
 struct class_magic
 {
-    u16b spell_first;                       /* Level of first spell */
+    uint16_t spell_first;                       /* Level of first spell */
     int spell_weight;                       /* Max armor weight to avoid mana penalties */
     int num_books;                          /* Number of spellbooks */
     struct class_book *books;               /* Details of spellbooks */
-    byte total_spells;                      /* Number of spells for this class */
+    uint8_t total_spells;                      /* Number of spells for this class */
 
     /* PWMAngband: dummy placeholders to display fail rate of the first spell on the client */
     int sfail;
@@ -369,22 +369,22 @@ struct player_class
     unsigned int cidx;              /* Index */
     char *title[PY_MAX_LEVEL / 5];  /* Titles */
     struct modifier modifiers[OBJ_MOD_MAX]; /* Modifiers */
-    s16b c_skills[SKILL_MAX];       /* Class skills */
+    int16_t c_skills[SKILL_MAX];       /* Class skills */
     int x_skills[SKILL_MAX];        /* Extra skills */
-    byte c_mhp;                     /* Hit-dice adjustment */
+    uint8_t c_mhp;                     /* Hit-dice adjustment */
     bitflag flags[OF_SIZE];         /* (Object) flags */
-    byte flvl[OF_MAX];              /* Application level for (object) flags */
+    uint8_t flvl[OF_MAX];              /* Application level for (object) flags */
     struct brand_info *brands;      /* Class brands */
     struct slay_info *slays;        /* Class slays */
     bitflag pflags[PF_SIZE];        /* (Player) flags */
-    byte pflvl[PF__MAX];            /* Application level for racial (player) flags */
+    uint8_t pflvl[PF__MAX];            /* Application level for racial (player) flags */
     struct element_info el_info[ELEM_MAX];  /* Resists */
     int max_attacks;                /* Maximum possible attacks */
     int min_weight;                 /* Minimum weapon weight for calculations */
     int att_multiply;               /* Multiplier for attack calculations */
     struct start_item *start_items; /* Starting inventory */
     struct class_magic magic;       /* Magic spells */
-    byte attr;                      /* Class color */
+    uint8_t attr;                      /* Class color */
     struct player_shape *shapes;
     struct barehanded_attack *attacks;
 };
@@ -395,7 +395,7 @@ struct player_class
 struct player_ability
 {
     struct player_ability *next;
-    u16b index;                     /* PF_*, OF_* or element index */
+    uint16_t index;                     /* PF_*, OF_* or element index */
     char *type;                     /* Ability type */
     char *name;                     /* Ability name */
     char *desc;                     /* Ability description */
@@ -452,8 +452,8 @@ struct history_chart
 struct history_info
 {
     bitflag type[HIST_SIZE];    /* Kind of history item */
-    s16b dlev;                  /* Dungeon level when this item was recorded */
-    s16b clev;                  /* Character level when this item was recorded */
+    int16_t dlev;                  /* Dungeon level when this item was recorded */
+    int16_t clev;                  /* Character level when this item was recorded */
     const struct artifact *art; /* Artifact this item relates to */
     char name[NORMAL_WID];      /* Artifact name */
     hturn turn;                 /* Turn this item was recorded on */
@@ -468,8 +468,8 @@ struct history_info
 struct player_history
 {
     struct history_info *entries;   /* List of entries */
-    s16b next;                      /* First unused entry */
-    s16b length;                    /* Current length */
+    int16_t next;                      /* First unused entry */
+    int16_t length;                    /* Current length */
 };
 
 /*
@@ -495,25 +495,25 @@ struct actor_race
  */
 struct player_upkeep
 {
-    byte new_level_method;          /* Climb up stairs, down, or teleport level? */
+    uint8_t new_level_method;          /* Climb up stairs, down, or teleport level? */
     bool funeral;                   /* True if player is leaving */
-    s16b new_spells;                /* Number of spells available */
+    int16_t new_spells;                /* Number of spells available */
     struct source health_who;       /* Who's shown on the health bar */
     struct actor_race monster_race; /* Monster race trackee */
     struct object *object;          /* Object trackee */
-    u32b notice;                    /* Bit flags for pending actions */
-    u32b update;                    /* Bit flags for recalculations needed */
-    u32b redraw;                    /* Bit flags for changes that need to be redrawn by the UI */
-    s16b resting;                   /* Resting counter */
+    uint32_t notice;                    /* Bit flags for pending actions */
+    uint32_t update;                    /* Bit flags for recalculations needed */
+    uint32_t redraw;                    /* Bit flags for changes that need to be redrawn by the UI */
+    int16_t resting;                   /* Resting counter */
     bool running;                   /* Are we running? */
     bool running_firststep;         /* Is this our first step running? */
     struct object **quiver;         /* Quiver objects */
     struct object **inven;          /* Inventory objects */
-    s16b total_weight;              /* Total weight being carried */
-    s16b inven_cnt;                 /* Number of items in inventory */
-    s16b equip_cnt;                 /* Number of items in equipment */
-    s16b quiver_cnt;                /* Number of items in the quiver */
-    s16b recharge_pow;              /* Power of recharge effect */
+    int16_t total_weight;              /* Total weight being carried */
+    int16_t inven_cnt;                 /* Number of items in inventory */
+    int16_t equip_cnt;                 /* Number of items in equipment */
+    int16_t quiver_cnt;                /* Number of items in the quiver */
+    int16_t recharge_pow;              /* Power of recharge effect */
     bool running_update;            /* True if updating monster/object lists while running */
     struct object *redraw_equip;    /* Single equipment object to redraw */
     bool skip_redraw_equip;         /* Skip redraw_equip object */
@@ -566,7 +566,7 @@ enum
 
 struct player_square
 {
-    u16b feat;
+    uint16_t feat;
     bitflag *info;
     int light;
     struct object *obj;
@@ -575,12 +575,12 @@ struct player_square
 
 struct heatmap
 {
-    u16b **grids;
+    uint16_t **grids;
 };
 
 struct player_cave
 {
-    u16b feeling_squares;   /* How many feeling squares the player has visited */
+    uint16_t feeling_squares;   /* How many feeling squares the player has visited */
     int height;
     int width;
     struct player_square **squares;
@@ -595,12 +595,12 @@ struct player_cave
 struct player_death_info
 {
     char title[NORMAL_WID];         /* Title */
-    s16b max_lev;                   /* Max level */
-    s16b lev;                       /* Level */
-    s32b max_exp;                   /* Max experience */
-    s32b exp;                       /* Experience */
-    s32b au;                        /* Gold */
-    s16b max_depth;                 /* Max depth */
+    int16_t max_lev;                   /* Max level */
+    int16_t lev;                       /* Level */
+    int32_t max_exp;                   /* Max experience */
+    int32_t exp;                       /* Experience */
+    int32_t au;                        /* Gold */
+    int16_t max_depth;                 /* Max depth */
     struct worldpos wpos;           /* Position on the world map */
     char died_from[NORMAL_WID];     /* Cause of death */
     time_t time;                    /* Time of death */
@@ -610,14 +610,14 @@ struct player_death_info
 /* The information needed to show a single "grid" */
 typedef struct
 {
-    u16b a; /* Color attribute */
+    uint16_t a; /* Color attribute */
     char c; /* ASCII character */
 } cave_view_type;
 
 /* Information about a "hostility" */
 typedef struct _hostile_type
 {
-    s32b id;                    /* ID of player we are hostile to */
+    int32_t id;                    /* ID of player we are hostile to */
     struct _hostile_type *next; /* Next in list */
 } hostile_type;
 
@@ -657,45 +657,45 @@ struct player
     const struct player_race *race;
     const struct player_class *clazz;
     struct loc grid;                            /* Player location */
-    byte hitdie;                                /* Hit dice (sides) */
-    s16b expfact;                               /* Experience factor */
-    s16b age;                                   /* Characters age */
-    s16b ht;                                    /* Height */
-    s16b wt;                                    /* Weight */
-    s32b au;                                    /* Current Gold */
-    s16b max_depth;                             /* Max depth */
+    uint8_t hitdie;                                /* Hit dice (sides) */
+    int16_t expfact;                               /* Experience factor */
+    int16_t age;                                   /* Characters age */
+    int16_t ht;                                    /* Height */
+    int16_t wt;                                    /* Weight */
+    int32_t au;                                    /* Current Gold */
+    int16_t max_depth;                             /* Max depth */
     struct worldpos wpos;                       /* Current position on the world map */
-    s16b max_lev;                               /* Max level */
-    s16b lev;                                   /* Cur level */
-    s32b max_exp;                               /* Max experience */
-    s32b exp;                                   /* Cur experience */
-    u16b exp_frac;                              /* Cur exp frac (times 2^16) */
-    s16b mhp;                                   /* Max hit pts */
-    s16b chp;                                   /* Cur hit pts */
-    u16b chp_frac;                              /* Cur hit frac (times 2^16) */
-    s16b msp;                                   /* Max mana pts */
-    s16b csp;                                   /* Cur mana pts */
-    u16b csp_frac;                              /* Cur mana frac (times 2^16) */
-    s16b stat_max[STAT_MAX];                    /* Current "maximal" stat values */
-    s16b stat_cur[STAT_MAX];                    /* Current "natural" stat values */
-    s16b stat_map[STAT_MAX];                    /* Tracks remapped stats from temp stat swap */
-    s16b *timed;                                /* Timed effects */
-    s16b word_recall;                           /* Word of recall counter */
-    s16b deep_descent;                          /* Deep Descent counter */
-    s32b energy;                                /* Current energy */
-    byte unignoring;                            /* Player doesn't hide ignored items */
-    byte *spell_flags;                          /* Spell flags */
-    byte *spell_order;                          /* Spell order */
+    int16_t max_lev;                               /* Max level */
+    int16_t lev;                                   /* Cur level */
+    int32_t max_exp;                               /* Max experience */
+    int32_t exp;                                   /* Cur experience */
+    uint16_t exp_frac;                              /* Cur exp frac (times 2^16) */
+    int16_t mhp;                                   /* Max hit pts */
+    int16_t chp;                                   /* Cur hit pts */
+    uint16_t chp_frac;                              /* Cur hit frac (times 2^16) */
+    int16_t msp;                                   /* Max mana pts */
+    int16_t csp;                                   /* Cur mana pts */
+    uint16_t csp_frac;                              /* Cur mana frac (times 2^16) */
+    int16_t stat_max[STAT_MAX];                    /* Current "maximal" stat values */
+    int16_t stat_cur[STAT_MAX];                    /* Current "natural" stat values */
+    int16_t stat_map[STAT_MAX];                    /* Tracks remapped stats from temp stat swap */
+    int16_t *timed;                                /* Timed effects */
+    int16_t word_recall;                           /* Word of recall counter */
+    int16_t deep_descent;                          /* Deep Descent counter */
+    int32_t energy;                                /* Current energy */
+    uint8_t unignoring;                            /* Player doesn't hide ignored items */
+    uint8_t *spell_flags;                          /* Spell flags */
+    uint8_t *spell_order;                          /* Spell order */
     char full_name[NORMAL_WID];                 /* Full name */
     char died_from[NORMAL_WID];                 /* Cause of death */
     char history[N_HIST_LINES][N_HIST_WRAP];    /* Player history */
-    u16b total_winner;                          /* Total winner */
-    byte noscore;                               /* Cheating flags */
+    uint16_t total_winner;                          /* Total winner */
+    uint8_t noscore;                               /* Cheating flags */
     bool is_dead;                               /* Player is dead */
-    s16b player_hp[PY_MAX_LEVEL];               /* HP gained per level */
+    int16_t player_hp[PY_MAX_LEVEL];               /* HP gained per level */
 
     /* Saved values for quickstart */
-    s16b stat_birth[STAT_MAX];                  /* Birth "natural" stat values */
+    int16_t stat_birth[STAT_MAX];                  /* Birth "natural" stat values */
 
     struct player_options opts;                 /* Player options */
     struct player_history hist;                 /* Player history (see player-history.c) */
@@ -713,8 +713,8 @@ struct player
 
     /*** Angband global variables (tied to the player in MAngband) ***/
 
-    byte run_cur_dir;       /* Direction we are running */
-    byte run_old_dir;       /* Direction we came from */
+    uint8_t run_cur_dir;       /* Direction we are running */
+    uint8_t run_old_dir;       /* Direction we came from */
     bool run_open_area;     /* Looking for an open area */
     bool run_break_right;   /* Looking for a break (right) */
     bool run_break_left;    /* Looking for a break (left) */
@@ -727,8 +727,8 @@ struct player
     /*** MAngband common fields ***/
 
     const struct player_sex *sex;
-    byte psex;                              /* Sex index */
-    byte stealthy;                          /* Stealth mode */
+    uint8_t psex;                              /* Sex index */
+    uint8_t stealthy;                          /* Stealth mode */
     hturn game_turn;                        /* Number of game turns */
     hturn player_turn;                      /* Number of player turns (including resting) */
     hturn active_turn;                      /* Number of active player turns */
@@ -736,14 +736,14 @@ struct player
     bool* kind_tried;                       /* Has the player tried this obj kind? */
     char name[NORMAL_WID];                  /* Nickname */
     char pass[NORMAL_WID];                  /* Password */
-    s32b id;                                /* Unique ID to each player */
-    s16b ghost;                             /* Are we a ghost */
-    byte lives;                             /* Number of times we have resurrected */
-    byte party;                             /* The party he belongs to (or 0 if neutral) */
+    int32_t id;                                /* Unique ID to each player */
+    int16_t ghost;                             /* Are we a ghost */
+    uint8_t lives;                             /* Number of times we have resurrected */
+    uint8_t party;                             /* The party he belongs to (or 0 if neutral) */
     struct player_death_info death_info;    /* Original cause of death */
-    u16b retire_timer;                      /* The number of minutes this guy can play until retired. */
-    byte **wild_map;                        /* The wilderness we have explored */
-    byte *art_info;                         /* Artifacts player has encountered */
+    uint16_t retire_timer;                      /* The number of minutes this guy can play until retired. */
+    uint8_t **wild_map;                        /* The wilderness we have explored */
+    uint8_t *art_info;                         /* Artifacts player has encountered */
 
     /*** MAngband temporary fields ***/
 
@@ -758,70 +758,70 @@ struct player
     struct worldpos recall_wpos;                    /* Where to recall */
     cave_view_type* hist_flags[N_HISTORY_FLAGS];    /* Player's sustains/resists/flags */
     struct source cursor_who;                       /* Who's tracked by cursor */
-    byte special_file_type;                         /* Type of info browsed by this player */
+    uint8_t special_file_type;                         /* Type of info browsed by this player */
     bitflag (*mflag)[MFLAG_SIZE];                   /* Temporary monster flags */
-    byte *mon_det;                                  /* Were these monsters detected by this player? */
+    uint8_t *mon_det;                                  /* Were these monsters detected by this player? */
     bitflag pflag[MAX_PLAYERS][MFLAG_SIZE];         /* Temporary monster flags (players) */
-    byte play_det[MAX_PLAYERS];                     /* Were these players detected by this player? */
-    byte *d_attr;
+    uint8_t play_det[MAX_PLAYERS];                     /* Were these players detected by this player? */
+    uint8_t *d_attr;
     char *d_char;
-    byte (*f_attr)[LIGHTING_MAX];
+    uint8_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    byte (*t_attr)[LIGHTING_MAX];
+    uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
-    byte *k_attr;
+    uint8_t *k_attr;
     char *k_char;
-    byte *r_attr;
+    uint8_t *r_attr;
     char *r_char;
-    byte proj_attr[PROJ_MAX][BOLT_MAX];
+    uint8_t proj_attr[PROJ_MAX][BOLT_MAX];
     char proj_char[PROJ_MAX][BOLT_MAX];
-    byte use_graphics;
-    byte screen_cols;
-    byte screen_rows;
-    byte tile_wid;
-    byte tile_hgt;
+    uint8_t use_graphics;
+    uint8_t screen_cols;
+    uint8_t screen_rows;
+    uint8_t tile_wid;
+    uint8_t tile_hgt;
     bool tile_distorted;
     struct loc offset_grid;
     struct loc old_offset_grid;
     cave_view_type **scr_info;
     cave_view_type **trn_info;
     char msg_log[MAX_MSG_HIST][NORMAL_WID]; /* Message history log */
-    s16b msg_hist_ptr;                      /* Where will the next message be stored */
-    byte last_dir;                          /* Last direction moved (used for swapping places) */
-    s16b current_spell;                     /* Current values */
-    s16b current_item;
-    s16b current_action;
-    s16b current_value;
-    s16b current_selling;
-    s16b current_sell_amt;
+    int16_t msg_hist_ptr;                      /* Where will the next message be stored */
+    uint8_t last_dir;                          /* Last direction moved (used for swapping places) */
+    int16_t current_spell;                     /* Current values */
+    int16_t current_item;
+    int16_t current_action;
+    int16_t current_value;
+    int16_t current_selling;
+    int16_t current_sell_amt;
     int current_sell_price;
     int current_house;                      /* Which house is he pointing */
     int store_num;                          /* What store this guy is in */
     int player_store_num;                   /* What player store this guy is in */
-    s16b delta_floor_item;                  /* Player is standing on.. */
-    s16b msg_hist_dupe;                     /* Count duplicate messages for collapsing */
-    u32b dm_flags;                          /* Dungeon Master Flags */
-    u16b msg_last_type;                     /* Last message type sent */
-    u16b main_channel;                      /* Main chat channel the player is in */
+    int16_t delta_floor_item;                  /* Player is standing on.. */
+    int16_t msg_hist_dupe;                     /* Count duplicate messages for collapsing */
+    uint32_t dm_flags;                          /* Dungeon Master Flags */
+    uint16_t msg_last_type;                     /* Last message type sent */
+    uint16_t main_channel;                      /* Main chat channel the player is in */
     char second_channel[NORMAL_WID];        /* Where his legacy 'privates' are sent */
-    byte *on_channel;                       /* Listening to what channels */
+    uint8_t *on_channel;                       /* Listening to what channels */
     cave_view_type info[MAX_TXT_INFO][NORMAL_WID];
     struct loc info_grid;
-    s16b last_info_line;
-    byte remote_term;
+    int16_t last_info_line;
+    uint8_t remote_term;
     bool bubble_checked;                    /* Have we been included in a time bubble check? */
     hturn bubble_change;                    /* Server turn we last changed colour */
     bool bubble_colour;                     /* Current warning colour for slow time bubbles */
     int bubble_speed;                       /* Current speed for slow time bubbles */
-    u32b blink_speed;                       /* Current blink speed for slow time bubbles */
+    uint32_t blink_speed;                       /* Current blink speed for slow time bubbles */
     int arena_num;                          /* What arena this guy is in */
-    u32b window_flag;
+    uint32_t window_flag;
     bool prevents[128];                     /* Cache of "^" inscriptions */
-    s16b feeling;                           /* Most recent feeling */
-    s16b interactive_line;                  /* Which line is he on? */
+    int16_t feeling;                           /* Most recent feeling */
+    int16_t interactive_line;                  /* Which line is he on? */
     char *interactive_file;                 /* Which file is he reading? */
-    s16b interactive_next;                  /* Which line is he on 'in the file' ? */
-    s16b interactive_size;                  /* Total number of lines in file */
+    int16_t interactive_next;                  /* Which line is he on 'in the file' ? */
+    int16_t interactive_size;                  /* Total number of lines in file */
     char interactive_hook[26][32];          /* Sub-menu information */
     int set_value;                          /* Set value for a chain of effects */
 
@@ -830,53 +830,53 @@ struct player
     bool target_fixed;                      /* Is the target fixed (for the duration of a spell)? */
     struct target old_target;               /* Old player target */
     bool show_interesting;                  /* Interesting grids */
-    s16b target_index;                      /* Current index */
+    int16_t target_index;                      /* Current index */
     struct loc tt_grid;                     /* Current location */
     struct object *tt_o;                    /* Current object */
-    byte tt_step;                           /* Current step */
+    uint8_t tt_step;                           /* Current step */
     bool tt_help;                           /* Display info/help */
 
     /*** PWMAngband common fields ***/
 
     struct quest quest;                 /* Current quest */
     char died_flavor[160];              /* How this guy died */
-    s16b tim_mimic_what;                /* Rogue flag */
+    int16_t tim_mimic_what;                /* Rogue flag */
     struct monster_lore *lore;          /* Monster lore */
     struct monster_race *poly_race;     /* Monster race (mimic form) */
-    s16b k_idx;                         /* Object kind index (mimic form) */
-    byte *randart_info;                 /* Randarts player has encountered */
-    byte *randart_created;              /* Randarts player has created */
-    byte *spell_power;                  /* Spell power array */
-    byte *spell_cooldown;               /* Spell cooldown array */
-    byte *kind_ignore;                  /* Ignore this object kind */
-    byte *kind_everseen;                /* Has the player seen this object kind? */
-    byte **ego_ignore_types;            /* Table for ignoring by ego and type */
-    byte *ego_everseen;                 /* Has the player seen this ego type? */
+    int16_t k_idx;                         /* Object kind index (mimic form) */
+    uint8_t *randart_info;                 /* Randarts player has encountered */
+    uint8_t *randart_created;              /* Randarts player has created */
+    uint8_t *spell_power;                  /* Spell power array */
+    uint8_t *spell_cooldown;               /* Spell cooldown array */
+    uint8_t *kind_ignore;                  /* Ignore this object kind */
+    uint8_t *kind_everseen;                /* Has the player seen this object kind? */
+    uint8_t **ego_ignore_types;            /* Table for ignoring by ego and type */
+    uint8_t *ego_everseen;                 /* Has the player seen this ego type? */
     hturn quit_turn;                    /* Turn this player left the game */
     struct bow_brand brand;             /* Archer flags */
     struct store *home;                 /* Home inventory */
 
     /*** PWMAngband temporary fields ***/
 
-    s32b esp_link;                  /* Mind flags */
-    byte esp_link_type;
-    s16b spell_cost;                /* Total cost for spells */
-    byte ignore;                    /* Player has auto-ignore activated */
+    int32_t esp_link;                  /* Mind flags */
+    uint8_t esp_link_type;
+    int16_t spell_cost;                /* Total cost for spells */
+    uint8_t ignore;                    /* Player has auto-ignore activated */
     struct monster_lore current_lore;
     bool fainting;                  /* True if player is fainting */
-    byte max_hgt;                   /* Max client screen height */
+    uint8_t max_hgt;                   /* Max client screen height */
     cave_view_type **info_icky;     /* Info is icky */
-    s16b last_info_line_icky;
+    int16_t last_info_line_icky;
     char *header_icky;
-    s16b screen_save_depth;         /* Depth of the screen_save() stack */
+    int16_t screen_save_depth;         /* Depth of the screen_save() stack */
     bool was_aware;                 /* Is the player aware of the current obj type? */
-    s16b current_sound;             /* Current sound */
-    s32b charge;                    /* Charging energy */
+    int16_t current_sound;             /* Current sound */
+    int32_t charge;                    /* Charging energy */
     bool has_energy;                /* Player has energy */
     hturn idle_turn;                /* Turn since last game command */
     bool full_refresh;              /* Full refresh (includes monster/object lists) */
-    byte digging_request;
-    byte digging_dir;
+    uint8_t digging_request;
+    uint8_t digging_dir;
     bool firing_request;
     bool cancel_firing;
     bool shimmer;                   /* Hack -- optimize multi-hued code (players) */
@@ -888,26 +888,26 @@ struct player
     int path_n;
     struct loc path_g[256];
     bool can_study_book;            /* Player carries a book with spells they can study */
-    byte slaves;                    /* Number of controlled monsters */
+    uint8_t slaves;                    /* Number of controlled monsters */
     char tempbuf[NORMAL_WID];
-    s16b obj_feeling;               /* Object/monster feeling (for display) */
-    s16b mon_feeling;
+    int16_t obj_feeling;               /* Object/monster feeling (for display) */
+    int16_t mon_feeling;
     char depths[13];                /* Displayed coordinates */
     char locname[NORMAL_WID];       /* Location (short name) */
     int frac_blow;                  /* Blow frac (%) */
     int frac_shot;                  /* Shot frac (%) */
-    s16b square_light;              /* Square light (for display) */
+    int16_t square_light;              /* Square light (for display) */
     char terrain[40];               /* Displayed terrain */
-    byte flicker;                   /* A counter to select the step color from the flicker table */
+    uint8_t flicker;                   /* A counter to select the step color from the flicker table */
     bool no_disturb_icky;
     bool placed;                    /* Player is properly placed on the level */
     int monwidth;                   /* Monster list subwindow width */
-    s32b extra_energy;              /* Extra energy */
+    int32_t extra_energy;              /* Extra energy */
     bool first_escape;
     bool dump_gen;
     bool icy_aura;
-    byte cannot_cast;               /* Player cannot cast spells */
-    byte cannot_cast_mimic;         /* Player cannot cast mimic spells */
+    uint8_t cannot_cast;               /* Player cannot cast spells */
+    uint8_t cannot_cast_mimic;         /* Player cannot cast mimic spells */
 
     /*
      * In order to prevent the regeneration bonus from the first few turns, we have

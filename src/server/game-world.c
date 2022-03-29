@@ -3,7 +3,7 @@
  * Purpose: Game core management of the game world
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -23,7 +23,7 @@
 
 bool server_generated;      /* The server exists */
 bool server_state_loaded;   /* The server state was loaded from a savefile */
-u32b seed_flavor;           /* Hack -- consistent object colors */
+uint32_t seed_flavor;           /* Hack -- consistent object colors */
 hturn turn;                 /* Current game turn */
 
 
@@ -45,7 +45,7 @@ hturn turn;                 /* Current game turn */
  *
  * Note that currently the fastest monster is "Fast (+30)".
  */
-static const byte extract_energy[200] =
+static const uint8_t extract_energy[200] =
 {
     /* Slow */     1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
     /* Slow */     1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
@@ -75,7 +75,7 @@ static const byte extract_energy[200] =
  */
 bool is_daytime_turn(hturn *ht_ptr)
 {
-    return ((ht_ptr->turn % (10L * z_info->day_length)) < (u32b)((10L * z_info->day_length) / 2));
+    return ((ht_ptr->turn % (10L * z_info->day_length)) < (uint32_t)((10L * z_info->day_length) / 2));
 }
 
 
@@ -1090,7 +1090,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     {
         /* If the player is idle and fainting, destroy his connection */
         if (cfg_disconnect_fainting && !ht_zero(&p->idle_turn) &&
-            (ht_diff(&turn, &p->idle_turn) > (u32b)(cfg_disconnect_fainting * cfg_fps)))
+            (ht_diff(&turn, &p->idle_turn) > (uint32_t)(cfg_disconnect_fainting * cfg_fps)))
         {
             p->fainting = true;
         }
@@ -1161,7 +1161,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     {
         if (magik(10) && (p->exp > 0))
         {
-            s32b d = damroll(10, 6) + (p->exp / 100) * z_info->life_drain_percent;
+            int32_t d = damroll(10, 6) + (p->exp / 100) * z_info->life_drain_percent;
 
             player_exp_lose(p, d / 10, false);
         }
@@ -1303,16 +1303,16 @@ static void process_player_cleanup(struct player *p)
     if (p->upkeep->monster_race.race)
     {
         struct monster_lore lore;
-        byte *blows, *current_blows;
+        uint8_t *blows, *current_blows;
         bool *blow_known, *current_blow_known;
 
         /* Get the lores (player + global) */
         get_global_lore(p, p->upkeep->monster_race.race, &lore);
 
         /* Check for change in blows */
-        if (0 != memcmp(p->current_lore.blows, lore.blows, z_info->mon_blows_max * sizeof(byte)))
+        if (0 != memcmp(p->current_lore.blows, lore.blows, z_info->mon_blows_max * sizeof(uint8_t)))
         {
-            memmove(p->current_lore.blows, lore.blows, z_info->mon_blows_max * sizeof(byte));
+            memmove(p->current_lore.blows, lore.blows, z_info->mon_blows_max * sizeof(uint8_t));
             p->upkeep->redraw |= (PR_MONSTER);
         }
 
@@ -2167,10 +2167,10 @@ static void energize_player(struct player *p)
         do_cmd_sleep(p);
 
     /* Hack -- if player has energy and we are in a slow time bubble, blink faster */
-    if ((p->bubble_speed < NORMAL_TIME) && (p->blink_speed <= (u32b)cfg_fps))
+    if ((p->bubble_speed < NORMAL_TIME) && (p->blink_speed <= (uint32_t)cfg_fps))
     {
-        p->blink_speed = (u32b)cfg_fps;
-        if (has_energy(p, false)) p->blink_speed = (u32b)cfg_fps / 4;
+        p->blink_speed = (uint32_t)cfg_fps;
+        if (has_energy(p, false)) p->blink_speed = (uint32_t)cfg_fps / 4;
     }
 }
 
@@ -2511,7 +2511,7 @@ static void post_turn_game_loop(void)
 static void process_player_shimmer(struct player *p)
 {
     struct chunk *c = chunk_get(&p->wpos);
-    static byte loop = 0;
+    static uint8_t loop = 0;
     int i;
 
     /* Every 10 game turns */
@@ -3109,7 +3109,7 @@ void setup_exit_handler(void)
 #include <signal.h>
 static volatile sig_atomic_t signalbusy = 0;
 
-static s16b signal_count = 0;   /* Hack -- count interrupts */
+static int16_t signal_count = 0;   /* Hack -- count interrupts */
 
 /*
  * Handle signals -- suspend

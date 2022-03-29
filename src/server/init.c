@@ -3,7 +3,7 @@
  * Purpose: Various game initialisation routines
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -36,48 +36,48 @@
 bool cfg_report_to_meta = false;
 bool cfg_mang_meta = true;
 char *cfg_meta_address = NULL;
-s32b cfg_meta_port = 8800;
+int32_t cfg_meta_port = 8800;
 char *cfg_bind_name = NULL;
 char *cfg_report_address = NULL;
 char *cfg_console_password = NULL;
 char *cfg_dungeon_master = NULL;
 bool cfg_secret_dungeon_master = true;
-u32b cfg_max_account_chars = 12;
+uint32_t cfg_max_account_chars = 12;
 bool cfg_no_steal = true;
 bool cfg_newbies_cannot_drop = true;
-s32b cfg_level_unstatic_chance = 60;
+int32_t cfg_level_unstatic_chance = 60;
 bool cfg_random_artifacts = false;
-s32b cfg_retire_timer = -1;
+int32_t cfg_retire_timer = -1;
 bool cfg_more_towns = false;
 bool cfg_artifact_drop_shallow = true;
 bool cfg_limit_player_connections = true;
-s32b cfg_tcp_port = 18346;
-s16b cfg_quit_timeout = 5;
-u32b cfg_disconnect_fainting = 180;
+int32_t cfg_tcp_port = 18346;
+int16_t cfg_quit_timeout = 5;
+uint32_t cfg_disconnect_fainting = 180;
 bool cfg_chardump_color = false;
-s16b cfg_pvp_hostility = PVP_SAFE;
+int16_t cfg_pvp_hostility = PVP_SAFE;
 bool cfg_base_monsters = true;
 bool cfg_extra_monsters = false;
 bool cfg_ghost_diving = false;
 bool cfg_console_local_only = false;
 char *cfg_load_pref_file = NULL;
 char *cfg_chardump_label = NULL;
-s16b cfg_preserve_artifacts = 3;
+int16_t cfg_preserve_artifacts = 3;
 bool cfg_safe_recharge = false;
-s16b cfg_party_sharelevel = -1;
+int16_t cfg_party_sharelevel = -1;
 bool cfg_instance_closed = false;
 bool cfg_turn_based = false;
 bool cfg_limited_esp = false;
 bool cfg_double_purse = false;
 bool cfg_level_req = true;
-s16b cfg_constant_time_factor = 5;
+int16_t cfg_constant_time_factor = 5;
 bool cfg_classic_exp_factor = true;
-s16b cfg_house_floor_size = 1;
-s16b cfg_limit_stairs = 0;
-s16b cfg_diving_mode = 0;
+int16_t cfg_house_floor_size = 1;
+int16_t cfg_limit_stairs = 0;
+int16_t cfg_diving_mode = 0;
 bool cfg_no_artifacts = false;
-s16b cfg_level_feelings = 3;
-s16b cfg_limited_stores = 1;
+int16_t cfg_level_feelings = 3;
+int16_t cfg_limited_stores = 1;
 bool cfg_gold_drop_vanilla = true;
 bool cfg_no_ghost = false;
 bool cfg_ai_learn = true;
@@ -871,7 +871,7 @@ static errr finish_parse_names(struct parser *p)
     struct names_parse *n = parser_priv(p);
     struct name *nm;
 
-    num_names = mem_zalloc(RANDNAME_NUM_TYPES * sizeof(u32b));
+    num_names = mem_zalloc(RANDNAME_NUM_TYPES * sizeof(uint32_t));
     name_sections = mem_zalloc(sizeof(char**) * RANDNAME_NUM_TYPES);
     for (i = 0; i < RANDNAME_NUM_TYPES; i++)
     {
@@ -2194,12 +2194,12 @@ static enum parser_error parse_p_race_weight(struct parser *p)
 static enum parser_error parse_p_race_obj_flag(struct parser *p)
 {
     struct player_race *r = parser_priv(p);
-    byte level;
+    uint8_t level;
     int flag;
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     flag = lookup_flag(list_obj_flag_names, parser_getstr(p, "flag"));
     if (flag == FLAG_END) return PARSE_ERROR_INVALID_FLAG;
     of_on(r->flags, flag);
@@ -2212,15 +2212,15 @@ static enum parser_error parse_p_race_obj_flag(struct parser *p)
 static enum parser_error parse_p_race_obj_brand(struct parser *p)
 {
     struct player_race *r = parser_priv(p);
-    byte minlvl;
-    byte maxlvl;
+    uint8_t minlvl;
+    uint8_t maxlvl;
     const char *s;
     int i;
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    minlvl = (byte)parser_getuint(p, "minlvl");
-    maxlvl = (byte)parser_getuint(p, "maxlvl");
+    minlvl = (uint8_t)parser_getuint(p, "minlvl");
+    maxlvl = (uint8_t)parser_getuint(p, "maxlvl");
     s = parser_getstr(p, "code");
     for (i = 0; i < z_info->brand_max; i++)
     {
@@ -2243,15 +2243,15 @@ static enum parser_error parse_p_race_obj_brand(struct parser *p)
 static enum parser_error parse_p_race_obj_slay(struct parser *p)
 {
     struct player_race *r = parser_priv(p);
-    byte minlvl;
-    byte maxlvl;
+    uint8_t minlvl;
+    uint8_t maxlvl;
     const char *s;
     int i;
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    minlvl = (byte)parser_getuint(p, "minlvl");
-    maxlvl = (byte)parser_getuint(p, "maxlvl");
+    minlvl = (uint8_t)parser_getuint(p, "minlvl");
+    maxlvl = (uint8_t)parser_getuint(p, "maxlvl");
     s = parser_getstr(p, "code");
     for (i = 0; i < z_info->slay_max; i++)
     {
@@ -2276,12 +2276,12 @@ static enum parser_error parse_p_race_play_flags(struct parser *p)
     struct player_race *r = parser_priv(p);
     char *flags;
     char *s;
-    byte level;
+    uint8_t level;
     int flag;
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     if (!parser_hasval(p, "flags")) return PARSE_ERROR_NONE;
     flags = string_make(parser_getstr(p, "flags"));
     s = strtok(flags, " |");
@@ -2300,7 +2300,7 @@ static enum parser_error parse_p_race_play_flags(struct parser *p)
 static enum parser_error parse_p_race_value(struct parser *p)
 {
     struct player_race *r = parser_priv(p);
-    byte level;
+    uint8_t level;
     const char *name_and_value;
     random_value rvalue;
     int value = 0;
@@ -2309,7 +2309,7 @@ static enum parser_error parse_p_race_value(struct parser *p)
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     name_and_value = parser_getstr(p, "value");
 
     if (!grab_index_and_rand(&rvalue, &index, obj_mods, name_and_value))
@@ -2343,7 +2343,7 @@ static enum parser_error parse_p_race_shape(struct parser *p)
     shape = mem_zalloc(sizeof(*shape));
     shape->next = r->shapes;
     shape->name = string_make(parser_getstr(p, "name"));
-    shape->lvl = (byte)parser_getuint(p, "level");
+    shape->lvl = (uint8_t)parser_getuint(p, "level");
     r->shapes = shape;
 
     return PARSE_ERROR_NONE;
@@ -2485,7 +2485,7 @@ static enum parser_error parse_dragon_breed_dragon(struct parser *p)
 
     r->next = h;
     r->d_name = string_make(parser_getsym(p, "name"));
-    r->d_fmt = (byte)parser_getuint(p, "format");
+    r->d_fmt = (uint8_t)parser_getuint(p, "format");
 
     parser_setpriv(p, r);
 
@@ -2499,7 +2499,7 @@ static enum parser_error parse_dragon_breed_wyrm(struct parser *p)
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
     r->w_name = string_make(parser_getsym(p, "name"));
-    r->w_fmt = (byte)parser_getuint(p, "format");
+    r->w_fmt = (uint8_t)parser_getuint(p, "format");
 
     return PARSE_ERROR_NONE;
 }
@@ -2510,9 +2510,9 @@ static enum parser_error parse_dragon_breed_info(struct parser *p)
     struct dragon_breed *r = parser_priv(p);
 
     if (!r) return PARSE_ERROR_MISSING_RECORD_HEADER;
-    r->commonness = (byte)parser_getuint(p, "commonness");
-    r->r_exp = (s16b)parser_getint(p, "r_exp");
-    r->immune = (byte)parser_getuint(p, "immune");
+    r->commonness = (uint8_t)parser_getuint(p, "commonness");
+    r->r_exp = (int16_t)parser_getint(p, "r_exp");
+    r->immune = (uint8_t)parser_getuint(p, "immune");
 
     return PARSE_ERROR_NONE;
 }
@@ -2980,12 +2980,12 @@ static enum parser_error parse_class_equip(struct parser *p)
 static enum parser_error parse_class_obj_flag(struct parser *p)
 {
     struct player_class *c = parser_priv(p);
-    byte level;
+    uint8_t level;
     int flag;
 
     if (!c) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     flag = lookup_flag(list_obj_flag_names, parser_getstr(p, "flag"));
     if (flag == FLAG_END) return PARSE_ERROR_INVALID_FLAG;
     of_on(c->flags, flag);
@@ -2998,14 +2998,14 @@ static enum parser_error parse_class_obj_flag(struct parser *p)
 static enum parser_error parse_class_obj_brand(struct parser *p)
 {
     struct player_class *c = parser_priv(p);
-    byte minlvl, maxlvl;
+    uint8_t minlvl, maxlvl;
     const char *s;
     int i;
 
     if (!c) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    minlvl = (byte)parser_getuint(p, "minlvl");
-    maxlvl = (byte)parser_getuint(p, "maxlvl");
+    minlvl = (uint8_t)parser_getuint(p, "minlvl");
+    maxlvl = (uint8_t)parser_getuint(p, "maxlvl");
     s = parser_getstr(p, "code");
     for (i = 0; i < z_info->brand_max; i++)
     {
@@ -3028,15 +3028,15 @@ static enum parser_error parse_class_obj_brand(struct parser *p)
 static enum parser_error parse_class_obj_slay(struct parser *p)
 {
     struct player_class *c = parser_priv(p);
-    byte minlvl;
-    byte maxlvl;
+    uint8_t minlvl;
+    uint8_t maxlvl;
     const char *s;
     int i;
 
     if (!c) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    minlvl = (byte)parser_getuint(p, "minlvl");
-    maxlvl = (byte)parser_getuint(p, "maxlvl");
+    minlvl = (uint8_t)parser_getuint(p, "minlvl");
+    maxlvl = (uint8_t)parser_getuint(p, "maxlvl");
     s = parser_getstr(p, "code");
     for (i = 0; i < z_info->slay_max; i++)
     {
@@ -3061,12 +3061,12 @@ static enum parser_error parse_class_play_flags(struct parser *p)
     struct player_class *c = parser_priv(p);
     char *flags;
     char *s;
-    byte level;
+    uint8_t level;
     int flag;
 
     if (!c) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     if (!parser_hasval(p, "flags")) return PARSE_ERROR_NONE;
     flags = string_make(parser_getstr(p, "flags"));
     s = strtok(flags, " |");
@@ -3085,7 +3085,7 @@ static enum parser_error parse_class_play_flags(struct parser *p)
 static enum parser_error parse_p_class_value(struct parser *p)
 {
     struct player_class *c = parser_priv(p);
-    byte level;
+    uint8_t level;
     const char *name_and_value;
     random_value rvalue;
     int value = 0;
@@ -3094,7 +3094,7 @@ static enum parser_error parse_p_class_value(struct parser *p)
 
     if (!c) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    level = (byte)parser_getuint(p, "level");
+    level = (uint8_t)parser_getuint(p, "level");
     name_and_value = parser_getstr(p, "value");
 
     if (!grab_index_and_rand(&rvalue, &index, obj_mods, name_and_value))
@@ -3128,7 +3128,7 @@ static enum parser_error parse_p_class_shape(struct parser *p)
     shape = mem_zalloc(sizeof(*shape));
     shape->next = c->shapes;
     shape->name = string_make(parser_getstr(p, "name"));
-    shape->lvl = (byte)parser_getuint(p, "level");
+    shape->lvl = (uint8_t)parser_getuint(p, "level");
     c->shapes = shape;
 
     return PARSE_ERROR_NONE;
@@ -4132,7 +4132,7 @@ static struct file_parser hints_parser =
 static enum parser_error parse_level_golds(struct parser *p)
 {
     int depth = parser_getint(p, "depth");
-    u16b rate = parser_getuint(p, "rate");
+    uint16_t rate = parser_getuint(p, "rate");
 
     if ((depth < 0) || (depth > 127))
         return PARSE_ERROR_INVALID_VALUE;
@@ -4400,7 +4400,7 @@ static void unload_server_cfg(void)
 void cleanup_angband(void)
 {
     int i;
-    static byte done = 0;
+    static uint8_t done = 0;
 
     /* Don't re-enter */
     if (done) return;

@@ -13,7 +13,7 @@
 
 /* Temporary Vars */
 extern char char_tmp;
-extern byte byte_tmp;
+extern uint8_t byte_tmp;
 extern sint sint_tmp;
 extern uint uint_tmp;
 extern long long_tmp;
@@ -147,14 +147,14 @@ extern void quit(const char *str);
 extern bool is_a_vowel(int ch);
 
 /* hturn manipulations */
-extern u32b ht_diff(hturn *ht_ptr1, hturn *ht_ptr2);
+extern uint32_t ht_diff(hturn *ht_ptr1, hturn *ht_ptr2);
 extern char *ht_show(hturn *ht_ptr);
 extern void ht_copy(hturn *ht_ptr1, hturn *ht_ptr2);
-extern void ht_add(hturn *ht_ptr, u32b value);
+extern void ht_add(hturn *ht_ptr, uint32_t value);
 extern void ht_reset(hturn *ht_ptr);
 extern bool ht_zero(hturn *ht_ptr);
 extern int ht_cmp(hturn *ht_ptr1, hturn *ht_ptr2);
-extern u32b ht_div(hturn *ht_ptr, s16b value);
+extern uint32_t ht_div(hturn *ht_ptr, int16_t value);
 
 /*
  * Sorting functions
@@ -165,7 +165,7 @@ extern void sort(void *array, size_t nmemb, size_t smemb,
 /*
  * Create a hash for a string
  */
-extern u32b djb2_hash(const char *str);
+extern uint32_t djb2_hash(const char *str);
 
 /*
  * Mathematical functions

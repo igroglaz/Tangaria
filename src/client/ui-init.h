@@ -29,8 +29,8 @@ extern char real_name[NORMAL_WID];
 extern char server_name[NORMAL_WID];
 extern int server_port;
 extern bool play_again;
-extern u16b max_account_chars;
-extern u16b char_num;
+extern uint16_t max_account_chars;
+extern uint16_t char_num;
 extern char **char_name;
 extern char *char_expiry;
 

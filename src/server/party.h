@@ -33,7 +33,7 @@
 typedef struct _hash_entry
 {
     int id;                     /* The ID */
-    u32b account;               /* Account ID */
+    uint32_t account;               /* Account ID */
     char *name;                 /* Player name */
     hturn death_turn;           /* Time of death */
     struct _hash_entry *next;   /* Next entry in the chain */
@@ -49,7 +49,7 @@ typedef struct
 {
     char name[NORMAL_WID];  /* Name of the party */
     char owner[20];         /* Owner's name */
-    s32b num;               /* Number of people in the party */
+    int32_t num;               /* Number of people in the party */
     hturn created;          /* Creation (or disband) time */
 } party_type;
 
@@ -81,20 +81,20 @@ extern struct player *player_lookup(const char *name);
 extern bool player_in_party(int party_id, struct player *p);
 extern bool in_party(struct player *p, int party_id);
 extern bool is_party_owner(struct player *p, struct player *q);
-extern bool master_in_party(s16b p1_id, s16b p2_id);
+extern bool master_in_party(int16_t p1_id, int16_t p2_id);
 extern void party_leave(struct player *p);
 extern void party_msg_format(int party_id, const char *fmt, ...);
 extern bool party_share_with(struct player *p, int party_id, struct player *q);
-extern void party_exp_gain(struct player *p, int party_id, s32b amount);
+extern void party_exp_gain(struct player *p, int party_id, int32_t amount);
 extern bool pvp_check(struct player *attacker, struct player *target, int mode, bool silent,
-    u16b feat);
+    uint16_t feat);
 extern bool pvm_check(struct player *p, struct monster *mon);
 extern void party_msg_near(struct player *p, const char *msg);
-extern void add_player_name(int id, u32b account, const char *name, hturn *death_turn);
+extern void add_player_name(int id, uint32_t account, const char *name, hturn *death_turn);
 extern void remove_player_name(const char *name);
 extern void delete_player_name(const char *name);
-extern u32b player_id_count(u32b account);
-extern u32b player_id_list(int **list, u32b account);
+extern uint32_t player_id_count(uint32_t account);
+extern uint32_t player_id_list(int **list, uint32_t account);
 extern void purge_player_names(void);
 extern void wipe_player_names(void);
 extern int player_expiry(hturn *death_turn);

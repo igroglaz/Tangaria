@@ -24,7 +24,7 @@ struct bolt
 
 struct missile
 {
-    byte mattr;
+    uint8_t mattr;
     char mchar;
     struct loc grid;
 };
@@ -56,7 +56,7 @@ extern void describe_player(struct player *p, struct player *q);
 extern void describe_trap(struct player *p, struct trap *trap);
 extern void describe_feat(struct player *p, struct feature *feat);
 extern void player_dump(struct player *p, bool server);
-extern void bolt_pict(struct player *p, struct loc *start, struct loc *end, int typ, byte *a,
+extern void bolt_pict(struct player *p, struct loc *start, struct loc *end, int typ, uint8_t *a,
     char *c);
 extern void display_explosion(struct chunk *cv, struct explosion *data, const bool *drawing,
     bool arc);

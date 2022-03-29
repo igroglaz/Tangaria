@@ -2,7 +2,7 @@
  * File: netserver.c
  * Purpose: The server side of the network stuff
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -61,7 +61,7 @@
  * Communication between the server and the clients is only done
  * using UDP datagrams.  The first client/serverized version of XPilot
  * was using TCP only, but this was too unplayable across the Internet,
- * because TCP is a data stream always sending the next byte.
+ * because TCP is a data stream always sending the next uint8_t.
  * If a packet gets lost then the server has to wait for a
  * timeout before a retransmission can occur.  This is too slow
  * for a real-time program like this game, which is more interested
@@ -73,11 +73,11 @@
  * enabled reliable data transmission.  Here this is done by creating
  * a data stream which is piggybacked on top of the unreliable data
  * packets.  The client acknowledges this reliable data by sending
- * its byte position in the reliable data stream.  So if the client gets
+ * its uint8_t position in the reliable data stream.  So if the client gets
  * a new reliable data packet and it has not had this data before and
  * there is also no data packet missing inbetween, then it advances
- * its byte position and acknowledges this new position to the server.
- * Otherwise it discards the packet and sends its old byte position
+ * its uint8_t position and acknowledges this new position to the server.
+ * Otherwise it discards the packet and sends its old uint8_t position
  * to the server meaning that it detected a packet loss.
  * The server maintains an acknowledgement timeout timer for each
  * connection so that it can retransmit a reliable data packet
@@ -367,7 +367,7 @@ static void Handle_input(int fd, int arg)
 }
 
 
-static u16b get_flavor_max(void)
+static uint16_t get_flavor_max(void)
 {
     struct flavor *f;
     unsigned int max = 0;
@@ -379,7 +379,7 @@ static u16b get_flavor_max(void)
         if (f->fidx > max) max = f->fidx;
     }
 
-    return (u16b)max + 1;
+    return (uint16_t)max + 1;
 }
 
 
@@ -387,8 +387,8 @@ static u16b get_flavor_max(void)
  * After a TCP "Contact" was made we shall see if we have
  * room for more connections and create one.
  */
-static int Setup_connection(u32b account, char *real, char *nick, char *addr, char *host,
-    char *pass, u16b conntype, unsigned version, int fd)
+static int Setup_connection(uint32_t account, char *real, char *nick, char *addr, char *host,
+    char *pass, uint16_t conntype, unsigned version, int fd)
 {
     int i, free_conn_index = MAX_PLAYERS, sock;
     connection_t *connp;
@@ -464,17 +464,17 @@ static int Setup_connection(u32b account, char *real, char *nick, char *addr, ch
 
         if (!connp->has_setup)
         {
-            u16b flavor_max = get_flavor_max();
+            uint16_t flavor_max = get_flavor_max();
 
-            connp->Client_setup.k_attr = mem_zalloc(z_info->k_max * sizeof(byte));
+            connp->Client_setup.k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
             connp->Client_setup.k_char = mem_zalloc(z_info->k_max * sizeof(char));
-            connp->Client_setup.r_attr = mem_zalloc(z_info->r_max * sizeof(byte));
+            connp->Client_setup.r_attr = mem_zalloc(z_info->r_max * sizeof(uint8_t));
             connp->Client_setup.r_char = mem_zalloc(z_info->r_max * sizeof(char));
             connp->Client_setup.f_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
             connp->Client_setup.f_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
             connp->Client_setup.t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
             connp->Client_setup.t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
-            connp->Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(byte));
+            connp->Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(uint8_t));
             connp->Client_setup.flvr_x_char = mem_zalloc(flavor_max * sizeof(char));
             connp->Client_setup.note_aware = mem_zalloc(z_info->k_max * sizeof(char_note));
             connp->has_setup = true;
@@ -597,13 +597,13 @@ static void Contact(int fd, int arg)
     int newsock, bytes, len, ret;
     struct sockaddr_in sin;
     char host_addr[24];
-    u16b conntype = 0;
-    u16b version = 0;
+    uint16_t conntype = 0;
+    uint16_t version = 0;
     char status = SUCCESS, beta;
     char real_name[NORMAL_WID], nick_name[NORMAL_WID], host_name[NORMAL_WID], pass_word[NORMAL_WID];
-    u32b account = 0L;
+    uint32_t account = 0L;
     int *id_list = NULL;
-    u16b num = 0, max = 0;
+    uint16_t num = 0, max = 0;
     size_t i, j;
 
     /*
@@ -658,9 +658,9 @@ static void Contact(int fd, int arg)
     len = sizeof(sin);
     if (getpeername(fd, (struct sockaddr *) &sin, &len) >= 0)
     {
-        u32b addr = ntohl(sin.sin_addr.s_addr);
-        strnfmt(host_addr, sizeof(host_addr), "%d.%d.%d.%d", (byte)(addr >> 24), (byte)(addr >> 16),
-            (byte)(addr >> 8), (byte)addr);
+        uint32_t addr = ntohl(sin.sin_addr.s_addr);
+        strnfmt(host_addr, sizeof(host_addr), "%d.%d.%d.%d", (uint8_t)(addr >> 24), (uint8_t)(addr >> 16),
+            (uint8_t)(addr >> 8), (uint8_t)addr);
     }
 
     /* Read first data he sent us -- connection type */
@@ -764,8 +764,8 @@ static void Contact(int fd, int arg)
     /* Get characters attached to this account */
     if (!status)
     {
-        num = (u16b)player_id_list(&id_list, account);
-        max = (u16b)cfg_max_account_chars;
+        num = (uint16_t)player_id_list(&id_list, account);
+        max = (uint16_t)cfg_max_account_chars;
     }
     else
     {
@@ -997,15 +997,15 @@ static void Delete_player(int id)
  */
 static void wipe_connection(connection_t *connp)
 {
-    byte *k_attr;
+    uint8_t *k_attr;
     char *k_char;
-    byte *r_attr;
+    uint8_t *r_attr;
     char *r_char;
-    byte (*f_attr)[LIGHTING_MAX];
+    uint8_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    byte (*t_attr)[LIGHTING_MAX];
+    uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
-    byte *flvr_x_attr;
+    uint8_t *flvr_x_attr;
     char *flvr_x_char;
     char (*note_aware)[4];
     bool has_setup = connp->has_setup;
@@ -1335,7 +1335,7 @@ int Init_setup(void)
 }
 
 
-byte *Conn_get_console_channels(int ind)
+uint8_t *Conn_get_console_channels(int ind)
 {
     connection_t *connp = get_connection(ind);
     return connp->console_channels;
@@ -1365,8 +1365,8 @@ int Send_basic_info(int ind)
 int Send_limits_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u16b dummy = 0;
-    u16b flavor_max = get_flavor_max();
+    uint16_t dummy = 0;
+    uint16_t flavor_max = get_flavor_max();
 
     if (connp->state != CONN_SETUP)
     {
@@ -1400,7 +1400,7 @@ int Send_limits_struct_info(int ind)
 int Send_race_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b j;
+    uint32_t j;
     struct player_race *r;
 
     if (connp->state != CONN_SETUP)
@@ -1506,7 +1506,7 @@ int Send_race_struct_info(int ind)
 int Send_class_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b j;
+    uint32_t j;
     struct player_class *c;
 
     if (connp->state != CONN_SETUP)
@@ -1533,9 +1533,9 @@ int Send_class_struct_info(int ind)
 
     for (c = classes; c; c = c->next)
     {
-        u16b tval = 0;
+        uint16_t tval = 0;
         const struct start_item *si;
-        s16b weight = 0, sfail = 0, slevel = 0;
+        int16_t weight = 0, sfail = 0, slevel = 0;
 
         if (c->magic.num_books)
             tval = c->magic.books[0].tval;
@@ -1616,7 +1616,7 @@ int Send_class_struct_info(int ind)
             Destroy_connection(ind, "Send_class_struct_info write error");
             return -1;
         }
-        for (j = 0; j < (u32b)c->magic.num_books; j++)
+        for (j = 0; j < (uint32_t)c->magic.num_books; j++)
         {
             struct class_book *book = &c->magic.books[j];
 
@@ -1716,7 +1716,7 @@ int Send_body_struct_info(int ind)
 int Send_socials_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -1732,7 +1732,7 @@ int Send_socials_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->soc_max; i++)
+    for (i = 0; i < (uint32_t)z_info->soc_max; i++)
     {
         if (Packet_printf(&connp->c, "%s", soc_info[i].name) <= 0)
         {
@@ -1755,7 +1755,7 @@ int Send_socials_struct_info(int ind)
 int Send_kind_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
     int j;
 
     if (connp->state != CONN_SETUP)
@@ -1772,12 +1772,12 @@ int Send_kind_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->k_max; i++)
+    for (i = 0; i < (uint32_t)z_info->k_max; i++)
     {
-        s16b ac = 0;
+        int16_t ac = 0;
 
         /* Hack -- put flavor index into unused field "ac" */
-        if (k_info[i].flavor) ac = (s16b)k_info[i].flavor->fidx;
+        if (k_info[i].flavor) ac = (int16_t)k_info[i].flavor->fidx;
 
         if (Packet_printf(&connp->c, "%s", (k_info[i].name? k_info[i].name: "")) <= 0)
         {
@@ -1809,7 +1809,7 @@ int Send_kind_struct_info(int ind)
 int Send_ego_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -1825,9 +1825,9 @@ int Send_ego_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->e_max; i++)
+    for (i = 0; i < (uint32_t)z_info->e_max; i++)
     {
-        u16b max = 0;
+        uint16_t max = 0;
         struct poss_item *poss;
 
         if (Packet_printf(&connp->c, "%s", (e_info[i].name? e_info[i].name: "")) <= 0)
@@ -1871,7 +1871,7 @@ int Send_ego_struct_info(int ind)
 int Send_rinfo_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -1887,7 +1887,7 @@ int Send_rinfo_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->r_max; i++)
+    for (i = 0; i < (uint32_t)z_info->r_max; i++)
     {
         if (Packet_printf(&connp->c, "%b%s", r_info[i].d_attr,
             (r_info[i].name? r_info[i].name: "")) <= 0)
@@ -1904,7 +1904,7 @@ int Send_rinfo_struct_info(int ind)
 int Send_rbinfo_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u16b max = 0;
+    uint16_t max = 0;
     struct monster_base *mb;
 
     if (connp->state != CONN_SETUP)
@@ -1948,7 +1948,7 @@ int Send_rbinfo_struct_info(int ind)
 int Send_curse_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -1964,7 +1964,7 @@ int Send_curse_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->curse_max; i++)
+    for (i = 0; i < (uint32_t)z_info->curse_max; i++)
     {
         if (Packet_printf(&connp->c, "%s", (curses[i].name? curses[i].name: "")) <= 0)
         {
@@ -1987,7 +1987,7 @@ int Send_curse_struct_info(int ind)
 int Send_realm_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u16b max = 0;
+    uint16_t max = 0;
     struct magic_realm *realm;
 
     if (connp->state != CONN_SETUP)
@@ -2033,7 +2033,7 @@ int Send_realm_struct_info(int ind)
 int Send_feat_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -2049,7 +2049,7 @@ int Send_feat_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->f_max; i++)
+    for (i = 0; i < (uint32_t)z_info->f_max; i++)
     {
         if (Packet_printf(&connp->c, "%s", (f_info[i].name? f_info[i].name: "")) <= 0)
         {
@@ -2065,7 +2065,7 @@ int Send_feat_struct_info(int ind)
 int Send_trap_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
-    u32b i;
+    uint32_t i;
 
     if (connp->state != CONN_SETUP)
     {
@@ -2081,7 +2081,7 @@ int Send_trap_struct_info(int ind)
         return -1;
     }
 
-    for (i = 0; i < (u32b)z_info->trap_max; i++)
+    for (i = 0; i < (uint32_t)z_info->trap_max; i++)
     {
         if (Packet_printf(&connp->c, "%s", (trap_info[i].desc? trap_info[i].desc: "")) <= 0)
         {
@@ -2098,8 +2098,8 @@ int Send_timed_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
     size_t i;
-    byte dummy = 1;
-    byte dummy1 = 0;
+    uint8_t dummy = 1;
+    uint8_t dummy1 = 0;
     int dummy2 = 0;
     const char *dummy3 = "";
 
@@ -2258,7 +2258,7 @@ int Send_ac(struct player *p, int base, int plus)
 }
 
 
-int Send_exp(struct player *p, s32b max, s32b cur, s16b expfact)
+int Send_exp(struct player *p, int32_t max, int32_t cur, int16_t expfact)
 {
     connection_t *connp = get_connp(p, "exp");
     if (connp == NULL) return 0;
@@ -2267,7 +2267,7 @@ int Send_exp(struct player *p, s32b max, s32b cur, s16b expfact)
 }
 
 
-int Send_gold(struct player *p, s32b au)
+int Send_gold(struct player *p, int32_t au)
 {
     connection_t *connp = get_connp(p, "gold");
     if (connp == NULL) return 0;
@@ -2337,7 +2337,7 @@ int Send_autoinscription(struct player *p, struct object_kind *kind)
 }
 
 
-int Send_index(struct player *p, int i, int index, byte type)
+int Send_index(struct player *p, int i, int index, uint8_t type)
 {
     connection_t *connp = get_connp(p, "index");
     if (connp == NULL) return 0;
@@ -2346,7 +2346,7 @@ int Send_index(struct player *p, int i, int index, byte type)
 }
 
 
-int Send_item_request(struct player *p, byte tester_hook, char *dice_string)
+int Send_item_request(struct player *p, uint8_t tester_hook, char *dice_string)
 {
     connection_t *connp = get_connp(p, "item request");
     if (connp == NULL) return 0;
@@ -2365,7 +2365,7 @@ int Send_title(struct player *p, const char *title)
 }
 
 
-int Send_turn(struct player *p, u32b game_turn, u32b player_turn, u32b active_turn)
+int Send_turn(struct player *p, uint32_t game_turn, uint32_t player_turn, uint32_t active_turn)
 {
     connection_t *connp = get_connp(p, "turn");
     if (connp == NULL) return 0;
@@ -2387,7 +2387,7 @@ int Send_extra(struct player *p)
 
 int Send_depth(struct player *p)
 {
-    byte daytime;
+    uint8_t daytime;
 
     connection_t *connp = get_connp(p, "depth");
     if (connp == NULL) return 0;
@@ -2399,7 +2399,7 @@ int Send_depth(struct player *p)
 }
 
 
-int Send_status(struct player *p, s16b *effects)
+int Send_status(struct player *p, int16_t *effects)
 {
     int i;
 
@@ -2415,7 +2415,7 @@ int Send_status(struct player *p, s16b *effects)
 }
 
 
-int Send_recall(struct player *p, s16b word_recall, s16b deep_descent)
+int Send_recall(struct player *p, int16_t word_recall, int16_t deep_descent)
 {
     connection_t *connp = get_connp(p, "recall");
     if (connp == NULL) return 0;
@@ -2451,7 +2451,7 @@ static int rle_encode(sockbuf_t* buf, cave_view_type* lineref, int max_col, int 
 {
     int x1, i;
     char c;
-    u16b a, n;
+    uint16_t a, n;
 
     /* Count bytes */
     int b = 0;
@@ -2544,7 +2544,7 @@ static void end_mind_link(struct player *p, struct player *p_ptr2)
 }
 
 
-static struct player *find_player(s32b id)
+static struct player *find_player(int32_t id)
 {
     int i;
 
@@ -2584,7 +2584,7 @@ static connection_t* get_mind_link(struct player *p)
  * As an attempt to lower bandwidth requirements, each line is run length
  * encoded.  Non-encoded grids are sent as normal, but if a grid is
  * repeated at least twice, then bit 0x40 of the attribute is set, and
- * the next byte contains the number of repetitions of the previous grid.
+ * the next uint8_t contains the number of repetitions of the previous grid.
  */
 #define DUNGEON_RLE_MODE(P) ((P)->use_graphics? RLE_LARGE: RLE_CLASSIC)
 int Send_line_info(struct player *p, int y)
@@ -2661,7 +2661,7 @@ int Send_study(struct player *p, int study, bool can_study_book)
 }
 
 
-int Send_count(struct player *p, byte type, s16b count)
+int Send_count(struct player *p, uint8_t type, int16_t count)
 {
     connection_t *connp = get_connp(p, "count");
     if (connp == NULL) return 0;
@@ -2670,7 +2670,7 @@ int Send_count(struct player *p, byte type, s16b count)
 }
 
 
-int Send_show_floor(struct player *p, byte mode)
+int Send_show_floor(struct player *p, uint8_t mode)
 {
     connection_t *connp = get_connp(p, "show_floor");
     if (connp == NULL) return 0;
@@ -2680,7 +2680,7 @@ int Send_show_floor(struct player *p, byte mode)
 }
 
 
-int Send_char(struct player *p, struct loc *grid, u16b a, char c, u16b ta, char tc)
+int Send_char(struct player *p, struct loc *grid, uint16_t a, char c, uint16_t ta, char tc)
 {
     connection_t *connp, *connp2;
 
@@ -2749,10 +2749,10 @@ int Send_book_info(struct player *p, int book, const char *name)
 }
 
 
-int Send_floor(struct player *p, byte num, const struct object *obj, struct object_xtra *info_xtra,
-    byte force)
+int Send_floor(struct player *p, uint8_t num, const struct object *obj, struct object_xtra *info_xtra,
+    uint8_t force)
 {
-    byte ignore = ((obj->known->notice & OBJ_NOTICE_IGNORE)? 1: 0);
+    uint8_t ignore = ((obj->known->notice & OBJ_NOTICE_IGNORE)? 1: 0);
     connection_t *connp = get_connp(p, "floor");
     if (connp == NULL) return 0;
 
@@ -2774,7 +2774,7 @@ int Send_floor(struct player *p, byte num, const struct object *obj, struct obje
 }
 
 
-int Send_special_other(struct player *p, char *header, byte peruse, bool protect)
+int Send_special_other(struct player *p, char *header, uint8_t peruse, bool protect)
 {
     connection_t *connp = get_connp(p, "special other");
     if (connp == NULL) return 0;
@@ -2791,8 +2791,8 @@ int Send_special_other(struct player *p, char *header, byte peruse, bool protect
 }
 
 
-int Send_store(struct player *p, char pos, byte attr, s16b wgt, byte number, s16b owned,
-    s32b price, u16b tval, byte max, s16b bidx, const char *name)
+int Send_store(struct player *p, char pos, uint8_t attr, int16_t wgt, uint8_t number, int16_t owned,
+    int32_t price, uint16_t tval, uint8_t max, int16_t bidx, const char *name)
 {
     connection_t *connp = get_connp(p, "store");
     if (connp == NULL) return 0;
@@ -2804,7 +2804,7 @@ int Send_store(struct player *p, char pos, byte attr, s16b wgt, byte number, s16
 
 
 int Send_store_info(struct player *p, int num, char *name, char *owner, char *welcome, int items,
-    s32b purse)
+    int32_t purse)
 {
     connection_t *connp = get_connp(p, "store info");
     if (connp == NULL) return 0;
@@ -2837,7 +2837,7 @@ int Send_sound(struct player *p, int sound)
 }
 
 
-int Send_mini_map(struct player *p, int y, s16b w)
+int Send_mini_map(struct player *p, int y, int16_t w)
 {
     connection_t *connp = get_connp(p, "mini map");
     if (connp == NULL) return 0;
@@ -2856,7 +2856,7 @@ int Send_mini_map(struct player *p, int y, s16b w)
 
 int Send_skills(struct player *p)
 {
-    s16b skills[11];
+    int16_t skills[11];
     int i;
 
     connection_t *connp = get_connp(p, "skills");
@@ -2901,7 +2901,7 @@ int Send_pause(struct player *p)
 }
 
 
-int Send_monster_health(struct player *p, int num, byte attr)
+int Send_monster_health(struct player *p, int num, uint8_t attr)
 {
     connection_t *connp = get_connp(p, "monster health");
     if (connp == NULL) return 0;
@@ -2911,7 +2911,7 @@ int Send_monster_health(struct player *p, int num, byte attr)
 }
 
 
-int Send_aware(struct player *p, u16b num)
+int Send_aware(struct player *p, uint16_t num)
 {
     int i;
 
@@ -2932,7 +2932,7 @@ int Send_aware(struct player *p, u16b num)
 }
 
 
-int Send_everseen(struct player *p, u16b num)
+int Send_everseen(struct player *p, uint16_t num)
 {
     int i;
 
@@ -2953,7 +2953,7 @@ int Send_everseen(struct player *p, u16b num)
 }
 
 
-int Send_ego_everseen(struct player *p, u16b num)
+int Send_ego_everseen(struct player *p, uint16_t num)
 {
     int i;
 
@@ -3009,7 +3009,7 @@ int Send_spell_desc(struct player *p, int book, int i, char *out_desc, char *out
 }
 
 
-int Send_dtrap(struct player *p, byte dtrap)
+int Send_dtrap(struct player *p, uint8_t dtrap)
 {
     connection_t *connp = get_connp(p, "dtrap");
     if (connp == NULL) return 0;
@@ -3018,7 +3018,7 @@ int Send_dtrap(struct player *p, byte dtrap)
 }
 
 
-int Send_term_info(struct player *p, int mode, u16b arg)
+int Send_term_info(struct player *p, int mode, uint16_t arg)
 {
     connection_t *connp = get_connp(p, "term info");
     if (connp == NULL) return 0;
@@ -3026,8 +3026,8 @@ int Send_term_info(struct player *p, int mode, u16b arg)
     /* Hack -- do not change terms too often */
     if (mode == NTERM_ACTIVATE)
     {
-        if (p->remote_term == (byte)arg) return 1;
-        p->remote_term = (byte)arg;
+        if (p->remote_term == (uint8_t)arg) return 1;
+        p->remote_term = (uint8_t)arg;
     }
 
     return Packet_printf(&connp->c, "%b%c%hu", (unsigned)PKT_TERM, mode, (unsigned)arg);
@@ -3082,11 +3082,11 @@ int Send_features(int ind, int lighting, int off)
 }
 
 
-int Send_text_screen(int ind, int type, s32b offset)
+int Send_text_screen(int ind, int type, int32_t offset)
 {
     connection_t *connp = get_connection(ind);
     int i;
-    s32b max;
+    int32_t max;
 
     max = MAX_TEXTFILE_CHUNK;
     if (offset + max > TEXTFILE__WID * TEXTFILE__HGT) max = TEXTFILE__WID * TEXTFILE__HGT - offset;
@@ -3128,7 +3128,7 @@ int Send_char_info_conn(int ind)
 }
 
 
-int Send_char_info(struct player *p, byte ridx, byte cidx, byte psex)
+int Send_char_info(struct player *p, uint8_t ridx, uint8_t cidx, uint8_t psex)
 {
     connection_t *connp = get_connp(p, "char info");
     if (connp == NULL) return 0;
@@ -3202,7 +3202,7 @@ bool Send_dump_character(connection_t *connp, const char *dumpname, int mode)
 }
 
 
-int Send_message(struct player *p, const char *msg, u16b typ)
+int Send_message(struct player *p, const char *msg, uint16_t typ)
 {
     char buf[MSG_LEN];
 
@@ -3219,10 +3219,10 @@ int Send_message(struct player *p, const char *msg, u16b typ)
 }
 
 
-int Send_item(struct player *p, const struct object *obj, int wgt, s32b price,
+int Send_item(struct player *p, const struct object *obj, int wgt, int32_t price,
     struct object_xtra *info_xtra)
 {
-    byte quiver, ignore;
+    uint8_t quiver, ignore;
     connection_t *connp = get_connp(p, "item");
     if (connp == NULL) return 0;
 
@@ -3253,7 +3253,7 @@ int Send_item(struct player *p, const struct object *obj, int wgt, s32b price,
 }
 
 
-int Send_store_sell(struct player *p, s32b price, bool reset)
+int Send_store_sell(struct player *p, int32_t price, bool reset)
 {
     connection_t *connp = get_connp(p, "store sell");
     if (connp == NULL) return 0;
@@ -3281,7 +3281,7 @@ int Send_party(struct player *p)
 }
 
 
-int Send_special_line(struct player *p, int max, int last, int line, byte attr, const char *buf)
+int Send_special_line(struct player *p, int max, int last, int line, uint8_t attr, const char *buf)
 {
     char temp[NORMAL_WID];
 
@@ -3337,7 +3337,7 @@ int Send_store_leave(struct player *p)
 int Send_ignore(struct player *p)
 {
     int i, j, repeat = 0;
-    byte last = p->ego_ignore_types[0][0];
+    uint8_t last = p->ego_ignore_types[0][0];
 
     connection_t *connp = get_connp(p, "ignore");
     if (connp == NULL) return 0;
@@ -3389,7 +3389,7 @@ int Send_flush(struct player *p, bool fresh, char delay)
 }
 
 
-int Send_channel(struct player *p, byte n, const char *virt)
+int Send_channel(struct player *p, uint8_t n, const char *virt)
 {
     connection_t *connp = get_connp(p, "channel");
     if (connp == NULL) return 0;
@@ -3420,7 +3420,7 @@ int cmd_run(struct player *p, int dir)
 }
 
 
-int cmd_rest(struct player *p, s16b resting)
+int cmd_rest(struct player *p, int16_t resting)
 {
     connection_t *connp = get_connp(p, "rest");
     if (connp == NULL) return 0;
@@ -3431,7 +3431,7 @@ int cmd_rest(struct player *p, s16b resting)
 
 int cmd_tunnel(struct player *p)
 {
-    byte starting = 0;
+    uint8_t starting = 0;
 
     connection_t *connp = get_connp(p, "tunnel");
     if (connp == NULL) return 0;
@@ -3443,7 +3443,7 @@ int cmd_tunnel(struct player *p)
 
 int cmd_fire_at_nearest(struct player *p)
 {
-    byte starting = 0;
+    uint8_t starting = 0;
 
     connection_t *connp = get_connp(p, "fire_at_nearest");
     if (connp == NULL) return 0;
@@ -3452,9 +3452,9 @@ int cmd_fire_at_nearest(struct player *p)
 }
 
 
-int cmd_cast(struct player *p, s16b book, s16b spell, int dir)
+int cmd_cast(struct player *p, int16_t book, int16_t spell, int dir)
 {
-    byte starting = 0;
+    uint8_t starting = 0;
 
     connection_t *connp = get_connp(p, "cast");
     if (connp == NULL) return 0;
@@ -3481,7 +3481,7 @@ int cmd_cast(struct player *p, s16b book, s16b spell, int dir)
 static int Receive_undefined(int ind)
 {
     connection_t *connp = get_connection(ind);
-    byte what = (byte)connp->r.ptr[0];
+    uint8_t what = (uint8_t)connp->r.ptr[0];
 
     errno = 0;
     plog_fmt("Unknown packet type %s (%03d,%02x)", connp->nick, what, connp->state);
@@ -3494,11 +3494,11 @@ static int Receive_features(int ind)
 {
     connection_t *connp = get_connection(ind);
     int n, local_size, i;
-    byte ch;
+    uint8_t ch;
     char lighting;
-    s16b len, off;
+    int16_t len, off;
     bool discard = false;
-    byte a;
+    uint8_t a;
     char c;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%hd%hd", &ch, &lighting, &len, &off)) <= 0)
@@ -3541,11 +3541,11 @@ static int Receive_verify(int ind)
 {
     connection_t *connp = get_connection(ind);
     int n, i, local_size = 0;
-    byte ch;
+    uint8_t ch;
     char type;
-    s16b size;
+    int16_t size;
     bool discard = false;
-    byte a;
+    uint8_t a;
     char c;
 
     type = size = 0;
@@ -3612,8 +3612,8 @@ static int Receive_icky(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b icky;
+    uint8_t ch;
+    int16_t icky;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &icky)) <= 0)
@@ -3639,7 +3639,7 @@ static int Receive_symbol_query(int ind)
     struct player *p;
     int n;
     char buf[NORMAL_WID];
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%s", &ch, buf)) <= 0)
     {
@@ -3665,7 +3665,7 @@ static int Receive_poly_race(int ind)
     struct player *p;
     int n;
     char buf[NORMAL_WID];
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%s", &ch, buf)) <= 0)
     {
@@ -3690,7 +3690,7 @@ static int Receive_breath(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -3723,7 +3723,7 @@ static int Receive_walk(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     char dir;
     int n;
 
@@ -3782,7 +3782,7 @@ static int Receive_run(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     char dir;
     int n;
 
@@ -3835,7 +3835,7 @@ static int Receive_tunnel(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch, starting;
+    uint8_t ch, starting;
     char dir;
     int n;
 
@@ -3856,7 +3856,7 @@ static int Receive_tunnel(int ind)
         if (starting)
         {
             p->digging_request = 99;
-            p->digging_dir = (byte)dir;
+            p->digging_dir = (uint8_t)dir;
             starting = 0;
         }
 
@@ -3876,9 +3876,9 @@ static int Receive_aim_wand(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     char dir;
-    s16b item;
+    int16_t item;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%c", &ch, &item, &dir)) <= 0)
     {
@@ -3911,9 +3911,9 @@ static int Receive_drop(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item, amt;
+    int16_t item, amt;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &item, &amt)) <= 0)
     {
@@ -3946,7 +3946,7 @@ static int Receive_ignore_drop(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -3982,8 +3982,8 @@ static int Receive_fire(int ind)
     struct player *p;
     char dir;
     int n;
-    s16b item;
-    byte ch;
+    int16_t item;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%hd", &ch, &dir, &item)) <= 0)
     {
@@ -4016,10 +4016,10 @@ static int Receive_pickup(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    byte ignore;
-    s16b item;
+    uint8_t ignore;
+    int16_t item;
 
     if ((n = Packet_scanf(&connp->r, "%b%b%hd", &ch, &ignore, &item)) <= 0)
     {
@@ -4090,8 +4090,8 @@ static int Receive_destroy(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item, des;
+    uint8_t ch;
+    int16_t item, des;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &item, &des)) <= 0)
@@ -4119,7 +4119,7 @@ static int Receive_target_closest(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch, mode;
+    uint8_t ch, mode;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%b", &ch, &mode)) <= 0)
@@ -4148,8 +4148,8 @@ static int Receive_cast(int ind, char *errmsg)
     struct player *p;
     char dir;
     int n;
-    s16b book, spell;
-    byte ch, starting;
+    int16_t book, spell;
+    uint8_t ch, starting;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd%c%b", &ch, &book, &spell, &dir, &starting)) <= 0)
     {
@@ -4195,7 +4195,7 @@ static int Receive_open(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -4228,8 +4228,8 @@ static int Receive_quaff(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     char dir;
     int n;
 
@@ -4264,8 +4264,8 @@ static int Receive_read(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     char dir;
     int n;
 
@@ -4300,8 +4300,8 @@ static int Receive_take_off(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -4335,8 +4335,8 @@ static int Receive_use(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     char dir;
     int n;
 
@@ -4373,8 +4373,8 @@ static int Receive_throw(int ind)
     struct player *p;
     char dir;
     int n;
-    s16b item;
-    byte ch;
+    int16_t item;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%hd", &ch, &dir, &item)) <= 0)
     {
@@ -4407,8 +4407,8 @@ static int Receive_wield(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item, slot;
+    uint8_t ch;
+    int16_t item, slot;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &item, &slot)) <= 0)
@@ -4442,8 +4442,8 @@ static int Receive_zap(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     char dir;
     int n;
 
@@ -4478,9 +4478,9 @@ static int Receive_target_interactive(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch, mode;
-    u32b query;
-    s16b step;
+    uint8_t ch, mode;
+    uint32_t query;
+    int16_t step;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%b%lu%hd", &ch, &mode, &query, &step)) <= 0)
@@ -4507,9 +4507,9 @@ static int Receive_inscribe(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item;
+    int16_t item;
     char inscription[NORMAL_WID];
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%s", &ch, &item, inscription)) <= 0)
@@ -4536,9 +4536,9 @@ static int Receive_uninscribe(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item;
+    int16_t item;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
     {
@@ -4565,9 +4565,9 @@ static int Receive_activate(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     char dir;
-    s16b item;
+    int16_t item;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%c", &ch, &item, &dir)) <= 0)
     {
@@ -4602,7 +4602,7 @@ static int Receive_disarm(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -4635,8 +4635,8 @@ static int Receive_eat(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -4670,8 +4670,8 @@ static int Receive_fill(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -4707,7 +4707,7 @@ static int Receive_locate(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -4733,7 +4733,7 @@ static int Receive_map(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch, mode;
+    uint8_t ch, mode;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%b", &ch, &mode)) <= 0)
@@ -4761,7 +4761,7 @@ static int Receive_stealth_mode(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -4788,7 +4788,7 @@ static int Receive_quest(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -4818,7 +4818,7 @@ static int Receive_close(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -4851,9 +4851,9 @@ static int Receive_gain(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b book, spell;
+    int16_t book, spell;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &book, &spell)) <= 0)
     {
@@ -4886,7 +4886,7 @@ static int Receive_go_up(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -4920,7 +4920,7 @@ static int Receive_go_down(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -4955,9 +4955,9 @@ static int Receive_drop_gold(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s32b amt;
+    int32_t amt;
 
     if ((n = Packet_scanf(&connp->r, "%b%ld", &ch, &amt)) <= 0)
     {
@@ -4991,7 +4991,7 @@ static int Receive_redraw(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5019,8 +5019,8 @@ static int Receive_rest(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
-    s16b resting;
+    uint8_t ch;
+    int16_t resting;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &resting)) <= 0)
     {
@@ -5053,8 +5053,8 @@ static int Receive_ghost(int ind)
     struct player *p;
     char dir;
     int n;
-    s16b ability;
-    byte ch;
+    int16_t ability;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%c", &ch, &ability, &dir)) <= 0)
     {
@@ -5088,7 +5088,7 @@ static int Receive_suicide(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5126,7 +5126,7 @@ static int Receive_steal(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -5168,8 +5168,8 @@ static int Receive_master(int ind)
     struct player *p;
     int n;
     char buf[NORMAL_WID];
-    s16b command;
-    byte ch;
+    int16_t command;
+    uint8_t ch;
 
     /*
      * Make sure this came from the dungeon master. Note that it may be
@@ -5199,8 +5199,8 @@ static int Receive_mimic(int ind)
     struct player *p;
     char dir;
     int n;
-    s16b page, spell;
-    byte ch;
+    int16_t page, spell;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd%c", &ch, &page, &spell, &dir)) <= 0)
     {
@@ -5235,7 +5235,7 @@ static int Receive_clear(int ind)
     struct player *p;
     char mode;
     int n;
-    byte ch;
+    uint8_t ch;
 
     /* Remove the clear command from the queue */
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &mode)) <= 0)
@@ -5276,8 +5276,8 @@ static int Receive_observe(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -5311,9 +5311,9 @@ static int Receive_store_examine(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch, describe;
+    uint8_t ch, describe;
     int n;
-    s16b item;
+    int16_t item;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%b", &ch, &item, &describe)) <= 0)
     {
@@ -5341,7 +5341,7 @@ static int Receive_alter(int ind)
     struct player *p;
     char dir;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c", &ch, &dir)) <= 0)
     {
@@ -5375,7 +5375,7 @@ static int Receive_fire_at_nearest(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch, starting;
+    uint8_t ch, starting;
 
     if ((n = Packet_scanf(&connp->r, "%b%b", &ch, &starting)) <= 0)
     {
@@ -5412,7 +5412,7 @@ static int Receive_jump(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     char dir;
     int n;
 
@@ -5457,7 +5457,7 @@ static int Receive_social(int ind)
     char dir;
     int n;
     char buf[NORMAL_WID];
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%s", &ch, &dir, buf)) <= 0)
     {
@@ -5484,7 +5484,7 @@ static int Receive_monlist(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5509,7 +5509,7 @@ static int Receive_feeling(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5540,8 +5540,8 @@ static int Receive_interactive(int ind)
     struct player *p;
     int n;
     char type;
-    u32b key;
-    byte ch;
+    uint32_t key;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%lu", &ch, &type, &key)) <= 0)
     {
@@ -5564,8 +5564,8 @@ static int Receive_fountain(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -5600,7 +5600,7 @@ static int Receive_time(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5627,7 +5627,7 @@ static int Receive_objlist(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5652,7 +5652,7 @@ static int Receive_center(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -5678,7 +5678,7 @@ static int Receive_toggle_ignore(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -5708,9 +5708,9 @@ static int Receive_use_any(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     char dir;
-    s16b item;
+    int16_t item;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%c", &ch, &item, &dir)) <= 0)
     {
@@ -5743,7 +5743,7 @@ static int Receive_store_order(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
     char buf[NORMAL_WID];
 
@@ -5771,8 +5771,8 @@ static int Receive_track_object(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
-    s16b item;
+    uint8_t ch;
+    int16_t item;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &item)) <= 0)
@@ -5800,7 +5800,7 @@ static int Receive_floor_ack(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -5829,9 +5829,9 @@ static int Receive_monwidth(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b width;
+    int16_t width;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &width)) <= 0)
     {
@@ -6078,7 +6078,7 @@ static int Enter_player(int ind)
     int i;
     char buf[255];
     struct birth_options options;
-    s16b roller = connp->stat_roll[STAT_MAX];
+    int16_t roller = connp->stat_roll[STAT_MAX];
 
     if (NumConnections >= MAX_PLAYERS)
     {
@@ -6157,8 +6157,8 @@ static int Enter_player(int ind)
      */
     if ((roller < 0) && p->use_graphics)
     {
-        byte cidx = p->clazz->cidx;
-        byte ridx = p->race->ridx;
+        uint8_t cidx = p->clazz->cidx;
+        uint8_t ridx = p->race->ridx;
 
         p->r_attr[0] = presets[p->use_graphics - 1].player_presets[p->psex][cidx][ridx].a;
         p->r_char[0] = presets[p->use_graphics - 1].player_presets[p->psex][cidx][ridx].c;
@@ -6355,7 +6355,7 @@ static bool Limit_connections(int ind)
 static int Receive_play(int ind)
 {
     connection_t *connp = get_connection(ind);
-    byte ch, phase;
+    uint8_t ch, phase;
     int n;
     char nick[NORMAL_WID];
     char pass[NORMAL_WID];
@@ -6393,10 +6393,10 @@ static int Receive_play(int ind)
     if (phase == 0)
     {
         int pos = strlen(nick);
-        byte chardump = 0;
+        uint8_t chardump = 0;
         hash_entry *ptr;
         bool need_info = false;
-        byte ridx = 0, cidx = 0, psex = 0;
+        uint8_t ridx = 0, cidx = 0, psex = 0;
 
         /* Get a character dump */
         if (nick[pos - 1] == '=')
@@ -6609,9 +6609,9 @@ static int Receive_text_screen(int ind)
 {
     connection_t *connp = get_connection(ind);
     int n;
-    byte ch;
-    s16b type;
-    s32b off;
+    uint8_t ch;
+    int16_t type;
+    int32_t off;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%ld", &ch, &type, &off)) <= 0)
     {
@@ -6636,8 +6636,8 @@ static int Receive_keepalive(int ind)
 {
     int n;
     connection_t *connp = get_connection(ind);
-    byte ch;
-    s32b ctime;
+    uint8_t ch;
+    int32_t ctime;
 
     if ((n = Packet_scanf(&connp->r, "%b%ld", &ch, &ctime)) <= 0)
     {
@@ -6654,7 +6654,7 @@ static int Receive_char_info(int ind)
 {
     connection_t *connp = get_connection(ind);
     int n, i;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%b%b%b", &ch, &connp->ridx, &connp->cidx,
         &connp->psex)) <= 0)
@@ -6723,9 +6723,9 @@ static int Receive_options(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int i, n;
-    byte ch;
+    uint8_t ch;
     struct birth_options options;
-    byte settings;
+    uint8_t settings;
 
     if ((n = Packet_scanf(&connp->r, "%b%b", &ch, &settings)) <= 0)
     {
@@ -6791,7 +6791,7 @@ static int Receive_char_dump(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -6821,7 +6821,7 @@ static int Receive_message(int ind)
     struct player *p;
     char buf[MSG_LEN];
     int n;
-    byte ch;
+    uint8_t ch;
 
     buf[0] = '\0';
 
@@ -6947,9 +6947,9 @@ static int Receive_item(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item, curse;
+    int16_t item, curse;
     char inscription[20];
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd%s", &ch, &item, &curse, inscription)) <= 0)
@@ -6976,9 +6976,9 @@ static int Receive_sell(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item, amt;
+    int16_t item, amt;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &item, &amt)) <= 0)
     {
@@ -7020,8 +7020,8 @@ static int Receive_party(int ind)
     struct player *p;
     int n;
     char buf[NORMAL_WID];
-    s16b command;
-    byte ch;
+    int16_t command;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%s", &ch, &command, buf)) <= 0)
     {
@@ -7046,8 +7046,8 @@ static int Receive_special_line(int ind)
     struct player *p;
     int n;
     char type;
-    s16b line;
-    byte ch;
+    int16_t line;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%hd", &ch, &type, &line)) <= 0)
     {
@@ -7093,7 +7093,7 @@ static int Receive_fullmap(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -7120,9 +7120,9 @@ static int Receive_poly(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b number;
+    int16_t number;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd", &ch, &number)) <= 0)
     {
@@ -7169,9 +7169,9 @@ static int Receive_purchase(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
-    s16b item, amt;
+    int16_t item, amt;
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%hd", &ch, &item, &amt)) <= 0)
     {
@@ -7212,7 +7212,7 @@ static int Receive_store_leave(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n, store_num;
     struct chunk *c;
 
@@ -7297,7 +7297,7 @@ static int Receive_store_confirm(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -7333,10 +7333,10 @@ static int Receive_ignore(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int i, j, k, n;
-    byte ch;
-    byte *new_kind_ignore;
-    byte **new_ego_ignore_types;
-    byte new_ignore_level[ITYPE_MAX];
+    uint8_t ch;
+    uint8_t *new_kind_ignore;
+    uint8_t **new_ego_ignore_types;
+    uint8_t new_ignore_level[ITYPE_MAX];
     bool ignore = false;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -7346,7 +7346,7 @@ static int Receive_ignore(int ind)
     }
 
     /* Flavour-aware ignoring */
-    new_kind_ignore = mem_zalloc(z_info->k_max * sizeof(byte));
+    new_kind_ignore = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     for (i = 0; i < z_info->k_max; i++)
     {
         n = Packet_scanf(&connp->r, "%b", &new_kind_ignore[i]);
@@ -7360,15 +7360,15 @@ static int Receive_ignore(int ind)
     }
 
     /* Ego ignoring */
-    new_ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(byte*));
+    new_ego_ignore_types = mem_zalloc(z_info->e_max * sizeof(uint8_t*));
     for (i = 0; i < z_info->e_max; i++)
-        new_ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(byte));
+        new_ego_ignore_types[i] = mem_zalloc(ITYPE_MAX * sizeof(uint8_t));
     i = 0;
     j = 0;
     while (i < z_info->e_max)
     {
-        s16b repeat;
-        byte last;
+        int16_t repeat;
+        uint8_t last;
 
         n = Packet_scanf(&connp->r, "%hd%b", &repeat, &last);
         if (n <= 0)
@@ -7457,7 +7457,7 @@ static int Receive_flush(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    byte ch;
+    uint8_t ch;
     int n;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
@@ -7491,7 +7491,7 @@ static int Receive_channel(int ind)
     struct player *p;
     char buf[NORMAL_WID];
     int n;
-    byte ch;
+    uint8_t ch;
 
     buf[0] = '\0';
 
@@ -7520,8 +7520,8 @@ static int Receive_history(int ind)
     connection_t *connp = get_connection(ind);
     struct player *p;
     int n;
-    byte ch;
-    s16b line;
+    uint8_t ch;
+    int16_t line;
     char buf[NORMAL_WID];
 
     if ((n = Packet_scanf(&connp->r, "%b%hd%s", &ch, &line, buf)) <= 0)
@@ -7548,7 +7548,7 @@ static int Receive_autoinscriptions(int ind)
 {
     connection_t *connp = get_connection(ind);
     int i, n;
-    byte ch;
+    uint8_t ch;
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
@@ -7760,7 +7760,7 @@ int Net_input(void)
         if (connp->state == CONN_CONSOLE) continue;
 
         /* Handle the timeout */
-        if (ht_diff(&turn, &connp->start) > (u32b)(connp->timeout * cfg_fps))
+        if (ht_diff(&turn, &connp->start) > (uint32_t)(connp->timeout * cfg_fps))
         {
             if (connp->state == CONN_QUIT)
                 Destroy_connection(i, connp->quit_msg);

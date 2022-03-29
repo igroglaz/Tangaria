@@ -3,7 +3,7 @@
  * Purpose: A generic, efficient, terminal window package
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -227,7 +227,7 @@
  * that the contents of "cp" are null-terminated.  This hook is optional,
  * unless the setting of the "always_pict" or "higher_pict" flags make
  * it required.  Note that recently, this hook was changed from taking
- * a byte "a" and a char "c" to taking a length "n", an array of bytes
+ * a uint8_t "a" and a char "c" to taking a length "n", an array of bytes
  * "ap" and an array of chars "cp".  Old implementations of this hook
  * should now iterate over all "n" attr/char pairs.
  * The two new arrays "tap" and "tcp" can contain the attr/char pairs
@@ -286,7 +286,7 @@ const char *angband_term_name[ANGBAND_TERM_MAX] =
 
 
 /* Window flags */
-u32b window_flag[ANGBAND_TERM_MAX];
+uint32_t window_flag[ANGBAND_TERM_MAX];
 
 
 /*
@@ -295,8 +295,8 @@ u32b window_flag[ANGBAND_TERM_MAX];
 term *Term = NULL;
 
 
-byte tile_width = 1;
-byte tile_height = 1;
+uint8_t tile_width = 1;
+uint8_t tile_height = 1;
 bool tile_distorted = false;
 
 
@@ -339,19 +339,19 @@ static errr term_win_init(term_win *s, int w, int h)
     int y;
 
     /* Make the window access arrays */
-    s->a = mem_zalloc(h * sizeof(u16b*));
+    s->a = mem_zalloc(h * sizeof(uint16_t*));
     s->c = mem_zalloc(h * sizeof(char*));
 
     /* Make the window content arrays */
-    s->va = mem_zalloc(h * w * sizeof(u16b));
+    s->va = mem_zalloc(h * w * sizeof(uint16_t));
     s->vc = mem_zalloc(h * w * sizeof(char));
 
     /* Make the terrain access arrays */
-    s->ta = mem_zalloc(h * sizeof(u16b*));
+    s->ta = mem_zalloc(h * sizeof(uint16_t*));
     s->tc = mem_zalloc(h * sizeof(char*));
 
     /* Make the terrain content arrays */
-    s->vta = mem_zalloc(h * w * sizeof(u16b));
+    s->vta = mem_zalloc(h * w * sizeof(uint16_t));
     s->vtc = mem_zalloc(h * w * sizeof(char));
 
     /* Prepare the window access arrays */
@@ -379,24 +379,24 @@ static errr term_win_copy(term_win *s, term_win *f, int w, int h)
     /* Copy contents */
     for (y = 0; y < h; y++)
     {
-        u16b *f_aa = f->a[y];
+        uint16_t *f_aa = f->a[y];
         char *f_cc = f->c[y];
 
-        u16b *s_aa = s->a[y];
+        uint16_t *s_aa = s->a[y];
         char *s_cc = s->c[y];
 
-        u16b *f_taa = f->ta[y];
+        uint16_t *f_taa = f->ta[y];
         char *f_tcc = f->tc[y];
 
-        u16b *s_taa = s->ta[y];
+        uint16_t *s_taa = s->ta[y];
         char *s_tcc = s->tc[y];
 
         for (x = 0; x < w; x++)
         {
-            memcpy(s_aa, f_aa, w * sizeof(u16b));
+            memcpy(s_aa, f_aa, w * sizeof(uint16_t));
             memcpy(s_cc, f_cc, w);
 
-            memcpy(s_taa, f_taa, w * sizeof(u16b));
+            memcpy(s_taa, f_taa, w * sizeof(uint16_t));
             memcpy(s_tcc, f_tcc, w);
         }
     }
@@ -495,7 +495,7 @@ static errr Term_wipe_hack(int x, int y, int n)
 /*
  * Hack -- fake hook for "Term_text()" (see above)
  */
-static errr Term_text_hack(int x, int y, int n, u16b a, const char *cp)
+static errr Term_text_hack(int x, int y, int n, uint16_t a, const char *cp)
 {
     /* Compiler silliness */
     if (x || y || n || a || cp) return (-2);
@@ -508,8 +508,8 @@ static errr Term_text_hack(int x, int y, int n, u16b a, const char *cp)
 /*
  * Hack -- fake hook for "Term_pict()" (see above)
  */
-static errr Term_pict_hack(int x, int y, int n, const u16b *ap, const char *cp,
-    const u16b *tap, const char *tcp)
+static errr Term_pict_hack(int x, int y, int n, const uint16_t *ap, const char *cp,
+    const uint16_t *tap, const char *tcp)
 {
     /* Compiler silliness */
     if (x || y || n || ap || cp || tap || tcp) return (-2);
@@ -529,18 +529,18 @@ static errr Term_pict_hack(int x, int y, int n, const u16b *ap, const char *cp,
  *
  * Assumes given location and values are valid.
  */
-void Term_queue_char(term *t, int x, int y, u16b a, char c, u16b ta, char tc)
+void Term_queue_char(term *t, int x, int y, uint16_t a, char c, uint16_t ta, char tc)
 {
-    u16b *scr_aa = t->scr->a[y];
+    uint16_t *scr_aa = t->scr->a[y];
     char *scr_cc = t->scr->c[y];
 
-    u16b oa = scr_aa[x];
+    uint16_t oa = scr_aa[x];
     char oc = scr_cc[x];
 
-    u16b *scr_taa = t->scr->ta[y];
+    uint16_t *scr_taa = t->scr->ta[y];
     char *scr_tcc = t->scr->tc[y];
 
-    u16b ota = scr_taa[x];
+    uint16_t ota = scr_taa[x];
     char otc = scr_tcc[x];
 
     /* Don't change is the terrain value is 0 */
@@ -570,7 +570,7 @@ void Term_queue_char(term *t, int x, int y, u16b a, char c, u16b ta, char tc)
 /*
  * Queue a large-sized tile
  */
-void Term_big_queue_char(term *t, int x, int y, u16b a, char c, u16b a1, char c1)
+void Term_big_queue_char(term *t, int x, int y, uint16_t a, char c, uint16_t a1, char c1)
 {
     int hor, vert;
 
@@ -626,23 +626,23 @@ void Term_big_queue_char(term *t, int x, int y, u16b a, char c, u16b a1, char c1
  * a valid location, so the first "n" characters of "s" can all be added
  * starting at (x,y) without causing any illegal operations.
  */
-void Term_queue_chars(int x, int y, int n, u16b a, const char *s)
+void Term_queue_chars(int x, int y, int n, uint16_t a, const char *s)
 {
     int x1 = -1, x2 = -1;
 
-    u16b *scr_aa = Term->scr->a[y];
+    uint16_t *scr_aa = Term->scr->a[y];
     char *scr_cc = Term->scr->c[y];
 
-    u16b *scr_taa = Term->scr->ta[y];
+    uint16_t *scr_taa = Term->scr->ta[y];
     char *scr_tcc = Term->scr->tc[y];
 
     /* Queue the attr/chars */
     for ( ; n; x++, s++, n--)
     {
-        u16b oa = scr_aa[x];
+        uint16_t oa = scr_aa[x];
         char oc = scr_cc[x];
 
-        u16b ota = scr_taa[x];
+        uint16_t ota = scr_taa[x];
         char otc = scr_tcc[x];
 
         /* Hack -- ignore non-changes */
@@ -688,22 +688,22 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 {
     int x;
 
-    u16b *old_aa = Term->old->a[y];
+    uint16_t *old_aa = Term->old->a[y];
     char *old_cc = Term->old->c[y];
 
-    u16b *scr_aa = Term->scr->a[y];
+    uint16_t *scr_aa = Term->scr->a[y];
     char *scr_cc = Term->scr->c[y];
 
-    u16b *old_taa = Term->old->ta[y];
+    uint16_t *old_taa = Term->old->ta[y];
     char *old_tcc = Term->old->tc[y];
 
-    u16b *scr_taa = Term->scr->ta[y];
+    uint16_t *scr_taa = Term->scr->ta[y];
     char *scr_tcc = Term->scr->tc[y];
 
-    u16b ota;
+    uint16_t ota;
     char otc;
 
-    u16b nta;
+    uint16_t nta;
     char ntc;
 
     /* Pending length */
@@ -712,10 +712,10 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
     /* Pending start */
     int fx = 0;
 
-    u16b oa;
+    uint16_t oa;
     char oc;
 
-    u16b na;
+    uint16_t na;
     char nc;
 
     /* Scan "modified" columns */
@@ -783,22 +783,22 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 {
     int x;
 
-    u16b *old_aa = Term->old->a[y];
+    uint16_t *old_aa = Term->old->a[y];
     char *old_cc = Term->old->c[y];
 
-    u16b *scr_aa = Term->scr->a[y];
+    uint16_t *scr_aa = Term->scr->a[y];
     char *scr_cc = Term->scr->c[y];
 
-    u16b *old_taa = Term->old->ta[y];
+    uint16_t *old_taa = Term->old->ta[y];
     char *old_tcc = Term->old->tc[y];
 
-    u16b *scr_taa = Term->scr->ta[y];
+    uint16_t *scr_taa = Term->scr->ta[y];
     char *scr_tcc = Term->scr->tc[y];
 
-    u16b ota;
+    uint16_t ota;
     char otc;
 
-    u16b nta;
+    uint16_t nta;
     char ntc;
 
     /* The "always_text" flag */
@@ -811,12 +811,12 @@ static void Term_fresh_row_both(int y, int x1, int x2)
     int fx = 0;
 
     /* Pending attr */
-    u16b fa = Term->attr_blank;
+    uint16_t fa = Term->attr_blank;
 
-    u16b oa;
+    uint16_t oa;
     char oc;
 
-    u16b na;
+    uint16_t na;
     char nc;
 
     /* Scan "modified" columns */
@@ -933,10 +933,10 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 {
     int x;
 
-    u16b *old_aa = Term->old->a[y];
+    uint16_t *old_aa = Term->old->a[y];
     char *old_cc = Term->old->c[y];
 
-    u16b *scr_aa = Term->scr->a[y];
+    uint16_t *scr_aa = Term->scr->a[y];
     char *scr_cc = Term->scr->c[y];
 
     /* The "always_text" flag */
@@ -949,12 +949,12 @@ static void Term_fresh_row_text(int y, int x1, int x2)
     int fx = 0;
 
     /* Pending attr */
-    u16b fa = Term->attr_blank;
+    uint16_t fa = Term->attr_blank;
 
-    u16b oa;
+    uint16_t oa;
     char oc;
 
-    u16b na;
+    uint16_t na;
     char nc;
 
     /* Scan "modified" columns */
@@ -1176,7 +1176,7 @@ errr Term_fresh(void)
     /* Handle "total erase" */
     if (Term->total_erase)
     {
-        u16b na = Term->attr_blank;
+        uint16_t na = Term->attr_blank;
         char nc = Term->char_blank;
 
         /* Physically erase the entire window */
@@ -1190,9 +1190,9 @@ errr Term_fresh(void)
         /* Wipe each row */
         for (y = 0; y < h; y++)
         {
-            u16b *aa = old->a[y];
+            uint16_t *aa = old->a[y];
             char *cc = old->c[y];
-            u16b *taa = old->ta[y];
+            uint16_t *taa = old->ta[y];
             char *tcc = old->tc[y];
 
             /* Wipe each column */
@@ -1439,7 +1439,7 @@ errr Term_gotoxy(int x, int y)
  * Do not change the cursor position
  * No visual changes until "Term_fresh()".
  */
-errr Term_draw(int x, int y, u16b a, char c)
+errr Term_draw(int x, int y, uint16_t a, char c)
 {
     int w = Term->wid;
     int h = Term->hgt;
@@ -1475,7 +1475,7 @@ errr Term_draw(int x, int y, u16b a, char c)
  * positive value, future calls to either function will
  * return negative ones.
  */
-errr Term_addch(u16b a, char c)
+errr Term_addch(uint16_t a, char c)
 {
     int w = Term->wid;
 
@@ -1521,7 +1521,7 @@ errr Term_addch(u16b a, char c)
  * positive value, future calls to either function will
  * return negative ones.
  */
-errr Term_addstr(int n, u16b a, const char *buf)
+errr Term_addstr(int n, uint16_t a, const char *buf)
 {
     int k;
     int w = Term->wid;
@@ -1560,7 +1560,7 @@ errr Term_addstr(int n, u16b a, const char *buf)
 /*
  * Move to a location and, using an attr, add a char
  */
-errr Term_putch(int x, int y, u16b a, char c)
+errr Term_putch(int x, int y, uint16_t a, char c)
 {
     errr res;
     bool cv;
@@ -1594,7 +1594,7 @@ errr Term_putch(int x, int y, u16b a, char c)
 /*
  * Move to a location and, using an attr, add a big tile
  */
-void Term_big_putch(int x, int y, u16b a, char c)
+void Term_big_putch(int x, int y, uint16_t a, char c)
 {
     int hor, vert;
 
@@ -1642,7 +1642,7 @@ void Term_big_putch(int x, int y, u16b a, char c)
 /*
  * Move to a location and, using an attr, add a string
  */
-errr Term_putstr(int x, int y, int n, u16b a, const char *s)
+errr Term_putstr(int x, int y, int n, uint16_t a, const char *s)
 {
     errr res;
     bool cv;
@@ -1685,13 +1685,13 @@ static errr Term_erase_aux(int x, int y, int n, bool check_icky)
     int x1 = -1;
     int x2 = -1;
 
-    u16b na = Term->attr_blank;
+    uint16_t na = Term->attr_blank;
     char nc = Term->char_blank;
 
-    u16b *scr_aa;
+    uint16_t *scr_aa;
     char *scr_cc;
 
-    u16b *scr_taa;
+    uint16_t *scr_taa;
     char *scr_tcc;
 
     errr res;
@@ -1732,7 +1732,7 @@ static errr Term_erase_aux(int x, int y, int n, bool check_icky)
         /* Scan every column */
         for (i = 0; i < n; i++, x++)
         {
-            u16b oa = scr_aa[x];
+            uint16_t oa = scr_aa[x];
             char oc = scr_cc[x];
 
             /* Hack -- ignore "non-changes" */
@@ -1800,7 +1800,7 @@ errr Term_clear(void)
     int w = Term->wid;
     int h = Term->hgt;
 
-    u16b na = Term->attr_blank;
+    uint16_t na = Term->attr_blank;
     char nc = Term->char_blank;
 
     /* Cursor usable */
@@ -1812,9 +1812,9 @@ errr Term_clear(void)
     /* Wipe each row */
     for (y = 0; y < h; y++)
     {
-        u16b *scr_aa = Term->scr->a[y];
+        uint16_t *scr_aa = Term->scr->a[y];
         char *scr_cc = Term->scr->c[y];
-        u16b *scr_taa = Term->scr->ta[y];
+        uint16_t *scr_taa = Term->scr->ta[y];
         char *scr_tcc = Term->scr->tc[y];
 
         /* Wipe each column */
@@ -1915,9 +1915,9 @@ errr Term_redraw_section(int x1, int y1, int x2, int y2)
  */
 errr Term_mark(int x, int y)
 {
-    u16b *old_aa;
+    uint16_t *old_aa;
     char *old_cc;
-    u16b *old_taa;
+    uint16_t *old_taa;
     char *old_tcc;
 
     int w = Term->wid;
@@ -2004,7 +2004,7 @@ errr Term_locate(int *x, int *y)
  * Note that this refers to what will be on the window after the
  * next call to "Term_fresh()".  It may or may not already be there.
  */
-errr Term_what(int x, int y, u16b *a, char *c)
+errr Term_what(int x, int y, uint16_t *a, char *c)
 {
     int w = Term->wid;
     int h = Term->hgt;
@@ -2022,7 +2022,7 @@ errr Term_what(int x, int y, u16b *a, char *c)
 }
 
 
-errr Term_info(int x, int y, u16b *a, char *c, u16b *ta, char *tc)
+errr Term_info(int x, int y, uint16_t *a, char *c, uint16_t *ta, char *tc)
 {
     int w = Term->wid;
     int h = Term->hgt;
@@ -2156,7 +2156,7 @@ static void Term_decrease_queue(void)
 /*
  * Add a keypress to the "queue"
  */
-errr Term_keypress(keycode_t k, byte mods)
+errr Term_keypress(keycode_t k, uint8_t mods)
 {
     /* Hack -- refuse to enqueue non-keys */
     if (!k) return (-1);
@@ -2399,8 +2399,8 @@ errr Term_resize(int w, int h, int hmax)
 {
     int i;
     int wid, hgt;
-    byte *hold_x1;
-    byte *hold_x2;
+    uint8_t *hold_x1;
+    uint8_t *hold_x2;
     term_win *hold_old;
     term_win *hold_scr;
     term_win *hold_mem;
@@ -2438,8 +2438,8 @@ errr Term_resize(int w, int h, int hmax)
     hold_tmp = Term->tmp;
 
     /* Create new scanners */
-    Term->x1 = mem_zalloc(h * sizeof(byte));
-    Term->x2 = mem_zalloc(h * sizeof(byte));
+    Term->x1 = mem_zalloc(h * sizeof(uint8_t));
+    Term->x2 = mem_zalloc(h * sizeof(uint8_t));
 
     /* Create new window */
     Term->old = mem_zalloc(sizeof(term_win));
@@ -2696,8 +2696,8 @@ errr term_init(term *t, int w, int h, int hmax, int k)
     t->max_hgt = hmax;
 
     /* Allocate change arrays */
-    t->x1 = mem_zalloc(h * sizeof(byte));
-    t->x2 = mem_zalloc(h * sizeof(byte));
+    t->x1 = mem_zalloc(h * sizeof(uint8_t));
+    t->x2 = mem_zalloc(h * sizeof(uint8_t));
 
     /* Allocate "displayed" */
     t->old = mem_zalloc(sizeof(term_win));

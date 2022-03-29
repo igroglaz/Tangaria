@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2012 Peter Denison
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -321,7 +321,7 @@ struct file_parser chest_trap_parser =
  */
 const char *chest_trap_name(const struct object *obj)
 {
-	s16b trap_value = obj->pval;
+	int16_t trap_value = obj->pval;
 
 	/* Non-zero value means there either were or are still traps */
 	if (trap_value < 0)

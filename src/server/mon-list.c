@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2013 Ben Semmler
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -124,8 +124,8 @@ void monster_list_reset(struct player *p, monster_list_t *list)
     }
 
     memset(list->entries, 0, list->entries_size * sizeof(monster_list_entry_t));
-    memset(list->total_entries, 0, MONSTER_LIST_SECTION_MAX * sizeof(u16b));
-    memset(list->total_monsters, 0, MONSTER_LIST_SECTION_MAX * sizeof(u16b));
+    memset(list->total_entries, 0, MONSTER_LIST_SECTION_MAX * sizeof(uint16_t));
+    memset(list->total_monsters, 0, MONSTER_LIST_SECTION_MAX * sizeof(uint16_t));
     list->distinct_entries = 0;
     list->sorted = false;
 }
@@ -296,7 +296,7 @@ void monster_list_sort(monster_list_t *list, int (*compare)(const void *, const 
  *
  * entry is the monster list entry to display.
  */
-byte monster_list_entry_line_color(struct player *p, const monster_list_entry_t *entry)
+uint8_t monster_list_entry_line_color(struct player *p, const monster_list_entry_t *entry)
 {
 	/* Display uniques in a special colour */
 	if (monster_is_unique(entry->race))

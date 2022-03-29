@@ -3,7 +3,7 @@
  * Purpose: All quest-related code
  *
  * Copyright (c) 2013 Angband developers
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -382,7 +382,7 @@ void start_quest(struct player *p)
     struct monster_race *race;
     int min = z_info->max_depth - 1, max = 1, min_depth, max_depth;
     int max_num, kills = 0;
-    u16b i;
+    uint16_t i;
 
     if (p->lev < 20)
     {

@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2015 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -208,8 +208,8 @@ void cmd_init(void)
         /* Fill everything in */
         for (i = 0; i < cmds_all[j].len; i++)
         {
-            byte key0 = (byte)commands[i].key[0];
-            byte key1 = (byte)commands[i].key[1];
+            uint8_t key0 = (uint8_t)commands[i].key[0];
+            uint8_t key1 = (uint8_t)commands[i].key[1];
 
             /* If a roguelike key isn't set, use default */
             if (!key1) key1 = key0;

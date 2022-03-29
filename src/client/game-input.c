@@ -3,7 +3,7 @@
  * Purpose: Ask for non-command input from the UI.
  *
  * Copyright (c) 2014 Nick McConnell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -23,8 +23,8 @@
 
 bool (*get_string_hook)(const char *prompt, char *buf, int len);
 int (*get_string_ex_hook)(const char *prompt, char *buf, int len, bool priv);
-s32b (*get_quantity_hook)(const char *prompt, s32b max);
-s32b (*get_quantity_ex_hook)(const char *prompt, s32b max);
+int32_t (*get_quantity_hook)(const char *prompt, int32_t max);
+int32_t (*get_quantity_ex_hook)(const char *prompt, int32_t max);
 bool (*get_check_hook)(const char *prompt);
 int (*get_check_ex_hook)(const char *prompt);
 bool (*get_com_hook)(const char *prompt, struct keypress *command);
@@ -75,7 +75,7 @@ int get_string_ex(const char *prompt, char *buf, int len, bool priv)
  *
  * Returns the quantity
  */
-s32b get_quantity(const char *prompt, s32b max)
+int32_t get_quantity(const char *prompt, int32_t max)
 {
     /* Ask the UI for it */
     if (get_quantity_hook) return get_quantity_hook(prompt, max);
@@ -88,7 +88,7 @@ s32b get_quantity(const char *prompt, s32b max)
  *
  * Return -1 on abort, 0 on escape
  */
-s32b get_quantity_ex(const char *prompt, s32b max)
+int32_t get_quantity_ex(const char *prompt, int32_t max)
 {
     /* Ask the UI for it */
     if (get_quantity_ex_hook) return get_quantity_ex_hook(prompt, max);

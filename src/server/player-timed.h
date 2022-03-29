@@ -22,8 +22,8 @@ enum
 struct timed_effect_data
 {
     const char *name;
-    u32b flag_redraw;
-    u32b flag_update;
+    uint32_t flag_redraw;
+    uint32_t flag_update;
 
     int index;
     char *desc;

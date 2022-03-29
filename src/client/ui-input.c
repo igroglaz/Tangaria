@@ -3,7 +3,7 @@
  * Purpose: Some high-level UI functions, inkey()
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -28,7 +28,7 @@ bool inkey_flag = false;
 
 
 /* Trap detection indicator */
-byte trap_indicator;
+uint8_t trap_indicator;
 
 
 /* Top line is icky */
@@ -429,7 +429,7 @@ bool askfor_aux(char *buf, int len, keypress_handler keypress_h)
 {
     int y, x;
     size_t k = 0;   /* Cursor position */
-    size_t nul = 0; /* Position of the null byte in the string */
+    size_t nul = 0; /* Position of the null uint8_t in the string */
     struct keypress ch;
     bool done = false;
     bool firsttime = true;
@@ -456,7 +456,7 @@ bool askfor_aux(char *buf, int len, keypress_handler keypress_h)
     /* Truncate the default entry */
     buf[len - 1] = '\0';
 
-    /* Get the position of the null byte */
+    /* Get the position of the null uint8_t */
     nul = strlen(buf);
 
     /* Display the default answer */
@@ -507,7 +507,7 @@ int askfor_ex(char *buf, int len, keypress_handler keypress_h, bool priv)
 {
     int y, x;
     size_t i, k = 0;   /* Cursor position */
-    size_t nul = 0; /* Position of the null byte in the string */
+    size_t nul = 0; /* Position of the null uint8_t in the string */
     ui_event ke = EVENT_EMPTY;
     bool done = false;
     bool firsttime = true;
@@ -532,7 +532,7 @@ int askfor_ex(char *buf, int len, keypress_handler keypress_h, bool priv)
     /* Truncate the default entry */
     buf[len - 1] = '\0';
 
-    /* Get the position of the null byte */
+    /* Get the position of the null uint8_t */
     nul = strlen(buf);
 
     /* Display the default answer */
@@ -637,7 +637,7 @@ static int textui_get_string_ex(const char *prompt, char *buf, int len, bool pri
 /*
  * Request a "quantity" from the user
  */
-static s32b textui_get_quantity(const char *prompt, s32b max)
+static int32_t textui_get_quantity(const char *prompt, int32_t max)
 {
     int amt = 1;
     char tmp[NORMAL_WID];
@@ -684,7 +684,7 @@ static s32b textui_get_quantity(const char *prompt, s32b max)
  *
  * Return -1 on abort, 0 on escape
  */
-static s32b textui_get_quantity_ex(const char *prompt, s32b max)
+static int32_t textui_get_quantity_ex(const char *prompt, int32_t max)
 {
     int amt = 1, res;
     char tmp[NORMAL_WID];
@@ -1205,7 +1205,7 @@ void textui_input_init(void)
 }
 
 
-void caveprt(cave_view_type* src, int len, s16b x, s16b y)
+void caveprt(cave_view_type* src, int len, int16_t x, int16_t y)
 {
     int i;
 
@@ -1218,7 +1218,7 @@ void caveprt(cave_view_type* src, int len, s16b x, s16b y)
 }
 
 
-void cavestr(cave_view_type* dest, const char *str, byte attr, int max_col)
+void cavestr(cave_view_type* dest, const char *str, uint8_t attr, int max_col)
 {
     int i, e;
 
@@ -1405,7 +1405,7 @@ const char *get_title(struct player *p)
 }
 
 
-s16b get_speed(struct player *p)
+int16_t get_speed(struct player *p)
 {
     return p->state.speed;
 }
@@ -1423,19 +1423,19 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
 }
 
 
-s16b get_melee_skill(struct player *p)
+int16_t get_melee_skill(struct player *p)
 {
     return p->state.skills[SKILL_TO_HIT_MELEE];
 }
 
 
-s16b get_ranged_skill(struct player *p)
+int16_t get_ranged_skill(struct player *p)
 {
     return p->state.skills[SKILL_TO_HIT_BOW];
 }
 
 
-byte get_dtrap(struct player *p)
+uint8_t get_dtrap(struct player *p)
 {
     return trap_indicator;
 }

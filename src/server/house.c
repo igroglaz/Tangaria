@@ -2,7 +2,7 @@
  * File: house.c
  * Purpose: House code.
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -573,7 +573,7 @@ void know_houses(struct player *p)
 }
 
 
-static byte door_color(int missile_attr)
+static uint8_t door_color(int missile_attr)
 {
     return get_color(missile_attr, ATTR_DOOR, 1);
 }
@@ -587,7 +587,7 @@ void colorize_door(struct player *p, struct object_kind *kind, struct chunk *c, 
     int house, i;
 
     /* Find the color of the missile */
-    byte m_attr = (kind->flavor? flavor_x_attr[kind->flavor->fidx]: kind_x_attr[kind->kidx]);
+    uint8_t m_attr = (kind->flavor? flavor_x_attr[kind->flavor->fidx]: kind_x_attr[kind->kidx]);
 
     /* Pick a house */
     if ((house = pick_house(&p->wpos, grid)) == -1) return;

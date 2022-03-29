@@ -3,7 +3,7 @@
  * Purpose: Load a list of possible graphics modes.
  *
  * Copyright (c) 2011 Brett Reid
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -235,7 +235,7 @@ void close_graphics_modes(void)
 }
 
 
-graphics_mode *get_graphics_mode(byte id, bool set)
+graphics_mode *get_graphics_mode(uint8_t id, bool set)
 {
     graphics_mode *test = graphics_modes;
 
@@ -258,13 +258,13 @@ graphics_mode *get_graphics_mode(byte id, bool set)
 }
 
 
-bool is_current_graphics_mode(byte id)
+bool is_current_graphics_mode(uint8_t id)
 {
     return (current_graphics_mode && (id == current_graphics_mode->grafID));
 }
 
 
-bool is_tile_distorted(byte id, byte width, byte height)
+bool is_tile_distorted(uint8_t id, uint8_t width, uint8_t height)
 {
     return (width * height > 1);
 }

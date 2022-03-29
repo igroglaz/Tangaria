@@ -3,7 +3,7 @@
  * Purpose: Text-based user interface for character creation
  *
  * Copyright (c) 1987 - 2015 Angband contributors
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -57,13 +57,13 @@ enum birth_stage
 /*
  * Allows quick creation based on the previous character
  */
-static s16b quick_start;
+static int16_t quick_start;
 
 
 /*
  * Roller type
  */
-static byte roller_type = 0;
+static uint8_t roller_type = 0;
 
 
 /*
@@ -332,7 +332,7 @@ typedef struct birthmenu_data
 static void birthmenu_display(struct menu *menu, int oid, bool cursor, int row, int col, int width)
 {
     struct birthmenu_data *data = menu_priv(menu);
-    byte attr = curs_attrs[CURS_KNOWN][0 != cursor];
+    uint8_t attr = curs_attrs[CURS_KNOWN][0 != cursor];
     int len = strlen(data->items[oid]);
 
     /* Hack -- don't write past menu width */
@@ -371,10 +371,10 @@ static void erase_help(int col, int *row)
 }
 
 
-static void skill_help(int col, int *row, const s16b r_skills[], const s16b c_skills[], int mhp,
+static void skill_help(int col, int *row, const int16_t r_skills[], const int16_t c_skills[], int mhp,
     int exp, int infra)
 {
-    s16b skills[SKILL_MAX];
+    int16_t skills[SKILL_MAX];
     unsigned i;
 
     for (i = 0; i < SKILL_MAX; i++)
@@ -711,7 +711,7 @@ static void print_menu_instructions(void)
 
 struct parse_help
 {
-    byte state;
+    uint8_t state;
     const char *name;
     char *text;
 };

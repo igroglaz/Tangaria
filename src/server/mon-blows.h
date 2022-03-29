@@ -58,8 +58,8 @@ typedef struct melee_effect_handler_context_s
     int do_stun;
 	int blinked;
 	int damage;
-    byte note_dies;
-    byte style;
+    uint8_t note_dies;
+    uint8_t style;
 } melee_effect_handler_context_t;
 
 /*
@@ -73,9 +73,9 @@ struct blow_effect
     int power;
     int eval;
     char *desc;
-    byte lore_attr;         /* Color of the attack used in lore text */
-    byte lore_attr_resist;  /* Color used in lore text when resisted */
-    byte lore_attr_immune;  /* Color used in lore text when resisted strongly */
+    uint8_t lore_attr;         /* Color of the attack used in lore text */
+    uint8_t lore_attr_resist;  /* Color used in lore text when resisted */
+    uint8_t lore_attr_immune;  /* Color used in lore text when resisted strongly */
     char *effect_type;
     int resist;
     int lash_type;
@@ -87,7 +87,7 @@ extern struct blow_effect *blow_effects;
 /* Functions */
 extern const char *monster_blow_method_action(struct blow_method *method);
 extern melee_effect_handler_f melee_handler_for_blow_effect(const char *name);
-extern byte blow_method_index(const char *name);
-extern byte blow_effect_index(const char *name);
+extern uint8_t blow_method_index(const char *name);
+extern uint8_t blow_effect_index(const char *name);
 
 #endif /* MON_BLOWS */

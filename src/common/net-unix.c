@@ -2,7 +2,7 @@
  * File: net-unix.c
  * Purpose: Network module (Linux)
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -457,7 +457,7 @@ int	fd;
  *	namelen		- Maximum length of the peer name.
  *
  * Output Parameters
- *	The hostname of the peer in a byte array.
+ *	The hostname of the peer in a uint8_t array.
  *
  * Return Value
  *	-1 on failure, 0 on success.

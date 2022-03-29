@@ -3,7 +3,7 @@
  * Purpose: Projection effects on monsters
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -230,7 +230,7 @@ typedef struct project_monster_handler_context_s
     bool do_delete;
     bool obvious;
     bool skipped;
-    u16b flag;
+    uint16_t flag;
     int do_poly;
     int teleport_distance;
     enum mon_messages hurt_msg;
@@ -1550,7 +1550,7 @@ static const project_monster_handler_f monster_handlers[] =
  * Returns true if the monster has been killed (and deleted).
  */
 bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, struct monster *mon,
-    int dam, byte note)
+    int dam, uint8_t note)
 {
     struct source origin_body;
     struct source *origin = &origin_body;
@@ -1584,7 +1584,7 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
         for (i = 1; i <= NumPlayers; i++)
         {
             struct player *p = player_get(i);
-            byte die_msg = note;
+            uint8_t die_msg = note;
             bool seen = monster_is_visible(p, mon->midx);
 
             /* If he's not here, skip him */
@@ -2183,7 +2183,7 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 }
 
 
-void monster_set_master(struct monster *mon, struct player *p, byte status)
+void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 {
     /* A high wisdom and charisma will allow more slaves to be controlled */
     if (p && (mon->status <= MSTATUS_SUMMONED))
@@ -2210,7 +2210,7 @@ void monster_set_master(struct monster *mon, struct player *p, byte status)
 /*
  * Stat Table -- chance of getting a friendly summon
  */
-static const byte summon_friendly[STAT_RANGE] =
+static const uint8_t summon_friendly[STAT_RANGE] =
 {
     0   /* 3 */,
     4   /* 4 */,

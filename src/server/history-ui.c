@@ -3,7 +3,7 @@
  * Purpose: Character auto-history display UI
  *
  * Copyright (c) 2007 J.D. White
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -40,8 +40,8 @@ static bool history_masked(struct player *p, size_t i)
 /* Convert turn counter to real time */
 void get_real_time(hturn *pturn, int* pd, int* ph, int* pm)
 {
-    u32b i;
-    u32b seconds, turns;
+    uint32_t i;
+    uint32_t seconds, turns;
 
     /* Convert turn counter to real time */
     turns = pturn->turn;

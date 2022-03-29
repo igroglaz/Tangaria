@@ -3,7 +3,7 @@
  * Purpose: Functions for dealing with individual squares
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1932,7 +1932,7 @@ static void square_set_stairs(struct chunk *c, struct loc *grid, int feat)
 
 void square_add_stairs(struct chunk *c, struct loc *grid, int feat_stairs)
 {
-    static byte count = 0xFF;
+    static uint8_t count = 0xFF;
     static int feat = 0;
     int desired_feat;
 
@@ -2342,7 +2342,7 @@ int square_apparent_feat(struct player *p, struct chunk *c, struct loc *grid)
             dungeon = get_dungeon(&dpos);
             if (dungeon && c->wpos.depth)
             {
-                u32b tmp_seed = Rand_value;
+                uint32_t tmp_seed = Rand_value;
                 bool rand_old = Rand_quick;
 
                 /* Fixed seed for consistence */

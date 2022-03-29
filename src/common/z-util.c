@@ -3,7 +3,7 @@
  * Purpose: Low-level string handling and other utilities.
  *
  * Copyright (c) 1997-2005 Ben Harrison, Robert Ruehlmann.
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -25,7 +25,7 @@
  * Global variables for temporary use
  */
 char char_tmp = 0;
-byte byte_tmp = 0;
+uint8_t byte_tmp = 0;
 sint sint_tmp = 0;
 uint uint_tmp = 0;
 long long_tmp = 0;
@@ -428,9 +428,9 @@ bool is_a_vowel(int ch)
 /* hturn manipulations */
 
 
-u32b ht_diff(hturn *ht_ptr1, hturn *ht_ptr2)
+uint32_t ht_diff(hturn *ht_ptr1, hturn *ht_ptr2)
 {
-    u32b delta_era = ht_ptr1->era - ht_ptr2->era;
+    uint32_t delta_era = ht_ptr1->era - ht_ptr2->era;
 
     if ((delta_era > 1) || ((delta_era == 1) && (ht_ptr1->turn >= ht_ptr2->turn)))
         return HTURN_ERA_FLIP;
@@ -461,9 +461,9 @@ void ht_copy(hturn *ht_ptr1, hturn *ht_ptr2)
 }
 
 
-void ht_add(hturn *ht_ptr, u32b value)
+void ht_add(hturn *ht_ptr, uint32_t value)
 {
-    u32b new_turn = value + ht_ptr->turn;
+    uint32_t new_turn = value + ht_ptr->turn;
 
     while (new_turn >= HTURN_ERA_FLIP)
     {
@@ -502,7 +502,7 @@ int ht_cmp(hturn *ht_ptr1, hturn *ht_ptr2)
 }
 
 
-u32b ht_div(hturn *ht_ptr, s16b value)
+uint32_t ht_div(hturn *ht_ptr, int16_t value)
 {
     if (ht_ptr->era > HTURN_ERA_MAX_DIV) return 0;
 
@@ -658,9 +658,9 @@ bool contains_only_spaces(const char *s)
 }
 
 
-u32b djb2_hash(const char *str)
+uint32_t djb2_hash(const char *str)
 {
-    u32b hash = 5381;
+    uint32_t hash = 5381;
     int c = *str;
 
     while (c)

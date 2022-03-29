@@ -3,7 +3,7 @@
  * Purpose: Player information (client side)
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -30,14 +30,14 @@ char party_info[160];
 bool map_active;
 
 /* Last line of info we've received */
-s16b last_line_info = -1;
+int16_t last_line_info = -1;
 
 /* Special info display */
 int special_line_type;
 char special_line_header[ANGBAND_TERM_MAX][NORMAL_WID];
 
 /* Roller */
-s16b stat_roll[STAT_MAX + 1];
+int16_t stat_roll[STAT_MAX + 1];
 
 /* Party mode */
 bool party_mode;

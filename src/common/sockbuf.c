@@ -2,7 +2,7 @@
  * File: sockbuf.c
  * Purpose: Socket buffer code
  *
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -371,11 +371,11 @@ int Sockbuf_copy(sockbuf_t *dest, sockbuf_t *src, int len)
  * Writes a packet to the socket
  *
  * %c  = char type passed as int
- * %b  = byte type passed as unsigned
- * %hd = s16b type passed as int
- * %hu = u16b type passed as unsigned
- * %ld = s32b type
- * %lu = u32b type
+ * %b  = uint8_t type passed as unsigned
+ * %hd = int16_t type passed as int
+ * %hu = uint16_t type passed as unsigned
+ * %ld = int32_t type
+ * %lu = uint32_t type
  * %s  = string type (<= 80 chars)
  * %S  = string type (> 80 chars)
  */
@@ -416,14 +416,14 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
                 }
                 case 'b':
                 {
-                    byte bval;
+                    uint8_t bval;
 
                     if (buf + 1 >= end)
                     {
                         failure = PRINTF_SIZE;
                         break;
                     }
-                    bval = (byte)(va_arg(ap, unsigned));
+                    bval = (uint8_t)(va_arg(ap, unsigned));
                     *buf++ = bval;
                     break;
                 }
@@ -438,18 +438,18 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
                     {
                         case 'd':
                         {
-                            s16b sval;
+                            int16_t sval;
 
-                            sval = (s16b)(va_arg(ap, int));
+                            sval = (int16_t)(va_arg(ap, int));
                             *buf++ = sval >> 8;
                             *buf++ = sval;
                             break;
                         }
                         case 'u':
                         {
-                            u16b usval;
+                            uint16_t usval;
 
-                            usval = (u16b)(va_arg(ap, unsigned));
+                            usval = (uint16_t)(va_arg(ap, unsigned));
                             *buf++ = usval >> 8;
                             *buf++ = usval;
                             break;
@@ -471,9 +471,9 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
                     {
                         case 'd':
                         {
-                            s32b lval;
+                            int32_t lval;
 
-                            lval = va_arg(ap, s32b);
+                            lval = va_arg(ap, int32_t);
                             *buf++ = lval >> 24;
                             *buf++ = lval >> 16;
                             *buf++ = lval >> 8;
@@ -482,9 +482,9 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
                         }
                         case 'u':
                         {
-                            u32b ulval;
+                            uint32_t ulval;
 
-                            ulval = va_arg(ap, u32b);
+                            ulval = va_arg(ap, uint32_t);
                             *buf++ = ulval >> 24;
                             *buf++ = ulval >> 16;
                             *buf++ = ulval >> 8;
@@ -510,7 +510,7 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
                     else
                         stop = buf + max_str_size;
 
-                    /* Send the nul byte too */
+                    /* Send the nul uint8_t too */
                     do
                     {
                         if (buf >= stop) break;
@@ -562,11 +562,11 @@ int Packet_printf(sockbuf_t *sbuf, char *fmt, ...)
  * Reads a packet from a socket
  *
  * %c  = char type
- * %b  = byte type
- * %hd = s16b type
- * %hu = u16b type
- * %ld = s32b type
- * %lu = u32b type
+ * %b  = uint8_t type
+ * %hd = int16_t type
+ * %hu = uint16_t type
+ * %ld = int32_t type
+ * %lu = uint32_t type
  * %s  = string type (<= 80 chars)
  * %S  = string type (> 80 chars)
  */
@@ -613,7 +613,7 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                 }
                 case 'b':
                 {
-                    byte *bptr;
+                    uint8_t *bptr;
 
                     if (&sbuf->buf[sbuf->len] < &sbuf->ptr[j + 1])
                     {
@@ -633,7 +633,7 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                             break;
                         }
                     }
-                    bptr = va_arg(ap, byte*);
+                    bptr = va_arg(ap, uint8_t*);
                     *bptr = (sbuf->ptr[j++] & 0xFF);
                     break;
                 }
@@ -661,18 +661,18 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                     {
                         case 'd':
                         {
-                            s16b *sptr;
+                            int16_t *sptr;
 
-                            sptr = va_arg(ap, s16b*);
+                            sptr = va_arg(ap, int16_t*);
                             *sptr = sbuf->ptr[j++] << 8;
                             *sptr |= (sbuf->ptr[j++] & 0xFF);
                             break;
                         }
                         case 'u':
                         {
-                            u16b *usptr;
+                            uint16_t *usptr;
 
-                            usptr = va_arg(ap, u16b*);
+                            usptr = va_arg(ap, uint16_t*);
                             *usptr = (sbuf->ptr[j++] & 0xFF) << 8;
                             *usptr |= (sbuf->ptr[j++] & 0xFF);
                             break;
@@ -707,9 +707,9 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                     {
                         case 'd':
                         {
-                            s32b *lptr;
+                            int32_t *lptr;
 
-                            lptr = va_arg(ap, s32b*);
+                            lptr = va_arg(ap, int32_t*);
                             *lptr = sbuf->ptr[j++] << 24;
                             *lptr |= (sbuf->ptr[j++] & 0xFF) << 16;
                             *lptr |= (sbuf->ptr[j++] & 0xFF) << 8;
@@ -718,9 +718,9 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                         }
                         case 'u':
                         {
-                            u32b *ulptr;
+                            uint32_t *ulptr;
 
-                            ulptr = va_arg(ap, u32b*);
+                            ulptr = va_arg(ap, uint32_t*);
                             *ulptr = (sbuf->ptr[j++] & 0xFF) << 24;
                             *ulptr |= (sbuf->ptr[j++] & 0xFF) << 16;
                             *ulptr |= (sbuf->ptr[j++] & 0xFF) << 8;

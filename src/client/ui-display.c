@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  * Copyright (c) 2007 Antony Sidwell
- * Copyright (c) 2021 MAngband and PWMAngband Developers
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -23,16 +23,16 @@
 
 
 /* Maximum amount of "special" info */
-s16b max_line;
+int16_t max_line;
 
 
 /* Current displayed line of "special" info */
-s16b cur_line;
+int16_t cur_line;
 
 
 /* Health bar parameters */
 int health_amt;
-byte health_attr;
+uint8_t health_attr;
 
 
 /* Lag bar parameters */
@@ -40,17 +40,17 @@ int lag_mark;
 
 
 /* Chat channels */
-s16b view_channel = 0;
+int16_t view_channel = 0;
 
 
 /* Remote info display */
 cave_view_type remote_info[ANGBAND_TERM_MAX][MAX_TXT_INFO][NORMAL_WID];
-s16b last_remote_line[ANGBAND_TERM_MAX];
+int16_t last_remote_line[ANGBAND_TERM_MAX];
 
 
 typedef struct
 {
-    u32b flag;
+    uint32_t flag;
     game_event_type event;
 } flag_event_trigger;
 
@@ -216,7 +216,7 @@ static void prt_gold(int row, int col)
 static void prt_equippy(int row, int col)
 {
     int i;
-    byte a;
+    uint8_t a;
     char c;
 
     /* Dump equippy chars */
@@ -251,7 +251,7 @@ static void prt_ac(int row, int col)
 static void prt_hp(int row, int col)
 {
     char cur_hp[32], max_hp[32];
-    byte color;
+    uint8_t color;
 
     put_str("HP ", row, col);
 
@@ -277,7 +277,7 @@ static void prt_hp(int row, int col)
 static void prt_sp(int row, int col)
 {
     char cur_sp[32], max_sp[32];
-    byte color;
+    uint8_t color;
 
     /* Erase the mana display */
     Term_erase(col, row, 12);
@@ -340,7 +340,7 @@ static void prt_health(int row, int col)
  */
 static void prt_lag(int row, int col)
 {
-    byte attr;
+    uint8_t attr;
 
     /* Default to "unknown" */
     Term_erase(col, row, 12);
@@ -371,8 +371,8 @@ static void prt_lag(int row, int col)
  */
 static void prt_speed(int row, int col)
 {
-    s16b speed = get_speed(player);
-    byte attr = COLOUR_WHITE;
+    int16_t speed = get_speed(player);
+    uint8_t attr = COLOUR_WHITE;
     const char *type = NULL;
     char buf[32] = "";
 
@@ -558,7 +558,7 @@ static void update_statusline(game_event_type type, game_event_data *data, void 
  * Mode 1 = special display with equipment flags
  * Mode 2 = special display with equipment flags (ESP flags)
  */
-void display_player_screen(byte mode)
+void display_player_screen(uint8_t mode)
 {
     /* Set the hooks */
     clear_hook = Term_clear;
@@ -783,10 +783,10 @@ static void update_messages_subwindow(game_event_type type, game_event_data *dat
     /* Dump messages */
     for (i = 0; line < h; i++)
     {
-        byte color = message_color(i);
-        u16b count = message_count(i);
+        uint8_t color = message_color(i);
+        uint16_t count = message_count(i);
         const char *str = message_str(i);
-        u16b type = message_type(i);
+        uint16_t type = message_type(i);
 
         if (count == 1) msg = str;
         else if (count == 0) msg = " ";
@@ -851,7 +851,7 @@ static void update_message_chat_subwindow(game_event_type type, game_event_data 
     /* Dump header */
     for (i = 0; i < MAX_CHANNELS; i++)
     {
-        byte a;
+        uint8_t a;
 
         /* Skip empty */
         if (STRZERO(channels[i].name)) continue;
@@ -888,10 +888,10 @@ static void update_message_chat_subwindow(game_event_type type, game_event_data 
     /* Dump messages in an efficient way (using an iterator) */
     for (message_first(&iter); l < h - (yoff + 1); message_next(&iter))
     {
-        byte color = iter.color;
-        u16b count = iter.count;
+        uint8_t color = iter.color;
+        uint16_t count = iter.count;
         const char *str = iter.str;
-        u16b type = iter.type;
+        uint16_t type = iter.type;
 
         /* No message */
         if (str[0] == 0)
@@ -1020,7 +1020,7 @@ static void update_status_subwindow(game_event_type type, game_event_data *data,
 /*
  * Hack -- display some recall in some sub-windows
  */
-static void fix_remote_term(byte rterm)
+static void fix_remote_term(uint8_t rterm)
 {
     int y;
     int w, h;
@@ -1139,7 +1139,7 @@ static int dump_spells(int book, int y, int col)
 {
     int i = 0;
     int w, h;
-    byte line_attr;
+    uint8_t line_attr;
     char out_val[160];
 
     /* Get size */
@@ -1266,7 +1266,7 @@ static const flag_event_trigger redraw_events[] =
 void redraw_stuff(void)
 {
     size_t i;
-    u32b redraw = player->upkeep->redraw;
+    uint32_t redraw = player->upkeep->redraw;
 
     /* Redraw stuff */
     if (!redraw) return;
@@ -1328,7 +1328,7 @@ const char *window_flag_desc[PW_MAX_FLAGS] =
 };
 
 
-static void subwindow_flag_changed(int win_idx, u32b flag, bool new_state)
+static void subwindow_flag_changed(int win_idx, uint32_t flag, bool new_state)
 {
     void (*register_or_deregister)(game_event_type type, game_event_handler *fn, void *user);
     void (*set_register_or_deregister)(game_event_type *type, size_t n_events,
@@ -1459,7 +1459,7 @@ static void subwindow_flag_changed(int win_idx, u32b flag, bool new_state)
  * has changed setting so that it can do any housekeeping to do with 
  * displaying the new thing or no longer displaying the old one.
  */
-static void subwindow_set_flags(int win_idx, u32b new_flags)
+static void subwindow_set_flags(int win_idx, uint32_t new_flags)
 {
     term *old = Term;
     int i;
@@ -1470,7 +1470,7 @@ static void subwindow_set_flags(int win_idx, u32b new_flags)
         /* Only process valid flags */
         if (window_flag_desc[i])
         {
-            u32b new_flag = (new_flags & (1L << i));
+            uint32_t new_flag = (new_flags & (1L << i));
 
             if (new_flag != (window_flag[win_idx] & (1L << i)))
                 subwindow_flag_changed(win_idx, (1L << i), new_flag != 0);
@@ -1501,7 +1501,7 @@ static void subwindow_set_flags(int win_idx, u32b new_flags)
  * Called with an array of the new flags for all the subwindows, in order
  * to set them to the new values, with a chance to perform housekeeping.
  */
-void subwindows_set_flags(u32b *new_flags, size_t n_subwindows)
+void subwindows_set_flags(uint32_t *new_flags, size_t n_subwindows)
 {
     size_t j;
 
@@ -1586,7 +1586,7 @@ void init_display(void)
 
 
 /* Determine message color based on string templates */
-void message_color_hack(const char *msg, byte *ap)
+void message_color_hack(const char *msg, uint8_t *ap)
 {
     char from_us[30];
 
