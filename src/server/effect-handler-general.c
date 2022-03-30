@@ -5295,8 +5295,9 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     if (one_in_(2)) dis -= randint0(dis / 4);
     else dis += randint0(dis / 4);
 
-    // 'Roll' spell for Scavenger (mana 1)
-    if (streq(context->origin->player->clazz->name, "Scavenger") &&
+    // 'Roll' and 'Hit-and-Run' (mana 1)
+    if ((streq(context->origin->player->clazz->name, "Scavenger") ||
+         streq(context->origin->player->clazz->name, "Phaseblade")) &&
         context->origin->player->spell_cost == 1)
         d_min = 2;
 

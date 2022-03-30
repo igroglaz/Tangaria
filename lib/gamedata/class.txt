@@ -5359,7 +5359,7 @@ msg_other: calls light.
 desc:Lights up a small magical fire.
 desc: It removes fear and give resistance to fear for 25+1d25 turns.
 
-spell:Charge:10:8:16:7:0
+spell:Charge:10:7:16:7:0
 cooldown:5
 effect:MELEE_BLOWS:MISSILE
 dice:$B
@@ -5403,10 +5403,20 @@ dice:15+1d10
 desc:Grants you +50 to AC.
 
 spell:Intercept:45:50:65:20:0
+cooldown:300
+effect:GLYPH:WARDING
 effect:TELEPORT_TO
 dice:$B
-expr:B:PLAYER_LEVEL:/ 5 + 10
-desc:Teleports you next to a chosen target.
+expr:B:PLAYER_LEVEL:/ 5 + 5
+desc:Teleports you next to a chosen target and
+desc: inscribes a glyph of warding beneath you.
+desc: Summoned monsters can't appear on the glyph.
+desc: If a monster attempts to move onto the glyph or melee you while you
+desc: are standing on the glyph, it must first succeed in breaking the glyph.
+desc: Higher level monsters are more likely to break the glyph.
+desc: The glyph will remain where it is, until a monster succeeds in
+desc: breaking it or until you leave the level.
+desc: You can cast this spell every 300 turns.
 
 spell:Absolute Defense:50:70:95:250:0
 cooldown:300
@@ -5844,6 +5854,7 @@ effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 5
 desc:Phase to chosen target.
+desc: You can cast this spell every 3 turns.
 
 spell:Frost Aura:20:20:35:12:0
 effect:TIMED_INC:ICY_AURA
@@ -6793,7 +6804,7 @@ desc:Makes melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
 desc: Cooldown 10 turns.
 
-spell:Shadowstep:20:5:16:15:0
+spell:Shadowstep:20:7:16:15:0
 effect:TIMED_INC:FAST:0:5
 dice:2
 effect:MELEE_BLOWS:MON_STUN
@@ -6958,7 +6969,7 @@ value:0:STR[1]
 value:0:WIS[1]
 player-flags:0:CHOOSE_SPELLS
 # not good in wielding non-swords
-# can teleport from non/limited-teleport grid
+# can teleport from non/limited-teleport grid (except Titans and Half-Giants)
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -6975,119 +6986,125 @@ magic:1:400:1
 book:psi book:town:of Telepathy:11:psi
 equip:psi book:of Telepathy:1:1:none
 
-spell:Door:1:1:33:5:0
-effect:SWEEP
+spell:Hit-and-Run:1:1:11:1:0
+# hc min distance 2; based on manacost
 effect:TELEPORT
-dice:15
+dice:2
+effect:MELEE_BLOWS:MISSILE
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
+desc:Makes a weapon blow and break the distance.
+
+spell:Door:5:2:33:5:0
+effect:TELEPORT
+dice:10
 msg_other: blinks away.
 desc:Teleports you randomly to a medium distance.
 
-spell:Telekinetic Blow:5:5:33:10:0
-effect:MELEE_BLOWS:FORCE
+spell:Phase Smash:10:4:33:10:0
+effect:MELEE_BLOWS:MISSILE
 dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
-desc:Attempts a close range telekinetic attack.
+expr:B:PLAYER_LEVEL:+ 0
+effect:TELEPORT_TO
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 5
+desc:Teleport to the target and score a melee hit.
 
-spell:Gate:10:3:33:15:0
-effect:SWEEP
+spell:Gate:15:8:33:15:0
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: teleports away.
+desc:Teleports you randomly within the current level.
+
+spell:Force Field:20:11:33:20:0
+cooldown:11
+effect:BLAST:FORCE:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: scrambles around.
+desc:Phase out force field and scramble expanse at a medium distance.
+desc: Cooldown 11 turns.
+
+spell:Healing Warp:25:17:33:25:0
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: teleports away.
+desc:You restore powers by getting into deep warp.
+
+spell:Phase Nova:30:20:22:30:0
+effect:BLAST:MISSILE:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+effect:TELEPORT
+dice:3
+msg_other: radiates a powerful wave of force.
+desc:Teleport you to another spot; upon destination you
+desc: perform devastating spike of force.
+
+spell:Unwarp:35:25:44:40:0
+effect:BLAST_OBVIOUS:AWAY_ALL:2:10
+dice:100
+msg_other: makes a rush gesture.
+desc:Creates a radius-5 to radius-7 wave around you that teleports each monster
+desc: in its path up to 100 squares away.
+
+spell:Phase Skimming:40:30:33:50:0
+cooldown:4
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:TELEPORT
+dice:2
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:TELEPORT
+dice:3
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:TELEPORT
+dice:4
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:TELEPORT
+dice:5
+msg_other: blinks away.
+desc:You teleport around battlefield bringing havoc and shredding your enemies.
+desc: Cooldown 4 turns.
+
+spell:Quake:45:40:33:75:0
+cooldown:200
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+effect:EARTHQUAKE:NONE:10
+desc:Causes a radius 10 earthquake centered around the player and
+desc: teleports you away within the current level.
+desc: Cooldown 200 turns.
+
+spell:Safe Spot:50:50:33:100:0
+cooldown:400
+effect:SAFE_GUARD
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: teleports away.
 desc:Teleports you randomly within the current level.
-
-spell:Jump:15:7:33:20:0
-effect:BLAST:MISSILE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 10
-effect:TELEPORT
-dice:3
-msg_other: blinks away.
-desc:Teleports you randomly to a medium distance.
-
-spell:Counterphase:20:10:33:30:0
-effect:TELEPORT
-dice:2
-effect:MELEE_BLOWS:MISSILE
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
-desc:Attempts get in range and score a melee hits to the target.
-desc: After attack - break the distance again.
-
-spell:Unwarp:25:15:44:40:0
-effect:BLAST_OBVIOUS:AWAY_ALL:2:10
-dice:3
-msg_other: makes a rush gesture.
-desc:Creates a radius-5 to radius-7 wave around you that teleports each monster
-desc: in its path up to 3 squares away.
-
-spell:Biting:30:20:33:50:0
-effect:TELEPORT
-dice:10
-effect:TIMED_INC:TAUNT
-dice:12+1d12
-desc:Makes any monster that can move more inclined to run toward you, and less
-desc: likely to use a ranged attack (including spells and innate abilities).
-desc: At the same time teleport away from it.
-
-spell:Warping Nova:35:25:22:70:0
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TELEPORT
-dice:7
-msg_other: radiates a powerful wave of force.
-desc:Teleport you to another spot; upon destination you
-desc: perform spike of force.
-
-spell:Double Jump:40:30:33:80:0
-effect:BLAST:MISSILE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 7
-effect:TELEPORT
-dice:3
-effect:BLAST:MISSILE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 7
-effect:TELEPORT
-dice:3
-msg_other: blinks away.
-desc:You teleport around battlefield twice shredding your enemies.
-
-spell:Warping Shift:45:35:33:90:0
-effect:BLAST:MISSILE:1
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:TELEPORT_TO
-dice:6
-desc:Attempts get in range and score a melee circle hits to the targets.
-
-spell:Phase Skimming:50:40:33:100:0
-cooldown:4
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TELEPORT
-dice:2
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TELEPORT
-dice:3
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TELEPORT
-dice:4
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TELEPORT
-dice:5
-msg_other: blinks away.
-desc:You teleport around battlefield times bringing havoc with you.
-desc: Cooldown 4 turns.
-
+desc: Upon landing create a circle of glyphs of warding around you.
+desc: Summoned monsters can't appear on the glyphs.
+desc: If a monster attempts to move onto a glyph or melee you while you
+desc: are standing on a glyph, it must first succeed in breaking the glyph.
+desc: Higher level monsters are more likely to break the glyphs.
+desc: The glyphs will remain where they are, until a monster succeeds in
+desc: breaking them or until you leave the level.
+desc: Cooldown 400 turns.
 
 ############### CLASS TEMPLATE for Weathermaster / Cryokinetic ###############
 name:Cryokinetic
