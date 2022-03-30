@@ -5295,6 +5295,11 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     if (one_in_(2)) dis -= randint0(dis / 4);
     else dis += randint0(dis / 4);
 
+    // 'Roll' spell for Scavenger (mana 1)
+    if (streq(context->origin->player->clazz->name, "Scavenger") &&
+        context->origin->player->spell_cost == 1)
+        d_min = 2;
+
     /* Try very hard to move the player/monster between dis / 4 and dis grids away */
     if (dis <= d_min) d_max = d_min;
     else if (dis / 4 >= d_max) d_min = d_max;

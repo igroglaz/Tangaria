@@ -7458,11 +7458,24 @@ effect:TOUCH:KILL_DOOR
 msg_other: perform skillful bash..
 desc:Destroys doors within a 1-square radius of you.
 
-spell:Roll:5:2:16:2:0
+# hc distance 2 (not 1-2 rng)
+# hced by mana cost
+spell:Roll:3:1:11:5:0
+effect:RESTORE_MANA
+dice:1
+effect:RESTORE_MANA
+dice:1
+effect:RESTORE_MANA
+dice:1
+effect:RESTORE_MANA
+dice:0
+effect:RANDOM
+dice:4
 effect:TELEPORT
 dice:2
 msg_other: rolls away.
-desc:Yout perform a roll to a short distance.
+desc:Roll away randomly to a close distance.
+desc:You can roll around almost effortlessly.
 
 spell:Salvage:10:4:40:5:0
 effect:SALVAGE
