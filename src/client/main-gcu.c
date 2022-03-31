@@ -764,6 +764,22 @@ static void handle_extended_color_tables(void)
             if (data[i].win) wbkgdset(data[i].win, ' ' | colortable[COLOUR_DARK]);
         }
     }
+
+    if (data[0].win)
+    {
+        /*
+         * Adjust the background color on the standard screen
+         * as well so separators between the terminals have
+         * the same background as the rest.
+         */
+        chtype term0_bkg = getbkgd(data[0].win);
+
+        if (getbkgd(stdscr) != term0_bkg)
+        {
+            wbkgd(stdscr, term0_bkg);
+            wrefresh(stdscr);
+        }
+    }
 }
 #endif
 

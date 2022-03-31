@@ -3,7 +3,7 @@
  * Purpose: List of object base types
  */
 
-/* string  name */
+/* code_name, string_name */
 TV(NULL, "none")
 TV(SKELETON, "skeleton")
 TV(BOTTLE, "bottle")

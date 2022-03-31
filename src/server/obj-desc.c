@@ -49,7 +49,8 @@ static const char *obj_desc_get_modstr(const struct object *obj)
  * actual name added later depending on awareness, the name from object.txt
  * for almost everything else, and a bit extra for books.
  */
-static const char *obj_desc_get_basename(const struct object *obj, bool aware, bool terse, int mode)
+static const char *obj_desc_get_basename(const struct object *obj, bool aware, bool terse,
+    uint32_t mode)
 {
     bool show_flavor = ((mode & ODESC_FLAVOR)? true: false);
 
@@ -180,12 +181,12 @@ static const char *obj_desc_get_basename(const struct object *obj, bool aware, b
  * Start to description, indicating number/uniqueness
  */
 static size_t obj_desc_name_prefix(char *buf, size_t max, size_t end, const struct object *obj,
-    bool known, const char *basename, const char *modstr, bool terse)
+    bool known, const char *basename, const char *modstr, bool terse, uint16_t number)
 {
-    if (obj->number == 0)
+    if (number == 0)
         strnfcat(buf, max, &end, "no more ");
-    else if (obj->number > 1)
-        strnfcat(buf, max, &end, "%d ", obj->number);
+    else if (number > 1)
+        strnfcat(buf, max, &end, "%u ", number);
     else if ((obj->known->artifact || known) && obj->artifact)
         strnfcat(buf, max, &end, "the ");
 
@@ -221,8 +222,9 @@ static size_t obj_desc_name_prefix(char *buf, size_t max, size_t end, const stru
  * Format object obj's name into 'buf'.
  */
 static size_t obj_desc_name(struct player *p, char *buf, size_t max, size_t end,
-    const struct object *obj, bool prefix, int mode, bool terse, bool aware, bool known)
+    const struct object *obj, bool prefix, uint32_t mode, bool terse, bool aware, bool known)
 {
+    uint16_t number = (mode & ODESC_ALTNUM)? (mode & 0xFFFF0000) >> 16: obj->number;
     const char *basename = obj_desc_get_basename(obj, aware, terse, mode);
     const char *modstr = obj_desc_get_modstr(obj);
     bool pluralise = false;
@@ -231,16 +233,16 @@ static size_t obj_desc_name(struct player *p, char *buf, size_t max, size_t end,
      * Pluralize if (not forced singular) and (not a known/visible artifact) and
      * (not one in stack or forced plural)
      */
-    if ((obj->number > 1) || (mode & ODESC_PLURAL)) pluralise = true;
+    if ((number > 1) || (mode & ODESC_PLURAL)) pluralise = true;
     if (mode & ODESC_SINGULAR) pluralise = false;
 
     /* Quantity prefix */
     if (prefix)
     {
-        end = obj_desc_name_prefix(buf, max, end, obj, known, basename, modstr, terse);
+        end = obj_desc_name_prefix(buf, max, end, obj, known, basename, modstr, terse, number);
 
         /* Pluralise for grammatical correctness */
-        if (obj->number <= 0) pluralise = true;
+        if (number <= 0) pluralise = true;
     }
 
     /* Base name */
@@ -565,10 +567,16 @@ static size_t obj_desc_aware(struct player *p, const struct object *obj, char *b
  *   ODESC_ARTIFACT results in a description for artifacts (aware + known + without flavor).
  *   ODESC_PREFIX prepends a 'the', 'a' or number.
  *   ODESC_SALE turns off unseen and ignore markers, for items purchased from floor
+ *   ODESC_TERSE causes a terse name to be used. 
+ *   ODESC_FLAVOR shows the flavor.
+ *   ODESC_ALTNUM causes the high 16 bits of mode to be used as the number
+ *   of objects instead of using obj->number. Note that using ODESC_ALTNUM
+ *   is not fully compatible with ODESC_EXTRA: the display of number of rods
+ *   charging does not account for the alternate number.
  * p is the player whose knowledge is factored into the description.
  * If p is NULL, the description is for an omniscient observer.
  */
-size_t object_desc(struct player *p, char *buf, size_t max, const struct object *obj, int mode)
+size_t object_desc(struct player *p, char *buf, size_t max, const struct object *obj, uint32_t mode)
 {
     bool prefix = ((mode & ODESC_PREFIX)? true: false);
     bool terse = ((mode & ODESC_TERSE)? true: false);

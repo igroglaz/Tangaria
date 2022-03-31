@@ -3757,9 +3757,12 @@ static errr finish_parse_player_prop(struct parser *p)
     {
 		if (streq(ability->type, "element"))
         {
-			size_t i;
+			uint16_t i, n;
 
-			for (i = 0; i < N_ELEMENTS(list_element_names) - 1; i++)
+            my_assert(N_ELEMENTS(list_element_names) < 65536);
+            n = (uint16_t)N_ELEMENTS(list_element_names);
+
+			for (i = 0; i < n - 1; i++)
             {
                 char *name = projections[i].name;
 
@@ -3769,7 +3772,7 @@ static errr finish_parse_player_prop(struct parser *p)
                 my_strcap(name);
 				new_ability->name = string_make(format("%s %s", name, ability->name));
                 new_ability->value = ability->value;
-				if ((i != N_ELEMENTS(list_element_names) - 2) || ability->next)
+				if ((i != n - 2) || ability->next)
                 {
 					previous = new_ability;
 					new_ability = mem_zalloc(sizeof(*new_ability));

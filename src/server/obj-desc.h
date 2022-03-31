@@ -24,10 +24,11 @@ enum
     ODESC_PREFIX    = 0x40,     /* Show prefix */
     ODESC_SALE      = 0x80,     /* Describe the base name for items purchased from floor */
     ODESC_TERSE     = 0x100,    /* Make terse names */
-    ODESC_FLAVOR    = 0x200     /* Show flavor */
+    ODESC_FLAVOR    = 0x200,    /* Show flavor */
+    ODESC_ALTNUM    = 0x400     /* Use the high 16 bits of mode rather than obj->number */
 };
 
 extern size_t object_desc(struct player *p, char *buf, size_t max, const struct object *obj,
-    int mode);
+    uint32_t mode);
 
 #endif /* OBJECT_DESC_H */

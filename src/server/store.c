@@ -3084,7 +3084,7 @@ void store_examine(struct player *p, int item, bool describe)
     struct store *s = store_at(p);
     struct object *obj;
     char header[NORMAL_WID];
-    int odesc_flags = ODESC_PREFIX | ODESC_FULL;
+    uint32_t odesc_flags = ODESC_PREFIX | ODESC_FULL;
 
     /* Items in the home get less description */
     if (s->type != STORE_HOME) odesc_flags |= ODESC_STORE;

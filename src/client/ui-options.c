@@ -1319,7 +1319,12 @@ static void do_cmd_lazymove_delay(const char *name, int row)
     res = askfor_ex(tmp, sizeof(tmp), askfor_aux_numbers, false);
 
     /* Process input */
-    if (!res) player->opts.lazymove_delay = (uint8_t)strtoul(tmp, NULL, 0);
+    if (!res)
+    {
+        unsigned long delay = strtoul(tmp, NULL, 0);
+
+        player->opts.lazymove_delay = (uint8_t)MIN(delay, 255);
+    }
     else if (res == 1) Term_event_push(&ea);
 
     screen_load(false);

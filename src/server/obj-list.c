@@ -356,7 +356,6 @@ void object_list_format_name(struct player *p, const object_list_entry_t *entry,
     bool has_singular_prefix;
     bool los = false;
     int field;
-    uint8_t old_number;
     bool object_is_recognized_artifact;
     struct chunk *c = chunk_get(&p->wpos);
 
@@ -387,12 +386,9 @@ void object_list_format_name(struct player *p, const object_list_entry_t *entry,
         loc_eq(&entry->object->grid, &p->grid));
     field = (los? OBJECT_LIST_SECTION_LOS: OBJECT_LIST_SECTION_NO_LOS);
 
-    /* Hack -- we need to set object number to total count */
-    old_number = entry->object->number;
-    entry->object->number = entry->count[field];
-
-    object_desc(p, name, sizeof(name), entry->object, ODESC_PREFIX | ODESC_FULL);
-    entry->object->number = old_number;
+    /* Pass the accumulated number via object_desc()'s ODESC_ALTNUM mechanism */
+    object_desc(p, name, sizeof(name), entry->object, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
+        (entry->count[field] << 16));
 
     /* The source string for strtok() needs to be set properly, depending on when we use it. */
     if (!has_singular_prefix && (entry->count[field] == 1))

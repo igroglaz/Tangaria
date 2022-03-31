@@ -30,5 +30,6 @@ extern bool process_pref_file(const char *name, bool quiet, bool user);
 extern void process_pref_options(void);
 extern void reset_visuals(bool load_prefs);
 extern void do_cmd_pref(void);
+extern term *find_first_subwindow(uint32_t flag);
 
 #endif /* UI_PREFS_H */
