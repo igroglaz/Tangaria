@@ -6953,7 +6953,7 @@ skill-save:25:7
 skill-stealth:0:0
 skill-search:17:15
 skill-melee:42:42
-skill-shoot:30:20
+skill-shoot:1:1
 skill-dig:0:0
 hitdie:6
 max-attacks:5
@@ -6968,7 +6968,8 @@ equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[1]
 value:0:WIS[1]
 player-flags:0:CHOOSE_SPELLS
-# not good in wielding non-swords
+# - not good in wielding non-swords
+# - _very_ bad with ranged weapons
 # can teleport from non/limited-teleport grid (except Titans and Half-Giants)
 title:Rookie
 title:Initiate
@@ -6987,37 +6988,47 @@ book:psi book:town:of Telepathy:11:psi
 equip:psi book:of Telepathy:1:1:none
 
 spell:Hit-and-Run:1:1:11:1:0
+cooldown:4
 # hc min distance 2; based on manacost
+# make it based on BpR?
 effect:TELEPORT
 dice:2
 effect:MELEE_BLOWS:MISSILE
 dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
-desc:Makes a weapon blow and break the distance.
+expr:B:WEAPON_DAMAGE:* 5
+desc:Makes a tricky weapon blow and break the distance.
+desc: Cooldown 4 turns.
 
-spell:Door:5:2:33:5:0
+spell:Door:5:1:11:5:0
+effect:RESTORE_MANA
+dice:1
+effect:RESTORE_MANA
+dice:0
+effect:RANDOM
+dice:2
 effect:TELEPORT
-dice:10
+dice:11
 msg_other: blinks away.
-desc:Teleports you randomly to a medium distance.
+desc:Low-cost teleport on short distance.
 
-spell:Phase Smash:10:4:33:10:0
+spell:Phase Smash:10:3:33:10:0
 effect:MELEE_BLOWS:MISSILE
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:WEAPON_DAMAGE:* 5
 effect:TELEPORT_TO
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Teleport to the target and score a melee hit.
 
-spell:Gate:15:8:33:15:0
+spell:Gate:15:2:11:15:0
 effect:TELEPORT
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 10
 msg_other: teleports away.
-desc:Teleports you randomly within the current level.
+desc:Teleports you randomly on medium distance.
 
 spell:Force Field:20:11:33:20:0
+# need to hc field distance by lvl..
 cooldown:11
 effect:BLAST:FORCE:5
 dice:$B
