@@ -551,7 +551,9 @@ static void keymap_create(const char *title, int kmode)
         return;
     }
 
-    if (c.code == '-')
+// No need to forbid player to bind this hotkey
+/* 
+    if (c.code == '=')
     {
         c_prt(COLOUR_L_RED, "The '-' key is reserved.", 16, 2);
         prt("Press any key to continue.", 18, 0);
@@ -559,6 +561,7 @@ static void keymap_create(const char *title, int kmode)
         if (is_abort(ke)) Term_event_push(&ea);
         return;
     }
+*/
 
     memset(keymap_buffer, 0, (KEYMAP_ACTION_MAX + 1) * sizeof(struct keypress));
 
@@ -710,7 +713,7 @@ static void keymap_create(const char *title, int kmode)
         keypress_to_text(tmp, sizeof(tmp), keymap_buffer, false);
         c_prt(color, format("Action: %s", tmp), 15, 0);
 
-        c_prt(COLOUR_L_BLUE, "  Press '-' when finished.", 17, 0);
+        c_prt(COLOUR_L_BLUE, "  Press '=' when finished.", 17, 0);
         c_prt(COLOUR_L_BLUE, "  Use 'CTRL-U' to reset.", 18, 0);
         c_prt(COLOUR_L_BLUE, format("(Maximum keymap length is %d keys.)", KEYMAP_ACTION_MAX), 19, 0);
 
@@ -725,7 +728,7 @@ static void keymap_create(const char *title, int kmode)
 
         if (ke.type != EVT_KBRD) continue;
 
-        if (kp.code == '-')
+        if (kp.code == '=')
         {
             done = true;
             continue;
