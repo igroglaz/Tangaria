@@ -6967,7 +6967,7 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[1]
 value:0:WIS[1]
-player-flags:0:CHOOSE_SPELLS
+player-flags:0:ZERO_FAIL
 # - not good in wielding non-swords
 # - _very_ bad with ranged weapons
 # can teleport from non/limited-teleport grid (except Titans and Half-Giants)
@@ -6987,7 +6987,7 @@ magic:1:400:1
 book:psi book:town:of Telepathy:11:psi
 equip:psi book:of Telepathy:1:1:none
 
-spell:Hit-and-Run:1:1:11:1:0
+spell:Hit-and-Run:1:1:1:1:0
 cooldown:4
 # hc min distance 2; based on manacost
 # make it based on BpR?
@@ -6999,7 +6999,7 @@ expr:B:WEAPON_DAMAGE:* 5
 desc:Makes a tricky weapon blow and break the distance.
 desc: Cooldown 4 turns.
 
-spell:Door:5:1:11:5:0
+spell:Door:5:1:1:5:0
 effect:RESTORE_MANA
 dice:1
 effect:RESTORE_MANA
@@ -7014,7 +7014,7 @@ dice:11
 msg_other: blinks away.
 desc:Phase on short distance to restore some vigor.
 
-spell:Phase Smash:10:3:33:10:0
+spell:Phase Smash:10:3:1:10:0
 effect:MELEE_BLOWS:MISSILE
 dice:$B
 expr:B:WEAPON_DAMAGE:* 5
@@ -7023,7 +7023,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Teleport to the target and score a melee hit.
 
-spell:Gate:15:2:11:15:0
+spell:Gate:15:2:1:15:0
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -7033,7 +7033,7 @@ expr:B:PLAYER_LEVEL:+ 10
 msg_other: teleports away.
 desc:Phase on medium distance to restore some vigor.
 
-spell:Force Field:20:11:33:20:0
+spell:Force Field:20:11:1:20:0
 # need to hc field distance by lvl..
 cooldown:11
 effect:BLAST:FORCE:5
@@ -7043,7 +7043,7 @@ msg_other: scrambles around.
 desc:Phase out force field and scramble expanse at a medium distance.
 desc: Cooldown 11 turns.
 
-spell:Healing Warp:25:10:33:25:0
+spell:Healing Warp:25:10:1:25:0
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
@@ -7053,7 +7053,7 @@ expr:B:PLAYER_LEVEL:* 5
 msg_other: teleports away.
 desc:You restore powers by getting into deep warp.
 
-spell:Phase Nova:30:20:22:30:0
+spell:Phase Nova:30:20:1:30:0
 effect:BLAST:MISSILE:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 10
@@ -7063,14 +7063,14 @@ msg_other: radiates a powerful wave of force.
 desc:Teleport you to another spot; upon destination you
 desc: perform devastating spike of force.
 
-spell:Unwarp:35:25:44:40:0
+spell:Unwarp:35:25:1:40:0
 effect:BLAST_OBVIOUS:AWAY_ALL:2:10
 dice:100
 msg_other: makes a rush gesture.
 desc:Creates a radius-5 to radius-7 wave around you that teleports each monster
 desc: in its path up to 100 squares away.
 
-spell:Phase Skimming:40:30:33:50:0
+spell:Phase Skimming:40:30:1:50:0
 cooldown:4
 effect:BLAST:FORCE:1
 dice:$B
@@ -7096,7 +7096,7 @@ msg_other: blinks away.
 desc:You teleport around battlefield bringing havoc and shredding your enemies.
 desc: Cooldown 4 turns.
 
-spell:Quake:45:40:33:75:0
+spell:Quake:45:40:1:75:0
 cooldown:200
 effect:TELEPORT
 dice:$B
@@ -7106,7 +7106,7 @@ desc:Causes a radius 10 earthquake centered around the player and
 desc: teleports you away within the current level.
 desc: Cooldown 200 turns.
 
-spell:Safe Spot:50:50:33:100:0
+spell:Safe Spot:50:50:1:100:0
 cooldown:400
 effect:SAFE_GUARD
 effect:TELEPORT
