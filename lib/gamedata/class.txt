@@ -7006,10 +7006,13 @@ effect:RESTORE_MANA
 dice:0
 effect:RANDOM
 dice:2
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:/ 2
 effect:TELEPORT
 dice:11
 msg_other: blinks away.
-desc:Low-cost teleport on short distance.
+desc:Phase on short distance to restore some vigor.
 
 spell:Phase Smash:10:3:33:10:0
 effect:MELEE_BLOWS:MISSILE
@@ -7021,11 +7024,14 @@ expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Teleport to the target and score a melee hit.
 
 spell:Gate:15:2:11:15:0
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:+ 10
 msg_other: teleports away.
-desc:Teleports you randomly on medium distance.
+desc:Phase on medium distance to restore some vigor.
 
 spell:Force Field:20:11:33:20:0
 # need to hc field distance by lvl..
@@ -7037,7 +7043,7 @@ msg_other: scrambles around.
 desc:Phase out force field and scramble expanse at a medium distance.
 desc: Cooldown 11 turns.
 
-spell:Healing Warp:25:17:33:25:0
+spell:Healing Warp:25:10:33:25:0
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
