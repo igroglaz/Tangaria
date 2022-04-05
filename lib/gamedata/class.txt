@@ -5821,7 +5821,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 spell:Ice Missile:1:0:5:1:0
 effect:BOLT:COLD
 dice:1d$D
-expr:D:PLAYER_LEVEL:+ 5
+expr:D:PLAYER_LEVEL:/ 5 + 5
 effect:TIMED_INC:OPP_COLD
 dice:20+1d20
 msg_other: flings a piece of ice.
