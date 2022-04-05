@@ -2780,6 +2780,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_DIGGING] += (weapon->weight / 10);
         }
 
+        // 'cumber_shield' means 2H weapon equipped
+        if (cumber_shield && streq(p->clazz->name, "Battlemage"))
+        {
+            extra_blows += (p->lev / 10) + 5;
+        }
+
         /* Priest weapon penalty for non-blessed edged weapons */
         if (streq(p->clazz->name, "Priest") && !of_has(state->flags, OF_BLESSED) &&
             ((weapon->tval == TV_SWORD) || (weapon->tval == TV_POLEARM)))

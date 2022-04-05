@@ -1802,7 +1802,7 @@ desc: This prayer reduce your nourishment.
 spell:Sanctuary:34:20:75:80:1
 effect:TIMED_INC:SHIELD
 dice:30+1d20
-desc:Grants you +50 to AC for 30+1d20 turns.
+desc:Grants you AC based on your level for 30+1d20 turns.
 
 spell:Enchant Armour:35:60:85:150:0
 effect:ENCHANT:TOAC
@@ -2460,7 +2460,7 @@ desc: with dangerous side-effects.
 spell:Demonic Skin:32:16:64:32:0
 effect:TIMED_INC:SHIELD
 dice:30+1d20
-desc:Grants you +50 to AC for 30+1d20 turns.
+desc:Grants you AC based on your level for 30+1d20 turns.
 
 spell:Unholy Reprieve:34:45:60:120:0
 effect:DAMAGE
@@ -3294,7 +3294,7 @@ desc: to another player's inventory.
 spell:Force Shield:27:23:56:29:0
 effect:TIMED_INC:SHIELD
 dice:30+1d20
-desc:Grants you +50 to AC for 30+1d20 turns.
+desc:Grants you AC based on your level for 30+1d20 turns.
 
 spell:Prismatic Shield:29:25:59:33:0
 effect:CLEAR_VALUE
@@ -3690,7 +3690,7 @@ effect:TIMED_INC:SHIELD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
-desc:Grants you temporary +50 to AC.
+desc:Grants you temporary AC based on your level.
 
 spell:Explosion:38:17:79:31:0
 effect:BALL:SHARD:3
@@ -4116,7 +4116,7 @@ desc:Attunes you to nature, increasing your defensive abilities turns.
 desc: Each cast of this spell when it is active promotes it to the next stage.
 desc: At a first stage, blesses you, giving a bonus of +5 to AC and +10 to-hit.
 desc: At a second stage, increases strength, dexterity and constitution.
-desc: At a third stage, shields you, granting +50 to AC.
+desc: At a third stage, shields you, granting AC based on your level.
 desc: At a fourth stage, grants you resistance to acid, cold, fire, lightning
 desc: and poison.
 desc: At a fifth and last stage, hastes you (+10 to speed).
@@ -5400,7 +5400,7 @@ desc:Grants extra blows sometimes and makes you immune to disarming.
 spell:Defensive Stance:40:40:64:32:0
 effect:TIMED_INC:SHIELD
 dice:15+1d10
-desc:Grants you +50 to AC.
+desc:Grants you AC based on your level.
 
 spell:Intercept:45:50:65:20:0
 cooldown:300
@@ -5775,14 +5775,14 @@ desc: no target grid will mean the player grid is hit.
 ############### CLASS TEMPLATE for Battlemage ###############
 name:Battlemage
 color:Y
-skill-disarm-phys:36:10
+skill-disarm-phys:42:10
 skill-disarm-magic:42:10
 skill-device:32:10
 skill-save:28:10
-skill-stealth:3:0
-skill-search:15:15
+skill-stealth:1:0
+skill-search:12:12
 skill-melee:60:40
-skill-shoot:72:45
+skill-shoot:20:15
 skill-dig:0:0
 hitdie:5
 max-attacks:4
@@ -5800,7 +5800,8 @@ value:0:WIS[0]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[-1]
-player-flags:0:CHOOSE_SPELLS
+# especially good with 2H weapons ((p->lev / 10) + 5 blows)
+player-flags:0:ZERO_FAIL
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -5817,109 +5818,170 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-#spell:Shield of Elements:1:1:1:10:0
-#effect:TIMED_INC:HARMONY
+spell:Ice Missile:1:0:5:1:0
+effect:BOLT:COLD
+dice:1d$D
+expr:D:PLAYER_LEVEL:+ 5
+effect:TIMED_INC:OPP_COLD
+dice:20+1d20
+msg_other: flings a piece of ice.
+desc:Fires piece of sharp ice to the target.
+desc: Also you get temporary cold resistance.
 
-spell:Fiery Blow:1:2:30:1:0
+spell:Fiery Blow:5:2:5:1:0
+cooldown:10
+effect:TIMED_INC:ATT_FIRE:0:5
+dice:20+1d20
 effect:MELEE_BLOWS:FIRE
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:WEAPON_DAMAGE:* 5
 effect:TIMED_INC:OPP_FIRE
 dice:20+1d20
-desc:Attempts a fiery melee attack and grants fire resistance.
+desc:Attempts a fiery melee attack, grants fire resistance and
+desc:temporarily makes your melee attacks branded with fire.
+desc: Cooldown 10 turns.
 
-spell:Phase Nova:5:4:24:3:0
+spell:Phase Nova:10:4:5:3:0
+#hc dam 1d10 and rad 1-3
+cooldown:3
+effect:TELEPORT
+dice:10
 effect:BLAST:ELEC:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TELEPORT
-dice:10
 effect:TIMED_INC:OPP_ELEC
 dice:20+1d20
 msg_other: blinks away.
-desc:Teleports you randomly up to 10 squares away and makes
-desc: electric nova around you and grants electricity resistance.
+desc:Makes electric nova around you and teleports you in close range.
+desc: Grants electricity resistance.
+desc: Cooldown 3 turns.
 
-spell:Poison Sweep:10:7:40:5:0
-effect:SWEEP
-effect:TIMED_INC:ATT_POIS:0:5
-dice:2
+spell:Stoneskin I:15:5:5:20:0
+effect:TIMED_INC:SHIELD
+dice:20+1d20
 effect:TIMED_INC:OPP_POIS
 dice:20+1d20
-desc:Deals a melee attack to each adjacent enemy with 
-desc: iced weapon and provides cold resistance.
+effect:CURE:POISONED
+desc:Grants you AC based on your level, cure poison and you become
+desc: resistant to poison for 20+1d20 turns.
 
-spell:Astral Chase:15:12:33:7:0
-effect:TELEPORT_TO
-dice:$B
-expr:B:PLAYER_LEVEL:/ 5
-desc:Phase to chosen target.
-desc: You can cast this spell every 3 turns.
-
-spell:Frost Aura:20:20:35:12:0
-effect:TIMED_INC:ICY_AURA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc: Creates a curtain of ice around you to block enemy attacks, damaging and
-desc: freezing them in the process, but also reduce stealth and movement speed.
-desc: Additionally:
-desc: 10 level: + 10 to AC
-desc: 20 level: brands your physical attacks with cold
-desc: 40 level: reduce malus to stealth and movement
-
-spell:Acid Rain:25:28:30:16:0
+spell:Astral Scouting:20:1:5:7:0
 cooldown:10
-effect:SWARM:ACID:1
-dice:$B+m$M
-expr:B:PLAYER_LEVEL:/ 2 + 30
-expr:M:PLAYER_LEVEL:/ 20 + 2
-effect:TIMED_INC:OPP_ACID
-dice:20+1d20
-msg_other: fires a swarm of acid meteors.
-desc:Shoots a swarm of 3 or 4 acid meteors.
-desc: Meteors will travel until hitting a wall, a monster
-desc: or reaching the target location.
-desc: Meteors will explode as a radius-1 ball that does unresistable
-desc: damage to each monster in its area of effect.
-desc: If this kills the monster that blocked the path to the target
-desc: location, the next meteor may continue to find another target.
-desc: You can cast this spell every 10 turns.
-
-spell:Stoneskin:30:35:40:20:0
-effect:TIMED_INC:SHIELD
-dice:30+1d20
-desc:Grants you +50 to AC for 30+1d20 turns.
-
-spell:Black Hole:35:50:45:25:0
-effect:BLAST:GRAVITY:4
-dice:40+$Dd7
-expr:D:PLAYER_LEVEL:+ 0
-msg_other: fires a gravity beam.
-desc:Produces a zone of huge gravity affecting the player and monsters
-desc: within radius 4 and has a chance of teleporting it away.
-
-spell:Inferno Breath:40:45:55:50:0
-effect:BREATH:PLASMA:0:20
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-desc:Spews plasma in a long narrow cone from the player.
-
-spell:Lighting Surge:45:50:30:70:0
-effect:BEAM:ELEC
+effect:LIGHT_AREA
+effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
-msg_other: fires a lightning beam.
-desc:Fires a lightning beam that hurts each monster in its path.
-
-spell:Battle Telekinesis:50:17:27:40:0
-effect:LINE:KILL_WALL
-dice:20+1d30
-effect:BOLT:SHARD
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:LIGHT_AREA
+effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:LIGHT_AREA
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+desc:Multiteleport around current level.
+desc: If you visit a room, it will be lit up.
+desc: Cooldown 10 turns.
+
+spell:Lighting Storm:25:10:5:15:0
+effect:BLAST:ELEC:10
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:STAR:ELEC
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:BREATH:ELEC:0:20
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: conjures a lightning storm.
+desc:Congures a lightning storm around you and whirl it toward target.
+
+spell:Stoneskin II:30:15:55:20:0
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:TIMED_INC:OPP_ACID
+effect:TIMED_INC:SHIELD
+effect:SET_VALUE
+dice:20+1d20
+effect:CURE:POISONED
+desc:Grants resistance to acid, cold, fire, lightning and poison for
+desc: 20+1d20 turns; also grants bonus AC.
+
+spell:Black Hole:35:20:5:25:0
+effect:EARTHQUAKE:NONE:7
+effect:EARTHQUAKE:NONE:6
+effect:EARTHQUAKE:NONE:5
+effect:EARTHQUAKE:NONE:4
+effect:EARTHQUAKE:NONE:3
+effect:EARTHQUAKE:NONE:2
+effect:EARTHQUAKE:NONE:1
+effect:RANDOM
+dice:7
+effect:BLAST:GRAVITY:8
+dice:40+$Dd7
+expr:D:PLAYER_LEVEL:+ 0
+msg_other: conjures a gravity black hole.
+desc:Produces a zone of huge gravity which invoke earthquake within
+desc: radius 8 and has a chance of teleporting monsters away.
+
+spell:Battle Healing:40:25:25:4:1
+cooldown:10
+effect:CURE:CUT
+effect:CURE:STUN
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 10
+expr:M:PLAYER_LEVEL:/ 3 + 12
+desc:Cures a level-dependent percentage of your wounds and heals cuts and stunning.
+desc: Cooldown 10 turns.
+
+spell:Toxic Ray:45:30:5:5:0
+effect:BEAM:POIS
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+desc:Directs ray of radiation towards target.
+
+spell:Battle Telekinesis:50:15:5:40:0
+# lowcost
+effect:LINE:KILL_WALL
+dice:20+1d30
+effect:BOLT:MISSILE
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+effect:BOLT:SHARD
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: flings a sharp piece of rock.
 desc:Almost effortlessly hurls a sharp piece of rock into the target.
 desc: Also this spell excellent on tunneling walls.
+
 
 ############### CLASS TEMPLATE for Necromancer ###############
 name:Necromancer
@@ -7408,7 +7470,7 @@ desc:Attunes you to nature, increasing your defensive abilities turns.
 desc: Each cast of this spell when it is active promotes it to the next stage.
 desc: At a first stage, blesses you, giving a bonus of +5 to AC and +10 to-hit.
 desc: At a second stage, increases strength, dexterity and constitution.
-desc: At a third stage, shields you, granting +50 to AC.
+desc: At a third stage, shields you, granting AC based on your level.
 desc: At a fourth stage, grants you resistance to acid, cold, fire, lightning
 desc: and poison.
 desc: At a fifth and last stage, hastes you (+10 to speed).
@@ -7624,6 +7686,8 @@ dice:2
 msg_other: summons a golem.
 desc:Attempts to create golem. You don't need materials for it.
 desc: Cooldown 7 turns.
+
+#spell:Acid Rain:50:40:5:16:0
 
 #spell:Elixir of Immortality:50:70:90:100:0
 #cooldown:1000
