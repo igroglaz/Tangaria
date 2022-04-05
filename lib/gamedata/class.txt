@@ -164,6 +164,8 @@
 #will work only for current turn. So to make it summoned - it should be min 2. 
 #but to buff next blow - it's alright to have 1
 
+# perhaps most of TIMED_INC buffs should be reworked into TIMED_SET...
+
 ############### WARRIOR ###############
 name:Warrior
 color:u
@@ -386,7 +388,7 @@ desc:Detects all non-invisible monsters in the immediate area,
 desc: for one turn only.
 
 spell:Phase Door:1:2:24:4:0
-effect:TIMED_INC:MOVE_FAST
+effect:TIMED_SET:MOVE_FAST
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 effect:TELEPORT
@@ -5818,48 +5820,40 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Ice Missile:1:0:5:1:0
-effect:BOLT:COLD
+spell:Defensive Telekinesis:1:0:5:1:0
+effect:STRIKE:MISSILE:0
 dice:1d$D
-expr:D:PLAYER_LEVEL:/ 5 + 5
-effect:TIMED_INC:OPP_COLD
-dice:20+1d20
-msg_other: flings a piece of ice.
-desc:Fires piece of sharp ice to the target.
-desc: Also you get temporary cold resistance.
+expr:D:PLAYER_LEVEL:/ 5 + 4
+msg_other: flings a piece of rock.
+desc:Fires surrounding rubble or piece of rock to the target.
+desc: Target grid must be targetable and known to the player.
 
-spell:Fiery Blow:5:2:5:1:0
-cooldown:10
-effect:TIMED_INC:ATT_FIRE:0:5
+spell:Fiery Brand:5:2:5:1:0
+effect:TIMED_SET:ATT_FIRE:0:5
 dice:20+1d20
-effect:MELEE_BLOWS:FIRE
-dice:$B
-expr:B:WEAPON_DAMAGE:* 5
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:20+1d20
-desc:Attempts a fiery melee attack, grants fire resistance and
-desc:temporarily makes your melee attacks branded with fire.
-desc: Cooldown 10 turns.
+desc:Makes your melee attacks branded with fire and grants fire resistance.
 
-spell:Phase Nova:10:4:5:3:0
+spell:Frozen Nova:10:4:5:3:0
 #hc dam 1d10 and rad 1-3
 cooldown:3
 effect:TELEPORT
 dice:10
-effect:BLAST:ELEC:1
+effect:BLAST:COLD:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC:OPP_ELEC
+effect:TIMED_SET:OPP_COLD
 dice:20+1d20
 msg_other: blinks away.
-desc:Makes electric nova around you and teleports you in close range.
-desc: Grants electricity resistance.
+desc:Casts frozen nova around you and teleports you in close range.
+desc: Grants cold resistance.
 desc: Cooldown 3 turns.
 
 spell:Stoneskin I:15:5:5:20:0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:20+1d20
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 effect:CURE:POISONED
 desc:Grants you AC based on your level, cure poison and you become
@@ -5917,17 +5911,19 @@ expr:B:PLAYER_LEVEL:+ 0
 effect:BREATH:ELEC:0:20
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
+effect:TIMED_SET:OPP_ELEC
+dice:20+1d20
 msg_other: conjures a lightning storm.
 desc:Congures a lightning storm around you and whirl it toward target.
 
 spell:Stoneskin II:30:15:55:20:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
+effect:TIMED_SET:SHIELD
 effect:SET_VALUE
 dice:20+1d20
 effect:CURE:POISONED
