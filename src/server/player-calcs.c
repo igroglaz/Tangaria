@@ -2191,6 +2191,14 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // ? state->num_moves += 1;
     }
 
+    // in case if we wear 2H weapon without shield - BpR boni
+    if (cumber_shield == 1) 
+        extra_blows += (p->lev / 12) + 1;
+
+    // Battlemage boni for heavier weapons
+    if (weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
+        extra_blows += (p->lev / 10) + 5;
+
     // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
     if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
     !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
@@ -2778,12 +2786,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->num_blows = calc_blows(p, weapon, state, extra_blows);
             if (!tool || !tval_is_digger(tool))
                 state->skills[SKILL_DIGGING] += (weapon->weight / 10);
-        }
-
-        // 'cumber_shield' means 2H weapon equipped
-        if (cumber_shield && streq(p->clazz->name, "Battlemage"))
-        {
-            extra_blows += (p->lev / 10) + 5;
         }
 
         /* Priest weapon penalty for non-blessed edged weapons */
