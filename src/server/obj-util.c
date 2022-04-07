@@ -984,7 +984,12 @@ bool has_level_req(struct player *p, struct object *obj)
     if (!cfg_level_req) return true;
 
     /* Must meet level requirement */
-    return (p->lev >= obj->level_req);
+
+    // hack to adjust items req. lvl a bit to make pstore trade more viable
+    if (obj->level_req > 15 && obj->level_req < 50)
+        return (p->lev >= obj->level_req - 3);
+    else
+        return (p->lev >= obj->level_req);
 }
 
 
