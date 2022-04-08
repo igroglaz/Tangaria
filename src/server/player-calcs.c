@@ -2196,7 +2196,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         extra_blows += (p->lev / 12) + 1;
 
     // Battlemage boni for heavier weapons
-    if (weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
+    if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
         extra_blows += (p->lev / 10) + 5;
 
     // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
