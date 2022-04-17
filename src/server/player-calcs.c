@@ -2501,6 +2501,32 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Other timed effects */
     player_flags_timed(p, state->flags);
 
+    // Knight class
+    if (p->timed[TMD_DEFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_CON] += 2;
+        state->stat_add[STAT_DEX] -= 1;
+        state->to_a += p->lev;
+        state->skills[SKILL_SAVE] += p->lev;
+        extra_moves -= p->lev / 10;
+    }
+    else if (p->timed[TMD_OFFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_STR] += 1;
+        state->stat_add[STAT_DEX] += 1;
+        state->stat_add[STAT_CON] -= 1;
+        state->to_a -= p->lev;
+        state->skills[SKILL_SAVE] -= p->lev / 2;
+        extra_blows += (p->lev / 5);
+    }
+    else if (p->timed[TMD_BALANCED_STANCE])
+    {
+        state->skills[SKILL_SEARCH] += 1;
+        state->skills[SKILL_TO_HIT_MELEE] += 3;
+        if (weapon && weapon->weight > 100)
+            extra_blows -= p->lev / 10;
+    }
+    
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
     {
         state->to_h -= 20;

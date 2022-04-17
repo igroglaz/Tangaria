@@ -5319,14 +5319,9 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[1]
-value:0:INT[-3]
-value:0:WIS[1]
-value:0:DEX[-1]
-value:0:CON[2]
+value:0:INT[-1]
 value:0:CHR[1+1d24]
-obj-flag:30:PROT_CONF
-player-flags:0:SHIELD_BASH
+# /// to add: AGGRAVATE 3 range hardcoded (like minotaur)
 title:Gallant
 title:Keeper
 title:Protector
@@ -5340,94 +5335,29 @@ title:Glorious Lord
 
 magic:1:600:1
 
-book:prayer book:town:[Beginners Handbook]:11:divine
+book:prayer book:town:[Beginners Handbook]:3:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
-spell:Retreat:1:2:30:2:0
-effect:TELEPORT
-dice:$B
-expr:B:PLAYER_LEVEL:/ 5
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
+spell:Balanced Stance:1:1:1:1:0
+effect:CURE:CONFUSED
+effect:TIMED_INC:BALANCED_STANCE
+dice:300
+msg_other: took balanced stance.
+desc:You preparing for balanced tactics.
 
-spell:Overcome Fear:5:4:26:4:0
-effect:BLAST:LIGHT_WEAK:1
-dice:2d$S
-expr:S:PLAYER_LEVEL:/ 2
-effect:TIMED_INC:BOLD
-dice:25+1d25
+spell:Defensive Stance:1:1:1:1:0
+effect:CURE:STUN
+effect:TIMED_INC:DEFENSIVE_STANCE
+dice:300
+msg_other: took defensive stance.
+desc:You preparing for more defensive tactics.
+
+spell:Offensive Stance:1:1:1:1:0
 effect:CURE:AFRAID
-msg_other: calls light.
-desc:Lights up a small magical fire.
-desc: It removes fear and give resistance to fear for 25+1d25 turns.
-
-spell:Charge:10:7:16:7:0
-cooldown:5
-effect:MELEE_BLOWS:MISSILE
-dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
-effect:TELEPORT_TO
-dice:$B
-expr:B:PLAYER_LEVEL:/ 10 + 1
-desc:Reckless charge to chosen target.
-desc: You can use this skill once per 5 turns.
-
-spell:First Aid:15:15:32:12:0
-effect:TIMED_INC:REGEN
-dice:10+1d10
-desc:Greatly increases your regeneration rate for 20+1d20 turns.
-desc: The effect of this spell is cumulative with other means of regeneration.
-
-spell:Reflection Shield:20:20:48:24:0
-effect:TIMED_INC:SAFE
-dice:10+1d10
-desc:Grants you perfect saving throw for 10+1d10 turns.
-
-spell:Challenging Shout:25:25:32:20:0
-effect:TIMED_INC:TAUNT
-dice:12+1d12
-desc:Makes any monster that can move more inclined to run toward you, and less
-desc: likely to use a ranged attack (including spells and innate abilities).
-
-spell:Exterminate Evil:30:30:40:20:0
-effect:TIMED_INC:ATT_EVIL:0:5
-dice:10+1d10
-desc:Temporarily makes your melee attacks deadly to evil enemies.
-
-spell:Favorite Weapon:35:35:40:20:0
-effect:TIMED_INC:HOLD_WEAPON
-dice:10+1d10
-desc:Grants extra blows sometimes and makes you immune to disarming.
-
-spell:Defensive Stance:40:40:64:32:0
-effect:TIMED_INC:SHIELD
-dice:15+1d10
-desc:Grants you AC based on your level.
-
-spell:Intercept:45:50:65:20:0
-cooldown:300
-effect:GLYPH:WARDING
-effect:TELEPORT_TO
-dice:$B
-expr:B:PLAYER_LEVEL:/ 5 + 5
-desc:Teleports you next to a chosen target and
-desc: inscribes a glyph of warding beneath you.
-desc: Summoned monsters can't appear on the glyph.
-desc: If a monster attempts to move onto the glyph or melee you while you
-desc: are standing on the glyph, it must first succeed in breaking the glyph.
-desc: Higher level monsters are more likely to break the glyph.
-desc: The glyph will remain where it is, until a monster succeeds in
-desc: breaking it or until you leave the level.
-desc: You can cast this spell every 300 turns.
-
-spell:Absolute Defense:50:70:95:250:0
-cooldown:300
-effect:TIMED_INC:INVULN
-dice:4+1d4
-desc:Grants you resistance against non-physical attacks.
-desc: The shield absorbs a percentage of damage from such attacks
-desc: equal to your character level.
-desc: Can be used every 300 turns.
+effect:TIMED_INC:OFFENSIVE_STANCE
+dice:300
+msg_other: took offensive stance.
+desc:You preparing for more offensive tactics.
 
 ############### CLASS TEMPLATE for Traveller ###############
 name:Traveller

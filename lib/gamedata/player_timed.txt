@@ -720,3 +720,18 @@ grade:w:10000:Pet:You treat your pet.
 name:UNSUMMON_MINIONS
 desc:unsummon your minions
 grade:w:10000:Unsummon:You unsummon your minions.
+
+name:BALANCED_STANCE
+desc:balanced stance
+grade:w:10000:Balanced:Balanced stance.
+#msgt:BALANCED_STANCE
+
+name:DEFENSIVE_STANCE
+desc:defensive stance
+grade:T:10000:Defensive:Defensive stance.
+#msgt:DEFENSIVE_STANCE
+
+name:OFFENSIVE_STANCE
+desc:offensive stance
+grade:t:10000:Offensive:Offensive stance.
+#msgt:OFFENSIVE_STANCE
