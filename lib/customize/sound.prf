@@ -630,4 +630,6 @@ sound:sentry:sentry
 
 sound:door_broken:door_broken
 
+sound:disrupt:disrupt
+
 # leave empty line for EOF
