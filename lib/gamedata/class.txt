@@ -156,7 +156,10 @@
 # together.
 
 ###
-# ! Don't rename classes - it will make savefiles broken
+# !!!
+# ! 1) Don't rename classes 
+# ! 2) Don't change number of spells
+# !!! -> it will make savefiles broken
 ###
 
 #effect:TIMED_INC:SENTRY
@@ -5335,7 +5338,9 @@ title:Glorious Lord
 
 magic:1:600:1
 
-book:prayer book:town:[Beginners Handbook]:3:divine
+### remove excessive spells during wipe
+
+book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
@@ -5358,6 +5363,55 @@ effect:TIMED_INC:OFFENSIVE_STANCE
 dice:300
 msg_other: took offensive stance.
 desc:You preparing for more offensive tactics.
+
+spell:Retreat 4:50:1:1:1:0
+effect:TELEPORT
+dice:4
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 5:50:1:1:1:0
+effect:TELEPORT
+dice:5
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 6:50:1:1:1:0
+effect:TELEPORT
+dice:6
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 7:50:1:1:1:0
+effect:TELEPORT
+dice:7
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 8:50:1:1:1:0
+effect:TELEPORT
+dice:8
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 9:50:1:1:1:0
+effect:TELEPORT
+dice:9
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 10:50:1:1:1:0
+effect:TELEPORT
+dice:10
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
+spell:Retreat 11:50:1:1:1:0
+effect:TELEPORT
+dice:11
+msg_other: retreats away.
+desc:You retreat at random to a short distance.
+
 
 ############### CLASS TEMPLATE for Traveller ###############
 name:Traveller
