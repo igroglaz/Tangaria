@@ -1234,8 +1234,12 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
         return true;
     }
 
+            
     /* Antimagic field (no effect on psi powers which are not "magical") */
-    if (strcmp(book->realm->name, "psi") && check_antimagic(p, chunk_get(&p->wpos), NULL))
+    // also some classes got skills, not spells
+    if (strcmp(book->realm->name, "psi") && strcmp(p->clazz->name, "Knight") &&
+        strcmp(p->clazz->name, "Fighter") && strcmp(p->clazz->name, "Scavenger") &&
+        check_antimagic(p, chunk_get(&p->wpos), NULL))
     {
         use_energy(p);
 
