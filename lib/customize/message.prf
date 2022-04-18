@@ -489,6 +489,12 @@ message:MULTIPLY:w
 # MSG_BOLD
 message:BOLD:w
 
+# MSG_RAIN
+message:WILD_RAIN:w
+
+# MSG_WILD_WAVES
+message:WILD_WAVES:w
+
 # MSG_WILD_RIVER
 message:WILD_RIVER:w
 

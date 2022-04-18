@@ -271,43 +271,53 @@ static void play_ambient_sound(struct player *p)
                 (p->wpos.grid.x ==  0 && p->wpos.grid.y == -3) ||
                 (p->wpos.grid.x ==  0 && p->wpos.grid.y == -4)) // free spot. add there dungeon..
                         sound(p, MSG_WILD_WOOD);
-            else if ((p->wpos.grid.x ==  1 && p->wpos.grid.y == 0) ||
-                     (p->wpos.grid.x ==  1 && p->wpos.grid.y == 2) ||
-                     (p->wpos.grid.x ==  2 && p->wpos.grid.y == 1) ||
-                     (p->wpos.grid.x ==  2 && p->wpos.grid.y == 2))
-                        sound(p, MSG_WILD_MOUNTAIN);
-            else if ((p->wpos.grid.x == -1 && p->wpos.grid.y == 0) ||
-                     (p->wpos.grid.x == -1 && p->wpos.grid.y == -1))
+            else if((p->wpos.grid.x ==  1 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 1) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 2))
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_GRASS); // bird of prey
+                        else if (one_in_(2)) sound(p, MSG_WILD_MOUNTAIN); // wolves
+                    }
+            else if((p->wpos.grid.x == -1 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == -1))
                         sound(p, MSG_WILD_SWAMP);
-            else if ((p->wpos.grid.x ==  0 && p->wpos.grid.y == 2) || 
-                     (p->wpos.grid.x == -1 && p->wpos.grid.y == 2) ||
-                     (p->wpos.grid.x ==  1 && p->wpos.grid.y == 3) ||
-                     (p->wpos.grid.x == -2 && p->wpos.grid.y == 2) ||
-                     (p->wpos.grid.x == -2 && p->wpos.grid.y == 1) ||
-                     (p->wpos.grid.x == -2 && p->wpos.grid.y == 0) ||
-                     (p->wpos.grid.x == -2 && p->wpos.grid.y == -1)||
-                     (p->wpos.grid.x ==  0 && p->wpos.grid.y == -5)||
-                     (p->wpos.grid.x ==  1 && p->wpos.grid.y == -5))
-                        sound(p, MSG_WILD_SHORE);
-            else if  (p->wpos.grid.x == 0 && p->wpos.grid.y == 4)
+            else if((p->wpos.grid.x ==  0 && p->wpos.grid.y == 2) || 
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 1) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == -1)||
+                    (p->wpos.grid.x ==  0 && p->wpos.grid.y == -5)||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == -5))
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_SHORE); // seagulls. !together with waves!
+                        if (one_in_(3)) sound(p, MSG_WILD_WAVES); // 1 minute sea
+                        else sound(p, MSG_WILD_DEEPWATER); // short sea
+                    }
+            else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 4)
                         sound(p, MSG_WILD_GLACIER);
-            else if  (p->wpos.grid.x == -2 && p->wpos.grid.y == 2)
+            else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && one_in_(3))
                         sound(p, MSG_WILD_DESERT);
-            else if  (p->wpos.grid.x == -1 && p->wpos.grid.y == -2)
+            else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -2 && one_in_(2))
                         sound(p, MSG_WILD_HILL);
-            else if  (p->wpos.grid.x == 1 && p->wpos.grid.y == -1)
+            else if (p->wpos.grid.x == 1 && p->wpos.grid.y == -1)
                         sound(p, MSG_WILD_WASTE);
             // WILD_DEEPWATER already there as T surrounded by it.. but some locs need it
-            else if ((p->wpos.grid.x ==  0 && p->wpos.grid.y == 3) || 
-                     (p->wpos.grid.x == -1 && p->wpos.grid.y == 3) ||
-                     (p->wpos.grid.x == -2 && p->wpos.grid.y == 3) ||
-                     (p->wpos.grid.x == -3 && p->wpos.grid.y == 0) ||
-                     (p->wpos.grid.x == -5 && p->wpos.grid.y == 0) ||
-                     (p->wpos.grid.x ==  0 && p->wpos.grid.y == 5) ||
-                     (p->wpos.grid.x ==  2 && p->wpos.grid.y == 3))
+            else if((p->wpos.grid.x ==  0 && p->wpos.grid.y == 3) || 
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -3 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -5 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x ==  0 && p->wpos.grid.y == 5) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 3))
                         sound(p, MSG_WILD_DEEPWATER);
             else if (is_daytime())
-                        sound(p, MSG_AMBIENT_DAY);
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_RAIN); // long rain.. TODO: stop when enter to dungeon.
+                        else sound(p, MSG_AMBIENT_DAY); // short rain
+                    }
             else
                         sound(p, MSG_AMBIENT_NITE);
         }
@@ -1960,7 +1970,11 @@ static void generate_new_level(struct player *p)
     if (!chunk_has_players(&p->wpos)) return;
 
     /* Play ambient sound on change of level. */
-    play_ambient_sound(p);
+    // always play it only while in a dungeon; if outside - sometimes
+    if (p->wpos.depth == 0 && one_in_(2))
+        ;
+    else
+        play_ambient_sound(p);
 
     /* Check "maximum depth" to make sure it's still correct */
     if (p->wpos.depth > p->max_depth) p->max_depth = p->wpos.depth;

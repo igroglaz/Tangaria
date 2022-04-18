@@ -31,12 +31,18 @@
 #amb_guitar_chord / was `ambient_nite`
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain tomenet/weather/weather/rain/rain
+sound:ambient_day:amb_thunder_rain
 
 # Town during the night.
 sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
 
-# River
+# Long rain
+sound:wild_rain:tomenet/weather/rain/rain
+
+# Waves (1 min. long)
+sound:wild_waves:tomenet/ambient/persistent/ocean/seawaves
+
+# River (not used in T)
 sound:wild_river:wild_river
 
 # Waste
@@ -46,31 +52,32 @@ sound:wild_waste:wild_waste
 sound:wild_volcano:wild_volcano
 
 # Grass
-sound:wild_grass:wild_grass
+sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
 
 # Wood
 sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3
 
 # Mountain
-sound:wild_mountain:tomenet/ambient/timed/wolf/wolf wild_wolf tomenet/ambient/timed/wolf/wolf tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
+sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf
 
 # Desert
 sound:wild_desert:wild_desert
 
 # Glacier
-sound:wild_glacier:wild_glacier tomenet/weather/weather/snow/snow
+sound:wild_glacier:wild_glacier
+# there is also long version, unused for now: tomenet/weather/snow/snow
 
 # Swamp
 sound:wild_swamp:wild_swamp tomenet/ambient/timed/toad/toad tomenet/ambient/timed/toad/toad2 tomenet/ambient/timed/toad/toad3
 
 # Deep water
-sound:wild_deepwater:wild_deepwater tomenet/ambient/persistent/ocean/seawaves
+sound:wild_deepwater:wild_deepwater
 
 # Hill
 sound:wild_hill:wild_hill wild_hill2
 
 # Shore
-sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagull
+sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagulls
 
 # Dungeon levels 1-20 (50'- 1000')
 sound:ambient_dng1:amb_door_iron amb_bell_metal1
