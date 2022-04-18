@@ -670,4 +670,7 @@ message:SENTRY:w
 # MSG_DOOR_BROKEN
 message:DOOR_BROKEN:w
 
+# MSG_DISRUPT
+message:DISRUPT:r
+
 ?:1

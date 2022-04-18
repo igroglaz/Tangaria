@@ -2191,6 +2191,14 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // ? state->num_moves += 1;
     }
 
+    // in case if we wear 2H weapon without shield - BpR boni
+    if (cumber_shield == 1) 
+        extra_blows += (p->lev / 12) + 1;
+
+    // Battlemage boni for heavier weapons
+    if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
+        extra_blows += (p->lev / 10) + 5;
+
     // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
     if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
     !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
@@ -2493,6 +2501,32 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Other timed effects */
     player_flags_timed(p, state->flags);
 
+    // Knight class
+    if (p->timed[TMD_DEFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_CON] += 2;
+        state->stat_add[STAT_DEX] -= 1;
+        state->to_a += p->lev;
+        state->skills[SKILL_SAVE] += p->lev;
+        extra_moves -= p->lev / 10;
+    }
+    else if (p->timed[TMD_OFFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_STR] += 1;
+        state->stat_add[STAT_DEX] += 1;
+        state->stat_add[STAT_CON] -= 1;
+        state->to_a -= p->lev;
+        state->skills[SKILL_SAVE] -= p->lev / 2;
+        extra_blows += (p->lev / 5);
+    }
+    else if (p->timed[TMD_BALANCED_STANCE])
+    {
+        state->skills[SKILL_SEARCH] += 1;
+        state->skills[SKILL_TO_HIT_MELEE] += 3;
+        if (weapon && weapon->weight > 100)
+            extra_blows -= p->lev / 10;
+    }
+    
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
     {
         state->to_h -= 20;

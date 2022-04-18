@@ -842,6 +842,16 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
         }
     }
 
+    if (streq(context->origin->player->clazz->name, "Battlemage"))
+    {   
+        // Phase Nova spell (mana 2)
+        if (context->origin->player->spell_cost == 2)
+        {
+            rad += context->origin->player->lev / 15;
+            dam *= context->origin->player->lev / 10;
+        }
+    }
+
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
         context->ident = true;
     return true;

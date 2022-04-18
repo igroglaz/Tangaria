@@ -31330,10 +31330,10 @@ depth:30
 rarity:0
 weight:0
 experience:1
-spell-freq:2
+spell-freq:50
 spell-power:10
 spells:BA_FIRE
-flags:NEVER_MOVE
+flags:NEVER_MOVE | ANTI_MAGIC
 desc:An indestructible golem used for testing purposes.
 
 name:Test drop

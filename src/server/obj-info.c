@@ -1917,7 +1917,11 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
     {
         text_out(p, "\n");
         if (obj->owner > 0) text_out(p, "Owner: %s\n", lookup_player_name(obj->owner));
-        text_out_c(p, COLOUR_L_RED, "Level requirement: %d", obj->level_req);
+        // T: make text red only if can't wear item
+        if (p->lev >= obj->level_req)
+            text_out_c(p, COLOUR_L_WHITE, "Level requirement: %d", obj->level_req);
+        else
+            text_out_c(p, COLOUR_L_RED, "Level requirement: %d", obj->level_req);
     }
 
     /* Preferred price */

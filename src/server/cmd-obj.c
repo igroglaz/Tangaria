@@ -994,8 +994,10 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
     chance = spell_chance(p, spell_index);
 
     /* Fail or succeed */
-    if (magik(chance))
-        msgt(p, MSG_SPELL_FAIL, "You failed to concentrate hard enough!");
+    // some classes use "skills" which do not fail
+    if (strcmp(p->clazz->name, "Knight") && strcmp(p->clazz->name, "Fighter") &&
+        strcmp(p->clazz->name, "Scavenger") && magik(chance))
+            msgt(p, MSG_SPELL_FAIL, "You failed to concentrate hard enough!");
     else
     {
         struct source who_body;
@@ -1234,8 +1236,12 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
         return true;
     }
 
+            
     /* Antimagic field (no effect on psi powers which are not "magical") */
-    if (strcmp(book->realm->name, "psi") && check_antimagic(p, chunk_get(&p->wpos), NULL))
+    // also some classes got skills, not spells
+    if (strcmp(book->realm->name, "psi") && strcmp(p->clazz->name, "Knight") &&
+        strcmp(p->clazz->name, "Fighter") && strcmp(p->clazz->name, "Scavenger") &&
+        check_antimagic(p, chunk_get(&p->wpos), NULL))
     {
         use_energy(p);
 

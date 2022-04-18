@@ -1957,7 +1957,7 @@ value:0:STEALTH[-4+-1d10]
 value:0:SPEED[1]
 obj-flag:1:IMPAIR_HP
 value:0:MANA[4+-1d6M25]
-# AGGRAVATE 3 range hardcoded
+# AGGRAVATE 3 range hardcoded (like knight)
 
 name:Troglodyte
 skill-disarm-phys:-10

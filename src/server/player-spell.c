@@ -791,14 +791,14 @@ bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
                     char m_name[NORMAL_WID];
 
                     monster_desc(p, m_name, sizeof(m_name), who, MDESC_CAPITAL);
-                    msg(p, "%s fails to cast a spell.", m_name);
+                    msgt(p, MSG_DISRUPT, "%s fails to cast a spell.", m_name);
                 }
                 else
                     // Inquisitor can cast his weird spells
                     if (streq(p->clazz->name, "Inquisitor"))
                         return false;
                     // others classes will fail
-                    msg(p, "Your anti-magic field disrupts your attempt.");
+                    msgt(p, MSG_DISRUPT, "Your anti-magic field disrupts your attempt.");
                 return true;
             }
         }
@@ -824,14 +824,14 @@ bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
                     char m_name[NORMAL_WID];
 
                     monster_desc(p, m_name, sizeof(m_name), who, MDESC_CAPITAL);
-                    msg(p, "%s fails to cast a spell.", m_name);
+                    msgt(p, MSG_DISRUPT, "%s fails to cast a spell.", m_name);
                 }
                 else
                 {
                     if (player_is_visible(p, i))
-                        msg(p, "%s's anti-magic field disrupts your attempt.", q->name);
+                        msgt(p, MSG_DISRUPT, "%s's anti-magic field disrupts your attempt.", q->name);
                     else
-                        msg(p, "An anti-magic field disrupts your attempt.");
+                        msgt(p, MSG_DISRUPT, "An anti-magic field disrupts your attempt.");
                 }
                 return true;
             }
@@ -879,10 +879,10 @@ bool check_antimagic(struct player *p, struct chunk *c, struct monster *who)
                 char m_name[NORMAL_WID];
 
                 monster_desc(p, m_name, sizeof(m_name), mon, MDESC_CAPITAL);
-                msg(p, "%s's anti-magic field disrupts your attempt.", m_name);
+                msgt(p, MSG_DISRUPT, "%s's anti-magic field disrupts your attempt.", m_name);
             }
             else
-                msg(p, "An anti-magic field disrupts your attempt.");
+                msgt(p, MSG_DISRUPT, "An anti-magic field disrupts your attempt.");
 
             return true;
         }
@@ -945,10 +945,10 @@ bool check_antisummon(struct player *p, struct monster *mon)
                     char m_name[NORMAL_WID];
 
                     monster_desc(p, m_name, sizeof(m_name), mon, MDESC_CAPITAL);
-                    msg(p, "%s fails to cast a spell.", m_name);
+                    msgt(p, MSG_DISRUPT, "%s fails to cast a spell.", m_name);
                 }
                 else
-                    msg(p, "Your anti-summon field disrupts your attempt.");
+                    msgt(p, MSG_DISRUPT, "Your anti-summon field disrupts your attempt.");
                 return true;
             }
         }
@@ -971,14 +971,14 @@ bool check_antisummon(struct player *p, struct monster *mon)
                     char m_name[NORMAL_WID];
 
                     monster_desc(p, m_name, sizeof(m_name), mon, MDESC_CAPITAL);
-                    msg(p, "%s fails to cast a spell.", m_name);
+                    msgt(p, MSG_DISRUPT, "%s fails to cast a spell.", m_name);
                 }
                 else
                 {
                     if (player_is_visible(p, i))
-                        msg(p, "%s's anti-summon field disrupts your attempt.", q->name);
+                        msgt(p, MSG_DISRUPT, "%s's anti-summon field disrupts your attempt.", q->name);
                     else
-                        msg(p, "An anti-summon field disrupts your attempt.");
+                        msgt(p, MSG_DISRUPT, "An anti-summon field disrupts your attempt.");
                 }
                 return true;
             }

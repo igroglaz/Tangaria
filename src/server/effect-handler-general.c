@@ -5405,7 +5405,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     }
 
     // Unsummon minions after teleporting far away to prevent cheezing (killing unaware mobs by minions)
-    if (is_player && dis > 10)
+    if (is_player && dis > 10 && context->origin->player->slaves > 0)
         player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Move the target */
@@ -5631,7 +5631,8 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
     }
 
     // Unsummon minions after teleport to prevent cheezing (killing unaware mobs by minions)
-    player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
+    if (context->origin->player->slaves > 0)
+        player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Tell the player */
     msgt(context->origin->player, MSG_TPLEVEL, message);

@@ -1314,15 +1314,35 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
 
     if (!check || player_inc_check(p, mon, idx, false))
     {
+        // Knight class stances
+        if (idx == TMD_BALANCED_STANCE)
+        {
+            player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
+            player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
+            msg(p, "Balanced stance.");
+        }
+        else if (idx == TMD_DEFENSIVE_STANCE)
+        {
+            player_clear_timed(p, TMD_BALANCED_STANCE, false);
+            player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
+            msg(p, "Defensive stance.");
+        }
+        else if (idx == TMD_OFFENSIVE_STANCE)
+        {
+            player_clear_timed(p, TMD_BALANCED_STANCE, false);
+            player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
+            msg(p, "Offensive stance.");
+        }
+
         /* Paralysis should be non-cumulative */
         if ((idx == TMD_PARALYZED) && (p->timed[idx] > 0)) return false;
-        
+
         // some additional thresholds so conditions won't overstuck
         if ((idx == TMD_SLOW || idx == TMD_CONFUSED || idx == TMD_AFRAID)
         && (p->timed[idx] > 10)) return false;
 
         if ((idx == TMD_POISONED) && (p->timed[idx] > 15)) return false;
-        
+
         if ((idx == TMD_STUN) && (p->timed[idx] > 35)) return false;
 
         /* Hack -- permanent effect */

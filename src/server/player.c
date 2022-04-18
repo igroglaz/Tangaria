@@ -315,9 +315,10 @@ void player_exp_lose(struct player *p, int32_t amount, bool permanent)
     /* Lose some experience */
     p->exp -= amount;
     if (permanent) p->max_exp -= amount;
-    
+
+    // loose some satiation too
     if (p->lev < 50)
-        player_dec_timed(p, TMD_FOOD, 10, false);
+        player_dec_timed(p, TMD_FOOD, 20, false);
 
     /* Adjust experience levels */
     adjust_level(p);
