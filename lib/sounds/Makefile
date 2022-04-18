@@ -176,7 +176,6 @@ DATA = sound.cfg credits.txt \
     chop1.ogg                 chop2.ogg                 chop3.ogg \
     chop4.ogg                 chop5.ogg                 chop6.ogg \
     chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
-    disrupt.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -193,7 +192,6 @@ DATA = sound.cfg credits.txt \
     dig4.mp3                  dig5.mp3                  dig6.mp3 \
     chop1.mp3                 chop2.mp3                 chop3.mp3 \
     chop4.mp3                 chop5.mp3                 chop6.mp3 \
-    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3 \
-    disrupt.mp3
+    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3
 
 PACKAGE = sounds
