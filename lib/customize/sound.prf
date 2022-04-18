@@ -27,11 +27,14 @@
 # Ambient sounds
 #
 
+#extra sounds (not used atm):
+#amb_guitar_chord / was `ambient_nite`
+
 # Town during the day.
-sound:ambient_day:amb_thunder_rain
+sound:ambient_day:amb_thunder_rain tomenet/weather/weather/rain/rain
 
 # Town during the night.
-sound:ambient_nite:amb_guitar_chord amb_thunder_roll
+sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
 
 # River
 sound:wild_river:wild_river
@@ -46,28 +49,28 @@ sound:wild_volcano:wild_volcano
 sound:wild_grass:wild_grass
 
 # Wood
-sound:wild_wood:wild_wood
+sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3
 
 # Mountain
-sound:wild_mountain:wild_mountain
+sound:wild_mountain:tomenet/ambient/timed/wolf/wolf wild_wolf tomenet/ambient/timed/wolf/wolf tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
 
 # Desert
 sound:wild_desert:wild_desert
 
 # Glacier
-sound:wild_glacier:wild_glacier
+sound:wild_glacier:wild_glacier tomenet/weather/weather/snow/snow
 
 # Swamp
-sound:wild_swamp:wild_swamp
+sound:wild_swamp:wild_swamp tomenet/ambient/timed/toad/toad tomenet/ambient/timed/toad/toad2 tomenet/ambient/timed/toad/toad3
 
 # Deep water
-sound:wild_deepwater:wild_deepwater
+sound:wild_deepwater:wild_deepwater tomenet/ambient/persistent/ocean/seawaves
 
 # Hill
-sound:wild_hill:wild_hill
+sound:wild_hill:wild_hill wild_hill2
 
 # Shore
-sound:wild_shore:wild_shore
+sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagull
 
 # Dungeon levels 1-20 (50'- 1000')
 sound:ambient_dng1:amb_door_iron amb_bell_metal1
@@ -122,13 +125,13 @@ sound:store4:sto_man_whoohaha
 sound:store5:sto_coins_countertop sto_bell_register1 sto_bell_register2
 
 # You enter a store.
-sound:store_enter:sto_bell_desk sto_bell_ding sto_bell_dingaling sto_bell_jingles sto_bell_ringing sto_bell_shop
+sound:store_enter:sto_bell_desk sto_bell_ding sto_bell_dingaling sto_bell_jingles sto_bell_ringing sto_bell_shop tomenet/store/doorbell_enter
 
 # You enter your home.
 sound:store_home:plm_door_entrance
 
 # You leave a store.
-sound:store_leave:plm_door_bolt
+sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
 
 #
 # Player sounds - combat
