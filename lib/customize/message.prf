@@ -53,6 +53,27 @@ message:TELEPORT:w
 # MSG_SHOOT (sound only)
 message:SHOOT:w
 
+# MSG_SHOOT_GOOD (sound only)
+message:SHOOT_GOOD:w
+
+# MSG_SHOOT_GREAT (sound only)
+message:SHOOT_GREAT:w
+
+# MSG_SHOOT_SUPERB (sound only)
+message:SHOOT_SUPERB:w
+
+# MSG_SHOOT_BOW (sound only)
+message:SHOOT_BOW:w
+
+# MSG_SHOOT_CROSSBOW (sound only)
+message:SHOOT_CROSSBOW:w
+
+# MSG_SHOOT_SLING (sound only)
+message:SHOOT_SLING:w
+
+# MSG_SHOOT_BOOMERANG (sound only)
+message:SHOOT_BOOMERANG:w
+
 # MSG_QUAFF (sound only)
 message:QUAFF:w
 

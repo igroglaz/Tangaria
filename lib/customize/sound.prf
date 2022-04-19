@@ -48,7 +48,7 @@ sound:wild_river:wild_river
 # Waste
 sound:wild_waste:wild_waste
 
-# Volcano
+# Volcano (not used in T)
 sound:wild_volcano:wild_volcano
 
 # Grass
@@ -166,12 +166,33 @@ sound:hit_hi_superb:plc_hit_anvil2
 sound:hit_hi_critical:plc_hit_critical
 
 # You miss a melee attack against a monster.
-sound:miss:plc_miss_arrow2
+sound:miss:tomenet/combat/miss/swosh
 
-# You fire a missile.
-sound:shoot:plc_miss_arrow
+# You fire a missile (general case; we use it for throwing items when no shooter equipped).
+sound:shoot:tomenet/combat/fire/boulder
 
-# You hit something with a missile.
+# You fire a missile (good hit).
+sound:shoot_good:plc_miss_arrow
+
+# You fire a missile (great hit).
+sound:shoot_great:plc_miss_arrow2
+
+# You fire a missile (superb hit).
+sound:shoot_superb:tomenet/combat/fire/missile
+
+# You fire a bow.
+sound:shoot_bow:tomenet/combat/fire/bow
+
+# You fire a crossbow.
+sound:shoot_crossbow:tomenet/combat/fire/xbow
+
+# You fire a sling.
+sound:shoot_sling:tomenet/combat/fire/sling
+
+# You throw a boomerang.
+sound:shoot_boomerang:tomenet/combat/fire/boomerang
+
+# You hit something (out of LoS) with a missile.
 sound:shoot_hit:plc_hit_arrow
 
 # You receive a hitpoint warning.

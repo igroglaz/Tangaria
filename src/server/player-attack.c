@@ -255,9 +255,22 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 4 + p->lev * 2;
     int power = weight + randint1(500);
     int new_dam = dam;
+    struct object *bow = equipped_item_by_slot_name(p, "shooting");
 
     if (randint1(5000) > chance)
-        *msg_type = MSG_SHOOT_HIT;
+    {
+        if (bow)
+        {
+            if (kf_has(bow->kind->kind_flags, KF_SHOOTS_ARROWS))
+                *msg_type = MSG_SHOOT_BOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_BOLTS))
+                *msg_type = MSG_SHOOT_CROSSBOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_SHOTS))
+                *msg_type = MSG_SHOOT_SLING;
+        }
+        else
+            *msg_type = MSG_SHOOT; // rocks (boomerangs too for now..)
+    }
     else if (power < 500)
     {
         *msg_type = MSG_HIT_GOOD;
@@ -1755,7 +1768,16 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
     }
 
     /* Sound */
-    sound(p, MSG_SHOOT);
+    if (obj->tval == TV_ARROW)
+        sound(p, MSG_SHOOT_BOW);
+    else if (obj->tval == TV_BOLT)
+        sound(p, MSG_SHOOT_CROSSBOW);
+    else if (obj->tval == TV_SHOT)
+        sound(p, MSG_SHOOT_SLING);
+    else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
+        sound(p, MSG_SHOOT_BOOMERANG);
+    else
+        sound(p, MSG_SHOOT); // rocks
 
     /* Take a turn */
     use_energy(p);
