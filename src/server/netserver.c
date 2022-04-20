@@ -7239,6 +7239,8 @@ static int Receive_store_leave(int ind)
 
         sound(p, MSG_STORE_LEAVE);
 
+        sound(p, MSG_SILENT);
+
         /* Update store info */
         message_flush(p);
         store_num = p->store_num;
