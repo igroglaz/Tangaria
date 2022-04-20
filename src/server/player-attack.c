@@ -1785,10 +1785,10 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
             sound(p, MSG_SHOOT_BOOMERANG);
         else
-            sound(p, MSG_SHOOT); // not sure do we need it or not
+            sound(p, MSG_SHOOT); // stone sound. not sure do we need it or not
     }
     else
-        sound(p, MSG_SHOOT);
+        sound(p, MSG_THROW);
 
     /* Take a turn */
     use_energy(p);

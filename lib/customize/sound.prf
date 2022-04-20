@@ -166,7 +166,7 @@ sound:hit_hi_superb:plc_hit_anvil2
 sound:hit_hi_critical:plc_hit_critical
 
 # You miss a melee attack against a monster.
-sound:miss:tomenet/combat/miss/swosh
+sound:miss:plc_miss_swish
 
 # You fire a missile (general case; we use it for throwing items when no shooter equipped).
 sound:shoot:tomenet/combat/fire/boulder
@@ -191,6 +191,9 @@ sound:shoot_sling:tomenet/combat/fire/sling
 
 # You throw a boomerang.
 sound:shoot_boomerang:tomenet/combat/fire/boomerang
+
+# You throw something (any item)
+sound:throw:tomenet/combat/miss/swosh
 
 # You hit something (out of LoS) with a missile.
 sound:shoot_hit:plc_hit_arrow
@@ -385,7 +388,7 @@ sound:destroy:plm_bang_metal plm_break_canister plm_break_glass plm_break_glass2
 sound:wield:plm_metal_sharpen
 
 # You take something in or out of your quiver.
-sound:quiver:plc_miss_swish
+sound:quiver:quiver
 
 # You wield a cursed item.
 sound:cursed:pls_man_oooh
