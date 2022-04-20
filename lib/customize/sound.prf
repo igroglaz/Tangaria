@@ -668,4 +668,6 @@ sound:disrupt:tomenet/misc/antimagic/disrupt
 
 sound:disarm_weapon:tomenet/combat/disarm/disarm_weapon
 
+sound:punch:tomenet/combat/hit/punch1 tomenet/combat/hit/punch2 tomenet/combat/hit/punch3 tomenet/combat/hit/punch4 tomenet/combat/hit/punch5 tomenet/combat/hit/punch6 tomenet/combat/hit/punch7
+
 # leave empty line for EOF

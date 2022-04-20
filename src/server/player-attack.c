@@ -304,6 +304,7 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 5 +
         (p->state.skills[SKILL_TO_HIT_MELEE] - 60);
     int new_dam = dam;
+    struct object *obj = equipped_item_by_slot_name(p, "weapon");
 
     /* Apply Touch of Death */
     if (p->timed[TMD_DEADLY] && magik(25))
@@ -311,9 +312,16 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
         *msg_type = MSG_HIT_HI_CRITICAL;
         new_dam = 4 * dam + 30;
     }
-
+    // now regular attacks
     else if (randint1(5000) > chance)
-        *msg_type = MSG_HIT;
+    {
+        if (obj) // with weapon
+        {
+            *msg_type = MSG_HIT;
+        }
+        else
+            *msg_type = MSG_PUNCH; // unarmed (barehand)
+    }
     else if (power < 400)
     {
         *msg_type = MSG_HIT_GOOD;
@@ -750,6 +758,7 @@ static const struct hit_types melee_hit_types[] =
 {
     {MSG_MISS, NULL},
     {MSG_HIT, NULL},
+    {MSG_PUNCH, NULL},
     {MSG_HIT_GOOD, "It was a good hit!"},
     {MSG_HIT_GREAT, "It was a great hit!"},
     {MSG_HIT_SUPERB, "It was a superb hit!"},
@@ -1132,7 +1141,13 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 melee_hit_types[i].text);
         }
         else
+        {
+            // sound for unarmed (barehand) attack
+            if (!obj)
+                msg_type = MSG_PUNCH;
+            
             msgt(p, msg_type, "You %s %s%s%s.", verb, target_name, hit_extra, dmg_text);
+        }
     }
 
     effects->stab_sleep = false;

@@ -706,4 +706,7 @@ message:DISRUPT:r
 # MSG_DISARM_WEAPON
 message:DISARM_WEAPON:r
 
+# MSG_PUNCH
+message:PUNCH:w
+
 ?:1
