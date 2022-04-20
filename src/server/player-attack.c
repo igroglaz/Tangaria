@@ -273,17 +273,17 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
     }
     else if (power < 500)
     {
-        *msg_type = MSG_HIT_GOOD;
+        *msg_type = MSG_SHOOT_GOOD;
         new_dam = 2 * dam + 5;
     }
     else if (power < 1000)
     {
-        *msg_type = MSG_HIT_GREAT;
+        *msg_type = MSG_SHOOT_GREAT;
         new_dam = 2 * dam + 10;
     }
     else
     {
-        *msg_type = MSG_HIT_SUPERB;
+        *msg_type = MSG_SHOOT_SUPERB;
         new_dam = 3 * dam + 15;
     }
 
@@ -1716,10 +1716,15 @@ static void missile_pict(struct player *p, const struct object *obj, struct loc 
 static const struct hit_types ranged_hit_types[] =
 {
     {MSG_MISS, NULL},
+    {MSG_SHOOT, NULL},
     {MSG_SHOOT_HIT, NULL},
-    {MSG_HIT_GOOD, "It was a good hit!"},
-    {MSG_HIT_GREAT, "It was a great hit!"},
-    {MSG_HIT_SUPERB, "It was a superb hit!"}
+    {MSG_SHOOT_BOW, NULL},
+    {MSG_SHOOT_CROSSBOW, NULL},
+    {MSG_SHOOT_SLING, NULL},
+    {MSG_SHOOT_BOOMERANG, NULL},
+    {MSG_SHOOT_GOOD, "It was a good hit!"},
+    {MSG_SHOOT_GREAT, "It was a great hit!"},
+    {MSG_SHOOT_SUPERB, "It was a superb hit!"}
 };
 
 
