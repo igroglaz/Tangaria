@@ -3365,9 +3365,10 @@ void do_cmd_store(struct player *p, int pstore)
     {
         case STORE_OTHER:
             if (streq(s->name, "Sonya the cat")) sound(p, MSG_BERSERK);
-            if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_STORE_OTHER_SOUND);
-            if (streq(s->name, "Torog")) sound(p, MSG_AFRAID);
-            /* sound(p, MSG_STORE_OTHER_SOUND); */
+            else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_STORE_OTHER_SOUND);
+            else if (streq(s->name, "Torog")) sound(p, MSG_AFRAID);
+            else if (streq(s->name, "Alchemy Shop")) sound(p, MSG_STORE_ALCHEMY);
+            else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);

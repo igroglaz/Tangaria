@@ -153,6 +153,8 @@ sound:store_xbm_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_alchemy:ambient/store/alchemy
+sound:store_magic:ambient/store/magic
 
 #
 # Player sounds - combat
