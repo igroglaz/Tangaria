@@ -24082,35 +24082,6 @@ friends:100:2d3:giant roc:servant
 desc:A winged humanoid demon from the Planes of Hell, Pazuzu grins inhumanely at
 desc: you as he decides your fate.
 
-name:Dwar, Dog Lord of Waw
-base:wraith
-color:p
-speed:120
-hit-points:4700
-hearing:90
-smell:50
-armor-class:108
-sleepiness:10
-depth:82
-rarity:3
-weight:0
-experience:38000
-blow:HIT:HURT:9d9
-blow:HIT:BLACK_BREATH:8d9
-blow:BITE:EXP_40:6d7
-blow:WAIL:TERRIFY:6d7
-flags:UNIQUE | MALE | NAME_COMMA | SMART | LEVITATE
-flags:DROP_4 | DROP_GOOD | ONLY_ITEM
-flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP
-spell-freq:3
-spells:BLIND | WOUND | HOLD | SCARE
-spells:BA_FIRE | BA_NETH
-spells:S_HOUND | S_UNDEAD | S_WRAITH
-drop:ring:Black Ring of Power:100:1:1
-desc:Dwar had a special affinity for dogs in life, and can still command them at
-desc: will. He howls maniacally as he reaches out to destroy you.
-
 name:Ithaqua the Windwalker
 base:yeti
 color:B
