@@ -30,6 +30,9 @@
 #extra sounds (not used atm):
 #amb_guitar_chord / was `ambient_nite`
 
+# Stop playback
+sound:silent:silent
+
 # Town during the day.
 sound:ambient_day:amb_thunder_rain
 
@@ -139,6 +142,17 @@ sound:store_home:plm_door_entrance
 
 # You leave a store.
 sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
+
+# Background sounds for stores
+sound:store_other_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_general_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_temple_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_bookseller_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_b_market_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_xbm_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 
 #
 # Player sounds - combat

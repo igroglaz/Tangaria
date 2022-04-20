@@ -1,7 +1,7 @@
 MKPATH=../../mk/
 include $(MKPATH)buildsys.mk
 
-SUBDIRS = tomenet
+SUBDIRS = ambient tomenet
 DATA = sound.cfg credits.txt \
 	amb_bell_metal1.ogg       mco_scurry_dry.ogg        plm_glass_smashing.ogg \
 	amb_bell_metal2.ogg       mco_shake_roll.ogg        plm_jar_ding.ogg \
@@ -73,13 +73,13 @@ DATA = sound.cfg credits.txt \
 	mco_frog_trill.ogg        plm_door_rusty.ogg        wild_glacier.ogg \
 	mco_hit_whip.ogg          plm_door_shut.ogg         wild_grass.ogg \
 	mco_howl_croak.ogg        plm_door_slam.ogg         wild_hill.ogg \
-	mco_howl_deep.ogg         plm_door_squeaky.ogg      wild_mountain.ogg \
+	mco_howl_deep.ogg         plm_door_squeaky.ogg      wild_hill2.ogg \
 	mco_howl_distressed.ogg   plm_door_wooden.ogg       wild_river.ogg \
 	mco_howl_high.ogg         plm_drop_boot.ogg         wild_shore.ogg \
 	mco_howl_long.ogg         plm_eat_bite.ogg          wild_swamp.ogg \
 	mco_liquid_squirt.ogg     plm_floor_creak2.ogg      wild_volcano.ogg \
 	mco_man_mumble.ogg        plm_floor_creak.ogg       wild_waste.ogg \
-	mco_mouse_squeaks.ogg     plm_glass_breaking.ogg    wild_wood.ogg \
+	mco_mouse_squeaks.ogg     plm_glass_breaking.ogg    wild_wolf.ogg \
 	mco_rubber_thud.ogg       plm_glass_break.ogg \
 	amb_bell_metal1.mp3       mco_scurry_dry.mp3        plm_glass_smashing.mp3 \
 	amb_bell_metal2.mp3       mco_shake_roll.mp3        plm_jar_ding.mp3 \
@@ -151,13 +151,13 @@ DATA = sound.cfg credits.txt \
 	mco_frog_trill.mp3        plm_door_rusty.mp3        wild_glacier.mp3 \
 	mco_hit_whip.mp3          plm_door_shut.mp3         wild_grass.mp3 \
 	mco_howl_croak.mp3        plm_door_slam.mp3         wild_hill.mp3 \
-	mco_howl_deep.mp3         plm_door_squeaky.mp3      wild_mountain.mp3 \
+	mco_howl_deep.mp3         plm_door_squeaky.mp3      wild_hill2.mp3 \
 	mco_howl_distressed.mp3   plm_door_wooden.mp3       wild_river.mp3 \
 	mco_howl_high.mp3         plm_drop_boot.mp3         wild_shore.mp3 \
 	mco_howl_long.mp3         plm_eat_bite.mp3          wild_swamp.mp3 \
 	mco_liquid_squirt.mp3     plm_floor_creak2.mp3      wild_volcano.mp3 \
 	mco_man_mumble.mp3        plm_floor_creak.mp3       wild_waste.mp3 \
-	mco_mouse_squeaks.mp3     plm_glass_breaking.mp3    wild_wood.mp3 \
+	mco_mouse_squeaks.mp3     plm_glass_breaking.mp3    wild_wolf.mp3 \
 	mco_rubber_thud.mp3       plm_glass_break.mp3 \
     blind.ogg                 blind1.ogg                blind2.ogg \
     confused.ogg              hypnotize.ogg             afraid.ogg \
@@ -176,6 +176,7 @@ DATA = sound.cfg credits.txt \
     chop1.ogg                 chop2.ogg                 chop3.ogg \
     chop4.ogg                 chop5.ogg                 chop6.ogg \
     chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
+    silent.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -192,6 +193,7 @@ DATA = sound.cfg credits.txt \
     dig4.mp3                  dig5.mp3                  dig6.mp3 \
     chop1.mp3                 chop2.mp3                 chop3.mp3 \
     chop4.mp3                 chop5.mp3                 chop6.mp3 \
-    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3
+    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3 \
+    silent.mp3
 
 PACKAGE = sounds

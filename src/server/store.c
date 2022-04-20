@@ -3360,6 +3360,41 @@ void do_cmd_store(struct player *p, int pstore)
 
     sound(p, (s->type == STORE_HOME)? MSG_STORE_HOME: MSG_STORE_ENTER);
 
+    /* Background sounds for stores */
+    switch (s->type)
+    {
+        case STORE_OTHER:
+            if (streq(s->name, "Sonya the cat")) sound(p, MSG_BERSERK);
+            if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_STORE_OTHER_SOUND);
+            if (streq(s->name, "Torog")) sound(p, MSG_AFRAID);
+            /* sound(p, MSG_STORE_OTHER_SOUND); */
+            break;
+        case STORE_GENERAL:
+            sound(p, MSG_STORE_GENERAL_SOUND);
+            break;
+        case STORE_TEMPLE:
+            sound(p, MSG_STORE_TEMPLE_SOUND);
+            break;
+        case STORE_BOOKSELLER:
+            sound(p, MSG_STORE_BOOKSELLER_SOUND);
+            break;
+        case STORE_B_MARKET:
+            sound(p, MSG_STORE_B_MARKET_SOUND);
+            break;
+        case STORE_XBM:
+            sound(p, MSG_STORE_XBM_SOUND);
+            break;
+        case STORE_TAVERN:
+            sound(p, MSG_STORE_TAVERN_SOUND);
+            break;
+        case STORE_HOME:
+            sound(p, MSG_STORE_HOME_SOUND);
+            break;
+        case STORE_PLAYER:
+            sound(p, MSG_STORE_PLAYER_SOUND);
+            break;
+    }
+
     /* Display the store */
     display_store(p, true);
 }

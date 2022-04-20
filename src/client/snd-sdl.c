@@ -45,6 +45,7 @@
 enum
 {
     SDL_NULL = 0,
+    SDL_CHUNK_LOOP,
     SDL_CHUNK,
     SDL_MUSIC
 };
@@ -52,6 +53,7 @@ enum
 
 static const struct sound_file_type supported_sound_files[] =
 {
+    {".ogg0", SDL_CHUNK_LOOP},
     {".ogg", SDL_CHUNK},
     {".mp3", SDL_MUSIC},
     {"", SDL_NULL}
@@ -66,6 +68,7 @@ typedef struct
     union
     {
         Mix_Chunk *chunk;   /* Sample in WAVE format */
+        Mix_Chunk *chunk_loop;   /* Sample in WAVE format with looping */
         Mix_Music *music;   /* Sample in MP3 format */
     } sample_data;
     int sample_type;
@@ -245,6 +248,19 @@ static bool load_sample_sdl(const char *filename, int ft, sdl_sample *sample)
             break;
         }
 
+        case SDL_CHUNK_LOOP:
+        {
+            if (!use_init)
+            {
+                Mix_Init(MIX_INIT_OGG);
+                use_init = true;
+            }
+
+            sample->sample_data.chunk_loop = Mix_LoadWAV(filename);
+            if (sample->sample_data.chunk_loop) return true;
+            break;
+        }
+
         case SDL_MUSIC:
         {
             if (sample->sample_data.music) Mix_FreeMusic(sample->sample_data.music);
@@ -303,6 +319,13 @@ static bool play_sound_sdl(struct sound_data *data)
         return true;
     }
 
+    /* If sound name is 'silent' then stop playing */
+    if (streq(data->name, "silent"))
+    {
+        /* Stop looped playback */
+        if (Mix_Playing(7)) Mix_HaltChannel(7);
+    }
+
     sample = (sdl_sample *)(data->plat_data);
     if (sample)
     {
@@ -323,6 +346,22 @@ static bool play_sound_sdl(struct sound_data *data)
                     }
 
                     return (0 == Mix_PlayChannel(-1, sample->sample_data.chunk, 0));
+                }
+                break;
+            }
+
+            case SDL_CHUNK_LOOP:
+            {
+                if (sample->sample_data.chunk_loop)
+                {
+                    /* Adjust sound volume if needed */
+                    if (sound_volume != current_sound_volume)
+                    {
+                        current_sound_volume = sound_volume;
+                        Mix_Volume(-1, (sound_volume * MIX_MAX_VOLUME) / 100);
+                    }
+
+                    return (0 == Mix_PlayChannel(7, sample->sample_data.chunk_loop, -1));
                 }
                 break;
             }
@@ -369,6 +408,13 @@ static bool unload_sound_sdl(struct sound_data *data)
             {
                 if (sample->sample_data.chunk)
                     Mix_FreeChunk(sample->sample_data.chunk);
+                break;
+            }
+
+            case SDL_CHUNK_LOOP:
+            {
+                if (sample->sample_data.chunk_loop)
+                    Mix_FreeChunk(sample->sample_data.chunk_loop);
                 break;
             }
 
