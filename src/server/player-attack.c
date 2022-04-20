@@ -1531,6 +1531,7 @@ void drain_xp(struct player *p, int amt)
 }
 
 
+// weapon disarm
 void drop_weapon(struct player *p, int damage)
 {
     int tmp;
@@ -1574,7 +1575,7 @@ void drop_weapon(struct player *p, int damage)
     if (!magik(damage)) return;
 
     /* Really unlucky or really lousy fighters get disarmed */
-    msg(p, "You lose grip of your weapon!");
+    msgt(p, MSG_DISARM_WEAPON, "Disarmed! You lose grip of your weapon!");
     if (!inven_drop(p, obj, 1, true))
     {
         /* Protect true artifacts at shallow depths */

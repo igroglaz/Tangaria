@@ -208,6 +208,7 @@ MSG(CHOP_TREE_FALL, "chop_tree_fall")
 MSG(SENTRY, "sentry")
 MSG(DOOR_BROKEN, "door_broken")
 MSG(DISRUPT, "disrupt")
+MSG(DISARM_WEAPON, "disarm_weapon")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

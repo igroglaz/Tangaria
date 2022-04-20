@@ -666,4 +666,6 @@ sound:door_broken:door_broken
 
 sound:disrupt:tomenet/misc/antimagic/disrupt
 
+sound:disarm_weapon:tomenet/combat/disarm/disarm_weapon
+
 # leave empty line for EOF

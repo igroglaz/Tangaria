@@ -703,4 +703,7 @@ message:DOOR_BROKEN:w
 # MSG_DISRUPT
 message:DISRUPT:r
 
+# MSG_DISARM_WEAPON
+message:DISARM_WEAPON:r
+
 ?:1
