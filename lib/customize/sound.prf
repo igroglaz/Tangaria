@@ -27,47 +27,57 @@
 # Ambient sounds
 #
 
+#extra sounds (not used atm):
+#amb_guitar_chord / was `ambient_nite`
+
 # Town during the day.
 sound:ambient_day:amb_thunder_rain
 
 # Town during the night.
-sound:ambient_nite:amb_guitar_chord amb_thunder_roll
+sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
 
-# River
+# Long rain
+sound:wild_rain:tomenet/weather/rain/rain
+
+# Waves (1 min. long)
+sound:wild_waves:tomenet/ambient/persistent/ocean/seawaves
+
+# River (not used in T)
 sound:wild_river:wild_river
 
 # Waste
 sound:wild_waste:wild_waste
 
-# Volcano
+# Volcano (not used in T)
 sound:wild_volcano:wild_volcano
 
 # Grass
-sound:wild_grass:wild_grass
+sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
 
 # Wood
-sound:wild_wood:wild_wood
+sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3
 
 # Mountain
-sound:wild_mountain:wild_mountain
+sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf
 
 # Desert
 sound:wild_desert:wild_desert
 
 # Glacier
 sound:wild_glacier:wild_glacier
+# there is also long version, unused for now: tomenet/weather/snow/snow
 
 # Swamp
-sound:wild_swamp:wild_swamp
+sound:wild_swamp:wild_swamp tomenet/ambient/timed/toad/toad tomenet/ambient/timed/toad/toad2 tomenet/ambient/timed/toad/toad3
 
 # Deep water
 sound:wild_deepwater:wild_deepwater
 
 # Hill
-sound:wild_hill:wild_hill
+sound:wild_hill:wild_hill wild_hill2
 
 # Shore
-sound:wild_shore:wild_shore
+sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagulls
 
 # Dungeon levels 1-20 (50'- 1000')
 sound:ambient_dng1:amb_door_iron amb_bell_metal1
@@ -122,13 +132,13 @@ sound:store4:sto_man_whoohaha
 sound:store5:sto_coins_countertop sto_bell_register1 sto_bell_register2
 
 # You enter a store.
-sound:store_enter:sto_bell_desk sto_bell_ding sto_bell_dingaling sto_bell_jingles sto_bell_ringing sto_bell_shop
+sound:store_enter:sto_bell_desk sto_bell_ding sto_bell_dingaling sto_bell_jingles sto_bell_ringing sto_bell_shop tomenet/store/doorbell_enter
 
 # You enter your home.
 sound:store_home:plm_door_entrance
 
 # You leave a store.
-sound:store_leave:plm_door_bolt
+sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
 
 #
 # Player sounds - combat
@@ -156,12 +166,36 @@ sound:hit_hi_superb:plc_hit_anvil2
 sound:hit_hi_critical:plc_hit_critical
 
 # You miss a melee attack against a monster.
-sound:miss:plc_miss_arrow2
+sound:miss:plc_miss_swish
 
-# You fire a missile.
-sound:shoot:plc_miss_arrow
+# You fire a missile (general case; we use it for throwing items when no shooter equipped).
+sound:shoot:tomenet/combat/fire/boulder
 
-# You hit something with a missile.
+# You fire a missile (good hit).
+sound:shoot_good:plc_miss_arrow
+
+# You fire a missile (great hit).
+sound:shoot_great:plc_miss_arrow2
+
+# You fire a missile (superb hit).
+sound:shoot_superb:tomenet/combat/fire/missile
+
+# You fire a bow.
+sound:shoot_bow:tomenet/combat/fire/bow
+
+# You fire a crossbow.
+sound:shoot_crossbow:tomenet/combat/fire/xbow
+
+# You fire a sling.
+sound:shoot_sling:tomenet/combat/fire/sling
+
+# You throw a boomerang.
+sound:shoot_boomerang:tomenet/combat/fire/boomerang
+
+# You throw something (any item)
+sound:throw:tomenet/combat/miss/swosh
+
+# You hit something (out of LoS) with a missile.
 sound:shoot_hit:plc_hit_arrow
 
 # You receive a hitpoint warning.
@@ -354,7 +388,7 @@ sound:destroy:plm_bang_metal plm_break_canister plm_break_glass plm_break_glass2
 sound:wield:plm_metal_sharpen
 
 # You take something in or out of your quiver.
-sound:quiver:plc_miss_swish
+sound:quiver:quiver
 
 # You wield a cursed item.
 sound:cursed:pls_man_oooh
@@ -631,5 +665,9 @@ sound:sentry:sentry
 sound:door_broken:door_broken
 
 sound:disrupt:tomenet/misc/antimagic/disrupt
+
+sound:disarm_weapon:tomenet/combat/disarm/disarm_weapon
+
+sound:punch:tomenet/combat/hit/punch1 tomenet/combat/hit/punch2 tomenet/combat/hit/punch3 tomenet/combat/hit/punch4 tomenet/combat/hit/punch5 tomenet/combat/hit/punch6 tomenet/combat/hit/punch7
 
 # leave empty line for EOF

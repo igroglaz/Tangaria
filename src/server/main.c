@@ -52,7 +52,8 @@ static void quit_hook(const char *s)
 /*
  * Initialize and verify the file paths.
  *
- * Use the DEFAULT_XXX_PATH constants by default.
+ * Use the configured DEFAULT_*_PATH constants. Be sure to
+ * set those properly when building...
  *
  * We must ensure that the path ends with "PATH_SEP" if needed,
  * since the "init_file_paths()" function will simply append the

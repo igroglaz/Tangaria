@@ -308,16 +308,18 @@ static void free_file_paths(void)
 /*
  * Find the default paths to all of our important sub-directories.
  *
- * All of the sub-directories should, by default, be located inside
- * the main directory, whose location is very system dependent. (On multi-
- * user systems such as Linux this is not the default - see config.h for
- * more info.)
+ * All of the sub-directories should, for a single-user install, be
+ * located inside the main directory, whose location is very system-dependent.
+ * For shared installations, typically on Unix or Linux systems, the
+ * directories may be scattered - see config.h for more info.
  *
- * This function takes a writable buffer, initially containing the
- * "path" to the "config", "lib" and "data" directories, for example,
- * "/etc/angband/", "/usr/share/angband" and "/var/games/angband" -
- * or a system dependent string, for example, ":lib:".  The buffer
- * must be large enough to contain at least 32 more characters.
+ * This function takes buffers, holding the paths to the "config", "lib",
+ * and "data" directories (for example, those could be "/etc/angband/",
+ * "/usr/share/angband", and "/var/games/angband"). Some system-dependent
+ * expansion/substitution may be done when copying those base paths to the
+ * paths Angband uses: see path_process() in z-file.c for details (Unix
+ * implementations, for instance, try to replace a leading ~ or ~username with
+ * the path to a home directory).
  *
  * Various command line options may allow some of the important
  * directories to be changed to user-specified directories, most
@@ -3757,12 +3759,12 @@ static errr finish_parse_player_prop(struct parser *p)
     {
 		if (streq(ability->type, "element"))
         {
-			uint16_t i, n;
+            uint16_t i, n;
 
             my_assert(N_ELEMENTS(list_element_names) < 65536);
             n = (uint16_t)N_ELEMENTS(list_element_names);
 
-			for (i = 0; i < n - 1; i++)
+            for (i = 0; i < n - 1; i++)
             {
                 char *name = projections[i].name;
 

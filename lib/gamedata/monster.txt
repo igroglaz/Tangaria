@@ -22,6 +22,9 @@
 # innate-freq: frequency of innate attacks (among all spells)
 # spell-power: spell power
 # spells: spell type | spell type | etc
+# message-vis: spell type : message
+# message-invis: spell type : message
+# message-miss: spell type : message
 # drop: item type : item name : percent drop chance : min : max
 # drop-base: item type : percent drop chance : min : max
 # friends: chance : number : name : ?role
@@ -137,6 +140,17 @@
 # but no spells a spell power value is not required.
 
 # 'spells' is for spell flags, which work just like regular flags.
+
+# 'message-vis', 'message-invis', and 'message-miss' allow overriding of the
+# default messages (see monster_spell.txt) displayed when a monster casts a
+# particular spell. 'message-vis' is for the message when the monster is
+# visible to the observer. 'message-invis' is for the message when the monster
+# is not seen by the observer. 'message-miss' is for the message if the spell
+# misses. The first field, the spell type, should be one of the names listed
+# on the spells line. The last field is the message to use; if that is omitted
+# or is all whitespace, no message will be displayed on casting. Any brace
+# expressions, as described in monster_spell.txt, will be expanded in the
+# message before it is displayed.
 
 # 'drop' lines create possible drops for specific monsters. Each item
 # has its percent chance rolled for individually. Any specified drops are in
@@ -1632,7 +1646,7 @@ rarity:1
 weight:0
 experience:30
 blow:BITE:HURT:1d4
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:RAND_25 | BASH_DOOR | NEUTRAL
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
@@ -1652,7 +1666,7 @@ rarity:1
 weight:0
 experience:35
 blow:BITE:HURT:1d4
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:RAND_25 | BASH_DOOR | NEUTRAL
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
@@ -1766,7 +1780,7 @@ rarity:1
 weight:0
 experience:40
 blow:BITE:HURT:1d4
-flags:UNIQUE | PWMANG_BASE | NEUTRAL
+flags:UNIQUE | PWMANG_BASE | NAME_COMMA | NEUTRAL
 flags:RAND_25 | BASH_DOOR
 flags:NO_CONF | NO_SLEEP
 desc:A rather vicious dog belonging to Farmer Maggot. It thinks you are stealing
@@ -1961,6 +1975,7 @@ flags:NEVER_MOVE
 flags:IM_POIS | HURT_COLD | NO_CONF | NO_SLEEP
 spell-freq:15
 spells:DRAIN_MANA
+message-invis:DRAIN_MANA:Something slurps.
 desc:It is a large pile of silver flesh that sucks all light from its
 desc: surroundings.
 
@@ -1982,6 +1997,7 @@ flags:NEVER_MOVE
 flags:HURT_LIGHT | IM_POIS | HURT_COLD | NO_CONF | NO_SLEEP
 spell-freq:15
 spells:DRAIN_MANA
+message-invis:DRAIN_MANA:Something slurps.
 desc:It's a large pile of yellow flesh.
 
 name:scruffy looking hobbit
@@ -3187,6 +3203,8 @@ flags:DROP_CORPSE | WILD_WOOD
 spell-freq:9
 spell-power:4
 spells:WOUND
+message-vis:WOUND:{name} caws three times.
+message-invis:WOUND:Something caws three times.
 desc:A crook-beaked bird with bedraggled black feathers. It mocks you, and you
 desc: realise that its scorn can kill.
 
@@ -3543,7 +3561,7 @@ blow:HIT:HURT:1d5
 blow:HIT:HURT:1d5
 blow:TOUCH:EAT_GOLD
 blow:INSULT
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_SLEEP
@@ -3572,7 +3590,7 @@ blow:HIT:HURT:1d10
 blow:HIT:HURT:1d10
 blow:HIT:HURT:1d9
 blow:HIT:HURT:1d9
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 friends:80:2d7:wolf
 friends:100:5d4:snaga:servant
@@ -3911,6 +3929,7 @@ flags:EMPTY_MIND
 flags:DROP_CORPSE
 spell-freq:11
 spells:DRAIN_MANA
+message-invis:DRAIN_MANA:Something slurps.
 desc:It is a strange, slimy, icky creature.
 
 name:giant grey rat
@@ -4110,7 +4129,7 @@ blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR
 desc:A nasty piece of work, Brodda picks on defenseless women and children.
@@ -4196,7 +4215,7 @@ experience:30
 blow:BITE:HURT:1d12
 blow:BITE:HURT:1d12
 flags:BASH_DOOR | WILD_GRASS | WILD_WOOD | PWMANG_BASE
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 drop:food:Scrap of Flesh:30:1:1
 desc:It has been terrorizing the nearby villages.
 
@@ -4449,7 +4468,7 @@ blow:HIT:HURT:1d9
 blow:HIT:HURT:1d8
 blow:INSULT
 blow:INSULT
-flags:UNIQUE | MALE | EVIL | SMART
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:FORCE_SLEEP
 spell-freq:4
@@ -4547,7 +4566,7 @@ blow:HIT:HURT:1d12
 blow:HIT:HURT:1d10
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d10
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 drop:food:Scrap of Flesh:90:1:1
 friends:50:2d5:snaga:servant
@@ -5191,6 +5210,7 @@ flags:NEVER_MOVE
 flags:HURT_LIGHT | HURT_COLD | IM_POIS | NO_CONF | NO_SLEEP
 spell-freq:11
 spells:DRAIN_MANA
+message-invis:DRAIN_MANA:Something slurps.
 desc:Yum! It looks quite tasty. It is a pulsing mound of glowing flesh.
 
 name:nether worm mass
@@ -5229,7 +5249,7 @@ blow:HIT:HURT:1d12
 blow:HIT:HURT:1d12
 blow:HIT:HURT:1d10
 blow:HIT:HURT:1d10
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 friends:50:4d4:snaga:servant
@@ -5734,7 +5754,7 @@ experience:200
 blow:HIT:HURT:1d9
 blow:HIT:HURT:1d9
 blow:HIT:HURT:1d8
-flags:UNIQUE | MALE | EVIL | SMART
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART
 flags:DROP_60 | DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:FORCE_SLEEP
 drop:fortune cookie:Fortune Cookie:50:1:1
@@ -6088,6 +6108,7 @@ flags:IM_POIS
 flags:FORCE_SLEEP
 spell-freq:8
 spells:BLIND | CONF | SCARE
+message-invis:BLIND:Something slurps.
 desc:It is a strange, slimy, icky creature, with rudimentary intelligence, but
 desc: evil cunning. It hungers for food, and you look tasty.
 
@@ -6817,7 +6838,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_60 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 friends:50:1d3:warrior:servant
@@ -7130,7 +7151,7 @@ blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE | MALE | NEUTRAL
+flags:UNIQUE | MALE | NEUTRAL | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -7570,6 +7591,7 @@ flags:RAND_25 | BASH_DOOR | GROUP_AI | ATTR_FLICKER
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:4
 spells:BLINK | TELE_TO
+message-invis:BLINK:Something yips.
 friends:100:2d7:Same
 desc:A strange magical member of the canine race, its form seems to shimmer and
 desc: fade in front of your very eyes.
@@ -7714,7 +7736,7 @@ blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 friends:50:3d4:snaga:servant
 friends:50:1d4:black orc:servant
@@ -7742,7 +7764,7 @@ blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 friends:50:3d4:snaga:servant
 friends:50:1d4:black orc:servant
@@ -7945,7 +7967,7 @@ blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
-flags:UNIQUE | MOVE_BODY
+flags:UNIQUE | NAME_COMMA | MOVE_BODY
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 friends:50:1d4:half-orc:servant
 friends:50:2d4:cave orc:servant
@@ -8150,6 +8172,7 @@ experience:250
 spell-freq:4
 spells:BLINK
 spells:S_MONSTER
+message-invis:BLINK:Something slurps.
 desc:It is a strange pulsing mound of flesh.
 
 name:sasquatch
@@ -8638,7 +8661,7 @@ blow:HIT:HURT:3d7
 blow:HIT:HURT:3d7
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 friends:50:3d4:half-orc:servant
 friends:80:2d7:warg
@@ -8899,7 +8922,7 @@ blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d5
 blow:HIT:HURT:3d5
-flags:UNIQUE | MOVE_BODY
+flags:UNIQUE | NAME_COMMA | MOVE_BODY
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 drop:food:Swig of Orcish Liquor:90:1:1
@@ -9081,6 +9104,8 @@ flags:DROP_SKELETON | WILD_WOOD
 flags:INVISIBLE
 spell-freq:5
 spells:BLINK | TELE_TO | TELE_SELF_TO | SLOW
+message-invis:BLINK:Something chitters.
+message-invis:TELE_SELF_TO:Something chitters.
 friends:100:1d3:Same
 desc:A transparent spider who dwells in the between of
 desc: two worlds.
@@ -9104,6 +9129,7 @@ flags:RAND_50 | OPEN_DOOR | BASH_DOOR | KILL_BODY | TAKE_ITEM
 flags:IM_POIS | HURT_COLD
 spell-freq:11
 spells:DRAIN_MANA
+message-invis:DRAIN_MANA:Something slurps.
 desc:It is a strangely moving puddle.
 
 name:Easterling champion
@@ -9150,7 +9176,7 @@ experience:750
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:UNIQUE | PWMANG_FIXED | MOVE_BODY
+flags:UNIQUE | NAME_COMMA | PWMANG_FIXED | MOVE_BODY
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
 drop:food:Maggoty bread:100:7:9
@@ -9425,7 +9451,7 @@ blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:DISENCHANT
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_FIRE | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -9452,7 +9478,7 @@ blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:HURT:3d6
 blow:HIT:DISENCHANT
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:IM_COLD | IM_FIRE | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -10185,7 +10211,7 @@ experience:500
 blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_60 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 friends:60:2d3:Easterling champion:servant
@@ -10359,6 +10385,7 @@ flags:IM_COLD | NO_FEAR
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:8
 spells:DARKNESS
+message-invis:DARKNESS:Something howls.
 friends:100:2d4:wolf:servant
 friends:60:2d4:white wolf:servant
 friends:60:2d4:warg:servant
@@ -10404,7 +10431,7 @@ blow:GAZE:TERRIFY
 blow:HIT:DISEASE:6d6
 blow:CLAW:LOSE_CON:4d4
 blow:CLAW:LOSE_CON:4d4
-flags:UNIQUE | MALE | PWMANG_BASE
+flags:UNIQUE | MALE | NAME_COMMA | PWMANG_BASE
 flags:ONLY_ITEM | DROP_60 | DROP_GOOD
 flags:NO_FEAR
 spell-freq:5
@@ -10464,7 +10491,7 @@ blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:DISENCHANT
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF
 flags:NO_SLEEP | NO_HOLD
@@ -11164,7 +11191,7 @@ blow:HIT:POISON:3d4
 blow:HIT:POISON:3d4
 blow:HIT:HURT:3d4
 blow:INSULT
-flags:UNIQUE | INVISIBLE | SMART
+flags:UNIQUE | NAME_COMMA | INVISIBLE | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:RAND_25 | BASH_DOOR
 flags:FORCE_SLEEP
@@ -11325,7 +11352,7 @@ blow:PUNCH:HURT:2d8
 blow:PUNCH:HURT:2d8
 blow:HIT:HURT:2d6
 blow:HIT:HURT:2d6
-flags:UNIQUE | MALE | SMART
+flags:UNIQUE | MALE | NAME_COMMA | SMART
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM | GOOD
 flags:FORCE_SLEEP
 spell-freq:2
@@ -11355,7 +11382,7 @@ blow:CLAW:HURT:2d10
 blow:CLAW:HURT:2d10
 blow:BITE:HURT:4d8
 blow:CRUSH:HURT:3d6
-flags:UNIQUE | MALE | ANIMAL | SMART | SPIRIT | GOOD
+flags:UNIQUE | MALE | NAME_COMMA | ANIMAL | SMART | SPIRIT | GOOD
 flags:MOVE_BODY
 drop:food:Honey-cake:50:1:1
 desc:Beorn in his form as a great black bear of the mountains, grown to
@@ -12552,6 +12579,8 @@ flags:RAND_25 | KILL_BODY
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:8
 spells:HOLD | BLIND | CONF
+message-invis:HOLD:Something hisses.
+message-invis:BLIND:Something hisses.
 desc:A great serpent, with coils of steel, a lunge faster than the eye can see,
 desc: and fangs that drip with acidic poison. Its eyes are mesmerizing.
 
@@ -12597,6 +12626,7 @@ experience:300
 flags:IM_NEXUS
 spell-freq:1
 spells:BLINK | TELE_AWAY
+message-invis:BLINK:Something slurps.
 desc:It is a very unstable, strange pulsing mound of flesh.
 
 name:southron assassin
@@ -13696,7 +13726,7 @@ experience:1500
 blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
-flags:UNIQUE | MALE | MOVE_BODY
+flags:UNIQUE | MALE | NAME_COMMA | MOVE_BODY
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 friends:100:3d3:ogre:servant
 friends:100:3d3:black ogre:servant
@@ -14707,7 +14737,7 @@ blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
-flags:UNIQUE | MALE | EVIL | ATTR_FLICKER
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | ATTR_FLICKER
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF
@@ -16677,7 +16707,7 @@ experience:2000
 blow:KICK:HURT:5d5
 blow:KICK:HURT:5d5
 blow:BITE:HURT:6d6
-flags:REGENERATE | UNIQUE | ANIMAL | PWMANG_BASE | GOOD
+flags:REGENERATE | UNIQUE | NAME_COMMA | ANIMAL | PWMANG_BASE | GOOD
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD | IM_ELEC
 flags:NO_HOLD
 drop-base:crop:100:1:3
@@ -17117,7 +17147,7 @@ blow:HIT:HURT:8d6
 blow:HIT:HURT:8d6
 blow:HIT:DISENCHANT:6d8
 blow:HIT:DISENCHANT:6d8
-flags:UNIQUE | MALE | SMART
+flags:UNIQUE | MALE | NAME_COMMA | SMART
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
@@ -17577,7 +17607,7 @@ blow:HIT:FIRE:4d6
 blow:HIT:FIRE:4d6
 blow:HIT:FIRE:4d6
 blow:HIT:FIRE:4d6
-flags:UNIQUE | POWERFUL
+flags:UNIQUE | NAME_COMMA | POWERFUL
 flags:RAND_25 | BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_ELEC | IM_FIRE | HURT_COLD
 flags:FORCE_SLEEP
@@ -17603,7 +17633,7 @@ blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
 blow:HIT:HURT:5d5
-flags:UNIQUE | COLD_BLOOD | POWERFUL | NEUTRAL
+flags:UNIQUE | NAME_COMMA | COLD_BLOOD | POWERFUL | NEUTRAL
 flags:RAND_25 | BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_FIRE | IM_WATER
 flags:FORCE_SLEEP
@@ -17683,7 +17713,7 @@ blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 blow:HIT:SHATTER:10d10
-flags:UNIQUE | MALE | COLD_BLOOD | POWERFUL
+flags:UNIQUE | MALE | NAME_COMMA | COLD_BLOOD | POWERFUL
 flags:PASS_WALL | KILL_BODY | KILL_ITEM
 flags:HURT_ROCK | IM_COLD | IM_ELEC | IM_FIRE
 flags:FORCE_SLEEP
@@ -17710,7 +17740,7 @@ blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
 blow:HIT:CONFUSE:4d4
 blow:HIT:CONFUSE:4d4
-flags:UNIQUE | FEMALE | COLD_BLOOD | POWERFUL | LEVITATE | NEUTRAL
+flags:UNIQUE | FEMALE | NAME_COMMA | COLD_BLOOD | POWERFUL | LEVITATE | NEUTRAL
 flags:RAND_25 | BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC
 flags:FORCE_SLEEP
@@ -18246,6 +18276,7 @@ experience:3000
 spell-freq:2
 spells:BLINK | TPORT
 spells:S_UNDEAD
+message-invis:BLINK:Something slurps.
 desc:It is a pulsing flesh mound that reeks of death and putrefaction.
 
 name:Akhorahil the Blind
@@ -18355,6 +18386,7 @@ experience:3000
 spell-freq:2
 spells:BLINK | TPORT
 spells:S_DEMON
+message-invis:BLINK:Something slurps.
 desc:A pile of pulsing flesh that glows with an inner hellish fire. The world
 desc: itself seems to cry out against it.
 
@@ -18373,6 +18405,7 @@ experience:3000
 spell-freq:2
 spells:BLINK | TPORT
 spells:S_DRAGON
+message-invis:BLINK:Something slurps.
 desc:It looks like it was once a dragon corpse, now deeply infected with magical
 desc: bacteria that make it pulse in a foul and degrading way.
 
@@ -18558,7 +18591,7 @@ experience:22500
 blow:HIT:HURT:5d6
 blow:HIT:HURT:5d6
 blow:HIT:HURT:5d6
-flags:UNIQUE | NONLIVING | PWMANG_BASE | PWMANG_FIXED
+flags:UNIQUE | NAME_COMMA | NONLIVING | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:PASS_WALL | KILL_BODY
 flags:FORCE_DEPTH | FORCE_SLEEP
@@ -19080,7 +19113,7 @@ experience:25000
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
-flags:UNIQUE | MALE | EVIL | SMART
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -19567,7 +19600,7 @@ depth:51
 rarity:3
 weight:0
 experience:20000
-flags:MALE | PWMANG_EXTRA | UNIQUE | GOOD
+flags:MALE | PWMANG_EXTRA | UNIQUE | NAME_COMMA | GOOD
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM | DROP_GREAT
 flags:NEVER_BLOW
 flags:TAKE_ITEM
@@ -20247,7 +20280,7 @@ blow:CLAW:POISON:5d6
 blow:CLAW:POISON:5d6
 blow:BITE:PARALYZE:5d10
 blow:STING:LOSE_STR:5d4
-flags:UNIQUE | FEMALE | EVIL | ANIMAL | SMART | SPIRIT | PWMANG_FIXED
+flags:UNIQUE | FEMALE | NAME_COMMA | EVIL | ANIMAL | SMART | SPIRIT | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:HURT_LIGHT | IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_DEPTH | FORCE_SLEEP
@@ -20849,7 +20882,7 @@ blow:HIT:COLD:9d10
 blow:HIT:COLD:9d10
 blow:HIT:HURT:10d9
 blow:HIT:CONFUSE:10d9
-flags:UNIQUE | MALE | SMART | ATTR_FLICKER
+flags:UNIQUE | MALE | NAME_COMMA | SMART | ATTR_FLICKER
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM | IM_COLD
 flags:FORCE_SLEEP
@@ -22009,7 +22042,7 @@ blow:CLAW:CONFUSE:12d12
 blow:CLAW:LOSE_DEX:2d12
 blow:CLAW:BLIND:10d5
 blow:BITE:PARALYZE:15d1
-flags:UNIQUE | MALE | INVISIBLE | NEUTRAL
+flags:UNIQUE | MALE | NAME_COMMA | INVISIBLE | NEUTRAL
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_COLD | IM_FIRE | NO_CONF | NO_SLEEP | NO_HOLD
@@ -22043,7 +22076,7 @@ blow:BITE:EXP_80:6d6
 blow:BITE:EXP_80:6d6
 blow:HIT:CONFUSE:6d6
 blow:HIT:CONFUSE:6d6
-flags:UNIQUE | FEMALE | SMART
+flags:UNIQUE | FEMALE | NAME_COMMA | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags-off:HURT_FIRE
 spell-freq:3
@@ -22260,7 +22293,7 @@ blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
 blow:HIT:LOSE_STR:4d6
 blow:HIT:LOSE_STR:4d6
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:FORCE_SLEEP
 spell-freq:3
@@ -22351,7 +22384,7 @@ blow:HIT:HURT:12d12
 blow:HIT:HURT:12d12
 blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
-flags:UNIQUE | MALE | SMART | ATTR_FLICKER | LEVITATE
+flags:UNIQUE | MALE | NAME_COMMA | SMART | ATTR_FLICKER | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:TAKE_ITEM | IM_FIRE
 flags:FORCE_SLEEP
@@ -22738,6 +22771,7 @@ flags:ATTR_FLICKER
 spell-freq:2
 spells:BLINK | TELE_TO
 spells:S_HI_DEMON
+message-invis:BLINK:Something slurps.
 desc:A massive pulsating mound of flesh, glowing with a hellish light.
 
 name:greater draconic quylthulg
@@ -22756,6 +22790,7 @@ flags:ATTR_FLICKER
 spell-freq:2
 spells:BLINK | TELE_TO
 spells:S_HI_DRAGON
+message-invis:BLINK:Something slurps.
 desc:A massive mound of scaled flesh, throbbing and pulsating with multi-hued
 desc: light.
 
@@ -22890,6 +22925,7 @@ flags:ATTR_FLICKER
 spell-freq:2
 spells:BLINK | TELE_TO
 spells:S_HI_UNDEAD
+message-invis:BLINK:Something slurps.
 desc:A massive pile of rotting flesh. A disgusting stench fills the air as it
 desc: throbs and writhes.
 
@@ -23034,7 +23070,7 @@ blow:HIT:DISENCHANT:10d5
 blow:HIT:DISENCHANT:10d5
 blow:HIT:HURT:10d10
 blow:HIT:HURT:10d10
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD
 flags:MOVE_BODY
 flags:IM_ACID | IM_ELEC | IM_WATER
@@ -23068,7 +23104,7 @@ blow:HIT:HURT:12d10
 blow:HIT:HURT:12d10
 blow:CRUSH:HURT:10d10
 blow:CRUSH:HURT:10d10
-flags:SMART | UNIQUE | MALE | EVIL | PWMANG_BASE | ATTR_FLICKER
+flags:SMART | UNIQUE | MALE | NAME_COMMA | EVIL | PWMANG_BASE | ATTR_FLICKER
 flags:REGENERATE | PWMANG_FIXED | SPIRIT
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
@@ -23161,7 +23197,7 @@ blow:GAZE:DISENCHANT:6d6
 blow:GAZE:DRAIN_CHARGES:6d6
 blow:GAZE:FORGET:6d6
 blow:BITE:EXP_80:8d8
-flags:UNIQUE | MALE | EVIL | SMART
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART
 flags:BASH_DOOR
 flags:IM_ACID | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -23411,7 +23447,7 @@ blow:DEVOUR:EAT_LIGHT:8d6
 blow:CLAW:POISON:8d6
 blow:BITE:PARALYZE:8d10
 blow:STING:LOSE_STR:8d4
-flags:UNIQUE | FEMALE | EVIL | ANIMAL | SMART | SPIRIT
+flags:UNIQUE | FEMALE | NAME_COMMA | EVIL | ANIMAL | SMART | SPIRIT
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
@@ -23478,7 +23514,7 @@ blow:CLAW:HURT:6d12
 blow:CLAW:HURT:6d12
 blow:BITE:POISON:8d14
 blow:BITE:FIRE:8d14
-flags:UNIQUE | MALE | PWMANG_FIXED
+flags:UNIQUE | MALE | NAME_COMMA | PWMANG_FIXED
 flags:DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
 flags:IM_FIRE | IM_POIS
@@ -23548,6 +23584,7 @@ flags:ATTR_FLICKER
 spell-freq:1
 spells:BLINK | TELE_TO
 spells:S_ANIMAL | S_HI_DEMON | S_HI_DRAGON | S_HI_UNDEAD | S_MONSTERS
+message-invis:BLINK:Something slurps.
 desc:A giant seething mass of flesh, overwhelming you with monster after
 desc: monster.
 
@@ -23568,7 +23605,7 @@ blow:HIT:SHATTER:13d13
 blow:HIT:CONFUSE:13d13
 blow:HIT:SHATTER:13d13
 blow:HIT:CONFUSE:13d13
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD
 flags:IM_ACID | IM_ELEC
 spell-freq:4
@@ -23659,7 +23696,7 @@ blow:TOUCH:EXP_80:6d12
 blow:TOUCH:DRAIN_CHARGES:6d12
 blow:TOUCH:LOSE_DEX:6d12
 blow:TOUCH:LOSE_DEX:6d12
-flags:UNIQUE | MALE | PWMANG_FIXED
+flags:UNIQUE | MALE | NAME_COMMA | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
 drop:mushroom:Terror:100:6:8
@@ -23735,6 +23772,7 @@ spell-freq:6
 innate-freq:33
 spells:BLINK | TELE_TO
 spells:BR_CHAO
+message-invis:BLINK:Something hisses.
 desc:Writhing coil upon coil, this mighty spawn of chaos constantly
 desc: disintegrates and reforms before your dazzled eyes. It seeks to
 desc: obliterate you utterly; beware!
@@ -23781,7 +23819,7 @@ depth:79
 rarity:3
 weight:0
 experience:20000
-flags:UNIQUE
+flags:UNIQUE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:ATTR_MULTI
 spell-freq:1
@@ -23935,7 +23973,7 @@ experience:18000
 blow:ENGULF:COLD:3d6
 blow:ENGULF:CONFUSE:3d6
 blow:ENGULF:HURT:3d6
-flags:UNIQUE | NEVER_MOVE
+flags:UNIQUE | NAME_COMMA | NEVER_MOVE
 flags:IM_COLD | IM_FIRE | IM_ACID
 flags-off:RAND_50 | BASH_DOOR | CLEAR_WEB
 drop-base:chest:10:1:1
@@ -24032,7 +24070,7 @@ blow:HIT:ELEC:12d12
 blow:HIT:ELEC:12d12
 blow:HIT:ELEC:12d12
 blow:HIT:ELEC:12d12
-flags:UNIQUE | MALE | INVISIBLE | LEVITATE
+flags:UNIQUE | MALE | NAME_COMMA | INVISIBLE | LEVITATE
 flags:DROP_4 | DROP_GOOD
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 spell-freq:3
@@ -24097,7 +24135,7 @@ blow:CLAW:HURT:6d8
 blow:CLAW:HURT:6d8
 blow:BITE:POISON:6d6
 blow:BITE:POISON:6d6
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:RAND_25 | OPEN_DOOR | BASH_DOOR | MOVE_BODY | TAKE_ITEM
 flags:IM_POIS
@@ -24111,6 +24149,7 @@ desc:Draugluin provides Sauron with a fearsome personal guard. He is an enormous
 desc: wolf inhabited with a human spirit. He is chief of all his kind.
 
 ### Dungeon level 84 ###
+
 name:Great Wyrm of Power
 plural:Great Wyrms of Power
 base:ancient dragon
@@ -24283,7 +24322,7 @@ blow:CLAW:HURT:6d14
 blow:CLAW:HURT:8d14
 blow:CLAW:HURT:8d14
 blow:BITE:HURT:10d16
-flags:UNIQUE | FEMALE | PWMANG_BASE
+flags:UNIQUE | FEMALE | NAME_COMMA | PWMANG_BASE
 flags:DROP_GOOD | ONLY_ITEM | DROP_GREAT
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS
@@ -24386,7 +24425,7 @@ blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
-flags:UNIQUE | FEMALE
+flags:UNIQUE | FEMALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD
 flags:MOVE_BODY
 flags:IM_ACID | IM_ELEC | NO_CUT
@@ -24423,7 +24462,7 @@ blow:HIT:HURT:9d9
 blow:HIT:HURT:9d9
 blow:HIT:HURT:9d9
 blow:HIT:HURT:9d9
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | NAME_COMMA | EVIL
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:KILL_WALL | MOVE_BODY
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
@@ -24551,7 +24590,7 @@ blow:HIT:FIRE:8d12
 blow:HIT:FIRE:8d12
 blow:CRUSH:HURT:8d12
 blow:TOUCH:DRAIN_CHARGES
-flags:UNIQUE | MALE | POWERFUL | LEVITATE
+flags:UNIQUE | MALE | NAME_COMMA | POWERFUL | LEVITATE
 flags:DROP_4 | DROP_GOOD
 flags:MOVE_BODY | KILL_WALL
 flags:IM_FIRE | IM_PLASMA
@@ -24745,7 +24784,7 @@ blow:CLAW:COLD:9d12
 blow:CLAW:COLD:9d12
 blow:BITE:COLD:9d12
 blow:BITE:COLD:9d12
-flags:UNIQUE | MALE | SMART | ATTR_FLICKER
+flags:UNIQUE | MALE | NAME_COMMA | SMART | ATTR_FLICKER
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | KILL_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | NO_FEAR | NO_CONF | NO_SLEEP | NO_HOLD
@@ -24776,7 +24815,7 @@ blow:CLAW:FIRE:9d12
 blow:CLAW:FIRE:9d12
 blow:BITE:FIRE:9d12
 blow:BITE:FIRE:9d12
-flags:UNIQUE | MALE | EVIL | SMART | ATTR_FLICKER
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART | ATTR_FLICKER
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | IM_NETHER
@@ -24923,7 +24962,7 @@ blow:HIT:EXP_80:7d12
 blow:HIT:LOSE_DEX:7d12
 blow:HIT:DRAIN_CHARGES:7d12
 blow:HIT:DRAIN_CHARGES:7d12
-flags:UNIQUE | MALE
+flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_ELEC | IM_FIRE
 spell-freq:2
@@ -25090,7 +25129,7 @@ blow:HIT:FIRE:9d12
 blow:HIT:FIRE:9d12
 blow:CRUSH:HURT:8d12
 blow:TOUCH:DRAIN_CHARGES
-flags:UNIQUE | MALE | POWERFUL | LEVITATE
+flags:UNIQUE | MALE | NAME_COMMA | POWERFUL | LEVITATE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT
 flags:MOVE_BODY | KILL_WALL
 flags:IM_ELEC | IM_FIRE | IM_PLASMA
@@ -25321,7 +25360,7 @@ blow:HIT:DISENCHANT:10d12
 blow:HIT:DISENCHANT:10d12
 blow:HIT:DRAIN_CHARGES:8d12
 blow:HIT:DRAIN_CHARGES:8d12
-flags:UNIQUE | QUESTOR | MALE | EVIL | REGENERATE
+flags:UNIQUE | QUESTOR | MALE | NAME_COMMA | EVIL | REGENERATE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT
 flags:MOVE_BODY
 flags:IM_ELEC | NO_FEAR
@@ -25445,7 +25484,7 @@ blow:HIT:SHATTER:20d10
 blow:HIT:SHATTER:20d10
 blow:HIT:LOSE_ALL:10d12
 blow:TOUCH:DRAIN_CHARGES
-flags:UNIQUE | QUESTOR | MALE | EVIL | SMART | REGENERATE | SPIRIT | LEVITATE
+flags:UNIQUE | QUESTOR | MALE | NAME_COMMA | EVIL | SMART | REGENERATE | SPIRIT | LEVITATE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:SMASH_WALL | MOVE_BODY | ATTR_FLICKER
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_FEAR
@@ -25916,7 +25955,7 @@ blow:HIT:PARALYZE:20d10
 blow:HIT:EXP_80:20d10
 blow:HIT:LOSE_ALL:10d12
 blow:TOUCH:FORGET:12d9
-flags:EVIL | UNIQUE | FEMALE | INVISIBLE
+flags:EVIL | UNIQUE | FEMALE | NAME_COMMA | INVISIBLE
 flags:WEIRD_MIND | REGENERATE
 flags:PWMANG_EXTRA | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT
@@ -25951,7 +25990,7 @@ blow:HIT:PARALYZE:20d15
 blow:HIT:EXP_80:20d17
 blow:HIT:LOSE_ALL:10d12
 blow:TOUCH:FORGET:12d9
-flags:EVIL | SMART | UNIQUE | MALE | INVISIBLE | POWERFUL | SPIRIT | NEUTRAL
+flags:EVIL | SMART | UNIQUE | MALE | NAME_COMMA | INVISIBLE | POWERFUL | SPIRIT | NEUTRAL
 flags:WEIRD_MIND | REGENERATE
 flags:PWMANG_EXTRA | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
@@ -26771,7 +26810,7 @@ blow:HIT:DISENCHANT:24d10
 blow:HIT:TIME:20d10
 blow:HIT:FORGET:20d10
 blow:HIT:LOSE_ALL:20d10
-flags:UNIQUE | MALE | EVIL | REGENERATE
+flags:UNIQUE | MALE | NAME_COMMA | EVIL | REGENERATE
 flags:PWMANG_BASE | PWMANG_FIXED
 flags:KILL_WALL | MOVE_BODY | ATTR_FLICKER
 flags:IM_ACID | IM_ELEC | NO_FEAR

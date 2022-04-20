@@ -1,0 +1,12 @@
+This is a short in-game reference to available commands and the symbols
+you might encounter in-game. For more detailed help, please see Manual.html
+help file.
+
+Please choose one of the following help files:
+    
+    (a) Available commands
+    (b) Available symbols
+
+.. menu:: [a] r_comm.txt
+
+.. menu:: [b] symbols.txt

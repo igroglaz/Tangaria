@@ -260,6 +260,8 @@ static void get_subject(char *buf, size_t buflen, struct monster_race *race, int
                 plural_aux(buf, buflen);
             }
         }
+
+        if (rf_has(race->flags, RF_NAME_COMMA)) my_strcat(buf, ",", buflen);
     }
 
     if (offscreen)

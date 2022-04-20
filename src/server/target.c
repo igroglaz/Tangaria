@@ -680,7 +680,7 @@ bool target_set_closest(struct player *p, int mode)
 
     /* Target the monster */
     if (who->monster)
-        monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_CAPITAL);
+        monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_CAPITAL | MDESC_COMMA);
 
     /* Target the player */
     else

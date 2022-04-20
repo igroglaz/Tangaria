@@ -53,6 +53,30 @@ message:TELEPORT:w
 # MSG_SHOOT (sound only)
 message:SHOOT:w
 
+# MSG_SHOOT_GOOD (sound only)
+message:SHOOT_GOOD:w
+
+# MSG_SHOOT_GREAT (sound only)
+message:SHOOT_GREAT:w
+
+# MSG_SHOOT_SUPERB (sound only)
+message:SHOOT_SUPERB:w
+
+# MSG_SHOOT_BOW (sound only)
+message:SHOOT_BOW:w
+
+# MSG_SHOOT_CROSSBOW (sound only)
+message:SHOOT_CROSSBOW:w
+
+# MSG_SHOOT_SLING (sound only)
+message:SHOOT_SLING:w
+
+# MSG_SHOOT_BOOMERANG (sound only)
+message:SHOOT_BOOMERANG:w
+
+# MSG_THROW (sound only)
+message:THROW:w
+
 # MSG_QUAFF (sound only)
 message:QUAFF:w
 
@@ -489,6 +513,12 @@ message:MULTIPLY:w
 # MSG_BOLD
 message:BOLD:w
 
+# MSG_RAIN
+message:WILD_RAIN:w
+
+# MSG_WILD_WAVES
+message:WILD_WAVES:w
+
 # MSG_WILD_RIVER
 message:WILD_RIVER:w
 
@@ -672,5 +702,11 @@ message:DOOR_BROKEN:w
 
 # MSG_DISRUPT
 message:DISRUPT:r
+
+# MSG_DISARM_WEAPON
+message:DISARM_WEAPON:r
+
+# MSG_PUNCH
+message:PUNCH:w
 
 ?:1

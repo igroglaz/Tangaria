@@ -387,7 +387,7 @@ static int get_thrown_spell(struct player *p, struct player *who, struct chunk *
         char m_name[NORMAL_WID];
 
         /* Get the monster name (or "it") */
-        monster_desc(p, m_name, sizeof(m_name), mon, MDESC_CAPITAL);
+        monster_desc(p, m_name, sizeof(m_name), mon, MDESC_STANDARD);
 
         /* Message */
         msg(p, "%s tries to cast a spell, but fails.", m_name);
@@ -867,7 +867,10 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         strnfmt(dice, sizeof(dice), "%d", z_info->max_sight * 2 + 5);
         effect_simple(EF_TELEPORT, origin, dice, 0, 0, 0, 0, 0, NULL);
         if (!loc_eq(&grid, &mon->grid))
-            msg(who->player, "There is a puff of smoke!");
+        {
+            if (!who->player->is_dead && square_isseen(who->player, &mon->grid))
+                add_monster_message(who->player, mon, MON_MSG_HIT_AND_RUN, true);
+        }
     }
     else if (blinked == 1)
     {

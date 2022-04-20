@@ -9,7 +9,8 @@ LOCAL_MODULE := main
 
 SDL_PATH := ../SDL2
 
-LOCAL_CFLAGS := -g -O2 -W -Wall -Wextra -Wno-unused-parameter -pedantic -Wno-missing-field-initializers
+LOCAL_CFLAGS := -I. -std=c99 -O0 -fsigned-char
+LOCAL_CFLAGS += -g -O2 -W -Wall -Wextra -Wno-unused-parameter -pedantic -Wno-missing-field-initializers
 LOCAL_CFLAGS += -DON_ANDROID -D_REENTRANT -D_GNU_SOURCE=1 -DUSE_SDL2 -DSOUND_SDL2
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \

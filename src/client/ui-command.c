@@ -217,7 +217,8 @@ static void html_screenshot(const char *path, int mode, term *other_term)
     if (mode == 0)
     {
         file_put(fp, "<!DOCTYPE html><html><head>\n");
-        file_putf(fp, "  <meta='generator' content='%s'>\n", version_build(VERSION_NAME, false));
+        file_putf(fp, "  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n");
+        file_putf(fp, "  <meta name='generator' content='%s'>\n", version_build(VERSION_NAME, false));
         file_putf(fp, "  <title>%s</title>\n", path);
         file_put(fp, "</head>\n\n");
         file_putf(fp, "<body style='color: #%02X%02X%02X; background: #%02X%02X%02X;'>\n",

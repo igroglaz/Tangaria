@@ -1099,19 +1099,20 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     const char *title = get_title(p);
     bool cheeze;
     char m_name[NORMAL_WID];
+    int desc_mode = MDESC_DEFAULT | (note? MDESC_COMMA: 0);
 
     /* Assume normal death sound */
     int soundfx = MSG_KILL;
 
     /* Extract monster name */
-    monster_desc(p, m_name, sizeof(m_name), mon, MDESC_DEFAULT);
+    monster_desc(p, m_name, sizeof(m_name), mon, desc_mode);
 
     /* Shapechanged monsters revert on death */
     if (mon->original_race)
     {
         monster_revert_shape(p, mon);
         lore = get_lore(p, mon->race);
-        monster_desc(p, m_name, sizeof(m_name), mon, MDESC_DEFAULT);
+        monster_desc(p, m_name, sizeof(m_name), mon, desc_mode);
     }
 
     /* Play a special sound if the monster was unique */

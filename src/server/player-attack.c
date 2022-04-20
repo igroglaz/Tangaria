@@ -255,22 +255,35 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 4 + p->lev * 2;
     int power = weight + randint1(500);
     int new_dam = dam;
+    struct object *bow = equipped_item_by_slot_name(p, "shooting");
 
     if (randint1(5000) > chance)
-        *msg_type = MSG_SHOOT_HIT;
+    {
+        if (bow)
+        {
+            if (kf_has(bow->kind->kind_flags, KF_SHOOTS_ARROWS))
+                *msg_type = MSG_SHOOT_BOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_BOLTS))
+                *msg_type = MSG_SHOOT_CROSSBOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_SHOTS))
+                *msg_type = MSG_SHOOT_SLING;
+        }
+        else
+            *msg_type = MSG_SHOOT; // rocks (boomerangs too for now..)
+    }
     else if (power < 500)
     {
-        *msg_type = MSG_HIT_GOOD;
+        *msg_type = MSG_SHOOT_GOOD;
         new_dam = 2 * dam + 5;
     }
     else if (power < 1000)
     {
-        *msg_type = MSG_HIT_GREAT;
+        *msg_type = MSG_SHOOT_GREAT;
         new_dam = 2 * dam + 10;
     }
     else
     {
-        *msg_type = MSG_HIT_SUPERB;
+        *msg_type = MSG_SHOOT_SUPERB;
         new_dam = 3 * dam + 15;
     }
 
@@ -291,6 +304,7 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 5 +
         (p->state.skills[SKILL_TO_HIT_MELEE] - 60);
     int new_dam = dam;
+    struct object *obj = equipped_item_by_slot_name(p, "weapon");
 
     /* Apply Touch of Death */
     if (p->timed[TMD_DEADLY] && magik(25))
@@ -298,9 +312,16 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
         *msg_type = MSG_HIT_HI_CRITICAL;
         new_dam = 4 * dam + 30;
     }
-
+    // now regular attacks
     else if (randint1(5000) > chance)
-        *msg_type = MSG_HIT;
+    {
+        if (obj) // with weapon
+        {
+            *msg_type = MSG_HIT;
+        }
+        else
+            *msg_type = MSG_PUNCH; // unarmed (barehand)
+    }
     else if (power < 400)
     {
         *msg_type = MSG_HIT_GOOD;
@@ -737,6 +758,7 @@ static const struct hit_types melee_hit_types[] =
 {
     {MSG_MISS, NULL},
     {MSG_HIT, NULL},
+    {MSG_PUNCH, NULL},
     {MSG_HIT_GOOD, "It was a good hit!"},
     {MSG_HIT_GREAT, "It was a great hit!"},
     {MSG_HIT_SUPERB, "It was a superb hit!"},
@@ -1119,7 +1141,13 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 melee_hit_types[i].text);
         }
         else
+        {
+            // sound for unarmed (barehand) attack
+            if (!obj)
+                msg_type = MSG_PUNCH;
+            
             msgt(p, msg_type, "You %s %s%s%s.", verb, target_name, hit_extra, dmg_text);
+        }
     }
 
     effects->stab_sleep = false;
@@ -1518,6 +1546,7 @@ void drain_xp(struct player *p, int amt)
 }
 
 
+// weapon disarm
 void drop_weapon(struct player *p, int damage)
 {
     int tmp;
@@ -1561,7 +1590,7 @@ void drop_weapon(struct player *p, int damage)
     if (!magik(damage)) return;
 
     /* Really unlucky or really lousy fighters get disarmed */
-    msg(p, "You lose grip of your weapon!");
+    msgt(p, MSG_DISARM_WEAPON, "Disarmed! You lose grip of your weapon!");
     if (!inven_drop(p, obj, 1, true))
     {
         /* Protect true artifacts at shallow depths */
@@ -1703,10 +1732,15 @@ static void missile_pict(struct player *p, const struct object *obj, struct loc 
 static const struct hit_types ranged_hit_types[] =
 {
     {MSG_MISS, NULL},
+    {MSG_SHOOT, NULL},
     {MSG_SHOOT_HIT, NULL},
-    {MSG_HIT_GOOD, "It was a good hit!"},
-    {MSG_HIT_GREAT, "It was a great hit!"},
-    {MSG_HIT_SUPERB, "It was a superb hit!"}
+    {MSG_SHOOT_BOW, NULL},
+    {MSG_SHOOT_CROSSBOW, NULL},
+    {MSG_SHOOT_SLING, NULL},
+    {MSG_SHOOT_BOOMERANG, NULL},
+    {MSG_SHOOT_GOOD, "It was a good hit!"},
+    {MSG_SHOOT_GREAT, "It was a great hit!"},
+    {MSG_SHOOT_SUPERB, "It was a superb hit!"}
 };
 
 
@@ -1717,9 +1751,10 @@ static const struct hit_types ranged_hit_types[] =
  * logic, while using the 'attack' parameter to do work particular to each
  * kind of attack.
  */
+ // bool shooted - true if projectile was shooted; false if it was thrown
 static bool ranged_helper(struct player *p, struct object *obj, int dir, int range, int num_shots,
     ranged_attack attack, const struct hit_types *hit_types, int num_types, bool magic, bool pierce,
-    bool ranged_effect)
+    bool ranged_effect, bool shooted)
 {
     int i, j;
     int path_n;
@@ -1754,8 +1789,22 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         }
     }
 
-    /* Sound */
-    sound(p, MSG_SHOOT);
+    /* Shooting sound */
+    if (shooted)
+    {
+        if (obj->tval == TV_ARROW)
+            sound(p, MSG_SHOOT_BOW);
+        else if (obj->tval == TV_BOLT)
+            sound(p, MSG_SHOOT_CROSSBOW);
+        else if (obj->tval == TV_SHOT)
+            sound(p, MSG_SHOOT_SLING);
+        else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
+            sound(p, MSG_SHOOT_BOOMERANG);
+        else
+            sound(p, MSG_SHOOT); // stone sound. not sure do we need it or not
+    }
+    else
+        sound(p, MSG_THROW);
 
     /* Take a turn */
     use_energy(p);
@@ -2348,7 +2397,7 @@ bool do_cmd_fire(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true);
+        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true, true);
 
     return more;
 }
@@ -2445,7 +2494,7 @@ bool do_cmd_throw(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, false, false);
+        (int)N_ELEMENTS(ranged_hit_types), magic, false, false, false);
 
     return more;
 }
