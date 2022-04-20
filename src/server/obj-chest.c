@@ -576,7 +576,7 @@ static void chest_trap(struct player *p, struct object *obj)
 {
     int traps = obj->pval;
 	struct chest_trap *trap;
-    bool ident;
+    bool ident = false;
     struct source who_body;
     struct source *who = &who_body;
 

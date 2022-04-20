@@ -24,6 +24,12 @@ CFLAGS += -I. -std=c99 -O0
 # CFLAGS += -g -pg -I. -std=c99 -O0
 # LDFLAGS += -g -pg
 
+# ARM Processor
+ifneq ($(filter arm%, $(shell uname -m)),)
+    # $(info processor "$(shell uname -m)")
+    CFLAGS += -fsigned-char
+endif
+
 # gcov intermediate data
 GCOBJS = $(OBJECTS:.o=.gcno) $(OBJECTS:.o=.gcda)
 GCOVS = $(OBJECTS:.o=.c.gcov)

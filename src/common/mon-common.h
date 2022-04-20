@@ -247,6 +247,25 @@ struct monster_lore
 };
 
 /*
+ * Alternate spell message for a particular monster.
+ */
+enum monster_altmsg_type
+{
+    MON_ALTMSG_SEEN,
+    MON_ALTMSG_UNSEEN,
+    MON_ALTMSG_MISS
+};
+
+struct monster_altmsg
+{
+    struct monster_altmsg *next;
+
+    char *message;                      /* The alternate text; "" for no message */
+    enum monster_altmsg_type msg_type;  /* Which of the spell's messages to override */
+    uint16_t index;                     /* The spell's numerical index (RSF_FOO) */
+};
+
+/*
  * Monster "race" information, including racial memories
  *
  * Note that "d_attr" and "d_char" are used for MORE than "visual" stuff.
@@ -279,6 +298,7 @@ struct monster_race
     char d_char;                            /* Default monster character */
     int16_t weight;                            /* Corpse weight */
     struct monster_lore lore;               /* Monster "lore" information */
+    struct monster_altmsg *spell_msgs;
     struct monster_drop *drops;
     struct monster_friends *friends;
     struct monster_friends_base *friends_base;

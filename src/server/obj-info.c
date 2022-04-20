@@ -1689,6 +1689,7 @@ static bool describe_origin(struct player *p, const struct object *obj, bool ter
     const char *dropper = NULL;
     const char *article;
     bool unique = false;
+    bool comma = false;
     char *original_owner = NULL;
     bool changed_hands = false;
     char desc[NORMAL_WID];
@@ -1742,6 +1743,7 @@ static bool describe_origin(struct player *p, const struct object *obj, bool ter
     {
         dropper = obj->origin_race->name;
         if (monster_is_unique(obj->origin_race)) unique = true;
+        if (rf_has(obj->origin_race->flags, RF_NAME_COMMA)) comma = true;
     }
     else
         dropper = "monster lost to history";
@@ -1753,6 +1755,7 @@ static bool describe_origin(struct player *p, const struct object *obj, bool ter
         my_strcpy(name, article, sizeof(name));
         my_strcat(name, dropper, sizeof(name));
     }
+    if (comma) my_strcat(name, ",", sizeof(name));
 
     /* Print an appropriate description */
     switch (origins[origin].args)

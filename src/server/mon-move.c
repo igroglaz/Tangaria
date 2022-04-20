@@ -1645,7 +1645,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
                 const char *article = "a";
 
                 if (monster_is_visible(who->player, mon->midx)) article = "the";
-                monster_desc(who->player, m_name, sizeof(m_name), mon, MDESC_CAPITAL);
+                monster_desc(who->player, m_name, sizeof(m_name), mon, MDESC_STANDARD);
 
                 /* Print a message */
                 if (will_bash)
@@ -2224,7 +2224,8 @@ static void monster_turn(struct source *who, struct chunk *c, struct monster *mo
     struct monster_lore *lore = get_lore(who->player, mon->race);
 
     /* Get the monster name */
-    monster_desc(who->player, m_name, sizeof(m_name), mon, MDESC_CAPITAL | MDESC_IND_HID);
+    monster_desc(who->player, m_name, sizeof(m_name), mon,
+        MDESC_CAPITAL | MDESC_IND_HID | MDESC_COMMA);
 
     /* If we're in a web, deal with that */
     if (square_iswebbed(c, &mon->grid))

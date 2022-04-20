@@ -28,9 +28,6 @@
 #include "../win/win-term.h"
 #include <wingdi.h>
 
-#define HELP_GENERAL "index.txt"
-#define HELP_SPOILERS "spoilers.hlp"
-
 #ifndef GetWindowLongPtr
 #define GetWindowLongPtr GetWindowLong
 #endif
@@ -2749,19 +2746,15 @@ static void setup_menus(void)
 
     /* Menu "Help" */
     EnableMenuItem(hm, IDM_HELP_GENERAL, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-    EnableMenuItem(hm, IDM_HELP_SPOILERS, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
     if (initialized && Setup.initialized)
-    {
         EnableMenuItem(hm, IDM_HELP_GENERAL, MF_BYCOMMAND | MF_ENABLED);
-        EnableMenuItem(hm, IDM_HELP_SPOILERS, MF_BYCOMMAND | MF_ENABLED);
-    }
 }
 
 
 /*
  * Display a help file
  */
-static void display_help(const char *filename)
+static void display_help(void)
 {
     Term_keypress('?', 0);
 }
@@ -3195,13 +3188,7 @@ static void process_menus(WORD wCmd)
 
         case IDM_HELP_GENERAL:
         {
-            display_help(HELP_GENERAL);
-            break;
-        }
-
-        case IDM_HELP_SPOILERS:
-        {
-            display_help(HELP_SPOILERS);
+            display_help();
             break;
         }
 

@@ -30,6 +30,13 @@ Angband 4.2.x:
 - In open targeting mode, allow running keys to step 10 grids at a time
 - Use the color table values in screenshots for COLOUR_DARK and COLOUR_WHITE
 - GCU: also set background color on standard screen
+- Add option to include monster list in screenshots
+- Print total number in pack/quiver when dropping, picking up, or consuming
+  an item that's in the pack/quiver or ends up there
+- Improve "puff of smoke" messaging
+- Allow monster races to customize the spell casting messages
+- Clarify rejection message for the fire command
+- Add comma to monster's name where appropriate
 
 MAngband 1.5.x:
 
@@ -156,3 +163,5 @@ Compilation/documentation
 - Update comment about swap weapons keymap in pref.prf
 - Add configure option to store gamedata on libpath
 - Add panic directory to windows packaging
+- Update lib/readme.txt
+- Use a top-level help file customized for the chosen keyset

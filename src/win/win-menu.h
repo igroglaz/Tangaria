@@ -69,5 +69,4 @@
 #define IDM_WINDOW_RESET        181
 
 #define IDM_HELP_GENERAL        901
-#define IDM_HELP_SPOILERS       902
 #define IDM_HELP_ABOUT          903

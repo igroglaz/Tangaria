@@ -316,7 +316,10 @@ void common_file_peruse(struct player *p, uint32_t query)
     /* Use default file */
     if (!p->interactive_file)
     {
-        p->interactive_file = string_make("index.txt");
+        if (OPT(p, rogue_like_commands))
+            p->interactive_file = string_make("r_index.txt");
+        else
+            p->interactive_file = string_make("index.txt");
 
         /* Hack -- enforce update */
         p->interactive_next = -1;

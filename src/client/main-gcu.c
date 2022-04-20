@@ -724,12 +724,12 @@ static int create_color(int i, int scale)
 }
 
 
-#ifdef A_COLOR
 /*
  * Adjust the color tables if there's more than 16 available.
  */
 static void handle_extended_color_tables(void)
 {
+#ifdef A_COLOR
     if (COLORS == 256 || COLORS == 88)
     {
         /*
@@ -780,8 +780,8 @@ static void handle_extended_color_tables(void)
             wrefresh(stdscr);
         }
     }
-}
 #endif
+}
 
 
 /*

@@ -99,6 +99,8 @@ void get_mon_name(char *buf, size_t buflen, const struct monster_race *race, int
  *   0x40 --> Assume the monster is hidden
  *   0x80 --> Assume the monster is visible
  *  0x100 --> Capitalise monster name
+ *  0x200 --> Add a comma if the name includes an unterminated phrase,
+ *            "Wormtongue, Agent of Saruman" is an example
  *
  * Useful Modes:
  *   0x00 --> Full nominative name ("the kobold") or "it"
@@ -212,6 +214,9 @@ void monster_desc(struct player *p, char *desc, size_t max, const struct monster
 
             my_strcat(desc, mon->race->name, max);
         }
+
+        if ((mode & MDESC_COMMA) && rf_has(mon->race->flags, RF_NAME_COMMA))
+            my_strcat(desc, ",", max);
 
         /* Handle the possessive */
         /* XXX Check for trailing "s" */

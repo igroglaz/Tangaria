@@ -4312,7 +4312,7 @@ bool effect_handler_PROBE(effect_handler_context_t *context)
 
             /* Get "the monster" or "something" */
             monster_desc(context->origin->player, m_name, sizeof(m_name), mon,
-                MDESC_IND_HID | MDESC_CAPITAL);
+                MDESC_IND_HID | MDESC_CAPITAL | MDESC_COMMA);
 
             strnfmt(buf, sizeof(buf), "blows");
             for (j = 0; j < z_info->mon_blows_max; j++)
@@ -5286,9 +5286,18 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     /* Report failure (very unlikely) */
     if ((d_min == 0) && (d_max == 0))
     {
-        if (context->origin->player)
+        if (is_player)
             msg(context->origin->player, "Failed to find teleport destination!");
-         return !used;
+        else if (square_isseen(context->origin->player, &context->origin->monster->grid))
+        {
+            /*
+             * With either teleport self or teleport other, it'll
+             * be the caster that is puzzled.
+             */
+            add_monster_message(context->origin->player, context->origin->monster,
+                MON_MSG_BRIEF_PUZZLE, true);
+        }
+        return !used;
     }
 
     /* Randomise the distance a little */

@@ -51,6 +51,29 @@ static spell_tag_t spell_tag_lookup(const char *tag)
 
 
 /*
+ * Lookup a race-specific message for a spell.
+ *
+ * r is the race.
+ * s_idx is the spell index.
+ * msg_type is the type of message.
+ *
+ * Return the text of the message if there's a race-specific one or NULL if there is not.
+ */
+static const char *find_alternate_spell_message(const struct monster_race *r, int s_idx,
+    enum monster_altmsg_type msg_type)
+{
+    const struct monster_altmsg *am = r->spell_msgs;
+
+    while (1)
+    {
+        if (!am) return NULL;
+        if (am->index == s_idx && am->msg_type == msg_type) return am->message;
+        am = am->next;
+    }
+}
+
+
+/*
  * Print a monster spell message.
  *
  * We fill in the monster name and/or pronoun where necessary in
@@ -59,6 +82,7 @@ static spell_tag_t spell_tag_lookup(const char *tag)
 static void spell_message(struct player *p, struct monster *mon, const struct monster_spell *spell,
     bool seen, bool hits, struct monster *target_mon)
 {
+    const char punct[] = ".!?;:,'";
     char buf[MSG_LEN] = "\0";
     const char *next;
     const char *s;
@@ -67,6 +91,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
     size_t end = 0;
     struct monster_spell_level *level = spell->level;
     char tmp[MSG_LEN];
+    bool is_leading;
 
     /* Get the right level of message */
     while (level->next && mon->race->spell_power >= level->next->power) level = level->next;
@@ -75,14 +100,25 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
     if (!seen)
     {
         if (target_mon) return;
-        in_cursor = level->blind_message;
+        in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_UNSEEN);
+        if (in_cursor == NULL) in_cursor = level->blind_message;
+        else if (in_cursor[0] == '\0') return;
     }
     else if (!hits)
-        in_cursor = level->miss_message;
+    {
+        in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_MISS);
+        if (in_cursor == NULL) in_cursor = level->miss_message;
+        else if (in_cursor[0] == '\0') return;
+    }
     else
-        in_cursor = level->message;
+    {
+        in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_SEEN);
+        if (in_cursor == NULL) in_cursor = level->message;
+        else if (in_cursor[0] == '\0') return;
+    }
 
     next = strchr(in_cursor, '{');
+    is_leading = (next == in_cursor);
     while (next)
     {
         /* Copy the text leading up to this { */
@@ -103,9 +139,13 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                 case SPELL_TAG_NAME:
                 {
                     char m_name[NORMAL_WID];
+                    int mdesc_mode = (MDESC_IND_HID | MDESC_PRO_HID);
+
+                    if (is_leading) mdesc_mode |= MDESC_CAPITAL;
+                    if (!strchr(punct, *in_cursor)) mdesc_mode |= MDESC_COMMA;
 
                     /* Get the monster name (or "it") */
-                    monster_desc(p, m_name, sizeof(m_name), mon, MDESC_STANDARD);
+                    monster_desc(p, m_name, sizeof(m_name), mon, mdesc_mode);
 
                     strnfcat(buf, sizeof(buf), &end, m_name);
                     break;
@@ -123,10 +163,13 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                 case SPELL_TAG_TARGET:
                 {
                     char m_name[NORMAL_WID];
+                    int mdesc_mode = MDESC_TARG;
+
+                    if (!strchr(punct, *in_cursor)) mdesc_mode |= MDESC_COMMA;
 
                     if (target_mon)
                     {
-                        monster_desc(p, m_name, sizeof(m_name), target_mon, MDESC_TARG);
+                        monster_desc(p, m_name, sizeof(m_name), target_mon, mdesc_mode);
                         strnfcat(buf, sizeof(buf), &end, m_name);
                     }
                     else
@@ -171,6 +214,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
             in_cursor = next + 1;
 
         next = strchr(in_cursor, '{');
+        is_leading = false;
     }
     strnfcat(buf, sizeof(buf), &end, in_cursor);
 
