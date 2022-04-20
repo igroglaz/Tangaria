@@ -1735,9 +1735,10 @@ static const struct hit_types ranged_hit_types[] =
  * logic, while using the 'attack' parameter to do work particular to each
  * kind of attack.
  */
+ // bool shooted - true if projectile was shooted; false if it was thrown
 static bool ranged_helper(struct player *p, struct object *obj, int dir, int range, int num_shots,
     ranged_attack attack, const struct hit_types *hit_types, int num_types, bool magic, bool pierce,
-    bool ranged_effect)
+    bool ranged_effect, bool shooted)
 {
     int i, j;
     int path_n;
@@ -1772,17 +1773,22 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         }
     }
 
-    /* Sound */
-    if (obj->tval == TV_ARROW)
-        sound(p, MSG_SHOOT_BOW);
-    else if (obj->tval == TV_BOLT)
-        sound(p, MSG_SHOOT_CROSSBOW);
-    else if (obj->tval == TV_SHOT)
-        sound(p, MSG_SHOOT_SLING);
-    else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
-        sound(p, MSG_SHOOT_BOOMERANG);
+    /* Shooting sound */
+    if (shooted)
+    {
+        if (obj->tval == TV_ARROW)
+            sound(p, MSG_SHOOT_BOW);
+        else if (obj->tval == TV_BOLT)
+            sound(p, MSG_SHOOT_CROSSBOW);
+        else if (obj->tval == TV_SHOT)
+            sound(p, MSG_SHOOT_SLING);
+        else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
+            sound(p, MSG_SHOOT_BOOMERANG);
+        else
+            sound(p, MSG_SHOOT); // not sure do we need it or not
+    }
     else
-        sound(p, MSG_SHOOT); // rocks
+        sound(p, MSG_SHOOT);
 
     /* Take a turn */
     use_energy(p);
@@ -2375,7 +2381,7 @@ bool do_cmd_fire(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true);
+        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true, true);
 
     return more;
 }
@@ -2472,7 +2478,7 @@ bool do_cmd_throw(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, false, false);
+        (int)N_ELEMENTS(ranged_hit_types), magic, false, false, false);
 
     return more;
 }
