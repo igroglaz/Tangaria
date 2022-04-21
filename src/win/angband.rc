@@ -110,7 +110,6 @@ ANGBAND MENU
     POPUP "&Help"
     {
         MENUITEM "&Contents", IDM_HELP_GENERAL
-        MENUITEM "&Spoilers", IDM_HELP_SPOILERS
         MENUITEM "&About...", IDM_HELP_ABOUT
     }
 }
