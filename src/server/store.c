@@ -3364,7 +3364,7 @@ void do_cmd_store(struct player *p, int pstore)
     switch (s->type)
     {
         case STORE_OTHER:
-            if (streq(s->name, "Sonya the cat")) sound(p, MSG_BERSERK);
+            if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
             else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_STORE_OTHER_SOUND);
             else if (streq(s->name, "Torog")) sound(p, MSG_AFRAID);
             else if (streq(s->name, "Alchemy Shop")) sound(p, MSG_STORE_ALCHEMY);

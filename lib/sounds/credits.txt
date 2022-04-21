@@ -21,3 +21,11 @@ door_broken
 Kostas17
 https://freesound.org/people/Kostas17/sounds/537709/
 quiver
+
+steffcaffrey
+https://freesound.org/people/steffcaffrey/sounds/262309/
+meow
+
+F.M.Audio
+https://freesound.org/people/F.M.Audio/sounds/583379/
+purr

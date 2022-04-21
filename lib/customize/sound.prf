@@ -155,6 +155,7 @@ sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_alchemy:ambient/store/alchemy
 sound:store_magic:ambient/store/magic
+sound:npc_cat:ambient/store/purr ambient/store/meow
 
 #
 # Player sounds - combat
