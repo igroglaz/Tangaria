@@ -268,7 +268,7 @@ void player_exp_gain(struct player *p, int32_t amount)
             amount /= 2;
         else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
                  streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
-            amount /= (amount * 2) / 3;
+            amount = (amount * 2) / 3;
         else if (streq(p->race->name, "Black Numenorean") || streq(p->race->name, "Dunedain") ||
                  streq(p->race->name, "Dark Elf") || streq(p->race->name, "Draconian"))
             amount = (amount * 3) / 4;
@@ -282,11 +282,11 @@ void player_exp_gain(struct player *p, int32_t amount)
             amount /= 2;
         else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
                  streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
-            amount /= (amount * 2) / 3;
+            amount = (amount * 2) / 3;
         else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
                  streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||
                  streq(p->clazz->name, "Wizard"))
-            amount /= (amount * 3) / 4;
+            amount = (amount * 3) / 4;
     }
 
     /* Gain some experience */
