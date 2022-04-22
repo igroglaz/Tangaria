@@ -53,8 +53,8 @@ enum
 
 static const struct sound_file_type supported_sound_files[] =
 {
-    {".ogg0", SDL_CHUNK_LOOP},
     {".ogg", SDL_CHUNK},
+    {".ogg0", SDL_CHUNK_LOOP},
     {".mp3", SDL_MUSIC},
     {"", SDL_NULL}
 };
