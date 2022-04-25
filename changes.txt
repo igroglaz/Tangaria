@@ -100,6 +100,7 @@ PWMAngband:
 - Fix object_all_modifiers_are_known()
 - Redraw equip subwindow when inscribing items in the quiver
 - Fix crash in file_newer()
+- Learn "on wield" runes when picking up ammo
 
 Coding changes
 --------------

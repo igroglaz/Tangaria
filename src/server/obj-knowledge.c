@@ -1530,20 +1530,13 @@ void object_learn_on_wield(struct player *p, struct object *obj)
 
 
 /*
- * Learn object properties that would become obvious on wielding
- * Since Dragons and Monks cannot use weapons, they need to learn "on wield" properties
+ * Learn object properties that become obvious on carrying.
  *
  * p is the player
- * obj is the wielded object
+ * obj is the carried object
  */
-void weapon_learn_on_carry(struct player *p, struct object *obj)
+void object_learn_on_carry(struct player *p, struct object *obj)
 {
-    /* Only deal with un-ID'd items */
-    if (object_is_known(p, obj)) return;
-
-    /* Only deal with weapons */
-    if (!tval_is_melee_weapon(obj) && !tval_is_mstaff(obj) && !tval_is_launcher(obj)) return;
-
     /* Check the worn flag */
     if (obj->known->notice & OBJ_NOTICE_WORN) return;
     obj->known->notice |= OBJ_NOTICE_WORN;
