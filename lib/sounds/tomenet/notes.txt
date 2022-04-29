@@ -1,0 +1,8 @@
+Not used sounds yet:
+
+/combat:
+block_shield
+block_shield_projectile
+parry
+parry_weapon
+tech_melee

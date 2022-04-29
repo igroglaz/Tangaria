@@ -317,7 +317,14 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
     {
         if (obj) // with weapon
         {
-            *msg_type = MSG_HIT;
+            if (obj->tval == TV_SWORD)
+                *msg_type = MSG_HIT_BLADE;
+            else if ((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip")))
+                *msg_type = MSG_HIT_WHIP;
+            else if (obj->tval == TV_HAFTED)
+                *msg_type = MSG_HIT_MACE;
+            else
+                *msg_type = MSG_HIT;
         }
         else
             *msg_type = MSG_PUNCH; // unarmed (barehand)
@@ -758,6 +765,9 @@ static const struct hit_types melee_hit_types[] =
 {
     {MSG_MISS, NULL},
     {MSG_HIT, NULL},
+    {MSG_HIT_BLADE, NULL},
+    {MSG_HIT_MACE, NULL},
+    {MSG_HIT_WHIP, NULL},
     {MSG_PUNCH, NULL},
     {MSG_HIT_GOOD, "It was a good hit!"},
     {MSG_HIT_GREAT, "It was a great hit!"},
