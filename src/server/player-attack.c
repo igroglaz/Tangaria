@@ -1741,7 +1741,7 @@ static void missile_pict(struct player *p, const struct object *obj, struct loc 
 /* Shooting hit types */
 static const struct hit_types ranged_hit_types[] =
 {
-    {MSG_MISS, NULL},
+    {MSG_SHOOT_MISS, NULL},
     {MSG_SHOOT, NULL},
     {MSG_SHOOT_HIT, NULL},
     {MSG_SHOOT_BOW, NULL},
@@ -1959,7 +1959,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                     if (dmg <= 0)
                     {
                         dmg = 0;
-                        msg_type = MSG_MISS;
+                        msg_type = MSG_SHOOT_MISS;
                         verb = "fails to harm";
                     }
 
@@ -2123,7 +2123,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                         /* Handle visible monster/player */
                         object_desc(p, o_name, sizeof(o_name), obj, ODESC_FULL | ODESC_SINGULAR);
-                        msgt(p, MSG_MISS, "The %s misses %s.", o_name, m_name);
+                        msgt(p, MSG_SHOOT_MISS, "The %s misses %s.", o_name, m_name);
 
                         /* Track this target */
                         if (who->monster) monster_race_track(p->upkeep, who);

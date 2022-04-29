@@ -192,7 +192,10 @@ sound:hit_hi_great:plc_hit_grunt2
 sound:hit_great:plc_hit_groan
 
 # You miss a melee attack against a monster.
-sound:miss:plc_miss_swish
+sound:miss:tomenet/combat/miss_weapon/swosh1 tomenet/combat/miss_weapon/swosh2
+
+# You miss a ranged attack against a monster.
+sound:shoot_miss:plc_miss_swish
 
 # You fire a missile (general case; we use it for throwing items when no shooter equipped).
 sound:shoot:tomenet/combat/fire/boulder
