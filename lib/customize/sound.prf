@@ -380,6 +380,9 @@ sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance p
 # You shut a door.
 sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam
 
+# Door closed (pstore)
+sound:door_closed:plm_door_latch
+
 # You teleport from a level (including via recall).
 sound:tplevel:sum_bell_crystal
 

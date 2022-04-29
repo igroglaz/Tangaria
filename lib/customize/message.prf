@@ -119,6 +119,9 @@ message:OPENDOOR:w
 # MSG_SHUTDOOR (sound only)
 message:SHUTDOOR:w
 
+# MSG_DOOR_CLOSED
+message:DOOR_CLOSED:w
+
 # MSG_TPLEVEL
 message:TPLEVEL:w
 
