@@ -277,7 +277,7 @@ static void play_ambient_sound(struct player *p)
                     (p->wpos.grid.x ==  2 && p->wpos.grid.y == 2))
                     {
                         if (one_in_(5)) sound(p, MSG_WILD_GRASS); // bird of prey
-                        else if (one_in_(2)) sound(p, MSG_WILD_MOUNTAIN); // wolves
+                        else if (one_in_(3)) sound(p, MSG_WILD_MOUNTAIN); // wolves
                     }
             else if((p->wpos.grid.x == -1 && p->wpos.grid.y == 0) ||
                     (p->wpos.grid.x == -1 && p->wpos.grid.y == -1))
