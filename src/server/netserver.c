@@ -7237,9 +7237,8 @@ static int Receive_store_leave(int ind)
         p->upkeep->redraw |= (PR_BASIC | PR_EXTRA | PR_MAP | PR_SPELL);
         set_redraw_equip(p, NULL);
 
-        sound(p, MSG_STORE_LEAVE);
-
-        sound(p, MSG_SILENT);
+        // T: moved this sound down a bit
+        // sound(p, MSG_STORE_LEAVE);
 
         /* Update store info */
         message_flush(p);
@@ -7281,6 +7280,14 @@ static int Receive_store_leave(int ind)
                 monster_swap(c, &p->grid, &grid);
                 handle_stuff(p);
             }
+
+            // "standart" store leave sound should play only for pstores
+            // (as we can speak NPCs which are not behind doors)
+            if (s->type == STORE_PLAYER)
+                sound(p, MSG_STORE_LEAVE);
+
+            // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
+            sound(p, MSG_SILENT);
 
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());
