@@ -164,26 +164,38 @@ sound:npc_cat:ambient/store/purr ambient/store/meow
 # You succeed in a melee attack against a monster.
 sound:hit:plc_hit_hay plc_hit_body
 
+# melee blade attack
+sound:hit_blade:tomenet/combat/hit_weapon/slash1 tomenet/combat/hit_weapon/slash2
+
+# melee mace attack
+sound:hit_mace:tomenet/combat/hit_weapon/hammer1 tomenet/combat/hit_weapon/hammer2
+
+# melee whip attack
+sound:hit_whip:tomenet/combat/hit_weapon/whip1 tomenet/combat/hit_weapon/whip2 tomenet/combat/hit_weapon/whip3
+
 # It was a good hit!
 sound:hit_good:plc_hit_anvil
 
 # It was a great hit!
-sound:hit_great:plc_hit_groan
-
-# It was a superb hit!
-sound:hit_superb:plc_hit_grunt
-
-# It was a *GREAT* hit!
-sound:hit_hi_great:plc_hit_grunt2
-
-# It was a *SUPERB* hit!
-sound:hit_hi_superb:plc_hit_anvil2
-
-# It was a *CRITICAL* hit!
 sound:hit_hi_critical:plc_hit_critical
 
+# It was a superb hit!
+sound:hit_hi_superb:plc_hit_anvil2
+
+# It was a *GREAT* hit!
+sound:hit_superb:plc_hit_grunt
+
+# It was a *SUPERB* hit!
+sound:hit_hi_great:plc_hit_grunt2
+
+# It was a *CRITICAL* hit!
+sound:hit_great:plc_hit_groan
+
 # You miss a melee attack against a monster.
-sound:miss:plc_miss_swish
+sound:miss:tomenet/combat/miss_weapon/swosh1 tomenet/combat/miss_weapon/swosh2
+
+# You miss a ranged attack against a monster.
+sound:shoot_miss:plc_miss_swish
 
 # You fire a missile (general case; we use it for throwing items when no shooter equipped).
 sound:shoot:tomenet/combat/fire/boulder
@@ -367,6 +379,9 @@ sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance p
 
 # You shut a door.
 sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam
+
+# Door closed (pstore)
+sound:door_closed:plm_door_latch
 
 # You teleport from a level (including via recall).
 sound:tplevel:sum_bell_crystal

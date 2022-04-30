@@ -19,6 +19,9 @@
 # I - 24 - Light Pink    M - 25 - Mustard       z - 26 - Blue Slate
 # Z - 27 - Deep Light Blue
 
+#### ! no need to add there entry if we add only sound effect
+#### ! for sound effect just add line to list-message.h
+
 
 # MSG_GENERIC
 message:GENERIC:w
@@ -115,6 +118,9 @@ message:OPENDOOR:w
 
 # MSG_SHUTDOOR (sound only)
 message:SHUTDOOR:w
+
+# MSG_DOOR_CLOSED
+message:DOOR_CLOSED:w
 
 # MSG_TPLEVEL
 message:TPLEVEL:w
