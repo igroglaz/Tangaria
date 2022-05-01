@@ -727,4 +727,6 @@ sound:item_amulet:tomenet/item/amulet/rattle
 
 sound:item_pickup:item_pickup
 
+sound:drop_gold:tomenet/item/gold/coinscut
+
 # leave empty line for EOF

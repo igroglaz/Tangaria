@@ -1410,6 +1410,8 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
                 sound(p, MSG_ITEM_RING);
             else if (tval_is_amulet(*dropped))
                 sound(p, MSG_ITEM_AMULET);
+            else if (tval_is_money(*dropped))
+                sound(p, MSG_DROP_GOLD);
             else
                 sound(p, MSG_DROP);
         }
