@@ -716,4 +716,6 @@ sound:item_ring:tomenet/item/ring/ding
 
 sound:item_amulet:tomenet/item/amulet/rattle
 
+sound:item_pickup:item_pickup
+
 # leave empty line for EOF

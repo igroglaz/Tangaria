@@ -235,6 +235,7 @@ MSG(ITEM_LIGHT_ARMOR,"item_light_armor")
 MSG(ITEM_HEAVY_ARMOR,"item_heavy_armor")
 MSG(ITEM_RING,"item_ring")
 MSG(ITEM_AMULET,"item_amulet")
+MSG(ITEM_PICKUP,"item_pickup")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
