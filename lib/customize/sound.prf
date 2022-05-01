@@ -332,13 +332,22 @@ sound:hungry:pls_man_sob
 # Player sounds - misc.
 #
 
-# You pick up money worth less than 200 au.
+# < 35 (You pick up money worth..)
+sound:gold_1:gold_1
+
+# < 100
+sound:gold_2:gold_2
+
+# < 250
 sound:money1:plm_coins_light plm_coins_shake
 
-# You pick up money worth between 200 and 600 au.
+# < 600
+sound:gold_3:tomenet/item/gold/coins
+
+# < 1100
 sound:money2:plm_chain_light plm_coins_pour
 
-# You pick up money worth 600 au or more.
+# >= 1100
 sound:money3:plm_coins_dump
 
 # You (or a monster) drop something on the ground.

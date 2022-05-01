@@ -103,8 +103,11 @@ static void player_pickup_gold(struct player *p, struct chunk *c)
         my_strcat(buf, ".", sizeof(buf));
 
         /* Determine which sound to play */
-        if (total_gold < 200) sound_msg = MSG_MONEY1;
-        else if (total_gold < 600) sound_msg = MSG_MONEY2;
+        if (total_gold < 35) sound_msg = MSG_GOLD_1;
+        else if (total_gold < 100) sound_msg = MSG_GOLD_2;
+        else if (total_gold < 250) sound_msg = MSG_MONEY1;
+        else if (total_gold < 600) sound_msg = MSG_GOLD_3;
+        else if (total_gold < 1100) sound_msg = MSG_MONEY2;
         else sound_msg = MSG_MONEY3;
 
         /* Display the message */

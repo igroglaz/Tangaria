@@ -38,4 +38,12 @@ jmbphilmes
 https://freesound.org/people/jmbphilmes/sounds/200271/
 rain_light
 
+GOSFX
+https://freesound.org/people/GOSFX/sounds/323402/
+gold_1
+
+GOSFX
+https://freesound.org/people/GOSFX/sounds/323401/
+gold_2
+
 # EOF
