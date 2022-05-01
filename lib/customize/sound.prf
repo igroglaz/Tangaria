@@ -702,4 +702,18 @@ sound:disarm_weapon:tomenet/combat/disarm/disarm_weapon
 
 sound:punch:tomenet/combat/hit/punch1 tomenet/combat/hit/punch2 tomenet/combat/hit/punch3 tomenet/combat/hit/punch4 tomenet/combat/hit/punch5 tomenet/combat/hit/punch6 tomenet/combat/hit/punch7
 
+sound:item_blade:tomenet/item/weapon/blade
+
+sound:item_whip:tomenet/item/rune/clack
+
+sound:item_wood:tomenet/item/weapon/magestaff
+
+sound:item_light_armor:tomenet/item/armour_light/wear
+
+sound:item_heavy_armor:tomenet/item/armour_heavy/rattle
+
+sound:item_ring:tomenet/item/ring/ding
+
+sound:item_amulet:tomenet/item/amulet/rattle
+
 # leave empty line for EOF

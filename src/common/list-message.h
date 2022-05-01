@@ -228,6 +228,13 @@ MSG(DOOR_BROKEN, "door_broken")
 MSG(DISRUPT, "disrupt")
 MSG(DISARM_WEAPON, "disarm_weapon")
 MSG(PUNCH, "punch")
+MSG(ITEM_BLADE,"item_blade")
+MSG(ITEM_WHIP,"item_whip")
+MSG(ITEM_WOOD,"item_wood")
+MSG(ITEM_LIGHT_ARMOR,"item_light_armor")
+MSG(ITEM_HEAVY_ARMOR,"item_heavy_armor")
+MSG(ITEM_RING,"item_ring")
+MSG(ITEM_AMULET,"item_amulet")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
