@@ -1376,7 +1376,41 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
     if (floor_carry(p, c, &best, *dropped, &dont_ignore))
     {
         /* Sound */
-        if (p) sound(p, MSG_DROP);
+        if (p)
+        {
+            if (tval_is_weapon(*dropped))
+            {
+                if ((*dropped)->tval == TV_SWORD)
+                    sound(p, MSG_ITEM_BLADE);
+                else if ((*dropped)->tval == TV_BOW || tval_is_mstaff(*dropped))
+                    sound(p, MSG_ITEM_WOOD);
+                else if ((((*dropped)->tval == TV_HAFTED) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Whip"))) ||
+                         (((*dropped)->tval == TV_BOW) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Sling"))))
+                             sound(p, MSG_ITEM_WHIP);
+                else
+                    sound(p, MSG_DROP);
+            }
+            else if (tval_is_body_armor(*dropped))
+            {
+                if ((*dropped)->weight < 150)
+                    sound(p, MSG_ITEM_LIGHT_ARMOR);
+                else
+                    sound(p, MSG_ITEM_HEAVY_ARMOR);
+            }
+            else if (tval_is_armor(*dropped))
+            {
+                if ((*dropped)->weight < 25)
+                    sound(p, MSG_ITEM_LIGHT_ARMOR);
+                else
+                    sound(p, MSG_ITEM_HEAVY_ARMOR);
+            }
+            else if (tval_is_ring(*dropped))
+                sound(p, MSG_ITEM_RING);
+            else if (tval_is_amulet(*dropped))
+                sound(p, MSG_ITEM_AMULET);
+            else
+                sound(p, MSG_DROP);
+        }
 
         /* Message when an object falls under a player */
         if (dont_ignore) msg(q, "You feel something roll beneath your feet.");

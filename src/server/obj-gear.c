@@ -785,7 +785,44 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
         }
     }
 
-    if (object_is_in_quiver(p, local_obj)) sound(p, MSG_QUIVER);
+    /* Sound */
+    if (object_is_in_quiver(p, local_obj))
+        sound(p, MSG_QUIVER);
+    else if (tval_is_weapon(local_obj))
+    {
+        if (local_obj->tval == TV_SWORD)
+            sound(p, MSG_ITEM_BLADE);
+        else if (local_obj->tval == TV_BOW || tval_is_mstaff(local_obj))
+            sound(p, MSG_ITEM_WOOD);
+        else if (((local_obj->tval == TV_HAFTED) && (local_obj->sval == lookup_sval(local_obj->tval, "Whip"))) ||
+                 ((local_obj->tval == TV_BOW) && (local_obj->sval == lookup_sval(local_obj->tval, "Sling"))))
+                     sound(p, MSG_ITEM_WHIP);
+        else
+            sound(p, MSG_ITEM_PICKUP);
+    }
+    else if (tval_is_body_armor(local_obj))
+    {
+        if ((local_obj)->weight < 150)
+            sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_armor(local_obj))
+    {
+        if (local_obj->tval == TV_CROWN)
+            sound(p, MSG_ITEM_PICKUP);
+        else if (local_obj->weight < 25 || local_obj->tval == TV_SHIELD || local_obj->tval == TV_CLOAK ||
+            local_obj->tval == TV_DRAG_ARMOR)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_ring(local_obj))
+        sound(p, MSG_ITEM_RING);
+    else if (tval_is_amulet(local_obj))
+        sound(p, MSG_ITEM_AMULET);
+    else
+        sound(p, MSG_ITEM_PICKUP);
 }
 
 
