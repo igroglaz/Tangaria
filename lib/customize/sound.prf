@@ -34,7 +34,7 @@
 sound:silent:silent
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain
+sound:ambient_day:amb_thunder_rain ambient/outside/rain_light
 
 # Town during the night.
 sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2

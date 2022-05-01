@@ -34,4 +34,8 @@ nicholasdaryl
 https://freesound.org/people/nicholasdaryl/sounds/563465/
 pickup
 
+jmbphilmes
+https://freesound.org/people/jmbphilmes/sounds/200271/
+rain_light
+
 # EOF
