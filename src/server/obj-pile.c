@@ -1387,6 +1387,8 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
                 else if ((((*dropped)->tval == TV_HAFTED) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Whip"))) ||
                          (((*dropped)->tval == TV_BOW) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Sling"))))
                              sound(p, MSG_ITEM_WHIP);
+                else if ((*dropped)->tval == TV_ARROW || (*dropped)->tval == TV_BOLT || (*dropped)->tval == TV_SHOT)
+                    sound(p, MSG_QUIVER);
                 else
                     sound(p, MSG_DROP);
             }
@@ -1399,15 +1401,18 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
             }
             else if (tval_is_armor(*dropped))
             {
-                if ((*dropped)->weight < 25)
-                    sound(p, MSG_ITEM_LIGHT_ARMOR);
-                else
-                    sound(p, MSG_ITEM_HEAVY_ARMOR);
+                if ((*dropped)->tval == TV_CROWN)
+                    sound(p, MSG_DROP);
+                else if ((*dropped)->weight < 25 || (*dropped)->tval == TV_SHIELD || (*dropped)->tval == TV_CLOAK ||
+                    (*dropped)->tval == TV_DRAG_ARMOR)
+                        sound(p, MSG_ITEM_LIGHT_ARMOR);
             }
             else if (tval_is_ring(*dropped))
                 sound(p, MSG_ITEM_RING);
             else if (tval_is_amulet(*dropped))
                 sound(p, MSG_ITEM_AMULET);
+            else if (tval_is_money(*dropped))
+                sound(p, MSG_DROP_GOLD);
             else
                 sound(p, MSG_DROP);
         }
