@@ -719,14 +719,24 @@ sound:item_wood:tomenet/item/weapon/magestaff
 
 sound:item_light_armor:tomenet/item/armour_light/wear
 
+sound:item_medium_armor:item_medium_armor
+
 sound:item_heavy_armor:tomenet/item/armour_heavy/rattle
 
 sound:item_ring:tomenet/item/ring/ding
 
 sound:item_amulet:tomenet/item/amulet/rattle
 
-sound:item_pickup:item_pickup
+sound:item_pickup:item_pickup item_pickup_1
 
 sound:drop_gold:tomenet/item/gold/coinscut
+
+sound:item_takeoff_tiny:backpack_17 backpack_18
+
+sound:item_takeoff_small:backpack_1 backpack_2 backpack_4 backpack_6 backpack_13
+
+sound:item_takeoff_medium:backpack_3 backpack_5 backpack_9 backpack_14
+
+sound:item_takeoff_large:backpack_11 backpack_12 backpack_16 
 
 # leave empty line for EOF

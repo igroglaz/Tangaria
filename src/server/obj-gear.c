@@ -1015,7 +1015,17 @@ void inven_takeoff(struct player *p, struct object *obj)
     update_stuff(p, chunk_get(&p->wpos));
 
     /* Message */
-    msgt(p, MSG_WIELD, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+    msg(p, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+
+    /* Sound */
+    if (obj->weight < 15)
+        sound(p, MSG_ITEM_TAKEOFF_TINY);
+    else if (obj->weight < 50)
+        sound(p, MSG_ITEM_TAKEOFF_SMALL);
+    else if (obj->weight < 150)
+        sound(p, MSG_ITEM_TAKEOFF_MEDIUM);
+    else
+        sound(p, MSG_ITEM_TAKEOFF_LARGE);
 }
 
 
