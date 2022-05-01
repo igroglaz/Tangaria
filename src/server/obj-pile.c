@@ -1382,11 +1382,11 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
             {
                 if ((*dropped)->tval == TV_SWORD)
                     sound(p, MSG_ITEM_BLADE);
+                else if ((*dropped)->tval == TV_BOW || tval_is_mstaff(*dropped))
+                    sound(p, MSG_ITEM_WOOD);
                 else if ((((*dropped)->tval == TV_HAFTED) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Whip"))) ||
                          (((*dropped)->tval == TV_BOW) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Sling"))))
                              sound(p, MSG_ITEM_WHIP);
-                else if ((*dropped)->tval == TV_BOW || tval_is_mstaff(*dropped))
-                    sound(p, MSG_ITEM_WOOD);
                 else
                     sound(p, MSG_DROP);
             }
@@ -1409,7 +1409,7 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
             else if (tval_is_amulet(*dropped))
                 sound(p, MSG_ITEM_AMULET);
             else
-                sound(p, MSG_DROP); // TV_HAFTED etc
+                sound(p, MSG_DROP);
         }
 
         /* Message when an object falls under a player */
