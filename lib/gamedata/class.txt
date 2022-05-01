@@ -5008,7 +5008,6 @@ skill-shoot:40:30
 skill-dig:0:0
 hitdie:5
 equip:light:Wooden Torch:1:3:none
-equip:hafted:Whip:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -5309,6 +5308,7 @@ skill-save:25:11
 skill-stealth:0:0
 skill-search:10:12
 skill-melee:65:40
+# only for crossbows (other 0)
 skill-shoot:40:30
 skill-dig:0:0
 hitdie:7
@@ -5322,6 +5322,8 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:DEX[-2]
+value:0:CON[-2]
 value:0:INT[-1]
 value:0:CHR[1+1d24]
 # /// to add: AGGRAVATE 3 range hardcoded (like minotaur)
@@ -5345,24 +5347,24 @@ equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
 effect:CURE:CONFUSED
-effect:TIMED_INC:BALANCED_STANCE
-dice:300
+effect:TIMED_SET:BALANCED_STANCE
+dice:9999
 msg_other: took balanced stance.
-desc:You preparing for balanced tactics.
+desc:You preparing for balanced tactics. Getting into this stance removes confusion.
 
 spell:Defensive Stance:1:1:1:1:0
 effect:CURE:STUN
-effect:TIMED_INC:DEFENSIVE_STANCE
-dice:300
+effect:TIMED_SET:DEFENSIVE_STANCE
+dice:9999
 msg_other: took defensive stance.
-desc:You preparing for more defensive tactics.
+desc:You preparing for more defensive tactics. Getting into this stance removes stun.
 
 spell:Offensive Stance:1:1:1:1:0
 effect:CURE:AFRAID
-effect:TIMED_INC:OFFENSIVE_STANCE
-dice:300
+effect:TIMED_SET:OFFENSIVE_STANCE
+dice:9999
 msg_other: took offensive stance.
-desc:You preparing for more offensive tactics.
+desc:You preparing for more offensive tactics. Getting into this stance removes fear.
 
 spell:Retreat 4:50:1:1:1:0
 effect:TELEPORT
@@ -6125,7 +6127,6 @@ skill-shoot:35:20
 skill-dig:0:0
 hitdie:1
 equip:light:Wooden Torch:1:3:none
-equip:hafted:Mace:1:1:none
 equip:potion:Cure Serious Wounds:2:3:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
