@@ -1387,6 +1387,8 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
                 else if ((((*dropped)->tval == TV_HAFTED) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Whip"))) ||
                          (((*dropped)->tval == TV_BOW) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Sling"))))
                              sound(p, MSG_ITEM_WHIP);
+                else if ((*dropped)->tval == TV_ARROW || (*dropped)->tval == TV_BOLT || (*dropped)->tval == TV_SHOT)
+                    sound(p, MSG_QUIVER);
                 else
                     sound(p, MSG_DROP);
             }

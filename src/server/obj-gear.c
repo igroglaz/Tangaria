@@ -1031,7 +1031,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     struct object *dropped;
     bool none_left = false;
     bool equipped = false;
-    bool quiver;
     char name[NORMAL_WID];
     char label;
     struct object *first = NULL;
@@ -1051,9 +1050,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
 
     /* Get where the object is now */
     label = gear_to_label(p, obj);
-
-    /* Is it in the quiver? */
-    quiver = object_is_in_quiver(p, obj);
 
     /* Not too many */
     if (amt > obj->number) amt = obj->number;
@@ -1160,9 +1156,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     /* Drop it (carefully) near the player */
     drop_near(p, chunk_get(&p->wpos), &dropped, 0, &p->grid, false,
         (bypass_inscr? DROP_SILENT: DROP_FORBID), true);
-
-    /* Sound for quiver objects */
-    if (quiver) sound(p, MSG_QUIVER);
 
     return true;
 }
