@@ -246,6 +246,7 @@ MSG(ITEM_TAKEOFF_TINY,"item_takeoff_tiny")
 MSG(ITEM_TAKEOFF_SMALL,"item_takeoff_small")
 MSG(ITEM_TAKEOFF_MEDIUM,"item_takeoff_medium")
 MSG(ITEM_TAKEOFF_LARGE,"item_takeoff_large")
+MSG(ITEM_FIRE_TORCH,"item_fire_torch")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

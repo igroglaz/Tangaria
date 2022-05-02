@@ -742,4 +742,6 @@ sound:item_takeoff_medium:backpack_3 backpack_5 backpack_9 backpack_14
 
 sound:item_takeoff_large:backpack_10 backpack_11 backpack_12 backpack_15
 
+sound:item_fire_torch:tomenet/item/lightsource/lighting
+
 # leave empty line for EOF

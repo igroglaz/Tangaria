@@ -986,6 +986,8 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
             sound(p, MSG_ITEM_RING);
         else if (tval_is_amulet(obj))
             sound(p, MSG_ITEM_AMULET);
+        else if (tval_is_light(obj) && of_has(obj->flags, OF_BURNS_OUT))
+            sound(p, MSG_ITEM_FIRE_TORCH);
         else
             sound(p, MSG_WIELD);
     }
