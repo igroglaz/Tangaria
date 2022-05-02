@@ -802,8 +802,10 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
     }
     else if (tval_is_body_armor(local_obj))
     {
-        if ((local_obj)->weight < 150)
+        if ((local_obj)->weight < 121)
             sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 251)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
         else
             sound(p, MSG_ITEM_HEAVY_ARMOR);
     }
@@ -811,9 +813,10 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
     {
         if (local_obj->tval == TV_CROWN)
             sound(p, MSG_ITEM_PICKUP);
-        else if (local_obj->weight < 25 || local_obj->tval == TV_SHIELD || local_obj->tval == TV_CLOAK ||
-            local_obj->tval == TV_DRAG_ARMOR)
+        else if (local_obj->weight < 25 || local_obj->tval == TV_SHIELD || local_obj->tval == TV_CLOAK)
                 sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 51)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
         else
             sound(p, MSG_ITEM_HEAVY_ARMOR);
     }
