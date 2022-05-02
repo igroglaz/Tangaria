@@ -8,6 +8,7 @@
 /* id */
 MSG(GENERIC, "")
 MSG(SILENT, "silent")
+MSG(SILENT0, "silent0")
 MSG(HIT, "hit")
 MSG(HIT_BLADE, "hit_blade")
 MSG(HIT_MACE, "hit_mace")

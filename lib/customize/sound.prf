@@ -33,6 +33,9 @@
 # Stop playback
 sound:silent:silent
 
+# Stop looped playback
+sound:silent0:silent0
+
 # Town during the day.
 sound:ambient_day:amb_thunder_rain ambient/outside/rain_light
 
