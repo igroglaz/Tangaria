@@ -3349,16 +3349,21 @@ void do_cmd_store(struct player *p, int pstore)
 
             if (house_inside(player, pstore))
             {
-                msg(p, "The doors are locked.");
+                msgt(p, MSG_DOOR_CLOSED, "The doors are locked, but you hear someone inside..");
                 return;
             }
         }
 
         p->store_num = store_max - 1;
         p->player_store_num = pstore;
+        
+        // "bells" sound should be only in pstores
+        sound(p, MSG_STORE_ENTER);
     }
 
-    sound(p, (s->type == STORE_HOME)? MSG_STORE_HOME: MSG_STORE_ENTER);
+    // storage entrance sound
+    if (s->type == STORE_HOME)
+        sound(p, MSG_STORE_HOME);
 
     /* Background sounds for stores */
     switch (s->type)

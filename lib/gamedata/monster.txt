@@ -2524,7 +2524,7 @@ desc:A fast moving bright light, apparently totally random in its movement.
 name:snotling
 base:orc
 color:M
-speed:110
+speed:111
 hit-points:15
 hearing:20
 smell:20

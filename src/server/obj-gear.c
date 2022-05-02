@@ -741,14 +741,21 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
 
             /*
              * PWMAngband: permanently polymorphed characters and Monks cannot use weapons,
-             * so they need to learn "on wield"
+             * so they need to learn "on wield" flags when picking them up
              */
-            else if (player_has(p, PF_PERM_SHAPE) || player_has(p, PF_MARTIAL_ARTS))
-                weapon_learn_on_carry(p, obj);
+            else if ((player_has(p, PF_PERM_SHAPE) || player_has(p, PF_MARTIAL_ARTS)) &&
+                (tval_is_melee_weapon(obj) || tval_is_mstaff(obj) || tval_is_launcher(obj)))
+            {
+                object_learn_on_carry(p, obj);
+            }      
             
+            /* PWMAngband: need to learn "on wield" flags when picking up ammo */
+            else if (tval_is_ammo(obj))
+                object_learn_on_carry(p, obj);
+
             // NO_BOOTS races can't wear boots for ID, so..
             else if (player_has(p, PF_NO_BOOTS))
-                boots_learn_on_carry(p, obj);            
+                boots_learn_on_carry(p, obj);      
         }
     }
 
@@ -778,7 +785,47 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
         }
     }
 
-    if (object_is_in_quiver(p, local_obj)) sound(p, MSG_QUIVER);
+    /* Sound */
+    if (object_is_in_quiver(p, local_obj))
+        sound(p, MSG_QUIVER);
+    else if (tval_is_weapon(local_obj))
+    {
+        if (local_obj->tval == TV_SWORD)
+            sound(p, MSG_ITEM_BLADE);
+        else if (local_obj->tval == TV_BOW || tval_is_mstaff(local_obj))
+            sound(p, MSG_ITEM_WOOD);
+        else if (((local_obj->tval == TV_HAFTED) && (local_obj->sval == lookup_sval(local_obj->tval, "Whip"))) ||
+                 ((local_obj->tval == TV_BOW) && (local_obj->sval == lookup_sval(local_obj->tval, "Sling"))))
+                     sound(p, MSG_ITEM_WHIP);
+        else
+            sound(p, MSG_ITEM_PICKUP);
+    }
+    else if (tval_is_body_armor(local_obj))
+    {
+        if ((local_obj)->weight < 121)
+            sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 251)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_armor(local_obj))
+    {
+        if (local_obj->tval == TV_CROWN)
+            sound(p, MSG_ITEM_PICKUP);
+        else if (local_obj->weight < 25 || local_obj->tval == TV_SHIELD || local_obj->tval == TV_CLOAK)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 51)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_ring(local_obj))
+        sound(p, MSG_ITEM_RING);
+    else if (tval_is_amulet(local_obj))
+        sound(p, MSG_ITEM_AMULET);
+    else
+        sound(p, MSG_ITEM_PICKUP);
 }
 
 
@@ -898,7 +945,52 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
 
     /* Message */
     if (message) strnfmt(message, len, fmt, o_name, I2A(slot));
-    else msgt(p, MSG_WIELD, fmt, o_name, I2A(slot));
+    else
+    {
+        // message
+        msg(p, fmt, o_name, I2A(slot));
+        // sound
+        if (tval_is_weapon(obj))
+        {
+            if (obj->tval == TV_SWORD)
+                sound(p, MSG_ITEM_BLADE);
+            else if (obj->tval == TV_BOW || tval_is_mstaff(obj))
+                sound(p, MSG_ITEM_WOOD);
+            else if (((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip"))) ||
+                     ((obj->tval == TV_BOW) && (obj->sval == lookup_sval(obj->tval, "Sling"))))
+                         sound(p, MSG_ITEM_WHIP);
+            else
+                sound(p, MSG_WIELD);
+        }
+        else if (tval_is_body_armor(obj))
+        {
+            if ((obj)->weight < 121)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+            else if ((obj)->weight < 251)
+                sound(p, MSG_ITEM_MEDIUM_ARMOR);
+            else
+                sound(p, MSG_ITEM_HEAVY_ARMOR);
+        }
+        else if (tval_is_armor(obj))
+        {
+            if (obj->tval == TV_CROWN)
+                sound(p, MSG_ITEM_PICKUP);
+            else if (obj->weight < 25 || obj->tval == TV_SHIELD || obj->tval == TV_CLOAK)
+                    sound(p, MSG_ITEM_LIGHT_ARMOR);
+            else if ((obj)->weight < 51)
+                sound(p, MSG_ITEM_MEDIUM_ARMOR);
+            else
+                sound(p, MSG_ITEM_HEAVY_ARMOR);
+        }
+        else if (tval_is_ring(obj))
+            sound(p, MSG_ITEM_RING);
+        else if (tval_is_amulet(obj))
+            sound(p, MSG_ITEM_AMULET);
+        else if (tval_is_light(obj) && of_has(obj->flags, OF_BURNS_OUT))
+            sound(p, MSG_ITEM_FIRE_TORCH);
+        else
+            sound(p, MSG_WIELD);
+    }
 
     /* Sticky flag gets a special mention */
     if (of_has(wielded->flags, OF_STICKY))
@@ -971,7 +1063,17 @@ void inven_takeoff(struct player *p, struct object *obj)
     update_stuff(p, chunk_get(&p->wpos));
 
     /* Message */
-    msgt(p, MSG_WIELD, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+    msg(p, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+
+    /* Sound */
+    if (obj->weight < 15)
+        sound(p, MSG_ITEM_TAKEOFF_TINY);
+    else if (obj->weight < 50)
+        sound(p, MSG_ITEM_TAKEOFF_SMALL);
+    else if (obj->weight < 150)
+        sound(p, MSG_ITEM_TAKEOFF_MEDIUM);
+    else
+        sound(p, MSG_ITEM_TAKEOFF_LARGE);
 }
 
 
@@ -987,7 +1089,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     struct object *dropped;
     bool none_left = false;
     bool equipped = false;
-    bool quiver;
     char name[NORMAL_WID];
     char label;
     struct object *first = NULL;
@@ -1007,9 +1108,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
 
     /* Get where the object is now */
     label = gear_to_label(p, obj);
-
-    /* Is it in the quiver? */
-    quiver = object_is_in_quiver(p, obj);
 
     /* Not too many */
     if (amt > obj->number) amt = obj->number;
@@ -1116,9 +1214,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     /* Drop it (carefully) near the player */
     drop_near(p, chunk_get(&p->wpos), &dropped, 0, &p->grid, false,
         (bypass_inscr? DROP_SILENT: DROP_FORBID), true);
-
-    /* Sound for quiver objects */
-    if (quiver) sound(p, MSG_QUIVER);
 
     return true;
 }

@@ -1248,7 +1248,9 @@ static enum birth_stage point_based_command(void)
 
         /* Display the expected number of blows per round */
         put_str("Blows", 15, 35);
-        if (player->clazz->magic.spell_weight > 0)
+        if (player_has(player, PF_MARTIAL_ARTS)) // no BpR count for MA classes
+            my_strcpy(buf, "N/A", sizeof(buf));
+        else if (player->clazz->magic.spell_weight > 0)
         {
             int num_blows = calc_blows_expected(player, player->clazz->magic.spell_weight,
                 stat_roll[STAT_STR], stat_roll[STAT_DEX]);

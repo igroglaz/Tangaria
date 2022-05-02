@@ -2504,27 +2504,25 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     // Knight class
     if (p->timed[TMD_DEFENSIVE_STANCE])
     {
-        state->stat_add[STAT_CON] += 2;
-        state->stat_add[STAT_DEX] -= 1;
+        state->stat_add[STAT_CON] += 5;
         state->to_a += p->lev;
         state->skills[SKILL_SAVE] += p->lev;
-        extra_moves -= p->lev / 10;
+        extra_blows -= p->lev / 10;
+        state->to_d -= 1 + p->lev / 5;
     }
     else if (p->timed[TMD_OFFENSIVE_STANCE])
     {
         state->stat_add[STAT_STR] += 1;
-        state->stat_add[STAT_DEX] += 1;
-        state->stat_add[STAT_CON] -= 1;
-        state->to_a -= p->lev;
-        state->skills[SKILL_SAVE] -= p->lev / 2;
-        extra_blows += (p->lev / 5);
+        state->stat_add[STAT_DEX] += 3;
+        state->to_d += 1 + p->lev / 5;
+        extra_blows += p->lev / 10;
+        state->to_h -= p->lev;
+        state->to_a -= p->lev / 2;
     }
     else if (p->timed[TMD_BALANCED_STANCE])
     {
-        state->skills[SKILL_SEARCH] += 1;
-        state->skills[SKILL_TO_HIT_MELEE] += 3;
-        if (weapon && weapon->weight > 100)
-            extra_blows -= p->lev / 10;
+        // default stats: -2 DEX , -2 CON
+        state->to_h += p->lev;
     }
     
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
@@ -2763,7 +2761,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->num_shots += extra_shots;
             state->ammo_mult += extra_might;
         }
-        
+
+        // Knights good only with crossbows
+        if (streq(p->clazz->name, "Knight") && state->ammo_tval != TV_BOLT)
+            state->skills[SKILL_TO_HIT_BOW] = 1;
+
         /* Rangers with bows are good at shooting */
         if (player_has(p, PF_FAST_SHOT) && (state->ammo_tval == TV_ARROW))
             state->num_shots += p->lev / 3;

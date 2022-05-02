@@ -34,7 +34,7 @@
 sound:silent:silent
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain
+sound:ambient_day:amb_thunder_rain ambient/outside/rain_light
 
 # Town during the night.
 sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
@@ -164,26 +164,38 @@ sound:npc_cat:ambient/store/purr ambient/store/meow
 # You succeed in a melee attack against a monster.
 sound:hit:plc_hit_hay plc_hit_body
 
+# melee blade attack
+sound:hit_blade:tomenet/combat/hit_weapon/slash1 tomenet/combat/hit_weapon/slash2
+
+# melee mace attack
+sound:hit_mace:tomenet/combat/hit_weapon/hammer1 tomenet/combat/hit_weapon/hammer2
+
+# melee whip attack
+sound:hit_whip:tomenet/combat/hit_weapon/whip1 tomenet/combat/hit_weapon/whip2 tomenet/combat/hit_weapon/whip3
+
 # It was a good hit!
 sound:hit_good:plc_hit_anvil
 
 # It was a great hit!
-sound:hit_great:plc_hit_groan
-
-# It was a superb hit!
-sound:hit_superb:plc_hit_grunt
-
-# It was a *GREAT* hit!
-sound:hit_hi_great:plc_hit_grunt2
-
-# It was a *SUPERB* hit!
-sound:hit_hi_superb:plc_hit_anvil2
-
-# It was a *CRITICAL* hit!
 sound:hit_hi_critical:plc_hit_critical
 
+# It was a superb hit!
+sound:hit_hi_superb:plc_hit_anvil2
+
+# It was a *GREAT* hit!
+sound:hit_superb:plc_hit_grunt
+
+# It was a *SUPERB* hit!
+sound:hit_hi_great:plc_hit_grunt2
+
+# It was a *CRITICAL* hit!
+sound:hit_great:plc_hit_groan
+
 # You miss a melee attack against a monster.
-sound:miss:plc_miss_swish
+sound:miss:tomenet/combat/miss_weapon/swosh1 tomenet/combat/miss_weapon/swosh2
+
+# You miss a ranged attack against a monster.
+sound:shoot_miss:plc_miss_swish
 
 # You fire a missile (general case; we use it for throwing items when no shooter equipped).
 sound:shoot:tomenet/combat/fire/boulder
@@ -320,17 +332,29 @@ sound:hungry:pls_man_sob
 # Player sounds - misc.
 #
 
-# You pick up money worth less than 200 au.
+# < 35 (You pick up money worth..)
+sound:gold_1:gold_1
+
+# < 100
+sound:gold_2:gold_2
+
+# < 250
 sound:money1:plm_coins_light plm_coins_shake
 
-# You pick up money worth between 200 and 600 au.
+# < 600
+sound:gold_3:tomenet/item/gold/coins
+
+# < 1100
 sound:money2:plm_chain_light plm_coins_pour
 
-# You pick up money worth 600 au or more.
+# >= 1100
 sound:money3:plm_coins_dump
 
 # You (or a monster) drop something on the ground.
 sound:drop:plm_drop_boot
+
+# drop item in house
+sound:drop_in_house:backpack_7 backpack_8 backpack_16 backpack_10 backpack_13 backpack_17 backpack_18
 
 # You gain (or regain) a level.
 sound:level:plm_levelup
@@ -367,6 +391,9 @@ sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance p
 
 # You shut a door.
 sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam
+
+# Door closed (pstore)
+sound:door_closed:plm_door_latch
 
 # You teleport from a level (including via recall).
 sound:tplevel:sum_bell_crystal
@@ -686,5 +713,35 @@ sound:disrupt:tomenet/misc/antimagic/disrupt
 sound:disarm_weapon:tomenet/combat/disarm/disarm_weapon
 
 sound:punch:tomenet/combat/hit/punch1 tomenet/combat/hit/punch2 tomenet/combat/hit/punch3 tomenet/combat/hit/punch4 tomenet/combat/hit/punch5 tomenet/combat/hit/punch6 tomenet/combat/hit/punch7
+
+sound:item_blade:tomenet/item/weapon/blade
+
+sound:item_whip:tomenet/item/rune/clack
+
+sound:item_wood:tomenet/item/weapon/magestaff
+
+sound:item_light_armor:tomenet/item/armour_light/wear
+
+sound:item_medium_armor:item_medium_armor
+
+sound:item_heavy_armor:tomenet/item/armour_heavy/rattle
+
+sound:item_ring:tomenet/item/ring/ding
+
+sound:item_amulet:tomenet/item/amulet/rattle
+
+sound:item_pickup:item_pickup item_pickup_1
+
+sound:drop_gold:tomenet/item/gold/coinscut
+
+sound:item_takeoff_tiny:backpack_17 backpack_18
+
+sound:item_takeoff_small:backpack_1 backpack_2 backpack_4 backpack_6 backpack_13
+
+sound:item_takeoff_medium:backpack_3 backpack_5 backpack_9 backpack_14
+
+sound:item_takeoff_large:backpack_10 backpack_11 backpack_12 backpack_15
+
+sound:item_fire_torch:tomenet/item/lightsource/lighting
 
 # leave empty line for EOF
