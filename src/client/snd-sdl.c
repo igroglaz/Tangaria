@@ -322,6 +322,11 @@ static bool play_sound_sdl(struct sound_data *data)
     /* If sound name is 'silent' then stop playing */
     if (streq(data->name, "silent"))
     {
+        /* Halt playback on all channels */
+        Mix_HaltChannel(-1);
+    }
+    else if (streq(data->name, "silent0"))
+    {
         /* Stop looped playback */
         if (Mix_Playing(7)) Mix_HaltChannel(7);
     }

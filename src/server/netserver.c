@@ -7287,7 +7287,7 @@ static int Receive_store_leave(int ind)
                 sound(p, MSG_STORE_LEAVE);
 
             // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
-            sound(p, MSG_SILENT);
+            sound(p, MSG_SILENT0);
 
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());

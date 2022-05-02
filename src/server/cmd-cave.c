@@ -90,11 +90,14 @@ void do_cmd_go_up(struct player *p)
     /* Success */
     if (square_isupstairs(c, &p->grid))
     {
+        // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
+        sound(p, MSG_SILENT);
         msgt(p, MSG_STAIRS_UP, "You enter a maze of up staircases.");
         new_level_method = LEVEL_UP;
     }
     else
     {
+        sound(p, MSG_SILENT);
         msg(p, "You float upwards.");
         new_level_method = LEVEL_GHOST;
     }
@@ -204,11 +207,14 @@ void do_cmd_go_down(struct player *p)
     /* Success */
     if (square_isdownstairs(c, &p->grid))
     {
+        // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
+        sound(p, MSG_SILENT);
         msgt(p, MSG_STAIRS_DOWN, "You enter a maze of down staircases.");
         new_level_method = LEVEL_DOWN;
     }
     else
     {
+        sound(p, MSG_SILENT);
         msg(p, "You float downwards.");
         new_level_method = LEVEL_GHOST;
     }

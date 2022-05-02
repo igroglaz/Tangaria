@@ -506,7 +506,49 @@ void do_cmd_wield(struct player *p, int item, int slot)
     inven_wield(p, obj, slot, message, sizeof(message));
 
     /* Message */
-    msgt(p, MSG_WIELD, "%s %s (%c).", act, o_name, gear_to_label(p, equip_obj));
+    msg(p, "%s %s (%c).", act, o_name, gear_to_label(p, equip_obj));
+
+    /* Sound */
+    if (tval_is_weapon(obj))
+    {
+        if (obj->tval == TV_SWORD)
+            sound(p, MSG_ITEM_BLADE);
+        else if (obj->tval == TV_BOW || tval_is_mstaff(obj))
+            sound(p, MSG_ITEM_WOOD);
+        else if (((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip"))) ||
+                 ((obj->tval == TV_BOW) && (obj->sval == lookup_sval(obj->tval, "Sling"))))
+                     sound(p, MSG_ITEM_WHIP);
+        else
+            sound(p, MSG_WIELD);
+    }
+    else if (tval_is_body_armor(obj))
+    {
+        if ((obj)->weight < 121)
+            sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((obj)->weight < 251)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_armor(obj))
+    {
+        if (obj->tval == TV_CROWN)
+            sound(p, MSG_ITEM_PICKUP);
+        else if (obj->weight < 25 || obj->tval == TV_SHIELD || obj->tval == TV_CLOAK)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((obj)->weight < 51)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_ring(obj))
+        sound(p, MSG_ITEM_RING);
+    else if (tval_is_amulet(obj))
+        sound(p, MSG_ITEM_AMULET);
+    else if (tval_is_light(obj) && of_has(obj->flags, OF_BURNS_OUT))
+        sound(p, MSG_ITEM_FIRE_TORCH);
+    else
+        sound(p, MSG_WIELD);
 
     /* Message */
     msg_print(p, message, MSG_WIELD);
