@@ -82,4 +82,8 @@ TriqyStudio
 https://freesound.org/people/TriqyStudio/sounds/467610/
 pickup_item_1
 
+Syna-Max
+https://freesound.org/people/Syna-Max/sounds/64939/
+kill_yeek
+
 # EOF

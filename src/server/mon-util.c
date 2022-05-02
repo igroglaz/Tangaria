@@ -1123,6 +1123,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         else
             soundfx = MSG_KILL_UNIQUE;
     }
+    else if (streq(mon->race->name, "terrified yeek"))
+        soundfx = MSG_KILL_YEEK;
 
     /* Death message */
     switch (note)
