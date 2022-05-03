@@ -187,7 +187,7 @@ DATA = sound.cfg credits.txt \
     item_medium_armor.ogg     item_pickup_1.ogg         wilhelm-scream.ogg \
     item_light_lantern_1.ogg  item_light_lantern_2.ogg  item_light_lamp_1.ogg \
     item_light_lamp_2.ogg     item_light_phial_1.ogg    item_light_phial_2.ogg \
-    item_light_palantir_1.ogg item_light_palantir_2.ogg \
+    item_light_palantir_1.ogg item_light_palantir_2.ogg kill_unique_yaga.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -216,6 +216,6 @@ DATA = sound.cfg credits.txt \
     item_medium_armor.mp3     item_pickup_1.mp3         wilhelm-scream.mp3 \
     item_light_lantern_1.mp3  item_light_lantern_2.mp3  item_light_lamp_1.mp3 \
     item_light_lamp_2.mp3     item_light_phial_1.mp3    item_light_phial_2.mp3 \
-    item_light_palantir_1.mp3 item_light_palantir_2.mp3
+    item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3
 
 PACKAGE = sounds

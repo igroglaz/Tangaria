@@ -486,6 +486,9 @@ sound:kill_unique_undead:sum_gong_temple
 # uniq demon
 sound:kill_unique_demon:sum_lion_growl
 
+# baba yaga
+sound:kill_unique_yaga:kill_unique_yaga
+
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
 
