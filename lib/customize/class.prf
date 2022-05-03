@@ -359,4 +359,9 @@ help:Inquisitors replenish their life forces by hurting victims who fear them.
 class:Adventurer
 help:Jack of all trades, master of none... He knows a lot of stuff and has tried
 help: lots professions. Very versatile, but also very mediocre in every regard..
-help: ...though oftentimes better than master of one.
+help: ...though often times is better than a master of one.
+
+class:Tidemaster
+help:A Tidemaster uses the power of darkness and water to defeat its enemies while
+help: using a enchanting a bow to use the powers of darkness. It can summon semi-sentient balls early and elementals to aid it
+help: in combat later on.
