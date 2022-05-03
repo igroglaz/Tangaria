@@ -29,6 +29,9 @@
 
 #extra sounds (not used atm):
 #amb_guitar_chord / was `ambient_nite`
+#sum_piano_scrape
+#sum_bell_hand
+#sum_bell_tone
 
 # Stop playback
 sound:silent:silent
@@ -235,7 +238,7 @@ sound:shoot_hit:plc_hit_arrow
 sound:hitpoint_warn:plc_bell_warn
 
 # You die.
-sound:death:plc_die_laugh
+sound:death:plc_die_laugh sum_laugh_evil2
 
 #
 # Player sounds - status changes
@@ -474,6 +477,18 @@ sound:kill_unique:sum_ghost_wail
 # Morgoth, Lord of Darkness is killed.
 sound:kill_king:amb_guitar_chord
 
+# nazgul
+sound:kill_nazgul:sum_ghost_moan sum_ghost_oooo
+
+# uniq undeads
+sound:kill_unique_undead:sum_gong_temple
+
+# uniq demon
+sound:kill_unique_demon:sum_lion_growl
+
+# terr yeek (wilhelm sound)
+sound:kill_yeek:kill_yeek
+
 # Attack - hit
 sound:mon_hit:mco_hit_whip
 
@@ -556,50 +571,53 @@ sound:multiply:mco_frog_trill
 # Summons
 #
 
+
+# EMPTY
+
 # Summon one or more monsters.
-sound:summon_monster:sum_chime_jangle
+sound:summon_monster:tomenet/magic/summon/swoosh
 
 # Summon ainur.
-sound:summon_ainu:sum_angel_song
+sound:summon_ainu:sum_chime_jangle
 
 # Summon angel.
-sound:summon_angel:sum_angel_song
+sound:summon_angel:sum_chime_jangle
 
 # Summon undead.
-sound:summon_undead:sum_ghost_oooo
+sound:summon_undead:tomenet/magic/summon/swoosh
 
 # Summon animals.
-sound:summon_animal:sum_lion_growl
+sound:summon_animal:tomenet/magic/summon/swoosh
 
 # Summon spiders.
-sound:summon_spider:sum_piano_scrape
+sound:summon_spider:tomenet/magic/summon/swoosh
 
 # Summon hounds.
-sound:summon_hound:sum_lion_growl
+sound:summon_hound:tomenet/magic/summon/swoosh
 
 # Summon hydras.
-sound:summon_hydra:sum_piano_scrape
+sound:summon_hydra:tomenet/magic/summon/swoosh
 
 # Summon demons.
-sound:summon_demon:sum_ghost_wail sum_laugh_evil2
+sound:summon_demon:tomenet/magic/summon/swoosh
 
 # Summon dragon.
-sound:summon_dragon:sum_piano_scrape
+sound:summon_dragon:tomenet/magic/summon/swoosh
 
 # Summon greater undead.
-sound:summon_gr_undead:sum_ghost_moan
+sound:summon_gr_undead:tomenet/magic/summon/swoosh
 
 # Summon greater dragons.
-sound:summon_gr_dragon:sum_gong_temple
+sound:summon_gr_dragon:tomenet/magic/summon/swoosh
 
 # Summon greater demons.
-sound:summon_gr_demon:sum_ghost_moan
+sound:summon_gr_demon:tomenet/magic/summon/swoosh
 
 # Summon Ringwraiths.
-sound:summon_ringwraith:sum_bell_hand
+sound:summon_ringwraith:tomenet/magic/summon/swoosh
 
 # Summon uniques.
-sound:summon_unique:sum_bell_tone
+sound:summon_unique:tomenet/magic/summon/swoosh
 
 #
 # Breath weapons
@@ -755,7 +773,5 @@ sound:item_light_lamp:item_light_lamp_1 item_light_lamp_2
 sound:item_light_phial:item_light_phial_1 item_light_phial_2
 
 sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
-
-sound:kill_yeek:kill_yeek
 
 # leave empty line for EOF

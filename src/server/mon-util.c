@@ -1120,6 +1120,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     {
         if (mon->race->base == lookup_monster_base("Morgoth"))
             soundfx = MSG_KILL_KING;
+        else if (mon->race->base == lookup_monster_base("wraith")) // BD Wight-King and nazguls
+            soundfx = MSG_KILL_NAZGUL;
+        else if (mon->race->base == lookup_monster_base("wraith")) // BD Wight-King and nazguls
+            soundfx = MSG_KILL_NAZGUL;
+        else if (rf_has(mon->race->flags, RF_UNDEAD))
+            soundfx = MSG_KILL_UNIQUE_UNDEAD;
+        else if (mon->race->base == lookup_monster_base("demon"))
+            soundfx = MSG_KILL_UNIQUE_DEMON;
         else
             soundfx = MSG_KILL_UNIQUE;
     }
