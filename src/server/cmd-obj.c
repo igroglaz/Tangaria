@@ -545,8 +545,19 @@ void do_cmd_wield(struct player *p, int item, int slot)
         sound(p, MSG_ITEM_RING);
     else if (tval_is_amulet(obj))
         sound(p, MSG_ITEM_AMULET);
-    else if (tval_is_light(obj) && of_has(obj->flags, OF_BURNS_OUT))
-        sound(p, MSG_ITEM_FIRE_TORCH);
+    else if (tval_is_light(obj))
+    {
+        if (obj->sval == lookup_sval(obj->tval, "Wooden Torch"))
+            sound(p, MSG_ITEM_LIGHT_TORCH);
+        else if (obj->sval == lookup_sval(obj->tval, "Lantern"))
+            sound(p, MSG_ITEM_LIGHT_LANTERN);
+        else if (obj->sval == lookup_sval(obj->tval, "Lamp"))
+            sound(p, MSG_ITEM_LIGHT_LAMP);
+        else if (obj->sval == lookup_sval(obj->tval, "Palantir"))
+            sound(p, MSG_ITEM_LIGHT_PALANTIR);
+        else if (obj->artifact)                // Phial, Star, Stone etc
+            sound(p, MSG_ITEM_LIGHT_PHIAL);
+    }
     else
         sound(p, MSG_WIELD);
 

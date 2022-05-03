@@ -7,10 +7,12 @@ DATA = store/credits.txt \
 	store/meow.ogg \
 	store/purr.ogg0 \
     outside/rain_light.ogg \
+    store/shop_spells.ogg0 \
 	store/alchemy.mp3 \
 	store/magic.mp3 \
 	store/meow.mp3 \
 	store/purr.mp3 \
-    outside/rain_light.mp3
+    outside/rain_light.mp3 \
+    store/shop_spells.mp3
 
 PACKAGE = sounds/ambient

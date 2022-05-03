@@ -158,6 +158,7 @@ sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_alchemy:ambient/store/alchemy
 sound:store_magic:ambient/store/magic
+sound:store_spells:ambient/store/spells
 sound:npc_cat:ambient/store/purr ambient/store/meow
 
 #
@@ -745,7 +746,15 @@ sound:item_takeoff_medium:backpack_3 backpack_5 backpack_9 backpack_14
 
 sound:item_takeoff_large:backpack_10 backpack_11 backpack_12 backpack_15
 
-sound:item_fire_torch:tomenet/item/lightsource/lighting
+sound:item_light_torch:tomenet/item/lightsource/lighting
+
+sound:item_light_lantern:item_light_lantern_1 item_light_lantern_2
+
+sound:item_light_lamp:item_light_lamp_1 item_light_lamp_2
+
+sound:item_light_phial:item_light_phial_1 item_light_phial_2
+
+sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
 
 sound:kill_yeek:kill_yeek
 
