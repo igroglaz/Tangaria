@@ -2132,6 +2132,11 @@ static void generate_new_level(struct player *p)
         msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
     }
 
+    if (p->wpos.grid.x == 1 && p->wpos.grid.y == 0 && p->wpos.depth == 5)
+    {
+        if (one_in_(2)) sound(p, MSG_AMBIENT_VOICE); // creepy voice
+    }
+
     /* Add the player */
     square_set_mon(c, &p->grid, 0 - id);
 

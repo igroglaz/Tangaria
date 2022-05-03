@@ -1128,6 +1128,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             soundfx = MSG_KILL_UNIQUE_DEMON;
         else if (streq(mon->race->name, "Vasilisa the Beautiful")) // baba yaga
             soundfx = MSG_KILL_UNIQUE_YAGA;
+        else if (streq(mon->race->name, "Kikimora"))
+            soundfx = MSG_KILL_UNIQUE_KIKIMORA;
         else
             soundfx = MSG_KILL_UNIQUE;
     }

@@ -489,6 +489,9 @@ sound:kill_unique_demon:sum_lion_growl
 # baba yaga
 sound:kill_unique_yaga:kill_unique_yaga
 
+# kikimora
+sound:kill_unique_kikimora:ambient/voice/intro_7
+
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
 
@@ -776,5 +779,7 @@ sound:item_light_lamp:item_light_lamp_1 item_light_lamp_2
 sound:item_light_phial:item_light_phial_1 item_light_phial_2
 
 sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
+
+sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/intro_3 ambient/voice/intro_4 ambient/voice/intro_5 ambient/voice/intro_6
 
 # leave empty line for EOF
