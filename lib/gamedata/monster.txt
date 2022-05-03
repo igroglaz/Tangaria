@@ -611,7 +611,7 @@ flags:PWMANG_EXTRA
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:TAKE_ITEM
 flags:NO_CONF | NO_SLEEP | IM_WATER
-desc:This greedy and ill-mannered person thinks he has been spoiled from a good
+desc:This greedy and ill-mannered person thinks she has been spoiled from a good
 desc: heritage.
 
 name:Target Dummy

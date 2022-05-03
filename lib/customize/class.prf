@@ -365,3 +365,19 @@ class:Tidemaster
 help:A Tidemaster uses the power of darkness and water to defeat its enemies while
 help: using a enchanting a bow to use the powers of darkness. It can summon semi-sentient balls early and elementals to aid it
 help: in combat later on.
+
+class:Glacial Sorceror
+help:Glacial Sorcerors use intelligence primarily, determining how much mana they have to
+help: cast spells and how low their failure rate is. Intelligence is the sorceror's primary stat.
+help: On the downside, they are the worst fighters, being unable to use any weapon but a Mage Staff
+help: comfortably, and still unable to be anything even remotely approaching
+help: effective with it. A Glacial Sorceror has very few hit points compared to other
+help: classes, making survival difficult in the beginning.
+help: Glacial Sorcerors specialize in Frost/Freeze based spells.
+help: (Slightly less intelligence but more con than normal Sorceror)
+
+class:Grey Mage
+help:Grey/Entropy Mages specialize in debuff and draining spells.
+
+class:Beastal Mage
+help:Beastal Mages specialize in self buffs(unfinished).

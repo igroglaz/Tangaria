@@ -151,6 +151,18 @@ race-flag:UNIQUE
 fallback:HI_UNDEAD
 desc:unique monsters
 
+name:BALL
+msgt:SUM_MONSTER
+uniques:0
+base:ball
+desc:balls
+
+name:ELEMENTAL
+msgt:SUM_MONSTER
+uniques:0
+base:elemental
+desc:elementals
+
 ### PWMAngband ###
 
 name:JELLY

@@ -8017,6 +8017,579 @@ desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: Cooldown 100 turns.
 
+############### CLASS TEMPLATE for Tidemaster
+name:Tidemaster
+color:D
+skill-disarm-phys:30:10
+skill-disarm-magic:35:12
+skill-device:36:13
+skill-save:30:9
+skill-stealth:2:0
+skill-search:10:12
+skill-melee:10:15
+skill-shoot:50:25
+skill-dig:0:0
+hitdie:1
+max-attacks:4
+min-weight:35
+strength-multiplier:3
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:bow:Short Bow:1:1:birth_no_recall
+equip:arrow:Old Arrow:30:40:birth_no_recall
+equip:arrow:Old Arrow:30:40:birth_no_recall
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[-3]
+value:0:INT[3]
+value:0:CON[-2]
+value:0:CHR[-4]
+value:0:RES_DARK[1]
+value:0:RES_WATER[1]
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SUMMON_SPELLS
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:300:5
+
+book:shadow book:town:[Shadows for Beginners]:8:shadow
+book-graphics:?:s
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A standard shadow book with a few rituals.
+equip:shadow book:[Shadows for Beginners]:1:1:none
+
+spell:Water Jet:0:3:35:6:0
+effect:SHORT_BEAM:WATER:4
+dice:$Dd8
+effect:TOUCH:KILL_TRAP
+expr:D:PLAYER_LEVEL:- 5 / 3 + 6
+msg_other: fires a short distance beam of pressurised water.
+desc:Fires a pressured jet of water that always hits its target from up to 4 tiles away.
+
+spell:Create Darkness:3:3:10:4:0
+effect:BLAST:DARK_WEAK:1:10
+dice:10
+effect:DARKEN_AREA
+desc:Darkens all squares in a level-dependent area. If you are in a room,
+desc: the entire room will be darkened as well.
+
+spell:Darkness Shots:5:4:10:4:0
+effect:BOW_BRAND:DARK:1
+dice:2
+effect:BOW_BRAND_SHOT:MON_BLIND
+dice:2
+effect:NOURISH:DEC_BY
+dice:1
+desc:Covers your missiles with darkness to add a blinding effect to your missiles.
+desc: This spell reduce your nourishment.
+
+#POIS
+#spell:Toxic Moisture:33:20:75:24:0 --ref
+#effect:BALL:ICE:1
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 3
+#effect:BALL:WATER:2
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 2
+#effect:BALL:POIS:3
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 2
+#msg_other: invokes a toxic storm.
+#desc:Shoots a radius-3 toxic ball. Each ball will do 1/3 damage from poison,
+#desc: 1/3 damage from water and 1/3 damage from ice.
+
+#effect:BLAST:FORCE:1
+
+#effect:BLAST:POIS:5
+
+#spell:Plasma Nova:30:15:32:40:0
+
+#effect:CURE:POISONED
+
+#effect:BLAST_OBVIOUS:AWAY_ALL:2:10
+
+#effect:BLAST:PLASMA:2
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 5
+#msg_other: radiates a powerful wave of heat.
+#desc:Creates a fire ball around you.
+
+#desc:Unleases a high pressured blast of poisonous water that removes poison status from the user and pushes all targets in the blast radius away.
+
+spell:Summon Semi-Sentient Balls:10:4:1:7:0
+cooldown:6
+effect:NOURISH:DEC_BY
+dice:1
+effect:TIMED_INC_NO_RES:BLIND
+dice:1d2
+effect:SUMMON:BALL:0:1
+dice:2
+msg_other: magically summons semi-sentient balls.
+desc:Attempts to summon up to two semi-sentient balls.
+desc: around you for some time. Makes you blind for a tiny moment.
+desc: You can use this skill once per 6 turns.
+desc: This spell reduce your nourishment.
+
+spell:Shadow Shift:15:10:50:10:0
+effect:DAMAGE
+dice:2d5
+msg_self:shadow shifting
+effect:TELEPORT
+dice:30
+msg_other: shifts away.
+desc:Displaces your spirit a short distance, hurting your body as it is
+desc: dragged along.
+
+spell:Water Ball:16:18:25:0:0
+effect:BALL:WATER:2
+flag:BA_WATE
+dice:50+1d$S
+expr:S:PLAYER_LEVEL:* 5 / 2
+msg_other: fires a water ball.
+desc:Shoots a radius-2 or radius-3 water ball (#%d).
+
+spell:Summon Elemental:20:8:1:7:0
+cooldown:25
+effect:SUMMON:ELEMENTAL:0:100
+dice:1
+msg_other: summons a elemental.
+desc:Attempts to summon a elemental.
+desc: Cooldown 25 turns.
+
+# spell:name:level:mana:fail:exp:sproj
+
+spell:Mana Armour:21:35:60:100:0 
+effect:TIMED_INC:MANASHIELD
+dice:4+1d6
+dice:$B
+expr:B:PLAYER_LEVEL:+ 50
+effect:TIMED_INC:UNSUMMON_MINIONS
+dice:1
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 5
+expr:M:PLAYER_LEVEL:/ 3 + 12
+effect:TIMED_INC:BOLD
+dice:25+1d15
+effect:CURE:AMNESIA
+effect:CURE:AFRAID
+desc:Annihilate your minions and creates a mana shield that will protect you at as long as you have mana to fuel it.
+desc: Also heals you, and removes fear while providing resistant to it for some time.
+
+spell:Water Ball Swarm:25:18:25:0:0
+effect:SWARM:WATER:1
+flag:BA_WATE
+dice:10+1d$S
+expr:S:PLAYER_LEVEL:* 5 / 2
+msg_other: fires a swarm of water balls.
+desc:Creates a Swarm of %d water balls each inflicting %s points of damage.
+
+spell:Tidal Wave:39:18:81:32:0
+effect:BALL:WATER:3
+dice:$B
+expr:B:BLAST_ELEMENT:+ 175
+msg_other: invokes a tidal wave.
+desc:Shoots a water ball.
+
+
+spell:Darkness Storm:45:27:75:75:0
+effect:BALL:DARK:3
+dice:$B+10d10
+expr:B:PLAYER_LEVEL:* 5
+msg_other: invokes a darkness storm.
+desc:Shoots a radius-3 darkness ball.
+
+spell:Hydrastorm:50:50:39:150:0
+cooldown:3
+effect:ARC:WATER:0:20
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
+msg_other: invokes a high pressure cone of water.
+desc:Spews high pressure water in a long narrow cone from you.
+desc: Cooldown 3 turns.
+
+
+spell:Swarm of Darkness:50:50:40:150:0
+# testing note: won't work on the surface as number of Meteors depends of depth
+effect:SWARM:DARK:1
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:* 3
+expr:M:DUNGEON_LEVEL:/ 30
+msg_other: fires a swarm of darkness meteors.
+desc:Shoots a swarm of 3 or 4 darkness meteors.
+desc: Meteors will travel until hitting a wall, a monster
+desc: or reaching the target location.
+desc: Meteors will explode as a radius-1 ball that does
+desc: damage to each monster in its area of effect.
+desc: If this kills the monster that blocked the path to the target
+desc: location, the next meteor may continue to find another target.
+
+############### Beastal-Mage ###############
+name:Beastal Mage
+color:Y
+skill-disarm-phys:20:10
+skill-disarm-magic:20:10
+skill-device:32:10
+skill-save:28:10
+skill-stealth:1:0
+skill-search:12:12
+skill-melee:60:40
+skill-shoot:0:0
+skill-dig:10:0
+hitdie:10
+max-attacks:4
+min-weight:35
+strength-multiplier:4
+equip:light:Wooden Torch:1:3:none
+equip:sword:Main Gauche:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[1]
+value:0:INT[0]
+value:0:WIS[1]
+value:0:DEX[1]
+value:0:CON[1]
+value:0:CHR[-3]
+player-flags:0:ZERO_FAIL | SHAPECHANGE
+shape:0:novice mage
+title:Rookie
+title:Initiate
+title:Neophyte
+title:Novice
+title:Apprentice
+title:Journeyman
+title:Expert
+title:Adept
+title:Master
+title:Grandmaster
+
+magic:1:350:1
+
+book:nature book:town:[Lesser Charms]:6:nature
+book-graphics:?:y
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A nature book with a minor buffs.
+equip:nature book:[Lesser Charms]:1:1:none
+
+spell:Beast Mode:5:2:30:5:0
+effect:TIMED_INC:MON_POLY
+dice:25+1d25
+effect:TIMED_INC:MON_SPELLS
+dice:25+1d10
+desc:Attempts to temporarily transform into a random monsters to possibly access the powers of a beast
+
+spell:Sprint Boost:10:2:30:5:0
+power:5
+effect:TIMED_INC:SPRINT
+dice:50
+desc:speeds you up ({+10} to speed) for {50} turns and then slows you down
+desc: ({-10} to speed) for {50} extra turns
+
+book:nature book:dungeon:[Nature Craft]:6:nature
+book-graphics:?:o
+book-properties:40:30:20000
+book-alloc:15:40 to 100
+book-desc:An advanced nature book with a few verses.
+
+spell:Haste Self:25:12:65:15:0
+effect:TIMED_INC:FAST:0:5
+dice:$B+1d20
+expr:B:PLAYER_LEVEL:+ 0
+desc:Hastes you (+10 to speed) for a level-dependent duration.
+
+spell:Boost Vitality:35:70:90:90:0
+effect:RESTORE_STAT:CON
+power:5
+effect:TIMED_INC:CON
+dice:25+1d10
+
+desc:Restores all Constitution and boost Constitution for duration
+
+spell:See Invisible:40:70:90:90:0
+power:7
+effect:TIMED_INC:SINVIS
+dice:12+2d6
+effect:TIMED_INC:DETECT_INVISIBLE_MONSTERS
+effect-yx:22:40
+dice:12+2d6
+effect:CURE:BLIND
+power:6
+
+book:nature book:town:[Creature Dominion]:6:nature
+book-graphics:?:y
+book-properties:25:30:1600
+book-alloc:20:25 to 100
+book-desc:A standard nature book with a few verses.
+
+spell:Ancient Lore:22:30:80:20:0
+effect:IDENTIFY
+desc:Reveals an unknown rune on an object.
+
+############### Grey MAGE Placeholder ###############
+# specialisation: Debuff and Drain
+name:Grey Mage
+color:r
+skill-disarm-phys:35:9
+skill-disarm-magic:43:11
+skill-device:36:13
+skill-save:30:9
+skill-stealth:2:0
+skill-search:10:12
+skill-melee:35:15
+skill-shoot:20:15
+skill-dig:0:0
+hitdie:1
+max-attacks:4
+min-weight:40
+strength-multiplier:2
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[0]
+value:0:INT[2]
+value:0:WIS[0]
+value:0:CON[-2]
+value:0:CHR[-2]
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+title:Novice
+title:Apprentice
+title:Trickster
+title:Illusionist
+title:Spellbinder
+title:Evoker
+title:Conjurer
+title:Magician
+title:Mage
+title:Arch-Mage
+
+magic:1:350:5
+
+book:magic book:town:[Magic for Beginners]:8:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
+#Level 1 - 15 Spells here
+
+book:magic book:town:[Incantations and Illusions]:8:arcane
+#Level 17 to Level 28 Spells here
+
+book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
+#Level 36 to 47(Potential Strong Spells here)
+
+############### Glacial Sorceror###############
+# specialisation: Ice & Freeze
+name:Glacial Sorceror
+color:R
+skill-disarm-phys:35:9
+skill-disarm-magic:50:12
+skill-device:40:15
+skill-save:30:9
+skill-stealth:1:0
+skill-search:10:12
+skill-melee:30:11
+skill-shoot:20:15
+skill-dig:0:0
+hitdie:1
+max-attacks:1
+min-weight:40
+strength-multiplier:2
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:STR[-4]
+value:0:INT[4]
+value:0:CON[-2]
+value:0:CHR[-2]
+value:0:MANA[4]
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS#StaffOnly+Inate Spells later
+title:Novice
+title:Apprentice
+title:Trickster
+title:Illusionist
+title:Spellbinder
+title:Evoker
+title:Conjurer
+title:Magician
+title:Sorcerer
+title:Arch-Mage
+
+magic:1:300:5
+
+book:magic book:town:[Magic for Beginners]:8:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
+
+#Level 1 - 15 Spells here
+
+#Weak Level 1 Ice/Frost spell here
+
+spell:Detect Treasure:4:4:18:4:0
+effect:DETECT_TREASURES
+effect-yx:22:40
+effect:TIMED_INC_NO_RES:BLIND
+dice:1+1d4
+effect:TIMED_INC_NO_RES:IMAGE
+dice:6+1d12
+desc:Detects all treasure in the immediate area.
+
+#Freeze/Ice beam here instead
+#spell:Lightning Beam:5:4:20:4:0
+#effect:BEAM:ELEC
+#dice:$Dd6
+#expr:D:PLAYER_LEVEL:- 1 / 5 + 3
+#msg_other: fires a lightning beam.
+#desc:Fires a lightning beam that hurts each monster in its path.
+
+book:magic book:town:[Conjurings and Tricks]:8:arcane
+
+#Level 5 to 15 Spells here
+
+spell:Frost Bolt:7:3:30:6:0
+effect:BOLT_OR_BEAM:COLD
+dice:$Dd8
+expr:D:PLAYER_LEVEL:- 5 / 3 + 6
+msg_other: fires a frost bolt.
+desc:Fires a frost bolt that always hits its target.
+desc: Sometimes a beam is fired instead that hurts each monster
+desc: in its path.
+desc: The chance to get a beam goes up with your character level.
+
+spell:Identify Rune:12:7:40:6:0
+effect:IDENTIFY
+effect:NOURISH:DEC_BY
+dice:1
+desc:Reveals an unknown rune on an object.
+
+
+book:magic book:town:[Incantations and Illusions]:8:arcane
+
+#Level 17 to Level 28 Spells here
+
+#spell:Ice Bolt:17:9:40:14:0
+#effect:CLEAR_VALUE
+#effect:BOLT_OR_BEAM:COLD:0:-10
+#effect:SET_VALUE
+#dice:$Dd8&m4
+#expr:D:PLAYER_LEVEL:- 5 / 4 + 5
+#msg_other: fires an ice bolt.
+#desc:Fires a ice bolt that always hits its target.
+#desc: Sometimes a beam is fired instead that hurts each monster
+#desc: in its path.
+#desc: The chance to get a beam goes up with your character level.
+
+spell:Meditation:20:5:30:15:0
+effect:TIMED_INC:MEDITATE
+dice:20+1d20
+desc:Helps increasing your mana capacity at the cost of hit points.
+
+spell:Recharging:24:26:70:19:0
+effect:RECHARGE
+dice:$B
+expr:B:PLAYER_LEVEL:/ 8 + 6
+desc:Adds charges to a stack of wands or staves.
+desc: Chance of success and number of charges gained increase with your
+desc: level and decrease with level of wand or staff and number of charges.
+desc: A failed attempt to recharge destroys one wand or staff from the stack.
+
+
+book:magic book:dungeon:[Sorcery and Evocations]:7:arcane
+
+#Level 28 to 36 Spells here
+
+spell:Resistance:28:20:55:60:1
+effect:CLEAR_VALUE
+effect:TIMED_INC:OPP_POIS
+effect:TIMED_INC:OPP_COLD
+effect:TIMED_INC:OPP_FIRE
+effect:TIMED_INC:OPP_ELEC
+effect:TIMED_INC:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
+desc:Grants you resistance to acid, cold, fire, lightning and poison for
+desc: 20+1d20 turns.
+
+spell:Recall:30:25:65:70:1
+effect:RECALL
+dice:14+1d20
+desc:Teleports you from the dungeon to the town or from the town to the
+desc: deepest level you have visited in the dungeon.
+desc: The recall effect is not immediate; it is delayed by 14+1d20 turns.
+desc: During that delay, the effect can be canceled by invoking the spell
+desc: of recall again.
+
+spell:Wraithform:30:30:95:70:1
+effect:TIMED_INC:WRAITHFORM
+dice:$B+1d20
+expr:B:PLAYER_LEVEL:+ 10
+desc:Grants you the ability to pass through non-permanent walls.
+
+spell:Telepathy:34:40:75:150:0
+effect:TIMED_INC:ESP
+dice:$B+1d10
+expr:B:PLAYER_LEVEL:+ 0
+desc:Grants you the power of telepathy for a level-dependent duration.
+
+
+book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
+
+#Level 36 to 47(Potential Strong Spells here)
+
+spell:Sea of Runes:36:60:60:40:0
+effect:SAFE_GUARD
+desc:Inscribes a circle of glyphs of warding around you.
+desc: Summoned monsters can't appear on the glyphs.
+desc: If a monster attempts to move onto a glyph or melee you while you
+desc: are standing on a glyph, it must first succeed in breaking the glyph.
+desc: Higher level monsters are more likely to break the glyphs.
+desc: The glyphs will remain where they are, until a monster succeeds in
+desc: breaking them or until you leave the level.
+
+spell:Disruption Shield:38:70:95:100:0
+effect:TIMED_INC:MANASHIELD
+dice:8+1d10
+desc:Creates a shield of mana around you that absorbs all damage
+desc: inflicted to your character... as long as you have mana
+desc: to fuel it.
+
+spell:Clairvoyance:40:50:95:200:0
+effect:LIGHT_LEVEL
+effect:NOURISH:DEC_BY
+dice:2
+desc:Lights up, maps out and senses all objects on the complete current
+desc: dungeon level.
+
+
+spell:Tidal Wave:45:22:55:250:0
+effect:BALL:WATER:3
+dice:$B
+expr:B:PLAYER_LEVEL:* 2 + 450
+msg_other: invokes a tidal wave.
+desc:Shoots a radius-3 water ball.
+
+spell:Anarchy Force:47:31:55:250:0
+effect:STAR_BALL:CHAOS:3
+dice:$B+m8
+expr:B:PLAYER_LEVEL:* 2 + 100
+msg_other: invokes a chaos storm.
+desc:Shoots a radius-3 chaos ball in all eight cardinal directions.
+
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
 #expr:B:WEAPON_DAMAGE:+ 0
