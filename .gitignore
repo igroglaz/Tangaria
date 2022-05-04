@@ -38,3 +38,5 @@ src/bcb6/Win64/Release/
 
 *.local
 *.local.*
+
+*.lnk
