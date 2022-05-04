@@ -1111,6 +1111,17 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
             sound(p, MSG_DESTRUCTION);
         else if (spell->effect->index == EF_BLAST || spell->effect->index == EF_BLAST_OBVIOUS)
             sound(p, MSG_BLAST);
+        else if (spell->effect->index == EF_BEAM || spell->effect->index == EF_BEAM_OBVIOUS || 
+                 spell->effect->index == EF_SHORT_BEAM || spell->effect->index == EF_LINE)
+            sound(p, MSG_BEAM);
+        else if (spell->effect->index == EF_ARC)
+            sound(p, MSG_ARC);
+        else if (spell->effect->index == EF_STRIKE)
+            sound(p, MSG_STRIKE);
+        else if (spell->effect->index == EF_LASH)
+            sound(p, MSG_LASH);
+        else if (spell->effect->index == EF_MELEE_BLOWS)
+            sound(p, MSG_MELEE_BLOWS);
         else
             sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 
