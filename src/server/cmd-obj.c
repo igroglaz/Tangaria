@@ -1101,8 +1101,10 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
             spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
             sound(p, MSG_BALL);
-        else if (spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM) // bolts
+        else if (spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM)
             sound(p, MSG_BOLT);
+        else if (spell->effect->index == EF_DAMAGE) // curse
+            sound(p, MSG_DAMAGE);
         else
             sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 
