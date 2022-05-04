@@ -29,3 +29,12 @@ lib/user/Admin.prf
 lib/user/T.prf
 src/server/__history
 lib/user/R.prf
+
+*.o
+
+*.d
+
+src/bcb6/Win64/Release/
+
+*.local
+*.local.*
