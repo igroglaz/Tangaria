@@ -369,8 +369,11 @@ sound:level:plm_levelup
 # You successfully study a spell or prayer.
 sound:study:plm_book_pageturn
 
-# You teleport or phase door.
-sound:teleport:plm_chimes_jangle
+# You teleport.
+sound:teleport:tomenet/magic/teleport/teleport
+
+# You phase door.
+sound:phase_door:tomenet/magic/blink/blink
 
 # You quaff a potion.
 sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new
