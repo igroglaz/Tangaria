@@ -33,8 +33,8 @@
 
 #ifdef SOUND_SDL2
 # ifdef WINDOWS
-#  include "..\_SDL2\SDL.h"
-#  include "..\_SDL2\SDL_mixer.h"
+#  include "..\..\..\SDL\SDL.h"
+#  include "..\..\..\SDL\SDL_mixer.h"
 # else
 #  include <SDL.h>
 #  include <SDL_mixer.h>
