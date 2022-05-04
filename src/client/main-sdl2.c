@@ -21,9 +21,9 @@
 #ifdef USE_SDL2
 
 #ifdef WINDOWS
-#include "..\..\..\SDL\SDL.h"
-#include "..\..\..\SDL\SDL_image.h"
-#include "..\..\..\SDL\SDL_ttf.h"
+#include "..\..\..\SDL\include\SDL.h"
+#include "..\..\..\SDL\include\SDL_image.h"
+#include "..\..\..\SDL\include\SDL_ttf.h"
 #else
 #include "SDL.h"
 #include "SDL_image.h"
