@@ -465,6 +465,15 @@ sound:bolt:tomenet/magic/bolt/bolt
 # damage (curse)
 sound:damage:tomenet/magic/curse/curse
 
+# earthquake
+sound:earthquake:earthquake
+
+# destruction
+sound:destruction:destruction
+
+# blast
+sound:blast:blast
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
