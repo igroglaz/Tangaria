@@ -1096,7 +1096,15 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         if (player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, spell->smana << 16);
 
         /* A spell was cast */
-        sound(p, (pious? MSG_PRAYER: MSG_SPELL));
+        // spells' effect's indexes can be found:
+        // effects.c -> effect_subtype()
+        if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
+            spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
+            sound(p, MSG_BALL);
+        else if (spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM) // bolts
+            sound(p, MSG_BOLT);
+        else
+            sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 
         cast_spell_end(p);
 
