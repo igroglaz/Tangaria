@@ -26,6 +26,9 @@
 # MSG_GENERIC
 message:GENERIC:w
 
+# MSG_RED_INK (no sound)
+message:RED_INK:R
+
 # MSG_HIT
 message:HIT:w
 

@@ -137,11 +137,17 @@ int inven_damage(struct player *p, int type, int cperc)
                 object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE);
 
                 /* Message */
-                msgt(p, MSG_DESTROY, "%sour %s (%c) %s %s!",
+                msgt(p, MSG_RED_INK, "%sour %s (%c) %s %s!",
                     ((obj->number > 1) ? ((amt == obj->number) ? "All of y" :
                     (amt > 1 ? "Some of y" : "One of y")) : "Y"), o_name,
                     gear_to_label(p, obj), ((amt > 1) ? "were" : "was"),
                     (damage? "damaged": "destroyed"));
+
+                // sound
+                if (obj->tval == TV_POTION)
+                    sound(p, MSG_DESTROY_POTION);
+                else
+                    sound(p, MSG_DESTROY);
 
                 /* Damage already done? */
                 if (damage)

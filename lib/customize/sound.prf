@@ -436,7 +436,10 @@ sound:act_artifact:plm_aim_wand
 sound:use_staff:plm_use_staff
 
 # An object is destroyed.
-sound:destroy:plm_bang_metal plm_break_canister plm_break_glass plm_break_glass2 plm_break_plates plm_break_shatter plm_break_smash plm_glass_breaking plm_glass_break plm_glass_smashing
+sound:destroy:plm_bang_metal plm_break_canister plm_break_plates   plm_glass_breaking plm_glass_smashing
+
+# shatter potion (by enemy)
+sound:destroy_potion:plm_break_glass plm_break_glass2 plm_break_shatter plm_break_smash plm_glass_break tomenet/misc/shatter_potion/glass1 tomenet/misc/shatter_potion/glass2 tomenet/misc/shatter_potion/glass3
 
 # You wield or take off something.
 sound:wield:plm_metal_sharpen

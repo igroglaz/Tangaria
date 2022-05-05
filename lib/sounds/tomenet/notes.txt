@@ -6,3 +6,8 @@ block_shield_projectile
 parry
 parry_weapon
 tech_melee
+
+/magic/rocket
+/misc/fireworks
+
+#EOF

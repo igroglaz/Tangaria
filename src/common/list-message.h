@@ -7,6 +7,7 @@
 
 /* id */
 MSG(GENERIC, "")
+MSG(RED_INK, "red_ink") // only text color
 MSG(SILENT, "silent")
 MSG(SILENT0, "silent0")
 MSG(HIT, "hit")
@@ -56,6 +57,7 @@ MSG(HITPOINT_WARN, "hitpoint_warn")
 MSG(ACT_ARTIFACT, "act_artifact")
 MSG(USE_STAFF, "use_staff")
 MSG(DESTROY, "destroy")
+MSG(DESTROY_POTION, "destroy_potion")
 MSG(MON_HIT, "mon_hit")
 MSG(MON_TOUCH, "mon_touch")
 MSG(MON_PUNCH, "mon_punch")
