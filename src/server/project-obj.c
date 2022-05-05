@@ -146,6 +146,11 @@ int inven_damage(struct player *p, int type, int cperc)
                 // sound
                 if (obj->tval == TV_POTION)
                     sound(p, MSG_DESTROY_POTION);
+                else if (obj->tval == TV_SCROLL || obj->tval == TV_MAGIC_BOOK ||
+                         obj->tval == TV_PRAYER_BOOK || obj->tval == TV_NATURE_BOOK ||
+                         obj->tval == TV_SHADOW_BOOK || obj->tval == TV_PSI_BOOK ||
+                         obj->tval == TV_ELEM_BOOK)
+                            sound(p, MSG_BURN);
                 else
                     sound(p, MSG_DESTROY);
 

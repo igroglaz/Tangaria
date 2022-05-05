@@ -441,6 +441,9 @@ sound:destroy:plm_bang_metal plm_break_canister plm_break_plates   plm_glass_bre
 # shatter potion (by enemy)
 sound:destroy_potion:plm_break_glass plm_break_glass2 plm_break_shatter plm_break_smash plm_glass_break tomenet/misc/shatter_potion/glass1 tomenet/misc/shatter_potion/glass2 tomenet/misc/shatter_potion/glass3
 
+# burn scroll/book
+sound:burn:burn_1 burn_2
+
 # You wield or take off something.
 sound:wield:plm_metal_sharpen
 
