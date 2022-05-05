@@ -1122,6 +1122,14 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
             sound(p, MSG_LASH);
         else if (spell->effect->index == EF_MELEE_BLOWS)
             sound(p, MSG_MELEE_BLOWS);
+        else if (spell->effect->index >= EF_PROJECT || spell->effect->index <= EF_PROJECT_LOS_AWARE)
+            sound(p, MSG_PROJECT);
+        else if (spell->effect->index == EF_SPOT)
+            sound(p, MSG_SPOT);
+        else if (spell->effect->index == EF_STAR)
+            sound(p, MSG_STAR);
+        else if (spell->effect->index == EF_TOUCH || spell->effect->index == EF_TOUCH_AWARE)
+            sound(p, MSG_TOUCH);
         else
             sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 

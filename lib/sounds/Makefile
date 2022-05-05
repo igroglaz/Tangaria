@@ -216,6 +216,10 @@ DATA = sound.cfg credits.txt \
     item_medium_armor.mp3     item_pickup_1.mp3         wilhelm-scream.mp3 \
     item_light_lantern_1.mp3  item_light_lantern_2.mp3  item_light_lamp_1.mp3 \
     item_light_lamp_2.mp3     item_light_phial_1.mp3    item_light_phial_2.mp3 \
-    item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3
+    item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3 \
+    intro_1.ogg intro_2.ogg intro_3.ogg intro_4.ogg intro_5.ogg intro_6.ogg intro_7.ogg \
+    intro_1.mp3 intro_2.mp3 intro_3.mp3 intro_4.mp3 intro_5.mp3 intro_6.mp3 intro_7.mp3 \
+    destruction.ogg earthquake.ogg blast.ogg arc.ogg beam.ogg lash.ogg melee_blows.ogg strike.ogg project.ogg spot.ogg star.ogg touch.ogg \
+    destruction.mp3 earthquake.mp3 blast.mp3 arc.mp3 beam.mp3 lash.mp3 melee_blows.mp3 strike.mp3 project.mp3 spot.mp3 star.mp3 touch.mp3
 
 PACKAGE = sounds

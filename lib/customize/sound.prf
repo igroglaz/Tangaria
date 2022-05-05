@@ -489,6 +489,18 @@ sound:lash:lash
 # MELEE_BLOWS (spell)
 sound:melee_blows:melee_blows
 
+# project (spell)
+sound:project:project
+
+# spot (spell)
+sound:spot:spot
+
+# star (spell)
+sound:star:star
+
+# touch (spell)
+sound:touch:touch
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
