@@ -1130,6 +1130,8 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
             sound(p, MSG_STAR);
         else if (spell->effect->index == EF_TOUCH || spell->effect->index == EF_TOUCH_AWARE)
             sound(p, MSG_TOUCH);
+        else if (spell->effect->index == EF_CREATE_WALLS)
+            sound(p, MSG_CREATE_WALLS);
         else
             sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 

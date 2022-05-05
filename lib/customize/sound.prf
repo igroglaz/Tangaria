@@ -507,6 +507,9 @@ sound:star:star
 # touch (spell)
 sound:touch:touch
 
+# create walls (spell)
+sound:create_walls:tomenet/misc/stone_wall/stone1 tomenet/misc/stone_wall/stone2 tomenet/misc/stone_wall/stone3
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
