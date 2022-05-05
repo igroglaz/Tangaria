@@ -549,6 +549,9 @@ sound:kill_unique_kikimora:ambient/voice/intro_7
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
 
+# rodent
+sound:kill_rodent:mco_mouse_squeaks
+
 # Attack - hit
 sound:mon_hit:mco_hit_whip
 

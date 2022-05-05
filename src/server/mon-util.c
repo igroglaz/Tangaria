@@ -1135,6 +1135,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     }
     else if (streq(mon->race->name, "terrified yeek"))
         soundfx = MSG_KILL_YEEK;
+    else if (mon->race->base == lookup_monster_base("rodent"))
+        soundfx = MSG_KILL_RODENT;
 
     /* Death message */
     switch (note)
