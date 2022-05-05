@@ -2093,7 +2093,8 @@ bool forbid_entrance_strong(struct player *p)
 {
     struct location *dungeon = get_dungeon(&p->wpos);
 
-    return (dungeon && dungeon->max_level && (p->lev > dungeon->max_level) && !is_dm_p(p));
+    // anticheeze: not p->lev, but p->max_lvl
+    return (dungeon && dungeon->max_level && (p->max_lev > dungeon->max_level) && !is_dm_p(p));
 }
 
 
