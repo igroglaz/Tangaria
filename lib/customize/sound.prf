@@ -472,10 +472,10 @@ sound:bolt:tomenet/magic/bolt/bolt
 sound:damage:tomenet/magic/curse/curse
 
 # earthquake
-sound:earthquake:earthquake
+sound:earthquake:earthquake tomenet/misc/earthquake/stones
 
 # destruction
-sound:destruction:destruction
+sound:destruction:destruction tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
 
 # blast
 sound:blast:blast
@@ -538,13 +538,16 @@ sound:kill_nazgul:sum_ghost_moan sum_ghost_oooo
 sound:kill_unique_undead:sum_gong_temple
 
 # uniq demon
-sound:kill_unique_demon:sum_lion_growl
+sound:kill_unique_demon:tomenet/monster/hector
 
 # baba yaga
 sound:kill_unique_yaga:kill_unique_yaga
 
 # kikimora
 sound:kill_unique_kikimora:ambient/voice/intro_7
+
+# uniq demon
+sound:kill_unique_dragon:sum_lion_growl
 
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
@@ -619,7 +622,7 @@ sound:mon_swallow:mon_swallow
 sound:mon_devour:mon_devour
 
 # Attack - shriek
-sound:mon_shriek:mco_mouse_squeaks
+sound:mon_shriek:tomenet/misc/shriek/shriek
 
 # Spell - create traps
 sound:mon_create_trap:mco_thoing_deep
