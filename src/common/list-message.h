@@ -283,6 +283,8 @@ MSG(ITEM_LIGHT_LAMP,"item_light_lamp")
 MSG(ITEM_LIGHT_PHIAL,"item_light_phial")
 MSG(ITEM_LIGHT_PALANTIR,"item_light_palantir")
 MSG(AMBIENT_VOICE,"ambient_voice")
+MSG(GONG,"gong")
+MSG(FANFARE,"fanfare")
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

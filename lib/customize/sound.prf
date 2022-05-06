@@ -364,7 +364,7 @@ sound:drop:plm_drop_boot
 sound:drop_in_house:backpack_7 backpack_8 backpack_16 backpack_10 backpack_13 backpack_17 backpack_18
 
 # You gain (or regain) a level.
-sound:level:plm_levelup
+sound:level:tomenet/player/misc/levelup/levelup
 
 # You successfully study a spell or prayer.
 sound:study:plm_book_pageturn
@@ -844,5 +844,9 @@ sound:item_light_phial:item_light_phial_1 item_light_phial_2
 sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
 
 sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/intro_3 ambient/voice/intro_4 ambient/voice/intro_5 ambient/voice/intro_6
+
+sound:gong:tomenet/player/alert/event/gong
+
+sound:fanfare:tomenet/player/alert/event/fanfare
 
 # leave empty line for EOF
