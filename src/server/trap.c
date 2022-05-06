@@ -554,6 +554,8 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                     /* Trap may have gone */
                     if (!square_trap(c, grid)) break;
                 }
+
+                sound(p, MSG_TRAP_SETOFF);
             }
 
             /* Some traps drop you a dungeon level */

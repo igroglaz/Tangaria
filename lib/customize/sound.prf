@@ -516,6 +516,9 @@ sound:pray_prayer:sum_angel_song
 # You enter a pit.
 sound:enter_pit:enter_pit
 
+# trap setoff
+sound:trap_setoff:tomenet/misc/trap_setoff/click tomenet/misc/trap_setoff/click2
+
 #
 # Monster Sounds - combat
 #
