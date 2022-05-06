@@ -3032,6 +3032,10 @@ void do_cmd_poly(struct player *p, struct monster_race *race, bool check_kills, 
     p->k_idx = 0;
     if (rf_has(race->flags, RF_UNAWARE)) p->k_idx = -1;
 
+    // sound for bats ;)
+    if (race->base == lookup_monster_base("bat"))
+        sound(p, MSG_POLY_BAT);
+
     /* Hack -- random mimics */
     if (race->base == lookup_monster_base("random mimic"))
     {

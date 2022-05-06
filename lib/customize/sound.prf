@@ -394,6 +394,9 @@ sound:hitwall:plm_wood_thud
 # You eat something.
 sound:eat:plm_eat_bite tomenet/player/commands/eat/chomp
 
+# dig out treasure (eg gold from vein)
+sound:dig_treasure:tomenet/player/commands/tunnel/rubble/dig tomenet/player/commands/tunnel/rock/pick
+
 # You successfully dig through something.
 sound:dig:plm_metal_clank
 
@@ -810,7 +813,7 @@ sound:terrain_slip:terrain_slip
 
 sound:tunnel_wall:dig1 dig2 dig3 dig4 dig5 dig6
 
-sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6
+sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6 tomenet/player/commands/tunnel/tree/hack
 
 sound:chop_tree_fall:chop_tree_fall
 
@@ -867,6 +870,8 @@ sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/in
 sound:gong:tomenet/player/alert/event/gong
 
 sound:fanfare:tomenet/player/alert/event/fanfare
+
+sound:poly_bat:tomenet/player/commands/staircase/wings
 
 # client T sounds
 sound:browse_book:tomenet/player/commands/browse/book tomenet/player/commands/browse/papers tomenet/player/commands/browse/scroll
