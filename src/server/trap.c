@@ -555,7 +555,10 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                     if (!square_trap(c, grid)) break;
                 }
 
-                sound(p, MSG_TRAP_SETOFF);
+                if (trf_has(trap->kind->flags, TRF_FEATHER_SAVE))
+                    sound(p, MSG_TRAP_SETOFF_FLOOR);
+                else
+                    sound(p, MSG_TRAP_SETOFF);
             }
 
             /* Some traps drop you a dungeon level */

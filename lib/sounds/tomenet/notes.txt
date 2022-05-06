@@ -21,4 +21,6 @@ player/misc/jailed
 
 player/commands/knock
 
+player/commands/throw/snowball
+
 #EOF

@@ -377,7 +377,7 @@ sound:teleport:tomenet/magic/teleport/teleport
 sound:phase_door:tomenet/magic/blink/blink
 
 # You quaff a potion.
-sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new
+sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new tomenet/player/commands/quaff/quaff_potion
 
 # You zap a rod.
 sound:zap_rod:plm_zap_rod
@@ -398,7 +398,7 @@ sound:eat:plm_eat_bite tomenet/player/commands/eat/chomp
 sound:dig:plm_metal_clank
 
 # You open a door.
-sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance plm_door_open plm_door_opening plm_door_rusty plm_door_squeaky
+sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance plm_door_open plm_door_opening plm_door_rusty plm_door_squeaky tomenet/player/commands/open/door/open1 tomenet/player/commands/open/door/open2 tomenet/player/commands/open/door/open3
 
 # You shut a door.
 sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam tomenet/player/commands/close/door/close1 tomenet/player/commands/close/door/close2 tomenet/player/commands/close/door/close3
@@ -416,10 +416,10 @@ sound:bell:plm_jar_ding
 sound:nothing_to_open:plm_click_switch2 plm_door_knob
 
 # You fail to pick a lock.
-sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echolock plm_door_wooden
+sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echolock plm_door_wooden tomenet/player/commands/open_stuck/stuck
 
 # You pick a lock.
-sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case
+sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case tomenet/player/commands/open_pick/picklock
 
 # open chest (which we've just lockpicked)
 sound:open_chest:player/commands/open/chest/open1 player/commands/open/chest/open2
@@ -428,10 +428,10 @@ sound:open_chest:player/commands/open/chest/open1 player/commands/open/chest/ope
 sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3 tomenet/player/commands/disarm/disarm
 
 # You go up stairs.
-sound:stairs_up:plm_floor_creak2
+sound:stairs_up:tomenet/player/commands/staircase/steps
 
 # You go down stairs.
-sound:stairs_down:plm_floor_creak
+sound:stairs_down:tomenet/player/commands/staircase/steps
 
 # You activate an artifact.
 sound:act_artifact:plm_aim_wand
@@ -525,6 +525,9 @@ sound:enter_pit:enter_pit
 
 # trap setoff
 sound:trap_setoff:tomenet/misc/trap_setoff/click tomenet/misc/trap_setoff/click2
+
+# trap setoff (TRF_FEATHER_SAVE)
+sound:trap_setoff_floor:plm_floor_creak plm_floor_creak2
 
 #
 # Monster Sounds - combat
