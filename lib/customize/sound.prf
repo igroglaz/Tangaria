@@ -510,6 +510,9 @@ sound:touch:touch
 # create walls (spell)
 sound:create_walls:tomenet/misc/stone_wall/stone1 tomenet/misc/stone_wall/stone2 tomenet/misc/stone_wall/stone3
 
+# create trees
+sound:create_trees:tomenet/player/misc/grow_trees/wood1 tomenet/player/misc/grow_trees/wood2 tomenet/player/misc/grow_trees/wood3
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
