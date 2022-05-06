@@ -638,7 +638,7 @@ bool do_cmd_open_chest(struct player *p, struct chunk *c, struct loc *grid, stru
         /* Success -- may still have traps */
         if (magik(j))
         {
-            msgt(p, MSG_LOCKPICK, "You have picked the lock.");
+            msgt(p, MSG_OPEN_CHEST, "You have picked the lock.");
             player_exp_gain(p, 1);
             flag = true;
         }

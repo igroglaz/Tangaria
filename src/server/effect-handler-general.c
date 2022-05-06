@@ -5392,7 +5392,10 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
 
     /* Sound */
     if (context->origin->player)
-        sound(context->origin->player, (is_player? MSG_TELEPORT: MSG_TPOTHER));
+        if (dis < 11)
+            sound(context->origin->player, MSG_PHASE_DOOR);
+        else
+            sound(context->origin->player, (is_player? MSG_TELEPORT: MSG_TPOTHER));
 
     /* Report the teleporting before moving the monster */
     if (!is_player)

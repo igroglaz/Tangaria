@@ -29,6 +29,10 @@
 
 #extra sounds (not used atm):
 #amb_guitar_chord / was `ambient_nite`
+#sum_piano_scrape
+#sum_bell_hand
+#sum_bell_tone
+#hallucinate
 
 # Stop playback
 sound:silent:silent
@@ -158,6 +162,7 @@ sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_alchemy:ambient/store/alchemy
 sound:store_magic:ambient/store/magic
+sound:store_spells:ambient/store/spells
 sound:npc_cat:ambient/store/purr ambient/store/meow
 
 #
@@ -234,7 +239,7 @@ sound:shoot_hit:plc_hit_arrow
 sound:hitpoint_warn:plc_bell_warn
 
 # You die.
-sound:death:plc_die_laugh
+sound:death:plc_die_laugh sum_laugh_evil2
 
 #
 # Player sounds - status changes
@@ -258,7 +263,7 @@ sound:afraid:afraid
 sound:paralyzed:paralyzed
 
 # You feel drugged (chaos effects).
-sound:drugged:hallucinate
+sound:drugged:tomenet/player/misc/insanity/whisper1 tomenet/player/misc/insanity/whisper2 tomenet/player/misc/insanity/whisper3
 
 ################### pls_breathe_in
 
@@ -360,16 +365,19 @@ sound:drop:plm_drop_boot
 sound:drop_in_house:backpack_7 backpack_8 backpack_16 backpack_10 backpack_13 backpack_17 backpack_18
 
 # You gain (or regain) a level.
-sound:level:plm_levelup
+sound:level:tomenet/player/misc/levelup/levelup
 
 # You successfully study a spell or prayer.
 sound:study:plm_book_pageturn
 
-# You teleport or phase door.
-sound:teleport:plm_chimes_jangle
+# You teleport.
+sound:teleport:tomenet/magic/teleport/teleport
+
+# You phase door.
+sound:phase_door:tomenet/magic/blink/blink
 
 # You quaff a potion.
-sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new
+sound:quaff:plm_bottle_clinks plm_cork_pop plm_cork_squeak pls_man_gulp_new tomenet/player/commands/quaff/quaff_potion
 
 # You zap a rod.
 sound:zap_rod:plm_zap_rod
@@ -384,16 +392,19 @@ sound:tpother:plm_chimes_jangle
 sound:hitwall:plm_wood_thud
 
 # You eat something.
-sound:eat:plm_eat_bite
+sound:eat:plm_eat_bite tomenet/player/commands/eat/chomp
+
+# dig out treasure (eg gold from vein)
+sound:dig_treasure:tomenet/player/commands/tunnel/rubble/dig tomenet/player/commands/tunnel/rock/pick
 
 # You successfully dig through something.
 sound:dig:plm_metal_clank
 
 # You open a door.
-sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance plm_door_open plm_door_opening plm_door_rusty plm_door_squeaky
+sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance plm_door_open plm_door_opening plm_door_rusty plm_door_squeaky tomenet/player/commands/open/door/open1 tomenet/player/commands/open/door/open2 tomenet/player/commands/open/door/open3
 
 # You shut a door.
-sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam
+sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam tomenet/player/commands/close/door/close1 tomenet/player/commands/close/door/close2 tomenet/player/commands/close/door/close3
 
 # Door closed (pstore)
 sound:door_closed:plm_door_latch
@@ -408,19 +419,22 @@ sound:bell:plm_jar_ding
 sound:nothing_to_open:plm_click_switch2 plm_door_knob
 
 # You fail to pick a lock.
-sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echolock plm_door_wooden
+sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echolock plm_door_wooden tomenet/player/commands/open_stuck/stuck
 
 # You pick a lock.
-sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case
+sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case tomenet/player/commands/open_pick/picklock
+
+# open chest (which we've just lockpicked)
+sound:open_chest:player/commands/open/chest/open1 player/commands/open/chest/open2
 
 # You disarm a trap.
-sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3
+sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3 tomenet/player/commands/disarm/disarm
 
 # You go up stairs.
-sound:stairs_up:plm_floor_creak2
+sound:stairs_up:tomenet/player/commands/staircase/steps
 
 # You go down stairs.
-sound:stairs_down:plm_floor_creak
+sound:stairs_down:tomenet/player/commands/staircase/steps
 
 # You activate an artifact.
 sound:act_artifact:plm_aim_wand
@@ -429,7 +443,13 @@ sound:act_artifact:plm_aim_wand
 sound:use_staff:plm_use_staff
 
 # An object is destroyed.
-sound:destroy:plm_bang_metal plm_break_canister plm_break_glass plm_break_glass2 plm_break_plates plm_break_shatter plm_break_smash plm_glass_breaking plm_glass_break plm_glass_smashing
+sound:destroy:plm_bang_metal plm_break_canister plm_break_plates   plm_glass_breaking plm_glass_smashing
+
+# shatter potion (by enemy)
+sound:destroy_potion:plm_break_glass plm_break_glass2 plm_break_shatter plm_break_smash plm_glass_break tomenet/misc/shatter_potion/glass1 tomenet/misc/shatter_potion/glass2 tomenet/misc/shatter_potion/glass3
+
+# burn scroll/book
+sound:burn:burn_1 burn_2
 
 # You wield or take off something.
 sound:wield:plm_metal_sharpen
@@ -449,11 +469,68 @@ sound:rune:id_good_hmm
 # You successfully cast a spell.
 sound:cast_spell:plm_spell1 plm_spell2 plm_spell3
 
+# ball spell
+sound:ball:tomenet/magic/ball/ball
+
+# bolt
+sound:bolt:tomenet/magic/bolt/bolt
+
+# damage (curse)
+sound:damage:tomenet/magic/curse/curse
+
+# earthquake
+sound:earthquake:earthquake tomenet/misc/earthquake/stones
+
+# destruction
+sound:destruction:destruction tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
+
+# blast
+sound:blast:blast
+
+# beam
+sound:beam:beam
+
+# arc
+sound:arc:arc
+
+# strike
+sound:strike:strike
+
+# lash
+sound:lash:lash
+
+# MELEE_BLOWS (spell)
+sound:melee_blows:melee_blows
+
+# project (spell)
+sound:project:project
+
+# spot (spell)
+sound:spot:spot
+
+# star (spell)
+sound:star:star
+
+# touch (spell)
+sound:touch:touch
+
+# create walls (spell)
+sound:create_walls:tomenet/misc/stone_wall/stone1 tomenet/misc/stone_wall/stone2 tomenet/misc/stone_wall/stone3
+
+# create trees
+sound:create_trees:tomenet/player/misc/grow_trees/wood1 tomenet/player/misc/grow_trees/wood2 tomenet/player/misc/grow_trees/wood3
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
 # You enter a pit.
 sound:enter_pit:enter_pit
+
+# trap setoff
+sound:trap_setoff:tomenet/misc/trap_setoff/click tomenet/misc/trap_setoff/click2
+
+# trap setoff (TRF_FEATHER_SAVE)
+sound:trap_setoff_floor:plm_floor_creak plm_floor_creak2
 
 #
 # Monster Sounds - combat
@@ -472,6 +549,39 @@ sound:kill_unique:sum_ghost_wail
 
 # Morgoth, Lord of Darkness is killed.
 sound:kill_king:amb_guitar_chord
+
+# nazgul
+sound:kill_nazgul:sum_ghost_moan sum_ghost_oooo
+
+# uniq undeads
+sound:kill_unique_undead:sum_gong_temple
+
+# uniq demon
+sound:kill_unique_demon:tomenet/monster/hector
+
+# baba yaga
+sound:kill_unique_yaga:kill_unique_yaga
+
+# kikimora
+sound:kill_unique_kikimora:ambient/voice/intro_7
+
+# uniq demon
+sound:kill_unique_dragon:sum_lion_growl
+
+# terr yeek (wilhelm sound)
+sound:kill_yeek:kill_yeek
+
+# rodent
+sound:kill_rodent:mco_mouse_squeaks
+
+# insect
+sound:kill_insect:tomenet/player/commands/staircase/scuttle
+
+# snake
+sound:kill_snake:tomenet/player/commands/staircase/slither
+
+# hydra
+sound:kill_hydra:tomenet/player/misc/death/dspdiehi tomenet/player/misc/death/dspldeth
 
 # Attack - hit
 sound:mon_hit:mco_hit_whip
@@ -540,7 +650,7 @@ sound:mon_swallow:mon_swallow
 sound:mon_devour:mon_devour
 
 # Attack - shriek
-sound:mon_shriek:mco_mouse_squeaks
+sound:mon_shriek:tomenet/misc/shriek/shriek
 
 # Spell - create traps
 sound:mon_create_trap:mco_thoing_deep
@@ -556,68 +666,68 @@ sound:multiply:mco_frog_trill
 #
 
 # Summon one or more monsters.
-sound:summon_monster:sum_chime_jangle
+sound:summon_monster:tomenet/magic/summon/swoosh
 
 # Summon ainur.
-sound:summon_ainu:sum_angel_song
+sound:summon_ainu:sum_chime_jangle
 
 # Summon angel.
-sound:summon_angel:sum_angel_song
+sound:summon_angel:sum_chime_jangle
 
 # Summon undead.
-sound:summon_undead:sum_ghost_oooo
+sound:summon_undead:tomenet/magic/summon/swoosh
 
 # Summon animals.
-sound:summon_animal:sum_lion_growl
+sound:summon_animal:tomenet/magic/summon/swoosh
 
 # Summon spiders.
-sound:summon_spider:sum_piano_scrape
+sound:summon_spider:tomenet/magic/summon/swoosh
 
 # Summon hounds.
-sound:summon_hound:sum_lion_growl
+sound:summon_hound:tomenet/magic/summon/swoosh
 
 # Summon hydras.
-sound:summon_hydra:sum_piano_scrape
+sound:summon_hydra:tomenet/magic/summon/swoosh
 
 # Summon demons.
-sound:summon_demon:sum_ghost_wail sum_laugh_evil2
+sound:summon_demon:tomenet/magic/summon/swoosh
 
 # Summon dragon.
-sound:summon_dragon:sum_piano_scrape
+sound:summon_dragon:tomenet/magic/summon/swoosh
 
 # Summon greater undead.
-sound:summon_gr_undead:sum_ghost_moan
+sound:summon_gr_undead:tomenet/magic/summon/swoosh
 
 # Summon greater dragons.
-sound:summon_gr_dragon:sum_gong_temple
+sound:summon_gr_dragon:tomenet/magic/summon/swoosh
 
 # Summon greater demons.
-sound:summon_gr_demon:sum_ghost_moan
+sound:summon_gr_demon:tomenet/magic/summon/swoosh
 
 # Summon Ringwraiths.
-sound:summon_ringwraith:sum_bell_hand
+sound:summon_ringwraith:tomenet/magic/summon/swoosh
 
 # Summon uniques.
-sound:summon_unique:sum_bell_tone
+sound:summon_unique:tomenet/magic/summon/swoosh
 
 #
 # Breath weapons
 #
 
 # Breathe frost.
-sound:breathe_frost:mco_attack_breath
+sound:breathe_frost:tomenet/magic/breath/breath
 
 # Breathe electricity.
-sound:breathe_elec:mco_attack_breath
+sound:breathe_elec:tomenet/magic/breath/breath
 
 # Breathe acid.
-sound:breathe_acid:mco_attack_breath
+sound:breathe_acid:tomenet/magic/breath/breath
 
 # Breathe gas.
-sound:breathe_gas:mco_attack_breath
+sound:breathe_gas:tomenet/magic/breath/breath
 
 # Breathe fire.
-sound:breathe_fire:mco_attack_breath
+sound:breathe_fire:tomenet/magic/breath/breath
 
 # Breathe water.
 sound:breathe_water:mco_attack_breath
@@ -703,13 +813,13 @@ sound:terrain_slip:terrain_slip
 
 sound:tunnel_wall:dig1 dig2 dig3 dig4 dig5 dig6
 
-sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6
+sound:chop_tree:chop1 chop2 chop3 chop4 chop5 chop6 tomenet/player/commands/tunnel/tree/hack
 
 sound:chop_tree_fall:chop_tree_fall
 
 sound:sentry:sentry
 
-sound:door_broken:door_broken
+sound:door_broken:door_broken tomenet/player/commands/bash/door/break/smash tomenet/player/commands/bash/door/hold/bash
 
 sound:disrupt:tomenet/misc/antimagic/disrupt
 
@@ -745,8 +855,25 @@ sound:item_takeoff_medium:backpack_3 backpack_5 backpack_9 backpack_14
 
 sound:item_takeoff_large:backpack_10 backpack_11 backpack_12 backpack_15
 
-sound:item_fire_torch:tomenet/item/lightsource/lighting
+sound:item_light_torch:tomenet/item/lightsource/lighting
 
-sound:kill_yeek:kill_yeek
+sound:item_light_lantern:item_light_lantern_1 item_light_lantern_2
+
+sound:item_light_lamp:item_light_lamp_1 item_light_lamp_2
+
+sound:item_light_phial:item_light_phial_1 item_light_phial_2
+
+sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
+
+sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/intro_3 ambient/voice/intro_4 ambient/voice/intro_5 ambient/voice/intro_6
+
+sound:gong:tomenet/player/alert/event/gong
+
+sound:fanfare:tomenet/player/alert/event/fanfare
+
+sound:poly_bat:tomenet/player/commands/staircase/wings
+
+# client T sounds
+sound:browse_book:tomenet/player/commands/browse/book tomenet/player/commands/browse/papers tomenet/player/commands/browse/scroll
 
 # leave empty line for EOF

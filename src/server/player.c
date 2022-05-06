@@ -197,7 +197,10 @@ static void adjust_level(struct player *p)
             p->max_lev = p->lev;
 
             /* Message */
-            msgt(p, MSG_LEVEL, "Welcome to level %d.", p->lev);
+            if (p->max_lev == 50)
+                msgt(p, MSG_FANFARE, "Ding! Welcome to level %d.", p->lev);
+            else
+                msgt(p, MSG_LEVEL, "Welcome to level %d.", p->lev);
             strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 

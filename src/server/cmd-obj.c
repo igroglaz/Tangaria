@@ -545,8 +545,19 @@ void do_cmd_wield(struct player *p, int item, int slot)
         sound(p, MSG_ITEM_RING);
     else if (tval_is_amulet(obj))
         sound(p, MSG_ITEM_AMULET);
-    else if (tval_is_light(obj) && of_has(obj->flags, OF_BURNS_OUT))
-        sound(p, MSG_ITEM_FIRE_TORCH);
+    else if (tval_is_light(obj))
+    {
+        if (obj->sval == lookup_sval(obj->tval, "Wooden Torch"))
+            sound(p, MSG_ITEM_LIGHT_TORCH);
+        else if (obj->sval == lookup_sval(obj->tval, "Lantern"))
+            sound(p, MSG_ITEM_LIGHT_LANTERN);
+        else if (obj->sval == lookup_sval(obj->tval, "Lamp"))
+            sound(p, MSG_ITEM_LIGHT_LAMP);
+        else if (obj->sval == lookup_sval(obj->tval, "Palantir"))
+            sound(p, MSG_ITEM_LIGHT_PALANTIR);
+        else if (obj->artifact)                // Phial, Star, Stone etc
+            sound(p, MSG_ITEM_LIGHT_PHIAL);
+    }
     else
         sound(p, MSG_WIELD);
 
@@ -1085,7 +1096,46 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         if (player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, spell->smana << 16);
 
         /* A spell was cast */
-        sound(p, (pious? MSG_PRAYER: MSG_SPELL));
+        // spells' effect's indexes can be found:
+        // effects.c -> effect_subtype()
+        if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
+            spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
+            sound(p, MSG_BALL);
+        else if (spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM)
+            sound(p, MSG_BOLT);
+        else if (spell->effect->index == EF_DAMAGE) // curse
+            sound(p, MSG_DAMAGE);
+        else if (spell->effect->index == EF_EARTHQUAKE)
+            sound(p, MSG_EARTHQUAKE);
+        else if (spell->effect->index == EF_DESTRUCTION)
+            sound(p, MSG_DESTRUCTION);
+        else if (spell->effect->index == EF_BLAST || spell->effect->index == EF_BLAST_OBVIOUS)
+            sound(p, MSG_BLAST);
+        else if (spell->effect->index == EF_BEAM || spell->effect->index == EF_BEAM_OBVIOUS || 
+                 spell->effect->index == EF_SHORT_BEAM || spell->effect->index == EF_LINE)
+            sound(p, MSG_BEAM);
+        else if (spell->effect->index == EF_ARC)
+            sound(p, MSG_ARC);
+        else if (spell->effect->index == EF_STRIKE)
+            sound(p, MSG_STRIKE);
+        else if (spell->effect->index == EF_LASH)
+            sound(p, MSG_LASH);
+        else if (spell->effect->index == EF_MELEE_BLOWS)
+            sound(p, MSG_MELEE_BLOWS);
+        else if (spell->effect->index >= EF_PROJECT || spell->effect->index <= EF_PROJECT_LOS_AWARE)
+            sound(p, MSG_PROJECT);
+        else if (spell->effect->index == EF_SPOT)
+            sound(p, MSG_SPOT);
+        else if (spell->effect->index == EF_STAR)
+            sound(p, MSG_STAR);
+        else if (spell->effect->index == EF_TOUCH || spell->effect->index == EF_TOUCH_AWARE)
+            sound(p, MSG_TOUCH);
+        else if (spell->effect->index == EF_CREATE_WALLS)
+            sound(p, MSG_CREATE_WALLS);
+        else if (spell->effect->index == EF_CREATE_TREES)
+            sound(p, MSG_CREATE_TREES);
+        else
+            sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 
         cast_spell_end(p);
 

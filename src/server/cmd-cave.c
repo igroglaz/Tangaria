@@ -1119,12 +1119,12 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {
                     set_origin(dig_fountain, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
-                    /* Drop house stone */
+                    /* Drop treasure */
                     drop_near(p, c, &dig_fountain, 0, &p->grid, true, DROP_FADE, false);
                 }
         }        
 
-        sound(p, MSG_DIG);
+        sound(p, MSG_DIG_TREASURE);
 
         /* Update the visuals */
         update_visuals(&p->wpos);
@@ -1214,7 +1214,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 new_obj = square_object(c, grid);
                 if (new_obj && !ignore_item_ok(p, new_obj) && square_isseen(p, grid))
                 {
-                    sound(p, MSG_DIG);
+                    sound(p, MSG_DIG_TREASURE);
                     msg(p, "You have found something!");
                 }
             }
@@ -1225,7 +1225,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             /* Place some gold */
             place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
-            sound(p, MSG_DIG);
+            sound(p, MSG_DIG_TREASURE);
             msg(p, "You have found something!");
         }
 

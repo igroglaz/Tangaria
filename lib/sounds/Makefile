@@ -184,7 +184,10 @@ DATA = sound.cfg credits.txt \
     backpack_10.ogg           backpack_11.ogg           backpack_12.ogg \
     backpack_13.ogg           backpack_14.ogg           backpack_15.ogg \
     backpack_16.ogg           backpack_17.ogg           backpack_18.ogg \
-    item_medium_armor.ogg     item_pickup_1.ogg \
+    item_medium_armor.ogg     item_pickup_1.ogg         wilhelm-scream.ogg \
+    item_light_lantern_1.ogg  item_light_lantern_2.ogg  item_light_lamp_1.ogg \
+    item_light_lamp_2.ogg     item_light_phial_1.ogg    item_light_phial_2.ogg \
+    item_light_palantir_1.ogg item_light_palantir_2.ogg kill_unique_yaga.ogg \
     blind.mp3                 blind1.mp3                blind2.mp3 \
     confused.mp3              hypnotize.mp3             afraid.mp3 \
     cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
@@ -210,6 +213,13 @@ DATA = sound.cfg credits.txt \
     backpack_10.mp3           backpack_11.mp3           backpack_12.mp3 \
     backpack_13.mp3           backpack_14.mp3           backpack_15.mp3 \
     backpack_16.mp3           backpack_17.mp3           backpack_18.mp3 \
-    item_medium_armor.mp3     item_pickup_1.mp3
+    item_medium_armor.mp3     item_pickup_1.mp3         wilhelm-scream.mp3 \
+    item_light_lantern_1.mp3  item_light_lantern_2.mp3  item_light_lamp_1.mp3 \
+    item_light_lamp_2.mp3     item_light_phial_1.mp3    item_light_phial_2.mp3 \
+    item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3 \
+    intro_1.ogg intro_2.ogg intro_3.ogg intro_4.ogg intro_5.ogg intro_6.ogg intro_7.ogg \
+    intro_1.mp3 intro_2.mp3 intro_3.mp3 intro_4.mp3 intro_5.mp3 intro_6.mp3 intro_7.mp3 \
+    destruction.ogg earthquake.ogg blast.ogg arc.ogg beam.ogg lash.ogg melee_blows.ogg strike.ogg project.ogg spot.ogg star.ogg touch.ogg \
+    destruction.mp3 earthquake.mp3 blast.mp3 arc.mp3 beam.mp3 lash.mp3 melee_blows.mp3 strike.mp3 project.mp3 spot.mp3 star.mp3 touch.mp3
 
 PACKAGE = sounds
