@@ -1,14 +1,13 @@
 Not used sounds yet:
 
-/combat:
-block_shield
-block_shield_projectile
-parry
-parry_weapon
-tech_melee
+combat/block_shield
+combat/block_shield_projectile
+combat/parry
+combat/parry_weapon
+combat/tech_melee
 
-/magic/rocket
-/misc/fireworks
+magic/rocket
+misc/fireworks
 
 player/alert/event/crush
 player/alert/error
@@ -22,5 +21,10 @@ player/misc/jailed
 player/commands/knock
 
 player/commands/throw/snowball
+
+player/commands/staircase/pad
+player/commands/staircase/rider
+
+player/commands/tunnel/hit_floor
 
 #EOF

@@ -1139,6 +1139,10 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         soundfx = MSG_KILL_YEEK;
     else if (mon->race->base == lookup_monster_base("rodent"))
         soundfx = MSG_KILL_RODENT;
+    else if (mon->race->base == lookup_monster_base("insect"))
+        soundfx = MSG_KILL_INSECT;
+    else if (mon->race->base == lookup_monster_base("snake"))
+        soundfx = MSG_KILL_SNAKE;
     else if (mon->race->base == lookup_monster_base("hydra"))
         soundfx = MSG_KILL_HYDRA;
 

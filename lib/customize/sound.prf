@@ -571,6 +571,12 @@ sound:kill_yeek:kill_yeek
 # rodent
 sound:kill_rodent:mco_mouse_squeaks
 
+# insect
+sound:kill_insect:tomenet/player/commands/staircase/scuttle
+
+# snake
+sound:kill_snake:tomenet/player/commands/staircase/slither
+
 # hydra
 sound:kill_hydra:tomenet/player/misc/death/dspdiehi tomenet/player/misc/death/dspldeth
 
