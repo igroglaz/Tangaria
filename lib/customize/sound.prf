@@ -392,7 +392,7 @@ sound:tpother:plm_chimes_jangle
 sound:hitwall:plm_wood_thud
 
 # You eat something.
-sound:eat:plm_eat_bite
+sound:eat:plm_eat_bite tomenet/player/commands/eat/chomp
 
 # You successfully dig through something.
 sound:dig:plm_metal_clank
@@ -401,7 +401,7 @@ sound:dig:plm_metal_clank
 sound:opendoor:plm_door_bolt plm_door_creak plm_door_dungeon plm_door_entrance plm_door_open plm_door_opening plm_door_rusty plm_door_squeaky
 
 # You shut a door.
-sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam
+sound:shutdoor:plm_bang_dumpster plm_cabinet_shut plm_close_hatch plm_door_creakshut plm_door_latch plm_door_shut plm_door_slam tomenet/player/commands/close/door/close1 tomenet/player/commands/close/door/close2 tomenet/player/commands/close/door/close3
 
 # Door closed (pstore)
 sound:door_closed:plm_door_latch
@@ -421,8 +421,11 @@ sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echol
 # You pick a lock.
 sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case
 
+# open chest (which we've just lockpicked)
+sound:open_chest:player/commands/open/chest/open1 player/commands/open/chest/open2
+
 # You disarm a trap.
-sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3
+sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3 tomenet/player/commands/disarm/disarm
 
 # You go up stairs.
 sound:stairs_up:plm_floor_creak2

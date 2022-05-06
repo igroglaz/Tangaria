@@ -19,4 +19,6 @@ player/game
 
 player/misc/jailed
 
+player/commands/knock
+
 #EOF
