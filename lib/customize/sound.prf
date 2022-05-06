@@ -561,6 +561,9 @@ sound:kill_yeek:kill_yeek
 # rodent
 sound:kill_rodent:mco_mouse_squeaks
 
+# hydra
+sound:kill_hydra:tomenet/player/misc/death/dspdiehi tomenet/player/misc/death/dspldeth
+
 # Attack - hit
 sound:mon_hit:mco_hit_whip
 
