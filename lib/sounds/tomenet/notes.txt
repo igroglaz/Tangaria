@@ -15,7 +15,7 @@ player/alert/error
 player/alert/page
 player/alert/warning
 
-player\game
+player/game
 
 player/misc/jailed
 

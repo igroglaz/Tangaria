@@ -288,6 +288,9 @@ MSG(AMBIENT_VOICE,"ambient_voice")
 MSG(GONG,"gong")
 MSG(FANFARE,"fanfare")
 
+// client T sounds
+MSG(BROWSE_BOOK, "browse_book")
+
 /* Max message index (sound) */
 MSG(MAX, NULL)
 

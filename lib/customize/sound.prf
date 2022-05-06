@@ -32,6 +32,7 @@
 #sum_piano_scrape
 #sum_bell_hand
 #sum_bell_tone
+#hallucinate
 
 # Stop playback
 sound:silent:silent
@@ -262,7 +263,7 @@ sound:afraid:afraid
 sound:paralyzed:paralyzed
 
 # You feel drugged (chaos effects).
-sound:drugged:hallucinate
+sound:drugged:tomenet/player/misc/insanity/whisper1 tomenet/player/misc/insanity/whisper2 tomenet/player/misc/insanity/whisper3
 
 ################### pls_breathe_in
 
@@ -803,7 +804,7 @@ sound:chop_tree_fall:chop_tree_fall
 
 sound:sentry:sentry
 
-sound:door_broken:door_broken
+sound:door_broken:door_broken tomenet/player/commands/bash/door/break/smash tomenet/player/commands/bash/door/hold/bash
 
 sound:disrupt:tomenet/misc/antimagic/disrupt
 
@@ -854,5 +855,8 @@ sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/in
 sound:gong:tomenet/player/alert/event/gong
 
 sound:fanfare:tomenet/player/alert/event/fanfare
+
+# client T sounds
+sound:browse_book:tomenet/player/commands/browse/book tomenet/player/commands/browse/papers tomenet/player/commands/browse/scroll
 
 # leave empty line for EOF
