@@ -41,10 +41,10 @@ sound:silent:silent
 sound:silent0:silent0
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain ambient/outside/rain_light
+sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_crow_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Town during the night.
-sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
+sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2 ambient_crow ambient_wings ambient_fox ambient_wind_1 ambient_wind_night ambient_wind_night_1 ambient_wind_2 ambient_wind_3
 
 # Long rain
 sound:wild_rain:tomenet/weather/rain/rain
@@ -62,16 +62,16 @@ sound:wild_waste:wild_waste
 sound:wild_volcano:wild_volcano
 
 # Grass
-sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
+sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4 ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Wood
-sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3
+sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3 ambient_forest_birds ambient_wings ambient_birds ambient_birds_1 ambient_crow_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Mountain
-sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf
+sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Desert
-sound:wild_desert:wild_desert
+sound:wild_desert:wild_desert ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Glacier
 sound:wild_glacier:wild_glacier
@@ -84,7 +84,7 @@ sound:wild_swamp:wild_swamp tomenet/ambient/timed/toad/toad tomenet/ambient/time
 sound:wild_deepwater:wild_deepwater
 
 # Hill
-sound:wild_hill:wild_hill wild_hill2
+sound:wild_hill:wild_hill wild_hill2 ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Shore
 sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagulls
@@ -105,7 +105,7 @@ sound:ambient_dng4:amb_bell_tibet3 amb_dungeon_echowet amb_gong_undertone
 sound:ambient_dng5:amb_door_doom amb_gong_chinese amb_gong_low
 
 # paths_of_the_dead
-sound:paths_of_the_dead:paths_of_the_dead
+sound:paths_of_the_dead:paths_of_the_dead ambient_wind_night
 
 # Dungeon level 99 (4950')
 sound:ambient_sauron:amb_sauron
@@ -484,10 +484,10 @@ sound:bolt:tomenet/magic/bolt/bolt
 sound:damage:tomenet/magic/curse/curse
 
 # earthquake
-sound:earthquake:earthquake tomenet/misc/earthquake/stones
+sound:earthquake:tomenet/misc/earthquake/stones
 
 # destruction
-sound:destruction:destruction tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
+sound:destruction:tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
 
 # blast
 sound:blast:blast

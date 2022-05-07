@@ -2977,7 +2977,7 @@ void display_feeling(struct player *p, bool obj_only)
 
     // sound for 9 danger
     if (mon_feeling >= 9)
-        sound(p, MSG_DANGER_9)
+        sound(p, MSG_DANGER_9);
 }
 
 
