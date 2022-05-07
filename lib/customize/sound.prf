@@ -574,8 +574,11 @@ sound:kill_unique_yaga:kill_unique_yaga
 # kikimora
 sound:kill_unique_kikimora:kill_unique_kikimora
 
-# KILL_UNIQUE_WITCH_KING
-sound:kill_unique_witch_king:witch_king
+# WITCH KING
+sound:kill_unique_witch_king:kill_unique_witch_king
+
+# shelob / ungoliant
+sound:kill_unique_shelob:kill_unique_shelob
 
 # shtukensia
 sound:defeat_unique_shtukensia:defeat_unique_shtukensia

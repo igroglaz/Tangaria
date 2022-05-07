@@ -1135,6 +1135,11 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             soundfx = MSG_KILL_UNIQUE_KIKIMORA;
         else if (streq(mon->race->name, "Shtukensia"))
             soundfx = MSG_DEFEAT_UNIQUE_SHTUKENSIA;
+        else if (streq(mon->race->name, "The Witch-King of Angmar"))
+            soundfx = MSG_KILL_UNIQUE_WITCH_KING;
+        else if (streq(mon->race->name, "Shelob, Spider of Darkness") ||
+                 streq(mon->race->name, "Ungoliant, the Unlight"))
+            soundfx = MSG_KILL_UNIQUE_SHELOB;
         else
             soundfx = MSG_KILL_UNIQUE;
     }
