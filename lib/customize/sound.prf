@@ -557,7 +557,7 @@ sound:kill:mco_howl_croak mco_howl_deep mco_howl_distressed mco_howl_high mco_ho
 sound:kill_unique:sum_ghost_wail
 
 # Morgoth, Lord of Darkness is killed.
-sound:kill_king:amb_guitar_chord
+sound:kill_king:kill_king
 
 # nazgul
 sound:kill_nazgul:sum_ghost_moan sum_ghost_oooo
