@@ -330,6 +330,14 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_DNG2);
     else if (p->wpos.depth <= 60)
         sound(p, MSG_AMBIENT_DNG3);
+    // paths of the dead
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -1 && p->wpos.depth >= 66)
+    {
+        if (one_in_(2))
+            sound(p, MSG_AMBIENT_DNG4);
+        else
+            sound(p, MSG_PATHS_OF_THE_DEAD);
+    }
     else if (p->wpos.depth <= 80)
         sound(p, MSG_AMBIENT_DNG4);
     else if (p->wpos.depth <= 98)

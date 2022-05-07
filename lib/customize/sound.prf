@@ -104,6 +104,9 @@ sound:ambient_dng4:amb_bell_tibet3 amb_dungeon_echowet amb_gong_undertone
 # Dungeon levels 81-98 (4050'- 4900')
 sound:ambient_dng5:amb_door_doom amb_gong_chinese amb_gong_low
 
+# paths_of_the_dead
+sound:paths_of_the_dead:paths_of_the_dead
+
 # Dungeon level 99 (4950')
 sound:ambient_sauron:amb_sauron
 
