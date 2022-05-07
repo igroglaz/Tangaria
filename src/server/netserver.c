@@ -6835,6 +6835,9 @@ static int Receive_message(int ind)
 
     do_cmd_message(p, buf);
 
+    // sound
+    sound(p, MSG_MESSAGE);
+
     return 1;
 }
 

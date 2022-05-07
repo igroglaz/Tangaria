@@ -298,6 +298,8 @@ MSG(POLY_BAT,"poly_bat")
 
 // client T sounds
 MSG(BROWSE_BOOK, "browse_book")
+MSG(MESSAGE, "message")
+
 
 /* Max message index (sound) */
 MSG(MAX, NULL)
