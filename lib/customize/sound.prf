@@ -589,6 +589,9 @@ sound:kill_snake:tomenet/player/commands/staircase/slither
 # hydra
 sound:kill_hydra:tomenet/player/misc/death/dspdiehi tomenet/player/misc/death/dspldeth
 
+# jelly, mold
+sound:kill_slime:kill_slime kill_slime_1 kill_slime_2 kill_slime_3 kill_slime_4 kill_slime_5 kill_slime_6 kill_slime_7 kill_slime_8
+
 # Attack - hit
 sound:mon_hit:mco_hit_whip
 
