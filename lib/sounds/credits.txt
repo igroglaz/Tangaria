@@ -104,10 +104,6 @@ mango777
 https://freesound.org/people/mango777/sounds/547375/
 blast
 
-Omar Alvarado
-https://freesound.org/people/Omar%20Alvarado/sounds/127951/
-earthquake destruction
-
 carmsie
 https://freesound.org/people/carmsie/sounds/263554/
 intro_6 intro_7
@@ -220,8 +216,8 @@ TriqyStudio
 https://freesound.org/people/TriqyStudio/sounds/467610/
 pickup_item_1
 
-Syna-Max
-https://freesound.org/people/Syna-Max/sounds/64939/
+SweetNeo85
+https://freesound.org/people/SweetNeo85/sounds/13797/
 kill_yeek
 
 guilhermeop
