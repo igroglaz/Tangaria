@@ -1151,6 +1151,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         soundfx = MSG_KILL_HYDRA;
     else if (mon->race->base == lookup_monster_base("jelly") ||
              mon->race->base == lookup_monster_base("mold"))
+    else if (mon->race->base == lookup_monster_base("stinger") ||
+             mon->race->base == lookup_monster_base("killer beetle"))
         soundfx = MSG_KILL_SLIME;
 
     /* Death message */
