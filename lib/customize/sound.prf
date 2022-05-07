@@ -167,6 +167,7 @@ sound:store_alchemy:ambient/store/alchemy
 sound:store_magic:ambient/store/magic
 sound:store_spells:ambient/store/spells
 sound:npc_cat:ambient/store/purr ambient/store/meow
+sound:npc_hi:npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
 
 #
 # Player sounds - combat

@@ -1,3 +1,10 @@
+theuncertainman
+https://freesound.org/people/theuncertainman/sounds/458074/
+https://freesound.org/people/theuncertainman/sounds/429038/
+https://freesound.org/people/theuncertainman/sounds/429037/
+https://freesound.org/people/theuncertainman/sounds/419321/
+npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
+
 klankbeeld
 https://freesound.org/people/klankbeeld/sounds/171078/
 kill_unique_shelob

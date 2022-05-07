@@ -315,9 +315,10 @@ buy:elemental book
 # Place custom stores here
 
 # Starter town tavern
+### REMOVE 'old' from store name
 store:Halbarad, the old ranger
-owner:5000:Halbarad, the old ranger
-owner:5000:Halbarad, the old ranger
+owner:5000:Halbarad, the ranger
+owner:5000:Halbarad, the ranger
 slots:0:1
 turnover:0
 welcome:0:looks at you with interest.
