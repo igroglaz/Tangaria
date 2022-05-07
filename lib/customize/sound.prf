@@ -571,6 +571,9 @@ sound:kill_unique_yaga:kill_unique_yaga
 # kikimora
 sound:kill_unique_kikimora:kill_unique_kikimora
 
+# shtukensia
+sound:defeat_unique_shtukensia:defeat_unique_shtukensia
+
 # uniq demon
 sound:kill_unique_dragon:sum_lion_growl
 
