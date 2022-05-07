@@ -523,6 +523,10 @@ static bool detect_monsters(struct player *p, int y_dist, int x_dist, monster_pr
         }
     }
 
+    // sound
+    if (monsters)
+        sound(p, MSG_DETECT);
+
     return monsters;
 }
 

@@ -560,9 +560,9 @@ book-desc:An advanced arcane book with a few spells.
 
 spell:Elbereth:21:19:37:18:0
 cooldown:144
-effect:GLYPH:WARDING
 effect:NOURISH:DEC_BY
 dice:1
+effect:GLYPH:WARDING
 desc:Engraves 'Elbereth' in glyphs on the floor beneath you.
 desc: Summoned monsters can't appear on this glyphs.
 desc: If a monster attempts to move onto the glyphs or melee you while you
@@ -6201,8 +6201,8 @@ desc: Also greatly increases your regeneration rate for 20+1d20 turns.
 desc: The effect of this spell is cumulative with other means of regeneration.
 
 spell:Vasa Sacra:20:14:40:20:0
-effect:GLYPH:WARDING
 effect:CREATE_HOLY_WATER
+effect:GLYPH:WARDING
 desc:Allows to bless any potions and turn it to holy water.
 desc: Blessing ritual makes floor beneath you blessed.
 desc: Summoned monsters can't appear on the blessed floor.
@@ -6952,10 +6952,10 @@ effect:PROJECT_LOS_AWARE:SLEEP_ALL
 desc:Attempts to put to sleep each monster within line of sight.
 
 spell:Fade in Shadows:40:40:40:70:0
-effect:GLYPH:DECOY
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
+effect:GLYPH:DECOY
 desc:Leaves a magical decoy that looks and sounds like the player.
 desc: Also makes you invisible for a while.
 desc: High level, questor, invisible and injured monsters
