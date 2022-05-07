@@ -303,11 +303,12 @@ MSG(KIKIMORA,"kikimora")
 MSG(GONG,"gong")
 MSG(FANFARE,"fanfare")
 MSG(POLY_BAT,"poly_bat")
+MSG(MESSAGE, "message")
+MSG(DANGER_9, "danger_9")
+
 
 // client T sounds
 MSG(BROWSE_BOOK, "browse_book")
-MSG(MESSAGE, "message")
-
 
 /* Max message index (sound) */
 MSG(MAX, NULL)

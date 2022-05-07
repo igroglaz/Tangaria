@@ -905,7 +905,12 @@ sound:poly_bat:tomenet/player/commands/staircase/wings
 # Receive_message() chat
 sound:message:message
 
-# client T sounds
+# lvl danger feeling
+sound:danger_9:danger_9
+
+######################
+###################### client T sounds
+######################
 sound:browse_book:tomenet/player/commands/browse/book tomenet/player/commands/browse/papers tomenet/player/commands/browse/scroll
 
 # leave empty line for EOF

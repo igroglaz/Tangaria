@@ -2974,6 +2974,10 @@ void display_feeling(struct player *p, bool obj_only)
     msg(p, "%s%s %s", mon_feeling_text[mon_feeling][set], join, obj_feeling_text[obj_feeling][set]);
     p->obj_feeling = obj_feeling;
     p->mon_feeling = mon_feeling;
+
+    // sound for 9 danger
+    if (mon_feeling >= 9)
+        sound(p, MSG_DANGER_9)
 }
 
 
