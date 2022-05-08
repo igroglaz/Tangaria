@@ -1,0 +1,3 @@
+[submodule "src/ProjectFiles/"]
+	path = src/ProjectFiles/
+	url = https://github.com/BlazesRus/Tangaria_tools.git
