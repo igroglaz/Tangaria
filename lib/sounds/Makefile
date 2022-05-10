@@ -177,6 +177,7 @@ DATA = sound.cfg credits.txt \
     chop4.ogg                 chop5.ogg                 chop6.ogg \
     chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
     silent.ogg                silent0.ogg               quiver.ogg \
+    silent100.ogg             silent101.ogg \
     item_pickup.ogg           gold_1.ogg                gold_2.ogg \
     backpack_1.ogg            backpack_2.ogg            backpack_3.ogg \
     backpack_4.ogg            backpack_5.ogg            backpack_6.ogg \
@@ -206,6 +207,7 @@ DATA = sound.cfg credits.txt \
     chop4.mp3                 chop5.mp3                 chop6.mp3 \
     chop_tree_fall.mp3        sentry.mp3                door_broken.mp3 \
     silent.mp3                silent0.mp3               quiver.mp3 \
+    silent100.mp3             silent101.mp3 \
     item_pickup.mp3           gold_1.mp3                gold_2.mp3 \
     backpack_1.mp3            backpack_2.mp3            backpack_3.mp3 \
     backpack_4.mp3            backpack_5.mp3            backpack_6.mp3 \

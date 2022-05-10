@@ -3365,6 +3365,9 @@ void do_cmd_store(struct player *p, int pstore)
     if (s->type == STORE_HOME)
         sound(p, MSG_STORE_HOME);
 
+    /* Music volume down */
+    sound(p, MSG_SILENT100);
+
     /* Background sounds for stores */
     switch (s->type)
     {

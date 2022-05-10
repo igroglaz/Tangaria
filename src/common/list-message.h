@@ -10,6 +10,8 @@ MSG(GENERIC, "")
 MSG(RED_INK, "red_ink") // only text color
 MSG(SILENT, "silent")
 MSG(SILENT0, "silent0")
+MSG(SILENT100, "silent100")
+MSG(SILENT101, "silent101")
 MSG(HIT, "hit")
 MSG(HIT_BLADE, "hit_blade")
 MSG(HIT_MACE, "hit_mace")
