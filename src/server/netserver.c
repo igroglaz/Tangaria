@@ -7292,6 +7292,9 @@ static int Receive_store_leave(int ind)
             // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
             sound(p, MSG_SILENT0);
 
+            /* Restore music volume */
+            sound(p, MSG_SILENT101);
+
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());
         }

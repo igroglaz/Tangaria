@@ -40,6 +40,12 @@ sound:silent:silent
 # Stop looped playback
 sound:silent0:silent0
 
+# Music volume down
+sound:silent100:silent100
+
+# Restore music volume
+sound:silent101:silent101
+
 # Town during the day.
 sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_crow_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
