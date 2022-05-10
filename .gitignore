@@ -40,3 +40,4 @@ src/bcb6/Win64/Release/
 *.local.*
 
 *.lnk
+__astcache
