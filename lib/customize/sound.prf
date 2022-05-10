@@ -47,7 +47,7 @@ sound:silent100:silent100
 sound:silent101:silent101
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_crow_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
+sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Town during the night.
 sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2 ambient_crow ambient_wings ambient_fox ambient_wind_1 ambient_wind_night ambient_wind_night_1 ambient_wind_2 ambient_wind_3
@@ -71,7 +71,7 @@ sound:wild_volcano:wild_volcano
 sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4 ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Wood
-sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3 ambient_forest_birds ambient_wings ambient_birds ambient_birds_1 ambient_crow_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
+sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3 ambient_forest_birds ambient_wings ambient_birds ambient_birds_1 ambient_crow ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Mountain
 sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf ambient_wind_1 ambient_wind_2 ambient_wind_3
