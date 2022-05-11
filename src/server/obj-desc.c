@@ -171,6 +171,12 @@ static const char *obj_desc_get_basename(const struct object *obj, bool aware, b
             if (terse) return "& Spellbook~ #";
             return "& Elemental Spellbook~ #";
         }
+
+        case TV_TRAVEL_BOOK:
+        {
+            if (terse) return "& Guide~ #";
+            return "& Travel Guide~ #";
+        }
     }
 
     return "(nothing)";

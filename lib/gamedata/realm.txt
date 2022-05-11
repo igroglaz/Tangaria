@@ -43,6 +43,12 @@ verb:cast
 spell-noun:spell
 book-noun:elemental book
 
+name:common
+stat:CON
+verb:perform
+spell-noun:task
+book-noun:travel guide
+
 name:ghost
 verb:use
 spell-noun:power

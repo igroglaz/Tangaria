@@ -1457,6 +1457,7 @@ static const int adj_dex_blow[STAT_RANGE] =
  *   Elemntalist --> num = 3; mul = 2; div = MAX(40, weapon_weight);
  *   Summoner    --> num = 1; mul = 2; div = MAX(40, weapon_weight);
  *   Shapechangr --> num = 5; mul = 4; div = MAX(35, weapon_weight);
+ *   Villager    --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *
  * To get "P", we look up the relevant "adj_str_blow[]" (see above),
  * multiply it by "mul", and then divide it by "div", rounding down.

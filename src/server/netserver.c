@@ -6462,7 +6462,7 @@ static int Receive_play(int ind)
         else if (ptr->account && (ptr->account != connp->account))
         {
             plog("Invalid account");
-            Destroy_connection(ind, "Invalid account");
+            Destroy_connection(ind, "Invalid account (name already used by another player)");
             return -1;
         }
 

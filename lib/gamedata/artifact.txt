@@ -3227,10 +3227,11 @@ base-object:amulet:Lost Silmaril
 graphics:":d
 level:75
 weight:3
-alloc:0:75 to 127
-flags:SEE_INVIS | ESP_ALL |
+alloc:1:75 to 127
+flags:HOLD_LIFE | SEE_INVIS | ESP_ALL | SLOW_DIGEST |
 flags:KNOWLEDGE | PROT_BLIND | AGGRAVATE | STICKY
-values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[2] | RES_FIRE[3]
+values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[2] | SPEED[3] |
+values:RES_FIRE[3] | CHR[5]
 act:CLAIRVOYANCE
 time:50+d50
 desc:A red jewel, one of the two Silmarils that were reclaimed by the last sons

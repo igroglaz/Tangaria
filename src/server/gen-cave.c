@@ -2069,7 +2069,8 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
     bool lit, bool soft, bool wide)
 {
     int i, j, k;
-    struct loc grid;
+    struct loc grid, top_left, bottom_right;
+    int *find_state;
 
     /* This is the number of squares in the labyrinth */
     int n = h * w;
@@ -2202,40 +2203,41 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
         }
     }
 
-    /* Generate a door for every 100 squares in the labyrinth */
-    for (i = n / 100; i > 0; i--)
-    {
-        /* Try 10 times to find a useful place for a door, then place it */
-        for (j = 0; j < 10; j++)
-        {
-            find_empty(c, &grid);
-
-            /* Hack -- for wide corridors, place two doors */
-            if (wide)
-            {
-                struct loc choice, next;
-
-                if (lab_is_wide_tunnel(c, &grid, &choice))
-                {
-                    place_closed_door(c, &grid);
-                    loc_sum(&next, &grid, &choice);
-                    place_closed_door(c, &next);
-                    break;
-                }
-                continue;
-            }
-
-            if (lab_is_tunnel(c, &grid))
-            {
-                place_closed_door(c, &grid);
-                break;
-            }
-        }
-    }
-
     /* Deallocate our lists */
     mem_free(sets);
     mem_free(walls);
+
+    /* Generate a door for every 100 squares in the labyrinth */
+    loc_init(&top_left, 1, 1);
+    loc_init(&bottom_right, c->width - 2, c->height - 2);
+    find_state = cave_find_init(&top_left, &bottom_right);
+    i = n / 100;
+    while (i > 0 && cave_find_get_grid(&grid, find_state))
+    {
+        if (!square_isempty(c, &grid)) continue;
+
+        /* Hack -- for wide corridors, place two doors */
+        if (wide)
+        {
+            struct loc choice;
+
+            if (lab_is_wide_tunnel(c, &grid, &choice))
+            {
+                struct loc next;
+
+                place_closed_door(c, &grid);
+                loc_sum(&next, &grid, &choice);
+                place_closed_door(c, &next);
+                --i;
+            }
+        }
+        else if (lab_is_tunnel(c, &grid))
+        {
+            place_closed_door(c, &grid);
+            --i;
+        }
+    }
+    mem_free(find_state);
 
     return c;
 }

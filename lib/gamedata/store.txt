@@ -307,10 +307,12 @@ always:nature book
 always:shadow book
 always:psi book
 always:elemental book
+always:travel guide
 buy:nature book
 buy:shadow book
 buy:psi book
 buy:elemental book
+buy:travel guide
 
 # Place custom stores here
 

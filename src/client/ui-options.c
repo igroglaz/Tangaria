@@ -766,14 +766,14 @@ static void keymap_create(const char *title, int kmode)
 
     if (c.code)
     {
-        res = get_check_ex("Save this keymap? ");
+        res = get_check_ex("Keep this keymap? ");
         if (res)
         {
             if (res == 1) Term_event_push(&ea);
             return;
         }
         keymap_add(mode, c, keymap_buffer, true);
-        prt("Keymap added.  Press any key to continue.", 17, 0);
+        prt("To use in other sessions, save the keymaps to a file. Press a key to continue.", 17, 0);
         ke = inkey_ex();
         if (is_abort(ke)) Term_event_push(&ea);
     }
@@ -1856,6 +1856,7 @@ static tval_desc sval_dependent[] =
     {TV_SHADOW_BOOK, "Shadow Books"},
     {TV_PSI_BOOK, "Psi Books"},
     {TV_ELEM_BOOK, "Elemental Books"},
+    {TV_TRAVEL_BOOK, "Travel Guides"},
     {TV_FLASK, "Flasks of Oil"}
 };
 
@@ -2025,7 +2026,8 @@ static bool sval_menu(int tval, const char *desc)
         case TV_NATURE_BOOK:
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
-        case TV_ELEM_BOOK: break;
+        case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK: break;
 
         /* Sort by name */
         default: sort(choices, n_choices, sizeof(*choices), cmp_ignore);

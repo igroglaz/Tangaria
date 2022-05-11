@@ -2,6 +2,14 @@
 PWMAngband 1.6.0
 ================
 
+Main changes ported from Angband 4.2.4:
+- use C99 types instead of the angband special types
+- improvements to the birth process
+- improvements to changing of background colours
+- adding of a panic directory for panic saves
+- re-organisation of effects code
+- lots of tidying and neatening
+
 For a full list of changes made in older versions, check the Official
 PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 
@@ -37,6 +45,10 @@ Angband 4.2.x:
 - Allow monster races to customize the spell casting messages
 - Clarify rejection message for the fire command
 - Add comma to monster's name where appropriate
+- Change messages when a new keymap is entered
+- Drop phrase in monster name when forming a possessive
+- GCU: for 256 or 88 color terminals, default to using init_color() for the
+  color table
 
 MAngband 1.5.x:
 
@@ -48,6 +60,7 @@ PWMAngband:
 - Add option to hide controlled monsters in monster lists
 - Add /race and /class custom commands to display race and class stats during
   play
+- Clarify message when creating a character with a name that is already taken
 
 Gameplay changes
 ----------------
@@ -64,6 +77,9 @@ PWMAngband:
 - Allow curative spells/potions to heal controlled monsters
 - Allow permanently polymorphed DMs, turn ghost mode off in that case
 - Tweak dragons a bit, reduce HP bonus from high level forms by roughly 5%
+- Prevent entry to shallow dungeons based on max level instead of current level
+- Buffed The Lost Silmaril of Maglor
+- New class: Villager
 
 Bugs fixed
 ----------
@@ -143,6 +159,11 @@ Angband 4.2.x:
 - Use C99 types for the fixed size integers
 - Avoid most integer conversion warnings from Visual Studio
 - Add a mode to object_desc() that allows overriding obj->number
+- Move effect datafile functions to the right place
+- Mark dice_t* arguments as const if the function doesn't modify them
+- Add const to pointer arguments for functions in z-util.h
+- Add an iterator-like version of cave_find_in_range()
+- Move remove_object_curse() to obj-curse.c
 
 PWMAngband:
 
@@ -166,3 +187,4 @@ Compilation/documentation
 - Add panic directory to windows packaging
 - Update lib/readme.txt
 - Use a top-level help file customized for the chosen keyset
+- For the specialized pref files, fix a typo and change some markup

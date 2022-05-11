@@ -893,6 +893,7 @@ static void mass_produce(struct object *obj)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
         {
             if (cost <= 50) size += mass_roll(2, 3);
             if (cost <= 500) size += mass_roll(1, 3);

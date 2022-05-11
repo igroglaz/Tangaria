@@ -9,6 +9,6 @@ install-extra:
 			${MKDIR_P} ${DESTDIR}${vardatadir}${PACKAGE}; \
 			touch ${DESTDIR}${vardatadir}${PACKAGE}/scores.raw; \
 			chown -R root:${SETEGID} ${DESTDIR}${vardatadir}${PACKAGE}; \
-			chmod -R g+w ${DESTDIR}${vardatadir}${PACKAGE}; \
+			chmod -R 770 ${DESTDIR}${vardatadir}${PACKAGE}; \
 		fi; \
 	fi

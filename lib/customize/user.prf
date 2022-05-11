@@ -74,7 +74,7 @@
 %:Shaman.prf
 
 ?:[EQU $CLASS Priest]
-%:priest.prf
+%:Priest.prf
 
 ?:[EQU $CLASS Warlock]
 %:Warlock.prf

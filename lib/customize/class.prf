@@ -360,3 +360,11 @@ class:Adventurer
 help:Jack of all trades, master of none... He knows a lot of stuff and has tried
 help: lots professions. Very versatile, but also very mediocre in every regard..
 help: ...though oftentimes better than master of one.
+
+class:Villager
+help:Villagers are common folks, versatile and able to do anything, but also
+help: average at everything they do. They have no strengths nor weaknesses.
+help: Villagers use stamina given by their constitution to perform common tasks
+help: and can be accompanied by a single pet that they can summon at their leisure.
+help: They can chop wood and mine ore more easily as they advance in levels. They
+help: are able to turn terrain into crops and farm food from them.

@@ -406,6 +406,7 @@ bool tval_is_book_k(const struct object_kind *kind)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
             return true;
         default:
             return false;
@@ -423,6 +424,7 @@ bool tval_is_book(const struct object *obj)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
             return true;
         default:
             return false;

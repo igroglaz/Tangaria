@@ -138,6 +138,7 @@ static bool bold_extended = false;
 #ifdef HAVE_USE_DEFAULT_COLORS
 static bool use_default_background = false;
 #endif
+static bool keep_terminal_colors = false;
 static int term_count = 4;
 
 /*
@@ -732,31 +733,50 @@ static void handle_extended_color_tables(void)
 #ifdef A_COLOR
     if (COLORS == 256 || COLORS == 88)
     {
-        /*
-         * If we have more than 16 colors, find the best matches. These numbers
-         * correspond to xterm/rxvt's builtin color numbers -- they do not
-         * correspond to curses' constants OR with curses' color pairs.
-         *
-         * XTerm has 216 (6*6*6) RGB colors, with each RGB setting 0-5.
-         * RXVT has 64 (4*4*4) RGB colors, with each RGB setting 0-3.
-         *
-         * Both also have the basic 16 ANSI colors, plus some extra grayscale
-         * colors which we do not use.
-         */
+        int isbold = (bold_extended? A_BRIGHT: A_NORMAL);
         int i;
-        int scale = ((COLORS == 256)? 6: 4);
 
-        bg_color = create_color(COLOUR_DARK, scale);
-
-        for (i = 0; i < BASIC_COLORS; i++)
+        if (keep_terminal_colors)
         {
-            int fg = create_color(i, scale);
-            int isbold = (bold_extended? A_BRIGHT: A_NORMAL);
+            /*
+             * If we have more than 16 colors, find the best matches. These numbers
+             * correspond to xterm/rxvt's builtin color numbers -- they do not
+             * correspond to curses' constants OR with curses' color pairs.
+             *
+             * XTerm has 216 (6*6*6) RGB colors, with each RGB setting 0-5.
+             * RXVT has 64 (4*4*4) RGB colors, with each RGB setting 0-3.
+             *
+             * Both also have the basic 16 ANSI colors, plus some extra grayscale
+             * colors which we do not use.
+             */
+            int scale = ((COLORS == 256)? 6: 4);
 
-            init_pair(i + 1, fg, bg_color);
-            colortable[i] = COLOR_PAIR(i + 1) | isbold;
-            init_pair(BASIC_COLORS + i, fg, fg);
-            same_colortable[i] = COLOR_PAIR(BASIC_COLORS + i) | isbold;
+            bg_color = create_color(COLOUR_DARK, scale);
+
+            for (i = 0; i < BASIC_COLORS; i++)
+            {
+                int fg = create_color(i, scale);
+
+                init_pair(i + 1, fg, bg_color);
+                colortable[i] = COLOR_PAIR(i + 1) | isbold;
+                init_pair(BASIC_COLORS + i, fg, fg);
+                same_colortable[i] = COLOR_PAIR(BASIC_COLORS + i) | isbold;
+            }
+        }
+        else
+        {
+            bg_color = 0;
+            for (i = 0; i < BASIC_COLORS; i++)
+            {
+                /* Scale components to a range of 0 - 1000 per init_color()'s documentation. */
+                init_color(i, (angband_color_table[i][1] * 1001) / 256,
+                    (angband_color_table[i][2] * 1001) / 256,
+                    (angband_color_table[i][3] * 1001) / 256);
+                init_pair(i + 1, i, bg_color);
+                colortable[i] = COLOR_PAIR(i + 1) | isbold;
+                init_pair(BASIC_COLORS + i, i, i);
+                same_colortable[i] = COLOR_PAIR(BASIC_COLORS + i) | isbold;
+            }
         }
 
         for (i = 0; i < term_count; ++i)
@@ -1105,6 +1125,7 @@ errr init_gcu(void)
 #ifdef A_COLOR
     /* Do we have color, and enough color, available? */
     can_use_color = (has_colors() && (start_color() != ERR) && (COLORS >= 8) && (COLOR_PAIRS >= 8));
+    if (!can_change_color()) keep_terminal_colors = true;
 
 #ifdef HAVE_USE_DEFAULT_COLORS
     /* Should we use curses' "default color" */
