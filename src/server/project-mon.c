@@ -2201,7 +2201,7 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 
     mon->master = (p? p->id: 0);
 
-    /* Villagers have a permanent pet */
+    /* Adventurers have a permanent pet */
     mon->lifespan = 0;
     if (p && !player_has(p, PF_SUMMON_PERMA)) mon->lifespan = mon->level + 5 + randint1(5);
 

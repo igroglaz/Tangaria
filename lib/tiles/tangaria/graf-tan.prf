@@ -1280,7 +1280,7 @@ object:dragon armour:Water Dragon Scale Mail:0x80:0xBB
 object:deed:Deed of Property:0x87:0xCD
 object:scroll:Wilderness Mapping:0x87:0xDA
 object:fortune cookie:Fortune Cookie:0x82:0x82
-
+object:travel guide:[Basics]:0x86:0x80
 
 ##### Monster attr/char definitions #####
 

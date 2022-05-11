@@ -462,7 +462,7 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
     {
         status_player = MSTATUS_CONTROLLED;
 
-        /* Villagers only have one pet */
+        /* Adventurers only have one pet */
         if (player_has(p, PF_SUMMON_PERMA) && p->slaves)
         {
             msg(p, "You already have a pet.");
