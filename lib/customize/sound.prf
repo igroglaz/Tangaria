@@ -615,6 +615,9 @@ sound:kill_slime:kill_slime kill_slime_1 kill_slime_2 kill_slime_3 kill_slime_4 
 # stinger, giant beetle
 sound:kill_stinger:kill_stinger
 
+# mushroom
+sound:kill_mushroom:kill_mushroom_1 kill_mushroom_2 kill_mushroom_3 kill_mushroom_4 kill_mushroom_5 kill_mushroom_6 kill_mushroom_7 kill_mushroom_8 kill_mushroom_9 kill_mushroom_10 kill_mushroom_11
+
 # Attack - hit
 sound:mon_hit:mco_hit_whip
 

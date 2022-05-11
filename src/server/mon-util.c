@@ -1162,6 +1162,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     else if (mon->race->base == lookup_monster_base("stinger") ||
              mon->race->base == lookup_monster_base("killer beetle"))
         soundfx = MSG_KILL_STINGER;
+    else if (mon->race->base == lookup_monster_base("mushroom"))
+        soundfx = MSG_KILL_MUSHROOM;
 
     /* Death message */
     switch (note)
