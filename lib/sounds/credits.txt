@@ -1,3 +1,7 @@
+alphahog
+https://freesound.org/people/alphahog/sounds/84112/
+npc_vet
+
 Intimidated
 https://freesound.org/people/Intimidated/sounds/61571/
 npc_welcome
