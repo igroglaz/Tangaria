@@ -122,6 +122,9 @@ sound:enter_ruins:enter_ruins
 # paths_of_the_dead
 sound:paths_of_the_dead:paths_of_the_dead ambient_wind_night
 
+# manor
+sound:manor:manor
+
 # Dungeon level 99 (4950')
 sound:ambient_sauron:amb_sauron
 

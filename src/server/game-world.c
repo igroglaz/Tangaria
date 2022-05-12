@@ -2152,6 +2152,8 @@ static void generate_new_level(struct player *p)
         sound(p, MSG_GONG); // enter Orc Caves
     else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 0 && p->wpos.depth == 20)
         sound(p, MSG_KIKIMORA); // hi from Kikimora
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 2 && p->wpos.depth == 25)
+        sound(p, MSG_MANOR); // hi from Koschei
     else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && p->wpos.depth == 30)
     {
         msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
