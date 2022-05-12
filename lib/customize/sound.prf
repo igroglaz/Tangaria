@@ -184,6 +184,7 @@ sound:npc_hi:npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
 sound:npc_girl:npc_girl_1 npc_girl_2 npc_girl_3 npc_girl_4 npc_girl_5 npc_girl_6
 sound:npc_warr:ambient/store/warr_1 ambient/store/warr_2 ambient/store/warr_3 ambient/store/warr_4 ambient/store/warr_5 ambient/store/warr_6 ambient/store/warr_7 ambient/store/warr_8 ambient/store/warr_9
 sound:npc_armor:ambient/store/armor
+sound:npc_arrow:ambient/store/arrow_1 ambient/store/arrow_2 ambient/store/arrow_3
 
 #
 # Player sounds - combat
