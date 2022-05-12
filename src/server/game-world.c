@@ -2154,6 +2154,8 @@ static void generate_new_level(struct player *p)
         sound(p, MSG_KIKIMORA); // hi from Kikimora
     else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 2 && p->wpos.depth == 25)
         sound(p, MSG_MANOR); // hi from Koschei
+    else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 2 && p->wpos.depth > 27)
+        sound(p, MSG_ENTER_BARROW); // hi from Witch-King (every floor)
     else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && p->wpos.depth == 30)
     {
         msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
