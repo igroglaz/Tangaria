@@ -191,6 +191,7 @@ sound:npc_armor:ambient/store/armor
 sound:npc_arrow:ambient/store/arrow_1 ambient/store/arrow_2 ambient/store/arrow_3
 sound:store_magic:ambient/store/magic
 sound:store_weapon:ambient/store/store_weapon
+sound:store_temple:ambient/store/store_temple
 
 #
 # Player sounds - combat
