@@ -180,6 +180,7 @@ sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_alchemy:ambient/store/alchemy
+sound:store_alchemy_boom:ambient/store/alchemy_boom
 sound:store_magic_tower:ambient/store/magic_tower
 sound:store_spells:ambient/store/spells
 sound:npc_cat:ambient/store/purr ambient/store/meow

@@ -3376,7 +3376,13 @@ void do_cmd_store(struct player *p, int pstore)
             if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
             else if (streq(s->name, "Halbarad, the old ranger")) sound(p, MSG_NPC_HI);
             else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
-            else if (streq(s->name, "Alchemy Shop")) sound(p, MSG_STORE_ALCHEMY);
+            else if (streq(s->name, "Alchemy Shop"))
+            {
+                if (one_in_(6))
+                    sound(p, MSG_STORE_ALCHEMY_BOOM);
+                else
+                    sound(p, MSG_STORE_ALCHEMY);
+            }
             else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
             else if (streq(s->name, "Morinehtar the Wizard")) sound(p, MSG_STORE_MAGIC);
             else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
