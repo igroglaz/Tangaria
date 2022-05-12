@@ -166,7 +166,8 @@ sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
 sound:store_other_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_general_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_temple_sound:tomenet/ambient/persistent/inn/fireplace
-sound:store_bookseller_sound:ambient/store/clock
+sound:store_book_clock:ambient/store/clock
+sound:store_book_cuckoo:ambient/store/cuckoo
 sound:store_b_market_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_xbm_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
