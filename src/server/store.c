@@ -3389,13 +3389,12 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Armoury")) sound(p, MSG_NPC_ARMOR);
             else if (streq(s->name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
             else if (streq(s->name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
-            else if (streq(s->name, "Temple")) sound(p, MSG_STORE_TEMPLE);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
             break;
         case STORE_TEMPLE:
-            sound(p, MSG_STORE_TEMPLE_SOUND);
+            sound(p, MSG_STORE_TEMPLE);
             break;
         case STORE_BOOKSELLER:
             if (one_in_(5))
