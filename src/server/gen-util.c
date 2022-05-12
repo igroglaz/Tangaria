@@ -263,7 +263,7 @@ bool cave_find(struct chunk *c, struct loc *grid, square_predicate pred)
     struct loc top_left, bottom_right;
 
     loc_init(&top_left, 0, 0);
-    loc_init(&bottom_right, c->width, c->height);
+    loc_init(&bottom_right, c->width - 1, c->height - 1);
     return cave_find_in_range(c, grid, &top_left, &bottom_right, pred);
 }
 
