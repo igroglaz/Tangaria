@@ -503,7 +503,7 @@ sound:damage:tomenet/magic/curse/curse
 sound:earthquake:tomenet/misc/earthquake/stones
 
 # destruction
-sound:destruction:tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
+sound:destruction:tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion explosion_1
 
 # blast
 sound:blast:blast
