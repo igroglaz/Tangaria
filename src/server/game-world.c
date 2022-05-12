@@ -265,7 +265,12 @@ static void play_ambient_sound(struct player *p)
         if (in_town(&p->wpos))
         {
             if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) && one_in_(2))
-                sound(p, MSG_TOWN);
+            {
+                if (one_in_(5))
+                    sound(p, MSG_TOWN_RARE);
+                else
+                    sound(p, MSG_TOWN);
+            }
             else if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) ||
                 (p->wpos.grid.x == -1 && p->wpos.grid.y ==  1) ||
                 (p->wpos.grid.x ==  0 && p->wpos.grid.y == -1) ||

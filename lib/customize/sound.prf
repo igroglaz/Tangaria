@@ -49,6 +49,9 @@ sound:silent101:silent101
 # real town (npc city)
 sound:town:ambient/outside/dog_small ambient/outside/bell
 
+# real town (npc city) rare sounds
+sound:town_rare:ambient/outside/build_1 ambient/outside/build_2 ambient/outside/build_3 ambient/outside/build_4 ambient/outside/build_5 ambient/outside/build_6
+
 # Town during the day.
 sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
