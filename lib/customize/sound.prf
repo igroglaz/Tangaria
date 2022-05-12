@@ -172,7 +172,7 @@ sound:store_temple_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_book_clock:ambient/store/clock
 sound:store_book_cuckoo:ambient/store/cuckoo
 sound:store_b_market_sound:ambient/store/bm
-sound:store_xbm_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_xbm_sound:ambient/store/xbm
 sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
