@@ -590,6 +590,9 @@ sound:kill_unique_undead:sum_gong_temple
 # uniq demon
 sound:kill_unique_demon:tomenet/monster/hector
 
+# uniq dragon
+sound:kill_unique_dragon:sum_lion_growl
+
 # baba yaga
 sound:kill_unique_yaga:kill_unique_yaga
 
@@ -605,8 +608,8 @@ sound:kill_unique_shelob:kill_unique_shelob
 # shtukensia
 sound:defeat_unique_shtukensia:defeat_unique_shtukensia
 
-# uniq demon
-sound:kill_unique_dragon:sum_lion_growl
+# u angel
+sound:kill_unique_angel:kill_unique_angel
 
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
