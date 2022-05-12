@@ -47,7 +47,7 @@ sound:silent100:silent100
 sound:silent101:silent101
 
 # real town (npc city)
-sound:town:ambient/outside/dog_small ambient/outside/bell ambient/outside/cart
+sound:town:ambient/outside/dog_small ambient/outside/bell ambient/outside/cart ambient/outside/street
 
 # real town (npc city) rare sounds
 sound:town_rare:ambient/outside/build_1 ambient/outside/build_2 ambient/outside/build_3 ambient/outside/build_4 ambient/outside/build_5 ambient/outside/build_6
