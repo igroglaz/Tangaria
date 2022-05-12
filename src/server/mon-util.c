@@ -1140,6 +1140,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         else if (streq(mon->race->name, "Shelob, Spider of Darkness") ||
                  streq(mon->race->name, "Ungoliant, the Unlight"))
             soundfx = MSG_KILL_UNIQUE_SHELOB;
+        else if (streq(mon->race->name, "Koschei the Deathless"))
+            soundfx = MSG_KILL_KOSCHEI;
         else
             soundfx = MSG_KILL_UNIQUE;
     }

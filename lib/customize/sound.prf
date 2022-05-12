@@ -618,6 +618,9 @@ sound:defeat_unique_shtukensia:defeat_unique_shtukensia
 # u angel
 sound:kill_unique_angel:kill_unique_angel
 
+# laugh koschei
+sound:kill_koschei:kill_koschei
+
 # terr yeek (wilhelm sound)
 sound:kill_yeek:kill_yeek
 
