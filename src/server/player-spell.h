@@ -23,7 +23,6 @@ extern const struct class_spell *spell_by_index(const struct class_magic *magic,
 extern int16_t spell_chance(struct player *p, int spell_index);
 extern bool spell_is_identify(struct player *p, int spell_index);
 extern void get_spell_info(struct player *p, int spell_index, char *buf, size_t len);
-extern expression_base_value_f spell_value_base_by_name(const char *name);
 
 extern void cast_spell_end(struct player *p);
 extern void show_ghost_spells(struct player *p);

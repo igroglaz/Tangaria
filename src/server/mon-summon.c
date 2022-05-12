@@ -459,7 +459,16 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
 
     /* Hack -- try to "charm" the monster (friendly summon) */
     if (magik(chance) && can_charm_monster(p, summon_level, STAT_WIS))
+    {
         status_player = MSTATUS_CONTROLLED;
+
+        /* Adventurers only have one pet */
+        if (player_has(p, PF_SUMMON_PERMA) && p->slaves)
+        {
+            msg(p, "You already have a pet.");
+            return 0;
+        }
+    }
 
     /* Save the "summon" type */
     summon_specific_type = type;

@@ -264,7 +264,14 @@ static void play_ambient_sound(struct player *p)
     {
         if (in_town(&p->wpos))
         {
-            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) ||
+            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) && one_in_(2))
+            {
+                if (one_in_(5))
+                    sound(p, MSG_TOWN_RARE);
+                else
+                    sound(p, MSG_TOWN);
+            }
+            else if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) ||
                 (p->wpos.grid.x == -1 && p->wpos.grid.y ==  1) ||
                 (p->wpos.grid.x ==  0 && p->wpos.grid.y == -1) ||
                 (p->wpos.grid.x ==  0 && p->wpos.grid.y == -2) ||
@@ -330,6 +337,14 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_DNG2);
     else if (p->wpos.depth <= 60)
         sound(p, MSG_AMBIENT_DNG3);
+    // paths of the dead
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -1 && p->wpos.depth >= 66)
+    {
+        if (one_in_(2))
+            sound(p, MSG_AMBIENT_DNG4);
+        else
+            sound(p, MSG_PATHS_OF_THE_DEAD);
+    }
     else if (p->wpos.depth <= 80)
         sound(p, MSG_AMBIENT_DNG4);
     else if (p->wpos.depth <= 98)
@@ -2127,9 +2142,11 @@ static void generate_new_level(struct player *p)
         msgt(p, MSG_ENTER_PIT, "The air feels very still!");
 
     if (p->wpos.grid.x == 1 && p->wpos.grid.y == 0 && p->wpos.depth == 5)
-        sound(p, MSG_AMBIENT_VOICE); // creepy voice of Yaga
-    else if (p->wpos.grid.x == 1 && p->wpos.grid.y == 1 && p->wpos.depth == 1)
+        sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
+    else if (p->wpos.grid.x == 1 && p->wpos.grid.y == 1 && p->wpos.depth == 4)
         sound(p, MSG_GONG); // enter Orc Caves
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 0 && p->wpos.depth == 20)
+        sound(p, MSG_KIKIMORA); // hi from Kikimora
     else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && p->wpos.depth == 30)
     {
         msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");

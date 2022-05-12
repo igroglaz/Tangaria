@@ -40,11 +40,23 @@ sound:silent:silent
 # Stop looped playback
 sound:silent0:silent0
 
+# Music volume down
+sound:silent100:silent100
+
+# Restore music volume
+sound:silent101:silent101
+
+# real town (npc city)
+sound:town:ambient/outside/dog_small ambient/outside/bell ambient/outside/cart
+
+# real town (npc city) rare sounds
+sound:town_rare:ambient/outside/build_1 ambient/outside/build_2 ambient/outside/build_3 ambient/outside/build_4 ambient/outside/build_5 ambient/outside/build_6
+
 # Town during the day.
-sound:ambient_day:amb_thunder_rain ambient/outside/rain_light
+sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Town during the night.
-sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2
+sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2 ambient_crow ambient_wings ambient_fox ambient_wind_1 ambient_wind_night ambient_wind_night_1 ambient_wind_2 ambient_wind_3
 
 # Long rain
 sound:wild_rain:tomenet/weather/rain/rain
@@ -62,16 +74,16 @@ sound:wild_waste:wild_waste
 sound:wild_volcano:wild_volcano
 
 # Grass
-sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4
+sound:wild_grass:tomenet/ambient/timed/birdofprey/birdofprey tomenet/ambient/timed/birdofprey/birdofprey2 tomenet/ambient/timed/birdofprey/birdofprey3 tomenet/ambient/timed/birdofprey/birdofprey4 ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Wood
-sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3
+sound:wild_wood:wild_grass tomenet/ambient/timed/bird/bird tomenet/ambient/timed/bird/bird2 tomenet/ambient/timed/bird/bird3 ambient_forest_birds ambient_wings ambient_birds ambient_birds_1 ambient_crow ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Mountain
-sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf
+sound:wild_mountain:wild_wolf tomenet/ambient/timed/wolf/wolf ambient_wind_1 ambient_wind_2 ambient_wind_3 vulture
 
 # Desert
-sound:wild_desert:wild_desert
+sound:wild_desert:wild_desert ambient_wind_1 ambient_wind_2 ambient_wind_3 vulture
 
 # Glacier
 sound:wild_glacier:wild_glacier
@@ -84,7 +96,7 @@ sound:wild_swamp:wild_swamp tomenet/ambient/timed/toad/toad tomenet/ambient/time
 sound:wild_deepwater:wild_deepwater
 
 # Hill
-sound:wild_hill:wild_hill wild_hill2
+sound:wild_hill:wild_hill wild_hill2 ambient_wind_1 ambient_wind_2 ambient_wind_3
 
 # Shore
 sound:wild_shore:wild_shore tomenet/ambient/timed/seagull/seagulls
@@ -103,6 +115,9 @@ sound:ambient_dng4:amb_bell_tibet3 amb_dungeon_echowet amb_gong_undertone
 
 # Dungeon levels 81-98 (4050'- 4900')
 sound:ambient_dng5:amb_door_doom amb_gong_chinese amb_gong_low
+
+# paths_of_the_dead
+sound:paths_of_the_dead:paths_of_the_dead ambient_wind_night
 
 # Dungeon level 99 (4950')
 sound:ambient_sauron:amb_sauron
@@ -154,8 +169,9 @@ sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
 sound:store_other_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_general_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_temple_sound:tomenet/ambient/persistent/inn/fireplace
-sound:store_bookseller_sound:tomenet/ambient/persistent/inn/fireplace
-sound:store_b_market_sound:tomenet/ambient/persistent/inn/fireplace
+sound:store_book_clock:ambient/store/clock
+sound:store_book_cuckoo:ambient/store/cuckoo
+sound:store_b_market_sound:ambient/store/bm
 sound:store_xbm_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
@@ -164,6 +180,9 @@ sound:store_alchemy:ambient/store/alchemy
 sound:store_magic:ambient/store/magic
 sound:store_spells:ambient/store/spells
 sound:npc_cat:ambient/store/purr ambient/store/meow
+sound:npc_hi:npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
+sound:npc_girl:npc_girl_1 npc_girl_2 npc_girl_3 npc_girl_4 npc_girl_5 npc_girl_6
+sound:npc_warr:ambient/store/warr_1 ambient/store/warr_2 ambient/store/warr_3 ambient/store/warr_4 ambient/store/warr_5 ambient/store/warr_6 ambient/store/warr_7 ambient/store/warr_8 ambient/store/warr_9
 
 #
 # Player sounds - combat
@@ -479,10 +498,10 @@ sound:bolt:tomenet/magic/bolt/bolt
 sound:damage:tomenet/magic/curse/curse
 
 # earthquake
-sound:earthquake:earthquake tomenet/misc/earthquake/stones
+sound:earthquake:tomenet/misc/earthquake/stones
 
 # destruction
-sound:destruction:destruction tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
+sound:destruction:tomenet/misc/destruction/magicblast tomenet/misc/detonation/explosion
 
 # blast
 sound:blast:blast
@@ -520,6 +539,12 @@ sound:create_walls:tomenet/misc/stone_wall/stone1 tomenet/misc/stone_wall/stone2
 # create trees
 sound:create_trees:tomenet/player/misc/grow_trees/wood1 tomenet/player/misc/grow_trees/wood2 tomenet/player/misc/grow_trees/wood3
 
+# detect monsters/players (all kind of magic)
+sound:detect:detect
+
+# glyph
+sound:glyph:glyph
+
 # You successfully pray a prayer.
 sound:pray_prayer:sum_angel_song
 
@@ -548,7 +573,7 @@ sound:kill:mco_howl_croak mco_howl_deep mco_howl_distressed mco_howl_high mco_ho
 sound:kill_unique:sum_ghost_wail
 
 # Morgoth, Lord of Darkness is killed.
-sound:kill_king:amb_guitar_chord
+sound:kill_king:kill_king
 
 # nazgul
 sound:kill_nazgul:sum_ghost_moan sum_ghost_oooo
@@ -563,7 +588,16 @@ sound:kill_unique_demon:tomenet/monster/hector
 sound:kill_unique_yaga:kill_unique_yaga
 
 # kikimora
-sound:kill_unique_kikimora:ambient/voice/intro_7
+sound:kill_unique_kikimora:kill_unique_kikimora
+
+# WITCH KING
+sound:kill_unique_witch_king:kill_unique_witch_king
+
+# shelob / ungoliant
+sound:kill_unique_shelob:kill_unique_shelob
+
+# shtukensia
+sound:defeat_unique_shtukensia:defeat_unique_shtukensia
 
 # uniq demon
 sound:kill_unique_dragon:sum_lion_growl
@@ -582,6 +616,15 @@ sound:kill_snake:tomenet/player/commands/staircase/slither
 
 # hydra
 sound:kill_hydra:tomenet/player/misc/death/dspdiehi tomenet/player/misc/death/dspldeth
+
+# jelly, mold
+sound:kill_slime:kill_slime kill_slime_1 kill_slime_2 kill_slime_3 kill_slime_4 kill_slime_5 kill_slime_6 kill_slime_7 kill_slime_8
+
+# stinger, giant beetle
+sound:kill_stinger:kill_stinger
+
+# mushroom
+sound:kill_mushroom:kill_mushroom_1 kill_mushroom_2 kill_mushroom_3 kill_mushroom_4 kill_mushroom_5 kill_mushroom_6 kill_mushroom_7 kill_mushroom_8 kill_mushroom_9 kill_mushroom_10 kill_mushroom_11
 
 # Attack - hit
 sound:mon_hit:mco_hit_whip
@@ -865,7 +908,11 @@ sound:item_light_phial:item_light_phial_1 item_light_phial_2
 
 sound:item_light_palantir:item_light_palantir_1 item_light_palantir_2
 
+# 5 lvl mount gorge
 sound:ambient_voice:ambient/voice/intro_1 ambient/voice/intro_2 ambient/voice/intro_3 ambient/voice/intro_4 ambient/voice/intro_5 ambient/voice/intro_6
+
+# last lvl in fetid swamps (kiki)
+sound:kikimora:ambient/voice/intro_7
 
 sound:gong:tomenet/player/alert/event/gong
 
@@ -873,7 +920,15 @@ sound:fanfare:tomenet/player/alert/event/fanfare
 
 sound:poly_bat:tomenet/player/commands/staircase/wings
 
-# client T sounds
+# Receive_message() chat
+sound:message:message
+
+# lvl danger feeling
+sound:danger_9:danger_9
+
+######################
+###################### client T sounds
+######################
 sound:browse_book:tomenet/player/commands/browse/book tomenet/player/commands/browse/papers tomenet/player/commands/browse/scroll
 
 # leave empty line for EOF

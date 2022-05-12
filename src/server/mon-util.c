@@ -1126,12 +1126,20 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             soundfx = MSG_KILL_UNIQUE_UNDEAD;
         else if (mon->race->base == lookup_monster_base("demon"))
             soundfx = MSG_KILL_UNIQUE_DEMON;
-        else if (mon->race->base == lookup_monster_base("dragon") || mon->race->base == lookup_monster_base("ancient dragon"))
+        else if (mon->race->base == lookup_monster_base("dragon") ||
+                 mon->race->base == lookup_monster_base("ancient dragon"))
             soundfx = MSG_KILL_UNIQUE_DRAGON;
         else if (streq(mon->race->name, "Vasilisa the Beautiful")) // baba yaga
             soundfx = MSG_KILL_UNIQUE_YAGA;
         else if (streq(mon->race->name, "Kikimora"))
             soundfx = MSG_KILL_UNIQUE_KIKIMORA;
+        else if (streq(mon->race->name, "Shtukensia"))
+            soundfx = MSG_DEFEAT_UNIQUE_SHTUKENSIA;
+        else if (streq(mon->race->name, "The Witch-King of Angmar"))
+            soundfx = MSG_KILL_UNIQUE_WITCH_KING;
+        else if (streq(mon->race->name, "Shelob, Spider of Darkness") ||
+                 streq(mon->race->name, "Ungoliant, the Unlight"))
+            soundfx = MSG_KILL_UNIQUE_SHELOB;
         else
             soundfx = MSG_KILL_UNIQUE;
     }
@@ -1139,12 +1147,23 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         soundfx = MSG_KILL_YEEK;
     else if (mon->race->base == lookup_monster_base("rodent"))
         soundfx = MSG_KILL_RODENT;
-    else if (mon->race->base == lookup_monster_base("insect"))
+    else if (mon->race->base == lookup_monster_base("insect") ||
+             mon->race->base == lookup_monster_base("ant") ||
+             mon->race->base == lookup_monster_base("centipede") ||
+             mon->race->base == lookup_monster_base("killer beetle"))
         soundfx = MSG_KILL_INSECT;
     else if (mon->race->base == lookup_monster_base("snake"))
         soundfx = MSG_KILL_SNAKE;
     else if (mon->race->base == lookup_monster_base("hydra"))
         soundfx = MSG_KILL_HYDRA;
+    else if (mon->race->base == lookup_monster_base("jelly") ||
+             mon->race->base == lookup_monster_base("mold"))
+        soundfx = MSG_KILL_SLIME;
+    else if (mon->race->base == lookup_monster_base("stinger") ||
+             mon->race->base == lookup_monster_base("killer beetle"))
+        soundfx = MSG_KILL_STINGER;
+    else if (mon->race->base == lookup_monster_base("mushroom"))
+        soundfx = MSG_KILL_MUSHROOM;
 
     /* Death message */
     switch (note)

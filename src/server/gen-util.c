@@ -147,6 +147,85 @@ void shuffle(int *arr, int n)
 
 
 /*
+ * Set up to locate a square in a rectangular region of a chunk.
+ *
+ * top_left is the upper left corner of the rectangle to be searched.
+ * bottom_right is the lower right corner of the rectangle to be searched.
+ *
+ * Returns the state for the search. When no longer needed, the returned
+ * value should be passed to mem_free().
+ */
+int *cave_find_init(struct loc *top_left, struct loc *bottom_right)
+{
+    struct loc diff;
+    int n;
+    int *state;
+    int i;
+
+    loc_diff(&diff, bottom_right, top_left);
+    n = ((diff.y < 0 || diff.x < 0)? 0: (diff.x + 1) * (diff.y + 1));
+    state = mem_alloc((5 + n) * sizeof(*state));
+
+    state[0] = n;
+    state[1] = diff.x + 1;
+    state[2] = top_left->x;
+    state[3] = top_left->y;
+
+    /* The next to search is the first one. */
+    state[4] = 0;
+
+    /* Set up for left to right, top to bottom, search; will randomize in cave_find_get_grid(). */
+    for (i = 5; i < 5 + n; ++i) state[i] = i - 5;
+
+    return state;
+}
+
+
+/*
+ * Reset a search created by cave_find_init() to start again from fresh.
+ *
+ * state is the search state created by cave_find_init().
+ */
+void cave_find_reset(int *state)
+{
+    /* The next to search is the first one. */
+    state[4] = 0;
+}
+
+
+/*
+ * Get the next grid for a search created by cave_find_init().
+ *
+ * grid is dereferenced and set to the grid to check.
+ * state is the search state created by cave_find_init().
+ *
+ * Returns true if grid was dereferenced and set to the next grid to be
+ * searched; otherwise return false to indicate that there are no more grids
+ * available.
+ */
+bool cave_find_get_grid(struct loc *grid, int *state)
+{
+    int j, k;
+
+    my_assert(state[4] >= 0);
+    if (state[4] >= state[0]) return false;
+
+    /* Choose one of the remaining ones at random. Swap it with the one that's next in order. */
+    j = randint0(state[0] - state[4]) + state[4];
+    k = state[5 + j];
+    state[5 + j] = state[5 + state[4]];
+    state[5 + state[4]] = k;
+
+    grid->y = (k / state[1]) + state[3];
+    grid->x = (k % state[1]) + state[2];
+
+    /* Increment so a future call to cave_find_get_grid() will get the next one. */
+    ++state[4];
+    return true;
+}
+
+
+/*
  * Locate a square in a rectangle which satisfies the given predicate.
  *
  * c current chunk
@@ -160,36 +239,12 @@ void shuffle(int *arr, int n)
 bool cave_find_in_range(struct chunk *c, struct loc *grid, struct loc *top_left,
     struct loc *bottom_right, square_predicate pred)
 {
-    struct loc diff;
-    int i, n;
+    int *state = cave_find_init(top_left, bottom_right);
     bool found = false;
-    int *squares;
 
-    loc_diff(&diff, bottom_right, top_left);
-    n = diff.y * diff.x;
+    while (!found && cave_find_get_grid(grid, state)) found = pred(c, grid);
 
-    /* Allocate the squares, and randomize their order */
-    squares = mem_alloc(n * sizeof(int));
-
-    for (i = 0; i < n; i++) squares[i] = i;
-
-    /* Test each square in (random) order for openness */
-    for (i = 0; i < n && !found; i++)
-    {
-        int j = randint0(n - i) + i;
-        int k = squares[j];
-
-        squares[j] = squares[i];
-        squares[i] = k;
-
-        grid->y = (k / diff.x) + top_left->y;
-        grid->x = (k % diff.x) + top_left->x;
-        if (pred(c, grid)) found = true;
-    }
-
-    mem_free(squares);
-
-    /* Return whether we found an empty square or not. */
+    mem_free(state);
     return found;
 }
 
@@ -274,7 +329,7 @@ bool find_nearby_grid(struct chunk *c, struct loc *grid, struct loc *centre, int
     struct loc top_left, bottom_right;
 
     loc_init(&top_left, centre->x - xd, centre->y - yd);
-    loc_init(&bottom_right, centre->x + xd + 1, centre->y + yd + 1);
+    loc_init(&bottom_right, centre->x + xd, centre->y + yd);
     return cave_find_in_range(c, grid, &top_left, &bottom_right, square_in_bounds_fully);
 }
 
@@ -326,34 +381,16 @@ void rand_dir(struct loc *offset)
  *
  * Returns success
  */
-static bool square_suits_stairs(struct chunk *c, struct loc *grid, int walls)
+static bool square_suits_stairs(struct chunk *c, struct loc *grid, int walls, int *state)
 {
-    int i, n = c->height * c->width;
     bool found = false;
 
-    /* Allocate the squares, and randomize their order */
-    int *squares = mem_alloc(n * sizeof(int));
-
-    for (i = 0; i < n; i++) squares[i] = i;
-
-    /* Test each square in (random) order for openness */
-    for (i = 0; i < n && !found; i++)
+    while (!found && cave_find_get_grid(grid, state))
     {
-        int j = randint0(n - i) + i;
-        int k = squares[j];
-
-        squares[j] = squares[i];
-        squares[i] = k;
-
-        grid->y = (k / c->width);
-        grid->x = (k % c->width);
-
         if (!square_isempty(c, grid)) continue;
         if (square_isvault(c, grid) || square_isno_stairs(c, grid)) continue;
         if (square_num_walls_adjacent(c, grid) == walls) found = true;
     }
-
-    mem_free(squares);
 
     /* Return whether we found an empty square or not. */
     return found;
@@ -371,17 +408,28 @@ static bool square_suits_stairs(struct chunk *c, struct loc *grid, int walls)
 bool find_start(struct chunk *c, struct loc *grid)
 {
     int walls = 3;
+    struct loc top_left, bottom_right;
+    int *state;
+
+    loc_init(&top_left, 1, 1);
+    loc_init(&bottom_right, c->width - 2, c->height - 2);
+    state = cave_find_init(&top_left, &bottom_right);
 
     /* Gradually reduce number of walls if having trouble */
     while (walls >= 0)
     {
         /* Find the best possible place */
-        if (square_suits_stairs(c, grid, walls))
+        if (square_suits_stairs(c, grid, walls, state))
+        {
+            mem_free(state);
             return true;
+        }
 
         walls--;
+        cave_find_reset(state);
     }
 
+    mem_free(state);
     plog("Failed to place player; please report. Restarting generation.");
     dump_level_simple(NULL, "Player Placement Failure", c);
     return false;
@@ -753,6 +801,12 @@ void alloc_stairs(struct chunk *c, int feat, int num)
     int i;
     struct loc grid;
     int walls = 3;
+    struct loc top_left, bottom_right;
+    int *state;
+
+    loc_init(&top_left, 1, 1);
+    loc_init(&bottom_right, c->width - 2, c->height - 2);
+    state = cave_find_init(&top_left, &bottom_right);
 
     /* Place "num" stairs */
     for (i = 0; i < num; i++)
@@ -761,17 +815,24 @@ void alloc_stairs(struct chunk *c, int feat, int num)
         while (true)
         {
             /* Find the best possible place */
-            if (square_suits_stairs(c, &grid, walls))
+            if (square_suits_stairs(c, &grid, walls, state))
             {
                 place_stairs(c, &grid, feat);
                 break;
             }
 
             /* Require fewer walls */
-            if (walls == 0) quit("Failed to place stairs!");
+            if (walls == 0)
+            {
+                mem_free(state);
+                quit("Failed to place stairs!");
+            }
             walls--;
+            cave_find_reset(state);
         }
     }
+
+    mem_free(state);
 }
 
 
@@ -815,60 +876,59 @@ void alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num,
  * 'set' controls where the object is placed (corridor, room, either).
  * 'typ' controls the kind of object (rubble, trap, gold, item).
  */
-bool alloc_object(struct player *p, struct chunk *c, int set, int typ, int depth,
-    uint8_t origin)
+bool alloc_object(struct player *p, struct chunk *c, int set, int typ, int depth, uint8_t origin)
 {
-    int tries = 0;
-    struct loc grid;
+    bool placed = false;
+    struct loc grid, top_left, bottom_right;
+    int *state;
 
-    /* Pick a "legal" spot */
-    while (tries < 2000)
+    loc_init(&top_left, 1, 1);
+    loc_init(&bottom_right, c->width - 2, c->height - 2);
+    state = cave_find_init(&top_left, &bottom_right);
+
+    while (!placed && cave_find_get_grid(&grid, state))
     {
-        tries++;
-
-        if (!find_empty(c, &grid)) continue;
+        /* If we are ok with a corridor and we're in one, we're done */
+        /* If we are ok with a room and we're in one, we're done */
+        bool matched = ((set & SET_CORR) && !square_isroom(c, &grid)) ||
+            ((set & SET_ROOM) && square_isroom(c, &grid));
 
         /* Prevent objects from being placed in remote areas */
-        if (!square_is_monster_walkable(c, &grid)) continue;
-
-        /* If we are ok with a corridor and we're in one, we're done */
-        if (set & SET_CORR && !square_isroom(c, &grid)) break;
-
-        /* If we are ok with a room and we're in one, we're done */
-        if (set & SET_ROOM && square_isroom(c, &grid)) break;
-    }
-
-    if (tries == 2000) return false;
-
-    /* Place something */
-    switch (typ)
-    {
-        case TYP_RUBBLE: place_rubble(c, &grid); break;
-        case TYP_FOUNTAIN: place_fountain(c, &grid); break;
-        case TYP_TRAP: place_traps(c, &grid); break;
-        case TYP_GOLD:
+        if (square_isempty(c, &grid) && !square_is_monster_walkable(c, &grid) && matched)
         {
-            place_gold(p, c, &grid, depth, origin);
-            break;
-        }
-        case TYP_OBJECT:
-        {
-            place_object(p, c, &grid, depth, false, false, origin, 0);
-            break;
-        }
-        case TYP_GOOD:
-        {
-            place_object(p, c, &grid, depth, true, false, origin, 0);
-            break;
-        }
-        case TYP_GREAT:
-        {
-            place_object(p, c, &grid, depth, true, true, origin, 0);
-            break;
+            /* Place something */
+            switch (typ)
+            {
+                case TYP_RUBBLE: place_rubble(c, &grid); break;
+                case TYP_FOUNTAIN: place_fountain(c, &grid); break;
+                case TYP_TRAP: place_traps(c, &grid); break;
+                case TYP_GOLD:
+                {
+                    place_gold(p, c, &grid, depth, origin);
+                    break;
+                }
+                case TYP_OBJECT:
+                {
+                    place_object(p, c, &grid, depth, false, false, origin, 0);
+                    break;
+                }
+                case TYP_GOOD:
+                {
+                    place_object(p, c, &grid, depth, true, false, origin, 0);
+                    break;
+                }
+                case TYP_GREAT:
+                {
+                    place_object(p, c, &grid, depth, true, true, origin, 0);
+                    break;
+                }
+            }
+            placed = true;
         }
     }
 
-    return true;
+    mem_free(state);
+    return placed;
 }
 
 

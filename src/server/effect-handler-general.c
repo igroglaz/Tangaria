@@ -73,29 +73,6 @@ static bool item_tester_uncursable(const struct object *obj)
 
 
 /*
- * Removes an individual curse from an object.
- */
-static void remove_object_curse(struct player *p, struct object *obj, int index, bool message)
-{
-    struct curse_data *c = &obj->curses[index];
-    char *name = curses[index].name;
-    int i;
-
-    memset(c, 0, sizeof(struct curse_data));
-    if (message) msg(p, "The %s curse is removed!", name);
-
-    /* Check to see if that was the last one */
-    for (i = 0; i < z_info->curse_max; i++)
-    {
-        if (obj->curses[i].power) return;
-    }
-
-    mem_free(obj->curses);
-    obj->curses = NULL;
-}
-
-
-/*
  * Attempts to remove a curse from an object.
  */
 static bool uncurse_object(struct player *p, struct object *obj, int strength)
@@ -522,6 +499,10 @@ static bool detect_monsters(struct player *p, int y_dist, int x_dist, monster_pr
             monsters = true;
         }
     }
+
+    // sound
+    if (monsters)
+        sound(p, MSG_DETECT);
 
     return monsters;
 }

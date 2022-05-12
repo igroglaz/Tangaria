@@ -244,11 +244,15 @@ help:Noble knight in heavy armour who charges into enemies with immense power.
 help: They cannot be confused and can use their shield with astonishing mastery.
 
 class:Traveller
+help:"Jack of all trades, master of none..."
 help:Common person who know some basic magic and are not too bad at fighting..
 help: He is not alone in his wanderings - he's got a four-legged friend.
 help: Travellers are pretty sure that they know well about navigation and 
 help: direction, maps and cardinal points...
 help: but often they come into real adventure due to this overconfidence.
+help:
+help: p.s.
+help: "..though oftentimes better than master of one".
 
 class:Bard
 help:Expert in musicianship and singing, you can not only give joy to people,
@@ -357,9 +361,15 @@ help:They prefer not to use weapons, but to break bones with their bare hands...
 help:Inquisitors replenish their life forces by hurting victims who fear them.
 
 class:Adventurer
-help:Jack of all trades, master of none... He knows a lot of stuff and has tried
-help: lots professions. Very versatile, but also very mediocre in every regard..
-help: ...though often times is better than a master of one.
+help:They also called "Villagers".
+help: Villagers are common folks, versatile and able to do anything, but also
+help: average at everything they do. They have no strengths nor weaknesses.
+help: Villagers use stamina given by their constitution to perform common tasks
+help: and can be accompanied by a single pet that they can summon at their leisure.
+help: They can chop wood and mine ore more easily as they advance in levels. They
+help: are able to turn terrain into crops and farm food from them which is rare
+help: gift nowadays as not many can cultivate fields which become fell under
+help: dark curses of the Enemy.
 
 class:Tidemaster
 help:A Tidemaster uses the power of darkness and water to defeat its enemies while

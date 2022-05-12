@@ -5,7 +5,7 @@ SUBDIRS = ambient tomenet
 DATA = sound.cfg credits.txt \
 	amb_bell_metal1.ogg       mco_scurry_dry.ogg        plm_glass_smashing.ogg \
 	amb_bell_metal2.ogg       mco_shake_roll.ogg        plm_jar_ding.ogg \
-	amb_bell_tibet1.ogg       mco_snarl_short.ogg       plm_levelup.ogg \
+	amb_bell_tibet1.ogg       mco_snarl_short.ogg \
 	amb_bell_tibet2.ogg       mco_spray_long.ogg        plm_lock_case.ogg \
 	amb_bell_tibet3.ogg       mco_squish_hit.ogg        plm_lock_distant.ogg \
 	amb_deep.ogg              mco_squish_snap.ogg       plm_metal_clank.ogg \
@@ -83,7 +83,7 @@ DATA = sound.cfg credits.txt \
 	mco_rubber_thud.ogg       plm_glass_break.ogg \
 	amb_bell_metal1.mp3       mco_scurry_dry.mp3        plm_glass_smashing.mp3 \
 	amb_bell_metal2.mp3       mco_shake_roll.mp3        plm_jar_ding.mp3 \
-	amb_bell_tibet1.mp3       mco_snarl_short.mp3       plm_levelup.mp3 \
+	amb_bell_tibet1.mp3       mco_snarl_short.mp3 \
 	amb_bell_tibet2.mp3       mco_spray_long.mp3        plm_lock_case.mp3 \
 	amb_bell_tibet3.mp3       mco_squish_hit.mp3        plm_lock_distant.mp3 \
 	amb_deep.mp3              mco_squish_snap.mp3       plm_metal_clank.mp3 \
@@ -177,6 +177,7 @@ DATA = sound.cfg credits.txt \
     chop4.ogg                 chop5.ogg                 chop6.ogg \
     chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
     silent.ogg                silent0.ogg               quiver.ogg \
+    silent100.ogg             silent101.ogg \
     item_pickup.ogg           gold_1.ogg                gold_2.ogg \
     backpack_1.ogg            backpack_2.ogg            backpack_3.ogg \
     backpack_4.ogg            backpack_5.ogg            backpack_6.ogg \
@@ -206,6 +207,7 @@ DATA = sound.cfg credits.txt \
     chop4.mp3                 chop5.mp3                 chop6.mp3 \
     chop_tree_fall.mp3        sentry.mp3                door_broken.mp3 \
     silent.mp3                silent0.mp3               quiver.mp3 \
+    silent100.mp3             silent101.mp3 \
     item_pickup.mp3           gold_1.mp3                gold_2.mp3 \
     backpack_1.mp3            backpack_2.mp3            backpack_3.mp3 \
     backpack_4.mp3            backpack_5.mp3            backpack_6.mp3 \
@@ -217,9 +219,23 @@ DATA = sound.cfg credits.txt \
     item_light_lantern_1.mp3  item_light_lantern_2.mp3  item_light_lamp_1.mp3 \
     item_light_lamp_2.mp3     item_light_phial_1.mp3    item_light_phial_2.mp3 \
     item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3 \
-    intro_1.ogg intro_2.ogg intro_3.ogg intro_4.ogg intro_5.ogg intro_6.ogg intro_7.ogg \
-    intro_1.mp3 intro_2.mp3 intro_3.mp3 intro_4.mp3 intro_5.mp3 intro_6.mp3 intro_7.mp3 \
-    destruction.ogg earthquake.ogg blast.ogg arc.ogg beam.ogg lash.ogg melee_blows.ogg strike.ogg project.ogg spot.ogg star.ogg touch.ogg \
-    destruction.mp3 earthquake.mp3 blast.mp3 arc.mp3 beam.mp3 lash.mp3 melee_blows.mp3 strike.mp3 project.mp3 spot.mp3 star.mp3 touch.mp3
+    ambient_birds.ogg ambient_birds_1.ogg ambient_birds_2.ogg ambient_crow.ogg ambient_forest_birds.ogg ambient_fox.ogg \
+    ambient_birds.mp3 ambient_birds_1.mp3 ambient_birds_2.mp3 ambient_crow.mp3 ambient_forest_birds.mp3 ambient_fox.mp3 \
+    ambient_wind_1.ogg ambient_wind_2.ogg ambient_wind_3.ogg ambient_wind_night_1.ogg ambient_wind_night.ogg ambient_wings.ogg \
+    ambient_wind_1.mp3 ambient_wind_2.mp3 ambient_wind_3.mp3 ambient_wind_night_1.mp3 ambient_wind_night.mp3 ambient_wings.mp3 \
+    arc.ogg beam.ogg blast.ogg burn_1.ogg burn_2.ogg danger_9.ogg \
+    arc.mp3 beam.mp3 blast.mp3 burn_1.mp3 burn_2.mp3 danger_9.mp3 \
+    defeat_unique_shtukensia.ogg detect.ogg glyph.ogg kill_king.ogg kill_slime_1.ogg kill_slime_2.ogg \
+    defeat_unique_shtukensia.mp3 detect.mp3 glyph.mp3 kill_king.mp3 kill_slime_1.mp3 kill_slime_2.mp3 \
+    kill_slime_3.ogg kill_slime_4.ogg kill_slime_5.ogg kill_slime_6.ogg kill_slime_7.ogg kill_slime_8.ogg \
+    kill_slime_3.mp3 kill_slime_4.mp3 kill_slime_5.mp3 kill_slime_6.mp3 kill_slime_7.mp3 kill_slime_8.mp3 \
+    kill_slime.ogg kill_stinger.ogg kill_unique_shelob.ogg kill_unique_witch_king.ogg lash.ogg melee_blows.ogg \
+    kill_slime.mp3 kill_stinger.mp3 kill_unique_shelob.mp3 kill_unique_witch_king.mp3 lash.mp3 melee_blows.mp3 \
+    message.ogg npc_girl_1.ogg npc_girl_2.ogg npc_girl_3.ogg npc_girl_4.ogg npc_girl_5.ogg \
+    message.mp3 npc_girl_1.mp3 npc_girl_2.mp3 npc_girl_3.mp3 npc_girl_4.mp3 npc_girl_5.mp3 \
+    npc_girl_6.ogg npc_hi_1.ogg npc_hi_2.ogg npc_hi_3.ogg npc_hi_4.ogg paths_of_the_dead.ogg \
+    npc_girl_6.mp3 npc_hi_1.mp3 npc_hi_2.mp3 npc_hi_3.mp3 npc_hi_4.mp3 paths_of_the_dead.mp3 \
+    project.ogg spot.ogg star.ogg strike.ogg touch.ogg \
+    project.mp3 spot.mp3 star.mp3 strike.mp3 touch.mp3
 
 PACKAGE = sounds

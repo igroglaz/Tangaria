@@ -284,7 +284,8 @@ typedef struct
 
 #ifndef WINDOWS
 #ifndef MSG_LEN
-# define MSG_LEN 256
+/* # define MSG_LEN 256 */
+# define MSG_LEN 512
 #endif
 
 #endif

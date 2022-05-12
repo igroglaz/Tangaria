@@ -893,6 +893,7 @@ static void mass_produce(struct object *obj)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
         {
             if (cost <= 50) size += mass_roll(2, 3);
             if (cost <= 500) size += mass_roll(1, 3);
@@ -3365,15 +3366,19 @@ void do_cmd_store(struct player *p, int pstore)
     if (s->type == STORE_HOME)
         sound(p, MSG_STORE_HOME);
 
+    /* Music volume down */
+    sound(p, MSG_SILENT100);
+
     /* Background sounds for stores */
     switch (s->type)
     {
         case STORE_OTHER:
             if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
-            else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_STORE_OTHER_SOUND);
-            else if (streq(s->name, "Torog")) sound(p, MSG_AFRAID);
+            else if (streq(s->name, "Halbarad, the old ranger")) sound(p, MSG_NPC_HI);
+            else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
             else if (streq(s->name, "Alchemy Shop")) sound(p, MSG_STORE_ALCHEMY);
             else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC);
+            else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
@@ -3382,7 +3387,9 @@ void do_cmd_store(struct player *p, int pstore)
             sound(p, MSG_STORE_TEMPLE_SOUND);
             break;
         case STORE_BOOKSELLER:
-            sound(p, MSG_STORE_BOOKSELLER_SOUND);
+            if (one_in_(5))
+                sound(p, MSG_STORE_BOOK_CUCKOO);
+            sound(p, MSG_STORE_BOOK_CLOCK);
             break;
         case STORE_B_MARKET:
             sound(p, MSG_STORE_B_MARKET_SOUND);

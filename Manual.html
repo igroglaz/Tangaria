@@ -2331,6 +2331,15 @@ Shapechangers get basic mana points to cast those spells (note that breath
 attacks, like for the Dragon race, don't cost mana, but hit points
 instead...).</dd>
 </dl>
+<dl class="docutils" id="villager">
+<dt>Villager</dt>
+<dd>Villagers are common folks, versatile and able to do anything, but also
+average at everything they do. They have no strengths nor weaknesses.
+Villagers use stamina given by their constitution to perform common tasks
+and can be accompanied by a single pet that they can summon at their leisure.
+They can chop wood and mine ore more easily as they advance in levels. They
+are able to turn terrain into crops and farm food from them.</dd>
+</dl>
 </div>
 <div class="section" id="stats">
 <h3><a class="toc-backref" href="#id96">3.1.4&nbsp;&nbsp;&nbsp;Stats</a></h3>
@@ -2394,7 +2403,8 @@ be successful in stealing from them.</dd>
 to recover from damage received. Therefore a character with a high
 constitution will receive more hit points and also recover them faster
 while resting. Constitution is less important in the beginning of the
-game, but will be the most important stat at the end.</dd>
+game, but will be the most important stat at the end. It gives stamina,
+which determines the ability of a villager to use their travel guides.</dd>
 </dl>
 </div>
 <div class="section" id="skills">
@@ -2835,6 +2845,14 @@ adjusted for constitution).</p>
 <td>+1</td>
 <td>5</td>
 </tr>
+<tr><td>Villager</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -3204,6 +3222,16 @@ adjusted for constitution).</p>
 <td>10(+12)</td>
 <td>60(+40)</td>
 <td>66(+30)</td>
+</tr>
+<tr><td>Villager</td>
+<td>31(+10)</td>
+<td>35(+09)</td>
+<td>20(+7)</td>
+<td>25(+10)</td>
+<td>1(+0)</td>
+<td>14(+13)</td>
+<td>50(+28)</td>
+<td>51(+35)</td>
 </tr>
 </tbody>
 </table>
@@ -6915,9 +6943,9 @@ have graphics turned on, then the game will also load some settings from
 <tt class="docutils literal">lib/tiles/</tt>.</p>
 <p>After these are complete, the game will try to load (in order):</p>
 <ul class="simple">
-<li><tt class="docutils literal">Race.prf</tt> - where race is your character's race</li>
-<li><tt class="docutils literal">Class.prf</tt> - where class if your character's class</li>
-<li><tt class="docutils literal">Name.prf</tt> - where name is your character's name</li>
+<li><em>race</em>.prf - where <em>race</em> is your character's race, so something like <tt class="docutils literal">Dwarf.prf</tt></li>
+<li><em>class</em>.prf - where <em>class</em> is your character's class, so something like <tt class="docutils literal">Paladin.prf</tt></li>
+<li><em>name</em>.prf - where <em>name</em> is your character's name, so something like <tt class="docutils literal">Balin.prf</tt></li>
 </ul>
 <p>So, you can save some settings - for example, keymaps - to the <tt class="docutils literal">Mage.prf</tt> file
 if you only want them to be loaded for mages.</p>

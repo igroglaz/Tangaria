@@ -560,9 +560,9 @@ book-desc:An advanced arcane book with a few spells.
 
 spell:Elbereth:21:19:37:18:0
 cooldown:144
-effect:GLYPH:WARDING
 effect:NOURISH:DEC_BY
 dice:1
+effect:GLYPH:WARDING
 desc:Engraves 'Elbereth' in glyphs on the floor beneath you.
 desc: Summoned monsters can't appear on this glyphs.
 desc: If a monster attempts to move onto the glyphs or melee you while you
@@ -6201,8 +6201,8 @@ desc: Also greatly increases your regeneration rate for 20+1d20 turns.
 desc: The effect of this spell is cumulative with other means of regeneration.
 
 spell:Vasa Sacra:20:14:40:20:0
-effect:GLYPH:WARDING
 effect:CREATE_HOLY_WATER
+effect:GLYPH:WARDING
 desc:Allows to bless any potions and turn it to holy water.
 desc: Blessing ritual makes floor beneath you blessed.
 desc: Summoned monsters can't appear on the blessed floor.
@@ -6952,10 +6952,10 @@ effect:PROJECT_LOS_AWARE:SLEEP_ALL
 desc:Attempts to put to sleep each monster within line of sight.
 
 spell:Fade in Shadows:40:40:40:70:0
-effect:GLYPH:DECOY
 effect:TIMED_INC:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
+effect:GLYPH:DECOY
 desc:Leaves a magical decoy that looks and sounds like the player.
 desc: Also makes you invisible for a while.
 desc: High level, questor, invisible and injured monsters
@@ -7878,64 +7878,55 @@ effect:BIZARRE
 desc:Bring retribution to heretics...
 desc: Cooldown 333 turns.
 
-############### Additional class slot for incoming PWMA Adventurer ###############
+############### PWMA Villager ###############
 name:Adventurer
-color:Y
-skill-disarm-phys:22:9
-skill-disarm-magic:22:9
-skill-device:32:10
-skill-save:28:10
-skill-stealth:0:0
-skill-search:15:15
-skill-melee:40:30
-skill-shoot:40:30
-skill-dig:0:0
-# 3
-hitdie:4
-# 3
+color:W
+skill-disarm-phys:31:10
+skill-disarm-magic:35:9
+skill-device:20:7
+skill-save:25:10
+skill-stealth:1:0
+skill-search:14:13
+skill-melee:50:28
+skill-shoot:51:35
+skill-dig:0:25
+hitdie:5
 max-attacks:4
 min-weight:35
-strength-multiplier:4
+strength-multiplier:3
+equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
-equip:hafted:Club:1:1:none
-equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
-equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
-equip:scroll:Phase Door:3:4:birth_no_recall
-equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[0]
-value:0:INT[0]
-value:0:WIS[0]
-value:0:DEX[0]
-value:0:CON[0]
-value:0:CHR[0]
-#/// will have its own pet for summoning
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall:1:1:birth_no_recall
+player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
+title:Rambler
+title:Walker
+title:Tripper
+title:Tourist
+title:Traveller
+title:Discoverer
+title:Spelunker
+title:Voyager
+title:Navigator
+title:Explorer
+
+# after wipe move there travel guide from PWMA (villager)
 
 magic:1:350:1
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-#/// temp spells so it will be playable till PWMA update
-spell:Magic Missile:1:1:22:2:0
-effect:BOLT_OR_BEAM:MISSILE:0:-10
-dice:$Dd4
-expr:D:PLAYER_LEVEL:- 1 / 5 + 3
-msg_other: fires a magic missile.
-desc:Fires a magic missile that always hits its target and does
-desc: unresistable damage.
-desc: Sometimes a beam is fired instead that hurts each monster
-desc: in its path.
-desc: The chance to get a beam goes up with your character level.
+spell:Summon Pet:1:1:22:4:0
+# check.. is it stamina or mana
+flag:DRAIN_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:SUMMON:ANIMAL:0:100
+dice:1
+msg_other: summons a pet.
+desc:Attempts to summon one pet generated at the current dungeon level.
+desc: This spell has no effect when used in the town.
 
 spell:Phase Door:5:2:24:4:0
 effect:TELEPORT

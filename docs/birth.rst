@@ -542,6 +542,16 @@ Shapechanger
   attacks, like for the Dragon race, don't cost mana, but hit points
   instead...).
 
+.. _Villager:
+
+Villager
+  Villagers are common folks, versatile and able to do anything, but also
+  average at everything they do. They have no strengths nor weaknesses.
+  Villagers use stamina given by their constitution to perform common tasks
+  and can be accompanied by a single pet that they can summon at their leisure.
+  They can chop wood and mine ore more easily as they advance in levels. They
+  are able to turn terrain into crops and farm food from them.
+
 Stats
 -----
 
@@ -606,7 +616,8 @@ Constitution
   to recover from damage received. Therefore a character with a high
   constitution will receive more hit points and also recover them faster
   while resting. Constitution is less important in the beginning of the
-  game, but will be the most important stat at the end.
+  game, but will be the most important stat at the end. It gives stamina,
+  which determines the ability of a villager to use their travel guides.
 
 Skills
 ------
@@ -747,6 +758,7 @@ adjusted for constitution).
     Elementalist  -4   +4    0    0   -2       1
     Summoner      -5   -5   +5   -5   -5       0
     Shapechanger  +1   -1   -1   +1   +1       5
+    Villager       0    0    0    0    0       5
 ================ ===  ===  ===  ===  ===  ==========
  
 Ability Tables
@@ -795,6 +807,7 @@ Ability Tables
  Elemntalst 35(+09) 49(+11) 36(+13) 30(+9)   2(+0)  10(+12) 34(+15) 20(+15)
  Summoner   20(+06) 20(+06) 36(+13) 30(+9)   2(+0)  10(+14) 34(+15) 20(+15)
  Shapechger 36(+10) 34(+08) 35(+10) 28(+10)  1(+0)  10(+12) 60(+40) 66(+30)
+ Villager   31(+10) 35(+09) 20(+7)  25(+10)  1(+0)  14(+13) 50(+28) 51(+35)
 =========== ======= ======= ======= ======= ======= ======= ======= =======
 
 For character classes, there are two figures: the first figure is the base

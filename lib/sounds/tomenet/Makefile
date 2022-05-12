@@ -95,7 +95,6 @@ DATA = credits.txt \
 	player/alert/event/crash.ogg \
 	player/alert/event/fanfare.ogg \
 	player/alert/event/gong.ogg \
-	player/alert/intro/greeting.ogg \
 	player/alert/page/ding.ogg \
 	player/alert/warning/warning.ogg \
 	player/commands/applaud/clap1.ogg \
@@ -245,7 +244,6 @@ DATA = credits.txt \
 	player/alert/event/crash.mp3 \
 	player/alert/event/fanfare.mp3 \
 	player/alert/event/gong.mp3 \
-	player/alert/intro/greeting.mp3 \
 	player/alert/page/ding.mp3 \
 	player/alert/warning/warning.mp3 \
 	player/commands/applaud/clap1.mp3 \

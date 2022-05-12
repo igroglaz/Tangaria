@@ -22,6 +22,16 @@
 
 
 /*
+ * Used by get_spell_info() to pass information as it iterates through effects.
+ */
+struct spell_info_iteration_state
+{
+    random_value shared_rv;
+    uint8_t have_shared;
+};
+
+
+/*
  * Initialize player spells
  */
 void player_spells_init(struct player *p)
@@ -255,8 +265,8 @@ static size_t append_random_value_string(char *buffer, size_t size, random_value
 
 
 static void spell_effect_append_value_info(struct player *p, const struct effect *effect, char *buf,
-    size_t len, const struct class_spell *spell, size_t *offset, uint8_t *have_shared,
-    random_value *shared_rv)
+    size_t len, const struct class_spell *spell, size_t *offset,
+    struct spell_info_iteration_state *ist)
 {
     random_value rv;
     const char *type;
@@ -267,18 +277,18 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     source_player(data, 0, p);
 
     if (effect->index == EF_CLEAR_VALUE)
-        *have_shared = 0;
+        ist->have_shared = 0;
     else if (effect->index == EF_SET_VALUE && effect->dice)
     {
         int16_t current_spell;
 
-        *have_shared = 1;
+        ist->have_shared = 1;
 
-        /* Hack -- set current spell (for spell_value_base_by_name) */
+        /* Hack -- set current spell (for effect_value_base_by_name) */
         current_spell = p->current_spell;
         p->current_spell = spell->sidx;
 
-        dice_roll(effect->dice, (void *)data, shared_rv);
+        dice_roll(effect->dice, (void *)data, &ist->shared_rv);
 
         /* Hack -- reset current spell */
         p->current_spell = current_spell;
@@ -303,7 +313,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     {
         int16_t current_spell;
 
-        /* Hack -- set current spell (for spell_value_base_by_name) */
+        /* Hack -- set current spell (for effect_value_base_by_name) */
         current_spell = p->current_spell;
         p->current_spell = spell->sidx;
 
@@ -312,13 +322,13 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
         /* Hack -- reset current spell */
         p->current_spell = current_spell;
     }
-    else if (*have_shared)
+    else if (ist->have_shared)
     {
         /* PWMAngband: don't repeat shared info */
-        if (*have_shared == 1)
+        if (ist->have_shared == 1)
         {
-            memcpy(&rv, shared_rv, sizeof(random_value));
-            *have_shared = 2;
+            memcpy(&rv, &ist->shared_rv, sizeof(random_value));
+            ist->have_shared = 2;
         }
         else return;
     }
@@ -433,11 +443,12 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
 void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
 {
     struct effect *effect;
-    uint8_t have_shared = 0;
-    random_value shared_rv;
+    struct spell_info_iteration_state ist;
     const struct player_class *c = p->clazz;
     const struct class_spell *spell;
     size_t offset = 0;
+
+    ist.have_shared = 0;
 
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
@@ -448,7 +459,7 @@ void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
 
     while (effect)
     {
-        spell_effect_append_value_info(p, effect, buf, len, spell, &offset, &have_shared, &shared_rv);
+        spell_effect_append_value_info(p, effect, buf, len, spell, &offset, &ist);
 
         /* Hack -- if next effect has the same tip, also append that info */
         if (effect->next)
@@ -461,150 +472,6 @@ void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
 
         effect = effect->next;
     }
-}
-
-
-static int spell_value_base_spell_power(void *data)
-{
-    int power = 0;
-
-    /* Check the reference race first */
-    if (ref_race)
-        power = ref_race->spell_power;
-
-    /* Otherwise the current monster if there is one */
-    else
-    {
-        struct source *who = (struct source *)data;
-
-        if (who->monster)
-            power = who->monster->race->spell_power;
-    }
-
-    return power;
-}
-
-
-static int spell_value_base_player_level(void *data)
-{
-    struct source *who = (struct source *)data;
-
-    return who->player->lev;
-}
-
-
-static int spell_value_base_dungeon_level(void *data)
-{
-    struct source *who = (struct source *)data;
-
-    return who->player->wpos.depth;
-}
-
-
-static int spell_value_base_max_sight(void *data)
-{
-    return z_info->max_sight;
-}
-
-
-static int spell_value_base_weapon_damage(void *data)
-{
-    struct source *who = (struct source *)data;
-    struct object *obj = who->player->body.slots[slot_by_name(who->player, "weapon")].obj;
-
-    if (!obj) return 0;
-    return (damroll(obj->dd, obj->ds) + obj->to_d);
-}
-
-
-static int spell_value_base_monster_percent_hp_gone(void *data)
-{
-    struct source *who = (struct source *)data;
-
-    if (who->monster)
-        return (((who->monster->maxhp - who->monster->hp) * 100) / who->monster->maxhp);
-    if (who->player)
-        return (((who->player->mhp - who->player->chp) * 100) / who->player->mhp);
-    return 0;
-}
-
-
-static int spell_value_base_player_spell_power(void *data)
-{
-    struct source *who = (struct source *)data;
-
-    return who->player->spell_power[who->player->current_spell];
-}
-
-
-static int spell_value_base_ball_element(void *data)
-{
-    struct source *who = (struct source *)data;
-    int power = who->player->spell_power[who->player->current_spell];
-
-    return who->player->lev + power * 10;
-}
-
-
-static int spell_value_base_xball_element(void *data)
-{
-    struct source *who = (struct source *)data;
-    int power = who->player->spell_power[who->player->current_spell];
-
-    return who->player->lev + power * 5;
-}
-
-
-static int spell_value_base_blast_element(void *data)
-{
-    struct source *who = (struct source *)data;
-    int power = who->player->spell_power[who->player->current_spell];
-
-    return who->player->lev * 2 + power * 20;
-}
-
-
-static int spell_value_base_xblast_element(void *data)
-{
-    struct source *who = (struct source *)data;
-    int power = who->player->spell_power[who->player->current_spell];
-
-    return who->player->lev * 2 + power * 10;
-}
-
-
-expression_base_value_f spell_value_base_by_name(const char *name)
-{
-    static const struct value_base_s
-    {
-        const char *name;
-        expression_base_value_f function;
-    } value_bases[] =
-    {
-        {"SPELL_POWER", spell_value_base_spell_power},
-        {"PLAYER_LEVEL", spell_value_base_player_level},
-        {"DUNGEON_LEVEL", spell_value_base_dungeon_level},
-        {"MAX_SIGHT", spell_value_base_max_sight},
-        {"WEAPON_DAMAGE", spell_value_base_weapon_damage},
-        {"MONSTER_PERCENT_HP_GONE", spell_value_base_monster_percent_hp_gone},
-        {"PLAYER_SPELL_POWER", spell_value_base_player_spell_power},
-        {"BALL_ELEMENT", spell_value_base_ball_element},
-        {"XBALL_ELEMENT", spell_value_base_xball_element},
-        {"BLAST_ELEMENT", spell_value_base_blast_element},
-        {"XBLAST_ELEMENT", spell_value_base_xblast_element},
-        {NULL, NULL}
-    };
-    const struct value_base_s *current = value_bases;
-
-    while (current->name != NULL && current->function != NULL)
-    {
-        if (my_stricmp(name, current->name) == 0)
-            return current->function;
-
-        current++;
-    }
-
-    return NULL;
 }
 
 
@@ -1223,7 +1090,7 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
 
-    /* Hack -- set current spell (for spell_value_base_by_name) */
+    /* Hack -- set current spell (for effect_value_base_by_name) */
     current_spell = p->current_spell;
     p->current_spell = spell->sidx;
 
@@ -1266,7 +1133,7 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
                 if ((num_damaging > 1) && (i == num_damaging - 1))
                     my_strcat(out_desc, " and", size);
                 strnfmt(buf, sizeof(buf), " {%d}",
-                    effect_avg_damage(e, data, spell->realm->name, &have_shared, &shared_rv));
+                    effect_avg_damage(e, data, spell->realm->name, have_shared? &shared_rv: NULL));
                 my_strcat(out_desc, buf, size);
                 if (strlen(projection) > 0)
                 {

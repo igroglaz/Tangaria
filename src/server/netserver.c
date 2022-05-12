@@ -6462,7 +6462,7 @@ static int Receive_play(int ind)
         else if (ptr->account && (ptr->account != connp->account))
         {
             plog("Invalid account");
-            Destroy_connection(ind, "Invalid account");
+            Destroy_connection(ind, "Invalid account (name already used by another player)");
             return -1;
         }
 
@@ -6834,6 +6834,9 @@ static int Receive_message(int ind)
     p = player_get(get_player_index(connp));
 
     do_cmd_message(p, buf);
+
+    // sound
+    sound(p, MSG_MESSAGE);
 
     return 1;
 }
@@ -7288,6 +7291,9 @@ static int Receive_store_leave(int ind)
 
             // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
             sound(p, MSG_SILENT0);
+
+            /* Restore music volume */
+            sound(p, MSG_SILENT101);
 
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());

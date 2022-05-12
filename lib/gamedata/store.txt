@@ -307,17 +307,20 @@ always:nature book
 always:shadow book
 always:psi book
 always:elemental book
+always:travel guide
 buy:nature book
 buy:shadow book
 buy:psi book
 buy:elemental book
+buy:travel guide
 
 # Place custom stores here
 
 # Starter town tavern
+### REMOVE 'old' from store name
 store:Halbarad, the old ranger
-owner:5000:Halbarad, the old ranger
-owner:5000:Halbarad, the old ranger
+owner:5000:Halbarad, the ranger
+owner:5000:Halbarad, the ranger
 slots:0:1
 turnover:0
 welcome:0:looks at you with interest.

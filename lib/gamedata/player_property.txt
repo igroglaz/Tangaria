@@ -196,6 +196,16 @@ code:SHAPECHANGE
 name:Shapechange
 desc:You can polymorph into monsters.
 
+type:player
+code:SUMMON_PERMA
+name:Permanent pets
+desc:You have a permanent pet.
+
+type:player
+code:CAN_FARM
+name:Farming
+desc:You are able to farm.
+
 ## Object flags
 
 type:object

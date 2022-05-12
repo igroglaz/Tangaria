@@ -319,16 +319,31 @@ static bool play_sound_sdl(struct sound_data *data)
         return true;
     }
 
-    /* If sound name is 'silent' then stop playing */
-    if (streq(data->name, "silent"))
+    /* Check prefix of string 'silent' */
+    if (prefix(data->name, "silent"))
     {
-        /* Halt playback on all channels */
-        Mix_HaltChannel(-1);
-    }
-    else if (streq(data->name, "silent0"))
-    {
-        /* Stop looped playback */
-        if (Mix_Playing(7)) Mix_HaltChannel(7);
+        /* If sound name is 'silent' then stop playing */
+        if (streq(data->name, "silent"))
+        {
+            /* Halt playback on all channels */
+            Mix_HaltChannel(-1);
+        }
+        else if (streq(data->name, "silent0"))
+        {
+            /* Stop looped playback */
+            if (Mix_Playing(7)) Mix_HaltChannel(7);
+        }
+        else if (streq(data->name, "silent100"))
+        {
+            /* Music volume down */
+            if (Mix_VolumeMusic(-1) != 0)
+                Mix_VolumeMusic((music_volume / 2 * MIX_MAX_VOLUME) / 100);
+        }
+        else if (streq(data->name, "silent101"))
+        {
+            /* Restore music volume */
+            Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
+        }
     }
 
     sample = (sdl_sample *)(data->plat_data);

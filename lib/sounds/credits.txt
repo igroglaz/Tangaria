@@ -1,3 +1,155 @@
+bolkmar
+https://freesound.org/people/bolkmar/sounds/424790/
+bm
+
+johanwestling
+https://freesound.org/people/johanwestling/sounds/460182/
+cart
+
+tekgnosis
+https://freesound.org/people/tekgnosis/sounds/144862/
+warr_1 - warr_9
+
+WIM
+https://freesound.org/people/WIM/sounds/25060/
+build_1 - build_6
+
+InspectorJ
+https://freesound.org/people/InspectorJ/sounds/398194/
+cuckoo
+
+dsp9000
+https://freesound.org/people/dsp9000/sounds/76405/
+bell
+
+AntumDeluge
+https://freesound.org/people/AntumDeluge/sounds/188033/
+clock
+
+AntumDeluge
+https://freesound.org/people/AntumDeluge/sounds/583142/
+dog_small
+
+AntumDeluge
+https://freesound.org/people/AntumDeluge/sounds/188041/
+vulture
+
+Hitrison
+https://freesound.org/people/Hitrison/sounds/251410/
+kill_mushroom_1 - kill_mushroom_11
+
+crashoverride6
+https://freesound.org/people/crashoverride6/sounds/146932/
+ambient_wind_3
+
+klankbeeld
+https://freesound.org/people/klankbeeld/sounds/530415/
+ambient_forest_birds
+
+Glaneur de sons
+https://freesound.org/people/Glaneur%20de%20sons/sounds/104952/
+ambient_wind_2
+
+kangaroovindaloo
+https://freesound.org/people/kangaroovindaloo/sounds/138288/
+ambient_wind_night_1
+
+Black Boe
+https://freesound.org/people/Black%20Boe/sounds/22331/
+ambient_wind_night
+
+InspectorJ
+https://freesound.org/people/InspectorJ/sounds/405561/
+ambient_wind_1
+
+InspectorJ
+https://freesound.org/people/InspectorJ/sounds/485009/
+ambient_fox
+
+Snomov
+https://freesound.org/people/Snomov/sounds/632182
+ambient_crow_1
+
+InspectorJ
+https://freesound.org/people/InspectorJ/sounds/416529/
+https://freesound.org/people/InspectorJ/sounds/456440/
+https://freesound.org/people/InspectorJ/sounds/339326/
+ambient_birds ambient_birds_1 ambient_birds_2
+
+mcmikai
+https://freesound.org/people/mcmikai/sounds/532180/
+ambient_wings
+
+nigelcoop
+https://freesound.org/people/nigelcoop/sounds/75162/
+ambient_crow
+
+shadoWisp
+https://freesound.org/people/shadoWisp/sounds/264610/
+https://freesound.org/people/shadoWisp/sounds/262745/
+https://freesound.org/people/shadoWisp/sounds/262675/
+https://freesound.org/people/shadoWisp/sounds/257478/
+npc_girl_1 - npc_girl_6
+
+MATRIXXX_
+https://freesound.org/people/MATRIXXX_/sounds/527850/
+danger_9
+
+theuncertainman
+https://freesound.org/people/theuncertainman/sounds/458074/
+https://freesound.org/people/theuncertainman/sounds/429038/
+https://freesound.org/people/theuncertainman/sounds/429037/
+https://freesound.org/people/theuncertainman/sounds/419321/
+npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
+
+klankbeeld
+https://freesound.org/people/klankbeeld/sounds/171078/
+kill_unique_shelob
+
+newagesoup
+https://freesound.org/people/newagesoup/sounds/462879/
+kill_unique_witch_king
+
+newagesoup
+https://freesound.org/people/newagesoup/sounds/337164/
+kill_king
+
+dimbark1
+https://freesound.org/people/dimbark1/sounds/316797/
+paths_of_the_dead
+
+Me_Is_Chaos
+https://freesound.org/people/Me_Is_Chaos/sounds/275652/
+defeat_unique_shtukensia
+
+cupido-1
+https://freesound.org/people/cupido-1/sounds/617471/
+kill_stinger
+
+magnuswaker
+https://freesound.org/people/magnuswaker/sounds/581095/
+kill_unique_kikimora
+
+Archos
+https://freesound.org/people/Archos/sounds/433839/
+https://freesound.org/people/Archos/sounds/433840/
+https://freesound.org/people/Archos/sounds/433812/
+https://freesound.org/people/Archos/sounds/433816/
+https://freesound.org/people/Archos/sounds/433818/
+https://freesound.org/people/Archos/sounds/433819/
+https://freesound.org/people/Archos/sounds/433827/
+https://freesound.org/people/Archos/sounds/433829/
+https://freesound.org/people/Archos/sounds/433829/
+kill_slime kill_slime_1 - kill_slime_8
+
+kila_vat
+https://freesound.org/people/kila_vat/sounds/434379/
+message
+
+MATRIXXX_
+https://freesound.org/people/MATRIXXX_/sounds/445723/
+detect
+
 the_semen_incident
 https://freesound.org/people/the_semen_incident/sounds/155660/
 burn_2
@@ -12,7 +164,7 @@ touch
 
 p0ss
 https://opengameart.org/content/spell-sounds-starter-pack
-project spot star
+project spot star glyph
 
 hello_flowers
 https://freesound.org/people/hello_flowers/sounds/37596/
@@ -37,10 +189,6 @@ beam
 mango777
 https://freesound.org/people/mango777/sounds/547375/
 blast
-
-Omar Alvarado
-https://freesound.org/people/Omar%20Alvarado/sounds/127951/
-earthquake destruction
 
 carmsie
 https://freesound.org/people/carmsie/sounds/263554/
@@ -154,8 +302,8 @@ TriqyStudio
 https://freesound.org/people/TriqyStudio/sounds/467610/
 pickup_item_1
 
-Syna-Max
-https://freesound.org/people/Syna-Max/sounds/64939/
+SweetNeo85
+https://freesound.org/people/SweetNeo85/sounds/13797/
 kill_yeek
 
 guilhermeop

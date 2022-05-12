@@ -231,6 +231,10 @@ name:elemental book:Elemental Book~
 graphics:light purple
 flags:HATES_FIRE | EASY_KNOW
 
+name:travel guide:Travel Guide~
+graphics:light slate
+flags:HATES_FIRE | EASY_KNOW
+
 name:fortune cookie:Fortune Cookie~
 graphics:yellow
 break:100

@@ -418,8 +418,18 @@ struct object *gear_object_for_use(struct player *p, struct object *obj, int num
         {
             uint16_t total;
 
-            if (object_is_equipped(p->body, obj))
+            /*
+             * Don't show aggregate total in pack if equipped or
+             * if the description could have a number of charges
+             * or recharging notice specific to the stack (not
+             * aggregating those quantities so there would be
+             * confusion if aggregating the count).
+             */
+            if (object_is_equipped(p->body, obj) || tval_can_have_charges(obj) ||
+                tval_is_rod(obj) || obj->timeout > 0)
+            {
                 total = obj->number;
+            }
             else
             {
                 total = object_pack_total(p, obj, false, &first_remainder);
@@ -435,8 +445,16 @@ struct object *gear_object_for_use(struct player *p, struct object *obj, int num
     {
         if (message)
         {
-            uint16_t total = (object_is_equipped(p->body, obj))? obj->number:
-                object_pack_total(p, obj, false, &first_remainder);
+            uint16_t total;
+
+            /* Use same logic as above for showing an aggregate total. */
+            if (object_is_equipped(p->body, obj) || tval_can_have_charges(obj) ||
+                tval_is_rod(obj) || obj->timeout > 0)
+            {
+                total = obj->number;
+            }
+            else
+                total = object_pack_total(p, obj, false, &first_remainder);
 
             my_assert(total >= num);
             total -= num;
@@ -527,7 +545,15 @@ static void quiver_absorb_num(struct player *p, const struct object *obj, int *n
                      */
                     displaces = true;
                     my_assert(quiver_obj->number * mult <= z_info->quiver_slot_size);
-                    space_free += z_info->quiver_slot_size - quiver_obj->number * mult;
+
+                    /*
+                     * Avoid double counting in the ammo case since the empty slot, if any,
+                     * for the displaced stack is treated as fully available.
+                     */
+                    if (ammo)
+                        space_free += z_info->quiver_slot_size - quiver_obj->number * mult;
+                    else
+                        space_free += z_info->quiver_slot_size;
                 }
             }
             else
@@ -769,8 +795,20 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
     {
         char o_name[120];
         struct object *first;
-        uint16_t total = object_pack_total(p, local_obj, false, &first);
+        uint16_t total;
         char label;
+
+        /*
+         * Show an aggregate total if the description doesn't have
+         * a charge/charging notice that's specific to the stack.
+         */
+        if (tval_can_have_charges(local_obj) || tval_is_rod(local_obj) || local_obj->timeout > 0)
+        {
+            total = local_obj->number;
+            first = local_obj;
+        }
+        else
+            total = object_pack_total(p, local_obj, false, &first);
 
         my_assert(first && total >= first->number);
         object_desc(p, o_name, sizeof(o_name), local_obj, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
@@ -1102,7 +1140,8 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     bool equipped = false;
     char name[NORMAL_WID];
     char label;
-    struct object *first = NULL;
+    struct object *first;
+    struct object *desc_target;
     uint16_t total;
     struct curse_data *c = obj->curses;
     size_t i; // for curse check
@@ -1205,16 +1244,38 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     /* Message */
     msg(p, "You drop %s (%c).", name, label);
 
-    /* Describe what's left */
-    total = equipped? (none_left? 0: obj->number): object_pack_total(p, obj, false, &first);
-    object_desc(p, name, sizeof(name), dropped, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
+    /*
+     * Describe what's left
+     *
+     * Like gear_object_for_use(), don't show an aggregate total
+     * if it was equipped or the item has charges/recharging
+     * notice that is specific to the stack.
+     */
+    if (equipped || tval_can_have_charges(obj) || tval_is_rod(obj) || obj->timeout > 0)
+    {
+        first = NULL;
+        if (none_left)
+        {
+            total = 0;
+            desc_target = dropped;
+        }
+        else
+        {
+            total = obj->number;
+            desc_target = obj;
+        }
+    }
+    else
+    {
+        total = object_pack_total(p, obj, false, &first);
+        desc_target = (total? obj: dropped);
+    }
+    object_desc(p, name, sizeof(name), desc_target, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
         (total << 16));
-    if (equipped || total == 0)
+    if (!first)
         msg(p, "You have %s (%c).", name, label);
     else
     {
-        my_assert(first);
-
         label = gear_to_label(p, first);
         if (total > first->number)
             msg(p, "You have %s (1st %c).", name, label);
