@@ -1,3 +1,11 @@
+jppi_Stu
+https://freesound.org/people/jppi_Stu/sounds/16753/
+npc_belch_1
+
+AlaskaRobotics
+https://freesound.org/people/AlaskaRobotics/sounds/221516/
+npc_belch
+
 tekgnosis
 https://freesound.org/people/tekgnosis/sounds/144021/
 npc_rough

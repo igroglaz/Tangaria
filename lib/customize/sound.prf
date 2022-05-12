@@ -197,6 +197,7 @@ sound:store_weapon:ambient/store/store_weapon
 sound:npc_welcome:ambient/voice/welcome_1 ambient/voice/welcome_2 ambient/voice/welcome_3 ambient/voice/welcome_4 ambient/voice/welcome_5 ambient/voice/welcome_6
 sound:npc_vet:ambient/voice/vet_1 ambient/voice/vet_2 ambient/voice/vet_3 ambient/voice/vet_4 ambient/voice/vet_5 ambient/voice/vet_6 ambient/voice/vet_7
 sound:npc_rough:ambient/voice/npc_rough_1 ambient/voice/npc_rough_2 ambient/voice/npc_rough_3
+sound:npc_belch:ambient/voice/npc_belch ambient/voice/npc_belch_1
 
 #
 # Player sounds - combat
