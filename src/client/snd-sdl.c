@@ -149,6 +149,28 @@ static void play_music_sdl(void)
     {
         /* Play music from corresponding music subdirectory */
         path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
+
+        // custom depth music-ambience for Sewers
+        if (streq(player->locname, "Severs"))
+        {
+            if (player->wpos.depth == 8)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\1");
+            else if (player->wpos.depth == 9)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\2");
+            else if (player->wpos.depth == 10)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\3");
+            else if (player->wpos.depth == 11)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\4");            
+            else if (player->wpos.depth == 12)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\3");
+            else if (player->wpos.depth == 13)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\2");
+            else if (player->wpos.depth == 14)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\5");
+            else if (player->wpos.depth == 15)
+                path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "Severs\\6");
+        }
+
         played = play_music_aux(dirpath);
 
         /* Hack -- don't fall back for intro music */

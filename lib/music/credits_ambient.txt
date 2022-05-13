@@ -1,0 +1,32 @@
+Format for the artist's credits:
+
+- Author name
+- URL
+- Sound name in Tangaria
+
+#######################
+
+Tomlija
+https://freesound.org/people/Tomlija/sounds/105041/
+Sewers_6
+
+Anton
+https://freesound.org/people/Anton/sounds/105293/
+Sewers_5
+
+InspectorJ
+https://freesound.org/people/InspectorJ/sounds/342566/
+Sewers_4
+
+thedapperdan
+https://freesound.org/people/thedapperdan/sounds/26910/
+Sewers_3
+
+DWOBoyle
+https://freesound.org/people/DWOBoyle/sounds/136692/
+Sewers_2
+
+SJM62
+https://freesound.org/people/SJM62/sounds/83348/
+Sewers_1
+
