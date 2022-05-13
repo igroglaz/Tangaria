@@ -3392,9 +3392,22 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Bob the villager")) sound(p, MSG_NPC_WELCOME);
             else if (streq(s->name, "Old guard Barry")) sound(p, MSG_NPC_VET);
             else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
-            else if (streq(s->name, "Torog")) sound(p, MSG_NPC_BELCH);
+            else if (streq(s->name, "Torog"))
+            {
+                sound(p, MSG_NPC_BELCH);
+                sound(p, MSG_STORE_TAVERN);
+            }
             else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
-            else if (streq(s->name, "Bill Ferny")) sound(p, MSG_NPC_DRUNK);
+            else if (streq(s->name, "Bill Ferny"))
+            {
+                one_in_(2) sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_STORE_TAVERN);
+            }
+            else if (streq(s->name, "Danny the dog")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Mr. Underhill")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Barliman")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
