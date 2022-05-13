@@ -3395,23 +3395,23 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Torog"))
             {
                 sound(p, MSG_NPC_BELCH);
-                sound(p, MSG_STORE_TAVERN);
+                sound(p, MSG_TAVERN);
             }
             else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
             else if (streq(s->name, "Bill Ferny"))
             {
-                one_in_(2) sound(p, MSG_NPC_DRUNK);
-                sound(p, MSG_STORE_TAVERN);
+                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_TAVERN);
             }
             else if (streq(s->name, "Danny the dog")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Mr. Underhill")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Barliman")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Gildor")) sound(p, MSG_DUEL);
-            else if (streq(s->name, "Marta the villager")) sound(p, MSG_MARTA);
-            else if (streq(s->name, "Deckard Coin")) sound(p, MSG_CAIN);
-            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_TOM);
+            else if (streq(s->name, "Gildor")) sound(p, MSG_NPC_DUEL);
+            else if (streq(s->name, "Marta the villager")) sound(p, MSG_NPC_MARTA);
+            else if (streq(s->name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
+            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
@@ -3429,12 +3429,12 @@ void do_cmd_store(struct player *p, int pstore)
             sound(p, MSG_STORE_XBM_SOUND);
             break;
         case STORE_TAVERN:
-            sound(p, MSG_STORE_TAVERN_SOUND);
+            sound(p, MSG_TAVERN);
             break;
         case STORE_HOME:
             if (one_in_(6))
                 sound(p, MSG_STORE_HOME_CUCKOO);
-            sound(p, MSG_STORE_HOME_CLOCK);
+            sound(p, MSG_STORE_HOME);
             break;
         case STORE_PLAYER:
             sound(p, MSG_STORE_PLAYER_SOUND);
