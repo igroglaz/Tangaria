@@ -140,6 +140,7 @@ MSG(NPC_WELCOME, "npc_welcome")
 MSG(NPC_VET, "npc_vet")
 MSG(NPC_ROUGH, "npc_rough")
 MSG(NPC_BELCH, "npc_belch")
+MSG(NPC_ROSE, "npc_rose")
 
 MSG(GOLD_1, "gold_1")
 MSG(GOLD_2, "gold_2")

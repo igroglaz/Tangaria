@@ -201,7 +201,7 @@ sound:npc_welcome:ambient/voice/welcome_1 ambient/voice/welcome_2 ambient/voice/
 sound:npc_vet:ambient/voice/vet_1 ambient/voice/vet_2 ambient/voice/vet_3 ambient/voice/vet_4 ambient/voice/vet_5 ambient/voice/vet_6 ambient/voice/vet_7
 sound:npc_rough:ambient/voice/npc_rough_1 ambient/voice/npc_rough_2 ambient/voice/npc_rough_3
 sound:npc_belch:ambient/voice/npc_belch ambient/voice/npc_belch_1
-
+sound:npc_rose:ambient/voice/rose_1 ambient/voice/rose_2 ambient/voice/rose_3
 #
 # Player sounds - combat
 #
