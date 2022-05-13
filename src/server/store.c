@@ -3419,9 +3419,7 @@ void do_cmd_store(struct player *p, int pstore)
             sound(p, MSG_STORE_TEMPLE);
             break;
         case STORE_BOOKSELLER:
-            if (one_in_(5))
-                sound(p, MSG_STORE_BOOK_CUCKOO);
-            sound(p, MSG_STORE_BOOK_CLOCK);
+            sound(p, MSG_STORE_BOOKSELLER);
             break;
         case STORE_B_MARKET:
             sound(p, MSG_STORE_B_MARKET_SOUND);
@@ -3433,7 +3431,9 @@ void do_cmd_store(struct player *p, int pstore)
             sound(p, MSG_STORE_TAVERN_SOUND);
             break;
         case STORE_HOME:
-            sound(p, MSG_STORE_HOME_SOUND);
+            if (one_in_(6))
+                sound(p, MSG_STORE_HOME_CUCKOO);
+            sound(p, MSG_STORE_HOME_CLOCK);
             break;
         case STORE_PLAYER:
             sound(p, MSG_STORE_PLAYER_SOUND);

@@ -175,15 +175,14 @@ sound:store_home:plm_door_entrance
 sound:store_leave:plm_door_bolt tomenet/store/doorbell_leave
 
 # Background sounds for stores
+sound:store_home:ambient/store/clock
+sound:store_home_cuckoo:ambient/store/cuckoo
 sound:store_other_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_general_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_temple:ambient/store/store_temple
-sound:store_book_clock:ambient/store/clock
-sound:store_book_cuckoo:ambient/store/cuckoo
+sound:store_bookseller:ambient/store/booksellerbook_1 ambient/store/booksellerbook_2 ambient/store/booksellerbook_3 ambient/store/booksellerbook_4 ambient/store/booksellerbook_5
 sound:store_b_market_sound:ambient/store/bm
 sound:store_xbm_sound:ambient/store/xbm
-sound:store_tavern_sound:tomenet/ambient/persistent/inn/fireplace
-sound:store_home_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_player_sound:tomenet/ambient/persistent/inn/fireplace
 sound:store_alchemy:ambient/store/alchemy
 sound:store_alchemy_boom:ambient/store/alchemy_boom
