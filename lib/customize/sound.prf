@@ -122,10 +122,13 @@ sound:enter_ruins:enter_ruins
 # paths_of_the_dead
 sound:paths_of_the_dead:paths_of_the_dead ambient_wind_night
 
+# solovei whistle at entrance to dlvl 12
+sound:orc_caves:orc_caves
+
 # manor
 sound:manor:manor
 
-# BD
+# BD sounds all levels after entrance
 sound:enter_barrow:enter_barrow
 
 # Dungeon level 99 (4950')
