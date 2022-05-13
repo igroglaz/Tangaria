@@ -145,6 +145,7 @@ MSG(NPC_DRUNK, "npc_drunk")
 MSG(NPC_DUEL, "npc_duel")
 MSG(NPC_MARTA, "npc_marta")
 MSG(NPC_CAIN, "npc_cain")
+MSG(NPC_TOM, "npc_tom")
 
 MSG(GOLD_1, "gold_1")
 MSG(GOLD_2, "gold_2")

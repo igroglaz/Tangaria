@@ -3411,6 +3411,7 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Gildor")) sound(p, MSG_DUEL);
             else if (streq(s->name, "Marta the villager")) sound(p, MSG_MARTA);
             else if (streq(s->name, "Deckard Coin")) sound(p, MSG_CAIN);
+            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_TOM);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
