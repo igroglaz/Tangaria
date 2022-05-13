@@ -3394,6 +3394,7 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
             else if (streq(s->name, "Torog")) sound(p, MSG_NPC_BELCH);
             else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
+            else if (streq(s->name, "Bill Ferny")) sound(p, MSG_NPC_DRUNK);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
