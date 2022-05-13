@@ -205,7 +205,8 @@ sound:npc_rough:ambient/voice/npc_rough_1 ambient/voice/npc_rough_2 ambient/voic
 sound:npc_belch:ambient/voice/npc_belch ambient/voice/npc_belch_1
 sound:npc_rose:ambient/voice/rose_1 ambient/voice/rose_2 ambient/voice/rose_3
 sound:npc_drunk:ambient/voice/npc_drunk ambient/voice/npc_drunk_1
-sound:npc_duel:npc_duel_1 npc_duel_2 npc_duel_3 npc_duel_4 npc_duel_5
+sound:npc_duel:ambient/voice/npc_duel_1 ambient/voice/npc_duel_2 ambient/voice/npc_duel_3 ambient/voice/npc_duel_4 ambient/voice/npc_duel_5
+sound:npc_marta:ambient/voice/marta_1 ambient/voice/marta_2 ambient/voice/marta_3
 
 #
 # Player sounds - combat
