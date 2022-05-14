@@ -3376,20 +3376,51 @@ void do_cmd_store(struct player *p, int pstore)
             if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
             else if (streq(s->name, "Halbarad, the old ranger")) sound(p, MSG_NPC_HI);
             else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
-            else if (streq(s->name, "Alchemy Shop")) sound(p, MSG_STORE_ALCHEMY);
-            else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC);
+            else if (streq(s->name, "Alchemy Shop"))
+            {
+                if (one_in_(6))
+                    sound(p, MSG_STORE_ALCHEMY_BOOM);
+                else
+                    sound(p, MSG_STORE_ALCHEMY);
+            }
+            else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
+            else if (streq(s->name, "Morinehtar the Wizard")) sound(p, MSG_STORE_MAGIC);
             else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
+            else if (streq(s->name, "Armoury")) sound(p, MSG_NPC_ARMOR);
+            else if (streq(s->name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
+            else if (streq(s->name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
+            else if (streq(s->name, "Bob the villager")) sound(p, MSG_NPC_WELCOME);
+            else if (streq(s->name, "Old guard Barry")) sound(p, MSG_NPC_VET);
+            else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
+            else if (streq(s->name, "Torog"))
+            {
+                sound(p, MSG_NPC_BELCH);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
+            else if (streq(s->name, "Bill Ferny"))
+            {
+                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(s->name, "Danny the dog")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Mr. Underhill")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Barliman")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Gildor")) sound(p, MSG_NPC_DUEL);
+            else if (streq(s->name, "Marta the villager")) sound(p, MSG_NPC_MARTA);
+            else if (streq(s->name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
+            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
             break;
         case STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
             break;
         case STORE_TEMPLE:
-            sound(p, MSG_STORE_TEMPLE_SOUND);
+            sound(p, MSG_STORE_TEMPLE);
             break;
         case STORE_BOOKSELLER:
-            if (one_in_(5))
-                sound(p, MSG_STORE_BOOK_CUCKOO);
-            sound(p, MSG_STORE_BOOK_CLOCK);
+            sound(p, MSG_STORE_BOOKSELLER);
             break;
         case STORE_B_MARKET:
             sound(p, MSG_STORE_B_MARKET_SOUND);
@@ -3398,10 +3429,12 @@ void do_cmd_store(struct player *p, int pstore)
             sound(p, MSG_STORE_XBM_SOUND);
             break;
         case STORE_TAVERN:
-            sound(p, MSG_STORE_TAVERN_SOUND);
+            sound(p, MSG_TAVERN);
             break;
         case STORE_HOME:
-            sound(p, MSG_STORE_HOME_SOUND);
+            if (one_in_(6))
+                sound(p, MSG_STORE_HOME_CUCKOO);
+            sound(p, MSG_STORE_HOME);
             break;
         case STORE_PLAYER:
             sound(p, MSG_STORE_PLAYER_SOUND);

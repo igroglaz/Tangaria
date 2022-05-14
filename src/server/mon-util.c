@@ -1140,6 +1140,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         else if (streq(mon->race->name, "Shelob, Spider of Darkness") ||
                  streq(mon->race->name, "Ungoliant, the Unlight"))
             soundfx = MSG_KILL_UNIQUE_SHELOB;
+        else if (streq(mon->race->name, "Koschei the Deathless"))
+            soundfx = MSG_KILL_KOSCHEI;
         else
             soundfx = MSG_KILL_UNIQUE;
     }
@@ -1164,6 +1166,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         soundfx = MSG_KILL_STINGER;
     else if (mon->race->base == lookup_monster_base("mushroom"))
         soundfx = MSG_KILL_MUSHROOM;
+    else if (mon->race->base == lookup_monster_base("angel"))
+        soundfx = MSG_KILL_UNIQUE_ANGEL; // later on: for djinni
 
     /* Death message */
     switch (note)

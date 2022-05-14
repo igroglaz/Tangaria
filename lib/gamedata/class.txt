@@ -7912,21 +7912,17 @@ title:Explorer
 
 # after wipe move there travel guide from PWMA (villager)
 
-magic:1:350:1
+# make number of books -> 1 (magic:1:350:1)
+
+magic:1:350:2
 
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Summon Pet:1:1:22:4:0
-# check.. is it stamina or mana
-flag:DRAIN_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:SUMMON:ANIMAL:0:100
-dice:1
-msg_other: summons a pet.
-desc:Attempts to summon one pet generated at the current dungeon level.
-desc: This spell has no effect when used in the town.
+spell:Novice Mapper:1:1:22:4:0
+effect:MAP_AREA
+effect-yx:5:5
+desc:You map out a portion of the level around.
 
 spell:Phase Door:5:2:24:4:0
 effect:TELEPORT
@@ -8007,6 +8003,24 @@ desc: Higher level monsters are more likely to break the glyph.
 desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: Cooldown 100 turns.
+
+book:travel guide:town:[Basics]:1:common
+book-graphics:?:W
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A standard travel guide with a few tasks.
+equip:travel guide:[Basics]:1:1:none
+
+spell:Summon Pet:1:1:22:4:0
+# check.. is it stamina or mana
+flag:DRAIN_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:SUMMON:ANIMAL:0:100
+dice:1
+msg_other: summons a pet.
+desc:Attempts to summon one pet generated at the current dungeon level.
+desc: This spell has no effect when used in the town.
 
 ############### CLASS TEMPLATE for Tidemaster
 name:Tidemaster
