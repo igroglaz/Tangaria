@@ -5197,19 +5197,27 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     }
 
     // Check for a no teleport grid
-    if (square_isno_teleport(context->cave, &start) && !safe_ghost &&
-        !streq(context->origin->player->clazz->name, "Phaseblade"))
+    if (square_isno_teleport(context->cave, &start) && !safe_ghost)
     {
-        if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
-        return !used;
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade")
+            ;
+        else
+        {
+            if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
+            return !used;
+        }
     }
 
     // Check for a limited teleport grid
-    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10) &&
-        !streq(context->origin->player->clazz->name, "Phaseblade"))
+    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10))
     {
-        if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
-        return !used;
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade")
+            ;
+        else
+        {
+            (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
+            return !used;
+        }
     }
 
     /* Check for a no teleport curse */
@@ -6193,7 +6201,7 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     while (loc_iterator_next(&iter));
 
     // if player weave web - reduce his satiation greatly
-    if (!mon)
+    if (!mon && context->origin->player)
     {   
         if (streq(context->origin->player->race->name, "Spider"))
             player_dec_timed(context->origin->player, TMD_FOOD, 50, false);

@@ -382,15 +382,16 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
             }
         }
 
-        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
-            context->origin->player);
-
-        if (streq(context->origin->player->clazz->name, "Wizard") && !context->origin->player->poly_race)
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard") &&
+            !context->origin->player->poly_race)
         {
             // Acid Breath spell (mana 10)
             if (context->origin->player->spell_cost == 10)
                 dam *= context->origin->player->lev / 4;
         }
+
+        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+            context->origin->player);
 
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
@@ -735,16 +736,17 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             rad = rad + context->beam.spell_power / 2;
             rad = rad * (20 + context->beam.elem_power) / 20;
 
-            source_player(who, get_player_index(get_connection(context->origin->player->conn)),
-                context->origin->player);
-
             // Fireball spell (2 mana)
-            if (streq(context->origin->player->clazz->name, "Mage") && context->origin->player->spell_cost == 2)
+            if (context->origin->player && streq(context->origin->player->clazz->name, "Mage") &&
+                context->origin->player->spell_cost == 2)
             {
                 // dmg
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
             }
+
+            source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+                context->origin->player);
 
             /* Ask for a target if no direction given */
             if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
@@ -832,23 +834,25 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     rad = rad + context->beam.spell_power / 2;
     rad = rad * (20 + context->beam.elem_power) / 20;
 
-    if (streq(context->origin->player->clazz->name, "Wizard"))
-    {   
-        // Manablast spell (mana 10)
-        if (context->origin->player->spell_cost == 10)
-        {
-            rad += context->origin->player->lev / 12;
-            dam *= context->origin->player->lev / 10;
+    if (context->origin->player)
+    {
+        if streq(context->origin->player->clazz->name, "Wizard"))
+        {   
+            // Manablast spell (mana 10)
+            if (context->origin->player->spell_cost == 10)
+            {
+                rad += context->origin->player->lev / 12;
+                dam *= context->origin->player->lev / 10;
+            }
         }
-    }
-
-    if (streq(context->origin->player->clazz->name, "Battlemage"))
-    {   
-        // Phase Nova spell (mana 2)
-        if (context->origin->player->spell_cost == 2)
-        {
-            rad += context->origin->player->lev / 15;
-            dam *= context->origin->player->lev / 10;
+        else if (streq(context->origin->player->clazz->name, "Battlemage"))
+        {   
+            // Phase Nova spell (mana 2)
+            if (context->origin->player->spell_cost == 2)
+            {
+                rad += context->origin->player->lev / 15;
+                dam *= context->origin->player->lev / 10;
+            }
         }
     }
 
@@ -990,7 +994,7 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
             player_clear_timed(context->origin->player, TMD_ANCHOR, true);
     }
 
-    if (streq(context->origin->player->clazz->name, "Wizard"))
+    if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
         // Cold Ray spell (mana 3)
         if (context->origin->player->spell_cost == 3)
@@ -2088,10 +2092,7 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
     }
     else
     {
-        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
-            context->origin->player);
-
-        if (streq(context->origin->player->clazz->name, "Wizard"))
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
         {
             // Magic Blade spell (mana 1)
             if (context->origin->player->spell_cost == 1)
@@ -2124,6 +2125,9 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                         context->origin->player->csp = context->origin->player->csp * 96 / 100;
             }
         }
+
+        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+            context->origin->player);
 
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
@@ -2197,7 +2201,7 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->radius) dam /= context->radius;
 
-    if (streq(context->origin->player->clazz->name, "Wizard"))
+    if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
         // Dark Ritual spell (mana 10)
         if (context->origin->player->spell_cost == 10)
@@ -2253,11 +2257,7 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     int flg = PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAY;
     const char *what = "annihilated";
 
-    loc_copy(&target, &context->origin->player->grid);
-    source_player(who, get_player_index(get_connection(context->origin->player->conn)),
-        context->origin->player);
-
-    if (streq(context->origin->player->clazz->name, "Wizard"))
+    if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
         // Flamestrike spell (mana 8)
         if (context->origin->player->spell_cost == 8)
@@ -2266,6 +2266,10 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
         if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
                 context->origin->player->csp = context->origin->player->csp * 96 / 100;
     }
+
+    loc_copy(&target, &context->origin->player->grid);
+    source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+        context->origin->player);
 
     /* Ask for a target; if no direction given, the player is struck  */
     if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
