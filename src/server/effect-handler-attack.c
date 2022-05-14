@@ -836,7 +836,7 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
 
     if (context->origin->player)
     {
-        if streq(context->origin->player->clazz->name, "Wizard"))
+        if (streq(context->origin->player->clazz->name, "Wizard"))
         {   
             // Manablast spell (mana 10)
             if (context->origin->player->spell_cost == 10)

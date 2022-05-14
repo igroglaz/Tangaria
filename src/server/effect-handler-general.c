@@ -5199,7 +5199,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     // Check for a no teleport grid
     if (square_isno_teleport(context->cave, &start) && !safe_ghost)
     {
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade")
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade"))
             ;
         else
         {
@@ -5211,11 +5211,11 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     // Check for a limited teleport grid
     if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10))
     {
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade")
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Phaseblade"))
             ;
         else
         {
-            (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
+            if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
             return !used;
         }
     }
@@ -5381,10 +5381,12 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
 
     /* Sound */
     if (context->origin->player)
+    {
         if (dis < 11)
             sound(context->origin->player, MSG_PHASE_DOOR);
         else
             sound(context->origin->player, (is_player? MSG_TELEPORT: MSG_TPOTHER));
+    }
 
     /* Report the teleporting before moving the monster */
     if (!is_player)
