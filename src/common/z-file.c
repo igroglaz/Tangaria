@@ -61,6 +61,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 #endif
+#include "../client/main-win.c"
 
 #if defined (WINDOWS) && !defined (CYGWIN)
 # define my_mkdir(path, perms) mkdir(path)
@@ -804,7 +805,7 @@ bool dir_exists(const char *path)
     /* API says we mustn't pass anything larger than MAX_PATH */
     my_strcpy(dirpath, path, sizeof(dirpath));
 
-    attrib = GetFileAttributes(dirpath);
+    attrib = GetFileAttributesW(dirpath);
     if (attrib == INVALID_FILE_NAME) return false;
     if (attrib & FILE_ATTRIBUTE_DIRECTORY) return true;
 
