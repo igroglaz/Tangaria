@@ -231,11 +231,15 @@ DATA = sound.cfg credits.txt \
     kill_slime_3.mp3 kill_slime_4.mp3 kill_slime_5.mp3 kill_slime_6.mp3 kill_slime_7.mp3 kill_slime_8.mp3 \
     kill_slime.ogg kill_stinger.ogg kill_unique_shelob.ogg kill_unique_witch_king.ogg lash.ogg melee_blows.ogg \
     kill_slime.mp3 kill_stinger.mp3 kill_unique_shelob.mp3 kill_unique_witch_king.mp3 lash.mp3 melee_blows.mp3 \
-    message.ogg npc_girl_1.ogg npc_girl_2.ogg npc_girl_3.ogg npc_girl_4.ogg npc_girl_5.ogg \
-    message.mp3 npc_girl_1.mp3 npc_girl_2.mp3 npc_girl_3.mp3 npc_girl_4.mp3 npc_girl_5.mp3 \
-    npc_girl_6.ogg npc_hi_1.ogg npc_hi_2.ogg npc_hi_3.ogg npc_hi_4.ogg paths_of_the_dead.ogg \
-    npc_girl_6.mp3 npc_hi_1.mp3 npc_hi_2.mp3 npc_hi_3.mp3 npc_hi_4.mp3 paths_of_the_dead.mp3 \
-    project.ogg spot.ogg star.ogg strike.ogg touch.ogg \
-    project.mp3 spot.mp3 star.mp3 strike.mp3 touch.mp3
+    message.ogg paths_of_the_dead.ogg \
+    message.mp3 paths_of_the_dead.mp3 \
+    project.ogg spot.ogg star.ogg strike.ogg touch.ogg enter_barrow.ogg \
+    project.mp3 spot.mp3 star.mp3 strike.mp3 touch.mp3 enter_barrow.mp3 \
+    enter_ruins.ogg explosion_1.ogg kill_koschei.ogg kill_mushroom_10.ogg kill_mushroom_11.ogg kill_mushroom_1.ogg \
+    enter_ruins.mp3 explosion_1.mp3 kill_koschei.mp3 kill_mushroom_10.mp3 kill_mushroom_11.mp3 kill_mushroom_1.mp3 \
+    kill_mushroom_2.ogg kill_mushroom_3.ogg kill_mushroom_4.ogg kill_mushroom_5.ogg kill_mushroom_6.ogg kill_mushroom_7.ogg \
+    kill_mushroom_2.mp3 kill_mushroom_3.mp3 kill_mushroom_4.mp3 kill_mushroom_5.mp3 kill_mushroom_6.mp3 kill_mushroom_7.mp3 \
+    kill_mushroom_8.ogg kill_mushroom_9.ogg kill_unique_angel.ogg manor.ogg orc_caves.ogg vulture.ogg \
+    kill_mushroom_8.mp3 kill_mushroom_9.mp3 kill_unique_angel.mp3 manor.mp3 orc_caves.mp3 vulture.mp3
 
 PACKAGE = sounds

@@ -254,6 +254,7 @@ static void recharge_objects(struct player *p)
     }
 }
 
+
 /*
  * Play an ambient sound dependent on dungeon level, and day or night in towns
  */
@@ -361,6 +362,26 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_XAKAZE);
     else
         sound(p, MSG_AMBIENT_MELKOR);
+}
+
+
+/*
+ * Play an ambient sound dependent on location
+ */
+static void play_ambient_sound_location(struct player *p)
+{
+    // custom depth music-ambience for Sewers
+    if (streq(p->locname, "Severs"))
+    {
+        if (p->wpos.depth == 8) sound(p, MSG_SEWERS1);
+        else if (p->wpos.depth == 9) sound(p, MSG_SEWERS2);
+        else if (p->wpos.depth == 10) sound(p, MSG_SEWERS3);
+        else if (p->wpos.depth == 11) sound(p, MSG_SEWERS4);           
+        else if (p->wpos.depth == 12) sound(p, MSG_SEWERS3);
+        else if (p->wpos.depth == 13) sound(p, MSG_SEWERS2);
+        else if (p->wpos.depth == 14) sound(p, MSG_SEWERS5);
+        else if (p->wpos.depth == 15) sound(p, MSG_SEWERS6);
+    }
 }
 
 
@@ -2209,6 +2230,9 @@ static void generate_new_level(struct player *p)
     /* Play music */
     redraw_stuff(p);
     Send_sound(p, -1);
+
+    /* Play an ambient sound dependent on location */
+    play_ambient_sound_location(p);
 }
 
 

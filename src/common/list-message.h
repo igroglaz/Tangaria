@@ -341,6 +341,14 @@ MSG(DANGER_9, "danger_9")
 // client T sounds
 MSG(BROWSE_BOOK, "browse_book")
 
+// music-ambience
+MSG(SEWERS1, "sewers1")
+MSG(SEWERS2, "sewers2")
+MSG(SEWERS3, "sewers3")
+MSG(SEWERS4, "sewers4")
+MSG(SEWERS5, "sewers5")
+MSG(SEWERS6, "sewers6")
+
 /* Max message index (sound) */
 MSG(MAX, NULL)
 

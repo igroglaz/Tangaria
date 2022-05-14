@@ -7289,7 +7289,7 @@ static int Receive_store_leave(int ind)
             if (s->type == STORE_PLAYER)
                 sound(p, MSG_STORE_LEAVE);
 
-            // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
+            // empty sound to break sound loop .ogg.0 (see: SDL_CHUNK_LOOP)
             sound(p, MSG_SILENT0);
 
             /* Restore music volume */
