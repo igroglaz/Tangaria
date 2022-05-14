@@ -41,3 +41,7 @@ src/bcb6/Win64/Release/
 
 *.lnk
 __astcache
+ObjectFiles/*
+ObjectFiles/**
+*/ObjectFiles/**
+**/ObjectFiles/**

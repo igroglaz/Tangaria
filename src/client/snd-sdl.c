@@ -31,7 +31,10 @@
 # endif
 #endif /* USE_SDL */
 
-#ifdef SOUND_SDL2
+#if defined(BUILDINGWithVS)
+#  include <SDL/SDL.h>
+#  include <SDL/SDL_mixer.h>
+#elif defined(SOUND_SDL2)
 # ifdef WINDOWS
 #  include "..\..\..\SDL\include\SDL.h"
 #  include "..\..\..\SDL\include\SDL_mixer.h"
@@ -96,7 +99,7 @@ static bool play_music_aux(const char *dirpath)
     {
         /* Check for file extension */
         if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || suffix(buf, ".ogg") || suffix(buf, ".OGG"))
-            count++;
+            ++count;
     }
     my_dclose(dir);
     if (!count) return false;
@@ -108,7 +111,7 @@ static bool play_music_aux(const char *dirpath)
     while (my_dread(dir, buf, sizeof(buf)))
     {
         if (suffix(buf, ".mp3") || suffix(buf, ".MP3") || suffix(buf, ".ogg") || suffix(buf, ".OGG"))
-            count++;
+            ++count;
         if (count == pick) break;
     }
     my_dclose(dir);
