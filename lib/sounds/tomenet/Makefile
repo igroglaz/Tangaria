@@ -2,7 +2,7 @@ MKPATH=../../../mk/
 include $(MKPATH)buildsys.mk
 
 DATA = credits.txt \
-	ambient/persistent/inn/fireplace.ogg0 \
+	ambient/persistent/inn/fireplace.ogg.0 \
 	ambient/persistent/misc/fire.ogg \
 	ambient/persistent/ocean/seawaves.ogg \
 	ambient/persistent/watery/crickets.ogg \
