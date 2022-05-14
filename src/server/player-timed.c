@@ -1184,7 +1184,10 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
     if (new_grade->grade > current_grade->grade)
     {
         msg_misc(p, effect->near_begin);
-        print_custom_message(p, weapon, new_grade->up_msg, effect->msgt);
+        // exception: entering Old Ruins. We don't wanna play sound 'blind' there
+        // as we have there sound with a sliding door: sound(p, MSG_ENTER_RUINS)
+        if (p->wpos.depth != 1 && p->exp != 0)
+            print_custom_message(p, weapon, new_grade->up_msg, effect->msgt);
         notify = true;
     }
     else if ((new_grade->grade < current_grade->grade) && new_grade->down_msg)
@@ -1199,7 +1202,10 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
         if (v == 0)
         {
             msg_misc(p, effect->near_end);
-            print_custom_message(p, weapon, effect->on_end, MSG_RECOVER);
+            // exception: entering Old Ruins. We don't wanna play recovery 'ding' sound
+            // as we have there sound with a sliding door: sound(p, MSG_ENTER_RUINS)
+            if (p->wpos.depth != 1 && p->exp != 0)
+                print_custom_message(p, weapon, effect->on_end, MSG_RECOVER);
             if (!OPT(p, disturb_effect_end)) no_disturb = true;
         }
 

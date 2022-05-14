@@ -210,7 +210,10 @@ void do_cmd_go_down(struct player *p)
     /* Success */
     if (square_isdownstairs(c, &p->grid))
     {
-        msgt(p, MSG_STAIRS_DOWN, "You enter a maze of down staircases.");
+        // exception: entering Old Ruins. We don't wanna play stair sound there
+        // as we have there sound with a sliding door: sound(p, MSG_ENTER_RUINS)
+        if (p->wpos.depth != 1 && p->exp != 0)
+            msgt(p, MSG_STAIRS_DOWN, "You enter a maze of down staircases.");
         new_level_method = LEVEL_DOWN;
     }
     else

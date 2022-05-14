@@ -264,7 +264,7 @@ static void play_ambient_sound(struct player *p)
     {
         if (in_town(&p->wpos))
         {
-            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) && one_in_(2))
+            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  1) && one_in_(2))
             {
                 if (one_in_(5))
                     sound(p, MSG_TOWN_RARE);
@@ -2145,7 +2145,10 @@ static void generate_new_level(struct player *p)
         sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
     else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 0 && p->wpos.depth == 1)
     {
-        player_inc_timed(p, TMD_BLIND, 6, false, false);
+        player_inc_timed(p, TMD_BLIND, 5, false, false); // kinda 'splash' screen
+        player_inc_timed(p, TMD_INVIS, 5, false, false);
+        player_inc_timed(p, TMD_REVIVE, 5, false, false);
+        player_inc_timed(p, TMD_OCCUPIED, 5, false, false);
         sound(p, MSG_ENTER_RUINS); // enter Old Ruins
     }
     else if (p->wpos.grid.x == 1 && p->wpos.grid.y == 1 && p->wpos.depth == 4)
