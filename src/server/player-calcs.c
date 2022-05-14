@@ -2509,15 +2509,18 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->skills[SKILL_SAVE] += p->lev;
         extra_blows -= p->lev / 10;
         state->to_d -= 1 + p->lev / 5;
+        // also reduce -10% inc damage
     }
     else if (p->timed[TMD_OFFENSIVE_STANCE])
     {
         state->stat_add[STAT_STR] += 1;
         state->stat_add[STAT_DEX] += 3;
+        state->to_a -= p->lev;
+        state->skills[SKILL_SAVE] -= p->lev / 2;
+        state->to_h -= p->lev / 2;
         state->to_d += 1 + p->lev / 5;
         extra_blows += p->lev / 10;
-        state->to_h -= p->lev;
-        state->to_a -= p->lev / 2;
+        // also 50% chance for AoE attack
     }
     else if (p->timed[TMD_BALANCED_STANCE])
     {

@@ -1108,7 +1108,8 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     dmg += player_damage_bonus(&p->state);
 
     /* PWMAngband: freezing aura reduces damage  */
-    if (target->player && (target->player->timed[TMD_ICY_AURA] > 0))
+    if (target->player && ((target->player->timed[TMD_ICY_AURA] > 0) ||
+        (target->player->timed[TMD_DEFENSIVE_STANCE])))
         dmg = (dmg * 90) / 100;
 
     /* No negative damage; change verb if no damage done */
@@ -1198,6 +1199,13 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     }
 
     if (stop) memset(effects, 0, sizeof(struct delayed_effects));
+
+    // Knight offensive stance AoE
+    if (p->timed[TMD_OFFENSIVE_STANCE] && one_in_(2))
+    {
+        do_circle = true;
+        splash = dmg;
+    }
 
     /* Post-damage effects */
     if (blow_after_effects(p, c, grid, do_circle, splash, do_quake))
