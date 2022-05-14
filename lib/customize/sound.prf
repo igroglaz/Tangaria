@@ -192,15 +192,15 @@ sound:store_alchemy_boom:ambient/store/alchemy_boom
 sound:store_magic_tower:ambient/store/magic_tower
 sound:store_spells:ambient/store/spells
 sound:tavern:ambient/store/tavern
-
-sound:npc_cat:ambient/store/purr ambient/store/meow
-sound:npc_hi:npc_hi_1 npc_hi_2 npc_hi_3 npc_hi_4
-sound:npc_girl:npc_girl_1 npc_girl_2 npc_girl_3 npc_girl_4 npc_girl_5 npc_girl_6
-sound:npc_warr:ambient/store/warr_1 ambient/store/warr_2 ambient/store/warr_3 ambient/store/warr_4 ambient/store/warr_5 ambient/store/warr_6 ambient/store/warr_7 ambient/store/warr_8 ambient/store/warr_9
 sound:npc_armor:ambient/store/armor
 sound:npc_arrow:ambient/store/arrow_1 ambient/store/arrow_2 ambient/store/arrow_3
 sound:store_magic:ambient/store/magic
 sound:store_weapon:ambient/store/store_weapon
+
+sound:npc_cat:ambient/voice/cat_purr ambient/voice/cat_meow
+sound:npc_hi:ambient/voice/npc_hi_1 ambient/voice/npc_hi_2 ambient/voice/npc_hi_3 ambient/voice/npc_hi_4
+sound:npc_girl:ambient/voice/npc_girl_1 ambient/voice/npc_girl_2 ambient/voice/npc_girl_3 ambient/voice/npc_girl_4 ambient/voice/npc_girl_5 ambient/voice/npc_girl_6
+sound:npc_warr:ambient/voice/warr_1 ambient/voice/warr_2 ambient/voice/warr_3 ambient/voice/warr_4 ambient/voice/warr_5 ambient/voice/warr_6 ambient/voice/warr_7 ambient/voice/warr_8 ambient/voice/warr_9
 sound:npc_welcome:ambient/voice/welcome_1 ambient/voice/welcome_2 ambient/voice/welcome_3 ambient/voice/welcome_4 ambient/voice/welcome_5
 sound:npc_vet:ambient/voice/vet_1 ambient/voice/vet_2 ambient/voice/vet_3 ambient/voice/vet_4 ambient/voice/vet_5 ambient/voice/vet_6 ambient/voice/vet_7
 sound:npc_rough:ambient/voice/npc_rough_1 ambient/voice/npc_rough_2 ambient/voice/npc_rough_3

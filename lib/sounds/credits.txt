@@ -1,3 +1,19 @@
+Format for the artist's credits:
+
+- Author name
+- URL
+- Sound name in Tangaria
+
+#######################
+
+rubberduck
+https://opengameart.org/content/100-cc0-sfx-2
+magic
+
+MattJ99
+https://freesound.org/people/MattJ99/sounds/66786/
+alchemy
+
 Topschool
 https://freesound.org/people/Topschool/sounds/443493/
 npc_tom
@@ -386,11 +402,11 @@ quiver
 
 steffcaffrey
 https://freesound.org/people/steffcaffrey/sounds/262309/
-meow
+cat_meow
 
 F.M.Audio
 https://freesound.org/people/F.M.Audio/sounds/583379/
-purr
+cat_purr
 
 nicholasdaryl
 https://freesound.org/people/nicholasdaryl/sounds/563465/
