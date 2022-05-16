@@ -1,9 +1,6 @@
 Not used sounds yet:
 
-combat/block_shield
 combat/block_shield_projectile
-combat/parry
-combat/parry_weapon
 combat/tech_melee
 
 magic/rocket

@@ -336,6 +336,9 @@ MSG(FANFARE,"fanfare")
 MSG(POLY_BAT,"poly_bat")
 MSG(MESSAGE, "message")
 MSG(DANGER_9, "danger_9")
+MSG(BALANCED_STANCE, "balanced_stance")
+MSG(DEFENSIVE_STANCE, "defensive_stance")
+MSG(OFFENSIVE_STANCE, "offensive_stance")
 
 
 // client T sounds

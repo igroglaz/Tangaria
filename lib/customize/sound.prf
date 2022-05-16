@@ -968,6 +968,12 @@ sound:message:message
 # lvl danger feeling
 sound:danger_9:danger_9
 
+# knight stances
+sound:balanced_stance:tomenet/combat/parry/parry
+sound:defensive_stance:tomenet/combat/block_shield/block
+sound:offensive_stance:tomenet/combat/parry_weapon/parry_metal
+
+
 ######################
 ###################### client T sounds
 ######################
