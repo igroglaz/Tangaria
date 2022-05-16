@@ -88,6 +88,7 @@ static bool play_music_aux(const char *dirpath)
     char buf[MSG_LEN];
     int count = 0, pick;
     char musicpath[MSG_LEN];
+    bool loop = false;
 
     /* Check directory existence */
     if (!dir_exists(dirpath)) return false;
@@ -116,6 +117,9 @@ static bool play_music_aux(const char *dirpath)
     }
     my_dclose(dir);
 
+    // Check tag '_file' for music looped playback
+    if (buf[0] == '_') loop = true;
+
     /* Load music file */
     if (music) Mix_FreeMusic(music);
     path_build(musicpath, sizeof(musicpath), dirpath, buf);
@@ -129,8 +133,17 @@ static bool play_music_aux(const char *dirpath)
         Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
     }
 
-    /* Play music file (once) */
-    Mix_PlayMusic(music, 1);
+    if (loop)
+    {
+        /* Play music file (loop) */
+        Mix_PlayMusic(music, -1);
+    }
+    else
+    {
+        /* Play music file (once) */
+        Mix_PlayMusic(music, 1);
+    }
+
     return true;
 }
 
@@ -150,9 +163,19 @@ static void play_music_sdl(void)
     /* Check location */
     if (!STRZERO(player->locname))
     {
-        /* Play music from corresponding music subdirectory */
+        char dirpaths[MSG_LEN];
+
+        // Play music dependent on location depth subdirectory
         path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
-        played = play_music_aux(dirpath);
+        path_build(dirpaths, sizeof(dirpaths), dirpath, format("%d", player->wpos.depth));
+        played = play_music_aux(dirpaths);
+
+        if (!played)
+        {
+            /* Play music from corresponding music subdirectory */
+            path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
+            played = play_music_aux(dirpath);
+        }
 
         /* Hack -- don't fall back for intro music */
         if (streq(player->locname, "intro")) return;
@@ -326,6 +349,9 @@ static bool play_sound_sdl(struct sound_data *data)
     /* Play some music */
     if (data == NULL)
     {
+        /* Halt music playback */
+        if (Mix_PlayingMusic()) Mix_HaltMusic();
+
         play_music_sdl();
         return true;
     }
@@ -338,8 +364,6 @@ static bool play_sound_sdl(struct sound_data *data)
         {
             /* Halt playback on all channels */
             Mix_HaltChannel(-1);
-            /* Halt music playback */
-            if (Mix_PlayingMusic()) Mix_HaltMusic();
         }
         else if (streq(data->name, "silent0"))
         {
