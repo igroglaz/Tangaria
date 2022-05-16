@@ -38,7 +38,6 @@ DATA = credits_ambient.txt \
     severs/sewers_5.mp3 \
     severs/sewers_6.mp3.0 \
     severs/sewers_6.mp3 \
-    store/credits.txt \
     store/alchemy.ogg.0 \
     store/alchemy.mp3 \
     store/alchemy_boom.ogg \
@@ -71,10 +70,6 @@ DATA = credits_ambient.txt \
     store/magic.mp3 \
     store/magic_tower.ogg.0 \
     store/magic_tower.mp3 \
-    store/cat_meow.ogg \
-    store/cat_meow.mp3 \
-    store/cat_purr.ogg.0 \
-    store/cat_purr.mp3 \
     store/shop_spells.ogg.0 \
     store/shop_spells.mp3 \
     store/store_temple.ogg.0 \
@@ -85,6 +80,10 @@ DATA = credits_ambient.txt \
     store/tavern.mp3 \
     store/xbm.ogg.0 \
     store/xbm.mp3 \
+    voice/cat_meow.ogg \
+    voice/cat_meow.mp3 \
+    voice/cat_purr.ogg.0 \
+    voice/cat_purr.mp3 \
     voice/intro_1.ogg \
     voice/intro_1.mp3 \
     voice/intro_2.ogg \
