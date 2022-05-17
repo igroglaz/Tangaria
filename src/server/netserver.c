@@ -572,7 +572,7 @@ static void Contact_cancel(int fd, char *reason)
 {
     plog(reason);
     remove_input(fd);
-    close(fd);
+    _close(fd);
 }
 
 
