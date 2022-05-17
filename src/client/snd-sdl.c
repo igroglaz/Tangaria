@@ -88,7 +88,6 @@ static bool play_music_aux(const char *dirpath)
     char buf[MSG_LEN];
     int count = 0, pick;
     char musicpath[MSG_LEN];
-    bool loop = false;
 
     /* Check directory existence */
     if (!dir_exists(dirpath)) return false;
@@ -117,9 +116,6 @@ static bool play_music_aux(const char *dirpath)
     }
     my_dclose(dir);
 
-    // Check tag '_file' for music looped playback
-    if (buf[0] == '_') loop = true;
-
     /* Load music file */
     if (music) Mix_FreeMusic(music);
     path_build(musicpath, sizeof(musicpath), dirpath, buf);
@@ -133,7 +129,8 @@ static bool play_music_aux(const char *dirpath)
         Mix_VolumeMusic((music_volume * MIX_MAX_VOLUME) / 100);
     }
 
-    if (loop)
+    // Check tag '_file' for music looped playback
+    if (buf[0] == '_')
     {
         /* Play music file (loop) */
         Mix_PlayMusic(music, -1);
