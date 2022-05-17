@@ -46,7 +46,9 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* Verify stairs */
-    if (!square_isupstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
+    if (p->timed[TMD_PROBTRAVEL] && !streq(p->clazz->name, "Assassin"))
+        ;
+    else if (!square_isupstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
     {
         msg(p, "I see no up staircase here.");
         return;
@@ -84,6 +86,9 @@ void do_cmd_go_up(struct player *p)
 
     /* Take a turn */
     use_energy(p);
+
+    // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
+    sound(p, MSG_SILENT);
 
     /* Success */
     if (square_isupstairs(c, &p->grid))
@@ -135,7 +140,9 @@ void do_cmd_go_down(struct player *p)
     }
 
     /* Verify stairs */
-    if (!square_isdownstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
+    if (p->timed[TMD_PROBTRAVEL] && streq(p->clazz->name, "Assassin"))
+        ;
+    else if (!square_isdownstairs(c, &p->grid) && !p->ghost && !p->timed[TMD_PROBTRAVEL])
     {
         msg(p, "I see no down staircase here.");
         return;
@@ -196,6 +203,9 @@ void do_cmd_go_down(struct player *p)
 
     /* Take a turn */
     use_energy(p);
+
+    // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
+    sound(p, MSG_SILENT);
 
     /* Success */
     if (square_isdownstairs(c, &p->grid))
@@ -264,7 +274,9 @@ static bool do_cmd_open_test(struct player *p, struct chunk *c, struct loc *grid
     }
 
     /* Handle polymorphed players */
-    if (p->poly_race && !OPT(p, birth_fruit_bat))
+    
+    // can't open only if player is inside dungeon (to have access to houses)
+    if (p->poly_race && !OPT(p, birth_fruit_bat) && !(p->wpos.depth == 0))
     {
         bool can_open = rf_has(p->poly_race->flags, RF_OPEN_DOOR);
         bool can_bash = rf_has(p->poly_race->flags, RF_BASH_DOOR);
@@ -399,7 +411,7 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
         {
             if (can_bash && !can_open)
             {
-                msgt(p, MSG_HIT, "You have bashed down the door.");
+                msgt(p, MSG_DOOR_BROKEN, "You have bashed down the door.");
                 square_smash_door(c, grid);
             }
             else
@@ -435,8 +447,13 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
     else
     {
         /* Open the door */
-        if (can_bash && !can_open) square_smash_door(c, grid);
-        else square_open_door(c, grid);
+        if (can_bash && !can_open)
+        {
+            msgt(p, MSG_DOOR_BROKEN, "Can't open.. You have bashed down the door.");
+            square_smash_door(c, grid);
+        }
+        else
+            square_open_door(c, grid);
 
         /* Update the visuals */
         square_memorize(p, c, grid);
@@ -635,7 +652,9 @@ static bool do_cmd_close_test(struct player *p, struct chunk *c, struct loc *gri
     }
 
     /* Handle polymorphed players */
-    if (p->poly_race && !OPT(p, birth_fruit_bat))
+    
+    // can't close only if player is inside dungeon (to have access to houses)
+    if (p->poly_race && !OPT(p, birth_fruit_bat) && !(p->wpos.depth == 0))
     {
         bool can_open = rf_has(p->poly_race->flags, RF_OPEN_DOOR);
         bool can_bash = rf_has(p->poly_race->flags, RF_BASH_DOOR);
@@ -800,14 +819,17 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
     }
 
     /* Must be a wall/door/etc */
-    if (!square_seemsdiggable(c, grid))
+    // 1) DM need possibility to 'dig' doors to remove wiped houses
+    // 2) allow dig fountains
+    if (!square_seemsdiggable(c, grid) && (!(p->dm_flags & DM_HOUSE_CONTROL)) &&
+        !square_isfountain(c, grid))
     {
         msg(p, "You see nothing there to tunnel.");
         return false;
     }
 
     /* No tunneling on special levels and towns */
-    if (special_level(&p->wpos) || in_town(&p->wpos))
+    if (special_level(&p->wpos)) /// REMOVED in_town(&p->wpos)
     {
         msg(p, "Nothing happens.");
         return false;
@@ -832,9 +854,6 @@ static bool twall(struct player *p, struct chunk *c, struct loc *grid)
 {
     /* Paranoia -- require a wall or door or some such */
     if (!square_seemsdiggable(c, grid)) return false;
-
-    /* Sound */
-    sound(p, MSG_DIG);
 
     /* Remove the feature */
     square_tunnel_wall(c, grid);
@@ -866,15 +885,45 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     bool more = false;
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
-    bool gold, rubble, tree, web;
+    bool gold, rubble, tree, web, door;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
     tree = square_istree(c, grid);
     web = square_iswebbed(c, grid);
+    door = square_isdoor(c, grid);
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
+    
+    if (in_town(&p->wpos) && p->timed[TMD_FOOD] < 2000)
+    {
+        msg(p, "You are too tired and hungry for mining. Eat some food.");
+        return false;        
+    }
+        
+
+    /* Mountain in town */
+    if (square_ismountain(c, grid) && in_town(&p->wpos) && p->lev > 7)
+    {
+
+        // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
+        player_dec_timed(p, TMD_FOOD, 200, false);
+            if (one_in_(2))
+            {
+                struct object *dig_stone;
+                /* Make house stone */
+                dig_stone = make_object(p, c, 1, false, false, false, NULL, TV_STONE);
+                if (dig_stone)
+                {
+                    sound(p, MSG_DIG);
+                    set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                    /* Drop house stone */
+                    drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+                }
+            }
+        return false;
+    }
 
     calc_digging_chances(p, &p->state, digging_chances);
 
@@ -884,10 +933,21 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     okay = CHANCE(chance, 1600);
 
     /* Hack -- house walls */
-    if (square_ispermhouse(c, grid))
+    if (square_is_new_permhouse(c, grid))
     {
         /* Either the player has lost his mind or he is trying to create a door! */
         create_house_door(p, c, grid);
+    }
+
+    /* Hack -- DM can remove wiped unowned custom houses */
+    // ...to prevent case when admin can accidently destroy NPC stores' doors
+    // (I did it several times already) - destroy only whe drink ?Heroism
+    if ((p->dm_flags & DM_HOUSE_CONTROL) && (find_house(p, grid, 0) == -1) &&
+       ((square_is_new_permhouse(c, grid)) || (square_home_iscloseddoor(c, grid)) ||
+         square_issafefloor(c, grid)) && p->timed[TMD_HERO])
+    {
+        /* Either the player has lost his mind or he is trying to create a door! */
+        square_burn_grass(c, grid);
     }
 
     /* Permanent */
@@ -899,6 +959,11 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else
             msg(p, "This seems to be permanent rock.");
     }
+    
+    /* No diggins walls in towns */
+    else if (in_town(&p->wpos) && ((feat_is_wall(square(c, grid)->feat)) ||
+            (square_isdoor(c, grid))))
+        msg(p, "It's pointless to dig that there.");
 
     /* Mountain */
     else if (square_ismountain(c, grid))
@@ -911,24 +976,230 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         more = true;
     }
 
+////////// DIG DRY FOUNTAIN:
+    else if (okay && square_isdryfountain(c, grid))
+    {
+        /* Message */
+        msg(p, "You have split the dry fountain.");
+        
+        if (one_in_(4))
+        {
+            msg(p, "Water gushes forth from the hole in fountain!");
+            square_set_feat(c, grid, FEAT_WATER);
+        }
+        else if (one_in_(7))
+        {   /* pit trap */
+            square_tunnel_wall(c, grid);
+            msg(p, "Suddenly you hear that some floor under ruined fountain fall!");
+            place_trap(c, grid, 5, c->wpos.depth);
+        }
+        else if (one_in_(7) && c->wpos.depth > 1) // no trap pit on 1st lvl
+        {   /* trap door */
+            square_tunnel_wall(c, grid);
+            msg(p, "Suddenly you hear that some floor under ruined fountain fall!");
+            place_trap(c, grid, 4, c->wpos.depth);
+        }
+        else
+            /* Remove the feature */
+            square_tunnel_wall(c, grid);
+
+        /* Place an object */
+        if (magik(10))
+        {
+            struct object *dig_dry;
+            /* Create a simple object */
+            dig_dry = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
+
+                if (dig_dry) // to prevent obj null in case of `water` tile which is not `floor`
+                {
+                    set_origin(dig_dry, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                    /* Drop house stone */
+                    drop_near(p, c, &dig_dry, 0, &p->grid, true, DROP_FADE, false);
+                }
+        }        
+        /* Summon creature */
+        else if (one_in_(4))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                uint8_t minlev;
+                uint8_t chance;
+            } summon_chance[] =
+            {
+                {"creeping copper coins", 0, 100},
+                {"clay golem", 7, 90},
+                {"stone golem", 15, 80},
+                {"livingstone", 17, 70},
+                {"lesser wall monster", 23, 60},
+                {"gargoyle", 28, 50},
+                {"silent watcher", 30, 40},
+                {"malicious leprechaun", 33, 30}
+            };
+            int i;
+
+            msg(p, "Something crawls out of the fountain rubbles!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }        
+
+        /* Sound */
+        sound(p, MSG_DIG);
+
+        /* Update the visuals */
+        update_visuals(&p->wpos);
+
+        /* Fully update the flow */
+        fully_update_flow(&p->wpos);
+    }
+
+////////// DIG FOUNTAIN WITH WATER:
+    else if (okay && square_isfountain(c, grid))
+    {
+        /* Message */
+        msg(p, "Oops. You have split the fountain.");
+        
+        /* Fall in */
+        if (one_in_(15))
+        {
+            msg(p, "You slip and fall in the water.");
+            if (!player_passwall(p) && !can_swim(p))
+                take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a water");
+            return false;
+        }        
+        else if (one_in_(2))
+        {
+            msg(p, "Water gushes forth from the overflowing ruined fountain!");
+            square_set_feat(c, grid, FEAT_WATER);
+            // add PROJ SHALLOW WATER fire_ball(context->origin->player, PROJ_SH_WATER, 0, 1, 2, false, false);
+        }            
+        else
+        {
+            /* Remove the feature */
+            square_tunnel_wall(c, grid);        
+            msg(p, "Water suddenly disappears. You hear bubbling sound.");    
+        }
+
+        /* Summon water creature */
+        if (one_in_(2))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                uint8_t minlev;
+                uint8_t chance;
+            } summon_chance[] =
+            {
+                {"giant green frog", 0, 100},
+                {"giant red frog", 3, 90},
+                {"water spirit", 8, 80},
+                {"water vortex", 11, 70},
+                {"water elemental", 16, 60},
+                {"water hound", 21, 50},
+                {"seahorse", 30, 40},                
+                {"Djinn", 45, 30}
+            };
+            int i;
+
+            msg(p, "Caramba! Something pops out of the fountain depths!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+        
+        /* Place an object */
+        else if (magik(10))
+        {
+            struct object *dig_fountain;
+            /* Create a simple object */
+            dig_fountain = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, 0);
+
+                if (dig_fountain) // to prevent obj null in case of `water` tile which is not `floor`
+                {
+                    set_origin(dig_fountain, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                    /* Drop treasure */
+                    drop_near(p, c, &dig_fountain, 0, &p->grid, true, DROP_FADE, false);
+                }
+        }        
+
+        sound(p, MSG_DIG_TREASURE);
+
+        /* Update the visuals */
+        update_visuals(&p->wpos);
+
+        /* Fully update the flow */
+        fully_update_flow(&p->wpos);
+    }
+
+////////// REGULAR DIGGING:
     /* Success */
     else if (okay && twall(p, c, grid))
     {
-        /* Mow down the vegetation */
-        if (tree)
+        // hack doors
+        if (door)
         {
-            /* Message */
+            sound(p, MSG_DOOR_BROKEN);
+            msg(p, "Wham! You bashed through the door.");
+            square_set_feat(c, grid, FEAT_BROKEN);
+        }
+        /* Mow down the vegetation */
+        else if (tree)
+        {
+            sound(p, MSG_CHOP_TREE_FALL);
             msg(p, "You hack your way through the vegetation.");
+
+            /* Make Rare Herb or Crafting Material */
+            if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
+                 (streq(p->clazz->name, "Crafter")   && one_in_(3))) &&
+                !(p->wpos.depth == 0))
+            {
+                struct object *dig_reagent;
+
+                dig_reagent = object_new();
+
+                if (streq(p->clazz->name, "Alchemist"))
+                    object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Herb"), 0, MINIMISE);
+                else if (streq(p->clazz->name, "Crafter"))
+                    object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
+
+                /* Pack is too full */
+                if (!inven_carry_okay(p, dig_reagent))
+                {
+                    object_delete(&dig_reagent);
+                    msg(p, "Your backpack if too full to find herbs!");
+                    return false;
+                }
+
+                /* Pack is too heavy */
+                if (!weight_okay(p, dig_reagent))
+                {
+                    object_delete(&dig_reagent);
+                    msg(p, "Your backpack if too heavy to get wood!");
+                    return false;
+                }
+                set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                dig_reagent->soulbound = true;
+
+                /* Give it to the player */
+                inven_carry(p, dig_reagent, true, true);
+
+                /* Handle stuff */
+                handle_stuff(p);
+            }
         }
 
         /* Clear some web */
         else if (web)
+        {
+            sound(p, MSG_DIG);
             msg(p, "You hack your way through the web.");
+        }
 
         /* Remove the rubble */
         else if (rubble)
         {
-            /* Message */
             msg(p, "You have removed the rubble.");
 
             /* Place an object */
@@ -942,7 +1213,10 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 /* Observe the new object */
                 new_obj = square_object(c, grid);
                 if (new_obj && !ignore_item_ok(p, new_obj) && square_isseen(p, grid))
+                {
+                    sound(p, MSG_DIG_TREASURE);
                     msg(p, "You have found something!");
+                }
             }
         }
 
@@ -951,10 +1225,199 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             /* Place some gold */
             place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
-
-            /* Message */
+            sound(p, MSG_DIG_TREASURE);
             msg(p, "You have found something!");
         }
+
+        /* No cobbles and stones to find in town */
+        else if (in_town(&p->wpos))
+        {
+            sound(p, MSG_DIG);
+            msg(p, "You have finished the tunnel.");
+        }
+
+        // make Rare Mineral or Crafting Material
+        else if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
+                  (streq(p->clazz->name, "Crafter")   && one_in_(2))) &&
+                  !(p->wpos.depth == 0))
+        {
+            struct object *dig_reagent;
+
+            dig_reagent = object_new();
+
+            if (streq(p->clazz->name, "Alchemist"))
+                object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Mineral"), 0, MINIMISE);
+            else if (streq(p->clazz->name, "Crafter"))
+                object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
+
+            /* Pack is too full */
+            if (!inven_carry_okay(p, dig_reagent))
+            {
+                object_delete(&dig_reagent);
+                msg(p, "Your backpack if too full to find minerals!");
+                return false;
+            }
+
+            /* Pack is too heavy */
+            if (!weight_okay(p, dig_reagent))
+            {
+                object_delete(&dig_reagent);
+                msg(p, "Your backpack if too heavy to get materials!");
+                return false;
+            }
+            set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+            dig_reagent->soulbound = true;
+
+            /* Give it to the player */
+            inven_carry(p, dig_reagent, true, true);
+
+            /* Handle stuff */
+            handle_stuff(p);
+        }
+
+        /* Dig cobbles (simple non-magical rocks) */
+        else if (one_in_(2) && !square_is_ice(c, grid) &&
+                (!square_is_sand(c, grid) || one_in_(3)))
+        {
+            struct object *dig_cobble;
+            /* Make cobble */
+            dig_cobble = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_COBBLE);
+
+            if (dig_cobble) // check in case of NULL
+            {
+                set_origin(dig_cobble, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                sound(p, MSG_DIG);
+
+                /* Drop the cobble (place_object won't work as it generates
+                object at wall position which is no drop) */
+                drop_near(p, c, &dig_cobble, 0, &p->grid, true, DROP_FADE, true);
+            }
+        }
+
+        /* Dig house Foundation Stone */
+        else if (one_in_(2) && p->lev > 7 && !square_is_ice(c, grid) &&
+                (!square_is_sand(c, grid) || one_in_(5)))
+        {
+            struct object *dig_stone;
+            /* Make house stone */
+            dig_stone = make_object(p, c, object_level(&p->wpos), false, false, false, NULL, TV_STONE);
+
+            if (dig_stone)
+            {
+                set_origin(dig_stone, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                sound(p, MSG_DIG);
+                /* Drop house stone */
+                drop_near(p, c, &dig_stone, 0, &p->grid, true, DROP_FADE, false);
+            }
+        }
+
+        /* You may dig out monster... */
+
+        // sand monsters
+        else if (one_in_(20) && square_is_sand(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                uint8_t minlev;
+                uint8_t chance;
+            } summon_chance[] =
+            {
+                {"soldier ant", 0, 100},
+                {"viper", 3, 50},
+                {"giant salamander", 8, 50},
+                {"moaning spirit", 12, 50},
+                {"earth spirit", 16, 50},
+                {"earth hound", 19, 50},
+                {"sandworm", 20, 90},
+                {"adult sandworm", 25, 60},
+                {"earth elemental", 34, 40},
+                {"sand giant", 40, 30},
+                {"great earth elemental", 60, 5}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged the sand!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
+        // ice monsters
+        else if (one_in_(20) && square_is_ice(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                uint8_t minlev;
+                uint8_t chance;
+            } summon_chance[] =
+            {
+                {"grey mold", 0, 100},
+                {"green glutton ghost", 4, 5},
+                {"creeping copper coins", 5, 10},
+                {"undead mass", 10, 80},
+                {"moaning spirit", 12, 70},
+                {"freezing sphere", 17, 60},
+                {"ancient obelisk", 20, 5},
+                {"cold vortex", 21, 50},
+                {"ice skeleton", 23, 50},
+                {"statue of ancient god", 25, 5},
+                {"ice troll", 28, 10},
+                {"frost giant", 29, 10},
+                {"mithril golem", 30, 5},
+                {"ice elemental", 37, 50},
+                {"death knight", 38, 10},
+                {"great ice wyrm", 60, 1}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged ice!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
+        // other monsters in walls/rocks
+        else if (one_in_(20) && !square_is_ice(c, grid) && !square_is_sand(c, grid))
+        {
+            static const struct summon_chance_t
+            {
+                const char *race;
+                uint8_t minlev;
+                uint8_t chance;
+            } summon_chance[] =
+            {
+                {"soldier ant", 0, 100},
+                {"Weaver spider", 1, 50},
+                {"giant cockroach", 2, 50},
+                {"viper", 3, 50},
+                {"cave lizard", 4, 50},
+                {"brown mold", 6, 50},
+                {"crypt creep", 7, 20},
+                {"giant salamander", 8, 20},
+                {"giant red ant", 9, 50},
+                {"hairy mold", 10, 40},
+                {"moaning spirit", 12, 30},
+                {"earth spirit", 16, 60},
+                {"earth hound", 20, 30},
+                {"pukelman", 25, 10},
+                {"rusty golem", 27, 10},
+                {"earth elemental", 33, 60},
+                {"xaren", 40, 40},
+                {"Boggart", 43, 10},
+                {"prizrak", 44, 5},
+                {"shadow", 50, 10},
+                {"great earth elemental", 60, 5}
+            };
+            int i;
+
+            msg(p, "Caramba! Something appears after you digged the wall!");
+            do {i = randint0(N_ELEMENTS(summon_chance));}
+            while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+            summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+        }
+
 
         /* Found nothing */
         else
@@ -972,12 +1435,32 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     /* Failure, continue digging */
     else if (chance > 0)
     {
+
+    // Tunnel sound frequency: taking last number from turns counter and
+    // checking is it equal to zero (odd/even number method).
+    // For slow chars sounds should be more often.
+
+    int turn_last_digit = p->active_turn.turn % 10;
+    int sound_freq = 2 + ((p->state.speed - 110) / 10);
+
         if (tree || web)
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_CHOP_TREE);
             msg(p, "You attempt to clear a path.");
+        }
         else if (rubble)
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_TUNNEL_WALL);
             msg(p, "You dig in the rubble.");
+        }
         else
+        {
+            if (turn_last_digit % sound_freq == 0)
+                sound(p, MSG_TUNNEL_WALL);
             msg(p, "You tunnel into the %s.", square_apparent_name(p, c, grid));
+        }
          more = true;
     }
 
@@ -1379,7 +1862,7 @@ void do_cmd_alter(struct player *p, int dir)
     }
 
     /* MAngband-specific: open house walls (House Creation) */
-    else if (square_ispermhouse(c, &grid))
+    else if (square_is_new_permhouse(c, &grid))
         more = do_cmd_tunnel_aux(p, c, &grid);
 
     /* Tunnel through walls, trees and rubble (allow pit walls to fool the player) */
@@ -1405,6 +1888,13 @@ void do_cmd_alter(struct player *p, int dir)
     /* Close door */
     else if (square_isopendoor(c, &grid))
         more = do_cmd_close_aux(p, c, &grid);
+
+    /* Make farm */
+    else if (in_wild(&p->wpos) && !special_level(&p->wpos) && !town_area(&p->wpos) &&
+        square_isgrass(c, &grid) && !square_object(c, &grid))
+    {
+        square_set_feat(c, &grid, FEAT_CROP);
+    }
 
     /* Oops */
     else
@@ -1710,7 +2200,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     /* Prob travel */
-    if (p->timed[TMD_PROBTRAVEL] && !square_ispassable(c, &grid))
+    if (p->timed[TMD_PROBTRAVEL] && !square_ispassable(c, &grid) &&
+        !streq(p->clazz->name, "Assassin"))
     {
         do_prob_travel(p, c, dir);
         return;
@@ -1730,8 +2221,33 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         return;
     }
 
+    // Slippery grounds
+    if (streq(p->terrain, "\tIce\0") && !streq(p->clazz->name, "Cryokinetic") && one_in_(6))
+    {
+        msgt(p, MSG_TERRAIN_SLIP, "You slip on the icy floor!");
+        return;
+    }
+
+    // Some can pass trees
+    // allow pass trees in town by running
+    if (square_istree(c, &grid) && (p->wpos.depth == 0))
+        ;
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
+        ;
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Shaman") && one_in_(3))
+        ;
+    else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
+        ;    
+    else if (square_istree(c, &grid) && streq(p->race->name, "Ent") && !one_in_(4))
+        ;
+    else if (square_istree(c, &grid) && player_of_has(p, OF_FLYING) &&
+        !player_of_has(p, OF_CANT_FLY) && !one_in_(5))
+        ;
+    else if (square_istree(c, &grid) && player_of_has(p, OF_FEATHER) &&
+        !player_of_has(p, OF_CANT_FLY) && one_in_(3) && p->lev > 35)
+        ;
     /* Normal players can not walk through "walls" */
-    if (!player_passwall(p) && !square_ispassable(c, &grid))
+    else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
         disturb(p, 0);
 
@@ -1783,7 +2299,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 msgt(p, MSG_HITWALL, "There is a door blocking your way.");
 
             /* Tree */
-            else if (square_istree(c, &grid))
+            else if (square_istree(c, &grid) && !streq(p->clazz->name, "Shaman"))
                 msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
 
             /* Wall (or secret door) */
@@ -2016,6 +2532,8 @@ static bool clear_web(struct player *p, struct chunk *c)
 {
     if (!square_iswebbed(c, &p->grid)) return false;
 
+    if (streq(p->race->name, "Spider")) return false;
+
     /* Handle polymorphed players */
     if (p->poly_race)
     {
@@ -2159,6 +2677,10 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
 
     /* Hack -- walking obtains knowledge XXX XXX */
     if (!square_isknown(p, grid)) return true;
+
+    // allow pass trees in town by running
+    if (square_istree(c, grid) && (p->wpos.depth == 0))
+        return true;
 
     /* Require open space */
     if (!square_ispassable(c, grid))
@@ -2358,7 +2880,10 @@ void display_feeling(struct player *p, bool obj_only)
     uint8_t set = 0;
 
     /* Don't show feelings for cold-hearted characters */
-    if (!cfg_level_feelings || !OPT(p, birth_feelings)) return;
+    // and some races
+    if (!cfg_level_feelings || !OPT(p, birth_feelings) ||
+        streq(p->race->name, "Troll") || streq(p->race->name, "Djinn"))
+        return;
 
     /* No feeling in towns */
     if (forbid_town(&p->wpos))
@@ -2456,6 +2981,10 @@ void display_feeling(struct player *p, bool obj_only)
     msg(p, "%s%s %s", mon_feeling_text[mon_feeling][set], join, obj_feeling_text[obj_feeling][set]);
     p->obj_feeling = obj_feeling;
     p->mon_feeling = mon_feeling;
+
+    // sound for 9 danger
+    if (mon_feeling >= 9)
+        sound(p, MSG_DANGER_9);
 }
 
 
@@ -2466,6 +2995,12 @@ void display_feeling(struct player *p, bool obj_only)
 static int can_buy_house(struct player *p, int price)
 {
     int i;
+    
+    if (p->lev < 8)
+    {
+        msg(p, "You must be level 8 to buy a house.");
+        return false;
+    }    
 
     /* Check for deeds of property */
     if (price < 10000)
@@ -2798,11 +3333,150 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
     return false;
 }
 
+/*
+ * Check if the area around house foundation is allowed.
+ */
+static bool check_around_foundation (struct player *p, struct chunk *c, struct loc *begin,
+    struct loc *end)
+{
+    int x, y;
+    int house;
+    struct loc grid1, grid2, grid3, grid4;
+
+    loc_init(&grid1, begin->x - 1, begin->y - 1);
+    loc_init(&grid2, end->x + 1, begin->y - 1);
+    loc_init(&grid3, begin->x - 1, end->y + 1);
+    loc_init(&grid4, end->x + 1, end->y + 1);
+
+    /* Check bounds (fully) */
+    if (!square_in_bounds_fully(c, &grid1) || !square_in_bounds_fully(c, &grid2) ||
+        !square_in_bounds_fully(c, &grid3) || !square_in_bounds_fully(c, &grid4))
+    {
+        msg(p, "You cannot build house near the location border.");
+        return false;
+    }
+
+    /* Check north and south */
+    for (x = begin->x; x <= end->x; x++)
+    {
+        loc_init(&grid1, x, begin->y - 1);
+        loc_init(&grid2, x, end->y + 1);
+
+        /* Check is this square allowed to have a house
+        (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
+        if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
+        {
+            msg(p, "You cannot build house there.");
+            return false;
+        }
+
+        house = 0;
+
+        /* Grid 1 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid1, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid1))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+        house = 0;
+
+        /* Grind 2 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid2, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid2))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+    }
+
+    /* Check east and west */
+    for (y = begin->y; y <= end->y; y++)
+    {
+        loc_init(&grid1, begin->x - 1, y);
+        loc_init(&grid2, end->x + 1, y);
+
+        /* Check is this square allowed to have a house
+        (terrain where housing not allowed - roads, NPC stores, dungeons etc) */
+        if (square_is_no_house(c, &grid1) || square_is_no_house(c, &grid2))
+        {
+            msg(p, "You cannot build house there.");
+            return false;
+        }
+
+        house = 0;
+
+        /* Grid 1 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid1, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid1))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+        house = 0;
+
+        /* Grind 2 : given coordinates return a house to which they belong. */
+        house = find_house(p, &grid2, 0);
+        if (house >= 0)
+        {
+            /* Determine if the player owns the house */
+            if (!(house_owned_by(p, house)))
+            {
+                /* Check for house doors */
+                if (square_home_iscloseddoor(c, &grid2))
+                {
+                    msg(p, "You cannot build house near other's players house doors.");
+                    return false;
+                }
+            }
+        }
+
+    }
+
+    return true;
+}
+
 
 /*
  * Determine if the given location is ok to use as part of the foundation
  * of a house.
+ *
+ * This function called by get_house_foundation() when there is
+ * a need to check particular square (tile or grid) with certain x,y coords.
+ * This fuctions called a lot of times; each time when we need to check
+ * "Could we expand to certain direction?". Each time function checks:
+ * 1) is there a foundation stone lying at this square?
+ * 2) is this square is a part of a house? if so - is it our house?
+ *
  */
+
 static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *grid)
 {
     struct object *obj = square_object(c, grid);
@@ -2818,11 +3492,12 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
      * Perma walls and doors are valid if they are part of a house owned
      * by this player
      */
-    if (square_ispermhouse(c, grid) || square_home_iscloseddoor(c, grid))
+    if (square_is_new_permhouse(c, grid) || square_home_iscloseddoor(c, grid))
     {
         int house;
 
-        /* Looks like part of a house, which house? */
+        /* Looks like part of a house, which house?
+        Given coordinates return a house to which they belong. */
         house = find_house(p, grid, 0);
         if (house >= 0)
         {
@@ -2866,13 +3541,16 @@ static bool is_valid_foundation(struct player *p, struct chunk *c, struct loc *g
  * the box in each dimension for as long as all points on the perimeter are
  * either foundation stones or walls of houses the player owns.
  *
+ * CHANGED BOOL TO INT to calculate price
  */
-static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
+static long int get_house_foundation(struct player *p, struct chunk *c, struct loc *grid1,
     struct loc *grid2)
 {
     int x, y;
     bool done = false;
     bool n, s, e, w, ne, nw, se, sw;
+    int area, price; // house pricing
+    int i; // to find house deed for <10k houses
 
     /* We must be standing on a house foundation */
     if (!is_valid_foundation(p, c, &p->grid))
@@ -2980,7 +3658,9 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
         done = !(n || s || w || e);
     }
 
-    /* Paranoia */
+    /* Paranoia: checks is foundation from one corner to another
+    got at least 1 tile in between. So it's always a square;
+    not possible to make it unusual form */
     x = grid2->x - grid1->x - 1;
     y = grid2->y - grid1->y - 1;
     if ((x <= 0) || (y <= 0))
@@ -2989,15 +3669,60 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
         return false;
     }
 
-    /* No 1x1 house foundation */
-    if ((x + y) < 3)
+    /* House foundation size check.
+    Smallest house (1 floor tile) got 2 in this calculations */
+    if ((x + y) < 2) // 3->2 TANGARIA
     {
         msg(p, "The foundation is too small!");
         return false;
     }
 
-    /* Return the area */
-    return true;
+    /* Calculare area for price */
+    area = x * y;
+
+    /* Fix small houses price
+    (without it multiplyer would be 1 and price will be 50g per house */
+    if (area == 1)
+    {
+        area = 2;
+    }
+    else
+        area += 5;  // adjust price a bit, so 10k free houses won't be too big
+
+    /* Calculate price.
+    More houses you have - more expensive will be next one */
+    price = house_price(area, false);
+
+    /* Check for deeds of property */
+    // If you don't have any house, building 1st small one will be free.
+    // There will be yet another check of such kind - when we pay the gold.
+    if ((price < 10000) && ((houses_owned(p)) < 1))
+    {
+        // Look in backpack for Deed of Property
+        for (i = 0; i < z_info->pack_size; i++)
+        {
+            struct object *obj = p->upkeep->inven[i];
+
+            if (!obj) continue;
+
+            if (tval_is_deed(obj)) return price;
+        }
+        // cycle ended.. so deed wasn't found and we can check for enough funds:
+        if (price > p->au)
+        {
+            msg(p, "You do not have enough money to pay the price of %ld gold.", price);
+            return false;
+        }
+    }
+    // in case if it's expensive (10k+) house - check for enough funds:
+    else if (price > p->au)
+    {
+        msg(p, "You do not have enough money to pay the price of %ld gold.", price);
+        return false;
+    }
+
+    /* Return the price (which is also area permission) */
+    return price;
 }
 
 
@@ -3005,20 +3730,32 @@ static bool get_house_foundation(struct player *p, struct chunk *c, struct loc *
  * Create a new house.
  * The creating player owns the house.
  */
-bool create_house(struct player *p)
+bool create_house(struct player *p, int small_house)
 {
     int house;
     struct house_type h_local;
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
+    long int price;
+    int i; // to find house deed for <10k houses
+    char wall_type = '\0';  // second part of floor name (type) for rng walls
+    int wall_id = 0;  // specific wall (when we have several different walls in one row)
 
+    if (p->lev < 8)
+    {
+        msg(p, "You must be level 8 to build a house.");
+        return false;
+    }
+
+#ifndef TEST_MODE
     /* The DM cannot create houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
     {
         msg(p, "You cannot create or extend houses.");
         return false;
     }
+#endif
 
     /* Restricted by choice */
     if ((cfg_limited_stores == 3) || OPT(p, birth_no_stores))
@@ -3027,18 +3764,31 @@ bool create_house(struct player *p)
         return false;
     }
 
-    /* Houses can only be created in the wilderness */
-    if (!in_wild(&p->wpos))
+    /* Can't have more than 2 houses */
+    if (houses_owned(p) >= 2)
     {
-        msg(p, "This location is not suited for a house.");
+        msg(p, "You cannot have more than 2 houses.");
         return false;
     }
 
-    /* Determine the area of the house foundation */
-    if (!get_house_foundation(p, c, &begin, &end)) return false;
+//  /* Houses can only be created in the wilderness */
+//    if (!in_wild(&p->wpos))
+//   {
+//        msg(p, "This location is not suited for a house.");
+//        return false;
+//   }
+
+    /* Determine the area of the house foundation AND calculate price */
+    if ((price = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
+
+    // Check is house made with Small House Creation scroll or not
+    // (parameter given to create_house() )
+    if (price > 10000 && small_house == 1)
+        return false;
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
+    if (!check_around_foundation(p, c, &begin, &end)) return false;
 
     /* Get an empty house slot */
     house = house_add(true);
@@ -3050,12 +3800,40 @@ bool create_house(struct player *p)
         return false;
     }
 
+    /* Check for deeds of property */
+    // if you don't have any house, building 1st small one will be free
+    if ((price < 10000) && ((houses_owned(p)) < 1))
+    {
+        for (i = 0; i < z_info->pack_size; i++)
+        {
+            struct object *obj = p->upkeep->inven[i];
+
+            if (!obj) continue;
+
+            if (tval_is_deed(obj))
+            {
+                use_object(p, obj, 1, true);
+                h_local.free = 1;
+            }
+        }
+        if (h_local.free != 1) p->au -= price; // didn't use house deed used - pay
+    }
+    else
+        p->au -= price; // big house: take some of the player's money
+
+    /* Redraw */
+    p->upkeep->redraw |= (PR_GOLD);
+
     /* Setup house info */
-    loc_init(&h_local.grid_1, begin.x + 1, begin.y + 1);
-    loc_init(&h_local.grid_2, end.x - 1, end.y - 1);
+    // if in local.grid will be PWMA +1/-1 stuff -- walls won't be
+    // counted (so house will be marked only on grids with floor).
+    // So there +1/-1 are removed.
+    loc_init(&h_local.grid_1, begin.x, begin.y);
+    loc_init(&h_local.grid_2, end.x, end.y);
     loc_init(&h_local.door, 0, 0);
+    // copy coordinates of world location
     memcpy(&h_local.wpos, &p->wpos, sizeof(struct worldpos));
-    h_local.price = 0;   /* XXX */
+    h_local.price = price;
     set_house_owner(p, &h_local);
     h_local.state = HOUSE_CUSTOM;
 
@@ -3063,6 +3841,21 @@ bool create_house(struct player *p)
     house_set(house, &h_local);
 
     loc_iterator_first(&iter, &begin, &end);
+
+    /* Wall type for building rng walls */
+    if      (one_in_(9)) wall_type = 'a';  // B7 B8 wood
+    else if (one_in_(9)) wall_type = 'b';  // B9 BA small black
+    else if (one_in_(9)) wall_type = 'c';  // BB BC big white
+    else if (one_in_(9)) wall_type = 'd';  // BD BE big black
+    else if (one_in_(9)) wall_type = 'e';  // BF C0 small white
+    else if (one_in_(9)) wall_type = 'f';  // 96 98
+    else if (one_in_(9)) wall_type = 'g';  // A3 AA
+    else if (one_in_(9)) wall_type = 'h';  // DC E1
+    else if (one_in_(9)) wall_type = 'i';  // E2 E3
+    else wall_type = 'b';
+
+    /* Generate special wall id: starting from 1! */
+    wall_id = randint1(12);
 
     /* Render into the terrain */
     do
@@ -3072,7 +3865,7 @@ bool create_house(struct player *p)
 
         /* Build a wall, but don't destroy any existing door */
         if (!square_home_iscloseddoor(c, &iter.cur))
-            square_build_permhouse(c, &iter.cur);
+            square_build_new_permhouse(c, &iter.cur, wall_type, wall_id);
     }
     while (loc_iterator_next(&iter));
 
@@ -3083,13 +3876,15 @@ bool create_house(struct player *p)
     do
     {
         /* Fill with safe floor */
-        square_add_safe(c, &iter.cur);
+        square_add_new_safe(c, &iter.cur);
 
         /* Declare this to be a room */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_ROOM);
     }
     while (loc_iterator_next_strict(&iter));
+
+    msg(p, "To create a door - 'T'unnel the wall in desirable place.");
 
     return true;
 }
@@ -3277,7 +4072,7 @@ static bool get_foundation_area(struct player *p, struct chunk *c, struct loc *b
     }
 
     /* No 1x1 house foundation */
-    if ((x + y) < 3)
+    if ((x + y) < 2)  ////////////// 3 -> TANGARIA
     {
         msg(p, "The foundation is too small!");
         return false;
@@ -3356,12 +4151,14 @@ bool build_house(struct player *p)
     struct loc begin, end;
     struct loc_iterator iter;
 
+#ifndef TEST_MODE
     /* The DM cannot create or extend houses! */
     if (p->dm_flags & DM_HOUSE_CONTROL)
     {
         msg(p, "You cannot create or extend houses.");
         return false;
     }
+#endif
 
     /* Restricted by choice */
     if ((cfg_limited_stores == 3) || OPT(p, birth_no_stores))
@@ -3370,19 +4167,20 @@ bool build_house(struct player *p)
         return false;
     }
 
-    /* Houses can only be created in the wilderness */
-    if (!in_wild(&p->wpos))
-    {
-        msg(p, "This location is not suited for a house.");
-        return false;
-    }
+//    /* Houses can only be created in the wilderness */
+//    if (!in_wild(&p->wpos))
+//    {
+//        msg(p, "This location is not suited for a house.");
+//        return false;
+//    }
 
-    /* PWMAngband: no house expansion in immediate suburbs */
+/// Tangaria comment out:
+    /* PWMAngband: no house expansion in immediate suburbs 
     if (town_suburb(&p->wpos))
     {
         msg(p, "This location is not suited for a house.");
         return false;
-    }
+    }*/
 
     /* Determine the area of the house foundation */
     if (!get_foundation_area(p, c, &begin, &end)) return false;

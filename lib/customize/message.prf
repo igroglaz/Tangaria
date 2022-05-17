@@ -19,9 +19,15 @@
 # I - 24 - Light Pink    M - 25 - Mustard       z - 26 - Blue Slate
 # Z - 27 - Deep Light Blue
 
+#### ! no need to add there entry if we add only sound effect
+#### ! for sound effect just add line to list-message.h
+
 
 # MSG_GENERIC
 message:GENERIC:w
+
+# MSG_RED_INK (no sound)
+message:RED_INK:R
 
 # MSG_HIT
 message:HIT:w
@@ -52,6 +58,30 @@ message:TELEPORT:w
 
 # MSG_SHOOT (sound only)
 message:SHOOT:w
+
+# MSG_SHOOT_GOOD (sound only)
+message:SHOOT_GOOD:w
+
+# MSG_SHOOT_GREAT (sound only)
+message:SHOOT_GREAT:w
+
+# MSG_SHOOT_SUPERB (sound only)
+message:SHOOT_SUPERB:w
+
+# MSG_SHOOT_BOW (sound only)
+message:SHOOT_BOW:w
+
+# MSG_SHOOT_CROSSBOW (sound only)
+message:SHOOT_CROSSBOW:w
+
+# MSG_SHOOT_SLING (sound only)
+message:SHOOT_SLING:w
+
+# MSG_SHOOT_BOOMERANG (sound only)
+message:SHOOT_BOOMERANG:w
+
+# MSG_THROW (sound only)
+message:THROW:w
 
 # MSG_QUAFF (sound only)
 message:QUAFF:w
@@ -91,6 +121,9 @@ message:OPENDOOR:w
 
 # MSG_SHUTDOOR (sound only)
 message:SHUTDOOR:w
+
+# MSG_DOOR_CLOSED
+message:DOOR_CLOSED:w
 
 # MSG_TPLEVEL
 message:TPLEVEL:w
@@ -176,23 +209,32 @@ message:MON_INSULT:w
 # MSG_MON_MOAN
 message:MON_MOAN:w
 
+# MSG_MON_HYPNOTIZE
+message:MON_HYPNOTIZE:P
+
+# MSG_MON_SWALLOW for food
+message:MON_SWALLOW:Y
+
+# MSG_MON_DEVOUR for light
+message:MON_DEVOUR:o
+
 # MSG_RECOVER
 message:RECOVER:w
 
 # MSG_BLIND
-message:BLIND:w
+message:BLIND:y
 
 # MSG_CONFUSED
-message:CONFUSED:w
+message:CONFUSED:G
 
 # MSG_POISONED
-message:POISONED:w
+message:POISONED:g
 
 # MSG_AFRAID
 message:AFRAID:o
 
 # MSG_PARALYZED
-message:PARALYZED:w
+message:PARALYZED:R
 
 # MSG_DRUGGED
 message:DRUGGED:w
@@ -201,7 +243,7 @@ message:DRUGGED:w
 message:SPEED:w
 
 # MSG_SLOW
-message:SLOW:w
+message:SLOW:V
 
 # MSG_SHIELD
 message:SHIELD:w
@@ -357,6 +399,9 @@ message:SUM_MONSTER:w
 # MSG_SUM_AINU
 message:SUM_AINU:w
 
+# MSG_SUM_ANGEL
+message:SUM_ANGEL:w
+
 # MSG_SUM_UNDEAD
 message:SUM_UNDEAD:w
 
@@ -477,6 +522,12 @@ message:MULTIPLY:w
 # MSG_BOLD
 message:BOLD:w
 
+# MSG_RAIN
+message:WILD_RAIN:w
+
+# MSG_WILD_WAVES
+message:WILD_WAVES:w
+
 # MSG_WILD_RIVER
 message:WILD_RIVER:w
 
@@ -535,7 +586,7 @@ message:AMBIENT_MELKOR:w
 message:HIT_HI_CRITICAL:w
 
 # MSG_ENTER_PIT
-message:ENTER_PIT:D
+message:ENTER_PIT:r
 
 # PWMAngband-specific: internal messages broadcast to all players
 
@@ -613,5 +664,58 @@ message:WHISPER:w
 
 # MSG_CHAT
 message:CHAT:w
+
+############################ Tangaria
+
+# MSG_UNAFFECTED
+message:UNAFFECTED:P
+
+# MSG_IMMUNE
+message:IMMUNE:i
+
+# MSG_RESIST_A_LOT
+message:RESIST_A_LOT:I
+
+# MSG_RESIST
+message:RESIST:V
+
+# MSG_RESIST_SOMEWHAT
+message:RESIST_SOMEWHAT:V
+
+# MSG_SPELL_FAIL
+message:SPELL_FAIL:Y
+
+# MSG_HOWL
+message:HOWL:Z
+
+# MSG_IMP
+message:IMP:p
+
+# MSG_TERRAIN_SLIP
+message:TERRAIN_SLIP:z
+
+# MSG_TUNNEL_WALL
+message:TUNNEL_WALL:w
+
+# MSG_CHOP_TREE
+message:CHOP_TREE:w
+
+# MSG_CHOP_TREE_FALL
+message:CHOP_TREE_FALL:w
+
+# MSG_SENTRY
+message:SENTRY:w
+
+# MSG_DOOR_BROKEN
+message:DOOR_BROKEN:w
+
+# MSG_DISRUPT
+message:DISRUPT:r
+
+# MSG_DISARM_WEAPON
+message:DISARM_WEAPON:r
+
+# MSG_PUNCH
+message:PUNCH:w
 
 ?:1

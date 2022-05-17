@@ -620,7 +620,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
             {
                 int arg;
                 size_t i, max = 32;
-                uint32_t bitmask;
+                uint32_t bitmask = 0;
                 char out[32 + 1];
 
                 /* Get the next argument */
@@ -665,7 +665,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
         }
 
         /* Now append "tmp" to "buf" */
-        for (q = 0; tmp[q]; q++)
+        for (q = 0; tmp[q]; ++q)
         {
             /* Check total length */
             if (n == max - 1) break;

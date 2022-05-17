@@ -182,7 +182,7 @@ default: $(CLI_EXE)
 
 ########################### Explicit Rules ########################
 $(CLI_EXE): $(CLI_OBJS) ..\win\angband.res
-	$(LINKER) -aa $(LDFLAGS) -x $(CLI_OBJS) c0x32.obj, $(CLI_EXE),, cw32mt.lib import32.lib ws2_32.lib ..\_SDL2\SDL2.lib ..\_SDL2\SDL2_ttf.lib ..\_SDL2\SDL2_image.lib ..\_SDL2\SDL2_mixer.lib,, ..\win\angband.res
+	$(LINKER) -aa $(LDFLAGS) -x $(CLI_OBJS) c0x32.obj, $(CLI_EXE),, cw32mt.lib import32.lib ws2_32.lib ..\..\..\SDL\VisualC\x64\Release\SDL2.lib ..\..\..\SDL\include\SDL2_ttf.lib ..\..\..\SDL\include\SDL2_image.lib ..\..\..\SDL\include\SDL2_mixer.lib,, ..\win\angband.res
 
 ..\win\angband.res: ..\win\angband.rc
 	$(RC) /d __BCC7__ /i $(BCCDIR)\include\windows\sdk ..\win\angband.rc

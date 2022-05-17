@@ -85,6 +85,61 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
 }
 
 
+// Places a lake in the dungeon.
+ static void build_lake(struct chunk *c)
+{
+    int dir;
+    struct loc grid;
+    int size, t = 0;
+
+    // Pick a lake size
+    if (one_in_(2))      size = 100 + randint1(100);
+    else if (one_in_(5)) size = 100 + randint1(500);
+    else if (one_in_(10)) size = 100 + randint1(1000);
+    else size = 100 + randint1(300);
+
+    /* Hack -- choose starting point */
+    loc_init(&grid, rand_spread(c->width / 2, 15), rand_spread(c->height / 2, 10));
+
+    /* Place lake into dungeon */
+    while (t <= size)
+    {
+        struct loc change;
+        t++;
+
+        /* Pick a nearby grid */
+        find_nearby_grid(c, &change, &grid, 0, 0);
+
+        // Water flow only through rocks, empty floors.. doors will drown
+        if (square_isrock(c, &change) || square_isempty(c, &change) || square_isdoor(c, &change))
+        {
+            /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
+            // T: also don't do it if too deep
+            if (!square_ispermfake(c, &change) ||
+                (cfg_challenging_levels && one_in_(c->wpos.depth) && c->wpos.depth < 50))
+            {
+                /* Turn the into the water */
+                square_set_feat(c, &change, FEAT_WATER);
+
+                /* Sometimes add known treasure. Works only on MAGMA and QUARTZ */
+                // T: must be rock.. maybe enhance into different water tiles later
+                if (one_in_(50) && square_isrock(c, &change)) square_upgrade_mineral(c, &change);
+            }
+        }
+
+        /* Choose a random direction */
+        dir = ddd[randint0(8)];
+
+        // Advance building further
+        grid.y += ddy[dir];
+        grid.x += ddx[dir];
+
+        /* Stop at dungeon edge */
+        if (!square_in_bounds(c, &grid)) break;
+    }
+}
+
+
 /*
  * Places a streamer of rock through dungeon.
  *
@@ -126,13 +181,14 @@ static void build_streamer(struct chunk *c, int feat, int chance)
             if (square_isrock(c, &change))
             {
                 /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
+                // T: also don't do it if too deep
                 if (!square_ispermfake(c, &change) ||
-                    (cfg_challenging_levels && one_in_(c->wpos.depth)))
+                    (cfg_challenging_levels && one_in_(c->wpos.depth) && c->wpos.depth < 50))
                 {
                     /* Turn the rock into the vein type */
                     square_set_feat(c, &change, feat);
 
-                    /* Sometimes add known treasure */
+                    /* Sometimes add known treasure. Works only on MAGMA and QUARTZ */
                     if (one_in_(chance)) square_upgrade_mineral(c, &change);
                 }
             }
@@ -1306,8 +1362,33 @@ static void add_streamer(struct chunk *c, int feat, int flag, int chance)
     dungeon = get_dungeon(&dpos);
 
     /* Place streamer into dungeon */
-    if (dungeon && c->wpos.depth && df_has(dungeon->flags, flag))
-        build_streamer(c, feat, chance);
+    if (dungeon && c->wpos.depth)
+    {
+        // Regular PWMA case
+        if (df_has(dungeon->flags, flag))
+            build_streamer(c, feat, chance);
+        // If there are no flags for the dungeon - Tangaria cases:
+        else
+        {
+            // All dungeons got 1% chance for feature with treasure
+            if (one_in_(100))
+            {
+                int rng_feat = randint1(4);
+
+                if      (rng_feat == 1)
+                    build_streamer(c, FEAT_WATER, 0);
+                else if (rng_feat == 2)
+                    build_streamer(c, FEAT_QUARTZ, 30);
+                else if (rng_feat == 3)
+                    build_streamer(c, FEAT_MAGMA, 30);
+                else if (rng_feat == 4)
+                    build_streamer(c, FEAT_SANDWALL, 0);
+            }
+            // Special cases for particular dungeons
+            else if (streq (dungeon->name, "The Old Ruins") && one_in_(25))
+                    build_streamer(c, FEAT_WATER, 0);
+        }
+    }
 }
 
 
@@ -1588,6 +1669,19 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
      */
     size_percent = percent_size(wpos);
 
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 0)
+    {
+        if (wpos->depth < 11 && !one_in_(4))
+            size_percent = 75;
+        else if (wpos->depth < 21 && !one_in_(3))
+            size_percent = 75;
+        else if (wpos->depth < 31 && one_in_(2))
+            size_percent = 75;
+        else if (wpos->depth < 41 && one_in_(3))
+            size_percent = 75;
+    }
+
     /* Scale the various generation variables */
     num_rooms = dun->profile->dun_rooms * size_percent / 100;
     dun->block_hgt = dun->profile->block_size;
@@ -1733,6 +1827,12 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -1744,13 +1844,38 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -1944,7 +2069,8 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
     bool lit, bool soft, bool wide)
 {
     int i, j, k;
-    struct loc grid;
+    struct loc grid, top_left, bottom_right;
+    int *find_state;
 
     /* This is the number of squares in the labyrinth */
     int n = h * w;
@@ -2077,40 +2203,41 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
         }
     }
 
-    /* Generate a door for every 100 squares in the labyrinth */
-    for (i = n / 100; i > 0; i--)
-    {
-        /* Try 10 times to find a useful place for a door, then place it */
-        for (j = 0; j < 10; j++)
-        {
-            find_empty(c, &grid);
-
-            /* Hack -- for wide corridors, place two doors */
-            if (wide)
-            {
-                struct loc choice, next;
-
-                if (lab_is_wide_tunnel(c, &grid, &choice))
-                {
-                    place_closed_door(c, &grid);
-                    loc_sum(&next, &grid, &choice);
-                    place_closed_door(c, &next);
-                    break;
-                }
-                continue;
-            }
-
-            if (lab_is_tunnel(c, &grid))
-            {
-                place_closed_door(c, &grid);
-                break;
-            }
-        }
-    }
-
     /* Deallocate our lists */
     mem_free(sets);
     mem_free(walls);
+
+    /* Generate a door for every 100 squares in the labyrinth */
+    loc_init(&top_left, 1, 1);
+    loc_init(&bottom_right, c->width - 2, c->height - 2);
+    find_state = cave_find_init(&top_left, &bottom_right);
+    i = n / 100;
+    while (i > 0 && cave_find_get_grid(&grid, find_state))
+    {
+        if (!square_isempty(c, &grid)) continue;
+
+        /* Hack -- for wide corridors, place two doors */
+        if (wide)
+        {
+            struct loc choice;
+
+            if (lab_is_wide_tunnel(c, &grid, &choice))
+            {
+                struct loc next;
+
+                place_closed_door(c, &grid);
+                loc_sum(&next, &grid, &choice);
+                place_closed_door(c, &next);
+                --i;
+            }
+        }
+        else if (lab_is_tunnel(c, &grid))
+        {
+            place_closed_door(c, &grid);
+            --i;
+        }
+    }
+    mem_free(find_state);
 
     return c;
 }
@@ -2182,6 +2309,10 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
         w *= 2;
     }
 
+    // Add lake
+    if (one_in_(20))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -2193,10 +2324,38 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     k = (3 * k * (h * w)) / (z_info->dungeon_hgt * z_info->dungeon_wid);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_BOTH, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_BOTH, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -2213,10 +2372,12 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
     /* Put some objects/gold in the dungeon */
-    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(k * 6, 2), wpos->depth,
+    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(k * 3, 2), wpos->depth,
         ORIGIN_LABYRINTH);
-    alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(k * 3, 2), wpos->depth, ORIGIN_LABYRINTH);
-    alloc_objects(p, c, SET_BOTH, TYP_GOOD, randint1(2), wpos->depth, ORIGIN_LABYRINTH);
+    if (one_in_(2))
+        alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(k * 3, 2), wpos->depth, ORIGIN_LABYRINTH);
+    if (one_in_(2))
+        alloc_objects(p, c, SET_BOTH, TYP_GOOD, randint1(2), wpos->depth, ORIGIN_LABYRINTH);
 
     /* Notify if we want the player to see the maze layout */
     player_cave_clear(p, true);
@@ -2807,6 +2968,10 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     /* Surround the level with perma-rock */
     draw_rectangle(c, 0, 0, h - 1, w - 1, FEAT_PERM, SQUARE_NONE, true);
 
+    // Add lake
+    if (one_in_(10))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -2822,6 +2987,34 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -3217,7 +3410,7 @@ static void build_tavern(struct chunk *c, int n, struct loc *grid)
     do
     {
         /* Create the tavern, make it PvP-safe */
-        square_add_safe(c, &iter.cur);
+        square_add_new_safe(c, &iter.cur);
 
         /* Declare this to be a room */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
@@ -3822,6 +4015,232 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     return c;
 }
 
+// Tangaria 'tiny' levels
+struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
+{
+    int i, k;
+    int size_percent, y_size, x_size;
+    struct chunk *c;
+    // T:
+    int t;
+
+    /* Scale the level */
+    size_percent = percent_size(wpos);
+
+    // T: low dlvls have chance to generate 'tiny' levels
+    if (wpos->depth > 1)
+    {
+        if (wpos->depth < 5)
+        {
+            if      (one_in_(15)) size_percent = 30;
+            else if (one_in_(12)) size_percent = 35;
+            else if (one_in_(10)) size_percent = 40;
+            else if (one_in_(8))  size_percent = 45;
+            else if (one_in_(6))  size_percent = 50;
+            else if (one_in_(5))  size_percent = 55;
+            else if (one_in_(4))  size_percent = 60;
+            else if (one_in_(3))  size_percent = 65;
+            else if (one_in_(2))  size_percent = 70;
+        }
+        else if (wpos->depth < 11)
+        {
+            if      (one_in_(15)) size_percent = 40;
+            else if (one_in_(12)) size_percent = 45;
+            else if (one_in_(10)) size_percent = 50;
+            else if (one_in_(8))  size_percent = 55;
+            else if (one_in_(6))  size_percent = 60;
+            else if (one_in_(5))  size_percent = 65;
+            else if (one_in_(4))  size_percent = 70;
+        }
+        if (wpos->depth < 21)
+        {
+            if      (one_in_(17)) size_percent = 45;
+            else if (one_in_(15)) size_percent = 50;
+            else if (one_in_(12)) size_percent = 55;
+            else if (one_in_(10)) size_percent = 60;
+            else if (one_in_(8))  size_percent = 65;
+            else if (one_in_(6))  size_percent = 70;
+        }
+        if (wpos->depth < 31)
+        {
+            if      (one_in_(17)) size_percent = 50;
+            else if (one_in_(15)) size_percent = 55;
+            else if (one_in_(12)) size_percent = 60;
+            else if (one_in_(10)) size_percent = 65;
+            else if (one_in_(7))  size_percent = 70;
+        }
+        else if (wpos->depth < 41)
+        {
+            if      (one_in_(17)) size_percent = 55;
+            else if (one_in_(15)) size_percent = 60;
+            else if (one_in_(12)) size_percent = 65;
+            else if (one_in_(10)) size_percent = 70;
+        }   
+        else
+        {
+            if      (one_in_(wpos->depth))     size_percent = 60;
+            else if (one_in_(wpos->depth / 2)) size_percent = 65;
+            else if (one_in_(wpos->depth / 3)) size_percent = 70;
+        }
+    }
+
+    y_size = z_info->dungeon_hgt * (size_percent - 5 + randint0(10)) / 100;
+    x_size = z_info->dungeon_wid * (size_percent - 5 + randint0(10)) / 100;
+
+    /* Enforce minimum dimensions */
+    y_size = MAX(y_size, min_height);
+    x_size = MAX(x_size, min_width);
+
+    // T: as above 'enforcing' doesn't really works (min_height/width always 0),
+    // we limit it for 'tiny' levels
+    if (y_size < 20) y_size = 20;
+
+    /* Set the block height and width */
+    dun->block_hgt = dun->profile->block_size;
+    dun->block_wid = dun->profile->block_size;
+
+    c = modified_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
+    if (!c) return NULL;
+
+    /* Generate permanent walls around the edge of the generated area */
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
+
+    /* Add some magma streamers */
+    for (i = 0; i < dun->profile->str.mag; i++)
+        add_streamer(c, FEAT_MAGMA, DF_STREAMS, dun->profile->str.mc);
+
+    /* Add some quartz streamers */
+    for (i = 0; i < dun->profile->str.qua; i++)
+        add_streamer(c, FEAT_QUARTZ, DF_STREAMS, dun->profile->str.qc);
+
+    /* Add some streamers */
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_LAVA, DF_LAVA_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_WATER, DF_WATER_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
+    }
+
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
+
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
+    /* Remove holes in corridors that were not used for stair placement */
+    // T: let it be additional shelter on small levels
+    if (size_percent < 51)
+        remove_unused_holes(c);
+
+    /* General amount of rubble, traps and monsters */
+    k = MAX(MIN(wpos->depth / 3, 10), 2);
+
+    /* Put some rubble in corridors */
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
+
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // T: scale number of additional traps
+    if (size_percent > 39)
+    {
+        // corridors
+        if (one_in_(5))
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+        else if (size_percent > 49)
+        {
+            if (one_in_(10))
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+        }
+        else if (size_percent > 59)
+        {
+            if (one_in_(20))
+            {
+                alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+                alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+            }
+        }
+
+        // rooms
+        if (one_in_(5))
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+        else if (one_in_(10))
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+        else if (one_in_(20))
+        {
+            alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+            alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        }
+    }
+
+    // T: scale number of additional fountains
+    if (size_percent < 75)
+        t = size_percent / 25;
+    else
+        t = 2;
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + t, wpos->depth, 0);
+
+    /* Customize */
+    customize_features(c);
+
+    /* Determine the character location */
+    if (!new_player_spot(c, p))
+    {
+        cave_free(c);
+        return NULL;
+    }
+
+    /* Pick a base number of monsters */
+    i = z_info->level_monster_min + randint1(8) + k;
+
+    // T: scale number of monsters in tiny levels accordingly to the size
+    i = i * (size_percent - 5 + randint0(5)) / 100;
+    // also some tiniest levels _maybe_ should have less monsters (test!)
+    if (size_percent < 31 && i > 15) i /= 2;
+
+    /* Put some monsters in the dungeon */
+    for (; i > 0; i--)
+        pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
+
+    // T: scale number of objects
+    t = size_percent / 20;
+    if (t > 3) t = 3;
+
+    /* Put some objects in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Put some objects/gold in the dungeon */
+    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(z_info->both_item_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+    alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(z_info->both_gold_av, i), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Apply illumination */
+    player_cave_clear(p, true);
+    cave_illuminate(p, c, true);
+
+    /* Hack -- set profile */
+    c->profile = dun_modified;
+
+    return c;
+}
 
 /*
  * Generate a new dungeon level
@@ -3897,6 +4316,12 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -3908,13 +4333,38 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4104,6 +4554,20 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
 
     /* Scale the level */
     size_percent = percent_size(wpos);
+
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 0)
+    {
+        if (wpos->depth < 11 && !one_in_(4))
+            size_percent = 75;
+        else if (wpos->depth < 21 && !one_in_(3))
+            size_percent = 75;
+        else if (wpos->depth < 31 && one_in_(2))
+            size_percent = 75;
+        else if (wpos->depth < 41 && one_in_(3))
+            size_percent = 75;
+    }
+
     y_size = z_info->dungeon_hgt * (size_percent - 5 + randint0(10)) / 100;
     x_size = z_info->dungeon_wid * (size_percent - 5 + randint0(10)) / 100;
 
@@ -4146,6 +4610,10 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    // Add lake
+    if (one_in_(5))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -4157,13 +4625,38 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4503,6 +4996,10 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     cavern_area = (left_cavern_wid + right_cavern_wid) * z_info->dungeon_hgt +
         centre_cavern_wid * (upper_cavern_hgt + lower_cavern_hgt);
 
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -4518,6 +5015,34 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);    
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
     /* Customize */
     customize_features(c);
@@ -4652,6 +5177,10 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     /* Connect */
     ensure_connectedness(c, true);
 
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -4677,13 +5206,38 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     remove_unused_holes(c);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
     /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);
@@ -4893,6 +5447,10 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     /* PWMAngband: add the right cavern */
     chunk_copy(c, right, 0, line2);
 
+    // Add lake
+    if (one_in_(25))
+        build_lake(c);
+
     /* Place down stairs in the right cavern */
     generate_mark(c, 0, line1, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
     add_stairs(c, FEAT_MORE);
@@ -4938,6 +5496,34 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     /* Place some traps in the dungeon */
     alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, 1, wpos->depth, 0);    
 
     /* Customize */
     customize_features(c);
@@ -5060,7 +5646,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         do
         {
             /* Create the tavern, make it PvP-safe */
-            square_add_safe(c, &iter.cur);
+            square_add_new_safe(c, &iter.cur);
 
             /* Declare this to be a room */
             sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
@@ -5146,7 +5732,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         do
         {
             /* Fill with safe floor */
-            square_add_safe(c, &iter.cur);
+            square_add_new_safe(c, &iter.cur);
 
             /* Declare this to be a room */
             sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);
@@ -5593,6 +6179,10 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     do_traditional_tunneling(c);
     ensure_connectedness(c, true);
 
+    // Add lake
+    if (one_in_(5))
+        build_lake(c);
+
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -5604,13 +6194,38 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     k = MAX(MIN(wpos->depth / 3, 10), 2);
 
     /* Put some rubble in corridors */
-    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k), wpos->depth, 0);
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
 
-    /* Place some traps in the dungeon, reduce frequency by factor of 5 */
-    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 5, wpos->depth, 0);
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
 
     /* Place some fountains in rooms */
-    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2), wpos->depth, 0);
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
 
     /* Customize */
     customize_features(c);

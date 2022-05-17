@@ -1,9 +1,4 @@
-# File: summon.txt
-
-
-# Summon type details
-
-# === Understanding summon.txt ===
+# === Understanding summon.txt (Summon type details) ===
  
 # name      - summon type name
 # msgt      - message type
@@ -97,6 +92,12 @@ uniques:0
 base:ainu
 desc:ainur
 
+name:ANGEL
+msgt:SUM_ANGEL
+uniques:0
+base:angel
+desc:angels
+
 name:DEMON
 msgt:SUM_DEMON
 uniques:0
@@ -149,6 +150,18 @@ uniques:1
 race-flag:UNIQUE
 fallback:HI_UNDEAD
 desc:unique monsters
+
+name:BALL
+msgt:SUM_MONSTER
+uniques:0
+base:ball
+desc:balls
+
+name:ELEMENTAL
+msgt:SUM_MONSTER
+uniques:0
+base:elemental
+desc:elementals
 
 ### PWMAngband ###
 

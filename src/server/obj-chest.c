@@ -184,7 +184,7 @@ static enum parser_error parse_chest_trap_expr(struct parser *p)
 	if (expression == NULL)
 		return PARSE_ERROR_INVALID_EXPRESSION;
 
-	function = spell_value_base_by_name(base);
+	function = effect_value_base_by_name(base);
 	expression_set_base_value(expression, function);
 
 	if (expression_add_operations_string(expression, expr) < 0)
@@ -638,7 +638,7 @@ bool do_cmd_open_chest(struct player *p, struct chunk *c, struct loc *grid, stru
         /* Success -- may still have traps */
         if (magik(j))
         {
-            msgt(p, MSG_LOCKPICK, "You have picked the lock.");
+            msgt(p, MSG_OPEN_CHEST, "You have picked the lock.");
             player_exp_gain(p, 1);
             flag = true;
         }

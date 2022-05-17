@@ -1253,7 +1253,8 @@ void mon_create_mimicked_object(struct player *p, struct chunk *c, struct monste
             if (!kind->tval) continue;
 
             /* Skip insta arts! */
-            if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_QUEST_ART))
+            if (kf_has(kind->kind_flags, KF_INSTA_ART) || kf_has(kind->kind_flags, KF_QUEST_ART) ||
+                kf_has(kind->kind_flags, KF_EPIC))
                 continue;
 
             /* Force race attr */
@@ -1544,7 +1545,12 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
 
     /* Hack -- check if monster race can be generated at that location */
     if (!allow_race(race, &c->wpos)) return false;
-    if (race_hates_grid(c, race, grid)) return false;
+    
+    // allow water + monster-swimmer
+    if (square_iswater(c, grid) && rf_has(race->flags, RF_SWIM_GOOD))
+        ; // cause RACE_hates_grid() include water. RACE, not monster_hates_grid()
+    else if (race_hates_grid(c, race, grid)) return false;
+    
     if (rf_has(race->flags, RF_NO_DEATH) && !square_istraining(c, grid)) return false;
 
     /* Get local monster */
@@ -2195,8 +2201,28 @@ void monster_drop_carried(struct player *p, struct chunk *c, struct monster *mon
  */
 void monster_drop_corpse(struct player *p, struct chunk *c, struct monster *mon)
 {
+    /* Necromancer class special case */
+    if (p && rf_has(mon->race->flags, RF_DROP_CORPSE) && streq(p->clazz->name, "Necromancer") &&
+        p->slaves < (p->lev / 10) + 1)
+    {
+        int duration = (p->lev * 2) + 20;
+
+        if (p->lev < 10)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
+        else if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skelet"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton_"), 1, true);
+        else if (p->lev < 40)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warrior"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton knight"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warlord"), 1, true);
+    }
+
     /* Sometimes, a dead monster leaves a corpse */
-    if (rf_has(mon->race->flags, RF_DROP_CORPSE) && one_in_(20))
+    else if (rf_has(mon->race->flags, RF_DROP_CORPSE) && one_in_(20))
     {
         struct object *corpse = object_new();
         int32_t timeout;

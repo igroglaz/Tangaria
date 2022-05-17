@@ -607,7 +607,7 @@ static void setup_menus(void)
     init_birth_menu(&sex_menu, MAX_SEXES, player->psex, &gender_region, true, NULL);
     mdata = sex_menu.menu_data;
     for (i = 0; i < MAX_SEXES; i++) mdata->items[i] = sex_info[i].title;
-    mdata->hint = "Man, woman or beast... what is it going to be?";
+    mdata->hint = "It is not the strength of the body, but the strength of the spirit..";
 
     /* Count the races */
     n = player_rmax();
@@ -617,6 +617,22 @@ static void setup_menus(void)
         race_help);
     mdata = race_menu.menu_data;
     for (r = races; r; r = r->next) mdata->items[r->ridx] = r->name;
+    
+    // preliminary test code to exclude certain combos
+    // ...just to play around for now
+    /*
+    for (r = races, i = 0; r; r = r->next)
+    {
+        if (streq(r->name, "Human"))
+        {
+            n--;
+            i++;
+            continue;
+        }
+        mdata->items[r->ridx - i] = r->name;
+    }
+    */
+
     mdata->hint = "Race affects stats and skills, and may confer resistances and abilities.";
 
     /* Count the classes */
@@ -1232,7 +1248,9 @@ static enum birth_stage point_based_command(void)
 
         /* Display the expected number of blows per round */
         put_str("Blows", 15, 35);
-        if (player->clazz->magic.spell_weight > 0)
+        if (player_has(player, PF_MARTIAL_ARTS)) // no BpR count for MA classes
+            my_strcpy(buf, "N/A", sizeof(buf));
+        else if (player->clazz->magic.spell_weight > 0)
         {
             int num_blows = calc_blows_expected(player, player->clazz->magic.spell_weight,
                 stat_roll[STAT_STR], stat_roll[STAT_DEX]);

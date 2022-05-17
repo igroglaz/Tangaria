@@ -59,7 +59,15 @@ bool monster_is_destroyed(const struct monster_race *race)
  */
 bool monster_passes_walls(const struct monster_race *race)
 {
-    return flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, FLAG_END);
+    if (flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, RF_WILD_WOOD, RF_ANIMAL, FLAG_END))
+    {
+        if (flags_test(race->flags, RF_SIZE, RF_NO_PASS_TREE, FLAG_END))
+            return false;
+        else
+            return true;
+    }
+    else
+        return false;
 }
 
 
@@ -292,6 +300,13 @@ bool monster_is_fearful(const struct monster *mon)
     return (rf_has(mon->race->flags, RF_NO_FEAR)? false: true);
 }
 
+/*
+ * Monster is animal
+ */
+bool monster_is_animal(const struct monster *mon)
+{
+    return rf_has(mon->race->flags, RF_ANIMAL);
+}
 
 /*
  * Monster is not evil

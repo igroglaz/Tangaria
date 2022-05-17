@@ -713,6 +713,10 @@ static void get_money(struct player *p, bool no_recall)
 {
     p->au = z_info->start_gold;
 
+    // 10g for each point in charisma
+    if (p->stat_birth[STAT_CHR] > 10)
+        p->au += 10*(p->stat_birth[STAT_CHR] - 10);
+
     /* Give double starting gold to no_recall characters */
     if ((cfg_diving_mode == 3) || no_recall) p->au *= 2;
 }
@@ -928,10 +932,19 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
         else player_outfit_aux(p, kind, (uint8_t)num, true);
     }
 
+    // some got too much gold
+    if (streq(p->clazz->name, "Phaseblade") || streq(p->clazz->name, "Telepath") ||
+        streq(p->clazz->name, "Timeturner") || streq(p->race->name, "Djinn") ||
+        streq(p->race->name, "Half-Giant") || streq(p->race->name, "Titan"))
+            p->au /= 2;
+
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
     /* Give the player a deed of property */
     player_outfit_aux(p, lookup_kind_by_name(TV_DEED, "Deed of Property"), 1, true);
+
+    /* Give the player a house creation scroll */
+    player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "Small House Creation"), 1, true);
 }
 
 
@@ -974,7 +987,7 @@ static void player_outfit_dm(struct player *p)
      * Give the DM some interesting stuff
      * In debug mode, everyone gets all that stuff for testing purposes
      */
-#ifndef DEBUG_MODE
+#if !(defined(DEBUG_MODE) || defined(TEST_MODE))
     if (!is_dm_p(p)) return;
 #endif
 
@@ -1425,6 +1438,7 @@ static void quickstart_roll(struct player *p, bool character_existed, uint8_t *p
         stat_roll[2] = STAT_DEX;
         stat_roll[3] = STAT_WIS;
         stat_roll[4] = STAT_INT;
+        stat_roll[5] = STAT_CHR;
         stat_roll[STAT_MAX] = BR_NORMAL;
     }
 }
@@ -1545,7 +1559,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     /* Do some consistency checks */
     if (ridx >= player_rmax()) ridx = 0;
     if (cidx >= player_cmax()) cidx = 0;
-    if (psex >= MAX_SEXES) psex = SEX_FEMALE;
+    if (psex >= MAX_SEXES) psex = SEX_MALE;
 
     /* Allocate player and set pointer */
     p = mem_zalloc(sizeof(struct player));

@@ -551,14 +551,17 @@ static void keymap_create(const char *title, int kmode)
         return;
     }
 
-    if (c.code == '=')
+// No need to forbid player to bind this hotkey (in PWMA it's "=", in T "-")
+/* 
+    if (c.code == '-')
     {
-        c_prt(COLOUR_L_RED, "The '=' key is reserved.", 16, 2);
+        c_prt(COLOUR_L_RED, "The '-' key is reserved.", 16, 2);
         prt("Press any key to continue.", 18, 0);
         ke = inkey_ex();
         if (is_abort(ke)) Term_event_push(&ea);
         return;
     }
+*/
 
     memset(keymap_buffer, 0, (KEYMAP_ACTION_MAX + 1) * sizeof(struct keypress));
 
@@ -710,7 +713,7 @@ static void keymap_create(const char *title, int kmode)
         keypress_to_text(tmp, sizeof(tmp), keymap_buffer, false);
         c_prt(color, format("Action: %s", tmp), 15, 0);
 
-        c_prt(COLOUR_L_BLUE, "  Press '=' when finished.", 17, 0);
+        c_prt(COLOUR_L_BLUE, "  Press '-' when finished.", 17, 0);
         c_prt(COLOUR_L_BLUE, "  Use 'CTRL-U' to reset.", 18, 0);
         c_prt(COLOUR_L_BLUE, format("(Maximum keymap length is %d keys.)", KEYMAP_ACTION_MAX), 19, 0);
 
@@ -725,7 +728,7 @@ static void keymap_create(const char *title, int kmode)
 
         if (ke.type != EVT_KBRD) continue;
 
-        if (kp.code == '=')
+        if (kp.code == '-')
         {
             done = true;
             continue;
@@ -763,14 +766,14 @@ static void keymap_create(const char *title, int kmode)
 
     if (c.code)
     {
-        res = get_check_ex("Save this keymap? ");
+        res = get_check_ex("Keep this keymap? ");
         if (res)
         {
             if (res == 1) Term_event_push(&ea);
             return;
         }
         keymap_add(mode, c, keymap_buffer, true);
-        prt("Keymap added.  Press any key to continue.", 17, 0);
+        prt("To use in other sessions, save the keymaps to a file. Press a key to continue.", 17, 0);
         ke = inkey_ex();
         if (is_abort(ke)) Term_event_push(&ea);
     }
@@ -1853,6 +1856,7 @@ static tval_desc sval_dependent[] =
     {TV_SHADOW_BOOK, "Shadow Books"},
     {TV_PSI_BOOK, "Psi Books"},
     {TV_ELEM_BOOK, "Elemental Books"},
+    {TV_TRAVEL_BOOK, "Travel Guides"},
     {TV_FLASK, "Flasks of Oil"}
 };
 
@@ -1868,6 +1872,7 @@ static bool ignore_tval_extra(int tval)
         case TV_SKELETON:
         case TV_BOTTLE:
         case TV_CORPSE:
+        case TV_JUNK:
         case TV_CROP: return true;
     }
 
@@ -2021,7 +2026,8 @@ static bool sval_menu(int tval, const char *desc)
         case TV_NATURE_BOOK:
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
-        case TV_ELEM_BOOK: break;
+        case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK: break;
 
         /* Sort by name */
         default: sort(choices, n_choices, sizeof(*choices), cmp_ignore);

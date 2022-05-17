@@ -506,6 +506,15 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 if (player_of_has(p, flag)) saved = true;
             }
 
+            /* Test for save due FEATHER */
+            if (trf_has(trap->kind->flags, TRF_FEATHER_SAVE) && player_of_has(p, OF_FEATHER) &&
+                !player_of_has(p, OF_CANT_FLY))
+                saved = true;
+
+            /* Test for save for FEATHER if player CANT FLY */
+            if (trf_has(trap->kind->flags, TRF_FEATHER_TRAP) && player_of_has(p, OF_CANT_FLY))
+                saved = false;
+
             /* Test for save due to armor */
             if (trf_has(trap->kind->flags, TRF_SAVE_ARMOR) && !check_hit(p, 125))
                 saved = true;
@@ -545,6 +554,11 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                     /* Trap may have gone */
                     if (!square_trap(c, grid)) break;
                 }
+
+                if (trf_has(trap->kind->flags, TRF_FEATHER_SAVE))
+                    sound(p, MSG_TRAP_SETOFF_FLOOR);
+                else
+                    sound(p, MSG_TRAP_SETOFF);
             }
 
             /* Some traps drop you a dungeon level */

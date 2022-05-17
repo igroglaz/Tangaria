@@ -271,6 +271,29 @@ int append_object_curse(struct object *obj, int lev, int tval)
 
 
 /*
+ * Removes an individual curse from an object.
+ */
+void remove_object_curse(struct player *p, struct object *obj, int index, bool message)
+{
+    struct curse_data *c = &obj->curses[index];
+    char *name = curses[index].name;
+    int i;
+
+    memset(c, 0, sizeof(struct curse_data));
+    if (message) msg(p, "The %s curse is removed!", name);
+
+    /* Check to see if that was the last one */
+    for (i = 0; i < z_info->curse_max; i++)
+    {
+        if (obj->curses[i].power) return;
+    }
+
+    mem_free(obj->curses);
+    obj->curses = NULL;
+}
+
+
+/*
  * Check an artifact template for active curses, remove conflicting curses, and
  * remove the "curses" field if no curses remain
  */

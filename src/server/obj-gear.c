@@ -418,8 +418,18 @@ struct object *gear_object_for_use(struct player *p, struct object *obj, int num
         {
             uint16_t total;
 
-            if (object_is_equipped(p->body, obj))
+            /*
+             * Don't show aggregate total in pack if equipped or
+             * if the description could have a number of charges
+             * or recharging notice specific to the stack (not
+             * aggregating those quantities so there would be
+             * confusion if aggregating the count).
+             */
+            if (object_is_equipped(p->body, obj) || tval_can_have_charges(obj) ||
+                tval_is_rod(obj) || obj->timeout > 0)
+            {
                 total = obj->number;
+            }
             else
             {
                 total = object_pack_total(p, obj, false, &first_remainder);
@@ -435,8 +445,16 @@ struct object *gear_object_for_use(struct player *p, struct object *obj, int num
     {
         if (message)
         {
-            uint16_t total = (object_is_equipped(p->body, obj))? obj->number:
-                object_pack_total(p, obj, false, &first_remainder);
+            uint16_t total;
+
+            /* Use same logic as above for showing an aggregate total. */
+            if (object_is_equipped(p->body, obj) || tval_can_have_charges(obj) ||
+                tval_is_rod(obj) || obj->timeout > 0)
+            {
+                total = obj->number;
+            }
+            else
+                total = object_pack_total(p, obj, false, &first_remainder);
 
             my_assert(total >= num);
             total -= num;
@@ -527,7 +545,15 @@ static void quiver_absorb_num(struct player *p, const struct object *obj, int *n
                      */
                     displaces = true;
                     my_assert(quiver_obj->number * mult <= z_info->quiver_slot_size);
-                    space_free += z_info->quiver_slot_size - quiver_obj->number * mult;
+
+                    /*
+                     * Avoid double counting in the ammo case since the empty slot, if any,
+                     * for the displaced stack is treated as fully available.
+                     */
+                    if (ammo)
+                        space_free += z_info->quiver_slot_size - quiver_obj->number * mult;
+                    else
+                        space_free += z_info->quiver_slot_size;
                 }
             }
             else
@@ -747,11 +773,15 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
                 (tval_is_melee_weapon(obj) || tval_is_mstaff(obj) || tval_is_launcher(obj)))
             {
                 object_learn_on_carry(p, obj);
-            }
-
+            }      
+            
             /* PWMAngband: need to learn "on wield" flags when picking up ammo */
             else if (tval_is_ammo(obj))
                 object_learn_on_carry(p, obj);
+
+            // NO_BOOTS races can't wear boots for ID, so..
+            else if (player_has(p, PF_NO_BOOTS))
+                boots_learn_on_carry(p, obj);      
         }
     }
 
@@ -765,8 +795,20 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
     {
         char o_name[120];
         struct object *first;
-        uint16_t total = object_pack_total(p, local_obj, false, &first);
+        uint16_t total;
         char label;
+
+        /*
+         * Show an aggregate total if the description doesn't have
+         * a charge/charging notice that's specific to the stack.
+         */
+        if (tval_can_have_charges(local_obj) || tval_is_rod(local_obj) || local_obj->timeout > 0)
+        {
+            total = local_obj->number;
+            first = local_obj;
+        }
+        else
+            total = object_pack_total(p, local_obj, false, &first);
 
         my_assert(first && total >= first->number);
         object_desc(p, o_name, sizeof(o_name), local_obj, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
@@ -781,7 +823,47 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
         }
     }
 
-    if (object_is_in_quiver(p, local_obj)) sound(p, MSG_QUIVER);
+    /* Sound */
+    if (object_is_in_quiver(p, local_obj))
+        sound(p, MSG_QUIVER);
+    else if (tval_is_weapon(local_obj))
+    {
+        if (local_obj->tval == TV_SWORD)
+            sound(p, MSG_ITEM_BLADE);
+        else if (local_obj->tval == TV_BOW || tval_is_mstaff(local_obj))
+            sound(p, MSG_ITEM_WOOD);
+        else if (((local_obj->tval == TV_HAFTED) && (local_obj->sval == lookup_sval(local_obj->tval, "Whip"))) ||
+                 ((local_obj->tval == TV_BOW) && (local_obj->sval == lookup_sval(local_obj->tval, "Sling"))))
+                     sound(p, MSG_ITEM_WHIP);
+        else
+            sound(p, MSG_ITEM_PICKUP);
+    }
+    else if (tval_is_body_armor(local_obj))
+    {
+        if ((local_obj)->weight < 121)
+            sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 251)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_armor(local_obj))
+    {
+        if (local_obj->tval == TV_CROWN)
+            sound(p, MSG_ITEM_PICKUP);
+        else if (local_obj->weight < 25 || local_obj->tval == TV_SHIELD || local_obj->tval == TV_CLOAK)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((local_obj)->weight < 51)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_ring(local_obj))
+        sound(p, MSG_ITEM_RING);
+    else if (tval_is_amulet(local_obj))
+        sound(p, MSG_ITEM_AMULET);
+    else
+        sound(p, MSG_ITEM_PICKUP);
 }
 
 
@@ -848,6 +930,21 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     }
     else
     {
+        // 1) to prevent ground-swap-curse-cheeze:
+        struct object *equip_obj;
+        equip_obj = slot_object(p, slot);
+
+        // Don't allow replacing cursed items
+        // (anticheeze: when you replace cursed item with normal one from the ground)
+        // (note: `equip_obj` at 1st place there is to prevent "empty slot crush")
+        if (equip_obj && equip_obj->curses)
+        {
+            msg(p, "Can't swap cursed item with the item from ground. Try to 't'ake if off first.");
+            return;
+        }
+
+        // 2) regular case:
+
         /* Get a floor item and carry it */
         wielded = floor_object_for_use(p, c, obj, 1, false, &dummy);
         inven_carry(p, wielded, false, false);
@@ -886,7 +983,63 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
 
     /* Message */
     if (message) strnfmt(message, len, fmt, o_name, I2A(slot));
-    else msgt(p, MSG_WIELD, fmt, o_name, I2A(slot));
+    else
+    {
+        // message
+        msg(p, fmt, o_name, I2A(slot));
+        // sound
+        if (tval_is_weapon(obj))
+        {
+            if (obj->tval == TV_SWORD)
+                sound(p, MSG_ITEM_BLADE);
+            else if (obj->tval == TV_BOW || tval_is_mstaff(obj))
+                sound(p, MSG_ITEM_WOOD);
+            else if (((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip"))) ||
+                     ((obj->tval == TV_BOW) && (obj->sval == lookup_sval(obj->tval, "Sling"))))
+                         sound(p, MSG_ITEM_WHIP);
+            else
+                sound(p, MSG_WIELD);
+        }
+        else if (tval_is_body_armor(obj))
+        {
+            if ((obj)->weight < 121)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+            else if ((obj)->weight < 251)
+                sound(p, MSG_ITEM_MEDIUM_ARMOR);
+            else
+                sound(p, MSG_ITEM_HEAVY_ARMOR);
+        }
+        else if (tval_is_armor(obj))
+        {
+            if (obj->tval == TV_CROWN)
+                sound(p, MSG_ITEM_PICKUP);
+            else if (obj->weight < 25 || obj->tval == TV_SHIELD || obj->tval == TV_CLOAK)
+                    sound(p, MSG_ITEM_LIGHT_ARMOR);
+            else if ((obj)->weight < 51)
+                sound(p, MSG_ITEM_MEDIUM_ARMOR);
+            else
+                sound(p, MSG_ITEM_HEAVY_ARMOR);
+        }
+        else if (tval_is_ring(obj))
+            sound(p, MSG_ITEM_RING);
+        else if (tval_is_amulet(obj))
+            sound(p, MSG_ITEM_AMULET);
+        else if (tval_is_light(obj))
+        {
+            if (obj->sval == lookup_sval(obj->tval, "Wooden Torch"))
+                sound(p, MSG_ITEM_LIGHT_TORCH);
+            else if (obj->sval == lookup_sval(obj->tval, "Lantern"))
+                sound(p, MSG_ITEM_LIGHT_LANTERN);
+            else if (obj->sval == lookup_sval(obj->tval, "Lamp"))
+                sound(p, MSG_ITEM_LIGHT_LAMP);
+            else if (obj->sval == lookup_sval(obj->tval, "Palantir"))
+                sound(p, MSG_ITEM_LIGHT_PALANTIR);
+            else if (obj->artifact)              // Phial, Star, Stone etc
+                sound(p, MSG_ITEM_LIGHT_PHIAL);
+        }
+        else
+            sound(p, MSG_WIELD);
+    }
 
     /* Sticky flag gets a special mention */
     if (of_has(wielded->flags, OF_STICKY))
@@ -959,7 +1112,17 @@ void inven_takeoff(struct player *p, struct object *obj)
     update_stuff(p, chunk_get(&p->wpos));
 
     /* Message */
-    msgt(p, MSG_WIELD, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+    msg(p, "%s %s (%c).", act, o_name, gear_to_label(p, obj));
+
+    /* Sound */
+    if (obj->weight < 15)
+        sound(p, MSG_ITEM_TAKEOFF_TINY);
+    else if (obj->weight < 50)
+        sound(p, MSG_ITEM_TAKEOFF_SMALL);
+    else if (obj->weight < 150)
+        sound(p, MSG_ITEM_TAKEOFF_MEDIUM);
+    else
+        sound(p, MSG_ITEM_TAKEOFF_LARGE);
 }
 
 
@@ -975,11 +1138,13 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     struct object *dropped;
     bool none_left = false;
     bool equipped = false;
-    bool quiver;
     char name[NORMAL_WID];
     char label;
-    struct object *first = NULL;
+    struct object *first;
+    struct object *desc_target;
     uint16_t total;
+    struct curse_data *c = obj->curses;
+    size_t i; // for curse check
 
     /* Error check */
     if (amt <= 0) return true;
@@ -993,9 +1158,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
 
     /* Get where the object is now */
     label = gear_to_label(p, obj);
-
-    /* Is it in the quiver? */
-    quiver = object_is_in_quiver(p, obj);
 
     /* Not too many */
     if (amt > obj->number) amt = obj->number;
@@ -1014,15 +1176,53 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
         return false;
     }
 
-    /* Never drop deeds of property */
-    if (tval_is_deed(obj))
+    // Can not drop regular cursed items
+    if (obj->curses && !obj->artifact && !(p->wpos.depth == 0))
     {
-        if (!bypass_inscr) msg(p, "You cannot drop this.");
-        return false;
+        for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
+        {
+            if (c[i].power == 0) continue;
+            if (c[i].power < 100)
+            {
+               msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
+               msg(p, "bring it outside; sunlight might help to take off weakly cursed items.");
+               return false;
+            }
+        }
+    }
+    // If we outside - we can drop cursed item, but only light curses and only during the day 
+    else if (obj->curses && !obj->artifact && p->wpos.depth == 0)
+    {
+        for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
+        {
+            if (c[i].power == 0) continue;
+
+            // can drop only light cursed items at night
+            if (c[i].power > 40 && c[i].power < 100 && !is_daytime())
+            {
+               msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
+               msg(p, "wait till the day cames to bring it under the sunlight to weaken the curse.");
+               return false;
+            }
+            // no drop moderately cursed items even at daytime
+            else if (c[i].power > 50 && c[i].power < 100)
+            {
+               msg(p, "You can not drop this item. It seems it's heavely cursed. Current curse is");
+               msg(p, "too strong, so even sunlight don't weaken it. Try to uncurse it by other means.");
+               return false;
+            }
+        }
     }
 
+    /* NO_DROP object flag */
+    if (obj->soulbound || (of_has(obj->flags, OF_NO_DROP) && !(p->dm_flags & DM_HOUSE_CONTROL)))
+    {
+        msg(p, "You cannot drop this item.");
+        return false;
+    }    
+
     /* Never drop items in wrong house */
-    if (!check_store_drop(p))
+    if (!check_store_drop(p) && !(p->dm_flags & DM_HOUSE_CONTROL))
     {
         if (!bypass_inscr) msg(p, "You cannot drop this here.");
         return false;
@@ -1044,16 +1244,38 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     /* Message */
     msg(p, "You drop %s (%c).", name, label);
 
-    /* Describe what's left */
-    total = equipped? (none_left? 0: obj->number): object_pack_total(p, obj, false, &first);
-    object_desc(p, name, sizeof(name), dropped, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
+    /*
+     * Describe what's left
+     *
+     * Like gear_object_for_use(), don't show an aggregate total
+     * if it was equipped or the item has charges/recharging
+     * notice that is specific to the stack.
+     */
+    if (equipped || tval_can_have_charges(obj) || tval_is_rod(obj) || obj->timeout > 0)
+    {
+        first = NULL;
+        if (none_left)
+        {
+            total = 0;
+            desc_target = dropped;
+        }
+        else
+        {
+            total = obj->number;
+            desc_target = obj;
+        }
+    }
+    else
+    {
+        total = object_pack_total(p, obj, false, &first);
+        desc_target = (total? obj: dropped);
+    }
+    object_desc(p, name, sizeof(name), desc_target, ODESC_PREFIX | ODESC_FULL | ODESC_ALTNUM |
         (total << 16));
-    if (equipped || total == 0)
+    if (!first)
         msg(p, "You have %s (%c).", name, label);
     else
     {
-        my_assert(first);
-
         label = gear_to_label(p, first);
         if (total > first->number)
             msg(p, "You have %s (1st %c).", name, label);
@@ -1064,9 +1286,6 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     /* Drop it (carefully) near the player */
     drop_near(p, chunk_get(&p->wpos), &dropped, 0, &p->grid, false,
         (bypass_inscr? DROP_SILENT: DROP_FORBID), true);
-
-    /* Sound for quiver objects */
-    if (quiver) sound(p, MSG_QUIVER);
 
     return true;
 }
@@ -1291,6 +1510,12 @@ bool item_tester_hook_wear(struct player *p, const struct object *obj)
     /* Permanently polymorphed characters and Monks cannot use weapons */
     if ((player_has(p, PF_PERM_SHAPE) || player_has(p, PF_MARTIAL_ARTS)) &&
         ((slot == slot_by_name(p, "weapon")) || (slot == slot_by_name(p, "shooting"))))
+    {
+        return false;
+    }
+    
+    /* NO_BOOTS racial: can't wear boots */
+    if (player_has(p, PF_NO_BOOTS) && (slot == slot_by_name(p, "feet")))
     {
         return false;
     }

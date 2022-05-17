@@ -384,6 +384,12 @@ void start_quest(struct player *p)
     int max_num, kills = 0;
     uint16_t i;
 
+    if (p->lev < 20)
+    {
+        msg(p, "You must be level 20 to get quests.");
+        return;
+    }
+
     /* Quest already taken? */
     if (quest->race)
     {
@@ -468,7 +474,7 @@ void end_quest(struct player *p, struct chunk *c, const struct monster *m)
         /* Note completed quests */
         if (quest->cur_num == quest->max_num)
         {
-            quark_t quark_quest;
+            struct object *house_deed;
             char buf[MSG_LEN];
 
             msg(p, "You have just completed your current quest.");
@@ -480,9 +486,21 @@ void end_quest(struct player *p, struct chunk *c, const struct monster *m)
             quest->cur_num = 0;
             quest->max_num = 0;
 
-            /* Generate the reward */
-            quark_quest = quark_add(format("%s quest", m->race->name));
-            acquirement(p, c, 1, quark_quest);
+            /* Make house deed */
+
+            house_deed = object_new();
+
+            object_prep(NULL, NULL, house_deed, lookup_kind_by_name(TV_SCROLL, "House Creation"), 0, MINIMISE);
+
+            if (house_deed)
+            {
+                set_origin(house_deed, ORIGIN_FLOOR, p->wpos.depth, NULL);
+
+                house_deed->note = quark_add(format("%s quest", m->race->name));
+
+                drop_near(p, c, &house_deed, 0, &p->grid, true, DROP_FADE, false);
+            }
+            // acquirement(p, c, 1, quark_quest);
         }
         else
             msg(p, "%d more to go!", quest->max_num - quest->cur_num);

@@ -385,6 +385,13 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
 
+        if (streq(context->origin->player->clazz->name, "Wizard") && !context->origin->player->poly_race)
+        {
+            // Acid Breath spell (mana 10)
+            if (context->origin->player->spell_cost == 10)
+                dam *= context->origin->player->lev / 4;
+        }
+
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             target_get(context->origin->player, &target);
@@ -731,6 +738,14 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
                 context->origin->player);
 
+            // Fireball spell (2 mana)
+            if (streq(context->origin->player->clazz->name, "Mage") && context->origin->player->spell_cost == 2)
+            {
+                // dmg
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 10;
+            }
+
             /* Ask for a target if no direction given */
             if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             {
@@ -816,6 +831,26 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     /* Hack -- elementalists */
     rad = rad + context->beam.spell_power / 2;
     rad = rad * (20 + context->beam.elem_power) / 20;
+
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Manablast spell (mana 10)
+        if (context->origin->player->spell_cost == 10)
+        {
+            rad += context->origin->player->lev / 12;
+            dam *= context->origin->player->lev / 10;
+        }
+    }
+
+    if (streq(context->origin->player->clazz->name, "Battlemage"))
+    {   
+        // Phase Nova spell (mana 2)
+        if (context->origin->player->spell_cost == 2)
+        {
+            rad += context->origin->player->lev / 15;
+            dam *= context->origin->player->lev / 10;
+        }
+    }
 
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
         context->ident = true;
@@ -953,6 +988,16 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
         }
         if (one_in_(3))
             player_clear_timed(context->origin->player, TMD_ANCHOR, true);
+    }
+
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Cold Ray spell (mana 3)
+        if (context->origin->player->spell_cost == 3)
+            dam *= context->origin->player->lev / 5;
+        // spend additional mana
+        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                context->origin->player->csp = context->origin->player->csp * 96 / 100;
     }
 
     if (magik(beam))
@@ -1264,6 +1309,20 @@ bool effect_handler_DETONATE(effect_handler_context_t *context)
             /* Delete the monster */
             delete_monster_idx(context->cave, i);
         }
+
+        // Necromancer's skeletons explode with a ball effect
+        else if (match_monster_bases(mon->race->base, "skeleton", NULL))
+        {
+            struct source who_body;
+            struct source *who = &who_body;
+
+            source_monster(who, mon);
+            project(who, 2, context->cave, &mon->grid, 300, PROJ_MISSILE, p_flag, 0, 0, "killed");
+
+            /* Delete the monster */
+            delete_monster_idx(context->cave, i);
+        }
+
     }
     return true;
 }
@@ -2032,6 +2091,40 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
 
+        if (streq(context->origin->player->clazz->name, "Wizard"))
+        {
+            // Magic Blade spell (mana 1)
+            if (context->origin->player->spell_cost == 1)
+                {
+                    // distance
+                    rad += context->origin->player->lev / 10;
+                    if (rad > 5) rad = 5;
+                    // dmg
+                    if (context->origin->player->lev > 10)
+                        dam *= context->origin->player->lev / 7;
+                    // spend additional mana
+                    if (context->origin->player->lev > 9 &&
+                        context->origin->player->csp > context->origin->player->lev / 10)
+                            context->origin->player->csp -= context->origin->player->lev / 10;
+                }
+            // Luminous Fog spell (mana 5)
+            else if (context->origin->player->spell_cost == 5)
+            {
+                rad += context->origin->player->lev / 5;
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 3;
+            }
+            // Electrocute spell (mana 3)
+            else if (context->origin->player->spell_cost == 3)
+            {
+                rad += context->origin->player->lev / 5;
+                dam *= context->origin->player->lev / 5;
+                // spend additional mana
+                if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                        context->origin->player->csp = context->origin->player->csp * 96 / 100;
+            }
+        }
+
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             target_get(context->origin->player, &target);
@@ -2104,6 +2197,13 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->radius) dam /= context->radius;
 
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Dark Ritual spell (mana 10)
+        if (context->origin->player->spell_cost == 10)
+            dam *= context->origin->player->lev / 5;
+    }
+
     if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
         msg(context->origin->player, context->self_msg);
     context->origin->player->do_visuals = true;
@@ -2156,6 +2256,16 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     loc_copy(&target, &context->origin->player->grid);
     source_player(who, get_player_index(get_connection(context->origin->player->conn)),
         context->origin->player);
+
+    if (streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Flamestrike spell (mana 8)
+        if (context->origin->player->spell_cost == 8)
+            dam *= context->origin->player->lev / 5;
+        // spend additional mana
+        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                context->origin->player->csp = context->origin->player->csp * 96 / 100;
+    }
 
     /* Ask for a target; if no direction given, the player is struck  */
     if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))

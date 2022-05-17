@@ -563,6 +563,7 @@ struct object
     uint8_t attr;                          /* "attr" last used for drawing object */
     int16_t decay;                         /* Decay timeout for corpses */
     uint8_t bypass_aware;                  /* Bypasses the "aware" flag */
+    uint8_t soulbound;                     /* Can't drop this item */    
     quark_t origin_player;              /* Original owner */
 };
 

@@ -111,6 +111,13 @@ static void eat_gold(struct player *p, struct source *who)
         msg(p, "Nothing was stolen.");
         return;
     }
+    
+    /* Very rare CHR save. !We use CON table! */
+    if (adj_con_fix[p->known_state.stat_ind[STAT_CHR]] >=  randint0(100))
+        {
+            msg(p, "Thief thought to steal %d, but at the last moment changed mind..", gold);
+            return;
+        }
 
     p->au -= gold;
 
@@ -159,6 +166,13 @@ static void eat_gold(struct player *p, struct source *who)
 static void steal_player_item(struct player *p, struct source *who, bool* obvious, int* blinked)
 {
     int tries;
+    
+    /* Very rare CHR save. !We use CON table! */
+    if (adj_con_fix[p->known_state.stat_ind[STAT_CHR]] >=  randint0(150))
+        {
+            msg(p, "There was an atteamp to steal, but at the last moment opponent changed mind");
+            return;
+        }
 
     /* Find an item */
     for (tries = 0; tries < 10; tries++)
@@ -386,7 +400,7 @@ static void melee_effect_timed(melee_effect_handler_context_t *context, int type
             context->obvious = true;
 
             /* Hack -- make level 1 monsters who paralyze also blink */
-            if (paralyze && context->mon->race->level == 1) context->blinked = 1;
+            if (paralyze && context->mon->race->level == 1 && one_in_(7)) context->blinked = 1;
         }
     }
 
@@ -780,6 +794,8 @@ static void melee_effect_handler_EAT_FOOD(melee_effect_handler_context_t *contex
 	if (monster_damage_target(context)) return;
 
     eat_fud(context->p, NULL, &context->obvious);
+    /* looks like //\(oo)/\\ */
+    msgt(context->p, MSG_MON_SWALLOW, ":E~~~ FOOD eater ATTACK //\\(oo)/\\\\");
 }
 
 
@@ -811,7 +827,7 @@ static void melee_effect_handler_EAT_LIGHT(melee_effect_handler_context_t *conte
 
     /* Drain the light source */
     source_player(who, get_player_index(get_connection(context->p->conn)), context->p);
-    effect_simple(EF_DRAIN_LIGHT, who, "250+1d250", 0, 0, 0, 0, 0, &context->obvious);
+    effect_simple(EF_DRAIN_LIGHT, who, "500+1d50", 0, 0, 0, 0, 0, &context->obvious);
 }
 
 
@@ -940,6 +956,13 @@ static void melee_effect_handler_CONFUSE(melee_effect_handler_context_t *context
         return;
     }
 
+    /* Very rare CHR save !We use CON table! */
+    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(200))
+        {
+            msg(context->p, "Your natural magnetism and self confidence helps you to resist confusion.");
+            return;
+        }    
+
     melee_effect_timed(context, TMD_CONFUSED, 3 + randint1(context->rlev), OF_PROT_CONF, false,
         NULL, false);
 }
@@ -974,6 +997,13 @@ static void melee_effect_handler_TERRIFY(melee_effect_handler_context_t *context
         context->do_fear = true;
         return;
     }
+    
+    /* Very rare CHR save !We use CON table! */
+    if (adj_con_fix[context->target->player->state.stat_ind[STAT_CHR]] >=  randint0(100))
+        {
+            msg(context->p, "You resist frightening this time.");
+            return;
+        }        
 
     melee_effect_timed(context, TMD_AFRAID, 3 + randint1(context->rlev), OF_PROT_FEAR, true,
         "You stand your ground!", false);
@@ -1072,6 +1102,14 @@ static void melee_effect_handler_LOSE_CON(melee_effect_handler_context_t *contex
 	melee_effect_stat(context, STAT_CON, OF_SUST_CON);
 }
 
+/*
+ * Melee effect handler: Drain the player's charisma.
+ */
+static void melee_effect_handler_LOSE_CHR(melee_effect_handler_context_t *context)
+{
+	melee_effect_stat(context, STAT_CHR, OF_SUST_CHR);
+}
+
 
 /*
  * Melee effect handler: Drain all of the player's stats.
@@ -1094,6 +1132,7 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_INT, 0, 0, 0, 0, NULL);
             effect_simple(EF_DRAIN_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
+            effect_simple(EF_DRAIN_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
         }
         return;
     }
@@ -1114,11 +1153,14 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
             desc_stat(STAT_INT, false));
         msg(context->p, "You feel %s for a moment, but the feeling passes.",
             desc_stat(STAT_WIS, false));
+        msg(context->p, "You feel %s for a moment, but the feeling passes.",
+            desc_stat(STAT_CHR, false));
         equip_learn_flag(context->p, OF_SUST_STR);
         equip_learn_flag(context->p, OF_SUST_INT);
         equip_learn_flag(context->p, OF_SUST_WIS);
         equip_learn_flag(context->p, OF_SUST_DEX);
         equip_learn_flag(context->p, OF_SUST_CON);
+        equip_learn_flag(context->p, OF_SUST_CHR);
         context->obvious = true;
     }
     else
@@ -1132,6 +1174,7 @@ static void melee_effect_handler_LOSE_ALL(melee_effect_handler_context_t *contex
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_CON, 0, 0, 0, 0, &context->obvious);
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_INT, 0, 0, 0, 0, &context->obvious);
         effect_simple(EF_DRAIN_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, &context->obvious);
+        effect_simple(EF_DRAIN_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, &context->obvious);
     }
 }
 
@@ -1312,12 +1355,128 @@ static void melee_effect_handler_HALLU(melee_effect_handler_context_t *context)
  */
 static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *context)
 {
+    // later: archers and ranger classes - shooter should be destroyed..
+
+    // Nazgul attack may destroy your weapon
+    if (one_in_(3))
+    {
+        struct object *obj;
+        char o_name[NORMAL_WID];
+
+        /* Choose the weapon */
+        obj = equipped_item_by_slot_name(context->p, "weapon");
+
+        if (obj)
+        {
+            // flag - should we redraw or not
+            int weap_change = 0;
+            
+            /* Describe */
+            object_desc(context->p, o_name, sizeof(o_name), obj, ODESC_FULL);
+
+            // Artifacts
+            if (obj->artifact || (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")))
+            {
+                // 2H arts additional resistance
+                if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED) && one_in_(5))
+                    ;
+                // Dark Swords arts resist
+                else if (tval_is_dark_sword(obj) && one_in_(4))
+                    ;
+                // ~6.6% total chance (without counting 2H)
+                else if (one_in_(5))
+                {
+                    // Damage the artifact
+                    obj->to_h -= 1;
+                    obj->to_d -= 1;
+                    weap_change = 1;
+                }
+                // ~3.3%
+                else if (one_in_(10))
+                {
+                    // Destroy artifact
+                    preserve_artifact_aux(obj);
+                    history_lose_artifact(context->p, obj);
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Dark Swords
+            else if (tval_is_dark_sword(obj))
+            {
+                // Ego additional resist
+                if (obj->ego && one_in_(5))
+                    ;
+                // regular dark swords
+                else if (one_in_(5))
+                {
+                    // Destroy
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Two-handed weapons
+            else if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED))
+            {
+                if (one_in_(5))
+                {
+                    // Damage
+                    obj->to_h -= randint1(2);
+                    obj->to_d -= randint1(2);
+                    weap_change = 1;
+                }
+                else if (one_in_(5))
+                {
+                    // Destroy
+                    use_object(context->p, obj, 1, false);
+                    weap_change = 1;
+                }
+            }
+            // Regular weapons damage
+            else if (one_in_(4))
+            {
+                obj->to_h -= randint1(3);
+                obj->to_d -= randint1(3);
+                weap_change = 1;
+            }
+            // Regular weapons destroy
+            else if (one_in_(3))
+            {
+                // Destroy
+                use_object(context->p, obj, 1, false);
+                weap_change = 1;
+            }
+
+            // redraw if flag active
+            if (weap_change)
+            {
+                /* Recalculate bonuses */
+                context->p->upkeep->update |= (PU_BONUS);
+
+                // Redraw
+                context->p->upkeep->redraw |= (PR_EQUIP);
+            }
+        }
+    }
+
     /* Take damage */
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
 
     /* Increase Black Breath counter a *small* amount, maybe */
-    if (one_in_(5) && player_inc_timed(context->p, TMD_BLACKBREATH, context->damage / 10, true, false))
-        context->obvious = true;
+    if    ((streq(context->p->race->name, "Halfling") ||
+            streq(context->p->race->name, "Demonic") ||
+            streq(context->p->race->name, "Gargoyle")) && one_in_(2))
+                return;
+    else if(streq(context->p->race->name, "Undead") ||
+            streq(context->p->race->name, "Vampire") ||
+            streq(context->p->race->name, "Wraith") ||
+            streq(context->p->race->name, "Golem"))
+                return;
+    else if (one_in_(5))
+    {
+        if (player_inc_timed(context->p, TMD_BLACKBREATH, context->damage / 10, true, false))
+            context->obvious = true;
+    }
 }
 
 
@@ -1331,7 +1490,7 @@ static void melee_effect_handler_FORGET(melee_effect_handler_context_t *context)
         /* PvP: forget attack */
         if (magik(context->target->player->state.skills[SKILL_SAVE]))
             msg(context->p, "%s is unaffected.", context->ddesc);
-        else
+        else if (!player_of_has(context->target->player, OF_PROT_AMNESIA))
             player_inc_timed(context->target->player, TMD_AMNESIA, 4, true, true);
         return;
     }
@@ -1346,8 +1505,20 @@ static void melee_effect_handler_FORGET(melee_effect_handler_context_t *context)
         msg(context->p, "You resist the effects!");
         context->obvious = true;
     }
-    else
+    else if (!player_of_has(context->p, OF_PROT_AMNESIA))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+
         context->obvious = player_inc_timed(context->p, TMD_AMNESIA, 4, true, true);
+        
+        if (one_in_(5))
+        {
+            source_both(who, context->p, who->monster);
+            msg(context->p, "Your mind suddenly become blank... you don't remember this place.");
+            effect_simple(EF_FORGET_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
+        }
+    }
 }
 
 
@@ -1462,7 +1633,7 @@ static void melee_effect_handler_FAMINE(melee_effect_handler_context_t *context)
     /* Take "hunger" effect */
     if (!context->p->ghost)
     {
-        msg(context->p, "You have a sudden attack of hunger!");
+        msgt(context->p, MSG_MON_SWALLOW, ":E~~~ You have a sudden attack of hunger!");
         player_set_timed(context->p, TMD_FOOD, context->p->timed[TMD_FOOD] / 2, false);
         context->obvious = true;
     }
@@ -1520,6 +1691,9 @@ static void undress(struct player *p)
         /* Item is stuck */
         if (!obj_can_takeoff(obj)) continue;
 
+        // ignore items with free action (to prevent insta-death by paralyze)
+        if (of_has(obj->flags, OF_FREE_ACT)) continue;
+
         if (one_in_(count--)) break;
     }
 
@@ -1527,7 +1701,9 @@ static void undress(struct player *p)
     object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE);
 
     /* Message */
-    msg(p, "You remove your %s...", o_name);
+    msgt(p, MSG_MON_HYPNOTIZE, "     ( * ) ( * )     ");
+    msgt(p, MSG_MON_HYPNOTIZE, "You remove your %s...", o_name);
+    msgt(p, MSG_MON_HYPNOTIZE, "     ( o ) ( o )     ");
 
     /* De-equip the object */
     p->body.slots[i].obj = NULL;
@@ -1561,6 +1737,9 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
                 ((context->p->psex == SEX_FEMALE) &&
                 rf_has(context->target->monster->race->flags, RF_MALE)));
 
+            if (context->p->psex == SEX_NEUTER)
+                if (one_in_(2)) opposite = true;
+
             /* Must be of opposite sex */
             if (!opposite) return;
 
@@ -1574,6 +1753,9 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
             (context->target->player->psex == SEX_FEMALE)) ||
             ((context->p->psex == SEX_FEMALE) &&
             (context->target->player->psex == SEX_MALE)));
+
+            if (context->p->psex == SEX_NEUTER)
+                if (one_in_(2)) opposite = true;
 
         /* Must be of opposite sex */
         if (!opposite) return;
@@ -1599,6 +1781,10 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
                 (rf_has(context->mon->race->flags, RF_FEMALE) &&
                 rf_has(context->target->monster->race->flags, RF_MALE)));
 
+        if (!(rf_has(context->mon->race->flags, RF_MALE)) &&
+            !(rf_has(context->mon->race->flags, RF_FEMALE)))
+            if (one_in_(2)) opposite = true;
+
         /* Must be of opposite sex */
         if (!opposite) return;
 
@@ -1606,6 +1792,8 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
         context->do_conf = true;
         return;
     }
+
+    // Last case: MVP
 
     /* Take damage */
 	if (take_hit(context->p, context->damage, context->ddesc, false, context->flav)) return;
@@ -1618,8 +1806,15 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
         (rf_has(context->mon->race->flags, RF_FEMALE) &&
         (context->p->psex == SEX_MALE)));
 
+    if (context->p->psex == SEX_NEUTER)
+        if (one_in_(2)) opposite = true;
+
     /* Must be of opposite sex */
     if (!opposite) return;
+
+    /* Top CHR save from undressing in ~45% cases */
+    if (adj_chr_safe[context->p->known_state.stat_ind[STAT_CHR]] >=  randint0(100))
+        return;
 
     undress(context->p);
 }
@@ -1663,6 +1858,7 @@ melee_effect_handler_f melee_handler_for_blow_effect(const char *name)
         {"LOSE_WIS", melee_effect_handler_LOSE_WIS},
         {"LOSE_DEX", melee_effect_handler_LOSE_DEX},
         {"LOSE_CON", melee_effect_handler_LOSE_CON},
+        {"LOSE_CHR", melee_effect_handler_LOSE_CHR},
         {"LOSE_ALL", melee_effect_handler_LOSE_ALL},
         {"SHATTER", melee_effect_handler_SHATTER},
         {"EXP_10", melee_effect_handler_EXP_10},

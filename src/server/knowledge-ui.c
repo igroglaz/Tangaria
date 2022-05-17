@@ -121,7 +121,7 @@ static struct
 } monster_group[] =
 {
     {(const char *)-1,  "Uniques"},
-    {"A",               "Ainur"},
+    {"A",               "Ainur/Angels"},
     {"a",               "Ants"},
     {"b",               "Bats"},
     {"B",               "Birds"},
@@ -350,6 +350,7 @@ static const grouper object_text_order[] =
     {TV_SHADOW_BOOK, "Shadow Book"},
     {TV_PSI_BOOK, "Psi Book"},
     {TV_ELEM_BOOK, "Elemental Book"},
+    {TV_TRAVEL_BOOK, "Travel Guide"},
     {TV_LIGHT, "Light"},
     {TV_SWORD, "Sword"},
     {TV_POLEARM, "Polearm"},
@@ -378,6 +379,9 @@ static const grouper object_text_order[] =
     {TV_CORPSE, NULL},
     {TV_DEED, NULL},
     {TV_FLASK, NULL},
+    {TV_COBBLE, NULL},
+    {TV_JUNK, NULL},
+    {TV_REAGENT, NULL},
     {0, NULL}
 };
 
@@ -838,6 +842,7 @@ static int o_cmp_tval(const void *a, const void *b)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
         {
             /* Leave sorted by sval */
             break;
@@ -1796,7 +1801,8 @@ static struct object *get_random_monster_object(struct monster *mon)
     for (obj = mon->held_obj; obj; obj = obj->next)
     {
         /* Check it isn't a quest artifact */
-        if (obj->artifact && kf_has(obj->kind->kind_flags, KF_QUEST_ART))
+        if (obj->artifact && (kf_has(obj->kind->kind_flags, KF_QUEST_ART) ||
+            kf_has(obj->kind->kind_flags, KF_EPIC)))
             continue;
 
         if (one_in_(i)) pick = obj;
@@ -2408,18 +2414,30 @@ void do_cmd_fountain(struct player *p, int item)
         fountain = true;
     }
 
-    /* Allow filling empty bottles from water tiles */
-    else if (!square_iswater(c, &p->grid) || (item == -1))
+    /* Allow only on water tiles */
+    else if (!square_iswater(c, &p->grid) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_SHALLOW_WATER) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_BAD_WATER) &&
+            !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_FOUL_WATER))
     {
-        msg(p, "You need an empty bottle and a source of water.");
+        msg(p, "You need a source of water.");
         return;
     }
 
+/*  No need as we allow everyone to drink from any water tile now
+
+    else if ((item == -1) && !(streq(p->race->name, "Ent") || streq(p->race->name, "Merfolk")))
+    {
+        msg(p, "You need an empty bottle.");
+        return;
+    }
+*/
+
     /* Take a turn */
     use_energy(p);
-
+    
     /* Fruit bat! */
-    if (item == -1)
+    if ((item == -1) && fountain)
     {
         struct monster_race *race_fruit_bat = get_race("fruit bat");
         bool poly = false;
@@ -2455,7 +2473,9 @@ void do_cmd_fountain(struct player *p, int item)
             {"water spirit", 17, 80},
             {"water vortex", 21, 70},
             {"water elemental", 33, 60},
-            {"water hound", 43, 50}
+            {"water hound", 35, 50},
+            {"seahorse", 37, 40},                
+            {"Djinn", 45, 5}            
         };
         int i;
 
@@ -2480,10 +2500,31 @@ void do_cmd_fountain(struct player *p, int item)
     }
 
     /* Message */
-    if (item == -1) msg(p, "You drink from the fountain.");
+    if ((item == -1) && fountain)
+        msg(p, "You drink from the fountain.");
+    else
+        msg(p, "You take a handful of water and make a gulp.");
+    
+    // Unbeliever unmagics fountain
+    if (streq(p->clazz->name, "Unbeliever") && fountain && !one_in_(4))
+    {    
+        msg(p, "This tepid water is tasteless.");
+        kind = lookup_kind_by_name(TV_POTION, "Water");
+    }
+
+    // Ent turns fresh (not bottled) fountain water into nourishing draught
+    else if (streq(p->race->name, "Ent") && fountain)
+    {
+        msg(p, "After you touch the water becomes sparky and clean.");
+        kind = lookup_kind_by_name(TV_POTION, "Water");
+    }
+    
+    // Open water source (lake, river...)
+    else if (!fountain)
+        kind = lookup_kind_by_name(TV_POTION, "Water");
 
     /* Ale */
-    if (fountain && one_in_(10))
+    else if (fountain && one_in_(10))
     {
         msg(p, "Wow! Pure dwarven ale!");
         kind = lookup_kind_by_name(TV_FOOD, "Pint of Fine Ale");
@@ -2496,7 +2537,7 @@ void do_cmd_fountain(struct player *p, int item)
         kind = lookup_kind_by_name(TV_POTION, "Water");
     }
 
-    /* Random potion effect */
+    /* Random potion effect for fountains */
     else
     {
         int sval;
@@ -2523,6 +2564,9 @@ void do_cmd_fountain(struct player *p, int item)
             /* Success */
             break;
         }
+        
+        if (streq(kind->name, "Salt Water"))
+            kind = lookup_kind_by_name(TV_POTION, "Water");
 
         /* Message */
         if (!kind->cost)
@@ -2565,10 +2609,51 @@ void do_cmd_fountain(struct player *p, int item)
         drop_near(p, c, &obj, 0, &p->grid, true, DROP_FADE, false);
     }
 
-    /* Drink from a fountain */
+    /* Drink from a fountain OR water tile */
     else
     {
         drink_fountain(p, obj);
+
+        // Magic fountains nourishment (only ent and merfolk)
+        if (streq(p->race->name, "Ent") && fountain)
+        {
+            player_inc_timed(p, TMD_FOOD, 400, false, false);
+            hp_player(p, p->wpos.depth / 2);
+        }
+        else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
+        {
+            player_inc_timed(p, TMD_FOOD, 75, false, false);
+            hp_player(p, p->wpos.depth);
+        }
+        // Now water tile. They provide nourishment until certain fed status
+        else if (streq(p->race->name, "Ent"))
+        {
+            if (p->timed[TMD_FOOD] < 1500)
+                player_inc_timed(p, TMD_FOOD, 200, false, false);
+        }
+        else if (streq(p->race->name, "Merfolk"))
+        {
+            if (p->timed[TMD_FOOD] < 1000)
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
+        }
+        else // everyone else
+        {
+            if (p->timed[TMD_FOOD] < 700)
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
+        }
+        
+        if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_BAD_WATER) && !streq(p->race->name, "Ent"))
+        {
+            msg(p, "This water is no good!");
+            player_inc_timed(p, TMD_POISONED, 10, true, false);
+        }
+        else if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_FOUL_WATER))
+        {
+            msg(p, "What a sickening liquid!");
+            player_inc_timed(p, TMD_CONFUSED, 10 + randint0(20), true, false);
+            player_inc_timed(p, TMD_IMAGE, randint1(10), true, false);
+            player_inc_timed(p, TMD_POISONED, 10, true, false);
+        }
         object_delete(&obj);
     }
 
@@ -2948,6 +3033,10 @@ void do_cmd_poly(struct player *p, struct monster_race *race, bool check_kills, 
     /* Unaware players */
     p->k_idx = 0;
     if (rf_has(race->flags, RF_UNAWARE)) p->k_idx = -1;
+
+    // sound for bats ;)
+    if (race->base == lookup_monster_base("bat"))
+        sound(p, MSG_POLY_BAT);
 
     /* Hack -- random mimics */
     if (race->base == lookup_monster_base("random mimic"))

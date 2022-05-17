@@ -22,7 +22,9 @@
 
 #include "angband.h"
 #include <sys/stat.h>
+#ifndef BUILDINGWithVS
 #include <dir.h>
+#endif
 
 #define INVALID_FILE_NAME (DWORD)0xFFFFFFFF
 
@@ -61,6 +63,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 #endif
+#include "../client/main-win.c"
 
 #if defined (WINDOWS) && !defined (CYGWIN)
 # define my_mkdir(path, perms) mkdir(path)
@@ -435,14 +438,14 @@ ang_file *file_open(const char *fname, file_mode mode, file_type ftype)
         int fd;
 
         /* Open only if the file does not exist */
-        fd = open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, S_IRUSR | S_IWUSR);
+        fd = _open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, S_IRUSR | S_IWUSR);
         if (fd < 0)
         {
             /* There was some error */
             f->fh = NULL;
         }
         else
-            f->fh = fdopen(fd, "wb");
+            f->fh = _fdopen(fd, "wb");
     }
     else
         f->fh = fopen(buf, modestr);
@@ -804,7 +807,7 @@ bool dir_exists(const char *path)
     /* API says we mustn't pass anything larger than MAX_PATH */
     my_strcpy(dirpath, path, sizeof(dirpath));
 
-    attrib = GetFileAttributes(dirpath);
+    attrib = GetFileAttributesW(dirpath);
     if (attrib == INVALID_FILE_NAME) return false;
     if (attrib & FILE_ATTRIBUTE_DIRECTORY) return true;
 

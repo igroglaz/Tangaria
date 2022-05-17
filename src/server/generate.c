@@ -1005,6 +1005,12 @@ static const struct cave_profile *choose_profile(struct worldpos *wpos)
         {
             profile = find_cave_profile("moria");
         }
+        // t_modified
+        else if (wpos->depth < 10 && one_in_(2))
+            profile = find_cave_profile("t_modified");
+        else if (wpos->depth > 10 && one_in_(1 + (wpos->depth / 10)))
+            profile = find_cave_profile("t_modified");
+        // "modified" and others from dungeon_profile.txt
         else
         {
             int total_alloc = 0;

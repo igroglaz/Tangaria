@@ -558,6 +558,9 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail = -370 * x;
     fail /= (10 + ABS(x));
     fail += 380;
+    
+    if (streq(p->clazz->name, "Unbeliever"))
+        fail = 999;
 
     return fail;
 }
@@ -981,7 +984,12 @@ bool has_level_req(struct player *p, struct object *obj)
     if (!cfg_level_req) return true;
 
     /* Must meet level requirement */
-    return (p->lev >= obj->level_req);
+
+    // hack to adjust items req. lvl a bit to make pstore trade more viable
+    if (obj->level_req > 15 && obj->level_req < 50)
+        return (p->lev >= obj->level_req - 3);
+    else
+        return (p->lev >= obj->level_req);
 }
 
 

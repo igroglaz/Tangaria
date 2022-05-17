@@ -298,8 +298,13 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
         /* Hack -- skip him if he's shopping */
         /* Hack -- make the dungeon master invisible to monsters */
         /* Skip player if dead or gone */
-        if (!in_store(p) && !(p->dm_flags & DM_MONSTER_FRIEND) &&
-            p->alive && !p->is_dead && !p->upkeep->new_level_method)
+        if ((!in_store(p) && !(p->dm_flags & DM_MONSTER_FRIEND) &&
+            p->alive && !p->is_dead && !p->upkeep->new_level_method) || // OR if monster is unhurted WANDERER
+            (!(rf_has(mon->race->flags, RF_WANDERER) &&
+            p->state.stat_ind[STAT_CHR] > (p->wpos.depth / 3) &&
+            p->state.stat_ind[STAT_CHR] >= 10 &&
+           !player_of_has(p, OF_AGGRAVATE) &&
+            (mon->hp == mon->maxhp))))
         {
             /* Check if monster has LOS to the player */
             bool new_los = los(c, &mon->grid, &grid);
@@ -372,6 +377,8 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
                         /* Easy to see */
                         easy = flag = true;
                     }
+                    else if (streq(p->clazz->name, "Unbeliever") && d < 2)
+                        easy = flag = true;
                 }
                 else
                 {
@@ -1113,9 +1120,54 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     {
         if (mon->race->base == lookup_monster_base("Morgoth"))
             soundfx = MSG_KILL_KING;
+        else if (mon->race->base == lookup_monster_base("wraith")) // BD Wight-King and nazguls
+            soundfx = MSG_KILL_NAZGUL;
+        else if (rf_has(mon->race->flags, RF_UNDEAD))
+            soundfx = MSG_KILL_UNIQUE_UNDEAD;
+        else if (mon->race->base == lookup_monster_base("demon"))
+            soundfx = MSG_KILL_UNIQUE_DEMON;
+        else if (mon->race->base == lookup_monster_base("dragon") ||
+                 mon->race->base == lookup_monster_base("ancient dragon"))
+            soundfx = MSG_KILL_UNIQUE_DRAGON;
+        else if (streq(mon->race->name, "Vasilisa the Beautiful")) // baba yaga
+            soundfx = MSG_KILL_UNIQUE_YAGA;
+        else if (streq(mon->race->name, "Kikimora"))
+            soundfx = MSG_KILL_UNIQUE_KIKIMORA;
+        else if (streq(mon->race->name, "Shtukensia"))
+            soundfx = MSG_DEFEAT_UNIQUE_SHTUKENSIA;
+        else if (streq(mon->race->name, "The Witch-King of Angmar"))
+            soundfx = MSG_KILL_UNIQUE_WITCH_KING;
+        else if (streq(mon->race->name, "Shelob, Spider of Darkness") ||
+                 streq(mon->race->name, "Ungoliant, the Unlight"))
+            soundfx = MSG_KILL_UNIQUE_SHELOB;
+        else if (streq(mon->race->name, "Koschei the Deathless"))
+            soundfx = MSG_KILL_KOSCHEI;
         else
             soundfx = MSG_KILL_UNIQUE;
     }
+    else if (streq(mon->race->name, "terrified yeek"))
+        soundfx = MSG_KILL_YEEK;
+    else if (mon->race->base == lookup_monster_base("rodent"))
+        soundfx = MSG_KILL_RODENT;
+    else if (mon->race->base == lookup_monster_base("insect") ||
+             mon->race->base == lookup_monster_base("ant") ||
+             mon->race->base == lookup_monster_base("centipede") ||
+             mon->race->base == lookup_monster_base("killer beetle"))
+        soundfx = MSG_KILL_INSECT;
+    else if (mon->race->base == lookup_monster_base("snake"))
+        soundfx = MSG_KILL_SNAKE;
+    else if (mon->race->base == lookup_monster_base("hydra"))
+        soundfx = MSG_KILL_HYDRA;
+    else if (mon->race->base == lookup_monster_base("jelly") ||
+             mon->race->base == lookup_monster_base("mold"))
+        soundfx = MSG_KILL_SLIME;
+    else if (mon->race->base == lookup_monster_base("stinger") ||
+             mon->race->base == lookup_monster_base("killer beetle"))
+        soundfx = MSG_KILL_STINGER;
+    else if (mon->race->base == lookup_monster_base("mushroom"))
+        soundfx = MSG_KILL_MUSHROOM;
+    else if (mon->race->base == lookup_monster_base("angel"))
+        soundfx = MSG_KILL_UNIQUE_ANGEL; // later on: for djinni
 
     /* Death message */
     switch (note)
@@ -1131,6 +1183,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             {
                 msg_format_near(p, MSG_GENERIC, " has killed %s.", m_name);
                 msgt(p, soundfx, "You have killed %s.", m_name);
+            }
+
+            // good/neutral monsters not slain, but defeated
+            else if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                     rf_has(mon->race->flags, RF_NEUTRAL))
+            {
+                msg_format_near(p, MSG_GENERIC, " has defeated %s.", m_name);
+                msgt(p, soundfx, "You have defeated %s.", m_name);
             }
 
             /* Death by physical attack -- unusual monster */
@@ -1162,10 +1222,24 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             switch (note)
             {
                 case MON_MSG_DESTROYED:
-                    msg_format_complex_near(p, MSG_GENERIC, "%s is destroyed.", name);
+                {
+                    // good/neutral monsters not slain, but defeated
+                    if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                        rf_has(mon->race->flags, RF_NEUTRAL))
+                        msg_format_complex_near(p, MSG_GENERIC, "%s is defeated.", name);
+                    else
+                        msg_format_complex_near(p, MSG_GENERIC, "%s is destroyed.", name);
                     break;
+                }
                 default:
-                    msg_format_complex_near(p, MSG_GENERIC, "%s dies.", name);
+                {
+                    // good/neutral monsters not slain, but defeated
+                    if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                        rf_has(mon->race->flags, RF_NEUTRAL))
+                        msg_format_complex_near(p, MSG_GENERIC, "%s defeated.", name);
+                    else
+                        msg_format_complex_near(p, MSG_GENERIC, "%s dies.", name);
+                }
             }
             add_monster_message(p, mon, note, true);
         }
@@ -1180,14 +1254,24 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             type = MSG_BROADCAST_KILL_KING;
 
         /* Give credit to the killer */
-        strnfmt(buf, sizeof(buf), "%s was slain by %s %s.", mon->race->name, title, p->name);
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
+            strnfmt(buf, sizeof(buf), "%s was defeated by %s %s.", mon->race->name, title, p->name);
+        else
+            strnfmt(buf, sizeof(buf), "%s was slain by %s %s.", mon->race->name, title, p->name);
 
         /* Tell every player (including the killer because it's easy to miss in message window) */
         msg_broadcast(p, buf, type);
         msg_print(p, buf, type);
 
         /* Message for event history */
-        strnfmt(logbuf, sizeof(logbuf), "Killed %s", mon->race->name);
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
+            strnfmt(logbuf, sizeof(logbuf), "Defeated %s", mon->race->name);
+        else
+            strnfmt(logbuf, sizeof(logbuf), "Killed %s", mon->race->name);
 
         /* Record this kill in the event history */
         history_add_unique(p, logbuf, HIST_SLAY_UNIQUE);
@@ -1203,7 +1287,12 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             if (party_share_with(p, p->party, q) && mflag_has(q->mflag[mon->midx], MFLAG_HURT))
             {
                 /* Message for event history */
-                strnfmt(logbuf, sizeof(logbuf), "Helped to kill %s", mon->race->name);
+                // good/neutral monsters not slain, but defeated
+                if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+                    rf_has(mon->race->flags, RF_NEUTRAL))
+                    strnfmt(logbuf, sizeof(logbuf), "Helped to defeat %s", mon->race->name);
+                else
+                    strnfmt(logbuf, sizeof(logbuf), "Helped to kill %s", mon->race->name);
 
                 /* Record this kill in the event history */
                 history_add(q, logbuf, HIST_HELP_UNIQUE);
@@ -1234,7 +1323,12 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     {
         int drain = 1 + (mon->level / 2) + p->lev * 4 / 5;
         if (drain > mon->maxhp) drain = mon->maxhp;
-        msg(p, "You absorb the life of the dying soul.");
+        // good/neutral monsters not slain, but defeated
+        if (rf_has(mon->race->flags, RF_WANDERER) || rf_has(mon->race->flags, RF_GOOD) ||
+            rf_has(mon->race->flags, RF_NEUTRAL))
+            msg(p, "You morale raises by seeing the fleeing opponent.");
+        else
+            msg(p, "You absorb the life of the dying soul.");
         hp_player_safe(p, 1 + drain / 2);
     }
 
@@ -1255,6 +1349,52 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Delete the monster */
     delete_monster_idx(c, mon->midx);
 }
+
+
+/*
+ * Stat Table (CHR) -- fear on dmg
+ */
+static const int adj_chr_fear[STAT_RANGE] =
+{
+    0   /* 3 */,
+    0   /* 4 */,
+    0   /* 5 */,
+    0   /* 6 */,
+    0   /* 7 */,
+    0   /* 8 */,
+    0   /* 9 */,
+    1   /* 10 */,
+    1   /* 11 */,
+    1   /* 12 */,
+    1   /* 13 */,
+    1   /* 14 */,
+    1   /* 15 */,
+    2   /* 16 */,
+    2   /* 17 */,
+    2   /* 18/00-18/09 */,
+    3   /* 18/10-18/19 */,
+    3   /* 18/20-18/29 */,
+    4   /* 18/30-18/39 */,
+    5   /* 18/40-18/49 */,
+    6   /* 18/50-18/59 */,
+    7   /* 18/60-18/69 */,
+    8   /* 18/70-18/79 */,
+    9   /* 18/80-18/89 */,
+    10  /* 18/90-18/99 */,
+    11  /* 18/100-18/109 */,
+    12   /* 18/110-18/119 */,
+    13   /* 18/120-18/129 */,
+    14  /* 18/130-18/139 */,
+    15  /* 18/140-18/149 */,
+    16  /* 18/150-18/159 */,
+    17  /* 18/160-18/169 */,
+    18  /* 18/170-18/179 */,
+    19  /* 18/180-18/189 */,
+    20  /* 18/190-18/199 */,
+    21  /* 18/200-18/209 */,
+    22  /* 18/210-18/219 */,
+    25  /* 18/220+ */
+};
 
 
 /*
@@ -1288,9 +1428,12 @@ static void monster_scared_by_damage(struct player *p, struct chunk *c, struct m
     if (monster_can_be_scared(c, mon))
     {
         int percentage;
+        int chr_fear = randint0(adj_chr_fear[p->state.stat_ind[STAT_CHR]]);
 
         /* Percentage of fully healthy */
-        percentage = (100L * mon->hp) / mon->maxhp;
+        percentage = ((100L - chr_fear) * mon->hp) / mon->maxhp;
+        
+        if (percentage < 0) percentage = 0;
 
         /*
          * Run (sometimes) if at 10% or less of max hit points,

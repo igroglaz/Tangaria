@@ -255,22 +255,35 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 4 + p->lev * 2;
     int power = weight + randint1(500);
     int new_dam = dam;
+    struct object *bow = equipped_item_by_slot_name(p, "shooting");
 
     if (randint1(5000) > chance)
-        *msg_type = MSG_SHOOT_HIT;
+    {
+        if (bow)
+        {
+            if (kf_has(bow->kind->kind_flags, KF_SHOOTS_ARROWS))
+                *msg_type = MSG_SHOOT_BOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_BOLTS))
+                *msg_type = MSG_SHOOT_CROSSBOW;
+            else if (kf_has(bow->kind->kind_flags, KF_SHOOTS_SHOTS))
+                *msg_type = MSG_SHOOT_SLING;
+        }
+        else
+            *msg_type = MSG_SHOOT; // rocks (boomerangs too for now..)
+    }
     else if (power < 500)
     {
-        *msg_type = MSG_HIT_GOOD;
+        *msg_type = MSG_SHOOT_GOOD;
         new_dam = 2 * dam + 5;
     }
     else if (power < 1000)
     {
-        *msg_type = MSG_HIT_GREAT;
+        *msg_type = MSG_SHOOT_GREAT;
         new_dam = 2 * dam + 10;
     }
     else
     {
-        *msg_type = MSG_HIT_SUPERB;
+        *msg_type = MSG_SHOOT_SUPERB;
         new_dam = 3 * dam + 15;
     }
 
@@ -291,6 +304,7 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
     int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 5 +
         (p->state.skills[SKILL_TO_HIT_MELEE] - 60);
     int new_dam = dam;
+    struct object *obj = equipped_item_by_slot_name(p, "weapon");
 
     /* Apply Touch of Death */
     if (p->timed[TMD_DEADLY] && magik(25))
@@ -298,9 +312,23 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
         *msg_type = MSG_HIT_HI_CRITICAL;
         new_dam = 4 * dam + 30;
     }
-
+    // now regular attacks
     else if (randint1(5000) > chance)
-        *msg_type = MSG_HIT;
+    {
+        if (obj) // with weapon
+        {
+            if (obj->tval == TV_SWORD)
+                *msg_type = MSG_HIT_BLADE;
+            else if ((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip")))
+                *msg_type = MSG_HIT_WHIP;
+            else if (obj->tval == TV_HAFTED)
+                *msg_type = MSG_HIT_MACE;
+            else
+                *msg_type = MSG_HIT;
+        }
+        else
+            *msg_type = MSG_PUNCH; // unarmed (barehand)
+    }
     else if (power < 400)
     {
         *msg_type = MSG_HIT_GOOD;
@@ -361,6 +389,10 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
     *d_dam = dmg;
 
     dmg *= best_mult;
+    
+    // Werewolves got CUT bonus at night
+    if (streq(p->race->name, "Werewolf") && p->lev > 49 && best_mult < 2 && !is_daytime())
+        dmg *= 2;
 
     /* Stabbing attacks (require a weapon) */
     if (target->monster && obj)
@@ -465,6 +497,33 @@ static void blow_side_effects(struct player *p, struct source *target,
 
         hp_player_safe(p, 1 + drain / 2);
     }
+    else if (streq(p->clazz->name, "Unbeliever") && target->monster &&
+        target->monster->race->freq_spell && !target->monster->race->freq_innate &&
+        !monster_is_powerful(target->monster->race))
+    {
+        int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
+
+        hp_player_safe(p, 1 + drain / 2);
+    }
+    else if (streq(p->clazz->name, "Inquisitor") && target->monster &&
+        monster_is_fearful(target->monster) && !monster_is_unique(target->monster->race) && !monster_is_powerful(target->monster->race))
+    {
+        int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
+
+        hp_player_safe(p, 1 + drain / 2);
+    }
+
+    // Necromancer got small additional life leech (traumaturgy)
+    if (streq(p->clazz->name, "Necromancer") && target->monster &&
+        monster_is_living(target->monster))
+            hp_player_safe(p, 1 + (p->lev / 10));
+
+    // Mage's "Frost Shield" spell gives cold brand
+    if (p->timed[TMD_ICY_AURA] && (streq(p->clazz->name, "Mage") ||
+        streq(p->clazz->name, "Battlemage") || streq(p->clazz->name, "Elementalist")) && p->lev > 20)
+    {
+        player_inc_timed(p, TMD_ATT_COLD, 5, true, true);
+    }
 
     /* Confusion attack */
     if (p->timed[TMD_ATT_CONF])
@@ -527,6 +586,10 @@ static void blow_side_effects(struct player *p, struct source *target,
 
     /* Ghosts get fear attacks */
     if (p->ghost && !player_can_undead(p)) do_fear = true;
+
+    // Werewolves got CUT at night
+    if (streq(p->race->name, "Werewolf") && !is_daytime() && p->lev > 14)
+        seffects->do_cut = true;
 
     /* Hack -- only one of cut or stun */
     if (seffects->do_cut && seffects->do_stun)
@@ -702,6 +765,10 @@ static const struct hit_types melee_hit_types[] =
 {
     {MSG_MISS, NULL},
     {MSG_HIT, NULL},
+    {MSG_HIT_BLADE, NULL},
+    {MSG_HIT_MACE, NULL},
+    {MSG_HIT_WHIP, NULL},
+    {MSG_PUNCH, NULL},
     {MSG_HIT_GOOD, "It was a good hit!"},
     {MSG_HIT_GREAT, "It was a great hit!"},
     {MSG_HIT_SUPERB, "It was a superb hit!"},
@@ -1084,7 +1151,13 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 melee_hit_types[i].text);
         }
         else
+        {
+            // sound for unarmed (barehand) attack
+            if (!obj)
+                msg_type = MSG_PUNCH;
+            
             msgt(p, msg_type, "You %s %s%s%s.", verb, target_name, hit_extra, dmg_text);
+        }
     }
 
     effects->stab_sleep = false;
@@ -1483,6 +1556,7 @@ void drain_xp(struct player *p, int amt)
 }
 
 
+// weapon disarm
 void drop_weapon(struct player *p, int damage)
 {
     int tmp;
@@ -1526,7 +1600,7 @@ void drop_weapon(struct player *p, int damage)
     if (!magik(damage)) return;
 
     /* Really unlucky or really lousy fighters get disarmed */
-    msg(p, "You lose grip of your weapon!");
+    msgt(p, MSG_DISARM_WEAPON, "Disarmed! You lose grip of your weapon!");
     if (!inven_drop(p, obj, 1, true))
     {
         /* Protect true artifacts at shallow depths */
@@ -1667,11 +1741,16 @@ static void missile_pict(struct player *p, const struct object *obj, struct loc 
 /* Shooting hit types */
 static const struct hit_types ranged_hit_types[] =
 {
-    {MSG_MISS, NULL},
+    {MSG_SHOOT_MISS, NULL},
+    {MSG_SHOOT, NULL},
     {MSG_SHOOT_HIT, NULL},
-    {MSG_HIT_GOOD, "It was a good hit!"},
-    {MSG_HIT_GREAT, "It was a great hit!"},
-    {MSG_HIT_SUPERB, "It was a superb hit!"}
+    {MSG_SHOOT_BOW, NULL},
+    {MSG_SHOOT_CROSSBOW, NULL},
+    {MSG_SHOOT_SLING, NULL},
+    {MSG_SHOOT_BOOMERANG, NULL},
+    {MSG_SHOOT_GOOD, "It was a good hit!"},
+    {MSG_SHOOT_GREAT, "It was a great hit!"},
+    {MSG_SHOOT_SUPERB, "It was a superb hit!"}
 };
 
 
@@ -1682,9 +1761,10 @@ static const struct hit_types ranged_hit_types[] =
  * logic, while using the 'attack' parameter to do work particular to each
  * kind of attack.
  */
+ // bool shooted - true if projectile was shooted; false if it was thrown
 static bool ranged_helper(struct player *p, struct object *obj, int dir, int range, int num_shots,
     ranged_attack attack, const struct hit_types *hit_types, int num_types, bool magic, bool pierce,
-    bool ranged_effect)
+    bool ranged_effect, bool shooted)
 {
     int i, j;
     int path_n;
@@ -1719,8 +1799,22 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
         }
     }
 
-    /* Sound */
-    sound(p, MSG_SHOOT);
+    /* Shooting sound */
+    if (shooted)
+    {
+        if (obj->tval == TV_ARROW)
+            sound(p, MSG_SHOOT_BOW);
+        else if (obj->tval == TV_BOLT)
+            sound(p, MSG_SHOOT_CROSSBOW);
+        else if (obj->tval == TV_SHOT)
+            sound(p, MSG_SHOOT_SLING);
+        else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
+            sound(p, MSG_SHOOT_BOOMERANG);
+        else
+            sound(p, MSG_SHOOT); // stone sound. not sure do we need it or not
+    }
+    else
+        sound(p, MSG_THROW);
 
     /* Take a turn */
     use_energy(p);
@@ -1753,9 +1847,13 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
             /* Hack -- disable throwing through open house door */
             if (square_home_isopendoor(c, &path_g[i])) break;
+            
+            /* Hack -- disable throwing through house window */
+            if (square_is_window(c, &path_g[i])) break;            
 
             /* Hack -- stop before hitting walls */
-            if (!square_ispassable(c, &path_g[i]) && !square_isprojectable(c, &path_g[i]))
+            if (!square_ispassable(c, &path_g[i]) && !square_isprojectable(c, &path_g[i]) &&
+                !(square_istree(c, &path_g[i]) && !one_in_(4)))
             {
                 /* Special case: potion VS house door */
                 if (tval_is_potion(obj) && square_home_iscloseddoor(c, &path_g[i]))
@@ -1861,7 +1959,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                     if (dmg <= 0)
                     {
                         dmg = 0;
-                        msg_type = MSG_MISS;
+                        msg_type = MSG_SHOOT_MISS;
                         verb = "fails to harm";
                     }
 
@@ -2025,7 +2123,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                         /* Handle visible monster/player */
                         object_desc(p, o_name, sizeof(o_name), obj, ODESC_FULL | ODESC_SINGULAR);
-                        msgt(p, MSG_MISS, "The %s misses %s.", o_name, m_name);
+                        msgt(p, MSG_SHOOT_MISS, "The %s misses %s.", o_name, m_name);
 
                         /* Track this target */
                         if (who->monster) monster_race_track(p->upkeep, who);
@@ -2309,7 +2407,7 @@ bool do_cmd_fire(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true);
+        (int)N_ELEMENTS(ranged_hit_types), magic, pierce, true, true);
 
     return more;
 }
@@ -2376,8 +2474,9 @@ bool do_cmd_throw(struct player *p, int dir, int item)
         return false;
     }
 
-    /* Never drop deeds of property */
-    if (tval_is_deed(obj))
+    // Can't throw cursed, NO_DROP and soulbound items;
+    // with exception of EXPLODE object flag for Alchemist class potions
+    if ((obj->curses || obj->soulbound || of_has(obj->flags, OF_NO_DROP)) && !of_has(obj->flags, OF_EXPLODE))
     {
         msg(p, "You cannot throw this.");
         return false;
@@ -2405,7 +2504,7 @@ bool do_cmd_throw(struct player *p, int dir, int item)
 
     /* Take shots until energy runs out or monster dies */
     more = ranged_helper(p, obj, dir, range, num_shots, attack, ranged_hit_types,
-        (int)N_ELEMENTS(ranged_hit_types), magic, false, false);
+        (int)N_ELEMENTS(ranged_hit_types), magic, false, false, false);
 
     return more;
 }

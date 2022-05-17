@@ -334,7 +334,7 @@ static void write_character_dump(ang_file *fff, void *data)
                 /* Hack for the player who is already dead and gone */
                 if (player_is_at(p, &grid))
                 {
-                    c = (victory? '@': '†');
+                    c = (victory? '@': '@');
                     a = COLOUR_WHITE;
                 }
 
@@ -366,8 +366,16 @@ static void write_character_dump(ang_file *fff, void *data)
     /* Dump account (server dumps) */
     if (!p->dump_gen)
     {
+        char buf_tm[MSG_LEN];
+        struct tm *tm_info = localtime(&p->death_info.time);
+
+        strftime(buf_tm, MSG_LEN, "%T %d-%m-%Y", tm_info);
+
         file_put(fff, "\n  [Player information]\n\n");
-        file_putf(fff, "Player name: %s\n", get_connection(p->conn)->real);
+        file_putf(fff, "Player ID: %s\n", get_connection(p->conn)->nick_account);
+        file_putf(fff, "Time: %s\n", buf_tm);
+        file_putf(fff, "Server Turns: %s\n", ht_show(&turn));
+        file_putf(fff, "Timestamp: %ld\n", p->death_info.time);        
     }
 
     mem_free(home_list);

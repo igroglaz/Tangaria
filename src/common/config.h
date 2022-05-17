@@ -1,3 +1,5 @@
+//#define TEST_MODE // Add DM equipment to all characters and DM can build houses
+
 /*
  * File: config.h
  * Purpose: Angband specific configuration stuff
@@ -48,8 +50,8 @@
  * Other defines
  */
 
-/* Compile in support for debug commands */
-/*#define DEBUG_MODE*/
+/* Compile in support for debug commands
+#define DEBUG_MODE */
 
 /*
  * OPTION: Do not switch to manual targeting if there are no

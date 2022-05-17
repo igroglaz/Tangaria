@@ -143,6 +143,69 @@ void do_cmd_breath(struct player *p, int dir)
         msg(p, "You need a tangible body to breathe!");
         return;
     }
+    
+    // Special races' effects (Spider weaves web, Ent grow trees etc)
+    if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
+    {
+        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+        streq(p->clazz->name, "Unbeliever"))
+        {
+            /* Take a turn */
+            use_energy(p);
+
+            /* Make the breath attack an effect */
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_WEB_SPIDER;
+
+            /* Cast the breath attack */
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+            
+            return;
+        }
+        else // all classes except warr, monk, unbeliever
+        {
+            /* Take a turn */
+            use_energy(p);
+
+            /* Make the breath attack an effect */
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_WEB;
+
+            /* Cast the breath attack */
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+            
+            return;
+        }            
+    }
+    else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
+             p->lev > 5)
+    {
+        /* Take a turn */
+        use_energy(p);
+
+        /* Make the breath attack an effect */
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_CREATE_TREES;
+
+        /* Cast the breath attack */
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+
+        // spend satiation
+        player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
+        // occupy
+        player_inc_timed(p, TMD_OCCUPIED, randint1(2), true, false);
+        
+        return;
+    }
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);

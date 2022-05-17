@@ -186,7 +186,7 @@ static void sense_object(struct player *p, struct object *obj, bool tocarry)
 
 
 /*
- * Assess an object
+ * Assess an object (pseudo-id)
  */
 void assess_object(struct player *p, struct object *obj, bool tocarry)
 {

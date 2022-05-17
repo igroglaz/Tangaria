@@ -80,10 +80,6 @@ void get_mon_name(char *buf, size_t buflen, const struct monster_race *race, int
  *
  * Reflexives are acquired by requesting Objective plus Possessive.
  *
- * Note that the "possessive" for certain unique monsters will look
- * really silly, as in "Morgoth, King of Darkness's".  We should
- * perhaps add a flag to "remove" any "descriptives" in the name.
- *
  * Note that "offscreen" monsters will get a special "(offscreen)"
  * notation in their name if they are visible but offscreen.  This
  * may look silly with possessives, as in "the rat's (offscreen)".
@@ -191,12 +187,22 @@ void monster_desc(struct player *p, char *desc, size_t max, const struct monster
     /* Unique, indefinite or definite */
     else
     {
+        const char *comma_pos = strchr(mon->race->name, ',');
         bool offscreen = (p? !panel_contains(p, &((struct monster *)mon)->grid): false);
 
         if (monster_is_unique(mon->race))
         {
-            /* Start with the name (thus nominative and objective) */
-            my_strcpy(desc, mon->race->name, max);
+            if ((mode & MDESC_POSS) && rf_has(mon->race->flags, RF_NAME_COMMA) && comma_pos &&
+                (comma_pos - mon->race->name < 1024))
+            {
+                /* Strip off descriptive phrase if a possessive will be added. */
+                strnfmt(desc, max, "%.*s", (int)(comma_pos - mon->race->name), mon->race->name);
+            }
+            else
+            {
+                /* Start with the name (thus nominative and objective) */
+                my_strcpy(desc, mon->race->name, max);
+            }
         }
         else
         {
@@ -212,7 +218,15 @@ void monster_desc(struct player *p, char *desc, size_t max, const struct monster
                 my_strcpy(desc, "the ", max);
             }
 
-            my_strcat(desc, mon->race->name, max);
+            /* As with uniques, strip off phrase if a possessive will be added. */
+            if ((mode & MDESC_POSS) && rf_has(mon->race->flags, RF_NAME_COMMA) && comma_pos &&
+                (comma_pos - mon->race->name < 1024))
+            {
+                my_strcat(desc, format("%.*s", (int)(comma_pos - mon->race->name), mon->race->name),
+                    max);
+            }
+            else
+                my_strcat(desc, mon->race->name, max);
         }
 
         if ((mode & MDESC_COMMA) && rf_has(mon->race->flags, RF_NAME_COMMA))

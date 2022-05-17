@@ -69,7 +69,7 @@ extern bool func_true(void);
 extern bool func_false(void);
 
 /* Count the number of characters in a UTF-8 encoded string */
-extern size_t utf8_strlen(char *s);
+extern size_t utf8_strlen(const char *s);
 
 /* Clip a null-terminated UTF-8 string 's' to 'n' unicode characters. */
 extern void utf8_clipto(char *s, size_t n);
@@ -170,8 +170,8 @@ extern uint32_t djb2_hash(const char *str);
 /*
  * Mathematical functions
  */
-extern int mean(int *nums, int size);
-extern int variance(int *nums, int size);
+extern int mean(const int *nums, int size);
+extern int variance(const int *nums, int size);
 
 /* Tests a condition and possibly aborts, using the "assert" macro */
 #define my_assert(p) \

@@ -100,8 +100,11 @@ int houses_owned(struct player *p)
 
     for (house = 0; house < houses_count(); house++)
     {
+        /* Count all houses */
+        if (house_owned_by(p, house)) count++;
+      
         /* Only normal or extended houses */
-        if (house_owned_by(p, house) && (houses[house].state < HOUSE_CUSTOM)) count++;
+/////   if (house_owned_by(p, house) && (houses[house].state < HOUSE_CUSTOM)) count++;
     }
 
     return count;
@@ -321,6 +324,23 @@ bool level_has_owned_houses(struct worldpos *wpos)
     return false;
 }
 
+/*
+ * Determine if the level contains any houses
+ */
+bool level_has_any_houses(struct worldpos *wpos)
+{
+    int i;
+
+    for (i = 0; i < houses_count(); i++)
+    {
+        /* House on this level */
+        if (houses[i].state && wpos_eq(&houses[i].wpos, wpos))
+            return true;
+    }
+
+    return false;
+}
+
 
 /*
  * Wipe custom houses on a level
@@ -335,7 +355,7 @@ void wipe_custom_houses(struct worldpos *wpos)
         if (!wpos_eq(&houses[house].wpos, wpos)) continue;
 
         /* Wipe extended and custom houses */
-        if (houses[house].state >= HOUSE_EXTENDED)
+        if ((houses[house].state >= HOUSE_EXTENDED) && (houses[house].ownerid == 0))
         {
             memset(&houses[house], 0, sizeof(struct house_type));
             num_custom--;
@@ -636,9 +656,14 @@ bool get_player_store_name(int num, char *name, int len)
 
 
 /*
- * Return the index of a house near a location.
+ * Return the index of a house near player (in 2 tiles from character).
  *
  * Returns -3 if invalid dimensions, -2 if not owned, -1 if not found, or the index if found.
+ *
+ * Beware: MAng housing already include one row of walls of player's existing house
+ * (if there is one) to grid1,grid2.
+ * So "Check..." condition won't work on them unless we diminish it with -1
+ *
  */
 int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
 {
@@ -662,8 +687,9 @@ int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
         /* Check north and south */
         if ((grid1->y == houses[house].grid_2.y + 2) || (grid2->y == houses[house].grid_1.y - 2))
         {
-            /* Do we own this house? */
-            if (!house_owned_by(p, house)) return -2;
+            /* If we don't own this house */
+            if (!house_owned_by(p, house))
+                return -2;
 
             /* Can we extend this house? */
             if ((grid1->x == houses[house].grid_1.x - 1) && (grid2->x == houses[house].grid_2.x + 1))
@@ -675,8 +701,9 @@ int house_near(struct player *p, struct loc *grid1, struct loc *grid2)
         /* Check east and west */
         if ((grid1->x == houses[house].grid_2.x + 2) || (grid2->x == houses[house].grid_1.x - 2))
         {
-            /* Do we own this house? */
-            if (!house_owned_by(p, house)) return -2;
+            /* If we don't own this house */
+            if (!house_owned_by(p, house))
+                return -2;
 
             /* Can we extend this house? */
             if ((grid1->y == houses[house].grid_1.y - 1) && (grid2->y == houses[house].grid_2.y + 1))

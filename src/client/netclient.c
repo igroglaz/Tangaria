@@ -1813,6 +1813,18 @@ static bool item_tester_hook_staff(struct player *p, const struct object *obj)
 }
 
 
+// Hook to specify wearable items
+static bool item_tester_hook_wearable(struct player *p, const struct object *obj)
+{
+    return tval_is_wearable(obj);
+}
+
+// Hook to specify reagents
+static bool item_tester_hook_reagent(struct player *p, const struct object *obj)
+{
+    return tval_is_reagent(obj);
+}
+
 struct tester_hook
 {
     const char *prompt;
@@ -1847,7 +1859,11 @@ static struct tester_hook tester_hook_item[N_HOOKS] =
     {"Drain charges from which item? ", "You have nothing to drain charges from.", CMD_NULL,
         USE_INVEN | USE_FLOOR, item_tester_hook_drain},
     {"Make arrows from which staff? ", "You have no staff to use.", CMD_NULL,
-        USE_INVEN | USE_FLOOR, item_tester_hook_staff}
+        USE_INVEN | USE_FLOOR, item_tester_hook_staff},
+    {"Choose which item? ", "You have nothing to choose.", CMD_NULL,
+        USE_INVEN | USE_FLOOR, item_tester_hook_wearable},
+    {"Choose which reagent? ", "You have nothing to choose.", CMD_NULL,
+        USE_INVEN | USE_FLOOR, item_tester_hook_reagent}
 };
 
 

@@ -152,6 +152,7 @@ static bool monster_can_move(struct chunk *c, struct monster *mon, struct loc *g
 bool race_hates_grid(struct chunk *c, struct monster_race *race, struct loc *grid)
 {
     /* Only some creatures can handle damaging terrain */
+    // eg AQUATIC mobs are water immune
     if (square_isdamaging(c, grid) && !rf_has(race->flags, square_feat(c, grid)->resist_flag))
     {
         /* Hack -- passwall creatures can cross any damaging terrain */
@@ -175,6 +176,14 @@ bool race_hates_grid(struct chunk *c, struct monster_race *race, struct loc *gri
  */
 bool monster_hates_grid(struct chunk *c, struct monster *mon, struct loc *grid)
 {
+    // If water - swimming creatures can cross it
+    if (square_iswater(c, grid))
+    {
+        if (rf_has(mon->race->flags, RF_SWIM_GOOD)) return false;
+        else if (rf_has(mon->race->flags, RF_SWIM_NORM)) return false;
+        else if (rf_has(mon->race->flags, RF_SWIM_BAD)) return false;
+    }
+
     return race_hates_grid(c, mon->race, grid);
 }
 
@@ -1384,6 +1393,16 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
         /* Leave now if not a breeder */
         if (!rf_has(mon->race->flags, RF_MULTIPLY)) return false;
 
+        // some monsters can multiply very rare (they got the flag; see above)
+        if (streq(mon->race->name, "ectoplasm"))
+        {
+            if (!one_in_(10)) return false;
+        }
+        else if (streq(mon->race->name, "Doppleganger"))
+        {
+            if (!one_in_(15)) return false;
+        }
+
         /* Try to multiply */
         if (multiply_monster(p, c, mon))
         {
@@ -1437,6 +1456,12 @@ static enum monster_stagger monster_turn_should_stagger(struct player *p, struct
         chance += 50;
         if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_50);
     }
+    
+    if (rf_has(mon->race->flags, RF_RAND_100))
+    {
+        chance = 100;
+        if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_100);
+    }    
 
     roll = randint0(100);
     return ((roll < confused_chance)? CONFUSED_STAGGER: ((roll < chance)? INNATE_STAGGER: NO_STAGGER));
@@ -1530,6 +1555,14 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
 
     /* Monster may be able to deal with walls and doors */
     if (rf_has(mon->race->flags, RF_PASS_WALL)) return true;
+
+    /* Monster may be able to move through trees */
+    if (square_istree(c, grid) && rf_has(mon->race->flags, RF_WILD_WOOD) && one_in_(3))
+        return true;
+
+    if (square_istree(c, grid) && rf_has(mon->race->flags, RF_ANIMAL) && one_in_(5))
+        return true;
+
     if (rf_has(mon->race->flags, RF_SMASH_WALL))
     {
         /* Remove the wall and much of what's nearby */
@@ -1651,7 +1684,8 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
                     /* Make sure this player is on this level */
                     if (!wpos_eq(&player->wpos, &who->player->wpos)) continue;
 
-                    msg(player, "You hear a door burst open!");
+                    // print with sound
+                    msgt(who->player, MSG_DOOR_BROKEN, "You hear a door burst open!");
                 }
 
                 /* Disturb if necessary */
@@ -1679,6 +1713,23 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
             note_viewable_changes(&c->wpos, grid);
         }
     }
+    // Swimming creatures can _sometimes_ cross water.
+    /*
+       We put there this condition cause monster shouldn't fail to move
+       on the step of "decision" should he move or not.
+       If we will add one_in_() condition previously (eg to monster_swim_grid(),
+       monster may turn back after it enters water which is stupid.
+    */
+    else if (!confused && square_iswater(c, grid))
+    {
+        if (rf_has(mon->race->flags, RF_SWIM_GOOD) && one_in_(2))
+            return true;
+        if (rf_has(mon->race->flags, RF_SWIM_NORM) && one_in_(3))
+            return true;
+        if (rf_has(mon->race->flags, RF_SWIM_BAD) && one_in_(4))
+            return true;
+        return false;
+    }    
     else if (confused)
     {
         *did_something = true;
@@ -1780,6 +1831,16 @@ static bool monster_turn_try_push(struct source *who, struct chunk *c, struct mo
         {
             rf_on(lore->flags, RF_KILL_BODY);
             rf_on(lore->flags, RF_MOVE_BODY);
+        }
+
+        // monster can't move/destroy minion if it's the only minion of the player
+        // (to make fights with MOVE_BODY uniques less painful for Tamer/Necromancer)
+        if (mon1->master && who->player->slaves < 2 &&
+			(streq(who->player->clazz->name, "Necromancer") ||
+            streq(who->player->clazz->name, "Tamer")))
+        {
+            kill_ok = false;
+            move_ok = false;
         }
 
         if (kill_ok || move_ok)
@@ -2230,6 +2291,10 @@ static void monster_turn(struct source *who, struct chunk *c, struct monster *mo
 
     /* Work out what kind of movement to use - random movement or AI */
     stagger = monster_turn_should_stagger(who->player, mon);
+    
+    // erratic monsters (towny fish) should sometimes stay at one place (pass turn)
+    if (rf_has(mon->race->flags, RF_RAND_100) && one_in_(2))
+        return;
 
     /* If there's no sensible move, we're done */
     if ((stagger == NO_STAGGER) && !get_move(who, c, mon, &dir, &tracking)) return;
@@ -2486,18 +2551,26 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     int player_noise;
     int notice = randint0(1024);
     struct monster_lore *lore = get_lore(p, mon->race);
+    int mon_distance = distance(&p->grid, &mon->grid);
 
     /* If player has acted this turn, use that noise value */
-    if (!has_energy(p, false)) player_noise = 1 << (30 - stealth);
+    if (!has_energy(p, false))
+    {
+        player_noise = 1 << (30 - stealth);
+
+        // base:person affected by CHR a bit
+        if (player_noise > 50 && streq(mon->race->base->name, "person"))
+            player_noise -= p->state.stat_ind[STAT_CHR];
+    }
 
     /* If player hasn't acted, 1/100 chance to make noise */
-    else if (one_in_(100)) player_noise = 1 << (30 - stealth);
+    else if (one_in_(100) && !streq(p->race->name, "Ent")) player_noise = 1 << (30 - stealth);
 
     /* Player is totally silent */
     else player_noise = 0;
 
     /* MvM or aggravation */
-    if (mvm || player_of_has(p, OF_AGGRAVATE))
+    if ((mvm || player_of_has(p, OF_AGGRAVATE)) && !streq(p->race->name, "Yeek"))
     {
         /* Wake the monster, make it aware */
         monster_wake(p, mon, true, 100);
@@ -2531,6 +2604,16 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
             lore_update(mon->race, lore);
         }
     }
+
+    else if ((streq(p->race->name, "Minotaur") || streq(p->clazz->name, "Knight")) &&
+            (mon_distance > 0 && mon_distance < 3))
+                monster_wake(p, mon, true, 100);
+
+    else if (streq(p->race->name, "Hydra") && (mon_distance > 0 && mon_distance < 21))
+        monster_wake(p, mon, true, 100);
+
+    else if (streq(p->race->name, "Balrog") && (mon_distance > 0 && mon_distance < 41))
+        monster_wake(p, mon, true, 100);
 }
 
 
@@ -2664,9 +2747,10 @@ static void get_closest_player(struct chunk *c, struct monster *mon)
         /* Skip player if dead or gone */
         if (!p->alive || p->is_dead || p->upkeep->new_level_method) continue;
 
-        /* Wanderers ignore level 1 players unless hurt or aggravated */
-        if (rf_has(mon->race->flags, RF_WANDERER) && (p->lev == 1) &&
-            !player_of_has(p, OF_AGGRAVATE) && (mon->hp == mon->maxhp))
+        /* Wanderers ignore charismatic players unless hurt or aggravated */
+        if (rf_has(mon->race->flags, RF_WANDERER) &&
+            p->state.stat_ind[STAT_CHR] > (p->wpos.depth / 3) && p->state.stat_ind[STAT_CHR] >= 10 &&
+           !player_of_has(p, OF_AGGRAVATE) && (mon->hp == mon->maxhp))
         {
             continue;
         }
@@ -2754,6 +2838,65 @@ void process_monsters(struct chunk *c, bool more_energy)
 
         /* Ignore monsters that have already been handled */
         if (mflag_has(mon->mflag, MFLAG_HANDLED)) continue;
+
+        // Necro, tamer etc class pets routine
+        if (mon->master)
+        {
+            for (j = 1; j <= NumPlayers; j++)
+            {
+                // use 'b' instead of 'p' there (also other dev used 'q' in code below)
+                struct player *b = player_get(j);
+
+                if (b->id != mon->master) continue;
+
+                // Class spell to unsummon pets (necromancer, assassin, tamer)
+                if (b->timed[TMD_UNSUMMON_MINIONS])
+                {
+                    update_monlist(mon);
+                    delete_monster_idx(c, i);
+                    continue;
+                }
+
+                if (streq(b->clazz->name, "Necromancer"))
+                {
+                    // Necromancer class lifespan bonus
+                    if (mon->lifespan < b->lev && !one_in_(7))
+                        mon->lifespan++;
+
+                    // Purge necromancer class "unconscious" minions
+                    if (mon->hp == 0)
+                    {
+                        update_monlist(mon);
+                        delete_monster_idx(c, i);
+                        continue;
+                    }
+                }
+                else if (streq(b->clazz->name, "Assassin"))
+                {
+                    // Assassin class lifespan bonus
+                    if (mon->lifespan < b->lev)
+                        mon->lifespan++;
+
+                    // Purge "unconscious" sentry
+                    if (mon->hp == 0)
+                    {
+                        update_monlist(mon);
+                        delete_monster_idx(c, i);
+                        continue;
+                    }
+                }
+                else if (streq(b->clazz->name, "Tamer"))
+                {
+                    // make pet constant
+                    if (mon->lifespan < b->lev)
+                        mon->lifespan++;
+
+                    // Tamers can treat their pets to heal them in time
+                    if (b->timed[TMD_REGEN_PET])
+                        regen_monster(mon);
+                }
+            }
+        }
 
         /* Skip "unconscious" monsters */
         if (mon->hp == 0) continue;

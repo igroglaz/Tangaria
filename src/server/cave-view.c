@@ -730,10 +730,14 @@ static void calc_lighting(struct player *p, struct chunk *c)
     bool sunlit = (c->wpos.depth == 0) && is_daytime();
     struct loc begin, end;
     struct loc_iterator iter;
+    int max_vision = z_info->max_sight; // Tangaria
 
     loc_init(&begin, 0, 0);
     loc_init(&end, c->width, c->height);
     loc_iterator_first(&iter, &begin, &end);
+    
+    if (streq(p->clazz->name, "Archer"))
+        max_vision++;
 
     /* Starting values based on permanent light */
     do
@@ -792,7 +796,7 @@ static void calc_lighting(struct player *p, struct chunk *c)
         if (!light) continue;
 
         /* Skip if the player can't see it. */
-        if (distance(&p->grid, &mon->grid) - radius > z_info->max_sight) continue;
+        if (distance(&p->grid, &mon->grid) - radius > max_vision) continue;
 
         /* Light or darken around the monster */
         add_light(c, p, &mon->grid, radius, light);
@@ -821,7 +825,7 @@ static void calc_lighting(struct player *p, struct chunk *c)
         if (!light) continue;
 
         /* Skip if the player can't see it. */
-        if (distance(&p->grid, &q->grid) - radius > z_info->max_sight) continue;
+        if (distance(&p->grid, &q->grid) - radius > max_vision) continue;
 
         /* Light or darken around the player */
         add_light(c, p, &q->grid, radius, light);
@@ -882,11 +886,15 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
     int d = distance(grid, &p->grid);
     bool close = ((d < p->state.cur_light)? true: false);
     struct loc cgrid;
+    int max_vision = z_info->max_sight; // Tangaria    
 
     loc_copy(&cgrid, grid);
+    
+    if (streq(p->clazz->name, "Archer"))
+        max_vision++;
 
     /* Too far away */
-    if (d > z_info->max_sight) return;
+    if (d > max_vision) return;
 
     /*
      * Special case for wall lighting. If we are a wall and the square in

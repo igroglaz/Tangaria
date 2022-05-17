@@ -21,9 +21,9 @@
 #ifdef USE_SDL2
 
 #ifdef WINDOWS
-#include "..\_SDL2\SDL.h"
-#include "..\_SDL2\SDL_image.h"
-#include "..\_SDL2\SDL_ttf.h"
+#include "..\..\..\SDL\include\SDL.h"
+#include "..\..\..\SDL\include\SDL_image.h"
+#include "..\..\..\SDL\include\SDL_ttf.h"
 #else
 #include "SDL.h"
 #include "SDL_image.h"
@@ -1567,8 +1567,8 @@ static void show_about(const struct window *window)
 {
     const char *about_text[] = {
         version_build(VERSION_NAME, true),
-        "See http://www.rephial.org",
-        "Visit our forum at http://angband.oook.cz/forum"
+        "See https://tangaria.com",
+        "Visit our Discord at https://discord.gg/zBNG369"
     };
 
     struct { SDL_Rect rect; const char *text; } elems[N_ELEMENTS(about_text)];
@@ -5693,8 +5693,13 @@ static void init_colors(void)
     }
     for (i = 0; i < N_ELEMENTS(g_windows); i++)
         g_windows[i].color = g_colors[DEFAULT_WINDOW_BG_COLOR];
-/*  for (i = 0; i < N_ELEMENTS(g_subwindows); i++) */
-/*      g_subwindows[i].color = g_colors[DEFAULT_SUBWINDOW_BG_COLOR]; */
+    for (i = 0; i < N_ELEMENTS(g_subwindows); i++)
+    {
+        /* Retain whatever customized alpha the subwindow has. */
+        g_subwindows[i].color.r = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].r;
+        g_subwindows[i].color.g = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].g;
+        g_subwindows[i].color.b = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].b;
+    }
 }
 
 static void init_font_info(const char *directory)

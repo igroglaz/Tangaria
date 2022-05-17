@@ -1,9 +1,4 @@
-# File: blow_methods.txt
-
-
-# Methods for monster blows
-
-# === Understanding blow_methods.txt ===
+# === Understanding blow_methods.txt (methods for monster blows) ===
 
 # name: blow method code
 # cut: 1 if the method can cut, 0 if not
@@ -189,3 +184,33 @@ miss:0
 phys:0
 msg:MON_MOAN
 desc:moan
+
+name:HYPNOTIZE
+cut:0
+stun:0
+miss:0
+phys:0
+msg:MON_HYPNOTIZE
+act:mesmerizes %s
+desc:hypnotize
+flavor:pleasured to death
+
+name:SWALLOW
+cut:0
+stun:0
+miss:1
+phys:0
+msg:MON_SWALLOW
+act:swallows %s
+desc:swallow
+flavor:swallowed
+
+name:DEVOUR
+cut:0
+stun:0
+miss:1
+phys:0
+msg:MON_DEVOUR
+act:devours %s
+desc:devour
+flavor:devoured

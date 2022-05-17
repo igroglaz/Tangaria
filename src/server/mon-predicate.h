@@ -38,6 +38,7 @@ extern bool monster_is_smart(const struct monster *mon);
 extern bool monster_is_esp_detectable(const struct monster *mon, bool isDM);
 extern bool monster_is_evil(const struct monster *mon);
 extern bool monster_is_fearful(const struct monster *mon);
+extern bool monster_is_animal(const struct monster *mon);
 extern bool monster_is_nonevil(const struct monster *mon);
 extern bool monster_is_living(const struct monster *mon);
 extern bool monster_has_spirit(const struct monster *mon);

@@ -134,6 +134,7 @@ bool obj_browse_pre(void)
         return false;
     }
 
+    sound(MSG_BROWSE_BOOK); // sound when 'b'rowsing spellbook
     return true;
 }
 

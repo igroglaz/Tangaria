@@ -814,6 +814,130 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         }
     }
 
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        if (el_info[ELEM_DARK].res_level < 3)
+            el_info[ELEM_DARK].res_level++;
+    }
+
+    // currently in p_race.txt only one entry of the same resistance
+    // element is allowed; meaning that it's possible to assign an element
+    // to a race or class only once.
+
+    if (streq(p->race->name, "Merfolk"))
+    {
+        if (el_info[ELEM_WATER].res_level < 3)
+            el_info[ELEM_WATER].res_level++;
+        if (p->lev > 49 && el_info[ELEM_WATER].res_level < 3)
+            el_info[ELEM_WATER].res_level++;
+    }
+
+    if (streq(p->race->name, "Undead"))
+    {
+        if (el_info[ELEM_NETHER].res_level < 3)
+            el_info[ELEM_NETHER].res_level++;
+        if (p->lev > 49 && el_info[ELEM_NETHER].res_level < 3)
+            el_info[ELEM_NETHER].res_level++;
+    }
+
+    if (streq(p->race->name, "Balrog"))
+    {
+        if (el_info[ELEM_FIRE].res_level < 1)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 34)
+            el_info[ELEM_FIRE].res_level = 3;
+    }
+
+    if (streq(p->race->name, "Nephalem"))
+    {
+        if (el_info[ELEM_DARK].res_level > -1)
+            el_info[ELEM_DARK].res_level--;
+        if (el_info[ELEM_LIGHT].res_level > -1)
+            el_info[ELEM_LIGHT].res_level--;
+        if (p->lev > 34)
+        {
+            if (el_info[ELEM_DARK].res_level < 3)
+                el_info[ELEM_DARK].res_level++;
+            if (el_info[ELEM_LIGHT].res_level < 3)
+                el_info[ELEM_LIGHT].res_level++;
+        }
+        if (p->lev > 49)
+        {
+            if (el_info[ELEM_DARK].res_level < 3)
+                el_info[ELEM_DARK].res_level++;
+            if (el_info[ELEM_LIGHT].res_level < 3)
+                el_info[ELEM_LIGHT].res_level++;
+        }
+    }
+
+    if (streq(p->race->name, "Elemental"))
+    {
+        if (p->lev < 20)
+            el_info[ELEM_ELEC].res_level = -1;
+        if (p->lev > 19)
+        {
+            if (el_info[ELEM_ELEC].res_level < 3)
+                el_info[ELEM_ELEC].res_level++;
+            if (p->lev < 30)
+                el_info[ELEM_COLD].res_level = -1;
+        }
+        if (p->lev > 29)
+        {
+            if (el_info[ELEM_COLD].res_level < 3)
+                el_info[ELEM_COLD].res_level++;
+            if (p->lev < 40 && el_info[ELEM_FIRE].res_level > -1)
+                el_info[ELEM_FIRE].res_level--;
+        }
+        if (p->lev > 39)
+        {
+            if (el_info[ELEM_FIRE].res_level < 3)
+                el_info[ELEM_FIRE].res_level++;
+            if (p->lev < 50 && el_info[ELEM_ACID].res_level > -1)
+                el_info[ELEM_ACID].res_level--;
+        }
+        if (p->lev > 49)
+        {
+            if (el_info[ELEM_ACID].res_level < 3)
+                el_info[ELEM_ACID].res_level++;
+        }
+    }
+
+    if (streq(p->race->name, "Frostmen"))
+    {
+        if (el_info[ELEM_COLD].res_level < 3)
+            el_info[ELEM_COLD].res_level++;
+        if (p->lev < 35 && el_info[ELEM_FIRE].res_level > -1)
+            el_info[ELEM_FIRE].res_level--;
+        if (p->lev > 34 && el_info[ELEM_COLD].res_level < 3)
+            el_info[ELEM_COLD].res_level++;
+    }
+
+    if (streq(p->race->name, "Spider"))
+    {
+        if (el_info[ELEM_POIS].res_level < 3)
+            el_info[ELEM_POIS].res_level++;
+        if (p->lev > 29 && el_info[ELEM_POIS].res_level < 3)
+            el_info[ELEM_POIS].res_level++;
+    }
+
+    if (streq(p->race->name, "Wisp"))
+    {
+        if (el_info[ELEM_LIGHT].res_level < 3)
+            el_info[ELEM_LIGHT].res_level++;
+        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level < 3)
+            el_info[ELEM_LIGHT].res_level++;
+    }
+
+    if (streq(p->race->name, "Imp"))
+    {
+        if (p->lev > 19 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 29 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 39 && el_info[ELEM_FIRE].res_level < 3)
+            el_info[ELEM_FIRE].res_level++;
+    }
+
     /* Add class flags */
     for (i = 0; i < ELEM_MAX; i++)
     {
@@ -898,6 +1022,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
             el_info[ELEM_DISEN].res_level = 1;
         if (rsf_has(p->poly_race->spell_flags, RSF_BR_TIME)) el_info[ELEM_TIME].res_level = 1;
         if (rsf_has(p->poly_race->spell_flags, RSF_BR_MANA)) el_info[ELEM_MANA].res_level = 1;
+        if (rf_has(p->poly_race->flags, RF_IM_LIGHT))        el_info[ELEM_LIGHT].res_level = 1;
     }
 
     for (i = 0; i < ELEM_MAX; i++)
@@ -1198,7 +1323,7 @@ static const struct player_flag_record player_flag_table[(RES_PANELS + 1) * RES_
     {-1, OF_STICKY, -1, -1},
     {-1, OF_FRAGILE, -1, -1},
     {-1, OF_LIMITED_TELE, -1, -1},
-    {-1, -1, -1, -1},
+    {-1, OF_HUNGER, -1, -1},
     {-1, -1, ELEM_TIME, -1},
     {-1, -1, ELEM_MANA, -1},
     {-1, -1, ELEM_WATER, -1},
@@ -1247,7 +1372,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             bitflag f[OF_SIZE];
             uint8_t attr = (COLOUR_WHITE | (j % 2) * 8); /* Alternating columns */
             char sym = '.';
-            bool res = false, imm = false, vul = false, rune = false;
+            bool res = false, d_res = false, imm = false, vul = false, rune = false;
             bool timed = false;
             bool known = true;
 
@@ -1322,6 +1447,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                     player_elements(p, el_info);
 
                     imm = (el_info[rec[i].element].res_level == 3);
+                    d_res = (el_info[rec[i].element].res_level == 2);                    
                     res = (el_info[rec[i].element].res_level == 1);
                     vul = (el_info[rec[i].element].res_level == -1);
                 }
@@ -1338,6 +1464,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             /* Set the symbols and print them */
             if (imm) sym = '*';
             else if (res && !vul) sym = '+';
+            else if (d_res && !vul) {sym = '#'; attr = COLOUR_WHITE;}
             else if (vul && !res) sym = '-';
             else if (timed) {sym = '!'; attr = COLOUR_L_GREEN;}
             else if (!known && !rune) sym = '?';
@@ -1818,7 +1945,12 @@ void player_dump(struct player *p, bool server)
     /* Save the server-side character dump */
     if (server)
     {
-        strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, ht_show(&turn));
+        char buf_tm[MSG_LEN];
+        struct tm *tm_info = localtime(&p->death_info.time);
+
+        strftime(buf_tm, MSG_LEN, "%H%M%S%d%m%Y", tm_info);
+
+        strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, buf_tm);
         if (dump_save(p, dumpname, true))
             plog("Character dump successful.");
         else
@@ -1944,7 +2076,7 @@ void player_death(struct player *p)
     /*
      * Handle permanent death:
      * - all characters have a chance to die permanently (based on number of past deaths)
-     * - no ghost characters (except Necromancers that can turn into an undead being)
+     * - no ghost characters (except Warclocks that can turn into an undead being)
      * - permanently polymorphed characters
      * - ghosts
      * - suiciding characters
@@ -1956,13 +2088,14 @@ void player_death(struct player *p)
     if (perma_death) death_knowledge(p);
 
     /* Death dump (except ghosts and retiring winners) */
-    if ((p->ghost != 1) && !(p->total_winner && !p->alive))
+    // ...also don't make auto server dump for 1 lvl chars (to exclude from ladder)
+    if ((p->ghost != 1) && !(p->total_winner && !p->alive) && p->lev > 1)
         player_dump(p, p->alive);
 
     /*
      * Handle every item (including gold):
      * - delete them for all characters that will permanently die
-     * - keep them for Necromancers that can turn into an undead being
+     * - keep them for Warlocks that can turn into an undead being
      * - drop them on the floor for all other characters
      */
     if (perma_death || !player_can_undead(p)) player_strip(p, perma_death);
@@ -2539,7 +2672,8 @@ static void manual_design(struct player *p, struct chunk *c, bool new_level)
         if (!wpos_eq(&q->wpos, &p->wpos)) continue;
 
         /* No-recall players are simply pushed up one level (should be safe) */
-        if ((cfg_diving_mode == 3) || OPT(q, birth_no_recall))
+        if ((cfg_diving_mode == 3) || OPT(q, birth_no_recall) ||
+			player_has(p, PF_NO_RECALL))
         {
             struct worldpos wpos;
 

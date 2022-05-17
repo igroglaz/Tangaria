@@ -44,11 +44,17 @@ bool beta_version(void)
 #define VERSION_MINOR   6
 #define VERSION_PATCH   0
 #define VERSION_EXTRA   0
+#define VERSION_TANGARIA   7
 
-
+// Note that it's uint16_t, so max version after << operations might be 65535.. 
+// ..which new T version marker will overflow. So for comparison we will use just T version
 uint16_t current_version(void)
 {
-    return ((VERSION_MAJOR << 12) | (VERSION_MINOR << 8) | (VERSION_PATCH << 4) | VERSION_EXTRA);
+/*
+    return ((VERSION_MAJOR << 16) | (VERSION_MINOR << 12) | (VERSION_PATCH << 8) |
+             VERSION_EXTRA  << 4 | VERSION_TANGARIA);
+*/
+    return VERSION_TANGARIA;
 }
 
 
@@ -59,12 +65,16 @@ uint16_t current_version(void)
 #define MIN_VERSION_MINOR   6
 #define MIN_VERSION_PATCH   0
 #define MIN_VERSION_EXTRA   0
+#define MIN_VERSION_TANGARIA   7
 
 
 uint16_t min_version(void)
 {
-    return ((MIN_VERSION_MAJOR << 12) | (MIN_VERSION_MINOR << 8) |
-        (MIN_VERSION_PATCH << 4) | MIN_VERSION_EXTRA);
+/*
+    return ((MIN_VERSION_MAJOR << 16) | (MIN_VERSION_MINOR << 12) |
+        (MIN_VERSION_PATCH << 8) | MIN_VERSION_EXTRA  << 4 | MIN_VERSION_TANGARIA);
+*/
+    return MIN_VERSION_TANGARIA;
 }
 
 
@@ -75,21 +85,22 @@ char *version_build(const char *label, bool build)
 {
     if (label && build)
     {
-        strnfmt(version, sizeof(version), "%s %d.%d.%d (%s %d)", label, VERSION_MAJOR,
-            VERSION_MINOR, VERSION_PATCH, (beta_version()? "Beta": "Build"), VERSION_EXTRA);
+        strnfmt(version, sizeof(version), "%s %d.%d.%d (%s %d) T-%d", label, VERSION_MAJOR,
+            VERSION_MINOR, VERSION_PATCH, (beta_version()? "Beta": "Build"), VERSION_EXTRA, VERSION_TANGARIA);
     }
     else if (label)
     {
-        strnfmt(version, sizeof(version), "%s %d.%d.%d", label, VERSION_MAJOR, VERSION_MINOR,
-            VERSION_PATCH);
+        strnfmt(version, sizeof(version), "%s %d.%d.%d T-%d", label, VERSION_MAJOR, VERSION_MINOR,
+            VERSION_PATCH, VERSION_TANGARIA);
     }
     else if (build)
     {
-        strnfmt(version, sizeof(version), "%d.%d.%d (%s %d)", VERSION_MAJOR, VERSION_MINOR,
-            VERSION_PATCH, (beta_version()? "Beta": "Build"), VERSION_EXTRA);
+        strnfmt(version, sizeof(version), "%d.%d.%d (%s %d) T-%d", VERSION_MAJOR, VERSION_MINOR,
+            VERSION_PATCH, (beta_version()? "Beta": "Build"), VERSION_EXTRA, VERSION_TANGARIA);
     }
     else
-        strnfmt(version, sizeof(version), "%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+        strnfmt(version, sizeof(version), "%d.%d.%d T-%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH,
+            VERSION_TANGARIA);
 
     return version;
 }

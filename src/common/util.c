@@ -224,16 +224,16 @@ void cleanup_body(void)
 player_sex sex_info[MAX_SEXES] =
 {
     {
-        "Female",
-        "Queen",
-        "Empress",
-        "Goddess"
-    },
-    {
         "Male",
         "King",
         "Emperor",
         "God"
+    },
+    {
+        "Female",
+        "Queen",
+        "Empress",
+        "Goddess"
     },
     {
         "Neuter",
@@ -249,7 +249,7 @@ player_sex sex_info[MAX_SEXES] =
  */
 const char *stat_names[STAT_MAX] =
 {
-    "STR: ", "INT: ", "WIS: ", "DEX: ", "CON: "
+    "STR: ", "INT: ", "WIS: ", "DEX: ", "CON: ", "CHR: "
 };
 
 
@@ -258,7 +258,7 @@ const char *stat_names[STAT_MAX] =
  */
 const char *stat_names_reduced[STAT_MAX] =
 {
-    "Str: ", "Int: ", "Wis: ", "Dex: ", "Con: "
+    "Str: ", "Int: ", "Wis: ", "Dex: ", "Con: ", "Chr: "
 };
 
 
@@ -1442,9 +1442,9 @@ static const int adj_dex_blow[STAT_RANGE] =
  *
  *   Warrior     --> num = 6; mul = 5; div = MAX(30, weapon_weight);
  *   Mage        --> num = 4; mul = 2; div = MAX(40, weapon_weight);
- *   Druid       --> num = 4; mul = 3; div = MAX(35, weapon_weight);
+ *   Shaman      --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *   Priest      --> num = 4; mul = 3; div = MAX(35, weapon_weight);
- *   Necromancer --> num = 4; mul = 3; div = MAX(35, weapon_weight);
+ *   Warlock     --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *   Paladin     --> num = 5; mul = 5; div = MAX(30, weapon_weight);
  *   Rogue       --> num = 5; mul = 4; div = MAX(20, weapon_weight);
  *   Ranger      --> num = 5; mul = 4; div = MAX(35, weapon_weight);
@@ -1457,6 +1457,7 @@ static const int adj_dex_blow[STAT_RANGE] =
  *   Elemntalist --> num = 3; mul = 2; div = MAX(40, weapon_weight);
  *   Summoner    --> num = 1; mul = 2; div = MAX(40, weapon_weight);
  *   Shapechangr --> num = 5; mul = 4; div = MAX(35, weapon_weight);
+ *   Adventurer  --> num = 4; mul = 3; div = MAX(35, weapon_weight);
  *
  * To get "P", we look up the relevant "adj_str_blow[]" (see above),
  * multiply it by "mul", and then divide it by "div", rounding down.

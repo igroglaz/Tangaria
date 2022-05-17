@@ -21,6 +21,51 @@
 
 #include "s-angband.h"
 
+/*
+ * Stat Table (CHR) -- payment percentages
+ */
+const int adj_chr_gold[STAT_RANGE] =
+
+{
+    125    /* 3 */,
+    120    /* 4 */,
+    119    /* 5 */,
+    118    /* 6 */,
+    117    /* 7 */,
+    116    /* 8 */,
+    115    /* 9 */,
+    114    /* 10 */,
+    113    /* 11 */,
+    112    /* 12 */,
+    111    /* 13 */,
+    110    /* 14 */,
+    109    /* 15 */,
+    108    /* 16 */,
+    107    /* 17 */,
+    106    /* 18/00-18/09 */,
+    105    /* 18/10-18/19 */,
+    104    /* 18/20-18/29 */,
+    103    /* 18/30-18/39 */,
+    102    /* 18/40-18/49 */,
+    101    /* 18/50-18/59 */,
+    100    /* 18/60-18/69 */,
+    99     /* 18/70-18/79 */,
+    98     /* 18/80-18/89 */,
+    97     /* 18/90-18/99 */,
+    96     /* 18/100-18/109 */,
+    95     /* 18/110-18/119 */,
+    94     /* 18/120-18/129 */,
+    93     /* 18/130-18/139 */,
+    92     /* 18/140-18/149 */,
+    91     /* 18/150-18/159 */,
+    90     /* 18/160-18/169 */,
+    89     /* 18/170-18/179 */,
+    88     /* 18/180-18/189 */,
+    87     /* 18/190-18/199 */,
+    86     /* 18/200-18/209 */,
+    85     /* 18/210-18/219 */,
+    80     /* 18/220+ */
+};
 
 /*
  * Stat Table (INT) -- magic devices
@@ -549,33 +594,33 @@ const int adj_dex_safe[STAT_RANGE] =
     9   /* 16 */,
     9   /* 17 */,
     10  /* 18/00-18/09 */,
-    10  /* 18/10-18/19 */,
-    15  /* 18/20-18/29 */,
-    15  /* 18/30-18/39 */,
-    20  /* 18/40-18/49 */,
-    25  /* 18/50-18/59 */,
-    30  /* 18/60-18/69 */,
-    35  /* 18/70-18/79 */,
-    40  /* 18/80-18/89 */,
-    45  /* 18/90-18/99 */,
-    50  /* 18/100-18/109 */,
-    60  /* 18/110-18/119 */,
+    15  /* 18/10-18/19 */,
+    20  /* 18/20-18/29 */,
+    25  /* 18/30-18/39 */,
+    30  /* 18/40-18/49 */,
+    35  /* 18/50-18/59 */,
+    40  /* 18/60-18/69 */,
+    45  /* 18/70-18/79 */,
+    50  /* 18/80-18/89 */,
+    55  /* 18/90-18/99 */,
+    60  /* 18/100-18/109 */,
+    65  /* 18/110-18/119 */,
     70  /* 18/120-18/129 */,
-    80  /* 18/130-18/139 */,
-    90  /* 18/140-18/149 */,
-    100 /* 18/150-18/159 */,
-    100 /* 18/160-18/169 */,
-    100 /* 18/170-18/179 */,
-    100 /* 18/180-18/189 */,
-    100 /* 18/190-18/199 */,
-    100 /* 18/200-18/209 */,
-    100 /* 18/210-18/219 */,
-    100 /* 18/220+ */
+    75  /* 18/130-18/139 */,
+    80  /* 18/140-18/149 */,
+    85  /* 18/150-18/159 */,
+    90  /* 18/160-18/169 */,
+    93  /* 18/170-18/179 */,
+    95  /* 18/180-18/189 */,
+    96  /* 18/190-18/199 */,
+    97  /* 18/200-18/209 */,
+    98  /* 18/210-18/219 */,
+    99  /* 18/220+ */
 };
 
 
 /*
- * Stat Table (CON) -- base regeneration rate
+ * Stat Table (CON) -- base regeneration rate  // also used for CHR eat gold check
  */
 const int adj_con_fix[STAT_RANGE] =
 {
@@ -757,6 +802,51 @@ static const int adj_mag_mana[] =
     800 /* 18/220+ */
 };
 
+/*
+ * Stat Table (CHR) -- chance to resist effects
+ */
+const int adj_chr_safe[STAT_RANGE] =
+{
+    0   /* 3 */,
+    5   /* 4 */,
+    6   /* 5 */,
+    7   /* 6 */,
+    8   /* 7 */,
+    9   /* 8 */,
+   10   /* 9 */,
+   11   /* 10 */,
+   12   /* 11 */,
+   13   /* 12 */,
+   14   /* 13 */,
+   15   /* 14 */,
+   16   /* 15 */,
+   17   /* 16 */,
+   18   /* 17 */,
+   19   /* 18/00-18/09 */,
+   20   /* 18/10-18/19 */,
+   21   /* 18/20-18/29 */,
+   22   /* 18/30-18/39 */,
+   23   /* 18/40-18/49 */,
+   24   /* 18/50-18/59 */,
+   25   /* 18/60-18/69 */,
+   26   /* 18/70-18/79 */,
+   27   /* 18/80-18/89 */,
+   28   /* 18/90-18/99 */,
+   29   /* 18/100-18/109 */,
+   30   /* 18/110-18/119 */,
+   31   /* 18/120-18/129 */,
+   32   /* 18/130-18/139 */,
+   33   /* 18/140-18/149 */,
+   34   /* 18/150-18/159 */,
+   35   /* 18/160-18/169 */,
+   36   /* 18/170-18/179 */,
+   37   /* 18/180-18/189 */,
+   38   /* 18/190-18/199 */,
+   39   /* 18/200-18/209 */,
+   40   /* 18/210-18/219 */,
+   45   /* 18/220+ */
+};
+
 
 /*
  * Average of the player's spell stats across all the realms they can cast
@@ -775,6 +865,64 @@ static int average_spell_stat(struct player *p, struct player_state *state)
 
     sum += state->stat_ind[book->realm->stat];
     count++;
+
+
+/*
+Removing this for now. For example, if you start a mage - 
+class bonus to stat will be INT.. So we need to think how to 
+make primary race stat bonuses work right.
+
+    if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+    {
+        return ((p->state.stat_ind[STAT_INT] + p->state.stat_ind[STAT_WIS]) / 2);
+    }        
+    
+    if (streq(p->race->name, "Troll"))
+    {
+        return (p->state.stat_ind[STAT_WIS]);
+    }      
+
+    if (streq(p->race->name, "Balrog"))
+    {
+        return (p->state.stat_ind[STAT_CON]);
+    }
+*/
+
+// Another problem:
+// when player exits the dungeon and enters it again - mana become 0 at first
+// for now temporary disabling mana CHR-mana for physically weak chars.
+// ..for other classes it's 'feature' :D
+
+    /*
+    if (streq(p->clazz->name, "Summoner"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+
+    if (streq(p->clazz->name, "Priest"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    } */
+
+    if (streq(p->clazz->name, "Paladin"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+
+    if (streq(p->clazz->name, "Rogue"))
+    {
+        return (((p->state.stat_ind[STAT_INT] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+
+    if (streq(p->clazz->name, "Telepath"))
+    {
+        return (((p->state.stat_ind[STAT_WIS] * 90) +
+                 (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
 
     for (i = 1; i < p->clazz->magic.num_books; i++)
     {
@@ -1111,7 +1259,7 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     /* Extra mana capacity from weapon */
     exmsp += modifiers[OBJ_MOD_MANA];
 
-    /* Cap extra mana capacity from items at +10 */
+    /* Cap extra mana capacity from _items_ at +10 */
     if (exmsp > 10) exmsp = 10;
 
     /* Polymorphed players only get half adjustment from race */
@@ -1121,9 +1269,14 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
 
     /* Extra mana capacity from race/class bonuses */
     exmsp += adj;
+    
+    if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
+        exmsp += 1;   
 
-    /* Cap extra mana capacity at +15 */
+    // Cap extra mana capacity from _racial_ boni at +15..
     if (exmsp > 15) exmsp = 15;
+    // ..but only at lvl 50
+    if (p->lev < 50 && exmsp > 10) exmsp = 10;
 
     /* 1 point = 10% more mana */
     msp = ((10 + exmsp) * msp) / 10;
@@ -1189,6 +1342,13 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
 
     /* Meditation increase mana at the cost of hp */
     if (p->timed[TMD_MEDITATE]) mhp = mhp * 3 / 5;
+
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+        mhp = mhp * 13 / 12;
+    else if (streq(p->race->name, "Dragon"))
+        mhp = mhp * 12 / 13;
+    else if (streq(p->race->name, "Vampire") && is_daytime())
+        mhp = mhp * 11 / 12;
 
     /* Return if no updates */
     if (!update) return;
@@ -1926,6 +2086,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_WIS] += modifiers[OBJ_MOD_WIS];
         state->stat_add[STAT_DEX] += modifiers[OBJ_MOD_DEX];
         state->stat_add[STAT_CON] += modifiers[OBJ_MOD_CON];
+        state->stat_add[STAT_CHR] += modifiers[OBJ_MOD_CHR];
 
         /* Affect stealth */
         state->skills[SKILL_STEALTH] += modifiers[OBJ_MOD_STEALTH];
@@ -1949,12 +2110,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect speed */
         state->speed += modifiers[OBJ_MOD_SPEED];
 
-        /* Affect damage reduction */
+        /* Affect PHYSICAL damage reduction */
         state->dam_red += modifiers[OBJ_MOD_DAM_RED];
 
         /* Affect blows */
         extra_blows += (modifiers[OBJ_MOD_BLOWS] * 10);
-
+        
         /* Affect shots */
         extra_shots += modifiers[OBJ_MOD_SHOTS];
 
@@ -2019,6 +2180,97 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
     }
 
+    if (streq(p->clazz->name, "Mesmer") && p->lev > 30)
+        state->speed += (p->lev - 30) / 2;
+
+    if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
+    {
+        state->stat_add[STAT_DEX] += 2;
+        state->skills[SKILL_STEALTH] += 1;
+        state->skills[SKILL_SAVE] += 1;
+        // ? state->num_moves += 1;
+    }
+
+    // in case if we wear 2H weapon without shield - BpR boni
+    if (cumber_shield == 1) 
+        extra_blows += (p->lev / 12) + 1;
+
+    // Battlemage boni for heavier weapons
+    if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
+        extra_blows += (p->lev / 10) + 5;
+
+    // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
+    if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
+    !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+    streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
+        extra_blows += 10;
+
+    // Dragon/Hydra Monks too OP
+    if ((streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+        && streq(p->clazz->name, "Monk") && p->lev > 10)
+        extra_blows -= p->lev / 10;
+
+    if (streq(p->race->name, "Ent") && p->lev > 30)
+        extra_moves -= (p->lev - 30) / 2;
+
+    // naga assassin got additional BpRs not immediately
+    if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))
+        extra_blows -= ((50 - p->lev) * 2) / 10;
+
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        state->skills[SKILL_DISARM_PHYS] -= 15;
+        state->skills[SKILL_DISARM_MAGIC] -= 25;
+        state->skills[SKILL_DEVICE] -= 25;
+        state->skills[SKILL_SAVE] += 20;
+        // makes accidental (rare) howls?
+        state->skills[SKILL_STEALTH] = 1;
+        state->skills[SKILL_SEARCH] += 10;
+        state->skills[SKILL_TO_HIT_MELEE] += 7;
+        state->skills[SKILL_TO_HIT_BOW] -= 15;
+        state->skills[SKILL_DIGGING] += 1;
+        state->stat_add[STAT_STR] += 3;
+        state->stat_add[STAT_INT] -= 3;
+        state->stat_add[STAT_WIS] -= 2;
+        state->stat_add[STAT_DEX] += 3;
+        state->stat_add[STAT_CON] += 3;
+        state->stat_add[STAT_CHR] -= 8;
+        state->see_infra += 5;
+        // extra_moves += (p->lev / 5);
+        state->speed += 1 + (p->lev / 24);
+        /* resistances taken from both places: from there and from display-ui.c
+        // to prevent duplicates we will use only display-ui.c
+        if (state->el_info[ELEM_DARK].res_level < 2)
+            state->el_info[ELEM_DARK].res_level++; */
+    }
+    
+    if (streq(p->race->name, "Vampire") && is_daytime())
+    {
+        if (p->lev > 5)
+        {
+            state->see_infra -= p->lev / 4;
+            state->skills[SKILL_DISARM_PHYS] -= 15;
+            state->skills[SKILL_DISARM_MAGIC] -= 25;
+            state->skills[SKILL_DEVICE] -= 15;
+            state->stat_add[STAT_STR] -= 1;
+            state->stat_add[STAT_DEX] -= 1;
+            state->stat_add[STAT_CON] -= 1;
+            state->stat_add[STAT_CHR] -= p->lev / 4;
+            state->skills[SKILL_SAVE] -= 10;
+            state->skills[SKILL_STEALTH] -= 1;
+            state->skills[SKILL_SEARCH] -= 20;
+            state->skills[SKILL_DIGGING] -= 2;
+        }
+        if (p->lev > 25)
+        {
+            state->skills[SKILL_TO_HIT_MELEE] -= 3;
+            state->skills[SKILL_TO_HIT_BOW] -= 7;
+        }
+    }
+
+    if (streq(p->race->name, "Gargoyle"))
+        state->to_a += p->lev;
+
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))
     {
@@ -2070,6 +2322,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->stat_add[STAT_WIS] += 3;
         state->stat_add[STAT_DEX] += 3;
         state->stat_add[STAT_CON] += 3;
+        state->stat_add[STAT_CHR] -= 1;
     }
 
     /* Calculate the various stat values */
@@ -2123,7 +2376,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->speed += (r_adj + c_adj);
         }
 
-        /* Affect damage reduction */
+        /* Affect PHYSICAL damage reduction */
         if (i == OBJ_MOD_DAM_RED) state->dam_red += (r_adj + c_adj);
 
         /* Affect blows */
@@ -2215,7 +2468,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
             /* Apply effects progressively */
             state->to_h -= lack;
-            state->to_d -= lack;
+            // ..make less damage when hungry
+            state->to_d -= 1 + (p->lev / 10);
+            // ..and even less damage for 25+lvl players
+            if (p->lev > 24)
+                state->to_d -= p->lev / 10;
             if ((lack > 10) && (lack <= 15))
                 adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 10, 0);
             else if ((lack > 15) && (lack <= 18))
@@ -2244,6 +2501,30 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Other timed effects */
     player_flags_timed(p, state->flags);
 
+    // Knight class
+    if (p->timed[TMD_DEFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_CON] += 5;
+        state->to_a += p->lev;
+        state->skills[SKILL_SAVE] += p->lev;
+        extra_blows -= p->lev / 10;
+        state->to_d -= 1 + p->lev / 5;
+    }
+    else if (p->timed[TMD_OFFENSIVE_STANCE])
+    {
+        state->stat_add[STAT_STR] += 1;
+        state->stat_add[STAT_DEX] += 3;
+        state->to_d += 1 + p->lev / 5;
+        extra_blows += p->lev / 10;
+        state->to_h -= p->lev;
+        state->to_a -= p->lev / 2;
+    }
+    else if (p->timed[TMD_BALANCED_STANCE])
+    {
+        // default stats: -2 DEX , -2 CON
+        state->to_h += p->lev;
+    }
+    
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
     {
         state->to_h -= 20;
@@ -2273,10 +2554,24 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_h += 10;
         adjust_skill_scale(&state->skills[SKILL_DEVICE], 1, 20, 0);
     }
-    if (p->timed[TMD_SHIELD])
-        state->to_a += 50;
     if (p->timed[TMD_ICY_AURA])
-        state->to_a += 10;
+    {
+        if (p->lev > 9)        
+            state->to_a += 10;
+        // cons for all except Mage:
+        if (p->lev < 40 && !streq(p->clazz->name, "Mage"))
+        {
+            state->skills[SKILL_STEALTH] -= 4;
+            extra_moves -= 1 + (p->lev / 10);
+        }
+        else if (!streq(p->clazz->name, "Mage"))
+        {
+            state->skills[SKILL_STEALTH] -= 2;
+            extra_moves -= 5;
+        }
+    }
+    if (p->timed[TMD_SHIELD])
+        state->to_a += p->lev;
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;
@@ -2296,13 +2591,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->timed[TMD_FAST] || p->timed[TMD_SPRINT]) state->speed += 10;
     if (p->timed[TMD_FLIGHT]) state->speed += 5;
     if (p->timed[TMD_SLOW]) state->speed -= 10;
+    if (p->timed[TMD_MOVE_FAST]) extra_moves += 10;
     if (p->timed[TMD_SINFRA]) state->see_infra += 5;
     if (of_has(state->flags, OF_ESP_ALL))
     {
         of_diff(state->flags, f2);
         of_on(state->flags, OF_ESP_ALL);
     }
-    if (p->timed[TMD_TERROR]) state->speed += 10;
+    // Terror prevents you to attack, cast spells etc. Only run
+    if (p->timed[TMD_TERROR])
+        state->speed += 10;
     if (p->timed[TMD_OPP_ACID])
     {
         if (state->el_info[ELEM_ACID].res_level < 2)
@@ -2317,6 +2615,20 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (state->el_info[ELEM_FIRE].res_level < 2)
             state->el_info[ELEM_FIRE].res_level++;
+
+        // Wizard "Magic Reflection" spell or !fire
+        if (streq(p->clazz->name, "Wizard"))
+        {
+            state->skills[SKILL_SAVE] += p->lev / 2;
+            if (p->lev > 24 && state->el_info[ELEM_COLD].res_level < 2)
+                state->el_info[ELEM_COLD].res_level++;
+            if (p->lev > 29 && state->el_info[ELEM_ELEC].res_level < 2)
+                state->el_info[ELEM_ELEC].res_level++;
+            if (p->lev > 34 && state->el_info[ELEM_POIS].res_level < 2)
+                state->el_info[ELEM_POIS].res_level++;
+            if (p->lev > 39 && state->el_info[ELEM_ACID].res_level < 2)
+                state->el_info[ELEM_ACID].res_level++;
+        }
     }
     if (p->timed[TMD_OPP_COLD])
     {
@@ -2347,7 +2659,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         extra_blows += p->timed[TMD_BLOODLUST] / 2;
     }
     if (p->timed[TMD_STEALTH])
-        state->skills[SKILL_STEALTH] += 10;
+        state->skills[SKILL_STEALTH] += 10 - (p->lev / 10);
 
     /* Analyze flags - check for fear */
     if (of_has(state->flags, OF_AFRAID))
@@ -2361,7 +2673,15 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     j = p->upkeep->total_weight;
     if (j > (1 << 14)) j = (1 << 14);
     i = weight_limit(state);
-    if (j > i / 2) state->speed -= ((j - (i / 2)) / (i / 10));
+    if (j > i / 2)
+    {
+        // mitigate speed penalty due overweight for some races/classes
+        if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger") ||
+        streq(p->clazz->name, "Crafter") || streq(p->race->name, "Golem"))
+            state->speed -= ((j - (i / 2)) / (i / 10)) / 2;
+        else
+            state->speed -= ((j - (i / 2)) / (i / 10));
+    }
 
     /* Adding "stealth mode" for rogues */
     if (p->stealthy)
@@ -2442,6 +2762,14 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->ammo_mult += extra_might;
         }
 
+        // Knights good only with crossbows
+        if (streq(p->clazz->name, "Knight") && state->ammo_tval != TV_BOLT)
+            state->skills[SKILL_TO_HIT_BOW] = 1;
+
+        /* Rangers with bows are good at shooting */
+        if (player_has(p, PF_FAST_SHOT) && (state->ammo_tval == TV_ARROW))
+            state->num_shots += p->lev / 3;
+
         /* Handle polymorphed players */
         if (p->poly_race && (rsf_has(p->poly_race->spell_flags, RSF_SHOT) ||
             rsf_has(p->poly_race->spell_flags, RSF_ARROW) ||
@@ -2488,11 +2816,40 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_DIGGING] += (weapon->weight / 10);
         }
 
+        /* Priest weapon penalty for non-blessed edged weapons */
+        if (streq(p->clazz->name, "Priest") && !of_has(state->flags, OF_BLESSED) &&
+            ((weapon->tval == TV_SWORD) || (weapon->tval == TV_POLEARM)))
+        {
+            state->to_h -= 2;
+            state->to_d -= 2;
+            state->skills[SKILL_SAVE] -= 10;
+        }
+
+        if (streq(p->clazz->name, "Phaseblade") && !(weapon->tval == TV_SWORD))
+        {
+            state->to_h -= 10;
+            state->to_d -= 2;
+            state->stat_add[STAT_DEX] -= 1;
+        }
+
         /* Divine weapon bonus for blessed weapons */
         if (player_has(p, PF_BLESS_WEAPON) && of_has(state->flags, OF_BLESSED))
         {
             state->to_h += 2;
             state->to_d += 2;
+            state->bless_wield = true;
+        }
+        
+        /* Necrotic malus for blessed weapons */
+        if (of_has(state->flags, OF_BLESSED) &&
+           (streq(p->race->name, "Undead") ||
+            streq(p->race->name, "Vampire") ||
+            streq(p->race->name, "Wraith") ||
+            streq(p->race->name, "Demonic")))
+        {
+            state->to_h -= 3;
+            state->to_d -= 3;
+            state->skills[SKILL_SAVE] -= 15;
             state->bless_wield = true;
         }
     }
@@ -2531,6 +2888,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
     /* Call individual functions for other state fields */
     calc_light(p, state, update);
+
+    // Stealth boni if without light in darkness
+    if (state->cur_light < 1 && p -> square_light < 1)
+        state->skills[SKILL_STEALTH] += 3;
+    
     calc_mana(p, state, update);
     if (!p->msp) pf_on(state->pflags, PF_NO_MANA);
     calc_hitpoints(p, state, update);

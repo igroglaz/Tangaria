@@ -112,6 +112,8 @@ SERV_SRCS = \
   ..\server\control.c \
   ..\server\display-ui.c \
   ..\server\effects.c \
+  ..\server\effect-handler-general.c \
+  ..\server\effect-handler-attack.c \
   ..\server\effects-info.c \
   ..\server\game-world.c \
   ..\server\generate.c \
@@ -241,6 +243,8 @@ SERV_OBJS = \
   ..\server\control.obj \
   ..\server\display-ui.obj \
   ..\server\effects.obj \
+  ..\server\effect-handler-general.obj \
+  ..\server\effect-handler-attack.obj \
   ..\server\effects-info.obj \
   ..\server\game-world.obj \
   ..\server\generate.obj \

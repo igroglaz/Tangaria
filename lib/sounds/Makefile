@@ -1,10 +1,11 @@
 MKPATH=../../mk/
 include $(MKPATH)buildsys.mk
 
-DATA = sound.cfg \
+SUBDIRS = ambient tomenet
+DATA = sound.cfg credits.txt \
 	amb_bell_metal1.ogg       mco_scurry_dry.ogg        plm_glass_smashing.ogg \
 	amb_bell_metal2.ogg       mco_shake_roll.ogg        plm_jar_ding.ogg \
-	amb_bell_tibet1.ogg       mco_snarl_short.ogg       plm_levelup.ogg \
+	amb_bell_tibet1.ogg       mco_snarl_short.ogg \
 	amb_bell_tibet2.ogg       mco_spray_long.ogg        plm_lock_case.ogg \
 	amb_bell_tibet3.ogg       mco_squish_hit.ogg        plm_lock_distant.ogg \
 	amb_deep.ogg              mco_squish_snap.ogg       plm_metal_clank.ogg \
@@ -72,17 +73,17 @@ DATA = sound.cfg \
 	mco_frog_trill.ogg        plm_door_rusty.ogg        wild_glacier.ogg \
 	mco_hit_whip.ogg          plm_door_shut.ogg         wild_grass.ogg \
 	mco_howl_croak.ogg        plm_door_slam.ogg         wild_hill.ogg \
-	mco_howl_deep.ogg         plm_door_squeaky.ogg      wild_mountain.ogg \
+	mco_howl_deep.ogg         plm_door_squeaky.ogg      wild_hill2.ogg \
 	mco_howl_distressed.ogg   plm_door_wooden.ogg       wild_river.ogg \
 	mco_howl_high.ogg         plm_drop_boot.ogg         wild_shore.ogg \
 	mco_howl_long.ogg         plm_eat_bite.ogg          wild_swamp.ogg \
 	mco_liquid_squirt.ogg     plm_floor_creak2.ogg      wild_volcano.ogg \
 	mco_man_mumble.ogg        plm_floor_creak.ogg       wild_waste.ogg \
-	mco_mouse_squeaks.ogg     plm_glass_breaking.ogg    wild_wood.ogg \
+	mco_mouse_squeaks.ogg     plm_glass_breaking.ogg    wild_wolf.ogg \
 	mco_rubber_thud.ogg       plm_glass_break.ogg \
 	amb_bell_metal1.mp3       mco_scurry_dry.mp3        plm_glass_smashing.mp3 \
 	amb_bell_metal2.mp3       mco_shake_roll.mp3        plm_jar_ding.mp3 \
-	amb_bell_tibet1.mp3       mco_snarl_short.mp3       plm_levelup.mp3 \
+	amb_bell_tibet1.mp3       mco_snarl_short.mp3 \
 	amb_bell_tibet2.mp3       mco_spray_long.mp3        plm_lock_case.mp3 \
 	amb_bell_tibet3.mp3       mco_squish_hit.mp3        plm_lock_distant.mp3 \
 	amb_deep.mp3              mco_squish_snap.mp3       plm_metal_clank.mp3 \
@@ -150,13 +151,91 @@ DATA = sound.cfg \
 	mco_frog_trill.mp3        plm_door_rusty.mp3        wild_glacier.mp3 \
 	mco_hit_whip.mp3          plm_door_shut.mp3         wild_grass.mp3 \
 	mco_howl_croak.mp3        plm_door_slam.mp3         wild_hill.mp3 \
-	mco_howl_deep.mp3         plm_door_squeaky.mp3      wild_mountain.mp3 \
+	mco_howl_deep.mp3         plm_door_squeaky.mp3      wild_hill2.mp3 \
 	mco_howl_distressed.mp3   plm_door_wooden.mp3       wild_river.mp3 \
 	mco_howl_high.mp3         plm_drop_boot.mp3         wild_shore.mp3 \
 	mco_howl_long.mp3         plm_eat_bite.mp3          wild_swamp.mp3 \
 	mco_liquid_squirt.mp3     plm_floor_creak2.mp3      wild_volcano.mp3 \
 	mco_man_mumble.mp3        plm_floor_creak.mp3       wild_waste.mp3 \
-	mco_mouse_squeaks.mp3     plm_glass_breaking.mp3    wild_wood.mp3 \
-	mco_rubber_thud.mp3       plm_glass_break.mp3
+	mco_mouse_squeaks.mp3     plm_glass_breaking.mp3    wild_wolf.mp3 \
+	mco_rubber_thud.mp3       plm_glass_break.mp3 \
+    blind.ogg                 blind1.ogg                blind2.ogg \
+    confused.ogg              hypnotize.ogg             afraid.ogg \
+    cut.ogg                   hallucinate.ogg           paralyzed.ogg \
+    poison.ogg                slow.ogg                  stun1.ogg \
+    stun2.ogg                 stun3.ogg                 immune1.ogg \
+    immune2.ogg               immune3.ogg               immune4.ogg \
+    immune5.ogg               immune6.ogg               immune7.ogg \
+    immune8.ogg               resist_a_lot1.ogg         resist_a_lot2.ogg \
+    resist_a_lot3.ogg         resist_a_lot4.ogg         resist_a_lot5.ogg \
+    resist_a_lot6.ogg         resist_a_lot7.ogg         resist.ogg \
+    spell_fail.ogg            mon_devour.ogg            mon_swallow.ogg \
+    imp_giggles.ogg           werewolf_howl.ogg         terrain_slip.ogg \
+    dig1.ogg                  dig2.ogg                  dig3.ogg \
+    dig4.ogg                  dig5.ogg                  dig6.ogg \
+    chop1.ogg                 chop2.ogg                 chop3.ogg \
+    chop4.ogg                 chop5.ogg                 chop6.ogg \
+    chop_tree_fall.ogg        sentry.ogg                door_broken.ogg \
+    silent.ogg                silent0.ogg               quiver.ogg \
+    silent100.ogg             silent101.ogg \
+    item_pickup.ogg           gold_1.ogg                gold_2.ogg \
+    backpack_1.ogg            backpack_2.ogg            backpack_3.ogg \
+    backpack_4.ogg            backpack_5.ogg            backpack_6.ogg \
+    backpack_7.ogg            backpack_8.ogg            backpack_9.ogg \
+    backpack_10.ogg           backpack_11.ogg           backpack_12.ogg \
+    backpack_13.ogg           backpack_14.ogg           backpack_15.ogg \
+    backpack_16.ogg           backpack_17.ogg           backpack_18.ogg \
+    item_medium_armor.ogg     item_pickup_1.ogg         wilhelm-scream.ogg \
+    item_light_lantern_1.ogg  item_light_lantern_2.ogg  item_light_lamp_1.ogg \
+    item_light_lamp_2.ogg     item_light_phial_1.ogg    item_light_phial_2.ogg \
+    item_light_palantir_1.ogg item_light_palantir_2.ogg kill_unique_yaga.ogg \
+    blind.mp3                 blind1.mp3                blind2.mp3 \
+    confused.mp3              hypnotize.mp3             afraid.mp3 \
+    cut.mp3                   hallucinate.mp3           paralyzed.mp3 \
+    poison.mp3                slow.mp3                  stun1.mp3 \
+    stun2.mp3                 stun3.mp3                 immune1.mp3 \
+    immune2.mp3               immune3.mp3               immune4.mp3 \
+    immune5.mp3               immune6.mp3               immune7.mp3 \
+    immune8.mp3               resist_a_lot1.mp3         resist_a_lot2.mp3 \
+    resist_a_lot3.mp3         resist_a_lot4.mp3         resist_a_lot5.mp3 \
+    resist_a_lot6.mp3         resist_a_lot7.mp3         resist.mp3 \
+    spell_fail.mp3            mon_devour.mp3            mon_swallow.mp3 \
+    imp_giggles.mp3           werewolf_howl.mp3         terrain_slip.mp3 \
+    dig1.mp3                  dig2.mp3                  dig3.mp3 \
+    dig4.mp3                  dig5.mp3                  dig6.mp3 \
+    chop1.mp3                 chop2.mp3                 chop3.mp3 \
+    chop4.mp3                 chop5.mp3                 chop6.mp3 \
+    chop_tree_fall.mp3        sentry.mp3                door_broken.mp3 \
+    silent.mp3                silent0.mp3               quiver.mp3 \
+    silent100.mp3             silent101.mp3 \
+    item_pickup.mp3           gold_1.mp3                gold_2.mp3 \
+    backpack_1.mp3            backpack_2.mp3            backpack_3.mp3 \
+    backpack_4.mp3            backpack_5.mp3            backpack_6.mp3 \
+    backpack_7.mp3            backpack_8.mp3            backpack_9.mp3 \
+    backpack_10.mp3           backpack_11.mp3           backpack_12.mp3 \
+    backpack_13.mp3           backpack_14.mp3           backpack_15.mp3 \
+    backpack_16.mp3           backpack_17.mp3           backpack_18.mp3 \
+    item_medium_armor.mp3     item_pickup_1.mp3         wilhelm-scream.mp3 \
+    item_light_lantern_1.mp3  item_light_lantern_2.mp3  item_light_lamp_1.mp3 \
+    item_light_lamp_2.mp3     item_light_phial_1.mp3    item_light_phial_2.mp3 \
+    item_light_palantir_1.mp3 item_light_palantir_2.mp3 kill_unique_yaga.mp3 \
+    ambient_birds.ogg ambient_birds_1.ogg ambient_birds_2.ogg ambient_crow.ogg ambient_forest_birds.ogg ambient_fox.ogg \
+    ambient_birds.mp3 ambient_birds_1.mp3 ambient_birds_2.mp3 ambient_crow.mp3 ambient_forest_birds.mp3 ambient_fox.mp3 \
+    ambient_wind_1.ogg ambient_wind_2.ogg ambient_wind_3.ogg ambient_wind_night_1.ogg ambient_wind_night.ogg ambient_wings.ogg \
+    ambient_wind_1.mp3 ambient_wind_2.mp3 ambient_wind_3.mp3 ambient_wind_night_1.mp3 ambient_wind_night.mp3 ambient_wings.mp3 \
+    arc.ogg beam.ogg blast.ogg burn_1.ogg burn_2.ogg danger_9.ogg \
+    arc.mp3 beam.mp3 blast.mp3 burn_1.mp3 burn_2.mp3 danger_9.mp3 \
+    defeat_unique_shtukensia.ogg detect.ogg glyph.ogg kill_king.ogg kill_slime_1.ogg kill_slime_2.ogg \
+    defeat_unique_shtukensia.mp3 detect.mp3 glyph.mp3 kill_king.mp3 kill_slime_1.mp3 kill_slime_2.mp3 \
+    kill_slime_3.ogg kill_slime_4.ogg kill_slime_5.ogg kill_slime_6.ogg kill_slime_7.ogg kill_slime_8.ogg \
+    kill_slime_3.mp3 kill_slime_4.mp3 kill_slime_5.mp3 kill_slime_6.mp3 kill_slime_7.mp3 kill_slime_8.mp3 \
+    kill_slime.ogg kill_stinger.ogg kill_unique_shelob.ogg kill_unique_witch_king.ogg lash.ogg melee_blows.ogg \
+    kill_slime.mp3 kill_stinger.mp3 kill_unique_shelob.mp3 kill_unique_witch_king.mp3 lash.mp3 melee_blows.mp3 \
+    message.ogg npc_girl_1.ogg npc_girl_2.ogg npc_girl_3.ogg npc_girl_4.ogg npc_girl_5.ogg \
+    message.mp3 npc_girl_1.mp3 npc_girl_2.mp3 npc_girl_3.mp3 npc_girl_4.mp3 npc_girl_5.mp3 \
+    npc_girl_6.ogg npc_hi_1.ogg npc_hi_2.ogg npc_hi_3.ogg npc_hi_4.ogg paths_of_the_dead.ogg \
+    npc_girl_6.mp3 npc_hi_1.mp3 npc_hi_2.mp3 npc_hi_3.mp3 npc_hi_4.mp3 paths_of_the_dead.mp3 \
+    project.ogg spot.ogg star.ogg strike.ogg touch.ogg \
+    project.mp3 spot.mp3 star.mp3 strike.mp3 touch.mp3
 
 PACKAGE = sounds

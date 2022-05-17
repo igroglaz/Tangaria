@@ -18,6 +18,10 @@
 
 #include "angband.h"
 
+#ifdef BUILDINGWithVS
+#pragma comment(lib,  "ws2_32.lib") 
+#endif
+
 #ifdef WINDOWS
 
 #ifdef TERMNET
@@ -1966,7 +1970,7 @@ SocketWrite(int fd, char *buf, int size)
     /*
      * A SIGPIPE exception may occur if the peer entity has disconnected.
      */
-    retval = write(fd, buf, size);
+    retval = _write(fd, buf, size);
 
     return retval;
 } /* SocketWrite */
@@ -2005,4 +2009,4 @@ const char *GetSocketErrorMessage(void)
     return GetSocketErrorMessageAux(wsa_errno);
 }
 #endif /* WINDOWS*/
-
+

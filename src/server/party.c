@@ -265,6 +265,17 @@ static bool party_add(struct player *q, const char *name)
         return false;
     }
 
+    /* Some classes bound to play solo */
+    if (streq(p->clazz->name, "Trader") || streq(p->clazz->name, "Scavenger") ||
+        streq(p->clazz->name, "Crafter") || streq(p->clazz->name, "Alchemist"))
+    {
+        /* Message */
+        msg(q, "Traders, Scavengers, Alchemists and Crafters can not join the party.");
+
+        /* Abort */
+        return false;
+    }
+
     /* You can't add a hostile player! */
     for (i = 1; i <= NumPlayers; i++)
     {

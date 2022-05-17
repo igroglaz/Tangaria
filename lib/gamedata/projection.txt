@@ -153,7 +153,7 @@ lash-desc:brightness
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:500
+damage-cap:450
 msgt:BR_LIGHT
 obvious:1
 wake:1
@@ -170,7 +170,7 @@ lash-desc:blackness
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:500
+damage-cap:450
 msgt:BR_DARK
 obvious:1
 wake:1
@@ -187,7 +187,7 @@ lash-desc:sound
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:500
+damage-cap:450
 msgt:BR_SOUND
 obvious:1
 wake:1
@@ -204,7 +204,7 @@ lash-desc:razors
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:500
+damage-cap:450
 msgt:BR_SHARDS
 obvious:1
 wake:1
@@ -221,7 +221,7 @@ lash-desc:dislocation
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:400
+damage-cap:325
 msgt:BR_NEXUS
 obvious:1
 wake:1
@@ -238,7 +238,7 @@ lash-desc:withering
 numerator:6
 denominator:8+1d4
 divisor:6
-damage-cap:600
+damage-cap:550
 msgt:BR_NETHER
 obvious:1
 wake:1
@@ -355,7 +355,7 @@ lash-desc:gravity
 numerator:6
 denominator:8+1d4
 divisor:3
-damage-cap:200
+damage-cap:150
 msgt:BR_GRAVITY
 obvious:1
 wake:1

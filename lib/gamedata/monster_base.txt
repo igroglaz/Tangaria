@@ -1,9 +1,4 @@
-# File: monster_base.txt
-
-
-# This file provides information for monster "templates".
-
-# === Understanding monster_base.txt ===
+# === Understanding monster_base.txt (monster "templates") ===
  
 # name : template name
 # glyph : default display character
@@ -25,6 +20,13 @@
 # 'desc' indicates the textual description of this template that is used by
 # the '/' command in-game.
 #
+#OLD Note that some templates have references to other data files. In particular,
+#OLD changing the name of the following templates will cause certain summon spells
+#OLD to break:
+#OLD ancient dragon, ainu, canine, hydra, lich, major demon, spider, vampire,
+#OLD wraith, zephyr hound.
+#OLD Changing other characteristics of these monsters is fine.
+
 # Note that these templates have references in other data files. Changing
 # characteristics of monster bases is fine, but the names are referenced in
 # several other data files (notably monster.txt), so any name changes will
@@ -51,12 +53,22 @@ desc:Ancient Dragon/Wyrm
 name:ainu
 glyph:A
 pain:1
-flags:POWERFUL | SPIRIT | SMART | LEVITATE
+flags:POWERFUL | SPIRIT | SMART | LEVITATE | NEUTRAL
 flags:ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
 flags:FORCE_SLEEP
 desc:Ainu/Maia
+
+name:angel
+glyph:A
+pain:1
+flags:POWERFUL | SPIRIT | SMART | LEVITATE | GOOD
+flags:ONLY_ITEM
+flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB
+flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
+flags:FORCE_SLEEP
+desc:Angel
 
 # Ants have lowish HP but highish armor class, and powerful melee for their
 # depth
@@ -210,6 +222,7 @@ flags:ONLY_GOLD
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:FORCE_SLEEP | HURT_COLD
 flags:HAS_LEGS
+flags:SWIM_GOOD
 desc:Hydra
 
 # Non-descript early monsters that demonstrate some stuff but are mostly filler
@@ -224,6 +237,7 @@ name:insect
 glyph:I
 pain:7
 flags:ANIMAL | WEIRD_MIND | MULTIPLY | LEVITATE
+flags:NO_PASS_TREE
 flags:RAND_25 | RAND_50
 desc:Insect
 
@@ -253,6 +267,7 @@ flags:EVIL
 flags:OPEN_DOOR | BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:IM_POIS
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Kobold
 
 # Powerful undead spellcasters, tending to drain dexterity and charges in melee
@@ -331,6 +346,7 @@ pain:1
 flags:FEMALE | EVIL | HURT_COLD | SPIRIT
 flags:BASH_DOOR | CLEAR_WEB
 flags:HAS_LEGS | HYBRID
+flags:SWIM_GOOD
 desc:Naga
 
 # Ogres are like small giants, or large orcs. Mostly straightforward melee
@@ -341,6 +357,7 @@ pain:1
 flags:GIANT | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_BAD
 desc:Ogre
 
 # Orcs are the foot-soldiers of Morgoth. They melee and use archery, but
@@ -351,6 +368,7 @@ pain:1
 flags:MALE | ORC | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Orc
 
 name:person
@@ -358,6 +376,7 @@ glyph:p
 pain:1
 flags:BASH_DOOR | SPIRIT | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Person/Human
 
 # A grab-bag of four-legged things with no real defining quality
@@ -384,6 +403,7 @@ glyph:R
 pain:5
 flags:ANIMAL | HURT_COLD | CLEAR_WEB
 flags:HAS_LEGS
+flags:SWIM_GOOD
 desc:Reptile/Amphibian
 
 # Small, weak, early breeders, with one surprise non-breeder
@@ -402,7 +422,7 @@ name:skeleton
 glyph:s
 pain:9
 flags:UNDEAD | EVIL | COLD_BLOOD | CLEAR_WEB
-flags:IM_COLD | IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN
+flags:IM_COLD | IM_POIS | NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | IM_ELEC
 desc:Skeleton
 
 # Snakes are typically slow, but have high armor class
@@ -411,6 +431,7 @@ glyph:J
 pain:5
 flags:ANIMAL | HURT_COLD
 flags:BASH_DOOR | CLEAR_WEB
+flags:SWIM_GOOD
 desc:Snake
 
 # Spiders are frequently poisonous and weave webs, and tend to have an
@@ -427,7 +448,7 @@ desc:Spider/Scorpion/Tick
 name:townsfolk
 glyph:t
 pain:4
-flags:HUMANOID | SPIRIT | CLEAR_WEB
+flags:HUMANOID | SPIRIT | CLEAR_WEB | NEUTRAL
 desc:Townsfolk
 
 # High hitpoints and armor class
@@ -436,6 +457,7 @@ glyph:l
 pain:9
 flags:CLEAR_WEB | COLD_BLOOD | REGENERATE
 flags:NO_FEAR | NO_CONF | HURT_FIRE | IM_WATER
+flags:SWIM_GOOD | NEUTRAL
 desc:Tree/Ent
 
 # Trolls are evil, larger than human-size humanoids. They have strong melee
@@ -447,6 +469,7 @@ pain:1
 flags:TROLL | EVIL | SPIRIT
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
 flags:HUMANOID
+flags:SWIM_BAD
 desc:Troll
 
 # Powerful undead which drain experience
@@ -501,8 +524,9 @@ glyph:y
 pain:1
 flags:ANIMAL | SPIRIT | LEVITATE
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
-flags:IM_ACID
+flags:RES_ACID
 flags:HUMANOID
+flags:SWIM_NORM
 desc:Yeek
 
 # Yetis are a couple of niche monsters, big furry bear-like creatures
@@ -554,6 +578,7 @@ pain:1
 desc:Aquatic
 flags:ANIMAL | AQUATIC | CLEAR_WEB
 flags:IM_WATER
+flags:NO_PASS_TREE
 
 name:ball
 glyph:*
@@ -643,3 +668,8 @@ name:vegetal
 glyph:l
 pain:1
 desc:Vegetal
+
+name:sentry
+glyph:#
+pain:1
+desc:Sentry

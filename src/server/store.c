@@ -628,7 +628,7 @@ static bool store_will_buy(struct player *p, int sidx, const struct object *obj)
     if ((s->type == STORE_GENERAL) && !object_fully_known(p, obj)) return false;
 
     /* PWMAngband: store doesn't buy anything */
-    if (cfg_limited_stores == 2) return false;
+    if (cfg_limited_stores == 2 && !streq(p->clazz->name, "Trader")) return false;
 
     /* Ignore "worthless" items */
     unknown = ((cfg_limited_stores || OPT(p, birth_no_selling)) && tval_has_variable_power(obj) &&
@@ -674,8 +674,12 @@ static bool store_will_buy(struct player *p, int sidx, const struct object *obj)
  * store_buying == true means the shop is buying, player selling
  * false means the shop is selling, player buying
  *
+ * This function takes into account the player's charisma.
+ * Please note that it's designed for Tangaria's no-selling mode.
+ *
  * The "greed" value should exceed 100 when the player is "buying" the
  * object, and should be less than 100 when the player is "selling" it.
+ * ^^^ NOT FOR NO_SELLING.
  *
  * Hack -- black markets always charge 2x and 5x/10x the normal price.
  */
@@ -696,6 +700,11 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     {
         /* Disable selling true artifacts */
         if (true_artifact_p(obj)) return (0L);
+        
+        // no nazgul rings for sale
+//        if (kf_has(obj->kind->kind_flags, KF_INSTA_ART)) return (0L);
+        if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return (0L);
+        if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")) return (0L);
 
         /* Get the desired value of the given quantity of items */
         price = (double)obj->askprice * qty;
@@ -718,35 +727,57 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
 
     /* Worthless items */
     if (price <= 0) return (0L);
-
-    /* The black market is always a worse deal */
-    if (store_black_market(s)) adjust = 150;
-
+    
+    /* Add in the charisma factor */
+	if (store_black_market(s))
+        adjust = 150;
+	else
+		adjust = adj_chr_gold[p->state.stat_ind[STAT_CHR]];
+        
     /* Shop is buying */
     if (store_buying)
     {
         /* Set the factor */
         adjust = 100 + (100 - adjust);
 
+        /* Angband V. 3.4 fix for factor.. no need @ Tangaria
+        if (adjust > 100) adjust = 100;
+        */
+
         /* Shops now pay 2/3 of true value */
         price = price * 2 / 3;
+
+        // Trader class can sell for miserable price
+        if (streq(p->clazz->name, "Trader"))
+            price /= 7 - (p->lev / 10);
 
         /* Black markets suck */
         if (s->type == STORE_B_MARKET) price = floor(price / 2);
         if (s->type == STORE_XBM) price = floor(price / factor);
 
         /* Check for no_selling option */
-        if (cfg_limited_stores || OPT(p, birth_no_selling)) return (0L);
+        if ((cfg_limited_stores || OPT(p, birth_no_selling)) &&
+            !streq(p->clazz->name, "Trader")) return (0L);
     }
 
     /* Shop is selling */
     else
     {
         size_t i;
+        
+        /* Angband V. 3.4 fix for factor.. no need @ Tangaria
+		if (adjust < 100) adjust = 100;
+        */
 
         /* Black markets suck */
         if (s->type == STORE_B_MARKET) price = price * 2;
-        if (s->type == STORE_XBM) price = price * factor;
+        if (s->type == STORE_XBM)
+        {
+            if (p->state.stat_ind[STAT_CHR] >= 18)
+                price = price * (factor - 1);
+            else
+                price = price * factor;
+        }
 
         /* PWMAngband: apply price factor for normal items */
         for (i = 0; i < s->normal_num; i++)
@@ -758,6 +789,39 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
             }
         }
     }
+
+    // Hardcode prices at certain items.
+    // We use it because 'cost:' field in object.txt doesn't work;
+    // only way to change price atm is to adjust power in object property file,
+    // which can influence randart generation... So we use this way:
+    if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
+                price = 248;
+    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        obj->kind == lookup_kind_by_name(TV_BOW, "Sling") && !obj->ego &&
+        obj->to_h == 0 && obj->to_d == 0)
+                price = 55;
+    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+        (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
+        obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
+        obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
+                price = 800;
+    // ego: speed boots
+    else if (s->type != STORE_PLAYER && obj->ego &&
+            (strstr(obj->ego->name, "of Speed") ||
+             strstr(obj->ego->name, "of Elvenkind")))
+                price *= 5 / 2;
+    // regular items (speed ring, ring of flying etc)
+    else if (s->type != STORE_PLAYER)
+    {
+        if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
+                price *= 2;
+        else if (obj->kind == lookup_kind_by_name(TV_RING, "Flying"))
+                price = 3400;
+    }
+
+    /* CHArisma shouldn't influence player store prices */
+    if (s->type == STORE_PLAYER) adjust = 100;
 
     /* Compute the final price (with rounding) */
     price = floor((price * adjust + 50L) / 100L);
@@ -829,6 +893,7 @@ static void mass_produce(struct object *obj)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
         {
             if (cost <= 50) size += mass_roll(2, 3);
             if (cost <= 500) size += mass_roll(1, 3);
@@ -948,8 +1013,13 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     bool home = ((s->type == STORE_HOME)? true: false);
     object_stack_t mode = ((s->type == STORE_HOME)? OSTACK_PACK: OSTACK_STORE);
 
-    /* Free space is always usable */
-    if (s->stock_num < s->stock_size) return true;
+    /* Free space is always usable (for stores) */
+    if (!home && (s->stock_num < s->stock_size))
+        return true;
+
+    // Storage space in home depends on CHR
+    if (home && (s->stock_num < p->state.stat_ind[STAT_CHR]))
+        return true;
 
     /* The "home" acts like the player */
     /* Normal stores do special stuff */
@@ -2102,7 +2172,8 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     char short_name[20];
     struct store *s = store_at(p);
     const char *owner_name = s->owner->name;
-    int i;
+    int c; // charisma    
+    int i; // number of welcome message
     char comment_format[NORMAL_WID];
     const char *chosen;
 
@@ -2116,8 +2187,8 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
         return;
     }
 
-    /* Store owner doesn't care about beginners */
-    if (p->lev <= 5) return;
+    /* Sometimes store owner doesn't care about beginners */
+    if (one_in_(2) && p->lev <= 5) return;
 
     /* Get the first name of the store owner (stop before the first space) */
     for (i = 0; owner_name[i] && owner_name[i] != ' '; i++)
@@ -2127,7 +2198,18 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     short_name[i] = '\0';
 
     /* Get a welcome message according to level */
-    i = (p->lev - 6) / 5;
+    c = p->state.stat_ind[STAT_CHR] + 3; // 0-40
+    
+    if      (c <= 3)  i = 0;
+    else if (c <= 6)  i = 1;
+    else if (c <= 8)  i = 2;
+    else if (c <= 11) i = 3;
+    else if (c <= 15) i = 4;
+    else if (c <= 19) i = 5;
+    else if (c <= 25) i = 6;
+    else if (c <= 35) i = 7;
+    else              i = 8;
+
     if (!STRZERO(s->comment_welcome[i])) chosen = s->comment_welcome[i];
     else chosen = comment_welcome[i];
 
@@ -2296,6 +2378,8 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     struct loc space;
     bool space_ok = false;
     struct chunk *c = chunk_get(&h_ptr->wpos);
+    struct loc begin, end; // to define proper coods to put gold
+    int x1, y1, x2, y2;
 
     /* Full purchase */
     if (bought->number == original->number)
@@ -2317,9 +2401,33 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     if (!price) return;
 
     /* Small sales tax */
-    price = price * 9 / 10;
+    if (p->state.stat_ind[STAT_CHR] < 10)
+        price = price * 9 / 10;
+    else if (p->state.stat_ind[STAT_CHR] < 18)
+        price = price * 10 / 11;
+    else if (p->state.stat_ind[STAT_CHR] < 25)
+        price = price * 11 / 12;
+    else if (p->state.stat_ind[STAT_CHR] < 31)
+        price = price * 12 / 13;
+    else if (p->state.stat_ind[STAT_CHR] < 33)
+        price = price * 13 / 14;    
+    else if (p->state.stat_ind[STAT_CHR] < 35)
+        price = price * 14 / 15;     
+    else
+        price = price * 15 / 16;        
 
-    loc_iterator_first(&iter, &h_ptr->grid_1, &h_ptr->grid_2);
+    // We use +1/-1 cause in Tangaria borders of houses belongs to walls, not floors.
+    // Without +1/-1 adjustment gold will be dropped outside of the house
+
+    x1 = h_ptr->grid_1.x;
+    y1 = h_ptr->grid_1.y;
+    x2 = h_ptr->grid_2.x;
+    y2 = h_ptr->grid_2.y;
+
+    loc_init(&begin, x1 + 1, y1 + 1);
+    loc_init(&end, x2 - 1, y2 - 1);
+
+    loc_iterator_first(&iter, &begin, &end);
 
     /* Scan the store to find space for payment */
     do
@@ -2360,7 +2468,20 @@ static void sell_player_item(struct player *p, struct object *original, struct o
         gold_obj->pval = price;
 
         /* Put it in the house */
-        drop_near(p, c, &gold_obj, 0, &space, false, DROP_FADE, false);
+        drop_near(p, c, &gold_obj, 0, &space, false, DROP_FADE, true);
+    }
+    else // if no empty spot - drop it to the upper left corner
+    {
+        struct object *gold_obj = object_new();
+
+        /* Make some gold */
+        object_prep(p, chunk_get(&p->wpos), gold_obj, money_kind("gold", price), 0, MINIMISE);
+
+        /* How much gold to leave */
+        gold_obj->pval = price;
+
+        /* Put it in the house */
+        drop_near(p, c, &gold_obj, 0, &begin, false, DROP_FADE, true);
     }
 }
 
@@ -2816,7 +2937,7 @@ void do_cmd_stash(struct player *p, int item, int amt)
     /* Check if the store has space for the items */
     if (!store_check_num(p, s, dummy))
     {
-        msg(p, "Your home is full.");
+        msg(p, "You've used all the space which you were able to bargain with storage keeper.");
         object_delete(&dummy);
         return;
     }
@@ -2919,7 +3040,7 @@ void store_confirm(struct player *p)
     object_desc(p, o_name, sizeof(o_name), sold_item, ODESC_PREFIX | ODESC_FULL);
 
     /* Describe the result (in message buffer) */
-    if (cfg_limited_stores || OPT(p, birth_no_selling))
+    if ((cfg_limited_stores || OPT(p, birth_no_selling)) && !streq(p->clazz->name, "Trader"))
         msg(p, "You had %s (%c).", o_name, label);
     else
     {
@@ -3229,16 +3350,96 @@ void do_cmd_store(struct player *p, int pstore)
 
             if (house_inside(player, pstore))
             {
-                msg(p, "The doors are locked.");
+                msgt(p, MSG_DOOR_CLOSED, "The doors are locked, but you hear someone inside..");
                 return;
             }
         }
 
         p->store_num = store_max - 1;
         p->player_store_num = pstore;
+        
+        // "bells" sound should be only in pstores
+        sound(p, MSG_STORE_ENTER);
     }
 
-    sound(p, (s->type == STORE_HOME)? MSG_STORE_HOME: MSG_STORE_ENTER);
+    // storage entrance sound
+    if (s->type == STORE_HOME)
+        sound(p, MSG_STORE_HOME);
+
+    /* Music volume down */
+    sound(p, MSG_SILENT100);
+
+    /* Background sounds for stores */
+    switch (s->type)
+    {
+        case STORE_OTHER:
+            if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
+            else if (streq(s->name, "Halbarad, the old ranger")) sound(p, MSG_NPC_HI);
+            else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
+            else if (streq(s->name, "Alchemy Shop"))
+            {
+                if (one_in_(6))
+                    sound(p, MSG_STORE_ALCHEMY_BOOM);
+                else
+                    sound(p, MSG_STORE_ALCHEMY);
+            }
+            else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
+            else if (streq(s->name, "Morinehtar the Wizard")) sound(p, MSG_STORE_MAGIC);
+            else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
+            else if (streq(s->name, "Armoury")) sound(p, MSG_NPC_ARMOR);
+            else if (streq(s->name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
+            else if (streq(s->name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
+            else if (streq(s->name, "Bob the villager")) sound(p, MSG_NPC_WELCOME);
+            else if (streq(s->name, "Old guard Barry")) sound(p, MSG_NPC_VET);
+            else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
+            else if (streq(s->name, "Torog"))
+            {
+                sound(p, MSG_NPC_BELCH);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
+            else if (streq(s->name, "Bill Ferny"))
+            {
+                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(s->name, "Danny the dog")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Mr. Underhill")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Barliman")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
+            else if (streq(s->name, "Gildor")) sound(p, MSG_NPC_DUEL);
+            else if (streq(s->name, "Marta the villager")) sound(p, MSG_NPC_MARTA);
+            else if (streq(s->name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
+            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
+            break;
+        case STORE_GENERAL:
+            sound(p, MSG_STORE_GENERAL_SOUND);
+            break;
+        case STORE_TEMPLE:
+            sound(p, MSG_STORE_TEMPLE);
+            break;
+        case STORE_BOOKSELLER:
+            sound(p, MSG_STORE_BOOKSELLER);
+            break;
+        case STORE_B_MARKET:
+            sound(p, MSG_STORE_B_MARKET_SOUND);
+            break;
+        case STORE_XBM:
+            sound(p, MSG_STORE_XBM_SOUND);
+            break;
+        case STORE_TAVERN:
+            sound(p, MSG_TAVERN);
+            break;
+        case STORE_HOME:
+            if (one_in_(6))
+                sound(p, MSG_STORE_HOME_CUCKOO);
+            sound(p, MSG_STORE_HOME);
+            break;
+        case STORE_PLAYER:
+            sound(p, MSG_STORE_PLAYER_SOUND);
+            break;
+    }
 
     /* Display the store */
     display_store(p, true);
@@ -3291,11 +3492,11 @@ int32_t player_price_item(struct player *p, struct object *obj)
 
 static struct object *store_get_order_item(int order)
 {
-    struct store *s;
+    struct store *s = NULL;//C4703 Fix
     struct object *obj;
     int i;
 
-    for (i = 0; i < store_max; i++)
+    for (i = 0; i < store_max; ++i)
     {
         s = &stores[i];
         if (s->type == STORE_XBM) break;

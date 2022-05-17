@@ -20,6 +20,51 @@
 
 #include "s-angband.h"
 
+/*
+ * Stat Table -- chance of getting a friendly summon with CHR
+ */
+static const uint8_t summon_chr_friendly[STAT_RANGE] =
+{
+    0   /* 3 */,
+    0   /* 4 */,
+    0   /* 5 */,
+    0   /* 6 */,
+    0   /* 7 */,
+    0   /* 8 */,
+    0   /* 9 */,
+    1   /* 10 */,
+    2   /* 11 */,
+    3   /* 12 */,
+    4   /* 13 */,
+    5   /* 14 */,
+    6   /* 15 */,
+    7   /* 16 */,
+    8   /* 17 */,
+    9   /* 18/00-18/09 */,
+    10  /* 18/10-18/19 */,
+    11  /* 18/20-18/29 */,
+    12  /* 18/30-18/39 */,
+    13  /* 18/40-18/49 */,
+    14  /* 18/50-18/59 */,
+    15  /* 18/60-18/69 */,
+    16  /* 18/70-18/79 */,
+    17  /* 18/80-18/89 */,
+    18  /* 18/90-18/99 */,
+    19  /* 18/100-18/109 */,
+    20  /* 18/110-18/119 */,
+    21  /* 18/120-18/129 */,
+    22  /* 18/130-18/139 */,
+    23  /* 18/140-18/149 */,
+    24  /* 18/150-18/159 */,
+    25  /* 18/160-18/169 */,
+    26  /* 18/170-18/179 */,
+    27  /* 18/180-18/189 */,
+    28  /* 18/190-18/199 */,
+    29  /* 18/200-18/209 */,
+    30  /* 18/210-18/219 */,
+    33  /* 18/220+ */
+};
+
 
 /*
  * Helper function -- return a "nearby" race for polymorphing
@@ -413,9 +458,17 @@ static void project_monster_scare(project_monster_handler_context_t *context, in
  */
 static void project_monster_dispel(project_monster_handler_context_t *context, int flag)
 {
+    int dispel_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
     if (context->seen) rf_on(context->lore->flags, flag);
 
     if (rf_has(context->mon->race->flags, flag))
+    {
+        if (one_in_(dispel_chr))             // low CHR sometimes will make less damage
+            context->dam = dispel_chr;
+        context->hurt_msg = MON_MSG_SHUDDER;
+        context->die_msg = MON_MSG_DISSOLVE;
+    }
+    else if (dispel_chr / 2 > randint0(100)) // high CHR will help rarely to dispel even other mobs a bit
     {
         context->hurt_msg = MON_MSG_SHUDDER;
         context->die_msg = MON_MSG_DISSOLVE;
@@ -444,7 +497,15 @@ static void project_monster_dispel(project_monster_handler_context_t *context, i
  */
 static void project_monster_sleep(project_monster_handler_context_t *context, int flag)
 {
+    int chr_dmg = 0;
     int dam = sleep_value(context->mon->race);
+
+    // using summon_chr_friendly[] table
+    if (context->origin->player)
+    {
+        chr_dmg = randint0(summon_chr_friendly[context->origin->player->state.stat_ind[STAT_CHR]]) / 4;
+        dam += chr_dmg;
+    }
 
     if (context->seen && flag) rf_on(context->lore->flags, flag);
 
@@ -468,6 +529,20 @@ static void project_monster_sleep(project_monster_handler_context_t *context, in
 /* Acid */
 static void project_monster_handler_ACID(project_monster_handler_context_t *context)
 {
+    if (rf_has(context->mon->race->flags, RF_SRES_ACID))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_ACID);
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 3;
+        context->dam /= 2;
+    }    
+    else if (rf_has(context->mon->race->flags, RF_RES_ACID))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_ACID);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }            
+    else    
     project_monster_resist_element(context, RF_IM_ACID, 9);
 }
 
@@ -475,7 +550,21 @@ static void project_monster_handler_ACID(project_monster_handler_context_t *cont
 /* Electricity */
 static void project_monster_handler_ELEC(project_monster_handler_context_t *context)
 {
-    project_monster_resist_element(context, RF_IM_ELEC, 9);
+    if (rf_has(context->mon->race->flags, RF_SRES_ELEC))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_ELEC);
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 3;
+        context->dam /= 2;
+    }    
+    else if (rf_has(context->mon->race->flags, RF_RES_ELEC))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_ELEC);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }            
+    else
+        project_monster_resist_element(context, RF_IM_ELEC, 9);
 }
 
 
@@ -508,19 +597,38 @@ static void project_monster_handler_POIS(project_monster_handler_context_t *cont
 /* Light -- opposite of Dark */
 static void project_monster_handler_LIGHT(project_monster_handler_context_t *context)
 {
-    if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
-
-    if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT))
+    if (rf_has(context->mon->race->flags, RF_SRES_LIGHT))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_SRES_LIGHT);
+        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        context->dam /= 3;
+        context->dam *= 2;
+    }    
+    else if (rf_has(context->mon->race->flags, RF_RES_LIGHT))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_LIGHT);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }
+    else if (rsf_has(context->mon->race->spell_flags, RSF_BR_LIGHT))
     {
         /* Learn about breathers through resistance */
         if (context->seen) rsf_on(context->lore->spell_flags, RSF_BR_LIGHT);
-
-        context->hurt_msg = MON_MSG_RESIST;
+        context->hurt_msg = MON_MSG_RESIST_A_LOT;
         context->dam *= 2;
         context->dam /= (randint1(6) + 6);
     }
-    else if (rf_has(context->mon->race->flags, RF_HURT_LIGHT))
+    else if (rf_has(context->mon->race->flags, RF_IM_LIGHT))
     {
+        if (context->seen) rf_on(context->lore->flags, RF_IM_LIGHT);
+        context->hurt_msg = MON_MSG_RESIST_A_LOT;
+        context->dam *= 2;
+        context->dam /= (randint1(6) + 6);
+    }
+
+    if (rf_has(context->mon->race->flags, RF_HURT_LIGHT))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_HURT_LIGHT);
         context->hurt_msg = MON_MSG_CRINGE_LIGHT;
         context->die_msg = MON_MSG_SHRIVEL_LIGHT;
         context->dam *= 2;
@@ -590,13 +698,27 @@ static void project_monster_handler_NETHER(project_monster_handler_context_t *co
         context->hurt_msg = MON_MSG_IMMUNE;
         context->dam = 0;
     }
-    else if (rf_has(context->mon->race->flags, RF_IM_NETHER))
+	else if (rf_has(context->mon->race->flags, RF_IM_NETHER))
     {
         context->hurt_msg = MON_MSG_RESIST;
         context->dam *= 3;
         context->dam /= (randint1(6) + 6);
     }
-    else if (monster_is_evil(context->mon))
+	// adding it in case if BR_NETHER made by not by player, but by monster AND it hit other monsters.
+	// eg ethereal drake breath at player, but also hit some surrounding monsters
+	// so.. if BR_NETHER was made by a monster - player will not exist in the structure (context->origin->player)
+	// which cause streq() crush, so we have to make the check:
+	else if (context->origin->player)
+    {
+        if (!streq(context->origin->player->clazz->name, "Necromancer"))
+        {
+            context->dam /= 2;
+            context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+        }
+    }
+	// next price is PWMA universal case.. without class check it works alright.
+	// but as we have class check above, we will use this case for monster vs monster attack:
+	else if (monster_is_evil(context->mon))
     {
         context->dam /= 2;
         context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
@@ -1068,9 +1190,14 @@ static void project_monster_handler_MON_CONF(project_monster_handler_context_t *
 /* Hold (Use "dam" as "power") */
 static void project_monster_handler_MON_HOLD(project_monster_handler_context_t *context)
 {
+int hold_chr = 0;
+    
+    if (context->origin->player)
+        hold_chr = randint0(context->origin->player->state.stat_ind[STAT_CHR]);
+
     if (context->charm && rf_has(context->mon->race->flags, RF_ANIMAL))
         context->dam += context->dam / 2;
-    context->mon_timed[MON_TMD_HOLD] = context->dam;
+    context->mon_timed[MON_TMD_HOLD] = context->dam + (hold_chr / 5);
     context->dam = 0;
 }
 
@@ -1471,7 +1598,33 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
             add_monster_message(p, mon, die_msg, false);
 
             /* Reward the master with some experience */
-            if (attacker && (p->id == attacker->master)) monster_give_xp(p, c, mon, true);
+            if (attacker && (p->id == attacker->master))
+            {
+                monster_give_xp(p, c, mon, true);
+
+                // Necromancer class
+                // if monster were killed by minion - raise a skeleton
+                if (streq(p->clazz->name, "Necromancer") && rf_has(mon->race->flags, RF_DROP_CORPSE))
+                {
+                    if (p->slaves < (p->lev / 10) + 1)
+                    {
+                        int duration = (p->lev * 2) + 20;
+
+                        if (p->lev < 10)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
+                        else if (p->lev < 20)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skelet"), 1, true);
+                        else if (p->lev < 30)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton_"), 1, true);
+                        else if (p->lev < 40)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warrior"), 1, true);
+                        else if (p->lev < 50)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton knight"), 1, true);
+                        else if (p->lev > 49)
+                            summon_specific_race_aux(p, c, &p->grid, get_race("skeleton warlord"), 1, true);
+                    }
+                }
+            }
 
             /* Redraw */
             p->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
@@ -1661,6 +1814,12 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
             /* Report the polymorph before changing the monster */
             if (context->seen)
                 add_monster_message(context->origin->player, context->mon, MON_MSG_CHANGE, false);
+
+            // Wizard polymorph spell (spell position in class.txt: 2) restore mana
+            if (streq(context->origin->player->clazz->name, "Wizard") &&
+                context->origin->player->current_spell == 2 &&
+                context->origin->player->csp < context->origin->player->msp)
+                    context->origin->player->csp += context->origin->player->lev + 5;
 
             /* Delete the old monster, and return a new one */
             delete_monster_idx(context->cave, *m_idx);
@@ -1900,8 +2059,11 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     *newy = grid->y;
     *newx = grid->x;
 
+    /* Disable magic projectiles through house window */
+    if (square_is_window(c, grid)) return;
+
     /* Walls protect monsters */
-    if (!square_ispassable(c, grid)) return;
+    if (!square_ispassable(c, grid) && !(square_istree(c, grid) && !one_in_(4))) return;
 
     /* No monster here */
     if (m_idx <= 0) return;
@@ -2023,10 +2185,12 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 
 void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 {
-    /* A high wisdom will allow more slaves to be controlled */
+    /* A high wisdom and charisma will allow more slaves to be controlled */
     if (p && (mon->status <= MSTATUS_SUMMONED))
     {
         int maxslaves = 1 + (1 + p->state.stat_ind[STAT_WIS]) / 4;
+        if (p->state.stat_ind[STAT_CHR] > 18) maxslaves++;
+        if (streq(p->clazz->name, "Necromancer")) maxslaves++;
 
         if (p->slaves == maxslaves)
         {
@@ -2036,7 +2200,11 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
     }
 
     mon->master = (p? p->id: 0);
-    mon->lifespan = (p? mon->level + 5 + randint1(5): 0);
+
+    /* Adventurers have a permanent pet */
+    mon->lifespan = 0;
+    if (p && !player_has(p, PF_SUMMON_PERMA)) mon->lifespan = mon->level + 5 + randint1(5);
+
     mon->resilient = 0;
     if (p && (mon->status <= MSTATUS_SUMMONED)) p->slaves++;
     mon->status = status;
@@ -2081,13 +2249,12 @@ static const uint8_t summon_friendly[STAT_RANGE] =
     90  /* 18/150-18/159 */,
     92  /* 18/160-18/169 */,
     94  /* 18/170-18/179 */,
-    96  /* 18/180-18/189 */,
-    97  /* 18/190-18/199 */,
-    98  /* 18/200-18/209 */,
-    99  /* 18/210-18/219 */,
-    100 /* 18/220+ */
+    95  /* 18/180-18/189 */,
+    96  /* 18/190-18/199 */,
+    97  /* 18/200-18/209 */,
+    98  /* 18/210-18/219 */,
+    99  /* 18/220+ */
 };
-
 
 /*
  * Returns true if the monster can be charmed, false otherwise.
@@ -2097,8 +2264,15 @@ bool can_charm_monster(struct player *p, int level, int stat)
     /* A high level will help a lot */
     if (!CHANCE(MAX(level - 5, 1), p->lev * 5)) return true;
 
-    /* A high stat will help a lot */
-    return (magik(summon_friendly[p->state.stat_ind[stat]]));
+    /* A high stat will help a lot */  
+    if (magik(summon_friendly[p->state.stat_ind[stat]]))
+        return true;
+    
+    /* In the end CHR could help */  
+    if (magik(summon_chr_friendly[p->state.stat_ind[STAT_CHR]]))
+        return true;
+            
+    return false;
 }
 
 
@@ -2114,7 +2288,9 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     if (monster_is_unique(mon->race)) return MON_MSG_UNAFFECTED;
 
     /* Too enraged to be controlled */
-    if (player_of_has(p, OF_AGGRAVATE)) return MON_MSG_HATE;
+    if (player_of_has(p, OF_AGGRAVATE) || 
+    (p->state.stat_ind[STAT_CHR] <  randint0(150)))
+        return MON_MSG_HATE;
 
     /* Only if the monster is not already under the spell */
     if (mon->status == MSTATUS_CONTROLLED) return MON_MSG_UNAFFECTED;

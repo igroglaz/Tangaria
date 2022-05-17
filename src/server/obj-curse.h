@@ -10,6 +10,7 @@ extern int lookup_curse(const char *name);
 extern void copy_curses(struct object *obj, int *source);
 extern bool curses_are_equal(const struct object *obj1, const struct object *obj2);
 extern int append_object_curse(struct object *obj, int lev, int tval);
+extern void remove_object_curse(struct player *p, struct object *obj, int index, bool message);
 extern int append_artifact_curse(struct artifact *art, int lev, int tval);
 extern bool do_curse_effect(struct player *p, int i);
 extern bool append_curse(struct object *obj, struct object *source, int i);

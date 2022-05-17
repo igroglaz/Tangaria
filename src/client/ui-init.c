@@ -486,6 +486,8 @@ static void cleanup_player(void)
 
 static char *server_version(uint16_t version, uint16_t beta)
 {
+    return format("%d", version);
+/*
     uint16_t major, minor, patch, extra;
 
     major = version >> 12;
@@ -494,6 +496,7 @@ static char *server_version(uint16_t version, uint16_t beta)
     extra = ((version % (1 << 12)) % (1 << 8)) % (1 << 4);
 
     return format("%d.%d.%d.%d%s", major, minor, patch, extra, (beta? " beta": ""));
+*/
 }
 
 
@@ -680,7 +683,7 @@ void client_init(bool new_game)
         /* The server didn't like us.... */
         case E_VERSION_OLD:
         {
-            quit_fmt("Your old client will not work on that server. You need version %s.",
+            quit_fmt("Outdated game version! Please update Tangaria to T-%s version.",
                 server_version(num, max));
         }
         case E_INVAL:
@@ -693,11 +696,11 @@ void client_init(bool new_game)
             quit("Socket error.");
         case E_VERSION_NEW:
         {
-            quit_fmt("Your client will not work on that old server. You need version %s.",
+            quit_fmt("Incompatible game version! Please update Tangaria to T-%s version.",
                 server_version(num, max));
         }
         default:
-            quit("Your client will not work on that server (not a PWMAngband server).");
+            quit("Your client will not work on that server (not a Tangaria server).");
     }
 
     max_account_chars = max;

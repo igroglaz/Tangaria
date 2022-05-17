@@ -1,11 +1,3 @@
-# File: flavor.txt
-
-
-# This file is used to initialize the "flavor" information for PWMAngband.
-
-# Do not modify this file unless you know exactly what you are doing,
-# unless you wish to risk possible system crashes and broken savefiles.
-
 # === Understanding flavor.txt ===
 
 # kind:<tval>:<char>
@@ -401,3 +393,50 @@ kind:ring:=
 
 # Fixed: Black Ring of Power
 fixed:307:Black Ring of Power:Light Dark:Black
+
+##### Tangaria #####
+
+kind:amulet:"
+
+flavor:308:Light Dark:Chrysoberyl
+
+
+##### Scrolls #####
+# Scroll names are generated from randomly combined syllables
+
+kind:scroll:?
+
+flavor:309:White
+flavor:310:White
+flavor:311:White
+flavor:312:White
+flavor:313:White
+
+##### Mushrooms #####
+
+kind:mushroom:,
+
+flavor:314:Orange:Soft
+flavor:315:Red:Pimpled
+flavor:316:Pink:Beautiful
+flavor:317:Beige:Ordinary
+
+##### Potions #####
+
+kind:potion:!
+
+flavor:318:Red:Bloody
+flavor:319:Green:Acidulous
+flavor:320:Blue:Skyey
+flavor:321:White:Transparent
+flavor:322:Light Dark:Earthy
+flavor:323:Umber:Turbid
+flavor:324:Mud:Mucky
+flavor:325:Slate:Dusty
+flavor:326:Orange:Faded
+flavor:327:Purple:Luminous
+flavor:328:Teal:Bright
+flavor:329:Mustard:Sooty
+flavor:330:Yellow:Canary
+
+# when adding - check flvr-tan.prf

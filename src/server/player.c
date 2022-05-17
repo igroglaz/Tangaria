@@ -197,7 +197,10 @@ static void adjust_level(struct player *p)
             p->max_lev = p->lev;
 
             /* Message */
-            msgt(p, MSG_LEVEL, "Welcome to level %d.", p->lev);
+            if (p->max_lev == 50)
+                msgt(p, MSG_FANFARE, "Ding! Welcome to level %d.", p->lev);
+            else
+                msgt(p, MSG_LEVEL, "Welcome to level %d.", p->lev);
             strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 
@@ -208,6 +211,7 @@ static void adjust_level(struct player *p)
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_DEX, 0, 0, 0, 0, NULL);
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
+            effect_simple(EF_RESTORE_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
 
             /* Record this event in the character history */
             if (!(p->lev % 5))
@@ -245,6 +249,49 @@ static void adjust_level(struct player *p)
  */
 void player_exp_gain(struct player *p, int32_t amount)
 {
+    // Rogue class get exp faster (which make gameplay a bit harder)
+    if (streq(p->clazz->name, "Rogue") && p->lev < 50)
+        amount = (amount * 10) / 9;
+
+    // Endgame exp factors
+    if (p->lev > 48 && amount > 10)
+    {
+        // ... races:
+        if      (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||
+                 streq(p->race->name, "Dragon"))
+            amount /= 4;
+        else if (streq(p->race->name, "Ent") || streq(p->race->name, "Maiar") ||
+                 streq(p->race->name, "Beholder") || streq(p->race->name, "Wisp") ||
+                 streq(p->race->name, "Wraith"))
+            amount /= 3;
+        else if (streq(p->race->name, "High-Elf") || streq(p->race->name, "Thunderlord") ||
+                 streq(p->race->name, "Troll") || streq(p->race->name, "Naga") ||
+                 streq(p->race->name, "Balrog") || streq(p->race->name, "Half-Giant") ||
+                 streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem"))
+            amount /= 2;
+        else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
+                 streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
+            amount = (amount * 2) / 3;
+        else if (streq(p->race->name, "Black Numenorean") || streq(p->race->name, "Dunedain") ||
+                 streq(p->race->name, "Dark Elf") || streq(p->race->name, "Draconian"))
+            amount = (amount * 3) / 4;
+        // buff
+        else if (streq(p->race->name, "Human"))
+            amount = (amount * 3) / 2;
+
+        // ... classes:
+        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+                 streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever"))
+            amount /= 2;
+        else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
+                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
+            amount = (amount * 2) / 3;
+        else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
+                 streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||
+                 streq(p->clazz->name, "Wizard"))
+            amount = (amount * 3) / 4;
+    }
+
     /* Gain some experience */
     p->exp += amount;
 
@@ -271,6 +318,10 @@ void player_exp_lose(struct player *p, int32_t amount, bool permanent)
     /* Lose some experience */
     p->exp -= amount;
     if (permanent) p->max_exp -= amount;
+
+    // loose some satiation too
+    if (p->lev < 50)
+        player_dec_timed(p, TMD_FOOD, 20, false);
 
     /* Adjust experience levels */
     adjust_level(p);
@@ -315,6 +366,7 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
         of_on(f, OF_SUST_WIS);
         of_on(f, OF_SUST_DEX);
         of_on(f, OF_SUST_CON);
+        of_on(f, OF_SUST_CHR);
     }
 
     /* Handle polymorphed players */
@@ -385,6 +437,7 @@ void player_flags_timed(struct player *p, bitflag f[OF_SIZE])
     if (p->timed[TMD_FREE_ACT]) of_on(f, OF_FREE_ACT);
     if (p->timed[TMD_AFRAID] || p->timed[TMD_TERROR]) of_on(f, OF_AFRAID);
     if (p->timed[TMD_OPP_CONF]) of_on(f, OF_PROT_CONF);
+    if (p->timed[TMD_OPP_AMNESIA]) of_on(f, OF_PROT_AMNESIA);
 }
 
 

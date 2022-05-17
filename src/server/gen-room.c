@@ -1285,8 +1285,14 @@ static bool build_room_template(struct player *p, struct chunk *c, struct loc *c
             /* Lay down a floor */
             square_set_feat(c, &grid, FEAT_FLOOR);
 
+// subtile bug which crush server if we debug..
             /* Debugging assertion */
-            my_assert(square_isempty(c, &grid));
+//			my_assert(square_isempty(c, &grid));
+
+            if (!square_isempty(c, &grid))
+            {
+                int crush = 0; // catch me if you can
+            }
 
             /* Analyze the grid */
             switch (*t)

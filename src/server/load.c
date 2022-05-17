@@ -279,6 +279,7 @@ static struct object *rd_item(void)
     rd_byte(&obj->ordered);
     rd_s16b(&obj->decay);
     rd_byte(&obj->bypass_aware);
+    rd_byte(&obj->soulbound);
 
     rd_quark(&obj->origin_player);
 

@@ -73,29 +73,6 @@ static bool item_tester_uncursable(const struct object *obj)
 
 
 /*
- * Removes an individual curse from an object.
- */
-static void remove_object_curse(struct player *p, struct object *obj, int index, bool message)
-{
-    struct curse_data *c = &obj->curses[index];
-    char *name = curses[index].name;
-    int i;
-
-    memset(c, 0, sizeof(struct curse_data));
-    if (message) msg(p, "The %s curse is removed!", name);
-
-    /* Check to see if that was the last one */
-    for (i = 0; i < z_info->curse_max; i++)
-    {
-        if (obj->curses[i].power) return;
-    }
-
-    mem_free(obj->curses);
-    obj->curses = NULL;
-}
-
-
-/*
  * Attempts to remove a curse from an object.
  */
 static bool uncurse_object(struct player *p, struct object *obj, int strength)
@@ -115,8 +92,8 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     carried = object_is_carried(p, obj);
     loc_copy(&grid, &obj->grid);
 
-    /* Curse is permanent */
-    if (curse->power >= 100) return false;
+    // Curse is permanent
+    if (curse->power >= 100 || streq(p->clazz->name, "Unbeliever")) return false;
 
     /* Successfully removed this curse */
     if (strength >= curse->power)
@@ -523,6 +500,10 @@ static bool detect_monsters(struct player *p, int y_dist, int x_dist, monster_pr
         }
     }
 
+    // sound
+    if (monsters)
+        sound(p, MSG_DETECT);
+
     return monsters;
 }
 
@@ -692,7 +673,10 @@ static void player_turn_undead(struct player *p)
     restore_sp(p);
 
     /* Feed him */
-    player_set_timed(p, TMD_FOOD, PY_FOOD_FULL - 1, false);
+    //  player_set_timed(p, TMD_FOOD, PY_FOOD_FULL - 1, false);
+    // too fat.. instead lets do:
+    if (p->timed[TMD_FOOD] < 1500)
+        player_set_timed(p, TMD_FOOD, 1500, false);
 
     /* Cancel any WOR spells */
     p->word_recall = 0;
@@ -766,8 +750,9 @@ static int valid_inscription(struct player *p, const char *inscription, int curr
                 if ((3 == sscanf(inscription, "%d,%d%s", &grid.x, &grid.y, buf)) ||
                     (2 == sscanf(inscription, "%d,%d", &grid.x, &grid.y)))
                 {
-                    /* Forbid if no wilderness */
-                    if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall))
+                    // Forbid if no wilderness
+                    if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall) ||
+						player_has(p, PF_NO_RECALL))
                     {
                         /* Deactivate recall */
                         memcpy(&p->recall_wpos, &p->wpos, sizeof(struct worldpos));
@@ -881,6 +866,13 @@ static bool set_recall_depth(struct player *p, quark_t note, int current_value, 
 bool effect_handler_ACQUIRE(effect_handler_context_t *context)
 {
     int num = effect_calculate_value(context, false);
+
+    // Only on random levels
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You cannot get anything while on surface...");
+        return false;
+    }
 
     acquirement(context->origin->player, context->cave, num, 0);
     context->ident = true;
@@ -1044,6 +1036,9 @@ bool effect_handler_BIZARRE(effect_handler_context_t *context)
             player_stat_dec(context->origin->player, STAT_WIS, true);
             player_stat_dec(context->origin->player, STAT_DEX, true);
             player_stat_dec(context->origin->player, STAT_CON, true);
+            // + CHR
+            if (one_in_(50))
+                player_stat_dec(context->origin->player, STAT_CHR, true);
 
             /* Lose some experience (permanently) */
             player_exp_lose(context->origin->player, context->origin->player->exp / 4, true);
@@ -1372,16 +1367,506 @@ bool effect_handler_CREATE_ARROWS(effect_handler_context_t *context)
 }
 
 
-bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
+// Turn a items into gold
+
+bool effect_handler_SALVAGE(effect_handler_context_t *context)
 {
-    context->ident = true;
+    struct object *obj;
+    long int price_value;
+    int amt;
 
-    /* MAngband house creation code disabled for now */
-    /*return create_house(p);*/
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can salvage items only inside of the dungeon...");
+        return false;
+    }
 
-    return build_house(context->origin->player);
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_WEARABLE, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a wearable item */
+    if (!tval_is_wearable(obj)) return false;
+
+    // can't salvage worthless items
+    if (!obj->kind->cost) return false;
+
+    // no dark swords etc
+    if (tval_is_dark_sword(obj)) return false;
+    if (true_artifact_p(obj) && strstr(obj->artifact->name, "of Morgoth")) return false;
+    if (true_artifact_p(obj) && strstr(obj->artifact->name, "Grond")) return false;
+    if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return false;
+
+    // salvage progress with leveling
+    if (obj->ego && context->origin->player->lev < 20) return false;
+    else if (obj->artifact && context->origin->player->lev < 30) return false;
+    else if (true_artifact_p(obj) && context->origin->player->lev < 40) return false;
+
+    /* Amount */
+    amt = obj->number;
+    
+    // you need to spend some effort into the process
+    player_dec_timed(context->origin->player, TMD_FOOD, 100*amt, false);
+
+    /* Message */
+    msg(context->origin->player, "You salvage it into valuables..");
+
+    // value by price
+    price_value = (long)object_value(context->origin->player, obj, amt);
+
+    // player level factor
+    price_value /= 7 - (context->origin->player->lev / 10);
+
+    /* If you don't know object properties - can't salvage it properly */
+    if (!object_fully_known(context->origin->player, obj))
+        price_value /= 2;
+
+    // paranoia
+    if (price_value <= 0) price_value = 1;
+
+    // lvl adjustment
+    if (price_value > 100 && context->origin->player->lev < 10)
+        price_value = 100 + randint0(100);
+    else if (price_value > 200 && context->origin->player->lev < 20)
+        price_value = 200 + randint0(200);
+    else if (price_value > 300 && context->origin->player->lev < 30)
+        price_value = 300 + randint0(300);
+    else if (price_value > 500 && context->origin->player->lev < 40)
+        price_value = 500 + randint0(500);
+    else if (price_value > 1000 && context->origin->player->lev < 50)
+        price_value = 1000 + randint0(500);
+    else if (price_value > 1700 && context->origin->player->lev > 49)
+        price_value = 1700 + randint0(500);
+
+    if (obj->artifact)
+    {
+        // bonus for salvaging artifacts
+        price_value *= 2;
+        if (true_artifact_p(obj)) price_value *= 2;
+
+        // now properly delete artifacts
+        preserve_artifact_aux(obj);
+        history_lose_artifact(context->origin->player, obj);
+    }
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    // Make us rich!
+    context->origin->player->au += price_value;
+    context->origin->player->upkeep->redraw |= (PR_GOLD);
+
+    return true;
 }
 
+
+// Turn a reagents into potions
+
+bool effect_handler_ALCHEMY(effect_handler_context_t *context)
+{
+    struct object *obj, *new_potion;
+    int amt;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can brew potions only inside of the dungeon...");
+        return false;
+    }
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_REAGENT, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires an alchemy reagents */
+    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Herb")) &&
+        !(obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Mineral")))
+    {
+        msg(context->origin->player, "For alchemy you need ingredients.");
+        return false;
+    }
+
+    /* Amount */
+    amt = obj->number;
+    
+    /* Message */
+    msg(context->origin->player, "You brew %d potions...", amt);
+
+    /* Create the potions */
+    new_potion = object_new();
+
+    // What to brew
+    if (obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Herb"))
+    {
+        if (one_in_(2) && context->origin->player->lev > 9)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Polymorph"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 19)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Rejuvenation"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 29)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Resistance"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 39)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Plant Growth"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 49)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Haste"), 0, MINIMISE);
+        else
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Herbal Tea"), 0, MINIMISE);
+    }
+    else if (obj->kind == lookup_kind_by_name(TV_REAGENT, "Rare Mineral"))
+    {
+        if (one_in_(2) && context->origin->player->lev > 24)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Blast"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 34)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Explosion"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 44)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Deadly Poison"), 0, MINIMISE);
+        else if (one_in_(2) && context->origin->player->lev > 49)
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Devilry of Saruman"), 0, MINIMISE);
+        else
+            object_prep(context->origin->player, context->cave, new_potion, lookup_kind_by_name(TV_POTION, "Acid"), 0, MINIMISE);
+    }
+
+    new_potion->number = amt;
+
+    /* Set origin */
+    set_origin(new_potion, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    // make soulbound all except potions which should be tradable
+    if (!strstr(new_potion->kind->name, "Polymorph"))
+        new_potion->soulbound = true;
+
+    /* Pack is too full */
+    if (!inven_carry_okay(context->origin->player, new_potion))
+    {
+        object_delete(&new_potion);
+        msg(context->origin->player, "Your backpack if too full!");
+        return false;
+    }
+
+    /* Pack is too heavy */
+    if (!weight_okay(context->origin->player, new_potion))
+    {
+        object_delete(&new_potion);
+        msg(context->origin->player, "Your backpack if too heavy!");
+        return false;
+    }
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    /* Give it to the player */
+    inven_carry(context->origin->player, new_potion, true, true);
+
+    /* Handle stuff */
+    handle_stuff(context->origin->player);
+
+    return true;
+}
+
+
+// Craft items from resources (Crafter class)
+
+bool effect_handler_CRAFT(effect_handler_context_t *context)
+{
+    struct object *obj, *new_obj;
+    int amt;
+
+    /* Only on random levels */
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "You can craft items only inside of the dungeon...");
+        return false;
+    }
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_REAGENT, "");
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a reagent item */
+    if (!tval_is_reagent(obj)) return false;
+
+    /* Amount */
+    amt = obj->number;
+    
+    // type and number of reagent
+    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material")) && amt < 40)
+    {
+        msg(context->origin->player, "You need at least 40 crafting materials!");
+        return false;
+    }
+
+    // init object (to be able to wipe it)
+    new_obj = object_new();
+
+    // lets craft an item
+    do
+    {
+        // wipe it for trueart case (in 'while')
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+            object_wipe(new_obj);
+        }
+        // now crafting progress with leveling
+        //1-9
+        if (context->origin->player->lev < 10)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        //10-19
+        else if (context->origin->player->lev < 20 && one_in_(3))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        else if (context->origin->player->lev < 20)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        //20-29
+        else if (context->origin->player->lev < 30 && one_in_(2))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        else if (context->origin->player->lev < 30)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        // 30-39
+        else if (context->origin->player->lev < 40)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        // 40-49
+        else if (context->origin->player->lev < 50 && one_in_(3))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
+        else if (context->origin->player->lev < 50)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        // 50
+        else if (context->origin->player->lev > 49 && one_in_(3))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, true, NULL, 0);
+        else if (context->origin->player->lev > 49 && one_in_(2))
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
+        else if (context->origin->player->lev > 49)
+            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+    }
+    // as we make sounbounded items, the only way to get rid of them is 'k'
+    // but 'k' won't work on true arts, so we reroll if we crafted it
+    // (also crafting true arts is bad for lore)
+    while (true_artifact_p(new_obj));
+
+    set_origin(new_obj, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    // make soulbound
+    new_obj->soulbound = true;
+
+    /* Pack is too full */
+    if (!inven_carry_okay(context->origin->player, new_obj))
+    {
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+        }
+        object_delete(&new_obj);
+        msg(context->origin->player, "Your backpack if too full!");
+        return false;
+    }
+
+    /* Pack is too heavy */
+    if (!weight_okay(context->origin->player, new_obj))
+    {
+        if (new_obj->artifact)
+        {
+            preserve_artifact_aux(new_obj);
+            history_lose_artifact(context->origin->player, new_obj);
+        }
+        object_delete(&new_obj);
+        msg(context->origin->player, "Your backpack if too heavy!");
+        return false;
+    }
+
+    /* Message */
+    msg(context->origin->player, "You make an attempt to craft an item..");
+
+    // ID it
+    object_know_everything(context->origin->player, new_obj);    
+
+    /* Give it to the player */
+    inven_carry(context->origin->player, new_obj, true, true);
+
+    /* Handle stuff */
+    handle_stuff(context->origin->player);
+    
+    // you need to spend some effort into the process
+    player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+
+    /* Spend materials */
+    use_object(context->origin->player, obj, amt, false);
+
+    return true;
+}
+
+
+bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
+{
+    int small_house = 0;
+    context->ident = true;
+
+    /* MAngband house creation */
+    return create_house(context->origin->player, small_house);
+    
+    /* PWMAngband house creation */
+//  return build_house(context->origin->player);
+}
+
+
+bool effect_handler_CREATE_SMALL_HOUSE(effect_handler_context_t *context)
+{
+    int small_house = 1;
+    context->ident = true;
+
+    /* MAngband house creation */
+    return create_house(context->origin->player, small_house);
+
+}
+
+
+// Create potions of holy water from any potion
+
+bool effect_handler_CREATE_HOLY_WATER(effect_handler_context_t *context)
+{
+    struct object *obj, *holy_water;
+    int amt;
+
+    /* Get an item */
+    if (context->origin->player->current_value == ITEM_REQUEST)
+    {
+        get_item(context->origin->player, HOOK_POISON, ""); // we use POISON, but actually it's POTION :)
+        return false;
+    }
+
+    /* Use current */
+    obj = object_from_index(context->origin->player, context->origin->player->current_value, true,
+        true);
+
+    /* Paranoia: requires an item */
+    if (!obj) return false;
+
+    /* Restricted by choice */
+    if (!object_is_carried(context->origin->player, obj) && !is_owner(context->origin->player, obj))
+    {
+        msg(context->origin->player, "This item belongs to someone else!");
+        return false;
+    }
+
+    /* Must meet level requirement */
+    if (!object_is_carried(context->origin->player, obj) &&
+        !has_level_req(context->origin->player, obj))
+    {
+        msg(context->origin->player, "You don't have the required level!");
+        return false;
+    }
+
+    /* Paranoia: requires a potion */
+    if (!tval_is_potion(obj)) return false;
+
+    // Can't turn it again
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Holy Water"))
+    {
+        msg(context->origin->player, "That's already blessed enough.");
+        return false;
+    }
+
+    /* Amount */
+    amt = obj->number;
+    
+    // gods require some sacrifice for miracles
+    player_dec_timed(context->origin->player, TMD_FOOD, 100*amt, false);
+
+    /* Message */
+    msg(context->origin->player, "You create %d potions of holy water.", amt);
+
+    /* Eliminate the item */
+    use_object(context->origin->player, obj, amt, false);
+
+    /* Create the potions */
+    holy_water = object_new();
+    object_prep(context->origin->player, context->cave, holy_water,
+        lookup_kind_by_name(TV_POTION, "Holy Water"), 0, MINIMISE);
+    holy_water->number = amt;
+
+    /* Set origin */
+    set_origin(holy_water, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
+
+    drop_near(context->origin->player, context->cave, &holy_water, 0, &context->origin->player->grid,
+        true, DROP_FADE, true);
+
+    return true;
+}
 
 /*
  * Create potions of poison from any potion
@@ -1433,6 +1918,10 @@ bool effect_handler_CREATE_POISON(effect_handler_context_t *context)
     /* Amount */
     amt = obj->number;
 
+    // Occasionally restore some mana
+    if (one_in_(2))
+        context->origin->player->csp += (10 * amt) + (context->origin->player->lev / 2);
+
     /* Message */
     msg(context->origin->player, "You create %d potions of poison.", amt);
 
@@ -1453,7 +1942,6 @@ bool effect_handler_CREATE_POISON(effect_handler_context_t *context)
 
     return true;
 }
-
 
 /*
  * Create stairs at the player location
@@ -1597,7 +2085,7 @@ bool effect_handler_CURSE_ARMOR(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "body");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -1650,7 +2138,7 @@ bool effect_handler_CURSE_WEAPON(effect_handler_context_t *context)
     obj = equipped_item_by_slot_name(context->origin->player, "weapon");
 
     /* Nothing to curse */
-    if (!obj)
+    if (!obj || streq(context->origin->player->clazz->name, "Unbeliever"))
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -1750,6 +2238,9 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     /* Darken the room */
     light_room(context->origin->player, context->cave, &target, false);
 
+    if (streq(context->origin->player->clazz->name, "Warlock"))
+        context->origin->player->chp += 1;
+
     /* Hack -- blind the player directly if player-cast */
     if (!context->origin->monster)
     {
@@ -1760,6 +2251,36 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
 
     /* Assume seen */
     context->ident = !decoy_unseen;
+
+    return true;
+}
+
+// forget level
+bool effect_handler_FORGET_LEVEL(effect_handler_context_t *context)
+{
+    bool full = (context->other? true: false);
+
+    if (one_in_(2))
+        return true;
+
+    /* No effect outside of the dungeon during day */
+    if ((context->origin->player->wpos.depth == 0) && is_daytime())
+    {
+        msg(context->origin->player, "Nothing happens.");
+        return true;
+    }
+
+    /* No effect on special levels */
+    if (special_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "Nothing happens.");
+        return true;
+    }
+
+    if (full)
+        msg(context->origin->player, "Your mind suddenly become blank... you don't remember this place.");
+    wiz_forget(context->origin->player, context->cave, full);
+    context->ident = true;
 
     return true;
 }
@@ -1992,6 +2513,18 @@ bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    // Detect works starting with dlvl 20...
+    // ..and player must be good in searching.
+    // On high dlvl detect doors works always.
+    // (note: mages of good searching races shouldn't have problem)
+    if (context->cave->wpos.depth < 20 ||
+        (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
+        context->cave->wpos.depth < 60))
+    {
+        msg(context->origin->player, "You are not so good in searching yet to detect doors with magic.");
+        return false;
+    }            
+
     /* Pick an area to map */
     y1 = context->origin->player->grid.y - context->y;
     y2 = context->origin->player->grid.y + context->y;
@@ -2125,6 +2658,46 @@ bool effect_handler_DETECT_FEARFUL_MONSTERS(effect_handler_context_t *context)
     }
     else if (context->aware)
         msg(context->origin->player, "You smell no fear in the air.");
+
+    context->ident = true;
+    return true;
+}
+
+
+
+// Detect monsters animals around the player. The height to detect
+// above and below the player is context->y, the width either side of
+// the player context->x
+
+bool effect_handler_DETECT_ANIMALS(effect_handler_context_t *context)
+{
+    bool monsters = detect_monsters(context->origin->player, context->y, context->x,
+        monster_is_animal, 0, NULL);
+
+    /* Note effects and clean up */
+    if (monsters)
+    {
+        /* Hack -- fix the monsters */
+        update_monsters(context->cave, false);
+
+        /* Full refresh (includes monster/object lists) */
+        context->origin->player->full_refresh = true;
+
+        /* Handle Window stuff */
+        handle_stuff(context->origin->player);
+
+        /* Normal refresh (without monster/object lists) */
+        context->origin->player->full_refresh = false;
+
+        /* Describe, and wait for acknowledgement */
+        msg(context->origin->player, "You feel animals around.");
+        party_msg_near(context->origin->player, " senses the presence of animals!");
+
+        /* Hack -- pause */
+        if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
+    }
+    else if (context->aware)
+        msg(context->origin->player, "You smell no animal scent in the air.");
 
     context->ident = true;
     return true;
@@ -2440,6 +3013,16 @@ bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    // detect traps works starting with 20 lvl and depends on searching skills.
+    // At dlvl 60+ it works for all players alright.
+    if (context->cave->wpos.depth < 20 || 
+       (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
+        context->cave->wpos.depth < 60))
+    {
+        msg(context->origin->player, "You are not so good in searching to detect traps with magic.");
+        return false;
+    }
+
     /* Pick an area to map */
     y1 = context->origin->player->grid.y - context->y;
     y2 = context->origin->player->grid.y + context->y;
@@ -2449,7 +3032,7 @@ bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     loc_init(&begin, x1, y1);
     loc_init(&end, x2, y2);
     loc_iterator_first(&iter, &begin, &end);
-
+    
     /* Scan the dungeon */
     do
     {
@@ -2541,6 +3124,13 @@ bool effect_handler_DETECT_TREASURES(effect_handler_context_t *context)
     bool full = (context->radius? true: false);
     struct loc begin, end;
     struct loc_iterator iter;
+
+    // DETECT_TREASURES doesn't work in labyrinths (#6 in list-dun-profiles.h)
+    if (context->cave->profile == 6)
+    {
+        msg(context->origin->player, "It is too tangled maze to detect something..");
+        return true;
+    }
 
     /* Hack -- DM has full detection */
     if (context->origin->player->dm_flags & DM_SEE_LEVEL) full = true;
@@ -2754,7 +3344,7 @@ bool effect_handler_DRAIN_LIGHT(effect_handler_context_t *context)
         /* Notice */
         if (!context->origin->player->timed[TMD_BLIND])
         {
-            msg(context->origin->player, "Your light dims.");
+            msgt(context->origin->player, MSG_MON_DEVOUR, "O__* Your light dims.");
             context->ident = true;
         }
 
@@ -2765,6 +3355,36 @@ bool effect_handler_DRAIN_LIGHT(effect_handler_context_t *context)
     return true;
 }
 
+// Player spend some mana on spell
+bool effect_handler_SPEND_MANA(effect_handler_context_t *context)
+{
+    int drain = effect_calculate_value(context, false);
+    int old_num = get_player_num(context->origin->player);
+
+    // if no mana - paralyze
+    if (!context->origin->player->csp)
+        player_inc_timed(context->origin->player, TMD_PARALYZED, 1, true, true);
+
+    /* Drain the given amount if the player has that much, or all of it */
+    if (drain >= context->origin->player->csp)
+    {
+        drain = context->origin->player->csp;
+        context->origin->player->csp = 0;
+        context->origin->player->csp_frac = 0;
+        player_clear_timed(context->origin->player, TMD_MANASHIELD, true);
+    }
+    else
+        context->origin->player->csp -= drain;
+
+    /* Hack -- redraw picture */
+    redraw_picture(context->origin->player, old_num);
+    
+    /* Redraw mana */
+    context->origin->player->upkeep->redraw |= (PR_MANA);
+
+    context->self_msg = NULL;
+    return true;
+}
 
 /*
  * Drain mana from the player, healing the caster.
@@ -3052,6 +3672,27 @@ bool effect_handler_GAIN_STAT(effect_handler_context_t *context)
 
     /* Attempt to increase */
     if (player_stat_inc(context->origin->player, stat))
+    {
+        /* Message */
+        msg(context->origin->player, "You feel very %s!", desc_stat(stat, true));
+    }
+
+    /* Notice */
+    context->ident = true;
+
+    return true;
+}
+
+
+
+// Lose a stat point. The stat index is context->subtype
+
+bool effect_handler_LOSE_STAT(effect_handler_context_t *context)
+{
+    int stat = context->subtype;
+
+    /* Attempt to increase */
+    if (player_stat_dec(context->origin->player, stat, true))
     {
         /* Message */
         msg(context->origin->player, "You feel very %s!", desc_stat(stat, true));
@@ -3534,7 +4175,7 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     amount *= z_info->food_value;
 
     /* Increase food level by amount */
-    if (context->subtype == 0)
+    if ((context->subtype == 0) && !streq(context->origin->player->race->name, "Ent"))
         player_inc_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false, false);
 
     /* Decrease food level by amount */
@@ -3603,6 +4244,8 @@ bool effect_handler_POLY_RACE(effect_handler_context_t *context)
         player_stat_dec(context->origin->player, STAT_CON, true);
         player_stat_dec(context->origin->player, STAT_STR, true);
         player_stat_dec(context->origin->player, STAT_INT, true);
+        // + CHR
+        player_stat_dec(context->origin->player, STAT_CHR, true);
 
         /* Fail if too powerful */
         if (magik(race->level)) return true;
@@ -3754,8 +4397,9 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
 
     context->ident = true;
 
-    /* No recall */
-    if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall)) &&
+    // No recall
+        if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
+		player_has(context->origin->player, PF_NO_RECALL)) &&
         !context->origin->player->total_winner)
     {
         msg(context->origin->player, "Nothing happens.");
@@ -4552,15 +5196,17 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
         return !used;
     }
 
-    /* Check for a no teleport grid */
-    if (square_isno_teleport(context->cave, &start) && !safe_ghost)
+    // Check for a no teleport grid
+    if (square_isno_teleport(context->cave, &start) && !safe_ghost &&
+        !streq(context->origin->player->clazz->name, "Phaseblade"))
     {
         if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
         return !used;
     }
 
-    /* Check for a limited teleport grid */
-    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10))
+    // Check for a limited teleport grid
+    if (square_limited_teleport(context->cave, &start) && !safe_ghost && (dis > 10) &&
+        !streq(context->origin->player->clazz->name, "Phaseblade"))
     {
         if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
         return !used;
@@ -4638,6 +5284,12 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     /* Randomise the distance a little */
     if (one_in_(2)) dis -= randint0(dis / 4);
     else dis += randint0(dis / 4);
+
+    // 'Roll' and 'Hit-and-Run' (mana 1)
+    if (is_player && (streq(context->origin->player->clazz->name, "Scavenger") ||
+         streq(context->origin->player->clazz->name, "Phaseblade")) &&
+        context->origin->player->spell_cost == 1)
+        d_min = 2;
 
     /* Try very hard to move the player/monster between dis / 4 and dis grids away */
     if (dis <= d_min) d_max = d_min;
@@ -4721,7 +5373,10 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
 
     /* Sound */
     if (context->origin->player)
-        sound(context->origin->player, (is_player? MSG_TELEPORT: MSG_TPOTHER));
+        if (dis < 11)
+            sound(context->origin->player, MSG_PHASE_DOOR);
+        else
+            sound(context->origin->player, (is_player? MSG_TELEPORT: MSG_TPOTHER));
 
     /* Report the teleporting before moving the monster */
     if (!is_player)
@@ -4741,6 +5396,10 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
         if (monster_is_camouflaged(context->origin->monster))
             become_aware(context->origin->player, context->cave, context->origin->monster);
     }
+
+    // Unsummon minions after teleporting far away to prevent cheezing (killing unaware mobs by minions)
+    if (is_player && dis > 10 && context->origin->player->slaves > 0)
+        player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Move the target */
     monster_swap(context->cave, &start, &iter.cur);
@@ -4963,6 +5622,10 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
         new_level_method = LEVEL_RAND;
     }
+
+    // Unsummon minions after teleport to prevent cheezing (killing unaware mobs by minions)
+    if (context->origin->player->slaves > 0)
+        player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Tell the player */
     msgt(context->origin->player, MSG_TPLEVEL, message);
@@ -5438,6 +6101,39 @@ bool effect_handler_WAKE(effect_handler_context_t *context)
 }
 
 
+
+// Create a player's SPIDER race creates WEB.
+
+bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
+{
+    /* Always notice */
+    context->ident = true;
+
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Floor grid with no existing traps or glyphs; open and no objects */
+    if (square_isplayertrap(context->cave, &context->origin->player->grid) ||
+       !square_isanyfloor(context->cave, &context->origin->player->grid) ||
+        square_object(context->cave, &context->origin->player->grid))
+    {
+        msg(context->origin->player, "You cannot weave webs here...");
+        return false;
+    }
+
+    /* Create a web */
+    square_add_web(context->cave, &context->origin->player->grid);
+    msg_misc(context->origin->player, " weaves a web.");
+
+    player_dec_timed(context->origin->player, TMD_FOOD, 25, false);
+
+    return true;
+}
+
 /*
  * Create a web.
  */
@@ -5448,6 +6144,14 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     struct loc begin, end, grid;
     struct loc_iterator iter;
     int spell_power;
+
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        if (context->origin->player)
+            msg(context->origin->player, "Pointless to weave webs here...");
+        return false;
+    }
 
     if (mon)
     {
@@ -5487,6 +6191,15 @@ bool effect_handler_WEB(effect_handler_context_t *context)
         square_add_web(context->cave, &iter.cur);
     }
     while (loc_iterator_next(&iter));
+
+    // if player weave web - reduce his satiation greatly
+    if (!mon)
+    {   
+        if (streq(context->origin->player->race->name, "Spider"))
+            player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+        else
+            player_dec_timed(context->origin->player, TMD_FOOD, 450, false);
+    }
 
     return true;
 }

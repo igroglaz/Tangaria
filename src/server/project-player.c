@@ -17,6 +17,24 @@
  *    are included in all such copies.  Other copyrights may also apply.
  */
 
+/*
+
+! This code _mainly_ for PvP
+
+eg in monster-spell.txt:
+
+effect:TIMED_INC:AMNESIA
+dice:8
+effect:PROJECT:FORGET
+dice:5+1d5
+
+first line is monster -> player
+second line is PvP.
+
+So all PROJECT is PvP.
+
+*/
+
 
 #include "s-angband.h"
 
@@ -94,8 +112,24 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     if (dam <= 0) return 0;
 
-    /* Immune */
-    if (resist == 3) return 0;
+    // Immune
+    if (resist == 3)
+    {
+        // I'm not sure does resistances' limits (damage-cap) works at this
+        // particular stage.. So cap just in case:
+        if (dam > 1600) dam = 1600;
+
+        // custom vulnerable races
+        if (p && streq(p->race->name, "Ent") && (type == PROJ_FIRE))
+            dam /= 10;
+        // everyone else with immunity
+        else
+            dam /= 15;
+
+        // should make at least 1 damage
+        if (dam < 1) dam = 1;
+        return dam;
+    }
 
     /* Hack -- acid damage is halved by armour */
     if ((type == PROJ_ACID) && p && minus_ac(p)) dam = (dam + 1) / 2;
@@ -178,6 +212,7 @@ static void project_player_drain_stats(struct player *p, int num)
             case 3: k = STAT_WIS; act = "wise"; break;
             case 4: k = STAT_DEX; act = "agile"; break;
             case 5: k = STAT_CON; act = "hale"; break;
+            case 6: k = STAT_CHR; act = "beautiful"; break;
         }
 
         msg(p, "You're not as %s as you used to be...", act);
@@ -191,7 +226,8 @@ void project_player_time_effects(struct player *p, struct source *who)
     /* Life draining */
     if (one_in_(2))
     {
-        int drain = 100 + (p->exp / 100) * z_info->life_drain_percent;
+        int drain = (100 + (p->exp / 100) * z_info->life_drain_percent) -
+        randint0(p->state.stat_ind[STAT_CHR]);
 
         msg(p, "You feel your life force draining away!");
         player_exp_lose(p, drain, false);
@@ -502,7 +538,7 @@ static int project_player_handler_DARK(project_player_handler_context_t *context
         }
 
         /* Amnesia */
-        if (randint0(context->dam) > 300)
+        if (randint0(context->dam) > 300 && !player_of_has(p, OF_PROT_AMNESIA))
         {
             msg(p, "Darkness penetrates your mind!");
             player_inc_timed(p, TMD_AMNESIA, context->dam / 100, true, false);
@@ -890,7 +926,8 @@ static int project_player_handler_PLASMA(project_player_handler_context_t *conte
     }
 
     /* Stun */
-    player_inc_timed(p, TMD_STUN, MIN(5 + randint1(context->dam * 3 / 4), 35), true, check);
+    if (one_in_(2)) // make it more rare to prevent plasma hounds insta-stun
+        player_inc_timed(p, TMD_STUN, MIN(5 + randint1(context->dam * 3 / 4), 35), true, check);
 
     return 0;
 }
@@ -1359,7 +1396,8 @@ static int project_player_handler_FORGET(project_player_handler_context_t *conte
     struct player *p = player_get(0 - square(context->cave, &context->grid)->mon);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 8, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))
+        player_inc_timed(p, TMD_AMNESIA, 8, true, true);
 
     return 0;
 }
@@ -1376,7 +1414,8 @@ static int project_player_handler_BLAST(project_player_handler_context_t *contex
         player_inc_timed(p, TMD_CONFUSED, 3 + randint1(4), true, true);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 4, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))    
+        player_inc_timed(p, TMD_AMNESIA, 4, true, true);
 
     return 0;
 }
@@ -1408,7 +1447,8 @@ static int project_player_handler_SMASH(project_player_handler_context_t *contex
         player_inc_timed(p, TMD_PARALYZED, 3 + randint1(4), true, true);
 
     /* Amnesia */
-    player_inc_timed(p, TMD_AMNESIA, 4, true, true);
+    if (!player_of_has(p, OF_PROT_AMNESIA))
+        player_inc_timed(p, TMD_AMNESIA, 4, true, true);
 
     return 0;
 }

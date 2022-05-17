@@ -293,6 +293,8 @@ extern struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min
     int min_width);
 extern struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width);
+extern struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height,
+    int min_width);
 extern struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width);
 extern struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
@@ -370,6 +372,9 @@ extern uint8_t get_angle_to_grid[41][41];
 extern int grid_to_i(struct loc *grid, int w);
 extern void i_to_grid(int i, int w, struct loc *grid);
 extern void shuffle(int *arr, int n);
+extern int *cave_find_init(struct loc *top_left, struct loc *bottom_right);
+extern void cave_find_reset(int *state);
+extern bool cave_find_get_grid(struct loc *grid, int *state);
 extern bool cave_find_in_range(struct chunk *c, struct loc *grid, struct loc *top_left,
     struct loc *bottom_right, square_predicate pred);
 extern bool cave_find(struct chunk *c, struct loc *grid, square_predicate pred);

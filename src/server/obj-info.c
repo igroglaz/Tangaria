@@ -323,7 +323,13 @@ static bool describe_misc_magic(struct player *p, const bitflag flags[OF_SIZE])
         {
             continue;
         }
-        if (of_has(flags, prop->index) && prop->desc)
+        // perma-sticky in red ink..
+        if (of_has(flags, prop->index) && prop->desc && streq(prop->name, "stuck on"))
+        {
+            text_out_c(p, COLOUR_L_RED, "%s! ", prop->desc);
+            printed = true;
+        }
+        else if (of_has(flags, prop->index) && prop->desc)
         {
             text_out(p, "%s. ", prop->desc);
             printed = true;
@@ -1605,7 +1611,8 @@ static bool describe_effect(struct player *p, const struct object *obj, bool onl
             text_out(p, "When activated, it ");
         print_effect(p, obj->activation->desc);
     }
-    else
+    // except food (to hide enormous food properties which ruins narrative)
+    else if (!tval_is_food_k(obj->kind))
     {
         /* Get descriptions for all the effects */
         effect = object_effect(obj);
@@ -1913,7 +1920,11 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
     {
         text_out(p, "\n");
         if (obj->owner > 0) text_out(p, "Owner: %s\n", lookup_player_name(obj->owner));
-        text_out_c(p, COLOUR_L_RED, "Level requirement: %d", obj->level_req);
+        // T: make text red only if can't wear item
+        if (p->lev >= obj->level_req)
+            text_out_c(p, COLOUR_L_WHITE, "Level requirement: %d", obj->level_req);
+        else
+            text_out_c(p, COLOUR_L_RED, "Level requirement: %d", obj->level_req);
     }
 
     /* Preferred price */

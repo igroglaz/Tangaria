@@ -1301,8 +1301,9 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
     if (!drop_find_grid(p, c, *dropped, mode, prefer_pile, &best)) return;
 
     /* Check houses */
-    if (true_artifact_p(*dropped) || tval_can_have_timeout(*dropped) || tval_is_light(*dropped))
-        in_house = location_in_house(&c->wpos, &best);
+    // if (true_artifact_p(*dropped) || tval_can_have_timeout(*dropped) || tval_is_light(*dropped))
+    // in T we always want to check is it house or not to determine sound
+    in_house = location_in_house(&c->wpos, &best);
 
     /* Process true artifacts */
     if (true_artifact_p(*dropped))
@@ -1376,7 +1377,53 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
     if (floor_carry(p, c, &best, *dropped, &dont_ignore))
     {
         /* Sound */
-        if (p) sound(p, MSG_DROP);
+        if (p)
+        {
+            if (in_house)
+                sound(p, MSG_DROP_IN_HOUSE);
+            else if (tval_is_weapon(*dropped))
+            {
+                if ((*dropped)->tval == TV_SWORD)
+                    sound(p, MSG_ITEM_BLADE);
+                else if ((*dropped)->tval == TV_BOW || tval_is_mstaff(*dropped))
+                    sound(p, MSG_ITEM_WOOD);
+                else if ((((*dropped)->tval == TV_HAFTED) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Whip"))) ||
+                         (((*dropped)->tval == TV_BOW) && ((*dropped)->sval == lookup_sval((*dropped)->tval, "Sling"))))
+                             sound(p, MSG_ITEM_WHIP);
+                else if ((*dropped)->tval == TV_ARROW || (*dropped)->tval == TV_BOLT || (*dropped)->tval == TV_SHOT)
+                    sound(p, MSG_QUIVER);
+                else
+                    sound(p, MSG_DROP);
+            }
+            else if (tval_is_body_armor(*dropped))
+            {
+                if ((*dropped)->weight < 121)
+                    sound(p, MSG_ITEM_LIGHT_ARMOR);
+                else if ((*dropped)->weight < 251)
+                    sound(p, MSG_ITEM_MEDIUM_ARMOR);
+                else
+                    sound(p, MSG_ITEM_HEAVY_ARMOR);
+            }
+            else if (tval_is_armor(*dropped))
+            {
+                if ((*dropped)->tval == TV_CROWN)
+                    sound(p, MSG_DROP);
+                else if ((*dropped)->weight < 25 || (*dropped)->tval == TV_SHIELD || (*dropped)->tval == TV_CLOAK)
+                        sound(p, MSG_ITEM_LIGHT_ARMOR);
+                else if ((*dropped)->weight < 51)
+                    sound(p, MSG_ITEM_MEDIUM_ARMOR);
+                else
+                    sound(p, MSG_ITEM_HEAVY_ARMOR);
+            }
+            else if (tval_is_ring(*dropped))
+                sound(p, MSG_ITEM_RING);
+            else if (tval_is_amulet(*dropped))
+                sound(p, MSG_ITEM_AMULET);
+            else if (tval_is_money(*dropped))
+                sound(p, MSG_DROP_GOLD);
+            else
+                sound(p, MSG_DROP);
+        }
 
         /* Message when an object falls under a player */
         if (dont_ignore) msg(q, "You feel something roll beneath your feet.");

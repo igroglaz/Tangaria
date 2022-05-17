@@ -78,7 +78,7 @@ extern bool effect_describe(struct player *p, const struct object *obj, const st
 extern struct effect *effect_next(struct effect *effect, void *data);
 extern bool effect_damages(const struct effect *effect, void *data, const char *name);
 extern int effect_avg_damage(const struct effect *effect, void *data, const char *name,
-    bool *have_shared, random_value *shared_rv);
+    const random_value *shared_rv);
 extern const char *effect_projection(const struct effect *effect, void *data);
 extern struct effect_object_property *effect_summarize_properties(struct player *p,
     const struct effect *ef, int *unsummarized_count);

@@ -1,6 +1,3 @@
-# File: object_property.txt
-
-
 # === Understanding object_property.txt ===
 
 # name: the property name
@@ -67,6 +64,33 @@ mult:15
 adjective:healthy
 neg-adjective:sickly
 
+name:charisma
+type:stat
+code:CHR
+power:5
+#mult:10
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+adjective:beautiful
+neg-adjective:ugly
+
 name:mana capacity
 type:mod
 code:MANA
@@ -103,6 +127,7 @@ code:SPEED
 power:20
 mult:6
 
+#physical only
 name:damage reduction
 type:mod
 code:DAM_RED
@@ -281,6 +306,15 @@ power:8
 msg:Your {name} glows.
 short-desc:Sust CON
 
+name:sustain charisma
+type:flag
+subtype:sustain
+id-type:on effect
+code:SUST_CHR
+power:8
+msg:Your {name} glows.
+short-desc:Sust CHR
+
 name:protection from fear
 type:flag
 subtype:protection
@@ -326,7 +360,27 @@ type:flag
 subtype:misc ability
 id-type:timed
 code:SLOW_DIGEST
-power:2
+#power:2
+power:16
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
 msg:You realise your {name} is slowing your metabolism.
 desc:Slows your metabolism
 short-desc:Slow Digest
@@ -346,7 +400,7 @@ type:flag
 subtype:misc ability
 id-type:timed
 code:REGEN
-power:5
+power:7
 msg:You note that your {name} is speeding up your recovery.
 type-mult:horn:2
 type-mult:digger:2
@@ -617,6 +671,25 @@ subtype:bad
 id-type:timed
 code:DRAIN_EXP
 power:-5
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
 msg:You sense your {name} is draining your life.
 desc:Drains experience
 
@@ -1206,3 +1279,149 @@ name:cold immunity
 type:immunity
 code:COLD
 power:43
+
+# Tangaria
+
+name:hunger
+type:flag
+subtype:bad
+id-type:timed
+code:HUNGER
+power:-3
+msg:You realise your {name} makes you want to eat more food.
+desc:Makes you need more food
+short-desc:Hunger
+
+name:hunger 2
+type:flag
+subtype:bad
+id-type:timed
+code:HUNGER_2
+power:-3
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:You realise your {name} makes you want to eat more food.
+desc:Makes you need more food
+short-desc:Hunger
+
+name:slow digestion 2
+type:flag
+subtype:misc ability
+id-type:timed
+code:SLOW_DIGEST_2
+power:16
+msg:You realise your {name} is slowing your metabolism.
+desc:Slows your metabolism
+short-desc:Slow Digest
+
+name:cant fly
+type:flag
+subtype:bad
+id-type:on effect
+code:CANT_FLY
+power:-3
+msg:Your {name} prevents you from flying.
+desc:Prevents flying
+
+name:no drop
+type:flag
+subtype:other
+id-type:on wield
+code:NO_DROP
+power:-5
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:One does not simply drop {name}..
+desc:You don't want to drop it on the ground
+
+name:protection from amnesia
+type:flag
+subtype:protection
+id-type:on effect
+code:PROT_AMNESIA
+power:16
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:Your {name} clears your mind.
+desc:amnesia
+short-desc:Amnes
+
+name:flying
+type:flag
+subtype:misc ability
+id-type:on wield
+code:FLYING
+power:20
+# only boots, cloak and pre-defined in object.txt ring
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+#type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+#type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:Your {name} makes you levitate a few feet above the floor.
+desc:Makes you levitate a few feet above the floor.

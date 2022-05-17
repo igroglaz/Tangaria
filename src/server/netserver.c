@@ -454,6 +454,7 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
     {
         connp->account = account;
         connp->real = string_make(real);
+        connp->nick_account = string_make(nick);
         connp->nick = string_make(nick);
         connp->host = string_make(host);
         connp->pass = string_make(pass);
@@ -571,7 +572,7 @@ static void Contact_cancel(int fd, char *reason)
 {
     plog(reason);
     remove_input(fd);
-    close(fd);
+    _close(fd);
 }
 
 
@@ -1031,7 +1032,7 @@ static void wipe_connection(connection_t *connp)
     /* Restore */
     if (has_setup)
     {
-        connp->has_setup = has_setup;
+        connp->has_setup = true;
         connp->Client_setup.k_attr = k_attr;
         connp->Client_setup.r_attr = r_attr;
         connp->Client_setup.f_attr = f_attr;
@@ -3378,7 +3379,11 @@ int Send_flush(struct player *p, bool fresh, char delay)
     if (connp == NULL) return 0;
 
     /* Hack -- don't display animations if fire_till_kill is enabled */
-    if (p->firing_request) delay = 0;
+    // To ensure that rng won't bring fatal chance we also flush every half-turn
+    // Tests: !one_in_8 works with 60 speed & 4.4 shots/turn with Long bow max distance;
+    // but we will use !one_in_9 just in case.
+    if (p->firing_request && (!one_in_(8) || p->game_turn.turn % 32 == 0))
+        delay = 0;
 
     return Packet_printf(&connp->c, "%b%c%c", (unsigned)PKT_FLUSH, (int)fresh, (int)delay);
 }
@@ -6457,7 +6462,7 @@ static int Receive_play(int ind)
         else if (ptr->account && (ptr->account != connp->account))
         {
             plog("Invalid account");
-            Destroy_connection(ind, "Invalid account");
+            Destroy_connection(ind, "Invalid account (name already used by another player)");
             return -1;
         }
 
@@ -6829,6 +6834,9 @@ static int Receive_message(int ind)
     p = player_get(get_player_index(connp));
 
     do_cmd_message(p, buf);
+
+    // sound
+    sound(p, MSG_MESSAGE);
 
     return 1;
 }
@@ -7232,7 +7240,8 @@ static int Receive_store_leave(int ind)
         p->upkeep->redraw |= (PR_BASIC | PR_EXTRA | PR_MAP | PR_SPELL);
         set_redraw_equip(p, NULL);
 
-        sound(p, MSG_STORE_LEAVE);
+        // T: moved this sound down a bit
+        // sound(p, MSG_STORE_LEAVE);
 
         /* Update store info */
         message_flush(p);
@@ -7274,6 +7283,17 @@ static int Receive_store_leave(int ind)
                 monster_swap(c, &p->grid, &grid);
                 handle_stuff(p);
             }
+
+            // "standart" store leave sound should play only for pstores
+            // (as we can speak NPCs which are not behind doors)
+            if (s->type == STORE_PLAYER)
+                sound(p, MSG_STORE_LEAVE);
+
+            // empty sound to break sound loop .ogg0 (see: SDL_CHUNK_LOOP)
+            sound(p, MSG_SILENT0);
+
+            /* Restore music volume */
+            sound(p, MSG_SILENT101);
 
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());

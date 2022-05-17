@@ -622,8 +622,8 @@ bool effect_damages(const struct effect *effect, void *data, const char *name)
  * Calculates the average damage of the effect. Random effects return an
  * average of all sub-effect averages.
  */
-int effect_avg_damage(const struct effect *effect, void *data, const char *name, bool *have_shared,
-    random_value *shared_rv)
+int effect_avg_damage(const struct effect *effect, void *data, const char *name,
+    const random_value *shared_rv)
 {
     if (effect->index == EF_RANDOM)
     {
@@ -636,7 +636,7 @@ int effect_avg_damage(const struct effect *effect, void *data, const char *name,
 
         for (i = 0; e != NULL && i < n_stated; i++)
         {
-            total += effect_avg_damage(e, data, name, have_shared, shared_rv);
+            total += effect_avg_damage(e, data, name, shared_rv);
             ++n_actual;
             e = e->next;
         }
@@ -645,7 +645,7 @@ int effect_avg_damage(const struct effect *effect, void *data, const char *name,
         return (n_actual > 0)? total / n_actual: 0;
     }
 
-    if (*have_shared) return randcalc(*shared_rv, 0, AVERAGE);
+    if (shared_rv) return randcalc(*shared_rv, 0, AVERAGE);
 
     /* Non-random effect, calculate the average damage (be sure dice is defined) */
     if (effect_damages(effect, data, name) && (effect->dice != NULL))

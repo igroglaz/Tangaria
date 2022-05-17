@@ -110,8 +110,10 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
     p->upkeep->new_level_method = new_level_method;
     p->upkeep->redraw |= (PR_DTRAP);
 
-    /* Hack -- deactivate recall for force_descend players */
-    if (((cfg_limit_stairs == 3) || OPT(p, birth_force_descend)) && p->word_recall)
+    // Always deactivate recall to prevent cheeze
+    // (when player use stairs after waiting some time with active WoR to be able 
+    // to get on surface immediately if lvl is dangerous or stay by cancelling it)
+    if (p->word_recall)
     {
         p->word_recall = 0;
         msg(p, "A tension leaves the air around you...");
@@ -155,13 +157,29 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         damage -= damage * p->lev / 100;
     }
 
-    /* Apply damage reduction */
-    damage -= p->state.dam_red;
+    // Apply damage reduction: ONLY for _pure_ physical damage
+    if (p->state.dam_red != 0 && !non_physical && strcmp(hit_from, "fading") &&
+        strcmp(hit_from, "hypoxia") && strcmp(hit_from, "poison") &&
+        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation") &&
+        strcmp(hit_from, "an earthquake") && strcmp(hit_from, "adrenaline poisoning") &&
+        strcmp(hit_from, "over-exertion") && strcmp(hit_from, "drowning"))
+            damage -= p->state.dam_red;
     if (damage <= 0)
     {
         p->died_flavor[0] = '\0';
         return false;
     }
+
+    // instead of DAM_RED (raw reducement), hc % reducement
+    // 1) to ALL dmg
+    if (streq(p->race->name, "Gargoyle"))
+        damage = (damage * 17) / 18;
+    // 2) to physical dmg
+    else if (streq(p->race->name, "Half-Giant") && !non_physical)
+        damage = (damage * 12) / 13;
+    // 3) magic dmg
+    else if (streq(p->race->name, "Golem") && non_physical)
+        damage = (damage * 9) / 10;
 
     /* Disturb */
     if (strcmp(hit_from, "fading") && strcmp(hit_from, "hypoxia") && !nodisturb) disturb(p, 0);
@@ -327,12 +345,19 @@ void player_regen_hp(struct player *p, struct chunk *c)
     percent /= 100;
 
     /* Various things speed up regeneration */
-    if (player_of_has(p, OF_REGEN)) percent *= 2;
+    if (player_of_has(p, OF_REGEN) || player_of_has(p, PF_RACE_REGEN)) percent *= 2;
+    if (player_of_has(p, PF_RACE_REGEN)) percent += 50;
     if (player_resting_can_regenerate(p)) percent *= 2;
     if (p->timed[TMD_REGEN]) percent *= 3;
 
     /* Some things slow it down */
     if (player_of_has(p, OF_IMPAIR_HP)) percent /= 2;
+    
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+        percent *= 3 / 2;
+    
+    if (streq(p->race->name, "Vampire") && is_daytime())
+        percent /= 2;
 
     /* Various things interfere with physical healing */
     else
@@ -704,6 +729,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
 
     if (player_passwall(p)) return 0;
 
+    // terrain in the wilderness (islava - is outside)
     if (square_isfiery(c, &p->grid))
     {
         int base_dam = 100 + randint1(100);
@@ -713,9 +739,14 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
 
         /* Levitation makes one lightfooted. */
-        if (player_of_has(p, OF_FEATHER)) dam_taken /= 2;
+        if ((player_of_has(p, OF_FEATHER) || player_of_has(p, OF_FLYING)) &&
+            !player_of_has(p, OF_CANT_FLY))
+            dam_taken /= 2;
+        if (streq(p->clazz->name, "Cryokinetic"))
+            dam_taken /= 2;
     }
-    else if (square_islava(c, &p->grid))
+    // terrain in the dungeon (isfiery - is the wilderness)
+    else if (square_islava(c, &p->grid) && !streq(p->clazz->name, "Cryokinetic"))
     {
         int damage = p->mhp / 100 + randint1(3);
 
@@ -727,8 +758,12 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
 
-        /* Levitation and swimming prevents drowning */
-        if (player_of_has(p, OF_FEATHER) || player_has(p, PF_CAN_SWIM)) dam_taken = 0;
+        /* Levitation prevents drowning if player able to fly */
+        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) dam_taken = 0;
+        
+        /* Swimming prevents drowning */
+        if (player_has(p, PF_CAN_SWIM)) dam_taken = 0;
+
     }
     else if (square_isnether(c, &p->grid))
     {
@@ -1468,11 +1503,11 @@ struct dragon_breed *get_dragon_form(struct monster_race *race)
 static struct monster_race *get_dragon_random(void)
 {
     int i, options = 0;
-    struct dragon_breed *dn, *choice;
+    struct dragon_breed *dn, *choice = NULL;
 
     for (dn = breeds; dn; dn = dn->next)
     {
-        for (i = 0; i < dn->commonness; i++)
+        for (i = 0; i < dn->commonness; ++i)
         {
             if (one_in_(++options)) choice = dn;
         }
@@ -1574,6 +1609,18 @@ void poly_bat(struct player *p, int chance, char *killer)
         msg(p, "Nothing happens.");
         return;
     }
+    
+    if (streq(p->clazz->name, "Unbeliever") && one_in_(2) && p->poly_race != race_fruit_bat)
+    {
+        msg(p, "Your strong metabolism prevented malicious attempt of polymorph.");
+        return;
+    }
+    
+    if (streq(p->clazz->name, "Ent") && !one_in_(100) && p->poly_race != race_fruit_bat)
+    {
+        msg(p, "You feel malicious attempt of polymorph, but resist it.");
+        return;
+    }    
 
     if (p->poly_race != race_fruit_bat)
     {
@@ -1776,11 +1823,24 @@ int player_digest(struct player *p)
     /* Adjust for food value */
     i = (i * 100) / z_info->food_value;
 
-    /* Regeneration takes more food */
-    if (player_of_has(p, OF_REGEN)) i *= 2;
+//  /* Regeneration takes more food */
+//  if (player_of_has(p, OF_REGEN)) i *= 2;
+
+    /* HUNGER need more food */
+    if (player_of_has(p, OF_HUNGER)) i *= 2;
+    
+    /* 2x HUNGER */
+    if (player_of_has(p, OF_HUNGER_2)) i *= 2;
 
     /* Slow digestion takes less food */
     if (player_of_has(p, OF_SLOW_DIGEST)) i /= 2;
+    
+    /* 2x slow digestion takes much less food */
+    if (player_of_has(p, OF_SLOW_DIGEST_2)) i /= 2;
+
+    // make high speed a bit less cruel for lvl 50 players
+    if (p->lev > 49 && speed > 110)
+        i -= (speed - 110) / 4;
 
     /* Minimal digestion */
     if (i < 1) i = 1;
@@ -2033,7 +2093,8 @@ bool forbid_entrance_strong(struct player *p)
 {
     struct location *dungeon = get_dungeon(&p->wpos);
 
-    return (dungeon && dungeon->max_level && (p->lev > dungeon->max_level) && !is_dm_p(p));
+    // anticheeze: not p->lev, but p->max_lvl
+    return (dungeon && dungeon->max_level && (p->max_lev > dungeon->max_level) && !is_dm_p(p));
 }
 
 
@@ -2048,7 +2109,7 @@ bool forbid_reentrance(struct player *p)
     wpos_init(&dpos, &p->wpos.grid, 0);
     dungeon = get_dungeon(&dpos);
 
-    return (dungeon && dungeon->max_level && (p->lev > dungeon->max_level) && !is_dm_p(p));
+    return (dungeon && dungeon->max_level && (p->max_lev > dungeon->max_level) && !is_dm_p(p));
 }
 
 

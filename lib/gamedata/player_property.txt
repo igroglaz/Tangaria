@@ -51,6 +51,11 @@ desc:You are permanently polymorphed.
 ## Class player flags
 
 type:player
+code:FAST_SHOT
+name:Extra Shots
+desc:Your shooting speed improves with tension bows every 10 levels.
+
+type:player
 code:BLESS_WEAPON
 name:Blessed Fighter
 desc:You get improved melee with blessed or hafted weapons.
@@ -191,6 +196,16 @@ code:SHAPECHANGE
 name:Shapechange
 desc:You can polymorph into monsters.
 
+type:player
+code:SUMMON_PERMA
+name:Permanent pets
+desc:You have a permanent pet.
+
+type:player
+code:CAN_FARM
+name:Farming
+desc:You are able to farm.
+
 ## Object flags
 
 type:object
@@ -217,6 +232,11 @@ type:object
 code:SUST_CON
 name:Sustain Constitution
 desc:Your constitution is sustained.
+
+type:object
+code:SUST_CHR
+name:Sustain Charisma
+desc:Your charisma is sustained.
 
 type:object
 code:PROT_FEAR
@@ -379,3 +399,50 @@ type:element
 name:Vulnerability
 desc:You are vulnerable to
 value:-1
+
+# Tangaria
+
+type:player
+code:NO_RECALL
+name:No recall
+desc:You can not recall.
+
+type:player
+code:RACE_REGEN
+name:Natural regeneration
+desc:Your wounds regenerate quickly.
+
+type:object
+code:HUNGER
+name:Hunger
+desc:You want to eat something.
+
+type:object
+code:HUNGER_2
+name:Hunger
+desc:You want to eat something.
+
+type:player
+code:NO_BOOTS
+name:No boots
+desc:You can not wear footwear.
+
+type:object
+code:SLOW_DIGEST_2
+name:Additional Slow Digestion
+desc:You have slow metabolism.
+
+type:object
+code:CANT_FLY
+name:Can not fly
+desc:You are not able to fly.
+
+type:object
+code:PROT_AMNESIA
+name:Amnesia Immunity
+desc:You cannot have amnesia.
+
+type:object
+code:FLYING
+name:Allow flying
+desc:You are able to fly.

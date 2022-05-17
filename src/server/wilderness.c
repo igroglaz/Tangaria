@@ -2647,7 +2647,7 @@ static void wild_furnish_dwelling(struct player *p, struct chunk *c, bool **plot
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool at_home = false, taken_over = false;
     int num_food = 0, cash = 0, num_objects = 0;
-    int trys;
+    int trys = 0;
     int size = (grid2->x - grid1->x) * (grid2->y - grid1->y);
     struct loc gridmin, gridmax;
     uint32_t old_seed;
@@ -2907,8 +2907,8 @@ static void wild_add_dwelling(struct player *p, struct chunk *c, bool **plot, st
     }
 
     /* Houses are at least 2x2 */
-    if (house_len.x == 3) house_len.x++;
-    if (house_len.y == 3) house_len.y++;
+    if (house_len.x == 2) house_len.x++; /////////// TANGARIA -1
+    if (house_len.y == 2) house_len.y++; /////////// TANGARIA -1
 
     area = (house_len.x - 2) * (house_len.y - 2);
 
@@ -3676,7 +3676,7 @@ static void wild_town_gen_layout(struct chunk *c)
             else if (feat == FEAT_FLOOR_SAFE)
             {
                 /* Create the tavern, make it PvP-safe */
-                square_add_safe(c, &grid);
+                square_add_new_safe(c, &grid);
 
                 /* Declare this to be a room */
                 sqinfo_on(square(c, &grid)->info, SQUARE_VAULT);

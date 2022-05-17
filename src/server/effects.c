@@ -229,6 +229,7 @@ int effect_subtype(int index, const char *type)
         /* Stat name */
         case EF_DRAIN_STAT:
         case EF_GAIN_STAT:
+        case EF_LOSE_STAT:        
         case EF_LOSE_RANDOM_STAT:
         case EF_RESTORE_STAT:
         {
@@ -271,6 +272,150 @@ int effect_subtype(int index, const char *type)
     }
 
     return val;
+}
+
+
+static int effect_value_base_spell_power(void *data)
+{
+    int power = 0;
+
+    /* Check the reference race first */
+    if (ref_race)
+        power = ref_race->spell_power;
+
+    /* Otherwise the current monster if there is one */
+    else
+    {
+        struct source *who = (struct source *)data;
+
+        if (who->monster)
+            power = who->monster->race->spell_power;
+    }
+
+    return power;
+}
+
+
+static int effect_value_base_player_level(void *data)
+{
+    struct source *who = (struct source *)data;
+
+    return who->player->lev;
+}
+
+
+static int effect_value_base_dungeon_level(void *data)
+{
+    struct source *who = (struct source *)data;
+
+    return who->player->wpos.depth;
+}
+
+
+static int effect_value_base_max_sight(void *data)
+{
+    return z_info->max_sight;
+}
+
+
+static int effect_value_base_weapon_damage(void *data)
+{
+    struct source *who = (struct source *)data;
+    struct object *obj = who->player->body.slots[slot_by_name(who->player, "weapon")].obj;
+
+    if (!obj) return 0;
+    return (damroll(obj->dd, obj->ds) + obj->to_d);
+}
+
+
+static int effect_value_base_monster_percent_hp_gone(void *data)
+{
+    struct source *who = (struct source *)data;
+
+    if (who->monster)
+        return (((who->monster->maxhp - who->monster->hp) * 100) / who->monster->maxhp);
+    if (who->player)
+        return (((who->player->mhp - who->player->chp) * 100) / who->player->mhp);
+    return 0;
+}
+
+
+static int effect_value_base_player_spell_power(void *data)
+{
+    struct source *who = (struct source *)data;
+
+    return who->player->spell_power[who->player->current_spell];
+}
+
+
+static int effect_value_base_ball_element(void *data)
+{
+    struct source *who = (struct source *)data;
+    int power = who->player->spell_power[who->player->current_spell];
+
+    return who->player->lev + power * 10;
+}
+
+
+static int effect_value_base_xball_element(void *data)
+{
+    struct source *who = (struct source *)data;
+    int power = who->player->spell_power[who->player->current_spell];
+
+    return who->player->lev + power * 5;
+}
+
+
+static int effect_value_base_blast_element(void *data)
+{
+    struct source *who = (struct source *)data;
+    int power = who->player->spell_power[who->player->current_spell];
+
+    return who->player->lev * 2 + power * 20;
+}
+
+
+static int effect_value_base_xblast_element(void *data)
+{
+    struct source *who = (struct source *)data;
+    int power = who->player->spell_power[who->player->current_spell];
+
+    return who->player->lev * 2 + power * 10;
+}
+
+
+expression_base_value_f effect_value_base_by_name(const char *name)
+{
+    static const struct value_base_s
+    {
+        const char *name;
+        expression_base_value_f function;
+    } value_bases[] =
+    {
+        {"SPELL_POWER", effect_value_base_spell_power},
+        {"PLAYER_LEVEL", effect_value_base_player_level},
+        {"DUNGEON_LEVEL", effect_value_base_dungeon_level},
+        {"MAX_SIGHT", effect_value_base_max_sight},
+        {"WEAPON_DAMAGE", effect_value_base_weapon_damage},
+        {"MONSTER_PERCENT_HP_GONE", effect_value_base_monster_percent_hp_gone},
+        {"PLAYER_SPELL_POWER", effect_value_base_player_spell_power},
+        {"BALL_ELEMENT", effect_value_base_ball_element},
+        {"XBALL_ELEMENT", effect_value_base_xball_element},
+        {"BLAST_ELEMENT", effect_value_base_blast_element},
+        {"XBLAST_ELEMENT", effect_value_base_xblast_element},
+        {NULL, NULL}
+    };
+    const struct value_base_s *current = value_bases;
+
+    while (current->name != NULL && current->function != NULL)
+    {
+        if (my_stricmp(name, current->name) == 0)
+            return current->function;
+
+        current++;
+    }
+
+    return NULL;
 }
 
 

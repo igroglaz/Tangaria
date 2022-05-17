@@ -103,6 +103,11 @@ void do_cmd_target_closest(void)
 
 void do_cmd_fire_at_nearest(void)
 {
+
+    // clear key buffer, so if user press 'h' key several times,
+    // it won't jamm input or 'r', 'q' and other keys
+    Send_clear(ES_KEY);
+    
     /* Send it */
     Send_fire_at_nearest();
 }
@@ -698,7 +703,7 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         else if (strstr(pmsgbuf, "who")) do_cmd_players();
 
         /* View abilities */
-        else if (strstr(pmsgbuf, "abi")) do_cmd_abilities();
+        else if (strstr(pmsgbuf, "ability")) do_cmd_abilities();
 
         /* Drop gold */
         else if (strstr(pmsgbuf, "gold")) textui_cmd_drop_gold();
@@ -708,6 +713,19 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
 
         /* View class stats */
         else if (strstr(pmsgbuf, "class")) do_cmd_class_stats((struct player_class *)player->clazz);
+
+        /* Kill character */
+        else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();
+
+        /* Quit/exit */
+        else if (strstr(pmsgbuf, "quit")) textui_quit();
+
+        /* Quit/exit */
+        else if (strstr(pmsgbuf, "exit")) textui_quit();
+
+// most of such commands could be 'summoned' by \ command which make changed key work at regular basis
+// thought \ command is very dangerous and could lead to death
+// (eg if you accidentally press \ and then ctrl+x if you have there macro for spell..
 
         return;
     }
@@ -1597,6 +1615,7 @@ static int cmd_master_aux_build(void)
         Term_putstr(5, 7, -1, COLOUR_WHITE, "(4) Fill Rectangle");
         Term_putstr(5, 8, -1, COLOUR_WHITE, "(5) Build Mode On");
         Term_putstr(5, 9, -1, COLOUR_WHITE, "(6) Build Mode Off");
+        Term_putstr(5,10, -1, COLOUR_WHITE, "(7) Wipe unowned custom houses");        
 
         /* Prompt */
         Term_putstr(0, 12, -1, COLOUR_WHITE, "Command: ");
@@ -1648,6 +1667,10 @@ static int cmd_master_aux_build(void)
             /* Build Mode Off */
             else if (ke.key.code == '6')
                 buf[0] = 'x';
+                
+            /* Wipe unowned custom houses */
+            else if (ke.key.code == '7')
+                buf[0] = 'w';                
 
             else
             {

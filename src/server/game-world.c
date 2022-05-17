@@ -254,20 +254,79 @@ static void recharge_objects(struct player *p)
     }
 }
 
-
 /*
  * Play an ambient sound dependent on dungeon level, and day or night in towns
  */
+// later: add regular sound events which played more often than ambient sounds below
 static void play_ambient_sound(struct player *p)
 {
     if (p->wpos.depth == 0)
     {
         if (in_town(&p->wpos))
         {
-            if (is_daytime())
-                sound(p, MSG_AMBIENT_DAY);
+            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) && one_in_(2))
+            {
+                if (one_in_(5))
+                    sound(p, MSG_TOWN_RARE);
+                else
+                    sound(p, MSG_TOWN);
+            }
+            else if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  0) ||
+                (p->wpos.grid.x == -1 && p->wpos.grid.y ==  1) ||
+                (p->wpos.grid.x ==  0 && p->wpos.grid.y == -1) ||
+                (p->wpos.grid.x ==  0 && p->wpos.grid.y == -2) ||
+                (p->wpos.grid.x ==  0 && p->wpos.grid.y == -3) ||
+                (p->wpos.grid.x ==  0 && p->wpos.grid.y == -4)) // free spot. add there dungeon..
+                        sound(p, MSG_WILD_WOOD);
+            else if((p->wpos.grid.x ==  1 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 1) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 2))
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_GRASS); // bird of prey
+                        else if (one_in_(3)) sound(p, MSG_WILD_MOUNTAIN); // wolves
+                    }
+            else if((p->wpos.grid.x == -1 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == -1))
+                        sound(p, MSG_WILD_SWAMP);
+            else if((p->wpos.grid.x ==  0 && p->wpos.grid.y == 2) || 
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 2) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 1) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == -1)||
+                    (p->wpos.grid.x ==  0 && p->wpos.grid.y == -5)||
+                    (p->wpos.grid.x ==  1 && p->wpos.grid.y == -5))
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_SHORE); // seagulls. !together with waves!
+                        if (one_in_(3)) sound(p, MSG_WILD_WAVES); // 1 minute sea
+                        else sound(p, MSG_WILD_DEEPWATER); // short sea
+                    }
+            else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 4)
+                        sound(p, MSG_WILD_GLACIER);
+            else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && one_in_(3))
+                        sound(p, MSG_WILD_DESERT);
+            else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -2 && one_in_(2))
+                        sound(p, MSG_WILD_HILL);
+            else if (p->wpos.grid.x == 1 && p->wpos.grid.y == -1)
+                        sound(p, MSG_WILD_WASTE);
+            // WILD_DEEPWATER already there as T surrounded by it.. but some locs need it
+            else if((p->wpos.grid.x ==  0 && p->wpos.grid.y == 3) || 
+                    (p->wpos.grid.x == -1 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -2 && p->wpos.grid.y == 3) ||
+                    (p->wpos.grid.x == -3 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x == -5 && p->wpos.grid.y == 0) ||
+                    (p->wpos.grid.x ==  0 && p->wpos.grid.y == 5) ||
+                    (p->wpos.grid.x ==  2 && p->wpos.grid.y == 3))
+                        sound(p, MSG_WILD_DEEPWATER);
+            else if (is_daytime())
+                    {
+                        if (one_in_(5)) sound(p, MSG_WILD_RAIN); // long rain.. TODO: stop when enter to dungeon.
+                        else sound(p, MSG_AMBIENT_DAY); // short rain
+                    }
             else
-                sound(p, MSG_AMBIENT_NITE);
+                        sound(p, MSG_AMBIENT_NITE);
         }
         else
             sound(p, wf_info[get_wt_info_at(&p->wpos.grid)->type].sound_idx);
@@ -278,6 +337,14 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_DNG2);
     else if (p->wpos.depth <= 60)
         sound(p, MSG_AMBIENT_DNG3);
+    // paths of the dead
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -1 && p->wpos.depth >= 66)
+    {
+        if (one_in_(2))
+            sound(p, MSG_AMBIENT_DNG4);
+        else
+            sound(p, MSG_PATHS_OF_THE_DEAD);
+    }
     else if (p->wpos.depth <= 80)
         sound(p, MSG_AMBIENT_DNG4);
     else if (p->wpos.depth <= 98)
@@ -368,6 +435,237 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
+    // polymorphed into 'fruit bats' can run.. but sometimes get side effects
+    if (p->poly_race && !(p->wpos.depth == 0) && one_in_(10))
+    {
+        struct monster_race *race_fruit_bat = get_race("fruit bat");
+        
+        if (p->poly_race == race_fruit_bat)
+        {
+            if (!one_in_(3))
+                player_inc_timed(p, TMD_CONFUSED, randint1(2), false, false);
+            else
+                player_inc_timed(p, TMD_IMAGE, randint1(2), false, false); 
+        }
+    }
+
+    // Imp got 'perma-curse' - rng teleport
+    // at first it's more often and at bigger distance, but later
+    // it becomes more stable
+    if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
+    {
+        int tele_chance = 100 + (p->lev * 2);
+        if (one_in_(tele_chance))
+        {
+            char dice[5];
+            int tele_dist = 200 - (p->lev * 4) + 2;
+            int msg_imp = randint1(13);
+            struct source who_body;
+            struct source *who = &who_body;
+            
+            // learn black speech.. more or less canonic:
+            if (msg_imp == 1) msgt(p, MSG_IMP, "How do you like it?");
+            else if (msg_imp == 2) msgt(p, MSG_IMP, "Lat brogb za amol?");
+            else if (msg_imp == 3) msgt(p, MSG_IMP, "Brogbzalat amol?");
+            else if (msg_imp == 4) msgt(p, MSG_IMP, "Guz latur za?");
+            else if (msg_imp == 5) msgt(p, MSG_IMP, "Gur latur za?");
+            else if (msg_imp == 6) msgt(p, MSG_IMP, "Mor kiyu moz?");
+            else if (msg_imp == 7) msgt(p, MSG_IMP, "Amol latu za?");
+            // mixed:
+            else if (msg_imp == 8) msgt(p, MSG_IMP, "Amol kiyu ajog?");
+            else if (msg_imp == 9) msgt(p, MSG_IMP, "Arz lat alag?");
+            else if (msg_imp == 10) msgt(p, MSG_IMP, "Gur sun za?");
+            else if (msg_imp == 11) msgt(p, MSG_IMP, "Guz kiyu zab?");
+            else if (msg_imp == 12) msgt(p, MSG_IMP, "Narz lat zalo?");
+            else if (msg_imp == 13) msgt(p, MSG_IMP, "Amol sun zaurz?");
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            strnfmt(dice, sizeof(dice), "%d", tele_dist);
+            effect_simple(EF_TELEPORT, who, dice, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+
+    // Werewolves howl from time to time at night waking everyone :D
+    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        int howl_chance = 100 + (p->lev * 2);
+        if (one_in_(howl_chance))
+        {
+            struct source who_body;
+            struct source *who = &who_body;
+
+            msgt(p, MSG_HOWL, "You can't handle your animal nature and "
+            "howl on top of your lungs!");
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+
+    // Beholders may hallucinate from time to time
+    if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
+        player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
+
+    /* Traveller's dog */
+    if (streq(p->clazz->name, "Traveller") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("puppy"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("dog"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
+    }
+
+    /* Trader's cat */
+    if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("cat"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("housecat"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
+    }
+
+    /* Scavenger's rat */
+    if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev > 9 && p->lev < 32)
+            summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
+        else if (p->lev < 44)
+            summon_specific_race_aux(p, c, &p->grid, get_race("rat"), 1, true);
+        else if (p->lev > 43)
+            summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
+    }
+
+    /* Tamer class: pets */
+    if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 5)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
+        else if (p->lev < 10)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed snake"), 1, true);
+        else if (p->lev < 15)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hawk"), 1, true);
+        else if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed boar"), 1, true);
+        else if (p->lev < 25)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed bear"), 1, true);
+        else if (p->lev < 35)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed reptile"), 1, true);
+        else if (p->lev < 40)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hellcat"), 1, true);
+        else if (p->lev < 45)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young unicorn"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed drake"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
+    }
+
+    /* Thunderlord race: eagle-companion */
+    if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
+        else if (p->lev < 30) // else if, so no need to set lower border req.
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
+    }
+
+    /* Necromancer class golem */
+    if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got golem - no need to summon another one
+                if (streq(mon->race->name, "clay_golem")) break;
+                if (streq(mon->race->name, "stone_golem")) break;
+                if (streq(mon->race->name, "iron_golem")) break;
+                if (streq(mon->race->name, "fire_golem")) break;
+                if (streq(mon->race->name, "drolem_")) break;
+            }
+
+            // if we checked all monsters and no golem among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 20 && p->lev > 9)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("clay_golem"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("stone_golem"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("iron_golem"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire_golem"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("drolem_"), 1, true);
+            }
+        }
+    }
+
+    /* Assassins class sentry */
+    if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got sentry - no need to summon another one
+                if (streq(mon->race->name, "blade sentry")) break;
+                if (streq(mon->race->name, "dart sentry")) break;
+                if (streq(mon->race->name, "spear sentry")) break;
+                if (streq(mon->race->name, "acid sentry")) break;
+                if (streq(mon->race->name, "fire sentry")) break;
+                if (streq(mon->race->name, "lightning sentry")) break;
+            }
+
+            // if we checked all monsters and no sentry among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 10)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("blade sentry"), 1, true);
+                else if (p->lev < 20)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("dart sentry"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("spear sentry"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("acid sentry"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire sentry"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("lightning sentry"), 1, true);
+                sound(p, MSG_SENTRY);
+            }
+        }
+    }
+
+    /* Damned constantly hunted by monsters */
+    if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
+        one_in_(50 + (p->lev * 9)))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+
+        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+    }    
+
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
     {
@@ -376,11 +674,20 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
         if (p->body.slots[i].obj == NULL) continue;
         curse = p->body.slots[i].obj->curses;
+
+        if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
+            curse = 0;
+
         for (j = 0; curse && (j < z_info->curse_max); j++)
         {
             if (curse[j].power == 0) continue;
             if (curse[j].timeout == 0) continue;
             curse[j].timeout--;
+
+            // hardcode cursed Ring of Teleportation for more often tp
+            if (streq(p->body.slots[i].obj->kind->name, "Teleportation") && one_in_(4))
+                curse[j].timeout = 0;
+
             if (!curse[j].timeout)
             {
                 do_curse_effect(p, j);
@@ -392,7 +699,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     /* Spell cooldown */
     for (i = 0; i < p->clazz->magic.total_spells; i++)
     {
-        if (p->spell_cooldown[i]) p->spell_cooldown[i]--;
+        // cooldown restores only inside in the dungeon!
+        if (p->spell_cooldown[i] && !(p->wpos.depth == 0)) p->spell_cooldown[i]--;
     }
 }
 
@@ -444,7 +752,8 @@ static void process_world(struct player *p, struct chunk *c)
     /*** Check the Time ***/
 
     /* Play an ambient sound at regular intervals. */
-    if (!(turn.turn % ((10L * z_info->day_length) / 4))) play_ambient_sound(p);
+    // instead of '1000' there was z_'info->day_length' (10.000)
+    if (!(turn.turn % ((10L * 1000) / 4))) play_ambient_sound(p);
 
     /* Daybreak/Nighfall in towns or wilderness */
     if ((p->wpos.depth == 0) && !(turn.turn % ((10L * z_info->day_length) / 2)))
@@ -471,10 +780,41 @@ static void process_world(struct player *p, struct chunk *c)
     wpos_init(&dpos, &c->wpos.grid, 0);
     dungeon = get_dungeon(&dpos);
 
-    /* Hack -- increase respawn rate on no_recall servers and FAST_SPAWN dungeons */
     respawn_rate = 1;
-    if (dungeon && c->wpos.depth && df_has(dungeon->flags, DF_FAST_SPAWN)) respawn_rate = 2;
-    if (cfg_diving_mode == 3) respawn_rate = 4;
+    /* Hack -- increase respawn rate on no_recall server */
+    // if (cfg_diving_mode == 3) respawn_rate = 4;
+
+    // Monster respawn rate based on number of players at the level
+    if (dungeon && c->wpos.depth)
+    {
+        int num_on_depth = 0, i;
+
+        /* Count the number of players actually in game on this level */
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *q = player_get(i);
+
+            if (!q->upkeep->funeral && wpos_eq(&q->wpos, &c->wpos))
+                num_on_depth++;
+        }
+
+        // newbie dungeons with multiple players should have especially
+        // fast respawn to avoid boredom
+        if (c->wpos.depth == 1)
+            respawn_rate *= num_on_depth;
+        // moar monsters for big crowds
+        else if (num_on_depth > 9)
+            respawn_rate *= 5;
+        else if (num_on_depth > 6)
+            respawn_rate *= 4;
+        else if (num_on_depth > 3)
+            respawn_rate *= 3;
+        else if (num_on_depth > 1)
+            respawn_rate *= 2;
+
+        // some dungeons might have even faster spawn
+        if (df_has(dungeon->flags, DF_FAST_SPAWN)) respawn_rate *= 2;
+    }
 
     /* Check for creature generation */
     if (one_in_(z_info->alloc_monster_chance / respawn_rate))
@@ -783,6 +1123,8 @@ static void process_player_world(struct player *p, struct chunk *c)
 
             msg(p, "The Black Breath dims your life force.");
             player_exp_lose(p, drain, false);
+            // makes you additionally hungry (+10 on regular exp drain)
+            player_dec_timed(p, TMD_FOOD, 25, false);
         }
     }
 
@@ -808,7 +1150,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     else
     {
         /* Digest quickly when gorged */
-        player_dec_timed(p, TMD_FOOD, 5000 / z_info->food_value, false);
+        player_dec_timed(p, TMD_FOOD, 1000 / z_info->food_value, false);
     }
 
     /* Faint or starving */
@@ -1161,8 +1503,10 @@ static void on_leave_level(void)
                 /* Don't deallocate special levels */
                 if (level_keep_allocated(w_ptr->chunk_list[i])) continue;
 
-                /* Hack -- deallocate custom houses */
-                wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
+/// moved to admin menu: ///
+//              /* Hack -- deallocate custom houses */
+//              wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
+////////////////////////////
 
                 /* Deallocate the level */
                 cave_wipe(w_ptr->chunk_list[i]);
@@ -1314,6 +1658,52 @@ static void process_various(void)
             }
         }
     }
+    
+    /* Grow trees very occasionally */
+    if (!(turn.turn % (10L * GROW_TREE)))
+    {
+        struct loc grid;
+
+        /* Find a suitable location */
+        for (grid.y = radius_wild; grid.y >= 0 - radius_wild; grid.y--)
+        {
+            for (grid.x = 0 - radius_wild; grid.x <= radius_wild; grid.x++)
+            {
+                struct wild_type *w_ptr = get_wt_info_at(&grid);
+                struct chunk *c = w_ptr->chunk_list[0];
+                struct loc begin, end;
+                struct loc_iterator iter;
+
+                /* Must exist */
+                if (!c) continue;
+
+                /* Only town */
+                if(!in_town(&c->wpos)) continue;
+
+                loc_init(&begin, 0, 0);
+                loc_init(&end, c->width, c->height);
+                loc_iterator_first(&iter, &begin, &end);
+
+                do
+                {
+                    /* Only allow "dirt" */
+                    if (!square_isdirt(c, &iter.cur)) continue;
+
+                    /* Never grow on top of objects or monsters/players */
+                    if (square_object(c, &iter.cur)) continue;
+                    if (square(c, &iter.cur)->mon) continue;
+                    if (one_in_(2)) continue;
+
+                    /* Grow a tree here */
+                    square_add_tree(c, &iter.cur);
+
+                    /* Done */
+                    break;
+                }
+                while (loc_iterator_next_strict(&iter));
+            }
+        }
+    }    
 
     /* Update the stores */
     store_update();
@@ -1595,7 +1985,11 @@ static void generate_new_level(struct player *p)
     if (!chunk_has_players(&p->wpos)) return;
 
     /* Play ambient sound on change of level. */
-    play_ambient_sound(p);
+    // always play it only while in a dungeon; if outside - sometimes
+    if (p->wpos.depth == 0 && one_in_(2))
+        ;
+    else
+        play_ambient_sound(p);
 
     /* Check "maximum depth" to make sure it's still correct */
     if (p->wpos.depth > p->max_depth) p->max_depth = p->wpos.depth;
@@ -1747,6 +2141,29 @@ static void generate_new_level(struct player *p)
     if (square_limited_teleport(c, &p->grid))
         msgt(p, MSG_ENTER_PIT, "The air feels very still!");
 
+    if (p->wpos.grid.x == 1 && p->wpos.grid.y == 0 && p->wpos.depth == 5)
+        sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
+    else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 0 && p->wpos.depth == 1)
+    {
+        player_inc_timed(p, TMD_BLIND, 6, false, false);
+        sound(p, MSG_ENTER_RUINS); // enter Old Ruins
+    }
+    else if (p->wpos.grid.x == 1 && p->wpos.grid.y == 1 && p->wpos.depth == 4)
+        sound(p, MSG_GONG); // enter Orc Caves
+    else if (p->wpos.grid.x == 1 && p->wpos.grid.y == 1 && p->wpos.depth == 12)
+        sound(p, MSG_ORC_CAVES); // hi from Solovei
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 0 && p->wpos.depth == 20)
+        sound(p, MSG_KIKIMORA); // hi from Kikimora
+    else if (p->wpos.grid.x == -1 && p->wpos.grid.y == 2 && p->wpos.depth == 25)
+        sound(p, MSG_MANOR); // hi from Koschei
+    else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 2 && p->wpos.depth > 27)
+        sound(p, MSG_ENTER_BARROW); // hi from Witch-King (every floor)
+    else if (p->wpos.grid.x == -2 && p->wpos.grid.y == 2 && p->wpos.depth == 30)
+    {
+        msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
+        msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
+    }
+
     /* Add the player */
     square_set_mon(c, &p->grid, 0 - id);
 
@@ -1804,7 +2221,7 @@ static void energize_player(struct player *p)
     /* Player is idle */
     bool is_idle = has_energy(p, false);
 
-    if (p->timed[TMD_PARALYZED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
+    if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
         is_idle = true;
 
     /* Update idle turn */
@@ -1835,7 +2252,7 @@ static void energize_player(struct player *p)
         p->extra_energy += energy;
 
     /* Paralyzed or Knocked Out player gets no turn */
-    if (p->timed[TMD_PARALYZED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
+    if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
         do_cmd_sleep(p);
 
     /* Hack -- if player has energy and we are in a slow time bubble, blink faster */
@@ -2080,8 +2497,10 @@ static void post_turn_game_loop(void)
     for (i = 1; i <= NumPlayers; i++)
     {
         struct player *p = player_get(i);
-
+        
+        // pre-PWMA fix ///////////////
         if (p->upkeep->funeral) continue;
+        //////////////////////////////
 
         /* Full refresh (includes monster/object lists) */
         p->full_refresh = true;
@@ -2346,7 +2765,11 @@ bool level_keep_allocated(struct chunk *c)
     if (special_level(&c->wpos)) return true;
 
     /* Hack -- don't deallocate levels which contain owned houses */
-    return level_has_owned_houses(&c->wpos);
+//  return level_has_owned_houses(&c->wpos);
+
+    /* Hack -- don't deallocate levels which contain owned houses */
+    // as we don't want to remove walls of unowned custom houses
+    return level_has_any_houses(&c->wpos);
 }
 
 

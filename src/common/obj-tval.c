@@ -200,6 +200,7 @@ bool tval_is_ammo(const struct object *obj)
         case TV_ARROW:
         case TV_BOLT:
         case TV_ROCK:
+        case TV_COBBLE:
             return true;
         default:
             return false;
@@ -405,6 +406,7 @@ bool tval_is_book_k(const struct object_kind *kind)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
             return true;
         default:
             return false;
@@ -422,6 +424,7 @@ bool tval_is_book(const struct object *obj)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
+        case TV_TRAVEL_BOOK:
             return true;
         default:
             return false;
@@ -623,6 +626,20 @@ bool tval_is_crop(const struct object *obj)
     return (obj->tval == TV_CROP);
 }
 
+bool tval_is_cobble(const struct object *obj)
+{
+    return (obj->tval == TV_COBBLE);
+}
+
+bool tval_is_reagent(const struct object *obj)
+{
+    return (obj->tval == TV_REAGENT);
+}
+
+bool tval_is_junk(const struct object *obj)
+{
+    return (obj->tval == TV_JUNK);
+}
 
 int tval_wielding_cut(const struct object *obj)
 {

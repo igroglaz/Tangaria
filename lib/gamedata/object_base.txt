@@ -1,10 +1,6 @@
-# File: object_base.txt
-
-
-# This file is used to initialize object base information for PWMAngband.
 # Object bases correspond to tvals as defined in list-tvals.h.
 
-# === Understanding object_base.txt ===
+# === Understanding object_base.txt (object base information) ===
 
 # default: lines are default values for any object base
 
@@ -46,6 +42,24 @@ flags:EASY_KNOW
 name:chest:Chest~
 graphics:slate
 flags:HATES_ACID | HATES_FIRE
+
+name:junk:Junk~
+graphics:white
+break:75
+flags:HATES_FIRE | HATES_ACID | HATES_SHARD | HATES_ICE |
+flags:HATES_FORCE | EASY_KNOW
+
+name:cobble:Cobble~
+graphics:slate
+break:75
+flags:HATES_ACID
+flags:SHOW_DICE
+
+name:reagent:Reagent~
+graphics:yellow
+flags:EASY_KNOW
+
+#feanorean & dwarvern lamps
 
 name:horn:Horn~
 graphics:white
@@ -217,8 +231,12 @@ name:elemental book:Elemental Book~
 graphics:light purple
 flags:HATES_FIRE | EASY_KNOW
 
+name:travel guide:Travel Guide~
+graphics:light slate
+flags:HATES_FIRE | EASY_KNOW
+
 name:fortune cookie:Fortune Cookie~
-graphics:light umber
+graphics:yellow
 break:100
 flags:EASY_KNOW
 

@@ -1057,6 +1057,13 @@ void master_build(struct player *p, char *parms)
             master_move_hook = NULL;
             break;
         }
+        
+        /* Wipe unowned custom houses */
+        case 'w':
+        {
+            wipe_custom_houses(&p->wpos);
+            break;
+        }        
     }
 }
 
@@ -1099,6 +1106,8 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     int floor_feature = FEAT_FLOOR, wall_feature = 0, door_feature = 0;
     bool lit_room = true;
     struct loc_iterator iter;
+    char wall_type = '\0';  // second part of floor name (type) for rng walls
+    int wall_id = 0;  // special wall (when we have several different walls in one row)
 
     /* Select features */
     switch (type)
@@ -1131,12 +1140,29 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     }
 
     loc_iterator_first(&iter, grid1, grid2);
+    
+    /* Wall type for building rng walls */
 
+    if      (one_in_(9)) wall_type = 'a';  // B7 B8 wood
+    else if (one_in_(9)) wall_type = 'b';  // B9 BA small black
+    else if (one_in_(9)) wall_type = 'c';  // BB BC big white
+    else if (one_in_(9)) wall_type = 'd';  // BD BE big black
+    else if (one_in_(9)) wall_type = 'e';  // BF C0 small white
+    else if (one_in_(2)) wall_type = 'f';  // 96 98
+    else if (one_in_(2)) wall_type = 'g';  // A3 AA
+    else if (one_in_(9)) wall_type = 'h';  // DC E1
+    else if (one_in_(9)) wall_type = 'i';  // E2 E3
+    else wall_type = 'b';
+
+    /* Generate special wall id: starting from 1!  */
+    wall_id = randint1(12);
+    
     /* Build a rectangular building */
     do
     {
         /* Clear previous contents, add "basic" wall */
-        square_set_feat(c, &iter.cur, wall_feature);
+        square_build_new_permhouse(c, &iter.cur, wall_type, wall_id);
+    ///////// old: square_set_feat(c, &iter.cur, wall_feature);
     }
     while (loc_iterator_next(&iter));
 
@@ -1148,7 +1174,8 @@ int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type
     do
     {
         /* Fill with floor */
-        square_set_feat(c, &iter.cur, floor_feature);
+        square_add_new_safe(c, &iter.cur);
+    ///////// square_set_feat(c, &iter.cur, floor_feature);
 
         /* Make it "icky" */
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_VAULT);

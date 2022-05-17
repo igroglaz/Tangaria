@@ -1254,7 +1254,7 @@ static void AboutDraw(sdl_Window *win)
     }
     sdl_WindowText(win, colour, 20, 150,
         format("You are playing %s", version_build(VERSION_NAME, true)));
-    sdl_WindowText(win, colour, 20, 160, "See http://www.mangband.org");
+    sdl_WindowText(win, colour, 20, 160, "See https://tangaria.com");
 }
 
 

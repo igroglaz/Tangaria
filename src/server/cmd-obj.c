@@ -332,7 +332,13 @@ void do_cmd_takeoff(struct player *p, int item)
 
         /* Nope */
         return;
-    }       
+    }
+
+    if (obj->curses && !one_in_(8))
+    {
+        msg(p, "You fail to take off cursed item this time. Try ones more..");
+        return;
+    }
 
     /* Take a turn */
     use_energy(p);
@@ -500,7 +506,60 @@ void do_cmd_wield(struct player *p, int item, int slot)
     inven_wield(p, obj, slot, message, sizeof(message));
 
     /* Message */
-    msgt(p, MSG_WIELD, "%s %s (%c).", act, o_name, gear_to_label(p, equip_obj));
+    msg(p, "%s %s (%c).", act, o_name, gear_to_label(p, equip_obj));
+
+    /* Sound */
+    if (tval_is_weapon(obj))
+    {
+        if (obj->tval == TV_SWORD)
+            sound(p, MSG_ITEM_BLADE);
+        else if (obj->tval == TV_BOW || tval_is_mstaff(obj))
+            sound(p, MSG_ITEM_WOOD);
+        else if (((obj->tval == TV_HAFTED) && (obj->sval == lookup_sval(obj->tval, "Whip"))) ||
+                 ((obj->tval == TV_BOW) && (obj->sval == lookup_sval(obj->tval, "Sling"))))
+                     sound(p, MSG_ITEM_WHIP);
+        else
+            sound(p, MSG_WIELD);
+    }
+    else if (tval_is_body_armor(obj))
+    {
+        if ((obj)->weight < 121)
+            sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((obj)->weight < 251)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_armor(obj))
+    {
+        if (obj->tval == TV_CROWN)
+            sound(p, MSG_ITEM_PICKUP);
+        else if (obj->weight < 25 || obj->tval == TV_SHIELD || obj->tval == TV_CLOAK)
+                sound(p, MSG_ITEM_LIGHT_ARMOR);
+        else if ((obj)->weight < 51)
+            sound(p, MSG_ITEM_MEDIUM_ARMOR);
+        else
+            sound(p, MSG_ITEM_HEAVY_ARMOR);
+    }
+    else if (tval_is_ring(obj))
+        sound(p, MSG_ITEM_RING);
+    else if (tval_is_amulet(obj))
+        sound(p, MSG_ITEM_AMULET);
+    else if (tval_is_light(obj))
+    {
+        if (obj->sval == lookup_sval(obj->tval, "Wooden Torch"))
+            sound(p, MSG_ITEM_LIGHT_TORCH);
+        else if (obj->sval == lookup_sval(obj->tval, "Lantern"))
+            sound(p, MSG_ITEM_LIGHT_LANTERN);
+        else if (obj->sval == lookup_sval(obj->tval, "Lamp"))
+            sound(p, MSG_ITEM_LIGHT_LAMP);
+        else if (obj->sval == lookup_sval(obj->tval, "Palantir"))
+            sound(p, MSG_ITEM_LIGHT_PALANTIR);
+        else if (obj->artifact)                // Phial, Star, Stone etc
+            sound(p, MSG_ITEM_LIGHT_PHIAL);
+    }
+    else
+        sound(p, MSG_WIELD);
 
     /* Message */
     msg_print(p, message, MSG_WIELD);
@@ -641,7 +700,8 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
     object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
 
     /* Artifacts cannot be destroyed */
-    if (des && obj->artifact)
+    // exception: soundbound randarts made by crafter class
+    if (des && obj->artifact && !obj->soulbound)
     {
         /* Message */
         msg(p, "You cannot destroy %s.", o_name);
@@ -650,11 +710,31 @@ void do_cmd_destroy_aux(struct player *p, struct object *obj, bool des)
         return;
     }
 
+    // Can't destroy cursed items.
+    // exception: you can destroy soundbound cursed items made by crafter class
+    if (des && obj->curses && !obj->soulbound)
+    {
+        msg(p, "You cannot destroy %s as it's cursed.", o_name);
+        msg(p, "Try to uncurse it first and then simply throw it away.");
+        return;
+    }
+
+    /* Destroying or ignoring from equipment? Update object flags! */
+    if (object_is_equipped(p->body, obj)) set_redraw_equip(p, NULL);
+
     /* Destroy */
     if (des)
     {
         /* Message */
         msgt(p, MSG_DESTROY, "You destroy %s.", o_name);
+
+        // soulbound randarts made by crafter class should be destroyed in special way
+        if (obj->artifact && !obj->soulbound)
+        {
+            // now properly delete artifacts
+            preserve_artifact_aux(obj);
+            history_lose_artifact(p, obj);
+        }
 
         /* Eliminate the item */
         use_object(p, obj, obj->number, true);
@@ -967,8 +1047,10 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
     chance = spell_chance(p, spell_index);
 
     /* Fail or succeed */
-    if (magik(chance))
-        msg(p, "You failed to concentrate hard enough!");
+    // some classes use "skills" which do not fail
+    if (strcmp(p->clazz->name, "Knight") && strcmp(p->clazz->name, "Fighter") &&
+        strcmp(p->clazz->name, "Scavenger") && magik(chance))
+            msgt(p, MSG_SPELL_FAIL, "You failed to concentrate hard enough!");
     else
     {
         struct source who_body;
@@ -1014,7 +1096,48 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         if (player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, spell->smana << 16);
 
         /* A spell was cast */
-        sound(p, (pious? MSG_PRAYER: MSG_SPELL));
+        // spells' effect's indexes can be found:
+        // effects.c -> effect_subtype()
+        if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
+            spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
+            sound(p, MSG_BALL);
+        else if (spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM)
+            sound(p, MSG_BOLT);
+        else if (spell->effect->index == EF_DAMAGE) // curse
+            sound(p, MSG_DAMAGE);
+        else if (spell->effect->index == EF_EARTHQUAKE)
+            sound(p, MSG_EARTHQUAKE);
+        else if (spell->effect->index == EF_DESTRUCTION)
+            sound(p, MSG_DESTRUCTION);
+        else if (spell->effect->index == EF_BLAST || spell->effect->index == EF_BLAST_OBVIOUS)
+            sound(p, MSG_BLAST);
+        else if (spell->effect->index == EF_BEAM || spell->effect->index == EF_BEAM_OBVIOUS || 
+                 spell->effect->index == EF_SHORT_BEAM || spell->effect->index == EF_LINE)
+            sound(p, MSG_BEAM);
+        else if (spell->effect->index == EF_ARC)
+            sound(p, MSG_ARC);
+        else if (spell->effect->index == EF_STRIKE)
+            sound(p, MSG_STRIKE);
+        else if (spell->effect->index == EF_LASH)
+            sound(p, MSG_LASH);
+        else if (spell->effect->index == EF_MELEE_BLOWS)
+            sound(p, MSG_MELEE_BLOWS);
+        else if (spell->effect->index >= EF_PROJECT || spell->effect->index <= EF_PROJECT_LOS_AWARE)
+            sound(p, MSG_PROJECT);
+        else if (spell->effect->index == EF_SPOT)
+            sound(p, MSG_SPOT);
+        else if (spell->effect->index == EF_STAR)
+            sound(p, MSG_STAR);
+        else if (spell->effect->index == EF_TOUCH || spell->effect->index == EF_TOUCH_AWARE)
+            sound(p, MSG_TOUCH);
+        else if (spell->effect->index == EF_CREATE_WALLS)
+            sound(p, MSG_CREATE_WALLS);
+        else if (spell->effect->index == EF_CREATE_TREES)
+            sound(p, MSG_CREATE_TREES);
+        else if (spell->effect->index == EF_GLYPH)
+            sound(p, MSG_GLYPH);
+        else
+            sound(p, (pious? MSG_PRAYER: MSG_SPELL));
 
         cast_spell_end(p);
 
@@ -1199,16 +1322,20 @@ bool do_cmd_cast(struct player *p, int book_index, int spell_index, int dir)
     /* Check cooldown */
     if (p->spell_cooldown[spell->sidx])
     {
-        /* Warning */
-        msg(p, "This %s is on cooldown.", spell->realm->spell_noun);
+        // Warning.. added there CD value
+        msg(p, "This %s is on cooldown for %d turns.", spell->realm->spell_noun, p->spell_cooldown[spell->sidx]);
 
         /* Cancel repeat */
         disturb(p, 1);
         return true;
     }
 
+            
     /* Antimagic field (no effect on psi powers which are not "magical") */
-    if (strcmp(book->realm->name, "psi") && check_antimagic(p, chunk_get(&p->wpos), NULL))
+    // also some classes got skills, not spells
+    if (strcmp(book->realm->name, "psi") && strcmp(p->clazz->name, "Knight") &&
+        strcmp(p->clazz->name, "Fighter") && strcmp(p->clazz->name, "Scavenger") &&
+        check_antimagic(p, chunk_get(&p->wpos), NULL))
     {
         use_energy(p);
 
@@ -1701,6 +1828,46 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     /* Take a turn if device failed */
     else
         use_energy(p);
+    
+/// potion of water. gives additional satiation (+ to object.txt) if hungry
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
+    {
+        if (streq(p->race->name, "Ent"))
+        {   // main source of food
+            player_inc_timed(p, TMD_FOOD, 200, false, false);
+            hp_player(p, p->wpos.depth / 2);
+        }
+        else if (streq(p->race->name, "Merfolk"))
+        {
+            if (p->timed[TMD_FOOD] < 1500)
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
+            hp_player(p, p->wpos.depth);
+        }
+        else if (p->timed[TMD_FOOD] < 1000)
+            player_inc_timed(p, TMD_FOOD, 100, false, false);
+    }
+
+    if (streq(obj->kind->name, "Scrap of Flesh"))
+    {
+        if (streq(p->race->name, "Hydra"))
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+        else if (one_in_(3))
+            player_dec_timed(p, TMD_FOOD, 2000, false);
+        else
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+    }
+
+    if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
+    {
+        // cheated death? :)
+        if (p->chp == 1)
+            p->chp = p->mhp;
+        else
+            p->chp /= 2;
+
+        /* Display the hitpoints */
+        p->upkeep->redraw |= (PR_HP);
+    }
 
     /* If the item is a null pointer or has been wiped, be done now */
     if (!obj) return;

@@ -77,8 +77,9 @@ struct player_state
     /*** Angband extracted fields ***/
 
     int stat_add[STAT_MAX];     /* Equipment stat bonuses */
-    int stat_ind[STAT_MAX];     /* Indexes into stat tables */
-    int stat_use[STAT_MAX];     /* Current modified stats */
+    int stat_ind[STAT_MAX];     /* Indexes into stat tables: uses real value - 3 */
+    int stat_use[STAT_MAX];     /* Current modified stats: eg 18/107 -> 18+107 -> 125...  
+                                   This sum used to save the value */
     int stat_top[STAT_MAX];     /* Maximal modified stats */
     int skills[SKILL_MAX];      /* Skills */
     int speed;                  /* Current speed */
@@ -88,7 +89,7 @@ struct player_state
     int ammo_mult;              /* Ammo multiplier */
     int ammo_tval;              /* Ammo variety */
     int ac;                     /* Base ac */
-    int dam_red;                /* Damage reduction */
+    int dam_red;                /* PHYSICAL damage reduction */
     int to_a;                   /* Bonus to ac */
     int to_h;                   /* Bonus to hit */
     int to_d;                   /* Bonus to dam */

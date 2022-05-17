@@ -1,11 +1,3 @@
-# File: activation.txt
-
-
-# This file is used to initialize the "activation" information for PWMAngband.
-
-# Do not modify this file unless you know exactly what you are doing,
-# unless you wish to risk possible system crashes and broken savefiles.
-
 # === Understanding activation.txt ===
 
 # name: effect name code
@@ -176,6 +168,14 @@ name:CLAIRVOYANCE
 aim:0
 power:22
 effect:LIGHT_LEVEL
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:3d1
+effect:TIMED_INC_NO_RES:BLIND
+dice:5+1d13
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
+effect:NOURISH:DEC_BY
+dice:5
 msg:The {kind} form{s} an image in your mind...
 desc:completely lights up and magically maps the current level, sensing all
 desc: objects
@@ -372,6 +372,7 @@ power:21
 effect:HEAL_HP
 dice:5000
 effect:UPDATE_STUFF
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -421,7 +422,13 @@ name:DETECT_ALL
 aim:0
 power:10
 effect:MAP_AREA
-effect-yx:11:11
+effect-yx:15:32
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:3d1
+effect:TIMED_INC_NO_RES:BLIND
+dice:5+1d13
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 effect:DETECT_MONSTERS
 effect-yx:22:40
 effect:DETECT_TREASURES
@@ -447,6 +454,8 @@ aim:0
 power:6
 effect:DETECT_TREASURES
 effect-yx:22:40
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 
 name:DISABLE_TRAPS
 aim:1
@@ -725,6 +734,8 @@ name:ENLIGHTENMENT
 aim:0
 power:25
 effect:LIGHT_LEVEL:NONE:1
+effect:NOURISH:DEC_BY
+dice:5
 
 name:FIRE_BALL72
 aim:1
@@ -860,7 +871,13 @@ name:MAPPING
 aim:0
 power:10
 effect:MAP_AREA
-effect-yx:22:40
+effect-yx:15:32
+effect:TIMED_INC_NO_RES:PARALYZED
+dice:3d1
+effect:TIMED_INC_NO_RES:BLIND
+dice:5+1d13
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
 msg:The {kind} shine{s} brightly...
 
 name:MISSILE
@@ -1042,6 +1059,7 @@ dice:10+1d10
 name:RESTORE_ALL
 aim:0
 power:15
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -1070,6 +1088,7 @@ desc:restores mana points to maximum
 name:RESTORE_ST_LEV
 aim:0
 power:17
+effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
@@ -1119,8 +1138,8 @@ name:SATISFY
 aim:0
 power:7
 effect:NOURISH:INC_TO
-dice:50
-desc:magically renders you comfortably fed
+dice:15
+desc:magically gives possibility to survive hunger from death
 
 name:SHERO
 aim:0
@@ -1362,3 +1381,32 @@ power:9
 effect:WONDER
 dice:$B+1d100
 expr:B:PLAYER_LEVEL:/ 5
+
+name:GALADRIEL
+aim:0
+power:5
+effect:LIGHT_AREA
+effect:STAR:LIGHT_WEAK
+dice:4d10
+msg_other: calls bright light.
+msg:The {kind} well{s} with clear bright light...
+
+name:STONE_OF_LORE
+aim:0
+power:30
+effect:TIMED_INC_NO_RES:CONFUSED
+dice:10d5
+effect:DRAIN_STAT:WIS
+dice:1
+effect:DRAIN_STAT:INT
+dice:1
+effect:MAP_AREA
+effect-yx:15:32
+effect:NOURISH:DEC_BY
+dice:1+1d2
+effect:RANDOM
+dice:5
+effect:STAR_BALL:LIGHT_WEAK:3
+dice:2d8
+effect:IDENTIFY
+msg_other: looks into stone depths..
