@@ -1503,11 +1503,11 @@ struct dragon_breed *get_dragon_form(struct monster_race *race)
 static struct monster_race *get_dragon_random(void)
 {
     int i, options = 0;
-    struct dragon_breed *dn, *choice;
+    struct dragon_breed *dn, *choice = NULL;
 
     for (dn = breeds; dn; dn = dn->next)
     {
-        for (i = 0; i < dn->commonness; i++)
+        for (i = 0; i < dn->commonness; ++i)
         {
             if (one_in_(++options)) choice = dn;
         }

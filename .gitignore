@@ -45,3 +45,4 @@ ObjectFiles/*
 ObjectFiles/**
 */ObjectFiles/**
 **/ObjectFiles/**
+*.pdb

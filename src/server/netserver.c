@@ -1032,7 +1032,7 @@ static void wipe_connection(connection_t *connp)
     /* Restore */
     if (has_setup)
     {
-        connp->has_setup = has_setup;
+        connp->has_setup = true;
         connp->Client_setup.k_attr = k_attr;
         connp->Client_setup.r_attr = r_attr;
         connp->Client_setup.f_attr = f_attr;
