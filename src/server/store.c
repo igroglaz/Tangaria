@@ -3492,11 +3492,11 @@ int32_t player_price_item(struct player *p, struct object *obj)
 
 static struct object *store_get_order_item(int order)
 {
-    struct store *s;
+    struct store *s = NULL;//C4703 Fix
     struct object *obj;
     int i;
 
-    for (i = 0; i < store_max; i++)
+    for (i = 0; i < store_max; ++i)
     {
         s = &stores[i];
         if (s->type == STORE_XBM) break;

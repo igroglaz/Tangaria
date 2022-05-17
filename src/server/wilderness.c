@@ -2647,7 +2647,7 @@ static void wild_furnish_dwelling(struct player *p, struct chunk *c, bool **plot
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool at_home = false, taken_over = false;
     int num_food = 0, cash = 0, num_objects = 0;
-    int trys;
+    int trys = 0;
     int size = (grid2->x - grid1->x) * (grid2->y - grid1->y);
     struct loc gridmin, gridmax;
     uint32_t old_seed;

@@ -18,6 +18,10 @@
 
 #include "angband.h"
 
+#ifdef BUILDINGWithVS
+#pragma comment(lib,  "ws2_32.lib") 
+#endif
+
 #ifdef WINDOWS
 
 #ifdef TERMNET
