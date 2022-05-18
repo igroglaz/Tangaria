@@ -4830,7 +4830,7 @@ title:Grandmaster
 
 magic:1:350:2
 
-book:nature book:town:[Lesser Charms]:12:nature
+book:nature book:town:[Lesser Charms]:15:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Froggie's Jump:1:1:26:1:0
@@ -4904,6 +4904,14 @@ msg_other: makes a complicated gesture to his wolf.
 desc:Your wolf makes long terrifying howl.
 desc: Cooldown 30 turns.
 
+spell:Rabbit's Feet:23:1:33:10:0
+cooldown:300
+effect:TIMED_INC:MOVE_FAST
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 5
+desc:Increases you movement speed for a short while.
+desc: Cooldown 300 turns.
+
 spell:Bear Therapy:25:20:53:30:0
 effect:CURE:BLACKBREATH
 effect:NOURISH:INC_BY
@@ -4930,6 +4938,14 @@ msg_other: makes a lengthy gesture.
 desc:Your pet will attack the target with double diligence.
 desc: Cooldown 60 turns.
 
+spell:Good Treatment:33:1:33:60:0
+cooldown:60
+effect:TIMED_INC:REGEN_PET
+dice:$B
+expr:B:PLAYER_LEVEL:/ 10 + 1
+desc:You treat your pet so it regen its wounds.
+desc: You can use this skill once per 60 turns.
+
 spell:Cat Magnetism:35:30:63:50:0
 effect:TIMED_INC:STEALTH
 dice:10+1d10
@@ -4947,6 +4963,13 @@ dice:100
 msg_self:The power of nature banishes animals!
 msg_other: speaks an order on nearby animals!
 desc:Teleports away each animal within line of sight.
+
+spell:Eagles Help:43:1:33:20:0
+cooldown:300
+effect:TELEPORT_LEVEL
+msg_other: blinks away.
+desc:Brings you far away from current spot to another level.
+cooldown:300
 
 spell:Burn A Hole:45:50:50:75:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -4968,31 +4991,6 @@ desc:Attempts to summon up to twelve animals and then prevents summoning
 desc: around you for some time. Makes you blind for a tiny moment.
 desc: You can use this skill once per 300 turns.
 
-#2
-book:nature book:town:[Gifts of Nature]:3:nature
-
-spell:Rabbit's Feet:23:1:33:10:0
-cooldown:300
-effect:TIMED_INC:MOVE_FAST
-dice:$B
-expr:B:PLAYER_LEVEL:/ 10 + 5
-desc:Increases you movement speed for a short while.
-desc: Cooldown 300 turns.
-
-spell:Good Treatment:33:1:33:60:0
-cooldown:60
-effect:TIMED_INC:REGEN_PET
-dice:$B
-expr:B:PLAYER_LEVEL:/ 10 + 1
-desc:You treat your pet so it regen its wounds.
-desc: You can use this skill once per 60 turns.
-
-spell:Eagles Help:43:1:33:20:0
-cooldown:300
-effect:TELEPORT_LEVEL
-msg_other: blinks away.
-desc:Brings you far away from current spot to another level.
-cooldown:300
 
 ############### CLASS TEMPLATE for Druid ###############
 name:Druid
