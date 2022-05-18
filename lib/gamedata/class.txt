@@ -5459,16 +5459,11 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Magic Arrow:1:1:22:2:0
-effect:BOLT_OR_BEAM:MISSILE:0:-10
-dice:$Dd4
-expr:D:PLAYER_LEVEL:- 1 / 5 + 3
-msg_other: fires a magic arrow.
-desc:Fires a magic arrow that always hits its target and does
-desc: unresistable damage.
-desc: Sometimes a beam is fired instead that hurts each monster
-desc: in its path.
-desc: The chance to get a beam goes up with your character level.
+spell:Cartography:1:1:1:4:0
+effect:MAP_AREA
+effect-yx:5:5
+desc:You map out a portion of the level around.
+desc: Your mapping abilities depends on your level.
 
 spell:Travel:5:2:24:4:0
 effect:TELEPORT_LEVEL
@@ -5537,12 +5532,12 @@ effect-yx:22:40
 desc:Detects all evil monsters in the immediate area,
 desc: for one turn only.
 
-spell:Fire Ball:35:20:17:90:0
-effect:BALL:FIRE:1
+spell:Firebolt:35:20:17:90:0
+effect:BOLT:FIRE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a fire ball.
-desc:Shoots a radius-2 fire ball.
+msg_other: fires a bolt of fire.
+desc:Shoots a fire bolt.
 
 spell:Weary Feet:40:30:30:120:0
 effect:TIMED_INC:MOVE_FAST
@@ -5550,12 +5545,9 @@ dice:$B
 expr:B:PLAYER_LEVEL: + 20
 desc:Makes you walk faster for some time.
 
-spell:Lightning:45:25:30:140:0
-effect:BEAM:ELEC
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a lightning beam.
-desc:Fires a lightning beam that hurts each monster in its path.
+spell:Emergency Passage:45:25:30:140:0
+effect:TELEPORT_LEVEL
+desc:You can try to find a hidden slot which leads to unknown level (up or down).
 
 spell:Glyph of Warding:50:50:30:150:0
 cooldown:100
