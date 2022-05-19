@@ -49,6 +49,7 @@ Angband 4.2.x:
 - Drop phrase in monster name when forming a possessive
 - GCU: for 256 or 88 color terminals, default to using init_color() for the
   color table
+- SDL2: fix handling of '=' key
 
 MAngband 1.5.x:
 
@@ -79,6 +80,7 @@ PWMAngband:
 - Tweak dragons a bit, reduce HP bonus from high level forms by roughly 5%
 - Prevent entry to shallow dungeons based on max level instead of current level
 - Buffed The Lost Silmaril of Maglor
+- Take half a turn when taking off/dropping/refilling an item (ported from V)
 - New class: Villager
 
 Bugs fixed
@@ -117,6 +119,8 @@ PWMAngband:
 - Redraw equip subwindow when inscribing items in the quiver
 - Fix crash in file_newer()
 - Learn "on wield" runes when picking up ammo
+- Fix attacking while walking/jumping/running with extra moves not spending
+  a full turn of energy
 
 Coding changes
 --------------
@@ -164,6 +168,7 @@ Angband 4.2.x:
 - Add const to pointer arguments for functions in z-util.h
 - Add an iterator-like version of cave_find_in_range()
 - Move remove_object_curse() to obj-curse.c
+- Make ui-player-properties
 
 PWMAngband:
 

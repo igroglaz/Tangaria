@@ -50,6 +50,7 @@
 #include "ui-object.h"
 #include "ui-options.h"
 #include "ui-output.h"
+#include "ui-player-properties.h"
 #include "ui-prefs.h"
 #include "ui-spell.h"
 #include "ui-store.h"

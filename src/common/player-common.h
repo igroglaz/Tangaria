@@ -495,25 +495,26 @@ struct actor_race
  */
 struct player_upkeep
 {
-    uint8_t new_level_method;          /* Climb up stairs, down, or teleport level? */
+    uint8_t new_level_method;       /* Climb up stairs, down, or teleport level? */
     bool funeral;                   /* True if player is leaving */
-    int16_t new_spells;                /* Number of spells available */
+    bool energy_use;                /* Energy use this turn */
+    int16_t new_spells;             /* Number of spells available */
     struct source health_who;       /* Who's shown on the health bar */
     struct actor_race monster_race; /* Monster race trackee */
     struct object *object;          /* Object trackee */
-    uint32_t notice;                    /* Bit flags for pending actions */
-    uint32_t update;                    /* Bit flags for recalculations needed */
-    uint32_t redraw;                    /* Bit flags for changes that need to be redrawn by the UI */
-    int16_t resting;                   /* Resting counter */
+    uint32_t notice;                /* Bit flags for pending actions */
+    uint32_t update;                /* Bit flags for recalculations needed */
+    uint32_t redraw;                /* Bit flags for changes that need to be redrawn by the UI */
+    int16_t resting;                /* Resting counter */
     bool running;                   /* Are we running? */
     bool running_firststep;         /* Is this our first step running? */
     struct object **quiver;         /* Quiver objects */
     struct object **inven;          /* Inventory objects */
-    int16_t total_weight;              /* Total weight being carried */
-    int16_t inven_cnt;                 /* Number of items in inventory */
-    int16_t equip_cnt;                 /* Number of items in equipment */
-    int16_t quiver_cnt;                /* Number of items in the quiver */
-    int16_t recharge_pow;              /* Power of recharge effect */
+    int16_t total_weight;           /* Total weight being carried */
+    int16_t inven_cnt;              /* Number of items in inventory */
+    int16_t equip_cnt;              /* Number of items in equipment */
+    int16_t quiver_cnt;             /* Number of items in the quiver */
+    int16_t recharge_pow;           /* Power of recharge effect */
     bool running_update;            /* True if updating monster/object lists while running */
     struct object *redraw_equip;    /* Single equipment object to redraw */
     bool skip_redraw_equip;         /* Skip redraw_equip object */

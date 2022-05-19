@@ -39,6 +39,7 @@ extern int (*get_spell_hook)(int book, const char *verb, bool (*spell_test)(int,
 extern bool (*get_item_hook)(struct object **choice, const char *pmt, const char *str, cmd_code cmd,
     item_tester tester, int mode);
 extern bool (*get_curse_hook)(int *choice, struct object *obj, char *dice_string);
+extern void (*view_abilities_hook)(struct player_ability *ability_list, int num_abilities);
 
 extern bool get_string(const char *prompt, char *buf, int len);
 extern int get_string_ex(const char *prompt, char *buf, int len, bool priv);
@@ -54,5 +55,6 @@ extern int get_spell(int book, const char *verb, bool (*spell_filter)(int, int))
 extern bool get_item(struct object **choice, const char *pmt, const char *str, cmd_code cmd,
     item_tester tester, int mode);
 extern bool get_curse(int *choice, struct object *obj, char *dice_string);
+extern void view_ability_menu(struct player_ability *ability_list, int num_abilities);
 
 #endif /* INCLUDED_GAME_INPUT_H */

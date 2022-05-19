@@ -23,8 +23,9 @@
       ..\..\obj\ui-game.obj ..\..\obj\ui-init.obj ..\..\obj\ui-input.obj 
       ..\..\obj\ui-keymap.obj ..\..\obj\ui-knowledge.obj ..\..\obj\ui-menu.obj 
       ..\..\obj\ui-message.obj ..\..\obj\ui-object.obj ..\..\obj\ui-options.obj 
-      ..\..\obj\ui-output.obj ..\..\obj\ui-prefs.obj ..\..\obj\ui-spell.obj 
-      ..\..\obj\ui-store.obj ..\..\obj\ui-term.obj"/>
+      ..\..\obj\ui-output.obj ..\..\obj\ui-player-properties.obj 
+      ..\..\obj\ui-prefs.obj ..\..\obj\ui-spell.obj ..\..\obj\ui-store.obj 
+      ..\..\obj\ui-term.obj"/>
     <RESFILES value="mangclient_sdl.res ..\..\obj\angband.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -41,7 +42,7 @@
       inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
       bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi"/>
-    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client"/>
+    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client;..\client"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;..\win;..\win"/>
     <PATHASM value=".;"/>
@@ -133,6 +134,7 @@
       <FILE FILENAME="..\client\ui-object.c" FORMNAME="" UNITNAME="ui-object" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\client\ui-options.c" FORMNAME="" UNITNAME="ui-options" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\client\ui-output.c" FORMNAME="" UNITNAME="ui-output" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\client\ui-player-properties.c" FORMNAME="" UNITNAME="ui-player-properties" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\client\ui-prefs.c" FORMNAME="" UNITNAME="ui-prefs" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\client\ui-spell.c" FORMNAME="" UNITNAME="ui-spell" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\client\ui-store.c" FORMNAME="" UNITNAME="ui-store" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>

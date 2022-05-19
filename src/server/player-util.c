@@ -311,6 +311,7 @@ bool has_energy_per_move(struct player *p)
 {
     /* Check if we have enough energy */
     if (p->energy + p->extra_energy < energy_per_move(p)) return false;
+    if (p->energy < move_energy(p->wpos.depth)) return true;
 
     /* Occasional attack instead for bloodlust-affected characters */
     if (randint0(200) < p->timed[TMD_BLOODLUST])

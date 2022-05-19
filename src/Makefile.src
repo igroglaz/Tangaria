@@ -275,6 +275,7 @@ CLIENT_ANGFILES = \
 	common/display.o \
 	common/source.o \
 	client/player-properties.o \
+	client/ui-player-properties.o \
 	client/ui-birth.o \
 	client/ui-command.o \
 	client/ui-context.o \
