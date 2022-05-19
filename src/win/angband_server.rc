@@ -1,0 +1,6 @@
+/* File: angband_server.rc */
+#ifdef __BCC7__
+#include <winres.h>
+#endif
+
+ANGBAND ICON "angband.ico"

@@ -488,11 +488,14 @@ clean:
 
 
 ########################### Explicit Rules ########################
-$(SERV_EXE): $(SERV_OBJS)
-	$(LINKER) -ap $(LDFLAGS) -x $(SERV_OBJS) c0x32.obj, $(SERV_EXE),, cw32mt.lib import32.lib ws2_32.lib
+$(SERV_EXE): $(SERV_OBJS) win\angband_server.res
+	$(LINKER) -ap $(LDFLAGS) -x $(SERV_OBJS) c0x32.obj, $(SERV_EXE),, cw32mt.lib import32.lib ws2_32.lib,, win\angband_server.res
 
 $(CLI_EXE): $(CLI_OBJS) win\angband.res
 	$(LINKER) -aa $(LDFLAGS) -x $(CLI_OBJS) c0w32.obj, $(CLI_EXE),, cw32.lib import32.lib ws2_32.lib win\libpng.lib win\zlib.lib win\msimg32.lib,, win\angband.res
+
+win\angband_server.res: win\angband_server.rc
+	$(RC) -r win\angband_server.rc
 
 win\angband.res: win\angband.rc
 	$(RC) -r win\angband.rc
