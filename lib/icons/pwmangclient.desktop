@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=PWMAngband (client)
+Name=Tangaria (client)
 Type=Application
-Comment=A roguelike dungeon exploration game based on the books of J.R.R.Tolkien
+Comment=A multiplayer roguelike game inspired by Tolkien’s lore and powered by PWMAngband
 Exec=pwmangclient
 TryExec=pwmangclient
 Icon=/usr/local/share/pwmangband/icons/att-32.png

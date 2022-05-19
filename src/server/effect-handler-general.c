@@ -3913,6 +3913,12 @@ bool effect_handler_MAP_AREA(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    if (context->origin->player && streq(context->origin->player->clazz->name, "Traveller"))
+    {
+        context->y += context->origin->player->lev;
+        context->x += context->origin->player->lev;
+    }
+
     origin_get_loc(&centre, context->origin);
 
     /* Pick an area to map */
