@@ -4787,6 +4787,58 @@ desc: dungeon level.
 desc: This spell has no effect when used in the town (#%d).
 
 
+############### VILLAGER ###############
+name:Villager
+color:W
+skill-disarm-phys:31:10
+skill-disarm-magic:35:9
+skill-device:20:7
+skill-save:25:10
+skill-stealth:1:0
+skill-search:14:13
+skill-melee:50:28
+skill-shoot:51:35
+skill-dig:0:25
+hitdie:5
+max-attacks:4
+min-weight:35
+strength-multiplier:3
+equip:food:Ration of Food:1:3:none
+equip:light:Wooden Torch:1:3:none
+equip:sword:Dagger:1:1:none
+equip:scroll:Word of Recall:1:1:birth_no_recall
+player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
+title:Rambler
+title:Walker
+title:Tripper
+title:Tourist
+title:Traveller
+title:Discoverer
+title:Spelunker
+title:Voyager
+title:Navigator
+title:Explorer
+
+magic:1:400:1
+
+book:travel guide:town:[Basics]:1:common
+book-graphics:?:W
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A standard travel guide with a few tasks.
+equip:travel guide:[Basics]:1:1:none
+
+spell:Summon Pet:1:1:22:4:0
+flag:DRAIN_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:SUMMON:ANIMAL:0:100
+dice:1
+msg_other: summons a pet.
+desc:Attempts to summon one pet generated at the current dungeon level.
+desc: This spell has no effect when used in the town.
+
+
 ############### TAMER ###############
 name:Tamer
 color:Y
@@ -7867,150 +7919,6 @@ cooldown:333
 effect:BIZARRE
 desc:Bring retribution to heretics...
 desc: Cooldown 333 turns.
-
-############### PWMA Villager ###############
-name:Adventurer
-color:W
-skill-disarm-phys:31:10
-skill-disarm-magic:35:9
-skill-device:20:7
-skill-save:25:10
-skill-stealth:1:0
-skill-search:14:13
-skill-melee:50:28
-skill-shoot:51:35
-skill-dig:0:25
-hitdie:5
-max-attacks:4
-min-weight:35
-strength-multiplier:3
-equip:food:Ration of Food:1:3:none
-equip:light:Wooden Torch:1:3:none
-equip:sword:Dagger:1:1:none
-equip:scroll:Word of Recall:1:1:birth_no_recall
-player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
-title:Rambler
-title:Walker
-title:Tripper
-title:Tourist
-title:Traveller
-title:Discoverer
-title:Spelunker
-title:Voyager
-title:Navigator
-title:Explorer
-
-# after wipe move there travel guide from PWMA (villager)
-
-# make number of books -> 1 (magic:1:350:1)
-
-magic:1:350:2
-
-book:magic book:town:[Magic for Beginners]:11:arcane
-equip:magic book:[Magic for Beginners]:1:1:none
-
-spell:Novice Mapper:1:1:22:4:0
-effect:MAP_AREA
-effect-yx:5:5
-desc:You map out a portion of the level around.
-
-spell:Phase Door:5:2:24:4:0
-effect:TELEPORT
-dice:10
-msg_other: blinks away.
-desc:Teleports you randomly up to 10 squares away.
-
-spell:Light Room:10:4:26:8:0
-effect:BLAST:LIGHT_WEAK:2
-dice:2d$S
-expr:S:PLAYER_LEVEL:/ 2
-effect:LIGHT_AREA
-msg_other: calls light.
-desc:Lights up all squares within 2 grids of the player and hurts
-desc: all light-sensitive monsters in the area of effect.
-desc: If you are in a room, the entire room will be lit up as well.
-
-spell:Confuse Monster:15:5:30:16:0
-effect:BOLT_AWARE:MON_CONF
-dice:5+1d$S
-expr:S:PLAYER_LEVEL:+ 0
-msg_other: makes a complicated gesture.
-desc:Attempts to confuse a single monster. More effective against animals.
-
-spell:Minor Healing:20:7:15:32:1
-effect:HEAL_HP
-dice:$B+m$M
-expr:B:PLAYER_LEVEL:+ 10
-expr:M:PLAYER_LEVEL:/ 3 + 12
-desc:Cures a level-dependent percentage of your wounds.
-
-spell:Heroism:25:12:30:50:0
-effect:TIMED_INC:HERO
-dice:25+1d25
-effect:TIMED_INC:BOLD
-dice:25+1d25
-effect:CURE:AFRAID
-effect:HEAL_HP
-dice:10
-desc:Cures 10 points of damage, removes fear and grants you heroism
-desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
-
-spell:Detect Evil:30:15:10:70:0
-effect:DETECT_EVIL
-effect-yx:22:40
-desc:Detects all evil monsters in the immediate area,
-desc: for one turn only.
-
-spell:Fire Ball:35:20:17:90:0
-effect:BALL:FIRE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a fire ball.
-desc:Shoots a radius-2 fire ball.
-
-spell:Portal:40:30:30:120:0
-effect:TELEPORT
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: blinks away.
-desc:Teleports you randomly over a short distance.
-
-spell:Lightning:45:25:30:140:0
-effect:BEAM:ELEC
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a lightning beam.
-desc:Fires a lightning beam that hurts each monster in its path.
-
-spell:Glyph of Warding:50:50:30:150:0
-cooldown:100
-effect:GLYPH:WARDING
-desc:Inscribes a glyph of warding beneath you.
-desc: Summoned monsters can't appear on the glyph.
-desc: If a monster attempts to move onto the glyph or melee you while you
-desc: are standing on the glyph, it must first succeed in breaking the glyph.
-desc: Higher level monsters are more likely to break the glyph.
-desc: The glyph will remain where it is, until a monster succeeds in
-desc: breaking it or until you leave the level.
-desc: Cooldown 100 turns.
-
-book:travel guide:town:[Basics]:1:common
-book-graphics:?:W
-book-properties:1:30:25
-book-alloc:40:1 to 100
-book-desc:A standard travel guide with a few tasks.
-equip:travel guide:[Basics]:1:1:none
-
-spell:Summon Pet:1:1:22:4:0
-# check.. is it stamina or mana
-flag:DRAIN_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:SUMMON:ANIMAL:0:100
-dice:1
-msg_other: summons a pet.
-desc:Attempts to summon one pet generated at the current dungeon level.
-desc: This spell has no effect when used in the town.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
