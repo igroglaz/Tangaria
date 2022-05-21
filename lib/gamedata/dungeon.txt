@@ -1188,8 +1188,8 @@ rule-flags:TROLL
 rule:2000:1
 
 ########################## 15 (boss: Shtukensia the Rogue)
-name:The Severs
-short:Severs
+name:The Sewers
+short:Sewers
 wpos:-1:1
 min-depth:8
 max-depth:15

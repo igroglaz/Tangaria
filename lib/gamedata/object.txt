@@ -7824,7 +7824,7 @@ weight:5
 cost:-1
 desc:.
 
-name:We got troubles with burglars from town severs..
+name:We got troubles with burglars from town sewers..
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8064,7 +8064,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Someone say they got a headquaters in severs.
+name:Someone say they got a headquaters in sewers.
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8088,7 +8088,7 @@ weight:5
 cost:-1
 desc:.
 
-name:down there.. You will find severs to the east of
+name:down there.. You will find sewers to the east of
 graphics:?:y
 type:fortune cookie
 level:0
