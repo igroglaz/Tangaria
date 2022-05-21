@@ -80,8 +80,8 @@ message:SHOOT_SLING:w
 # MSG_SHOOT_BOOMERANG (sound only)
 message:SHOOT_BOOMERANG:w
 
-# MSG_THROW (sound only)
-message:THROW:w
+# MSG_THROWN (sound only)
+message:THROWN:w
 
 # MSG_QUAFF (sound only)
 message:QUAFF:w
