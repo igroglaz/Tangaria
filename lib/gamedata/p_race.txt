@@ -327,8 +327,7 @@ obj-flag:50:SLOW_DIGEST
 player-flags:0:ORC
 # ? vigorous..stamina.. like MANA
 
-#rename to Dunadan
-name:Dunedain
+name:Dunadan
 skill-disarm-phys:4
 skill-disarm-magic:4
 skill-device:5
@@ -536,8 +535,7 @@ value:0:TUNNEL[-1+-1d15]
 obj-flag:1:AGGRAVATE
 obj-flag:1:HUNGER
 value:0:MANA[4+-1d6M25]
-# REWORK: player-flags:0:THUNDERLORD - rename to ESP_RADIUS..
-# ..(it is full ESP with expanding radius)
+# player-flags:0:THUNDERLORD - is actually ESP_RADIUS (ESP with expanding radius)
 
 #dragon got 1/2 bonuses from dragons which form they take
 name:Dragon
