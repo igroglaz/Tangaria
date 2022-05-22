@@ -128,10 +128,10 @@ value:0:INFRA[3]
 player-flags:0:TROLL
 
 name:Human
-skill-disarm-phys:1
+skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:0
-skill-save:1
+skill-save:0
 skill-stealth:0
 skill-search:0
 skill-melee:0
@@ -145,6 +145,12 @@ age:14:6
 height:69:10
 weight:165:35
 gift:food:Hard Biscuit:1:1
+value:50:STR[1]
+value:50:INT[1]
+value:50:WIS[1]
+value:50:DEX[1]
+value:50:CON[1]
+value:50:CHR[1]
 # ? inv slot
 
 # mediocre bonus.. versatile
@@ -853,7 +859,7 @@ value:0:DEX[-2]
 value:0:CON[1+1d24]
 value:0:CHR[-4]
 gift:food:Hard Biscuit:1:1
-value:0:MOVES[5+1d2]
+value:20:MOVES[1+1d2]
 # + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 obj-flag:1:LIMITED_TELE
@@ -993,11 +999,11 @@ height:38:3
 weight:65:4
 gift:potion:Slime Mold Juice:1:1
 #-3 1 2 3 -3
-value:0:STR[-5+1d24]
-value:40:INT[1]
+value:0:STR[-3]
+value:40:INT[0]
 value:0:WIS[2]
 value:0:DEX[3]
-value:0:CON[-4+1d40]
+value:0:CON[-3]
 value:0:CHR[-3]
 value:0:INFRA[1+1d15]
 value:0:SPEED[1+1d45]
@@ -1604,7 +1610,7 @@ value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:0:MOVES[10+1d1]
+value:20:MOVES[1+1d1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
 value:0:DAM_RED[0+1d2]
 brand:30:50:ELEC_2
@@ -1667,7 +1673,7 @@ value:0:DEX[2]
 value:0:CON[-1]
 value:0:CHR[0+1d30]
 value:0:INFRA[4]
-value:0:MOVES[1+1d3]
+value:0:MOVES[1+1d10]
 value:50:SPEED[1]
 value:50:STEALTH[1]
 slay:1:50:ANIMAL_2
