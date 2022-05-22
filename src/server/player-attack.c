@@ -490,12 +490,23 @@ static void blow_side_effects(struct player *p, struct source *target,
     }
 
     /* Apply Shadow Touch or life leech */
-    if ((p->timed[TMD_ATT_VAMP] || seffects->do_leech) && target->monster &&
+    // doesn't work on powerful mobs (except for vampire)
+    if (streq(p->race->name, "Vampire") && target->monster &&
         monster_is_living(target->monster))
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
-        hp_player_safe(p, 1 + drain / 2);
+        if (monster_is_powerful(target->monster->race) && one_in_(2))
+            ;
+        else
+            hp_player_safe(p, 1 + drain / 2);
+    }
+    else if ((p->timed[TMD_ATT_VAMP] || seffects->do_leech) && target->monster &&
+        monster_is_living(target->monster) && !monster_is_powerful(target->monster->race))
+    {
+        int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
+
+        hp_player_safe(p, 1 + drain / 3);
     }
     else if (streq(p->clazz->name, "Unbeliever") && target->monster &&
         target->monster->race->freq_spell && !target->monster->race->freq_innate &&
@@ -503,14 +514,14 @@ static void blow_side_effects(struct player *p, struct source *target,
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
-        hp_player_safe(p, 1 + drain / 2);
+        hp_player_safe(p, 1 + drain / 4);
     }
     else if (streq(p->clazz->name, "Inquisitor") && target->monster &&
         monster_is_fearful(target->monster) && !monster_is_unique(target->monster->race) && !monster_is_powerful(target->monster->race))
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
-        hp_player_safe(p, 1 + drain / 2);
+        hp_player_safe(p, 1 + drain / 4);
     }
 
     // Necromancer got small additional life leech (traumaturgy)
