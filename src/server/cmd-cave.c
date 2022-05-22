@@ -888,13 +888,15 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     bool more = false;
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
-    bool gold, rubble, tree, web, door;
+    bool gold, rubble, tree, web, door, ice, sand;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
     tree = square_istree(c, grid);
     web = square_iswebbed(c, grid);
     door = square_isdoor(c, grid);
+    ice = square_is_ice(c, grid);
+    ice = square_is_sand(c, grid);
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
@@ -1279,8 +1281,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         }
 
         /* Dig cobbles (simple non-magical rocks) */
-        else if (one_in_(2) && !square_is_ice(c, grid) &&
-                (!square_is_sand(c, grid) || one_in_(3)))
+        else if (one_in_(2) && !ice && !sand)
         {
             struct object *dig_cobble;
             /* Make cobble */
@@ -1298,8 +1299,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         }
 
         /* Dig house Foundation Stone */
-        else if (one_in_(2) && p->lev > 7 && !square_is_ice(c, grid) &&
-                (!square_is_sand(c, grid) || one_in_(5)))
+        else if (one_in_(2) && p->lev > 7 && !ice && !sand)
         {
             struct object *dig_stone;
             /* Make house stone */
