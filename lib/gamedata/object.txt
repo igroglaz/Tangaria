@@ -7224,7 +7224,7 @@ weight:5
 cost:-1
 desc:.
 
-name:though.. Strange folk appeared recently.
+name:though.. Strange folk appeared recently..
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7480,7 +7480,7 @@ weight:5
 cost:-1
 desc:.
 
-name:All horizon run away back to town on the west 
+name:All horizon run away back to town on the east
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7536,7 +7536,7 @@ weight:5
 cost:-1
 desc:.
 
-name:their cave on the west from the lake..
+name:their cave on the east from the lake..
 graphics:?:y
 type:fortune cookie
 level:0

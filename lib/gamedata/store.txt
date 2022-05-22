@@ -70,10 +70,10 @@ welcome:8:nods to you.
 # General store
 store:General Store
 type:1
-owner:5000:Erkenbrand
-owner:10000:Erkenbrand
-owner:20000:Erkenbrand
-owner:30000:Erkenbrand
+owner:5000:Yersh the Slender (Half-Orc)
+owner:10000:Yersh the Slender (Half-Orc)
+owner:20000:Yersh the Slender (Half-Orc)
+owner:30000:Yersh the Slender (Half-Orc)
 slots:2:7
 turnover:2
 always:cloak:Cloak
@@ -82,6 +82,7 @@ always:flask:Flask of Oil
 always:digger:Spade
 always:rock:Throwing Rock
 always:light:Old Lantern
+always:travel guide:[Basics]
 #always:potion:Stomach Water
 #always:digger:Shovel
 #always:digger:Pick
@@ -92,7 +93,7 @@ normal:potion:Restore Life Levels
 normal:bottle:Empty Bottle:1:500
 normal:food:Hard Biscuit:1:350
 normal:food:Handful of Dried Fruits:1:350
-normal:food:Ration of Food:9:290
+normal:food:Ration of Food:1:290
 buy:light
 buy:food
 buy:mushroom
@@ -103,10 +104,10 @@ buy:horn
 
 # Armoury
 store:Armoury
-owner:5000:Kon-Dar the Ugly (Half-Orc)
-owner:10000:Darg-Low the Grim (Human)
-owner:25000:Decado the Handsome (Dunadan)
-owner:30000:Mauglin the Grumpy (Dwarf)
+owner:5000:Dobrynya Dragon-Slayer (Dwarf)
+owner:10000:Dobrynya Dragon-Slayer (Dwarf)
+owner:25000:Dobrynya Dragon-Slayer (Dwarf)
+owner:30000:Dobrynya Dragon-Slayer (Dwarf)
 slots:6:18
 turnover:9
 normal:boots:Pair of Leather Sandals
@@ -139,10 +140,10 @@ buy:dragon armour
 
 # Weaponsmith
 store:Weapon Smiths
-owner:5000:Ithyl-Mak the Beastly (Half-Troll)
-owner:10000:Arndal Beast-Slayer (Half-Elf)
-owner:25000:Tarl Beast-Master (Halfling)
-owner:30000:Oglign Dragon-Slayer (Dwarf)
+owner:5000:Muromets the Grim (Dunadan)
+owner:10000:Muromets the Grim (Dunadan)
+owner:25000:Muromets the Grim (Dunadan)
+owner:30000:Muromets the Grim (Dunadan)
 slots:3:14
 turnover:9
 ############################ add staves and hammers
@@ -187,10 +188,10 @@ buy:mage staff
 # Temple
 store:Temple
 type:2
-owner:15000:Ludwig the Humble (Human)
-owner:20000:Gunnar the Paladin (Human)
-owner:25000:Delilah the Pure (Elf)
-owner:30000:Keldon the Wise (Dwarf)
+owner:15000:Monomakh the Wise
+owner:20000:Monomakh the Wise
+owner:25000:Monomakh the Wise
+owner:30000:Monomakh the Wise
 slots:6:18
 turnover:9
 always:prayer book
@@ -224,10 +225,10 @@ buy-flag:BLESSED:polearm
 
 # Alchemist
 store:Alchemy Shop
-owner:10000:Mauser the Chemist (Half-Elf)
-owner:10000:Wizzle the Chaotic (Halfling)
-owner:15000:Ga-nat the Greedy (Gnome)
-owner:15000:Vella the Slender (Human)
+owner:10000:Dmitri the Chaotic (Half-Elf)
+owner:10000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
 slots:6:12
 turnover:9
 always:scroll:Word of Recall
@@ -250,10 +251,10 @@ buy:potion
 
 # Magic-user's
 store:Magic Shop
-owner:15000:Romestamo the Wizard
-owner:20000:Romestamo the Wizard
-owner:25000:Romestamo the Wizard
-owner:30000:Romestamo the Wizard
+owner:15000:Mikhaylo the Wizard
+owner:20000:Mikhaylo the Wizard
+owner:25000:Mikhaylo the Wizard
+owner:30000:Mikhaylo the Wizard
 slots:4:15
 turnover:9
 always:magic book
@@ -288,10 +289,10 @@ buy:potion
 # Bookseller
 store:Bookseller
 type:3
-owner:15000:Yveen the Witch (Half-Elf)
-owner:20000:Narn the Short (Gnome)
-owner:25000:Lord-X the Black (Human)
-owner:30000:Senya the Beautiful (High-Elf)
+owner:15000:Senya the Short
+owner:20000:Senya the Short
+owner:25000:Senya the Short
+owner:30000:Senya the Short
 slots:0:2
 turnover:0
 welcome:0:nods to you.
@@ -317,13 +318,12 @@ buy:travel guide
 # Place custom stores here
 
 # Starter town tavern
-### REMOVE 'old' from store name
-store:Halbarad, the old ranger
-owner:5000:Halbarad, the ranger
-owner:5000:Halbarad, the ranger
+store:Halbarad, the gamekeeper
+owner:5000:Halbarad, the gamekeeper
+owner:5000:Halbarad, the gamekeeper
 slots:0:1
 turnover:0
-welcome:0:looks at you with interest.
+welcome:0:wrinkled his forehead and gaze at you.
 welcome:1:curses.
 welcome:2:grunts.
 welcome:3:eyes you suspiciously.
@@ -335,7 +335,7 @@ welcome:8:"A pleasure to do business with you..."
 #######################################################################
 always:fortune cookie:Hello, stranger. What are you doing there, in
 always:fortune cookie:this wild lands? You are not the first who came
-always:fortune cookie:though.. Strange folk appeared recently.
+always:fortune cookie:though.. Strange folk appeared recently..
 always:fortune cookie:And all of them ar interested in Old Ruins to the
 always:fortune cookie:north-east from my tavern. But I don't complain..
 always:fortune cookie:Finally I could get a few coins by selling some
@@ -383,9 +383,9 @@ buy:flask
 
 # Starter town wizard hut
 #10
-store:Morinehtar the Wizard
-owner:5000:Morinehtar the Wizard
-owner:5000:Morinehtar the Wizard
+store:Boyan the Volkhv
+owner:5000:Boyan the Volkhv
+owner:5000:Boyan the Volkhv
 slots:0:1
 turnover:1
 #######################################################################
@@ -420,8 +420,8 @@ buy:flask
 
 # Guard tower orcs
 store:Old guard Barry
-owner:5000:Barry the guard (Human)
-owner:5000:Barry the guard (Human)
+owner:5000:Barry the guard
+owner:5000:Barry the guard
 slots:0:1
 turnover:1
 #######################################################################
@@ -434,14 +434,14 @@ always:fortune cookie:cave orcs?! Darn orcish beasts! Filthy maggots!
 always:fortune cookie:...Erm.. Anyway. Got any tabacco, mate?
 always:fortune cookie:I got plenty of food there, but no darn weed to
 always:fortune cookie:fill my pipe.. I'm alone there, you see..
-always:fortune cookie:All horizon run away back to town on the west 
+always:fortune cookie:All horizon run away back to town on the east
 always:fortune cookie:months ago.. Filthy cowards! Went back to mommy!
 always:fortune cookie:But I won't run from this stupid orcish beasts!
 always:fortune cookie:They would know how to come to The Guards Tower!!
 always:fortune cookie:Darn.. Are you pretty sure ya don have any weed?
 always:fortune cookie:I see.. *sight* You are not the first who came..
 always:fortune cookie:Anyway If you wanna hunt some orcs - get to
-always:fortune cookie:their cave on the west from the lake..
+always:fortune cookie:their cave on the east from the lake..
 #######################################################################
 normal:fortune cookie:Long time ago this was a heart of trade ways..
 normal:fortune cookie:It was well guarded dwarven trade route.. 
@@ -453,9 +453,9 @@ buy:light
 buy:flask
 
 # Villagers in town
-store:Bob the villager
-owner:5000:Bob the villager (Human)
-owner:5000:Bob the villager (Human)
+store:Ivan the villager
+owner:5000:Ivan the villager
+owner:5000:Ivan the villager
 slots:0:1
 turnover:1
 #######################################################################
@@ -477,9 +477,9 @@ normal:fortune cookie:And now I'm broken. People kill for food.
 buy:flask
 
 # Villagers in town
-store:Marta the villager
-owner:5000:Marta the villager (Human)
-owner:5000:Marta the villager (Human)
+store:Milena the villager
+owner:5000:Milena the villager
+owner:5000:Milena the villager
 slots:0:1
 turnover:1
 #######################################################################
@@ -494,8 +494,8 @@ buy:flask
 
 # Town tavern
 store:Shtukensia the tavernkeeper
-owner:5000:Shtukensia the tavernkeeper (Human)
-owner:5000:Shtukensia the tavernkeeper (Human)
+owner:5000:Shtukensia the tavernkeeper
+owner:5000:Shtukensia the tavernkeeper
 slots:8:9
 turnover:1
 #######################################################################
@@ -536,15 +536,15 @@ owner:5000:Danny (Dog)
 owner:5000:Danny (Dog)
 slots:0:1
 turnover:1
-welcome:0:looks at you with interest.
-welcome:1:looks at you with interest.
-welcome:2:looks at you with interest.
-welcome:3:looks at you with interest.
-welcome:4:looks at you with interest.
-welcome:5:looks at you with interest.
-welcome:6:looks at you with interest.
-welcome:7:looks at you with interest.
-welcome:8:looks at you with interest.
+welcome:0:looks at you with suspicion.
+welcome:1:looks at you with suspicion.
+welcome:2:looks at you with suspicion.
+welcome:3:looks at you with suspicion.
+welcome:4:looks at you with suspicion.
+welcome:5:looks at you with suspicion.
+welcome:6:looks at you with suspicion.
+welcome:7:looks at you with suspicion.
+welcome:8:looks at you with suspicion.
 #######################################################################
 normal:fortune cookie:(you are trying to pat the dog)
 normal:fortune cookie:(the dog carefully sniff your arm)
@@ -559,8 +559,8 @@ buy:flask
 
 #town
 store:Arthur the Archer
-owner:5000:Arthur the Archer (Human)
-owner:5000:Arthur the Archer (Human)
+owner:5000:Arthur the Archer
+owner:5000:Arthur the Archer
 slots:10:11
 turnover:9
 #######################################################################
@@ -636,8 +636,8 @@ buy:flask
 
 #town
 store:Boris the Guard
-owner:5000:Boris the Guard (Human)
-owner:5000:Boris the Guard (Human)
+owner:5000:Boris the Guard
+owner:5000:Boris the Guard
 slots:0:1
 turnover:1
 #######################################################################
