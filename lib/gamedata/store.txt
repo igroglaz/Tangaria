@@ -192,11 +192,13 @@ owner:15000:Monomakh the Wise
 owner:20000:Monomakh the Wise
 owner:25000:Monomakh the Wise
 owner:30000:Monomakh the Wise
-slots:6:18
+slots:6:16
 turnover:9
 always:prayer book
 always:potion:Cure Light Wounds
 always:potion:Cure Serious Wounds
+always:potion:Cure Critical Wounds
+always:potion:Healing
 always:scroll:Remove Curse
 normal:hafted:Whip
 normal:hafted:Quarterstaff
@@ -213,8 +215,6 @@ normal:potion:Boldness
 normal:potion:Heroism
 normal:potion:Neutralize Poison
 normal:potion:Restore Life Levels
-normal:potion:Cure Critical Wounds
-normal:potion:Healing:10:300
 normal:potion:Resist Poison:1:400
 buy:prayer book
 buy:scroll
@@ -520,8 +520,8 @@ normal:fortune cookie:Someone should give a lesson to this thiefs...
 normal:food:Flask of Whisky:1:160
 normal:food:Pint of Fine Wine:3:160
 normal:food:Pint of Fine Ale:2:160
+normal:potion:Infravision
 normal:potion:Resist Poison:1:500
-normal:potion:Healing:1:500
 normal:potion:Speed:1:500
 normal:potion:Restore Mana:1:500
 normal:scroll:Teleportation:1:500

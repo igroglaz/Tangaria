@@ -507,7 +507,7 @@ graphics:,:Z
 type:food
 level:60
 weight:10
-cost:22000
+cost:19000
 alloc:3:60 to 100
 effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
@@ -687,7 +687,7 @@ graphics:,:d
 type:mushroom
 level:50
 weight:1
-cost:1500
+cost:0
 alloc:5:5 to 100
 pile:70:1d3
 effect:TIMED_INC:STEALTH
@@ -3421,7 +3421,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:8000
+cost:7000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:STR
@@ -3436,7 +3436,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:8000
+cost:7000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:INT
@@ -3451,7 +3451,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:8000
+cost:7000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:WIS
@@ -3466,7 +3466,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:8000
+cost:7000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:DEX
@@ -3481,7 +3481,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:8000
+cost:7000
 alloc:30:30 to 100
 pile:10:2
 effect:GAIN_STAT:CON
@@ -3629,7 +3629,7 @@ graphics:!:d
 type:potion
 level:30
 weight:4
-cost:800
+cost:3000
 alloc:64:30 to 100
 pile:25:2
 effect:CURE:AMNESIA
@@ -3958,7 +3958,7 @@ graphics:!:d
 type:potion
 level:3
 weight:4
-cost:20
+cost:45
 alloc:40:3 to 40
 pile:25:2
 effect:NOURISH:INC_BY
