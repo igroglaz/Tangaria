@@ -2837,7 +2837,7 @@ graphics:?:w
 type:scroll
 level:20
 weight:5
-cost:2800
+cost:0
 alloc:15:20 to 100
 pile:10:2
 effect:TELEPORT_LEVEL:NONE:1
@@ -2885,7 +2885,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:70
+cost:0
 alloc:50:0 to 70
 pile:40:1d5
 effect:DETECT_TREASURES
@@ -3045,7 +3045,7 @@ graphics:?:w
 type:scroll
 level:40
 weight:5
-cost:2500
+cost:0
 alloc:25:40 to 100
 effect:BANISH
 
@@ -3054,7 +3054,7 @@ graphics:?:w
 type:scroll
 level:50
 weight:5
-cost:3000
+cost:0
 alloc:20:50 to 100
 effect:MASS_BANISH
 
@@ -3225,7 +3225,7 @@ graphics:?:w
 type:scroll
 level:40
 weight:5
-cost:2000
+cost:0
 alloc:30:40 to 100
 effect:DESTRUCTION:LIGHT:15
 
@@ -3677,7 +3677,7 @@ weight:4
 cost:6000
 alloc:20:60 to 100
 effect:HEAL_HP
-dice:5000
+dice:2000
 effect:UPDATE_STUFF
 effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
@@ -3860,14 +3860,6 @@ weight:4
 cost:25
 alloc:40:1 to 100
 pile:25:2
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:1
-effect:RANDOM
-dice:3
 effect:TIMED_INC:HERO
 dice:25+1d25
 effect:TIMED_INC:BOLD
@@ -3884,6 +3876,14 @@ weight:4
 cost:100
 alloc:40:3 to 100
 pile:25:2
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:3
 effect:TIMED_INC:SHERO
 dice:25+1d25
 effect:TIMED_INC:BOLD
@@ -4621,7 +4621,7 @@ graphics:-:d
 type:wand
 level:20
 weight:10
-cost:3500
+cost:0
 alloc:20:20 to 100
 attack:1d1:0:0
 armor:0:0
@@ -4827,7 +4827,7 @@ graphics:_:d
 type:staff
 level:40
 weight:50
-cost:350
+cost:0
 alloc:20:40 to 100
 attack:1d2:0:0
 armor:0:0
@@ -4839,7 +4839,7 @@ graphics:_:d
 type:staff
 level:50
 weight:50
-cost:12000
+cost:0
 alloc:20:50 to 100
 attack:1d2:0:0
 armor:0:0
@@ -5009,7 +5009,7 @@ graphics:_:d
 type:staff
 level:70
 weight:50
-cost:5000
+cost:0
 alloc:10:70 to 100
 attack:1d2:0:0
 armor:0:0
@@ -5416,7 +5416,7 @@ graphics:-:d
 type:rod
 level:45
 weight:15
-cost:5000
+cost:0
 alloc:20:45 to 100
 attack:1d1:0:0
 armor:0:0
@@ -6135,7 +6135,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:250
+cost:0
 alloc:40:0 to 100
 pile:25:1d2
 effect:CURE:POISONED

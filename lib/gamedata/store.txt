@@ -229,7 +229,7 @@ owner:10000:Dmitri the Chaotic (Half-Elf)
 owner:10000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
-slots:6:12
+slots:6:11
 turnover:9
 always:scroll:Word of Recall
 always:scroll:Phase Door
@@ -242,10 +242,10 @@ normal:potion:Berserk Strength
 normal:potion:Resist Heat
 normal:potion:Resist Cold
 normal:potion:Restore Life Levels
-normal:potion:Infravision
 normal:potion:Speed:10:400
 normal:potion:Resist Poison:10:400
 normal:potion:Restore Mana:10:400
+#normal:potion:Infravision
 buy:scroll
 buy:potion
 
