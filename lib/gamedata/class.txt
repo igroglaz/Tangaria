@@ -4835,6 +4835,7 @@ book-desc:A standard travel guide with a few tasks.
 equip:travel guide:[Basics]:1:1:none
 
 spell:Summon Pet:1:1:22:4:0
+cooldown:100
 flag:DRAIN_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -4843,6 +4844,7 @@ dice:1
 msg_other: summons a pet.
 desc:Attempts to summon one pet generated at the current dungeon level.
 desc: This spell has no effect when used in the town.
+desc: Cooldown 100 turns.
 
 
 ############### TAMER ###############
@@ -5464,8 +5466,8 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:magic book:town:[Magic for Beginners]:11:arcane
-equip:magic book:[Magic for Beginners]:1:1:none
+book:travel guide:town:[Basics]:11:common
+equip:travel guide:[Basics]:1:1:none
 
 spell:Cartography:1:1:1:4:0
 effect:MAP_AREA
