@@ -35,6 +35,7 @@ int (*get_spell_hook)(int book, const char *verb, bool (*spell_test)(int, int));
 bool (*get_item_hook)(struct object **choice, const char *pmt, const char *str, cmd_code cmd,
     item_tester tester, int mode);
 bool (*get_curse_hook)(int *choice, struct object *obj, char *dice_string);
+void (*view_abilities_hook)(struct player_ability *ability_list, int num_abilities);
 
 
 /*
@@ -216,4 +217,14 @@ bool get_curse(int *choice, struct object *obj, char *dice_string)
     /* Ask the UI for it */
     if (get_curse_hook) return get_curse_hook(choice, obj, dice_string);
     return false;
+}
+
+
+/*
+ * Browse player abilities
+ */
+void view_ability_menu(struct player_ability *ability_list, int num_abilities)
+{
+    /* Ask the UI for it */
+    if (view_abilities_hook) view_abilities_hook(ability_list, num_abilities);
 }

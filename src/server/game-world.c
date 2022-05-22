@@ -371,7 +371,7 @@ static void play_ambient_sound(struct player *p)
 static void play_ambient_sound_location(struct player *p)
 {
     // custom depth music-ambience for Sewers
-    if (streq(p->locname, "Severs"))
+    if (streq(p->locname, "Sewers"))
     {
         if (p->wpos.depth == 8) sound(p, MSG_SEWERS1);
         else if (p->wpos.depth == 9) sound(p, MSG_SEWERS2);

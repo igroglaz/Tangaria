@@ -334,14 +334,15 @@ void do_cmd_takeoff(struct player *p, int item)
         return;
     }
 
+    // can't take off cursed items right on..
     if (obj->curses && !one_in_(8))
     {
         msg(p, "You fail to take off cursed item this time. Try ones more..");
         return;
     }
 
-    /* Take a turn */
-    use_energy(p);
+    /* Take half a turn */
+    use_energy_aux(p, 50);
 
     /* Take off the item */
     inven_takeoff(p, obj);
@@ -614,8 +615,8 @@ void do_cmd_drop(struct player *p, int item, int quantity)
         return;
     }
 
-    /* Take a turn */
-    use_energy(p);
+    /* Take half a turn */
+    use_energy_aux(p, 50);
 
     /* Hack -- farmers plant seeds */
     if (tval_is_crop(obj) && square_iscropbase(chunk_get(&p->wpos), &p->grid))
@@ -2175,8 +2176,8 @@ void do_cmd_refill(struct player *p, int item)
         return;
     }
 
-    /* Take a turn */
-    use_energy(p);
+    /* Take half a turn */
+    use_energy_aux(p, 50);
 
     refill_lamp(p, light, obj);
 }

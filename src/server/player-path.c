@@ -605,7 +605,7 @@ static bool run_test(struct player *p, struct chunk *c)
  * Called with a real direction to begin a new run, and with zero
  * to continue a run in progress.
  */
-void run_step(struct player *p, int dir)
+bool run_step(struct player *p, int dir)
 {
     struct chunk *c = chunk_get(&p->wpos);
 
@@ -631,16 +631,20 @@ void run_step(struct player *p, int dir)
         {
             /* Disturb */
             disturb(p, 1);
-            return;
+            return true;
         }
     }
 
-    /* Take a turn */
-    use_energy(p);
-
     /* Move the player, attempts to disarm if running straight at a trap */
-    move_player(p, c, p->run_cur_dir, (dir && disarm), false, false, 0);
+    p->upkeep->energy_use = true;
+    move_player(p, c, p->run_cur_dir, (dir && disarm), false, false, 0, has_energy(p, false));
+
+    /* Take a turn */
+    if (!p->upkeep->energy_use) return false;
+    use_energy(p);
 
     /* Prepare the next step */
     if (p->upkeep->running) cmd_run(p, 0);
+
+    return true;
 }

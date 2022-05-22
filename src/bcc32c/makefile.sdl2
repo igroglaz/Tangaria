@@ -109,6 +109,7 @@ CLI_SRCS = \
   ..\client\ui-object.c \
   ..\client\ui-options.c \
   ..\client\ui-output.c \
+  ..\client\ui-player-properties.c \
   ..\client\ui-prefs.c \
   ..\client\ui-spell.c \
   ..\client\ui-store.c \
@@ -172,6 +173,7 @@ CLI_OBJS = \
   ..\client\ui-object.obj \
   ..\client\ui-options.obj \
   ..\client\ui-output.obj \
+  ..\client\ui-player-properties.obj \
   ..\client\ui-prefs.obj \
   ..\client\ui-spell.obj \
   ..\client\ui-store.obj \

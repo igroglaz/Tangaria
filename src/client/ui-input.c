@@ -1202,6 +1202,7 @@ void textui_input_init(void)
     get_spell_hook = textui_get_spell;
     get_item_hook = textui_get_item;
     get_curse_hook = textui_get_curse;
+    view_abilities_hook = textui_view_ability_menu;
 }
 
 

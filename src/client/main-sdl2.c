@@ -3725,6 +3725,7 @@ static bool handle_text_input(const SDL_TextInputEvent *input)
             case '-':
             case '+':
             case '.':
+            case '=':
                 return false;
         }
     }

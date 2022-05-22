@@ -1822,7 +1822,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
             sound(p, MSG_SHOOT); // stone sound. not sure do we need it or not
     }
     else
-        sound(p, MSG_THROW);
+        sound(p, MSG_THROWN);
 
     /* Take a turn */
     use_energy(p);

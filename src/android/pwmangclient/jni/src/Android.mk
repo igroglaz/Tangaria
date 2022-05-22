@@ -47,6 +47,7 @@ LOCAL_SRC_FILES := $(MC_PATH)/main.c \
 		$(CMN_PATH)/display.c \
 		$(CMN_PATH)/source.c \
 		$(MC_PATH)/player-properties.c \
+		$(MC_PATH)/ui-player-properties.c \
 		$(MC_PATH)/ui-birth.c \
 		$(MC_PATH)/ui-command.c \
 		$(MC_PATH)/ui-context.c \

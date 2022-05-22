@@ -1709,7 +1709,7 @@ static bool do_cmd_disarm_aux(struct player *p, struct chunk *c, struct loc *gri
     else
     {
         msg(p, "You set off the %s!", trap->kind->name);
-        move_player(p, c, dir, false, false, true, -1);
+        move_player(p, c, dir, false, false, true, -1, true);
     }
 
     /* Result */
@@ -1978,7 +1978,7 @@ static void do_prob_travel(struct player *p, struct chunk *c, int dir)
  * and also handles attempting to move into walls/doors/rubble/etc.
  */
 void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool check_pickup,
-    bool force, int delayed)
+    bool force, int delayed, bool can_attack)
 {
     bool old_dtrap, new_dtrap, old_pit, new_pit;
     bool do_move = true;
@@ -2129,7 +2129,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
             /* Check for an attack */
             if (pvp_check(p, who->player, PVP_DIRECT, true, square(c, &grid)->feat))
-                py_attack(p, c, &grid);
+            {
+                if (can_attack) py_attack(p, c, &grid);
+                else p->upkeep->energy_use = false;
+            }
 
             /* Handle polymorphed players */
             else if (!do_move)
@@ -2177,7 +2180,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 monster_wake(p, who->monster, false, 100);
             }
             else
-                py_attack(p, c, &grid);
+            {
+                if (can_attack) py_attack(p, c, &grid);
+                else p->upkeep->energy_use = false;
+            }
         }
 
         /* Handle polymorphed players */
@@ -2531,56 +2537,27 @@ static bool erratic_dir(struct player *p, int *dp)
 }
 
 
-static bool clear_web(struct player *p, struct chunk *c)
+static void clear_web(struct player *p, struct chunk *c)
 {
-    if (!square_iswebbed(c, &p->grid)) return false;
+    msg(p, "You clear the web.");
+    square_clear_feat(c, &p->grid);
+    update_visuals(&p->wpos);
+    fully_update_flow(&p->wpos);
+    use_energy(p);
+}
 
-    if (streq(p->race->name, "Spider")) return false;
 
-    /* Handle polymorphed players */
-    if (p->poly_race)
+static bool player_confuse_dir_nomsg(struct player *p, int *dp)
+{
+    int dir = *dp;
+
+    /* Random direction */
+    if (p->timed[TMD_CONFUSED] && ((dir == DIR_TARGET) || magik(75)))
+        dir = ddd[randint0(8)];
+
+    if (*dp != dir)
     {
-        /* If we can pass, no need to clear */
-        if (!rf_has(p->poly_race->flags, RF_PASS_WEB))
-        {
-            /* Insubstantial monsters go right through */
-            if (rf_has(p->poly_race->flags, RF_PASS_WALL)) {}
-
-            /* If you can pass through walls, you can destroy a web */
-            else if (monster_passes_walls(p->poly_race))
-            {
-                msg(p, "You clear the web.");
-                square_clear_feat(c, &p->grid);
-                update_visuals(&p->wpos);
-                fully_update_flow(&p->wpos);
-                use_energy(p);
-                return true;
-            }
-
-            /* Clearing costs a turn */
-            else if (rf_has(p->poly_race->flags, RF_CLEAR_WEB))
-            {
-                msg(p, "You clear the web.");
-                square_clear_feat(c, &p->grid);
-                update_visuals(&p->wpos);
-                fully_update_flow(&p->wpos);
-                use_energy(p);
-                return true;
-            }
-
-            /* Stuck */
-            else return true;
-        }
-    }
-
-    /* Clear the web, finish turn */
-    else
-    {
-        msg(p, "You clear the web.");
-        square_clear_feat(c, &p->grid);
-        update_visuals(&p->wpos);
-        fully_update_flow(&p->wpos);
-        use_energy(p);
+        *dp = dir;
         return true;
     }
 
@@ -2591,30 +2568,98 @@ static bool clear_web(struct player *p, struct chunk *c)
 /*
  * Walk in the given direction.
  */
-void do_cmd_walk(struct player *p, int dir)
+bool do_cmd_walk(struct player *p, int dir)
 {
     struct chunk *c = chunk_get(&p->wpos);
     bool trapsafe = player_is_trapsafe(p);
     struct loc grid;
 
+    /* Check energy */
+    if (!has_energy_per_move(p)) return false;
+
     /* Get a direction (or abort) */
-    if (!dir) return;
+    if (!dir) return true;
 
     /* If we're in a web, deal with that */
-    if (clear_web(p, c)) return;
+    if (square_iswebbed(c, &p->grid))
+    {
+        // spider race pass web
+        if (streq(p->race->name, "Spider")) return false;
+
+        /* Handle polymorphed players */
+        if (p->poly_race)
+        {
+            /* If we can pass, no need to clear */
+            if (!rf_has(p->poly_race->flags, RF_PASS_WEB))
+            {
+                /* Insubstantial monsters go right through */
+                if (rf_has(p->poly_race->flags, RF_PASS_WALL)) {}
+
+                /* If you can pass through walls, you can destroy a web */
+                else if (monster_passes_walls(p->poly_race))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Clearing costs a turn */
+                else if (rf_has(p->poly_race->flags, RF_CLEAR_WEB))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Stuck */
+                else return true;
+            }
+        }
+
+        /* Clear the web, finish turn */
+        else
+        {
+            /* Check energy */
+            if (has_energy(p, false))
+            {
+                clear_web(p, c);
+                return true;
+            }
+
+            return false;
+        }
+    }
 
     /* Verify legality */
-    if (!do_cmd_walk_test(p)) return;
+    if (!do_cmd_walk_test(p)) return true;
 
-    /* Take a turn */
-    use_energy(p);
+    /* Apply confusion if necessary */
+    if (player_confuse_dir_nomsg(p, &dir))
+    {
+        /* Confused movements use energy no matter what */
+        if (!has_energy(p, false)) return false;
+        msg(p, "You are confused.");
+    }
 
-    /* Apply confusion/erratic movement */
-    player_confuse_dir(p, &dir);
-    erratic_dir(p, &dir);
+    /* Apply erratic movement if necessary */
+    if (erratic_dir(p, &dir))
+    {
+        /* Erratic movements use energy no matter what */
+        if (!has_energy(p, false)) return false;
+    }
 
     /* Ensure "dir" is in ddx/ddy array bounds */
-    if (!VALID_DIR(dir)) return;
+    if (!VALID_DIR(dir)) return true;
 
     next_grid(&grid, &p->grid, dir);
 
@@ -2623,35 +2668,116 @@ void do_cmd_walk(struct player *p, int dir)
         quit("Trying to walk out of bounds, please report this bug.");
 
     /* Attempt to disarm unless it's a trap and we're trapsafe */
-    move_player(p, c, dir, !(square_isdisarmabletrap(c, &grid) && trapsafe), true, false, 0);
+    p->upkeep->energy_use = true;
+    move_player(p, c, dir, !(square_isdisarmabletrap(c, &grid) && trapsafe), true, false, 0,
+        has_energy(p, false));
+
+    /* Take a turn */
+    if (!p->upkeep->energy_use) return false;
+    use_energy(p);
+    return true;
 }
 
 
 /*
  * Walk into a trap
  */
-void do_cmd_jump(struct player *p, int dir)
+bool do_cmd_jump(struct player *p, int dir)
 {
     struct chunk *c = chunk_get(&p->wpos);
 
+    /* Check energy */
+    if (!has_energy_per_move(p)) return false;
+
     /* Get a direction (or abort) */
-    if (!dir) return;
+    if (!dir) return true;
 
     /* If we're in a web, deal with that */
-    if (clear_web(p, c)) return;
+    if (square_iswebbed(c, &p->grid))
+    {
+        /* Handle polymorphed players */
+        if (p->poly_race)
+        {
+            /* If we can pass, no need to clear */
+            if (!rf_has(p->poly_race->flags, RF_PASS_WEB))
+            {
+                /* Insubstantial monsters go right through */
+                if (rf_has(p->poly_race->flags, RF_PASS_WALL)) {}
+
+                /* If you can pass through walls, you can destroy a web */
+                else if (monster_passes_walls(p->poly_race))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Clearing costs a turn */
+                else if (rf_has(p->poly_race->flags, RF_CLEAR_WEB))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Stuck */
+                else return true;
+            }
+        }
+
+        /* Clear the web, finish turn */
+        else
+        {
+            /* Check energy */
+            if (has_energy(p, false))
+            {
+                clear_web(p, c);
+                return true;
+            }
+
+            return false;
+        }
+    }
 
     /* Verify legality */
-    if (!do_cmd_walk_test(p)) return;
+    if (!do_cmd_walk_test(p)) return true;
 
-    /* Take a turn */
-    use_energy(p);
+    /* Apply confusion if necessary */
+    if (player_confuse_dir_nomsg(p, &dir))
+    {
+        /* Confused movements use energy no matter what */
+        if (!has_energy(p, false)) return false;
+        msg(p, "You are confused.");
+    }
 
-    /* Apply confusion/erratic movement */
-    player_confuse_dir(p, &dir);
-    erratic_dir(p, &dir);
+    /* Apply erratic movement if necessary */
+    if (erratic_dir(p, &dir))
+    {
+        /* Erratic movements use energy no matter what */
+        if (!has_energy(p, false)) return false;
+    }
+
+    /* Ensure "dir" is in ddx/ddy array bounds */
+    if (!VALID_DIR(dir)) return true;
 
     /* Move the player */
-    move_player(p, chunk_get(&p->wpos), dir, false, true, false, 0);
+    p->upkeep->energy_use = true;
+    move_player(p, c, dir, false, true, false, 0, has_energy(p, false));
+
+    /* Take a turn */
+    if (!p->upkeep->energy_use) return false;
+    use_energy(p);
+    return true;
 }
 
 
@@ -2721,15 +2847,19 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
  *
  * Note that running while confused is not allowed
  */
-void do_cmd_run(struct player *p, int dir)
+bool do_cmd_run(struct player *p, int dir)
 {
+    struct chunk *c = chunk_get(&p->wpos);
     struct loc grid;
+
+    /* Check energy */
+    if (!has_energy_per_move(p)) return false;
 
     /* Not while confused */
     if (p->timed[TMD_CONFUSED])
     {
         msg(p, "You are too confused!");
-        return;
+        return true;
     }
 
     /* Handle polymorphed players */
@@ -2739,18 +2869,72 @@ void do_cmd_run(struct player *p, int dir)
             rf_has(p->poly_race->flags, RF_RAND_50))
         {
             msg(p, "Your nature prevents you from running straight.");
-            return;
+            return true;
         }
     }
 
     /* Ignore invalid directions */
-    if ((dir == DIR_TARGET) || !VALID_DIR(dir)) return;
+    if ((dir == DIR_TARGET) || !VALID_DIR(dir)) return true;
 
     /* Ignore non-direction if we are not running */
-    if (!p->upkeep->running && !dir) return;
+    if (!p->upkeep->running && !dir) return true;
 
     /* If we're in a web, deal with that */
-    if (clear_web(p, chunk_get(&p->wpos))) return;
+    if (square_iswebbed(c, &p->grid))
+    {
+        /* Handle polymorphed players */
+        if (p->poly_race)
+        {
+            /* If we can pass, no need to clear */
+            if (!rf_has(p->poly_race->flags, RF_PASS_WEB))
+            {
+                /* Insubstantial monsters go right through */
+                if (rf_has(p->poly_race->flags, RF_PASS_WALL)) {}
+
+                /* If you can pass through walls, you can destroy a web */
+                else if (monster_passes_walls(p->poly_race))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Clearing costs a turn */
+                else if (rf_has(p->poly_race->flags, RF_CLEAR_WEB))
+                {
+                    /* Check energy */
+                    if (has_energy(p, false))
+                    {
+                        clear_web(p, c);
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                /* Stuck */
+                else return true;
+            }
+        }
+
+        /* Clear the web, finish turn */
+        else
+        {
+            /* Check energy */
+            if (has_energy(p, false))
+            {
+                clear_web(p, c);
+                return true;
+            }
+
+            return false;
+        }
+    }
 
     /* Continue running if we are already running in this direction */
     if (p->upkeep->running && (dir == p->run_cur_dir)) dir = 0;
@@ -2761,11 +2945,11 @@ void do_cmd_run(struct player *p, int dir)
         next_grid(&grid, &p->grid, dir);
 
         /* Verify legality */
-        if (!do_cmd_run_test(p, &grid)) return;
+        if (!do_cmd_run_test(p, &grid)) return true;
     }
 
     /* Start run */
-    run_step(p, dir);
+    return run_step(p, dir);
 }
 
 

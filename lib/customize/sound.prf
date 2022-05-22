@@ -284,8 +284,8 @@ sound:shoot_sling:tomenet/combat/fire/sling
 # You throw a boomerang.
 sound:shoot_boomerang:tomenet/combat/fire/boomerang
 
-# You throw something (any item)
-sound:throw:tomenet/combat/miss/swosh
+# You throw (using 'thrown' as 'throw' is a keyword in c++) something (any item)
+sound:thrown:tomenet/combat/miss/swosh
 
 # You hit something (out of LoS) with a missile.
 sound:shoot_hit:plc_hit_arrow

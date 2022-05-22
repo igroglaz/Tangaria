@@ -1310,7 +1310,7 @@ flags:ANIMAL | NO_CONF | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 drop:fortune cookie:Fortune Cookie:80:1:1
 desc:A striped housecat who enjoys hunting.
-locations:The Mountain Gorge|The Orc Cave|The Severs
+locations:The Mountain Gorge|The Orc Cave|The Sewers
 
 name:kobold
 base:kobold
@@ -6271,7 +6271,7 @@ innate-freq:33
 spells:BLINK | SHOT | TRAPS | DARKNESS
 desc:Beautiful tiny girls with huge... eyes.
 desc:She winks at you.
-locations:The Severs
+locations:The Sewers
 
 name:wererat
 base:rodent

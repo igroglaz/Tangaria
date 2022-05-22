@@ -511,7 +511,7 @@ always:fortune cookie:All cattle died by unknown diseases.
 always:fortune cookie:So bag of wheat cost more then two bags of gold.
 always:fortune cookie:Eeh.. But we still got some booze left.. *hic*
 #######################################################################
-normal:fortune cookie:We got troubles with burglars from town severs..
+normal:fortune cookie:We got troubles with burglars from town sewers..
 normal:fortune cookie:Someone should give a lesson to this thiefs...
 #######################################################################
 ###
@@ -614,10 +614,10 @@ always:fortune cookie:And we are not doing well, you know. All this
 always:fortune cookie:food problem and everything.. But we get used to
 always:fortune cookie:it. I love mushrooms, you know.. But there is
 always:fortune cookie:another problem. Scoundrels, rogues and bandits.
-always:fortune cookie:Someone say they got a headquaters in severs.
+always:fortune cookie:Someone say they got a headquaters in sewers.
 always:fortune cookie:Could you help us with it? I heard they got
 always:fortune cookie:plenty of gold..and what is more important - food
-always:fortune cookie:down there.. You will find severs to the east of
+always:fortune cookie:down there.. You will find sewers to the east of
 always:fortune cookie:our village. 
 always:fortune cookie:Take care, friend.. And good luck to thee..
 #######################################################################
