@@ -1896,7 +1896,8 @@ static void player_strip(struct player *p, bool perma_death)
 static void player_funeral(struct player *p)
 {
     /* Clear his houses */
-    reset_houses(p);
+    // but don't unbind from account
+    reset_houses_rip(p);
 
     /* Remove him from his party */
     if (p->party)

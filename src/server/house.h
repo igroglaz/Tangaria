@@ -86,6 +86,12 @@ extern bool location_in_house(struct worldpos *wpos, struct loc *grid);
 /* Get house */
 extern struct house_type *house_get(int house);
 
+/* Reset house (only for character items, not for account) */
+extern void reset_house_rip(int house);
+
+/* Reset owned houses (only for character items, not for account) */
+extern void reset_houses_rip(struct player *p);
+
 /* Reset house */
 extern void reset_house(int house);
 

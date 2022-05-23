@@ -475,10 +475,83 @@ struct house_type *house_get(int house)
     return &houses[house];
 }
 
+/*
+ * Reset owned house on character death (but don't remove from account)
+ */
+void reset_house_rip(int house)
+{
+    int i;
+    struct chunk *c = chunk_get(&houses[house].wpos);
+    struct loc_iterator iter;
+
+    ///////////
+    // commenting out in Tangaria to preserve houses for account
+    /* House is no longer owned */
+    // houses[house].ownername[0] = '\0';
+    // houses[house].ownerid = 0;
+    // houses[house].color = 0;
+    // houses[house].free = 0;
+    ///////////
+
+    /* Remove all players from the house */
+    for (i = 1; i <= NumPlayers; i++)
+    {
+        struct player *p = player_get(i);
+
+        if (house_inside(p, house))
+        {
+            msg(p, "You have been expelled from the house.");
+            do
+            {
+                struct source who_body;
+                struct source *who = &who_body;
+
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_simple(EF_TELEPORT, who, "10", 0, 0, 0, 0, 0, NULL);
+            }
+            while (house_inside(p, house));
+        }
+    }
+
+    /* Replace the door with 'unoccupied' door */
+    // square_colorize_door(c, &houses[house].door, 0);
+
+    loc_iterator_first(&iter, &houses[house].grid_1, &houses[house].grid_2);
+
+    /* Reset the house */
+    do
+    {
+        /* Delete the objects */
+        square_excise_pile(c, &iter.cur);
+    }
+    while (loc_iterator_next(&iter));
+}
+
+
+/*
+ * Reset owned houses on character death (but don't remove from account)
+ */
+void reset_houses_rip(struct player *p)
+{
+    int i;
+
+    /* Clear his houses */
+    for (i = 0; i < houses_count(); i++)
+    {
+        /* Is house owned? */
+        if (house_owned_by(p, i))
+        {
+            /* House is no longer owned */
+            reset_house_rip(i);
+        }
+    }
+}
+
 
 /*
  * Reset house
  */
+ // actually sell the house. for RIP see function reset_house_rip()
 void reset_house(int house)
 {
     int i;
@@ -529,6 +602,7 @@ void reset_house(int house)
 /*
  * Reset owned houses
  */
+ // actually sell the house. for RIP see function reset_houses_rip()
 void reset_houses(struct player *p)
 {
     int i;

@@ -2645,12 +2645,17 @@ void do_cmd_buy(struct player *p, int item, int amt)
     /* Ensure item owner = store owner */
     if (s->type == STORE_PLAYER)
     {
+        /* extract house struct from house id and get ownername from it */
         const char *name = house_get(p->player_store_num)->ownername;
+        /* get owner pointer */
         hash_entry *ptr = lookup_player_by_name(name);
 
+        /* get previous item owner id (if he is still alive)
+           if it's bought from NPC store - previous owner is 0 */
         bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
 
-        /* Hack -- use o_name for audit :/ */
+        /* Hack -- use o_name for audit :/ 
+           (send message to clog) */
         strnfmt(o_name, sizeof(o_name), "PS %s-%d | %s-%d $ %d", p->name, (int)p->id, name,
             (int)bought->owner, price);
         audit(o_name);
