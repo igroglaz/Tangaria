@@ -1707,6 +1707,9 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         /* Set his location, panel, etc. */
         player_setup(p, id, account, options[OPT_birth_no_recall]);
 
+        // store account ID for housing
+        p->account_id = account;
+
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
 

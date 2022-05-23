@@ -923,6 +923,9 @@ struct player
     void *object_list_subwindow;
 
     quark_t* note_aware;    /* Autoinscription quark number */
+
+    // Tangaria common fields
+    uint32_t account_id; // account id (needed for housing)
 };
 
 extern struct player_body *bodies;
