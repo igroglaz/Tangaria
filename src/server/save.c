@@ -496,6 +496,7 @@ void wr_player_misc(void *data)
 
     // Tangaria
     wr_u32b(p->account_id);
+    wr_string(p->account_name);
 
     if (p->is_dead) return;
 

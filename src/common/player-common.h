@@ -926,6 +926,7 @@ struct player
 
     // Tangaria common fields
     uint32_t account_id; // account id (needed for housing)
+    char account_name[NORMAL_WID];  // account name (needed for housing)
 };
 
 extern struct player_body *bodies;

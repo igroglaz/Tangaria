@@ -1709,6 +1709,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
 
         // store account ID for housing
         p->account_id = account;
+        // also copy account name
+        my_strcpy(p->account_name, get_connection(p->conn)->nick_account, sizeof(p->account_name));
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
