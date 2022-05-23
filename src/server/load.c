@@ -767,6 +767,9 @@ int rd_player_misc(struct player *p)
     p->poly_race = rd_race();
     rd_s16b(&p->k_idx);
 
+    // Tangaria
+    rd_u32b(&p->account_id);
+
     if (p->is_dead) return 0;
 
     /* Property knowledge */
