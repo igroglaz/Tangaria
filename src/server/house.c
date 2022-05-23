@@ -87,7 +87,7 @@ bool house_owned_by(struct player *p, int house)
     /* Paranoia */
     if ((house < 0) || (house >= houses_count())) return false;
 
-    return (houses[house].state && (houses[house].ownerid > 0) && (p->id == houses[house].ownerid));
+    return (houses[house].state && (houses[house].ownerid > 0) && (p->account_id == houses[house].ownerid));
 }
 
 
@@ -167,7 +167,8 @@ int find_house(struct player *p, struct loc *grid, int offset)
  */
 void set_house_owner(struct player *p, struct house_type *house)
 {
-    house->ownerid = p->id;
+    // account ID got type: uint32_t account
+    house->ownerid = p->account_id;
     my_strcpy(house->ownername, p->name, sizeof(house->ownername));
     house->color = COLOUR_WHITE;
 }

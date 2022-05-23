@@ -22,7 +22,8 @@ struct house_type
     struct loc door;            /* Location of door */
     struct worldpos wpos;       /* Position on the world map */
     int32_t price;                 /* Cost of buying */
-    int32_t ownerid;               /* Owner ID */
+    // as in T we bind houses to account: changed int32_t to uint32_t for ownerid (cause account is u)
+    uint32_t ownerid;               /* Owner ID */
     char ownername[NORMAL_WID]; /* Owner name */
     uint8_t color;                 /* Door color */
     uint8_t state;                 /* State */
