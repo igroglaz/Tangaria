@@ -29,7 +29,7 @@ extern void do_cmd_sleep(struct player *p);
 extern void display_feeling(struct player *p, bool obj_only);
 extern void do_cmd_purchase_house(struct player *p, int dir);
 extern int wielding_cut(struct player *p);
-extern bool create_house(struct player *p, int small_house);
+extern bool create_house(struct player *p, int house_variant);
 extern bool build_house(struct player *p);
 extern void display_time(struct player *p);
 
