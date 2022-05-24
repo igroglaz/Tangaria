@@ -304,7 +304,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
     }
 
     // Handle Werewolf at night
-    if (p->use_graphics && streq(p->race->name, "Werewolf") && is_daytime())
+    if (p->use_graphics && streq(p->race->name, "Werewolf") && is_daytime() && (p->wpos.depth == 0))
     {
         struct monster_race *race = get_race("battle-scarred veteran");
 
@@ -489,6 +489,15 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
                 {
                     *a = presets[mode].player_bubbles[life].a;
                     *c = presets[mode].player_bubbles[life].c;
+                }
+
+                // Handle Werewolf
+                if (streq(p->race->name, "Werewolf"))
+                {
+                    struct monster_race *race = get_race("battle-scarred veteran");
+
+                    *a = p->r_attr[race->ridx];
+                    *c = p->r_char[race->ridx];
                 }
             }
         }
