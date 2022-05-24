@@ -303,6 +303,23 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             *c = presets[mode].player_presets[q->psex][q->clazz->cidx][q->race->ridx].c;
     }
 
+    // Handle Werewolf at night
+    if (p->use_graphics && streq(p->race->name, "Werewolf") && is_daytime())
+    {
+        struct monster_race *race = get_race("battle-scarred veteran");
+
+        if (server)
+        {
+            *a = monster_x_attr[race->ridx];
+            *c = monster_x_char[race->ridx];
+        }
+        else
+        {
+            *a = p->r_attr[race->ridx];
+            *c = p->r_char[race->ridx];
+        }
+    }
+
     /* Handle ghosts in graphical mode */
     if (p->use_graphics && q->ghost)
     {
