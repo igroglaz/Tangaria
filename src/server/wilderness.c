@@ -2841,6 +2841,18 @@ int house_price(int area, bool town)
 {
     int price = 0;
 
+    ///////////////////////////////////////
+    // Fix small houses price
+    // (without it multiplyer would be 1 and price will be 50g per house
+    // Note: these area calculations are local! it used only in this function.
+    if (area == 1)
+    {
+        area = 2;
+    }
+    else
+        area += 5;  // adjust price a bit, so 10k free houses won't be too big
+    ///////////////////////////////////////
+
     if (town)
     {
         price = area;
