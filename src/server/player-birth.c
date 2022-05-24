@@ -940,11 +940,14 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
-    /* Give the player a deed of property */
+    // as in T houses become permanent - no need to give free stuff
+    /*
+    // Give the player a deed of property
     player_outfit_aux(p, lookup_kind_by_name(TV_DEED, "Deed of Property"), 1, true);
 
-    /* Give the player a house creation scroll */
+    // Give the player a house creation scroll
     player_outfit_aux(p, lookup_kind_by_name(TV_SCROLL, "Small House Creation"), 1, true);
+    */
 }
 
 

@@ -196,7 +196,7 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 #equip:ring:Speed:2:2:none
 #equip:stone:House Foundation Stone:40:40:none
-#equip:scroll:House Creation:40:40:none
+#equip:scroll:Small House Creation:4:5:none
 #equip:potion:Experience:1:1:none
 obj-flag:30:PROT_FEAR
 value:0:STR[3]
