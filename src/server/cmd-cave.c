@@ -3864,52 +3864,8 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
         return false;
     }
 
-    /* Calculare area for price */
-    area = x * y;
-
-    /* Fix small houses price
-    (without it multiplyer would be 1 and price will be 50g per house */
-    if (area == 1)
-    {
-        area = 2;
-    }
-    else
-        area += 5;  // adjust price a bit, so 10k free houses won't be too big
-
-    /* Calculate price.
-    More houses you have - more expensive will be next one */
-    price = house_price(area, false);
-
-    /* Check for deeds of property */
-    // If you don't have any house, building 1st small one will be free.
-    // There will be yet another check of such kind - when we pay the gold.
-    if ((price < 10000) && ((houses_owned(p)) < 1))
-    {
-        // Look in backpack for Deed of Property
-        for (i = 0; i < z_info->pack_size; i++)
-        {
-            struct object *obj = p->upkeep->inven[i];
-
-            if (!obj) continue;
-
-            if (tval_is_deed(obj)) return price;
-        }
-        // cycle ended.. so deed wasn't found and we can check for enough funds:
-        if (price > p->au)
-        {
-            msg(p, "You do not have enough money to pay the price of %ld gold.", price);
-            return false;
-        }
-    }
-    // in case if it's expensive (10k+) house - check for enough funds:
-    else if (price > p->au)
-    {
-        msg(p, "You do not have enough money to pay the price of %ld gold.", price);
-        return false;
-    }
-
-    /* Return the price (which is also area permission) */
-    return price;
+    /* Calculare area size */
+    return (x * y);
 }
 
 
@@ -3924,6 +3880,7 @@ bool create_house(struct player *p, int house_variant)
     struct chunk *c = chunk_get(&p->wpos);
     struct loc begin, end;
     struct loc_iterator iter;
+    int area_size;
     long int price;
     int i; // to find house deed for <10k houses
     char wall_type = '\0';  // second part of floor name (type) for rng walls
@@ -3966,12 +3923,55 @@ bool create_house(struct player *p, int house_variant)
 //   }
 
     /* Determine the area of the house foundation AND calculate price */
-    if ((price = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
+    if ((area_size = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
 
-    // Check is house made with Small House Creation scroll or not
-    // (parameter given to create_house() )
-    if (price > 10000 && house_variant == 1)
+    // Compare planned area_size and house variant (depends on type of house)
+    if (area_size > 3 && house_variant == 1) // cabin
         return false;
+    else if (area_size > 6 && house_variant == 2) // small house
+        return false;
+    else if (area_size > 9 && house_variant == 3) // medium house
+        return false;
+    else if (area_size > 25 && house_variant == 4) // big house
+        return false;
+    else if (area_size > 64 && house_variant == 5) // villa
+        return false;
+    else if (area_size > 100 && house_variant == 6) // estate
+        return false;
+    else if (area_size > 144 && house_variant == 7) // tower
+        return false;
+    else if (area_size > 256 && house_variant == 8) // keep
+        return false;
+    else if (area_size > 324 && house_variant == 9) // castle
+        return false;
+
+    /* Calculate price.
+    More houses you have - more expensive will be next one */
+    price = house_price(area_size, false);
+
+    /* Check for deeds of property */
+    // There will be yet another check of such kind - when we pay the gold,
+    // but for now it's commented out. We use Deed only for discount atm.
+    // Look in backpack for Deed of Property
+    for (i = 0; i < z_info->pack_size; i++)
+    {
+        struct object *obj = p->upkeep->inven[i];
+
+        if (!obj) continue;
+
+        if (tval_is_deed(obj));
+        {
+            price = (price * 9) / 10;
+            break;
+        }
+    }
+
+    // check for enough funds:
+    if (price > p->au)
+    {
+        msg(p, "You do not have enough money to pay the price of %ld gold.", price);
+        return false;
+    }
 
     /* Is the location allowed? */
     /* XXX We should check if too near other houses, roads, level edges, etc */
@@ -3987,7 +3987,10 @@ bool create_house(struct player *p, int house_variant)
         return false;
     }
 
-    /* Check for deeds of property */
+    /* NOT USED for now...
+    // it means that h_local.free also not used atm.
+    //////
+    // Check for deeds of property
     // if you don't have any house, building 1st small one will be free
     if ((price < 10000) && ((houses_owned(p)) < 1))
     {
@@ -4007,6 +4010,11 @@ bool create_house(struct player *p, int house_variant)
     }
     else
         p->au -= price; // big house: take some of the player's money
+    //////
+    */
+
+    // pay for house
+    p->au -= price;
 
     /* Redraw */
     p->upkeep->redraw |= (PR_GOLD);
