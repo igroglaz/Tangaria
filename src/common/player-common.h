@@ -735,9 +735,9 @@ struct player
     hturn active_turn;                      /* Number of active player turns */
     bool* kind_aware;                       /* Is the player aware of this obj kind? */
     bool* kind_tried;                       /* Has the player tried this obj kind? */
-    char name[NORMAL_WID];                  /* Nickname */
+    char name[NORMAL_WID];                  /* Character nickname */
     char pass[NORMAL_WID];                  /* Password */
-    int32_t id;                                /* Unique ID to each player */
+    int32_t id;                                /* Unique ID to each player character (not account!) */
     int16_t ghost;                             /* Are we a ghost */
     uint8_t lives;                             /* Number of times we have resurrected */
     uint8_t party;                             /* The party he belongs to (or 0 if neutral) */
@@ -925,7 +925,7 @@ struct player
     quark_t* note_aware;    /* Autoinscription quark number */
 
     // Tangaria common fields
-    uint32_t account_id; // account id (needed for housing)
+    uint32_t account_id;            // account id (needed for housing)
     char account_name[NORMAL_WID];  // account name (needed for housing)
 };
 

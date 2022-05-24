@@ -169,7 +169,7 @@ void set_house_owner(struct player *p, struct house_type *house)
 {
     // account ID got type: uint32_t account
     house->ownerid = p->account_id;
-    my_strcpy(house->ownername, p->name, sizeof(house->ownername));
+    my_strcpy(house->ownername, p->account_name, sizeof(house->ownername));
     house->color = COLOUR_WHITE;
 }
 

@@ -2295,7 +2295,7 @@ static void display_store(struct player *p, bool entering)
         /* Get the store name */
         get_player_store_name(p->player_store_num, store_name, sizeof(store_name));
 
-        /* Get the owner name */
+        // Get the owner account name
         strnfmt(store_owner_name, sizeof(store_owner_name), "%s",
             house_get(p->player_store_num)->ownername);
     }
@@ -2643,21 +2643,25 @@ void do_cmd_buy(struct player *p, int item, int amt)
         set_origin(bought, origin, p->wpos.depth, NULL);
 
     /* Ensure item owner = store owner */
+    // not real check; used in #audit channel: ^Z -> o -> #audit
     if (s->type == STORE_PLAYER)
     {
-        /* extract house struct from house id and get ownername from it */
+        /* extract house struct from house id and get ownername (account) from it */
         const char *name = house_get(p->player_store_num)->ownername;
+
+//no need in T for now:
         /* get owner pointer */
-        hash_entry *ptr = lookup_player_by_name(name);
+        // hash_entry *ptr = lookup_player_by_name(name);
 
         /* get previous item owner id (if he is still alive)
            if it's bought from NPC store - previous owner is 0 */
-        bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
+        //bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
+//////////////////////
 
         /* Hack -- use o_name for audit :/ 
            (send message to clog) */
-        strnfmt(o_name, sizeof(o_name), "PS %s-%d | %s-%d $ %d", p->name, (int)p->id, name,
-            (int)bought->owner, price);
+        strnfmt(o_name, sizeof(o_name), "PS buyer char: %s-%d (acc: %s) | seller acc: %s $ %d",
+                p->name, (int)p->id, p->account_name, name, price);
         audit(o_name);
         audit("PS+gold");
     }

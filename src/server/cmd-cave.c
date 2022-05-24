@@ -331,9 +331,9 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
         /* Tell the DM who owns the house */
         if (p->dm_flags & DM_HOUSE_CONTROL)
         {
-            /* Message */
+            // This message contain players account, not character name!
             if (house->ownerid > 0)
-                msg(p, "This house belongs to %s.", house->ownername);
+                msg(p, "This house belongs to account: %s.", house->ownername);
             else
                 msg(p, "This house is not owned.");
         }
