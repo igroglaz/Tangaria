@@ -74,7 +74,7 @@ owner:5000:Yersh the Slender (Half-Orc)
 owner:10000:Yersh the Slender (Half-Orc)
 owner:20000:Yersh the Slender (Half-Orc)
 owner:30000:Yersh the Slender (Half-Orc)
-slots:2:7
+slots:2:4
 turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
@@ -87,13 +87,14 @@ always:travel guide:[Basics]
 #always:digger:Shovel
 #always:digger:Pick
 #always:stone:House Foundation Stone
-normal:scroll:House Creation
-normal:potion:Cure Critical Wounds
-normal:potion:Restore Life Levels
+#normal:scroll:House Creation
+#normal:potion:Cure Critical Wounds
+#normal:potion:Restore Life Levels
 normal:bottle:Empty Bottle:1:500
 normal:food:Hard Biscuit:1:350
 normal:food:Handful of Dried Fruits:1:350
 normal:food:Ration of Food:1:290
+
 buy:light
 buy:food
 buy:mushroom
@@ -651,9 +652,9 @@ always:fortune cookie:I wanna point out immideatelly - we don't recruit
 always:fortune cookie:to the guard. Magistrate has to cut our funds
 always:fortune cookie:recently.. I got only a few mushrooms per day..
 always:fortune cookie:Aa-ah. Anyway. We need a hand with all this 
-always:fortune cookie:madness happening around. Our mayor is missing..
+always:fortune cookie:madness happening around. Old mayor is missing..
 always:fortune cookie:Last time he was seen coming to the Hunter Valley
-always:fortune cookie:to the south-east to visit Old Sorcerer, to ask
+always:fortune cookie:to the south-east to visit ancient volkhv, to ask
 always:fortune cookie:him to help us with wraiths from the north..
 always:fortune cookie:Maybe you can help to find him? I can't go myself
 always:fortune cookie:as I need to protect this town...
@@ -945,15 +946,32 @@ normal:fortune cookie:Gandalf makes so great fireworks!
 normal:fortune cookie:My grandfarther was a warrior too!
 buy:flask
 
-store:NPC l
-owner:5000:NPC l
-owner:5000:NPC l
+store:Mayor
+owner:5000:New mayor
+owner:5000:New mayor
 slots:0:1
-turnover:1
+turnover:0
 #######################################################################
-always:fortune cookie:*sings* Once I came to the land of dreams...
+always:fortune cookie:I say unto you... welcome!
+always:fortune cookie:Welcome and thrice welcome, Hero of the Farfest!
+always:fortune cookie:Now, now, we must not, any of us, be too quick..
+always:fortune cookie:What?..
+always:fortune cookie:You must claim your own. The hour is at hand,
+always:fortune cookie:spoken of old. What help we can offer shall be
+always:fortune cookie:yours, and we trust to your gratitude when
+always:fortune cookie:your quest is ended...
 #######################################################################
-normal:fortune cookie:*sings* Three trolls.. In the forest of mourn..
+always:scroll:Cabin Creation
+always:scroll:Small House Creation
+always:scroll:Medium House Creation
+always:scroll:Big House Creation
+always:scroll:Villa Creation
+always:scroll:Estate Creation
+always:scroll:Tower Creation
+always:scroll:Keep Creation
+always:scroll:Castle Creation
+normal:fortune cookie:Anyway..
+#######################################################################
 buy:flask
 
 store:NPC m

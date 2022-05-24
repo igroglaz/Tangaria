@@ -211,7 +211,7 @@ feat:@:i:Torog
 feat:@:j:Nob, a servant
 feat:@:k:Rose
 #
-feat:@:l:NPC l
+feat:@:l:Mayor
 feat:@:m:NPC m
 feat:@:n:NPC n
 feat:@:o:NPC o
