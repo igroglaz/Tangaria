@@ -306,7 +306,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
     // Handle Werewolf at night
     if (p->use_graphics && streq(p->race->name, "Werewolf") && is_daytime())
     {
-        struct monster_race *race = get_race("battle-scarred veteran");
+        struct monster_race *race = get_race("daylight_werewolf");
 
         if (server)
         {

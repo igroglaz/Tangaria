@@ -30280,6 +30280,24 @@ desc: But actually staying nearby such tree could be deadly in any weather.
 
 #///////////   Werewolf
 
+# NON-ACCESSIBLE. Just an image (skin) to 'wear' on player
+name:daylight_werewolf
+base:canine
+color:U
+speed:112
+hit-points:20
+hearing:10
+smell:50
+armor-class:3
+sleepiness:10
+depth:0
+rarity:0
+weight:40
+experience:1
+blow:BITE:HURT:1d2
+flags:HURT_LIGHT
+desc:.
+
 #name:jackal
 name:jackal_
 base:canine
