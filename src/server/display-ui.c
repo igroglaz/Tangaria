@@ -4640,6 +4640,8 @@ static void master_debug(struct player *p, char *parms)
                     ht_copy(&get_connection(player->conn)->start, &turn);
                     ht_add(&player->game_turn, nbturns);
                     msg(player, "Time advanced by %d hour%s.", nbhours, PLURAL(nbhours));
+                    // also show the time
+                    display_time(p);
                     Send_turn(player, ht_div(&player->game_turn, cfg_fps),
                         ht_div(&player->player_turn, 1), ht_div(&player->active_turn, 1));
 
