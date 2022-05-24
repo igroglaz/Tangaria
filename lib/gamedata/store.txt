@@ -70,11 +70,11 @@ welcome:8:nods to you.
 # General store
 store:General Store
 type:1
-owner:5000:Erkenbrand
-owner:10000:Erkenbrand
-owner:20000:Erkenbrand
-owner:30000:Erkenbrand
-slots:2:7
+owner:5000:Yersh the Slender (Half-Orc)
+owner:10000:Yersh the Slender (Half-Orc)
+owner:20000:Yersh the Slender (Half-Orc)
+owner:30000:Yersh the Slender (Half-Orc)
+slots:2:4
 turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
@@ -82,17 +82,19 @@ always:flask:Flask of Oil
 always:digger:Spade
 always:rock:Throwing Rock
 always:light:Old Lantern
+always:travel guide:[Basics]
 #always:potion:Stomach Water
 #always:digger:Shovel
 #always:digger:Pick
 #always:stone:House Foundation Stone
-normal:scroll:House Creation
-normal:potion:Cure Critical Wounds
-normal:potion:Restore Life Levels
+#normal:scroll:House Creation
+#normal:potion:Cure Critical Wounds
+#normal:potion:Restore Life Levels
 normal:bottle:Empty Bottle:1:500
 normal:food:Hard Biscuit:1:350
 normal:food:Handful of Dried Fruits:1:350
-normal:food:Ration of Food:9:290
+normal:food:Ration of Food:1:290
+
 buy:light
 buy:food
 buy:mushroom
@@ -103,10 +105,10 @@ buy:horn
 
 # Armoury
 store:Armoury
-owner:5000:Kon-Dar the Ugly (Half-Orc)
-owner:10000:Darg-Low the Grim (Human)
-owner:25000:Decado the Handsome (Dunadan)
-owner:30000:Mauglin the Grumpy (Dwarf)
+owner:5000:Dobrynya Dragon-Slayer (Dwarf)
+owner:10000:Dobrynya Dragon-Slayer (Dwarf)
+owner:25000:Dobrynya Dragon-Slayer (Dwarf)
+owner:30000:Dobrynya Dragon-Slayer (Dwarf)
 slots:6:18
 turnover:9
 normal:boots:Pair of Leather Sandals
@@ -139,10 +141,10 @@ buy:dragon armour
 
 # Weaponsmith
 store:Weapon Smiths
-owner:5000:Ithyl-Mak the Beastly (Half-Troll)
-owner:10000:Arndal Beast-Slayer (Half-Elf)
-owner:25000:Tarl Beast-Master (Halfling)
-owner:30000:Oglign Dragon-Slayer (Dwarf)
+owner:5000:Muromets the Grim (Dunadan)
+owner:10000:Muromets the Grim (Dunadan)
+owner:25000:Muromets the Grim (Dunadan)
+owner:30000:Muromets the Grim (Dunadan)
 slots:3:14
 turnover:9
 ############################ add staves and hammers
@@ -187,15 +189,17 @@ buy:mage staff
 # Temple
 store:Temple
 type:2
-owner:15000:Ludwig the Humble (Human)
-owner:20000:Gunnar the Paladin (Human)
-owner:25000:Delilah the Pure (Elf)
-owner:30000:Keldon the Wise (Dwarf)
-slots:6:18
+owner:15000:Monomakh the Wise
+owner:20000:Monomakh the Wise
+owner:25000:Monomakh the Wise
+owner:30000:Monomakh the Wise
+slots:6:16
 turnover:9
 always:prayer book
 always:potion:Cure Light Wounds
 always:potion:Cure Serious Wounds
+always:potion:Cure Critical Wounds
+always:potion:Healing
 always:scroll:Remove Curse
 normal:hafted:Whip
 normal:hafted:Quarterstaff
@@ -212,8 +216,6 @@ normal:potion:Boldness
 normal:potion:Heroism
 normal:potion:Neutralize Poison
 normal:potion:Restore Life Levels
-normal:potion:Cure Critical Wounds
-normal:potion:Healing:10:300
 normal:potion:Resist Poison:1:400
 buy:prayer book
 buy:scroll
@@ -224,11 +226,11 @@ buy-flag:BLESSED:polearm
 
 # Alchemist
 store:Alchemy Shop
-owner:10000:Mauser the Chemist (Half-Elf)
-owner:10000:Wizzle the Chaotic (Halfling)
-owner:15000:Ga-nat the Greedy (Gnome)
-owner:15000:Vella the Slender (Human)
-slots:6:12
+owner:10000:Dmitri the Chaotic (Half-Elf)
+owner:10000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
+slots:6:11
 turnover:9
 always:scroll:Word of Recall
 always:scroll:Phase Door
@@ -241,19 +243,19 @@ normal:potion:Berserk Strength
 normal:potion:Resist Heat
 normal:potion:Resist Cold
 normal:potion:Restore Life Levels
-normal:potion:Infravision
 normal:potion:Speed:10:400
 normal:potion:Resist Poison:10:400
 normal:potion:Restore Mana:10:400
+#normal:potion:Infravision
 buy:scroll
 buy:potion
 
 # Magic-user's
 store:Magic Shop
-owner:15000:Romestamo the Wizard
-owner:20000:Romestamo the Wizard
-owner:25000:Romestamo the Wizard
-owner:30000:Romestamo the Wizard
+owner:15000:Mikhaylo the Wizard
+owner:20000:Mikhaylo the Wizard
+owner:25000:Mikhaylo the Wizard
+owner:30000:Mikhaylo the Wizard
 slots:4:15
 turnover:9
 always:magic book
@@ -288,10 +290,10 @@ buy:potion
 # Bookseller
 store:Bookseller
 type:3
-owner:15000:Yveen the Witch (Half-Elf)
-owner:20000:Narn the Short (Gnome)
-owner:25000:Lord-X the Black (Human)
-owner:30000:Senya the Beautiful (High-Elf)
+owner:15000:Senya the Short
+owner:20000:Senya the Short
+owner:25000:Senya the Short
+owner:30000:Senya the Short
 slots:0:2
 turnover:0
 welcome:0:nods to you.
@@ -317,13 +319,12 @@ buy:travel guide
 # Place custom stores here
 
 # Starter town tavern
-### REMOVE 'old' from store name
-store:Halbarad, the old ranger
-owner:5000:Halbarad, the ranger
-owner:5000:Halbarad, the ranger
+store:Halbarad, the gamekeeper
+owner:5000:Halbarad, the gamekeeper
+owner:5000:Halbarad, the gamekeeper
 slots:0:1
 turnover:0
-welcome:0:looks at you with interest.
+welcome:0:wrinkled his forehead and gaze at you.
 welcome:1:curses.
 welcome:2:grunts.
 welcome:3:eyes you suspiciously.
@@ -335,7 +336,7 @@ welcome:8:"A pleasure to do business with you..."
 #######################################################################
 always:fortune cookie:Hello, stranger. What are you doing there, in
 always:fortune cookie:this wild lands? You are not the first who came
-always:fortune cookie:though.. Strange folk appeared recently.
+always:fortune cookie:though.. Strange folk appeared recently..
 always:fortune cookie:And all of them ar interested in Old Ruins to the
 always:fortune cookie:north-east from my tavern. But I don't complain..
 always:fortune cookie:Finally I could get a few coins by selling some
@@ -383,9 +384,9 @@ buy:flask
 
 # Starter town wizard hut
 #10
-store:Morinehtar the Wizard
-owner:5000:Morinehtar the Wizard
-owner:5000:Morinehtar the Wizard
+store:Boyan the Volkhv
+owner:5000:Boyan the Volkhv
+owner:5000:Boyan the Volkhv
 slots:0:1
 turnover:1
 #######################################################################
@@ -420,8 +421,8 @@ buy:flask
 
 # Guard tower orcs
 store:Old guard Barry
-owner:5000:Barry the guard (Human)
-owner:5000:Barry the guard (Human)
+owner:5000:Barry the guard
+owner:5000:Barry the guard
 slots:0:1
 turnover:1
 #######################################################################
@@ -434,14 +435,14 @@ always:fortune cookie:cave orcs?! Darn orcish beasts! Filthy maggots!
 always:fortune cookie:...Erm.. Anyway. Got any tabacco, mate?
 always:fortune cookie:I got plenty of food there, but no darn weed to
 always:fortune cookie:fill my pipe.. I'm alone there, you see..
-always:fortune cookie:All horizon run away back to town on the west 
+always:fortune cookie:All horizon run away back to town on the east
 always:fortune cookie:months ago.. Filthy cowards! Went back to mommy!
 always:fortune cookie:But I won't run from this stupid orcish beasts!
 always:fortune cookie:They would know how to come to The Guards Tower!!
 always:fortune cookie:Darn.. Are you pretty sure ya don have any weed?
 always:fortune cookie:I see.. *sight* You are not the first who came..
 always:fortune cookie:Anyway If you wanna hunt some orcs - get to
-always:fortune cookie:their cave on the west from the lake..
+always:fortune cookie:their cave on the east from the lake..
 #######################################################################
 normal:fortune cookie:Long time ago this was a heart of trade ways..
 normal:fortune cookie:It was well guarded dwarven trade route.. 
@@ -453,9 +454,9 @@ buy:light
 buy:flask
 
 # Villagers in town
-store:Bob the villager
-owner:5000:Bob the villager (Human)
-owner:5000:Bob the villager (Human)
+store:Ivan the villager
+owner:5000:Ivan the villager
+owner:5000:Ivan the villager
 slots:0:1
 turnover:1
 #######################################################################
@@ -477,9 +478,9 @@ normal:fortune cookie:And now I'm broken. People kill for food.
 buy:flask
 
 # Villagers in town
-store:Marta the villager
-owner:5000:Marta the villager (Human)
-owner:5000:Marta the villager (Human)
+store:Milena the villager
+owner:5000:Milena the villager
+owner:5000:Milena the villager
 slots:0:1
 turnover:1
 #######################################################################
@@ -494,8 +495,8 @@ buy:flask
 
 # Town tavern
 store:Shtukensia the tavernkeeper
-owner:5000:Shtukensia the tavernkeeper (Human)
-owner:5000:Shtukensia the tavernkeeper (Human)
+owner:5000:Shtukensia the tavernkeeper
+owner:5000:Shtukensia the tavernkeeper
 slots:8:9
 turnover:1
 #######################################################################
@@ -520,8 +521,8 @@ normal:fortune cookie:Someone should give a lesson to this thiefs...
 normal:food:Flask of Whisky:1:160
 normal:food:Pint of Fine Wine:3:160
 normal:food:Pint of Fine Ale:2:160
+normal:potion:Infravision
 normal:potion:Resist Poison:1:500
-normal:potion:Healing:1:500
 normal:potion:Speed:1:500
 normal:potion:Restore Mana:1:500
 normal:scroll:Teleportation:1:500
@@ -536,15 +537,15 @@ owner:5000:Danny (Dog)
 owner:5000:Danny (Dog)
 slots:0:1
 turnover:1
-welcome:0:looks at you with interest.
-welcome:1:looks at you with interest.
-welcome:2:looks at you with interest.
-welcome:3:looks at you with interest.
-welcome:4:looks at you with interest.
-welcome:5:looks at you with interest.
-welcome:6:looks at you with interest.
-welcome:7:looks at you with interest.
-welcome:8:looks at you with interest.
+welcome:0:looks at you with suspicion.
+welcome:1:looks at you with suspicion.
+welcome:2:looks at you with suspicion.
+welcome:3:looks at you with suspicion.
+welcome:4:looks at you with suspicion.
+welcome:5:looks at you with suspicion.
+welcome:6:looks at you with suspicion.
+welcome:7:looks at you with suspicion.
+welcome:8:looks at you with suspicion.
 #######################################################################
 normal:fortune cookie:(you are trying to pat the dog)
 normal:fortune cookie:(the dog carefully sniff your arm)
@@ -559,8 +560,8 @@ buy:flask
 
 #town
 store:Arthur the Archer
-owner:5000:Arthur the Archer (Human)
-owner:5000:Arthur the Archer (Human)
+owner:5000:Arthur the Archer
+owner:5000:Arthur the Archer
 slots:10:11
 turnover:9
 #######################################################################
@@ -636,8 +637,8 @@ buy:flask
 
 #town
 store:Boris the Guard
-owner:5000:Boris the Guard (Human)
-owner:5000:Boris the Guard (Human)
+owner:5000:Boris the Guard
+owner:5000:Boris the Guard
 slots:0:1
 turnover:1
 #######################################################################
@@ -651,9 +652,9 @@ always:fortune cookie:I wanna point out immideatelly - we don't recruit
 always:fortune cookie:to the guard. Magistrate has to cut our funds
 always:fortune cookie:recently.. I got only a few mushrooms per day..
 always:fortune cookie:Aa-ah. Anyway. We need a hand with all this 
-always:fortune cookie:madness happening around. Our mayor is missing..
+always:fortune cookie:madness happening around. Old mayor is missing..
 always:fortune cookie:Last time he was seen coming to the Hunter Valley
-always:fortune cookie:to the south-east to visit Old Sorcerer, to ask
+always:fortune cookie:to the south-east to visit ancient volkhv, to ask
 always:fortune cookie:him to help us with wraiths from the north..
 always:fortune cookie:Maybe you can help to find him? I can't go myself
 always:fortune cookie:as I need to protect this town...
@@ -945,15 +946,32 @@ normal:fortune cookie:Gandalf makes so great fireworks!
 normal:fortune cookie:My grandfarther was a warrior too!
 buy:flask
 
-store:NPC l
-owner:5000:NPC l
-owner:5000:NPC l
+store:Mayor
+owner:5000:New mayor
+owner:5000:New mayor
 slots:0:1
-turnover:1
+turnover:0
 #######################################################################
-always:fortune cookie:*sings* Once I came to the land of dreams...
+always:fortune cookie:I say unto you... welcome!
+always:fortune cookie:Welcome and thrice welcome, Hero of the Farfest!
+always:fortune cookie:Now, now, we must not, any of us, be too quick..
+always:fortune cookie:What?..
+always:fortune cookie:You must claim your own. The hour is at hand,
+always:fortune cookie:spoken of old. What help we can offer shall be
+always:fortune cookie:yours, and we trust to your gratitude when
+always:fortune cookie:your quest is ended...
 #######################################################################
-normal:fortune cookie:*sings* Three trolls.. In the forest of mourn..
+always:scroll:Cabin Creation
+always:scroll:Small House Creation
+always:scroll:Medium House Creation
+always:scroll:Big House Creation
+always:scroll:Villa Creation
+always:scroll:Estate Creation
+always:scroll:Tower Creation
+always:scroll:Keep Creation
+always:scroll:Castle Creation
+normal:fortune cookie:Anyway..
+#######################################################################
 buy:flask
 
 store:NPC m

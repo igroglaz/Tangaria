@@ -1773,25 +1773,14 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
 
 bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
-    int small_house = 0;
+    int house_variant = context->value.base;
     context->ident = true;
 
     /* MAngband house creation */
-    return create_house(context->origin->player, small_house);
+    return create_house(context->origin->player, house_variant);
     
     /* PWMAngband house creation */
 //  return build_house(context->origin->player);
-}
-
-
-bool effect_handler_CREATE_SMALL_HOUSE(effect_handler_context_t *context)
-{
-    int small_house = 1;
-    context->ident = true;
-
-    /* MAngband house creation */
-    return create_house(context->origin->player, small_house);
-
 }
 
 

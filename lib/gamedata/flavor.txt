@@ -411,32 +411,37 @@ flavor:310:White
 flavor:311:White
 flavor:312:White
 flavor:313:White
+flavor:314:White
+flavor:315:White
+flavor:316:White
+flavor:317:White
+#scrolls are near the end or already ended.. add more?
 
 ##### Mushrooms #####
 
 kind:mushroom:,
 
-flavor:314:Orange:Soft
-flavor:315:Red:Pimpled
-flavor:316:Pink:Beautiful
-flavor:317:Beige:Ordinary
+flavor:318:Orange:Soft
+flavor:319:Red:Pimpled
+flavor:320:Pink:Beautiful
+flavor:321:Beige:Ordinary
 
 ##### Potions #####
 
 kind:potion:!
 
-flavor:318:Red:Bloody
-flavor:319:Green:Acidulous
-flavor:320:Blue:Skyey
-flavor:321:White:Transparent
-flavor:322:Light Dark:Earthy
-flavor:323:Umber:Turbid
-flavor:324:Mud:Mucky
-flavor:325:Slate:Dusty
-flavor:326:Orange:Faded
-flavor:327:Purple:Luminous
-flavor:328:Teal:Bright
-flavor:329:Mustard:Sooty
-flavor:330:Yellow:Canary
+flavor:322:Red:Bloody
+flavor:323:Green:Acidulous
+flavor:324:Blue:Skyey
+flavor:325:White:Transparent
+flavor:326:Light Dark:Earthy
+flavor:327:Umber:Turbid
+flavor:328:Mud:Mucky
+flavor:329:Slate:Dusty
+flavor:330:Orange:Faded
+flavor:331:Purple:Luminous
+flavor:332:Teal:Bright
+flavor:333:Mustard:Sooty
+flavor:334:Yellow:Canary
 
 # when adding - check flvr-tan.prf

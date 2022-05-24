@@ -294,6 +294,7 @@ help: effectively. Their ambushing is especially deadly to enemies who are not
 help: expecting an attack.
 help: Most powerful assassins specializes in sentries - special magic traps which
 help: shoot poison, blades and magic elements at enemies on sight.
+help: Assassin uses two spellbooks: Shadows for Beginners and Dark Evocations.
 
 class:Phaseblade
 help:Warrior who dwells in two worlds and doesn't feel space/weight burden. It can
@@ -360,9 +361,8 @@ help: suppression of all magic in the area around them. |
 help:They prefer not to use weapons, but to break bones with their bare hands... |
 help:Inquisitors replenish their life forces by hurting victims who fear them.
 
-class:Adventurer
-help:They also called "Villagers".
-help: Villagers are common folks, versatile and able to do anything, but also
+class:Villager
+help:Villagers are common folks, versatile and able to do anything, but also
 help: average at everything they do. They have no strengths nor weaknesses.
 help: Villagers use stamina given by their constitution to perform common tasks
 help: and can be accompanied by a single pet that they can summon at their leisure.

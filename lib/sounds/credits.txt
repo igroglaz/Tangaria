@@ -480,12 +480,12 @@ Wdomino
 https://freesound.org/people/Wdomino/sounds/507724/
 item_light_lamp_2
 
-METKIR
-https://freesound.org/people/METKIR/sounds/623593/
+CosmicEmbers
+https://freesound.org/people/CosmicEmbers/sounds/387351/
 item_light_phial_1
 
-METKIR
-https://freesound.org/people/METKIR/sounds/623594/
+chennes
+https://freesound.org/people/chennes/sounds/376807/
 item_light_phial_2
 
 gyzhor

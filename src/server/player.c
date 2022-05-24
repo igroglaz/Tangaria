@@ -272,7 +272,7 @@ void player_exp_gain(struct player *p, int32_t amount)
         else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
                  streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
             amount = (amount * 2) / 3;
-        else if (streq(p->race->name, "Black Numenorean") || streq(p->race->name, "Dunedain") ||
+        else if (streq(p->race->name, "Black Numenorean") || streq(p->race->name, "Dunadan") ||
                  streq(p->race->name, "Dark Elf") || streq(p->race->name, "Draconian"))
             amount = (amount * 3) / 4;
         // buff

@@ -331,9 +331,9 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
         /* Tell the DM who owns the house */
         if (p->dm_flags & DM_HOUSE_CONTROL)
         {
-            /* Message */
+            // This message contain players account, not character name!
             if (house->ownerid > 0)
-                msg(p, "This house belongs to %s.", house->ownername);
+                msg(p, "This house belongs to account: %s.", house->ownername);
             else
                 msg(p, "This house is not owned.");
         }
@@ -888,13 +888,15 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     bool more = false;
     int digging_chances[DIGGING_MAX], chance = 0, digging;
     bool okay = false;
-    bool gold, rubble, tree, web, door;
+    bool gold, rubble, tree, web, door, ice, sand;
 
     gold = square_hasgoldvein(c, grid);
     rubble = square_isrubble(c, grid);
     tree = square_istree(c, grid);
     web = square_iswebbed(c, grid);
     door = square_isdoor(c, grid);
+    ice = square_is_ice(c, grid);
+    ice = square_is_sand(c, grid);
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
@@ -1279,8 +1281,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         }
 
         /* Dig cobbles (simple non-magical rocks) */
-        else if (one_in_(2) && !square_is_ice(c, grid) &&
-                (!square_is_sand(c, grid) || one_in_(3)))
+        else if (one_in_(2) && !ice && !sand)
         {
             struct object *dig_cobble;
             /* Make cobble */
@@ -1298,8 +1299,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         }
 
         /* Dig house Foundation Stone */
-        else if (one_in_(2) && p->lev > 7 && !square_is_ice(c, grid) &&
-                (!square_is_sand(c, grid) || one_in_(5)))
+        else if (one_in_(2) && p->lev > 7 && !ice && !sand)
         {
             struct object *dig_stone;
             /* Make house stone */
@@ -3917,7 +3917,7 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
  * Create a new house.
  * The creating player owns the house.
  */
-bool create_house(struct player *p, int small_house)
+bool create_house(struct player *p, int house_variant)
 {
     int house;
     struct house_type h_local;
@@ -3970,7 +3970,7 @@ bool create_house(struct player *p, int small_house)
 
     // Check is house made with Small House Creation scroll or not
     // (parameter given to create_house() )
-    if (price > 10000 && small_house == 1)
+    if (price > 10000 && house_variant == 1)
         return false;
 
     /* Is the location allowed? */

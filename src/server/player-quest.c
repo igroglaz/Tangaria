@@ -474,7 +474,7 @@ void end_quest(struct player *p, struct chunk *c, const struct monster *m)
         /* Note completed quests */
         if (quest->cur_num == quest->max_num)
         {
-            struct object *house_deed;
+            struct object *quest_reward;
             char buf[MSG_LEN];
 
             msg(p, "You have just completed your current quest.");
@@ -486,19 +486,19 @@ void end_quest(struct player *p, struct chunk *c, const struct monster *m)
             quest->cur_num = 0;
             quest->max_num = 0;
 
-            /* Make house deed */
+            /* Make quest reward */
 
-            house_deed = object_new();
+            quest_reward = object_new();
 
-            object_prep(NULL, NULL, house_deed, lookup_kind_by_name(TV_SCROLL, "House Creation"), 0, MINIMISE);
+            object_prep(NULL, NULL, quest_reward, lookup_kind_by_name(TV_FOOD, "Ration of Food"), 0, MINIMISE);
 
-            if (house_deed)
+            if (quest_reward)
             {
-                set_origin(house_deed, ORIGIN_FLOOR, p->wpos.depth, NULL);
+                set_origin(quest_reward, ORIGIN_FLOOR, p->wpos.depth, NULL);
 
-                house_deed->note = quark_add(format("%s quest", m->race->name));
+                quest_reward->note = quark_add(format("%s quest", m->race->name));
 
-                drop_near(p, c, &house_deed, 0, &p->grid, true, DROP_FADE, false);
+                drop_near(p, c, &quest_reward, 0, &p->grid, true, DROP_FADE, false);
             }
             // acquirement(p, c, 1, quark_quest);
         }

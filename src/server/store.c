@@ -2295,7 +2295,7 @@ static void display_store(struct player *p, bool entering)
         /* Get the store name */
         get_player_store_name(p->player_store_num, store_name, sizeof(store_name));
 
-        /* Get the owner name */
+        // Get the owner account name
         strnfmt(store_owner_name, sizeof(store_owner_name), "%s",
             house_get(p->player_store_num)->ownername);
     }
@@ -2643,16 +2643,25 @@ void do_cmd_buy(struct player *p, int item, int amt)
         set_origin(bought, origin, p->wpos.depth, NULL);
 
     /* Ensure item owner = store owner */
+    // not real check; used in #audit channel: ^Z -> o -> #audit
     if (s->type == STORE_PLAYER)
     {
+        /* extract house struct from house id and get ownername (account) from it */
         const char *name = house_get(p->player_store_num)->ownername;
-        hash_entry *ptr = lookup_player_by_name(name);
 
-        bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
+//no need in T for now:
+        /* get owner pointer */
+        // hash_entry *ptr = lookup_player_by_name(name);
 
-        /* Hack -- use o_name for audit :/ */
-        strnfmt(o_name, sizeof(o_name), "PS %s-%d | %s-%d $ %d", p->name, (int)p->id, name,
-            (int)bought->owner, price);
+        /* get previous item owner id (if he is still alive)
+           if it's bought from NPC store - previous owner is 0 */
+        //bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
+//////////////////////
+
+        /* Hack -- use o_name for audit :/ 
+           (send message to clog) */
+        strnfmt(o_name, sizeof(o_name), "PS buyer char: %s-%d (acc: %s) | seller acc: %s $ %d",
+                p->name, (int)p->id, p->account_name, name, price);
         audit(o_name);
         audit("PS+gold");
     }
@@ -3374,7 +3383,7 @@ void do_cmd_store(struct player *p, int pstore)
     {
         case STORE_OTHER:
             if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
-            else if (streq(s->name, "Halbarad, the old ranger")) sound(p, MSG_NPC_HI);
+            else if (streq(s->name, "Halbarad, the gamekeeper")) sound(p, MSG_NPC_HI);
             else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
             else if (streq(s->name, "Alchemy Shop"))
             {
@@ -3384,12 +3393,12 @@ void do_cmd_store(struct player *p, int pstore)
                     sound(p, MSG_STORE_ALCHEMY);
             }
             else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
-            else if (streq(s->name, "Morinehtar the Wizard")) sound(p, MSG_STORE_MAGIC);
+            else if (streq(s->name, "Boyan the Volkhv")) sound(p, MSG_STORE_MAGIC);
             else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
             else if (streq(s->name, "Armoury")) sound(p, MSG_NPC_ARMOR);
             else if (streq(s->name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
             else if (streq(s->name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
-            else if (streq(s->name, "Bob the villager")) sound(p, MSG_NPC_WELCOME);
+            else if (streq(s->name, "Ivan the villager")) sound(p, MSG_NPC_WELCOME);
             else if (streq(s->name, "Old guard Barry")) sound(p, MSG_NPC_VET);
             else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
             else if (streq(s->name, "Torog"))
@@ -3409,7 +3418,7 @@ void do_cmd_store(struct player *p, int pstore)
             else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
             else if (streq(s->name, "Gildor")) sound(p, MSG_NPC_DUEL);
-            else if (streq(s->name, "Marta the villager")) sound(p, MSG_NPC_MARTA);
+            else if (streq(s->name, "Milena the villager")) sound(p, MSG_NPC_MARTA);
             else if (streq(s->name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
             else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
             break;

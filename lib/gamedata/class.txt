@@ -169,6 +169,7 @@
 
 # perhaps most of TIMED_INC buffs should be reworked into TIMED_SET...
 
+
 ############### WARRIOR ###############
 name:Warrior
 color:u
@@ -195,7 +196,7 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 #equip:ring:Speed:2:2:none
 #equip:stone:House Foundation Stone:40:40:none
-#equip:scroll:House Creation:40:40:none
+#equip:scroll:Small House Creation:4:5:none
 #equip:potion:Experience:1:1:none
 obj-flag:30:PROT_FEAR
 value:0:STR[3]
@@ -215,6 +216,7 @@ title:Commando
 title:Champion
 title:Hero
 title:Lord
+
 
 ############### Archer ###############
 name:Archer
@@ -270,6 +272,7 @@ title:Grand Archer
 title:Master Archer
 title:Elite Archer
 
+
 ############### MONK ###############
 name:Monk
 color:U
@@ -324,6 +327,7 @@ attack:hit: with a Cat's Claw:20:15:CUT
 attack:hit: with a jump kick:25:20:JUMP
 attack:hit: with a circle kick:35:30:CIRCLE
 attack:hit: with a crushing blow:45:35:CRUSH
+
 
 ############### MAGE ###############
 name:Mage
@@ -2110,6 +2114,7 @@ msg_other: summons some monsters.
 desc:Challenge gods for a bet: they summon a rival to you and
 desc: for such daring they rewards you with a blessing.
 
+
 ############### RANGER ###############
 name:Ranger
 color:y
@@ -3099,6 +3104,7 @@ spell:Sonic Shots:45:25:70:100:0
 effect:BOW_BRAND:SOUND:1
 dice:25
 desc:Turns your missiles into explosive sonic shots.
+
 
 ############### TELEPATH ###############
 name:Telepath
@@ -4829,6 +4835,7 @@ book-desc:A standard travel guide with a few tasks.
 equip:travel guide:[Basics]:1:1:none
 
 spell:Summon Pet:1:1:22:4:0
+cooldown:100
 flag:DRAIN_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -4837,6 +4844,7 @@ dice:1
 msg_other: summons a pet.
 desc:Attempts to summon one pet generated at the current dungeon level.
 desc: This spell has no effect when used in the town.
+desc: Cooldown 100 turns.
 
 
 ############### TAMER ###############
@@ -5062,9 +5070,9 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[1]
+value:0:STR[-1]
 value:0:INT[0]
-value:0:WIS[2]
+value:0:WIS[1]
 value:0:DEX[-2]
 value:0:CON[-2]
 value:0:CHR[1]
@@ -5347,6 +5355,7 @@ dice:3+1d7
 desc:Allows you to avoid death once in a while.
 desc: Can be used every 777 turns.
 
+
 ############### CLASS TEMPLATE for Knight ###############
 name:Knight
 color:W
@@ -5375,7 +5384,7 @@ value:0:DEX[-2]
 value:0:CON[-2]
 value:0:INT[-1]
 value:0:CHR[1+1d24]
-# /// to add: AGGRAVATE 3 range hardcoded (like minotaur)
+# /// AGGRAVATE 3 range hardcoded (like minotaur)
 title:Gallant
 title:Keeper
 title:Protector
@@ -5389,9 +5398,7 @@ title:Glorious Lord
 
 magic:1:600:1
 
-### remove excessive spells during wipe
-
-book:prayer book:town:[Beginners Handbook]:11:divine
+book:prayer book:town:[Beginners Handbook]:3:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
@@ -5414,54 +5421,6 @@ effect:TIMED_INC:OFFENSIVE_STANCE
 dice:9999
 msg_other: took offensive stance.
 desc:You preparing for more offensive tactics. Getting into this stance removes fear.
-
-spell:Retreat 4:50:1:1:1:0
-effect:TELEPORT
-dice:4
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 5:50:1:1:1:0
-effect:TELEPORT
-dice:5
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 6:50:1:1:1:0
-effect:TELEPORT
-dice:6
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 7:50:1:1:1:0
-effect:TELEPORT
-dice:7
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 8:50:1:1:1:0
-effect:TELEPORT
-dice:8
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 9:50:1:1:1:0
-effect:TELEPORT
-dice:9
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 10:50:1:1:1:0
-effect:TELEPORT
-dice:10
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
-
-spell:Retreat 11:50:1:1:1:0
-effect:TELEPORT
-dice:11
-msg_other: retreats away.
-desc:You retreat at random to a short distance.
 
 
 ############### CLASS TEMPLATE for Traveller ###############
@@ -5507,8 +5466,8 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:magic book:town:[Magic for Beginners]:11:arcane
-equip:magic book:[Magic for Beginners]:1:1:none
+book:travel guide:town:[Basics]:11:common
+equip:travel guide:[Basics]:1:1:none
 
 spell:Cartography:1:1:1:4:0
 effect:MAP_AREA
@@ -5611,6 +5570,7 @@ desc: Higher level monsters are more likely to break the glyph.
 desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: You can cast this spell every 100 turns.
+
 
 ############### CLASS TEMPLATE for Bard ###############
 name:Bard
@@ -5800,6 +5760,7 @@ desc:Grants you resistance to acid, cold, fire, lightning and poison and
 desc: strikes a target from above with a plasma.
 desc: Target grid must be targetable and known to the player;
 desc: no target grid will mean the player grid is hit.
+
 
 ############### CLASS TEMPLATE for Battlemage ###############
 name:Battlemage
@@ -6154,6 +6115,7 @@ msg_other: fires a bone bolt.
 desc:Fires a dead sharp bolt that always hits its target.
 desc: After hit it blow up making poison damage.
 
+
 ############### CLASS TEMPLATE for Hermit / Cleric ###############
 name:Hermit
 color:G
@@ -6313,6 +6275,7 @@ desc: Can be used every 200 turns.
 desc: Also grants you resistance against non-physical attacks for a moment.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
+
 
 ############### CLASS TEMPLATE for Wizard ###############
 
@@ -6629,18 +6592,6 @@ desc: You will also be blinded for 10+1d10 turns, unless you
 desc: have resistance to blindness or dark.
 desc: Each cast of this spell bring big reputation loss and recude your charisma.
 
-#remove this book
-book:magic book:dungeon:[Wizard's Tome of Power]:1:arcane
-
-spell:Town Portal:1:3:33:5:0
-effect:RECALL
-dice:10+1d20
-desc:Teleports you from the dungeon to the town or from the town to the
-desc: deepest level you have visited in the dungeon.
-desc: The recall effect is not immediate; it is delayed by some turns.
-desc: During that delay, the effect can be canceled by invoking the prayer
-desc: of recall again.
-
 
 ############### CLASS TEMPLATE for Trader ###############
 name:Trader
@@ -6788,6 +6739,7 @@ effect:NOURISH:SET_TO
 dice:5
 desc:You venture into dangerous business for a trade deal.
 desc: Cooldown 10000 turns.
+
 
 ############### CLASS TEMPLATE for Assassin ###############
 name:Assassin
@@ -7028,6 +6980,7 @@ desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
 desc: Cooldown 60 turns.
 
+
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
 name:Phaseblade
 color:b
@@ -7207,6 +7160,7 @@ desc: Higher level monsters are more likely to break the glyphs.
 desc: The glyphs will remain where they are, until a monster succeeds in
 desc: breaking them or until you leave the level.
 desc: Cooldown 400 turns.
+
 
 ############### CLASS TEMPLATE for Weathermaster / Cryokinetic ###############
 name:Cryokinetic
@@ -7508,6 +7462,7 @@ desc: Drains part of the life-force from a nearby monsters and replenishes
 desc: your mana with it. Does not affect undead, demons, golems, elementals or
 desc: vortices.
 
+
 ############### CLASS TEMPLATE for Scavenger ###############
 name:Scavenger
 color:Y
@@ -7639,6 +7594,7 @@ effect:NOURISH:INC_TO
 dice:15
 desc:Magically renders you comfortably fed (but not satiated).
 
+
 ############### CLASS TEMPLATE for Alchemist ###############
 name:Alchemist
 color:y
@@ -7719,6 +7675,7 @@ desc: Cooldown 7 turns.
 #desc:Allows you to avoid death once in a while.
 #desc: Can be used every 1000 turns.
 
+
 ############### CLASS TEMPLATE for Crafter ###############
 name:Crafter
 color:w
@@ -7793,6 +7750,7 @@ desc: Requires additional mana when you get each level.
 desc: If you cast the spell without enough mana - you suffer severe exhaustion.
 desc: You don't need additional material to create it.
 desc: Cooldown 6 turns.
+
 
 ############### Inquisitor ###############
 name:Inquisitor
@@ -8030,6 +7988,7 @@ desc: Cooldown 333 turns.
 #effect:RANDOM
 #dice:$B
 #expr:B:PLAYER_LEVEL: ...
+
 
 ############### GHOST ###############
 # Hack -- not a real class, used for ghost realm spells

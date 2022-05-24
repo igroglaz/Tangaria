@@ -17,13 +17,14 @@ enum
 /* Information about a "house" */
 struct house_type
 {
-    struct loc grid_1;          /* Location of house */
+    struct loc grid_1;             /* Location of house */
     struct loc grid_2;
-    struct loc door;            /* Location of door */
-    struct worldpos wpos;       /* Position on the world map */
+    struct loc door;               /* Location of door */
+    struct worldpos wpos;          /* Position on the world map */
     int32_t price;                 /* Cost of buying */
-    int32_t ownerid;               /* Owner ID */
-    char ownername[NORMAL_WID]; /* Owner name */
+    // as in T we bind houses to account: changed int32_t to uint32_t for ownerid (cause account is u)
+    uint32_t ownerid;              // Owner account ID
+    char ownername[NORMAL_WID];    // Owner account name
     uint8_t color;                 /* Door color */
     uint8_t state;                 /* State */
     uint8_t free;                  /* House is free (bought with a Deed of Property) */
@@ -85,6 +86,12 @@ extern bool location_in_house(struct worldpos *wpos, struct loc *grid);
 
 /* Get house */
 extern struct house_type *house_get(int house);
+
+/* Reset house (only for character items, not for account) */
+extern void reset_house_rip(int house);
+
+/* Reset owned houses (only for character items, not for account) */
+extern void reset_houses_rip(struct player *p);
 
 /* Reset house */
 extern void reset_house(int house);

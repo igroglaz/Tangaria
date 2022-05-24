@@ -421,7 +421,7 @@ desc:.
 
 ### end.
 
-name:NPC l
+name:Mayor
 graphics:@:s
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -1902,7 +1902,7 @@ priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
 ################################################################################
 info:0:5
-short-desc:The townhall is temporary closed because of mayor was kidnaped.
+short-desc:The town hall is open for business inquires.
 desc:.
 
 #### end of 9D walls for now...

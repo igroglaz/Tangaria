@@ -96,5 +96,64 @@ uint32_t get_account(const char *name, const char *pass)
     /* Close */
     file_close(fh);
 
+    ///////
+    // init Tangaria account ladder
+    ///////
+
+    /* Check account file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "ladder");
+    if (file_exists(filename))
+    {
+        /* Open the file */
+        fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+        if (!fh)
+        {
+            plog("Failed to open ladder file!");
+            return 0L;
+        }
+
+        // reset
+        name_ok = false;
+
+        /* Process the file */
+        while (file_getl(fh, filebuf, sizeof(filebuf)))
+        {
+            /* Get account name */
+            name_ok = !my_stricmp(filebuf, name);
+
+            /* Same name */
+            if (name_ok)
+            {
+                // name already exist, nothing to do
+                file_close(fh);
+                return 0L;
+            }
+        }
+        // close 'MODE_READ' file
+        file_close(fh);
+    }
+
+    // There is no account name in the ladder file, so lets create it
+
+    /* Append to the file */
+    fh = file_open(filename, MODE_APPEND, FTYPE_TEXT);
+    if (!fh)
+    {
+        plog("Failed to open ladder file!");
+        return 0L;
+    }
+
+    /* Lowercase account name */
+    my_strcpy(filebuf, name, sizeof(filebuf));
+    for (str = filebuf; *str; str++) *str = tolower((unsigned char)*str);
+
+    /* Create new account */
+    file_putf(fh, "%s\n", filebuf);
+    // give zero account score to it
+    file_putf(fh, "%s\n", "0");
+
+    // Close 'MODE_APPEND' file
+    file_close(fh);
+
     return account_id;
 }
