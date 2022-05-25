@@ -635,15 +635,12 @@ void wiz_dark(struct player *p, struct chunk *c, bool full)
 }
 
 /*
- * Completely forget the level
+ ////// Completely forget the level
  */
-void wiz_forget(struct player *p, struct chunk *c, bool full)
+void wiz_forget(struct player *p, struct chunk *c)
 {
     struct loc begin, end;
     struct loc_iterator iter;
-
-    /* Hack -- DM has full detection */
-    if (p->dm_flags & DM_SEE_LEVEL) full = true;
 
     loc_init(&begin, 1, 1);
     loc_init(&end, c->width - 1, c->height - 1);
@@ -657,10 +654,6 @@ void wiz_forget(struct player *p, struct chunk *c, bool full)
             square_forget(p, &iter.cur);
     }
     while (loc_iterator_next_strict(&iter));
-
-    loc_init(&begin, 0, 0);
-    loc_init(&end, c->width, c->height);
-    loc_iterator_first(&iter, &begin, &end);
 
     /* Fully update the visuals */
     p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);

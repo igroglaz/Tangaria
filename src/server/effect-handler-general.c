@@ -2268,7 +2268,7 @@ bool effect_handler_FORGET_LEVEL(effect_handler_context_t *context)
 
     if (full)
         msg(context->origin->player, "Your mind suddenly become blank... you don't remember this place.");
-    wiz_forget(context->origin->player, context->cave, full);
+    wiz_forget(context->origin->player, context->cave);
     context->ident = true;
 
     return true;
