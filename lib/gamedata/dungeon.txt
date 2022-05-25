@@ -284,7 +284,7 @@ wpos:0:0
 min-depth:1
 max-depth:1
 max-level:1
-flags:EMPTY
+flags:EMPTY | OPEN_SKY
 stairs:2+1d2:0
 #
 stair:9F stair down 0:9F stair up 1:10000
@@ -511,7 +511,7 @@ wpos:0:1
 min-depth:1
 max-depth:1
 max-level:1
-flags:EMPTY | FAST_SPAWN | NO_DOORS
+flags:EMPTY | FAST_SPAWN | NO_DOORS | OPEN_SKY
 stairs:3+1d2:0
 #
 stair:9F stair down 0:9F stair up 1:10000
@@ -739,7 +739,7 @@ min-depth:2
 max-depth:5
 max-level:5
 stairs:2+1d2:5+1d2
-flags:STREAMS | SAND_VEIN | WATER_RIVER |  NO_DOORS
+flags:STREAMS | SAND_VEIN | WATER_RIVER |  NO_DOORS | OPEN_SKY
 #
 stair:9F stair down 0:9F stair up 1:10000
 #
@@ -1314,7 +1314,7 @@ min-depth:12
 max-depth:20
 max-level:20
 stairs:1+1d2:5+1d2
-flags:SAND_VEIN | WATER_RIVER | EMPTY | NO_DOORS
+flags:SAND_VEIN | WATER_RIVER | EMPTY | NO_DOORS | OPEN_SKY
 #
 stair:A9 stair down leaf:A9 stair up leaf:10000
 #
@@ -1801,7 +1801,7 @@ min-depth:18
 max-depth:25
 max-level:25
 stairs:1+1d2:5+1d2
-flags:STREAMS | WATER_RIVER | CIRCULAR_ROOMS | NO_DOORS
+flags:STREAMS | WATER_RIVER | CIRCULAR_ROOMS | NO_DOORS | OPEN_SKY
 #
 stair:A9 stair down leaf:A9 stair up leaf:10000
 #
@@ -2550,7 +2550,7 @@ min-depth:23
 max-depth:30
 max-level:30
 stairs:1+1d2:4+1d2
-flags:NO_DOORS | CIRCULAR_ROOMS
+flags:NO_DOORS | CIRCULAR_ROOMS | OPEN_SKY
 #
 stair:A9 stair down gloomy:A9 stair up gloomy:10000
 #
@@ -2977,7 +2977,7 @@ min-depth:27
 max-depth:34
 max-level:30
 stairs:1d2:2+1d2
-flags:NO_DOORS | EMPTY | CIRCULAR_ROOMS
+flags:NO_DOORS | EMPTY | CIRCULAR_ROOMS | OPEN_SKY
 #
 stair:9F stair down 0:9F stair up 1:10000
 #
@@ -5375,7 +5375,7 @@ min-depth:60
 max-depth:72
 max-level:46
 stairs:1:1d2
-flags:NO_DOORS
+flags:NO_DOORS | OPEN_SKY
 #
 stair:A9 stair down gloomy:A9 stair up gloomy:10000
 #
@@ -5783,7 +5783,7 @@ min-depth:62
 max-depth:75
 max-level:46
 stairs:1:1d2
-flags:STREAMS | CAVERN | WATER_RIVER
+flags:STREAMS | CAVERN | WATER_RIVER | OPEN_SKY
 #
 stair:9F stair down 0:9F stair up 1:10000
 #

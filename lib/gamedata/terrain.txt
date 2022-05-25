@@ -27886,14 +27886,23 @@ short-desc:.
 desc:.
 ###########DARK TILE NO PASS
 
-###########LIGHTENED TILES (dungeons at open air)
+###########LIGHTENED TILES (dungeons at open air) - got BRIGHT flag
+
+###
+### Update from 25.05.2022 -- No need them anymore as we now wave OPEN_SKY dungeon flag
+###        ! so _for now_ I'm removing BRIGHT flag from them !
+### ---------------------------------------------------------------------
+###         in future this tiles might have CAN_BE_LIT flag:
+### (so there will be some places in the dungeon which are kinda 'shadowed'... 
+###  ...as we don't wanna make all the dungeon lit, will be boring).
+###
 
 #0xB1:0x80
 
 name:light grass
 graphics:.:s
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
 ################################################################################
 short-desc:.
 desc:.
@@ -27903,7 +27912,7 @@ desc:.
 name:light grass plants
 graphics:.:s
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
 ################################################################################
 short-desc:.
 desc:.
@@ -27913,7 +27922,7 @@ desc:.
 name:light grass flowers
 graphics:.:s
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP | BRIGHT
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
 ################################################################################
 short-desc:.
 desc:.
