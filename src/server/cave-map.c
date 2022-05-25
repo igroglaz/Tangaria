@@ -635,6 +635,36 @@ void wiz_dark(struct player *p, struct chunk *c, bool full)
 }
 
 /*
+ ////// Completely unlit the level
+ */
+void wiz_unlit(struct player *p, struct chunk *c)
+{
+    struct loc begin, end;
+    struct loc_iterator iter;
+
+    loc_init(&begin, 1, 1);
+    loc_init(&end, c->width - 1, c->height - 1);
+    loc_iterator_first(&iter, &begin, &end);
+
+    /* Scan all grids */
+    do
+    {
+        /* PWMAngband: unlight the grid */
+        square_unglow(c, &iter.cur);
+
+        /* Forget grids in the mapping area */
+        square_forget(p, &iter.cur);
+    }
+    while (loc_iterator_next_strict(&iter));
+
+    /* Fully update the visuals */
+    p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+
+    /* Redraw whole map, monster list */
+    p->upkeep->redraw |= (PR_MAP | PR_MONLIST | PR_ITEMLIST);
+}
+
+/*
  ////// Completely forget the level
  */
 void wiz_forget(struct player *p, struct chunk *c)
