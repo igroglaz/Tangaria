@@ -67,8 +67,8 @@ neg-adjective:sickly
 name:charisma
 type:stat
 code:CHR
-power:5
-#mult:10
+power:0
+mult:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1425,3 +1425,32 @@ type-mult:ring:0
 type-mult:light:0
 msg:Your {name} makes you levitate a few feet above the floor.
 desc:Makes you levitate a few feet above the floor.
+
+# for magic classes - so they won't drop stones too OP
+name:clumsy
+type:flag
+subtype:other
+id-type:on wield
+code:CLUMSY
+power:0
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:Your {name} makes you clumsy.
+desc:You become clumsy and bad at ranged attacks

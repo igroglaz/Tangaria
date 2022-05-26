@@ -446,3 +446,8 @@ type:object
 code:FLYING
 name:Allow flying
 desc:You are able to fly.
+
+type:object
+code:CLUMSY
+name:Bad at ranged attacks
+desc:You are clumsy.
