@@ -2036,8 +2036,11 @@ static void generate_new_level(struct player *p)
 
         wild_deserted_message(p);
 
-        // T: added check for OPEN_SKY labyrinths (as they become lit in gen-cave.c)
-        if (c->profile == dun_labyrinth || c->profile == dun_cavern)
+        // T: added check for OPEN_SKY
+        // 1) labyrinths become lit in gen-cave.c
+        // 2) cavern, gaunt and h-centre doesn't have any illumination in the gen-cave code
+        if (c->profile == dun_labyrinth || c->profile == dun_cavern || c->profile == dun_gauntlet ||
+            c->profile == dun_hard_centre)
         {
             wpos_init(&dpos, &c->wpos.grid, 0);
             dungeon = get_dungeon(&dpos);
