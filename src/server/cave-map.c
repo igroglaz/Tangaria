@@ -703,8 +703,27 @@ void cave_illuminate(struct player *p, struct chunk *c, bool daytime)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    /// for OPEN_SKY dungeons - there we need to turn on/off light for day/night changes in dusk_or_dawn():
+    struct worldpos dpos;
+    struct location *dungeon;
+    wpos_init(&dpos, &c->wpos.grid, 0);
+    dungeon = get_dungeon(&dpos);
+    ///
+
+    // OPEN_SKY dungeons dynamic night/day change
+    if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY))
+    {
+        // unlight everything (cause rooms lighten, eg build_room_template()
+        daytime = is_daytime(); // we need to define it there cause some dungeons hardcode daytime = 0;
+        if (!daytime)
+        {
+            wiz_unlit(p, c); // unlit and forget
+            return;
+        }
+    }
     /* Not on random levels */
-    if (random_level(&c->wpos)) return;
+    else if (random_level(&c->wpos))
+        return;
 
     /* Make sure we're not in a store */
     if (p && in_store(p)) return;

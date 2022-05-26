@@ -4645,7 +4645,8 @@ static void master_debug(struct player *p, char *parms)
                     Send_turn(player, ht_div(&player->game_turn, cfg_fps),
                         ht_div(&player->player_turn, 1), ht_div(&player->active_turn, 1));
 
-                    if ((player->wpos.depth == 0) && (is_daytime() != daytime))
+                    // T: admin's 'advance time': removed (player->wpos.depth == 0) cause of OPEN_SKY dungeons
+                    if (is_daytime() != daytime)
                         dusk_or_dawn(player, chunk_get(&player->wpos), is_daytime());
                 }
             }
