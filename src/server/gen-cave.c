@@ -6052,6 +6052,10 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     int dun_unusual = dun->profile->dun_unusual;
     bool **blocks_tried;
     struct chunk *c;
+// for OPEN_SKY
+    struct worldpos dpos;
+    struct location *dungeon;
+//
 
     /* Most arena levels are lit */
     bool lit = ((randint0(wpos->depth) < 25) || magik(90));
@@ -6256,7 +6260,16 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
 
     /* Apply illumination */
     player_cave_clear(p, true);
-    if (lit) c->light_level = true;
+
+// OPEN_SKY
+    /* Get the dungeon */
+    wpos_init(&dpos, &c->wpos.grid, 0);
+    dungeon = get_dungeon(&dpos);
+    if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY) && !is_daytime())
+    // if we will do only 'lit = false;' rooms will stay lit still, so..
+        cave_illuminate(p, c, true);
+    else if (lit)
+        c->light_level = true;
 
     return c;
 }
