@@ -2002,6 +2002,10 @@ static void generate_new_level(struct player *p)
     bool new_level = false;
     struct chunk *c;
     struct loc grid;
+/// T: moved this up for day/night change in the OPEN_SKY dungeons
+    struct worldpos dpos;
+    struct location *dungeon;
+///
 
     id = get_player_index(get_connection(p->conn));
     c = chunk_get(&p->wpos);
@@ -2031,8 +2035,21 @@ static void generate_new_level(struct player *p)
         c = prepare_next_level(p);
 
         wild_deserted_message(p);
-    }
 
+        // T: added check for OPEN_SKY labyrinths (as they become lit in gen-cave.c)
+        if (c->profile == dun_labyrinth)
+        {
+            wpos_init(&dpos, &c->wpos.grid, 0);
+            dungeon = get_dungeon(&dpos);
+            if (dungeon)
+            {   // Mirkwood (must be always dark)
+                if (p->wpos.grid.x == 0 && p->wpos.grid.y == -3 && p->wpos.depth > 0)
+                    wiz_unlit(p, c);
+                else if (df_has(dungeon->flags, DF_OPEN_SKY))
+                    cave_illuminate(p, c, is_daytime());
+            }
+        }
+    }
     /* Apply illumination */
     else
     {
