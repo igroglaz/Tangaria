@@ -2037,13 +2037,16 @@ static void generate_new_level(struct player *p)
         wild_deserted_message(p);
 
         // T: added check for OPEN_SKY labyrinths (as they become lit in gen-cave.c)
-        if (c->profile == dun_labyrinth)
+        if (c->profile == dun_labyrinth || c->profile == dun_cavern)
         {
             wpos_init(&dpos, &c->wpos.grid, 0);
             dungeon = get_dungeon(&dpos);
             if (dungeon)
             {   // Mirkwood (must be always dark)
                 if (p->wpos.grid.x == 0 && p->wpos.grid.y == -3 && p->wpos.depth > 0)
+                    wiz_unlit(p, c);
+                // last levels of Erebor (Lonely Mountain) - dark
+                else if (p->wpos.grid.x == -1 && p->wpos.grid.y == -3 && p->wpos.depth > 70)
                     wiz_unlit(p, c);
                 else if (df_has(dungeon->flags, DF_OPEN_SKY))
                     cave_illuminate(p, c, is_daytime());
