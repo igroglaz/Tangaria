@@ -490,7 +490,10 @@ void end_quest(struct player *p, struct chunk *c, const struct monster *m)
 
             quest_reward = object_new();
 
-            object_prep(NULL, NULL, quest_reward, lookup_kind_by_name(TV_FOOD, "Ration of Food"), 0, MINIMISE);
+            if (one_in_(10))
+                object_prep(NULL, NULL, quest_reward, lookup_kind_by_name(TV_DEED, "Deed of Property"), 0, MINIMISE);
+            else
+                object_prep(NULL, NULL, quest_reward, lookup_kind_by_name(TV_FOOD, "Ration of Food"), 0, MINIMISE);
 
             if (quest_reward)
             {
