@@ -927,6 +927,11 @@ struct player
     // Tangaria common fields
     uint32_t account_id;            // account id (needed for housing)
     char account_name[NORMAL_WID];  // account name (needed for housing)
+
+    // Weather
+    int weather_type;               // none/rain/snow/sandstorm
+    int weather_wind;               // current gust of wind if any (1 west, 2 east, 3 strong west, 4 strong east)
+    int weather_intensity;          // density of raindrops/snowflakes/sandgrains
 };
 
 extern struct player_body *bodies;

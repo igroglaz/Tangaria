@@ -3399,6 +3399,15 @@ int Send_channel(struct player *p, uint8_t n, const char *virt)
 }
 
 
+int Send_weather(struct player *p, int weather_type, int weather_wind, int weather_intensity)
+{
+    connection_t *connp = get_connp(p, "weather");
+    if (connp == NULL) return 0;
+
+    return Packet_printf(&connp->c, "%b%hd%hd%hd", (unsigned)PKT_WEATHER, weather_type, weather_wind, weather_intensity);
+}
+
+
 /*** Commands ***/
 
 

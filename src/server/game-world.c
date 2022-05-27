@@ -2260,6 +2260,9 @@ static void generate_new_level(struct player *p)
 
     /* Play an ambient sound dependent on location */
     play_ambient_sound_location(p);
+
+    //// !Test - Weather
+    //Send_weather(p, 1, 2, 3);
 }
 
 
