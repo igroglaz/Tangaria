@@ -1475,6 +1475,7 @@ static bool store_create_random(struct store *s)
 
         /* Hack -- set fake owner and level requirement */
         obj->owner = -1;
+        // no hack applied there (though we got one in object_own() for level_req... should we add it?
         obj->level_req = max(min(obj->kind->level / 2, 50), 1);
 
         /* Attempt to carry the object */
@@ -1508,6 +1509,7 @@ static struct object *store_create_item(struct store *s, struct object_kind *kin
 
     /* Hack -- set fake owner and level requirement */
     obj->owner = -1;
+    // no hack applied there (though we got one in object_own() for level_req... should we add it?
     obj->level_req = max(min(obj->kind->level / 2, 50), 1);
 
     /* Attempt to carry the object */

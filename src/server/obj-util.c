@@ -984,12 +984,7 @@ bool has_level_req(struct player *p, struct object *obj)
     if (!cfg_level_req) return true;
 
     /* Must meet level requirement */
-
-    // hack to adjust items req. lvl a bit to make pstore trade more viable
-    if (obj->level_req > 15 && obj->level_req < 50)
-        return (p->lev >= obj->level_req - 3);
-    else
-        return (p->lev >= obj->level_req);
+    return (p->lev >= obj->level_req);
 }
 
 
@@ -1031,6 +1026,10 @@ void object_own(struct player *p, struct object *obj)
         int depth = max(min(p->wpos.depth / 2, 50), 1);
 
         obj->level_req = min(depth, p->lev);
+
+        // hack to adjust items req. lvl a bit to make pstore trade more viable
+        if (obj->level_req > 15 && obj->level_req < 50)
+            obj->level_req -= 3;
     }
 
     /* Set original owner ONCE */
