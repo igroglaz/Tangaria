@@ -58,6 +58,7 @@ help: and at high levels they can cast many spells without a chance of failure.
 help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm, and they will get fewer blows with melee weapons than
 help: other classes.
+help: Mages speciality is a spell of Fireball which they operate especailly good.
 
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
@@ -250,6 +251,7 @@ help: He is not alone in his wanderings - he's got a four-legged friend.
 help: Travellers are pretty sure that they know well about navigation and 
 help: direction, maps and cardinal points...
 help: but often they come into real adventure due to this overconfidence.
+help: Travellers starts with additional useful items.
 help:
 help: p.s.
 help: "..though oftentimes better than master of one".
@@ -264,6 +266,8 @@ help:Specialized in destruction of his enemies not only with power of elements,
 help: but also uses all melee fighting skills makes him universal death machine.
 help:There is no reason a Battlemage cannot become a good fighter, but magic
 help: is their true realm.
+help: Unlike other 'magic' users battlemage does not have problems with using
+help: ranged weapons and throwing.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.

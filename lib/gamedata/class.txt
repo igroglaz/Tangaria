@@ -355,7 +355,7 @@ value:0:STR[-3]
 value:0:INT[3]
 value:0:CON[-2]
 value:0:CHR[1+1d35]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | CLUMSY
 # specialisation: cheap and powerful fireball
 title:Novice
 title:Apprentice
@@ -692,7 +692,7 @@ value:0:STR[-2]
 value:0:WIS[3]
 value:0:DEX[-2]
 value:0:CHR[1+1d24]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | CHARM | SHAPECHANGE
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | CHARM | SHAPECHANGE | CLUMSY
 shape:5:cave bear
 shape:5:panther
 shape:10:grizzly bear
@@ -728,12 +728,21 @@ title:High Mystic
 
 magic:1:350:5
 
-book:nature book:town:[Lesser Charms]:6:nature
+book:nature book:town:[Lesser Charms]:7:nature
 book-graphics:?:y
 book-properties:1:30:25
 book-alloc:40:1 to 100
 book-desc:A standard nature book with a few verses.
 equip:nature book:[Lesser Charms]:1:1:none
+
+spell:Sharp Thorn:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: flings a sharp thorn.
+desc:Fires magic thorn to the target.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
 
 spell:Detect Life:1:1:23:2:0
 effect:DETECT_LIVING_MONSTERS
@@ -999,7 +1008,7 @@ value:0:WIS[3]
 value:0:DEX[-1]
 value:0:CON[1]
 value:0:CHR[2+1d24]
-player-flags:0:BLESS_WEAPON | ZERO_FAIL
+player-flags:0:BLESS_WEAPON | ZERO_FAIL | CLUMSY
 title:Believer
 title:Acolyte
 title:Devotee
@@ -1013,12 +1022,21 @@ title:High Priest
 
 magic:1:350:5
 
-book:prayer book:town:[Beginners Handbook]:7:divine
+book:prayer book:town:[Beginners Handbook]:8:divine
 book-graphics:?:G
 book-properties:1:30:25
 book-alloc:40:1 to 100
 book-desc:A standard divine book with a few prayers.
 equip:prayer book:[Beginners Handbook]:1:1:none
+
+spell:Sign Of The Cross:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: made the sign of the cross.
+desc:Banish enemies with a holy force.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
 
 spell:Detect Evil:1:1:10:4:0
 effect:DETECT_EVIL
@@ -1310,7 +1328,7 @@ value:0:INT[3]
 value:0:CON[-2]
 value:0:CHR[-4]
 value:0:RES_DARK[1]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS | CLUMSY
 ########################### MOVE TO SEPARATE FORMS
 shape:5:fruit bat_
 shape:15:vampire bat
@@ -1331,12 +1349,21 @@ title:Night Lord
 
 magic:1:300:5
 
-book:shadow book:town:[Shadows for Beginners]:8:shadow
+book:shadow book:town:[Shadows for Beginners]:9:shadow
 book-graphics:?:s
 book-properties:1:30:25
 book-alloc:40:1 to 100
 book-desc:A standard shadow book with a few rituals.
 equip:shadow book:[Shadows for Beginners]:1:1:none
+
+spell:Unholy Sign:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: made a very rude gesture.
+desc:Curses enemies with a force of evil.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
 
 spell:Horrify:1:2:26:2:0
 effect:BOLT_AWARE:TURN_ALL
@@ -2559,7 +2586,7 @@ value:0:CON[-3]
 # sullen old sorcerer who focused on magical arts to get POWER beyond imagination
 value:0:CHR[-2]
 value:0:MANA[5]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -3488,7 +3515,7 @@ value:15:RES_COLD[1]
 value:20:RES_ACID[1]
 value:25:RES_ELEC[1]
 value:50:TUNNEL[100]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | ELEMENTAL_SPELLS
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | ELEMENTAL_SPELLS | CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -3940,7 +3967,7 @@ value:0:WIS[5]
 value:0:DEX[-5]
 value:0:CON[-5]
 value:0:CHR[1+1d12]
-player-flags:0:BLESS_WEAPON | ZERO_FAIL | CHOOSE_SPELLS | SUMMON_SPELLS
+player-flags:0:BLESS_WEAPON | ZERO_FAIL | CHOOSE_SPELLS | SUMMON_SPELLS | CLUMSY
 title:Novice
 title:Apprentice
 title:Evoker
@@ -3954,17 +3981,26 @@ title:Summoner Lord
 
 magic:1:300:5
 
-book:prayer book:town:[Beginners Handbook]:5:divine
+book:prayer book:town:[Beginners Handbook]:6:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
-spell:Summon Monster:1:1:22:4:0
+spell:Summon Bee Swarm:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: make a flick gesture.
+desc:Summons angry bees on the target.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
+
+spell:Summon Monster:2:1:22:4:0
 effect:SUMMON:MONSTER:0:100
 dice:1
 msg_other: summons a monster.
 desc:Attempts to summon one monster generated at the current dungeon level.
 desc: This spell has no effect when used in the town.
 
-spell:Detect Evil:2:1:23:4:0
+spell:Detect Evil:3:1:23:4:0
 effect:DETECT_EVIL
 effect-yx:22:40
 desc:Detects all evil monsters in the immediate area,
@@ -4813,7 +4849,8 @@ equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall:1:1:birth_no_recall
-player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
+player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM | CLUMSY
+# - CLUMSY (so a bit harder to play then PWMA)
 title:Rambler
 title:Walker
 title:Tripper
@@ -4836,9 +4873,6 @@ equip:travel guide:[Basics]:1:1:none
 
 spell:Summon Pet:1:1:22:4:0
 cooldown:100
-flag:DRAIN_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
 effect:SUMMON:ANIMAL:0:100
 dice:1
 msg_other: summons a pet.
@@ -5076,7 +5110,7 @@ value:0:WIS[1]
 value:0:DEX[-2]
 value:0:CON[-2]
 value:0:CHR[1]
-player-flags:0:MARTIAL_ARTS | SHAPECHANGE
+player-flags:0:MARTIAL_ARTS | SHAPECHANGE | CLUMSY
 # later: can wear only light (<10) armor - penalties
 # path fo druid: has to find his books in the dungeon. they can't be bought
 value:0:BLOWS[1d1]
@@ -5430,28 +5464,32 @@ skill-disarm-phys:22:9
 skill-disarm-magic:22:9
 skill-device:32:10
 skill-save:28:10
-skill-stealth:0:0
+skill-stealth:1:0
 skill-search:15:15
 skill-melee:40:30
 skill-shoot:40:30
 skill-dig:0:0
 # 3
-hitdie:5
+hitdie:4
 max-attacks:3
 min-weight:35
 strength-multiplier:4
-equip:light:Wooden Torch:1:3:none
+equip:light:Wooden Torch:2:3:none
 equip:hafted:Club:1:1:none
-equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
-equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
-equip:scroll:Phase Door:3:4:birth_no_recall
-equip:potion:Cure Light Wounds:2:3:birth_no_recall
+equip:scroll:Word of Recall (rugged):3:3:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):3:3:birth_no_recall
+equip:scroll:Phase Door:4:5:birth_no_recall
+equip:potion:Cure Light Wounds:3:4:birth_no_recall
+player-flags:0:CLUMSY
+# starts with additional items
+# 'seen it all':
+obj-flag:40:PROT_FEAR
 value:0:STR[0]
 value:0:INT[0]
-value:0:WIS[0]
+value:0:WIS[1]
 value:0:DEX[0]
 value:0:CON[0]
-value:0:CHR[0]
+value:0:CHR[1]
 #/// + dog
 title:Rookie
 title:Initiate
@@ -5466,10 +5504,27 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:travel guide:town:[Basics]:11:common
+book:travel guide:town:[Basics]:12:common
 equip:travel guide:[Basics]:1:1:none
 
-spell:Cartography:1:1:1:4:0
+spell:Weary Feet:1:1:25:1:0
+cooldown:10
+effect:TIMED_INC:FAST:0:5
+dice:2
+effect:HEAL_HP
+dice:1
+effect:HEAL_HP
+dice:1
+effect:RANDOM
+dice:3
+effect:TIMED_INC:MOVE_FAST
+dice:3
+desc:Makes you able to run faster for some time.
+desc: Occasionally may also boost your overall speed.
+desc: Cooldown 10 turns.
+
+spell:Cartography:3:1:1:4:0
+# hc, radius increases with lvls
 effect:MAP_AREA
 effect-yx:5:5
 desc:You map out a portion of the level around.
@@ -5501,31 +5556,25 @@ desc: And through the merry flowers of June,
 desc: Over grass and over stone,
 desc: And under mountains in the moon.
 
-spell:Light Room:10:4:26:8:0
+spell:Kindle the Light:10:4:26:8:0
 effect:BLAST:LIGHT_WEAK:2
 dice:2d$S
 expr:S:PLAYER_LEVEL:/ 2
-effect:LIGHT_AREA
-msg_other: calls light.
+msg_other: kindles a small magical bonfire.
 desc:Lights up all squares within 2 grids of the player and hurts
 desc: all light-sensitive monsters in the area of effect.
-desc: If you are in a room, the entire room will be lit up as well.
 
-spell:Confuse Monster:15:5:30:16:0
-effect:BOLT_AWARE:MON_CONF
-dice:5+1d$S
-expr:S:PLAYER_LEVEL:+ 0
-msg_other: makes a complicated gesture.
-desc:Attempts to confuse a single monster. More effective against animals.
-
-spell:Minor Healing:20:7:15:32:1
+spell:Environmental Survival:15:7:15:32:0
+cooldown:100
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
-desc:Cures a level-dependent percentage of your wounds.
+desc:You collect magical healing herbs from time to time which when applied
+desc: cures your wounds.
+desc: Cooldown 100 turns.
 
-spell:Heroism:25:12:30:50:0
+spell:Heroism:20:12:30:50:0
 effect:TIMED_INC:HERO
 dice:25+1d25
 effect:TIMED_INC:BOLD
@@ -5536,11 +5585,16 @@ dice:10
 desc:Cures 10 points of damage, removes fear and grants you heroism
 desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
 
-spell:Detect Evil:30:15:10:70:0
+spell:Detect Evil:25:15:10:70:0
 effect:DETECT_EVIL
-effect-yx:22:40
+effect-yx:11:22
 desc:Detects all evil monsters in the immediate area,
 desc: for one turn only.
+
+spell:Hand-to-Mouth:30:2:25:2:0
+effect:NOURISH:INC_TO
+dice:15
+desc:Magically renders you a bit fed (but not satiated).
 
 spell:Firebolt:35:20:17:90:0
 effect:BOLT:FIRE:1
@@ -5549,11 +5603,9 @@ expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a bolt of fire.
 desc:Shoots a fire bolt.
 
-spell:Weary Feet:40:30:30:120:0
-effect:TIMED_INC:MOVE_FAST
-dice:$B
-expr:B:PLAYER_LEVEL: + 20
-desc:Makes you walk faster for some time.
+spell:Knowledge:40:37:35:80:0
+effect:IDENTIFY
+desc:Reveals an unknown rune on an object.
 
 spell:Emergency Passage:45:25:30:140:0
 effect:TELEPORT_LEVEL
@@ -5793,6 +5845,7 @@ value:0:CHR[-1]
 # especially good with 2H weapons ((p->lev / 10) + 5 blows)
 # ?to add can't wear shields?
 player-flags:0:ZERO_FAIL
+# + not CLUMSY..
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -5936,7 +5989,7 @@ msg_other: conjures a gravity black hole.
 desc:Produces a zone of huge gravity which invoke earthquake within
 desc: radius 8 and has a chance of teleporting monsters away.
 
-spell:Battle Healing:40:25:25:4:1
+spell:Battle Healing:40:25:25:4:0
 cooldown:10
 effect:CURE:CUT
 effect:CURE:STUN
@@ -5996,7 +6049,7 @@ value:0:INT[4]
 value:0:CON[-1+-1d20]
 value:0:CHR[-2+-1d15]
 value:0:RES_NETHER[1]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM | CLUMSY
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -6010,10 +6063,19 @@ title:Grandmaster
 
 magic:1:300:1
 
-book:shadow book:town:[Shadows for Beginners]:11:shadow
+book:shadow book:town:[Shadows for Beginners]:12:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
-spell:Poison Jab:1:1:25:1:0
+spell:Bone Dart:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: flings a sharp bone.
+desc:Fires a sharp bone to the target.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
+
+spell:Poison Jab:3:1:25:1:0
 effect:MELEE_BLOWS:POIS
 dice:$B
 expr:B:PLAYER_LEVEL:+ 1
@@ -6306,7 +6368,7 @@ value:0:CON[-2]
 value:0:CHR[-2]
 value:25:STEALTH[1]
 # restore mana when polymorph monsters
-player-flags:0:ZERO_FAIL | BEAM
+player-flags:0:ZERO_FAIL | BEAM | CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -6327,8 +6389,17 @@ magic:1:300:2
 
 #add 'Sometimes ray fizzles and it spell appear other forms'.
 
-book:magic book:town:[Magic for Beginners]:18:arcane
+book:magic book:town:[Magic for Beginners]:19:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
+
+spell:Air Fist:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: punch the air.
+desc:Fires magic fist to the target.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
 
 spell:Magic Blade:1:1:12:1:0
 #hc 1d7 .. mana 1->6
@@ -6617,6 +6688,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+player-flags:0:CLUMSY
 value:0:STR[-1]
 value:0:INT[0+1d30]
 value:0:WIS[0]
@@ -6624,6 +6696,7 @@ value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
 #/// +cat
+# can sell items to NPC, but can't join parties
 # + less speed penalty due overweight
 title:Rookie
 title:Initiate
@@ -6638,10 +6711,28 @@ title:Grandmaster
 
 magic:1:350:2
 
-book:magic book:town:[Magic for Beginners]:11:arcane
+book:magic book:town:[Magic for Beginners]:13:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Town Portal:1:3:33:5:0
+spell:Small Red Potion:1:1:15:32:0
+cooldown:10
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 6
+expr:M:PLAYER_LEVEL:/ 3 + 6
+desc:You drink a small red potion which you saved for later to sell to someone...
+desc: It cures your wounds.
+desc: Cooldown 10 turns.
+
+spell:Small Blue Potion:3:1:15:32:0
+cooldown:100
+effect:RESTORE_MANA
+dice:50
+desc:You drink a much rarer small blue potion which... you also saved for later
+desc: to sell to someone... It restores your mana.
+desc: Cooldown 10 turns.
+
+spell:Town Portal:5:3:33:5:0
 effect:RECALL
 dice:10+1d20
 desc:Teleports you from the dungeon to the town or from the town to the
@@ -6650,7 +6741,7 @@ desc: The recall effect is not immediate; it is delayed by some turns.
 desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
-spell:Merchant Scent:5:5:45:10:0
+spell:Merchant Scent:7:5:45:10:0
 effect:DETECT_TREASURES
 effect-yx:22:40
 desc:Detects all treasure in the immediate area.
@@ -7174,7 +7265,7 @@ skill-search:15:12
 skill-melee:42:32
 skill-shoot:35:25
 skill-dig:0:0
-hitdie:3
+hitdie:4
 max-attacks:4
 min-weight:35
 strength-multiplier:3
@@ -7184,6 +7275,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+player-flags:0:CLUMSY
 value:30:RES_FIRE[1]
 value:30:RES_COLD[1]
 title:Rookie
@@ -7204,7 +7296,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 
 # fog, clouds; freeze water; create lava
 
-spell:Pyrokinetic Touch:1:3:20:1:0
+spell:Pyrokinetic Touch:1:1:20:1:0
 effect:TIMED_INC:OPP_FIRE
 dice:20+1d20
 effect:SHORT_BEAM:FIRE:1
@@ -7214,7 +7306,7 @@ msg_other:'s hands are covered with fire.
 desc:Covers your hands with fire to burn your foes.
 desc: Grants fire resistance.
 
-spell:Cryokinetic Touch:5:3:20:2:0
+spell:Cryokinetic Touch:5:2:20:2:0
 effect:TIMED_INC:OPP_COLD
 dice:20+1d20
 effect:SHORT_BEAM:COLD:1
@@ -7224,7 +7316,7 @@ msg_other:'s hands are covered with frost.
 desc:Covers your hands with frost to freeze your foes.
 desc: Grants cold resistance.
 
-spell:Ice and Fire:10:7:30:3:0
+spell:Ice and Fire:10:5:30:3:0
 effect:TIMED_INC:ATT_FIRE:0:5
 dice:20+1d20
 effect:TIMED_INC:ATT_COLD:0:5
@@ -7339,7 +7431,7 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
-player-flags:0:ZERO_FAIL
+player-flags:0:ZERO_FAIL | CLUMSY
 value:50:RES_TIME[1]
 # hardcoded +10 speed bonus after 30
 title:Rookie
@@ -7355,10 +7447,19 @@ title:Grandmaster
 
 magic:1:350:5
 
-book:psi book:town:of Telepathy:11:psi
+book:psi book:town:of Telepathy:12:psi
 equip:psi book:of Telepathy:1:1:none
 
-spell:Revert Time:1:3:35:3:0
+spell:Aging Hex:1:0:5:1:0
+effect:STRIKE:MISSILE:0
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: makes a circling gesture.
+desc:Causes magical aging to the target.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
+
+spell:Revert Time:3:3:35:3:0
 cooldown:100
 effect:CURE:CUT
 effect:CURE:STUN
@@ -7619,6 +7720,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+player-flags:0:CLUMSY
 value:0:STR[-2]
 value:0:INT[2]
 value:0:WIS[1]
@@ -7640,7 +7742,7 @@ title:Grandmaster
 
 magic:1:300:1
 
-book:magic book:town:[Magic for Beginners]:2:arcane
+book:magic book:town:[Magic for Beginners]:4:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
 #spell:Gather Ingredients:1:1:30:3:0
@@ -7649,6 +7751,25 @@ equip:magic book:[Magic for Beginners]:1:1:none
 #dice:1+1d2
 #msg_other: carefully looking around.
 #desc:Prepare to look for rare reagents used in alchemy.
+
+spell:Acid Fog:1:0:5:1:0
+effect:SHORT_BEAM:ACID:1
+dice:1d$D
+expr:D:PLAYER_LEVEL:/ 5 + 3
+msg_other: splashed some acid.
+desc:Envelops target with a sparse acid fog.
+desc: Target grid must be targetable and known to the player.
+desc: Does not require mana.
+
+spell:Herbalism:1:1:15:32:0
+cooldown:75
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 1
+expr:M:PLAYER_LEVEL:/ 3 + 12
+desc:You collect magical healing herbs from time to time which when applied
+desc: cures your wounds.
+desc: Cooldown 75 turns.
 
 spell:Brew a Potion:1:1:30:5:0
 effect:ALCHEMY
