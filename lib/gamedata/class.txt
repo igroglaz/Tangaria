@@ -355,7 +355,8 @@ value:0:STR[-3]
 value:0:INT[3]
 value:0:CON[-2]
 value:0:CHR[1+1d35]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | CLUMSY
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+obj-flag:0:CLUMSY
 # specialisation: cheap and powerful fireball
 title:Novice
 title:Apprentice
@@ -692,7 +693,8 @@ value:0:STR[-2]
 value:0:WIS[3]
 value:0:DEX[-2]
 value:0:CHR[1+1d24]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | CHARM | SHAPECHANGE | CLUMSY
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | CHARM | SHAPECHANGE
+obj-flag:0:CLUMSY
 shape:5:cave bear
 shape:5:panther
 shape:10:grizzly bear
@@ -1008,7 +1010,8 @@ value:0:WIS[3]
 value:0:DEX[-1]
 value:0:CON[1]
 value:0:CHR[2+1d24]
-player-flags:0:BLESS_WEAPON | ZERO_FAIL | CLUMSY
+player-flags:0:BLESS_WEAPON | ZERO_FAIL
+obj-flag:0:CLUMSY
 title:Believer
 title:Acolyte
 title:Devotee
@@ -1328,7 +1331,8 @@ value:0:INT[3]
 value:0:CON[-2]
 value:0:CHR[-4]
 value:0:RES_DARK[1]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS | CLUMSY
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS
+obj-flag:0:CLUMSY
 ########################### MOVE TO SEPARATE FORMS
 shape:5:fruit bat_
 shape:15:vampire bat
@@ -2586,7 +2590,8 @@ value:0:CON[-3]
 # sullen old sorcerer who focused on magical arts to get POWER beyond imagination
 value:0:CHR[-2]
 value:0:MANA[5]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | CLUMSY
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS
+obj-flag:0:CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -3515,7 +3520,8 @@ value:15:RES_COLD[1]
 value:20:RES_ACID[1]
 value:25:RES_ELEC[1]
 value:50:TUNNEL[100]
-player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | ELEMENTAL_SPELLS | CLUMSY
+player-flags:0:ZERO_FAIL | BEAM | CHOOSE_SPELLS | ELEMENTAL_SPELLS
+obj-flag:0:CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -3967,7 +3973,8 @@ value:0:WIS[5]
 value:0:DEX[-5]
 value:0:CON[-5]
 value:0:CHR[1+1d12]
-player-flags:0:BLESS_WEAPON | ZERO_FAIL | CHOOSE_SPELLS | SUMMON_SPELLS | CLUMSY
+player-flags:0:BLESS_WEAPON | ZERO_FAIL | CHOOSE_SPELLS | SUMMON_SPELLS
+obj-flag:0:CLUMSY
 title:Novice
 title:Apprentice
 title:Evoker
@@ -4849,7 +4856,8 @@ equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
 equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall:1:1:birth_no_recall
-player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM | CLUMSY
+player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
+obj-flag:0:CLUMSY
 # - CLUMSY (so a bit harder to play then PWMA)
 title:Rambler
 title:Walker
@@ -5110,7 +5118,8 @@ value:0:WIS[1]
 value:0:DEX[-2]
 value:0:CON[-2]
 value:0:CHR[1]
-player-flags:0:MARTIAL_ARTS | SHAPECHANGE | CLUMSY
+player-flags:0:MARTIAL_ARTS | SHAPECHANGE
+obj-flag:0:CLUMSY
 # later: can wear only light (<10) armor - penalties
 # path fo druid: has to find his books in the dungeon. they can't be bought
 value:0:BLOWS[1d1]
@@ -5480,7 +5489,7 @@ equip:scroll:Word of Recall (rugged):3:3:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):3:3:birth_no_recall
 equip:scroll:Phase Door:4:5:birth_no_recall
 equip:potion:Cure Light Wounds:3:4:birth_no_recall
-player-flags:0:CLUMSY
+obj-flag:0:CLUMSY
 # starts with additional items
 # 'seen it all':
 obj-flag:40:PROT_FEAR
@@ -6049,7 +6058,8 @@ value:0:INT[4]
 value:0:CON[-1+-1d20]
 value:0:CHR[-2+-1d15]
 value:0:RES_NETHER[1]
-player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM | CLUMSY
+player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
+obj-flag:0:CLUMSY
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -6368,7 +6378,8 @@ value:0:CON[-2]
 value:0:CHR[-2]
 value:25:STEALTH[1]
 # restore mana when polymorph monsters
-player-flags:0:ZERO_FAIL | BEAM | CLUMSY
+player-flags:0:ZERO_FAIL | BEAM
+obj-flag:0:CLUMSY
 title:Novice
 title:Apprentice
 title:Trickster
@@ -6688,7 +6699,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-player-flags:0:CLUMSY
+obj-flag:0:CLUMSY
 value:0:STR[-1]
 value:0:INT[0+1d30]
 value:0:WIS[0]
@@ -7275,7 +7286,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-player-flags:0:CLUMSY
+obj-flag:0:CLUMSY
 value:30:RES_FIRE[1]
 value:30:RES_COLD[1]
 title:Rookie
@@ -7431,7 +7442,8 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
-player-flags:0:ZERO_FAIL | CLUMSY
+player-flags:0:ZERO_FAIL
+obj-flag:0:CLUMSY
 value:50:RES_TIME[1]
 # hardcoded +10 speed bonus after 30
 title:Rookie
@@ -7720,7 +7732,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-player-flags:0:CLUMSY
+obj-flag:0:CLUMSY
 value:0:STR[-2]
 value:0:INT[2]
 value:0:WIS[1]

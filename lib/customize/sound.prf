@@ -627,7 +627,7 @@ sound:kill_unique_dragon:sum_lion_growl
 sound:kill_unique_yaga:kill_unique_yaga
 
 # kikimora
-sound:kill_unique_kikimora:kill_unique_kikimora
+sound:kill_unique_kikimora:ambient/voice/intro_7
 
 # WITCH KING
 sound:kill_unique_witch_king:kill_unique_witch_king
