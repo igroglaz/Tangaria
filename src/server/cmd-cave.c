@@ -896,7 +896,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     web = square_iswebbed(c, grid);
     door = square_isdoor(c, grid);
     ice = square_is_ice(c, grid);
-    ice = square_is_sand(c, grid);
+    sand = square_is_sand(c, grid);
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
