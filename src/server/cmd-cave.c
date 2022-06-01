@@ -2584,10 +2584,10 @@ bool do_cmd_walk(struct player *p, int dir)
     if (square_iswebbed(c, &p->grid))
     {
         // spider race pass web
-        if (streq(p->race->name, "Spider")) return false;
-
-        /* Handle polymorphed players */
-        if (p->poly_race)
+		if (streq(p->race->name, "Spider"))
+            ;
+		/* Handle polymorphed players */
+        else if (p->poly_race)
         {
             /* If we can pass, no need to clear */
             if (!rf_has(p->poly_race->flags, RF_PASS_WEB))
