@@ -770,6 +770,7 @@ int rd_player_misc(struct player *p)
     // Tangaria
     rd_u32b(&p->account_id);
     rd_string(p->account_name, NORMAL_WID);
+    rd_u32b(&p->account_score);
 
     if (p->is_dead) return 0;
 

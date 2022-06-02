@@ -927,6 +927,7 @@ struct player
     // Tangaria common fields
     uint32_t account_id;            // account id (needed for housing)
     char account_name[NORMAL_WID];  // account name (needed for housing)
+    uint32_t account_score;         // account score (for ladder)
 
     // Weather
     int weather_type;               // none/rain/snow/sandstorm
