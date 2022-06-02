@@ -25,6 +25,7 @@ struct house_type
     // as in T we bind houses to account: changed int32_t to uint32_t for ownerid (cause account is u)
     uint32_t ownerid;              // Owner account ID
     char ownername[NORMAL_WID];    // Owner account name
+    time_t last_visit_time;        // When house was 'refreshed' (open the door) last time
     uint8_t color;                 /* Door color */
     uint8_t state;                 /* State */
     uint8_t free;                  /* House is free (bought with a Deed of Property) */

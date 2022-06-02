@@ -3097,6 +3097,7 @@ static void wild_add_dwelling(struct player *p, struct chunk *c, bool **plot, st
                 h_local.price = price;
                 h_local.ownerid = 0;
                 h_local.ownername[0] = '\0';
+                h_local.last_visit_time = 0;
                 h_local.color = 0;
                 h_local.state = HOUSE_NORMAL;
                 h_local.free = 0;

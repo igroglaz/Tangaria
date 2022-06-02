@@ -562,6 +562,7 @@ void reset_house(int house)
     /* House is no longer owned */
     houses[house].ownername[0] = '\0';
     houses[house].ownerid = 0;
+    houses[house].last_visit_time = 0;
     houses[house].color = 0;
     houses[house].free = 0;
 
