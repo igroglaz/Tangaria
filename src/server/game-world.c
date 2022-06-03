@@ -277,7 +277,7 @@ static void make_weather(struct player *p)
                 // halt playback on all channels
                 sound(p, MSG_SILENT);
                 // Stop weather
-                Send_weather(p, -1, 0, 0);
+                Send_weather(p, 256, 0, 0);
             }
         }
     }
@@ -298,7 +298,7 @@ static void make_weather(struct player *p)
     else
     {
         // Stop weather
-        Send_weather(p, -1, 0, 0);
+        Send_weather(p, 256, 0, 0);
     }
 }
 

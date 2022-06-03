@@ -1876,7 +1876,7 @@ bool peruse_file(void)
 
 ///////////////////////////////////////
 // Handle weather (rain and snow) client-side
-// weather_type - stop(-1)/none/rain/snow/sandstorm
+// weather_type - stop(256)/none/rain/snow/sandstorm
 // weather_wind - current gust of wind if any 
 //                (1 west, 2 east, 3 strong west, 4 strong east)
 // weather_intensity - density of raindrops/snowflakes/sandgrains
@@ -1896,19 +1896,19 @@ void do_weather(void)
     char tc;
     bool draw_weather = false;
 
-    // Show weather - options
-    if (!OPT(player, weather_display)) return;
-
     // Check weather
     if (player->weather_type == 0) return;
 
     // Stop weather
-    if (player->weather_type == -1)
+    if (player->weather_type == 256)
     {
         player->weather_type = 0;
-        Term_redraw();
+        if (OPT(player, weather_display)) Term_redraw();
         return;
     }
+
+    // Show weather - options
+    if (!OPT(player, weather_display)) return;
 
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
@@ -2159,7 +2159,7 @@ void do_weather(void)
         }
     }
 
-    /* Actually flush the output */
+    // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
 
     // Restore the term
