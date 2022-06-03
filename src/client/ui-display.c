@@ -1873,3 +1873,296 @@ bool peruse_file(void)
     return !is_abort(ke);
 }
 
+
+///////////////////////////////////////
+// Handle weather (rain and snow) client-side
+// weather_type - stop(-1)/none/rain/snow/sandstorm
+// weather_wind - current gust of wind if any 
+//                (1 west, 2 east, 3 strong west, 4 strong east)
+// weather_intensity - density of raindrops/snowflakes/sandgrains
+//
+void do_weather(void)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    int x, y;
+    int w, h;
+    uint16_t a;
+    char c;
+    uint16_t a2;
+    char c2;
+    uint16_t ta;
+    char tc;
+    bool draw_weather = false;
+
+    // Show weather - options
+    if (!OPT(player, weather_display)) return;
+
+    // Check weather
+    if (player->weather_type == 0) return;
+
+    // Stop weather
+    if (player->weather_type == -1)
+    {
+        player->weather_type = 0;
+        Term_redraw();
+        return;
+    }
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get size
+    w = main_term->wid;
+    h = main_term->hgt;
+
+    w = (w - COL_MAP - 1) / tile_width;
+    h = (h - ROW_MAP - 1) / tile_height;
+
+    // Redraw
+    Term_redraw();
+
+    // Weather
+    switch (player->weather_type)
+    {
+        // Rain
+        case 1:
+        {
+            switch (player->weather_wind)
+            {
+                // Wind - west
+                case 1:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 51;
+                    }
+                    else
+                    {
+                        a = COLOUR_L_BLUE;
+                        c = '/';
+                    }
+                    break;
+                // Wind - east
+                case 2:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 51;
+                    }
+                    else
+                    {
+                        a = COLOUR_L_BLUE;
+                        c = '\\';
+                    }
+                    break;
+                // Wind - strong west
+                case 3:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 50;
+                    }
+                    else
+                    {
+                        a = COLOUR_BLUE;
+                        c = '/';
+                    }
+                    break;
+                // Wind - strong east
+                case 4:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 50;
+                    }
+                    else
+                    {
+                        a = COLOUR_BLUE;
+                        c = '\\';
+                    }
+                    break;
+            }
+            break;
+        }
+        // Snow
+        case 2:
+        {
+            switch (player->weather_wind)
+            {
+                // Wind - west
+                case 1:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 56;
+                    }
+                    else
+                    {
+                        a = COLOUR_L_WHITE;
+                        c = '*';
+                    }
+                    break;
+                // Wind - east
+                case 2:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 56;
+                    }
+                    else
+                    {
+                        a = COLOUR_L_WHITE;
+                        c = '*';
+                    }
+                    break;
+                // Wind - strong west
+                case 3:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 57;
+                    }
+                    else
+                    {
+                        a = COLOUR_WHITE;
+                        c = '*';
+                    }
+                    break;
+                // Wind - strong east
+                case 4:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 57;
+                    }
+                    else
+                    {
+                        a = COLOUR_WHITE;
+                        c = '*';
+                    }
+                    break;
+            }
+            break;
+        }
+        // Sandstorm
+        case 3:
+        {
+            switch (player->weather_wind)
+            {
+                // Wind - west
+                case 1:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 54;
+                    }
+                    else
+                    {
+                        a = COLOUR_YELLOW;
+                        c = '.';
+                    }
+                    break;
+                // Wind - east
+                case 2:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 54;
+                    }
+                    else
+                    {
+                        a = COLOUR_YELLOW;
+                        c = '.';
+                    }
+                    break;
+                // Wind - strong west
+                case 3:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 55;
+                    }
+                    else
+                    {
+                        a = COLOUR_YELLOW;
+                        c = ',';
+                    }
+                    break;
+                // Wind - strong east
+                case 4:
+                    if (use_graphics)
+                    {
+                        a = 129;
+                        c = 55;
+                    }
+                    else
+                    {
+                        a = COLOUR_YELLOW;
+                        c = ',';
+                    }
+                    break;
+            }
+            break;
+        }
+    }
+
+    // Screen
+    for (y = 0; y < h; y++)
+    {
+        for (x = 0; x < w; x++)
+        {
+            // Weather density
+            switch (player->weather_intensity)
+            {
+                case 1:
+                    if (one_in_(30))
+                    {
+                        // Draw the weather
+                        draw_weather = true;
+                    }
+                    break;
+                case 2:
+                    if (one_in_(15))
+                    {
+                        // Draw the weather
+                        draw_weather = true;
+                    }
+                    break;
+                case 3:
+                    if (one_in_(5))
+                    {
+                        // Draw the weather
+                        draw_weather = true;
+                    }
+                    break;
+            }
+
+            if (draw_weather)
+            {
+                if (use_graphics)
+                {
+                    Term_info(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                }
+                else
+                {
+                    (void)((*main_term->text_hook)(COL_MAP + x, ROW_MAP + y, 1, a, &c));
+                }
+
+                draw_weather = false;
+            }
+        }
+    }
+
+    /* Actually flush the output */
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+

@@ -1182,6 +1182,15 @@ static void RemovePopUp(void)
 {
     PopUp.visible = false;
     popped = false;
+
+    // Hack -- weather
+    if (player->weather_type != 0)
+    {
+        // Decrease "icky" depth
+        player->screen_save_depth--;
+        Send_icky();
+    }
+
     sdl_BlitAll();
 }
 
@@ -1269,6 +1278,14 @@ static void AboutActivate(sdl_Button *sender)
     PopUp.draw_extra = AboutDraw;
     
     popped = true;
+
+    // Hack -- weather
+    if (player->weather_type != 0)
+    {
+        // Increase "icky" depth
+        player->screen_save_depth++;
+        Send_icky();
+    }
 }
 
 
@@ -1318,6 +1335,14 @@ static void TermActivate(sdl_Button *sender)
         button->activate = SelectTerm;
     }
     popped = true;
+
+    // Hack -- weather
+    if (player->weather_type != 0)
+    {
+        // Increase "icky" depth
+        player->screen_save_depth++;
+        Send_icky();
+    }
 }
 
 
@@ -1422,6 +1447,14 @@ static void FontActivate(sdl_Button *sender)
         button->activate = SelectFont;
     }
     popped = true;
+
+    // Hack -- weather
+    if (player->weather_type != 0)
+    {
+        // Increase "icky" depth
+        player->screen_save_depth++;
+        Send_icky();
+    }
 }
 
 
@@ -2035,6 +2068,14 @@ static void MoreActivate(sdl_Button *sender)
     button->activate = AcceptChanges;
 
     popped = true;
+
+    // Hack -- weather
+    if (player->weather_type != 0)
+    {
+        // Increase "icky" depth
+        player->screen_save_depth++;
+        Send_icky();
+    }
 }
 
 
