@@ -29,5 +29,6 @@ extern void subwindows_reinit_flags(void);
 extern void init_display(void);
 extern void show_splashscreen(void);
 extern bool peruse_file(void);
+extern void do_weather(void);
 
 #endif /* INCLUDED_UI_DISPLAY_H */

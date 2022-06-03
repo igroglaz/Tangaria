@@ -256,6 +256,53 @@ static void recharge_objects(struct player *p)
 }
 
 
+//
+// Weather
+//
+static void make_weather(struct player *p)
+{
+    if (p->wpos.depth == 0)
+    {
+        if (one_in_(5))
+        {
+            // thunder
+            if (one_in_(2)) sound(p, MSG_AMBIENT_NITE);
+            Send_weather(p, 1, randint1(4), randint1(3));
+            sound(p, MSG_WILD_RAIN);
+        }
+        else
+        {
+            if (one_in_(5))
+            {
+                // halt playback on all channels
+                sound(p, MSG_SILENT);
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
+        }
+    }
+    else if (streq(p->locname, "Sandworm Lair"))
+    {
+        if (one_in_(5))
+        {
+            if (p->wpos.depth == 23) Send_weather(p, 3, randint1(4), randint1(3));
+            else if (p->wpos.depth == 24) Send_weather(p, 3, randint1(4), randint1(3));
+            else if (p->wpos.depth == 25) Send_weather(p, 3, randint1(4), randint1(3));
+            else if (p->wpos.depth == 26) Send_weather(p, 3, randint1(4), randint1(3));
+            else if (p->wpos.depth == 27) Send_weather(p, 3, randint1(4), randint1(3));
+            else if (p->wpos.depth == 28) Send_weather(p, 3, randint1(4), 3);
+            else if (p->wpos.depth == 29) Send_weather(p, 3, randint1(4), 3);
+            else if (p->wpos.depth == 30) Send_weather(p, 3, randint1(4), 3);
+        }
+    }
+    else
+    {
+        // Stop weather
+        Send_weather(p, 256, 0, 0);
+    }
+}
+
+
 /*
  * Play an ambient sound dependent on dungeon level, and day or night in towns
  */
@@ -363,6 +410,9 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_XAKAZE);
     else
         sound(p, MSG_AMBIENT_MELKOR);
+
+    // Weather
+    make_weather(p);
 }
 
 
@@ -377,7 +427,7 @@ static void play_ambient_sound_location(struct player *p)
         if (p->wpos.depth == 8) sound(p, MSG_SEWERS1);
         else if (p->wpos.depth == 9) sound(p, MSG_SEWERS2);
         else if (p->wpos.depth == 10) sound(p, MSG_SEWERS3);
-        else if (p->wpos.depth == 11) sound(p, MSG_SEWERS4);           
+        else if (p->wpos.depth == 11) sound(p, MSG_SEWERS4);
         else if (p->wpos.depth == 12) sound(p, MSG_SEWERS3);
         else if (p->wpos.depth == 13) sound(p, MSG_SEWERS2);
         else if (p->wpos.depth == 14) sound(p, MSG_SEWERS5);
@@ -2260,9 +2310,6 @@ static void generate_new_level(struct player *p)
 
     /* Play an ambient sound dependent on location */
     play_ambient_sound_location(p);
-
-    //// !Test - Weather
-    //Send_weather(p, 1, 2, 3);
 }
 
 

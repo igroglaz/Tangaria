@@ -60,7 +60,7 @@ static int conn_state;
 
 /* Keeps track of time in 100ms "ticks" */
 static int ticks = 0, last_sent = 0, last_received = 0;
-
+static int weather_ticks = 0; // weather ticks
 
 static bool request_redraw;
 static sockbuf_t rbuf, wbuf, qbuf;
@@ -161,12 +161,17 @@ void do_keepalive(void)
         }
         last_sent = ticks;
         Send_keepalive();
+    }
 
-        // Hack - Weather
-        if (player->weather_type != 0)
+    // Hack -- Update weather
+    if (player->weather_type != 0)
+    {
+        // Weather fps - check to see if it has been 100ms
+        if ((ticks - weather_ticks) > 1)
         {
-            ////! need to update the weather
-            //Term_fresh();
+            //* Weather *//
+            do_weather();
+            weather_ticks = ticks;
         }
     }
 }
@@ -2256,235 +2261,6 @@ static void Term_big_queue_char_safe(int x, int y, uint16_t a, char c, uint16_t 
 }
 
 
-///////////////////////////////////////
-// Handle weather (rain and snow) client-side
-// weather_type - none/rain/snow/sandstorm
-// weather_wind - current gust of wind if any 
-//                (1 west, 2 east, 3 strong west, 4 strong east)
-// weather_intensity - density of raindrops/snowflakes/sandgrains
-//
-static void do_weather(int x, int y)
-{
-    int w = Term->wid;
-    int h = Term->hgt;
-    uint16_t a;
-    char c;
-
-    if (player->weather_type == 0) return;
-
-    /* Verify location */
-    if ((x < 0) || (x >= w)) return;
-    if ((y < 0) || (y >= h)) return;
-
-    switch (player->weather_type)
-    {
-        // Rain
-        case 1:
-        {
-            switch (player->weather_wind)
-            {
-                // Wind - west
-                case 1:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'a';
-                    }
-                    else
-                    {
-                        a = COLOUR_L_BLUE;
-                        c = '/';
-                    }
-                    break;
-                // Wind - east
-                case 2:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'b';
-                    }
-                    else
-                    {
-                        a = COLOUR_L_BLUE;
-                        c = '\\';
-                    }
-                    break;
-                // Wind - strong west
-                case 3:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'c';
-                    }
-                    else
-                    {
-                        a = COLOUR_BLUE;
-                        c = '/';
-                    }
-                    break;
-                // Wind - strong east
-                case 4:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'd';
-                    }
-                    else
-                    {
-                        a = COLOUR_BLUE;
-                        c = '\\';
-                    }
-                    break;
-            }
-            break;
-        }
-        // Snow
-        case 2:
-        {
-            switch (player->weather_wind)
-            {
-                // Wind - west
-                case 1:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'a';
-                    }
-                    else
-                    {
-                        a = COLOUR_L_WHITE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - east
-                case 2:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'b';
-                    }
-                    else
-                    {
-                        a = COLOUR_L_WHITE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - strong west
-                case 3:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'c';
-                    }
-                    else
-                    {
-                        a = COLOUR_WHITE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - strong east
-                case 4:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'd';
-                    }
-                    else
-                    {
-                        a = COLOUR_WHITE;
-                        c = '*';
-                    }
-                    break;
-            }
-            break;
-        }
-        // Sandstorm
-        case 3:
-        {
-            switch (player->weather_wind)
-            {
-                // Wind - west
-                case 1:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'a';
-                    }
-                    else
-                    {
-                        a = COLOUR_YELLOW;
-                        c = '.';
-                    }
-                    break;
-                // Wind - east
-                case 2:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'b';
-                    }
-                    else
-                    {
-                        a = COLOUR_YELLOW;
-                        c = '.';
-                    }
-                    break;
-                // Wind - strong west
-                case 3:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'c';
-                    }
-                    else
-                    {
-                        a = COLOUR_YELLOW;
-                        c = ',';
-                    }
-                    break;
-                // Wind - strong east
-                case 4:
-                    if (use_graphics)
-                    {
-                        a = 129;
-                        c = 'd';
-                    }
-                    else
-                    {
-                        a = COLOUR_YELLOW;
-                        c = ',';
-                    }
-                    break;
-            }
-            break;
-        }
-    }
-
-    // Density of raindrops
-    switch (player->weather_intensity)
-    {
-        case 1:
-            if (one_in_(30))
-            {
-                Term_queue_char(Term, x, y, a, c, 0, 0);
-            }
-            break;
-        case 2:
-            if (one_in_(15))
-            {
-                Term_queue_char(Term, x, y, a, c, 0, 0);
-            }
-            break;
-        case 3:
-            if (one_in_(5))
-            {
-                Term_queue_char(Term, x, y, a, c, 0, 0);
-            }
-            break;
-    }
-}
-
-
 #define DUNGEON_RLE_MODE() (use_graphics? RLE_LARGE: RLE_CLASSIC)
 static int Receive_line_info(void)
 {
@@ -2615,9 +2391,6 @@ static int Receive_line_info(void)
 
                 /* Draw the character */
                 Term_queue_char_safe(x, y, scr_info->a, scr_info->c, trn_info->a, trn_info->c);
-
-                // Weather
-                do_weather(x, y);
 
                 if ((ch != PKT_MINI_MAP) && (tile_width * tile_height > 1))
                 {
