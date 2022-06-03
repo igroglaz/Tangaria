@@ -364,6 +364,9 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
             /* Open the door */
             square_open_homedoor(c, grid);
 
+            // refresh house (update when we last time opened door)
+            time(&house->last_visit_time);
+
             /* Update the visuals */
             square_memorize(p, c, grid);
             square_light_spot_aux(p, c, grid);

@@ -5763,7 +5763,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
             h_local.price = price;
             h_local.ownerid = 0;
             h_local.ownername[0] = '\0';
-            h_local.last_visit_time = 0;
+            time(&h_local.last_visit_time);
             h_local.color = 0;
             h_local.state = HOUSE_NORMAL;
             h_local.free = 0;
