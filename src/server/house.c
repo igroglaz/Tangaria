@@ -344,6 +344,28 @@ bool level_has_any_houses(struct worldpos *wpos)
 
 
 /*
+ * Wipe old houses on a level
+ */
+void wipe_old_houses(struct worldpos *wpos)
+{
+    int house;
+    time_t current_time;
+    time(&current_time);
+
+    for (house = 0; house < houses_count(); house++)
+    {
+        /* Skip houses not on this level */
+        if (!wpos_eq(&houses[house].wpos, wpos)) continue;
+
+		// 'reset' non-refreshed house (2 months)
+        if ((houses[house].last_visit_time != 0) &&
+                 (current_time - (houses[house].last_visit_time)) > 5184000)
+                      reset_house(house);
+    }
+}
+
+
+/*
  * Wipe custom houses on a level
  */
 void wipe_custom_houses(struct worldpos *wpos)

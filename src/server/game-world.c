@@ -102,6 +102,9 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
 
     /* Illuminate */
     cave_illuminate(p, c, dawn);
+
+    // also we will check for old houses
+    wipe_old_houses(&p->wpos);
 }
 
 
@@ -1576,6 +1579,7 @@ static void on_leave_level(void)
                 if (!w_ptr->chunk_list[i]) continue;
 
                 /* Don't deallocate special levels */
+                // note: it doesn't count DM! When testing - use regular char
                 if (level_keep_allocated(w_ptr->chunk_list[i])) continue;
 
                 // also exist in admin menu
@@ -2862,6 +2866,7 @@ void kingly(struct player *p)
 bool level_keep_allocated(struct chunk *c)
 {
     /* Don't deallocate levels which contain players */
+    // note: it doesn't count DM! When testing - use regular char
     if (chunk_has_players(&c->wpos)) return true;
 
     /* Don't deallocate special levels */
