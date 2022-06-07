@@ -376,6 +376,7 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "Time: %s\n", buf_tm);
         file_putf(fff, "Server Turns: %s\n", ht_show(&turn));
         file_putf(fff, "Timestamp: %ld\n", p->death_info.time);        
+        file_putf(fff, "Account score: %u\n", p->account_score);
     }
 
     mem_free(home_list);
