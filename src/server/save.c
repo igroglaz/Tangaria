@@ -498,6 +498,7 @@ void wr_player_misc(void *data)
     wr_u32b(p->account_id);
     wr_string(p->account_name);
     wr_u32b(p->account_score);
+    wr_byte(p->supporter);
 
     if (p->is_dead) return;
 

@@ -771,6 +771,7 @@ int rd_player_misc(struct player *p)
     rd_u32b(&p->account_id);
     rd_string(p->account_name, NORMAL_WID);
     rd_u32b(&p->account_score);
+    rd_byte(&p->supporter);
 
     if (p->is_dead) return 0;
 
