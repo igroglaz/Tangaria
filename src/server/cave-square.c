@@ -2818,9 +2818,6 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
 
     else if (wall_type == 'h') // DC E1... but we use only E1
     {
-
-        int E1_counter = 0; // light reroll
-
         if (rng < 32) rng = rand_range(32, 63);  // we don't want pictures there
         if ((rng >= 52) && (rng <= 55)) rng = rand_range(32, 63); // lights reroll
     }

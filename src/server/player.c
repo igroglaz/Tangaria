@@ -197,7 +197,7 @@ static void adjust_level(struct player *p)
             p->max_lev = p->lev;
 
             // account score when gain lvls
-            if (p->account_score < p->max_lev)
+            if (p->account_score < (unsigned int)p->max_lev)
                 p->account_score = p->max_lev;
             else if (p->account_score < 75 && one_in_(51 - p->max_lev))
                 p->account_score++;

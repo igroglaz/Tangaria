@@ -1472,7 +1472,7 @@ static void wr_house(struct house_type *house)
     wr_s16b(house->wpos.grid.y);
     wr_s16b(house->wpos.grid.x);
     wr_s32b(house->price);
-    wr_s32b(house->ownerid);
+    wr_u32b(house->ownerid);
     wr_string(house->ownername);
     wr_s32b((int32_t)house->last_visit_time);
     wr_byte(house->color);

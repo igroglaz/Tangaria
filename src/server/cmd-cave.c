@@ -3968,7 +3968,7 @@ bool create_house(struct player *p, int house_variant)
 
         if (!obj) continue;
 
-        if (tval_is_deed(obj));
+        if (tval_is_deed(obj))
         {
             price = (price * 9) / 10;
             break;

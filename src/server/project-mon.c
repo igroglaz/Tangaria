@@ -1608,8 +1608,6 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
                 {
                     if (p->slaves < (p->lev / 10) + 1)
                     {
-                        int duration = (p->lev * 2) + 20;
-
                         if (p->lev < 10)
                             summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
                         else if (p->lev < 20)
