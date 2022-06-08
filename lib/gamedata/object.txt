@@ -5129,7 +5129,7 @@ attack:1d1:0:0
 armor:0:0
 act:DETECT_TREASURE
 effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
+dice:11+1d11
 time:50
 
 name:Detection
@@ -6756,12 +6756,12 @@ alloc:1:1 to 30
 effect:BATTY
 effect:SUMMON:UNDEAD:0:-1
 dice:1d1
-effect:UNDEAD_FORM
+#effect:UNDEAD_FORM
 effect:DARKEN_LEVEL:NONE:1
-effect:READ_MINDS
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:/ 10 + 1
-expr:S:PLAYER_LEVEL:/ 10 + 1
+#effect:READ_MINDS
+#dice:$Dd$S
+#expr:D:PLAYER_LEVEL:/ 10 + 1
+#expr:S:PLAYER_LEVEL:/ 10 + 1
 effect:DETECT_SOUL
 effect-yx:22:40
 #positive:

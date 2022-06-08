@@ -480,7 +480,7 @@ sound:lockpick_fail:plm_click_dry plm_click_switch plm_click_wood plm_door_echol
 sound:lockpick:plm_break_wood plm_cabinet_open plm_chest_unlatch plm_lock_case plm_lock_distant plm_open_case tomenet/player/commands/open_pick/picklock
 
 # open chest (which we've just lockpicked)
-sound:open_chest:player/commands/open/chest/open1 player/commands/open/chest/open2
+sound:open_chest:tomenet/player/commands/open/chest/open1 tomenet/player/commands/open/chest/open2
 
 # You disarm a trap.
 sound:disarm:plm_bang_ceramic plm_chest_latch plm_click_switch3 tomenet/player/commands/disarm/disarm
