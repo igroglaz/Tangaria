@@ -3276,8 +3276,8 @@ bool effect_handler_DISENCHANT(effect_handler_context_t *context)
     if (obj->artifact && magik(60))
     {
         /* Message */
-        msg(context->origin->player, "Your %s (%c) resist%s disenchantment!", o_name, I2A(i),
-        SINGULAR(obj->number));
+        msg(context->origin->player, "Your %s (%c) resist%s disenchantment!", o_name,
+            gear_to_label(context->origin->player, obj), SINGULAR(obj->number));
 
         return true;
     }
@@ -3302,8 +3302,8 @@ bool effect_handler_DISENCHANT(effect_handler_context_t *context)
     }
 
     /* Message */
-    msg(context->origin->player, "Your %s (%c) %s disenchanted!", o_name, I2A(i),
-        ((obj->number != 1)? "were": "was"));
+    msg(context->origin->player, "Your %s (%c) %s disenchanted!", o_name,
+        gear_to_label(context->origin->player, obj), ((obj->number != 1)? "were": "was"));
 
     /* Recalculate bonuses */
     context->origin->player->upkeep->update |= (PU_BONUS);

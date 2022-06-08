@@ -228,7 +228,7 @@ void wr_monster_memory(void *data)
     wr_byte(z_info->mon_blows_max);
     for (r = 0; r < z_info->r_max; r++)
     {
-        int i;
+        unsigned i;
         struct monster_race *race = &r_info[r];
         struct monster_lore* lore = (p? get_lore(p, race): &race->lore);
 
@@ -251,7 +251,7 @@ void wr_monster_memory(void *data)
         wr_byte(lore->cast_spell);
 
         /* Count blows of each type */
-        for (i = 0; i < z_info->mon_blows_max; i++) wr_byte(lore->blows[i]);
+        for (i = 0; i < (unsigned)z_info->mon_blows_max; i++) wr_byte(lore->blows[i]);
 
         /* Memorize flags */
         for (i = 0; i < RF_SIZE; i++) wr_byte(lore->flags[i]);
@@ -263,7 +263,8 @@ void wr_monster_memory(void *data)
 void wr_object_memory(void *data)
 {
     struct player *p = (struct player *)data;
-    int i, j;
+    int i;
+    unsigned j;
 
     wr_byte(OF_SIZE);
     wr_byte(OBJ_MOD_MAX);
@@ -1073,7 +1074,7 @@ void wr_objects(void *unused)
  */
 static void wr_monster(const struct monster *mon)
 {
-    int j;
+    unsigned j;
     struct object *obj = mon->held_obj;
 
     wr_u16b(mon->midx);
@@ -1108,7 +1109,7 @@ static void wr_monster(const struct monster *mon)
 
     /* New level-related data */
     wr_s16b(mon->ac);
-    for (j = 0; j < z_info->mon_blows_max; j++)
+    for (j = 0; j < (unsigned)z_info->mon_blows_max; j++)
     {
         if (mon->blow[j].method)
         {
@@ -1376,7 +1377,8 @@ void wr_traps(void *unused)
 void wr_history(void *data)
 {
     struct player *p = (struct player *)data;
-    int i, j;
+    int i;
+    unsigned j;
 
     wr_byte(HIST_SIZE);
 
@@ -1384,8 +1386,7 @@ void wr_history(void *data)
     wr_s16b(p->hist.next);
     for (i = 0; i < p->hist.next; i++)
     {
-        for (j = 0; j < HIST_SIZE; j++)
-            wr_byte(p->hist.entries[i].type[j]);
+        for (j = 0; j < HIST_SIZE; j++) wr_byte(p->hist.entries[i].type[j]);
         wr_hturn(&p->hist.entries[i].turn);
         wr_s16b(p->hist.entries[i].dlev);
         wr_s16b(p->hist.entries[i].clev);

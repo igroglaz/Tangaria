@@ -248,7 +248,7 @@ void textui_browse_knowledge(void)
     menu_setpriv(menu, N_ELEMENTS(knowledge_actions), knowledge_actions);
 
     menu->title = "Display current knowledge";
-    menu->selections = lower_case;
+    menu->selections = all_letters_nohjkl;
 
     screen_save();
     menu_layout(menu, &knowledge_region);
@@ -418,6 +418,7 @@ void do_cmd_messages(void)
                 /* Scroll left */
                 case ARROW_LEFT:
                 case '4':
+                case 'h':
                 {
                     q = ((q >= wid / 2)? (q - wid / 2): 0);
                     break;
@@ -426,6 +427,7 @@ void do_cmd_messages(void)
                 /* Scroll right */
                 case ARROW_RIGHT:
                 case '6':
+                case 'l':
                 {
                     q = q + wid / 2;
                     break;
@@ -434,6 +436,7 @@ void do_cmd_messages(void)
                 /* Recall 1 older message */
                 case ARROW_UP:
                 case '8':
+                case 'k':
                 {
                     if (i + 1 < n) i += 1;
                     break;
@@ -442,6 +445,7 @@ void do_cmd_messages(void)
                 /* Recall 1 newer message */
                 case ARROW_DOWN:
                 case '2':
+                case 'j':
                 case KC_ENTER:
                 {
                     i = ((i >= 1)? (i - 1): 0);

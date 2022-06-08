@@ -1,6 +1,12 @@
 Original Keyset Command Summary
 ===============================
 
+^ followed by a letter is an abbreviation for pressing and releasing
+the letter key with the control key also depressed. You may also press
+and release ^ and then press and release the letter key to activate the
+same command in case your system intercepts the control plus key
+combination and does not pass it on.
+
   a    Aim a wand                      A    Activate an object
   b    Browse a book                   B    -
   c    Close a door                    C    Character description
@@ -27,32 +33,32 @@ Original Keyset Command Summary
   x    Swap equipment                  X    -
   y    Use dragon breath attack        Y    -
   z    Zap a rod                       Z    -
-  !    -                               ^A   Do autopickup
-  @    Display connected players       ^B   -
-  #    See abilities                   ^C   End character & quit
-  $    Drop gold                       ^D   Describe object
-  %    Interact with keymaps           ^E   Toggle inven/equip window
-  ^    (special - control key)         ^F   Repeat level feeling
-  &    Enter Dungeon Master menu       ^G   (special - bell)
-  *    Target monster or location      ^H   -
-  (    Target friendly player          ^I   (special - tab)
-  )    Dump screen to a file           ^J   (special - linefeed)
-  {    Inscribe an object              ^K   -
-  }    Uninscribe an object            ^L   Center map
-  [    Display visible monster list    ^M   (special - return)
-  ]    Display visible object list     ^N   -
-  -    -                               ^O   Show previous message
-  _    Drink/fill an empty bottle      ^P   Show previous messages
-  +    Alter grid                      ^Q   Get a quest
-  =    Set options                     ^R   Redraw the screen
-  ;    Walk (with pickup)              ^S   Socials
-  :    Enter chat mode                 ^T   -
-  '    Target closest monster          ^U   -
-  "    Enter a user pref command       ^V   -
-  ,    Stay still (with pickup)        ^W   Full wilderness map
-  <    Go up staircase                 ^X   Save and quit
-  .    Run                             ^Y   -
-  >    Go down staircase               ^Z   Use chat command
+  !    -                               ^a   Do autopickup
+  @    Display connected players       ^b   -
+  #    See abilities                   ^c   End character & quit
+  $    Drop gold                       ^d   Describe object
+  %    Interact with keymaps           ^e   Toggle inven/equip window
+  ^    (special - control key)         ^f   Repeat level feeling
+  &    Enter Dungeon Master menu       ^g   (special - bell)
+  *    Target monster or location      ^h   -
+  (    Target friendly player          ^i   (special - tab)
+  )    Dump screen to a file           ^j   (special - linefeed)
+  {    Inscribe an object              ^k   -
+  }    Uninscribe an object            ^l   Center map
+  [    Display visible monster list    ^m   (special - return)
+  ]    Display visible object list     ^n   -
+  -    -                               ^o   Show previous message
+  _    Drink/fill an empty bottle      ^p   Show previous messages
+  +    Alter grid                      ^q   Get a quest
+  =    Set options                     ^r   Redraw the screen
+  ;    Walk (with pickup)              ^s   Socials
+  :    Enter chat mode                 ^t   -
+  '    Target closest monster          ^u   -
+  "    Enter a user pref command       ^v   -
+  ,    Stay still (with pickup)        ^w   Full wilderness map
+  <    Go up staircase                 ^x   Save and quit
+  .    Run                             ^y   -
+  >    Go down staircase               ^z   Use chat command
   \    (special - bypass keymap)        ~   Check knowledge
   `    (special - escape)               ?   Display help
   /    Identify monster                 |   List contents of quiver

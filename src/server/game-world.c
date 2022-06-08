@@ -113,7 +113,9 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
  */
 int turn_energy(int speed)
 {
-    return extract_energy[MIN(speed, N_ELEMENTS(extract_energy) - 1)] * z_info->move_energy / 100;
+    int n_energy = N_ELEMENTS(extract_energy);
+
+    return extract_energy[MIN(speed, n_energy - 1)] * z_info->move_energy / 100;
 }
 
 
@@ -125,7 +127,9 @@ int turn_energy(int speed)
  */
 int frame_energy(int speed)
 {
-    return extract_energy[MIN(speed, N_ELEMENTS(extract_energy) - 1)] * 100;
+    int n_energy = N_ELEMENTS(extract_energy);
+
+    return extract_energy[MIN(speed, n_energy - 1)] * 100;
 }
 
 

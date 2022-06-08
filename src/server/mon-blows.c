@@ -226,7 +226,8 @@ static void steal_player_item(struct player *p, struct source *who, bool* obviou
         if (obj->number > 1) split = true;
 
         /* Message */
-        msg(p, "%s %s (%c) was stolen!", (split? "One of your": "Your"), o_name, I2A(index));
+        msg(p, "%s %s (%c) was stolen!", (split? "One of your": "Your"), o_name,
+            gear_to_label(p, obj));
 
         /* Steal and carry */
         stolen = gear_object_for_use(p, obj, 1, false, &none_left);

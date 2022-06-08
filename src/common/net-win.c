@@ -624,7 +624,7 @@ int
 CreateDgramSocket(int port)
 {
     struct sockaddr_in addr_in;
-    int fd;
+    unsigned fd;
     int retval;
 
     fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -690,7 +690,7 @@ int
 CreateDgramAddrSocket(char *dotaddr, int port)
 {
     struct sockaddr_in addr_in;
-    int fd;
+    unsigned fd;
     int retval;
 
     fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -1523,7 +1523,7 @@ int
 CreateServerSocket(int port)
 {
     struct sockaddr_in addr_in;
-    int fd;
+    unsigned fd;
     int retval;
 
     fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -1700,7 +1700,7 @@ CreateClientSocket(char *host, int port)
 {
     struct sockaddr_in peer;
     struct hostent *hp;
-    int fd;
+    unsigned fd;
 
     wsa_errno = 0;
 

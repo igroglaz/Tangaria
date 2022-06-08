@@ -4252,7 +4252,7 @@ static struct
  */
 static void init_arrays(void)
 {
-    int i;
+    unsigned i;
 
     for (i = 0; i < N_ELEMENTS(pl); i++)
     {

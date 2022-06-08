@@ -194,7 +194,7 @@ static void write_character_dump(ang_file *fff, void *data)
         if (!obj) continue;
 
         object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
-        file_putf(fff, "%c) %s\n", I2A(i), o_name);
+        file_putf(fff, "%c) %s\n", gear_to_label(p, obj), o_name);
         object_info_chardump(p, fff, obj);
     }
 
@@ -207,7 +207,7 @@ static void write_character_dump(ang_file *fff, void *data)
         if (!obj) continue;
 
         object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
-        file_putf(fff, "%c) %s\n", I2A(i), o_name);
+        file_putf(fff, "%c) %s\n", gear_to_label(p, obj), o_name);
         object_info_chardump(p, fff, obj);
     }
 
@@ -220,7 +220,7 @@ static void write_character_dump(ang_file *fff, void *data)
         if (!obj) continue;
 
         object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_FULL);
-        file_putf(fff, "%c) %s\n", I2A(i), o_name);
+        file_putf(fff, "%c) %s\n", gear_to_label(p, obj), o_name);
         object_info_chardump(p, fff, obj);
     }
     file_put(fff, "\n");

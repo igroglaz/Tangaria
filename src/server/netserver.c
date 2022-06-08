@@ -1757,7 +1757,7 @@ int Send_kind_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
     uint32_t i;
-    int j;
+    unsigned j;
 
     if (connp->state != CONN_SETUP)
     {
