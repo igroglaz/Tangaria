@@ -35,8 +35,11 @@ static bool get_pref_path(const char *what, int row, char *buf, size_t max)
     screen_save();
 
     /* Prompt */
+    if (row > 0) prt("", row - 1, 0);
     prt(format("%s to a pref file", what), row, 0);
+    prt("", row + 1, 0);
     prt("File: ", row + 2, 0);
+    prt("", row + 3, 0);
 
     /* Default filename */
     strnfmt(ftmp, sizeof(ftmp), "%s.prf", strip_suffix(nick));
@@ -1201,7 +1204,7 @@ static bool askfor_aux_numbers(char *buf, size_t buflen, size_t *curs,
 /*
  * Set base delay factor
  */
-static void do_cmd_delay(const char *name, int row)
+static void do_cmd_delay(const char *name, int unused)
 {
     int res;
     char tmp[4] = "";
@@ -1212,10 +1215,11 @@ static void do_cmd_delay(const char *name, int row)
     screen_save();
 
     /* Prompt */
+    prt("", 19, 0);
     prt("Command: Base Delay Factor", 20, 0);
-
-    prt(format("Current base delay factor: %d msec", player->opts.delay_factor), 22, 0);
     prt("New base delay factor (0-255): ", 21, 0);
+    prt(format("Current base delay factor: %d msec", player->opts.delay_factor), 22, 0);
+    prt("", 23, 0);
 
     /* Ask for a numeric value */
     res = askfor_ex(tmp, sizeof(tmp), askfor_aux_numbers, false);
@@ -1235,7 +1239,7 @@ static void do_cmd_delay(const char *name, int row)
 /*
  * Set hitpoint warning level
  */
-static void do_cmd_hp_warn(const char *name, int row)
+static void do_cmd_hp_warn(const char *name, int unused)
 {
     ui_event ea = EVENT_ABORT;
     bool done = false;
@@ -1249,6 +1253,7 @@ static void do_cmd_hp_warn(const char *name, int row)
     screen_save();
 
     /* Prompt */
+    prt("", 19, 0);
     prt("Command: Hitpoint Warning", 20, 0);
 
     /* Get a new value */
@@ -1256,9 +1261,10 @@ static void do_cmd_hp_warn(const char *name, int row)
     {
         struct keypress cx;
 
+        prt("New hitpoint warning (0-9): ", 21, 0);
         prt(format("Current hitpoint warning: %d (%d%%)",
             player->opts.hitpoint_warn, player->opts.hitpoint_warn * 10), 22, 0);
-        prt("New hitpoint warning (0-9): ", 21, 0);
+        prt("", 23, 0);
 
         cx = inkey();
         done = true;
@@ -1301,7 +1307,7 @@ static void do_cmd_hp_warn(const char *name, int row)
 /*
  * Set "lazy-movement" delay
  */
-static void do_cmd_lazymove_delay(const char *name, int row)
+static void do_cmd_lazymove_delay(const char *name, int unused)
 {
     int res;
     char tmp[2] = "";
@@ -1312,11 +1318,12 @@ static void do_cmd_lazymove_delay(const char *name, int row)
     screen_save();
 
     /* Prompt */
+    prt("", 19, 0);
     prt("Command: Movement Delay Factor", 20, 0);
-
+    prt("New movement delay factor (0-9): ", 21, 0);
     prt(format("Current movement delay factor: %d (%d msec)",
         player->opts.lazymove_delay, player->opts.lazymove_delay * 100), 22, 0);
-    prt("New movement delay factor (0-9): ", 21, 0);
+    prt("", 23, 0);
 
     /* Ask the user for a string */
     res = askfor_ex(tmp, sizeof(tmp), askfor_aux_numbers, false);
@@ -1351,10 +1358,11 @@ static void do_cmd_pref_file_hack(long row)
     screen_save();
 
     /* Prompt */
+    if (row > 0) prt("", row - 1, 0);
     prt("Command: Load a user pref file", row, 0);
-
-    /* Prompt */
+    prt("", row + 1, 0);
     prt("File: ", row + 2, 0);
+    prt("", row + 3, 0);
 
     /* Default filename */
     strnfmt(ftmp, sizeof(ftmp), "%s.prf", strip_suffix(nick));

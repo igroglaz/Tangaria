@@ -51,6 +51,8 @@ Angband 4.2.x:
   color table
 - SDL2: fix handling of '=' key
 - Allow more menus to use the rogue-like movement keys for navigation
+- Change message from "You see" to "You recall" when targeting an unseen grid
+- Add borders around option menu prompts that don't clear the screen
 
 MAngband 1.5.x:
 
@@ -95,6 +97,8 @@ Angband 4.2.x:
 - Stop monsters hasting themselves
 - Set kind's cost for special artifacts
 - Allow dumping a color with all zero components if in the basic colors
+- Only identify teleport away/scare/dispel/sleep/turn effects if the monster is
+  seen
 
 PWMAngband:
 
@@ -124,6 +128,7 @@ PWMAngband:
 - Learn "on wield" runes when picking up ammo
 - Fix attacking while walking/jumping/running with extra moves not spending
   a full turn of energy
+- Fix READ_MINDS
 
 Coding changes
 --------------
@@ -172,6 +177,8 @@ Angband 4.2.x:
 - Add an iterator-like version of cave_find_in_range()
 - Move remove_object_curse() to obj-curse.c
 - Make ui-player-properties
+- Move logic for bookkeeping after a player's move from move_player() to its
+  own function so it can be called in other cases when the player moves
 
 PWMAngband:
 

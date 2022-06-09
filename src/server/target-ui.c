@@ -201,7 +201,7 @@ static enum target_aux_result aux_reinit(struct chunk *c, struct player *p,
     /* Default */
     else
     {
-        auxst->phrase1 = "You see ";
+        auxst->phrase1 = square_isseen(p, auxst->grid)? "You see ": "You recall ";
         auxst->phrase2 = "";
     }
 

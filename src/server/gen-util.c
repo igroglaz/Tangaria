@@ -894,7 +894,7 @@ bool alloc_object(struct player *p, struct chunk *c, int set, int typ, int depth
             ((set & SET_ROOM) && square_isroom(c, &grid));
 
         /* Prevent objects from being placed in remote areas */
-        if (square_isempty(c, &grid) && !square_is_monster_walkable(c, &grid) && matched)
+        if (square_isempty(c, &grid) && square_is_monster_walkable(c, &grid) && matched)
         {
             /* Place something */
             switch (typ)

@@ -194,7 +194,11 @@ void thrust_away(struct chunk *c, struct source *origin, struct loc *centre, int
     if (moved)
     {
         monster_swap(c, &target, &grid);
-        if (!origin->monster) player_know_floor(origin->player, c);
+        if (!origin->monster)
+        {
+            player_handle_post_move(origin->player, c, true, true, 0,
+                player_is_trapsafe(origin->player));
+        }
     }
 
     /* Some special messages or effects for player or monster. */
@@ -411,11 +415,11 @@ static void project_monster_teleport_away(project_monster_handler_context_t *con
     {
         context->teleport_distance = context->dam;
         monster_wake(context->origin->player, context->mon, false, 100);
+        if (context->seen) context->obvious = true;
     }
     else
         context->skipped = true;
 
-    context->obvious = true;
     context->dam = 0;
 }
 
@@ -436,11 +440,11 @@ static void project_monster_scare(project_monster_handler_context_t *context, in
     {
         context->mon_timed[MON_TMD_FEAR] = context->dam;
         monster_wake(context->origin->player, context->mon, false, 100);
+        if (context->seen) context->obvious = true;
     }
     else
         context->skipped = true;
 
-    context->obvious = true;
     context->dam = 0;
 }
 
@@ -472,14 +476,13 @@ static void project_monster_dispel(project_monster_handler_context_t *context, i
     {
         context->hurt_msg = MON_MSG_SHUDDER;
         context->die_msg = MON_MSG_DISSOLVE;
+        if (context->seen) context->obvious = true;
     }
     else
     {
         context->skipped = true;
         context->dam = 0;
     }
-
-    context->obvious = true;
 }
 
 
@@ -514,6 +517,7 @@ static void project_monster_sleep(project_monster_handler_context_t *context, in
         if (context->charm && rf_has(context->mon->race->flags, RF_ANIMAL))
             dam += dam / 2;
         context->mon_timed[MON_TMD_SLEEP] = dam;
+        if (context->dam > 0 && context->seen) context->obvious = true;
         context->dam = 0;
     }
     else
@@ -521,8 +525,6 @@ static void project_monster_sleep(project_monster_handler_context_t *context, in
         context->skipped = true;
         context->dam = 0;
     }
-
-    context->obvious = true;
 }
 
 
@@ -1029,11 +1031,13 @@ static void project_monster_handler_TURN_UNDEAD(project_monster_handler_context_
 static void project_monster_handler_TURN_LIVING(project_monster_handler_context_t *context)
 {
     if (monster_is_living(context->mon))
+    {
         context->mon_timed[MON_TMD_FEAR] = context->dam;
+        if (context->seen) context->obvious = true;
+    }
     else
         context->skipped = true;
 
-    context->obvious = true;
     context->dam = 0;
 }
 
@@ -1919,7 +1923,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
             {
                 mon_inc_timed(context->origin->player, context->mon, i, context->mon_timed[i],
                     context->flag);
-                context->obvious = true;
+                if (context->seen) context->obvious = true;
             }
         }
     }

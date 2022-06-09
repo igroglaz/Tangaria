@@ -566,8 +566,16 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 dungeon_change_level(p, c, &wpos, LEVEL_RAND);
 
             /* Some traps drop you onto them */
-            if (trf_has(trap->kind->flags, TRF_PIT))
+            if (trf_has(trap->kind->flags, TRF_PIT) && !loc_eq(&p->grid, &trap->grid))
+            {
                 monster_swap(c, &p->grid, &trap->grid);
+
+                /*
+                 * Don't retrigger the trap, but handle the
+                 * other side effects of moving the player.
+                 */
+                player_handle_post_move(p, c, false, true, 0, false);
+            }
 
             /* Some traps disappear after activating, all have a chance to */
             if (trf_has(trap->kind->flags, TRF_ONETIME) || one_in_(3))

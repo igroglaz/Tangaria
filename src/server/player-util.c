@@ -1193,6 +1193,80 @@ void cancel_running(struct player *p)
 
 
 /*
+ * Take care of bookkeeping after moving the player with monster_swap().
+ *
+ * p is the player that was moved.
+ * eval_trap, if true, will cause evaluation (possibly affecting the
+ * player) of the traps in the grid.
+ */
+void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, bool check_pickup,
+    int delayed, bool trapsafe)
+{
+    /* Handle store doors, or notice objects */
+    if (!p->ghost && square_isshop(c, &p->grid))
+    {
+        disturb(p, 0);
+
+        /* Hack -- enter store */
+        do_cmd_store(p, -1);
+    }
+    if (square(c, &p->grid)->obj)
+    {
+        p->ignore = 1;
+        player_know_floor(p, c);
+        do_autopickup(p, c, check_pickup);
+        current_clear(p);
+        player_pickup_item(p, c, check_pickup, NULL);
+    }
+
+    /* Handle resurrection */
+    if (p->ghost && square_isshop(c, &p->grid))
+    {
+        struct store *s = &stores[square_shopnum(c, &p->grid)];
+
+        if (s->type == STORE_TEMPLE)
+        {
+            /* Resurrect him */
+            resurrect_player(p, c);
+
+            /* Give him some gold */
+            if (!is_dm_p(p) && !player_can_undead(p) && (p->lev >= 5))
+                p->au = 100 * (p->lev - 4) / p->lives;
+        }
+    }
+
+    /* Discover invisible traps, set off visible ones */
+    if (eval_trap)
+    {
+        if (square_issecrettrap(c, &p->grid))
+        {
+            disturb(p, 0);
+            hit_trap(p, &p->grid, delayed);
+        }
+        else if (square_isdisarmabletrap(c, &p->grid) && !trapsafe)
+        {
+            disturb(p, 0);
+            hit_trap(p, &p->grid, delayed);
+        }
+    }
+
+    /* Mention fountains */
+    if (square_isfountain(c, &p->grid))
+    {
+        disturb(p, 0);
+        msg(p, "A fountain is located at this place.");
+    }
+
+    /* Hack -- we're done if player is gone (trap door) */
+    if (p->upkeep->new_level_method) return;
+
+    /* Update view and search */
+    update_view(p, c);
+    search(p, c);
+}
+
+
+/*
  * Something has happened to disturb the player.
  *
  * All disturbance cancels repeated commands, resting, and running.

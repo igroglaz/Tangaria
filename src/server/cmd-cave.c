@@ -1974,7 +1974,11 @@ static void do_prob_travel(struct player *p, struct chunk *c, int dir)
         break;
     }
 
-    if (do_move) monster_swap(c, &p->grid, &grid);
+    if (do_move)
+    {
+        monster_swap(c, &p->grid, &grid);
+        player_handle_post_move(p, c, true, true, 0, player_is_trapsafe(p));
+    }
 }
 
 
@@ -2412,68 +2416,12 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         player_know_floor(who->player, c);
     }
 
-    /* Handle store doors, or notice objects */
-    if (!p->ghost && square_isshop(c, &grid))
-    {
-        disturb(p, 0);
-
-        /* Hack -- enter store */
-        do_cmd_store(p, -1);
-    }
-    if (square(c, &grid)->obj)
-    {
-        p->ignore = 1;
-        player_know_floor(p, c);
-        do_autopickup(p, c, check_pickup);
-        current_clear(p);
-        player_pickup_item(p, c, check_pickup, NULL);
-    }
-
-    /* Handle resurrection */
-    else if (p->ghost && square_isshop(c, &grid))
-    {
-        struct store *s = &stores[square_shopnum(c, &grid)];
-
-        if (s->type == STORE_TEMPLE)
-        {
-            /* Resurrect him */
-            resurrect_player(p, c);
-
-            /* Give him some gold */
-            if (!is_dm_p(p) && !player_can_undead(p) && (p->lev >= 5))
-                p->au = 100 * (p->lev - 4) / p->lives;
-        }
-    }
-
-    /* Discover invisible traps */
-    else if (square_issecrettrap(c, &grid))
-    {
-        disturb(p, 0);
-        hit_trap(p, &p->grid, delayed);
-    }
-
-    /* Set off a visible trap */
-    else if (square_isdisarmabletrap(c, &grid) && !trapsafe)
-    {
-        disturb(p, 0);
-        hit_trap(p, &p->grid, delayed);
-    }
-
-    /* Mention fountains */
-    else if (square_isfountain(c, &grid))
-    {
-        disturb(p, 0);
-        msg(p, "A fountain is located at this place.");
-    }
+    player_handle_post_move(p, c, true, check_pickup, delayed, trapsafe);
 
     p->upkeep->running_firststep = false;
 
     /* Hack -- we're done if player is gone (trap door) */
     if (p->upkeep->new_level_method) return;
-
-    /* Update view and search */
-    update_view(p, c);
-    search(p, c);
 
     /*
      * Hack -- if we are the dungeon master, and our movement hook
