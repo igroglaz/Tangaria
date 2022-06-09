@@ -50,6 +50,7 @@ Angband 4.2.x:
 - GCU: for 256 or 88 color terminals, default to using init_color() for the
   color table
 - SDL2: fix handling of '=' key
+- Allow more menus to use the rogue-like movement keys for navigation
 
 MAngband 1.5.x:
 
@@ -70,6 +71,7 @@ Angband 4.2.x:
 
 - Apply temporary and off-weapon slays and brands to unarmed combat
 - Reduce monsters passing through or tunneling walls
+- For special artifacts, remove additional out-of-depth check on the kind
 
 PWMAngband:
 
@@ -81,6 +83,7 @@ PWMAngband:
 - Prevent entry to shallow dungeons based on max level instead of current level
 - Buffed The Lost Silmaril of Maglor
 - Take half a turn when taking off/dropping/refilling an item (ported from V)
+- Make pit walls much less likely to be pierced by steamers deep in the dungeon
 - New class: Villager
 
 Bugs fixed
@@ -193,3 +196,4 @@ Compilation/documentation
 - Update lib/readme.txt
 - Use a top-level help file customized for the chosen keyset
 - For the specialized pref files, fix a typo and change some markup
+- In the documentation, use lowercase letters with ^ (or Ctrl/ctrl)

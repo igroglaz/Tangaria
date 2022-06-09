@@ -370,6 +370,9 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
             /* Open the door */
             square_open_homedoor(c, grid);
 
+            // refresh house (update when we last time opened door)
+            time(&house->last_visit_time);
+
             /* Update the visuals */
             square_memorize(p, c, grid);
             square_light_spot_aux(p, c, grid);
@@ -3071,6 +3074,8 @@ void display_feeling(struct player *p, bool obj_only)
     int16_t mon_feeling;
     const char *join;
     uint8_t set = 0;
+    int n_obj_feelings = N_ELEMENTS(obj_feeling_text);
+    int n_mon_feelings = N_ELEMENTS(mon_feeling_text);
 
     /* Don't show feelings for cold-hearted characters */
     // and some races
@@ -3136,8 +3141,7 @@ void display_feeling(struct player *p, bool obj_only)
     }
 
     /* Verify the feeling */
-    if (obj_feeling >= N_ELEMENTS(obj_feeling_text))
-        obj_feeling = N_ELEMENTS(obj_feeling_text) - 1;
+    if (obj_feeling >= n_obj_feelings) obj_feeling = n_obj_feelings - 1;
 
     /* Display only the object feeling when it's first discovered. */
     if (obj_only && (cfg_level_feelings == 3))
@@ -3152,8 +3156,7 @@ void display_feeling(struct player *p, bool obj_only)
     if (obj_only && (cfg_level_feelings == 2)) return;
 
     /* Verify the feeling */
-    if (mon_feeling >= N_ELEMENTS(mon_feeling_text))
-        mon_feeling = N_ELEMENTS(mon_feeling_text) - 1;
+    if (mon_feeling >= n_mon_feelings) mon_feeling = n_mon_feelings - 1;
 
     /* Players automatically get a monster feeling. */
     if (((p->cave->feeling_squares < z_info->feeling_need) && (cfg_level_feelings == 3)) ||
@@ -3965,7 +3968,7 @@ bool create_house(struct player *p, int house_variant)
 
         if (!obj) continue;
 
-        if (tval_is_deed(obj));
+        if (tval_is_deed(obj))
         {
             price = (price * 9) / 10;
             break;

@@ -564,10 +564,11 @@ static void init_birth_menu(struct menu *menu, int n_choices, int initial_choice
     menu_init(menu, MN_SKIN_SCROLL, &birth_iter);
 
     /*
-     * A couple of behavioural flags - we want all selection letters (in case we have more than 26
-     * races or classes) and a double tap to act as a selection.
+     * A couple of behavioural flags - we want selections as letters
+     * skipping the rogue-like cardinal direction movements and a
+     * double tap to act as a selection.
      */
-    menu->selections = all_letters;
+    menu->selections = all_letters_nohjkl;
     menu->flags = MN_DBL_TAP;
 
     /* Copy across the game's suggested initial selection, etc. */

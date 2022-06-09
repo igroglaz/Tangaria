@@ -364,7 +364,7 @@ static void display_resistance_panel(struct player *p, const char **rec, const r
 
 static void display_player_flag_info(struct player *p)
 {
-    int i;
+    unsigned i;
     int res_cols = p->body.count + 6;
     region resist_region[] =
     {

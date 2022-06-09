@@ -559,7 +559,8 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
 
     /* The "server", "account" and "players" names are reserved */
     if (!my_stricmp(nick_name, "server") || !my_stricmp(nick_name, "account") ||
-        !my_stricmp(nick_name, "players") || !my_stricmp(nick_name, "ladder"))
+        !my_stricmp(nick_name, "players") || !my_stricmp(nick_name, "ladder") ||
+        !my_stricmp(nick_name, "supporters"))
     {
         return E_INVAL;
     }
@@ -1756,7 +1757,7 @@ int Send_kind_struct_info(int ind)
 {
     connection_t *connp = get_connection(ind);
     uint32_t i;
-    int j;
+    unsigned j;
 
     if (connp->state != CONN_SETUP)
     {

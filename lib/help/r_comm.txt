@@ -1,6 +1,12 @@
 Roguelike Keyset Command Summary
 ================================
 
+^ followed by a letter is an abbreviation for pressing and releasing
+the letter key with the control key also depressed. You may also press
+and release ^ and then press and release the letter key to activate the
+same command in case your system intercepts the control plus key
+combination and does not pass it on.
+
   a    Zap a rod (Activate)            A    Activate an object
   b    (walk - south west)             B    (run - south west)
   c    Close a door                    C    Character description
@@ -27,32 +33,32 @@ Roguelike Keyset Command Summary
   x    Look around (Examine)           X    Use an item
   y    (walk - north west)             Y    (run - north west)
   z    Aim a wand (Zap)                Z    Use a staff (Zap)
-  !    Access party menu               ^A   Do autopickup
-  @    Center map                      ^B   (alter - south west)
-  #    See abilities                   ^C   End character & quit
-  $    Drop gold                       ^D   Ignore an item
-  %    Interact with keymaps           ^E   Toggle inven/equip window
-  ^    (special - control key)         ^F   Repeat level feeling
-  &    Enter Dungeon Master menu       ^G   (special - bell)
-  *    Target monster or location      ^H   (alter - west)
-  (    Target friendly player          ^I   (special - tab)
-  )    Dump screen to a file           ^J   (alter - south)
-  {    Inscribe an object              ^K   (alter - north)
-  }    Uninscribe an object            ^L   (alter - east)
-  [    Display visible monster list    ^M   (special - return)
-  ]    Display visible object list     ^N   (alter - south east)
-  -    Walk into a trap                ^O   Show previous message
-  _    Drink/fill an empty bottle      ^P   Show previous messages
-  +    Alter grid                      ^Q   Get a quest
-  =    Set options                     ^R   Redraw the screen
-  ;    Walk (with pickup)              ^S   Socials
-  :    Enter chat mode                 ^T   Dig a tunnel
-  '    Target closest monster          ^U   (alter - north east)
-  "    Enter a user pref command       ^V   Display connected players
-  ,    Run                             ^W   Full wilderness map
-  <    Go up staircase                 ^X   Save and quit
-  .    Stay still (with pickup)        ^Y   (alter - north west)
-  >    Go down staircase               ^Z   Use chat command
+  !    Access party menu               ^a   Do autopickup
+  @    Center map                      ^b   (alter - south west)
+  #    See abilities                   ^c   End character & quit
+  $    Drop gold                       ^d   Ignore an item
+  %    Interact with keymaps           ^e   Toggle inven/equip window
+  ^    (special - control key)         ^f   Repeat level feeling
+  &    Enter Dungeon Master menu       ^g   (special - bell)
+  *    Target monster or location      ^h   (alter - west)
+  (    Target friendly player          ^i   (special - tab)
+  )    Dump screen to a file           ^j   (alter - south)
+  {    Inscribe an object              ^k   (alter - north)
+  }    Uninscribe an object            ^l   (alter - east)
+  [    Display visible monster list    ^m   (special - return)
+  ]    Display visible object list     ^n   (alter - south east)
+  -    Walk into a trap                ^o   Show previous message
+  _    Drink/fill an empty bottle      ^p   Show previous messages
+  +    Alter grid                      ^q   Get a quest
+  =    Set options                     ^r   Redraw the screen
+  ;    Walk (with pickup)              ^s   Socials
+  :    Enter chat mode                 ^t   Dig a tunnel
+  '    Target closest monster          ^u   (alter - north east)
+  "    Enter a user pref command       ^v   Display connected players
+  ,    Run                             ^w   Full wilderness map
+  <    Go up staircase                 ^x   Save and quit
+  .    Stay still (with pickup)        ^y   (alter - north west)
+  >    Go down staircase               ^z   Use chat command
   \    (special - bypass keymap)        ~   Check knowledge
   `    (special - escape)               ?   Display help
   /    Identify monster                 |   List contents of quiver

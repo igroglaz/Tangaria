@@ -111,7 +111,8 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         find_nearby_grid(c, &change, &grid, 0, 0);
 
         // Water flow only through rocks, empty floors.. doors will drown
-        if (square_isrock(c, &change) || square_isempty(c, &change) || square_isdoor(c, &change))
+        if (square_in_bounds_fully(c, &change) && (square_isrock(c, &change) ||
+            square_isempty(c, &change) || square_isdoor(c, &change)))
         {
             /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
             // T: also don't do it if too deep
@@ -5763,7 +5764,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
             h_local.price = price;
             h_local.ownerid = 0;
             h_local.ownername[0] = '\0';
-            h_local.last_visit_time = 0;
+            time(&h_local.last_visit_time);
             h_local.color = 0;
             h_local.state = HOUSE_NORMAL;
             h_local.free = 0;

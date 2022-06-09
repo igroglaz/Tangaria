@@ -1552,12 +1552,12 @@ void eat_fud(struct player *p, struct player *q, bool* obvious)
         if (obj->number == 1)
         {
             object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE);
-            msg(p, "Your %s (%c) was eaten!", o_name, I2A(index));
+            msg(p, "Your %s (%c) was eaten!", o_name, gear_to_label(p, obj));
         }
         else
         {
             object_desc(p, o_name, sizeof(o_name), obj, ODESC_PREFIX | ODESC_BASE);
-            msg(p, "One of your %s (%c) was eaten!", o_name, I2A(index));
+            msg(p, "One of your %s (%c) was eaten!", o_name, gear_to_label(p, obj));
         }
 
         /* PWMAngband: feed the offending player in PvP! */

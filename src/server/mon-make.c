@@ -2205,8 +2205,6 @@ void monster_drop_corpse(struct player *p, struct chunk *c, struct monster *mon)
     if (p && rf_has(mon->race->flags, RF_DROP_CORPSE) && streq(p->clazz->name, "Necromancer") &&
         p->slaves < (p->lev / 10) + 1)
     {
-        int duration = (p->lev * 2) + 20;
-
         if (p->lev < 10)
             summon_specific_race_aux(p, c, &p->grid, get_race("skel"), 1, true);
         else if (p->lev < 20)

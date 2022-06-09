@@ -25772,7 +25772,7 @@ name:Tulkas, Champion of the Valar
 base:ghost
 color:v
 speed:142
-hit-points:18000
+hit-points:25000
 hearing:200
 armor-class:204
 sleepiness:0
@@ -25942,7 +25942,7 @@ name:Varda, Queen of the Valar
 base:ainu
 color:G
 speed:140
-hit-points:24000
+hit-points:30000
 light:2
 hearing:155
 armor-class:210
@@ -25977,7 +25977,7 @@ name:Manwe, King of the Valar
 base:nether
 color:G
 speed:140
-hit-points:30000
+hit-points:35000
 light:2
 hearing:200
 armor-class:240

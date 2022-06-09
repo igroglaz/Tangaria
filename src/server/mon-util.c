@@ -1100,6 +1100,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     bool cheeze;
     char m_name[NORMAL_WID];
     int desc_mode = MDESC_DEFAULT | (note? MDESC_COMMA: 0);
+    bool unique_monster = false; // T flag for account score and optimization
 
     /* Assume normal death sound */
     int soundfx = MSG_KILL;
@@ -1118,6 +1119,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Play a special sound if the monster was unique */
     if (monster_is_unique(mon->race))
     {
+        unique_monster = true;
+
         if (mon->race->base == lookup_monster_base("Morgoth"))
             soundfx = MSG_KILL_KING;
         else if (mon->race->base == lookup_monster_base("wraith")) // BD Wight-King and nazguls
@@ -1246,7 +1249,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     }
 
     /* Take note of the killer (only the first time!) */
-    if (monster_is_unique(mon->race) && !lore->pkills)
+    if (unique_monster && !lore->pkills)
     {
         int type = MSG_BROADCAST_KILL_UNIQUE;
 
@@ -1302,7 +1305,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
 
     /* Killing an unique multiple times is cheezy! */
     /* Adding clones here to avoid cloning/breeding abuse */
-    cheeze = ((monster_is_unique(mon->race) && lore->pkills) || mon->clone);
+    cheeze = ((unique_monster && lore->pkills) || mon->clone);
 
     /* Take note of the kill */
     if (lore->pkills < SHRT_MAX)
@@ -1333,7 +1336,42 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     }
 
     /* Cheezy kills give neither xp nor loot! */
-    if (!cheeze) monster_death(p, c, mon);
+    if (!cheeze)
+    {
+        monster_death(p, c, mon);
+
+        // also legit kill of some monsters might award account points
+        if (unique_monster)
+        {
+            if (streq(mon->race->name, "Sauron, the Sorcerer"))
+                p->account_score++;
+            else if (mon->race->base == lookup_monster_base("Morgoth")) // Morgy
+                p->account_score += 3;
+            else if (streq(mon->race->name, "Tulkas, Champion of the Valar"))
+                p->account_score += 3;
+            else if (streq(mon->race->name, "Varda, Queen of the Valar"))
+                p->account_score += 3;
+            else if (streq(mon->race->name, "Manwe, King of the Valar"))
+                p->account_score += 3;
+            else if (streq(mon->race->name, "Melkor, Lord of Darkness"))
+                p->account_score += 5;
+            else if (streq(mon->race->name, "Eru Iluvatar"))
+                p->account_score += 10;
+            else if (mon->level < 99)
+            {
+                if (p->account_score < 75 && one_in_(100 - mon->level))
+                    p->account_score++;
+                else if (p->account_score < 100 && mon->level > 10 && one_in_(100 - mon->level))
+                    p->account_score++;
+                else if (p->account_score < 200 && mon->level > 20 && one_in_(100 - mon->level))
+                    p->account_score++;
+                else if (p->account_score < 500 && mon->level > 30 && one_in_(100 - mon->level))
+                    p->account_score++;
+                else if (p->account_score < 999 && mon->level > 40 && one_in_(100 - mon->level))
+                    p->account_score++;
+            }
+        }
+    }
 
     /* Bloodlust bonus */
     if (p->timed[TMD_BLOODLUST])

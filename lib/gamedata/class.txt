@@ -494,11 +494,11 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Detect Treasure:11:3:60:5:0
+cooldown:100
 effect:DETECT_TREASURES
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 desc:Detects all treasure in the immediate area.
+desc: Cooldown 100 turns.
 
 spell:Identify Rune:12:7:25:8:0
 effect:IDENTIFY
@@ -1959,11 +1959,16 @@ desc: rarely isolate a nutrious substance to restore mana.
 desc: Attention! It will turn full stack of potions to poison.
 
 spell:Detect Objects:10:3:60:5:0
+cooldown:100
 effect:DETECT_TREASURES:NONE:1
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
-desc:Detects all objects in the immediate area.
+effect:NOURISH:INC_BY
+dice:0
+effect:RANDOM
+dice:2
+desc:Detects all objects in the immediate area. It's a bit unreliable,
+desc: and works 50/50.
+desc: Cooldown 100 turns.
 
 spell:Detect Stairs:12:3:50:5:0
 effect:DETECT_STAIRS
@@ -2663,13 +2668,11 @@ msg_other: fires a fire ball.
 desc:Shoots a radius-2 fire ball.
 
 spell:Detect Treasure:4:4:18:4:0
+cooldown:150
 effect:DETECT_TREASURES
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:BLIND
-dice:1+1d4
-effect:TIMED_INC_NO_RES:IMAGE
-dice:6+1d12
 desc:Detects all treasure in the immediate area.
+desc: Cooldown 150 turns.
 
 spell:Lightning Beam:5:4:20:4:0
 effect:BEAM:ELEC

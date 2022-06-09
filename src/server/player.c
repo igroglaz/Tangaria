@@ -196,6 +196,20 @@ static void adjust_level(struct player *p)
 
             p->max_lev = p->lev;
 
+            // account score when gain lvls
+            if (p->account_score < (unsigned int)p->max_lev)
+                p->account_score = p->max_lev;
+            else if (p->account_score < 75 && one_in_(51 - p->max_lev))
+                p->account_score++;
+            else if (p->account_score < 100 && p->max_lev >= 10 && one_in_(51 - p->max_lev))
+                p->account_score++;
+            else if (p->account_score < 200 && p->max_lev >= 20 && one_in_(100 - p->max_lev))
+                p->account_score++;
+            else if (p->account_score < 500 && p->max_lev >= 30 && one_in_(150 - p->max_lev))
+                p->account_score++;
+            else if (p->account_score < 999 && p->max_lev >= 40 && one_in_(200 - p->max_lev))
+                p->account_score++;
+
             /* Message */
             if (p->max_lev == 50)
                 msgt(p, MSG_FANFARE, "Ding! Welcome to level %d.", p->lev);

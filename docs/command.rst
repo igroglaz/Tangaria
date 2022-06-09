@@ -79,7 +79,7 @@ Drop gold (``$``)
 
 ..
 
-Ignore an item (``k``) or Ignore an item ('^D')
+Ignore an item (``k``) or Ignore an item ('^d')
   This ignores (or destroys) an item in your inventory or on the dungeon floor.
   When ignored, the game will sometimes prompt you whether to ignore only this
   item or all others like it. If the second option is chosen, all similar
@@ -184,7 +184,7 @@ Get objects (``g``)
 
 ..
 
-Do autopickup ('^A')
+Do autopickup ('^a')
   Pick up objects you would normally pick up automatically.
 
 ..
@@ -218,7 +218,7 @@ Alter Commands
 
 ..
 
-Tunnel (``T``) or Tunnel ('^T')
+Tunnel (``T``) or Tunnel ('^t')
   Tunnelling or mining is a very useful art. There are many kinds of rock,
   with varying hardness, including permanent rock (permanent), granite
   (very hard), quartz veins (hard), magma veins (soft), and rubble (very
@@ -632,7 +632,7 @@ List visible items (``]``)
 
 ..
 
-Full wilderness map ('^W')
+Full wilderness map ('^w')
   This command will show a metamap of the world, relative to your current
   position on the world map. This is particularly useful in locating where
   the Town is relative to your current position, or for identifying unexplored
@@ -644,19 +644,19 @@ Message Commands
 
 ..
 
-Repeat level feeling ('^F')
+Repeat level feeling ('^f')
   Repeats the feeling about the monsters in the dungeon level that you got
   when you first entered the level. If you have explored enough of the
   level, you will also get a feeling about how good the treasures are.
 
 ..
 
-View previous message ('^O')
+View previous message ('^o')
   This command shows you the most recent message.
 
 ..
 
-View previous messages ('^P')
+View previous messages ('^p')
   This command shows you all the recent messages. You can scroll through
   them, or exit with ESCAPE.
 
@@ -667,14 +667,14 @@ Enter chat mode (``:``)
 
 ..
 
-Use chat command ('^Z')
+Use chat command ('^z')
   This command allows to interact with chat channels. You can open, close, or
   navigate through different chat channels to customize the pool of connected
   players you wish to interact with.
 
 ..
 
-Describe object ('^D') or Describe object ('BACKSPACE')
+Describe object ('^d') or Describe object ('BACKSPACE')
   This command allows you to display a description of any object in your
   inventory in the chat window.
 
@@ -727,7 +727,7 @@ Access party menu (``P``) or Access party menu (``!``)
 
 ..
 
-Display connected players (``@``) or Display connected players ('^V')
+Display connected players (``@``) or Display connected players ('^v')
   This command allows you to see who's currently connected to the same server.
 
 ..
@@ -746,7 +746,7 @@ Saving and Exiting Commands
 
 ..
 
-Save and Quit ('^X')
+Save and Quit ('^x')
   To save your game so that you can return to it later, use this command.
   Save files will also be generated (hopefully) if the game crashes due to
   a system error. After you die, you can use your savefile to play again
@@ -824,13 +824,13 @@ Extra Commands
 
 ..
 
-Toggle Choice Window ('^E')
+Toggle Choice Window ('^e')
   Toggles the display in any sub-windows (if available) which are
   displaying your inventory or equipment.
 
 ..
 
-Redraw Screen ('^R')
+Redraw Screen ('^r')
   This command adapts to various changes in global options, and redraws all
   of the windows. It is normally only necessary in abnormal situations,
   such as after changing the visual attr/char mappings, or enabling
@@ -846,21 +846,21 @@ Save screen dump (|``)``|)
 
 ..
 
-Get a quest ('^Q')
+Get a quest ('^q')
   This command allows players to do some random quests. Each quest will be
   in the form of "Find and kill n monsters of the (foo) race." Each quest has
   a time limit, and will give a nice reward if completed.
 
 ..
 
-Socials ('^S')
+Socials ('^s')
   This command allows players to display some predefined messages in the
   message window. Messages will be broadcast to all players in the immediate
   vicinity of the sender.
 
 ..
         
-Center map ('^L') or Center map (``@``)
+Center map ('^l') or Center map (``@``)
   This command allows to center the map on the player.
 
 ..

@@ -38,9 +38,10 @@ typedef enum _menu_row_validity_t
 extern const uint8_t curs_attrs[2][2];
 
 /* Standard menu orderings */
-extern const char lower_case[];     /* abc..z */
-extern const char upper_case[];     /* ABC..Z */
-extern const char all_letters[];    /* abc..zABC..Z */
+extern const char lower_case[];         /* abc..z */
+extern const char upper_case[];         /* ABC..Z */
+extern const char all_letters[];        /* abc..zABC..Z */
+extern const char all_letters_nohjkl[]; /* abc..gim..zABC..Z */
 
 /*
   Together, these classes define the constant properties of

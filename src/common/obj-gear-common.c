@@ -135,11 +135,13 @@ const char *equip_describe(struct player *p, int slot)
  */
 char gear_to_label(struct player *p, struct object *obj)
 {
+    /* Skip rogue-like cardinal direction movement keys. */
+    const char labels[] = "abcdefgimnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int i;
 
     /* Equipment is easy */
     if (object_is_equipped(p->body, obj))
-        return I2A(equipped_item_slot(p->body, obj));
+        return labels[equipped_item_slot(p->body, obj)];
 
     /* Check the quiver */
     for (i = 0; i < z_info->quiver_size; i++)
@@ -150,7 +152,7 @@ char gear_to_label(struct player *p, struct object *obj)
     /* Check the inventory */
     for (i = 0; i < z_info->pack_size; i++)
     {
-        if (p->upkeep->inven[i] == obj) return I2A(i);
+        if (p->upkeep->inven[i] == obj) return labels[i];
     }
 
     return '\0';

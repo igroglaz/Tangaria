@@ -967,16 +967,6 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
             /* We must pass depth and rarity checks */
             if (!artifact_pass_checks(art, c->wpos.depth)) continue;
 
-            /* Enforce minimum "object" level (loosely) */
-            if (kind->level > level)
-            {
-                /* Acquire the "out-of-depth factor" */
-                int d = (kind->level - level) * 5;
-
-                /* Roll for out-of-depth creation */
-                if (randint0(d)) continue;
-            }
-
             /* Assign the template */
             new_obj = object_new();
             object_prep(p, c, new_obj, kind, art->alloc_min, RANDOMISE);
@@ -1028,16 +1018,6 @@ static struct object *make_artifact_special(struct player *p, struct chunk *c, i
 
             /* Must have the correct fields */
             if (tval && (art->tval != tval)) continue;
-
-            /* Enforce minimum "object" level (loosely) */
-            if (kind->level > level)
-            {
-                /* Acquire the "out-of-depth factor" */
-                int d = (kind->level - level) * 5;
-
-                /* Roll for out-of-depth creation */
-                if (randint0(d)) continue;
-            }
 
             /* Attempt to change the object into a random artifact */
             if (!create_randart_drop(p, c, &new_obj, i, true)) continue;

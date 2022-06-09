@@ -102,6 +102,9 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
 
     /* Illuminate */
     cave_illuminate(p, c, dawn);
+
+    // also we will check for old houses
+    wipe_old_houses(&p->wpos);
 }
 
 
@@ -110,7 +113,9 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
  */
 int turn_energy(int speed)
 {
-    return extract_energy[MIN(speed, N_ELEMENTS(extract_energy) - 1)] * z_info->move_energy / 100;
+    int n_energy = N_ELEMENTS(extract_energy);
+
+    return extract_energy[MIN(speed, n_energy - 1)] * z_info->move_energy / 100;
 }
 
 
@@ -122,7 +127,9 @@ int turn_energy(int speed)
  */
 int frame_energy(int speed)
 {
-    return extract_energy[MIN(speed, N_ELEMENTS(extract_energy) - 1)] * 100;
+    int n_energy = N_ELEMENTS(extract_energy);
+
+    return extract_energy[MIN(speed, n_energy - 1)] * 100;
 }
 
 
@@ -1576,12 +1583,12 @@ static void on_leave_level(void)
                 if (!w_ptr->chunk_list[i]) continue;
 
                 /* Don't deallocate special levels */
+                // note: it doesn't count DM! When testing - use regular char
                 if (level_keep_allocated(w_ptr->chunk_list[i])) continue;
 
-/// moved to admin menu: ///
-//              /* Hack -- deallocate custom houses */
-//              wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
-////////////////////////////
+                // also exist in admin menu
+                /* Hack -- deallocate custom houses */
+                wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
 
                 /* Deallocate the level */
                 cave_wipe(w_ptr->chunk_list[i]);
@@ -2863,17 +2870,18 @@ void kingly(struct player *p)
 bool level_keep_allocated(struct chunk *c)
 {
     /* Don't deallocate levels which contain players */
+    // note: it doesn't count DM! When testing - use regular char
     if (chunk_has_players(&c->wpos)) return true;
 
     /* Don't deallocate special levels */
     if (special_level(&c->wpos)) return true;
 
     /* Hack -- don't deallocate levels which contain owned houses */
-//  return level_has_owned_houses(&c->wpos);
+    return level_has_owned_houses(&c->wpos);
 
     /* Hack -- don't deallocate levels which contain owned houses */
     // as we don't want to remove walls of unowned custom houses
-    return level_has_any_houses(&c->wpos);
+    // return level_has_any_houses(&c->wpos);
 }
 
 

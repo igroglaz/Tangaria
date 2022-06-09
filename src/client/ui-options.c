@@ -211,6 +211,7 @@ static const menu_iter option_toggle_iter =
  */
 static void option_toggle_menu(const char *name, int page)
 {
+    static const char selections[] = "abcdefgimopquvwzABCDEFGHIJKLMOPQUVWZ";
     int i;
     struct menu *m = menu_new(MN_SKIN_SCROLL, &option_toggle_iter);
     ui_event ke;
@@ -219,7 +220,7 @@ static void option_toggle_menu(const char *name, int page)
     /* For all menus */
     m->prompt = "Set option (y/n/t), select with movement keys or index";
     m->cmd_keys = "YyNnTt";
-    m->selections = "abcdefghijklmopqrsuvwxz";
+    m->selections = selections;
     m->flags = MN_DBL_TAP;
 
     /* We add 10 onto the page amount to indicate we're at birth */
@@ -233,7 +234,6 @@ static void option_toggle_menu(const char *name, int page)
     {
         m->prompt = "Set option (y/n/t), 's' to save, 'r' to restore, 'x' to reset";
         m->cmd_keys = "YyNnTtSsRrXx";
-        m->selections = "abcdefghijklmopquvwzABC";
         if (page == OP_BIRTH + 10) page -= 10;
     }
 
@@ -2189,7 +2189,7 @@ static char tag_options_item(struct menu *menu, int oid)
     size_t line = (size_t)oid;
 
     if (line < N_ELEMENTS(sval_dependent))
-        return I2A(oid);
+        return all_letters_nohjkl[oid];
 
     /* Separator - blank line. */
     if (line == N_ELEMENTS(sval_dependent))
@@ -2314,7 +2314,7 @@ static menu_action option_actions[] =
     {0, 'a', "User interface options", option_toggle_menu},
     {0, 'b', "MAngband options", option_toggle_menu},
     {0, 'c', "Birth (difficulty) options", option_toggle_menu},
-    {0, 'e', "Advanced options", option_toggle_menu},
+    {0, 'x', "Advanced options", option_toggle_menu},
     {0, 'w', "Subwindow setup", do_cmd_options_win},
     {0, 'i', "Item ignoring setup", do_cmd_options_item},
     {0, 0, NULL, NULL},
@@ -2322,11 +2322,11 @@ static menu_action option_actions[] =
     {0, 'h', "Set hitpoint warning", do_cmd_hp_warn},
     {0, 'm', "Set movement delay", do_cmd_lazymove_delay},
     {0, 0, NULL, NULL},
-    {0, 'l', "Load a user pref file", options_load_pref_file},
+    {0, 'p', "Load a user pref file", options_load_pref_file},
     {0, 's', "Save options to pref file", do_dump_options},
     {0, 't', "Save autoinscriptions to pref file", do_dump_autoinsc},
     {0, 0, NULL, NULL},
-    {0, 'k', "Edit keymaps (advanced)", do_cmd_keymaps},
+    {0, 'e', "Edit keymaps (advanced)", do_cmd_keymaps},
     {0, 'v', "Edit colours (advanced)", do_cmd_colors}
 };
 
