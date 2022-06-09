@@ -288,6 +288,29 @@ static void make_weather(struct player *p)
             }
         }
     }
+    else if (streq(p->locname, "Helcaraxe"))
+    {
+        if (one_in_(5))
+        {
+            if (p->wpos.depth == 42) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 43) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 44) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 45) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 46) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 47) Send_weather(p, 2, randint1(4), randint1(3));
+            else if (p->wpos.depth == 48) Send_weather(p, 2, randint1(4), 3);
+            else if (p->wpos.depth == 49) Send_weather(p, 2, randint1(4), 3);
+            else if (p->wpos.depth == 50) Send_weather(p, 2, randint1(4), 3);
+        }
+        else
+        {
+            if (one_in_(5))
+            {
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
+        }
+    }
     else if (streq(p->locname, "Sandworm Lair"))
     {
         if (one_in_(5))
@@ -300,6 +323,14 @@ static void make_weather(struct player *p)
             else if (p->wpos.depth == 28) Send_weather(p, 3, randint1(4), 3);
             else if (p->wpos.depth == 29) Send_weather(p, 3, randint1(4), 3);
             else if (p->wpos.depth == 30) Send_weather(p, 3, randint1(4), 3);
+        }
+        else
+        {
+            if (one_in_(5))
+            {
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
         }
     }
     else
