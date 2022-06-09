@@ -2502,15 +2502,12 @@ bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    // Detect works starting with dlvl 20...
-    // ..and player must be good in searching.
-    // On high dlvl detect doors works always.
+    // To detect magically you must be good in searching.
     // (note: mages of good searching races shouldn't have problem)
-    if (context->cave->wpos.depth < 20 ||
-        (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
-        context->cave->wpos.depth < 60))
+    if (context->origin->player->state.skills[SKILL_SEARCH] <
+      (((context->cave->wpos.depth + context->origin->player->lev) / 2) + (10 - context->origin->player->lev / 5)))
     {
-        msg(context->origin->player, "You are not so good in searching yet to detect doors with magic.");
+        msg(context->origin->player, "You are not so good in \"Searching\" yet to detect doors with magic.");
         return false;
     }            
 
@@ -3002,13 +2999,12 @@ bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    // detect traps works starting with 20 lvl and depends on searching skills.
-    // At dlvl 60+ it works for all players alright.
-    if (context->cave->wpos.depth < 20 || 
-       (context->origin->player->state.skills[SKILL_SEARCH] < context->cave->wpos.depth && 
-        context->cave->wpos.depth < 60))
+    // To detect magically you must be good in searching.
+    // (note: mages of good searching races shouldn't have problem)
+    if (context->origin->player->state.skills[SKILL_SEARCH] <
+      (((context->cave->wpos.depth + context->origin->player->lev) / 2) + (10 - context->origin->player->lev / 5)))
     {
-        msg(context->origin->player, "You are not so good in searching to detect traps with magic.");
+        msg(context->origin->player, "You are not so good in \"Searching\" to detect traps with magic.");
         return false;
     }
 
