@@ -3405,6 +3405,10 @@ int Send_weather(struct player *p, int weather_type, int weather_wind, int weath
     connection_t *connp = get_connp(p, "weather");
     if (connp == NULL) return 0;
 
+    p->weather_type = weather_type;
+    p->weather_wind = weather_wind;
+    p->weather_intensity = weather_intensity;
+
     return Packet_printf(&connp->c, "%b%hd%hd%hd", (unsigned)PKT_WEATHER, weather_type, weather_wind, weather_intensity);
 }
 
@@ -7293,6 +7297,9 @@ static int Receive_store_leave(int ind)
 
             /* Restore music volume */
             sound(p, MSG_SILENT101);
+
+            // Check weather sound
+            if (p->weather_type == 1) sound(p, MSG_WILD_RAIN);
 
             /* Reapply illumination */
             cave_illuminate(p, c, is_daytime());

@@ -274,6 +274,7 @@ static void make_weather(struct player *p)
         {
             // thunder
             if (one_in_(2)) sound(p, MSG_AMBIENT_NITE);
+            // Rain
             Send_weather(p, 1, randint1(4), randint1(3));
             sound(p, MSG_WILD_RAIN);
         }
@@ -281,8 +282,24 @@ static void make_weather(struct player *p)
         {
             if (one_in_(5))
             {
-                // halt playback on all channels
-                sound(p, MSG_SILENT);
+                // empty sound to break sound loop .ogg.0
+                sound(p, MSG_SILENT0);
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
+        }
+    }
+    else if (streq(p->locname, "Helcaraxe"))
+    {
+        if (one_in_(5))
+        {
+            // Snow
+            Send_weather(p, 2, randint1(4), randint1(3));
+        }
+        else
+        {
+            if (one_in_(5))
+            {
                 // Stop weather
                 Send_weather(p, 256, 0, 0);
             }
@@ -292,14 +309,16 @@ static void make_weather(struct player *p)
     {
         if (one_in_(5))
         {
-            if (p->wpos.depth == 23) Send_weather(p, 3, randint1(4), randint1(3));
-            else if (p->wpos.depth == 24) Send_weather(p, 3, randint1(4), randint1(3));
-            else if (p->wpos.depth == 25) Send_weather(p, 3, randint1(4), randint1(3));
-            else if (p->wpos.depth == 26) Send_weather(p, 3, randint1(4), randint1(3));
-            else if (p->wpos.depth == 27) Send_weather(p, 3, randint1(4), randint1(3));
-            else if (p->wpos.depth == 28) Send_weather(p, 3, randint1(4), 3);
-            else if (p->wpos.depth == 29) Send_weather(p, 3, randint1(4), 3);
-            else if (p->wpos.depth == 30) Send_weather(p, 3, randint1(4), 3);
+            // Sandstorm
+            Send_weather(p, 3, randint1(4), randint1(3));
+        }
+        else
+        {
+            if (one_in_(5))
+            {
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
         }
     }
     else
