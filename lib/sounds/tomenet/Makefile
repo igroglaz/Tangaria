@@ -146,7 +146,7 @@ DATA = credits.txt \
 	player/misc/levelup/levelup.ogg \
 	store/doorbell_enter.ogg \
 	store/doorbell_leave.ogg \
-	weather/rain/rain.ogg \
+	weather/rain/rain.ogg.0 \
 	weather/snow/snow.ogg \
 	weather/thunder/thunder.ogg \
 	weather/thunder/thunder2.ogg \

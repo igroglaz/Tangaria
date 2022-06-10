@@ -2064,7 +2064,7 @@ void do_weather(void)
                     else
                     {
                         a = COLOUR_YELLOW;
-                        c = '.';
+                        c = '+';
                     }
                     break;
                 // Wind - east
@@ -2077,7 +2077,7 @@ void do_weather(void)
                     else
                     {
                         a = COLOUR_YELLOW;
-                        c = '.';
+                        c = '+';
                     }
                     break;
                 // Wind - strong west
@@ -2089,8 +2089,8 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_YELLOW;
-                        c = ',';
+                        a = COLOUR_L_UMBER;
+                        c = 'x';
                     }
                     break;
                 // Wind - strong east
@@ -2102,8 +2102,8 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_YELLOW;
-                        c = ',';
+                        a = COLOUR_L_UMBER;
+                        c = 'x';
                     }
                     break;
             }
