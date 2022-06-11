@@ -706,17 +706,76 @@ Character Description (``C``)
 
 Check knowledge (``~``)
   This command allows you to ask about the knowledge possessed by your
-  character. Currently, this includes being able to list all known
-  "artifacts", "uniques", and "objects". Normally, once an artifact is
-  "generated", and "identified", it becomes "known" to the player.
-  The "uniques" are special "unique" monsters which can only be killed once
-  per game. Certain "objects" come in "flavors", and you must determine
-  the effect of each "flavor" once for each such type of object, and
-  this command will allow you to display all "known" flavors. This command
-  will also list all ego items discovered, all known monsters (and their powers
-  and abilities), all terrain features, the top players (highscore list), all
-  items worn by party members, the character history (in-game achievements),
-  and all houses owned by the player.
+  character. Information that you can look up is:
+
+  objects
+    Will display which objects your character is familiar with. For each
+    type of object, allows you to change whether or not it is ignored,
+    the representation of that type on the screen, or the inscription
+    automatically applied to all objects of that type. Some types of
+    objects your character will be familiar with from the start of the game.
+    Others come in "flavors", and your character must determine the effect
+    of each "flavor" once for each such type of object. For a type of object
+    with a known "flavor", you be also be able to display a summary of
+    what the object can do.
+
+  runes
+    Will display the "runes", properties of enchanted objects, your
+    character is familiar with. Allows you to change the inscription that
+    is automatically appended to an object that has the rune. Once your
+    character identifies a "rune" on one object, he or she will recognize
+    that property on other objects.
+
+  artifacts
+    Will display all artifacts that your character has encountered. Normally,
+    once an artifact is "generated" and "lost", it can never again be found,
+    and will become "known" to the player. With "preserve" mode, an artifact
+    can never be "lost" until it is "known" to the player. In either case,
+    any "known" artifacts not in the possession of the player will never
+    again be "generated".
+
+  ego items
+    Will display the "egos" your character has encountered. Each "ego" is
+    a collection of enchantments that can appear on an object. "Egos" are
+    often restricted to only a few specific types of objects.
+
+  monsters
+    Displays the kinds of monsters your current or previous characters have
+    encountered. For each kind of monster, allows you to change its
+    representation on the screen. Some monsters are "uniques" which can be
+    only be killed once per game. For a "unique" that your current or
+    previous characters have encountered, this will display whether that
+    "unique" is still alive in this game.
+
+  features
+    Displays the types of map grids that can appear in the game. For each
+    type, allows you to change its representation on the screen and how
+    that representation changes depending on the amount of light present.
+
+  traps
+    Displays the types of traps that can appear in the game. For each type,
+    allows you to change its representation on the screen and how that
+    representation changes depending on the amount of light present.
+
+  hall of fame
+    Displays a list of current and past characters, sorted by how far they
+    progressed.
+
+  character history
+    Displays a summary of what your current character has done.
+
+  known uniques
+    Displays a summary of who killed which uniques in the game.
+
+  party gear
+    Displays the list of items equipped by party members.
+
+  owned houses
+    Displays the list of houses owned and their location.
+
+  visited dungeons and towns
+    Displays the list of dungeons and towns known to the player and their
+    location.
 
 ..
 

@@ -800,7 +800,7 @@ void inven_carry(struct player *p, struct object *obj, bool absorb, bool message
 
         /*
          * Show an aggregate total if the description doesn't have
-         * a charge/charging notice that's specific to the stack.
+         * a charge/recharging notice that's specific to the stack.
          */
         if (tval_can_have_charges(local_obj) || tval_is_rod(local_obj) || local_obj->timeout > 0)
         {
