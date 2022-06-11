@@ -3601,7 +3601,7 @@ desc: with displays of excessive violence.
 name:terrified yeek
 base:yeek
 color:u
-speed:110
+speed:111
 hit-points:18
 hearing:18
 smell:20
@@ -3613,7 +3613,7 @@ weight:80
 experience:11
 flags:DROP_40 | FRIGHTENED | NEVER_BLOW
 flags:DROP_CORPSE
-spell-freq:9
+spell-freq:5
 innate-freq:100
 spells:SHRIEK
 desc:It is a strange small humanoid in a constant state of extreme terror.

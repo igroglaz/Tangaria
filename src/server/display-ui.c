@@ -1953,9 +1953,9 @@ void player_dump(struct player *p, bool server)
 
         strnfmt(dumpname, sizeof(dumpname), "%s-%s.txt", p->name, buf_tm);
         if (dump_save(p, dumpname, true))
-            plog("Character dump successful.");
+            plog("Character dump successful (server).");
         else
-            plog("Character dump failed!");
+            plog("Character dump failed! (server)");
     }
 
     /* Hack -- compatibility with Angband ladder */
@@ -1964,9 +1964,9 @@ void player_dump(struct player *p, bool server)
     /* Save a client-side character dump */
     strnfmt(dumpname, sizeof(dumpname), "%s.txt", p->name);
     if (dump_save(p, dumpname, false))
-        plog("Character dump successful.");
+        plog("Character dump successful (client).");
     else
-        plog("Character dump failed!");
+        plog("Character dump failed! (client)");
 
     p->dump_gen = false;
 }
