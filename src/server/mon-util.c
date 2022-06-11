@@ -1357,18 +1357,35 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 p->account_score += 5;
             else if (streq(mon->race->name, "Eru Iluvatar"))
                 p->account_score += 10;
-            else if (mon->level < 99)
+            // regular uniques - only at odd score
+            else if (mon->level < 99 && p->account_score % 2)
             {
-                if (p->account_score < 75 && one_in_(100 - mon->level))
+                // it's in rotation with player.c (getting lvls)
+                if (p->account_score < 50 && one_in_(100 - mon->level))
+                {
                     p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
                 else if (p->account_score < 100 && mon->level > 10 && one_in_(100 - mon->level))
+                {
                     p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
                 else if (p->account_score < 200 && mon->level > 20 && one_in_(100 - mon->level))
+                {
                     p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
                 else if (p->account_score < 500 && mon->level > 30 && one_in_(100 - mon->level))
+                {
                     p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
                 else if (p->account_score < 999 && mon->level > 40 && one_in_(100 - mon->level))
+                {
                     p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
             }
         }
     }
