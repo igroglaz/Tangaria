@@ -1090,6 +1090,83 @@ static bool depth_is_valid(struct wild_type *w_ptr, int depth)
 }
 
 
+// Give character account score or if it's 1st ever char - init ladder entry.
+static int init_ladder(struct player *p)
+{
+    ang_file *fh;
+    char filename[MSG_LEN];
+    char filebuf[MSG_LEN];
+    char score_buf[MSG_LEN];
+    unsigned long score_tmp = 0;
+    uint32_t new_score = 0;
+    bool name_ok = false;
+    char *str;
+
+    /* Check account file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "ladder.raw");
+    if (file_exists(filename))
+    {
+        /* Open the file */
+        fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+        if (!fh)
+        {
+            plog("Failed to open ladder file!");
+            return 0L;
+        }
+
+        /* Process the file */
+        while (file_getl(fh, filebuf, sizeof(filebuf)))
+        {
+            /* Compare account name with buffer */
+            name_ok = !my_stricmp(filebuf, p->account_name);
+
+            /* Account name match with entry in the ladder file */
+            if (name_ok)
+            {
+                // get next line after account name
+                file_getl(fh, score_buf, sizeof(score_buf));
+
+                // as there is no strtoui() - make manual conversion from long to uint32_t
+                score_tmp = strtoul(score_buf, NULL, 10);
+                new_score = (uint32_t)score_tmp;
+
+                // fill the score in p
+                p->account_score = new_score;
+                file_close(fh);
+                // done!
+                return 0L;
+            }
+        }
+        // nothing found.. so close 'MODE_READ' file
+        file_close(fh);
+    }
+
+    // There is no such account name in the ladder file, so lets create it
+
+    /* Append to the file */
+    fh = file_open(filename, MODE_APPEND, FTYPE_TEXT);
+    if (!fh)
+    {
+        plog("Failed to open ladder file!");
+        return 0L;
+    }
+
+    /* Lowercase account name */
+    my_strcpy(filebuf, p->account_name, sizeof(filebuf));
+    for (str = filebuf; *str; str++) *str = tolower((unsigned char)*str);
+
+    // store new account name in ladder file
+    file_putf(fh, "%s\n", filebuf);
+    // give zero account score to it
+    file_putf(fh, "%s\n", "0");
+    // init account score for new player (to avoid garbage values)
+    p->account_score = 0;
+
+    // Close 'MODE_APPEND' file
+    file_close(fh);
+}
+
+
 static void player_setup(struct player *p, int id, uint32_t account, bool no_recall)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
@@ -1714,6 +1791,9 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         p->account_id = account;
         // also copy account name
         my_strcpy(p->account_name, get_connection(p->conn)->nick_account, sizeof(p->account_name));
+
+        // init ladder file
+        init_ladder(p);
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);

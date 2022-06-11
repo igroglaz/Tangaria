@@ -1893,6 +1893,117 @@ static void player_strip(struct player *p, bool perma_death)
 }
 
 
+// Add account points after character's death.
+// (ladder file itself initialized in init_ladder() at player-birth.c)
+static void account_score(struct player *p)
+{
+    ang_file *fh;
+    ang_file *lok;
+    ang_file *f_new;
+    char filename[MSG_LEN];
+    char new_filename[MSG_LEN];
+    char filebuf[MSG_LEN];
+    char lok_name[MSG_LEN];
+    char score_buf[MSG_LEN];
+    unsigned long score_tmp = 0;
+    uint32_t new_score = 0;
+    bool check_name = true, name_ok = false;
+
+    /* Check ladder file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "ladder.raw");
+    path_build(new_filename, sizeof(new_filename), ANGBAND_DIR_SCORES, "ladder.new");
+    path_build(lok_name, sizeof(lok_name), ANGBAND_DIR_SCORES, "ladder.lok");
+
+    /* Lock ladder */
+    // lock needed to 'pause' server connections.. without it there will be loads of:
+    // "Could not accept TCP Connection, socket error = 0"
+    if (file_exists(lok_name))
+    {
+        plog("Lock file in place for ladder; not writing.");
+        return;
+    }
+
+    lok = file_open(lok_name, MODE_WRITE, FTYPE_RAW);
+    file_lock(lok);
+
+    if (!lok)
+    {
+        plog("Failed to create lock for ladder file; not writing.");
+        return;
+    }
+
+    if (file_exists(filename))
+    {
+        /* Open the file */
+        fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+        if (!fh)
+        {
+            plog("Failed to open ladder file!");
+            file_close(lok);
+            file_delete(lok_name);
+            return 0L;
+        }
+        
+        /* Open the new file for writing - to copy there old file content with account_score update */
+        f_new = file_open(new_filename, MODE_WRITE, FTYPE_TEXT);
+        if (!f_new)
+        {
+            plog("Failed to create new ladder file!");
+            file_close(fh);
+            file_close(lok);
+            file_delete(lok_name);
+            return 0L;
+        }
+
+        /* Process the file, get one-by-one line */
+        while (file_getl(fh, filebuf, sizeof(filebuf)))
+        {
+            /* Account name match? */
+            if (check_name) name_ok = !my_stricmp(filebuf, p->account_name);
+
+            file_putf(f_new, "%s\n", filebuf);
+            //file_write(f_new, (char *)filebuf, sizeof(filebuf));
+
+            /* Yes, account name match */
+            if (name_ok)
+            {
+                // now get another line which should have numeric score
+                file_getl(fh, score_buf, sizeof(score_buf));
+
+                // as there is no strtoui() - make manual conversion from ulong to uint32_t
+                score_tmp = strtoul(score_buf, NULL, 10);
+                new_score = (uint32_t)score_tmp;
+
+                // record new score
+                new_score = p->account_score;
+
+                sprintf(score_buf, "%u", new_score);
+
+                file_putf(f_new, "%s\n", score_buf);
+                //file_write(f_new, (char *)score_buf, sizeof(score_buf));
+
+                // no need to check account names further, so flag become off
+                check_name = false;
+                name_ok = false;
+            }
+        }
+
+        /* Close the file */
+        file_close(f_new);
+        file_close(fh);
+
+        if (file_exists(filename) && !file_delete(filename))
+            plog("Couldn't delete old ladder file");
+
+        if (!file_move(new_filename, filename))
+            plog("Couldn't rename new ladder file");
+    }
+    /* Remove the lock */
+    file_close(lok);
+    file_delete(lok_name);
+}
+
+
 static void player_funeral(struct player *p)
 {
     /* Clear his houses */
@@ -2108,6 +2219,9 @@ void player_death(struct player *p)
     /* Handle permanent death */
     if (perma_death)
     {
+        // add account points
+        account_score(p);
+
         player_funeral(p);
 
         /* Done */
