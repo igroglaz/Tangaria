@@ -2003,7 +2003,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_L_WHITE;
+                        a = COLOUR_WHITE;
                         c = '*';
                     }
                     break;
@@ -2016,7 +2016,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_L_WHITE;
+                        a = COLOUR_WHITE;
                         c = '*';
                     }
                     break;
@@ -2029,7 +2029,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_WHITE;
+                        a = COLOUR_SLATE;
                         c = '*';
                     }
                     break;
@@ -2042,7 +2042,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_WHITE;
+                        a = COLOUR_SLATE;
                         c = '*';
                     }
                     break;
