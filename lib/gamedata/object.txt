@@ -6116,6 +6116,11 @@ desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with maximum of 3 floor tiles.
 desc: Please note that building a house require some additional gold.
+desc: ....... Account points (AP) requirements: .......
+desc: ....... 1 floor tiles -- 25 AP.....
+desc: ....... 2 floor tiles -- 50 AP.....
+desc: ....... 3 floor tiles -- 100 AP.....
+
 # 1x3
 
 name:Small House Creation
@@ -6123,7 +6128,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:50000
+cost:15000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:2
@@ -6131,6 +6136,10 @@ desc:It creates a new house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with a maximum of 6 floor tiles.
+desc: ....... Account points (AP) requirements: .......
+desc: ....... 4 floor tiles -- 200 AP.....
+desc: ....... 5 floor tiles -- 500 AP.....
+desc: ....... 6 floor tiles -- 1000 AP.....
 # 2x3
 
 name:Medium House Creation
@@ -6138,7 +6147,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:100000
+cost:22000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:3
@@ -6146,6 +6155,10 @@ desc:It creates a new house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with a maximum of 9 floor tiles.
+desc: ....... Account points (AP) requirements: .......
+desc: ....... 7 floor tiles -- 2000 AP.....
+desc: ....... 8 floor tiles -- 5000 AP.....
+desc: ....... 9 floor tiles -- 10000 AP.....
 # 3x3
 
 name:Big House Creation
@@ -6153,7 +6166,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:250000
+cost:50000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:4
@@ -6161,6 +6174,10 @@ desc:It creates a medium house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with a maximum of 25 floor tiles.
+desc: ....... Account points (AP) requirements: .......
+desc: ....... 15 floor tiles -- 25.000 AP.....
+desc: ....... 20 floor tiles -- 50.000 AP.....
+desc: ....... 25 floor tiles -- 100.000 AP.....
 # 5x5
 
 name:Villa Creation
@@ -6168,7 +6185,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:500000
+cost:100000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:5
@@ -6176,6 +6193,10 @@ desc:It creates a big house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with a maximum of 64 floor tiles.
+desc: ....... Account points (AP) requirements: .......
+desc: ....... 32 floor tiles -- 200.000 AP.....
+desc: ....... 44 floor tiles -- 400.000 AP.....
+desc: ....... 64 floor tiles -- 800.000 AP.....
 # 8x8
 
 name:Estate Creation
@@ -6183,7 +6204,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:1000000
+cost:175000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:6
@@ -6191,6 +6212,7 @@ desc:It creates a big house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build house with a maximum of 100 floor tiles.
+desc: .......Requirement: 1.500.000 account points.......
 # 10x10
 
 name:Tower Creation
@@ -6198,7 +6220,7 @@ graphics:?:u
 type:scroll
 level:0
 weight:5
-cost:5000000
+cost:300000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:7
@@ -6206,6 +6228,7 @@ desc:It creates a tower, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build tower with a maximum of 144 floor tiles.
+desc: .......Requirement: 3.000.000 account points.......
 # 12x12
 
 name:Keep Creation
@@ -6213,7 +6236,7 @@ graphics:?:u
 type:scroll
 level:0
 weight:5
-cost:22000000
+cost:500000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:8
@@ -6221,6 +6244,7 @@ desc:It creates a huge keep, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build keep with a maximum of 256 floor tiles.
+desc: .......Requirement: 10.000.000 account points.......
 # 16x16
 
 name:Castle Creation
@@ -6228,7 +6252,7 @@ graphics:?:y
 type:scroll
 level:0
 weight:5
-cost:44000000
+cost:990000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:9
@@ -6236,6 +6260,7 @@ desc:It creates a new castle, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build a huge castle.
+desc: .......Requirement: 100.000.000 account points.......
 # 18x18+ (324)
 
 name:Water

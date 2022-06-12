@@ -1773,6 +1773,7 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
 
 bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
 {
+    // depends on 'dice' value for effect:CREATE_HOUSE in object.txt
     int house_variant = context->value.base;
     context->ident = true;
 
