@@ -339,6 +339,9 @@ MSG(DANGER_9, "danger_9")
 MSG(BALANCED_STANCE, "balanced_stance")
 MSG(DEFENSIVE_STANCE, "defensive_stance")
 MSG(OFFENSIVE_STANCE, "offensive_stance")
+MSG(WILD_RAIN_LIGHT, "wild_rain_light")
+MSG(WILD_THUNDER_LIGHT, "wild_thunder_light")
+MSG(WILD_THUNDER, "wild_thunder")
 
 
 // client T sounds

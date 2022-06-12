@@ -1896,6 +1896,9 @@ void do_weather(void)
     char tc;
     bool draw_weather = false;
 
+    static bool frame_weather = false;
+    static int weather_element[256][256];
+
     // Check weather
     if (player->weather_type == 0) return;
 
@@ -2003,7 +2006,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_L_WHITE;
+                        a = COLOUR_WHITE;
                         c = '*';
                     }
                     break;
@@ -2016,7 +2019,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_L_WHITE;
+                        a = COLOUR_WHITE;
                         c = '*';
                     }
                     break;
@@ -2029,7 +2032,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_WHITE;
+                        a = COLOUR_SLATE;
                         c = '*';
                     }
                     break;
@@ -2042,7 +2045,7 @@ void do_weather(void)
                     }
                     else
                     {
-                        a = COLOUR_WHITE;
+                        a = COLOUR_SLATE;
                         c = '*';
                     }
                     break;
@@ -2111,53 +2114,106 @@ void do_weather(void)
         }
     }
 
-    // Screen
-    for (y = 0; y < h; y++)
+    if (!frame_weather)
     {
-        for (x = 0; x < w; x++)
+        // Screen
+        for (y = 0; y < h; y++)
         {
-            // Weather density
-            switch (player->weather_intensity)
+            for (x = 0; x < w; x++)
             {
-                case 1:
-                    if (one_in_(30))
-                    {
-                        // Draw the weather
-                        draw_weather = true;
-                    }
-                    break;
-                case 2:
-                    if (one_in_(15))
-                    {
-                        // Draw the weather
-                        draw_weather = true;
-                    }
-                    break;
-                case 3:
-                    if (one_in_(5))
-                    {
-                        // Draw the weather
-                        draw_weather = true;
-                    }
-                    break;
-            }
+                // Clear array
+                weather_element[y][x] = 256;
 
-            if (draw_weather)
-            {
-                if (use_graphics)
+                // Weather density
+                switch (player->weather_intensity)
                 {
-                    Term_info(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-                }
-                else
-                {
-                    (void)((*main_term->text_hook)(COL_MAP + x, ROW_MAP + y, 1, a, &c));
+                    case 1:
+                        if (one_in_(30))
+                        {
+                            // Draw the weather
+                            draw_weather = true;
+                        }
+                        break;
+                    case 2:
+                        if (one_in_(15))
+                        {
+                            // Draw the weather
+                            draw_weather = true;
+                        }
+                        break;
+                    case 3:
+                        if (one_in_(5))
+                        {
+                            // Draw the weather
+                            draw_weather = true;
+                        }
+                        break;
                 }
 
-                draw_weather = false;
+                if (draw_weather)
+                {
+                    if (use_graphics)
+                    {
+                        Term_info(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+                        (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                    }
+                    else
+                    {
+                        (void)((*main_term->text_hook)(COL_MAP + x, ROW_MAP + y, 1, a, &c));
+                    }
+
+                    weather_element[y][x] = x;
+                    draw_weather = false;
+                }
             }
         }
     }
+    else
+    {
+        // Check wind - west, strong west
+        if ((player->weather_wind == 1) || (player->weather_wind == 3))
+        {
+            // Screen - second frame
+            for (y = 0; y < h - 1; y++)
+            {
+                for (x = 1; x < w; x++)
+                {
+                    if (use_graphics)
+                    {
+                        Term_info(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+                        (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 1, &a, &c, &ta, &tc));
+                    }
+                    else
+                    {
+                        (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] - 1, ROW_MAP + y + 1, 1, a, &c));
+                    }
+                }
+            }
+        }
+        // Check wind - east, strong east
+        else if ((player->weather_wind == 2) || (player->weather_wind == 4))
+        {
+            // Screen - second frame
+            for (y = 0; y < h - 1; y++)
+            {
+                for (x = 0; x < w - 1; x++)
+                {
+                    if (use_graphics)
+                    {
+                        Term_info(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+                        (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 1, &a, &c, &ta, &tc));
+                    }
+                    else
+                    {
+                        (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] + 1, ROW_MAP + y + 1, 1, a, &c));
+                    }
+                }
+            }
+        }
+    }
+
+    if (!frame_weather) frame_weather = true;
+    else if (frame_weather) frame_weather = false;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);

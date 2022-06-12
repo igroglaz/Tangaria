@@ -53,13 +53,22 @@ sound:town:ambient/outside/dog_small ambient/outside/bell ambient/outside/cart a
 sound:town_rare:ambient/outside/build_1 ambient/outside/build_2 ambient/outside/build_3 ambient/outside/build_4 ambient/outside/build_5 ambient/outside/build_6
 
 # Town during the day.
-sound:ambient_day:amb_thunder_rain ambient/outside/rain_light ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
+sound:ambient_day:ambient_crow ambient_wings ambient_birds ambient_birds_1 ambient_fox ambient_wind_1 ambient_wind_2 ambient_wind_3 ambient_forest_birds
 
 # Town during the night.
-sound:ambient_nite:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3 tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2 ambient_crow ambient_wings ambient_fox ambient_wind_1 ambient_wind_night ambient_wind_night_1 ambient_wind_2 ambient_wind_3
+sound:ambient_nite:tomenet/ambient/persistent/watery/crickets tomenet/ambient/timed/owl/owl tomenet/ambient/timed/owl/owl2 ambient_crow ambient_wings ambient_fox ambient_wind_1 ambient_wind_night ambient_wind_night_1 ambient_wind_2 ambient_wind_3
 
-# Long rain
+# Rain ligth
+sound:wild_rain_light:ambient/outside/rain_light
+
+# Rain
 sound:wild_rain:tomenet/weather/rain/rain
+
+# Thunder light
+sound:wild_thunder_light:amb_thunder_rain
+
+# Thunder
+sound:wild_thunder:amb_thunder_roll tomenet/weather/thunder/thunder tomenet/weather/thunder/thunder2 tomenet/weather/thunder/thunder3
 
 # Waves (1 min. long)
 sound:wild_waves:tomenet/ambient/persistent/ocean/seawaves
