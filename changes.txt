@@ -53,6 +53,8 @@ Angband 4.2.x:
 - Allow more menus to use the rogue-like movement keys for navigation
 - Change message from "You see" to "You recall" when targeting an unseen grid
 - Add borders around option menu prompts that don't clear the screen
+- Suppress "You have ..." message for artifact jewelry when all non-curse runes
+  are known
 
 MAngband 1.5.x:
 
@@ -74,6 +76,9 @@ Angband 4.2.x:
 - Apply temporary and off-weapon slays and brands to unarmed combat
 - Reduce monsters passing through or tunneling walls
 - For special artifacts, remove additional out-of-depth check on the kind
+- Have DETECT_DOORS detect all types of doors, not just secret ones
+- Forget remembered impassable terrain at the player's grid if the player is
+  blind
 
 PWMAngband:
 
@@ -179,6 +184,8 @@ Angband 4.2.x:
 - Make ui-player-properties
 - Move logic for bookkeeping after a player's move from move_player() to its
   own function so it can be called in other cases when the player moves
+- Avoid platform-dependent right shift of negative values in
+  player_adjust_hp_precise() and player_adjust_mana_precise()
 
 PWMAngband:
 
@@ -204,3 +211,5 @@ Compilation/documentation
 - Use a top-level help file customized for the chosen keyset
 - For the specialized pref files, fix a typo and change some markup
 - In the documentation, use lowercase letters with ^ (or Ctrl/ctrl)
+- Add descriptions of all the knowledge menu entries to the documentation
+  for the '~' command

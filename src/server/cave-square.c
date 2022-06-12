@@ -1129,6 +1129,17 @@ bool square_ispassable(struct chunk *c, struct loc *grid)
 
 
 /*
+ * True if the square is seen as passable by the player.
+ */
+bool square_ispassable_p(struct player *p, struct loc *grid)
+{
+    my_assert(player_square_in_bounds(p, grid));
+
+    return feat_is_passable(square_p(p, grid)->feat);
+}
+
+
+/*
  * True if any projectable can pass through the square.
  */
 bool square_isprojectable(struct chunk *c, struct loc *grid)

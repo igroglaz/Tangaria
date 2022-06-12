@@ -2542,6 +2542,17 @@ bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
             redraw = true;
         }
 
+        /* Detect other types of doors. */
+        else if (square_isdoor(context->cave, &iter.cur) &&
+            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+        {
+            square_memorize(context->origin->player, context->cave, &iter.cur);
+            square_light_spot(context->cave, &iter.cur);
+            doors = true;
+
+            redraw = true;
+        }
+
         /* Forget unknown doors in the mapping area */
         if (square_isdoor_p(context->origin->player, &iter.cur) &&
             square_isnotknown(context->origin->player, context->cave, &iter.cur))

@@ -1045,6 +1045,16 @@ void update_view(struct player *p, struct chunk *c)
     loc_init(&end, c->width, c->height);
     loc_iterator_first(&iter, &begin, &end);
 
+    /*
+     * If the player is blind and in terrain that was remembered to be
+     * impassable, forget the remembered terrain.
+     */
+    if (p->timed[TMD_BLIND] && square_isknown(p, &p->grid) && !square_ispassable_p(p, &p->grid))
+    {
+        /* PWMAngband: player must not be able to move through impassable terrain */
+        if (!player_passwall(p)) square_forget(p, &p->grid);
+    }
+
     /* Squares we have LOS to get marked as in the view, and perhaps seen */
     do
     {

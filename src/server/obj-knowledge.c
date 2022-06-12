@@ -986,7 +986,7 @@ void player_know_object(struct player *p, struct object *obj)
             /* Set jewelry type if known */
             if (object_non_curse_runes_known(copy, aware))
             {
-                seen = p->kind_everseen[obj->kind->kidx];
+                seen = (obj->artifact? true: p->kind_everseen[obj->kind->kidx]);
                 object_flavor_aware(p, obj);
             }
 

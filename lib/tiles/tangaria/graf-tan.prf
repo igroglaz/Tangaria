@@ -1096,6 +1096,8 @@ object:nature book:[Gifts of Nature]:0x86:0xA5
 object:nature book:[Creature Dominion]:0x86:0xA7
 object:nature book:[Nature Craft]:0x86:0xA8
 object:nature book:[Wild Forces]:0x86:0xAC
+# Tangaria
+object:nature book:[Druid Lore]:0x86:0x9B
 
 ##### Shadow Books #####
 
