@@ -1941,7 +1941,7 @@ static void account_score(struct player *p)
             plog("Failed to open ladder file!");
             file_close(lok);
             file_delete(lok_name);
-            return 0L;
+            return;
         }
         
         /* Open the new file for writing - to copy there old file content with account_score update */
@@ -1952,7 +1952,7 @@ static void account_score(struct player *p)
             file_close(fh);
             file_close(lok);
             file_delete(lok_name);
-            return 0L;
+            return;
         }
 
         /* Process the file, get one-by-one line */

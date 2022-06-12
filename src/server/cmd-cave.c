@@ -3883,23 +3883,43 @@ bool create_house(struct player *p, int house_variant)
     if ((area_size = get_house_foundation(p, c, &begin, &end)) <= 0) return false;
 
     // Compare planned area_size and house variant (depends on type of house)
-    if (area_size > 3 && house_variant == 1) // cabin
+    if (house_variant == 1 && (area_size > 1 || p->account_score < 25)) // cabin
         return false;
-    else if (area_size > 6 && house_variant == 2) // small house
+    else if (house_variant == 1 && (area_size > 2 || p->account_score < 50)) // cabin
         return false;
-    else if (area_size > 9 && house_variant == 3) // medium house
+    else if (house_variant == 1 && (area_size > 3 || p->account_score < 100)) // cabin
         return false;
-    else if (area_size > 25 && house_variant == 4) // big house
+    else if (house_variant == 2 && (area_size > 4 || p->account_score < 200)) // small house
         return false;
-    else if (area_size > 64 && house_variant == 5) // villa
+    else if (house_variant == 2 && (area_size > 5 || p->account_score < 500)) // small house
         return false;
-    else if (area_size > 100 && house_variant == 6) // estate
+    else if (house_variant == 2 && (area_size > 6 || p->account_score < 1000)) // small house
         return false;
-    else if (area_size > 144 && house_variant == 7) // tower
+    else if (house_variant == 3 && (area_size > 7 || p->account_score < 2000)) // medium house
         return false;
-    else if (area_size > 256 && house_variant == 8) // keep
+    else if (house_variant == 3 && (area_size > 8 || p->account_score < 5000)) // medium house
         return false;
-    else if (area_size > 324 && house_variant == 9) // castle
+    else if (house_variant == 3 && (area_size > 9 || p->account_score < 10000)) // medium house
+        return false;
+    else if (house_variant == 4 && (area_size > 15 || p->account_score < 25000)) // big house
+        return false;
+    else if (house_variant == 4 && (area_size > 20 || p->account_score < 50000)) // big house
+        return false;
+    else if (house_variant == 4 && (area_size > 25 || p->account_score < 100000)) // big house
+        return false;
+    else if (house_variant == 5 && (area_size > 32 || p->account_score < 200000)) // villa
+        return false;
+    else if (house_variant == 5 && (area_size > 44 || p->account_score < 400000)) // villa
+        return false;
+    else if (house_variant == 5 && (area_size > 64 || p->account_score < 800000)) // villa
+        return false;
+    else if (house_variant == 6 && (area_size > 100 || p->account_score < 1500000)) // estate
+        return false;
+    else if (house_variant == 7 && (area_size > 144 || p->account_score < 3000000)) // tower
+        return false;
+    else if (house_variant == 8 && (area_size > 256 || p->account_score < 10000000)) // keep
+        return false;
+    else if (house_variant == 9 && (area_size > 324 || p->account_score < 100000000)) // castle
         return false;
 
     /* Calculate price.
