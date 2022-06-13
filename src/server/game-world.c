@@ -103,7 +103,7 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
     /* Illuminate */
     cave_illuminate(p, c, dawn);
 
-    // also we will check for old houses
+    // also we will check for old and unowned custom houses
     wipe_old_houses(&p->wpos);
 }
 
@@ -1595,6 +1595,7 @@ static void on_leave_level(void)
 
                 // also exist in admin menu
                 /* Hack -- deallocate custom houses */
+                // ..in T we also do this at dusk_or_dawn() in wipe_old_houses()
                 wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
 
                 /* Deallocate the level */

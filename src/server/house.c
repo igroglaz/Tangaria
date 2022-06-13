@@ -345,6 +345,8 @@ bool level_has_any_houses(struct worldpos *wpos)
 
 /*
  * Wipe old houses on a level
+  // ... for 'wiped' houses - afterwards house walls needed to be demolished manually
+  // by admin char (!heroism)... /rfe give such possibility to players
  */
 void wipe_old_houses(struct worldpos *wpos)
 {
@@ -357,6 +359,13 @@ void wipe_old_houses(struct worldpos *wpos)
         /* Skip houses not on this level */
         if (!wpos_eq(&houses[house].wpos, wpos)) continue;
 
+        /* Wipe unowned extended and custom houses */
+        if ((houses[house].state >= HOUSE_EXTENDED) && (houses[house].ownerid == 0))
+        {
+            memset(&houses[house], 0, sizeof(struct house_type));
+            num_custom--;
+        }
+
 		// 'reset' non-refreshed house (2 months)
         if ((houses[house].last_visit_time != 0) &&
                  (current_time - (houses[house].last_visit_time)) > 5184000)
@@ -367,6 +376,8 @@ void wipe_old_houses(struct worldpos *wpos)
 
 /*
  * Wipe custom houses on a level
+  // in T we use such routine in wipe_old_houses() (above) which happen at dusk_or_dawn()
+  // ... afterwards house walls needed to be demolished manually (see above)
  */
 void wipe_custom_houses(struct worldpos *wpos)
 {
@@ -377,7 +388,7 @@ void wipe_custom_houses(struct worldpos *wpos)
         /* Skip houses not on this level */
         if (!wpos_eq(&houses[house].wpos, wpos)) continue;
 
-        /* Wipe extended and custom houses */
+        /* Wipe unowned extended and custom houses */
         if ((houses[house].state >= HOUSE_EXTENDED) && (houses[house].ownerid == 0))
         {
             memset(&houses[house], 0, sizeof(struct house_type));
