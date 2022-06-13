@@ -3185,6 +3185,7 @@ static int can_buy_house(struct player *p, int price)
 void do_cmd_purchase_house(struct player *p, int dir)
 {
     int i, n, check;
+    int house_area_size = 0;
     struct chunk *c = chunk_get(&p->wpos);
 
     /* Ghosts cannot buy houses */
@@ -3364,6 +3365,49 @@ void do_cmd_purchase_house(struct player *p, int dir)
             msg(p, "You cannot buy more houses.");
             return;
         }
+
+        // check house area_size and find out do we have enough account points to buy it
+        house_area_size = house_count_area_size(i);
+
+        // Compare planned house_area_size and house variant (depends on type of house)
+        if (house_area_size > 1 && p->account_score < 25) // cabin
+            return;
+        else if (house_area_size > 2 && p->account_score < 50) // cabin
+            return;
+        else if (house_area_size > 3 && p->account_score < 100) // cabin
+            return;
+        else if (house_area_size > 4 && p->account_score < 200) // small house
+            return;
+        else if (house_area_size > 5 && p->account_score < 500) // small house
+            return;
+        else if (house_area_size > 6 && p->account_score < 1000) // small house
+            return;
+        else if (house_area_size > 7 && p->account_score < 2000) // medium house
+            return;
+        else if (house_area_size > 8 && p->account_score < 5000) // medium house
+            return;
+        else if (house_area_size > 9 && p->account_score < 10000) // medium house
+            return;
+        else if (house_area_size > 15 && p->account_score < 25000) // big house
+            return;
+        else if (house_area_size > 20 && p->account_score < 50000) // big house
+            return;
+        else if (house_area_size > 25 && p->account_score < 100000) // big house
+            return;
+        else if (house_area_size > 32 && p->account_score < 200000) // villa
+            return;
+        else if (house_area_size > 44 && p->account_score < 400000) // villa
+            return;
+        else if (house_area_size > 64 && p->account_score < 800000) // villa
+            return;
+        else if (house_area_size > 100 && p->account_score < 1500000) // estate
+            return;
+        else if (house_area_size > 144 && p->account_score < 3000000) // tower
+            return;
+        else if (house_area_size > 256 && p->account_score < 10000000) // keep
+            return;
+        else if (house_area_size > 324 && p->account_score < 100000000) // castle
+            return;
 
         /* Check for funds or deed of property */
         check = can_buy_house(p, house->price);
@@ -3799,6 +3843,10 @@ static long int get_house_foundation(struct player *p, struct chunk *c, struct l
         /* Stop if we couldn't expand */
         done = !(n || s || w || e);
     }
+
+// ATTENTION!
+// location coordinates starts on top left corner of the _map_! so Y coord is vice versa
+// see pics at https://tangaria.com/dev-notes/
 
     /* Paranoia: checks is foundation from one corner to another
     got at least 1 tile in between. So it's always a square;
