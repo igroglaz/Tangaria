@@ -362,6 +362,19 @@ void wipe_old_houses(struct worldpos *wpos)
         /* Wipe unowned extended and custom houses */
         if ((houses[house].state >= HOUSE_EXTENDED) && (houses[house].ownerid == 0))
         {
+            struct loc_iterator iter;
+            struct chunk *c = chunk_get(&houses[house].wpos);
+
+            // 1) Delete walls and the door
+            // remove a rectangular building
+            loc_iterator_first(&iter, &houses[house].grid_1, &houses[house].grid_2);
+            do
+            {
+                square_burn_grass(c, &iter.cur);
+            }
+            while (loc_iterator_next(&iter));
+
+            // 2) Wipe data about house
             memset(&houses[house], 0, sizeof(struct house_type));
             num_custom--;
         }
