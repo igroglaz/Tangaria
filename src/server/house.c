@@ -60,6 +60,19 @@ int houses_count(void)
 }
 
 
+// count house area (as we don't store it in house struct for now... will add it one day)
+// it counts only floors, without walls
+int house_count_area_size(int house)
+{
+    int x, y;
+
+    x = houses[house].grid_2.x - houses[house].grid_1.x - 1;
+    y = houses[house].grid_2.y - houses[house].grid_1.y - 1;
+
+    return x * y;
+}
+
+
 /*  
  * Determine if the player is inside the house
  */
