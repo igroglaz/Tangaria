@@ -85,7 +85,7 @@ void options_init_defaults(struct player_options *opts)
     opts->hitpoint_warn = 3;
 
     /* Initialize extra parameters */
-    for (i = ITYPE_NONE; i < ITYPE_MAX; i++) opts->ignore_lvl[i] = IGNORE_BAD;
+    for (i = ITYPE_NONE; i < ITYPE_MAX; i++) opts->ignore_lvl[i] = IGNORE_NONE;
 }
 
 

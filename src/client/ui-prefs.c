@@ -1164,7 +1164,8 @@ static enum parser_error parse_prefs_window(struct parser *p)
     /* Hack -- the main window is fixed: PW_PLAYER_2 + PW_STATUS */
     if (window == 0)
     {
-        bool good_flag = (((1L << flag) == PW_PLAYER_2) || ((1L << flag) == PW_STATUS));
+        bool good_flag = ((((uint32_t)1 << flag) == PW_PLAYER_2) ||
+            (((uint32_t)1 << flag) == PW_STATUS));
 
         if ((good_flag && !value) || (!good_flag && value))
             return PARSE_ERROR_OUT_OF_BOUNDS;
@@ -1173,7 +1174,7 @@ static enum parser_error parse_prefs_window(struct parser *p)
     /* Hack -- the chat window is fixed: PW_MESSAGE_CHAT */
     if (window == PMSG_TERM)
     {
-        bool good_flag = ((1L << flag) == PW_MESSAGE_CHAT);
+        bool good_flag = (((uint32_t)1 << flag) == PW_MESSAGE_CHAT);
 
         if ((good_flag && !value) || (!good_flag && value))
             return PARSE_ERROR_OUT_OF_BOUNDS;
@@ -1182,9 +1183,9 @@ static enum parser_error parse_prefs_window(struct parser *p)
     if (window_flag_desc[flag])
     {
         if (value)
-            d->window_flags[window] |= (1L << flag);
+            d->window_flags[window] |= ((uint32_t)1 << flag);
         else
-            d->window_flags[window] &= ~(1L << flag);
+            d->window_flags[window] &= ~((uint32_t)1 << flag);
     }
 
     d->loaded_window_flag[window] = true;

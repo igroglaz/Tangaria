@@ -185,6 +185,8 @@ static bool target_info(struct player *p, struct loc *grid, const char *info, co
 static enum target_aux_result aux_reinit(struct chunk *c, struct player *p,
     struct target_aux_state *auxst)
 {
+    struct monster *mon;
+
     /* Bail if looking at a forbidden grid. Don't run any more handlers. */
     if (!square_in_bounds(c, auxst->grid)) return TAR_BREAK;
 
@@ -201,7 +203,19 @@ static enum target_aux_result aux_reinit(struct chunk *c, struct player *p,
     /* Default */
     else
     {
-        auxst->phrase1 = square_isseen(p, auxst->grid)? "You see ": "You recall ";
+        if (square_isseen(p, auxst->grid))
+            auxst->phrase1 = "You see ";
+        else
+        {
+            mon = square_monster(c, auxst->grid);
+            if (mon && monster_is_obvious(p, mon->midx, mon))
+            {
+                /* Monster is visible because of detection or telepathy */
+                auxst->phrase1 = "You sense ";
+            }
+            else
+                auxst->phrase1 = "You recall ";
+        }
         auxst->phrase2 = "";
     }
 

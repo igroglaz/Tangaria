@@ -341,7 +341,7 @@ static void do_cmd_options_win(const char *name, int row)
                 if ((i == y) && (j == x)) a = COLOUR_L_BLUE;
 
                 /* Active flag */
-                if (new_flags[j] & (1L << i)) c = 'X';
+                if (new_flags[j] & ((uint32_t)1 << i)) c = 'X';
 
                 /* Flag value */
                 Term_putch(35 + j * 5, i + 5, a, c);
@@ -366,19 +366,21 @@ static void do_cmd_options_win(const char *name, int row)
             /* Toggle */
             else if ((ke.key.code == '5') || (ke.key.code == 't') || (ke.key.code == KC_ENTER))
             {
+                uint32_t flag = ((uint32_t)1) << y;
+
                 /* Can never toggle main and chat windows */
                 if ((x == 0) || (x == PMSG_TERM))
                     bell("Cannot toggle window flags for this term!");
 
                 /* Can never toggle PW_MESSAGE_CHAT */
-                else if ((1L << y) == PW_MESSAGE_CHAT)
+                else if (flag == PW_MESSAGE_CHAT)
                     bell("Cannot toggle chat messages flag!");
 
                 /* Toggle flag (off) */
-                else if (new_flags[x] & (1L << y)) new_flags[x] &= ~(1L << y);
+                else if (new_flags[x] & flag) new_flags[x] &= ~flag;
 
                 /* Toggle flag (on) */
-                else new_flags[x] = (1L << y);
+                else new_flags[x] = flag;
 
                 /* Continue */
                 continue;

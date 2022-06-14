@@ -23,7 +23,7 @@
 
 bool server_generated;      /* The server exists */
 bool server_state_loaded;   /* The server state was loaded from a savefile */
-uint32_t seed_flavor;           /* Hack -- consistent object colors */
+uint32_t seed_flavor;       /* Hack -- consistent object colors */
 hturn turn;                 /* Current game turn */
 
 

@@ -1090,6 +1090,17 @@ static bool player_of_has_not_timed(struct player *p, int flag)
 
 /*
  * Set a timed event.
+ *
+ * p is the player to affect.
+ * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
+ * notify, if true, allows for messages, updates to the user interface,
+ * and player disturbance if setting the effect doesn't duplicate an effect
+ * already present. If false, prevents messages, updates to the user interface,
+ * and player disturbance unless setting the effect increases the effect's
+ * gradation or decreases the effect's gradation when the effect has messages
+ * for the gradations that lapse.
+ *
+ * Returns whether setting the effect caused the player to be notified.
  */
 bool player_set_timed(struct player *p, int idx, int v, bool notify)
 {
@@ -1263,6 +1274,13 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
 
 /*
  * Check whether a timed effect will affect the player
+ *
+ * p is the player to check.
+ * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
+ * lore, if true, modifies the check so it is appropriate for filling
+ * in details of monster recall.
+ *
+ * Returns whether the player can be affected by the effect.
  */
 bool player_inc_check(struct player *p, struct monster *mon, int idx, bool lore)
 {
@@ -1309,8 +1327,9 @@ bool player_inc_check(struct player *p, struct monster *mon, int idx, bool lore)
 
 
 /*
- * Increase the timed effect `idx` by `v`.  Mention this if `notify` is true.
- * Check for resistance to the effect if `check` is true.
+ * Increase the timed effect `idx` by `v`.
+ *
+ * If the effect is from a monster action, extra stuff happens.
  */
 bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v, bool notify,
     bool check)
@@ -1369,8 +1388,20 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
 
 
 /*
- * Increase the timed effect `idx` by `v`.  Mention this if `notify` is true.
- * Check for resistance to the effect if `check` is true.
+ * Increase the timed effect `idx` by `v`.
+ *
+ * p is the player to affect.
+ * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
+ * notify, if true, allows for messages, updates to the user interface,
+ * and player disturbance if increasing the duration doesn't duplicate an effect
+ * already present. If false, prevents messages, updates to the user interface,
+ * and player disturbance unless increasing the duration increases the effect's
+ * gradation or decreases the effect's gradation when the effect has messages
+ * for the gradations that lapse.
+ * check, if true, allows for the player to resist the effect if
+ * player_inc_check(p, idx, false) is true.
+ *
+ * Returns whether increasing the duration caused the player to be notified.
  */
 bool player_inc_timed(struct player *p, int idx, int v, bool notify, bool check)
 {
@@ -1379,7 +1410,20 @@ bool player_inc_timed(struct player *p, int idx, int v, bool notify, bool check)
 
 
 /*
- * Decrease the timed effect `idx` by `v`.  Mention this if `notify` is true.
+ * Decrease the timed effect `idx` by `v`.
+ *
+ * p is the player to affect.
+ * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
+ * v is the amount to subtract from the effect's duration.
+ * notify, if true or v is greater than or equal to the effect's current
+ * duration, allows for messages, updates to the user interface, and player
+ * disturbance. If false and v is less than the effect's current duration,
+ * prevents messages, updates to the user interface, and player disturbance
+ * unless the change to the duration increases the effect's gradation or
+ * decreases the effect's gradation when the effect has messages for the
+ * gradations that lapse.
+ *
+ * Returns whether changing the duration caused the player to be notified.
  */
 bool player_dec_timed(struct player *p, int idx, int v, bool notify)
 {
@@ -1399,7 +1443,17 @@ bool player_dec_timed(struct player *p, int idx, int v, bool notify)
 
 
 /*
- * Clear the timed effect `idx`.  Mention this if `notify` is true.
+ * Clear the timed effect `idx`.
+ *
+ * p is the player to affect.
+ * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
+ * notify, if true, allows for messages, updates to the user interface,
+ * and player disturbance if clearing the effect doesn't duplicate an effect
+ * already present. If false, prevents messages, updates to the user interface,
+ * and player disturbance unless clearing the effect decreases the effect's
+ * gradation and the effect has messages for the gradations that lapse.
+ *
+ * Returns whether clearing the effect caused the player to be notified.
  */
 bool player_clear_timed(struct player *p, int idx, bool notify)
 {

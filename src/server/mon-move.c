@@ -2548,15 +2548,15 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
 {
     struct player *p = mon->closest_player;
     int stealth = p->state.skills[SKILL_STEALTH];
-    int player_noise;
-    int notice = randint0(1024);
+    uint32_t player_noise;
+    uint32_t notice = (uint32_t)randint0(1024);
     struct monster_lore *lore = get_lore(p, mon->race);
     int mon_distance = distance(&p->grid, &mon->grid);
 
     /* If player has acted this turn, use that noise value */
     if (!has_energy(p, false))
     {
-        player_noise = 1 << (30 - stealth);
+        player_noise = ((uint32_t)1) << (30 - stealth);
 
         // base:person affected by CHR a bit
         if (player_noise > 50 && streq(mon->race->base->name, "person"))
@@ -2564,7 +2564,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     }
 
     /* If player hasn't acted, 1/100 chance to make noise */
-    else if (one_in_(100) && !streq(p->race->name, "Ent")) player_noise = 1 << (30 - stealth);
+    else if (one_in_(100) && !streq(p->race->name, "Ent")) player_noise = ((uint32_t)1) << (30 - stealth);
 
     /* Player is totally silent */
     else player_noise = 0;

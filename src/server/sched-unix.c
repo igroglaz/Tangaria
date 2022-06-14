@@ -1,25 +1,20 @@
 #ifndef WINDOWS
-/* $Id: sched.c,v 1.2 2000/04/08 04:46:52 adingle Exp $
+/*
+ * File: sched-unix.c
+ * Purpose: Unix port of sched.c
  *
- * XPilot, a multiplayer gravity war game.  Copyright (C) 1991-95 by
+ * Copyright (c) 2022 MAngband and PWMAngband Developers
  *
- *      Bjørn Stabell        (bjoerns@staff.cs.uit.no)
- *      Ken Ronny Schouten   (kenrsc@stud.cs.uit.no)
- *      Bert Gÿsbers         (bert@mc.bio.uva.nl)
+ * This work is free software; you can redistribute it and/or modify it
+ * under the terms of either:
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation, version 2, or
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * b) the "Angband licence":
+ *    This software may be copied and distributed for educational, research,
+ *    and not for profit purposes provided that this copyright and statement
+ *    are included in all such copies.  Other copyrights may also apply.
  */
 
 #define SERVER

@@ -683,7 +683,7 @@ int rd_ignore(struct player *p)
 
         /* Initialize any entries not read */
         for (i = tmp8u; i < ITYPE_MAX; i++)
-            p->opts.ignore_lvl[i] = IGNORE_BAD;
+            p->opts.ignore_lvl[i] = IGNORE_NONE;
     }
     else
     {

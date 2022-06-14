@@ -229,7 +229,7 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
         strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation"))
     {
         /* lose X% of hitpoints get X% of spell points */
-        int32_t sp_gain = (MAX((int32_t)p->msp, 10) << 16) / (int32_t)p->mhp * damage;
+        int32_t sp_gain = (((int32_t)MAX(p->msp, 10)) * 65536) / (int32_t)p->mhp * damage;
 
         player_adjust_mana_precise(p, sp_gain);
     }
@@ -421,7 +421,7 @@ void player_regen_mana(struct player *p)
     sp_gain = player_adjust_mana_precise(p, sp_gain);
 
     /* SP degen heals blackguards at double efficiency vs casting */
-    if (sp_gain < 0 && player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, -sp_gain << 2);
+    if (sp_gain < 0 && player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, -sp_gain * 2);
 
     /* Notice changes */
     if (old_csp != p->csp)
@@ -442,12 +442,13 @@ void player_adjust_hp_precise(struct player *p, int32_t hp_gain)
 	int16_t old_16 = p->chp;
 
     /* Load it all into 4 byte format */
-    int32_t old_32 = (((int32_t)old_16) << 16) + p->chp_frac;
-    int32_t new_32 = old_32 + hp_gain;
+    int32_t old_32 = ((int32_t)old_16) * 65536 + p->chp_frac, new_32;
 
     /* Check for overflow */
-    if (new_32 < old_32 && hp_gain > 0) new_32 = LONG_MAX;
-    else if (new_32 > old_32 && hp_gain < 0) new_32 = LONG_MIN;
+    if (hp_gain >= 0)
+        new_32 = (old_32 < LONG_MAX - hp_gain)? old_32 + hp_gain: LONG_MAX;
+    else
+        new_32 = (old_32 > LONG_MIN - hp_gain)? old_32 + hp_gain: LONG_MIN;
 
     /* Break it back down */
     if (new_32 < 0)
@@ -495,19 +496,24 @@ int32_t player_adjust_mana_precise(struct player *p, int32_t sp_gain)
 	int16_t old_16 = p->csp;
 
     /* Load it all into 4 byte format */
-    int32_t old_32 = (((int32_t)p->csp) << 16) + p->csp_frac, new_32;
+    int32_t old_32 = ((int32_t)p->csp) * 65536 + p->csp_frac, new_32;
 
 	if (sp_gain == 0) return 0;
 
-	new_32 = old_32 + sp_gain;
-
 	/* Check for overflow */
-	if (new_32 < old_32 && sp_gain > 0)
+	if (sp_gain > 0)
     {
-		new_32 = LONG_MAX;
-		sp_gain = 0;
+		if (old_32 < LONG_MAX - sp_gain)
+            new_32 = old_32 + sp_gain;
+        else
+        {
+            new_32 = LONG_MAX;
+		    sp_gain = 0;
+        }
 	}
-    else if (new_32 > old_32 && sp_gain < 0)
+    else if (old_32 > LONG_MIN - sp_gain)
+        new_32 = old_32 + sp_gain;
+    else
     {
 		new_32 = LONG_MIN;
 		sp_gain = 0;
@@ -559,7 +565,7 @@ int32_t player_adjust_mana_precise(struct player *p, int32_t sp_gain)
 	if (sp_gain == 0)
     {
 		/* Recalculate */
-		new_32 = (((int32_t)p->csp) << 16) + p->csp_frac;
+		new_32 = ((int32_t)p->csp) * 65536 + p->csp_frac;
 		sp_gain = new_32 - old_32;
 	}
 
@@ -574,13 +580,13 @@ void convert_mana_to_hp(struct player *p, int32_t sp_long)
 	if (sp_long <= 0 || p->msp == 0 || p->mhp == p->chp) return;
 
 	/* Total HP from max */
-	hp_gain = (int32_t)((p->mhp - p->chp) << 16);
+	hp_gain = ((int32_t)(p->mhp - p->chp)) * 65536;
 	hp_gain -= (int32_t)p->chp_frac;
 
 	/* Spend X% of SP get X/2% of lost HP. E.g., at 50% HP get X/4% */
 	/* Gain stays low at msp < 10 because MP gains are generous at msp < 10 */
 	/* sp_ratio is max sp to spent sp, doubled to suit target rate. */
-	sp_ratio = (MAX(10, (int32_t)p->msp) << 16) * 2 / sp_long;
+	sp_ratio = (((int32_t)MAX(10, (int32_t)p->msp)) * 131072) / sp_long;
 
 	/* Limit max healing to 25% of damage; ergo spending > 50% msp is inefficient */
 	if (sp_ratio < 4) sp_ratio = 4;

@@ -2266,7 +2266,7 @@ desc: level-dependent duration.
 
 spell:Create Arrows:22:20:40:40:0
 effect:CREATE_ARROWS
-desc:Allows the player to turn a staff into a stack of arrow, with quality
+desc:Allows the player to turn a staff into a stack of arrows, with quality
 desc: depending on staff level and player level.
 
 spell:Forest's Embrace:23:23:40:12:0

@@ -751,8 +751,16 @@ bool do_cmd_disarm_chest(struct player *p, struct chunk *c, struct loc *grid, st
     /* Failure -- set off the trap */
     else
     {
-        msg(p, "You set off a trap!");
-        chest_trap(p, obj);
+        if (!player_is_trapsafe(p))
+        {
+            msg(p, "You set off a trap!");
+            chest_trap(p, obj);
+        }
+        else if (player_of_has(p, OF_TRAP_IMMUNE))
+        {
+            /* Learn trap immunity. */
+            equip_learn_flag(p, OF_TRAP_IMMUNE);
+        }
     }
 
     /* Result */

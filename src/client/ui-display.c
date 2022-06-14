@@ -1470,10 +1470,10 @@ static void subwindow_set_flags(int win_idx, uint32_t new_flags)
         /* Only process valid flags */
         if (window_flag_desc[i])
         {
-            uint32_t new_flag = (new_flags & (1L << i));
+            uint32_t flag = ((uint32_t)1) << i;
 
-            if (new_flag != (window_flag[win_idx] & (1L << i)))
-                subwindow_flag_changed(win_idx, (1L << i), new_flag != 0);
+            if ((new_flags & flag) != (window_flag[win_idx] & flag))
+                subwindow_flag_changed(win_idx, flag, (new_flags & flag) != 0);
         }
     }
 

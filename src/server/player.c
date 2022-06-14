@@ -754,7 +754,7 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
     object_list_init(p);
 
     /* Initialize extra parameters */
-    for (i = ITYPE_NONE; i < ITYPE_MAX; i++) p->opts.ignore_lvl[i] = IGNORE_BAD;
+    for (i = ITYPE_NONE; i < ITYPE_MAX; i++) p->opts.ignore_lvl[i] = IGNORE_NONE;
 
     for (i = 0; i < z_info->k_max; i++)
         add_autoinscription(p, i, connp->Client_setup.note_aware[i]);
