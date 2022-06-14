@@ -2157,7 +2157,7 @@ void do_weather(void)
 
                     if (use_graphics)
                     {
-                        if (a2 > 157)
+                        if ((a2 == 128) || (a2 > 157))
                             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
                     }
                     else
@@ -2187,7 +2187,7 @@ void do_weather(void)
 
                     if (use_graphics)
                     {
-                        if (a2 > 157)
+                        if ((a2 == 128) || (a2 > 157))
                             (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
                                 1, &a, &c, &ta, &tc));
                     }
@@ -2212,7 +2212,7 @@ void do_weather(void)
 
                     if (use_graphics)
                     {
-                        if (a2 > 157)
+                        if ((a2 == 128) || (a2 > 157))
                             (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
                                 1, &a, &c, &ta, &tc));
                     }
