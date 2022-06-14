@@ -2152,14 +2152,18 @@ void do_weather(void)
 
                 if (draw_weather)
                 {
+                    // Check characters
+                    Term_info(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+
                     if (use_graphics)
                     {
-                        Term_info(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
-                        (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                        if (a2 > 157)
+                            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
                     }
                     else
                     {
-                        (void)((*main_term->text_hook)(COL_MAP + x, ROW_MAP + y, 1, a, &c));
+                        if (c2 != '@')
+                            (void)((*main_term->text_hook)(COL_MAP + x, ROW_MAP + y, 1, a, &c));
                     }
 
                     weather_element[y][x] = x;
@@ -2178,14 +2182,19 @@ void do_weather(void)
             {
                 for (x = 1; x < w; x++)
                 {
+                    // Check characters
+                    Term_info(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+
                     if (use_graphics)
                     {
-                        Term_info(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
-                        (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 1, &a, &c, &ta, &tc));
+                        if (a2 > 157)
+                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
+                                1, &a, &c, &ta, &tc));
                     }
                     else
                     {
-                        (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] - 1, ROW_MAP + y + 1, 1, a, &c));
+                        if (c2 != '@')
+                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] - 1, ROW_MAP + y + 1, 1, a, &c));
                     }
                 }
             }
@@ -2198,21 +2207,26 @@ void do_weather(void)
             {
                 for (x = 0; x < w - 1; x++)
                 {
+                    // Check characters
+                    Term_info(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+
                     if (use_graphics)
                     {
-                        Term_info(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
-                        (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 1, &a, &c, &ta, &tc));
+                        if (a2 > 157)
+                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
+                                1, &a, &c, &ta, &tc));
                     }
                     else
                     {
-                        (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] + 1, ROW_MAP + y + 1, 1, a, &c));
+                        if (c2 != '@')
+                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] + 1, ROW_MAP + y + 1, 1, a, &c));
                     }
                 }
             }
         }
     }
 
-    if (!frame_weather) frame_weather = true;
+    if (!frame_weather) frame_weather = false;
     else if (frame_weather) frame_weather = false;
 
     // Actually flush the output
