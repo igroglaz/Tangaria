@@ -3937,7 +3937,6 @@ bool create_house(struct player *p, int house_variant)
     if (area_size <= 0) return false;
 
     // Compare planned area_size and house variant (depends on type of house)
-
     if (house_variant == 1) // cabin
     {
         if      (area_size == 1 && p->account_score >= 25) ;

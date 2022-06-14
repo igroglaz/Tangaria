@@ -263,56 +263,6 @@ static void recharge_objects(struct player *p)
 }
 
 
-//
-// Weather
-//
-static void make_weather(struct player *p)
-{
-    if ((p->wpos.depth == 0) && (p->store_num == -1))
-    {
-        if (one_in_(3))
-        {
-            // Rain
-            Send_weather(p, 1, randint1(4), randint1(3));
-            sound(p, MSG_WILD_RAIN);
-        }
-        else
-        {
-            // empty sound to break sound loop .ogg.0
-            sound(p, MSG_SILENT0);
-            // Stop weather
-            Send_weather(p, 256, 0, 0);
-        }
-    }
-    else if (streq(p->locname, "Helcaraxe"))
-    {
-        if (one_in_(2))
-        {
-            // Snow
-            Send_weather(p, 2, randint1(4), randint1(3));
-        }
-        else
-        {
-            // Stop weather
-            Send_weather(p, 256, 0, 0);
-        }
-    }
-    else if (streq(p->locname, "Sandworm Lair"))
-    {
-        if (one_in_(2))
-        {
-            // Sandstorm
-            Send_weather(p, 3, randint1(4), randint1(3));
-        }
-        else
-        {
-            // Stop weather
-            Send_weather(p, 256, 0, 0);
-        }
-    }
-}
-
-
 /*
  * Play an ambient sound dependent on dungeon level, and day or night in towns
  */
@@ -384,11 +334,34 @@ static void play_ambient_sound(struct player *p)
             else
                 sound(p, MSG_AMBIENT_NITE);
 
-            // Weather sound
-            if ((p->weather_type == 1) && (p->weather_intensity == 3))
+            //// Weather
+            if (p->store_num == -1)
             {
-                // thunder
-                if (one_in_(2)) sound(p, MSG_AMBIENT_NITE);
+                if ((p->weather_type == 0) || (p->weather_type == 256))
+                {
+                    if (one_in_(3))
+                    {
+                        // Rain
+                        Send_weather(p, 1, randint1(4), randint1(3));
+                        sound(p, MSG_WILD_RAIN);
+                    }
+                }
+                else
+                {
+                    if (one_in_(3))
+                    {
+                        // empty sound to break sound loop .ogg.0
+                        sound(p, MSG_SILENT0);
+                        // Stop weather
+                        Send_weather(p, 256, 0, 0);
+                    }
+                    // Weather sound
+                    else if (p->weather_intensity == 3)
+                    {
+                        // thunder
+                        if (one_in_(2)) sound(p, MSG_WILD_THUNDER);
+                    }
+                }
             }
         }
         else
@@ -424,6 +397,34 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_XAKAZE);
     else
         sound(p, MSG_AMBIENT_MELKOR);
+
+    //// Weather in dungeon
+    if (streq(p->locname, "Helcaraxe"))
+    {
+        if (one_in_(3))
+        {
+            // Snow
+            Send_weather(p, 2, randint1(4), randint1(3));
+        }
+        else if (one_in_(3))
+        {
+            // Stop weather
+            Send_weather(p, 256, 0, 0);
+        }
+    }
+    else if (streq(p->locname, "Sandworm Lair"))
+    {
+        if (one_in_(3))
+        {
+            // Sandstorm
+            Send_weather(p, 3, randint1(4), randint1(3));
+        }
+        else if (one_in_(3))
+        {
+            // Stop weather
+            Send_weather(p, 256, 0, 0);
+        }
+    }
 }
 
 
@@ -835,9 +836,6 @@ static void process_world(struct player *p, struct chunk *c)
     /* Play an ambient sound at regular intervals. */
     // instead of '1000' there was z_'info->day_length' (10.000)
     if (!(turn.turn % ((10L * 1000) / 4))) play_ambient_sound(p);
-
-    // Weather at regular intervals.
-    if (!(turn.turn % ((10L * z_info->day_length) / 4))) make_weather(p);
 
 /// T: moved this up for day/night change in the OPEN_SKY dungeons
     /* Get the dungeon */

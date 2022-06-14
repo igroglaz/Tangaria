@@ -2128,6 +2128,9 @@ void player_death(struct player *p)
         return;
     }
 
+    // empty sound to break sound loop .ogg.0
+    sound(p, MSG_SILENT0);
+
     /* Hack -- note death */
     msgt(p, MSG_DEATH, (p->ghost? "Your incorporeal body fades away - FOREVER.": "You die."));
     message_flush(p);
