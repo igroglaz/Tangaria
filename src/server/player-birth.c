@@ -1164,6 +1164,8 @@ static int init_ladder(struct player *p)
 
     // Close 'MODE_APPEND' file
     file_close(fh);
+
+    return 0L;
 }
 
 
