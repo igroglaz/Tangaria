@@ -2226,7 +2226,7 @@ void do_weather(void)
         }
     }
 
-    if (!frame_weather) frame_weather = false;
+    if (!frame_weather) frame_weather = true;
     else if (frame_weather) frame_weather = false;
 
     // Actually flush the output
