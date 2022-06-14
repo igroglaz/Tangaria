@@ -3239,8 +3239,11 @@ void do_cmd_purchase_house(struct player *p, int dir)
                     msg(p, "You reset your house.");
                 else
                 {
-                    msg(p, "You sell your house for %ld gold.", house->price / 2);
-                    p->au += house->price / 2;
+                    // to prevent cheezing when player sell account's big house for new character
+                    // we make possibility to sell it only for a very little if you are on low lvls
+                    
+                    msg(p, "You sell your house for %ld gold.", house->price / (52 - p->lev));
+                    p->au += house->price / (52 - p->lev);
                 }
 
                 /* House is no longer owned */
