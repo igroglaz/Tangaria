@@ -61,31 +61,15 @@ int houses_count(void)
 
 
 // count house area (as we don't store it in house struct for now... will add it one day)
+// it counts only floors, without walls
 int house_count_area_size(int house)
 {
-    int house_area_count = 0;
-    struct loc grid_a, grid_b;
-    struct loc_iterator iter;
+    int x, y;
 
-    // plus/minus 1 cause we don't want to count outer walls when counting area size
-    loc_init(&grid_a, houses[house].grid_1.x + 1, houses[house].grid_1.y - 1);
-    loc_init(&grid_b, houses[house].grid_2.x - 1, houses[house].grid_2.y + 1);
-    // Hint for future: maybe no need to use plus/minus as there are two iterators:
-    // loc_iterator_next() and loc_iterator_next_strict()
+    x = houses[house].grid_2.x - houses[house].grid_1.x - 1;
+    y = houses[house].grid_2.y - houses[house].grid_1.y - 1;
 
-    // in case if we have smallest 1 floor size house (and loc_init will put coords to 1 point),
-    // area counter will glitch so we just assign 1
-    if (grid_a.x == grid_b.x && grid_a.y == grid_b.y)
-        return 1;
-    else
-    {
-        loc_iterator_first(&iter, &grid_a, &grid_b);
-
-        while (loc_iterator_next_strict(&iter))
-            house_area_count++;
-
-        return house_area_count;
-    }
+    return x * y;
 }
 
 
