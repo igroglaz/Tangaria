@@ -359,7 +359,7 @@ static void play_ambient_sound(struct player *p)
                     else if (p->weather_intensity == 3)
                     {
                         // thunder
-                        if (one_in_(2)) sound(p, MSG_WILD_THUNDER);
+                        sound(p, MSG_WILD_THUNDER);
                     }
                 }
             }

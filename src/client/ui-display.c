@@ -1896,7 +1896,7 @@ void do_weather(void)
     char tc;
     bool draw_weather = false;
 
-    static bool frame_weather = false;
+    static int frame_weather = 0;
     static int weather_element[256][256];
 
     // Check weather
@@ -2114,7 +2114,7 @@ void do_weather(void)
         }
     }
 
-    if (!frame_weather)
+    if (frame_weather == 0)
     {
         // Screen
         for (y = 0; y < h; y++)
@@ -2177,24 +2177,26 @@ void do_weather(void)
         // Check wind - west, strong west
         if ((player->weather_wind == 1) || (player->weather_wind == 3))
         {
-            // Screen - second frame
-            for (y = 0; y < h - 1; y++)
+            // Screen - frame
+            for (y = 0; y < h - frame_weather; y++)
             {
-                for (x = 1; x < w; x++)
+                for (x = frame_weather; x < w; x++)
                 {
                     // Check characters
-                    Term_info(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+                    Term_info(COL_MAP + (weather_element[y][x] - frame_weather) * tile_width, 
+                        ROW_MAP + (y + frame_weather) * tile_height, &a2, &c2, &ta, &tc);
 
                     if (use_graphics)
                     {
                         if ((a2 == 128) || (a2 > 157))
-                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
-                                1, &a, &c, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] - frame_weather) * tile_width, 
+                                ROW_MAP + (y + frame_weather) * tile_height, 1, &a, &c, &ta, &tc));
                     }
                     else
                     {
                         if (c2 != '@')
-                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] - 1, ROW_MAP + y + 1, 1, a, &c));
+                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] - frame_weather, 
+                                ROW_MAP + y + frame_weather, 1, a, &c));
                     }
                 }
             }
@@ -2202,32 +2204,60 @@ void do_weather(void)
         // Check wind - east, strong east
         else if ((player->weather_wind == 2) || (player->weather_wind == 4))
         {
-            // Screen - second frame
-            for (y = 0; y < h - 1; y++)
+            // Screen - frame
+            for (y = 0; y < h - frame_weather; y++)
             {
-                for (x = 0; x < w - 1; x++)
+                for (x = 0; x < w - frame_weather; x++)
                 {
                     // Check characters
-                    Term_info(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, &a2, &c2, &ta, &tc);
+                    Term_info(COL_MAP + (weather_element[y][x] + frame_weather) * tile_width, 
+                        ROW_MAP + (y + frame_weather) * tile_height, &a2, &c2, &ta, &tc);
 
                     if (use_graphics)
                     {
                         if ((a2 == 128) || (a2 > 157))
-                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + 1) * tile_width, ROW_MAP + (y + 1) * tile_height, 
-                                1, &a, &c, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + (weather_element[y][x] + frame_weather) * tile_width, 
+                                ROW_MAP + (y + frame_weather) * tile_height, 1, &a, &c, &ta, &tc));
                     }
                     else
                     {
                         if (c2 != '@')
-                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] + 1, ROW_MAP + y + 1, 1, a, &c));
+                            (void)((*main_term->text_hook)(COL_MAP + weather_element[y][x] + frame_weather, 
+                                ROW_MAP + y + frame_weather, 1, a, &c));
                     }
+                }
+            }
+        }
+
+        // Hack -- top of frame
+        for (y = 0; y < frame_weather; y++)
+        {
+            for (x = 0; x < w; x++)
+            {
+                // Check characters
+                Term_info(COL_MAP + weather_element[h - y - frame_weather][x] * tile_width, 
+                    ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+
+                if (use_graphics)
+                {
+                    if ((a2 == 128) || (a2 > 157))
+                        (void)((*main_term->pict_hook)(COL_MAP + weather_element[h - y - frame_weather][x] * tile_width, 
+                            ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                }
+                else
+                {
+                    if (c2 != '@')
+                        (void)((*main_term->text_hook)(COL_MAP + weather_element[h - y - frame_weather][x], 
+                            ROW_MAP + y, 1, a, &c));
                 }
             }
         }
     }
 
-    if (!frame_weather) frame_weather = true;
-    else if (frame_weather) frame_weather = false;
+    if (frame_weather == 0) frame_weather = 1;
+    else if (frame_weather == 1) frame_weather = 2;
+    else if (frame_weather == 2) frame_weather = 3;
+    else if (frame_weather == 3) frame_weather = 0;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
