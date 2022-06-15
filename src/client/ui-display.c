@@ -1905,6 +1905,7 @@ void do_weather(void)
     // Stop weather
     if (player->weather_type == 256)
     {
+        frame_weather = 0;
         player->weather_type = 0;
         if (OPT(player, weather_display)) Term_redraw();
         return;
