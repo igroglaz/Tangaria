@@ -740,6 +740,7 @@ flags:FRIGHTENED | PWMANG_BASE
 flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:A small fish.
 
+
 ### Dungeon level 1 ###
 
 name:blinking dot

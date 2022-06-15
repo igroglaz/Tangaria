@@ -473,7 +473,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                     short arg;
 
                     /* Get the next argument */
-                    arg = va_arg(vp, short);
+                    arg = va_arg(vp, int);
 
                     /* Format the argument */
                     snprintf(tmp, sizeof(tmp), aux, arg);
@@ -521,7 +521,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                     unsigned short arg;
 
                     /* Get the next argument */
-                    arg = va_arg(vp, unsigned short);
+                    arg = va_arg(vp, unsigned int);
 
                     /* Format the argument */
                     snprintf(tmp, sizeof(tmp), aux, arg);

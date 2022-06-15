@@ -5998,6 +5998,36 @@ static void update_graphics(struct player *p, connection_t *connp)
 }
 
 
+static void show_motd(struct player *p)
+{
+    ang_file *fp;
+    char buf[MSG_LEN];
+    bool first = true;
+
+    /* Verify the "motd" file */
+    path_build(buf, sizeof(buf), ANGBAND_DIR_SCREENS, "motd.txt");
+    if (!file_exists(buf)) return;
+
+    /* Open the motd file */
+    fp = file_open(buf, MODE_READ, FTYPE_TEXT);
+    if (!fp) return;
+
+    /* Dump */
+    while (file_getl(fp, buf, sizeof(buf)))
+    {
+        if (first)
+        {
+            msg(p, "  ");
+            msg(p, "   ");
+            first = false;
+        }
+        msg(p, buf);
+    }
+
+    file_close(fp);
+}
+
+
 /*
  * A client has requested to start active play.
  * See if we can allocate a player structure for it
@@ -6172,6 +6202,8 @@ static int Enter_player(int ind)
 
     /* Tell the new player about the version number */
     msgt(p, MSG_VERSION, "Server is running version %s", version_build(NULL, true));
+
+    show_motd(p);
 
     msg(p, "  ");
     msg(p, "   ");

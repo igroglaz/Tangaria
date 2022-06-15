@@ -508,7 +508,8 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
             (type != summon_name_to_idx("GOLEM")) && (type != summon_name_to_idx("VORTEX")) &&
             (type != summon_name_to_idx("HYDRA")) &&
             (rf_has(race->flags, RF_NEVER_BLOW) || rf_has(race->flags, RF_NEVER_MOVE) ||
-            rf_has(race->flags, RF_RAND_25) || rf_has(race->flags, RF_RAND_50)))
+            rf_has(race->flags, RF_RAND_25) || rf_has(race->flags, RF_RAND_50) ||
+            rf_has(race->flags, RF_RAND_100)))
         {
             continue;
         }

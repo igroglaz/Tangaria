@@ -418,7 +418,7 @@ void do_cmd_wield(struct player *p, int item, int slot)
     }
 
     /* Check preventive inscription '!w' */
-    if (object_prevent_inscription(p, obj, INSCRIPTION_WIELD, false))
+    if (object_prevent_inscription(p, obj, INSCRIPTION_WIELD, true))
     {
         msg(p, "The item's inscription prevents it.");
         return;

@@ -69,6 +69,7 @@ PWMAngband:
   play
 - Clarify message when creating a character with a name that is already taken
 - Revert default ignoring options to "no ignore"
+- MotD shown on login in message window (from motd.txt in /lib/screens)
 
 Gameplay changes
 ----------------
@@ -95,6 +96,8 @@ PWMAngband:
 - Buffed The Lost Silmaril of Maglor
 - Take half a turn when taking off/dropping/refilling an item (ported from V)
 - Make pit walls much less likely to be pierced by steamers deep in the dungeon
+- Exclude wearing from !* inscription
+- Implement RAND_100 flag and assign it to goldfishes
 - New class: Villager
 
 Bugs fixed
@@ -140,6 +143,7 @@ PWMAngband:
 - Fix attacking while walking/jumping/running with extra moves not spending
   a full turn of energy
 - Fix READ_MINDS
+- Fix some va_arg argument types in vstrnfmt
 
 Coding changes
 --------------

@@ -4873,9 +4873,9 @@ title:Voyager
 title:Navigator
 title:Explorer
 
-magic:1:400:1
+magic:1:400:2
 
-book:travel guide:town:[Basics]:1:common
+book:travel guide:town:[Basics]:4:common
 book-graphics:?:W
 book-properties:1:30:25
 book-alloc:40:1 to 100
@@ -8124,6 +8124,47 @@ desc: Cooldown 333 turns.
 #effect:RANDOM
 #dice:$B
 #expr:B:PLAYER_LEVEL: ...
+
+spell:Find Doors:5:1:10:4:0
+effect:DETECT_DOORS
+effect-yx:11:20
+desc:Finds doors in the immediate area.
+
+spell:Find Stairs:10:3:18:12:0
+effect:DETECT_STAIRS
+effect-yx:11:20
+desc:Finds stairs in the immediate area.
+
+spell:Find Traps:15:5:26:20:0
+effect:DETECT_TRAPS
+effect-yx:11:20
+desc:Finds traps in the immediate area.
+
+book:travel guide:town:[Advanced]:4:common
+book-graphics:?:W
+book-properties:25:30:1600
+book-alloc:20:25 to 100
+book-desc:A standard travel guide with a few tasks.
+
+spell:Town Patrol:20:7:34:30:0
+effect:DETECT_VISIBLE_MONSTERS
+effect-yx:11:20
+desc:Detects all non-invisible monsters in the immediate area,
+desc: for one turn only.
+
+spell:Poison Brand:25:9:42:40:0
+effect:TIMED_INC:ATT_POIS:0:5
+dice:20+1d20
+desc:Temporarily covers your weapon with poison.
+
+spell:Craft Door:30:11:50:50:0
+effect:SHORT_BEAM:MAKE_DOOR:1
+desc:Creates a door (closed, but not locked) next to you.
+
+spell:Poison Shots:40:18:66:80:0
+effect:BOW_BRAND_SHOT:POIS
+dice:5
+desc:Temporarily covers your missiles with poison.
 
 
 ############### GHOST ###############

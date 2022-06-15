@@ -69,15 +69,14 @@
     <USERDEFINES value="_DEBUG;STRICT;BCC_IDE;WINDOWS"/>
     <SYSDEFINES value="NO_STRICT;_NO_VCL;_RTLDLL"/>
     <MAINSOURCE value="mangband.bpf"/>
-    <INCLUDEPATH value="..\..\..\temp;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;..\win;..\common;$(BCB)\include;..\server"/>
-    <LIBPATH value="..\..\..\temp;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="..\win;..\common;$(BCB)\include;..\server"/>
+    <LIBPATH value="..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-wuse -w-par"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I..\..\..\temp -I&quot;C:\Program Files\Borland\CBuilder6\Projects&quot; -I..\win 
-      -I..\common -I$(BCB)\include -I..\server -src_suffix cpp -D_DEBUG -DSTRICT 
-      -DBCC_IDE -DWINDOWS -boa"/>
+    <IDLCFLAGS value="-I..\win -I..\common -I$(BCB)\include -I..\server -src_suffix cpp -D_DEBUG 
+      -DSTRICT -DBCC_IDE -DWINDOWS -boa"/>
     <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -tWC 
       -tWM -c"/>
     <PFLAGS value="-N2..\..\obj -N0..\..\obj -$YD -$W -$O- -$A8 -v -JPHNE -M"/>
@@ -296,14 +295,16 @@ c:\program files\borland\cbuilder6\Bin\dclindy60.bpl=Internet Direct (Indy) pour
 c:\program files\borland\cbuilder6\Bin\bcb2kaxserver60.bpl=Borland C++Builder COM Server Components Sample Package
 
 [HistoryLists\hlIncludePath]
-Count=2
+Count=3
 Item0=..\win;..\common;$(BCB)\include;..\server
-Item1=C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;$(BCB)\include;..\server
+Item1=..\..\..\temp;C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;$(BCB)\include;..\server
+Item2=C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;$(BCB)\include;..\server
 
 [HistoryLists\hlLibraryPath]
-Count=2
+Count=3
 Item0=..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib
-Item1=C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\..\..\temp;C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib
+Item2=C:\Program Files\Borland\CBuilder6\Projects;..\win;..\common;..\server;$(BCB)\lib\obj;$(BCB)\lib
 
 [HistoryLists\hlDebugSourcePath]
 Count=1
