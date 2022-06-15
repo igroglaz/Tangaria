@@ -1010,6 +1010,7 @@ static void store_object_absorb(struct object *obj, struct object *new_obj)
 static bool store_check_num(struct player *p, struct store *s, struct object *obj)
 {
     struct object *stock_obj;
+    int storage_factor = 0;
     bool home = ((s->type == STORE_HOME)? true: false);
     object_stack_t mode = ((s->type == STORE_HOME)? OSTACK_PACK: OSTACK_STORE);
 
@@ -1017,8 +1018,24 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     if (!home && (s->stock_num < s->stock_size))
         return true;
 
+    // boni to storage from account points and CHR
+    if (p->account_score >= 100)
+        storage_factor++;
+    if (p->account_score >= 1000)
+        storage_factor++;
+    if (p->account_score >= 10000)
+        storage_factor++;
+    if (p->account_score >= 100000)
+        storage_factor++;
+    if (p->account_score >= 1000000)
+        storage_factor++;
+    if (p->account_score >= 10000000)
+        storage_factor++;
+
+    storage_factor += p->state.stat_ind[STAT_CHR];
+
     // Storage space in home depends on CHR
-    if (home && (s->stock_num < p->state.stat_ind[STAT_CHR]))
+    if (home && (s->stock_num < storage_factor))
         return true;
 
     /* The "home" acts like the player */
