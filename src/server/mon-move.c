@@ -1463,12 +1463,6 @@ static enum monster_stagger monster_turn_should_stagger(struct player *p, struct
         if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_100);
     }    
 
-    if (rf_has(mon->race->flags, RF_RAND_100))
-    {
-        chance = 100;
-        if (monster_is_visible(p, mon->midx)) rf_on(lore->flags, RF_RAND_100);
-    }
-
     roll = randint0(100);
     return ((roll < confused_chance)? CONFUSED_STAGGER: ((roll < chance)? INNATE_STAGGER: NO_STAGGER));
 }
