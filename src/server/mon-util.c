@@ -1344,34 +1344,84 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         if (unique_monster)
         {
             if (streq(mon->race->name, "Sauron, the Sorcerer"))
+            {
                 p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
             else if (mon->race->base == lookup_monster_base("Morgoth")) // Morgy
+            {
                 p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+            }
             else if (streq(mon->race->name, "Tulkas, Champion of the Valar"))
+            {
                 p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+            }
             else if (streq(mon->race->name, "Varda, Queen of the Valar"))
+            {
                 p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+            }
             else if (streq(mon->race->name, "Manwe, King of the Valar"))
+            {
                 p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+            }
             else if (streq(mon->race->name, "Melkor, Lord of Darkness"))
+            {
                 p->account_score += 5;
+                msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
+            }
             else if (streq(mon->race->name, "Eru Iluvatar"))
+            {
                 p->account_score += 10;
+                msgt(p, MSG_FANFARE, "You've earned 10 account points! You have %lu points.", p->account_score);
+            }
             // regular uniques - only at odd score
             else if (mon->level < 99 && p->account_score % 2)
             {
                 // it's in rotation with player.c (getting lvls)
-                if (p->account_score < 50 && one_in_(100 - mon->level))
+                if (p->account_score < 10)
+                {
+                    ; // first points goes from leveling
+                }
+                else if (p->account_score < 25 && one_in_(5))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
                 }
-                else if (p->account_score < 100 && mon->level > 10 && one_in_(100 - mon->level))
+                else if (p->account_score < 40 && one_in_(6))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
                 }
-                else if (p->account_score < 200 && mon->level > 20 && one_in_(100 - mon->level))
+                else if (p->account_score < 60 && one_in_(7))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (p->account_score < 80 && one_in_(8))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (p->account_score < 100 && one_in_(9))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (p->account_score < 150 && one_in_(10))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (p->account_score < 200 && mon->level > 10 && one_in_(100 - mon->level))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (p->account_score < 300 && mon->level > 20 && one_in_(100 - mon->level))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -1382,6 +1432,11 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                     msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
                 }
                 else if (p->account_score < 999 && mon->level > 40 && one_in_(100 - mon->level))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                }
+                else if (mon->level > 45 && one_in_(100 - mon->level))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
