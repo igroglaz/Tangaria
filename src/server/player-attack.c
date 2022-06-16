@@ -513,7 +513,7 @@ static void blow_side_effects(struct player *p, struct source *target,
             player_inc_timed(target->player, TMD_POISONED, randint1(p->lev) + 5, true, true);
     }
 
-    /* Apply Shadow Touch or life leech */
+    /* Apply life leech */
     // doesn't work on powerful mobs (except for vampire)
     if (streq(p->race->name, "Vampire") && target->monster &&
         monster_is_living(target->monster))

@@ -463,6 +463,7 @@ grade:p:10000:AttVamp:Your touch becomes vampiric!
 on-end:Your touch is back to normal.
 near-begin:'s touch becomes vampiric.
 near-end:'s touch is back to normal.
+brand:VAMPIRIC
 
 name:HEAL
 grade:G:10000:Heal:You feel the healing powers of nature!

@@ -195,7 +195,7 @@ char *buffer_line(int row)
 /*
  * List of resistances and abilities to display
  */
-static const char *player_flag_table[(RES_PANELS + 1) * RES_ROWS] =
+static const char *player_flag_table[(RES_PANELS + 3) * RES_ROWS] =
 {
     "Acid:", /* ELEM_ACID */
     "Elec:", /* ELEM_ELEC */
@@ -258,10 +258,38 @@ static const char *player_flag_table[(RES_PANELS + 1) * RES_ROWS] =
     "Anim:", /* OF_ESP_ANIMAL */
     "Unde:", /* OF_ESP_UNDEAD */
     "Demo:", /* OF_ESP_DEMON */
-    "Orc :", /* OF_ESP_ORC */
+    " Orc:", /* OF_ESP_ORC */
     "Trol:", /* OF_ESP_TROLL */
     "Gian:", /* OF_ESP_GIANT */
     "Drag:", /* OF_ESP_DRAGON */
+    "",
+    "",
+    "",
+    "",
+
+    "BAci:", /* ACID_ */
+    "BEle:", /* ELEC_ */
+    "BFir:", /* FIRE_ */
+    "BCld:", /* COLD_ */
+    "BPoi:", /* POIS_ */
+    "BStn:", /* STUN_ */
+    "BCut:", /* CUT_ */
+    "BVmp:", /* VAMPIRIC */
+    "",
+    "",
+    "",
+    "",
+    "",
+
+    "SEvi:", /* EVIL_ */
+    "SAni:", /* ANIMAL_ */
+    "SOrc:", /* ORC_ */
+    "STro:", /* TROLL_ */
+    "SGia:", /* GIANT_ */
+    "SDem:", /* DEMON_ */
+    "SDra:", /* DRAGON_ */
+    "SUnd:", /* UNDEAD_ */
+    "",
     "",
     "",
     "",
@@ -302,8 +330,8 @@ static void display_resistance_panel(struct player *p, const char **rec, const r
     int row = bounds->row;
     int off = 1 + STAT_MAX + RES_ROWS * col / (p->body.count + 7);
 
-    /* Special case: ESP flags */
-    if (col == RES_PANELS * (p->body.count + 7)) col = 0;
+    /* Special case: ESP flags + brands/slays */
+    if (col >= RES_PANELS * (p->body.count + 7)) col -= RES_PANELS * (p->body.count + 7);
 
     /* Equippy */
     display_equippy(p, row++, col + 5);
@@ -385,17 +413,25 @@ static void display_player_flag_info(struct player *p)
 }
 
 
-static void display_player_esp_info(struct player *p)
+static void display_player_other_info(struct player *p)
 {
+    unsigned i;
     int res_cols = p->body.count + 6;
-    region resist_region;
+    region resist_region[] =
+    {
+        {0, 8, 0, RES_ROWS + 2},
+        {0, 8, 0, RES_ROWS + 2},
+        {0, 8, 0, RES_ROWS + 2}
+    };
 
-    resist_region.col = RES_PANELS * (res_cols + 1);
-    resist_region.row = 8;
-    resist_region.width = res_cols;
-    resist_region.page_rows = RES_ROWS + 2;
+    for (i = RES_PANELS; i < RES_PANELS + 3; i++)
+    {
+        resist_region[i - RES_PANELS].col = i * (res_cols + 1);
+        resist_region[i - RES_PANELS].width = res_cols;
+    }
 
-    display_resistance_panel(p, player_flag_table + RES_PANELS * RES_ROWS, &resist_region);
+    for (i = RES_PANELS; i < RES_PANELS + 3; i++)
+        display_resistance_panel(p, player_flag_table + i * RES_ROWS, &resist_region[i - RES_PANELS]);
 }
 
 
@@ -831,7 +867,7 @@ void display_player(struct player *pplayer, uint8_t mode)
         display_player_sust_info(pplayer);
 
         /* Other flags */
-        display_player_esp_info(pplayer);
+        display_player_other_info(pplayer);
     }
     else if (mode == 1)
     {

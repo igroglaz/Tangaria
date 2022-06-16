@@ -759,21 +759,22 @@ int get_brand(const char *name, int multiplier)
 
 int get_poly_brand(struct monster_race *race, int method)
 {
-    const char *name;
-
     /* No special attacks */
     if (!race->blow[method].method) return -1;
 
     /* Branded attacks give similar brand */
-    if (streq(race->blow[method].effect->name, "POISON")) name = "poison";
-    else if (streq(race->blow[method].effect->name, "DISEASE")) name = "poison";
-    else if (streq(race->blow[method].effect->name, "ACID")) name = "acid";
-    else if (streq(race->blow[method].effect->name, "ELEC")) name = "lightning";
-    else if (streq(race->blow[method].effect->name, "FIRE")) name = "fire";
-    else if (streq(race->blow[method].effect->name, "COLD")) name = "cold";
-    else return -1;
+    if (streq(race->blow[method].effect->name, "POISON")) return get_brand("poison", 3);
+    if (streq(race->blow[method].effect->name, "DISEASE")) return get_brand("poison", 3);
+    if (streq(race->blow[method].effect->name, "ACID")) return get_brand("acid", 3);
+    if (streq(race->blow[method].effect->name, "ELEC")) return get_brand("lightning", 3);
+    if (streq(race->blow[method].effect->name, "FIRE")) return get_brand("fire", 3);
+    if (streq(race->blow[method].effect->name, "COLD")) return get_brand("cold", 3);
+    if (streq(race->blow[method].effect->name, "EXP_10")) return get_brand("life leech", 1);
+    if (streq(race->blow[method].effect->name, "EXP_20")) return get_brand("life leech", 1);
+    if (streq(race->blow[method].effect->name, "EXP_40")) return get_brand("life leech", 1);
+    if (streq(race->blow[method].effect->name, "EXP_80")) return get_brand("life leech", 1);
 
-    return get_brand(name, 3);
+    return -1;
 }
 
 

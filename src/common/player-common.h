@@ -47,9 +47,15 @@ enum
 };
 
 /*
+ * List of resistances and abilities to display
+ */
+#define RES_PANELS  4
+#define RES_ROWS    13
+
+/*
  * Number of history flags
  */
-#define N_HISTORY_FLAGS (1 + STAT_MAX + (RES_PANELS + 1) * RES_ROWS)
+#define N_HISTORY_FLAGS (1 + STAT_MAX + (RES_PANELS + 3) * RES_ROWS)
 
 /*
  * Special values for the number of turns to rest, these need to be
@@ -106,12 +112,6 @@ enum birth_rollers
 /* Warlocks can turn into an undead being */
 #define player_can_undead(P) \
     (player_has((P), PF_UNDEAD_POWERS) && ((P)->state.stat_use[STAT_INT] >= 18+70))
-
-/*
- * List of resistances and abilities to display
- */
-#define RES_PANELS  4
-#define RES_ROWS    13
 
 /* History message types */
 enum
