@@ -1777,6 +1777,16 @@ bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
     int house_variant = context->value.base;
     context->ident = true;
 
+    // can build only in town or to the west from it
+    if ((context->origin->player->wpos.grid.x == 0 && context->origin->player->wpos.grid.y == 1) ||
+        (context->origin->player->wpos.grid.x == -1 && context->origin->player->wpos.grid.y == 1))
+        ;
+    else
+    {
+        msg(context->origin->player, "You can build house only in Farfest town or its rural areas to the west.");
+        return false;
+    }
+
     /* MAngband house creation */
     return create_house(context->origin->player, house_variant);
     
