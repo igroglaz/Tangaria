@@ -642,6 +642,9 @@ void wiz_unlit(struct player *p, struct chunk *c)
     struct loc begin, end;
     struct loc_iterator iter;
 
+    // to prevent unlight after exiting store
+    if (p->wpos.depth == 0) return;
+
     loc_init(&begin, 1, 1);
     loc_init(&end, c->width - 1, c->height - 1);
     loc_iterator_first(&iter, &begin, &end);
