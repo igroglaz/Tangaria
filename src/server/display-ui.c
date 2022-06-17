@@ -1277,85 +1277,130 @@ static void prt_player_sust_info(struct player *p)
  */
 struct player_flag_record
 {
-    int mod;        /* Modifier */
-    int flag;       /* Flag bit */
-    int element;    /* Element */
-    int tmd_flag;   /* Corresponding timed flag */
+    int mod;            /* Modifier */
+    int flag;           /* Flag bit */
+    int element;        /* Element */
+    int tmd_flag;       /* Corresponding timed flag */
+    const char *bname;  /* Brand name */
+    const char *sname;  /* Slay name */
 };
 
 
-static const struct player_flag_record player_flag_table[(RES_PANELS + 1) * RES_ROWS] =
+static const struct player_flag_record player_flag_table[(RES_PANELS + 3) * RES_ROWS] =
 {
-    {-1, -1, ELEM_ACID, TMD_OPP_ACID},
-    {-1, -1, ELEM_ELEC, TMD_OPP_ELEC},
-    {-1, -1, ELEM_FIRE, TMD_OPP_FIRE},
-    {-1, -1, ELEM_COLD, TMD_OPP_COLD},
-    {-1, -1, ELEM_POIS, TMD_OPP_POIS},
-    {-1, -1, ELEM_LIGHT, -1},
-    {-1, -1, ELEM_DARK, -1},
-    {-1, -1, ELEM_SOUND, -1},
-    {-1, -1, ELEM_SHARD, -1},
-    {-1, -1, ELEM_NEXUS, -1},
-    {-1, -1, ELEM_NETHER, -1},
-    {-1, -1, ELEM_CHAOS, -1},
-    {-1, -1, ELEM_DISEN, -1},
+    {-1, -1, ELEM_ACID, TMD_OPP_ACID, NULL, NULL},
+    {-1, -1, ELEM_ELEC, TMD_OPP_ELEC, NULL, NULL},
+    {-1, -1, ELEM_FIRE, TMD_OPP_FIRE, NULL, NULL},
+    {-1, -1, ELEM_COLD, TMD_OPP_COLD, NULL, NULL},
+    {-1, -1, ELEM_POIS, TMD_OPP_POIS, NULL, NULL},
+    {-1, -1, ELEM_LIGHT, -1, NULL, NULL},
+    {-1, -1, ELEM_DARK, -1, NULL, NULL},
+    {-1, -1, ELEM_SOUND, -1, NULL, NULL},
+    {-1, -1, ELEM_SHARD, -1, NULL, NULL},
+    {-1, -1, ELEM_NEXUS, -1, NULL, NULL},
+    {-1, -1, ELEM_NETHER, -1, NULL, NULL},
+    {-1, -1, ELEM_CHAOS, -1, NULL, NULL},
+    {-1, -1, ELEM_DISEN, -1, NULL, NULL},
 
-    {-1, OF_PROT_FEAR, -1, TMD_BOLD},
-    {-1, OF_PROT_BLIND, -1, -1},
-    {-1, OF_PROT_CONF, -1, TMD_OPP_CONF},
-    {-1, OF_PROT_STUN, -1, -1},
-    {-1, OF_HOLD_LIFE, -1, TMD_HOLD_LIFE},
-    {-1, OF_REGEN, -1, -1},
-    {-1, OF_ESP_ALL, -1, TMD_ESP},
-    {-1, OF_SEE_INVIS, -1, TMD_SINVIS},
-    {-1, OF_FREE_ACT, -1, TMD_FREE_ACT},
-    {-1, OF_FEATHER, -1, TMD_FLIGHT},
-    {-1, OF_SLOW_DIGEST, -1, -1},
-    {-1, OF_TRAP_IMMUNE, -1, -1},
-    {-1, OF_BLESSED, -1, -1},
+    {-1, OF_PROT_FEAR, -1, TMD_BOLD, NULL, NULL},
+    {-1, OF_PROT_BLIND, -1, -1, NULL, NULL},
+    {-1, OF_PROT_CONF, -1, TMD_OPP_CONF, NULL, NULL},
+    {-1, OF_PROT_STUN, -1, -1, NULL, NULL},
+    {-1, OF_HOLD_LIFE, -1, TMD_HOLD_LIFE, NULL, NULL},
+    {-1, OF_REGEN, -1, -1, NULL, NULL},
+    {-1, OF_ESP_ALL, -1, TMD_ESP, NULL, NULL},
+    {-1, OF_SEE_INVIS, -1, TMD_SINVIS, NULL, NULL},
+    {-1, OF_FREE_ACT, -1, TMD_FREE_ACT, NULL, NULL},
+    {-1, OF_FEATHER, -1, TMD_FLIGHT, NULL, NULL},
+    {-1, OF_SLOW_DIGEST, -1, -1, NULL, NULL},
+    {-1, OF_TRAP_IMMUNE, -1, -1, NULL, NULL},
+    {-1, OF_BLESSED, -1, -1, NULL, NULL},
 
-    {-1, OF_IMPAIR_HP, -1, -1},
-    {-1, OF_IMPAIR_MANA, -1, -1},
-    {-1, OF_AFRAID, -1, TMD_AFRAID},
-    {-1, OF_AGGRAVATE, -1, -1},
-    {-1, OF_NO_TELEPORT, -1, -1},
-    {-1, OF_DRAIN_EXP, -1, -1},
-    {-1, OF_STICKY, -1, -1},
-    {-1, OF_FRAGILE, -1, -1},
-    {-1, OF_LIMITED_TELE, -1, -1},
-    {-1, OF_HUNGER, -1, -1},
-    {-1, -1, ELEM_TIME, -1},
-    {-1, -1, ELEM_MANA, -1},
-    {-1, -1, ELEM_WATER, -1},
+    {-1, OF_IMPAIR_HP, -1, -1, NULL, NULL},
+    {-1, OF_IMPAIR_MANA, -1, -1, NULL, NULL},
+    {-1, OF_AFRAID, -1, TMD_AFRAID, NULL, NULL},
+    {-1, OF_AGGRAVATE, -1, -1, NULL, NULL},
+    {-1, OF_NO_TELEPORT, -1, -1, NULL, NULL},
+    {-1, OF_DRAIN_EXP, -1, -1, NULL, NULL},
+    {-1, OF_STICKY, -1, -1, NULL, NULL},
+    {-1, OF_FRAGILE, -1, -1, NULL, NULL},
+    {-1, OF_LIMITED_TELE, -1, -1, NULL, NULL},
+    {-1, OF_HUNGER, -1, -1, NULL, NULL},
+    {-1, -1, ELEM_TIME, -1, NULL, NULL},
+    {-1, -1, ELEM_MANA, -1, NULL, NULL},
+    {-1, -1, ELEM_WATER, -1, NULL, NULL},
 
-    {OBJ_MOD_STEALTH, -1, -1, -1},
-    {OBJ_MOD_SEARCH, -1, -1, -1},
-    {OBJ_MOD_INFRA, -1, -1, TMD_SINFRA},
-    {OBJ_MOD_TUNNEL, -1, -1, -1},
-    {OBJ_MOD_SPEED, -1, -1, TMD_FAST},
-    {OBJ_MOD_BLOWS, -1, -1, -1},
-    {OBJ_MOD_SHOTS, -1, -1, -1},
-    {OBJ_MOD_MIGHT, -1, -1, -1},
-    {OBJ_MOD_LIGHT, -1, -1, -1},
-    {OBJ_MOD_DAM_RED, -1, -1, -1},
-    {OBJ_MOD_MOVES, -1, -1, -1},
-    {-1, -1, -1, -1},
-    {-1, -1, -1, -1},
+    {OBJ_MOD_STEALTH, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_SEARCH, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_INFRA, -1, -1, TMD_SINFRA, NULL, NULL},
+    {OBJ_MOD_TUNNEL, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_SPEED, -1, -1, TMD_FAST, NULL, NULL},
+    {OBJ_MOD_BLOWS, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_SHOTS, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_MIGHT, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_LIGHT, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_DAM_RED, -1, -1, -1, NULL, NULL},
+    {OBJ_MOD_MOVES, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
 
-    {-1, OF_ESP_RADIUS, -1, -1},
-    {-1, OF_ESP_EVIL, -1, -1},
-    {-1, OF_ESP_ANIMAL, -1, -1},
-    {-1, OF_ESP_UNDEAD, -1, -1},
-    {-1, OF_ESP_DEMON, -1, -1},
-    {-1, OF_ESP_ORC, -1, -1},
-    {-1, OF_ESP_TROLL, -1, -1},
-    {-1, OF_ESP_GIANT, -1, -1},
-    {-1, OF_ESP_DRAGON, -1, -1},
-    {-1, -1, -1, -1},
-    {-1, -1, -1, -1},
-    {-1, -1, -1, -1},
-    {-1, -1, -1, -1}
+    {-1, OF_ESP_RADIUS, -1, -1, NULL, NULL},
+    {-1, OF_ESP_EVIL, -1, -1, NULL, NULL},
+    {-1, OF_ESP_ANIMAL, -1, -1, NULL, NULL},
+    {-1, OF_ESP_UNDEAD, -1, -1, NULL, NULL},
+    {-1, OF_ESP_DEMON, -1, -1, NULL, NULL},
+    {-1, OF_ESP_ORC, -1, -1, NULL, NULL},
+    {-1, OF_ESP_TROLL, -1, -1, NULL, NULL},
+    {-1, OF_ESP_GIANT, -1, -1, NULL, NULL},
+    {-1, OF_ESP_DRAGON, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+
+    {-1, -1, -1, -1, "acid", NULL},
+    {-1, -1, -1, -1, "lightning", NULL},
+    {-1, -1, -1, -1, "fire", NULL},
+    {-1, -1, -1, -1, "cold", NULL},
+    {-1, -1, -1, -1, "poison", NULL},
+    {-1, -1, -1, -1, "stunning", NULL},
+    {-1, -1, -1, -1, "cutting", NULL},
+    {-1, -1, -1, -1, "life leech", NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+
+    {-1, -1, -1, -1, NULL, "evil creatures"},
+    {-1, -1, -1, -1, NULL, "animals"},
+    {-1, -1, -1, -1, NULL, "orcs"},
+    {-1, -1, -1, -1, NULL, "trolls"},
+    {-1, -1, -1, -1, NULL, "giants"},
+    {-1, -1, -1, -1, NULL, "demons"},
+    {-1, -1, -1, -1, NULL, "dragons"},
+    {-1, -1, -1, -1, NULL, "undead"},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL},
+    {-1, -1, -1, -1, NULL, NULL}
 };
+
+
+static bool player_has_poly_brand(struct player *p, int brand)
+{
+    int blow;
+
+    if (!p->poly_race) return false;
+
+    for (blow = 0; blow < z_info->mon_blows_max; blow++)
+    {
+        if (brand == get_poly_brand(p->poly_race, blow)) return true;
+    }
+
+    return false;
+}
 
 
 static void prt_resistance_panel(struct player *p, int which, const struct player_flag_record *rec)
@@ -1394,6 +1439,10 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                         known = object_element_is_known(obj, rec[i].element, aware);
                     else if (rec[i].flag != -1)
                         known = object_flag_is_known(p, obj, rec[i].flag);
+                    else if (rec[i].bname)
+                        known = brands_are_equal(obj, obj->known);
+                    else if (rec[i].sname)
+                        known = slays_are_equal(obj, obj->known);
                 }
 
                 /* Get resistance, immunity and vulnerability info */
@@ -1417,6 +1466,34 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                     imm = (known && (el_info[rec[i].element].res_level == 3));
                     res = (known && (el_info[rec[i].element].res_level == 1));
                     vul = (known && (el_info[rec[i].element].res_level == -1));
+                }
+                else if (rec[i].bname)
+                {
+                    int brand;
+
+                    for (brand = 0; brand < z_info->brand_max; brand++)
+                    {
+                        if (streq(brands[brand].name, rec[i].bname) && obj && obj->known &&
+                            obj->known->brands && obj->known->brands[brand])
+                        {
+                            res = true;
+                            break;
+                        }
+                    }
+                }
+                else if (rec[i].sname)
+                {
+                    int slay;
+
+                    for (slay = 0; slay < z_info->slay_max; slay++)
+                    {
+                        if (streq(slays[slay].name, rec[i].sname) && obj && obj->known &&
+                            obj->known->slays && obj->known->slays[slay])
+                        {
+                            res = true;
+                            break;
+                        }
+                    }
                 }
             }
             else
@@ -1451,6 +1528,77 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                     res = (el_info[rec[i].element].res_level == 1);
                     vul = (el_info[rec[i].element].res_level == -1);
                 }
+                else if (rec[i].bname)
+                {
+                    int brand;
+
+                    for (brand = 0; brand < z_info->brand_max; brand++)
+                    {
+                        if (strcmp(brands[brand].name, rec[i].bname)) continue;
+
+                        /* Handle racial/class brands */
+                        if (p->race->brands && p->race->brands[brand].brand &&
+                            (p->lev >= p->race->brands[brand].minlvl) &&
+                            (p->lev <= p->race->brands[brand].maxlvl))
+                        {
+                            res = true;
+                            break;
+                        }
+                        if (p->clazz->brands && p->clazz->brands[brand].brand &&
+                            (p->lev >= p->clazz->brands[brand].minlvl) &&
+                            (p->lev <= p->clazz->brands[brand].maxlvl))
+                        {
+                            res = true;
+                            break;
+                        }
+
+                        /* Handle polymorphed players */
+                        if (player_has_poly_brand(p, brand))
+                        {
+                            res = true;
+                            break;
+                        }
+
+                        /* Temporary brands */
+                        if (player_has_temporary_brand(p, brand))
+                        {
+                            timed = true;
+                            break;
+                        }
+                    }
+                }
+                else if (rec[i].sname)
+                {
+                    int slay;
+
+                    for (slay = 0; slay < z_info->slay_max; slay++)
+                    {
+                        if (strcmp(slays[slay].name, rec[i].sname)) continue;
+
+                        /* Handle racial/class slays */
+                        if (p->race->slays && p->race->slays[slay].slay &&
+                            (p->lev >= p->race->slays[slay].minlvl) &&
+                            (p->lev <= p->race->slays[slay].maxlvl))
+                        {
+                            res = true;
+                            break;
+                        }
+                        if (p->clazz->slays && p->clazz->slays[slay].slay &&
+                            (p->lev >= p->clazz->slays[slay].minlvl) &&
+                            (p->lev <= p->clazz->slays[slay].maxlvl))
+                        {
+                            res = true;
+                            break;
+                        }
+
+                        /* Temporary slays */
+                        if (player_has_temporary_slay(p, slay))
+                        {
+                            timed = true;
+                            break;
+                        }
+                    }
+                }
             }
 
             /* Check if the rune is known */
@@ -1460,6 +1608,32 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                 rune = of_has(p->obj_k->flags, rec[i].flag);
             else if (rec[i].element != -1)
                 rune = (p->obj_k->el_info[rec[i].element].res_level == 1);
+            else if (rec[i].bname)
+            {
+                int brand;
+
+                for (brand = 0; brand < z_info->brand_max; brand++)
+                {
+                    if (streq(brands[brand].name, rec[i].bname) && p->obj_k->brands[brand])
+                    {
+                        rune = true;
+                        break;
+                    }
+                }
+            }
+            else if (rec[i].sname)
+            {
+                int slay;
+
+                for (slay = 0; slay < z_info->slay_max; slay++)
+                {
+                    if (streq(slays[slay].name, rec[i].sname) && p->obj_k->slays[slay])
+                    {
+                        rune = true;
+                        break;
+                    }
+                }
+            }
 
             /* Set the symbols and print them */
             if (imm) sym = '*';
@@ -1483,7 +1657,7 @@ static void prt_player_flag_info(struct player *p)
 {
     int i;
 
-    for (i = 0; i <= RES_PANELS; i++)
+    for (i = 0; i < RES_PANELS + 3; i++)
         prt_resistance_panel(p, i, player_flag_table + i * RES_ROWS);
 }
 

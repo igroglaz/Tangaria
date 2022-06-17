@@ -70,6 +70,7 @@ PWMAngband:
 - Clarify message when creating a character with a name that is already taken
 - Revert default ignoring options to "no ignore"
 - MotD shown on login in message window (from motd.txt in /lib/screens)
+- Add slays/brands to character sheet
 
 Gameplay changes
 ----------------

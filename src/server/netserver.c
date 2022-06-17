@@ -4945,6 +4945,7 @@ static int Receive_redraw(int ind)
         break_mind_link(p);
 
         do_cmd_redraw(p);
+        msg(p, "You have %lu account points.", p->account_score);
     }
 
     return 1;
