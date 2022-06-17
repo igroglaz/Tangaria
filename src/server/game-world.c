@@ -399,30 +399,33 @@ static void play_ambient_sound(struct player *p)
         sound(p, MSG_AMBIENT_MELKOR);
 
     //// Weather in dungeon
-    if (streq(p->locname, "Helcaraxe"))
+    if (p->wpos.depth > 0)
     {
-        if (one_in_(3))
+        if (streq(p->locname, "Helcaraxe"))
         {
-            // Snow
-            Send_weather(p, 2, randint1(4), randint1(3));
+            if (one_in_(3))
+            {
+                // Snow
+                Send_weather(p, 2, randint1(4), randint1(3));
+            }
+            else if (one_in_(3))
+            {
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
         }
-        else if (one_in_(3))
+        else if (streq(p->locname, "Sandworm Lair"))
         {
-            // Stop weather
-            Send_weather(p, 256, 0, 0);
-        }
-    }
-    else if (streq(p->locname, "Sandworm Lair"))
-    {
-        if (one_in_(3))
-        {
-            // Sandstorm
-            Send_weather(p, 3, randint1(4), randint1(3));
-        }
-        else if (one_in_(3))
-        {
-            // Stop weather
-            Send_weather(p, 256, 0, 0);
+            if (one_in_(3))
+            {
+                // Sandstorm
+                Send_weather(p, 3, randint1(4), randint1(3));
+            }
+            else if (one_in_(3))
+            {
+                // Stop weather
+                Send_weather(p, 256, 0, 0);
+            }
         }
     }
 }
