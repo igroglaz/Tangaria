@@ -805,7 +805,12 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         dam_taken = p->mhp / 100 + randint1(3);
 
         /* Levitation prevents drowning if player able to fly */
-        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) dam_taken = 0;
+        if (player_of_has(p, OF_FEATHER))
+        {
+            if (!player_of_has(p, OF_CANT_FLY))
+                dam_taken = 0;
+            equip_learn_flag(p, OF_FEATHER);
+        }
         
         /* Swimming prevents drowning */
         if (player_has(p, PF_CAN_SWIM)) dam_taken = 0;
