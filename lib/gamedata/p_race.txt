@@ -1154,6 +1154,7 @@ value:0:CHR[-9+1d4]
 #/// maybe prevent drink 'good' potions? Instead drink !poison etc
 # + black breath
 #/// - during the day: -HP, regen HP, skills
+#/// can't eat normal food. instead nourish when kill humanoids
 value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
@@ -2083,6 +2084,7 @@ height:69:3
 weight:145:17
 gift:potion:Cure Light Wounds:3:4
 # 0 -1 -2 0 0
+#/// can eat insects
 value:0:STR[0+1d30]
 value:0:INT[-1]
 value:0:WIS[-2]

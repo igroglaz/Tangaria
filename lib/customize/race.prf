@@ -313,6 +313,8 @@ help: with a blood of slain enemies. They resist time, poison, nether and darkne
 help: They don't feel fear, got perfect infravision and could read minds...
 help: Night creatures, they don't like light and feel bad during the day hours;
 help: but still they can tolerate daylight, thought become weakened.
+help: Vampires don't eat normal food.. they restore their thirst when they hunt
+help: humanoids in the dungeons.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much know about them, except 
@@ -494,6 +496,8 @@ race:Lizardmen
 help:Reptilian humanoids who lives in southeren bogs. Quite mediocre in everything,
 help: they got bone outgrowths on their skin which gives them some extra protection.
 help: Also they are especially good with shields.
+help: They like to eat ants, centipedes and other insects which provide to them
+help: additional nourishment when caught in the dungeons.
 
 race:Wisp
 help:Mysterious creature woven out bright light. They do not speak, but use
