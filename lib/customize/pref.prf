@@ -71,7 +71,7 @@ Y:use_sound
 X:effective_speed
 
 # Show weather
-X:weather_display
+Y:weather_display
 
 # Option 'Color: Illuminate torchlight in orange'
 Y:view_orange_light

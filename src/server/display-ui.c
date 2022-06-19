@@ -4939,6 +4939,21 @@ static void master_debug(struct player *p, char *parms)
                     // T: admin's 'advance time': removed (player->wpos.depth == 0) cause of OPEN_SKY dungeons
                     if (is_daytime() != daytime)
                         dusk_or_dawn(player, chunk_get(&player->wpos), is_daytime());
+
+                    // to test weather
+                    if (one_in_(2))
+                    {
+                        // Rain
+                        Send_weather(p, 1, randint1(4), randint1(3));
+                        sound(p, MSG_WILD_RAIN);
+                    }
+                    else
+                    {
+                        // empty sound to break sound loop .ogg.0
+                        sound(p, MSG_SILENT0);
+                        // Stop weather
+                        Send_weather(p, 256, 0, 0);
+                    }
                 }
             }
 

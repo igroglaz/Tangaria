@@ -1960,8 +1960,16 @@ void do_weather(void)
                 case 1:
                     if (use_graphics)
                     {
-                        a = 0x82;
-                        c = 0xE1;
+                        if (one_in_(2))
+                        {
+                            a = 0x82;
+                            c = 0xE1;
+                        }
+                        else
+                        {
+                            a = 0x82;
+                            c = 0xE3;
+                        }                       
                     }
                     else
                     {
@@ -1973,8 +1981,16 @@ void do_weather(void)
                 case 2:
                     if (use_graphics)
                     {
-                        a = 0x82;
-                        c = 0xE0;
+                        if (one_in_(2))
+                        {
+                            a = 0x82;
+                            c = 0xE0;
+                        }
+                        else
+                        {
+                            a = 0x82;
+                            c = 0xE2;
+                        } 
                     }
                     else
                     {
@@ -2020,8 +2036,8 @@ void do_weather(void)
                 case 1:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x38;
+                        a = 0x82;
+                        c = 0xDE;
                     }
                     else
                     {
@@ -2033,8 +2049,8 @@ void do_weather(void)
                 case 2:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x38;
+                        a = 0x82;
+                        c = 0xDF;
                     }
                     else
                     {
@@ -2046,8 +2062,8 @@ void do_weather(void)
                 case 3:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x39;
+                        a = 0x82;
+                        c = 0xDC;
                     }
                     else
                     {
@@ -2059,8 +2075,8 @@ void do_weather(void)
                 case 4:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x39;
+                        a = 0x82;
+                        c = 0xDD;
                     }
                     else
                     {
@@ -2080,8 +2096,8 @@ void do_weather(void)
                 case 1:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x36;
+                        a = 0x82;
+                        c = 0xDA;
                     }
                     else
                     {
@@ -2093,8 +2109,8 @@ void do_weather(void)
                 case 2:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x36;
+                        a = 0x82;
+                        c = 0xDA;
                     }
                     else
                     {
@@ -2106,8 +2122,8 @@ void do_weather(void)
                 case 3:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x37;
+                        a = 0x82;
+                        c = 0xDB;
                     }
                     else
                     {
@@ -2119,8 +2135,8 @@ void do_weather(void)
                 case 4:
                     if (use_graphics)
                     {
-                        a = 0x81;
-                        c = 0x37;
+                        a = 0x82;
+                        c = 0xDB;
                     }
                     else
                     {
