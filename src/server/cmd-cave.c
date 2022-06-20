@@ -3374,44 +3374,101 @@ void do_cmd_purchase_house(struct player *p, int dir)
         house_area_size = house_count_area_size(i);
 
         // Compare planned house_area_size and house variant (depends on type of house)
-        if (house_area_size > 1 && p->account_score < 15) // cabin
+        if (p->account_score < 15) // cabin
+        {
+            msg(p, "To buy house you need at least 15 account points (press Ctrl+r to check score).");
             return;
-        else if (house_area_size > 2 && p->account_score < 50) // cabin
+        }
+        else if (house_area_size >= 2 && p->account_score < 50) // cabin
+        {
+            msg(p, "To buy this house you need at least 50 account points.");
             return;
-        else if (house_area_size > 3 && p->account_score < 100) // cabin
+        }
+        else if (house_area_size >= 3 && p->account_score < 100) // cabin
+        {
+            msg(p, "To buy this house you need at least 100 account points.");
             return;
-        else if (house_area_size > 4 && p->account_score < 200) // small house
+        }
+        else if (house_area_size >= 4 && p->account_score < 200) // small house
+        {
+            msg(p, "To buy this house you need at least 200 account points.");
             return;
-        else if (house_area_size > 5 && p->account_score < 500) // small house
+        }
+        else if (house_area_size >= 5 && p->account_score < 500) // small house
+        {
+            msg(p, "To buy this house you need at least 500 account points.");
             return;
-        else if (house_area_size > 6 && p->account_score < 1000) // small house
+        }
+        else if (house_area_size >= 6 && p->account_score < 1000) // small house
+        {
+            msg(p, "To buy this house you need at least 1000 account points.");
             return;
-        else if (house_area_size > 7 && p->account_score < 2000) // medium house
+        }
+        else if (house_area_size >= 7 && p->account_score < 2000) // medium house
+        {
+            msg(p, "To buy this house you need at least 2000 account points.");
             return;
-        else if (house_area_size > 8 && p->account_score < 5000) // medium house
+        }
+        else if (house_area_size >= 8 && p->account_score < 5000) // medium house
+        {
+            msg(p, "To buy this house you need at least 5000 account points.");
             return;
-        else if (house_area_size > 9 && p->account_score < 10000) // medium house
+        }
+        else if (house_area_size >= 9 && p->account_score < 10000) // medium house
+        {
+            msg(p, "To buy this house you need at least 10000 account points.");
             return;
-        else if (house_area_size > 15 && p->account_score < 25000) // big house
+        }
+        else if (house_area_size >= 15 && p->account_score < 25000) // big house
+        {
+            msg(p, "To buy this house you need at least 25000 account points.");
             return;
-        else if (house_area_size > 20 && p->account_score < 50000) // big house
+        }
+        else if (house_area_size >= 20 && p->account_score < 50000) // big house
+        {
+            msg(p, "To buy this house you need at least 50000 account points.");
             return;
-        else if (house_area_size > 25 && p->account_score < 100000) // big house
+        }
+        else if (house_area_size >= 25 && p->account_score < 100000) // big house
+        {
+            msg(p, "To buy this house you need at least 100000 account points.");
             return;
-        else if (house_area_size > 32 && p->account_score < 200000) // villa
+        }
+        else if (house_area_size >= 32 && p->account_score < 200000) // villa
+        {
+            msg(p, "To buy this house you need at least 200000 account points.");
             return;
-        else if (house_area_size > 44 && p->account_score < 400000) // villa
+        }
+        else if (house_area_size >= 44 && p->account_score < 400000) // villa
+        {
+            msg(p, "To buy this house you need at least 400000 account points.");
             return;
-        else if (house_area_size > 64 && p->account_score < 800000) // villa
+        }
+        else if (house_area_size >= 64 && p->account_score < 800000) // villa
+        {
+            msg(p, "To buy this house you need at least 800000 account points.");
             return;
-        else if (house_area_size > 100 && p->account_score < 1500000) // estate
+        }
+        else if (house_area_size >= 100 && p->account_score < 1500000) // estate
+        {
+            msg(p, "To buy this house you need at least 15000000 account points.");
             return;
-        else if (house_area_size > 144 && p->account_score < 3000000) // tower
+        }
+        else if (house_area_size >= 144 && p->account_score < 3000000) // tower
+        {
+            msg(p, "To buy this house you need at least 3000000 account points.");
             return;
-        else if (house_area_size > 256 && p->account_score < 10000000) // keep
+        }
+        else if (house_area_size >= 256 && p->account_score < 10000000) // keep
+        {
+            msg(p, "To buy this house you need at least 10000000 account points.");
             return;
-        else if (house_area_size > 324 && p->account_score < 100000000) // castle
+        }
+        else if (house_area_size >= 324 && p->account_score < 100000000) // castle
+        {
+            msg(p, "To buy this house you need at least 100000000 account points.");
             return;
+        }
 
         /* Check for funds or deed of property */
         check = can_buy_house(p, house->price);
@@ -3935,63 +3992,108 @@ bool create_house(struct player *p, int house_variant)
     /* Determine the area of the house foundation AND calculate price */
     area_size = get_house_foundation(p, c, &begin, &end);
 
-    if (area_size <= 0) return false;
+    if (area_size <= 0)
+    {
+        msg(p, "Non-valid house foundation size.");
+        return false;
+    }
 
     // Compare planned area_size and house variant (depends on type of house)
-    if (house_variant == 1) // cabin
+    if (p->account_score < 15)
+    {
+        msg(p, "You need at least 15 account points to build a house (press Ctrl+r to check it).");
+        return false;
+    }
+    else if (house_variant == 1) // cabin
     {
         if      (area_size == 1 && p->account_score >= 15) ;
         else if (area_size == 2 && p->account_score >= 50) ;
         else if (area_size == 3 && p->account_score >= 100) ;
-        else return false;
+        else
+        {
+            msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
     }
     else if (house_variant == 2) // small house
     {
         if      (area_size == 4 && p->account_score >= 200) ;
         else if (area_size == 5 && p->account_score >= 500) ;
         else if (area_size == 6 && p->account_score >= 1000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
     }
     else if (house_variant == 3) // medium house
     {
         if      (area_size == 7 && p->account_score >= 2000) ;
         else if (area_size == 8 && p->account_score >= 5000) ;
         else if (area_size == 9 && p->account_score >= 10000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
     }
     else if (house_variant == 4) // big house
     {
         if      (area_size <= 15 && p->account_score >= 25000) ;
         else if (area_size <= 20 && p->account_score >= 50000) ;
         else if (area_size <= 25 && p->account_score >= 100000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
     }
     else if (house_variant == 5) // villa
     {
         if      (area_size <= 32 && p->account_score >= 200000) ;
         else if (area_size <= 44 && p->account_score >= 400000) ;
         else if (area_size <= 64 && p->account_score >= 800000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
     }
     else if (house_variant == 6) // estate
     {
         if (area_size <= 100 && p->account_score >= 1500000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need at least 1500000 account points to build such house.");
+            return false;
+        }
     }
     else if (house_variant == 7) // tower
     {
         if (area_size <= 144 && p->account_score >= 3000000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need at least 3000000 account points to build such house.");
+            return false;
+        }
     }
     else if (house_variant == 8) // keep
     {
         if (area_size <= 256 && p->account_score >= 10000000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need at least 10000000 account points to build such house.");
+            return false;
+        }
     }
     else if (house_variant == 9) // castle
     {
         if (area_size <= 324 && p->account_score >= 100000000) ;
-        else return false;
+        else
+        {
+            msg(p, "You need at least 100000000 account points to build such house.");
+            return false;
+        }
     }
 
     /* Calculate price.
