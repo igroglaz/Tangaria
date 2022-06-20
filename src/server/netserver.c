@@ -6019,7 +6019,7 @@ static void show_motd(struct player *p)
         if (first)
         {
             msg(p, "  ");
-            msg(p, "   ");
+            //msg(p, "   ");
             first = false;
         }
         msg(p, buf);
@@ -6206,11 +6206,11 @@ static int Enter_player(int ind)
 
     show_motd(p);
 
-    msg(p, "  ");
-    msg(p, "   ");
-    msg(p, "====================");
-    msg(p, "  ");
-    msg(p, "   ");
+    //msg(p, "  ");
+    //msg(p, "   ");
+    //msg(p, "====================");
+    //msg(p, "  ");
+    //msg(p, "   ");
 
     /* Report delayed info */
     Send_poly(p, (p->poly_race? p->poly_race->ridx: 0));

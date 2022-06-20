@@ -4442,6 +4442,8 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
     if (!context->origin->player->word_recall)
     {
         /* Ask for confirmation if we try to recall from non-reentrable dungeon */
+    // disabled to prevent ID cheeze
+        /*
         if ((context->origin->player->current_value == ITEM_REQUEST) &&
             OPT(context->origin->player, confirm_recall) &&
             forbid_reentrance(context->origin->player))
@@ -4449,6 +4451,7 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
             get_item(context->origin->player, HOOK_CONFIRM, "");
             return false;
         }
+        */
 
         /* Select the recall depth */
         if (!set_recall_depth(context->origin->player, context->note,

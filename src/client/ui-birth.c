@@ -1894,11 +1894,11 @@ void get_account_name(void)
     Term_fresh();
 
     /* Note player birth in the message recall */
-    c_msg_print(" ");
-    c_msg_print("  ");
+    //c_msg_print(" ");
+    //c_msg_print("  ");
     c_msg_print("====================");
-    c_msg_print("  ");
-    c_msg_print(" ");
+    //c_msg_print("  ");
+    //c_msg_print(" ");
 }
 
 

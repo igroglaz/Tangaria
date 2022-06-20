@@ -3374,7 +3374,7 @@ void do_cmd_purchase_house(struct player *p, int dir)
         house_area_size = house_count_area_size(i);
 
         // Compare planned house_area_size and house variant (depends on type of house)
-        if (house_area_size > 1 && p->account_score < 25) // cabin
+        if (house_area_size > 1 && p->account_score < 15) // cabin
             return;
         else if (house_area_size > 2 && p->account_score < 50) // cabin
             return;
@@ -3940,7 +3940,7 @@ bool create_house(struct player *p, int house_variant)
     // Compare planned area_size and house variant (depends on type of house)
     if (house_variant == 1) // cabin
     {
-        if      (area_size == 1 && p->account_score >= 25) ;
+        if      (area_size == 1 && p->account_score >= 15) ;
         else if (area_size == 2 && p->account_score >= 50) ;
         else if (area_size == 3 && p->account_score >= 100) ;
         else return false;
