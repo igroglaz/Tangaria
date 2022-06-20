@@ -208,60 +208,87 @@ static void adjust_level(struct player *p)
                 msg(p, "give access to more races/classes and provide other advantages.");
                 msg(p, "You will get next account points every 5 levels.");
             }
-            else if (p->account_score <= 5 && !(p->max_lev % 5))
+            else if (p->account_score <= 5)
             {
-                p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
-                msg(p, "For now you will get next account points every 5 levels,");
-                msg(p, "but later on it will be every 10 levels or even more.");
-                msg(p, "(more points you have - harder to get new ones).");
+                if (!(p->max_lev % 5))
+                {
+                    p->account_score++;
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
+                    msg(p, "For now you will get next account points every 5 levels,");
+                    msg(p, "but later on it will be every 10 levels or even more.");
+                    msg(p, "(more points you have - harder to get new ones).");
+                }
             }
-            else if (p->account_score <= 10 && !(p->max_lev % 10))
+            else if (p->account_score <= 10)
             {
-                p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
-                msg(p, "You will get even/odd account point for levels and");
-                msg(p, "for defeating unique monster.");
-            }
-            // only at even score
-            else if (!(p->account_score % 2))
-            {
-                if (p->account_score < 25 && !(p->max_lev % 10))
+                if (!(p->max_lev % 10))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
                     msg(p, "You will get even/odd account point for levels and");
                     msg(p, "for defeating unique monster.");
                 }
-                else if (p->account_score < 50 && one_in_(51 - p->max_lev))
+            }
+            // only at even score
+            else if (!(p->account_score % 2))
+            {
+                if (p->account_score < 25)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (!(p->max_lev % 10))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
+                        msg(p, "You will get even/odd account point for levels and");
+                        msg(p, "for defeating unique monster.");
+                    }
                 }
-                else if (p->account_score < 100 && p->max_lev >= 10 && one_in_(51 - p->max_lev))
+                else if (p->account_score < 50)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
                 }
-                else if (p->account_score < 200 && p->max_lev >= 15 && one_in_(51 - p->max_lev))
+                else if (p->account_score < 100)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (p->max_lev >= 10 && one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
                 }
-                else if (p->account_score < 500 && p->max_lev >= 20 && one_in_(51 - p->max_lev))
+                else if (p->account_score < 200)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (p->max_lev >= 15 && one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
                 }
-                else if (p->account_score < 999 && p->max_lev >= 25 && one_in_(51 - p->max_lev))
+                else if (p->account_score < 500)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (p->max_lev >= 20 && one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
                 }
-                else if (p->max_lev >= 30 && one_in_(51 - p->max_lev))
+                else if (p->account_score < 999)
                 {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    if (p->max_lev >= 25 && one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
+                }
+                else if (p->max_lev >= 30)
+                {
+                    if (one_in_(51 - p->max_lev))
+                    {
+                        p->account_score++;
+                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                    }
                 }
             }
 
