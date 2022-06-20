@@ -56,22 +56,10 @@ void textui_cmd_poly(void)
         my_strcpy(buf, "*", sizeof(buf));
     }
 
-    /* Symbol/partial name/all: display a list */
+    /* Race name: try to polymorph into that race */
     if ((number == 0) && (buf[0] != '0'))
     {
         Send_poly_race(buf);
-
-        /* Set the hook */
-        special_line_type = SPECIAL_FILE_POLY;
-
-        /* Set the header */
-        my_strcpy(special_line_header[NTERM_WIN_OVERHEAD],
-            (player_has(player, PF_MONSTER_SPELLS)? "Killed List": "Forms"),
-            sizeof(special_line_header[0]));
-
-        /* Call the file perusal */
-        peruse_file();
-
         return;
     }
 

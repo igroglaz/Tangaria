@@ -424,6 +424,7 @@ extern bool square_isdecoyed(struct chunk *c, struct loc *grid);
 extern bool square_seemslikewall(struct chunk *c, struct loc *grid);
 extern bool square_isinteresting(struct chunk *c, struct loc *grid);
 extern bool square_islockeddoor(struct chunk *c, struct loc *grid);
+extern bool square_isunlockeddoor(struct chunk *c, struct loc *grid);
 extern bool square_isplayertrap(struct chunk *c, struct loc *grid);
 extern bool square_isvisibletrap(struct chunk *c, struct loc *grid);
 extern bool square_issecrettrap(struct chunk *c, struct loc *grid);

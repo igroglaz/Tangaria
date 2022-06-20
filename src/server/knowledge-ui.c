@@ -3095,17 +3095,10 @@ void do_cmd_check_poly(struct player *p, int line)
     struct monster_race *race;
     struct monster_lore *lore;
     int aff, rkills;
-    char *str;
 
     /* Temporary file */
     fff = file_temp(file_name, sizeof(file_name));
     if (!fff) return;
-
-    /* Lowercase our search string */
-    if (strlen(p->tempbuf) > 1)
-    {
-        for (str = p->tempbuf; *str; str++) *str = tolower((unsigned char)*str);
-    }
 
     /* Scan the monster races (backwards for easiness of use) */
     for (k = z_info->r_max - 1; k > 0; k--)

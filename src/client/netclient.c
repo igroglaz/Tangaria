@@ -4147,6 +4147,29 @@ static int Receive_poly(void)
 }
 
 
+static int Receive_poly_race(void)
+{
+    int n;
+    uint8_t ch;
+
+    if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
+        return n;
+
+    /* Set the hook */
+    special_line_type = SPECIAL_FILE_POLY;
+
+    /* Set the header */
+    my_strcpy(special_line_header[NTERM_WIN_OVERHEAD],
+        (player_has(player, PF_MONSTER_SPELLS)? "Killed List": "Forms"),
+        sizeof(special_line_header[0]));
+
+    /* Call the file perusal */
+    peruse_file();
+
+    return 1;
+}
+
+
 static int Receive_purchase(void)
 {
     uint8_t ch;

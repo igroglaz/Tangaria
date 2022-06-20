@@ -185,6 +185,7 @@ extern int Send_special_line(struct player *p, int max, int last, int line, uint
     const char *buf);
 extern int Send_fullmap(struct player *p, int y);
 extern int Send_poly(struct player *p, int race);
+extern int Send_poly_race(struct player *p);
 extern int Send_store_leave(struct player *p);
 extern int Send_ignore(struct player *p);
 extern int Send_flush(struct player *p, bool fresh, char delay);

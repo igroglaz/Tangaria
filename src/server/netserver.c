@@ -3257,6 +3257,15 @@ int Send_poly(struct player *p, int race)
 }
 
 
+int Send_poly_race(struct player *p)
+{
+    connection_t *connp = get_connp(p, "poly_race");
+    if (connp == NULL) return 0;
+
+    return Packet_printf(&connp->c, "%b", (unsigned)PKT_POLY_RACE);
+}
+
+
 int Send_store_leave(struct player *p)
 {
     connection_t *connp = get_connp(p, "store leave");
@@ -3608,9 +3617,12 @@ static int Receive_poly_race(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
-    int n;
+    int n, k;
     char buf[NORMAL_WID];
     uint8_t ch;
+    struct monster_race *race;
+    char monster[NORMAL_WID];
+    char *str;
 
     if ((n = Packet_scanf(&connp->r, "%b%s", &ch, buf)) <= 0)
     {
@@ -3622,7 +3634,53 @@ static int Receive_poly_race(int ind)
     {
         p = player_get(get_player_index(connp));
 
+        /* Break mind link */
+        break_mind_link(p);
+
+        /* Non mimics */
+        if (!player_has(p, PF_SHAPECHANGE))
+        {
+            msg(p, "You are too solid.");
+            return 1;
+        }
+
+        /* Not if permanently polymorphed or in fruit bat mode */
+        if (player_has(p, PF_PERM_SHAPE) || OPT(p, birth_fruit_bat))
+        {
+            msg(p, "You are already polymorphed permanently.");
+            return 1;
+        }
+
         my_strcpy(p->tempbuf, buf, sizeof(p->tempbuf));
+
+        /* Lowercase our search string */
+        if (strlen(p->tempbuf) > 1)
+        {
+            for (str = p->tempbuf; *str; str++) *str = tolower((unsigned char)*str);
+        }
+
+        /* Scan the monster races (backwards for easiness of use) */
+        for (k = z_info->r_max - 1; k > 0; k--)
+        {
+            race = &r_info[k];
+
+            /* Skip non-entries */
+            if (!race->name) continue;
+
+            /* Clean up monster name */
+            clean_name(monster, race->name);
+
+            /* Race name: try to polymorph into that race */
+            if (streq(monster, p->tempbuf))
+            {
+                do_cmd_poly(p, &r_info[k], true, true);
+                return 1;
+            }
+        }
+
+        /* Not a race: display a list */
+        Send_poly_race(p);
+        return 1;
     }
 
     return 1;

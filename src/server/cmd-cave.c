@@ -1726,12 +1726,6 @@ static bool do_cmd_disarm_aux(struct player *p, struct chunk *c, struct loc *gri
 }
 
 
-static bool square_hack_iscloseddoor(struct chunk *c, struct loc *grid)
-{
-    return (square_basic_iscloseddoor(c, grid) && !square_islockeddoor(c, grid));
-}
-
-
 /*
  * Disarms a trap, or chest
  *
@@ -1747,19 +1741,19 @@ void do_cmd_disarm(struct player *p, int dir, bool easy)
     /* Easy Disarm */
     if (easy)
     {
-        int num_doors, n_traps, n_chests;
-
-        /* Hack -- count closed doors (for door locking) */
-        num_doors = count_feats(p, c, &grid, square_hack_iscloseddoor, false);
+        int n_traps, n_chests, n_unldoor;
 
         /* Count visible traps */
-        n_traps = count_feats(p, c, &grid, square_isdisarmabletrap, true);
+        n_traps = count_feats(p, c, &grid, square_isdisarmabletrap, false);
 
         /* Count chests (trapped) */
         n_chests = count_chests(p, c, &grid, CHEST_TRAPPED);
 
+        /* Count closed doors (for door locking) */
+        n_unldoor = count_feats(p, c, &grid, square_isunlockeddoor, false);
+
         /* Use the last target found */
-        if ((num_doors + n_traps + n_chests) >= 1)
+        if ((n_traps + n_chests + n_unldoor) >= 1)
             dir = motion_dir(&p->grid, &grid);
 
         /* If there are trap or chests to open, allow 5 as a direction */
