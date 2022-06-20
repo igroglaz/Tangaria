@@ -635,6 +635,37 @@ void wiz_dark(struct player *p, struct chunk *c, bool full)
 }
 
 /*
+ ////// Completely lit the level
+ */
+void wiz_lit(struct player *p, struct chunk *c)
+{
+    struct loc begin, end;
+    struct loc_iterator iter;
+
+    // to prevent unlight after exiting store
+    if (p->wpos.depth == 0) return;
+
+    loc_init(&begin, 1, 1);
+    loc_init(&end, c->width - 1, c->height - 1);
+    loc_iterator_first(&iter, &begin, &end);
+
+    /* Scan all grids */
+    do
+    {
+        if (!square_seemslikewall(c, &iter.cur))
+            square_glow(c, &iter.cur); // lit the grid
+    }
+    while (loc_iterator_next_strict(&iter));
+
+    /* Fully update the visuals */
+    p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+
+    /* Redraw whole map, monster list */
+    p->upkeep->redraw |= (PR_MAP | PR_MONLIST | PR_ITEMLIST);
+}
+
+
+/*
  ////// Completely unlit the level
  */
 void wiz_unlit(struct player *p, struct chunk *c)
@@ -714,11 +745,16 @@ void cave_illuminate(struct player *p, struct chunk *c, bool daytime)
     ///
 
     // OPEN_SKY dungeons dynamic night/day change
-    if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY))
+    if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY) && p->wpos.depth > 0)
     {
         // unlight everything (cause rooms lighten, eg build_room_template()
         daytime = is_daytime(); // we need to define it there cause some dungeons hardcode daytime = 0;
-        if (!daytime)
+        if (daytime)
+        {
+            wiz_lit(p, c); // lit
+            return;
+        }
+        else
         {
             wiz_unlit(p, c); // unlit and forget
             return;

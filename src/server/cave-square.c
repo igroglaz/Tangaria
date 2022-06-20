@@ -2461,6 +2461,12 @@ void square_unmark(struct player *p, struct loc *grid)
 }
 
 
+void square_glow(struct chunk *c, struct loc *grid)
+{
+    sqinfo_on(square(c, grid)->info, SQUARE_GLOW);
+}
+
+
 void square_unglow(struct chunk *c, struct loc *grid)
 {
     /* Bright tiles are always lit */
