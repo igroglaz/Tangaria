@@ -5326,9 +5326,9 @@ skill-save:33:7
 skill-stealth:0:0
 skill-search:10:12
 skill-melee:65:45
-skill-shoot:45:30
+skill-shoot:33:30
 skill-dig:0:0
-hitdie:9
+hitdie:8
 max-attacks:5
 min-weight:30
 strength-multiplier:4
@@ -5357,83 +5357,99 @@ title:Champion
 title:Hero
 title:Lord
 
-magic:5:550:1
+magic:1:550:1
 
 book:shadow book:town:[Shadows for Beginners]:11:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
-spell:Lunge:1:2:25:1:0
-effect:DAMAGE
-dice:$B
-expr:B:WEAPON_DAMAGE:/ 2
-effect:MELEE_BLOWS:MISSILE
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:CURE:AFRAID
-msg_other: makes a reckless attack.
-desc:Lunge enemy with a brave attack not thinking about defense.
-
-spell:Whirlwind Attack:5:4:25:6:0
-effect:SWEEP
-desc:Deals a melee attack to each adjacent enemy.
-
-spell:Focus:10:6:30:12:0
-effect:TIMED_INC:FREE_ACT
-dice:12+1d12
-effect:CURE:CONFUSED
-desc:You focus, cure confusion and becoming immute to paralyzation for some time.
-
-spell:Precise Blow:15:10:32:13:0
-effect:TIMED_SET:DEADLY
+spell:Windmill:1:1:22:1:0
+cooldown:4
+effect:TELEPORT
 dice:1
+effect:SWEEP
+msg_other: makes a reckless attack.
+desc:Lunge a brave attack versus each adjacent enemy and then retreats.
+desc: Cooldown 4 turns.
+
+spell:Sideroll:5:0:25:1:0
+cooldown:2
+effect:TELEPORT
+dice:1
+effect:TELEPORT
+dice:2
+effect:RANDOM
+dice:2
+desc:You try to sideroll to avoid enemy attack. Sometimes it works..
+desc: Does not require mana.
+desc: Cooldown 2 turns.
+
+spell:Pain Point:10:1:22:1:0
+cooldown:7
+effect:TIMED_SET:DEADLY
+dice:2
 desc:Gives your next melee blow in current fight a high chance to score
 desc: a critical hit.
+desc: Cooldown 7 turns.
 
-spell:Gush:20:15:22:30:0
-effect:MELEE_BLOWS:MISSILE
-dice:$Dd5
-expr:D:PLAYER_LEVEL:/ 3 * 2
-msg_other: stubbed a tearing blow.
-desc:Cause wound to enemy. This also has a chance to cause open wounds.
+spell:Take a nap:15:1:22:1:0
+effect:RESTORE_STAT:DEX
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:STR
+effect:RESTORE_STAT:STR
+effect:RANDOM
+dice:5
+effect:TIMED_INC:OCCUPIED
+dice:5+1d10
+desc:Take a nap for some time and restores either strength or constitution..
+desc: and sometimes even dexterity.
+desc: Beware to sleep in sloppy places..
 
-spell:Sharpen Weapon:25:50:80:120:0
+spell:Focus:20:6:30:12:0
+effect:TIMED_INC:OPP_CONF
+dice:12+1d12
+effect:CURE:CONFUSED
+desc:You focus, becoming immune to confusion for some time.
+
+spell:Weaponcare:25:20:80:120:0
 effect:ENCHANT:TODAM
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
-desc: This prayer reduce your nourishment.
+desc: This tedious work reduce your nourishment.
 
-spell:Rapid Regeneration:30:20:90:100:0
-effect:TIMED_INC:HEAL
-dice:1d2
-desc:Speed up digestion to increase regeneration of hitpoints.
+spell:Bandages:30:20:90:100:0
+effect:HEAL_HP
+dice:50
+effect:CURE:CUT
+desc:You apply fast & dirty first aid to stop bleeding.
 
-spell:Armour Care:35:60:85:150:0
+spell:Armour Polish:35:20:85:150:0
 effect:ENCHANT:TOAC
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
 desc:Attempts to improve the armour class bonus of a piece of armour.
-desc: This prayer reduce your nourishment.
+desc: This tedious work reduce your nourishment.
 
-spell:Whirlwind:40:16:60:110:0
+spell:Eight:40:16:60:110:0
 effect:BLAST:MISSILE:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 desc:Make rain of blows in a dance of killing machine.
 
-spell:Kick:45:16:50:150:0
+spell:Royal Kick:45:16:50:150:0
 effect:MELEE_BLOWS:FORCE
 dice:2d$B
 expr:B:PLAYER_LEVEL:* 3
-desc:Attempts a skillful attack that knocking enemy back with a chance to stun it.
+desc:Attempts a skillful kick that knocking enemy back with a chance to stun it.
 
-spell:Last Chance:50:70:90:90:0
+spell:Get Lucky:50:70:90:90:0
 cooldown:777
 effect:TIMED_INC:REVIVE
 dice:3+1d7
-desc:Allows you to avoid death once in a while.
+desc:As you've come so far.. you might to avoid death once in a while.
 desc: Can be used every 777 turns.
 
 

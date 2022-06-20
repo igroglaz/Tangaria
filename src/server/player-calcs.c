@@ -861,6 +861,11 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     char realm[120];
     struct class_book *book = &p->clazz->magic.books[0];
 
+    // non-magic users skills based on STR/DEX
+    // migrate later on to: if (streq(book->realm->name, "common")) .. will be "skillbook"
+    if (streq(p->clazz->name, "Fighter"))
+        return ((p->state.stat_ind[STAT_STR] + p->state.stat_ind[STAT_DEX]) / 2);
+
     my_strcpy(realm, book->realm->name, sizeof(realm));
 
     sum += state->stat_ind[book->realm->stat];
@@ -875,7 +880,7 @@ make primary race stat bonuses work right.
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
     {
         return ((p->state.stat_ind[STAT_INT] + p->state.stat_ind[STAT_WIS]) / 2);
-    }        
+    }
     
     if (streq(p->race->name, "Troll"))
     {

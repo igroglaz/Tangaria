@@ -2617,7 +2617,7 @@ void do_cmd_fountain(struct player *p, int item)
         // Magic fountains nourishment (only ent and merfolk)
         if (streq(p->race->name, "Ent") && fountain)
         {
-            player_inc_timed(p, TMD_FOOD, 400, false, false);
+            player_inc_timed(p, TMD_FOOD, 300, false, false);
             hp_player(p, p->wpos.depth / 2);
         }
         else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
