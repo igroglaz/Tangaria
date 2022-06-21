@@ -148,6 +148,7 @@ PWMAngband:
 - Fix READ_MINDS
 - Fix some va_arg argument types in vstrnfmt
 - Learn FEATHER flag when walking on water
+- Fix monster AI bug
 
 Coding changes
 --------------

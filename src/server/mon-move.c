@@ -2094,7 +2094,8 @@ static void monster_turn_move(struct source *who, struct chunk *c, struct monste
         next_grid(&ngrid, &mon->grid, d);
 
         /* Tracking monsters have their best direction, don't change */
-        if ((i > 0) && (stagger == NO_STAGGER) && tracking) break;
+        if ((i > 0) && (stagger == NO_STAGGER) && !square_isview(who->player, &mon->grid) && tracking)
+            break;
 
         /* Check if we can move */
         move = monster_turn_can_move(who, c, mon, m_name, &ngrid, (stagger == CONFUSED_STAGGER),
