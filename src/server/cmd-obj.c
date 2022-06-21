@@ -1835,21 +1835,45 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         use_energy(p);
     
 /// potion of water. gives additional satiation (+ to object.txt) if hungry
-    if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
+    if (obj->tval == TV_POTION)
     {
-        if (streq(p->race->name, "Ent"))
-        {   // main source of food
-            player_inc_timed(p, TMD_FOOD, 200, false, false);
-            hp_player(p, p->wpos.depth / 2);
-        }
-        else if (streq(p->race->name, "Merfolk"))
+        if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
         {
-            if (p->timed[TMD_FOOD] < 1500)
-                player_inc_timed(p, TMD_FOOD, 150, false, false);
-            hp_player(p, p->wpos.depth);
+            if (streq(p->race->name, "Ent"))
+            {   // main source of food
+                player_inc_timed(p, TMD_FOOD, 200, false, false);
+                hp_player(p, p->wpos.depth / 2);
+            }
+            else if (streq(p->race->name, "Merfolk"))
+            {
+                if (p->timed[TMD_FOOD] < 1500)
+                    player_inc_timed(p, TMD_FOOD, 150, false, false);
+                hp_player(p, p->wpos.depth);
+            }
+            else if (p->timed[TMD_FOOD] < 1000)
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
         }
-        else if (p->timed[TMD_FOOD] < 1000)
-            player_inc_timed(p, TMD_FOOD, 100, false, false);
+        // all other potions
+        else
+        {
+            if (streq(p->race->name, "Ent"))
+            {
+               int ent_food = 0;
+               int c0st = obj->kind->cost;
+
+               if      (c0st <= 10)   ent_food = 2;
+               else if (c0st <= 25)   ent_food = 4;
+               else if (c0st <= 50)   ent_food = 8;
+               else if (c0st <= 100)  ent_food = 15;
+               else if (c0st <= 200)  ent_food = 30;
+               else if (c0st <= 500)  ent_food = 50;
+               else if (c0st <= 1000) ent_food = 75;
+               else if (c0st <= 5000) ent_food = 100;
+               else if (c0st > 5000)  ent_food = 150;
+
+               player_inc_timed(p, TMD_FOOD, ent_food, false, false);
+            }
+        }
     }
 
     if (streq(obj->kind->name, "Scrap of Flesh"))
