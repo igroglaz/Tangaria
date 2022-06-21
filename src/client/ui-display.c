@@ -1960,16 +1960,11 @@ void do_weather(void)
                 case 1:
                     if (use_graphics)
                     {
-                        if (one_in_(2))
-                        {
-                            a = 0x82;
-                            c = 0xE1;
+                        a = 0x82;
+                        switch (randint1(2)) {
+                        case 1: c = 0xE1; break;
+                        case 2: c = 0xE3; break;
                         }
-                        else
-                        {
-                            a = 0x82;
-                            c = 0xE3;
-                        }                       
                     }
                     else
                     {
@@ -1981,16 +1976,11 @@ void do_weather(void)
                 case 2:
                     if (use_graphics)
                     {
-                        if (one_in_(2))
-                        {
-                            a = 0x82;
-                            c = 0xE0;
+                        a = 0x82;
+                        switch (randint1(2)) {
+                        case 1: c = 0xE0; break;
+                        case 2: c = 0xE2; break;
                         }
-                        else
-                        {
-                            a = 0x82;
-                            c = 0xE2;
-                        } 
                     }
                     else
                     {
