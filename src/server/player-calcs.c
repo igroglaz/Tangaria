@@ -2185,7 +2185,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
     }
 
-    if (streq(p->clazz->name, "Mesmer") && p->lev > 30)
+    if (streq(p->clazz->name, "Timeturner") && p->lev > 30)
         state->speed += (p->lev - 30) / 2;
 
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
@@ -2772,7 +2772,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
         // Knights good only with crossbows
         if (streq(p->clazz->name, "Knight") && state->ammo_tval != TV_BOLT)
-            state->skills[SKILL_TO_HIT_BOW] = 1;
+            state->skills[SKILL_TO_HIT_BOW] = p->lev;
 
         /* Rangers with bows are good at shooting */
         if (player_has(p, PF_FAST_SHOT) && (state->ammo_tval == TV_ARROW))
