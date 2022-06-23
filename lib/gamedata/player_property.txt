@@ -451,3 +451,8 @@ type:object
 code:CLUMSY
 name:Bad at ranged attacks
 desc:You are clumsy.
+
+type:object
+code:BAD_SHOOTER
+name:Bad at shooting
+desc:You are bad in shooting.
