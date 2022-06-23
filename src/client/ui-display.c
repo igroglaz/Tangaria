@@ -1876,7 +1876,7 @@ bool peruse_file(void)
 
 ///////////////////////////////////////
 // Handle weather (rain and snow) client-side
-// weather_type - stop(256)/none/rain/snow/sandstorm
+// weather_type - stop(256)/none/rain/snow
 // weather_wind - current gust of wind if any 
 //                (1 west, 2 east, 3 strong west, 4 strong east)
 // weather_intensity - density of raindrops/snowflakes/sandgrains
@@ -1927,8 +1927,8 @@ void do_weather(void)
         if (weather_speed_ticks > 5) weather_speed_ticks = 0;
         else return;
     }
-    // Snow, Sandstorm speed
-    else if ((player->weather_type == 2) || (player->weather_type == 3))
+    // Snow speed
+    else if (player->weather_type == 2)
     {
         // check to see if it has been 100ms
         if (weather_speed_ticks > 10) weather_speed_ticks = 0;
@@ -1961,9 +1961,13 @@ void do_weather(void)
                     if (use_graphics)
                     {
                         a = 0x82;
-                        switch (randint1(2)) {
-                        case 1: c = 0xE1; break;
-                        case 2: c = 0xE3; break;
+                        switch (randint1(5))
+                        {
+                            case 1: c = 0xDA; break;
+                            case 2: c = 0xDB; break;
+                            case 3: c = 0xDC; break;
+                            case 4: c = 0xDD; break;
+                            case 5: c = 0xDE; break;
                         }
                     }
                     else
@@ -1977,9 +1981,13 @@ void do_weather(void)
                     if (use_graphics)
                     {
                         a = 0x82;
-                        switch (randint1(2)) {
-                        case 1: c = 0xE0; break;
-                        case 2: c = 0xE2; break;
+                        switch (randint1(5))
+                        {
+                            case 1: c = 0xDF; break;
+                            case 2: c = 0xE0; break;
+                            case 3: c = 0xE1; break;
+                            case 4: c = 0xE2; break;
+                            case 5: c = 0xE3; break;
                         }
                     }
                     else
@@ -1993,7 +2001,14 @@ void do_weather(void)
                     if (use_graphics)
                     {
                         a = 0x82;
-                        c = 0xE3;
+                        switch (randint1(5))
+                        {
+                            case 1: c = 0xDA; break;
+                            case 2: c = 0xDB; break;
+                            case 3: c = 0xDC; break;
+                            case 4: c = 0xDD; break;
+                            case 5: c = 0xDE; break;
+                        }
                     }
                     else
                     {
@@ -2006,7 +2021,14 @@ void do_weather(void)
                     if (use_graphics)
                     {
                         a = 0x82;
-                        c = 0xE2;
+                        switch (randint1(5))
+                        {
+                            case 1: c = 0xDF; break;
+                            case 2: c = 0xE0; break;
+                            case 3: c = 0xE1; break;
+                            case 4: c = 0xE2; break;
+                            case 5: c = 0xE3; break;
+                        }
                     }
                     else
                     {
@@ -2020,122 +2042,22 @@ void do_weather(void)
         // Snow
         case 2:
         {
-            switch (player->weather_wind)
+            if (use_graphics)
             {
-                // Wind - west
-                case 1:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDE;
-                    }
-                    else
-                    {
-                        a = COLOUR_WHITE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - east
-                case 2:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDF;
-                    }
-                    else
-                    {
-                        a = COLOUR_WHITE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - strong west
-                case 3:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDC;
-                    }
-                    else
-                    {
-                        a = COLOUR_SLATE;
-                        c = '*';
-                    }
-                    break;
-                // Wind - strong east
-                case 4:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDD;
-                    }
-                    else
-                    {
-                        a = COLOUR_SLATE;
-                        c = '*';
-                    }
-                    break;
+                a = 0x82;
+                switch (randint1(4))
+                {
+                    case 1: c = 0xD6; break;
+                    case 2: c = 0xD7; break;
+                    case 3: c = 0xD8; break;
+                    case 4: c = 0xD9; break;
+                }
             }
-            break;
-        }
-        // Sandstorm
-        case 3:
-        {
-            switch (player->weather_wind)
+            else
             {
-                // Wind - west
-                case 1:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDA;
-                    }
-                    else
-                    {
-                        a = COLOUR_L_UMBER;
-                        c = '+';
-                    }
-                    break;
-                // Wind - east
-                case 2:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDA;
-                    }
-                    else
-                    {
-                        a = COLOUR_L_UMBER;
-                        c = '+';
-                    }
-                    break;
-                // Wind - strong west
-                case 3:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDB;
-                    }
-                    else
-                    {
-                        a = COLOUR_L_UMBER;
-                        c = 'x';
-                    }
-                    break;
-                // Wind - strong east
-                case 4:
-                    if (use_graphics)
-                    {
-                        a = 0x82;
-                        c = 0xDB;
-                    }
-                    else
-                    {
-                        a = COLOUR_L_UMBER;
-                        c = 'x';
-                    }
-                    break;
+                a = COLOUR_WHITE;
+                c = '*';
             }
-            break;
         }
     }
 

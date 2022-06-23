@@ -931,9 +931,9 @@ struct player
     uint8_t supporter;              // supporter's account lvl
 
     // Weather
-    int weather_type;               // stop(256)/none/rain/snow/sandstorm
+    int weather_type;               // stop(256)/none/rain/snow
     int weather_wind;               // current gust of wind if any (1 west, 2 east, 3 strong west, 4 strong east)
-    int weather_intensity;          // density of raindrops/snowflakes/sandgrains
+    int weather_intensity;          // density of raindrops/snowflakes
 };
 
 extern struct player_body *bodies;
