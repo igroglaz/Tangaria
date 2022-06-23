@@ -344,19 +344,6 @@ static void play_ambient_sound(struct player *p)
                     Send_weather(p, 256, 0, 0);
                 }
             }
-            else if (streq(p->locname, "Sandworm Lair"))
-            {
-                if (one_in_(3))
-                {
-                    // Sandstorm
-                    Send_weather(p, 3, randint1(4), randint1(3));
-                }
-                else if (one_in_(5))
-                {
-                    // Stop weather
-                    Send_weather(p, 256, 0, 0);
-                }
-            }
             // all other locations
             else if (p->store_num == -1)
             {
