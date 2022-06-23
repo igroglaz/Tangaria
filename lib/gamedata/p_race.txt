@@ -445,7 +445,7 @@ value:0:DEX[-5]
 value:0:CON[-5]
 value:0:CHR[-5]
 obj-flag:1:FEATHER
-# + no agro!
+# + no agro! you simply can't be angry on cute yeek..
 player-flags:0:SHAPECHANGE
 shape:1:oook
 shape:12:eeek
@@ -474,8 +474,8 @@ gift:bottle:Empty Bottle:3:4
 value:0:STR[0+1d8]
 value:0:INT[-4]
 value:0:WIS[0+1d24]
-value:0:DEX[-6+1d24]
-value:0:CON[0+1d6]
+value:0:DEX[-4]
+value:0:CON[2+1d8]
 value:0:CHR[-3]
 # + don't eat normal food, but drink from fountains
 # + immune to polymorph
@@ -495,6 +495,7 @@ shape:1:sleepy ent
 value:0:MANA[5+-1d10]
 player-flags:0:CAN_SWIM
 obj-flag:1:CANT_FLY
+obj-flag:0:BAD_SHOOTER
 # stealth -6
 value:0:STEALTH[-1+-1d5M25]
 # perma vulnerability; fire imm makes it less harsh
@@ -510,6 +511,7 @@ obj-flag:0:IMPAIR_HP
 #obj-flag:25:SEE_INVIS
 #obj-flag:25:ESP_ANIMAL
 
+# big green dudes.. got a bird. live in mountains. use throwing weapons
 name:Thunderlord
 skill-disarm-phys:-6
 skill-disarm-magic:-6
@@ -530,9 +532,9 @@ weight:240:60
 obj-flag:5:ESP_DRAGON
 gift:food:Hard Biscuit:1:1
 # 4 0 0 0 3
-value:0:STR[-1+1d10]
-value:0:INT[-1+1d30]
-value:0:WIS[-1+1d30]
+value:0:STR[0+1d12]
+value:0:INT[0]
+value:0:WIS[0]
 value:0:DEX[0]
 value:0:CON[-6+1d4]
 value:0:CHR[-4]
@@ -540,6 +542,7 @@ value:0:CHR[-4]
 value:0:TUNNEL[-1+-1d15]
 obj-flag:1:AGGRAVATE
 obj-flag:1:HUNGER
+obj-flag:0:BAD_SHOOTER
 value:0:MANA[4+-1d6M25]
 # player-flags:0:THUNDERLORD - is actually ESP_RADIUS (ESP with expanding radius)
 
@@ -575,6 +578,7 @@ value:0:CHR[-5]
 # - 1/13 hp
 value:0:MANA[5+-1d10M40]
 obj-flag:50:HUNGER
+obj-flag:0:CLUMSY
 player-flags:0:DRAGON | PERM_SHAPE
 attack:claw:none:1:0:NONE
 attack:bite:none:5:4:DAM
@@ -619,6 +623,7 @@ value:50:DAM_RED[5]
 value:0:MANA[10]
 value:10:TUNNEL[1+1d10]
 value:35:RES_CHAOS[1]
+obj-flag:0:CLUMSY
 player-flags:25:SEE_ORE
 player-flags:0:HYDRA | PERM_SHAPE
 attack:bite: (circular):1:0:CIRCLE
@@ -852,7 +857,7 @@ age:20:10
 height:88:9
 weight:233:45
 #4 -2 -2 -2 3
-value:0:STR[1+1d15]
+value:0:STR[2+1d24]
 value:0:INT[-2]
 value:0:WIS[-2]
 value:0:DEX[-2]
@@ -862,6 +867,7 @@ gift:food:Hard Biscuit:1:1
 value:20:MOVES[1+1d2]
 # + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
+obj-flag:0:CLUMSY
 obj-flag:1:LIMITED_TELE
 # allow certain escapes..
 # - less gold at start
@@ -894,15 +900,16 @@ height:85:9
 weight:230:45
 gift:mushroom:Vigor:1:1
 #3 0 -1 -1 3
-value:0:STR[1+1d15M32]
-value:0:INT[-4+1d7M30]
+value:0:STR[2+1d15M16]
+value:0:INT[-1+1d30]
 value:0:WIS[-4+1d15]
 value:0:DEX[0+-1d30M32]
 value:0:CON[1+1d15M32]
 value:0:CHR[-5]
-value:0:INFRA[1+1d7]
+value:0:INFRA[2+1d8]
 value:0:MOVES[-9]
 value:0:STEALTH[0+1d30]
+obj-flag:0:CLUMSY
 obj-flag:1:SUST_INT
 value:0:TUNNEL[1]
 value:0:MANA[1]
@@ -926,7 +933,7 @@ height:150:5
 weight:240:22
 gift:cobble:Cobble:7:13
 #7 -8 -8 -5 4
-value:0:STR[1+1d8]
+value:0:STR[3+1d12]
 value:0:INT[-4]
 value:0:WIS[-4]
 value:0:DEX[-5]
@@ -938,13 +945,14 @@ obj-flag:1:SUST_STR
 obj-flag:1:REGEN
 player-flags:0:RACE_REGEN
 obj-flag:1:HUNGER
-value:0:MOVES[-1+-1d5]
+value:0:MOVES[-1+-1d6]
 value:50:SPEED[-1]
 value:0:RES_POIS[1]
 value:25:RES_SHARD[1]
 value:0:RES_LIGHT[-1]
 value:0:DAM_RED[1+1d5]
 player-flags:0:TROLL
+obj-flag:0:CLUMSY
 obj-flag:1:CANT_FLY
 
 name:Orc
@@ -1078,6 +1086,7 @@ value:0:RES_LIGHT[-1]
 value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
 #/// 'night' bonuses + regen hp..
+#/// bad at shooting and other precise stuff at night..
 #/// hardcoded CUT_1 (15) & CUT_2 (50) at night
 #/// - howls at night
 #value:50:RES_DARK[++] at night
@@ -1099,7 +1108,7 @@ skill-save:5
 skill-stealth:-3
 skill-search:-10
 skill-melee:-11
-skill-shoot:-19
+skill-shoot:-25
 skill-dig:0
 hitdie:9
 # +10%
@@ -1110,7 +1119,7 @@ height:68:5
 weight:140:12
 gift:food:Maggoty bread:1:1
 #2 -4 -4 -1 -5
-value:0:STR[-2+1d10M20]
+value:0:STR[2]
 value:0:INT[0+-1d12]
 value:0:WIS[0+-1d12]
 value:0:DEX[-1]
@@ -1153,7 +1162,7 @@ value:0:CHR[-9+1d4]
 #/// make more cool, but also dangerous cause of 'light', holy spells (paladins..)
 #/// maybe prevent drink 'good' potions? Instead drink !poison etc
 # + black breath
-#/// - during the day: -HP, regen HP, skills
+#/// - during the day: -HP, regen HP, mana, skills; especially shooting
 #/// can't eat normal food. instead nourish when kill humanoids
 value:0:INFRA[0+1d3]
 obj-flag:1:PROT_FEAR
@@ -1216,7 +1225,7 @@ height:70:5
 weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
-value:0:STR[-5+1d7]
+value:0:STR[0+1d24]
 value:0:INT[-4+1d7]
 value:0:WIS[-4+1d7]
 value:0:DEX[-5+1d8]
@@ -1258,7 +1267,7 @@ height:72:5
 weight:160:23
 gift:food:Stolen mushroom:1:1
 #2 3 3 1 1
-value:0:STR[-5+1d7]
+value:0:STR[1+1d30]
 value:0:INT[-4+1d7]
 value:0:WIS[-4+1d7]
 value:0:DEX[-5+1d8]
@@ -1304,7 +1313,7 @@ height:145:8
 weight:210:12
 gift:potion:Infravision:2:3
 #6 2 -4 2 3
-value:0:STR[1+1d10]
+value:0:STR[3+1d15]
 value:0:INT[-4+1d8]
 value:0:WIS[-4]
 value:0:DEX[-6+1d6]
@@ -1362,7 +1371,7 @@ height:81:5
 weight:155:12
 gift:scroll:Holy Prayer:1:1
 #2 0 4 1 2
-value:0:STR[-4+1d8]
+value:0:STR[-1+1d15]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d6]
 value:0:DEX[-4+1d10]
@@ -1427,7 +1436,7 @@ skill-save:9
 skill-stealth:-2
 skill-search:-5
 skill-melee:3
-skill-shoot:-12
+skill-shoot:-25
 skill-dig:0
 hitdie:12
 exp:100:125
@@ -1467,7 +1476,7 @@ skill-save:-5
 skill-stealth:-3
 skill-search:-10
 skill-melee:7
-skill-shoot:-5
+skill-shoot:-25
 skill-dig:10
 hitdie:11
 exp:100:125
@@ -1552,7 +1561,7 @@ skill-search:5
 skill-melee:5
 skill-shoot:0
 skill-dig:0
-hitdie:13
+hitdie:12
 exp:100:125
 history:100
 age:22:8
@@ -1560,7 +1569,7 @@ height:190:25
 weight:220:50
 gift:crop:Carrot:1:1
 # 3 1 2 0 0
-value:0:STR[-3+1d6]
+value:0:STR[0+1d15]
 value:0:INT[-4+1d7]
 value:0:WIS[-4+1d8]
 value:0:DEX[-5+1d9]
@@ -1580,7 +1589,7 @@ value:10:RES_FIRE[1]
 value:20:RES_COLD[1]
 value:30:RES_ACID[1]
 value:40:RES_ELEC[1]
-value:15:SPEED[1]
+value:30:SPEED[1]
 value:1:MOVES[-1]
 value:0:MANA[4+-1d6M25]
 obj-flag:50:SLOW_DIGEST
@@ -1625,6 +1634,7 @@ value:0:MANA[1d5]
 # less money at start
 obj-flag:1:NO_TELEPORT
 obj-flag:1:HUNGER
+obj-flag:0:CLUMSY
 #obj-flag:5:SUST_STR
 #obj-flag:10:SUST_DEX
 #obj-flag:15:SUST_CON
@@ -1699,7 +1709,7 @@ height:82:3
 weight:244:23
 gift:scroll:Phase Door:3:4
 ###########
-value:0:STR[-5+1d9]
+value:0:STR[0]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[-5+1d9]
@@ -1710,6 +1720,7 @@ brand:20:29:ELEC_2
 brand:30:39:COLD_2
 brand:40:49:FIRE_2
 brand:50:50:ACID_2
+obj-flag:0:CLUMSY
 ###########
 #value:0:RES_ELEC[-1]
 #value:20:RES_ELEC[++]
@@ -1796,7 +1807,8 @@ skill-disarm-magic:-50
 skill-device:-50
 skill-save:-20
 skill-stealth:0
-skill-search:10
+# !
+skill-search:20
 skill-melee:-10
 skill-shoot:-10
 skill-dig:0
@@ -1807,15 +1819,16 @@ age:10:5
 height:28:3
 weight:51:6
 gift:food:Handful of Dried Fruits:1:1
-# -3 -1 1 5 -2
-value:0:STR[-3]
-value:0:INT[-3+1d20]
+# -2 1 1 5 -2
+value:0:STR[-2]
+value:0:INT[-3+1d12]
 value:0:WIS[-2+1d15]
-value:0:DEX[0+1d9]
+value:0:DEX[5]
 value:0:CON[-2]
 value:0:CHR[-9]
 value:0:INFRA[1+1d6]
 brand:15:50:POIS_2
+obj-flag:0:CLUMSY
 # value:0:RES_POIS[1]
 #value:30:RES_POIS[3] hardcoded
 value:0:MANA[4+-1d12]
@@ -1867,10 +1880,9 @@ value:0:DEX[0+1d8]
 value:0:CON[0+1d8]
 value:0:CHR[-20]
 obj-flag:1:FEATHER
-obj-flag:1:PROT_FEAR
 obj-flag:25:SEE_INVIS
 value:0:INFRA[1+1d15]
-value:0:SPEED[1+1d12]
+value:29:SPEED[1+1d4]
 player-flags:30:BEAM
 player-flags:40:ZERO_FAIL
 player-flags:0:KNOW_ZAPPER
@@ -1885,12 +1897,11 @@ value:30:RES_COLD[1]
 value:40:RES_TIME[1]
 value:50:RES_SHARD[1]
 obj-flag:1:ESP_DEMON
-slay:25:50:DEMON_3
+slay:35:50:DEMON_3
 # -
 # got less gold at start
 player-flags:0:NO_BOOTS
 obj-flag:1:IMPAIR_HP
-obj-flag:1:IMPAIR_MANA
 # hardcoded: no feelings (monster/object).
 # rethink...
 
@@ -1902,7 +1913,7 @@ skill-save:-1
 skill-stealth:1
 skill-search:15
 skill-melee:-5
-skill-shoot:-2
+skill-shoot:2
 skill-dig:0
 gift:amulet:Adornment:1:1
 hitdie:9
@@ -1935,7 +1946,7 @@ skill-save:5
 skill-stealth:0
 skill-search:-15
 skill-melee:25
-skill-shoot:-15
+skill-shoot:-25
 skill-dig:0
 hitdie:13
 # @49: 150%
@@ -2054,6 +2065,7 @@ height:58:4
 weight:115:4
 gift:potion:Heroism:2:2
 # 0 0 -1 3 0
+# get nourishment from killing rodents
 value:0:STR[-1+1d40]
 value:0:INT[-2+1d24]
 value:0:WIS[-3+1d24]
@@ -2117,11 +2129,11 @@ age:63:7
 height:35:2
 weight:5:1
 gift:scroll:Light:6:12
-# -5 3 -1 -2 -1
+# -5 3 -1 2 -1
 value:0:STR[-3+-1d24]
 value:0:INT[-1+1d12]
 value:0:WIS[-3+1d24]
-value:0:DEX[-2]
+value:0:DEX[2]
 value:0:CON[-1]
 value:0:CHR[-3]
 value:0:LIGHT[1+1d24]
@@ -2135,8 +2147,9 @@ obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
 #value:0:RES_LIGHT[1]
 #value:35:RES_LIGHT[++] hardcoded
-value:50:RES_MANA[1]
+value:35:RES_MANA[1]
 # -
+obj-flag:0:CLUMSY
 value:0:DAM_RED[0+-1d5]
 value:0:SPEED[1+-1d40]
 value:0:RES_DARK[-1]
@@ -2185,7 +2198,7 @@ skill-disarm-phys:-50
 skill-disarm-magic:-50
 skill-device:-50
 skill-save:20
-skill-stealth:3
+skill-stealth:4
 skill-search:-20
 skill-melee:-15
 skill-shoot:-15
@@ -2198,12 +2211,12 @@ age:82:3
 height:98:4
 weight:31:2
 gift:scroll:Darkness:6:13
-#-3 0 0 0 -2
+#-3 0 0 0 -3
 value:0:STR[-3]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[0]
-value:0:CON[-3+1d30]
+value:0:CON[-3]
 value:0:CHR[-9]
 value:0:INFRA[5+1d5]
 obj-flag:1:SLOW_DIGEST
@@ -2215,17 +2228,21 @@ value:0:RES_LIGHT[-1]
 value:0:RES_POIS[1]
 obj-flag:10:HOLD_LIFE
 obj-flag:20:SEE_INVIS
-value:30:RES_DARK[1]
-value:40:RES_NETHER[1]
-value:50:RES_TIME[1]
+value:0:RES_TIME[1]
+value:0:RES_NETHER[1]
+value:0:RES_DARK[1]
 value:0:TUNNEL[-10]
 value:0:MOVES[-1+-1d9]
 # !
+# hardcoded: no feelings (monster/object).
 player-flags:0:NO_RECALL
+obj-flag:0:CLUMSY
 # add minor drain exp? drain_exp_0
 #obj-flag:50:DRAIN_EXP
 # ? aggro ?
 # remove forms.. hardcode passwall
+#
+# accidentally go deep descent..
 value:0:MANA[4+-1d12]
 ##########################PASS_WALL forms:
 player-flags:0:SHAPECHANGE
@@ -2255,8 +2272,8 @@ age:50:8
 height:47:4
 weight:60:12
 gift:mushroom:Stoneskin:1:1
-#0 4 -2 -3 -2
-value:0:STR[-4+1d12]
+#-1 4 -2 -3 -2
+value:0:STR[-1]
 value:0:INT[0+1d12]
 value:0:WIS[-2]
 value:0:DEX[-3]
@@ -2275,6 +2292,7 @@ value:0:MANA[8+-1d6]
 value:0:RES_LIGHT[-1]
 value:0:MOVES[-5+-1d9]
 # hardcoded: hallucinating
+obj-flag:0:CLUMSY
 player-flags:0:SHAPECHANGE
 shape:1:floating eye'
 shape:10:disenchanter eye'

@@ -1278,6 +1278,9 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
         exmsp += 1;   
 
+    if (streq(p->race->name, "Vampire") && is_daytime())
+        exmsp -= 1;   
+
     // Cap extra mana capacity from _racial_ boni at +15..
     if (exmsp > 15) exmsp = 15;
     // ..but only at lvl 50
@@ -2232,7 +2235,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->skills[SKILL_STEALTH] = 1;
         state->skills[SKILL_SEARCH] += 10;
         state->skills[SKILL_TO_HIT_MELEE] += 7;
-        state->skills[SKILL_TO_HIT_BOW] -= 15;
+        state->skills[SKILL_TO_HIT_BOW] -= 25 + p->lev;
         state->skills[SKILL_DIGGING] += 1;
         state->stat_add[STAT_STR] += 3;
         state->stat_add[STAT_INT] -= 3;
@@ -2269,7 +2272,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (p->lev > 25)
         {
             state->skills[SKILL_TO_HIT_MELEE] -= 3;
-            state->skills[SKILL_TO_HIT_BOW] -= 7;
+            state->skills[SKILL_TO_HIT_BOW] -= 7 + p->lev;
         }
     }
 
