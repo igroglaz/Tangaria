@@ -5829,7 +5829,7 @@ flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:3
-spells:BLIND | BLINK | CONF | DARKNESS | HASTE | HOLD
+spells:BLIND | BLINK | CONF | DARKNESS | HASTE
 spells:SLOW | TPORT
 drop-base:magic book:8:1:1
 friends:50:1d2:brigand
@@ -5860,7 +5860,7 @@ flags:OPEN_DOOR
 flags:FORCE_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WILD_WOOD
 spell-freq:3
-spells:BLIND | HASTE | HOLD | SLOW | CONF
+spells:BLIND | HASTE | SLOW | CONF
 spells:BO_POIS | BO_FIRE | SHAPECHANGE
 spells:S_ANIMAL
 drop-base:nature book:8:1:1

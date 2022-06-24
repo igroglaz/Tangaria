@@ -5383,7 +5383,7 @@ desc:You try to sideroll to avoid enemy attack. Sometimes it works..
 desc: Does not require mana.
 desc: Cooldown 2 turns.
 
-spell:Pain Point:10:1:22:1:0
+spell:Pain Point:10:2:22:1:0
 cooldown:7
 effect:TIMED_SET:DEADLY
 dice:2

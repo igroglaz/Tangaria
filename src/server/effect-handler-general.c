@@ -6050,12 +6050,14 @@ bool effect_handler_TIMED_SET(effect_handler_context_t *context)
     /* Hack -- Touch of Death */
     if (context->subtype == TMD_DEADLY)
     {
-        if (context->origin->player->state.stat_use[STAT_STR] < 18+120)
+        if (streq(context->origin->player->clazz->name, "Warlock") &&
+            context->origin->player->state.stat_use[STAT_STR] < 18+120)
         {
             msg(context->origin->player, "You're not strong enough to use the Touch of Death.");
             return false;
         }
-        if (context->origin->player->state.stat_use[STAT_DEX] < 18+120)
+        if (streq(context->origin->player->clazz->name, "Warlock") &&
+            context->origin->player->state.stat_use[STAT_DEX] < 18+120)
         {
             msg(context->origin->player, "You're not dextrous enough to use the Touch of Death.");
             return false;
