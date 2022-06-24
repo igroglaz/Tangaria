@@ -16291,12 +16291,12 @@ desc: saps your very soul.
 name:Chudo Yudo
 base:dragon
 color:r
-speed:120
+speed:121
 #650
-hit-points:1350
+hit-points:1111
 hearing:20
 armor-class:114
-sleepiness:20
+sleepiness:80
 depth:40
 #2
 rarity:5

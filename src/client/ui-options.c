@@ -778,9 +778,10 @@ static void keymap_create(const char *title, int kmode)
             return;
         }
         keymap_add(mode, c, keymap_buffer, true);
-        prt("To use in other sessions, save the keymaps to a file. Press a key to continue.", 17, 0);
-        ke = inkey_ex();
-        if (is_abort(ke)) Term_event_push(&ea);
+        //usability fix: no need to ask user again...
+        //prt("To use in other sessions, save the keymaps to a file. Press a key to continue.", 17, 0);
+        //ke = inkey_ex();
+        //if (is_abort(ke)) Term_event_push(&ea);
     }
 }
 
