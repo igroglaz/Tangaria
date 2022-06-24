@@ -164,7 +164,7 @@ void do_keepalive(void)
         last_sent = ticks;
         Send_keepalive();
     }
-
+#if defined(USE_GCU) || defined(USE_SDL) || defined(USE_SDL2)
     // Hack -- Update weather
     if (player->weather_type != 0)
     {
@@ -177,6 +177,7 @@ void do_keepalive(void)
             do_weather();
         }
     }
+#endif
 }
 
 
