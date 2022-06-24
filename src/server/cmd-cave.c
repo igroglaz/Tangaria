@@ -2247,22 +2247,18 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     // Some can pass trees
     // allow pass trees in town by running
-    if (square_istree(c, &grid) && (p->wpos.depth == 0))
-        ;
-    else if (square_istree(c, &grid) && streq(p->clazz->name, "Druid") && !one_in_(3))
-        ;
-    else if (square_istree(c, &grid) && streq(p->clazz->name, "Shaman") && one_in_(3))
-        ;
-    else if (square_istree(c, &grid) && streq(p->clazz->name, "Ranger") && one_in_(2))
-        ;    
-    else if (square_istree(c, &grid) && streq(p->race->name, "Ent") && !one_in_(4))
-        ;
-    else if (square_istree(c, &grid) && player_of_has(p, OF_FLYING) &&
-        !player_of_has(p, OF_CANT_FLY) && !one_in_(5))
-        ;
-    else if (square_istree(c, &grid) && player_of_has(p, OF_FEATHER) &&
-        !player_of_has(p, OF_CANT_FLY) && one_in_(3) && p->lev > 35)
-        ;
+    if (square_istree(c, &grid))
+    {
+        if (p->wpos.depth == 0) ;
+        else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent")) &&
+            magik(p->lev + 50)) ;
+        else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
+            magik(p->lev)) ;
+        else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY) &&
+            !one_in_(5)) ;
+        else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY) &&
+            one_in_(3) && p->lev > 35) ;
+    }
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
