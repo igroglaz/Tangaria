@@ -337,6 +337,7 @@ static void play_ambient_sound(struct player *p)
             {
                 // Snow
                 Send_weather(p, 2, randint1(4), randint1(3));
+                sound(p, MSG_WILD_GLACIER);
 
                 if (one_in_(5))
                 {
@@ -2059,10 +2060,13 @@ static void generate_new_level(struct player *p)
     if (!chunk_has_players(&p->wpos)) return;
 
 ////* Play ambient sound on change of level. */
-    
+
     // north areas always got snow
     if (p->wpos.depth == 0 && p->wpos.grid.x == 0 && p->wpos.grid.y == 4) // Helcaraxe
     {
+        // check if it's raining then stop playback
+        if (p->weather_type == 1) sound(p, MSG_SILENT0);
+
         Send_weather(p, 2, randint1(4), randint1(3));
         sound(p, MSG_WILD_GLACIER);
     }
