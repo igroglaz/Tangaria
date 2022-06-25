@@ -135,8 +135,8 @@ static void sense_object(struct player *p, struct object *obj, bool tocarry)
     // fighter class can pseudo-id weapon curses
     if (obj->curses && streq(p->clazz->name, "Fighter") && tval_is_weapon(obj))
         cursed = true;
-
-    cursed = (obj->curses && obj->known->curses);
+    else
+        cursed = (obj->curses && obj->known->curses);
 
     /* Hack -- worthless objects */
     worthless = worthless_p(obj);
