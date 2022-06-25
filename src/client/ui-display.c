@@ -1963,11 +1963,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDA; break;
-                            case 2: c = 0xDB; break;
-                            case 3: c = 0xDC; break;
-                            case 4: c = 0xDD; break;
-                            case 5: c = 0xDE; break;
+                            case 1: c = 0xDF; break;
+                            case 2: c = 0xE0; break;
+                            case 3: c = 0xE1; break;
+                            case 4: c = 0xE2; break;
+                            case 5: c = 0xE3; break;
                         }
                     }
                     else
@@ -1983,11 +1983,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDF; break;
-                            case 2: c = 0xE0; break;
-                            case 3: c = 0xE1; break;
-                            case 4: c = 0xE2; break;
-                            case 5: c = 0xE3; break;
+                            case 1: c = 0xDA; break;
+                            case 2: c = 0xDB; break;
+                            case 3: c = 0xDC; break;
+                            case 4: c = 0xDD; break;
+                            case 5: c = 0xDE; break;
                         }
                     }
                     else
