@@ -864,7 +864,7 @@ static int average_spell_stat(struct player *p, struct player_state *state)
     // non-magic users skills based on STR/DEX
     // migrate later on to: if (streq(book->realm->name, "common")) .. will be "skillbook"
     if (streq(p->clazz->name, "Fighter"))
-        return ((p->state.stat_ind[STAT_STR] + p->state.stat_ind[STAT_DEX]) / 2);
+        return ((p->state.stat_ind[STAT_STR] + p->state.stat_ind[STAT_INT]) / 2);
 
     my_strcpy(realm, book->realm->name, sizeof(realm));
 

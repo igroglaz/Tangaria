@@ -1833,7 +1833,11 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     /* Take a turn if device failed */
     else
         use_energy(p);
-    
+
+    if (obj->kind == lookup_kind_by_name(TV_FOOD, "Draught of the Ents") &&
+        streq(p->race->name, "Ent"))
+            player_inc_timed(p, TMD_FOOD, 5000, false, false);
+
 /// potion of water. gives additional satiation (+ to object.txt) if hungry
     if (obj->tval == TV_POTION)
     {

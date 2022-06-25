@@ -44,7 +44,7 @@ bool beta_version(void)
 #define VERSION_MINOR   6
 #define VERSION_PATCH   0
 #define VERSION_EXTRA   0
-#define VERSION_TANGARIA   10
+#define VERSION_TANGARIA   11
 
 // Note that it's uint16_t, so max version after << operations might be 65535.. 
 // ..which new T version marker will overflow. So for comparison we will use just T version
@@ -65,7 +65,7 @@ uint16_t current_version(void)
 #define MIN_VERSION_MINOR   6
 #define MIN_VERSION_PATCH   0
 #define MIN_VERSION_EXTRA   0
-#define MIN_VERSION_TANGARIA   10
+#define MIN_VERSION_TANGARIA   11
 
 
 uint16_t min_version(void)

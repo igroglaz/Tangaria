@@ -5346,6 +5346,9 @@ value:0:WIS[-1]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-1]
+# mana: STR+INT
+# can pseudo-ID curses
+# ... need to check his effect:TIMED_SET:DEADLY skill...
 title:Rookie
 title:Soldier
 title:Swordsman
@@ -5383,7 +5386,7 @@ desc:You try to sideroll to avoid enemy attack. Sometimes it works..
 desc: Does not require mana.
 desc: Cooldown 2 turns.
 
-spell:Pain Point:10:1:22:1:0
+spell:Pain Point:10:2:22:1:0
 cooldown:7
 effect:TIMED_SET:DEADLY
 dice:2

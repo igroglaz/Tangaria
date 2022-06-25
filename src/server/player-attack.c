@@ -325,7 +325,7 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
     if (p->timed[TMD_DEADLY] && magik(25))
     {
         *msg_type = MSG_HIT_HI_CRITICAL;
-        new_dam = 4 * dam + 30;
+        new_dam = 4 * dam; // + 30;
     }
     // now regular attacks
     else if (randint1(5000) > chance)

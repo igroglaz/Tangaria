@@ -273,9 +273,9 @@ static void play_ambient_sound(struct player *p)
     {
         if (in_town(&p->wpos))
         {
-            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  1) && one_in_(2))
+            if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  1) && one_in_(3))
             {
-                if (one_in_(5))
+                if (one_in_(6))
                     sound(p, MSG_TOWN_RARE);
                 else
                     sound(p, MSG_TOWN);
@@ -344,25 +344,12 @@ static void play_ambient_sound(struct player *p)
                     Send_weather(p, 256, 0, 0);
                 }
             }
-            else if (streq(p->locname, "Sandworm Lair"))
-            {
-                if (one_in_(3))
-                {
-                    // Sandstorm
-                    Send_weather(p, 3, randint1(4), randint1(3));
-                }
-                else if (one_in_(5))
-                {
-                    // Stop weather
-                    Send_weather(p, 256, 0, 0);
-                }
-            }
             // all other locations
             else if (p->store_num == -1)
             {
                 if ((p->weather_type == 0) || (p->weather_type == 256))
                 {
-                    if (one_in_(3))
+                    if (one_in_(5))
                     {
                         // Rain
                         Send_weather(p, 1, randint1(4), randint1(3));
