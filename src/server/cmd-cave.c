@@ -2258,6 +2258,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             !one_in_(5)) ;
         else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY) &&
             one_in_(3) && p->lev > 35) ;
+        else return;
     }
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
