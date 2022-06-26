@@ -177,7 +177,9 @@ static void write_character_dump(ang_file *fff, void *data)
         file_put(fff, "  [Last Messages]\n\n");
         while (i != p->msg_hist_ptr)
         {
-            if (!STRZERO(p->msg_log[i])) file_putf(fff, "> %s\n", p->msg_log[i]);
+            // We don't need from log *everything*
+            if ((!STRZERO(p->msg_log[i])) && (!strchr("[", *p->msg_log[i])))
+                file_putf(fff, "> %s\n", p->msg_log[i]);
             i++;
             if (i == MAX_MSG_HIST) i = 0;
         }
