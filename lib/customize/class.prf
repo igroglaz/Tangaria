@@ -232,6 +232,7 @@ class:Druid
 help:Nature magic and can shift to animals. Good at martial arts and do not use
 help: weapons. Every 5 levels can learn a new animal form to transform; some
 help: forms can cast magic spells or have innate abilities.
+help: Druids have to find their spellbooks in the dungeons; they are not for sale.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.

@@ -5204,7 +5204,7 @@ book-desc:An ancient book which contains secrets of nature.
 
 equip:nature book:[Druid Lore]:1:1:none
 
-spell:Emit Poison:1:2:30:2:0
+spell:Emit Poison:1:1:30:2:0
 cooldown:4
 effect:DAMAGE
 dice:d$S
@@ -5217,20 +5217,22 @@ desc:Creates vast sphere of poison around you.
 desc: Beware: you suffer from it too.
 desc: Cooldown 4 turns
 
-spell:Lick wounds:5:7:30:4:0
+spell:Lick wounds:5:3:30:4:0
+cooldown:2
 effect:CURE:CUT
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 5
 expr:M:PLAYER_LEVEL:/ 3 + 8
 desc:Heals you and cures your wounds.
+desc: Cooldown 2 turns
 
-spell:Herbal Tea:10:11:30:8:0
+spell:Herbal Tea:10:7:30:8:0
 effect:CURE:POISONED
 effect:CURE:BLACKBREATH
 effect:NOURISH:INC_TO
 dice:15
-desc:Cures poison and blackbreath. 
+desc:Cures poison, blackbreath and gives minimal nourishment.
 
 spell:Stone to Mud:15:8:30:12:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -5250,7 +5252,7 @@ effect:RESTORE_STAT:INT
 effect:RESTORE_STAT:STR
 effect:TIMED_INC:SLOW
 dice:5+1d10
-desc:You become sleepy, but restore your attributes and experience.
+desc:You become sleepy for some time, but restore your attributes and experience.
 
 spell:Stinking Cloud I:20:12:30:24:0
 effect:BALL:POIS:1
