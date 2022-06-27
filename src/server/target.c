@@ -506,19 +506,76 @@ static int player_wounded(struct player *p)
 }
 
 
+static int monster_wounded(struct monster *mon)
+{
+    return mon->hp * 1000 / mon->maxhp;
+}
+
+
 static int cmp_wounded(const void *a, const void *b)
 {
     struct cmp_loc *pa = (struct cmp_loc *)a;
     struct cmp_loc *pb = (struct cmp_loc *)b;
     struct player *pa_ptr = pa->data;
     struct player *pb_ptr = pb->data;
-    int idx1 = 0 - square(chunk_get(&pa_ptr->wpos), &pa->grid)->mon;
-    int idx2 = 0 - square(chunk_get(&pb_ptr->wpos), &pb->grid)->mon;
-    int w1 = player_wounded(player_get(idx1));
-    int w2 = player_wounded(player_get(idx2));
+    struct source who_body1;
+    struct source *who1 = &who_body1;
+    struct source who_body2;
+    struct source *who2 = &who_body2;
 
-    if (w1 < w2) return -1;
-    if (w1 > w2) return 1;
+    square_actor(chunk_get(&pa_ptr->wpos), &pa->grid, who1);
+    square_actor(chunk_get(&pb_ptr->wpos), &pb->grid, who2);
+
+    if (who1->player)
+    {
+        /* Player vs player: choose most wounded one */
+        if (who2->player)
+        {
+            int w1 = player_wounded(who1->player);
+            int w2 = player_wounded(who2->player);
+
+            if (w1 < w2) return -1;
+            if (w1 > w2) return 1;
+            return 0;
+        }
+
+        /* Always choose player if wounded */
+        if (who1->player->chp < who1->player->mhp) return -1;
+
+        /* Otherwise choose monster if present and wounded */
+        if (who2->monster && who2->monster->hp < who2->monster->maxhp) return 1;
+
+        return 0;
+    }
+
+    if (who1->monster)
+    {
+        /* Monster vs monster: choose most wounded one */
+        if (who2->monster)
+        {
+            int w1 = monster_wounded(who1->monster);
+            int w2 = monster_wounded(who2->monster);
+
+            if (w1 < w2) return -1;
+            if (w1 > w2) return 1;
+            return 0;
+        }
+
+        /* Always choose player if present and wounded */
+        if (who2->player && who2->player->chp < who2->player->mhp) return 1;
+
+        /* Otherwise choose monster if wounded */
+        if (who1->monster->hp < who1->monster->maxhp) return -1;
+
+        return 0;
+    }
+
+    /* Always choose player if present and wounded */
+    if (who2->player && who2->player->chp < who2->player->mhp) return 1;
+
+    /* Otherwise choose monster if present and wounded */
+    if (who2->monster && who2->monster->hp < who2->monster->maxhp) return 1;
+
     return 0;
 }
 
@@ -617,7 +674,7 @@ struct point_set *target_get_monsters(struct player *p, int mode, bool restrict_
             if (who->player && (who->player == p)) continue;
 
             /* Skip friendly/hostile players depending on mode */
-            if (who->player && !pvp_check(p, who->player, PVP_CHECK_BOTH, true, feat))
+            if (who->player)
             {
                 if ((mode & (TARGET_KILL)) && !pvp_check(p, who->player, PVP_CHECK_BOTH, true, feat))
                     continue;

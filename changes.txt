@@ -149,6 +149,7 @@ PWMAngband:
 - Fix some va_arg argument types in vstrnfmt
 - Learn FEATHER flag when walking on water
 - Fix monster AI bug
+- Fix crash when targeting a healing spell with a friendly monster in sight
 
 Coding changes
 --------------

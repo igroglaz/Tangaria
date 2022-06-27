@@ -6076,11 +6076,11 @@ static void show_motd(struct player *p)
     {
         if (first)
         {
-            msg(p, "  ");
-            //msg(p, "   ");
+            msgt(p, MSG_MOTD, "  ");
+            //msgt(p, MSG_MOTD, "   ");
             first = false;
         }
-        msg(p, buf);
+        msgt(p, MSG_MOTD, buf);
     }
 
     file_close(fp);

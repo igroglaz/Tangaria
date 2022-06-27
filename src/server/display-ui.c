@@ -5772,6 +5772,7 @@ static void display_message_aux(struct player *p, int type, const char *msg)
         // in live server we have to log *everything* to solve rule breaking
         // /rfe exclude chat messages from dump 'tomb' file last messages
         if (strchr("[", *msg)) log = true;
+        if (type == MSG_MOTD) log = false;
 
         /*
          * Log messages for each player, so we can dump last messages

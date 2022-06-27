@@ -628,6 +628,9 @@ message:DIED:r
 # MSG_VERSION
 message:VERSION:v
 
+# MSG_MOTD
+message:MOTD:w
+
 # MAngband-specific
 
 # MSG_TALK
