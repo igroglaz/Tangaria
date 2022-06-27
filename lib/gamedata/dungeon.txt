@@ -3152,7 +3152,7 @@ min-depth:28
 max-depth:35
 max-level:35
 stairs:1d2:2+1d2
-flags:STREAMS | EMPTY
+flags:STREAMS | EMPTY | OPEN_SKY
 #
 stair:9F stair down 0:9F stair up 1:10000
 #

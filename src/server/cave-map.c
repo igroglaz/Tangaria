@@ -685,9 +685,6 @@ void wiz_unlit(struct player *p, struct chunk *c)
     {
         /* PWMAngband: unlight the grid */
         square_unglow(c, &iter.cur);
-
-        /* Forget grids in the mapping area */
-        square_forget(p, &iter.cur);
     }
     while (loc_iterator_next_strict(&iter));
 

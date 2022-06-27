@@ -1,4 +1,5 @@
 /*
+/*
  * File: game-world.c
  * Purpose: Game core management of the game world
  *
@@ -98,7 +99,12 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
     else msg(p, "The sun has fallen.");
 
     /* Clear the flags for each cave grid */
-    player_cave_clear(p, false);
+    // only at daylight surface and mid-game+
+    // as we don't wanna wipe grind 'info' and 'feat' in dungeon cause
+    // of OPEN_SKY wiz_lit() (or it will erase all memorized squares).
+    // but at 25+ lvl it suits well - to make them more dangerous
+    if (p->wpos.depth == 0 || p->wpos.depth > 25)
+        player_cave_clear(p, false);
 
     /* Illuminate */
     cave_illuminate(p, c, dawn);
