@@ -199,7 +199,12 @@ static void adjust_level(struct player *p)
             // account score when gain lvls
             // it's in rotation with mon-util.c (killing uniques)
 
-            if (p->account_score == 0 && p->max_lev == 3)
+            if (p->max_lev == 50)
+            {
+                p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+            }
+            else if (p->account_score == 0 && p->max_lev == 3)
             {
                 p->account_score++;
                 msgt(p, MSG_FANFARE, "You've earned 1 account point! These points preserve even after death.");
@@ -244,7 +249,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->account_score < 50)
                 {
-                    if (one_in_(51 - p->max_lev))
+                    if (one_in_(51 - p->max_lev) || !(p->max_lev % 15))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -252,7 +257,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->account_score < 100)
                 {
-                    if (p->max_lev >= 10 && one_in_(51 - p->max_lev))
+                    if (p->max_lev >= 10 && (one_in_(51 - p->max_lev) || !(p->max_lev % 20)))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -260,7 +265,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->account_score < 200)
                 {
-                    if (p->max_lev >= 15 && one_in_(51 - p->max_lev))
+                    if (p->max_lev >= 15 && (one_in_(51 - p->max_lev) || !(p->max_lev % 25)))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -268,7 +273,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->account_score < 500)
                 {
-                    if (p->max_lev >= 20 && one_in_(51 - p->max_lev))
+                    if (p->max_lev >= 20 && (one_in_(51 - p->max_lev) || !(p->max_lev % 30)))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -276,7 +281,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->account_score < 999)
                 {
-                    if (p->max_lev >= 25 && one_in_(51 - p->max_lev))
+                    if (p->max_lev >= 25 && (one_in_(51 - p->max_lev) || !(p->max_lev % 35)))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
@@ -284,7 +289,7 @@ static void adjust_level(struct player *p)
                 }
                 else if (p->max_lev >= 30)
                 {
-                    if (one_in_(51 - p->max_lev))
+                    if (one_in_(51 - p->max_lev) || !(p->max_lev % 40))
                     {
                         p->account_score++;
                         msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);

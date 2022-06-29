@@ -1359,13 +1359,13 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         {
             if (streq(mon->race->name, "Sauron, the Sorcerer"))
             {
-                p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                p->account_score +=3;
+                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
             }
             else if (mon->race->base == lookup_monster_base("Morgoth")) // Morgy
             {
-                p->account_score += 3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                p->account_score += 10;
+                msgt(p, MSG_FANFARE, "You've earned 10 account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Tulkas, Champion of the Valar"))
             {
@@ -1374,18 +1374,18 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             }
             else if (streq(mon->race->name, "Varda, Queen of the Valar"))
             {
-                p->account_score += 3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                p->account_score += 4;
+                msgt(p, MSG_FANFARE, "You've earned 4 account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Manwe, King of the Valar"))
             {
-                p->account_score += 3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                p->account_score += 5;
+                msgt(p, MSG_FANFARE, "You've earned 6 account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Melkor, Lord of Darkness"))
             {
-                p->account_score += 5;
-                msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
+                p->account_score += 7;
+                msgt(p, MSG_FANFARE, "You've earned 7 account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Eru Iluvatar"))
             {
