@@ -206,6 +206,31 @@ void do_cmd_breath(struct player *p, int dir)
         
         return;
     }
+    // druid cat-form can teleport to closest monster; up to 5 distance
+    else if (p->poly_race && streq(p->poly_race->name, "cat-form"))
+    {
+        // dice for distance
+        char dice_string[5];
+        // convert int to char with '0'
+        dice_string[0] = (p->lev / 15 + 2) + '0';
+
+        use_energy(p);
+
+        /* Make the breath attack an effect */
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_TELEPORT_TO;
+        // init dice
+        effect->dice = dice_new();
+        // fill dice struct
+        dice_parse_string(effect->dice, dice_string);
+
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+
+        return;
+    }
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);
