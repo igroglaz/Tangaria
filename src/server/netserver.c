@@ -2137,6 +2137,9 @@ int Send_death_cause(struct player *p)
     connection_t *connp = get_connp(p, "death_cause");
     if (connp == NULL) return 0;
 
+    if (p->death_info.lev < 1 || p->death_info.lev > 50)
+        ; // breakpoint to catch the bug with fake tombstone due hunger(?)
+
     return Packet_printf(&connp->c, "%b%s%hd%ld%ld%hd%hd%hd%s%s", (unsigned)PKT_DEATH_CAUSE,
         p->death_info.title, (int)p->death_info.lev, p->death_info.exp,
         p->death_info.au, (int)p->death_info.wpos.grid.y, (int)p->death_info.wpos.grid.x,
