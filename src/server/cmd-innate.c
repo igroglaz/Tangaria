@@ -231,6 +231,24 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    // druid wolf-form can summon wolf by loud howl
+    else if (p->poly_race && streq(p->poly_race->name, "wolf-form"))
+    {
+        struct chunk *c = chunk_get(&p->wpos);
+
+        use_energy(p);
+
+        // howl
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+        // summon
+        summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+        msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
+
+        player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
+
+        return;
+    }
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);
