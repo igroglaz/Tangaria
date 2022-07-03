@@ -32247,7 +32247,120 @@ blow:BITE:HURT:1d3
 flags:NO_PASS_TREE
 desc:Very vicious rodent. It can bite (quite painfully) all who threats its master.
 
-### !!! move Test dummy there, to the bottom... so it will be easier to change it
+#druid forms:
 
+name:bird-form
+base:bird
+color:T
+speed:112
+hit-points:45
+hearing:10
+smell:10
+armor-class:10
+sleepiness:0
+depth:1
+rarity:0
+weight:3
+experience:0
+blow:CLAW:HURT:1d2
+flags:ANIMAL | OPEN_DOOR | WILD_WOOD | LEVITATE
+desc:A small bird. You noticed unusual intelligence in its eyes.
+
+name:rat-form
+base:rodent
+color:Z
+speed:112
+hit-points:45
+hearing:10
+smell:10
+armor-class:10
+sleepiness:0
+depth:1
+rarity:0
+weight:5
+experience:0
+blow:CLAW:HURT:1d3
+flags:ANIMAL | OPEN_DOOR | WILD_WOOD
+desc:A small rat. Apparently it can penetrate even through little cracks.
+
+name:boar-form
+base:quadruped
+color:Y
+speed:112
+hit-points:45
+hearing:10
+smell:10
+armor-class:10
+sleepiness:0
+depth:1
+rarity:0
+weight:30
+experience:0
+blow:CLAW:HURT:1d4
+flags:ANIMAL | OPEN_DOOR
+desc:A boar can find and dig out food even in unusual places.
+
+name:cat-form
+base:feline
+color:s
+speed:110
+hit-points:78
+hearing:50
+smell:20
+armor-class:25
+sleepiness:5
+depth:1
+rarity:0
+weight:110
+experience:0
+blow:CLAW:HURT:1d4
+blow:BITE:HURT:1d4
+spell-freq:4
+spells:TELE_TO
+flags:ANIMAL | OPEN_DOOR
+desc:A huge cat. It looks at you with smart eyes.
+
+name:wolf-form
+base:canine
+color:W
+speed:110
+hit-points:325
+hearing:30
+smell:50
+armor-class:50
+sleepiness:40
+depth:1
+rarity:0
+weight:130
+experience:0
+blow:BITE:HURT:1d5
+blow:BITE:HURT:1d5
+blow:BITE:HURT:1d5
+spell-freq:3
+spells:S_KIN
+flags:ANIMAL | OPEN_DOOR
+desc:This huge wolf looks at you with curiosity.
+
+name:bear-form
+base:quadruped
+color:U
+speed:110
+hearing:20
+smell:15
+armor-class:75
+sleepiness:25
+depth:1
+rarity:0
+weight:300
+experience:0
+blow:CLAW:HURT:1d6
+blow:BITE:HURT:1d6
+blow:CRUSH:HURT:1d6
+flags:ANIMAL | OPEN_DOOR
+desc:In the eyes of this bear, there glimmers the faintest light of
+desc: intelligence.
+
+### !!! move Test dummy there, to the bottom... so it will be easier to change it
+# BUT.. change druid class forms IDs after that!
 
 # # leave empty line for EOF

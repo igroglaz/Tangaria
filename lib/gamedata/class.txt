@@ -5135,14 +5135,14 @@ desc: You can use this skill once per 300 turns.
 ############### CLASS TEMPLATE for Druid ###############
 name:Druid
 color:Y
-skill-disarm-phys:30:10
-skill-disarm-magic:30:10
-skill-device:24:10
-skill-save:30:10
-skill-stealth:3:0
-skill-search:12:12
-skill-melee:45:20
-skill-shoot:40:30
+skill-disarm-phys:20:12
+skill-disarm-magic:20:12
+skill-device:20:12
+skill-save:18:12
+skill-stealth:0:0
+skill-search:8:15
+skill-melee:35:20
+skill-shoot:35:30
 skill-dig:0:0
 hitdie:5
 equip:light:Wooden Torch:1:3:none
@@ -5157,32 +5157,19 @@ value:0:DEX[-2]
 value:0:CON[-2]
 value:0:CHR[1]
 player-flags:0:MARTIAL_ARTS | SHAPECHANGE
+# hp independent from poly form
 obj-flag:0:CLUMSY
 # later: can wear only light (<10) armor - penalties
 # path fo druid: has to find his books in the dungeon. they can't be bought
 value:0:BLOWS[1d1]
-shape:5:cave bear
-shape:5:panther
-shape:10:grizzly bear
-shape:10:yeti
-shape:15:griffon
-shape:15:sasquatch
-shape:20:werebear
-shape:20:great eagle
-shape:20:abyss spider
-shape:25:wyvern
-shape:25:multi-hued hound
-shape:30:5-headed hydra
-shape:30:minotaur
-shape:35:7-headed hydra
-shape:35:plasma hound
-shape:35:ancient spider
-shape:40:11-headed hydra
-shape:40:giant roc
-shape:45:maulotaur
-shape:45:winged horror
-shape:50:jabberwock
-shape:50:aether hound
+value:0:STEALTH[0+1d15]
+#shapes
+shape:1:bird-form
+shape:5:rat-form
+shape:10:boar-form
+shape:15:cat-form
+shape:20:wolf-form
+shape:25:bear-form
 title:Wanderer
 title:Nurturer
 title:Gardener
@@ -5209,7 +5196,7 @@ cooldown:4
 effect:DAMAGE
 dice:d$S
 expr:S:PLAYER_LEVEL:* 2
-effect:BLAST:POIS:5
+effect:BLAST:POIS:4
 dice:d$B
 expr:B:PLAYER_LEVEL:+ 1
 msg_other: emites a poison cloud.
@@ -5218,14 +5205,12 @@ desc: Beware: you suffer from it too.
 desc: Cooldown 4 turns
 
 spell:Lick wounds:5:3:30:4:0
-cooldown:2
 effect:CURE:CUT
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 5
 expr:M:PLAYER_LEVEL:/ 3 + 8
 desc:Heals you and cures your wounds.
-desc: Cooldown 2 turns
 
 spell:Herbal Tea:10:7:30:8:0
 effect:CURE:POISONED

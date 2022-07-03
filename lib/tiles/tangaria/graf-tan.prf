@@ -32489,6 +32489,14 @@ object:reagent:Rare Mineral:0x9A:0xB9
 object:reagent:Crafting Material:0x87:0x86
 #object:reagent:Magic Essence:0x9A:0xC3
 
+# druid forms:
+monster:bird-form:0x9B:0x8E
+monster:rat-form:0x9B:0x9F
+monster:boar-form:0x9B:0xC4
+monster:cat-form:0x9B:0x91
+monster:wolf-form:0x8F:0xDF
+monster:bear-form:0x9B:0xC3
+
 # Load the special player pictures
 %:xtra-tan.prf
 
