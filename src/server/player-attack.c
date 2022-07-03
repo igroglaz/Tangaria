@@ -1145,8 +1145,9 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     dmg += player_damage_bonus(&p->state);
 
     /* PWMAngband: freezing aura reduces damage  */
-    if (target->player && ((target->player->timed[TMD_ICY_AURA] > 0) ||
-        (target->player->timed[TMD_DEFENSIVE_STANCE])))
+    if (target->player && (target->player->timed[TMD_ICY_AURA] > 0 ||
+        target->player->timed[TMD_DEFENSIVE_STANCE] ||
+        (target->player->poly_race && streq(target->player->poly_race->name, "bear-form"))))
         dmg = (dmg * 90) / 100;
 
     /* No negative damage; change verb if no damage done */
