@@ -2246,10 +2246,12 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     // Some can pass trees
-    // allow pass trees in town by running
     if (square_istree(c, &grid))
     {
-        if (p->wpos.depth == 0) ;
+        // allow pass trees in town by running OR for druid bird/rat form
+        if (p->wpos.depth == 0 || (p->poly_race && (streq(p->poly_race->name, "bird-form") ||
+            streq(p->poly_race->name, "rat-form")))) ;
+        // other cases
         else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent")) &&
             magik(p->lev + 50)) ;
         else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
@@ -2260,6 +2262,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             one_in_(3) && p->lev > 35) ;
         else return;
     }
+    // druid class 'rat' form can pass walls sometimes (except permawalls)
+    else if (p->poly_race && streq(p->poly_race->name, "rat-form") &&
+            !square_isperm(c, &grid) && magik(p->lev / 5)) ;
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
@@ -2313,7 +2318,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 msgt(p, MSG_HITWALL, "There is a door blocking your way.");
 
             /* Tree */
-            else if (square_istree(c, &grid) && !streq(p->clazz->name, "Shaman"))
+            else if (square_istree(c, &grid))
                 msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
 
             /* Wall (or secret door) */
