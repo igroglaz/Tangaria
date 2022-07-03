@@ -522,6 +522,9 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
+    /////////////////////////////////////
+    //////// RACIAL MISC EFFECTS ////////
+    /////////////////////////////////////
     // Imp got 'perma-curse' - rng teleport
     // at first it's more often and at bigger distance, but later
     // it becomes more stable
@@ -559,7 +562,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     }
 
     // Werewolves howl from time to time at night waking everyone :D
-    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    else if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
         int howl_chance = 100 + (p->lev * 2);
         if (one_in_(howl_chance))
@@ -573,11 +576,24 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
         }
     }
-
     // Beholders may hallucinate from time to time
-    if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
+    else if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
+    /* Damned constantly hunted by monsters */
+    else if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
+        one_in_(50 + (p->lev * 9)))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
 
+        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+    }   
+
+/////////////////////////////////////
+///////// SUMMONING EFFECTS /////////
+/////////////////////////////////////
     /* Traveller's dog */
     if (streq(p->clazz->name, "Traveller") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
@@ -590,9 +606,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         else if (p->lev > 49)
             summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
     }
-
     /* Trader's cat */
-    if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
@@ -603,9 +618,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         else if (p->lev > 49)
             summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
     }
-
     /* Scavenger's rat */
-    if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev > 9 && p->lev < 32)
             summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
@@ -614,9 +628,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         else if (p->lev > 43)
             summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
     }
-
     /* Tamer class: pets */
-    if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
         if (p->lev < 5)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
@@ -641,22 +654,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         else if (p->lev > 49)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
     }
-
-    /* Thunderlord race: eagle-companion */
-    if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev < 20)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
-        else if (p->lev < 30) // else if, so no need to set lower border req.
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
-        else if (p->lev < 50)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
-        else if (p->lev > 49)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
-    }
-
     /* Necromancer class golem */
-    if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
+    else if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -688,9 +687,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             }
         }
     }
-
     /* Assassins class sentry */
-    if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
+    else if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -726,18 +724,18 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             }
         }
     }
-
-    /* Damned constantly hunted by monsters */
-    if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
-        one_in_(50 + (p->lev * 9)))
+    /* Thunderlord race: eagle-companion */
+    else if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
     {
-        struct source who_body;
-        struct source *who = &who_body;
-
-        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
-    }    
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
+        else if (p->lev < 30) // else if, so no need to set lower border req.
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
+    }
 
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
