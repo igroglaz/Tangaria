@@ -991,3 +991,18 @@ bool player_square_in_bounds_fully(struct player *p, struct loc *grid)
     return ((grid->x > 0) && (grid->x < p->cave->width - 1) &&
         (grid->y > 0) && (grid->y < p->cave->height - 1));
 }
+
+
+struct player *player_from_id(int id)
+{
+    int i;
+
+    for (i = 1; i <= NumPlayers; i++)
+    {
+        struct player *p = player_get(i);
+
+        if (id == p->id) return p;
+    }
+
+    return NULL;
+}

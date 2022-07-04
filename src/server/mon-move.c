@@ -214,7 +214,7 @@ static void get_move_find_range(struct player *p, struct monster *mon)
     int flee_range = z_info->max_sight + z_info->flee_range;
 
     /* Controlled monsters won't run away */
-    if (master_in_party(mon->master, p->id))
+    if (!master_is_hostile(mon->master, p->id))
         mon->min_range = 1;
 
     /* All "afraid" monsters will run away */
@@ -1767,8 +1767,7 @@ static bool monster_turn_attack_glyph(struct player *p, struct monster *mon, str
 static bool monster_turn_try_push_retaliate(struct source *who, struct monster *mon,
     struct monster *mon1, struct source *target)
 {
-    if (!who->monster && master_in_party(mon1->master, who->player->id) &&
-            !master_in_party(mon->master, mon1->master))
+    if (!who->monster && master_is_hostile(mon->master, mon1->master))
     {
         int chance = 25;
 
@@ -1813,7 +1812,7 @@ static bool monster_turn_try_push(struct source *who, struct chunk *c, struct mo
     source_both(target, who->player, mon1);
 
     /* Always attack if this is our target */
-    if (who->monster && (who->monster == mon1) && !master_in_party(mon->master, mon1->master))
+    if (who->monster && (who->monster == mon1) && master_is_hostile(mon->master, mon1->master))
     {
         /* Do the attack */
         make_attack_normal(mon, target);
@@ -1872,7 +1871,7 @@ static bool monster_turn_try_push(struct source *who, struct chunk *c, struct mo
         }
 
         /* Otherwise, attack the monster (skip if non hostile) */
-        if (who->monster && !master_in_party(mon->master, mon1->master))
+        if (who->monster && master_is_hostile(mon->master, mon1->master))
         {
             /* Do the attack */
             make_attack_normal(mon, target);
@@ -1890,7 +1889,7 @@ static bool monster_turn_try_push(struct source *who, struct chunk *c, struct mo
     }
 
     /* Always attack stronger monsters */
-    if (who->monster && !master_in_party(mon->master, mon1->master))
+    if (who->monster && master_is_hostile(mon->master, mon1->master))
     {
         /* Do the attack */
         make_attack_normal(mon, target);
@@ -2348,8 +2347,8 @@ static struct monster *get_closest_target(struct chunk *c, struct monster *mon, 
         /* Skip the origin */
         if (current_m_ptr == mon) continue;
 
-        /* Skip controlled monsters */
-        if (master_in_party(current_m_ptr->master, mon->master)) continue;
+        /* Skip non hostile monsters */
+        if (!master_is_hostile(mon->master, current_m_ptr->master)) continue;
 
         /* Check if monster has LOS to the target */
         if (!los(c, &mon->grid, &current_m_ptr->grid)) continue;
@@ -2778,12 +2777,10 @@ static void get_closest_player(struct chunk *c, struct monster *mon)
     /* Controlled monsters without a target will always try to reach their master */
     if ((mon->status == MSTATUS_CONTROLLED) && !closest)
     {
-        for (i = 1; i <= NumPlayers; i++)
+        struct player *p = player_from_id(mon->master);
+
+        if (p)
         {
-            struct player *p = player_get(i);
-
-            if (p->id != mon->master) continue;
-
             closest = p;
             dis_to_closest = distance(&p->grid, &mon->grid);
         }
@@ -3062,21 +3059,11 @@ bool is_closest(struct player *p, struct chunk *c, struct monster *mon, bool blo
     /* Controlled monsters will attack hostile players if visible */
     if (mon->status == MSTATUS_CONTROLLED)
     {
-        int i;
-
         /* Skip if not visible */
         if (!new_los) return false;
 
-        /* Find the master */
-        for (i = 1; i <= NumPlayers; i++)
-        {
-            struct player *q = player_get(i);
-
-            if (q->id != mon->master) continue;
-
-            /* Skip if not hostile */
-            if (!pvp_check(q, p, PVP_CHECK_BOTH, true, square(c, &p->grid)->feat)) return false;
-        }
+        /* Find the master, skip if not hostile */
+        if (!master_is_hostile(mon->master, p->id)) return false;
     }
 
     /* Skip if the monster can't see the player */

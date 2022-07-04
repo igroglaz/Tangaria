@@ -520,12 +520,10 @@ void update_mon(struct monster *mon, struct chunk *c, bool full)
         /* Controlled monsters without a target will always try to reach their master */
         if ((mon->status == MSTATUS_CONTROLLED) && !closest)
         {
-            for (i = 1; i <= NumPlayers; i++)
+            struct player *p = player_from_id(mon->master);
+
+            if (p)
             {
-                struct player *p = player_get(i);
-
-                if (p->id != mon->master) continue;
-
                 closest = p;
                 dis_to_closest = distance(&p->grid, &mon->grid);
             }

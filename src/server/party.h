@@ -81,7 +81,7 @@ extern struct player *player_lookup(const char *name);
 extern bool player_in_party(int party_id, struct player *p);
 extern bool in_party(struct player *p, int party_id);
 extern bool is_party_owner(struct player *p, struct player *q);
-extern bool master_in_party(int16_t p1_id, int16_t p2_id);
+extern bool master_is_hostile(int16_t p1_id, int16_t p2_id);
 extern void party_leave(struct player *p);
 extern void party_msg_format(int party_id, const char *fmt, ...);
 extern bool party_share_with(struct player *p, int party_id, struct player *q);

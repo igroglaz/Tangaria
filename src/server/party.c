@@ -97,37 +97,32 @@ bool is_party_owner(struct player *p, struct player *q)
 
 
 /*
- * Check if two players given by their IDs are in the same party
+ * Check if two masters given by their IDs are hostile
  */
-bool master_in_party(int16_t p1_id, int16_t p2_id)
+bool master_is_hostile(int16_t p1_id, int16_t p2_id)
 {
-    struct player *p1_ptr = NULL;
-    struct player *p2_ptr = NULL;
-    int i;
+    struct player *p1_ptr = player_from_id(p1_id);
+    struct player *p2_ptr = player_from_id(p2_id);
 
-    /* Find IDs */
-    for (i = 1; i <= NumPlayers; i++)
+    /* Attacker is a controlled monster or a player */
+    if (p1_ptr)
     {
-        struct player *p = player_get(i);
+        /* Target is a controlled monster or a player: check hostility */
+        if (p2_ptr) return pvp_check(p1_ptr, p2_ptr, PVP_CHECK_BOTH, true, 0x00);
 
-        /* Check this one */
-        if (p1_id == p->id) p1_ptr = p;
-        if (p2_id == p->id) p2_ptr = p;
+        /* Target is a regular monster */
+        if (p1_ptr->dm_flags & DM_MONSTER_FRIEND) return false;
+        return true;
     }
 
-    /* Player IDs not found */
-    if (!p1_ptr || !p2_ptr) return false;
+    /* Attacker is a regular monster, target is a controlled monster or a player */
+    if (p2_ptr)
+    {
+        if (p2_ptr->dm_flags & DM_MONSTER_FRIEND) return false;
+        return true;
+    }
 
-    /* Same IDs */
-    if (p1_id == p2_id) return true;
-
-    /* Not in a party */
-    if (!p1_ptr->party || !p2_ptr->party) return false;
-
-    /* Same party */
-    if (p1_ptr->party == p2_ptr->party) return true;
-
-    /* Different parties */
+    /* Both are regular monsters */
     return false;
 }
 
@@ -140,8 +135,8 @@ bool pvm_check(struct player *p, struct monster *mon)
     /* Hack -- dungeon master and his monsters */
     if (p->dm_flags & DM_MONSTER_FRIEND) return false;
 
-    /* Same party */
-    if (master_in_party(mon->master, p->id)) return false;
+    /* Not hostile */
+    if (!master_is_hostile(mon->master, p->id)) return false;
 
     /* Friendly */
     if (rf_has(mon->race->flags, RF_FRIENDLY)) return false;

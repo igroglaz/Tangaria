@@ -294,9 +294,9 @@ struct monster_race
     struct monster_blow *blow;              /* Melee blows */
     int level;                              /* Level of creature */
     int rarity;                             /* Rarity of creature */
-    uint8_t d_attr;                            /* Default monster attribute */
+    uint8_t d_attr;                         /* Default monster attribute */
     char d_char;                            /* Default monster character */
-    int16_t weight;                            /* Corpse weight */
+    int16_t weight;                         /* Corpse weight */
     struct monster_lore lore;               /* Monster "lore" information */
     struct monster_altmsg *spell_msgs;
     struct monster_drop *drops;
@@ -323,44 +323,44 @@ struct target
  */
 struct monster
 {
-    struct monster_race *race;              /* Monster's (current) race */
-    struct monster_race *original_race;     /* Changed monster's original race */
+    struct monster_race *race;          /* Monster's (current) race */
+    struct monster_race *original_race; /* Changed monster's original race */
     int midx;
-    struct loc grid;                        /* Location on map */
-    int32_t hp;                                /* Current Hit points */
-    int32_t maxhp;                             /* Max Hit points */
-    int16_t m_timed[MON_TMD_MAX];              /* Timed monster status effects */
-    uint8_t mspeed;                            /* Monster "speed" */
-    int32_t energy;                            /* Monster "energy" */
-    uint8_t cdis;                              /* Current dis from player (transient) */
-    bitflag mflag[MFLAG_SIZE];              /* Temporary monster flags */
-    struct object *mimicked_obj;            /* Object this monster is mimicking */
-    struct object *held_obj;                /* Object being held (if any) */
-    uint8_t attr;                              /* "attr" last used for drawing monster */
-    struct player_state known_pstate;       /* Known player state */
-    struct target target;                   /* Monster target (transient) */
+    struct loc grid;                    /* Location on map */
+    int32_t hp;                         /* Current Hit points */
+    int32_t maxhp;                      /* Max Hit points */
+    int16_t m_timed[MON_TMD_MAX];       /* Timed monster status effects */
+    uint8_t mspeed;                     /* Monster "speed" */
+    int32_t energy;                     /* Monster "energy" */
+    uint8_t cdis;                       /* Current dis from player (transient) */
+    bitflag mflag[MFLAG_SIZE];          /* Temporary monster flags */
+    struct object *mimicked_obj;        /* Object this monster is mimicking */
+    struct object *held_obj;            /* Object being held (if any) */
+    uint8_t attr;                       /* "attr" last used for drawing monster */
+    struct player_state known_pstate;   /* Known player state */
+    struct target target;               /* Monster target (transient) */
     struct monster_group_info group_info[GROUP_MAX];    /* Monster group details */
-    uint8_t min_range;                         /* Minimum combat range (transient) */
-    uint8_t best_range;                        /* How close we want to be (transient) */
+    uint8_t min_range;                  /* Minimum combat range (transient) */
+    uint8_t best_range;                 /* How close we want to be (transient) */
 
     /* MAngband */
-    struct worldpos wpos;                   /* Position on the world map */
-    struct player *closest_player;          /* The player closest to this monster (transient) */
+    struct worldpos wpos;               /* Position on the world map */
+    struct player *closest_player;      /* The player closest to this monster (transient) */
 
     /* PWMAngband */
-    int16_t ac;                                /* Armour Class */
-    struct monster_blow *blow;              /* Melee blows */
-    int16_t level;                             /* Level of creature */
-    int16_t master;                            /* The player controlling this monster */
-    uint8_t lifespan;                          /* Lifespan of controlled creature */
-    uint8_t resilient;                         /* Controlled creature is resilient */
-    uint8_t status;                            /* Monster status: hostile, guard, follower, attacker */
-    uint8_t clone;                             /* Monster is a clone */
-    int16_t mimicked_k_idx;                    /* Object kind this monster is mimicking (random mimics) */
-    uint8_t origin;                            /* How this monster was created */
-    uint16_t feat;                              /* Terrain under monster (for feature mimics) */
-    struct loc old_grid;                    /* Previous monster location */
-    struct monster *closest_target;         /* The target closest to this monster (transient) */
+    int16_t ac;                         /* Armour Class */
+    struct monster_blow *blow;          /* Melee blows */
+    int16_t level;                      /* Level of creature */
+    int16_t master;                     /* The player controlling this monster */
+    uint8_t lifespan;                   /* Lifespan of controlled creature */
+    uint8_t resilient;                  /* Controlled creature is resilient */
+    uint8_t status;                     /* Monster status: hostile, guard, follower, attacker */
+    uint8_t clone;                      /* Monster is a clone */
+    int16_t mimicked_k_idx;             /* Object kind this monster is mimicking (random mimics) */
+    uint8_t origin;                     /* How this monster was created */
+    uint16_t feat;                      /* Terrain under monster (for feature mimics) */
+    struct loc old_grid;                /* Previous monster location */
+    struct monster *closest_target;     /* The target closest to this monster (transient) */
 };
 
 /*

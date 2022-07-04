@@ -150,6 +150,8 @@ PWMAngband:
 - Learn FEATHER flag when walking on water
 - Fix monster AI bug
 - Fix crash when targeting a healing spell with a friendly monster in sight
+- Fix Dungeon Master pet attacking other monsters
+- Fix pets attacking non-hostile player pets
 
 Coding changes
 --------------
@@ -210,6 +212,8 @@ PWMAngband:
   length 1
 - Remove bogus END_INFO effect
 - Remove square_hack_iscloseddoor() hack
+- Don't display "Could not accept TCP Connection, socket error = 0" messages in
+  the log
 
 Compilation/documentation
 -------------------------

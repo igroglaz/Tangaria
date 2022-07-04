@@ -556,10 +556,13 @@ static void Contact(int fd, int arg)
              *
              * PWMAngband: when running the server in debug mode, we get a lot of
              * TCP connection failures with errno = 0, which doesn't make any sense.
-             * In this case, we just return without quitting.
+             * In this case, we just return without logging the error and quitting.
              */
-            plog_fmt("Could not accept TCP Connection, socket error = %d", errno);
-            if (errno) quit("Couldn't accept TCP connection.");
+            if (errno)
+            {
+                plog_fmt("Could not accept TCP Connection, socket error = %d", errno);
+                quit("Couldn't accept TCP connection.");
+            }
             return;
         }
         install_input(Contact, newsock, 2);

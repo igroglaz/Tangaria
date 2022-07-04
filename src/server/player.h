@@ -110,5 +110,6 @@ extern void player_cave_free(struct player *p);
 extern void player_cave_clear(struct player *p, bool full);
 extern bool player_square_in_bounds(struct player *p, struct loc *grid);
 extern bool player_square_in_bounds_fully(struct player *p, struct loc *grid);
+extern struct player *player_from_id(int id);
 
 #endif /* PLAYER_H */

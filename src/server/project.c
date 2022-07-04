@@ -472,8 +472,8 @@ static bool stop_project(struct source *who, struct loc *grid, struct chunk *cv,
         return false;
     }
 
-    /* Stop at anything that isn't party-friendly */
-    if (!master_in_party(p1_id, p2_id)) return true;
+    /* Stop at anything that isn't friendly */
+    if (master_is_hostile(p1_id, p2_id)) return true;
 
     /* Stop if a useful spell hits a friendly player */
     if ((typ == PROJ_PROJECT) && (m_idx < 0))
