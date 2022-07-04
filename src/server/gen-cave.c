@@ -110,9 +110,10 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         /* Pick a nearby grid */
         find_nearby_grid(c, &change, &grid, 0, 0);
 
-        // Water flow only through rocks, empty floors.. doors will drown
+        // Water flow only through rocks, empty floors.. doors will drown.. + all passable to fix entrances
         if (square_in_bounds_fully(c, &change) && (square_isrock(c, &change) ||
-            square_isempty(c, &change) || square_isdoor(c, &change)))
+            square_isempty(c, &change) || square_isdoor(c, &change) || square_ispassable(c, &change) ||
+            square_istree(c, &change)))
         {
             /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
             // T: also don't do it if too deep
