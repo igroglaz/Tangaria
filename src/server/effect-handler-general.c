@@ -1280,18 +1280,10 @@ bool effect_handler_CLOAK_CHANGT(effect_handler_context_t *context)
 
 bool effect_handler_COOKIE(effect_handler_context_t *context)
 {
-    struct hint *v, *r = NULL;
-    int n;
-
     msg(context->origin->player, "Suddenly a thought comes to your mind:");
 
     /* Get a random hint from the global hints list */
-    for (v = hints, n = 1; v; v = v->next, n++)
-    {
-        if (one_in_(n)) r = v;
-    }
-
-    msg(context->origin->player, r->hint);
+    msg(context->origin->player, random_hint());
 
     context->ident = true;
     return true;

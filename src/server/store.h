@@ -39,6 +39,7 @@ extern void store_stock_list(struct player *p, struct store *store, struct objec
 extern struct object *home_carry(struct player *p, struct store *store, struct object *obj);
 extern struct object *store_carry(struct player *p, struct store *store, struct object *obj);
 extern struct owner *store_ownerbyidx(struct store *s, unsigned int idx);
+extern char *random_hint(void);
 extern void do_cmd_buy(struct player *p, int item, int amt);
 extern void do_cmd_retrieve(struct player *p, int item, int amt);
 extern void store_examine(struct player *p, int item, bool describe);

@@ -73,6 +73,7 @@ PWMAngband:
 - MotD shown on login in message window (from motd.txt in /lib/screens)
 - Add slays/brands to character sheet
 - Allow to polymorph directly using form name with the V command
+- Add swear word protection for names and messages
 
 Gameplay changes
 ----------------

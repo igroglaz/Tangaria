@@ -4130,6 +4130,59 @@ static struct file_parser hints_parser =
 
 
 /*
+ * Initialize swearwords
+ */
+
+
+static struct parser *init_parse_swear(void)
+{
+    struct parser *p = parser_new();
+
+    parser_reg(p, "W str text", parse_hint);
+    return p;
+}
+
+
+static errr run_parse_swear(struct parser *p)
+{
+    return parse_file_quit_not_found(p, "swear");
+}
+
+
+static errr finish_parse_swear(struct parser *p)
+{
+    swear = parser_priv(p);
+    parser_destroy(p);
+    return 0;
+}
+
+
+static void cleanup_swear(void)
+{
+    struct hint *h, *next;
+
+    h = swear;
+    while (h)
+    {
+        next = h->next;
+        string_free(h->hint);
+        mem_free(h);
+        h = next;
+    }
+}
+
+
+static struct file_parser swear_parser =
+{
+    "swear",
+    init_parse_swear,
+    run_parse_swear,
+    finish_parse_swear,
+    cleanup_swear
+};
+
+
+/*
  * Initialize level_golds
  */
 
@@ -4242,6 +4295,7 @@ static struct
     {"flavours", &flavor_parser},
     {"socials", &soc_parser},
     {"hints", &hints_parser},
+    {"swear", &swear_parser},
     {"level_golds", &level_golds_parser},
     {"random names", &names_parser}
 };

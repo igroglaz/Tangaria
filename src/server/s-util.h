@@ -24,6 +24,7 @@ extern const char *player_self(struct player *p);
 extern bool strrep(char *dest, size_t len, const char *src, const char *search, const char *replace);
 extern void strrepall(char *dest, size_t len, const char *src, const char *search,
     const char *replace);
+extern char* stristr(const char* str1, const char* str2);
 extern void clean_name(char *buf, char *name);
 
 #endif /* S_UTILS_H */

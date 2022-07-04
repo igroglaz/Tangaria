@@ -1,0 +1,20 @@
+# File: swear.txt
+
+
+# This file is used to initialize the swear words for the game.
+
+# Do not modify this file unless you know exactly what you are doing
+# unless you wish to risk possible system crashes and broken savefiles.
+
+# That said, it isn't difficult. Just keep each word on one line, less than 80
+# characters, and start each line with W:
+
+# === Understanding swear.txt === 
+
+# W : swear word (in lowercase); prefix with @ to check whole word instead of
+#     substring
+
+
+W:@ass
+W:fuck
+W:shit

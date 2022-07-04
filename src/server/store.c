@@ -47,6 +47,7 @@ struct store *stores;
  * The hints array
  */
 struct hint *hints;
+struct hint *swear;
 
 
 /* Black market */
@@ -2174,7 +2175,7 @@ static void store_prt_gold(struct player *p)
 
 
 /* Return a random hint from the global hints list */
-static char *random_hint(void)
+char *random_hint(void)
 {
     struct hint *v, *r = NULL;
     int n;

@@ -595,16 +595,16 @@ struct player_cave
  */
 struct player_death_info
 {
-    char title[NORMAL_WID];         /* Title */
-    int16_t max_lev;                   /* Max level */
-    int16_t lev;                       /* Level */
-    int32_t max_exp;                   /* Max experience */
-    int32_t exp;                       /* Experience */
-    int32_t au;                        /* Gold */
-    int16_t max_depth;                 /* Max depth */
-    struct worldpos wpos;           /* Position on the world map */
-    char died_from[NORMAL_WID];     /* Cause of death */
-    time_t time;                    /* Time of death */
+    char title[NORMAL_WID];     /* Title */
+    int16_t max_lev;            /* Max level */
+    int16_t lev;                /* Level */
+    int32_t max_exp;            /* Max experience */
+    int32_t exp;                /* Experience */
+    int32_t au;                 /* Gold */
+    int16_t max_depth;          /* Max depth */
+    struct worldpos wpos;       /* Position on the world map */
+    char died_from[NORMAL_WID]; /* Cause of death */
+    time_t time;                /* Time of death */
     char ctime[NORMAL_WID];
 };
 
@@ -658,45 +658,45 @@ struct player
     const struct player_race *race;
     const struct player_class *clazz;
     struct loc grid;                            /* Player location */
-    uint8_t hitdie;                                /* Hit dice (sides) */
-    int16_t expfact;                               /* Experience factor */
-    int16_t age;                                   /* Characters age */
-    int16_t ht;                                    /* Height */
-    int16_t wt;                                    /* Weight */
-    int32_t au;                                    /* Current Gold */
-    int16_t max_depth;                             /* Max depth */
+    uint8_t hitdie;                             /* Hit dice (sides) */
+    int16_t expfact;                            /* Experience factor */
+    int16_t age;                                /* Characters age */
+    int16_t ht;                                 /* Height */
+    int16_t wt;                                 /* Weight */
+    int32_t au;                                 /* Current Gold */
+    int16_t max_depth;                          /* Max depth */
     struct worldpos wpos;                       /* Current position on the world map */
-    int16_t max_lev;                               /* Max level */
-    int16_t lev;                                   /* Cur level */
-    int32_t max_exp;                               /* Max experience */
-    int32_t exp;                                   /* Cur experience */
-    uint16_t exp_frac;                              /* Cur exp frac (times 2^16) */
-    int16_t mhp;                                   /* Max hit pts */
-    int16_t chp;                                   /* Cur hit pts */
-    uint16_t chp_frac;                              /* Cur hit frac (times 2^16) */
-    int16_t msp;                                   /* Max mana pts */
-    int16_t csp;                                   /* Cur mana pts */
-    uint16_t csp_frac;                              /* Cur mana frac (times 2^16) */
-    int16_t stat_max[STAT_MAX];                    /* Current "maximal" stat values */
-    int16_t stat_cur[STAT_MAX];                    /* Current "natural" stat values */
-    int16_t stat_map[STAT_MAX];                    /* Tracks remapped stats from temp stat swap */
-    int16_t *timed;                                /* Timed effects */
-    int16_t word_recall;                           /* Word of recall counter */
-    int16_t deep_descent;                          /* Deep Descent counter */
-    int32_t energy;                                /* Current energy */
-    uint8_t unignoring;                            /* Player doesn't hide ignored items */
-    uint8_t *spell_flags;                          /* Spell flags */
-    uint8_t *spell_order;                          /* Spell order */
+    int16_t max_lev;                            /* Max level */
+    int16_t lev;                                /* Cur level */
+    int32_t max_exp;                            /* Max experience */
+    int32_t exp;                                /* Cur experience */
+    uint16_t exp_frac;                          /* Cur exp frac (times 2^16) */
+    int16_t mhp;                                /* Max hit pts */
+    int16_t chp;                                /* Cur hit pts */
+    uint16_t chp_frac;                          /* Cur hit frac (times 2^16) */
+    int16_t msp;                                /* Max mana pts */
+    int16_t csp;                                /* Cur mana pts */
+    uint16_t csp_frac;                          /* Cur mana frac (times 2^16) */
+    int16_t stat_max[STAT_MAX];                 /* Current "maximal" stat values */
+    int16_t stat_cur[STAT_MAX];                 /* Current "natural" stat values */
+    int16_t stat_map[STAT_MAX];                 /* Tracks remapped stats from temp stat swap */
+    int16_t *timed;                             /* Timed effects */
+    int16_t word_recall;                        /* Word of recall counter */
+    int16_t deep_descent;                       /* Deep Descent counter */
+    int32_t energy;                             /* Current energy */
+    uint8_t unignoring;                         /* Player doesn't hide ignored items */
+    uint8_t *spell_flags;                       /* Spell flags */
+    uint8_t *spell_order;                       /* Spell order */
     char full_name[NORMAL_WID];                 /* Full name */
     char died_from[NORMAL_WID];                 /* Cause of death */
     char history[N_HIST_LINES][N_HIST_WRAP];    /* Player history */
-    uint16_t total_winner;                          /* Total winner */
-    uint8_t noscore;                               /* Cheating flags */
+    uint16_t total_winner;                      /* Total winner */
+    uint8_t noscore;                            /* Cheating flags */
     bool is_dead;                               /* Player is dead */
-    int16_t player_hp[PY_MAX_LEVEL];               /* HP gained per level */
+    int16_t player_hp[PY_MAX_LEVEL];            /* HP gained per level */
 
     /* Saved values for quickstart */
-    int16_t stat_birth[STAT_MAX];                  /* Birth "natural" stat values */
+    int16_t stat_birth[STAT_MAX];               /* Birth "natural" stat values */
 
     struct player_options opts;                 /* Player options */
     struct player_history hist;                 /* Player history (see player-history.c) */
@@ -714,8 +714,8 @@ struct player
 
     /*** Angband global variables (tied to the player in MAngband) ***/
 
-    uint8_t run_cur_dir;       /* Direction we are running */
-    uint8_t run_old_dir;       /* Direction we came from */
+    uint8_t run_cur_dir;    /* Direction we are running */
+    uint8_t run_old_dir;    /* Direction we came from */
     bool run_open_area;     /* Looking for an open area */
     bool run_break_right;   /* Looking for a break (right) */
     bool run_break_left;    /* Looking for a break (left) */
@@ -728,8 +728,8 @@ struct player
     /*** MAngband common fields ***/
 
     const struct player_sex *sex;
-    uint8_t psex;                              /* Sex index */
-    uint8_t stealthy;                          /* Stealth mode */
+    uint8_t psex;                           /* Sex index */
+    uint8_t stealthy;                       /* Stealth mode */
     hturn game_turn;                        /* Number of game turns */
     hturn player_turn;                      /* Number of player turns (including resting) */
     hturn active_turn;                      /* Number of active player turns */
@@ -737,14 +737,14 @@ struct player
     bool* kind_tried;                       /* Has the player tried this obj kind? */
     char name[NORMAL_WID];                  /* Character nickname */
     char pass[NORMAL_WID];                  /* Password */
-    int32_t id;                                /* Unique ID to each player character (not account!) */
-    int16_t ghost;                             /* Are we a ghost */
-    uint8_t lives;                             /* Number of times we have resurrected */
-    uint8_t party;                             /* The party he belongs to (or 0 if neutral) */
+    int32_t id;                             /* Unique ID to each player character (not account!) */
+    int16_t ghost;                          /* Are we a ghost */
+    uint8_t lives;                          /* Number of times we have resurrected */
+    uint8_t party;                          /* The party he belongs to (or 0 if neutral) */
     struct player_death_info death_info;    /* Original cause of death */
-    uint16_t retire_timer;                      /* The number of minutes this guy can play until retired. */
-    uint8_t **wild_map;                        /* The wilderness we have explored */
-    uint8_t *art_info;                         /* Artifacts player has encountered */
+    uint16_t retire_timer;                  /* The number of minutes this guy can play until retired. */
+    uint8_t **wild_map;                     /* The wilderness we have explored */
+    uint8_t *art_info;                      /* Artifacts player has encountered */
 
     /*** MAngband temporary fields ***/
 
@@ -759,11 +759,11 @@ struct player
     struct worldpos recall_wpos;                    /* Where to recall */
     cave_view_type* hist_flags[N_HISTORY_FLAGS];    /* Player's sustains/resists/flags */
     struct source cursor_who;                       /* Who's tracked by cursor */
-    uint8_t special_file_type;                         /* Type of info browsed by this player */
+    uint8_t special_file_type;                      /* Type of info browsed by this player */
     bitflag (*mflag)[MFLAG_SIZE];                   /* Temporary monster flags */
-    uint8_t *mon_det;                                  /* Were these monsters detected by this player? */
+    uint8_t *mon_det;                               /* Were these monsters detected by this player? */
     bitflag pflag[MAX_PLAYERS][MFLAG_SIZE];         /* Temporary monster flags (players) */
-    uint8_t play_det[MAX_PLAYERS];                     /* Were these players detected by this player? */
+    uint8_t play_det[MAX_PLAYERS];                  /* Were these players detected by this player? */
     uint8_t *d_attr;
     char *d_char;
     uint8_t (*f_attr)[LIGHTING_MAX];
@@ -787,9 +787,9 @@ struct player
     cave_view_type **scr_info;
     cave_view_type **trn_info;
     char msg_log[MAX_MSG_HIST][NORMAL_WID]; /* Message history log */
-    int16_t msg_hist_ptr;                      /* Where will the next message be stored */
-    uint8_t last_dir;                          /* Last direction moved (used for swapping places) */
-    int16_t current_spell;                     /* Current values */
+    int16_t msg_hist_ptr;                   /* Where will the next message be stored */
+    uint8_t last_dir;                       /* Last direction moved (used for swapping places) */
+    int16_t current_spell;                  /* Current values */
     int16_t current_item;
     int16_t current_action;
     int16_t current_value;
@@ -799,13 +799,13 @@ struct player
     int current_house;                      /* Which house is he pointing */
     int store_num;                          /* What store this guy is in */
     int player_store_num;                   /* What player store this guy is in */
-    int16_t delta_floor_item;                  /* Player is standing on.. */
-    int16_t msg_hist_dupe;                     /* Count duplicate messages for collapsing */
-    uint32_t dm_flags;                          /* Dungeon Master Flags */
-    uint16_t msg_last_type;                     /* Last message type sent */
-    uint16_t main_channel;                      /* Main chat channel the player is in */
+    int16_t delta_floor_item;               /* Player is standing on.. */
+    int16_t msg_hist_dupe;                  /* Count duplicate messages for collapsing */
+    uint32_t dm_flags;                      /* Dungeon Master Flags */
+    uint16_t msg_last_type;                 /* Last message type sent */
+    uint16_t main_channel;                  /* Main chat channel the player is in */
     char second_channel[NORMAL_WID];        /* Where his legacy 'privates' are sent */
-    uint8_t *on_channel;                       /* Listening to what channels */
+    uint8_t *on_channel;                    /* Listening to what channels */
     cave_view_type info[MAX_TXT_INFO][NORMAL_WID];
     struct loc info_grid;
     int16_t last_info_line;
@@ -814,15 +814,15 @@ struct player
     hturn bubble_change;                    /* Server turn we last changed colour */
     bool bubble_colour;                     /* Current warning colour for slow time bubbles */
     int bubble_speed;                       /* Current speed for slow time bubbles */
-    uint32_t blink_speed;                       /* Current blink speed for slow time bubbles */
+    uint32_t blink_speed;                   /* Current blink speed for slow time bubbles */
     int arena_num;                          /* What arena this guy is in */
     uint32_t window_flag;
     bool prevents[128];                     /* Cache of "^" inscriptions */
-    int16_t feeling;                           /* Most recent feeling */
-    int16_t interactive_line;                  /* Which line is he on? */
+    int16_t feeling;                        /* Most recent feeling */
+    int16_t interactive_line;               /* Which line is he on? */
     char *interactive_file;                 /* Which file is he reading? */
-    int16_t interactive_next;                  /* Which line is he on 'in the file' ? */
-    int16_t interactive_size;                  /* Total number of lines in file */
+    int16_t interactive_next;               /* Which line is he on 'in the file' ? */
+    int16_t interactive_size;               /* Total number of lines in file */
     char interactive_hook[26][32];          /* Sub-menu information */
     int set_value;                          /* Set value for a chain of effects */
 
@@ -831,28 +831,28 @@ struct player
     bool target_fixed;                      /* Is the target fixed (for the duration of a spell)? */
     struct target old_target;               /* Old player target */
     bool show_interesting;                  /* Interesting grids */
-    int16_t target_index;                      /* Current index */
+    int16_t target_index;                   /* Current index */
     struct loc tt_grid;                     /* Current location */
     struct object *tt_o;                    /* Current object */
-    uint8_t tt_step;                           /* Current step */
+    uint8_t tt_step;                        /* Current step */
     bool tt_help;                           /* Display info/help */
 
     /*** PWMAngband common fields ***/
 
     struct quest quest;                 /* Current quest */
     char died_flavor[160];              /* How this guy died */
-    int16_t tim_mimic_what;                /* Rogue flag */
+    int16_t tim_mimic_what;             /* Rogue flag */
     struct monster_lore *lore;          /* Monster lore */
     struct monster_race *poly_race;     /* Monster race (mimic form) */
-    int16_t k_idx;                         /* Object kind index (mimic form) */
-    uint8_t *randart_info;                 /* Randarts player has encountered */
-    uint8_t *randart_created;              /* Randarts player has created */
-    uint8_t *spell_power;                  /* Spell power array */
-    uint8_t *spell_cooldown;               /* Spell cooldown array */
-    uint8_t *kind_ignore;                  /* Ignore this object kind */
-    uint8_t *kind_everseen;                /* Has the player seen this object kind? */
-    uint8_t **ego_ignore_types;            /* Table for ignoring by ego and type */
-    uint8_t *ego_everseen;                 /* Has the player seen this ego type? */
+    int16_t k_idx;                      /* Object kind index (mimic form) */
+    uint8_t *randart_info;              /* Randarts player has encountered */
+    uint8_t *randart_created;           /* Randarts player has created */
+    uint8_t *spell_power;               /* Spell power array */
+    uint8_t *spell_cooldown;            /* Spell cooldown array */
+    uint8_t *kind_ignore;               /* Ignore this object kind */
+    uint8_t *kind_everseen;             /* Has the player seen this object kind? */
+    uint8_t **ego_ignore_types;         /* Table for ignoring by ego and type */
+    uint8_t *ego_everseen;              /* Has the player seen this ego type? */
     hturn quit_turn;                    /* Turn this player left the game */
     struct bow_brand brand;             /* Archer flags */
     struct store *home;                 /* Home inventory */
@@ -865,14 +865,14 @@ struct player
     uint8_t ignore;                    /* Player has auto-ignore activated */
     struct monster_lore current_lore;
     bool fainting;                  /* True if player is fainting */
-    uint8_t max_hgt;                   /* Max client screen height */
+    uint8_t max_hgt;                /* Max client screen height */
     cave_view_type **info_icky;     /* Info is icky */
     int16_t last_info_line_icky;
     char *header_icky;
-    int16_t screen_save_depth;         /* Depth of the screen_save() stack */
+    int16_t screen_save_depth;      /* Depth of the screen_save() stack */
     bool was_aware;                 /* Is the player aware of the current obj type? */
-    int16_t current_sound;             /* Current sound */
-    int32_t charge;                    /* Charging energy */
+    int16_t current_sound;          /* Current sound */
+    int32_t charge;                 /* Charging energy */
     bool has_energy;                /* Player has energy */
     hturn idle_turn;                /* Turn since last game command */
     bool full_refresh;              /* Full refresh (includes monster/object lists) */
@@ -889,26 +889,26 @@ struct player
     int path_n;
     struct loc path_g[256];
     bool can_study_book;            /* Player carries a book with spells they can study */
-    uint8_t slaves;                    /* Number of controlled monsters */
+    uint8_t slaves;                 /* Number of controlled monsters */
     char tempbuf[NORMAL_WID];
-    int16_t obj_feeling;               /* Object/monster feeling (for display) */
+    int16_t obj_feeling;            /* Object/monster feeling (for display) */
     int16_t mon_feeling;
     char depths[13];                /* Displayed coordinates */
     char locname[NORMAL_WID];       /* Location (short name) */
     int frac_blow;                  /* Blow frac (%) */
     int frac_shot;                  /* Shot frac (%) */
-    int16_t square_light;              /* Square light (for display) */
+    int16_t square_light;           /* Square light (for display) */
     char terrain[40];               /* Displayed terrain */
-    uint8_t flicker;                   /* A counter to select the step color from the flicker table */
+    uint8_t flicker;                /* A counter to select the step color from the flicker table */
     bool no_disturb_icky;
     bool placed;                    /* Player is properly placed on the level */
     int monwidth;                   /* Monster list subwindow width */
-    int32_t extra_energy;              /* Extra energy */
+    int32_t extra_energy;           /* Extra energy */
     bool first_escape;
     bool dump_gen;
     bool icy_aura;
-    uint8_t cannot_cast;               /* Player cannot cast spells */
-    uint8_t cannot_cast_mimic;         /* Player cannot cast mimic spells */
+    uint8_t cannot_cast;            /* Player cannot cast spells */
+    uint8_t cannot_cast_mimic;      /* Player cannot cast mimic spells */
 
     /*
      * In order to prevent the regeneration bonus from the first few turns, we have

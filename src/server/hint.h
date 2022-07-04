@@ -16,5 +16,6 @@ struct hint
 };
 
 extern struct hint *hints;
+extern struct hint *swear;
 
 #endif /* HINT_H */
