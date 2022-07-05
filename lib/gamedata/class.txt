@@ -5189,6 +5189,8 @@ book-properties:10:30:0
 book-alloc:15:10 to 100
 book-desc:An ancient book which contains secrets of nature.
 
+#### reduce amount of spells!
+
 equip:nature book:[Druid Lore]:1:1:none
 
 spell:Emit Poison:1:1:30:2:0
@@ -5204,13 +5206,10 @@ desc:Creates vast sphere of poison around you.
 desc: Beware: you suffer from it too.
 desc: Cooldown 4 turns
 
-spell:Lick wounds:5:3:30:4:0
-effect:CURE:CUT
-effect:HEAL_HP
-dice:$B+m$M
-expr:B:PLAYER_LEVEL:+ 5
-expr:M:PLAYER_LEVEL:/ 3 + 8
-desc:Heals you and cures your wounds.
+spell:Pathfinding:5:3:10:4:0
+effect:DETECT_DOORS
+effect-yx:14:27
+desc:Finds doors in the immediate area.
 
 spell:Herbal Tea:10:7:30:8:0
 effect:CURE:POISONED
@@ -7900,7 +7899,7 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:nature book:town:[Lesser Charms]:2:nature
+book:nature book:town:[Lesser Charms]:3:nature
 equip:nature book:[Lesser Charms]:1:1:none
 
 spell:Crafting Mastery:1:1:30:5:0
@@ -7927,6 +7926,13 @@ desc: Requires additional mana when you get each level.
 desc: If you cast the spell without enough mana - you suffer severe exhaustion.
 desc: You don't need additional material to create it.
 desc: Cooldown 6 turns.
+
+spell:Build Walls:10:5:44:30:0
+effect:CREATE_WALLS
+effect:TIMED_INC:OCCUPIED
+dice:5+1d10
+desc:For several turns you create a wall on each empty floor space that is directly
+desc: adjacent to you.
 
 
 ############### Inquisitor ###############

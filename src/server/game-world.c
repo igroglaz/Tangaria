@@ -1,5 +1,4 @@
 /*
-/*
  * File: game-world.c
  * Purpose: Game core management of the game world
  *

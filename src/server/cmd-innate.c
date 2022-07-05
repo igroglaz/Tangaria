@@ -206,48 +206,63 @@ void do_cmd_breath(struct player *p, int dir)
         
         return;
     }
-    // druid cat-form can teleport to closest monster; up to 5 distance
-    else if (p->poly_race && streq(p->poly_race->name, "cat-form"))
+    else if (streq(p->clazz->name, "Druid") && p->poly_race)
     {
-        // dice for distance
-        char dice_string[5];
-        // convert int to char with '0'
-        dice_string[0] = (p->lev / 15 + 2) + '0';
+        // bird can heal
+        if (streq(p->poly_race->name, "bird-form"))
+        {
+            use_energy(p);
 
-        use_energy(p);
+            // if can spend mana - heal
+            if (p->csp > 2 + p->lev / 5)
+            {
+                p->csp -= 2 + p->lev / 5;
+                hp_player_safe(p, 1 + (p->lev));
+            }
+        }
+        // cat - can teleport to closest monster; up to 5 distance
+        else if (streq(p->poly_race->name, "cat-form"))
+        {
+            // dice for distance
+            char dice_string[5];
+            // convert int to char with '0'
+            dice_string[0] = (p->lev / 15 + 2) + '0';
 
-        /* Make the breath attack an effect */
-        effect = mem_zalloc(sizeof(struct effect));
-        effect->index = EF_TELEPORT_TO;
-        // init dice
-        effect->dice = dice_new();
-        // fill dice struct
-        dice_parse_string(effect->dice, dice_string);
+            use_energy(p);
 
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+            /* Make the breath attack an effect */
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_TELEPORT_TO;
+            // init dice
+            effect->dice = dice_new();
+            // fill dice struct
+            dice_parse_string(effect->dice, dice_string);
 
-        free_effect(effect);
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
 
-        return;
-    }
-    // druid wolf-form can summon wolf by loud howl
-    else if (p->poly_race && streq(p->poly_race->name, "wolf-form"))
-    {
-        struct chunk *c = chunk_get(&p->wpos);
+            free_effect(effect);
 
-        use_energy(p);
+            return;
+        }
+        // wolf - can summon wolf by loud howl
+        else if (streq(p->poly_race->name, "wolf-form"))
+        {
+            struct chunk *c = chunk_get(&p->wpos);
 
-        // howl
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
-        // summon
-        summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
-        msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
+            use_energy(p);
 
-        player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
+            // howl
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+            // summon
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+            msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
 
-        return;
+            player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
+
+            return;
+        }
     }
 
     /* Handle polymorphed players */
