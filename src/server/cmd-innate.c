@@ -186,24 +186,19 @@ void do_cmd_breath(struct player *p, int dir)
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
-        /* Take a turn */
         use_energy(p);
-
-        /* Make the breath attack an effect */
+            
         effect = mem_zalloc(sizeof(struct effect));
         effect->index = EF_CREATE_TREES;
 
-        /* Cast the breath attack */
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
 
         free_effect(effect);
 
-        // spend satiation
-        player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
-        // occupy
-        player_inc_timed(p, TMD_OCCUPIED, randint1(2), true, false);
-        
+        player_dec_timed(p, TMD_FOOD, (350 - (p->lev * 5)), false);
+        player_inc_timed(p, TMD_OCCUPIED, randint1(4), true, false);
+
         return;
     }
     else if (streq(p->clazz->name, "Druid") && p->poly_race)
@@ -236,7 +231,6 @@ void do_cmd_breath(struct player *p, int dir)
                 use_energy(p);
                 p->csp -= 2 + p->lev / 3;
 
-                /* Make the breath attack an effect */
                 effect = mem_zalloc(sizeof(struct effect));
                 effect->index = EF_TELEPORT_TO;
                 // init dice
@@ -312,6 +306,8 @@ void do_cmd_breath(struct player *p, int dir)
     /* Cast the breath attack */
     source_player(who, get_player_index(get_connection(p->conn)), p);
     effect_do(effect, who, &ident, true, dir, NULL, 0, 0, NULL);
+
+    // Breathing also consumes food: see handler_breath()
 
     free_effect(effect);
 }
