@@ -1099,6 +1099,13 @@ uint8_t player_cannot_cast(struct player *p, bool show_msg)
         return 3;
     }
 
+    // druid class can cast spells only in normal form
+    if (p->poly_race && streq(p->clazz->name, "Druid"))
+    {
+        if (show_msg) msg(p, "You cannot cast spells while in animal form!");
+        return 4;
+    }
+
     return 0;
 }
 
