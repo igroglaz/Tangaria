@@ -135,6 +135,10 @@ static void sense_object(struct player *p, struct object *obj, bool tocarry)
     // fighter class can pseudo-id weapon curses
     if (obj->curses && streq(p->clazz->name, "Fighter") && tval_is_weapon(obj))
         cursed = true;
+    // druid's rat form sense curses
+    else if (obj->curses && (p->poly_race && streq(p->poly_race->name, "rat-form")))
+        cursed = true;
+    // common case
     else
         cursed = (obj->curses && obj->known->curses);
 
