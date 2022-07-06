@@ -211,14 +211,17 @@ void do_cmd_breath(struct player *p, int dir)
         // bird can heal
         if (streq(p->poly_race->name, "bird-form"))
         {
-            use_energy(p);
-
             // if can spend mana - heal
-            if (p->csp > 2 + p->lev / 5)
+            if (p->csp > 1 + p->lev / 3)
             {
-                p->csp -= 2 + p->lev / 5;
+                use_energy(p);
+                p->csp -= 1 + p->lev / 3;
                 hp_player_safe(p, 1 + (p->lev));
             }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need more mana to heal!");
+
+            return;
         }
         // cat - can teleport to closest monster; up to 5 distance
         else if (streq(p->poly_race->name, "cat-form"))
@@ -228,20 +231,26 @@ void do_cmd_breath(struct player *p, int dir)
             // convert int to char with '0'
             dice_string[0] = (p->lev / 15 + 2) + '0';
 
-            use_energy(p);
+            if (p->csp > 2 + p->lev / 3)
+            {
+                use_energy(p);
+                p->csp -= 2 + p->lev / 3;
 
-            /* Make the breath attack an effect */
-            effect = mem_zalloc(sizeof(struct effect));
-            effect->index = EF_TELEPORT_TO;
-            // init dice
-            effect->dice = dice_new();
-            // fill dice struct
-            dice_parse_string(effect->dice, dice_string);
+                /* Make the breath attack an effect */
+                effect = mem_zalloc(sizeof(struct effect));
+                effect->index = EF_TELEPORT_TO;
+                // init dice
+                effect->dice = dice_new();
+                // fill dice struct
+                dice_parse_string(effect->dice, dice_string);
 
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
 
-            free_effect(effect);
+                free_effect(effect);
+            }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need more mana to jump!");
 
             return;
         }
@@ -250,17 +259,21 @@ void do_cmd_breath(struct player *p, int dir)
         {
             struct chunk *c = chunk_get(&p->wpos);
 
-            use_energy(p);
+            // cost full mana
+            if (p->csp == p->msp)
+            {
+                use_energy(p);
+                p->csp = 0;
 
-            // howl
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
-            // summon
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
-            msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
-
-            player_dec_timed(p, TMD_FOOD, (700 - (p->lev * 10)), false);
-
+                // howl
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+                // summon
+                summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1 + p->lev / 50, true);
+                msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
+            }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need full mana to summon wolves!");
             return;
         }
     }
