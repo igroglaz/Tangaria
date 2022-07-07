@@ -1100,7 +1100,7 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         // spells' effect's indexes can be found:
         // effects.c -> effect_subtype()
         if (streq(p->clazz->name, "Knight"))
-            ; // Knight got separate sound
+            ; // Knight got separate sound (player_timed.txt)
         else if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
             spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
             sound(p, MSG_BALL);

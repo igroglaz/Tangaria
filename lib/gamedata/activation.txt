@@ -230,7 +230,7 @@ name:CONFUSING
 aim:0
 power:8
 effect:TIMED_SET:ATT_CONF
-dice:10000
+dice:300
 
 name:CURE_BODY
 aim:0

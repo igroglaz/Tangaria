@@ -1139,6 +1139,23 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
     /* Upper bound */
     v = MIN(v, new_grade->max);
 
+    // Knight class stances
+    if (idx == TMD_BALANCED_STANCE)
+    {
+        player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
+        player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
+    }
+    else if (idx == TMD_DEFENSIVE_STANCE)
+    {
+        player_clear_timed(p, TMD_BALANCED_STANCE, false);
+        player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
+    }
+    else if (idx == TMD_OFFENSIVE_STANCE)
+    {
+        player_clear_timed(p, TMD_BALANCED_STANCE, false);
+        player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
+    }
+
     /* Hack -- call other functions, reveal hidden players if noticed */
     if ((idx == TMD_STUN) && (p->dm_flags & DM_INVULNERABLE))
     {
@@ -1339,26 +1356,6 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
 
     if (!check || player_inc_check(p, mon, idx, false))
     {
-        // Knight class stances
-        if (idx == TMD_BALANCED_STANCE)
-        {
-            player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
-            player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
-            msg(p, "Balanced stance.");
-        }
-        else if (idx == TMD_DEFENSIVE_STANCE)
-        {
-            player_clear_timed(p, TMD_BALANCED_STANCE, false);
-            player_clear_timed(p, TMD_OFFENSIVE_STANCE, false);
-            msg(p, "Defensive stance.");
-        }
-        else if (idx == TMD_OFFENSIVE_STANCE)
-        {
-            player_clear_timed(p, TMD_BALANCED_STANCE, false);
-            player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
-            msg(p, "Offensive stance.");
-        }
-
         /* Paralysis should be non-cumulative */
         if ((idx == TMD_PARALYZED) && (p->timed[idx] > 0)) return false;
 

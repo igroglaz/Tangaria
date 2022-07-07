@@ -5487,21 +5487,21 @@ equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
 effect:CURE:CONFUSED
-effect:TIMED_INC:BALANCED_STANCE
+effect:TIMED_SET:BALANCED_STANCE
 dice:9999
 msg_other: took balanced stance.
 desc:You preparing for balanced tactics. Getting into this stance removes confusion.
 
 spell:Defensive Stance:1:1:1:1:0
 effect:CURE:STUN
-effect:TIMED_INC:DEFENSIVE_STANCE
+effect:TIMED_SET:DEFENSIVE_STANCE
 dice:9999
 msg_other: took defensive stance.
 desc:You preparing for more defensive tactics. Getting into this stance removes stun.
 
 spell:Offensive Stance:1:1:1:1:0
 effect:CURE:AFRAID
-effect:TIMED_INC:OFFENSIVE_STANCE
+effect:TIMED_SET:OFFENSIVE_STANCE
 dice:9999
 msg_other: took offensive stance.
 desc:You preparing for more offensive tactics. Getting into this stance removes fear.
