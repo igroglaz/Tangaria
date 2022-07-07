@@ -495,7 +495,7 @@ pile:10:1d3
 effect:HEAL_HP
 dice:3
 effect:TIMED_INC:FAST:0:5
-dice:1d3
+dice:2d2
 effect:NOURISH:INC_BY
 dice:5
 msg_self:It burns your throat.
@@ -3160,7 +3160,7 @@ weight:5
 cost:30
 alloc:50:1 to 50
 pile:70:1d3
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:6+1d12
 
 name:Holy Chant
@@ -3171,7 +3171,7 @@ weight:5
 cost:80
 alloc:40:10 to 70
 pile:25:2
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:12+1d24
 
 name:Holy Prayer
@@ -3182,7 +3182,7 @@ weight:5
 cost:220
 alloc:40:50 to 100
 pile:25:2
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:24+1d48
 
 name:Protection from Evil
@@ -3193,7 +3193,7 @@ weight:5
 cost:350
 alloc:40:30 to 100
 pile:25:2
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 
@@ -3207,7 +3207,7 @@ weight:5
 cost:50
 alloc:16:5 to 60
 pile:25:2
-effect:TIMED_INC:ATT_CONF
+effect:TIMED_SET:ATT_CONF
 dice:250+1d50
 
 name:Rune of Protection
@@ -3806,7 +3806,7 @@ weight:4
 cost:550
 alloc:40:1 to 100
 pile:25:2
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:20+1d20
 
 name:Heroism
@@ -3817,9 +3817,9 @@ weight:4
 cost:25
 alloc:40:1 to 100
 pile:25:2
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -3841,9 +3841,9 @@ effect:NOURISH:INC_BY
 dice:1
 effect:RANDOM
 dice:3
-effect:TIMED_INC:SHERO
+effect:TIMED_SET:SHERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -3868,7 +3868,7 @@ cost:30
 alloc:40:30 to 100
 pile:25:2
 flags:IGNORE_FIRE
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:50+1d10
 
 name:Resist Cold
@@ -3880,7 +3880,7 @@ cost:30
 alloc:40:30 to 100
 pile:25:2
 flags:IGNORE_COLD
-effect:TIMED_INC:OPP_COLD
+effect:TIMED_SET:OPP_COLD
 dice:50+1d10
 
 name:Resist Poison
@@ -3891,7 +3891,7 @@ weight:4
 cost:90
 alloc:40:20 to 100
 pile:25:2
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:50+1d10
 effect:CURE:POISONED
 
@@ -3903,7 +3903,7 @@ weight:4
 cost:50
 alloc:40:3 to 40
 pile:25:2
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:50+2d6
 effect:CURE:BLIND
 effect:TIMED_INC:IMAGE
@@ -3926,7 +3926,7 @@ effect:NOURISH:INC_BY
 dice:1
 effect:RANDOM
 dice:3
-effect:TIMED_INC:SINFRA
+effect:TIMED_SET:SINFRA
 dice:100+4d25
 effect:TIMED_INC:IMAGE
 dice:1d1
@@ -3939,7 +3939,7 @@ level:70
 weight:4
 cost:0
 alloc:1:70 to 100
-effect:TIMED_INC:INVIS:0:5
+effect:TIMED_SET:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:/ 2
 effect:TIMED_INC_NO_RES:CONFUSED
@@ -4017,7 +4017,7 @@ attack:3d4:0:0
 armor:0:0
 effect:TIMED_INC:BLIND
 dice:75+4d25
-effect:TIMED_INC:SINVIS
+effect:TIMED_INC:ESP
 dice:1+1d2
 effect:NOURISH:INC_BY
 dice:1
@@ -4034,7 +4034,7 @@ attack:3d4:0:0
 armor:0:0
 effect:TIMED_INC:CONFUSED
 dice:10+4d5
-effect:TIMED_INC:SINFRA
+effect:TIMED_SET:SINFRA
 dice:30+4d25
 effect:NOURISH:INC_BY
 dice:1
@@ -4065,7 +4065,7 @@ attack:3d4:0:0
 armor:0:0
 effect:TIMED_INC:SLOW
 dice:15+1d25
-effect:TIMED_INC:SHERO
+effect:TIMED_SET:SHERO
 dice:10+1d25
 effect:NOURISH:INC_BY
 dice:1
@@ -4116,7 +4116,7 @@ weight:4
 cost:0
 alloc:10:10 to 15
 pile:25:2
-effect:TIMED_INC:STONESKIN
+effect:TIMED_SET:STONESKIN
 dice:20+1d20
 effect:DRAIN_STAT:CHR
 dice:1
@@ -4221,9 +4221,9 @@ dice:20+1d20
 effect:TIMED_INC_NO_RES:SLOW
 dice:5+1d20
 #good:
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:50+2d6
-effect:TIMED_INC:SINFRA
+effect:TIMED_SET:SINFRA
 dice:100+4d25
 desc:Alas! There are some wounds that cannot be wholly cured..
 msg_self:You are feeling devastated..
@@ -4251,7 +4251,7 @@ expr:B:PLAYER_LEVEL:* 2
 effect:TIMED_INC_NO_RES:IMAGE
 dice:5+2d10
 #good:
-effect:TIMED_INC:SHERO
+effect:TIMED_SET:SHERO
 dice:25+1d25
 effect:CURE:IMAGE
 msg_self:You are on fire!
@@ -4278,9 +4278,9 @@ dice:2
 effect:NOURISH:INC_BY
 dice:1
 # buff:
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:50+1d10
-effect:TIMED_INC:OPP_COLD
+effect:TIMED_SET:OPP_COLD
 dice:50+1d10
 
 
@@ -5006,7 +5006,7 @@ effect:CURE:STUN
 effect:CURE:AFRAID
 effect:CURE:TERROR
 effect:CURE:POISONED
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 effect:HEAL_HP
@@ -5070,7 +5070,7 @@ alloc:20:40 to 100
 attack:1d2:0:0
 armor:0:0
 charges:4+d3
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:20+1d20
 
 name:Remove Curse
@@ -6418,7 +6418,7 @@ weight:5
 cost:0
 alloc:2:95 to 100
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
-effect:TIMED_INC:PROBTRAVEL
+effect:TIMED_SET:PROBTRAVEL
 dice:20+1d20
 effect:TIMED_INC_NO_RES:IMAGE
 dice:5+5d5
@@ -7132,9 +7132,9 @@ level:1
 weight:3
 cost:0
 flags:NO_DROP
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:12+1d24
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 effect:CURE:BLACKBREATH
@@ -7225,11 +7225,11 @@ level:30
 weight:4
 cost:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 
@@ -7278,7 +7278,7 @@ level:50
 weight:4
 cost:0
 # movement speed
-effect:TIMED_INC:MOVE_FAST
+effect:TIMED_SET:MOVE_FAST
 dice:20+1d20
 
 name:Devilry of Saruman
