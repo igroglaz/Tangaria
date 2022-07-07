@@ -332,6 +332,7 @@ class:Timeturner
 help:Extremely brittle, but lightning fast, they command time by void magic.
 help: Some call them 'Mesmers' as they also have battle telepathic powers.
 help: They become especially speedy after level 30.
+help: Their haste buff from the spell can stack its duration.
 
 class:Scavenger
 help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,

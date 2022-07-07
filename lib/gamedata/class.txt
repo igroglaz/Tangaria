@@ -167,8 +167,6 @@
 #will work only for current turn. So to make it summoned - it should be min 2. 
 #but to buff next blow - it's alright to have 1
 
-# perhaps most of TIMED_INC buffs should be reworked into TIMED_SET...
-
 
 ############### WARRIOR ###############
 name:Warrior
@@ -440,7 +438,7 @@ msg_other: fires a lightning beam.
 desc:Fires a lightning beam that hurts each monster in its path.
 
 spell:Frost Attunement:6:4:5:4:0
-effect:TIMED_INC:ICY_AURA
+effect:TIMED_SET:ICY_AURA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 20
 desc:Creates a curtain of ice around you to block enemy attacks, damaging and
@@ -592,17 +590,17 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Mana Channel:25:10:50:20:0
-effect:TIMED_INC:FASTCAST
-dice:5+1d5
-desc:Doubles spellcasting speed for 5+1d5 turns.
+effect:TIMED_SET:FASTCAST
+dice:7+1d5
+desc:Doubles spellcasting speed for 7+1d5 turns.
 
 spell:Resistance:28:20:65:20:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
@@ -639,7 +637,7 @@ desc: Uniques are not affected.
 desc: You take 1d4 points of damage for every monster removed.
 
 spell:Globe of Invulnerability:35:70:95:250:0
-effect:TIMED_INC:INVULN
+effect:TIMED_SET:INVULN
 dice:8+1d10
 desc:Grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
@@ -789,7 +787,7 @@ book-alloc:30:10 to 100
 book-desc:A standard nature book with a few verses.
 
 spell:Resist Poison:7:6:32:5:0
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 desc:Grants you resistance to poison for 20+1d20 turns.
 
@@ -839,7 +837,7 @@ book-alloc:20:25 to 100
 book-desc:A standard nature book with a few verses.
 
 spell:Extra Growth:15:20:40:12:0
-effect:TIMED_INC:GROWTH
+effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
 
@@ -879,7 +877,7 @@ book-alloc:15:40 to 100
 book-desc:An advanced nature book with a few verses.
 
 spell:Haste Self:25:12:65:15:0
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
@@ -944,7 +942,7 @@ book-alloc:10:60 to 100
 book-desc:An advanced nature book with a few verses.
 
 spell:Rapid Regeneration:37:20:90:100:0
-effect:TIMED_INC:HEAL
+effect:TIMED_SET:HEAL
 dice:5+1d3
 desc:Speed up digestion to increase regeneration of hitpoints for
 desc: the next 5+1d3 turns (or until hungry).
@@ -1048,7 +1046,7 @@ desc:Detects all evil monsters in the immediate area,
 desc: for one turn only.
 
 spell:Bless:1:2:20:4:0
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 10
 expr:S:PLAYER_LEVEL:+ 10
@@ -1078,9 +1076,9 @@ desc: all light-sensitive monsters in the area of effect.
 desc: If you are in a room, the entire room will be lit up as well.
 
 spell:Heroism:5:2:30:5:0
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -1127,7 +1125,7 @@ desc: Evil monsters take double damage.
 desc: The bigger area of effect is attained at character level 30.
 
 spell:Sense Invisible:11:8:42:4:0
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:24+1d24
 desc:Enables you to see invisible monsters for 24+1d24 turns.
 
@@ -1139,7 +1137,7 @@ msg_other: dispels undead.
 desc:Inflicts unresistable damage on each undead monster within line of sight.
 
 spell:Protection from Evil:14:8:42:5:0
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 desc:Protects you from evil for a level-dependent duration:
@@ -1178,7 +1176,7 @@ desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 
 spell:Demon Bane:22:40:80:30:0
-effect:TIMED_INC:ATT_DEMON:0:5
+effect:TIMED_SET:ATT_DEMON:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks powerfully slay demons.
 
@@ -1192,7 +1190,7 @@ desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
 spell:Smite Evil:25:20:70:40:0
-effect:TIMED_INC:ATT_EVIL:0:5
+effect:TIMED_SET:ATT_EVIL:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks slay evil creatures.
 
@@ -1298,7 +1296,7 @@ desc: except that you won't start on a square with a stair.
 
 spell:Revive:42:70:90:90:1
 cooldown:200
-effect:TIMED_INC:REVIVE
+effect:TIMED_SET:REVIVE
 dice:20+1d20
 desc:Allows you (or one of your allies) to avoid death once for 20+1d20 turns.
 desc: Can be used every 200 turns.
@@ -1380,7 +1378,7 @@ desc:Calls upon the dark forces and opens a channel into the mind of a
 desc: monster, stunning and scaring it.
 
 spell:Sense Invisible:2:4:25:3:0
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:24+1d24
 desc:Enables you to see invisible monsters for 24+1d24 turns.
 
@@ -1429,7 +1427,7 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Resist Cold:9:10:50:5:0
-effect:TIMED_INC:OPP_COLD
+effect:TIMED_SET:OPP_COLD
 dice:20+1d20
 desc:Grants you resistance to cold for 20+1d20 turns.
 
@@ -1455,7 +1453,7 @@ effect:PROJECT_LOS_AWARE:SLEEP_EVIL
 desc:Attempts to put to sleep each evil monster within line of sight.
 
 spell:Shadow Touch:12:12:48:5:0
-effect:TIMED_INC:ATT_VAMP
+effect:TIMED_SET:ATT_VAMP
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:* 3 / 10 + 20
 expr:S:PLAYER_LEVEL:* 4 / 10 + 10
@@ -1500,7 +1498,7 @@ book-alloc:20:25 to 100
 book-desc:A standard shadow book with a few rituals.
 
 spell:Absorb Soul:20:15:46:5:0
-effect:TIMED_INC:SOUL
+effect:TIMED_SET:SOUL
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 50
 expr:S:PLAYER_LEVEL:* 2 + 30
@@ -1706,7 +1704,7 @@ desc:Detects all evil monsters in the immediate area,
 desc: for one turn only.
 
 spell:Bless:3:3:35:4:0
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 10
 expr:S:PLAYER_LEVEL:+ 10
@@ -1745,9 +1743,9 @@ desc:Teleports you randomly over a short distance.
 book:prayer book:town:[Words of Wisdom]:5:divine
 
 spell:Heroism:12:5:30:5:0
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -1764,14 +1762,14 @@ desc:Attempts to remove a curse from an item.
 
 spell:Resist Elements:15:13:45:4:1
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
 effect:SET_VALUE
 dice:10+1d10
 desc:Gives you temporary resistance to cold and fire, for 10+1d10 turns each.
 
 spell:Sense Invisible:18:15:50:4:0
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:24+1d24
 desc:Enables you to see invisible monsters for 24+1d24 turns.
 
@@ -1796,7 +1794,7 @@ desc: or a worthless item.
 desc: This prayer reduce your nourishment.
 
 spell:Protection from Evil:22:15:50:5:0
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 desc:Protects you from evil for a level-dependent duration:
@@ -1804,7 +1802,7 @@ desc: all melee attacks by evil monsters have a chance to be repelled,
 desc: unless the monster's level is higher than your character level.
 
 spell:Demon Bane:22:40:80:30:0
-effect:TIMED_INC:ATT_DEMON:0:5
+effect:TIMED_SET:ATT_DEMON:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks powerfully slay demons.
 
@@ -1816,7 +1814,7 @@ msg_other: dispels evil.
 desc:Inflicts unresistable damage on each evil monster within line of sight.
 
 spell:Smite Evil:25:20:70:40:0
-effect:TIMED_INC:ATT_EVIL:0:5
+effect:TIMED_SET:ATT_EVIL:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks slay evil creatures.
 
@@ -1840,7 +1838,7 @@ desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
 desc: This prayer reduce your nourishment.
 
 spell:Sanctuary:34:20:75:80:1
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:30+1d20
 desc:Grants you AC based on your level for 30+1d20 turns.
 
@@ -1989,7 +1987,7 @@ msg_other: teleports away.
 desc:Teleports you randomly within the current level.
 
 spell:Avoid Traps:18:25:85:10:0
-effect:TIMED_INC:TRAPSAFE
+effect:TIMED_SET:TRAPSAFE
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 30
 desc:Renders you safe from traps for a level-dependent duration.
@@ -2004,14 +2002,14 @@ desc: level and decrease with level of wand or staff and number of charges.
 desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
 spell:Poison Brand:20:30:40:20:0
-effect:TIMED_INC:ATT_POIS:0:5
+effect:TIMED_SET:ATT_POIS:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks branded with poison.
 
 book:shadow book:town:[Shadows and Illusions]:5:shadow
 
 spell:Invisibility:22:14:45:20:0
-effect:TIMED_INC:INVIS:0:5
+effect:TIMED_SET:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
 desc:Makes you invisible for a short duration.
@@ -2019,7 +2017,7 @@ desc: High level, questor, invisible and injured monsters
 desc: cannot be fooled by this trick.
 
 spell:Hit and Run:23:20:40:20:0
-effect:TIMED_INC:ATT_RUN
+effect:TIMED_SET:ATT_RUN
 dice:10
 desc:Prepares you to teleport a short distance after stealing.
 
@@ -2066,7 +2064,7 @@ spell:Cloak of Changement:28:15:75:15:0
 effect:CLOAK_CHANGT
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
-effect:TIMED_INC:MOVE_FAST
+effect:TIMED_SET:MOVE_FAST
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Disguises you as another player's class.
@@ -2100,7 +2098,7 @@ effect:NOURISH:DEC_BY
 dice:1
 effect:RANDOM
 dice:2
-effect:TIMED_INC:BOLD:0:5
+effect:TIMED_SET:BOLD:0:5
 dice:30+1d30
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -2139,11 +2137,11 @@ spell:Trick or Treat:50:37:30:50:0
 effect:SUMMON:MONSTERS:0:1
 dice:8
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 msg_other: summons some monsters.
@@ -2223,7 +2221,7 @@ desc:Cures all cuts, poison, stunning and black breath.
 book:nature book:town:[Gifts of Nature]:4:nature
 
 spell:Resist Poison:12:10:32:5:0
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 desc:Grants you resistance to poison for 20+1d20 turns.
 
@@ -2236,7 +2234,7 @@ desc: unless it is a permanent wall. Each monster caught in the beam that
 desc: is susceptible to rock remover takes 20+1d30 points of damage.
 
 spell:Farsight:17:6:30:25:0
-effect:TIMED_INC:FARSIGHT
+effect:TIMED_SET:FARSIGHT
 dice:$B+1d20&m$M
 expr:B:PLAYER_LEVEL:+ 0
 expr:M:PLAYER_LEVEL:- 7 / 10
@@ -2244,7 +2242,7 @@ desc:Increases your shooting range, infravision and chance to-hit for a
 desc: level-dependent duration.
 
 spell:Extra Growth:18:20:40:12:0
-effect:TIMED_INC:GROWTH
+effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
 
@@ -2258,7 +2256,7 @@ dice:11+1d24
 desc:Maps out a portion of the level around you.
 
 spell:Cover Tracks:20:20:40:40:0
-effect:TIMED_INC:COVERTRACKS:0:5
+effect:TIMED_SET:COVERTRACKS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:* 2
 desc:Prevents you from leaving scent for monsters to track you by for a
@@ -2279,7 +2277,7 @@ desc:Creates a radius-5 healing ball around you.
 book:nature book:dungeon:[Nature Craft]:4:nature
 
 spell:Haste Self:25:12:65:15:0
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
@@ -2289,9 +2287,9 @@ effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
 spell:Berserker:28:30:80:35:0
-effect:TIMED_INC:SHERO:0:5
+effect:TIMED_SET:SHERO:0:5
 dice:25+1d25
-effect:TIMED_INC:BOLD:0:5
+effect:TIMED_SET:BOLD:0:5
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -2387,9 +2385,9 @@ desc:Detects all monsters susceptible to fear in the immediate area,
 desc: for one turn only.
 
 spell:Berserk Strength:3:2:20:4:0
-effect:TIMED_INC:SHERO:0:5
+effect:TIMED_SET:SHERO:0:5
 dice:25+1d25
-effect:TIMED_INC:BOLD:0:5
+effect:TIMED_SET:BOLD:0:5
 dice:25+1d25
 effect:CURE:AFRAID
 desc:Removes fear and grants you berserk strength (resistance to fear,
@@ -2413,14 +2411,14 @@ desc:Teleports you next to a chosen target up to 4 squares away.
 book:shadow book:town:[Dark Conjurings]:5:shadow
 
 spell:Dark Blessing:12:6:24:12:0
-effect:TIMED_INC:HOLD_LIFE
+effect:TIMED_SET:HOLD_LIFE
 dice:20+1d20
 desc:Grants you resistance to draining attacks for 20+1d20 turns.
 
 spell:Grim Purpose:13:8:30:12:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:FREE_ACT
-effect:TIMED_INC:OPP_CONF
+effect:TIMED_SET:FREE_ACT
+effect:TIMED_SET:OPP_CONF
 effect:SET_VALUE
 dice:12+1d12
 desc:Your mind becomes too focused to be slowed, paralyzed or confused
@@ -2433,7 +2431,7 @@ desc:Attempts a melee attack against the targeted monster. Stuns the enemy
 desc: for 6 turns if hit.
 
 spell:Unholy Pact:16:8:32:16:0
-effect:TIMED_INC:REGEN
+effect:TIMED_SET:REGEN
 dice:20+1d20
 desc:Greatly increases your regeneration rate for 20+1d20 turns.
 desc: The effect of this spell is cumulative with other means of regeneration.
@@ -2448,13 +2446,13 @@ desc: duration. Monsters that resist fear are not affected.
 book:shadow book:town:[Shadows and Illusions]:5:shadow
 
 spell:Phantoms Weapon:20:10:40:20:0
-effect:TIMED_INC:HOLD_WEAPON
+effect:TIMED_SET:HOLD_WEAPON
 dice:20+1d20
 desc:Grants extra blows sometimes and makes you immune to disarming
 desc: for 20+1d20 turns.
 
 spell:Soul Harvest:22:11:44:22:0
-effect:TIMED_INC:SOUL
+effect:TIMED_SET:SOUL
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 50
 expr:S:PLAYER_LEVEL:* 2 + 30
@@ -2462,20 +2460,20 @@ desc:This heals you by a substantial amount every time you kill a monster
 desc: within its duration.
 
 spell:Relentless Taunting:24:10:32:20:0
-effect:TIMED_INC:TAUNT
+effect:TIMED_SET:TAUNT
 dice:12+1d12
 desc:Makes any monster that can move more inclined to run toward you, and less
 desc: likely to use a ranged attack (including spells and innate abilities).
 
 spell:Expertise:25:12:48:24:0
-effect:TIMED_INC:SAFE
+effect:TIMED_SET:SAFE
 dice:20+1d20
-effect:TIMED_INC:GROWTH
+effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth and perfect saving throw for 20+1d20 turns.
 
 spell:Aura of Despair:26:13:52:26:0
-effect:TIMED_INC:DESPAIR
+effect:TIMED_SET:DESPAIR
 dice:20+1d20
 desc:Gives monsters around you a penalty to their saving throws and doubles
 desc: the duration if they get become afraid for 20+1d20 turns.
@@ -2483,7 +2481,7 @@ desc: the duration if they get become afraid for 20+1d20 turns.
 book:shadow book:dungeon:[Dark Evocations]:5:shadow
 
 spell:Venom:28:18:35:30:0
-effect:TIMED_INC:ATT_POIS:0:5
+effect:TIMED_SET:ATT_POIS:0:5
 dice:18+1d18
 desc:Coats all your melee weapons with poison for 18+1d18 turns.
 
@@ -2497,14 +2495,14 @@ desc:Attempts to summon one undead monster and one demon generated at the
 desc: current dungeon level. This spell has no effect when used in the town.
 
 spell:Bloodlust:30:25:37:80:0
-effect:TIMED_INC:BLOODLUST:0:-1
+effect:TIMED_SET:BLOODLUST:0:-1
 dice:10
 desc:Gives you a powerful desire to kill, increased every time you satisfy it.
 desc: Gives you extra melee damage and extra blows, but comes
 desc: with dangerous side-effects.
 
 spell:Demonic Skin:32:16:64:32:0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:30+1d20
 desc:Grants you AC based on your level for 30+1d20 turns.
 
@@ -2522,11 +2520,11 @@ book:shadow book:dungeon:[Great Shadows]:5:shadow
 
 spell:Demonic Resistance:36:18:72:36:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
@@ -2540,7 +2538,7 @@ desc:Attempts a melee attack and hits the target with force, knocking it back
 desc: with a chance to stun it.
 
 spell:Demonic Flight:40:20:80:40:0
-effect:TIMED_INC:FLIGHT:0:5
+effect:TIMED_SET:FLIGHT:0:5
 dice:20+1d20
 desc:Grants levitation and +5 to speed for 20+1d20 turns.
 
@@ -2548,11 +2546,11 @@ spell:Path of the Unholy:42:21:84:42:0
 effect:TELEPORT
 dice:40
 msg_other: teleports away.
-effect:TIMED_INC:ICY_AURA
+effect:TIMED_SET:ICY_AURA
 dice:10+1d10
-effect:TIMED_INC:ESP
+effect:TIMED_SET:ESP
 dice:10+1d10
-effect:TIMED_INC:ZFARSIGHT
+effect:TIMED_SET:ZFARSIGHT
 dice:10+1d10
 desc:Grants infravision, telepathic powers, and surrounds you with an icy aura
 desc: for 10+1d10 turns, but also teleports you around.
@@ -2761,7 +2759,7 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Meditation:20:5:30:15:0
-effect:TIMED_INC:MEDITATE
+effect:TIMED_SET:MEDITATE
 dice:20+1d20
 desc:Helps increasing your mana capacity at the cost of hit points.
 
@@ -2788,7 +2786,7 @@ desc: level and decrease with level of wand or staff and number of charges.
 desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
 spell:Speed:25:12:55:20:1
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 20
 expr:S:PLAYER_LEVEL:+ 0
@@ -2813,11 +2811,11 @@ book:magic book:dungeon:[Sorcery and Evocations]:7:arcane
 
 spell:Resistance:28:20:55:60:1
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
@@ -2833,7 +2831,7 @@ desc: During that delay, the effect can be canceled by invoking the spell
 desc: of recall again.
 
 spell:Wraithform:30:30:95:70:1
-effect:TIMED_INC:WRAITHFORM
+effect:TIMED_SET:WRAITHFORM
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 10
 desc:Grants you the ability to pass through non-permanent walls.
@@ -2848,7 +2846,7 @@ desc: have resistance to blindness or light.
 desc: This spell has no effect when used in the town.
 
 spell:Telepathy:34:40:75:150:0
-effect:TIMED_INC:ESP
+effect:TIMED_SET:ESP
 dice:$B+1d10
 expr:B:PLAYER_LEVEL:+ 0
 desc:Grants you the power of telepathy for a level-dependent duration.
@@ -2879,8 +2877,8 @@ desc: The glyphs will remain where they are, until a monster succeeds in
 desc: breaking them or until you leave the level.
 
 spell:Disruption Shield:38:70:95:100:0
-effect:TIMED_INC:MANASHIELD
-dice:8+1d10
+effect:TIMED_SET:MANASHIELD
+dice:10+1d10
 desc:Creates a shield of mana around you that absorbs all damage
 desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
@@ -3058,7 +3056,7 @@ dice:7
 desc:Covers your missiles with fire.
 
 spell:Farsight:17:6:30:25:0
-effect:TIMED_INC:FARSIGHT
+effect:TIMED_SET:FARSIGHT
 dice:$B+1d20&m$M
 expr:B:PLAYER_LEVEL:+ 0
 expr:M:PLAYER_LEVEL:- 7 / 10
@@ -3082,7 +3080,7 @@ dice:20
 desc:Turns your missiles into explosive lightning shots.
 
 spell:Resist Poison:24:12:48:24:0
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:20+1d20
 desc:Grants you resistance to poison for 20+1d20 turns.
 
@@ -3338,17 +3336,17 @@ desc:Allows you to send objects from your inventory
 desc: to another player's inventory.
 
 spell:Force Shield:27:23:56:29:0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:30+1d20
 desc:Grants you AC based on your level for 30+1d20 turns.
 
 spell:Prismatic Shield:29:25:59:33:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
@@ -3385,13 +3383,13 @@ desc: During that delay, the effect can be canceled by invoking the power
 desc: of recall again.
 
 spell:Awareness:32:27:64:39:0
-effect:TIMED_INC:ESP
+effect:TIMED_SET:ESP
 dice:$B+1d10
 expr:B:PLAYER_LEVEL:+ 0
 desc:Grants you the power of telepathy for a level-dependent duration.
 
 spell:Space/Time Anchor:33:27:65:41:0
-effect:TIMED_INC:ANCHOR
+effect:TIMED_SET:ANCHOR
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Grants you resistance to gravity and time for a level-dependent duration.
@@ -3405,7 +3403,7 @@ desc:Creates a radius-5 to radius-7 wave around you that teleports each monster
 desc: in its path up to 100 squares away.
 
 spell:Biofeedback:35:30:68:45:0
-effect:TIMED_INC:BIOFEEDBACK
+effect:TIMED_SET:BIOFEEDBACK
 dice:1d$S
 expr:S:PLAYER_LEVEL:+ 10
 desc:Increases regeneration rate. Also reduces damage from missile,
@@ -3414,7 +3412,7 @@ desc: This power can cause nasty effects when Adrenaline Channeling is
 desc: activated.
 
 spell:Probability Travel:36:30:70:47:0
-effect:TIMED_INC:PROBTRAVEL
+effect:TIMED_SET:PROBTRAVEL
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Allows you to teleport 1 level up or 1 level down at will.
@@ -3476,7 +3474,7 @@ desc: This also has a chance to blind, confuse, put to sleep or slow
 desc: affected monsters.
 
 spell:Adrenaline Channeling:50:42:72:75:0
-effect:TIMED_INC:ADRENALINE
+effect:TIMED_SET:ADRENALINE
 dice:10+1d10
 desc:Attempts to control the adrenaline flow in your body, increasing your
 desc: fighting abilities for 10+1d10 turns.
@@ -3545,7 +3543,7 @@ book-alloc:25:5 to 100
 book-desc:A standard spellbook with a few spells.
 
 spell:Shocking Grasp:3:2:21:4:0
-effect:TIMED_INC:ATT_ELEC
+effect:TIMED_SET:ATT_ELEC
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
 expr:S:PLAYER_SPELL_POWER:* 5
@@ -3563,14 +3561,14 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Resist Lightning:14:6:39:11:0
-effect:TIMED_INC:OPP_ELEC
+effect:TIMED_SET:OPP_ELEC
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
 desc:Grants you temporary resistance to lightning.
 
 spell:Resist Poison:21:9:51:17:0
-effect:TIMED_INC:OPP_POIS
+effect:TIMED_SET:OPP_POIS
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3644,7 +3642,7 @@ desc:Conjures a minor fire ball to light up all squares in the nearby area.
 desc: If you are in a room, the entire room will be lit up as well.
 
 spell:Resist Fire:19:8:47:15:0
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3713,7 +3711,7 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Resist Acid:15:7:41:12:0
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_ACID
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3733,7 +3731,7 @@ msg_other: fires an acid ball.
 desc:Shoots an acid ball.
 
 spell:Stoneskin:32:14:69:26:0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3760,7 +3758,7 @@ book-alloc:25:5 to 100
 book-desc:A standard spellbook with a few spells.
 
 spell:Freezing Aura:2:1:19:4:0
-effect:TIMED_INC:ICY_AURA
+effect:TIMED_SET:ICY_AURA
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
 expr:S:PLAYER_SPELL_POWER:* 5
@@ -3783,7 +3781,7 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Resist Cold:16:7:43:13:0
-effect:TIMED_INC:OPP_COLD
+effect:TIMED_SET:OPP_COLD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3792,14 +3790,14 @@ desc:Grants you temporary resistance to cold.
 spell:Potion of Vitality:20:9:49:16:0
 effect:NOURISH:INC_TO
 dice:15
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
 effect:CURE:AFRAID
 effect:HEAL_HP
 dice:10
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
@@ -3847,7 +3845,7 @@ book-alloc:10:10 to 100
 book-desc:A standard spellbook with a few spells.
 
 spell:Elemental Power:5:3:25:4:0
-effect:TIMED_INC:EPOWER
+effect:TIMED_SET:EPOWER
 dice:20+1d20&m$M
 expr:M:PLAYER_SPELL_POWER:* 5
 desc:Calls the power of the elements to boost the effectiveness
@@ -3881,11 +3879,11 @@ desc: This spell has no effect when used in the town.
 
 spell:Resistance:23:11:55:19:0
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 5
@@ -4052,14 +4050,14 @@ desc:Teleports you randomly over a short distance.
 book:prayer book:town:[Words of Wisdom]:5:divine
 
 spell:Farsight:10:7:35:5:0
-effect:TIMED_INC:ZFARSIGHT
+effect:TIMED_SET:ZFARSIGHT
 dice:$B+1d20&m$M
 expr:B:PLAYER_LEVEL:+ 0
 expr:M:PLAYER_LEVEL:/ 4
 desc:Increases your infravision for a level-dependent duration.
 
 spell:Sense Invisible:13:10:40:6:0
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:24+1d24
 desc:Enables you to see invisible monsters for 24+1d24 turns.
 
@@ -4090,7 +4088,7 @@ desc: cut damage, neutralizes poison, and cures amnesia.
 book:prayer book:town:[Chants and Blessings]:5:divine
 
 spell:Regeneration:22:20:66:12:0
-effect:TIMED_INC:REGEN
+effect:TIMED_SET:REGEN
 dice:20+1d20
 desc:Greatly increases your regeneration rate for 20+1d20 turns.
 desc: The effect of this spell is cumulative with other means of regeneration.
@@ -4185,7 +4183,7 @@ desc: Uniques are not affected.
 desc: You take 1d3 points of damage for every monster removed.
 
 spell:Suppress Summoning:50:30:75:70:0
-effect:TIMED_INC:ANTISUMMON
+effect:TIMED_SET:ANTISUMMON
 dice:50+1d20
 desc:Prevents summoning around you for a level-dependent duration.
 
@@ -4577,7 +4575,7 @@ msg_other: gestures and mumbles calmly.
 desc:Attempts to hold single monster (#%d).
 
 spell:Haste:0:14:28:0:0
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 flag:HASTE
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
@@ -4913,7 +4911,7 @@ desc:Detects all non-invisible monsters in the immediate area,
 desc: for one turn only.
 
 spell:Poison Brand:25:9:42:40:0
-effect:TIMED_INC:ATT_POIS:0:5
+effect:TIMED_SET:ATT_POIS:0:5
 dice:20+1d20
 desc:Temporarily covers your weapon with poison.
 
@@ -5017,7 +5015,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 2
 effect:NOURISH:INC_TO
 dice:15
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
 msg_self:Your falcon flew to the hunt...
 desc:Falcon strikes a target and then it will shares with you his prey by
@@ -5030,7 +5028,7 @@ desc: Cooldown 60 turns.
 spell:Sensitive Snout:15:10:42:15:0
 effect:DETECT_ANIMALS
 effect-yx:22:40
-effect:TIMED_INC:SINVIS
+effect:TIMED_SET:SINVIS
 dice:24+1d24
 desc:Detects all animals in the immediate area, for one turn only.
 desc: Also you feel invisible monsters for 24+1d24 turns.
@@ -5087,9 +5085,9 @@ desc:You treat your pet so it regen its wounds.
 desc: You can use this skill once per 60 turns.
 
 spell:Cat Magnetism:35:30:63:50:0
-effect:TIMED_INC:STEALTH
+effect:TIMED_SET:STEALTH
 dice:10+1d10
-effect:TIMED_INC:SINFRA
+effect:TIMED_SET:SINFRA
 dice:10+1d10
 effect:SPEND_MANA
 dice:$B
@@ -5251,7 +5249,7 @@ desc:Reveals an unknown rune on an object.
 
 spell:Extra Growth:30:20:30:40:0
 cooldown:200
-effect:TIMED_INC:GROWTH
+effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
 desc: Cooldown 200 turns.
@@ -5285,7 +5283,7 @@ msg_other: emits a healing blast.
 desc:Creates a radius-4 healing ball around you.
 
 spell:Quickfeet:45:12:30:125:0
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
@@ -5395,7 +5393,7 @@ desc: and sometimes even dexterity.
 desc: Beware to sleep in sloppy places..
 
 spell:Focus:20:6:30:12:0
-effect:TIMED_INC:OPP_CONF
+effect:TIMED_SET:OPP_CONF
 dice:12+1d12
 effect:CURE:CONFUSED
 desc:You focus, becoming immune to confusion for some time.
@@ -5437,7 +5435,7 @@ desc:Attempts a skillful kick that knocking enemy back with a chance to stun it.
 spell:Get Lucky:50:70:90:90:0
 cooldown:777
 effect:TIMED_INC:REVIVE
-dice:3+1d7
+dice:7+1d7
 desc:As you've come so far.. you might to avoid death once in a while.
 desc: Can be used every 777 turns.
 
@@ -5627,9 +5625,9 @@ desc: cures your wounds.
 desc: Cooldown 100 turns.
 
 spell:Heroism:20:12:30:50:0
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -5733,17 +5731,17 @@ effect:WAKE
 effect:BLAST:SOUND:2
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
 desc:Removes fear and grants you fear resistance, grants bonus of +12 to-hit.
 desc: Makes very loud damaging sound in 3 radius.
 
 spell:Lullaby:5:4:32:3:0
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
-effect:TIMED_INC:REGEN
+effect:TIMED_SET:REGEN
 dice:20+1d20
 desc:Attempts to put to sleep each monster within line of sight.
 desc: Greatly increases your regeneration rate for 20+1d20 turns.
@@ -5765,7 +5763,7 @@ spell:Piercing Cry:15:10:30:11:0
 effect:WAKE
 effect:BEAM:SOUND
 dice:6d8
-effect:TIMED_INC:SHERO:0:5
+effect:TIMED_SET:SHERO:0:5
 dice:25+1d25
 msg_self:From you high pitched voice appears a line of trembling air.
 msg_other:'s makes piercing sound toward enemy.
@@ -5781,7 +5779,7 @@ effect:NOURISH:INC_BY
 dice:0
 effect:RANDOM
 dice:2
-effect:TIMED_INC:GROWTH
+effect:TIMED_SET:GROWTH
 dice:20+1d20
 msg_other: sing strange melody.
 desc:Sing melody in each of the eight directions starting from your
@@ -5792,7 +5790,7 @@ effect:WAKE
 effect:PROJECT_LOS_AWARE:MON_CONF
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:30+1d20
 msg_other: strikes lightning from above.
 desc:Grants you defense bonus.
@@ -5829,7 +5827,7 @@ effect:WAKE
 effect:BOLT_OR_BEAM:FORCE:0:-10
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 msg_self:A line of trembling air appears.
@@ -5840,7 +5838,7 @@ desc: Hastes you (+10 to speed) for a level-dependent duration.
 spell:Resonance:45:90:65:100:0
 effect:WAKE
 effect:EARTHQUAKE:NONE:1
-effect:TIMED_INC:SAFE
+effect:TIMED_SET:SAFE
 dice:20+1d20
 msg_other: invokes an earsplitting sound!
 desc:Grants perfect saving throw for 20+1d20 turns.
@@ -5852,11 +5850,11 @@ effect:STRIKE:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 msg_other: ignites air with his song.
@@ -6139,7 +6137,7 @@ desc:Inflict a blow imbued by deadly poison.
 desc: Also cures your poison.
 
 spell:Bone Armour:5:2:30:3:0
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:SHIELD
 dice:$B
 expr:B:PLAYER_LEVEL:+ 50
 effect:TIMED_INC:UNSUMMON_MINIONS
@@ -6197,11 +6195,11 @@ desc:Inflicts unresistable damage on each living monster around you.
 spell:Dungeons Flavour:35:20:55:20:0
 effect:DEEP_DESCENT
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 desc:Send you to the deepest depths of the dungeon.
@@ -6289,9 +6287,9 @@ desc: If you are in a room, the entire room will be lit up as well.
 spell:Safe Guard:5:3:35:7:0
 effect:TELEPORT
 dice:10
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -6308,7 +6306,7 @@ expr:B:PLAYER_LEVEL:* 3
 desc:Deals non-resistable damage to a single monster.
 
 spell:Art Of Healing:15:8:32:16:0
-effect:TIMED_INC:REGEN
+effect:TIMED_SET:REGEN
 dice:20+1d20
 effect:HEAL_HP
 dice:$B+m$M
@@ -6341,7 +6339,7 @@ desc:Hits the target with force, knocking it back with a chance to stun it.
 desc: Can be used not only in melee, but also on short distance.
 
 spell:Rage Of Inquisition:30:25:37:50:0
-effect:TIMED_INC:BLOODLUST:0:-1
+effect:TIMED_SET:BLOODLUST:0:-1
 dice:10
 desc:Gives you a powerful desire to kill, increased every time you satisfy it.
 desc: Gives you extra melee damage and extra blows, but comes
@@ -6381,10 +6379,10 @@ desc:Cures significant amount of damage.
 
 spell:Salvation:50:100:44:200:0
 cooldown:200
-effect:TIMED_INC:REVIVE
+effect:TIMED_SET:REVIVE
 dice:10+1d10
-effect:TIMED_INC:INVULN
-dice:4+1d5
+effect:TIMED_SET:INVULN
+dice:5+1d5
 desc:Allows you to avoid death once in a while.
 desc: Can be used every 200 turns.
 desc: Also grants you resistance against non-physical attacks for a moment.
@@ -6581,7 +6579,7 @@ effect:NOURISH:DEC_BY
 dice:0
 effect:RANDOM
 dice:8
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:20+1d20
 desc:Grants you resistance to fire (20), cold (25), lightning (30), poison (35),
 desc: acid (40) for 20+1d20 turns. Also increase magic resistance.
@@ -7090,7 +7088,7 @@ effect:PROJECT_LOS_AWARE:SLEEP_ALL
 desc:Attempts to put to sleep each monster within line of sight.
 
 spell:Fade in Shadows:40:40:40:70:0
-effect:TIMED_INC:INVIS:0:5
+effect:TIMED_SET:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 20
 effect:GLYPH:DECOY
@@ -7351,7 +7349,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 # fog, clouds; freeze water; create lava
 
 spell:Pyrokinetic Touch:1:1:20:1:0
-effect:TIMED_INC:OPP_FIRE
+effect:TIMED_SET:OPP_FIRE
 dice:20+1d20
 effect:SHORT_BEAM:FIRE:1
 dice:$B
@@ -7361,7 +7359,7 @@ desc:Covers your hands with fire to burn your foes.
 desc: Grants fire resistance.
 
 spell:Cryokinetic Touch:5:2:20:2:0
-effect:TIMED_INC:OPP_COLD
+effect:TIMED_SET:OPP_COLD
 dice:20+1d20
 effect:SHORT_BEAM:COLD:1
 dice:$B
@@ -7371,9 +7369,9 @@ desc:Covers your hands with frost to freeze your foes.
 desc: Grants cold resistance.
 
 spell:Ice and Fire:10:5:30:3:0
-effect:TIMED_INC:ATT_FIRE:0:5
+effect:TIMED_SET:ATT_FIRE:0:5
 dice:20+1d20
-effect:TIMED_INC:ATT_COLD:0:5
+effect:TIMED_SET:ATT_COLD:0:5
 dice:20+1d20
 desc:Temporarily makes your melee attacks imbued with heat or frost,
 desc: depending on situation.
@@ -7553,10 +7551,10 @@ desc:Doubles spellcasting speed for 5+1d5 turns.
 desc: Cooldown 75 turns.
 
 spell:Temporal Paradox:20:15:45:30:0
-effect:TIMED_INC:ANCHOR
+effect:TIMED_SET:ANCHOR
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC:MOVE_FAST
+effect:TIMED_SET:MOVE_FAST
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 desc:Grants you resistance to gravity and time for a level-dependent duration.
@@ -7564,10 +7562,12 @@ desc: Also makes you walk faster for a short while.
 desc: Watch out, this also prevents any means of teleportation around you!
 
 spell:Haste:25:25:65:45:0
+# haste buff can stuck its duration
 effect:TIMED_INC:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
+desc: Spell can stack its duration.
 
 spell:Ray of Time:30:25:46:50:0
 effect:BEAM:SMASH:0
@@ -7582,14 +7582,14 @@ desc: It may additionally damage minded creatures and has a chance to blind,
 desc: confuse, put to sleep or slow affected monsters.
 
 spell:Biofeedback:35:30:48:75:0
-effect:TIMED_INC:BIOFEEDBACK
+effect:TIMED_SET:BIOFEEDBACK
 dice:1d$S
 expr:S:PLAYER_LEVEL:+ 10
 desc:Increases regeneration rate. Also reduces damage from missile,
 desc: shards or sound attacks.
 
 spell:Curvature of Space:40:40:90:47:0
-effect:TIMED_INC:PROBTRAVEL
+effect:TIMED_SET:PROBTRAVEL
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: breaks the space/time continuum.
@@ -7712,7 +7712,7 @@ effect:SALVAGE
 desc:Try to salvage item into valuable parts.
 
 spell:Dirty Trick:15:7:30:10:0
-effect:TIMED_INC:ATT_POIS:0:5
+effect:TIMED_SET:ATT_POIS:0:5
 dice:10+1d10
 desc:Temporarily makes your melee attacks branded with poison.
 
@@ -8000,7 +8000,7 @@ desc:Scorches victim with a fire.
 desc: Cooldown 5 turns.
 
 spell:Confession:15:9:33:7:0
-effect:TIMED_INC:TAUNT
+effect:TIMED_SET:TAUNT
 dice:13+1d13
 desc:After your confession everyone hate you so much that they run toward you
 desc: recklessly.. 
