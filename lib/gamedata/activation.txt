@@ -92,9 +92,9 @@ msg:Your {kind} glow{s} deep blue...
 name:BERSERKER
 aim:0
 power:10
-effect:TIMED_INC:SHERO
+effect:TIMED_SET:SHERO
 dice:50+1d50
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:50+1d50
 msg:{name} glows in anger!
 desc:grants berserk strength (resistance to fear, a bonus of {+24} to-hit, and
@@ -109,19 +109,19 @@ msg:{name} glows intensely black...
 name:BLESSING
 aim:0
 power:6
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:6+1d12
 
 name:BLESSING2
 aim:0
 power:7
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:12+1d24
 
 name:BLESSING3
 aim:0
 power:8
-effect:TIMED_INC:BLESSED
+effect:TIMED_SET:BLESSED
 dice:24+1d48
 
 name:BRAWN
@@ -229,7 +229,7 @@ msg:{name} glows a pale blue...
 name:CONFUSING
 aim:0
 power:8
-effect:TIMED_INC:ATT_CONF
+effect:TIMED_SET:ATT_CONF
 dice:10000
 
 name:CURE_BODY
@@ -786,23 +786,23 @@ desc:cures {4d8} points of damage and neutralizes poison
 name:HASTE
 aim:0
 power:10
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:20+1d20
 msg:Your {kind} glow{s} bright green...
 
 name:HASTE2
 aim:0
 power:13
-effect:TIMED_INC:FAST:0:5
+effect:TIMED_SET:FAST:0:5
 dice:75+1d75
 msg:The {kind} glow{s} brightly...
 
 name:HERO
 aim:0
 power:7
-effect:TIMED_INC:HERO
+effect:TIMED_SET:HERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -934,7 +934,7 @@ msg:{name} glows brightly...
 name:PROTEVIL
 aim:0
 power:6
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 msg:The {kind} let{s} out a shrill wail...
@@ -943,14 +943,14 @@ name:RAGE_BLESS_RESIST
 aim:0
 power:21
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
-effect:TIMED_INC:BLESSED
-effect:TIMED_INC:SHERO
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
+effect:TIMED_SET:BLESSED
+effect:TIMED_SET:SHERO
+effect:TIMED_SET:BOLD
 effect:SET_VALUE
 dice:50+1d50
 effect:CURE:AFRAID
@@ -1000,11 +1000,11 @@ name:RESIST_ALL
 aim:0
 power:10
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:20+1d20
 msg:{name} glows many colours...
@@ -1015,11 +1015,11 @@ name:RESIST_ALL_LORDLY
 aim:0
 power:10
 effect:CLEAR_VALUE
-effect:TIMED_INC:OPP_POIS
-effect:TIMED_INC:OPP_COLD
-effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:OPP_ELEC
-effect:TIMED_INC:OPP_ACID
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:40+1d40
 msg:Your {kind} glow{s} many colours...
@@ -1031,30 +1031,35 @@ aim:0
 power:4
 effect:TIMED_INC:OPP_ACID
 dice:10+1d10
+desc:grants temporary resistance to acid. Stack duration with other effects.
 
 name:RESIST_COLD
 aim:0
 power:4
 effect:TIMED_INC:OPP_COLD
 dice:10+1d10
+desc:grants temporary resistance to cold. Stack duration with other effects.
 
 name:RESIST_ELEC
 aim:0
 power:4
 effect:TIMED_INC:OPP_ELEC
 dice:10+1d10
+desc:grants temporary resistance to electricity. Stack duration with other effects.
 
 name:RESIST_FIRE
 aim:0
 power:4
 effect:TIMED_INC:OPP_FIRE
 dice:10+1d10
+desc:grants temporary resistance to fire. Stack duration with other effects.
 
 name:RESIST_POIS
 aim:0
 power:4
 effect:TIMED_INC:OPP_POIS
 dice:10+1d10
+desc:grants temporary resistance to poison. Stack duration with other effects.
 
 name:RESTORE_ALL
 aim:0
@@ -1104,6 +1109,7 @@ effect:TIMED_INC:OPP_ACID
 dice:20+1d20
 effect:BALL:ACID:2
 dice:70
+desc:grants temporary resistance to acid. Stack duration with other effects.
 
 name:RING_FLAMES
 aim:1
@@ -1112,6 +1118,7 @@ effect:TIMED_INC:OPP_FIRE
 dice:20+1d20
 effect:BALL:FIRE:2
 dice:80
+desc:grants temporary resistance to fire. Stack duration with other effects.
 
 name:RING_ICE
 aim:1
@@ -1120,6 +1127,7 @@ effect:TIMED_INC:OPP_COLD
 dice:20+1d20
 effect:BALL:COLD:2
 dice:75
+desc:grants temporary resistance to cold. Stack duration with other effects.
 
 name:RING_LIGHTNING
 aim:1
@@ -1128,6 +1136,7 @@ effect:TIMED_INC:OPP_ELEC
 dice:20+1d20
 effect:BALL:ELEC:2
 dice:85
+desc:grants temporary resistance to electricity. Stack duration with other effects.
 
 name:GLYPH
 aim:0
@@ -1144,9 +1153,9 @@ desc:magically gives possibility to survive hunger from death
 name:SHERO
 aim:0
 power:9
-effect:TIMED_INC:SHERO
+effect:TIMED_SET:SHERO
 dice:25+1d25
-effect:TIMED_INC:BOLD
+effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
 effect:HEAL_HP
@@ -1236,7 +1245,7 @@ effect:CURE:STUN
 effect:CURE:AFRAID
 effect:CURE:TERROR
 effect:CURE:POISONED
-effect:TIMED_INC:PROTEVIL
+effect:TIMED_SET:PROTEVIL
 dice:$B+1d25
 expr:B:PLAYER_LEVEL:* 3
 effect:HEAL_HP
@@ -1331,19 +1340,21 @@ power:10
 effect:TIMED_INC:ESP
 dice:24+9d9
 effect:CURE:BLIND
-desc:cures blindness and grants the power of telepathy for {24+9d9} turns
+desc:cures blindness and grants the power of telepathy for {24+9d9} turns and its
+desc: duration stack with other sources
 
 name:TMD_FREE_ACT
 aim:0
 power:4
 effect:TIMED_INC:FREE_ACT
 dice:10+1d10
-desc:grants temporary free action for {10+1d10} turns
+desc:grants temporary free action for {10+1d10} turns and its
+desc: duration stack with other sources
 
 name:TMD_INFRA
 aim:0
 power:5
-effect:TIMED_INC:SINFRA
+effect:TIMED_SET:SINFRA
 dice:100+4d25
 desc:extends your infravision by {50} feet for {100+4d25} turns
 
