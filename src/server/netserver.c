@@ -3084,7 +3084,7 @@ int Send_char_info_conn(int ind)
 
     return Packet_printf(&connp->c, "%b%b%b%b%b", (unsigned)PKT_CHAR_INFO,
         (unsigned)connp->char_state, (unsigned)connp->ridx, (unsigned)connp->cidx,
-        (unsigned)connp->psex);
+        (unsigned)connp->psex); // add there: (unsigned)connp->account_score)
 }
 
 

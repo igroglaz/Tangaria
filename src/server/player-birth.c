@@ -1732,6 +1732,12 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         /* Copy his name and connection info */
         my_strcpy(p->name, name, sizeof(p->name));
         my_strcpy(p->pass, pass, sizeof(p->pass));
+        // also copy account name
+        my_strcpy(p->account_name, get_connection(p->conn)->nick_account, sizeof(p->account_name));
+        // store account ID for housing
+        p->account_id = account;
+        // init ladder file
+        init_ladder(p);
 
         /* Reprocess his name */
         if (!savefile_set_name(p))
@@ -1747,6 +1753,19 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
 
         /* Set his ID */
         p->id = player_id++;
+
+/* TEST: intercept ridx and cind on server side
+
+        if (p->account_score == 0 && (ridx > 3 || cidx > 3))
+        {
+            plog("Wrong race/class combo");
+            Destroy_connection(p->conn, "You don't have enough account points to choose such race/class combination");
+            cleanup_player(p);
+            mem_free(p);
+            player_set(id, NULL);
+            return NULL;
+        }
+*/
 
         /* Actually Generate */
         player_generate(p, psex, player_id2race(ridx), player_id2class(cidx));
@@ -1788,14 +1807,6 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
 
         /* Set his location, panel, etc. */
         player_setup(p, id, account, options[OPT_birth_no_recall]);
-
-        // store account ID for housing
-        p->account_id = account;
-        // also copy account name
-        my_strcpy(p->account_name, get_connection(p->conn)->nick_account, sizeof(p->account_name));
-
-        // init ladder file
-        init_ladder(p);
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
