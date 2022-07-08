@@ -5168,6 +5168,7 @@ shape:10:boar-form
 shape:15:cat-form
 shape:20:wolf-form
 shape:25:bear-form
+obj-flag:30:ESP_ANIMAL
 title:Wanderer
 title:Nurturer
 title:Gardener
@@ -5224,7 +5225,7 @@ desc:Destroys the first section of wall it hits, unless it is a permanent wall.
 desc: Each monster caught in the beam that is susceptible to rock remover
 desc: takes 20+1d30 points of damage.
 
-spell:Hibernation:17:10:1:16:0
+spell:Hibernation:20:10:1:16:0
 effect:RESTORE_EXP
 effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
@@ -5233,21 +5234,17 @@ effect:RESTORE_STAT:WIS
 effect:RESTORE_STAT:INT
 effect:RESTORE_STAT:STR
 effect:TIMED_INC:SLOW
-dice:10+1d15
+dice:12+1d5
 effect:TIMED_INC:OCCUPIED
-dice:5+1d10
+dice:7+1d5
 desc:You become sleepy for some time, but restore your attributes and experience.
 
-spell:Stinking Cloud I:20:12:1:24:0
+spell:Stinking Cloud I:25:12:1:24:0
 effect:BALL:POIS:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 msg_other: invokes a stinking cloud.
 desc:Shoots a radius-1 poisonous cloud.
-
-spell:Ancient Lore:25:15:1:30:0
-effect:IDENTIFY
-desc:Reveals an unknown rune on an object.
 
 spell:Extra Growth:30:20:1:40:0
 cooldown:200
@@ -5267,10 +5264,10 @@ msg_other: invokes a stinking cloud.
 desc:Shoots a radius-2 poisonous cloud with toxic vapor in the center.
 
 spell:Nature's Call:35:23:1:65:0
-cooldown:100
+cooldown:25
 effect:CREATE_TREES
 desc:Grow trees around you.
-desc: Cooldown 100 turns.
+desc: Cooldown 25 turns.
 
 spell:Call of the Forest:40:50:1:75:0
 effect:PROJECT_LOS_AWARE:AWAY_ANIMAL
@@ -5280,17 +5277,24 @@ msg_other: speaks an order on nearby animals!
 desc:Teleports away each animal within line of sight.
 
 spell:Forest's Embrace:43:30:1:100:0
+cooldown:10
 effect:BLAST:MON_HEAL:4
 dice:6+$Dd6
 expr:D:PLAYER_LEVEL:/ 2
 msg_other: emits a healing blast.
 desc:Creates a radius-4 healing ball around you.
+desc: Cooldown 10 turns.
 
 spell:Quickfeet:45:12:1:125:0
 effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
+
+#remove
+spell:Ancient Lore:49:15:1:30:0
+effect:IDENTIFY
+desc:Reveals an unknown rune on an object.
 
 spell:Stinking Cloud III:50:37:1:150:0
 effect:BALL:WATER:2

@@ -2304,13 +2304,14 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
             if (streq(p->poly_race->name, "bird-form"))
             {
-                extra_moves += 3 + p->lev / 10;
-                state->to_d -= 15;
+                state->speed += 1 + p->lev / 5;
+                state->to_d -= 3 + p->lev;
+                state->to_a -= p->lev;
             }
             else if (streq(p->poly_race->name, "rat-form"))
             {
                 state->skills[SKILL_STEALTH] += 1 + p->lev / 10;
-                state->to_d -= 10;
+                state->to_d -= 1 + p->lev;
                 state->see_infra += 2;
             }
             else if (streq(p->poly_race->name, "boar-form"))

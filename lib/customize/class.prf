@@ -231,17 +231,19 @@ help: your life.
 class:Druid
 help:Nature magic and can shift to animals. Good at martial arts and do not use
 help: weapons. Every 5 levels can learn a new animal form to transform; some
-help: forms can cast magic spells or have innate abilities.
+help: forms have innate abilities (to use them, press 'y' key).
 help: Druid has to find spellbooks in the dungeons; such books are not for sale. |
 help:Druid forms:
-help: - BIRD: can fly very fast over water and other terrain and can heal ('y' key);
-help: - RAT: stealthy; can pass through little cracks and find holes in the walls and
-help: sniff items to detect curses on them. Also they avoid traps most of the time.
+help: - BIRD: fast and able to fly over water and other terrain; can heal ('y').
+help:They are fragile and worthless in combat, but can dodge melee attacks well.
+help: - RAT: harmless and stealthy, rats can find little cracks and holes in the
+help: walls to pass through them. They can avoid traps most of the time and able to
+help: sniff items to detect curses on them.
 help: - BOAR: find different edible plants which reduce its nourishment consumption;
-help: also boars are very wise, got high vitality and fearless;
-help: - CAT: stealthy and nimble, they can jump at its enemies from distabce ('y');
-help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y');
-help: got less resistance to magic;
+help: also boars are very wise, got high vitality and fearless.
+help: - CAT: stealthy and nimble, they can jump at its enemies from distance ('y').
+help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y'), but
+help: got less resistance to magic.
 help: - BEAR: bold and powerful, though a bit clumsy. Can survive even very harsh
 help: blows and curses.
 help:Druids hitpoints does not influenced by its forms and they cannot cast spells

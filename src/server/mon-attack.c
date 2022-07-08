@@ -578,6 +578,13 @@ bool make_attack_normal(struct monster *mon, struct source *who)
     /* Not allowed to attack */
     if (rf_has(mon->race->flags, RF_NEVER_BLOW)) return false;
 
+    // druid in bird-form can dodge melee blows
+    if (who->player->poly_race && streq(who->player->poly_race->name, "bird-form") && magik(who->player->lev))
+    {
+        msg(who->player, "You dodge the attack!");
+        return false;
+    }
+
     /* Get the monster name (or "it") */
     monster_desc(who->player, m_name, sizeof(m_name), mon, MDESC_STANDARD);
     if (who->monster)
