@@ -2296,5 +2296,7 @@ bool player_is_trapsafe(struct player *p)
 {
     if (p->timed[TMD_TRAPSAFE]) return true;
     if (player_of_has(p, OF_TRAP_IMMUNE)) return true;
+    // druid's rat-form avoid most of traps
+    if (p->poly_race && streq(p->poly_race->name, "rat-form") && magik(30 + p->lev)) return true;
     return false;
 }
