@@ -236,16 +236,16 @@ help: Druid has to find spellbooks in the dungeons; such books are not for sale.
 help:Druid forms:
 help: - BIRD: can fly very fast over water and other terrain and can heal ('y' key);
 help: - RAT: stealthy; can pass through little cracks and find holes in the walls and
-help: sniff items to detect curses on them;
+help: sniff items to detect curses on them. Also they avoid traps most of the time.
 help: - BOAR: find different edible plants which reduce its nourishment consumption;
-help: also boars are very wise and got high vitality;
+help: also boars are very wise, got high vitality and fearless;
 help: - CAT: stealthy and nimble, they can jump at its enemies from distabce ('y');
 help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y');
 help: got less resistance to magic;
 help: - BEAR: bold and powerful, though a bit clumsy. Can survive even very harsh
 help: blows and curses.
 help:Druids hitpoints does not influenced by its forms and they cannot cast spells
-help: while in animal form.
+help: while in animal form, bad in trap disarming and magical devices.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.

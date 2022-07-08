@@ -5157,7 +5157,7 @@ value:0:CHR[1]
 player-flags:0:MARTIAL_ARTS | SHAPECHANGE
 # hp independent from poly form
 obj-flag:0:CLUMSY
-# later: can wear only light (<10) armor - penalties
+# later: can wear only light (<10) armor - penalties?
 # path fo druid: has to find his books in the dungeon. they can't be bought
 value:0:BLOWS[1d1]
 value:0:STEALTH[0+1d15]
@@ -5191,7 +5191,7 @@ book-desc:An ancient book which contains secrets of nature.
 
 equip:nature book:[Druid Lore]:1:1:none
 
-spell:Emit Poison:1:1:30:2:0
+spell:Emit Poison:1:1:1:2:0
 cooldown:4
 effect:DAMAGE
 dice:d$S
@@ -5204,19 +5204,19 @@ desc:Creates vast sphere of poison around you.
 desc: Beware: you suffer from it too.
 desc: Cooldown 4 turns
 
-spell:Pathfinding:5:3:10:4:0
-effect:DETECT_DOORS
+spell:Pathfinding:5:3:1:4:0
+effect:DETECT_STAIRS
 effect-yx:14:27
 desc:Finds doors in the immediate area.
 
-spell:Herbal Tea:10:7:30:8:0
+spell:Herbal Tea:10:7:1:8:0
 effect:CURE:POISONED
 effect:CURE:BLACKBREATH
 effect:NOURISH:INC_TO
 dice:15
 desc:Cures poison, blackbreath and gives minimal nourishment.
 
-spell:Stone to Mud:15:8:30:12:0
+spell:Stone to Mud:15:8:1:12:0
 effect:SHORT_BEAM:KILL_WALL:1
 dice:20+1d30
 msg_other: makes a moving gesture.
@@ -5224,7 +5224,7 @@ desc:Destroys the first section of wall it hits, unless it is a permanent wall.
 desc: Each monster caught in the beam that is susceptible to rock remover
 desc: takes 20+1d30 points of damage.
 
-spell:Hibernation:17:10:30:16:0
+spell:Hibernation:17:10:1:16:0
 effect:RESTORE_EXP
 effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
@@ -5233,28 +5233,30 @@ effect:RESTORE_STAT:WIS
 effect:RESTORE_STAT:INT
 effect:RESTORE_STAT:STR
 effect:TIMED_INC:SLOW
+dice:10+1d15
+effect:TIMED_INC:OCCUPIED
 dice:5+1d10
 desc:You become sleepy for some time, but restore your attributes and experience.
 
-spell:Stinking Cloud I:20:12:30:24:0
+spell:Stinking Cloud I:20:12:1:24:0
 effect:BALL:POIS:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 msg_other: invokes a stinking cloud.
 desc:Shoots a radius-1 poisonous cloud.
 
-spell:Ancient Lore:25:15:80:30:0
+spell:Ancient Lore:25:15:1:30:0
 effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
-spell:Extra Growth:30:20:30:40:0
+spell:Extra Growth:30:20:1:40:0
 cooldown:200
 effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
 desc: Cooldown 200 turns.
 
-spell:Stinking Cloud II:33:24:30:50:0
+spell:Stinking Cloud II:33:24:1:50:0
 effect:BALL:WATER:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
@@ -5264,31 +5266,33 @@ expr:B:PLAYER_LEVEL:* 2
 msg_other: invokes a stinking cloud.
 desc:Shoots a radius-2 poisonous cloud with toxic vapor in the center.
 
-spell:Nature's Call:35:23:40:65:0
+spell:Nature's Call:35:23:1:65:0
+cooldown:100
 effect:CREATE_TREES
 desc:Grow trees around you.
+desc: Cooldown 100 turns.
 
-spell:Call of the Forest:40:50:30:75:0
+spell:Call of the Forest:40:50:1:75:0
 effect:PROJECT_LOS_AWARE:AWAY_ANIMAL
 dice:100
 msg_self:The power of nature banishes animals!
 msg_other: speaks an order on nearby animals!
 desc:Teleports away each animal within line of sight.
 
-spell:Forest's Embrace:43:30:30:100:0
+spell:Forest's Embrace:43:30:1:100:0
 effect:BLAST:MON_HEAL:4
 dice:6+$Dd6
 expr:D:PLAYER_LEVEL:/ 2
 msg_other: emits a healing blast.
 desc:Creates a radius-4 healing ball around you.
 
-spell:Quickfeet:45:12:30:125:0
+spell:Quickfeet:45:12:1:125:0
 effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
 
-spell:Stinking Cloud III:50:37:30:150:0
+spell:Stinking Cloud III:50:37:1:150:0
 effect:BALL:WATER:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 3

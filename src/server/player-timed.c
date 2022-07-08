@@ -1139,6 +1139,10 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
     /* Upper bound */
     v = MIN(v, new_grade->max);
 
+    // druid's boar doesn't fear
+    if (idx == TMD_AFRAID && p->poly_race && streq(p->poly_race->name, "boar-form"))
+        v = 0;
+
     // Knight class stances
     if (idx == TMD_BALANCED_STANCE)
     {
