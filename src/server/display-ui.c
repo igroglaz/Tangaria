@@ -970,6 +970,21 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         bool dragon_immune = (player_has(p, PF_DRAGON) && is_dragon_immune(p->poly_race));
         int res_level;
 
+        //// druid's forms resistances ////
+        if (streq(p->poly_race->name, "bird-form"))
+            el_info[ELEM_GRAVITY].res_level = 1; // note that there is no indicator for grav res
+        else if (streq(p->poly_race->name, "rat-form"))
+        {
+            if (el_info[ELEM_POIS].res_level == 0)
+                el_info[ELEM_POIS].res_level = 1;
+        }
+        else if (streq(p->poly_race->name, "wolf-form"))
+        {
+            if (el_info[ELEM_DARK].res_level == 0)
+                el_info[ELEM_DARK].res_level = 1;
+        }
+        ///////////////////////////////////
+
         res_level = 0;
         if (rf_has(p->poly_race->flags, RF_IM_ACID))
             res_level = (dragon_immune? 3: 1);

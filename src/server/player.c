@@ -475,6 +475,20 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
     {
         int m;
 
+        //// druid's forms flags ////
+        if (streq(p->poly_race->name, "bird-form"))
+            of_on(f, OF_FLYING);
+        else if (streq(p->poly_race->name, "rat-form"))
+            of_on(f, OF_HOLD_LIFE);
+        else if (streq(p->poly_race->name, "boar-form"))
+            of_on(f, OF_SLOW_DIGEST);
+        else if (streq(p->poly_race->name, "cat-form"))
+        {
+            of_on(f, OF_REGEN);
+            of_on(f, OF_IMPAIR_MANA);
+        }
+        /////////////////////////////
+
         for (m = 0; m < z_info->mon_blows_max; m++)
         {
             /* Skip non-attacks */
