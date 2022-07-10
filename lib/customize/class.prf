@@ -235,17 +235,21 @@ help: forms have innate abilities (to use them, press 'y' key).
 help: Druid has to find spellbooks in the dungeons; such books are not for sale. |
 help:Druid forms:
 help: - BIRD: fast and able to fly over water and other terrain; can heal ('y').
-help:They are fragile and worthless in combat, but can dodge melee attacks well.
+help: Fragile and worthless in combat, but can dodge melee attacks well.
+help: Resistant to gravity. |
 help: - RAT: harmless and stealthy, rats can find little cracks and holes in the
 help: walls to pass through them. They can avoid traps most of the time and able to
-help: sniff items to detect curses on them.
+help: sniff items to detect curses on them. Resistant to poison and can life drain. |
 help: - BOAR: find different edible plants which reduce its nourishment consumption;
-help: also boars are very wise, got high vitality and fearless.
-help: - CAT: stealthy and nimble, they can jump at its enemies from distance ('y').
-help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y'), but
-help: got less resistance to magic.
-help: - BEAR: bold and powerful, though a bit clumsy. Can survive even very harsh
-help: blows and curses.
+help: good in mushroom's identification. Boars are very wise, got high vitality and
+help: fearless. Can charge at its enemies from distance ('y'). |
+help: - CAT: stealthy and nimble. Can backstab sleeping target.
+help: Regenerate especially fast, but bad at mana restoring. |
+help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y').
+help: Less resistant to magic, except dark arts. Reckless in defense,
+help: but generates rage while in combat. |
+help: - BEAR: tough and powerful, but very noisy and a bit clumsy.
+help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
 help:Druids hitpoints does not influenced by its forms and they cannot cast spells
 help: while in animal form, bad in trap disarming and magical devices.
 

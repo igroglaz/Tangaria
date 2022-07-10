@@ -207,10 +207,10 @@ void do_cmd_breath(struct player *p, int dir)
         if (streq(p->poly_race->name, "bird-form"))
         {
             // if can spend mana - heal
-            if (p->csp > 1 + p->lev / 3)
+            if (p->csp > 1 + p->msp / 5)
             {
                 use_energy(p);
-                p->csp -= 1 + p->lev / 3;
+                p->csp -= 1 + p->msp / 5;
                 hp_player_safe(p, 1 + (p->lev));
             }
             else
@@ -218,13 +218,13 @@ void do_cmd_breath(struct player *p, int dir)
 
             return;
         }
-        // cat - can teleport to closest monster; up to 5 distance
-        else if (streq(p->poly_race->name, "cat-form"))
+        // boar - can charge (teleport) to closest monster; up to 3 distance
+        else if (streq(p->poly_race->name, "boar-form"))
         {
             // dice for distance
             char dice_string[5];
             // convert int to char with '0'
-            dice_string[0] = (p->lev / 15 + 2) + '0';
+            dice_string[0] = (p->lev / 30 + 3) + '0';
 
             if (p->csp > 2 + p->lev / 3)
             {
@@ -244,7 +244,7 @@ void do_cmd_breath(struct player *p, int dir)
                 free_effect(effect);
             }
             else
-                msgt(p, MSG_SPELL_FAIL, "You need more mana to jump!");
+                msgt(p, MSG_SPELL_FAIL, "You need more mana to charge!");
 
             return;
         }
@@ -263,7 +263,7 @@ void do_cmd_breath(struct player *p, int dir)
                 source_player(who, get_player_index(get_connection(p->conn)), p);
                 effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
                 // summon
-                summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1 + p->lev / 50, true);
+                summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1 + p->lev / 30, true);
                 msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
             }
             else

@@ -32252,28 +32252,28 @@ desc:Very vicious rodent. It can bite (quite painfully) all who threats its mast
 name:bird-form
 base:bird
 color:T
-speed:112
+speed:110
 hit-points:45
 hearing:10
 smell:10
-armor-class:10
+armor-class:1
 sleepiness:0
 depth:1
 rarity:0
 weight:3
 experience:0
 blow:CLAW:HURT:1d2
-flags:ANIMAL | OPEN_DOOR | WILD_WOOD | LEVITATE
+flags:ANIMAL | OPEN_DOOR | WILD_WOOD
 desc:A small bird. You noticed unusual intelligence in its eyes.
 
 name:rat-form
 base:rodent
 color:Z
-speed:112
+speed:110
 hit-points:45
 hearing:10
 smell:10
-armor-class:10
+armor-class:1
 sleepiness:0
 depth:1
 rarity:0
@@ -32286,17 +32286,17 @@ desc:A small rat. Apparently it can penetrate even through little cracks.
 name:boar-form
 base:quadruped
 color:Y
-speed:112
+speed:110
 hit-points:45
 hearing:10
 smell:10
-armor-class:10
+armor-class:40
 sleepiness:0
 depth:1
 rarity:0
 weight:30
 experience:0
-blow:CLAW:HURT:1d4
+blow:CLAW:HURT:1d8
 flags:ANIMAL | OPEN_DOOR
 desc:A boar can find and dig out food even in unusual places.
 
@@ -32327,7 +32327,7 @@ speed:110
 hit-points:325
 hearing:30
 smell:50
-armor-class:50
+armor-class:30
 sleepiness:40
 depth:1
 rarity:0

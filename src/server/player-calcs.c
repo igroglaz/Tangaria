@@ -2294,7 +2294,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->poly_race)
     {
         // druid class
-        if (streq(p->clazz->name, "Druid") && p->poly_race)
+        if (streq(p->clazz->name, "Druid"))
         {
             // all poly give malus to 'human' stuff
             state->skills[SKILL_DISARM_PHYS] -= 50;
@@ -2304,7 +2304,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
             if (streq(p->poly_race->name, "bird-form"))
             {
-                state->speed += 1 + p->lev / 5;
+                state->speed += 1 + p->lev / 6;
                 state->to_d -= 3 + p->lev;
                 state->to_a -= p->lev;
             }
@@ -2313,6 +2313,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_STEALTH] += 1 + p->lev / 10;
                 state->to_d -= 1 + p->lev;
                 state->see_infra += 2;
+                state->to_a -= p->lev;
             }
             else if (streq(p->poly_race->name, "boar-form"))
             {
