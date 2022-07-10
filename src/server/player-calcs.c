@@ -2290,23 +2290,31 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Apply the collected flags */
     of_union(state->flags, collect_f);
 
-    /* Handle polymorphed players */
-    if (p->poly_race)
+
+    // druid forms
+    if (streq(p->clazz->name, "Druid"))
     {
-        // druid class
-        if (streq(p->clazz->name, "Druid"))
+        //HACK to solve problem that it's not possible to assign PF_ temporary
+        pf_off(p->clazz->pflags, PF_KNOW_MUSHROOM);
+        pf_off(p->clazz->pflags, PF_BACK_STAB);
+        pf_off(p->clazz->pflags, PF_COMBAT_REGEN);
+        pf_off(p->clazz->pflags, PF_SHIELD_BASH);
+
+        if (p->poly_race)
         {
             // all poly give malus to 'human' stuff
             state->skills[SKILL_DISARM_PHYS] -= 50;
             state->skills[SKILL_DISARM_MAGIC] -= 50;
             state->skills[SKILL_DIGGING] -= 20;
             state->skills[SKILL_DEVICE] -= 50;
+            state->skills[SKILL_TO_HIT_BOW] /= 3;
 
             if (streq(p->poly_race->name, "bird-form"))
             {
                 state->speed += 1 + p->lev / 6;
                 state->to_d -= 3 + p->lev;
                 state->to_a -= p->lev;
+                state->to_a /= 2;
             }
             else if (streq(p->poly_race->name, "rat-form"))
             {
@@ -2319,38 +2327,47 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             {
                 state->stat_add[STAT_CON] += p->lev / 10;
                 state->stat_add[STAT_WIS] += p->lev / 10;
+                state->skills[SKILL_STEALTH] -= 1;
                 state->skills[SKILL_SEARCH] += 2;
                 state->skills[SKILL_SAVE] += 5;
+                pf_on(p->clazz->pflags, PF_KNOW_MUSHROOM);
             }
             else if (streq(p->poly_race->name, "cat-form"))
             {
                 state->stat_add[STAT_DEX] += p->lev / 10;
                 state->skills[SKILL_STEALTH] += p->lev / 10;
-                state->to_h += p->lev / 2;
                 state->see_infra += 2;
+                state->dam_red -= p->lev / 25;
+                pf_on(p->clazz->pflags, PF_BACK_STAB);
             }
             else if (streq(p->poly_race->name, "wolf-form"))
             {
                 state->stat_add[STAT_STR] += p->lev / 24;
                 state->stat_add[STAT_DEX] += p->lev / 24;
-                state->skills[SKILL_SAVE] -= p->lev / 2;
-                state->to_a -= p->lev / 2;
+                state->skills[SKILL_SAVE] /= 2;
+                state->to_a /= 2;
                 state->to_d += 1 + p->lev / 5;
                 extra_blows += p->lev / 10;
                 state->see_infra += 1;
+                pf_on(p->clazz->pflags, PF_COMBAT_REGEN);
             }
             else if (streq(p->poly_race->name, "bear-form"))
             {
                 state->stat_add[STAT_STR] += p->lev / 15;
                 state->stat_add[STAT_CON] += p->lev / 10;
                 state->stat_add[STAT_DEX] -= p->lev / 15;
-                state->skills[SKILL_STEALTH] -= p->lev / 15;
+                state->skills[SKILL_STEALTH] -= p->lev / 10;
                 state->to_a += p->lev;
                 state->skills[SKILL_SAVE] += p->lev / 2;
+                pf_on(p->clazz->pflags, PF_SHIELD_BASH);
                 // also reduce -10% inc damage
             }
         }
+    }
 
+    /* Handle polymorphed players */
+    if (p->poly_race)
+    {
         if (monster_is_stupid(p->poly_race)) state->stat_add[STAT_INT] -= 2;
         if (race_is_smart(p->poly_race)) state->stat_add[STAT_INT] += 2;
         if (p->poly_race->freq_spell == 33) state->stat_add[STAT_INT] += 1;
