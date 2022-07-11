@@ -6238,30 +6238,34 @@ desc: After hit it blow up making poison damage.
 
 
 ############### CLASS TEMPLATE for Hermit / Cleric ###############
+# Spiritual guide, this holy monk has sworn not to take a weapon in his hand.
+# This sacred vow does not interfere with his ability to crush enemies’ skulls
+# with his bare hands.
 name:Hermit
 color:G
-skill-disarm-phys:34:8
-skill-disarm-magic:27:7
-skill-device:30:10
-skill-save:32:12
-skill-stealth:2:0
-skill-search:10:14
-skill-melee:45:20
-skill-shoot:35:20
+skill-disarm-phys:10:15
+skill-disarm-magic:10:15
+skill-device:10:15
+skill-save:20:15
+skill-stealth:0:0
+skill-search:10:15
+skill-melee:35:30
+skill-shoot:30:25
 skill-dig:0:0
-hitdie:1
+hitdie:3
 equip:light:Wooden Torch:1:3:none
 equip:potion:Cure Serious Wounds:2:3:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
-value:0:STR[-2]
-value:0:INT[-3]
-value:0:WIS[3]
-value:0:DEX[-1]
-value:0:CON[0]
-value:0:CHR[3]
+value:0:STR[0]
+value:0:INT[-2]
+value:0:WIS[2+1d30]
+value:0:DEX[0]
+value:0:CON[0+1d20]
+value:0:CHR[0+1d20]
 value:0:BLOWS[1d1]
+value:0:STEALTH[0+1d12]
 player-flags:0:MARTIAL_ARTS | BEAM
 title:Believer
 title:Acolyte
@@ -6278,6 +6282,9 @@ magic:1:350:1
 
 book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
+
+#? summon angel
+#? friendly to angels
 
 spell:Light Ray:1:1:22:3:0
 effect:BOLT_OR_BEAM:LIGHT:0:-10
@@ -6346,7 +6353,7 @@ expr:B:PLAYER_LEVEL:* 2
 desc:Hits the target with force, knocking it back with a chance to stun it.
 desc: Can be used not only in melee, but also on short distance.
 
-spell:Rage Of Inquisition:30:25:37:50:0
+spell:Blood Redemption:30:25:37:50:0
 effect:TIMED_SET:BLOODLUST:0:-1
 dice:10
 desc:Gives you a powerful desire to kill, increased every time you satisfy it.
@@ -6392,10 +6399,10 @@ dice:10+1d10
 effect:TIMED_SET:INVULN
 dice:5+1d5
 desc:Allows you to avoid death once in a while.
-desc: Can be used every 200 turns.
 desc: Also grants you resistance against non-physical attacks for a moment.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
+desc: Cooldown 200 turns.
 
 
 ############### CLASS TEMPLATE for Wizard ###############
