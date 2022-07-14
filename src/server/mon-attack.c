@@ -584,6 +584,19 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         msg(who->player, "You dodge the attack!");
         return false;
     }
+    // some races can dodge
+    else if ((streq(who->player->race->name, "Halfling") || streq(who->player->race->name, "Forest Goblin") ||
+             streq(who->player->race->name, "Pixie")) && magik(5))
+    {
+        msg(who->player, "You dodge the attack!");
+        return false;
+    }
+    // Wraiths can DODGE
+    else if (streq(who->player->race->name, "Wraith") && magik(25))
+    {
+        msg(who->player, "The attack pass through you without causing any damage!");
+        return false;
+    }
 
     /* Get the monster name (or "it") */
     monster_desc(who->player, m_name, sizeof(m_name), mon, MDESC_STANDARD);
