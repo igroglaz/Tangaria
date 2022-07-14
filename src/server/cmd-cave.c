@@ -3372,19 +3372,19 @@ void do_cmd_purchase_house(struct player *p, int dir)
         house_area_size = house_count_area_size(i);
 
         // Compare planned house_area_size and house variant (depends on type of house)
-        if (p->account_score < 15) // cabin
+        if (p->account_score < 10) // cabin
         {
-            msg(p, "To buy house you need at least 15 account points (press Ctrl+r to check score).");
+            msg(p, "To buy house you need at least 10 account points (press Ctrl+r to check score).");
             return;
         }
-        else if (house_area_size >= 2 && p->account_score < 30) // cabin
+        else if (house_area_size >= 2 && p->account_score < 25) // cabin
         {
-            msg(p, "To buy this house you need at least 30 account points.");
+            msg(p, "To buy this house you need at least 25 account points.");
             return;
         }
-        else if (house_area_size >= 3 && p->account_score < 60) // cabin
+        else if (house_area_size >= 3 && p->account_score < 50) // cabin
         {
-            msg(p, "To buy this house you need at least 60 account points.");
+            msg(p, "To buy this house you need at least 50 account points.");
             return;
         }
         else if (house_area_size >= 4 && p->account_score < 100) // small house
@@ -3997,16 +3997,16 @@ bool create_house(struct player *p, int house_variant)
     }
 
     // Compare planned area_size and house variant (depends on type of house)
-    if (p->account_score < 15)
+    if (p->account_score < 10)
     {
         msg(p, "You need at least 15 account points to build a house (press Ctrl+r to check it).");
         return false;
     }
     else if (house_variant == 1) // cabin
     {
-        if      (area_size == 1 && p->account_score >= 15) ;
-        else if (area_size == 2 && p->account_score >= 30) ;
-        else if (area_size == 3 && p->account_score >= 60) ;
+        if      (area_size == 1 && p->account_score >= 10) ;
+        else if (area_size == 2 && p->account_score >= 25) ;
+        else if (area_size == 3 && p->account_score >= 50) ;
         else
         {
             msg(p, "You need more account points to build house of such size.");

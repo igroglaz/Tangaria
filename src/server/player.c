@@ -201,8 +201,8 @@ static void adjust_level(struct player *p)
 
             if (p->max_lev == 50)
             {
-                p->account_score += 3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                p->account_score += 5;
+                msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
             }
             else if (p->account_score == 0 && p->max_lev == 3)
             {
@@ -211,27 +211,43 @@ static void adjust_level(struct player *p)
                 msg(p, "To earn account points - earn levels and defeat unique monsters.");
                 msg(p, "Account points allows to buy bigger houses, increase storage space,");
                 msg(p, "give access to more races/classes and provide other advantages.");
-                msg(p, "You will get next account points every 5 levels.");
+                msg(p, "You will get next account point after getting 3 levels more.");
             }
             else if (p->account_score <= 5)
             {
-                if (!(p->max_lev % 5))
+                if (!(p->max_lev % 3))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
-                    msg(p, "For now you will get next account points every 5 levels,");
-                    msg(p, "but later on it will be every 10 levels or even more.");
-                    msg(p, "(more points you have - harder to get new ones).");
+                    msg(p, "You will get next account point after getting 3 levels more.");
+                    if (p->account_score == 2)
+                    {
+                        msg(p, "Hint: later on it will be every 5 levels or even less often");
+                        msg(p, "(the more points you have - the harder it is to get new ones).");
+                    }
                 }
             }
             else if (p->account_score <= 10)
             {
-                if (!(p->max_lev % 10))
+                if (!(p->max_lev % 5))
                 {
                     p->account_score++;
                     msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
-                    msg(p, "You will get even/odd account point for levels and");
-                    msg(p, "for defeating unique monster.");
+                    if (p->account_score != 10)
+                    {
+                        msg(p, "You will get next account point after getting 5 levels more");
+                        if (p->account_score == 6)
+                            msg(p, "(Hint: the more points you have - the harder it is to get new ones).");
+                    }
+                }
+                // gratoz
+                if (p->account_score == 10)
+                {
+                    msg(p, "Great job! Now you can build your own house!");
+                    msg(p, "(check the guide on the website to find out how to do it).");
+                    msg(p, "Also please note that from now on it will be harder to earn points:");
+                    msg(p, "you will get even/odd account point for levels and");
+                    msg(p, "for defeating unique monster (please check website for details).");
                 }
             }
             // only at even score
