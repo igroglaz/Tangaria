@@ -1861,13 +1861,18 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
             sound(p, MSG_SHOOT_CROSSBOW);
         else if (obj->tval == TV_SHOT)
             sound(p, MSG_SHOOT_SLING);
-        else if (obj->kind->sval == lookup_sval(TV_ROCK, "Boomerang"))
-            sound(p, MSG_SHOOT_BOOMERANG);
         else
-            sound(p, MSG_SHOOT); // stone sound. not sure do we need it or not
+            sound(p, MSG_THROWN);
     }
     else
-        sound(p, MSG_THROWN);
+    {
+        if (obj->sval == lookup_sval(obj->tval, "Boomerang"))
+            sound(p, MSG_SHOOT_BOOMERANG);
+        else if (obj->tval == TV_COBBLE)
+            sound(p, MSG_SHOOT); // stone sound
+        else
+            sound(p, MSG_THROWN);
+    }
 
     /* Take a turn */
     use_energy(p);
