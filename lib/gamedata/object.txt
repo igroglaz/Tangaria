@@ -760,7 +760,7 @@ level:0
 weight:9
 cost:0
 alloc:3:1 to 100
-attack:1d1:-2:-4
+attack:1d1:-2:-3
 armor:0:0
 flags:THROWING
 desc:A short two-edged blade... It's broken.
@@ -772,7 +772,7 @@ level:10
 weight:65
 cost:0
 alloc:3:0 to 100
-attack:1d2:-2:-4
+attack:1d2:-2:-2
 armor:0:0
 desc:A broken sword which was long and straight in it's better days.
 desc: Now it's mainly good for break-opening chests or jamming doors.
@@ -6367,7 +6367,7 @@ weight:5
 cost:1
 pile:100:6d7
 alloc:20:1 to 100
-attack:1d5:0:0
+attack:1d4:0:0
 armor:0:0
 brand:STUN_1
 flags:THROWING

@@ -48,6 +48,7 @@ help: be called burglars. They will be much weaker than humans, and not good at
 help: melee fighting. Halflings have fair infravision. They have a strong hold
 help: on their life force, and are thus resistant to life draining. Halflings are
 help: very partial to mushrooms and can identify them when found.
+help: They can dodge melee attacks occasionally.
 
 race:Gnome
 help:Gnomes are smaller than dwarves but larger than halflings. They, like the
@@ -270,6 +271,7 @@ race:Forest Goblin
 help:Forest goblins – look like a nice little creatures. Indeed, some of them are 
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are 
 help: sneaky and fast, but quite weak in term of physical strenght.
+help: They can dodge melee attacks occasionally.
 
 race:Dark Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
@@ -397,7 +399,8 @@ help:They got less speed penalty due overweight.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
-help: Not much mortals saw one as they are very fast and covert... |
+help: Not much mortals saw one as they are very fast and covert...
+help: They can dodge melee attacks occasionally. |
 help: ATTENTION!
 help: Please be careful - as pixie got very low strength - it could become very slow
 help: if you will take a lot of items in your inventory or use heavy equipment.
@@ -523,7 +526,9 @@ help: Tip: imps can enter 'Stealth Mode' - to do so use [shift+s]
 
 race:Wraith
 help:Magic emanation of dead who ought to stay in mortal world as bodiless spirits.
-help: They can not teleport, but could move through walls.
+help: They can not teleport on big range (eg from dungeon to town),
+help: but could move through walls.
+help: They can avoid melee attacks quite often.
 
 race:Beholder
 help:Intelligent floating in air orb-shaped eyes. They got several tentacle 

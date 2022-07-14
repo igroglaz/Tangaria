@@ -32360,6 +32360,25 @@ flags:ANIMAL | OPEN_DOOR
 desc:In the eyes of this bear, there glimmers the faintest light of
 desc: intelligence.
 
+name:acid blob
+base:jelly
+color:P
+speed:115
+hit-points:12
+hearing:8
+armor-class:14
+sleepiness:80
+depth:1
+rarity:3
+weight:0
+experience:3
+blow:SPIT:ACID:2d4
+flags:IM_ACID | IM_POIS | HURT_COLD | NO_CONF | NO_SLEEP | NEVER_MOVE | NEVER_BLOW
+spell-freq:4
+innate-freq:100
+spells:WHIP
+desc:Brightly pink and oozing at you dripping caustic acid all around place.
+
 ### !!! move Test dummy there, to the bottom... so it will be easier to change it
 # BUT.. change druid class forms IDs after that!
 
