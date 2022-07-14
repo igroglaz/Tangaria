@@ -1840,6 +1840,11 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
         /* Check distance */
         taim = distance(&grid, &target);
+
+        // make cobbles have smaller distance (than throwing stones)
+        if (obj->tval == TV_COBBLE)
+            range /= 2;
+
         if (taim > range)
         {
             msg(p, "Target out of range by %d squares.", taim - range);
