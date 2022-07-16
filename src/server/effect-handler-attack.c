@@ -2093,37 +2093,57 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
     }
     else
     {
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
+        if (context->origin->player)
         {
-            // Magic Blade spell (mana 1)
-            if (context->origin->player->spell_cost == 1)
+            if (streq(context->origin->player->clazz->name, "Wizard"))
+            {
+                // Magic Blade spell (mana 1)
+                if (context->origin->player->spell_cost == 1)
+                    {
+                        // distance
+                        rad += context->origin->player->lev / 10;
+                        if (rad > 5) rad = 5;
+                        // dmg
+                        if (context->origin->player->lev > 10)
+                            dam *= context->origin->player->lev / 7;
+                        // spend additional mana
+                        if (context->origin->player->lev > 9 &&
+                            context->origin->player->csp > context->origin->player->lev / 10)
+                                context->origin->player->csp -= context->origin->player->lev / 10;
+                    }
+                // Luminous Fog spell (mana 5)
+                else if (context->origin->player->spell_cost == 5)
                 {
-                    // distance
-                    rad += context->origin->player->lev / 10;
-                    if (rad > 5) rad = 5;
-                    // dmg
+                    rad += context->origin->player->lev / 5;
                     if (context->origin->player->lev > 10)
-                        dam *= context->origin->player->lev / 7;
-                    // spend additional mana
-                    if (context->origin->player->lev > 9 &&
-                        context->origin->player->csp > context->origin->player->lev / 10)
-                            context->origin->player->csp -= context->origin->player->lev / 10;
+                        dam *= context->origin->player->lev / 3;
                 }
-            // Luminous Fog spell (mana 5)
-            else if (context->origin->player->spell_cost == 5)
-            {
-                rad += context->origin->player->lev / 5;
-                if (context->origin->player->lev > 10)
-                    dam *= context->origin->player->lev / 3;
+                // Electrocute spell (mana 3)
+                else if (context->origin->player->spell_cost == 3)
+                {
+                    rad += context->origin->player->lev / 5;
+                    dam *= context->origin->player->lev / 5;
+                    // spend additional mana
+                    if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                            context->origin->player->csp = context->origin->player->csp * 96 / 100;
+                }
             }
-            // Electrocute spell (mana 3)
-            else if (context->origin->player->spell_cost == 3)
+            else if (streq(context->origin->player->clazz->name, "Hermit"))
             {
-                rad += context->origin->player->lev / 5;
-                dam *= context->origin->player->lev / 5;
-                // spend additional mana
-                if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
-                        context->origin->player->csp = context->origin->player->csp * 96 / 100;
+                // Holy Fire spell (mana 11)
+                if (context->origin->player->spell_cost == 11)
+                    {
+                        // spend additional mana to get boni
+                        if (context->origin->player->csp > context->origin->player->lev / 10)
+                        {
+                            context->origin->player->csp -= context->origin->player->lev / 10;
+                            // distance
+                            rad += context->origin->player->lev / 50;
+                            // dmg
+                            dam *= context->origin->player->lev / 12;
+                        }
+
+                    }
             }
         }
 

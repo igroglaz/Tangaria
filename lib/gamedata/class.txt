@@ -6249,8 +6249,8 @@ skill-device:10:15
 skill-save:20:15
 skill-stealth:0:0
 skill-search:10:15
-skill-melee:35:30
-skill-shoot:30:25
+skill-melee:20:30
+skill-shoot:20:25
 skill-dig:0:0
 hitdie:3
 equip:light:Wooden Torch:1:3:none
@@ -6280,47 +6280,59 @@ title:Cardinal
 
 magic:1:350:1
 
-book:prayer book:town:[Beginners Handbook]:11:divine
+book:prayer book:town:[Beginners Handbook]:12:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 #? summon angel
 #? friendly to angels
 
-spell:Light Ray:1:1:22:3:0
-effect:BOLT_OR_BEAM:LIGHT:0:-10
-dice:$Dd4
-expr:D:PLAYER_LEVEL:- 1 / 5 + 3
+spell:Light Ray I:1:1:22:3:0
+effect:BOLT_OR_BEAM:LIGHT_WEAK:0:-10
+dice:$D
+expr:D:PLAYER_LEVEL:+ 0
+effect:LINE:LIGHT_WEAK
+dice:1d$D
+expr:D:PLAYER_LEVEL:+ 0
 effect:LIGHT_AREA
-msg_other: fires a light missile.
-desc:Fires a light missile that always hits its target and does
-desc: unresistable damage.
-desc: Sometimes a beam is fired instead that hurts each monster
-desc: in its path.
+msg_self:A line of shimmering light appears.
+msg_other:'s hands project a line of shimmering light.
+desc:Fires a light missile that always hits its target.
+desc: Also it creates a beam that lights up each square and hurts each
+desc: light-sensitive monster in its path.
+desc: Sometimes especially strong beam is fired instead.
 desc: The chance to get a beam goes up with your character level.
 desc: If you are in a room, the entire room will be lit up as well.
 
-spell:Safe Guard:5:3:35:7:0
+spell:Safe Guard:5:2:35:7:0
+# ?cooldown reduced with lvls
+cooldown:3
 effect:TELEPORT
-dice:10
-effect:TIMED_SET:HERO
-dice:25+1d25
-effect:TIMED_SET:BOLD
-dice:25+1d25
+dice:15
+effect:TIMED_INC:STEALTH
+dice:2
 effect:CURE:AFRAID
-effect:HEAL_HP
-dice:10
+effect:CURE:AMNESIA
+effect:CURE:POISONED
+effect:CURE:CUT
+effect:CURE:STUN
 msg_other: blinks away.
-desc:Your guardian teleports you randomly up to 10 squares away.
-desc: Cures 10 points of damage, removes fear and grants you heroism
-desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
+desc:Your guardian teleports you randomly up to 15 squares away and
+desc: removes negative conditions.
+desc: Cooldown 3 turns.
 
-spell:Anathema:10:4:30:11:0
-effect:CURSE
+spell:Holy Force:10:3:30:11:0
+cooldown:7
+effect:BLAST:FORCE:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 3
-desc:Deals non-resistable damage to a single monster.
+expr:B:PLAYER_LEVEL:+ 0
+effect:BLAST:LIGHT:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Hits the target with holy force, knocking it back with a chance to stun it.
+desc: Cooldown 7 turns.
 
-spell:Art Of Healing:15:8:32:16:0
+spell:Art Of Healing:15:4:32:16:0
+cooldown:11
 effect:TIMED_SET:REGEN
 dice:20+1d20
 effect:HEAL_HP
@@ -6330,10 +6342,33 @@ expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds.
 desc: Also greatly increases your regeneration rate for 20+1d20 turns.
 desc: The effect of this spell is cumulative with other means of regeneration.
+desc: Cooldown 11 turns.
 
-spell:Vasa Sacra:20:14:40:20:0
+spell:Light Ray II:20:5:22:22:0
+effect:BOLT_OR_BEAM:LIGHT:0:-10
+dice:$D + 1d$D
+expr:D:PLAYER_LEVEL:+ 0
+effect:LINE:LIGHT
+dice:1d$D
+expr:D:PLAYER_LEVEL:+ 0
+effect:LIGHT_AREA
+msg_self:A line of shimmering light appears.
+msg_other:'s hands project a line of shimmering light.
+desc:Fires a light missile that always hits its target.
+desc: Also it creates a beam that lights up each square and hurts each
+desc: light-sensitive monster in its path.
+desc: Sometimes especially strong beam is fired instead.
+desc: The chance to get a beam goes up with your character level.
+desc: If you are in a room, the entire room will be lit up as well.
+
+spell:Vasa Sacra:25:7:40:25:0
+cooldown:255
+# ?make holy water soulbond.. if drinked - create warding?
+# ?remove nutrition.. make only 1 potion at once
 effect:CREATE_HOLY_WATER
 effect:GLYPH:WARDING
+msg_self: pour sacred water into a jar and stir in some dust from the floor...
+msg_other: pours sacred water into a jar and stir in some dust from the floor...
 desc:Allows to bless any potions and turn it to holy water.
 desc: Blessing ritual makes floor beneath you blessed.
 desc: Summoned monsters can't appear on the blessed floor.
@@ -6345,22 +6380,71 @@ desc: The blessed floor will remain where it is, until a monster succeeds in
 desc: desecrating it or until you leave the level.
 desc: Attention! It will bless full stack of potions.
 desc: Also this ritual requires nutrition.
+desc: Cooldown 255 turns.
 
-spell:Holy Force:25:19:50:30:0
-effect:SHORT_BEAM:FORCE:2
+spell:Holy Fire:30:11:33:33:0
+# hc for extra mana: distance +1 at 50 / dmg up to x4
+effect:SHORT_BEAM:HOLY_ORB:2
+dice:$B+3d6
+expr:B:PLAYER_LEVEL:+ 0
+effect:BLAST:LIGHT:3
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
-desc:Hits the target with force, knocking it back with a chance to stun it.
-desc: Can be used not only in melee, but also on short distance.
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: splashes a holy fire!
+desc:Splashes fire which makes unresistable damage to the closes targets.
+desc: Evil monsters take double damage. Also all surrounding monsters got
+desc: burned by the light.
 
-spell:Blood Redemption:30:25:37:50:0
-effect:TIMED_SET:BLOODLUST:0:-1
-dice:10
-desc:Gives you a powerful desire to kill, increased every time you satisfy it.
-desc: Gives you extra melee damage and extra blows, but comes
-desc: with dangerous side-effects.
+spell:Holy Protection:35:14:40:44:0
+effect:CLEAR_VALUE
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
+effect:SET_VALUE
+dice:20+1d20
+desc:Grants you resistance to acid, cold, fire, lightning and poison for
+desc: 20+1d20 turns.
 
-spell:Repentance:35:35:42:62:0
+spell:Light Ray III:40:15:22:55:0
+effect:BOLT_OR_BEAM:LIGHT:0:-10
+dice:$D + 3d6
+expr:D:PLAYER_LEVEL:* 2
+effect:LINE:LIGHT
+dice:$D
+expr:D:PLAYER_LEVEL:+ 0
+effect:LIGHT_AREA
+msg_self:A line of shimmering light appears.
+msg_other:'s hands project a line of shimmering light.
+desc:Fires a holy light missile that always hits its target.
+desc: Also it creates a beam that lights up each square and hurts each
+desc: light-sensitive monster in its path.
+desc: Sometimes especially strong beam is fired instead.
+desc: The chance to get a beam goes up with your character level.
+desc: If you are in a room, the entire room will be lit up as well.
+
+spell:Greater Heal:45:50:33:77:0
+cooldown:2
+effect:HEAL_HP
+dice:1000
+desc:Cures significant amount of damage.
+desc: Cooldown 2 turns.
+
+spell:Path of Light:49:30:33:100:0
+desc: Cooldown 30 turns.
+effect:BREATH:LIGHT:0:20
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+desc:Shoots light in a long narrow cone from the player.
+desc: Cooldown 30 turns.
+
+spell:Salvation:50:75:1:200:0
+cooldown:255
+effect:TIMED_SET:REVIVE
+dice:10+1d10
+effect:TIMED_SET:INVULN
+dice:5+1d5
 effect:RESTORE_EXP
 effect:RESTORE_STAT:CHR
 effect:RESTORE_STAT:CON
@@ -6368,41 +6452,12 @@ effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:WIS
 effect:RESTORE_STAT:INT
 effect:RESTORE_STAT:STR
-effect:CURE:AFRAID
-effect:CURE:AMNESIA
-effect:CURE:POISONED
-effect:CURE:CUT
-effect:CURE:STUN
-desc:Remove all negative conditions and restore stats.
-
-spell:Path of Light:40:45:75:100:0
-effect:BREATH:LIGHT:0:20
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
-effect:BALL:HOLY_ORB:2:30
-dice:$B+3d6
-expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a holy orb!
-desc:Shoots a ball that does unresistable damage and spews light in a long
-desc: narrow cone from the player. Evil monsters take double damage.
-desc: The bigger area of effect is attained at character level 30.
-
-spell:Greater Heal:45:60:75:140:0
-effect:HEAL_HP
-dice:1000
-desc:Cures significant amount of damage.
-
-spell:Salvation:50:100:44:200:0
-cooldown:200
-effect:TIMED_SET:REVIVE
-dice:10+1d10
-effect:TIMED_SET:INVULN
-dice:5+1d5
 desc:Allows you to avoid death once in a while.
+desc: Remove all negative conditions and restore stats.
 desc: Also grants you resistance against non-physical attacks for a moment.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
-desc: Cooldown 200 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Wizard ###############
