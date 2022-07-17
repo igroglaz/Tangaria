@@ -3240,9 +3240,21 @@ void do_cmd_purchase_house(struct player *p, int dir)
                 {
                     // to prevent cheezing when player sell account's big house for new character
                     // we make possibility to sell it only for a very little if you are on low lvls
-                    
-                    msg(p, "You sell your house for %ld gold.", house->price / (52 - p->lev));
-                    p->au += house->price / (52 - p->lev);
+                    int price_h = house->price;
+
+                    // as we are trying to fight high-lvl cheating with very expansive houses,
+                    // not low lvl ones which matters not
+                    if (price_h < 25000)
+                        price_h /= 7 - (p->lev / 10);
+                    else
+                        price_h /= (52 - p->lev);
+
+                    // min price for 1 tile houses shouldn't be way too low
+                    if (price_h < 1000)
+                        price_h = 1000;
+
+                    msg(p, "You sell your house for %ld gold.", price_h);
+                    p->au += price_h;
                 }
 
                 /* House is no longer owned */

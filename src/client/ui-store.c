@@ -1007,7 +1007,7 @@ void store_sell_accept(int32_t price, int16_t reset)
     if (reset)
         my_strcpy(buf, "Do you really want to reset this house? ", sizeof(buf));
     else
-        strnfmt(buf, sizeof(buf), "House price depends on your level. Now it's %ld gold. Sell? ", price);
+        strnfmt(buf, sizeof(buf), "House price depends on your level (the higher level - the better price). Sell? ");
 
     /* Accept the price, or cancel the wait */
     res = get_check_ex(buf);
