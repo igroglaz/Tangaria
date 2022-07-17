@@ -2659,7 +2659,7 @@ weight:0
 experience:90
 blow:HYPNOTIZE:SEDUCE:1d8
 blow:HIT:HURT:1d8
-flags:UNIQUE | FEMALE | NEUTRAL
+flags:UNIQUE | FEMALE | NEUTRAL | SWIM_NORM
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:SWIM_NORM
 drop:food:Apple of Youth:100:1:1

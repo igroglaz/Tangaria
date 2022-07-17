@@ -6267,6 +6267,7 @@ value:0:CHR[0+1d20]
 value:0:BLOWS[1d1]
 value:0:STEALTH[0+1d12]
 player-flags:0:MARTIAL_ARTS | BEAM
+obj-flag:0:CLUMSY
 title:Believer
 title:Acolyte
 title:Devotee
@@ -6287,7 +6288,7 @@ equip:prayer book:[Beginners Handbook]:1:1:none
 #? friendly to angels
 
 spell:Light Ray I:1:1:22:3:0
-effect:BOLT_OR_BEAM:LIGHT_WEAK:0:-10
+effect:BOLT_OR_BEAM:LIGHT:0:-10
 dice:$D
 expr:D:PLAYER_LEVEL:+ 0
 effect:LINE:LIGHT_WEAK
@@ -6307,7 +6308,7 @@ spell:Safe Guard:5:2:35:7:0
 # ?cooldown reduced with lvls
 cooldown:3
 effect:TELEPORT
-dice:15
+dice:12
 effect:TIMED_INC:STEALTH
 dice:2
 effect:CURE:AFRAID
@@ -6316,7 +6317,7 @@ effect:CURE:POISONED
 effect:CURE:CUT
 effect:CURE:STUN
 msg_other: blinks away.
-desc:Your guardian teleports you randomly up to 15 squares away and
+desc:Your guardian teleports you randomly up to 12 squares away and
 desc: removes negative conditions.
 desc: Cooldown 3 turns.
 
