@@ -280,6 +280,7 @@ int16_t get_speed(struct player *p)
 }
 
 
+// ... state, dice.dice, dice.sides, show_mhit, show_mdam, show_shit, show_sdam
 void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds, int* mhit,
     int* mdam, int* shit, int* sdam)
 {
@@ -299,8 +300,10 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
     /* Monks and permanently polymorphed characters do barehanded damage */
     else if (player_has(p, PF_MARTIAL_ARTS) || player_has(p, PF_PERM_SHAPE))
     {
-        *dd = 1 + p->lev / 8;
-        *ds = 4 + p->lev / 12;
+        // T: endgame nerfed a bit as it was way too much dmg there (was 1 + p->lev / 8)
+        *dd = 1 + p->lev / 10;
+        // T: early game nerfed as it was too ez, but in the end ds is the same (was 4 + p->lev / 12)
+        *ds = 3 + p->lev / 10;
     }
 
     /* Get the wielded weapon */
