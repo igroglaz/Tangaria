@@ -765,7 +765,11 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
                 bool proj_wall = (origin->target && loc_eq(&origin->target->grid, &path_grid[i]));
 
                 /* Hack -- balls explode before reaching walls */
-                if (!square_ispassable(cv, &path_grid[i]) && (rad > 0) && !proj_wall) break;
+                if (!square_ispassable(cv, &path_grid[i]) && (rad > 0) && !(flg & (PROJECT_BEAM)) &&
+                    !proj_wall)
+                {
+                    break;
+                }
 
                 /* Advance */
                 loc_copy(&ogrid, &grid);

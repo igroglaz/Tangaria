@@ -153,6 +153,7 @@ PWMAngband:
 - Fix crash when targeting a healing spell with a friendly monster in sight
 - Fix Dungeon Master pet attacking other monsters
 - Fix pets attacking non-hostile player pets
+- Fix PROJECT_BEAM error making limited length beams not working
 
 Coding changes
 --------------
