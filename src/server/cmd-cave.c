@@ -4074,7 +4074,7 @@ bool create_house(struct player *p, int house_variant)
         if (area_size <= 100 && p->account_score >= 2500) ;
         else
         {
-            msg(p, "You need at least 80000 account points to build such house.");
+            msg(p, "You need at least 2500 account points to build such house.");
             return false;
         }
     }
@@ -4083,7 +4083,7 @@ bool create_house(struct player *p, int house_variant)
         if (area_size <= 144 && p->account_score >= 3500) ;
         else
         {
-            msg(p, "You need at least 150000 account points to build such house.");
+            msg(p, "You need at least 3500 account points to build such house.");
             return false;
         }
     }
@@ -4092,7 +4092,7 @@ bool create_house(struct player *p, int house_variant)
         if (area_size <= 256 && p->account_score >= 5000) ;
         else
         {
-            msg(p, "You need at least 300000 account points to build such house.");
+            msg(p, "You need at least 5000 account points to build such house.");
             return false;
         }
     }
@@ -4101,7 +4101,7 @@ bool create_house(struct player *p, int house_variant)
         if (area_size <= 324 && p->account_score >= 10000) ;
         else
         {
-            msg(p, "You need at least 1000000 account points to build such house.");
+            msg(p, "You need at least 10000 account points to build such house.");
             return false;
         }
     }

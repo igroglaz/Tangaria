@@ -984,6 +984,8 @@ static void player_outfit_dm(struct player *p)
         p->noscore = 1;
         get_bonuses(p);
         p->timed[TMD_TRAPSAFE] = -1;
+        // to test housing
+        p->account_score = 10000;
     }
 
     /*

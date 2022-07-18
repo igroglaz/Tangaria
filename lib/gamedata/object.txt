@@ -6107,7 +6107,7 @@ graphics:?:s
 type:scroll
 level:0
 weight:4
-cost:10000
+cost:1000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:1
@@ -6128,7 +6128,7 @@ graphics:?:w
 type:scroll
 level:0
 weight:5
-cost:15000
+cost:10000
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | NO_DROP
 effect:CREATE_HOUSE
 dice:2
