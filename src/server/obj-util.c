@@ -1035,7 +1035,8 @@ void object_own(struct player *p, struct object *obj)
         if (obj->ego && obj->level_req < 25)
         {
             if (strstr(obj->ego->name, "of Power") || strstr(obj->ego->name, "of Speed") ||
-                strstr(obj->ego->name, "of Elvenkind"))
+                strstr(obj->ego->name, "of Elvenkind") ||
+                strstr(obj->kind->name, "Speed")) // rod of speed
                     obj->level_req = 25;
         }
     }
