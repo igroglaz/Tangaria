@@ -147,6 +147,7 @@ void do_cmd_breath(struct player *p, int dir)
     // Special races' effects (Spider weaves web, Ent grow trees etc)
     if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
     {
+        // one tile web
         if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
         streq(p->clazz->name, "Unbeliever"))
         {
@@ -165,6 +166,7 @@ void do_cmd_breath(struct player *p, int dir)
             
             return;
         }
+        // surrounding multiple web
         else // all classes except warr, monk, unbeliever
         {
             /* Take a turn */
@@ -191,8 +193,8 @@ void do_cmd_breath(struct player *p, int dir)
         summon_specific_race_aux(p, c, &p->grid, get_race("oozling"), 1 + p->lev / 25, true);
 
         player_dec_timed(p, TMD_FOOD, (100 - p->lev), false);
-        take_hit(p, p->mhp / 4, "overbreeding", false, "bred without sparing itself");
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
+        take_hit(p, p->mhp / 4, "overbreeding", false, "bred without sparing itself");
 
         return;
     }
@@ -210,7 +212,8 @@ void do_cmd_breath(struct player *p, int dir)
         free_effect(effect);
 
         player_dec_timed(p, TMD_FOOD, (350 - (p->lev * 5)), false);
-        player_inc_timed(p, TMD_OCCUPIED, randint1(4), true, false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
+        take_hit(p, p->mhp / 9, "exhaustion", false, "exhausted from gardening");
 
         return;
     }

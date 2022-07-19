@@ -6141,8 +6141,7 @@ bool effect_handler_WAKE(effect_handler_context_t *context)
 
 
 
-// Create a player's SPIDER race creates WEB.
-
+// Player's SPIDER race creates WEB (one tile)
 bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
 {
     /* Always notice */
@@ -6168,7 +6167,7 @@ bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
     square_add_web(context->cave, &context->origin->player->grid);
     msg_misc(context->origin->player, " weaves a web.");
 
-    player_dec_timed(context->origin->player, TMD_FOOD, 25, false);
+    player_dec_timed(context->origin->player, TMD_FOOD, 75 - context->origin->player->lev, false);
 
     return true;
 }
@@ -6235,9 +6234,9 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     if (!mon && context->origin->player)
     {   
         if (streq(context->origin->player->race->name, "Spider"))
-            player_dec_timed(context->origin->player, TMD_FOOD, 50, false);
+            player_dec_timed(context->origin->player, TMD_FOOD, 100 - context->origin->player->lev, false);
         else
-            player_dec_timed(context->origin->player, TMD_FOOD, 450, false);
+            player_dec_timed(context->origin->player, TMD_FOOD, 300, false);
     }
 
     return true;
