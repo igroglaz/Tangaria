@@ -537,4 +537,15 @@ help: As they develop in time, they could get obtain magic powers. |
 help: Beholders may try to predict future from time to time which
 help: cause hallucinations.
 
+race:Ooze
+help:Gelatinous slimy creatures, they rarely appears to have mind and comprehension.
+help: You are the lucky exception. Oozes don't have fixed shape, moving constantly
+help: from one appearance to another which makes them immune to paralysation and
+help: resistant to other negative effects like poison and acid.
+help: Oozes mostly live in wet dungeons and caves and have a very wide variety of
+help: diet, so oozes get nourishment upon every enemy which was killed by it.
+help: They cannot have ESP, but has excellent infravision and survivability.
+help: Oozes can duplicate themselves ('y' key) making its minor copies which can
+help: attack and distract enemies. At lvl 35 they are able to inflict acid attacks.
+
 # leave empty line for EOF

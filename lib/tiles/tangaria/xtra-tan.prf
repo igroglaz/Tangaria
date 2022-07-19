@@ -245,6 +245,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Warrior] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ########################################################
 
@@ -481,6 +485,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Archer] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Archer] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Archer] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ########################################################
 
@@ -716,6 +724,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Monk] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Monk] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Monk] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Half-Troll] ]
@@ -952,6 +964,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Mage] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Mage] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Mage] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Shaman] [EQU $RACE Half-Troll] ]
@@ -1186,6 +1202,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Shaman] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Shaman] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Shaman] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Half-Troll] ]
@@ -1420,6 +1440,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Priest] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Priest] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Priest] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Warlock] [EQU $RACE Half-Troll] ]
@@ -1654,6 +1678,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Warlock] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Warlock] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Warlock] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Half-Troll] ]
@@ -1888,6 +1916,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Paladin] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Paladin] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Half-Troll] ]
@@ -2122,6 +2154,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Rogue] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Rogue] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Half-Troll] ]
@@ -2356,6 +2392,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Ranger] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Ranger] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Half-Troll] ]
@@ -2590,6 +2630,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Blackguard] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Blackguard] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Half-Troll] ]
@@ -2824,6 +2868,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Sorceror] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Sorceror] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Half-Troll] ]
@@ -3058,6 +3106,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Unbeliever] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Half-Troll] ]
@@ -3292,6 +3344,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Hunter] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Hunter] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Half-Troll] ]
@@ -3526,6 +3582,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Telepath] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Telepath] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Half-Troll] ]
@@ -3760,6 +3820,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Elementalist] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Elementalist] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Half-Troll] ]
@@ -3994,6 +4058,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Summoner] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Summoner] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Half-Troll] ]
@@ -4228,6 +4296,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Shapechanger] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Tamer] [EQU $RACE Half-Troll] ]
@@ -4462,6 +4534,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Tamer] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Tamer] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Tamer] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Half-Troll] ]
@@ -4696,6 +4772,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Druid] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Druid] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Druid] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Fighter] [EQU $RACE Half-Troll] ]
@@ -4930,6 +5010,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Fighter] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Fighter] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Fighter] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ?:[AND [EQU $CLASS Knight] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0xCD
@@ -5163,6 +5247,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Knight] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Knight] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Knight] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Traveller] [EQU $RACE Half-Troll] ]
@@ -5397,6 +5485,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Traveller] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Traveller] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Bard] [EQU $RACE Half-Troll] ]
@@ -5631,6 +5723,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Bard] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Bard] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Bard] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Battlemage] [EQU $RACE Half-Troll] ]
@@ -5867,6 +5963,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Battlemage] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Battlemage] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Battlemage] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Half-Troll] ]
@@ -6101,6 +6201,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Necromancer] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Necromancer] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Hermit] [EQU $RACE Half-Troll] ]
@@ -6335,6 +6439,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Hermit] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Hermit] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Hermit] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Wizard] [EQU $RACE Half-Troll] ]
@@ -6569,6 +6677,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Wizard] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Wizard] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Wizard] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Trader] [EQU $RACE Half-Troll] ]
@@ -6803,6 +6915,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Trader] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Trader] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Trader] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ?:[AND [EQU $CLASS Assassin] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0xDB
@@ -7036,6 +7152,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Assassin] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Assassin] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Assassin] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Phaseblade] [EQU $RACE Half-Troll] ]
@@ -7270,6 +7390,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Phaseblade] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Phaseblade] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Phaseblade] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Cryokinetic] [EQU $RACE Half-Troll] ]
@@ -7504,6 +7628,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Cryokinetic] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Cryokinetic] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Cryokinetic] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Timeturner] [EQU $RACE Half-Troll] ]
@@ -7738,6 +7866,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Timeturner] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Timeturner] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Timeturner] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ?:[AND [EQU $CLASS Scavenger] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0xDB
@@ -7971,6 +8103,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Scavenger] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Scavenger] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Scavenger] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Alchemist] [EQU $RACE Half-Troll] ]
@@ -8207,6 +8343,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Alchemist] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Alchemist] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Alchemist] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 ########################################################
 
 ?:[AND [EQU $CLASS Crafter] [EQU $RACE Half-Troll] ]
@@ -8441,6 +8581,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Crafter] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Crafter] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Crafter] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Half-Troll] ]
 monster:<player>:0x8B:0x9D
@@ -8674,6 +8818,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Inquisitor] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 ?:[AND [EQU $CLASS Villager] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0x87
@@ -8907,6 +9055,10 @@ RF:<player>:0x97:0xA7
 monster:<player>:0x97:0xA8
 ?:[AND [EQU $CLASS Villager] [EQU $RACE Beholder] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA8
+?:[AND [EQU $CLASS Villager] [EQU $RACE Ooze] ]
+monster:<player>:0x97:0xAA
+?:[AND [EQU $CLASS Villager] [EQU $RACE Ooze] [EQU $GENDER Female] ]
+RF:<player>:0x97:0xAA
 
 # Hack -- not a real class, used for ghost realm spells
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Half-Troll] ]
@@ -9026,4 +9178,6 @@ monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Wraith] ]
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Beholder] ]
+monster:<player>:0x94:0x98
+?:[AND [EQU $CLASS Ghost] [EQU $RACE Ooze] ]
 monster:<player>:0x94:0x98
