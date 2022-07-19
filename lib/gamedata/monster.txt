@@ -32379,6 +32379,23 @@ innate-freq:100
 spells:WHIP
 desc:Brightly pink and oozing at you dripping caustic acid all around place.
 
+# jelly player race breed
+name:oozling
+base:jelly
+color:G
+speed:110
+hit-points:11
+hearing:2
+armor-class:1
+sleepiness:99
+depth:1
+rarity:8
+weight:0
+experience:0
+blow:TOUCH:ACID:1d3
+flags:HURT_LIGHT | IM_ACID | HURT_COLD | NO_CONF | NO_SLEEP
+desc:A small pulsing green ooze.
+
 ### !!! move Test dummy there, to the bottom... so it will be easier to change it
 # BUT.. change druid class forms IDs after that!
 

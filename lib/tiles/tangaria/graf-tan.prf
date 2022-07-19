@@ -32500,6 +32500,9 @@ monster:bear-form:0x9B:0xC3
 # draw monster like in NH
 monster:acid blob:0x9A:0xC3
 
+#ooze player race breed
+monster:oozling:0x97:0xAA
+
 # Load the special player pictures
 %:xtra-tan.prf
 
