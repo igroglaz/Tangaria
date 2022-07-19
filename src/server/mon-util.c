@@ -1123,6 +1123,10 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         monster_desc(p, m_name, sizeof(m_name), mon, desc_mode);
     }
 
+    // Ooze player race eat anything
+    if (streq(p->race->name, "Ooze") && p->wpos.depth > 0 && mon->race->mexp)
+        player_inc_timed(p, TMD_FOOD, 10, false, false);
+
     /* Play a special sound if the monster was unique */
     if (monster_is_unique(mon->race))
     {

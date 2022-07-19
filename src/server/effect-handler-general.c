@@ -4173,7 +4173,7 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     int special_race = 0; // some races has special behaviour
 
     if (streq(context->origin->player->race->name, "Ent") ||
-        streq(context->origin->player->race->name, "Vempire"))
+        streq(context->origin->player->race->name, "Vampire"))
         special_race = 1;
 
     if (context->self_msg && !player_undead(context->origin->player))
