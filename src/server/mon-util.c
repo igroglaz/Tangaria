@@ -153,9 +153,15 @@ void player_desc(struct player *p, char *desc, size_t max, struct player *q, boo
 }
 
 
+// how player ESP NPC-monsters
+// alternative function: is_detected_p() which shows how one player ESP another players
 static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d_esp)
 {
     int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
+
+    // no ESP for Ooze player race
+    if (streq(p->race->name, "Ooze"))
+        return false;
 
     /* Full ESP */
     if (player_of_has(p, OF_ESP_ALL)) return true;
@@ -247,6 +253,9 @@ static bool is_mimicking_ignored(struct player *p, struct monster *mon)
  * "disturb_near" (monster which is "easily" viewable moves in some
  * way).  Note that "moves" includes "appears" and "disappears".
  */
+///////
+/////// How player sees NPC-monsters; how one player sees another player: update_player_aux()
+///////
 static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *c, bool full,
     bool *blos, int *dis_to_closest, struct player **closest, int *lowhp)
 {
@@ -1808,8 +1817,8 @@ bool monster_carry(struct monster *mon, struct object *obj, bool force)
 /*
  * Player updates
  */
-
-
+// how one player ESP another player of certain race (born race or polymorphed)
+// alternative function: is_detected_m() which shows ESP of NPC-monsters
 static bool is_detected_p(struct player *p, struct player *q, int dis_esp)
 {
     int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
@@ -1835,6 +1844,7 @@ static bool is_detected_p(struct player *p, struct player *q, int dis_esp)
 }
 
 
+// how one player sees another player; how player sees monsters: update_mon_aux()
 static void update_player_aux(struct player *p, struct player *q, struct chunk *c)
 {
     int d, d_esp;
