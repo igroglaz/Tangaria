@@ -2225,7 +2225,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     /* Optionally alter traps/doors on movement */
-    if (((trap && disarm) || door) && square_isknown(p, &grid))
+    // exception: vampire race 'mist' form etc
+    if (door && p->poly_race && streq(p->poly_race->name, "vampiric mist_"))
+        ;
+    else if (((trap && disarm) || door) && square_isknown(p, &grid))
     {
         do_cmd_alter(p, dir);
         return;
@@ -2245,8 +2248,21 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         return;
     }
 
-    // Some can pass trees
-    if (square_istree(c, &grid))
+    // Some can pass trees and other terrain
+
+    // vampire race 'mist' form can pass all except walls
+    if (p->poly_race && streq(p->poly_race->name, "vampiric mist_"))
+    {
+        if (square_ispassable(c, &grid) || square_istree(c, &grid) || square_isrubble(c, &grid) ||
+        (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid)))
+            ;
+        else
+        {
+            msgt(p, MSG_HITWALL, "Way is blocked.");
+            return;
+        }
+    }
+    else if (square_istree(c, &grid))
     {
         // allow pass trees in town by running OR for druid bird/rat form
         if (p->wpos.depth == 0 || (p->poly_race && (streq(p->poly_race->name, "bird-form") ||
@@ -2327,6 +2343,14 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         }
 
         return;
+    }
+
+    // Paranoia to prevent go out of dungeon borders
+    if (square_isunpassable(c, &grid) && !square_in_bounds_fully(c, &grid))
+    {
+            msg(p, "The wall blocks your movement.");
+            disturb(p, 0);
+            return;
     }
 
     /* Permanent walls */
