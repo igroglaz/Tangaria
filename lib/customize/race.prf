@@ -317,6 +317,8 @@ help: Night creatures, they don't like light and feel bad during the day hours;
 help: but still they can tolerate daylight, thought become weakened.
 help: Vampires don't eat normal food.. they restore their thirst when they hunt
 help: humanoids in the dungeons.
+help: They can take form of vampiric mist to pass most of obstacles; also they are
+help: able to polymorph into bats.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much know about them, except 
@@ -547,5 +549,6 @@ help: diet, so oozes get nourishment upon every enemy which was killed by it.
 help: They cannot have ESP, but has excellent infravision and survivability.
 help: Oozes can duplicate themselves ('y' key) making its minor copies which can
 help: attack and distract enemies. At lvl 35 they are able to inflict acid attacks.
+help: They can pass doors by crawling under them.
 
 # leave empty line for EOF

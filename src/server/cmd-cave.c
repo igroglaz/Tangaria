@@ -2226,7 +2226,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     /* Optionally alter traps/doors on movement */
     // exception: vampire race 'mist' form etc
-    if (door && p->poly_race && streq(p->poly_race->name, "vampiric mist_"))
+    if (door && ((p->poly_race && streq(p->poly_race->name, "vampiric mist_")) || streq(p->race->name, "Ooze")))
         ;
     else if (((trap && disarm) || door) && square_isknown(p, &grid))
     {
@@ -2281,6 +2281,16 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     // druid class 'rat' form can pass walls sometimes (except permawalls)
     else if (p->poly_race && streq(p->poly_race->name, "rat-form") &&
             !square_isperm(c, &grid) && magik(p->lev / 5)) ;
+    // ooze can pass doors
+    else if (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid))
+    {
+        if (streq(p->race->name, "Ooze")) ;
+        else
+        {
+            msgt(p, MSG_HITWALL, "There is a door blocking your way.");
+            return;
+        }
+    }
     /* Normal players can not walk through "walls" */
     else if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
