@@ -1032,7 +1032,9 @@ void object_own(struct player *p, struct object *obj)
             obj->level_req -= 3;
 
         // hc some values which now got too imba min lvl req.
-        if (obj->ego && obj->level_req < 25)
+        if (obj->tval == TV_FOOD)
+            obj->level_req = 3;
+        else if (obj->ego && obj->level_req < 25)
         {
             if (strstr(obj->ego->name, "of Power") || strstr(obj->ego->name, "of Speed") ||
                 strstr(obj->ego->name, "of Elvenkind") ||
