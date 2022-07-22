@@ -198,6 +198,60 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Beholder"))
+    {
+        // dice for distance or dmg
+        char dice_string[5];
+        int b_elem = randint0(1 + p->lev / 5); // element for ray
+
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_SHORT_BEAM;
+            // init dice
+            effect->dice = dice_new();
+            // convert int to char with '0'
+            dice_string[0] = p->lev + '0';
+            // fill dice struct
+            dice_parse_string(effect->dice, dice_string);
+
+            // element
+            switch (b_elem)
+            {
+                case 0: effect->subtype = PROJ_TURN_ALL; break; // scare
+                case 1: effect->subtype = PROJ_MON_CONF; break; // conf
+                case 2: effect->subtype = PROJ_MON_BLIND; break; // blind
+                case 3: effect->subtype = PROJ_MON_STUN; break;// stun
+                case 4: effect->subtype = PROJ_INERTIA; break;// slow
+                case 5: effect->subtype = PROJ_MON_HOLD; break;// mob can't move
+                case 6: effect->subtype = PROJ_SLEEP_ALL; break;// sleep
+                case 7: effect->subtype = PROJ_DARK; break;
+                case 8: effect->subtype = PROJ_PSI; break;
+                case 9: effect->subtype = PROJ_PSI_DRAIN; break;
+                case 10: effect->subtype = PROJ_TIME; break;
+                case 11: effect->subtype = PROJ_DISEN; break;// spellcasters less successful
+            }
+
+            effect->radius = 3 + p->lev / 10; // up to 8
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            p->chp -= p->chp / 20; // take a slight hit
+            player_inc_timed(p, TMD_IMAGE, 1 + randint0(1), false, false);
+                
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to fire a ray.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
