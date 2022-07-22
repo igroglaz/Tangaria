@@ -220,7 +220,7 @@ void build_score(struct player *p, struct high_score *entry, const char *died_fr
     strnfmt(entry->what, sizeof(entry->what), "%s", version_build(NULL, false));
 
     /* Calculate and save the points */
-    strnfmt(entry->pts, sizeof(entry->pts), "%9u",
+    strnfmt(entry->pts, sizeof(entry->pts), "%9ld",
         total_points(p, score_info.max_exp, score_info.max_depth));
 
     /* Save the current gold */

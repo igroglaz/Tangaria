@@ -195,7 +195,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                         " (or {%d%%} of max HP, whichever is greater)", value.m_bonus);
                 }
                 else
-                    strnfmt(min_string, sizeof(min_string), "");
+                    my_strcpy(min_string, "", sizeof(min_string));
                 strnfmt(desc, sizeof(desc), effect_desc(e), dice_string, min_string);
                 break;
             }

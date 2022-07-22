@@ -1079,8 +1079,13 @@ int object_value_real(struct player *p, const struct object *obj, int qty)
 {
     int value = 0, total_value;
     int power;
+
+    /* This is the quadratic coefficient for power in the expression for the real value. */
     int a = 1;
+
+    /* This is the linear coefficient for power in the expression for the real value. */
     int b = 5;
+
     int min_value = (obj->artifact? 1: 0);
 
     /* Hack -- worthless objects */
@@ -1094,7 +1099,12 @@ int object_value_real(struct player *p, const struct object *obj, int qty)
 
         /* Calculate power and value */
         power = object_power(p, obj);
-        if (power > 0) value = a * power * power + b * power;
+        if (power > 0)
+        {
+            /* Protect against overflow. */
+            if (power <= (INT_MAX / power - b) / a) value = power * (power * a + b);
+            else value = INT_MAX;
+        }
 
         /* Rescale for expendables */
         if ((normal_ammo || normal_torch) && (value > 0))

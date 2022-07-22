@@ -1102,8 +1102,8 @@ void lore_append_exp(struct player *p, const struct monster_race *race,
     exp_fraction = ((((long)race->mexp * race->level % p->lev) * (long)1000 / p->lev + 5) / 10);
 
     /* Calculate textual representation */
-    strnfmt(buf, sizeof(buf), "%d", exp_integer);
-    if (exp_fraction) my_strcat(buf, format(".%02d", exp_fraction), sizeof(buf));
+    strnfmt(buf, sizeof(buf), "%ld", exp_integer);
+    if (exp_fraction) my_strcat(buf, format(".%02ld", exp_fraction), sizeof(buf));
 
     /* Mention the experience */
     text_out(p, " is worth ");

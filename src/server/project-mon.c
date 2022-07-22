@@ -197,7 +197,7 @@ void thrust_away(struct chunk *c, struct source *origin, struct loc *centre, int
         if (!origin->monster)
         {
             player_handle_post_move(origin->player, c, true, true, 0,
-                player_is_trapsafe(origin->player));
+                player_is_trapsafe(origin->player), true);
         }
     }
 

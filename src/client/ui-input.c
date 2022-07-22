@@ -1042,6 +1042,9 @@ static bool textui_get_aim_dir(int *dp)
     {
         bool res;
 
+        /* Whether to generate an audible warning about a targeting failure */
+        bool need_beep = false;
+
         /* Choose a prompt */
         p = "Direction ('*' to target, \"'\" for closest, '(' for friendly, Escape to cancel)? ";
 
@@ -1096,7 +1099,10 @@ static bool textui_get_aim_dir(int *dp)
                         if (this_dir)
                             dir = dir_transitions[dir][this_dir];
                         else
+                        {
+                            need_beep = true;
                             break;
+                        }
 
                         if ((player->opts.lazymove_delay == 0) || (++keypresses_handled > 1))
                             break;
@@ -1110,7 +1116,7 @@ static bool textui_get_aim_dir(int *dp)
         }
 
         /* Error */
-        if (!dir) bell("Illegal aim direction!");
+        if (need_beep) bell("Illegal aim direction!");
     }
 
     /* No direction */

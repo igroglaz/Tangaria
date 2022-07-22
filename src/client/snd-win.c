@@ -107,10 +107,11 @@ static bool load_sound_win(const char *filename, int ft, struct sound_data *data
     if (!sample) sample = mem_zalloc(sizeof(*sample));
 
     /* Try and load the sample file */
-    data->loaded = load_sample_win(filename, ft, sample);
-
-    if (data->loaded)
+    if (load_sample_win(filename, ft, sample))
+    {
+        data->status = SOUND_ST_LOADED;
         sample->type = ft;
+    }
     else
     {
         mem_free(sample);
@@ -202,7 +203,7 @@ static bool unload_sound_win(struct sound_data *data)
 
         mem_free(sample);
         data->plat_data = NULL;
-        data->loaded = false;
+        data->status = SOUND_ST_UNKNOWN;
     }
 
     return true;

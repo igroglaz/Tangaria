@@ -36,6 +36,7 @@ extern bool pick_and_place_monster(struct player *p, struct chunk *c, struct loc
     uint8_t mon_flag, uint8_t origin);
 extern bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis,
     uint8_t mon_flag);
+extern void add_to_monster_rating(struct chunk *c, uint32_t part);
 extern void monster_give_xp(struct player *p, struct chunk *c, struct monster *mon, bool split);
 extern void monster_drop_carried(struct player *p, struct chunk *c, struct monster *mon,
     int num, bool visible, int *dump_item, int *dump_gold);

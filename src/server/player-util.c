@@ -446,9 +446,9 @@ void player_adjust_hp_precise(struct player *p, int32_t hp_gain)
 
     /* Check for overflow */
     if (hp_gain >= 0)
-        new_32 = (old_32 < LONG_MAX - hp_gain)? old_32 + hp_gain: LONG_MAX;
+        new_32 = (old_32 < INT32_MAX - hp_gain)? old_32 + hp_gain: INT32_MAX;
     else
-        new_32 = (old_32 > LONG_MIN - hp_gain)? old_32 + hp_gain: LONG_MIN;
+        new_32 = (old_32 > INT_MIN - hp_gain)? old_32 + hp_gain: INT_MIN;
 
     /* Break it back down */
     if (new_32 < 0)
@@ -464,7 +464,7 @@ void player_adjust_hp_precise(struct player *p, int32_t hp_gain)
         {
             my_assert(remainder < 0);
             p->chp_frac = (uint16_t)(65536 + remainder);
-            my_assert(p->chp > SHRT_MIN);
+            my_assert(p->chp > INT16_MIN);
             p->chp -= 1;
         }
         else
@@ -503,19 +503,19 @@ int32_t player_adjust_mana_precise(struct player *p, int32_t sp_gain)
 	/* Check for overflow */
 	if (sp_gain > 0)
     {
-		if (old_32 < LONG_MAX - sp_gain)
+		if (old_32 < INT32_MAX - sp_gain)
             new_32 = old_32 + sp_gain;
         else
         {
-            new_32 = LONG_MAX;
+            new_32 = INT32_MAX;
 		    sp_gain = 0;
         }
 	}
-    else if (old_32 > LONG_MIN - sp_gain)
+    else if (old_32 > INT_MIN - sp_gain)
         new_32 = old_32 + sp_gain;
     else
     {
-		new_32 = LONG_MIN;
+		new_32 = INT_MIN;
 		sp_gain = 0;
 	}
 
@@ -533,7 +533,7 @@ int32_t player_adjust_mana_precise(struct player *p, int32_t sp_gain)
         {
             my_assert(remainder < 0);
             p->csp_frac = (uint16_t)(65536 + remainder);
-            my_assert(p->csp > SHRT_MIN);
+            my_assert(p->csp > INT16_MIN);
             p->csp -= 1;
         }
         else
@@ -785,10 +785,17 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
 
         /* Levitation makes one lightfooted. */
-        if ((player_of_has(p, OF_FEATHER) || player_of_has(p, OF_FLYING)) &&
-            !player_of_has(p, OF_CANT_FLY))
+        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
+        {
             dam_taken /= 2;
-        if (streq(p->clazz->name, "Cryokinetic"))
+            equip_learn_flag(p, OF_FEATHER);
+        }
+        else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
+        {
+            dam_taken /= 2;
+            equip_learn_flag(p, OF_FLYING);            
+        }
+        else if (streq(p->clazz->name, "Cryokinetic"))
             dam_taken /= 2;
     }
     // terrain in the dungeon (isfiery - is the wilderness)
@@ -811,7 +818,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c)
                 dam_taken = 0;
             equip_learn_flag(p, OF_FEATHER);
         }
-        
+
         /* Swimming prevents drowning */
         if (player_has(p, PF_CAN_SWIM)) dam_taken = 0;
     }
@@ -1256,7 +1263,7 @@ void cancel_running(struct player *p)
  * player) of the traps in the grid.
  */
 void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, bool check_pickup,
-    int delayed, bool trapsafe)
+    int delayed, bool trapsafe, bool autopickup)
 {
     /* Handle store doors, or notice objects */
     if (!p->ghost && square_isshop(c, &p->grid))
@@ -1270,9 +1277,12 @@ void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, 
     {
         p->ignore = 1;
         player_know_floor(p, c);
-        do_autopickup(p, c, check_pickup);
-        current_clear(p);
-        player_pickup_item(p, c, check_pickup, NULL);
+        if (autopickup)
+        {
+            do_autopickup(p, c, check_pickup);
+            current_clear(p);
+            player_pickup_item(p, c, check_pickup, NULL);
+        }
     }
 
     /* Handle resurrection */

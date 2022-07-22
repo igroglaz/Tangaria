@@ -93,7 +93,7 @@ extern uint8_t player_cannot_cast_mimic(struct player *p, bool show_msg);
 extern bool player_book_has_unlearned_spells(struct player *p);
 extern void cancel_running(struct player *p);
 extern void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap,
-    bool check_pickup, int delayed, bool trapsafe);
+    bool check_pickup, int delayed, bool trapsafe, bool autopickup);
 extern void disturb(struct player *p, int unused_flag);
 extern void search(struct player *p, struct chunk *c);
 extern bool has_bowbrand(struct player *p, bitflag type, bool blast);

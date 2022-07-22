@@ -107,7 +107,7 @@ void flag_message(struct player *p, int flag, char *name)
     while (next)
     {
         /* Copy the text leading up to this { */
-        strnfcat(buf, MSG_LEN, &end, "%.*s", next - in_cursor, in_cursor);
+        strnfcat(buf, MSG_LEN, &end, "%.*s", (int)(next - in_cursor), in_cursor);
 
         s = next + 1;
         while (*s && isalpha((unsigned char)*s)) s++;
@@ -129,7 +129,7 @@ void flag_message(struct player *p, int flag, char *name)
 
         next = strchr(in_cursor, '{');
     }
-    strnfcat(buf, MSG_LEN, &end, in_cursor);
+    strnfcat(buf, MSG_LEN, &end, "%s", in_cursor);
 
     msg(p, buf);
 }

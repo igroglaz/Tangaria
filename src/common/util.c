@@ -310,9 +310,9 @@ size_t obj_desc_name_format(char *buf, size_t max, size_t end, const char *fmt, 
 
             /* e.g. cutlass-e-s, torch-e-s, box-e-s */
             if (prev == 's' || prev == 'h' || prev == 'x')
-                strnfcat(buf, max, &end, "es");
+                strnfcat(buf, max, &end, "%s", "es");
             else
-                strnfcat(buf, max, &end, "s");
+                strnfcat(buf, max, &end, "%s", "s");
         }
 
         /* Special plurals */
@@ -332,9 +332,9 @@ size_t obj_desc_name_format(char *buf, size_t max, size_t end, const char *fmt, 
             if (!singular || !plural || !endmark) return end;
 
             if (!pluralise)
-                strnfcat(buf, max, &end, "%.*s", plural - singular - 1, singular);
+                strnfcat(buf, max, &end, "%.*s", (int)(plural - singular) - 1, singular);
             else
-                strnfcat(buf, max, &end, "%.*s", endmark - plural, plural);
+                strnfcat(buf, max, &end, "%.*s", (int)(endmark - plural), plural);
 
             fmt = endmark;
         }

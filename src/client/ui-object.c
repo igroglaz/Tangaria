@@ -291,9 +291,9 @@ static void set_obj_names(bool terse, int mode)
         if (!obj)
         {
             if (i < num_head)
-                strnfmt(items[i].o_name, sizeof(items[i].o_name), "");
+                strnfmt(items[i].o_name, sizeof(items[i].o_name), "%s", "");
             else
-                strnfmt(items[i].o_name, sizeof(items[i].o_name), "(nothing)");
+                strnfmt(items[i].o_name, sizeof(items[i].o_name), "%s", "(nothing)");
         }
         else if (terse)
             my_strcpy(items[i].o_name, obj->info_xtra.name_terse, sizeof(items[0].o_name));
@@ -772,7 +772,7 @@ static void menu_header(void)
     if (command_wrk == USE_INVEN)
     {
         /* Begin the header */
-        strnfmt(out_val, sizeof(out_val), "Inven:");
+        strnfmt(out_val, sizeof(out_val), "%s", "Inven:");
 
         /* List choices */
         if (i1 <= i2)
@@ -802,7 +802,7 @@ static void menu_header(void)
     else if (command_wrk == USE_EQUIP)
     {
         /* Begin the header */
-        strnfmt(out_val, sizeof(out_val), "Equip:");
+        strnfmt(out_val, sizeof(out_val), "%s", "Equip:");
 
         /* List choices */
         if (e1 <= e2)
@@ -832,7 +832,7 @@ static void menu_header(void)
     else if (command_wrk == USE_QUIVER)
     {
         /* Begin the header */
-        strnfmt(out_val, sizeof(out_val), "Quiver:");
+        strnfmt(out_val, sizeof(out_val), "%s", "Quiver:");
 
         /* List choices */
         if (q1 <= q2)
@@ -861,7 +861,7 @@ static void menu_header(void)
     else if (command_wrk == SHOW_THROWING)
     {
         /* Begin the header */
-        strnfmt(out_val, sizeof(out_val), "Throwing items:");
+        strnfmt(out_val, sizeof(out_val), "%s", "Throwing items:");
 
         /* List choices */
         if (throwing_num)
@@ -890,7 +890,7 @@ static void menu_header(void)
     else
     {
         /* Begin the header */
-        strnfmt(out_val, sizeof(out_val), "Floor:");
+        strnfmt(out_val, sizeof(out_val), "%s", "Floor:");
 
         /* List choices */
         if (f1 <= f2)

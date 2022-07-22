@@ -272,16 +272,16 @@ void keypress_to_text(char *buf, size_t len, const struct keypress *src, bool ex
         if (mods)
         {
             if (mods & KC_MOD_CONTROL && !(mods & ~KC_MOD_CONTROL))
-                strnfcat(buf, len, &end, "^");
+                strnfcat(buf, len, &end, "%s", "^");
             else
             {
-                strnfcat(buf, len, &end, "{");
-                if (mods & KC_MOD_CONTROL) strnfcat(buf, len, &end, "^");
-                if (mods & KC_MOD_SHIFT) strnfcat(buf, len, &end, "S");
-                if (mods & KC_MOD_ALT) strnfcat(buf, len, &end, "A");
-                if (mods & KC_MOD_META) strnfcat(buf, len, &end, "M");
-                if (mods & KC_MOD_KEYPAD) strnfcat(buf, len, &end, "K");
-                strnfcat(buf, len, &end, "}");
+                strnfcat(buf, len, &end, "%s", "{");
+                if (mods & KC_MOD_CONTROL) strnfcat(buf, len, &end, "%s", "^");
+                if (mods & KC_MOD_SHIFT) strnfcat(buf, len, &end, "%s", "S");
+                if (mods & KC_MOD_ALT) strnfcat(buf, len, &end, "%s", "A");
+                if (mods & KC_MOD_META) strnfcat(buf, len, &end, "%s", "M");
+                if (mods & KC_MOD_KEYPAD) strnfcat(buf, len, &end, "%s", "K");
+                strnfcat(buf, len, &end, "%s", "}");
             }
         }
 
@@ -291,18 +291,18 @@ void keypress_to_text(char *buf, size_t len, const struct keypress *src, bool ex
         {
             switch (i)
             {
-                case '\a': strnfcat(buf, len, &end, "\a"); break;
+                case '\a': strnfcat(buf, len, &end, "%s", "\a"); break;
                 case '\\':
                 {
                     if (expand_backslash)
-                        strnfcat(buf, len, &end, "\\\\");
+                        strnfcat(buf, len, &end, "%s", "\\\\");
                     else
-                        strnfcat(buf, len, &end, "\\");
+                        strnfcat(buf, len, &end, "%s", "\\");
                     break;
                 }
-                case '^': strnfcat(buf, len, &end, "\\^"); break;
-                case '[': strnfcat(buf, len, &end, "\\["); break;
-                case '{': strnfcat(buf, len, &end, "\\{"); break;
+                case '^': strnfcat(buf, len, &end, "%s", "\\^"); break;
+                case '[': strnfcat(buf, len, &end, "%s", "\\["); break;
+                case '{': strnfcat(buf, len, &end, "%s", "\\{"); break;
                 default:
                 {
                     if (i < 127)
@@ -346,14 +346,14 @@ void keypress_to_readable(char *buf, size_t len, struct keypress src)
     if (mods)
     {
         if (mods & KC_MOD_CONTROL && !(mods & ~KC_MOD_CONTROL) && (i != '^'))
-            strnfcat(buf, len, &end, "^");
+            strnfcat(buf, len, &end, "%s", "^");
         else
         {
-            if (mods & KC_MOD_CONTROL) strnfcat(buf, len, &end, "Control-");
-            if (mods & KC_MOD_SHIFT) strnfcat(buf, len, &end, "Shift-");
-            if (mods & KC_MOD_ALT) strnfcat(buf, len, &end, "Alt-");
-            if (mods & KC_MOD_META) strnfcat(buf, len, &end, "Meta-");
-            if (mods & KC_MOD_KEYPAD) strnfcat(buf, len, &end, "Keypad-");
+            if (mods & KC_MOD_CONTROL) strnfcat(buf, len, &end, "%s", "Control-");
+            if (mods & KC_MOD_SHIFT) strnfcat(buf, len, &end, "%s", "Shift-");
+            if (mods & KC_MOD_ALT) strnfcat(buf, len, &end, "%s", "Alt-");
+            if (mods & KC_MOD_META) strnfcat(buf, len, &end, "%s", "Meta-");
+            if (mods & KC_MOD_KEYPAD) strnfcat(buf, len, &end, "%s", "Keypad-");
         }
     }
 

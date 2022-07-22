@@ -182,7 +182,7 @@ static void prt_exp(int row, int col)
     if (!lev50) xp = (long)adv_exp(player->lev, player->expfact) - xp;
 
     /* Format XP */
-    strnfmt(out_val, sizeof(out_val), "%8d", xp);
+    strnfmt(out_val, sizeof(out_val), "%8ld", xp);
 
     if (player->exp >= player->max_exp)
     {

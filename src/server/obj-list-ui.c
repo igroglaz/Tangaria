@@ -164,7 +164,7 @@ static void object_list_format_section(struct player *p, const object_list_t *li
         {
 			full_width += strlen(line_buffer) - utf8_strlen(line_buffer);
             line_attr = object_list_entry_line_attribute(p, &list->entries[index]);
-			text_out_c(p, line_attr, "%-*s%s\n", full_width, line_buffer, location);
+			text_out_c(p, line_attr, "%-*s%s\n", (int)full_width, line_buffer, location);
 		}
 
 		line_count++;

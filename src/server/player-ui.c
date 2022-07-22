@@ -138,7 +138,7 @@ static void write_character_dump(ang_file *fff, void *data)
     display_player_file(p, 1);
 
     /* Print a header */
-    file_putf(fff, format("%-20s%s\n", "Resistances", "Abilities"));
+    file_putf(fff, "%-20s%s\n", "Resistances", "Abilities");
 
     /* Dump part of the screen */
     dump_buffer(fff, 9, 21, 40, false);
@@ -147,7 +147,7 @@ static void write_character_dump(ang_file *fff, void *data)
     file_put(fff, "\n");
 
     /* Print a header */
-    file_putf(fff, format("%-20s%s\n", "Hindrances", "Modifiers"));
+    file_putf(fff, "%-20s%s\n", "Hindrances", "Modifiers");
 
     /* Dump part of the screen */
     dump_buffer(fff, 9, 21, -40, false);

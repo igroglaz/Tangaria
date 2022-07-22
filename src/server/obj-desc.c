@@ -190,11 +190,11 @@ static size_t obj_desc_name_prefix(char *buf, size_t max, size_t end, const stru
     bool known, const char *basename, const char *modstr, bool terse, uint16_t number)
 {
     if (number == 0)
-        strnfcat(buf, max, &end, "no more ");
+        strnfcat(buf, max, &end, "%s", "no more ");
     else if (number > 1)
         strnfcat(buf, max, &end, "%u ", number);
     else if ((obj->known->artifact || known) && obj->artifact)
-        strnfcat(buf, max, &end, "the ");
+        strnfcat(buf, max, &end, "%s", "the ");
 
     else if (*basename == '&')
     {
@@ -214,9 +214,9 @@ static size_t obj_desc_name_prefix(char *buf, size_t max, size_t end, const stru
         if (!terse)
         {
             if (an)
-                strnfcat(buf, max, &end, "an ");
+                strnfcat(buf, max, &end, "%s", "an ");
             else
-                strnfcat(buf, max, &end, "a ");
+                strnfcat(buf, max, &end, "%s", "a ");
         }
     }
 
@@ -304,7 +304,7 @@ static size_t obj_desc_chest(const struct object *obj, char *buf, size_t max, si
     if (!known) return end;
 
     /* Describe the traps */
-    strnfcat(buf, max, &end, format(" (%s)", chest_trap_name(obj)));
+    strnfcat(buf, max, &end, " (%s)", chest_trap_name(obj));
 
     return end;
 }
@@ -463,13 +463,13 @@ static size_t obj_desc_mods(const struct object *obj, char *buf, size_t max, siz
     if (!num_mods) return end;
 
     /* Print the modifiers */
-    strnfcat(buf, max, &end, " <");
+    strnfcat(buf, max, &end, "%s", " <");
     for (j = 0; j < num_mods; j++)
     {
-        if (j) strnfcat(buf, max, &end, ", ");
+        if (j) strnfcat(buf, max, &end, "%s", ", ");
         strnfcat(buf, max, &end, "%+d", mods[j]);
     }
-    strnfcat(buf, max, &end, ">");
+    strnfcat(buf, max, &end, "%s", ">");
 
     return end;
 }
@@ -489,7 +489,7 @@ static size_t obj_desc_charges(const struct object *obj, char *buf, size_t max, 
         if (obj->number > 1)
             strnfcat(buf, max, &end, " (%d charging)", number_charging(obj));
         else
-            strnfcat(buf, max, &end, " (charging)");
+            strnfcat(buf, max, &end, "%s", " (charging)");
     }
 
     return end;
@@ -534,10 +534,10 @@ static size_t obj_desc_inscrip(struct player *p, const struct object *obj, char 
 
     for (i = 0; i < n; i++)
     {
-        if (i == 0) strnfcat(buf, max, &end, " {");
+        if (i == 0) strnfcat(buf, max, &end, "%s", " {");
         strnfcat(buf, max, &end, "%s", u[i]);
-        if (i < n - 1) strnfcat(buf, max, &end, ", ");
-        else strnfcat(buf, max, &end, "}");
+        if (i < n - 1) strnfcat(buf, max, &end, "%s", ", ");
+        else strnfcat(buf, max, &end, "%s", "}");
     }
 
     return end;
@@ -550,8 +550,8 @@ static size_t obj_desc_inscrip(struct player *p, const struct object *obj, char 
 static size_t obj_desc_aware(struct player *p, const struct object *obj, char *buf, size_t max,
     size_t end)
 {
-    if (p && !p->kind_aware[obj->kind->kidx]) strnfcat(buf, max, &end, " {unseen}");
-    else if (obj->curses) strnfcat(buf, max, &end, " {cursed}");
+    if (p && !p->kind_aware[obj->kind->kidx]) strnfcat(buf, max, &end, "%s", " {unseen}");
+    else if (obj->curses) strnfcat(buf, max, &end, "%s", " {cursed}");
 
     return end;
 }
@@ -674,7 +674,7 @@ size_t object_desc(struct player *p, char *buf, size_t max, const struct object 
         {
             /* Hack -- dump " (rotten)" if relevant */
             if (obj->decay <= obj->timeout / 5)
-                strnfcat(buf, max, &end, " (rotten)");
+                strnfcat(buf, max, &end, "%s", " (rotten)");
         }
 
         if (mode & ODESC_SALE) return end;

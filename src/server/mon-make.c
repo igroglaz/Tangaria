@@ -1679,14 +1679,14 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
     if (!place_monster(p, c, mon, origin)) return false;
 
     /* Add to level feeling */
-    c->mon_rating += race->level * race->level;
+    add_to_monster_rating(c, race->level * race->level);
 
     /* Check out-of-depth-ness */
     mlvl = monster_level(&c->wpos);
     if (race->level > mlvl)
     {
         /* Boost rating by power per 10 levels OOD */
-        c->mon_rating += (race->level - mlvl) * race->level * race->level / 10;
+        add_to_monster_rating(c, (race->level - mlvl) * race->level * race->level / 10);
     }
 
     for (i = 1; i <= NumPlayers; i++)
@@ -2044,6 +2044,19 @@ bool pick_and_place_distant_monster(struct player *p, struct chunk *c, int dis, 
 
     /* Attempt to place the monster, allow groups */
     return place_new_monster(p, c, &grid, race, mon_flag | MON_GROUP, &info, ORIGIN_DROP);
+}
+
+
+/*
+ * Add to the monster rating for the given chunk.
+ *
+ * c is the chunk to manipulate
+ * part is the amount to add to the rating.
+ */
+void add_to_monster_rating(struct chunk *c, uint32_t part)
+{
+    if (c->mon_rating < UINT32_MAX - part) c->mon_rating += part;
+    else c->mon_rating = UINT32_MAX;
 }
 
 

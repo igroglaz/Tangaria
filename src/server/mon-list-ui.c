@@ -153,7 +153,7 @@ static void monster_list_format_section(struct player *p, const monster_list_t *
         {
 			full_width += strlen(line_buffer) - utf8_strlen(line_buffer);
             line_attr = monster_list_entry_line_color(p, &list->entries[index]);
-			text_out_c(p, line_attr, "%-*s%s\n", full_width, line_buffer, location);
+			text_out_c(p, line_attr, "%-*s%s\n", (int)full_width, line_buffer, location);
 		}
 
 		line_count++;

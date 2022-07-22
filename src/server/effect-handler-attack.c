@@ -1549,7 +1549,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
 
             /* Move player */
             monster_swap(context->cave, &player->grid, &safe_grid);
-            player_handle_post_move(player, context->cave, true, true, 0, player_is_trapsafe(player));
+            player_handle_post_move(player, context->cave, true, true, 0,
+                player_is_trapsafe(player), true);
         }
 
         /* Take some damage */

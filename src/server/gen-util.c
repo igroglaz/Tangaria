@@ -678,6 +678,7 @@ void place_object(struct player *p, struct chunk *c, struct loc *grid, int level
     int32_t rating = 0;
     struct object *new_obj;
     bool dummy = true;
+    uint32_t sqrating;
 
     if (!square_in_bounds(c, grid)) return;
     if (!square_canputitem(c, grid)) return;
@@ -699,8 +700,11 @@ void place_object(struct player *p, struct chunk *c, struct loc *grid, int level
 
     /* Avoid overflows */
     if (rating > 2500000) rating = 2500000;
+    else if (rating < -2500000) rating = -2500000;
 
-    c->obj_rating += (rating / 100) * (rating / 100);
+    sqrating = (rating / 100) * (rating / 100);
+    if (c->obj_rating < UINT32_MAX - sqrating) c->obj_rating += sqrating;
+    else c->obj_rating = UINT32_MAX;
 }
 
 

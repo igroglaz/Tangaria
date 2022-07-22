@@ -122,7 +122,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
     while (next)
     {
         /* Copy the text leading up to this { */
-        strnfcat(buf, sizeof(buf), &end, "%.*s", next - in_cursor, in_cursor);
+        strnfcat(buf, sizeof(buf), &end, "%.*s", (int)(next - in_cursor), in_cursor);
 
         s = next + 1;
         while (*s && isalpha((unsigned char) *s)) s++;
@@ -147,7 +147,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                     /* Get the monster name (or "it") */
                     monster_desc(p, m_name, sizeof(m_name), mon, mdesc_mode);
 
-                    strnfcat(buf, sizeof(buf), &end, m_name);
+                    strnfcat(buf, sizeof(buf), &end, "%s", m_name);
                     break;
                 }
                 case SPELL_TAG_PRONOUN:
@@ -157,7 +157,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                     /* Get the monster possessive ("his"/"her"/"its") */
                     monster_desc(p, m_poss, sizeof(m_poss), mon, MDESC_PRO_VIS | MDESC_POSS);
 
-                    strnfcat(buf, sizeof(buf), &end, m_poss);
+                    strnfcat(buf, sizeof(buf), &end, "%s", m_poss);
                     break;
                 }
                 case SPELL_TAG_TARGET:
@@ -170,10 +170,10 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                     if (target_mon)
                     {
                         monster_desc(p, m_name, sizeof(m_name), target_mon, mdesc_mode);
-                        strnfcat(buf, sizeof(buf), &end, m_name);
+                        strnfcat(buf, sizeof(buf), &end, "%s", m_name);
                     }
                     else
-                        strnfcat(buf, sizeof(buf), &end, "you");
+                        strnfcat(buf, sizeof(buf), &end, "%s", "you");
 
                     break;
                 }
@@ -183,7 +183,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                     int type = mon->race->blow[0].effect->lash_type;
                     char *type_name = projections[type].lash_desc;
 
-                    strnfcat(buf, sizeof(buf), &end, type_name);
+                    strnfcat(buf, sizeof(buf), &end, "%s", type_name);
                     break;
                 }
                 case SPELL_TAG_OF_TYPE:
@@ -194,14 +194,14 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
 
                     if (type_name)
                     {
-                        strnfcat(buf, sizeof(buf), &end, " of ");
-                        strnfcat(buf, sizeof(buf), &end, type_name);
+                        strnfcat(buf, sizeof(buf), &end, "%s", " of ");
+                        strnfcat(buf, sizeof(buf), &end, "%s", type_name);
                     }
                     break;
                 }
                 case SPELL_TAG_KIN:
                 {
-                    strnfcat(buf, sizeof(buf), &end,
+                    strnfcat(buf, sizeof(buf), &end, "%s",
                         (monster_is_unique(mon->race)? "minions": "kin"));
                     break;
                 }
@@ -216,7 +216,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
         next = strchr(in_cursor, '{');
         is_leading = false;
     }
-    strnfcat(buf, sizeof(buf), &end, in_cursor);
+    strnfcat(buf, sizeof(buf), &end, "%s", in_cursor);
 
     /* Hack -- replace "your" by "some" */
     if (target_mon) strrep(tmp, sizeof(tmp), buf, "your", "some");

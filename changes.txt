@@ -57,6 +57,7 @@ Angband 4.2.x:
   are known
 - Modify text when player is aware of a monster via detection or telepathy
 - Change default Enter key behavior in stores
+- Don't beep when escape is pressed while '*' targeting
 
 MAngband 1.5.x:
 
@@ -88,6 +89,7 @@ Angband 4.2.x:
   blind
 - Don't disturb the player when a chest trap is detected
 - Factor in player trap immunity for failed attempts to disable chest traps
+- Broaden the possible grids for teleport destinations
 
 PWMAngband:
 
@@ -117,6 +119,7 @@ Angband 4.2.x:
   seen
 - Fix Triple diamond room
 - Fix awkward word in the description for Create Arrows
+- Learn feather falling if equipped and exposed to fiery terrain
 
 PWMAngband:
 
@@ -205,6 +208,10 @@ Angband 4.2.x:
 - Move logic for bookkeeping after a player's move from move_player() to its
   own function so it can be called in other cases when the player moves
 - Avoid platform-dependent right shift of negative values
+- Drop use of Mix_Init() to test for sound file compatibility
+- Protect calculation in monster/object rating against overflow
+- Protect calculation in object_value_real() against overflow
+- Check against overflow when boosting the value of out-of-depth object
 
 PWMAngband:
 
@@ -235,3 +242,4 @@ Compilation/documentation
 - In the documentation, use lowercase letters with ^ (or Ctrl/ctrl)
 - Add descriptions of all the knowledge menu entries to the documentation
   for the '~' command
+- Fix some compiler warnings

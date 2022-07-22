@@ -55,6 +55,49 @@ const char *desc_stat(int stat, bool positive)
 
 
 /*
+ * Check that a grid is sufficient for use as teleport destination.
+ *
+ * c is the chunk to examine.
+ * grid is the grid to test.
+ * is_player_moving is true if a player is being teleported; it is
+ * false if a monster is being teleported.
+ *
+ * Returns true if the specified grid is sufficient for use as a teleport
+ * destination; otherwise, returns false
+ *
+ * In 4.2.4, the sufficient requirements were a floor grid with no players
+ * or monsters, no player traps, no webs, and no objects. Post 4.2.4,
+ * the requirements are:
+ *     1) passable but not damaging nor automatically triggers a transition
+ *        to a different level or environment (i.e. a shop)
+ *     2) does not already have a player or monster
+ *     3) does not have webs
+ *     4) if a player is moving, it does not have player traps
+ *     5) if a monster is moving, it does not have a glyph of warding
+ */
+static bool has_teleport_destination_prereqs(struct chunk *c, struct loc *grid,
+    bool is_player_moving)
+{
+    if (is_player_moving)
+    {
+        if (!square_ispassable(c, grid)) return false;
+        if (square_isplayertrap(c, grid)) return false;
+    }
+    else
+    {
+        if (!square_is_monster_walkable(c, grid)) return false;
+        if (square_iswarded(c, grid)) return false;
+    }
+    if (square(c, grid)->mon || square_isdamaging(c, grid) || square_iswebbed(c, grid) ||
+        square_isshop(c, grid))
+    {
+        return false;
+    }
+    return true;
+}
+
+
+/*
  * Selects items that have at least one removable curse.
  */
 static bool item_tester_uncursable(const struct object *obj)
@@ -631,15 +674,10 @@ static bool allow_teleport(struct chunk *c, struct loc *grid, bool safe_ghost, b
     {
         if (square(c, grid)->mon) return false;
     }
-
-    /* Require "naked" floor space */
     else
     {
-        if (!square_isempty(c, grid)) return false;
+        if (!has_teleport_destination_prereqs(c, grid, is_player)) return false;
     }
-
-    /* No monster teleport onto glyph of warding */
-    if (!is_player && square_iswarded(c, grid)) return false;
 
     /* No teleporting into vaults and such */
     if (square_isvault(c, grid) || !square_is_monster_walkable(c, grid)) return false;
@@ -5433,7 +5471,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     if (is_player)
     {
         player_handle_post_move(context->origin->player, context->cave, true, true, 0,
-            player_is_trapsafe(context->origin->player));
+            player_is_trapsafe(context->origin->player), false);
     }
 
     /* Clear any projection marker to prevent double processing */
@@ -5817,8 +5855,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
         /* Only accept grids in LOS of the caster */
         if (!los(context->cave, &aim, &land)) legal = false;
 
-        /* Accept legal "naked" floor grids... */
-        if (square_isempty(context->cave, &land) && legal) break;
+        if (has_teleport_destination_prereqs(context->cave, &land, is_player) && legal) break;
 
         /* Occasionally advance the distance */
         if (++ctr > (4 * dis * dis + 4 * dis + 1))
@@ -5840,7 +5877,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     if (is_player)
     {
         player_handle_post_move(context->origin->player, context->cave, true, true, 0,
-            player_is_trapsafe(context->origin->player));
+            player_is_trapsafe(context->origin->player), false);
     }
 
     /* Cancel target if necessary */

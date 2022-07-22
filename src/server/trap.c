@@ -574,7 +574,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                  * Don't retrigger the trap, but handle the
                  * other side effects of moving the player.
                  */
-                player_handle_post_move(p, c, false, true, 0, false);
+                player_handle_post_move(p, c, false, true, 0, false, true);
             }
 
             /* Some traps disappear after activating, all have a chance to */

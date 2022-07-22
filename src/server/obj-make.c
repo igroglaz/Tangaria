@@ -1803,9 +1803,17 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
 
     /* Boost of 20% per level OOD for uncursed objects */
     olvl = object_level(&c->wpos);
-    if (!new_obj->curses && (new_obj->kind->alloc_min > olvl))
+    if (!new_obj->curses && (new_obj->kind->alloc_min > olvl) && value)
     {
-        if (value) *value += (new_obj->kind->alloc_min - olvl) * (*value / 5);
+        int32_t ood = new_obj->kind->alloc_min - olvl;
+        int32_t frac = MAX(*value, 0) / 5;
+        int32_t adj;
+
+        if (frac <= INT32_MAX / ood) adj = ood * frac;
+        else adj = INT32_MAX;
+
+        if (*value <= INT32_MAX - adj) *value += adj;
+        else *value = INT32_MAX;
     }
 
     return new_obj;

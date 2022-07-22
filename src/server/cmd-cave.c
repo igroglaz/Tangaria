@@ -1972,7 +1972,7 @@ static void do_prob_travel(struct player *p, struct chunk *c, int dir)
     if (do_move)
     {
         monster_swap(c, &p->grid, &grid);
-        player_handle_post_move(p, c, true, true, 0, player_is_trapsafe(p));
+        player_handle_post_move(p, c, true, true, 0, player_is_trapsafe(p), true);
     }
 }
 
@@ -2447,7 +2447,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         player_know_floor(who->player, c);
     }
 
-    player_handle_post_move(p, c, true, check_pickup, delayed, trapsafe);
+    player_handle_post_move(p, c, true, check_pickup, delayed, trapsafe, true);
 
     p->upkeep->running_firststep = false;
 
