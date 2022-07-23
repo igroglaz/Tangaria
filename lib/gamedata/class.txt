@@ -6879,6 +6879,8 @@ desc:Teleports you randomly to a short distance.
 spell:Pray:15:11:35:20:0
 cooldown:42
 effect:WONDER
+dice:$B+1d100
+expr:B:PLAYER_LEVEL:/ 5
 desc:You pray to gods for unknown effect.
 desc: Cooldown 42 turns.
 

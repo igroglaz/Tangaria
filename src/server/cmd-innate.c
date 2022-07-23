@@ -288,6 +288,25 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Djinn"))
+    {
+        // dice
+        int dice_calc = p->lev / 5 + randint1(100);
+        char dice_string[1];
+
+        // convert int to char
+        snprintf(dice_string, sizeof(dice_string) + 1, "%d", dice_calc);
+
+        use_energy(p);
+
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_WONDER, who, dice_string, 0, 0, 0, 0, 0, NULL);
+
+        player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

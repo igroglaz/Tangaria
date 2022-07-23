@@ -1858,7 +1858,7 @@ shape:50:s'lord
 name:Djinn
 skill-disarm-phys:20
 skill-disarm-magic:20
-skill-device:20
+skill-device:-50
 skill-save:0
 skill-stealth:3
 skill-search:20
@@ -1890,6 +1890,7 @@ player-flags:0:KNOW_ZAPPER
 player-flags:25:KNOW_MUSHROOM
 # auto-id
 obj-flag:50:KNOWLEDGE
+# can make WONDER 
 value:0:RES_POIS[1]
 value:0:RES_ACID[1]
 value:10:RES_ELEC[1]
@@ -1904,7 +1905,6 @@ slay:35:50:DEMON_3
 player-flags:0:NO_BOOTS
 obj-flag:1:IMPAIR_HP
 # hardcoded: no feelings (monster/object).
-# rethink...
 
 name:Harpy
 skill-disarm-phys:-4
