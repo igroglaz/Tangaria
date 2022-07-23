@@ -200,22 +200,28 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Beholder"))
     {
-        // dice for distance or dmg
-        char dice_string[5];
-        int b_elem = randint0(1 + p->lev / 5); // element for ray
-
         // can be used only on full HPs
         if (p->chp == p->mhp)
         {
+            // element for ray
+            int b_elem = randint0(1 + p->lev / 5);
+            // Dmg dice.. We need array with eg 5 elements because we will parse the number (eg 50)
+            // to a separate array elements (string). So eg int 50 will become {'5','0'} - which means
+            // array with two numbers (eg dice_string[2]).. We take [5] just in case for bigger numbers.
+            // (also no need '\0' there in the end, it seems)
+            char dice_string[5];
+            // dice int number which we will convert to string later
+            int dice_calc = p->lev;
+
             use_energy(p);
 
             effect = mem_zalloc(sizeof(struct effect));
             effect->index = EF_SHORT_BEAM;
             // init dice
             effect->dice = dice_new();
-            // convert int to char with '0'
-            dice_string[0] = p->lev + '0';
-            // fill dice struct
+            // convert int to char
+            snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+            // fill dice struct with dmg
             dice_parse_string(effect->dice, dice_string);
 
             // element
