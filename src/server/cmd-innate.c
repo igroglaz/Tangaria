@@ -252,6 +252,42 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Demonic") && p->lev > 5)
+    {
+        struct chunk *c = chunk_get(&p->wpos); // for summon
+
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            int d_summ = randint0(1 + p->lev / 5); // demon type
+
+            use_energy(p);
+
+            switch (d_summ)
+            {
+                case 0: summon_specific_race_aux(p, c, &p->grid, get_race("manes"), 1, true); break; //
+                case 1: summon_specific_race_aux(p, c, &p->grid, get_race("lemure"), 1, true); break; // 
+                case 2: summon_specific_race_aux(p, c, &p->grid, get_race("tengu"), 1, true); break; // 
+                case 3: summon_specific_race_aux(p, c, &p->grid, get_race("darkling"), 1, true); break; // 
+                case 4: summon_specific_race_aux(p, c, &p->grid, get_race("homunculus"), 1, true); break; // 
+                case 5: summon_specific_race_aux(p, c, &p->grid, get_race("quasit"), 1, true); break; // 
+                case 6: summon_specific_race_aux(p, c, &p->grid, get_race("imp"), 1, true); break; // 
+                case 7: summon_specific_race_aux(p, c, &p->grid, get_race("flamme"), 1, true); break; // 
+                case 8: summon_specific_race_aux(p, c, &p->grid, get_race("gargoyle"), 1, true); break; // 
+                case 9: summon_specific_race_aux(p, c, &p->grid, get_race("bodak"), 1, true); break; // 
+                case 10: summon_specific_race_aux(p, c, &p->grid, get_race("mezzodaemon"), 1, true); break; // 
+                case 11: summon_specific_race_aux(p, c, &p->grid, get_race("death quasit"), 1, true); break; // 
+            }
+
+            player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(2), true, false);
+            p->chp -= p->chp / 3; // take a hit
+            player_dec_timed(p, TMD_FOOD, (150 - p->lev), false);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You need to have full health to use this ability!");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

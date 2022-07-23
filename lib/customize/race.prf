@@ -333,7 +333,9 @@ help: maiar race, but to the other side of power. Resistant to chaos, they
 help: are able to control nexus vibrations and possess very powerful abilities. 
 help: But there is a price for this - they are very hard to learn.. Chaos inside 
 help: of them makes it almost impossible to control their will to achieve their own 
-help: goals...
+help: goals...|
+help: They can summon demon-slaves ('y') to serve them. Summoning ritual require some
+help: time and demonic's blood as sacrifice.
 
 race:Balrog
 help:Balrog - undeground ancient 'race' or some would call them as a 'force'. 
@@ -499,7 +501,6 @@ help: all day long.
 help: They enjoy eating rodents which provide to them
 help: additional nourishment when caught in the dungeons.
 
-
 race:Lizardmen
 help:Reptilian humanoids who lives in southeren bogs. Quite mediocre in everything,
 help: they got bone outgrowths on their skin which gives them some extra protection.
@@ -535,9 +536,12 @@ help: They can avoid melee attacks quite often.
 race:Beholder
 help:Intelligent floating in air orb-shaped eyes. They got several tentacle 
 help: eyestalks which gives the capacity to see in all directions at once.
-help: As they develop in time, they could get obtain magic powers. |
-help: Beholders may try to predict future from time to time which
-help: cause hallucinations.
+help: As they develop in time, they could get obtain magic powers:
+help: they able to fire rays which has various properties and can cause different
+help: effects. |
+help: Beholder's conscious dwells on different realms which make them have
+help: hallucinations from time to time. More mature beholders got hallucinations
+help: very rare.
 
 race:Ooze
 help:Gelatinous slimy creatures, they rarely appears to have mind and comprehension.
