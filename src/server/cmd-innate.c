@@ -217,6 +217,15 @@ void do_cmd_breath(struct player *p, int dir)
 
             effect = mem_zalloc(sizeof(struct effect));
             effect->index = EF_SHORT_BEAM;
+            effect->radius = 3 + p->lev / 25; // up to 5
+
+            // magic users got boni dmg
+            if (p->msp > 0)
+            {
+                dice_calc *= 2;
+                effect->radius += p->lev / 10;
+            }
+            
             // init dice
             effect->dice = dice_new();
             // convert int to char
@@ -240,8 +249,6 @@ void do_cmd_breath(struct player *p, int dir)
                 case 10: effect->subtype = PROJ_TIME; break;
                 case 11: effect->subtype = PROJ_DISEN; break;// spellcasters less successful
             }
-
-            effect->radius = 3 + p->lev / 10; // up to 8
 
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
