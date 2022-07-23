@@ -296,12 +296,12 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Djinn"))
     {
-        // dice
+        // dice.. see 'beholder' for explanation
         int dice_calc = p->lev / 5 + randint1(100);
-        char dice_string[1];
+        char dice_string[5];
 
         // convert int to char
-        snprintf(dice_string, sizeof(dice_string) + 1, "%d", dice_calc);
+        snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
 
         use_energy(p);
 
@@ -353,8 +353,10 @@ void do_cmd_breath(struct player *p, int dir)
         else if (streq(p->poly_race->name, "boar-form"))
         {
             // dice for distance
-            char dice_string[5];
-            // convert int to char with '0'
+            char dice_string[1];
+            // convert int to char with '0' ..
+            // it will work as our distance is only one digit..
+            // but to be able to convert 2+ digits - use snprintf() (see above, beholder)
             dice_string[0] = (p->lev / 30 + 3) + '0';
 
             if (p->csp > 2 + p->lev / 3)
