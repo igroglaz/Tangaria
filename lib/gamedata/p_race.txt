@@ -1577,14 +1577,17 @@ value:0:WIS[-4+1d8]
 value:0:DEX[-5+1d9]
 value:0:CON[-3+1d14]
 value:0:CHR[-3]
-# need to test
-player-flags:0:SHAPECHANGE
-shape:1:newborn dracon
-shape:10:baby dracon
-shape:20:young dracon
-shape:30:mature dracon
-shape:40:ancient dracon
-shape:50:great dracon
+# 'y' breath fire ray
+#############
+############# removed forms and added 'y' breath
+############# forms might be useful for a pet later on........
+#player-flags:0:SHAPECHANGE
+#shape:1:newborn dracon
+#shape:10:baby dracon
+#shape:20:young dracon
+#shape:30:mature dracon
+#shape:40:ancient dracon
+#shape:50:great dracon
 slay:50:50:GIANT_3
 #temp
 value:10:RES_FIRE[1]

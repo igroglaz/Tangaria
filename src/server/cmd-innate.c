@@ -338,6 +338,40 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Draconian"))
+    {
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            char dice_string[5];
+            int dice_calc = randint0(1) + p->lev * (1 + p->lev / 25);
+
+            use_energy(p);
+
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_SHORT_BEAM;
+            effect->radius = 1 + randint0(p->lev / 5);
+            // init dice
+            effect->dice = dice_new();
+            // convert int to char
+            snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+            // fill dice struct with dmg
+            dice_parse_string(effect->dice, dice_string);
+            effect->subtype = PROJ_FIRE;
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            p->chp -= p->chp / 5; // take a hit
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to breath fire.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

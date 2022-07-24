@@ -143,6 +143,7 @@ help: have tamed the Great Eagles of Middle-Earth and use them in their hunts.
 help: They need to eat often to feed themselves and their eagle. |
 help: Thunderlords easily discovered by enemies as they sing their battle songs
 help: loudly and their eagle piercingly screams seeking for pray...
+help: They can breath fire in a narrow line which become more deadly with the age.
 
 race:Dragon
 help:ATTENTION! If you decided to take dragon race:
@@ -405,6 +406,7 @@ race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
 help: Not much mortals saw one as they are very fast and covert...
 help: They can dodge melee attacks occasionally. |
+help: They can become invisible for a while ('y'), but have to spend HP on the spell.
 help: ATTENTION!
 help: Please be careful - as pixie got very low strength - it could become very slow
 help: if you will take a lot of items in your inventory or use heavy equipment.
@@ -541,7 +543,7 @@ help:Intelligent floating in air orb-shaped eyes. They got several tentacle
 help: eyestalks which gives the capacity to see in all directions at once.
 help: As they develop in time, they could get obtain magic powers:
 help: they able to fire rays which has various properties and can cause different
-help: effects. |
+help: effects. Magic classes' ray is more powerful. |
 help: Beholder's conscious dwells on different realms which make them have
 help: hallucinations from time to time. More mature beholders got hallucinations
 help: very rare.
