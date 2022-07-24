@@ -2213,10 +2213,20 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
         extra_blows += 10;
 
-    // Dragon/Hydra Monks too OP
-    if ((streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
-        && streq(p->clazz->name, "Monk") && p->lev > 10)
-        extra_blows -= p->lev / 10;
+    // Dragon/Hydra (and Monks)
+    if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+    {
+        // blessing from gods for newborn dragons and hydras to help them survive early on
+        if (p->lev < 10)
+        {
+            state->skills[SKILL_TO_HIT_MELEE] += 10;
+            state->skills[SKILL_SAVE] += 10;
+            state->to_d += 1;
+        }
+        // afterward life is harsh for Monks.. as they are OP :)
+        else if (streq(p->clazz->name, "Monk"))
+            extra_blows -= p->lev / 10;
+    }
 
     if (streq(p->race->name, "Ent") && p->lev > 30)
         extra_moves -= (p->lev - 30) / 2;
