@@ -320,6 +320,24 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Pixie"))
+    {
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+
+            player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
+
+            p->chp -= p->chp / 3; // take a hit
+            player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
+            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to become invisible.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

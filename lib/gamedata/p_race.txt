@@ -1540,15 +1540,14 @@ player-flags:5:BEAM
 ######perfect success rate with magic
 player-flags:10:ZERO_FAIL 
 obj-flag:1:FEATHER
-# value:20:BLOWS[-1]
 value:20:MIGHT[-1]
+# 'y' become invisible
 # 5% dodge melee attacks
 value:0:MANA[5+-1d12]
-obj-flag:15:TRAP_IMMUNE
+value:1:RES_TIME[1]
+obj-flag:1:TRAP_IMMUNE
 obj-flag:1:SLOW_DIGEST
 obj-flag:35:SLOW_DIGEST_2
-######giving them a chance to use less spell points when they cast a spell, probably based upon their primary spell stat, (i.e., int or wis)
-#######some type of innate survival spells that they can cast every so often (like a built-in rod), things like phase door, teleport, etc.
 
 # draconian - peaceful race which was almost exterminated by titans during
 # the ancient war. Only a few survived by hiding in high mountains caves.
