@@ -1365,10 +1365,16 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             if (p->timed[TMD_FOOD] < 6666)
                 player_inc_timed(p, TMD_FOOD, (p->lev * 2), false, false);
             // restore 5% HP or if almost full - restore all
-            if (p->chp + p->lev / 20 < p->mhp)
-                p->chp += p->lev / 20;
-            else if (p->chp < p->mhp)
-                p->chp = p->mhp;
+            if (p->chp < p->mhp)
+            {
+                if (p->mhp < 20) // too small HP to be able to calculate 5%
+                    p->chp++;
+                else if (p->chp + p->mhp / 20 < p->mhp)
+                    p->chp += p->mhp / 20; // restore 5%
+                else
+                    p->chp = p->mhp;
+                p->upkeep->redraw |= (PR_HP);
+            }
         }
     }
 
