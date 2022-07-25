@@ -2248,111 +2248,112 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         return;
     }
 
-    // Some can pass trees and other terrain
-
-    // vampire race 'mist' form can pass all except walls
-    if (p->poly_race && streq(p->poly_race->name, "vampiric mist_"))
+    // Normal players can not walk through "walls", but some can pass trees and other terrain...
+    if (!player_passwall(p) && !square_ispassable(c, &grid))
     {
-        if (square_ispassable(c, &grid) || square_istree(c, &grid) || square_isrubble(c, &grid) ||
-        (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid)))
-            ;
-        else
+        // vampire race 'mist' form can pass all except walls
+        if (p->poly_race && streq(p->poly_race->name, "vampiric mist_"))
         {
-            msgt(p, MSG_HITWALL, "Way is blocked.");
-            return;
-        }
-    }
-    else if (square_istree(c, &grid))
-    {
-        // allow pass trees in town by running OR for druid bird/rat form
-        if (p->wpos.depth == 0 || (p->poly_race && (streq(p->poly_race->name, "bird-form") ||
-            streq(p->poly_race->name, "rat-form")))) ;
-        // other cases
-        else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent")) &&
-            magik(p->lev + 50)) ;
-        else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
-            magik(p->lev)) ;
-        else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY) &&
-            !one_in_(5)) ;
-        else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY) &&
-            one_in_(3) && p->lev > 35) ;
-        else return;
-    }
-    // druid class 'rat' form can pass walls sometimes (except permawalls)
-    else if (p->poly_race && streq(p->poly_race->name, "rat-form") &&
-            !square_isperm(c, &grid) && magik(p->lev / 5)) ;
-    // ooze can pass doors
-    else if (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid))
-    {
-        if (streq(p->race->name, "Ooze")) ;
-        else
-        {
-            msgt(p, MSG_HITWALL, "There is a door blocking your way.");
-            return;
-        }
-    }
-    /* Normal players can not walk through "walls" */
-    else if (!player_passwall(p) && !square_ispassable(c, &grid))
-    {
-        disturb(p, 0);
-
-        /* Notice unknown obstacles */
-        if (!square_isknown(p, &grid))
-        {
-            /* Rubble */
-            if (square_isrubble(c, &grid))
-            {
-                msgt(p, MSG_HITWALL, "You feel a pile of rubble blocking your way.");
-                square_memorize(p, c, &grid);
-                square_light_spot_aux(p, c, &grid);
-            }
-
-            /* Closed door */
-            else if (square_iscloseddoor(c, &grid))
-            {
-                msgt(p, MSG_HITWALL, "You feel a door blocking your way.");
-                square_memorize(p, c, &grid);
-                square_light_spot_aux(p, c, &grid);
-            }
-
-            /* Tree */
-            else if (square_istree(c, &grid))
-            {
-                msgt(p, MSG_HITWALL, "You feel a tree blocking your way.");
-                square_memorize(p, c, &grid);
-                square_light_spot_aux(p, c, &grid);
-            }
-
-            /* Wall (or secret door) */
+            if (square_ispassable(c, &grid) || square_istree(c, &grid) || square_isrubble(c, &grid) ||
+            (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid)))
+                ;
             else
             {
-                msgt(p, MSG_HITWALL, "You feel a wall blocking your way.");
-                square_memorize(p, c, &grid);
-                square_light_spot_aux(p, c, &grid);
+                msgt(p, MSG_HITWALL, "Way is blocked.");
+                return;
             }
         }
-
-        /* Mention known obstacles */
-        else
+        else if (square_istree(c, &grid))
         {
-            /* Rubble */
-            if (square_isrubble(c, &grid))
-                msgt(p, MSG_HITWALL, "There is a pile of rubble blocking your way.");
-
-            /* Closed doors */
-            else if (square_iscloseddoor(c, &grid))
+            // allow pass trees in town by running OR for druid bird/rat form
+            if (p->wpos.depth == 0 || (p->poly_race && (streq(p->poly_race->name, "bird-form") ||
+                streq(p->poly_race->name, "rat-form")))) ;
+            // other cases
+            else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent")) &&
+                magik(p->lev + 50)) ;
+            else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
+                magik(p->lev)) ;
+            else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY) &&
+                !one_in_(5)) ;
+            else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY) &&
+                one_in_(3) && p->lev > 35) ;
+            else return;
+        }
+        // druid class 'rat' form can pass walls sometimes (except permawalls)
+        else if (p->poly_race && streq(p->poly_race->name, "rat-form") &&
+                !square_isperm(c, &grid) && magik(p->lev / 5)) ;
+        // ooze can pass doors
+        else if (square_iscloseddoor(c, &grid) && !square_home_iscloseddoor(c, &grid))
+        {
+            if (streq(p->race->name, "Ooze")) ;
+            else
+            {
                 msgt(p, MSG_HITWALL, "There is a door blocking your way.");
-
-            /* Tree */
-            else if (square_istree(c, &grid))
-                msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
-
-            /* Wall (or secret door) */
-            else
-                msgt(p, MSG_HITWALL, "There is a wall blocking your way.");
+                return;
+            }
         }
+        else // regular PWMA case
+        {
+            disturb(p, 0);
 
-        return;
+            /* Notice unknown obstacles */
+            if (!square_isknown(p, &grid))
+            {
+                /* Rubble */
+                if (square_isrubble(c, &grid))
+                {
+                    msgt(p, MSG_HITWALL, "You feel a pile of rubble blocking your way.");
+                    square_memorize(p, c, &grid);
+                    square_light_spot_aux(p, c, &grid);
+                }
+
+                /* Closed door */
+                else if (square_iscloseddoor(c, &grid))
+                {
+                    msgt(p, MSG_HITWALL, "You feel a door blocking your way.");
+                    square_memorize(p, c, &grid);
+                    square_light_spot_aux(p, c, &grid);
+                }
+
+                /* Tree */
+                else if (square_istree(c, &grid))
+                {
+                    msgt(p, MSG_HITWALL, "You feel a tree blocking your way.");
+                    square_memorize(p, c, &grid);
+                    square_light_spot_aux(p, c, &grid);
+                }
+
+                /* Wall (or secret door) */
+                else
+                {
+                    msgt(p, MSG_HITWALL, "You feel a wall blocking your way.");
+                    square_memorize(p, c, &grid);
+                    square_light_spot_aux(p, c, &grid);
+                }
+            }
+
+            /* Mention known obstacles */
+            else
+            {
+                /* Rubble */
+                if (square_isrubble(c, &grid))
+                    msgt(p, MSG_HITWALL, "There is a pile of rubble blocking your way.");
+
+                /* Closed doors */
+                else if (square_iscloseddoor(c, &grid))
+                    msgt(p, MSG_HITWALL, "There is a door blocking your way.");
+
+                /* Tree */
+                else if (square_istree(c, &grid))
+                    msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
+
+                /* Wall (or secret door) */
+                else
+                    msgt(p, MSG_HITWALL, "There is a wall blocking your way.");
+            }
+
+            return;
+        }
     }
 
     // Paranoia to prevent go out of dungeon borders
