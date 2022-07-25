@@ -533,7 +533,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         if (one_in_(tele_chance))
         {
             char dice[5];
-            int tele_dist = 200 - (p->lev * 4) + 2;
+            int tele_dist = (200 - (p->lev * 4)) + 2;
             int msg_imp = randint1(13);
             struct source who_body;
             struct source *who = &who_body;
