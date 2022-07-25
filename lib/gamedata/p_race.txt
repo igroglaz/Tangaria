@@ -1121,14 +1121,14 @@ height:68:5
 weight:140:12
 gift:food:Maggoty bread:1:1
 #2 -4 -4 -1 -5
-value:0:STR[2]
+value:0:STR[-1+1d25]
 value:0:INT[0+-1d12]
 value:0:WIS[0+-1d12]
 value:0:DEX[-1]
 value:0:CON[-1+-1d12]
 value:0:CHR[-9]
 value:0:INFRA[0+1d5]
-obj-flag:5:HOLD_LIFE
+obj-flag:1:HOLD_LIFE
 obj-flag:1:IMPAIR_HP
 value:0:RES_POIS[1]
 value:0:RES_LIGHT[-1]

@@ -1358,6 +1358,18 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         else if (streq(p->race->name, "Vampire") && p->wpos.depth > 0 &&
                  is_humanoid(mon->race) && (p->timed[TMD_FOOD] < 6666))
             player_inc_timed(p, TMD_FOOD, (p->lev * 2), false, false);
+        // undeads eat flesh.. or brains? :E~~
+        else if (streq(p->race->name, "Undead") && p->wpos.depth > 0 &&
+                 is_humanoid(mon->race))
+        {
+            if (p->timed[TMD_FOOD] < 6666)
+                player_inc_timed(p, TMD_FOOD, (p->lev * 2), false, false);
+            // restore 5% HP or if almost full - restore all
+            if (p->chp + p->lev / 20 < p->mhp)
+                p->chp += p->lev / 20;
+            else if (p->chp < p->mhp)
+                p->chp = p->mhp;
+        }
     }
 
     /* Cheezy kills give neither xp nor loot! */
