@@ -427,6 +427,20 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
         return;
     }
+    else if (streq(p->race->name, "Lizardmen") && p->chp < p->mhp)
+    {
+        use_energy(p);
+        // restore 3% HP or if almost full - restore all
+        if (p->mhp < 30) // too small HP to be able to calculate 3%
+            p->chp++;
+        else if (p->chp + p->mhp / 30 < p->mhp)
+            p->chp += p->mhp / 30; // restore 3%
+        else
+            p->chp = p->mhp;
+        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+        p->upkeep->redraw |= (PR_HP);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

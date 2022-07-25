@@ -2108,18 +2108,17 @@ weight:145:17
 gift:potion:Cure Light Wounds:3:4
 # 0 -1 -2 0 0
 #/// can eat insects
+#/// can regenerate with 'y'
 value:0:STR[0+1d30]
 value:0:INT[-1]
 value:0:WIS[-2]
 value:0:DEX[0]
 value:0:CON[0]
-value:0:CHR[-6]
+value:0:CHR[-5]
 value:0:INFRA[4]
-value:0:DAM_RED[1+1d15]
-value:25:TUNNEL[1]
-value:27:SPEED[1]
-player-flags:0:SHIELD_BASH
-player-flags:25:RACE_REGEN
+value:30:DAM_RED[1]
+value:30:TUNNEL[1]
+value:30:SPEED[1]
 
 # mysterious creature woven out bright light
 name:Wisp
@@ -2359,6 +2358,8 @@ value:35:RES_MANA[1]
 #shape:50:mushroom
 
 
+#player-flags:0:SHIELD_BASH
+#player-flags:25:RACE_REGEN
 # ? accidentally go deep descent..
 #obj-flag:50:DRAIN_EXP
 # slay:1:50:ORC_3 .. dunedains?
