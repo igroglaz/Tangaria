@@ -151,14 +151,19 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
     }
 
+    // for (perma)polymorphed
     /* Hack -- no damage from certain attacks unless vulnerable */
     if (p && !is_susceptible(p->poly_race, type)) dam = 0;
-
     /* Hack -- extra damage from certain attacks if vulnerable */
     if (p && is_vulnerable(p->poly_race, type)) dam = dam * 4 / 3;
 
     /* Vulnerable */
-    if (resist == -1) return (dam * 4 / 3);
+    if (resist == -1)
+    {
+        if (streq(p->race->name, "Undead"))
+            return (dam * 5 / 4);
+        return (dam * 4 / 3);
+    }
 
     /*
      * Variable resists vary the denominator, so we need to invert the logic
@@ -181,6 +186,17 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     for (i = resist; i > 0; i--)
     {
         if (denom) dam = dam * projections[type].numerator / denom;
+    }
+
+    // in case of vulnerability:
+    // Resistance makes you neutral, double resist - resistant and immunity to get immune..
+    // so for Undead race we wanna soften a bit resistance to fire and double resistance
+    if (streq(p->race->name, "Undead") && type == PROJ_FIRE)
+    {
+        if (resist == 0)       // undead got normal resistance.. instead 0.3 he got 1 dmg
+            dam -= dam / 3;    // make it 0.7
+        else if (resist == 1)  // undead got double resistance. instead of 0.11 he got 0.3 dmg
+            dam -= dam / 3;    // make it 0.2
     }
 
     return dam;
