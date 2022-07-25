@@ -2126,7 +2126,7 @@ name:Wisp
 skill-disarm-phys:-50
 skill-disarm-magic:20
 skill-device:-50
-skill-save:-20
+skill-save:20
 skill-stealth:4
 skill-search:0
 skill-melee:-15
@@ -2141,15 +2141,14 @@ height:35:2
 weight:5:1
 gift:scroll:Light:6:12
 # -5 3 -1 2 -1
-value:0:STR[-3+-1d24]
-value:0:INT[-1+1d12]
-value:0:WIS[-3+1d24]
+value:0:STR[-3]
+value:0:INT[1+1d25]
+value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[-1]
 value:0:CHR[-3]
 value:0:LIGHT[1+1d24]
-# make ESP increasing by radius?
-obj-flag:30:ESP_EVIL
+obj-flag:32:ESP_EVIL
 player-flags:0:BLESS_WEAPON
 obj-flag:1:FEATHER
 obj-flag:1:FREE_ACT
@@ -2158,16 +2157,13 @@ obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
 #value:0:RES_LIGHT[1]
 #value:35:RES_LIGHT[++] hardcoded
-value:35:RES_MANA[1]
 # -
 obj-flag:0:CLUMSY
-value:0:DAM_RED[0+-1d5]
-value:0:SPEED[1+-1d40]
+value:0:MOVES[1]
 value:0:RES_DARK[-1]
-value:0:MOVES[0+-1d1M25]
 value:0:MANA[10+-1d5]
-#value:0:BLOWS[1]
-#value:0:SHOTS[1]
+#### -
+value:0:DAM_RED[0+-1d5]
 
 name:Imp
 skill-disarm-phys:7
@@ -2354,6 +2350,7 @@ player-flags:1:RACE_REGEN
 obj-flag:0:CLUMSY
 obj-flag:1:CANT_FLY
 brand:35:50:ACID_2
+value:35:RES_MANA[1]
 #player-flags:0:SHAPECHANGE
 #shape:10:mold
 #shape:20:slime
