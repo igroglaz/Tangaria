@@ -2209,7 +2209,7 @@ skill-disarm-phys:-50
 skill-disarm-magic:-50
 skill-device:-50
 skill-save:20
-skill-stealth:4
+skill-stealth:0
 skill-search:-20
 skill-melee:-15
 skill-shoot:-25
@@ -2235,37 +2235,33 @@ obj-flag:1:SLOW_DIGEST_2
 obj-flag:1:PROT_FEAR
 obj-flag:1:ESP_UNDEAD
 obj-flag:1:FEATHER
+value:0:STEALTH[1+1d15]
 value:0:RES_LIGHT[-1]
 value:0:RES_POIS[1]
-obj-flag:10:HOLD_LIFE
+obj-flag:1:HOLD_LIFE
 obj-flag:20:SEE_INVIS
 value:0:RES_TIME[1]
 value:0:RES_NETHER[1]
 value:0:RES_DARK[1]
 value:0:TUNNEL[-10]
-value:0:MOVES[-1+-1d9]
-# !
-# hardcoded: no feelings (monster/object).
+value:0:MANA[4+-1d12]
+# +
 # 25% dodge melee attacks
+# passwall 'y' (blind)
+############################
+# -
+# hardcoded: no feelings (monster/object).
 player-flags:0:NO_RECALL
 obj-flag:0:CLUMSY
-# ? accidentally go deep descent..
-# ? add minor drain exp? drain_exp_0
-#obj-flag:50:DRAIN_EXP
-#
-# remove forms.. hardcode passwall
-#
 # - hard to equip items.. need several attempts
-#
-value:0:MANA[4+-1d12]
-##########################PASS_WALL forms:
-player-flags:0:SHAPECHANGE
-shape:1:expulsion
-shape:10:echo
-shape:20:imprint
-shape:30:spectral
-shape:40:spirit
-shape:50:wraith'
+##########################PASS_WALL forms... after 'y' - require rework into regular mobs
+#player-flags:0:SHAPECHANGE
+#shape:1:expulsion
+#shape:10:echo
+#shape:20:imprint
+#shape:30:spectral
+#shape:40:spirit
+#shape:50:wraith'
 # make auto-forms
 
 name:Beholder
@@ -2308,16 +2304,17 @@ value:0:MOVES[-5+-1d9]
 # hardcoded: hallucinating
 # can cast rays
 obj-flag:0:CLUMSY
-player-flags:0:SHAPECHANGE
-shape:1:floating eye'
-shape:10:disenchanter eye'
-shape:20:evil eye'
+############################## disabled polyforms for now as it can 'y' ray.. add them as pets later on?
+#player-flags:0:SHAPECHANGE
+#shape:1:floating eye'
+#shape:10:disenchanter eye'
+#shape:20:evil eye'
 #zritel
-shape:30:spectator'
+#shape:30:spectator'
 #nabludatel
-shape:40:observer'
+#shape:40:observer'
 #nadsmotrshik
-shape:50:overseer'
+#shape:50:overseer'
 #+ mind flayer @ 50
 
 name:Ooze
@@ -2365,7 +2362,8 @@ brand:35:50:ACID_2
 #shape:50:mushroom
 
 
-
+# ? accidentally go deep descent..
+#obj-flag:50:DRAIN_EXP
 # slay:1:50:ORC_3 .. dunedains?
 #obj-flag:1:HUNGER_2
 
