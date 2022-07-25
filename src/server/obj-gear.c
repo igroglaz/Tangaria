@@ -904,6 +904,13 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     bool dummy = false;
     struct chunk *c = chunk_get(&p->wpos);
 
+    // Wraith race: hard to equip items on ghostly body.. takes time (except cursed items)
+    if ((streq(p->race->name, "Wraith") && !obj->curses) && !one_in_(5))
+    {
+        msg(p, "You fail to equip an item on your spectral body this time. Try ones more..");
+        return;
+    }
+
     /* Increase equipment counter if empty slot */
     if (old == NULL) p->upkeep->equip_cnt++;
 

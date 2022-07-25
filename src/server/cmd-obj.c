@@ -371,6 +371,13 @@ void do_cmd_wield(struct player *p, int item, int slot)
         return;
     }
 
+    // Wraith race: hard to equip items on ghostly body.. takes time (except cursed items)
+    if ((streq(p->race->name, "Wraith") && !obj->curses) && !one_in_(5))
+    {
+        msg(p, "You fail to equip an item on your spectral body this time. Try ones more..");
+        return;
+    }
+
     /* Some checks */
     if (!object_is_carried(p, obj))
     {

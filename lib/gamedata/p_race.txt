@@ -2227,7 +2227,7 @@ value:0:STR[-3]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[0]
-value:0:CON[-3]
+value:0:CON[0]
 value:0:CHR[-9]
 value:0:INFRA[5+1d5]
 obj-flag:1:SLOW_DIGEST
@@ -2254,6 +2254,9 @@ obj-flag:0:CLUMSY
 #obj-flag:50:DRAIN_EXP
 #
 # remove forms.. hardcode passwall
+#
+# - hard to equip items.. need several attempts
+#
 value:0:MANA[4+-1d12]
 ##########################PASS_WALL forms:
 player-flags:0:SHAPECHANGE
