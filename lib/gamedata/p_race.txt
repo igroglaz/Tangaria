@@ -1613,7 +1613,7 @@ skill-stealth:-16
 skill-search:-5
 skill-melee:25
 skill-shoot:-15
-skill-dig:40
+skill-dig:0
 hitdie:14
 # + 300% exp at 49 lvl
 exp:100:125
@@ -1623,23 +1623,24 @@ height:170:20
 weight:430:75
 gift:scroll:Detect Invisible:2:3
 #9 -2 -2 -1 5
-value:0:STR[-3+1d4]
+value:0:STR[1+1d6]
 value:0:INT[-4+1d24]
 value:0:WIS[-4+1d24]
 value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:20:MOVES[1+1d1]
+value:30:MOVES[1+1d1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
-value:0:DAM_RED[0+1d2]
+value:30:DAM_RED[0+1d1]
 brand:30:50:ELEC_2
 value:30:RES_ELEC[3]
 brand:40:49:STUN_1
 brand:50:50:STUN_2
-value:0:TUNNEL[3+1d10]
 slay:35:50:DRAGON_3
 value:0:MANA[1d5]
+value:1:RES_GRAVITY[1]
+# 'y' crush wall
 # /// -
 # less money at start
 obj-flag:1:NO_TELEPORT
@@ -1648,7 +1649,6 @@ obj-flag:0:CLUMSY
 #obj-flag:5:SUST_STR
 #obj-flag:10:SUST_DEX
 #obj-flag:15:SUST_CON
-#value:0:RES_GRAVITY[1]
 #value:0:SPEED[-1+-1d30]
 #value:25:LIGHT[1]
 #value:0:RES_NEXUS[1]
