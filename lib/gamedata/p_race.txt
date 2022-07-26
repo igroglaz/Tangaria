@@ -1008,20 +1008,19 @@ history:100
 age:15:10
 height:38:3
 weight:65:4
-gift:potion:Slime Mold Juice:1:1
+gift:potion:Slime Mold Juice:1:2
 #-3 1 2 3 -3
 value:0:STR[-3]
-value:40:INT[0]
-value:0:WIS[0+1d24]
+value:0:INT[0]
+value:0:WIS[1+1d30]
 value:0:DEX[3]
 value:0:CON[-1]
 value:0:CHR[-1]
 value:0:INFRA[1+1d15]
-value:0:SPEED[1+1d45]
-value:30:MOVES[1+1d6]
-value:25:DAM_RED[1]
+value:0:MOVES[1]
+# 'y' cover tracks
 # 5% dodge melee attacks
-obj-flag:25:SUST_DEX
+obj-flag:0:SUST_DEX
 
 name:Dark Elf
 skill-disarm-phys:5
