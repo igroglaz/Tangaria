@@ -959,6 +959,9 @@ static void make_noise(struct player *p)
     q_push_int(queue, grid_to_i(&next, p->cave->width));
     noise += noise_increment;
 
+    if (streq(p->race->name, "Troglodyte"))
+        noise++;
+
     /* Propagate noise */
     while (q_len(queue) > 0)
     {
@@ -1035,6 +1038,10 @@ static void update_scent(struct player *p)
     {
         for (x = 1; x < p->cave->width - 1; x++)
         {
+            // troglodytes leaves stench which stay strong for long time
+            // (so scent won't get old in half cases)
+            if (streq(p->race->name, "Troglodyte") && one_in_(2))
+                continue;
             if (p->cave->scent.grids[y][x] > 0)
                 p->cave->scent.grids[y][x]++;
         }
