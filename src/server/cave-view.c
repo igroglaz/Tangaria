@@ -725,12 +725,43 @@ static void add_light(struct chunk *c, struct player *p, struct loc *sgrid, int 
 static void calc_lighting(struct player *p, struct chunk *c)
 {
     int dir, k;
-    int light = p->state.cur_light, radius = ABS(light) - 1;
+    int light = p->state.cur_light;
+    int radius; // T: fill later, after reassigning 'light'
     int old_light = p->square_light;
     bool sunlit = (c->wpos.depth == 0) && is_daytime();
     struct loc begin, end;
     struct loc_iterator iter;
     int max_vision = z_info->max_sight; // Tangaria
+
+    // Darkness-loving races don't depends on light sources.. on the contrary
+    if (streq(p->race->name, "Troglodyte"))
+    {
+        // having bright light source makes vision worse:
+
+        if (light >= 4) // if we having something brighter than a lantern
+            light -= light / 2;
+        else if (light == 3) // lantern wielded
+            light = -2;
+        else if (light == 2) // torch wielded
+            light = -1;
+        else
+            light = 0; // no light source
+
+        // now get new 'light' based on previous calculations
+
+        // new character should have 2-radius vision (like torch, but without it)
+        if (p->lev < 5)
+            light += 2;
+        else if (p->lev < 10) // from lvl 5: lantern-like vision
+            light += 3;
+        // later on
+        light += 2 + p->lev / 10;
+        // no need to have negative light after calculations
+        if (light < 0)
+            light = 0;
+    }
+    
+    radius = ABS(light) - 1;
 
     loc_init(&begin, 0, 0);
     loc_init(&end, c->width, c->height);
