@@ -592,7 +592,7 @@ desc: The chance to get a beam goes up with your character level.
 spell:Mana Channel:25:10:50:20:0
 effect:TIMED_SET:FASTCAST
 dice:7+1d5
-desc:Doubles spellcasting speed for 7+1d5 turns.
+desc:Increases spellcasting speed by 33% for 7+1d5 turns.
 
 spell:Resistance:28:20:65:20:0
 effect:CLEAR_VALUE

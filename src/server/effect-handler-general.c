@@ -161,14 +161,14 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     else if (one_in_(4))
     {
         msg(p, "There is a bang and a flash!");
-        take_hit(p, damroll(5, 5), "a failed attempt at uncursing", false,
-            "was killed by a failed attempt at uncursing");
 
         /* Preserve any artifact */
         preserve_artifact_aux(obj);
         if (obj->artifact) history_lose_artifact(p, obj);
 
         none_left = use_object(p, obj, 1, false);
+        take_hit(p, damroll(5, 5), "a failed attempt at uncursing", false,
+            "was killed by a failed attempt at uncursing");
     }
 
     /* Non-destructive failure */
@@ -5470,10 +5470,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     /* Move the target */
     monster_swap(context->cave, &start, &iter.cur);
     if (is_player)
-    {
-        player_handle_post_move(context->origin->player, context->cave, true, true, 0,
-            player_is_trapsafe(context->origin->player), false);
-    }
+        player_handle_post_move(context->origin->player, context->cave, true, true, 0, false);
 
     /* Clear any projection marker to prevent double processing */
     sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_PROJECT);
@@ -5876,10 +5873,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     /* Move player or monster */
     monster_swap(context->cave, &start, &land);
     if (is_player)
-    {
-        player_handle_post_move(context->origin->player, context->cave, true, true, 0,
-            player_is_trapsafe(context->origin->player), false);
-    }
+        player_handle_post_move(context->origin->player, context->cave, true, true, 0, false);
 
     /* Cancel target if necessary */
     if (is_player) target_set_monster(context->origin->player, NULL);

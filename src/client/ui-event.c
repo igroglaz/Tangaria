@@ -260,7 +260,7 @@ void keypress_to_text(char *buf, size_t len, const struct keypress *src, bool ex
 
         /*
          * Un-ktrl control characters if they don't have a description
-         * This is so that Tab (^I) doesn't get turned into ^I but gets
+         * This is so that Tab (^i) doesn't get turned into ^i but gets
          * displayed as [Tab]
          */
         if (i < 0x20 && !desc)
@@ -334,7 +334,7 @@ void keypress_to_readable(char *buf, size_t len, struct keypress src)
 
     /*
      * Un-KTRL control characters if they don't have a description
-     * This is so that Tab (^I) doesn't get turned into ^I but gets
+     * This is so that Tab (^i) doesn't get turned into ^i but gets
      * displayed as [Tab]
      */
     if (i < 0x20 && !desc)

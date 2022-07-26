@@ -1357,8 +1357,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
     int i, y, x, j;
     struct loc offset, centre, safe_grid;
     int safe_grids = 0;
-    int damage = 0;
-    int hurt[MAX_PLAYERS];
+    int hurt[MAX_PLAYERS], damage[MAX_PLAYERS];
     bool map[32][32];
     int count = 0;
 
@@ -1453,17 +1452,19 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         }
     }
 
-    /* First, affect the players (if necessary) */
+    /* First, determine the effects on the players (if necessary) */
     for (j = 0; j < count; j++)
     {
         struct player *player;
+
+        damage[j] = 0;
 
         /* Skip undamaged players */
         if (hurt[j] < 0) continue;
 
         player = player_get(hurt[j]);
 
-        safe_grids = 0; damage = 0;
+        safe_grids = 0;
         loc_init(&safe_grid, 0, 0);
 
         /* Check around the player */
@@ -1516,7 +1517,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         {
             /* Message and damage */
             msg(player, "You are severely crushed!");
-            damage = 300;
+            damage[j] = 300;
         }
 
         /* Destroy the grid, and push the player to safety */
@@ -1528,20 +1529,20 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                 case 1:
                 {
                     msg(player, "You nimbly dodge the blast!");
-                    damage = 0;
+                    damage[j] = 0;
                     break;
                 }
                 case 2:
                 {
                     msg(player, "You are bashed by rubble!");
-                    damage = damroll(10, 4);
+                    damage[j] = damroll(10, 4);
                     player_inc_timed(player, TMD_STUN, randint1(50), true, true);
                     break;
                 }
                 case 3:
                 {
                     msg(player, "You are crushed between the floor and ceiling!");
-                    damage = damroll(10, 4);
+                    damage[j] = damroll(10, 4);
                     player_inc_timed(player, TMD_STUN, randint1(50), true, true);
                     break;
                 }
@@ -1549,13 +1550,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
 
             /* Move player */
             monster_swap(context->cave, &player->grid, &safe_grid);
-            player_handle_post_move(player, context->cave, true, true, 0,
-                player_is_trapsafe(player), true);
+            player_handle_post_move(player, context->cave, true, true, 0, true);
         }
-
-        /* Take some damage */
-        if (damage)
-            take_hit(player, damage, "an earthquake", false, "was crushed by tons of falling rocks");
     }
 
     /* Examine the quaked region */
@@ -1582,6 +1578,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                 /* Most monsters cannot co-exist with rock */
                 if (!monster_passes_walls(mon->race))
                 {
+                    int dam = 0;
+
                     /* Assume not safe */
                     safe_grids = 0;
 
@@ -1627,14 +1625,14 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                     }
 
                     /* Take damage from the quake */
-                    damage = (safe_grids? damroll(4, 8): (mon->hp + 1));
+                    dam = (safe_grids? damroll(4, 8): (mon->hp + 1));
 
                     /* Monster is certainly awake, not thinking about player */
                     monster_wake(context->origin->player, mon, false, 0);
                     mon_clear_timed(context->origin->player, mon, MON_TMD_HOLD, MON_TMD_FLG_NOTIFY);
 
                     /* If the quake finished the monster off, show message */
-                    if ((mon->hp < damage) && (mon->hp >= 0))
+                    if ((mon->hp < dam) && (mon->hp >= 0))
                     {
                         /* Give players a message */
                         for (j = 0; j < count; j++)
@@ -1648,7 +1646,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                     }
 
                     /* Apply damage directly */
-                    mon->hp -= damage;
+                    mon->hp -= dam;
 
                     /* Delete (not kill) "dead" monsters */
                     if (mon->hp < 0)
@@ -1712,6 +1710,13 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
     {
         /* Get player */
         struct player *player = player_get(abs(hurt[j]));
+
+        /* Apply damage to player; done here so messages are ordered properly if the player dies. */
+        if (damage[j])
+        {
+            take_hit(player, damage[j], "an earthquake", false,
+                "was crushed by tons of falling rocks");
+        }
 
         /* Fully update the visuals */
         player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);

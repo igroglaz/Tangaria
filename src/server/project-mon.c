@@ -195,10 +195,7 @@ void thrust_away(struct chunk *c, struct source *origin, struct loc *centre, int
     {
         monster_swap(c, &target, &grid);
         if (!origin->monster)
-        {
-            player_handle_post_move(origin->player, c, true, true, 0,
-                player_is_trapsafe(origin->player), true);
-        }
+            player_handle_post_move(origin->player, c, true, true, 0, true);
     }
 
     /* Some special messages or effects for player or monster. */

@@ -58,6 +58,7 @@ Angband 4.2.x:
 - Modify text when player is aware of a monster via detection or telepathy
 - Change default Enter key behavior in stores
 - Don't beep when escape is pressed while '*' targeting
+- Adjust description of Mana Channel
 
 MAngband 1.5.x:
 
@@ -120,6 +121,7 @@ Angband 4.2.x:
 - Fix Triple diamond room
 - Fix awkward word in the description for Create Arrows
 - Learn feather falling if equipped and exposed to fiery terrain
+- hit_trap(): interaction with disturb() and learning trap immunity rune
 
 PWMAngband:
 
@@ -212,6 +214,11 @@ Angband 4.2.x:
 - Protect calculation in monster/object rating against overflow
 - Protect calculation in object_value_real() against overflow
 - Check against overflow when boosting the value of out-of-depth object
+- Correct some comments related to the sound system
+- Remove sound.cfg
+- Changes to UN_KTRL and ENCODE_KTRL
+- Return early from process_world() if the player takes fatal damage
+- Damage player last so messages are ordered properly if the player dies
 
 PWMAngband:
 

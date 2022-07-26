@@ -1972,7 +1972,7 @@ static void do_prob_travel(struct player *p, struct chunk *c, int dir)
     if (do_move)
     {
         monster_swap(c, &p->grid, &grid);
-        player_handle_post_move(p, c, true, true, 0, player_is_trapsafe(p), true);
+        player_handle_post_move(p, c, true, true, 0, true);
     }
 }
 
@@ -1992,7 +1992,6 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     bool do_move = true;
     struct source who_body;
     struct source *who = &who_body;
-    bool trapsafe = player_is_trapsafe(p);
     bool trap, door, switched = false;
     struct loc grid;
 
@@ -2235,7 +2234,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     }
 
     /* Stop running before known traps */
-    if (trap && p->upkeep->running && !trapsafe)
+    if (trap && p->upkeep->running && !player_is_trapsafe(p))
     {
         disturb(p, 0);
         return;
@@ -2448,7 +2447,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         player_know_floor(who->player, c);
     }
 
-    player_handle_post_move(p, c, true, check_pickup, delayed, trapsafe, true);
+    player_handle_post_move(p, c, true, check_pickup, delayed, true);
 
     p->upkeep->running_firststep = false;
 
@@ -2561,7 +2560,6 @@ static bool player_confuse_dir_nomsg(struct player *p, int *dp)
 bool do_cmd_walk(struct player *p, int dir)
 {
     struct chunk *c = chunk_get(&p->wpos);
-    bool trapsafe = player_is_trapsafe(p);
     struct loc grid;
 
     /* Check energy */
@@ -2659,8 +2657,8 @@ bool do_cmd_walk(struct player *p, int dir)
 
     /* Attempt to disarm unless it's a trap and we're trapsafe */
     p->upkeep->energy_use = true;
-    move_player(p, c, dir, !(square_isdisarmabletrap(c, &grid) && trapsafe), true, false, 0,
-        has_energy(p, false));
+    move_player(p, c, dir, !(square_isdisarmabletrap(c, &grid) && player_is_trapsafe(p)), true,
+        false, 0, has_energy(p, false));
 
     /* Take a turn */
     if (!p->upkeep->energy_use) return false;

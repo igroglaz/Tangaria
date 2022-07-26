@@ -89,7 +89,6 @@ cp ../lib/tiles/old/* lib/tiles/old
 cp ../lib/tiles/shockbolt/* lib/tiles/shockbolt
 rm lib/tiles/*/Makefile
 
-cp ../lib/sounds/sound.cfg lib/sounds
 cp ../lib/sounds/*.mp3 lib/sounds
 
 cp ../lib/user/info/*.txt lib/user/info

@@ -29,7 +29,7 @@
 #  include <SDL/SDL.h>
 #  include <SDL/SDL_mixer.h>
 # endif
-#endif /* USE_SDL */
+#endif /* SOUND_SDL */
 
 #ifdef SOUND_SDL2
 # ifdef WINDOWS
@@ -39,7 +39,7 @@
 #  include <SDL.h>
 #  include <SDL_mixer.h>
 # endif
-#endif /* USE_SDL2 */
+#endif /* SOUND_SDL2 */
 
 /* Supported file types */
 enum

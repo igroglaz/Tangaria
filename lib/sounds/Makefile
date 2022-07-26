@@ -2,7 +2,7 @@ MKPATH=../../mk/
 include $(MKPATH)buildsys.mk
 
 SUBDIRS = ambient tomenet
-DATA = sound.cfg credits.txt \
+DATA = credits.txt \
 	amb_bell_metal1.ogg       mco_scurry_dry.ogg        plm_glass_smashing.ogg \
 	amb_bell_metal2.ogg       mco_shake_roll.ogg        plm_jar_ding.ogg \
 	amb_bell_tibet1.ogg       mco_snarl_short.ogg \

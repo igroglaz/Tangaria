@@ -408,7 +408,7 @@ static bool run_test(struct player *p, struct chunk *c)
         }
 
         /* Hack -- handle damaging terrain */
-        if (square_isdamaging(c, &grid) && player_check_terrain_damage(p, c)) return true;
+        if (square_isdamaging(c, &grid) && player_check_terrain_damage(p, c, false)) return true;
 
         /* Assume unknown */
         inv = true;

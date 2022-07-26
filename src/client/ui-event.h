@@ -48,7 +48,7 @@ typedef enum
  * If the character has come from the keypad:
  *   Include all mods
  * Else if the character is in the range 0x01-0x1F, and the keypress was
- * from a key that without modifiers would be in the range 0x40-0x5F:
+ * from a key that without modifiers would be in the range 0x40-0x5F or 0x61-0x7A:
  *   CONTROL is encoded in the keycode, and should not be in mods
  * Else if the character is in the range 0x21-0x2F, 0x3A-0x60 or 0x7B-0x7E:
  *   SHIFT is often used to produce these should not be encoded in mods
@@ -66,12 +66,12 @@ typedef enum
 
 /*
  * If keycode you're trying to apply control to is between 0x40-0x5F
- * inclusive, then you should take 0x40 from the keycode and leave
- * KC_MOD_CONTROL unset.  Otherwise, leave the keycode alone and set
- * KC_MOD_CONTROL in mods.
+ * inclusive or 0x61-0x7A inclusive, then you should bitwise-and the keycode
+ * with 0x1f and leave KC_MOD_CONTROL unset. Otherwise, leave the keycode
+ * alone and set KC_MOD_CONTROL in mods.
  */
 #define ENCODE_KTRL(v) \
-    ((((v) >= 0x40) && ((v) <= 0x5F))? true: false)
+    ((((v) >= 0x40 && (v) <= 0x5F) || ((v) >= 0x61 && (v) <= 0x7A))? true :false)
 
 /*
  * Given a character X, turn it into a control character.
@@ -80,10 +80,12 @@ typedef enum
     ((X) & 0x1F)
 
 /*
- * Given a control character X, turn it into its uppercase ASCII equivalent.
+ * Given a control character X, turn it into its lowercase ASCII equivalent
+ * unless it is 0x00 or 0x1B to 0x1F, then use the punctuation characters
+ * that flank the uppercase ASCII letters.
  */
 #define UN_KTRL(X) \
-    ((X) + 64)
+    (((X) < 0x01 || (X) > 0x1B)? (X) + 64 :(X) + 96)
 
 /*
  * Keyset mappings for various keys.

@@ -456,8 +456,8 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
     int target_depth = dungeon_get_next_level(p, p->wpos.depth, 1);
     struct worldpos wpos;
 
-    /* The player is safe from all traps */
-    if (p->ghost || player_is_trapsafe(p)) return;
+    /* Ghosts are safe from all traps */
+    if (p->ghost) return;
 
     wpos_init(&wpos, &p->wpos.grid, target_depth);
     
@@ -472,6 +472,19 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
         if (trap->timeout) continue;
 
         if ((delayed != trf_has(trap->kind->flags, TRF_DELAY)) && (delayed != -1)) continue;
+
+        if (player_is_trapsafe(p))
+        {
+            /* Trap immune player learns the rune */
+            if (player_of_has(p, OF_TRAP_IMMUNE))
+                equip_learn_flag(p, OF_TRAP_IMMUNE);
+
+            /* Trap becomes visible. */
+            trf_on(trap->flags, TRF_VISIBLE);
+            square_memorize(p, c, grid);
+            square_memorize_trap(p, c, grid);
+            continue;
+        }
 
         /* Disturb the player */
         disturb(p, 0);
@@ -574,7 +587,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                  * Don't retrigger the trap, but handle the
                  * other side effects of moving the player.
                  */
-                player_handle_post_move(p, c, false, true, 0, false, true);
+                player_handle_post_move(p, c, false, true, 0, true);
             }
 
             /* Some traps disappear after activating, all have a chance to */

@@ -7400,7 +7400,7 @@ static int Receive_store_leave(int ind)
                     dis = dis * 2;
                 }
                 monster_swap(c, &p->grid, &grid);
-                player_handle_post_move(p, c, true, true, 0, player_is_trapsafe(p), true);
+                player_handle_post_move(p, c, true, true, 0, true);
                 handle_stuff(p);
             }
 
