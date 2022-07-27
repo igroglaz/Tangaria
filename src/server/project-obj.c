@@ -491,6 +491,12 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
         else
             raise_level = (level + context->origin->monster->level) / 2 + 5;
 
+        // Frostmen racial ability not so powerful if not Warlock
+        if (context->origin->player &&
+         streq(context->origin->player->race->name, "Frostmen") &&
+        !streq(context->origin->player->clazz->name, "Warlock"))
+            raise_level -= raise_level / 3;
+
         /* Save the "raise" type */
         raise_specific_type = context->obj->pval;
 
@@ -522,6 +528,16 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
             else
                 raise_level = (level + context->origin->monster->level) / 2 + 5;
 
+            // Tiny boost to Frosty Warlocks :)
+            if (context->origin->player && streq(context->origin->player->race->name, "Frostmen"))
+                raise_level++;
+
+            // Frostmen racial ability not so powerful if not Warlock
+            if (context->origin->player &&
+             streq(context->origin->player->race->name, "Frostmen") &&
+            !streq(context->origin->player->clazz->name, "Warlock"))
+                raise_level -= raise_level / 3;
+
             /* Save the "raise" type */
             raise_specific_type = context->obj->pval;
 
@@ -537,7 +553,7 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
     }
 
     /* Give a chance of getting a powerful dracolich from dragon corpses */
-    else
+    else if (streq(context->origin->player->clazz->name, "Warlock")) // only Warlock
     {
         struct monster_race *corpse = &r_info[context->obj->pval];
 
@@ -553,11 +569,17 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
     }
 
     /* Raising dead costs mana */
-    if (context->origin->player && !OPT(context->origin->player, risky_casting) &&
-        (race->level > (context->origin->player->csp - context->origin->player->spell_cost)))
+    if (context->origin->player)
     {
-        msg(context->origin->player, "You don't have enough mana to raise any %s here.", race->name);
-        return;
+        if (streq(context->origin->player->race->name, "Frostmen") &&
+           !streq(context->origin->player->clazz->name, "Warlock")) 
+            ; // racial ability cost HP
+        else if (!OPT(context->origin->player, risky_casting) &&
+            (race->level > (context->origin->player->csp - context->origin->player->spell_cost)))
+        {
+            msg(context->origin->player, "You don't have enough mana to raise any %s here.", race->name);
+            return;
+        }
     }
 
     /* Look for a location */
@@ -583,7 +605,9 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
             mon = square_monster(c, &grid);
 
             /* Try to control the monster */
-            if (can_charm_monster(context->origin->player, mon->level, STAT_INT))
+            if (can_charm_monster(context->origin->player, mon->level, STAT_INT) ||
+               (streq(context->origin->player->race->name, "Frostmen") &&
+               !streq(context->origin->player->clazz->name, "Warlock") && !one_in_(4)))
                 monster_set_master(mon, context->origin->player, MSTATUS_CONTROLLED);
 
             /* Use some mana */
