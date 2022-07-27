@@ -1691,16 +1691,16 @@ gift:food:Pint of Fine Wine:1:1
 # 0 1 -2 2 -1
 value:0:STR[0]
 value:0:INT[1]
-value:0:WIS[-2]
+value:0:WIS[-2+1d25]
 value:0:DEX[2]
-value:0:CON[-1]
+value:0:CON[0]
 value:0:CHR[0+1d30]
+# 'y' see invisible
 value:0:INFRA[4]
-value:20:MOVES[1+1d6]
+value:0:MOVES[1]
 value:50:SPEED[1]
 value:50:STEALTH[1]
 slay:1:50:ANIMAL_2
-value:0:DAM_RED[-1]
 value:0:TUNNEL[-1+-1d24]
 
 name:Elemental
