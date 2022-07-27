@@ -119,7 +119,7 @@ enum
 struct effect
 {
     struct effect *next;
-    uint16_t index;         /* The effect index */
+    uint16_t index;     /* The effect index */
     dice_t *dice;       /* Dice expression used in the effect */
     int subtype;        /* Projection type, timed effect type, etc. */
     int radius;         /* Radius of the effect (if it has one) */
@@ -156,9 +156,9 @@ struct flavor
     char *text;         /* Text */
     unsigned int fidx;  /* Index */
     struct flavor *next;
-    uint16_t tval;          /* Associated object type */
-    uint16_t sval;          /* Associated object sub-type */
-    uint8_t d_attr;        /* Default flavor attribute */
+    uint16_t tval;      /* Associated object type */
+    uint16_t sval;      /* Associated object sub-type */
+    uint8_t d_attr;     /* Default flavor attribute */
     char d_char;        /* Default flavor character */
 };
 
@@ -275,16 +275,16 @@ struct object_kind
     char *name;                     /* Name */
     char *text;                     /* Description */
     struct object_base *base;
-    uint32_t kidx;                      /* Index */
+    uint32_t kidx;                  /* Index */
     struct object_kind *next;
-    uint16_t tval;                      /* General object type (see TV_ macros) */
-    uint16_t sval;                      /* Object sub-type */
+    uint16_t tval;                  /* General object type (see TV_ macros) */
+    uint16_t sval;                  /* Object sub-type */
     random_value pval;              /* Item extra-parameter */
     random_value to_h;              /* Bonus to hit */
     random_value to_d;              /* Bonus to damage */
     random_value to_a;              /* Bonus to armor */
     int ac;                         /* Base armor */
-    uint8_t dd, ds;                    /* Damage dice/sides */
+    uint8_t dd, ds;                 /* Damage dice/sides */
     int weight;                     /* Weight, in 1/10lbs */
     int cost;                       /* Object base cost */
     bitflag flags[OF_SIZE];         /* Flags (all) */
@@ -294,7 +294,7 @@ struct object_kind
     bool *brands;
     bool *slays;
     int *curses;                    /* Array of curse powers */
-    uint8_t d_attr;                    /* Default object attribute */
+    uint8_t d_attr;                 /* Default object attribute */
     char d_char;                    /* Default object character */
     int alloc_prob;                 /* Allocation: commonness */
     int alloc_min;                  /* Highest normal dungeon level */
@@ -318,7 +318,7 @@ struct artifact
 {
     char *name;                     /* Name */
     char *text;                     /* Description */
-    uint32_t aidx;                      /* Index */
+    uint32_t aidx;                  /* Index */
     struct artifact *next;
     int tval;                       /* General artifact type (see TV_ macros) */
     int sval;                       /* Artifact sub-type */
@@ -350,9 +350,9 @@ struct artifact
  */
 struct artifact_upkeep
 {
-    uint32_t aidx;      /* For cross-indexing with struct artifact */
+    uint32_t aidx;  /* For cross-indexing with struct artifact */
     bool created;   /* Artifact is created */
-    int32_t owner;     /* Artifact owner (if any) */
+    int32_t owner;  /* Artifact owner (if any) */
 };
 
 /*
@@ -371,7 +371,7 @@ struct ego_item
 {
     char *name;                     /* Name */
     char *text;                     /* Description */
-    uint32_t eidx;                      /* Index */
+    uint32_t eidx;                  /* Index */
     struct ego_item *next;
     bitflag flags[OF_SIZE];         /* Flags (all) */
     bitflag kind_flags[KF_SIZE];    /* Kind flags */
@@ -507,26 +507,26 @@ struct object
     struct object *next;                /* Next object in a pile */
     struct object *known;               /* Known version of this object */
 
-    int16_t oidx;                          /* Item list index, if any */
+    int16_t oidx;                       /* Item list index, if any */
 
     struct loc grid;                    /* Position on map, or (0, 0) */
 
-    uint16_t tval;                          /* Item type (from kind) */
-    uint16_t sval;                          /* Item sub-type (from kind) */
+    uint16_t tval;                      /* Item type (from kind) */
+    uint16_t sval;                      /* Item sub-type (from kind) */
 
-    int32_t pval;                          /* Item extra-parameter */
+    int32_t pval;                       /* Item extra-parameter */
 
-    int16_t weight;                        /* Item weight */
+    int16_t weight;                     /* Item weight */
 
-    uint8_t dd;                            /* Number of damage dice */
-    uint8_t ds;                            /* Number of sides on each damage die */
-    int16_t ac;                            /* Normal AC */
-    int16_t to_a;                          /* Plusses to AC */
-    int16_t to_h;                          /* Plusses to hit */
-    int16_t to_d;                          /* Plusses to damage */
+    uint8_t dd;                         /* Number of damage dice */
+    uint8_t ds;                         /* Number of sides on each damage die */
+    int16_t ac;                         /* Normal AC */
+    int16_t to_a;                       /* Plusses to AC */
+    int16_t to_h;                       /* Plusses to hit */
+    int16_t to_d;                       /* Plusses to damage */
 
     bitflag flags[OF_SIZE];             /* Object flags */
-    int32_t modifiers[OBJ_MOD_MAX];        /* Object modifiers */
+    int32_t modifiers[OBJ_MOD_MAX];     /* Object modifiers */
     struct element_info el_info[ELEM_MAX];  /* Object element info */
     bool *brands;                       /* Flag absence/presence of each brand */
     bool *slays;                        /* Flag absence/presence of each slay */
@@ -535,16 +535,16 @@ struct object
     struct effect *effect;              /* Effect this item produces (effects.c) */
     struct activation *activation;      /* Activation */
     random_value time;                  /* Recharge time (rods/activation) */
-    int16_t timeout;                       /* Timeout Counter */
+    int16_t timeout;                    /* Timeout Counter */
 
-    uint8_t number;                        /* Number of items */
+    uint8_t number;                     /* Number of items */
     bitflag notice;                     /* Attention paid to the object */
 
-    int16_t held_m_idx;                    /* Monster holding us (if any) */
-    int16_t mimicking_m_idx;               /* Monster mimicking us (if any) */
+    int16_t held_m_idx;                 /* Monster holding us (if any) */
+    int16_t mimicking_m_idx;            /* Monster mimicking us (if any) */
 
-    uint8_t origin;                        /* How this item was found */
-    int16_t origin_depth;                  /* What depth the item was found at */
+    uint8_t origin;                     /* How this item was found */
+    int16_t origin_depth;               /* What depth the item was found at */
     struct monster_race *origin_race;   /* Monster race that dropped it */
 
     quark_t note;                       /* Inscription index */
@@ -552,18 +552,18 @@ struct object
     /* MAngband & PWMAngband fields */
 
     struct worldpos wpos;               /* Position on the world map */
-    int32_t randart_seed;                  /* Randart seed, if any */
-    int32_t askprice;                      /* Item sale price (transient) */
-    int32_t creator;                       /* Item creator (if any) */
-    int32_t owner;                         /* Item owner (if any) */
-    uint8_t level_req;                     /* Level requirement */
-    uint8_t ignore_protect;                /* Bypass auto-ignore */
-    uint8_t ordered;                       /* Item has been ordered */
+    int32_t randart_seed;               /* Randart seed, if any */
+    int32_t askprice;                   /* Item sale price (transient) */
+    int32_t creator;                    /* Item creator (if any) */
+    int32_t owner;                      /* Item owner (if any) */
+    uint8_t level_req;                  /* Level requirement */
+    uint8_t ignore_protect;             /* Bypass auto-ignore */
+    uint8_t ordered;                    /* Item has been ordered */
     struct object_xtra info_xtra;       /* Extra information used by the client */
-    uint8_t attr;                          /* "attr" last used for drawing object */
-    int16_t decay;                         /* Decay timeout for corpses */
-    uint8_t bypass_aware;                  /* Bypasses the "aware" flag */
-    uint8_t soulbound;                     /* Can't drop this item */    
+    uint8_t attr;                       /* "attr" last used for drawing object */
+    int16_t decay;                      /* Decay timeout for corpses */
+    uint8_t bypass_aware;               /* Bypasses the "aware" flag */
+    uint8_t soulbound;                  /* Can't drop this item */    
     quark_t origin_player;              /* Original owner */
 };
 

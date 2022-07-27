@@ -105,6 +105,8 @@ PWMAngband:
 - Make pit walls much less likely to be pierced by steamers deep in the dungeon
 - Exclude wearing from !* inscription
 - Implement RAND_100 flag and assign it to goldfishes
+- Remove level requirement from shops
+- Rework level requirement to depend only on object level and power
 - New class: Villager
 
 Bugs fixed

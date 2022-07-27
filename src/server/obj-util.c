@@ -1023,9 +1023,35 @@ void object_own(struct player *p, struct object *obj)
     /* Set level requirement on free objects */
     if (!obj->owner)
     {
-        int depth = max(min(p->wpos.depth / 2, 50), 1);
+        /* By default, use half the kind level */
+        // in the past we used for all items:
+        // obj->level_req = min(depth, p->lev);
+        int base = obj->kind->level / 2;
 
-        obj->level_req = min(depth, p->lev);
+        /* Artifacts */
+        if (obj->artifact) base = get_artifact_level(p, obj) / 2;
+
+        /* Wearables and ammo have object power */
+        if (tval_has_variable_power(obj))
+        {
+            int power = max(min(object_power(p, obj), 1000), 0);
+
+            /* Rings of polymorphing */
+            if (tval_is_poly(obj))
+            {
+                struct monster_race *race = &r_info[obj->modifiers[OBJ_MOD_POLY_RACE]];
+
+                /* Use monster level as base and monster exp as power */
+                base = race->level / 2;
+                power = race->mexp / 50;
+            }
+
+            /* Boost level by 1/100th of object power */
+            base += power / 100;
+        }
+
+        /* Bounds */
+        obj->level_req = max(min(base, 50), 1);
 
         // hack to adjust items req. lvl a bit to make pstore trade more viable
         if (obj->level_req > 15 && obj->level_req < 50)
