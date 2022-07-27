@@ -1147,8 +1147,8 @@ name:SATISFY
 aim:0
 power:7
 effect:NOURISH:INC_TO
-dice:15
-desc:magically gives possibility to survive hunger from death
+dice:14
+desc:magically gives possibility to survive starvation
 
 name:SHERO
 aim:0

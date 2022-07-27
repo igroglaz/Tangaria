@@ -752,8 +752,8 @@ desc: for one turn only.
 
 spell:Remove Hunger:2:2:25:2:0
 effect:NOURISH:INC_TO
-dice:15
-desc:Magically renders you comfortably fed (but not satiated).
+dice:14
+desc:Magically saves you from starvation.
 
 spell:Poison Cloud:3:2:27:4:0
 effect:BALL:POIS:2
@@ -949,13 +949,13 @@ desc: the next 5+1d3 turns (or until hungry).
 
 spell:Herbal Curing:40:20:90:100:0
 effect:NOURISH:INC_TO
-dice:15
+dice:14
 effect:CURE:BLACKBREATH
 effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CUT
-desc:Cures all cuts, poison, stunning and black breath, and leaves you
-desc: well-nourished.
+desc:Cures all cuts, poison, stunning and black breath, and can save you
+desc: from starvation.
 
 spell:Volcanic Eruption:40:30:75:50:0
 effect:EARTHQUAKE:NONE:5
@@ -2203,8 +2203,8 @@ desc: for one turn only.
 
 spell:Remove Hunger:5:2:23:2:0
 effect:NOURISH:INC_TO
-dice:15
-desc:Magically renders you comfortably fed (but not satiated).
+dice:14
+desc:Magically saves you from starvation.
 
 spell:Detect Stairs:7:3:50:5:0
 effect:DETECT_STAIRS
@@ -3045,8 +3045,8 @@ desc:Covers your missiles with frost.
 
 spell:Remove Hunger:12:6:24:12:0
 effect:NOURISH:INC_TO
-dice:15
-desc:Magically renders you comfortably fed (but not satiated).
+dice:14
+desc:Magically saves you from starvation.
 
 book:nature book:town:[Gifts of Nature]:4:nature
 
@@ -3286,9 +3286,9 @@ desc:Reveals an unknown rune on an object.
 
 spell:Remove Hunger:16:14:40:16:0
 effect:NOURISH:INC_TO
-dice:15
+dice:14
 msg_self:You focus your mind to convert energy into food.
-desc:Magically renders you comfortably fed (but not satiated).
+desc:Magically saves you from starvation.
 
 spell:Mass Stun:18:15:43:18:0
 effect:PROJECT_LOS_AWARE:MON_STUN
@@ -3789,7 +3789,7 @@ desc:Grants you temporary resistance to cold.
 
 spell:Potion of Vitality:20:9:49:16:0
 effect:NOURISH:INC_TO
-dice:15
+dice:14
 effect:TIMED_SET:BOLD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
@@ -3801,9 +3801,9 @@ effect:TIMED_SET:HERO
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
-desc:Conjures a magical brew that feeds you, cures 10 points of damage,
-desc: removes fear and grants you temporary heroism (resistance to fear
-desc: and a bonus of +12 to-hit).
+desc:Conjures a magical brew that feeds you to prevent starvation,
+desc: cures 10 points of damage, removes fear and grants you temporary
+desc: heroism (resistance to fear and a bonus of +12 to-hit).
 
 spell:Frost Ball:25:11:57:20:0
 effect:BALL:COLD:2
@@ -5014,12 +5014,13 @@ effect:STRIKE:MISSILE:0
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
 effect:NOURISH:INC_TO
-dice:15
+dice:14
 effect:TIMED_SET:HERO
 dice:25+1d25
 msg_self:Your falcon flew to the hunt...
 desc:Falcon strikes a target and then it will shares with you his prey by
-desc: restoring some satiation. It's not much, but still..
+desc: restoring some satiation. It's not much, but still can save you
+desc: from starvation.
 desc: Also it grants you precision bonus for 25+1d25 turns.
 desc: Target grid must be targetable and known to the player.
 desc: no target grid will mean the player grid is hit.
@@ -5214,7 +5215,7 @@ spell:Herbal Tea:10:7:1:8:0
 effect:CURE:POISONED
 effect:CURE:BLACKBREATH
 effect:NOURISH:INC_TO
-dice:15
+dice:14
 desc:Cures poison, blackbreath and gives minimal nourishment.
 
 spell:Stone to Mud:15:8:1:12:0
@@ -5651,8 +5652,8 @@ desc: for one turn only.
 
 spell:Hand-to-Mouth:30:2:25:2:0
 effect:NOURISH:INC_TO
-dice:15
-desc:Magically renders you a bit fed (but not satiated).
+dice:14
+desc:Magically saves you from starvation.
 
 spell:Firebolt:35:20:17:90:0
 effect:BOLT:FIRE:1
@@ -7820,8 +7821,8 @@ desc:Causes a earthquake centered around the player.
 
 spell:Emergency Ration:50:50:25:100:0
 effect:NOURISH:INC_TO
-dice:15
-desc:Magically renders you comfortably fed (but not satiated).
+dice:14
+desc:Magically saves you from starvation.
 
 
 ############### CLASS TEMPLATE for Alchemist ###############

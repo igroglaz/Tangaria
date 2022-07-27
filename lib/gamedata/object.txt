@@ -6886,8 +6886,8 @@ type:scroll
 level:0
 weight:4
 cost:0
-effect:NOURISH:SET_TO
 flags:NO_DROP
+effect:NOURISH:SET_TO
 dice:50
 desc:Smelly... It looks like someone covered fish with this scroll.
 

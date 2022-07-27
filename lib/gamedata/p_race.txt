@@ -82,6 +82,9 @@
 # -> 2nd value
 
 # MOVES works: +10 moves is like +10 speed, but movement only
+### be careful with high moves..
+###it stuck with speed and it seems doesn't have limit
+### at high lvls (as speed has).. so p might move much faster than eg Morgoth
 
 # Note: currently in p_race.txt only one entry of the same resistance
 # element is allowed; meaning that it's possible to assign 
@@ -214,7 +217,7 @@ value:0:CHR[2]
 obj-flag:1:SUST_DEX
 value:0:INFRA[3]
 value:0:RES_LIGHT[1]
-value:0:MOVES[0+1d9]
+value:0:MOVES[0+1d12]
 value:40:SPEED[1]
 
 name:Halfling
@@ -860,14 +863,13 @@ age:20:10
 height:88:9
 weight:233:45
 #4 -2 -2 -2 3
-value:0:STR[2+1d24]
+value:0:STR[4]
 value:0:INT[-2]
 value:0:WIS[-2]
 value:0:DEX[-2]
-value:0:CON[1+1d24]
+value:0:CON[3]
 value:0:CHR[-4]
 gift:food:Hard Biscuit:1:1
-value:20:MOVES[1+1d2]
 # + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 obj-flag:0:CLUMSY
@@ -1630,7 +1632,7 @@ value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:30:MOVES[1+1d1]
+value:30:MOVES[1+1d2]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
 value:30:DAM_RED[0+1d1]
 brand:30:50:ELEC_2
@@ -1694,7 +1696,7 @@ value:0:DEX[2]
 value:0:CON[-1]
 value:0:CHR[0+1d30]
 value:0:INFRA[4]
-value:0:MOVES[1+1d10]
+value:20:MOVES[1+1d6]
 value:50:SPEED[1]
 value:50:STEALTH[1]
 slay:1:50:ANIMAL_2
@@ -1805,7 +1807,7 @@ value:0:INFRA[1]
 obj-flag:1:PROT_CONF
 obj-flag:1:SUST_WIS
 player-flags:0:KNOW_MUSHROOM
-value:0:MOVES[9+5d9]
+value:0:MOVES[3+1d10]
 value:0:STEALTH[-1+-1d15]
 value:0:TUNNEL[-1+-1d10]
 obj-flag:1:CANT_FLY
@@ -2199,7 +2201,6 @@ value:0:DEX[4]
 value:0:CON[0]
 value:0:CHR[-8]
 value:0:SPEED[1+1d15]
-value:0:MOVES[1+1d5]
 #value:15:RES_FIRE[1]
 #value:30:RES_FIRE[2]
 #value:40:RES_FIRE[3] hardcoded
