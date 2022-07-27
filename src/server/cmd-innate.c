@@ -713,11 +713,10 @@ void do_cmd_breath(struct player *p, int dir)
         if (p->chp == p->mhp)
         {
             // element for ray
-            int b_elem;
             char dice_string[5];
             int dice_calc = p->lev;
 
-            // magic users got boni dmg.. mature elems too
+            // magic users got boni dmg..
             if (p->lev >= 30 || p->msp > 0)
                 dice_calc *= 2;
 
@@ -747,6 +746,46 @@ void do_cmd_breath(struct player *p, int dir)
         }
         else
             msgt(p, MSG_SPELL_FAIL, "You should have full health to inflict holy touch.");
+
+        return;
+    }
+    else if (streq(p->race->name, "Balrog"))
+    {
+        char dice_string[5];
+        int dice_calc = p->lev;
+
+        // magic users got boni dmg.. especially mature
+        if (p->lev >= 30 || p->msp > 0)
+            dice_calc *= 2;
+        if (p->lev == 50)
+            dice_calc *= 2;
+
+        use_energy(p);
+
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_SHORT_BEAM;
+        effect->radius = 3 + p->lev / 25;
+        effect->subtype = PROJ_FIRE;
+
+        // magic users more distance
+        if (p->msp > 0)
+            effect->radius += p->lev / 25;
+
+        // init dice
+        effect->dice = dice_new();
+        // convert int to char
+        snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+        // fill dice struct with dmg
+        dice_parse_string(effect->dice, dice_string);
+
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+
+        player_dec_timed(p, TMD_FOOD, 25, false);
+        p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
 
         return;
     }

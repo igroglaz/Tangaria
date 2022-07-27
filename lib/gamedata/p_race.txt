@@ -1329,6 +1329,7 @@ value:0:WIS[-4]
 value:0:DEX[-6+1d6]
 value:0:CON[3]
 value:0:CHR[-10+1d25]
+# 'y' fiery whip
 value:0:INFRA[5]
 #value:0:RES_FIRE[1]
 #value:35:RES_FIRE[3] hardcoded
@@ -1336,25 +1337,23 @@ value:0:RES_COLD[-1]
 value:0:RES_LIGHT[-1]
 # no fear prot.. it run away from G after all
 value:0:RES_POIS[1]
-obj-flag:10:SLOW_DIGEST
-value:15:RES_DARK[1]
-obj-flag:20:SEE_INVIS
+obj-flag:0:SLOW_DIGEST
+value:0:RES_DARK[1]
+obj-flag:25:SEE_INVIS
 obj-flag:25:HOLD_LIFE
 value:35:LIGHT[1]
-obj-flag:40:FEATHER
-value:45:RES_CHAOS[1]
+obj-flag:1:FEATHER
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 # AGGRAVATE 40 range hardcoded
 value:0:STEALTH[-2+-1d10]
 #not speedy (reacted  too late at G)
-value:0:SPEED[-1+-1d25]
-value:0:MOVES[1+1d25]
+value:0:SPEED[-1]
+value:0:MOVES[1]
 # kinda vulnerable to steel (fight in depths)
 value:0:DAM_RED[-1+-1d5]
 # /rfe CON as mana stat
 value:0:MANA[5+-1d10]
-# task: make balrog cool and stylish, but not faceroll
 
 # Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
