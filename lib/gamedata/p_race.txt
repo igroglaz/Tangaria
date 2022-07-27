@@ -1950,8 +1950,8 @@ value:40:SPEED[1+1d2]
 
 name:Minotaur
 skill-disarm-phys:-8
-skill-disarm-magic:-10
-skill-device:-3
+skill-disarm-magic:-25
+skill-device:-15
 skill-save:5
 skill-stealth:0
 skill-search:-15
@@ -1972,7 +1972,7 @@ obj-flag:1:SUST_CON
 value:0:STR[1+1d15]
 value:0:INT[-4]
 value:0:WIS[-2]
-# becoming hasty...
+# 'y' becoming hasty if full HP (1/2 hp cost)
 value:0:DEX[-2+1d15]
 value:0:CON[-3+1d8]
 value:0:CHR[-6]
@@ -1980,7 +1980,6 @@ value:0:INFRA[2]
 obj-flag:1:PROT_CONF
 obj-flag:1:PROT_STUN
 value:0:STEALTH[-4+-1d10]
-value:0:SPEED[1]
 obj-flag:1:IMPAIR_HP
 value:0:MANA[4+-1d6M25]
 # AGGRAVATE 3 range hardcoded (like knight)

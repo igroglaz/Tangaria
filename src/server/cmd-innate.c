@@ -509,6 +509,23 @@ void do_cmd_breath(struct player *p, int dir)
             
             return;
     }
+    else if (streq(p->race->name, "Minotaur"))
+    {
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_FAST, 1 + p->lev / 5, false, false);
+            player_dec_timed(p, TMD_FOOD, 15, false);
+            p->chp -= p->chp / 2; // take a hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to speed up.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
