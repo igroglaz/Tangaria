@@ -1367,7 +1367,7 @@ skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:-20
 skill-save:8
-skill-stealth:2
+skill-stealth:0
 skill-search:2
 skill-melee:-5
 skill-shoot:0
@@ -1379,29 +1379,26 @@ history:100
 age:11:4
 height:81:5
 weight:155:12
-gift:scroll:Holy Prayer:1:1
+gift:scroll:Holy Prayer:1:2
 #2 0 4 1 2
-value:0:STR[-1+1d15]
+value:0:STR[2]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d6]
 value:0:DEX[-4+1d10]
 value:0:CON[-4+1d8]
 value:0:CHR[6+-1d8]
+# 'y' holy blast
 value:0:INFRA[2+1d30]
 obj-flag:1:FEATHER
 value:0:LIGHT[1]
-obj-flag:10:SUST_WIS
-obj-flag:20:SLOW_DIGEST
+obj-flag:1:SUST_WIS
+obj-flag:1:SLOW_DIGEST
 obj-flag:30:SEE_INVIS
-obj-flag:40:PROT_BLIND
 value:0:RES_GRAVITY[1]
 value:0:RES_TIME[-1]
 value:0:TUNNEL[-1+-1d10]
 value:0:MANA[5+-1d12]
 slay:1:50:UNDEAD_3
-#temp
-value:0:SPEED[1]
-value:0:MOVES[-1]
 
 # Nephalem – example what could appear if celestial would make love to balrog.
 # Amazingly it happens sometimes, so such creatures could be met..

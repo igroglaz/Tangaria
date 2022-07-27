@@ -707,6 +707,49 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Celestial"))
+    {
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            // element for ray
+            int b_elem;
+            char dice_string[5];
+            int dice_calc = p->lev;
+
+            // magic users got boni dmg.. mature elems too
+            if (p->lev >= 30 || p->msp > 0)
+                dice_calc *= 2;
+
+            use_energy(p);
+
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_BLAST;
+            effect->subtype = PROJ_HOLY_ORB;
+            effect->radius = 1;
+
+            // init dice
+            effect->dice = dice_new();
+            // convert int to char
+            snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+            // fill dice struct with dmg
+            dice_parse_string(effect->dice, dice_string);
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+
+            player_dec_timed(p, TMD_FOOD, 10, false);
+            p->chp -= p->chp / 15; // take a slight hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to inflict holy touch.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
