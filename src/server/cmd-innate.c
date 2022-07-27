@@ -487,6 +487,28 @@ void do_cmd_breath(struct player *p, int dir)
             player_dec_timed(p, TMD_FOOD, 15, false);
             return;
     }
+    else if (streq(p->race->name, "Troglodyte"))
+    {
+            char dice_string[5];
+            int dice_calc = 14;
+            use_energy(p);
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_NOURISH;
+            effect->subtype = 3; // INC_TO
+            // init dice
+            effect->dice = dice_new();
+            // convert int to char
+            snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+            // fill dice struct with dmg
+            dice_parse_string(effect->dice, dice_string);
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+            free_effect(effect);
+            
+            player_inc_timed(p, TMD_OCCUPIED, 5, false, false);
+            
+            return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

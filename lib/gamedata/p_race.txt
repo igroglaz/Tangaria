@@ -1989,8 +1989,8 @@ name:Troglodyte
 skill-disarm-phys:-10
 skill-disarm-magic:-20
 skill-device:-30
-skill-save:-10
-skill-stealth:1
+skill-save:-3
+skill-stealth:0
 skill-search:-7
 skill-melee:-5
 skill-shoot:-5
@@ -2003,21 +2003,28 @@ age:14:4
 height:30:2
 weight:56:3
 gift:food:Slime Mold:1:1
+# 'y' save from starving 14
+# - stench! and make more noise
+# darkness-loving (see in the dark, but light makes it worse)
 value:0:STR[-1+1d24]
 value:0:INT[-1]
 value:0:WIS[-3]
 value:0:DEX[2+1d30]
 value:0:CON[-1+1d24]
 value:0:CHR[-6]
-value:0:INFRA[1+1d5]
+value:0:INFRA[5]
 value:0:TUNNEL[1+1d24]
-value:0:STEALTH[0+1d30]
+value:0:STEALTH[1+1d30]
 obj-flag:1:PROT_BLIND
+value:0:RES_LIGHT[-1]
 value:0:RES_DARK[1]
 player-flags:10:RACE_REGEN
 obj-flag:1:HUNGER
-obj-flag:50:SLOW_DIGEST
+obj-flag:35:SLOW_DIGEST
 value:0:MANA[3+-1d15]
+obj-flag:35:SUST_STR
+obj-flag:40:SUST_DEX
+obj-flag:45:SUST_CON
 
 name:Naga
 skill-disarm-phys:-14
@@ -2109,8 +2116,8 @@ height:69:3
 weight:145:17
 gift:potion:Cure Light Wounds:3:4
 # 0 -1 -2 0 0
-#/// can eat insects
-#/// can regenerate with 'y'
+# can eat insects
+# 'y' can regenerate
 value:0:STR[0+1d30]
 value:0:INT[-1]
 value:0:WIS[-2]
@@ -2156,6 +2163,7 @@ obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
+# 'y' light around
 #value:0:RES_LIGHT[1]
 #value:35:RES_LIGHT[++] hardcoded
 # -
@@ -2195,6 +2203,7 @@ value:0:MOVES[1+1d5]
 #value:15:RES_FIRE[1]
 #value:30:RES_FIRE[2]
 #value:40:RES_FIRE[3] hardcoded
+# 'y' short teleport
 value:0:RES_COLD[-1]
 obj-flag:0:IMPAIR_MANA
 # randomly teleports around from time to time
@@ -2244,7 +2253,7 @@ value:0:TUNNEL[-10]
 value:0:MANA[4+-1d12]
 # +
 # 25% dodge melee attacks
-# passwall 'y' (blind)
+# 'y' passwall (blind)
 ############################
 # -
 # hardcoded: no feelings (monster/object).
@@ -2299,7 +2308,7 @@ value:0:MANA[8+-1d6]
 value:0:RES_LIGHT[-1]
 value:0:MOVES[-5+-1d9]
 # hardcoded: hallucinating
-# can cast rays
+# 'y' can cast rays
 obj-flag:0:CLUMSY
 ############################## disabled polyforms for now as it can 'y' ray.. add them as pets later on?
 #player-flags:0:SHAPECHANGE
@@ -2331,7 +2340,7 @@ age:1:1
 height:30:4
 weight:50:7
 gift:potion:Slime Mold Juice:1:1
-# can spawn oozes with 'y' key
+# 'y' can spawn oozes
 # get nourishment from kills
 # can pass doors
 # can't have ESP
