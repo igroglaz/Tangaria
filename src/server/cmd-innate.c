@@ -683,6 +683,30 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_ANCHOR, 5, false, false);
         return;
     }
+    else if (streq(p->race->name, "Nephalem"))
+    {
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_GLYPH;
+            effect->subtype = GLYPH_WARDING;
+            effect->dice = dice_new();
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+            free_effect(effect);
+            
+            p->chp = 1; // sacrifice
+            player_dec_timed(p, TMD_FOOD, 42, false);
+            player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health for the ritual.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

@@ -1403,7 +1403,9 @@ slay:1:50:UNDEAD_3
 value:0:SPEED[1]
 value:0:MOVES[-1]
 
-#Nephalem – example what could appear if celestial would make love to balrog. Amazingly it happens sometimes, so such creatures could be met.. very-very rare, but there they are.
+# Nephalem – example what could appear if celestial would make love to balrog.
+# Amazingly it happens sometimes, so such creatures could be met..
+# very-very rare, but there they are.
 name:Nephalem
 skill-disarm-phys:0
 skill-disarm-magic:0
@@ -1428,6 +1430,7 @@ value:0:WIS[0]
 value:0:DEX[-1+1d24]
 value:50:CON[-1]
 value:0:CHR[-1+1d24]
+# 'y' glyph (1 HP, 3 idle)
 #value:35:RES_DARK[2]
 #value:35:RES_LIGHT[2]
 #value:0:RES_LIGHT[-1]
