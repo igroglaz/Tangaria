@@ -1464,8 +1464,8 @@ value:0:CON[3]
 value:0:CHR[-4]
 # + AC hardcoded
 # + -5% _all_ damage hc
+# 'y' space/time anchor 5
 value:0:INFRA[1+1d9]
-value:0:MOVES[1+1d24]
 value:0:RES_POIS[1]
 value:20:RES_FIRE[1]
 value:40:RES_ELEC[1]
@@ -1475,6 +1475,7 @@ value:0:MANA[10+-1d5]
 obj-flag:0:SLOW_DIGEST
 #/// -
 value:0:SPEED[-1+-1d24]
+value:0:MOVES[1+1d24]
 value:0:RES_ACID[-1]
 # more casting flags... sleepery fingers?
 
