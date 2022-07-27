@@ -538,6 +538,34 @@ void do_cmd_breath(struct player *p, int dir)
         p->upkeep->redraw |= (PR_STATE | PR_SPEED);
         return;
     }
+    else if (streq(p->race->name, "Centaur"))
+    {
+        char dice_string[1];
+        dice_string[0] = (p->lev / 25 + 3) + '0';
+
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_TELEPORT_TO;
+            // init dice
+            effect->dice = dice_new();
+            // fill dice struct
+            dice_parse_string(effect->dice, dice_string);
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+            free_effect(effect);
+
+            p->chp -= p->chp / 4; // take a hit
+            player_dec_timed(p, TMD_FOOD, 15, false);
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to charge.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
