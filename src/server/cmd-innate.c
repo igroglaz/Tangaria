@@ -526,6 +526,18 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Harpy"))
+    {
+        use_energy(p);
+        player_clear_timed(p, TMD_CONFUSED, false);
+        player_clear_timed(p, TMD_AMNESIA, false);
+        player_clear_timed(p, TMD_IMAGE, false);
+        if (p->lev >= 30)
+            player_clear_timed(p, TMD_SLOW, false);
+        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 3, false);
+        p->upkeep->redraw |= (PR_STATE | PR_SPEED);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
