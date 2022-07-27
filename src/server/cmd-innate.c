@@ -598,6 +598,70 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
+    else if (streq(p->race->name, "Elemental"))
+    {
+        // can be used only on full HPs
+        if (p->chp == p->mhp)
+        {
+            // element for ray
+            int b_elem;
+            char dice_string[5];
+            int dice_calc = p->lev;
+
+            // magic users got boni dmg.. mature elems too
+            if (p->lev >= 30 || p->msp > 0)
+                dice_calc *= 2;
+            // elementals become powerful fellas.. 200dmg
+            if (p->lev == 50)
+                dice_calc *= 2;
+
+            if (p->lev < 30) b_elem = 0; // elec
+            else if (p->lev < 40) b_elem = 1; // cold
+            else if (p->lev < 50) b_elem = 2; // fire
+            else b_elem = 3; // acid
+
+            use_energy(p);
+
+            effect = mem_zalloc(sizeof(struct effect));
+            effect->index = EF_SHORT_BEAM;
+            effect->radius = 3 + p->lev / 15; // up to 6
+
+            // magic users more distance
+            if (p->msp > 0)
+                effect->radius += p->lev / 10;
+
+            // init dice
+            effect->dice = dice_new();
+            // convert int to char
+            snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+            // fill dice struct with dmg
+            dice_parse_string(effect->dice, dice_string);
+
+            // element
+            switch (b_elem)
+            {
+                case 0: effect->subtype = PROJ_ELEC; break;
+                case 1: effect->subtype = PROJ_COLD; break;
+                case 2: effect->subtype = PROJ_FIRE; break;
+                case 3: effect->subtype = PROJ_ACID; break;
+            }
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+            free_effect(effect);
+
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            p->chp -= p->chp / 10; // take a slight hit
+            player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to attack with elements.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {

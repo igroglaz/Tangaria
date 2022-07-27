@@ -1709,7 +1709,7 @@ skill-disarm-magic:-50
 skill-device:-50
 skill-save:0
 skill-stealth:0
-skill-search:-10
+skill-search:-50
 skill-melee:0
 skill-shoot:0
 skill-dig:-40
@@ -1721,7 +1721,7 @@ height:82:3
 weight:244:23
 gift:scroll:Phase Door:3:4
 ###########
-value:0:STR[0]
+value:0:STR[-1]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[-5+1d9]
@@ -1743,7 +1743,7 @@ obj-flag:0:CLUMSY
 #value:40:RES_ACID[--]
 #value:50:RES_ACID[++] hardcoded
 #############
-value:0:STEALTH[-1+-1d8]
+value:0:STEALTH[-2+-1d8]
 value:0:MANA[5+-1d10]
 
 # far descendants of night walkers
