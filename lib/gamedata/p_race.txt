@@ -1498,6 +1498,7 @@ gift:flask:Flask of oil:3:4
 #4 -3 -3 -2 0
 # + -10% phys damage hc
 # + less speed penalty due overweight
+# 'y' infravision
 value:0:STR[2+2d30]
 value:0:INT[-4+1d50]
 value:0:WIS[-4+1d40]
