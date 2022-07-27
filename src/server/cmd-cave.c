@@ -3060,7 +3060,7 @@ void display_feeling(struct player *p, bool obj_only)
     // and some races
     if (!cfg_level_feelings || !OPT(p, birth_feelings) ||
         streq(p->race->name, "Troll") || streq(p->race->name, "Djinn") ||
-        streq(p->race->name, "Wraith"))
+        streq(p->race->name, "Wraith") || streq(p->race->name, "Frostmen"))
         return;
 
     /* No feeling in towns */

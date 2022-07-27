@@ -162,7 +162,7 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     // no ESP for Ooze player race
     if (streq(p->race->name, "Ooze"))
         return false;
-    else if (streq(p->race->name, "Naga"))
+    else if (streq(p->race->name, "Naga") || streq(p->race->name, "Frostmen"))
         radius -= radius / 4;
 
     /* Full ESP */
