@@ -1274,11 +1274,11 @@ static bool attempt_shield_bash(struct player *p, struct chunk *c, struct monste
     if (mon->race->level < p->lev / 2) return false;
 
     /* Players bash more often when they see a real need: */
-    // except polymorphed players
-    if (!weapon && !p->poly_race)
+    if (!weapon)
     {
         /* Unarmed... */
-        bash_chance *= 4;
+        if (!p->poly_race) // except polymorphed players
+            bash_chance *= 4;
     }
     else if (weapon->dd * weapon->ds * num_blows < shield->dd * shield->ds * 3)
     {
