@@ -439,7 +439,7 @@ static bool play_sound_sdl(struct sound_data *data)
             case SDL_MUSIC_LOOP:
             {
                 /* Hack -- force reload next time a sound is played */
-                data->loaded = false;
+                data->status = SOUND_ST_UNKNOWN;
 
                 if (sample->sample_data.music_loop)
                 {
