@@ -2787,6 +2787,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->skills[SKILL_STEALTH] *= 3;
     }
 
+    // Some races need 2x boni to advance speed
+    if (state->speed > 111 && streq(p->race->name, "Maiar"))
+        state->speed -= (state->speed - 110) / 2;
+
     /* Sanity check on extreme speeds */
     if (state->speed < 0) state->speed = 0;
     if (state->speed > 199) state->speed = 199;
