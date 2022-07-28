@@ -2346,7 +2346,8 @@ gift:potion:Slime Mold Juice:1:1
 # 'y' can spawn oozes
 # get nourishment from kills
 # can pass doors
-# can't have ESP
+# -
+# don't see monster list
 value:0:STR[0]
 value:0:INT[-1]
 value:0:WIS[-1]
@@ -2372,6 +2373,7 @@ value:35:RES_MANA[1]
 #shape:50:mushroom
 
 
+# NO ESP.. or -1/2, 1/3, etc
 #slay:32:50:TROLL_3
 #player-flags:0:SHIELD_BASH
 #player-flags:25:RACE_REGEN
