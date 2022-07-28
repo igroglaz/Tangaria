@@ -492,9 +492,7 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
         int m;
 
         //// druid's forms flags ////
-        if (streq(p->poly_race->name, "bird-form"))
-            of_on(f, OF_FLYING);
-        else if (streq(p->poly_race->name, "rat-form"))
+        if (streq(p->poly_race->name, "rat-form"))
             of_on(f, OF_HOLD_LIFE);
         else if (streq(p->poly_race->name, "boar-form"))
             of_on(f, OF_SLOW_DIGEST);
@@ -551,6 +549,9 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
             of_on(f, OF_PROT_CONF);
             of_on(f, OF_PROT_STUN);
         }
+        // players can fly for real in bird or bat forms
+        if (p->poly_race->base == lookup_monster_base("bird") || p->poly_race->base == lookup_monster_base("bat"))
+            of_on(f, OF_FLYING);
     }
 }
 
