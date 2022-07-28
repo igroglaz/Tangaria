@@ -519,6 +519,13 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                 break;
             }
 
+            // Currently no object generated bolt radius
+            case EFINFO_BOLT_RADIUS:
+            {
+                strnfmt(desc, sizeof(desc), effect_desc(e), projections[e->subtype].desc, e->radius, dice_string);
+                break;
+            }
+
             default:
             {
                 msg(p, "Bad effect description passed to describe_effect(). Please report this bug.");

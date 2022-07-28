@@ -32,7 +32,8 @@ enum
     EFINFO_BOLTD,
     EFINFO_TOUCH,
     EFINFO_MANA,
-    EFINFO_ENCHANT
+    EFINFO_ENCHANT,
+    EFINFO_BOLT_RADIUS
 };
 
 enum effect_object_property_kind

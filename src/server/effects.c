@@ -170,6 +170,7 @@ int effect_subtype(int index, const char *type)
         case EF_SWARM:
         case EF_TOUCH:
         case EF_TOUCH_AWARE:
+        case EF_BOLT_RADIUS:
         {
             val = proj_name_to_idx(type);
             break;

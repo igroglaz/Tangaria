@@ -894,6 +894,38 @@ bool effect_handler_BLAST_OBVIOUS(effect_handler_context_t *context)
 }
 
 
+// Project limited-distance bolt from the player's grid to the target.
+// Don't affect items; distance is context->radius
+bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
+{
+    int dam = effect_calculate_value(context, true);
+    int flg = PROJECT_ARC | PROJECT_GRID | PROJECT_STOP | PROJECT_KILL | PROJECT_PLAY;
+    bool result;
+    struct source who_body;
+    struct source *who = &who_body;
+    struct loc target;
+
+    /* Ensure "dir" is in ddx/ddy array bounds */
+    if (!VALID_DIR(context->dir)) return false;
+
+    /* Ask for a target if no direction given */
+    if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
+        target_get(context->origin->player, &target);
+    else
+        /* Use the given direction */
+        next_grid(&target, &context->origin->player->grid, context->dir);
+
+    source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+        context->origin->player);
+
+    // Aim at the target
+    result = project(who, context->radius, context->cave, &target, dam, context->subtype, flg, 0, context->radius, "annihilated");
+    if (result) context->ident = true;
+
+    return true;
+}
+
+
 /*
  * Cast a bolt spell
  * Stop if we hit a monster, as a bolt
