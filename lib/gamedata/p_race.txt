@@ -1217,14 +1217,14 @@ value:0:MANA[4+-1d6M25]
 
 #Enlightened.. Maya descendants of ancient powers;
 name:Maiar
-skill-disarm-phys:0
-skill-disarm-magic:0
-skill-device:-20
-skill-save:0
+skill-disarm-phys:15
+skill-disarm-magic:15
+skill-device:15
+skill-save:5
 skill-stealth:0
-skill-search:0
-skill-melee:15
-skill-shoot:5
+skill-search:7
+skill-melee:7
+skill-shoot:3
 skill-dig:0
 hitdie:11
 # @49: 300%
@@ -1235,27 +1235,25 @@ height:70:5
 weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
-value:0:STR[0+1d24]
-value:0:INT[-4+1d7]
-value:0:WIS[-4+1d7]
-value:0:DEX[-5+1d8]
+value:0:STR[2]
+value:0:INT[1+1d25]
+value:0:WIS[1+1d25]
+value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
-# rethink...
-value:0:INFRA[0+1d5]
-obj-flag:1:SLOW_DIGEST
-obj-flag:50:HUNGER
+# 'y' blinding light
+# - speed boni reduced by 2x
+value:30:INFRA[5]
+obj-flag:30:SLOW_DIGEST
 value:30:LIGHT[1]
-obj-flag:35:PROT_FEAR
-obj-flag:40:SEE_INVIS
-obj-flag:45:HOLD_LIFE
-obj-flag:50:FEATHER
-value:25:RES_LIGHT[1]
+obj-flag:30:HOLD_LIFE
+obj-flag:30:PROT_FEAR
+obj-flag:30:FEATHER
+obj-flag:30:SEE_INVIS
+value:30:RES_LIGHT[1]
 value:0:RES_DARK[-1]
-slay:1:50:EVIL_2
+slay:30:50:EVIL_2
 value:0:MANA[4+-1d10M40]
-value:0:SPEED[1]
-value:0:MOVES[-1]
 
 # cambion.. 'corrupted' descendants of ancient powers;
 name:Demonic

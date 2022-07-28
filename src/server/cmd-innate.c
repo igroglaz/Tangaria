@@ -784,9 +784,44 @@ void do_cmd_breath(struct player *p, int dir)
         free_effect(effect);
 
         player_dec_timed(p, TMD_FOOD, 25, false);
-        p->upkeep->redraw |= (PR_HP);
-        p->upkeep->redraw |= (PR_MAP);
 
+        return;
+    }
+    else if (streq(p->race->name, "Maiar"))
+    {
+        char dice_string[5];
+        int dice_calc = p->lev;
+
+        use_energy(p);
+
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_BOLT_RADIUS;
+        effect->subtype = PROJ_ELEC;
+        effect->radius = 3 + p->lev / 10;
+
+        // magic users got boni dmg.. especially mature
+        if (p->lev >= 30 || p->msp > 0)
+            dice_calc *= 2;
+        if (p->lev == 50)
+            dice_calc *= 2;
+        // magic users more distance
+        if (p->msp > 0)
+            effect->radius += p->lev / 25;
+
+        // init dice
+        effect->dice = dice_new();
+        // convert int to char
+        snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
+        // fill dice struct with dmg
+        dice_parse_string(effect->dice, dice_string);
+
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+
+        p->chp -= p->chp / 15;
+        player_dec_timed(p, TMD_FOOD, 25, false);
         return;
     }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
