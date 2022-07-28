@@ -1356,7 +1356,7 @@ static const struct player_flag_record player_flag_table[(RES_PANELS + 3) * RES_
     {OBJ_MOD_LIGHT, -1, -1, -1, NULL, NULL},
     {OBJ_MOD_DAM_RED, -1, -1, -1, NULL, NULL},
     {OBJ_MOD_MOVES, -1, -1, -1, NULL, NULL},
-    {-1, -1, -1, -1, NULL, NULL},
+    {-1, OF_FLYING, -1, -1, NULL, NULL},
     {-1, -1, -1, -1, NULL, NULL},
 
     {-1, OF_ESP_RADIUS, -1, -1, NULL, NULL},

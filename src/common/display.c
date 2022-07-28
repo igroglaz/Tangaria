@@ -250,7 +250,7 @@ static const char *player_flag_table[(RES_PANELS + 3) * RES_ROWS] =
     "PLit:", /* OBJ_MOD_LIGHT */
     "DRed:", /* OBJ_MOD_DAM_RED */
     "Move:", /* OBJ_MOD_MOVES */
-    "",
+    " Fly:", /* OF_FLYING */
     "",
 
     "Radi:", /* OF_ESP_RADIUS */
