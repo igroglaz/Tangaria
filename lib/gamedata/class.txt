@@ -2539,8 +2539,8 @@ desc: with a chance to stun it.
 
 spell:Demonic Flight:40:20:80:40:0
 effect:TIMED_SET:FLIGHT:0:5
-dice:20+1d20
-desc:Grants levitation and +5 to speed for 20+1d20 turns.
+dice:5+1d5
+desc:Grants flying for 5+1d5 turns.
 
 spell:Path of the Unholy:42:21:84:42:0
 effect:TELEPORT

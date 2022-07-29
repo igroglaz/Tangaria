@@ -1326,7 +1326,7 @@ static const struct player_flag_record player_flag_table[(RES_PANELS + 3) * RES_
     {-1, OF_ESP_ALL, -1, TMD_ESP, NULL, NULL},
     {-1, OF_SEE_INVIS, -1, TMD_SINVIS, NULL, NULL},
     {-1, OF_FREE_ACT, -1, TMD_FREE_ACT, NULL, NULL},
-    {-1, OF_FEATHER, -1, TMD_FLIGHT, NULL, NULL},
+    {-1, OF_FEATHER, -1, -1, NULL, NULL},
     {-1, OF_SLOW_DIGEST, -1, -1, NULL, NULL},
     {-1, OF_TRAP_IMMUNE, -1, -1, NULL, NULL},
     {-1, OF_BLESSED, -1, -1, NULL, NULL},
@@ -1356,7 +1356,7 @@ static const struct player_flag_record player_flag_table[(RES_PANELS + 3) * RES_
     {OBJ_MOD_LIGHT, -1, -1, -1, NULL, NULL},
     {OBJ_MOD_DAM_RED, -1, -1, -1, NULL, NULL},
     {OBJ_MOD_MOVES, -1, -1, -1, NULL, NULL},
-    {-1, OF_FLYING, -1, -1, NULL, NULL},
+    {-1, OF_FLYING, -1, TMD_FLIGHT, NULL, NULL},
     {-1, -1, -1, -1, NULL, NULL},
 
     {-1, OF_ESP_RADIUS, -1, -1, NULL, NULL},

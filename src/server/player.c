@@ -563,7 +563,7 @@ void player_flags_timed(struct player *p, bitflag f[OF_SIZE])
 {
     if (p->timed[TMD_BOLD]) of_on(f, OF_PROT_FEAR);
     if (p->timed[TMD_HOLD_LIFE]) of_on(f, OF_HOLD_LIFE);
-    if (p->timed[TMD_FLIGHT]) of_on(f, OF_FEATHER);
+    if (p->timed[TMD_FLIGHT]) of_on(f, OF_FLYING);
     if (p->timed[TMD_ESP]) of_on(f, OF_ESP_ALL);
     if (p->timed[TMD_SINVIS]) of_on(f, OF_SEE_INVIS);
     if (p->timed[TMD_FREE_ACT]) of_on(f, OF_FREE_ACT);

@@ -673,10 +673,10 @@ near-begin: is surrounded by an aura of despair.
 near-end:'s aura of despair disappears.
 
 name:FLIGHT
-grade:G:10000:Flight:You grow demon wings!
-on-end:Your demon wings disappear.
-near-begin: grows demon wings.
-near-end:'s demon wings disappear.
+grade:G:10000:Flight:You can fly!
+on-end:Your not longer fly.
+near-begin: start floating in the air.
+near-end: getting down from the air.
 
 name:SAFELOGIN
 grade:G:10000:Safe:xxx
