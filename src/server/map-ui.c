@@ -303,35 +303,117 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             *c = presets[mode].player_presets[q->psex][q->clazz->cidx][q->race->ridx].c;
     }
 
-    // Handle Werewolf at night
-    if (q == p && p->use_graphics && streq(p->race->name, "Werewolf") && is_daytime())
+    // hc appearence of some races
+    if (p->use_graphics)
     {
-        struct monster_race *race = get_race("daylight_werewolf");
+        struct monster_race *race;
+        if (q == p)
+        {
+            if (streq(p->race->name, "Werewolf") && is_daytime())
+            {
+                race = get_race("daylight_werewolf");
+                
+                if (server)
+                {
+                    *a = monster_x_attr[race->ridx];
+                    *c = monster_x_char[race->ridx];
+                }
+                else
+                {
+                    *a = p->r_attr[race->ridx];
+                    *c = p->r_char[race->ridx];
+                }
+            }
+            else if (streq(p->race->name, "Spider"))
+            {
+                if (p->lev < 5)
+                    race = get_race("s'spider");
+                else if (p->lev < 10)
+                    race = get_race("s'weaver");
+                else if (p->lev < 15)
+                    race = get_race("s'warrior");
+                else if (p->lev < 20)
+                    race = get_race("s'guard");
+                else if (p->lev < 25)
+                    race = get_race("s'apprentice");
+                else if (p->lev < 30)
+                    race = get_race("s'adept");
+                else if (p->lev < 35)
+                    race = get_race("s'master");
+                else if (p->lev < 40)
+                    race = get_race("s'aranea");
+                else if (p->lev < 45)
+                    race = get_race("s'elder");
+                else if (p->lev < 50)
+                    race = get_race("s'ancient");
+                else
+                    race = get_race("s'lord");
+                
+                if (server)
+                {
+                    *a = monster_x_attr[race->ridx];
+                    *c = monster_x_char[race->ridx];
+                }
+                else
+                {
+                    *a = p->r_attr[race->ridx];
+                    *c = p->r_char[race->ridx];
+                }
+            }
+        }
+        else if (q != p)
+        {
+            if (streq(q->race->name, "Werewolf") && is_daytime())
+            {
+                race = get_race("daylight_werewolf");
 
-        if (server)
-        {
-            *a = monster_x_attr[race->ridx];
-            *c = monster_x_char[race->ridx];
-        }
-        else
-        {
-            *a = p->r_attr[race->ridx];
-            *c = p->r_char[race->ridx];
-        }
-    }
-    else if (q != p && p->use_graphics && streq(q->race->name, "Werewolf") && is_daytime())
-    {
-        struct monster_race *race = get_race("daylight_werewolf");
+                if (server)
+                {
+                    *a = monster_x_attr[race->ridx];
+                    *c = monster_x_char[race->ridx];
+                }
+                else
+                {
+                    *a = p->r_attr[race->ridx];
+                    *c = p->r_char[race->ridx];
+                }
+            }
+            else if (streq(q->race->name, "Spider"))
+            {
+                if (q->lev < 5)
+                    race = get_race("s'spider");
+                else if (q->lev < 10)
+                    race = get_race("s'weaver");
+                else if (q->lev < 15)
+                    race = get_race("s'warrior");
+                else if (q->lev < 20)
+                    race = get_race("s'guard");
+                else if (q->lev < 25)
+                    race = get_race("s'apprentice");
+                else if (q->lev < 30)
+                    race = get_race("s'adept");
+                else if (q->lev < 35)
+                    race = get_race("s'master");
+                else if (q->lev < 40)
+                    race = get_race("s'aranea");
+                else if (q->lev < 45)
+                    race = get_race("s'elder");
+                else if (q->lev < 50)
+                    race = get_race("s'ancient");
+                else
+                    race = get_race("s'lord");
 
-        if (server)
-        {
-            *a = monster_x_attr[race->ridx];
-            *c = monster_x_char[race->ridx];
-        }
-        else
-        {
-            *a = p->r_attr[race->ridx];
-            *c = p->r_char[race->ridx];
+                if (server)
+                {
+                    *a = monster_x_attr[race->ridx];
+                    *c = monster_x_char[race->ridx];
+                }
+                else
+                {
+                    *a = p->r_attr[race->ridx];
+                    *c = p->r_char[race->ridx];
+                }
+            }
         }
     }
 
