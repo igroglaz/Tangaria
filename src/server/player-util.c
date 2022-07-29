@@ -777,9 +777,9 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 {
     int dam_taken = 0;
 
-    if (player_passwall(p)) return 0;
+    if (player_passwall(p)) return 0; // but should it be like this?..
 
-    // terrain in the wilderness (islava - is outside)
+    // terrain in the wilderness (islava - is outside) --- Not exist in T!
     if (square_isfiery(c, &p->grid))
     {
         int base_dam = 100 + randint1(100);
@@ -796,45 +796,72 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         }
         else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
         {
-            dam_taken /= 2;
+            dam_taken /= 3;
             if (actual) equip_learn_flag(p, OF_FLYING);            
         }
         else if (streq(p->clazz->name, "Cryokinetic"))
-            dam_taken /= 2;
+            dam_taken = 0;
     }
     // terrain in the dungeon (isfiery - is the wilderness)
-    else if (square_islava(c, &p->grid) && !streq(p->clazz->name, "Cryokinetic"))
+    else if (square_islava(c, &p->grid))
     {
         int damage = p->mhp / 100 + randint1(3);
 
         /* Fire damage */
         dam_taken = adjust_dam(p, PROJ_FIRE, damage, RANDOMISE, 0);
+
+        /* Levitation makes one lightfooted. */
+        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
+        {
+            dam_taken /= 2;
+            if (actual) equip_learn_flag(p, OF_FEATHER);
+        }
+        else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
+        {
+            dam_taken /= 3;
+            if (actual) equip_learn_flag(p, OF_FLYING);            
+        }
+        else if (streq(p->clazz->name, "Cryokinetic"))
+            dam_taken = 0;
     }
-    else if (square_iswater(c, &p->grid) && !can_swim(p))
+    // Note: feather (levitation) prevents drowning.. 
+    // it's not flying, but some support in the water; kinda floating a few inches up and down
+    else if (square_iswater(c, &p->grid))
     {
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
 
-        /* Levitation prevents drowning if player able to fly */
-        if (player_of_has(p, OF_FEATHER))
+        // touching open water for vampire is bad. and FEATHER won't help really
+        if (streq(p->race->name, "Vampire") && !player_of_has(p, OF_FLYING))
+            dam_taken *= 2;
+        else if (player_of_has(p, OF_FEATHER)) // feather helps a bit
         {
             if (!player_of_has(p, OF_CANT_FLY))
                 dam_taken = 0;
             if (actual) equip_learn_flag(p, OF_FEATHER);
         }
-
-        /* Swimming prevents drowning */
-        if (player_has(p, PF_CAN_SWIM)) dam_taken = 0;
+        else if (player_of_has(p, OF_FLYING))
+        {
+            if (!player_of_has(p, OF_CANT_FLY))
+                dam_taken = 0;
+            if (actual) equip_learn_flag(p, OF_FEATHER);
+        }
+        else if (player_has(p, PF_CAN_SWIM) || can_swim(p))
+            dam_taken = 0;
     }
     else if (square_isnether(c, &p->grid))
     {
         /* Draining damage */
         dam_taken = p->mhp / 100 + randint1(3);
+        if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
+            dam_taken /= 2;
     }
     else if (!square_iswater(c, &p->grid) && p->poly_race && rf_has(p->poly_race->flags, RF_AQUATIC))
     {
         /* Suffocating damage */
         dam_taken = p->mhp / 100 + randint1(3);
+        if (streq(p->race->name, "Merfolk"))
+            dam_taken /= 2;
     }
 
     return dam_taken;
