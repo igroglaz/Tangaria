@@ -3056,11 +3056,9 @@ void display_feeling(struct player *p, bool obj_only)
     int n_obj_feelings = N_ELEMENTS(obj_feeling_text);
     int n_mon_feelings = N_ELEMENTS(mon_feeling_text);
 
-    /* Don't show feelings for cold-hearted characters */
-    // and some races
+    // Don't show feelings for some races
     if (!cfg_level_feelings || !OPT(p, birth_feelings) ||
-        streq(p->race->name, "Troll") || streq(p->race->name, "Djinn") ||
-        streq(p->race->name, "Wraith") || streq(p->race->name, "Frostmen"))
+        streq(p->race->name, "Frostmen"))
         return;
 
     /* No feeling in towns */
