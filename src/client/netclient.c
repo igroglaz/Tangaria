@@ -2083,10 +2083,10 @@ static int Receive_state(void)
 {
     int n;
     uint8_t ch;
-    int16_t stealthy, resting, unignoring, obj_feeling, mon_feeling, square_light, num_moves;
+    int16_t stealthy, resting, unignoring, obj_feeling, mon_feeling, square_light, num_moves, afraid;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd%hd%s", &ch, &stealthy, &resting, &unignoring,
-        &obj_feeling, &mon_feeling, &square_light, &num_moves, player->terrain)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd%hd%hd%s", &ch, &stealthy, &resting, &unignoring,
+        &obj_feeling, &mon_feeling, &square_light, &num_moves, &afraid, player->terrain)) <= 0)
     {
         return n;
     }
@@ -2098,6 +2098,8 @@ static int Receive_state(void)
     player->mon_feeling = mon_feeling;
     player->square_light = square_light;
     player->state.num_moves = num_moves;
+    // as array empty, fill 1st element
+    player->state.flags[0] = afraid;
 
     player->upkeep->redraw |= (PR_STATE);
 

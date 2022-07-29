@@ -1135,6 +1135,7 @@ static size_t prt_descent(struct player *p, int row, int col)
 /*
  * Prints Resting or Stealth Mode status
  */
+///////// also prits AFRAID (to show not only TMD_AFRAID, but regular too)
 static size_t prt_state(struct player *p, int row, int col)
 {
     uint8_t attr = COLOUR_WHITE;
@@ -1152,6 +1153,11 @@ static size_t prt_state(struct player *p, int row, int col)
     }
 
     /* Display the info (or blanks) */
+    put_str_hook(col, row, -1, attr, text);
+
+    // AFRAID (as array was empty, we filled 1st element in netclient.c)
+    if (p->state.flags[0])
+        text = "Afraid";
     put_str_hook(col, row, -1, attr, text);
 
     return (text[0]? (strlen(text) + 1): 0);

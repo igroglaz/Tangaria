@@ -134,7 +134,7 @@ extern int Send_extra(struct player *p);
 extern int Send_depth(struct player *p);
 extern int Send_status(struct player *p, int16_t *effects);
 extern int Send_recall(struct player *p, int16_t word_recall, int16_t deep_descent);
-extern int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring,
+extern int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring, bool afraid,
     const char *terrain);
 extern int Send_line_info(struct player *p, int y);
 extern int Send_remote_line(struct player *p, int y);

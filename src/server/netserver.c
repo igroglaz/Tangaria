@@ -2385,14 +2385,14 @@ int Send_recall(struct player *p, int16_t word_recall, int16_t deep_descent)
 }
 
 
-int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring, const char *terrain)
+int Send_state(struct player *p, bool stealthy, bool resting, bool unignoring, bool afraid, const char *terrain)
 {
     connection_t *connp = get_connp(p, "state");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%hd%hd%hd%hd%hd%s", (unsigned)PKT_STATE, (int)stealthy,
+    return Packet_printf(&connp->c, "%b%hd%hd%hd%hd%hd%hd%hd%hd%s", (unsigned)PKT_STATE, (int)stealthy,
         (int)resting, (int)unignoring, (int)p->obj_feeling, (int)p->mon_feeling,
-        (int)p->square_light, p->state.num_moves, terrain);
+        (int)p->square_light, p->state.num_moves, (int)afraid, terrain);
 }
 
 

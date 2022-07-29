@@ -368,7 +368,7 @@ static void prt_status(struct player *p)
  */
 static void prt_state(struct player *p)
 {
-    bool s, r, u;
+    bool s, r, u, a;
     struct chunk *c = chunk_get(&p->wpos);
 
     /* Stealth mode */
@@ -380,8 +380,11 @@ static void prt_state(struct player *p)
     /* Unignoring */
     u = (p->unignoring? true: false);
 
+    // Afraid
+    a = player_of_has(p, OF_AFRAID);
+
     /* Paranoia */
-    if (!c) Send_state(p, s, r, u, "");
+    if (!c) Send_state(p, s, r, u, a, "");
     else
     {
         struct feature *feat = square_feat(c, &p->grid);
@@ -406,7 +409,7 @@ static void prt_state(struct player *p)
             my_strcpy(p->terrain + 1, buf, strlen(buf) + 1);
         }
 
-        Send_state(p, s, r, u, p->terrain);
+        Send_state(p, s, r, u, a, p->terrain);
     }
 
     /* Print recall/deep descent status */
