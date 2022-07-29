@@ -818,7 +818,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
         if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
                 price *= 2;
         else if (obj->kind == lookup_kind_by_name(TV_RING, "Flying"))
-                price = 3400;
+                price = 34000;
     }
 
     /* CHArisma shouldn't influence player store prices */

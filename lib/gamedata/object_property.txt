@@ -1402,7 +1402,7 @@ type:flag
 subtype:misc ability
 id-type:on wield
 code:FLYING
-power:20
+power:50
 # only boots, cloak and pre-defined in object.txt ring
 type-mult:horn:0
 type-mult:bow:0
