@@ -1030,8 +1030,16 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             /* Special effect: crushing attack */
             if (attack->effect == MA_CRUSH)
             {
-                dice.dice++;
-                dice.sides++;
+                if (p->poly_race) // dragon nerf
+                {
+                    dice.dice++;
+                    dice.sides++;
+                }
+                else
+                {
+                    dice.dice += 2;
+                    dice.sides += 2;
+                }
                 seffects.do_stun = 1;
             }
 
@@ -1060,7 +1068,13 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             }
 
             /* Special effect: extra damage */
-            if (attack->effect == MA_DAM) dmg = dmg * 6 / 5;
+            if (attack->effect == MA_DAM)
+            {
+                if (p->poly_race) // dragon nerf
+                    dmg = dmg * 6 / 5;
+                else
+                    dmg = dmg * 5 / 4;
+            }
 
             /* Special effect: slowing attack */
             if (attack->effect == MA_SLOW)

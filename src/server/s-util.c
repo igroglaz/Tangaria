@@ -300,10 +300,12 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
     /* Monks and permanently polymorphed characters do barehanded damage */
     else if (player_has(p, PF_MARTIAL_ARTS) || player_has(p, PF_PERM_SHAPE))
     {
-        // T: endgame nerfed a bit as it was way too much dmg there (was 1 + p->lev / 8)
         *dd = 1 + p->lev / 10;
-        // T: early game nerfed as it was too ez, but in the end ds is the same (was 4 + p->lev / 12)
         *ds = 3 + p->lev / 10;
+
+        // endgame boni dmg for those monks who are not dragons or other OP forms
+        if (!(p->poly_race) && p->lev == 50)
+            *dd += 1;
     }
 
     /* Get the wielded weapon */
