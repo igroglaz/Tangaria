@@ -2272,10 +2272,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 magik(p->lev + 50)) ;
             else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
                 magik(p->lev)) ;
-            else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY) &&
-                !one_in_(5)) ;
-            else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY) &&
-                one_in_(3) && p->lev > 35) ;
+            else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY)) ;
             else return;
         }
         // druid class 'rat' form can pass walls sometimes (except permawalls)
