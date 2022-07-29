@@ -513,7 +513,6 @@ obj-flag:0:IMPAIR_HP
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
 #obj-flag:25:SEE_INVIS
-#obj-flag:25:ESP_ANIMAL
 
 # big green dudes.. got a bird. live in mountains. use throwing weapons
 name:Thunderlord
@@ -1148,10 +1147,10 @@ skill-disarm-phys:-2
 skill-disarm-magic:-2
 skill-device:-3
 skill-save:20
-skill-stealth:0
+skill-stealth:2
 skill-search:-10
 skill-melee:10
-skill-shoot:-10
+skill-shoot:-15
 skill-dig:0
 hitdie:11
 # @49: 200%
@@ -1162,41 +1161,32 @@ height:68:5
 weight:150:10
 gift:scroll:Deep Descent:1:1
 #2 2 -1 2 0
-value:0:STR[-2+1d12]
+value:0:STR[2]
 value:0:INT[0+1d24]
 value:0:WIS[-1]
-value:0:DEX[-1+1d24]
+value:0:DEX[2]
 value:0:CON[-5+1d9]
 value:0:CHR[-9+1d4]
-#/// make more cool, but also dangerous cause of 'light', holy spells (paladins..)
-#/// maybe prevent drink 'good' potions? Instead drink !poison etc
 # + black breath
+# 'y' can FLY
+# - fear open water (only FLYING helps)
 #/// - during the day: -HP, regen HP, mana, skills; especially shooting
+# (during the day vamps should stay in the coffin kek)
 #/// can't eat normal food. instead nourish when kill humanoids
-value:0:INFRA[0+1d3]
+# ? make 'light' and holy spells (paladins..) more dealy
+value:0:INFRA[1+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
 obj-flag:10:HOLD_LIFE
-obj-flag:15:ESP_ORC
-obj-flag:20:ESP_TROLL
-obj-flag:25:ESP_GIANT
-obj-flag:30:ESP_DRAGON
-obj-flag:35:ESP_DEMON
-obj-flag:40:ESP_UNDEAD
-obj-flag:45:ESP_EVIL
-obj-flag:50:ESP_RADIUS
 value:0:RES_LIGHT[-1]
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
 value:45:RES_NETHER[1]
 value:50:RES_TIME[1]
+# especially good vamp
 brand:1:50:VAMPIRIC
 value:0:DAM_RED[-1+-1d15]
 value:0:TUNNEL[-1+-1d30]
-#temp
-value:0:SPEED[1+-2d48]
-value:0:MOVES[-1]
-value:0:STEALTH[2]
 player-flags:0:SHAPECHANGE
 # in mist: can pass doors, rubbles, trees
 shape:5:vampiric mist_
@@ -1204,10 +1194,8 @@ shape:10:fruit bat_
 shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
-value:0:MANA[4+-1d6M25]
 # ? revamp when will implement hurt from daylight
 # ? nourish from vampirism + !blood
-# ? obj-flag:10:ESP_ANIMAL
 # ? add race 'human' for p.. flag WARM-BLOODED humanoid +soul -animal
 
 ############################## GODLIKE
@@ -2291,8 +2279,16 @@ value:0:INFRA[1+1d5]
 value:0:TUNNEL[-5+-1d15]
 player-flags:0:SHIELD_BASH
 obj-flag:1:FEATHER
-obj-flag:1:ESP_RADIUS
-obj-flag:50:ESP_ALL
+obj-flag:1:ESP_ANIMAL
+obj-flag:5:ESP_ORC
+obj-flag:10:ESP_TROLL
+obj-flag:15:ESP_GIANT
+obj-flag:20:ESP_DRAGON
+obj-flag:25:ESP_EVIL
+obj-flag:30:ESP_DEMON
+obj-flag:35:ESP_UNDEAD
+obj-flag:40:ESP_RADIUS
+obj-flag:45:ESP_ALL
 obj-flag:1:PROT_AMNESIA
 value:0:SPEED[1]
 value:0:DAM_RED[0+-1d4]

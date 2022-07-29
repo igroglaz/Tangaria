@@ -824,6 +824,13 @@ void do_cmd_breath(struct player *p, int dir)
         player_dec_timed(p, TMD_FOOD, 25, false);
         return;
     }
+    else if (streq(p->race->name, "Vampire"))
+    {
+        use_energy(p);
+        player_inc_timed(p, TMD_FLIGHT, 3 + p->lev / 5, false, false);
+        player_dec_timed(p, TMD_FOOD, 5, false);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
