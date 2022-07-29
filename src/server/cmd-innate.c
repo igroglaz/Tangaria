@@ -256,9 +256,10 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
 
             player_dec_timed(p, TMD_FOOD, 25, false);
-            p->chp -= p->chp / 20; // take a slight hit
             player_inc_timed(p, TMD_IMAGE, 1 + randint0(1), false, false);
-                
+            p->chp -= p->chp / 20; // take a slight hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
         }
         else
             msgt(p, MSG_SPELL_FAIL, "You should have full health to fire a ray.");
@@ -293,8 +294,10 @@ void do_cmd_breath(struct player *p, int dir)
             }
 
             player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(2), true, false);
-            p->chp -= p->chp / 3; // take a hit
             player_dec_timed(p, TMD_FOOD, (150 - p->lev), false);
+            p->chp -= p->chp / 3; // take a hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
         }
         else
             msgt(p, MSG_SPELL_FAIL, "You need to have full health to use this ability!");
@@ -329,9 +332,11 @@ void do_cmd_breath(struct player *p, int dir)
 
             player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
 
-            p->chp -= p->chp / 3; // take a hit
             player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
             player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+            p->chp -= p->chp / 4; // take a hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
         }
         else
             msgt(p, MSG_SPELL_FAIL, "You should have full health to become invisible.");
@@ -349,8 +354,13 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
 
             effect = mem_zalloc(sizeof(struct effect));
-            effect->index = EF_SHORT_BEAM;
-            effect->radius = 1 + randint0(p->lev / 5);
+
+            if (one_in_(2))
+                effect->index = EF_SHORT_BEAM;
+            else
+                effect->index = EF_BOLT_RADIUS;
+            effect->radius = 1 + p->lev / 5 + randint0(1);
+
             // init dice
             effect->dice = dice_new();
             // convert int to char
@@ -366,6 +376,8 @@ void do_cmd_breath(struct player *p, int dir)
 
             player_dec_timed(p, TMD_FOOD, 25, false);
             p->chp -= p->chp / 5; // take a hit
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
         }
         else
             msgt(p, MSG_SPELL_FAIL, "You should have full health to breath fire.");
@@ -439,6 +451,7 @@ void do_cmd_breath(struct player *p, int dir)
             p->chp = p->mhp;
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
         return;
     }
     else if (streq(p->race->name, "Forest Goblin"))
@@ -461,8 +474,10 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_OFFENSIVE_STANCE, 5 + p->lev / 5, false, false);
-        p->chp -= p->chp / 10; // take a hit
         player_dec_timed(p, TMD_FOOD, 15, false);
+        p->chp -= p->chp / 10; // take a hit
+        p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
         return;
     }
     else if (streq(p->race->name, "Titan"))
@@ -490,7 +505,7 @@ void do_cmd_breath(struct player *p, int dir)
     else if (streq(p->race->name, "Troglodyte"))
     {
             char dice_string[5];
-            int dice_calc = 14;
+            int dice_calc = 14; // 14%
             use_energy(p);
             effect = mem_zalloc(sizeof(struct effect));
             effect->index = EF_NOURISH;
@@ -588,7 +603,7 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
             
             p->chp -= p->chp / 3; // take a hit
-            player_dec_timed(p, TMD_FOOD, 150 - p->lev, false);
+            player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -623,7 +638,7 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
 
             effect = mem_zalloc(sizeof(struct effect));
-            effect->index = EF_SHORT_BEAM;
+            effect->index = EF_BOLT_RADIUS;
             effect->radius = 3 + p->lev / 15; // up to 6
 
             // magic users more distance
@@ -763,8 +778,11 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
 
         effect = mem_zalloc(sizeof(struct effect));
-        effect->index = EF_SHORT_BEAM;
-        effect->radius = 3 + p->lev / 25;
+        if (one_in_(5 - p->lev / 15))
+            effect->index = EF_SHORT_BEAM;
+        else
+            effect->index = EF_BOLT_RADIUS;
+        effect->radius = 5 + p->lev / 15;
         effect->subtype = PROJ_FIRE;
 
         // magic users more distance
@@ -783,7 +801,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        player_dec_timed(p, TMD_FOOD, 25, false);
+        player_dec_timed(p, TMD_FOOD, 15, false);
 
         return;
     }
@@ -795,7 +813,10 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
 
         effect = mem_zalloc(sizeof(struct effect));
-        effect->index = EF_BOLT_RADIUS;
+        if (one_in_(3 - p->lev / 30))
+            effect->index = EF_SHORT_BEAM;
+        else
+            effect->index = EF_BOLT_RADIUS;
         effect->subtype = PROJ_ELEC;
         effect->radius = 3 + p->lev / 10;
 
@@ -820,8 +841,10 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        p->chp -= p->chp / 15;
         player_dec_timed(p, TMD_FOOD, 25, false);
+        p->chp -= p->chp / 15;
+        p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
         return;
     }
     else if (streq(p->race->name, "Vampire"))

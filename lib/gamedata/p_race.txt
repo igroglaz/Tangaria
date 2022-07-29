@@ -1128,6 +1128,7 @@ value:0:DEX[-1]
 value:0:CON[-1+-1d12]
 value:0:CHR[-9]
 value:0:INFRA[0+1d5]
+# 'y' detect living creatures
 # eating living humanoids nourish and heal
 obj-flag:1:HOLD_LIFE
 obj-flag:1:IMPAIR_HP
@@ -1229,7 +1230,7 @@ value:0:WIS[1+1d25]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
-# 'y' blinding light
+# 'y' lightning
 # - speed boni reduced by 2x
 value:30:INFRA[5]
 obj-flag:30:SLOW_DIGEST
@@ -1268,7 +1269,7 @@ value:0:WIS[-4+1d7]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[0+-1d10]
-# summon minor demons
+# 'y' summon minor demons
 value:0:INFRA[0+1d5]
 obj-flag:1:HOLD_LIFE
 obj-flag:1:SLOW_DIGEST
@@ -1568,7 +1569,7 @@ value:0:WIS[-4+1d8]
 value:0:DEX[-5+1d9]
 value:0:CON[-3+1d14]
 value:0:CHR[-3]
-# 'y' breath fire ray
+# 'y' breath fire ray/bolt
 #############
 ############# removed forms and added 'y' breath
 ############# forms might be useful for a pet later on........
@@ -1711,6 +1712,7 @@ value:0:WIS[-4+1d12]
 value:0:DEX[-5+1d9]
 value:0:CON[-5+1d9]
 value:0:CHR[-7+1d24]
+# 'y' ray of element
 ###########
 brand:20:29:ELEC_2
 brand:30:39:COLD_2
