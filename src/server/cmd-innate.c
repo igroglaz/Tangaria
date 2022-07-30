@@ -854,6 +854,53 @@ void do_cmd_breath(struct player *p, int dir)
         player_dec_timed(p, TMD_FOOD, 5, false);
         return;
     }
+    else if (streq(p->race->name, "Werewolf"))
+    {
+            use_energy(p);
+            do_cmd_poly(p, NULL, false, true);
+            return;
+    }
+    else if (streq(p->race->name, "Dark Elf"))
+    {
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_ATT_POIS, 5 + p->lev / 5, false, false);
+            player_dec_timed(p, TMD_FOOD, 5, false);
+            player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+            p->chp -= p->chp / 10;
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to work with poison.");
+
+        return;
+    }
+    else if (streq(p->race->name, "Orc"))
+    {
+        // call warg
+        if (p->chp == p->mhp)
+        {
+            struct chunk *c = chunk_get(&p->wpos);
+            use_energy(p);
+
+            // howl
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+            // summon
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+
+            player_dec_timed(p, TMD_FOOD, 100, false);
+            p->chp -= p->chp / 3;
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to summon your warg.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
