@@ -805,6 +805,7 @@ value:0:WIS[-1]
 value:0:DEX[0]
 value:25:CON[1]
 value:0:CHR[-2]
+# 'y' detect doors
 value:0:INFRA[3]
 value:35:RES_DISEN[1]
 player-flags:15:SEE_ORE
