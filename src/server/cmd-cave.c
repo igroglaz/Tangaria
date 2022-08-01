@@ -87,12 +87,6 @@ void do_cmd_go_up(struct player *p)
     /* Take a turn */
     use_energy(p);
 
-    // Stop weather
-    Send_weather(p, 256, 0, 0);
-
-    // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
-    sound(p, MSG_SILENT);
-
     /* Success */
     if (square_isupstairs(c, &p->grid))
     {
@@ -206,12 +200,6 @@ void do_cmd_go_down(struct player *p)
 
     /* Take a turn */
     use_energy(p);
-
-    // Stop weather
-    Send_weather(p, 256, 0, 0);
-
-    // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
-    sound(p, MSG_SILENT);
 
     /* Success */
     if (square_isdownstairs(c, &p->grid))
