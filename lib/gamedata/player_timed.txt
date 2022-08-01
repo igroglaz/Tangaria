@@ -336,7 +336,7 @@ near-end: appears less receptive.
 flag-synonym:ESP_ALL:1
 
 name:STONESKIN
-desc:stoneskin (a bonus of {+40} to AC, and a penalty of {-5} to speed)
+desc:stoneskin (a bonus of {+40} to AC, and a penalty of {-5} to movement speed)
 grade:G:10000:Stone:Your skin turns to stone!
 on-end:A fleshy shade returns to your skin.
 near-begin:'s skin turns to stone.

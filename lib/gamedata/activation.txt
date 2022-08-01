@@ -1216,7 +1216,7 @@ power:5
 effect:TIMED_SET:STONESKIN
 dice:60+1d40
 desc:turns your skin to stone (a bonus of {+40} to AC, and a penalty of {-5} to
-desc: speed) for {60+1d40} turns
+desc: movement speed) for {60+1d40} turns
 
 name:SHROOM_TERROR
 aim:0

@@ -2672,7 +2672,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->timed[TMD_STONESKIN])
     {
         state->to_a += 40;
-        state->speed -= 5;
+        extra_moves -= 5;
     }
     if (p->timed[TMD_HERO])
     {
