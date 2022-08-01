@@ -953,6 +953,16 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
+    else if (streq(p->race->name, "Barbarian"))
+    {
+            use_energy(p);
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+            player_inc_timed(p, TMD_HERO, 5 + p->lev / 5, false, false);
+            player_inc_timed(p, TMD_TAUNT, 5 + p->lev / 5, false, false);
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
