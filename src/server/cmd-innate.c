@@ -909,6 +909,17 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
+    else if (streq(p->race->name, "Ogre"))
+    {
+        use_energy(p);
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        if (p->msp > 0 && p->csp < p->msp)
+            p->csp++;
+        else if (p->chp < p->mhp)
+            p->chp++;
+        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
