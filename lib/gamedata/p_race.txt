@@ -740,6 +740,7 @@ value:0:WIS[0+1d24]
 value:0:DEX[-1+1d24]
 value:0:CON[-3+1d24]
 value:0:CHR[-1]
+# 'y' cure poison
 # + water restore hp and satiation (in addition to food)
 # + value:0:RES_WATER[1]
 # + value:50:RES_WATER[3] hardcoded

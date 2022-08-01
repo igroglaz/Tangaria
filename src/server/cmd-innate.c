@@ -963,6 +963,14 @@ void do_cmd_breath(struct player *p, int dir)
             player_dec_timed(p, TMD_FOOD, 25, false);
             return;
     }
+    else if (streq(p->race->name, "Merfolk"))
+    {
+        use_energy(p);
+        player_clear_timed(p, TMD_POISONED, false);
+        player_dec_timed(p, TMD_FOOD, 10, false);
+        player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
