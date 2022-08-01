@@ -868,6 +868,7 @@ value:0:WIS[-2]
 value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-4]
+# 'y' SAFE (+ m.resistance)
 gift:food:Hard Biscuit:1:1
 # + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
