@@ -544,13 +544,9 @@ void do_cmd_breath(struct player *p, int dir)
     else if (streq(p->race->name, "Harpy"))
     {
         use_energy(p);
-        player_clear_timed(p, TMD_CONFUSED, false);
-        player_clear_timed(p, TMD_AMNESIA, false);
-        player_clear_timed(p, TMD_IMAGE, false);
-        if (p->lev >= 30)
-            player_clear_timed(p, TMD_SLOW, false);
-        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 3, false);
-        p->upkeep->redraw |= (PR_STATE | PR_SPEED);
+        player_clear_timed(p, TMD_SLOW, false);
+        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
+        p->upkeep->redraw |= (PR_STATE);
         return;
     }
     else if (streq(p->race->name, "Centaur"))
@@ -1080,6 +1076,14 @@ void do_cmd_breath(struct player *p, int dir)
         effect_simple(EF_DETECT_TREASURE, who, 0, 0, 0, 0, 2 + p->lev / 5, 2 + p->lev / 5, NULL);
         player_dec_timed(p, TMD_FOOD, 5, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
+        return;
+    }
+    else if (streq(p->race->name, "Gnome"))
+    {
+        use_energy(p);
+        player_clear_timed(p, TMD_IMAGE, false);
+        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
+        p->upkeep->redraw |= (PR_STATE);
         return;
     }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&

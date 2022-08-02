@@ -273,6 +273,7 @@ value:0:INT[2]
 value:0:DEX[2]
 value:0:CON[1]
 value:0:CHR[-1]
+# 'y' clear hallucinations
 value:0:INFRA[4]
 obj-flag:1:FREE_ACT
 value:0:TUNNEL[1+1d30]
@@ -1947,7 +1948,7 @@ value:0:WIS[-3+1d30]
 value:0:DEX[2+1d24]
 value:0:CON[-1+1d40]
 value:0:CHR[-2]
-# 'y' can remove image, conf, amnesia. at 30+ slow
+# 'y' clear slow
 obj-flag:1:FEATHER
 value:0:TUNNEL[-1]
 player-flags:0:KNOW_MUSHROOM
