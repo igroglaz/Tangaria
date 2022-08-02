@@ -708,6 +708,7 @@ value:0:WIS[0+1d27]
 value:0:DEX[0+1d24]
 value:0:CON[0]
 value:0:CHR[1+1d27]
+# 'y' prevent summon for a moment
 # - hunted by gods (summon)...
 value:0:RES_TIME[1]
 obj-flag:0:PROT_FEAR

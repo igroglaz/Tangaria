@@ -529,7 +529,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // it becomes more stable
     if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
     {
-        int tele_chance = 100 + (p->lev * 2);
+        int tele_chance = 200 + (p->lev * 2);
         if (one_in_(tele_chance))
         {
             char dice[5];
@@ -563,7 +563,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // Werewolves howl from time to time at night waking everyone :D
     else if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
-        int howl_chance = 100 + (p->lev * 2);
+        int howl_chance = 200 + (p->lev * 2);
         if (one_in_(howl_chance))
         {
             struct source who_body;
@@ -576,11 +576,11 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
     // Beholders may hallucinate from time to time
-    else if (streq(p->race->name, "Beholder") && one_in_(150 + (p->lev * 15)))
+    else if (streq(p->race->name, "Beholder") && one_in_(200 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
     /* Damned constantly hunted by monsters */
     else if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
-        one_in_(50 + (p->lev * 9)))
+        one_in_(200 + (p->lev * 10)))
     {
         struct source who_body;
         struct source *who = &who_body;

@@ -971,6 +971,38 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
+    else if (streq(p->race->name, "Damned"))
+    {
+        int i, count = 0;
+
+        // Count players on the level
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *player = player_get(i);
+
+            /* Skip this player */
+            if (player == p) continue;
+
+            /* Count */
+            if (wpos_eq(&player->wpos, &p->wpos)) count++;
+        }
+
+        // if there additional players at the level
+        if (count > 0)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You can interfere summon only if you are alone on level.");
+            return;
+        }
+
+        use_energy(p);
+        player_inc_timed(p, TMD_ANTISUMMON, 2, false, false);
+        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+        player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
+        p->chp -= p->chp / 10;
+        p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
