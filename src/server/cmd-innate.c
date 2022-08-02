@@ -1012,6 +1012,24 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
+    else if (streq(p->race->name, "Thunderlord"))
+    {
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            // shouldn't remove temp res from other source, so inc
+            player_inc_timed(p, TMD_OPP_ELEC, 2 + p->lev / 2, false, false);
+            // shouldn't cheeze to charge up several times
+            player_set_timed(p, TMD_ATT_ELEC, 2 + p->lev / 2, false);
+            p->chp -= p->chp / 4;
+            player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
+            player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to charge lightning.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
