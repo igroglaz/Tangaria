@@ -938,10 +938,18 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Goblin"))
     {
-        use_energy(p);
-        player_clear_timed(p, TMD_BLACKBREATH, false);
-        player_dec_timed(p, TMD_FOOD, 25, false);
-        player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_BLOODLUST, 2, true, false);
+            player_dec_timed(p, TMD_FOOD, 150 - p->lev, false);
+            p->chp -= p->chp / 2;
+            p->upkeep->redraw |= (PR_HP);
+            p->upkeep->redraw |= (PR_MAP);
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should have full health to become bloodthirsty.");
+
         return;
     }
     else if (streq(p->race->name, "Black Dwarf"))
@@ -1044,6 +1052,16 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OPP_POIS, 2 + p->lev / 5, false, false);
         player_dec_timed(p, TMD_FOOD, 5 + p->lev / 5, false);
         p->chp -= p->chp / 5;
+        return;
+    }
+    else if (streq(p->race->name, "Dunadan"))
+    {
+        use_energy(p);
+        player_clear_timed(p, TMD_BLACKBREATH, false);
+        if (p->chp < p->mhp)
+            p->chp++;
+        player_dec_timed(p, TMD_FOOD, 5, false);
+        player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
