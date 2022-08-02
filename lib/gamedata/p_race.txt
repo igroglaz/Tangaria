@@ -245,6 +245,7 @@ value:0:WIS[0+1d30]
 value:0:DEX[3]
 value:0:CON[0+1d10M20]
 value:0:CHR[1]
+# 'y' trapsafe for 1 turn
 value:0:INFRA[1]
 # 5% dodge melee attacks
 obj-flag:1:HOLD_LIFE

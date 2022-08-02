@@ -1086,6 +1086,20 @@ void do_cmd_breath(struct player *p, int dir)
         p->upkeep->redraw |= (PR_STATE);
         return;
     }
+    else if (streq(p->race->name, "Halfling"))
+    {
+        if (p->chp == p->mhp)
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_TRAPSAFE, 2, false, false);
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            return;
+        }
+        else
+            msgt(p, MSG_SPELL_FAIL, "You should be in healthy state to avoid traps.");
+
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
