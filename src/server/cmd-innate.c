@@ -1003,6 +1003,15 @@ void do_cmd_breath(struct player *p, int dir)
         p->upkeep->redraw |= (PR_MAP);
         return;
     }
+    else if (streq(p->race->name, "Black Numenorean"))
+    {
+        use_energy(p);
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_DETECT_EVIL, who, 0, 0, 0, 0, 10 + p->lev / 2, 10 + p->lev / 2, NULL);
+        player_dec_timed(p, TMD_FOOD, 5 + p->lev / 4, false);
+        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
