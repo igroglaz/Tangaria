@@ -448,6 +448,7 @@ value:0:WIS[-5]
 value:0:DEX[-5]
 value:0:CON[-5]
 value:0:CHR[-5]
+# 'y' become bold :) like real brave yeek!
 obj-flag:1:FEATHER
 # + no agro! you simply can't be angry on cute yeek..
 player-flags:0:SHAPECHANGE
@@ -481,10 +482,10 @@ value:0:WIS[0+1d24]
 value:0:DEX[-4]
 value:0:CON[2+1d8]
 value:0:CHR[-3]
+# 'y' grow trees (5 lvl)
 # + don't eat normal food, but drink from fountains
 # + immune to polymorph
 # + stay at one place very silent
-# + 5 lvl: 'y' grow trees
 # + can move through trees somewhat
 # - after 30 lvl got malus to MOVES up to -10 (&& -2 there)
 value:0:INFRA[1+1d12]
@@ -505,7 +506,7 @@ value:0:STEALTH[-1+-1d5M25]
 # perma vulnerability; fire imm makes it less harsh
 value:0:RES_FIRE[-1]
 # /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
-value:0:MOVES[-2]
+value:0:MOVES[-2+1d25]
 value:0:SPEED[0+-1d25]
 # barky
 value:0:DAM_RED[1+1d5]
