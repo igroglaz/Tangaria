@@ -214,6 +214,7 @@ value:0:WIS[-1]
 value:0:DEX[1]
 value:0:CON[-1]
 value:0:CHR[2]
+# 'y' bless
 obj-flag:1:SUST_DEX
 value:0:INFRA[3]
 value:0:RES_LIGHT[1]
