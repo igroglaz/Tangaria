@@ -860,8 +860,8 @@ void update_smart_learn(struct monster *mon, struct player *p, int flag, int pfl
     /* Not intelligent, only learn sometimes */
     if (!monster_is_smart(mon) && one_in_(2)) return;
 
-    /* Analyze the knowledge; fail very rarely */
-    if (one_in_(100)) return;
+    // T: make AI_LEARN not so OP at endgame
+    if (one_in_(52 - p->lev)) return;
 
     /* Learn the flag */
     if (flag)
