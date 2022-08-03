@@ -183,6 +183,7 @@ value:0:WIS[-1]
 value:0:DEX[1]
 value:0:CON[-1+1d24]
 value:0:CHR[1]
+# 'y' hero
 obj-flag:1:SUST_DEX
 value:0:INFRA[2]
 value:15:TUNNEL[1]
