@@ -155,6 +155,7 @@ value:50:WIS[1]
 value:50:DEX[1]
 value:50:CON[1]
 value:50:CHR[1]
+# 'y' restore CON
 # ? inv slot
 
 # mediocre bonus.. versatile
