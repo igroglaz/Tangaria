@@ -127,7 +127,7 @@ value:0:CON[3]
 value:0:CHR[-4]
 obj-flag:1:SUST_STR
 obj-flag:1:REGEN
-player-flags:40:RACE_REGEN
+player-flags:50:RACE_REGEN
 value:0:INFRA[3]
 player-flags:0:TROLL
 

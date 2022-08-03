@@ -1123,6 +1123,12 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
+    else if (streq(p->race->name, "Half-Troll"))
+    {
+        use_energy(p);
+        sound(p, MSG_NPC_BELCH);
+        return;
+    }
     else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
              p->lev > 5)
     {
