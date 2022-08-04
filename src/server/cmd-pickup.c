@@ -411,7 +411,13 @@ static int see_floor_items(struct player *p, struct chunk *c, int pickup,
 
     /* Message */
     if (floor_num == 1)
-        msg(p, "You %s %s.", prompt, o_name);
+    {
+        // druid's rat form sense curses
+        if (floor_list[0]->curses && (p->poly_race && streq(p->poly_race->name, "rat-form")))
+            msgt(p, MSG_NOTICE, "You sniff the %s suspiciously...", o_name);
+        else
+            msg(p, "You %s %s.", prompt, o_name);
+    }
     else
         msg(p, "You %s %s (on a pile).", prompt, o_name);
 
