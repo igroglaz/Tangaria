@@ -919,11 +919,29 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
     source_player(who, get_player_index(get_connection(context->origin->player->conn)),
         context->origin->player);
 
-    // hc distance
-    if (context->origin->player && streq(context->origin->player->clazz->name, "Hermit"))
+    if (context->origin->player)
     {
-        rad += context->origin->player->lev / 2;
-        if (rad > 20) rad = 20;
+        if (streq(context->origin->player->clazz->name, "Hermit"))
+        {
+            // hc distance Light Ray I/II
+            rad += context->origin->player->lev / 2;
+            if (rad > 20) rad = 20;
+        }
+        else if (streq(context->origin->player->clazz->name, "Cryokinetic"))
+        {
+            // Pyro/cryokinesis (mana 10)
+            if (context->origin->player->spell_cost == 10)
+            {
+                // distance
+                rad += context->origin->player->lev / 2;
+                if (rad > 20) rad = 20;
+                // dmg
+                dam *= context->origin->player->lev / 5;
+                // additional mana
+                if (context->origin->player->csp > context->origin->player->lev / 5)
+                        context->origin->player->csp -= context->origin->player->lev / 5;
+            }
+        }
     }
 
     // Aim at the target

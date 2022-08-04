@@ -7453,32 +7453,34 @@ effect:TIMED_INC_NO_RES:PARALYZED
 dice:5d1
 effect:TIMED_INC:INVULN
 dice:5
+effect:TIMED_INC:ICY_AURA
+dice:5
 effect:CURE:STUN
 effect:CURE:CUT
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: become frozen.
-desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
-desc: of cuts and stunning.
+desc:Freezes you into a globe of ice.
+desc: Cures a level-dependent percentage of your wounds and heals cuts and stunning.
 desc: Also grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
 desc: Cooldown 150 turns.
 
 spell:Pyrokinesis:20:10:32:20:0
-effect:STRIKE:FIRE:0
+# hc
+effect:BOLT_RADIUS:FIRE:10
 dice:$B
-expr:B:PLAYER_LEVEL:* 9
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: strikes with heat.
 desc:Strikes a target with immense heat.
-desc: Target grid must be targetable and known to the player;
-desc: no target grid will mean the player grid is hit.
 
 spell:Cryokinetic Ray:25:10:32:30:0
-effect:BOLT:COLD
+# hc
+effect:BOLT_RADIUS:COLD:10
 dice:$B
-expr:B:PLAYER_LEVEL:* 9
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a ray of frost.
 desc:Fires a ray of frost that always hits its target and knocks it away.
 desc: This ray does not penetrate target.
@@ -7512,7 +7514,7 @@ desc: no target grid will mean the player grid is hit.
 
 spell:Blizzard:45:40:35:100:0
 cooldown:2
-effect:BLAST:ICE:4
+effect:BLAST:ICE:5
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
 msg_other: subzeroes surrounding air into a sharp icicles.
@@ -7520,13 +7522,13 @@ desc:Starts icy blizzard around you.
 desc: Cooldown 2 turns.
 
 spell:Firestorm:50:50:39:150:0
-cooldown:3
+cooldown:2
 effect:ARC:FIRE:0:30
 dice:$B
 expr:B:PLAYER_LEVEL:* 7
 msg_other: invokes a hellish storm.
 desc:Spews fire in a long narrow cone from you.
-desc: Cooldown 3 turns.
+desc: Cooldown 2 turns.
 
 ############### CLASS TEMPLATE for Chronowarrior / Mesmer / Predictor
 name:Timeturner
