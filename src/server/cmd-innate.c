@@ -143,8 +143,81 @@ void do_cmd_breath(struct player *p, int dir)
         msg(p, "You need a tangible body to breathe!");
         return;
     }
-    
-    // Special races' effects (Spider weaves web, Ent grow trees etc)
+
+    // Classes 'y' 1st - so races won't block them
+    if (streq(p->clazz->name, "Druid") && p->poly_race)
+    {
+        // bird can heal
+        if (streq(p->poly_race->name, "bird-form"))
+        {
+            // if can spend mana - heal
+            if (p->csp > 1 + p->msp / 5)
+            {
+                use_energy(p);
+                p->csp -= 1 + p->msp / 5;
+                hp_player_safe(p, 1 + (p->lev));
+            }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need more mana to heal!");
+
+            return;
+        }
+        // boar - can charge (teleport) to closest monster; up to 3 distance
+        else if (streq(p->poly_race->name, "boar-form"))
+        {
+            // dice for distance
+            char dice_string[1];
+            // convert int to char with '0' ..
+            // it will work as our distance is only one digit..
+            // but to be able to convert 2+ digits - use snprintf() (see above, beholder)
+            dice_string[0] = (p->lev / 30 + 3) + '0';
+
+            if (p->csp > 2 + p->lev / 3)
+            {
+                use_energy(p);
+                p->csp -= 2 + p->lev / 3;
+
+                effect = mem_zalloc(sizeof(struct effect));
+                effect->index = EF_TELEPORT_TO;
+                // init dice
+                effect->dice = dice_new();
+                // fill dice struct
+                dice_parse_string(effect->dice, dice_string);
+
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+                free_effect(effect);
+            }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need more mana to charge!");
+
+            return;
+        }
+        // wolf - can summon wolf by loud howl
+        else if (streq(p->poly_race->name, "wolf-form"))
+        {
+            struct chunk *c = chunk_get(&p->wpos);
+
+            // cost full mana
+            if (p->csp == p->msp)
+            {
+                use_energy(p);
+                p->csp = 0;
+
+                // howl
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+                // summon
+                summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1 + p->lev / 30, true);
+                msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
+            }
+            else
+                msgt(p, MSG_SPELL_FAIL, "You need full mana to summon wolves!");
+            return;
+        }
+    }
+    // Now special races' effects
     if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
     {
         // one tile web
@@ -1148,78 +1221,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->clazz->name, "Druid") && p->poly_race)
-    {
-        // bird can heal
-        if (streq(p->poly_race->name, "bird-form"))
-        {
-            // if can spend mana - heal
-            if (p->csp > 1 + p->msp / 5)
-            {
-                use_energy(p);
-                p->csp -= 1 + p->msp / 5;
-                hp_player_safe(p, 1 + (p->lev));
-            }
-            else
-                msgt(p, MSG_SPELL_FAIL, "You need more mana to heal!");
 
-            return;
-        }
-        // boar - can charge (teleport) to closest monster; up to 3 distance
-        else if (streq(p->poly_race->name, "boar-form"))
-        {
-            // dice for distance
-            char dice_string[1];
-            // convert int to char with '0' ..
-            // it will work as our distance is only one digit..
-            // but to be able to convert 2+ digits - use snprintf() (see above, beholder)
-            dice_string[0] = (p->lev / 30 + 3) + '0';
-
-            if (p->csp > 2 + p->lev / 3)
-            {
-                use_energy(p);
-                p->csp -= 2 + p->lev / 3;
-
-                effect = mem_zalloc(sizeof(struct effect));
-                effect->index = EF_TELEPORT_TO;
-                // init dice
-                effect->dice = dice_new();
-                // fill dice struct
-                dice_parse_string(effect->dice, dice_string);
-
-                source_player(who, get_player_index(get_connection(p->conn)), p);
-                effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
-
-                free_effect(effect);
-            }
-            else
-                msgt(p, MSG_SPELL_FAIL, "You need more mana to charge!");
-
-            return;
-        }
-        // wolf - can summon wolf by loud howl
-        else if (streq(p->poly_race->name, "wolf-form"))
-        {
-            struct chunk *c = chunk_get(&p->wpos);
-
-            // cost full mana
-            if (p->csp == p->msp)
-            {
-                use_energy(p);
-                p->csp = 0;
-
-                // howl
-                source_player(who, get_player_index(get_connection(p->conn)), p);
-                effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
-                // summon
-                summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1 + p->lev / 30, true);
-                msgt(p, MSG_HOWL, "You howl to summon your wolf-friends!");
-            }
-            else
-                msgt(p, MSG_SPELL_FAIL, "You need full mana to summon wolves!");
-            return;
-        }
-    }
 
     /* Handle polymorphed players */
     rsf_wipe(mon_breath);
