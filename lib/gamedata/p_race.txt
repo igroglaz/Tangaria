@@ -188,8 +188,8 @@ value:0:CHR[1]
 obj-flag:1:SUST_DEX
 value:0:INFRA[2]
 value:15:TUNNEL[1]
-value:25:DAM_RED[1]
-value:45:SPEED[1]
+value:50:DAM_RED[1]
+value:50:SPEED[1]
 
 #Sindar, Grey Elves.. Elves of the Twilight
 name:Elf
@@ -2217,7 +2217,7 @@ value:0:SPEED[1+1d15]
 value:0:RES_COLD[-1]
 obj-flag:0:IMPAIR_MANA
 # randomly teleports around from time to time
-player-flags:0:STEALTH_MODE
+player-flags:50:STEALTH_MODE
 value:0:MANA[8+-1d6]
 
 name:Wraith

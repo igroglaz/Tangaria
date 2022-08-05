@@ -24,6 +24,8 @@ help: searching for every hidden treasure. Humans do not have any infravision.
 help: There are a lot of different kinds of humans live in Tangaria, but most
 help: of them are just common folk, which being mediocre became powerful in
 help: a certain way, as they don't have drawbacks.
+help: At level 50 they got ascension bonus which affect all their stats.
+help: They can restore constitution ('y') by spending some energy.
 
 race:Half-Elf
 help:Half-elves tend to be smarter and faster than a human, but not as wise or
@@ -31,6 +33,8 @@ help: strong. Half-elves are slightly better at magic, disarming, saving
 help: throws, stealth, archery and searching, but they are not as good at
 help: hand-to-hand combat. Half-elves are immune to dexterity draining, and
 help: have weak infravision.
+help: At level 50 they become faster.
+help: They can become heroic ('y') by spending some energy.
 
 race:Elf
 help:Elves are better magicians than humans, but not as good at fighting. They
@@ -39,6 +43,8 @@ help: Elves are better at searching, disarming, perception, stealth, archery
 help: and magic, but they are not as good at hand-to-hand combat. They are
 help: resistant to attacks involving bright light, are immune to dexterity
 help: draining, and have fair infravision.
+help: At level 40 they become faster.
+help: They can receive blessing ('y') by spending some energy.
 
 race:Halfling
 help:Halflings are very good at shooting, throwing, and have good
@@ -49,6 +55,8 @@ help: melee fighting. Halflings have fair infravision. They have a strong hold
 help: on their life force, and are thus resistant to life draining. Halflings are
 help: very partial to mushrooms and can identify them when found.
 help: They can dodge melee attacks occasionally.
+help: At level 50 they begin to need much less food.
+help: They can avoid traps ('y') by spending some energy.
 
 race:Gnome
 help:Gnomes are smaller than dwarves but larger than halflings. They, like the
@@ -59,6 +67,7 @@ help: so they are not very good at fighting with hand weapons. Gnomes have good
 help: infravision. Gnomes are intrinsically protected against paralysis and
 help: some slowing effects. Gnomes are excellent at using wands and staves
 help: and can identify them when found.
+help: They can clear hallucinations ('y') by spending some energy.
 
 race:Dwarf
 help:Dwarves are the headstrong miners and fighters of legend. Since dungeons
@@ -72,6 +81,8 @@ help: sense nearby buried treasure. They have one big drawback, though. Dwarves
 help: are loudmouthed and proud, singing in loud voices, arguing with
 help: themselves for no good reason, screaming out challenges at imagined foes.
 help: In other words, dwarves have a miserable stealth.
+help: They can detect treasures ('y') by spending some energy.
+help: Radius of treasure detection grows with levels.
 
 race:Half-Orc
 help:Half-Orcs make excellent warriors and decent priests, but are terrible at
@@ -82,6 +93,7 @@ help: rogues, for the simple reason that Half-Orcs tend to have great
 help: constitution and lots of hit points. Because of their preference to
 help: living underground to on the surface, half-orcs resist darkness attacks.
 help: They have fair infravision.
+help: They can restore strength ('y') by spending some energy.
 
 race:Dunadan
 help:Dunedains are hardy men from the West. This elder race surpasses
@@ -89,6 +101,7 @@ help: human abilities in every field, especially constitution. However, being
 help: men of the world, very little is new to them, and levels are very hard to
 help: gain... their hardiness ensures that their constitution cannot be
 help: reduced. They have no infravision.
+help: They can cure blackbreath ('y') by spending some energy.
 
 race:High-Elf
 help:High-Elves are descended from those among the Elves who heard and
@@ -109,12 +122,14 @@ help: However, they are weaker than humans, and also not noted for great
 help: intelligence. Furthermore, they are ugly, and not trusted in town. And
 help: while their constitution makes them tough, it still cannot prevent the
 help: fact that they are not the biggest of creatures, and have few hit points.
+help: They can get additional poison resist ('y') by spending some energy.
 
 race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
 help: stats and bad health. Yeeks are average at everything, but they have an
 help: important advantage - they are so pitiful that they do not aggravate others.
+help: They can become bold ('y') by spending some energy.
 
 race:Ent
 help:The Ents are a powerful race dating from the beginning of the world, eldest
@@ -144,6 +159,7 @@ help: They need to eat often to feed themselves and their eagle. |
 help: Thunderlords easily discovered by enemies as they sing their battle songs
 help: loudly and their eagle piercingly screams seeking for pray...
 help: They can breath fire in a narrow line which become more deadly with the age.
+help: They can electrify ('y') by spending some energy.
 
 race:Dragon
 help:ATTENTION! If you decided to take dragon race:
@@ -160,7 +176,7 @@ help: dragon. At level 45, they polymorph into a mighty wyrm. Finally, at level 
 help: they become an ancient wyrm. Dragons cannot wield any weapons; they get
 help: special melee attacks instead (biting and clawing) that increase in power as
 help: they gain levels. Starting at level 5, Dragons are able to breathe their
-help: corresponding element, but using this ability costs them hit points and
+help: corresponding element ('y'), but using this ability costs them hit points and
 help: satiation. At that level, they also gain the innate resistances and
 help: abilities of their type.
 
@@ -174,10 +190,10 @@ help: start as regular hydras. At level 10, they gain an extra head and polymorp
 help: into a 2-headed hydra. At levels 15, 20, 24, 28, 32, 36, 40, 42, 44, 46, 48
 help: and 50, they also gain an extra head to evolve finally into a 14-headed hydra.
 help: Hydras cannot wield any weapons, but get extra dice on their barehanded
-help: attacks as they gain levels. They can breathe several elements (poison, fire,
-help: acid) as they gain the corresponding head, and get the innate resistances and
-help: abilities of their type. Hydras vulnerable to cold and permanently aggravate
-help: at medium distance.
+help: attacks as they gain levels. They can breathe ('y') several elements (poison,
+help: fire, acid) as they gain the corresponding head, and get the innate resistances
+help: and abilities of their type. Hydras vulnerable to cold and permanently
+help: aggravate at medium distance.
 
 # this line measures max length of description...
 ####################################################################################
@@ -190,6 +206,9 @@ help: handouts of the west.. But nonetheless they had to choose a side, just to
 help: survive under the sky.. |
 help: Black Numenoreans could sense 'evil' creatures with extrasensory powers at
 help: certain stage of their developent.
+help: They can sense evil at level-dependend big distance ('y') by spending some
+help: energy. At level 35 they get permanent passive ESP for evil; but their manual
+help: ability might have bigger radius later on.
 
 race:Damned
 help:Some call them Highlanders and there are a rumours of their great power.
@@ -198,6 +217,8 @@ help: live cursed life, getting much less them common human does. Nevertheless
 help: they are resistant to aging effecs and life drain, and regenerate extra fast. |
 help: Cursed by gods, they struggle constant disaster which higher powers send
 help: to exterminate them...
+help: They can prevent summoning ('y') by spending some energy.
+help: (this ability works only if there are no other players at the level).
 
 race:Merfolk
 help:Merfolk - human-like water-dwelling creatures who lives on shores to the north 
@@ -209,6 +230,7 @@ help: isn't really their big passion.|
 help: They got some nourishment from drinking from magic fountains and even a bit
 help: from drinking from any open water, though it will not make them full. 
 help: Using water also helps them in healing wounds.
+help: They can cure poison ('y') by spending some energy.
 
 race:Barbarian
 help:Barbarian - wildlings from the North who spread across all Tangaria after
@@ -218,6 +240,8 @@ help: fire and steel, but nowadays, after they met Magic Council dread they beco
 help: less aggressive and trying to find a compromise. Barbarians resistant to
 help: poison as they had to eat all kind of 'food' to survive in wildlands. 
 help: And of course, they are fearless.
+help: They can yell 'y' aggravating all creatures around and taunting them to
+help: attack recklessly.
 
 race:Black Dwarf
 help:Black Dwarfs was once far stem of one forgotten dwarven clan. They didn't like
@@ -231,6 +255,7 @@ help: Their proximity to the daylight surface made them especially suffer from
 help: past war amoung Dragons and Titans, which changed thair appearence, making 
 help: their skin darker. But with this they got special ability - they are resistant
 help: to ruination of disenhancement magic.
+help: They can find nearby entrances ('y') by spending some energy.
 
 race:Goblin
 help:Goblins like to sneak around and take what lay on 'bad' spot. It's what people
@@ -239,12 +264,14 @@ help: prefer living in night time, dwelling in tiny cavern and coming to the ear
 help: surface only for fishing.. or fighting. 
 help: Don't underestimate this creatures. Despite of their size they are more than
 help: capable of destruction. Goblins are resistant of darkness and very agile.
+help: They can get into bloodlust ('y') by spending some energy.
 
 race:Half-Giant
 help:Half-Giant are descendants of Titans... And they still got pieces of their 
 help: power. Huge size makes it hard for them to use full power of teleportation
 help: magic thought. At the same time they are protected from gravity effects, 
 help: could stun their opponents and are very hard to kill.
+help: They can become resistant to magic ('y') by spending some energy.
 
 race:Ogre
 help:Ogres or swamp trolls - it's ancient race. Some say that they was the first of
@@ -254,6 +281,7 @@ help: 'bad' though, some 'families' came to live in the city and.. what makes th
 help: quite special - become a not bad in magical arts, as ogres practice their 
 help: own, shamanic spell-weaving. Ogres sustain their intellegence even under big 
 help: pressure.
+help: They can restore bit of mana ('y') while resting actively.
 
 race:Troll
 help:Trolls - huge piece of walking rock. Their skin is hard to pierce even with a 
@@ -262,17 +290,20 @@ help: everything, resistant to magical shards. Regenerate VERY fast. Very health
 help: Very hungry. Not too bright, so they don't get level feelings...
 help: There are plenty of trolls in Middle-lands, they often work as bodyguards
 help: protecting caravans.
+help: They can harden their skin ('y') by spending some energy.
 
 race:Orc
 help:Huge orc hordes settles to the southeren Banlands. They try to get their own 
 help: piece of fertile lands to live piecefully, but Empire of Strenght won't make 
 help: it happen. Orc resistant to darkness and poison.
+help: They can summon warg ('y') by spending some energy.
 
 race:Forest Goblin
 help:Forest goblins – look like a nice little creatures. Indeed, some of them are 
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are 
 help: sneaky and fast, but quite weak in term of physical strenght.
 help: They can dodge melee attacks occasionally.
+help: They can cover tracks ('y') by spending some energy.
 
 race:Dark Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
@@ -283,6 +314,7 @@ help: Mountains just recently.. just to survive. Not much of this folk left as
 help: for a long time they exterminate each other in families dissension. 
 help: Dark elves are good fighters, could see invisible, resistant to darkness, but 
 help: vulnerable to light magic.
+help: They can apply poison on their weapons ('y') by spending some energy.
 
 race:Werewolf
 help:Werewolves are strange folk who dwells to the east from Golden Forest on north. 
@@ -297,6 +329,7 @@ help: from the distance, could regenerate and resistant to dark. They don't like
 help: light magic though. |
 help: During the night they sometimes can't handle animal nature and howl on top
 help: of your lungs...
+help: They can get back to normal form ('y') to prevent unwanted polymorph.
 
 race:Undead
 help:Undeads occupy most of the far north at the moment. This is intelligent race 
@@ -306,6 +339,7 @@ help: pleasant looking, but resistant to nether and poison. They do not regenera
 help: their wounds, although they are able to help them. Quite slow at first 
 help: 'mature' undeads are able to move with normal speed. Susceptible to light 
 help: magic.
+help: They can detect living creatures ('y') by spending some energy.
 
 race:Vampire
 help:Vampires live to the north from Honor Empire. Quite reasonable folk actually 
@@ -320,6 +354,8 @@ help: Vampires don't eat normal food.. they restore their thirst when they hunt
 help: humanoids in the dungeons.
 help: They can take form of vampiric mist to pass most of obstacles; also they are
 help: able to polymorph into bats.
+help: They can fly ('y') by spending some energy; it helps to pass trees and water.
+help: They especially dislike water and any touching it hurting them.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much know about them, except 
@@ -327,6 +363,7 @@ help: that it's very hard to kill one of them. Resistant to numerous effects and
 help: possessing god-like abilities, they are very slow on getting new skills 
 help: though. Another weak spot is that they receive their power not at once, but 
 help: after they become experienced in this 'mortal' world.
+help: They can cast lightning ('y') by spending some energy.
 
 race:Demonic
 help:Demonic - corrupted spirits, servants of First Gods. They are the same kind as
@@ -351,6 +388,7 @@ help: But it's well-known that when balrog takes his true-form, he posses immens
 help: fire magic, which makes everything go mad around it, so creatures could 'feel'
 help: balrog presence from upper medium distance, which makes this race hard to
 help: become unnoticed in the dungeons of Enemy.
+help: They can lash fiery whip ('y') by spending some energy.
 
 race:Celestial
 help:Celestials.. Some people call them 'angels', but they are not kind and helpful 
@@ -359,6 +397,7 @@ help: which they would achieve no matter what. The only thing which save the wor
 help: from their roth is that there are not too many of them; most of them perished 
 help: in 'eternal' war with balrogs. Resistant to gravity, celestials could get 
 help: rejoice with of lightning when achieve certain level of development.
+help: They can produce holy blast ('y') by spending some energy.
 
 race:Nephalem
 help:Nephalem - example what could appear if celestial would make love to balrog. 
@@ -367,6 +406,9 @@ help: rare, but there they are. They live among us and we won't know about it.
 help: Hey, maybe you are the one, with this twisted blood? They only way to test it 
 help: is to become exposed to light and dark magic at once. 
 help: Nephalem doesn't fear both.
+help: They can produce glyph ('y') by spending some energy. Glyph prevents summoning
+help: and enemies has to destroy it before they can attack you. But putting glyph
+help: require spend a lot of blood, leaving nephalem almost dead.
 
 race:Gargoyle
 help:Gargoyles are stone creatures which sometimes appear after magic storms, when 
@@ -384,6 +426,8 @@ help: Some powerful wizards tried to make gargoyles with their magic, but they
 help: managed to create only 'golems' – by powering clay with their spellcasting,
 help: as it appeared that much easier to magically operate with clay, than
 help: with stone or rock. But I'll tell you about golems another time..
+help: They can become resistant to space/time interruptions ('y') by spending
+help: some energy.
 
 race:Golem
 help:Golems - artificial magical creatures, made by powerful wizards to serve their
@@ -400,7 +444,8 @@ help: Should you deserve it or take it by force? |
 help: Golems are extreamely strong, but a bit slow. They can not be paralized, 
 help: or poisoned. They could see invisible and good in digging. They are miserable
 help: in stealth, good at fighting and somehow resistant to malicious spell effects.|
-help:They got less speed penalty due overweight.
+help: They got less speed penalty due overweight.
+help: They can get infravision ('y') by spending some energy.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
@@ -410,6 +455,7 @@ help: They can become invisible for a while ('y'), but have to spend HP on the s
 help: ATTENTION!
 help: Please be careful - as pixie got very low strength - it could become very slow
 help: if you will take a lot of items in your inventory or use heavy equipment.
+help: They can become invisible ('y') by spending some energy.
 
 race:Draconian
 help:Ancient race of draconoids - people who could transform into dracons.
@@ -419,6 +465,7 @@ help: They are born as a tender as whelplings, very vulnerable.. but if they
 help: manage to survive to mature age - they become very powerful. |
 help: They gain intrinsic basic resistances, fire at 10, cold at 20,
 help: acid at 30 and lightning at 40.
+help: They can breath fire ('y') by spending some energy.
 
 race:Titan
 help:Titans or giants...
@@ -428,18 +475,21 @@ help: So they can not use teleportation magic. |
 help: One could start as a common hill giant, eventually becoming mighty 
 help: greater titan...
 help: They loath dragons who were their mortal enemies from the birth of the world.
+help: They can crush walls ('y') by spending some energy.
 
 race:Wood-Elf
 help:Nandor of Telerin descent..  Silvan Elves or Green-elves.
 help: They live in Lorien and Mirkwood. Very agile and skilled in combat.
 help: They could track animals from big distance. They don't like digging and
 help: tunneling, preferring to run in the wild.
+help: They can see invisible ('y') by spending some energy.
 
 race:Elemental
 help:Creature of nature, eternally developing from basic elements.
 help: They could be enveloped by Fire, Cold, Electricity and even Acid.
 help: But only the most powerful elementals could combine powers of all masteries.
 help: Most powerful elementals prefer to stay in one place, settling in cozy caves.
+help: They can produce beams of elements ('y') by spending some energy.
 
 race:Frostmen
 help:Someone who still dwells at North...
@@ -448,6 +498,7 @@ help: trolls so they know all their weaknesses. As they live on north where a lo
 help: of undeads dwells, they also could feel unholy presense on certain distance.
 help: Their skin magically enhanced and protected from frost, but it makes
 help: them vulnerable to heat.
+help: They can resurrect dead ('y') by spending some energy.
 
 race:Centaur
 help:Has the body of a large horse topped by a humanoid torso, head, and arms. 
@@ -457,6 +508,7 @@ help: of nature gives them a lot of benefits in adventures. Also it's widly know
 help: that you can not confuse centaur. Though they got disadvantage - it's very
 help: hard for them to dig tunnels and also their hooves makes a lot of noice
 help: echoing in the dungeon passages. They are intensely proud and value honour.
+help: They can charge into enemy ('y') by spending some energy.
 
 race:Spider
 help:Likes dark places...
@@ -477,21 +529,25 @@ help: Djinns literally can make wonders ('y' key). But such magic not always bri
 help: good consequences as they don't have full control on their wishes. |
 help: Also they are so powerful that they don't feel any danger in the dungeons and
 help: their magic interfere with magical devices making them hiccup a little.
+help: They can create wonders ('y') by spending some energy.
 
 race:Harpy
 help:Winged humanoids with nasty temper. Can not be blinded; mature species could
 help: become quite speedy and perilous.
+help: They can remove slowing effects ('y') by spending some energy.
 
 race:Minotaur
 help:Huge figure which got the body of a human and the head of a bull.
 help: Stubborn, but righteous, they won't attack sleeping enemies - they hail them
 help: when at close distance. Prefering to live in mountain caverns, they don't
 help: like strangers there. They are famours because of their strength and vitality.
+help: They can become hasty ('y') by spending some energy.
 
 race:Troglodite
 help:One of the cave little folk. Always hungry, but not necessary evil.
 help: Most of them can not see as they do not have eyes, but some tribes come
 help: to the surface long time ago, where they partly adapted to it's conditions.
+help: They can produce nourishment ('y') by spending some energy.
 
 race:Naga
 help:Humanoids who got snake-like tails in place of legs.
@@ -499,12 +555,14 @@ help: Their womans are exeptionally beautiful and known to be desired brides not
 help: only for their own kind. They crawl not too fast, but can not be stopped or
 help: paralyzed. They got lightning fast reflexes which gives them possibility
 help: to make an extra blow in the battle.
+help: They can get into offensive stance ('y') by spending some energy.
 
 race:Gnoll
 help:Chaotic mutation: humanoids with dog's head. Likes ale and howling rude songs
 help: all day long.
 help: They enjoy eating rodents which provide to them
 help: additional nourishment when caught in the dungeons.
+help: They can get sense enemies' fear ('y') by spending some energy.
 
 race:Lizardmen
 help:Reptilian humanoids who lives in southeren bogs. Quite mediocre in everything,
@@ -512,6 +570,7 @@ help: they got bone outgrowths on their skin which gives them some extra protect
 help: Also they are especially good with shields.
 help: They like to eat ants, centipedes and other insects which provide to them
 help: additional nourishment when caught in the dungeons.
+help: They can regenerate manually ('y') by spending some energy.
 
 race:Wisp
 help:Mysterious creature woven out bright light. They do not speak, but use
@@ -522,6 +581,7 @@ help: They are quite bad in physical interaction which makes them quite loosy
 help: fighters, but they are very resistant to raw magic and even could become
 help: immune to light. At the same time they don't move fast and prefer carry on
 help: without haste.
+help: They can light surroundings ('y') by spending some energy.
 
 race:Imp
 help:Imps - little mischievous tricksters with reddish skin. They do not fear fire,
@@ -530,20 +590,21 @@ help: which were destroyed long time ago. Weak, but pretty fast and stealthy.
 help: From time to time they may teleport around, just for fun.. In time you will
 help: be able to 'tame' them, but at start they will jerk around putting you into
 help: different adventurous situations. Imps got high magic resistance. |
-help: Tip: imps can enter 'Stealth Mode' - to do so use [shift+s]
+help: At 50 level imps can enter 'Stealth Mode' - to do so use [shift+s].
+help: They can teleport at will ('y') by spending some energy.
 
 race:Wraith
 help:Magic emanation of dead who ought to stay in mortal world as bodiless spirits.
-help: They can not teleport on big range (eg from dungeon to town),
-help: but could move through walls.
+help: They can not teleport on big range (from dungeon depths to town and back).
 help: They can avoid melee attacks quite often.
+help: They can pass walls at will ('y') by spending some energy.
 
 race:Beholder
 help:Intelligent floating in air orb-shaped eyes. They got several tentacle 
 help: eyestalks which gives the capacity to see in all directions at once.
 help: As they develop in time, they could get obtain magic powers:
-help: they able to fire rays which has various properties and can cause different
-help: effects. Magic classes' ray is more powerful. |
+help: they able to fire rays ('y') which has various properties and can cause
+help: different effects. Magic classes' ray is more powerful. |
 help: Beholder's conscious dwells on different realms which make them have
 help: hallucinations from time to time. More mature beholders got hallucinations
 help: very rare.
@@ -555,9 +616,9 @@ help: from one appearance to another which makes them immune to paralysation and
 help: resistant to other negative effects like poison and acid.
 help: Oozes mostly live in wet dungeons and caves and have a very wide variety of
 help: diet, so oozes get nourishment upon every enemy which was killed by it.
-help: They cannot have ESP, but has excellent infravision and survivability.
+help: They can have ESP, but can't tell precise information about monster (don't
+help: show monster's list). They have excellent infravision and survivability.
 help: Oozes can duplicate themselves ('y' key) making its minor copies which can
-help: attack and distract enemies. At lvl 35 they are able to inflict acid attacks.
-help: They can pass doors by crawling under them.
+help: attack and distract enemies. They can pass doors by crawling under them.
 
 # leave empty line for EOF
