@@ -734,7 +734,8 @@ static void calc_lighting(struct player *p, struct chunk *c)
     int max_vision = z_info->max_sight; // Tangaria
 
     // Darkness-loving races don't depends on light sources.. on the contrary
-    if (streq(p->race->name, "Troglodyte"))
+    if (streq(p->race->name, "Troglodyte") || streq(p->race->name, "Vampire") ||
+        streq(p->race->name, "Undead") || streq(p->race->name, "Wraith"))
     {
         // having bright light source makes vision worse:
 

@@ -1156,6 +1156,7 @@ value:0:CHR[-9]
 value:0:INFRA[0+1d5]
 # 'y' detect living creatures
 # eating living humanoids nourish and heal
+# darkness-loving (see in the dark, but light makes it worse)
 obj-flag:1:HOLD_LIFE
 obj-flag:1:IMPAIR_HP
 value:0:RES_POIS[1]
@@ -1196,6 +1197,7 @@ value:0:CON[-5+1d9]
 value:0:CHR[-9+1d4]
 # + black breath
 # 'y' can FLY
+# darkness-loving (see in the dark, but light makes it worse)
 # - fear open water (only FLYING helps)
 #/// - during the day: -HP, regen HP, mana, skills; especially shooting
 # (during the day vamps should stay in the coffin kek)
@@ -2264,6 +2266,7 @@ value:0:MANA[4+-1d12]
 # +
 # 25% dodge melee attacks
 # 'y' passwall (blind)
+# darkness-loving (see in the dark, but light makes it worse)
 ############################
 # -
 player-flags:0:NO_RECALL

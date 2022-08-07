@@ -340,6 +340,9 @@ help: their wounds, although they are able to help them. Quite slow at first
 help: 'mature' undeads are able to move with normal speed. Susceptible to light 
 help: magic.
 help: They can detect living creatures ('y') by spending some energy.
+help: They can see in the darkness well, while using light sources actually can
+help: reduce radius of their vision. Their innate vision grows when they become
+help: more mature.
 
 race:Vampire
 help:Vampires live to the north from Honor Empire. Quite reasonable folk actually 
@@ -356,6 +359,9 @@ help: They can take form of vampiric mist to pass most of obstacles; also they a
 help: able to polymorph into bats.
 help: They can fly ('y') by spending some energy; it helps to pass trees and water.
 help: They especially dislike water and any touching it hurting them.
+help: They can see in the darkness well, while using light sources actually can
+help: reduce radius of their vision. Their innate vision grows when they become
+help: more mature.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much know about them, except 
@@ -547,6 +553,9 @@ race:Troglodite
 help:One of the cave little folk. Always hungry, but not necessary evil.
 help: Most of them can not see as they do not have eyes, but some tribes come
 help: to the surface long time ago, where they partly adapted to it's conditions.
+help: They can see in the darkness well, while using light sources actually can
+help: reduce radius of their vision. Their innate vision grows when they become
+help: more mature.
 help: They can produce nourishment ('y') by spending some energy.
 
 race:Naga
@@ -598,6 +607,9 @@ help:Magic emanation of dead who ought to stay in mortal world as bodiless spiri
 help: They can not teleport on big range (from dungeon depths to town and back).
 help: They can avoid melee attacks quite often.
 help: They can pass walls at will ('y') by spending some energy.
+help: They can see in the darkness well, while using light sources actually can
+help: reduce radius of their vision. Their innate vision grows when they become
+help: more mature.
 
 race:Beholder
 help:Intelligent floating in air orb-shaped eyes. They got several tentacle 
