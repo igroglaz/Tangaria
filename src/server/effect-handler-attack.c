@@ -854,6 +854,20 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                 dam *= context->origin->player->lev / 10;
             }
         }
+        else if (streq(context->origin->player->clazz->name, "Cryokinetic"))
+        {
+            // Cryokinetic Whirl spell (mana 2)
+            if (context->origin->player->spell_cost == 2)
+                {
+                    // distance
+                    rad += randint1(2);
+                    // dam
+                    dam *= rad - 1;
+                    // -mana if rolled +rad
+                    if (rad > 1 && context->origin->player->csp > context->origin->player->lev / 10)
+                        context->origin->player->csp -= context->origin->player->lev / 10;
+                }
+        }
     }
 
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
@@ -2207,6 +2221,16 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                             dam *= context->origin->player->lev / 12;
                         }
 
+                    }
+            }
+            if (streq(context->origin->player->clazz->name, "Cryokinetic"))
+            {
+                // Pyrokinetic Touch spell (mana 1)
+                if (context->origin->player->spell_cost == 1)
+                    {
+                        // distance
+                        rad += randint0(4);
+                        dam += rad;
                     }
             }
         }

@@ -7398,9 +7398,13 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:BLOWS[5]
 obj-flag:0:CLUMSY
-value:30:RES_FIRE[1]
-value:30:RES_COLD[1]
+# class brands works both on melee and ranged. races - only on melee!
+brand:10:50:FIRE_2
+brand:10:50:COLD_2
+value:30:RES_FIRE[2]
+value:30:RES_COLD[2]
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -7420,6 +7424,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 # fog, clouds; freeze water; create lava
 
 spell:Pyrokinetic Touch:1:1:20:1:0
+#hc rng
 effect:TIMED_SET:OPP_FIRE
 dice:20+1d20
 effect:SHORT_BEAM:FIRE:1
@@ -7429,23 +7434,31 @@ msg_other:'s hands are covered with fire.
 desc:Covers your hands with fire to burn your foes.
 desc: Grants fire resistance.
 
-spell:Cryokinetic Touch:5:2:20:2:0
+spell:Cryokinetic Whirl:5:2:20:2:0
+#hc rng
+cooldown:11
 effect:TIMED_SET:OPP_COLD
 dice:20+1d20
-effect:SHORT_BEAM:COLD:1
+effect:BLAST:COLD:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other:'s hands are covered with frost.
 desc:Covers your hands with frost to freeze your foes.
 desc: Grants cold resistance.
+desc: Cooldown 11 turns.
 
-spell:Ice and Fire:10:5:30:3:0
-effect:TIMED_SET:ATT_FIRE:0:5
+spell:Warmth:10:5:30:3:0
+cooldown:120
+effect:TIMED_SET:REGEN
 dice:20+1d20
-effect:TIMED_SET:ATT_COLD:0:5
-dice:20+1d20
-desc:Temporarily makes your melee attacks imbued with heat or frost,
-desc: depending on situation.
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:TIMED_INC:FAST:0:5
+dice:2
+desc:Greatly increases your regeneration rate for 20+1d20 turns and heal a bit.
+desc: The effect of this spell is cumulative with other means of regeneration.
+desc: Cooldown 120 turns.
 
 spell:Cryo Hybernation:15:10:32:10:0
 cooldown:150
