@@ -1023,9 +1023,23 @@ void object_own(struct player *p, struct object *obj)
     /* Set level requirement on free objects */
     if (!obj->owner)
     {
+////////// old way of min.lvl req. calculation:       
+        int depth = max(min(p->wpos.depth / 2, 50), 1); // <- T: we still use it
+        // obj->level_req = min(depth, p->lev);         // <- but don't use that
+//////////
+        
+        /////////////////////
+        /* new PWMA system //
+        1) for regular objects, use half object level
+        2) for artifacts, use half artifact level
+        3) add 1/100th of object power
+        4) bound between 1 and 50
+        
+        Only manual correction applied is for rings of polymorphing, which use
+        half race level for base and 1/50th of race experience as power.
+        */
+
         /* By default, use half the kind level */
-        // in the past we used for all items:
-        // obj->level_req = min(depth, p->lev);
         int base = obj->kind->level / 2;
 
         /* Artifacts */
@@ -1050,12 +1064,16 @@ void object_own(struct player *p, struct object *obj)
             base += power / 100;
         }
 
+////////// T: average between old and new system
+        base = (base + depth) / 2;
+
         /* Bounds */
         obj->level_req = max(min(base, 50), 1);
 
-        // hack to adjust items req. lvl a bit to make pstore trade more viable
+        /* hack for old system to adjust items req. lvl a bit to make pstore trade more viable
         if (obj->level_req > 15 && obj->level_req < 50)
             obj->level_req -= 3;
+        */
 
         // hc some values which now got too imba min lvl req.
         if (obj->tval == TV_FOOD)
