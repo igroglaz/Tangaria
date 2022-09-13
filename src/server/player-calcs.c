@@ -1895,6 +1895,8 @@ static void adjust_skill_scale(int *v, int num, int den, int minv)
 }
 
 
+// polymorphed players damage dice
+
 static int getAvgDam(struct monster_race *race)
 {
     int m, tot = 0, avg;
@@ -1913,6 +1915,10 @@ static int getAvgDam(struct monster_race *race)
     if (avg == 0) return 0;
 
     /* Mitigate to avoid very high values */
+    // fix for poly warrior OP dmg:
+    // for low damage it stays the same, for high damage it will tend to +50
+    // checking with high form the huge damages (+50, +60...) turn into (+25,+30)
+    // which make high form close to regular warrior
     return 1 + (50 * avg) / (avg + 50);
 }
 
@@ -2974,12 +2980,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (unencumbered_monk)
     {
         state->to_h += p->lev * 2 / 5;
+        state->to_d += p->lev * 2 / 5;
 
-        /* Polymorphed monks get half the to-dam bonus */
+/////////// as in T poly monks already nerfed, not sure do we need this PWMA change.. need testing
+/*
+        // Polymorphed monks get half the to-dam bonus
         if (p->poly_race)
             state->to_d += p->lev / 5;
         else
             state->to_d += p->lev * 2 / 5;
+*/////////
     }
 
     /* Assume no shield encumberance */
