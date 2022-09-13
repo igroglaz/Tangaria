@@ -4049,7 +4049,6 @@ alloc:10:0 to 10
 pile:70:2d3
 attack:3d4:0:0
 armor:0:0
-brand:POIS_3
 effect:TIMED_INC:POISONED
 dice:10+2d7
 

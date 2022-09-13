@@ -702,6 +702,22 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         /* View class stats */
         else if (strstr(pmsgbuf, "class")) do_cmd_class_stats((struct player_class *)player->clazz);
 
+        /* View DPS */
+        else if (strstr(pmsgbuf, "dps"))
+        {
+            int melee_dice, melee_sides;
+            int show_mhit, show_mdam;
+            int show_shit, show_sdam;
+            int dam;
+
+            get_plusses(player, &player->known_state, &melee_dice, &melee_sides, &show_mhit,
+                &show_mdam, &show_shit, &show_sdam);
+
+            dam = (melee_dice * (melee_sides + 1) + show_mdam * 2) * player->state.num_blows / 20;
+
+            prt(format("Average damage per round: %d.%d", dam / 10, dam % 10), 0, 0);
+        }
+
         /* Kill character */
         else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();
 

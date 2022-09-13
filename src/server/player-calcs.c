@@ -1897,7 +1897,7 @@ static void adjust_skill_scale(int *v, int num, int den, int minv)
 
 static int getAvgDam(struct monster_race *race)
 {
-    int m, tot = 0;
+    int m, tot = 0, avg;
 
     for (m = 0; m < z_info->mon_blows_max; m++)
     {
@@ -1908,7 +1908,12 @@ static int getAvgDam(struct monster_race *race)
         tot += race->blow[m].dice.dice * (race->blow[m].dice.sides + 1);
     }
 
-    return (tot / (2 * z_info->mon_blows_max));
+    /* Average damage per attack */
+    avg = tot / (2 * z_info->mon_blows_max);
+    if (avg == 0) return 0;
+
+    /* Mitigate to avoid very high values */
+    return 1 + (50 * avg) / (avg + 50);
 }
 
 
@@ -2969,7 +2974,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (unencumbered_monk)
     {
         state->to_h += p->lev * 2 / 5;
-        state->to_d += p->lev * 2 / 5;
+
+        /* Polymorphed monks get half the to-dam bonus */
+        if (p->poly_race)
+            state->to_d += p->lev / 5;
+        else
+            state->to_d += p->lev * 2 / 5;
     }
 
     /* Assume no shield encumberance */

@@ -1272,7 +1272,13 @@ void redraw_stuff(void)
     if (!redraw) return;
 
     /* Map is not shown, subwindow updates only (except when shopping) */
-    if (player->screen_save_depth && !store_ctx) redraw &= PR_SUBWINDOW;
+    if (player->screen_save_depth && !store_ctx)
+    {
+        redraw &= PR_SUBWINDOW;
+
+        /* Don't redraw monster list during monster detection */
+        if (player->mlist_icky) redraw &= ~PR_MONLIST;
+    }
 
     /* For each listed flag, send the appropriate signal to the UI */
     for (i = 0; i < N_ELEMENTS(redraw_events); i++)

@@ -20,69 +20,49 @@
 #include "s-angband.h"
 
 
-uint32_t get_account(const char *name, const char *pass)
+static int get_attempts(const char *name)
+{
+    char filename[MSG_LEN];
+    ang_file *fh;
+    char filebuf[MSG_LEN];
+
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, format("%s.lock", name));
+    fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+    if (!fh) return 0;
+    file_getl(fh, filebuf, sizeof(filebuf));
+    file_close(fh);
+    return atoi(filebuf);
+}
+
+
+static void update_attempts(const char *name, int attempts)
+{
+    char filename[MSG_LEN];
+    ang_file *fh;
+
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, format("%s.lock", name));
+    fh = file_open(filename, MODE_WRITE, FTYPE_TEXT);
+    if (!fh)
+    {
+        plog("Failed to open lock file!");
+        return;
+    }
+    file_putf(fh, "%d", attempts);
+    file_close(fh);
+}
+
+
+static bool add_account(char *filename, const char *name, const char *pass)
 {
     ang_file *fh;
-    char filename[MSG_LEN];
-    char filebuf[MSG_LEN];
-    uint32_t account_id = 1;
-    bool check_name = true, name_ok = false, pass_ok = false;
-    char *str;
-
-    /* Check account file */
-    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, "account");
-    if (file_exists(filename))
-    {
-        /* Open the file */
-        fh = file_open(filename, MODE_READ, FTYPE_TEXT);
-        if (!fh)
-        {
-            plog("Failed to open account file!");
-            return 0L;
-        }
-
-        /* Process the file */
-        while (file_getl(fh, filebuf, sizeof(filebuf)))
-        {
-            /* Get account name */
-            if (check_name) name_ok = !my_stricmp(filebuf, name);
-
-            /* Get account password */
-            else pass_ok = streq(filebuf, pass);
-
-            /* Check name + password */
-            check_name = !check_name;
-            if (check_name)
-            {
-                /* Same name */
-                if (name_ok)
-                {
-                    /* Same password */
-                    if (pass_ok) break;
-
-                    /* Incorrect password */
-                    file_close(fh);
-                    return 0L;
-                }
-                name_ok = false;
-                pass_ok = false;
-                account_id++;
-            }
-        }
-
-        /* Close the file */
-        file_close(fh);
-
-        /* Found a match */
-        if (name_ok && pass_ok) return account_id;
-    }
+    char filebuf[MSG_LEN], *str;
 
     /* Append to the file */
     fh = file_open(filename, MODE_APPEND, FTYPE_TEXT);
     if (!fh)
     {
         plog("Failed to open account file!");
-        return 0L;
+        return false;
     }
 
     /* Lowercase account name */
@@ -96,5 +76,76 @@ uint32_t get_account(const char *name, const char *pass)
     /* Close */
     file_close(fh);
 
-    return account_id;
+    /* Create new lock file */
+    update_attempts(name, 0);
+
+    return true;
+}
+
+
+uint32_t get_account(const char *name, const char *pass)
+{
+    char filename[MSG_LEN];
+    ang_file *fh;
+    char filebuf[MSG_LEN];
+    uint32_t account_id = 1L;
+
+    /* Get lock file */
+    int attempts = get_attempts(name);
+
+    /* Check attempts */
+    if (attempts == 3)
+    {
+        plog("Account is locked!");
+        return 0L;
+    }
+
+    /* Check account file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, "account");
+    if (!file_exists(filename))
+    {
+        if (add_account(filename, name, pass)) return 1L;
+        return 0L;
+    }
+
+    /* Open the file */
+    fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+    if (!fh)
+    {
+        plog("Failed to open account file!");
+        return 0L;
+    }
+
+    /* Process the file */
+    while (file_getl(fh, filebuf, sizeof(filebuf)))
+    {
+        /* Get account name */
+        if (!my_stricmp(filebuf, name))
+        {
+            /* Get account password */
+            file_getl(fh, filebuf, sizeof(filebuf));
+            file_close(fh);
+
+            /* Check account password */
+            if (streq(filebuf, pass))
+            {
+                if (attempts > 0) update_attempts(name, 0);
+                return account_id;
+            }
+
+            /* Incorrect password */
+            plog("Incorrect password!");
+            update_attempts(name, attempts + 1);
+            return 0L;
+        }
+
+        file_getl(fh, filebuf, sizeof(filebuf));
+        account_id++;
+    }
+
+    /* Close the file */
+    file_close(fh);
+
+    if (add_account(filename, name, pass)) return account_id;
+    return 0L;
 }

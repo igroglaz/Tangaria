@@ -2964,6 +2964,7 @@ static int Receive_pause(void)
 
     /* The screen is icky */
     player->screen_save_depth++;
+    player->mlist_icky = true;
     Send_icky();
 
     /* Wait */
@@ -2971,6 +2972,7 @@ static int Receive_pause(void)
 
     /* Screen isn't icky any more */
     player->screen_save_depth--;
+    player->mlist_icky = false;
     Send_icky();
 
     /* Flush queue */

@@ -76,6 +76,8 @@ PWMAngband:
 - Add slays/brands to character sheet
 - Allow to polymorph directly using form name with the V command
 - Add swear word protection for names and messages
+- Don't refresh monster list after a pause due to detecting some monsters
+- Add /dps command to display average normal damage per round
 
 Gameplay changes
 ----------------
@@ -107,6 +109,9 @@ PWMAngband:
 - Implement RAND_100 flag and assign it to goldfishes
 - Remove level requirement from shops
 - Rework level requirement to depend only on object level and power
+- Increase the number of fountains in dungeons
+- New formula for average damage per attack for polymorphed players
+- Polymorphed monks get half the to-dam bonus
 - New class: Villager
 
 Bugs fixed
@@ -161,6 +166,7 @@ PWMAngband:
 - Fix Dungeon Master pet attacking other monsters
 - Fix pets attacking non-hostile player pets
 - Fix PROJECT_BEAM error making limited length beams not working
+- Hardcode poison effect on potions of poison to avoid identifying issues
 
 Coding changes
 --------------
@@ -232,6 +238,7 @@ PWMAngband:
 - Remove square_hack_iscloseddoor() hack
 - Don't display "Could not accept TCP Connection, socket error = 0" messages in
   the log
+- Rework account management
 
 Compilation/documentation
 -------------------------

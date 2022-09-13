@@ -869,6 +869,7 @@ struct player
     cave_view_type **info_icky;     /* Info is icky */
     int16_t last_info_line_icky;
     char *header_icky;
+    bool mlist_icky;
     int16_t screen_save_depth;      /* Depth of the screen_save() stack */
     bool was_aware;                 /* Is the player aware of the current obj type? */
     int16_t current_sound;          /* Current sound */

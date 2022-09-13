@@ -689,7 +689,7 @@ void client_init(bool new_game)
         case E_INVAL:
             quit("The server didn't like your nickname, realname, or hostname.");
         case E_ACCOUNT:
-            quit("The password you supplied for the account is incorrect.");
+            quit("The password you supplied for the account is incorrect or the account is locked.");
         case E_GAME_FULL:
             quit("Sorry, the game is full. Try again later.");
         case E_SOCKET:

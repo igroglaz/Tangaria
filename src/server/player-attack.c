@@ -2376,6 +2376,13 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
     /* Direct adjustment for exploding things (flasks of oil) */
     if (of_has(obj->flags, OF_EXPLODE)) result.dmg *= 3;
 
+    /* Direct adjustment for potions of poison */
+    if (tval_is_potion(obj) && streq(obj->kind->name, "Poison"))
+    {
+        result.dmg *= 3;
+        result.effects.do_poison = true;
+    }
+
     return result;
 }
 
