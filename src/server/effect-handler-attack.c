@@ -861,8 +861,13 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                 {
                     // distance
                     rad += randint1(2);
+
                     // dam
-                    dam *= rad - 1;
+                    if (context->origin->player->lev < 15)
+                        dam *= rad - 1;
+                    else
+                        dam *= rad;
+
                     // -mana if rolled +rad
                     if (rad > 1 && context->origin->player->csp > context->origin->player->lev / 10)
                         context->origin->player->csp -= context->origin->player->lev / 10;
@@ -943,17 +948,17 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
         }
         else if (streq(context->origin->player->clazz->name, "Cryokinetic"))
         {
-            // Pyro/cryokinesis (mana 10)
-            if (context->origin->player->spell_cost == 10)
+            // Pyrokinesis / Cryokinetic Ray (mana 8)
+            if (context->origin->player->spell_cost == 8)
             {
                 // distance
                 rad += context->origin->player->lev / 2;
                 if (rad > 20) rad = 20;
                 // dmg
-                dam *= context->origin->player->lev / 5;
+                dam *= context->origin->player->lev / 6;
                 // additional mana
-                if (context->origin->player->csp > context->origin->player->lev / 5)
-                        context->origin->player->csp -= context->origin->player->lev / 5;
+                if (context->origin->player->csp > context->origin->player->lev / 10)
+                        context->origin->player->csp -= context->origin->player->lev / 10;
             }
         }
     }
@@ -2228,9 +2233,13 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 // Pyrokinetic Touch spell (mana 1)
                 if (context->origin->player->spell_cost == 1)
                     {
-                        // distance
                         rad += randint0(4);
                         dam += rad;
+                        if (context->origin->player->lev > 15)
+                        {
+                            rad += randint0(3);
+                            rad *= 2;
+                        }
                     }
             }
         }

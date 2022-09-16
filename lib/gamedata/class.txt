@@ -7398,6 +7398,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:CON[1]
 value:0:BLOWS[5]
 obj-flag:0:CLUMSY
 # class brands works both on melee and ranged. races - only on melee!
@@ -7435,7 +7436,7 @@ desc:Covers your hands with fire to burn your foes.
 desc: Grants fire resistance.
 
 spell:Cryokinetic Whirl:5:2:20:2:0
-#hc rng
+#hc rng. at 15+lvl esp good
 cooldown:11
 effect:TIMED_SET:OPP_COLD
 dice:20+1d20
@@ -7449,19 +7450,25 @@ desc: Cooldown 11 turns.
 
 spell:Warmth:10:5:30:3:0
 cooldown:120
+effect:TIMED_INC:FAST:0:5
+dice:2
+effect:TIMED_SET:MOVE_FAST
+dice:7+1d7
 effect:TIMED_SET:REGEN
 dice:20+1d20
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC:FAST:0:5
-dice:2
-desc:Greatly increases your regeneration rate for 20+1d20 turns and heal a bit.
+desc:Greatly increases your regeneration rate for a few turns and heal a bit.
+desc:Also gives you boost to movement speed for a while.
 desc: The effect of this spell is cumulative with other means of regeneration.
 desc: Cooldown 120 turns.
 
 spell:Cryo Hybernation:15:10:32:10:0
 cooldown:150
+effect:TIMED_SET:SINFRA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC_NO_RES:PARALYZED
 dice:5d1
 effect:TIMED_INC:INVULN
@@ -7481,38 +7488,39 @@ desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
 desc: Cooldown 150 turns.
 
-spell:Pyrokinesis:20:10:32:20:0
-# hc
+spell:Pyrokinesis:20:8:32:20:0
+# hc up to x8
 effect:BOLT_RADIUS:FIRE:10
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: strikes with heat.
-desc:Strikes a target with immense heat.
+desc:Strikes a target with immense heat ray.
+desc: This ray does not penetrate target.
 
-spell:Cryokinetic Ray:25:10:32:30:0
-# hc
+spell:Cryokinetic Ray:25:8:32:30:0
+# hc up to x8
 effect:BOLT_RADIUS:COLD:10
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a ray of frost.
-desc:Fires a ray of frost that always hits its target and knocks it away.
+desc:Fires a ray of frost that always hits its target.
 desc: This ray does not penetrate target.
 
-spell:Plasma Nova:30:15:32:40:0
+spell:Plasma Nova:30:12:32:40:0
 effect:BLAST:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: radiates a powerful wave of heat.
-desc:Creates a fire ball around you.
+desc:Creates a plasma sphere around you.
 
-spell:Frost Orb:35:20:33:50:0
+spell:Frost Orb:35:15:33:50:0
 effect:BALL:ICE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: invokes an ice storm.
-desc:Shoots an ice ball.
+desc:Shoots a sphere of ice towards target.
 
-spell:Cryofire:40:30:34:70:0
+spell:Cryofire:40:20:34:70:0
 effect:STRIKE:COLD:0
 dice:$B
 expr:B:PLAYER_LEVEL:* 6
@@ -7525,7 +7533,7 @@ desc: same time.
 desc: Target grid must be targetable and known to the player;
 desc: no target grid will mean the player grid is hit.
 
-spell:Blizzard:45:40:35:100:0
+spell:Blizzard:45:30:35:100:0
 cooldown:2
 effect:BLAST:ICE:5
 dice:$B
@@ -7534,7 +7542,7 @@ msg_other: subzeroes surrounding air into a sharp icicles.
 desc:Starts icy blizzard around you.
 desc: Cooldown 2 turns.
 
-spell:Firestorm:50:50:39:150:0
+spell:Firestorm:50:40:39:150:0
 cooldown:2
 effect:ARC:FIRE:0:30
 dice:$B
