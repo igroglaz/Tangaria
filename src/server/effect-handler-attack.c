@@ -873,6 +873,15 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                         context->origin->player->csp -= context->origin->player->lev / 10;
                 }
         }
+        else if (streq(context->origin->player->clazz->name, "Timeturner"))
+        {   
+            // Quantum Trap spell (mana 4)
+            if (context->origin->player->spell_cost == 4)
+            {
+                rad += context->origin->player->lev / 8;
+                dam *= context->origin->player->lev / 10;
+            }
+        }
     }
 
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
