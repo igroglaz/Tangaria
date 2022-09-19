@@ -178,9 +178,11 @@ bool mon_restrict(const char *monster_type, int depth, int current_depth, bool u
     // restrict some monster pits below certain dlvl
     if (profile->bases) // in case if it's NULL
     {
-        if (profile && depth < 16 && streq(profile->bases->base->text, "tengu"))
+        if (depth < 11 && streq(profile->bases->base->text, "wild cat") && one_in_(2))
             return false;
-        else if (profile && depth < 26 && streq(profile->bases->base->text, "blood falcon"))
+        else if (depth < 16 && streq(profile->bases->base->text, "tengu"))
+            return false;
+        else if (depth < 26 && streq(profile->bases->base->text, "blood falcon"))
             return false;
     }
 
