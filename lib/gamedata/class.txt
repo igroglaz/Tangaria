@@ -7577,7 +7577,7 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
-value:0:SPEED[1]
+value:0:SPEED[0+1d5]
 player-flags:0:ZERO_FAIL
 obj-flag:0:CLUMSY
 value:50:RES_TIME[1]
@@ -7605,7 +7605,7 @@ expr:B:PLAYER_LEVEL:+ 1
 desc:Causes magical aging to the target. Do not require mana.
 desc: Cooldown 2 turns.
 
-spell:Instant Recall:3:5:35:10:0
+spell:Instant Recall:5:5:35:5:0
 cooldown:90
 effect:RECALL
 dice:5+1d7
@@ -7616,13 +7616,7 @@ desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 desc: Cooldown 90 turns.
 
-spell:Haste:5:1:30:20:0
-effect:TIMED_INC:SPEEDY:0:5
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc:Hastes you up to (+10 to speed) for a level-dependent duration.
-
-spell:Quantum Trap:10:4:22:15:0
+spell:Quantum Trap:10:4:22:7:0
 cooldown:7
 #hc radius(7)/dmg(5)
 effect:BLAST:TIME:1
@@ -7633,7 +7627,7 @@ desc:Rewind time back and forward making aging damage again and again.
 desc: Area radius increase with levels.
 desc: Cooldown 7 turns.
 
-spell:Revert Wounds:15:15:33:30:0
+spell:Revert Wounds:15:15:33:10:0
 cooldown:120
 effect:TIMED_INC_NO_RES:CONFUSED
 dice:2
@@ -7728,7 +7722,11 @@ desc: gravity and time.
 desc: Watch out, this also prevents any means of teleportation around you!
 desc: Cooldown 120 turns.
 
-spell:Time Wave:50:25:46:50:0
+spell:Time Forward:49:1:30:250:0
+effect:DEEP_DESCENT
+desc:Send you to the deepest depths of the dungeon.
+
+spell:Time Wave:50:25:46:300:0
 cooldown:11
 effect:ARC:CHAOS:0:30
 dice:$B

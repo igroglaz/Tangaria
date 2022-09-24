@@ -2695,12 +2695,26 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
 
     // SPEEDY is lesser FAST
-    if (p->timed[TMD_FAST] || p->timed[TMD_SPRINT]) state->speed += 10;
+    if (p->timed[TMD_FAST] || p->timed[TMD_SPRINT])
+    {
+        if (streq(p->clazz->name, "Timeturner"))
+            state->speed += (50 - p->lev) / 5;
+        else
+            state->speed += 10;
+    }
     else if (p->timed[TMD_SPEEDY])
         state->speed += p->lev / 5;
 
     if (p->timed[TMD_FLIGHT]) extra_moves += 1;
-    if (p->timed[TMD_SLOW]) state->speed -= 10;
+
+    if (p->timed[TMD_SLOW])
+    { 
+        if (streq(p->clazz->name, "Timeturner"))
+            state->speed -= 5;
+        else
+            state->speed -= 10;
+    }
+
     if (p->timed[TMD_MOVE_FAST]) extra_moves += 10;
     if (p->timed[TMD_SINFRA]) state->see_infra += 5;
     if (of_has(state->flags, OF_ESP_ALL))
