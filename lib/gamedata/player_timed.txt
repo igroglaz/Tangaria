@@ -736,3 +736,11 @@ name:OFFENSIVE_STANCE
 desc:offensive stance
 grade:t:10000:Offensive:Offensive stance.
 msgt:OFFENSIVE_STANCE
+
+name:SPEEDY
+desc:haste up to ({+10} to speed)
+grade:G:10000:Haste:You feel yourself moving faster!
+on-end:You feel yourself slow down.
+near-begin: starts moving faster.
+near-end: slows down.
+msgt:SPEED

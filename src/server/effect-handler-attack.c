@@ -879,7 +879,8 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
             if (context->origin->player->spell_cost == 4)
             {
                 rad += context->origin->player->lev / 8;
-                dam *= context->origin->player->lev / 10;
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 10;
             }
         }
     }

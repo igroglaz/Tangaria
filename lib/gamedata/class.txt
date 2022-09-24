@@ -877,10 +877,10 @@ book-alloc:15:40 to 100
 book-desc:An advanced nature book with a few verses.
 
 spell:Haste Self:25:12:65:15:0
-effect:TIMED_SET:FAST:0:5
+effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
-desc:Hastes you (+10 to speed) for a level-dependent duration.
+desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Meteor Swarm:30:14:85:20:0
 effect:SWARM:METEOR:1
@@ -2277,10 +2277,10 @@ desc:Creates a radius-5 healing ball around you.
 book:nature book:dungeon:[Nature Craft]:4:nature
 
 spell:Haste Self:25:12:65:15:0
-effect:TIMED_SET:FAST:0:5
+effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
-desc:Hastes you (+10 to speed) for a level-dependent duration.
+desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Ancient Lore:27:30:80:20:0
 effect:IDENTIFY
@@ -2786,11 +2786,11 @@ desc: level and decrease with level of wand or staff and number of charges.
 desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
 spell:Speed:25:12:55:20:1
-effect:TIMED_SET:FAST:0:5
+effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 20
 expr:S:PLAYER_LEVEL:+ 0
-desc:Hastes you (+10 to speed) for a level-dependent duration.
+desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Wipe:27:20:65:50:0
 effect:WIPE_AREA:NONE:10
@@ -4575,12 +4575,12 @@ msg_other: gestures and mumbles calmly.
 desc:Attempts to hold single monster (#%d).
 
 spell:Haste:0:14:28:0:0
-effect:TIMED_SET:FAST:0:5
+effect:TIMED_SET:SPEEDY:0:5
 flag:HASTE
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: starts moving faster.
-desc:Hastes you (+10 to speed) for a level-dependent duration (#%d).
+desc:Hastes you up to (+10 to speed) for a level-dependent duration (#%d).
 
 spell:Heal:0:16:32:0:0
 effect:CURE:CUT
@@ -7577,6 +7577,7 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
+value:0:SPEED[1]
 player-flags:0:ZERO_FAIL
 obj-flag:0:CLUMSY
 value:50:RES_TIME[1]
@@ -7615,7 +7616,13 @@ desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 desc: Cooldown 90 turns.
 
-spell:Quantum Trap:5:4:22:15:0
+spell:Haste:5:1:30:20:0
+effect:TIMED_INC:SPEEDY:0:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Hastes you up to (+10 to speed) for a level-dependent duration.
+
+spell:Quantum Trap:10:4:22:15:0
 cooldown:7
 #hc radius(7)/dmg(5)
 effect:BLAST:TIME:1
@@ -7625,14 +7632,6 @@ msg_other: makes a circling gesture.
 desc:Rewind time back and forward making aging damage again and again.
 desc: Area radius increase with levels.
 desc: Cooldown 7 turns.
-
-spell:Haste:10:10:30:20:0
-# this buff can stuck its duration
-effect:TIMED_INC:FAST:0:5
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc:Hastes you (+10 to speed) for a level-dependent duration.
-desc: Spell can stack its duration.
 
 spell:Revert Wounds:15:15:33:30:0
 cooldown:120
