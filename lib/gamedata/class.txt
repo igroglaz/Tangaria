@@ -8065,8 +8065,15 @@ skill-melee:50:35
 skill-shoot:40:25
 skill-dig:5:1
 hitdie:3
+equip:light:Wooden Torch:1:3:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+value:0:CHR[-6]
 value:0:ANTI_MAGIC[1d1]
 player-flags:0:MARTIAL_ARTS
+obj-flag:0:CLUMSY
 # harming fearful enemies -> restore life
 value:0:BLOWS[1d1]
 title:Rookie
@@ -8085,97 +8092,92 @@ magic:1:350:1
 book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
-spell:Novice Torture:1:2:33:1:0
-effect:SHORT_BEAM:PSI_DRAIN:1
-dice:$Dd4
-expr:D:PLAYER_LEVEL:* 2 / 3 + 2
-msg_other: attemps to torture the victim.
-desc:Hits the victim to cause a pain.
-desc:Restores your mana.
-desc:Does not affect undead, demons, golems, elementals or vortices.
-
-spell:Sniff Fear:5:1:33:3:0
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:DETECT_FEARFUL_MONSTERS
-effect-yx:13:20
-effect:PROJECT_LOS_AWARE:TURN_ALL
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc:Attempts to frighten everything in line of sight and
-desc:detects everyone susceptible to fear in the close area,
-desc: for one turn only. Mana cost increase with levels.
-
-spell:Cleansing Fire:10:4:33:5:0
-cooldown:5
-effect:SHORT_BEAM:FIRE:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-msg_other: scorches the victim.
-desc:Scorches victim with a fire.
-desc: Cooldown 5 turns.
-
-spell:Confession:15:9:33:7:0
-effect:TIMED_SET:TAUNT
-dice:13+1d13
-desc:After your confession everyone hate you so much that they run toward you
-desc: recklessly.. 
-desc:Fools! During their rage they use ranged attacks and magic less likely
-desc: which you may use for profit.
-
-spell:Torment:20:17:33:10:0
-cooldown:13
+spell:Novice Torture:1:1:1:1:0
+cooldown:3
 effect:SHORT_BEAM:PSI_DRAIN:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 4
-msg_other: makes devious torture to the victim.
-desc:Hits the victim in a weak spot to cause a pain.
-desc: Restores your mana.
+expr:B:PLAYER_LEVEL:* 2 + 2
+desc:Cause pain to the victim. Restores your mana.
 desc: Does not affect undead, demons, golems, elementals or vortices.
-desc: Cooldown 13 turns.
+desc: Cooldown 3 turns.
 
-spell:Get to Hell:25:20:33:15:0
+spell:Get to Hell:5:1:1:1:0
+cooldown:100
+# ? if already on bottom - just teleport away?
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 8
 effect:DEEP_DESCENT
-desc:Send you to the deepest depths of the dungeon.
+desc:Send you to the deepest depths of the dungeon and restore your health.
+desc: Cooldown 100 turns.
 
-spell:Burn Heresy:30:25:33:20:0
+spell:Burn Heresy:10:3:1:1:0
+cooldown:13
 effect:BLAST:FIRE:3
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 desc:Produces hellfire around you.
-
-spell:Blood Fountain:35:30:33:30:0
-cooldown:333
-effect:TIMED_INC:BLOODLUST:0:-1
-dice:10
-desc:Gives you a powerful desire to kill, increased every time you satisfy it.
-desc: Gives you extra melee damage and extra blows, but comes
-desc: with dangerous side-effects.
-
-spell:Drain Soul:40:40:33:50:0
-cooldown:13
-effect:STRIKE:PSI_DRAIN:0
-dice:$B
-expr:B:PLAYER_LEVEL:* 4
-msg_other: attempts to drain soul from victim.
-desc:Drains part of the life-force from a nearby victim and replenishes
-desc: your mana with it. Does not affect undead, demons, golems, elementals or
-desc: vortices.
 desc: Cooldown 13 turns.
 
-spell:Surge of Sin:45:50:33:80:0
-effect:BEAM:DISEN
+spell:Confession:15:1:33:7:0
+effect:TIMED_SET:TAUNT
+dice:13+1d13
+desc:After your confession everyone hate you so much that they run toward you
+desc: recklessly.. 
+desc: Fools! During their rage they use ranged attacks and magic less likely
+desc: which you may use for a profit.
+
+spell:Drain Soul:20:5:33:10:0
+cooldown:6
+effect:STRIKE:MON_DRAIN:0
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
-msg_other: fires a beam of pain.
-desc:Fires a disenchantment beam that hurts everyone on its path.
+msg_other: attempts to drain soul from victim.
+desc:Drains part of the life-force from a nearby living victim.
+desc: Cooldown 6 turns.
+
+spell:Antimagic:25:20:33:20:0
+effect:CLEAR_VALUE
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Grants you resistance to acid, cold, fire, lightning and poison.
+
+spell:Bloodhound:30:12:68:32:0
+cooldown:300
+effect:SUMMON:HOUND:0:100
+dice:1
+msg_other: summons a bloodhound.
+desc:Attempts to summon hound generated at the current dungeon level.
+desc: This spell has no effect when used in the town.
+desc: Cooldown 300 turns.
+
+spell:Inquisition Library:35:30:33:30:0
+effect:IDENTIFY
+desc:Reveals an unknown rune on an object.
+
+spell:Unholy Seal:40:40:33:50:0
+cooldown:30
+effect:STAR:DARK
+dice:$B
+expr:B:PLAYER_LEVEL:* 8
+msg_other: makes devious gesture.
+desc:Spreads heavy curse on heretics.
+desc: Cooldown 30 turns.
+
+spell:Prison of Sin:45:50:33:80:0
+effect:CREATE_WALLS
+desc:You entomb yourself in the stone's cell.
 
 spell:Retribution:50:70:33:120:0
-cooldown:333
+cooldown:100
 effect:BIZARRE
 desc:Bring retribution to heretics...
-desc: Cooldown 333 turns.
+desc: Cooldown 100 turns.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
