@@ -832,8 +832,8 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
 
     if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
-        if (el_info[ELEM_DARK].res_level < 3)
-            el_info[ELEM_DARK].res_level++;
+        if (el_info[ELEM_DARK].res_level[0] < 3)
+            el_info[ELEM_DARK].res_level[0]++;
     }
 
     // currently in p_race.txt only one entry of the same resistance
@@ -842,116 +842,116 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
 
     if (streq(p->race->name, "Merfolk"))
     {
-        if (el_info[ELEM_WATER].res_level < 3)
-            el_info[ELEM_WATER].res_level++;
-        if (p->lev > 49 && el_info[ELEM_WATER].res_level < 3)
-            el_info[ELEM_WATER].res_level++;
+        if (el_info[ELEM_WATER].res_level[0] < 3)
+            el_info[ELEM_WATER].res_level[0]++;
+        if (p->lev > 49 && el_info[ELEM_WATER].res_level[0] < 3)
+            el_info[ELEM_WATER].res_level[0]++;
     }
 
     if (streq(p->race->name, "Undead"))
     {
-        if (el_info[ELEM_NETHER].res_level < 3)
-            el_info[ELEM_NETHER].res_level++;
-        if (p->lev > 49 && el_info[ELEM_NETHER].res_level < 3)
-            el_info[ELEM_NETHER].res_level++;
+        if (el_info[ELEM_NETHER].res_level[0] < 3)
+            el_info[ELEM_NETHER].res_level[0]++;
+        if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3)
+            el_info[ELEM_NETHER].res_level[0]++;
     }
 
     if (streq(p->race->name, "Balrog"))
     {
-        if (el_info[ELEM_FIRE].res_level < 1)
-            el_info[ELEM_FIRE].res_level++;
+        if (el_info[ELEM_FIRE].res_level[0] < 1)
+            el_info[ELEM_FIRE].res_level[0]++;
         if (p->lev > 34)
-            el_info[ELEM_FIRE].res_level = 3;
+            el_info[ELEM_FIRE].res_level[0] = 3;
     }
 
     if (streq(p->race->name, "Nephalem"))
     {
-        if (el_info[ELEM_DARK].res_level > -1)
-            el_info[ELEM_DARK].res_level--;
-        if (el_info[ELEM_LIGHT].res_level > -1)
-            el_info[ELEM_LIGHT].res_level--;
+        if (el_info[ELEM_DARK].res_level[0] > -1)
+            el_info[ELEM_DARK].res_level[0]--;
+        if (el_info[ELEM_LIGHT].res_level[0] > -1)
+            el_info[ELEM_LIGHT].res_level[0]--;
         if (p->lev > 34)
         {
-            if (el_info[ELEM_DARK].res_level < 3)
-                el_info[ELEM_DARK].res_level++;
-            if (el_info[ELEM_LIGHT].res_level < 3)
-                el_info[ELEM_LIGHT].res_level++;
+            if (el_info[ELEM_DARK].res_level[0] < 3)
+                el_info[ELEM_DARK].res_level[0]++;
+            if (el_info[ELEM_LIGHT].res_level[0] < 3)
+                el_info[ELEM_LIGHT].res_level[0]++;
         }
         if (p->lev > 49)
         {
-            if (el_info[ELEM_DARK].res_level < 3)
-                el_info[ELEM_DARK].res_level++;
-            if (el_info[ELEM_LIGHT].res_level < 3)
-                el_info[ELEM_LIGHT].res_level++;
+            if (el_info[ELEM_DARK].res_level[0] < 3)
+                el_info[ELEM_DARK].res_level[0]++;
+            if (el_info[ELEM_LIGHT].res_level[0] < 3)
+                el_info[ELEM_LIGHT].res_level[0]++;
         }
     }
 
     if (streq(p->race->name, "Elemental"))
     {
         if (p->lev < 20)
-            el_info[ELEM_ELEC].res_level = -1;
+            el_info[ELEM_ELEC].res_level[0] = -1;
         if (p->lev > 19)
         {
-            if (el_info[ELEM_ELEC].res_level < 3)
-                el_info[ELEM_ELEC].res_level++;
+            if (el_info[ELEM_ELEC].res_level[0] < 3)
+                el_info[ELEM_ELEC].res_level[0]++;
             if (p->lev < 30)
-                el_info[ELEM_COLD].res_level = -1;
+                el_info[ELEM_COLD].res_level[0] = -1;
         }
         if (p->lev > 29)
         {
-            if (el_info[ELEM_COLD].res_level < 3)
-                el_info[ELEM_COLD].res_level++;
-            if (p->lev < 40 && el_info[ELEM_FIRE].res_level > -1)
-                el_info[ELEM_FIRE].res_level--;
+            if (el_info[ELEM_COLD].res_level[0] < 3)
+                el_info[ELEM_COLD].res_level[0]++;
+            if (p->lev < 40 && el_info[ELEM_FIRE].res_level[0] > -1)
+                el_info[ELEM_FIRE].res_level[0]--;
         }
         if (p->lev > 39)
         {
-            if (el_info[ELEM_FIRE].res_level < 3)
-                el_info[ELEM_FIRE].res_level++;
-            if (p->lev < 50 && el_info[ELEM_ACID].res_level > -1)
-                el_info[ELEM_ACID].res_level--;
+            if (el_info[ELEM_FIRE].res_level[0] < 3)
+                el_info[ELEM_FIRE].res_level[0]++;
+            if (p->lev < 50 && el_info[ELEM_ACID].res_level[0] > -1)
+                el_info[ELEM_ACID].res_level[0]--;
         }
         if (p->lev > 49)
         {
-            if (el_info[ELEM_ACID].res_level < 3)
-                el_info[ELEM_ACID].res_level++;
+            if (el_info[ELEM_ACID].res_level[0] < 3)
+                el_info[ELEM_ACID].res_level[0]++;
         }
     }
 
     if (streq(p->race->name, "Frostmen"))
     {
-        if (el_info[ELEM_COLD].res_level < 3)
-            el_info[ELEM_COLD].res_level++;
-        if (p->lev < 35 && el_info[ELEM_FIRE].res_level > -1)
-            el_info[ELEM_FIRE].res_level--;
-        if (p->lev > 34 && el_info[ELEM_COLD].res_level < 3)
-            el_info[ELEM_COLD].res_level++;
+        if (el_info[ELEM_COLD].res_level[0] < 3)
+            el_info[ELEM_COLD].res_level[0]++;
+        if (p->lev < 35 && el_info[ELEM_FIRE].res_level[0] > -1)
+            el_info[ELEM_FIRE].res_level[0]--;
+        if (p->lev > 34 && el_info[ELEM_COLD].res_level[0] < 3)
+            el_info[ELEM_COLD].res_level[0]++;
     }
 
     if (streq(p->race->name, "Spider"))
     {
-        if (el_info[ELEM_POIS].res_level < 3)
-            el_info[ELEM_POIS].res_level++;
-        if (p->lev > 29 && el_info[ELEM_POIS].res_level < 3)
-            el_info[ELEM_POIS].res_level++;
+        if (el_info[ELEM_POIS].res_level[0] < 3)
+            el_info[ELEM_POIS].res_level[0]++;
+        if (p->lev > 29 && el_info[ELEM_POIS].res_level[0] < 3)
+            el_info[ELEM_POIS].res_level[0]++;
     }
 
     if (streq(p->race->name, "Wisp"))
     {
-        if (el_info[ELEM_LIGHT].res_level < 3)
-            el_info[ELEM_LIGHT].res_level++;
-        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level < 3)
-            el_info[ELEM_LIGHT].res_level++;
+        if (el_info[ELEM_LIGHT].res_level[0] < 3)
+            el_info[ELEM_LIGHT].res_level[0]++;
+        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3)
+            el_info[ELEM_LIGHT].res_level[0]++;
     }
 
     if (streq(p->race->name, "Imp"))
     {
-        if (p->lev > 19 && el_info[ELEM_FIRE].res_level < 3)
-            el_info[ELEM_FIRE].res_level++;
-        if (p->lev > 29 && el_info[ELEM_FIRE].res_level < 3)
-            el_info[ELEM_FIRE].res_level++;
-        if (p->lev > 39 && el_info[ELEM_FIRE].res_level < 3)
-            el_info[ELEM_FIRE].res_level++;
+        if (p->lev > 19 && el_info[ELEM_FIRE].res_level[0] < 3)
+            el_info[ELEM_FIRE].res_level[0]++;
+        if (p->lev > 29 && el_info[ELEM_FIRE].res_level[0] < 3)
+            el_info[ELEM_FIRE].res_level[0]++;
+        if (p->lev > 39 && el_info[ELEM_FIRE].res_level[0] < 3)
+            el_info[ELEM_FIRE].res_level[0]++;
     }
 
     /* Add class flags */
@@ -1001,16 +1001,16 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
 
         //// druid's forms resistances ////
         if (streq(p->poly_race->name, "bird-form"))
-            el_info[ELEM_GRAVITY].res_level = 1; // note that there is no indicator for grav res
+            el_info[ELEM_GRAVITY].res_level[0] = 1; // note that there is no indicator for grav res
         else if (streq(p->poly_race->name, "rat-form"))
         {
-            if (el_info[ELEM_POIS].res_level == 0)
-                el_info[ELEM_POIS].res_level = 1;
+            if (el_info[ELEM_POIS].res_level[0] == 0)
+                el_info[ELEM_POIS].res_level[0] = 1;
         }
         else if (streq(p->poly_race->name, "wolf-form"))
         {
-            if (el_info[ELEM_DARK].res_level == 0)
-                el_info[ELEM_DARK].res_level = 1;
+            if (el_info[ELEM_DARK].res_level[0] == 0)
+                el_info[ELEM_DARK].res_level[0] = 1;
         }
         ///////////////////////////////////
 

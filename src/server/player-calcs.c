@@ -2266,8 +2266,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->speed += 1 + (p->lev / 24);
         /* resistances taken from both places: from there and from display-ui.c
         // to prevent duplicates we will use only display-ui.c
-        if (state->el_info[ELEM_DARK].res_level < 2)
-            state->el_info[ELEM_DARK].res_level++; */
+        if (state->el_info[ELEM_DARK].res_level[0] < 2)
+            state->el_info[ELEM_DARK].res_level[0]++; */
     }
     
     if (streq(p->race->name, "Vampire") && is_daytime())
