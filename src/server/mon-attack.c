@@ -176,7 +176,7 @@ static void remove_bad_spells(struct player *p, struct chunk *c, struct monster 
             of_wipe(mon->known_pstate.flags);
             pf_wipe(mon->known_pstate.pflags);
             for (i = 0; i < ELEM_MAX; i++)
-                mon->known_pstate.el_info[i].res_level = 0;
+                mon->known_pstate.el_info[i].res_level[0] = 0;
         }
 
         /* Use the memorized info */
@@ -189,8 +189,8 @@ static void remove_bad_spells(struct player *p, struct chunk *c, struct monster 
         memset(el, 0, ELEM_MAX * sizeof(struct element_info));
         for (i = 0; i < ELEM_MAX; i++)
         {
-            el[i].res_level = mon->known_pstate.el_info[i].res_level;
-            if (el[i].res_level != 0) know_something = true;
+            el[i].res_level[0] = mon->known_pstate.el_info[i].res_level[0];
+            if (el[i].res_level[0] != 0) know_something = true;
         }
 
         /* Cancel out certain flags based on knowledge */

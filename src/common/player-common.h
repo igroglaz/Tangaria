@@ -155,11 +155,11 @@ struct quest
     struct quest *next;
     uint8_t index;
     char *name;
-    uint8_t level;                 /* Dungeon level */
+    uint8_t level;              /* Dungeon level */
     struct monster_race *race;  /* Monster race */
-    int16_t cur_num;               /* Number killed */
-    int16_t max_num;               /* Number required */
-    int16_t timer;                 /* Time left before quest is over */
+    int16_t cur_num;            /* Number killed */
+    int16_t max_num;            /* Number required */
+    int16_t timer;              /* Time left before quest is over */
 };
 
 /*
@@ -245,8 +245,8 @@ struct player_race
     struct player_race *next;
     char *name;                 /* Name */
     unsigned int ridx;          /* Index */
-    uint8_t r_mhp;                 /* Hit-dice modifier */
-    int16_t r_exp;                 /* Experience factor */
+    uint8_t r_mhp;              /* Hit-dice modifier */
+    int16_t r_exp;              /* Experience factor */
     int b_age;                  /* Base age */
     int m_age;                  /* Mod age */
     int base_hgt;               /* Base height */
@@ -255,13 +255,13 @@ struct player_race
     int mod_wgt;                /* Mod weight */
     int body;                   /* Race body */
     struct modifier modifiers[OBJ_MOD_MAX]; /* Modifiers */
-    int16_t r_skills[SKILL_MAX];   /* Skills */
-    bitflag flags[OF_SIZE];     /* Racial (object) flags */
-    uint8_t flvl[OF_MAX];          /* Application level for racial (object) flags */
-    struct brand_info *brands;  /* Racial brands */
-    struct slay_info *slays;    /* Racial slays */
-    bitflag pflags[PF_SIZE];    /* Racial (player) flags */
-    uint8_t pflvl[PF__MAX];        /* Application level for racial (player) flags */
+    int16_t r_skills[SKILL_MAX];    /* Skills */
+    bitflag flags[OF_SIZE];         /* Racial (object) flags */
+    uint8_t flvl[OF_MAX];           /* Application level for racial (object) flags */
+    struct brand_info *brands;      /* Racial brands */
+    struct slay_info *slays;        /* Racial slays */
+    bitflag pflags[PF_SIZE];        /* Racial (player) flags */
+    uint8_t pflvl[PF__MAX];         /* Application level for racial (player) flags */
     struct history_chart *history;
     struct element_info el_info[ELEM_MAX];  /* Resists */
     struct player_shape *shapes;
@@ -276,12 +276,12 @@ struct dragon_breed
 {
     struct dragon_breed *next;
     char *d_name;               /* Dragon name */
-    uint8_t d_fmt;                 /* Dragon name format ("dragon" or "drake") */
+    uint8_t d_fmt;              /* Dragon name format ("dragon" or "drake") */
     char *w_name;               /* Wyrm name */
-    uint8_t w_fmt;                 /* Wyrm name format ("xxx wyrm" or "wyrm of xxx") */
-    uint8_t commonness;            /* Commonness of the breed */
-    int16_t r_exp;                 /* Experience factor */
-    uint8_t immune;                /* Immunity to element? */
+    uint8_t w_fmt;              /* Wyrm name format ("xxx wyrm" or "wyrm of xxx") */
+    uint8_t commonness;         /* Commonness of the breed */
+    int16_t r_exp;              /* Experience factor */
+    uint8_t immune;             /* Immunity to element? */
 };
 
 /*
@@ -335,7 +335,7 @@ struct class_spell
  */
 struct class_book
 {
-    uint16_t tval;                          /* Item type of the book */
+    uint16_t tval;                      /* Item type of the book */
     int sval;                           /* Item sub-type for book (book number) */
     bool dungeon;                       /* Whether this is a dungeon book */
     const struct magic_realm *realm;    /* The magic realm of this book */
@@ -348,11 +348,11 @@ struct class_book
  */
 struct class_magic
 {
-    uint16_t spell_first;                       /* Level of first spell */
+    uint16_t spell_first;                   /* Level of first spell */
     int spell_weight;                       /* Max armor weight to avoid mana penalties */
     int num_books;                          /* Number of spellbooks */
     struct class_book *books;               /* Details of spellbooks */
-    uint8_t total_spells;                      /* Number of spells for this class */
+    uint8_t total_spells;                   /* Number of spells for this class */
 
     /* PWMAngband: dummy placeholders to display fail rate of the first spell on the client */
     int sfail;
@@ -369,22 +369,22 @@ struct player_class
     unsigned int cidx;              /* Index */
     char *title[PY_MAX_LEVEL / 5];  /* Titles */
     struct modifier modifiers[OBJ_MOD_MAX]; /* Modifiers */
-    int16_t c_skills[SKILL_MAX];       /* Class skills */
+    int16_t c_skills[SKILL_MAX];    /* Class skills */
     int x_skills[SKILL_MAX];        /* Extra skills */
-    uint8_t c_mhp;                     /* Hit-dice adjustment */
+    uint8_t c_mhp;                  /* Hit-dice adjustment */
     bitflag flags[OF_SIZE];         /* (Object) flags */
-    uint8_t flvl[OF_MAX];              /* Application level for (object) flags */
+    uint8_t flvl[OF_MAX];           /* Application level for (object) flags */
     struct brand_info *brands;      /* Class brands */
     struct slay_info *slays;        /* Class slays */
     bitflag pflags[PF_SIZE];        /* (Player) flags */
-    uint8_t pflvl[PF__MAX];            /* Application level for racial (player) flags */
+    uint8_t pflvl[PF__MAX];         /* Application level for racial (player) flags */
     struct element_info el_info[ELEM_MAX];  /* Resists */
     int max_attacks;                /* Maximum possible attacks */
     int min_weight;                 /* Minimum weapon weight for calculations */
     int att_multiply;               /* Multiplier for attack calculations */
     struct start_item *start_items; /* Starting inventory */
     struct class_magic magic;       /* Magic spells */
-    uint8_t attr;                      /* Class color */
+    uint8_t attr;                   /* Class color */
     struct player_shape *shapes;
     struct barehanded_attack *attacks;
 };
@@ -395,12 +395,13 @@ struct player_class
 struct player_ability
 {
     struct player_ability *next;
-    uint16_t index;                     /* PF_*, OF_* or element index */
+    uint16_t index;                 /* PF_*, OF_* or element index */
     char *type;                     /* Ability type */
     char *name;                     /* Ability name */
     char *desc;                     /* Ability description */
     int group;                      /* Ability group (set locally when viewing) */
     int value;                      /* Resistance value for elements */
+    int idx;                        /* Index value for elements */
 };
 
 /*  
@@ -452,8 +453,8 @@ struct history_chart
 struct history_info
 {
     bitflag type[HIST_SIZE];    /* Kind of history item */
-    int16_t dlev;                  /* Dungeon level when this item was recorded */
-    int16_t clev;                  /* Character level when this item was recorded */
+    int16_t dlev;               /* Dungeon level when this item was recorded */
+    int16_t clev;               /* Character level when this item was recorded */
     const struct artifact *art; /* Artifact this item relates to */
     char name[NORMAL_WID];      /* Artifact name */
     hturn turn;                 /* Turn this item was recorded on */
@@ -468,8 +469,8 @@ struct history_info
 struct player_history
 {
     struct history_info *entries;   /* List of entries */
-    int16_t next;                      /* First unused entry */
-    int16_t length;                    /* Current length */
+    int16_t next;                   /* First unused entry */
+    int16_t length;                 /* Current length */
 };
 
 /*
@@ -618,7 +619,7 @@ typedef struct
 /* Information about a "hostility" */
 typedef struct _hostile_type
 {
-    int32_t id;                    /* ID of player we are hostile to */
+    int32_t id;                 /* ID of player we are hostile to */
     struct _hostile_type *next; /* Next in list */
 } hostile_type;
 

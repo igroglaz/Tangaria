@@ -547,13 +547,24 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
     mon = square_monster(c, &nearby);
     if (delay)
     {
-        int turns = (mon->mspeed + 9 - p->state.speed) / 10;
+        int p_e_per_turn = turn_energy(p->state.speed);
+        int m_e_per_turn = turn_energy(mon->mspeed);
+
+        /*
+         * Number of turns for player to move from zero energy, tp, is
+         * z_info->move_energy / p_e_per_turn. Number of turns for
+         * monster to move from zero energy, tm, is
+         * z_info->move_energy / m_e_per_turn. The number of turns to
+         * hold the monster is tp - tm. That's this, rounding up to be safe.
+         */
+        int turns = (z_info->move_energy * (m_e_per_turn - p_e_per_turn) +
+            m_e_per_turn * p_e_per_turn - 1) / (m_e_per_turn * p_e_per_turn);
 
         mon->energy = 0;
         if (turns > 0)
         {
             /* Set timer directly to avoid resistance */
-            mon->m_timed[MON_TMD_HOLD] = turns;
+            mon->m_timed[MON_TMD_HOLD] = MIN(turns, 32767);
         }
     }
 

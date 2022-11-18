@@ -371,7 +371,7 @@ bool object_similar(struct player *p, const struct object *obj1, const struct ob
     /* Different elements don't stack */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (obj1->el_info[i].res_level != obj2->el_info[i].res_level) return false;
+        if (obj1->el_info[i].res_level[0] != obj2->el_info[i].res_level[0]) return false;
     }
 
     /* Artifacts never stack */
@@ -568,8 +568,8 @@ static void object_absorb_known(struct object *known_obj1, struct object *known_
     /* Merge all known elemental properties */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (known_obj2->el_info[i].res_level)
-            known_obj1->el_info[i].res_level = 1;
+        if (known_obj2->el_info[i].res_level[0])
+            known_obj1->el_info[i].res_level[0] = 1;
     }
 
     /* Merge all known brands and slays */

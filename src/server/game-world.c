@@ -770,7 +770,11 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     for (i = 0; i < p->clazz->magic.total_spells; i++)
     {
         // cooldown restores only inside in the dungeon!
-        if (p->spell_cooldown[i] && !(p->wpos.depth == 0)) p->spell_cooldown[i]--;
+        if (p->spell_cooldown[i] && !(p->wpos.depth == 0))
+        {
+            p->spell_cooldown[i]--;
+            if (!p->spell_cooldown[i]) p->upkeep->redraw |= (PR_SPELL);
+        }
     }
 }
 

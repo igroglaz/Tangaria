@@ -168,7 +168,7 @@ extern int Send_spell_desc(struct player *p, int book, int i, char *out_desc, ch
 extern int Send_dtrap(struct player *p, uint8_t dtrap);
 extern int Send_term_info(struct player *p, int mode, uint16_t arg);
 extern int Send_player_pos(struct player *p);
-extern int Send_minipos(struct player *p, int y, int x);
+extern int Send_minipos(struct player *p, int y, int x, bool self, int n);
 extern int Send_play(int ind);
 extern int Send_features(int ind, int lighting, int off);
 extern int Send_text_screen(int ind, int type, int32_t offset);

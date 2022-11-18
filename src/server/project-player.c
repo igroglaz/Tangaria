@@ -104,7 +104,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         /* Hack -- ice damage checks against cold resistance */
         int res_type = ((type == PROJ_ICE)? PROJ_COLD: type);
 
-        resist = ((res_type < ELEM_MAX)? p->state.el_info[res_type].res_level: 0);
+        resist = ((res_type < ELEM_MAX)? p->state.el_info[res_type].res_level[0]: 0);
 
         /* Notice element stuff */
         equip_learn_element(p, res_type);
@@ -263,7 +263,7 @@ void project_player_time_effects(struct player *p, struct source *who)
     /* Drain all stats */
     else
     {
-        int perma = p->state.el_info[ELEM_TIME].res_level;
+        int perma = p->state.el_info[ELEM_TIME].res_level[0];
 
         if (p->timed[TMD_ANCHOR]) perma--;
 
@@ -470,7 +470,7 @@ static int project_player_handler_POIS(project_player_handler_context_t *context
                 msg(p, "The venom stings your skin!");
                 inven_damage(p, PROJ_ACID, dam);
                 xtra = adjust_dam(p, PROJ_ACID, dam, RANDOMISE,
-                    p->state.el_info[PROJ_ACID].res_level);
+                    p->state.el_info[PROJ_ACID].res_level[0]);
             }
         }
         if (randint0(context->dam) > 200)
@@ -506,7 +506,8 @@ static int project_player_handler_LIGHT(project_player_handler_context_t *contex
     /* Confusion for strong unresisted light */
     if (context->dam > 300)
     {
-        msg(p, "You are dazzled!");
+        /* Check for resistance before issuing a message. */
+        if (player_inc_check(p, NULL, TMD_CONFUSED, false)) msg(p, "You are dazzled!");
         player_inc_timed(p, TMD_CONFUSED, 2 + randint1(context->dam / 100), true, check);
     }
 
@@ -584,7 +585,8 @@ static int project_player_handler_SOUND(project_player_handler_context_t *contex
     /* Confusion for strong unresisted sound */
     if (context->dam > 300)
     {
-        msg(p, "The noise disorients you.");
+        /* Check for resistance before issuing a message. */
+        if (player_inc_check(p, NULL, TMD_CONFUSED, false)) msg(p, "The noise disorients you.");
         player_inc_timed(p, TMD_CONFUSED, 2 + randint1(context->dam / 100), true, check);
     }
 

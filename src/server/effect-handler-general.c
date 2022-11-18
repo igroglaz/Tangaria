@@ -4970,6 +4970,18 @@ bool effect_handler_SAFE_GUARD(effect_handler_context_t *context)
 
 
 /*
+ * Scramble the player's stats. This is only intended for use by the
+ * timed effect, TMD_SCRAMBLE. Other effect chains wanting to incur a
+ * scrambling effect should use TIMED_INC:SCRAMBLE or TIMED_INC_NO_RES:SCRAMBLE.
+ */
+bool effect_handler_SCRAMBLE_STATS(effect_handler_context_t *context)
+{
+    player_scramble_stats(context->origin->player);
+    return true;
+}
+
+
+/*
  * Dummy effect, to tell the effect code to set a value for a string of
  * following effects to use, rather than setting their own value.
  * The value will not use the device boost, which should not be a problem
@@ -6118,6 +6130,19 @@ bool effect_handler_UNDEAD_FORM(effect_handler_context_t *context)
     /* Turn him into an undead being */
     player_turn_undead(context->origin->player);
 
+    return true;
+}
+
+
+/*
+ * Unscramble the player's stats. This is only intended for use by the
+ * timed effect, TMD_SCRAMBLE. Other effect chains wanting to undo a
+ * scrambling effect should use CURE:SCRAMBLE (or perhaps TIMED_DEC:SCRAMBLE
+ * to merely reduce the duration of an existing scramble effect).
+ */
+bool effect_handler_UNSCRAMBLE_STATS(effect_handler_context_t *context)
+{
+    player_fix_scramble(context->origin->player);
     return true;
 }
 

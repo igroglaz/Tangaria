@@ -178,7 +178,7 @@ static bool describe_elements(struct player *p, const struct element_info el_inf
 
     /* Immunities */
     for (i = 0; i < ELEM_MAX; i++)
-        list[i] = (el_info[i].res_level == 3);
+        list[i] = (el_info[i].res_level[0] == 3);
     count = element_info_collect(list, i_descs);
     if (count)
     {
@@ -189,7 +189,7 @@ static bool describe_elements(struct player *p, const struct element_info el_inf
 
     /* Resistances */
     for (i = 0; i < ELEM_MAX; i++)
-        list[i] = (el_info[i].res_level == 1);
+        list[i] = (el_info[i].res_level[0] == 1);
     count = element_info_collect(list, r_descs);
     if (count)
     {
@@ -200,7 +200,7 @@ static bool describe_elements(struct player *p, const struct element_info el_inf
 
     /* Vulnerabilities */
     for (i = 0; i < ELEM_MAX; i++)
-        list[i] = (el_info[i].res_level == -1);
+        list[i] = (el_info[i].res_level[0] == -1);
     count = element_info_collect(list, v_descs);
     if (count)
     {
@@ -528,7 +528,7 @@ static void get_known_elements(const struct object *obj, int mode, struct elemen
         /* Report known element info */
         if (!object_element_is_known(obj, i, aware))
         {
-            el_info[i].res_level = 0;
+            el_info[i].res_level[0] = 0;
             el_info[i].flags = 0;
             if (obj->known->el_info[i].flags & EL_INFO_IGNORE)
                 el_info[i].flags |= EL_INFO_IGNORE;

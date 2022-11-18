@@ -153,12 +153,6 @@ static void view_map_aux(uint8_t mode)
     /* Hack -- if the screen is already icky, ignore this command */
     if (player->screen_save_depth) return;
 
-    if (Term->view_map_hook)
-    {
-        (*(Term->view_map_hook))(Term);
-        if (mode == 0) return;
-    }
-
     /* Save the screen */
     screen_save();
 
@@ -217,6 +211,12 @@ void do_cmd_view_map_w(void)
 
 void do_cmd_view_map(void)
 {
+    if (Term->view_map_hook)
+    {
+        (*(Term->view_map_hook))(Term);
+        return;
+    }
+
     view_map_aux(0);
 }
 

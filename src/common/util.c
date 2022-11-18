@@ -136,7 +136,7 @@ void cleanup_class(void)
         string_free(c->name);
         mem_free(c->brands);
         mem_free(c->slays);
-        for (i = 0; i < PY_MAX_LEVEL / 5; i++) string_free(c->title[i]);
+        for (i = (int)N_ELEMENTS(c->title) - 1; i >= 0; --i) string_free(c->title[i]);
         item = c->start_items;
         while (item)
         {
@@ -390,12 +390,12 @@ static int lookup_sval_aux(int tval, const char *name, bool silent)
         struct object_kind *kind = &k_info[k];
         char cmp_name[MSG_LEN];
 
-        if (!kind || !kind->name) continue;
+        if (!kind || !kind->name || kind->tval != tval) continue;
 
         obj_desc_name_format(cmp_name, sizeof(cmp_name), NULL, kind->name, 0, false);
 
         /* Found a match */
-        if ((kind->tval == tval) && !my_stricmp(cmp_name, name)) return kind->sval;
+        if (!my_stricmp(cmp_name, name)) return kind->sval;
     }
 
     if (!silent) plog_fmt("No object (\"%s\",\"%s\")", tval_find_name(tval), name);

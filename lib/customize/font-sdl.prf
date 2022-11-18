@@ -15,6 +15,7 @@
 ### Terrain features ###
 
 # Floors (white : centered dot)
+# Note: this only works with the .fon files bundled with the game.
 feat:open floor:*:1:7
 
 # Simplified version to specify default attribute for all lighting effects

@@ -287,6 +287,13 @@ static void do_cmd_knowledge_monsters(struct player *p, int line)
             file_putf(fff, "w%s\n", monster_group[m_group].name);
         }
 
+        /* Use ASCII symbol for distorted tiles */
+        if (p->tile_distorted)
+        {
+            a = race->d_attr;
+            c = race->d_char;
+        }
+
         /* If uniques are purple, make it so */
         if (OPT(p, purple_uniques) && monster_is_unique(race) && !(a & 0x80))
             a = COLOUR_VIOLET;
@@ -300,13 +307,8 @@ static void do_cmd_knowledge_monsters(struct player *p, int line)
             strnfmt(kills, sizeof(kills), "%5d", lore->pkills);
 
         /* Print a message */
-        if (p->tile_distorted)
-            file_putf(fff, "w     %-40s  %s\n", race->name, kills);
-        else
-        {
-            file_putf(fff, "d%c%cw%-40s  %s\n", ((a & 0x80)? a: color_attr_to_char(a)), c,
-                race->name, kills);
-        }
+        file_putf(fff, "d%c%cw%-40s  %s\n", ((a & 0x80)? a: color_attr_to_char(a)), c, race->name,
+            kills);
     }
 
     mem_free(default_join);
@@ -951,6 +953,19 @@ static void do_cmd_knowledge_objects(struct player *p, int line)
             file_putf(fff, "w%s\n", object_text_order[o_group].name);
         }
 
+        /* Use ASCII symbol for distorted tiles */
+        if (p->tile_distorted)
+        {
+            a = kind->d_attr;
+            c = kind->d_char;
+
+            if (kind->flavor && !(aware && a && c))
+            {
+                a = kind->flavor->d_attr;
+                c = kind->flavor->d_char;
+            }
+        }
+
         object_kind_name(o_name, sizeof(o_name), kind, aware);
 
         /* If the type is "tried", display that */
@@ -965,13 +980,8 @@ static void do_cmd_knowledge_objects(struct player *p, int line)
         }
 
         /* Print a message */
-        if (p->tile_distorted)
-            file_putf(fff, "%c     %s\n", color_attr_to_char(attr), o_name);
-        else
-        {
-            file_putf(fff, "d%c%c%c%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c,
-                color_attr_to_char(attr), o_name);
-        }
+        file_putf(fff, "d%c%c%c%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c,
+            color_attr_to_char(attr), o_name);
     }
 
     mem_free(objects);
@@ -1158,11 +1168,15 @@ static void do_cmd_knowledge_features(struct player *p, int line)
             file_putf(fff, "w%s\n", feature_group_text[f_group]);
         }
 
-        /* Print a message */
+        /* Use ASCII symbol for distorted tiles */
         if (p->tile_distorted)
-            file_putf(fff, "w     %s\n", feat->name);
-        else
-            file_putf(fff, "d%c%cw%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c, feat->name);
+        {
+            a = feat->d_attr;
+            c = feat->d_char;
+        }
+
+        /* Print a message */
+        file_putf(fff, "d%c%cw%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c, feat->name);
     }
 
     mem_free(features);
@@ -1270,11 +1284,15 @@ static void do_cmd_knowledge_traps(struct player *p, int line)
             file_putf(fff, "w%s\n", trap_group_text[t_group]);
         }
 
-        /* Print a message */
+        /* Use ASCII symbol for distorted tiles */
         if (p->tile_distorted)
-            file_putf(fff, "w     %s\n", trap->desc);
-        else
-            file_putf(fff, "d%c%cw%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c, trap->desc);
+        {
+            a = trap->d_attr;
+            c = trap->d_char;
+        }
+
+        /* Print a message */
+        file_putf(fff, "d%c%cw%s\n", ((a & 0x80)? a: color_attr_to_char(a)), c, trap->desc);
     }
 
     mem_free(traps);

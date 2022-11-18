@@ -1665,7 +1665,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                 /* Most monsters cannot co-exist with rock */
                 if (!monster_passes_walls(mon->race))
                 {
-                    int dam = 0;
+                    int m_dam = 0;
 
                     /* Assume not safe */
                     safe_grids = 0;
@@ -1712,14 +1712,14 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                     }
 
                     /* Take damage from the quake */
-                    dam = (safe_grids? damroll(4, 8): (mon->hp + 1));
+                    m_dam = (safe_grids? damroll(4, 8): (mon->hp + 1));
 
                     /* Monster is certainly awake, not thinking about player */
                     monster_wake(context->origin->player, mon, false, 0);
                     mon_clear_timed(context->origin->player, mon, MON_TMD_HOLD, MON_TMD_FLG_NOTIFY);
 
                     /* If the quake finished the monster off, show message */
-                    if ((mon->hp < dam) && (mon->hp >= 0))
+                    if ((mon->hp < m_dam) && (mon->hp >= 0))
                     {
                         /* Give players a message */
                         for (j = 0; j < count; j++)
@@ -1733,7 +1733,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
                     }
 
                     /* Apply damage directly */
-                    mon->hp -= dam;
+                    mon->hp -= m_dam;
 
                     /* Delete (not kill) "dead" monsters */
                     if (mon->hp < 0)

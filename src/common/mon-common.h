@@ -123,11 +123,8 @@ struct monster_base
 
 	char *name;                     /* Name for recognition in code */
 	char *text;                     /* In-game name */
-
 	bitflag flags[RF_SIZE];         /* Flags */
-
 	char d_char;                    /* Default monster character */
-
 	struct monster_pain *pain;      /* Pain messages */
 };
 
@@ -361,6 +358,8 @@ struct monster
     uint16_t feat;                      /* Terrain under monster (for feature mimics) */
     struct loc old_grid;                /* Previous monster location */
     struct monster *closest_target;     /* The target closest to this monster (transient) */
+    int32_t damhp;                      /* Sustainable damage from damaging terrain */
+    bool damaging;                      /* Is monster voluntarily walking on damaging terrain */
 };
 
 /*

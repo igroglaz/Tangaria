@@ -668,10 +668,7 @@ static bool get_tag(struct object **tagged_obj, char tag, cmd_code cmd, bool qui
                 return true;
             }
 
-            cmdkey = cmd_lookup_key(cmd, mode);
-
-            /* Hack -- only shift the command key if it actually needs to be. */
-            if (cmdkey < 0x20) cmdkey = UN_KTRL(cmdkey);
+            cmdkey = cmd_lookup_key_unktrl(cmd, mode);
 
             /* Check the special tags */
             if ((s[1] == cmdkey) && (s[2] == tag))

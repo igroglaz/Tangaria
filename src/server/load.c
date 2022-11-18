@@ -250,7 +250,7 @@ static struct object *rd_item(void)
 
     for (i = 0; i < (size_t)elem_max; i++)
     {
-        rd_s16b(&obj->el_info[i].res_level);
+        rd_s16b(&obj->el_info[i].res_level[0]);
         rd_byte(&obj->el_info[i].flags);
     }
 
@@ -788,7 +788,7 @@ int rd_player_misc(struct player *p)
     /* Elements */
     for (i = 0; i < (size_t)elem_max; i++)
     {
-        rd_s16b(&p->obj_k->el_info[i].res_level);
+        rd_s16b(&p->obj_k->el_info[i].res_level[0]);
         rd_byte(&p->obj_k->el_info[i].flags);
     }
 
@@ -1495,7 +1495,7 @@ static bool rd_monster_aux(struct chunk *c, struct monster *mon, rd_item_t rd_it
         rd_byte(&mon->known_pstate.flags[j]);
 
     for (j = 0; j < (size_t)elem_max; j++)
-        rd_s16b(&mon->known_pstate.el_info[j].res_level);
+        rd_s16b(&mon->known_pstate.el_info[j].res_level[0]);
 
     /* Mimic stuff */
     rd_s16b(&mon->mimicked_k_idx);

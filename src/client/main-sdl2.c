@@ -568,7 +568,7 @@ static struct window g_windows[MAX_WINDOWS];
 static int g_kp_as_mod = 1;
 
 /* term_view_map_hook */
-static int view_map_hook_mod = 0;
+static int view_map_hook_mod = 1;
 
 /* handle_menu_font_names_page */
 static bool font_page = false;
@@ -914,10 +914,9 @@ static void render_glyph_mono(const struct window *window,
     }
 }
 
-static void render_cursor(struct subwindow *subwindow, 
-        int col, int row, bool big)
+static void render_cursor_aux(struct subwindow *subwindow, 
+        int col, int row, bool big, SDL_Color color)
 {
-    SDL_Color color = g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR];
     SDL_Rect rect = {
         subwindow->inner_rect.x + subwindow->font_width * col,
         subwindow->inner_rect.y + subwindow->font_height * row,
@@ -927,6 +926,12 @@ static void render_cursor(struct subwindow *subwindow,
 
     render_outline_rect(subwindow->window, subwindow->texture,
             &rect, &color);
+}
+
+static void render_cursor(struct subwindow *subwindow, 
+        int col, int row, bool big)
+{
+    render_cursor_aux(subwindow, col, row, big, g_colors[DEFAULT_SUBWINDOW_CURSOR_COLOR]);
 }
 
 static void render_grid_cell_text(const struct subwindow *subwindow,
@@ -2148,6 +2153,13 @@ static void handle_menu_tile_size(struct window *window,
     } else {
         quit_fmt("bad int_value in button '%s'", button->caption);
     }
+
+    struct subwindow *subwindow = Term->data;
+    assert(subwindow != NULL);
+
+    /* Dungeon size */
+    if (subwindow->index == MAIN_SUBWINDOW)
+        net_term_resize(subwindow->cols, subwindow->rows, subwindow->rows);
 
     refresh_angband_terms();
 }
@@ -3971,6 +3983,10 @@ static errr term_curs_hook(int col, int row)
 
     render_cursor(subwindow, col, row, false);
 
+    /* Highlight party members */
+    for (int i = 0; Term->minimap_active && (i < party_n); i++)
+        render_cursor_aux(subwindow, party_x[i] + COL_MAP, party_y[i] + ROW_MAP, false, g_colors[COLOUR_L_BLUE]);
+
     subwindow->window->dirty = true;
 
     return 0;
@@ -4160,6 +4176,19 @@ static void term_view_map_tile(struct subwindow *subwindow)
             MIN(MIN(tile.w / 4, tile.h / 4),
                 DEFAULT_VISIBLE_BORDER));
 
+    /* render cursor around party members */
+    for (int i = 0; i < party_n; i++)
+    {
+        SDL_Rect cursor_party = {party_x[i] * tile.w, party_y[i] * tile.h, tile.w,
+                                 tile.h};
+
+        render_outline_rect_width(subwindow->window,
+            map, &cursor_party, &g_colors[COLOUR_L_BLUE],
+            /* XXX some arbitrary values that look ok at the moment */
+            MIN(MIN(tile.w / 4, tile.h / 4),
+                DEFAULT_VISIBLE_BORDER));
+    }
+
     term_view_map_shared(subwindow, map, w, h);
 
     SDL_DestroyTexture(map);
@@ -4200,6 +4229,24 @@ static void term_view_map_text(struct subwindow *subwindow)
                     subwindow->font_height / 4),
                 DEFAULT_VISIBLE_BORDER));
 
+    /* render cursor around party members */
+    for (int i = 0; i < party_n; i++)
+    {
+        SDL_Rect cursor_party = {
+            party_x[i] * subwindow->font_width,
+            party_y[i] * subwindow->font_height,
+            subwindow->font_width,
+            subwindow->font_height
+        };
+
+        render_outline_rect_width(subwindow->window,
+            map, &cursor_party, &g_colors[COLOUR_L_BLUE],
+            /* XXX some arbitrary values that look reasonable at the moment */
+            MIN(MIN(subwindow->font_width / 4,
+                    subwindow->font_height / 4),
+                DEFAULT_VISIBLE_BORDER));
+    }
+
     term_view_map_shared(subwindow, map, w, h);
 
     SDL_DestroyTexture(map);
@@ -4211,10 +4258,8 @@ static void term_view_map_hook(term *terminal)
 {
     struct subwindow *subwindow = terminal->data;
 
-    subwindow->term->view_map_hook = NULL;
-    /* do_cmd_view_map(); waiting for a keypress inkey_ex();*/
+    /* do_cmd_view_map(); waiting for a keypress inkey_ex(); */
     do_cmd_view_map_w();
-    subwindow->term->view_map_hook = term_view_map_hook;
 
     if (subwindow->window->graphics.id == GRAPHICS_NONE) {
         term_view_map_text(subwindow);

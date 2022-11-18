@@ -159,18 +159,26 @@ static bool object_curse_conflicts(struct object *obj, int pick)
     if (c->obj->effect && (c->obj->effect->index == effect_lookup("TIMED_INC")))
     {
         int idx = c->obj->effect->subtype;
-        struct timed_effect_data *status;
+        const struct timed_failure *f;
 
-        my_assert(idx >= 0);
-        my_assert(idx < TMD_MAX);
-
-        status = &timed_effects[idx];
-        if ((status->fail_code == TMD_FAIL_FLAG_OBJECT) && of_has(obj->flags, status->fail))
-            return true;
-        if ((status->fail_code == TMD_FAIL_FLAG_RESIST) && (obj->el_info[status->fail].res_level > 0))
-            return true;
-        if ((status->fail_code == TMD_FAIL_FLAG_VULN) && (obj->el_info[status->fail].res_level < 0))
-            return true;
+        my_assert(idx >= 0 && idx < TMD_MAX);
+        f = timed_effects[idx].fail;
+        while (f)
+        {
+            if ((f->code == TMD_FAIL_FLAG_OBJECT) && of_has(obj->flags, f->idx))
+                return true;
+            if (f->code == TMD_FAIL_FLAG_RESIST)
+            {
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (obj->el_info[f->idx].res_level[0] > 0) return true;
+            }
+            if (f->code == TMD_FAIL_FLAG_VULN)
+            {
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (obj->el_info[f->idx].res_level[0] < 0) return true;
+            }
+            f = f->next;
+        }
     }
 
     return false;
@@ -321,18 +329,26 @@ static bool artifact_curse_conflicts(struct artifact *art, int pick)
     if (c->obj->effect && c->obj->effect->index == effect_lookup("TIMED_INC"))
     {
         int idx = c->obj->effect->subtype;
-        struct timed_effect_data *status;
+        const struct timed_failure *f;
 
-        my_assert(idx >= 0);
-        my_assert(idx < TMD_MAX);
-
-        status = &timed_effects[idx];
-        if ((status->fail_code == TMD_FAIL_FLAG_OBJECT) && of_has(art->flags, status->fail))
-            return true;
-        if ((status->fail_code == TMD_FAIL_FLAG_RESIST) && (art->el_info[status->fail].res_level > 0))
-            return true;
-        if ((status->fail_code == TMD_FAIL_FLAG_VULN) && (art->el_info[status->fail].res_level < 0))
-            return true;
+        my_assert(idx >= 0 && idx < TMD_MAX);
+        f = timed_effects[idx].fail;
+        while (f)
+        {
+            if ((f->code == TMD_FAIL_FLAG_OBJECT) && of_has(art->flags, f->idx))
+                return true;
+            if (f->code == TMD_FAIL_FLAG_RESIST)
+            {
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (art->el_info[f->idx].res_level[0] > 0) return true;
+            }
+            if (f->code == TMD_FAIL_FLAG_VULN)
+            {
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (art->el_info[f->idx].res_level[0] < 0) return true;
+            }
+            f = f->next;
+        }
     }
 
     return false;

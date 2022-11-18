@@ -184,7 +184,7 @@ static void wr_item(struct object *obj)
 
     for (i = 0; i < ELEM_MAX; i++)
     {
-        wr_s16b(obj->el_info[i].res_level);
+        wr_s16b(obj->el_info[i].res_level[0]);
         wr_byte(obj->el_info[i].flags);
     }
 
@@ -516,7 +516,7 @@ void wr_player_misc(void *data)
     /* Elements */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        wr_s16b(p->obj_k->el_info[i].res_level);
+        wr_s16b(p->obj_k->el_info[i].res_level[0]);
         wr_byte(p->obj_k->el_info[i].flags);
     }
 
@@ -1101,7 +1101,7 @@ static void wr_monster(const struct monster *mon)
         wr_byte(mon->known_pstate.flags[j]);
 
     for (j = 0; j < ELEM_MAX; j++)
-        wr_s16b(mon->known_pstate.el_info[j].res_level);
+        wr_s16b(mon->known_pstate.el_info[j].res_level[0]);
 
     /* Mimic stuff */
     wr_s16b(mon->mimicked_k_idx);

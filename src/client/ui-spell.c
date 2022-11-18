@@ -449,7 +449,7 @@ bool spell_okay_to_cast(int book, int spell)
 {
     int attr = book_info[book].spell_info[spell].flag.line_attr;
 
-    return ((attr == COLOUR_WHITE) || (attr == COLOUR_L_GREEN));
+    return ((attr == COLOUR_WHITE) || (attr == COLOUR_L_GREEN) || (attr == COLOUR_SLATE));
 }
 
 

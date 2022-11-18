@@ -170,7 +170,7 @@ int default_layout_win(term_data *data, int maxterms)
     if ((sx == 1280) && (sy == 1024))
     {
         arg_graphics = GRAPHICS_64x64;
-        arg_graphics_nice = 0;
+        arg_graphics_nice = false;
         tile_width = 4;
         tile_height = 2;
 

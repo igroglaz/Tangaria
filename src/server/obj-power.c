@@ -502,7 +502,7 @@ static int object_power_calculation_VULN(void *data)
     prop = lookup_obj_property(OBJ_PROPERTY_VULN, calc->iter);
     my_assert(prop);
     if ((calc->known || object_element_is_known(power_obj, calc->iter, calc->aware)) &&
-        (el_info[calc->iter].res_level == -1))
+        (el_info[calc->iter].res_level[0] == -1))
     {
         return prop->power;
     }
@@ -523,7 +523,7 @@ static int object_power_calculation_RESIST(void *data)
     prop = lookup_obj_property(OBJ_PROPERTY_RESIST, calc->iter);
     my_assert(prop);
     if ((calc->known || object_element_is_known(power_obj, calc->iter, calc->aware)) &&
-        (el_info[calc->iter].res_level == 1))
+        (el_info[calc->iter].res_level[0] == 1))
     {
         return prop->power;
     }
@@ -544,7 +544,7 @@ static int object_power_calculation_IMM(void *data)
     prop = lookup_obj_property(OBJ_PROPERTY_IMM, calc->iter);
     my_assert(prop);
     if ((calc->known || object_element_is_known(power_obj, calc->iter, calc->aware)) &&
-        (el_info[calc->iter].res_level == 3))
+        (el_info[calc->iter].res_level[0] == 3))
     {
         return prop->power;
     }
@@ -564,7 +564,7 @@ static int object_power_calculation_NUM_BASE_RES(void *data)
 
     for (i = ELEM_BASE_MIN; i <= ELEM_BASE_MAX; i++)
     {
-        if (el_info[i].res_level >= 1) count++;
+        if (el_info[i].res_level[0] >= 1) count++;
     }
 
     return ((count > 1)? count: 0);
@@ -582,7 +582,7 @@ static int object_power_calculation_ALL_BASE_RES(void *data)
 
     for (i = ELEM_BASE_MIN; i <= ELEM_BASE_MAX; i++)
     {
-        if (el_info[i].res_level < 1) return 0;
+        if (el_info[i].res_level[0] < 1) return 0;
     }
 
     return 1;
@@ -600,7 +600,7 @@ static int object_power_calculation_NUM_HIGH_RES(void *data)
 
     for (i = ELEM_HIGH_MIN; i <= ELEM_HIGH_MAX; i++)
     {
-        if (el_info[i].res_level == 1) count++;
+        if (el_info[i].res_level[0] == 1) count++;
     }
 
     return ((count > 1)? count: 0);
@@ -618,7 +618,7 @@ static int object_power_calculation_ALL_HIGH_RES(void *data)
 
     for (i = ELEM_HIGH_MIN; i <= ELEM_HIGH_MAX; i++)
     {
-        if (el_info[i].res_level != 1) return 0;
+        if (el_info[i].res_level[0] != 1) return 0;
     }
 
     return 1;
@@ -636,7 +636,7 @@ static int object_power_calculation_NUM_XHIGH_RES(void *data)
 
     for (i = ELEM_HIGH_MAX + 1; i <= ELEM_XHIGH_MAX; i++)
     {
-        if (el_info[i].res_level == 1) count++;
+        if (el_info[i].res_level[0] == 1) count++;
     }
 
     return ((count > 1)? count: 0);
@@ -654,7 +654,7 @@ static int object_power_calculation_ALL_XHIGH_RES(void *data)
 
     for (i = ELEM_HIGH_MAX + 1; i <= ELEM_XHIGH_MAX; i++)
     {
-        if (el_info[i].res_level != 1) return 0;
+        if (el_info[i].res_level[0] != 1) return 0;
     }
 
     return 1;
@@ -672,7 +672,7 @@ static int object_power_calculation_NUM_IMM(void *data)
 
     for (i = ELEM_BASE_MIN; i <= ELEM_BASE_MAX; i++)
     {
-        if (el_info[i].res_level == 3) count++;
+        if (el_info[i].res_level[0] == 3) count++;
     }
 
     return ((count > 1)? count: 0);
@@ -690,7 +690,7 @@ static int object_power_calculation_ALL_IMM(void *data)
 
     for (i = ELEM_BASE_MIN; i <= ELEM_BASE_MAX; i++)
     {
-        if (el_info[i].res_level != 3) return 0;
+        if (el_info[i].res_level[0] != 3) return 0;
     }
 
     return 1;

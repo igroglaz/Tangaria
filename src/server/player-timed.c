@@ -35,12 +35,21 @@ int PY_FOOD_STARVE;
  */
 
 
+static const char *list_player_flag_names[] =
+{
+    #define PF(a) #a,
+    #include "../common/list-player-flags.h"
+    #undef PF
+    NULL
+};
+
+
 struct timed_effect_data timed_effects[] =
 {
-    #define TMD(a, b, c) {#a, b, c, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, OF_NONE, false, -1, -1, -1},
+    #define TMD(a, b, c) {#a, b, c, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 0, OF_NONE, false, -1, -1, -1},
     #include "../common/list-player-timed.h"
     #undef TMD
-    {"MAX", 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, OF_NONE, false, -1, -1, -1}
+    {"MAX", 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 0, OF_NONE, false, -1, -1, -1}
 };
 
 
@@ -71,9 +80,9 @@ static const char *list_timed_effect_names[] =
 
 static enum parser_error parse_player_timed_name(struct parser *p)
 {
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
     const char *name = parser_getstr(p, "name");
     int index;
-    struct timed_effect_data *t;
 
     if (grab_name("timed effect", name, list_timed_effect_names,
         N_ELEMENTS(list_timed_effect_names), &index))
@@ -81,9 +90,9 @@ static enum parser_error parse_player_timed_name(struct parser *p)
         return PARSE_ERROR_INVALID_SPELL_NAME;
     }
 
-    t = &timed_effects[index];
-    t->index = index;
-    parser_setpriv(p, t);
+    my_assert(ps);
+    ps->t = &timed_effects[index];
+    ps->e = NULL;
 
     return PARSE_ERROR_NONE;
 }
@@ -91,151 +100,208 @@ static enum parser_error parse_player_timed_name(struct parser *p)
 
 static enum parser_error parse_player_timed_desc(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->desc = string_append(t->desc, parser_getstr(p, "desc"));
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_player_timed_grade(struct parser *p)
-{
-    struct timed_effect_data *t = parser_priv(p);
-    struct timed_grade *current, *l;
-    const char *color = parser_getsym(p, "color");
-    int attr = 0;
-
-    my_assert(t);
-    if (strlen(color) > 1) attr = color_text_to_attr(color);
-    else attr = color_char_to_attr(color[0]);
-    if (attr < 0) return PARSE_ERROR_INVALID_COLOR;
-
-    /* Make a zero grade structure if there isn't one */
-    current = t->grade;
-    if (!current)
-    {
-        t->grade = mem_zalloc(sizeof(struct timed_grade));
-        current = t->grade;
-    }
-
-    /* Move to the highest grade so far */
-    while (current->next) current = current->next;
-
-    /* Add the new one */
-    l = mem_zalloc(sizeof(*l));
-    current->next = l;
-    l->grade = current->grade + 1;
-    l->color = attr;
-    l->max = parser_getint(p, "max");
-    l->name = string_make(parser_getsym(p, "name"));
-    l->up_msg = string_make(parser_getsym(p, "up_msg"));
-    if (parser_hasval(p, "down_msg"))
-        l->down_msg  = string_make(parser_getsym(p, "down_msg"));
-
-    /* Set food constants and deal with percentages */
-    if (streq(t->name, "FOOD"))
-    {
-        l->max *= z_info->food_value;
-        if (streq(l->name, "Starving")) PY_FOOD_STARVE = l->max;
-        else if (streq(l->name, "Faint")) PY_FOOD_FAINT = l->max;
-        else if (streq(l->name, "Weak")) PY_FOOD_WEAK = l->max;
-        else if (streq(l->name, "Hungry")) PY_FOOD_HUNGRY = l->max;
-        else if (streq(l->name, "Fed")) PY_FOOD_FULL = l->max;
-        else if (streq(l->name, "Full")) PY_FOOD_MAX = l->max;
-    }
-
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->desc = string_append(ps->t->desc, parser_getstr(p, "desc"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_end_message(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->on_end = string_append(t->on_end, parser_getstr(p, "text"));
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->on_end = string_append(ps->t->on_end, parser_getstr(p, "text"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_increase_message(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->on_increase = string_append(t->on_increase, parser_getstr(p, "text"));
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->on_increase = string_append(ps->t->on_increase, parser_getstr(p, "text"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_decrease_message(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->on_decrease = string_append(t->on_decrease, parser_getstr(p, "text"));
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->on_decrease = string_append(ps->t->on_decrease, parser_getstr(p, "text"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_nbegin_message(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->near_begin = string_append(t->near_begin, parser_getstr(p, "text"));
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->near_begin = string_append(ps->t->near_begin, parser_getstr(p, "text"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_nend_message(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->near_end = string_append(t->near_end, parser_getstr(p, "text"));
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->near_end = string_append(ps->t->near_end, parser_getstr(p, "text"));
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_message_type(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
 
-    my_assert(t);
-    t->msgt = message_lookup_by_name(parser_getsym(p, "type"));
-    return ((t->msgt < 0)? PARSE_ERROR_INVALID_MESSAGE: PARSE_ERROR_NONE);
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->t->msgt = message_lookup_by_name(parser_getsym(p, "type"));
+    return ((ps->t->msgt < 0)? PARSE_ERROR_INVALID_MESSAGE: PARSE_ERROR_NONE);
 }
 
 
 static enum parser_error parse_player_timed_fail(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
-    const char *name;
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    const char *name = parser_getstr(p, "flag");
+    struct timed_failure *f;
+    int code, idx;
 
-    my_assert(t);
-    t->fail_code = parser_getuint(p, "code");
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
 
-    name = parser_getstr(p, "flag");
-    if (t->fail_code == TMD_FAIL_FLAG_OBJECT)
+    code = parser_getuint(p, "code");
+    switch (code)
     {
-        int flag = lookup_flag(list_obj_flag_names, name);
+        case TMD_FAIL_FLAG_OBJECT:
+        {
+            idx = lookup_flag(list_obj_flag_names, name);
+            if (idx == FLAG_END) return PARSE_ERROR_INVALID_FLAG;
+            break;
+        }
 
-        if (flag == FLAG_END) return PARSE_ERROR_INVALID_FLAG;
-        t->fail = flag;
+        case TMD_FAIL_FLAG_PLAYER:
+        {
+            idx = lookup_flag(list_player_flag_names, name);
+            if (idx == FLAG_END) return PARSE_ERROR_INVALID_FLAG;
+            break;
+        }
+
+        case TMD_FAIL_FLAG_RESIST:
+        case TMD_FAIL_FLAG_VULN:
+        {
+            idx = 0;
+            while (list_element_names[idx] && !streq(list_element_names[idx], name)) idx++;
+            if (idx == ELEM_MAX) return PARSE_ERROR_INVALID_FLAG;
+            break;
+        }
+
+        case TMD_FAIL_FLAG_TIMED_EFFECT:
+        {
+            if (grab_name("timed effect", name, list_timed_effect_names,
+                N_ELEMENTS(list_timed_effect_names), &idx))
+            {
+                return PARSE_ERROR_INVALID_FLAG;
+            }
+            break;
+        }
+
+        default: return PARSE_ERROR_INVALID_FLAG;
     }
-    else if ((t->fail_code == TMD_FAIL_FLAG_RESIST) || (t->fail_code == TMD_FAIL_FLAG_VULN))
+
+    f = mem_alloc(sizeof(*f));
+    f->next = ps->t->fail;
+    f->code = code;
+    f->idx = idx;
+    ps->t->fail = f;
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_grade(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    const char *color = parser_getsym(p, "color");
+    int grade_max = parser_getint(p, "max");
+    struct timed_grade *current, *l;
+    int attr, food_scl;
+
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+
+    /*
+     * The maximum has to be greater than zero so it doesn't interfere
+     * with the implicit "off" grade which has a maximum of 0. Because
+     * a timed effect duration is stored as an int16_t in struct player,
+     * also guarantee that the maximum is compatible with that.
+     */
+    food_scl = (streq(ps->t->name, "FOOD"))? (int)z_info->food_value: 1;
+    if (grade_max <= 0 || grade_max > 32767 / food_scl)
+        return PARSE_ERROR_INVALID_VALUE;
+
+    if (strlen(color) > 1) attr = color_text_to_attr(color);
+    else attr = color_char_to_attr(color[0]);
+    if (attr < 0) return PARSE_ERROR_INVALID_COLOR;
+
+    /* Make a zero grade structure if there isn't one */
+    current = ps->t->grade;
+    if (!current)
     {
-        size_t i = 0;
-
-        while (list_element_names[i] && !streq(list_element_names[i], name)) i++;
-
-        if (i == ELEM_MAX) return PARSE_ERROR_INVALID_FLAG;
-        t->fail = i;
+        ps->t->grade = mem_zalloc(sizeof(struct timed_grade));
+        current = ps->t->grade;
     }
-    else
-        return PARSE_ERROR_INVALID_FLAG;
+
+    /* Move to the highest grade so far */
+    while (current->next)
+    {
+        current = current->next;
+
+        /* Enforce that the grades appear in ascending order. */
+        if (grade_max * food_scl <= current->max)
+            return PARSE_ERROR_INVALID_VALUE;
+    }
+
+    /* Add the new one */
+    l = mem_zalloc(sizeof(*l));
+    current->next = l;
+    l->grade = current->grade + 1;
+    l->color = attr;
+    l->max = grade_max;
+    l->name = string_make(parser_getsym(p, "name"));
+    l->up_msg = string_make(parser_getsym(p, "up_msg"));
+    if (parser_hasval(p, "down_msg"))
+        l->down_msg  = string_make(parser_getsym(p, "down_msg"));
+
+    /* Set food constants and deal with percentages */
+    if (food_scl != 1)
+    {
+        l->max *= food_scl;
+        if (l->name)
+        {
+            if (streq(l->name, "Starving")) PY_FOOD_STARVE = l->max;
+            else if (streq(l->name, "Faint")) PY_FOOD_FAINT = l->max;
+            else if (streq(l->name, "Weak")) PY_FOOD_WEAK = l->max;
+            else if (streq(l->name, "Hungry")) PY_FOOD_HUNGRY = l->max;
+            else if (streq(l->name, "Fed")) PY_FOOD_FULL = l->max;
+            else if (streq(l->name, "Full")) PY_FOOD_MAX = l->max;
+        }
+    }
 
     return PARSE_ERROR_NONE;
 }
@@ -243,24 +309,26 @@ static enum parser_error parse_player_timed_fail(struct parser *p)
 
 static enum parser_error parse_player_timed_resist(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
     const char *name = parser_getsym(p, "elem");
     int idx = (name? proj_name_to_idx(name): -1);
 
-    my_assert(t);
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (idx < 0 || idx >= ELEM_MAX) return PARSE_ERROR_INVALID_VALUE;
-    t->temp_resist = idx;
+    ps->t->temp_resist = idx;
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_brand(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
     const char *name = parser_getsym(p, "name");
     int idx = z_info->brand_max;
 
-    my_assert(t);
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (name)
     {
         for (idx = 0; idx < z_info->brand_max; ++idx)
@@ -269,18 +337,19 @@ static enum parser_error parse_player_timed_brand(struct parser *p)
         }
     }
     if (idx == z_info->brand_max) return PARSE_ERROR_UNRECOGNISED_BRAND;
-    t->temp_brand = idx;
+    ps->t->temp_brand = idx;
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_slay(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
     const char *name = parser_getsym(p, "name");
     int idx = z_info->slay_max;
 
-    my_assert(t);
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (name)
     {
         for (idx = 0; idx < z_info->slay_max; ++idx)
@@ -289,22 +358,209 @@ static enum parser_error parse_player_timed_slay(struct parser *p)
         }
     }
     if (idx == z_info->slay_max) return PARSE_ERROR_UNRECOGNISED_BRAND;
-    t->temp_slay = idx;
+    ps->t->temp_slay = idx;
     return PARSE_ERROR_NONE;
 }
 
 
 static enum parser_error parse_player_timed_flag_synonym(struct parser *p)
 {
-    struct timed_effect_data *t = parser_priv(p);
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
     const char *code = parser_getsym(p, "code");
     bool is_exact = parser_getint(p, "exact") != 0;
     int idx = (code? code_index_in_array(list_obj_flag_names, code): OF_NONE);
 
-    my_assert(t);
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (idx <= OF_NONE) return PARSE_ERROR_INVALID_OBJ_PROP_CODE;
-    t->oflag_dup = idx;
-    t->oflag_syn = is_exact;
+    ps->t->oflag_dup = idx;
+    ps->t->oflag_syn = is_exact;
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_on_begin_effect(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    struct effect *effect;
+
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+
+    /* Go to the next vacant effect and set it to the new one. */
+    ps->e = mem_zalloc(sizeof(*effect));
+    if (ps->t->on_begin_effect)
+    {
+        effect = ps->t->on_begin_effect;
+        while (effect->next) effect = effect->next;
+        effect->next = ps->e;
+    }
+    else
+        ps->t->on_begin_effect = ps->e;
+
+    /* Fill in the details. */
+    return grab_effect_data(p, ps->e);
+}
+
+
+static enum parser_error parse_player_timed_on_end_effect(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    struct effect *effect;
+
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+
+    /* Go to the next vacant effect and set it to the new one */
+    ps->e = mem_zalloc(sizeof(*effect));
+    if (ps->t->on_end_effect)
+    {
+        effect = ps->t->on_end_effect;
+        while (effect->next) effect = effect->next;
+        effect->next = ps->e;
+    }
+    else
+        ps->t->on_end_effect = ps->e;
+
+    /* Fill in the detail */
+    return grab_effect_data(p, ps->e);
+}
+
+
+static enum parser_error parse_player_timed_effect_yx(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+
+    my_assert(ps);
+    if (!ps->e) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->e->y = parser_getint(p, "y");
+    ps->e->x = parser_getint(p, "x");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_effect_dice(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    dice_t *dice;
+    const char *string;
+
+    my_assert(ps);
+    if (!ps->e) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    dice = dice_new();
+    if (dice == NULL)
+        return PARSE_ERROR_INVALID_DICE;
+    string = parser_getstr(p, "dice");
+    if (dice_parse_string(dice, string))
+    {
+        dice_free(ps->e->dice);
+        ps->e->dice = dice;
+    }
+    else
+    {
+        dice_free(dice);
+        return PARSE_ERROR_INVALID_DICE;
+    }
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_effect_expr(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    expression_t *expression;
+    expression_base_value_f function;
+    const char *name, *base, *expr;
+    enum parser_error result;
+
+    my_assert(ps);
+    if (!ps->e || !ps->e->dice)
+        return PARSE_ERROR_MISSING_RECORD_HEADER;
+    name = parser_getsym(p, "name");
+    base = parser_getsym(p, "base");
+    expr = parser_getstr(p, "expr");
+    expression = expression_new();
+    if (expression == NULL)
+        return PARSE_ERROR_INVALID_EXPRESSION;
+    function = effect_value_base_by_name(base);
+    expression_set_base_value(expression, function);
+    if (expression_add_operations_string(expression, expr) < 0)
+        result = PARSE_ERROR_BAD_EXPRESSION_STRING;
+    else if (dice_bind_expression(ps->e->dice, name, expression) < 0)
+        result = PARSE_ERROR_UNBOUND_EXPRESSION;
+    else
+        result = PARSE_ERROR_NONE;
+
+    /*
+     * The dice object makes a deep copy of the expression, so we can
+     * free it.
+     */
+    expression_free(expression);
+
+    return result;
+}
+
+
+static enum parser_error parse_player_timed_effect_msg(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+
+    my_assert(ps);
+    if (!ps->e) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    ps->e->self_msg = string_append(ps->e->self_msg, parser_getstr(p, "text"));
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_effect_flags(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    char *flags, *s;
+
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (!parser_hasval(p, "flags"))
+        return PARSE_ERROR_NONE;
+    flags = string_make(parser_getstr(p, "flags"));
+    s = strtok(flags, " |");
+    while (s)
+    {
+        if (streq(s, "NONSTACKING"))
+            ps->t->flags |= TMD_FLAG_NONSTACKING;
+        else
+        {
+            string_free(flags);
+            return PARSE_ERROR_INVALID_FLAG;
+        }
+        s = strtok(NULL, " |");
+    }
+
+    string_free(flags);
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_player_timed_effect_lower_bound(struct parser *p)
+{
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+    int bound = parser_getint(p, "bound");
+
+    my_assert(ps);
+    if (!ps->t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+
+    /*
+     * Don't allow negative lower bounds (breaks the logic for testing
+     * whether a timed effect is active). Also, since int16_t is used to
+     * store a timed effect's duration in struct player, don't allow
+     * lower bounds that aren't compatible with that.
+     */
+    if (bound < 0 || bound > 32767)
+        return PARSE_ERROR_INVALID_VALUE;
+    ps->t->lower_bound = bound;
+
     return PARSE_ERROR_NONE;
 }
 
@@ -312,12 +568,11 @@ static enum parser_error parse_player_timed_flag_synonym(struct parser *p)
 static struct parser *init_parse_player_timed(void)
 {
     struct parser *p = parser_new();
-    parser_setpriv(p, NULL);
+    struct timed_effect_parse_state *ps = mem_zalloc(sizeof(*ps));
 
+    parser_setpriv(p, ps);
     parser_reg(p, "name str name", parse_player_timed_name);
     parser_reg(p, "desc str desc", parse_player_timed_desc);
-    parser_reg(p, "grade sym color int max sym name sym up_msg ?sym down_msg",
-        parse_player_timed_grade);
     parser_reg(p, "on-end str text", parse_player_timed_end_message);
     parser_reg(p, "on-increase str text", parse_player_timed_increase_message);
     parser_reg(p, "on-decrease str text", parse_player_timed_decrease_message);
@@ -325,10 +580,22 @@ static struct parser *init_parse_player_timed(void)
     parser_reg(p, "near-end str text", parse_player_timed_nend_message);
     parser_reg(p, "msgt sym type", parse_player_timed_message_type);
     parser_reg(p, "fail uint code str flag", parse_player_timed_fail);
+    parser_reg(p, "grade sym color int max sym name sym up_msg ?sym down_msg",
+        parse_player_timed_grade);
     parser_reg(p, "resist sym elem", parse_player_timed_resist);
     parser_reg(p, "brand sym name", parse_player_timed_brand);
     parser_reg(p, "slay sym name", parse_player_timed_slay);
     parser_reg(p, "flag-synonym sym code int exact", parse_player_timed_flag_synonym);
+    parser_reg(p, "on-begin-effect sym eff ?sym type ?int radius ?int other",
+        parse_player_timed_on_begin_effect);
+    parser_reg(p, "on-end-effect sym eff ?sym type ?int radius ?int other",
+        parse_player_timed_on_end_effect);
+    parser_reg(p, "effect-yx int y int x", parse_player_timed_effect_yx);
+    parser_reg(p, "effect-dice str dice", parse_player_timed_effect_dice);
+    parser_reg(p, "effect-expr sym name sym base str expr", parse_player_timed_effect_expr);
+    parser_reg(p, "effect-msg str text", parse_player_timed_effect_msg);
+    parser_reg(p, "flags ?str flags", parse_player_timed_effect_flags);
+    parser_reg(p, "lower-bound int bound", parse_player_timed_effect_lower_bound);
     return p;
 }
 
@@ -341,6 +608,9 @@ static errr run_parse_player_timed(struct parser *p)
 
 static errr finish_parse_player_timed(struct parser *p)
 {
+    struct timed_effect_parse_state *ps = (struct timed_effect_parse_state*)parser_priv(p);
+
+    mem_free(ps);
     parser_destroy(p);
     return 0;
 }
@@ -350,10 +620,26 @@ static void cleanup_player_timed(void)
 {
     size_t i;
 
+    /*
+     * Besides cleaning up any dynamically allocated resources, revert
+     * any fields set during parsing to their default values so the
+     * timed_effects array is back to where it started after its static
+     * initialization.
+     */
     for (i = 0; i < TMD_MAX; i++)
     {
         struct timed_effect_data *effect = &timed_effects[i];
+        struct timed_failure *f = effect->fail;
         struct timed_grade *grade = effect->grade;
+
+        while (f)
+        {
+            struct timed_failure *next = f->next;
+
+            mem_free(f);
+            f = next;
+        }
+        effect->fail = NULL;
 
         while (grade)
         {
@@ -365,20 +651,34 @@ static void cleanup_player_timed(void)
             mem_free(grade);
             grade = next;
         }
+        effect->grade = NULL;
 
         string_free(effect->desc);
-        string_free(effect->on_end);
-        string_free(effect->on_increase);
-        string_free(effect->on_decrease);
-        string_free(effect->near_begin);
-        string_free(effect->near_end);
-
         effect->desc = NULL;
+        string_free(effect->on_end);
         effect->on_end = NULL;
+        string_free(effect->on_increase);
         effect->on_increase = NULL;
+        string_free(effect->on_decrease);
         effect->on_decrease = NULL;
+        string_free(effect->near_begin);
         effect->near_begin = NULL;
+        string_free(effect->near_end);
         effect->near_end = NULL;
+        effect->msgt = 0;
+
+        free_effect(effect->on_begin_effect);
+        effect->on_begin_effect = NULL;
+        free_effect(effect->on_end_effect);
+        effect->on_end_effect = NULL;
+
+        effect->flags = 0;
+        effect->lower_bound = 0;
+        effect->oflag_dup = OF_NONE;
+        effect->oflag_syn = false;
+        effect->temp_resist = -1;
+        effect->temp_brand = -1;
+        effect->temp_slay = -1;
     }
 }
 
@@ -391,68 +691,6 @@ struct file_parser player_timed_parser =
     finish_parse_player_timed,
     cleanup_player_timed
 };
-
-
-/*
- * Utilities for more complex or anomolous effects
- */
-
-
-/*
- * Swap stats at random to temporarily scramble the player's stats.
- */
-static void player_scramble_stats(struct player *p)
-{
-    int max1, cur1, max2, cur2, i, j, swap;
-
-    /* Fisher-Yates shuffling algorithm. */
-    for (i = STAT_MAX - 1; i > 0; --i)
-    {
-        j = randint0(i);
-
-        max1 = p->stat_max[i];
-        cur1 = p->stat_cur[i];
-        max2 = p->stat_max[j];
-        cur2 = p->stat_cur[j];
-
-        p->stat_max[i] = max2;
-        p->stat_cur[i] = cur2;
-        p->stat_max[j] = max1;
-        p->stat_cur[j] = cur1;
-
-        /* Record what we did */
-        swap = p->stat_map[i];
-        p->stat_map[i] = p->stat_map[j];
-        p->stat_map[j] = swap;
-    }
-}
-
-
-/*
- * Undo scrambled stats when effect runs out.
- */
-static void player_fix_scramble(struct player *p)
-{
-    int i;
-
-    /* Figure out what stats should be */
-    int new_cur[STAT_MAX];
-    int new_max[STAT_MAX];
-
-    for (i = 0; i < STAT_MAX; ++i)
-    {
-        new_cur[p->stat_map[i]] = p->stat_cur[i];
-        new_max[p->stat_map[i]] = p->stat_max[i];
-    }
-
-    /* Apply new stats and clear the stat_map */
-    for (i = 0; i < STAT_MAX; ++i)
-    {
-        p->stat_cur[i] = new_cur[i];
-        p->stat_max[i] = new_max[i];
-        p->stat_map[i] = i;
-    }
-}
 
 
 /*
@@ -1119,7 +1357,7 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
     weapon = equipped_item_by_slot_name(p, "weapon");
 
     /* Lower bound */
-    v = MAX(v, (idx == TMD_FOOD)? 1: 0);
+    v = MAX(v, effect->lower_bound);
 
     /* No change */
     if (p->timed[idx] == v) return false;
@@ -1137,7 +1375,13 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
     }
 
     /* Upper bound */
-    v = MIN(v, new_grade->max);
+    if (v > new_grade->max)
+    {
+        /* No change: tried to exceed the maximum possible and already there */
+        if (p->timed[idx] == new_grade->max) return false;
+
+        v = new_grade->max;
+    }
 
     // Knight class stances
     if (idx == TMD_BALANCED_STANCE)
@@ -1196,7 +1440,7 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
 
     /* Don't mention effects which already match the known player state. */
     if (timed_effects[idx].temp_resist != -1 &&
-        p->obj_k->el_info[timed_effects[idx].temp_resist].res_level &&
+        p->obj_k->el_info[timed_effects[idx].temp_resist].res_level[0] &&
         player_is_immune(p, timed_effects[idx].temp_resist))
     {
         notify = false;
@@ -1246,11 +1490,32 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
             print_custom_message(p, weapon, effect->on_increase, effect->msgt);
     }
 
-    /* Handle stat swap */
-    if (idx == TMD_SCRAMBLE)
+    /* Dispatch effects for transitions. */
+    if (v > 0 && !p->timed[idx])
     {
-        if (p->timed[idx] == 0) player_scramble_stats(p);
-        else if (v == 0) player_fix_scramble(p);
+        /* The effect starts. */
+        if (effect->on_begin_effect)
+        {
+            bool ident = false;
+            struct source who_body;
+            struct source *who = &who_body;
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect->on_begin_effect, who, &ident, true, 0, NULL, 0, 0, NULL);
+        }
+    }
+    else if (v == 0)
+    {
+        /* The effect lapses. */
+        if (effect->on_end_effect)
+        {
+            bool ident = false;
+            struct source who_body;
+            struct source *who = &who_body;
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_do(effect->on_end_effect, who, &ident, true, 0, NULL, 0, 0, NULL);
+        }
     }
 
     /* Hack -- food meter */
@@ -1265,9 +1530,6 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
         if (!notify) no_disturb = true;
         notify = true;
     }
-
-    /* Sort out the sprint effect */
-    if ((idx == TMD_SPRINT) && (v == 0)) player_inc_timed(p, TMD_SLOW, 100, true, false);
 
     if (notify)
     {
@@ -1302,43 +1564,85 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
 bool player_inc_check(struct player *p, struct monster *mon, int idx, bool lore)
 {
     struct timed_effect_data *effect = &timed_effects[idx];
+    struct timed_failure *f = effect->fail;
 
-    /* Check that @ can be affected by this effect */
-    if (!effect->fail_code) return true;
-
-    /* Determine whether an effect can be prevented by a flag */
-    if (effect->fail_code == TMD_FAIL_FLAG_OBJECT)
+    while (f)
     {
-        /* Effect is inhibited by an object flag */
-        if (!lore) equip_learn_flag(p, effect->fail);
-
-        /* If the effect is from a monster action, extra stuff happens */
-        if (mon && !lore) update_smart_learn(mon, p, effect->fail, 0, -1);
-        if (player_of_has(p, effect->fail))
+        switch (f->code)
         {
-            if (mon && !lore) msg(p, "You resist the effect!");
-            return false;
+            case TMD_FAIL_FLAG_OBJECT:
+            {
+                /* Effect is inhibited by an object flag */
+                if (!lore) equip_learn_flag(p, f->idx);
+
+                /* If the effect is from a monster action, extra stuff happens */
+                if (mon && !lore) update_smart_learn(mon, p, f->idx, 0, -1);
+                if (player_of_has(p, f->idx))
+                {
+                    if (mon && !lore) msg(p, "You resist the effect!");
+                    return false;
+                }
+
+                break;
+            }
+
+            case TMD_FAIL_FLAG_RESIST:
+            {
+                /* Effect is inhibited by a resist */
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (!lore) equip_learn_element(p, f->idx);
+                if (p->state.el_info[f->idx].res_level[0] > 0) return false;
+
+                break;
+            }
+
+            case TMD_FAIL_FLAG_VULN:
+            {
+                /* Effect is inhibited by a vulnerability */
+                my_assert(f->idx >= 0 && f->idx < ELEM_MAX);
+                if (p->state.el_info[f->idx].res_level[0] < 0)
+                {
+                    if (!lore) equip_learn_element(p, f->idx);
+                    return false;
+                }
+
+                break;
+            }
+
+            case TMD_FAIL_FLAG_PLAYER:
+            {
+                /* Effect is inhibited by a player flag */
+                if (player_has(p, f->idx)) return false;
+
+                break;
+            }
+
+            case TMD_FAIL_FLAG_TIMED_EFFECT:
+            {
+                /*
+                 * Effect is inhibited by a timed effect. If timed
+                 * effect is active, it is known to the player, so
+                 * there's no difference between whether this is
+                 * solely a lore check or not.
+                 */
+                my_assert(f->idx >= 0 && f->idx < TMD_MAX);
+                if (p->timed[f->idx]) return false;
+
+                break;
+            }
+
+            default:
+            {
+                /* Should never happen. */
+                my_assert(0);
+
+                break;
+            }
         }
-    }
-    else if (effect->fail_code == TMD_FAIL_FLAG_RESIST)
-    {
-        /* Effect is inhibited by a resist -- always learn */
-        if (!lore) equip_learn_element(p, effect->fail);
-        if (p->state.el_info[effect->fail].res_level > 0) return false;
-    }
-    else if (effect->fail_code == TMD_FAIL_FLAG_VULN)
-    {
-        /* Effect is inhibited by a vulnerability -- don't learn if temporary resistance */
-        if (p->state.el_info[effect->fail].res_level < 0)
-        {
-            if (!lore) equip_learn_element(p, effect->fail);
-            return false;
-        }
+        f = f->next;
     }
 
-    /* Special case */
-    if ((idx == TMD_POISONED) && p->timed[TMD_OPP_POIS]) return false;
-
+    /* Nothing prevents this effect from incrementing. */
     return true;
 }
 
@@ -1356,8 +1660,9 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
 
     if (!check || player_inc_check(p, mon, idx, false))
     {
-        /* Paralysis should be non-cumulative */
-        if ((idx == TMD_PARALYZED) && (p->timed[idx] > 0)) return false;
+        /* Block the increase if the effect is nonstacking and already active. */
+        if ((timed_effects[idx].flags & TMD_FLAG_NONSTACKING) && p->timed[idx] > 0)
+            return false;
 
         // some additional thresholds so conditions won't overstuck
         if ((idx == TMD_SLOW || idx == TMD_CONFUSED || idx == TMD_AFRAID)

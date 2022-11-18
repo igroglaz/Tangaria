@@ -2039,10 +2039,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     for (i = 0; i < ELEM_MAX; i++)
     {
         vuln[i] = false;
-        if (el_info[i].res_level == -1)
+        if (el_info[i].res_level[0] == -1)
             vuln[i] = true;
         else
-            state->el_info[i].res_level = el_info[i].res_level;
+            state->el_info[i].res_level[0] = el_info[i].res_level[0];
     }
     pf_wipe(state->pflags);
     pf_copy(state->pflags, p->race->pflags);
@@ -2150,12 +2150,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             if (!known_only || object_is_known(p, obj) || object_element_is_known(obj, j, aware))
             {
                 /* Note vulnerability for later processing */
-                if (el_info[j].res_level == -1)
+                if (el_info[j].res_level[0] == -1)
                     vuln[j] = true;
 
                 /* OK because res_level has not included vulnerability yet */
-                if (el_info[j].res_level > state->el_info[j].res_level)
-                    state->el_info[j].res_level = el_info[j].res_level;
+                if (el_info[j].res_level[0] > state->el_info[j].res_level[0])
+                    state->el_info[j].res_level[0] = el_info[j].res_level[0];
             }
         }
 
@@ -2545,8 +2545,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Now deal with vulnerabilities */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (vuln[i] && (state->el_info[i].res_level < 3))
-            state->el_info[i].res_level--;
+        if (vuln[i] && (state->el_info[i].res_level[0] < 3))
+            state->el_info[i].res_level[0]--;
     }
 
     /* Effects of food outside the "Fed" range */
@@ -2727,47 +2727,47 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->speed += 10;
     if (p->timed[TMD_OPP_ACID])
     {
-        if (state->el_info[ELEM_ACID].res_level < 2)
-            state->el_info[ELEM_ACID].res_level++;
+        if (state->el_info[ELEM_ACID].res_level[0] < 2)
+            state->el_info[ELEM_ACID].res_level[0]++;
     }
     if (p->timed[TMD_OPP_ELEC])
     {
-        if (state->el_info[ELEM_ELEC].res_level < 2)
-            state->el_info[ELEM_ELEC].res_level++;
+        if (state->el_info[ELEM_ELEC].res_level[0] < 2)
+            state->el_info[ELEM_ELEC].res_level[0]++;
     }
     if (p->timed[TMD_OPP_FIRE])
     {
-        if (state->el_info[ELEM_FIRE].res_level < 2)
-            state->el_info[ELEM_FIRE].res_level++;
+        if (state->el_info[ELEM_FIRE].res_level[0] < 2)
+            state->el_info[ELEM_FIRE].res_level[0]++;
 
         // Wizard "Magic Reflection" spell or !fire
         if (streq(p->clazz->name, "Wizard"))
         {
             state->skills[SKILL_SAVE] += p->lev / 2;
-            if (p->lev > 24 && state->el_info[ELEM_COLD].res_level < 2)
-                state->el_info[ELEM_COLD].res_level++;
-            if (p->lev > 29 && state->el_info[ELEM_ELEC].res_level < 2)
-                state->el_info[ELEM_ELEC].res_level++;
-            if (p->lev > 34 && state->el_info[ELEM_POIS].res_level < 2)
-                state->el_info[ELEM_POIS].res_level++;
-            if (p->lev > 39 && state->el_info[ELEM_ACID].res_level < 2)
-                state->el_info[ELEM_ACID].res_level++;
+            if (p->lev > 24 && state->el_info[ELEM_COLD].res_level[0] < 2)
+                state->el_info[ELEM_COLD].res_level[0]++;
+            if (p->lev > 29 && state->el_info[ELEM_ELEC].res_level[0] < 2)
+                state->el_info[ELEM_ELEC].res_level[0]++;
+            if (p->lev > 34 && state->el_info[ELEM_POIS].res_level[0] < 2)
+                state->el_info[ELEM_POIS].res_level[0]++;
+            if (p->lev > 39 && state->el_info[ELEM_ACID].res_level[0] < 2)
+                state->el_info[ELEM_ACID].res_level[0]++;
         }
     }
     if (p->timed[TMD_OPP_COLD])
     {
-        if (state->el_info[ELEM_COLD].res_level < 2)
-            state->el_info[ELEM_COLD].res_level++;
+        if (state->el_info[ELEM_COLD].res_level[0] < 2)
+            state->el_info[ELEM_COLD].res_level[0]++;
     }
     if (p->timed[TMD_OPP_POIS])
     {
-        if (state->el_info[ELEM_POIS].res_level < 2)
-            state->el_info[ELEM_POIS].res_level++;
+        if (state->el_info[ELEM_POIS].res_level[0] < 2)
+            state->el_info[ELEM_POIS].res_level[0]++;
     }
     if (p->timed[TMD_ANCHOR])
     {
-        state->el_info[ELEM_TIME].res_level++;
-        state->el_info[ELEM_GRAVITY].res_level = 1;
+        state->el_info[ELEM_TIME].res_level[0]++;
+        state->el_info[ELEM_GRAVITY].res_level[0] = 1;
     }
     if (p->timed[TMD_CONFUSED])
         adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 4, 0);

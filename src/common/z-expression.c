@@ -100,22 +100,21 @@ typedef enum expression_input_e
  */
 static expression_operator_t expression_operator_from_token(const char *token)
 {
+    expression_operator_t result;
+
     switch (token[0])
     {
-        case '+':
-            return OPERATOR_ADD;
-        case '-':
-            return OPERATOR_SUB;
-        case '*':
-            return OPERATOR_MUL;
-        case '/':
-            return OPERATOR_DIV;
+        case '+': result = OPERATOR_ADD; break;
+        case '-': result = OPERATOR_SUB; break;
+        case '*': result = OPERATOR_MUL; break;
+        case '/': result = OPERATOR_DIV; break;
         case 'n':
-        case 'N':
-            return OPERATOR_NEG;
+        case 'N': result = OPERATOR_NEG; break;
+        default: return OPERATOR_NONE;
     }
 
-    return OPERATOR_NONE;
+    /* Reject if there's additional junk in the token after the operator. */
+    return (token[1]? OPERATOR_NONE: result);
 }
 
 

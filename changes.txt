@@ -59,6 +59,10 @@ Angband 4.2.x:
 - Change default Enter key behavior in stores
 - Don't beep when escape is pressed while '*' targeting
 - Adjust description of Mana Channel
+- Move artifact light sources to top of item list if unidentified
+- SDL: make use of scalable fixed-width fonts in lib/fonts
+- Windows: allow "Enable nice graphics" to use all tile multipliers available
+  in the menu
 
 MAngband 1.5.x:
 
@@ -78,6 +82,9 @@ PWMAngband:
 - Add swear word protection for names and messages
 - Don't refresh monster list after a pause due to detecting some monsters
 - Add /dps command to display average normal damage per round
+- Always display all character symbols on the minimap
+- Highlight party members in blue on the minimap
+- Display ASCII symbols for distorted tiles in knowledge screens
 
 Gameplay changes
 ----------------
@@ -93,6 +100,7 @@ Angband 4.2.x:
 - Don't disturb the player when a chest trap is detected
 - Factor in player trap immunity for failed attempts to disable chest traps
 - Broaden the possible grids for teleport destinations
+- Adjust calculation for holding summoned monsters
 
 PWMAngband:
 
@@ -112,6 +120,8 @@ PWMAngband:
 - Increase the number of fountains in dungeons
 - New formula for average damage per attack for polymorphed players
 - Polymorphed monks get half the to-dam bonus
+- Allow monsters to cross one tile of damaging terrain if it doesn't kill them
+- Allow multiple values for race/class abilities depending on level
 - New class: Villager
 
 Bugs fixed
@@ -129,6 +139,8 @@ Angband 4.2.x:
 - Fix awkward word in the description for Create Arrows
 - Learn feather falling if equipped and exposed to fiery terrain
 - hit_trap(): interaction with disturb() and learning trap immunity rune
+- Check for resistance before issuing message about confusion from strong light
+  or sound attacks
 
 PWMAngband:
 
@@ -167,6 +179,8 @@ PWMAngband:
 - Fix pets attacking non-hostile player pets
 - Fix PROJECT_BEAM error making limited length beams not working
 - Hardcode poison effect on potions of poison to avoid identifying issues
+- Consider spells on cooldown as okay to cast by the client
+- Update browse book screen when a spell enters or goes off cooldown
 
 Coding changes
 --------------
@@ -227,6 +241,17 @@ Angband 4.2.x:
 - Changes to UN_KTRL and ENCODE_KTRL
 - Return early from process_world() if the player takes fatal damage
 - Damage player last so messages are ordered properly if the player dies
+- Fix places where monster_is_mimicking() was used as a synonym for
+  monster_is_camouflaged()
+- Tweak obj-init.c for robustness, consistency, and formatting
+- Small optimization for lookup_sval()
+- Tighten parsing in z-expression.c
+- Tweak init.c for robustness and consistency
+- Replace my_strcpy(b, format(...), sizeof(b)) with strnfmt(b, sizeof(b), ...)
+- Don't modify names in projections array while parsing player_property.txt
+- Tighten parsing in mon-init.c
+- Have expression_base_value_f functions return an int32_t to match declaration
+- Move more special cases hard coded in player-timed.c to player_timed.txt
 
 PWMAngband:
 
@@ -259,3 +284,7 @@ Compilation/documentation
 - Add descriptions of all the knowledge menu entries to the documentation
   for the '~' command
 - Fix some compiler warnings
+- Extend and update comments in player_timed.txt
+- Extend comments in brand.txt and slay.txt
+- Add to the comments in monster_spell.txt
+- Extend comments in projection.txt

@@ -11,6 +11,9 @@ extern uint8_t section_icky_row;
 extern bool allow_disturb_icky;
 extern int cursor_x;
 extern int cursor_y;
+extern int party_n;
+extern int *party_x;
+extern int *party_y;
 
 /*** Utilities ***/
 extern int Flush_queue(void);

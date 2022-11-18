@@ -494,12 +494,12 @@ static void attack_blocker(struct player *p, struct chunk *c, struct loc *grid)
     /* Monster in the way */
     if (who->monster)
     {
-        /* Mimics surprise the player */
+        /* Camouflaged monsters surprise the player */
         if (monster_is_camouflaged(who->monster))
         {
             become_aware(p, c, who->monster);
 
-            /* Mimic wakes up and becomes aware */
+            /* Camouflaged monster wakes up and becomes aware */
             if (pvm_check(p, who->monster))
                 monster_wake(p, who->monster, false, 100);
         }
@@ -2171,7 +2171,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             {
                 become_aware(p, c, who->monster);
 
-                /* Mimic wakes up and becomes aware */
+                /* Camouflaged monster wakes up and becomes aware */
                 monster_wake(p, who->monster, false, 100);
             }
             else

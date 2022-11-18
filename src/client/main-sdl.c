@@ -55,11 +55,6 @@ static bool nicegfx = false;
 static int overdraw = 0;
 static int overdraw_max = 0;
 
-/* Default color */
-static int d_color_r = 160;
-static int d_color_g = 160;
-static int d_color_b = 60;
-
 /*
  * Status bar color:
  *   0 = default color
@@ -69,17 +64,37 @@ static int statusbar_color = 0;
 
 static char *sdl_settings_file;
 
-/*
- * Used as 'system' font
- */
-static const char *DEFAULT_FONT_FILE = "6x10x.fon";
+/* Default point size for scalable fonts */
+#define DEFAULT_POINT_SIZE (10)
+
+/* Minimum allowed point size for scalable fonts */
+#define MIN_POINT_SIZE (4)
+
+/* Maximum allowed point size for scalable fonts */
+#define MAX_POINT_SIZE (64)
 
 #define MAX_FONTS 60
 char *FontList[MAX_FONTS];
 static int num_fonts = 0;
 
-/* Default font size */
-#define DEFAULT_FONT_SIZE    12
+/* Holds details about requested properties for a terminal's font. */
+typedef struct term_font term_font;
+struct term_font
+{
+    char *name;     /* final component of path if one of the preset fonts; full path if not a preset font */
+    int size;       /* requested point size for the file; zero for bitmapped fonts */
+    bool preset;    /* true if this is a font included in the lib/fonts directory for the game */
+    bool bitmapped; /* true if this is a bitmapped (.fon) font that can't be scaled */
+};
+
+/* Used as 'system' font. */
+static const term_font default_term_font = { "6x10x.fon", 0, true, true };
+
+/*
+ * Used by the 'Point Size' and 'Font Browser' panels to accumulate
+ * information about a new requested font.
+ */
+static term_font new_font = { NULL, 0, false, false };
 
 /*
  * A font structure
@@ -90,19 +105,18 @@ static int num_fonts = 0;
 typedef struct sdl_Font sdl_Font;
 struct sdl_Font
 {
-    int width;          /* The dimensions of this font (in pixels) */
+    int width;              /* The dimensions of this font (in pixels) */
     int height;
-    char name[32];      /* The name of this font */
-    Uint16 pitch;       /* Pitch of the surface this font is made for */
-    Uint8 bpp;          /* Bytes per pixel of the surface */
-    Uint8 something;    /* Padding */
-    int *data;          /* The data */
-    TTF_Font *sdl_font; /* The native font */
+    char name[32];          /* Label in menu used to select the font */
+    Uint16 pitch;           /* Pitch of the surface this font is made for */
+    Uint8 bpp;              /* Bytes per pixel of the surface */
+    Uint8 something;        /* Padding */
+    const term_font *req;   /* Backreference to the request for this font */
+    int *data;              /* The data */
+    TTF_Font *sdl_font;     /* The native font */
 };
 
 static sdl_Font SystemFont;
-
-#define NUM_GLYPHS 256
 
 /*
  * Window information
@@ -119,13 +133,12 @@ struct term_window
     term term_data;
     SDL_Surface *surface;   /* The surface for this window */
     SDL_Surface *tiles;     /* The appropriately sized tiles for this window */
-    uint8_t Term_idx;          /* Index of term that relates to this */
+    uint8_t Term_idx;       /* Index of term that relates to this */
     int top;                /* Window Coordinates on the main screen */
     int left;
     int keys;               /* Size of keypress storage */
     sdl_Font font;          /* Font info */
-    char *req_font;         /* Requested font */
-    int font_size;          /* Font size dimensions */
+    term_font req_font;     /* Requested font */
     int windowborders;      /* Window borders */
     int rows;               /* Dimension in tiles */
     int cols;
@@ -163,6 +176,9 @@ static SDL_Color text_colours[MAX_COLORS];
 
 SDL_Color back_colour;    /* Background colour */
 Uint32 back_pixel_colour;
+
+/* Default color for button captions */
+SDL_Color DefaultCapColour = { 0, 0, 0 };
 
 typedef struct sdl_ButtonBank sdl_ButtonBank;
 typedef struct sdl_Button sdl_Button;
@@ -261,20 +277,190 @@ static int QuitSelect;      /* Quit button */
 /* For saving the icon for the About Box */
 static SDL_Surface *mratt = NULL;
 
+/*
+ * Unselected colour used on the 'About', 'More', 'Point Size', and
+ * 'Font Browser' panels; also used to highlight the currently selected font
+ * in the font menu
+ */
+static SDL_Color AltUnselColour = { 160, 60, 60 };
+
+/* Selected colour used on the 'More', 'Point Size', and 'Font Browser' panels */
+SDL_Color AltSelColour = { 210, 110, 110 };
+
+/*
+ * Used to highlight the currently selected font in the font menu and
+ * 'Font Browser' panel
+ */
+SDL_Color AltCapColour = { 95, 95, 195 };
+
 /* Buttons on the 'More' panel */
-static int MoreOK;          /* Accept changes */
-static int MoreFullscreen;  /* Fullscreen toggle button */
-static int MoreNiceGfx;     /* Nice graphics toggle button */
-static int MoreSnapPlus;    /* Increase snap range */
-static int MoreSnapMinus;   /* Decrease snap range */
-static int MoreFontSizePlus;    /* Increase font size range */
-static int MoreFontSizeMinus;   /* Decrease font size range */
-static int MoreSoundVolumePlus;      /* Increase sound volume */
-static int MoreSoundVolumeMinus;     /* Decrease sound volume */
-static int MoreMusicVolumePlus;      /* Increase music volume */
-static int MoreMusicVolumeMinus;     /* Decrease music volume */
-static int MoreWindowBordersPlus;  /* Increase window borders */
-static int MoreWindowBordersMinus; /* Decrease window borders */
+static int MoreOK;                  /* Accept changes */
+static int MoreFullscreen;          /* Fullscreen toggle button */
+static int MoreNiceGfx;             /* Nice graphics toggle button */
+static int MoreSnapPlus;            /* Increase snap range */
+static int MoreSnapMinus;           /* Decrease snap range */
+static int MoreSoundVolumePlus;     /* Increase sound volume */
+static int MoreSoundVolumeMinus;    /* Decrease sound volume */
+static int MoreMusicVolumePlus;     /* Increase music volume */
+static int MoreMusicVolumeMinus;    /* Decrease music volume */
+static int MoreWindowBordersPlus;   /* Increase window borders */
+static int MoreWindowBordersMinus;  /* Decrease window borders */
+
+/* Buttons on the 'Point Size' panel */
+static int PointSizeBigDec;	/* decrease point size by 10 */
+static int PointSizeDec;	/* decrease point size by 1 */
+static int PointSizeInc;	/* increase point size by 1 */
+static int PointSizeBigInc;	/* increase point size by 10 */
+static int PointSizeOk;		/* accept current point size */
+static int PointSizeCancel;	/* cancel point size selection */
+
+/* Width of the border box about the 'Point Size' panel */
+#define POINT_SIZE_BORDER (5)
+
+/* Width of margin within the border box about the 'Point Size' panel */
+#define POINT_SIZE_MARGIN (2)
+
+/*
+ * Number of directories and files shown at a time in the 'Font Browser' panel;
+ * should be at least 3 so that there's vertical space for the scrolling
+ * controls; if making this larger than 15, you'll likely have to increase
+ * MAX_BUTTONS as well
+ */
+#define FONT_BROWSER_PAGE_ENTRIES (15)
+
+/* Number of characters to show for each directory in the 'Font Browser' panel */
+#define FONT_BROWSER_DIR_LENGTH (15)
+
+/* Number of characters to show for each file in the 'Font Browser' panel */
+#define FONT_BROWSER_FILE_LENGTH (25)
+
+/* Buttons on the 'Font Browser' panel */
+static int FontBrowserDirUp;
+static int FontBrowserDirectories[FONT_BROWSER_PAGE_ENTRIES];
+static int FontBrowserDirPageBefore;
+static int FontBrowserDirPageAfter;
+static int FontBrowserDirPageDummy;
+static int FontBrowserFiles[FONT_BROWSER_PAGE_ENTRIES];
+static int FontBrowserFilePageBefore;
+static int FontBrowserFilePageAfter;
+static int FontBrowserFilePageDummy;
+static int FontBrowserPtSizeBigDec;
+static int FontBrowserPtSizeDec;
+static int FontBrowserPtSizeInc;
+static int FontBrowserPtSizeBigInc;
+static int FontBrowserOk;
+static int FontBrowserRefresh;
+static int FontBrowserCancel;
+
+/* Height of the preview part of the 'Font Browser' panel */
+#define FONT_BROWSER_PREVIEW_HEIGHT (80)
+
+/* Width of the border around the 'Font Browser' panel */
+#define FONT_BROWSER_BORDER (5)
+
+/* Width of margin within the border box around the 'Font Browser' panel */
+#define FONT_BROWSER_MARGIN (2)
+
+/* Width of the border around the directory and file subpanels of the 'Font Browser' panel */
+#define FONT_BROWSER_SUB_BORDER (3)
+
+/*
+ * Width of margin within the border box aroudn the directory and file
+ * subpanels of the 'Font Browser' panel
+ */
+#define FONT_BROWSER_SUB_MARGIN (1)
+
+/*
+ * Width of space to separate the scroll controls in the 'Font Browser' panel
+ * and the subpanel they affect.
+ */
+#define FONT_BROWSER_HOR_SPACE (2)
+
+/*
+ * In the 'Font Browser' panel, the height of space to separate the point size
+ * control from file and directory subpanels and the preview area from the
+ * point size control
+ */
+#define FONT_BROWSER_VER_SPACE (4)
+
+/*
+ * Current directory being browsed by the 'Font Browser' panel; if not NULL,
+ * should end with a path separator
+ */
+static char *FontBrowserCurDir = NULL;
+
+/*
+ * The length of the root portion (the part that shouldn't be backed over
+ * when going up the directory tree) of FontBrowerCurDir
+ */
+static size_t FontBrowserRootSz = 0;
+
+/*
+ * Last directory browsed by the previous instance of the 'Font Browser' panel
+ */
+static char *FontBrowserLastDir = NULL;
+
+/*
+ * Value for the length of the root portion of FontBrowserLastDir
+ */
+static size_t FontBrowserLastRootSz = 0;
+
+/*
+ * Array of the unabbreviated directory names in the current directory being
+ * browsed by the 'Font Browser' panel
+ */
+static char **FontBrowserDirEntries = NULL;
+
+/*
+ * Number of directories in the directory currently being browsed by the
+ * 'Font Browser'
+ */
+static size_t FontBrowserDirCount = 0;
+
+/* Number of entries allocated in the FontBrowserDirEntries array */
+static size_t FontBrowserDirAlloc = 0;
+
+/*
+ * Current page (each with FONT_BROWSER_PAGE_ENTRIES) of directories viewed
+ * by the 'Font Browser' panel
+ */
+static size_t FontBrowserDirPage = 0;
+
+/*
+ * Array of the unabbreviated fixed-width font files in the current directory
+ * being browsed by the 'Font Browser' panel
+ */
+static char **FontBrowserFileEntries = NULL;
+
+/*
+ * Number of usable files in the directory currently being browsed by the
+ * 'Font Browser'
+ */
+static size_t FontBrowserFileCount = 0;
+
+/* Number of entries allocated in the FontBrowserFileEntries array */
+static size_t FontBrowserFileAlloc = 0;
+
+/*
+ * Array of the unabbreviated files to show for the current directory being
+ * browsed by the 'Font Browser' panel
+ */
+static char **FontBrowserFileEntries;
+
+/*
+ * Current page (each with FONT_BROWSER_PAGE_ENTRIES) of files viewed
+ * by the 'Font Browser' panel
+ */
+static size_t FontBrowserFilePage = 0;
+
+/*
+ * Currently selected file entry in the 'Font Browser' panel or (size_t) -1
+ * if there isn't a current selection
+ */
+static size_t FontBrowserFileCur = (size_t) -1;
+
+/* Font data used when rendering the preview in the 'Font Browser' panel */
+static sdl_Font *FontBrowserPreviewFont = NULL;
 
 static bool Moving;             /* Moving a window */
 static bool Sizing;             /* Sizing a window */
@@ -290,6 +476,35 @@ static int MoreHeightPlus;  /* Increase tile height */
 static int MoreHeightMinus; /* Decrease tile height */
 static int *GfxButtons;     /* Graphics mode buttons */
 static int SelectedGfx;     /* Current selected gfx */
+
+
+/*
+ * Verify if the given path refers to a font file that can be used.
+ */
+static bool is_font_file(const char *path)
+{
+	bool result = false;
+	TTF_Font *font = TTF_OpenFont(path, 1);
+
+	if (font)
+    {
+		if (TTF_FontFaceIsFixedWidth(font)) result = true;
+		TTF_CloseFont(font);
+	}
+	return result;
+}
+
+
+/*
+ * Fill a buffer with the short name for a font.
+ */
+static void get_font_short_name(char *buf, size_t bufsz, const term_font *font)
+{
+	if (font->bitmapped)
+		my_strcpy(buf, font->name + path_filename_index(font->name), bufsz);
+	else
+		strnfmt(buf, bufsz, "%dpt %s", font->size, font->name + path_filename_index(font->name));
+}
 
 
 /*
@@ -356,27 +571,40 @@ static void sdl_DrawBox(SDL_Surface *surface, SDL_Rect *rect, SDL_Color colour, 
 /*
  * Get the width and height of a given font file
  */
-static errr sdl_CheckFont(const char *fontname, int font_size, int *width, int *height)
+static errr sdl_CheckFont(const term_font *req_font, int *width, int *height)
 {
-    char buf[MSG_LEN];
     TTF_Font *ttf_font;
+	errr result;
 
-    /* Build the path */
-    path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, fontname);
+	if (req_font->preset)
+    {
+		char buf[MSG_LEN];
 
-    /* Attempt to load it */
-    ttf_font = TTF_OpenFont(buf, font_size);
+		/* Build the path */
+		path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, req_font->name);
 
-    /* Bugger */
-    if (!ttf_font) return (-1);
+		/* Attempt to load it */
+		ttf_font = TTF_OpenFont(buf, req_font->size);
+	}
+    else
+    {
+		/* Attempt to load it */
+		ttf_font = TTF_OpenFont(req_font->name, req_font->size);
+	}
 
-    /* Get the size */
-    if (TTF_SizeText(ttf_font, "M", width, height)) return (-1);
+	/* Bugger */
+	if (!ttf_font) return (-1);
 
-    /* Finished with the font */
-    TTF_CloseFont(ttf_font);
+	/* Get the size */
+	if (!TTF_FontFaceIsFixedWidth(ttf_font) || TTF_SizeText(ttf_font, "M", width, height))
+		result = -1;
+	else
+		result = 0;
 
-    return (0);
+	/* Finished with the font */
+	TTF_CloseFont(ttf_font);
+
+	return result;
 }
 
 
@@ -392,6 +620,7 @@ static void sdl_FontFree(sdl_Font *font)
 {
     /* Finished with the font */
     TTF_CloseFont(font->sdl_font);
+    font->sdl_font = NULL;
 }
 
 
@@ -399,34 +628,42 @@ static void sdl_FontFree(sdl_Font *font)
  * Create new font data with font fontname, optimizing the data
  * for the surface given
  */
-static errr sdl_FontCreate(sdl_Font *font, const char *fontname, int font_size, SDL_Surface *surface)
+static errr sdl_FontCreate(sdl_Font *font, const term_font *req_font, SDL_Surface *surface)
 {
-    char buf[MSG_LEN];
     TTF_Font *ttf_font;
 
-    /* Build the path */
-    path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, fontname);
+	if (req_font->preset)
+    {
+		char buf[MSG_LEN];
 
-    /* Attempt to load it */
-    ttf_font = TTF_OpenFont(buf, font_size);
+		/* Build the path */
+		path_build(buf, sizeof(buf), ANGBAND_DIR_FONTS, req_font->name);
 
-    /* Bugger */
-    if (!ttf_font) return (-1);
+		/* Attempt to load it */
+		ttf_font = TTF_OpenFont(buf, req_font->size);
+    }
+	else
+		ttf_font = TTF_OpenFont(req_font->name, req_font->size);
 
-    /* Get the size */
-    if (TTF_SizeText(ttf_font, "M", &font->width, &font->height)) return (-1);
+	/* Bugger */
+	if (!ttf_font) return -1;
 
-    /* Get the best quality */
-    TTF_SetFontHinting(ttf_font, TTF_HINTING_LIGHT);
+	/* Get the size */
+	if (TTF_SizeText(ttf_font, "M", &font->width, &font->height))
+    {
+		TTF_CloseFont(ttf_font);
+		return -1;
+	}
 
-    /* Fill in some of the font struct */
-    if (font->name != fontname) my_strcpy(font->name, fontname, 30);
-    font->pitch = surface->pitch;
-    font->bpp = surface->format->BytesPerPixel;
-    font->sdl_font = ttf_font;
+	/* Fill in some of the font struct */
+	get_font_short_name(font->name, sizeof(font->name), req_font);
+	font->req = req_font;
+	font->pitch = surface->pitch;
+	font->bpp = surface->format->BytesPerPixel;
+	font->sdl_font = ttf_font;
 
-    /* Success */
-    return (0); 
+	/* Success */
+	return 0;
 }
 
 
@@ -438,8 +675,8 @@ static errr sdl_FontCreate(sdl_Font *font, const char *fontname, int font_size, 
  * You can, I suppose, use one font on many surfaces, but it is
  * definitely not recommended. One font per surface is good enough.
  */
-static errr sdl_mapFontDraw(sdl_Font *font, int font_size, SDL_Surface *surface, SDL_Color colour,
-    SDL_Color bg, int x, int y, int n, const char *s)
+static errr sdl_mapFontDraw(sdl_Font *font, SDL_Surface *surface, SDL_Color colour, SDL_Color bg,
+    int x, int y, int n, const char *s)
 {
     Uint8 bpp = surface->format->BytesPerPixel;
     Uint16 pitch = surface->pitch;
@@ -447,7 +684,7 @@ static errr sdl_mapFontDraw(sdl_Font *font, int font_size, SDL_Surface *surface,
     SDL_Surface *text;
 
     if ((bpp != font->bpp) || (pitch != font->pitch))
-        sdl_FontCreate(font, font->name, font_size, surface);
+        sdl_FontCreate(font, font->req, surface);
 
     /* Lock the window surface (if necessary) */
     if (SDL_MUSTLOCK(surface))
@@ -488,7 +725,7 @@ static errr sdl_FontDraw(sdl_Font *font, SDL_Surface *surface, SDL_Color colour,
     SDL_Surface *text;
 
     if ((bpp != font->bpp) || (pitch != font->pitch))
-        sdl_FontCreate(font, font->name, 0, surface);
+        sdl_FontCreate(font, font->req, surface);
 
     /* Lock the window surface (if necessary) */
     if (SDL_MUSTLOCK(surface))
@@ -587,7 +824,7 @@ static void sdl_ButtonVisible(sdl_Button *button, bool visible)
 /*
  * Maximum amount of buttons in a bank
  */
-#define MAX_BUTTONS 60
+#define MAX_BUTTONS 70
 
 
 /*
@@ -674,17 +911,17 @@ static int sdl_ButtonBankNew(sdl_ButtonBank *bank)
     }
     else
     {
-        new_button->unsel_colour.r = d_color_r;
-        new_button->unsel_colour.g = d_color_g;
-        new_button->unsel_colour.b = d_color_b;
+        new_button->unsel_colour.r = AltUnselColour.r;
+        new_button->unsel_colour.g = AltUnselColour.g;
+        new_button->unsel_colour.b = AltUnselColour.b;
     }
 
-    new_button->sel_colour.r = 210;
-    new_button->sel_colour.g = 210;
-    new_button->sel_colour.b = 110;
-    new_button->cap_colour.r = 0;
-    new_button->cap_colour.g = 0;
-    new_button->cap_colour.b = 0;
+    new_button->sel_colour.r = AltSelColour.r;
+    new_button->sel_colour.g = AltSelColour.g;
+    new_button->sel_colour.b = AltSelColour.b;
+    new_button->cap_colour.r = DefaultCapColour.r;
+	new_button->cap_colour.g = DefaultCapColour.g;
+	new_button->cap_colour.b = DefaultCapColour.b;
 
     /* Success */
     return (i);
@@ -756,19 +993,22 @@ static bool sdl_ButtonBankMouseUp(sdl_ButtonBank *bank, int x, int y)
         /* Check the coordinates */
         if (point_in(&button->pos, x, y))
         {
-            /* Has this butoon been 'selected'? */
+            /* Has this button been 'selected'? */
             if (button->selected)
             {
-                /* Activate the button (usually) */
-                if (button->activate) (*button->activate)(button);
-                
-                /* Now not selected */
-                button->selected = false;
-                
-                /* Draw it */
-                bank->need_update = true;
-                
-                return true;
+                /*
+				 * Do these before performing the callback (the
+				 * button is no longer selected and needs to
+				 * be redrawn) since the callback could remove
+				 * the button.
+				 */
+				button->selected = false;
+				bank->need_update = true;
+				
+				/* Activate the button (usually) */
+				if (button->activate) (*button->activate)(button);
+
+				return (true);
             }
         }
         else
@@ -809,7 +1049,7 @@ static void sdl_WindowFree(sdl_Window* window)
  * Initialize a window
  */
 static void sdl_WindowInit(sdl_Window* window, int w, int h, SDL_Surface *owner,
-    const char *fontname)
+    const term_font *req_font)
 {
     sdl_WindowFree(window);
     window->owner = owner;
@@ -819,7 +1059,7 @@ static void sdl_WindowInit(sdl_Window* window, int w, int h, SDL_Surface *owner,
         owner->format->BitsPerPixel, owner->format->Rmask, owner->format->Gmask,
         owner->format->Bmask, owner->format->Amask);
     sdl_ButtonBankInit(&window->buttons, window);
-    sdl_FontCreate(&window->font, fontname, 0, window->surface);
+    sdl_FontCreate(&window->font, req_font, window->surface);
     window->visible = true;
     window->need_update = true;
 }
@@ -924,7 +1164,7 @@ static void hook_quit(const char *str)
     for (i = 0; i < ANGBAND_TERM_MAX; i++)
     {
         term_windowFree(&windows[i]);
-        string_free(windows[i].req_font);
+        string_free(windows[i].req_font.name);
     }
 
     /* Free the graphics surfaces */
@@ -1010,7 +1250,7 @@ static void BringToTop(void)
 static void validate_file(const char *s)
 {
     if (!file_exists(s))
-        quit_fmt("Cannot find required file:\n%s", s);
+        quit_fmt("cannot find required file:\n%s", s);
 }
 
 
@@ -1051,9 +1291,9 @@ static void draw_statusbar(sdl_Window *window)
 
     sdl_RECT(0, StatusBar.height - 1, StatusBar.width, 1, &rc);
 
-    c.r = d_color_r;
-    c.g = d_color_g;
-    c.b = d_color_b;
+    c.r = AltUnselColour.r;
+    c.g = AltUnselColour.g;
+    c.b = AltUnselColour.b;
 
     if ((statusbar_color > 0) && (statusbar_color < BASIC_COLORS))
     {
@@ -1073,7 +1313,7 @@ static void draw_statusbar(sdl_Window *window)
     button->pos.x = x;
     x += button->pos.w + 10;
 
-    my_strcpy(buf, format("(%dx%d)", win->cols, win->rows), sizeof(buf));
+    strnfmt(buf, sizeof(buf), "(%dx%d)", win->cols, win->rows);
     sdl_WindowText(&StatusBar, c, x, 1, buf);
     x += strlen(buf) * fw + 20;
     
@@ -1133,9 +1373,9 @@ static void sdl_BlitAll(void)
     int i;
     SDL_Color colour;
 
-    colour.r = d_color_r;
-    colour.g = d_color_g;
-    colour.b = d_color_b;
+    colour.r = AltUnselColour.r;
+    colour.g = AltUnselColour.g;
+    colour.b = AltUnselColour.b;
 
     SDL_FillRect(AppWin, NULL, back_pixel_colour);
 
@@ -1246,24 +1486,21 @@ static void AboutDraw(sdl_Window *win)
 {
     SDL_Rect rc;
     SDL_Rect icon;
-    
-    /* Wow - a different colour! */
-    SDL_Color colour = {160, 60, 60, 0};
 
     sdl_RECT(0, 0, win->width, win->height, &rc);
     
     /* Draw a nice box */
     SDL_FillRect(win->surface, &win->surface->clip_rect,
         SDL_MapRGB(win->surface->format, 255, 255, 255));
-    sdl_DrawBox(win->surface, &win->surface->clip_rect, colour, 5);
+    sdl_DrawBox(win->surface, &win->surface->clip_rect, AltUnselColour, 5);
     if (mratt)
     {
         sdl_RECT((win->width - mratt->w) / 2, 5, mratt->w, mratt->h, &icon);
         SDL_BlitSurface(mratt, NULL, win->surface, &icon);
     }
-    sdl_WindowText(win, colour, 20, 150,
+    sdl_WindowText(win, AltUnselColour, 20, 150,
         format("You are playing %s", version_build(VERSION_NAME, true)));
-    sdl_WindowText(win, colour, 20, 160, "See https://tangaria.com");
+    sdl_WindowText(win, AltUnselColour, 20, 160, "See https://tangaria.com");
 }
 
 
@@ -1272,7 +1509,7 @@ static void AboutActivate(sdl_Button *sender)
     int width = 350;
     int height = 200;
     
-    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.name);
+    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
     PopUp.left = (AppWin->w / 2) - width / 2;
     PopUp.top = (AppWin->h / 2) - height / 2;
     PopUp.draw_extra = AboutDraw;
@@ -1318,7 +1555,7 @@ static void TermActivate(sdl_Button *sender)
     
     width = get_term_namewidth();
 
-    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.name);
+    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
     PopUp.left = sender->pos.x;
     PopUp.top = sender->pos.y;
 
@@ -1382,42 +1619,1866 @@ static void VisibleActivate(sdl_Button *sender)
 }
 
 
-static void SelectFont(sdl_Button *sender)
+static void HelpWindowFontChange(term_window *window)
 {
-    term_window *window = &windows[SelectedTerm];
-    int w, h;
-    
-    sdl_FontFree(&window->font);
-    string_free(window->req_font);
+	int w, h;
 
-    window->req_font = string_make(sender->caption);
-    
-    sdl_CheckFont(window->req_font, window->font_size, &w, &h);
+	if (sdl_CheckFont(&window->req_font, &w, &h))
+		quit_fmt("could not use the requested font %s", window->req_font.name);
 
-    /* Invalidate the gfx surface */
-    if (window->tiles)
+	/* Invalidate the gfx surface */
+	if (window->tiles)
     {
-        SDL_FreeSurface(window->tiles);
-        window->tiles = NULL;
+		SDL_FreeSurface(window->tiles);
+		window->tiles = NULL;
+	}
+
+	ResizeWin(window, (w * window->cols) + (2 * window->border),
+		(h * window->rows) + window->border + window->title_height);
+
+	SetStatusButtons();
+}
+
+
+static void SelectPresetBitmappedFont(sdl_Button *sender)
+{
+	term_window *window = &windows[SelectedTerm];
+
+	sdl_FontFree(&window->font);
+	string_free(window->req_font.name);
+	window->req_font.name = string_make(sender->caption);
+	window->req_font.size = 0;
+	window->req_font.preset = true;
+	window->req_font.bitmapped = true;
+	HelpWindowFontChange(window);
+
+	RemovePopUp();
+}
+
+
+static void ChangePointSize(sdl_Button *sender)
+{
+	sdl_Button *button;
+
+	if ((new_font.size == MIN_POINT_SIZE && sender->tag < 0) ||
+        (new_font.size == MAX_POINT_SIZE && sender->tag > 0))
+    {
+		/* Size does not change. */
+		return;
+	}
+
+	new_font.size = MAX(MIN_POINT_SIZE, MIN(MAX_POINT_SIZE, new_font.size + sender->tag));
+
+	/* Change colors on the buttons. */
+	if (new_font.size > MIN_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	if (new_font.size < MAX_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	PopUp.need_update = true;
+}
+
+
+static void AcceptPointSize(sdl_Button *sender)
+{
+	term_window *window = &windows[SelectedTerm];
+
+	sdl_FontFree(&window->font);
+	string_free(window->req_font.name);
+	window->req_font.name = string_make(new_font.name);
+	window->req_font.size = new_font.size;
+	window->req_font.preset = new_font.preset;
+	assert(!new_font.bitmapped);
+	window->req_font.bitmapped = false;
+	HelpWindowFontChange(window);
+
+	RemovePopUp();
+}
+
+
+static void CancelPointSize(sdl_Button *sender)
+{
+	string_free(new_font.name);
+	new_font.name = NULL;
+	new_font.size = 0;
+	new_font.preset = false;
+	new_font.bitmapped = false;
+	RemovePopUp();
+}
+
+
+static void DrawPointSize(sdl_Window *win)
+{
+	SDL_Rect rc;
+
+	sdl_RECT(0, 0, win->width, win->height, &rc);
+	sdl_DrawBox(win->surface, &rc, AltUnselColour, POINT_SIZE_BORDER);
+
+	sdl_WindowText(win, AltUnselColour, win->width / 2
+		- 5 * PopUp.font.width, POINT_SIZE_BORDER + POINT_SIZE_MARGIN,
+		"Point Size");
+	sdl_WindowText(win, AltUnselColour, 12 * PopUp.font.width
+		+ POINT_SIZE_BORDER + POINT_SIZE_MARGIN,
+		POINT_SIZE_BORDER + POINT_SIZE_MARGIN + PopUp.font.height + 6,
+		format("%d pt", new_font.size));
+}
+
+
+/*
+ * For this panel, buttons are enabled or disabled based on the state of the
+ * point size selection.  Don't use sdl_ButtonVisible() to do that because
+ * clicks in invisible buttons aren't handled and end up dismissing the panel.
+ * That seems likely to frustrate uses, so alter the coloring of the buttons
+ * instead while leaving the "visible" field of the button true.
+ */
+static void ActivatePointSize(sdl_Button *sender)
+{
+	int left = sender->pos.x + sender->owner->window->left;
+	int top = sender->pos.y + sender->owner->window->top;
+	int height = 4 * (PopUp.font.height + 2) + 4 + 2 * (POINT_SIZE_BORDER
+		+ POINT_SIZE_MARGIN);
+	int width = ((int) strlen(format("%d pt", MAX_POINT_SIZE)) + 24)
+		* PopUp.font.width + 2 * (POINT_SIZE_BORDER
+		+ POINT_SIZE_MARGIN);
+	sdl_Button *button;
+
+	sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
+	PopUp.left = left;
+	PopUp.top = top;
+	PopUp.draw_extra = DrawPointSize;
+
+	PointSizeBigDec = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigDec);
+	if (new_font.size > MIN_POINT_SIZE)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "--");
+	sdl_ButtonMove(button, POINT_SIZE_BORDER + POINT_SIZE_MARGIN,
+		POINT_SIZE_BORDER + POINT_SIZE_MARGIN + PopUp.font.height + 6);
+	button->tag = -10;
+	button->activate = ChangePointSize;
+
+	PointSizeDec = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeDec);
+	if (new_font.size > MIN_POINT_SIZE)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, " -");
+	sdl_ButtonMove(button, 6 * PopUp.font.width + POINT_SIZE_BORDER
+		+ POINT_SIZE_MARGIN, POINT_SIZE_BORDER + POINT_SIZE_MARGIN
+		+ PopUp.font.height + 6);
+	button->tag = -1;
+	button->activate = ChangePointSize;
+
+	PointSizeInc = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeInc);
+	if (new_font.size < MAX_POINT_SIZE)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, " +");
+	sdl_ButtonMove(button, width - 10 * PopUp.font.width
+		- POINT_SIZE_BORDER - POINT_SIZE_MARGIN, POINT_SIZE_BORDER
+		+ POINT_SIZE_MARGIN + PopUp.font.height + 6);
+	button->tag = 1;
+	button->activate = ChangePointSize;
+
+	PointSizeBigInc = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeBigInc);
+	if (new_font.size < MAX_POINT_SIZE)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "++");
+	sdl_ButtonMove(button, width - 4 * PopUp.font.width
+		- POINT_SIZE_BORDER - POINT_SIZE_MARGIN, POINT_SIZE_BORDER
+		+ POINT_SIZE_MARGIN + PopUp.font.height + 6);
+	button->tag = 10;
+	button->activate = ChangePointSize;
+
+	PointSizeOk = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeOk);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	sdl_ButtonSize(button, 8 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "OK");
+	sdl_ButtonMove(button, width / 2 - 10 * PopUp.font.width,
+		height - PopUp.font.height - 2 - POINT_SIZE_BORDER
+		- POINT_SIZE_MARGIN);
+	button->activate = AcceptPointSize;
+
+	PointSizeCancel = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, PointSizeCancel);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	sdl_ButtonSize(button, 8 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "Cancel");
+	sdl_ButtonMove(button, width / 2 + 2 * PopUp.font.width,
+		height - PopUp.font.height - 2 - POINT_SIZE_BORDER
+		- POINT_SIZE_MARGIN);
+	button->activate = CancelPointSize;
+
+	popped = true;
+}
+
+
+static void SelectPresetScalableFont(sdl_Button *sender)
+{
+	term_window *window = &windows[SelectedTerm];
+
+	RemovePopUp();
+	string_free(new_font.name);
+	new_font.name = string_make(sender->caption);
+	new_font.size = (window->req_font.size > 0) ?
+		window->req_font.size : DEFAULT_POINT_SIZE;
+	new_font.preset = true;
+	new_font.bitmapped = false;
+	ActivatePointSize(sender);
+}
+
+
+static void AlterNonPresetFontSize(sdl_Button *sender)
+{
+	term_window *window = &windows[SelectedTerm];
+
+	assert(!window->req_font.preset);
+	RemovePopUp();
+	if (!window->req_font.bitmapped)
+    {
+		assert(window->req_font.size >= MIN_POINT_SIZE
+			&& window->req_font.size <= MAX_POINT_SIZE);
+		string_free(new_font.name);
+		new_font.name = string_make(window->req_font.name);
+		new_font.size = window->req_font.size;
+		new_font.preset = false;
+		new_font.bitmapped = false;
+		ActivatePointSize(sender);
+	}
+}
+
+
+static void HelpFontBrowserClose(void)
+{
+	size_t i;
+
+	RemovePopUp();
+
+	/* Remember the directory where the browser was. */
+	string_free(FontBrowserLastDir);
+	FontBrowserLastDir = FontBrowserCurDir;
+    FontBrowserLastRootSz = FontBrowserRootSz;
+	FontBrowserCurDir = NULL;
+	FontBrowserRootSz = 0;
+
+	/* Clear the other state that doesn't need to be retained. */
+	for (i = 0; i < FontBrowserDirCount; ++i)
+		string_free(FontBrowserDirEntries[i]);
+	mem_free(FontBrowserDirEntries);
+	FontBrowserDirEntries = NULL;
+	FontBrowserDirCount = 0;
+	FontBrowserDirAlloc = 0;
+	FontBrowserDirPage = 0;
+	for (i = 0; i < FontBrowserFileCount; ++i)
+		string_free(FontBrowserFileEntries[i]);
+	mem_free(FontBrowserFileEntries);
+	FontBrowserFileEntries = NULL;
+	FontBrowserFileCount = 0;
+	FontBrowserFileAlloc = 0;
+	FontBrowserFilePage = 0;
+	FontBrowserFileCur = (size_t) -1;
+	if (FontBrowserPreviewFont)
+    {
+		sdl_FontFree(FontBrowserPreviewFont);
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+	string_free(new_font.name);
+	new_font.name = NULL;
+	new_font.size = 0;
+	new_font.preset = false;
+	new_font.bitmapped = false;
+}
+
+
+static void AcceptFontBrowser(sdl_Button *sender)
+{
+	if (FontBrowserPreviewFont)
+    {
+		term_window *window = &windows[SelectedTerm];
+
+		sdl_FontFree(&window->font);
+		string_free(window->req_font.name);
+		assert(new_font.name);
+		window->req_font.name = string_make(new_font.name);
+		window->req_font.size = new_font.size;
+		window->req_font.preset = new_font.preset;
+		window->req_font.bitmapped = new_font.bitmapped;
+		HelpWindowFontChange(window);
+	}
+	HelpFontBrowserClose();
+}
+
+
+/*
+ * Name sorting function
+ */
+static int cmp_name(const void *f1, const void *f2)
+{
+	const char *name1 = *(const char**)f1;
+	const char *name2 = *(const char**)f2;
+
+	return strcmp(name1, name2);
+}
+
+
+static void ChangeDirPageFontBrowser(sdl_Button *sender)
+{
+	/*
+	 * Each page overlaps by one entry with the previous; thus the
+	 * use of FONT_BROWSER_PAGE_ENTRIES - 1 in the lines below.
+	 * If the count is greater than zero, max_page satisfies
+	 * max_page * (FONT_BROWSER_PAGE_ENTRIES - 1) < count and
+	 * max_page * (FONT_BROWSER_PAGE_ENTRIES - 1)
+	 * + FONT_BROWSER_PAGE_ENTRIES >= count.
+	 */
+	size_t max_page = (FontBrowserDirCount > 0) ?
+		(FontBrowserDirCount - 1) / (FONT_BROWSER_PAGE_ENTRIES - 1) : 0;
+	sdl_Button *button;
+	size_t page_start, i;
+
+	if ((FontBrowserDirPage == 0 && sender->tag < 0) ||
+        (FontBrowserDirPage == max_page && sender->tag > 0))
+    {
+		/* Scrolling that direction does nothing. */
+		return;
+	}
+
+	FontBrowserDirPage = MAX(0, MIN(max_page, FontBrowserDirPage
+		+ sender->tag));
+
+	/* Redo the captions and colours of the directory buttons. */
+	page_start = FontBrowserDirPage * (FONT_BROWSER_PAGE_ENTRIES - 1);
+	for (i = 0; i < FONT_BROWSER_PAGE_ENTRIES; ++i)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserDirectories[i]);
+		if (i + page_start < FontBrowserDirCount)
+        {
+			/*
+			 * Truncate displayed name to at most
+			 * FONT_BROWSER_DIR_LENGTH Unicode code points.
+			 */
+			char *caption;
+
+			assert(FontBrowserDirEntries
+				&& FontBrowserDirEntries[i + page_start]);
+			caption = string_make(
+				FontBrowserDirEntries[i + page_start]);
+			utf8_clipto(caption, FONT_BROWSER_DIR_LENGTH);
+			sdl_ButtonCaption(button, caption);
+			string_free(caption);
+			button->unsel_colour = AltUnselColour;
+			button->sel_colour = AltSelColour;
+			button->cap_colour = DefaultCapColour;
+		}
+        else
+        {
+			sdl_ButtonCaption(button, "");
+			button->unsel_colour = back_colour;
+			button->sel_colour = back_colour;
+			button->cap_colour = back_colour;
+		}
+	}
+
+	/* Update the colors of the scroll controls if relevant. */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirPageBefore);
+	if (FontBrowserDirPage > 0)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirPageAfter);
+	if (FontBrowserDirPage < max_page)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+
+	PopUp.need_update = true;
+}
+
+
+static void ChangeFilePageFontBrowser(sdl_Button *sender)
+{
+	/*
+	 * Each page overlaps by one entry with the previous; thus the
+	 * use of FONT_BROWSER_PAGE_ENTRIES - 1 in the lines below.
+	 * If the count is greater than zero, max_page satisfies
+	 * max_page * (FONT_BROWSER_PAGE_ENTRIES - 1) < count and
+	 * max_page * (FONT_BROWSER_PAGE_ENTRIES - 1)
+	 * + FONT_BROWSER_PAGE_ENTRIES >= count.
+	 */
+	size_t max_page = (FontBrowserFileCount > 0) ? (FontBrowserFileCount
+		- 1) / (FONT_BROWSER_PAGE_ENTRIES - 1) : 0;
+	sdl_Button *button;
+	size_t page_start, i;
+
+	if ((FontBrowserFilePage == 0 && sender->tag < 0) ||
+			(FontBrowserFilePage == max_page && sender->tag > 0))
+    {
+		/* Scrolling that direction does nothing. */
+		return;
+	}
+
+	FontBrowserFilePage = MAX(0, MIN(max_page, FontBrowserFilePage
+		+ sender->tag));
+
+	/* Redo the captions and colours of the file buttons. */
+	page_start = FontBrowserFilePage * (FONT_BROWSER_PAGE_ENTRIES - 1);
+	for (i = 0; i < FONT_BROWSER_PAGE_ENTRIES; ++i)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserFiles[i]);
+		if (i + page_start < FontBrowserFileCount)
+        {
+			/*
+			 * Truncate displayed name to at most
+			 * FONT_BROWSER_FILE_LENGTH characters.
+			 */
+			char *caption;
+
+			assert(FontBrowserFileEntries &&
+				FontBrowserFileEntries[i + page_start]);
+			caption = string_make(
+				FontBrowserFileEntries[i + page_start]);
+			utf8_clipto(caption, FONT_BROWSER_FILE_LENGTH);
+			sdl_ButtonCaption(button, caption);
+			string_free(caption);
+			button->unsel_colour = AltUnselColour;
+			button->sel_colour = AltSelColour;
+			if (i + page_start == FontBrowserFileCur)
+				button->cap_colour = AltCapColour;
+            else
+				button->cap_colour = DefaultCapColour;
+		}
+        else
+        {
+			sdl_ButtonCaption(button, "");
+			button->unsel_colour = back_colour;
+			button->sel_colour = back_colour;
+			button->cap_colour = back_colour;
+		}
+	}
+
+	/* Change the colors on the scroll controls if relevant. */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserFilePageBefore);
+	if (FontBrowserFilePage > 0)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserFilePageAfter);
+	if (FontBrowserFilePage < max_page)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+
+	PopUp.need_update = true;
+}
+
+
+static void RefreshFontBrowser(sdl_Button *sender)
+{
+	char *oldcur;
+	ang_dir *dir;
+	size_t i;
+	char file_part[MSG_LEN], full_path[MSG_LEN];
+
+	/*
+	 * If there is a currently selected file, remember it so, if it
+	 * is still present, it can be used as the current selection.
+	 */
+	if (FontBrowserFileCur != (size_t) -1)
+    {
+		assert(FontBrowserFileEntries
+			&& FontBrowserFileCur < FontBrowserFileCount
+			&& FontBrowserFileEntries[FontBrowserFileCur]);
+		oldcur = FontBrowserFileEntries[FontBrowserFileCur];
+		FontBrowserFileEntries[FontBrowserFileCur] = NULL;
+		FontBrowserFileCur = (size_t) -1;
+	}
+    else
+		oldcur = NULL;
+
+	/* Clear the old entries in the lists. */
+	for (i = 0; i < FontBrowserDirCount; ++i)
+    {
+		string_free(FontBrowserDirEntries[i]);
+		FontBrowserDirEntries[i] = NULL;
+	}
+	FontBrowserDirCount = 0;
+	FontBrowserDirPage = 0;
+	for (i = 0; i < FontBrowserFileCount; ++i)
+    {
+		string_free(FontBrowserFileEntries[i]);
+		FontBrowserFileEntries[i] = NULL;
+	}
+	FontBrowserFileCount = 0;
+	FontBrowserFilePage = 0;
+
+	/*
+	 * Build up the lists of directories and fixed-width font files
+	 * present.
+	 */
+	assert(FontBrowserCurDir);
+	dir = my_dopen(FontBrowserCurDir);
+	if (!dir)
+    {
+		size_t sz1, sz2;
+		int nresult;
+
+		/* Try ANGBAND_DIR_FONTS instead. */
+		dir = my_dopen(ANGBAND_DIR_FONTS);
+		if (dir == NULL)
+        {
+			quit_fmt("could not read the directories %s and %s",
+				FontBrowserCurDir, ANGBAND_DIR_FONTS);
+		}
+		mem_free(FontBrowserCurDir);
+
+		/*
+		 * Normalize the path (make it absolute with no relative
+		 * parts and no redundant path separators).  That simplifies
+		 * how the font browser works up the directory tree.
+		 */
+		sz1 = MSG_LEN;
+		FontBrowserCurDir = mem_alloc(sz1);
+		nresult = path_normalize(FontBrowserCurDir, sz1,
+			ANGBAND_DIR_FONTS, true, &sz2, &FontBrowserRootSz);
+		if (nresult == 1)
+        {
+			/* Try again with a buffer that should hold it. */
+			assert(sz2 > sz1);
+			FontBrowserCurDir = mem_realloc(FontBrowserCurDir, sz2);
+			nresult = path_normalize(FontBrowserCurDir, sz2,
+				ANGBAND_DIR_FONTS, true, NULL, &FontBrowserRootSz);
+		}
+		if (nresult != 0)
+        {
+			/* Could not normalize it. */
+			quit_fmt("could not normalize %s", ANGBAND_DIR_FONTS);
+		}
+		dir = my_dopen(FontBrowserCurDir);
+		if (!dir)
+			quit_fmt("could not open the directory, %s", FontBrowserCurDir);
+	}
+	alter_ang_dir_only_files(dir, false);
+	while (my_dread(dir, file_part, sizeof(file_part)))
+    {
+		path_build(full_path, sizeof(full_path), FontBrowserCurDir, file_part);
+		if (dir_exists(full_path))
+        {
+			/*
+			 * It's a directory.  If it's readable and not "."
+			 * nor "..", put it in the directory list.
+			 */
+			if (!streq(file_part, ".") && !streq(file_part, ".."))
+            {
+				ang_dir *dir2 = my_dopen(full_path);
+
+				if (dir2)
+                {
+					if (FontBrowserDirCount == FontBrowserDirAlloc)
+                    {
+						if (FontBrowserDirAlloc > ((size_t) -1) / (2 * sizeof(char*)))
+                        {
+							/*
+							 * There's too many
+							 * entries to represent
+							 * in memory.
+							 */
+							continue;
+						}
+						FontBrowserDirAlloc =
+							(FontBrowserDirAlloc == 0) ?
+							16 : 2 * FontBrowserDirAlloc;
+						FontBrowserDirEntries =
+							mem_realloc(FontBrowserDirEntries,
+							FontBrowserDirAlloc * sizeof(char*));
+					}
+					FontBrowserDirEntries[FontBrowserDirCount] =
+						string_make(file_part);
+					++FontBrowserDirCount;
+					my_dclose(dir2);
+				}
+			}
+		}
+        else if (is_font_file(full_path))
+        {
+			/* Put it in the file list. */
+			if (FontBrowserFileCount == FontBrowserFileAlloc)
+            {
+				if (FontBrowserFileAlloc > ((size_t) -1) / (2 * sizeof(char*)))
+                {
+					/*
+					 * There's too many entries to represent
+					 * in memory.
+					 */
+					continue;
+				}
+				FontBrowserFileAlloc =
+					(FontBrowserFileAlloc == 0) ?
+					16 : 2 * FontBrowserFileAlloc;
+				FontBrowserFileEntries = mem_realloc(
+					FontBrowserFileEntries,
+					FontBrowserFileAlloc * sizeof(char*));
+			}
+			FontBrowserFileEntries[FontBrowserFileCount] =
+				string_make(file_part);
+			++FontBrowserFileCount;
+		}
+	}
+	my_dclose(dir);
+
+	/* Sort the entries. */
+	if (FontBrowserDirCount > 0)
+    {
+		sort(FontBrowserDirEntries, FontBrowserDirCount,
+			sizeof(FontBrowserDirEntries[0]), cmp_name);
+	}
+	if (FontBrowserFileCount > 0)
+    {
+		sort(FontBrowserFileEntries, FontBrowserFileCount,
+			sizeof(FontBrowserFileEntries[0]), cmp_name);
+	}
+
+	/* Update what's shown. */
+	if (oldcur)
+    {
+		i = 0;
+		while (1)
+        {
+			if (i == FontBrowserFileCount)
+            {
+				sdl_Button *button;
+
+				/*
+				 * Didn't find the old selection.  Clear
+				 * new_font and grey out the point size
+				 * controls.
+				 */
+				string_free(new_font.name);
+				new_font.name = NULL;
+				new_font.size = 0;
+				new_font.preset = false;
+				new_font.bitmapped = false;
+				if (FontBrowserPreviewFont) {
+					sdl_FontFree(FontBrowserPreviewFont);
+					mem_free(FontBrowserPreviewFont);
+					FontBrowserPreviewFont = NULL;
+				}
+				button = sdl_ButtonBankGet(&PopUp.buttons,
+					FontBrowserPtSizeBigDec);
+				button->unsel_colour = back_colour;
+				button->sel_colour = back_colour;
+				button->cap_colour = back_colour;
+				button = sdl_ButtonBankGet(&PopUp.buttons,
+					FontBrowserPtSizeDec);
+				button->unsel_colour = back_colour;
+				button->sel_colour = back_colour;
+				button->cap_colour = back_colour;
+				button = sdl_ButtonBankGet(&PopUp.buttons,
+					FontBrowserPtSizeInc);
+				button->unsel_colour = back_colour;
+				button->sel_colour = back_colour;
+				button->cap_colour = back_colour;
+				button = sdl_ButtonBankGet(&PopUp.buttons,
+					FontBrowserPtSizeBigInc);
+				button->unsel_colour = back_colour;
+				button->sel_colour = back_colour;
+				button->cap_colour = back_colour;
+				PopUp.need_update = true;
+				break;
+			}
+			if (streq(FontBrowserFileEntries[i], oldcur))
+            {
+				/*
+				 * Found the old selection.  Mark it and
+				 * make sure it's in the current page
+				 * displayed.  The details in new_font,
+				 * FontBrowserPreviewFont, and the status
+				 * of the point size controls have not changed
+				 * so they're left as they are.
+				 */
+				FontBrowserFileCur = i;
+				FontBrowserFilePage =
+					i / (FONT_BROWSER_PAGE_ENTRIES - 1);
+				break;
+			}
+			++i;
+		}
+		string_free(oldcur);
+	}
+	ChangeDirPageFontBrowser(sender);
+	ChangeFilePageFontBrowser(sender);
+}
+
+
+static void CancelFontBrowser(sdl_Button *sender)
+{
+	HelpFontBrowserClose();
+}
+
+
+static void GoUpFontBrowser(sdl_Button *sender)
+{
+	size_t idx = strlen(FontBrowserCurDir);
+	sdl_Button *button;
+
+	assert(idx >= 1 && FontBrowserCurDir[idx - 1] == PATH_SEPC);
+	if (idx <= FontBrowserRootSz)
+    {
+		/* Can't go up any further. */
+		return;
+	}
+
+	/* Forget the font that was being previewed. */
+	FontBrowserFileCur = (size_t) -1;
+	if (FontBrowserPreviewFont)
+    {
+		sdl_FontFree(FontBrowserPreviewFont);
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+	string_free(new_font.name);
+	new_font.name = NULL;
+	new_font.size = 0;
+	new_font.preset = false;
+	new_font.bitmapped = false;
+
+	/*
+	 * Set up the path to the new directory.  First strip off the trailing
+	 * path separator.
+	 */
+	FontBrowserCurDir[idx - 1] = '\0';
+
+	/*
+	 * Then drop the last path component, leaving a trailing path
+	 * separator.
+	 */
+	idx = path_filename_index(FontBrowserCurDir);
+	assert(idx >= FontBrowserRootSz);
+	FontBrowserCurDir[idx] = '\0';
+
+	/* Can a path element be removed and still leave something? */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirUp);
+	if (idx > FontBrowserRootSz)
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+
+	/*
+	 * Because there's no longer a selected font, grey out the point size
+	 * controls.
+	 */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+
+	/* Refresh the lists of files and directories. */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserRefresh);
+	RefreshFontBrowser(button);
+
+	PopUp.need_update = true;
+}
+
+
+static void SelectDirFontBrowser(sdl_Button *sender)
+{
+	sdl_Button *button;
+	char *full_path;
+	size_t sz, page_start = FontBrowserDirPage * (FONT_BROWSER_PAGE_ENTRIES - 1);
+
+	assert(sender->tag >= 0 && sender->tag < FONT_BROWSER_PAGE_ENTRIES);
+	if (page_start + sender->tag >= FontBrowserDirCount)
+    {
+		/* Directory entry is past the end; do nothing. */
+		return;
+	}
+
+	/* Forget the font that was being previewed. */
+	FontBrowserFileCur = (size_t) -1;
+	if (FontBrowserPreviewFont)
+    {
+		sdl_FontFree(FontBrowserPreviewFont);
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+	string_free(new_font.name);
+	new_font.name = NULL;
+	new_font.size = 0;
+	new_font.preset = false;
+	new_font.bitmapped = false;
+
+	/* Set up the path to the new directory. */
+	sz = strlen(FontBrowserCurDir);
+	assert(FontBrowserCurDir && sz >= 1
+		&& FontBrowserCurDir[sz - 1] == PATH_SEPC);
+	assert(FontBrowserDirEntries
+		&& FontBrowserDirEntries[page_start + sender->tag]);
+	sz += strlen(FontBrowserDirEntries[page_start + sender->tag]) + 2;
+	full_path = mem_alloc(sz);
+	strnfmt(full_path, sz, "%s%s%c", FontBrowserCurDir,
+		FontBrowserDirEntries[page_start + sender->tag], PATH_SEPC);
+	mem_free(FontBrowserCurDir);
+	FontBrowserCurDir = full_path;
+
+	/*
+	 * Having drilled down into a directory, it'll be possible to go back
+	 * up.
+	 */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirUp);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	button->cap_colour = DefaultCapColour;
+
+	/*
+	 * Because there's no longer a selected font, grey out the point size
+	 * controls.
+	 */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+
+	/* Refresh the lists of files and directories. */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserRefresh);
+	RefreshFontBrowser(button);
+
+	PopUp.need_update = true;
+}
+
+
+static void SelectFileFontBrowser(sdl_Button *sender)
+{
+	sdl_Button *button;
+	char *work;
+	size_t sz1, sz2, page_start = FontBrowserFilePage * (FONT_BROWSER_PAGE_ENTRIES - 1);
+	int nresult;
+
+	assert(sender->tag >= 0 && sender->tag < FONT_BROWSER_PAGE_ENTRIES);
+	if (page_start + sender->tag >= FontBrowserFileCount)
+    {
+		/* File entry is past the end; do nothing. */
+		return;
+	}
+
+	if (page_start + sender->tag == FontBrowserFileCur)
+    {
+		/* It's the same selection as before, do nothing. */
+		return;
+	}
+
+	/* Fill in some details about the new font to preview. */
+	assert(FontBrowserFileEntries
+		&& FontBrowserFileEntries[page_start + sender->tag]);
+	string_free(new_font.name);
+
+	/* If the font is in ANGBAND_DIR_FONTS, it is a preset font. */
+	sz1 = strlen(FontBrowserCurDir)
+		+ strlen(FontBrowserFileEntries[page_start + sender->tag]) + 2;
+	work = mem_alloc(sz1);
+	nresult = path_normalize(work, sz1, ANGBAND_DIR_FONTS, true,
+		&sz2, NULL);
+	if (nresult == 1)
+    {
+		/* Try again with a buffer that should hold it. */
+		assert(sz2 > sz1);
+		work = mem_realloc(work, sz2);
+		nresult = path_normalize(work, sz2, ANGBAND_DIR_FONTS, true,
+			NULL, NULL);
+	}
+	if (nresult == 0 && streq(FontBrowserCurDir, work))
+    {
+		new_font.name = string_make(
+			FontBrowserFileEntries[page_start + sender->tag]);
+		new_font.preset = true;
+		mem_free(work);
+	}
+    else
+    {
+		path_build(work, sz1, FontBrowserCurDir,
+			FontBrowserFileEntries[page_start + sender->tag]);
+		new_font.name = work;
+		new_font.preset = false;
+	}
+	if (suffix(new_font.name, ".fon"))
+    {
+		new_font.size = 0;
+		new_font.bitmapped = true;
+	}
+    else
+    {
+		/*
+		 * If were not previewing a scalable font, then either use
+		 * the size of the currently selected font for the window or
+		 * the default size, as the size to start with the new font.
+		 * Otherwise, keep the size that was used for the previous
+		 * preview.
+		 */
+		if (FontBrowserFileCur == (size_t) -1 || new_font.bitmapped)
+        {
+			term_window *window = &windows[SelectedTerm];
+
+			if (!window->req_font.bitmapped
+					&& window->req_font.size >= MIN_POINT_SIZE
+					&& window->req_font.size <= MAX_POINT_SIZE)
+            {
+				new_font.size = window->req_font.size;
+			}
+            else
+				new_font.size = DEFAULT_POINT_SIZE;
+		}
+		new_font.bitmapped = false;
+	}
+
+	/* Change the color on the button for the currently selected font. */
+	sender->cap_colour = AltCapColour;
+
+	/*
+	 * Change the color on the button for the old file selection, if
+	 * visible.
+	 */
+	if (FontBrowserFileCur >= page_start && FontBrowserFileCur < page_start
+			+ FONT_BROWSER_PAGE_ENTRIES)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserFiles[FontBrowserFileCur - page_start]);
+		button->cap_colour = DefaultCapColour;
+	}
+
+	/* Remember the selection. */
+	FontBrowserFileCur = page_start + sender->tag;
+
+	/* Change the colors on the point size controls as appropriate. */
+	if (!new_font.bitmapped && new_font.size > MIN_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	if (!new_font.bitmapped && new_font.size < MAX_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+
+	/* Try to load the newly selected font. */
+	if (FontBrowserPreviewFont)
+		sdl_FontFree(FontBrowserPreviewFont);
+	else
+		FontBrowserPreviewFont = mem_alloc(sizeof(*FontBrowserPreviewFont));
+	if (sdl_FontCreate(FontBrowserPreviewFont, &new_font, PopUp.surface))
+    {
+		/* Failed. */
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+
+	PopUp.need_update = true;
+}
+
+
+static void ChangePtSzFontBrowser(sdl_Button *sender)
+{
+	sdl_Button *button;
+
+	if (FontBrowserFileCur == (size_t) -1 || new_font.bitmapped)
+    {
+		/* Size changes aren't relevant. */
+		return;
+	}
+	if ((new_font.size == MIN_POINT_SIZE && sender->tag < 0) ||
+        (new_font.size == MAX_POINT_SIZE && sender->tag > 0))
+    {
+		/* Size doesn't change. */
+		return;
+	}
+
+	new_font.size = MAX(MIN_POINT_SIZE, MIN(MAX_POINT_SIZE,
+		new_font.size + sender->tag));
+
+	/* Change colors on the buttons. */
+	if (new_font.size > MIN_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeDec);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeDec);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+	if (new_font.size < MAX_POINT_SIZE)
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigInc);
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+    else
+    {
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserPtSizeBigInc);
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+
+	/* Try to create the preview font at the new size. */
+	if (FontBrowserPreviewFont)
+		sdl_FontFree(FontBrowserPreviewFont);
+	else
+		FontBrowserPreviewFont = mem_alloc(sizeof(*FontBrowserPreviewFont));
+	if (sdl_FontCreate(FontBrowserPreviewFont, &new_font, PopUp.surface))
+    {
+		/* Failed. */
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+
+	PopUp.need_update = true;
+}
+
+
+static void DrawFontBrowser(sdl_Window *win)
+{
+	int filepanel_left = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ 2 * (FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN)
+		+ (FONT_BROWSER_DIR_LENGTH + 1) * PopUp.font.width
+		+ FONT_BROWSER_HOR_SPACE + 3 * PopUp.font.width
+		+ 2 * PopUp.font.width;
+	int subpanel_bottom = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ PopUp.font.height + 2 + 2 * (FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN) + FONT_BROWSER_PAGE_ENTRIES
+		* (PopUp.font.height + 2);
+	sdl_Button *button;
+	SDL_Rect rc;
+
+	/* Draw the panel border. */
+	sdl_RECT(0, 0, win->width, win->height, &rc);
+	sdl_DrawBox(win->surface, &rc, AltUnselColour, FONT_BROWSER_BORDER);
+
+	/* Draw the subpanel labels. */
+	sdl_WindowText(win, AltUnselColour, FONT_BROWSER_BORDER +
+		FONT_BROWSER_MARGIN, FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN,
+		"Directories");
+	sdl_WindowText(win, AltUnselColour, filepanel_left, FONT_BROWSER_BORDER
+		+ FONT_BROWSER_MARGIN, "Fixed-width Fonts");
+
+	/* Draw the directory subpanel border. */
+	sdl_RECT(FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN, FONT_BROWSER_BORDER
+		+ FONT_BROWSER_MARGIN + PopUp.font.height + 2,
+		filepanel_left - 2 * PopUp.font.width - FONT_BROWSER_BORDER
+		- FONT_BROWSER_MARGIN,
+		subpanel_bottom - PopUp.font.height - 2 - FONT_BROWSER_BORDER
+		- FONT_BROWSER_MARGIN, &rc);
+	sdl_DrawBox(win->surface, &rc, AltUnselColour, FONT_BROWSER_SUB_BORDER);
+
+	/* Draw the file subpanel border. */
+	sdl_RECT(filepanel_left, FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ PopUp.font.height + 2, win->width - FONT_BROWSER_BORDER
+		- FONT_BROWSER_MARGIN - filepanel_left, subpanel_bottom
+		- PopUp.font.height - 2 - FONT_BROWSER_BORDER
+		- FONT_BROWSER_MARGIN, &rc);
+	sdl_DrawBox(win->surface, &rc, AltUnselColour, FONT_BROWSER_SUB_BORDER);
+
+	/* Draw the point size label as appropriate. */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigDec);
+	if (FontBrowserFileCur != (size_t) -1 && !new_font.bitmapped)
+    {
+		assert(new_font.size >= MIN_POINT_SIZE
+			&& new_font.size <= MAX_POINT_SIZE);
+		sdl_WindowText(win, AltUnselColour, button->pos.x
+			+ 12 * PopUp.font.width, button->pos.y + 1,
+			format("%d pt", new_font.size));
+	}
+    else
+    {
+		int n = (int) strlen(format("%d pt", MAX_POINT_SIZE));
+
+		sdl_RECT(button->pos.x + 12 * PopUp.font.width, button->pos.y + 1,
+			n * PopUp.font.width, PopUp.font.height, &rc);
+		SDL_FillRect(win->surface, &rc, back_pixel_colour);
+	}
+
+	if (FontBrowserPreviewFont)
+    {
+		/*
+		 * Redraw the preview area.  Like sdl_FontDraw() but do not
+		 * use the font associated with the window.  Include x07 in
+		 * the preview to see what glyph is there for the code page
+		 * 437 centered dot.  Include the UTF-8 sequence xC2 xB7 to
+		 * see what glyph is there for U+00B7, the Unicode centered
+		 * dot.
+		 */
+		const char *preview_contents[5] =
+        {
+			"abcdefghijklmnopqrst",
+			"uvwxyz1234567890-=,.",
+			"ABCDEFGHIJKLMNOPQRST",
+			"UVWXYZ!@#$%^&*()_+<>",
+			"/?;:'\"[{]}\\|`~\x07\xC2\xB7    "
+		};
+		int preview_bottom, i;
+
+		if (SDL_MUSTLOCK(win->surface))
+        {
+			if (SDL_LockSurface(win->surface) < 0)
+				return;
+		}
+
+		if (20 * FontBrowserPreviewFont->width
+				> win->width - 2 * (FONT_BROWSER_BORDER
+				+ FONT_BROWSER_MARGIN))
+        {
+			/* Doesn't fit horizontally.  Clip. */
+			rc.x = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN;
+			rc.w = win->width - 2 * (FONT_BROWSER_BORDER
+				+ FONT_BROWSER_MARGIN);
+		}
+        else
+        {
+			rc.x = (win->width - 20
+				* FontBrowserPreviewFont->width) / 2;
+			rc.w = 20 * FontBrowserPreviewFont->width;
+		}
+		rc.y = subpanel_bottom + FONT_BROWSER_VER_SPACE
+			+ PopUp.font.height + 2 + FONT_BROWSER_VER_SPACE;
+		assert(rc.y < win->height - FONT_BROWSER_PREVIEW_HEIGHT);
+		preview_bottom = rc.y + FONT_BROWSER_PREVIEW_HEIGHT;
+		if (FontBrowserPreviewFont->height > FONT_BROWSER_PREVIEW_HEIGHT)
+        {
+			/* One row doesn't fit vertically.  Clip. */
+			rc.h = FONT_BROWSER_PREVIEW_HEIGHT;
+		}
+        else
+			rc.h = FontBrowserPreviewFont->height;
+		for (i = 0; i < 5; ++i)
+        {
+			SDL_Surface *text = TTF_RenderUTF8_Solid(
+				FontBrowserPreviewFont->sdl_font,
+				preview_contents[i], AltUnselColour);
+
+			if (text)
+            {
+				SDL_BlitSurface(text, NULL, PopUp.surface, &rc);
+				SDL_FreeSurface(text);
+			}
+			rc.y += FontBrowserPreviewFont->height;
+			if (rc.y >= preview_bottom)
+				break;
+			if (rc.y + FontBrowserPreviewFont->height > preview_bottom)
+				rc.h = preview_bottom - rc.y;
+		}
+
+		if (SDL_MUSTLOCK(win->surface)) {
+			SDL_UnlockSurface(win->surface);
+		}
+	}
+}
+
+
+/*
+ * See the comment for ActivatePointSize() for why enabling and disabling
+ * buttons is done by coloring them rather than using sdl_ButtonVisible().
+ */
+static void ActivateFontBrowser(sdl_Button *sender)
+{
+	term_window *window = &windows[SelectedTerm];
+	int ptsz_width = ((int) strlen(format("%d pt", MAX_POINT_SIZE)))
+		* PopUp.font.width;
+	int height, width;
+	int subpanel_top, subpanel_bottom;
+	int dirpanel_right, filepanel_left, filepanel_right, ptsize_left;
+	sdl_Button *button;
+	int i;
+
+	RemovePopUp();
+
+	/*
+	 * Clear new_font, since a new font file hasn't been selected by this
+	 * use of the browser.
+	 */
+	FontBrowserFileCur = (size_t) -1;
+	if (FontBrowserPreviewFont)
+    {
+		sdl_FontFree(FontBrowserPreviewFont);
+		mem_free(FontBrowserPreviewFont);
+		FontBrowserPreviewFont = NULL;
+	}
+	string_free(new_font.name);
+	new_font.name = NULL;
+	new_font.size = 0;
+	new_font.preset = false;
+	new_font.bitmapped = false;
+
+	/*
+	 * If the current font is not preset, use its directory as the
+	 * starting point for the browser; otherwise, use the last directory
+	 * browsed by the browser or, if no browsing has been done so far,
+	 * ANGBAND_DIR_FONTS.
+	 */
+	mem_free(FontBrowserCurDir);
+	FontBrowserCurDir = NULL;
+	if (!window->req_font.preset && window->req_font.name)
+    {
+		size_t sz1, sz2, file_index;
+		int nresult;
+
+		/*
+		 * Normalize the path.  It could have come from the preference
+		 * file and may not be already normalized.
+		 */
+		sz1 = strlen(window->req_font.name) + 1;
+		FontBrowserCurDir = mem_alloc(sz1);
+		nresult = path_normalize(FontBrowserCurDir, sz1,
+			window->req_font.name, false, &sz2, &FontBrowserRootSz);
+		if (nresult == 1)
+        {
+			/* Try again with a buffer that should hold it. */
+			assert(sz2 > sz1);
+			FontBrowserCurDir = mem_realloc(FontBrowserCurDir, sz2);
+			nresult = path_normalize(FontBrowserCurDir, sz2,
+				window->req_font.name, false, NULL,
+				&FontBrowserRootSz);
+		}
+		if (nresult == 0)
+        {
+			/*
+			 * Terminate just past the last directory separator in
+			 * the path name.
+			 */
+			file_index = path_filename_index(FontBrowserCurDir);
+			assert(file_index >= FontBrowserRootSz);
+			FontBrowserCurDir[file_index] = '\0';
+		}
+        else
+        {
+			mem_free(FontBrowserCurDir);
+			FontBrowserCurDir = NULL;
+		}
+	}
+    else if (FontBrowserLastDir)
+    {
+		FontBrowserCurDir = string_make(FontBrowserLastDir);
+        FontBrowserRootSz = FontBrowserLastRootSz;
     }
-    
-    ResizeWin(window, (w * window->cols) + (2 * window->border),
-        (h * window->rows) + window->border + window->title_height);
-    
-    SetStatusButtons();
-    
-    RemovePopUp();
+	if (!FontBrowserCurDir)
+    {
+		size_t sz1, sz2;
+		int nresult;
+
+		sz1 = 1024;
+		FontBrowserCurDir = mem_alloc(sz1);
+		nresult = path_normalize(FontBrowserCurDir, sz1,
+			ANGBAND_DIR_FONTS, true, &sz2, &FontBrowserRootSz);
+		if (nresult == 1)
+        {
+			/* Try again with a buffer that should hold it. */
+			assert(sz2 > sz1);
+			FontBrowserCurDir = mem_realloc(FontBrowserCurDir, sz2);
+			nresult = path_normalize(FontBrowserCurDir, sz2,
+				ANGBAND_DIR_FONTS, true, NULL,
+				&FontBrowserRootSz);
+		}
+		if (nresult != 0)
+			quit_fmt("could not normalize %s", ANGBAND_DIR_FONTS);
+	}
+
+	/* Set the window for the browser panel. */
+	/* First account for the outside border. */
+	height = 2 * (FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN);
+	width = 2 * (FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN);
+
+	/*
+	 * Then for the directory and file subpanels with their labels
+	 * and borders.
+	 */
+	height += 2 * (FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN)
+		+ PopUp.font.height + 2
+		+ FONT_BROWSER_PAGE_ENTRIES * (PopUp.font.height + 2);
+	width += 4 * (FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN)
+		+ (FONT_BROWSER_DIR_LENGTH + 1) * PopUp.font.width
+		+ (FONT_BROWSER_FILE_LENGTH + 1) * PopUp.font.width;
+
+	/*
+	 * Now account for the scroll controls and a two character wide
+	 * space between the file and directory subpanels.
+	 */
+	width += 2 * (FONT_BROWSER_HOR_SPACE + 3 * PopUp.font.width)
+		+ 2 * PopUp.font.width;
+
+	/*
+	 * Account for the point size control and its separation from the
+	 * subpanels.
+	 */
+	height += FONT_BROWSER_VER_SPACE + PopUp.font.height + 2;
+
+	/*
+	 * Account for the preview and its separation from the point size
+	 * control.
+	 */
+	height += FONT_BROWSER_VER_SPACE + FONT_BROWSER_PREVIEW_HEIGHT;
+
+	/*
+	 * Account for the action buttons and their one character high
+	 * separation from the preview.
+	 */
+	height += 2 * (PopUp.font.height + 2);
+	sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
+	PopUp.left = AppWin->w / 2 - width / 2;
+	PopUp.top = StatusBar.height + 2;
+	PopUp.draw_extra = DrawFontBrowser;
+
+	/* Set buttons for the directory and file subpanels. */
+	subpanel_top = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ PopUp.font.height + 2;
+	dirpanel_right = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ 2 * (FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN)
+		+ (FONT_BROWSER_DIR_LENGTH + 1) * PopUp.font.width
+		+ FONT_BROWSER_HOR_SPACE + 3 * PopUp.font.width;
+	FontBrowserDirUp = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirUp);
+
+	/*
+	 * Grey it out if there's not at least one element in the path that
+	 * can be stripped off while still leaving something in the path.
+	 */
+	if (strlen(FontBrowserCurDir) <= FontBrowserRootSz)
+    {
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+	}
+    else
+    {
+		button->unsel_colour = AltUnselColour;
+		button->sel_colour = AltSelColour;
+		button->cap_colour = DefaultCapColour;
+	}
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "Up");
+	sdl_ButtonMove(button, dirpanel_right - 4 * PopUp.font.width,
+		subpanel_top - PopUp.font.height - 2);
+	button->activate = GoUpFontBrowser;
+	for (i = 0; i < FONT_BROWSER_PAGE_ENTRIES; ++i)
+    {
+		FontBrowserDirectories[i] = sdl_ButtonBankNew(&PopUp.buttons);
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserDirectories[i]);
+
+		/* Grey it out until needed. */
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		sdl_ButtonSize(button, (FONT_BROWSER_DIR_LENGTH + 1)
+			* PopUp.font.width, PopUp.font.height + 2);
+		sdl_ButtonVisible(button, true);
+		sdl_ButtonCaption(button, "");
+		sdl_ButtonMove(button, FONT_BROWSER_BORDER
+			+ FONT_BROWSER_MARGIN + FONT_BROWSER_SUB_BORDER
+			+ FONT_BROWSER_SUB_MARGIN, subpanel_top
+			+ FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN
+			+ i * (PopUp.font.height + 2));
+		button->tag = i;
+		button->activate = SelectDirFontBrowser;
+	}
+	dirpanel_right = FONT_BROWSER_BORDER + FONT_BROWSER_MARGIN
+		+ 2 * (FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN)
+		+ (FONT_BROWSER_DIR_LENGTH + 1) * PopUp.font.width
+		+ FONT_BROWSER_HOR_SPACE + 3 * PopUp.font.width;
+	FontBrowserDirPageBefore = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirPageBefore);
+
+	/* Grey it out until needed. */
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "-");
+	sdl_ButtonMove(button, dirpanel_right - 3 * PopUp.font.width
+		- FONT_BROWSER_SUB_BORDER - FONT_BROWSER_SUB_MARGIN,
+		subpanel_top + FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN);
+	button->tag = -1;
+	button->activate = ChangeDirPageFontBrowser;
+	FontBrowserDirPageAfter = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirPageAfter);
+
+	/* Grey it out until needed. */
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "+");
+	sdl_ButtonMove(button, dirpanel_right - FONT_BROWSER_SUB_BORDER
+		- FONT_BROWSER_SUB_MARGIN - 3 * PopUp.font.width,
+		subpanel_top + FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN + (FONT_BROWSER_PAGE_ENTRIES - 1)
+		* (PopUp.font.height + 2));
+	button->tag = 1;
+	button->activate = ChangeDirPageFontBrowser;
+
+	/*
+	 * Have a button that does nothing between the page before and page
+	 * after buttons so that stray clicks in that area don't dismiss
+	 * the 'Font Browser' panel.  If the button had access to the click
+	 * coordinates, it could implement jumping to a page.
+	 */
+	FontBrowserDirPageDummy = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserDirPageDummy);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, (FONT_BROWSER_PAGE_ENTRIES
+		- 2) * (PopUp.font.height + 2));
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "");
+	sdl_ButtonMove(button, dirpanel_right - FONT_BROWSER_SUB_BORDER
+		- FONT_BROWSER_SUB_MARGIN - 3 * PopUp.font.width,
+		subpanel_top + FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN + PopUp.font.height + 2);
+
+	filepanel_left = dirpanel_right + 2 * PopUp.font.width;
+	for (i = 0; i < FONT_BROWSER_PAGE_ENTRIES; ++i)
+    {
+		FontBrowserFiles[i] = sdl_ButtonBankNew(&PopUp.buttons);
+		button = sdl_ButtonBankGet(&PopUp.buttons,
+			FontBrowserFiles[i]);
+
+		/* Grey it out until needed. */
+		button->unsel_colour = back_colour;
+		button->sel_colour = back_colour;
+		button->cap_colour = back_colour;
+		sdl_ButtonSize(button, (FONT_BROWSER_FILE_LENGTH + 1)
+			* PopUp.font.width, PopUp.font.height + 2);
+		sdl_ButtonVisible(button, true);
+		sdl_ButtonCaption(button, "");
+		sdl_ButtonMove(button, filepanel_left + FONT_BROWSER_SUB_BORDER
+			+ FONT_BROWSER_SUB_MARGIN, subpanel_top
+			+ FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN
+			+ i * (PopUp.font.height + 2));
+		button->tag = i;
+		button->activate = SelectFileFontBrowser;
+	}
+	filepanel_right = width - FONT_BROWSER_BORDER - FONT_BROWSER_MARGIN;
+	FontBrowserFilePageBefore = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserFilePageBefore);
+
+	/* Grey it out until needed. */
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "-");
+	sdl_ButtonMove(button, filepanel_right - FONT_BROWSER_SUB_BORDER
+		- FONT_BROWSER_SUB_MARGIN - 3 * PopUp.font.width, subpanel_top
+		+ FONT_BROWSER_SUB_BORDER + FONT_BROWSER_SUB_MARGIN);
+	button->tag = -1;
+	button->activate = ChangeFilePageFontBrowser;
+	FontBrowserFilePageAfter = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserFilePageAfter);
+
+	/* Grey it out until needed. */
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "+");
+	sdl_ButtonMove(button, filepanel_right - FONT_BROWSER_SUB_BORDER
+		- FONT_BROWSER_SUB_MARGIN - 3 * PopUp.font.width,
+		subpanel_top + FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN + (FONT_BROWSER_PAGE_ENTRIES - 1)
+		* (PopUp.font.height + 2));
+	button->tag = 1;
+	button->activate = ChangeFilePageFontBrowser;
+
+	/* As above, this is a dummy button to absorb frequent stray clicks. */
+	FontBrowserFilePageDummy = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserFilePageDummy);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 3 * PopUp.font.width, (FONT_BROWSER_PAGE_ENTRIES
+		- 2) * (PopUp.font.height + 2));
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "");
+	sdl_ButtonMove(button, filepanel_right - FONT_BROWSER_SUB_BORDER
+		- FONT_BROWSER_SUB_MARGIN - 3 * PopUp.font.width,
+		subpanel_top + FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN + PopUp.font.height + 2);
+
+	/*
+	 * Set up the point size controls, all are greyed out until needed.
+	 * Center them, if possible, below the file panel.
+	 */
+	if (24 * PopUp.font.width + ptsz_width
+			> filepanel_right - filepanel_left)
+    {
+		ptsize_left = filepanel_right - 24 * PopUp.font.width
+			- ptsz_width;
+	}
+    else
+    {
+		ptsize_left = filepanel_left + (filepanel_right
+			- filepanel_left - 24 * PopUp.font.width
+			- ptsz_width) / 2;
+	}
+	subpanel_bottom = subpanel_top + 2 * (FONT_BROWSER_SUB_BORDER
+		+ FONT_BROWSER_SUB_MARGIN) + FONT_BROWSER_PAGE_ENTRIES
+		* (PopUp.font.height + 2);
+	FontBrowserPtSizeBigDec = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "--");
+	sdl_ButtonMove(button, ptsize_left, subpanel_bottom
+		+ FONT_BROWSER_VER_SPACE);
+	button->tag = -10;
+	button->activate = ChangePtSzFontBrowser;
+	FontBrowserPtSizeDec = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeDec);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, " -");
+	sdl_ButtonMove(button, ptsize_left + 6 * PopUp.font.width,
+		subpanel_bottom + FONT_BROWSER_VER_SPACE);
+	button->tag = -1;
+	button->activate = ChangePtSzFontBrowser;
+	FontBrowserPtSizeInc = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, " +");
+	sdl_ButtonMove(button, ptsize_left + 14 * PopUp.font.width
+		+ ptsz_width, subpanel_bottom + FONT_BROWSER_VER_SPACE);
+	button->tag = 1;
+	button->activate = ChangePtSzFontBrowser;
+	FontBrowserPtSizeBigInc = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserPtSizeBigInc);
+	button->unsel_colour = back_colour;
+	button->sel_colour = back_colour;
+	button->cap_colour = back_colour;
+	sdl_ButtonSize(button, 4 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "++");
+	sdl_ButtonMove(button, ptsize_left + 20 * PopUp.font.width
+		+ ptsz_width, subpanel_bottom + FONT_BROWSER_VER_SPACE);
+	button->tag = 10;
+	button->activate = ChangePtSzFontBrowser;
+
+	FontBrowserOk = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserOk);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	sdl_ButtonSize(button, 10 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "OK");
+	sdl_ButtonMove(button, width / 2 - 19 * PopUp.font.width, height
+		- FONT_BROWSER_BORDER - FONT_BROWSER_MARGIN
+		- PopUp.font.height - 2);
+	button->activate = AcceptFontBrowser;
+
+	/*
+	 * Have a refresh button since file system change notifications are
+	 * not monitored.  That way the user has a way to resync with what's
+	 * in the directory without closing and reopening the browser panel
+	 * or, for some changes, going to another directory and then back to
+	 * the current one.
+	 */
+	FontBrowserRefresh = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserRefresh);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	sdl_ButtonSize(button, 10 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "Refresh");
+	sdl_ButtonMove(button, width / 2 - 5 * PopUp.font.width, height
+		- FONT_BROWSER_BORDER - FONT_BROWSER_MARGIN
+		- PopUp.font.height - 2);
+
+	/*
+	 * Set the tag to zero so this button can be passed to
+	 * ChangeDirPageFontBrowser() and ChangeFilePageFontBrowser().
+	 */
+	button->tag = 0;
+	button->activate = RefreshFontBrowser;
+
+	FontBrowserCancel = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserCancel);
+	button->unsel_colour = AltUnselColour;
+	button->sel_colour = AltSelColour;
+	sdl_ButtonSize(button, 10 * PopUp.font.width, PopUp.font.height + 2);
+	sdl_ButtonVisible(button, true);
+	sdl_ButtonCaption(button, "Cancel");
+	sdl_ButtonMove(button, width / 2 + 9 * PopUp.font.width, height
+		- FONT_BROWSER_BORDER - FONT_BROWSER_MARGIN
+		- PopUp.font.height - 2);
+	button->activate = CancelFontBrowser;
+
+	/*
+	 * Update the browser for the directories and files in the directory
+	 * being browsed.
+	 */
+	button = sdl_ButtonBankGet(&PopUp.buttons, FontBrowserRefresh);
+	RefreshFontBrowser(button);
+
+	popped = true;
 }
 
 
 static int get_font_namewidth(void)
 {
-    int i, maxl = 0;
+    const char *browse_label = "Other ...";
+    int i, maxl = (int) strlen(browse_label);
 
     for (i = 0; i < num_fonts; i++)
     {
-        int l = strlen(FontList[i]);
-        if (l > maxl) maxl = l;
+        size_t sl = strlen(FontList[i]);
+
+        /*
+		 * Use 49 because that is one less than the maximum size of
+		 * a button's caption.
+		 */
+		maxl = (sl >= 49) ? 49 : MAX(maxl, (int) sl);
     }
 
     return (maxl * StatusBar.font.width + 20);
@@ -1426,27 +3487,74 @@ static int get_font_namewidth(void)
 
 static void FontActivate(sdl_Button *sender)
 {
-    int i;
-    int width, height = num_fonts * (StatusBar.font.height + 1);
+    const char *browse_label = "Other ...";
+	term_window *window = &windows[SelectedTerm];
+	int i;
+	int extra, width, height;
+	int h, b;
+	sdl_Button *button;
 
-    width = get_font_namewidth();
+	/*
+	 * Always add an additional menu item to open a file browser to
+	 * select a font file.  If not currently using a preset font, also
+	 * add an entry which corresponds to that font.
+	 */
+	if (window->req_font.preset)
+		extra = 1;
+	else
+		extra = 2;
+	width = get_font_namewidth();
+	height = (num_fonts + extra) * (StatusBar.font.height + 1);
 
-    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.name);
-    PopUp.left = sender->pos.x;
-    PopUp.top = sender->pos.y;
+	sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
+	PopUp.left = sender->pos.x;
+	PopUp.top = sender->pos.y;
 
-    for (i = 0; i < num_fonts; i++)
+	h = PopUp.font.height;
+	for (i = 0; i < num_fonts; i++)
     {
-        int h = PopUp.font.height;
-        int b = sdl_ButtonBankNew(&PopUp.buttons);
-        sdl_Button *button = sdl_ButtonBankGet(&PopUp.buttons, b);
-        sdl_ButtonSize(button, width - 2 , h);
-        sdl_ButtonMove(button, 1, i * (h + 1));
-        sdl_ButtonCaption(button, FontList[i]);
-        sdl_ButtonVisible(button, true);
-        button->activate = SelectFont;
-    }
-    popped = true;
+		b = sdl_ButtonBankNew(&PopUp.buttons);
+		button = sdl_ButtonBankGet(&PopUp.buttons, b);
+		sdl_ButtonSize(button, width - 2 , h);
+		sdl_ButtonMove(button, 1, i * (h + 1));
+		if (window->req_font.preset && streq(window->req_font.name, FontList[i]))
+			button->cap_colour = AltCapColour;
+		sdl_ButtonCaption(button, FontList[i]);
+		sdl_ButtonVisible(button, true);
+		button->activate = (suffix(FontList[i], ".fon")) ?
+			SelectPresetBitmappedFont : SelectPresetScalableFont;
+	}
+
+	if (extra == 2)
+    {
+		/*
+		 * Add a button corresponding to the current, but not preset
+		 * font.
+		 */
+		char caption[50];
+
+		b = sdl_ButtonBankNew(&PopUp.buttons);
+		button = sdl_ButtonBankGet(&PopUp.buttons, b);
+		sdl_ButtonSize(button, width - 2 , h);
+		sdl_ButtonMove(button, 1, num_fonts * (h + 1));
+		button->cap_colour = AltCapColour;
+		get_font_short_name(caption, sizeof(caption),
+			&window->req_font);
+		sdl_ButtonCaption(button, caption);
+		sdl_ButtonVisible(button, true);
+		button->activate = AlterNonPresetFontSize;
+	}
+
+	/* Add the button for launching the font file browser dialog. */
+	b = sdl_ButtonBankNew(&PopUp.buttons);
+	button = sdl_ButtonBankGet(&PopUp.buttons, b);
+	sdl_ButtonSize(button, width - 2 , h);
+	sdl_ButtonMove(button, 1, (num_fonts + extra - 1) * (h + 1));
+	sdl_ButtonCaption(button, browse_label);
+	sdl_ButtonVisible(button, true);
+	button->activate = ActivateFontBrowser;
+
+	popped = true;
 
     // Hack -- weather
     if (player->weather_type != 0)
@@ -1646,18 +3754,6 @@ static void HeightChange(sdl_Button *sender)
 }
 
 
-static void FontSizeChange(sdl_Button *sender)
-{
-    term_window *window = &windows[SelectedTerm];
-
-    window->font_size += sender->tag;
-    if (window->font_size < 4) window->font_size = 4;
-    if (window->font_size > 64) window->font_size = 64;
-    do_update_w = true;
-    do_update = true;
-}
-
-
 static void WindowBordersChange(sdl_Button *sender)
 {
     term_window *window = &windows[SelectedTerm];
@@ -1694,14 +3790,10 @@ static void MoreDraw(sdl_Window *win)
     int y = 20;
     graphics_mode *mode;
 
-    /* Wow - a different colour! */
-    SDL_Color colour = {160, 60, 60, 0};
-    SDL_Color select_colour = {210, 110, 110, 0};
-
     sdl_RECT(0, 0, win->width, win->height, &rc);
 
     /* Draw a nice box */
-    sdl_DrawBox(win->surface, &rc, colour, 5);
+    sdl_DrawBox(win->surface, &rc, AltUnselColour, 5);
 
     button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
     sdl_ButtonVisible(button, SelectedGfx? true: false);
@@ -1717,7 +3809,7 @@ static void MoreDraw(sdl_Window *win)
 
     if (SelectedGfx)
     {
-        sdl_WindowText(win, colour, 20, y, format("Tile width is %d.", tile_width));
+        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile width is %d.", tile_width));
         button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
         sdl_ButtonMove(button, 150, y);
 
@@ -1726,7 +3818,7 @@ static void MoreDraw(sdl_Window *win)
 
         y += 20;
 
-        sdl_WindowText(win, colour, 20, y, format("Tile height is %d.", tile_height));
+        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile height is %d.", tile_height));
         button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
         sdl_ButtonMove(button, 150, y);
 
@@ -1737,7 +3829,7 @@ static void MoreDraw(sdl_Window *win)
     }
 
     button = sdl_ButtonBankGet(&win->buttons, MoreNiceGfx);
-    sdl_WindowText(win, colour, 20, y, "Nice graphics is:");
+    sdl_WindowText(win, AltUnselColour, 20, y, "Nice graphics is:");
 
     sdl_ButtonMove(button, 150, y);
     y += 20;
@@ -1745,17 +3837,17 @@ static void MoreDraw(sdl_Window *win)
     /* Allow only in initial phase */
     if (!Setup.initialized)
     {
-        sdl_WindowText(win, colour, 20, y, "Selected Graphics:");
+        sdl_WindowText(win, AltUnselColour, 20, y, "Selected Graphics:");
 
         mode = get_graphics_mode(SelectedGfx, false);
         if (mode && mode->grafID)
-            sdl_WindowText(win, select_colour, 150, y, mode->menuname);
+            sdl_WindowText(win, AltSelColour, 150, y, mode->menuname);
         else
-            sdl_WindowText(win, select_colour, 150, y, "None");
+            sdl_WindowText(win, AltSelColour, 150, y, "None");
 
         y += 20;
 
-        sdl_WindowText(win, colour, 20, y, "Available Graphics:");
+        sdl_WindowText(win, AltUnselColour, 20, y, "Available Graphics:");
 
         mode = graphics_modes;
         while (mode)
@@ -1771,12 +3863,12 @@ static void MoreDraw(sdl_Window *win)
     }
 
     button = sdl_ButtonBankGet(&win->buttons, MoreFullscreen);
-    sdl_WindowText(win, colour, 20, y, "Fullscreen is:");
+    sdl_WindowText(win, AltUnselColour, 20, y, "Fullscreen is:");
 
     sdl_ButtonMove(button, 150, y);
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Window borders is %d.", window->windowborders));
+    sdl_WindowText(win, AltUnselColour, 20, y, format("Window borders is %d.", window->windowborders));
     button = sdl_ButtonBankGet(&win->buttons, MoreWindowBordersMinus);
     sdl_ButtonMove(button, 150, y);
 
@@ -1785,7 +3877,7 @@ static void MoreDraw(sdl_Window *win)
 
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Sound Volume is %d.", sound_volume));
+    sdl_WindowText(win, AltUnselColour, 20, y, format("Sound Volume is %d.", sound_volume));
     button = sdl_ButtonBankGet(&win->buttons, MoreSoundVolumeMinus);
     sdl_ButtonMove(button, 150, y);
 
@@ -1794,7 +3886,7 @@ static void MoreDraw(sdl_Window *win)
 
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Music Volume is %d.", music_volume));
+    sdl_WindowText(win, AltUnselColour, 20, y, format("Music Volume is %d.", music_volume));
     button = sdl_ButtonBankGet(&win->buttons, MoreMusicVolumeMinus);
     sdl_ButtonMove(button, 150, y);
 
@@ -1803,20 +3895,11 @@ static void MoreDraw(sdl_Window *win)
 
     y += 20;
 
-    sdl_WindowText(win, colour, 20, y, format("Snap range is %d.", SnapRange));
+    sdl_WindowText(win, AltUnselColour, 20, y, format("Snap range is %d.", SnapRange));
     button = sdl_ButtonBankGet(&win->buttons, MoreSnapMinus);
     sdl_ButtonMove(button, 150, y);
 
     button = sdl_ButtonBankGet(&win->buttons, MoreSnapPlus);
-    sdl_ButtonMove(button, 180, y);
-
-    y += 20;
-
-    sdl_WindowText(win, colour, 20, y, format("Font size is %d.", window->font_size));
-    button = sdl_ButtonBankGet(&win->buttons, MoreFontSizeMinus);
-    sdl_ButtonMove(button, 150, y);
-
-    button = sdl_ButtonBankGet(&win->buttons, MoreFontSizePlus);
     sdl_ButtonMove(button, 180, y);
 }
 
@@ -1846,11 +3929,9 @@ static void MoreActivate(sdl_Button *sender)
     int height = 320;
     sdl_Button *button;
     graphics_mode *mode;
-    SDL_Color ucolour = {160, 60, 60, 0};
-    SDL_Color scolour = {210, 110, 110, 0};
     int gfx_namewidth = get_gfx_namewidth();
 
-    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.name);
+    sdl_WindowInit(&PopUp, width, height, AppWin, StatusBar.font.req);
     PopUp.left = (AppWin->w / 2) - width / 2;
     PopUp.top = (AppWin->h / 2) - height / 2;
     PopUp.draw_extra = MoreDraw;
@@ -1860,8 +3941,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreWidthPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthPlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 1;
@@ -1871,8 +3952,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreWidthMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreWidthMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -1;
@@ -1882,8 +3963,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreHeightPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightPlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 1;
@@ -1893,8 +3974,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreHeightMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreHeightMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -1;
@@ -1904,8 +3985,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreNiceGfx = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreNiceGfx);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 50, PopUp.font.height + 2);
     sdl_ButtonVisible(button, true);
     sdl_ButtonCaption(button, nicegfx? "On": "Off");
@@ -1923,8 +4004,8 @@ static void MoreActivate(sdl_Button *sender)
                 GfxButtons[mode->grafID] = sdl_ButtonBankNew(&PopUp.buttons);
                 button = sdl_ButtonBankGet(&PopUp.buttons, GfxButtons[mode->grafID]);
 
-                button->unsel_colour = ucolour;
-                button->sel_colour = scolour;
+                button->unsel_colour = AltUnselColour;
+                button->sel_colour = AltSelColour;
                 sdl_ButtonSize(button, gfx_namewidth, PopUp.font.height + 2);
                 sdl_ButtonVisible(button, true);
                 sdl_ButtonCaption(button, mode->menuname);
@@ -1938,8 +4019,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreFullscreen = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreFullscreen);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 50, PopUp.font.height + 2);
     sdl_ButtonVisible(button, true);
     sdl_ButtonCaption(button, fullscreen? "On": "Off");
@@ -1949,8 +4030,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreWindowBordersPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreWindowBordersPlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 1;
@@ -1960,8 +4041,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreWindowBordersMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreWindowBordersMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -1;
@@ -1971,8 +4052,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreSoundVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSoundVolumePlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 5;
@@ -1982,8 +4063,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreSoundVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSoundVolumeMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -5;
@@ -1993,8 +4074,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreMusicVolumePlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreMusicVolumePlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 5;
@@ -2004,8 +4085,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreMusicVolumeMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreMusicVolumeMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -5;
@@ -2015,8 +4096,8 @@ static void MoreActivate(sdl_Button *sender)
     MoreSnapPlus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSnapPlus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "+");
     button->tag = 1;
@@ -2026,41 +4107,19 @@ static void MoreActivate(sdl_Button *sender)
     MoreSnapMinus = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreSnapMinus);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 20, PopUp.font.height + 2);
     sdl_ButtonCaption(button, "-");
     button->tag = -1;
     sdl_ButtonVisible(button, true);
     button->activate = SnapChange;
 
-    MoreFontSizePlus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreFontSizePlus);
-
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
-    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-    sdl_ButtonCaption(button, "+");
-    button->tag = 1;
-    sdl_ButtonVisible(button, true);
-    button->activate = FontSizeChange;
-
-    MoreFontSizeMinus = sdl_ButtonBankNew(&PopUp.buttons);
-    button = sdl_ButtonBankGet(&PopUp.buttons, MoreFontSizeMinus);
-
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
-    sdl_ButtonSize(button, 20, PopUp.font.height + 2);
-    sdl_ButtonCaption(button, "-");
-    button->tag = -1;
-    sdl_ButtonVisible(button, true);
-    button->activate = FontSizeChange;
-
     MoreOK = sdl_ButtonBankNew(&PopUp.buttons);
     button = sdl_ButtonBankGet(&PopUp.buttons, MoreOK);
 
-    button->unsel_colour = ucolour;
-    button->sel_colour = scolour;
+    button->unsel_colour = AltUnselColour;
+    button->sel_colour = AltSelColour;
     sdl_ButtonSize(button, 50, PopUp.font.height + 2);
     sdl_ButtonVisible(button, true);
     sdl_ButtonCaption(button, "OK");
@@ -2121,16 +4180,16 @@ static void ResizeWin(term_window *win, int w, int h)
     if (!win->font.data)
     {
         /* Get font dimensions */
-        sdl_CheckFont(win->req_font, win->font_size, &win->tile_wid, &win->tile_hgt);
-
-        /* Oops */
-        if (!win->tile_wid || !win->tile_hgt)
+		if (sdl_CheckFont(&win->req_font, &win->tile_wid, &win->tile_hgt) ||
+            win->tile_wid <= 0 || win->tile_hgt <= 0)
         {
-			quit_fmt("Unable to find font '%s'.\n"
-                "Note that there are new extended font files ending in 'x' in %s.\n"
-                "Please check %s and edit if necessary.",
-                win->req_font, ANGBAND_DIR_FONTS, sdl_settings_file);
-        }
+			quit_fmt("unable to find font '%s';\n"
+				"note that there are new extended font files "
+				"ending in 'x' in %s;\n"
+				"please check %s and edit if necessary",
+				win->req_font.name, ANGBAND_DIR_FONTS,
+				sdl_settings_file);
+		}
 
         /* Apply nice graphics */
         if (win->Term_idx == 0)
@@ -2163,7 +4222,10 @@ static void ResizeWin(term_window *win, int w, int h)
             text_colours[win->windowborders].b));
     }
     else
-        SDL_FillRect(win->surface, NULL, SDL_MapRGB(AppWin->format, d_color_r, d_color_g, d_color_b));
+    {
+        SDL_FillRect(win->surface, NULL,
+            SDL_MapRGB(AppWin->format, AltUnselColour.r, AltUnselColour.g, AltUnselColour.b));
+    }
 
     /* Label it */
     sdl_FontDraw(&SystemFont, win->surface, back_colour, 1, 1,
@@ -2174,7 +4236,7 @@ static void ResizeWin(term_window *win, int w, int h)
 
     /* Create the font if we need to */
     if (!win->font.data)
-        sdl_FontCreate(&win->font, win->req_font, win->font_size, win->surface);
+        sdl_FontCreate(&win->font, &win->req_font, win->surface);
 
     /* This window was never visible before, or needs resizing */
     if (!angband_term[win->Term_idx])
@@ -2267,7 +4329,18 @@ static errr load_prefs(void)
         else if (strstr(buf, "MusicVolume"))
             music_volume = atoi(s);
         else if (strstr(buf, "DefaultColor"))
+        {
+            int d_color_r, d_color_g, d_color_b;
+
             sscanf(s, "%d,%d,%d", &d_color_r, &d_color_g, &d_color_b);
+            if ((d_color_r >= 0) && (d_color_r <= 255) && (d_color_g >= 0) && (d_color_g <= 255) &&
+                (d_color_b >= 0) && (d_color_b <= 255))
+            {
+                AltUnselColour.r = d_color_r;
+                AltUnselColour.g = d_color_g;
+                AltUnselColour.b = d_color_b;
+            }
+        }
         else if (strstr(buf, "StatusBarColor"))
             statusbar_color = atoi(s);
         else if (strstr(buf, "NiceGraphics"))
@@ -2288,14 +4361,6 @@ static errr load_prefs(void)
 
     if (music_volume < 0) music_volume = 0;
     if (music_volume > 100) music_volume = 100;
-
-    if ((d_color_r < 0) || (d_color_r > 255) || (d_color_g < 0) || 
-        (d_color_g > 255) || (d_color_b < 0) || (d_color_b > 255))
-    {
-        d_color_r = 160;
-        d_color_g = 160;
-        d_color_b = 60;
-    }
 
     if ((statusbar_color < 0) || (statusbar_color >= BASIC_COLORS)) statusbar_color = 0;
 
@@ -2326,16 +4391,16 @@ static errr load_window_prefs(void)
         win->Term_idx = i;
 
         /* Default font */
-        win->req_font = string_make(DEFAULT_FONT_FILE);
-
-        /* Default font size */
-        win->font_size = DEFAULT_FONT_SIZE;
+        win->req_font.name = string_make(default_term_font.name);
+		win->req_font.size = default_term_font.size;
+		win->req_font.preset = default_term_font.preset;
+		win->req_font.bitmapped = default_term_font.bitmapped;
 
         /* Default window borders */
         win->windowborders = BASIC_COLORS;
 
         /* Default width & height */
-        sdl_CheckFont(win->req_font, win->font_size, &w, &h);
+        sdl_CheckFont(&win->req_font, &w, &h);
         win->width = (NORMAL_WID * w) + (b * 2);
         win->height = (NORMAL_HGT * h) + b + StatusHeight;
 
@@ -2389,12 +4454,96 @@ static errr load_window_prefs(void)
             win->keys = atoi(s);
         else if (strstr(buf, "WinBorders"))
             win->windowborders = atoi(s);
-        else if (strstr(buf, "FontSize"))
-            win->font_size = atoi(s);
         else if (strstr(buf, "Font"))
         {
-            string_free(win->req_font);
-            win->req_font = string_make(s);
+            const char *garbled_msg = "garbled font entry in pref "
+				"file; use the default fault instead\n";
+			long fsz;
+			char *se;
+			int w, h;
+
+			string_free(win->req_font.name);
+			if (prefix(s, "NOTPRESET,"))
+            {
+				win->req_font.preset = false;
+				fsz = strtol(s + 10, &se, 10);
+				if (*se == ',')
+                {
+					if (!fsz && (fsz < MIN_POINT_SIZE || fsz > MAX_POINT_SIZE))
+                    {
+						fprintf(stderr,
+							"invalid point size, "
+							"%ld, in pref file; "
+							"use the default size "
+							"instead\n", fsz);
+						fsz = DEFAULT_POINT_SIZE;
+					}
+					win->req_font.name = string_make(se + 1);
+				}
+                else
+                {
+					fprintf(stderr, "%s",
+						garbled_msg);
+					win->req_font.preset =
+						default_term_font.preset;
+					win->req_font.name = string_make(
+						default_term_font.name);
+					fsz = (default_term_font.bitmapped) ?
+						0 : default_term_font.size;
+				}
+			}
+            else
+            {
+				win->req_font.preset = true;
+				if (prefix(s, "NOTBITMAP,"))
+                {
+					fsz = strtol(s + 10, &se, 10);
+					if (*se == ',')
+                    {
+						if (fsz < MIN_POINT_SIZE || fsz > MAX_POINT_SIZE)
+							fsz = DEFAULT_POINT_SIZE;
+						win->req_font.name =
+							string_make(se + 1);
+					}
+                    else
+                    {
+						fprintf(stderr, "%s",
+							garbled_msg);
+						win->req_font.preset =
+							default_term_font.preset;
+						win->req_font.name = string_make(
+							default_term_font.name);
+						fsz = (default_term_font.bitmapped) ?
+							0 : default_term_font.size;
+					}
+				}
+                else
+                {
+					win->req_font.name = string_make(s);
+					fsz = 0;
+				}
+			}
+			win->req_font.size = fsz;
+			win->req_font.bitmapped = (fsz == 0);
+			if (sdl_CheckFont(&win->req_font, &w, &h))
+            {
+				if (streq(win->req_font.name,
+						default_term_font.name))
+                {
+					quit_fmt("could not load the default "
+						"font, %s", win->req_font.name);
+				}
+				fprintf(stderr, "unusable font "
+					"file, %s, from pref file; using the "
+					"default font\n", win->req_font.name);
+				string_free(win->req_font.name);
+				win->req_font.name = string_make(
+					default_term_font.name);
+				win->req_font.size = default_term_font.size;
+				win->req_font.preset = default_term_font.preset;
+				win->req_font.bitmapped =
+					default_term_font.bitmapped;
+			}
         }
     }
 
@@ -2419,7 +4568,7 @@ static errr save_prefs(void)
     file_putf(fff, "Fullscreen = %d\n", fullscreen);
     file_putf(fff, "SoundVolume = %d\n", sound_volume);
     file_putf(fff, "MusicVolume = %d\n", music_volume);
-    file_putf(fff, "DefaultColor = %d,%d,%d\n", d_color_r, d_color_g, d_color_b);
+    file_putf(fff, "DefaultColor = %d,%d,%d\n", AltUnselColour.r, AltUnselColour.g, AltUnselColour.b);
     file_putf(fff, "StatusBarColor = %d\n", statusbar_color);
     file_putf(fff, "NiceGraphics = %d\n", nicegfx);
     file_putf(fff, "Graphics = %d\n", use_graphics);
@@ -2438,8 +4587,21 @@ static errr save_prefs(void)
         file_putf(fff, "Height = %d\n", win->height);
         file_putf(fff, "Keys = %d\n", win->keys);
         file_putf(fff, "WinBorders = %d\n", win->windowborders);
-        file_putf(fff, "FontSize = %d\n", win->font_size);
-        file_putf(fff, "Font = %s\n", win->req_font);
+        if (win->req_font.bitmapped)
+        {
+			file_putf(fff, "Font = %s%s\n\n",
+				(win->req_font.preset) ? "" : "NOTPRESET,0,",
+				win->req_font.name);
+		}
+        else
+        {
+			assert(win->req_font.size >= MIN_POINT_SIZE &&
+				win->req_font.size <= MAX_POINT_SIZE);
+			file_putf(fff, "Font = %s,%d,%s\n\n",
+				(win->req_font.preset) ?
+				"NOTBITMAP" : "NOTPRESET",
+				win->req_font.size, win->req_font.name);
+		}
     }   
 
     file_close(fff);
@@ -3133,12 +5295,11 @@ static errr get_sdl_rect(term_window *win, int col, int row, bool translate, SDL
 
 
 /*
- * Displays the "normal" cursor
+ * Displays a cursor
  */
-static errr Term_curs_sdl(int col, int row)
+static errr Term_curs_sdl_aux(int col, int row, SDL_Color colour)
 {
     term_window *win = (term_window*)(Term->data);
-    SDL_Color colour = text_colours[COLOUR_YELLOW];
     SDL_Rect rc;
 
     /* Make a rectangle */
@@ -3159,6 +5320,15 @@ static errr Term_curs_sdl(int col, int row)
 
     /* Success */
     return (0);
+}
+
+
+/*
+ * Displays the "normal" cursor
+ */
+static errr Term_curs_sdl(int col, int row)
+{
+    return Term_curs_sdl_aux(col, row, text_colours[COLOUR_YELLOW]);
 }
 
 
@@ -3571,7 +5741,7 @@ static errr Term_text_sdl_aux(int col, int row, int n, uint16_t a, const char *s
     }
 
     /* Draw it */
-    return (sdl_mapFontDraw(&win->font, win->font_size, win->surface, colour, bg, x, y, n, buf));
+    return (sdl_mapFontDraw(&win->font, win->surface, colour, bg, x, y, n, buf));
 }
 
 
@@ -3632,6 +5802,10 @@ static errr Term_text_sdl(int col, int row, int n, uint16_t a, const char *s)
     /* Highlight the player */
     if (Term->minimap_active && (win->Term_idx == 0) && cursor_x && cursor_y)
         Term_curs_sdl(cursor_x + COL_MAP, cursor_y + ROW_MAP);
+
+    /* Highlight party members */
+    for (i = 0; Term->minimap_active && (win->Term_idx == 0) && (i < party_n); i++)
+        Term_curs_sdl_aux(party_x[i] + COL_MAP, party_y[i] + ROW_MAP, text_colours[COLOUR_L_BLUE]);
 
     /* Success */
     return 0;
@@ -3753,6 +5927,10 @@ static errr Term_pict_sdl(int col, int row, int n, const uint16_t *ap, const cha
     if (Term->minimap_active && (win->Term_idx == 0) && cursor_x && cursor_y)
         Term_curs_sdl(cursor_x + COL_MAP, cursor_y + ROW_MAP);
 
+    /* Highlight party members */
+    for (i = 0; Term->minimap_active && (win->Term_idx == 0) && (i < party_n); i++)
+        Term_curs_sdl_aux(party_x[i] + COL_MAP, party_y[i] + ROW_MAP, text_colours[COLOUR_L_BLUE]);
+
     return (0);
 }
 
@@ -3814,7 +5992,7 @@ static void init_morewindows(void)
     sdl_WindowFree(&PopUp);
 
     /* Initialize the status bar */
-    sdl_WindowInit(&StatusBar, AppWin->w, StatusHeight, AppWin, DEFAULT_FONT_FILE);
+    sdl_WindowInit(&StatusBar, AppWin->w, StatusHeight, AppWin, &default_term_font);
 
     /* Custom drawing function */
     StatusBar.draw_extra = draw_statusbar;
@@ -4030,7 +6208,7 @@ static void init_windows(void)
         Zorder[i] = ANGBAND_TERM_MAX - i - 1;
 
         /* Hack -- set ANGBAND_FONTNAME for main window */
-        if (i == 0) ANGBAND_FONTNAME = win->req_font;
+        if (i == 0) ANGBAND_FONTNAME = win->req_font.name;
     }
 
     /* Good to go... */
@@ -4053,7 +6231,7 @@ static void init_sdl_local(void)
 
     /* Require at least 256 colors */
     if (VideoInfo->vfmt->BitsPerPixel < 8)
-        quit_fmt("This %s port requires lots of colors.", version_build(VERSION_NAME, true));
+        quit_fmt("this %s port requires lots of colors.", version_build(VERSION_NAME, true));
 
     full_w = VideoInfo->current_w;
     full_h = VideoInfo->current_h;
@@ -4073,7 +6251,7 @@ static void init_sdl_local(void)
     /* Handle failure */
     if (!AppWin)
     {
-        quit_fmt("Failed to create %dx%d window at %d bpp!", screen_w, screen_h,
+        quit_fmt("failed to create %dx%d window at %d bpp!", screen_w, screen_h,
             VideoInfo->vfmt->BitsPerPixel);
     }
 
@@ -4101,11 +6279,12 @@ static void init_sdl_local(void)
     }
 
     /* Get the height of the status bar */
-    sdl_CheckFont(DEFAULT_FONT_FILE, DEFAULT_FONT_SIZE, &w, &h);
+    if (sdl_CheckFont(&default_term_font, &w, &h))
+		quit_fmt("could not load the default font, %s", default_term_font.name);
     StatusHeight = h + 3;
 
     /* Font used for window titles */
-    sdl_FontCreate(&SystemFont, DEFAULT_FONT_FILE, DEFAULT_FONT_SIZE, AppWin);
+    sdl_FontCreate(&SystemFont, &default_term_font, AppWin);
 
     /* Get the icon for display in the About box */
     path_build(path, sizeof(path), ANGBAND_DIR_ICONS, "att-128.png");
@@ -4125,45 +6304,63 @@ static int cmp_font(const void *f1, const void *f2)
     const char *font2 = *(const char **)f2;
     int width1 = 0;
     int width2 = 0;
+    int nsc1, nsc2;
     int height1 = 0;
     int height2 = 0;
     char face1[5] = {0};
     char face2[5] = {0};
 
-    sscanf(font1, "%dx%d%4s.", &width1, &height1, face1);
-    sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
+    nsc1 = sscanf(font1, "%dx%d%4s.", &width1, &height1, face1);
+    nsc2 = sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
 
-    if (width1 == NULL && height1 == NULL && width2 == NULL && height2 == NULL)
-        return strcmp(font1, font2);
-
-    if (width1 < width2)
-        return -1;
-    else if (width1 > width2)
-        return 1;
-    else
+    if (nsc1 != 3)
     {
-        if (height1 < height2)
-            return -1;
-        else if (height1 > height2)
-            return 1;
-        else
-            return strcmp(face1, face2);
-    }
+		if (nsc2 != 3)
+        {
+			/*
+			 * Neither match the expected pattern.  Sort
+			 * alphabetically.
+			 */
+			return strcmp(f1, f2);
+		}
+
+		/*
+		 * Put f2 first, since it matches the expected pattern.
+		 */
+		return 1;
+	}
+	if (nsc2 != 3)
+    {
+		/* Put f1 first, since it matches the expected pattern. */
+		return -1;
+	}
+	if (width1 < width2)
+		return -1;
+	if (width1 > width2)
+		return 1;
+	if (height1 < height2)
+		return -1;
+	if (height1 > height2)
+		return 1;
+	return strcmp(face1, face2);
 }
 
 
 static void init_paths(void)
 {
     int i;
-    char path[MSG_LEN];
-    char buf[MSG_LEN];
+    char buf[MSG_LEN], path[MSG_LEN];
     ang_dir *dir;
 
-    /* Build the filename */
-    path_build(path, sizeof(path), ANGBAND_DIR_FONTS, DEFAULT_FONT_FILE);
-
     /* Hack -- validate the basic font */
-    validate_file(path);
+    if (default_term_font.preset)
+    {
+		/* Build the filename */
+		path_build(path, sizeof(path), ANGBAND_DIR_FONTS, default_term_font.name);
+		validate_file(path);
+	}
+    else
+		validate_file(default_term_font.name);
 
     for (i = 0; i < MAX_FONTS; i++)
         FontList[i] = NULL;
@@ -4173,18 +6370,15 @@ static void init_paths(void)
     if (!dir) return;
 
     /* Read every font to the limit */
-    while (my_dread(dir, buf, sizeof(buf)))
+	while (my_dread(dir, buf, sizeof(buf)))
     {
-        /* Check for file extension */
-        if (suffix(buf, ".ttf") || suffix(buf, ".TTF"))
-            FontList[num_fonts++] = string_make(buf);
+		path_build(path, sizeof(path), ANGBAND_DIR_FONTS, buf);
+		if (is_font_file(path))
+			FontList[num_fonts++] = string_make(buf);
 
-        if (suffix(buf, ".fon") || suffix(buf, ".FON"))
-            FontList[num_fonts++] = string_make(buf);
-
-        /* Don't grow to long */
-        if (num_fonts == MAX_FONTS) break;
-    }
+		/* Don't grow to long */
+		if (num_fonts == MAX_FONTS) break;
+	}
 
     sort(FontList, num_fonts, sizeof(FontList[0]), cmp_font);
 

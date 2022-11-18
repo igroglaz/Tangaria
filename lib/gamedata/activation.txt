@@ -253,8 +253,8 @@ effect:CURE:IMAGE
 effect:CURE:AFRAID
 effect:CURE:CONFUSED
 effect:RESTORE_MANA
-dice:10
-desc:restores {10} mana points, cures confusion and hallucination, removes fear
+dice:20
+desc:restores {20} mana points, cures confusion and hallucination, removes fear
 desc: and grants temporary resistance to confusion for {12+6d10} turns
 
 name:CURE_PARANOIA

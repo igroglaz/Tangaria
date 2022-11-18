@@ -1131,9 +1131,23 @@ void display_map(struct player *p, bool subwindow)
     }
     while (loc_iterator_next_strict(&iter));
 
-    /* Make sure the player is visible in main window */
+    /* Make sure all players are visible in main window */
     if (!subwindow)
     {
+        int i, idx = 0, party_n = 0;
+
+        /* Count party members */
+        for (i = 1; p->party && (i <= NumPlayers); i++)
+        {
+            struct player *q = player_get(i);
+
+            /* If he's not here, skip him */
+            if (!wpos_eq(&q->wpos, &cv->wpos)) continue;
+            if (q == p) continue;
+
+            if (q->party == p->party) party_n++;
+        }
+
         /* Player location */
         row = (p->grid.y * map_hgt / cv->height);
         col = (p->grid.x * map_wid / cv->width);
@@ -1146,7 +1160,33 @@ void display_map(struct player *p, bool subwindow)
         /* Set the "player" char */
         mc[row][col] = tc;
 
-        Send_minipos(p, row, col);
+        /* Highlight player on the map */
+        Send_minipos(p, row, col, true, party_n);
+
+        /* Highlight party members on the map */
+        for (i = 1; i <= NumPlayers; i++)
+        {
+            struct player *q = player_get(i);
+
+            /* If he's not here, skip him */
+            if (!wpos_eq(&q->wpos, &cv->wpos)) continue;
+            if (q == p) continue;
+
+            /* Player location */
+            row = (q->grid.y * map_hgt / cv->height);
+            col = (q->grid.x * map_wid / cv->width);
+
+            player_pict(p, cv, q, false, &ta, &tc);
+
+            /* Set the "player" attr */
+            ma[row][col] = ta;
+
+            /* Set the "player" char */
+            mc[row][col] = tc;
+
+            /* Highlight party members on the map */
+            if (p->party && q->party == p->party) Send_minipos(p, row, col, false, idx++);
+        }
     }
 
     /* Activate mini-map window */
@@ -1304,7 +1344,12 @@ static void wild_display_map(struct player *p)
 
             /* Put the player in the center */
             if ((y == map_hgt / 2) && (x == map_wid / 2))
+            {
                 player_pict(p, cv, p, false, &ta, &tc);
+
+                /* Highlight player on the wild map */
+                Send_minipos(p, y, x, true, 0);
+            }
 
             /* Save the char */
             mc[y][x] = tc;

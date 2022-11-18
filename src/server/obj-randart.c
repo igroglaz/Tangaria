@@ -825,18 +825,18 @@ static void count_low_resists(const struct artifact *art, struct artifact_set_da
     int num = 0;
 
     /* Count up immunities for this item, if any */
-    if (art->el_info[ELEM_ACID].res_level == 3) num++;
-    if (art->el_info[ELEM_ELEC].res_level == 3) num++;
-    if (art->el_info[ELEM_FIRE].res_level == 3) num++;
-    if (art->el_info[ELEM_COLD].res_level == 3) num++;
+    if (art->el_info[ELEM_ACID].res_level[0] == 3) num++;
+    if (art->el_info[ELEM_ELEC].res_level[0] == 3) num++;
+    if (art->el_info[ELEM_FIRE].res_level[0] == 3) num++;
+    if (art->el_info[ELEM_COLD].res_level[0] == 3) num++;
     data->art_probs[ART_IDX_GEN_IMMUNE] += num;
 
     /* Count up low resists (not the type, just the number) */
     num = 0;
-    if (art->el_info[ELEM_ACID].res_level == 1) num++;
-    if (art->el_info[ELEM_ELEC].res_level == 1) num++;
-    if (art->el_info[ELEM_FIRE].res_level == 1) num++;
-    if (art->el_info[ELEM_COLD].res_level == 1) num++;
+    if (art->el_info[ELEM_ACID].res_level[0] == 1) num++;
+    if (art->el_info[ELEM_ELEC].res_level[0] == 1) num++;
+    if (art->el_info[ELEM_FIRE].res_level[0] == 1) num++;
+    if (art->el_info[ELEM_COLD].res_level[0] == 1) num++;
 
     if (num)
     {
@@ -879,24 +879,24 @@ static void count_high_resists(const struct artifact *art, struct artifact_set_d
      */
     if (art_is_body_armor(art))
     {
-        if (art->el_info[ELEM_POIS].res_level == 1) num++;
+        if (art->el_info[ELEM_POIS].res_level[0] == 1) num++;
         if (of_has(art->flags, OF_PROT_FEAR)) num++;
-        if (art->el_info[ELEM_LIGHT].res_level == 1) num++;
-        if (art->el_info[ELEM_DARK].res_level == 1) num++;
+        if (art->el_info[ELEM_LIGHT].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_DARK].res_level[0] == 1) num++;
         if (of_has(art->flags, OF_PROT_BLIND)) num++;
         if (of_has(art->flags, OF_PROT_CONF)) num++;
-        if (art->el_info[ELEM_SOUND].res_level == 1) num++;
-        if (art->el_info[ELEM_SHARD].res_level == 1) num++;
-        if (art->el_info[ELEM_NEXUS].res_level == 1) num++;
-        if (art->el_info[ELEM_NETHER].res_level == 1) num++;
-        if (art->el_info[ELEM_CHAOS].res_level == 1) num++;
-        if (art->el_info[ELEM_DISEN].res_level == 1) num++;
+        if (art->el_info[ELEM_SOUND].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_SHARD].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_NEXUS].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_NETHER].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_CHAOS].res_level[0] == 1) num++;
+        if (art->el_info[ELEM_DISEN].res_level[0] == 1) num++;
         if (of_has(art->flags, OF_PROT_STUN)) num++;
         data->art_probs[ART_IDX_ARMOR_HRES] += num;
     }
 
     /* Now do the high resists individually */
-    if (art->el_info[ELEM_POIS].res_level == 1)
+    if (art->el_info[ELEM_POIS].res_level[0] == 1)
     {
         /* Resist poison ability */
         data->art_probs[ART_IDX_GEN_RPOIS]++;
@@ -908,13 +908,13 @@ static void count_high_resists(const struct artifact *art, struct artifact_set_d
         data->art_probs[ART_IDX_GEN_RFEAR]++;
     }
 
-    if (art->el_info[ELEM_LIGHT].res_level == 1)
+    if (art->el_info[ELEM_LIGHT].res_level[0] == 1)
     {
         /* Resist light ability */
         data->art_probs[ART_IDX_GEN_RLIGHT]++;
     }
 
-    if (art->el_info[ELEM_DARK].res_level == 1)
+    if (art->el_info[ELEM_DARK].res_level[0] == 1)
     {
         /* Resist dark ability */
         data->art_probs[ART_IDX_GEN_RDARK]++;
@@ -938,37 +938,37 @@ static void count_high_resists(const struct artifact *art, struct artifact_set_d
         data->art_probs[ART_IDX_GEN_RCONF]++;
     }
 
-    if (art->el_info[ELEM_SOUND].res_level == 1)
+    if (art->el_info[ELEM_SOUND].res_level[0] == 1)
     {
         /* Resist sound ability */
         data->art_probs[ART_IDX_GEN_RSOUND]++;
     }
 
-    if (art->el_info[ELEM_SHARD].res_level == 1)
+    if (art->el_info[ELEM_SHARD].res_level[0] == 1)
     {
         /* Resist shards ability */
         data->art_probs[ART_IDX_GEN_RSHARD]++;
     }
 
-    if (art->el_info[ELEM_NEXUS].res_level == 1)
+    if (art->el_info[ELEM_NEXUS].res_level[0] == 1)
     {
         /* Resist nexus ability */
         data->art_probs[ART_IDX_GEN_RNEXUS]++;
     }
 
-    if (art->el_info[ELEM_NETHER].res_level == 1)
+    if (art->el_info[ELEM_NETHER].res_level[0] == 1)
     {
         /* Resist nether ability */
         data->art_probs[ART_IDX_GEN_RNETHER]++;
     }
 
-    if (art->el_info[ELEM_CHAOS].res_level == 1)
+    if (art->el_info[ELEM_CHAOS].res_level[0] == 1)
     {
         /* Resist chaos ability */
         data->art_probs[ART_IDX_GEN_RCHAOS]++;
     }
 
-    if (art->el_info[ELEM_DISEN].res_level == 1)
+    if (art->el_info[ELEM_DISEN].res_level[0] == 1)
     {
         /* Resist disenchantment ability */
         data->art_probs[ART_IDX_GEN_RDISEN]++;
@@ -1456,7 +1456,7 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
         art->modifiers[i] = randcalc(kind->modifiers[i], 0, MINIMISE);
     for (i = 0; i < ELEM_MAX; i++)
     {
-        art->el_info[i].res_level = kind->el_info[i].res_level;
+        art->el_info[i].res_level[0] = kind->el_info[i].res_level[0];
         art->el_info[i].flags = kind->el_info[i].flags;
     }
 
@@ -1501,7 +1501,7 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
                 art->modifiers[i] = 0;
             for (i = 0; i < ELEM_MAX; i++)
             {
-                art->el_info[i].res_level = 0;
+                art->el_info[i].res_level[0] = 0;
                 art->el_info[i].flags = 0;
             }
 
@@ -1535,7 +1535,7 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
     if ((art->tval == TV_DRAG_ARMOR) &&
         (art->sval == lookup_sval(art->tval, "Crystal Dragon Scale Mail")))
     {
-        art->el_info[ELEM_MANA].res_level = 1;
+        art->el_info[ELEM_MANA].res_level[0] = 1;
     }
 }
 
@@ -1788,9 +1788,9 @@ static bool add_flag(struct artifact *art, int flag)
  */
 static bool add_resist(struct artifact *art, int element)
 {
-    if (art->el_info[element].res_level > 0) return false;
+    if (art->el_info[element].res_level[0] > 0) return false;
 
-    art->el_info[element].res_level = 1;
+    art->el_info[element].res_level[0] = 1;
     return true;
 }
 
@@ -1802,7 +1802,7 @@ static void add_immunity(struct artifact *art)
 {
     int r = randint0(4);
 
-    art->el_info[r].res_level = 3;
+    art->el_info[r].res_level[0] = 3;
 }
 
 
@@ -1924,7 +1924,7 @@ static void add_low_resist(struct artifact *art)
 
     for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
     {
-        if (art->el_info[i].res_level <= 0) count++;
+        if (art->el_info[i].res_level[0] <= 0) count++;
     }
 
     if (!count) return;
@@ -1934,7 +1934,7 @@ static void add_low_resist(struct artifact *art)
 
     for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
     {
-        if (art->el_info[i].res_level > 0) continue;
+        if (art->el_info[i].res_level[0] > 0) continue;
         if (r == count++)
         {
             add_resist(art, i);
@@ -2022,7 +2022,7 @@ static void add_brand(struct artifact *art)
 
             for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
             {
-                if (streq(brand->name, projections[i].name) && (art->el_info[i].res_level <= 0))
+                if (streq(brand->name, projections[i].name) && (art->el_info[i].res_level[0] <= 0))
                     add_resist(art, i);
             }
         }
@@ -2684,8 +2684,8 @@ static void remove_contradictory_activation(struct player *p, struct artifact *a
                 case EFPROP_CONFLICT_RESIST:
                 case EFPROP_CONFLICT_VULN:
                 {
-                    if (art->el_info[pcurr->idx].res_level >= pcurr->reslevel_min &&
-                        art->el_info[pcurr->idx].res_level <= pcurr->reslevel_max)
+                    if (art->el_info[pcurr->idx].res_level[0] >= pcurr->reslevel_min &&
+                        art->el_info[pcurr->idx].res_level[0] <= pcurr->reslevel_max)
                     {
                         redundant = false;
                     }

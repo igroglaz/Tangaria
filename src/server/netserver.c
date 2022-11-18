@@ -1446,7 +1446,9 @@ int Send_race_struct_info(int ind)
         }
         for (j = 0; j < ELEM_MAX; j++)
         {
-            if (Packet_printf(&connp->c, "%hd%b", r->el_info[j].res_level, r->el_info[j].lvl) <= 0)
+            if (Packet_printf(&connp->c, "%hd%b%hd%b%hd%b", r->el_info[j].res_level[0],
+                r->el_info[j].lvl[0], r->el_info[j].res_level[1], r->el_info[j].lvl[1],
+                r->el_info[j].res_level[2], r->el_info[j].lvl[2]) <= 0)
             {
                 Destroy_connection(ind, "Send_race_struct_info write error");
                 return -1;
@@ -1559,7 +1561,9 @@ int Send_class_struct_info(int ind)
         }
         for (j = 0; j < ELEM_MAX; j++)
         {
-            if (Packet_printf(&connp->c, "%hd%b", c->el_info[j].res_level, c->el_info[j].lvl) <= 0)
+            if (Packet_printf(&connp->c, "%hd%b%hd%b%hd%b", c->el_info[j].res_level[0],
+                c->el_info[j].lvl[0], c->el_info[j].res_level[1], c->el_info[j].lvl[1],
+                c->el_info[j].res_level[2], c->el_info[j].lvl[2]) <= 0)
             {
                 Destroy_connection(ind, "Send_class_struct_info write error");
                 return -1;
@@ -3004,12 +3008,12 @@ int Send_player_pos(struct player *p)
 }
 
 
-int Send_minipos(struct player *p, int y, int x)
+int Send_minipos(struct player *p, int y, int x, bool self, int n)
 {
     connection_t *connp = get_connp(p, "minipos");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd", (unsigned)PKT_MINIPOS, y, x);
+    return Packet_printf(&connp->c, "%b%hd%hd%hd%hd", (unsigned)PKT_MINIPOS, y, x, (int)self, n);
 }
 
 

@@ -332,6 +332,63 @@ bool has_energy_per_move(struct player *p)
 
 
 /*
+ * Swap stats at random to temporarily scramble the player's stats.
+ */
+void player_scramble_stats(struct player *p)
+{
+    int max1, cur1, max2, cur2, i, j, swap;
+
+    /* Fisher-Yates shuffling algorithm. */
+    for (i = STAT_MAX - 1; i > 0; --i)
+    {
+        j = randint0(i);
+
+        max1 = p->stat_max[i];
+        cur1 = p->stat_cur[i];
+        max2 = p->stat_max[j];
+        cur2 = p->stat_cur[j];
+
+        p->stat_max[i] = max2;
+        p->stat_cur[i] = cur2;
+        p->stat_max[j] = max1;
+        p->stat_cur[j] = cur1;
+
+        /* Record what we did */
+        swap = p->stat_map[i];
+        p->stat_map[i] = p->stat_map[j];
+        p->stat_map[j] = swap;
+    }
+}
+
+
+/*
+ * Undo scrambled stats when effect runs out.
+ */
+void player_fix_scramble(struct player *p)
+{
+    int i;
+
+    /* Figure out what stats should be */
+    int new_cur[STAT_MAX];
+    int new_max[STAT_MAX];
+
+    for (i = 0; i < STAT_MAX; ++i)
+    {
+        new_cur[p->stat_map[i]] = p->stat_cur[i];
+        new_max[p->stat_map[i]] = p->stat_max[i];
+    }
+
+    /* Apply new stats and clear the stat_map */
+    for (i = 0; i < STAT_MAX; ++i)
+    {
+        p->stat_cur[i] = new_cur[i];
+        p->stat_max[i] = new_max[i];
+        p->stat_map[i] = i;
+    }
+}
+
+
+/*
  * Regenerate one turn's worth of hit points
  */
 void player_regen_hp(struct player *p, struct chunk *c)
@@ -789,7 +846,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
     if (square_isfiery(c, &p->grid))
     {
         int base_dam = 100 + randint1(100);
-        int res = p->state.el_info[ELEM_FIRE].res_level;
+        int res = p->state.el_info[ELEM_FIRE].res_level[0];
 
         /* Fire damage */
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
@@ -1102,7 +1159,7 @@ bool player_of_has(const struct player *p, int flag)
  */
 bool player_resists(const struct player *p, int element)
 {
-    return (p->state.el_info[element].res_level > 0);
+    return (p->state.el_info[element].res_level[0] > 0);
 }
 
 
@@ -1111,7 +1168,7 @@ bool player_resists(const struct player *p, int element)
  */
 bool player_is_immune(const struct player *p, int element)
 {
-    return (p->state.el_info[element].res_level == 3);
+    return (p->state.el_info[element].res_level[0] == 3);
 }
 
 

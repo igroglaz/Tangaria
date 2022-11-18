@@ -320,6 +320,10 @@ uint8_t object_list_entry_line_attribute(struct player *p, const object_list_ent
     else if (object_is_known_artifact(entry->object))
         attr = COLOUR_VIOLET;
 
+    /* Artifact light sources */
+    else if (kf_has(entry->object->kind->kind_flags, KF_ART_LIGHT))
+        attr = COLOUR_L_VIOLET;
+
     /* Unaware of kind */
     else if (!object_flavor_is_aware(p, entry->object))
         attr = COLOUR_L_RED;

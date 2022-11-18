@@ -221,13 +221,19 @@ enum
 };
 
 /*
+ * Maximum number of element info types depending on level
+ */
+#define MAX_EL_INFO   3
+
+/*
  * Element info type
  */
 struct element_info
 {
-    int16_t res_level;
+    int16_t res_level[MAX_EL_INFO];
+    uint8_t lvl[MAX_EL_INFO];
     bitflag flags;
-    uint8_t lvl;
+    uint8_t idx;
 };
 
 /*

@@ -313,7 +313,7 @@ static int random_base_resist(struct object *obj, int *resist)
     /* Count the available base resists */
     for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
     {
-        if (obj->el_info[i].res_level == 0) count++;
+        if (obj->el_info[i].res_level[0] == 0) count++;
     }
 
     if (count == 0) return false;
@@ -324,7 +324,7 @@ static int random_base_resist(struct object *obj, int *resist)
     /* Find the one we picked */
     for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
     {
-        if (obj->el_info[i].res_level != 0) continue;
+        if (obj->el_info[i].res_level[0] != 0) continue;
         if (r == 0)
         {
             *resist = i;
@@ -347,7 +347,7 @@ static int random_high_resist(struct object *obj, int *resist)
     /* Count the available high resists */
     for (i = ELEM_HIGH_MIN; i <= ELEM_HIGH_MAX; i++)
     {
-        if (obj->el_info[i].res_level == 0) count++;
+        if (obj->el_info[i].res_level[0] == 0) count++;
     }
 
     if (count == 0) return false;
@@ -358,7 +358,7 @@ static int random_high_resist(struct object *obj, int *resist)
     /* Find the one we picked */
     for (i = ELEM_HIGH_MIN; i <= ELEM_HIGH_MAX; i++)
     {
-        if (obj->el_info[i].res_level != 0) continue;
+        if (obj->el_info[i].res_level[0] != 0) continue;
         if (r == 0)
         {
             *resist = i;
@@ -411,7 +411,7 @@ static void do_powers(struct object *obj, bitflag kind_flags[KF_SIZE])
         /* Get a base resist if available, mark it as random */
         if (random_base_resist(obj, &resist))
         {
-            obj->el_info[resist].res_level = 1;
+            obj->el_info[resist].res_level[0] = 1;
             obj->el_info[resist].flags |= (EL_INFO_RANDOM | EL_INFO_IGNORE);
         }
     }
@@ -420,7 +420,7 @@ static void do_powers(struct object *obj, bitflag kind_flags[KF_SIZE])
         /* Get a high resist if available, mark it as random */
         if (random_high_resist(obj, &resist))
         {
-            obj->el_info[resist].res_level = 1;
+            obj->el_info[resist].res_level[0] = 1;
             obj->el_info[resist].flags |= (EL_INFO_RANDOM | EL_INFO_IGNORE);
         }
     }
@@ -569,14 +569,14 @@ void inc_resist(const struct object *obj, int *power, int *resist)
 void do_fixed_powers(struct object *obj, int power, int resist)
 {
     if (power != FLAG_END) of_on(obj->flags, power);
-    if (resist != -1) obj->el_info[resist].res_level = 1;
+    if (resist != -1) obj->el_info[resist].res_level[0] = 1;
 }
 
 
 void undo_fixed_powers(struct object *obj, int power, int resist)
 {
     if (power != FLAG_END) of_off(obj->flags, power);
-    if (resist != -1) obj->el_info[resist].res_level = 0;
+    if (resist != -1) obj->el_info[resist].res_level[0] = 0;
 }
 
 
@@ -754,8 +754,8 @@ void ego_apply_magic(struct object *obj, int level)
     for (i = 0; i < ELEM_MAX; i++)
     {
         /* Take the larger of ego and base object resist levels */
-        obj->el_info[i].res_level =
-            MAX(obj->ego->el_info[i].res_level, obj->el_info[i].res_level);
+        obj->el_info[i].res_level[0] =
+            MAX(obj->ego->el_info[i].res_level[0], obj->el_info[i].res_level[0]);
 
         /* Union of flags so as to know when ignoring is notable */
         obj->el_info[i].flags |= obj->ego->el_info[i].flags;
@@ -853,8 +853,8 @@ void copy_artifact_data(struct object *obj, const struct artifact *art)
     for (i = 0; i < ELEM_MAX; i++)
     {
         /* Take the larger of artifact and base object resist levels */
-        obj->el_info[i].res_level =
-            MAX(art->el_info[i].res_level, obj->el_info[i].res_level);
+        obj->el_info[i].res_level[0] =
+            MAX(art->el_info[i].res_level[0], obj->el_info[i].res_level[0]);
 
         /* Union of flags so as to know when ignoring is notable */
         obj->el_info[i].flags |= art->el_info[i].flags;
@@ -1371,7 +1371,7 @@ void object_prep(struct player *p, struct chunk *c, struct object *obj, struct o
     /* Default resists */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        obj->el_info[i].res_level = k->el_info[i].res_level;
+        obj->el_info[i].res_level[0] = k->el_info[i].res_level[0];
         obj->el_info[i].flags = k->el_info[i].flags;
         if (k->base) obj->el_info[i].flags |= k->base->el_info[i].flags;
     }

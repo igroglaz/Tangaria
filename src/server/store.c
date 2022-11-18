@@ -1466,6 +1466,7 @@ static bool store_create_random(struct store *s)
 
         /* Apply some "low-level" magic (no artifacts) */
         apply_magic(NULL, chunk_get(base_wpos()), obj, level, false, false, false, false);
+        my_assert(!obj->artifact);
 
         /* Reject if item is 'damaged' (negative combat mods, curses) */
         if ((tval_is_enchantable_weapon(obj) && ((obj->to_h < 0) || (obj->to_d < 0))) ||
@@ -1526,9 +1527,11 @@ static bool store_create_random(struct store *s)
 static struct object *store_create_item(struct store *s, struct object_kind *kind)
 {
     struct object *obj = object_new();
+    struct object *carried;
 
     /* Create a new object of the chosen kind */
     object_prep(NULL, NULL, obj, kind, 0, RANDOMISE);
+    my_assert(!obj->artifact);
 
     /* Know everything but flavor, no origin yet */
     object_notice_everything_aux(NULL, obj, true, false);
@@ -1541,7 +1544,9 @@ static struct object *store_create_item(struct store *s, struct object_kind *kin
 ////*/
 
     /* Attempt to carry the object */
-    return store_carry(NULL, s, obj);
+    carried = store_carry(NULL, s, obj);
+    if (!carried) object_delete(&obj);
+    return carried;
 }
 
 

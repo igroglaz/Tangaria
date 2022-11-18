@@ -889,8 +889,20 @@ int draw_path(struct player *p, uint16_t path_n, struct loc *path_g, struct loc 
                 colour = COLOUR_YELLOW;
 
             /* Visible monsters are red. */
-            else
+            else if (!monster_is_camouflaged(who->monster))
                 colour = COLOUR_L_RED;
+
+            /* The camouflaged monster is on a grid with an object; make it act like an object. */
+            else if (obj)
+                colour = COLOUR_YELLOW;
+
+            /* The camouflaged monster looks like a wall. */
+            else if (!square_isprojectable(c, &path_g[i]))
+                colour = COLOUR_BLUE;
+
+            /* The camouflaged monster looks like an unoccupied square. */
+            else
+                colour = COLOUR_WHITE;
         }
 
         /* Choose a colour (players). */

@@ -1155,7 +1155,11 @@ static bool spell_cast(struct player *p, int spell_index, int dir, quark_t note,
         cast_spell_end(p);
 
         /* Put on cooldown */
-        p->spell_cooldown[spell->sidx] = spell->cooldown;
+        if (spell->cooldown)
+        {
+            p->spell_cooldown[spell->sidx] = spell->cooldown;
+            p->upkeep->redraw |= (PR_SPELL);
+        }
     }
 
     /* Use some mana */

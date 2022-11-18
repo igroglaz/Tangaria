@@ -64,7 +64,7 @@ static int spell_color(struct player *p, const struct monster_race *race, int sp
             /* Special case - teleport level */
             if (spell->effect->index == EF_TELEPORT_LEVEL)
             {
-                if (p->known_state.el_info[ELEM_NEXUS].res_level > 0)
+                if (p->known_state.el_info[ELEM_NEXUS].res_level[0] > 0)
                     return level->lore_attr_resist;
                 return level->lore_attr;
             }
@@ -99,7 +99,7 @@ static int spell_color(struct player *p, const struct monster_race *race, int sp
             /* Special case - sound */
             case ELEM_SOUND:
             {
-                if (p->known_state.el_info[ELEM_SOUND].res_level > 0)
+                if (p->known_state.el_info[ELEM_SOUND].res_level[0] > 0)
                     return level->lore_attr_immune;
                 if (of_has(p->known_state.flags, OF_PROT_STUN))
                     return level->lore_attr_resist;
@@ -109,7 +109,7 @@ static int spell_color(struct player *p, const struct monster_race *race, int sp
             /* Special case - nexus */
             case ELEM_NEXUS:
             {
-                if (p->known_state.el_info[ELEM_NEXUS].res_level > 0)
+                if (p->known_state.el_info[ELEM_NEXUS].res_level[0] > 0)
                     return level->lore_attr_immune;
                 if (p->known_state.skills[SKILL_SAVE] >= 100)
                     return level->lore_attr_resist;
@@ -137,11 +137,11 @@ static int spell_color(struct player *p, const struct monster_race *race, int sp
             {
                 if (!of_has(p->known_state.flags, OF_PROT_STUN))
                 {
-                    if (p->known_state.el_info[ELEM_COLD].res_level > 0)
+                    if (p->known_state.el_info[ELEM_COLD].res_level[0] > 0)
                         return level->lore_attr_resist;
                     return level->lore_attr;
                 }
-                if (p->known_state.el_info[ELEM_COLD].res_level > 0)
+                if (p->known_state.el_info[ELEM_COLD].res_level[0] > 0)
                     return level->lore_attr_immune;
                 return level->lore_attr_resist;
             }
@@ -149,9 +149,9 @@ static int spell_color(struct player *p, const struct monster_race *race, int sp
             /* All other elements */
             default:
             {
-                if (p->known_state.el_info[spell->effect->subtype].res_level == 3)
+                if (p->known_state.el_info[spell->effect->subtype].res_level[0] == 3)
                     return level->lore_attr_immune;
-                if (p->known_state.el_info[spell->effect->subtype].res_level > 0)
+                if (p->known_state.el_info[spell->effect->subtype].res_level[0] > 0)
                     return level->lore_attr_resist;
                 return level->lore_attr;
             }
@@ -186,8 +186,8 @@ static int blow_color(struct player *p, int blow_idx)
             if (proj_name_to_idx(blow->name) == i) break;
         }
 
-        if (p->known_state.el_info[i].res_level == 3) return blow->lore_attr_immune;
-        if (p->known_state.el_info[i].res_level > 0) return blow->lore_attr_resist;
+        if (p->known_state.el_info[i].res_level[0] == 3) return blow->lore_attr_immune;
+        if (p->known_state.el_info[i].res_level[0] > 0) return blow->lore_attr_resist;
         return blow->lore_attr;
     }
 
@@ -253,7 +253,7 @@ static int blow_color(struct player *p, int blow_idx)
     }
     if (streq(blow->effect_type, "element"))
     {
-        if (p->known_state.el_info[blow->resist].res_level > 0)
+        if (p->known_state.el_info[blow->resist].res_level[0] > 0)
             return blow->lore_attr_resist;
         return blow->lore_attr;
     }
@@ -275,7 +275,7 @@ static int blow_color(struct player *p, int blow_idx)
     }
     if (streq(blow->effect_type, "disease"))
     {
-        if ((p->known_state.el_info[ELEM_POIS].res_level > 0) &&
+        if ((p->known_state.el_info[ELEM_POIS].res_level[0] > 0) &&
             of_has(p->known_state.flags, OF_SUST_CON))
         {
             return blow->lore_attr_resist;

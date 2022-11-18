@@ -445,8 +445,16 @@ static void race_help(int i, void *db, const region *l)
         }
         else if (streq(ability->type, "element"))
         {
-            if (r->el_info[ability->index].res_level != ability->value) continue;
-            if (r->el_info[ability->index].lvl > 1) continue;
+            int idx;
+            bool ok = false;
+
+            for (idx = 0; idx < MAX_EL_INFO; idx++)
+            {
+                if (r->el_info[ability->index].res_level[idx] != ability->value) continue;
+                if (r->el_info[ability->index].lvl[idx] > 1) continue;
+                ok = true;
+            }
+            if (!ok) continue;
         }
 
         format_help(RACE_AUX_COL, j++, "%-30s", ability->name);
@@ -535,8 +543,16 @@ static void class_help(int i, void *db, const region *l)
         }
         else if (streq(ability->type, "element"))
         {
-            if (c->el_info[ability->index].res_level != ability->value) continue;
-            if (c->el_info[ability->index].lvl > 1) continue;
+            int idx;
+            bool ok = false;
+
+            for (idx = 0; idx < MAX_EL_INFO; idx++)
+            {
+                if (c->el_info[ability->index].res_level[idx] != ability->value) continue;
+                if (c->el_info[ability->index].lvl[idx] > 1) continue;
+                ok = true;
+            }
+            if (!ok) continue;
         }
 
         format_help(CLASS_AUX_COL, j++, "%-33s", ability->name);

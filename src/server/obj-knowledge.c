@@ -312,7 +312,7 @@ bool player_knows_rune(struct player *p, size_t i)
         /* Element runes */
         case RUNE_VAR_RESIST:
         {
-            if (p->obj_k->el_info[r->index].res_level) return true;
+            if (p->obj_k->el_info[r->index].res_level[0]) return true;
             break;
         }
 
@@ -521,7 +521,7 @@ bool player_knows_ego(struct player *p, struct ego_item *ego, const struct objec
     /* All elements known */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (ego->el_info[i].res_level && !p->obj_k->el_info[i].res_level)
+        if (ego->el_info[i].res_level[0] && !p->obj_k->el_info[i].res_level[0])
             return false;
     }
 
@@ -652,8 +652,11 @@ static bool object_has_unknown_rune(const struct object *obj, int rune_no)
         /* Element runes */
         case RUNE_VAR_RESIST:
         {
-            if ((obj->el_info[r->index].res_level != 0) && !obj->known->el_info[r->index].res_level)
+            if ((obj->el_info[r->index].res_level[0] != 0) &&
+                !obj->known->el_info[r->index].res_level[0])
+            {
                 return true;
+            }
             break;
         }
 
@@ -728,7 +731,7 @@ bool object_runes_known(const struct object *obj)
     /* Not all elements known */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if ((obj->el_info[i].res_level != 0) && !obj->known->el_info[i].res_level)
+        if ((obj->el_info[i].res_level[0] != 0) && !obj->known->el_info[i].res_level[0])
             return false;
     }
 
@@ -822,14 +825,14 @@ bool object_element_is_known(const struct object *obj, int element, bool aware)
     if (element < 0 || element >= ELEM_MAX) return false;
 
     /* Object has been exposed to the element means OK */
-    if (easy_know(obj, aware) || obj->known->el_info[element].res_level)
+    if (easy_know(obj, aware) || obj->known->el_info[element].res_level[0])
         return true;
 
     /* Check curses */
     for (i = 0; obj->known->curses && (i < (size_t)z_info->curse_max); i++)
     {
         if (obj->known->curses[i].power == 0) continue;
-        if (curses[i].obj->el_info[element].res_level)
+        if (curses[i].obj->el_info[element].res_level[0])
             return true;
     }
 
@@ -862,7 +865,7 @@ void object_set_base_known(struct player *p, struct object *obj)
     /* Unresistables have no hidden properties */
     /* PWMAngband: resist TIME/MANA/WATER */
     for (i = ELEM_XHIGH_MAX + 1; i < ELEM_MAX; i++)
-        obj->known->el_info[i].res_level = 1;
+        obj->known->el_info[i].res_level[0] = 1;
 
     /* Aware flavours get info now, easy_know things get everything */
     if (aware && obj->kind->flavor)
@@ -923,8 +926,8 @@ void player_know_object(struct player *p, struct object *obj)
     /* Set elements */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (p->obj_k->el_info[i].res_level == 1)
-            obj->known->el_info[i].res_level = 1;
+        if (p->obj_k->el_info[i].res_level[0] == 1)
+            obj->known->el_info[i].res_level[0] = 1;
     }
 
     /* Set object flags */
@@ -1116,9 +1119,9 @@ static void player_learn_rune(struct player *p, size_t i, bool message)
         /* Element runes */
         case RUNE_VAR_RESIST:
         {
-            if (!p->obj_k->el_info[r->index].res_level)
+            if (!p->obj_k->el_info[r->index].res_level[0])
             {
-                p->obj_k->el_info[r->index].res_level = 1;
+                p->obj_k->el_info[r->index].res_level[0] = 1;
                 learned = true;
             }
             break;
@@ -1227,10 +1230,19 @@ void player_learn_innate(struct player *p)
     /* Elements */
     for (element = 0; element < ELEM_MAX; element++)
     {
-        if ((p->race->el_info[element].res_level != 0) && (p->lev >= p->race->el_info[element].lvl))
-            player_learn_rune(p, rune_index(RUNE_VAR_RESIST, element), false);
-        if ((p->clazz->el_info[element].res_level != 0) && (p->lev >= p->clazz->el_info[element].lvl))
-            player_learn_rune(p, rune_index(RUNE_VAR_RESIST, element), false);
+        for (i = 0; i < MAX_EL_INFO; i++)
+        {
+            if ((p->race->el_info[element].res_level[i] != 0) &&
+                (p->lev >= p->race->el_info[element].lvl[i]))
+            {
+                player_learn_rune(p, rune_index(RUNE_VAR_RESIST, element), false);
+            }
+            if ((p->clazz->el_info[element].res_level[i] != 0) &&
+                (p->lev >= p->clazz->el_info[element].lvl[i]))
+            {
+                player_learn_rune(p, rune_index(RUNE_VAR_RESIST, element), false);
+            }
+        }
     }
 
     /* Flags */
@@ -1814,7 +1826,7 @@ void equip_learn_element(struct player *p, int element)
         if (!obj) continue;
 
         /* Already known */
-        if (obj->known->el_info[element].res_level) continue;
+        if (obj->known->el_info[element].res_level[0]) continue;
 
         object_elements(obj, el_info);
 
@@ -1822,7 +1834,7 @@ void equip_learn_element(struct player *p, int element)
         object_notice_element(p, obj, element);
 
         /* Does the object affect the player's resistance to the element? */
-        if (el_info[element].res_level != 0)
+        if (el_info[element].res_level[0] != 0)
         {
             char o_name[NORMAL_WID];
 
@@ -2039,7 +2051,7 @@ static bool object_all_elements_are_known(const struct object *obj, bool aware)
     for (i = 0; i < ELEM_MAX; i++)
     {
         /* Only check if the flags are set if there's something to look at */
-        if ((obj->el_info[i].res_level != 0) && !obj->known->el_info[i].res_level)
+        if ((obj->el_info[i].res_level[0] != 0) && !obj->known->el_info[i].res_level[0])
             return false;
     }
 
@@ -2250,7 +2262,7 @@ void object_know_all_elements(struct object *obj)
     size_t i;
 
     for (i = 0; i < ELEM_MAX; i++)
-        obj->known->el_info[i].res_level = 1;
+        obj->known->el_info[i].res_level[0] = 1;
 }
 
 
@@ -2392,8 +2404,8 @@ void object_notice_ego(struct player *p, struct object *obj)
     /* Learn ego element properties */
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (obj->ego->el_info[i].res_level != 0)
-            obj->known->el_info[i].res_level = 1;
+        if (obj->ego->el_info[i].res_level[0] != 0)
+            obj->known->el_info[i].res_level[0] = 1;
     }
 
     /* Learn all flags except random abilities */
@@ -2443,7 +2455,7 @@ void object_notice_ego(struct player *p, struct object *obj)
         }
 
         /* Learn all element properties */
-        obj->known->el_info[i].res_level = 1;
+        obj->known->el_info[i].res_level[0] = 1;
     }
 
     /* If you know the ego, you know which it is of excellent or splendid */
@@ -2563,11 +2575,11 @@ bool object_notice_element(struct player *p, struct object *obj, int element)
     if (element < 0 || element >= ELEM_MAX) return false;
 
     /* Already known */
-    if (obj->known->el_info[element].res_level)
+    if (obj->known->el_info[element].res_level[0])
         return false;
 
     /* Learn about this element */
-    obj->known->el_info[element].res_level = 1;
+    obj->known->el_info[element].res_level[0] = 1;
 
     object_check_for_ident(p, obj);
 

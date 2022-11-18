@@ -546,7 +546,7 @@ void update_mon(struct monster *mon, struct chunk *c, bool full)
             of_wipe(mon->known_pstate.flags);
             pf_wipe(mon->known_pstate.pflags);
             for (i = 0; i < ELEM_MAX; i++)
-                mon->known_pstate.el_info[i].res_level = 0;
+                mon->known_pstate.el_info[i].res_level[0] = 0;
         }
 
         /* Always track closest player */
@@ -883,7 +883,7 @@ void update_smart_learn(struct monster *mon, struct player *p, int flag, int pfl
 
     /* Learn the element */
     if (element_ok)
-        mon->known_pstate.el_info[element].res_level = p->state.el_info[element].res_level;
+        mon->known_pstate.el_info[element].res_level[0] = p->state.el_info[element].res_level[0];
 }
 
 
@@ -1719,6 +1719,9 @@ void monster_take_terrain_damage(struct chunk *c, struct monster *mon)
     if (monster_hates_grid(c, mon, &mon->grid))
     {
         int note_dies = MON_MSG_DIE;
+        int dam = mon->damaging? mon->damhp: 100 + randint1(100);
+
+        if (!dam) return;
 
         if (monster_is_destroyed(mon->race))
             note_dies = MON_MSG_DESTROYED;
@@ -1735,7 +1738,7 @@ void monster_take_terrain_damage(struct chunk *c, struct monster *mon)
         if (rf_has(mon->race->flags, RF_AQUATIC))
             note_dies = MON_MSG_SUFFOCATE;
 
-        project_m_monster_attack_aux(NULL, c, mon, 100 + randint1(100), note_dies);
+        project_m_monster_attack_aux(NULL, c, mon, dam, note_dies);
     }
 }
 

@@ -665,7 +665,6 @@ static void context_menu_store_item(struct store_context *ctx, const int oid)
     struct store *store = ctx->store;
     bool home = (store->type == STORE_HOME)? true: false;
     struct menu *m = menu_dynamic_new();
-    struct object *obj = &ctx->list[oid];
     int selected;
     char *labels;
     char header[120];

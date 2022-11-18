@@ -43,8 +43,21 @@ static bool class_has_ability(const struct player_class *c, struct player_abilit
     }
     else if (streq(ability->type, "element"))
     {
-        if (c->el_info[ability->index].res_level != ability->value) return false;
-        if (c->el_info[ability->index].lvl > player->lev) return false;
+        int idx, lvl = -1, res_level;
+
+        for (idx = 0; idx < MAX_EL_INFO; idx++)
+        {
+            int curlvl = c->el_info[ability->index].lvl[idx];
+
+            if (player->lev < curlvl) continue;
+            if (curlvl > lvl)
+            {
+                lvl = curlvl;
+                res_level = c->el_info[ability->index].res_level[idx];
+            }
+        }
+        if (lvl == -1) return false;
+        if (res_level != ability->value) return false;
     }
 
 	return true;
@@ -67,8 +80,21 @@ static bool race_has_ability(const struct player_race *r, struct player_ability 
     }
     else if (streq(ability->type, "element"))
     {
-        if (r->el_info[ability->index].res_level != ability->value) return false;
-        if (r->el_info[ability->index].lvl > player->lev) return false;
+        int idx, lvl = -1, res_level;
+
+        for (idx = 0; idx < MAX_EL_INFO; idx++)
+        {
+            int curlvl = r->el_info[ability->index].lvl[idx];
+
+            if (player->lev < curlvl) continue;
+            if (curlvl > lvl)
+            {
+                lvl = curlvl;
+                res_level = r->el_info[ability->index].res_level[idx];
+            }
+        }
+        if (lvl == -1) return false;
+        if (res_level != ability->value) return false;
     }
 
 	return true;
@@ -212,8 +238,11 @@ static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bit
         }
         else if (streq(ability->type, "element"))
         {
-            if (el_info[ability->index].res_level != ability->value) continue;
-            n_abilities++;
+            for (i = 0; i < MAX_EL_INFO; i++)
+            {
+                if (el_info[ability->index].res_level[i] != ability->value) continue;
+                n_abilities++;
+            }
         }
     }
 
@@ -221,7 +250,7 @@ static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bit
     abilities = mem_zalloc(n_abilities * sizeof(struct player_ability *));
     for (ability = player_abilities; ability; ability = ability->next)
     {
-        int lvl;
+        int lvl, idx = -1;
 
         if (!ability->name) continue;
         if (streq(ability->type, "object"))
@@ -236,8 +265,13 @@ static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bit
         }
         else if (streq(ability->type, "element"))
         {
-            if (el_info[ability->index].res_level != ability->value) continue;
-            lvl = el_info[ability->index].lvl;
+            for (i = 0; i < MAX_EL_INFO; i++)
+            {
+                if (el_info[ability->index].res_level[i] != ability->value) continue;
+                lvl = el_info[ability->index].lvl[i];
+                idx = i;
+            }
+            if (idx == -1) continue;
         }
         for (i = n_abilities - 1; i > 0; i--)
         {
@@ -249,11 +283,12 @@ static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bit
             else if (streq(abilities[i - 1]->type, "player"))
                 curlvl = pflvl[abilities[i - 1]->index];
             else if (streq(abilities[i - 1]->type, "element"))
-                curlvl = el_info[abilities[i - 1]->index].lvl;
+                curlvl = el_info[abilities[i - 1]->index].lvl[abilities[i - 1]->idx];
             if (lvl >= curlvl) break;
             abilities[i] = abilities[i - 1];
         }
         abilities[i] = ability;
+        abilities[i]->idx = idx;
     }
 
     /* Abilities */
@@ -278,7 +313,7 @@ static void do_cmd_stats(char *name, struct modifier modifiers[OBJ_MOD_MAX], bit
         else if (streq(abilities[i]->type, "element"))
         {
             strnfmt(buf, sizeof(buf), "%s from level %d", abilities[i]->name,
-                el_info[abilities[i]->index].lvl);
+                el_info[abilities[i]->index].lvl[abilities[i]->idx]);
         }
 
         if (row == 23)

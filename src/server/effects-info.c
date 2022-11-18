@@ -736,12 +736,18 @@ static void add_to_summaries(struct effect_object_property **summaries, int idx,
 static void summarize_cure(int tmd, struct effect_object_property **summaries,
     int *unsummarized_count)
 {
-    if (timed_effects[tmd].fail_code == TMD_FAIL_FLAG_OBJECT)
-        add_to_summaries(summaries, timed_effects[tmd].fail, 0, 0, EFPROP_CURE_FLAG);
-    else if (timed_effects[tmd].fail_code == TMD_FAIL_FLAG_RESIST)
-        add_to_summaries(summaries, timed_effects[tmd].fail, -1, 0, EFPROP_CURE_RESIST);
-    else
-        ++*unsummarized_count;
+    const struct timed_failure *f = timed_effects[tmd].fail;
+
+    while (f)
+    {
+        if (f->code == TMD_FAIL_FLAG_OBJECT)
+            add_to_summaries(summaries, f->idx, 0, 0, EFPROP_CURE_FLAG);
+        else if (f->code == TMD_FAIL_FLAG_RESIST)
+            add_to_summaries(summaries, f->idx, -1, 0, EFPROP_CURE_RESIST);
+        else
+            ++*unsummarized_count;
+        f = f->next;
+    }
 }
 
 
@@ -840,6 +846,7 @@ struct effect_object_property *effect_summarize_properties(struct player *p, con
                 if (value_this > 0 && ef->subtype >= 0 && ef->subtype < TMD_MAX)
                 {
                     bool summarized = false;
+                    const struct timed_failure *f;
 
                     if (timed_effects[ef->subtype].oflag_dup != OF_NONE)
                     {
@@ -852,31 +859,57 @@ struct effect_object_property *effect_summarize_properties(struct player *p, con
                     {
                         int rmin = -1, rmax = 1;
 
-                        if (timed_effects[ef->subtype].fail == timed_effects[ef->subtype].temp_resist)
+                        f = timed_effects[ef->subtype].fail;
+                        while (f)
                         {
-                            if (timed_effects[ef->subtype].fail_code == TMD_FAIL_FLAG_RESIST)
-                                rmax = MIN(rmax, 0);
-                            else if (timed_effects[ef->subtype].fail_code == TMD_FAIL_FLAG_VULN)
-                                rmin = MAX(rmin, 0);
+                            if (f->idx == timed_effects[ef->subtype].temp_resist)
+                            {
+                                if (f->code == TMD_FAIL_FLAG_RESIST)
+                                    rmax = MIN(rmax, 0);
+                                else if (f->code == TMD_FAIL_FLAG_VULN)
+                                    rmin = MAX(rmin, 0);
+                            }
+                            f = f->next;
                         }
                         add_to_summaries(&summaries, timed_effects[ef->subtype].temp_resist,
                             rmin, rmax, EFPROP_RESIST);
                         summarized = true;
                     }
-                    if (timed_effects[ef->subtype].fail != timed_effects[ef->subtype].temp_resist)
+                    f = timed_effects[ef->subtype].fail;
+                    while (f)
                     {
-                        if (timed_effects[ef->subtype].fail_code == TMD_FAIL_FLAG_RESIST)
+                        switch (f->code)
                         {
-                            add_to_summaries(&summaries, timed_effects[ef->subtype].fail, -1, 0,
-                                EFPROP_CONFLICT_RESIST);
-                            summarized = true;
+                            case TMD_FAIL_FLAG_OBJECT:
+                            {
+                                add_to_summaries(&summaries, f->idx, 0, 0, EFPROP_CONFLICT_FLAG);
+                                summarized = true;
+                                break;
+                            }
+
+                            case TMD_FAIL_FLAG_RESIST:
+                            {
+                                if (f->idx != timed_effects[ef->subtype].temp_resist)
+                                {
+                                    add_to_summaries(&summaries, f->idx, -1, 0,
+                                        EFPROP_CONFLICT_RESIST);
+                                    summarized = true;
+                                }
+                                break;
+                            }
+
+                            case TMD_FAIL_FLAG_VULN:
+                            {
+                                if (f->idx != timed_effects[ef->subtype].temp_resist)
+                                {
+                                    add_to_summaries(&summaries, f->idx, 0, 3,
+                                        EFPROP_CONFLICT_VULN);
+                                    summarized = true;
+                                }
+                                break;
+                            }
                         }
-                        else if (timed_effects[ef->subtype].fail_code == TMD_FAIL_FLAG_VULN)
-                        {
-                            add_to_summaries(&summaries, timed_effects[ef->subtype].fail, 0, 3,
-                                EFPROP_CONFLICT_VULN);
-                            summarized = true;
-                        }
+                        f = f->next;
                     }
                     if (timed_effects[ef->subtype].temp_brand >= 0)
                     {
@@ -888,12 +921,6 @@ struct effect_object_property *effect_summarize_properties(struct player *p, con
                     {
                         add_to_summaries(&summaries, timed_effects[ef->subtype].temp_slay, 0, 0,
                             EFPROP_SLAY);
-                        summarized = true;
-                    }
-                    if (timed_effects[ef->subtype].fail_code == TMD_FAIL_FLAG_OBJECT)
-                    {
-                        add_to_summaries(&summaries, timed_effects[ef->subtype].fail, 0, 0,
-                            EFPROP_CONFLICT_FLAG);
                         summarized = true;
                     }
                     if (!summarized) ++unsummarized;

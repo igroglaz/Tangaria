@@ -531,7 +531,7 @@ void unset_spells(struct player *p, bitflag *spells, bitflag *flags, bitflag *pf
         if (info->type & (RST_BOLT | RST_BALL | RST_BREATH))
         {
             int element = effect->subtype;
-            int learn_chance = el[element].res_level * (smart? 50: 25);
+            int learn_chance = el[element].res_level[0] * (smart? 50: 25);
 
             if (magik(learn_chance)) rsf_off(spells, info->index);
         }
@@ -541,13 +541,50 @@ void unset_spells(struct player *p, bitflag *spells, bitflag *flags, bitflag *pf
         {
             while (effect)
             {
-                int protect_flag = timed_effects[effect->subtype].fail;
-
                 /* Timed effects */
-                if ((smart || !one_in_(3)) && (effect->index == EF_TIMED_INC) && protect_flag &&
-                    of_has(flags, protect_flag))
+                if ((smart || !one_in_(3)) && (effect->index == EF_TIMED_INC))
                 {
-                    break;
+                    const struct timed_failure *f;
+                    bool resisted = false;
+
+                    my_assert(effect->subtype >= 0 && effect->subtype < TMD_MAX);
+                    for (f = timed_effects[effect->subtype].fail; f && !resisted; f = f->next)
+                    {
+                        switch (f->code)
+                        {
+                            case TMD_FAIL_FLAG_OBJECT:
+                            {
+                                if (of_has(flags, f->idx)) resisted = true;
+                                break;
+                            }
+
+                            case TMD_FAIL_FLAG_RESIST:
+                            {
+                                if (el[f->idx].res_level[0] > 0) resisted = true;
+                                break;
+                            }
+
+                            case TMD_FAIL_FLAG_VULN:
+                            {
+                                if (el[f->idx].res_level[0] < 0) resisted = true;
+                                break;
+                            }
+
+                            case TMD_FAIL_FLAG_PLAYER:
+                            {
+                                if (pf_has(pflags, f->idx)) resisted = true;
+                                break;
+                            }
+
+                            /*
+                             * The monster doesn't track the timed effects present on the player
+                             * so do nothing with resistances due to those.
+                             */
+                            case TMD_FAIL_FLAG_TIMED_EFFECT: break;
+                        }
+                    }
+
+                    if (resisted) break;
                 }
 
                 /* Mana drain */
