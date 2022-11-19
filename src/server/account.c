@@ -94,7 +94,7 @@ uint32_t get_account(const char *name, const char *pass)
     int attempts = get_attempts(name);
 
     /* Check attempts */
-    if (attempts == 3)
+    if (attempts == 42)
     {
         plog("Account is locked!");
         return 0L;
