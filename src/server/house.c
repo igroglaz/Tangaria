@@ -392,10 +392,14 @@ void wipe_old_houses(struct worldpos *wpos)
             num_custom--;
         }
 
+////////// !!! for now disabling this feature.. as we have low online, it's not needed
 		// 'reset' non-refreshed house (2 months)
+        /*
         if ((houses[house].last_visit_time != 0) &&
                  (current_time - (houses[house].last_visit_time)) > 5184000)
                       reset_house(house);
+        */
+//////////
     }
 }
 
