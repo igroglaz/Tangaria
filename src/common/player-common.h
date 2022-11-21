@@ -872,6 +872,7 @@ struct player
     char *header_icky;
     bool mlist_icky;
     int16_t screen_save_depth;      /* Depth of the screen_save() stack */
+    bool locating;                  /* Is the player looking around? */
     bool was_aware;                 /* Is the player aware of the current obj type? */
     int16_t current_sound;          /* Current sound */
     int32_t charge;                 /* Charging energy */

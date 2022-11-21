@@ -270,6 +270,21 @@ void net_term_resize(int cols, int rows, int max_rows)
 }
 
 
+void loading_screen(int pct)
+{
+    char buf[NORMAL_WID];
+
+    if (pct == 0)
+    {
+        Term_clear();
+        Term_putstr(28, 10, -1, COLOUR_WHITE, "Loading, please wait...");
+    }
+
+    strnfmt(buf, sizeof(buf), "%d%%", pct);
+    Term_putstr(37, 12, -1, COLOUR_WHITE, buf);
+}
+
+
 /*** Receiving ***/
 
 
@@ -2971,6 +2986,8 @@ static int Receive_pause(void)
 {
     int n;
     uint8_t ch;
+    ui_event ke;
+    int mode = (OPT(player, rogue_like_commands)? KEYMAP_MODE_ROGUE: KEYMAP_MODE_ORIG);
 
     if ((n = Packet_scanf(&rbuf, "%b", &ch)) <= 0)
         return n;
@@ -2990,7 +3007,7 @@ static int Receive_pause(void)
     Send_icky();
 
     /* Wait */
-    inkey_ex();
+    ke = inkey_ex();
 
     /* Screen isn't icky any more */
     player->screen_save_depth--;
@@ -3005,6 +3022,10 @@ static int Receive_pause(void)
 
     /* Flush messages */
     c_msg_print(NULL);
+
+    /* Hack -- allow 'locate' as a valid command to quickly locate monsters/players around */
+    if (ke.type == EVT_KBRD && ke.key.code == ((mode == KEYMAP_MODE_ORIG)? 'L': 'W'))
+        do_cmd_locate();
 
     return 1;
 }
@@ -3481,12 +3502,16 @@ static int Receive_features(void)
     if (lighting == LIGHTING_MAX)
     {
         Setup.initialized = true;
+        loading_screen(100);
         Send_text_screen(TEXTFILE_MOTD, 0);
     }
 
     /* Request continuation */
     else
+    {
+        loading_screen((lighting * z_info->f_max + off) * 100 / (LIGHTING_MAX * z_info->f_max));
         Send_features(lighting, off);
+    }
 
     return 1;
 }

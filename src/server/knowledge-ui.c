@@ -2294,6 +2294,9 @@ void do_cmd_locate(struct player *p, int dir)
     int screen_hgt, screen_wid;
     int panel_hgt, panel_wid;
 
+    /* Hack -- set locating */
+    p->locating = (dir? true: false);
+
     /* Use dimensions that match those in display-ui.c. */
     screen_hgt = p->screen_rows / p->tile_hgt;
     screen_wid = p->screen_cols / p->tile_wid;

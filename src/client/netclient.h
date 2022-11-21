@@ -20,6 +20,7 @@ extern int Flush_queue(void);
 extern void do_keepalive(void);
 extern void check_term_resize(bool main_win, int *cols, int *rows);
 extern void net_term_resize(int cols, int rows, int max_rows);
+extern void loading_screen(int pct);
 
 /*** Sending ***/
 extern int Send_features(int lighting, int off);

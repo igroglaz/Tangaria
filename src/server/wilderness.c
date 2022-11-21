@@ -121,11 +121,15 @@ static enum parser_error parse_wild_feat_chance(struct parser *p)
     struct wild_feat *f = parser_priv(p);
     unsigned int idx = parser_getuint(p, "index");
     int feat = lookup_feat(parser_getsym(p, "feat"));
-    int chance = parser_getuint(p, "chance");
+    int chance = parser_getuint(p, "chance") * 100;
 
     if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (idx >= TERRAIN_TYPE_MAX) return PARSE_ERROR_INVALID_VALUE;
     f->chance[idx].feat = feat;
+
+    if (parser_hasval(p, "chancex")) chance += parser_getuint(p, "chancex");
+    if ((chance <= 0) || (chance > 10000)) return PARSE_ERROR_INVALID_VALUE;
+
     f->chance[idx].chance = chance;
 
     return PARSE_ERROR_NONE;
@@ -154,7 +158,7 @@ static struct parser *init_parse_wild_feat(void)
     parser_setpriv(p, NULL);
     parser_reg(p, "name str name", parse_wild_feat_name);
     parser_reg(p, "feat uint level sym index char sym", parse_wild_feat_feat);
-    parser_reg(p, "chance uint index sym feat uint chance", parse_wild_feat_chance);
+    parser_reg(p, "chance uint index sym feat uint chance ?uint chancex", parse_wild_feat_chance);
     parser_reg(p, "sound str name", parse_wild_feat_sound);
 
     return p;
@@ -2014,7 +2018,7 @@ static int terrain_spot(int type)
     while (true)
     {
         idx = randint0(TERRAIN_TYPE_MAX);
-        if (magik(wf_info[type].chance[idx].chance)) break;
+        if (CHANCE(wf_info[type].chance[idx].chance, 10000)) break;
     }
 
     return wf_info[type].chance[idx].feat;

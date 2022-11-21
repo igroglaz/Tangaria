@@ -431,6 +431,8 @@ void client_ready(bool newchar)
     /* Send visual preferences */
     for (i = 0; i < 5; i++) Send_verify(i);
 
+    loading_screen(0);
+
     /* Send request for features to read */
     Send_features(0, 0);
 }

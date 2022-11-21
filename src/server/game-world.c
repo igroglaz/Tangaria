@@ -1103,9 +1103,10 @@ static void process_player_world(struct player *p, struct chunk *c)
 {
     int i;
 
-    /* Hack -- fade monster detect over time */
+    /* Hack -- fade monster detect over time (unless looking around) */
     for (i = 1; i < cave_monster_max(c); i++)
     {
+        if (p->locating) continue;
         if (!p->mon_det[i]) continue;
         p->mon_det[i]--;
         if (!p->mon_det[i])
@@ -1119,9 +1120,10 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
 
-    /* Hack -- fade player detect over time */
+    /* Hack -- fade player detect over time (unless looking around) */
     for (i = 1; i <= NumPlayers; i++)
     {
+        if (p->locating) continue;
         if (!p->play_det[i]) continue;
         p->play_det[i]--;
         if (!p->play_det[i])

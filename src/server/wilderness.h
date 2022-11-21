@@ -91,7 +91,7 @@ enum
 struct dun_rule
 {
     int chance;                     /* 1/10000 chance of monsters to obey this rule */
-    uint8_t all;                       /* Rule applies to all monsters */
+    uint8_t all;                    /* Rule applies to all monsters */
     bitflag flags[RF_SIZE];         /* Flags */
 	bitflag spell_flags[RSF_SIZE];  /* Spell flags */
     char sym[5];                    /* Symbols */

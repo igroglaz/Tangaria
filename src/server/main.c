@@ -114,6 +114,31 @@ static const char seven_bit_translation[128] =
 };
 
 
+static void clear_locks(void)
+{
+    char path[MSG_LEN];
+    ang_dir *dir;
+
+    path_build(path, sizeof(path), ANGBAND_DIR_SAVE, "lock");
+    dir = my_dopen(path);
+    if (dir)
+    {
+        char file_part[MSG_LEN], full_path[MSG_LEN];
+
+        while (my_dread(dir, file_part, sizeof(file_part)))
+        {
+            if (!streq(file_part, ".") && !streq(file_part, ".."))
+            {
+                path_build(full_path, sizeof(full_path), ANGBAND_DIR_SAVE,
+                    format("lock\\%s", file_part));
+                file_delete(full_path);
+            }
+        }
+        my_dclose(dir);
+    }
+}
+
+
 /*
  * Server logging hook.
  * We should be cautious, as we may be called from a signal handler in a panic.
@@ -163,6 +188,9 @@ static void server_log(const char *str)
             printf("Unable to open %s for writing!\n", path);
             return;
         }
+
+        /* Hack -- clear the lock files */
+        clear_locks();
     }
 
     /* Output the message to the daily log file */

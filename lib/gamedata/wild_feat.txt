@@ -2,7 +2,7 @@
 
 # name : terrain name
 # feat : level : terrain type : symbol
-# chance : index : terrain feat : chance of generation
+# chance : index : terrain feat : chance of generation : chance (in 1/100th)
 # sound : ambient sound
 
 # 'feat' lines describe the type of terrain. 'Level' is the maximum level of
