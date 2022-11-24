@@ -1903,11 +1903,11 @@ void do_weather(void)
 
     // number of weather elements
     int weather_elements = 1024;
-
     static int weather_element_x[1024];
     static int weather_element_y[1024];
     static int weather_frame_x[1024];
     static int weather_frame_y[1024];
+
     static int weather_speed_ticks = 0;
     static bool weather_clear = true;
     static bool weather_drizzle = true;
@@ -1937,8 +1937,8 @@ void do_weather(void)
     // Rain speed
     if (player->weather_type == 1)
     {
-        // check to see if it has been 50ms
-        if (weather_speed_ticks > 5) weather_speed_ticks = 0;
+        // check to see if it has been 40ms
+        if (weather_speed_ticks > 4) weather_speed_ticks = 0;
         else return;
     }
     // Snow speed
@@ -1975,8 +1975,8 @@ void do_weather(void)
     for (i = 0; i < weather_elements; i++)
     {
         // Only for elements within visible panel screen area
-        if (weather_frame_x[i] >= 0 && weather_frame_x[i] <= w &&
-            weather_frame_y[i] >= 0 && weather_frame_y[i] <= h)
+        if (weather_frame_x[i] >= 0 && weather_frame_x[i] < w &&
+            weather_frame_y[i] >= 0 && weather_frame_y[i] < h)
         {
             // Check characters
             Term_info(COL_MAP + weather_frame_x[i] * tile_width, 
@@ -2129,31 +2129,31 @@ void do_weather(void)
             case 1:
                 if (weather_drizzle)
                 {
-                    if (one_in_(60)) make_weather = true;
+                    if (one_in_(64)) make_weather = true;
                 }
                 else
                 {
-                    if (one_in_(30)) make_weather = true;
+                    if (one_in_(32)) make_weather = true;
                 }
                 break;
             case 2:
                 if (weather_drizzle)
                 {
-                    if (one_in_(30)) make_weather = true;
+                    if (one_in_(32)) make_weather = true;
                 }
                 else
                 {
-                    if (one_in_(15)) make_weather = true;
+                    if (one_in_(16)) make_weather = true;
                 }
                 break;
             case 3:
                 if (weather_drizzle)
                 {
-                    if (one_in_(15)) make_weather = true;
+                    if (one_in_(16)) make_weather = true;
                 }
                 else
                 {
-                    if (one_in_(5)) make_weather = true;
+                    if (one_in_(8)) make_weather = true;
                 }
                 break;
         }
@@ -2181,8 +2181,8 @@ void do_weather(void)
     for (i = 0; i < weather_elements; i++)
     {
         // Only for elements within visible panel screen area
-        if (weather_element_x[i] >= 0 && weather_element_x[i] <= w &&
-            weather_element_y[i] >= 0 && weather_element_y[i] <= h)
+        if (weather_element_x[i] >= 0 && weather_element_x[i] < w &&
+            weather_element_y[i] >= 0 && weather_element_y[i] < h)
         {
             // Check characters
             Term_info(COL_MAP + weather_element_x[i] * tile_width, 
@@ -2226,20 +2226,23 @@ void do_weather(void)
             else if (weather_element_x[i] > w - 1) weather_element_x[i] = 0;
 
             // not all weather elements fall to bottom of screen
-            if (one_in_(30))
+            if (one_in_(h))
             {
                 weather_element_x[i] = -1;
                 weather_element_y[i] = -1;
             }
 
+            if (weather_drizzle)
+            {
+                // when the weather element reaches bottom of screen, disable drizzle
+                if (weather_element_y[i] > h - 1) weather_drizzle = false;
+            }
+        }
+        else
+        {
             // weather element has reached bottom of screen? terminate it
-            if (weather_element_y[i] > h - 1)
-            {
-                weather_element_x[i] = -1;
-                weather_element_y[i] = -1;
-
-                if (weather_drizzle) weather_drizzle = false;
-            }
+            weather_element_x[i] = -1;
+            weather_element_y[i] = -1;
         }
     }
 
