@@ -1422,16 +1422,10 @@ static void RemovePopUp(void)
 {
     PopUp.visible = false;
     popped = false;
+    sdl_BlitAll();
 
     // Hack -- weather
-    if (player->weather_type != 0)
-    {
-        // Decrease "icky" depth
-        player->screen_save_depth--;
-        Send_icky();
-    }
-
-    sdl_BlitAll();
+    if (player->weather_type == 0) player->weather_type = 256;
 }
 
 
@@ -1515,14 +1509,6 @@ static void AboutActivate(sdl_Button *sender)
     PopUp.draw_extra = AboutDraw;
     
     popped = true;
-
-    // Hack -- weather
-    if (player->weather_type != 0)
-    {
-        // Increase "icky" depth
-        player->screen_save_depth++;
-        Send_icky();
-    }
 }
 
 
@@ -1572,14 +1558,6 @@ static void TermActivate(sdl_Button *sender)
         button->activate = SelectTerm;
     }
     popped = true;
-
-    // Hack -- weather
-    if (player->weather_type != 0)
-    {
-        // Increase "icky" depth
-        player->screen_save_depth++;
-        Send_icky();
-    }
 }
 
 
@@ -3555,14 +3533,6 @@ static void FontActivate(sdl_Button *sender)
 	button->activate = ActivateFontBrowser;
 
 	popped = true;
-
-    // Hack -- weather
-    if (player->weather_type != 0)
-    {
-        // Increase "icky" depth
-        player->screen_save_depth++;
-        Send_icky();
-    }
 }
 
 
@@ -4127,14 +4097,6 @@ static void MoreActivate(sdl_Button *sender)
     button->activate = AcceptChanges;
 
     popped = true;
-
-    // Hack -- weather
-    if (player->weather_type != 0)
-    {
-        // Increase "icky" depth
-        player->screen_save_depth++;
-        Send_icky();
-    }
 }
 
 
@@ -4809,6 +4771,10 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
                 res = sdl_ButtonBankMouseDown(&window->buttons,
                     mouse.x - window->left, mouse.y - window->top);
 
+                // Hack -- weather
+                if (popped && res && player->weather_type != 0)
+                    player->weather_type = 0;
+
                 /* If pop-up window active and no reaction, cancel the popup */
                 if (popped && !res)
                 {
@@ -4881,6 +4847,10 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
                 /* React to a button release */
                 res = sdl_ButtonBankMouseUp(&window->buttons, mouse.x - window->left,
                     mouse.y - window->top);
+
+                // Hack -- weather
+                if (popped && res && player->weather_type != 0)
+                    player->weather_type = 0;
 
                 /* Cancel popup */
                 if (popped && !res) RemovePopUp();
