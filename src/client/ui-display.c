@@ -2241,8 +2241,11 @@ void do_weather(void)
         else
         {
             // weather element has reached bottom of screen? terminate it
-            weather_element_x[i] = -1;
-            weather_element_y[i] = -1;
+            if (weather_element_x[i] != -1 && weather_element_y[i] != -1)
+            {
+                weather_element_x[i] = -1;
+                weather_element_y[i] = -1;
+            }
         }
     }
 
