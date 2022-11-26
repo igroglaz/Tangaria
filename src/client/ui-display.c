@@ -2256,13 +2256,15 @@ void do_weather(void)
             // Check wind - west, strong west
             if ((player->weather_wind == 1) || (player->weather_wind == 3))
             {
-                weather_element_x[i] = weather_element_x[i] - 1;
+                weather_element_x[i] = weather_element_x[i] - 
+                    (player->weather_type == 2 ? randint0(2) : 1); // <-- 2 is snowflake / raindrop
                 weather_element_y[i] = weather_element_y[i] + 1;
             }
             // Check wind - east, strong east
             else if ((player->weather_wind == 2) || (player->weather_wind == 4))
             {
-                weather_element_x[i] = weather_element_x[i] + 1;
+                weather_element_x[i] = weather_element_x[i] + 
+                    (player->weather_type == 2 ? randint0(2) : 1); // <-- 2 is snowflake / raindrop
                 weather_element_y[i] = weather_element_y[i] + 1;
             }
 
