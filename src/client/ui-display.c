@@ -1909,8 +1909,8 @@ void do_weather(void)
     static int weather_frame_y[1024];
 
     static int weather_speed_ticks = 0;
+    static int weather_strength = 0;
     static bool weather_clear = true;
-    static bool weather_drizzle = true;
     bool make_weather = false;
 
     // Check weather
@@ -1920,7 +1920,7 @@ void do_weather(void)
     if (player->weather_type == 256 && !OPT(player, weather_display))
     {
         player->weather_type = 0;
-        weather_drizzle = true;
+        weather_strength = 0;
         weather_clear = true;
         return;
     }
@@ -1966,6 +1966,8 @@ void do_weather(void)
         {
             weather_element_x[i] = -1;
             weather_element_y[i] = -1;
+            weather_frame_x[i] = -1;
+            weather_frame_y[i] = -1;
         }
 
         weather_clear = false;
@@ -1996,13 +1998,20 @@ void do_weather(void)
                         ROW_MAP + weather_frame_y[i], 1, a2, &c2));
             }
         }
+
+        // Clear weather_frame array
+        if (weather_frame_x[i] != -1 && weather_frame_y[i] != -1)
+        {
+            weather_frame_x[i] = -1;
+            weather_frame_y[i] = -1;
+        }
     }
 
     // Stop weather (weather_display = yes)
     if (player->weather_type == 256 && OPT(player, weather_display))
     {
         player->weather_type = 0;
-        weather_drizzle = true;
+        weather_strength = 0;
         weather_clear = true;
         return;
     }
@@ -2017,6 +2026,7 @@ void do_weather(void)
             {
                 // Wind - west
                 case 1:
+                {
                     if (use_graphics)
                     {
                         a = 0x82;
@@ -2035,8 +2045,10 @@ void do_weather(void)
                         c = '/';
                     }
                     break;
+                }
                 // Wind - east
                 case 2:
+                {
                     if (use_graphics)
                     {
                         a = 0x82;
@@ -2055,8 +2067,10 @@ void do_weather(void)
                         c = '\\';
                     }
                     break;
+                }
                 // Wind - strong west
                 case 3:
+                {
                     if (use_graphics)
                     {
                         a = 0x82;
@@ -2075,8 +2089,10 @@ void do_weather(void)
                         c = '/';
                     }
                     break;
+                }
                 // Wind - strong east
                 case 4:
+                {
                     if (use_graphics)
                     {
                         a = 0x82;
@@ -2095,6 +2111,7 @@ void do_weather(void)
                         c = '\\';
                     }
                     break;
+                }
             }
             break;
         }
@@ -2117,6 +2134,7 @@ void do_weather(void)
                 a = COLOUR_WHITE;
                 c = '*';
             }
+            break;
         }
     }
 
@@ -2127,35 +2145,62 @@ void do_weather(void)
         switch (player->weather_intensity)
         {
             case 1:
-                if (weather_drizzle)
+            {
+                switch (weather_strength)
                 {
-                    if (one_in_(64)) make_weather = true;
-                }
-                else
-                {
-                    if (one_in_(32)) make_weather = true;
+                    case 0:
+                        if (one_in_(256)) make_weather = true;
+                        break;
+                    case 1:
+                        if (one_in_(128)) make_weather = true;
+                        break;
+                    case 2:
+                        if (one_in_(64)) make_weather = true;
+                        break;
+                    default:
+                        if (one_in_(32)) make_weather = true;
+                        break;
                 }
                 break;
+            }
             case 2:
-                if (weather_drizzle)
+            {
+                switch (weather_strength)
                 {
-                    if (one_in_(32)) make_weather = true;
-                }
-                else
-                {
-                    if (one_in_(16)) make_weather = true;
+                    case 0:
+                        if (one_in_(128)) make_weather = true;
+                        break;
+                    case 1:
+                        if (one_in_(64)) make_weather = true;
+                        break;
+                    case 2:
+                        if (one_in_(32)) make_weather = true;
+                        break;
+                    default:
+                        if (one_in_(16)) make_weather = true;
+                        break;
                 }
                 break;
+            }
             case 3:
-                if (weather_drizzle)
+            {
+                switch (weather_strength)
                 {
-                    if (one_in_(16)) make_weather = true;
-                }
-                else
-                {
-                    if (one_in_(8)) make_weather = true;
+                    case 0:
+                        if (one_in_(64)) make_weather = true;
+                        break;
+                    case 1:
+                        if (one_in_(32)) make_weather = true;
+                        break;
+                    case 2:
+                        if (one_in_(16)) make_weather = true;
+                        break;
+                    default:
+                        if (one_in_(8)) make_weather = true;
+                        break;
                 }
                 break;
+            }
         }
 
         // Create weather elements
@@ -2221,32 +2266,32 @@ void do_weather(void)
                 weather_element_y[i] = weather_element_y[i] + 1;
             }
 
-            // pac-man effect for leaving screen to the left/right
+            // Pac-Man effect for leaving screen to the left/right
             if (weather_element_x[i] < 0) weather_element_x[i] = w - 1;
             else if (weather_element_x[i] > w - 1) weather_element_x[i] = 0;
 
-            // not all weather elements fall to bottom of screen
+            // Not all weather elements fall to bottom of screen
             if (one_in_(h))
             {
                 weather_element_x[i] = -1;
                 weather_element_y[i] = -1;
             }
-
-            if (weather_drizzle)
-            {
-                // when the weather element reaches bottom of screen, disable drizzle
-                if (weather_element_y[i] > h - 1) weather_drizzle = false;
-            }
         }
         else
         {
-            // weather element has reached bottom of screen? terminate it
+            // Weather element has reached bottom of screen? terminate it
             if (weather_element_x[i] != -1 && weather_element_y[i] != -1)
             {
                 weather_element_x[i] = -1;
                 weather_element_y[i] = -1;
             }
         }
+    }
+
+    if (weather_strength < 3)
+    {
+        // When the weather element[1] reaches bottom of screen, intensify weather
+        if (weather_element_y[1] > h - 1) weather_strength++;
     }
 
     // Actually flush the output
