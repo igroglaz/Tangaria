@@ -1966,6 +1966,8 @@ void do_weather(void)
         {
             weather_element_x[i] = -1;
             weather_element_y[i] = -1;
+            weather_frame_x[i] = -1;
+            weather_frame_y[i] = -1;
         }
 
         weather_clear = false;
@@ -1995,6 +1997,13 @@ void do_weather(void)
                     (void)((*main_term->text_hook)(COL_MAP + weather_frame_x[i], 
                         ROW_MAP + weather_frame_y[i], 1, a2, &c2));
             }
+        }
+
+        // Clear weather_frame array
+        if (weather_frame_x[i] != -1 && weather_frame_y[i] != -1)
+        {
+            weather_frame_x[i] = -1;
+            weather_frame_y[i] = -1;
         }
     }
 
