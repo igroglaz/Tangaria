@@ -1912,6 +1912,7 @@ void do_weather(void)
     static int weather_strength = 0;
     static bool weather_clear = true;
     bool make_weather = false;
+    bool skip_weather = false;
 
     // Check weather
     if (player->weather_type == 0) return;
@@ -2141,67 +2142,72 @@ void do_weather(void)
     //// Generate new weather elements ////
     for (i = 0; i < w; i++)
     {
-        // Weather density
-        switch (player->weather_intensity)
+        if (!skip_weather)
         {
-            case 1:
+            // Weather density
+            switch (player->weather_intensity)
             {
-                switch (weather_strength)
+                case 1:
                 {
-                    case 0:
-                        if (one_in_(256)) make_weather = true;
-                        break;
-                    case 1:
-                        if (one_in_(128)) make_weather = true;
-                        break;
-                    case 2:
-                        if (one_in_(64)) make_weather = true;
-                        break;
-                    default:
-                        if (one_in_(32)) make_weather = true;
-                        break;
+                    switch (weather_strength)
+                    {
+                        case 0:
+                            if (one_in_(256)) make_weather = true;
+                            break;
+                        case 1:
+                            if (one_in_(128)) make_weather = true;
+                            break;
+                        case 2:
+                            if (one_in_(64)) make_weather = true;
+                            break;
+                        default:
+                            if (one_in_(32)) make_weather = true;
+                            break;
+                    }
+                    break;
                 }
-                break;
-            }
-            case 2:
-            {
-                switch (weather_strength)
+                case 2:
                 {
-                    case 0:
-                        if (one_in_(128)) make_weather = true;
-                        break;
-                    case 1:
-                        if (one_in_(64)) make_weather = true;
-                        break;
-                    case 2:
-                        if (one_in_(32)) make_weather = true;
-                        break;
-                    default:
-                        if (one_in_(16)) make_weather = true;
-                        break;
+                    switch (weather_strength)
+                    {
+                        case 0:
+                            if (one_in_(128)) make_weather = true;
+                            break;
+                        case 1:
+                            if (one_in_(64)) make_weather = true;
+                            break;
+                        case 2:
+                            if (one_in_(32)) make_weather = true;
+                            break;
+                        default:
+                            if (one_in_(16)) make_weather = true;
+                            break;
+                    }
+                    break;
                 }
-                break;
-            }
-            case 3:
-            {
-                switch (weather_strength)
+                case 3:
                 {
-                    case 0:
-                        if (one_in_(64)) make_weather = true;
-                        break;
-                    case 1:
-                        if (one_in_(32)) make_weather = true;
-                        break;
-                    case 2:
-                        if (one_in_(16)) make_weather = true;
-                        break;
-                    default:
-                        if (one_in_(8)) make_weather = true;
-                        break;
+                    switch (weather_strength)
+                    {
+                        case 0:
+                            if (one_in_(64)) make_weather = true;
+                            break;
+                        case 1:
+                            if (one_in_(32)) make_weather = true;
+                            break;
+                        case 2:
+                            if (one_in_(16)) make_weather = true;
+                            break;
+                        default:
+                            if (one_in_(8)) make_weather = true;
+                            break;
+                    }
+                    break;
                 }
-                break;
             }
         }
+
+        if (skip_weather) skip_weather = false;
 
         // Create weather elements
         if (make_weather)
@@ -2216,6 +2222,9 @@ void do_weather(void)
                     break;
                 }
             }
+
+            // Skip creating weather elements if they are nearby './././'
+            skip_weather = true;
 
             make_weather = false;
         }
