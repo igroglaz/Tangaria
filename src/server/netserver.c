@@ -3375,6 +3375,13 @@ int Send_channel(struct player *p, uint8_t n, const char *virt)
 }
 
 
+//////////////////////////////////////////////////
+// Weather (rain and snow) server-side
+// weather_type - stop(256)/none(0)/rain(1)/snow(2)
+// weather_wind - current gust of wind 
+//                (1 west, 2 east, 3 strong west, 4 strong east)
+// weather_intensity - density of raindrops/snowflakes low(1)/med(2)/hi(3)
+//
 int Send_weather(struct player *p, int weather_type, int weather_wind, int weather_intensity)
 {
     connection_t *connp = get_connp(p, "weather");

@@ -1880,12 +1880,12 @@ bool peruse_file(void)
 }
 
 
-///////////////////////////////////////
+//////////////////////////////////////////////////
 // Handle weather (rain and snow) client-side
-// weather_type - stop(256)/none/rain/snow
-// weather_wind - current gust of wind if any 
+// weather_type - stop(256)/none(0)/rain(1)/snow(2)
+// weather_wind - current gust of wind 
 //                (1 west, 2 east, 3 strong west, 4 strong east)
-// weather_intensity - density of raindrops/snowflakes/sandgrains
+// weather_intensity - density of raindrops/snowflakes low(1)/med(2)/hi(3)
 //
 void do_weather(void)
 {
