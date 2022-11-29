@@ -1197,7 +1197,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         const char *dmg_text = "";
 
         if (msg_type != melee_hit_types[i].msg_type) continue;
-        if (OPT(p, show_damage)) dmg_text = format(" (%d)", dmg);
+        if (OPT(p, show_damage)) dmg_text = format(" for {g%d}g damage", dmg);
         if (melee_hit_types[i].text)
         {
             msgt(p, msg_type, "You %s %s%s%s. %s", verb, target_name, hit_extra, dmg_text,
@@ -1319,7 +1319,7 @@ static bool attempt_shield_bash(struct player *p, struct chunk *c, struct monste
     /* Paranoia. */
     bash_dam = MIN(bash_dam, 125);
 
-    if (OPT(p, show_damage)) msgt(p, MSG_HIT, "You get in a shield bash (%d)!", bash_dam);
+    if (OPT(p, show_damage)) msgt(p, MSG_HIT, "You get in a shield bash for {g%d}g damage!", bash_dam);
     else msgt(p, MSG_HIT, "You get in a shield bash!");
 
     /* Encourage the player to keep wearing that heavy shield. */
@@ -2050,7 +2050,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                             const char *dmg_text = "";
 
                             if (msg_type != hit_types[type].msg_type) continue;
-                            if (OPT(p, show_damage)) dmg_text = format(" (%d)", dmg);
+                            if (OPT(p, show_damage)) dmg_text = format(" for {g%d}g damage", dmg);
                             if (hit_types[type].text)
                             {
                                 msgt(p, msg_type, "Your %s %s %s%s. %s", o_name, verb, m_name,

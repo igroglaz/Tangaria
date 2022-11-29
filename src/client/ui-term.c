@@ -1676,6 +1676,101 @@ errr Term_putstr(int x, int y, int n, uint16_t a, const char *s)
 
 
 /*
+ * At the current location, using an attr, add a string. Check for subcolors with { and } tags.
+ * We alternate between normal attr and other attr, starting with either of them depending on
+ * which tag we find first.
+ */
+static errr Term_addstrex(int n, uint16_t a, const char *buf)
+{
+    char tmp[MSG_LEN], str[MSG_LEN];
+    char *t;
+    int pos;
+    uint16_t aa;
+
+    /* Suppose we start with begin tag: use normal attr */
+    bool switched = false;
+
+    /* Check for tags */
+    my_strcpy(tmp, buf, sizeof(tmp));
+    t = strtok(tmp, "{}");
+
+    /* Empty string */
+    if (!t) return Term_addstr(n, a, buf);
+
+    /* Save current substring for display */
+    my_strcpy(str, t, sizeof(str));
+
+    pos = strlen(t);
+    t = strtok(NULL, "{}");
+
+    /* No tags */
+    if (!t) return Term_addstr(n, a, buf);
+
+    /* If we start with end tag: use other attr */
+    if (buf[pos] == '}') switched = true;
+
+    while (t)
+    {
+        errr res;
+
+        /* Get other attr */
+        aa = color_char_to_attr(t[0]);
+
+        if (switched) res = Term_addstr(n, aa, str);
+        else res = Term_addstr(n, a, str);
+        if (res) return res;
+
+        /* Save current substring for display */
+        my_strcpy(str, t + 1, sizeof(str));
+
+        t = strtok(NULL, "{}");
+        switched = !switched;
+    }
+
+    if (switched) return Term_addstr(n, aa, str);
+    return Term_addstr(n, a, str);
+}
+
+
+/*
+ * Move to a location and, using an attr, add a string. Check for subcolors with { and } tags.
+ * Finding both tags will display a part of the string in another color. Finding only one tag
+ * will display the beginning or the end of the string in another color.
+ */
+errr Term_putstrex(int x, int y, int n, uint16_t a, const char *s)
+{
+    errr res;
+    bool cv;
+    int cx, cy;
+
+    if (!Term) return 0;
+
+    /* Save old cursor */
+    if (Term->cursor_icky)
+    {
+        Term_locate(&cx, &cy);
+        Term_get_cursor(&cv);
+        Term_set_cursor(false);
+    }
+
+    /* Move first */
+    res = Term_gotoxy(x, y);
+
+    /* Then add the string */
+    if (!res) res = Term_addstrex(n, a, s);
+
+    /* Restore old cursor */
+    if (Term->cursor_icky)
+    {
+        Term_gotoxy(cx, cy);
+        Term_set_cursor(cv);
+    }
+
+    return (res);
+}
+
+
+/*
  * Place cursor at (x,y), and clear the next "n" chars
  */
 static errr Term_erase_aux(int x, int y, int n, bool check_icky)

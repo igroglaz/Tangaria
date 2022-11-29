@@ -88,6 +88,7 @@ PWMAngband:
 - Don't clear monster/player detection counter if using the 'L' command
   after detection until the player has finished looking around
 - Add a loading screen between character selection and MotD display
+- Allow to color portions of a message using {} tags
 
 Gameplay changes
 ----------------
@@ -126,6 +127,7 @@ PWMAngband:
 - Allow monsters to cross one tile of damaging terrain if it doesn't kill them
 - Allow multiple values for race/class abilities depending on level
 - Allow chance of generating features in wilderness to be as low as 1/10000
+- Use time bubble when digging
 - New class: Villager
 
 Bugs fixed

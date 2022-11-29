@@ -1693,7 +1693,7 @@ static bool project_m_player_attack(project_monster_handler_context_t *context)
         char m_name[NORMAL_WID];
 
         monster_desc(context->origin->player, m_name, sizeof(m_name), mon, MDESC_STANDARD);
-        msg(context->origin->player, "%s is hit for %d damage.", m_name, dam);
+        msg(context->origin->player, "%s is hit for {g%d}g damage.", m_name, dam);
     }
 
     /*

@@ -270,7 +270,7 @@ void prt(const char *str, int row, int col)
  * Returns number of lines printed. No actual changes should be seen
  * until Term_fresh().
  */
-int prt_multi(int sx, int sy, int n, int m, int attr, const char *msg)
+int prt_multi(int sx, int sy, int n, int m, int attr, const char *msg, bool ex)
 {
     char *t;
     char buf[MSG_LEN];
@@ -328,7 +328,8 @@ int prt_multi(int sx, int sy, int n, int m, int attr, const char *msg)
         int l = (reverse? lines - 1 - i: i);
         int d = (reverse? -1: 1);
 
-        Term_putstr(sx, sy + i * d, line_end[l], attr, line_ptr[l]);
+        if (ex) Term_putstrex(sx, sy + i * d, line_end[l], attr, line_ptr[l]);
+        else Term_putstr(sx, sy + i * d, line_end[l], attr, line_ptr[l]);
         Term_locate(&x, &y);
         Term_erase(x, y, 255);
         if (m - i <= 0) break;

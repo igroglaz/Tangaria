@@ -2837,6 +2837,9 @@ static int base_time_factor(struct player *p, struct chunk *c, int slowest)
     /* Resting speeds up time disregarding health time scaling */
     if (player_is_resting(p) && !los) timefactor = MAX_TIME_SCALE;
 
+    /* Hack -- digging also speeds up time */
+    if (p->digging_request && !los) timefactor = MAX_TIME_SCALE;
+
     /*
      * If this is a check for another player give way to their time
      * bubble if we aren't doing anything important

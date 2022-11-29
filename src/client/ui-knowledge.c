@@ -357,7 +357,7 @@ void do_cmd_messages(void)
             msg = ((int)strlen(msg) >= q)? (msg + q): "";
 
             /* Dump the messages, bottom to top */
-            Term_putstr(0, hgt - 3 - j, -1, attr, msg);
+            Term_putstrex(0, hgt - 3 - j, -1, attr, msg);
 
             /* Highlight "shower" */
             if (strlen(shower))
