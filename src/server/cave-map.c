@@ -92,6 +92,8 @@ void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_d
 
         if (sqinfo_has(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER))
         {
+            /*if (player_has(p, PF_UNLIGHT) && p->state.cur_light <= 1)
+                g->lighting = (lit? LIGHTING_LOS: LIGHTING_DARK);*/
             if (lit)
                 g->lighting = (OPT(p, view_yellow_light))? LIGHTING_TORCH: LIGHTING_LOS;
         }

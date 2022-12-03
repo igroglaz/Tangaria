@@ -6272,13 +6272,10 @@ static int cmp_font(const void *f1, const void *f2)
 {
     const char *font1 = *(const char **)f1;
     const char *font2 = *(const char **)f2;
-    int width1 = 0;
-    int width2 = 0;
+    int height1, height2;
+    int width1, width2;
     int nsc1, nsc2;
-    int height1 = 0;
-    int height2 = 0;
-    char face1[5] = {0};
-    char face2[5] = {0};
+    char face1[5], face2[5];
 
     nsc1 = sscanf(font1, "%dx%d%4s.", &width1, &height1, face1);
     nsc2 = sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
@@ -6291,7 +6288,7 @@ static int cmp_font(const void *f1, const void *f2)
 			 * Neither match the expected pattern.  Sort
 			 * alphabetically.
 			 */
-			return strcmp(f1, f2);
+			return strcmp(font1, font2);
 		}
 
 		/*

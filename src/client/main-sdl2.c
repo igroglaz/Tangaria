@@ -5861,6 +5861,10 @@ static void init_systems(void)
 #ifdef SDL_HINT_POLL_SENTINEL
     SDL_SetHint(SDL_HINT_POLL_SENTINEL, "0");
 #endif
+
+#ifdef ON_ANDROID
+    SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
+#endif
 }
 
 /*
@@ -5878,9 +5882,6 @@ static void hack_plog(const char *str)
 
 errr init_sdl2(void)
 {
-#ifdef ON_ANDROID
-    SDL_SetHint(SDL_HINT_ORIENTATIONS, "LandscapeLeft LandscapeRight");
-#endif
     init_systems();
     init_globals();
 

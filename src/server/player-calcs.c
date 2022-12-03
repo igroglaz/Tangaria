@@ -2054,6 +2054,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Ghost */
     if (p->ghost) state->see_infra += 3;
 
+    /* Hack -- UNLIGHT gives extra infravision */
+    if (player_has(p, PF_UNLIGHT)) state->see_infra += (p->lev / 10 + 1);
+
     /* Handle polymorphed players */
     if (p->poly_race)
     {

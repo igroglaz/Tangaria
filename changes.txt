@@ -128,6 +128,7 @@ PWMAngband:
 - Allow multiple values for race/class abilities depending on level
 - Allow chance of generating features in wilderness to be as low as 1/10000
 - Use time bubble when digging
+- Give UNLIGHT players extra infravision
 - New class: Villager
 
 Bugs fixed

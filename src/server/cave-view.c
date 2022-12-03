@@ -928,6 +928,10 @@ static void update_view_one(struct player *p, struct chunk *c, struct loc *grid)
     /* Too far away */
     if (d > max_vision) return;
 
+    /* UNLIGHT players have a special radius of view */
+    /*if (player_has(p, PF_UNLIGHT) && (p->state.cur_light <= 1))
+        close = (d < (2 + p->lev / 6 - p->state.cur_light)? true: false);*/
+
     /*
      * Special case for wall lighting. If we are a wall and the square in
      * the direction of the player is in LOS, we are in LOS. This avoids
@@ -1067,6 +1071,7 @@ void update_view(struct player *p, struct chunk *c)
 
     /* Assume we can view the player grid */
     sqinfo_on(square_p(p, &p->grid)->info, SQUARE_VIEW);
+    /*if ((p->state.cur_light > 0) || square_islit(p, &p->grid) || player_has(p, PF_UNLIGHT))*/
     if ((p->state.cur_light > 0) || square_islit(p, &p->grid))
     {
         sqinfo_on(square_p(p, &p->grid)->info, SQUARE_SEEN);
