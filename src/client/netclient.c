@@ -169,6 +169,11 @@ void do_keepalive(void)
         }
         last_sent = ticks;
         Send_keepalive();
+
+        //* Animate player *//
+        if (OPT(player, animate_player))
+            if ((use_graphics) && (Setup.initialized))
+                do_animate_player();
     }
 
     // Hack -- Update weather
