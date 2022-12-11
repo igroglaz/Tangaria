@@ -1902,7 +1902,7 @@ void do_weather(void)
     char tc;
 
     // number of weather elements
-    int weather_elements = 1024;
+    const int weather_elements = 1024;
     static int weather_element_x[1024];
     static int weather_element_y[1024];
     static int weather_frame_x[1024];
@@ -1954,11 +1954,8 @@ void do_weather(void)
     Term_activate(main_term);
 
     // Get size
-    w = main_term->wid;
-    h = main_term->hgt;
-
-    w = (w - COL_MAP - 1) / tile_width;
-    h = (h - ROW_MAP - 1) / tile_height;
+    w = (main_term->wid - COL_MAP - 1) / tile_width;
+    h = (main_term->hgt - ROW_MAP - 1) / tile_height;
 
     if (weather_clear)
     {
@@ -2033,11 +2030,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDF; break;
-                            case 2: c = 0xE0; break;
-                            case 3: c = 0xE1; break;
-                            case 4: c = 0xE2; break;
-                            case 5: c = 0xE3; break;
+                            case 1: c = '\xdf'; break;
+                            case 2: c = '\xe0'; break;
+                            case 3: c = '\xe1'; break;
+                            case 4: c = '\xe2'; break;
+                            case 5: c = '\xe3'; break;
                         }
                     }
                     else
@@ -2055,11 +2052,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDA; break;
-                            case 2: c = 0xDB; break;
-                            case 3: c = 0xDC; break;
-                            case 4: c = 0xDD; break;
-                            case 5: c = 0xDE; break;
+                            case 1: c = '\xda'; break;
+                            case 2: c = '\xdb'; break;
+                            case 3: c = '\xdc'; break;
+                            case 4: c = '\xdd'; break;
+                            case 5: c = '\xde'; break;
                         }
                     }
                     else
@@ -2077,11 +2074,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDA; break;
-                            case 2: c = 0xDB; break;
-                            case 3: c = 0xDC; break;
-                            case 4: c = 0xDD; break;
-                            case 5: c = 0xDE; break;
+                            case 1: c = '\xda'; break;
+                            case 2: c = '\xdb'; break;
+                            case 3: c = '\xdc'; break;
+                            case 4: c = '\xdd'; break;
+                            case 5: c = '\xde'; break;
                         }
                     }
                     else
@@ -2099,11 +2096,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDF; break;
-                            case 2: c = 0xE0; break;
-                            case 3: c = 0xE1; break;
-                            case 4: c = 0xE2; break;
-                            case 5: c = 0xE3; break;
+                            case 1: c = '\xdf'; break;
+                            case 2: c = '\xe0'; break;
+                            case 3: c = '\xe1'; break;
+                            case 4: c = '\xe2'; break;
+                            case 5: c = '\xe3'; break;
                         }
                     }
                     else
@@ -2124,10 +2121,10 @@ void do_weather(void)
                 a = 0x82;
                 switch (randint1(4))
                 {
-                    case 1: c = 0xD6; break;
-                    case 2: c = 0xD7; break;
-                    case 3: c = 0xD8; break;
-                    case 4: c = 0xD9; break;
+                    case 1: c = '\xd6'; break;
+                    case 2: c = '\xd7'; break;
+                    case 3: c = '\xd8'; break;
+                    case 4: c = '\xd9'; break;
                 }
             }
             else
@@ -2231,7 +2228,6 @@ void do_weather(void)
     }
 
     //// Draw the weather ////
-
     for (i = 0; i < weather_elements; i++)
     {
         // Only for elements within visible panel screen area
