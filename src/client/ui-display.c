@@ -2427,7 +2427,6 @@ void do_animate_player(void)
     uint16_t ta;
     char tc;
 
-    int life;
     static int animation_frame = 0;
 
     // Hack -- if the screen is already icky, ignore this command
