@@ -1902,7 +1902,7 @@ void do_weather(void)
     char tc;
 
     // number of weather elements
-    int weather_elements = 1024;
+    const int weather_elements = 1024;
     static int weather_element_x[1024];
     static int weather_element_y[1024];
     static int weather_frame_x[1024];
@@ -1954,11 +1954,8 @@ void do_weather(void)
     Term_activate(main_term);
 
     // Get size
-    w = main_term->wid;
-    h = main_term->hgt;
-
-    w = (w - COL_MAP - 1) / tile_width;
-    h = (h - ROW_MAP - 1) / tile_height;
+    w = (main_term->wid - COL_MAP - 1) / tile_width;
+    h = (main_term->hgt - ROW_MAP - 1) / tile_height;
 
     if (weather_clear)
     {
@@ -2033,11 +2030,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDF; break;
-                            case 2: c = 0xE0; break;
-                            case 3: c = 0xE1; break;
-                            case 4: c = 0xE2; break;
-                            case 5: c = 0xE3; break;
+                            case 1: c = '\xdf'; break;
+                            case 2: c = '\xe0'; break;
+                            case 3: c = '\xe1'; break;
+                            case 4: c = '\xe2'; break;
+                            case 5: c = '\xe3'; break;
                         }
                     }
                     else
@@ -2055,11 +2052,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDA; break;
-                            case 2: c = 0xDB; break;
-                            case 3: c = 0xDC; break;
-                            case 4: c = 0xDD; break;
-                            case 5: c = 0xDE; break;
+                            case 1: c = '\xda'; break;
+                            case 2: c = '\xdb'; break;
+                            case 3: c = '\xdc'; break;
+                            case 4: c = '\xdd'; break;
+                            case 5: c = '\xde'; break;
                         }
                     }
                     else
@@ -2077,11 +2074,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDA; break;
-                            case 2: c = 0xDB; break;
-                            case 3: c = 0xDC; break;
-                            case 4: c = 0xDD; break;
-                            case 5: c = 0xDE; break;
+                            case 1: c = '\xda'; break;
+                            case 2: c = '\xdb'; break;
+                            case 3: c = '\xdc'; break;
+                            case 4: c = '\xdd'; break;
+                            case 5: c = '\xde'; break;
                         }
                     }
                     else
@@ -2099,11 +2096,11 @@ void do_weather(void)
                         a = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = 0xDF; break;
-                            case 2: c = 0xE0; break;
-                            case 3: c = 0xE1; break;
-                            case 4: c = 0xE2; break;
-                            case 5: c = 0xE3; break;
+                            case 1: c = '\xdf'; break;
+                            case 2: c = '\xe0'; break;
+                            case 3: c = '\xe1'; break;
+                            case 4: c = '\xe2'; break;
+                            case 5: c = '\xe3'; break;
                         }
                     }
                     else
@@ -2124,10 +2121,10 @@ void do_weather(void)
                 a = 0x82;
                 switch (randint1(4))
                 {
-                    case 1: c = 0xD6; break;
-                    case 2: c = 0xD7; break;
-                    case 3: c = 0xD8; break;
-                    case 4: c = 0xD9; break;
+                    case 1: c = '\xd6'; break;
+                    case 2: c = '\xd7'; break;
+                    case 3: c = '\xd8'; break;
+                    case 4: c = '\xd9'; break;
                 }
             }
             else
@@ -2231,7 +2228,6 @@ void do_weather(void)
     }
 
     //// Draw the weather ////
-
     for (i = 0; i < weather_elements; i++)
     {
         // Only for elements within visible panel screen area
@@ -2304,6 +2300,275 @@ void do_weather(void)
         // When the weather element[1] reaches bottom of screen, intensify weather
         if (weather_element_y[1] > h - 1) weather_strength++;
     }
+
+    // Actually flush the output
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+
+
+//// Animate player ////
+void do_animate_player(void)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    // 0x80 - doesn't animate player tile
+    // 0x81 - anim_pr -> anim_pm/anim_pf
+
+    //// Player race
+    // 0 Half-Troll, 1 Human, 2 Half-Elf, 3 Elf, 4 Halfling, 5 Gnome, 6 Dwarf, 7 Half-Orc, 8 Dunadan, 9 High-Elf,
+    // 10 Kobold, 11 Yeek, 12 Ent, 13 Thunderlord, 14 Dragon, 15 Hydra, 16 Black Numenorean, 17 Damned, 18 Merfolk, 19 Barbarian,
+    // 20 Black Dwarf, 21 Goblin, 22 Half-Giant, 23 Ogre, 24 Troll, 25 Orc, 26 Forest Goblin, 27 Dark Elf, 28 Werewolf, 29 Undead,
+    // 30 Vampire, 31 Maiar, 32 Demonic, 33 Balrog, 34 Celestial, 35 Nephalem, 36 Gargoyle, 37 Golem, 38 Pixie, 39 Draconian,
+    // 40 Titan, 41 Wood-Elf, 42 Elemental, 43 Frostmen, 44 Centaur, 45 Spider, 46 Djinn, 47 Harpy, 48 Minotaur, 49 Troglodyte,
+    // 50 Naga, 51 Gnoll, 52 Lizardmen, 53 Wisp, 54 Imp, 55 Wraith, 56 Beholder, 57 Ooze
+    static const uint16_t anim_pr_a[] = { 0x8B, 0x81, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
+                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80 };
+    static const char anim_pr_c[] = "\xb0\x80\x80\x80\x80\x80\x80\x80\x80\x80"
+                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
+                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
+                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
+                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
+                                    "\x80\x80\x80\x80\x80\x80\x80\x80";
+
+    //// Remap the player male
+    // anim_pm[race][class] { 0 Warrior, 1 Archer, 2 Monk, 3 Mage, 4 Shaman, 5 Priest, 6 Warlock, 7 Paladin, 8 Rogue, 9 Ranger, 10 Blackguard,
+    //                        11 Sorceror, 12 Unbeliever, 13 Hunter, 14 Telepath, 15 Elementalist, 16 Summoner, 17 Shapechanger }
+    static const uint16_t anim_pm_a[128][128] =
+        { {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Troll
+          {0x80, 0x80, 0x80, 0x8B, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Human
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Halfling
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Gnome
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dwarf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Orc
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dunadan
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // High-Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Kobold
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Yeek
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Ent
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80} }; // Thunderlord
+    static const char anim_pm_c[128][128] =
+        { "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Troll
+          "\x80\x80\x80\xb0\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Human
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Halfling
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Gnome
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dwarf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Orc
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dunadan
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // High-Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Kobold
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Yeek
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Ent
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80" }; // Thunderlord
+
+    //// Remap the player female
+    // anim_pf[race][class] { 0 Warrior, 1 Archer, 2 Monk, 3 Mage, 4 Shaman, 5 Priest, 6 Warlock, 7 Paladin, 8 Rogue, 9 Ranger, 10 Blackguard,
+    //                        11 Sorceror, 12 Unbeliever, 13 Hunter, 14 Telepath, 15 Elementalist, 16 Summoner, 17 Shapechanger }
+    static const uint16_t anim_pf_a[128][128] =
+        { {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Troll
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Human
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Halfling
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Gnome
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dwarf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Orc
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dunadan
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // High-Elf
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Kobold
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Yeek
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Ent
+          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80} }; // Thunderlord
+    static const char anim_pf_c[128][128] =
+        { "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Troll
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Human
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Halfling
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Gnome
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dwarf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Orc
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dunadan
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // High-Elf
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Kobold
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Yeek
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Ent
+          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80" }; // Thunderlord
+
+    //// Animate characters/objects tiles
+    // number of animate objects (0 - anim_obj_n)
+    static const int anim_obj_n = 7;
+
+    // 0, 1, 2, 3 Sonya the cat; 4, 5, 6, 7 Shtukensia
+    static const uint16_t s_obj_a[] = { 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E };
+    static const char s_obj_c[] = "\x84\x85\x86\x87\x98\x99\x9a\x9b";
+
+    const uint16_t anim_obj_a[] = { 0xA6, 0xA6, 0xA6, 0xA6, 0x9E, 0x9E, 0x9E, 0x9E };
+    static const char anim_obj_c[] = "\xfc\xfd\xfe\xff\x94\x95\x96\x97";
+
+    int i, j, k;
+    int x, y;
+
+    uint16_t a;
+    char c;
+    uint16_t a2;
+    char c2;
+    uint16_t ta;
+    char tc;
+
+    static int animation_frame = 0;
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get player coordinates
+    x = player->grid.x - player->offset_grid.x;
+    y = player->grid.y - player->offset_grid.y;
+
+    //// Player tile frame ////
+    if (player->ghost)
+    {
+        a = 0x94;
+        c = 0x18;
+    }
+    else
+    {
+        a = anim_pr_a[player->race->ridx];
+        c = anim_pr_c[player->race->ridx];
+    }
+
+    if (anim_pr_a[player->race->ridx] <= 0x80)
+    {
+        // default
+        a = player->scr_info[y + 1][x].a;
+        c = player->scr_info[y + 1][x].c;
+    }
+    else if (anim_pr_a[player->race->ridx] == 0x81)
+    {
+        if (streq(player->sex->title, "Male"))
+        {
+            if (anim_pm_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+            {
+                // default
+                a = player->scr_info[y + 1][x].a;
+                c = player->scr_info[y + 1][x].c;
+            }
+            else
+            {
+                a = anim_pm_a[player->race->ridx][player->clazz->cidx];
+                c = anim_pm_c[player->race->ridx][player->clazz->cidx];
+            }
+        }
+        else if (streq(player->sex->title, "Female"))
+        {
+            if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+            {
+                // default
+                a = player->scr_info[y + 1][x].a;
+                c = player->scr_info[y + 1][x].c;
+            }
+            else
+            {
+                a = anim_pf_a[player->race->ridx][player->clazz->cidx];
+                c = anim_pf_c[player->race->ridx][player->clazz->cidx];
+            }
+        }
+    }
+
+    //// Draw player ////
+    if (animation_frame == 0)
+    {
+        // Check characters
+        Term_info(COL_MAP + x * tile_width, 
+            ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+
+        // Display
+        if (use_graphics)
+        {
+            // Doesn't animate the player as a number if hp/mana is low
+            if (a2 != 0x82)
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
+        }
+    }
+    else if (animation_frame == 1)
+    {
+        // Check characters
+        Term_info(COL_MAP + x * tile_width, 
+            ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+
+        // Display
+        if (use_graphics)
+        {
+            // Doesn't animate the player as a number if hp/mana is low
+            if (a2 != 0x82)
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+        }
+    }
+
+    //// Animate characters/objects in the wilderness ////
+    if (player->wpos.depth == 0)
+    {
+        // Search objects around the player (5x5)
+        for (i = y - 2; i < y + 3; i++)
+        {
+            for (j = x - 2; j < x + 3; j++)
+            {
+                // Player
+                if (i == y && j == x) continue;
+
+                // Check characters
+                Term_info(COL_MAP + j * tile_width, 
+                    ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
+
+                // Search, number of animate objects
+                for (k = 0; k < anim_obj_n; k++)
+                {
+                    // If found then animate
+                    if (a2 == s_obj_a[k] && c2 == s_obj_c[k])
+                    {
+                        if (animation_frame == 0)
+                        {
+                            // Display
+                            if (use_graphics)
+                            {
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[k], &anim_obj_c[k], &ta, &tc));
+                            }
+                        }
+                        else if (animation_frame == 1)
+                        {
+                            // Display
+                            if (use_graphics)
+                            {
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    animation_frame++;
+    if (animation_frame > 1) animation_frame = 0;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
