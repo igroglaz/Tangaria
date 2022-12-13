@@ -68,6 +68,7 @@ static int conn_state;
 static int ticks = 0, last_sent = 0, last_received = 0;
 static int ticks10 = 0; // 'deci-ticks', counting just 0..9 in 10ms intervals
 static int weather_ticks = 0; // weather ticks
+static int animation_ticks = 0; // animation ticks
 
 static bool request_redraw;
 static sockbuf_t rbuf, wbuf, qbuf;
@@ -169,11 +170,6 @@ void do_keepalive(void)
         }
         last_sent = ticks;
         Send_keepalive();
-
-        //* Animate player *//
-        if (OPT(player, animate_player))
-            if ((use_graphics) && (Setup.initialized))
-                do_animate_player();
     }
 
     // Hack -- Update weather
@@ -186,6 +182,20 @@ void do_keepalive(void)
 
             //* Weather *//
             do_weather();
+        }
+    }
+
+    // Hack -- Update animation
+    if (OPT(player, animate_player))
+    {
+        // attempt to keep track of 'ticks' (800ms resolution)
+        if ((ticks - animation_ticks) > 8)
+        {
+            animation_ticks = ticks;
+
+            //* Animate player *//
+            if ((use_graphics) && (Setup.initialized))
+                do_animate_player();
         }
     }
 }
