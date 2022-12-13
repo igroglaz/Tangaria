@@ -2406,7 +2406,7 @@ void do_animate_player(void)
           "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Ent
           "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80" }; // Thunderlord
 
-    //// Animate characters/objects tiles
+    //// Animate characters/objects in the wilderness
     // number of animate objects (0 - anim_obj_n)
     static const int anim_obj_n = 7;
 
@@ -2414,8 +2414,19 @@ void do_animate_player(void)
     static const uint16_t s_obj_a[] = { 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E };
     static const char s_obj_c[] = "\x84\x85\x86\x87\x98\x99\x9a\x9b";
 
-    const uint16_t anim_obj_a[] = { 0xA6, 0xA6, 0xA6, 0xA6, 0x9E, 0x9E, 0x9E, 0x9E };
+    static const uint16_t anim_obj_a[] = { 0xA6, 0xA6, 0xA6, 0xA6, 0x9E, 0x9E, 0x9E, 0x9E };
     static const char anim_obj_c[] = "\xfc\xfd\xfe\xff\x94\x95\x96\x97";
+
+    //// Animate characters/objects in dungeons
+    // number of animate objects (0 - anim_dungeons_obj_n)
+    static const int anim_dungeons_obj_n = 0;
+
+    // 0 ...
+    static const uint16_t s_dungeons_obj_a[] = { 0x80 };
+    static const char s_dungeons_obj_c[] = "\x80";
+
+    static const uint16_t anim_dungeons_obj_a[] = { 0x80 };
+    static const char anim_dungeons_obj_c[] = "\x80";
 
     int i, j, k;
     int x, y;
@@ -2549,6 +2560,51 @@ void do_animate_player(void)
                             {
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &anim_obj_a[k], &anim_obj_c[k], &ta, &tc));
+                            }
+                        }
+                        else if (animation_frame == 1)
+                        {
+                            // Display
+                            if (use_graphics)
+                            {
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    //// Animate characters/objects in dungeons ////
+    else if (player->wpos.depth > 0)
+    {
+        // Search objects around the player (5x5)
+        for (i = y - 2; i < y + 3; i++)
+        {
+            for (j = x - 2; j < x + 3; j++)
+            {
+                // Player
+                if (i == y && j == x) continue;
+
+                // Check characters
+                Term_info(COL_MAP + j * tile_width, 
+                    ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
+
+                // Search, number of animate objects
+                for (k = 0; k < anim_dungeons_obj_n; k++)
+                {
+                    // If found then animate
+                    if (a2 == s_dungeons_obj_a[k] && c2 == s_dungeons_obj_c[k])
+                    {
+                        if (animation_frame == 0)
+                        {
+                            // Display
+                            if (use_graphics)
+                            {
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_dungeons_obj_a[k], &anim_dungeons_obj_c[k], &ta, &tc));
                             }
                         }
                         else if (animation_frame == 1)
