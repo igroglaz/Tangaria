@@ -94,6 +94,28 @@ static game_event_type statusline_events[] =
 static int monwidth = -1;
 
 
+// Animate player //
+static uint16_t life_a; // doesn't animate the player as a number
+static uint16_t anim_ghost_a; // ghost 'a'
+static char anim_ghost_c; // ghost 'c'
+static uint16_t anim_pr_a[128]; // player race 'a'
+static char anim_pr_c[128]; // player race 'c'
+static uint16_t anim_pm_a[128][128]; // remap the player male 'a'
+static char anim_pm_c[128][128]; // remap the player male 'c'
+static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
+static char anim_pf_c[128][128]; // remap the player female 'c'
+static int anim_obj_n = 0; // number of animate objects
+static uint16_t s_obj_a[128]; // search objects 'a'
+static char s_obj_c[128]; // search objects 'c'
+static uint16_t anim_obj_a[128]; // animate objects 'a'
+static char anim_obj_c[128]; // animate objects 'c'
+static int anim_dungeons_obj_n = 0; // number of animate dungeons objects
+static uint16_t s_dungeons_obj_a[128]; // search dungeons objects 'a'
+static char s_dungeons_obj_c[128]; // search dungeons objects 'c'
+static uint16_t anim_dungeons_obj_a[128]; // animate dungeons objects 'a'
+static char anim_dungeons_obj_c[128]; // animate dungeons objects 'c'
+
+
 /*** Sidebar display functions ***/
 
 
@@ -2309,124 +2331,205 @@ void do_weather(void)
 }
 
 
+static enum parser_error parse_prefs_life_a(struct parser *p)
+{
+    life_a = (uint16_t)parser_getint(p, "attr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_ghost(struct parser *p)
+{
+    anim_ghost_a = (uint16_t)parser_getint(p, "attr");
+    anim_ghost_c = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_pr(struct parser *p)
+{
+    int ridx;
+
+    ridx = parser_getint(p, "ridx");
+    anim_pr_a[ridx] = (uint16_t)parser_getint(p, "attr");
+    anim_pr_c[ridx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_pm(struct parser *p)
+{
+    int ridx;
+    int cidx;
+
+    ridx = parser_getint(p, "ridx");
+    cidx = parser_getint(p, "cidx");
+    anim_pm_a[ridx][cidx] = (uint16_t)parser_getint(p, "attr");
+    anim_pm_c[ridx][cidx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_pf(struct parser *p)
+{
+    int ridx;
+    int cidx;
+
+    ridx = parser_getint(p, "ridx");
+    cidx = parser_getint(p, "cidx");
+    anim_pf_a[ridx][cidx] = (uint16_t)parser_getint(p, "attr");
+    anim_pf_c[ridx][cidx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_obj_n(struct parser *p)
+{
+    anim_obj_n = parser_getint(p, "n");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_s_obj(struct parser *p)
+{
+    int n;
+
+    n = parser_getint(p, "n");
+    s_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    s_obj_c[n] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_obj(struct parser *p)
+{
+    int n;
+
+    n = parser_getint(p, "n");
+    anim_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    anim_obj_c[n] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_dungeons_obj_n(struct parser *p)
+{
+    anim_dungeons_obj_n = parser_getint(p, "n");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_s_dungeons_obj(struct parser *p)
+{
+    int n;
+
+    n = parser_getint(p, "n");
+    s_dungeons_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    s_dungeons_obj_c[n] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_anim_dungeons_obj(struct parser *p)
+{
+    int n;
+
+    n = parser_getint(p, "n");
+    anim_dungeons_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    anim_dungeons_obj_c[n] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static struct parser *init_parse_animation(void)
+{
+    struct parser *p = parser_new();
+
+    parser_reg(p, "life_a int attr", parse_prefs_life_a);
+    parser_reg(p, "anim_ghost int attr int char", parse_prefs_anim_ghost);
+    parser_reg(p, "anim_pr int ridx int attr int char", parse_prefs_anim_pr);
+    parser_reg(p, "anim_pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
+    parser_reg(p, "anim_pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
+    parser_reg(p, "anim_obj_n int n", parse_prefs_anim_obj_n);
+    parser_reg(p, "s_obj int n int attr int char", parse_prefs_s_obj);
+    parser_reg(p, "anim_obj int n int attr int char", parse_prefs_anim_obj);
+    parser_reg(p, "anim_dungeons_obj_n int n", parse_prefs_anim_dungeons_obj_n);
+    parser_reg(p, "s_dungeons_obj int n int attr int char", parse_prefs_s_dungeons_obj);
+    parser_reg(p, "anim_dungeons_obj int n int attr int char", parse_prefs_anim_dungeons_obj);
+
+    return p;
+}
+
+
+static bool read_animation_file(void)
+{
+    graphics_mode *mode = get_graphics_mode(use_graphics, true);
+
+    char buf[MSG_LEN];
+    char dirpath[MSG_LEN];
+    ang_file *f;
+    struct parser *p;
+    errr e = 0;
+    int line_no = 0;
+
+    // If we have a graphics mode, see if the mode has a pref file name
+    if (use_graphics)
+    {
+        // Build the filename
+        path_build(buf, sizeof(buf), ANGBAND_DIR_TILES, mode->path);
+        path_build(dirpath, sizeof(dirpath), buf, "animation.prf");
+    }
+
+    f = file_open(dirpath, MODE_READ, FTYPE_TEXT);
+    if (!f)
+    {
+        plog_fmt("Cannot open '%s'.", dirpath);
+
+        // Signal failure to callers
+        e = PARSE_ERROR_INTERNAL;
+    }
+    else
+    {
+        char line[MSG_LEN];
+
+        p = init_parse_animation();
+        while (file_getl(f, line, sizeof line))
+        {
+            line_no++;
+
+            e = parser_parse(p, line);
+            if (e != PARSE_ERROR_NONE)
+            {
+                print_error_simple(dirpath, p);
+                break;
+            }
+        }
+
+        file_close(f);
+        parser_destroy(p);
+    }
+
+    // Result
+    return e == PARSE_ERROR_NONE;
+}
+
+
 //// Animate player ////
 void do_animate_player(void)
 {
     term *main_term = angband_term[0];
     term *old = Term;
-
-    // 0x80 - doesn't animate player tile
-    // 0x81 - anim_pr -> anim_pm/anim_pf
-
-    //// Player race
-    // 0 Half-Troll, 1 Human, 2 Half-Elf, 3 Elf, 4 Halfling, 5 Gnome, 6 Dwarf, 7 Half-Orc, 8 Dunadan, 9 High-Elf,
-    // 10 Kobold, 11 Yeek, 12 Ent, 13 Thunderlord, 14 Dragon, 15 Hydra, 16 Black Numenorean, 17 Damned, 18 Merfolk, 19 Barbarian,
-    // 20 Black Dwarf, 21 Goblin, 22 Half-Giant, 23 Ogre, 24 Troll, 25 Orc, 26 Forest Goblin, 27 Dark Elf, 28 Werewolf, 29 Undead,
-    // 30 Vampire, 31 Maiar, 32 Demonic, 33 Balrog, 34 Celestial, 35 Nephalem, 36 Gargoyle, 37 Golem, 38 Pixie, 39 Draconian,
-    // 40 Titan, 41 Wood-Elf, 42 Elemental, 43 Frostmen, 44 Centaur, 45 Spider, 46 Djinn, 47 Harpy, 48 Minotaur, 49 Troglodyte,
-    // 50 Naga, 51 Gnoll, 52 Lizardmen, 53 Wisp, 54 Imp, 55 Wraith, 56 Beholder, 57 Ooze
-    static const uint16_t anim_pr_a[] = { 0x8B, 0x81, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80,
-                                          0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80 };
-    static const char anim_pr_c[] = "\xb0\x80\x80\x80\x80\x80\x80\x80\x80\x80"
-                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
-                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
-                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
-                                    "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80"
-                                    "\x80\x80\x80\x80\x80\x80\x80\x80";
-
-    //// Remap the player male
-    // anim_pm[race][class] { 0 Warrior, 1 Archer, 2 Monk, 3 Mage, 4 Shaman, 5 Priest, 6 Warlock, 7 Paladin, 8 Rogue, 9 Ranger, 10 Blackguard,
-    //                        11 Sorceror, 12 Unbeliever, 13 Hunter, 14 Telepath, 15 Elementalist, 16 Summoner, 17 Shapechanger }
-    static const uint16_t anim_pm_a[128][128] =
-        { {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Troll
-          {0x80, 0x80, 0x80, 0x8B, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Human
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Halfling
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Gnome
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dwarf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Orc
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dunadan
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // High-Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Kobold
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Yeek
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Ent
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80} }; // Thunderlord
-    static const char anim_pm_c[128][128] =
-        { "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Troll
-          "\x80\x80\x80\xb0\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Human
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Halfling
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Gnome
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dwarf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Orc
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dunadan
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // High-Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Kobold
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Yeek
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Ent
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80" }; // Thunderlord
-
-    //// Remap the player female
-    // anim_pf[race][class] { 0 Warrior, 1 Archer, 2 Monk, 3 Mage, 4 Shaman, 5 Priest, 6 Warlock, 7 Paladin, 8 Rogue, 9 Ranger, 10 Blackguard,
-    //                        11 Sorceror, 12 Unbeliever, 13 Hunter, 14 Telepath, 15 Elementalist, 16 Summoner, 17 Shapechanger }
-    static const uint16_t anim_pf_a[128][128] =
-        { {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Troll
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Human
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Halfling
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Gnome
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dwarf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Half-Orc
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Dunadan
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // High-Elf
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Kobold
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Yeek
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80}, // Ent
-          {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80} }; // Thunderlord
-    static const char anim_pf_c[128][128] =
-        { "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Troll
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Human
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Halfling
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Gnome
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dwarf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Half-Orc
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Dunadan
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // High-Elf
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Kobold
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Yeek
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80", // Ent
-          "\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80\x80" }; // Thunderlord
-
-    //// Animate characters/objects in the wilderness
-    // number of animate objects (0 - anim_obj_n)
-    static const int anim_obj_n = 7;
-
-    // 0, 1, 2, 3 Sonya the cat; 4, 5, 6, 7 Shtukensia
-    static const uint16_t s_obj_a[] = { 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E, 0x9E };
-    static const char s_obj_c[] = "\x84\x85\x86\x87\x98\x99\x9a\x9b";
-
-    static const uint16_t anim_obj_a[] = { 0xA6, 0xA6, 0xA6, 0xA6, 0x9E, 0x9E, 0x9E, 0x9E };
-    static const char anim_obj_c[] = "\xfc\xfd\xfe\xff\x94\x95\x96\x97";
-
-    //// Animate characters/objects in dungeons
-    // number of animate objects (0 - anim_dungeons_obj_n)
-    static const int anim_dungeons_obj_n = 0;
-
-    // 0 ...
-    static const uint16_t s_dungeons_obj_a[] = { 0x80 };
-    static const char s_dungeons_obj_c[] = "\x80";
-
-    static const uint16_t anim_dungeons_obj_a[] = { 0x80 };
-    static const char anim_dungeons_obj_c[] = "\x80";
 
     int i, j, k;
     int x, y;
@@ -2438,7 +2541,15 @@ void do_animate_player(void)
     uint16_t ta;
     char tc;
 
+    static bool animation_file = false;
     static int animation_frame = 0;
+
+    //// Read animation pref file ////
+    if (!animation_file)
+    {
+        read_animation_file();
+        animation_file = true;
+    }
 
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
@@ -2450,11 +2561,14 @@ void do_animate_player(void)
     x = player->grid.x - player->offset_grid.x;
     y = player->grid.y - player->offset_grid.y;
 
+    // 0x80 - doesn't animate player tile
+    // 0x81 - anim_pr -> anim_pm/anim_pf
+
     //// Player tile frame ////
     if (player->ghost)
     {
-        a = 0x94;
-        c = 0x18;
+        a = anim_ghost_a;
+        c = anim_ghost_c;
     }
     else
     {
@@ -2511,7 +2625,7 @@ void do_animate_player(void)
         if (use_graphics)
         {
             // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != 0x82)
+            if (a2 != life_a)
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
         }
@@ -2526,7 +2640,7 @@ void do_animate_player(void)
         if (use_graphics)
         {
             // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != 0x82)
+            if (a2 != life_a)
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
         }
