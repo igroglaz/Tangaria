@@ -104,11 +104,11 @@ static uint16_t anim_pm_a[128][128]; // remap the player male 'a'
 static char anim_pm_c[128][128]; // remap the player male 'c'
 static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
-static int anim_w_obj_n = 0; // number of animate objects
-static uint16_t s_w_obj_a[128]; // search objects 'a'
-static char s_w_obj_c[128]; // search objects 'c'
-static uint16_t anim_w_obj_a[128]; // animate objects 'a'
-static char anim_w_obj_c[128]; // animate objects 'c'
+static int anim_w_obj_n = 0; // number of animate wilderness objects
+static uint16_t s_w_obj_a[128]; // search wilderness objects 'a'
+static char s_w_obj_c[128]; // search wilderness objects 'c'
+static uint16_t anim_w_obj_a[128]; // animate wilderness objects 'a'
+static char anim_w_obj_c[128]; // animate wilderness objects 'c'
 static int anim_d_obj_n = 0; // number of animate dungeons objects
 static uint16_t s_d_obj_a[128]; // search dungeons objects 'a'
 static char s_d_obj_c[128]; // search dungeons objects 'c'
@@ -2465,14 +2465,14 @@ static bool read_animation_file(void)
     if (use_graphics)
     {
         // Build the filename
-        path_build(buf, sizeof(buf), ANGBAND_DIR_TILES, mode->path);
-        path_build(dirpath, sizeof(dirpath), buf, "animation.prf");
+        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_TILES, mode->path);
+        path_build(buf, sizeof(buf), dirpath, "animation.prf");
     }
 
-    f = file_open(dirpath, MODE_READ, FTYPE_TEXT);
+    f = file_open(buf, MODE_READ, FTYPE_TEXT);
     if (!f)
     {
-        plog_fmt("Cannot open '%s'.", dirpath);
+        plog_fmt("Cannot open '%s'.", buf);
 
         // Signal failure to callers
         e = PARSE_ERROR_INTERNAL;
@@ -2489,7 +2489,7 @@ static bool read_animation_file(void)
             e = parser_parse(p, line);
             if (e != PARSE_ERROR_NONE)
             {
-                print_error_simple(dirpath, p);
+                print_error_simple(buf, p);
                 break;
             }
         }
