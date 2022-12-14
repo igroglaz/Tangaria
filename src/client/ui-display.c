@@ -2640,7 +2640,7 @@ void do_animate_player(void)
                     ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
 
                 // Search, number of animate objects
-                for (k = 0; k < anim_w_obj_n; k++)
+                for (k = 0; k <= anim_w_obj_n; k++)
                 {
                     // If found then animate
                     if (a2 == s_w_obj_a[k] && c2 == s_w_obj_c[k])
@@ -2681,7 +2681,7 @@ void do_animate_player(void)
                     ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
 
                 // Search, number of animate objects
-                for (k = 0; k < anim_d_obj_n; k++)
+                for (k = 0; k <= anim_d_obj_n; k++)
                 {
                     // If found then animate
                     if (a2 == s_d_obj_a[k] && c2 == s_d_obj_c[k])
