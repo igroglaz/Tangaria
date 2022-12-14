@@ -1,0 +1,1827 @@
+# File: animation.prf
+
+#
+# This file defines special attr/char mappings for use in "graphics" mode for animation
+# with Tangaria's 32x32 tileset.
+#
+
+# 0x80 - doesn't animate player tile
+# 0x81 - anim_pr -> anim_pm/anim_pf
+
+# Doesn't animate the player as a number if hp/mana is low
+# line with numbers
+life_a:0x82
+
+# Ghost
+anim_ghost:0x94:0x18
+
+
+##### Player race #####
+# anim_pr:race:attr:char
+
+# 0 Half-Troll
+anim_pr:0:0x8B:0xB0
+
+# 1 Human
+anim_pr:1:0x81:0x80
+
+# 2 Half-Elf
+anim_pr:2:0x80:0x80
+
+# 3 Elf
+anim_pr:3:0x80:0x80
+
+# 4 Halfling
+anim_pr:4:0x80:0x80
+
+# 5 Gnome
+anim_pr:5:0x80:0x80
+
+# 6 Dwarf
+anim_pr:6:0x80:0x80
+
+# 7 Half-Orc
+anim_pr:7:0x80:0x80
+
+# 8 Dunadan
+anim_pr:8:0x80:0x80
+
+# 9 High-Elf
+anim_pr:9:0x80:0x80
+
+# 10 Kobold
+anim_pr:10:0x80:0x80
+
+# 11 Yeek
+anim_pr:11:0x80:0x80
+
+# 12 Ent
+anim_pr:12:0x80:0x80
+
+# 13 Thunderlord
+anim_pr:13:0x80:0x80
+
+# 14 Dragon
+anim_pr:14:0x80:0x80
+
+# 15 Hydra
+anim_pr:15:0x80:0x80
+
+# 16 Black Numenorean
+anim_pr:16:0x80:0x80
+
+# 17 Damned
+anim_pr:17:0x80:0x80
+
+# 18 Merfolk
+anim_pr:18:0x80:0x80
+
+# 19 Barbarian
+anim_pr:19:0x80:0x80
+
+# 20 Black Dwarf
+anim_pr:20:0x80:0x80
+
+# 21 Goblin
+anim_pr:21:0x80:0x80
+
+# 22 Half-Giant
+anim_pr:22:0x80:0x80
+
+# 23 Ogre
+anim_pr:23:0x80:0x80
+
+# 24 Troll
+anim_pr:24:0x80:0x80
+
+# 25 Orc
+anim_pr:25:0x80:0x80
+
+# 26 Forest Goblin
+anim_pr:26:0x80:0x80
+
+# 27 Dark Elf
+anim_pr:27:0x80:0x80
+
+# 28 Werewolf
+anim_pr:28:0x80:0x80
+
+# 29 Undead
+anim_pr:29:0x80:0x80
+
+# 30 Vampire
+anim_pr:30:0x80:0x80
+
+# 31 Maiar
+anim_pr:31:0x80:0x80
+
+# 32 Demonic
+anim_pr:32:0x80:0x80
+
+# 33 Balrog
+anim_pr:33:0x80:0x80
+
+# 34 Celestial
+anim_pr:34:0x80:0x80
+
+# 35 Nephalem
+anim_pr:35:0x80:0x80
+
+# 36 Gargoyle
+anim_pr:36:0x80:0x80
+
+# 37 Golem
+anim_pr:37:0x80:0x80
+
+# 38 Pixie
+anim_pr:38:0x80:0x80
+
+# 39 Draconian
+anim_pr:39:0x80:0x80
+
+# 40 Titan
+anim_pr:40:0x80:0x80
+
+# 41 Wood-Elf
+anim_pr:41:0x80:0x80
+
+# 42 Elemental
+anim_pr:42:0x80:0x80
+
+# 43 Frostmen
+anim_pr:43:0x80:0x80
+
+# 44 Centaur
+anim_pr:44:0x80:0x80
+
+# 45 Spider
+anim_pr:45:0x80:0x80
+
+# 46 Djinn
+anim_pr:46:0x80:0x80
+
+# 47 Harpy
+anim_pr:47:0x80:0x80
+
+# 48 Minotaur
+anim_pr:48:0x80:0x80
+
+# 49 Troglodyte
+anim_pr:49:0x80:0x80
+
+# 50 Naga
+anim_pr:50:0x80:0x80
+
+# 51 Gnoll
+anim_pr:51:0x80:0x80
+
+# 52 Lizardmen
+anim_pr:52:0x80:0x80
+
+# 53 Wisp
+anim_pr:53:0x80:0x80
+
+# 54 Imp
+anim_pr:54:0x80:0x80
+
+# 55 Wraith
+anim_pr:55:0x80:0x80
+
+# 56 Beholder
+anim_pr:56:0x80:0x80
+
+# 57 Ooze
+anim_pr:57:0x80:0x80
+
+
+##### Remap the player male #####
+# anim_pm:race:class:attr:char
+
+
+### 0 Half-Troll - male
+
+# 0 Warrior
+anim_pm:0:0:0x80:0x80
+
+# 1 Archer
+anim_pm:0:1:0x80:0x80
+
+# 2 Monk
+anim_pm:0:2:0x80:0x80
+
+# 3 Mage
+anim_pm:0:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:0:4:0x80:0x80
+
+# 5 Priest
+anim_pm:0:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:0:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:0:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:0:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:0:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:0:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:0:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:0:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:0:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:0:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:0:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:0:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:0:17:0x80:0x80
+
+
+### 1 Human - male
+
+# 0 Warrior
+anim_pm:1:0:0x80:0x80
+
+# 1 Archer
+anim_pm:1:1:0x80:0x80
+
+# 2 Monk
+anim_pm:1:2:0x80:0x80
+
+# 3 Mage
+anim_pm:1:3:0x8B:0xB0
+
+# 4 Shaman
+anim_pm:1:4:0x80:0x80
+
+# 5 Priest
+anim_pm:1:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:1:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:1:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:1:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:1:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:1:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:1:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:1:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:1:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:1:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:1:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:1:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:1:17:0x80:0x80
+
+
+### 2 Half-Elf - male
+
+# 0 Warrior
+anim_pm:2:0:0x80:0x80
+
+# 1 Archer
+anim_pm:2:1:0x80:0x80
+
+# 2 Monk
+anim_pm:2:2:0x80:0x80
+
+# 3 Mage
+anim_pm:2:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:2:4:0x80:0x80
+
+# 5 Priest
+anim_pm:2:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:2:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:2:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:2:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:2:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:2:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:2:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:2:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:2:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:2:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:2:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:2:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:2:17:0x80:0x80
+
+
+### 3 Elf - male
+
+# 0 Warrior
+anim_pm:3:0:0x80:0x80
+
+# 1 Archer
+anim_pm:3:1:0x80:0x80
+
+# 2 Monk
+anim_pm:3:2:0x80:0x80
+
+# 3 Mage
+anim_pm:3:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:3:4:0x80:0x80
+
+# 5 Priest
+anim_pm:3:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:3:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:3:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:3:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:3:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:3:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:3:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:3:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:3:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:3:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:3:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:3:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:3:17:0x80:0x80
+
+
+### 4 Halfling - male
+
+# 0 Warrior
+anim_pm:4:0:0x80:0x80
+
+# 1 Archer
+anim_pm:4:1:0x80:0x80
+
+# 2 Monk
+anim_pm:4:2:0x80:0x80
+
+# 3 Mage
+anim_pm:4:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:4:4:0x80:0x80
+
+# 5 Priest
+anim_pm:4:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:4:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:4:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:4:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:4:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:4:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:4:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:4:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:4:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:4:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:4:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:4:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:4:17:0x80:0x80
+
+
+### 5 Gnome - male
+
+# 0 Warrior
+anim_pm:5:0:0x80:0x80
+
+# 1 Archer
+anim_pm:5:1:0x80:0x80
+
+# 2 Monk
+anim_pm:5:2:0x80:0x80
+
+# 3 Mage
+anim_pm:5:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:5:4:0x80:0x80
+
+# 5 Priest
+anim_pm:5:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:5:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:5:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:5:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:5:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:5:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:5:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:5:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:5:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:5:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:5:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:5:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:5:17:0x80:0x80
+
+
+### 6 Dwarf - male
+
+# 0 Warrior
+anim_pm:6:0:0x80:0x80
+
+# 1 Archer
+anim_pm:6:1:0x80:0x80
+
+# 2 Monk
+anim_pm:6:2:0x80:0x80
+
+# 3 Mage
+anim_pm:6:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:6:4:0x80:0x80
+
+# 5 Priest
+anim_pm:6:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:6:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:6:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:6:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:6:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:6:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:6:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:6:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:6:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:6:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:6:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:6:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:6:17:0x80:0x80
+
+
+### 7 Half-Orc - male
+
+# 0 Warrior
+anim_pm:7:0:0x80:0x80
+
+# 1 Archer
+anim_pm:7:1:0x80:0x80
+
+# 2 Monk
+anim_pm:7:2:0x80:0x80
+
+# 3 Mage
+anim_pm:7:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:7:4:0x80:0x80
+
+# 5 Priest
+anim_pm:7:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:7:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:7:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:7:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:7:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:7:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:7:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:7:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:7:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:7:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:7:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:7:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:7:17:0x80:0x80
+
+
+### 8 Dunadan - male
+
+# 0 Warrior
+anim_pm:8:0:0x80:0x80
+
+# 1 Archer
+anim_pm:8:1:0x80:0x80
+
+# 2 Monk
+anim_pm:8:2:0x80:0x80
+
+# 3 Mage
+anim_pm:8:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:8:4:0x80:0x80
+
+# 5 Priest
+anim_pm:8:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:8:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:8:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:8:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:8:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:8:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:8:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:8:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:8:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:8:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:8:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:8:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:8:17:0x80:0x80
+
+
+### 9 High-Elf - male
+
+# 0 Warrior
+anim_pm:9:0:0x80:0x80
+
+# 1 Archer
+anim_pm:9:1:0x80:0x80
+
+# 2 Monk
+anim_pm:9:2:0x80:0x80
+
+# 3 Mage
+anim_pm:9:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:9:4:0x80:0x80
+
+# 5 Priest
+anim_pm:9:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:9:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:9:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:9:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:9:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:9:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:9:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:9:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:9:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:9:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:9:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:9:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:9:17:0x80:0x80
+
+
+### 10 Kobold - male
+
+# 0 Warrior
+anim_pm:10:0:0x80:0x80
+
+# 1 Archer
+anim_pm:10:1:0x80:0x80
+
+# 2 Monk
+anim_pm:10:2:0x80:0x80
+
+# 3 Mage
+anim_pm:10:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:10:4:0x80:0x80
+
+# 5 Priest
+anim_pm:10:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:10:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:10:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:10:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:10:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:10:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:10:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:10:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:10:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:10:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:10:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:10:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:10:17:0x80:0x80
+
+
+### 11 Yeek - male
+
+# 0 Warrior
+anim_pm:11:0:0x80:0x80
+
+# 1 Archer
+anim_pm:11:1:0x80:0x80
+
+# 2 Monk
+anim_pm:11:2:0x80:0x80
+
+# 3 Mage
+anim_pm:11:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:11:4:0x80:0x80
+
+# 5 Priest
+anim_pm:11:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:11:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:11:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:11:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:11:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:11:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:11:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:11:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:11:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:11:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:11:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:11:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:11:17:0x80:0x80
+
+
+### 12 Ent - male
+
+# 0 Warrior
+anim_pm:12:0:0x80:0x80
+
+# 1 Archer
+anim_pm:12:1:0x80:0x80
+
+# 2 Monk
+anim_pm:12:2:0x80:0x80
+
+# 3 Mage
+anim_pm:12:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:12:4:0x80:0x80
+
+# 5 Priest
+anim_pm:12:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:12:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:12:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:12:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:12:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:12:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:12:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:12:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:12:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:12:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:12:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:12:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:12:17:0x80:0x80
+
+
+### 13 Thunderlord - male
+
+# 0 Warrior
+anim_pm:13:0:0x80:0x80
+
+# 1 Archer
+anim_pm:13:1:0x80:0x80
+
+# 2 Monk
+anim_pm:13:2:0x80:0x80
+
+# 3 Mage
+anim_pm:13:3:0x80:0x80
+
+# 4 Shaman
+anim_pm:13:4:0x80:0x80
+
+# 5 Priest
+anim_pm:13:5:0x80:0x80
+
+# 6 Warlock
+anim_pm:13:6:0x80:0x80
+
+# 7 Paladin
+anim_pm:13:7:0x80:0x80
+
+# 8 Rogue
+anim_pm:13:8:0x80:0x80
+
+# 9 Ranger
+anim_pm:13:9:0x80:0x80
+
+# 10 Blackguard
+anim_pm:13:10:0x80:0x80
+
+# 11 Sorceror
+anim_pm:13:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pm:13:12:0x80:0x80
+
+# 13 Hunter
+anim_pm:13:13:0x80:0x80
+
+# 14 Telepath
+anim_pm:13:14:0x80:0x80
+
+# 15 Elementalist
+anim_pm:13:15:0x80:0x80
+
+# 16 Summoner
+anim_pm:13:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pm:13:17:0x80:0x80
+
+
+##### Remap the player female #####
+# anim_pf:race:class:attr:char
+
+
+### 0 Half-Troll - female
+
+# 0 Warrior
+anim_pf:0:0:0x80:0x80
+
+# 1 Archer
+anim_pf:0:1:0x80:0x80
+
+# 2 Monk
+anim_pf:0:2:0x80:0x80
+
+# 3 Mage
+anim_pf:0:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:0:4:0x80:0x80
+
+# 5 Priest
+anim_pf:0:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:0:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:0:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:0:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:0:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:0:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:0:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:0:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:0:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:0:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:0:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:0:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:0:17:0x80:0x80
+
+
+### 1 Human - female
+
+# 0 Warrior
+anim_pf:1:0:0x80:0x80
+
+# 1 Archer
+anim_pf:1:1:0x80:0x80
+
+# 2 Monk
+anim_pf:1:2:0x80:0x80
+
+# 3 Mage
+anim_pf:1:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:1:4:0x80:0x80
+
+# 5 Priest
+anim_pf:1:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:1:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:1:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:1:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:1:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:1:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:1:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:1:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:1:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:1:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:1:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:1:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:1:17:0x80:0x80
+
+
+### 2 Half-Elf - female
+
+# 0 Warrior
+anim_pf:2:0:0x80:0x80
+
+# 1 Archer
+anim_pf:2:1:0x80:0x80
+
+# 2 Monk
+anim_pf:2:2:0x80:0x80
+
+# 3 Mage
+anim_pf:2:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:2:4:0x80:0x80
+
+# 5 Priest
+anim_pf:2:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:2:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:2:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:2:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:2:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:2:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:2:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:2:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:2:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:2:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:2:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:2:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:2:17:0x80:0x80
+
+
+### 3 Elf - female
+
+# 0 Warrior
+anim_pf:3:0:0x80:0x80
+
+# 1 Archer
+anim_pf:3:1:0x80:0x80
+
+# 2 Monk
+anim_pf:3:2:0x80:0x80
+
+# 3 Mage
+anim_pf:3:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:3:4:0x80:0x80
+
+# 5 Priest
+anim_pf:3:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:3:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:3:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:3:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:3:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:3:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:3:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:3:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:3:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:3:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:3:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:3:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:3:17:0x80:0x80
+
+
+### 4 Halfling - female
+
+# 0 Warrior
+anim_pf:4:0:0x80:0x80
+
+# 1 Archer
+anim_pf:4:1:0x80:0x80
+
+# 2 Monk
+anim_pf:4:2:0x80:0x80
+
+# 3 Mage
+anim_pf:4:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:4:4:0x80:0x80
+
+# 5 Priest
+anim_pf:4:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:4:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:4:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:4:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:4:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:4:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:4:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:4:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:4:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:4:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:4:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:4:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:4:17:0x80:0x80
+
+
+### 5 Gnome - female
+
+# 0 Warrior
+anim_pf:5:0:0x80:0x80
+
+# 1 Archer
+anim_pf:5:1:0x80:0x80
+
+# 2 Monk
+anim_pf:5:2:0x80:0x80
+
+# 3 Mage
+anim_pf:5:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:5:4:0x80:0x80
+
+# 5 Priest
+anim_pf:5:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:5:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:5:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:5:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:5:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:5:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:5:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:5:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:5:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:5:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:5:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:5:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:5:17:0x80:0x80
+
+
+### 6 Dwarf - female
+
+# 0 Warrior
+anim_pf:6:0:0x80:0x80
+
+# 1 Archer
+anim_pf:6:1:0x80:0x80
+
+# 2 Monk
+anim_pf:6:2:0x80:0x80
+
+# 3 Mage
+anim_pf:6:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:6:4:0x80:0x80
+
+# 5 Priest
+anim_pf:6:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:6:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:6:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:6:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:6:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:6:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:6:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:6:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:6:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:6:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:6:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:6:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:6:17:0x80:0x80
+
+
+### 7 Half-Orc - female
+
+# 0 Warrior
+anim_pf:7:0:0x80:0x80
+
+# 1 Archer
+anim_pf:7:1:0x80:0x80
+
+# 2 Monk
+anim_pf:7:2:0x80:0x80
+
+# 3 Mage
+anim_pf:7:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:7:4:0x80:0x80
+
+# 5 Priest
+anim_pf:7:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:7:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:7:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:7:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:7:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:7:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:7:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:7:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:7:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:7:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:7:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:7:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:7:17:0x80:0x80
+
+
+### 8 Dunadan - female
+
+# 0 Warrior
+anim_pf:8:0:0x80:0x80
+
+# 1 Archer
+anim_pf:8:1:0x80:0x80
+
+# 2 Monk
+anim_pf:8:2:0x80:0x80
+
+# 3 Mage
+anim_pf:8:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:8:4:0x80:0x80
+
+# 5 Priest
+anim_pf:8:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:8:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:8:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:8:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:8:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:8:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:8:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:8:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:8:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:8:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:8:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:8:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:8:17:0x80:0x80
+
+
+### 9 High-Elf - female
+
+# 0 Warrior
+anim_pf:9:0:0x80:0x80
+
+# 1 Archer
+anim_pf:9:1:0x80:0x80
+
+# 2 Monk
+anim_pf:9:2:0x80:0x80
+
+# 3 Mage
+anim_pf:9:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:9:4:0x80:0x80
+
+# 5 Priest
+anim_pf:9:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:9:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:9:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:9:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:9:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:9:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:9:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:9:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:9:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:9:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:9:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:9:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:9:17:0x80:0x80
+
+
+### 10 Kobold - female
+
+# 0 Warrior
+anim_pf:10:0:0x80:0x80
+
+# 1 Archer
+anim_pf:10:1:0x80:0x80
+
+# 2 Monk
+anim_pf:10:2:0x80:0x80
+
+# 3 Mage
+anim_pf:10:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:10:4:0x80:0x80
+
+# 5 Priest
+anim_pf:10:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:10:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:10:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:10:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:10:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:10:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:10:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:10:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:10:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:10:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:10:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:10:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:10:17:0x80:0x80
+
+
+### 11 Yeek - female
+
+# 0 Warrior
+anim_pf:11:0:0x80:0x80
+
+# 1 Archer
+anim_pf:11:1:0x80:0x80
+
+# 2 Monk
+anim_pf:11:2:0x80:0x80
+
+# 3 Mage
+anim_pf:11:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:11:4:0x80:0x80
+
+# 5 Priest
+anim_pf:11:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:11:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:11:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:11:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:11:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:11:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:11:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:11:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:11:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:11:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:11:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:11:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:11:17:0x80:0x80
+
+
+### 12 Ent - female
+
+# 0 Warrior
+anim_pf:12:0:0x80:0x80
+
+# 1 Archer
+anim_pf:12:1:0x80:0x80
+
+# 2 Monk
+anim_pf:12:2:0x80:0x80
+
+# 3 Mage
+anim_pf:12:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:12:4:0x80:0x80
+
+# 5 Priest
+anim_pf:12:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:12:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:12:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:12:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:12:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:12:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:12:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:12:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:12:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:12:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:12:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:12:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:12:17:0x80:0x80
+
+
+### 13 Thunderlord - female
+
+# 0 Warrior
+anim_pf:13:0:0x80:0x80
+
+# 1 Archer
+anim_pf:13:1:0x80:0x80
+
+# 2 Monk
+anim_pf:13:2:0x80:0x80
+
+# 3 Mage
+anim_pf:13:3:0x80:0x80
+
+# 4 Shaman
+anim_pf:13:4:0x80:0x80
+
+# 5 Priest
+anim_pf:13:5:0x80:0x80
+
+# 6 Warlock
+anim_pf:13:6:0x80:0x80
+
+# 7 Paladin
+anim_pf:13:7:0x80:0x80
+
+# 8 Rogue
+anim_pf:13:8:0x80:0x80
+
+# 9 Ranger
+anim_pf:13:9:0x80:0x80
+
+# 10 Blackguard
+anim_pf:13:10:0x80:0x80
+
+# 11 Sorceror
+anim_pf:13:11:0x80:0x80
+
+# 12 Unbeliever
+anim_pf:13:12:0x80:0x80
+
+# 13 Hunter
+anim_pf:13:13:0x80:0x80
+
+# 14 Telepath
+anim_pf:13:14:0x80:0x80
+
+# 15 Elementalist
+anim_pf:13:15:0x80:0x80
+
+# 16 Summoner
+anim_pf:13:16:0x80:0x80
+
+# 17 Shapechanger
+anim_pf:13:17:0x80:0x80
+
+
+##### Animate characters/objects in the wilderness #####
+# w_obj:n:attr:char:anim_attr:anim_char
+
+### number of animate objects (0 - anim_w_obj_n)
+anim_w_obj_n:7
+
+# Sonya the cat
+w_obj:0:0x9E:0x84:0xA6:0xFC
+w_obj:1:0x9E:0x85:0xA6:0xFD
+w_obj:2:0x9E:0x86:0xA6:0xFE
+w_obj:3:0x9E:0x87:0xA6:0xFF
+
+# Shtukensia
+w_obj:4:0x9E:0x98:0x9E:0x94
+w_obj:5:0x9E:0x99:0x9E:0x95
+w_obj:6:0x9E:0x9A:0x9E:0x96
+w_obj:7:0x9E:0x9B:0x9E:0x97
+
+
+##### Animate characters/objects in dungeons #####
+# d_obj:n:attr:char:anim_attr:anim_char
+
+### number of animate objects (0 - anim_d_obj_n)
+anim_d_obj_n:0
+
+# name ...
+d_obj:0:0x80:0x80:0x80:0x80
