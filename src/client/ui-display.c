@@ -94,7 +94,7 @@ static game_event_type statusline_events[] =
 static int monwidth = -1;
 
 
-// Animate player //
+//// Animate player ////
 static uint16_t life_a; // doesn't animate the player as a number
 static uint16_t anim_ghost_a; // ghost 'a'
 static char anim_ghost_c; // ghost 'c'
@@ -104,16 +104,16 @@ static uint16_t anim_pm_a[128][128]; // remap the player male 'a'
 static char anim_pm_c[128][128]; // remap the player male 'c'
 static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
-static int anim_obj_n = 0; // number of animate objects
-static uint16_t s_obj_a[128]; // search objects 'a'
-static char s_obj_c[128]; // search objects 'c'
-static uint16_t anim_obj_a[128]; // animate objects 'a'
-static char anim_obj_c[128]; // animate objects 'c'
-static int anim_dungeons_obj_n = 0; // number of animate dungeons objects
-static uint16_t s_dungeons_obj_a[128]; // search dungeons objects 'a'
-static char s_dungeons_obj_c[128]; // search dungeons objects 'c'
-static uint16_t anim_dungeons_obj_a[128]; // animate dungeons objects 'a'
-static char anim_dungeons_obj_c[128]; // animate dungeons objects 'c'
+static int anim_w_obj_n = 0; // number of animate objects
+static uint16_t s_w_obj_a[128]; // search objects 'a'
+static char s_w_obj_c[128]; // search objects 'c'
+static uint16_t anim_w_obj_a[128]; // animate objects 'a'
+static char anim_w_obj_c[128]; // animate objects 'c'
+static int anim_d_obj_n = 0; // number of animate dungeons objects
+static uint16_t s_d_obj_a[128]; // search dungeons objects 'a'
+static char s_d_obj_c[128]; // search dungeons objects 'c'
+static uint16_t anim_d_obj_a[128]; // animate dungeons objects 'a'
+static char anim_d_obj_c[128]; // animate dungeons objects 'c'
 
 
 /*** Sidebar display functions ***/
@@ -2388,65 +2388,45 @@ static enum parser_error parse_prefs_anim_pf(struct parser *p)
 }
 
 
-static enum parser_error parse_prefs_anim_obj_n(struct parser *p)
+static enum parser_error parse_prefs_anim_w_obj_n(struct parser *p)
 {
-    anim_obj_n = parser_getint(p, "n");
+    anim_w_obj_n = parser_getint(p, "n");
 
     return PARSE_ERROR_NONE;
 }
 
 
-static enum parser_error parse_prefs_s_obj(struct parser *p)
+static enum parser_error parse_prefs_w_obj(struct parser *p)
 {
     int n;
 
     n = parser_getint(p, "n");
-    s_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    s_obj_c[n] = (char)parser_getint(p, "char");
+    s_w_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    s_w_obj_c[n] = (char)parser_getint(p, "char");
+    anim_w_obj_a[n] = (uint16_t)parser_getint(p, "anim_attr");
+    anim_w_obj_c[n] = (char)parser_getint(p, "anim_char");
 
     return PARSE_ERROR_NONE;
 }
 
 
-static enum parser_error parse_prefs_anim_obj(struct parser *p)
+static enum parser_error parse_prefs_anim_d_obj_n(struct parser *p)
+{
+    anim_d_obj_n = parser_getint(p, "n");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_d_obj(struct parser *p)
 {
     int n;
 
     n = parser_getint(p, "n");
-    anim_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    anim_obj_c[n] = (char)parser_getint(p, "char");
-
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_prefs_anim_dungeons_obj_n(struct parser *p)
-{
-    anim_dungeons_obj_n = parser_getint(p, "n");
-
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_prefs_s_dungeons_obj(struct parser *p)
-{
-    int n;
-
-    n = parser_getint(p, "n");
-    s_dungeons_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    s_dungeons_obj_c[n] = (char)parser_getint(p, "char");
-
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_prefs_anim_dungeons_obj(struct parser *p)
-{
-    int n;
-
-    n = parser_getint(p, "n");
-    anim_dungeons_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    anim_dungeons_obj_c[n] = (char)parser_getint(p, "char");
+    s_d_obj_a[n] = (uint16_t)parser_getint(p, "attr");
+    s_d_obj_c[n] = (char)parser_getint(p, "char");
+    anim_d_obj_a[n] = (uint16_t)parser_getint(p, "anim_attr");
+    anim_d_obj_c[n] = (char)parser_getint(p, "anim_char");
 
     return PARSE_ERROR_NONE;
 }
@@ -2461,12 +2441,10 @@ static struct parser *init_parse_animation(void)
     parser_reg(p, "anim_pr int ridx int attr int char", parse_prefs_anim_pr);
     parser_reg(p, "anim_pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
     parser_reg(p, "anim_pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
-    parser_reg(p, "anim_obj_n int n", parse_prefs_anim_obj_n);
-    parser_reg(p, "s_obj int n int attr int char", parse_prefs_s_obj);
-    parser_reg(p, "anim_obj int n int attr int char", parse_prefs_anim_obj);
-    parser_reg(p, "anim_dungeons_obj_n int n", parse_prefs_anim_dungeons_obj_n);
-    parser_reg(p, "s_dungeons_obj int n int attr int char", parse_prefs_s_dungeons_obj);
-    parser_reg(p, "anim_dungeons_obj int n int attr int char", parse_prefs_anim_dungeons_obj);
+    parser_reg(p, "anim_w_obj_n int n", parse_prefs_anim_w_obj_n);
+    parser_reg(p, "w_obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
+    parser_reg(p, "anim_d_obj_n int n", parse_prefs_anim_d_obj_n);
+    parser_reg(p, "d_obj int n int attr int char int anim_attr int anim_char", parse_prefs_d_obj);
 
     return p;
 }
@@ -2626,8 +2604,8 @@ void do_animate_player(void)
         {
             // Doesn't animate the player as a number if hp/mana is low
             if (a2 != life_a)
-            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
+                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                    ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
         }
     }
     else if (animation_frame == 1)
@@ -2641,8 +2619,8 @@ void do_animate_player(void)
         {
             // Doesn't animate the player as a number if hp/mana is low
             if (a2 != life_a)
-            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                    ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
         }
     }
 
@@ -2662,28 +2640,24 @@ void do_animate_player(void)
                     ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
 
                 // Search, number of animate objects
-                for (k = 0; k < anim_obj_n; k++)
+                for (k = 0; k < anim_w_obj_n; k++)
                 {
                     // If found then animate
-                    if (a2 == s_obj_a[k] && c2 == s_obj_c[k])
+                    if (a2 == s_w_obj_a[k] && c2 == s_w_obj_c[k])
                     {
                         if (animation_frame == 0)
                         {
                             // Display
                             if (use_graphics)
-                            {
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[k], &anim_obj_c[k], &ta, &tc));
-                            }
+                                    ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
                             if (use_graphics)
-                            {
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
-                            }
                         }
                         break;
                     }
@@ -2707,28 +2681,24 @@ void do_animate_player(void)
                     ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
 
                 // Search, number of animate objects
-                for (k = 0; k < anim_dungeons_obj_n; k++)
+                for (k = 0; k < anim_d_obj_n; k++)
                 {
                     // If found then animate
-                    if (a2 == s_dungeons_obj_a[k] && c2 == s_dungeons_obj_c[k])
+                    if (a2 == s_d_obj_a[k] && c2 == s_d_obj_c[k])
                     {
                         if (animation_frame == 0)
                         {
                             // Display
                             if (use_graphics)
-                            {
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_dungeons_obj_a[k], &anim_dungeons_obj_c[k], &ta, &tc));
-                            }
+                                    ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
                             if (use_graphics)
-                            {
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
-                            }
                         }
                         break;
                     }

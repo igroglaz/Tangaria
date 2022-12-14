@@ -17,7 +17,7 @@ anim_ghost:0x94:0x18
 
 
 ##### Player race #####
-# anim_pr[race]
+# anim_pr:race:attr:char
 
 # 0 Half-Troll
 anim_pr:0:0x8B:0xB0
@@ -195,7 +195,7 @@ anim_pr:57:0x80:0x80
 
 
 ##### Remap the player male #####
-# anim_pm[race][class]
+# anim_pm:race:class:attr:char
 
 
 ### 0 Half-Troll - male
@@ -997,7 +997,7 @@ anim_pm:13:17:0x80:0x80
 
 
 ##### Remap the player female #####
-# anim_pf[race][class]
+# anim_pf:race:class:attr:char
 
 
 ### 0 Half-Troll - female
@@ -1799,36 +1799,29 @@ anim_pf:13:17:0x80:0x80
 
 
 ##### Animate characters/objects in the wilderness #####
+# w_obj:n:attr:char:anim_attr:anim_char
 
-### number of animate objects (0 - anim_obj_n)
-anim_obj_n:7
+### number of animate objects (0 - anim_w_obj_n)
+anim_w_obj_n:7
 
 # Sonya the cat
-s_obj:0:0x9E:0x84
-anim_obj:0:0xA6:0xFC
-s_obj:1:0x9E:0x85
-anim_obj:1:0xA6:0xFD
-s_obj:2:0x9E:0x86
-anim_obj:2:0xA6:0xFE
-s_obj:3:0x9E:0x87
-anim_obj:3:0xA6:0xFF
+w_obj:0:0x9E:0x84:0xA6:0xFC
+w_obj:1:0x9E:0x85:0xA6:0xFD
+w_obj:2:0x9E:0x86:0xA6:0xFE
+w_obj:3:0x9E:0x87:0xA6:0xFF
 
 # Shtukensia
-s_obj:4:0x9E:0x98
-anim_obj:4:0x9E:0x94
-s_obj:5:0x9E:0x99
-anim_obj:5:0x9E:0x95
-s_obj:6:0x9E:0x9A
-anim_obj:6:0x9E:0x96
-s_obj:7:0x9E:0x9B
-anim_obj:7:0x9E:0x97
+w_obj:4:0x9E:0x98:0x9E:0x94
+w_obj:5:0x9E:0x99:0x9E:0x95
+w_obj:6:0x9E:0x9A:0x9E:0x96
+w_obj:7:0x9E:0x9B:0x9E:0x97
 
 
 ##### Animate characters/objects in dungeons #####
+# d_obj:n:attr:char:anim_attr:anim_char
 
-### number of animate objects (0 - anim_dungeons_obj_n)
-anim_dungeons_obj_n:0
+### number of animate objects (0 - anim_d_obj_n)
+anim_d_obj_n:0
 
-# name obj
-s_dungeons_obj:0:0x80:0x80
-anim_dungeons_obj:0:0x80:0x80
+# name ...
+d_obj:0:0x80:0x80:0x80:0x80
