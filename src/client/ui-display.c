@@ -2599,14 +2599,11 @@ void do_animate_player(void)
         Term_info(COL_MAP + x * tile_width, 
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
-        // Display
-        if (use_graphics)
-        {
-            // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != life_a)
-                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                    ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
-        }
+        // Doesn't animate the player as a number if hp/mana is low
+        if (a2 != life_a)
+            // Display
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
     }
     else if (animation_frame == 1)
     {
@@ -2614,14 +2611,11 @@ void do_animate_player(void)
         Term_info(COL_MAP + x * tile_width, 
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
-        // Display
-        if (use_graphics)
-        {
-            // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != life_a)
-                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                    ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-        }
+        // Doesn't animate the player as a number if hp/mana is low
+        if (a2 != life_a)
+            // Display
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
     }
 
     //// Animate characters/objects in the wilderness ////
@@ -2648,16 +2642,14 @@ void do_animate_player(void)
                         if (animation_frame == 0)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
                         }
                         break;
                     }
@@ -2689,16 +2681,14 @@ void do_animate_player(void)
                         if (animation_frame == 0)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
                         }
                         break;
                     }

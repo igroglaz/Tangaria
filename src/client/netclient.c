@@ -193,7 +193,7 @@ void do_keepalive(void)
         {
             animation_ticks = ticks;
 
-            //* Animate player *//
+            //* Animate player (graphics mode) *//
             if ((use_graphics) && (Setup.initialized))
                 do_animate_player();
         }
