@@ -9,10 +9,11 @@
 # 0x81 - anim_pr -> anim_pm/anim_pf
 
 # Doesn't animate the player as a number if hp/mana is low
-# line with numbers
+# life_a:attr (line with numbers)
 life_a:0x82
 
 # Ghost
+# anim_ghost:attr:char
 anim_ghost:0x94:0x18
 
 

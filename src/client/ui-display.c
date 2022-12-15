@@ -104,11 +104,11 @@ static uint16_t anim_pm_a[128][128]; // remap the player male 'a'
 static char anim_pm_c[128][128]; // remap the player male 'c'
 static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
-static int anim_w_obj_n = 0; // number of animate objects
-static uint16_t s_w_obj_a[128]; // search objects 'a'
-static char s_w_obj_c[128]; // search objects 'c'
-static uint16_t anim_w_obj_a[128]; // animate objects 'a'
-static char anim_w_obj_c[128]; // animate objects 'c'
+static int anim_w_obj_n = 0; // number of animate wilderness objects
+static uint16_t s_w_obj_a[128]; // search wilderness objects 'a'
+static char s_w_obj_c[128]; // search wilderness objects 'c'
+static uint16_t anim_w_obj_a[128]; // animate wilderness objects 'a'
+static char anim_w_obj_c[128]; // animate wilderness objects 'c'
 static int anim_d_obj_n = 0; // number of animate dungeons objects
 static uint16_t s_d_obj_a[128]; // search dungeons objects 'a'
 static char s_d_obj_c[128]; // search dungeons objects 'c'
@@ -2465,14 +2465,14 @@ static bool read_animation_file(void)
     if (use_graphics)
     {
         // Build the filename
-        path_build(buf, sizeof(buf), ANGBAND_DIR_TILES, mode->path);
-        path_build(dirpath, sizeof(dirpath), buf, "animation.prf");
+        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_TILES, mode->path);
+        path_build(buf, sizeof(buf), dirpath, "animation.prf");
     }
 
-    f = file_open(dirpath, MODE_READ, FTYPE_TEXT);
+    f = file_open(buf, MODE_READ, FTYPE_TEXT);
     if (!f)
     {
-        plog_fmt("Cannot open '%s'.", dirpath);
+        plog_fmt("Cannot open '%s'.", buf);
 
         // Signal failure to callers
         e = PARSE_ERROR_INTERNAL;
@@ -2489,7 +2489,7 @@ static bool read_animation_file(void)
             e = parser_parse(p, line);
             if (e != PARSE_ERROR_NONE)
             {
-                print_error_simple(dirpath, p);
+                print_error_simple(buf, p);
                 break;
             }
         }
@@ -2599,14 +2599,11 @@ void do_animate_player(void)
         Term_info(COL_MAP + x * tile_width, 
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
-        // Display
-        if (use_graphics)
-        {
-            // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != life_a)
-                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                    ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
-        }
+        // Doesn't animate the player as a number if hp/mana is low
+        if (a2 != life_a)
+            // Display
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
     }
     else if (animation_frame == 1)
     {
@@ -2614,14 +2611,11 @@ void do_animate_player(void)
         Term_info(COL_MAP + x * tile_width, 
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
-        // Display
-        if (use_graphics)
-        {
-            // Doesn't animate the player as a number if hp/mana is low
-            if (a2 != life_a)
-                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                    ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-        }
+        // Doesn't animate the player as a number if hp/mana is low
+        if (a2 != life_a)
+            // Display
+            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
     }
 
     //// Animate characters/objects in the wilderness ////
@@ -2648,16 +2642,14 @@ void do_animate_player(void)
                         if (animation_frame == 0)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
                         }
                         break;
                     }
@@ -2689,16 +2681,14 @@ void do_animate_player(void)
                         if (animation_frame == 0)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
                         }
                         else if (animation_frame == 1)
                         {
                             // Display
-                            if (use_graphics)
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
+                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
                         }
                         break;
                     }
