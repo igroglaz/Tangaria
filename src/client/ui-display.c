@@ -95,7 +95,7 @@ static int monwidth = -1;
 
 
 //// Animate player ////
-static uint16_t life_a; // doesn't animate the player as a number
+static uint16_t life_n; // doesn't animate the player as a number
 static uint16_t anim_ghost_a; // ghost 'a'
 static char anim_ghost_c; // ghost 'c'
 static uint16_t anim_pr_a[128]; // player race 'a'
@@ -104,6 +104,8 @@ static uint16_t anim_pm_a[128][128]; // remap the player male 'a'
 static char anim_pm_c[128][128]; // remap the player male 'c'
 static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
+static uint16_t anim_pn_a[128][128]; // remap the player neuter 'a'
+static char anim_pn_c[128][128]; // remap the player neuter 'c'
 static int anim_w_obj_n = 0; // number of animate wilderness objects
 static uint16_t s_w_obj_a[128]; // search wilderness objects 'a'
 static char s_w_obj_c[128]; // search wilderness objects 'c'
@@ -2331,9 +2333,9 @@ void do_weather(void)
 }
 
 
-static enum parser_error parse_prefs_life_a(struct parser *p)
+static enum parser_error parse_prefs_life_n(struct parser *p)
 {
-    life_a = (uint16_t)parser_getint(p, "attr");
+    life_n = (uint16_t)parser_getint(p, "attr");
 
     return PARSE_ERROR_NONE;
 }
@@ -2388,6 +2390,20 @@ static enum parser_error parse_prefs_anim_pf(struct parser *p)
 }
 
 
+static enum parser_error parse_prefs_anim_pn(struct parser *p)
+{
+    int ridx;
+    int cidx;
+
+    ridx = parser_getint(p, "ridx");
+    cidx = parser_getint(p, "cidx");
+    anim_pn_a[ridx][cidx] = (uint16_t)parser_getint(p, "attr");
+    anim_pn_c[ridx][cidx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static enum parser_error parse_prefs_anim_w_obj_n(struct parser *p)
 {
     anim_w_obj_n = parser_getint(p, "n");
@@ -2436,11 +2452,12 @@ static struct parser *init_parse_animation(void)
 {
     struct parser *p = parser_new();
 
-    parser_reg(p, "life_a int attr", parse_prefs_life_a);
+    parser_reg(p, "life_n int attr", parse_prefs_life_n);
     parser_reg(p, "anim_ghost int attr int char", parse_prefs_anim_ghost);
     parser_reg(p, "anim_pr int ridx int attr int char", parse_prefs_anim_pr);
     parser_reg(p, "anim_pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
     parser_reg(p, "anim_pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
+    parser_reg(p, "anim_pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
     parser_reg(p, "anim_w_obj_n int n", parse_prefs_anim_w_obj_n);
     parser_reg(p, "w_obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
     parser_reg(p, "anim_d_obj_n int n", parse_prefs_anim_d_obj_n);
@@ -2539,9 +2556,6 @@ void do_animate_player(void)
     x = player->grid.x - player->offset_grid.x;
     y = player->grid.y - player->offset_grid.y;
 
-    // 0x80 - doesn't animate player tile
-    // 0x81 - anim_pr -> anim_pm/anim_pf
-
     //// Player tile frame ////
     if (player->ghost)
     {
@@ -2554,6 +2568,8 @@ void do_animate_player(void)
         c = anim_pr_c[player->race->ridx];
     }
 
+    // 0x80 - doesn't animate player tile
+    // 0x81 - anim_pr -> anim_pm/anim_pf/anim_pn
     if (anim_pr_a[player->race->ridx] <= 0x80)
     {
         // default
@@ -2590,6 +2606,20 @@ void do_animate_player(void)
                 c = anim_pf_c[player->race->ridx][player->clazz->cidx];
             }
         }
+        else if (streq(player->sex->title, "Neuter"))
+        {
+            if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+            {
+                // default
+                a = player->scr_info[y + 1][x].a;
+                c = player->scr_info[y + 1][x].c;
+            }
+            else
+            {
+                a = anim_pn_a[player->race->ridx][player->clazz->cidx];
+                c = anim_pn_c[player->race->ridx][player->clazz->cidx];
+            }
+        }
     }
 
     //// Draw player ////
@@ -2600,7 +2630,7 @@ void do_animate_player(void)
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
         // Doesn't animate the player as a number if hp/mana is low
-        if (a2 != life_a)
+        if (a2 != life_n)
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
@@ -2612,7 +2642,7 @@ void do_animate_player(void)
             ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
 
         // Doesn't animate the player as a number if hp/mana is low
-        if (a2 != life_a)
+        if (a2 != life_n)
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
