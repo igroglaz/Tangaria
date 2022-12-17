@@ -106,12 +106,12 @@ static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
 static uint16_t anim_pn_a[128][128]; // remap the player neuter 'a'
 static char anim_pn_c[128][128]; // remap the player neuter 'c'
-static int anim_w_obj_n = 0; // number of animate wilderness objects
+static int anim_w_obj_n = 128; // number of wilderness objects
 static uint16_t s_w_obj_a[128]; // search wilderness objects 'a'
 static char s_w_obj_c[128]; // search wilderness objects 'c'
 static uint16_t anim_w_obj_a[128]; // animate wilderness objects 'a'
 static char anim_w_obj_c[128]; // animate wilderness objects 'c'
-static int anim_d_obj_n = 0; // number of animate dungeons objects
+static int anim_d_obj_n = 128; // number of dungeons objects
 static uint16_t s_d_obj_a[128]; // search dungeons objects 'a'
 static char s_d_obj_c[128]; // search dungeons objects 'c'
 static uint16_t anim_d_obj_a[128]; // animate dungeons objects 'a'
@@ -2404,14 +2404,6 @@ static enum parser_error parse_prefs_anim_pn(struct parser *p)
 }
 
 
-static enum parser_error parse_prefs_anim_w_obj_n(struct parser *p)
-{
-    anim_w_obj_n = parser_getint(p, "n");
-
-    return PARSE_ERROR_NONE;
-}
-
-
 static enum parser_error parse_prefs_w_obj(struct parser *p)
 {
     int n;
@@ -2421,14 +2413,6 @@ static enum parser_error parse_prefs_w_obj(struct parser *p)
     s_w_obj_c[n] = (char)parser_getint(p, "char");
     anim_w_obj_a[n] = (uint16_t)parser_getint(p, "anim_attr");
     anim_w_obj_c[n] = (char)parser_getint(p, "anim_char");
-
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_prefs_anim_d_obj_n(struct parser *p)
-{
-    anim_d_obj_n = parser_getint(p, "n");
 
     return PARSE_ERROR_NONE;
 }
@@ -2458,9 +2442,7 @@ static struct parser *init_parse_animation(void)
     parser_reg(p, "anim_pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
     parser_reg(p, "anim_pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
     parser_reg(p, "anim_pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
-    parser_reg(p, "anim_w_obj_n int n", parse_prefs_anim_w_obj_n);
     parser_reg(p, "w_obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
-    parser_reg(p, "anim_d_obj_n int n", parse_prefs_anim_d_obj_n);
     parser_reg(p, "d_obj int n int attr int char int anim_attr int anim_char", parse_prefs_d_obj);
 
     return p;
@@ -2656,7 +2638,7 @@ void do_animate_player(void)
         {
             for (j = x - 2; j < x + 3; j++)
             {
-                // Player
+                // Skip player
                 if (i == y && j == x) continue;
 
                 // Check characters
@@ -2666,6 +2648,9 @@ void do_animate_player(void)
                 // Search, number of animate objects
                 for (k = 0; k <= anim_w_obj_n; k++)
                 {
+                    // If '0' then stop
+                    if (s_w_obj_a[k] == 0 && s_w_obj_c[k] == '\x00') break;
+
                     // If found then animate
                     if (a2 == s_w_obj_a[k] && c2 == s_w_obj_c[k])
                     {
@@ -2695,7 +2680,7 @@ void do_animate_player(void)
         {
             for (j = x - 2; j < x + 3; j++)
             {
-                // Player
+                // Skip player
                 if (i == y && j == x) continue;
 
                 // Check characters
@@ -2705,6 +2690,9 @@ void do_animate_player(void)
                 // Search, number of animate objects
                 for (k = 0; k <= anim_d_obj_n; k++)
                 {
+                    // If '0' then stop
+                    if (s_d_obj_a[k] == 0 && s_d_obj_c[k] == '\x00') break;
+
                     // If found then animate
                     if (a2 == s_d_obj_a[k] && c2 == s_d_obj_c[k])
                     {

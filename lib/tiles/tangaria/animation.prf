@@ -1506,9 +1506,6 @@ anim_pn:13:17:0x80:0x80
 ##### Animate characters/objects in the wilderness #####
 # w_obj:n:attr:char:anim_attr:anim_char
 
-### number of animate objects (0 - anim_w_obj_n)
-anim_w_obj_n:7
-
 # Sonya the cat
 w_obj:0:0x9E:0x84:0xA6:0xFC
 w_obj:1:0x9E:0x85:0xA6:0xFD
@@ -1524,9 +1521,6 @@ w_obj:7:0x9E:0x9B:0x9E:0x97
 
 ##### Animate characters/objects in dungeons #####
 # d_obj:n:attr:char:anim_attr:anim_char
-
-### number of animate objects (0 - anim_d_obj_n)
-anim_d_obj_n:0
 
 # name ...
 d_obj:0:0x80:0x80:0x80:0x80
