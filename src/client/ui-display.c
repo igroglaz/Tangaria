@@ -2550,15 +2550,15 @@ void do_animate_player(void)
         c = anim_pr_c[player->race->ridx];
     }
 
-    // 0x80 - doesn't animate player tile
-    // 0x81 - anim_pr -> anim_pm/anim_pf/anim_pn
-    if (anim_pr_a[player->race->ridx] <= 0x80)
+    // anim_pr '0' - doesn't animate player tile
+    // anim_pr '0x80' -> anim_pm/anim_pf/anim_pn
+    if (anim_pr_a[player->race->ridx] == 0)
     {
         // default
         a = player->scr_info[y + 1][x].a;
         c = player->scr_info[y + 1][x].c;
     }
-    else if (anim_pr_a[player->race->ridx] == 0x81)
+    else if (anim_pr_a[player->race->ridx] == 0x80)
     {
         if (streq(player->sex->title, "Male"))
         {
