@@ -15,7 +15,7 @@ anim_ghost:0x94:0x18
 
 
 ##### Player race #####
-# anim_pr:0x80 -> anim_pm/anim_pf/anim_pn
+# anim_pr:race:0x80 -> anim_pm/anim_pf/anim_pn
 # anim_pr:race:attr:char
 
 # 0 Half-Troll
