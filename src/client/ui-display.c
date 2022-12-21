@@ -2436,14 +2436,14 @@ static struct parser *init_parse_animation(void)
 {
     struct parser *p = parser_new();
 
-    parser_reg(p, "life_n int attr", parse_prefs_life_n);
-    parser_reg(p, "anim_ghost int attr int char", parse_prefs_anim_ghost);
-    parser_reg(p, "anim_pr int ridx int attr int char", parse_prefs_anim_pr);
-    parser_reg(p, "anim_pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
-    parser_reg(p, "anim_pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
-    parser_reg(p, "anim_pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
-    parser_reg(p, "w_obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
-    parser_reg(p, "d_obj int n int attr int char int anim_attr int anim_char", parse_prefs_d_obj);
+    parser_reg(p, "life-n int attr", parse_prefs_life_n);
+    parser_reg(p, "anim-ghost int attr int char", parse_prefs_anim_ghost);
+    parser_reg(p, "anim-pr int ridx int attr int char", parse_prefs_anim_pr);
+    parser_reg(p, "anim-pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
+    parser_reg(p, "anim-pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
+    parser_reg(p, "anim-pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
+    parser_reg(p, "w-obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
+    parser_reg(p, "d-obj int n int attr int char int anim_attr int anim_char", parse_prefs_d_obj);
 
     return p;
 }
