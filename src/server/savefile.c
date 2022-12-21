@@ -515,12 +515,26 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
 
 
 /*
+ * Set filename to a new filename based on an existing filename, using
+ * the specified file extension. Make it shorter than the specified
+ * maximum length. Resulting filename doesn't usually exist yet.
+ */
+static void file_get_savefile(char *filename, size_t max, const char *base, const char *ext)
+{
+    int count = 0;
+
+    strnfmt(filename, max, "%s%u.%s", base, Rand_simple(1000000), ext);
+    while (file_exists(filename) && (count++ < 100))
+        strnfmt(filename, max, "%s%u%u.%s", base, Rand_simple(1000000), count, ext);
+}
+
+
+/*
  * Attempt to save the player in a savefile
  */
 bool save_player(struct player *p, bool panic)
 {
     ang_file *file;
-    int count = 0;
     char new_savefile[MSG_LEN];
     char old_savefile[MSG_LEN];
     bool character_saved = false;
@@ -544,21 +558,10 @@ bool save_player(struct player *p, bool panic)
     }
 
     /* New savefile */
-    strnfmt(old_savefile, sizeof(old_savefile), "%s%u.old", p->savefile, Rand_simple(1000000));
-    while (file_exists(old_savefile) && (count++ < 100))
-    {
-        strnfmt(old_savefile, sizeof(old_savefile), "%s%u%u.old", p->savefile,
-            Rand_simple(1000000), count);
-    }
-    count = 0;
+    file_get_savefile(old_savefile, sizeof(old_savefile), p->savefile, "old");
 
     /* Open the savefile */
-    strnfmt(new_savefile, sizeof(new_savefile), "%s%u.new", p->savefile, Rand_simple(1000000));
-    while (file_exists(new_savefile) && (count++ < 100))
-    {
-        strnfmt(new_savefile, sizeof(new_savefile), "%s%u%u.new", p->savefile,
-            Rand_simple(1000000), count);
-    }
+    file_get_savefile(new_savefile, sizeof(new_savefile), p->savefile, "new");
     file = file_open(new_savefile, MODE_WRITE, FTYPE_SAVE);
 
     if (file)
@@ -637,9 +640,9 @@ void save_dungeon_special(struct worldpos *wpos, bool town)
 bool save_server_info(bool panic)
 {
     ang_file *file;
-    int count = 0;
-    char new_savefile[MSG_LEN], new_name[MSG_LEN];
-    char old_savefile[MSG_LEN], old_name[MSG_LEN];
+    char new_savefile[MSG_LEN];
+    char old_savefile[MSG_LEN];
+    char filename[MSG_LEN];
     bool server_saved = false;
 
     /* Panic save is quick */
@@ -662,23 +665,11 @@ bool save_server_info(bool panic)
     }
 
     /* New savefile */
-    strnfmt(old_name, sizeof(old_name), "server%u.old", Rand_simple(1000000));
-    path_build(old_savefile, sizeof(old_savefile), ANGBAND_DIR_SAVE, old_name);
-    while (file_exists(old_savefile) && (count++ < 100))
-    {
-        strnfmt(old_name, sizeof(old_name), "server%u%u.old", Rand_simple(1000000), count);
-        path_build(old_savefile, sizeof(old_savefile), ANGBAND_DIR_SAVE, old_name);
-    }
-    count = 0;
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, "server");
+    file_get_savefile(old_savefile, sizeof(old_savefile), filename, "old");
 
     /* Open the savefile */
-    strnfmt(new_name, sizeof(new_name), "server%u.new", Rand_simple(1000000));
-    path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_SAVE, new_name);
-    while (file_exists(new_savefile) && (count++ < 100))
-    {
-        strnfmt(new_name, sizeof(new_name), "server%u%u.new", Rand_simple(1000000), count);
-        path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_SAVE, new_name);
-    }
+    file_get_savefile(new_savefile, sizeof(new_savefile), filename, "new");
     file = file_open(new_savefile, MODE_WRITE, FTYPE_SAVE);
 
     if (file)
@@ -726,9 +717,9 @@ bool save_server_info(bool panic)
 bool save_account_info(bool panic)
 {
     ang_file *file;
-    int count = 0;
-    char new_savefile[MSG_LEN], new_name[MSG_LEN];
-    char old_savefile[MSG_LEN], old_name[MSG_LEN];
+    char new_savefile[MSG_LEN];
+    char old_savefile[MSG_LEN];
+    char filename[MSG_LEN];
     bool account_saved = false;
 
     /* Panic save is quick */
@@ -751,23 +742,11 @@ bool save_account_info(bool panic)
     }
 
     /* New savefile */
-    strnfmt(old_name, sizeof(old_name), "players%u.old", Rand_simple(1000000));
-    path_build(old_savefile, sizeof(old_savefile), ANGBAND_DIR_SAVE, old_name);
-    while (file_exists(old_savefile) && (count++ < 100))
-    {
-        strnfmt(old_name, sizeof(old_name), "players%u%u.old", Rand_simple(1000000), count);
-        path_build(old_savefile, sizeof(old_savefile), ANGBAND_DIR_SAVE, old_name);
-    }
-    count = 0;
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, "players");
+    file_get_savefile(old_savefile, sizeof(old_savefile), filename, "old");
 
     /* Open the savefile */
-    strnfmt(new_name, sizeof(new_name), "players%u.new", Rand_simple(1000000));
-    path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_SAVE, new_name);
-    while (file_exists(new_savefile) && (count++ < 100))
-    {
-        strnfmt(new_name, sizeof(new_name), "players%u%u.new", Rand_simple(1000000), count);
-        path_build(new_savefile, sizeof(new_savefile), ANGBAND_DIR_SAVE, new_name);
-    }
+    file_get_savefile(new_savefile, sizeof(new_savefile), filename, "new");
     file = file_open(new_savefile, MODE_WRITE, FTYPE_SAVE);
 
     if (file)

@@ -442,12 +442,6 @@ static size_t FontBrowserFileCount = 0;
 static size_t FontBrowserFileAlloc = 0;
 
 /*
- * Array of the unabbreviated files to show for the current directory being
- * browsed by the 'Font Browser' panel
- */
-static char **FontBrowserFileEntries;
-
-/*
  * Current page (each with FONT_BROWSER_PAGE_ENTRIES) of files viewed
  * by the 'Font Browser' panel
  */
@@ -3759,78 +3753,98 @@ static void MoreDraw(sdl_Window *win)
     sdl_Button *button;
     int y = 20;
     graphics_mode *mode;
+    int tag;
 
     sdl_RECT(0, 0, win->width, win->height, &rc);
 
     /* Draw a nice box */
     sdl_DrawBox(win->surface, &rc, AltUnselColour, 5);
 
-    button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    sdl_WindowText(win, AltUnselColour, 20, y, "Selected Graphics:");
 
-    button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
+    mode = get_graphics_mode(SelectedGfx, false);
+    if (mode && mode->grafID)
+        sdl_WindowText(win, AltSelColour, 150, y, mode->menuname);
+    else
+        sdl_WindowText(win, AltSelColour, 150, y, "None");
 
-    button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-    button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
-    sdl_ButtonVisible(button, SelectedGfx? true: false);
-
-    if (SelectedGfx)
-    {
-        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile width is %d.", tile_width));
-        button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
-        sdl_ButtonMove(button, 150, y);
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
-        sdl_ButtonMove(button, 180, y);
-
-        y += 20;
-
-        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile height is %d.", tile_height));
-        button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
-        sdl_ButtonMove(button, 150, y);
-
-        button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
-        sdl_ButtonMove(button, 180, y);
-
-        y += 20;
-    }
-
-    button = sdl_ButtonBankGet(&win->buttons, MoreNiceGfx);
-    sdl_WindowText(win, AltUnselColour, 20, y, "Nice graphics is:");
-
-    sdl_ButtonMove(button, 150, y);
     y += 20;
 
-    /* Allow only in initial phase */
-    if (!Setup.initialized)
+    /* Only allow changes to the graphics mode in initial phase */
+    if (!Setup.initialized) sdl_WindowText(win, AltUnselColour, 20, y, "Available Graphics:");
+
+    mode = graphics_modes;
+    while (mode)
     {
-        sdl_WindowText(win, AltUnselColour, 20, y, "Selected Graphics:");
-
-        mode = get_graphics_mode(SelectedGfx, false);
-        if (mode && mode->grafID)
-            sdl_WindowText(win, AltSelColour, 150, y, mode->menuname);
-        else
-            sdl_WindowText(win, AltSelColour, 150, y, "None");
-
-        y += 20;
-
-        sdl_WindowText(win, AltUnselColour, 20, y, "Available Graphics:");
-
-        mode = graphics_modes;
-        while (mode)
+        if (mode->menuname[0])
         {
-            if (mode->menuname[0])
+            button = sdl_ButtonBankGet(&win->buttons, GfxButtons[mode->grafID]);
+            if (!Setup.initialized)
             {
-                button = sdl_ButtonBankGet(&win->buttons, GfxButtons[mode->grafID]);
                 sdl_ButtonMove(button, 150, y);
+                sdl_ButtonVisible(button, true);
                 y += 20;
             }
-            mode = mode->pNext;
+            else
+                sdl_ButtonVisible(button, false);
         }
+        mode = mode->pNext;
     }
+
+    sdl_WindowText(win, AltUnselColour, 20, y, "Nice graphics is:");
+    button = sdl_ButtonBankGet(&win->buttons, MoreNiceGfx);
+    tag = button->tag;
+    if (!Setup.initialized)
+    {
+        sdl_ButtonMove(button, 150, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+    {
+        sdl_ButtonVisible(button, false);
+        sdl_WindowText(win, AltSelColour, 150, y, (tag? "On": "Off"));
+    }
+    y += 20;
+
+    if (SelectedGfx)
+        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile width is %d.", tile_width));
+    button = sdl_ButtonBankGet(&win->buttons, MoreWidthMinus);
+    if (SelectedGfx && !tag && !Setup.initialized)
+    {
+        sdl_ButtonMove(button, 150, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+        sdl_ButtonVisible(button, false);
+    button = sdl_ButtonBankGet(&win->buttons, MoreWidthPlus);
+    if (SelectedGfx && !tag && !Setup.initialized)
+    {
+        sdl_ButtonMove(button, 180, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+        sdl_ButtonVisible(button, false);
+    if (SelectedGfx) y += 20;
+
+    if (SelectedGfx)
+        sdl_WindowText(win, AltUnselColour, 20, y, format("Tile height is %d.", tile_height));
+    button = sdl_ButtonBankGet(&win->buttons, MoreHeightMinus);
+    if (SelectedGfx && !tag && !Setup.initialized)
+    {
+        sdl_ButtonMove(button, 150, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+        sdl_ButtonVisible(button, false);
+    button = sdl_ButtonBankGet(&win->buttons, MoreHeightPlus);
+    if (SelectedGfx && !tag && !Setup.initialized)
+    {
+        sdl_ButtonMove(button, 180, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+        sdl_ButtonVisible(button, false);
+    if (SelectedGfx) y += 20;
 
     button = sdl_ButtonBankGet(&win->buttons, MoreFullscreen);
     sdl_WindowText(win, AltUnselColour, 20, y, "Fullscreen is:");
@@ -5919,10 +5933,6 @@ static void term_data_link_sdl(term_window *win)
 
     /* Use a "software" cursor */
     t->soft_cursor = true;
-
-    /* Erase with "white space" */
-    t->attr_blank = COLOUR_WHITE;
-    t->char_blank = ' ';
 
     /* Differentiate between BS/^h, Tab/^i, etc. */
     t->complex_input = true;

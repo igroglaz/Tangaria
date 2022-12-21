@@ -145,7 +145,7 @@ static struct
     {"K",               "Killer Beetles"},
     {"k",               "Kobolds"},
     {"L",               "Lichs"},
-    {".$|(!+x?><=~",    "Mimics"},
+    {"x$!?=~|(+><",     "Mimics"},
     {"m",               "Molds"},
     {",",               "Mushroom Patches"},
     {"n",               "Nagas"},

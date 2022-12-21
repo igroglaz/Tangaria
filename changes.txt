@@ -63,10 +63,10 @@ Angband 4.2.x:
 - SDL: make use of scalable fixed-width fonts in lib/fonts
 - Windows: allow "Enable nice graphics" to use all tile multipliers available
   in the menu
-
-MAngband 1.5.x:
-
--
+- Align store item's context menu keys with the command keys in the store
+- Better match store's in-game help description to the keys available
+- Have lurkers and trappers become noticeable in ASCII
+- Remove ctrl-c keymap
 
 PWMAngband:
 
@@ -89,6 +89,9 @@ PWMAngband:
   after detection until the player has finished looking around
 - Add a loading screen between character selection and MotD display
 - Allow to color portions of a message using {} tags
+- SDL: rearrange options menu like for the Win client and only allow changing
+  tile options during setup phase
+- SDL2: only allow changing tile options during setup phase
 
 Gameplay changes
 ----------------
@@ -105,6 +108,7 @@ Angband 4.2.x:
 - Factor in player trap immunity for failed attempts to disable chest traps
 - Broaden the possible grids for teleport destinations
 - Adjust calculation for holding summoned monsters
+- Don't deduct energy in move_player() when the player doesn't move
 
 PWMAngband:
 
@@ -148,6 +152,7 @@ Angband 4.2.x:
 - hit_trap(): interaction with disturb() and learning trap immunity rune
 - Check for resistance before issuing message about confusion from strong light
   or sound attacks
+- Fix incorrect scaling of monster hearing and smell
 
 PWMAngband:
 
@@ -259,6 +264,12 @@ Angband 4.2.x:
 - Tighten parsing in mon-init.c
 - Have expression_base_value_f functions return an int32_t to match declaration
 - Move more special cases hard coded in player-timed.c to player_timed.txt
+- z-virt: remove memory poisoning support
+- ui-term: remove attr_blank & char_blank
+- Tidy some monster-related parsing
+- SDL2: keep track of subwindow visibility in sdl2init.txt
+- When _WIN32 is set, use GetCurrentProcessId() to mutate the seed in
+  Rand_simple() and Rand_init()
 
 PWMAngband:
 
@@ -271,6 +282,7 @@ PWMAngband:
 - Don't display "Could not accept TCP Connection, socket error = 0" messages in
   the log
 - Rework account management
+- Add file_get_savefile() and port Rand_simple() from V
 
 Compilation/documentation
 -------------------------
@@ -295,3 +307,6 @@ Compilation/documentation
 - Extend comments in brand.txt and slay.txt
 - Add to the comments in monster_spell.txt
 - Extend comments in projection.txt
+- Remove stdint.h check
+- Avoid most of the "redundant declaration" warnings
+- Update documentation for keymaps

@@ -6256,18 +6256,67 @@ including your background, your inventory, and the contents of your houses.</dd>
 <!--  -->
 <dl class="docutils">
 <dt>Check knowledge (<tt class="docutils literal">~</tt>)</dt>
-<dd>This command allows you to ask about the knowledge possessed by your
-character. Currently, this includes being able to list all known
-&quot;artifacts&quot;, &quot;uniques&quot;, and &quot;objects&quot;. Normally, once an artifact is
-&quot;generated&quot;, and &quot;identified&quot;, it becomes &quot;known&quot; to the player.
-The &quot;uniques&quot; are special &quot;unique&quot; monsters which can only be killed once
-per game. Certain &quot;objects&quot; come in &quot;flavors&quot;, and you must determine
-the effect of each &quot;flavor&quot; once for each such type of object, and
-this command will allow you to display all &quot;known&quot; flavors. This command
-will also list all ego items discovered, all known monsters (and their powers
-and abilities), all terrain features, the top players (highscore list), all
-items worn by party members, the character history (in-game achievements),
-and all houses owned by the player.</dd>
+<dd><p class="first">This command allows you to ask about the knowledge possessed by your
+character. Information that you can look up is:</p>
+<dl class="last docutils">
+<dt>objects</dt>
+<dd>Will display which objects your character is familiar with. For each
+type of object, allows you to change whether or not it is ignored,
+the representation of that type on the screen, or the inscription
+automatically applied to all objects of that type. Some types of
+objects your character will be familiar with from the start of the game.
+Others come in &quot;flavors&quot;, and your character must determine the effect
+of each &quot;flavor&quot; once for each such type of object. For a type of object
+with a known &quot;flavor&quot;, you be also be able to display a summary of
+what the object can do.</dd>
+<dt>runes</dt>
+<dd>Will display the &quot;runes&quot;, properties of enchanted objects, your
+character is familiar with. Allows you to change the inscription that
+is automatically appended to an object that has the rune. Once your
+character identifies a &quot;rune&quot; on one object, he or she will recognize
+that property on other objects.</dd>
+<dt>artifacts</dt>
+<dd>Will display all artifacts that your character has encountered. Normally,
+once an artifact is &quot;generated&quot; and &quot;lost&quot;, it can never again be found,
+and will become &quot;known&quot; to the player. With &quot;preserve&quot; mode, an artifact
+can never be &quot;lost&quot; until it is &quot;known&quot; to the player. In either case,
+any &quot;known&quot; artifacts not in the possession of the player will never
+again be &quot;generated&quot;.</dd>
+<dt>ego items</dt>
+<dd>Will display the &quot;egos&quot; your character has encountered. Each &quot;ego&quot; is
+a collection of enchantments that can appear on an object. &quot;Egos&quot; are
+often restricted to only a few specific types of objects.</dd>
+<dt>monsters</dt>
+<dd>Displays the kinds of monsters your current or previous characters have
+encountered. For each kind of monster, allows you to change its
+representation on the screen. Some monsters are &quot;uniques&quot; which can be
+only be killed once per game. For a &quot;unique&quot; that your current or
+previous characters have encountered, this will display whether that
+&quot;unique&quot; is still alive in this game.</dd>
+<dt>features</dt>
+<dd>Displays the types of map grids that can appear in the game. For each
+type, allows you to change its representation on the screen and how
+that representation changes depending on the amount of light present.</dd>
+<dt>traps</dt>
+<dd>Displays the types of traps that can appear in the game. For each type,
+allows you to change its representation on the screen and how that
+representation changes depending on the amount of light present.</dd>
+<dt>hall of fame</dt>
+<dd>Displays a list of current and past characters, sorted by how far they
+progressed.</dd>
+<dt>character history</dt>
+<dd>Displays a summary of what your current character has done.</dd>
+<dt>known uniques</dt>
+<dd>Displays a summary of who killed which uniques in the game.</dd>
+<dt>party gear</dt>
+<dd>Displays the list of items equipped by party members.</dd>
+<dt>owned houses</dt>
+<dd>Displays the list of houses owned and their location.</dd>
+<dt>visited dungeons and towns</dt>
+<dd>Displays the list of dungeons and towns known to the player and their
+location.</dd>
+</dl>
+</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -7072,28 +7121,57 @@ ones are the most useful for you.</p>
 </div>
 <div class="section" id="keymaps">
 <h3><a class="toc-backref" href="#id176">3.7.5&nbsp;&nbsp;&nbsp;Keymaps</a></h3>
-<p>You can set up keymaps in PWMAngband, which allow you to map a single keypress
-to a series of keypresses. For example you might map the key F1 to &quot;maa&quot; (the
-keypresses to cast &quot;Magic Missile&quot; as a spellcaster). This can speed up access
-to commonly-used features.</p>
+<p>You can set up keymaps in PWAngband, which allow you to map a single keypress,
+the trigger, to a series of keypresses, the action. For example you might map
+the key F1 to &quot;maa&quot; (the keypresses to cast &quot;Magic Missile&quot; as a spellcaster).
+This can speed up access to commonly-used features. To bypass a keymap that's
+been assigned to a key, press <tt class="docutils literal">\</tt> before pressing the key.</p>
 <p>To set up keymaps, go to the options menu (<tt class="docutils literal">=</tt>) and select &quot;Edit keymaps&quot;
-(<tt class="docutils literal">k</tt>).</p>
-<p>Keymaps have two parts: the trigger key and the action. These are written where
-possible just as ordinary characters. However, if modifier keys (shift, control,
-etc.) are used then they are encoded as special characters within curly
-braces {}.</p>
-<p>Possible modifiers are:</p>
-<pre class="literal-block">
-K = Keypad (for numbers)
-M = Meta (Cmd-key on OS X, alt on most other platforms)
-^ = Control
-S = Shift
-</pre>
-<p>If the only modifier is the control key, the curly braces {} aren't included.
-For example:</p>
+(<tt class="docutils literal">e</tt>). There, you can check if a key triggers a keymap: select &quot;Query a
+keymap&quot; (<tt class="docutils literal">c</tt>) and then press the key to check. You can also remove an existing
+keymap: select &quot;Remove a keymap&quot; (<tt class="docutils literal">e</tt>) and then press the key that trigger the
+keymap to be removed. To add a new keymap (or overwrite an existing one), select
+&quot;Create a keymap&quot; (<tt class="docutils literal">d</tt>), it will then prompt you for the key that triggers the
+keymap. After pressing the trigger key, you'll be prompted for the keymap's
+action, the series of keypresses that'll be generated when the trigger key is
+pressed. If you make a mistake while entering the keypresses for the action,
+press <tt class="docutils literal"><span class="pre">Control-u</span></tt> to erase the keypresses already entered for the action. Once
+you've finished entering the keypresses for the action, press <tt class="docutils literal">=</tt> to end the
+sequence; you'll then be prompted for whether to keep the newly entered keymap.</p>
+<p>Within the action for a keymap, it is frequently useful to temporarily suppress
+-more- prompts since they can swallow keypresses from the keymap. To disable
+those prompts from within the action, include <tt class="docutils literal">(</tt>.  To reenable the prompts,
+include <tt class="docutils literal">)</tt>. So, a typical action where -more- prompts could happen would look
+like this: <tt class="docutils literal">(</tt> your keypresses here <tt class="docutils literal">)</tt>.</p>
+<p>The keypresses in the action will be interpreted relative to the keyset you are
+currently using (original or roguelike). The game will remember what keyset was
+in effect when the keymap was created. So if you change keysets, the keymaps
+which were only defined for the other keyset won't be visible. You can have two
+keymaps, one for the original keyset and another for the roguelike keyset, bound
+to the same trigger.</p>
+<p>Keymaps are not recursive. If you have F1 as the trigger for a keymap, including
+F1 as a keypress in the action for that or another keymap won't invoke that
+keymap.</p>
+<p>Any changes you make to keymaps from the options menu only last as long as the
+game is running. To have them affect future sessions, save the keymaps to a
+file. There's an option to do that from the menu for editing keymaps. See
+<a class="reference internal" href="#user-pref-files">User Pref Files</a> for how the name of the file affects whether the file is
+loaded when the game reloads your character.</p>
+<p>Note that the game accounts for the modifier keys (Shift, Control, Alt, Meta)
+that are pressed along with a key. On most platforms, the game also
+distinguishes between the keys on the numeric keypad that have equivalents on
+the main keyboard. When a keypress is displayed or saved to the preference file,
+the modifiers, if any, for the keypress are displayed by code letters (S for
+Shift, ^ for Control, A for Alt, M for Meta, and K for the numeric keypad)
+within curly braces prior to the keypress. There are two exceptions to that: if
+Control is the only modifier it will displayed as ^ before the keypress without
+any curly braces and if Shift is the only modifier it will often be folded into
+the keypress itself. For example:</p>
 <pre class="literal-block">
 {^S}&amp; = Control-Shift-&amp;
-^D    = Control-D
+{AK}0 = Alt-0 from the numeric keypad
+^d    = Control-d
+A     = Shift-a
 </pre>
 <p>Special keys, like F1, F2, or Tab, are all written within square brackets [].
 For example:</p>
@@ -7102,27 +7180,30 @@ For example:</p>
 {^S}[Tab] = Control-Shift-Tab
 </pre>
 <p>Special keys include [Escape].</p>
-<p>The game will run keymaps in whatever keyset you use (original or roguelike). So
-if you write keymaps for roguelike keys and switch to original keys, they may
-not work as you expect! Keymap actions aren't recursive either, so if you had a
-keymap whose trigger was F1, including F1 inside the action wouldn't run the
-keymap action again.</p>
-<p>Keymaps are written in pref files as:</p>
+<p>You may find it easier to edit the preference files directly to change a keymap.
+Keymaps are written in pref files as:</p>
 <pre class="literal-block">
-A:&lt;action&gt;
-C:&lt;type&gt;:&lt;trigger&gt;
+keymap-act:&lt;action&gt;
+keymap-input:&lt;type&gt;:&lt;trigger&gt;
 </pre>
 <p>The action must always come first, <tt class="docutils literal">`&lt;type&gt;`</tt> means 'keyset type', which is
 either 0 for the original keyset or 1 for the roguelike keyset. For example:</p>
 <pre class="literal-block">
-A:maa
-C:0:[F1]
+keymap-act:maa
+keymap-input:0:[F1]
 </pre>
-<p>PWMAngband uses a few built-in keymaps. These are for the movement keys (they
-are mapped to <tt class="docutils literal">;</tt> plus the number, e.g. <tt class="docutils literal">5</tt> -&gt; <tt class="docutils literal">;5</tt>), amongst others. You
-can see the full list in pref.prf but they shouldn't impact on you in any way.</p>
-<p>To avoid triggering a keymap for a given key, you can type the backslash (<tt class="docutils literal">\</tt>)
-command before pressing that key.</p>
+<p>An action can have more than one trigger bound to it by having more than
+one keymap-input line after it and before the next keymap-act line. One
+reason to do that would be to have the keymap work with either keyset. For
+example:</p>
+<pre class="literal-block">
+keymap-act:maa
+keymap-input:0:[F1]
+keymap-input:1:[F1]
+</pre>
+<p>Angband uses a few built-in keymaps. These are for the movement keys (they are
+mapped to <tt class="docutils literal">;</tt> plus the number, e.g. <tt class="docutils literal">5</tt> -&gt; <tt class="docutils literal">;5</tt>), amongst others. You can
+see the full list in pref.prf, but they shouldn't impact you in any way.</p>
 </div>
 <div class="section" id="colours">
 <h3><a class="toc-backref" href="#id177">3.7.6&nbsp;&nbsp;&nbsp;Colours</a></h3>
@@ -8286,9 +8367,10 @@ effects which can be produced at a distance by player or monsters, and
 affecting player, monsters, objects, and/or terrain. In particular, this
 file defines details of the effects of elemental attacks (such as fire or
 shards) and the effectiveness of corresponding player resistance. New
-projections have to be included in list-projections.h, and the code to
-implement their effects put in other source files - project-obj.c for
-effects on objects, and other similarly-named files.</dd>
+projections have to be either included in src/list-elements.h (for elemental
+attacks) or included in src/list-projections.h (for all other projections),
+and the code to implement their effects put in other source files -
+src/project-obj.c for effects on objects, and other similarly-named files.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">

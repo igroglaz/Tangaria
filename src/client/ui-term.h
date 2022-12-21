@@ -86,12 +86,6 @@ typedef struct _term_win
  *  - Flag "never_frosh"
  *    Never call the "TERM_XTRA_FROSH" action
  *
- *  - Value "attr_blank"
- *    Use this "attr" value for "blank" grids
- *
- *  - Value "char_blank"
- *    Use this "char" value for "blank" grids
- *
  *  - Flag "complex_input"
  *    Distinguish between Enter/^m/^j, Tab/^i, etc.
  *
@@ -149,8 +143,6 @@ typedef struct _term
     bool no_cursor;
     bool never_bored;
     bool never_frosh;
-    uint16_t attr_blank;
-    char char_blank;
     bool complex_input;
     ui_event *key_queue;
     uint16_t key_head;

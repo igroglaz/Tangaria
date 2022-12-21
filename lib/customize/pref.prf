@@ -400,10 +400,6 @@ keymap-input:0:[Delete]
 keymap-input:0:{K}[Delete]
 keymap-input:0:{MK}[Delete]
 
-# Hack -- End character
-keymap-act:Q
-keymap-input:0:^C
-
 # Hack -- Swap equipment
 keymap-act:w0
 keymap-input:0:x
@@ -512,10 +508,6 @@ keymap-act:+8
 keymap-input:1:^K
 keymap-act:+9
 keymap-input:1:^U
-
-# Hack -- End character
-keymap-act:Q
-keymap-input:1:^C
 
 # Message colors
 %:message.prf

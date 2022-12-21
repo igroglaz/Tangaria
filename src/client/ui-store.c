@@ -294,6 +294,7 @@ static void store_display_help(struct store_context *ctx)
 {
     struct store *store = ctx->store;
     bool is_home = ((store->type == STORE_HOME)? true: false);
+    bool player_shop = ((store->type == STORE_PLAYER)? true: false);
     int help_loc_y = ctx->scr_places_y[LOC_HELP_PROMPT];
     int help_loc_x = 1;
     unsigned int y;
@@ -302,17 +303,21 @@ static void store_display_help(struct store_context *ctx)
     for (y = ctx->scr_places_y[LOC_HELP_CLEAR]; y < ctx->scr_places_y[LOC_HELP_PROMPT]; y++)
         Term_erase(0, y, 255);
 
-    /* Display help */
+    /* Display help (line 1) */
     if (OPT(player, rogue_like_commands))
         text_out_c(COLOUR_L_GREEN, "x", help_loc_y, &help_loc_x);
     else
         text_out_c(COLOUR_L_GREEN, "l", help_loc_y, &help_loc_x);
     text_out(" examines and ", help_loc_y, &help_loc_x);
     text_out_c(COLOUR_L_GREEN, "p", help_loc_y, &help_loc_x);
+    text_out(" (or ", help_loc_y, &help_loc_x);
+    text_out_c(COLOUR_L_GREEN, "g", help_loc_y, &help_loc_x);
+    text_out(")", help_loc_y, &help_loc_x);
     if (is_home)
-        text_out(" picks up the selected item.", help_loc_y, &help_loc_x);
+        text_out(" picks up", help_loc_y, &help_loc_x);
     else
-        text_out(" purchases the selected item.", help_loc_y, &help_loc_x);
+        text_out(" purchases", help_loc_y, &help_loc_x);
+    text_out(" an item.", help_loc_y, &help_loc_x);
     if (store->type == STORE_XBM)
     {
         text_out(" ", help_loc_y, &help_loc_x);
@@ -320,25 +325,46 @@ static void store_display_help(struct store_context *ctx)
         text_out(" orders an item.", help_loc_y, &help_loc_x);
     }
     text_end(&help_loc_y, &help_loc_x);
-    text_out_c(COLOUR_L_GREEN, "s", help_loc_y, &help_loc_x);
-    if (OPT(player, birth_no_selling))
+
+    /* Display help (line 2) */
+    if (player_shop)
     {
-        text_out(" gives an item to the store in return for its identification. Some wands",
-            help_loc_y, &help_loc_x);
-        text_end(&help_loc_y, &help_loc_x);
-        text_out("and staves will also be recharged. ", help_loc_y, &help_loc_x);
         text_out_c(COLOUR_L_GREEN, "ESC", help_loc_y, &help_loc_x);
         text_out(" exits the building.", help_loc_y, &help_loc_x);
+
+        /* Empty line (line 3) */
+        text_end(&help_loc_y, &help_loc_x);
     }
     else
     {
-        if (is_home)
-            text_out(" drops an item from your inventory. ", help_loc_y, &help_loc_x);
+        text_out_c(COLOUR_L_GREEN, "d", help_loc_y, &help_loc_x);
+        text_out(" (or ", help_loc_y, &help_loc_x);
+        text_out_c(COLOUR_L_GREEN, "s", help_loc_y, &help_loc_x);
+        text_out(")", help_loc_y, &help_loc_x);
+        if (OPT(player, birth_no_selling) && !is_home)
+        {
+            text_out(" gives an item to the store in return for its identification.",
+                help_loc_y, &help_loc_x);
+            text_end(&help_loc_y, &help_loc_x);
+
+            /* Display help (line 3) */
+            text_out("Some wands and staves will also be recharged. ", help_loc_y, &help_loc_x);
+            text_out_c(COLOUR_L_GREEN, "ESC", help_loc_y, &help_loc_x);
+            text_out(" exits the building.", help_loc_y, &help_loc_x);
+        }
         else
-            text_out(" sells an item from your inventory. ", help_loc_y, &help_loc_x);
-        text_out_c(COLOUR_L_GREEN, "ESC", help_loc_y, &help_loc_x);
-        text_out(" exits the building.", help_loc_y, &help_loc_x);
-        text_end(&help_loc_y, &help_loc_x);
+        {
+            if (is_home)
+                text_out(" drops", help_loc_y, &help_loc_x);
+            else
+                text_out(" sells", help_loc_y, &help_loc_x);
+            text_out(" an item from your inventory. ", help_loc_y, &help_loc_x);
+            text_out_c(COLOUR_L_GREEN, "ESC", help_loc_y, &help_loc_x);
+            text_out(" exits the building.", help_loc_y, &help_loc_x);
+
+            /* Empty line (line 3) */
+            text_end(&help_loc_y, &help_loc_x);
+        }
     }
     text_end(&help_loc_y, &help_loc_x);
 }
@@ -657,6 +683,21 @@ enum
 };
 
 
+/* Make 'g' a synonym of 'p' for an item's context menu in the store. */
+static bool handle_g_context_store_item(struct menu *menu, const ui_event *event, int oid)
+{
+    if (event->type == EVT_KBRD && event->key.code == 'g')
+    {
+        ui_event mod_event, out_event;
+
+        mod_event = *event;
+        mod_event.key.code = 'p';
+        return menu_handle_keypress(menu, &mod_event, &out_event);
+    }
+    return false;
+}
+
+
 /*
  * Pick the context menu options appropriate for an item available in a store
  */
@@ -665,6 +706,7 @@ static void context_menu_store_item(struct store_context *ctx, const int oid)
     struct store *store = ctx->store;
     bool home = (store->type == STORE_HOME)? true: false;
     struct menu *m = menu_dynamic_new();
+    menu_iter mod_iter;
     int selected;
     char *labels;
     char header[120];
@@ -674,9 +716,16 @@ static void context_menu_store_item(struct store_context *ctx, const int oid)
     labels = string_make(lower_case);
     m->selections = labels;
 
-    menu_dynamic_add_label(m, "Examine", 'x', ACT_EXAMINE, labels);
+    menu_dynamic_add_label(m, "Examine", (OPT(player, rogue_like_commands)? 'x': 'l'), ACT_EXAMINE,
+        labels);
     menu_dynamic_add_label(m, "Describe", 'D', ACT_DESCRIBE, labels);
-    menu_dynamic_add_label(m, home? "Take": "Buy", 'd', ACT_BUY, labels);
+    menu_dynamic_add_label(m, home? "Take": "Buy", 'p', ACT_BUY, labels);
+
+    /* Hack -- 'g' acts like 'p' (as it does when there isn't a selected item) */
+    mod_iter = *m->row_funcs;
+    mod_iter.row_handler = handle_g_context_store_item;
+    m->row_funcs = &mod_iter;
+    m->switch_keys = "g";
 
     menu_dynamic_calc_location(m);
 

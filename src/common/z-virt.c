@@ -21,16 +21,6 @@
 #include "angband.h"
 
 
-#ifdef DEBUG_MODE
-unsigned int mem_flags = MEM_POISON_ALLOC | MEM_POISON_FREE;
-#else
-unsigned int mem_flags = 0;
-#endif
-
-
-#define SZ(uptr)    *((size_t *)((char *)(uptr) - sizeof(size_t)))
-
-
 /*
  * Allocate `len` bytes of memory
  *
@@ -42,18 +32,13 @@ unsigned int mem_flags = 0;
  */
 void *mem_alloc(size_t len)
 {
-    char *mem;
+    void *p;
 
-    /* Allow allocation of "zero bytes" */
-    if (len == 0) return (NULL);
+    if (!len) return NULL;
+    p = malloc(len);
+    if (!p) quit("Out of Memory!");
 
-    mem = malloc(len + sizeof(size_t));
-    if (!mem) quit("Out of Memory!");
-    mem += sizeof(size_t);
-    if (mem_flags & MEM_POISON_ALLOC) memset(mem, 0xCC, len);
-    SZ(mem) = len;
-
-    return mem;
+    return p;
 }
 
 
@@ -68,28 +53,16 @@ void* mem_zalloc(size_t len)
 
 void mem_free(void *p)
 {
-    if (!p) return;
-
-    if (mem_flags & MEM_POISON_FREE) memset(p, 0xCD, SZ(p));
-    free((char *)p - sizeof(size_t));
+    free(p);
 }      
 
 
 void *mem_realloc(void *p, size_t len)
 {
-    char *m = p;
-
-    /* Fail gracefully */
-    if (len == 0) return (NULL);
-
-    m = realloc(m ? m - sizeof(size_t) : NULL, len + sizeof(size_t));
-    m += sizeof(size_t);
-
-    /* Handle OOM */
-    if (!m) quit("Out of Memory!");
-    SZ(m) = len;
-
-    return m;
+    if (!len) return NULL;
+    p = realloc(p, len);
+    if (!p) quit("Out of Memory!");
+    return p;
 }
 
 

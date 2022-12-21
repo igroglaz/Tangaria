@@ -21,6 +21,9 @@
 
 
 #include "angband.h"
+#ifdef _WIN32
+#include <windows.h> /* GetCurrentProcessId() */
+#endif
 
 
 /*
@@ -144,6 +147,11 @@ void Rand_init(void)
 
         /* Basic seed */
         seed = (time(NULL));
+
+#if defined(_WIN32)
+		/* Mutate the seed */
+		seed = ((seed >> 3) * (GetCurrentProcessId() << 1));
+#endif
 
         /* Use the complex RNG */
         Rand_quick = false;
@@ -364,51 +372,21 @@ int Rand_sample(int mean, int upper, int lower, int stand_u, int stand_l)
 
 
 /*
- * Extract a "random" number from 0 to m - 1, using the "simple" RNG.
- *
- * This function should be used when generating random numbers in
- * "external" program parts like the main-*.c files.  It preserves
- * the current RNG state to prevent influences on game-play.
+ * Another simple RNG that does not use any of the above state
+ * (so can be used without disturbing the game's RNG state)
  */
 uint32_t Rand_simple(uint32_t m)
 {
-    static bool initialized = false;
-    static uint32_t simple_rand_value;
-    bool old_rand_quick;
-    uint32_t old_rand_value;
-    uint32_t result;
+    static time_t seed;
+    time_t v = time(NULL);
 
-    /* Save RNG state */
-    old_rand_quick = Rand_quick;
-    old_rand_value = Rand_value;
+#if defined(_WIN32)
+    seed = LCRNG(seed % m) + ((v << 16) ^ v ^ GetCurrentProcessId());
+#else
+    seed = LCRNG(seed % m) + ((v << 16) ^ v);
+#endif
 
-    /* Use "simple" RNG */
-    Rand_quick = true;
-
-    if (initialized)
-    {
-        /* Use stored seed */
-        Rand_value = simple_rand_value;
-    }
-    else
-    {
-        /* Initialize with new seed */
-        Rand_value = time(NULL);
-        initialized = true;
-    }
-
-    /* Get a random number */
-    result = randint0(m);
-
-    /* Store the new seed */
-    simple_rand_value = Rand_value;
-
-    /* Restore RNG state */
-    Rand_quick = old_rand_quick;
-    Rand_value = old_rand_value;
-
-    /* Use the value */
-    return (result);
+    return (seed % m);
 }
 
 

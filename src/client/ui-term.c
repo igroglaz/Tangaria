@@ -811,7 +811,7 @@ static void Term_fresh_row_both(int y, int x1, int x2)
     int fx = 0;
 
     /* Pending attr */
-    uint16_t fa = Term->attr_blank;
+    uint16_t fa = COLOUR_WHITE;
 
     uint16_t oa;
     char oc;
@@ -949,7 +949,7 @@ static void Term_fresh_row_text(int y, int x1, int x2)
     int fx = 0;
 
     /* Pending attr */
-    uint16_t fa = Term->attr_blank;
+    uint16_t fa = COLOUR_WHITE;
 
     uint16_t oa;
     char oc;
@@ -1098,12 +1098,10 @@ static void Term_fresh_row_text(int y, int x1, int x2)
  * high-bit set) to be sent (one pair at a time) to the "Term->pict_hook"
  * hook, which can draw these pairs in whatever way it would like.
  *
- * Normally, the "Term_wipe()" function is used only to display "blanks"
- * that were induced by "Term_clear()" or "Term_erase()", and then only
- * if the "attr_blank" and "char_blank" fields have not been redefined
- * to use "white space" instead of the default "black space".  Actually,
- * the "Term_wipe()" function is used to display all "black" text, such
- * as the default "spaces" created by "Term_clear()" and "Term_erase()".
+ * Normally, the "Term_wipe()" function is used only to display "blanks" that
+ * were induced by "Term_clear()" or "Term_erase()". Actually, the
+ * "Term_wipe()" function is used to display all "black" text, such as the
+ * default "spaces" created by "Term_clear()" and "Term_erase()".
  *
  * Note that the "Term->always_text" flag will disable the use of the
  * "Term_wipe()" function hook entirely, and force all text, even text
@@ -1113,10 +1111,6 @@ static void Term_fresh_row_text(int y, int x1, int x2)
  * Note that the "Term->always_pict" flag will disable the use of the
  * "Term_wipe()" function entirely, and force everything, even text
  * drawn in the attr "black", to be explicitly drawn.
- *
- * Note that if no "black" text is ever drawn, and if "attr_blank" is
- * not "zero", then the "Term_wipe" hook will never be used, even if
- * the "Term->always_text" flag is not set.
  *
  * This function does nothing unless the "Term" is "mapped", which allows
  * certain systems to optimize the handling of "closed" windows.
@@ -1176,9 +1170,6 @@ errr Term_fresh(void)
     /* Handle "total erase" */
     if (Term->total_erase)
     {
-        uint16_t na = Term->attr_blank;
-        char nc = Term->char_blank;
-
         /* Physically erase the entire window */
         Term_xtra(TERM_XTRA_CLEAR, 0);
 
@@ -1199,11 +1190,11 @@ errr Term_fresh(void)
             for (x = 0; x < w; x++)
             {
                 /* Wipe each grid */
-                *aa++ = na;
-                *cc++ = nc;
+                *aa++ = COLOUR_WHITE;
+                *cc++ = ' ';
 
-                *taa++ = na;
-                *tcc++ = nc;
+                *taa++ = COLOUR_WHITE;
+                *tcc++ = ' ';
             }
         }
 
@@ -1780,9 +1771,6 @@ static errr Term_erase_aux(int x, int y, int n, bool check_icky)
     int x1 = -1;
     int x2 = -1;
 
-    uint16_t na = Term->attr_blank;
-    char nc = Term->char_blank;
-
     uint16_t *scr_aa;
     char *scr_cc;
 
@@ -1831,11 +1819,11 @@ static errr Term_erase_aux(int x, int y, int n, bool check_icky)
             char oc = scr_cc[x];
 
             /* Hack -- ignore "non-changes" */
-            if ((oa == na) && (oc == nc)) continue;
+            if ((oa == COLOUR_WHITE) && (oc == ' ')) continue;
 
             /* Save the "literal" information */
-            scr_aa[x] = na;
-            scr_cc[x] = nc;
+            scr_aa[x] = COLOUR_WHITE;
+            scr_cc[x] = ' ';
 
             scr_taa[x] = 0;
             scr_tcc[x] = 0;
@@ -1895,9 +1883,6 @@ errr Term_clear(void)
     int w = Term->wid;
     int h = Term->hgt;
 
-    uint16_t na = Term->attr_blank;
-    char nc = Term->char_blank;
-
     /* Cursor usable */
     Term->scr->cu = 0;
 
@@ -1916,11 +1901,11 @@ errr Term_clear(void)
         for (x = 0; x < w; x++)
         {
             /* Wipe each grid */
-            *scr_aa++ = na;
-            *scr_cc++ = nc;
+            *scr_aa++ = COLOUR_WHITE;
+            *scr_cc++ = ' ';
 
-            *scr_taa++ = na;
-            *scr_tcc++ = nc;
+            *scr_taa++ = COLOUR_WHITE;
+            *scr_tcc++ = ' ';
         }
     }
 
@@ -2129,7 +2114,7 @@ errr Term_info(int x, int y, uint16_t *a, char *c, uint16_t *ta, char *tc)
     /* Get background tile info */
     *ta = Term->scr->ta[y][x];
     *tc = Term->scr->tc[y][x];
-    if ((*ta == Term->attr_blank) && (*tc == Term->char_blank))
+    if ((*ta == COLOUR_WHITE) && (*tc == ' '))
     {
         *ta = Term->old->ta[y][x];
         *tc = Term->old->tc[y][x];
@@ -2139,7 +2124,7 @@ errr Term_info(int x, int y, uint16_t *a, char *c, uint16_t *ta, char *tc)
     /* Get foreground tile info */
     *a = Term->scr->a[y][x];
     *c = Term->scr->c[y][x];
-    if ((*a == Term->attr_blank) && (*c == Term->char_blank))
+    if ((*a == COLOUR_WHITE) && (*c == ' '))
     {
         *a = Term->old->a[y][x];
         *c = Term->old->c[y][x];
@@ -2820,10 +2805,6 @@ errr term_init(term *t, int w, int h, int hmax, int k)
 
     /* Force "total erase" */
     t->total_erase = true;
-
-    /* Default "blank" */
-    t->attr_blank = 0;
-    t->char_blank = ' ';
 
     /* No saves yet */
     t->saved = 0;

@@ -2426,10 +2426,6 @@ static void term_data_link(term_data *td)
     /* Use "Term_pict" for "graphic" data */
     t->higher_pict = true;
 
-    /* Erase with "white space" */
-    t->attr_blank = COLOUR_WHITE;
-    t->char_blank = ' ';
-
     /* Differentiate between BS/^h, Tab/^i, etc. */
     t->complex_input = true;
 

@@ -257,8 +257,8 @@ static void html_screenshot(const char *path, int mode, term *other_term)
             }
             else
             {
-                a = main_term->attr_blank;
-                c = main_term->char_blank;
+                a = COLOUR_WHITE;
+                c = ' ';
             }
 
             /* Set the foreground and background */

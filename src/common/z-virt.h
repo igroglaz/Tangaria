@@ -24,12 +24,4 @@ extern void mem_nfree(void **p, size_t len);
 /* Free a bidimentional array of length "len" with its variable lengths "plen" */
 extern void strings_free(const char ***p, uint32_t *plen, size_t len);
 
-enum
-{
-    MEM_POISON_ALLOC = 0x00000001,
-    MEM_POISON_FREE  = 0x00000002
-};
-
-extern unsigned int mem_flags;
-
 #endif

@@ -631,7 +631,6 @@ static bool get_move_advance(struct player *p, struct chunk *c, struct monster *
                 if (dam < mon->hp)
                 {
                     mon->damhp = dam;
-                    mon->damaging = true;
                     loc_copy(&mon->target.grid, &target);
                     *track = true;
                     return true;
@@ -1202,7 +1201,7 @@ static bool get_move(struct source *who, struct chunk *c, struct monster *mon, i
         bool group_ai = (rf_has(mon->race->flags, RF_GROUP_AI) && !monster_passes_walls(mon->race));
 
         /* Monster is taking damage from terrain (unless voluntarily walking on damaging terrain) */
-        if (monster_taking_terrain_damage(c, mon) && !mon->damaging)
+        if (monster_taking_terrain_damage(c, mon) && !mon->damhp)
         {
             /* Try to find safe place */
             if (get_move_find_safety(who->player, c, mon))
@@ -1534,7 +1533,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     if (square_isplayer(c, grid) || square_isdecoyed(c, grid)) return true;
 
     /* Dangerous terrain in the way (unless voluntarily walking on damaging terrain) */
-    if (!confused && monster_hates_grid(c, mon, grid) && !mon->damaging) return false;
+    if (!confused && monster_hates_grid(c, mon, grid) && !mon->damhp) return false;
 
     /* Safe floor */
     if (square_issafefloor(c, grid)) return false;
@@ -2973,6 +2972,9 @@ void process_monsters(struct chunk *c, bool more_energy)
 
             /* The monster takes its turn */
             monster_turn(who, c, mon, target_m_dis);
+
+            /* For symmetry with the player, monster can take terrain damage after its turn. */
+            monster_take_terrain_damage(c, mon);
         }
     }
 
@@ -3019,13 +3021,9 @@ void reset_monsters(struct chunk *c)
         /* Skip dead monsters */
         if (!mon->race) continue;
 
-        /* Dungeon hurts monsters */
-        monster_take_terrain_damage(c, mon);
-
         /* Monster is ready to go again */
         mflag_off(mon->mflag, MFLAG_HANDLED);
-        mon->damhp = 0;
-        if (mon->damaging && !monster_hates_grid(c, mon, &mon->grid)) mon->damaging = false;
+        if (mon->damhp && !monster_hates_grid(c, mon, &mon->grid)) mon->damhp = 0;
     }
 }
 

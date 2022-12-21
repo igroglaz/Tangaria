@@ -1719,7 +1719,7 @@ void monster_take_terrain_damage(struct chunk *c, struct monster *mon)
     if (monster_hates_grid(c, mon, &mon->grid))
     {
         int note_dies = MON_MSG_DIE;
-        int dam = mon->damaging? mon->damhp: 100 + randint1(100);
+        int dam = mon->damhp? mon->damhp: 100 + randint1(100);
 
         if (!dam) return;
 
