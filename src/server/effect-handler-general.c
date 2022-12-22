@@ -4236,7 +4236,6 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     // NOURISH:DEC_BY
     else if ((context->subtype == 1) || (context->subtype == 5))
         player_dec_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false);
-    }
     /* Set food level to amount, vomiting if necessary */
     // NOURISH:SET_TO
     else if (context->subtype == 2)
