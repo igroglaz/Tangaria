@@ -4047,7 +4047,7 @@ bool effect_handler_MAP_WILD(effect_handler_context_t *context)
     int x, y;
     struct worldpos wpos;
     char buf[NORMAL_WID];
-    struct loc begin, end;
+    struct loc begin, end, grid;
     struct loc_iterator iter;
 
     int max_radius = radius_wild - 1;
@@ -4062,6 +4062,7 @@ bool effect_handler_MAP_WILD(effect_handler_context_t *context)
     /* Pick an area to map */
     y = randint0(2 * max_radius + 1) - max_radius;
     x = randint0(2 * max_radius + 1) - max_radius;
+    loc_init(&grid, x, y);
 
     loc_init(&begin, x - 1, y - 1);
     loc_init(&end, x + 1, y + 1);
@@ -4074,6 +4075,9 @@ bool effect_handler_MAP_WILD(effect_handler_context_t *context)
         wild_set_explored(context->origin->player, &wpos);
     }
     while (loc_iterator_next(&iter));
+
+    wpos_init(&wpos, &grid, 0);
+    buf[0] = '\0';
     wild_cat_depth(&wpos, buf, sizeof(buf));
     msg(context->origin->player, "You suddenly know more about the area around %s.", buf);
 
@@ -4221,17 +4225,16 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     if (context->self_msg && !player_undead(context->origin->player))
         msg(context->origin->player, context->self_msg);
 
-    amount *= z_info->food_value;
+    /* Multiply by number of turns that 1% of player food capacity feeds them for (unless fixed) */
+    if (context->subtype < 4) amount *= z_info->food_value;
 
     /* Increase food level by amount */
     // NOURISH:INC_BY
-    if (context->subtype == 0 && !special_race)
+    if (((context->subtype == 0) || (context->subtype == 4)) && !special_race)
         player_inc_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false, false);
-
     /* Decrease food level by amount */
     // NOURISH:DEC_BY
-    else if (context->subtype == 1)
-    {
+    else if ((context->subtype == 1) || (context->subtype == 5))
         player_dec_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false);
     }
     /* Set food level to amount, vomiting if necessary */

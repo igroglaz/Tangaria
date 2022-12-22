@@ -210,6 +210,8 @@ int effect_subtype(int index, const char *type)
             else if (streq(type, "DEC_BY")) val = 1;
             else if (streq(type, "SET_TO")) val = 2;
             else if (streq(type, "INC_TO")) val = 3;
+            else if (streq(type, "INC_BY_FIXED")) val = 4;
+            else if (streq(type, "DEC_BY_FIXED")) val = 5;
             break;
         }
 

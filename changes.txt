@@ -16,7 +16,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.0 beta 0
+New features in PWMAngband 1.6.0 beta 1
 =======================================
 
 User interface
@@ -133,6 +133,8 @@ PWMAngband:
 - Allow chance of generating features in wilderness to be as low as 1/10000
 - Use time bubble when digging
 - Give UNLIGHT players extra infravision
+- Add INC_BY_FIXED and DEC_BY_FIXED to increase/decrease satiation by a fixed
+  amount instead of using percentage
 - New class: Villager
 
 Bugs fixed
@@ -193,6 +195,7 @@ PWMAngband:
 - Hardcode poison effect on potions of poison to avoid identifying issues
 - Consider spells on cooldown as okay to cast by the client
 - Update browse book screen when a spell enters or goes off cooldown
+- Fix wilderness mapping
 
 Coding changes
 --------------

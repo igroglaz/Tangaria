@@ -715,36 +715,36 @@ static void render_background(const struct window *window)
 }
 
 static void stipple_button(const struct window *window,
-		const struct button *button, SDL_Texture *dst_texture)
+        const struct button *button, SDL_Texture *dst_texture)
 {
-	SDL_Rect srect = { 0, 0, 0, 0 }, drect;
-	int ylim = button->full_rect.y + button->full_rect.h;
-	int xlim = button->full_rect.x + button->full_rect.w;
+    SDL_Rect srect = { 0, 0, 0, 0 }, drect;
+    int ylim = button->full_rect.y + button->full_rect.h;
+    int xlim = button->full_rect.x + button->full_rect.w;
 
-	if (!window->stipple.texture) {
-		return;
-	}
-	SDL_SetRenderTarget(window->renderer, dst_texture);
-	for (drect.y = button->full_rect.y; drect.y < ylim;
-			drect.y += window->stipple.h) {
-		if (drect.y + window->stipple.h > ylim) {
-			drect.h = ylim - drect.y;
-		} else {
-			drect.h = window->stipple.h;
-		}
-		srect.h = drect.h;
-		for (drect.x = button->full_rect.x; drect.x < xlim;
-				drect.x += window->stipple.w) {
-			if (drect.x + window->stipple.w > xlim) {
-				drect.w = xlim - drect.x;
-			} else {
-				drect.w = window->stipple.w;
-			}
-			srect.w = drect.w;
-			SDL_RenderCopy(window->renderer,
-				window->stipple.texture, &srect, &drect);
-		}
-	}
+    if (!window->stipple.texture) {
+        return;
+    }
+    SDL_SetRenderTarget(window->renderer, dst_texture);
+    for (drect.y = button->full_rect.y; drect.y < ylim;
+            drect.y += window->stipple.h) {
+        if (drect.y + window->stipple.h > ylim) {
+            drect.h = ylim - drect.y;
+        } else {
+            drect.h = window->stipple.h;
+        }
+        srect.h = drect.h;
+        for (drect.x = button->full_rect.x; drect.x < xlim;
+                drect.x += window->stipple.w) {
+            if (drect.x + window->stipple.w > xlim) {
+                drect.w = xlim - drect.x;
+            } else {
+                drect.w = window->stipple.w;
+            }
+            srect.w = drect.w;
+            SDL_RenderCopy(window->renderer,
+                window->stipple.texture, &srect, &drect);
+        }
+    }
 }
 
 static void render_all(const struct window *window)
@@ -774,9 +774,9 @@ static void render_status_bar(const struct window *window)
             button->callbacks.on_render(window, button);
         }
         if (button->disabled) {
-			stipple_button(window, button,
-				window->status_bar.texture);
-		}
+            stipple_button(window, button,
+                window->status_bar.texture);
+        }
     }
 }
 
@@ -981,7 +981,6 @@ static void render_cursor(struct subwindow *subwindow,
 static void render_grid_cell_text(const struct subwindow *subwindow,
         SDL_Texture *texture, int x, int y)
 {
-//    struct grid_data grid_data;
     int a;
     int ta;
     wchar_t c;
@@ -993,8 +992,6 @@ static void render_grid_cell_text(const struct subwindow *subwindow,
     ta = player->trn_info[y][x].a;
     tc = player->trn_info[y][x].c;
 
-//    map_info(loc(x, y), &grid_data);
-//    grid_data_as_text(&grid_data, &a, &c, &ta, &tc);
     /* apparently either the same as a or obscured by a */
     (void) tc;
 
@@ -1106,7 +1103,6 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
 static void render_grid_cell_tile(const struct subwindow *subwindow,
         SDL_Texture *texture, SDL_Rect tile, int x, int y)
 {
-//    struct grid_data grid_data;
     int a;
     int ta;
     wchar_t c;
@@ -1117,9 +1113,6 @@ static void render_grid_cell_tile(const struct subwindow *subwindow,
     c = player->scr_info[y][x].c;
     ta = player->trn_info[y][x].a;
     tc = player->trn_info[y][x].c;
-
-//    map_info(loc(x, y), &grid_data);
-//    grid_data_as_text(&grid_data, &a, &c, &ta, &tc);
 
     SDL_SetRenderTarget(subwindow->window->renderer, texture);
 
@@ -1194,8 +1187,8 @@ static void render_menu_panel(const struct window *window, struct menu_panel *me
         assert(button->callbacks.on_render != NULL);
         button->callbacks.on_render(window, button);
         if (button->disabled) {
-			stipple_button(window, button, NULL);
-		}
+            stipple_button(window, button, NULL);
+        }
     }
     render_outline_rect(window,
             NULL, &menu_panel->rect, &g_colors[DEFAULT_MENU_PANEL_OUTLINE_COLOR]);
@@ -1387,13 +1380,6 @@ static void render_button_menu_tile_set(const struct window *window, struct butt
 
     render_button_menu_toggle(window,
             button, button->data.value.int_value == current_graphics_mode->grafID);
-}
-
-static void render_button_menu_tile_sets(const struct window *window, struct button *button)
-{
-    CHECK_BUTTON_DATA_TYPE(button, BUTTON_DATA_SUBWINDOW);
-
-    render_button_menu_toggle(window, button, !Setup.initialized);
 }
 
 static void render_button_menu_font_size(const struct window *window,
@@ -2200,13 +2186,6 @@ static void handle_menu_tile_size(struct window *window,
         quit_fmt("bad int_value in button '%s'", button->caption);
     }
 
-    struct subwindow *subwindow = Term->data;
-    assert(subwindow != NULL);
-
-    /* Dungeon size */
-    if (subwindow->index == MAIN_SUBWINDOW)
-        net_term_resize(subwindow->cols, subwindow->rows, subwindow->rows);
-
     refresh_angband_terms();
 }
 
@@ -2256,9 +2235,6 @@ static void handle_menu_tile_sets(struct window *window,
     if (!select_menu_button(button, menu_panel, event)) {
         return;
     }
-    if (Setup.initialized) {
-        return;
-    }
 
     size_t num_elems = 0;
     /* Only allow changes to the graphics mode in initial phase */
@@ -2304,7 +2280,7 @@ static void handle_menu_tiles(struct window *window,
     };
 
     struct menu_elem elems[] = {
-        {"Set", data, render_button_menu_tile_sets, handle_menu_tile_sets, false},
+        {"Set", data, render_button_menu_simple, handle_menu_tile_sets, false},
         {"Size", data, render_button_menu_simple, handle_menu_tile_sizes, false}
     };
 
@@ -2518,7 +2494,7 @@ static void handle_menu_purpose(struct window *window,
     {
         elems[num_elems].caption = window_flag_desc[num_elems];
         elems[num_elems].data.value.term_flag_value.subwindow = subwindow;
-        elems[num_elems].data.value.term_flag_value.flag = ((uint32_t)1) << num_elems;
+        elems[num_elems].data.value.term_flag_value.flag = ((uint32_t) 1) << num_elems;
         elems[num_elems].data.type = BUTTON_DATA_TERM_FLAG;
         elems[num_elems].on_render = render_button_menu_pw;
         elems[num_elems].on_menu = handle_menu_pw;
@@ -2810,11 +2786,10 @@ static bool handle_menu_event(struct window *window, const SDL_Event *event)
 
             assert(button->callbacks.on_menu != NULL);
             if (!button->disabled) {
-				button->callbacks.on_menu(window, button,
-					event, menu_panel);
-				handled = true;
-			}
-
+                button->callbacks.on_menu(window, button,
+                    event, menu_panel);
+                handled = true;
+            }
         } else {
             button->highlighted = false;
             /* but we do unset selected */
@@ -3325,9 +3300,9 @@ static bool handle_status_bar_buttons(struct window *window,
         struct button *button = &window->status_bar.button_bank.buttons[i];
         assert(button->callbacks.on_event != NULL);
         if (!button->disabled) {
-			handled |= button->callbacks.on_event(window, button,
-				event);
-		}
+            handled |= button->callbacks.on_event(window, button,
+                event);
+        }
     }
 
     return handled;
@@ -3563,7 +3538,6 @@ static bool handle_mousebuttondown(const SDL_MouseButtonEvent *mouse)
 
     term *old = Term;
     Term_activate(subwindow->term);
-//    Term_mousepress(col, row, button);
     Term_activate(old);
 
     return true;
@@ -3622,8 +3596,9 @@ static bool handle_keydown(const SDL_KeyboardEvent *key)
     if (g_kp_as_mod) {
         /* If numlock is set and shift is not pressed, numpad numbers
          * produce regular numbers and not keypad numbers */
-        uint8_t keypad_num_mod = ((key->keysym.mod & KMOD_NUM) && !(key->keysym.mod & KMOD_SHIFT))
-            ? 0x00 : KC_MOD_KEYPAD;
+        uint8_t keypad_num_mod = ((key->keysym.mod & KMOD_NUM)
+            && !(key->keysym.mod & KMOD_SHIFT)) ?
+            0x00 : KC_MOD_KEYPAD;
 
         switch (key->keysym.sym) {
             /* Keypad */
@@ -3852,13 +3827,6 @@ static void wait_anykey(void)
 
 static void handle_quit(void)
 {
-//    /* XXX copied from main-sdl.c */
-//    if (character_generated && inkey_flag) {
-//         /* no idea what that does :) */
-//         msg_flag = false;
-//         save_game();
-//     }
-
     quit(NULL);
 }
 
@@ -3904,19 +3872,8 @@ static void refresh_angband_terms(void)
         event_signal_point(EVENT_MAP, -1, -1);
 
         Term_flush();
-//        verify_panel();
-
-//        player->upkeep->notice |= (PN_COMBINE);
-//        player->upkeep->update |= (PU_TORCH | PU_INVEN);
-//        player->upkeep->update |= (PU_BONUS | PU_HP | PU_SPELLS);
-//        player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
-//        player->upkeep->redraw |= (PR_BASIC | PR_EXTRA | PR_MAP | PR_INVEN |
-//                                   PR_EQUIP | PR_MESSAGE | PR_MONSTER |
-//                                   PR_OBJECT | PR_MONLIST | PR_ITEMLIST);
 
         Term_clear();
-//        handle_stuff(player);
-//        move_cursor_relative(player->grid.x, player->grid.y);
 
         Term_redraw_all();
     }
@@ -3944,7 +3901,6 @@ static errr term_xtra_event(int v)
                 }
                 SDL_Delay(subwindow->window->delay);
             }
-//            idle_update();
         }
     } else {
         (void) get_event();
@@ -4405,61 +4361,61 @@ static void load_default_wallpaper(struct window *window)
 
 static void load_stipple(struct window *window)
 {
-	SDL_Surface *s;
-	Uint32 *pixels;
-	Uint32 rmask, gmask, bmask, amask, on_pixel, off_pixel;
-	int y, x;
+    SDL_Surface *s;
+    Uint32 *pixels;
+    Uint32 rmask, gmask, bmask, amask, on_pixel, off_pixel;
+    int y, x;
 
-	/*
-	 * on_pixel is black and completely transparent.  off_pixel is gray
-	 * (0x40, 0x40, 0x40) and slightly opaque.
-	 */
+    /*
+     * on_pixel is black and completely transparent.  off_pixel is gray
+     * (0x40, 0x40, 0x40) and slightly opaque.
+     */
 #if SDL_BYTE_ORDER == SDL_BIGENDIAN
-	rmask = 0xff000000;
-	gmask = 0x00ff0000;
-	bmask = 0x0000ff00;
-	amask = 0x000000ff;
-	on_pixel = 0x000000ff;
-	off_pixel = 0x40404040;
+    rmask = 0xff000000;
+    gmask = 0x00ff0000;
+    bmask = 0x0000ff00;
+    amask = 0x000000ff;
+    on_pixel = 0x000000ff;
+    off_pixel = 0x40404040;
 #else
-	rmask = 0x000000ff;
-	gmask = 0x0000ff00;
-	bmask = 0x00ff0000;
-	amask = 0xff000000;
-	on_pixel = 0xff000000;
-	off_pixel = 0x40404040;
+    rmask = 0x000000ff;
+    gmask = 0x0000ff00;
+    bmask = 0x00ff0000;
+    amask = 0xff000000;
+    on_pixel = 0xff000000;
+    off_pixel = 0x40404040;
 #endif
 
-	/*
-	 * These dimensions must be multiple of two:  see the loop logic below.
-	 */
-	window->stipple.h = 16;
-	window->stipple.w = 16;
-	pixels = mem_alloc(window->stipple.h * window->stipple.w *
-		sizeof(*pixels));
-	for (y = 0; y < window->stipple.h; y += 2) {
-		uint32_t *row = pixels + y * window->stipple.w;
+    /*
+     * These dimensions must be multiple of two:  see the loop logic below.
+     */
+    window->stipple.h = 16;
+    window->stipple.w = 16;
+    pixels = mem_alloc(window->stipple.h * window->stipple.w *
+        sizeof(*pixels));
+    for (y = 0; y < window->stipple.h; y += 2) {
+        uint32_t *row = pixels + y * window->stipple.w;
 
-		for (x = 0; x < window->stipple.w; x += 2) {
-			row[x] = on_pixel;
-			row[x + 1] = off_pixel;
-			row[x + window->stipple.w] = off_pixel;
-			row[x + window->stipple.w + 1] = on_pixel;
-		}
-	}
+        for (x = 0; x < window->stipple.w; x += 2) {
+            row[x] = on_pixel;
+            row[x + 1] = off_pixel;
+            row[x + window->stipple.w] = off_pixel;
+            row[x + window->stipple.w + 1] = on_pixel;
+        }
+    }
 
-	s = SDL_CreateRGBSurfaceFrom(pixels, window->stipple.w,
-		window->stipple.h, 32, 4 * window->stipple.w, rmask, gmask,
-		bmask, amask);
-	window->stipple.texture = SDL_CreateTextureFromSurface(window->renderer,
-		s);
-	if (window->stipple.texture == NULL) {
-		(void) fprintf(stderr, "could not create stipple texture: %s\n",
-			SDL_GetError());
-	}
+    s = SDL_CreateRGBSurfaceFrom(pixels, window->stipple.w,
+        window->stipple.h, 32, 4 * window->stipple.w, rmask, gmask,
+        bmask, amask);
+    window->stipple.texture = SDL_CreateTextureFromSurface(window->renderer,
+        s);
+    if (window->stipple.texture == NULL) {
+        (void) fprintf(stderr, "could not create stipple texture: %s\n",
+            SDL_GetError());
+    }
 
-	SDL_FreeSurface(s);
-	mem_free(pixels);
+    SDL_FreeSurface(s);
+    mem_free(pixels);
 }
 
 static void load_default_window_icon(const struct window *window)
@@ -4563,13 +4519,17 @@ static void make_font_cache(const struct window *window, struct font *font)
         SDL_Surface *surface = TTF_RenderGlyph_Blended(font->ttf.handle,
                 (Uint16) g_ascii_codepoints_for_cache[i], white);
         if (surface == NULL) {
-            quit_fmt("font cache rendering failed for '%c' (ASCII %lu) in font '%s': %s",
-                g_ascii_codepoints_for_cache[i], (unsigned long) i, font->name, TTF_GetError());
+            quit_fmt("font cache rendering failed for '%c'"
+                " (ASCII %lu) in font '%s': %s",
+                g_ascii_codepoints_for_cache[i],
+                (unsigned long) i, font->name, TTF_GetError());
         }
 
         SDL_Texture *texture = SDL_CreateTextureFromSurface(window->renderer, surface);
-        if (texture == NULL)
-            quit_fmt("cannot create texture for cache in font '%s': %s", font->name, SDL_GetError());
+        if (texture == NULL) {
+            quit_fmt("cannot create texture for cache in font '%s': %s",
+                    font->name, SDL_GetError());
+        }
 
         SDL_Rect src = {0, 0, surface->w, surface->h};
         SDL_Rect dst = {glyph_w * i, 0, glyph_w, glyph_h};
@@ -5833,9 +5793,9 @@ static void free_window(struct window *window)
     }
 
     if (window->stipple.texture != NULL) {
-		SDL_DestroyTexture(window->stipple.texture);
-		window->stipple.texture = NULL;
-	}
+        SDL_DestroyTexture(window->stipple.texture);
+        window->stipple.texture = NULL;
+    }
 
     free_graphics(&window->graphics);
 
@@ -5860,9 +5820,8 @@ static void free_window(struct window *window)
 
 static void init_colors(void)
 {
-    size_t i;
-
     assert(N_ELEMENTS(g_colors) == N_ELEMENTS(angband_color_table));
+    size_t i;
 
     for (i = 0; i < N_ELEMENTS(g_colors); i++) {
         g_colors[i].r = angband_color_table[i][1];
@@ -5870,14 +5829,17 @@ static void init_colors(void)
         g_colors[i].b = angband_color_table[i][3];
         g_colors[i].a = DEFAULT_ALPHA_FULL;
     }
-    for (i = 0; i < N_ELEMENTS(g_windows); i++)
+    for (i = 0; i < N_ELEMENTS(g_windows); i++) {
         g_windows[i].color = g_colors[DEFAULT_WINDOW_BG_COLOR];
-    for (i = 0; i < N_ELEMENTS(g_subwindows); i++)
-    {
+    }
+    for (i = 0; i < N_ELEMENTS(g_subwindows); i++) {
         /* Retain whatever customized alpha the subwindow has. */
-        g_subwindows[i].color.r = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].r;
-        g_subwindows[i].color.g = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].g;
-        g_subwindows[i].color.b = g_colors[DEFAULT_SUBWINDOW_BG_COLOR].b;
+        g_subwindows[i].color.r =
+            g_colors[DEFAULT_SUBWINDOW_BG_COLOR].r;
+        g_subwindows[i].color.g =
+            g_colors[DEFAULT_SUBWINDOW_BG_COLOR].g;
+        g_subwindows[i].color.b =
+            g_colors[DEFAULT_SUBWINDOW_BG_COLOR].b;
     }
 }
 
@@ -5922,7 +5884,7 @@ static void init_font_info(const char *directory)
         g_font_info[j].index = j;
     }
 
-    /* checking font_page */
+    /* Check font_page */
     if (i > MAX_BUTTONS) {
         font_page = true;
     }
@@ -5976,7 +5938,6 @@ static void init_systems(void)
     SDL_EventState(SDL_FINGERMOTION, SDL_DISABLE);
     SDL_EventState(SDL_FINGERDOWN, SDL_DISABLE);
     SDL_EventState(SDL_FINGERUP, SDL_DISABLE);
-
     /* Ignore Keymap changed events since they are not handled */
     SDL_EventState(SDL_KEYMAPCHANGED, SDL_DISABLE);
 
@@ -6378,14 +6339,14 @@ static enum parser_error config_subwindow_window(struct parser *parser)
         return PARSE_ERROR_GENERIC;
     }
     subwindow->config = mem_zalloc(sizeof(*subwindow->config));
-
     /*
      * Old versions only wrote visible subwindows to the configuration
      * file and did not append the visibility status to the subwindow-window
      * directive.
      */
-    if (parser_hasval(parser, "vis"))
+    if (parser_hasval(parser, "vis")) {
         subwindow->visible = (parser_getint(parser, "vis") != 0);
+    }
     subwindow->window = window;
     attach_subwindow_to_window(window, subwindow);
 
