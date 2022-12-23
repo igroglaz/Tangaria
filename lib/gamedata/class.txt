@@ -5441,6 +5441,17 @@ dice:2d$B
 expr:B:PLAYER_LEVEL:* 3
 desc:Attempts a skillful kick that knocking enemy back with a chance to stun it.
 
+spell:Thunderclap:49:30:30:35:0
+cooldown:30
+effect:BLAST:ELEC:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Real magic?! Stump floor with lightning power to push back surrounding enemies.
+desc: Cooldown 30 turns.
+
 spell:Get Lucky:50:70:90:90:0
 cooldown:777
 effect:TIMED_INC:REVIVE
@@ -5725,136 +5736,109 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:prayer book:town:[Beginners Handbook]:11:divine
+book:prayer book:town:[Beginners Handbook]:12:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
-# Invocation 
-# Prayer
-# Hard Chord
-# March Of War
-# Sound Spike
-# Thunderous Voice
-
-spell:Brave Song:1:2:30:1:0
+spell:Discord:1:1:1:1:0
+# hardcoded radius/dmg
+# ... inc dmg, but add more `immune to sound` mobs?
+cooldown:4
 effect:WAKE
-effect:BLAST:SOUND:2
+effect:BLAST:SOUND:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_SET:BOLD
-dice:25+1d25
-effect:CURE:AFRAID
-effect:TIMED_SET:HERO
-dice:25+1d25
-desc:Removes fear and grants you fear resistance, grants bonus of +12 to-hit.
-desc: Makes very loud damaging sound in 3 radius.
+desc: Makes nasty damaging sound in a some radius.
+desc: Cooldown 4 turns.
 
-spell:Lullaby:5:4:32:3:0
-effect:PROJECT_LOS_AWARE:SLEEP_ALL
-effect:TIMED_SET:REGEN
-dice:20+1d20
-desc:Attempts to put to sleep each monster within line of sight.
-desc: Greatly increases your regeneration rate for 20+1d20 turns.
-desc: The effect of this spell is cumulative with other means of regeneration.
-
-spell:Hail:10:7:20:7:0
-effect:WAKE
-effect:BOLT_OR_BEAM:SOUND:0:-10
-dice:$Dd$S
-expr:D:PLAYER_LEVEL:- 1 / 5 + 3
-expr:S:PLAYER_LEVEL:/ 10 + 4
-effect:DETECT_LIVING_MONSTERS
-effect-yx:22:40
-desc:Detects all living monsters in the immediate area,
-desc: for one turn only.
-desc: Makes very loud damaging cry to the target.
-
-spell:Piercing Cry:15:10:30:11:0
-effect:WAKE
-effect:BEAM:SOUND
-dice:6d8
-effect:TIMED_SET:SHERO:0:5
-dice:25+1d25
-msg_self:From you high pitched voice appears a line of trembling air.
-msg_other:'s makes piercing sound toward enemy.
-desc:Cries a beam of sound which pierce enemies.
-desc:Grants you a bonus of +24 to-hit and a penalty of -10 to AC for 25+1d25 turns.
-
-spell:Improvisation:20:14:65:15:0
-effect:WAKE
-effect:STAR:SOUND
+spell:Song of Healing:5:2:1:1:0
+cooldown:11
+effect:HEAL_HP
 dice:$B
-expr:B:PLAYER_LEVEL:+ 20
-effect:NOURISH:INC_BY
-dice:0
-effect:RANDOM
-dice:2
-effect:TIMED_SET:GROWTH
-dice:20+1d20
-msg_other: sing strange melody.
-desc:Sing melody in each of the eight directions starting from your
-desc: character. It raise your attributes.
+expr:B:PLAYER_LEVEL:* 3
+desc:Music heals you.
+desc: Cooldown 11 turns.
 
-spell:Dissonance:25:20:35:25:0
-effect:WAKE
+spell:Lullaby:10:4:32:3:0
+cooldown:7
+effect:PROJECT_LOS_AWARE:SLEEP_ALL
 effect:PROJECT_LOS_AWARE:MON_CONF
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_SET:SHIELD
-dice:30+1d20
-msg_other: strikes lightning from above.
-desc:Grants you defense bonus.
-desc: Attempts to confuse each monster within line of sight.
+msg_other: sings strange magical lullaby.
+desc:Attempts to confuse each monster within line of sight and put them to sleep.
+desc: Cooldown 7 turns.
 
-spell:Thunderclap:30:30:30:35:0
+spell:Sound Wave:15:10:1:5:0
+cooldown:30
 effect:WAKE
-effect:BLAST:FORCE:1
+effect:ARC:SOUND:0:30
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 3
+msg_self:You make a horrible deadly noise.
+msg_other:'s makes a horrible deadly noise.
+desc:Cries a beam of sound which pierce enemies.
+desc: Cooldown 30 turns.
+
+spell:Charm:20:10:30:11:0
+cooldown:100
+effect:BOLT_AWARE:CONTROL
+msg_other: makes an hypnotic move.
+desc:Attempts to control the will of a single summoned monster.
+desc: Uniques are not affected.
+desc: Cooldown 100 turns.
+
+spell:Song of Remedy:25:14:65:15:0
+effect:TIMED_SET:BOLD
+dice:30
 effect:CURE:BLACKBREATH
 effect:CURE:AMNESIA
 effect:CURE:STUN
-desc:Cry and stump floor pushing back surrounding enemies.
-desc: Cures stunning, black breath and amnesia.
+effect:CURE:AFRAID
+effect:RESTORE_STAT:DEX
+effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:STR
+msg_other: sing strange melody.
+desc:Removes fear and grants you fear resistance and cures various conditions.
 
-spell:Commanding Voice:35:45:20:50:0
-effect:WAKE
+spell:Commanding Voice:30:22:20:30:0
 effect:PROJECT_LOS_AWARE:MON_SLOW
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:RESTORE_EXP
-effect:RESTORE_STAT:CON
-effect:RESTORE_STAT:DEX
-effect:RESTORE_STAT:WIS
-effect:RESTORE_STAT:INT
-effect:RESTORE_STAT:STR
 msg_other: invokes a command of power!
-desc:Invokes a command which slow down all enemies around and
-desc: restore your paramaters in order.
+desc:Invokes a command which slow down all enemies around.
 
-spell:Chorus:40:65:30:75:0
-effect:WAKE
-effect:BOLT_OR_BEAM:FORCE:0:-10
-dice:$B
-expr:B:PLAYER_LEVEL:* 3
-effect:TIMED_SET:FAST:0:5
-dice:$B+1d20
-expr:B:PLAYER_LEVEL:+ 0
-msg_self:A line of trembling air appears.
-msg_other:'s makes harsh piercing sound toward enemy.
-desc:Cries a beam of sound.
-desc: Hastes you (+10 to speed) for a level-dependent duration.
-
-spell:Resonance:45:90:65:100:0
-effect:WAKE
-effect:EARTHQUAKE:NONE:1
+spell:Song of Battle:35:14:65:45:0
+cooldown:60
+effect:TIMED_SET:HERO
+dice:30
+effect:TIMED_SET:GROWTH
+dice:30
 effect:TIMED_SET:SAFE
-dice:20+1d20
-msg_other: invokes an earsplitting sound!
-desc:Grants perfect saving throw for 20+1d20 turns.
-desc: May destroys everything in a 2-square radius circle around you.
+dice:30
+msg_other: sing strange melody.
+desc:Raise your attributes, attack and perfect saving throw for some time.
+desc: Cooldown 60 turns.
 
-spell:Ballad of Elements:50:100:35:150:0
+spell:Resonance:40:30:1:50:0
+cooldown:11
 effect:WAKE
+effect:EARTHQUAKE:NONE:2
+msg_other: invokes an earsplitting sound!
+desc:Destroys everything in a 3-square radius circle around you.
+desc: Cooldown 11 turns.
+
+spell:Song of Speed:45:14:65:85:0
+cooldown:60
+effect:TIMED_SET:FAST:0:5
+dice:30
+effect:TIMED_SET:REGEN
+dice:30
+msg_other: sing strange melody.
+desc:Greatly increases your speed and regeneration rate temporary.
+desc: The effect of this spell is cumulative with other means of regeneration.
+desc: Cooldown 60 turns.
+
+spell:Ballad of Elements:50:50:35:100:0
 effect:STRIKE:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
@@ -5865,12 +5849,11 @@ effect:TIMED_SET:OPP_FIRE
 effect:TIMED_SET:OPP_ELEC
 effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
-dice:20+1d20
+dice:30
 msg_other: ignites air with his song.
 desc:Grants you resistance to acid, cold, fire, lightning and poison and
 desc: strikes a target from above with a plasma.
-desc: Target grid must be targetable and known to the player;
-desc: no target grid will mean the player grid is hit.
+desc: Target grid must be targetable and known to the player.
 
 
 ############### CLASS TEMPLATE for Battlemage ###############

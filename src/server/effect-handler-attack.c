@@ -883,6 +883,16 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                     dam *= context->origin->player->lev / 10;
             }
         }
+        else if (streq(context->origin->player->clazz->name, "Bard"))
+        {   
+            // Discord spell (mana 2) + agro
+            if (context->origin->player->spell_cost == 4)
+            {
+                rad += randint1(6) + context->origin->player->lev / 15;
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 10;
+            }
+        }
     }
 
     if (fire_ball(context->origin->player, context->subtype, 0, dam, rad, false, true))
