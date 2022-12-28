@@ -2451,10 +2451,7 @@ static struct parser *init_parse_animation(void)
 
 static bool read_animation_file(void)
 {
-    graphics_mode *mode = get_graphics_mode(use_graphics, true);
-
     char buf[MSG_LEN];
-    char dirpath[MSG_LEN];
     ang_file *f;
     struct parser *p;
     errr e = 0;
@@ -2463,9 +2460,10 @@ static bool read_animation_file(void)
     // If we have a graphics mode, see if the mode has a pref file name
     if (use_graphics)
     {
+        graphics_mode *mode = get_graphics_mode(use_graphics, true);
+
         // Build the filename
-        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_TILES, mode->path);
-        path_build(buf, sizeof(buf), dirpath, "animation.prf");
+        path_build(buf, sizeof(buf), mode->path, "animation.prf");
     }
 
     f = file_open(buf, MODE_READ, FTYPE_TEXT);
