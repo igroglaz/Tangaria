@@ -17,6 +17,8 @@ del /Q ..\setup\lib\music\town-day\*.*
 del /Q ..\setup\lib\music\town-night\*.*
 del /Q ..\setup\lib\screens\*.*
 del /Q ..\setup\lib\sounds\*.*
+del /S /Q ..\setup\lib\sounds\ambient\*.*
+del /S /Q ..\setup\lib\sounds\tomenet\*.*
 del /Q ..\setup\lib\tiles\*.*
 del /Q ..\setup\lib\tiles\tangaria\*.*
 del /Q ..\setup\lib\user\save\*.*

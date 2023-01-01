@@ -17,6 +17,8 @@ copy ..\lib\music\town-day\*.* ..\setup\lib\music\town-day
 copy ..\lib\music\town-night\*.* ..\setup\lib\music\town-night
 copy ..\lib\screens\*.* ..\setup\lib\screens
 copy ..\lib\sounds\*.* ..\setup\lib\sounds
+xcopy /S ..\lib\sounds\ambient ..\setup\lib\sounds\ambient
+xcopy /S ..\lib\sounds\tomenet ..\setup\lib\sounds\tomenet
 copy ..\lib\tiles\*.* ..\setup\lib\tiles
 copy ..\lib\tiles\tangaria\*.* ..\setup\lib\tiles\tangaria
 copy ..\lib\user\save\*.* ..\setup\lib\user\save
