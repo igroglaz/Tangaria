@@ -5355,7 +5355,7 @@ title:Lord
 
 magic:1:550:1
 
-book:shadow book:town:[Shadows for Beginners]:11:shadow
+book:shadow book:town:[Shadows for Beginners]:12:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
 spell:Windmill:1:1:22:1:0
@@ -5707,7 +5707,7 @@ skill-melee:35:20
 skill-shoot:45:25
 skill-dig:0:0
 hitdie:3
-max-attacks:3
+max-attacks:4
 min-weight:35
 strength-multiplier:3
 equip:light:Wooden Torch:1:3:none
@@ -5719,7 +5719,7 @@ equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[-1]
 value:0:INT[0]
 value:0:WIS[1]
-value:0:DEX[1]
+value:0:DEX[2]
 value:0:CON[-2]
 value:0:CHR[1]
 value:0:RES_SOUND[1]
@@ -5736,7 +5736,7 @@ title:Grandmaster
 
 magic:1:350:1
 
-book:prayer book:town:[Beginners Handbook]:12:divine
+book:prayer book:town:[Beginners Handbook]:11:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Discord:1:1:1:1:0
@@ -5746,8 +5746,9 @@ cooldown:4
 effect:WAKE
 effect:BLAST:SOUND:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc: Makes nasty damaging sound in a some radius.
+expr:B:PLAYER_LEVEL:+ 1
+desc:Makes nasty damaging sound in a some radius.
+desc: It wakes up everything around...
 desc: Cooldown 4 turns.
 
 spell:Song of Healing:5:2:1:1:0
@@ -5755,17 +5756,23 @@ cooldown:11
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
-desc:Music heals you.
+effect:TIMED_INC:OCCUPIED
+dice:2
+desc:You play music which heals you.
+desc: Playing this takes some time during which you can not act.
 desc: Cooldown 11 turns.
 
-spell:Lullaby:10:4:32:3:0
+spell:Lullaby:10:1:32:3:0
 cooldown:7
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
 effect:PROJECT_LOS_AWARE:MON_CONF
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: sings strange magical lullaby.
+effect:TIMED_INC:OCCUPIED
+dice:2
 desc:Attempts to confuse each monster within line of sight and put them to sleep.
+desc: Playing this takes some time during which you can not act.
 desc: Cooldown 7 turns.
 
 spell:Sound Wave:15:10:1:5:0
@@ -5782,8 +5789,8 @@ desc: Cooldown 30 turns.
 spell:Charm:20:10:30:11:0
 cooldown:100
 effect:BOLT_AWARE:CONTROL
-msg_other: makes an hypnotic move.
-desc:Attempts to control the will of a single summoned monster.
+msg_other: makes an hypnotic sound.
+desc:Attempts to charm a single summoned monster.
 desc: Uniques are not affected.
 desc: Cooldown 100 turns.
 
@@ -5797,8 +5804,11 @@ effect:CURE:AFRAID
 effect:RESTORE_STAT:DEX
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:STR
+effect:TIMED_INC:OCCUPIED
+dice:2
 msg_other: sing strange melody.
 desc:Removes fear and grants you fear resistance and cures various conditions.
+desc: Playing this takes some time during which you can not act.
 
 spell:Commanding Voice:30:22:20:30:0
 effect:PROJECT_LOS_AWARE:MON_SLOW
@@ -5807,17 +5817,18 @@ expr:B:PLAYER_LEVEL:+ 0
 msg_other: invokes a command of power!
 desc:Invokes a command which slow down all enemies around.
 
-spell:Song of Battle:35:14:65:45:0
-cooldown:60
+spell:Song of Battle:35:5:65:45:0
 effect:TIMED_SET:HERO
 dice:30
 effect:TIMED_SET:GROWTH
 dice:30
 effect:TIMED_SET:SAFE
 dice:30
+effect:TIMED_INC:OCCUPIED
+dice:2
 msg_other: sing strange melody.
 desc:Raise your attributes, attack and perfect saving throw for some time.
-desc: Cooldown 60 turns.
+desc: Playing this takes some time during which you can not act.
 
 spell:Resonance:40:30:1:50:0
 cooldown:11
@@ -5827,16 +5838,19 @@ msg_other: invokes an earsplitting sound!
 desc:Destroys everything in a 3-square radius circle around you.
 desc: Cooldown 11 turns.
 
-spell:Song of Speed:45:14:65:85:0
-cooldown:60
+spell:Song of Speed:45:7:65:85:0
 effect:TIMED_SET:FAST:0:5
 dice:30
 effect:TIMED_SET:REGEN
 dice:30
+effect:TIMED_INC:OCCUPIED
+dice:2
+effect:TIMED_INC:OCCUPIED
+dice:2
 msg_other: sing strange melody.
 desc:Greatly increases your speed and regeneration rate temporary.
 desc: The effect of this spell is cumulative with other means of regeneration.
-desc: Cooldown 60 turns.
+desc: Playing this takes some time during which you can not act.
 
 spell:Ballad of Elements:50:50:35:100:0
 effect:STRIKE:PLASMA:2
