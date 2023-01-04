@@ -21,7 +21,171 @@
 ?:[EQU $SYS gcu]
 %:font-gcu.prf
 
-?:[IOR [EQU $FONTNAME 21x31tg.fon] [EQU $FONTNAME 24x36tg.fon]]
+# ?:[IOR [EQU $FONTNAME 21x31tg.fon] [EQU $FONTNAME 24x36tg.fon]]
+# %:font-tng.prf
+
+##### Tangaria fonts #####
+
+?:[EQU $FONTNAME 3x5TG.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 5x8TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 5x8x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x9TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x10TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x10x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x12TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x12x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x13TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x13x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 6x13xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 7x13TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 7x13x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 7x13xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x8x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x8xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x12x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x12xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x13TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x13x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x16tx.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 8x16x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 9x15TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 9x15x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 9x15xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x14TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x14x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x14xb.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x16TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x17TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x20TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 10x20x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 12x17TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 12x18TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 12x18x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 12x24TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 12x24x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 14x20TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x16TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x16x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x16xw.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x22TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x24TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x24tx.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 16x24x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 17x25TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 19x29TG.FON]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 21x31tg.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 21x31tgs.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 21x31x.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME 24x36tg.fon]
+%:font-tng.prf
+
+?:[EQU $FONTNAME Tangaria-tg.ttf]
+%:font-tng.prf
+
+?:[EQU $FONTNAME UbuntuMono-Bold-tg.ttf]
+%:font-tng.prf
+
+?:[EQU $FONTNAME UbuntuMono-Regular-tg.ttf]
 %:font-tng.prf
 
 ?:1
