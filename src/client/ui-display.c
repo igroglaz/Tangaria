@@ -106,16 +106,9 @@ static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
 static uint16_t anim_pn_a[128][128]; // remap the player neuter 'a'
 static char anim_pn_c[128][128]; // remap the player neuter 'c'
-static int anim_w_obj_n = 128; // number of wilderness objects
-static uint16_t s_w_obj_a[128]; // search wilderness objects 'a'
-static char s_w_obj_c[128]; // search wilderness objects 'c'
-static uint16_t anim_w_obj_a[128]; // animate wilderness objects 'a'
-static char anim_w_obj_c[128]; // animate wilderness objects 'c'
-static int anim_d_obj_n = 128; // number of dungeons objects
-static uint16_t s_d_obj_a[128]; // search dungeons objects 'a'
-static char s_d_obj_c[128]; // search dungeons objects 'c'
-static uint16_t anim_d_obj_a[128]; // animate dungeons objects 'a'
-static char anim_d_obj_c[128]; // animate dungeons objects 'c'
+static uint16_t s_obj[1024][1024]; // search objects
+static uint16_t anim_obj_a[1024][1024]; // animate objects 'a'
+static char anim_obj_c[1024][1024]; // animate objects 'c'
 
 
 /*** Sidebar display functions ***/
@@ -2404,29 +2397,18 @@ static enum parser_error parse_prefs_anim_pn(struct parser *p)
 }
 
 
-static enum parser_error parse_prefs_w_obj(struct parser *p)
+static enum parser_error parse_prefs_anim_obj(struct parser *p)
 {
-    int n;
+    int na;
+    int nc;
 
-    n = parser_getint(p, "n");
-    s_w_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    s_w_obj_c[n] = (char)parser_getint(p, "char");
-    anim_w_obj_a[n] = (uint16_t)parser_getint(p, "anim_attr");
-    anim_w_obj_c[n] = (char)parser_getint(p, "anim_char");
+    na = parser_getint(p, "attr");
+    nc = parser_getint(p, "char");
 
-    return PARSE_ERROR_NONE;
-}
+    s_obj[na][nc] = parser_getint(p, "n");
 
-
-static enum parser_error parse_prefs_d_obj(struct parser *p)
-{
-    int n;
-
-    n = parser_getint(p, "n");
-    s_d_obj_a[n] = (uint16_t)parser_getint(p, "attr");
-    s_d_obj_c[n] = (char)parser_getint(p, "char");
-    anim_d_obj_a[n] = (uint16_t)parser_getint(p, "anim_attr");
-    anim_d_obj_c[n] = (char)parser_getint(p, "anim_char");
+    anim_obj_a[na][nc] = (uint16_t)parser_getint(p, "anim_attr");
+    anim_obj_c[na][nc] = (char)parser_getint(p, "anim_char");
 
     return PARSE_ERROR_NONE;
 }
@@ -2442,8 +2424,7 @@ static struct parser *init_parse_animation(void)
     parser_reg(p, "anim-pm int ridx int cidx int attr int char", parse_prefs_anim_pm);
     parser_reg(p, "anim-pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
     parser_reg(p, "anim-pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
-    parser_reg(p, "w-obj int n int attr int char int anim_attr int anim_char", parse_prefs_w_obj);
-    parser_reg(p, "d-obj int n int attr int char int anim_attr int anim_char", parse_prefs_d_obj);
+    parser_reg(p, "anim-obj int attr int char int n int anim_attr int anim_char", parse_prefs_anim_obj);
 
     return p;
 }
@@ -2451,20 +2432,16 @@ static struct parser *init_parse_animation(void)
 
 static bool read_animation_file(void)
 {
+    graphics_mode *mode = get_graphics_mode(use_graphics, true);
+
     char buf[MSG_LEN];
     ang_file *f;
     struct parser *p;
     errr e = 0;
     int line_no = 0;
 
-    // If we have a graphics mode, see if the mode has a pref file name
-    if (use_graphics)
-    {
-        graphics_mode *mode = get_graphics_mode(use_graphics, true);
-
-        // Build the filename
-        path_build(buf, sizeof(buf), mode->path, "animation.prf");
-    }
+    // Build the filename
+    path_build(buf, sizeof(buf), mode->path, "animation.prf");
 
     f = file_open(buf, MODE_READ, FTYPE_TEXT);
     if (!f)
@@ -2506,15 +2483,16 @@ void do_animate_player(void)
     term *main_term = angband_term[0];
     term *old = Term;
 
-    int i, j, k;
+    int i, j;
     int x, y;
 
+    uint16_t p_attr;
+    char p_char;
     uint16_t a;
     char c;
-    uint16_t a2;
-    char c2;
     uint16_t ta;
     char tc;
+    uint16_t nc;
 
     static bool animation_file = false;
     static int animation_frame = 0;
@@ -2539,22 +2517,16 @@ void do_animate_player(void)
     //// Player tile frame ////
     if (player->ghost)
     {
-        a = anim_ghost_a;
-        c = anim_ghost_c;
+        p_attr = anim_ghost_a;
+        p_char = anim_ghost_c;
     }
-    else
-    {
-        a = anim_pr_a[player->race->ridx];
-        c = anim_pr_c[player->race->ridx];
-    }
-
     // anim_pr '0' - doesn't animate player tile
     // anim_pr '0x80' -> anim_pm/anim_pf/anim_pn
-    if (anim_pr_a[player->race->ridx] == 0)
+    else if (anim_pr_a[player->race->ridx] == 0)
     {
         // default
-        a = player->scr_info[y + 1][x].a;
-        c = player->scr_info[y + 1][x].c;
+        p_attr = player->scr_info[y + 1][x].a;
+        p_char = player->scr_info[y + 1][x].c;
     }
     else if (anim_pr_a[player->race->ridx] == 0x80)
     {
@@ -2563,13 +2535,13 @@ void do_animate_player(void)
             if (anim_pm_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
                 // default
-                a = player->scr_info[y + 1][x].a;
-                c = player->scr_info[y + 1][x].c;
+                p_attr = player->scr_info[y + 1][x].a;
+                p_char = player->scr_info[y + 1][x].c;
             }
             else
             {
-                a = anim_pm_a[player->race->ridx][player->clazz->cidx];
-                c = anim_pm_c[player->race->ridx][player->clazz->cidx];
+                p_attr = anim_pm_a[player->race->ridx][player->clazz->cidx];
+                p_char = anim_pm_c[player->race->ridx][player->clazz->cidx];
             }
         }
         else if (streq(player->sex->title, "Female"))
@@ -2577,13 +2549,13 @@ void do_animate_player(void)
             if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
                 // default
-                a = player->scr_info[y + 1][x].a;
-                c = player->scr_info[y + 1][x].c;
+                p_attr = player->scr_info[y + 1][x].a;
+                p_char = player->scr_info[y + 1][x].c;
             }
             else
             {
-                a = anim_pf_a[player->race->ridx][player->clazz->cidx];
-                c = anim_pf_c[player->race->ridx][player->clazz->cidx];
+                p_attr = anim_pf_a[player->race->ridx][player->clazz->cidx];
+                p_char = anim_pf_c[player->race->ridx][player->clazz->cidx];
             }
         }
         else if (streq(player->sex->title, "Neuter"))
@@ -2591,13 +2563,13 @@ void do_animate_player(void)
             if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
                 // default
-                a = player->scr_info[y + 1][x].a;
-                c = player->scr_info[y + 1][x].c;
+                p_attr = player->scr_info[y + 1][x].a;
+                p_char = player->scr_info[y + 1][x].c;
             }
             else
             {
-                a = anim_pn_a[player->race->ridx][player->clazz->cidx];
-                c = anim_pn_c[player->race->ridx][player->clazz->cidx];
+                p_attr = anim_pn_a[player->race->ridx][player->clazz->cidx];
+                p_char = anim_pn_c[player->race->ridx][player->clazz->cidx];
             }
         }
     }
@@ -2607,107 +2579,57 @@ void do_animate_player(void)
     {
         // Check characters
         Term_info(COL_MAP + x * tile_width, 
-            ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+            ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
 
         // Doesn't animate the player as a number if hp/mana is low
-        if (a2 != life_n)
+        if (a != life_n)
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &a2, &c2, &ta, &tc));
+                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
     }
     else if (animation_frame == 1)
     {
         // Check characters
         Term_info(COL_MAP + x * tile_width, 
-            ROW_MAP + y * tile_height, &a2, &c2, &ta, &tc);
+            ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
 
         // Doesn't animate the player as a number if hp/mana is low
-        if (a2 != life_n)
+        if (a != life_n)
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+                ROW_MAP + y * tile_height, 1, &p_attr, &p_char, &ta, &tc));
     }
 
-    //// Animate characters/objects in the wilderness ////
-    if (player->wpos.depth == 0)
+    //// Animate characters/objects ////
+    // Search objects around the player (5x5)
+    for (i = y - 2; i < y + 3; i++)
     {
-        // Search objects around the player (5x5)
-        for (i = y - 2; i < y + 3; i++)
+        for (j = x - 2; j < x + 3; j++)
         {
-            for (j = x - 2; j < x + 3; j++)
+            // Skip player
+            if (i == y && j == x) continue;
+
+            // Check characters
+            Term_info(COL_MAP + j * tile_width, 
+                ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
+
+            // Convert char to uint8_t [0 - 255]
+            nc = (uint8_t) c;
+
+            // If found then animate
+            if (s_obj[a][nc] == 1)
             {
-                // Skip player
-                if (i == y && j == x) continue;
-
-                // Check characters
-                Term_info(COL_MAP + j * tile_width, 
-                    ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
-
-                // Search, number of animate objects
-                for (k = 0; k <= anim_w_obj_n; k++)
+                if (animation_frame == 0)
                 {
-                    // If '0' then stop
-                    if (s_w_obj_a[k] == 0 && s_w_obj_c[k] == '\x00') break;
-
-                    // If found then animate
-                    if (a2 == s_w_obj_a[k] && c2 == s_w_obj_c[k])
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_w_obj_a[k], &anim_w_obj_c[k], &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
-                        }
-                        break;
-                    }
+                    // Display
+                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                        ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
                 }
-            }
-        }
-    }
-    //// Animate characters/objects in dungeons ////
-    else if (player->wpos.depth > 0)
-    {
-        // Search objects around the player (5x5)
-        for (i = y - 2; i < y + 3; i++)
-        {
-            for (j = x - 2; j < x + 3; j++)
-            {
-                // Skip player
-                if (i == y && j == x) continue;
-
-                // Check characters
-                Term_info(COL_MAP + j * tile_width, 
-                    ROW_MAP + i * tile_height, &a2, &c2, &ta, &tc);
-
-                // Search, number of animate objects
-                for (k = 0; k <= anim_d_obj_n; k++)
+                else if (animation_frame == 1)
                 {
-                    // If '0' then stop
-                    if (s_d_obj_a[k] == 0 && s_d_obj_c[k] == '\x00') break;
-
-                    // If found then animate
-                    if (a2 == s_d_obj_a[k] && c2 == s_d_obj_c[k])
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_d_obj_a[k], &anim_d_obj_c[k], &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a2, &c2, &ta, &tc));
-                        }
-                        break;
-                    }
+                    // Display
+                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                        ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
                 }
             }
         }
