@@ -2573,6 +2573,11 @@ void do_animate_player(void)
             }
         }
     }
+    else
+    {
+        p_attr = anim_pr_a[player->race->ridx];
+        p_char = anim_pr_c[player->race->ridx];
+    }
 
     //// Draw player ////
     if (animation_frame == 0)
