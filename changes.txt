@@ -16,7 +16,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.0 beta 1
+New features in PWMAngband 1.6.0 beta 2
 =======================================
 
 User interface
@@ -88,7 +88,7 @@ PWMAngband:
 - Don't clear monster/player detection counter if using the 'L' command
   after detection until the player has finished looking around
 - Add a loading screen between character selection and MotD display
-- Allow to color portions of a message using {} tags
+- Allow to color portions of a message using $ and ^ tags
 - SDL: rearrange options menu like for the Win client and only allow changing
   tile options during setup phase
 - SDL2: only allow changing tile options during setup phase
@@ -135,6 +135,7 @@ PWMAngband:
 - Give UNLIGHT players extra infravision
 - Add INC_BY_FIXED and DEC_BY_FIXED to increase/decrease satiation by a fixed
   amount instead of using percentage
+- Apply V's SELECT effect as an average of all effects
 - New class: Villager
 
 Bugs fixed

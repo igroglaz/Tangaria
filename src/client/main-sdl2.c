@@ -920,7 +920,7 @@ static void render_utf8_string(const struct window *window,
  * SetRenderTarget; caller must do it (but it does SetTextureColorMod) */
 static void render_glyph_mono(const struct window *window,
         const struct font *font, SDL_Texture *dst_texture,
-        int x, int y, const SDL_Color *fg, uint32_t codepoint)
+        int x, int y, const SDL_Color *fg, uint16_t codepoint)
 {
     if (codepoint == ' ') {
         return;
@@ -939,7 +939,7 @@ static void render_glyph_mono(const struct window *window,
                 font->cache.texture, &font->cache.rects[codepoint], &dst);
     } else {
         SDL_Surface *surface = TTF_RenderGlyph_Blended(font->ttf.handle,
-                (Uint16) codepoint, *fg);
+                (Uint8) codepoint, *fg);
         if (surface == NULL) {
             return;
         }
@@ -983,8 +983,8 @@ static void render_grid_cell_text(const struct subwindow *subwindow,
 {
     int a;
     int ta;
-    wchar_t c;
-    wchar_t tc;
+    char c;
+    char tc;
 
     /* map_info(); */
     a = player->scr_info[y][x].a;
@@ -1022,7 +1022,7 @@ static void render_grid_cell_text(const struct subwindow *subwindow,
 
     render_fill_rect(subwindow->window, texture, &rect, &bg);
     render_glyph_mono(subwindow->window,
-            subwindow->font, texture, rect.x, rect.y, &fg, (uint32_t) c);
+            subwindow->font, texture, rect.x, rect.y, &fg, (uint16_t) c);
 }
 
 /* does not SetRenderTarget */
@@ -1105,8 +1105,8 @@ static void render_grid_cell_tile(const struct subwindow *subwindow,
 {
     int a;
     int ta;
-    wchar_t c;
-    wchar_t tc;
+    char c;
+    char tc;
 
     /* map_info(); */
     a = player->scr_info[y][x].a;
@@ -4079,7 +4079,7 @@ static errr term_text_hook(int col, int row, int n, uint16_t a, const char *s)
     for (int i = 0; i < n; i++) {
         render_glyph_mono(subwindow->window,
                 subwindow->font, subwindow->texture,
-                rect.x, rect.y, &fg, (uint32_t) s[i]);
+                rect.x, rect.y, &fg, (uint16_t) s[i]);
         rect.x += subwindow->font_width;
     }
 
@@ -4517,7 +4517,7 @@ static void make_font_cache(const struct window *window, struct font *font)
 
     for (size_t i = 0; i < ASCII_CACHE_SIZE; i++) {
         SDL_Surface *surface = TTF_RenderGlyph_Blended(font->ttf.handle,
-                (Uint16) g_ascii_codepoints_for_cache[i], white);
+                (Uint8) g_ascii_codepoints_for_cache[i], white);
         if (surface == NULL) {
             quit_fmt("font cache rendering failed for '%c'"
                 " (ASCII %lu) in font '%s': %s",

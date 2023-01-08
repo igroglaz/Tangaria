@@ -511,7 +511,7 @@ void c_msg_print_aux(const char *msg, uint16_t type, bool memorize)
     n = strlen(msg);
 
     /* Display it */
-    Term_putstr(0, 0, Term->wid, COLOUR_WHITE, msg);
+    Term_putstrex(0, 0, Term->wid, COLOUR_WHITE, msg);
 
     /* Display "-more-" prompt */
     maxcol = (Term->wid - MORE_PROMPT_LEN);

@@ -697,7 +697,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
                 {
                     act_text = format(act, target_m_name);
                     if (OPT(who->player, show_damage))
-                        dmg_text = format(" for {r%d}r damage", damage);
+                        dmg_text = format(" for $r%d^r damage", damage);
                 }
                 else if (strstr(act, "%s"))
                     act_text = format(act, target_m_name);

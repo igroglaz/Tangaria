@@ -1609,6 +1609,10 @@ static void HelpWindowFontChange(term_window *window)
 		(h * window->rows) + window->border + window->title_height);
 
 	SetStatusButtons();
+
+    /* Hack -- set ANGBAND_FONTNAME for main window */
+    if (!Setup.initialized && window->Term_idx == 0)
+        ANGBAND_FONTNAME = window->req_font.name;
 }
 
 
@@ -2629,7 +2633,7 @@ static void SelectFileFontBrowser(sdl_Button *sender)
 		new_font.name = work;
 		new_font.preset = false;
 	}
-	if (suffix(new_font.name, ".fon"))
+	if (suffix(new_font.name, ".fon") || suffix(new_font.name, ".FON"))
     {
 		new_font.size = 0;
 		new_font.bitmapped = true;
@@ -3493,7 +3497,7 @@ static void FontActivate(sdl_Button *sender)
 			button->cap_colour = AltCapColour;
 		sdl_ButtonCaption(button, FontList[i]);
 		sdl_ButtonVisible(button, true);
-		button->activate = (suffix(FontList[i], ".fon")) ?
+		button->activate = (suffix(FontList[i], ".fon") || suffix(FontList[i], ".FON")) ?
 			SelectPresetBitmappedFont : SelectPresetScalableFont;
 	}
 

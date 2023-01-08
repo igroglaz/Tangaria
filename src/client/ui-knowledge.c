@@ -288,7 +288,8 @@ void do_cmd_message_one(void)
     message_color_hack(msg, &color);
 
     /* Recall one message XXX XXX XXX */
-    c_prt(color, format( "> %s", msg), 0, 0);
+    Term_erase(0, 0, 255);
+    Term_addstrex(-1, color, format( "> %s", msg));
 }
 
 

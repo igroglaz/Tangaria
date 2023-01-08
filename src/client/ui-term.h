@@ -259,6 +259,7 @@ extern errr Term_addstr(int n, uint16_t a, const char *buf);
 extern errr Term_putch(int x, int y, uint16_t a, char c);
 extern void Term_big_putch(int x, int y, uint16_t a, char c);
 extern errr Term_putstr(int x, int y, int n, uint16_t a, const char *s);
+extern errr Term_addstrex(int n, uint16_t a, const char *buf);
 extern errr Term_putstrex(int x, int y, int n, uint16_t a, const char *s);
 extern errr Term_erase(int x, int y, int n);
 extern errr Term_erase_icky(int x, int y, int n);
