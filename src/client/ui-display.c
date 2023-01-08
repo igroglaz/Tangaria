@@ -1918,10 +1918,10 @@ void do_weather(void)
 
     int i, j;
     int w, h;
+    uint16_t w_attr;
+    char w_char;
     uint16_t a;
     char c;
-    uint16_t a2;
-    char c2;
     uint16_t ta;
     char tc;
 
@@ -2004,20 +2004,20 @@ void do_weather(void)
         {
             // Check characters
             Term_info(COL_MAP + weather_frame_x[i] * tile_width, 
-                ROW_MAP + weather_frame_y[i] * tile_height, &a2, &c2, &ta, &tc);
+                ROW_MAP + weather_frame_y[i] * tile_height, &a, &c, &ta, &tc);
 
             // Display
             if (use_graphics)
             {
-                if ((a2 == 0x80) || (a2 == 0x96) || (a2 == 0x98) || (a2 > 0xA0))
+                if ((a == 0x80) || (a == 0x96) || (a == 0x98) || (a > 0xA0))
                     (void)((*main_term->pict_hook)(COL_MAP + weather_frame_x[i] * tile_width, 
-                        ROW_MAP + weather_frame_y[i] * tile_height, 1, &a2, &c2, &ta, &tc));
+                        ROW_MAP + weather_frame_y[i] * tile_height, 1, &a, &c, &ta, &tc));
             }
             else
             {
-                if (c2 != '@')
+                if (c != '@')
                     (void)((*main_term->text_hook)(COL_MAP + weather_frame_x[i], 
-                        ROW_MAP + weather_frame_y[i], 1, a2, &c2));
+                        ROW_MAP + weather_frame_y[i], 1, a, &c));
             }
         }
 
@@ -2051,20 +2051,20 @@ void do_weather(void)
                 {
                     if (use_graphics)
                     {
-                        a = 0x82;
+                        w_attr = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = '\xdf'; break;
-                            case 2: c = '\xe0'; break;
-                            case 3: c = '\xe1'; break;
-                            case 4: c = '\xe2'; break;
-                            case 5: c = '\xe3'; break;
+                            case 1: w_char = '\xdf'; break;
+                            case 2: w_char = '\xe0'; break;
+                            case 3: w_char = '\xe1'; break;
+                            case 4: w_char = '\xe2'; break;
+                            case 5: w_char = '\xe3'; break;
                         }
                     }
                     else
                     {
-                        a = COLOUR_L_BLUE;
-                        c = '/';
+                        w_attr = COLOUR_L_BLUE;
+                        w_char = '/';
                     }
                     break;
                 }
@@ -2073,20 +2073,20 @@ void do_weather(void)
                 {
                     if (use_graphics)
                     {
-                        a = 0x82;
+                        w_attr = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = '\xda'; break;
-                            case 2: c = '\xdb'; break;
-                            case 3: c = '\xdc'; break;
-                            case 4: c = '\xdd'; break;
-                            case 5: c = '\xde'; break;
+                            case 1: w_char = '\xda'; break;
+                            case 2: w_char = '\xdb'; break;
+                            case 3: w_char = '\xdc'; break;
+                            case 4: w_char = '\xdd'; break;
+                            case 5: w_char = '\xde'; break;
                         }
                     }
                     else
                     {
-                        a = COLOUR_L_BLUE;
-                        c = '\\';
+                        w_attr = COLOUR_L_BLUE;
+                        w_char = '\\';
                     }
                     break;
                 }
@@ -2095,20 +2095,20 @@ void do_weather(void)
                 {
                     if (use_graphics)
                     {
-                        a = 0x82;
+                        w_attr = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = '\xda'; break;
-                            case 2: c = '\xdb'; break;
-                            case 3: c = '\xdc'; break;
-                            case 4: c = '\xdd'; break;
-                            case 5: c = '\xde'; break;
+                            case 1: w_char = '\xda'; break;
+                            case 2: w_char = '\xdb'; break;
+                            case 3: w_char = '\xdc'; break;
+                            case 4: w_char = '\xdd'; break;
+                            case 5: w_char = '\xde'; break;
                         }
                     }
                     else
                     {
-                        a = COLOUR_BLUE;
-                        c = '/';
+                        w_attr = COLOUR_BLUE;
+                        w_char = '/';
                     }
                     break;
                 }
@@ -2117,20 +2117,20 @@ void do_weather(void)
                 {
                     if (use_graphics)
                     {
-                        a = 0x82;
+                        w_attr = 0x82;
                         switch (randint1(5))
                         {
-                            case 1: c = '\xdf'; break;
-                            case 2: c = '\xe0'; break;
-                            case 3: c = '\xe1'; break;
-                            case 4: c = '\xe2'; break;
-                            case 5: c = '\xe3'; break;
+                            case 1: w_char = '\xdf'; break;
+                            case 2: w_char = '\xe0'; break;
+                            case 3: w_char = '\xe1'; break;
+                            case 4: w_char = '\xe2'; break;
+                            case 5: w_char = '\xe3'; break;
                         }
                     }
                     else
                     {
-                        a = COLOUR_BLUE;
-                        c = '\\';
+                        w_attr = COLOUR_BLUE;
+                        w_char = '\\';
                     }
                     break;
                 }
@@ -2142,19 +2142,19 @@ void do_weather(void)
         {
             if (use_graphics)
             {
-                a = 0x82;
+                w_attr = 0x82;
                 switch (randint1(4))
                 {
-                    case 1: c = '\xd6'; break;
-                    case 2: c = '\xd7'; break;
-                    case 3: c = '\xd8'; break;
-                    case 4: c = '\xd9'; break;
+                    case 1: w_char = '\xd6'; break;
+                    case 2: w_char = '\xd7'; break;
+                    case 3: w_char = '\xd8'; break;
+                    case 4: w_char = '\xd9'; break;
                 }
             }
             else
             {
-                a = COLOUR_WHITE;
-                c = '*';
+                w_attr = COLOUR_WHITE;
+                w_char = '*';
             }
             break;
         }
@@ -2260,20 +2260,20 @@ void do_weather(void)
         {
             // Check characters
             Term_info(COL_MAP + weather_element_x[i] * tile_width, 
-                ROW_MAP + weather_element_y[i] * tile_height, &a2, &c2, &ta, &tc);
+                ROW_MAP + weather_element_y[i] * tile_height, &a, &c, &ta, &tc);
 
             // Display weather elements
             if (use_graphics)
             {
-                if ((a2 == 0x80) || (a2 == 0x96) || (a2 == 0x98) || (a2 > 0xA0))
+                if ((a == 0x80) || (a == 0x96) || (a == 0x98) || (a > 0xA0))
                     (void)((*main_term->pict_hook)(COL_MAP + weather_element_x[i] * tile_width, 
-                        ROW_MAP + weather_element_y[i] * tile_height, 1, &a, &c, &ta, &tc));
+                        ROW_MAP + weather_element_y[i] * tile_height, 1, &w_attr, &w_char, &ta, &tc));
             }
             else
             {
-                if (c2 != '@')
+                if (c != '@')
                     (void)((*main_term->text_hook)(COL_MAP + weather_element_x[i], 
-                        ROW_MAP + weather_element_y[i], 1, a, &c));
+                        ROW_MAP + weather_element_y[i], 1, w_attr, &w_char));
             }
 
             // Save weather element frame
