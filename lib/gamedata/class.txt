@@ -5712,6 +5712,7 @@ min-weight:35
 strength-multiplier:3
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
+equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -5746,7 +5747,7 @@ cooldown:4
 effect:WAKE
 effect:BLAST:SOUND:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:* 2
 desc:Makes nasty damaging sound in a some radius.
 desc: It wakes up everything around...
 desc: Cooldown 4 turns.
@@ -5755,7 +5756,7 @@ spell:Song of Healing:5:2:1:1:0
 cooldown:11
 effect:HEAL_HP
 dice:$B
-expr:B:PLAYER_LEVEL:* 3
+expr:B:PLAYER_LEVEL:* 5
 effect:TIMED_INC:OCCUPIED
 dice:2
 desc:You play music which heals you.
@@ -5763,17 +5764,14 @@ desc: Playing this takes some time during which you can not act.
 desc: Cooldown 11 turns.
 
 spell:Lullaby:10:1:32:3:0
-cooldown:7
+cooldown:60
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
 effect:PROJECT_LOS_AWARE:MON_CONF
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: sings strange magical lullaby.
-effect:TIMED_INC:OCCUPIED
-dice:2
 desc:Attempts to confuse each monster within line of sight and put them to sleep.
-desc: Playing this takes some time during which you can not act.
-desc: Cooldown 7 turns.
+desc: Cooldown 60 turns.
 
 spell:Sound Wave:15:10:1:5:0
 cooldown:30
@@ -5786,13 +5784,29 @@ msg_other:'s makes a horrible deadly noise.
 desc:Cries a beam of sound which pierce enemies.
 desc: Cooldown 30 turns.
 
-spell:Charm:20:10:30:11:0
-cooldown:100
-effect:BOLT_AWARE:CONTROL
-msg_other: makes an hypnotic sound.
-desc:Attempts to charm a single summoned monster.
-desc: Uniques are not affected.
-desc: Cooldown 100 turns.
+spell:Elbereth Gilthoniel:20:10:30:11:0
+cooldown:500
+effect:GLYPH:WARDING
+effect:TIMED_INC:OCCUPIED
+dice:3
+desc:Makes glyph of warding beneath you.
+desc: Summoned monsters can't appear on the glyph.
+desc: If a monster attempts to move onto the glyph or melee you while you
+desc: are standing on the glyph, it must first succeed in breaking the glyph.
+desc: Higher level monsters are more likely to break the glyph.
+desc: The glyph will remain where it is, until a monster succeeds in
+desc: breaking it or until you leave the level.
+desc: You sing this hymn some time during which you can not act.
+desc: Cooldown 500 turns.
+
+### make it work on regular (non-summ) monster
+#spell:Charm:20:10:30:11:0
+#cooldown:100
+#effect:BOLT_AWARE:CONTROL
+#msg_other: makes an hypnotic sound.
+#desc:Attempts to charm a single summoned monster.
+#desc: Uniques are not affected.
+#desc: Cooldown 100 turns.
 
 spell:Song of Remedy:25:14:65:15:0
 effect:TIMED_SET:BOLD

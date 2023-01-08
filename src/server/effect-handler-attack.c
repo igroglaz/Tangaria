@@ -885,12 +885,12 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
         }
         else if (streq(context->origin->player->clazz->name, "Bard"))
         {   
-            // Discord spell (mana 2) + agro
-            if (context->origin->player->spell_cost == 4)
+            // Discord spell (mana 1) + agro
+            if (context->origin->player->spell_cost == 1)
             {
-                rad += randint1(6) + context->origin->player->lev / 15;
-                if (context->origin->player->lev > 10)
-                    dam *= context->origin->player->lev / 10;
+                rad += randint1(6) + context->origin->player->lev / 12;
+                if (context->origin->player->lev > 20)
+                    dam *= context->origin->player->lev / 20;
             }
         }
     }
