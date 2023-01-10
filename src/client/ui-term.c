@@ -1667,7 +1667,7 @@ errr Term_putstr(int x, int y, int n, uint16_t a, const char *s)
 
 
 /*
- * At the current location, using an attr, add a string. Check for subcolors with § and ^ tags.
+ * At the current location, using an attr, add a string. Check for subcolors with $ and ^ tags.
  * We alternate between normal attr and other attr, starting with either of them depending on
  * which tag we find first.
  */
@@ -1683,7 +1683,7 @@ errr Term_addstrex(int n, uint16_t a, const char *buf)
 
     /* Check for tags */
     my_strcpy(tmp, buf, sizeof(tmp));
-    t = strtok(tmp, "§^");
+    t = strtok(tmp, "$^");
 
     /* Empty string */
     if (!t) return Term_addstr(n, a, buf);
@@ -1692,7 +1692,7 @@ errr Term_addstrex(int n, uint16_t a, const char *buf)
     my_strcpy(str, t, sizeof(str));
 
     pos = strlen(t);
-    t = strtok(NULL, "§^");
+    t = strtok(NULL, "$^");
 
     /* No tags */
     if (!t) return Term_addstr(n, a, buf);
@@ -1714,7 +1714,7 @@ errr Term_addstrex(int n, uint16_t a, const char *buf)
         /* Save current substring for display */
         my_strcpy(str, t + 1, sizeof(str));
 
-        t = strtok(NULL, "§^");
+        t = strtok(NULL, "$^");
         switched = !switched;
     }
 
@@ -1724,7 +1724,7 @@ errr Term_addstrex(int n, uint16_t a, const char *buf)
 
 
 /*
- * Move to a location and, using an attr, add a string. Check for subcolors with § and ^ tags.
+ * Move to a location and, using an attr, add a string. Check for subcolors with $ and ^ tags.
  * Finding both tags will display a part of the string in another color. Finding only one tag
  * will display the beginning or the end of the string in another color.
  */
