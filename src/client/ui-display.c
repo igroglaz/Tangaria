@@ -106,9 +106,9 @@ static uint16_t anim_pf_a[128][128]; // remap the player female 'a'
 static char anim_pf_c[128][128]; // remap the player female 'c'
 static uint16_t anim_pn_a[128][128]; // remap the player neuter 'a'
 static char anim_pn_c[128][128]; // remap the player neuter 'c'
-static uint16_t s_obj[1024][1024]; // search objects
-static uint16_t anim_obj_a[1024][1024]; // animate objects 'a'
-static char anim_obj_c[1024][1024]; // animate objects 'c'
+static uint16_t s_obj[1024][256]; // search objects
+static uint16_t anim_obj_a[1024][256]; // animate objects 'a'
+static char anim_obj_c[1024][256]; // animate objects 'c'
 
 
 /*** Sidebar display functions ***/
@@ -2572,6 +2572,11 @@ void do_animate_player(void)
                 p_char = anim_pn_c[player->race->ridx][player->clazz->cidx];
             }
         }
+    }
+    else
+    {
+        p_attr = anim_pr_a[player->race->ridx];
+        p_char = anim_pr_c[player->race->ridx];
     }
 
     //// Draw player ////
