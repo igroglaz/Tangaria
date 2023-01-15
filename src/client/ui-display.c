@@ -2495,6 +2495,7 @@ void do_animate_player(void)
     uint16_t nc;
 
     static bool animation_file = false;
+    static bool animation_player = false;
     static int animation_frame = 0;
 
     //// Read animation pref file ////
@@ -2519,14 +2520,14 @@ void do_animate_player(void)
     {
         p_attr = anim_ghost_a;
         p_char = anim_ghost_c;
+        animation_player = true;
     }
     // anim_pr '0' - doesn't animate player tile
     // anim_pr '0x80' -> anim_pm/anim_pf/anim_pn
     else if (anim_pr_a[player->race->ridx] == 0)
     {
-        // default
-        p_attr = player->scr_info[y + 1][x].a;
-        p_char = player->scr_info[y + 1][x].c;
+        // doesn't animate the player
+        animation_player = false;
     }
     else if (anim_pr_a[player->race->ridx] == 0x80)
     {
@@ -2534,42 +2535,42 @@ void do_animate_player(void)
         {
             if (anim_pm_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
-                // default
-                p_attr = player->scr_info[y + 1][x].a;
-                p_char = player->scr_info[y + 1][x].c;
+                // doesn't animate the player
+                animation_player = false;
             }
             else
             {
                 p_attr = anim_pm_a[player->race->ridx][player->clazz->cidx];
                 p_char = anim_pm_c[player->race->ridx][player->clazz->cidx];
+                animation_player = true;
             }
         }
         else if (streq(player->sex->title, "Female"))
         {
             if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
-                // default
-                p_attr = player->scr_info[y + 1][x].a;
-                p_char = player->scr_info[y + 1][x].c;
+                // doesn't animate the player
+                animation_player = false;
             }
             else
             {
                 p_attr = anim_pf_a[player->race->ridx][player->clazz->cidx];
                 p_char = anim_pf_c[player->race->ridx][player->clazz->cidx];
+                animation_player = true;
             }
         }
         else if (streq(player->sex->title, "Neuter"))
         {
             if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
             {
-                // default
-                p_attr = player->scr_info[y + 1][x].a;
-                p_char = player->scr_info[y + 1][x].c;
+                // doesn't animate the player
+                animation_player = false;
             }
             else
             {
                 p_attr = anim_pn_a[player->race->ridx][player->clazz->cidx];
                 p_char = anim_pn_c[player->race->ridx][player->clazz->cidx];
+                animation_player = true;
             }
         }
     }
@@ -2577,10 +2578,11 @@ void do_animate_player(void)
     {
         p_attr = anim_pr_a[player->race->ridx];
         p_char = anim_pr_c[player->race->ridx];
+        animation_player = true;
     }
 
     //// Draw player ////
-    if (animation_frame == 0)
+    if (animation_player && animation_frame == 0)
     {
         // Check characters
         Term_info(COL_MAP + x * tile_width, 
@@ -2592,7 +2594,7 @@ void do_animate_player(void)
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
     }
-    else if (animation_frame == 1)
+    else if (animation_player && animation_frame == 1)
     {
         // Check characters
         Term_info(COL_MAP + x * tile_width, 
