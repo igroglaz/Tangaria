@@ -5048,7 +5048,6 @@ static int Receive_redraw(int ind)
         break_mind_link(p);
 
         do_cmd_redraw(p);
-        msg(p, "You have %lu account points.", p->account_score);
     }
 
     return 1;
@@ -6122,6 +6121,7 @@ static void show_motd(struct player *p)
         if (first)
         {
             msgt(p, MSG_MOTD, "  ");
+            msg(p, "You have %lu account points.", p->account_score);
             //msgt(p, MSG_MOTD, "   ");
             first = false;
         }

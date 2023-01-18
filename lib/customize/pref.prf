@@ -73,6 +73,9 @@ X:effective_speed
 # Show weather
 X:weather_display
 
+# Option 'Animate player'
+Y:animate_player
+
 # Option 'Color: Illuminate torchlight in orange'
 Y:view_orange_light
 
@@ -159,6 +162,9 @@ Y:disturb_effect_end
 
 # Option 'Confirm recall out of non-reentrable dungeons'
 X:confirm_recall
+
+# Option 'Hide controlled monsters in monster lists'
+Y:hide_slaves
 
 # Hitpoint warning (0-9)
 O:hp_warn_factor:6
@@ -404,6 +410,18 @@ keymap-input:0:{MK}[Delete]
 keymap-act:w0
 keymap-input:0:x
 
+# Hack -- Time control:
+# Default (slow time on 60%) // 0 key
+keymap-act:[Escape]=h6[Escape]
+keymap-input:0:{K}0
+
+# Slower (turn on time bubble always) // ctrl+0
+keymap-act:[Escape]=h=[Escape]
+keymap-input:0:{^K}0
+
+# Faster (disable time bubble) // alt+0
+keymap-act:[Escape]=h0[Escape]
+keymap-input:0:{AK}0
 
 ##### Roguelike Keyset Mappings #####
 
