@@ -4859,7 +4859,7 @@ equip:sword:Dagger:1:1:none
 equip:scroll:Word of Recall:1:1:birth_no_recall
 player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
 obj-flag:0:CLUMSY
-# - CLUMSY (so a bit harder to play then PWMA)
+# - CLUMSY (so a bit harder to play than PWMA)
 title:Rambler
 title:Walker
 title:Tripper
@@ -5539,7 +5539,6 @@ skill-search:15:15
 skill-melee:40:30
 skill-shoot:40:30
 skill-dig:0:0
-# 3
 hitdie:4
 max-attacks:3
 min-weight:35
@@ -5578,33 +5577,25 @@ book:travel guide:town:[Basics]:12:common
 equip:travel guide:[Basics]:1:1:none
 
 spell:Weary Feet:1:1:25:1:0
-cooldown:10
-effect:TIMED_INC:FAST:0:5
-dice:2
-effect:HEAL_HP
-dice:1
-effect:HEAL_HP
-dice:1
-effect:RANDOM
-dice:3
+cooldown:100
 effect:TIMED_INC:MOVE_FAST
-dice:3
+dice:$B
+expr:B:PLAYER_LEVEL:+ 5
 desc:Makes you able to run faster for some time.
-desc: Occasionally may also boost your overall speed.
-desc: Cooldown 10 turns.
+desc: Cooldown 100 turns.
 
-spell:Cartography:3:1:1:4:0
+spell:Cartography:3:1:1:1:0
+cooldown:100
 # hc, radius increases with lvls
 effect:MAP_AREA
 effect-yx:5:5
 desc:You map out a portion of the level around.
 desc: Your mapping abilities depends on your level.
+desc: Cooldown 100 turns.
 
-spell:Travel:5:2:24:4:0
+spell:Travel:5:2:1:1:0
 effect:TELEPORT_LEVEL
 effect:DEEP_DESCENT
-effect:RECALL
-dice:14+1d20
 effect:TELEPORT_TO
 dice:10
 effect:TELEPORT
@@ -5615,7 +5606,7 @@ dice:50
 effect:TELEPORT
 dice:10
 effect:RANDOM
-dice:7
+dice:6
 msg_other: blinks away.
 desc:Roads go ever ever on,
 desc: Over rock and under tree,
@@ -5626,7 +5617,7 @@ desc: And through the merry flowers of June,
 desc: Over grass and over stone,
 desc: And under mountains in the moon.
 
-spell:Kindle the Light:10:4:26:8:0
+spell:Kindle the Light:10:4:1:1:0
 effect:BLAST:LIGHT_WEAK:2
 dice:2d$S
 expr:S:PLAYER_LEVEL:/ 2
@@ -5634,54 +5625,63 @@ msg_other: kindles a small magical bonfire.
 desc:Lights up all squares within 2 grids of the player and hurts
 desc: all light-sensitive monsters in the area of effect.
 
-spell:Environmental Survival:15:7:15:32:0
-cooldown:100
-effect:HEAL_HP
-dice:$B+m$M
-expr:B:PLAYER_LEVEL:+ 10
-expr:M:PLAYER_LEVEL:/ 3 + 12
-desc:You collect magical healing herbs from time to time which when applied
-desc: cures your wounds.
-desc: Cooldown 100 turns.
-
-spell:Heroism:20:12:30:50:0
-effect:TIMED_SET:HERO
-dice:25+1d25
-effect:TIMED_SET:BOLD
-dice:25+1d25
-effect:CURE:AFRAID
-effect:HEAL_HP
-dice:10
-desc:Cures 10 points of damage, removes fear and grants you heroism
-desc: (resistance to fear and a bonus of +12 to-hit) for 25+1d25 turns.
-
-spell:Detect Evil:25:15:10:70:0
-effect:DETECT_EVIL
-effect-yx:11:22
-desc:Detects all evil monsters in the immediate area,
-desc: for one turn only.
-
-spell:Hand-to-Mouth:30:2:25:2:0
-effect:NOURISH:INC_TO
-dice:14
-desc:Magically saves you from starvation.
-
-spell:Firebolt:35:20:17:90:0
+spell:Firebolt:15:3:1:1:0
+cooldown:3
 effect:BOLT:FIRE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: fires a bolt of fire.
 desc:Shoots a fire bolt.
+desc: Cooldown 3 turns.
 
-spell:Knowledge:40:37:35:80:0
-effect:IDENTIFY
-desc:Reveals an unknown rune on an object.
+spell:Environmental Survival:20:7:1:1:0
+cooldown:100
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+desc:You collect magical healing herbs from time to time which when applied
+desc: cures your wounds.
+desc: Cooldown 100 turns.
 
-spell:Emergency Passage:45:25:30:140:0
+spell:Detect Evil:25:1:1:1:0
+cooldown:100
+effect:DETECT_EVIL
+effect-yx:22:40
+desc:Detects all evil monsters in the immediate area,
+desc: for one turn only.
+desc: Cooldown 100 turns.
+
+spell:Hand-to-Mouth:30:2:1:1:0
+cooldown:100
+effect:NOURISH:INC_TO
+dice:14
+desc:Magically saves you from starvation.
+desc: Cooldown 100 turns.
+
+spell:Buff:35:12:1:1:0
+cooldown:100
+effect:TIMED_SET:HERO
+dice:10+1d10
+effect:TIMED_SET:BLESSED
+dice:10+1d10
+effect:TIMED_SET:FAST:0:5
+dice:10+1d10
+desc:Grants a bonus to attack, AC and speed.
+desc: Cooldown 100 turns.
+
+spell:Heartstone:40:37:1:1:0
+effect:RECALL
+dice:10+1d10
+desc:Moves you from the dungeon back to the town or from the town
+desc: to the deepest level you have visited in the dungeon.
+desc: The effect somewhat delayed. During that delay, the effect 
+desc: can be canceled by invoking the spell again.
+
+spell:Emergency Passage:45:25:1:1:0
 effect:TELEPORT_LEVEL
 desc:You can try to find a hidden slot which leads to unknown level (up or down).
 
-spell:Glyph of Warding:50:50:30:150:0
+spell:Glyph of Warding:50:50:1:1:0
 cooldown:100
 effect:GLYPH:WARDING
 desc:Inscribes a glyph of warding beneath you.
