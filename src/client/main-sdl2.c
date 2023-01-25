@@ -43,6 +43,9 @@
 #define INIT_IMG_FLAGS \
     (IMG_INIT_PNG)
 
+/* Chat window (term_chat) */
+#define CHAT_SUBWINDOW PMSG_TERM
+
 /* this is the main term screen, where all the action takes place */
 #define MAIN_SUBWINDOW 0
 /* for symmetry with main subwindow */
@@ -4870,10 +4873,24 @@ static bool handle_button_open_subwindow(struct window *window,
 
     unsigned index = button->data.value.unsigned_value;
     struct subwindow *subwindow = NULL;
-    
+
     subwindow = get_subwindow_by_index(window, index, false);
     if (subwindow != NULL) {
         subwindow->visible = !subwindow->visible;
+
+        /* Hack -- chat window (term_chat) */
+        if (subwindow->index == CHAT_SUBWINDOW && subwindow->visible) {
+            load_term(subwindow);
+            /* Reinitialize all subwindows */
+            subwindows_reinit_flags();
+            /* Set up the subwindows */
+            subwindows_init_flags();
+        } else if (subwindow->index == CHAT_SUBWINDOW && !subwindow->visible) {
+            angband_term[subwindow->index] = NULL;
+            subwindow->term = NULL;
+            subwindow->linked = false;
+        }
+
         if (subwindow->visible) {
             bring_to_top(window, subwindow);
         }
@@ -4946,6 +4963,11 @@ static void make_default_status_buttons(struct status_bar *status_bar)
     callbacks.on_event = handle_button_open_subwindow;
     for (unsigned i = 1; i < N_ELEMENTS(status_bar->window->subwindows); i++) {
         data.value.unsigned_value = i;
+        /* Chat window */
+        if (i == CHAT_SUBWINDOW) {
+            PUSH_BUTTON_LEFT_TO_RIGHT("C");
+            continue;
+        }
         PUSH_BUTTON_LEFT_TO_RIGHT(format("%u", i));
     }
 #undef PUSH_BUTTON_LEFT_TO_RIGHT
@@ -6131,6 +6153,10 @@ static void load_terms(void)
 {
     for (size_t i = 0; i < N_ELEMENTS(g_subwindows); i++) {
         if (g_subwindows[i].loaded) {
+            /* Hack -- don't load chat window (term_chat) if visible = false */
+            if (g_subwindows[i].index == CHAT_SUBWINDOW && !g_subwindows[i].visible) {
+                continue;
+            }
             load_term(&g_subwindows[i]);
         }
     }
