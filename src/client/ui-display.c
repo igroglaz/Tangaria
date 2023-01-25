@@ -2623,6 +2623,9 @@ void do_animate_player(void)
             // Convert char to uint8_t [0 - 255]
             nc = (uint8_t) c;
 
+            // Check for overflow s_obj[1024][256]
+            if (a > 1024 || nc > 256) continue;
+
             // If found then animate
             if (s_obj[a][nc] == 1)
             {
