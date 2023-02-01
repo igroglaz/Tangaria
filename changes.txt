@@ -197,6 +197,8 @@ PWMAngband:
 - Consider spells on cooldown as okay to cast by the client
 - Update browse book screen when a spell enters or goes off cooldown
 - Fix wilderness mapping
+- Prevent trying to add a player to the "Neutral" party
+- Fix double free in Receive_minipos()
 
 Coding changes
 --------------

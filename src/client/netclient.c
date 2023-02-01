@@ -3408,7 +3408,9 @@ static int Receive_minipos(void)
         {
             party_n = idx;
             mem_free(party_y);
+            party_y = NULL;
             mem_free(party_x);
+            party_x = NULL;
             if (party_n > 0)
             {
                 party_y = mem_zalloc(party_n * sizeof(int));

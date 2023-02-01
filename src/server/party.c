@@ -241,6 +241,15 @@ static bool party_add(struct player *q, const char *name)
     /* Find name */
     struct player *p = player_lookup(name);
 
+    /* Check for party existance */
+    if (!party_id)
+    {
+        /* Oops */
+        msg(q, "You are not in a party.");
+
+        return false;
+    }
+
     /* Check for existance */
     if (!p)
     {
