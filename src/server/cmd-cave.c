@@ -1442,6 +1442,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
     int turn_last_digit = p->active_turn.turn % 10;
     int sound_freq = 2 + ((p->state.speed - 110) / 10);
+    if (sound_freq < 1) // if speed is very low we will have 0
+        sound_freq = 2;
 
         if (tree || web)
         {
