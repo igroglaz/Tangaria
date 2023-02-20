@@ -170,7 +170,6 @@ buy:mage staff
 
 # Temple
 store:STORE_TEMPLE
-type:2
 owner:15000:Monomakh the Wise
 owner:20000:Monomakh the Wise
 owner:25000:Monomakh the Wise
