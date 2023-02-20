@@ -1,35 +1,18 @@
 # File: store.txt
 #
-# store: store name
-# type: store type
-# owner: max purse : name (as many or few as you like >1)
-# turnover: turnover (how many items the store turns over)
-# slots: min : max (number of 'normal' slots to keep stocked) 
-#
-#
-#
-# MAX SHOULD BE EQUAL TO NUMBER OF 'NORMAL' ITEMS in shop
-#(exception - if there is no 'always' items, lie in 'weapons' shop).
-#
-#
-#
-# normal: type name : item name (for the normal stocking list) : rarity : price
-#         factor
-# always: type name : ?item name (for things to always stock)
-# buy: type name (base types the store will buy)
-# buy-flag: flag : type name (types to buy if the flag is present)
-#
-# Store types must match the following values:
-#  1 = STORE_GENERAL
-#  2 = STORE_TEMPLE
-#  3 = STORE_B_MARKET
-#  4 = STORE_XBM
-#  5 = STORE_TAVERN
-#  6 = STORE_HOME
-#  7 = STORE_PLAYER
-#
-# There must be one and only one store with each of the types above. Other
-# stores and custom stores must have no type defined (0 = STORE_OTHER).
+# store: feature code                 - feature code is from list-terrain.h.
+#                                       store's name is name for that feature
+#                                       from terrain.txt. Will raise an error
+#                                       if the feature in terrain.txt does not
+#                                       have the SHOP flag.
+# owner: max purse : name             - must be specfied at least once, may
+#                                       appear multiple times
+# turnover: turnover                  - how many items the store turns over
+# slots: min : max                    - number of 'normal' slots to keep stocked
+# normal: type name : item name       - for the normal stocking list
+# always: type name : ?item name      - for things to always stock
+# buy: type name                      - base types the store will buy
+# buy-flag: flag : type name          - types to buy if the flag is present
 #
 # Custom stores MUST be placed at the proper location (between regular stores
 # and black market), otherwise towns may not be generated properly.
@@ -68,8 +51,7 @@ welcome:8:nods to you.
 #welcome:8:"I and my family are entirely at your service, %s."
 
 # General store
-store:General Store
-type:1
+store:STORE_GENERAL
 owner:5000:Yersh the Slender (Half-Orc)
 owner:10000:Yersh the Slender (Half-Orc)
 owner:20000:Yersh the Slender (Half-Orc)
@@ -104,7 +86,7 @@ buy:crop
 buy:horn
 
 # Armoury
-store:Armoury
+store:STORE_ARMOR
 owner:5000:Dobrynya Dragon-Slayer (Dwarf)
 owner:10000:Dobrynya Dragon-Slayer (Dwarf)
 owner:25000:Dobrynya Dragon-Slayer (Dwarf)
@@ -140,7 +122,7 @@ buy:hard armour
 buy:dragon armour
 
 # Weaponsmith
-store:Weapon Smiths
+store:STORE_WEAPON
 owner:5000:Muromets the Grim (Dunadan)
 owner:10000:Muromets the Grim (Dunadan)
 owner:25000:Muromets the Grim (Dunadan)
@@ -187,7 +169,7 @@ buy:rock
 buy:mage staff
 
 # Temple
-store:Temple
+store:STORE_TEMPLE
 type:2
 owner:15000:Monomakh the Wise
 owner:20000:Monomakh the Wise
@@ -225,7 +207,7 @@ buy-flag:BLESSED:sword
 buy-flag:BLESSED:polearm
 
 # Alchemist
-store:Alchemy Shop
+store:STORE_ALCHEMY
 owner:10000:Dmitri the Chaotic (Half-Elf)
 owner:10000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
@@ -251,7 +233,7 @@ buy:scroll
 buy:potion
 
 # Magic-user's
-store:Magic Shop
+store:STORE_MAGIC
 owner:15000:Mikhaylo the Wizard
 owner:20000:Mikhaylo the Wizard
 owner:25000:Mikhaylo the Wizard
@@ -288,8 +270,7 @@ buy:scroll
 buy:potion
 
 # Bookseller
-store:Bookseller
-type:3
+store:STORE_BOOK
 owner:15000:Senya the Short
 owner:20000:Senya the Short
 owner:25000:Senya the Short
@@ -1085,8 +1066,7 @@ normal:fortune cookie:*sings* Three trolls.. In the forest of mourn..
 buy:flask
 
 # Black Market - x3 price no stock given but we still need slot/turnover info
-store:Black Market
-type:4
+store:STORE_BLACK
 owner:15000:Lo-Hak the Awful (Half-Troll)
 owner:20000:Histor the Goblin (Kobold)
 owner:25000:Durwin the Shifty (Half-Orc)
@@ -1096,8 +1076,7 @@ turnover:9
 
 
 # Expensive Black Market x8 price - no stock given but we still need slot/turnover info
-store:Expensive Black Market
-type:5
+store:STORE_XBM
 owner:15000:Eek the Yeek (Yeek)
 owner:20000:Zak the Kobold (Kobold)
 owner:25000:Fat-Pig the Snaga (Half-Orc)
@@ -1114,22 +1093,20 @@ welcome:6:"Tell me if you see any thieves!"
 welcome:7:"Welcome back, %s."
 welcome:8:"A pleasure to do business with you, %s."
 
-store:Tavern
-type:6
+store:STORE_TAVERN
 owner:0:Tavern
 owner:0:Tavern
 owner:0:Tavern
 owner:0:Tavern
 
-store:Home
-type:7
+store:HOME
 owner:0:Your home
 owner:0:Your home
 owner:0:Your home
 owner:0:Your home
 
-store:Player shop
-type:8
+# Player shop
+store:STORE_PLAYER
 owner:0:Player shop
 owner:0:Player shop
 owner:0:Player shop
