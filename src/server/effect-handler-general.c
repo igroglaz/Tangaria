@@ -953,6 +953,7 @@ bool effect_handler_ALTER_REALITY(effect_handler_context_t *context)
     /* Deallocate the level */
     chunk_list_remove(context->cave);
     cave_wipe(context->cave);
+    context->cave = NULL;
 
     return !used;
 }

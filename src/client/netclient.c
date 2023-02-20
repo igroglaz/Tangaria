@@ -379,11 +379,11 @@ static int Receive_struct_info(void)
         /* Various Limits */
         case STRUCT_INFO_LIMITS:
         {
-            uint16_t a_max, e_max, k_max, r_max, f_max, trap_max, pack_size, quiver_size, floor_size,
+            uint16_t a_max, e_max, k_max, r_max, trap_max, pack_size, quiver_size, floor_size,
                 quiver_slot_size, store_inven_max, curse_max;
 
-            if ((n = Packet_scanf(&rbuf, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", &a_max, &e_max,
-                &k_max, &r_max, &f_max, &trap_max, &flavor_max, &pack_size, &quiver_size,
+            if ((n = Packet_scanf(&rbuf, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", &a_max, &e_max,
+                &k_max, &r_max, &trap_max, &flavor_max, &pack_size, &quiver_size,
                 &floor_size, &quiver_slot_size, &store_inven_max, &curse_max)) <= 0)
             {
                 /* Rollback the socket buffer */
@@ -392,7 +392,7 @@ static int Receive_struct_info(void)
                 /* Packet isn't complete, graceful failure */
                 return n;
             }
-            bytes_read += 26;
+            bytes_read += 24;
 
             /* z_info */
             z_info = &z_info_struct;
@@ -414,9 +414,8 @@ static int Receive_struct_info(void)
             Client_setup.r_char = mem_zalloc(z_info->r_max * sizeof(char));
 
             /* f_info */
-            z_info->f_max = f_max;
-            Client_setup.f_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
-            Client_setup.f_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
+            Client_setup.f_attr = mem_zalloc(FEAT_MAX * sizeof(byte_lit));
+            Client_setup.f_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
 
             /* trap_info */
             z_info->trap_max = trap_max;
@@ -1362,6 +1361,8 @@ static int Receive_struct_info(void)
         /* Terrain features */
         case STRUCT_INFO_FEAT:
         {
+            assert(max == FEAT_MAX);
+
             /* Alloc */
             f_info = mem_zalloc(max * sizeof(struct feature));
 
@@ -2877,9 +2878,9 @@ static int Receive_store_info(void)
     char store_owner_name[NORMAL_WID];
     int16_t num_items;
     int32_t max_cost;
-    int16_t type;
+    int16_t feat;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%s%s%s%hd%ld", &ch, &type, store_name, store_owner_name,
+    if ((n = Packet_scanf(&rbuf, "%b%hd%s%s%s%hd%ld", &ch, &feat, store_name, store_owner_name,
         welcome, &num_items, &max_cost)) <= 0)
     {
         return n;
@@ -2887,11 +2888,11 @@ static int Receive_store_info(void)
 
     current_store.stock_num = num_items;
     current_store.owner->max_cost = max_cost;
-    string_free(current_store.name);
-    current_store.name = string_make(store_name);
+    string_free(current_store_name);
+    current_store_name = string_make(store_name);
     string_free(current_store.owner->name);
     current_store.owner->name = string_make(store_owner_name);
-    current_store.type = type;
+    current_store.feat = feat;
 
     /* Only display store if we're not already shopping */
     if (!store_ctx) store_enter();
@@ -3509,7 +3510,7 @@ static int Receive_features(void)
     if ((n = Packet_scanf(&rbuf, "%b%hd%hd", &ch, &lighting, &off)) <= 0)
         return n;
 
-    if (off == z_info->f_max)
+    if (off == FEAT_MAX)
     {
         off = 0;
         lighting++;
@@ -3526,7 +3527,7 @@ static int Receive_features(void)
     /* Request continuation */
     else
     {
-        loading_screen((lighting * z_info->f_max + off) * 100 / (LIGHTING_MAX * z_info->f_max));
+        loading_screen((lighting * FEAT_MAX + off) * 100 / (LIGHTING_MAX * FEAT_MAX));
         Send_features(lighting, off);
     }
 
@@ -4582,7 +4583,7 @@ int Send_features(int lighting, int off)
     if ((lighting < 0) || (lighting >= LIGHTING_MAX)) return 0;
 
     /* Size */
-    size = z_info->f_max;
+    size = FEAT_MAX;
 
     max = MAX_FEATURE_CHUNK;
     if (offset + max > size) max = size - offset;

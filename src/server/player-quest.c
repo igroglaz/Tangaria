@@ -138,6 +138,7 @@ static void cleanup_quest(void)
     for (idx = 0; idx < z_info->quest_max; idx++)
         string_free(quests[idx].name);
     mem_free(quests);
+    quests = NULL;
 }
 
 

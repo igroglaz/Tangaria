@@ -41,17 +41,16 @@ struct preset
  */
 struct feature
 {
-    char *name;             /* Name */
+    char *name;                 /* Name */
     char *shortdesc;
     char *desc;
     unsigned int fidx;          /* Index */
-    struct feature *next;
-    char *mimic;                /* Name of feature to mimic */
-    uint8_t priority;              /* Display priority */
-    uint8_t shopnum;               /* Which shop does it take you to? */
-    uint8_t dig;                   /* How hard is it to dig through? */
+    struct feature *mimic;      /* Feature to mimic or NULL for no mimicry */
+    uint8_t priority;           /* Display priority */
+    uint8_t shopnum;            /* Which shop does it take you to? */
+    uint8_t dig;                /* How hard is it to dig through? */
     bitflag flags[TF_SIZE];     /* Terrain flags */
-    uint8_t d_attr;                /* Default feature attribute */
+    uint8_t d_attr;             /* Default feature attribute */
     char d_char;                /* Default feature character */
     char *hurt_msg;             /* Message on being hurt by feature */
     char *died_flavor;          /* Flavored message on dying to feature */
@@ -134,89 +133,6 @@ struct chunk
  */
 typedef bool (*square_predicate)(struct chunk *c, struct loc *grid);
 
-/*** Feature Indexes (see "lib/gamedata/terrain.txt") ***/
-
-/* Nothing */
-extern int FEAT_NONE;
-
-/* Various */
-extern int FEAT_FLOOR;
-extern int FEAT_CLOSED;
-extern int FEAT_OPEN;
-extern int FEAT_BROKEN;
-extern int FEAT_LESS;
-extern int FEAT_MORE;
-
-/* Secret door */
-extern int FEAT_SECRET;
-
-/* Rubble */
-extern int FEAT_RUBBLE;
-extern int FEAT_PASS_RUBBLE;
-
-/* Mineral seams */
-extern int FEAT_MAGMA;
-extern int FEAT_QUARTZ;
-extern int FEAT_MAGMA_K;
-extern int FEAT_QUARTZ_K;
-
-/* Walls */
-extern int FEAT_GRANITE;
-extern int FEAT_PERM;
-extern int FEAT_LAVA;
-
-/* MAngband-specific terrain elements */
-extern int FEAT_PERM_STATIC;
-extern int FEAT_PERM_HOUSE;
-extern int FEAT_PERM_ARENA;
-
-extern int FEAT_WATER;
-extern int FEAT_MUD;
-extern int FEAT_DRAWBRIDGE;
-extern int FEAT_FOUNTAIN;
-extern int FEAT_FNT_DRIED;
-extern int FEAT_LOOSE_DIRT;
-extern int FEAT_DIRT;
-extern int FEAT_FLOOR_SAFE;
-extern int FEAT_LAVA_STREAM;
-extern int FEAT_STREET;
-extern int FEAT_FLOOR_PIT;
-
-extern int FEAT_GRASS;
-extern int FEAT_CROP;
-extern int FEAT_TREE;
-extern int FEAT_EVIL_TREE;
-extern int FEAT_MOUNTAIN;
-extern int FEAT_LOGS;
-extern int FEAT_SAND;
-extern int FEAT_SANDWALL;
-extern int FEAT_ICE;
-extern int FEAT_ICEWALL;
-extern int FEAT_SWAMP;
-extern int FEAT_TOWN;
-extern int FEAT_DEEP_WATER;
-extern int FEAT_HILL;
-extern int FEAT_SHORE;
-
-extern int FEAT_PERM_CLEAR;
-
-/* Special "home doors" */
-extern int FEAT_HOME_OPEN;
-extern int FEAT_HOME_CLOSED;
-
-extern int FEAT_WEB;
-extern int FEAT_TRAINING;
-
-extern int FEAT_CROP_POTATO;
-extern int FEAT_CROP_CABBAGE;
-extern int FEAT_CROP_CARROT;
-extern int FEAT_CROP_BEET;
-extern int FEAT_CROP_SQUASH;
-extern int FEAT_CROP_CORN;
-
-extern int FEAT_HARD_RUBBLE;
-extern int FEAT_HARD_PASS_RUBBLE;
-
 extern int16_t ddd[9];
 extern struct loc ddgrid[10];
 extern int16_t ddx_ddd[9];
@@ -243,8 +159,7 @@ enum
 /* cave.c */
 extern int motion_dir(struct loc *start, struct loc *finish);
 extern void next_grid(struct loc *next, struct loc *grid, int dir);
-extern int lookup_feat(const char *name);
-extern void set_terrain(void);
+extern int lookup_feat_code(const char *code);
 extern struct chunk *cave_new(int height, int width);
 extern void cave_free(struct chunk *c);
 extern bool scatter(struct chunk *c, struct loc *place, struct loc *grid, int d, bool need_los);
@@ -479,6 +394,7 @@ extern void square_destroy(struct chunk *c, struct loc *grid);
 extern void square_earthquake(struct chunk *c, struct loc *grid);
 extern void square_upgrade_mineral(struct chunk *c, struct loc *grid);
 extern void square_destroy_rubble(struct chunk *c, struct loc *grid);
+extern int feat_shopnum(int feat);
 extern int square_shopnum(struct chunk *c, struct loc *grid);
 extern int square_digging(struct chunk *c, struct loc *grid);
 extern int square_apparent_feat(struct player *p, struct chunk *c, struct loc *grid);

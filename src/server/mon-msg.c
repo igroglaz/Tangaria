@@ -486,5 +486,7 @@ void monmsg_cleanup(struct player *p)
 {
     /* Free the stacked monster messages */
     mem_free(p->mon_msg);
+    p->mon_msg = NULL;
     mem_free(p->mon_message_hist);
+    p->mon_message_hist = NULL;
 }

@@ -11,20 +11,6 @@
 /* Number of welcome messages (1 for every 5 clvl starting at clvl 6) */
 #define N_WELCOME   9
 
-/* List of store types */
-enum
-{
-    STORE_OTHER = 0,
-    STORE_GENERAL,
-    STORE_TEMPLE,
-    STORE_BOOKSELLER,
-    STORE_B_MARKET,
-    STORE_XBM,
-    STORE_TAVERN,
-    STORE_HOME,
-    STORE_PLAYER
-};
-
 /*** Types ***/
 
 struct object_buy
@@ -58,15 +44,12 @@ struct normal_entry
  */
 struct store
 {
-    struct owner *owners;       /* Owners */
-    struct owner *owner;        /* Current owner */
-    int sidx;                   /* Index */
-    int type;                   /* Type */
-    char *name;
-    struct store *next;
-    int16_t stock_num;             /* Stock -- number of entries */
-    int16_t stock_size;            /* Stock -- size of array (transient) */
-    struct object *stock;       /* Stock -- actual stock items */
+    struct owner *owners;   /* Owners */
+    struct owner *owner;    /* Current owner */
+    int feat;               /* Index for entrance's terrain */
+    int16_t stock_num;      /* Stock -- number of entries */
+    int16_t stock_size;     /* Stock -- size of array (transient) */
+    struct object *stock;   /* Stock -- actual stock items */
 
     /* Always stock these items */
     size_t always_size;

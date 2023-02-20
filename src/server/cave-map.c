@@ -157,7 +157,7 @@ void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_d
         else g->hallucinate = false;
     }
 
-    my_assert(g->f_idx < z_info->f_max);
+    my_assert(g->f_idx < FEAT_MAX);
     if (!g->hallucinate) {my_assert((int)g->m_idx < c->mon_max);}
 }
 

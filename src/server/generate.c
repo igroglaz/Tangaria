@@ -357,6 +357,7 @@ static void cleanup_profile(void)
         string_free(cave_profiles[i].name);
     }
     mem_free(cave_profiles);
+    cave_profiles = NULL;
 }
 
 
@@ -1130,18 +1131,26 @@ static void cleanup_dun_data(struct dun_data *dd)
     int i;
 
     mem_free(dun->cent);
+    dun->cent = NULL;
     mem_free(dun->ent_n);
+    dun->ent_n = NULL;
     for (i = 0; i < z_info->level_room_max; ++i) mem_free(dun->ent[i]);
     mem_free(dun->ent);
+    dun->ent = NULL;
     if (dun->ent2room)
     {
         for (i = 0; dun->ent2room[i]; ++i) mem_free(dun->ent2room[i]);
         mem_free(dun->ent2room);
+        dun->ent2room = NULL;
     }
     mem_free(dun->door);
+    dun->door = NULL;
     mem_free(dun->wall);
+    dun->wall = NULL;
     mem_free(dun->tunn);
+    dun->tunn = NULL;
     mem_free(dun->tunn_flag);
+    dun->tunn_flag = NULL;
 }
 
 

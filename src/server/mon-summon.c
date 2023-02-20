@@ -238,6 +238,7 @@ static void cleanup_summon(void)
         string_free(s->name);
     }
     mem_free(summons);
+    summons = NULL;
 }
 
 

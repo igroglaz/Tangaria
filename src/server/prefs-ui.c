@@ -223,7 +223,8 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
     my_assert(d != NULL);
     if (d->bypass) return PARSE_ERROR_NONE;
 
-    idx = lookup_feat(parser_getsym(p, "idx"));
+    idx = lookup_feat_code(parser_getsym(p, "idx"));
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
 
     lighting = parser_getsym(p, "lighting");
     if (streq(lighting, "torch"))
@@ -820,7 +821,7 @@ static void reset_visuals(void)
     struct flavor *f;
 
     /* Extract default attr/char code for features */
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; i < FEAT_MAX; i++)
     {
         struct feature *feat = &f_info[i];
 
@@ -886,8 +887,8 @@ void textui_prefs_init(void)
     monster_x_char = mem_zalloc(z_info->r_max * sizeof(char));
     kind_x_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     kind_x_char = mem_zalloc(z_info->k_max * sizeof(char));
-    feat_x_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
-    feat_x_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
+    feat_x_attr = mem_zalloc(FEAT_MAX * sizeof(byte_lit));
+    feat_x_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
     trap_x_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
     trap_x_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
     for (f = flavors; f; f = f->next)
@@ -907,13 +908,23 @@ void textui_prefs_init(void)
 void textui_prefs_free(void)
 {
     mem_free(monster_x_attr);
+    monster_x_attr = NULL;
     mem_free(monster_x_char);
+    monster_x_char = NULL;
     mem_free(kind_x_attr);
+    kind_x_attr = NULL;
     mem_free(kind_x_char);
+    kind_x_char = NULL;
     mem_free(feat_x_attr);
+    feat_x_attr = NULL;
     mem_free(feat_x_char);
+    feat_x_char = NULL;
     mem_free(trap_x_attr);
+    trap_x_attr = NULL;
     mem_free(trap_x_char);
+    trap_x_char = NULL;
     mem_free(flavor_x_attr);
+    flavor_x_attr = NULL;
     mem_free(flavor_x_char);
+    flavor_x_char = NULL;
 }

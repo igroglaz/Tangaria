@@ -804,7 +804,7 @@ void cleanup_angband(void)
     mem_free(current_store.stock);
     if (current_store.owner) string_free(current_store.owner->name);
     mem_free(current_store.owner);
-    string_free(current_store.name);
+    string_free(current_store_name);
     mem_free(store_names);
 
     /* Free the character list */
@@ -870,7 +870,7 @@ void cleanup_angband(void)
         string_free(curses[i].desc);
     }
     mem_free(curses);
-    for (i = 0; f_info && (i < z_info->f_max); i++) string_free(f_info[i].name);
+    for (i = 0; f_info && (i < FEAT_MAX); i++) string_free(f_info[i].name);
     mem_free(f_info);
     for (i = 0; trap_info && (i < z_info->trap_max); i++) string_free(trap_info[i].desc);
     mem_free(trap_info);

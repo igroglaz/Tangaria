@@ -483,6 +483,7 @@ static void cleanup_projection(void)
         string_free(projections[idx].threat);
 	}
 	mem_free(projections);
+    projections = NULL;
 }
 
 
@@ -682,6 +683,7 @@ static void cleanup_object_base(void)
 
     for (i = 0; i < TV_MAX; i++) string_free(kb_info[i].name);
     mem_free(kb_info);
+    kb_info = NULL;
 }
 
 
@@ -921,6 +923,7 @@ static void cleanup_slay(void)
         string_free(slays[idx].range_verb);
     }
     mem_free(slays);
+    slays = NULL;
 }
 
 
@@ -1132,6 +1135,7 @@ static void cleanup_brand(void)
         string_free(brands[idx].desc_adjective);
     }
     mem_free(brands);
+    brands = NULL;
 }
 
 
@@ -1512,6 +1516,7 @@ static void cleanup_curse(void)
         mem_free(curses[i].poss);
     }
     mem_free(curses);
+    curses = NULL;
 }
 
 
@@ -1800,6 +1805,7 @@ static void cleanup_act(void)
         string_free(activations[i].desc);
     }
     mem_free(activations);
+    activations = NULL;
 }
 
 
@@ -2374,6 +2380,7 @@ static void cleanup_object(void)
         free_effect(kind->effect);
     }
     mem_free(k_info);
+    k_info = NULL;
 }
 
 
@@ -2793,6 +2800,7 @@ static void cleanup_ego(void)
         }
     }
     mem_free(e_info);
+    e_info = NULL;
 }
 
 
@@ -3232,7 +3240,9 @@ static void cleanup_artifact(void)
         mem_free(art->curses);
     }
     mem_free(a_info);
+    a_info = NULL;
     mem_free(aup_info);
+    aup_info = NULL;
 }
 
 
@@ -3533,6 +3543,7 @@ static void cleanup_object_property(void)
         string_free(prop->short_desc);
     }
     mem_free(obj_properties);
+    obj_properties = NULL;
 }
 
 
@@ -3835,6 +3846,7 @@ static void cleanup_object_power(void)
         }
     }
     mem_free(calculations);
+    calculations = NULL;
 }
 
 

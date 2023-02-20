@@ -58,9 +58,13 @@ void player_spells_init(struct player *p)
 void player_spells_free(struct player *p)
 {
     mem_free(p->spell_flags);
+    p->spell_flags = NULL;
     mem_free(p->spell_order);
+    p->spell_order = NULL;
     mem_free(p->spell_power);
+    p->spell_power = NULL;
     mem_free(p->spell_cooldown);
+    p->spell_cooldown = NULL;
 }
 
 

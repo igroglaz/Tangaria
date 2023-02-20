@@ -273,6 +273,7 @@ static void cleanup_meth(void)
         string_free(blow_methods[i].name);
     }
     mem_free(blow_methods);
+    blow_methods = NULL;
 }
 
 
@@ -514,6 +515,7 @@ static void cleanup_eff(void)
         string_free(blow_effects[i].name);
     }
     mem_free(blow_effects);
+    blow_effects = NULL;
 }
 
 
@@ -622,6 +624,7 @@ static void cleanup_pain(void)
 			string_free((char *)pain_messages[idx].messages[i]);
 	}
 	mem_free(pain_messages);
+    pain_messages = NULL;
 }
 
 
@@ -2061,6 +2064,7 @@ static void cleanup_monster(void)
     }
 
     mem_free(r_info);
+    r_info = NULL;
 }
 
 
@@ -2397,6 +2401,7 @@ static void cleanup_pits(void)
         string_free(pit->name);
     }
     mem_free(pit_info);
+    pit_info = NULL;
 }
 
 

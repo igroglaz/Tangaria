@@ -711,25 +711,41 @@ static enum parser_error parse_prefs_monster_base(struct parser *p)
 }
 
 
+static const char *feat_code_list[] =
+{
+	#define FEAT(x) #x,
+	#include "../common/list-terrain.h"
+	#undef FEAT
+	NULL
+};
+
+
 /*
- * Find a terrain feature index by name
+ * Find a terrain feature by its code name.
  */
-static int lookup_feat(const char *name)
+static int lookup_feat_code(const char *code)
 {
     int i;
 
-    /* Look for it */
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; feat_code_list[i]; i++)
+    {
+        if (streq(code, feat_code_list[i])) return i;
+    }
+
+    /* Non-feature: placeholder for player stores */
+    if (streq(code, "STORE_PLAYER")) return FEAT_STORE_PLAYER;
+
+    /* Backwards compatibility: find a terrain feature by its name. */
+    for (i = 0; i < FEAT_MAX; i++)
     {
         struct feature *feat = &f_info[i];
 
         if (!feat->name) continue;
-
-        /* Test for equality */
-        if (streq(name, feat->name)) return i;
+        if (streq(code, feat->name)) return i;
     }
+    if (streq(code, "Player shop")) return FEAT_STORE_PLAYER;
 
-    quit_fmt("Failed to find terrain feature %s", name);
+    quit_fmt("Failed to find terrain feature %s", code);
     return -1;
 }
 
@@ -744,7 +760,8 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
     assert(d != NULL);
     if (d->bypass) return PARSE_ERROR_NONE;
 
-    idx = lookup_feat(parser_getsym(p, "idx"));
+    idx = lookup_feat_code(parser_getsym(p, "idx"));
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
 
     lighting = parser_getsym(p, "lighting");
     if (streq(lighting, "torch"))
@@ -802,7 +819,8 @@ static enum parser_error parse_prefs_glyph(struct parser *p)
     assert(d != NULL);
     if (d->bypass) return PARSE_ERROR_NONE;
 
-    idx = lookup_feat(parser_getsym(p, "idx"));
+    idx = lookup_feat_code(parser_getsym(p, "idx"));
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
 
     for (light_idx = 0; light_idx < LIGHTING_MAX; light_idx++)
     {
@@ -1512,8 +1530,8 @@ void reset_visuals(bool load_prefs)
     /* Reset the Client_setup info */
     memset(Client_setup.flvr_x_attr, 0, flavor_max * sizeof(uint8_t));
     memset(Client_setup.flvr_x_char, 0, flavor_max * sizeof(char));
-    memset(Client_setup.f_attr, 0, z_info->f_max * sizeof(byte_lit));
-    memset(Client_setup.f_char, 0, z_info->f_max * sizeof(char_lit));
+    memset(Client_setup.f_attr, 0, FEAT_MAX * sizeof(byte_lit));
+    memset(Client_setup.f_char, 0, FEAT_MAX * sizeof(char_lit));
     memset(Client_setup.t_attr, 0, z_info->trap_max * sizeof(byte_lit));
     memset(Client_setup.t_char, 0, z_info->trap_max * sizeof(char_lit));
     memset(Client_setup.k_attr, 0, z_info->k_max * sizeof(uint8_t));

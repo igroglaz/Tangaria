@@ -37,6 +37,7 @@ typedef char store_name[NORMAL_WID];
 
 extern struct store_context *store_ctx;
 extern struct store current_store;
+extern char *current_store_name;
 extern store_name *store_names;
 extern char welcome[NORMAL_WID];
 

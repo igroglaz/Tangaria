@@ -240,11 +240,17 @@ static void cleanup_obj_make(void)
 
     for (i = 0; i < num_money_types; i++) string_free(money_type[i].name);
     mem_free(money_type);
+    money_type = NULL;
     mem_free(alloc_ego_table);
+    alloc_ego_table = NULL;
     mem_free(obj_total_great);
+    obj_total_great = NULL;
     mem_free(obj_total);
+    obj_total = NULL;
     mem_free(obj_alloc_great);
+    obj_alloc_great = NULL;
     mem_free(obj_alloc);
+    obj_alloc = NULL;
 }
 
 

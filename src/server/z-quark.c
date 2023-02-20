@@ -73,6 +73,7 @@ static void quarks_free(void)
     for (i = 1; i < nr_quarks; i++) string_free(quarks[i]);
 
     mem_free(quarks);
+    quarks = NULL;
 }
 
 

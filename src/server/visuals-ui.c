@@ -94,21 +94,9 @@ static struct visuals_color_cycle *visuals_color_cycle_new(const char *name,
 static void visuals_color_cycle_free(struct visuals_color_cycle *cycle)
 {
     if (cycle == NULL) return;
-
-    if (cycle->steps != NULL)
-    {
-        mem_free(cycle->steps);
-        cycle->steps = NULL;
-    }
-
-    if (cycle->cycle_name != NULL)
-    {
-        string_free(cycle->cycle_name);
-        cycle->cycle_name = NULL;
-    }
-
+    if (cycle->steps != NULL) mem_free(cycle->steps);
+    if (cycle->cycle_name != NULL) string_free(cycle->cycle_name);
     mem_free(cycle);
-    cycle = NULL;
 }
 
 
@@ -224,24 +212,14 @@ static void visuals_cycle_group_free(struct visuals_cycle_group *group)
 	size_t i = 0;
 
 	if (group == NULL) return;
-
 	if (group->cycles != NULL)
     {
 		for (i = 0; i < group->max_cycles; i++)
 			visuals_color_cycle_free(group->cycles[i]);
-
 		mem_free(group->cycles);
-		group->cycles = NULL;
 	}
-
-	if (group->group_name != NULL)
-    {
-		string_free(group->group_name);
-		group->group_name = NULL;
-	}
-
+	if (group->group_name != NULL) string_free(group->group_name);
 	mem_free(group);
-	group = NULL;
 }
 
 
@@ -298,18 +276,13 @@ static void visuals_cycler_free(struct visuals_cycler *cycler)
 	size_t i = 0;
 
 	if (cycler == NULL) return;
-
 	if (cycler->groups != NULL)
     {
 		for (i = 0; i < cycler->max_groups; i++)
 			visuals_cycle_group_free(cycler->groups[i]);
-
 		mem_free(cycler->groups);
-		cycler->groups = NULL;
 	}
-
 	mem_free(cycler);
-	cycler = NULL;
 }
 
 
@@ -540,15 +513,8 @@ static struct visuals_flicker *visuals_flicker_new(const size_t max_cycles,
 static void visuals_flicker_free(struct visuals_flicker *table)
 {
     if (table == NULL) return;
-
-    if (table->cycles != NULL)
-    {
-        mem_free(table->cycles);
-        table->cycles = NULL;
-    }
-
+    if (table->cycles != NULL) mem_free(table->cycles);
     mem_free(table);
-    table = NULL;
 }
 
 
@@ -698,34 +664,23 @@ static void visuals_parse_context_free(struct visuals_parse_context *context)
 	size_t i = 0;
 
 	if (context == NULL) return;
-
 	if (context->cycles != NULL)
     {
 		for (i = 0; i < context->max_cycles; i++)
 			visuals_color_cycle_free(context->cycles[i]);
-
 		mem_free(context->cycles);
-		context->cycles = NULL;
 	}
-
 	if (context->group_names != NULL)
     {
 		for (i = 0; i < context->max_groups; i++)
 			string_free(context->group_names[i]);
-
 		mem_free(context->group_names);
-		context->group_names = NULL;
 	}
 
 	/* This array is only references and not instances. */
-    if (context->group_cycles != NULL)
-    {
-		mem_free(context->group_cycles);
-		context->group_cycles = NULL;
-	}
+    if (context->group_cycles != NULL) mem_free(context->group_cycles);
 
 	mem_free(context);
-	context = NULL;
 }
 
 
@@ -1089,7 +1044,9 @@ static void ui_visuals_module_init(void)
 static void ui_visuals_module_cleanup(void)
 {
     visuals_flicker_free(visuals_flicker_table);
+    visuals_flicker_table = NULL;
     visuals_cycler_free(visuals_cycler_table);
+    visuals_cycler_table = NULL;
 
     if (visuals_color_cycles_by_race != NULL)
     {

@@ -86,7 +86,7 @@ void display_item(struct player *p, struct object *obj, uint8_t equipped)
     wgt = (obj->tval? obj->weight * obj->number: 0);
 
     /* Display the price if needed */
-    if (in_store(p) && (store_at(p)->type <= STORE_XBM))
+    if (in_store(p) && (store_at(p)->feat <= FEAT_STORE_XBM))
         price = price_item(p, obj, true, obj->number);
 
     /* Get the info */

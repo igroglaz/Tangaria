@@ -406,7 +406,7 @@ them.
 ============= ================== ====================
 Type          Data File          Example
 ============= ================== ====================
-Terrain       terrain.txt        ``feat:open floor``
+Terrain       terrain.txt        ``feat:FLOOR``
 Trap          trap.txt           ``trap:pit``
 Object        object.txt         ``object:light``
 Monster       monster.txt        ``monster:Kobold``
@@ -431,13 +431,13 @@ it is lit by a torch, or dark. these are selected by appending another colon
 and a specifier to the name. For example, this would be the name of a torch-lit
 up staircase::
 
-  feat:up staircase:torch
+  feat:LESS:torch
 
 It is possible to specify the same tile be used for all possible states of a
 terrain feature by using an asterisk. This example identifies any unknown
 terrain tile (a tile the player hasn't lit or otherwise seen yet)::
 
-  feat:unknown grid:*
+  feat:NONE:*
 
 Given the full name of an object the last thing to do is to specify which tile
 from the tileset to use. Tile locations are given in a coordinate system using
@@ -455,7 +455,7 @@ be 0x90 and so on. To map an object to your tileset you will add one complete
 line to the file per object. This example maps the tile at 0x81:0x81 to the
 terrain feature 'quartz vein' when the quartz vein is lit by torch light::
 
-  feat:closed door:quartz vein:torch:0x81:0x81
+  feat:QUARTZ:torch:0x81:0x81
 
 Before going any further, it is advisable to map a single object in your
 preference file, then start the game up, select your tileset and make sure you
@@ -463,7 +463,7 @@ see your mapped tile in game. If this worked, then you are ready to design and
 map the rest of your tiles. A quick example would be to map a tile for your
 home in the town to the first tile position in your graphics file::
 
-  feat:Home:*:0x80:0x80
+  feat:HOME:*:0x80:0x80
 
 It's possible to have more than one preference file by using a sort of include
 syntax that causes other preference files referenced from your main preference
@@ -489,18 +489,18 @@ game code and recompile it. The first place to look is in the compiled data
 files, some of which have already been mentioned:
 
 =====================  =======================  ===========================
-list-dun-profiles.h    list-mon-spells.h        list-projections.h
-list-effects.h         list-mon-temp-flags.h    list-randart-properties.h
-list-elements.h        list-mon-timed.h         list-rooms.h
-list-equip-slots.h     list-object-flags.h      list-room-flags.h
-list-history-types.h   list-object-modifiers.h  list-square-flags.h
-list-ignore-types.h    list-options.h           list-stats.h
-list-kind-flags.h      list-origins.h           list-terrain-flags.h
-list-message.h         list-parser-errors.h     list-trap-flags.h
-list-mon-message.h     list-player-flags.h      list-tvals.h
-list-mon-race-flags.h  list-player-timed.h
-list-packets.h         list-project-environs.h  list-project-monsters.h
-list-wild-feats.h
+list-dun-profiles.h    list-mon-timed.h         list-randart-properties.h
+list-effects.h         list-object-flags.h      list-rooms.h
+list-elements.h        list-object-modifiers.h  list-room-flags.h
+list-equip-slots.h     list-options.h           list-square-flags.h
+list-history-types.h   list-origins.h           list-stats.h
+list-ignore-types.h    list-packets.h           list-terrain.h
+list-kind-flags.h      list-parser-errors.h     list-terrain-flags.h
+list-message.h         list-player-flags.h      list-trap-flags.h
+list-mon-message.h     list-player-timed.h      list-tvals.h
+list-mon-race-flags.h  list-project-environs.h  list-wild-feats.h
+list-mon-spells.h      list-project-monsters.h
+list-mon-temp-flags.h  list-projections.h
 =====================  =======================  ===========================
 
 Beyond this, you will have to have some knowledge of the C programming

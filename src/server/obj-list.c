@@ -52,15 +52,8 @@ object_list_t *object_list_new(void)
 void object_list_free(object_list_t *list)
 {
 	if (list == NULL) return;
-
-	if (list->entries != NULL)
-    {
-		mem_free(list->entries);
-		list->entries = NULL;
-	}
-
+	if (list->entries != NULL) mem_free(list->entries);
 	mem_free(list);
-	list = NULL;
 }
 
 
@@ -79,6 +72,7 @@ void object_list_init(struct player *p)
 void object_list_finalize(struct player *p)
 {
 	object_list_free((object_list_t *)p->object_list_subwindow);
+    p->object_list_subwindow = NULL;
 }
 
 

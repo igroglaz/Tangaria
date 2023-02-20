@@ -1031,7 +1031,7 @@ int rd_gear(struct player *p)
 }
 
 
-typedef struct object *(*store_carry_t)(struct player *p, struct store *store, struct object *obj);
+typedef struct object *(*store_carry_t)(struct player *p, struct store *s, struct object *obj);
 
 
 static int rd_store(struct player *p, struct store **store, store_carry_t store_carry_fn,
@@ -1044,7 +1044,7 @@ static int rd_store(struct player *p, struct store **store, store_carry_t store_
     rd_byte(&own);
     rd_s16b(&num);
 
-    (*store)->owner = store_ownerbyidx(*store, own);
+    if (*store) (*store)->owner = store_ownerbyidx(*store, own);
 
     /* Read the items */
     for (; num; num--)
@@ -1062,7 +1062,7 @@ static int rd_store(struct player *p, struct store **store, store_carry_t store_
         obj->known = (*rd_item_version)();
 
         /* Accept any valid items */
-        if (((*store)->stock_num < z_info->store_inven_max) && obj->kind)
+        if (*store && ((*store)->stock_num < z_info->store_inven_max) && obj->kind)
             (*store_carry_fn)(p, *store, obj);
         else
             object_delete(&obj);
@@ -1082,10 +1082,15 @@ static int rd_stores_aux(rd_item_t rd_item_version)
 
     /* Read the stores */
     rd_u16b(&tmp16u);
+    if (tmp16u != z_info->store_max)
+    {
+        plog_fmt("The number of stores in the savefile (%u) is different than expected (%u).",
+            tmp16u, z_info->store_max);
+    }
     for (i = 0; i < tmp16u; i++)
     {
-        struct store *store = &stores[i];
-        int res = rd_store(NULL, &store, store_carry, rd_item_version);
+        struct store *s = ((i < z_info->store_max)? &stores[i]: NULL);
+        int res = rd_store(NULL, &s, store_carry, rd_item_version);
 
         if (res) return res;
 
@@ -1923,9 +1928,9 @@ int rd_wild_map(struct player *p)
 
 int rd_home(struct player *p)
 {
-    struct store *store = p->home;
+    struct store *s = p->home;
 
-    return rd_store(p, &store, home_carry, rd_item);
+    return rd_store(p, &s, home_carry, rd_item);
 }
 
 

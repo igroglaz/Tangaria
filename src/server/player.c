@@ -596,6 +596,7 @@ void init_players(void)
 void free_players(void)
 {
     mem_free(Players);
+    Players = NULL;
 }
 
 
@@ -750,8 +751,8 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
     p->ego_everseen = mem_zalloc(z_info->e_max * sizeof(uint8_t));
 
     /* Allocate memory for visuals */
-    p->f_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
-    p->f_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
+    p->f_attr = mem_zalloc(FEAT_MAX * sizeof(byte_lit));
+    p->f_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
     p->t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
     p->t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
     p->k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
@@ -775,7 +776,7 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
 
     /* Allocate memory for home storage */
     p->home = mem_zalloc(sizeof(struct store));
-    memcpy(p->home, &stores[store_max - 2], sizeof(struct store));
+    memcpy(p->home, &stores[z_info->store_max - 2], sizeof(struct store));
     p->home->stock = NULL;
 
     /* Analyze every object */
@@ -848,8 +849,13 @@ void cleanup_player(struct player *p)
     if (!p) return;
 
     /* Free the things that are always initialised */
-    if (p->obj_k) object_free(p->obj_k);
+    if (p->obj_k)
+    {
+        object_free(p->obj_k);
+        p->obj_k = NULL;
+    }
     mem_free(p->timed);
+    p->timed = NULL;
     if (p->upkeep)
     {
         mem_free(p->upkeep->inven);
@@ -862,6 +868,7 @@ void cleanup_player(struct player *p)
     player_spells_free(p);
     object_pile_free(p->gear);
     mem_free(p->body.slots);
+    p->body.slots = NULL;
 
     /* Stop all file perusal and interactivity */
     string_free(p->interactive_file);
@@ -873,46 +880,78 @@ void cleanup_player(struct player *p)
         mem_free(p->trn_info[i]);
     }
     mem_free(p->scr_info);
+    p->scr_info = NULL;
     mem_free(p->trn_info);
+    p->trn_info = NULL;
     for (i = 0; i < N_HISTORY_FLAGS; i++)
+    {
         mem_free(p->hist_flags[i]);
+        p->hist_flags[i] = NULL;
+    }
     for (i = 0; p->lore && (i < z_info->r_max); i++)
     {
         mem_free(p->lore[i].blows);
         mem_free(p->lore[i].blow_known);
     }
     mem_free(p->lore);
+    p->lore = NULL;
     mem_free(p->current_lore.blows);
+    p->current_lore.blows = NULL;
     mem_free(p->current_lore.blow_known);
+    p->current_lore.blow_known = NULL;
     mem_free(p->art_info);
+    p->art_info = NULL;
     mem_free(p->randart_info);
+    p->randart_info = NULL;
     mem_free(p->randart_created);
+    p->randart_created = NULL;
     mem_free(p->kind_aware);
+    p->kind_aware = NULL;
     mem_free(p->note_aware);
+    p->note_aware = NULL;
     mem_free(p->kind_tried);
+    p->kind_tried = NULL;
     mem_free(p->kind_ignore);
+    p->kind_ignore = NULL;
     mem_free(p->kind_everseen);
+    p->kind_everseen = NULL;
     for (i = 0; p->ego_ignore_types && (i < z_info->e_max); i++)
         mem_free(p->ego_ignore_types[i]);
     mem_free(p->ego_ignore_types);
+    p->ego_ignore_types = NULL;
     mem_free(p->ego_everseen);
+    p->ego_everseen = NULL;
     mem_free(p->f_attr);
+    p->f_attr = NULL;
     mem_free(p->f_char);
+    p->f_char = NULL;
     mem_free(p->t_attr);
+    p->t_attr = NULL;
     mem_free(p->t_char);
+    p->t_char = NULL;
     mem_free(p->k_attr);
+    p->k_attr = NULL;
     mem_free(p->k_char);
+    p->k_char = NULL;
     mem_free(p->d_attr);
+    p->d_attr = NULL;
     mem_free(p->d_char);
+    p->d_char = NULL;
     mem_free(p->r_attr);
+    p->r_attr = NULL;
     mem_free(p->r_char);
+    p->r_char = NULL;
     mem_free(p->mflag);
+    p->mflag = NULL;
     mem_free(p->mon_det);
+    p->mon_det = NULL;
     for (i = 0; p->wild_map && (i <= 2 * radius_wild); i++)
         mem_free(p->wild_map[i]);
     mem_free(p->wild_map);
+    p->wild_map = NULL;
     if (p->home) object_pile_free(p->home->stock);
     mem_free(p->home);
+    p->home = NULL;
 
     /* Free the history */
     history_clear(p);
@@ -922,6 +961,7 @@ void cleanup_player(struct player *p)
     {
         player_cave_free(p);
         mem_free(p->cave);
+        p->cave = NULL;
     }
 
     monmsg_cleanup(p);
@@ -941,6 +981,7 @@ void player_cave_free(struct player *p)
         for (grid.x = 0; grid.x < p->cave->width; grid.x++)
         {
             mem_free(square_p(p, &grid)->info);
+            square_p(p, &grid)->info = NULL;
             square_forget_pile(p, &grid);
             square_forget_trap(p, &grid);
         }
@@ -949,8 +990,11 @@ void player_cave_free(struct player *p)
         mem_free(p->cave->scent.grids[grid.y]);
     }
     mem_free(p->cave->squares);
+    p->cave->squares = NULL;
     mem_free(p->cave->noise.grids);
+    p->cave->noise.grids = NULL;
     mem_free(p->cave->scent.grids);
+    p->cave->scent.grids = NULL;
     p->cave->allocated = false;
 }
 

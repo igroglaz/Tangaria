@@ -61,6 +61,7 @@ static void init_connections(void)
 static void free_connections(void)
 {
     mem_free(Conn);
+    Conn = NULL;
 }
 
 
@@ -402,8 +403,8 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
             connp->Client_setup.k_char = mem_zalloc(z_info->k_max * sizeof(char));
             connp->Client_setup.r_attr = mem_zalloc(z_info->r_max * sizeof(uint8_t));
             connp->Client_setup.r_char = mem_zalloc(z_info->r_max * sizeof(char));
-            connp->Client_setup.f_attr = mem_zalloc(z_info->f_max * sizeof(byte_lit));
-            connp->Client_setup.f_char = mem_zalloc(z_info->f_max * sizeof(char_lit));
+            connp->Client_setup.f_attr = mem_zalloc(FEAT_MAX * sizeof(byte_lit));
+            connp->Client_setup.f_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
             connp->Client_setup.t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
             connp->Client_setup.t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
             connp->Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(uint8_t));
@@ -1337,9 +1338,9 @@ int Send_limits_struct_info(int ind)
         return -1;
     }
 
-    if (Packet_printf(&connp->c, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", (unsigned)z_info->a_max,
+    if (Packet_printf(&connp->c, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", (unsigned)z_info->a_max,
         (unsigned)z_info->e_max, (unsigned)z_info->k_max, (unsigned)z_info->r_max,
-        (unsigned)z_info->f_max, (unsigned)z_info->trap_max, (unsigned)flavor_max,
+        (unsigned)z_info->trap_max, (unsigned)flavor_max,
         (unsigned)z_info->pack_size, (unsigned)z_info->quiver_size, (unsigned)z_info->floor_size,
         (unsigned)z_info->quiver_slot_size, (unsigned)z_info->store_inven_max,
         (unsigned)z_info->curse_max) <= 0)
@@ -2002,13 +2003,13 @@ int Send_feat_struct_info(int ind)
     }
 
     if (Packet_printf(&connp->c, "%b%c%hu", (unsigned)PKT_STRUCT_INFO, (int)STRUCT_INFO_FEAT,
-        (unsigned)z_info->f_max) <= 0)
+        (unsigned)FEAT_MAX) <= 0)
     {
         Destroy_connection(ind, "Send_feat_struct_info write error");
         return -1;
     }
 
-    for (i = 0; i < (uint32_t)z_info->f_max; i++)
+    for (i = 0; i < (uint32_t)FEAT_MAX; i++)
     {
         if (Packet_printf(&connp->c, "%s", (f_info[i].name? f_info[i].name: "")) <= 0)
         {
@@ -3507,7 +3508,7 @@ static int Receive_features(int ind)
     if ((lighting < 0) || (lighting >= LIGHTING_MAX)) discard = true;
 
     /* Size */
-    local_size = z_info->f_max;
+    local_size = FEAT_MAX;
 
     /* Finally read the data */
     for (i = off; i < off + len; i++)
@@ -5976,14 +5977,14 @@ static void update_graphics(struct player *p, connection_t *connp)
     int i, j;
 
     /* Desired features */
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; i < FEAT_MAX; i++)
     {
         for (j = 0; j < LIGHTING_MAX; j++)
         {
             /* Ignore mimics */
             if (f_info[i].mimic)
             {
-                int mimic = lookup_feat(f_info[i].mimic);
+                int mimic = f_info[i].mimic->fidx;
 
                 p->f_attr[i][j] = connp->Client_setup.f_attr[mimic][j];
                 p->f_char[i][j] = connp->Client_setup.f_char[mimic][j];
@@ -7134,10 +7135,10 @@ static int Receive_sell(int ind)
 
         if (in_store(p))
         {
-            struct store *store = store_at(p);
+            struct store *s = store_at(p);
 
             /* Real store */
-            if (store->type != STORE_HOME)
+            if (s->feat != FEAT_HOME)
                 do_cmd_sell(p, item, amt);
 
             /* Player is at home */
@@ -7327,10 +7328,10 @@ static int Receive_purchase(int ind)
 
         if (in_store(p))
         {
-            struct store *store = store_at(p);
+            struct store *s = store_at(p);
 
             /* Attempt to buy it */
-            if (store->type != STORE_HOME)
+            if (s->feat != FEAT_HOME)
                 do_cmd_buy(p, item, amt);
 
             /* Home is much easier */
@@ -7389,7 +7390,7 @@ static int Receive_store_leave(int ind)
             p->store_num = -1;
 
             /* Hack -- don't stand in the way */
-            if (s->type != STORE_PLAYER)
+            if (s->feat != FEAT_STORE_PLAYER)
             {
                 bool look = true;
                 int d, i, dis = 1;

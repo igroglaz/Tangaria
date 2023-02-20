@@ -48,6 +48,7 @@ void houses_init(void)
 void houses_free(void)
 {
     mem_free(houses);
+    houses = NULL;
 }
 
 

@@ -99,8 +99,8 @@
 # ends or the beginning of the next line to prevent words from running
 # together.
 
-# 'act' is for activation. The activation is the effect the ego item
-# activates for.
+# 'act' is any activation that the ego might have - most have none. The
+# activation is specified by its name, as found in activation.txt.
 
 # 'time' gives a random value to be used as the time to recharge for an
 # activatable item.

@@ -2190,6 +2190,9 @@ static void handle_menu_tile_size(struct window *window,
         quit_fmt("bad int_value in button '%s'", button->caption);
     }
 
+    /* Use ASCII symbol for distorted tiles */
+    tile_distorted = is_tile_distorted(use_graphics, tile_width, tile_height);
+
     refresh_angband_terms();
 }
 

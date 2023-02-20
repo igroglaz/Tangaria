@@ -2321,10 +2321,16 @@ void square_destroy_rubble(struct chunk *c, struct loc *grid)
 }
 
 
+int feat_shopnum(int feat)
+{
+    return f_info[feat].shopnum - 1;
+}
+
+
 /* Note that this returns the STORE_ index, which is one less than shopnum */
 int square_shopnum(struct chunk *c, struct loc *grid)
 {
-    if (square_isshop(c, grid)) return f_info[square(c, grid)->feat].shopnum - 1;
+    if (square_isshop(c, grid)) return feat_shopnum(square(c, grid)->feat);
     return -1;
 }
 
@@ -2345,11 +2351,10 @@ static bool square_apparent_feat_valid(struct chunk *c, struct loc *grid)
 int square_apparent_feat(struct player *p, struct chunk *c, struct loc *grid)
 {
     int actual = square_known_feat(p, c, grid);
-    char *mimic_name = f_info[actual].mimic;
 
-    if (mimic_name)
+    if (f_info[actual].mimic)
     {
-        actual = lookup_feat(mimic_name);
+        actual = f_info[actual].mimic->fidx;
 
         /* Use custom feature for secret doors to avoid leaking info */
         if (actual == FEAT_GRANITE)

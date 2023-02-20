@@ -1796,6 +1796,7 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     }
     mem_free(blocks_tried);
     mem_free(dun->room_map);
+    dun->room_map = NULL;
 
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
@@ -3326,9 +3327,9 @@ static void build_store(struct chunk *c, int n, struct loc *xroads, struct loc *
     fill_rectangle(c, build_n, build_w, build_s, build_e, FEAT_PERM, SQUARE_NONE);
 
     /* Clear previous contents, add a store door */
-    for (feat = 0; feat < z_info->f_max; feat++)
+    for (feat = 0; feat < FEAT_MAX; feat++)
     {
-        if (feat_is_shop(feat) && (f_info[feat].shopnum == n + 1))
+        if (feat_is_shop(feat) && (feat_shopnum(feat) == n))
             square_set_feat(c, &door, feat);
     }
 }
@@ -3422,9 +3423,9 @@ static void build_tavern(struct chunk *c, int n, struct loc *grid)
     while (loc_iterator_next(&iter));
 
     /* Clear previous contents, add a store door */
-    for (feat = 0; feat < z_info->f_max; feat++)
+    for (feat = 0; feat < FEAT_MAX; feat++)
     {
-        if (feat_is_shop(feat) && (f_info[feat].shopnum == n + 1))
+        if (feat_is_shop(feat) && (feat_shopnum(feat) == n))
             square_set_feat(c, &door, feat);
     }
 }
@@ -3546,19 +3547,19 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
 
         /* place stores along the streets */
         num_attempts = 0;
-        for (n = 0; n < store_max; n++)
+        for (n = 0; n < z_info->store_max; n++)
         {
             struct loc store_lot;
             bool found_spot = false;
             struct store *s = &stores[n];
 
             /* Skip player store and tavern */
-            if ((s->type == STORE_PLAYER) || (s->type == STORE_TAVERN)) continue;
+            if ((s->feat == FEAT_STORE_PLAYER) || (s->feat == FEAT_STORE_TAVERN)) continue;
 
             /* Skip custom stores */
-            if (s->type == STORE_B_MARKET) skip = false;
+            if (s->feat == FEAT_STORE_BLACK) skip = false;
             else if (skip) continue;
-            else if (s->type == STORE_BOOKSELLER) skip = true;
+            else if (s->feat == FEAT_STORE_BOOK) skip = true;
 
             while (!found_spot && (num_attempts < max_attempts))
             {
@@ -3622,11 +3623,11 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
 
         /* Place the tavern */
         num_attempts = 0;
-        for (n = 0; n < store_max; n++)
+        for (n = 0; n < z_info->store_max; n++)
         {
             struct store *s = &stores[n];
 
-            if (s->type != STORE_TAVERN) continue;
+            if (s->feat != FEAT_STORE_TAVERN) continue;
 
             /* Find an empty place */
             while (num_attempts < max_attempts)
@@ -4006,6 +4007,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
     for (i = 0; i < dun->row_blocks; i++)
         mem_free(dun->room_map[i]);
     mem_free(dun->room_map);
+    dun->room_map = NULL;
 
     /* Connect all the rooms together */
     do_traditional_tunneling(c);
@@ -4519,6 +4521,7 @@ static struct chunk *moria_chunk(struct player *p, struct worldpos *wpos, int he
     for (i = 0; i < dun->row_blocks; i++)
         mem_free(dun->room_map[i]);
     mem_free(dun->room_map);
+    dun->room_map = NULL;
 
     /* Connect all the rooms together */
     do_traditional_tunneling(c);
@@ -5586,7 +5589,6 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 static void build_feature(struct chunk *c, int n, int yy, int xx)
 {
     int dy, dx;
-    int feat;
 
     /* Determine spacing based on town size */
     int y_space = z_info->dungeon_hgt / z_info->town_hgt;
@@ -5605,10 +5607,10 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     struct loc begin, end, grid;
     struct loc_iterator iter;
 
-    int type = ((n < store_max - 2)? stores[n].type: -1);
+    int feat = ((n < z_info->store_max - 2)? stores[n].feat: -1);
 
     /* Hack -- make forest/tavern as large as possible */
-    if ((n == store_max - 1) || (type == STORE_TAVERN))
+    if ((n == z_info->store_max - 1) || (feat == FEAT_STORE_TAVERN))
     {
         y1 = y0 - 3;
         y2 = y0 + 3;
@@ -5617,7 +5619,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     }
 
     /* House (at least 2x2) */
-    if (n == store_max)
+    if (n == z_info->store_max)
     {
         while (y2 - y1 == 2)
         {
@@ -5639,7 +5641,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     fill_rectangle(c, y1, x1, y2, x2, FEAT_PERM, SQUARE_NONE);
 
     /* Hack -- make tavern empty */
-    if (type == STORE_TAVERN)
+    if (feat == FEAT_STORE_TAVERN)
     {
         loc_init(&begin, x1 + 1, y1 + 1);
         loc_init(&end, x2, y2);
@@ -5663,7 +5665,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     }
 
     /* Pond */
-    if (n == store_max - 2)
+    if (n == z_info->store_max - 2)
     {
         /* Create the pond */
         fill_rectangle(c, y1, x1, y2, x2, FEAT_WATER, SQUARE_NONE);
@@ -5682,7 +5684,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     }
 
     /* Forest */
-    if (n == store_max - 1)
+    if (n == z_info->store_max - 1)
     {
         int xc, yc, max_dis;
         int size = (y2 - y1 + 1) * (x2 - x1 + 1);
@@ -5723,7 +5725,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     }
 
     /* House */
-    if (n == store_max)
+    if (n == z_info->store_max)
     {
         int house, price;
 
@@ -5783,7 +5785,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     }
 
     /* Building with stairs */
-    if (n == store_max + 1)
+    if (n == z_info->store_max + 1)
     {
         loc_init(&begin, x1, y1);
         loc_init(&end, x2, y2);
@@ -5813,9 +5815,9 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     loc_init(&grid, dx, dy);
 
     /* Clear previous contents, add a store door */
-    for (feat = 0; feat < z_info->f_max; feat++)
+    for (feat = 0; feat < FEAT_MAX; feat++)
     {
-        if (feat_is_shop(feat) && (f_info[feat].shopnum == n + 1))
+        if (feat_is_shop(feat) && (feat_shopnum(feat) == n))
             square_set_feat(c, &grid, feat);
     }
 }
@@ -5882,7 +5884,7 @@ static void mang_town_gen_layout(struct chunk *c)
 {
     int y, x, n, k;
     int *rooms;
-    int n_stores = store_max - 2; /* store_max - 2 stores */
+    int n_stores = z_info->store_max - 2; /* store_max - 2 stores */
     int n_rows = 2;
     int n_cols = n_stores / n_rows;
     int size = (c->height - 2) * (c->width - 2);
@@ -6178,6 +6180,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     }
     mem_free(blocks_tried);
     mem_free(dun->room_map);
+    dun->room_map = NULL;
 
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);

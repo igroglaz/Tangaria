@@ -98,11 +98,12 @@ static void monster_group_split(struct chunk *c, struct monster_group *group)
 /*
  * Handle the leader of a group being removed
  */
-static void monster_group_remove_leader(struct chunk *c, struct monster *leader,
+static bool monster_group_remove_leader(struct chunk *c, struct monster *leader,
     struct monster_group *group)
 {
     struct mon_group_list_entry *list_entry = group->member_list;
     int poss_leader = 0;
+    bool freed = false;
 
     /* Look for another leader */
     while (list_entry)
@@ -132,8 +133,8 @@ static void monster_group_remove_leader(struct chunk *c, struct monster *leader,
     if (!poss_leader)
     {
         monster_group_split(c, group);
-        c->monster_groups[group->index] = NULL;
         monster_group_free(group);
+        freed = true;
     }
 
     /* If there is a successor, appoint them and finalise changes */
@@ -157,7 +158,7 @@ static void monster_group_remove_leader(struct chunk *c, struct monster *leader,
         }
     }
 
-    monster_groups_verify(c);
+    return freed;
 }
 
 
@@ -194,7 +195,12 @@ void monster_remove_from_groups(struct chunk *c, struct monster *mon)
             {
                 group->member_list = list_entry->next;
                 mem_free(list_entry);
-                if (group->leader == mon->midx) monster_group_remove_leader(c, mon, group);
+                if (group->leader == mon->midx)
+                {
+                    bool freed = monster_group_remove_leader(c, mon, group);
+
+                    if (freed) c->monster_groups[mon->group_info[i].index] = NULL;
+                }
             }
 
             continue;
@@ -213,7 +219,12 @@ void monster_remove_from_groups(struct chunk *c, struct monster *mon)
 
                 list_entry->next = list_entry->next->next;
                 mem_free(remove);
-                if (group->leader == mon->midx) monster_group_remove_leader(c, mon, group);
+                if (group->leader == mon->midx)
+                {
+                    bool freed = monster_group_remove_leader(c, mon, group);
+
+                    if (freed) c->monster_groups[mon->group_info[i].index] = NULL;
+                }
                 break;
             }
             list_entry = list_entry->next;

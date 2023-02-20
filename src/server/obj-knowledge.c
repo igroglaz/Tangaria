@@ -236,6 +236,7 @@ static int rune_index(enum rune_variety variety, int index)
 static void cleanup_rune(void)
 {
     mem_free(rune_list);
+    rune_list = NULL;
 }
 
 

@@ -53,15 +53,8 @@ monster_list_t *monster_list_new(struct player *p)
 void monster_list_free(monster_list_t *list)
 {
 	if (list == NULL) return;
-
-	if (list->entries != NULL)
-    {
-		mem_free(list->entries);
-		list->entries = NULL;
-	}
-
+	mem_free(list->entries);
 	mem_free(list);
-	list = NULL;
 }
 
 
@@ -80,6 +73,7 @@ void monster_list_init(struct player *p)
 void monster_list_finalize(struct player *p)
 {
     monster_list_free((monster_list_t *)p->monster_list_subwindow);
+    p->monster_list_subwindow = NULL;
 }
 
 

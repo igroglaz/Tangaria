@@ -765,6 +765,7 @@ static errr finish_parse_constants(struct parser *p)
 static void cleanup_constants(void)
 {
     mem_free(z_info);
+    z_info = NULL;
 }
 
 
@@ -1394,6 +1395,7 @@ static void cleanup_trap(void)
         free_effect(trap_info[i].effect_xtra);
 	}
 	mem_free(trap_info);
+    trap_info = NULL;
 }
 
 
@@ -1412,15 +1414,28 @@ static struct file_parser trap_parser =
  */
 
 
+static enum parser_error parse_feat_code(struct parser *p)
+{
+    const char *code = parser_getstr(p, "code");
+    int idx = lookup_feat_code(code);
+    struct feature *f;
+
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    f = &f_info[idx];
+    f->fidx = idx;
+    parser_setpriv(p, f);
+    return PARSE_ERROR_NONE;
+}
+
+
 static enum parser_error parse_feat_name(struct parser *p)
 {
     const char *name = parser_getstr(p, "name");
-    struct feature *h = parser_priv(p);
-    struct feature *f = mem_zalloc(sizeof(*f));
+    struct feature *f = parser_priv(p);
 
-    f->next = h;
+    if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (f->name) return PARSE_ERROR_REPEATED_DIRECTIVE;
     f->name = string_make(name);
-    parser_setpriv(p, f);
 
     return PARSE_ERROR_NONE;
 }
@@ -1448,12 +1463,17 @@ static enum parser_error parse_feat_graphics(struct parser *p)
 
 static enum parser_error parse_feat_mimic(struct parser *p)
 {
-    const char *mimic_feat = parser_getstr(p, "feat");
+    const char *mimic_name = parser_getstr(p, "feat");
     struct feature *f = parser_priv(p);
+    int mimic_idx;
 
     if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
-    string_free(f->mimic);
-    f->mimic = string_make(mimic_feat);
+
+    /* Verify that it refers to a valid feature. */
+    mimic_idx = lookup_feat_code(mimic_name);
+    if (mimic_idx < 0 || mimic_idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+
+    f->mimic = &f_info[mimic_idx];
 
     return PARSE_ERROR_NONE;
 }
@@ -1491,13 +1511,15 @@ static enum parser_error parse_feat_flags(struct parser *p)
 }
 
 
-static enum parser_error parse_feat_info(struct parser *p)
+static enum parser_error parse_feat_digging(struct parser *p)
 {
     struct feature *f = parser_priv(p);
+    int dig_idx = parser_getint(p, "dig");
 
     if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
-    f->shopnum = parser_getint(p, "shopnum");
-    f->dig = parser_getint(p, "dig");
+    if (dig_idx < DIGGING_TREE + 1 || dig_idx >= DIGGING_MAX + 1)
+        return PARSE_ERROR_OUT_OF_BOUNDS;
+    f->dig = dig_idx;
 
     return PARSE_ERROR_NONE;
 }
@@ -1609,12 +1631,13 @@ static struct parser *init_parse_feat(void)
     struct parser *p = parser_new();
 
     parser_setpriv(p, NULL);
+    parser_reg(p, "code str code", parse_feat_code);
     parser_reg(p, "name str name", parse_feat_name);
     parser_reg(p, "graphics char glyph sym color", parse_feat_graphics);
     parser_reg(p, "mimic str feat", parse_feat_mimic);
     parser_reg(p, "priority uint priority", parse_feat_priority);
     parser_reg(p, "flags ?str flags", parse_feat_flags);
-    parser_reg(p, "info int shopnum int dig", parse_feat_info);
+    parser_reg(p, "digging int dig", parse_feat_digging);
     parser_reg(p, "short-desc str text", parse_feat_shortdesc);
     parser_reg(p, "desc str text", parse_feat_desc);
     parser_reg(p, "hurt-msg str text", parse_feat_hurt_msg);
@@ -1624,6 +1647,12 @@ static struct parser *init_parse_feat(void)
     parser_reg(p, "look-prefix str text", parse_feat_look_prefix);
     parser_reg(p, "look-in-preposition str text", parse_feat_look_in_preposition);
     parser_reg(p, "resist-flag sym flag", parse_feat_resist_flag);
+
+    /*
+     * Since the layout of the terrain array is fixed by list-terrain.h,
+     * allocate it now and fill in the customizable parts when parsing.
+     */
+    f_info = mem_zalloc(FEAT_MAX * sizeof(*f_info));
 
     return p;
 }
@@ -1637,40 +1666,27 @@ static errr run_parse_feat(struct parser *p)
 
 static errr finish_parse_feat(struct parser *p)
 {
-    struct feature *f, *n;
-    int fidx;
+    int shop_idx = 0, fidx;
 
-    /* Scan the list for the max id */
-    z_info->f_max = 0;
-    f = parser_priv(p);
-    while (f)
+    for (fidx = 0; fidx < FEAT_MAX; ++fidx)
     {
-        z_info->f_max++;
-        f = f->next;
-    }
+        /* Assign shop index based on the order within the other terrain. */
+        if (tf_has(f_info[fidx].flags, TF_SHOP)) f_info[fidx].shopnum = ++shop_idx;
 
-    /* Allocate the direct access list and copy the data to it */
-    f_info = mem_zalloc(z_info->f_max * sizeof(*f));
-    fidx = z_info->f_max - 1;
-    for (f = parser_priv(p); f; f = n, fidx--)
-    {
-        memcpy(&f_info[fidx], f, sizeof(*f));
-
-        /* Add trailing space for ease of use with targeting code. */
-        if (f_info[fidx].look_prefix)
+        /*
+         * Ensure the prefixes and prepositions end with a space for
+         * ease of use with the targeting code.
+         */
+        if (f_info[fidx].look_prefix && !suffix(f_info[fidx].look_prefix, " "))
             f_info[fidx].look_prefix = string_append(f_info[fidx].look_prefix, " ");
-        if (f_info[fidx].look_in_preposition)
+        if (f_info[fidx].look_in_preposition && !suffix(f_info[fidx].look_in_preposition, " "))
             f_info[fidx].look_in_preposition = string_append(f_info[fidx].look_in_preposition, " ");
-
-        f_info[fidx].fidx = fidx;
-        n = f->next;
-        if (fidx < z_info->f_max - 1) f_info[fidx].next = &f_info[fidx + 1];
-        else f_info[fidx].next = NULL;
-        mem_free(f);
     }
 
-    /* Set the terrain constants */
-    set_terrain();
+    z_info->store_max = shop_idx;
+
+    /* Non-feature: placeholder for player stores */
+    z_info->store_max++;
 
     parser_destroy(p);
     return 0;
@@ -1684,7 +1700,7 @@ static void cleanup_feat(void)
     /* Paranoia */
     if (!f_info) return;
 
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; i < FEAT_MAX; i++)
     {
         string_free(f_info[i].look_in_preposition);
         string_free(f_info[i].look_prefix);
@@ -1692,12 +1708,12 @@ static void cleanup_feat(void)
         string_free(f_info[i].die_msg);
         string_free(f_info[i].died_flavor);
         string_free(f_info[i].hurt_msg);
-        string_free(f_info[i].mimic);
         string_free(f_info[i].desc);
         string_free(f_info[i].shortdesc);
         string_free(f_info[i].name);
     }
     mem_free(f_info);
+    f_info = NULL;
 }
 
 
@@ -4250,6 +4266,7 @@ static void cleanup_soc(void)
         string_free(soc_info[i].text);
     }
     mem_free(soc_info);
+    soc_info = NULL;
 }
 
 
@@ -4690,6 +4707,7 @@ void cleanup_angband(void)
         }
     }
     mem_free(presets);
+    presets = NULL;
 
     /* Free the allocation tables */
     for (i = 0; modules[i]; i++)

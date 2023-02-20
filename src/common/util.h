@@ -14,6 +14,17 @@
  */
 #define STAT_RANGE  38
 
+enum
+{
+    #define FEAT(x) FEAT_##x,
+    #include "list-terrain.h"
+    #undef FEAT
+    FEAT_MAX
+};
+
+/* Non-feature: placeholder for player stores */
+#define FEAT_STORE_PLAYER   FEAT_MAX
+
 extern const int adj_str_blow[STAT_RANGE];
 extern const int adj_mag_stat[STAT_RANGE];
 extern const int adj_mag_fail[STAT_RANGE];

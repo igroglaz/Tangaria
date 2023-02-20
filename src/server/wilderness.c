@@ -104,10 +104,11 @@ static enum parser_error parse_wild_feat_feat(struct parser *p)
 {
     struct wild_feat *f = parser_priv(p);
     int lvl = parser_getuint(p, "level");
-    int idx = lookup_feat(parser_getsym(p, "index"));
+    int idx = lookup_feat_code(parser_getsym(p, "index"));
     char sym = parser_getchar(p, "sym");
 
     if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f->feat_lvl = lvl;
     f->feat_idx = idx;
     f->symbol = sym;
@@ -120,11 +121,12 @@ static enum parser_error parse_wild_feat_chance(struct parser *p)
 {
     struct wild_feat *f = parser_priv(p);
     unsigned int idx = parser_getuint(p, "index");
-    int feat = lookup_feat(parser_getsym(p, "feat"));
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
     int chance = parser_getuint(p, "chance") * 100;
 
     if (!f) return PARSE_ERROR_MISSING_RECORD_HEADER;
     if (idx >= TERRAIN_TYPE_MAX) return PARSE_ERROR_INVALID_VALUE;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f->chance[idx].feat = feat;
 
     if (parser_hasval(p, "chancex")) chance += parser_getuint(p, "chancex");
@@ -211,6 +213,7 @@ static void cleanup_wild_feat(void)
     for (i = 0; i < z_info->wf_max; i++)
         string_free(wf_info[i].name);
     mem_free(wf_info);
+    wf_info = NULL;
 }
 
 
@@ -284,6 +287,7 @@ static void cleanup_wild_info(void)
     {
         string_free(wild_info->text);
         mem_free(wild_info);
+        wild_info = NULL;
     }
 }
 
@@ -304,11 +308,13 @@ struct file_parser wild_info_parser =
 static enum parser_error parse_town_feat_feat(struct parser *p)
 {
     struct town_feat *h = parser_priv(p);
-    struct town_feat *f = mem_zalloc(sizeof(*f));
+    struct town_feat *f;
     char sym = parser_getchar(p, "sym");
     char spec = parser_getchar(p, "spec");
-    int idx = lookup_feat(parser_getsym(p, "index"));
+    int idx = lookup_feat_code(parser_getsym(p, "index"));
 
+    if (idx < 0 || idx >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    f = mem_zalloc(sizeof(*f));
     f->next = h;
     f->symbol = sym;
     f->special = spec;
@@ -369,6 +375,7 @@ static errr finish_parse_town_feat(struct parser *p)
 static void cleanup_town_feat(void)
 {
     mem_free(tf_info);
+    tf_info = NULL;
 }
 
 
@@ -478,7 +485,8 @@ static enum parser_error parse_location_info_symbol(struct parser *p)
     struct location *t = parser_priv(p);
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
-    t->feat = lookup_feat(parser_getstr(p, "terrain"));
+    t->feat = lookup_feat_code(parser_getstr(p, "terrain"));
+    if (t->feat < 0 || t->feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
 
     return PARSE_ERROR_NONE;
 }
@@ -523,8 +531,10 @@ static enum parser_error parse_location_info_floor(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->floors;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -541,7 +551,7 @@ static enum parser_error parse_location_info_floor(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
+    f->feat = feat;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -552,8 +562,10 @@ static enum parser_error parse_location_info_wall(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->walls;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -570,7 +582,7 @@ static enum parser_error parse_location_info_wall(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
+    f->feat = feat;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -581,8 +593,10 @@ static enum parser_error parse_location_info_fill(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->fills;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -599,7 +613,7 @@ static enum parser_error parse_location_info_fill(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
+    f->feat = feat;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -610,8 +624,10 @@ static enum parser_error parse_location_info_perma(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->permas;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -628,7 +644,7 @@ static enum parser_error parse_location_info_perma(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
+    f->feat = feat;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -639,8 +655,14 @@ static enum parser_error parse_location_info_door(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
+    int feat2 = lookup_feat_code(parser_getsym(p, "open"));
+    int feat3 = lookup_feat_code(parser_getsym(p, "broken"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat2 < 0 || feat2 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat3 < 0 || feat3 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->doors;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -657,9 +679,9 @@ static enum parser_error parse_location_info_door(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
-    f->feat2 = lookup_feat(parser_getsym(p, "open"));
-    f->feat3 = lookup_feat(parser_getsym(p, "broken"));
+    f->feat = feat;
+    f->feat2 = feat2;
+    f->feat3 = feat3;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -670,8 +692,12 @@ static enum parser_error parse_location_info_stair(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
+    int feat2 = lookup_feat_code(parser_getsym(p, "up"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat2 < 0 || feat2 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->stairs;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -688,8 +714,8 @@ static enum parser_error parse_location_info_stair(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
-    f->feat2 = lookup_feat(parser_getsym(p, "up"));
+    f->feat = feat;
+    f->feat2 = feat2;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -700,8 +726,12 @@ static enum parser_error parse_location_info_rubble(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
+    int feat2 = lookup_feat_code(parser_getsym(p, "pass"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat2 < 0 || feat2 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->rubbles;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -718,8 +748,8 @@ static enum parser_error parse_location_info_rubble(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
-    f->feat2 = lookup_feat(parser_getsym(p, "pass"));
+    f->feat = feat;
+    f->feat2 = feat2;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -730,8 +760,12 @@ static enum parser_error parse_location_info_fountain(struct parser *p)
 {
     struct location *t = parser_priv(p);
     struct dun_feature *f;
+    int feat = lookup_feat_code(parser_getsym(p, "feat"));
+    int feat2 = lookup_feat_code(parser_getsym(p, "dried"));
 
     if (!t) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat2 < 0 || feat2 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
     f = t->fountains;
 
     /* Go to the last valid feature, then allocate a new one */
@@ -748,8 +782,8 @@ static enum parser_error parse_location_info_fountain(struct parser *p)
     }
 
     /* Now read the data */
-    f->feat = lookup_feat(parser_getsym(p, "feat"));
-    f->feat2 = lookup_feat(parser_getsym(p, "dried"));
+    f->feat = feat;
+    f->feat2 = feat2;
     f->chance = parser_getint(p, "chance");
 
     return PARSE_ERROR_NONE;
@@ -1022,6 +1056,7 @@ static void cleanup_town_info(void)
         string_free(towns[i].shortname);
     }
     mem_free(towns);
+    towns = NULL;
 }
 
 
@@ -1233,6 +1268,7 @@ static void cleanup_dungeon_info(void)
         mem_free(dungeons[i].rules);
     }
     mem_free(dungeons);
+    dungeons = NULL;
 }
 
 
@@ -1612,6 +1648,7 @@ void free_wild_info(void)
     for (i = 0; i <= 2 * radius_wild; i++)
         mem_free(wt_info[i]);
     mem_free(wt_info);
+    wt_info = NULL;
 }
 
 
@@ -3493,10 +3530,16 @@ struct parse_town
 
 static enum parser_error parse_town_special(struct parser *p)
 {
-    struct parse_town *t = mem_zalloc(sizeof(*t));
+    struct parse_town *t;
+    int feat = lookup_feat_code(parser_getsym(p, "i1"));
+    int feat2 = lookup_feat_code(parser_getsym(p, "i2"));
 
-    t->special_feat[0] = lookup_feat(parser_getsym(p, "i1"));
-    t->special_feat[1] = lookup_feat(parser_getsym(p, "i2"));
+    if (feat < 0 || feat >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (feat2 < 0 || feat2 >= FEAT_MAX) return PARSE_ERROR_OUT_OF_BOUNDS;
+
+    t = mem_zalloc(sizeof(*t));
+    t->special_feat[0] = feat;
+    t->special_feat[1] = feat2;
     t->chance = parser_getuint(p, "chance");
     parser_setpriv(p, t);
 

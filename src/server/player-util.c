@@ -1381,7 +1381,7 @@ void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, 
     {
         struct store *s = &stores[square_shopnum(c, &p->grid)];
 
-        if (s->type == STORE_TEMPLE)
+        if (s->feat == FEAT_STORE_TEMPLE)
         {
             /* Resurrect him */
             resurrect_player(p, c);

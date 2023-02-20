@@ -21,67 +21,6 @@
 #include "s-angband.h"
 
 
-int FEAT_NONE;
-int FEAT_FLOOR;
-int FEAT_CLOSED;
-int FEAT_OPEN;
-int FEAT_BROKEN;
-int FEAT_LESS;
-int FEAT_MORE;
-int FEAT_SECRET;
-int FEAT_RUBBLE;
-int FEAT_PASS_RUBBLE;
-int FEAT_MAGMA;
-int FEAT_QUARTZ;
-int FEAT_MAGMA_K;
-int FEAT_QUARTZ_K;
-int FEAT_GRANITE;
-int FEAT_PERM;
-int FEAT_LAVA;
-int FEAT_PERM_STATIC;
-int FEAT_PERM_HOUSE;
-int FEAT_PERM_ARENA;
-int FEAT_WATER;
-int FEAT_MUD;
-int FEAT_DRAWBRIDGE;
-int FEAT_FOUNTAIN;
-int FEAT_FNT_DRIED;
-int FEAT_LOOSE_DIRT;
-int FEAT_DIRT;
-int FEAT_FLOOR_SAFE;
-int FEAT_LAVA_STREAM;
-int FEAT_STREET;
-int FEAT_FLOOR_PIT;
-int FEAT_GRASS;
-int FEAT_CROP;
-int FEAT_TREE;
-int FEAT_EVIL_TREE;
-int FEAT_MOUNTAIN;
-int FEAT_LOGS;
-int FEAT_SAND;
-int FEAT_SANDWALL;
-int FEAT_ICE;
-int FEAT_ICEWALL;
-int FEAT_SWAMP;
-int FEAT_TOWN;
-int FEAT_DEEP_WATER;
-int FEAT_HILL;
-int FEAT_SHORE;
-int FEAT_PERM_CLEAR;
-int FEAT_HOME_OPEN;
-int FEAT_HOME_CLOSED;
-int FEAT_WEB;
-int FEAT_TRAINING;
-int FEAT_CROP_POTATO;
-int FEAT_CROP_CABBAGE;
-int FEAT_CROP_CARROT;
-int FEAT_CROP_BEET;
-int FEAT_CROP_SQUASH;
-int FEAT_CROP_CORN;
-int FEAT_HARD_RUBBLE;
-int FEAT_HARD_PASS_RUBBLE;
-
-
 struct feature *f_info;
 
 
@@ -311,93 +250,42 @@ void next_grid(struct loc *next, struct loc *grid, int dir)
 }
 
 
+static const char *feat_code_list[] =
+{
+	#define FEAT(x) #x,
+	#include "../common/list-terrain.h"
+	#undef FEAT
+	NULL
+};
+
+
 /*
- * Find a terrain feature index by name
+ * Find a terrain feature by its code name.
  */
-int lookup_feat(const char *name)
+int lookup_feat_code(const char *code)
 {
     int i;
 
-    /* Look for it */
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; feat_code_list[i]; i++)
+    {
+        if (streq(code, feat_code_list[i])) return i;
+    }
+
+    /* Non-feature: placeholder for player stores */
+    if (streq(code, "STORE_PLAYER")) return FEAT_STORE_PLAYER;
+
+    /* Backwards compatibility: find a terrain feature by its name. */
+    for (i = 0; i < FEAT_MAX; i++)
     {
         struct feature *feat = &f_info[i];
 
         if (!feat->name) continue;
-
-        /* Test for equality */
-        if (streq(name, feat->name)) return i;
+        if (streq(code, feat->name)) return i;
     }
+    if (streq(code, "Player shop")) return FEAT_STORE_PLAYER;
 
-    quit_fmt("Failed to find terrain feature %s", name);
+    quit_fmt("Failed to find terrain feature %s", code);
     return -1;
-}
-
-
-/*
- * Set terrain constants to the indices from terrain.txt
- */
-void set_terrain(void)
-{
-    FEAT_NONE = lookup_feat("unknown grid");
-    FEAT_FLOOR = lookup_feat("open floor");
-    FEAT_CLOSED = lookup_feat("closed door");
-    FEAT_OPEN = lookup_feat("open door");
-    FEAT_BROKEN = lookup_feat("broken door");
-    FEAT_LESS = lookup_feat("up staircase");
-    FEAT_MORE = lookup_feat("down staircase");
-    FEAT_SECRET = lookup_feat("secret door");
-    FEAT_RUBBLE = lookup_feat("pile of rubble");
-    FEAT_PASS_RUBBLE = lookup_feat("pile of passable rubble");
-    FEAT_MAGMA = lookup_feat("magma vein");
-    FEAT_QUARTZ = lookup_feat("quartz vein");
-    FEAT_MAGMA_K = lookup_feat("magma vein with treasure");
-    FEAT_QUARTZ_K = lookup_feat("quartz vein with treasure");
-    FEAT_GRANITE = lookup_feat("granite wall");
-    FEAT_PERM = lookup_feat("permanent wall");
-    FEAT_LAVA = lookup_feat("lava");
-    FEAT_PERM_STATIC = lookup_feat("static dungeon town wall");
-    FEAT_PERM_HOUSE = lookup_feat("house wall");
-    FEAT_PERM_ARENA = lookup_feat("arena wall");
-    FEAT_WATER = lookup_feat("water");
-    FEAT_MUD = lookup_feat("mud");
-    FEAT_DRAWBRIDGE = lookup_feat("drawbridge");
-    FEAT_FOUNTAIN = lookup_feat("fountain");
-    FEAT_FNT_DRIED = lookup_feat("fountain (dried out)");
-    FEAT_LOOSE_DIRT = lookup_feat("loose dirt");
-    FEAT_DIRT = lookup_feat("packed dirt");
-    FEAT_FLOOR_SAFE = lookup_feat("safe floor");
-    FEAT_LAVA_STREAM = lookup_feat("lava stream");
-    FEAT_STREET = lookup_feat("street");
-    FEAT_FLOOR_PIT = lookup_feat("pit floor");
-    FEAT_GRASS = lookup_feat("grass");
-    FEAT_CROP = lookup_feat("crops");
-    FEAT_TREE = lookup_feat("tree");
-    FEAT_EVIL_TREE = lookup_feat("dark tree");
-    FEAT_MOUNTAIN = lookup_feat("mountain");
-    FEAT_LOGS = lookup_feat("log");
-    FEAT_SAND = lookup_feat("sand");
-    FEAT_SANDWALL = lookup_feat("sandwall");
-    FEAT_ICE = lookup_feat("ice");
-    FEAT_ICEWALL = lookup_feat("ice wall");
-    FEAT_SWAMP = lookup_feat("swamp");
-    FEAT_TOWN = lookup_feat("town");
-    FEAT_DEEP_WATER = lookup_feat("deep water");
-    FEAT_HILL = lookup_feat("hill");
-    FEAT_SHORE = lookup_feat("shore");
-    FEAT_PERM_CLEAR = lookup_feat("border permawall");
-    FEAT_HOME_OPEN = lookup_feat("open house door");
-    FEAT_HOME_CLOSED = lookup_feat("closed house door");
-    FEAT_WEB = lookup_feat("web");
-    FEAT_TRAINING = lookup_feat("training grounds");
-    FEAT_CROP_POTATO = lookup_feat("potato crops");
-    FEAT_CROP_CABBAGE = lookup_feat("cabbage crops");
-    FEAT_CROP_CARROT = lookup_feat("carrot crops");
-    FEAT_CROP_BEET = lookup_feat("beet crops");
-    FEAT_CROP_SQUASH = lookup_feat("squash crops");
-    FEAT_CROP_CORN = lookup_feat("corn crops");
-    FEAT_HARD_RUBBLE = lookup_feat("pile of hard rubble");
-    FEAT_HARD_PASS_RUBBLE = lookup_feat("pile of hard passable rubble");
 }
 
 
@@ -412,7 +300,7 @@ struct chunk *cave_new(int height, int width)
     c->height = height;
     c->width = width;
 
-    c->feat_count = mem_zalloc(z_info->f_max * sizeof(int));
+    c->feat_count = mem_zalloc(FEAT_MAX * sizeof(int));
 
     c->squares = mem_zalloc(c->height * sizeof(struct square*));
     for (grid.y = 0; grid.y < c->height; grid.y++)
@@ -908,7 +796,7 @@ static int get_feat_byfuzzyname(char *name)
     /* Lowercase our search string */
     for (str = name; *str; str++) *str = tolower((unsigned char)*str);
 
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; i < FEAT_MAX; i++)
     {
         struct feature *feat = &f_info[i];
 

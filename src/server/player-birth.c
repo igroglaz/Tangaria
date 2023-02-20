@@ -1243,7 +1243,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool no_rec
                     {
                         struct store *s = store_at(q);
 
-                        if (s && (s->type == STORE_PLAYER))
+                        if (s && (s->feat == FEAT_STORE_PLAYER))
                         {
                             reposition = true;
 

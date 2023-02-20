@@ -347,7 +347,7 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
                 {
                     struct store *s = store_at(q);
 
-                    if (s && (s->type == STORE_PLAYER))
+                    if (s && (s->feat == FEAT_STORE_PLAYER))
                     {
                         msg(q, "The shopkeeper locks the doors.");
                         Send_store_leave(q);
@@ -883,7 +883,7 @@ static bool create_house_door(struct player *p, struct chunk *c, struct loc *gri
 static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *grid)
 {
     bool more = false;
-    int digging_chances[DIGGING_MAX], chance = 0, digging;
+    int digging_chances[DIGGING_MAX], chance = 0, dig_idx;
     bool okay = false;
     bool gold, rubble, tree, web, door, ice, sand;
 
@@ -930,8 +930,8 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
     calc_digging_chances(p, &p->state, digging_chances);
 
     /* Do we succeed? */
-    digging = square_digging(c, grid);
-    if (digging > 0) chance = digging_chances[digging - 1];
+    dig_idx = square_digging(c, grid);
+    if (dig_idx > 0 && dig_idx <= DIGGING_MAX) chance = digging_chances[dig_idx - 1];
     okay = CHANCE(chance, 1600);
 
     /* Hack -- house walls */

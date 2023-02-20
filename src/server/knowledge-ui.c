@@ -60,35 +60,24 @@ static join_t *default_join;
  */
 static int feat_order(int feat)
 {
-    struct feature *f = &f_info[feat];
     int special = feat_order_special(feat);
 
-    if (special != -1)
-        return special;
+    if (special != -1) return special;
 
-    switch (f->d_char)
-    {
-        case '.': return 0;
-        case '\'':
-        case '+': return 1;
-        case '<':
-        case '>': return 2;
-        case '#': return 3;
-        case '*':
-        case '%': return 4;
-        case ';':
-        case ':': return 5;
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9': return 6;
-        default: return 7;
-    }
+    if (tf_has(f_info[feat].flags, TF_SHOP)) return 6;
+    if (tf_has(f_info[feat].flags, TF_STAIR)) return 2;
+    if (tf_has(f_info[feat].flags, TF_DOOR_ANY)) return 1;
+
+    /* These also have WALL set so check them first before checking WALL. */
+    if (tf_has(f_info[feat].flags, TF_MAGMA) || tf_has(f_info[feat].flags, TF_QUARTZ)) return 4;
+
+    /* These also have ROCK set so check them first before checking ROCK. */
+    if (tf_has(f_info[feat].flags, TF_WALL)) return 3;
+    if (tf_has(f_info[feat].flags, TF_ROCK)) return 5;
+
+    /* Many above have PASSABLE so do this last. */
+    if (tf_has(f_info[feat].flags, TF_PASSABLE)) return 0;
+    return 7;
 }
 
 
@@ -312,6 +301,7 @@ static void do_cmd_knowledge_monsters(struct player *p, int line)
     }
 
     mem_free(default_join);
+    default_join = NULL;
     mem_free(monsters);
 
     /* Close the file */
@@ -790,6 +780,7 @@ static void do_cmd_knowledge_ego_items(struct player *p, int line)
     }
 
     mem_free(default_join);
+    default_join = NULL;
     mem_free(egoitems);
     mem_free(obj_group_order);
     obj_group_order = NULL;
@@ -1134,10 +1125,10 @@ static void do_cmd_knowledge_features(struct player *p, int line)
     fff = file_temp(file_name, sizeof(file_name));
     if (!fff) return;
 
-    features = mem_zalloc(z_info->f_max * sizeof(int));
+    features = mem_zalloc(FEAT_MAX * sizeof(int));
 
     /* Collect features */
-    for (i = 0; i < z_info->f_max; i++)
+    for (i = 0; i < FEAT_MAX; i++)
     {
         /* Ignore non-features and mimics */
         if (!f_info[i].name || f_info[i].mimic) continue;

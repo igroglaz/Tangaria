@@ -136,6 +136,7 @@ static void init_race_allocs(void)
 static void cleanup_race_allocs(void)
 {
     mem_free(alloc_race_table);
+    alloc_race_table = NULL;
 }
 
 

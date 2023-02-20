@@ -509,7 +509,6 @@ static bool try_save(void *data, ang_file *file, savefile_saver *savers, size_t 
     }
 
     mem_free(buffer);
-    buffer = NULL;
     return true;
 }
 

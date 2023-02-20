@@ -616,18 +616,18 @@ void wr_gear(void *data)
 }
 
 
-static void wr_store(struct store *store)
+static void wr_store(struct store *s)
 {
     struct object *obj;
 
     /* Save the current owner */
-    wr_byte(store->owner->oidx);
+    wr_byte(s->owner? s->owner->oidx: 0);
 
     /* Save the stock size */
-    wr_s16b(store->stock_num);
+    wr_s16b(s->stock_num);
 
     /* Save the stock */
-    for (obj = store->stock; obj; obj = obj->next)
+    for (obj = s->stock; obj; obj = obj->next)
     {
         wr_item(obj);
 
@@ -642,14 +642,14 @@ void wr_stores(void *unused)
     int i;
 
     /* Note the stores */
-    wr_u16b(store_max);
+    wr_u16b(z_info->store_max);
 
     /* Dump the stores */
-    for (i = 0; i < store_max; i++)
+    for (i = 0; i < z_info->store_max; i++)
     {
-        struct store *store = &stores[i];
+        struct store *s = &stores[i];
 
-        wr_store(store);
+        wr_store(s);
     }
 
     /* Note the store orders */
