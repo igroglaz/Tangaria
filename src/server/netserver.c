@@ -7424,7 +7424,7 @@ static int Receive_store_leave(int ind)
 
             // "standart" store leave sound should play only for pstores
             // (as we can speak NPCs which are not behind doors)
-            if (s->type == STORE_PLAYER)
+            if (s->feat == FEAT_STORE_PLAYER)
                 sound(p, MSG_STORE_LEAVE);
 
             // empty sound to break sound loop .ogg.0 (see: SDL_CHUNK_LOOP)

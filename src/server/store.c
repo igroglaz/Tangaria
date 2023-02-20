@@ -725,8 +725,8 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
         */
 
         /* Black markets suck */
-        if (s->type == FEAT_STORE_B_MARKET) price = price * 2;
-        if (s->type == FEAT_STORE_XBM)
+        if (s->feat == FEAT_STORE_BLACK) price = price * 2;
+        if (s->feat == FEAT_STORE_XBM)
         {
             if (p->state.stat_ind[STAT_CHR] >= 18)
                 price = price * (factor - 1);
@@ -749,25 +749,25 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     // We use it because 'cost:' field in object.txt doesn't work;
     // only way to change price atm is to adjust power in object property file,
     // which can influence randart generation... So we use this way:
-    if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+    if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
         obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
                 price = 248;
-    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+    else if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
         obj->kind == lookup_kind_by_name(TV_BOW, "Sling") && !obj->ego &&
         obj->to_h == 0 && obj->to_d == 0)
                 price = 55;
-    else if (s->type != STORE_PLAYER && s->type != STORE_B_MARKET &&
+    else if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
         (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
         obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
         obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
                 price = 800;
     // ego: speed boots
-    else if (s->type != STORE_PLAYER && obj->ego &&
+    else if (s->feat != FEAT_STORE_PLAYER && obj->ego &&
             (strstr(obj->ego->name, "of Speed") ||
              strstr(obj->ego->name, "of Elvenkind")))
                 price *= 5 / 2;
     // regular items (speed ring, ring of flying etc)
-    else if (s->type != STORE_PLAYER)
+    else if (s->feat != FEAT_STORE_PLAYER)
     {
         if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
                 price *= 2;
@@ -776,7 +776,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     }
 
     /* CHArisma shouldn't influence player store prices */
-    if (s->type == STORE_PLAYER) adjust = 100;
+    if (s->feat == FEAT_STORE_PLAYER) adjust = 100;
 
     /* Compute the final price (with rounding) */
     price = floor((price * adjust + 50L) / 100L);
@@ -966,8 +966,8 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
 {
     struct object *stock_obj;
     int storage_factor = 0;
-    bool home = ((s->type == FEAT_HOME)? true: false);
-    object_stack_t mode = ((s->type == FEAT_HOME)? OSTACK_PACK: OSTACK_STORE);
+    bool home = ((s->feat == FEAT_HOME)? true: false);
+    object_stack_t mode = ((s->feat == FEAT_HOME)? OSTACK_PACK: OSTACK_STORE);
 
     /* Free space is always usable (for stores) */
     if (!home && (s->stock_num < s->stock_size))
@@ -2649,7 +2649,7 @@ void do_cmd_buy(struct player *p, int item, int amt)
 
     /* Ensure item owner = store owner */
     // not real check; used in #audit channel: ^Z -> o -> #audit
-    if (s->type == FEAT_STORE_PLAYER)
+    if (s->feat == FEAT_STORE_PLAYER)
     {
         /* extract house struct from house id and get ownername (account) from it */
         const char *name = house_get(p->player_store_num)->ownername;
@@ -3377,66 +3377,25 @@ void do_cmd_store(struct player *p, int pstore)
     }
 
     // storage entrance sound
-    if (s->type == FEAT_HOME)
+    if (s->feat == FEAT_HOME)
         sound(p, MSG_STORE_HOME);
 
     /* Music volume down */
     sound(p, MSG_SILENT100);
 
     /* Background sounds for stores */
-    switch (s->type)
+    switch (s->feat)
     {
-        case STORE_OTHER:
-            if (streq(s->name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
-            else if (streq(s->name, "Halbarad, the gamekeeper")) sound(p, MSG_NPC_HI);
-            else if (streq(s->name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
-            else if (streq(s->name, "Alchemy Shop"))
-            {
-                if (one_in_(6))
-                    sound(p, MSG_STORE_ALCHEMY_BOOM);
-                else
-                    sound(p, MSG_STORE_ALCHEMY);
-            }
-            else if (streq(s->name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
-            else if (streq(s->name, "Boyan the Volkhv")) sound(p, MSG_STORE_MAGIC);
-            else if (streq(s->name, "Boromir")) sound(p, MSG_NPC_WARR);
-            else if (streq(s->name, "Armoury")) sound(p, MSG_NPC_ARMOR);
-            else if (streq(s->name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
-            else if (streq(s->name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
-            else if (streq(s->name, "Ivan the villager")) sound(p, MSG_NPC_WELCOME);
-            else if (streq(s->name, "Old guard Barry")) sound(p, MSG_NPC_VET);
-            else if (streq(s->name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
-            else if (streq(s->name, "Torog"))
-            {
-                sound(p, MSG_NPC_BELCH);
-                sound(p, MSG_TAVERN);
-            }
-            else if (streq(s->name, "Rose")) sound(p, MSG_NPC_ROSE);
-            else if (streq(s->name, "Bill Ferny"))
-            {
-                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
-                sound(p, MSG_TAVERN);
-            }
-            else if (streq(s->name, "Danny the dog")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Mr. Underhill")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Barliman")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Nob, a servant")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
-            else if (streq(s->name, "Gildor")) sound(p, MSG_NPC_DUEL);
-            else if (streq(s->name, "Milena the villager")) sound(p, MSG_NPC_MARTA);
-            else if (streq(s->name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
-            else if (streq(s->name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
-            break;
         case FEAT_STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
             break;
         case FEAT_STORE_TEMPLE:
             sound(p, MSG_STORE_TEMPLE);
             break;
-        case FEAT_STORE_BOOKSELLER:
+        case FEAT_STORE_BOOK:
             sound(p, MSG_STORE_BOOKSELLER);
             break;
-        case FEAT_STORE_B_MARKET:
+        case FEAT_STORE_BLACK:
             sound(p, MSG_STORE_B_MARKET_SOUND);
             break;
         case FEAT_STORE_XBM:
@@ -3453,6 +3412,46 @@ void do_cmd_store(struct player *p, int pstore)
         case FEAT_STORE_PLAYER:
             sound(p, MSG_STORE_PLAYER_SOUND);
             break;
+        default:
+            if (streq(f_info[s->feat].name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
+            else if (streq(f_info[s->feat].name, "Halbarad, the gamekeeper")) sound(p, MSG_NPC_HI);
+            else if (streq(f_info[s->feat].name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
+            else if (streq(f_info[s->feat].name, "Alchemy Shop"))
+            {
+                if (one_in_(6))
+                    sound(p, MSG_STORE_ALCHEMY_BOOM);
+                else
+                    sound(p, MSG_STORE_ALCHEMY);
+            }
+            else if (streq(f_info[s->feat].name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
+            else if (streq(f_info[s->feat].name, "Boyan the Volkhv")) sound(p, MSG_STORE_MAGIC);
+            else if (streq(f_info[s->feat].name, "Boromir")) sound(p, MSG_NPC_WARR);
+            else if (streq(f_info[s->feat].name, "Armoury")) sound(p, MSG_NPC_ARMOR);
+            else if (streq(f_info[s->feat].name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
+            else if (streq(f_info[s->feat].name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
+            else if (streq(f_info[s->feat].name, "Ivan the villager")) sound(p, MSG_NPC_WELCOME);
+            else if (streq(f_info[s->feat].name, "Old guard Barry")) sound(p, MSG_NPC_VET);
+            else if (streq(f_info[s->feat].name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
+            else if (streq(f_info[s->feat].name, "Torog"))
+            {
+                sound(p, MSG_NPC_BELCH);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(f_info[s->feat].name, "Rose")) sound(p, MSG_NPC_ROSE);
+            else if (streq(f_info[s->feat].name, "Bill Ferny"))
+            {
+                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_TAVERN);
+            }
+            else if (streq(f_info[s->feat].name, "Danny the dog")) sound(p, MSG_TAVERN);
+            else if (streq(f_info[s->feat].name, "Mr. Underhill")) sound(p, MSG_TAVERN);
+            else if (streq(f_info[s->feat].name, "Barliman")) sound(p, MSG_TAVERN);
+            else if (streq(f_info[s->feat].name, "Nob, a servant")) sound(p, MSG_TAVERN);
+            else if (streq(f_info[s->feat].name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
+            else if (streq(f_info[s->feat].name, "Gildor")) sound(p, MSG_NPC_DUEL);
+            else if (streq(f_info[s->feat].name, "Milena the villager")) sound(p, MSG_NPC_MARTA);
+            else if (streq(f_info[s->feat].name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
+            else if (streq(f_info[s->feat].name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
     }
 
     /* Display the store */
