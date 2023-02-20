@@ -3005,7 +3005,7 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         strncat(wall, &wall_glyph, 1);
 
     // look for the feat
-    house_wall = lookup_feat(wall[0]);
+    house_wall = lookup_feat_code(wall[0]);
 
     square_set_feat(c, grid, house_wall);
 }
@@ -3093,7 +3093,7 @@ void square_add_tree(struct chunk *c, struct loc *grid)
     }
     
     // look for the feat
-    tree_index = lookup_feat(tr33[0]);
+    tree_index = lookup_feat_code(tr33[0]);
 
     square_set_feat(c, grid, tree_index);
 }
@@ -3266,7 +3266,7 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         strncat(floor, &floor_glyph, 1);
 
     // look for the feat
-    house_floor = lookup_feat(floor[0]);
+    house_floor = lookup_feat_code(floor[0]);
 
     square_set_feat(c, grid, house_floor);
 }
