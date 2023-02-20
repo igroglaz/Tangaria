@@ -249,7 +249,7 @@ desc:A shop that sells and buys magical and mystical books.
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
 name:Halbarad, the old ranger
-code:HALBARAD,_THE_OLD_RANGER
+code:HALBARAD_THE_OLD_RANGER
 graphics:p:G
 priority:24
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -369,7 +369,7 @@ short-desc:wrinkled and ruddy face, bright blue eyes and a bristling brown beard
 desc:.
 
 name:Mr. Underhill
-code:MR._UNDERHILL
+code:MR_UNDERHILL
 graphics:h:W
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -389,7 +389,7 @@ short-desc:tall elf. You feel that he possess ethereal grace and various powers.
 desc:.
 
 name:Squint-eyed Southerner
-code:SQUINT-EYED_SOUTHERNER
+code:SQUINT_EYED_SOUTHERNER
 graphics:o:t
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -441,7 +441,7 @@ short-desc:looks like a troll, more then in a half.. strong and dim-witted
 desc:.
 
 name:Nob, a servant
-code:NOB,_A_SERVANT
+code:NOB_A_SERVANT
 graphics:h:u
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -842,7 +842,7 @@ short-desc:fountain filled with water
 desc:An ornate basin filled with water.
 
 name:fountain (dried out)
-code:FOUNTAIN_(DRIED_OUT)
+code:FOUNTAIN_DRIED_OUT
 graphics:_:s
 priority:22
 flags:LOS | PROJECT | PASSABLE | FOUNTAIN | DRIED | BORING | EASY | INTERESTING
@@ -1056,7 +1056,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 # PWMAngband-specific colorized house doors
 
 name:closed house door (white)
-code:CLOSED_HOUSE_DOOR_(WHITE)
+code:CLOSED_HOUSE_DOOR_WHITE
 graphics:+:w
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1067,7 +1067,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (slate)
-code:CLOSED_HOUSE_DOOR_(SLATE)
+code:CLOSED_HOUSE_DOOR_SLATE
 graphics:+:s
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1078,7 +1078,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (orange)
-code:CLOSED_HOUSE_DOOR_(ORANGE)
+code:CLOSED_HOUSE_DOOR_ORANGE
 graphics:+:o
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1089,7 +1089,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (red)
-code:CLOSED_HOUSE_DOOR_(RED)
+code:CLOSED_HOUSE_DOOR_RED
 graphics:+:r
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1100,7 +1100,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (green)
-code:CLOSED_HOUSE_DOOR_(GREEN)
+code:CLOSED_HOUSE_DOOR_GREEN
 graphics:+:g
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1111,7 +1111,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (blue)
-code:CLOSED_HOUSE_DOOR_(BLUE)
+code:CLOSED_HOUSE_DOOR_BLUE
 graphics:+:b
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1122,7 +1122,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (umber)
-code:CLOSED_HOUSE_DOOR_(UMBER)
+code:CLOSED_HOUSE_DOOR_UMBER
 graphics:+:u
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1133,7 +1133,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light dark)
-code:CLOSED_HOUSE_DOOR_(LIGHT_DARK)
+code:CLOSED_HOUSE_DOOR_LIGHT_DARK
 graphics:+:D
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1144,7 +1144,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light white)
-code:CLOSED_HOUSE_DOOR_(LIGHT_WHITE)
+code:CLOSED_HOUSE_DOOR_LIGHT_WHITE
 graphics:+:W
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1155,7 +1155,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light purple)
-code:CLOSED_HOUSE_DOOR_(LIGHT_PURPLE)
+code:CLOSED_HOUSE_DOOR_LIGHT_PURPLE
 graphics:+:P
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1166,7 +1166,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (yellow)
-code:CLOSED_HOUSE_DOOR_(YELLOW)
+code:CLOSED_HOUSE_DOOR_YELLOW
 graphics:+:y
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1177,7 +1177,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light red)
-code:CLOSED_HOUSE_DOOR_(LIGHT_RED)
+code:CLOSED_HOUSE_DOOR_LIGHT_RED
 graphics:+:R
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1188,7 +1188,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light green)
-code:CLOSED_HOUSE_DOOR_(LIGHT_GREEN)
+code:CLOSED_HOUSE_DOOR_LIGHT_GREEN
 graphics:+:G
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1199,7 +1199,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light blue)
-code:CLOSED_HOUSE_DOOR_(LIGHT_BLUE)
+code:CLOSED_HOUSE_DOOR_LIGHT_BLUE
 graphics:+:B
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1210,7 +1210,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light umber)
-code:CLOSED_HOUSE_DOOR_(LIGHT_UMBER)
+code:CLOSED_HOUSE_DOOR_LIGHT_UMBER
 graphics:+:U
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1221,7 +1221,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (purple)
-code:CLOSED_HOUSE_DOOR_(PURPLE)
+code:CLOSED_HOUSE_DOOR_PURPLE
 graphics:+:p
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1232,7 +1232,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (violet)
-code:CLOSED_HOUSE_DOOR_(VIOLET)
+code:CLOSED_HOUSE_DOOR_VIOLET
 graphics:+:v
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1243,7 +1243,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (teal)
-code:CLOSED_HOUSE_DOOR_(TEAL)
+code:CLOSED_HOUSE_DOOR_TEAL
 graphics:+:t
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1254,7 +1254,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (mud)
-code:CLOSED_HOUSE_DOOR_(MUD)
+code:CLOSED_HOUSE_DOOR_MUD
 graphics:+:m
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1265,7 +1265,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light yellow)
-code:CLOSED_HOUSE_DOOR_(LIGHT_YELLOW)
+code:CLOSED_HOUSE_DOOR_LIGHT_YELLOW
 graphics:+:Y
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1276,7 +1276,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (magenta)
-code:CLOSED_HOUSE_DOOR_(MAGENTA)
+code:CLOSED_HOUSE_DOOR_MAGENTA
 graphics:+:i
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1287,7 +1287,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light teal)
-code:CLOSED_HOUSE_DOOR_(LIGHT_TEAL)
+code:CLOSED_HOUSE_DOOR_LIGHT_TEAL
 graphics:+:T
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1298,7 +1298,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light violet)
-code:CLOSED_HOUSE_DOOR_(LIGHT_VIOLET)
+code:CLOSED_HOUSE_DOOR_LIGHT_VIOLET
 graphics:+:V
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1309,7 +1309,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (light pink)
-code:CLOSED_HOUSE_DOOR_(LIGHT_PINK)
+code:CLOSED_HOUSE_DOOR_LIGHT_PINK
 graphics:+:I
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1320,7 +1320,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (mustard)
-code:CLOSED_HOUSE_DOOR_(MUSTARD)
+code:CLOSED_HOUSE_DOOR_MUSTARD
 graphics:+:M
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1331,7 +1331,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (blue slate)
-code:CLOSED_HOUSE_DOOR_(BLUE_SLATE)
+code:CLOSED_HOUSE_DOOR_BLUE_SLATE
 graphics:+:z
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1342,7 +1342,7 @@ desc: safely apart from on your person. This is a closed door from such house.
 desc: Objects dropped inside can be sold to other players.
 
 name:closed house door (deep light blue)
-code:CLOSED_HOUSE_DOOR_(DEEP_LIGHT_BLUE)
+code:CLOSED_HOUSE_DOOR_DEEP_LIGHT_BLUE
 graphics:+:Z
 priority:24
 flags:DOOR_HOME | DOOR_CLOSED | INTERESTING
@@ -1673,7 +1673,7 @@ short-desc:wall
 desc:.
 
 name:96 wall ~
-code:96_WALL_~
+code:96_WALL_TD
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -1683,7 +1683,7 @@ short-desc:wall
 desc:.
 
 name:96 wall `
-code:96_WALL_`
+code:96_WALL_BT
 graphics:#:y
 priority:11
 flags:NO_HOUSE | WALL | ROCK | NO_SCENT | NO_FLOW | SAND
@@ -2998,7 +2998,7 @@ short-desc:stump
 desc:.
 
 name:tree ~
-code:TREE_~
+code:TREE_TD
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -3008,7 +3008,7 @@ short-desc:small fruit tree
 desc:.
 
 name:tree `
-code:TREE_`
+code:TREE_BT
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -3916,7 +3916,7 @@ short-desc:.
 desc:.
 
 name:A5 plants ~
-code:A5_PLANTS_~
+code:A5_PLANTS_TD
 graphics:.:g
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -3925,7 +3925,7 @@ short-desc:.
 desc:.
 
 name:A5 plants `
-code:A5_PLANTS_`
+code:A5_PLANTS_BT
 graphics:.:g
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -5206,7 +5206,7 @@ short-desc:.
 desc:.
 
 name:obj_grass2 ~
-code:OBJ_GRASS2_~
+code:OBJ_GRASS2_TD
 graphics:.:s
 priority:18
 info:0:3
@@ -5216,7 +5216,7 @@ short-desc:.
 desc:.
 
 name:obj_grass2 `
-code:OBJ_GRASS2_`
+code:OBJ_GRASS2_BT
 graphics:.:s
 priority:18
 info:0:3
@@ -5531,7 +5531,7 @@ short-desc:wall
 desc:.
 
 name:AA wall ~
-code:AA_WALL_~
+code:AA_WALL_TD
 graphics:#:W
 priority:11
 flags:NO_HOUSE | NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -5541,7 +5541,7 @@ short-desc:wall
 desc:.
 
 name:AA wall `
-code:AA_WALL_`
+code:AA_WALL_BT
 graphics:#:W
 priority:11
 flags:NO_HOUSE | NO_HOUSE | NO_GENERATION | NO_STAIRS | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH
@@ -6173,7 +6173,7 @@ short-desc:.
 desc:.
 
 name:grass mountain ~
-code:GRASS_MOUNTAIN_~
+code:GRASS_MOUNTAIN_TD
 graphics:^:D
 priority:18
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -6183,7 +6183,7 @@ short-desc:.
 desc:.
 
 name:grass mountain `
-code:GRASS_MOUNTAIN_`
+code:GRASS_MOUNTAIN_BT
 graphics:^:D
 priority:18
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -7299,7 +7299,7 @@ short-desc:.
 desc:.
 
 name:B0 wood floor ~
-code:B0_WOOD_FLOOR_~
+code:B0_WOOD_FLOOR_TD
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -7308,7 +7308,7 @@ short-desc:.
 desc:.
 
 name:B0 wood floor `
-code:B0_WOOD_FLOOR_`
+code:B0_WOOD_FLOOR_BT
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -7899,7 +7899,7 @@ short-desc:lowland
 desc:.
 
 name:floor ~ lowland
-code:FLOOR_~_LOWLAND
+code:FLOOR_TD_LOWLAND
 graphics:.:g
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -7908,7 +7908,7 @@ short-desc:lowland
 desc:.
 
 name:floor ` lowland
-code:FLOOR_`_LOWLAND
+code:FLOOR_BT_LOWLAND
 graphics:.:g
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -8490,7 +8490,7 @@ short-desc:.
 desc:.
 
 name:B4 floors ~
-code:B4_FLOORS_~
+code:B4_FLOORS_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -8499,7 +8499,7 @@ short-desc:.
 desc:.
 
 name:B4 floors `
-code:B4_FLOORS_`
+code:B4_FLOORS_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -9200,7 +9200,7 @@ die-msg:drowning
 resist-flag:IM_WATER
 
 name:B6 floors luquid ~
-code:B6_FLOORS_LUQUID_~
+code:B6_FLOORS_LUQUID_TD
 graphics:~:g
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | WATER | BORING | NOTICEABLE | NO_SCENT | TORCH | NO_STAIRS | NO_GENERATION | FOUL_WATER
@@ -9213,7 +9213,7 @@ die-msg:drowning
 resist-flag:IM_WATER
 
 name:B6 floors luquid `
-code:B6_FLOORS_LUQUID_`
+code:B6_FLOORS_LUQUID_BT
 graphics:~:g
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | WATER | BORING | NOTICEABLE | NO_SCENT | TORCH | NO_STAIRS | NO_GENERATION | FOUL_WATER
@@ -9863,7 +9863,7 @@ short-desc:brazier on the wall
 desc:.
 
 name:wooden walls ~
-code:WOODEN_WALLS_~
+code:WOODEN_WALLS_TD
 graphics:#:u
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | BRIGHT
@@ -9873,7 +9873,7 @@ short-desc:candle on the wall
 desc:.
 
 name:wooden walls `
-code:WOODEN_WALLS_`
+code:WOODEN_WALLS_BT
 graphics:#:u
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | BRIGHT
@@ -10509,7 +10509,7 @@ short-desc:brazier on the wall
 desc:.
 
 name:dark wall ~
-code:DARK_WALL_~
+code:DARK_WALL_TD
 graphics:#:D
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -10519,7 +10519,7 @@ short-desc:candle on the wall
 desc:.
 
 name:dark wall `
-code:DARK_WALL_`
+code:DARK_WALL_BT
 graphics:#:D
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -11165,7 +11165,7 @@ short-desc:brazier on the wall
 desc:.
 
 name:big white wall ~
-code:BIG_WHITE_WALL_~
+code:BIG_WHITE_WALL_TD
 graphics:#:w
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -11175,7 +11175,7 @@ short-desc:candle on the wall
 desc:.
 
 name:big white wall `
-code:BIG_WHITE_WALL_`
+code:BIG_WHITE_WALL_BT
 graphics:#:w
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -11818,7 +11818,7 @@ short-desc:brazier on the wall
 desc:.
 
 name:big dark wall ~
-code:BIG_DARK_WALL_~
+code:BIG_DARK_WALL_TD
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -11828,7 +11828,7 @@ short-desc:candle on the wall
 desc:.
 
 name:big dark wall `
-code:BIG_DARK_WALL_`
+code:BIG_DARK_WALL_BT
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -12475,7 +12475,7 @@ short-desc:brazier on the wall
 desc:.
 
 name:brick wall ~
-code:BRICK_WALL_~
+code:BRICK_WALL_TD
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -12485,7 +12485,7 @@ short-desc:candle on the wall
 desc:.
 
 name:brick wall `
-code:BRICK_WALL_`
+code:BRICK_WALL_BT
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -13078,7 +13078,7 @@ desc:.
 
 # roof
 name:coast ~
-code:COAST_~
+code:COAST_TD
 graphics:#:r
 priority:18
 flags:NO_HOUSE | WALL | ROCK | NO_SCENT | NO_FLOW
@@ -13087,7 +13087,7 @@ short-desc:roof
 desc:.
 
 name:coast `
-code:COAST_`
+code:COAST_BT
 graphics:.:u
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -13667,7 +13667,7 @@ short-desc:stone fence
 desc:.
 
 name:coast_ ~
-code:COAST__~
+code:COAST__TD
 graphics:.:u
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -13676,7 +13676,7 @@ short-desc:stone fence
 desc:.
 
 name:coast_ `
-code:COAST__`
+code:COAST__BT
 graphics:.:u
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -14258,7 +14258,7 @@ short-desc:road
 desc:.
 
 name:road ~
-code:ROAD_~
+code:ROAD_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | WALL | ROCK | NO_SCENT | NO_FLOW | TORCH
@@ -14267,7 +14267,7 @@ short-desc:road
 desc:.
 
 name:road `
-code:ROAD_`
+code:ROAD_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -14860,7 +14860,7 @@ short-desc:road
 desc:.
 
 name:road_ ~
-code:ROAD__~
+code:ROAD__TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -14869,7 +14869,7 @@ short-desc:road
 desc:.
 
 name:road_ `
-code:ROAD__`
+code:ROAD__BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -15449,7 +15449,7 @@ short-desc:.
 desc:.
 
 name:CA earth ~
-code:CA_EARTH_~
+code:CA_EARTH_TD
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -15458,7 +15458,7 @@ short-desc:.
 desc:.
 
 name:CA earth `
-code:CA_EARTH_`
+code:CA_EARTH_BT
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -16039,7 +16039,7 @@ short-desc:.
 desc:.
 
 name:CC earth_ ~
-code:CC_EARTH__~
+code:CC_EARTH__TD
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -16048,7 +16048,7 @@ short-desc:.
 desc:.
 
 name:CC earth_ `
-code:CC_EARTH__`
+code:CC_EARTH__BT
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
@@ -16690,7 +16690,7 @@ short-desc:.
 desc:.
 
 name:CE water ~
-code:CE_WATER_~
+code:CE_WATER_TD
 graphics:.:B
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | SHALLOW_WATER
@@ -16699,7 +16699,7 @@ short-desc:.
 desc:.
 
 name:CE water `
-code:CE_WATER_`
+code:CE_WATER_BT
 graphics:.:B
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | SHALLOW_WATER
@@ -17344,7 +17344,7 @@ short-desc:.
 desc:.
 
 name:D0 water_ ~
-code:D0_WATER__~
+code:D0_WATER__TD
 graphics:.:B
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | SHALLOW_WATER
@@ -17353,7 +17353,7 @@ short-desc:.
 desc:.
 
 name:D0 water_ `
-code:D0_WATER__`
+code:D0_WATER__BT
 graphics:.:B
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | SHALLOW_WATER
@@ -17933,7 +17933,7 @@ short-desc:chair
 desc:.
 
 name:D2 chair ~
-code:D2_CHAIR_~
+code:D2_CHAIR_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -17942,7 +17942,7 @@ short-desc:chair
 desc:.
 
 name:D2 chair `
-code:D2_CHAIR_`
+code:D2_CHAIR_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -18520,7 +18520,7 @@ short-desc:bed
 desc:.
 
 name:D4 bed ~
-code:D4_BED_~
+code:D4_BED_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -18529,7 +18529,7 @@ short-desc:bed
 desc:.
 
 name:D4 bed `
-code:D4_BED_`
+code:D4_BED_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -19106,7 +19106,7 @@ short-desc:potted plant
 desc:.
 
 name:D6 flower ~
-code:D6_FLOWER_~
+code:D6_FLOWER_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -19115,7 +19115,7 @@ short-desc:potted flowers
 desc:.
 
 name:D6 flower `
-code:D6_FLOWER_`
+code:D6_FLOWER_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -19694,7 +19694,7 @@ short-desc:ceramic vase
 desc:.
 
 name:D8 pot ~
-code:D8_POT_~
+code:D8_POT_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -19703,7 +19703,7 @@ short-desc:ceramic vase
 desc:.
 
 name:D8 pot `
-code:D8_POT_`
+code:D8_POT_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -20281,7 +20281,7 @@ short-desc:potted plant on the wall shelf
 desc:.
 
 name:DA side ~
-code:DA_SIDE_~
+code:DA_SIDE_TD
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -20290,7 +20290,7 @@ short-desc:potted plant on the wall shelf
 desc:.
 
 name:DA side `
-code:DA_SIDE_`
+code:DA_SIDE_BT
 graphics:.:s
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_SAFE | OBJECT | NO_GENERATION | BORING | EASY | BRIGHT
@@ -20867,7 +20867,7 @@ short-desc:wall
 desc:.
 
 name:DC dark stone ~
-code:DC_DARK_STONE_~
+code:DC_DARK_STONE_TD
 graphics:#:s
 priority:18
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -20877,7 +20877,7 @@ short-desc:wall
 desc:.
 
 name:DC dark stone `
-code:DC_DARK_STONE_`
+code:DC_DARK_STONE_BT
 graphics:#:s
 priority:18
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -21518,7 +21518,7 @@ short-desc:wall
 desc:.
 
 name:DE door ~
-code:DE_DOOR_~
+code:DE_DOOR_TD
 graphics:#:s
 priority:18
 flags:NO_SCENT | NO_FLOW | TORCH
@@ -21528,7 +21528,7 @@ short-desc:wall
 desc:.
 
 name:DE door `
-code:DE_DOOR_`
+code:DE_DOOR_BT
 graphics:#:s
 priority:18
 flags:NO_SCENT | NO_FLOW | TORCH
@@ -22143,7 +22143,7 @@ short-desc:floor
 desc:.
 
 name:E0 dark floor ~
-code:E0_DARK_FLOOR_~
+code:E0_DARK_FLOOR_TD
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR | OBJECT | EASY | TRAP | TORCH
@@ -22152,7 +22152,7 @@ short-desc:floor
 desc:.
 
 name:E0 dark floor `
-code:E0_DARK_FLOOR_`
+code:E0_DARK_FLOOR_BT
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR | OBJECT | EASY | TRAP | TORCH
@@ -22792,7 +22792,7 @@ short-desc:wall
 desc:.
 
 name:E2 jail wall ~
-code:E2_JAIL_WALL_~
+code:E2_JAIL_WALL_TD
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -22802,7 +22802,7 @@ short-desc:wall
 desc:.
 
 name:E2 jail wall `
-code:E2_JAIL_WALL_`
+code:E2_JAIL_WALL_BT
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -23442,7 +23442,7 @@ short-desc:wall
 desc:.
 
 name:E4 wall ~
-code:E4_WALL_~
+code:E4_WALL_TD
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -23452,7 +23452,7 @@ short-desc:wall
 desc:.
 
 name:E4 wall `
-code:E4_WALL_`
+code:E4_WALL_BT
 graphics:#:W
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -24031,7 +24031,7 @@ short-desc:bloody floor
 desc:.
 
 name:E6 blood ~
-code:E6_BLOOD_~
+code:E6_BLOOD_TD
 graphics:.:s
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR | OBJECT | EASY | TRAP | TORCH
@@ -24624,7 +24624,7 @@ short-desc:stony sand
 desc:.
 
 name:E8 desert ~
-code:E8_DESERT_~
+code:E8_DESERT_TD
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP
@@ -24633,7 +24633,7 @@ short-desc:stony sand
 desc:.
 
 name:E8 desert `
-code:E8_DESERT_`
+code:E8_DESERT_BT
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP
@@ -25186,7 +25186,7 @@ short-desc:sand
 desc:.
 
 name:EA sand ~
-code:EA_SAND_~
+code:EA_SAND_TD
 graphics:.:y
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP | EASY
@@ -25194,7 +25194,7 @@ short-desc:sand
 desc:.
 
 name:EA sand `
-code:EA_SAND_`
+code:EA_SAND_BT
 graphics:.:y
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP | EASY
@@ -25766,7 +25766,7 @@ short-desc:stony sand
 desc:.
 
 name:EC dirt ~
-code:EC_DIRT_~
+code:EC_DIRT_TD
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP
@@ -25775,7 +25775,7 @@ short-desc:stony sand
 desc:.
 
 name:EC dirt `
-code:EC_DIRT_`
+code:EC_DIRT_BT
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP
@@ -26325,7 +26325,7 @@ short-desc:dirt
 desc:.
 
 name:EE dirt ~
-code:EE_DIRT_~
+code:EE_DIRT_TD
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP | EASY
@@ -26333,7 +26333,7 @@ short-desc:dirt
 desc:.
 
 name:EE dirt `
-code:EE_DIRT_`
+code:EE_DIRT_BT
 graphics:.:u
 priority:18
 flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | TRAP | EASY
@@ -26619,7 +26619,7 @@ short-desc:withered fir-tree
 desc:.
 
 name:EF dirt ~
-code:EF_DIRT_~
+code:EF_DIRT_TD
 graphics:#:D
 priority:11
 flags:TREE | WITHERED | NO_SCENT | NO_FLOW
@@ -26628,7 +26628,7 @@ short-desc:withered fir-tree
 desc:.
 
 name:EF dirt `
-code:EF_DIRT_`
+code:EF_DIRT_BT
 graphics:#:D
 priority:11
 flags:TREE | WITHERED | NO_SCENT | NO_FLOW
@@ -26944,7 +26944,7 @@ short-desc:.
 desc:.
 
 name:F0 dirt mountain ~
-code:F0_DIRT_MOUNTAIN_~
+code:F0_DIRT_MOUNTAIN_TD
 graphics:^:D
 priority:11
 flags:WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -26954,7 +26954,7 @@ short-desc:.
 desc:.
 
 name:F0 dirt mountain `
-code:F0_DIRT_MOUNTAIN_`
+code:F0_DIRT_MOUNTAIN_BT
 graphics:^:D
 priority:11
 flags:WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -28132,7 +28132,7 @@ short-desc:shallow water
 desc:.
 
 name:F4 shallow water ~
-code:F4_SHALLOW_WATER_~
+code:F4_SHALLOW_WATER_TD
 graphics:~:T
 priority:5
 flags:TORCH | LOS | PROJECT | PASSABLE | FLOOR | OBJECT | BORING | EASY | NOTICEABLE | NO_SCENT | TRAP | SHALLOW_WATER
@@ -28141,7 +28141,7 @@ short-desc:shallow water
 desc:.
 
 name:F4 shallow water `
-code:F4_SHALLOW_WATER_`
+code:F4_SHALLOW_WATER_BT
 graphics:~:T
 priority:5
 flags:TORCH | LOS | PROJECT | PASSABLE | FLOOR | OBJECT | BORING | EASY | NOTICEABLE | NO_SCENT | TRAP | SHALLOW_WATER
@@ -28840,7 +28840,7 @@ die-msg:drowning
 resist-flag:IM_WATER
 
 name:F6 deep water ~
-code:F6_DEEP_WATER_~
+code:F6_DEEP_WATER_TD
 graphics:~:B
 priority:5
 flags:TORCH | LOS | PROJECT | PASSABLE | WATER | BORING | EASY | NOTICEABLE | NO_SCENT
@@ -28853,7 +28853,7 @@ die-msg:drowning
 resist-flag:IM_WATER
 
 name:F6 deep water `
-code:F6_DEEP_WATER_`
+code:F6_DEEP_WATER_BT
 graphics:~:B
 priority:5
 flags:TORCH | LOS | PROJECT | PASSABLE | WATER | BORING | EASY | NOTICEABLE | NO_SCENT
@@ -31028,7 +31028,7 @@ short-desc:grove
 desc:.
 
 name:FD double ~
-code:FD_DOUBLE_~
+code:FD_DOUBLE_TD
 graphics:*:u
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -31037,7 +31037,7 @@ short-desc:grove
 desc:.
 
 name:FD double `
-code:FD_DOUBLE_`
+code:FD_DOUBLE_BT
 graphics:*:u
 priority:18
 flags:NO_HOUSE | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH | TRAP
@@ -31051,7 +31051,7 @@ desc:.
 
 #0x80:0x82
 name:end , dark
-code:END_,_DARK
+code:END__DARK
 graphics:.:s
 priority:18
 flags:NO_SCENT | NO_FLOW | TORCH
@@ -31061,7 +31061,7 @@ desc:.
 
 #0x80:0x81
 name:end . white
-code:END_._WHITE
+code:END__WHITE
 graphics:.:s
 priority:18
 flags:NO_SCENT | NO_FLOW | TORCH
@@ -31695,7 +31695,7 @@ short-desc:stony sand
 desc:.
 
 name:EC dirt F2W ~
-code:EC_DIRT_F2W_~
+code:EC_DIRT_F2W_TD
 graphics:.:u
 priority:18
 flags:NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | NO_STAIRS
@@ -31704,7 +31704,7 @@ short-desc:stony sand
 desc:.
 
 name:EC dirt F2W `
-code:EC_DIRT_F2W_`
+code:EC_DIRT_F2W_BT
 graphics:.:u
 priority:18
 flags:NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | NO_STAIRS
@@ -32256,7 +32256,7 @@ short-desc:dirt
 desc:.
 
 name:EE dirt F2W ~
-code:EE_DIRT_F2W_~
+code:EE_DIRT_F2W_TD
 graphics:.:u
 priority:18
 flags:NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | EASY | NO_STAIRS
@@ -32264,7 +32264,7 @@ short-desc:dirt
 desc:.
 
 name:EE dirt F2W `
-code:EE_DIRT_F2W_`
+code:EE_DIRT_F2W_BT
 graphics:.:u
 priority:18
 flags:NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | EASY | NO_STAIRS
@@ -32837,7 +32837,7 @@ short-desc:stony sand
 desc:.
 
 name:E8 desert F2W ~
-code:E8_DESERT_F2W_~
+code:E8_DESERT_F2W_TD
 graphics:.:u
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH
@@ -32846,7 +32846,7 @@ short-desc:stony sand
 desc:.
 
 name:E8 desert F2W `
-code:E8_DESERT_F2W_`
+code:E8_DESERT_F2W_BT
 graphics:.:u
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH
@@ -33398,7 +33398,7 @@ short-desc:sand
 desc:.
 
 name:EA sand F2W ~
-code:EA_SAND_F2W_~
+code:EA_SAND_F2W_TD
 graphics:.:y
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | EASY
@@ -33406,7 +33406,7 @@ short-desc:sand
 desc:.
 
 name:EA sand F2W `
-code:EA_SAND_F2W_`
+code:EA_SAND_F2W_BT
 graphics:.:y
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | TORCH | EASY
@@ -34049,7 +34049,7 @@ short-desc:stump
 desc:.
 
 name:tree F2W ~
-code:TREE_F2W_~
+code:TREE_F2W_TD
 graphics:.:u
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH
@@ -34059,7 +34059,7 @@ short-desc:small fruit tree
 desc:.
 
 name:tree F2W `
-code:TREE_F2W_`
+code:TREE_F2W_BT
 graphics:.:u
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | GRASS | BORING | TORCH
@@ -34452,7 +34452,7 @@ short-desc:lowland
 desc:.
 
 name:floor F2W ~ lowland
-code:FLOOR_F2W_~_LOWLAND
+code:FLOOR_F2W_TD_LOWLAND
 graphics:.:g
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH
@@ -34461,7 +34461,7 @@ short-desc:lowland
 desc:.
 
 name:floor F2W ` lowland
-code:FLOOR_F2W_`_LOWLAND
+code:FLOOR_F2W_BT_LOWLAND
 graphics:.:g
 priority:18
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH
@@ -35097,7 +35097,7 @@ short-desc:shallow water
 desc:.
 
 name:F4 shallow water F2W ~
-code:F4_SHALLOW_WATER_F2W_~
+code:F4_SHALLOW_WATER_F2W_TD
 graphics:~:T
 priority:5
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR | OBJECT | BORING | EASY | NOTICEABLE | NO_SCENT | SHALLOW_WATER
@@ -35106,7 +35106,7 @@ short-desc:shallow water
 desc:.
 
 name:F4 shallow water F2W `
-code:F4_SHALLOW_WATER_F2W_`
+code:F4_SHALLOW_WATER_F2W_BT
 graphics:~:T
 priority:5
 flags:NO_STAIRS | NO_GENERATION | LOS | PROJECT | PASSABLE | FLOOR | OBJECT | BORING | EASY | NOTICEABLE | NO_SCENT | SHALLOW_WATER
@@ -36971,7 +36971,7 @@ short-desc:.
 desc:.
 
 name:grass mountain F2W ~
-code:GRASS_MOUNTAIN_F2W_~
+code:GRASS_MOUNTAIN_F2W_TD
 graphics:^:D
 priority:18
 flags:NO_GENERATION | NO_STAIRS | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -36981,7 +36981,7 @@ short-desc:.
 desc:.
 
 name:grass mountain F2W `
-code:GRASS_MOUNTAIN_F2W_`
+code:GRASS_MOUNTAIN_F2W_BT
 graphics:^:D
 priority:18
 flags:NO_GENERATION | NO_STAIRS | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
