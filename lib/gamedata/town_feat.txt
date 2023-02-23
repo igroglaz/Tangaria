@@ -188,12 +188,12 @@ feat:=:v:9D wall v
 # 9E NPC
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-feat:@:0:Halbarad, the old ranger
+feat:@:0:Halbarad, the gamekeeper
 feat:@:1:Sonya the cat
-feat:@:2:Morinehtar the Wizard
+feat:@:2:Boyan the Volkhv
 feat:@:3:Old guard Barry
-feat:@:4:Bob the villager
-feat:@:5:Marta the villager
+feat:@:4:Ivan the villager
+feat:@:5:Milena the villager
 feat:@:6:Shtukensia the tavernkeeper
 feat:@:7:Danny the dog
 feat:@:8:Arthur the Archer

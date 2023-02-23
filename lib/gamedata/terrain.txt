@@ -239,8 +239,8 @@ desc:A shop that sells and buys magical and mystical books.
 # 9E NPC 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
-code:Halbarad__the_old_ranger
-name:Halbarad, the old ranger
+code:Halbarad_the_gamekeeper
+name:Halbarad, the gamekeeper
 graphics:p:G
 priority:24
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -257,8 +257,8 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 short-desc:tiny cream colored siamese cat with yellowish brown-green eyes.
 desc:Cat looks at you with interest.
 
-code:Morinehtar_the_Wizard
-name:Morinehtar the Wizard
+code:Boyan_the_Volkhv
+name:Boyan the Volkhv
 graphics:p:r
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -275,8 +275,8 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 short-desc:red eyed battle-scared face. It smells heavy alchohol and garlic odor
 desc:.
 
-code:Bob_the_villager
-name:Bob the villager
+code:Ivan_the_villager
+name:Ivan the villager
 graphics:p:u
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -284,8 +284,8 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 short-desc:middle-aged man with bright ginger hair 'n beard. He looks frightened
 desc:.
 
-code:Marta_the_villager
-name:Marta the villager
+code:Milena_the_villager
+name:Milena the villager
 graphics:p:t
 priority:18
 flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EASY
@@ -347,7 +347,7 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 short-desc:wrinkled and ruddy face, bright blue eyes and a bristling brown beard
 desc:.
 
-code:Mr__Underhill
+code:Mr_Underhill
 name:Mr. Underhill
 graphics:h:W
 priority:18
@@ -412,7 +412,7 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 short-desc:looks like a troll, more then in a half.. strong and dim-witted
 desc:.
 
-code:Nob__a_servant
+code:Nob_a_servant
 name:Nob, a servant
 graphics:h:u
 priority:18
@@ -31006,7 +31006,7 @@ desc:.
 ###########DARK TILE NO PASS
 
 #0x80:0x82
-code:end___dark
+code:end_dark
 name:end , dark
 graphics:.:s
 priority:18
@@ -31016,7 +31016,7 @@ short-desc:.
 desc:.
 
 #0x80:0x81
-code:end___white
+code:end_white
 name:end . white
 graphics:.:s
 priority:18

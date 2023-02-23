@@ -2932,10 +2932,10 @@ feat:9D wall v:dark:0x9D:0xFF
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
 # 9E NPC 0 
-feat:Halbarad, the old ranger:torch:0x9E:0x80
-feat:Halbarad, the old ranger:los:0x9E:0x81
-feat:Halbarad, the old ranger:lit:0x9E:0x82
-feat:Halbarad, the old ranger:dark:0x9E:0x83
+feat:Halbarad, the gamekeeper:torch:0x9E:0x80
+feat:Halbarad, the gamekeeper:los:0x9E:0x81
+feat:Halbarad, the gamekeeper:lit:0x9E:0x82
+feat:Halbarad, the gamekeeper:dark:0x9E:0x83
 
 # 9E NPC 1 
 feat:Sonya the cat:torch:0x9E:0x84
@@ -2944,10 +2944,10 @@ feat:Sonya the cat:lit:0x9E:0x86
 feat:Sonya the cat:dark:0x9E:0x87
 
 # 9E NPC 2 
-feat:Morinehtar the Wizard:torch:0x9E:0x88
-feat:Morinehtar the Wizard:los:0x9E:0x89
-feat:Morinehtar the Wizard:lit:0x9E:0x8A
-feat:Morinehtar the Wizard:dark:0x9E:0x8B
+feat:Boyan the Volkhv:torch:0x9E:0x88
+feat:Boyan the Volkhv:los:0x9E:0x89
+feat:Boyan the Volkhv:lit:0x9E:0x8A
+feat:Boyan the Volkhv:dark:0x9E:0x8B
 
 # 9E NPC 3 
 feat:Old guard Barry:torch:0x9E:0x8C
@@ -2956,16 +2956,16 @@ feat:Old guard Barry:lit:0x9E:0x8E
 feat:Old guard Barry:dark:0x9E:0x8F
 
 # 9E NPC 4 
-feat:Bob the villager:torch:0x9E:0x90
-feat:Bob the villager:los:0x9E:0x91
-feat:Bob the villager:lit:0x9E:0x92
-feat:Bob the villager:dark:0x9E:0x93
+feat:Ivan the villager:torch:0x9E:0x90
+feat:Ivan the villager:los:0x9E:0x91
+feat:Ivan the villager:lit:0x9E:0x92
+feat:Ivan the villager:dark:0x9E:0x93
 
 # 9E NPC 5 
-feat:Marta the villager:torch:0x9E:0x94
-feat:Marta the villager:los:0x9E:0x95
-feat:Marta the villager:lit:0x9E:0x96
-feat:Marta the villager:dark:0x9E:0x97
+feat:Milena the villager:torch:0x9E:0x94
+feat:Milena the villager:los:0x9E:0x95
+feat:Milena the villager:lit:0x9E:0x96
+feat:Milena the villager:dark:0x9E:0x97
 
 # 9E NPC 6 
 feat:Shtukensia the tavernkeeper:torch:0x9E:0x98
