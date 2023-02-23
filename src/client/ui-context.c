@@ -519,4 +519,5 @@ struct cmd_info *textui_action_menu_choose(void)
 void free_command_menu(void)
 {
     mem_free(command_menu);
+    command_menu = NULL;
 }

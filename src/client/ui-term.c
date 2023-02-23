@@ -312,19 +312,27 @@ static errr term_win_nuke(term_win *s)
 {
     /* Free the window access arrays */
     mem_free(s->a);
+    s->a = NULL;
     mem_free(s->c);
+    s->c = NULL;
 
     /* Free the window content arrays */
     mem_free(s->va);
+    s->va = NULL;
     mem_free(s->vc);
+    s->vc = NULL;
 
     /* Free the terrain access arrays */
     mem_free(s->ta);
+    s->ta = NULL;
     mem_free(s->tc);
+    s->tc = NULL;
 
     /* Free the terrain content arrays */
     mem_free(s->vta);
+    s->vta = NULL;
     mem_free(s->vtc);
+    s->vtc = NULL;
 
     /* Success */
     return (0);
@@ -2709,12 +2717,14 @@ errr term_nuke(term *t)
 
     /* Kill "displayed" */
     mem_free(t->old);
+    t->old = NULL;
 
     /* Nuke "requested" */
     term_win_nuke(t->scr);
 
     /* Kill "requested" */
     mem_free(t->scr);
+    t->scr = NULL;
 
     /* If needed */
     if (t->mem)
@@ -2724,6 +2734,7 @@ errr term_nuke(term *t)
 
         /* Kill "memorized" */
         mem_free(t->mem);
+        t->mem = NULL;
     }
 
     /* If needed */
@@ -2734,14 +2745,18 @@ errr term_nuke(term *t)
 
         /* Kill "temporary" */
         mem_free(t->tmp);
+        t->tmp = NULL;
     }
 
     /* Free some arrays */
     mem_free(t->x1);
+    t->x1 = NULL;
     mem_free(t->x2);
+    t->x2 = NULL;
 
     /* Free the input queue */
     mem_free(t->key_queue);
+    t->key_queue = NULL;
 
     /* Success */
     return (0);

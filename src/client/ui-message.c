@@ -97,6 +97,7 @@ void messages_free(void)
     }
 
     mem_free(messages);
+    messages = NULL;
 }
 
 

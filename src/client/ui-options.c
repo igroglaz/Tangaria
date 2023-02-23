@@ -2384,8 +2384,11 @@ void do_cmd_options(void)
 void cleanup_options(void)
 {
     mem_free(keymap_menu);
+    keymap_menu = NULL;
     mem_free(color_menu);
+    color_menu = NULL;
     mem_free(option_menu);
+    option_menu = NULL;
 }
 
 

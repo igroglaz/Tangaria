@@ -1177,6 +1177,7 @@ static void hook_quit(const char *str)
     SDL_FreeSurface(AppWin);
 
     mem_free(GfxButtons);
+    GfxButtons = NULL;
     close_graphics_modes();
 
     /* Shut down the font library */

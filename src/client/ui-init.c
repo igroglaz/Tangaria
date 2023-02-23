@@ -797,36 +797,53 @@ void cleanup_angband(void)
     /* Free the floor items */
     cleanup_floor();
     mem_free(floor_items);
+    floor_items = NULL;
 
     event_remove_all_handlers();
 
     /* Free the current store */
     mem_free(current_store.stock);
+    current_store.stock = NULL;
     if (current_store.owner) string_free(current_store.owner->name);
     mem_free(current_store.owner);
+    current_store.owner = NULL;
     string_free(current_store_name);
     mem_free(store_names);
+    store_names = NULL;
 
     /* Free the character list */
     for (i = 0; i < char_num; i++) string_free(char_name[i]);
     mem_free(char_name);
+    char_name = NULL;
     mem_free(char_expiry);
+    char_expiry = NULL;
 
     /* Free the random name fragments */
     strings_free(name_sections, num_names, RANDNAME_NUM_TYPES);
 
     /* Free attr/chars */
     mem_free(Client_setup.k_attr);
+    Client_setup.k_attr = NULL;
     mem_free(Client_setup.k_char);
+    Client_setup.k_char = NULL;
     mem_free(Client_setup.r_attr);
+    Client_setup.r_attr = NULL;
     mem_free(Client_setup.r_char);
+    Client_setup.r_char = NULL;
     mem_free(Client_setup.f_attr);
+    Client_setup.f_attr = NULL;
     mem_free(Client_setup.f_char);
+    Client_setup.f_char = NULL;
     mem_free(Client_setup.t_attr);
+    Client_setup.t_attr = NULL;
     mem_free(Client_setup.t_char);
+    Client_setup.t_char = NULL;
     mem_free(Client_setup.flvr_x_attr);
+    Client_setup.flvr_x_attr = NULL;
     mem_free(Client_setup.flvr_x_char);
+    Client_setup.flvr_x_char = NULL;
     mem_free(Client_setup.note_aware);
+    Client_setup.note_aware = NULL;
 
     /* Free the messages */
     messages_free();
@@ -834,6 +851,7 @@ void cleanup_angband(void)
     /* Free the info arrays */
     for (i = 0; k_info && (i < z_info->k_max); i++) string_free(k_info[i].name);
     mem_free(k_info);
+    k_info = NULL;
     for (i = 0; e_info && (i < z_info->e_max); i++)
     {
         struct poss_item *poss, *pn;
@@ -848,14 +866,17 @@ void cleanup_angband(void)
         }
     }
     mem_free(e_info);
+    e_info = NULL;
     cleanup_p_race();
     cleanup_realm();
     cleanup_class();
     cleanup_body();
     for (i = 0; soc_info && (i < z_info->soc_max); i++) string_free(soc_info[i].name);
     mem_free(soc_info);
+    soc_info = NULL;
     for (i = 0; r_info && (i < z_info->r_max); i++) string_free(r_info[i].name);
     mem_free(r_info);
+    r_info = NULL;
     while (rb_info)
     {
         struct monster_base *rb = rb_info->next;
@@ -870,10 +891,13 @@ void cleanup_angband(void)
         string_free(curses[i].desc);
     }
     mem_free(curses);
+    curses = NULL;
     for (i = 0; f_info && (i < FEAT_MAX); i++) string_free(f_info[i].name);
     mem_free(f_info);
+    f_info = NULL;
     for (i = 0; trap_info && (i < z_info->trap_max); i++) string_free(trap_info[i].desc);
     mem_free(trap_info);
+    trap_info = NULL;
     for (i = 0; i < TMD_MAX; i++)
     {
         struct timed_grade *grade = timed_grades[i];
