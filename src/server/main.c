@@ -44,6 +44,7 @@ static void quit_hook(const char *s)
     if (fp)
     {
         file_close(fp);
+        fp = NULL;
         fp_closed = true;
     }
 }

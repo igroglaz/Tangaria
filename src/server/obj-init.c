@@ -872,7 +872,7 @@ static errr finish_parse_slay(struct parser *p)
 {
     struct slay *slay, *next = NULL;
     int count;
-    errr result = PARSE_ERROR_NONE;
+    bool err = false;
 
     /* Count the entries */
     z_info->slay_max = 0;
@@ -881,11 +881,21 @@ static errr finish_parse_slay(struct parser *p)
     {
         if (z_info->slay_max >= 254)
         {
-            result = PARSE_ERROR_TOO_MANY_ENTRIES;
+            err = true;
             break;
         }
         z_info->slay_max++;
         slay = slay->next;
+    }
+
+    if (err)
+    {
+        for (slay = parser_priv(p); slay; slay = next)
+        {
+            next = slay->next;
+            mem_free(slay);
+        }
+        return PARSE_ERROR_TOO_MANY_ENTRIES;
     }
 
     /* Allocate the direct access list and copy the data to it */
@@ -903,7 +913,7 @@ static errr finish_parse_slay(struct parser *p)
     }
 
     parser_destroy(p);
-    return result;
+    return PARSE_ERROR_NONE;
 }
 
 
@@ -1083,7 +1093,7 @@ static errr finish_parse_brand(struct parser *p)
 {
     struct brand *brand, *next = NULL;
     int count;
-    errr result = PARSE_ERROR_NONE;
+    bool err = false;
 
     /* Count the entries */
     z_info->brand_max = 0;
@@ -1092,11 +1102,21 @@ static errr finish_parse_brand(struct parser *p)
     {
         if (z_info->brand_max >= 254)
         {
-            result = PARSE_ERROR_TOO_MANY_ENTRIES;
+            err = true;
             break;
         }
         z_info->brand_max++;
         brand = brand->next;
+    }
+
+    if (err)
+    {
+        for (brand = parser_priv(p); brand; brand = next)
+        {
+            next = brand->next;
+            mem_free(brand);
+        }
+        return PARSE_ERROR_TOO_MANY_ENTRIES;
     }
 
     /* Allocate the direct access list and copy the data to it */
@@ -1114,7 +1134,7 @@ static errr finish_parse_brand(struct parser *p)
     }
 
     parser_destroy(p);
-    return result;
+    return PARSE_ERROR_NONE;
 }
 
 
@@ -1464,7 +1484,7 @@ static errr finish_parse_curse(struct parser *p)
 {
     struct curse *curse, *next = NULL;
     int count;
-    errr result = PARSE_ERROR_NONE;
+    bool err = false;
 
     /* Count the entries */
     z_info->curse_max = 0;
@@ -1473,11 +1493,21 @@ static errr finish_parse_curse(struct parser *p)
     {
         if (z_info->curse_max >= 254)
         {
-            result = PARSE_ERROR_TOO_MANY_ENTRIES;
+            err = true;
             break;
         }
         z_info->curse_max++;
         curse = curse->next;
+    }
+
+    if (err)
+    {
+        for (curse = parser_priv(p); curse; curse = next)
+        {
+            next = curse->next;
+            mem_free(curse);
+        }
+        return PARSE_ERROR_TOO_MANY_ENTRIES;
     }
 
     /* Allocate the direct access list and copy the data to it */
@@ -1495,7 +1525,7 @@ static errr finish_parse_curse(struct parser *p)
     }
 
     parser_destroy(p);
-    return result;
+    return PARSE_ERROR_NONE;
 }
 
 

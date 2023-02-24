@@ -1153,12 +1153,14 @@ static void hook_quit(const char *str)
     save_prefs();
     
     string_free(sdl_settings_file);
+    sdl_settings_file = NULL;
     
     /* Free the surfaces of the windows */
     for (i = 0; i < ANGBAND_TERM_MAX; i++)
     {
         term_windowFree(&windows[i]);
         string_free(windows[i].req_font.name);
+        windows[i].req_font.name = NULL;
     }
 
     /* Free the graphics surfaces */
@@ -1187,7 +1189,10 @@ static void hook_quit(const char *str)
     SDL_Quit();
     
     for (i = 0; i < MAX_FONTS; i++)
+    {
         string_free(FontList[i]);
+        FontList[i] = NULL;
+    }
 
     /* Free resources */
     textui_cleanup();

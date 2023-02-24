@@ -975,8 +975,10 @@ static errr visuals_file_parser_finish(struct parser *parser)
     visuals_cycler_table = visuals_parse_context_convert(context);
     visuals_parse_context_free(context);
 
+    if (visuals_cycler_table == NULL) return PARSE_ERROR_INTERNAL;
+
     parser_destroy(parser);
-    return ((visuals_cycler_table == NULL)? PARSE_ERROR_INTERNAL: PARSE_ERROR_NONE);
+    return PARSE_ERROR_NONE;
 }
 
 

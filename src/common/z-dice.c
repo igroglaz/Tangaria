@@ -225,20 +225,13 @@ dice_t *dice_new(void)
  */
 void dice_free(dice_t *dice)
 {
-    if (dice == NULL)
-        return;
+    if (dice == NULL) return;
 
     /* Free any variable names and expression objects. */
     dice_reset(dice);
 
-    if (dice->expressions != NULL)
-    {
-        mem_free(dice->expressions);
-        dice->expressions = NULL;
-    }
-
+    if (dice->expressions != NULL) mem_free(dice->expressions);
     mem_free(dice);
-    dice = NULL;
 }
 
 

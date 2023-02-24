@@ -872,6 +872,7 @@ void cleanup_player(struct player *p)
 
     /* Stop all file perusal and interactivity */
     string_free(p->interactive_file);
+    p->interactive_file = NULL;
 
     /* PWMAngband */
     for (i = 0; p->scr_info && (i < z_info->dungeon_hgt + ROW_MAP + 1); i++)

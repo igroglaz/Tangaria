@@ -1176,6 +1176,7 @@ static errr term_force_font(term_data *td, const char *path)
 
         /* Free the old name */
         string_free(td->font_file);
+        td->font_file = NULL;
     }
 
     /* Local copy */
@@ -4039,6 +4040,7 @@ static void hack_quit(const char *str)
 
     /* Free strings */
     string_free(argv0);
+    argv0 = NULL;
 
     textui_cleanup();
     cleanup_angband();
@@ -4089,6 +4091,7 @@ static void hook_quit(const char *str)
         if (data[i].font_file) term_remove_font(data[i].font_file);
         if (data[i].font_id) DeleteObject(data[i].font_id);
         string_free(data[i].font_want);
+        data[i].font_want = NULL;
 
         /* Kill the window */
         if (data[i].w) DestroyWindow(data[i].w);
@@ -4115,6 +4118,7 @@ static void hook_quit(const char *str)
 
     /* Free strings */
     string_free(argv0);
+    argv0 = NULL;
 
     textui_cleanup();
     cleanup_angband();

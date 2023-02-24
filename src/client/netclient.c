@@ -3776,6 +3776,7 @@ static int Receive_char_dump(void)
         path_build(tmp, sizeof(tmp), ANGBAND_DIR_USER, "@@tmp@@.txt");
 
         file_close(fp);
+        fp = NULL;
         strnfmt(fname, sizeof(fname), "%s.txt", nick);
 
         if (get_file(fname, buf, sizeof(buf)))

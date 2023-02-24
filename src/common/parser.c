@@ -438,6 +438,7 @@ static void clean_specs(struct parser_hook *h)
     struct parser_spec *s;
 
     string_free(h->dir);
+    h->dir = NULL;
     while (h->fhead)
     {
         s = h->fhead;

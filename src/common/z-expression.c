@@ -171,17 +171,9 @@ expression_t *expression_new(void)
  */
 void expression_free(expression_t *expression)
 {
-    if (expression == NULL)
-        return;
-
-    if (expression->operations != NULL)
-    {
-        mem_free(expression->operations);
-        expression->operations = NULL;
-    }
-
+    if (expression == NULL) return;
+    if (expression->operations != NULL) mem_free(expression->operations);
     mem_free(expression);
-    expression = NULL;
 }
 
 

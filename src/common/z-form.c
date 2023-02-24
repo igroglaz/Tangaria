@@ -774,7 +774,10 @@ void vformat_kill(void)
     int i;
 
     for (i = 0; i < FORMAT_CYCLE_MAX; i++)
+    {
         mem_free(format_buf[i]);
+        format_buf[i] = NULL;
+    }
 }
 
 

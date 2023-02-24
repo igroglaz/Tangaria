@@ -57,13 +57,21 @@ static int Socket;
 static void free_file_paths(void)
 {
     string_free(ANGBAND_DIR_CUSTOMIZE);
+    ANGBAND_DIR_CUSTOMIZE = NULL;
     string_free(ANGBAND_DIR_SCREENS);
+    ANGBAND_DIR_SCREENS = NULL;
     string_free(ANGBAND_DIR_FONTS);
+    ANGBAND_DIR_FONTS = NULL;
     string_free(ANGBAND_DIR_TILES);
+    ANGBAND_DIR_TILES = NULL;
     string_free(ANGBAND_DIR_SOUNDS);
+    ANGBAND_DIR_SOUNDS = NULL;
     string_free(ANGBAND_DIR_MUSIC);
+    ANGBAND_DIR_MUSIC = NULL;
     string_free(ANGBAND_DIR_ICONS);
+    ANGBAND_DIR_ICONS = NULL;
     string_free(ANGBAND_DIR_USER);
+    ANGBAND_DIR_USER = NULL;
 }
 
 
@@ -808,6 +816,7 @@ void cleanup_angband(void)
     mem_free(current_store.owner);
     current_store.owner = NULL;
     string_free(current_store_name);
+    current_store_name = NULL;
     mem_free(store_names);
     store_names = NULL;
 
@@ -820,6 +829,8 @@ void cleanup_angband(void)
 
     /* Free the random name fragments */
     strings_free(name_sections, num_names, RANDNAME_NUM_TYPES);
+    name_sections = NULL;
+    num_names = NULL;
 
     /* Free attr/chars */
     mem_free(Client_setup.k_attr);

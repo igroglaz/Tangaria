@@ -74,7 +74,11 @@ errr run_parser(struct file_parser *fp)
         return r;
     }
     r = fp->finish(p);
-    if (r) print_error(fp, p);
+    if (r)
+    {
+        print_error(fp, p);
+        parser_destroy(p);
+    }
 
     return r;
 }

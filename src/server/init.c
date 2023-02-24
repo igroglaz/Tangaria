@@ -294,14 +294,23 @@ static enum parser_error write_book_kind(struct class_book *book, const char *na
 static void free_file_paths(void)
 {
     string_free(ANGBAND_DIR_GAMEDATA);
+    ANGBAND_DIR_GAMEDATA = NULL;
     string_free(ANGBAND_DIR_CUSTOMIZE);
+    ANGBAND_DIR_CUSTOMIZE = NULL;
     string_free(ANGBAND_DIR_HELP);
+    ANGBAND_DIR_HELP = NULL;
     string_free(ANGBAND_DIR_SCREENS);
+    ANGBAND_DIR_SCREENS = NULL;
     string_free(ANGBAND_DIR_TILES);
+    ANGBAND_DIR_TILES = NULL;
     string_free(ANGBAND_DIR_USER);
+    ANGBAND_DIR_USER = NULL;
     string_free(ANGBAND_DIR_SAVE);
+    ANGBAND_DIR_SAVE = NULL;
     string_free(ANGBAND_DIR_PANIC);
+    ANGBAND_DIR_PANIC = NULL;
     string_free(ANGBAND_DIR_SCORES);
+    ANGBAND_DIR_SCORES = NULL;
 }
 
 
@@ -900,6 +909,8 @@ static errr finish_parse_names(struct parser *p)
 static void cleanup_names(void)
 {
     strings_free(name_sections, num_names, RANDNAME_NUM_TYPES);
+    name_sections = NULL;
+    num_names = NULL;
 }
 
 
@@ -4661,12 +4672,19 @@ void init_angband(void)
 static void unload_server_cfg(void)
 {
     string_free(cfg_meta_address);
+    cfg_meta_address = NULL;
     string_free(cfg_bind_name);
+    cfg_bind_name = NULL;
     string_free(cfg_report_address);
+    cfg_report_address = NULL;
     string_free(cfg_console_password);
+    cfg_console_password = NULL;
     string_free(cfg_dungeon_master);
+    cfg_dungeon_master = NULL;
     string_free(cfg_load_pref_file);
+    cfg_load_pref_file = NULL;
     string_free(cfg_chardump_label);
+    cfg_chardump_label = NULL;
 }
 
 
