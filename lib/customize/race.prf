@@ -290,6 +290,10 @@ help: everything, resistant to magical shards. Regenerate VERY fast. Very health
 help: Very hungry. Not too bright, so they don't get level feelings...
 help: There are plenty of trolls in Middle-lands, they often work as bodyguards
 help: protecting caravans.
+help: There are rumours that some trolls can become pretty agile due extensive
+help: training.
+help: They can have ESP, but can't tell precise information about monster (don't
+help: show monster's list).
 help: They can harden their skin ('y') by spending some energy.
 
 race:Orc
@@ -422,10 +426,10 @@ help: arcane nexus vibrations animates rock. It's very rare occasion, but for
 help: centuries it happened a from time to time, so you could meet gargoyles in
 help: Tangaria more often, than, for example, balrogs. |
 help: As gargoyles made from stone, they got high defense which increase during
-help: their life. It's hard to harm then with fire, electricity, poison and shards.
-help: They could levitate with a help of their inner magic. |
-help: Their weaknesses is certain slowness. Also their stone skin vulnerable
-help: to acid. They are good in infravision though and their stats can't be reduced.
+help: their life. It's hard to harm then with fire, electricity, poison, shards and
+help: acid. They could levitate with a help of their inner magic. |
+help: Their weaknesses is certain slowness. Also they are vulnerable to lightning.
+help: They are good in infravision though and their stats can't be reduced.
 help: They are very powerful physically and it's not easy to destroy them.
 help: They are wise, but not too really smart.. and in most cases quite ugly. |
 help: Some powerful wizards tried to make gargoyles with their magic, but they
@@ -436,7 +440,8 @@ help: They can become resistant to space/time interruptions ('y') by spending
 help: some energy.
 
 race:Golem
-help:Golems - artificial magical creatures, made by powerful wizards to serve their
+help:Golem. Move. Only. Straight. Other. Movement. Denied.
+help: Golems - artificial magical creatures, made by powerful wizards to serve their
 help: will. When golems just created they do not understand their purpose and they
 help: just do what they told to do. But in time some golems could start asking 
 help: themself a question - why do they exist? Why they have to do the job which 
@@ -448,8 +453,9 @@ help: not all people respect their 'feelings'. If you are 'born' as a golem, who
 help: knows, would you ever get a liberty? 
 help: Should you deserve it or take it by force? |
 help: Golems are extreamely strong, but a bit slow. They can not be paralized, 
-help: or poisoned. They could see invisible and good in digging. They are miserable
-help: in stealth, good at fighting and somehow resistant to malicious spell effects.|
+help: and resists poison. They are good in digging. They are miserable
+help: in stealth at first, but advanced models could move quite silently.
+help: Golems good at fighting and somehow resistant to malicious spell effects.|
 help: They got less speed penalty due overweight.
 help: They can get infravision ('y') by spending some energy.
 
@@ -628,8 +634,7 @@ help: from one appearance to another which makes them immune to paralysation and
 help: resistant to other negative effects like poison and acid.
 help: Oozes mostly live in wet dungeons and caves and have a very wide variety of
 help: diet, so oozes get nourishment upon every enemy which was killed by it.
-help: They can have ESP, but can't tell precise information about monster (don't
-help: show monster's list). They have excellent infravision and survivability.
+help: They have excellent infravision and survivability, but vulnerable to acid.
 help: Oozes can duplicate themselves ('y' key) making its minor copies which can
 help: attack and distract enemies. They can pass doors by crawling under them.
 

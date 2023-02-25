@@ -250,7 +250,7 @@ static void monster_list_format_textblock(struct player *p, const monster_list_t
 	size_t max_esp_line = 0;
 
     // no monster list for some races
-    if (streq(p->race->name, "Ooze"))
+    if (streq(p->race->name, "Troll"))
         return;
 
 	if ((list == NULL) || (list->entries == NULL))

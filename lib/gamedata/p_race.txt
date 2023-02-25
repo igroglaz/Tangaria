@@ -962,18 +962,17 @@ gift:cobble:Cobble:7:13
 value:0:STR[3+1d12]
 value:0:INT[-4]
 value:0:WIS[-4]
-value:0:DEX[-5]
+value:0:DEX[-5+1d10]
 value:0:CON[1+1d8M30]
 value:0:CHR[-7]
 # 'y' +AC
-# - limited esp -1/3
+# don't see monster list
 value:0:INFRA[1+1d10]
 obj-flag:1:SUST_STR
 obj-flag:1:REGEN
 player-flags:0:RACE_REGEN
 obj-flag:1:HUNGER
 value:0:MOVES[-1+-1d6]
-value:50:SPEED[-1]
 value:0:RES_POIS[1]
 value:25:RES_SHARD[1]
 value:0:RES_LIGHT[-1]
@@ -1481,6 +1480,7 @@ value:0:CHR[-4]
 # 'y' space/time anchor 5
 value:0:INFRA[1+1d9]
 value:0:RES_POIS[1]
+value:10:RES_ACID[1]
 value:20:RES_FIRE[1]
 value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
@@ -1488,17 +1488,17 @@ obj-flag:10:FEATHER
 value:0:MANA[10+-1d5]
 obj-flag:0:SLOW_DIGEST
 #/// -
-value:0:RES_ACID[-1]
+value:0:RES_ELEC[-1]
 
 name:Golem
-skill-disarm-phys:-16
-skill-disarm-magic:-16
-skill-device:-15
-skill-save:-5
-skill-stealth:-3
-skill-search:-10
+skill-disarm-phys:-3
+skill-disarm-magic:-5
+skill-device:-10
+skill-save:5
+skill-stealth:0
+skill-search:5
 skill-melee:7
-skill-shoot:-25
+skill-shoot:-4
 skill-dig:10
 hitdie:11
 exp:100:125
@@ -1508,23 +1508,23 @@ height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
 #4 -3 -3 -2 0
+# --- can't move/act diagonally
 # + -10% phys damage hc
 # + less speed penalty due overweight
 # 'y' infravision
-value:0:STR[2+2d30]
-value:0:INT[-4+1d50]
-value:0:WIS[-4+1d40]
-value:0:DEX[-2]
+# /rfe need to consume a lot of oil :D
+value:0:STR[2+2d33]
+value:0:INT[-2+1d15]
+value:0:WIS[-3+1d24]
+value:0:DEX[-2+1d24]
 value:0:CON[3+-1d15]
 value:0:CHR[-5]
-value:0:MOVES[-10]
 value:0:RES_POIS[1]
 obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:1:SLOW_DIGEST_2
-obj-flag:1:IMPAIR_HP
-value:0:RES_ELEC[-1]
 value:0:MANA[10+-1d5]
+value:0:STEALTH[-3+1d12]
 # ? rfe reflection
 obj-flag:1:CANT_FLY
 
@@ -2044,7 +2044,7 @@ skill-disarm-phys:-14
 skill-disarm-magic:-17
 skill-device:-20
 skill-save:3
-skill-stealth:-1
+skill-stealth:0
 skill-search:0
 skill-melee:7
 skill-shoot:-10
@@ -2060,7 +2060,7 @@ gift:scroll:Monster Confusion:1:1
 # 1 -2 -2 3 -1
 # 'y' offensive stance (50% aoe, boni to att, malu to def/ST)
 # AGGRAVATE 3 range hardcoded (like knight and mino)
-# smaller ESP radius (-1/4)
+# smaller ESP radius (-1/3)
 value:0:STR[1]
 value:0:INT[-2]
 value:0:WIS[-2]
@@ -2369,20 +2369,18 @@ value:0:CHR[-9]
 # 'y' can spawn oozes
 # get nourishment from kills
 # can pass doors
-# -
-# don't see monster list
 obj-flag:1:HUNGER
 ##################
 value:0:INFRA[2+1d5]
 obj-flag:1:FREE_ACT
 value:0:RES_POIS[1]
-value:0:RES_ACID[1]
 value:0:RES_LIGHT[-1]
+value:0:RES_ACID[-1]
 value:0:MOVES[-1]
 player-flags:1:RACE_REGEN
 obj-flag:0:CLUMSY
 obj-flag:1:CANT_FLY
-value:35:RES_MANA[1]
+value:33:RES_MANA[1]
 #player-flags:0:SHAPECHANGE
 #shape:10:mold
 #shape:20:slime

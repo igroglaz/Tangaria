@@ -160,9 +160,9 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
 
     // racial ESP hc
-    if (streq(p->race->name, "Troll"))
+    if (streq(p->race->name, "Naga"))
         radius -= radius / 3; // return false;
-    else if (streq(p->race->name, "Naga") || streq(p->race->name, "Frostmen"))
+    else if (streq(p->race->name, "Frostmen"))
         radius -= radius / 4;
 
     /* Full ESP */

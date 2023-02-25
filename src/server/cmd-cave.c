@@ -565,6 +565,11 @@ void do_cmd_open(struct player *p, int dir, bool easy)
     /* Get a direction (or abort) */
     if (!VALID_DIR(dir)) return;
 
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
+
     /* Get location */
     next_grid(&grid, &p->grid, dir);
 
@@ -757,6 +762,11 @@ void do_cmd_close(struct player *p, int dir, bool easy)
 
     /* Get a direction (or abort) */
     if (!VALID_DIR(dir)) return;
+
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
 
     /* Get location */
     next_grid(&grid, &p->grid, dir);
@@ -1509,6 +1519,11 @@ bool do_cmd_tunnel(struct player *p)
         return true;
     }
 
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return false;
+
     /* Get location */
     next_grid(&grid, &p->grid, dir);
 
@@ -1754,6 +1769,11 @@ void do_cmd_disarm(struct player *p, int dir, bool easy)
     /* Get a direction (or abort) */
     if (!VALID_DIR(dir)) return;
 
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
+
     /* Get location */
     next_grid(&grid, &p->grid, dir);
 
@@ -1827,6 +1847,11 @@ void do_cmd_alter(struct player *p, int dir)
 
     /* Get a direction (or abort) */
     if (!dir || !VALID_DIR(dir)) return;
+
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
 
     /* Check preventive inscription '^+' */
     if (check_prevent_inscription(p, INSCRIPTION_ALTER))
@@ -1931,6 +1956,11 @@ static void do_prob_travel(struct player *p, struct chunk *c, int dir)
     /* Paranoia */
     if ((dir == DIR_TARGET) || !dir) return;
 
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
+
     /* Ensure "dir" is in ddx/ddy array bounds */
     if (!VALID_DIR(dir)) return;
 
@@ -1987,6 +2017,11 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     /* Ensure "dir" is in ddx/ddy array bounds */
     if (!VALID_DIR(dir)) return;
+
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return;
 
     next_grid(&grid, &p->grid, dir);
     trap = square_isdisarmabletrap(c, &grid);
@@ -2564,6 +2599,11 @@ bool do_cmd_walk(struct player *p, int dir)
     /* Get a direction (or abort) */
     if (!dir) return true;
 
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return false;
+
     /* If we're in a web, deal with that */
     if (square_iswebbed(c, &p->grid))
     {
@@ -2675,6 +2715,11 @@ bool do_cmd_jump(struct player *p, int dir)
 
     /* Get a direction (or abort) */
     if (!dir) return true;
+
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return false;
 
     /* If we're in a web, deal with that */
     if (square_iswebbed(c, &p->grid))
@@ -2859,6 +2904,11 @@ bool do_cmd_run(struct player *p, int dir)
 
     /* Ignore invalid directions */
     if ((dir == DIR_TARGET) || !VALID_DIR(dir)) return true;
+
+    // Golem. Move. Only. Straight. Movement. Denied.
+    if (streq(p->race->name, "Golem"))
+        if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
+            return false;
 
     /* Ignore non-direction if we are not running */
     if (!p->upkeep->running && !dir) return true;
