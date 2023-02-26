@@ -2425,7 +2425,17 @@ void do_cmd_fountain(struct player *p, int item)
 
         fountain = true;
     }
+    // golem race drinks oil ! if not standing on fountain !
+    else if (streq(p->race->name, "Golem"))
+    {       
+        if (use_oil(p))
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        }
 
+        return;
+    }
     /* Allow only on water tiles */
     else if (!square_iswater(c, &p->grid) &&
             !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_SHALLOW_WATER) &&

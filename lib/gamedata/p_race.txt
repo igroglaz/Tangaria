@@ -1512,7 +1512,7 @@ gift:flask:Flask of oil:3:4
 # + -10% phys damage hc
 # + less speed penalty due overweight
 # 'y' infravision
-# /rfe need to consume a lot of oil :D
+# need to consume fresh (only flasks) oil (heal and nourish)
 value:0:STR[2+2d33]
 value:0:INT[-2+1d15]
 value:0:WIS[-3+1d24]

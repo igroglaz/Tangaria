@@ -458,6 +458,7 @@ help: in stealth at first, but advanced models could move quite silently.
 help: Golems good at fighting and somehow resistant to malicious spell effects.|
 help: They got less speed penalty due overweight.
 help: They can get infravision ('y') by spending some energy.
+help: Golems don't need food. But they consume fresh oil (can be found in flasks).
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.

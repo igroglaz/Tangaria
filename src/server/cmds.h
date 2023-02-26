@@ -62,6 +62,7 @@ extern void do_cmd_eat_food(struct player *p, int item);
 extern void do_cmd_quaff_potion(struct player *p, int item, int dir);
 extern void do_cmd_read_scroll(struct player *p, int item, int dir);
 extern void do_cmd_use_any(struct player *p, int item, int dir);
+extern bool use_oil(struct player *p);
 extern void do_cmd_refill(struct player *p, int item);
 extern bool do_cmd_read_scroll_end(struct player *p, struct object *obj, bool ident, bool used);
 extern void do_cmd_use_staff_discharge(struct player *p, struct object *obj, bool ident, bool used);

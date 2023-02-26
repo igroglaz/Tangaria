@@ -2063,6 +2063,84 @@ void do_cmd_use_any(struct player *p, int item, int dir)
  */
 
 
+// Golem race can use oil for good
+bool use_oil(struct player *p)
+{
+    bool got_oil = false;
+    struct object *obj;
+	int num_messages;
+	int rng;
+    int i;
+	const char* messages[] = {
+			"Oil. Consumed. Nourishment. Detected.",
+			"Lubricant. Absorbed. System. Rejuvenated.",
+			"Fuel. Consumed. Mechanism. Recharged.",
+			"Oil. Imbibed. Vitality. Boosted.",
+			"Hydraulic. Fluid. Assimilated. Strength. Renewed.",
+			"Energy. Infused. Golem. Reactivated.",
+			"Lubrication. Consumed. Power. Amplified.",
+			"Circuitry. Replenished. Oil. Utilized.",
+			"Machinery. Refueled. Golem. Empowered.",
+			"Oil. Lubricated. Vitality. Restored.",
+			"Grease. Digested. Components. Energized.",
+			"Golem. Reinvigorated. Oil. Consumed.",
+			"Lubricant. Processed. Energy. Restored.",
+			"Oil. Ingested. Mechanism. Rebooted.",
+			"Fuel. Consumed. Power. Regenerated.",
+			"Oil. Imbibed. Golem. Reenergized.",
+			"Hydraulic. Fluid. Assimilated. Function. Optimized.",
+			"Energy. Infused. System. Restarted.",
+			"Lubrication. Consumed. Machinery. Reinforced.",
+			"Circuitry. Replenished. Golem. Reactivated.",
+			"Golem. Refueled. Vitality. Boosted.",
+			"Grease. Digested. Power. Amplified.",
+			"Oil. Consumed. Function. Enhanced.",
+			"Fuel. Processed. Golem. Regenerated.",
+			"Hydraulic. Fluid. Ingested. Energy. Renewed.",
+			"Lubricant. Consumed. System. Recharged.",
+			"Circuitry. Replenished. Vitality. Restored.",
+			"Machinery. Reinvigorated. Oil. Absorbed.",
+			"Petroleum. Ingested. Golem. Revitalized."
+		};
+
+    // search for oil
+    for (i = 0; i < z_info->pack_size; i++)
+    {
+        struct object *obj = p->upkeep->inven[i];
+
+        if (!obj) continue;
+
+        if (obj->tval == TV_FLASK)
+        {
+            /* Restricted by choice */
+            if (!object_is_carried(p, obj))
+            {
+                msg(p, "This. Oil. Not. Mine.. Yet.");
+                return false;
+            }
+            use_object(p, obj, 1, false);
+            got_oil = true;
+        }
+    }
+
+    // no oil found -> quit
+    if (got_oil == false) return false;
+
+    // nourish and heal
+    player_inc_timed(p, TMD_FOOD, 500, false, false);
+    hp_player(p, p->wpos.depth / 2);
+
+	// generate message
+    // sizeof(messages) - size of whole array in bytes
+    // sizeof(messages[0]) - size of one 'word' (4 bytes)
+	num_messages = sizeof(messages) / sizeof(messages[0]);
+    rng = randint0(num_messages);
+    msg(p, messages[rng]);
+
+    return true;
+}
+
+
 /*
  * Hook for refilling lamps
  */

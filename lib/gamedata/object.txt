@@ -218,8 +218,8 @@ graphics:!:y
 type:flask
 level:1
 weight:20
-cost:12
-alloc:50:1 to 100
+cost:120
+alloc:50:1 to 127
 attack:1d4:0:0
 armor:0:0
 flags:EXPLODE | THROWING

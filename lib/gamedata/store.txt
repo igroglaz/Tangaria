@@ -60,7 +60,7 @@ slots:2:4
 turnover:2
 always:cloak:Cloak
 always:light:Wooden Torch
-always:flask:Flask of Oil
+#always:flask:Flask of Oil // only found in the dungeon (golems like this stuff!)
 always:digger:Spade
 always:rock:Throwing Rock
 always:light:Old Lantern
@@ -329,7 +329,7 @@ always:fortune cookie:of this goods.. Take a look at them...
 always:digger:Spade
 always:cloak:Cloak
 always:light:Wooden Torch
-always:flask:Flask of Oil
+# always:flask:Flask of Oil // only found in the dungeon (golems like this stuff!)
 always:rock:Throwing Rock
 always:shot:Iron Shot
 always:arrow:Arrow
