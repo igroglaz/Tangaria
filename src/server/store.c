@@ -3389,15 +3389,23 @@ void do_cmd_store(struct player *p, int pstore)
         case FEAT_STORE_GENERAL:
             sound(p, MSG_STORE_GENERAL_SOUND);
             break;
+        case FEAT_STORE_ARMOR:
+            sound(p, MSG_NPC_ARMOR);
+            break;
+        case FEAT_STORE_WEAPON:
+            sound(p, MSG_STORE_WEAPON);
+            break;
         case FEAT_STORE_TEMPLE:
             sound(p, MSG_STORE_TEMPLE);
             break;
         case FEAT_STORE_ALCHEMY:
-            sound(p, MSG_STORE_TEMPLE);
             if (one_in_(6))
                 sound(p, MSG_STORE_ALCHEMY_BOOM);
             else
                 sound(p, MSG_STORE_ALCHEMY);
+            break;
+        case FEAT_STORE_MAGIC:
+            sound(p, MSG_STORE_MAGIC_TOWER);
             break;
         case FEAT_STORE_BOOK:
             sound(p, MSG_STORE_BOOKSELLER);
@@ -3419,39 +3427,76 @@ void do_cmd_store(struct player *p, int pstore)
         case FEAT_STORE_PLAYER:
             sound(p, MSG_STORE_PLAYER_SOUND);
             break;
-        default:
-            if (streq(f_info[s->feat].name, "Sonya the cat")) sound(p, MSG_NPC_CAT);
-            else if (streq(f_info[s->feat].name, "Halbarad, the gamekeeper")) sound(p, MSG_NPC_HI);
-            else if (streq(f_info[s->feat].name, "Shtukensia the tavernkeeper")) sound(p, MSG_NPC_GIRL);
-            else if (streq(f_info[s->feat].name, "Magic Shop")) sound(p, MSG_STORE_MAGIC_TOWER);
-            else if (streq(f_info[s->feat].name, "Boyan the Volkhv")) sound(p, MSG_STORE_MAGIC);
-            else if (streq(f_info[s->feat].name, "Boromir")) sound(p, MSG_NPC_WARR);
-            else if (streq(f_info[s->feat].name, "Armoury")) sound(p, MSG_NPC_ARMOR);
-            else if (streq(f_info[s->feat].name, "Arthur the Archer")) sound(p, MSG_NPC_ARROW);
-            else if (streq(f_info[s->feat].name, "Weapon Smiths")) sound(p, MSG_STORE_WEAPON);
-            else if (streq(f_info[s->feat].name, "Ivan the villager")) sound(p, MSG_NPC_WELCOME);
-            else if (streq(f_info[s->feat].name, "Old guard Barry")) sound(p, MSG_NPC_VET);
-            else if (streq(f_info[s->feat].name, "Boris the Guard")) sound(p, MSG_NPC_ROUGH);
-            else if (streq(f_info[s->feat].name, "Torog"))
-            {
-                sound(p, MSG_NPC_BELCH);
-                sound(p, MSG_TAVERN);
-            }
-            else if (streq(f_info[s->feat].name, "Rose")) sound(p, MSG_NPC_ROSE);
-            else if (streq(f_info[s->feat].name, "Bill Ferny"))
-            {
-                if (one_in_(2)) sound(p, MSG_NPC_DRUNK);
-                sound(p, MSG_TAVERN);
-            }
-            else if (streq(f_info[s->feat].name, "Danny the dog")) sound(p, MSG_TAVERN);
-            else if (streq(f_info[s->feat].name, "Mr. Underhill")) sound(p, MSG_TAVERN);
-            else if (streq(f_info[s->feat].name, "Barliman")) sound(p, MSG_TAVERN);
-            else if (streq(f_info[s->feat].name, "Nob, a servant")) sound(p, MSG_TAVERN);
-            else if (streq(f_info[s->feat].name, "Squint-eyed Southerner")) sound(p, MSG_TAVERN);
-            else if (streq(f_info[s->feat].name, "Gildor")) sound(p, MSG_NPC_DUEL);
-            else if (streq(f_info[s->feat].name, "Milena the villager")) sound(p, MSG_NPC_MARTA);
-            else if (streq(f_info[s->feat].name, "Deckard Coin")) sound(p, MSG_NPC_CAIN);
-            else if (streq(f_info[s->feat].name, "Tom Bombadil")) sound(p, MSG_NPC_TOM);
+        case FEAT_Halbarad_the_gamekeeper:
+            sound(p, MSG_NPC_HI);
+            break;
+        case FEAT_Sonya_the_cat:
+            sound(p, MSG_NPC_CAT);
+            break;
+        case FEAT_Boyan_the_Volkhv:
+            sound(p, MSG_STORE_MAGIC);
+            break;
+        case FEAT_Old_guard_Barry:
+            sound(p, MSG_NPC_VET);
+            break;
+        case FEAT_Ivan_the_villager:
+            sound(p, MSG_NPC_WELCOME);
+            break;
+        case FEAT_Milena_the_villager:
+            sound(p, MSG_NPC_MARTA);
+            break;
+        case FEAT_Shtukensia_the_tavernkeeper:
+            sound(p, MSG_NPC_GIRL);
+            break;
+        case FEAT_Danny_the_dog:
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Arthur_the_Archer:
+            sound(p, MSG_NPC_ARROW);
+            break;
+        case FEAT_Deckard_Coin:
+            sound(p, MSG_NPC_CAIN);
+            break;
+        case FEAT_Boris_the_Guard:
+            sound(p, MSG_NPC_ROUGH);
+            break;
+        case FEAT_Tom_Bombadil:
+            sound(p, MSG_NPC_TOM);
+            break;
+        case FEAT_Mr_Underhill:
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Gildor:
+            sound(p, MSG_NPC_DUEL);
+            break;
+        case FEAT_Squint_eyed_Southerner:
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Bill_Ferny:
+            if (one_in_(2))
+                sound(p, MSG_NPC_DRUNK);
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Boromir:
+            sound(p, MSG_NPC_WARR);
+            break;
+        case FEAT_Barliman:
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Torog:
+            sound(p, MSG_NPC_BELCH);
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Nob_a_servant:
+            sound(p, MSG_TAVERN);
+            break;
+        case FEAT_Rose:
+            sound(p, MSG_NPC_ROSE);
+            break;
+        case FEAT_Mayor:
+            sound(p, MSG_NPC_MAYOR);
+            break;
+        // don't add DEFAULT - it produce crush when player checks player store
     }
 
     /* Display the store */

@@ -239,7 +239,7 @@ DATA = credits.txt \
     enter_ruins.mp3 explosion_1.mp3 kill_koschei.mp3 kill_mushroom_10.mp3 kill_mushroom_11.mp3 kill_mushroom_1.mp3 \
     kill_mushroom_2.ogg kill_mushroom_3.ogg kill_mushroom_4.ogg kill_mushroom_5.ogg kill_mushroom_6.ogg kill_mushroom_7.ogg \
     kill_mushroom_2.mp3 kill_mushroom_3.mp3 kill_mushroom_4.mp3 kill_mushroom_5.mp3 kill_mushroom_6.mp3 kill_mushroom_7.mp3 \
-    kill_mushroom_8.ogg kill_mushroom_9.ogg kill_unique_angel.ogg manor.ogg orc_caves.ogg vulture.ogg \
-    kill_mushroom_8.mp3 kill_mushroom_9.mp3 kill_unique_angel.mp3 manor.mp3 orc_caves.mp3 vulture.mp3
+    kill_mushroom_8.ogg kill_mushroom_9.ogg kill_unique_angel.ogg manor.ogg orc_caves.ogg vulture.ogg snoring.ogg \
+    kill_mushroom_8.mp3 kill_mushroom_9.mp3 kill_unique_angel.mp3 manor.mp3 orc_caves.mp3 vulture.mp3 snoring.mp3
 
 PACKAGE = sounds

@@ -228,6 +228,7 @@ sound:npc_duel:ambient/voice/npc_duel_1 ambient/voice/npc_duel_2 ambient/voice/n
 sound:npc_marta:ambient/voice/marta_1 ambient/voice/marta_2 ambient/voice/marta_3
 sound:npc_cain:ambient/voice/npc_cain_1 ambient/voice/npc_cain_2 ambient/voice/npc_cain_3
 sound:npc_tom:ambient/voice/npc_tom_1 ambient/voice/npc_tom_2
+sound:npc_mayor:snoring
 
 #
 # Player sounds - combat
