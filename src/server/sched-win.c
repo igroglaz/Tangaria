@@ -418,6 +418,7 @@ void sched(void)
 void free_input()
 {
     mem_free(input_handlers);
+    input_handlers = NULL;
 }
 
 

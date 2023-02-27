@@ -249,7 +249,7 @@ static void Handle_input(int fd, int arg)
          */
         if ((errno != EAGAIN) && (errno != EWOULDBLOCK))
         {
-            /* If this happens, the the client has probably closed his TCP connection. */
+            /* If this happens, the client has probably closed his TCP connection. */
             do_quit(ind);
         }
 
@@ -575,11 +575,11 @@ static void Contact(int fd, int arg)
              * handle this situation correctly yet. For the moment, we just log the
              * error and quit.
              *
-             * PWMAngband: when running the server in debug mode, we get a lot of
-             * TCP connection failures with errno = 0, which doesn't make any sense.
-             * In this case, we just return without logging the error and quitting.
+             * PWMAngband: on Windows we may get a socket error without errno being set; also we
+             * frequently get EWOULDBLOCK return codes, i.e. there is no data yet, but there may be
+             * in a moment. In this case, we just return without logging the error and quitting.
              */
-            if (errno)
+            if (errno && (errno != EWOULDBLOCK) && (errno != EAGAIN))
             {
                 plog_fmt("Could not accept TCP Connection, socket error = %d", errno);
                 quit("Couldn't accept TCP connection.");
