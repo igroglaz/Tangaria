@@ -867,8 +867,7 @@ void cleanup_player(struct player *p)
     /* Free the things that are only sometimes initialised */
     player_spells_free(p);
     object_pile_free(p->gear);
-    mem_free(p->body.slots);
-    p->body.slots = NULL;
+    free_body(p);
 
     /* Stop all file perusal and interactivity */
     string_free(p->interactive_file);

@@ -1208,14 +1208,41 @@ int message_lookup_by_name(const char *name)
  */
 void player_embody(struct player *p)
 {
+    char buf[80];
     int i;
 
     memcpy(&p->body, &bodies[p->race->body], sizeof(p->body));
+    my_strcpy(buf, bodies[p->race->body].name, sizeof(buf));
+    p->body.name = string_make(buf);
     p->body.slots = mem_zalloc(p->body.count * sizeof(struct equip_slot));
-    memcpy(p->body.slots, bodies[p->race->body].slots, p->body.count * sizeof(struct equip_slot));
+    for (i = 0; i < p->body.count; i++)
+    {
+        p->body.slots[i].type = bodies[p->race->body].slots[i].type;
+        my_strcpy(buf, bodies[p->race->body].slots[i].name, sizeof(buf));
+        p->body.slots[i].name = string_make(buf);
+    }
 
     for (i = 0; i < N_HISTORY_FLAGS; i++)
         p->hist_flags[i] = mem_zalloc((p->body.count + 1) * sizeof(cave_view_type));
+}
+
+
+void free_body(struct player *p)
+{
+    if (p->body.slots)
+    {
+        int i;
+
+        for (i = 0; i < p->body.count; i++)
+        {
+            string_free(p->body.slots[i].name);
+            p->body.slots[i].obj = NULL;
+        }
+        mem_free(p->body.slots);
+        p->body.slots = NULL;
+    }
+    string_free(p->body.name);
+    p->body.name = NULL;
 }
 
 

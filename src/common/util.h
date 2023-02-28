@@ -79,6 +79,7 @@ extern struct monster_race *lookup_monster(const char *name);
 extern int16_t modify_stat_value(int value, int amount);
 extern int message_lookup_by_name(const char *name);
 extern void player_embody(struct player *p);
+extern void free_body(struct player *p);
 extern const struct magic_realm *lookup_realm(const char *name);
 extern struct trap_kind *lookup_trap(const char *desc);
 extern int recharge_failure_chance(const struct object *obj, int strength);

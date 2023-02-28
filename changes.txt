@@ -199,6 +199,7 @@ PWMAngband:
 - Fix wilderness mapping
 - Prevent trying to add a player to the "Neutral" party
 - Fix double free in Receive_minipos()
+- Fix allocation/deallocation of player body
 
 Coding changes
 --------------

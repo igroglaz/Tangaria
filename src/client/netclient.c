@@ -3701,7 +3701,7 @@ static int Receive_char_info(void)
     if (update_body)
     {
         /* Free old pointers, since body slots may have changed */
-        mem_free(player->body.slots);
+        free_body(player);
         for (n = 0; n < N_HISTORY_FLAGS; n++)
             mem_free(player->hist_flags[n]);
 

@@ -466,7 +466,7 @@ static void cleanup_player(void)
 
     /* Free the things that are only there if there is a loaded player */
     mem_free(player->gear);
-    mem_free(player->body.slots);
+    free_body(player);
 
     /* PWMAngband */
     for (i = 0; player->scr_info && (i < Setup.max_row + ROW_MAP + 1); i++)
