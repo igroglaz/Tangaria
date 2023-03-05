@@ -7811,14 +7811,15 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:11:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Knock Out Doors:1:1:30:1:0
-effect:TOUCH:KILL_DOOR
-msg_other: perform skillful bash..
-desc:Destroys doors within a 1-square radius of you.
+spell:Salvage:1:1:1:1:0
+effect:SALVAGE
+effect:RESTORE_MANA
+dice:1
+desc:Try to salvage item into valuable parts.
 
 # hc distance 2 (not 1-2 rng)
 # hced by mana cost
-spell:Roll:3:1:11:5:0
+spell:Roll:3:1:1:3:0
 effect:RESTORE_MANA
 dice:1
 effect:RESTORE_MANA
@@ -7835,9 +7836,9 @@ msg_other: rolls away.
 desc:Roll away randomly to a close distance.
 desc:You can roll around almost effortlessly.
 
-spell:Salvage:10:4:40:5:0
-effect:SALVAGE
-desc:Try to salvage item into valuable parts.
+spell:Antidote:10:4:40:5:0
+effect:CURE:POISONED
+desc:Cures poison.
 
 spell:Dirty Trick:15:7:30:10:0
 effect:TIMED_SET:ATT_POIS:0:5
@@ -7849,9 +7850,11 @@ effect:BOW_BRAND_SHOT:POIS
 dice:3
 desc:Covers your missiles with venom.
 
-spell:Antidote:25:12:30:35:0
-effect:CURE:POISONED
-desc:Neutralizes poison.
+spell:Bandages:25:12:30:35:0
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+desc:Apply bandages to heal.
 
 spell:Ancient Lore:30:20:45:40:0
 effect:IDENTIFY

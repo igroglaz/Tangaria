@@ -897,6 +897,8 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         // touching open water for vampire is bad. and FEATHER won't help really
         if (streq(p->race->name, "Vampire") && !player_of_has(p, OF_FLYING))
             dam_taken *= 2;
+        else if (streq(p->race->name, "Golem")) // can't swim, but don't breath
+            dam_taken = 0;
         else if (player_of_has(p, OF_FEATHER)) // feather helps a bit
         {
             if (!player_of_has(p, OF_CANT_FLY))

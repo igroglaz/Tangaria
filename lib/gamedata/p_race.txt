@@ -1513,12 +1513,12 @@ gift:flask:Flask of oil:3:4
 # + less speed penalty due overweight
 # 'y' infravision
 # need to consume fresh (only flasks) oil (heal and nourish)
-value:0:STR[2+2d33]
+value:0:STR[3+1d33]
 value:0:INT[-2+1d15]
 value:0:WIS[-3+1d24]
 value:0:DEX[-2+1d24]
 value:0:CON[3+-1d15]
-value:0:CHR[-5]
+value:0:CHR[-3]
 value:0:RES_POIS[1]
 obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
