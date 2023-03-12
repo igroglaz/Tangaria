@@ -10,6 +10,6 @@ DATA = 3x5TG.fon 5x8TG.FON 5x8x.fon 6x9TG.FON 6x10TG.FON 6x10x.fon \
 	16x22TG.FON 16x24TG.FON 16x24tx.fon 16x24x.fon 17x25TG.FON 19x29TG.FON 21x31tg.fon \
 	21x31tgs.fon 21x31x.fon 24x36tg.fon \
 	AnonymousPro-Bold.ttf Cousine-Bold.ttf IBMPlexMono-Bold.ttf JetBrainsMono-SemiBold.ttf \
-	RobotoMono-Bold.ttf SourceCodePro-SemiBold.ttf Tangaria-tg.ttf UbuntuMono-Bold-tg.ttf \
-	UbuntuMono-Regular-tg.ttf
+	RobotoMono-Bold.ttf SourceCodePro-SemiBold.ttf Tangaria-tg.ttf Tangaria-tgs.ttf \
+	UbuntuMono-Bold-tg.ttf UbuntuMono-Regular-tg.ttf
 PACKAGE = fonts
