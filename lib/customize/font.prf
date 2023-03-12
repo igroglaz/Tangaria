@@ -182,6 +182,9 @@
 ?:[EQU $FONTNAME Tangaria-tg.ttf]
 %:font-tng.prf
 
+?:[EQU $FONTNAME Tangaria-tgs.ttf]
+%:font-tng.prf
+
 ?:[EQU $FONTNAME UbuntuMono-Bold-tg.ttf]
 %:font-tng.prf
 
