@@ -1431,7 +1431,7 @@ bool dir_exists(const char *path)
 	struct stat buf;
 	if (stat(path, &buf) != 0)
 		return false;
-	else if (buf.st_mode & S_IFDIR)
+	else if (S_ISDIR(buf.st_mode))
 		return true;
 	else
 		return false;
