@@ -4525,7 +4525,8 @@ static struct
     {"hints", &hints_parser},
     {"swear", &swear_parser},
     {"level_golds", &level_golds_parser},
-    {"random names", &names_parser}
+    {"random names", &names_parser},
+    {"ui knowledge", &ui_knowledge_parser}
 };
 
 

@@ -5454,6 +5454,13 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     }
     while (loc_iterator_next_strict(&iter));
 
+    /* Paranoia -- ensure we are in bounds */
+    if (!square_in_bounds_fully(context->cave, &iter.cur))
+    {
+        if (context->origin->player) msg(context->origin->player, "The teleporting attempt fails.");
+        return !used;
+    }
+
     /* Sound */
     if (context->origin->player)
     {

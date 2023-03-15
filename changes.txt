@@ -278,6 +278,7 @@ Angband 4.2.x:
 - When _WIN32 is set, use GetCurrentProcessId() to mutate the seed in
   Rand_simple() and Rand_init()
 - Use codes rather than the printable names in data files
+- Configure categories for the monster knowledge menu from a data file
 
 PWMAngband:
 

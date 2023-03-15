@@ -83,6 +83,7 @@ extern void do_cmd_master(struct player *p, int16_t command, char *buf);
 extern void do_cmd_social(struct player *p, const char *buf, int dir);
 
 /* knowledge-ui.c */
+extern struct file_parser ui_knowledge_parser;
 extern void do_cmd_redraw(struct player *p);
 extern void do_cmd_drop_gold(struct player *p, int32_t amt);
 extern void do_cmd_steal(struct player *p, int dir);

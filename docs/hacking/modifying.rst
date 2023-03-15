@@ -283,6 +283,12 @@ summon.txt
 
 ..
 
+ui_knowledge.txt
+  Handles some configuration of the knowledge menus, namely the layout of
+  the monster categories.
+
+..
+
 dungeon.txt
   This file contains the list of dungeons.
 
