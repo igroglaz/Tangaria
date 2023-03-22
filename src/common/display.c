@@ -593,7 +593,7 @@ static const char *show_adv_exp(struct player *p)
     {
         static char buffer[30];
 
-        strnfmt(buffer, sizeof(buffer), "%d", adv_exp(p->lev, p->expfact));
+        strnfmt(buffer, sizeof(buffer), "%ld", (long)adv_exp(p->lev, p->expfact));
         return buffer;
     }
 

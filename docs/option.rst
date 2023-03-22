@@ -28,7 +28,10 @@ interface options.
 ..
 
 Rogue-like commands ``rogue_like_commands``
-  Selects the "roguelike" command set (see "command.txt" for info).
+  Selects the "roguelike" command set. See `Playing the Game` for
+  some description of the command sets. The "roguelike" command set may
+  work better for you if use a keyboard which doesn't have a numeric
+  keypad.
 
 ..
 

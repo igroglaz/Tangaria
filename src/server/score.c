@@ -224,7 +224,7 @@ void build_score(struct player *p, struct high_score *entry, const char *died_fr
         total_points(p, score_info.max_exp, score_info.max_depth));
 
     /* Save the current gold */
-    strnfmt(entry->gold, sizeof(entry->gold), "%9u", score_info.au);
+    strnfmt(entry->gold, sizeof(entry->gold), "%9ld", (long)score_info.au);
 
     /* Save the current turn */
     my_strcpy(entry->turns, ht_show(&turn), sizeof(entry->turns));

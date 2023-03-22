@@ -222,7 +222,7 @@ static void prt_gold(int row, int col)
     char tmp[32];
 
     put_str("AU ", row, col);
-    strnfmt(tmp, sizeof(tmp), "%9d", player->au);
+    strnfmt(tmp, sizeof(tmp), "%9ld", (long)player->au);
     c_put_str(COLOUR_L_GREEN, tmp, row, col + 3);
 }
 

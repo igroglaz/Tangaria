@@ -84,7 +84,7 @@ struct term_font
     char *name;     /* final component of path if one of the preset fonts; full path if not a preset font */
     int size;       /* requested point size for the file; zero for bitmapped fonts */
     bool preset;    /* true if this is a font included in the lib/fonts directory for the game */
-    bool bitmapped; /* true if this is a bitmapped (.fon) font that can't be scaled */
+    bool bitmapped; /* true if this is a bitmapped (.fon; case-insensitive) font that can't be scaled */
 };
 
 /* Used as 'system' font. */
@@ -2638,7 +2638,7 @@ static void SelectFileFontBrowser(sdl_Button *sender)
 		new_font.name = work;
 		new_font.preset = false;
 	}
-	if (suffix(new_font.name, ".fon") || suffix(new_font.name, ".FON"))
+	if (suffix_i(new_font.name, ".fon"))
     {
 		new_font.size = 0;
 		new_font.bitmapped = true;
@@ -3502,8 +3502,8 @@ static void FontActivate(sdl_Button *sender)
 			button->cap_colour = AltCapColour;
 		sdl_ButtonCaption(button, FontList[i]);
 		sdl_ButtonVisible(button, true);
-		button->activate = (suffix(FontList[i], ".fon") || suffix(FontList[i], ".FON")) ?
-			SelectPresetBitmappedFont : SelectPresetScalableFont;
+		button->activate = (suffix_i(FontList[i], ".fon")? SelectPresetBitmappedFont:
+            SelectPresetScalableFont);
 	}
 
 	if (extra == 2)
@@ -5721,7 +5721,7 @@ static errr Term_text_sdl_aux(int col, int row, int n, uint16_t a, const char *s
     buf[n] = '\0';
 
     /* Handle background */
-    switch (a / MAX_COLORS)
+    switch (a / MULT_BG)
     {
         /* Default Background */
         case BG_BLACK: break;

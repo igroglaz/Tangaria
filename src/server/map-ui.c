@@ -629,9 +629,9 @@ static void grid_get_attr(struct player *p, struct grid_data *g, uint16_t *a)
     if (feat_is_wall(g->f_idx))
     {
         if (OPT(p, hybrid_walls))
-            *a = *a + (MAX_COLORS * BG_DARK);
+            *a = *a + (MULT_BG * BG_DARK);
         else if (OPT(p, solid_walls))
-            *a = *a + (MAX_COLORS * BG_SAME);
+            *a = *a + (MULT_BG * BG_SAME);
     }
 }
 

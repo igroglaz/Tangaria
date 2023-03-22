@@ -35,8 +35,14 @@
     ANGBAND_TERM_MAX
 /* that should be plenty... */
 #define MAX_WINDOWS 4
-#define MAX_FONTS 128
 #define MAX_BUTTONS 32
+
+/*
+ * Since font selection goes through a menu panel with MAX_BUTTONS, there's
+ * no point to having any more than can be selected with that menu.
+ * Hack -- MAX_BUTTONS * 2 for 'font_page'
+ */
+#define MAX_FONTS (MAX_BUTTONS * 2)
 
 #define INIT_SDL_FLAGS \
     (SDL_INIT_VIDEO)
@@ -1002,7 +1008,7 @@ static void render_grid_cell_text(const struct subwindow *subwindow,
     SDL_Color fg = g_colors[a % MAX_COLORS];
     SDL_Color bg;
 
-    switch (ta / MAX_COLORS) {
+    switch (ta / MULT_BG) {
         case BG_BLACK:
             bg = subwindow->color;
             break;
@@ -4055,7 +4061,7 @@ static errr term_text_hook(int col, int row, int n, uint16_t a, const char *s)
     SDL_Color fg = g_colors[a % MAX_COLORS];
     SDL_Color bg;
 
-    switch (a / MAX_COLORS) {
+    switch (a / MULT_BG) {
         case BG_BLACK:
             bg = subwindow->color;
             break;
@@ -4100,6 +4106,16 @@ static errr term_pict_hook(int col, int row, int n,
 {
     struct subwindow *subwindow = Term->data;
     assert(subwindow != NULL);
+
+    if (!current_graphics_mode || current_graphics_mode->grafID == GRAPHICS_NONE)
+    {
+     /*
+      * Do nothing unsuccessfully if asked to draw a tile while
+      * they're not enabled. Could proceed in this function
+      * with no apparent ill effects, but that just wastes time.
+      */
+     return -1;
+    }
 
     assert(subwindow->window->graphics.texture != NULL);
 
@@ -5902,7 +5918,7 @@ static void init_font_info(const char *directory)
             g_font_info[i].name = string_make(name);
             g_font_info[i].path = string_make(path);
             g_font_info[i].loaded = true;
-            if (suffix(path, ".fon") || suffix(path, ".FON")) {
+            if (suffix_i(path, ".fon")) {
                 g_font_info[i].type = FONT_TYPE_RASTER;
                 g_font_info[i].size = 0;
             } else {

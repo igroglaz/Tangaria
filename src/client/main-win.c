@@ -1845,7 +1845,7 @@ static void Term_text_win_aux(int x, int y, int n, uint16_t a, const char *s)
             SetTextColor(hdc, win_clr[a % MAX_COLORS]);
 
         /* Handle background */
-        switch (a / MAX_COLORS)
+        switch (a / MULT_BG)
         {
             /* Background same as foreground */
             case BG_SAME: SetBkColor(hdc, win_clr[a % MAX_COLORS]); break;

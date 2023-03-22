@@ -886,8 +886,8 @@ static void Term_fresh_row_both(int y, int x1, int x2)
                 fn = 0;
             }
 
-            /* Bigtile mode */
-            if (na % MAX_COLORS == 255) continue;
+            /* 2nd byte of bigtile */
+            if (na == 255) continue;
 
             /* Hack -- draw the special attr/char pair */
             (*Term->pict_hook)(x, y, 1, &na, &nc, &nta, &ntc);
@@ -1812,7 +1812,7 @@ static errr Term_erase_aux(int x, int y, int n, bool check_icky)
         scr_tcc = Term->scr->tc[y];
 
         /* Hack -- always start at the beginning of a tile in bigtile mode */
-        if ((n > 0) && (scr_aa[x] % MAX_COLORS == 255))
+        if ((n > 0) && (scr_aa[x] == 255))
         {
             int x0 = ((x - COL_MAP) / tile_width) * tile_width + COL_MAP;
 
@@ -1974,7 +1974,7 @@ errr Term_redraw_section(int x1, int y1, int x2, int y2)
     for (i = Term->y1; i <= Term->y2; i++)
     {
         /* Hack -- always start at the beginning of a tile in bigtile mode */
-        if ((x1 > 0) && (Term->old->a[i][x1] % MAX_COLORS == 255))
+        if ((x1 > 0) && (Term->old->a[i][x1] == 255))
             x1 = ((x1 - COL_MAP) / tile_width) * tile_width + COL_MAP;
 
         Term->x1[i] = x1;

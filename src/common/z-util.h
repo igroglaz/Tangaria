@@ -119,6 +119,7 @@ extern void my_strcap(char *buf);
 extern bool streq(const char *s, const char *t);
 extern bool prefix(const char *s, const char *t);
 extern bool suffix(const char *s, const char *t);
+extern bool suffix_i(const char *s, const char *t);
 
 /*
  * Skip occurrences of a character

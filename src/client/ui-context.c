@@ -242,7 +242,7 @@ int context_menu_object(struct object *obj)
         if (obj->number > 1)
         {
             /* 'D' is used for ignore in rogue keymap, so we'll just swap letters. */
-            cmdkey = ((mode == KEYMAP_MODE_ORIG)? 'D': 'k');
+            cmdkey = ((mode == KEYMAP_MODE_ORIG)? 'D': 'A');
             menu_dynamic_add_label(m, "Drop All", cmdkey, MENU_VALUE_DROP_ALL, labels);
         }
     }

@@ -1086,8 +1086,18 @@ static void colors_modify(const char *title, int row)
         {
             switch (ke.key.code)
             {
-                case 'n': a = (uint8_t)(a + 1); break;
-                case 'N': a = (uint8_t)(a - 1); break;
+                case 'n':
+                {
+                    a = (uint8_t)(a + 1);
+                    if (a >= MAX_COLORS) a = 0;
+                    break;
+                }
+                case 'N':
+                {
+                    a = (uint8_t)(a - 1);
+                    if (a >= MAX_COLORS) a = MAX_COLORS - 1;
+                    break;
+                }
                 case 'k':
                     angband_color_table[a][0] = (uint8_t)(angband_color_table[a][0] + 1);
                     break;

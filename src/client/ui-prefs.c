@@ -1151,7 +1151,11 @@ static enum parser_error parse_prefs_color(struct parser *p)
     if (d->bypass) return PARSE_ERROR_NONE;
 
     idx = parser_getuint(p, "idx");
-    if (idx >= MAX_COLORS) return PARSE_ERROR_OUT_OF_BOUNDS;
+    if (idx >= MAX_COLORS)
+    {
+        /* Backwards compatibility -- silently ignore indices between MAX_COLORS and 255 */
+        return ((idx < 256)? PARSE_ERROR_NONE: PARSE_ERROR_OUT_OF_BOUNDS);
+    }
 
     angband_color_table[idx][0] = parser_getint(p, "k");
     angband_color_table[idx][1] = parser_getint(p, "r");
@@ -1426,9 +1430,10 @@ static bool process_pref_file_layered(const char *name, bool quiet, bool user,
  *
  * Because of the way this function works, there might be some unexpected
  * effects when a pref file triggers another pref file to be loaded.
- * For example, customize/pref.prf causes message.prf to load. This means that the
- * game will load customize/pref.prf, then customize/message.prf, then user/message.prf,
- * and finally user/pref.prf.
+ * For example, lib/customize/pref.prf causes message.prf to load. This means
+ * that the game will load lib/customize/pref.prf, then
+ * lib/customize/message.prf, then message.prf from the user location, and
+ * finally pref.prf from the user location.
  *
  * name is the name of the pref file.
  * quiet means "don't complain about not finding the file".
@@ -1442,8 +1447,8 @@ bool process_pref_file(const char *name, bool quiet, bool user)
     bool used_fallback = false;
 
     /*
-     * This supports the old behavior: look for a file first in 'customize/', and
-     * if not found there, then 'user/'.
+     * This supports the old behavior: first load from lib/customize then
+     * from the user location.
      */
     root_success = process_pref_file_layered(name, quiet, user, ANGBAND_DIR_CUSTOMIZE,
         ANGBAND_DIR_USER, &used_fallback);
@@ -1458,7 +1463,7 @@ bool process_pref_file(const char *name, bool quiet, bool user)
     }
 
     /*
-     * Next, we want to force a check for the file in the user/ directory.
+     * Next, we want to force a check for the file in the user location.
      * However, since we used the user directory as a fallback in the previous
      * check, we only want to do this if the fallback wasn't used. This cuts
      * down on unnecessary parsing.

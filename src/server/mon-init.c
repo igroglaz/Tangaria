@@ -1536,11 +1536,17 @@ static enum parser_error parse_monster_spells(struct parser *p)
     create_mon_spell_mask(current_flags, RST_INNATE, RST_NONE);
     rsf_inter(current_flags, r->spell_flags);
     if (!rsf_is_empty(current_flags) && !r->freq_innate)
+    {
+        string_free(flags);
         return PARSE_ERROR_MISSING_INNATE_FREQUENCY;
+    }
 
     /* Make sure spell frequency is set if necessary */
     if (!rsf_is_empty(r->spell_flags) && !r->freq_spell)
+    {
+        string_free(flags);
         return PARSE_ERROR_MISSING_SPELL_FREQUENCY;
+    }
 
     string_free(flags);
     return ret;

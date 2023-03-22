@@ -91,7 +91,7 @@ static void player_pickup_gold(struct player *p, struct chunk *c)
         disturb(p, 0);
 
         /* Build a message */
-        strnfmt(buf, sizeof(buf), "You have found %d gold piece%s worth of ", total_gold,
+        strnfmt(buf, sizeof(buf), "You have found %ld gold piece%s worth of ", (long)total_gold,
             PLURAL(total_gold));
 
         /* One treasure type.. */

@@ -522,9 +522,9 @@ static void file_get_savefile(char *filename, size_t max, const char *base, cons
 {
     int count = 0;
 
-    strnfmt(filename, max, "%s%u.%s", base, Rand_simple(1000000), ext);
+    strnfmt(filename, max, "%s%lu.%s", base, (unsigned long)Rand_simple(1000000), ext);
     while (file_exists(filename) && (count++ < 100))
-        strnfmt(filename, max, "%s%u%u.%s", base, Rand_simple(1000000), count, ext);
+        strnfmt(filename, max, "%s%lu%u.%s", base, (unsigned long)Rand_simple(1000000), count, ext);
 }
 
 

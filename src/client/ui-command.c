@@ -263,12 +263,12 @@ static void html_screenshot(const char *path, int mode, term *other_term)
 
             /* Set the foreground and background */
             fg_colour = (a % MAX_COLORS);
-            switch (a / MAX_COLORS)
+            switch (a / MULT_BG)
             {
                 case BG_BLACK: bg_colour = COLOUR_DARK; break;
                 case BG_SAME: bg_colour = fg_colour; break;
                 case BG_DARK: bg_colour = COLOUR_SHADE; break;
-                default: assert(a < BG_MAX * MAX_COLORS);
+                default: assert(a < BG_MAX * MULT_BG);
             }
 
             /*

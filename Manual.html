@@ -6520,7 +6520,10 @@ interface options.</p>
 <!--  -->
 <dl class="docutils">
 <dt>Rogue-like commands <tt class="docutils literal">rogue_like_commands</tt></dt>
-<dd>Selects the &quot;roguelike&quot; command set (see &quot;command.txt&quot; for info).</dd>
+<dd>Selects the &quot;roguelike&quot; command set. See <cite>Playing the Game</cite> for
+some description of the command sets. The &quot;roguelike&quot; command set may
+work better for you if use a keyboard which doesn't have a numeric
+keypad.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -8386,6 +8389,12 @@ hard-coded in list-mon-spells.h.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
+<dt>ui_knowledge.txt</dt>
+<dd>Handles some configuration of the knowledge menus, namely the layout of
+the monster categories.</dd>
+</dl>
+<!--  -->
+<dl class="docutils">
 <dt>dungeon.txt</dt>
 <dd>This file contains the list of dungeons.</dd>
 </dl>
@@ -8517,7 +8526,7 @@ them.</p>
 <tbody valign="top">
 <tr><td>Terrain</td>
 <td>terrain.txt</td>
-<td><tt class="docutils literal">feat:open floor</tt></td>
+<td><tt class="docutils literal">feat:FLOOR</tt></td>
 </tr>
 <tr><td>Trap</td>
 <td>trap.txt</td>
@@ -8557,13 +8566,13 @@ it is lit by a torch, or dark. these are selected by appending another colon
 and a specifier to the name. For example, this would be the name of a torch-lit
 up staircase:</p>
 <pre class="literal-block">
-feat:up staircase:torch
+feat:LESS:torch
 </pre>
 <p>It is possible to specify the same tile be used for all possible states of a
 terrain feature by using an asterisk. This example identifies any unknown
 terrain tile (a tile the player hasn't lit or otherwise seen yet):</p>
 <pre class="literal-block">
-feat:unknown grid:*
+feat:NONE:*
 </pre>
 <p>Given the full name of an object the last thing to do is to specify which tile
 from the tileset to use. Tile locations are given in a coordinate system using
@@ -8581,7 +8590,7 @@ be 0x90 and so on. To map an object to your tileset you will add one complete
 line to the file per object. This example maps the tile at 0x81:0x81 to the
 terrain feature 'quartz vein' when the quartz vein is lit by torch light:</p>
 <pre class="literal-block">
-feat:closed door:quartz vein:torch:0x81:0x81
+feat:QUARTZ:torch:0x81:0x81
 </pre>
 <p>Before going any further, it is advisable to map a single object in your
 preference file, then start the game up, select your tileset and make sure you
@@ -8589,7 +8598,7 @@ see your mapped tile in game. If this worked, then you are ready to design and
 map the rest of your tiles. A quick example would be to map a tile for your
 home in the town to the first tile position in your graphics file:</p>
 <pre class="literal-block">
-feat:Home:*:0x80:0x80
+feat:HOME:*:0x80:0x80
 </pre>
 <p>It's possible to have more than one preference file by using a sort of include
 syntax that causes other preference files referenced from your main preference
@@ -8620,51 +8629,51 @@ files, some of which have already been mentioned:</p>
 </colgroup>
 <tbody valign="top">
 <tr><td>list-dun-profiles.h</td>
-<td>list-mon-spells.h</td>
-<td>list-projections.h</td>
-</tr>
-<tr><td>list-effects.h</td>
-<td>list-mon-temp-flags.h</td>
+<td>list-mon-timed.h</td>
 <td>list-randart-properties.h</td>
 </tr>
-<tr><td>list-elements.h</td>
-<td>list-mon-timed.h</td>
+<tr><td>list-effects.h</td>
+<td>list-object-flags.h</td>
 <td>list-rooms.h</td>
 </tr>
-<tr><td>list-equip-slots.h</td>
-<td>list-object-flags.h</td>
+<tr><td>list-elements.h</td>
+<td>list-object-modifiers.h</td>
 <td>list-room-flags.h</td>
 </tr>
-<tr><td>list-history-types.h</td>
-<td>list-object-modifiers.h</td>
+<tr><td>list-equip-slots.h</td>
+<td>list-options.h</td>
 <td>list-square-flags.h</td>
 </tr>
-<tr><td>list-ignore-types.h</td>
-<td>list-options.h</td>
+<tr><td>list-history-types.h</td>
+<td>list-origins.h</td>
 <td>list-stats.h</td>
 </tr>
+<tr><td>list-ignore-types.h</td>
+<td>list-packets.h</td>
+<td>list-terrain.h</td>
+</tr>
 <tr><td>list-kind-flags.h</td>
-<td>list-origins.h</td>
+<td>list-parser-errors.h</td>
 <td>list-terrain-flags.h</td>
 </tr>
 <tr><td>list-message.h</td>
-<td>list-parser-errors.h</td>
+<td>list-player-flags.h</td>
 <td>list-trap-flags.h</td>
 </tr>
 <tr><td>list-mon-message.h</td>
-<td>list-player-flags.h</td>
+<td>list-player-timed.h</td>
 <td>list-tvals.h</td>
 </tr>
 <tr><td>list-mon-race-flags.h</td>
-<td>list-player-timed.h</td>
-<td>&nbsp;</td>
-</tr>
-<tr><td>list-packets.h</td>
 <td>list-project-environs.h</td>
-<td>list-project-monsters.h</td>
+<td>list-wild-feats.h</td>
 </tr>
-<tr><td>list-wild-feats.h</td>
+<tr><td>list-mon-spells.h</td>
+<td>list-project-monsters.h</td>
 <td>&nbsp;</td>
+</tr>
+<tr><td>list-mon-temp-flags.h</td>
+<td>list-projections.h</td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
