@@ -22,11 +22,13 @@
 
 static int get_attempts(const char *name)
 {
+    char buf[MSG_LEN];
     char filename[MSG_LEN];
     ang_file *fh;
     char filebuf[MSG_LEN];
 
-    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, format("lock\\%s.lock", name));
+    path_build(buf, sizeof(buf), ANGBAND_DIR_SAVE, "lock");
+    path_build(filename, sizeof(filename), buf, format("%s.lock", name));
     fh = file_open(filename, MODE_READ, FTYPE_TEXT);
     if (!fh) return 0;
     file_getl(fh, filebuf, sizeof(filebuf));
@@ -37,20 +39,22 @@ static int get_attempts(const char *name)
 
 static void update_attempts(const char *name, int attempts)
 {
+    char buf[MSG_LEN];
     char filename[MSG_LEN];
     ang_file *fh;
 
     path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, "lock");
     if (!dir_exists(filename)) dir_create(filename);
 
-    path_build(filename, sizeof(filename), ANGBAND_DIR_SAVE, format("lock\\%s.lock", name));
+    path_build(buf, sizeof(buf), ANGBAND_DIR_SAVE, "lock");
+    path_build(filename, sizeof(filename), buf, format("%s.lock", name));
     fh = file_open(filename, MODE_WRITE, FTYPE_TEXT);
     if (!fh)
     {
         plog("Failed to open lock file!");
         return;
     }
-    file_putf(fh, "%d", attempts);
+    file_putf(fh, "%d\n", attempts);
     file_close(fh);
 }
 

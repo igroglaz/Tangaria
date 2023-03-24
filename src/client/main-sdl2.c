@@ -4109,12 +4109,12 @@ static errr term_pict_hook(int col, int row, int n,
 
     if (!current_graphics_mode || current_graphics_mode->grafID == GRAPHICS_NONE)
     {
-     /*
-      * Do nothing unsuccessfully if asked to draw a tile while
-      * they're not enabled. Could proceed in this function
-      * with no apparent ill effects, but that just wastes time.
-      */
-     return -1;
+        /*
+         * Do nothing unsuccessfully if asked to draw a tile while
+         * they're not enabled. Could proceed in this function
+         * with no apparent ill effects, but that just wastes time.
+         */
+        return -1;
     }
 
     assert(subwindow->window->graphics.texture != NULL);

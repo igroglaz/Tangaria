@@ -130,8 +130,11 @@ static void clear_locks(void)
         {
             if (!streq(file_part, ".") && !streq(file_part, ".."))
             {
-                path_build(full_path, sizeof(full_path), ANGBAND_DIR_SAVE,
-                    format("lock\\%s", file_part));
+                char buf[MSG_LEN];
+
+                path_build(buf, sizeof(buf), ANGBAND_DIR_SAVE, "lock");
+                path_build(full_path, sizeof(full_path), buf,
+                    format("%s", file_part));
                 file_delete(full_path);
             }
         }
