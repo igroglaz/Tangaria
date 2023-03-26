@@ -7754,13 +7754,11 @@ skill-disarm-phys:36:10
 skill-disarm-magic:42:10
 skill-device:32:10
 skill-save:28:10
-# 3:0
 skill-stealth:2:1
 skill-search:15:15
 skill-melee:60:40
 skill-shoot:72:45
 skill-dig:0:0
-# 4
 hitdie:5
 max-attacks:4
 min-weight:35
@@ -7772,12 +7770,11 @@ equip:scroll:Satisfy Hunger (tattered):2:2:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[0]
-value:0:INT[-1]
+value:0:INT[0]
 value:0:WIS[-2]
-value:0:DEX[1]
+value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-1]
-player-flags:0:STEAL
 # got rat
 # cant join party
 # 20+ ego, 30 randart, 40 trueart
@@ -7817,9 +7814,18 @@ effect:RESTORE_MANA
 dice:1
 desc:Try to salvage item into valuable parts.
 
-# hc distance 2 (not 1-2 rng)
-# hced by mana cost
-spell:Roll:3:1:1:3:0
+spell:Feign Death:3:1:1:1:0
+cooldown:300
+effect:TIMED_INC_NO_RES:PARALYZED
+expr:B:PLAYER_LEVEL:/ 10 + 5
+effect:TIMED_SET:REVIVE
+expr:B:PLAYER_LEVEL:/ 10 + 5
+msg_other: collapses and lie still.
+desc:Feign death makes monsters to think you are dead for a while.
+desc: Cooldown 300 turns.
+
+# hc min distance 2 (not 1-2 rng)
+spell:Roll:5:1:1:3:0
 effect:RESTORE_MANA
 dice:1
 effect:RESTORE_MANA
@@ -7836,9 +7842,16 @@ msg_other: rolls away.
 desc:Roll away randomly to a close distance.
 desc:You can roll around almost effortlessly.
 
-spell:Antidote:10:4:40:5:0
+spell:Antidote:7:1:1:1:0
 effect:CURE:POISONED
 desc:Cures poison.
+
+spell:Cartographer:10:1:1:1:0
+cooldown:100
+effect:MAP_AREA
+effect-yx:15:32
+desc:Maps out a portion of the level around.
+desc: Cooldown 100 turns.
 
 spell:Dirty Trick:15:7:30:10:0
 effect:TIMED_SET:ATT_POIS:0:5
@@ -7856,27 +7869,19 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 3
 desc:Apply bandages to heal.
 
-spell:Ancient Lore:30:20:45:40:0
-effect:IDENTIFY
-desc:Reveals an unknown rune on an object.
-
-spell:Treasure Map:35:25:55:8:0
-effect:MAP_AREA
-effect-yx:15:32
+spell:Treasure Map:30:1:1:1:0
+cooldown:100
 effect:DETECT_TREASURES:NONE:1
 effect-yx:22:40
-desc:Maps out a portion of the level around you and
-desc: detects all valuable objects in the immediate area.
+desc:Detects all valuable objects in the immediate area.
+desc: Cooldown 100 turns.
 
-spell:Whirlwind Attack:40:30:35:60:0
-effect:SWEEP
-desc:Deals a melee attack to each adjacent enemy.
-
-spell:Fire in the Hole:45:40:40:75:0
+spell:Fire in the Hole:35:40:40:75:0
+# hc radius
 effect:EARTHQUAKE:NONE:1
 desc:Causes a earthquake centered around the player.
 
-spell:Emergency Ration:50:50:25:100:0
+spell:Emergency Ration:40:50:25:100:0
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.

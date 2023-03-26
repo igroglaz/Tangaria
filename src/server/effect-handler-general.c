@@ -5372,7 +5372,8 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     if (is_player && (streq(context->origin->player->clazz->name, "Scavenger") ||
          streq(context->origin->player->clazz->name, "Phaseblade")) &&
         context->origin->player->spell_cost == 1)
-        d_min = 2;
+        d_min = 2; // check for out of bonds server crush.. 
+        // in town, hidden way near lake
 
     /* Try very hard to move the player/monster between dis / 4 and dis grids away */
     if (dis <= d_min) d_max = d_min;

@@ -1463,6 +1463,20 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
     if (context->radius) r = context->radius;
     context->ident = true;
 
+    if (context->origin->player)
+    {
+        if (streq(context->origin->player->clazz->name, "Scavenger"))
+        {
+            // Fire in the Hole (mana 40)
+            if (context->origin->player->spell_cost == 40)
+                {
+                    // distance
+                    context->radius += context->origin->player->lev / 10;
+                    if (context->radius > 5) context->radius = 5;
+                }
+        }
+    }
+
     /* Only on random levels */
     if (!random_level(&context->origin->player->wpos))
     {
