@@ -2019,7 +2019,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     if (!VALID_DIR(dir)) return;
 
     // Golem. Move. Only. Straight. Movement. Denied.
-    if (streq(p->race->name, "Golem"))
+    // (but can walk any direction in town)
+    if (streq(p->race->name, "Golem") && p->wpos.depth > 0)
         if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
             return;
 
@@ -2600,7 +2601,8 @@ bool do_cmd_walk(struct player *p, int dir)
     if (!dir) return true;
 
     // Golem. Move. Only. Straight. Movement. Denied.
-    if (streq(p->race->name, "Golem"))
+    // (but can walk any direction in town)
+    if (streq(p->race->name, "Golem") && p->wpos.depth > 0)
         if (dir == 1 || dir == 3 || dir == 7 || dir == 9)
             return false;
 
