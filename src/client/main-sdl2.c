@@ -1089,6 +1089,88 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     src.x = src_col * src.w;
     src.y = src_row * src.h;
 
+    //// Animate character movement ////
+    if (animate_move && (!fill)) {
+        switch (randint1(9))
+        {
+            case 1:
+            {
+                src.x += 1;
+                src.y += 1;
+                break;
+            }
+            case 2:
+            {
+                src.x -= 1;
+                src.y -= 1;
+                break;
+            }
+            case 3:
+            {
+                src.x += 1;
+                src.y -= 1;
+                break;
+            }
+            case 4:
+            {
+                src.x -= 1;
+                src.y += 1;
+                break;
+            }
+            case 5: src.x += 1; break;
+            case 6: src.x -= 1; break;
+            case 7: src.y += 1; break;
+            case 8: src.y -= 1; break;
+            default: break;
+        }
+        animate_move = false;
+    }
+
+    //// Slashfx ////
+    // slashfx_move:
+    //  |1|2|3|
+    //  |4|5|6|
+    //  |7|8|9|
+    if (animate_slashfx && (!fill)) {
+        int r_slashfx;
+
+        r_slashfx = randint1(4);
+
+        switch (slashfx_move)
+        {
+            case 1:
+            {
+                dst.x += r_slashfx;
+                dst.y += r_slashfx;
+                break;
+            }
+            case 2: dst.y += r_slashfx; break;
+            case 3:
+            {
+                dst.x -= r_slashfx;
+                dst.y += r_slashfx;
+                break;
+            }
+            case 4: dst.x += r_slashfx; break;
+            case 5: break; // player
+            case 6: dst.x -= r_slashfx; break;
+            case 7:
+            {
+                dst.x += r_slashfx;
+                dst.y -= r_slashfx;
+                break;
+            }
+            case 8: dst.y -= r_slashfx; break;
+            case 9:
+            {
+                dst.x -= r_slashfx;
+                dst.y -= r_slashfx;
+                break;
+            }
+        }
+        animate_slashfx = false;
+    }
+
     if (graphics->overdraw_row != 0
             && row > 2
             && src_row >= graphics->overdraw_row

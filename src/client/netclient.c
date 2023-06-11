@@ -69,6 +69,7 @@ static int ticks = 0, last_sent = 0, last_received = 0;
 static int ticks10 = 0; // 'deci-ticks', counting just 0..9 in 10ms intervals
 static int weather_ticks = 0; // weather ticks
 static int animation_ticks = 0; // animation ticks
+static int slashfx_ticks = 0; // slashfx ticks
 
 static bool request_redraw;
 static sockbuf_t rbuf, wbuf, qbuf;
@@ -172,7 +173,9 @@ void do_keepalive(void)
         Send_keepalive();
     }
 
-    // Hack -- Update weather
+    //// Timers ////
+
+    // Timer -- Update weather
     if (player->weather_type != 0)
     {
         // attempt to keep track of 'deci-ticks' (10ms resolution)
@@ -185,17 +188,31 @@ void do_keepalive(void)
         }
     }
 
-    // Hack -- Update animation
-    if (OPT(player, animate_player))
+    // Timer -- Update animation
+    if (OPT(player, animations))
     {
         // attempt to keep track of 'ticks' (800ms resolution)
         if ((ticks - animation_ticks) > 8)
         {
             animation_ticks = ticks;
 
-            //* Animate player (graphics mode) *//
+            //* Animations (graphics mode) *//
             if ((use_graphics) && (Setup.initialized))
-                do_animate_player();
+                do_animations();
+        }
+    }
+
+    // Timer -- Update slashfx
+    if (OPT(player, animations))
+    {
+        // attempt to keep track of 'ticks' (300ms resolution)
+        if ((ticks - slashfx_ticks) > 3)
+        {
+            slashfx_ticks = ticks;
+
+            //* Animations (graphics mode) *//
+            if ((use_graphics) && (Setup.initialized))
+                do_slashfx();
         }
     }
 }

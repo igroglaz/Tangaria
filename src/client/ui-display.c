@@ -94,7 +94,14 @@ static game_event_type statusline_events[] =
 static int monwidth = -1;
 
 
-//// Animate player ////
+//// Animations ////
+bool animate_move = false; // animate character (sdl side)
+bool animate_slashfx = false; // animate slashfx (sdl side)
+int slashfx_move = 0; // slashfx move (sdl side)
+
+static uint16_t animate_move_option = 1;
+static uint16_t slashfx_move_option = 1;
+
 static uint16_t life_n; // doesn't animate the player as a number
 static uint16_t anim_ghost_a; // ghost 'a'
 static char anim_ghost_c; // ghost 'c'
@@ -109,6 +116,7 @@ static char anim_pn_c[128][128]; // remap the player neuter 'c'
 static uint16_t s_obj[1024][256]; // search objects
 static uint16_t anim_obj_a[1024][256]; // animate objects 'a'
 static char anim_obj_c[1024][256]; // animate objects 'c'
+static uint16_t s_monster[1024][256]; // search monsters
 
 
 /*** Sidebar display functions ***/
@@ -2326,6 +2334,22 @@ void do_weather(void)
 }
 
 
+static enum parser_error parse_prefs_animate_move_option(struct parser *p)
+{
+    animate_move_option = (uint16_t)parser_getint(p, "attr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_slashfx_move_option(struct parser *p)
+{
+    slashfx_move_option = (uint16_t)parser_getint(p, "attr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static enum parser_error parse_prefs_life_n(struct parser *p)
 {
     life_n = (uint16_t)parser_getint(p, "attr");
@@ -2414,10 +2438,26 @@ static enum parser_error parse_prefs_anim_obj(struct parser *p)
 }
 
 
+static enum parser_error parse_prefs_anim_monster(struct parser *p)
+{
+    int na;
+    int nc;
+
+    na = parser_getint(p, "attr");
+    nc = parser_getint(p, "char");
+
+    s_monster[na][nc] = parser_getint(p, "n");
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static struct parser *init_parse_animation(void)
 {
     struct parser *p = parser_new();
 
+    parser_reg(p, "animate-move-option int attr", parse_prefs_animate_move_option);
+    parser_reg(p, "slashfx-move-option int attr", parse_prefs_slashfx_move_option);
     parser_reg(p, "life-n int attr", parse_prefs_life_n);
     parser_reg(p, "anim-ghost int attr int char", parse_prefs_anim_ghost);
     parser_reg(p, "anim-pr int ridx int attr int char", parse_prefs_anim_pr);
@@ -2425,6 +2465,7 @@ static struct parser *init_parse_animation(void)
     parser_reg(p, "anim-pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
     parser_reg(p, "anim-pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
     parser_reg(p, "anim-obj int attr int char int n int anim_attr int anim_char", parse_prefs_anim_obj);
+    parser_reg(p, "anim-monster int n int attr int char", parse_prefs_anim_monster);
 
     return p;
 }
@@ -2477,8 +2518,8 @@ static bool read_animation_file(void)
 }
 
 
-//// Animate player ////
-void do_animate_player(void)
+//// Animations ////
+void do_animations(void)
 {
     term *main_term = angband_term[0];
     term *old = Term;
@@ -2590,9 +2631,12 @@ void do_animate_player(void)
 
         // Doesn't animate the player as a number if hp/mana is low
         if (a != life_n)
+        {
+            if (animate_move_option == 1) animate_move = true;
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+        }
     }
     else if (animation_player && animation_frame == 1)
     {
@@ -2602,9 +2646,30 @@ void do_animate_player(void)
 
         // Doesn't animate the player as a number if hp/mana is low
         if (a != life_n)
+        {
+            if (animate_move_option == 1) animate_move = true;
             // Display
             (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                 ROW_MAP + y * tile_height, 1, &p_attr, &p_char, &ta, &tc));
+        }
+    }
+    else
+    {
+        if (animate_move_option == 1)
+        {
+            // Check characters
+            Term_info(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
+
+            // Doesn't animate the player as a number if hp/mana is low
+            if (a != life_n)
+            {
+                animate_move = true;
+                // Display
+                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                    ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+            }
+        }
     }
 
     //// Animate characters/objects ////
@@ -2647,6 +2712,75 @@ void do_animate_player(void)
 
     animation_frame++;
     if (animation_frame > 1) animation_frame = 0;
+
+    // Actually flush the output
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+
+
+//// Handle the slash effects ////
+void do_slashfx(void)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    int i, j;
+    int x, y;
+
+    uint16_t a;
+    char c;
+    uint16_t ta;
+    char tc;
+    uint16_t nc;
+
+    if (slashfx_move_option == 0) return;
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get player coordinates
+    x = player->grid.x - player->offset_grid.x;
+    y = player->grid.y - player->offset_grid.y;
+
+    //// Monsters attack ////
+    // Search characters around the player (3x3)
+    for (i = y - 1; i < y + 2; i++)
+    {
+        for (j = x - 1; j < x + 2; j++)
+        {
+            slashfx_move++;
+
+            // Skip player
+            if (i == y && j == x) continue;
+
+            // Check characters
+            Term_info(COL_MAP + j * tile_width, 
+                ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
+
+            // Convert char to uint8_t [0 - 255]
+            nc = (uint8_t) c;
+
+            // Check for overflow s_monster[1024][256]
+            if (a > 1024 || nc > 256) continue;
+
+            // If found then animate
+            if (s_monster[a][nc] == 1)
+            {
+                animate_slashfx = true;
+                // Display
+                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+            }
+        }
+    }
+
+    if (slashfx_move > 9) slashfx_move = 0;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
