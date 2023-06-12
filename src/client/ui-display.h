@@ -18,7 +18,6 @@ extern int16_t last_remote_line[ANGBAND_TERM_MAX];
 
 extern const char *window_flag_desc[PW_MAX_FLAGS];
 
-extern bool animate_move;
 extern bool animate_slashfx;
 extern int slashfx_move;
 
