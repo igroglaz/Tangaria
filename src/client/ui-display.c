@@ -97,6 +97,7 @@ static int monwidth = -1;
 //// Animations ////
 bool animate_slashfx = false; // animate slashfx (sdl side)
 int slashfx_move = 0; // slashfx move (sdl side)
+bool m_attack = false; // monsters attack
 
 static uint16_t opt_anim_player = 1;
 static uint16_t opt_anim_obj = 1;
@@ -2558,6 +2559,9 @@ void do_animations(void)
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
 
+    // If monsters attack then disable animations
+    if (m_attack && opt_slashfx_move != 0) return;
+
     // Activate the term
     Term_activate(main_term);
 
@@ -2658,21 +2662,6 @@ void do_animations(void)
                 (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                     ROW_MAP + y * tile_height, 1, &p_attr, &p_char, &ta, &tc));
         }
-        else
-        {
-            if (opt_slashfx_move == 0)
-            {
-                // Check characters
-                Term_info(COL_MAP + x * tile_width, 
-                    ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
-
-                // Doesn't animate the player as a number if hp/mana is low
-                if (a != life_n)
-                    // Display
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                        ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-            }
-        }
     }
 
     if (opt_anim_obj != 0)
@@ -2742,10 +2731,22 @@ void do_slashfx(void)
     char tc;
     uint16_t nc;
 
+    static int slashfx_frame = 0;
+    static int16_t s_hp;
+
     if (opt_slashfx_move == 0) return;
 
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
+
+    // Check HP
+    if (player->chp != s_hp)
+    {
+        player->chp = s_hp;
+        m_attack = true;
+    }
+
+    if (!m_attack) return;
 
     // Activate the term
     Term_activate(main_term);
@@ -2753,6 +2754,15 @@ void do_slashfx(void)
     // Get player coordinates
     x = player->grid.x - player->offset_grid.x;
     y = player->grid.y - player->offset_grid.y;
+
+    //// Draw player ////
+    // Check characters
+    Term_info(COL_MAP + x * tile_width, 
+        ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
+
+    // Display player
+    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+        ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
 
     //// Monsters attack ////
     // Search characters around the player (3x3)
@@ -2762,28 +2772,8 @@ void do_slashfx(void)
         {
             slashfx_move++;
 
-            if (i == y && j == x)
-            {
-                if (opt_anim_player == 0)
-                {
-                    // Draw player
-
-                    // Check characters
-                    Term_info(COL_MAP + j * tile_width, 
-                        ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
-
-                    // Display
-                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                        ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-
-                    continue;
-                }
-                else
-                {
-                    // Skip player
-                    continue;
-                }
-            }
+            // Skip player
+            if (i == y && j == x) continue;
 
             // Check characters
             Term_info(COL_MAP + j * tile_width, 
@@ -2796,18 +2786,24 @@ void do_slashfx(void)
             if (a > 1024 || nc > 256) continue;
 
             // If found then animate
-            if (s_monster[a][nc] == 1)
-            {
-                animate_slashfx = true;
-                // Display
-                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-            }
+            if (s_monster[a][nc] == 1) animate_slashfx = true;
+
+            // Display
+            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
         }
     }
 
     // 1-9 - monster attack, 10-18 - redraw monster
     if (slashfx_move >= 18) slashfx_move = 0;
+
+    // Monster attack time
+    slashfx_frame++;
+    if (slashfx_frame > 8)
+    {
+        slashfx_frame = 0;
+        m_attack = false;
+    }
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
