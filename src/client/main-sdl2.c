@@ -1089,7 +1089,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     src.x = src_col * src.w;
     src.y = src_row * src.h;
 
-    //// Monsters attack - Slashfx ////
+    //// Monsters attack - do_slashfx() ////
     // slashfx_move:
     //  |1|2|3|
     //  |4|5|6|
