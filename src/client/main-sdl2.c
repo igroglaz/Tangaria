@@ -1089,44 +1089,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     src.x = src_col * src.w;
     src.y = src_row * src.h;
 
-    //// Animate character movement ////
-    if (animate_move && (!fill)) {
-        switch (randint1(9))
-        {
-            case 1:
-            {
-                src.x += 1;
-                src.y += 1;
-                break;
-            }
-            case 2:
-            {
-                src.x -= 1;
-                src.y -= 1;
-                break;
-            }
-            case 3:
-            {
-                src.x += 1;
-                src.y -= 1;
-                break;
-            }
-            case 4:
-            {
-                src.x -= 1;
-                src.y += 1;
-                break;
-            }
-            case 5: src.x += 1; break;
-            case 6: src.x -= 1; break;
-            case 7: src.y += 1; break;
-            case 8: src.y -= 1; break;
-            default: break;
-        }
-        animate_move = false;
-    }
-
-    //// Slashfx ////
+    //// Monsters attack - Slashfx ////
     // slashfx_move:
     //  |1|2|3|
     //  |4|5|6|
@@ -1134,7 +1097,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     if (animate_slashfx && (!fill)) {
         int r_slashfx;
 
-        r_slashfx = randint1(4);
+        r_slashfx = randint0(6);
 
         switch (slashfx_move)
         {

@@ -6,8 +6,9 @@
 #
 
 ##### Options #####
-animate-move-option:1
-slashfx-move-option:1
+opt-anim-player:1
+opt-anim-obj:1
+opt-slashfx-move:1
 
 
 # Doesn't animate the player as a number if hp/mana is low

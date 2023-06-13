@@ -95,12 +95,12 @@ static int monwidth = -1;
 
 
 //// Animations ////
-bool animate_move = false; // animate character (sdl side)
 bool animate_slashfx = false; // animate slashfx (sdl side)
 int slashfx_move = 0; // slashfx move (sdl side)
 
-static uint16_t animate_move_option = 1;
-static uint16_t slashfx_move_option = 1;
+static uint16_t opt_anim_player = 1;
+static uint16_t opt_anim_obj = 1;
+static uint16_t opt_slashfx_move = 1;
 
 static uint16_t life_n; // doesn't animate the player as a number
 static uint16_t anim_ghost_a; // ghost 'a'
@@ -2334,17 +2334,25 @@ void do_weather(void)
 }
 
 
-static enum parser_error parse_prefs_animate_move_option(struct parser *p)
+static enum parser_error parse_prefs_opt_anim_player(struct parser *p)
 {
-    animate_move_option = (uint16_t)parser_getint(p, "attr");
+    opt_anim_player = (uint16_t)parser_getint(p, "attr");
 
     return PARSE_ERROR_NONE;
 }
 
 
-static enum parser_error parse_prefs_slashfx_move_option(struct parser *p)
+static enum parser_error parse_prefs_opt_anim_obj(struct parser *p)
 {
-    slashfx_move_option = (uint16_t)parser_getint(p, "attr");
+    opt_anim_obj = (uint16_t)parser_getint(p, "attr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_opt_slashfx_move(struct parser *p)
+{
+    opt_slashfx_move = (uint16_t)parser_getint(p, "attr");
 
     return PARSE_ERROR_NONE;
 }
@@ -2456,8 +2464,9 @@ static struct parser *init_parse_animation(void)
 {
     struct parser *p = parser_new();
 
-    parser_reg(p, "animate-move-option int attr", parse_prefs_animate_move_option);
-    parser_reg(p, "slashfx-move-option int attr", parse_prefs_slashfx_move_option);
+    parser_reg(p, "opt-anim-player int attr", parse_prefs_opt_anim_player);
+    parser_reg(p, "opt-anim-obj int attr", parse_prefs_opt_anim_obj);
+    parser_reg(p, "opt-slashfx-move int attr", parse_prefs_opt_slashfx_move);
     parser_reg(p, "life-n int attr", parse_prefs_life_n);
     parser_reg(p, "anim-ghost int attr int char", parse_prefs_anim_ghost);
     parser_reg(p, "anim-pr int ridx int attr int char", parse_prefs_anim_pr);
@@ -2556,106 +2565,76 @@ void do_animations(void)
     x = player->grid.x - player->offset_grid.x;
     y = player->grid.y - player->offset_grid.y;
 
-    //// Player tile frame ////
-    if (player->ghost)
+    if (opt_anim_player != 0)
     {
-        p_attr = anim_ghost_a;
-        p_char = anim_ghost_c;
-        animation_player = true;
-    }
-    // anim_pr '0' - doesn't animate player tile
-    // anim_pr '0x80' -> anim_pm/anim_pf/anim_pn
-    else if (anim_pr_a[player->race->ridx] == 0)
-    {
-        // doesn't animate the player
-        animation_player = false;
-    }
-    else if (anim_pr_a[player->race->ridx] == 0x80)
-    {
-        if (streq(player->sex->title, "Male"))
+        //// Player tile frame ////
+        if (player->ghost)
         {
-            if (anim_pm_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+            p_attr = anim_ghost_a;
+            p_char = anim_ghost_c;
+            animation_player = true;
+        }
+        // anim_pr '0' - doesn't animate player tile
+        // anim_pr '0x80' -> anim_pm/anim_pf/anim_pn
+        else if (anim_pr_a[player->race->ridx] == 0)
+        {
+            // doesn't animate the player
+            animation_player = false;
+        }
+        else if (anim_pr_a[player->race->ridx] == 0x80)
+        {
+            if (streq(player->sex->title, "Male"))
             {
-                // doesn't animate the player
-                animation_player = false;
+                if (anim_pm_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+                {
+                    // doesn't animate the player
+                    animation_player = false;
+                }
+                else
+                {
+                    p_attr = anim_pm_a[player->race->ridx][player->clazz->cidx];
+                    p_char = anim_pm_c[player->race->ridx][player->clazz->cidx];
+                    animation_player = true;
+                }
             }
-            else
+            else if (streq(player->sex->title, "Female"))
             {
-                p_attr = anim_pm_a[player->race->ridx][player->clazz->cidx];
-                p_char = anim_pm_c[player->race->ridx][player->clazz->cidx];
-                animation_player = true;
+                if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+                {
+                    // doesn't animate the player
+                    animation_player = false;
+                }
+                else
+                {
+                    p_attr = anim_pf_a[player->race->ridx][player->clazz->cidx];
+                    p_char = anim_pf_c[player->race->ridx][player->clazz->cidx];
+                    animation_player = true;
+                }
+            }
+            else if (streq(player->sex->title, "Neuter"))
+            {
+                if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
+                {
+                    // doesn't animate the player
+                    animation_player = false;
+                }
+                else
+                {
+                    p_attr = anim_pn_a[player->race->ridx][player->clazz->cidx];
+                    p_char = anim_pn_c[player->race->ridx][player->clazz->cidx];
+                    animation_player = true;
+                }
             }
         }
-        else if (streq(player->sex->title, "Female"))
+        else
         {
-            if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
-            {
-                // doesn't animate the player
-                animation_player = false;
-            }
-            else
-            {
-                p_attr = anim_pf_a[player->race->ridx][player->clazz->cidx];
-                p_char = anim_pf_c[player->race->ridx][player->clazz->cidx];
-                animation_player = true;
-            }
+            p_attr = anim_pr_a[player->race->ridx];
+            p_char = anim_pr_c[player->race->ridx];
+            animation_player = true;
         }
-        else if (streq(player->sex->title, "Neuter"))
-        {
-            if (anim_pf_a[player->race->ridx][player->clazz->cidx] <= 0x80)
-            {
-                // doesn't animate the player
-                animation_player = false;
-            }
-            else
-            {
-                p_attr = anim_pn_a[player->race->ridx][player->clazz->cidx];
-                p_char = anim_pn_c[player->race->ridx][player->clazz->cidx];
-                animation_player = true;
-            }
-        }
-    }
-    else
-    {
-        p_attr = anim_pr_a[player->race->ridx];
-        p_char = anim_pr_c[player->race->ridx];
-        animation_player = true;
-    }
 
-    //// Draw player ////
-    if (animation_player && animation_frame == 0)
-    {
-        // Check characters
-        Term_info(COL_MAP + x * tile_width, 
-            ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
-
-        // Doesn't animate the player as a number if hp/mana is low
-        if (a != life_n)
-        {
-            if (animate_move_option == 1) animate_move = true;
-            // Display
-            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-        }
-    }
-    else if (animation_player && animation_frame == 1)
-    {
-        // Check characters
-        Term_info(COL_MAP + x * tile_width, 
-            ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
-
-        // Doesn't animate the player as a number if hp/mana is low
-        if (a != life_n)
-        {
-            if (animate_move_option == 1) animate_move = true;
-            // Display
-            (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                ROW_MAP + y * tile_height, 1, &p_attr, &p_char, &ta, &tc));
-        }
-    }
-    else
-    {
-        if (animate_move_option == 1)
+        //// Draw player ////
+        if (animation_player && animation_frame == 0)
         {
             // Check characters
             Term_info(COL_MAP + x * tile_width, 
@@ -2663,48 +2642,75 @@ void do_animations(void)
 
             // Doesn't animate the player as a number if hp/mana is low
             if (a != life_n)
-            {
-                animate_move = true;
                 // Display
                 (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
                     ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
+        }
+        else if (animation_player && animation_frame == 1)
+        {
+            // Check characters
+            Term_info(COL_MAP + x * tile_width, 
+                ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
+
+            // Doesn't animate the player as a number if hp/mana is low
+            if (a != life_n)
+                // Display
+                (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                    ROW_MAP + y * tile_height, 1, &p_attr, &p_char, &ta, &tc));
+        }
+        else
+        {
+            if (opt_slashfx_move == 0)
+            {
+                // Check characters
+                Term_info(COL_MAP + x * tile_width, 
+                    ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
+
+                // Doesn't animate the player as a number if hp/mana is low
+                if (a != life_n)
+                    // Display
+                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
+                        ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
             }
         }
     }
 
-    //// Animate characters/objects ////
-    // Search objects around the player (5x5)
-    for (i = y - 2; i < y + 3; i++)
+    if (opt_anim_obj != 0)
     {
-        for (j = x - 2; j < x + 3; j++)
+        //// Animate characters/objects ////
+        // Search objects around the player (5x5)
+        for (i = y - 2; i < y + 3; i++)
         {
-            // Skip player
-            if (i == y && j == x) continue;
-
-            // Check characters
-            Term_info(COL_MAP + j * tile_width, 
-                ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
-
-            // Convert char to uint8_t [0 - 255]
-            nc = (uint8_t) c;
-
-            // Check for overflow s_obj[1024][256]
-            if (a > 1024 || nc > 256) continue;
-
-            // If found then animate
-            if (s_obj[a][nc] == 1)
+            for (j = x - 2; j < x + 3; j++)
             {
-                if (animation_frame == 0)
+                // Skip player
+                if (i == y && j == x) continue;
+
+                // Check characters
+                Term_info(COL_MAP + j * tile_width, 
+                    ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
+
+                // Convert char to uint8_t [0 - 255]
+                nc = (uint8_t) c;
+
+                // Check for overflow s_obj[1024][256]
+                if (a > 1024 || nc > 256) continue;
+
+                // If found then animate
+                if (s_obj[a][nc] == 1)
                 {
-                    // Display
-                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                        ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
-                }
-                else if (animation_frame == 1)
-                {
-                    // Display
-                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                        ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                    if (animation_frame == 0)
+                    {
+                        // Display
+                        (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                            ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
+                    }
+                    else if (animation_frame == 1)
+                    {
+                        // Display
+                        (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                            ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                    }
                 }
             }
         }
@@ -2736,7 +2742,7 @@ void do_slashfx(void)
     char tc;
     uint16_t nc;
 
-    if (slashfx_move_option == 0) return;
+    if (opt_slashfx_move == 0) return;
 
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
@@ -2756,8 +2762,28 @@ void do_slashfx(void)
         {
             slashfx_move++;
 
-            // Skip player
-            if (i == y && j == x) continue;
+            if (i == y && j == x)
+            {
+                if (opt_anim_player == 0)
+                {
+                    // Draw player
+
+                    // Check characters
+                    Term_info(COL_MAP + j * tile_width, 
+                        ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
+
+                    // Display
+                    (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                        ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+
+                    continue;
+                }
+                else
+                {
+                    // Skip player
+                    continue;
+                }
+            }
 
             // Check characters
             Term_info(COL_MAP + j * tile_width, 
@@ -2780,7 +2806,8 @@ void do_slashfx(void)
         }
     }
 
-    if (slashfx_move > 9) slashfx_move = 0;
+    // 1-9 - monster attack, 10-18 - redraw monster
+    if (slashfx_move >= 18) slashfx_move = 0;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);

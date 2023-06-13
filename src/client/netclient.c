@@ -205,8 +205,8 @@ void do_keepalive(void)
     // Timer -- Update slashfx
     if (OPT(player, animations))
     {
-        // attempt to keep track of 'ticks' (300ms resolution)
-        if ((ticks - slashfx_ticks) > 3)
+        // attempt to keep track of 'ticks' (200ms resolution)
+        if ((ticks - slashfx_ticks) > 2)
         {
             slashfx_ticks = ticks;
 
