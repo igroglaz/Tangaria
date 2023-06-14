@@ -1528,14 +1528,40 @@ anim-pn:13:17:0x80:0x80
 #anim-obj:0xA6:0xA6:1:0xA9:0x9E
 #anim-obj:0xA6:0xA7:1:0xA9:0x9F
 
+##### Sample (store + sprite)
+# Sonya the cat
+#anim-obj:0x9E:0x85:1:0x82:0xA1
+
+# Shtukensia
+#anim-obj:0x9E:0x99:1:0x82:0xA1
+
+
+##### Pets don't attack #####
+# monster-pet:class:n:1:attr:char
+
+# Shapechanger
+#monster-pet:17:0:1:0x80:0x80
+#monster-pet:17:1:1:0x80:0x80
+#monster-pet:17:2:1:0x80:0x80
+#monster-pet:17:3:1:0x80:0x80
+
+# Villager
+#monster-pet:18:0:1:0x80:0x80
+#monster-pet:18:1:1:0x80:0x80
+#monster-pet:18:2:1:0x80:0x80
+#monster-pet:18:3:1:0x80:0x80
+
+# Tamer
+monster-pet:19:0:1:0x9B:0xA0
+
+# Scavenger
+monster-pet:34:0:1:0x9B:0x9F
+
 
 ##### Animate monsters attack #####
 # anim-monster:1:attr:char
 
 # Monsters graf-tan.prf
-
-##### Monster attr/char definitions #####
-
 anim-monster:1:0x83:0x80
 anim-monster:1:0x8B:0x83
 anim-monster:1:0x8B:0x85
