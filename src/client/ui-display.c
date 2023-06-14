@@ -119,6 +119,9 @@ static uint16_t anim_obj_a[1024][256]; // animate objects 'a'
 static char anim_obj_c[1024][256]; // animate objects 'c'
 static uint16_t s_monster[1024][256]; // search monsters
 
+static uint16_t pet_pc_a[128][128][1024]; // pets don't attack 'a'
+static char pet_pc_c[128][128][256]; // pets don't attack 'c'
+
 
 /*** Sidebar display functions ***/
 
@@ -2447,6 +2450,26 @@ static enum parser_error parse_prefs_anim_obj(struct parser *p)
 }
 
 
+static enum parser_error parse_prefs_monster_pet(struct parser *p)
+{
+    int cidx;
+    int nm;
+    int na;
+    int nc;
+    int n;
+
+    cidx = parser_getint(p, "cidx");
+    nm = parser_getint(p, "nm");
+    na = parser_getint(p, "attr");
+    nc = parser_getint(p, "char");
+
+    pet_pc_a[cidx][nm][na] = parser_getint(p, "n");
+    pet_pc_c[cidx][nm][nc] = parser_getint(p, "n");
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static enum parser_error parse_prefs_anim_monster(struct parser *p)
 {
     int na;
@@ -2475,6 +2498,7 @@ static struct parser *init_parse_animation(void)
     parser_reg(p, "anim-pf int ridx int cidx int attr int char", parse_prefs_anim_pf);
     parser_reg(p, "anim-pn int ridx int cidx int attr int char", parse_prefs_anim_pn);
     parser_reg(p, "anim-obj int attr int char int n int anim_attr int anim_char", parse_prefs_anim_obj);
+    parser_reg(p, "monster-pet int cidx int nm int n int attr int char", parse_prefs_monster_pet);
     parser_reg(p, "anim-monster int n int attr int char", parse_prefs_anim_monster);
 
     return p;
@@ -2722,7 +2746,7 @@ void do_slashfx(void)
     term *main_term = angband_term[0];
     term *old = Term;
 
-    int i, j;
+    int i, j, k;
     int x, y;
 
     uint16_t a;
@@ -2732,19 +2756,20 @@ void do_slashfx(void)
     uint16_t nc;
 
     static int slashfx_frame = 0;
-    static int16_t s_hp;
+    static int16_t s_hp = 0;
+    bool skip_pet = false;
 
     if (opt_slashfx_move == 0) return;
 
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
 
+    // Check if character is alive
+    if (player->chp <= 0) return;
+
     // Check HP
-    if (player->chp != s_hp)
-    {
-        player->chp = s_hp;
-        m_attack = true;
-    }
+    if (!m_attack && player->chp < s_hp) m_attack = true;
+    s_hp = player->chp;
 
     if (!m_attack) return;
 
@@ -2785,6 +2810,29 @@ void do_slashfx(void)
             // Check for overflow s_monster[1024][256]
             if (a > 1024 || nc > 256) continue;
 
+            // Check pets don't attack
+            for (k = 0; k < 128; k++)
+            {
+                // Check the list
+                if ((pet_pc_a[player->clazz->cidx][k][a] == 0) && 
+                    (pet_pc_c[player->clazz->cidx][k][nc] == 0))
+                        break;
+
+                // If found then skip_pet
+                if ((pet_pc_a[player->clazz->cidx][k][a] == 1) && 
+                    (pet_pc_c[player->clazz->cidx][k][nc] == 1))
+                {
+                    skip_pet = true;
+                    break;
+                }
+            }
+
+            if (skip_pet)
+            {
+                skip_pet = false;
+                continue;
+            }
+
             // If found then animate
             if (s_monster[a][nc] == 1) animate_slashfx = true;
 
@@ -2799,7 +2847,7 @@ void do_slashfx(void)
 
     // Monster attack time
     slashfx_frame++;
-    if (slashfx_frame > 8)
+    if (slashfx_frame > 10)
     {
         slashfx_frame = 0;
         m_attack = false;
