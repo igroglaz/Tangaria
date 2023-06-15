@@ -1537,25 +1537,24 @@ anim-pn:13:17:0x80:0x80
 
 
 ##### Pets don't attack #####
-# monster-pet:class:n:1:attr:char
+# monster-pet:class:1:attr:char
 
 # Shapechanger
-#monster-pet:17:0:1:0x80:0x80
-#monster-pet:17:1:1:0x80:0x80
-#monster-pet:17:2:1:0x80:0x80
-#monster-pet:17:3:1:0x80:0x80
+#monster-pet:17:1:0x80:0x80
+#monster-pet:17:1:0x80:0x80
+#monster-pet:17:1:0x80:0x80
 
 # Villager
-#monster-pet:18:0:1:0x80:0x80
-#monster-pet:18:1:1:0x80:0x80
-#monster-pet:18:2:1:0x80:0x80
-#monster-pet:18:3:1:0x80:0x80
+#monster-pet:18:1:0x80:0x80
+#monster-pet:18:1:0x80:0x80
+#monster-pet:18:1:0x80:0x80
 
 # Tamer
-monster-pet:19:0:1:0x9B:0xA0
+monster-pet:19:1:0x9B:0xA0
+monster-pet:19:1:0x9B:0xCA
 
 # Scavenger
-monster-pet:34:0:1:0x9B:0x9F
+monster-pet:34:1:0x9B:0x9F
 
 
 ##### Animate monsters attack #####

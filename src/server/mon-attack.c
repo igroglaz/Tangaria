@@ -918,6 +918,9 @@ bool make_attack_normal(struct monster *mon, struct source *who)
     /* Learn lore */
     lore_update(mon->race, lore);
 
+    // Monsters attack - slashfx
+    Send_slash_fx(who->player, 1);
+
     /* Assume we attacked */
     return true;
 }

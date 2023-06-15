@@ -70,6 +70,7 @@ PKT(PLAYER, undefined, undefined, undefined, player_pos)
 PKT(MINIPOS, undefined, undefined, undefined, minipos)
 PKT(MESSAGE_FLUSH, undefined, undefined, undefined, message_flush)
 PKT(WEATHER, undefined, undefined, undefined, weather)
+PKT(SLASH_FX, undefined, undefined, undefined, slash_fx)
 /* Packets sent from the client */
 PKT(VERIFY, verify, undefined, undefined, undefined)
 PKT(ICKY, icky, icky, undefined, undefined)
