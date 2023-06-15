@@ -20,6 +20,7 @@ extern const char *window_flag_desc[PW_MAX_FLAGS];
 
 extern bool animate_slashfx;
 extern int slashfx_move;
+extern int m_attack;
 
 extern void display_player_screen(uint8_t mode);
 extern void toggle_inven_equip(void);

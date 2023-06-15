@@ -4586,6 +4586,18 @@ static int Receive_weather(void)
 }
 
 
+static int Receive_slash_fx(void)
+{
+    int n;
+    uint8_t ch;
+
+    if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &m_attack)) <= 0)
+        return n;
+
+    return 1;
+}
+
+
 /*** Sending ***/
 
 
