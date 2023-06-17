@@ -1094,7 +1094,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     //  |1|2|3|
     //  |4|5|6|
     //  |7|8|9|
-    if (animate_slashfx && (!fill)) {
+    if (animate_slashfx && !fill) {
         int r_slashfx;
 
         r_slashfx = randint0(6);

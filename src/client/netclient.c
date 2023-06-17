@@ -201,7 +201,7 @@ void do_keepalive(void)
                 do_animations();
         }
     }
-
+#ifdef USE_SDL2
     // Timer -- Update slashfx
     if (OPT(player, animations))
     {
@@ -215,6 +215,7 @@ void do_keepalive(void)
                 do_slashfx();
         }
     }
+#endif
 }
 
 
