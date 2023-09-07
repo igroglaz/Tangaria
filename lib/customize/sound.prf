@@ -159,12 +159,12 @@ sound:ambient_xakaze:amb_xakaze
 sound:ambient_melkor:amb_melkor
 
 # Music-ambience
-sound:sewers1:ambient/severs/sewers_1
-sound:sewers2:ambient/severs/sewers_2
-sound:sewers3:ambient/severs/sewers_3
-sound:sewers4:ambient/severs/sewers_4
-sound:sewers5:ambient/severs/sewers_5
-sound:sewers6:ambient/severs/sewers_6
+sound:sewers1:ambient/sewers/sewers_1
+sound:sewers2:ambient/sewers/sewers_2
+sound:sewers3:ambient/sewers/sewers_3
+sound:sewers4:ambient/sewers/sewers_4
+sound:sewers5:ambient/sewers/sewers_5
+sound:sewers6:ambient/sewers/sewers_6
 
 #
 # Store sounds
