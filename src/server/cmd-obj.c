@@ -2066,7 +2066,7 @@ void do_cmd_use_any(struct player *p, int item, int dir)
 // Golem race can use oil for good
 bool use_oil(struct player *p)
 {
-    bool got_oil = false;
+    bool fuel_found = false;
     struct object *obj;
 	int num_messages;
 	int rng;
@@ -2109,26 +2109,50 @@ bool use_oil(struct player *p)
         struct object *obj = p->upkeep->inven[i];
 
         if (!obj) continue;
+        if (!object_is_carried(p, obj)) continue;
 
+        // oil flasks
         if (obj->tval == TV_FLASK)
         {
-            /* Restricted by choice */
-            if (!object_is_carried(p, obj))
-            {
-                msg(p, "This. Oil. Not. Mine.. Yet.");
-                return false;
-            }
             use_object(p, obj, 1, false);
-            got_oil = true;
+            // nourish and heal
+            player_inc_timed(p, TMD_FOOD, 750, false, false);
+            hp_player(p, p->wpos.depth / 2);
+            fuel_found = true;
+        }
+        // light with oil (lantern, lamp...)
+        else if (obj->tval == TV_LIGHT && !of_has(obj->flags, OF_NO_FUEL) && obj->timeout > 0)
+        {
+            int fuel_amount = obj->timeout / 10;
+            if (obj->timeout < 10) {
+                fuel_amount = 1;
+            }
+
+            // Old lanterns which sold in NPC store got bad quality oil (tradesman dilutes it)..
+            // While old lanterns found in the dungeon are good.
+            if (obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
+            {
+                if (obj->origin == ORIGIN_STORE)
+                    fuel_amount /= 5;
+                
+                // destroy 'Old lantern' after use
+                use_object(p, obj, 1, false);
+            }
+            else // all other lights
+            {
+                // reduce oil amount inside of the light source
+                obj->timeout = 0;
+            }
+            
+            // nourish and heal
+            player_inc_timed(p, TMD_FOOD, fuel_amount, false, false);
+            hp_player(p, p->wpos.depth / 2);
+            fuel_found = true;
         }
     }
 
-    // no oil found -> quit
-    if (got_oil == false) return false;
-
-    // nourish and heal
-    player_inc_timed(p, TMD_FOOD, 500, false, false);
-    hp_player(p, p->wpos.depth / 2);
+    // no fuel found -> quit
+    if (fuel_found == false) return false;
 
 	// generate message
     // sizeof(messages) - size of whole array in bytes
