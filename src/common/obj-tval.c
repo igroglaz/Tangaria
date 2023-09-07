@@ -3,7 +3,7 @@
  * Purpose: Wrapper functions for tvals.
  *
  * Copyright (c) 2014 Ben Semmler
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -453,10 +453,12 @@ static const grouper tval_names[] =
  */
 int tval_find_idx(const char *name)
 {
-    size_t i = 0;
-    unsigned int r;
+    size_t i;
+    char *pe;
+    unsigned long r = strtoul(name, &pe, 10);
 
-    if (sscanf(name, "%u", &r) == 1) return r;
+    if (pe != name)
+        return ((contains_only_spaces(pe) && r < TV_MAX)? (int)r: -1);
 
     for (i = 0; i < TV_MAX; i++)
     {

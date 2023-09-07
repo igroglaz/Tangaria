@@ -3,7 +3,7 @@
  * Purpose: Attacks (both throwing and melee) by the player
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -264,15 +264,23 @@ static bool is_debuffed(struct source *target)
  * Factor in item weight, total plusses, and player level.
  */
 static int critical_shot(struct player *p, struct source *target, int weight, int plus, int dam,
-    uint32_t *msg_type)
+    bool launched, uint32_t *msg_type)
 {
-    int debuff_to_hit = (is_debuffed(target)? DEBUFF_CRITICAL_HIT: 0);
-    int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 4 + p->lev * 2;
-    int power = weight + randint1(500);
-    int new_dam = dam;
+    int to_h = p->state.to_h + plus;
+    int chance, new_dam;
     struct object *bow = equipped_item_by_slot_name(p, "shooting");
 
-    if (randint1(5000) > chance)
+    if (is_debuffed(target)) to_h += z_info->r_crit_debuff_toh;
+    chance = z_info->r_crit_chance_weight_scl * weight +
+        z_info->r_crit_chance_toh_scl * to_h +
+        z_info->r_crit_chance_level_scl * p->lev +
+        z_info->r_crit_chance_offset;
+    if (launched)
+        chance += z_info->r_crit_chance_launched_toh_skill_scl * p->state.skills[SKILL_TO_HIT_BOW];
+    else
+        chance += z_info->r_crit_chance_thrown_toh_skill_scl * p->state.skills[SKILL_TO_HIT_THROW];
+
+    if (randint1(z_info->r_crit_chance_range) > chance || !z_info->r_crit_level_head)
     {
         if (bow)
         {
@@ -285,21 +293,25 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
         }
         else
             *msg_type = MSG_SHOOT; // rocks (boomerangs too for now..)
-    }
-    else if (power < 500)
-    {
-        *msg_type = MSG_SHOOT_GOOD;
-        new_dam = 2 * dam + 5;
-    }
-    else if (power < 1000)
-    {
-        *msg_type = MSG_SHOOT_GREAT;
-        new_dam = 2 * dam + 10;
+
+        new_dam = dam;
     }
     else
     {
-        *msg_type = MSG_SHOOT_SUPERB;
-        new_dam = 3 * dam + 15;
+        int power = z_info->r_crit_power_weight_scl * weight + randint1(z_info->r_crit_power_random);
+        const struct critical_level *this_l = z_info->r_crit_level_head;
+
+        while (power >= this_l->cutoff && this_l->next) this_l = this_l->next;
+        *msg_type = this_l->msgt;
+        new_dam = this_l->add + this_l->mult * dam;
+        /* it was before:
+            else if (power < 500)
+                *msg_type = MSG_SHOOT_GOOD;
+            else if (power < 1000)
+                *msg_type = MSG_SHOOT_GREAT;
+            else
+                *msg_type = MSG_SHOOT_SUPERB;
+        */
     }
 
     return new_dam;
@@ -314,12 +326,16 @@ static int critical_shot(struct player *p, struct source *target, int weight, in
 static int critical_melee(struct player *p, struct source *target, int weight, int plus, int dam,
     uint32_t *msg_type)
 {
-    int debuff_to_hit = (is_debuffed(target)? DEBUFF_CRITICAL_HIT: 0);
-    int power = weight + randint1(650);
-    int chance = weight + (p->state.to_h + plus + debuff_to_hit) * 5 +
-        (p->state.skills[SKILL_TO_HIT_MELEE] - 60);
-    int new_dam = dam;
+    int to_h = p->state.to_h + plus;
+    int chance, new_dam;
     struct object *obj = equipped_item_by_slot_name(p, "weapon");
+
+    if (is_debuffed(target)) to_h += z_info->m_crit_debuff_toh;
+    chance = z_info->m_crit_chance_weight_scl * weight +
+        z_info->m_crit_chance_toh_scl * to_h +
+        z_info->m_crit_chance_level_scl * p->lev +
+        z_info->m_crit_chance_toh_skill_scl * p->state.skills[SKILL_TO_HIT_MELEE] +
+        z_info->m_crit_chance_offset;
 
     /* Apply Touch of Death */
     if (p->timed[TMD_DEADLY] && magik(25))
@@ -327,8 +343,7 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
         *msg_type = MSG_HIT_HI_CRITICAL;
         new_dam = 4 * dam; // + 30;
     }
-    // now regular attacks
-    else if (randint1(5000) > chance)
+    else if (randint1(z_info->m_crit_chance_range) > chance || !z_info->m_crit_level_head)
     {
         if (obj) // with weapon
         {
@@ -343,31 +358,17 @@ static int critical_melee(struct player *p, struct source *target, int weight, i
         }
         else
             *msg_type = MSG_PUNCH; // unarmed (barehand)
-    }
-    else if (power < 400)
-    {
-        *msg_type = MSG_HIT_GOOD;
-        new_dam = dam * 2 + 5;
-    }
-    else if (power < 700)
-    {
-        *msg_type = MSG_HIT_GREAT;
-        new_dam = dam * 2 + 10;
-    }
-    else if (power < 900)
-    {
-        *msg_type = MSG_HIT_SUPERB;
-        new_dam = dam * 3 + 15;
-    }
-    else if (power < 1300)
-    {
-        *msg_type = MSG_HIT_HI_GREAT;
-        new_dam = dam * 3 + 20;
+
+        new_dam = dam;
     }
     else
     {
-        *msg_type = MSG_HIT_HI_SUPERB;
-        new_dam = 4 * dam + 20;
+        int power = z_info->m_crit_power_weight_scl * weight + randint1(z_info->m_crit_power_random);
+        const struct critical_level *this_l = z_info->m_crit_level_head;
+
+        while (power >= this_l->cutoff && this_l->next) this_l = this_l->next;
+        *msg_type = this_l->msgt;
+        new_dam = this_l->add + this_l->mult * dam;
     }
 
     return new_dam;
@@ -2320,7 +2321,8 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
     }
 
     result.dmg = ranged_damage(p, ammo, bow, best_mult, multiplier);
-    result.dmg = critical_shot(p, target, ammo->weight, ammo->to_h, result.dmg, &result.msg_type);
+    result.dmg = critical_shot(p, target, ammo->weight, ammo->to_h, result.dmg, true,
+        &result.msg_type);
 
     missile_learn_on_ranged_attack(p, bow);
 
@@ -2371,7 +2373,7 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
 
     result.dmg = ranged_damage(p, obj, NULL, best_mult, multiplier);
     object_to_h(obj, &to_h);
-    result.dmg = critical_shot(p, target, obj->weight, to_h, result.dmg, &result.msg_type);
+    result.dmg = critical_shot(p, target, obj->weight, to_h, result.dmg, false, &result.msg_type);
 
     /* Direct adjustment for exploding things (flasks of oil) */
     if (of_has(obj->flags, OF_EXPLODE)) result.dmg *= 3;

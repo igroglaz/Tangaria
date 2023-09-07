@@ -3,7 +3,7 @@
  * Purpose: Utility functions
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -380,9 +380,10 @@ void object_kind_name(char *buf, size_t max, const struct object_kind *kind, boo
 static int lookup_sval_aux(int tval, const char *name, bool silent)
 {
     int k;
-    unsigned int r;
+    char *pe;
+    unsigned long r = strtoul(name, &pe, 10);
 
-    if (sscanf(name, "%u", &r) == 1) return r;
+    if (pe != name) return ((contains_only_spaces(pe) && r < INT_MAX)? (int)r: -1);
 
     /* Look for it */
     for (k = 0; k < z_info->k_max; k++)
@@ -1188,10 +1189,11 @@ int message_lookup_by_name(const char *name)
         #undef MSG
     };
     size_t i;
-    unsigned int number;
+    char *pe;
+    unsigned long number = strtoul(name, &pe, 10);
 
-    if (sscanf(name, "%u", &number) == 1)
-        return ((number < MSG_MAX_PARSE)? (int)number: -1);
+    if (pe != name)
+        return ((contains_only_spaces(pe) && number < MSG_MAX)? (int)number: -1);
 
     for (i = 0; i < N_ELEMENTS(message_names); i++)
     {

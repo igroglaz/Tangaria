@@ -3,7 +3,7 @@
  * Purpose: Options table and definitions.
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -145,90 +145,110 @@ bool options_save_custom(bool *opts, int page)
 bool options_restore_custom(bool *opts, int page)
 {
     const char *page_name = option_type_name(page);
-    bool success = true;
-    char path[MSG_LEN], file_name[NORMAL_WID];
+    char path[MSG_LEN], buf[MSG_LEN], file_name[NORMAL_WID];
+    ang_file *f;
+    int linenum;
 
     strnfmt(file_name, sizeof(file_name), "customized_%s_options.txt", page_name);
     path_build(path, sizeof(path), ANGBAND_DIR_USER, file_name);
-    if (file_exists(path))
+    if (!file_exists(path))
     {
-        /* Could use run_parser(), but that exits the application if there are syntax errors */
-        ang_file *f = file_open(path, MODE_READ, FTYPE_TEXT);
+        options_restore_maintainer(opts, page);
+        return true;
+    }
 
-        if (f)
+    /* Could use run_parser(), but that exits the application if there are syntax errors */
+    f = file_open(path, MODE_READ, FTYPE_TEXT);
+    if (!f) return false;
+    linenum = 1;
+    while (file_getl(f, buf, sizeof(buf)))
+    {
+        char *sub = strstr(buf, "option:"), *com;
+        int opt;
+
+        if (!sub)
         {
-            int linenum = 1;
-            char buf[MSG_LEN];
+            /* If it isn't an option, it should be a comment or whitespace. */
+            sub = strchr(buf, '#');
 
-            while (file_getl(f, buf, sizeof(buf)))
+            if (sub) *sub = '\0';
+            if (!contains_only_spaces(buf))
             {
-                int offset = 0;
+                plog_fmt("Line %d of the customized %s options is not parseable.", linenum,
+                    page_name);
+            }
+            ++linenum;
+            continue;
+        }
 
-                if (sscanf(buf, "option:%n%*s", &offset) == 0 && offset > 0)
+        *sub = '\0';
+
+        /* Ignore if the "option:" is embedded in a comment. */
+        com = strchr(buf, '#');
+        if (com)
+        {
+            *com = '\0';
+            if (!contains_only_spaces(buf))
+            {
+                plog_fmt("Line %d of the customized %s options is not parseable.", linenum,
+                    page_name);
+            }
+            ++linenum;
+            continue;
+        }
+        if (!contains_only_spaces(buf))
+        {
+            plog_fmt("Line %d of the customized %s options is not parseable.", linenum,
+                page_name);
+            ++linenum;
+            continue;
+        }
+
+        /* Try to find the option. */
+        sub += 7;
+        opt = 0;
+        while (1)
+        {
+            size_t lname;
+
+            if (opt >= OPT_MAX)
+            {
+                plog_fmt("Unrecognized option at line %d of the customized %s options.", linenum,
+                    page_name);
+                break;
+            }
+            if ((option_type(opt) != page) || !option_name(opt))
+            {
+                ++opt;
+                continue;
+            }
+            lname = strlen(option_name(opt));
+            if (strncmp(option_name(opt), sub, lname) == 0 && sub[lname] == ':')
+            {
+                if (strncmp("yes", sub + lname + 1, 3) == 0 &&
+                    contains_only_spaces(sub + lname + 4))
                 {
-                    int opt = 0;
-
-                    while (1)
-                    {
-                        size_t lname;
-
-                        if (opt >= OPT_MAX)
-                        {
-                            plog_fmt("Unrecognized option at line %d of the customized %s options.",
-                                linenum, page_name);
-                            break;
-                        }
-                        if ((option_type(opt) != page) || !option_name(opt))
-                        {
-                            ++opt;
-                            continue;
-                        }
-                        lname = strlen(option_name(opt));
-                        if (strncmp(option_name(opt), buf + offset, lname) == 0 &&
-                            buf[offset + lname] == ':')
-                        {
-                            if (strncmp("yes", buf + offset + lname + 1, 3) == 0 &&
-                                contains_only_spaces(buf + offset + lname + 4))
-                            {
-                                opts[opt] = true;
-                            }
-                            else if (strncmp("no", buf + offset + lname + 1, 2) == 0 &&
-                                contains_only_spaces(buf + offset + lname + 3))
-                            {
-                                opts[opt] = false;
-                            }
-                            else
-                            {
-                                plog_fmt("Value at line %d of the customized %s options is not yes or no.",
-                                    linenum, page_name);
-                            }
-                            break;
-                        }
-                        ++opt;
-                    }
+                    opts[opt] = true;
+                }
+                else if (strncmp("no", sub + lname + 1, 2) == 0 &&
+                    contains_only_spaces(sub + lname + 3))
+                {
+                    opts[opt] = false;
                 }
                 else
                 {
-                    offset = 0;
-                    if (sscanf(buf, "#%n*s", &offset) == 0 && offset == 0 &&
-                        !contains_only_spaces(buf))
-                    {
-                        plog_fmt("Line %d of the customized %s options is not parseable.", linenum,
-                            page_name);
-                    }
+                    plog_fmt("Value at line %d of the customized %s options is not yes or no.",
+                        linenum, page_name);
                 }
-                ++linenum;
+                break;
             }
-            if (!file_close(f))
-                success = false;
+            ++opt;
         }
-        else
-            success = false;
+        ++linenum;
     }
-    else
-        options_restore_maintainer(opts, page);
 
-    return success;
+    if (!file_close(f)) return false;
+    return true;
 }
 
 

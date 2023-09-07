@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Robert A. Koeneke, James E. Wilson, Ben Harrison
  * Copyright (c) 1998-2014 Angband developers
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -702,7 +702,7 @@ static bool handle_g_context_store_item(struct menu *menu, const ui_event *event
 /*
  * Pick the context menu options appropriate for an item available in a store
  */
-static void context_menu_store_item(struct store_context *ctx, const int oid)
+static bool context_menu_store_item(struct store_context *ctx, const int oid)
 {
     struct store *s = ctx->store;
     bool home = (s->feat == FEAT_HOME)? true: false;
@@ -741,10 +741,12 @@ static void context_menu_store_item(struct store_context *ctx, const int oid)
 
     switch (selected)
     {
-        case ACT_EXAMINE: store_examine(oid, false); break;
-        case ACT_DESCRIBE: store_examine(oid, true); break;
-        case ACT_BUY: store_purchase(ctx, oid); break;
+        case ACT_EXAMINE: store_examine(oid, false); return false;
+        case ACT_DESCRIBE: store_examine(oid, true); return false;
+        case ACT_BUY: return store_purchase(ctx, oid);
     }
+
+    return false;
 }
 
 
@@ -762,16 +764,20 @@ static bool store_menu_handle(struct menu *m, const ui_event *event, int oid)
 
     if (event->type == EVT_SELECT)
     {
-        context_menu_store_item(ctx, oid);
+        bool purchased = context_menu_store_item(ctx, oid);
+
         ctx->flags |= (STORE_FRAME_CHANGE | STORE_GOLD_CHANGE);
 
         /* Notice and handle stuff */
         redraw_stuff();
 
         /* Display the store */
-        store_display_recalc(ctx);
-        store_menu_recalc(m);
-        store_redraw(ctx);
+        if (purchased)
+        {
+            store_display_recalc(ctx);
+            store_menu_recalc(m);
+            store_redraw(ctx);
+        }
 
         return true;
     }

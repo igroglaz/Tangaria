@@ -76,7 +76,6 @@ LOCAL_SRC_FILES := $(MC_PATH)/main.c \
 		$(CMN_PATH)/z-file.c \
 		$(CMN_PATH)/z-form.c \
 		$(CMN_PATH)/z-rand.c \
-		$(CMN_PATH)/z-set.c \
 		$(CMN_PATH)/z-type.c \
 		$(CMN_PATH)/z-util.c \
 		$(CMN_PATH)/z-virt.c

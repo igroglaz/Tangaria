@@ -23,7 +23,6 @@
 #include "z-form.h"
 #include "z-msg.h"
 #include "z-rand.h"
-#include "z-set.h"
 #include "z-spells.h"
 #include "z-type.h"
 #include "z-util.h"

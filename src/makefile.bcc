@@ -94,7 +94,6 @@ SERV_SRCS = \
   common\z-file.c \
   common\z-form.c \
   common\z-rand.c \
-  common\z-set.c \
   common\z-type.c \
   common\z-util.c \
   common\z-virt.c \
@@ -225,7 +224,6 @@ SERV_OBJS = \
   common\z-file.obj \
   common\z-form.obj \
   common\z-rand.obj \
-  common\z-set.obj \
   common\z-type.obj \
   common\z-util.obj \
   common\z-virt.obj \

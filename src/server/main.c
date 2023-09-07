@@ -3,7 +3,7 @@
  * Purpose: Core game initialisation
  *
  * Copyright (c) 1997 Ben Harrison, and others
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -206,7 +206,7 @@ static void server_log(const char *str)
 static void show_version(void)
 {
     printf("PWMAngband Server %s\n", version_build(NULL, true));
-    puts("Copyright (c) 2007-2022 MAngband and PWMAngband Project Team");
+    puts("Copyright (c) 2007-2023 MAngband and PWMAngband Project Team");
 
     /* Actually abort the process */
     quit(NULL);

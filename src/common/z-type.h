@@ -188,13 +188,23 @@ extern channel_type channels[MAX_CHANNELS];
 /* A structure to hold misc information on spells */
 typedef struct
 {
-    int flag;       /* Actual spell flag */
-    uint8_t line_attr; /* "Color" of the spell (learned, worked, forgotten) */
-    uint8_t dir_attr;  /* Directional info */
-    uint8_t proj_attr; /* Can be projected */
-    int smana;      /* Mana cost */
-    int page;       /* Spell page */
+    int flag;           /* Actual spell flag */
+    uint8_t line_attr;  /* "Color" of the spell (learned, worked, forgotten) */
+    uint8_t dir_attr;   /* Directional info */
+    uint8_t proj_attr;  /* Can be projected */
+    int smana;          /* Mana cost */
+    int page;           /* Spell page */
 } spell_flags;
+
+/* Define a level of severity for a critical */
+struct critical_level
+{
+    struct critical_level *next;
+    int cutoff; /* powers less than this are included; ignored for last level */
+    int mult;   /* damage multiplier for this level */
+    int add;    /* additive damage for this level */
+    int msgt;   /* message type to use for this level */
+};
 
 /*
  * Information about maximal indices of certain arrays.
@@ -306,6 +316,31 @@ struct angband_constants
     uint16_t max_range;             /* Maximum missile and spell range */
     uint16_t start_gold;            /* Amount of gold the player starts with */
     uint16_t food_value;            /* Number of turns 1% of food lasts */
+
+    /* Constants for melee critical calculations; read from constants.txt */
+    int m_crit_debuff_toh;
+    int m_crit_chance_weight_scl;
+    int m_crit_chance_toh_scl;
+    int m_crit_chance_level_scl;
+    int m_crit_chance_toh_skill_scl;
+    int m_crit_chance_offset;
+    int m_crit_chance_range;
+    int m_crit_power_weight_scl;
+    int m_crit_power_random;
+    struct critical_level *m_crit_level_head;
+
+    /* Constants for ranged critical calculations; read from constants.txt */
+    int r_crit_debuff_toh;
+    int r_crit_chance_weight_scl;
+    int r_crit_chance_toh_scl;
+    int r_crit_chance_level_scl;
+    int r_crit_chance_launched_toh_skill_scl;
+    int r_crit_chance_thrown_toh_skill_scl;
+    int r_crit_chance_offset;
+    int r_crit_chance_range;
+    int r_crit_power_weight_scl;
+    int r_crit_power_random;
+    struct critical_level *r_crit_level_head;
 };
 
 extern struct angband_constants *z_info;

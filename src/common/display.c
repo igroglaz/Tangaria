@@ -2,7 +2,7 @@
  * File: display.c
  * Purpose: Display the character on the screen or in a file
  *
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

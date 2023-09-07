@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Ben Harrison, Gregory Velichansky, Eric Stevens,
  * Leon Marrick, Iain McFall, and others
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -6291,33 +6291,50 @@ static int cmp_font(const void *f1, const void *f2)
 {
     const char *font1 = *(const char **)f1;
     const char *font2 = *(const char **)f2;
-    int height1, height2;
-    int width1, width2;
-    int nsc1, nsc2;
-    char face1[5], face2[5];
+    int height1 = 0, height2 = 0;
+    int width1 = 0, width2 = 0;
+    char *ew, *face1 = NULL, *ext1 = NULL, *face2 = NULL, *ext2 = NULL;
+    long lv;
 
-    nsc1 = sscanf(font1, "%dx%d%4s.", &width1, &height1, face1);
-    nsc2 = sscanf(font2, "%dx%d%4s.", &width2, &height2, face2);
-
-    if (nsc1 != 3)
+    lv = strtol(font1, &ew, 10);
+    if (ew != font1 && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
     {
-		if (nsc2 != 3)
+        width1 = (int)lv;
+        lv = strtol(ew + 1, &face1, 10);
+        if (face1 != ew + 1 && lv > INT_MIN && lv < INT_MAX)
         {
-			/*
-			 * Neither match the expected pattern.  Sort
-			 * alphabetically.
-			 */
+            height1 = (int)lv;
+            ext1 = strchr(face1, '.');
+            if (ext1 == face1) ext1 = NULL;
+        }
+    }
+    lv = strtol(font2, &ew, 10);
+    if (ew != font2 && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
+    {
+        width2 = (int)lv;
+        lv = strtol(ew + 1, &face2, 10);
+        if (face2 != ew + 1 && lv > INT_MIN && lv < INT_MAX)
+        {
+            height2 = (int)lv;
+            ext2 = strchr(face2, '.');
+            if (ext2 == face2) ext2 = NULL;
+        }
+    }
+
+    if (!ext1)
+    {
+		if (!ext2)
+        {
+			/* Neither match the expected pattern. Sort alphabetically. */
 			return strcmp(font1, font2);
 		}
 
-		/*
-		 * Put f2 first, since it matches the expected pattern.
-		 */
+		/* Put f2 first since it matches the expected pattern. */
 		return 1;
 	}
-	if (nsc2 != 3)
+	if (!ext2)
     {
-		/* Put f1 first, since it matches the expected pattern. */
+		/* Put f1 first since it matches the expected pattern. */
 		return -1;
 	}
 	if (width1 < width2)
@@ -6328,7 +6345,7 @@ static int cmp_font(const void *f1, const void *f2)
 		return -1;
 	if (height1 > height2)
 		return 1;
-	return strcmp(face1, face2);
+	return strncmp(face1, face2, MAX(ext1 - face1, ext2 - face2));
 }
 
 

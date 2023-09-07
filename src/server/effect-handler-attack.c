@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2007 Andi Sidwell
  * Copyright (c) 2016 Ben Semmler, Nick McConnell
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1488,12 +1488,6 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
     /* Determine the epicentre */
     origin_get_loc(&centre, context->origin);
 
-    if (!context->origin->monster)
-    {
-        msg(context->origin->player, "The ground shakes! The ceiling caves in!");
-        msg_misc(context->origin->player, " causes the ground to shake!");
-    }
-
     /* Sometimes ask for a target */
     if (targeted)
     {
@@ -1503,6 +1497,12 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         /* Ask for a target if no direction given */
         if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
             target_get(context->origin->player, &centre);
+    }
+
+    if (!context->origin->monster)
+    {
+        msg(context->origin->player, "The ground shakes! The ceiling caves in!");
+        msg_misc(context->origin->player, " causes the ground to shake!");
     }
 
     /* Paranoia -- enforce maximum range */

@@ -11,24 +11,24 @@
       ..\..\obj\source.obj ..\..\obj\util.obj ..\..\obj\z-bitflag.obj 
       ..\..\obj\z-color.obj ..\..\obj\z-dice.obj ..\..\obj\z-expression.obj 
       ..\..\obj\z-file.obj ..\..\obj\z-form.obj ..\..\obj\z-rand.obj 
-      ..\..\obj\z-set.obj ..\..\obj\z-type.obj ..\..\obj\z-util.obj 
-      ..\..\obj\z-virt.obj ..\..\obj\account.obj ..\..\obj\cave.obj 
-      ..\..\obj\cave-map.obj ..\..\obj\cave-square.obj ..\..\obj\cave-view.obj 
-      ..\..\obj\channel.obj ..\..\obj\cmd-cave.obj ..\..\obj\cmd-innate.obj 
-      ..\..\obj\cmd-misc.obj ..\..\obj\cmd-obj.obj ..\..\obj\cmd-pickup.obj 
-      ..\..\obj\control.obj ..\..\obj\display-ui.obj 
-      ..\..\obj\effect-handler-attack.obj ..\..\obj\effect-handler-general.obj 
-      ..\..\obj\effects.obj ..\..\obj\effects-info.obj ..\..\obj\game-world.obj 
-      ..\..\obj\generate.obj ..\..\obj\gen-cave.obj ..\..\obj\gen-chunk.obj 
-      ..\..\obj\gen-monster.obj ..\..\obj\gen-room.obj ..\..\obj\gen-util.obj 
-      ..\..\obj\help-ui.obj ..\..\obj\history-ui.obj ..\..\obj\house.obj 
-      ..\..\obj\init.obj ..\..\obj\knowledge-ui.obj ..\..\obj\load.obj 
-      ..\..\obj\main.obj ..\..\obj\map-ui.obj ..\..\obj\message.obj 
-      ..\..\obj\metaclient.obj ..\..\obj\mon-attack.obj ..\..\obj\mon-blows.obj 
-      ..\..\obj\mon-desc.obj ..\..\obj\mon-group.obj ..\..\obj\mon-init.obj 
-      ..\..\obj\mon-list.obj ..\..\obj\mon-list-ui.obj ..\..\obj\mon-lore.obj 
-      ..\..\obj\mon-lore-ui.obj ..\..\obj\mon-make.obj ..\..\obj\mon-move.obj 
-      ..\..\obj\mon-msg.obj ..\..\obj\mon-predicate.obj ..\..\obj\mon-spell.obj 
+      ..\..\obj\z-type.obj ..\..\obj\z-util.obj ..\..\obj\z-virt.obj 
+      ..\..\obj\account.obj ..\..\obj\cave.obj ..\..\obj\cave-map.obj 
+      ..\..\obj\cave-square.obj ..\..\obj\cave-view.obj ..\..\obj\channel.obj 
+      ..\..\obj\cmd-cave.obj ..\..\obj\cmd-innate.obj ..\..\obj\cmd-misc.obj 
+      ..\..\obj\cmd-obj.obj ..\..\obj\cmd-pickup.obj ..\..\obj\control.obj 
+      ..\..\obj\display-ui.obj ..\..\obj\effect-handler-attack.obj 
+      ..\..\obj\effect-handler-general.obj ..\..\obj\effects.obj 
+      ..\..\obj\effects-info.obj ..\..\obj\game-world.obj ..\..\obj\generate.obj 
+      ..\..\obj\gen-cave.obj ..\..\obj\gen-chunk.obj ..\..\obj\gen-monster.obj 
+      ..\..\obj\gen-room.obj ..\..\obj\gen-util.obj ..\..\obj\help-ui.obj 
+      ..\..\obj\history-ui.obj ..\..\obj\house.obj ..\..\obj\init.obj 
+      ..\..\obj\knowledge-ui.obj ..\..\obj\load.obj ..\..\obj\main.obj 
+      ..\..\obj\map-ui.obj ..\..\obj\message.obj ..\..\obj\metaclient.obj 
+      ..\..\obj\mon-attack.obj ..\..\obj\mon-blows.obj ..\..\obj\mon-desc.obj 
+      ..\..\obj\mon-group.obj ..\..\obj\mon-init.obj ..\..\obj\mon-list.obj 
+      ..\..\obj\mon-list-ui.obj ..\..\obj\mon-lore.obj ..\..\obj\mon-lore-ui.obj 
+      ..\..\obj\mon-make.obj ..\..\obj\mon-move.obj ..\..\obj\mon-msg.obj 
+      ..\..\obj\mon-predicate.obj ..\..\obj\mon-spell.obj 
       ..\..\obj\mon-summon.obj ..\..\obj\mon-timed.obj ..\..\obj\mon-util.obj 
       ..\..\obj\netserver.obj ..\..\obj\obj-chest.obj ..\..\obj\obj-curse.obj 
       ..\..\obj\obj-desc.obj ..\..\obj\obj-gear.obj ..\..\obj\obj-ignore.obj 
@@ -59,7 +59,7 @@
     <LIBRARIES value="rtl.lib"/>
     <SPARELIBS value="rtl.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi"/>
-    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server"/>
+    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;..\win;..\win"/>
     <PATHASM value=".;"/>
@@ -115,7 +115,6 @@
       <FILE FILENAME="..\common\z-file.c" FORMNAME="" UNITNAME="z-file.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\common\z-form.c" FORMNAME="" UNITNAME="z-form.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\common\z-rand.c" FORMNAME="" UNITNAME="z-rand.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="..\common\z-set.c" FORMNAME="" UNITNAME="z-set" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\common\z-type.c" FORMNAME="" UNITNAME="z-type" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\common\z-util.c" FORMNAME="" UNITNAME="z-util.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\common\z-virt.c" FORMNAME="" UNITNAME="z-virt.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>

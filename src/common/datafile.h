@@ -41,6 +41,7 @@ extern errr grab_rand_value(random_value *value, const char **value_type,
 extern errr grab_index_and_rand(random_value *value, int *index, const char **value_type,
     const char *name_and_value);
 extern errr grab_int_value(int *value, const char **value_type, const char *name_and_value);
+extern errr grab_int_range(int *lo, int *hi, const char *range, const char *sep);
 extern errr grab_index_and_int(int *value, int *index, const char **value_type, const char *prefix,
     const char *name_and_value);
 extern errr grab_base_and_int(int *value, char **base, const char *name_and_value);

@@ -2,7 +2,7 @@
  * File: netserver.c
  * Purpose: The server side of the network stuff
  *
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1243,7 +1243,6 @@ static void display_winner(void)
     char buf[MSG_LEN];
     ang_file *fp;
     int i = 2;
-    int width = 0;
 
     path_build(buf, sizeof(buf), ANGBAND_DIR_SCREENS, "crown.txt");
     fp = file_open(buf, MODE_READ, FTYPE_TEXT);
@@ -1251,10 +1250,14 @@ static void display_winner(void)
     /* Dump */
     if (fp)
     {
+        char *pe;
+        long lw;
+        int width;
+
         /* Get us the first line of file, which tells us how long the longest line is */
         file_getl(fp, buf, sizeof(buf));
-        sscanf(buf, "%d", &width);
-        if (!width) width = 25;
+        lw = strtol(buf, &pe, 10);
+        width = ((pe != buf && lw > 0 && lw < INT_MAX)? (int)lw: 25);
 
         /* Dump the file into the buffer */
         while (file_getl(fp, buf, sizeof(buf)) && (i < TEXTFILE__HGT))

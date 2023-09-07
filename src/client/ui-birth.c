@@ -3,7 +3,7 @@
  * Purpose: Text-based user interface for character creation
  *
  * Copyright (c) 1987 - 2015 Angband contributors
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

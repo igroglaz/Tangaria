@@ -3,7 +3,7 @@
  * Purpose: Targeting code
  *
  * Copyright (c) 1997-2007 Angband contributors
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

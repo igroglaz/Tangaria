@@ -3,7 +3,7 @@
  * Purpose: Version strings
  *
  * Copyright (c) 2011 Andi Sidwell
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -24,7 +24,7 @@
 /*
  * Define for Beta version, undefine for stable build
  */
-#define VERSION_BETA
+/*#define VERSION_BETA*/
 
 
 bool beta_version(void)

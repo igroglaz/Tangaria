@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2004 Robert Ruehlmann
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -440,28 +440,52 @@ static bool describe_esp(struct player *p, const bitflag flags[OF_SIZE])
 
 /*
  * Account for criticals in the calculation of melee prowess.
+ *
+ * Note -- This relies on the criticals being an affine function
+ * of previous damage, since we are used to transform the mean
+ * of a roll.
  */
 static int calculate_melee_crits(struct player *p, struct player_state *state, int weight,
     int plus, int dam)
 {
-    int k, to_crit = weight + 5 * (state->to_h + plus) + (state->skills[SKILL_TO_HIT_MELEE] - 60);
-    int crit_dam = 0;
+    int crit_dam = 0, power;
+    int min_power = z_info->m_crit_power_weight_scl * weight + 1;
+    int max_power = z_info->m_crit_power_weight_scl * weight + z_info->m_crit_power_random;
 
-    to_crit = MIN(5000, MAX(0, to_crit));
+    /*
+     * Pessimistically assume that the target is not debuffed; otherwise
+     * this must agree with the calculations in player-attack.c's
+     * critical_melee().
+     */
+    int crit_chance = z_info->m_crit_chance_weight_scl * weight +
+        z_info->m_crit_chance_toh_scl * (state->to_h + plus) +
+        z_info->m_crit_chance_level_scl * p->lev +
+        z_info->m_crit_chance_toh_skill_scl * state->skills[SKILL_TO_HIT_MELEE] +
+        z_info->m_crit_chance_offset;
+    crit_chance = MIN(z_info->m_crit_chance_range, MAX(0, crit_chance));
+
+    if (!z_info->m_crit_level_head) return dam;
 
     /* Extract average critical damage */
-    for (k = weight + 1; k <= weight + 650; k++)
+    for (power = min_power; power <= max_power; power++)
     {
-        if (k < 400) crit_dam += dam * 2 + 5;
-        else if (k < 700) crit_dam += dam * 2 + 10;
-        else if (k < 900) crit_dam += dam * 3 + 15;
-        else if (k < 1300) crit_dam += dam * 3 + 20;
-        else crit_dam += dam * 4 + 20;
+        const struct critical_level *this_l = z_info->m_crit_level_head;
+
+        while (this_l)
+        {
+            if ((power < this_l->cutoff) || (this_l->cutoff == -1))
+            {
+                crit_dam += this_l->add + this_l->mult * dam;
+                break;
+            }
+            this_l = this_l->next;
+        }
     }
-    crit_dam /= 650;
+    crit_dam /= z_info->m_crit_power_random;
 
     /* Chance */
-    crit_dam = (crit_dam * to_crit + dam * (5000 - to_crit)) / 5000;
+    crit_dam = (crit_dam * crit_chance + dam * (z_info->m_crit_chance_range - crit_chance)) /
+        z_info->m_crit_chance_range;
 
     /* Apply Touch of Death */
     if (p->timed[TMD_DEADLY])
@@ -475,24 +499,49 @@ static int calculate_melee_crits(struct player *p, struct player_state *state, i
  * Missile crits follow the same approach as melee crits.
  */
 static int calculate_missile_crits(struct player *p, struct player_state *state, int weight,
-    int plus, int dam)
+    int plus, bool launched, int dam)
 {
-    int k, to_crit = weight + 4 * (state->to_h + plus) + 2 * p->lev;
-    int crit_dam = 0;
+    int crit_dam = 0, power;
+    int min_power = z_info->r_crit_power_weight_scl * weight + 1;
+    int max_power = z_info->r_crit_power_weight_scl * weight + z_info->r_crit_power_random;
 
-    to_crit = MIN(5000, MAX(0, to_crit));
+    /*
+     * Pessimistically assume that the target is not debuffed; otherwise
+     * this must agree with the calculations in player-attack.c's
+     * critical_shot().
+     */
+    int crit_chance = z_info->r_crit_chance_weight_scl * weight +
+        z_info->r_crit_chance_toh_scl * (state->to_h + plus) +
+        z_info->r_crit_chance_level_scl * p->lev +
+        z_info->r_crit_chance_offset;
+    if (launched)
+        crit_chance += z_info->r_crit_chance_launched_toh_skill_scl * state->skills[SKILL_TO_HIT_BOW];
+    else
+        crit_chance += z_info->r_crit_chance_thrown_toh_skill_scl * state->skills[SKILL_TO_HIT_THROW];
+    crit_chance = MIN(z_info->r_crit_chance_range, MAX(0, crit_chance));
+
+    if (!z_info->r_crit_level_head) return dam;
 
     /* Extract average critical damage */
-    for (k = weight + 1; k <= weight + 500; k++)
+    for (power = min_power; power <= max_power; power++)
     {
-        if (k < 500) crit_dam += dam * 2 + 5;
-        else if (k < 1000) crit_dam += dam * 2 + 10;
-        else crit_dam += dam * 3 + 15;
+        const struct critical_level *this_l = z_info->r_crit_level_head;
+
+        while (this_l)
+        {
+            if ((power < this_l->cutoff) || (this_l->cutoff == -1))
+            {
+                crit_dam += this_l->add + this_l->mult * dam;
+                break;
+            }
+            this_l = this_l->next;
+        }
     }
-    crit_dam /= 500;
+    crit_dam /= z_info->r_crit_power_random;
 
     /* Chance */
-    crit_dam = (crit_dam * to_crit + dam * (5000 - to_crit)) / 5000;
+    crit_dam = (crit_dam * crit_chance + dam * (z_info->r_crit_chance_range - crit_chance)) /
+        z_info->r_crit_chance_range;
 
     return crit_dam;
 }
@@ -791,7 +840,7 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
     if (!weapon)
     {
         if (obj->known->to_h) plus = obj->to_h;
-        dam = calculate_missile_crits(p, &p->state, obj->weight, plus, dam);
+        dam = calculate_missile_crits(p, &p->state, obj->weight, plus, ammo, dam);
     }
 
     /* Don't show negative damage */

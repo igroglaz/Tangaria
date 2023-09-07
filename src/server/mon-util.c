@@ -3,7 +3,7 @@
  * Purpose: Monster manipulation utilities.
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -950,13 +950,13 @@ bool find_any_nearby_injured_kin(struct chunk *c, const struct monster *mon)
  * Choose one injured monster of the same base in LOS of the provided monster.
  *
  * Scan MAX_KIN_RADIUS grids around the monster to find potential grids,
- * make a list of kin, and choose a random one.
+ * using reservoir sampling with k = 1 to find a random one.
  */
 struct monster *choose_nearby_injured_kin(struct chunk *c, const struct monster *mon)
 {
-    struct set *set = set_new();
     struct loc grid;
-    struct monster *found;
+    int nseen = 0;
+    struct monster *found = NULL;
 
     for (grid.y = mon->grid.y - MAX_KIN_RADIUS; grid.y <= mon->grid.y + MAX_KIN_RADIUS; grid.y++)
     {
@@ -964,12 +964,13 @@ struct monster *choose_nearby_injured_kin(struct chunk *c, const struct monster 
         {
             struct monster *kin = get_injured_kin(c, mon, &grid);
 
-            if (kin != NULL) set_add(set, kin);
+            if (kin)
+            {
+                nseen++;
+                if (!randint0(nseen)) found = kin;
+            }
         }
     }
-
-    found = set_choose(set);
-    set_free(set);
 
     return found;
 }

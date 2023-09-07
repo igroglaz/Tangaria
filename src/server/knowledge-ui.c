@@ -5,7 +5,7 @@
  * Copyright (c) 1997-2007 Robert A. Koeneke, James E. Wilson, Ben Harrison,
  * Eytan Zweig, Andrew Doull, Pete Mack.
  * Copyright (c) 2004 DarkGod (HTML dump code)
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

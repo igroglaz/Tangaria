@@ -16,8 +16,8 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.0 beta 2
-=======================================
+New features in PWMAngband 1.6.0 build 1
+========================================
 
 User interface
 --------------
@@ -68,6 +68,7 @@ Angband 4.2.x:
 - Have lurkers and trappers become noticeable in ASCII
 - Remove ctrl-c keymap
 - In inventory item context menu, change "Drop All" command key to 'A'
+- Only redraw the store if you bought something
 
 PWMAngband:
 
@@ -110,6 +111,9 @@ Angband 4.2.x:
 - Broaden the possible grids for teleport destinations
 - Adjust calculation for holding summoned monsters
 - Don't deduct energy in move_player() when the player doesn't move
+- Set Wooden Torches to appear on all levels
+- Hydras now just bash rather than open doors
+- Restrict entrances to the Fire Festival vault
 
 PWMAngband:
 
@@ -286,6 +290,10 @@ Angband 4.2.x:
 - Add to default keymaps so shift+numeric keypad works for running on more
   systems
 - Loosen coupling between MAX_COLORS and the BG_* constants
+- Rework choose_nearby_injured_kin() and remove z-set
+- Avoid using sscanf()
+- Put constants for criticals in constants.txt
+- Clean up message handling on targeted earthquakes
 
 PWMAngband:
 
@@ -326,3 +334,4 @@ Compilation/documentation
 - Remove stdint.h check
 - Avoid most of the "redundant declaration" warnings
 - Update documentation for keymaps
+- Drop mention of wielding ammunition in the documentation

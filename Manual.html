@@ -3992,8 +3992,8 @@ dungeon.</p>
 </ul>
 </blockquote>
 <p>The last message indicates an artifact is present and is only possible
-if the preserve option is disabled (if preserve is enabled, an artifact will
-guarantee a feeling of 5 or better).</p>
+if the option to lose artifacts is on (if that option is off, an
+artifact will guarantee a feeling of 5 or better).</p>
 <p>You may review your level feeling any time by using the ^F command.
 You may also consult it by checking the LF: indicator at the bottom
 left of the screen. The first number after it is the level feeling
@@ -5645,9 +5645,7 @@ toggle the ignore setting on and off. This command takes some energy.</dd>
 only one object can be in each slot at a time, if you wear or wield an
 item into a slot which is already occupied, the old item will be first be
 taken off, and may in fact be dropped if there is no room for it in your
-inventory. Wielding ammunition will add it to an empty slot in your
-quiver and prompt you to replace a type of ammunition if your quiver is
-already full. This command takes some energy.</dd>
+inventory. This command takes some energy.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -5702,9 +5700,10 @@ new dungeon level unless you are at 50 feet (dungeon level 1), in which
 case you will return to the town level. Note that whenever you leave a
 level (not the town), you will never find it again. This means that for
 all intents and purposes, any objects on that level are destroyed. This
-includes artifacts unless the &quot;Create characters in preserve mode&quot; option
-was set when your character was created, in which case the artifacts may
-show up again later. This command takes some energy.</dd>
+includes artifacts unless the &quot;Lose artifacts when leaving level&quot; option
+was turned off when your character was created, in which case the artifacts
+may show up again later. The option to lose artifacts is off in the default
+configuration. This command takes some energy.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -6278,10 +6277,10 @@ that property on other objects.</dd>
 <dt>artifacts</dt>
 <dd>Will display all artifacts that your character has encountered. Normally,
 once an artifact is &quot;generated&quot; and &quot;lost&quot;, it can never again be found,
-and will become &quot;known&quot; to the player. With &quot;preserve&quot; mode, an artifact
-can never be &quot;lost&quot; until it is &quot;known&quot; to the player. In either case,
-any &quot;known&quot; artifacts not in the possession of the player will never
-again be &quot;generated&quot;.</dd>
+and will become &quot;known&quot; to the player. With the &quot;Lose artifacts when
+leaving level&quot; option turned off, an artifact can never be &quot;lost&quot; until
+it is &quot;known&quot; to the player. In either case, any &quot;known&quot; artifacts not
+in the possession of the player will never again be &quot;generated&quot;.</dd>
 <dt>ego items</dt>
 <dd>Will display the &quot;egos&quot; your character has encountered. Each &quot;ego&quot; is
 a collection of enchantments that can appear on an object. &quot;Egos&quot; are
@@ -7319,7 +7318,7 @@ the next time you start the SDL interface.</p>
 <div class="section" id="version-information">
 <h2><a class="toc-backref" href="#id182">4.1&nbsp;&nbsp;&nbsp;Version Information</a></h2>
 <p>PWMAngband 1.6.0 is based on Angband 4.2.x and MAngband 1.5.x. The latest
-build for PWMAngband 1.6.0 is beta 2.</p>
+build for PWMAngband 1.6.0 is build 1.</p>
 <p>Angband information was last updated for Angband 4.2.x.
 MAngband information was last updated for MAngband 1.5.x.
 PWMAngband information was last updated for PWMAngband 1.6.0.</p>
@@ -9017,9 +9016,6 @@ layer provides:</p>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">z-rand</span></tt></td>
 <td>Randomness</td>
-</tr>
-<tr><td><tt class="docutils literal"><span class="pre">z-set</span></tt></td>
-<td>Sets</td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">z-textblock</span></tt></td>
 <td>Wrapped text</td>

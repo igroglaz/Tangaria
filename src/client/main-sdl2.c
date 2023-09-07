@@ -3,7 +3,7 @@
  * \brief Angband SDL2 port
  *
  * Copyright (c) 1997 Ben Harrison and others
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -5723,28 +5723,58 @@ static int sort_cb_font_info(const void *infoa, const void *infob)
         return strcmp(namea, nameb);
     } else {
         /* otherwise, we'll sort them numbers-wise (6x12x.fon before 6x13x.fon) */
-        int wa = 0;
-        int ha = 0;
-        char facea[4 + 1] = {0};
+        int wa = 0, ha = 0, wb = 0, hb = 0;
+        char *facea = NULL, *exta = NULL, *faceb = NULL, *extb = NULL;
+        char *ew;
+        long lv;
 
-        int wb = 0;
-        int hb = 0;
-        char faceb[4 + 1] = {0};
-
-        sscanf(namea, "%dx%d%4[^.]", &wa, &ha, facea);
-        sscanf(nameb, "%dx%d%4[^.]", &wb, &hb, faceb);
-
-        if (wa < wb) {
-            return -1;
-        } else if (wa > wb) {
-            return 1;
-        } else if (ha < hb) {
-            return -1;
-        } else if (ha > hb) {
-            return 1;
-        } else {
-            return strcmp(facea, faceb);
+        lv = strtol(namea, &ew, 10);
+        if (ew != namea && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
+        {
+            wa = (int)lv;
+            lv = strtol(ew + 1, &facea, 10);
+            if (facea != ew + 1 && lv > INT_MIN && lv < INT_MAX)
+            {
+                ha = (int)lv;
+                exta = strchr(facea, '.');
+                if (exta == facea) exta = NULL;
+            }
         }
+        lv = strtol(nameb, &ew, 10);
+        if (ew != nameb && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
+        {
+            wb = (int)lv;
+            lv = strtol(ew + 1, &faceb, 10);
+            if (faceb != ew + 1 && lv > INT_MIN && lv < INT_MAX)
+            {
+                hb = (int)lv;
+                extb = strchr(faceb, '.');
+                if (extb == faceb) extb = NULL;
+            }
+        }
+
+        if (!exta)
+        {
+            if (!extb)
+            {
+                /* Neither match the expected pattern. Sort alphabetically. */
+                return strcmp(namea, nameb);
+            }
+
+            /* Put b first since it matches the expected pattern. */
+            return 1;
+        }
+        if (!extb)
+        {
+            /* Put a first since it matches the expected pattern. */
+            return -1;
+        }
+
+        if (wa < wb) return -1;
+        if (wa > wb) return 1;
+        if (ha < hb) return -1;
+        if (ha > hb) return 1;
+        return strncmp(facea, faceb, MAX(exta - facea, extb - faceb));
     }
 }
 

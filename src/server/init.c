@@ -3,7 +3,7 @@
  * Purpose: Various game initialisation routines
  *
  * Copyright (c) 1997 Ben Harrison
- * Copyright (c) 2022 MAngband and PWMAngband Developers
+ * Copyright (c) 2023 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -736,6 +736,130 @@ static enum parser_error parse_constants_player(struct parser *p)
 }
 
 
+static enum parser_error parse_constants_melee_critical(struct parser *p)
+{
+    struct angband_constants *z = parser_priv(p);
+    const char *label = parser_getsym(p, "label");
+    int value = parser_getint(p, "value");
+
+    if (streq(label, "debuff-toh"))
+        z->m_crit_debuff_toh = value;
+    else if (streq(label, "chance-weight-scale"))
+        z->m_crit_chance_weight_scl = value;
+    else if (streq(label, "chance-toh-scale"))
+        z->m_crit_chance_toh_scl = value;
+    else if (streq(label, "chance-level-scale"))
+        z->m_crit_chance_level_scl = value;
+    else if (streq(label, "chance-toh-skill-scale"))
+        z->m_crit_chance_toh_skill_scl = value;
+    else if (streq(label, "chance-offset"))
+        z->m_crit_chance_offset = value;
+    else if (streq(label, "chance-range"))
+        z->m_crit_chance_range = value;
+    else if (streq(label, "power-weight-scale"))
+        z->m_crit_power_weight_scl = value;
+    else if (streq(label, "power-random"))
+        z->m_crit_power_random = value;
+    else
+        return PARSE_ERROR_UNDEFINED_DIRECTIVE;
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_constants_melee_critical_level(struct parser *p)
+{
+    struct angband_constants *z = parser_priv(p);
+    struct critical_level *new_level;
+    const char *msgt_str = parser_getstr(p, "msg");
+    int msgt = message_lookup_by_name(msgt_str);
+
+    if (msgt < 0) return PARSE_ERROR_INVALID_MESSAGE;
+    new_level = mem_alloc(sizeof(*new_level));
+    new_level->next = NULL;
+    new_level->cutoff = parser_getint(p, "cutoff");
+    new_level->mult = parser_getint(p, "mult");
+    new_level->add = parser_getint(p, "add");
+    new_level->msgt = msgt;
+
+    /* Add it to the end of the linked list. */
+    if (z->m_crit_level_head)
+    {
+        struct critical_level *cursor = z->m_crit_level_head;
+
+        while (cursor->next) cursor = cursor->next;
+        cursor->next = new_level;
+    }
+    else
+        z->m_crit_level_head = new_level;
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_constants_ranged_critical(struct parser *p)
+{
+    struct angband_constants *z = parser_priv(p);
+    const char *label = parser_getsym(p, "label");
+    int value = parser_getint(p, "value");
+
+    if (streq(label, "debuff-toh"))
+        z->r_crit_debuff_toh = value;
+    else if (streq(label, "chance-weight-scale"))
+        z->r_crit_chance_weight_scl = value;
+    else if (streq(label, "chance-toh-scale"))
+        z->r_crit_chance_toh_scl = value;
+    else if (streq(label, "chance-level-scale"))
+        z->r_crit_chance_level_scl = value;
+    else if (streq(label, "chance-launched-toh-skill-scale"))
+        z->r_crit_chance_launched_toh_skill_scl = value;
+    else if (streq(label, "chance-thrown-toh-skill-scale"))
+        z->r_crit_chance_thrown_toh_skill_scl = value;
+    else if (streq(label, "chance-offset"))
+        z->r_crit_chance_offset = value;
+    else if (streq(label, "chance-range"))
+        z->r_crit_chance_range = value;
+    else if (streq(label, "power-weight-scale"))
+        z->r_crit_power_weight_scl = value;
+    else if (streq(label, "power-random"))
+        z->r_crit_power_random = value;
+    else
+        return PARSE_ERROR_UNDEFINED_DIRECTIVE;
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_constants_ranged_critical_level(struct parser *p)
+{
+    struct angband_constants *z = parser_priv(p);
+    struct critical_level *new_level;
+    const char *msgt_str = parser_getstr(p, "msg");
+    int msgt = message_lookup_by_name(msgt_str);
+
+    if (msgt < 0) return PARSE_ERROR_INVALID_MESSAGE;
+    new_level = mem_alloc(sizeof(*new_level));
+    new_level->next = NULL;
+    new_level->cutoff = parser_getint(p, "cutoff");
+    new_level->mult = parser_getint(p, "mult");
+    new_level->add = parser_getint(p, "add");
+    new_level->msgt = msgt;
+
+    /* Add it to the end of the linked list. */
+    if (z->r_crit_level_head)
+    {
+        struct critical_level *cursor = z->r_crit_level_head;
+
+        while (cursor->next) cursor = cursor->next;
+        cursor->next = new_level;
+    }
+    else
+        z->r_crit_level_head = new_level;
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static struct parser *init_parse_constants(void)
 {
     struct angband_constants *z = mem_zalloc(sizeof(*z));
@@ -751,6 +875,12 @@ static struct parser *init_parse_constants(void)
     parser_reg(p, "store sym label int value", parse_constants_store);
     parser_reg(p, "obj-make sym label int value", parse_constants_obj_make);
     parser_reg(p, "player sym label int value", parse_constants_player);
+    parser_reg(p, "melee-critical sym label int value", parse_constants_melee_critical);
+    parser_reg(p, "melee-critical-level int cutoff int mult int add str msg",
+        parse_constants_melee_critical_level);
+    parser_reg(p, "ranged-critical sym label int value", parse_constants_ranged_critical);
+    parser_reg(p, "ranged-critical-level int cutoff int mult int add str msg",
+        parse_constants_ranged_critical_level);
 
     return p;
 }
@@ -762,17 +892,56 @@ static errr run_parse_constants(struct parser *p)
 }
 
 
+static int check_critical_levels(const struct critical_level *head)
+{
+    /* Reject if the cutoffs, except for the last one which is unused, do not strictly increase. */
+    if (!head) return 0;
+    while (head->next)
+    {
+        int prev_cutoff = head->cutoff;
+
+        head = head->next;
+        if (head->next && head->cutoff <= prev_cutoff) return 1;
+    }
+    return 0;
+}
+
+
 static errr finish_parse_constants(struct parser *p)
 {
     z_info = parser_priv(p);
     parser_destroy(p);
+    if (check_critical_levels(z_info->m_crit_level_head))
+    {
+        plog("The cutoffs for melee criticals in constants.txt are not strictly increasing.");
+        return PARSE_ERROR_NON_SEQUENTIAL_RECORDS;
+    }
+    if (check_critical_levels(z_info->r_crit_level_head))
+    {
+        plog("The cutoffs for ranged criticals in constants.txt are not strictly increasing.");
+        return PARSE_ERROR_NON_SEQUENTIAL_RECORDS;
+    }
 
     return 0;
 }
 
 
+static void cleanup_critical_levels(struct critical_level *head)
+{
+    while (head)
+    {
+        struct critical_level *target = head;
+
+        head = head->next;
+        mem_free(target);
+    }
+}
+
+
 static void cleanup_constants(void)
 {
+    cleanup_critical_levels(z_info->m_crit_level_head);
+    cleanup_critical_levels(z_info->r_crit_level_head);
     mem_free(z_info);
     z_info = NULL;
 }
@@ -3304,7 +3473,7 @@ static enum parser_error parse_class_book_alloc(struct parser *p)
     k = lookup_kind(b->tval, b->sval);
     my_assert(k);
     k->alloc_prob = parser_getint(p, "common");
-    if (sscanf(tmp, "%d to %d", &amin, &amax) != 2) return PARSE_ERROR_INVALID_ALLOCATION;
+    if (grab_int_range(&amin, &amax, tmp, "to")) return PARSE_ERROR_INVALID_ALLOCATION;
 
     k->alloc_min = amin;
     k->alloc_max = amax;

@@ -7,7 +7,7 @@
 
 NAME = PWMAngband
 VERSION = 1.6.0
-COPYRIGHT = (c) 1995-2022 PWMAngband contributors
+COPYRIGHT = (c) 1995-2023 PWMAngband contributors
 PROGNAME = pwmangband
 CLIENT_PROGNAME = pwmangclient
 
@@ -36,7 +36,6 @@ SERVER_HEADERS = \
 	z-quark.h \
 	z-queue.h \
 	z-rand.h \
-	z-set.h \
 	z-type.h \
 	z-util.h \
 	z-virt.h
@@ -67,7 +66,6 @@ CLIENT_HEADERS = \
 	z-quark.h \
 	z-queue.h \
 	z-rand.h \
-	z-set.h \
 	z-type.h \
 	z-util.h \
 	z-virt.h
@@ -82,7 +80,6 @@ CLIENT_ZFILES = \
 	server/z-quark.o \
 	server/z-queue.o \
 	common/z-rand.o \
-	common/z-set.o \
 	server/z-textblock.o \
 	common/z-type.o \
 	common/z-util.o \
@@ -98,7 +95,6 @@ SERVER_ZFILES = \
 	server/z-quark.o \
 	server/z-queue.o \
 	common/z-rand.o \
-	common/z-set.o \
 	server/z-textblock.o \
 	common/z-type.o \
 	common/z-util.o \

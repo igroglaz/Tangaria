@@ -219,7 +219,7 @@ glyph:M
 pain:4
 flags:ANIMAL
 flags:ONLY_GOLD
-flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
+flags:BASH_DOOR | CLEAR_WEB
 flags:FORCE_SLEEP | HURT_COLD
 flags:HAS_LEGS
 flags:SWIM_GOOD
