@@ -2268,6 +2268,7 @@ static void player_funeral(struct player *p)
 void player_dump(struct player *p, bool server)
 {
     char dumpname[42];
+    char ladderpath[80];
 
     /* Only record the original death */
     if (p->ghost == 1) return;
@@ -2285,6 +2286,29 @@ void player_dump(struct player *p, bool server)
             plog("Character dump successful (server).");
         else
             plog("Character dump failed! (server)");
+
+        ////////////////////////////////////////////////////
+        // now save dump copy for website ladder (for 10+lvls)
+        if (p->lev > 9)
+        {
+            // Ensure ladder directory exists under .\lib\user\, and if not, create it
+            if (!dir_exists(".\\lib\\user\\ladder"))
+            {
+                if (!dir_create(".\\lib\\user\\ladder"))
+                {
+                    plog("Failed to create directory ladder under .\\lib\\user\\!");
+                    return;  // Panic-exit the function if we can't create the directory
+                }
+            }
+
+            // Save another copy in ladder directory
+            strnfmt(ladderpath, sizeof(ladderpath), "ladder\\%s-%s.txt", p->name, buf_tm);
+            if (dump_save(p, ladderpath, true))
+                msg(p, "Character LADDER-dump successful in ladder directory (server).");
+            else
+                msg(p, "Character LADDER-dump failed in ladder directory! (server).");
+        }
+        ////////////////////////////////////////////////////
     }
 
     /* Hack -- compatibility with Angband ladder */
@@ -2421,8 +2445,7 @@ void player_death(struct player *p)
     if (perma_death) death_knowledge(p);
 
     /* Death dump (except ghosts and retiring winners) */
-    // ...also don't make auto server dump for 1 lvl chars (to exclude from ladder)
-    if ((p->ghost != 1) && !(p->total_winner && !p->alive) && p->lev > 1)
+    if ((p->ghost != 1) && !(p->total_winner && !p->alive))
         player_dump(p, p->alive);
 
     /*
