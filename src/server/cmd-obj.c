@@ -1836,27 +1836,31 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     if (can_use)
     {
         //////////////////////////////////////////////////////////////
-        // Hack to reduce MD chances for some classes:
+        // Hack to reduce MD chances for wands, staves, rods for some classes:
         // it won't spend charge of the item (too cruel), so we are not going to do_cmd_use_end()..
-        // but it will still consume energy
-        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-            streq(p->clazz->name, "Shapechanger"))
+        // but it will still consume energy (also teleport staves are OK)
+        if ((obj->tval == TV_WAND || obj->tval == TV_STAFF || obj->tval == TV_ROD) &&
+             !(obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation")))
         {
-            if (magik(70 - p->lev)) // 70% -> 20%
+            if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+                streq(p->clazz->name, "Shapechanger"))
             {
-                msg(p, "You failed to activate an item, but its charge preserved.");
-                use_energy(p);
-                return;
+                if (magik(70 - p->lev)) // 70% -> 20%
+                {
+                    msg(p, "You failed to activate an item, but its charge preserved.");
+                    use_energy(p);
+                    return;
+                }
             }
-        }
-        else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
-                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
-        {
-            if (magik(51 - p->lev)) // 50% -> 1%
+            else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
+                     streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
             {
-                msg(p, "You failed to activate an item, but its charge preserved.");
-                use_energy(p);
-                return;
+                if (magik(51 - p->lev)) // 50% -> 1%
+                {
+                    msg(p, "You failed to activate an item, but its charge preserved.");
+                    use_energy(p);
+                    return;
+                }
             }
         }
         //////////////////////////////////////////////////////////////
