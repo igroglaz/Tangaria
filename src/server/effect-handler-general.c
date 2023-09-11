@@ -6212,7 +6212,6 @@ bool effect_handler_WAKE(effect_handler_context_t *context)
 }
 
 
-
 // Player's SPIDER race creates WEB (one tile)
 bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
 {
@@ -6310,6 +6309,36 @@ bool effect_handler_WEB(effect_handler_context_t *context)
         else
             player_dec_timed(context->origin->player, TMD_FOOD, 300, false);
     }
+
+    return true;
+}
+
+
+// Create sand wall (one tile)
+bool effect_handler_SAND_WALL(effect_handler_context_t *context)
+{
+    /* Always notice */
+    context->ident = true;
+
+    /* Only on random levels */
+    if (!random_level(&context->cave->wpos))
+    {
+        msg(context->origin->player, "You cannot build here...");
+        return false;
+    }
+
+    /* Floor grid with no existing traps or glyphs; open and no objects */
+    if (square_isplayertrap(context->cave, &context->origin->player->grid) ||
+       !square_isanyfloor(context->cave, &context->origin->player->grid) ||
+        square_object(context->cave, &context->origin->player->grid))
+    {
+        msg(context->origin->player, "You cannot build here...");
+        return false;
+    }
+
+    /* Create a wall */
+    square_set_feat(context->cave, &context->origin->player->grid, FEAT_SANDWALL);
+    msg_misc(context->origin->player, " creates a sandwall.");
 
     return true;
 }

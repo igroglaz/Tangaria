@@ -753,12 +753,28 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
-    else if (streq(p->race->name, "Golem"))
+    else if (streq(p->race->name, "High-Elf"))
     {
         use_energy(p);
         player_inc_timed(p, TMD_SINFRA, 5 + p->lev, false, false);
         player_dec_timed(p, TMD_FOOD, 15, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+        return;
+    }
+    else if (streq(p->race->name, "Golem") && p->lev > 35)
+    {
+        use_energy(p);
+        
+        effect = mem_zalloc(sizeof(struct effect));
+        effect->index = EF_SAND_WALL;
+
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
+
+        free_effect(effect);
+
+        player_dec_timed(p, TMD_FOOD, 15, false);
+        player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
         return;
     }
     else if (streq(p->race->name, "Gargoyle"))

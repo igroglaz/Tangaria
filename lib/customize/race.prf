@@ -112,7 +112,8 @@ help: they are far superior in terms of abilities when compared to their lesser
 help: Elven kindred. They can also see into the invisible world of ghosts and
 help: wraiths. Like normal Elves, they resist attacks involving bright light.
 help: They have good infravision and can even see cold-blooded invisible
-help: creatures.
+help: creatures. |
+help: They can get infravision ('y') by spending some energy.
 
 race:Kobold
 help:Kobolds are a race of small dog-headed humanoids that dwell underground.
@@ -456,9 +457,11 @@ help: Golems are extreamely strong, but a bit slow. They can not be paralized,
 help: and resists poison. They are good in digging. They are miserable
 help: in stealth at first, but advanced models could move quite silently.
 help: Golems good at fighting and somehow resistant to malicious spell effects.|
-help: They got less speed penalty due overweight.
-help: They can get infravision ('y') by spending some energy.
-help: Golems don't need food. But they consume fresh oil (can be found in flasks).
+help: They got less speed penalty due overweight. They don't fear and don't breath.
+help: They can create walls ('y' key) at 35+ level by spending some energy.
+help: Golems don't need food. But they consume fresh oil.
+help: Oil can be found in flasks or lanterns. Use '_' to drink from them, while
+help: you don't stand on top of the fountain.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
