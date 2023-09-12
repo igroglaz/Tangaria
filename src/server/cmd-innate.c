@@ -761,7 +761,7 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
-    else if (streq(p->race->name, "Golem") && p->lev > 35)
+    else if (streq(p->race->name, "Golem"))
     {
         use_energy(p);
         
@@ -773,8 +773,26 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        player_dec_timed(p, TMD_FOOD, 15, false);
-        player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
+        if (p->lev < 10) {
+            player_dec_timed(p, TMD_FOOD, 100, false);
+            player_inc_timed(p, TMD_OCCUPIED, 11, false, false);
+        } else if (p->lev < 20) {
+            player_dec_timed(p, TMD_FOOD, 80, false);
+            player_inc_timed(p, TMD_OCCUPIED, 9, false, false);
+        } else if (p->lev < 30) {
+            player_dec_timed(p, TMD_FOOD, 60, false);
+            player_inc_timed(p, TMD_OCCUPIED, 7, false, false);
+        } else if (p->lev < 40) {
+            player_dec_timed(p, TMD_FOOD, 40, false);
+            player_inc_timed(p, TMD_OCCUPIED, 5, false, false);
+        } else if (p->lev < 50) {
+            player_dec_timed(p, TMD_FOOD, 30, false);
+            player_inc_timed(p, TMD_OCCUPIED, 4, false, false);
+        } else {
+            player_dec_timed(p, TMD_FOOD, 20, false);
+            player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
+        }
+
         return;
     }
     else if (streq(p->race->name, "Gargoyle"))
