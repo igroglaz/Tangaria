@@ -1502,19 +1502,21 @@ skill-melee:7
 skill-shoot:-4
 skill-dig:10
 hitdie:11
-exp:100:125
+# +10% exp
+exp:100:135
 history:100
 age:11:4
 height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
 #4 -3 -3 -2 0
-# --- can't move/act diagonally.. !!!! so can't use anti-summon corridors.. !!!!
+# --- can't move/act diagonally.. !!!! so can't use anti-summon corridors...
+# ...but can build it slowly with 'y' (create sand wall)
 # + -10% phys damage hc
 # + less speed penalty due overweight
-# 'y' create granite wall
+# + got 50% chance to act when paralyzed
 # can't suffocate in water
-# need to consume fresh (only flasks) oil (heal and nourish)
+# need to consume oil (from flasks and lanterns) to nourish
 value:0:STR[3]
 value:0:INT[0]
 value:0:WIS[0]
@@ -1522,8 +1524,6 @@ value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-3]
 value:0:RES_POIS[1]
-obj-flag:1:PROT_FEAR
-obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 value:0:TUNNEL[0+1d10]
 # ? rfe reflection

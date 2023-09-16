@@ -2363,7 +2363,13 @@ static void energize_player(struct player *p)
     bool is_idle = has_energy(p, false);
 
     if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
-        is_idle = true;
+    {
+        // Golems have 1/2 chance to act even during paralyze
+        if (streq(p->race->name, "Golem") && p->timed[TMD_PARALYZED] && one_in_(2))
+            ;
+        else
+            is_idle = true;
+    }
 
     /* Update idle turn */
     if (is_idle && ht_zero(&p->idle_turn)) ht_copy(&p->idle_turn, &turn);
@@ -2394,7 +2400,13 @@ static void energize_player(struct player *p)
 
     /* Paralyzed or Knocked Out player gets no turn */
     if (p->timed[TMD_PARALYZED] || p->timed[TMD_OCCUPIED] || player_timed_grade_eq(p, TMD_STUN, "Knocked Out"))
-        do_cmd_sleep(p);
+    {
+        // Golems have 1/2 chance to get turn even during paralyze
+        if (streq(p->race->name, "Golem") && p->timed[TMD_PARALYZED] && one_in_(2))
+            ;
+        else
+            do_cmd_sleep(p);
+    }
 
     /* Hack -- if player has energy and we are in a slow time bubble, blink faster */
     if ((p->bubble_speed < NORMAL_TIME) && (p->blink_speed <= (uint32_t)cfg_fps))
