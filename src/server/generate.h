@@ -295,7 +295,7 @@ extern struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min
 extern struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width, const char **p_error);
 extern struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width, const char **p_error);
 extern struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,

@@ -4051,7 +4051,7 @@ static struct chunk *modified_chunk(struct player *p, struct worldpos *wpos, int
 }
 
 // Tangaria 'tiny' levels
-struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
+struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width, const char **p_error)
 {
     int i, k;
     int size_percent, y_size, x_size;
@@ -4122,9 +4122,9 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     y_size = z_info->dungeon_hgt * (size_percent - 5 + randint0(10)) / 100;
     x_size = z_info->dungeon_wid * (size_percent - 5 + randint0(10)) / 100;
 
-    /* Enforce minimum dimensions */
-    y_size = MAX(y_size, min_height);
-    x_size = MAX(x_size, min_width);
+    /* Enforce dimension limits */
+    y_size = MIN(MAX(y_size, min_height), z_info->dungeon_hgt);
+    x_size = MIN(MAX(x_size, min_width), z_info->dungeon_wid);
 
     // T: as above 'enforcing' doesn't really works (min_height/width always 0),
     // we limit it for 'tiny' levels
@@ -4134,8 +4134,12 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     dun->block_hgt = dun->profile->block_size;
     dun->block_wid = dun->profile->block_size;
 
-    c = modified_chunk(p, wpos, MIN(z_info->dungeon_hgt, y_size), MIN(z_info->dungeon_wid, x_size));
-    if (!c) return NULL;
+    c = modified_chunk(p, wpos, y_size, x_size);
+    if (!c)
+    {
+        *p_error = "t_modified_gen chunk could not be created";
+        return NULL;
+    }
 
     /* Generate permanent walls around the edge of the generated area */
     draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
@@ -4237,7 +4241,9 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
     /* Determine the character location */
     if (!new_player_spot(c, p))
     {
+        uncreate_artifacts(c);
         cave_free(c);
+        *p_error = "could not place player in t_modified_gen";
         return NULL;
     }
 
