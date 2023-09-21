@@ -219,7 +219,7 @@ title:Lord
 ############### Archer ###############
 name:Archer
 color:y
-skill-disarm-phys:28:8
+skill-disarm-phys:30:9
 skill-disarm-magic:21:7
 skill-device:24:8
 skill-save:24:10
@@ -248,17 +248,10 @@ value:0:DEX[3]
 value:0:CON[1]
 value:0:CHR[-2]
 value:0:SHOTS[1d6]
-#
 player-flags:0:FAST_SHOT
 # class brands works both on melee and ranged. races - only on melee!
 brand:5:29:POIS_2
 brand:30:50:CUT_1
-############################
-obj-flag:25:SEE_INVIS
-value:25:STEALTH[-1]
-#value:10:INFRA[1]
-#value:25:DAM_RED[-1]
-#
 title:Fletcher
 title:Shooter
 title:Dead Shot
