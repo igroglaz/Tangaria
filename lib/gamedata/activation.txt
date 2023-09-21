@@ -781,7 +781,10 @@ power:4
 effect:CURE:POISONED
 effect:HEAL_HP
 dice:4d8
-desc:cures {4d8} points of damage and neutralizes poison
+effect:NOURISH:INC_TO
+dice:75
+desc:cures {4d8} points of damage, neutralizes poison and leaves you very well
+desc: fed
 
 name:HASTE
 aim:0

@@ -363,7 +363,7 @@ static enum parser_error parse_prefs_gf(struct parser *p)
 
     memset(types, 0, PROJ_MAX * sizeof(bool));
 
-    /* Parse the type, which is a | seperated list of PROJ_ constants */
+    /* Parse the type, which is a | separated list of PROJ_ constants */
     s = string_make(parser_getsym(p, "type"));
     t = strtok(s, "| ");
     while (t)

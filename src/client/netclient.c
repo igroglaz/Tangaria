@@ -700,7 +700,7 @@ static int Receive_struct_info(void)
             int16_t base, dice, sides, m_bonus, c_skills, res_level, weight, att_multiply, max_attacks,
                 min_weight, sfail, slevel;
             uint8_t cidx, c_mhp, total_spells, flag, lvl;
-            uint16_t tval, sval;
+            uint16_t tval, sval, spell_first;
             char num_books;
             char realm[NORMAL_WID];
             int16_t obj_mod_max, skill_max, pf_size, pf_max, of_size, of_max, elem_max;
@@ -904,7 +904,8 @@ static int Receive_struct_info(void)
                     c->el_info[j].res_level[2] = res_level3;
                     c->el_info[j].lvl[2] = lvl3;
                 }
-                if ((n = Packet_scanf(&rbuf, "%b%hu%c", &total_spells, &tval, &num_books)) <= 0)
+                if ((n = Packet_scanf(&rbuf, "%b%hu%hu%c", &total_spells, &spell_first, &tval,
+                    &num_books)) <= 0)
                 {
                     /* Rollback the socket buffer */
                     Sockbuf_rollback(&rbuf, bytes_read);
@@ -914,15 +915,16 @@ static int Receive_struct_info(void)
                     mem_free(c);
                     return n;
                 }
-                bytes_read += 4;
+                bytes_read += 6;
 
                 c->c_mhp = c_mhp;
                 c->magic.total_spells = total_spells;
+                c->magic.spell_first = spell_first;
                 c->magic.num_books = num_books;
                 c->magic.books = mem_zalloc(num_books * sizeof(struct class_book));
 
-                /* Hack -- put the tval in the unused "spell_first" field */
-                c->magic.spell_first = tval;
+                /* Hack -- put the tval in the "tval_first" field */
+                c->magic.tval_first = tval;
 
                 for (j = 0; j < num_books; j++)
                 {
@@ -5080,14 +5082,6 @@ int Send_use(struct command *cmd)
 }
 
 
-/* Restrict which equipment can be thrown */
-static bool restrict_for_throwing(struct player *p, const struct object *obj)
-{
-    return !object_is_equipped(p->body, obj) ||
-        (tval_is_melee_weapon(obj) && obj_can_takeoff(p, obj));
-}
-
-
 int Send_throw(struct command *cmd)
 {
     int n;
@@ -5102,7 +5096,7 @@ int Send_throw(struct command *cmd)
     if (cmd_get_item(cmd, "item", &obj,
         /* Prompt */ "Throw which item? ",
         /* Error */ "You have nothing to throw.",
-        /* Filter */ restrict_for_throwing,
+        /* Filter */ obj_can_throw,
         /* Choice */ USE_EQUIP | USE_QUIVER | USE_INVEN | USE_FLOOR | QUIVER_TAGS | START_INVEN | SHOW_THROWING) != CMD_OK)
     {
         return 0;

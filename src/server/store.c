@@ -641,7 +641,7 @@ static bool store_will_buy(struct player *p, struct store *s, const struct objec
 int32_t price_item(struct player *p, struct object *obj, bool store_buying, int qty)
 {
     int adjust = 100;
-    double price;
+    int price;
     struct store *s = store_at(p);
     struct owner *proprietor = s->owner;
     int factor;
@@ -662,7 +662,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
         if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")) return (0L);
 
         /* Get the desired value of the given quantity of items */
-        price = (double)obj->askprice * qty;
+        price = obj->askprice * qty;
 
         /* Allow items to be "shown" without being "for sale" */
         if (price <= 0) return (0L);
@@ -676,9 +676,9 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
 
     /* Get the value of the stack of wands, or a single item */
     if (tval_can_have_charges(obj))
-        price = (double)object_value(p, obj, qty);
+        price = object_value(p, obj, qty);
     else
-        price = (double)object_value(p, obj, 1);
+        price = object_value(p, obj, 1);
 
     /* Worthless items */
     if (price <= 0) return (0L);
@@ -3530,14 +3530,14 @@ bool check_store_drop(struct player *p)
  */
 int32_t player_price_item(struct player *p, struct object *obj)
 {
-    double price;
+    int price;
 
     /* Is this item for sale? */
     if (!obj->note) return -1;
     if (!set_askprice(obj)) return -1;
 
     /* Get the desired value of all items */
-    price = (double)obj->askprice * obj->number;
+    price = obj->askprice * obj->number;
     if (price <= 0) return (0L);
 
     /* Paranoia */

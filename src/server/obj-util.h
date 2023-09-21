@@ -36,6 +36,7 @@ extern void object_to_h(const struct object *obj, int16_t *to_h);
 extern void object_to_d(const struct object *obj, int16_t *to_d);
 extern void object_to_a(const struct object *obj, int16_t *to_a);
 extern void object_elements(const struct object *obj, struct element_info el_info[ELEM_MAX]);
+extern void object_elements_mixed(const struct object *obj, bool el_mixed[ELEM_MAX]);
 extern struct effect *object_effect(const struct object *obj);
 extern bool is_unknown(const struct object *obj);
 extern bool is_unknown_money(const struct object *obj);
@@ -69,7 +70,7 @@ extern struct object *object_from_index(struct player *p, int item, bool prompt,
     bool check_ignore);
 extern struct ego_item *lookup_ego_item(const char *name, struct object_kind *kind);
 extern const struct artifact *lookup_artifact_name(const char *name);
-extern void print_custom_message(struct player *p, struct object *obj, const char *string,
+extern void print_custom_message(struct player *p, const struct object *obj, const char *string,
     int msg_type);
 extern int32_t get_askprice(const char *inscription);
 extern bool is_artifact_created(const struct artifact *art);

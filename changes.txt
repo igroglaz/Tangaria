@@ -10,6 +10,8 @@ Main changes ported from Angband 4.2.4:
 - re-organisation of effects code
 - lots of tidying and neatening
 
+And many bug fixes and code improvements from Angband 4.2.5...
+
 For a full list of changes made in older versions, check the Official
 PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 
@@ -69,6 +71,11 @@ Angband 4.2.x:
 - Remove ctrl-c keymap
 - In inventory item context menu, change "Drop All" command key to 'A'
 - Only redraw the store if you bought something
+- Customize spell messages for monsters incapable of speech
+- Drop "light" from the descriptions of some quylthulg varieties
+- Only show the "Throw" context menu option for objects that can be thrown
+- Display spell points even if encumbrance drops maximum to zero
+- Character sheet: use '~' for something with resist and vulnerability
 
 PWMAngband:
 
@@ -114,6 +121,12 @@ Angband 4.2.x:
 - Set Wooden Torches to appear on all levels
 - Hydras now just bash rather than open doors
 - Restrict entrances to the Fire Festival vault
+- Have waybread heal 4d8
+- Give hafted weapons bonuses if the character has the BLESS_WEAPON property
+- Drop OPEN_DOOR and BASH_DOOR on ethereal dragons
+- Drop OPEN_DOOR on Kavlax, mature and ancient dragons
+- Impose a distance constraint for non-entry stairs of the same type
+- Trap: skip extra effect or other side effects if the player is dead
 
 PWMAngband:
 
@@ -164,6 +177,7 @@ Angband 4.2.x:
 - SDL2: limit the number of builtin fonts tracked
 - SDL2: return early in pict hook if tiles aren't enabled
 - Fix Venn diagram room template
+- Have HEAL_HP effect work if there's no base or bonus in the amount
 
 PWMAngband:
 
@@ -294,6 +308,10 @@ Angband 4.2.x:
 - Avoid using sscanf()
 - Put constants for criticals in constants.txt
 - Clean up message handling on targeted earthquakes
+- Generation failures: protect against artifact loss and better messages
+- Avoid use of floating-point values
+- Keep generated levels in the bounds set by constants.txt
+- Add diagnostics for missing monster spell messages
 
 PWMAngband:
 
@@ -335,3 +353,6 @@ Compilation/documentation
 - Avoid most of the "redundant declaration" warnings
 - Update documentation for keymaps
 - Drop mention of wielding ammunition in the documentation
+- Update documentation for Holy Avenger and Blessed egos
+- Update documentation to match new handling of gold and starting kit
+- Docs: mention the toggle ignore command in the ignoring section

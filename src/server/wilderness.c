@@ -3780,7 +3780,8 @@ static void wild_town_gen_layout(struct chunk *c)
  * Hack -- this function also generates all other towns except starting and base towns,
  * which use their own cave profiles.
  */
-struct chunk *wilderness_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width)
+struct chunk *wilderness_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width,
+    const char **p_error)
 {
     int i, residents;
 

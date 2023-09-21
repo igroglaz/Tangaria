@@ -1573,8 +1573,8 @@ int Send_class_struct_info(int ind)
                 return -1;
             }
         }
-        if (Packet_printf(&connp->c, "%b%hu%c", (unsigned)c->magic.total_spells, (unsigned)tval,
-            c->magic.num_books) <= 0)
+        if (Packet_printf(&connp->c, "%b%hu%hu%c", (unsigned)c->magic.total_spells,
+            (unsigned)c->magic.spell_first, (unsigned)tval, c->magic.num_books) <= 0)
         {
             Destroy_connection(ind, "Send_class_struct_info write error");
             return -1;

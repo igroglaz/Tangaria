@@ -91,7 +91,7 @@
 #include <shellapi.h>
 
 /*
- * Include the support for loading bitmaps
+ * Include the support for loading bitmaps and saving screenshots
  */
 #include "..\win\readdib.h"
 

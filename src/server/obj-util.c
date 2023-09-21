@@ -441,6 +441,52 @@ void object_elements(const struct object *obj, struct element_info el_info[ELEM_
 
 
 /*
+ * Return an array telling if something has both resist and vulnerability to elements
+ */
+void object_elements_mixed(const struct object *obj, bool el_mixed[ELEM_MAX])
+{
+    int i, j;
+    struct element_info el_info[ELEM_MAX];
+    bool vuln[ELEM_MAX];
+
+    memset(el_mixed, 0, ELEM_MAX * sizeof(bool));
+
+    if (!obj) return;
+
+    /* Add object elements */
+    memcpy(el_info, obj->el_info, ELEM_MAX * sizeof(struct element_info));
+    for (i = 0; i < ELEM_MAX; i++)
+    {
+        vuln[i] = false;
+        if (el_info[i].res_level[0] == -1)
+        {
+            vuln[i] = true;
+            el_info[i].res_level[0] = 0;
+        }
+    }
+
+    /* Add curse elements */
+    for (i = 0; obj->curses && (i < z_info->curse_max); i++)
+    {
+        if (obj->curses[i].power == 0) continue;
+        for (j = 0; j < ELEM_MAX; j++)
+        {
+            if (curses[i].obj->el_info[j].res_level[0] == -1)
+                vuln[j] = true;
+            if (curses[i].obj->el_info[j].res_level[0] > el_info[j].res_level[0])
+                el_info[j].res_level[0] = curses[i].obj->el_info[j].res_level[0];
+        }
+    }
+
+    for (i = 0; i < ELEM_MAX; i++)
+    {
+        if (vuln[i] && (el_info[i].res_level[0] == 1))
+            el_mixed[i] = true;
+    }
+}
+
+
+/*
  * Return true if the item is unknown (has yet to be seen by the player).
  */
 bool is_unknown(const struct object *obj)
@@ -1369,7 +1415,8 @@ static msg_tag_t msg_tag_lookup(const char *tag)
  *
  * Just truncates if the buffer isn't big enough.
  */
-static void object_kind_name_activation(struct player *p, char *buf, size_t max, struct object *obj)
+static void object_kind_name_activation(struct player *p, char *buf, size_t max,
+    const struct object *obj)
 {
     /* Flavored non-artifact items get a base description */
     if (obj->kind->flavor && !obj->artifact)
@@ -1388,7 +1435,8 @@ static void object_kind_name_activation(struct player *p, char *buf, size_t max,
 /*
  * Print a message from a string, customised to include details about an object
  */
-void print_custom_message(struct player *p, struct object *obj, const char *string, int msg_type)
+void print_custom_message(struct player *p, const struct object *obj, const char *string,
+    int msg_type)
 {
     char buf[MSG_LEN] = "\0";
     const char *next;

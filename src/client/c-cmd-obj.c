@@ -32,6 +32,14 @@ bool obj_can_takeoff(struct player *p, const struct object *obj)
 }
 
 
+/* Can only throw an item that is not equipped or the equipped weapon if it can be taken off. */
+bool obj_can_throw(struct player *p, const struct object *obj)
+{
+    return !object_is_equipped(p->body, obj) ||
+        (tval_is_melee_weapon(obj) && obj_can_takeoff(p, obj));
+}
+
+
 /* Determine if an object is designed for throwing */
 bool obj_is_throwing(struct player *p, const struct object *obj)
 {
@@ -76,8 +84,8 @@ static int spell_book_count_spells(const struct object *obj, bool (*tester)(int,
 
 bool obj_can_browse(struct player *p, const struct object *obj)
 {
-    /* Hack -- "spell_first" holds the tval of the first book of the realm */
-    return (obj->tval == p->clazz->magic.spell_first);
+    /* Hack -- "tval_first" holds the tval of the first book of the realm */
+    return (obj->tval == p->clazz->magic.tval_first);
 }
 
 

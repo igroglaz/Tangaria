@@ -394,7 +394,7 @@ alloc:3:30 to 100
 pile:10:1d2
 effect:CURE:POISONED
 effect:HEAL_HP
-dice:20
+dice:4d8
 effect:NOURISH:INC_BY
 dice:40
 msg_self:That tastes great.

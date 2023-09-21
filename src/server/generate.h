@@ -200,7 +200,8 @@ struct streamer_profile
 /*
  * cave_builder is a function pointer which builds a level
  */
-typedef struct chunk * (*cave_builder) (struct player *p, struct worldpos *wpos, int h, int w);
+typedef struct chunk * (*cave_builder) (struct player *p, struct worldpos *wpos, int h, int w,
+    const char **p_error);
 
 struct cave_profile
 {
@@ -286,29 +287,29 @@ extern struct room_template *room_templates;
 
 /* gen-cave.c */
 extern struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width);
 extern struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *mang_town_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 
 /* gen-chunk.c */
 extern void chunk_list_add(struct chunk *c);
@@ -395,12 +396,13 @@ extern void place_gold(struct player *p, struct chunk *c, struct loc *grid, int 
 extern void place_secret_door(struct chunk *c, struct loc *grid);
 extern void place_closed_door(struct chunk *c, struct loc *grid);
 extern void place_random_door(struct chunk *c, struct loc *grid);
-extern void alloc_stairs(struct chunk *c, int feat, int num);
+extern void alloc_stairs(struct chunk *c, int feat, int num, int minsep);
 extern void vault_objects(struct player *p, struct chunk *c, struct loc *grid, int num);
 extern void vault_traps(struct chunk *c, struct loc *grid, int yd, int xd, int num);
 extern void vault_monsters(struct player *p, struct chunk *c, struct loc *grid, int depth,
     int num);
 
+extern void uncreate_artifacts(struct chunk *c);
 extern void dump_level_simple(const char *basefilename, const char *title, struct chunk *c);
 extern void dump_level(ang_file *fo, const char *title, struct chunk *c, int **dist);
 extern void dump_level_header(ang_file *fo, const char *title);

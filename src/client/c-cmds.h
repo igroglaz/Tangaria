@@ -33,6 +33,7 @@ extern void do_cmd_time(void);
 
 /* c-cmd-obj.c */
 extern bool obj_can_takeoff(struct player *p, const struct object *obj);
+extern bool obj_can_throw(struct player *p, const struct object *obj);
 extern bool obj_is_throwing(struct player *p, const struct object *obj);
 extern bool obj_has_inscrip(struct player *p, const struct object *obj);
 extern bool obj_can_browse(struct player *p, const struct object *obj);

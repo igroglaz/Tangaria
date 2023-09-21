@@ -349,9 +349,6 @@ static void fill_yrange(struct chunk *c, int x, int y1, int y2, int feat, int fl
 }
 
 
-#define ROUND(x) ((((x) - floor(x)) * 10 >= 5)? floor((x) + 1): floor(x))
-
-
 /*
  * Fill a circle with the given feature/info.
  *
@@ -367,13 +364,13 @@ static void fill_circle(struct chunk *c, int y0, int x0, int radius, int border,
     bool light)
 {
     int i, last = 0;
-    int r2 = radius * radius;
 
-    for (i = 0; i <= radius; i++)
+    /* r2i2k2 is radius * radius - i * i - k * k. */
+    int k, r2i2k2;
+
+    for (i = 0, k = radius, r2i2k2 = 0; i <= radius; i++)
     {
-        double j = sqrt(r2 - (i * i));
-        int k = ROUND(j);
-        int b = 0;
+        int b = border;
 
         if (border && (last > k)) b++;
 
@@ -382,6 +379,21 @@ static void fill_circle(struct chunk *c, int y0, int x0, int radius, int border,
         fill_yrange(c, x0 - i, y0 - k - b, y0 + k + b, feat, flag, light);
         fill_yrange(c, x0 + i, y0 - k - b, y0 + k + b, feat, flag, light);
         last = k;
+
+        /* Update r2i2k2 and k for next i. */
+        if (i < radius)
+        {
+            r2i2k2 -= 2 * i + 1;
+            while (1)
+            {
+                /* The change to r2i2k2 if k is decreased by one. */
+                int adj = 2 * k - 1;
+
+                if (abs(r2i2k2 + adj) >= abs(r2i2k2)) break;
+                --k;
+                r2i2k2 += adj;
+            }
+        }
     }
 }
 

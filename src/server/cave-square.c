@@ -649,7 +649,7 @@ bool square_isknown(struct player *p, struct loc *grid)
 
 
 /*
- * True if the the player's knowledge of the terrain of the square is wrong
+ * True if the player's knowledge of the terrain of the square is wrong
  * or missing
  */
 bool square_isnotknown(struct player *p, struct chunk *c, struct loc *grid)

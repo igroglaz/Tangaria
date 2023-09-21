@@ -1504,12 +1504,17 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
                 else if (rec[i].element != -1)
                 {
                     struct element_info el_info[ELEM_MAX];
+                    bool el_mixed[ELEM_MAX];
 
                     object_elements(obj, el_info);
 
                     imm = (known && (el_info[rec[i].element].res_level[0] == 3));
                     res = (known && (el_info[rec[i].element].res_level[0] == 1));
                     vul = (known && (el_info[rec[i].element].res_level[0] == -1));
+
+                    object_elements_mixed(obj, el_mixed);
+
+                    mix = el_mixed[rec[i].element];
                 }
                 else if (rec[i].bname)
                 {
@@ -1684,6 +1689,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             else if (res && !vul) sym = '+';
             else if (d_res && !vul) {sym = '#'; attr = COLOUR_WHITE;}
             else if (vul && !res) sym = '-';
+            else if (mix) sym = '~';
             else if (timed) {sym = '!'; attr = COLOUR_L_GREEN;}
             else if (!known && !rune) sym = '?';
 

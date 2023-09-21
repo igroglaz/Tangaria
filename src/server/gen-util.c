@@ -799,14 +799,43 @@ void place_random_door(struct chunk *c, struct loc *grid)
  * c current chunk
  * feat the stair terrain type
  * num number of staircases to place
+ * minsep If greater than zero, the stairs must be more than minsep
+ * grids in x or y from other staircases.
  */
-void alloc_stairs(struct chunk *c, int feat, int num)
+void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
 {
-    int i;
-    struct loc grid;
-    int walls = 3;
-    struct loc top_left, bottom_right;
+    int i, navalloc = 0, nav, walls = 3;
+    struct loc *av = NULL;
     int *state;
+    struct loc grid;
+    struct loc top_left, bottom_right;
+
+    nav = 0;
+    if (minsep > 0)
+    {
+        /* Get the locations of the stairs already there that'll have to be avoided. */
+        square_predicate tester = ((feat == FEAT_MORE)? square_isdownstairs: square_isupstairs);
+
+        navalloc = 8;
+        av = mem_alloc(navalloc * sizeof(*av));
+        for (grid.y = 0; grid.y < c->height; ++grid.y)
+        {
+            for (grid.x = 0; grid.x < c->width; ++grid.x)
+            {
+                if ((*tester)(c, &grid))
+                {
+                    my_assert(nav >= 0 && nav <= navalloc);
+                    if (nav == navalloc)
+                    {
+                        navalloc += navalloc;
+                        av = mem_realloc(av, navalloc * sizeof(*av));
+                    }
+                    nav++;
+                    loc_copy(&av[nav], &grid);
+                }
+            }
+        }
+    }
 
     loc_init(&top_left, 1, 1);
     loc_init(&bottom_right, c->width - 2, c->height - 2);
@@ -818,8 +847,39 @@ void alloc_stairs(struct chunk *c, int feat, int num)
         /* Gradually reduce number of walls if having trouble */
         while (true)
         {
+            bool found = false;
+
             /* Find the best possible place */
-            if (square_suits_stairs(c, &grid, walls, state))
+            while (!found && cave_find_get_grid(&grid, state))
+            {
+                if (!square_isempty(c, &grid)) continue;
+                if (square_isvault(c, &grid) || square_isno_stairs(c, &grid)) continue;
+                if (square_num_walls_adjacent(c, &grid) != walls) continue;
+                if (minsep > 0)
+                {
+                    int k;
+
+                    /* Check against the stairs to be avoided. */
+                    for (k = 0; k < nav; ++k)
+                    {
+                        if (ABS(grid.y - av[k].y) <= minsep && ABS(grid.x - av[k].x) <= minsep)
+                            break;
+                    }
+                    if (k < nav) continue;
+
+                    /* Add this to the avoidance list. */
+                    my_assert(nav >= 0 && nav <= navalloc);
+                    if (nav == navalloc)
+                    {
+                        navalloc += navalloc;
+                        av = mem_realloc(av, navalloc * sizeof(*av));
+                    }
+                    nav++;
+                    loc_copy(&av[nav], &grid);
+                }
+                found = true;
+            }
+            if (found)
             {
                 place_stairs(c, &grid, feat);
                 break;
@@ -837,6 +897,7 @@ void alloc_stairs(struct chunk *c, int feat, int num)
     }
 
     mem_free(state);
+    mem_free(av);
 }
 
 
@@ -1051,6 +1112,29 @@ void vault_monsters(struct player *p, struct chunk *c, struct loc *grid, int dep
             break;
         }
     }
+}
+
+
+/*
+ * Mark artifacts in a failed chunk as not created
+ */
+void uncreate_artifacts(struct chunk *c)
+{
+    struct object *obj;
+    struct loc begin, end;
+    struct loc_iterator iter;
+
+    loc_init(&begin, 0, 0);
+    loc_init(&end, c->width, c->height);
+    loc_iterator_first(&iter, &begin, &end);
+
+    /* Also mark created artifacts as not created ... */
+    do
+    {
+        for (obj = square_object(c, &iter.cur); obj; obj = obj->next)
+            preserve_artifact_aux(obj);
+    }
+    while (loc_iterator_next_strict(&iter));
 }
 
 

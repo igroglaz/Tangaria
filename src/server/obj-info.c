@@ -858,10 +858,27 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
  * Gets information about the average damage/turn that can be inflicted if
  * the player wields the given weapon.
  *
- * Fills in the damage against normal adversaries in `normal_damage`, as well
- * as the slays/brands on the weapon in slay_damage/brand_list.
- * `nonweap_slay` is set to whether other items being worn could add to the
- * damage done by branding attacks.
+ * obj is the melee weapon or launched/thrown missile to evaluate.
+ * normal_damage is dereferenced and set to the average damage per
+ * turn times ten if no brands or slays are effective.
+ * brand_damage must point to z_info->brand_max ints. brand_damage[i]
+ * is set to the average damage per turn times ten with the ith brand from the
+ * global brands array if that brand is present and is not overridden by a
+ * more powerful brand that is also present for the same element; otherwise,
+ * brand_damage[i] is not modified.
+ * slay_damage must point to z_info->slay_max ints. slay_damage[i]
+ * is set to the average damage per turn times ten with the ith slay from the
+ * global slays array if that slay is present and is not overridden by a
+ * more powerful slay that is also present for the same monsters; otherwise,
+ * slay_damage[i] is not modified.
+ * nonweap_slay is dereferenced and set to true if an off-weapon slay
+ * or brand affects the damage or to false if no off-weapon slay or brand
+ * affects the damage.
+ * thrown causes, if true, the damage to be calculated as if obj is
+ * thrown.
+ *
+ * return true if there is at least one known brand or slay that could
+ * affect the damage; otherwise, return false.
  */
 static bool obj_known_damage(struct player *p, const struct object *obj, int *normal_damage,
     int *brand_damage, int *slay_damage, bool *nonweap_slay, bool thrown)
@@ -1980,7 +1997,7 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
     if (object_fully_known(p, obj) && !terse)
     {
         /* Use black market price */
-        double price = (double)object_value(p, obj, 1) * 2;
+        int price = object_value(p, obj, 1) * 2;
 
         text_out(p, "\n");
         text_out_c(p, COLOUR_YELLOW, "Preferred price per unit: %ld au", (int32_t)price);

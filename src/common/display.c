@@ -380,7 +380,7 @@ static void display_resistance_panel(struct player *p, const char **rec, const r
             if (name_attr == COLOUR_L_BLUE) continue;
 
             /* Other known properties */
-            if ((sym != '.') && (sym != '?') && (sym != '!'))
+            if ((sym != '.') && (sym != '?') && (sym != '!') && (sym != '~'))
                 name_attr = COLOUR_L_BLUE;
         }
 

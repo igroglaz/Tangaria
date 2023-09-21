@@ -311,8 +311,14 @@ static void prt_sp(int row, int col)
     /* Erase the mana display */
     Term_erase(col, row, 12);
 
-    /* Do not show mana unless we have some */
-    if (!player->msp) return;
+    /* Do not show mana unless we should have some */
+    if (!player->clazz->magic.total_spells || (player->lev < player->clazz->magic.spell_first))
+    {
+        /* But clear if experience drain may have left no points after having points. */
+        if (player->clazz->magic.total_spells && player->exp < player->max_exp)
+            put_str("            ", row, col);
+        return;
+    }
 
     put_str("SP ", row, col);
 

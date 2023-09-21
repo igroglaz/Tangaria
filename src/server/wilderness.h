@@ -271,7 +271,7 @@ extern bool customize_feature(struct chunk *c, struct loc *grid, struct dun_feat
     bool (*post_test)(struct chunk *, struct loc *, int), int *feat);
 
 extern struct chunk *wilderness_gen(struct player *p, struct worldpos *wpos, int min_height,
-    int min_width);
+    int min_width, const char **p_error);
 extern void wilderness_gen_basic_layout(struct chunk *c);
 
 #endif /* WILDERNESS_H */

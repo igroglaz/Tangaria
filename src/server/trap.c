@@ -554,8 +554,8 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 effect = trap->kind->effect;
                 effect_do(effect, who, &ident, false, 0, NULL, 0, 0, NULL);
 
-                /* Trap may have gone */
-                if (!square_trap(c, grid)) break;
+                /* Trap may have gone or the player may be dead */
+                if (!square_trap(c, grid) || p->is_dead) break;
 
                 /* Do any extra effects */
                 if (trap->kind->effect_xtra && one_in_(2))
@@ -564,8 +564,8 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                     effect = trap->kind->effect_xtra;
                     effect_do(effect, who, &ident, false, 0, NULL, 0, 0, NULL);
 
-                    /* Trap may have gone */
-                    if (!square_trap(c, grid)) break;
+                    /* Trap may have gone or the player may be dead */
+                    if (!square_trap(c, grid) || p->is_dead) break;
                 }
 
                 if (trf_has(trap->kind->flags, TRF_FEATHER_SAVE))

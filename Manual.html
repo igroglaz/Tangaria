@@ -1249,9 +1249,7 @@ principles.</p>
 </div>
 <div class="section" id="how-do-i-get-a-copy-of-the-source-code">
 <h4><a class="toc-backref" href="#id65">2.3.2.3&nbsp;&nbsp;&nbsp;How do I get a copy of the source code?</a></h4>
-<p>For now, go to the <a class="reference external" href="https://powerwyrm.monsite-orange.fr">developer's webpage</a> where you can download the
-latest source code as well as a few previous versions. In the near future, a
-GitHub page will be available.</p>
+<p>Get it from GitHub: <a class="reference external" href="https://github.com/draconisPW/PWMAngband">https://github.com/draconisPW/PWMAngband</a>.</p>
 </div>
 <div class="section" id="how-do-i-compile-the-game">
 <h4><a class="toc-backref" href="#id66">2.3.2.4&nbsp;&nbsp;&nbsp;How do I compile the game?</a></h4>
@@ -1912,16 +1910,18 @@ As the experience rises, so does the level, and as the level rises, certain
 other abilities and characteristics rise as well. All characters start at
 0 experience and at the first level.</p>
 <p>Each character has some gold, which can be used to buy items from the shops
-in the town, and which can be obtained not only from selling items to the
-shops, but also by taking it from dead monsters and by finding it in the
-dungeon. Each character starts out with some gold, the amount of which is
-based on the character's social class (higher is better) and stats (less
-powerful characters start with more gold). Each character also starts out
-with a few useful items, which may be kept, or sold to a shop-keeper for
-more gold. However, especially valuable items will never sell for the full
-price, as each shopkeeper has a maximum that they are prepared to pay for any
-item. The more generous shopkeepers may buy your items for up to 30,000
-gold pieces: but some are really stingy, and will pay no more than 5,000.</p>
+in the town. A character starts with a fixed amount of gold and some items.
+If you play with the starting kit option on (it is on by default), your
+character will have a few more useful items but less gold. A character can
+find more gold by taking it from dead monsters, finding it on the floors of
+the dungeon or by digging out veins of treasure from the walls of the dungeon.
+If you play with the no selling option off (it is on by default), you can
+sell items to the shopkeepers for gold. A shopkeeper will usually only buy
+certain classes of items, refuse to buy an item the shopkeeper believes is
+worthless and offer less gold for an item than she or he would sell it for.
+A shopkeeper also has an upper limit for the amount of gold offered for an
+item. The more generous shop-keepers will buy an item for up to 30,000 gold
+pieces, but some of the stingy ones will only pay 5,000.</p>
 <p>Each character has an &quot;armour class&quot;, abbreviated to AC, representing how
 well the character can avoid damage. The armour class is affected by
 dexterity and equipment, so the concept includes both avoiding blows and
@@ -3662,13 +3662,16 @@ acquire treasure.</p>
 </div>
 <div class="section" id="town-buildings">
 <h3><a class="toc-backref" href="#id110">3.2.4&nbsp;&nbsp;&nbsp;Town Buildings</a></h3>
-<p>Your character will begin their adventure with some basic supplies, and some
-extra gold with which to purchase more supplies at the town stores.</p>
+<p>Your character will begin their adventure with some basic supplies and some
+extra gold with which to purchase more supplies at the town stores. If you
+choose to play with the starting kit option on (it is on by default), your
+character will start with more items but with less gold.</p>
 <p>You may enter any open store to buy items of the appropriate type.
 The price the shopkeeper requests is dependent on the price of the item.
 By default stores will not buy items from the player. If you choose to play
-with selling enabled, stores have a maximum value; they will not pay more
-than that for any item, regardless of how much it is actually worth.</p>
+with the no selling option off (it is on by default), they will buy, but
+each shopkeeper has a maximum amount she or he is willing to offer for any item,
+regardless of how much it is actually worth.</p>
 <p>Once inside a store, you will see the name and race of the store owner, the
 name of the store, the maximum amount of cash that the store owner will pay
 for any one item, and the store inventory, listed along with the prices.</p>
@@ -4460,8 +4463,8 @@ from weapon to weapon.</dd>
 will increase your wisdom and your armour class. This weapon will do
 extra damage when used against evil, demonic and undead creatures, and
 will also give you the ability to see invisible creatures. These weapons
-are basically extremely powerful versions of Blessed Blades and can be
-wielded by priests with no penalty. These weapons, like (Defender)
+are basically extremely powerful versions of Blessed Blades and give
+melee bonuses to priests and paladins. These weapons, like (Defender)
 weapons, also will sustain one random stat. They will allow the wielder
 to fear no monster, and be aware of the presence of undead and demonic
 creatures.</dd>
@@ -4469,11 +4472,9 @@ creatures.</dd>
 <!--  -->
 <dl class="docutils">
 <dt>(Blessed)</dt>
-<dd>A blessed blade will increase your wisdom. If you are a priest, wielding
-a non-blessed sword or polearm causes a small penalty while attacking and
-may infuriate your god, decreasing the chances that she will accept your
-prayers: a blessed blade may be wielded without this penalty. Blessed
-blades also have one extra, random, power.</dd>
+<dd>A blessed blade will increase your wisdom. If you are a priest or paladin,
+wielding one gives you bonuses for melee combat. Blessed blades also have
+one extra, random, power.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -6250,7 +6251,25 @@ used in front of the house door, inside of the house.</dd>
 levels, your current and potential stats, and various other information.
 From this screen, you can use the file character description command to save
 your character status to a file. That command saves additional information,
-including your background, your inventory, and the contents of your houses.</dd>
+including your background, your inventory, and the contents of your houses.
+The command to change the mode switches what's displayed back and forth from
+the original view to one that shows how your current equipment and the
+player's innate characteristics affect certain attributes. The default symbols
+used within that view are '.' for nothing equipped or no known effect on the
+attribute, '?' if your character does not know if there's an effect on the
+attribute, '+' if your character knows that there is a positive effect on the
+attribute, '-' if your character knows that there is a negative effect on the
+attribute, '!' if a timed effect positively affects the attribute, or '=' if
+a timed effect negatively affects the attribute. For elemental resistances
+(the block of attributes on the far left), '*', to indicate an immunity, and
+'~' to indicate that something provides both a '+' and '-', are also possible.
+The color of the label for the attribute will indicate the sum of the
+different sources for your character. Those colors default to be: slate for
+when your character does not know the rune associated with that attribute,
+white if there is no combined effect (excluding timed effects) known to the
+character, light blue if the known combined effect (excluding timed effects)
+is positive, red if the known combined effect (excluding timed effects) is
+negative, and green if the known combined effect is an elemental immunity.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">
@@ -7002,7 +7021,7 @@ have graphics turned on, then the game will also load some settings from
 if you only want them to be loaded for mages.</p>
 <p>You may also enter single user pref commands directly, using the special &quot;Enter
 a user pref command&quot; command, activated by pressing <tt class="docutils literal">&quot;</tt>.</p>
-<p>You may have to use the redraw command (<tt class="docutils literal">^R</tt>) after changing certain of the
+<p>You may have to use the redraw command (<tt class="docutils literal">^r</tt>) after changing certain of the
 aspects of the game to allow PWMAngband to adapt to your changes.</p>
 </div>
 </div>
@@ -7010,10 +7029,16 @@ aspects of the game to allow PWMAngband to adapt to your changes.</p>
 <h3><a class="toc-backref" href="#id173">3.7.2&nbsp;&nbsp;&nbsp;Ignoring items</a></h3>
 <p>PWMAngband allows you to ignore specific items that you don't want to see
 anymore. These items are marked 'ignored' and any similar items are hidden from
-view. The easiest way to ignore an item is with the <tt class="docutils literal">k</tt> (or <tt class="docutils literal">^D</tt>) command;
+view. The easiest way to ignore an item is with the <tt class="docutils literal">k</tt> (or <tt class="docutils literal">^d</tt>) command;
 the object is dropped and then hidden from view. When ignoring an object, you
 will be given a choice of ignoring just that object, or all objects like it in
-some way.</p>
+some way. If you accidentally ignore an item or find yourself in a situation
+where you want to see if a previously ignored item is available nearby, one way
+to handle that is to turn off ignoring for all items with the <tt class="docutils literal">K</tt> (or <tt class="docutils literal">O</tt>)
+command, go to the item you want, unignore it with the <tt class="docutils literal">k</tt> (or <tt class="docutils literal">^d</tt>)
+command, and then turn on ignoring again with the <tt class="docutils literal">K</tt> (or <tt class="docutils literal">O</tt>) command.
+When ignoring has been turned off for all items, you will see <tt class="docutils literal">Unignoring</tt> in
+the status line at the bottom of the screen.</p>
 <p>The entire ignoring system can also be accessed from the options menu (<tt class="docutils literal">=</tt>) by
 choosing <tt class="docutils literal">i</tt> for <tt class="docutils literal">Item ignoring setup</tt>. This allows ignore settings for
 non-wearable items, and quality and ego ignore settings (described below) for

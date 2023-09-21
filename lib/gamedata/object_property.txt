@@ -522,6 +522,7 @@ code:BLESSED
 power:1
 type-mult:horn:0
 type-mult:bow:0
+type-mult:hafted:0
 type-mult:digger:0
 type-mult:boots:0
 type-mult:gloves:0

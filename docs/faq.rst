@@ -67,9 +67,7 @@ principles.
 How do I get a copy of the source code?
 ***************************************
 
-For now, go to the `developer's webpage`_ where you can download the
-latest source code as well as a few previous versions. In the near future, a
-GitHub page will be available.
+Get it from GitHub: https://github.com/draconisPW/PWMAngband.
 
 How do I compile the game?
 **************************
@@ -81,6 +79,5 @@ How do I contribute to the game?
 
 Post about it on the forum.
 
-.. _developer's webpage: https://powerwyrm.monsite-orange.fr
 .. _Angband forum: http://angband.oook.cz/forum
 .. _MAngband forum: https://mangband.org/forum/

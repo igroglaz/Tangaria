@@ -101,19 +101,46 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
     {
         if (target_mon) return;
         in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_UNSEEN);
-        if (in_cursor == NULL) in_cursor = level->blind_message;
+        if (in_cursor == NULL)
+        {
+            in_cursor = level->blind_message;
+            if (in_cursor == NULL)
+            {
+                plog_fmt("No message-invis for monster spell %d cast by %s. Please report this bug.",
+                    (int)spell->index, mon->race->name);
+                return;
+            }
+        }
         else if (in_cursor[0] == '\0') return;
     }
     else if (!hits)
     {
         in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_MISS);
-        if (in_cursor == NULL) in_cursor = level->miss_message;
+        if (in_cursor == NULL)
+        {
+            in_cursor = level->miss_message;
+            if (in_cursor == NULL)
+            {
+                plog_fmt("No message-miss for monster spell %d cast by %s. Please report this bug.",
+                    (int)spell->index, mon->race->name);
+                return;
+            }
+        }
         else if (in_cursor[0] == '\0') return;
     }
     else
     {
         in_cursor = find_alternate_spell_message(mon->race, spell->index, MON_ALTMSG_SEEN);
-        if (in_cursor == NULL) in_cursor = level->message;
+        if (in_cursor == NULL)
+        {
+            in_cursor = level->message;
+            if (in_cursor == NULL)
+            {
+                plog_fmt("No message-vis for monster spell %d cast by %s. Please report this bug.",
+                    (int)spell->index, mon->race->name);
+                return;
+            }
+        }
         else if (in_cursor[0] == '\0') return;
     }
 

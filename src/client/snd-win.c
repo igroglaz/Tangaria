@@ -216,7 +216,7 @@ static bool close_audio_win(void)
 }
 
 
-const struct sound_file_type *supported_files_win(void)
+static const struct sound_file_type *supported_files_win(void)
 {
     return supported_sound_files;
 }

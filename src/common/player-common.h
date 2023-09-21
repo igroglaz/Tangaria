@@ -357,6 +357,9 @@ struct class_magic
     /* PWMAngband: dummy placeholders to display fail rate of the first spell on the client */
     int sfail;
     int slevel;
+
+    /* PWMAngband: dummy placeholder to hold the tval of the first book of the realm */
+    uint16_t tval_first;
 };
 
 /*

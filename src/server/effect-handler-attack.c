@@ -1849,10 +1849,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
  */
 bool effect_handler_HEAL_HP(effect_handler_context_t *context)
 {
-    int num, amount;
-
-    /* Paranoia */
-    if ((context->value.m_bonus <= 0) && (context->value.base <= 0)) return true;
+    int num, minh;
 
     /* Always ID */
     context->ident = true;
@@ -1860,15 +1857,14 @@ bool effect_handler_HEAL_HP(effect_handler_context_t *context)
     /* No healing needed */
     if (context->origin->player->chp >= context->origin->player->mhp) return true;
 
-    /* Figure healing level */
+    /* Figure percentage healing level */
     num = ((context->origin->player->mhp - context->origin->player->chp) *
         context->value.m_bonus) / 100;
 
-    /* PWMAngband: Cell Adjustment heals a variable amount of hps */
-    amount = context->value.base + damroll(context->value.dice, context->value.sides);
-
-    /* Enforce minimums */
-    if (num < amount) num = amount;
+    /* Enforce minimum */
+    minh = context->value.base + damroll(context->value.dice, context->value.sides);
+    if (num < minh) num = minh;
+    if (num <= 0) return true;
 
     if (context->self_msg) msg(context->origin->player, context->self_msg);
     hp_player(context->origin->player, num);
