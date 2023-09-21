@@ -431,10 +431,10 @@ effect:TIMED_INC_NO_RES:IMAGE
 dice:11+1d24
 effect:DETECT_MONSTERS
 effect-yx:22:40
-effect:DETECT_TREASURES
-effect-yx:22:40
+#effect:DETECT_TREASURES
+#effect-yx:22:40
 msg:{name} forms an image in your mind...
-desc:detects all treasure, objects and monsters in the immediate area, and
+desc:detects objects and monsters in the immediate area, and
 desc: maps out a small portion of the level around you
 
 name:DETECT_EVIL

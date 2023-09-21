@@ -614,7 +614,7 @@ effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-desc:Detects all traps, doors, stairs, objects and monsters in the
+desc:Detects all traps, doors, stairs and monsters in the
 desc: immediate area.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:5:arcane
