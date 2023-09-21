@@ -5114,7 +5114,7 @@ blow:CLAW:HURT:1d4
 blow:BITE:HURT:1d6
 flags:INVISIBLE
 flags:DROP_40 | DROP_1 | ONLY_GOLD
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:IM_NETHER
 spell-freq:12
 innate-freq:100
@@ -6346,6 +6346,9 @@ flags:NEVER_MOVE
 flags:FORCE_SLEEP
 spell-freq:2
 spells:BLINK | DARKNESS | SCARE | SLOW
+message-invis:BLINK:Something hums softly.
+message-invis:DARKNESS:Something hums softly.
+message-invis:SLOW:Something hums softly.
 desc:Yum! It looks quite tasty. It seems to glow with an unusual light.
 
 name:guardian naga
@@ -8999,6 +9002,7 @@ flags:NO_STUN
 flags:SWIM_BAD
 spell-freq:7
 spells:SLOW
+message-invis:SLOW:Something rumbles.
 desc:It is a massive metal statue that moves steadily towards you.
 
 name:giant yellow scorpion
@@ -9878,6 +9882,8 @@ flags:SWIM_BAD
 spell-freq:4
 spells:CONF | SLOW
 spells:BO_ACID
+message-invis:SLOW:Something rumbles.
+message-invis:BO_ACID:Something rumbles.
 desc:A stumpy figure carved from stone, with glittering eyes, this sentinel
 desc: strides towards you with deadly intent.
 
@@ -12375,7 +12381,7 @@ blow:CLAW:HURT:2d5
 blow:BITE:HURT:3d7
 flags:INVISIBLE
 flags:DROP_2
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:IM_NETHER
 spell-freq:10
 innate-freq:50
@@ -14083,6 +14089,10 @@ spell-freq:5
 innate-freq:14
 spells:CONF | DRAIN_MANA | HOLD | MIND_BLAST | SHRIEK
 spells:S_MONSTER | S_MONSTERS
+message-vis:SHRIEK:The baleful presence of {name} inspires your enemies.
+message-invis:DRAIN_MANA:Something drains your mana away.
+message-invis:HOLD:Your muscles lock up for no apparent reason.
+message-invis:SHRIEK:Something inspires your enemies.
 desc:A figure carved from stone, with three vulture faces whose eyes glow with a
 desc: malevolent light.
 
@@ -14422,6 +14432,8 @@ flags:SWIM_BAD
 spell-freq:3
 spell-power:20
 spells:BO_ELEC | BE_ELEC | TELE_SELF_TO
+message-invis:BO_ELEC:The constant crackling subsides briefly and then resumes.
+message-invis:TELE_SELF_TO:The constant crackling subsides briefly and then resumes.
 desc:A man-shaped form of living lightning. Sparks and shocks crackle all over
 desc: this madly capering figure, as it leaps and whirls around and about you.
 
@@ -14891,7 +14903,7 @@ blow:CLAW:HURT:2d9
 blow:BITE:HURT:4d9
 flags:INVISIBLE
 flags:DROP_4
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:NO_CONF | NO_SLEEP | IM_NETHER
 spell-freq:8
 spell-power:36
@@ -15492,6 +15504,9 @@ flags:FORCE_SLEEP
 flags:WILD_SWAMP
 spell-freq:2
 spells:BLINK | WOUND | CONF | TPORT
+message-vis:WOUND:{name} crackles softly.
+message-invis:BLINK:Something crackles softly.
+message-invis:WOUND:Something crackles softly.
 desc:A strange ball of glowing light. It disappears and reappears and seems to
 desc: draw you to it. You seem somehow compelled to stand still and watch its
 desc: strange dancing motion.
@@ -15840,6 +15855,8 @@ innate-freq:50
 spells:WEAVE | CONF | SLOW | BLIND
 spells:BR_POIS | BR_DARK
 spell-power:10
+message-invis:SLOW:Something chitters.
+message-invis:BLIND:Something chitters.
 desc:A massive spider, heaving the bloated bag of its body between great
 desc: spined legs.
 
@@ -17395,7 +17412,7 @@ blow:CLAW:HURT:4d9
 blow:CLAW:HURT:4d9
 blow:BITE:HURT:7d9
 flags:INVISIBLE
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:IM_NETHER
 spell-freq:6
 spell-power:42
@@ -20061,6 +20078,8 @@ spell-freq:5
 innate-freq:40
 spells:ARROW | BLIND | CONF | SLOW
 spells:BR_POIS
+message-invis:BLIND:Something rumbles.
+message-invis:SLOW:Something rumbles.
 desc:A constructed dragon, the drolem has massive strength. Powerful spells
 desc: weaved during its creation make it a fearsome adversary. Its eyes show
 desc: little intelligence, but it has been instructed to destroy all it meets.
@@ -22334,6 +22353,9 @@ spell-freq:8
 spells:BRAIN_SMASH | WOUND | DRAIN_MANA | TELE_TO
 spells:BA_NETH
 spells:S_UNDEAD
+message-invis:WOUND:Something clatters.
+message-invis:DRAIN_MANA:Something clatters.
+message-invis:BA_NETH:Something clatters.
 desc:A skeletal form, black as night, constructed from the bones of its previous
 desc: victims.
 
@@ -22814,7 +22836,7 @@ blow:BITE:HURT:6d14
 blow:BITE:HURT:6d14
 flags:INVISIBLE | ATTR_FLICKER
 flags:ONLY_ITEM
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:IM_NETHER
 spell-freq:4
 spell-power:71
@@ -23495,6 +23517,9 @@ spells:BA_ELEC | BA_FIRE
 spells:BO_PLAS
 spells:BR_FIRE
 spells:S_DEMON
+message-invis:BA_ELEC:Something rumbles.
+message-invis:BA_FIRE:Something rumbles.
+message-invis:BO_PLAS:Something rumbles.
 desc:A gigantic four-armed animated bronze statue of demonic shape, glowing with
 desc: great heat.
 
@@ -24850,7 +24875,7 @@ blow:BITE:HURT:9d14
 blow:CRUSH:HURT:9d14
 flags:INVISIBLE | ATTR_FLICKER
 flags:ONLY_ITEM
-flags:OPEN_DOOR | BASH_DOOR | PASS_WALL
+flags:PASS_WALL
 flags:IM_NETHER
 spell-freq:3
 spell-power:91
@@ -25709,6 +25734,7 @@ flags:FORCE_DEPTH
 flags:SWIM_BAD
 spell-freq:8
 spells:HOLD
+message-invis:HOLD:Something rumbles.
 desc:An artificial bird completely made of hardened iron, kept in the air by
 desc: magical forces.
 
@@ -25738,6 +25764,7 @@ flags:SWIM_BAD
 spell-freq:5
 spells:HEAL | TELE_TO
 spells:BA_NETH
+message-invis:BA_NETH:Something rumbles.
 desc:This berserk construct made of black ore has only one purpose: destroying
 desc: everything it sees.
 

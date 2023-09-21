@@ -1461,7 +1461,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             bitflag f[OF_SIZE];
             uint8_t attr = (COLOUR_WHITE | (j % 2) * 8); /* Alternating columns */
             char sym = '.';
-            bool res = false, d_res = false, imm = false, vul = false, rune = false;
+            bool res = false, d_res = false, imm = false, vul = false, rune = false, mix = false;
             bool timed = false;
             bool known = true;
 
