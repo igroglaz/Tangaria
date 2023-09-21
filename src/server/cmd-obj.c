@@ -2192,6 +2192,9 @@ bool use_oil(struct player *p)
     rng = randint0(num_messages);
     msg(p, messages[rng]);
 
+    // refresh inventory
+    p->upkeep->redraw |= (PR_INVEN);
+
     return true;
 }
 
