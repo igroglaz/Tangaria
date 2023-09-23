@@ -429,7 +429,7 @@ help: Tangaria more often, than, for example, balrogs. |
 help: As gargoyles made from stone, they got high defense which increase during
 help: their life. It's hard to harm then with fire, electricity, poison, shards and
 help: acid. They could levitate with a help of their inner magic. |
-help: Their weaknesses is certain slowness. Also they are vulnerable to lightning.
+help: Their weaknesses is certain slowness. Also they are vulnerable to acid.
 help: They are good in infravision though and their stats can't be reduced.
 help: They are very powerful physically and it's not easy to destroy them.
 help: They are wise, but not too really smart.. and in most cases quite ugly. |
@@ -635,7 +635,8 @@ race:Ooze
 help:Gelatinous slimy creatures, they rarely appears to have mind and comprehension.
 help: You are the lucky exception. Oozes don't have fixed shape, moving constantly
 help: from one appearance to another which makes them immune to paralysation and
-help: resistant to other negative effects like poison and acid.
+help: resistant to other negative effects like poison and acid, but vulnerable to
+help: electricity. |
 help: Oozes mostly live in wet dungeons and caves and have a very wide variety of
 help: diet, so oozes get nourishment upon every enemy which was killed by it.
 help: They have excellent infravision and survivability, but vulnerable to acid.

@@ -1489,7 +1489,7 @@ obj-flag:10:FEATHER
 value:0:MANA[10+-1d5]
 obj-flag:0:SLOW_DIGEST
 #/// -
-value:0:RES_ELEC[-1]
+value:0:RES_ACID[-1]
 
 name:Golem
 skill-disarm-phys:-3
@@ -2376,7 +2376,7 @@ value:0:INFRA[2+1d5]
 obj-flag:1:FREE_ACT
 value:0:RES_POIS[1]
 value:0:RES_LIGHT[-1]
-value:0:RES_ACID[-1]
+value:0:RES_ELEC[-1]
 value:0:MOVES[-1]
 player-flags:1:RACE_REGEN
 obj-flag:0:CLUMSY

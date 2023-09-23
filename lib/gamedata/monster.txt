@@ -14757,7 +14757,7 @@ flags:OPEN_DOOR | MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_CONF
 flags:NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
-spell-freq:4
+spell-freq:5
 spells:TELE_TO
 spells:S_MONSTERS
 friends:50:1d3:mumak
