@@ -1222,6 +1222,8 @@ effect:ENCHANT:TOBOTH
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
 desc: This prayer reduce your nourishment.
 
@@ -1239,6 +1241,8 @@ effect:ENCHANT:TOAC
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:Attempts to improve the armour class bonus of a piece of armour.
 desc: This prayer reduce your nourishment.
 
@@ -5405,6 +5409,8 @@ effect:ENCHANT:TODAM
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
 desc: This tedious work reduce your nourishment.
 
@@ -5419,6 +5425,8 @@ effect:ENCHANT:TOAC
 dice:1
 effect:NOURISH:DEC_BY
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:Attempts to improve the armour class bonus of a piece of armour.
 desc: This tedious work reduce your nourishment.
 
@@ -6823,6 +6831,14 @@ value:0:CHR[0+1d10]
 #/// +cat
 # can sell items to NPC, but can't join parties
 # + less speed penalty due overweight
+# maybe add skills:
+# Haggle or Golden Tongue - gives discount when buying items
+# Coin Call - Summons nearby loose coins and currency directly to the caster's hand.
+# Guardian Ledger - Shields the caster's belongings and wealth from theft or damage.
+# Ephemeral Emporium - Conjures a temporary shop from thin air for the caster to trade goods.
+# Cloak of Commerce - allow sell items right in the dungeon?
+# ---------------- reveal mimics?
+# ---------------- XBM prices lower 2x?
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -6836,72 +6852,110 @@ title:Grandmaster
 
 magic:1:350:2
 
-book:magic book:town:[Magic for Beginners]:13:arcane
+book:magic book:town:[Magic for Beginners]:15:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Small Red Potion:1:1:15:32:0
+spell:Small Red Potion:1:1:1:32:0
 cooldown:10
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 6
 expr:M:PLAYER_LEVEL:/ 3 + 6
-desc:You drink a small red potion which you saved for later to sell to someone...
-desc: It cures your wounds.
+desc:Imbibing this soft crimson potion, memories emerge of saving it for
+desc: a future trade. Yet, necessity called.
+desc: As it flows through you, the immediate warmth and relief affirm
+desc: its curative powers.
 desc: Cooldown 10 turns.
+desc: NOTE! Cooldowns restore ONLY while inside of the dungeon.
 
-spell:Small Blue Potion:3:1:15:32:0
-cooldown:100
+spell:Small Blue Potion:3:1:1:32:0
+cooldown:42
 effect:RESTORE_MANA
 dice:50
-desc:You drink a much rarer small blue potion which... you also saved for later
-desc: to sell to someone... It restores your mana.
-desc: Cooldown 10 turns.
+desc:The cerulean luminescence of this potion speaks to its rarity.
+desc: Once earmarked for a lucrative deal, now it proves invaluable.
+desc: With a sip, a surge of arcane energy restores your dwindling reserves.
+desc: Cooldown 42 turns.
 
-spell:Town Portal:5:3:33:5:0
+spell:Town Portal:5:3:1:5:0
 effect:RECALL
 dice:10+1d20
-desc:Teleports you from the dungeon to the town or from the town to the
+desc:Portal between the bustling town and the treacherous dungeon's depths.
+desc: Teleports you from the dungeon to the town or from the town to the
 desc: deepest level you have visited in the dungeon.
 desc: The recall effect is not immediate; it is delayed by some turns.
 desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
-spell:Merchant Scent:7:5:45:10:0
+spell:Merchant Scent:7:5:1:10:0
 effect:DETECT_TREASURES
 effect-yx:22:40
-desc:Detects all treasure in the immediate area.
+desc:Merchants with keen senses and this spell can feel the pull of treasures
+desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
-spell:Teleportation:10:7:36:15:0
+spell:Teleportation:10:7:1:15:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: blinks away.
-desc:Teleports you randomly to a short distance.
+desc:An emergency incantation, taught to every trader for dire situations.
+desc: Teleports you randomly to a certain distance (depends on your level).
 
-spell:Pray:15:11:35:20:0
-cooldown:42
+spell:Pray:15:11:1:20:0
 effect:WONDER
 dice:$B+1d100
 expr:B:PLAYER_LEVEL:/ 5
-desc:You pray to gods for unknown effect.
-desc: Cooldown 42 turns.
+desc:In times of uncertainty, merchants beseech the old gods of trade and
+desc: fortune, hoping for a boon... or bracing for a curse.
 
-spell:Tunnel:20:12:35:25:0
-effect:SHORT_BEAM:KILL_WALL:1
-dice:20+1d30
-desc:Destroys an adjacent section of wall or rubble, unless it is a permanent
-desc: wall. Deals 20+1d30 damage to monsters vulnerable to rock remover.
+spell:Repair Armour:20:10:1:30:0
+cooldown:2
+effect:NOURISH:DEC_BY
+dice:1
+effect:NOURISH:DEC_BY
+dice:0
+effect:RANDOM
+dice:2
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
+effect:ENCHANT:TOAC
+dice:1
+desc:Armor, like any investment, requires care.
+desc: This prayer reduces your nourishment.
+desc: Cooldown 2 turns.
 
-spell:Recharging:25:17:45:40:0
+spell:Sharpen Weapon:25:10:1:30:0
+cooldown:2
+effect:NOURISH:DEC_BY
+dice:1
+effect:NOURISH:DEC_BY
+dice:0
+effect:RANDOM
+dice:2
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
+effect:ENCHANT:TOBOTH
+dice:1
+desc:Ensuring one's blade is sharp can mean the difference between
+desc: success and failure. 
+desc: This prayer reduces your nourishment.
+desc: Cooldown 2 turns.
+
+spell:Recharging:30:17:1:40:0
 effect:RECHARGE
 dice:$B
 expr:B:PLAYER_LEVEL:/ 8 + 6
-desc:Adds charges to a stack of wands or staves.
-desc: Chance of success and number of charges gained increase with your
-desc: level and decrease with level of wand or staff and number of charges.
-desc: A failed attempt to recharge destroys one wand or staff from the stack.
+desc:Magic devices often wane, but a knowledgeable merchant knows the ancient
+desc: words to breathe life back into them.
+desc: Yet, the greater the device, the riskier the ritual...
 
-spell:Light and Stairs:30:21:44:60:0
+spell:Cartography:33:50:1:50:0
+effect:MAP_AREA
+effect-yx:16:32
+desc:The world is vast, and its secrets many. With this spell, 
+desc: landscapes unfurl and mysteries become mere geography.
+
+spell:Merchant Insight:35:21:1:60:0
 effect:DETECT_STAIRS
 effect-yx:22:40
 effect:BLAST:LIGHT_WEAK:2
@@ -6909,53 +6963,42 @@ dice:2d$S
 expr:S:PLAYER_LEVEL:/ 2
 effect:LIGHT_AREA
 msg_other: calls light.
-desc:Lights up all squares within 2 grids of the player and hurts
-desc: all light-sensitive monsters in the area of effect.
-desc: If you are in a room, the entire room will be lit up as well.
-desc: Also you might detect stairs.
+desc:A merchant's intuition, enhanced by magic, reveals hidden pathways and
+desc: banishes darkness. It's said that this spell channels the very first dawn,
+desc: revealing threats and secrets alike.
 
-spell:Identification:35:37:35:80:0
+spell:Identification:37:37:1:80:0
 effect:IDENTIFY
-desc:Reveals an unknown rune on an object.
+desc:The world is full of enigmatic artifacts. With this spell, their secrets
+desc: unfold, revealing their purpose and power.
 
-spell:Repair Armour:40:50:80:100:0
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:DEC_BY
-dice:0
-effect:RANDOM
-dice:2
-effect:ENCHANT:TOAC
-dice:1
-desc:Attempts to improve the armour class bonus of a piece of armour.
-desc: This prayer reduce your nourishment.
+spell:Tunnel:40:12:1:25:0
+effect:SHORT_BEAM:KILL_WALL:1
+dice:20+1d30
+desc:Not all paths are clear. With this spell, the very stones yield,
+desc: making way for the persistent merchant. Beyond just clearing a path,
+desc: the force can harm creatures born of rock and earth.
 
-spell:Sharpen Weapon:45:60:85:120:0
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:DEC_BY
-dice:0
-effect:RANDOM
-dice:2
-effect:ENCHANT:TOBOTH
-dice:1
-desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
-desc: This prayer reduce your nourishment.
+spell:Barter Buddy:45:25:1:70:0
+cooldown:100
+effect:GLYPH:DECOY
+desc:In the bustling markets of old, traders developed a cunning trick.
+desc: They conjured a magical doppelganger, identical in appearance and
+desc: sound, to haggle and barter on their behalf. The original purpose
+desc: was to be in two places at once and never miss a lucrative deal.
+desc: Over time, however, the savvy merchants discovered its utility
+desc: in diverting attention and danger away in more perilous situations. 
+desc: Deploying the Barter Buddy remains a testament to a trader's
+desc: cleverness, giving them a brief moment of respite or an advantage
+desc: in tight spots.
+desc: Cooldown 100 turns.
 
-spell:Cartography:50:50:36:140:0
-effect:MAP_AREA
-effect-yx:16:32
-desc:You uncover surroundings without any harmful side-effects.
-
-book:magic book:dungeon:[Wizard's Tome of Power]:1:arcane
-
-spell:Best Deal:50:100:44:200:0
+spell:Best Deal:50:100:1:200:0
 cooldown:10000
 effect:ACQUIRE
 dice:1
-effect:NOURISH:SET_TO
-dice:5
-desc:You venture into dangerous business for a trade deal.
+desc:The ultimate gambit for a merchant. By invoking this, they plunge
+desc: into peril, hoping to strike a deal of legendary value.
 desc: Cooldown 10000 turns.
 
 
