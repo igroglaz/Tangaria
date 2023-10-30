@@ -32,6 +32,7 @@ enum
 static const struct sound_file_type supported_sound_files[] =
 {
     {".mp3", WIN_MP3},
+    {".0.mp3", WIN_MP3},
     {".wav", WIN_WAV},
     {"", WIN_NULL}
 };

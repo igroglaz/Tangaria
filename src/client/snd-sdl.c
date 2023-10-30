@@ -45,19 +45,19 @@
 enum
 {
     SDL_NULL = 0,
-    SDL_CHUNK_LOOP,
-    SDL_MUSIC_LOOP,
     SDL_CHUNK,
-    SDL_MUSIC
+    SDL_CHUNK_LOOP,
+    SDL_MUSIC,
+    SDL_MUSIC_LOOP
 };
 
 
 static const struct sound_file_type supported_sound_files[] =
 {
     {".ogg", SDL_CHUNK},
-    {".ogg.0", SDL_CHUNK_LOOP},
-    {".mp3.0", SDL_MUSIC_LOOP},
+    {".0.ogg", SDL_CHUNK_LOOP},
     {".mp3", SDL_MUSIC},
+    {".0.mp3", SDL_MUSIC_LOOP},
     {"", SDL_NULL}
 };
 
@@ -160,12 +160,12 @@ static void play_music_sdl(void)
     /* Check location */
     if (!STRZERO(player->locname))
     {
-        char dirpaths[MSG_LEN];
+        char buf[MSG_LEN];
 
         // Play music dependent on location depth subdirectory
-        path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, player->locname);
-        path_build(dirpaths, sizeof(dirpaths), dirpath, format("%d", player->wpos.depth));
-        played = play_music_aux(dirpaths);
+        path_build(buf, sizeof(buf), ANGBAND_DIR_MUSIC, player->locname);
+        path_build(dirpath, sizeof(dirpath), buf, format("%d", player->wpos.depth));
+        played = play_music_aux(dirpath);
 
         if (!played)
         {
@@ -221,7 +221,12 @@ static void play_music_sdl(void)
 static bool open_audio_sdl(void)
 {
     /* Initialize variables */
+#ifdef SOUND_SDL
     int audio_rate = 22050;
+#endif
+#ifdef SOUND_SDL2
+    int audio_rate = 44100;
+#endif
     Uint16 audio_format = AUDIO_S16;
     int audio_channels = 2;
 
