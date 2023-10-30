@@ -26,23 +26,17 @@ DATA = credits_ambient.txt \
     outside/street_2.mp3 \
     outside/street.ogg \
     outside/street.mp3 \
-    severs/sewers_1.mp3.0 \
-    severs/sewers_1.mp3 \
-    severs/sewers_2.mp3.0 \
-    severs/sewers_2.mp3 \
-    severs/sewers_3.mp3.0 \
-    severs/sewers_3.mp3 \
-    severs/sewers_4.mp3.0 \
-    severs/sewers_4.mp3 \
-    severs/sewers_5.mp3.0 \
-    severs/sewers_5.mp3 \
-    severs/sewers_6.mp3.0 \
-    severs/sewers_6.mp3 \
-    store/alchemy.ogg.0 \
+    sewers/sewers_1.0.mp3 \
+    sewers/sewers_2.0.mp3 \
+    sewers/sewers_3.0.mp3 \
+    sewers/sewers_4.0.mp3 \
+    sewers/sewers_5.0.mp3 \
+    sewers/sewers_6.0.mp3 \
+    store/alchemy.0.ogg \
     store/alchemy.mp3 \
     store/alchemy_boom.ogg \
     store/alchemy_boom.mp3 \
-    store/armor.ogg.0 \
+    store/armor.0.ogg \
     store/armor.mp3 \
     store/arrow_1.ogg \
     store/arrow_1.mp3 \
@@ -50,7 +44,7 @@ DATA = credits_ambient.txt \
     store/arrow_2.mp3 \
     store/arrow_3.ogg \
     store/arrow_3.mp3 \
-    store/bm.ogg.0 \
+    store/bm.0.ogg \
     store/bm.mp3 \
     store/bookseller_1.ogg \
     store/bookseller_1.mp3 \
@@ -62,27 +56,27 @@ DATA = credits_ambient.txt \
     store/bookseller_4.mp3 \
     store/bookseller_5.ogg \
     store/bookseller_5.mp3 \
-    store/clock.ogg.0 \
+    store/clock.0.ogg \
     store/clock.mp3 \
     store/cuckoo.ogg \
     store/cuckoo.mp3 \
-    store/magic.ogg.0 \
+    store/magic.0.ogg \
     store/magic.mp3 \
-    store/magic_tower.ogg.0 \
+    store/magic_tower.0.ogg \
     store/magic_tower.mp3 \
-    store/shop_spells.ogg.0 \
+    store/shop_spells.0.ogg \
     store/shop_spells.mp3 \
-    store/store_temple.ogg.0 \
+    store/store_temple.0.ogg \
     store/store_temple.mp3 \
-    store/store_weapon.ogg.0 \
+    store/store_weapon.0.ogg \
     store/store_weapon.mp3 \
-    store/tavern.ogg.0 \
+    store/tavern.0.ogg \
     store/tavern.mp3 \
-    store/xbm.ogg.0 \
+    store/xbm.0.ogg \
     store/xbm.mp3 \
     voice/cat_meow.ogg \
     voice/cat_meow.mp3 \
-    voice/cat_purr.ogg.0 \
+    voice/cat_purr.0.ogg \
     voice/cat_purr.mp3 \
     voice/intro_1.ogg \
     voice/intro_1.mp3 \

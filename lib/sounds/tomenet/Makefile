@@ -2,7 +2,7 @@ MKPATH=../../../mk/
 include $(MKPATH)buildsys.mk
 
 DATA = credits.txt \
-	ambient/persistent/inn/fireplace.ogg.0 \
+	ambient/persistent/inn/fireplace.0.ogg \
 	ambient/persistent/misc/fire.ogg \
 	ambient/persistent/ocean/seawaves.ogg \
 	ambient/persistent/watery/crickets.ogg \
@@ -146,7 +146,7 @@ DATA = credits.txt \
 	player/misc/levelup/levelup.ogg \
 	store/doorbell_enter.ogg \
 	store/doorbell_leave.ogg \
-	weather/rain/rain.ogg.0 \
+	weather/rain/rain.0.ogg \
 	weather/snow/snow.ogg \
 	weather/thunder/thunder.ogg \
 	weather/thunder/thunder2.ogg \
