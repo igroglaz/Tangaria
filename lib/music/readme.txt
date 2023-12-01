@@ -24,7 +24,7 @@ Simple music system for PWMAngband
 * to play music during pre-game screens, put the music files in the
   /lib/music/intro subdirectory and set IntroMusic=1 in the [MAngband] section
   of mangclient.ini
-  * tag '_file' for music looped playback
+* tag '_file' for music looped playback
 * to play specific music in a specific dungeon dependent on location depth,
   put the music files in the /lib/music/shortname/depthname
   where 'shortname' is the short name of the dungeon,
