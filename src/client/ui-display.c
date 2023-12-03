@@ -99,9 +99,9 @@ bool animate_slashfx = false; // animate slashfx (sdl side)
 int slashfx_move = 0; // slashfx move (sdl side)
 int m_attack = 0; // monsters attack
 
-static uint16_t opt_anim_screen = 1;
-static uint16_t opt_anim_player = 1;
+static uint16_t opt_anim_obj_w = 1;
 static uint16_t opt_anim_obj = 1;
+static uint16_t opt_anim_npc = 1;
 static uint16_t opt_slashfx_move = 1;
 
 static uint16_t s_obj[1024][256]; // search objects
@@ -2334,17 +2334,9 @@ void do_weather(void)
 }
 
 
-static enum parser_error parse_prefs_opt_anim_screen(struct parser *p)
+static enum parser_error parse_prefs_opt_anim_obj_w(struct parser *p)
 {
-    opt_anim_screen = (uint16_t)parser_getint(p, "attr");
-
-    return PARSE_ERROR_NONE;
-}
-
-
-static enum parser_error parse_prefs_opt_anim_player(struct parser *p)
-{
-    opt_anim_player = (uint16_t)parser_getint(p, "attr");
+    opt_anim_obj_w = (uint16_t)parser_getint(p, "attr");
 
     return PARSE_ERROR_NONE;
 }
@@ -2353,6 +2345,14 @@ static enum parser_error parse_prefs_opt_anim_player(struct parser *p)
 static enum parser_error parse_prefs_opt_anim_obj(struct parser *p)
 {
     opt_anim_obj = (uint16_t)parser_getint(p, "attr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_opt_anim_npc(struct parser *p)
+{
+    opt_anim_npc = (uint16_t)parser_getint(p, "attr");
 
     return PARSE_ERROR_NONE;
 }
@@ -2388,7 +2388,6 @@ static enum parser_error parse_prefs_monster_pet(struct parser *p)
     int cidx;
     int na;
     int nc;
-    int n;
 
     cidx = parser_getint(p, "cidx");
     na = parser_getint(p, "attr");
@@ -2419,9 +2418,9 @@ static struct parser *init_parse_animation(void)
 {
     struct parser *p = parser_new();
 
-    parser_reg(p, "opt-anim-screen int attr", parse_prefs_opt_anim_screen);
-    parser_reg(p, "opt-anim-player int attr", parse_prefs_opt_anim_player);
+    parser_reg(p, "opt-anim-obj_w int attr", parse_prefs_opt_anim_obj_w);
     parser_reg(p, "opt-anim-obj int attr", parse_prefs_opt_anim_obj);
+    parser_reg(p, "opt-anim-npc int attr", parse_prefs_opt_anim_npc);
     parser_reg(p, "opt-slashfx-move int attr", parse_prefs_opt_slashfx_move);
     parser_reg(p, "anim-obj int attr int char int n int anim_attr int anim_char", parse_prefs_anim_obj);
     parser_reg(p, "monster-pet int cidx int n int attr int char", parse_prefs_monster_pet);
@@ -2484,8 +2483,7 @@ void do_animations(void)
     term *main_term = angband_term[0];
     term *old = Term;
 
-    int i, j;
-    int x, y;
+    int i, j, k;
     int w, h;
 
     uint16_t a;
@@ -2518,351 +2516,171 @@ void do_animations(void)
     // Activate the term
     Term_activate(main_term);
 
-    // Get player coordinates
-    x = player->grid.x - player->offset_grid.x;
-    y = player->grid.y - player->offset_grid.y;
-
     // Get screen size
     w = (main_term->wid - COL_MAP - 1) / tile_width;
     h = (main_term->hgt - ROW_MAP - 1) / tile_height;
 
     //// Animate entire screen characters/objects ////
-    if (opt_anim_screen != 0)
+    if (opt_anim_obj_w != 0 || opt_anim_obj != 0 || opt_anim_npc != 0)
     {
-        for (i = 0; i < h; i++)
+        for (k = 1; k < 4; k++)
         {
-            for (j = 0; j < w; j++)
+            // If options = 0 then don't animate
+            if (k == 1 && opt_anim_obj_w == 0) continue;
+            else if (k == 2 && opt_anim_obj == 0) continue;
+            else if (k == 3 && opt_anim_npc == 0) continue;
+
+            // For the dungeons, if options = 1 then don't animate
+            if (k == 1 && opt_anim_obj_w == 1 && player->wpos.depth > 0) continue;
+            else if (k == 2 && opt_anim_obj == 1 && player->wpos.depth > 0) continue;
+            else if (k == 3 && opt_anim_npc == 1 && player->wpos.depth > 0) continue;
+
+            for (i = 0; i < h; i++)
             {
-                // Check characters
-                // Term_info(COL_MAP + j * tile_width, 
-                //     ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
-                a = main_term->scr->a[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                c = main_term->scr->c[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                ta = main_term->scr->ta[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                tc = main_term->scr->tc[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-
-                // Convert char to uint8_t [0 - 255]
-                nc = (uint8_t) c;
-
-                // Check for overflow s_obj[1024][256]
-                if (a < 0 || a > 1024 || nc < 0 || nc > 256) continue;
-
-                // Convert char to uint8_t [0 - 255]
-                ntc = (uint8_t) tc;
-
-                // Check for overflow s_obj[1024][256]
-                if (ta < 0 || ta > 1024 || ntc < 0 || ntc > 256) continue;
-
-                // Check foreground/background tile
-                if (a == ta && c == tc)
+                for (j = 0; j < w; j++)
                 {
-                    // If found then animate
-                    if (s_obj[a][nc] == 1)
+                    // Check characters
+                    // Term_info(COL_MAP + j * tile_width, 
+                    //     ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
+                    a = main_term->scr->a[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
+                    c = main_term->scr->c[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
+                    ta = main_term->scr->ta[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
+                    tc = main_term->scr->tc[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
+
+                    // Convert char to uint8_t [0 - 255]
+                    nc = (uint8_t) c;
+
+                    // Check for overflow s_obj[1024][256]
+                    if (a < 0 || a > 1024 || nc < 0 || nc > 256) continue;
+
+                    // Convert char to uint8_t [0 - 255]
+                    ntc = (uint8_t) tc;
+
+                    // Check for overflow s_obj[1024][256]
+                    if (ta < 0 || ta > 1024 || ntc < 0 || ntc > 256) continue;
+
+                    // Check foreground/background tile
+                    if (a == ta && c == tc)
                     {
-                        if (animation_frame == 0)
+                        // If found then animate
+                        if (s_obj[a][nc] == k)
                         {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
+                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
+                            }
                         }
                     }
-                }
-                else
-                {
-                    // If found then animate
-                    if (s_obj[a][nc] == 1 && s_obj[ta][ntc] == 1)
+                    else
                     {
-                        if (animation_frame == 0)
+                        // If found then animate
+                        if ((s_obj[a][nc] == k && s_obj[ta][ntc] == k) ||
+                            (s_obj[a][nc] == k && s_obj[ta][ntc] == 1))
                         {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
+                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
+                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            }
                         }
-                        else if (animation_frame == 1)
+                        else if (s_obj[a][nc] == k)
                         {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
+                                        &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
+                                        &ta, &tc));
+                            }
                         }
-                    }
-                    else if (s_obj[a][nc] == 1)
-                    {
-                        if (animation_frame == 0)
+                        else if (s_obj[ta][ntc] == k)
                         {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &ta, &tc));
-                        }
-                    }
-                    else if (s_obj[ta][ntc] == 1)
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    //// Animate player ////
-    if (opt_anim_player != 0)
-    {
-        // Check characters
-        // Term_info(COL_MAP + x * tile_width, 
-        //     ROW_MAP + y * tile_height, &a, &c, &ta, &tc);
-        a = main_term->scr->a[ROW_MAP + y * tile_height][COL_MAP + x * tile_width];
-        c = main_term->scr->c[ROW_MAP + y * tile_height][COL_MAP + x * tile_width];
-        ta = main_term->scr->ta[ROW_MAP + y * tile_height][COL_MAP + x * tile_width];
-        tc = main_term->scr->tc[ROW_MAP + y * tile_height][COL_MAP + x * tile_width];
-
-        // Convert char to uint8_t [0 - 255]
-        nc = (uint8_t) c;
-
-        // Convert char to uint8_t [0 - 255]
-        ntc = (uint8_t) tc;
-
-        // Check for overflow s_obj[1024][256]
-        if ((a >= 0 || a <= 1024 || nc >= 0 || nc <= 256) || 
-            (ta >= 0 || ta <= 1024 || ntc >= 0 || ntc <= 256))
-        {
-            // If found then animate
-            if ((s_obj[a][nc] == 2 && s_obj[ta][ntc] == 1) || 
-                (s_obj[a][nc] == 2 && s_obj[ta][ntc] == 3))
-            {
-                if (animation_frame == 0)
-                {
-                    // Restore display
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                        ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-                }
-                else if (animation_frame == 1)
-                {
-                    // Draw display
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                        ROW_MAP + y * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                            &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                }
-            }
-            else if (s_obj[a][nc] == 2)
-            {
-                if (animation_frame == 0)
-                {
-                    // Restore display
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                        ROW_MAP + y * tile_height, 1, &a, &c, &ta, &tc));
-                }
-                else if (animation_frame == 1)
-                {
-                    // Draw display
-                    (void)((*main_term->pict_hook)(COL_MAP + x * tile_width, 
-                        ROW_MAP + y * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                            &ta, &tc));
-                }
-            }
-        }
-    }
-
-    //// Animate characters/objects ////
-    if (opt_anim_obj != 0)
-    {
-        // Search objects around the player (5x5)
-        for (i = y - 2; i < y + 3; i++)
-        {
-            for (j = x - 2; j < x + 3; j++)
-            {
-                // Only for tiles within visible panel screen area
-                if (i < 0 || i >= h || j < 0 || j >= w) continue;
-
-                // Skip player
-                if (i == y && j == x) continue;
-
-                // Check characters
-                // Term_info(COL_MAP + j * tile_width, 
-                //     ROW_MAP + i * tile_height, &a, &c, &ta, &tc);
-                a = main_term->scr->a[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                c = main_term->scr->c[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                ta = main_term->scr->ta[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-                tc = main_term->scr->tc[ROW_MAP + i * tile_height][COL_MAP + j * tile_width];
-
-                // Convert char to uint8_t [0 - 255]
-                nc = (uint8_t) c;
-
-                // Check for overflow s_obj[1024][256]
-                if (a < 0 || a > 1024 || nc < 0 || nc > 256) continue;
-
-                // Convert char to uint8_t [0 - 255]
-                ntc = (uint8_t) tc;
-
-                // Check for overflow s_obj[1024][256]
-                if (ta < 0 || ta > 1024 || ntc < 0 || ntc > 256) continue;
-
-                // Check foreground/background tile
-                if (a == ta && c == tc)
-                {
-                    // If found then animate
-                    if (s_obj[a][nc] == 3)
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
-                        }
-                    }
-                }
-                else
-                {
-                    // If found then animate
-                    if (s_obj[a][nc] == 3 && s_obj[ta][ntc] == 3)
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                        }
-                    }
-                    else if (s_obj[a][nc] == 3)
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &ta, &tc));
-                        }
-                    }
-                    else if (s_obj[ta][ntc] == 3)
-                    {
-                        if (animation_frame == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                        }
-                    }
-                }
-
-                // Check foreground/background tile
-                if (a == ta && c == tc)
-                {
-                    // If found then animate asynchronously
-                    if (s_obj[a][nc] == 4)
-                    {
-                        if (animation_frame_async == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame_async == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
-                        }
-                    }
-                }
-                else
-                {
-                    // If found then animate asynchronously
-                    if ((s_obj[a][nc] == 4) && (s_obj[ta][ntc] == 4))
-                    {
-                        if (animation_frame_async == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame_async == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                        }
-                    }
-                    else if (s_obj[a][nc] == 4)
-                    {
-                        if (animation_frame_async == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame_async == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                    &ta, &tc));
-                        }
-                    }
-                    else if (s_obj[ta][ntc] == 4)
-                    {
-                        if (animation_frame_async == 0)
-                        {
-                            // Restore display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                        }
-                        else if (animation_frame_async == 1)
-                        {
-                            // Draw display
-                            (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                ROW_MAP + i * tile_height, 1, &a, &c, 
-                                    &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, 
+                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 0))
+                            {
+                                // Restore display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
+                            }
+                            else if ((k == 3) && (animation_frame_async == 1))
+                            {
+                                // Draw display
+                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
+                                    ROW_MAP + i * tile_height, 1, &a, &c, 
+                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
+                            }
                         }
                     }
                 }
@@ -2895,7 +2713,7 @@ void do_slashfx(void)
     term *main_term = angband_term[0];
     term *old = Term;
 
-    int i, j, k;
+    int i, j;
     int x, y;
 
     uint16_t a;
