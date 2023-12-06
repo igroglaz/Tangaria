@@ -2495,7 +2495,6 @@ void do_animations(void)
 
     static bool animation_file = false;
     static int animation_frame = 0;
-    static int animation_frame_async = 0;
 
     //// Read animation pref file ////
     if (!animation_file)
@@ -2565,26 +2564,15 @@ void do_animations(void)
                         // If found then animate
                         if (s_obj[a][nc] == k)
                         {
-                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            if (animation_frame == 0)
                             {
                                 // Restore display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
                             }
-                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            else if (animation_frame == 1)
                             {
-                                // Draw display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 0))
-                            {
-                                // Restore display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 1))
-                            {
+                                if (k == 3 && !one_in_(3)) continue;
                                 // Draw display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], &ta, &tc));
@@ -2594,30 +2582,18 @@ void do_animations(void)
                     else
                     {
                         // If found then animate
-                        if ((s_obj[a][nc] == k && s_obj[ta][ntc] == k) ||
-                            (s_obj[a][nc] == k && s_obj[ta][ntc] == 1))
+                        if ((s_obj[a][nc] == k && s_obj[ta][ntc] == 1) ||
+                            (s_obj[a][nc] == k && s_obj[ta][ntc] == 2))
                         {
-                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            if (animation_frame == 0)
                             {
                                 // Restore display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
                             }
-                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            else if (animation_frame == 1)
                             {
-                                // Draw display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 0))
-                            {
-                                // Restore display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 1))
-                            {
+                                if (k == 3 && !one_in_(3)) continue;
                                 // Draw display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
@@ -2626,27 +2602,15 @@ void do_animations(void)
                         }
                         else if (s_obj[a][nc] == k)
                         {
-                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            if (animation_frame == 0)
                             {
                                 // Restore display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
                             }
-                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            else if (animation_frame == 1)
                             {
-                                // Draw display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
-                                        &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 0))
-                            {
-                                // Restore display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 1))
-                            {
+                                if (k == 3 && !one_in_(3)) continue;
                                 // Draw display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &anim_obj_a[a][nc], &anim_obj_c[a][nc], 
@@ -2655,27 +2619,15 @@ void do_animations(void)
                         }
                         else if (s_obj[ta][ntc] == k)
                         {
-                            if ((k == 1 || k == 2) && (animation_frame == 0))
+                            if (animation_frame == 0)
                             {
                                 // Restore display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
                             }
-                            else if ((k == 1 || k == 2) && (animation_frame == 1))
+                            else if (animation_frame == 1)
                             {
-                                // Draw display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a, &c, 
-                                        &anim_obj_a[ta][ntc], &anim_obj_c[ta][ntc]));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 0))
-                            {
-                                // Restore display
-                                (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
-                                    ROW_MAP + i * tile_height, 1, &a, &c, &ta, &tc));
-                            }
-                            else if ((k == 3) && (animation_frame_async == 1))
-                            {
+                                if (k == 3 && !one_in_(3)) continue;
                                 // Draw display
                                 (void)((*main_term->pict_hook)(COL_MAP + j * tile_width, 
                                     ROW_MAP + i * tile_height, 1, &a, &c, 
@@ -2690,14 +2642,6 @@ void do_animations(void)
 
     animation_frame++;
     if (animation_frame > 1) animation_frame = 0;
-
-    if (animation_frame_async == 0)
-    {
-        // Animation frame asynchronously
-        if (one_in_(4)) animation_frame_async++;
-    }
-    else
-        animation_frame_async = 0;
 
     // Actually flush the output
     Term_xtra(TERM_XTRA_FRESH, 0);
