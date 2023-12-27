@@ -18,9 +18,12 @@ extern int16_t last_remote_line[ANGBAND_TERM_MAX];
 
 extern const char *window_flag_desc[PW_MAX_FLAGS];
 
-extern bool animate_slashfx;
-extern int slashfx_move;
-extern int m_attack;
+extern bool sfx_effect;
+extern uint8_t sfx_dir;
+extern uint16_t sfx_info_a[256][256];
+extern char sfx_info_c[256][256];
+extern uint8_t sfx_info_d[256][256];
+extern uint8_t sfx_move[256][256];
 
 extern void display_player_screen(uint8_t mode);
 extern void toggle_inven_equip(void);
@@ -36,5 +39,6 @@ extern bool peruse_file(void);
 extern void do_weather(void);
 extern void do_animations(void);
 extern void do_slashfx(void);
+extern void slashfx_refresh_char(int x, int y);
 
 #endif /* INCLUDED_UI_DISPLAY_H */
