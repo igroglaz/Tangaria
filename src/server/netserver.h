@@ -191,7 +191,7 @@ extern int Send_ignore(struct player *p);
 extern int Send_flush(struct player *p, bool fresh, char delay);
 extern int Send_channel(struct player *p, uint8_t n, const char *virt);
 extern int Send_weather(struct player *p, int weather_type, int weather_wind, int weather_intensity);
-extern int Send_slash_fx(struct player *p, int fx);
+extern int Send_slash_fx(struct player *p, int y, int x, int dir);
 
 /*** Commands ***/
 extern int cmd_ignore_drop(struct player *p);
