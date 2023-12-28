@@ -202,7 +202,7 @@ void do_keepalive(void)
         }
     }
 
-    // Timer -- Update slashfx
+    // Timer -- Update slash fx
     if (OPT(player, slash_fx))
     {
         // attempt to keep track of 'ticks' (200ms resolution)
@@ -210,7 +210,7 @@ void do_keepalive(void)
         {
             slashfx_ticks = ticks;
 
-            //* Animations (graphics mode) *//
+            //* Slash fx (graphics mode) *//
             if ((use_graphics) && (Setup.initialized))
                 do_slashfx();
         }
@@ -4607,6 +4607,7 @@ static int Receive_slash_fx(void)
     // Remember new information
     sfx_info_d[y][x] = dir;
     sfx_move[y][x] = 4;
+    slashfx_save_char(x, y);
 
     return 1;
 }

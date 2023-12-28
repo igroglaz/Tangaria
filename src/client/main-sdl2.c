@@ -1089,7 +1089,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     src.x = src_col * src.w;
     src.y = src_row * src.h;
 
-    //// Slash fx effect ////
+    //// Slash fx ////
     // do_slashfx()
     // sfx_effect
     // sfx_dir

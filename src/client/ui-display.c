@@ -95,7 +95,7 @@ static int monwidth = -1;
 
 
 //// Slash fx ////
-bool sfx_effect = false; // slash fx effect
+bool sfx_effect = false; // slash effect
 uint8_t sfx_dir = 0; // slash fx direction
 uint16_t sfx_info_a[256][256]; // 'attr' info
 char sfx_info_c[256][256]; // 'char' info
@@ -2616,6 +2616,7 @@ void do_animations(void)
 
 //// Handle the slash effects ////
 
+
 void slashfx_dir_offset(int *x, int *y, int dir)
 {
     const int dir_offset_x[9] = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
@@ -2623,6 +2624,7 @@ void slashfx_dir_offset(int *x, int *y, int dir)
     *x = dir_offset_x[dir - 1];
     *y = dir_offset_y[dir - 1];
 }
+
 
 void do_slashfx(void)
 {
@@ -2664,13 +2666,6 @@ void do_slashfx(void)
                     // Check characters
                     Term_info(COL_MAP + (j - player->offset_grid.x) * tile_width, 
                         ROW_MAP + (i - player->offset_grid.y) * tile_height, &a, &c, &ta, &tc);
-
-                    // Remember attr/char information
-                    if (sfx_move[i][j] == 4)
-                    {
-                        sfx_info_a[i][j] = a;
-                        sfx_info_c[i][j] = c;
-                    }
 
                     if (sfx_info_a[i][j] == a && sfx_info_c[i][j] == c)
                     {
@@ -2746,6 +2741,7 @@ void do_slashfx(void)
     Term_activate(old);
 }
 
+
 void slashfx_refresh_char(int x, int y)
 {
     term *main_term = angband_term[0];
@@ -2808,6 +2804,47 @@ void slashfx_refresh_char(int x, int y)
             ROW_MAP + (y - player->offset_grid.y) * tile_height, &a, &c, &ta, &tc);
         (void)((*main_term->pict_hook)(COL_MAP + (x - player->offset_grid.x) * tile_width, 
             ROW_MAP + (y - player->offset_grid.y) * tile_height, 1, &a, &c, &ta, &tc));
+    }
+
+    // Actually flush the output
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+
+
+// Remember attr/char information
+void slashfx_save_char(int x, int y)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    int w, h;
+
+    uint16_t a;
+    char c;
+    uint16_t ta;
+    char tc;
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get screen size
+    w = (main_term->wid - COL_MAP - 1) / tile_width;
+    h = (main_term->hgt - ROW_MAP - 1) / tile_height;
+
+    if ((x - player->offset_grid.x) >= 0 && (x - player->offset_grid.x) < w && 
+        (y - player->offset_grid.y) >= 0 && (y - player->offset_grid.y) < h)
+    {
+        Term_info(COL_MAP + (x - player->offset_grid.x) * tile_width, 
+            ROW_MAP + (y - player->offset_grid.y) * tile_height, &a, &c, &ta, &tc);
+
+        sfx_info_a[y][x] = a;
+        sfx_info_c[y][x] = c;
     }
 
     // Actually flush the output

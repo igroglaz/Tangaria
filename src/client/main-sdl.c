@@ -5624,7 +5624,7 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
     src.x = 0;
     src.y = 0;
 
-    //// Slash fx effect ////
+    //// Slash fx ////
     // do_slashfx()
     // sfx_effect
     // sfx_dir

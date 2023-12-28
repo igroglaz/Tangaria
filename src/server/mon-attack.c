@@ -523,7 +523,7 @@ bool make_ranged_attack(struct source *who, struct chunk *c, struct monster *mon
     /* Record any new info */
     lore_update(mon->race, lore);
 
-    // Slash fx effect
+    // Slash effect
     slash_fx(mon, who);
 
     /* A spell was cast */
@@ -968,7 +968,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
     /* Learn lore */
     lore_update(mon->race, lore);
 
-    // Slash fx effect
+    // Slash effect
     slash_fx(mon, who);
 
     /* Assume we attacked */
