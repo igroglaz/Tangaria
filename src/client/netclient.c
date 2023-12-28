@@ -4600,8 +4600,7 @@ static int Receive_slash_fx(void)
     if (y >= Setup.max_row) return 1;
     if (x >= Setup.max_col) return 1;
 
-    // Discard current effect
-    sfx_move[y][x] = 0;
+    // Refresh character
     slashfx_refresh_char(x, y);
 
     // Remember new information

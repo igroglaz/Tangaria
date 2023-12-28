@@ -2843,12 +2843,20 @@ void slashfx_save_char(int x, int y)
         Term_info(COL_MAP + (x - player->offset_grid.x) * tile_width, 
             ROW_MAP + (y - player->offset_grid.y) * tile_height, &a, &c, &ta, &tc);
 
-        sfx_info_a[y][x] = a;
-        sfx_info_c[y][x] = c;
+        // Check character visibility
+        if (a != ta && c != tc)
+        {
+            sfx_info_a[y][x] = a;
+            sfx_info_c[y][x] = c;
+        }
+        else
+        {
+            sfx_move[y][x] = 0;
+            sfx_info_a[y][x] = 0;
+            sfx_info_c[y][x] = 0;
+            sfx_info_d[y][x] = 0;
+        }
     }
-
-    // Actually flush the output
-    Term_xtra(TERM_XTRA_FRESH, 0);
 
     // Restore the term
     Term_activate(old);
