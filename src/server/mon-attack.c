@@ -57,15 +57,15 @@ void slash_fx(struct monster *mon, struct source *who)
     mon_x = mon->grid.x;
     mon_y = mon->grid.y;
 
-    if (who->idx > 0)
-    {
-        who_x = who->player->grid.x;
-        who_y = who->player->grid.y;
-    }
-    else
+    if (who->monster)
     {
         who_x = who->monster->grid.x;
         who_y = who->monster->grid.y;
+    }
+    else
+    {
+        who_x = who->player->grid.x;
+        who_y = who->player->grid.y;
     }
 
     // Determine direction
