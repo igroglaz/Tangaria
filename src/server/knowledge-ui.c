@@ -1951,7 +1951,11 @@ void do_cmd_drop_gold(struct player *p, int32_t amt)
 {
     struct object *obj;
 
-    // no drop on SAFE FLOOR (don't try to hide your gold from thieves or death..)
+    // no drop on floor in town (don't try to hide your gold from thieves or death..)
+    if (p->wpos.depth == 0 && streq(p->terrain, "\tFloor\0")) {
+        msg(p, "You need to be outside the building to drop gold.");
+        return;
+    }
 
     /* Restrict ghosts */
     if (p->ghost && !(p->dm_flags & DM_GHOST_BODY))
