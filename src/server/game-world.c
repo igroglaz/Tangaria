@@ -347,13 +347,13 @@ static void play_ambient_sound(struct player *p)
                 if (one_in_(5))
                 {
                     // Stop weather
-                    Send_weather(p, 256, 0, 0);
+                    Send_weather(p, 255, 0, 0);
                 }
             }
             // all other locations
             else if (p->store_num == -1)
             {
-                if ((p->weather_type == 0) || (p->weather_type == 256))
+                if ((p->weather_type == 0) || (p->weather_type == 255))
                 {
                     if (one_in_(5))
                     {
@@ -369,7 +369,7 @@ static void play_ambient_sound(struct player *p)
                         // empty sound to break sound loop .ogg.0
                         sound(p, MSG_SILENT0);
                         // Stop weather
-                        Send_weather(p, 256, 0, 0);
+                        Send_weather(p, 255, 0, 0);
                     }
                     // Weather sound
                     else if (p->weather_intensity == 3)

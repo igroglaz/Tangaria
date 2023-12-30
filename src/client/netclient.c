@@ -4582,7 +4582,7 @@ static int Receive_weather(void)
     int n;
     uint8_t ch;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd", &ch, &player->weather_type, &player->weather_wind, &player->weather_intensity)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%b%b%b", &ch, &player->weather_type, &player->weather_wind, &player->weather_intensity)) <= 0)
         return n;
 
     return 1;
