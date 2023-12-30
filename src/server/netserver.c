@@ -6134,7 +6134,12 @@ static void show_motd(struct player *p)
         if (first)
         {
             msgt(p, MSG_MOTD, "  ");
-            msg(p, "You have %lu account points.", p->account_score);
+            if (p->lives > 0) {
+                msg(p, "You have %lu account points... and second chance.", p->account_score);
+            }
+            else {
+                msg(p, "You have %lu account points.", p->account_score);
+            }
             //msgt(p, MSG_MOTD, "   ");
             first = false;
         }
