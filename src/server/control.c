@@ -419,7 +419,7 @@ static void console_whois(int ind, char *name)
 
     /* Other interesting factoids */
     if (p->lives > 0)
-        Packet_printf(console_buf_w, "%s", format("Has resurrected %d times.\n", p->lives));
+        Packet_printf(console_buf_w, "%s", format("Has %d life.\n", p->lives));
     if (p->max_depth == 0)
         Packet_printf(console_buf_w, "%s%c", "Has never left the surface!", (int)terminator);
     else

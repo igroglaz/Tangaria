@@ -1951,6 +1951,8 @@ void do_cmd_drop_gold(struct player *p, int32_t amt)
 {
     struct object *obj;
 
+    // no drop on SAFE FLOOR (don't try to hide your gold from thieves or death..)
+
     /* Restrict ghosts */
     if (p->ghost && !(p->dm_flags & DM_GHOST_BODY))
     {

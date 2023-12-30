@@ -1740,6 +1740,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         p->account_id = account;
         // init ladder file
         init_ladder(p);
+        // give 1 life
+        p->lives = 1;
 
         /* Reprocess his name */
         if (!savefile_set_name(p))

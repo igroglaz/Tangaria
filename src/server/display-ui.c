@@ -2444,7 +2444,8 @@ void player_death(struct player *p)
      * - ghosts
      * - suiciding characters
      */
-    perma_death = (magik(p->lives) || (no_ghost && !player_can_undead(p)) ||
+     // T: removed magik(p->lives)
+    perma_death = ((no_ghost && !player_can_undead(p)) ||
         player_has(p, PF_PERM_SHAPE) || p->ghost || !p->alive);
 
     /* Know inventory and home items upon permadeath */
@@ -2561,7 +2562,7 @@ void resurrect_player(struct player *p, struct chunk *c)
     }
 
     /* Increment number of resurrections */
-    p->lives++;
+    // p->lives++; in T we use lives differently
 
     /* Redraw */
     p->upkeep->redraw |= (PR_BASIC | PR_SPELL);

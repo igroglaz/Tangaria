@@ -196,6 +196,11 @@ static void adjust_level(struct player *p)
 
             p->max_lev = p->lev;
 
+            // restore life every 10th lvl
+            if ((p->lives == 0) && !(p->max_lev % 10)) {
+                p->lives = 1;
+            }
+
             // account score when gain lvls
             // it's in rotation with mon-util.c (killing uniques)
 
