@@ -5029,7 +5029,7 @@ static void master_debug(struct player *p, char *parms)
                         // empty sound to break sound loop .ogg.0
                         sound(p, MSG_SILENT0);
                         // Stop weather
-                        Send_weather(p, 256, 0, 0);
+                        Send_weather(p, 255, 0, 0);
                     }
                 }
             }

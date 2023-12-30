@@ -3381,21 +3381,24 @@ int Send_channel(struct player *p, uint8_t n, const char *virt)
 
 //////////////////////////////////////////////////
 // Weather (rain and snow) server-side
-// weather_type - stop(256)/none(0)/rain(1)/snow(2)
+// weather_type - stop(255)/none(0)/rain(1)/snow(2)
 // weather_wind - current gust of wind 
 //                (1 west, 2 east, 3 strong west, 4 strong east)
 // weather_intensity - density of raindrops/snowflakes low(1)/med(2)/hi(3)
 //
-int Send_weather(struct player *p, int weather_type, int weather_wind, int weather_intensity)
+int Send_weather(struct player *p, uint8_t weather_type, uint8_t weather_wind, uint8_t weather_intensity)
 {
     connection_t *connp = get_connp(p, "weather");
     if (connp == NULL) return 0;
+
+    if (!OPT(p, weather_display)) return 1;
 
     p->weather_type = weather_type;
     p->weather_wind = weather_wind;
     p->weather_intensity = weather_intensity;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%hd", (unsigned)PKT_WEATHER, weather_type, weather_wind, weather_intensity);
+    return Packet_printf(&connp->c, "%b%b%b%b", (unsigned)PKT_WEATHER,
+        (unsigned)weather_type, (unsigned)weather_wind, (unsigned)weather_intensity);
 }
 
 

@@ -122,7 +122,7 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
     }
 
     // Stop weather
-    Send_weather(p, 256, 0, 0);
+    Send_weather(p, 255, 0, 0);
 
     // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
     sound(p, MSG_SILENT);

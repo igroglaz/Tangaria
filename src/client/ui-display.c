@@ -1907,7 +1907,7 @@ bool peruse_file(void)
 
 //////////////////////////////////////////////////
 // Handle weather (rain and snow) client-side
-// weather_type - stop(256)/none(0)/rain(1)/snow(2)
+// weather_type - stop(255)/none(0)/rain(1)/snow(2)
 // weather_wind - current gust of wind 
 //                (1 west, 2 east, 3 strong west, 4 strong east)
 // weather_intensity - density of raindrops/snowflakes low(1)/med(2)/hi(3)
@@ -1943,7 +1943,7 @@ void do_weather(void)
     if (player->weather_type == 0) return;
 
     // Stop weather (weather_display = no)
-    if (player->weather_type == 256 && !OPT(player, weather_display))
+    if (player->weather_type == 255 && !OPT(player, weather_display))
     {
         player->weather_type = 0;
         weather_strength = 0;
@@ -2031,7 +2031,7 @@ void do_weather(void)
     }
 
     // Stop weather (weather_display = yes)
-    if (player->weather_type == 256 && OPT(player, weather_display))
+    if (player->weather_type == 255 && OPT(player, weather_display))
     {
         player->weather_type = 0;
         weather_strength = 0;
