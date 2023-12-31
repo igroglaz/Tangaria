@@ -187,7 +187,7 @@ void do_keepalive(void)
             do_weather();
         }
     }
-#ifdef USE_SDL2
+
     // Timer -- Update animation
     if (OPT(player, animations))
     {
@@ -202,20 +202,19 @@ void do_keepalive(void)
         }
     }
 
-    // Timer -- Update slashfx
-    if (OPT(player, animations))
+    // Timer -- Update slash fx
+    if (OPT(player, slash_fx))
     {
         // attempt to keep track of 'ticks' (200ms resolution)
         if ((ticks - slashfx_ticks) > 2)
         {
             slashfx_ticks = ticks;
 
-            //* Animations (graphics mode) *//
+            //* Slash fx (graphics mode) *//
             if ((use_graphics) && (Setup.initialized))
                 do_slashfx();
         }
     }
-#endif
 }
 
 
@@ -4593,9 +4592,21 @@ static int Receive_slash_fx(void)
 {
     int n;
     uint8_t ch;
+    uint8_t y, x, dir;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd", &ch, &m_attack)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%b%b%b", &ch, &y, &x, &dir)) <= 0)
         return n;
+
+    if (y >= Setup.max_row) return 1;
+    if (x >= Setup.max_col) return 1;
+
+    // Refresh character
+    slashfx_refresh_char(x, y);
+
+    // Remember new information
+    sfx_info_d[y][x] = dir;
+    sfx_move[y][x] = 4;
+    slashfx_save_char(x, y);
 
     return 1;
 }

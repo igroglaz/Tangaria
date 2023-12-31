@@ -40,6 +40,53 @@
  */
 
 
+//// Send "slash effect" to the client ////
+void slash_fx(struct monster *mon, struct source *who)
+{
+    int mon_x, mon_y;
+    int who_x, who_y;
+    int dx, dy;
+    int dir;
+
+    const int dirrrs[3][3] = {
+        { 9, 8, 7 },
+        { 6, 5, 4 },
+        { 3, 2, 1 },
+    };
+
+    mon_x = mon->grid.x;
+    mon_y = mon->grid.y;
+
+    if (who->monster)
+    {
+        who_x = who->monster->grid.x;
+        who_y = who->monster->grid.y;
+    }
+    else
+    {
+        who_x = who->player->grid.x;
+        who_y = who->player->grid.y;
+    }
+
+    // Determine direction
+    dx = mon_x - who_x;
+    dy = mon_y - who_y;
+    if (dx < -1) dx = -1;
+    if (dx > 1) dx = 1;
+    if (dy < -1) dy = -1;
+    if (dy > 1) dy = 1;
+
+    // dir
+    // |1|2|3|
+    // |4|5|6|
+    // |7|8|9|
+    dir = dirrrs[dy + 1][dx + 1];
+
+    // Send it !
+    Send_slash_fx(who->player, mon_y, mon_x, dir);
+}
+
+
 /*
  * Given the monster, *mon, and cave *c, set *dist to the distance to the
  * monster's target and *grid to the target's location. Accounts for a player
@@ -475,6 +522,9 @@ bool make_ranged_attack(struct source *who, struct chunk *c, struct monster *mon
 
     /* Record any new info */
     lore_update(mon->race, lore);
+
+    // Slash effect
+    slash_fx(mon, who);
 
     /* A spell was cast */
     return true;
@@ -918,8 +968,8 @@ bool make_attack_normal(struct monster *mon, struct source *who)
     /* Learn lore */
     lore_update(mon->race, lore);
 
-    // Monsters attack - slashfx
-    Send_slash_fx(who->player, 1);
+    // Slash effect
+    slash_fx(mon, who);
 
     /* Assume we attacked */
     return true;

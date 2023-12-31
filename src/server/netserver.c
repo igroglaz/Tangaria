@@ -3400,12 +3400,14 @@ int Send_weather(struct player *p, uint8_t weather_type, uint8_t weather_wind, u
 }
 
 
-int Send_slash_fx(struct player *p, int fx)
+int Send_slash_fx(struct player *p, int y, int x, int dir)
 {
     connection_t *connp = get_connp(p, "slash_fx");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd", (unsigned)PKT_SLASH_FX, fx);
+    if (!OPT(p, slash_fx)) return 1;
+
+    return Packet_printf(&connp->c, "%b%b%b%b", (unsigned)PKT_SLASH_FX, (unsigned)y, (unsigned)x, (unsigned)dir);
 }
 
 
