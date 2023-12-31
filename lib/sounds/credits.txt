@@ -6,6 +6,10 @@ Format for the artist's credits:
 
 #######################
 
+Dubtrain (see more info in /lib/customize/sound.prf)
+http://www.dubtrain.com/angband/
+most of sounds
+
 rubberduck
 https://opengameart.org/content/100-cc0-sfx-2
 magic
