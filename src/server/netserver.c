@@ -3391,8 +3391,6 @@ int Send_weather(struct player *p, uint8_t weather_type, uint8_t weather_wind, u
     connection_t *connp = get_connp(p, "weather");
     if (connp == NULL) return 0;
 
-    if (!OPT(p, weather_display)) return 1;
-
     p->weather_type = weather_type;
     p->weather_wind = weather_wind;
     p->weather_intensity = weather_intensity;
