@@ -2552,7 +2552,8 @@ static void handle_menu_purpose(struct window *window,
     {
         elems[num_elems].caption = window_flag_desc[num_elems];
         elems[num_elems].data.value.term_flag_value.subwindow = subwindow;
-        elems[num_elems].data.value.term_flag_value.flag = ((uint32_t) 1) << num_elems;
+        elems[num_elems].data.value.term_flag_value.flag =
+            ((uint32_t) 1) << num_elems;
         elems[num_elems].data.type = BUTTON_DATA_TERM_FLAG;
         elems[num_elems].on_render = render_button_menu_pw;
         elems[num_elems].on_menu = handle_menu_pw;
@@ -4152,8 +4153,7 @@ static errr term_pict_hook(int col, int row, int n,
     struct subwindow *subwindow = Term->data;
     assert(subwindow != NULL);
 
-    if (!current_graphics_mode || current_graphics_mode->grafID == GRAPHICS_NONE)
-    {
+    if (!current_graphics_mode || current_graphics_mode->grafID == GRAPHICS_NONE) {
         /*
          * Do nothing unsuccessfully if asked to draw a tile while
          * they're not enabled. Could proceed in this function
@@ -4438,7 +4438,7 @@ static void load_stipple(struct window *window)
      * on_pixel is black and completely transparent.  off_pixel is gray
      * (0x40, 0x40, 0x40) and slightly opaque.
      */
-#if SDL_BYTE_ORDER == SDL_BIGENDIAN
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
     rmask = 0xff000000;
     gmask = 0x00ff0000;
     bmask = 0x0000ff00;
@@ -5081,14 +5081,47 @@ static void reload_status_bar(struct status_bar *status_bar)
 static void load_status_bar(struct window *window)
 {
     if (window->status_bar.font == NULL) {
-        if (window->config != NULL) {
-            window->status_bar.font = make_font(window,
-                    window->config->font_name,
-                    window->config->font_size);
-        } else {
-            window->status_bar.font = make_font(window, DEFAULT_STATUS_BAR_FONT, 0);
+        const char *try_names[3];
+        int try_sizes[3];
+        int n_tries = 0, i = 0;
+
+        if (window->config && window->config->font_name) {
+            try_names[n_tries] = window->config->font_name;
+            try_sizes[n_tries] = window->config->font_size;
+            ++n_tries;
         }
-        assert(window->status_bar.font != NULL);
+        try_names[n_tries] = DEFAULT_STATUS_BAR_FONT;
+        try_sizes[n_tries] = 0;
+        ++n_tries;
+        if (g_font_info[0].loaded && g_font_info[0].name) {
+            try_names[n_tries] = g_font_info[0].name;
+            try_sizes[n_tries] = g_font_info[0].size;
+            ++n_tries;
+        }
+
+        while (1) {
+            if (i >= n_tries) {
+                quit_fmt("No usable status bar font for "
+                    "window %u; configured to use '%s'",
+                    window->index, try_names[0]);
+            }
+            window->status_bar.font =
+                make_font(window, try_names[i], try_sizes[i]);
+            if (window->status_bar.font) {
+                if (i > 0) {
+                    plog_fmt("Font '%s' unusable; "
+                        "substituting '%s'",
+                        try_names[0], try_names[i]);
+                    if (window->config) {
+                        string_free(window->config->font_name);
+                        window->config->font_name =
+                            string_make(try_names[i]);
+                    }
+                }
+                break;
+            }
+            ++i;
+        }
     } else {
         quit_fmt("font '%s' already loaded in status bar in window %u",
                 window->status_bar.font->name, window->index);
@@ -5393,7 +5426,8 @@ static void dump_subwindow(const struct subwindow *subwindow, ang_file *config)
 {
 #define DUMP_SUBWINDOW(sym, fmt, ...) \
     file_putf(config, "subwindow-" sym ":%u:" fmt "\n", subwindow->index, __VA_ARGS__)
-    DUMP_SUBWINDOW("window", "%u:%d", subwindow->window->index, (subwindow->visible) ? 1 : 0);
+    DUMP_SUBWINDOW("window", "%u:%d", subwindow->window->index,
+            (subwindow->visible) ? 1 : 0);
     DUMP_SUBWINDOW("full-rect", "%d:%d:%d:%d",
             subwindow->full_rect.x, subwindow->full_rect.y,
             subwindow->full_rect.w, subwindow->full_rect.h);
@@ -5539,13 +5573,47 @@ static void load_subwindow(struct window *window, struct subwindow *subwindow)
     assert(!subwindow->loaded);
 
     if (subwindow->font == NULL) {
-        if (subwindow->config != NULL) {
-            subwindow->font = make_font(window,
-                    subwindow->config->font_name, subwindow->config->font_size);
-        } else {
-            subwindow->font = make_font(window, DEFAULT_FONT, 0);
+        const char *try_names[3];
+        int try_sizes[3];
+        int n_tries = 0, i = 0;
+
+        if (subwindow->config && subwindow->config->font_name) {
+            try_names[n_tries] = subwindow->config->font_name;
+            try_sizes[n_tries] = subwindow->config->font_size;
+            ++n_tries;
         }
-        assert(subwindow->font != NULL);
+        try_names[n_tries] = DEFAULT_FONT;
+        try_sizes[n_tries] = 0;
+        ++n_tries;
+        if (g_font_info[0].loaded && g_font_info[0].name) {
+            try_names[n_tries] = g_font_info[0].name;
+            try_sizes[n_tries] = g_font_info[0].size;
+            ++n_tries;
+        }
+
+        while (1) {
+            if (i >= n_tries) {
+                quit_fmt("No usable font for subwindow %u;"
+                    " configured to use '%s'",
+                    subwindow->index, try_names[0]);
+            }
+            subwindow->font = make_font(window, try_names[i],
+                try_sizes[i]);
+            if (subwindow->font) {
+                if (i > 0) {
+                    plog_fmt("Font '%s' unusable "
+                        "substituting '%s'",
+                        try_names[0], try_names[i]);
+                    if (subwindow->config) {
+                        string_free(subwindow->config->font_name);
+                        subwindow->config->font_name =
+                            string_make(try_names[i]);
+                    }
+                }
+                break;
+            }
+            ++i;
+        }
     }
     if (!adjust_subwindow_geometry(window, subwindow)) {
         quit_fmt("cannot adjust geometry of subwindow %u in window %u",
@@ -5729,51 +5797,57 @@ static int sort_cb_font_info(const void *infoa, const void *infob)
         long lv;
 
         lv = strtol(namea, &ew, 10);
-        if (ew != namea && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
-        {
+        if (ew != namea && *ew == 'x' && lv > INT_MIN && lv < INT_MAX) {
             wa = (int)lv;
             lv = strtol(ew + 1, &facea, 10);
-            if (facea != ew + 1 && lv > INT_MIN && lv < INT_MAX)
-            {
+            if (facea != ew + 1 && lv > INT_MIN && lv < INT_MAX) {
                 ha = (int)lv;
-                exta = strchr(facea, '.');
-                if (exta == facea) exta = NULL;
+                exta = strchr(namea, '.');
+                if (exta == namea) {
+                    exta = NULL;
+                }
             }
         }
         lv = strtol(nameb, &ew, 10);
-        if (ew != nameb && *ew == 'x' && lv > INT_MIN && lv < INT_MAX)
-        {
+        if (ew != nameb && *ew == 'x' && lv > INT_MIN && lv < INT_MAX) {
             wb = (int)lv;
             lv = strtol(ew + 1, &faceb, 10);
-            if (faceb != ew + 1 && lv > INT_MIN && lv < INT_MAX)
-            {
+            if (faceb != ew + 1 && lv > INT_MIN && lv < INT_MAX) {
                 hb = (int)lv;
                 extb = strchr(faceb, '.');
-                if (extb == faceb) extb = NULL;
+                if (extb == faceb) {
+                    extb = NULL;
+                }
             }
         }
 
-        if (!exta)
-        {
-            if (!extb)
-            {
-                /* Neither match the expected pattern. Sort alphabetically. */
+        if (!exta) {
+            if (!extb) {
+                /*
+                 * Neither match the expected pattern.  Sort
+                 * alphabetically.
+                 */
                 return strcmp(namea, nameb);
             }
-
-            /* Put b first since it matches the expected pattern. */
-            return 1;
-        }
-        if (!extb)
-        {
-            /* Put a first since it matches the expected pattern. */
+            /* Put b last since it matches the expected pattern. */
             return -1;
         }
-
-        if (wa < wb) return -1;
-        if (wa > wb) return 1;
-        if (ha < hb) return -1;
-        if (ha > hb) return 1;
+        if (!extb) {
+            /* Put a last since it matches the expected pattern. */
+            return 1;
+        }
+        if (wa < wb) {
+            return -1;
+        }
+        if (wa > wb) {
+            return 1;
+        }
+        if (ha < hb) {
+            return -1;
+        }
+        if (ha > hb) {
+            return 1;
+        }
         return strncmp(facea, faceb, MAX(exta - facea, extb - faceb));
     }
 }
@@ -5980,7 +6054,9 @@ static void init_font_info(const char *directory)
     }
 
     ang_dir *dir = my_dopen(directory);
-    assert(dir != NULL);
+    if (!dir) {
+        quit_fmt("Font directory '%s' is unreadable", directory);
+    }
 
     char name[1024];
     char path[4096];
@@ -6003,7 +6079,9 @@ static void init_font_info(const char *directory)
             i++;
         }
     }
-    assert(i > 0);
+    if (!i) {
+        quit_fmt("No usable fonts found in '%s'", directory);
+    }
 
     sort(g_font_info, i, sizeof(g_font_info[0]), sort_cb_font_info);
 
@@ -6041,10 +6119,29 @@ static void quit_systems(void)
 
 static void quit_hook(const char *s)
 {
-    dump_config_file();
+    /*
+     * If at least the main window was successfully set up, remember the
+     * configuration.
+     */
+    if (g_windows[0].loaded) {
+        dump_config_file();
+    }
 
     free_globals();
     quit_systems();
+
+    /* Free resources */
+    textui_cleanup();
+    cleanup_angband();
+    close_sound();
+
+    /* Cleanup network stuff */
+    Net_cleanup();
+
+#ifdef WINDOWS
+    /* Cleanup WinSock */
+    WSACleanup();
+#endif
 }
 
 static void init_systems(void)
@@ -6083,7 +6180,7 @@ static void init_systems(void)
  * Display warning message (see "z-util.c")
  * plog() hook to display a message box. similar to WIN32 client
  */
-static void hack_plog(const char *str)
+static void hook_plog(const char *str)
 {
     if (SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, VERSION_NAME, str, NULL) < 0) {
         SDL_Log("error displaying message box");
@@ -6094,12 +6191,15 @@ static void hack_plog(const char *str)
 
 errr init_sdl2(void)
 {
+    /* Activate hooks */
+    plog_aux = hook_plog;
+    quit_aux = quit_hook;
+
     init_systems();
     init_globals();
 
     if (!init_graphics_modes()) {
-        quit_systems();
-        return 1;
+        quit("Graphics list load failed");
     }
 
     if (!read_config_file()) {
@@ -6108,10 +6208,6 @@ errr init_sdl2(void)
 
     start_windows();
     load_terms();
-
-    /* Activate hooks */
-    plog_aux = hack_plog;
-    quit_aux = quit_hook;
 
     return 0;
 }
@@ -6122,6 +6218,9 @@ static char g_config_file[4096];
 
 static void init_globals(void)
 {
+    path_build(g_config_file, sizeof(g_config_file),
+            DEFAULT_CONFIG_FILE_DIR, DEFAULT_CONFIG_FILE);
+
     for (size_t i = 0; i < N_ELEMENTS(g_subwindows); i++) {
         g_subwindows[i].index = i;
     }
@@ -6131,9 +6230,6 @@ static void init_globals(void)
 
     init_font_info(ANGBAND_DIR_FONTS);
     init_colors();
-
-    path_build(g_config_file, sizeof(g_config_file),
-            DEFAULT_CONFIG_FILE_DIR, DEFAULT_CONFIG_FILE);
 }
 
 static bool is_subwindow_loaded(unsigned index)
@@ -6411,9 +6507,10 @@ static enum parser_error config_window_font(struct parser *parser)
     const char *name = parser_getstr(parser, "name");
     int size = parser_getint(parser, "size");
 
-    if (find_font_info(name) == NULL) {
-        return PARSE_ERROR_INVALID_VALUE;
-    }
+    /*
+     * Checking whether the font is usable will be done in
+     * load_status_bar().
+     */
     window->config->font_name = string_make(name);
     window->config->font_size = size;
 
@@ -6505,11 +6602,9 @@ static enum parser_error config_subwindow_font(struct parser *parser)
     const char *name = parser_getstr(parser, "name");
     int size = parser_getint(parser, "size");
 
-    if (find_font_info(name) == NULL) {
-        /* TODO maybe its not really an error? the font file was
-         * probably just deleted and now the ui wont event start... */
-        return PARSE_ERROR_INVALID_VALUE;
-    }
+    /*
+     * Checking whether the font is usable will be done in load_subwindow().
+     */
     subwindow->config->font_name = string_make(name);
     subwindow->config->font_size = size;
 
