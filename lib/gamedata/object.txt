@@ -4161,7 +4161,7 @@ effect:CURE:CONFUSED
 effect:HEAL_HP
 dice:40
 effect:NOURISH:DEC_BY
-dice:25
+dice:10
 effect:RESTORE_MANA
 dice:7
 msg_self:The potion calms your stomach, but leaves you more hungry.
@@ -4909,7 +4909,8 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 
-name:Cure Light Wounds
+#was Cure Light Wounds
+name:Phase Door
 graphics:_:d
 type:staff
 level:5
@@ -4918,14 +4919,9 @@ cost:350
 alloc:30:5 to 100
 attack:1d2:0:0
 armor:0:0
-charges:6+d5
-effect:TIMED_DEC:CONFUSED
-dice:20
-effect:TIMED_DEC:CUT
-dice:20
-effect:CURE:BLIND
-effect:HEAL_HP
-dice:20
+charges:1
+effect:TELEPORT:NONE:0:1
+dice:25
 
 name:Healing
 graphics:_:d
@@ -5934,8 +5930,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:3
 msg_self:That tastes especially good.
@@ -5947,8 +5941,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:5
 msg_self:That tastes especially good.
@@ -5960,8 +5952,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:6
 msg_self:That tastes especially good.
@@ -5973,8 +5963,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:5
 msg_self:That tastes especially good.
@@ -5986,8 +5974,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:7
 msg_self:That tastes especially good.
@@ -5999,8 +5985,6 @@ level:0
 weight:2
 cost:0
 alloc:5:1 to 20
-effect:HEAL_HP
-dice:1d4
 effect:NOURISH:INC_BY
 dice:6
 msg_self:That tastes especially good.
@@ -6097,7 +6081,7 @@ alloc:40:0 to 100
 pile:25:1d2
 effect:CURE:POISONED
 effect:HEAL_HP
-dice:1d30
+dice:1d50
 effect:NOURISH:INC_BY
 dice:5
 effect:RESTORE_EXP
@@ -7093,8 +7077,6 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:RESTORE_EXP
-effect:HEAL_HP
-dice:42
 msg_self:You feel how your wrinkles smoothing..
 desc:Legandary apples of immortality... You can't believe you found one.
 
