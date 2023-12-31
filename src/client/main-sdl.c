@@ -5624,6 +5624,58 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
     src.x = 0;
     src.y = 0;
 
+    //// Slash fx ////
+    // do_slashfx()
+    // sfx_effect
+    // sfx_dir
+    //  |1|2|3|
+    //  |4|5|6|
+    //  |7|8|9|
+    if (sfx_effect && !background)
+    {
+        int sfx_r;
+
+        sfx_r = randint1(3);
+        if (sfx_r == 1) sfx_r = 4;
+        else if (sfx_r == 2) sfx_r = 6;
+        else if (sfx_r == 3) sfx_r = 8;
+
+        switch (sfx_dir)
+        {
+            case 1:
+            {
+                rc.x -= sfx_r;
+                rc.y -= sfx_r;
+                break;
+            }
+            case 2: /* TODO: rc.y -= sfx_r; */ break;
+            case 3:
+            {
+                rc.x += sfx_r;
+                rc.y -= sfx_r;
+                break;
+            }
+            case 4: rc.x -= sfx_r; break;
+            case 5: break;
+            case 6: rc.x += sfx_r; break;
+            case 7:
+            {
+                rc.x -= sfx_r;
+                rc.y += sfx_r;
+                break;
+            }
+            case 8: rc.y += sfx_r; break;
+            case 9:
+            {
+                rc.x += sfx_r;
+                rc.y += sfx_r;
+                break;
+            }
+        }
+        sfx_effect = false;
+        sfx_dir = 0;
+    }
+
     /* Use the terrain picture only if mapped */
     if ((a & 0x80) || !background)
     {
