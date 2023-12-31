@@ -983,6 +983,8 @@ sound:balanced_stance:tomenet/combat/parry/parry
 sound:defensive_stance:tomenet/combat/block_shield/block
 sound:offensive_stance:tomenet/combat/parry_weapon/parry_metal
 
+# You _almost_ die (second chance)
+sound:second_chance:tomenet/player/alert/warning/warning
 
 ######################
 ###################### client T sounds

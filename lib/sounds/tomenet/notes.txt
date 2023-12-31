@@ -9,7 +9,6 @@ misc/fireworks
 player/alert/event/crush
 player/alert/error
 player/alert/page
-player/alert/warning
 
 player/game
 

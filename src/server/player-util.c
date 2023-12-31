@@ -290,6 +290,8 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
 
             msg(p, "Death nearly grasped you, but in the last moment....");
             msg(p, "........something pulled you into the aether........");
+            
+            sound(p, MSG_SECOND_CHANCE);
         }
         /* From hell's heart I stab at thee */
         else if (p->timed[TMD_BLOODLUST] && (p->chp + p->timed[TMD_BLOODLUST] + p->lev >= 0))
