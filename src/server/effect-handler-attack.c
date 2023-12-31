@@ -1850,6 +1850,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
 bool effect_handler_HEAL_HP(effect_handler_context_t *context)
 {
     int num, minh;
+    int current_hp_percent;
+    int min_heal_percent;
 
     /* Always ID */
     context->ident = true;
@@ -1864,6 +1866,18 @@ bool effect_handler_HEAL_HP(effect_handler_context_t *context)
     /* Enforce minimum */
     minh = context->value.base + damroll(context->value.dice, context->value.sides);
     if (num < minh) num = minh;
+
+    // 1) Calculate how much % from full hp
+    current_hp_percent = (context->origin->player->chp * 100) / context->origin->player->mhp;
+
+    // 2) Calculate min healing percentage
+    min_heal_percent = (minh * 100) / context->origin->player->mhp;
+
+    // 3) If player is less than 10% of max HP and minh restores less than 30% - restore up to 30%
+    if (current_hp_percent < 10 && min_heal_percent < 30) {
+        num = context->origin->player->mhp / 3;
+    }
+
     if (num <= 0) return true;
 
     if (context->self_msg) msg(context->origin->player, context->self_msg);
