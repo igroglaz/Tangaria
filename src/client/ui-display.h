@@ -40,6 +40,8 @@ extern void do_weather(void);
 extern void do_animations(void);
 extern void do_slashfx(void);
 extern void slashfx_refresh_char(int x, int y);
+extern void do_slashfx_ascii(void);
+extern void slashfx_refresh_char_ascii(int x, int y);
 extern void slashfx_save_char(int x, int y);
 
 #endif /* INCLUDED_UI_DISPLAY_H */
