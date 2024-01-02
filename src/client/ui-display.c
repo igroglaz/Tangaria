@@ -2814,6 +2814,142 @@ void slashfx_refresh_char(int x, int y)
 }
 
 
+void do_slashfx_ascii(void)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    int i, j;
+    int w, h;
+    int ox, oy;
+
+    uint16_t a;
+    char c;
+    uint16_t ta;
+    char tc;
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get screen size
+    w = main_term->wid - COL_MAP - 1;
+    h = main_term->hgt - ROW_MAP - 1;
+
+    // Maximum number grids on a level
+    for (i = 0; i < Setup.max_row; i++)
+    {
+        for (j = 0; j < Setup.max_col; j++)
+        {
+            // Only for sfx_move within visible panel screen area
+            if ((j - player->offset_grid.x) >= 0 && (j - player->offset_grid.x) < w && 
+                (i - player->offset_grid.y) >= 0 && (i - player->offset_grid.y) < h)
+            {
+                if (sfx_move[i][j] == 0) continue;
+
+                if (sfx_move[i][j] == 2 || sfx_move[i][j] == 4)
+                {
+                    // Check characters
+                    Term_info(COL_MAP + (j - player->offset_grid.x), 
+                        ROW_MAP + (i - player->offset_grid.y), &a, &c, &ta, &tc);
+
+                    if (sfx_info_a[i][j] == a && sfx_info_c[i][j] == c)
+                    {
+                        //// Fire slash fx ////
+                        switch (randint1(4))
+                        {
+                            case 1: a = COLOUR_RED; break;
+                            case 2: a = COLOUR_L_RED; break;
+                            case 3: a = COLOUR_YELLOW; break;
+                            case 4: a = COLOUR_ORANGE; break;
+                        }
+
+                        if (sfx_info_d[i][j] == 1 || sfx_info_d[i][j] == 9) c = '\\';
+                        else if (sfx_info_d[i][j] == 2 || sfx_info_d[i][j] == 8) c = '|';
+                        else if (sfx_info_d[i][j] == 3 || sfx_info_d[i][j] == 7) c = '/';
+                        else if (sfx_info_d[i][j] == 4 || sfx_info_d[i][j] == 6) c = '-';
+                        else if (sfx_info_d[i][j] == 5) c = '+';
+
+                        // Display
+                        (void)((*main_term->text_hook)(COL_MAP + (j - player->offset_grid.x), 
+                            ROW_MAP + (i - player->offset_grid.y), 1, a, &c));
+                    }
+                }
+                else if (sfx_move[i][j] == 1 || sfx_move[i][j] == 3)
+                {
+                    Term_info(COL_MAP + (j - player->offset_grid.x), 
+                        ROW_MAP + (i - player->offset_grid.y), &a, &c, &ta, &tc);
+
+                    if (sfx_info_a[i][j] == a && sfx_info_c[i][j] == c)
+                    {
+                        // Display
+                        (void)((*main_term->text_hook)(COL_MAP + (j - player->offset_grid.x), 
+                            ROW_MAP + (i - player->offset_grid.y), 1, a, &c));
+                    }
+                }
+
+                sfx_move[i][j] -= 1;
+                if (sfx_move[i][j] <= 0)
+                {
+                    sfx_move[i][j] = 0;
+                    sfx_info_a[i][j] = 0;
+                    sfx_info_c[i][j] = 0;
+                    sfx_info_d[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    // Actually flush the output
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+
+
+void slashfx_refresh_char_ascii(int x, int y)
+{
+    term *main_term = angband_term[0];
+    term *old = Term;
+
+    int w, h;
+    int ox, oy;
+
+    uint16_t a;
+    char c;
+    uint16_t ta;
+    char tc;
+
+    // Hack -- if the screen is already icky, ignore this command
+    if (player->screen_save_depth) return;
+
+    // Activate the term
+    Term_activate(main_term);
+
+    // Get screen size
+    w = main_term->wid - COL_MAP - 1;
+    h = main_term->hgt - ROW_MAP - 1;
+
+    if ((x - player->offset_grid.x) >= 0 && (x - player->offset_grid.x) < w && 
+        (y - player->offset_grid.y) >= 0 && (y - player->offset_grid.y) < h)
+    {
+        Term_info(COL_MAP + (x - player->offset_grid.x), 
+            ROW_MAP + (y - player->offset_grid.y), &a, &c, &ta, &tc);
+        (void)((*main_term->text_hook)(COL_MAP + (x - player->offset_grid.x), 
+            ROW_MAP + (y - player->offset_grid.y), 1, a, &c));
+    }
+
+    // Actually flush the output
+    Term_xtra(TERM_XTRA_FRESH, 0);
+
+    // Restore the term
+    Term_activate(old);
+}
+
+
 // Remember attr/char information
 void slashfx_save_char(int x, int y)
 {
@@ -2843,18 +2979,38 @@ void slashfx_save_char(int x, int y)
         Term_info(COL_MAP + (x - player->offset_grid.x) * tile_width, 
             ROW_MAP + (y - player->offset_grid.y) * tile_height, &a, &c, &ta, &tc);
 
-        // Check character visibility
-        if (a != ta && c != tc)
+        if (use_graphics)
         {
-            sfx_info_a[y][x] = a;
-            sfx_info_c[y][x] = c;
+            // Check character visibility
+            if (a != ta && c != tc)
+            {
+                sfx_info_a[y][x] = a;
+                sfx_info_c[y][x] = c;
+            }
+            else
+            {
+                sfx_move[y][x] = 0;
+                sfx_info_a[y][x] = 0;
+                sfx_info_c[y][x] = 0;
+                sfx_info_d[y][x] = 0;
+            }
         }
         else
         {
-            sfx_move[y][x] = 0;
-            sfx_info_a[y][x] = 0;
-            sfx_info_c[y][x] = 0;
-            sfx_info_d[y][x] = 0;
+            // Check character
+            if ((c != ' ') && (c != '.') && (c != '#') &&
+                (c != '+') && (c != '*'))
+            {
+                sfx_info_a[y][x] = a;
+                sfx_info_c[y][x] = c;
+            }
+            else
+            {
+                sfx_move[y][x] = 0;
+                sfx_info_a[y][x] = 0;
+                sfx_info_c[y][x] = 0;
+                sfx_info_d[y][x] = 0;
+            }
         }
     }
 

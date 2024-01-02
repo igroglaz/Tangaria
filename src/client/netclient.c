@@ -210,9 +210,12 @@ void do_keepalive(void)
         {
             slashfx_ticks = ticks;
 
-            //* Slash fx (graphics mode) *//
-            if ((use_graphics) && (Setup.initialized))
-                do_slashfx();
+            //* Slash fx *//
+            if (Setup.initialized)
+            {
+                if (use_graphics) do_slashfx();
+                else do_slashfx_ascii();
+            }
         }
     }
 }
@@ -4601,7 +4604,8 @@ static int Receive_slash_fx(void)
     if (x >= Setup.max_col) return 1;
 
     // Refresh character
-    slashfx_refresh_char(x, y);
+    if (use_graphics) slashfx_refresh_char(x, y);
+    else slashfx_refresh_char_ascii(x, y);
 
     // Remember new information
     sfx_info_d[y][x] = dir;
