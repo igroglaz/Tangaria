@@ -2382,6 +2382,60 @@ void player_death(struct player *p)
         return;
     }
 
+    // T: give second chance
+    if (p->alive && p->lives > 0) {
+
+        /* Handle polymorphed players */
+        if (p->poly_race) do_cmd_poly(p, NULL, false, true);
+
+        /* Cancel current effects */
+        for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
+
+        // heal/mana a bit
+        p->chp = p->mhp / 3;
+        p->chp_frac = 0;
+        if (p->csp < p->msp / 3) {
+            p->csp = p->msp / 3;
+            p->csp_frac = 0;
+        }
+
+        // gtfo
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_TELEPORT_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
+
+        /* Feed him (maybe he died from starvation) */
+        if (p->timed[TMD_FOOD] < 1500) {
+            player_set_timed(p, TMD_FOOD, 1500, false);
+        }
+
+        p->lives = 0; // loose the life
+        if (p->au > 0) { // the fee
+            p->au = 0; 
+        }
+        p->is_dead = false; // resurrect
+
+        // Make WoR spell work a bit later if it was planned (just in case)
+        if (p->word_recall) {
+            p->word_recall++;
+        }
+        // Cancel deep_descent
+        p->deep_descent = 0;
+
+        // after ress you become more enigmatic
+        player_stat_dec(p, STAT_CON, true);
+        player_stat_inc(p, 5);
+
+        msg(p, "Death nearly grasped you, but in the last moment....");
+        msg(p, "........something pulled you into the aether........");
+        
+        sound(p, MSG_SECOND_CHANCE);
+
+        // Redraw stats, HP, mana etc
+        p->upkeep->redraw |= PR_BASIC;
+
+        return;
+    }
+
     // empty sound to break sound loop .ogg.0
     sound(p, MSG_SILENT0);
 

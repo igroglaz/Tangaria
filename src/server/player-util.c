@@ -249,52 +249,8 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
     /* Dead player */
     if (p->chp < 0)
     {
-        // T: give second chance
-        if (p->lives > 0) {
-            struct source who_body;
-            struct source *who = &who_body;
-            int i;
-            p->lives = 0; // loose the life
-
-            /* Handle polymorphed players */
-            if (p->poly_race) do_cmd_poly(p, NULL, false, true);
-
-            /* Cancel current effects */
-            for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
-
-            // heal/mana a bit
-            p->chp = p->mhp / 3;
-            p->chp_frac = 0;
-            if (p->csp < p->msp / 3) {
-                p->csp = p->msp / 3;
-                p->csp_frac = 0;
-            }
-
-            // gtfo
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_TELEPORT_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
-
-            /* Feed him (maybe he died from starvation) */
-            player_set_timed(p, TMD_FOOD, 1500, false);
-
-            /* Cancel any WOR spells */
-            p->word_recall = 0;
-            p->deep_descent = 0;
-
-            // after ress you become more enigmatic
-            player_stat_dec(p, STAT_CON, true);
-            player_stat_inc(p, 5);
-
-            // the fee
-            p->au = 0;
-
-            msg(p, "Death nearly grasped you, but in the last moment....");
-            msg(p, "........something pulled you into the aether........");
-            
-            sound(p, MSG_SECOND_CHANCE);
-        }
         /* From hell's heart I stab at thee */
-        else if (p->timed[TMD_BLOODLUST] && (p->chp + p->timed[TMD_BLOODLUST] + p->lev >= 0))
+        if (p->timed[TMD_BLOODLUST] && (p->chp + p->timed[TMD_BLOODLUST] + p->lev >= 0))
         {
             if (randint0(10))
                 msg(p, "Your lust for blood keeps you alive!");
