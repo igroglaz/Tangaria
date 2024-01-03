@@ -2821,7 +2821,6 @@ void do_slashfx_ascii(void)
 
     int i, j;
     int w, h;
-    int ox, oy;
 
     uint16_t a;
     char c;
@@ -2916,7 +2915,6 @@ void slashfx_refresh_char_ascii(int x, int y)
     term *old = Term;
 
     int w, h;
-    int ox, oy;
 
     uint16_t a;
     char c;
@@ -2998,8 +2996,7 @@ void slashfx_save_char(int x, int y)
         else
         {
             // Check character
-            if ((c != ' ') && (c != '.') && (c != '#') &&
-                (c != '+') && (c != '*'))
+            if ((c != ' ') && (c != '.'))
             {
                 sfx_info_a[y][x] = a;
                 sfx_info_c[y][x] = c;

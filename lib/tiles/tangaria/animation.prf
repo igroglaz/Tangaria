@@ -9,8 +9,14 @@
 # opt-anim_:0 - disable
 # opt-anim_:1 - wilderness
 # opt-anim_:2 - dungeons/wilderness
+
+# world objects
 opt-anim-obj_w:1
+
+# characters/objects
 opt-anim-obj:2
+
+# npc
 opt-anim-npc:1
 
 
