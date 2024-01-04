@@ -2009,7 +2009,8 @@ void do_weather(void)
             // Display
             if (use_graphics)
             {
-                if ((a == 0x80) || (a == 0x96) || (a == 0x98) || (a > 0xA0))
+                // Check background tile
+                if (a == ta && c == tc)
                     (void)((*main_term->pict_hook)(COL_MAP + weather_frame_x[i] * tile_width, 
                         ROW_MAP + weather_frame_y[i] * tile_height, 1, &a, &c, &ta, &tc));
             }
@@ -2265,7 +2266,8 @@ void do_weather(void)
             // Display weather elements
             if (use_graphics)
             {
-                if ((a == 0x80) || (a == 0x96) || (a == 0x98) || (a > 0xA0))
+                // Check background tile
+                if (a == ta && c == tc)
                     (void)((*main_term->pict_hook)(COL_MAP + weather_element_x[i] * tile_width, 
                         ROW_MAP + weather_element_y[i] * tile_height, 1, &w_attr, &w_char, &ta, &tc));
             }
