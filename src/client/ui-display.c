@@ -2848,7 +2848,7 @@ void do_slashfx_ascii(void)
             {
                 if (sfx_move[i][j] == 0) continue;
 
-                if (sfx_move[i][j] == 2 || sfx_move[i][j] == 4)
+                if (sfx_move[i][j] == 2 || sfx_move[i][j] == 3)
                 {
                     // Check characters
                     Term_info(COL_MAP + (j - player->offset_grid.x), 
@@ -2876,7 +2876,7 @@ void do_slashfx_ascii(void)
                             ROW_MAP + (i - player->offset_grid.y), 1, a, &c));
                     }
                 }
-                else if (sfx_move[i][j] == 1 || sfx_move[i][j] == 3)
+                else if (sfx_move[i][j] == 1)
                 {
                     Term_info(COL_MAP + (j - player->offset_grid.x), 
                         ROW_MAP + (i - player->offset_grid.y), &a, &c, &ta, &tc);
