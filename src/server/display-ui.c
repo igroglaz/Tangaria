@@ -5077,7 +5077,7 @@ static void master_debug(struct player *p, char *parms)
                     if (is_daytime() != daytime)
                         dusk_or_dawn(player, chunk_get(&player->wpos), is_daytime());
 
-                    // to test weather
+                    /* to test weather
                     if (one_in_(2))
                     {
                         // Rain
@@ -5091,6 +5091,7 @@ static void master_debug(struct player *p, char *parms)
                         // Stop weather
                         Send_weather(p, 255, 0, 0);
                     }
+                    */
                 }
             }
 
