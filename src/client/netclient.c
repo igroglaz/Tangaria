@@ -205,16 +205,26 @@ void do_keepalive(void)
     // Timer -- Update slash fx
     if (OPT(player, slash_fx))
     {
-        // attempt to keep track of 'ticks' (200ms resolution)
-        if ((ticks - slashfx_ticks) > 2)
+        if (use_graphics)
         {
-            slashfx_ticks = ticks;
-
-            //* Slash fx *//
-            if (Setup.initialized)
+            // attempt to keep track of 'ticks' (200ms resolution)
+            if ((ticks - slashfx_ticks) > 2)
             {
-                if (use_graphics) do_slashfx();
-                else do_slashfx_ascii();
+                slashfx_ticks = ticks;
+
+                //* Slash fx *//
+                if (Setup.initialized) do_slashfx();
+            }
+        }
+        else
+        {
+            // attempt to keep track of 'ticks' (100ms resolution)
+            if ((ticks - slashfx_ticks) > 1)
+            {
+                slashfx_ticks = ticks;
+
+                //* Slash fx ASCII mode *//
+                if (Setup.initialized) do_slashfx_ascii();
             }
         }
     }
@@ -4608,8 +4618,7 @@ static int Receive_slash_fx(void)
     else slashfx_refresh_char_ascii(x, y);
 
     // Remember new information
-    if (use_graphics) sfx_move[y][x] = 4;
-    else sfx_move[y][x] = 3;
+    sfx_move[y][x] = 4;
     sfx_info_d[y][x] = dir;
     slashfx_save_char(x, y);
 

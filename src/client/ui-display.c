@@ -2850,7 +2850,7 @@ void do_slashfx_ascii(void)
             {
                 if (sfx_move[i][j] == 0) continue;
 
-                if (sfx_move[i][j] == 2 || sfx_move[i][j] == 3)
+                if (sfx_move[i][j] > 1)
                 {
                     // Check characters
                     Term_info(COL_MAP + (j - player->offset_grid.x), 
