@@ -117,9 +117,12 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         /* Pick a nearby grid */
         find_nearby_grid(c, &change, &grid, 0, 0);
 
-        // Water flow only through rocks, empty floors.. doors will drown.. + all passable to fix entrances
-        if (square_in_bounds_fully(c, &change) && (square_isrock(c, &change) ||
-            square_isempty(c, &change) || square_isdoor(c, &change) || square_ispassable(c, &change) ||
+        // Water flow only through rocks, empty floors.. doors will drown.. 
+        // + all passable to fix entrances
+        // !do not allow to put WATER on STAIRS (so player won't drown)
+        if (square_in_bounds_fully(c, &change) && !(square_isstairs(c, &change)) &&
+           (square_isrock(c, &change) || square_isempty(c, &change) ||
+            square_isdoor(c, &change) || square_ispassable(c, &change) ||
             square_istree(c, &change)))
         {
             /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
@@ -147,7 +150,7 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         if (!square_in_bounds(c, &grid)) break;
     }
     
-    return size // returning size of lake for debug (in case of crush on lvl gen)
+    return size; // returning size of lake for debug (in case of crush on lvl gen)
 }
 
 
@@ -1850,15 +1853,15 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
         lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
         lake_size = build_lake(c);
-
-    /* Place stairs near some walls */
-    add_stairs(c, FEAT_MORE);
-    add_stairs(c, FEAT_LESS);
 
     /* Remove holes in corridors that were not used for stair placement */
     remove_unused_holes(c);
@@ -2335,13 +2338,13 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
         w *= 2;
     }
 
-    // Add lake
-    if (one_in_(20))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (one_in_(20))
+        lake_size = build_lake(c);
 
     /* General amount of rubble, traps and monsters */
     k = MAX(MIN(wpos->depth / 3, 10), 2);
@@ -3006,13 +3009,13 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     /* Surround the level with perma-rock */
     draw_rectangle(c, 0, 0, h - 1, w - 1, FEAT_PERM, SQUARE_NONE, true);
 
-    // Add lake
-    if (one_in_(10))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (one_in_(10))
+        lake_size = build_lake(c);
 
     /* General amount of rubble, traps and monsters */
     k = MAX(MIN(wpos->depth / 3, 10), 2);
@@ -4182,15 +4185,15 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
         lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
         lake_size = build_lake(c);
-
-    /* Place stairs near some walls */
-    add_stairs(c, FEAT_MORE);
-    add_stairs(c, FEAT_LESS);
 
     /* Remove holes in corridors that were not used for stair placement */
     // T: let it be additional shelter on small levels
@@ -4380,15 +4383,15 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
         lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
         lake_size = build_lake(c);
-
-    /* Place stairs near some walls */
-    add_stairs(c, FEAT_MORE);
-    add_stairs(c, FEAT_LESS);
 
     /* Remove holes in corridors that were not used for stair placement */
     remove_unused_holes(c);
@@ -4686,13 +4689,13 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
         if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
     }
 
-    // Add lake
-    if (one_in_(5))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (one_in_(5))
+        lake_size = build_lake(c);
 
     /* Remove holes in corridors that were not used for stair placement */
     remove_unused_holes(c);
@@ -5099,13 +5102,13 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     cavern_area = (left_cavern_wid + right_cavern_wid) * z_info->dungeon_hgt +
         centre_cavern_wid * (upper_cavern_hgt + lower_cavern_hgt);
 
-    // Add lake
-    if (one_in_(25))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (one_in_(25))
+        lake_size = build_lake(c);
 
     /* General amount of rubble, traps and monsters */
     k = MAX(MIN(wpos->depth / 3, 10), 2);
@@ -5291,10 +5294,6 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     /* Connect */
     ensure_connectedness(c, true);
 
-    // Add lake
-    if (one_in_(25))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
@@ -5319,6 +5318,10 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
         place_stairs(c, &grid, FEAT_MORE);
         generate_unmark(c, 0, x_size / 2, c->height - 1, c->width - 1, SQUARE_NO_STAIRS);
     }
+
+    // Add lake
+    if (one_in_(25))
+        lake_size = build_lake(c);
 
     /* Remove holes in corridors that were not used for stair placement */
     remove_unused_holes(c);
@@ -5583,13 +5586,13 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     /* PWMAngband: add the right cavern */
     chunk_copy(c, right, 0, line2);
 
-    // Add lake
-    if (one_in_(25))
-        lake_size = build_lake(c);
-
     /* Place down stairs in the right cavern */
     generate_mark(c, 0, line1, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
     add_stairs(c, FEAT_MORE);
+
+    // Add lake
+    if (one_in_(25))
+        lake_size = build_lake(c);
 
     /* Pick some of monsters for the right cavern */
     i = z_info->level_monster_min + randint1(4) + k;
@@ -6327,13 +6330,13 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     do_traditional_tunneling(c);
     ensure_connectedness(c, true);
 
-    // Add lake
-    if (one_in_(5))
-        lake_size = build_lake(c);
-
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
     add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (one_in_(5))
+        lake_size = build_lake(c);
 
     /* Remove holes in corridors that were not used for stair placement */
     remove_unused_holes(c);
