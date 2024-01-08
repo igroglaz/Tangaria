@@ -86,7 +86,7 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
 
 
 // Places a lake in the dungeon.
- static void build_lake(struct chunk *c)
+ static int build_lake(struct chunk *c)
 {
     int dir;
     struct loc grid;
@@ -139,6 +139,8 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         /* Stop at dungeon edge */
         if (!square_in_bounds(c, &grid)) break;
     }
+    
+    return size // returning size of lake for debug (in case of crush on lvl gen)
 }
 
 
@@ -1670,6 +1672,7 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     int by, bx = 0, tby, tbx, key, rarity, built;
     int num_rooms, size_percent;
     int dun_unusual = dun->profile->dun_unusual;
+    int lake_size = 0;
     bool **blocks_tried;
     struct chunk *c;
 
@@ -1842,9 +1845,9 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
 
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
-        build_lake(c);
+        lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -2272,6 +2275,7 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     const char **p_error)
 {
     int i, k;
+    int lake_size = 0;
     struct chunk *c;
 
     /* Most labyrinths have wide corridors */
@@ -2326,7 +2330,7 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
 
     // Add lake
     if (one_in_(20))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -2977,6 +2981,7 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     int i, k;
     int h = rand_range(z_info->dungeon_hgt / 2, (z_info->dungeon_hgt * 3) / 4);
     int w = rand_range(z_info->dungeon_wid / 2, (z_info->dungeon_wid * 3) / 4);
+    int lake_size = 0;
     struct chunk *c;
 
     /* Enforce minimum dimensions */
@@ -2996,7 +3001,7 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
 
     // Add lake
     if (one_in_(10))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4055,6 +4060,7 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
 {
     int i, k;
     int size_percent, y_size, x_size;
+    int lake_size = 0;
     struct chunk *c;
     // T:
     int t;
@@ -4171,9 +4177,9 @@ struct chunk *t_modified_gen(struct player *p, struct worldpos *wpos, int min_he
 
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
-        build_lake(c);
+        lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4316,6 +4322,7 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
 {
     int i, k;
     int size_percent, y_size, x_size;
+    int lake_size = 0;
     struct chunk *c;
 
     /* Scale the level */
@@ -4368,9 +4375,9 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     // Add lake
     if (wpos->depth < 11 && one_in_(3))
-        build_lake(c);
+        lake_size = build_lake(c);
     else if (one_in_(MIN(wpos->depth / 4, 10)))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4607,6 +4614,7 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
 {
     int i, k;
     int size_percent, y_size, x_size;
+    int lake_size = 0;
     struct chunk *c;
 
     /* Scale the level */
@@ -4673,7 +4681,7 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
 
     // Add lake
     if (one_in_(5))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -4913,6 +4921,7 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     int min_width, const char **p_error)
 {
     int vhgt = 0, vwid = 0;
+    int lake_size = 0;
 
     /* Make a vault for the centre */
     struct chunk *c = vault_chunk(p, wpos, z_info->dungeon_hgt, z_info->dungeon_wid, &vhgt, &vwid);
@@ -5085,7 +5094,7 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
 
     // Add lake
     if (one_in_(25))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -5181,6 +5190,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
 {
     int i, k, y, x, n;
     int size_percent, y_size, x_size;
+    int lake_size = 0;
     struct chunk *c;
     struct chunk *lair;
     struct loc grid;
@@ -5276,7 +5286,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
 
     // Add lake
     if (one_in_(25))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
@@ -5425,6 +5435,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     int y_size = z_info->dungeon_hgt - randint0(25 - gauntlet_hgt);
     int x_size = (z_info->dungeon_wid - gauntlet_wid - 2) / 2 - randint1(45 - gauntlet_wid);
     int line1, line2;
+    int lake_size = 0;
     struct loc grid;
 
     /* No wide corridors to keep generation easy */
@@ -5567,7 +5578,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
 
     // Add lake
     if (one_in_(25))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place down stairs in the right cavern */
     generate_mark(c, 0, line1, c->height - 1, line2 - 1, SQUARE_NO_STAIRS);
@@ -6174,6 +6185,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     int by, bx = 0, tby, tbx, key, rarity, built;
     int num_rooms;
     int dun_unusual = dun->profile->dun_unusual;
+    int lake_size = 0;
     bool **blocks_tried;
     struct chunk *c;
 // for OPEN_SKY
@@ -6310,7 +6322,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
 
     // Add lake
     if (one_in_(5))
-        build_lake(c);
+        lake_size = build_lake(c);
 
     /* Place stairs near some walls */
     add_stairs(c, FEAT_MORE);
