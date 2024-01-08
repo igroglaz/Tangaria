@@ -27,11 +27,17 @@ DATA = credits_ambient.txt \
     outside/street.ogg \
     outside/street.mp3 \
     sewers/sewers_1.0.mp3 \
+    sewers/sewers_1.0.ogg \
     sewers/sewers_2.0.mp3 \
+    sewers/sewers_2.0.ogg \
     sewers/sewers_3.0.mp3 \
+    sewers/sewers_3.0.ogg \
     sewers/sewers_4.0.mp3 \
+    sewers/sewers_4.0.ogg \
     sewers/sewers_5.0.mp3 \
+    sewers/sewers_5.0.ogg \
     sewers/sewers_6.0.mp3 \
+    sewers/sewers_6.0.ogg \
     store/alchemy.0.ogg \
     store/alchemy.mp3 \
     store/alchemy_boom.ogg \
