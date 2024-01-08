@@ -98,6 +98,13 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
     else if (one_in_(10)) size = 100 + randint1(1000);
     else size = 100 + randint1(300);
 
+    // prevent generating too big lake on small lvls
+    // (which might block generating stairs as stairs generates only
+    // on the FLOOR while WATER is not FLOOR..)
+    if ((c->height * c->width) - 50 < size) {
+        size = (c->height * c->width) / 2;
+    }
+
     /* Hack -- choose starting point */
     loc_init(&grid, rand_spread(c->width / 2, 15), rand_spread(c->height / 2, 10));
 
