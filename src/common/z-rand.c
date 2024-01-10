@@ -3,7 +3,7 @@
  * Purpose: A Random Number Generator for Angband
  *
  * Copyright (c) 1997 Ben Harrison, Randy Hutson
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * See below for copyright on the WELL random number generator.
  *

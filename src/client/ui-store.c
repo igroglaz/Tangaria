@@ -4,7 +4,7 @@
  *
  * Copyright (c) 1997 Robert A. Koeneke, James E. Wilson, Ben Harrison
  * Copyright (c) 1998-2014 Angband developers
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

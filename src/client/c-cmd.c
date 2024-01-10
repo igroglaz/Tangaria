@@ -3,7 +3,7 @@
  * Purpose: Deal with command processing
  *
  * Copyright (c) 2010 Andi Sidwell
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -184,6 +184,7 @@ static void view_map_aux(uint8_t mode)
 }
 
 
+/* Display map in subwindow "Term->view_map_hook" */
 void do_cmd_view_map_w(void)
 {
     ui_event ke = EVENT_EMPTY;

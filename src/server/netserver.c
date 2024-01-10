@@ -2,7 +2,7 @@
  * File: netserver.c
  * Purpose: The server side of the network stuff
  *
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

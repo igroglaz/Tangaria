@@ -1,6 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 MC_PATH := ../../../../../src/client
+PUI_PATH := ../../../../../src/sdl2
 CMN_PATH := ../../../../../src/common
 
 include $(CLEAR_VARS)
@@ -19,6 +20,9 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 
 LOCAL_SRC_FILES := $(MC_PATH)/main.c \
 		$(MC_PATH)/main-sdl2.c \
+		$(PUI_PATH)/pui-ctrl.c \
+		$(PUI_PATH)/pui-dlg.c \
+		$(PUI_PATH)/pui-misc.c \
 		$(MC_PATH)/snd-sdl.c \
 		$(CMN_PATH)/buildid.c \
 		$(MC_PATH)/conf.c \

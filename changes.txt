@@ -18,8 +18,33 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.0 build 1
+New features in PWMAngband 1.6.0 build 2
 ========================================
+
+User interface
+--------------
+
+Angband 4.2.x:
+
+- SDL2 client update
+- Generalize handling of ^
+
+Coding changes
+--------------
+
+Angband 4.2.x:
+
+- When appending spells to monster lore, set ref_race for expressions
+- Don't suppress vulnerabilities in artifact creation
+- For instant artifact kinds, inherit the flags and element info of the tval
+
+Compilation/documentation
+-------------------------
+
+- Remove keys-gcu.prf
+
+Features in PWMAngband 1.6.0 build 1
+====================================
 
 User interface
 --------------

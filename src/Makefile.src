@@ -7,7 +7,7 @@
 
 NAME = PWMAngband
 VERSION = 1.6.0
-COPYRIGHT = (c) 1995-2023 PWMAngband contributors
+COPYRIGHT = (c) 1995-2024 PWMAngband contributors
 PROGNAME = pwmangband
 CLIENT_PROGNAME = pwmangclient
 
@@ -106,7 +106,11 @@ BASEMAINFILES = client/main.o
 
 GCUMAINFILES = client/main-gcu.o
 
-SDL2MAINFILES = client/main-sdl2.o
+SDL2MAINFILES = \
+	client/main-sdl2.o \
+	sdl2/pui-ctrl.o \
+	sdl2/pui-dlg.o \
+	sdl2/pui-misc.o
 
 SDLMAINFILES = client/main-sdl.o
 

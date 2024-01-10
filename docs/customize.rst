@@ -405,3 +405,77 @@ When you leave the game, the current settings for the SDL interface are saved
 as ``sdlinit.txt`` in the same directory as is used for preference files, see
 `User Pref Files`_ for details. Those settings will be automatically reloaded
 the next time you start the SDL interface.
+
+SDL2
+****
+
+With the SDL2 front end, the application has one window that can contain the
+main window and any of the subwindows.  The application may also have up to
+three additional windows which can contain any of the subwindows.  A subwindow
+may not appear in more than of those application windows.  Unused portions of
+an application window are tiled with repetitions of the game's logo.
+
+Each of the application windows has a menu bar along the top.  The "Menu"
+entry at the left end of the menu bar has the main menu for controlling
+aspects of the SDL2 interface.
+
+Next to "Menu", are a series of one letter labels that act as toggles for the
+terminal windows shown in the application window.  Click on one to toggle it
+between on (drawn in white) and off (drawn in gray).  It is not possible to
+toggle off the main window shown in the primary application window.
+
+At the end of the menu bar are two toggle buttons labeled "Size" and "Move".
+Each will be gray if disabled or white if enabled.  Clicking on "Size" when
+it is disabled will enable it, disable "Move", turn off input to the game's
+core, and cause clicks and drags within the displayed subwindows to change
+the sizes for those subwindows.  Clicking on "Move" when it is disabled will
+enable it, disable "Size", turn off input to the game's core, and cause clicks
+and drags within the displayed subwindows to change the positions for those
+subwindows.  Disable both "Move" and "Size", by clicking on one if it is
+enabled, to restore passing input to the game's core.
+
+Within "Menu", the first entries control properties for each of the displayed
+terminal windows within that application window.  For the main window, you
+can set the font, graphical tile set, whether the window is shown with borders
+or not, and whether or not the window will be shown on top of the other windows.
+For subwindows, you can set the font, the purpose (which is a shortcut for
+enabling the subwindow content as described in
+`Showing extra info in subwindows`_), the opaqueness ("alpha") of the window,
+whether the window is shown with borders or not, and whether or not the window
+will be shown on top of the other windows.
+
+Below the entries for the contained terminal windows, is an entry,
+"Fullscreen" for toggling fullscreen mode for that application window.  That
+entry will display a rectangle at the end of the entry when fullscreen mode
+is on.  That rectangle will be absent when fullscreen mode is off.
+
+In the primary application window which contains the main window, there is an
+entry, "Send Keypad Modifier", after that for whether key strokes from the
+numeric keypad will be sent to the game with the keypad modifier set.  That
+entry will be gray when the modifier is not send and will be white when the
+modifier is sent.  Sending the modifier allows some predefined keymaps to work,
+for instance shift with 8 from the numeric keypad to run north, at the cost of
+compatibility issues with some keyboard layouts that differ from the standard
+English keyboard layout for which normal keys have equivalents on the numeric
+keypad.  https://github.com/angband/angband/issues/4522 has an example of the
+problems that can be avoided by not sending the keypad modifier.
+
+Below "Send Keypad Modifier" in the primary application window's "Menu" is
+"Menu Shortcuts...".  That allows you to set a keystroke to transfer control
+to a window's menu.  By default, no such keystrokes are defined.  That avoids
+potential conflicts with any keymaps you may have.  While in the menus,
+keystrokes can be used for navigation.  The in-game horizontal and vertical
+movement keys will work to move between controls as will Tab (to go to the
+"next" control) and Shift-Tab (to go to the previous control).  Enter will
+activate a menu item if it can be activated.  Trying to descend further into
+the menus with the in-game movement keys will also activate if a menu item if
+it is as deep as you can go.  Below "Menu Shortcuts..." is "Windows":  use
+that to bring up one of the additional application windows.
+
+The final two entries in "Menu" are "About" for displaying an information
+dialog about the game and "Quit" to save the game and exit.
+
+When you leave the game, the current settings for the SDL interface are saved
+as ``sdl2init.txt`` in the same directory as is used for preference files, see
+`User Pref Files`_ for details.  Those settings will be automatically reloaded
+the next time you start the SDL2 interface.

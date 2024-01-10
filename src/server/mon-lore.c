@@ -3,7 +3,7 @@
  * Purpose: Monster memory code.
  *
  * Copyright (c) 1997-2007 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
@@ -1427,8 +1427,13 @@ void lore_append_spells(struct player *p, const struct monster_race *race,
     const char *initial_pronoun;
     bool know_hp;
     bitflag current_flags[RSF_SIZE], test_flags[RSF_SIZE];
+    const struct monster_race *old_ref;
 
     my_assert(race && lore);
+
+    /* Set the race for expressions in the spells. */
+    old_ref = ref_race;
+    ref_race = race;
 
     know_hp = lore->armour_known;
 
@@ -1512,6 +1517,9 @@ void lore_append_spells(struct player *p, const struct monster_race *race,
         /* End this sentence */
         text_out(p, ". ");
     }
+
+    /* Restore the previous reference. */
+    ref_race = old_ref;
 }
 
 

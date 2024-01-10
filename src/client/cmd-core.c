@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2008-9 Antony Sidwell
  * Copyright (c) 2014 Andi Sidwell
- * Copyright (c) 2023 MAngband and PWMAngband Developers
+ * Copyright (c) 2024 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
