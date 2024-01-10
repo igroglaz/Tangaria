@@ -1759,11 +1759,6 @@ static void resize_shortcut_editor(struct sdlpui_dialog *d,
 static void query_shortcut_editor_natural_size(struct sdlpui_dialog *d,
         struct sdlpui_window *w, int *width, int *height)
 {
-    const char *about_text[] = {
-        version_build(VERSION_NAME, true),
-        "See https://tangaria.com",
-        "Visit our Discord at https://discord.gg/zBNG369"
-    };
     struct shortcut_editor_data *pse;
     int dw = 0, dh = 0, cw, ch, roww, rowh;
 
@@ -2036,9 +2031,9 @@ static void show_about(struct sdlpui_window *window, int x, int y)
             version_build(VERSION_NAME, true),
             SDLPUI_HOR_CENTER);
         sdlpui_simple_info_add_label(window->infod,
-            "See http://www.rephial.org", SDLPUI_HOR_CENTER);
+            "See https://tangaria.com", SDLPUI_HOR_CENTER);
         sdlpui_simple_info_add_label(window->infod,
-            "Visit our forum at http://angband.oook.cz/forum",
+            "Visit our Discord at https://discord.gg/zBNG369",
             SDLPUI_HOR_CENTER);
         sdlpui_complete_simple_info(window->infod, window);
         window->infod->pop_callback = hide_about;
