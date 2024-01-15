@@ -1,0 +1,242 @@
+###################################################################
+#
+#  makefile.bcc - MAngband makefile for Borland C++ 5.5 (Win32)
+#
+#  This makefile, along with necessary code, was written by
+#  Yakina (yakina@dsb.to) and modified for MAngband use.
+#
+#  How to compile:
+#  1. install bcc++5.5 first - from http://www.borland.com/
+#  2. go to the directory 'src' of Mangband
+#     (the directory this file is in.)
+#  3. change the 'BCCDIR = ..' option or set environment variable `BCCDIR'
+#     to the directory you installed bcc++
+#  4. type 'make -f makefile.bcc' to compile client
+#
+#  5. copy the binary (mangclient.exe) to the directory of MAngband
+#     (available from http://www.mangband.org/)
+#  6. enjoy!
+#
+###################################################################
+
+
+###################################################################
+#
+#       Borland specific directives ---
+#
+.AUTODEPEND
+
+
+###################################################################
+#
+# Set tool and version names:
+!ifndef BCCDIR
+BCCDIR     = "C:\BCC102"
+!endif
+
+CPP        = $(BCCDIR)\bin\bcc32c
+LINKER     = $(BCCDIR)\bin\ilink32
+RC         = $(BCCDIR)\bin\rc
+
+
+###################################################################
+#
+# Name of the *.exe-file
+
+CLI_EXE = mangclient.exe
+
+
+###################################################################
+#
+# Debug mode (un-comment for debugging)
+
+# DBGOPT= -v -x -xp
+
+
+###################################################################
+#
+# Set any compiler options
+
+CCOPTS = -tW -lGn \
+	-D_WIN32_WINNT=0x0500 -DWINVER=0x0500 -D__BCC7__ \
+	-DWIN32 -D_WINDOWS -DSTRICT -DWINDOWS -DBCC_IDE \
+	-D"SOUND_SDL2" \
+	-I$(BCCDIR)\include \
+	-I..\_SDL2
+
+LDFLAGS = -L$(BCCDIR)\lib\win32c\release -L$(BCCDIR)\lib\win32c\release\psdk -L..\_SDL2
+
+
+# Compile flags:
+CPPFLAGS= $(CCOPTS) $(DBGOPT)
+
+
+######################## Targets ##################################
+
+CLI_SRCS = \
+  ..\common\buildid.c \
+  ..\common\datafile.c \
+  ..\common\display.c \
+  ..\common\guid.c \
+  ..\common\md5.c \
+  ..\common\net-win.c \
+  ..\common\obj-gear-common.c \
+  ..\common\obj-tval.c \
+  ..\common\option.c \
+  ..\common\parser.c \
+  ..\common\randname.c \
+  ..\common\sockbuf.c \
+  ..\common\source.c \
+  ..\common\util.c \
+  ..\common\z-bitflag.c \
+  ..\common\z-color.c \
+  ..\common\z-dice.c \
+  ..\common\z-expression.c \
+  ..\common\z-file.c \
+  ..\common\z-form.c \
+  ..\common\z-rand.c \
+  ..\common\z-type.c \
+  ..\common\z-util.c \
+  ..\common\z-virt.c \
+  ..\client\c-cmd.c \
+  ..\client\c-cmd-obj.c \
+  ..\client\c-option.c \
+  ..\client\c-player.c \
+  ..\client\cmd-core.c \
+  ..\client\conf.c \
+  ..\client\game-event.c \
+  ..\client\game-input.c \
+  ..\client\grafmode.c \
+  ..\client\main-win.c \
+  ..\client\netclient.c \
+  ..\client\player-properties.c \
+  ..\client\snd-sdl.c \
+  ..\client\sound-core.c \
+  ..\client\ui-birth.c \
+  ..\client\ui-command.c \
+  ..\client\ui-context.c \
+  ..\client\ui-curse.c \
+  ..\client\ui-death.c \
+  ..\client\ui-display.c \
+  ..\client\ui-event.c \
+  ..\client\ui-game.c \
+  ..\client\ui-init.c \
+  ..\client\ui-input.c \
+  ..\client\ui-keymap.c \
+  ..\client\ui-knowledge.c \
+  ..\client\ui-menu.c \
+  ..\client\ui-message.c \
+  ..\client\ui-object.c \
+  ..\client\ui-options.c \
+  ..\client\ui-output.c \
+  ..\client\ui-player-properties.c \
+  ..\client\ui-prefs.c \
+  ..\client\ui-spell.c \
+  ..\client\ui-store.c \
+  ..\client\ui-term.c \
+  ..\client\win-layout.c \
+  ..\win\readdib.c \
+  ..\win\readpng.c \
+  ..\win\scrnshot.c
+
+CLI_OBJS = \
+  ..\common\buildid.obj \
+  ..\common\datafile.obj \
+  ..\common\display.obj \
+  ..\common\guid.obj \
+  ..\common\md5.obj \
+  ..\common\net-win.obj \
+  ..\common\obj-gear-common.obj \
+  ..\common\obj-tval.obj \
+  ..\common\option.obj \
+  ..\common\parser.obj \
+  ..\common\randname.obj \
+  ..\common\sockbuf.obj \
+  ..\common\source.obj \
+  ..\common\util.obj \
+  ..\common\z-bitflag.obj \
+  ..\common\z-color.obj \
+  ..\common\z-dice.obj \
+  ..\common\z-expression.obj \
+  ..\common\z-file.obj \
+  ..\common\z-form.obj \
+  ..\common\z-rand.obj \
+  ..\common\z-type.obj \
+  ..\common\z-util.obj \
+  ..\common\z-virt.obj \
+  ..\client\c-cmd.obj \
+  ..\client\c-cmd-obj.obj \
+  ..\client\c-option.obj \
+  ..\client\c-player.obj \
+  ..\client\cmd-core.obj \
+  ..\client\conf.obj \
+  ..\client\game-event.obj \
+  ..\client\game-input.obj \
+  ..\client\grafmode.obj \
+  ..\client\main-win.obj \
+  ..\client\netclient.obj \
+  ..\client\player-properties.obj \
+  ..\client\snd-sdl.obj \
+  ..\client\sound-core.obj \
+  ..\client\ui-birth.obj \
+  ..\client\ui-command.obj \
+  ..\client\ui-context.obj \
+  ..\client\ui-curse.obj \
+  ..\client\ui-death.obj \
+  ..\client\ui-display.obj \
+  ..\client\ui-event.obj \
+  ..\client\ui-game.obj \
+  ..\client\ui-init.obj \
+  ..\client\ui-input.obj \
+  ..\client\ui-keymap.obj \
+  ..\client\ui-knowledge.obj \
+  ..\client\ui-menu.obj \
+  ..\client\ui-message.obj \
+  ..\client\ui-object.obj \
+  ..\client\ui-options.obj \
+  ..\client\ui-output.obj \
+  ..\client\ui-player-properties.obj \
+  ..\client\ui-prefs.obj \
+  ..\client\ui-spell.obj \
+  ..\client\ui-store.obj \
+  ..\client\ui-term.obj \
+  ..\client\win-layout.obj \
+  ..\win\readdib.obj \
+  ..\win\readpng.obj \
+  ..\win\scrnshot.obj
+
+default: $(CLI_EXE)
+
+clean:
+	-@if exist ..\..\*.exe del ..\..\*.exe >nul
+	-@if exist ..\..\*.tds del ..\..\*.tds >nul
+	-@if exist ..\..\obj\*.obj del ..\..\obj\*.obj >nul
+	-@if exist ..\..\obj\*.res del ..\..\obj\*.res >nul
+	-@if exist ..\client\*.obj del ..\client\*.obj >nul
+	-@if exist ..\common\*.obj del ..\common\*.obj >nul
+	-@if exist ..\server\*.obj del ..\server\*.obj >nul
+	-@if exist ..\win\*.obj del ..\win\*.obj >nul
+	-@if exist ..\win\*.res del ..\win\*.res >nul
+	-@if exist *.tds del *.tds >nul
+	-@if exist *.ilc del *.ilc >nul
+	-@if exist *.ild del *.ild >nul
+	-@if exist *.ilf del *.ilf >nul
+	-@if exist *.ils del *.ils >nul
+
+
+########################### Explicit Rules ########################
+$(CLI_EXE): $(CLI_OBJS) ..\win\angband.res
+	$(LINKER) -aa $(LDFLAGS) -x $(CLI_OBJS) c0w32.obj, $(CLI_EXE),, cw32.lib import32.lib ws2_32.lib ..\win\libpng.lib ..\win\zlib.lib ..\win\msimg32.lib ..\_SDL2\SDL2.lib ..\_SDL2\SDL2_mixer.lib,, ..\win\angband.res
+
+..\win\angband.res: ..\win\angband.rc
+	$(RC) /d __BCC7__ /i $(BCCDIR)\include\windows\sdk ..\win\angband.rc
+
+########################### Implicit Rules ########################
+.c.obj:
+	$(CPP) $(CPPFLAGS) -o$*.obj -c {$? }
+
+.c.i:
+	$(CPP) $(CPPFLAGS) -c -Sr -Sd {$? }
+
+.obj.exe:
+	$(CPP) $(CPPFLAGS) $<

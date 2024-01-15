@@ -2141,9 +2141,31 @@ static void handle_menu_sound_volume(struct sdlpui_control *ctrl,
     SDL_assert(ctrl->ftb->get_tag);
     tag = (*ctrl->ftb->get_tag)(ctrl);
     if (tag) {
-        sound_volume = mb->v.ranged_int.curr;
-    } else {
+        if (mb->v.ranged_int.curr > music_volume) {
+            mb->v.ranged_int.curr += 4;
+            if (mb->v.ranged_int.curr > 100) {
+                mb->v.ranged_int.curr = 100;
+            }
+        } else if (mb->v.ranged_int.curr < music_volume) {
+            mb->v.ranged_int.curr -= 4;
+            if (mb->v.ranged_int.curr < 0) {
+                mb->v.ranged_int.curr = 0;
+            }
+        }
         music_volume = mb->v.ranged_int.curr;
+    } else {
+        if (mb->v.ranged_int.curr > sound_volume) {
+            mb->v.ranged_int.curr += 4;
+            if (mb->v.ranged_int.curr > 100) {
+                mb->v.ranged_int.curr = 100;
+            }
+        } else if (mb->v.ranged_int.curr < sound_volume) {
+            mb->v.ranged_int.curr -= 4;
+            if (mb->v.ranged_int.curr < 0) {
+                mb->v.ranged_int.curr = 0;
+            }
+        }
+        sound_volume = mb->v.ranged_int.curr;
     }
 }
 
@@ -4080,13 +4102,6 @@ static errr term_xtra_event(int v)
 {
     struct subwindow *subwindow = Term->data;
     assert(subwindow != NULL);
-
-    /* Hack -- Check if the main window is unloaded. quit_hook() free resources */
-    if (!g_app.windows[0].loaded) {
-        /* Delay 100ms */
-        SDL_Delay(100);
-        return 0;
-    }
 
     redraw_all_windows(subwindow->app, true);
 
@@ -6116,14 +6131,6 @@ static void quit_hook(const char *s)
         dump_config_file(&g_app);
     }
 
-    free_globals(&g_app);
-    quit_systems();
-
-    /* Free resources */
-    textui_cleanup();
-    cleanup_angband();
-    close_sound();
-
     /* Cleanup network stuff */
     Net_cleanup();
 
@@ -6131,6 +6138,14 @@ static void quit_hook(const char *s)
     /* Cleanup WinSock */
     WSACleanup();
 #endif
+
+    free_globals(&g_app);
+    quit_systems();
+
+    /* Free resources */
+    textui_cleanup();
+    cleanup_angband();
+    close_sound();
 }
 
 static void init_systems(void)
