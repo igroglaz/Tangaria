@@ -3,208 +3,106 @@ include $(MKPATH)buildsys.mk
 
 DATA = credits_ambient.txt \
     outside/bell.ogg \
-    outside/bell.mp3 \
     outside/build_1.ogg \
-    outside/build_1.mp3 \
     outside/build_2.ogg \
-    outside/build_2.mp3 \
     outside/build_3.ogg \
-    outside/build_3.mp3 \
     outside/build_4.ogg \
-    outside/build_4.mp3 \
     outside/build_5.ogg \
-    outside/build_5.mp3 \
     outside/build_6.ogg \
-    outside/build_6.mp3 \
     outside/cart.ogg \
-    outside/cart.mp3 \
     outside/dog_small.ogg \
-    outside/dog_small.mp3 \
     outside/rain_light.ogg \
-    outside/rain_light.mp3 \
     outside/street_2.ogg \
-    outside/street_2.mp3 \
     outside/street.ogg \
-    outside/street.mp3 \
     sewers/sewers_1.0.mp3 \
-    sewers/sewers_1.0.ogg \
     sewers/sewers_2.0.mp3 \
-    sewers/sewers_2.0.ogg \
     sewers/sewers_3.0.mp3 \
-    sewers/sewers_3.0.ogg \
     sewers/sewers_4.0.mp3 \
-    sewers/sewers_4.0.ogg \
     sewers/sewers_5.0.mp3 \
-    sewers/sewers_5.0.ogg \
     sewers/sewers_6.0.mp3 \
-    sewers/sewers_6.0.ogg \
     store/alchemy.0.ogg \
-    store/alchemy.mp3 \
     store/alchemy_boom.ogg \
-    store/alchemy_boom.mp3 \
     store/armor.0.ogg \
-    store/armor.mp3 \
     store/arrow_1.ogg \
-    store/arrow_1.mp3 \
     store/arrow_2.ogg \
-    store/arrow_2.mp3 \
     store/arrow_3.ogg \
-    store/arrow_3.mp3 \
     store/bm.0.ogg \
-    store/bm.mp3 \
     store/bookseller_1.ogg \
-    store/bookseller_1.mp3 \
     store/bookseller_2.ogg \
-    store/bookseller_2.mp3 \
     store/bookseller_3.ogg \
-    store/bookseller_3.mp3 \
     store/bookseller_4.ogg \
-    store/bookseller_4.mp3 \
     store/bookseller_5.ogg \
-    store/bookseller_5.mp3 \
     store/clock.0.ogg \
-    store/clock.mp3 \
     store/cuckoo.ogg \
-    store/cuckoo.mp3 \
     store/magic.0.ogg \
-    store/magic.mp3 \
     store/magic_tower.0.ogg \
-    store/magic_tower.mp3 \
     store/shop_spells.0.ogg \
-    store/shop_spells.mp3 \
     store/store_temple.0.ogg \
-    store/store_temple.mp3 \
     store/store_weapon.0.ogg \
-    store/store_weapon.mp3 \
     store/tavern.0.ogg \
-    store/tavern.mp3 \
     store/xbm.0.ogg \
-    store/xbm.mp3 \
     voice/cat_meow.ogg \
-    voice/cat_meow.mp3 \
     voice/cat_purr.0.ogg \
-    voice/cat_purr.mp3 \
     voice/intro_1.ogg \
-    voice/intro_1.mp3 \
     voice/intro_2.ogg \
-    voice/intro_2.mp3 \
     voice/intro_3.ogg \
-    voice/intro_3.mp3 \
     voice/intro_4.ogg \
-    voice/intro_4.mp3 \
     voice/intro_5.ogg \
-    voice/intro_5.mp3 \
     voice/intro_6.ogg \
-    voice/intro_6.mp3 \
     voice/intro_7.ogg \
-    voice/intro_7.mp3 \
     voice/marta_1.ogg \
-    voice/marta_1.mp3 \
     voice/marta_2.ogg \
-    voice/marta_2.mp3 \
     voice/marta_3.ogg \
-    voice/marta_3.mp3 \
     voice/npc_belch_1.ogg \
-    voice/npc_belch_1.mp3 \
     voice/npc_belch.ogg \
-    voice/npc_belch.mp3 \
     voice/npc_cain_1.ogg \
-    voice/npc_cain_1.mp3 \
     voice/npc_cain_2.ogg \
-    voice/npc_cain_2.mp3 \
     voice/npc_cain_3.ogg \
-    voice/npc_cain_3.mp3 \
     voice/npc_drunk_1.ogg \
-    voice/npc_drunk_1.mp3 \
     voice/npc_drunk.ogg \
-    voice/npc_drunk.mp3 \
     voice/npc_duel_1.ogg \
-    voice/npc_duel_1.mp3 \
     voice/npc_duel_2.ogg \
-    voice/npc_duel_2.mp3 \
     voice/npc_duel_3.ogg \
-    voice/npc_duel_3.mp3 \
     voice/npc_duel_4.ogg \
-    voice/npc_duel_4.mp3 \
     voice/npc_duel_5.ogg \
-    voice/npc_duel_5.mp3 \
     voice/npc_girl_1.ogg \
-    voice/npc_girl_1.mp3 \
     voice/npc_girl_2.ogg \
-    voice/npc_girl_2.mp3 \
     voice/npc_girl_3.ogg \
-    voice/npc_girl_3.mp3 \
     voice/npc_girl_4.ogg \
-    voice/npc_girl_4.mp3 \
     voice/npc_girl_5.ogg \
-    voice/npc_girl_5.mp3 \
     voice/npc_girl_6.ogg \
-    voice/npc_girl_6.mp3 \
     voice/npc_hi_1.ogg \
-    voice/npc_hi_1.mp3 \
     voice/npc_hi_2.ogg \
-    voice/npc_hi_2.mp3 \
     voice/npc_hi_3.ogg \
-    voice/npc_hi_3.mp3 \
     voice/npc_hi_4.ogg \
-    voice/npc_hi_4.mp3 \
     voice/npc_rough_1.ogg \
-    voice/npc_rough_1.mp3 \
     voice/npc_rough_2.ogg \
-    voice/npc_rough_2.mp3 \
     voice/npc_rough_3.ogg \
-    voice/npc_rough_3.mp3 \
     voice/npc_tom_1.ogg \
-    voice/npc_tom_1.mp3 \
     voice/npc_tom_2.ogg \
-    voice/npc_tom_2.mp3 \
     voice/rose_1.ogg \
-    voice/rose_1.mp3 \
     voice/rose_2.ogg \
-    voice/rose_2.mp3 \
     voice/rose_3.ogg \
-    voice/rose_3.mp3 \
     voice/vet_1.ogg \
-    voice/vet_1.mp3 \
     voice/vet_2.ogg \
-    voice/vet_2.mp3 \
     voice/vet_3.ogg \
-    voice/vet_3.mp3 \
     voice/vet_4.ogg \
-    voice/vet_4.mp3 \
     voice/vet_5.ogg \
-    voice/vet_5.mp3 \
     voice/vet_6.ogg \
-    voice/vet_6.mp3 \
     voice/vet_7.ogg \
-    voice/vet_7.mp3 \
     voice/warr_1.ogg \
-    voice/warr_1.mp3 \
     voice/warr_2.ogg \
-    voice/warr_2.mp3 \
     voice/warr_3.ogg \
-    voice/warr_3.mp3 \
     voice/warr_4.ogg \
-    voice/warr_4.mp3 \
     voice/warr_5.ogg \
-    voice/warr_5.mp3 \
     voice/warr_6.ogg \
-    voice/warr_6.mp3 \
     voice/warr_7.ogg \
-    voice/warr_7.mp3 \
     voice/warr_8.ogg \
-    voice/warr_8.mp3 \
     voice/warr_9.ogg \
-    voice/warr_9.mp3 \
     voice/welcome_1.ogg \
-    voice/welcome_1.mp3 \
     voice/welcome_2.ogg \
-    voice/welcome_2.mp3 \
     voice/welcome_3.ogg \
-    voice/welcome_3.mp3 \
     voice/welcome_4.ogg \
-    voice/welcome_4.mp3 \
-    voice/welcome_5.ogg \
-    voice/welcome_5.mp3
+    voice/welcome_5.ogg
 
 PACKAGE = sounds/ambient
