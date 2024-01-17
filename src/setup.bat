@@ -24,10 +24,12 @@ copy ..\lib\tiles\tangaria\*.* ..\setup\lib\tiles\tangaria
 copy ..\lib\user\save\*.* ..\setup\lib\user\save
 copy *.* ..\setup\src
 copy _SDL\*.* ..\setup\src\_SDL
+copy _SDL2\*.* ..\setup\src\_SDL2
 copy client\*.* ..\setup\src\client
 copy common\*.* ..\setup\src\common
 copy curses\*.* ..\setup\src\curses
 copy fix\*.* ..\setup\src\fix
+copy sdl2\*.* ..\setup\src\sdl2
 copy server\*.* ..\setup\src\server
 copy win\*.* ..\setup\src\win
 pause

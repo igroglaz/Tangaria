@@ -5,6 +5,9 @@
 #ifndef INCLUDED_SDL2_SDLPUI_MISC_H
 #define INCLUDED_SDL2_SDLPUI_MISC_H
 
+#ifdef WINDOWS
+#include <string.h>
+#endif
 #include "pui-win.h"
 
 #ifdef SDLPUI_TRACE_EVENTS
