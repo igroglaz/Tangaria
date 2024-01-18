@@ -2465,11 +2465,6 @@ void do_animations(void)
     // Check options, if all opt = 0 then don't animate
     if (opt_anim_obj_w == 0 && opt_anim_obj == 0 && opt_anim_npc == 0) return;
 
-#ifndef USE_SDL2
-    // Hack -- SDL and Windows client, disable opt_anim_obj_w
-    if (opt_anim_obj_w != 0) opt_anim_obj_w = 0;
-#endif
-
     // Hack -- if the screen is already icky, ignore this command
     if (player->screen_save_depth) return;
 

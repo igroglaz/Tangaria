@@ -5648,7 +5648,7 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
                 rc.y -= sfx_r;
                 break;
             }
-            case 2: /* TODO: rc.y -= sfx_r; */ break;
+            case 2: rc.y -= sfx_r; break;
             case 3:
             {
                 rc.x += sfx_r;

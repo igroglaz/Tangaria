@@ -35,4 +35,4 @@ name:1:Tangaria's tileset
 directory:tangaria
 size:32:32:32x32.png
 pref:graf-tan.prf
-extra:1:127:128
+extra:1:0:0

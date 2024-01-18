@@ -996,7 +996,10 @@ static bool init_graphics(int v)
 
         overdraw = mode->overdrawRow;
         overdrawmax = mode->overdrawMax;
-        alphablend = mode->alphablend;
+        // alphablend = mode->alphablend;
+        // Hack -- for drawing tiles (void)((*main_term->pict_hook)
+        // do_animations(), do_slashfx() functions
+        alphablend = 0;
     }
     else
     {
@@ -2013,6 +2016,58 @@ static void Term_pict_win_aux(int x, int y, int n, const uint16_t *ap, const cha
                     /* Only draw if terrain and overlay are different */
                     if ((x1 != x3) || (y1 != y3))
                     {
+                        //// Slash fx effect ////
+                        // do_slashfx()
+                        // sfx_effect
+                        // sfx_dir
+                        //  |1|2|3|
+                        //  |4|5|6|
+                        //  |7|8|9|
+                        if (sfx_effect)
+                        {
+                            int sfx_r;
+
+                            sfx_r = randint1(3);
+                            if (sfx_r == 1) sfx_r = 4;
+                            else if (sfx_r == 2) sfx_r = 6;
+                            else if (sfx_r == 3) sfx_r = 8;
+
+                            switch (sfx_dir)
+                            {
+                                case 1:
+                                {
+                                    x2 -= sfx_r;
+                                    y2 -= sfx_r;
+                                    break;
+                                }
+                                case 2: y2 -= sfx_r; break;
+                                case 3:
+                                {
+                                    x2 += sfx_r;
+                                    y2 -= sfx_r;
+                                    break;
+                                }
+                                case 4: x2 -= sfx_r; break;
+                                case 5: break;
+                                case 6: x2 += sfx_r; break;
+                                case 7:
+                                {
+                                    x2 -= sfx_r;
+                                    y2 += sfx_r;
+                                    break;
+                                }
+                                case 8: y2 += sfx_r; break;
+                                case 9:
+                                {
+                                    x2 += sfx_r;
+                                    y2 += sfx_r;
+                                    break;
+                                }
+                            }
+                            sfx_effect = false;
+                            sfx_dir = 0;
+                        }
+
                         /* Mask out the tile */
                         BitBlt(hdc, x2, y2, tw2, th2, hdcMask, x1, y1, SRCAND);
 
@@ -2039,6 +2094,58 @@ static void Term_pict_win_aux(int x, int y, int n, const uint16_t *ap, const cha
                     /* Only draw if terrain and overlay are different */
                     if ((x1 != x3) || (y1 != y3))
                     {
+                        //// Slash fx effect ////
+                        // do_slashfx()
+                        // sfx_effect
+                        // sfx_dir
+                        //  |1|2|3|
+                        //  |4|5|6|
+                        //  |7|8|9|
+                        if (sfx_effect)
+                        {
+                            int sfx_r;
+
+                            sfx_r = randint1(3);
+                            if (sfx_r == 1) sfx_r = 4;
+                            else if (sfx_r == 2) sfx_r = 6;
+                            else if (sfx_r == 3) sfx_r = 8;
+
+                            switch (sfx_dir)
+                            {
+                                case 1:
+                                {
+                                    x2 -= sfx_r;
+                                    y2 -= sfx_r;
+                                    break;
+                                }
+                                case 2: y2 -= sfx_r; break;
+                                case 3:
+                                {
+                                    x2 += sfx_r;
+                                    y2 -= sfx_r;
+                                    break;
+                                }
+                                case 4: x2 -= sfx_r; break;
+                                case 5: break;
+                                case 6: x2 += sfx_r; break;
+                                case 7:
+                                {
+                                    x2 -= sfx_r;
+                                    y2 += sfx_r;
+                                    break;
+                                }
+                                case 8: y2 += sfx_r; break;
+                                case 9:
+                                {
+                                    x2 += sfx_r;
+                                    y2 += sfx_r;
+                                    break;
+                                }
+                            }
+                            sfx_effect = false;
+                            sfx_dir = 0;
+                        }
+
                         /* Mask out the tile */
                         StretchBlt(hdc, x2, y2, tw2, th2, hdcMask, x1, y1, w1, h1, SRCAND);
 
