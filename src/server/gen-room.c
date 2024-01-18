@@ -1044,7 +1044,7 @@ bool mon_pit_hook(struct monster_race *race)
     my_assert(race);
 
     /* Decline unique monsters */
-    if (monster_is_unique(race)) return false;
+    if (race_is_unique(race)) return false;
 
     /* Decline breeders */
     if (rf_has(race->flags, RF_MULTIPLY)) return false;

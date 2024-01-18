@@ -124,7 +124,7 @@ static bool monster_group_remove_leader(struct chunk *c, struct monster *leader,
         }
 
         /* Uniques always take over */
-        if (rf_has(mon->race->flags, RF_UNIQUE)) poss_leader = mon->midx;
+        if (monster_is_unique(mon)) poss_leader = mon->midx;
 
         list_entry = list_entry->next;
     }

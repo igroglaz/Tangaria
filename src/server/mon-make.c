@@ -299,7 +299,7 @@ static int restrict_monster_to_dungeon(struct monster_race *race, struct worldpo
 static bool allow_race(struct monster_race *race, struct worldpos *wpos)
 {
     /* Only one copy of a unique must be around at the same time */
-    if (monster_is_unique(race) && !allow_unique_level(race, wpos))
+    if (race_is_unique(race) && !allow_unique_level(race, wpos))
         return false;
 
     /* Some monsters never appear out of depth */
@@ -506,7 +506,7 @@ struct monster_race *get_mon_num_poly(struct worldpos *wpos)
         race = &r_info[table[i].index];
 
         /* Skip uniques */
-        if (monster_is_unique(race)) continue;
+        if (race_is_unique(race)) continue;
 
         /* Pick from specific dungeon */
         if (!allow_location(race, wpos)) continue;
@@ -803,7 +803,7 @@ void compact_monsters(struct chunk *c, int num_to_compact)
             if (rf_has(mon->race->flags, RF_QUESTOR) && (iter < 1000)) chance = 100;
 
             /* Try not to compact Unique Monsters */
-            if (monster_is_unique(mon->race)) chance = 99;
+            if (monster_is_unique(mon)) chance = 99;
 
             /* Monsters outside of the dungeon don't have much of a chance */
             if (c->wpos.depth == 0) chance = 70;
@@ -1041,8 +1041,10 @@ int mon_create_drop_count(const struct monster_race *race, bool maximize, bool s
 static bool mon_drop_carry(struct player *p, struct object **obj_address, struct monster *mon,
     uint8_t origin, int num, quark_t quark, bool ok)
 {
+    const struct monster_race *effective_race = (mon->original_race? mon->original_race: mon->race);
+
     /* Set origin details */
-    set_origin(*obj_address, origin, mon->wpos.depth, mon->race);
+    set_origin(*obj_address, origin, mon->wpos.depth, effective_race);
     (*obj_address)->number = num;
     (*obj_address)->note = quark;
 
@@ -1063,8 +1065,9 @@ static bool mon_drop_carry(struct player *p, struct object **obj_address, struct
  */
 static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *mon, uint8_t origin)
 {
-    struct monster_drop *drop;
+    const struct monster_drop *drop;
     struct monster_lore *lore = (p? get_lore(p, mon->race): NULL);
+    const struct monster_race *effective_race = (mon->original_race? mon->original_race: mon->race);
     bool great, good, gold_ok, item_ok;
     bool extra_roll = false;
     bool any = false;
@@ -1074,23 +1077,23 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
 
     my_assert(mon);
 
-    great = rf_has(mon->race->flags, RF_DROP_GREAT);
-    good = (rf_has(mon->race->flags, RF_DROP_GOOD) || great);
-    gold_ok = !rf_has(mon->race->flags, RF_ONLY_ITEM);
-    item_ok = !rf_has(mon->race->flags, RF_ONLY_GOLD);
+    great = rf_has(effective_race->flags, RF_DROP_GREAT);
+    good = (rf_has(effective_race->flags, RF_DROP_GOOD) || great);
+    gold_ok = !rf_has(effective_race->flags, RF_ONLY_ITEM);
+    item_ok = !rf_has(effective_race->flags, RF_ONLY_GOLD);
 
     /* Hack -- inscribe items that a unique drops */
-    if (monster_is_unique(mon->race)) quark = quark_add(mon->race->name);
+    if (monster_is_unique(mon)) quark = quark_add(effective_race->name);
 
     /* Determine how much we can drop */
-    number = mon_create_drop_count(mon->race, false, false, NULL);
+    number = mon_create_drop_count(effective_race, false, false, NULL);
 
     /* Uniques that have been stolen from get their quantity reduced */
-    if (lore && rf_has(mon->race->flags, RF_UNIQUE)) number = MAX(0, number - lore->thefts);
+    if (lore && monster_is_unique(mon)) number = MAX(0, number - lore->thefts);
 
     /* Give added bonus for unique monters */
     monlevel = mon->level;
-    if (monster_is_unique(mon->race))
+    if (monster_is_unique(mon))
     {
         monlevel = MIN(monlevel + 15, monlevel * 2);
         extra_roll = true;
@@ -1104,7 +1107,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
     level = MIN(level, 100);
 
     /* Morgoth currently drops all artifacts with the QUEST_ART flag */
-    if (mon->race->base == lookup_monster_base("Morgoth"))
+    if (effective_race->base == lookup_monster_base("Morgoth"))
     {
         /* Search all the artifacts */
         for (j = 0; j < z_info->a_max; j++)
@@ -1132,7 +1135,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
     }
 
     /* Specified drops */
-    for (drop = mon->race->drops; drop; drop = drop->next)
+    for (drop = effective_race->drops; drop; drop = drop->next)
     {
         bool ok = false;
         int num = randint0(drop->max - drop->min) + drop->min;
@@ -1568,7 +1571,7 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
         mon->m_timed[MON_TMD_SLEEP] = sleep_value(race);
 
     /* Uniques get a fixed amount of HP */
-    if (monster_is_unique(race))
+    if (race_is_unique(race))
         mon->maxhp = race->avg_hp;
     else
     {
@@ -1788,7 +1791,7 @@ static bool place_monster_base_okay(struct monster_race *race)
     if (race->base != place_monster_base) return false;
 
     /* No uniques */
-    if (monster_is_unique(race)) return false;
+    if (race_is_unique(race)) return false;
 
     return true;
 }
@@ -1807,7 +1810,7 @@ static bool place_friends(struct player *p, struct chunk *c, struct loc *grid,
     int level_difference = c->wpos.depth - friends_race->level + 5;
 
     /* Handle unique monsters */
-    bool is_unique = monster_is_unique(friends_race);
+    bool is_unique = race_is_unique(friends_race);
 
     /* Make sure the unique hasn't been killed already */
     if (is_unique && !allow_unique_level(friends_race, &c->wpos)) return false;

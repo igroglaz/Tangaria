@@ -3296,7 +3296,7 @@ static char master_specific_race_char = 'a';
 static bool master_summon_specific_aux(struct monster_race *race)
 {
     /* No uniques */
-    if (monster_is_unique(race)) return false;
+    if (race_is_unique(race)) return false;
 
     /* If we look like what we are looking for */
     if (race->d_char == master_specific_race_char) return true;
@@ -4020,7 +4020,7 @@ static void mod_add(struct object *obj, int mod, int incr)
 
             race = &r_info[value];
         }
-        while (!race->name || monster_is_unique(race) ||
+        while (!race->name || race_is_unique(race) ||
             (rf_has(race->flags, RF_PWMANG_BASE) && !cfg_base_monsters) ||
             (rf_has(race->flags, RF_PWMANG_EXTRA) && !cfg_extra_monsters));
 

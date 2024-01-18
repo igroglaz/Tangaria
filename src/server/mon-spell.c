@@ -229,7 +229,7 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
                 case SPELL_TAG_KIN:
                 {
                     strnfcat(buf, sizeof(buf), &end, "%s",
-                        (monster_is_unique(mon->race)? "minions": "kin"));
+                        (monster_is_unique(mon)? "minions": "kin"));
                     break;
                 }
                 default: break;

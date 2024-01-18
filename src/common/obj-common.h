@@ -551,7 +551,7 @@ struct object
 
     uint8_t origin;                     /* How this item was found */
     int16_t origin_depth;               /* What depth the item was found at */
-    struct monster_race *origin_race;   /* Monster race that dropped it */
+    const struct monster_race *origin_race; /* Monster race that dropped it */
 
     quark_t note;                       /* Inscription index */
 

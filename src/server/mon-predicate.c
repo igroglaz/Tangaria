@@ -83,7 +83,7 @@ bool race_is_invisible(const struct monster_race *race)
 /*
  * Monster is unique
  */
-bool monster_is_unique(const struct monster_race *race)
+bool race_is_unique(const struct monster_race *race)
 {
     return rf_has(race->flags, RF_UNIQUE);
 }
@@ -373,4 +373,24 @@ bool monster_breathes(const struct monster *mon)
     create_mon_spell_mask(breaths, RST_BREATH, RST_NONE);
     rsf_inter(breaths, mon->race->spell_flags);
     return (rsf_is_empty(breaths)? false: true);
+}
+
+
+/*
+ * Monster's unshifted form is unique
+ */
+bool monster_is_unique(const struct monster *mon)
+{
+    const struct monster_race *race = (mon->original_race? mon->original_race: mon->race);
+
+    return rf_has(race->flags, RF_UNIQUE);
+}
+
+
+/*
+ * Monster's current form is unique
+ */
+bool monster_is_shape_unique(const struct monster *mon)
+{
+    return rf_has(mon->race->flags, RF_UNIQUE);
 }

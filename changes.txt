@@ -26,8 +26,14 @@ User interface
 
 Angband 4.2.x:
 
-- SDL2 client update
 - Generalize handling of ^
+- Add a clause to digging to mention weapon/digger
+
+PWMAngband:
+
+- Windows client SDL_mixer
+- SDL2 update
+- Fix sounds amb_bell_metal
 
 Coding changes
 --------------
@@ -37,6 +43,7 @@ Angband 4.2.x:
 - When appending spells to monster lore, set ref_race for expressions
 - Don't suppress vulnerabilities in artifact creation
 - For instant artifact kinds, inherit the flags and element info of the tval
+- Check unshifted shape rather than current shape when testing for Banish
 
 Compilation/documentation
 -------------------------

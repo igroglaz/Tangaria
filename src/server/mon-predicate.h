@@ -17,7 +17,7 @@ extern bool monster_is_nonliving(const struct monster_race *race);
 extern bool monster_is_destroyed(const struct monster_race *race);
 extern bool monster_passes_walls(const struct monster_race *race);
 extern bool race_is_invisible(const struct monster_race *race);
-extern bool monster_is_unique(const struct monster_race *race);
+extern bool race_is_unique(const struct monster_race *race);
 extern bool monster_is_stupid(const struct monster_race *race);
 extern bool race_is_smart(const struct monster_race *race);
 extern bool race_is_evil(const struct monster_race *race);
@@ -45,5 +45,7 @@ extern bool monster_has_spirit(const struct monster *mon);
 extern bool monster_has_non_innate_spells(const struct monster *mon);
 extern bool monster_loves_archery(const struct monster *mon);
 extern bool monster_breathes(const struct monster *mon);
+extern bool monster_is_unique(const struct monster *mon);
+extern bool monster_is_shape_unique(const struct monster *mon);
 
 #endif /* MONSTER_PREDICATE_H */

@@ -307,7 +307,7 @@ static bool summon_specific_okay(struct monster_race *race)
 {
     struct summon *summon = &summons[summon_specific_type];
     struct monster_base_list *bases = summon->bases;
-    bool unique = monster_is_unique(race);
+    bool unique = race_is_unique(race);
 
     /* Forbid uniques? */
     if (!summon->unique_allowed && unique) return false;
@@ -499,7 +499,7 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
 
         /* Uniques and breeders cannot be tamed */
         if ((status_player == MSTATUS_CONTROLLED) &&
-            (monster_is_unique(race) || rf_has(race->flags, RF_MULTIPLY)))
+            (race_is_unique(race) || rf_has(race->flags, RF_MULTIPLY)))
         {
             continue;
         }

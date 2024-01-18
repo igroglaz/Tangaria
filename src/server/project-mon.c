@@ -78,7 +78,7 @@ static struct monster_race *poly_race(struct chunk *c, struct monster_race *race
     my_assert(race && race->name);
 
     /* Uniques never polymorph */
-    if (monster_is_unique(race)) return race;
+    if (race_is_unique(race)) return race;
 
     /* Allowable range of "levels" for resulting monster */
     goal = (c->wpos.depth + race->level) / 2 + 5;
@@ -94,7 +94,7 @@ static struct monster_race *poly_race(struct chunk *c, struct monster_race *race
         struct monster_race *new_race = get_mon_num(c, goal, false);
 
         if (!new_race || (new_race == race)) continue;
-        if (monster_is_unique(new_race)) continue;
+        if (race_is_unique(new_race)) continue;
         if ((new_race->level < minlvl) || (new_race->level > maxlvl)) continue;
 
         /* Avoid force-depth monsters, since it might cause a crash in project_m() */
@@ -1421,7 +1421,7 @@ static void project_monster_handler_TELE_TO(project_monster_handler_context_t *c
 static void project_monster_handler_TELE_LEVEL(project_monster_handler_context_t *context)
 {
     /* Unique monsters resist */
-    if (monster_is_unique(context->mon->race))
+    if (monster_is_unique(context->mon))
     {
         context->hurt_msg = MON_MSG_UNAFFECTED;
         context->obvious = false;
@@ -1557,7 +1557,7 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
     struct source *origin = &origin_body;
 
     /* "Unique" monsters can only be "killed" by the player */
-    if (monster_is_unique(mon->race))
+    if (monster_is_unique(mon))
     {
         /* Reduce monster hp to zero, but don't kill it. */
         if (dam > mon->hp) dam = mon->hp;
@@ -1778,7 +1778,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
         struct monster_race *new_race;
 
         /* Uniques cannot be polymorphed */
-        if (monster_is_unique(context->mon->race))
+        if (monster_is_unique(context->mon))
         {
             if ((typ == PROJ_MON_POLY) && context->seen)
                 add_monster_message(context->origin->player, context->mon, MON_MSG_UNAFFECTED, false);
@@ -1802,7 +1802,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
             return false;
         }
 
-        old_race = context->mon->race;
+        old_race = (context->mon->original_race? context->mon->original_race: context->mon->race);
         new_race = poly_race(context->cave, old_race);
 
         /* Handle polymorph */
@@ -2284,7 +2284,7 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     if (mon->status == MSTATUS_HOSTILE) return MON_MSG_UNAFFECTED;
 
     /* Uniques are unaffected */
-    if (monster_is_unique(mon->race)) return MON_MSG_UNAFFECTED;
+    if (monster_is_unique(mon)) return MON_MSG_UNAFFECTED;
 
     /* Too enraged to be controlled */
     if (player_of_has(p, OF_AGGRAVATE) || 

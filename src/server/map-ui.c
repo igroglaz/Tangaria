@@ -860,7 +860,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
                 a = da;
                 c = dc;
             }
-            else if (OPT(p, purple_uniques) && monster_is_unique(mon->race))
+            else if (OPT(p, purple_uniques) && monster_is_shape_unique(mon))
             {
                 /* Turn uniques purple if desired (violet, actually) */
                 a = COLOUR_VIOLET;

@@ -1066,7 +1066,7 @@ void monster_death(struct player *p, struct chunk *c, struct monster *mon)
 {
     int dump_item = 0;
     int dump_gold = 0;
-    bool visible = (monster_is_visible(p, mon->midx) || monster_is_unique(mon->race));
+    bool visible = (monster_is_visible(p, mon->midx) || monster_is_unique(mon));
     int winners;
 
     /* Reward the player with experience */
@@ -1131,7 +1131,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         player_inc_timed(p, TMD_FOOD, 10, false, false);
 
     /* Play a special sound if the monster was unique */
-    if (monster_is_unique(mon->race))
+    if (monster_is_unique(mon))
     {
         unique_monster = true;
 

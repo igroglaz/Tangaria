@@ -54,7 +54,7 @@ extern int get_owner_id(const struct object *obj);
 extern void set_artifact_info(struct player *p, const struct object *obj, uint8_t info);
 extern bool kind_is_good_other(const struct object_kind *kind);
 extern void set_origin(struct object *obj, uint8_t origin, int16_t origin_depth,
-    struct monster_race *origin_race);
+    const struct monster_race *origin_race);
 extern void shimmer_objects(struct player *p, struct chunk *c);
 extern void process_objects(struct chunk *c);
 extern bool is_owner(struct player *p, struct object *obj);

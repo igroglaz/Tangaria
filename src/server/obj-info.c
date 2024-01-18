@@ -1808,7 +1808,7 @@ static bool describe_origin(struct player *p, const struct object *obj, bool ter
     if (obj->origin_race)
     {
         dropper = obj->origin_race->name;
-        if (monster_is_unique(obj->origin_race)) unique = true;
+        if (race_is_unique(obj->origin_race)) unique = true;
         if (rf_has(obj->origin_race->flags, RF_NAME_COMMA)) comma = true;
     }
     else

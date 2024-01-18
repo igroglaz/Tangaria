@@ -1082,7 +1082,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             {
                 /* Slows some targets */
                 if (target->monster && !rf_has(target->monster->race->flags, RF_NEVER_MOVE) &&
-                    !monster_is_unique(target->monster->race) &&
+                    !monster_is_shape_unique(target->monster) &&
                     (is_humanoid(target->monster->race) ||
                     rf_has(target->monster->race->flags, RF_HAS_LEGS)) &&
                     !CHANCE(target->monster->level - 10, (dmg < 11)? 1: (dmg - 10)))

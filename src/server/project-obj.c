@@ -400,7 +400,7 @@ static bool raise_specific_skeleton(struct monster_race *race)
     struct monster_race *skeleton = &r_info[raise_specific_type];
 
     /* Skip uniques and monsters that can't be generated */
-    if (monster_is_unique(race)) return false;
+    if (race_is_unique(race)) return false;
     if (rf_has(race->flags, RF_PWMANG_BASE) && !cfg_base_monsters) return false;
     if (rf_has(race->flags, RF_PWMANG_EXTRA) && !cfg_extra_monsters) return false;
 
@@ -440,7 +440,7 @@ static bool raise_specific_corpse(struct monster_race *race)
     struct monster_race *corpse = &r_info[raise_specific_type];
 
     /* Skip uniques and monsters that can't be generated */
-    if (monster_is_unique(race)) return false;
+    if (race_is_unique(race)) return false;
     if (rf_has(race->flags, RF_PWMANG_BASE) && !cfg_base_monsters) return false;
     if (rf_has(race->flags, RF_PWMANG_EXTRA) && !cfg_extra_monsters) return false;
 

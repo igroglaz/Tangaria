@@ -528,8 +528,8 @@ void object_origin_combine(struct object *obj1, struct object *obj2)
 
     if (obj1->origin_race != obj2->origin_race)
     {
-        bool uniq1 = obj1->origin_race && monster_is_unique(obj1->origin_race);
-        bool uniq2 = obj2->origin_race && monster_is_unique(obj2->origin_race);
+        bool uniq1 = obj1->origin_race && race_is_unique(obj1->origin_race);
+        bool uniq2 = obj2->origin_race && race_is_unique(obj2->origin_race);
 
         if (uniq1 && !uniq2)
         {

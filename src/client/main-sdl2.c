@@ -91,8 +91,6 @@
 #define DEFAULT_VECTOR_FONT_SIZE 12
 
 #define DEFAULT_FONT "10x20x.fon"
-#define DEFAULT_FONT_W 10
-#define DEFAULT_FONT_H 20
 
 #define DEFAULT_DIALOG_FONT "8x13x.fon"
 
@@ -134,12 +132,7 @@
 #define MIN_TILE_HEIGHT 1
 #define MAX_TILE_HEIGHT 9
 
-/* some random numbers */
-#define DEFAULT_WINDOW_MINIMUM_W 198
-#define DEFAULT_WINDOW_MINIMUM_H 66
-
-#define DEFAULT_SNAP_RANGE \
-    DEFAULT_FONT_W
+#define DEFAULT_SNAP_RANGE(window) (window->app->def_font_w)
 
 enum wallpaper_mode {
     /* so that we won't forget to actually set wallpaper */
@@ -446,6 +439,8 @@ struct my_app {
     int font_count;
     /* Number of entries allocated in fonts */
     int font_alloc;
+    /* Width and height on screen for the default font */
+    int def_font_w, def_font_h;
     /*
      * true if KC_MOD_KEYPAD will be sent for numeric keypad keys at the
      * expense of not handling some keyboard layouts properly
@@ -1270,6 +1265,55 @@ static SDL_Texture *make_subwindow_texture(const struct sdlpui_window *window,
     }
 
     return texture;
+}
+
+static void get_minimum_window_size(struct sdlpui_window *window,
+        int *minw, int *minh)
+{
+    int max_sub_w = 0, max_sub_h = 0;
+    bool have_sub = false;
+    int i;
+
+    if (window->status_bar->ftb->query_minimum_size) {
+        (*window->status_bar->ftb->query_minimum_size)(
+            window->status_bar, window, minw, minh);
+    } else {
+        (*window->status_bar->ftb->query_natural_size)(
+            window->status_bar, window, minw, minh);
+    }
+
+    for (i = 0; i < MAX_SUBWINDOWS; ++i) {
+        if (window->subwindows[i]) {
+            int cols, rows;
+
+            if (window->subwindows[i]->index == MAIN_SUBWINDOW) {
+                cols = MIN_COLS_MAIN;
+                rows = MIN_ROWS_MAIN;
+            } else {
+                cols = MIN_COLS_OTHER;
+                rows = MIN_ROWS_OTHER;
+            }
+            max_sub_w = MAX(max_sub_w,
+                window->subwindows[i]->font->ttf.glyph.w
+                * cols + 2 * DEFAULT_BORDER);
+            max_sub_h = MAX(max_sub_h,
+                window->subwindows[i]->font->ttf.glyph.h
+                * rows + 2 * DEFAULT_BORDER);
+            have_sub = true;
+        }
+    }
+
+    if (!have_sub) {
+        /*
+         * There's no currently configured subwindows; leave room
+         * for one.
+         */
+        max_sub_w = MIN_COLS_OTHER * window->app->def_font_w;
+        max_sub_h = MIN_ROWS_OTHER * window->app->def_font_h;
+    }
+
+    *minw = MAX(*minw, max_sub_w);
+    *minh += max_sub_h;
 }
 
 /**
@@ -2242,9 +2286,11 @@ static void handle_menu_fullscreen(struct sdlpui_control *ctrl,
 {
     sdlpui_popdown_dialog(dlg, window, true);
     if (window->flags & SDL_WINDOW_FULLSCREEN_DESKTOP) {
+        int minw, minh;
+
         SDL_SetWindowFullscreen(window->window, 0);
-        SDL_SetWindowMinimumSize(window->window,
-            DEFAULT_WINDOW_MINIMUM_W, DEFAULT_WINDOW_MINIMUM_H);
+        get_minimum_window_size(window, &minw, &minh);
+        SDL_SetWindowMinimumSize(window->window, minw, minh);
     } else {
         SDL_SetWindowFullscreen(window->window,
             SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -2488,6 +2534,7 @@ static void handle_menu_font_name(struct sdlpui_control *ctrl,
             - (tag % (2 * window->app->font_count))
             + old_index;
         bool searching = true;
+        int minw, minh;
 
         while (searching) {
             struct sdlpui_simple_menu *sm;
@@ -2527,6 +2574,12 @@ static void handle_menu_font_name(struct sdlpui_control *ctrl,
                 searching = false;
             }
         }
+
+        /*
+         * With a font change, the minimum window size can be different.
+         */
+        get_minimum_window_size(window, &minw, &minh);
+        SDL_SetWindowMinimumSize(window->window, minw, minh);
     } else {
         /*
          * Subwindow can't be resized to accommodate the font so
@@ -2560,7 +2613,13 @@ static void handle_menu_font_size(struct sdlpui_control *ctrl,
     mb = (struct sdlpui_menu_button*)ctrl->priv;
     SDL_assert(mb->subtype_code == SDLPUI_MB_RANGED_INT);
     info->size = mb->v.ranged_int.curr;
-    if (!reload_font(subwindow, info)) {
+    if (reload_font(subwindow, info)) {
+        int minw, minh;
+
+        /* A change to the font can change the minimum window size. */
+        get_minimum_window_size(window, &minw, &minh);
+        SDL_SetWindowMinimumSize(window->window, minw, minh);
+    } else {
         /*
          * The range of sizes was limited in handle_menu_font_sizes(),
          * so the call to reload_font() should have worked.
@@ -3115,18 +3174,18 @@ static void try_snap(struct sdlpui_window *window,
         int oh = other->full_rect.h;
 
         if (oy < rect->y + rect->h && rect->y < oy + oh) {
-            if (is_close_to(rect->x, ox + ow, DEFAULT_SNAP_RANGE)) {
+            if (is_close_to(rect->x, ox + ow, DEFAULT_SNAP_RANGE(window))) {
                 rect->x = ox + ow - DEFAULT_VISIBLE_BORDER;
             }
-            if (is_close_to(rect->x + rect->w, ox, DEFAULT_SNAP_RANGE)) {
+            if (is_close_to(rect->x + rect->w, ox, DEFAULT_SNAP_RANGE(window))) {
                 rect->x = ox - rect->w + DEFAULT_VISIBLE_BORDER;
             }
         }
         if (ox < rect->x + rect->w && rect->x < ox + ow) {
-            if (is_close_to(rect->y, oy + oh, DEFAULT_SNAP_RANGE)) {
+            if (is_close_to(rect->y, oy + oh, DEFAULT_SNAP_RANGE(window))) {
                 rect->y = oy + oh - DEFAULT_VISIBLE_BORDER;
             }
-            if (is_close_to(rect->y + rect->h, oy, DEFAULT_SNAP_RANGE)) {
+            if (is_close_to(rect->y + rect->h, oy, DEFAULT_SNAP_RANGE(window))) {
                 rect->y = oy - rect->h + DEFAULT_VISIBLE_BORDER;
             }
         }
@@ -4943,8 +5002,13 @@ static void adjust_status_bar_geometry(struct sdlpui_window *window)
 {
     int mw, mh;
 
-    (*window->status_bar->ftb->query_minimum_size)(window->status_bar,
-        window, &mw, &mh);
+    if (window->status_bar->ftb->query_minimum_size) {
+        (*window->status_bar->ftb->query_minimum_size)(
+            window->status_bar, window, &mw, &mh);
+    } else {
+        (*window->status_bar->ftb->query_natural_size)(
+            window->status_bar, window, &mw, &mh);
+    }
     assert(mw <= window->full_rect.w);
     if (window->status_bar->ftb->resize) {
         (*window->status_bar->ftb->resize)(window->status_bar, window,
@@ -4996,6 +5060,7 @@ static void handle_button_open_subwindow(struct sdlpui_control *ctrl,
     int tag;
     unsigned int index;
     struct subwindow *subwindow;
+    int minw, minh;
 
     assert(ctrl->ftb->get_tag);
     tag = (*ctrl->ftb->get_tag)(ctrl);
@@ -5036,6 +5101,13 @@ static void handle_button_open_subwindow(struct sdlpui_control *ctrl,
         subwindows_init_flags();
         refresh_angband_terms(subwindow->app);
     }
+
+    /*
+     * Changing which subwindows are displayed can change the minimum size
+     * for the window.
+     */
+    get_minimum_window_size(window, &minw, &minh);
+    SDL_SetWindowMinimumSize(window->window, minw, minh);
 
     redraw_all_windows(subwindow->app, false);
 }
@@ -5294,6 +5366,8 @@ static bool choose_pixelformat(struct sdlpui_window *window,
 
 static void start_window(struct sdlpui_window *window)
 {
+    int minw, minh;
+
     assert(!window->loaded);
 
     if (window->config == NULL) {
@@ -5340,8 +5414,8 @@ static void start_window(struct sdlpui_window *window)
         }
     }
 
-    SDL_SetWindowMinimumSize(window->window,
-            DEFAULT_WINDOW_MINIMUM_W, DEFAULT_WINDOW_MINIMUM_H);
+    get_minimum_window_size(window, &minw, &minh);
+    SDL_SetWindowMinimumSize(window->window, minw, minh);
 
     window->flags = SDL_GetWindowFlags(window->window);
     window->id = SDL_GetWindowID(window->window);
@@ -5569,11 +5643,19 @@ static struct subwindow *transfer_subwindow(struct sdlpui_window *window,
         unsigned index)
 {
     struct subwindow *subwindow = get_subwindow_direct(window->app, index);
+
     assert(subwindow != NULL);
     assert(subwindow->inited);
     assert(subwindow->loaded);
 
     detach_subwindow_from_window(subwindow->window, subwindow);
+    if (subwindow->window != window) {
+        int minw, minh;
+
+        /* Removing a subwindow can change the minimum window size. */
+        get_minimum_window_size(subwindow->window, &minw, &minh);
+        SDL_SetWindowMinimumSize(subwindow->window->window, minw, minh);
+    }
     subwindow->window = window;
     attach_subwindow_to_window(window, subwindow);
 
@@ -5776,8 +5858,10 @@ static bool wipe_subwindow(struct subwindow *subwindow)
     subwindow->index = index;
 
     /* XXX 80x24 is essential for main */
-    subwindow->full_rect.w = MIN_COLS_MAIN * DEFAULT_FONT_W + DEFAULT_BORDER * 2;
-    subwindow->full_rect.h = MIN_ROWS_MAIN * DEFAULT_FONT_H + DEFAULT_BORDER * 2;
+    subwindow->full_rect.w = MIN_COLS_MAIN * subwindow->app->def_font_w
+        + DEFAULT_BORDER * 2;
+    subwindow->full_rect.h = MIN_ROWS_MAIN * subwindow->app->def_font_h
+        + DEFAULT_BORDER * 2;
     if (subwindow->index != MAIN_SUBWINDOW) {
         subwindow->full_rect.w /= 2;
         subwindow->full_rect.h /= 2;
@@ -6047,8 +6131,9 @@ static void init_colors(struct my_app *a)
 
 static void init_font_info(struct my_app *a, const char *directory)
 {
-    char name[1024];
+    char name[1024], path[4096];
     ang_dir *dir;
+    TTF_Font *hfnt;
 
     a->font_count = 0;
     a->font_alloc = 0;
@@ -6060,8 +6145,6 @@ static void init_font_info(struct my_app *a, const char *directory)
     }
 
     while (my_dread(dir, name, sizeof(name))) {
-        char path[4096];
-
         path_build(path, sizeof(path), directory, name);
 
         if (is_font_file(path)) {
@@ -6098,6 +6181,28 @@ static void init_font_info(struct my_app *a, const char *directory)
     }
 
     my_dclose(dir);
+
+    path_build(path, sizeof(path), directory, DEFAULT_FONT);
+    hfnt = TTF_OpenFont(path, suffix_i(path, ".fon") ?
+        0 : DEFAULT_VECTOR_FONT_SIZE);
+    if (!hfnt) {
+        hfnt = TTF_OpenFont(a->fonts[0].path,
+            (a->fonts[0].type == FONT_TYPE_VECTOR) ?
+            DEFAULT_VECTOR_FONT_SIZE : 0);
+    }
+    if (hfnt) {
+        if (TTF_GlyphMetrics(hfnt, GLYPH_FOR_ADVANCE, NULL, NULL, NULL,
+                NULL, &a->def_font_w) != 0) {
+            quit_fmt("cannot query glyph metrics for "
+                "default font: %s", TTF_GetError());
+        }
+        a->def_font_h = TTF_FontHeight(hfnt);
+        TTF_CloseFont(hfnt);
+    } else {
+        /* There's no available default; substitute something useful. */
+        a->def_font_w = 10;
+        a->def_font_h = 20;
+    }
 }
 
 static void create_defaults(struct my_app *a)

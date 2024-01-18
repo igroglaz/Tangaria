@@ -984,12 +984,13 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
     for (i = 1; i < cave_monster_max(context->cave); i++)
     {
         struct monster *mon = cave_monster(context->cave, i);
+        const struct monster_race *race = (mon->original_race? mon->original_race: mon->race);
 
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
         /* Hack -- skip Unique Monsters */
-        if (monster_is_unique(mon->race)) continue;
+        if (monster_is_unique(mon)) continue;
 
         /* Check distance */
         if ((tmp = distance(&context->origin->player->grid, &mon->grid)) < d)
@@ -998,7 +999,7 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
             d = tmp;
 
             /* Set char */
-            typ = mon->race->d_char;
+            typ = race->d_char;
         }
     }
 
@@ -1013,15 +1014,20 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
     for (i = 1; i < cave_monster_max(context->cave); i++)
     {
         struct monster *mon = cave_monster(context->cave, i);
+        const struct monster_race *race = (mon->original_race? mon->original_race: mon->race);
 
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
         /* Hack -- skip Unique Monsters */
-        if (monster_is_unique(mon->race)) continue;
+        if (monster_is_unique(mon)) continue;
 
-        /* Skip "wrong" monsters */
-        if (mon->race->d_char != typ) continue;
+        /*
+         * Skip "wrong" monsters; for shape shifters
+         * it is the original race that matters not whatever shape
+         * the monster has now.
+         */
+        if (race->d_char != typ) continue;
 
         /* Delete the monster */
         delete_monster_idx(context->cave, i);
@@ -4124,7 +4130,7 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
         if (!mon->race) continue;
 
         /* Hack -- skip unique monsters */
-        if (monster_is_unique(mon->race)) continue;
+        if (monster_is_unique(mon)) continue;
 
         /* Skip distant monsters */
         d = distance(&context->origin->player->grid, &mon->grid);

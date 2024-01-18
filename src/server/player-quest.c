@@ -403,7 +403,7 @@ void start_quest(struct player *p)
     for (i = 1; i < z_info->r_max; i++)
     {
         race = &r_info[i];
-        if (monster_is_unique(race) || (race->level < 1) || (race->level > z_info->max_depth - 1) ||
+        if (race_is_unique(race) || (race->level < 1) || (race->level > z_info->max_depth - 1) ||
             (rf_has(race->flags, RF_PWMANG_BASE) && !cfg_base_monsters) ||
             (rf_has(race->flags, RF_PWMANG_EXTRA) && !cfg_extra_monsters)) continue;
         if (race->level < min) min = race->level;
@@ -419,7 +419,7 @@ void start_quest(struct player *p)
     {
         race = &r_info[randint1(z_info->r_max - 1)];
     }
-    while ((race->level < min_depth) || (race->level > max_depth) || monster_is_unique(race) ||
+    while ((race->level < min_depth) || (race->level > max_depth) || race_is_unique(race) ||
         (rf_has(race->flags, RF_PWMANG_BASE) && !cfg_base_monsters) ||
         (rf_has(race->flags, RF_PWMANG_EXTRA) && !cfg_extra_monsters));
 

@@ -78,7 +78,7 @@ static bool mon_select(struct monster_race *race)
         return false;
 
     /* Usually decline unique monsters. */
-    if (monster_is_unique(race))
+    if (race_is_unique(race))
     {
         if (!allow_unique) return false;
         if (randint0(5) != 0) return false;
@@ -143,14 +143,14 @@ bool mon_restrict(const char *monster_type, int depth, int current_depth, bool u
             /* Try for close to depth, accept in-depth if necessary */
             if (i < 200)
             {
-                if (!monster_is_unique(&r_info[j]) && (r_info[j].level != 0) &&
+                if (!race_is_unique(&r_info[j]) && (r_info[j].level != 0) &&
                     (r_info[j].level <= depth) &&
                     (ABS(r_info[j].level - current_depth) < 1 + (current_depth / 4)))
                 {
                     break;
                 }
             }
-            else if (!monster_is_unique(&r_info[j]) && (r_info[j].level != 0) &&
+            else if (!race_is_unique(&r_info[j]) && (r_info[j].level != 0) &&
                 (r_info[j].level <= depth))
             {
                 break;

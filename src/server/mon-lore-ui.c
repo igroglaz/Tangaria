@@ -46,7 +46,7 @@ static void lore_title(struct player *p, const struct monster_race *race)
     optional_attr = monster_x_attr[race->ridx];
 
     /* A title (use "The" for non-uniques) */
-    if (!monster_is_unique(race)) text_out(p, "The ");
+    if (!race_is_unique(race)) text_out(p, "The ");
     else if (OPT(p, purple_uniques))
     {
         standard_attr = COLOUR_VIOLET;

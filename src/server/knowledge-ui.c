@@ -332,13 +332,13 @@ static void do_cmd_knowledge_monsters(struct player *p, int line)
         }
 
         /* If uniques are purple, make it so */
-        if (OPT(p, purple_uniques) && monster_is_unique(race) && !(a & 0x80))
+        if (OPT(p, purple_uniques) && race_is_unique(race) && !(a & 0x80))
             a = COLOUR_VIOLET;
 
         /* Display kills */
         if (!race->rarity)
             my_strcpy(kills, "shape", sizeof(kills));
-        else if (monster_is_unique(race))
+        else if (race_is_unique(race))
             my_strcpy(kills, (lore->pkills? " dead": "alive"), sizeof(kills));
         else
             strnfmt(kills, sizeof(kills), "%5d", lore->pkills);
@@ -1588,7 +1588,7 @@ static void do_cmd_knowledge_uniques(struct player *p, int line)
         race = &r_info[k];
 
         /* Only print Uniques that can be killed */
-        if (monster_is_unique(race) && !rf_has(race->flags, RF_NO_DEATH))
+        if (race_is_unique(race) && !rf_has(race->flags, RF_NO_DEATH))
         {
             /* Only display "known" uniques */
             if (race->lore.seen)
@@ -2277,7 +2277,7 @@ void do_cmd_steal(struct player *p, int dir)
     else
     {
         /* Base monster protection and player stealing skill */
-        bool unique = rf_has(who->monster->race->flags, RF_UNIQUE);
+        bool unique = monster_is_unique(who->monster);
         int guard = (who->monster->race->level * (unique? 4: 3)) / 4 + who->monster->mspeed -
             p->state.speed;
         int steal_skill = p->state.skills[SKILL_STEALTH] + adj_dex_th[p->state.stat_ind[STAT_DEX]];
@@ -3111,7 +3111,7 @@ static int affinity(struct player *p, struct monster_race *race)
         if (!r->name) continue;
 
         /* Skip uniques */
-        if (monster_is_unique(r)) continue;
+        if (race_is_unique(r)) continue;
 
         /* Skip different symbol */
         if (r->d_char != race->d_char) continue;
@@ -3219,7 +3219,7 @@ void do_cmd_poly(struct player *p, struct monster_race *race, bool check_kills, 
     }
 
     /* Must not be unique (allow it to the DM for debug purposes) */
-    if (monster_is_unique(race) && !is_dm_p(p))
+    if (race_is_unique(race) && !is_dm_p(p))
     {
         if (domsg)
             msg(p, "This monster race is unique.");
@@ -3263,7 +3263,7 @@ void do_cmd_poly(struct player *p, struct monster_race *race, bool check_kills, 
     }
 
     /* Polymorph into that monster */
-    if (!monster_is_unique(race))
+    if (!race_is_unique(race))
         prefix = (is_a_vowel(tolower(race->name[0]))? "an ": "a ");
     if (domsg)
         msg(p, "You polymorph into %s%s.", prefix, race->name);
@@ -3379,7 +3379,7 @@ void do_cmd_check_poly(struct player *p, int line)
         if (race->level == 0) continue;
 
         /* Only print non uniques */
-        if (monster_is_unique(race)) continue;
+        if (race_is_unique(race)) continue;
 
         /* Check if the input is a symbol */
         if (strlen(p->tempbuf) == 1)

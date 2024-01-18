@@ -2062,7 +2062,7 @@ void reroll_randart(struct player *p, struct chunk *c)
     int32_t randart_seed;
     uint8_t origin;
     int16_t origin_depth;
-    struct monster_race *origin_race;
+    const struct monster_race *origin_race;
 
     if (!cfg_random_artifacts)
     {

@@ -46,7 +46,7 @@ void get_mon_name(char *buf, size_t buflen, const struct monster_race *race, int
     my_assert(race != NULL);
 
     /* Unique names don't have a number */
-    if (monster_is_unique(race))
+    if (race_is_unique(race))
         strnfmt(buf, buflen, "[U] %s", race->name);
     else
     {
@@ -190,7 +190,7 @@ void monster_desc(struct player *p, char *desc, size_t max, const struct monster
         const char *comma_pos = strchr(mon->race->name, ',');
         bool offscreen = (p? !panel_contains(p, &((struct monster *)mon)->grid): false);
 
-        if (monster_is_unique(mon->race))
+        if (monster_is_shape_unique(mon))
         {
             if ((mode & MDESC_POSS) && rf_has(mon->race->flags, RF_NAME_COMMA) && comma_pos &&
                 (comma_pos - mon->race->name < 1024))

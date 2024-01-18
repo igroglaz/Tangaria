@@ -82,7 +82,7 @@ static bool saving_throw(struct player *p, const struct monster *mon, int timer,
     if (p && p->timed[TMD_DESPAIR]) resist_chance /= 2;
 
     /* Uniques are doubly hard to affect */
-    if (monster_is_unique(mon->race) && magik(resist_chance)) return true;
+    if (monster_is_unique(mon) && magik(resist_chance)) return true;
 
     return magik(resist_chance);
 }

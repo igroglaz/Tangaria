@@ -245,7 +245,7 @@ static void get_subject(char *buf, size_t buflen, struct monster_race *race, int
     else
     {
         /* Uniques, multiple monsters, or just one */
-        if (monster_is_unique(race))
+        if (race_is_unique(race))
             my_strcpy(buf, race->name, buflen);
         else if (count == 1)
             strnfmt(buf, buflen, "The %s", race->name);
@@ -373,7 +373,7 @@ static int get_message_type(int msg_code, const struct monster_race *race)
     if (type == MSG_KILL)
     {
         /* Play a special sound if the monster was unique */
-        if (monster_is_unique(race))
+        if (race_is_unique(race))
         {
             if (race->base == lookup_monster_base("Morgoth"))
                 type = MSG_KILL_KING;

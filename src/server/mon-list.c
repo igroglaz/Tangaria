@@ -234,8 +234,8 @@ int monster_list_standard_compare(const void *a, const void *b)
 	if (ar->level < br->level) return 1;
 
 	/* Depths are equal, check uniqueness. */
-	if (monster_is_unique(ar) && !monster_is_unique(br)) return -1;
-	if (!monster_is_unique(ar) && monster_is_unique(br)) return 1;
+	if (race_is_unique(ar) && !race_is_unique(br)) return -1;
+	if (!race_is_unique(ar) && race_is_unique(br)) return 1;
 
 	return 0;
 }
@@ -293,7 +293,7 @@ void monster_list_sort(monster_list_t *list, int (*compare)(const void *, const 
 uint8_t monster_list_entry_line_color(struct player *p, const monster_list_entry_t *entry)
 {
 	/* Display uniques in a special colour */
-	if (monster_is_unique(entry->race))
+	if (race_is_unique(entry->race))
 		return COLOUR_VIOLET;
 	if (entry->race->level > monster_level(&p->wpos))
 		return COLOUR_RED;

@@ -897,7 +897,8 @@ bool kind_is_good_other(const struct object_kind *kind)
 }
 
 
-void set_origin(struct object *obj, uint8_t origin, int16_t origin_depth, struct monster_race *origin_race)
+void set_origin(struct object *obj, uint8_t origin, int16_t origin_depth,
+    const struct monster_race *origin_race)
 {
     obj->origin = origin;
     obj->origin_depth = origin_depth;

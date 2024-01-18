@@ -118,8 +118,7 @@ static bool monster_can_kill(struct chunk *c, struct monster *mon, struct loc *g
     if (!mon1) return true;
 
     /* No trampling uniques */
-    if (rf_has(mon1->race->flags, RF_UNIQUE) ||
-        (mon1->original_race && rf_has(mon1->original_race->flags, RF_UNIQUE))) return false;
+    if (monster_is_unique(mon1)) return false;
 
     if (rf_has(mon->race->flags, RF_KILL_BODY) && (compare_monsters(mon, mon1) > 0)) return true;
 
@@ -1346,7 +1345,7 @@ bool multiply_monster(struct player *p, struct chunk *c, struct monster *mon)
     if (!random_level(&p->wpos)) return false;
 
     /* No uniques */
-    if (monster_is_unique(mon->race)) return false;
+    if (monster_is_shape_unique(mon)) return false;
 
     /* Limit number of clones */
     if (c->num_repro == z_info->repro_monster_max) return false;
@@ -3061,7 +3060,7 @@ static bool player_invis(struct player *p, struct monster *mon)
     if (rf_has(mon->race->flags, RF_TROLL)) mlv -= 10;
     if (monster_is_stupid(mon->race)) mlv /= 2;
     if (monster_is_smart(mon)) mlv = (mlv * 5) / 4;
-    if (monster_is_unique(mon->race)) mlv *= 2;
+    if (monster_is_unique(mon)) mlv *= 2;
     if ((p->timed[TMD_INVIS] == -1) && !p->ghost) mlv = (mlv * 7) / 10;
     if (mlv < 0) mlv = 0;
 

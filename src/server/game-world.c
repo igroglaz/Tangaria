@@ -1994,7 +1994,7 @@ static void remove_hounds(struct player *p, struct chunk *c)
         if (!mon->race) continue;
 
         /* Hack -- skip unique monsters */
-        if (monster_is_unique(mon->race)) continue;
+        if (monster_is_unique(mon)) continue;
 
         /* Skip monsters other than hounds */
         if (mon->race->base != lookup_monster_base("zephyr hound")) continue;
