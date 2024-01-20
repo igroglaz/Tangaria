@@ -1119,56 +1119,7 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     src.y = src_row * src.h;
 
     //// Slash fx ////
-    // do_slashfx()
-    // sfx_effect
-    // sfx_dir
-    //  |1|2|3|
-    //  |4|5|6|
-    //  |7|8|9|
-    if (sfx_effect && !fill)
-    {
-        int sfx_r;
-
-        sfx_r = randint1(3);
-        if (sfx_r == 1) sfx_r = 4;
-        else if (sfx_r == 2) sfx_r = 6;
-        else if (sfx_r == 3) sfx_r = 8;
-
-        switch (sfx_dir)
-        {
-            case 1:
-            {
-                dst.x -= sfx_r;
-                dst.y -= sfx_r;
-                break;
-            }
-            case 2: dst.y -= sfx_r; break;
-            case 3:
-            {
-                dst.x += sfx_r;
-                dst.y -= sfx_r;
-                break;
-            }
-            case 4: dst.x -= sfx_r; break;
-            case 5: break;
-            case 6: dst.x += sfx_r; break;
-            case 7:
-            {
-                dst.x -= sfx_r;
-                dst.y += sfx_r;
-                break;
-            }
-            case 8: dst.y += sfx_r; break;
-            case 9:
-            {
-                dst.x += sfx_r;
-                dst.y += sfx_r;
-                break;
-            }
-        }
-        sfx_effect = false;
-        sfx_dir = 0;
-    }
+    if (sfx_effect && !fill) slashfx_move(&dst.x, &dst.y);
 
     if (graphics->overdraw_row != 0
             && row > 2

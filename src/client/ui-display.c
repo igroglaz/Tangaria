@@ -3012,3 +3012,54 @@ void slashfx_save_char(int x, int y)
     Term_activate(old);
 }
 
+
+// Slash effect moves the tile if sfx_effect = true
+void slashfx_move(int *x, int *y)
+{
+    int sfx_r;
+
+    sfx_r = randint1(3);
+    if (sfx_r == 1) sfx_r = 4;
+    else if (sfx_r == 2) sfx_r = 6;
+    else if (sfx_r == 3) sfx_r = 8;
+
+    // sfx_dir
+    //  |1|2|3|
+    //  |4|5|6|
+    //  |7|8|9|
+    switch (sfx_dir)
+    {
+        case 1:
+        {
+            *x -= sfx_r;
+            *y -= sfx_r;
+            break;
+        }
+        case 2: *y -= sfx_r; break;
+        case 3:
+        {
+            *x += sfx_r;
+            *y -= sfx_r;
+            break;
+        }
+        case 4: *x -= sfx_r; break;
+        case 5: break;
+        case 6: *x += sfx_r; break;
+        case 7:
+        {
+            *x -= sfx_r;
+            *y += sfx_r;
+            break;
+        }
+        case 8: *y += sfx_r; break;
+        case 9:
+        {
+            *x += sfx_r;
+            *y += sfx_r;
+            break;
+        }
+    }
+    sfx_effect = false;
+    sfx_dir = 0;
+}
+
