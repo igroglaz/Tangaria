@@ -1425,7 +1425,7 @@ static void RemovePopUp(void)
     sdl_BlitAll();
 
     // Hack -- weather
-    if (player->weather_type == 0) player->weather_type = 256;
+    if (player->weather_type == 0) player->weather_type = 255;
 }
 
 
