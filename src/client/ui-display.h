@@ -19,7 +19,6 @@ extern int16_t last_remote_line[ANGBAND_TERM_MAX];
 extern const char *window_flag_desc[PW_MAX_FLAGS];
 
 extern bool sfx_effect;
-extern uint8_t sfx_dir;
 extern uint16_t sfx_info_a[256][256];
 extern char sfx_info_c[256][256];
 extern uint8_t sfx_info_d[256][256];
@@ -43,5 +42,6 @@ extern void slashfx_refresh_char(int x, int y);
 extern void do_slashfx_ascii(void);
 extern void slashfx_refresh_char_ascii(int x, int y);
 extern void slashfx_save_char(int x, int y);
+extern void slashfx_move(int *x, int *y);
 
 #endif /* INCLUDED_UI_DISPLAY_H */
