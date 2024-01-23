@@ -2460,12 +2460,13 @@ void player_death(struct player *p)
         char brave[40];
 
         if ((OPT(p, birth_no_ghost) && !cfg_no_ghost) ||
-            (OPT(p, birth_no_recall) && (cfg_diving_mode < 3)) ||
+            (OPT(p, birth_no_recall) && (cfg_diving_mode < 3)) || OPT(p, birth_hardcore) ||
             (OPT(p, birth_force_descend) && (cfg_limit_stairs < 3)))
         {
-            strnfmt(brave, sizeof(brave), "The%s%s%s",
+            strnfmt(brave, sizeof(brave), "The%s%s%s%s",
                 (OPT(p, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-                (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " hardcore": "",
+                (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " norecall": "",
+                (OPT(p, birth_hardcore))? " hardcore": "",
                 (OPT(p, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
         }
         else
