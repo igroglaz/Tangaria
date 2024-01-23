@@ -592,6 +592,14 @@ static void project_feature_handler_KILL_DOOR(project_feature_handler_context_t 
 {
     struct loc grid = context->grid;
 
+    /* Only on random levels */
+    // protect town NPC doors from smashing
+    if (!random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "Door destruction is dungeon-only business.");
+        return;
+    }
+
     /* Reveal mimics */
     if (square_isdoor(context->cave, &grid))
     {
