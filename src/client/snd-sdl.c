@@ -151,7 +151,15 @@ static void play_music_sdl(void)
     bool played = false;
 
     /* If music_volume = 0 then disable music playback */
-    if (music_volume == 0) return;
+    if (music_volume == 0)
+    {
+        if (music)
+        {
+            Mix_FreeMusic(music);
+            music = NULL;
+        }
+        return;
+    }
 
     /* Check main music directory */
     path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_MUSIC, "");
