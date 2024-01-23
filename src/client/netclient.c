@@ -3756,11 +3756,11 @@ static int Receive_options(void)
     int n;
     uint8_t ch;
     char force_descend, no_recall, no_artifacts, feelings, no_selling, start_kit, no_stores,
-        no_ghost, fruit_bat;
+        no_ghost, fruit_bat, hardcore;
 
-    if ((n = Packet_scanf(&rbuf, "%b%c%c%c%c%c%c%c%c%c", &ch, &force_descend, &no_recall,
+    if ((n = Packet_scanf(&rbuf, "%b%c%c%c%c%c%c%c%c%c%c", &ch, &force_descend, &no_recall,
         &no_artifacts, &feelings, &no_selling, &start_kit, &no_stores, &no_ghost,
-        &fruit_bat)) <= 0)
+        &fruit_bat, &hardcore)) <= 0)
     {
         return n;
     }
@@ -3774,6 +3774,7 @@ static int Receive_options(void)
     OPT(player, birth_no_stores) = no_stores;
     OPT(player, birth_no_ghost) = no_ghost;
     OPT(player, birth_fruit_bat) = fruit_bat;
+    OPT(player, birth_hardcore) = hardcore;
 
     return 1;
 }

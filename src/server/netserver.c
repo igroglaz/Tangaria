@@ -3120,10 +3120,11 @@ int Send_birth_options(int ind, struct birth_options *options)
         return 0;
     }
 
-    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
+    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
         (int)options->force_descend, (int)options->no_recall, (int)options->no_artifacts,
         (int)options->feelings, (int)options->no_selling, (int)options->start_kit,
-        (int)options->no_stores, (int)options->no_ghost, (int)options->fruit_bat);
+        (int)options->no_stores, (int)options->no_ghost, (int)options->fruit_bat,
+        (int)options->hardcore);
 }
 
 
@@ -5948,6 +5949,7 @@ static void get_birth_options(struct player *p, struct birth_options *options)
     options->no_stores = OPT(p, birth_no_stores);
     options->no_ghost = OPT(p, birth_no_ghost);
     options->fruit_bat = OPT(p, birth_fruit_bat);
+    options->hardcore = OPT(p, birth_hardcore);
 }
 
 
@@ -5965,6 +5967,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_no_stores) = options->no_stores;
         OPT(p, birth_no_ghost) = options->no_ghost;
         OPT(p, birth_fruit_bat) = options->fruit_bat;
+        OPT(p, birth_hardcore) = options->hardcore;
     }
 
     /* Server options supercede birth options */

@@ -72,6 +72,7 @@ struct birth_options
     bool no_stores;
     bool no_ghost;
     bool fruit_bat;
+    bool hardcore;
 };
 
 /*** Player connection/index wrappers ***/
