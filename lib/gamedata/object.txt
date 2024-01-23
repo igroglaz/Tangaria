@@ -4148,25 +4148,6 @@ dice:15
 msg_self:The potion makes you queasy, but makes you awake.
 msg_other: vomits!
 
-name:Stomach Water
-graphics:!:d
-type:potion
-level:3
-weight:4
-cost:1
-effect:CURE:POISONED
-effect:CURE:STUN
-effect:CURE:POISONED
-effect:CURE:CONFUSED
-effect:HEAL_HP
-dice:40
-effect:NOURISH:DEC_BY
-dice:10
-effect:RESTORE_MANA
-dice:7
-msg_self:The potion calms your stomach, but leaves you more hungry.
-msg_other: hiccups.
-
 name:Death
 graphics:!:d
 type:potion

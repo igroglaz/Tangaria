@@ -5180,13 +5180,11 @@ title:High Mystic
 
 magic:1:350:3
 
-book:nature book:dungeon:[Druid Lore]:14:nature
+book:nature book:dungeon:[Druid Lore]:13:nature
 book-graphics:?:y
 book-properties:10:30:0
 book-alloc:15:10 to 100
 book-desc:An ancient book which contains secrets of nature.
-
-#### reduce amount of spells!
 
 equip:nature book:[Druid Lore]:1:1:none
 
@@ -5288,11 +5286,6 @@ effect:TIMED_SET:FAST:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
 desc:Hastes you (+10 to speed) for a level-dependent duration.
-
-#remove
-spell:Ancient Lore:49:15:1:30:0
-effect:IDENTIFY
-desc:Reveals an unknown rune on an object.
 
 spell:Stinking Cloud III:50:37:1:150:0
 effect:BALL:WATER:2
