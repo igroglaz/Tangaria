@@ -2383,7 +2383,7 @@ void player_death(struct player *p)
     }
 
     // T: give second chance
-    if (p->alive && p->lives > 0) {
+    if (p->alive && p->lives > 0 && !OPT(p, birth_hardcore)) {
 
         /* Handle polymorphed players */
         if (p->poly_race) do_cmd_poly(p, NULL, false, true);
