@@ -2401,7 +2401,7 @@ void player_death(struct player *p)
 
         // gtfo
         source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_TELEPORT_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
+        effect_simple(EF_TELEPORT, who, "200", 0, 0, 0, 0, 0, NULL);
 
         /* Feed him (maybe he died from starvation) */
         if (p->timed[TMD_FOOD] < 1500) {
@@ -2414,12 +2414,13 @@ void player_death(struct player *p)
         }
         p->is_dead = false; // resurrect
 
-        // Make WoR spell work a bit later if it was planned (just in case)
+        // Make WoR/descent spell work a bit later if it was planned (just in case)
         if (p->word_recall) {
             p->word_recall++;
         }
-        // Cancel deep_descent
-        p->deep_descent = 0;
+        if (p->deep_descent) {
+            p->deep_descent++;
+        }
 
         // after ress you become more enigmatic
         player_stat_dec(p, STAT_CON, true);
