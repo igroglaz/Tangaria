@@ -217,6 +217,15 @@ void do_cmd_breath(struct player *p, int dir)
             return;
         }
     }
+
+    // check cooldown
+    // for now only PIXIE race
+    if (p->y_cooldown > 0) {
+        msg(p, "Racial ability cooldown: %u.", p->y_cooldown);
+        sound(p, MSG_SPELL_FAIL);
+        return;
+    }
+
     // Now special races' effects
     if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
     {
@@ -398,21 +407,13 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Pixie"))
     {
-        // can be used only on full HPs
-        if (p->chp == p->mhp)
-        {
-            use_energy(p);
+        use_energy(p);
 
-            player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
+        player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
 
-            player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
-            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
-            p->chp -= p->chp / 4; // take a hit
-            p->upkeep->redraw |= (PR_HP);
-            p->upkeep->redraw |= (PR_MAP);
-        }
-        else
-            msgt(p, MSG_SPELL_FAIL, "You should have full health to become invisible.");
+        p->y_cooldown = 255; // cooldown
+        p->upkeep->redraw |= (PR_HP);
+        p->upkeep->redraw |= (PR_MAP);
 
         return;
     }

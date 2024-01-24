@@ -776,6 +776,10 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             if (!p->spell_cooldown[i]) p->upkeep->redraw |= (PR_SPELL);
         }
     }
+    
+    // decrease racial ability cooldown
+    if (p->y_cooldown > 0 && !(p->wpos.depth == 0))
+        p->y_cooldown--;
 }
 
 

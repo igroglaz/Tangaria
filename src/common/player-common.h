@@ -935,6 +935,7 @@ struct player
     char account_name[NORMAL_WID];  // account name (needed for housing)
     uint32_t account_score;         // account score (for ladder)
     uint8_t supporter;              // supporter's account lvl
+    uint8_t y_cooldown;             // cooldown for racial abilities
 
     // Weather
     uint8_t weather_type;           // type of weather
