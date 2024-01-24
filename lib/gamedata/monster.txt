@@ -614,24 +614,6 @@ flags:NO_CONF | NO_SLEEP | IM_WATER
 desc:This greedy and ill-mannered person thinks he has been spoiled from a good
 desc: heritage.
 
-name:Target Dummy
-base:golem
-color:y
-speed:110
-hit-points:1
-hearing:1
-armor-class:0
-sleepiness:0
-depth:0
-rarity:1
-weight:0
-experience:0
-flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
-flags:PWMANG_EXTRA | PWMANG_FIXED
-#flags:IM_FIRE | IM_ELEC | IM_POIS | UNDEAD | HURT_ROCK | IM_LIGHT | HURT_LIGHT
-desc:An indestructible golem used for target practice.
-locations:Farfest
-
 name:goldfish
 base:aquatic
 color:r
@@ -1288,6 +1270,25 @@ flags:RAND_25 | PWMANG_BASE
 flags:HURT_FIRE
 flags:WILD_GRASS | WILD_WOOD | WILD_SWAMP
 desc:A lone insect may be harmless, but there is a whole swarm of them here!
+
+name:acid blob
+base:jelly
+color:P
+speed:115
+hit-points:12
+hearing:8
+armor-class:14
+sleepiness:80
+depth:1
+rarity:3
+weight:0
+experience:3
+blow:SPIT:ACID:2d4
+flags:IM_ACID | IM_POIS | HURT_COLD | NO_CONF | NO_SLEEP | NEVER_MOVE | NEVER_BLOW
+spell-freq:4
+innate-freq:100
+spells:WHIP
+desc:Brightly pink and oozing at you dripping caustic acid all around place.
 
 ### Dungeon level 2 ###
 
@@ -25374,7 +25375,7 @@ name:Sauron, the Sorcerer
 base:ainu
 color:p
 speed:130
-hit-points:10500
+hit-points:15000
 hearing:100
 armor-class:192
 sleepiness:0
@@ -31398,49 +31399,6 @@ desc:A vast legendary bird, its iron talons rake the most impenetrable of
 desc: surfaces and its screech echoes through the many winding dungeon
 desc: corridors.
 
-
-#######
-###############
-######################### Test stuff
-
-name:Test dummy
-base:golem
-color:y
-speed:100
-hit-points:1000
-hearing:1
-armor-class:0
-sleepiness:0
-depth:30
-rarity:0
-weight:0
-experience:1
-spell-freq:50
-spell-power:10
-spells:BA_FIRE
-flags:NEVER_MOVE | ANTI_MAGIC
-desc:An indestructible golem used for testing purposes.
-
-name:Test drop
-base:golem
-color:y
-speed:100
-hit-points:100
-hearing:1
-armor-class:0
-sleepiness:0
-depth:1
-rarity:0
-weight:0
-experience:1
-spell-freq:1
-blow:HIT:FORGET:10d1
-flags:NEVER_MOVE
-flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-#drop:ring:Black Ring of Power:100:1:1
-#drop:sword:'Stormbringer':100:1:1
-desc:An indestructible golem used for testing purposes.
-
 # tamer class pets
 
 name:tamed frog
@@ -32386,25 +32344,6 @@ flags:ANIMAL | OPEN_DOOR
 desc:In the eyes of this bear, there glimmers the faintest light of
 desc: intelligence.
 
-name:acid blob
-base:jelly
-color:P
-speed:115
-hit-points:12
-hearing:8
-armor-class:14
-sleepiness:80
-depth:1
-rarity:3
-weight:0
-experience:3
-blow:SPIT:ACID:2d4
-flags:IM_ACID | IM_POIS | HURT_COLD | NO_CONF | NO_SLEEP | NEVER_MOVE | NEVER_BLOW
-spell-freq:4
-innate-freq:100
-spells:WHIP
-desc:Brightly pink and oozing at you dripping caustic acid all around place.
-
 # jelly player race breed
 name:oozling
 base:jelly
@@ -32422,7 +32361,64 @@ blow:TOUCH:ACID:1d3
 flags:HURT_LIGHT | IM_ACID | HURT_COLD | NO_CONF | NO_SLEEP
 desc:A small pulsing green ooze.
 
-### !!! move Test dummy there, to the bottom... so it will be easier to change it
-# BUT.. change druid class forms IDs after that!
+name:Target Dummy
+base:golem
+color:y
+speed:110
+hit-points:1
+hearing:1
+armor-class:0
+sleepiness:0
+depth:0
+rarity:1
+weight:0
+experience:0
+flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
+flags:PWMANG_EXTRA | PWMANG_FIXED
+#flags:IM_FIRE | IM_ELEC | IM_POIS | UNDEAD | HURT_ROCK | IM_LIGHT | HURT_LIGHT
+desc:An indestructible golem used for target practice.
+locations:Farfest
+
+#######
+###############
+######################### Test stuff
+
+name:Test dummy
+base:golem
+color:y
+speed:100
+hit-points:1000
+hearing:1
+armor-class:0
+sleepiness:0
+depth:30
+rarity:0
+weight:0
+experience:1
+spell-freq:50
+spell-power:10
+spells:BA_FIRE
+flags:NEVER_MOVE | ANTI_MAGIC
+desc:An indestructible golem used for testing purposes.
+
+name:Test drop
+base:golem
+color:y
+speed:100
+hit-points:100
+hearing:1
+armor-class:0
+sleepiness:0
+depth:1
+rarity:0
+weight:0
+experience:1
+spell-freq:1
+blow:HIT:FORGET:10d1
+flags:NEVER_MOVE
+flags:DROP_2 | DROP_GOOD | ONLY_ITEM
+#drop:ring:Black Ring of Power:100:1:1
+#drop:sword:'Stormbringer':100:1:1
+desc:An indestructible golem used for testing purposes.
 
 # # leave empty line for EOF
