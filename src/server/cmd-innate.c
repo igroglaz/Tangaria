@@ -410,10 +410,14 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
 
         player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
+        msg(p, "You've become as intangible as a wisp of cloud in the sky.");
 
         p->y_cooldown = 255; // cooldown
-        p->upkeep->redraw |= (PR_HP);
-        p->upkeep->redraw |= (PR_MAP);
+
+        // update visual after invis
+        p->upkeep->update |= PU_MONSTERS;
+        p->upkeep->redraw |= PR_STATUS;
+        handle_stuff(p);
 
         return;
     }
