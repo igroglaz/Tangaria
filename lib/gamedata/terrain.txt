@@ -2975,12 +2975,12 @@ desc:.
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
-# A3 - severs
+# A3 - sewers
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
 
-code:A3_severs_0
-name:A3 severs 0
+code:A3_sewers_0
+name:A3 sewers 0
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -2989,8 +2989,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_1
-name:A3 severs 1
+code:A3_sewers_1
+name:A3 sewers 1
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -2999,8 +2999,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_2
-name:A3 severs 2
+code:A3_sewers_2
+name:A3 sewers 2
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3009,8 +3009,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_3
-name:A3 severs 3
+code:A3_sewers_3
+name:A3 sewers 3
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH | BRIGHT
@@ -3019,8 +3019,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_4
-name:A3 severs 4
+code:A3_sewers_4
+name:A3 sewers 4
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3029,8 +3029,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_5
-name:A3 severs 5
+code:A3_sewers_5
+name:A3 sewers 5
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3039,8 +3039,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_6
-name:A3 severs 6
+code:A3_sewers_6
+name:A3 sewers 6
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3049,8 +3049,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_7
-name:A3 severs 7
+code:A3_sewers_7
+name:A3 sewers 7
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3059,8 +3059,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_8
-name:A3 severs 8
+code:A3_sewers_8
+name:A3 sewers 8
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3069,8 +3069,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_9
-name:A3 severs 9
+code:A3_sewers_9
+name:A3 sewers 9
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3079,8 +3079,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_a
-name:A3 severs a
+code:A3_sewers_a
+name:A3 sewers a
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3089,8 +3089,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_b
-name:A3 severs b
+code:A3_sewers_b
+name:A3 sewers b
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3099,8 +3099,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_c
-name:A3 severs c
+code:A3_sewers_c
+name:A3 sewers c
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3109,8 +3109,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_d
-name:A3 severs d
+code:A3_sewers_d
+name:A3 sewers d
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3119,8 +3119,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_e
-name:A3 severs e
+code:A3_sewers_e
+name:A3 sewers e
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3129,8 +3129,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_f
-name:A3 severs f
+code:A3_sewers_f
+name:A3 sewers f
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3139,8 +3139,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_g
-name:A3 severs g
+code:A3_sewers_g
+name:A3 sewers g
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3149,8 +3149,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_h
-name:A3 severs h
+code:A3_sewers_h
+name:A3 sewers h
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3159,8 +3159,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_i
-name:A3 severs i
+code:A3_sewers_i
+name:A3 sewers i
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3169,8 +3169,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_j
-name:A3 severs j
+code:A3_sewers_j
+name:A3 sewers j
 graphics:#:D
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3179,8 +3179,8 @@ digging:3
 short-desc:cell wall
 desc:.
 
-code:A3_severs_k
-name:A3 severs k
+code:A3_sewers_k
+name:A3 sewers k
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3189,8 +3189,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_l
-name:A3 severs l
+code:A3_sewers_l
+name:A3 sewers l
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3199,8 +3199,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_m
-name:A3 severs m
+code:A3_sewers_m
+name:A3 sewers m
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3209,8 +3209,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_n
-name:A3 severs n
+code:A3_sewers_n
+name:A3 sewers n
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3219,8 +3219,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_o
-name:A3 severs o
+code:A3_sewers_o
+name:A3 sewers o
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3229,8 +3229,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_p
-name:A3 severs p
+code:A3_sewers_p
+name:A3 sewers p
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3239,8 +3239,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_q
-name:A3 severs q
+code:A3_sewers_q
+name:A3 sewers q
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3249,8 +3249,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_r
-name:A3 severs r
+code:A3_sewers_r
+name:A3 sewers r
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3259,8 +3259,8 @@ digging:4
 short-desc:wall
 desc:.
 
-code:A3_severs_s
-name:A3 severs s
+code:A3_sewers_s
+name:A3 sewers s
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3269,8 +3269,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_t
-name:A3 severs t
+code:A3_sewers_t
+name:A3 sewers t
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3279,8 +3279,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_u
-name:A3 severs u
+code:A3_sewers_u
+name:A3 sewers u
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -3289,8 +3289,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_severs_v
-name:A3 severs v
+code:A3_sewers_v
+name:A3 sewers v
 graphics:#:s
 priority:11
 flags:NO_HOUSE | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -35627,11 +35627,11 @@ short-desc:wall
 desc:.
 
 ###################
-################### A3 P severs
+################### A3 P sewers
 ###################
 
-code:A3_P_severs_0
-name:A3 P severs 0
+code:A3_P_sewers_0
+name:A3 P sewers 0
 graphics:#:s
 priority:11
 flags:PERMANENT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -35640,8 +35640,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_P_severs_1
-name:A3 P severs 1
+code:A3_P_sewers_1
+name:A3 P sewers 1
 graphics:#:s
 priority:11
 flags:PERMANENT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -35650,8 +35650,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_P_severs_s
-name:A3 P severs s
+code:A3_P_sewers_s
+name:A3 P sewers s
 graphics:#:s
 priority:11
 flags:PERMANENT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -35660,8 +35660,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_P_severs_t
-name:A3 P severs t
+code:A3_P_sewers_t
+name:A3 P sewers t
 graphics:#:s
 priority:11
 flags:PERMANENT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH
@@ -35670,8 +35670,8 @@ digging:5
 short-desc:wall
 desc:.
 
-code:A3_P_severs_u
-name:A3 P severs u
+code:A3_P_sewers_u
+name:A3 P sewers u
 graphics:#:s
 priority:11
 flags:PERMANENT | WALL | ROCK | GRANITE | NO_SCENT | NO_FLOW | TORCH

@@ -1248,38 +1248,38 @@ floor:E5 blood v:1
 ########################################
 #wall:big dark wall 0:20
 #
-wall:A3 severs 0:2100
-wall:A3 severs 1:1000
-wall:A3 severs 2:100
-wall:A3 severs 3:100
-wall:A3 severs 4:100
-wall:A3 severs 5:100
-wall:A3 severs 6:100
-wall:A3 severs 7:100
-wall:A3 severs 8:100
-wall:A3 severs 9:100
-wall:A3 severs a:100
-wall:A3 severs b:100
-wall:A3 severs c:100
-wall:A3 severs d:100
-wall:A3 severs e:100
-wall:A3 severs f:100
-wall:A3 severs g:100
-wall:A3 severs h:100
-wall:A3 severs i:100
-wall:A3 severs j:100
-wall:A3 severs k:100
-wall:A3 severs l:100
-wall:A3 severs m:100
-wall:A3 severs n:100
-wall:A3 severs o:100
-wall:A3 severs p:100
-wall:A3 severs q:100
-wall:A3 severs r:100
-wall:A3 severs s:100
-wall:A3 severs t:100
-wall:A3 severs u:100
-wall:A3 severs v:100
+wall:A3 sewers 0:2100
+wall:A3 sewers 1:1000
+wall:A3 sewers 2:100
+wall:A3 sewers 3:100
+wall:A3 sewers 4:100
+wall:A3 sewers 5:100
+wall:A3 sewers 6:100
+wall:A3 sewers 7:100
+wall:A3 sewers 8:100
+wall:A3 sewers 9:100
+wall:A3 sewers a:100
+wall:A3 sewers b:100
+wall:A3 sewers c:100
+wall:A3 sewers d:100
+wall:A3 sewers e:100
+wall:A3 sewers f:100
+wall:A3 sewers g:100
+wall:A3 sewers h:100
+wall:A3 sewers i:100
+wall:A3 sewers j:100
+wall:A3 sewers k:100
+wall:A3 sewers l:100
+wall:A3 sewers m:100
+wall:A3 sewers n:100
+wall:A3 sewers o:100
+wall:A3 sewers p:100
+wall:A3 sewers q:100
+wall:A3 sewers r:100
+wall:A3 sewers s:100
+wall:A3 sewers t:100
+wall:A3 sewers u:100
+wall:A3 sewers v:100
 # AA
 wall:AA wall w:2100
 wall:AA wall x:1100
@@ -1296,8 +1296,8 @@ wall:B6 floors luquid `:34
 #
 perma:AA P wall w:2500
 perma:AA P wall x:2500
-perma:A3 P severs 0:2500
-perma:A3 P severs 1:2500
+perma:A3 P sewers 0:2500
+perma:A3 P sewers 1:2500
 #if green walls:
 #wall:big dark wall 9 entrance:1
 #wall:big dark wall a low entrance:1
@@ -3457,35 +3457,35 @@ floor:E5 blood t:1
 floor:E5 blood u:1
 floor:E5 blood v:1
 ########################## 5600
-wall:A3 severs 0:900
-wall:A3 severs 1:800
-wall:A3 severs 3:100
-wall:A3 severs 6:100
-wall:A3 severs 7:100
-wall:A3 severs 8:100
-wall:A3 severs 9:100
-wall:A3 severs a:100
-wall:A3 severs b:100
-wall:A3 severs c:100
-wall:A3 severs d:100
-wall:A3 severs e:100
-wall:A3 severs g:100
-wall:A3 severs h:100
-wall:A3 severs i:100
+wall:A3 sewers 0:900
+wall:A3 sewers 1:800
+wall:A3 sewers 3:100
+wall:A3 sewers 6:100
+wall:A3 sewers 7:100
+wall:A3 sewers 8:100
+wall:A3 sewers 9:100
+wall:A3 sewers a:100
+wall:A3 sewers b:100
+wall:A3 sewers c:100
+wall:A3 sewers d:100
+wall:A3 sewers e:100
+wall:A3 sewers g:100
+wall:A3 sewers h:100
+wall:A3 sewers i:100
 # lattice
-wall:A3 severs j:10
-wall:A3 severs k:90
-wall:A3 severs k:90
-wall:A3 severs l:100
-wall:A3 severs m:100
-wall:A3 severs n:100
-wall:A3 severs o:100
-wall:A3 severs p:100
-wall:A3 severs q:100
-wall:A3 severs r:100
-wall:A3 severs s:1300
-wall:A3 severs t:1000
-wall:A3 severs u:2000
+wall:A3 sewers j:10
+wall:A3 sewers k:90
+wall:A3 sewers k:90
+wall:A3 sewers l:100
+wall:A3 sewers m:100
+wall:A3 sewers n:100
+wall:A3 sewers o:100
+wall:A3 sewers p:100
+wall:A3 sewers q:100
+wall:A3 sewers r:100
+wall:A3 sewers s:1300
+wall:A3 sewers t:1000
+wall:A3 sewers u:2000
 # AA #################### 3600
 wall:AA wall w:1000
 wall:AA wall x:500
@@ -3497,9 +3497,9 @@ wall:AA wall B:100
 #wall:big dark wall 9 entrance:1
 #wall:big dark wall a low entrance:1
 #wall:big dark wall b window:1
-perma:A3 P severs s:3334
-perma:A3 P severs t:3333
-perma:A3 P severs u:3333
+perma:A3 P sewers s:3334
+perma:A3 P sewers t:3333
+perma:A3 P sewers u:3333
 #
 rule:2000:0
 rule-symbols:p
@@ -5172,39 +5172,39 @@ floor:floor Q dirt:100
 floor:floor R dirt:100
 #
 ############################### 5100
-wall:A3 severs 0:399
-wall:A3 severs 1:200
-wall:A3 severs 2:100
-wall:A3 severs 3:100
-wall:A3 severs 4:100
-wall:A3 severs 5:100
-wall:A3 severs 6:100
-wall:A3 severs 7:100
-wall:A3 severs 8:100
-wall:A3 severs 9:100
-wall:A3 severs a:100
-wall:A3 severs b:100
-wall:A3 severs c:100
-wall:A3 severs d:100
-wall:A3 severs e:100
+wall:A3 sewers 0:399
+wall:A3 sewers 1:200
+wall:A3 sewers 2:100
+wall:A3 sewers 3:100
+wall:A3 sewers 4:100
+wall:A3 sewers 5:100
+wall:A3 sewers 6:100
+wall:A3 sewers 7:100
+wall:A3 sewers 8:100
+wall:A3 sewers 9:100
+wall:A3 sewers a:100
+wall:A3 sewers b:100
+wall:A3 sewers c:100
+wall:A3 sewers d:100
+wall:A3 sewers e:100
 # stairs:
-wall:A3 severs f:1
-wall:A3 severs g:100
-wall:A3 severs h:100
-wall:A3 severs i:100
-wall:A3 severs j:100
-wall:A3 severs k:100
-wall:A3 severs l:100
-wall:A3 severs m:100
-wall:A3 severs n:100
-wall:A3 severs o:100
-wall:A3 severs p:100
-wall:A3 severs q:100
-wall:A3 severs r:100
-wall:A3 severs s:100
-wall:A3 severs t:100
-wall:A3 severs u:100
-wall:A3 severs v:100
+wall:A3 sewers f:1
+wall:A3 sewers g:100
+wall:A3 sewers h:100
+wall:A3 sewers i:100
+wall:A3 sewers j:100
+wall:A3 sewers k:100
+wall:A3 sewers l:100
+wall:A3 sewers m:100
+wall:A3 sewers n:100
+wall:A3 sewers o:100
+wall:A3 sewers p:100
+wall:A3 sewers q:100
+wall:A3 sewers r:100
+wall:A3 sewers s:100
+wall:A3 sewers t:100
+wall:A3 sewers u:100
+wall:A3 sewers v:100
 # AA
 wall:AA wall w:300
 wall:AA wall x:200
@@ -5360,8 +5360,8 @@ wall:EE dirt F2W `:24
 #
 perma:AA P wall w:2500
 perma:AA P wall x:2500
-perma:A3 P severs 0:2500
-perma:A3 P severs 1:2500
+perma:A3 P sewers 0:2500
+perma:A3 P sewers 1:2500
 #
 #floor:packed dirt:7
 #floor:ash:3
