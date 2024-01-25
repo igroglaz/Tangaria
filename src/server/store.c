@@ -974,6 +974,10 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
         return true;
 
     // boni to storage from account points and CHR
+    if (p->account_score >= 10)
+        storage_factor++;
+    if (p->account_score >= 25)
+        storage_factor++;
     if (p->account_score >= 50)
         storage_factor++;
     if (p->account_score >= 100)
