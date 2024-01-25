@@ -5,6 +5,10 @@
  * sound - the name of the entry in sound.prf
  */
 
+//  to apply color on messages without adding new color entries to this file:
+// msgt(p, MSG_GENERIC, " $v%s^v", "You've become as intangible as a wisp of cloud in the sky.");
+// (don't forget to put space in the beginning of string)
+
 /* id */
 MSG(GENERIC, "")
 MSG(RED_INK, "red_ink") // only text color

@@ -410,7 +410,8 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
 
         player_inc_timed(p, TMD_INVIS, 20 + p->lev, true, false);
-        msg(p, "You've become as intangible as a wisp of cloud in the sky.");
+        // msg in violet color
+        msgt(p, MSG_GENERIC, " $v%s^v", "You've become as intangible as a wisp of cloud in the sky.");
 
         p->y_cooldown = 255; // cooldown
 
