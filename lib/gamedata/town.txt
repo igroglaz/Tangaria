@@ -21,7 +21,7 @@ max-townies:40
 symbol:newbie star
 
 name:Carn Dum
-# Base town containing the main Angband dungeon
+# Base town containing the Ironman dungeon (`no-recall` birth option chars appears there)
 short:Carn
 wpos:-43:43
 max-townies:100
