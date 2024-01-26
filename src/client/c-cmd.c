@@ -720,7 +720,7 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
         }
 
         /* Kill character */
-        else if (strstr(pmsgbuf, "retire")) textui_cmd_suicide();
+        else if (strstr(pmsgbuf, "retire")) textui_cmd_retire();
 
         /* Quit/exit */
         else if (strstr(pmsgbuf, "quit")) textui_quit();
