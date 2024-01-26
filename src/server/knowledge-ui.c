@@ -3022,7 +3022,7 @@ void do_cmd_check_players(struct player *p, int line)
         /* Challenge options */
         strnfmt(brave, sizeof(brave), "the%s%s%s%s",
             (OPT(q, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-            (OPT(q, birth_no_recall) && (cfg_diving_mode < 3))? " norecall": "",
+            (OPT(q, birth_no_recall) && (cfg_diving_mode < 3))? " ironfoot": "",
             (OPT(q, birth_hardcore))? " hardcore": "",
             (OPT(q, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
 

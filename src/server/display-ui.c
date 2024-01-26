@@ -2465,7 +2465,7 @@ void player_death(struct player *p)
         {
             strnfmt(brave, sizeof(brave), "The%s%s%s%s",
                 (OPT(p, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-                (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " norecall": "",
+                (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " ironfoot": "",
                 (OPT(p, birth_hardcore))? " hardcore": "",
                 (OPT(p, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
         }
