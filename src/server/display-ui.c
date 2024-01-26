@@ -2367,7 +2367,7 @@ void player_death(struct player *p)
 {
     char buf[MSG_LEN];
     const char *prompt = get_title(p);
-    bool perma_death, suicided = false;
+    bool perma_death, retired = false;
     int i;
     uint16_t type = MSG_BROADCAST_DIED;
     bool no_ghost = (OPT(p, birth_no_ghost) || OPT(p, birth_fruit_bat) || cfg_no_ghost);
@@ -2445,8 +2445,13 @@ void player_death(struct player *p)
     message_flush(p);
     if (p->ghost != 1)
     {
-        strnfmt(buf, sizeof(buf), "Was killed by %s", p->died_from);
-        history_add(p, buf, HIST_PLAYER_DEATH);
+        if (streq(p->died_from, "Retiring"))
+            history_add(p, "Retired", HIST_PLAYER_DEATH);
+        else
+        {
+            strnfmt(buf, sizeof(buf), "Was killed by %s", p->died_from);
+            history_add(p, buf, HIST_PLAYER_DEATH);
+        }
     }
 
     /* Tell everyone he died */
@@ -2479,8 +2484,8 @@ void player_death(struct player *p)
         strnfmt(buf, sizeof(buf), "%s was killed by divine wrath.", p->name);
     else if (!p->total_winner)
     {
-        strnfmt(buf, sizeof(buf), "%s was terminated.", p->name);
-        suicided = true;
+        strnfmt(buf, sizeof(buf), "%s retired.", p->name);
+        retired = true;
         type = MSG_BROADCAST_ENTER_LEAVE;
     }
     else
@@ -2493,8 +2498,8 @@ void player_death(struct player *p)
     /* Tell the players - handle the secret_dungeon_master option */
     if (!(p->dm_flags & DM_SECRET_PRESENCE))
     {
-        /* Don't broadcast level 1 suicides */
-        if (!suicided || (p->lev > 1))
+        /* Don't broadcast level 1 retirements */
+        if (!retired || (p->lev > 1))
             msg_broadcast(p, buf, type);
     }
 
@@ -2504,7 +2509,7 @@ void player_death(struct player *p)
      * - no ghost characters (except Warclocks that can turn into an undead being)
      * - permanently polymorphed characters
      * - ghosts
-     * - suiciding characters
+     * - retiring characters
      */
      // T: removed magik(p->lives)
     perma_death = ((no_ghost && !player_can_undead(p)) ||

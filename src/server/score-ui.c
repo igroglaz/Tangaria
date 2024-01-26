@@ -91,6 +91,8 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
         /* Died where? */
         if (streq(score->how, "winner"))
             strnfmt(out_val, sizeof(out_val), "Retired after a legendary career");
+        else if (streq(score->how, "Retiring"))
+            strnfmt(out_val, sizeof(out_val), "Retired prematurely");
         else if (!cdun)
             strnfmt(out_val, sizeof(out_val), "Killed by %s on the surface", score->how);
         else

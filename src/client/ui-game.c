@@ -142,7 +142,7 @@ struct cmd_info cmd_util[] =
 {
     {"Interact with options", {'='}, CMD_NULL, do_cmd_xxx_options, NULL},
     {"Save and quit", {KTRL('X')}, CMD_NULL, textui_quit, NULL},
-    {"Kill character and quit", {'Q'}, CMD_NULL, textui_cmd_suicide, NULL},
+    {"Retire character and quit", {'Q'}, CMD_NULL, textui_cmd_retire, NULL},
     {"Redraw the screen", {KTRL('R')}, CMD_NULL, do_cmd_redraw, NULL},
     {"Save \"screen dump\"", {')'}, CMD_NULL, do_cmd_save_screen, NULL},
     {"Purchase a house", {'H', '£'}, CMD_NULL, do_cmd_purchase_house, NULL},

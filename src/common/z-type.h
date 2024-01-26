@@ -89,12 +89,13 @@ extern int point_set_contains(struct point_set *ps, struct loc *grid);
 /*
  * Buffers for ".txt" text files
  */
-#define MAX_TEXTFILES   3
+#define MAX_TEXTFILES   4
 #define TEXTFILE__WID   140
 #define TEXTFILE__HGT   23
 #define TEXTFILE_MOTD   0
 #define TEXTFILE_TOMB   1
-#define TEXTFILE_CRWN   2
+#define TEXTFILE_QUIT   2
+#define TEXTFILE_CRWN   3
 
 /* The setup data that the server transmits to the client */
 typedef struct

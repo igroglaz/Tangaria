@@ -1539,17 +1539,20 @@ static int Receive_death_cause(void)
 {
     int n;
     uint8_t ch;
+    int16_t x, y;
 
     if ((n = Packet_scanf(&rbuf, "%b%s%hd%ld%ld%hd%hd%hd%s%s", &ch, player->death_info.title,
         &player->death_info.lev, &player->death_info.exp, &player->death_info.au,
-        &player->death_info.wpos.grid.y, &player->death_info.wpos.grid.x,
-        &player->death_info.wpos.depth, player->death_info.died_from,
+        &y, &x, &player->death_info.wpos.depth, player->death_info.died_from,
         player->death_info.ctime)) <= 0)
     {
         return n;
     }
 
-    print_tomb();
+    player->death_info.wpos.grid.x = x;
+    player->death_info.wpos.grid.y = y;
+
+    display_exit_screen();
 
     return 1;
 }
@@ -3606,6 +3609,13 @@ static int Receive_text_screen(void)
         /* Tombstone */
         else if (type == TEXTFILE_TOMB)
         {
+            /* Send request for retirement to read */
+            Send_text_screen(TEXTFILE_QUIT, 0);
+        }
+
+        /* Retirement */
+        else if (type == TEXTFILE_QUIT)
+        {
             /* Send request for winner crown to read */
             Send_text_screen(TEXTFILE_CRWN, 0);
         }
@@ -5599,11 +5609,11 @@ int Send_ghost(int ability, int dir)
 }
 
 
-int Send_suicide(void)
+int Send_retire(void)
 {
     int n;
 
-    if ((n = Packet_printf(&wbuf, "%b", (unsigned)PKT_SUICIDE)) <= 0)
+    if ((n = Packet_printf(&wbuf, "%b", (unsigned)PKT_RETIRE)) <= 0)
         return n;
 
     return 1;

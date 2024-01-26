@@ -50,18 +50,18 @@ void do_cmd_unknown(void)
 
 
 /*
- * Verify the "kill character" command
+ * Verify the retire command
  */
-void textui_cmd_suicide(void)
+void textui_cmd_retire(void)
 {
     struct keypress ch;
 
     /* Verify */
-    if (!get_check("Do you really want to kill this character? ")) return;
+    if (!get_check("Do you really want to retire? ")) return;
 
     /* Check again */
     topline_icky = true;
-    prt("Please verify KILLING THIS CHARACTER by typing the '@' sign: ", 0, 0);
+    prt("Please verify RETIRING THIS CHARACTER by typing the '@' sign: ", 0, 0);
     event_signal(EVENT_INPUT_FLUSH);
     ch = inkey();
     topline_icky = false;
@@ -69,7 +69,7 @@ void textui_cmd_suicide(void)
     if (ch.code != '@') return;
 
     /* Send it */
-    Send_suicide();
+    Send_retire();
 }
 
 

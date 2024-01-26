@@ -1208,15 +1208,15 @@ static void show_splashscreen(void)
 
 
 /*
- * Display the tombstone
+ * Display the tombstone/retirement screen
  */
-static void print_tomb(void)
+static void display_exit_screen(void)
 {
     ang_file *fp;
     char buf[MSG_LEN];
     int line = 0;
 
-    /* Open the death file */
+    /* Open the tombstone file */
     path_build(buf, sizeof(buf), ANGBAND_DIR_SCREENS, "dead.txt");
     fp = file_open(buf, MODE_READ, FTYPE_TEXT);
 
@@ -1227,6 +1227,25 @@ static void print_tomb(void)
         while (file_getl(fp, buf, sizeof(buf)) && (line < TEXTFILE__HGT))
         {
             my_strcpy(&Setup.text_screen[TEXTFILE_TOMB][line * TEXTFILE__WID], buf, TEXTFILE__WID);
+            line++;
+        }
+
+        file_close(fp);
+    }
+
+    line = 0;
+
+    /* Open the retirement file */
+    path_build(buf, sizeof(buf), ANGBAND_DIR_SCREENS, "retire.txt");
+    fp = file_open(buf, MODE_READ, FTYPE_TEXT);
+
+    /* Dump */
+    if (fp)
+    {
+        /* Dump the file into the buffer */
+        while (file_getl(fp, buf, sizeof(buf)) && (line < TEXTFILE__HGT))
+        {
+            my_strcpy(&Setup.text_screen[TEXTFILE_QUIT][line * TEXTFILE__WID], buf, TEXTFILE__WID);
             line++;
         }
 
@@ -1284,8 +1303,8 @@ int Init_setup(void)
     /* Verify and load the splash screen */
     show_splashscreen();
 
-    /* Verify and load the tombstone */
-    print_tomb();
+    /* Verify and load the tombstone/retirement screens */
+    display_exit_screen();
 
     /* Verify and load the winner crown */
     display_winner();
@@ -5140,7 +5159,7 @@ static int Receive_ghost(int ind)
 }
 
 
-static int Receive_suicide(int ind)
+static int Receive_retire(int ind)
 {
     connection_t *connp = get_connection(ind);
     struct player *p;
@@ -5149,7 +5168,7 @@ static int Receive_suicide(int ind)
 
     if ((n = Packet_scanf(&connp->r, "%b", &ch)) <= 0)
     {
-        if (n == -1) Destroy_connection(ind, "Receive_suicide read error");
+        if (n == -1) Destroy_connection(ind, "Receive_retire read error");
         return n;
     }
 
@@ -5161,16 +5180,13 @@ static int Receive_suicide(int ind)
         break_mind_link(p);
 
         /* End character (or retire if winner) */
-        do_cmd_suicide(p);
+        do_cmd_retire(p);
 
         /* Send any remaining information over the network (the tombstone) */
         Net_output_p(p);
 
         /* Get rid of him */
-        if (!p->total_winner)
-            Destroy_connection(p->conn, "Terminated");
-        else
-            Destroy_connection(p->conn, "Retired");
+        Destroy_connection(p->conn, "Retired");
     }
 
     return 1;

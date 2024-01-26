@@ -182,6 +182,7 @@ static void write_character_dump(ang_file *fff, void *data)
             if (i == MAX_MSG_HIST) i = 0;
         }
         if (victory) file_putf(fff, "\nAll Hail the Mighty %s!\n\n\n", get_title(p));
+        else if (streq(p->death_info.died_from, "Retiring")) file_putf(fff, "\nRetired.\n\n\n");
         else file_putf(fff, "\nKilled by %s.\n\n\n", p->death_info.died_from);
     }
 

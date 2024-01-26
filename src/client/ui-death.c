@@ -45,11 +45,12 @@ static void put_str_centred(int y, int x1, int x2, const char *fmt, ...)
 
 
 /*
- * Display the tombstone
+ * Display the tombstone/retirement screen
  */
-void print_tomb(void)
+void display_exit_screen(void)
 {
     int i, line = 7;
+    bool retired = streq(player->death_info.died_from, "Retiring");
 
     /* Clear the screen */
     Term_clear();
@@ -57,7 +58,7 @@ void print_tomb(void)
     for (i = 0; i < TEXTFILE__HGT; i++)
     {
         /* Show each line */
-        text_out_e(&Setup.text_screen[TEXTFILE_TOMB][i * TEXTFILE__WID], i, 0);
+        text_out_e(&Setup.text_screen[retired? TEXTFILE_QUIT: TEXTFILE_TOMB][i * TEXTFILE__WID], i, 0);
     }
 
     put_str_centred(line++, 8, 8+31, "%s", player->name);
@@ -70,9 +71,19 @@ void print_tomb(void)
     put_str_centred(line++, 8, 8+31, "Level: %d", (int)player->death_info.lev);
     put_str_centred(line++, 8, 8+31, "Exp: %d", (int)player->death_info.exp);
     put_str_centred(line++, 8, 8+31, "AU: %d", (int)player->death_info.au);
-    put_str_centred(line++, 8, 8+31, "Killed on Level %d (%d, %d)", player->death_info.wpos.depth,
-        player->death_info.wpos.grid.x, player->death_info.wpos.grid.y);
-    put_str_centred(line++, 8, 8+31, "by %s.", player->death_info.died_from);
+    if (retired)
+    {
+        put_str_centred(line++, 8, 8+31, "Retired on Level %d (%d, %d).",
+            player->death_info.wpos.depth, player->death_info.wpos.grid.x,
+            player->death_info.wpos.grid.y);
+    }
+    else
+    {
+        put_str_centred(line++, 8, 8+31, "Killed on Level %d (%d, %d)",
+            player->death_info.wpos.depth, player->death_info.wpos.grid.x,
+            player->death_info.wpos.grid.y);
+        put_str_centred(line++, 8, 8+31, "by %s.", player->death_info.died_from);
+    }
 
     line++;
 

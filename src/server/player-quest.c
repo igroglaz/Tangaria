@@ -344,7 +344,7 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
             set_redraw_inven(p, NULL);
 
             /* Hack -- instantly retire any new winners if necessary */
-            if (cfg_retire_timer == 0) do_cmd_suicide(player);
+            if (cfg_retire_timer == 0) do_cmd_retire(player);
 
             /* If not, generate the rewards for that player */
             else winners++;

@@ -28,12 +28,21 @@ Angband 4.2.x:
 
 - Generalize handling of ^
 - Add a clause to digging to mention weapon/digger
+- Replace suicide with retire
 
 PWMAngband:
 
 - Windows client SDL_mixer
 - SDL2 update
 - Fix sounds amb_bell_metal
+- Highlight players '@' on mini map
+
+Bugs fixed
+----------
+
+PWMAngband:
+
+- Properly show level coordinates on tombstone/retirement screen if negative
 
 Coding changes
 --------------
@@ -44,6 +53,7 @@ Angband 4.2.x:
 - Don't suppress vulnerabilities in artifact creation
 - For instant artifact kinds, inherit the flags and element info of the tval
 - Check unshifted shape rather than current shape when testing for Banish
+- SDL: avoid discarded const warning
 
 Compilation/documentation
 -------------------------

@@ -39,7 +39,7 @@ extern void do_cmd_breath(struct player *p, int dir);
 extern void do_cmd_mimic(struct player *p, int page, int spell_index, int dir);
 
 /* cmd-misc.c */
-extern void do_cmd_suicide(struct player *p);
+extern void do_cmd_retire(struct player *p);
 
 /* cmd-obj.c */
 extern void do_cmd_uninscribe(struct player *p, int item);

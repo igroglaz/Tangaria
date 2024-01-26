@@ -9,7 +9,7 @@
 extern void do_cmd_redraw(void);
 extern void do_cmd_xxx_options(void);
 extern void do_cmd_unknown(void);
-extern void textui_cmd_suicide(void);
+extern void textui_cmd_retire(void);
 extern void textui_cmd_rest(void);
 extern void textui_quit(void);
 extern void do_cmd_save_screen(void);

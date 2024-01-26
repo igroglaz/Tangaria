@@ -22,18 +22,16 @@
 
 
 /*
- * Kill character
+ * Retire
  */
-void do_cmd_suicide(struct player *p)
+void do_cmd_retire(struct player *p)
 {
-    /* Mark as killed */
+    /* Treat retired character as dead to satisfy end of game logic. */
     p->alive = false;
-
-    /* Note cause of death */
-    my_strcpy(p->died_from, "self-inflicted wounds", sizeof(p->died_from));
+    my_strcpy(p->died_from, "Retiring", sizeof(p->died_from));
 
     /* Record the original (pre-ghost) cause of death */
-    if (p->ghost != 1) player_death_info(p, "self-inflicted wounds");
+    if (p->ghost != 1) player_death_info(p, "Retiring");
 
     /* Mark as quitter */
     if ((p->ghost != 1) && !p->total_winner) p->noscore = 1;

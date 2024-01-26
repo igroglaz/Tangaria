@@ -68,7 +68,7 @@ extern int Send_drop_gold(int32_t amt);
 extern int Send_redraw(void);
 extern int Send_rest(int16_t resting);
 extern int Send_ghost(int ability, int dir);
-extern int Send_suicide(void);
+extern int Send_retire(void);
 extern int Send_steal(struct command *cmd);
 extern int Send_master(int16_t command, const char *buf);
 extern int Send_mimic(int page, int spell, int dir);
