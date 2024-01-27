@@ -2105,9 +2105,17 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         }
 
         // don't allow regular chars visit Brave/Ironman locs
-        if (new_world_grid.x == 0 && (new_world_grid.y == 6 || new_world_grid.y == -6) && !(OPT(p, birth_no_recall))) {
-            msg(p, "You shall not pass!");
-            return;
+        if (new_world_grid.x == 0)
+        {
+            if (new_world_grid.y == 6 && !(OPT(p, birth_ironman)))
+            {
+                msg(p, "You shall not pass!");
+                return;
+            } else if (new_world_grid.y == -6 && !(OPT(p, birth_no_recall)))
+            {
+                msg(p, "You shall not pass!");
+                return;
+            }
         }
 
         /* New location */
