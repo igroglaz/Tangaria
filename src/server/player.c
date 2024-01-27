@@ -704,7 +704,7 @@ void player_cave_new(struct player *p, int height, int width)
 /*
  * Initialize player struct
  */
-void init_player(struct player *p, int conn, bool old_history, bool no_recall)
+void init_player(struct player *p, int conn, bool old_history, bool ironman, bool no_recall)
 {
     int i;
     char history[N_HIST_LINES][N_HIST_WRAP];
@@ -813,8 +813,12 @@ void init_player(struct player *p, int conn, bool old_history, bool no_recall)
 
     /* Update the wilderness map */
     if ((cfg_diving_mode > 1) || no_recall)
+    {
         wild_set_explored(p, base_wpos());
-    else
+    } else if (ironman)
+    {
+        wild_set_explored(p, ironman_wpos());
+    } else
     {
         wild_set_explored(p, start_wpos());
 

@@ -1591,7 +1591,7 @@ const char *savefile_get_name(char *savefile, char *panicfile)
  *
  * Returns 1 if quick start is possible, 0 if quick start is not possible, -1 if an error occurs.
  */
-static int quickstart_ok(struct player *p, const char *name, int conn, bool no_recall)
+static int quickstart_ok(struct player *p, const char *name, int conn, bool ironman, bool no_recall)
 {
     char previous[NORMAL_WID];
     const char *loadpath;
@@ -1601,7 +1601,7 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool no_r
     if (!get_previous_incarnation(previous, sizeof(previous))) return 0;
 
     /* Clear old information */
-    init_player(p, conn, false, no_recall);
+    init_player(p, conn, false, ironman, no_recall);
 
     /* Copy his name */
     my_strcpy(p->name, previous, sizeof(p->name));
@@ -1661,7 +1661,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     /* Handle dynastic quick start */
     if (stat_roll[STAT_MAX] == BR_QDYNA)
     {
-        int ret = quickstart_ok(p, name, conn, options[OPT_birth_no_recall]);
+        int ret = quickstart_ok(p, name, conn, options[OPT_birth_ironman],
+            options[OPT_birth_no_recall]);
 
         if (ret == -1)
         {
@@ -1674,7 +1675,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Clear old information */
-    init_player(p, conn, old_history, options[OPT_birth_no_recall]);
+    init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
 
     /* Copy his name */
     my_strcpy(p->name, name, sizeof(p->name));
@@ -1738,7 +1739,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
 
         /* Hack -- rewipe the player info if load failed */
-        init_player(p, conn, old_history, options[OPT_birth_no_recall]);
+        init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
 
         /* Copy his name and connection info */
         my_strcpy(p->name, name, sizeof(p->name));
