@@ -279,10 +279,12 @@ void init_options(bool *opts)
     options_restore_maintainer(opts, OP_INTERFACE);
     options_restore_maintainer(opts, OP_MANGBAND);
     options_restore_maintainer(opts, OP_ADVANCED);
+    options_restore_maintainer(opts, OP_EXTRA);
 
     /* Override with customized birth options. */
     options_restore_custom(opts, OP_BIRTH);
     options_restore_custom(opts, OP_INTERFACE);
     options_restore_custom(opts, OP_MANGBAND);
     options_restore_custom(opts, OP_ADVANCED);
+    options_restore_custom(opts, OP_EXTRA);
 }

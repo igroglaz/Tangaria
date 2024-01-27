@@ -70,12 +70,6 @@ Y:use_sound
 # Option 'Show effective speed as multiplier'
 X:effective_speed
 
-# Show weather
-X:weather_display
-
-# Option 'Animate player'
-Y:animate_player
-
 # Option 'Color: Illuminate torchlight in orange'
 Y:view_orange_light
 
@@ -168,6 +162,21 @@ X:confirm_recall
 
 # Option 'Hide controlled monsters in monster lists'
 Y:hide_slaves
+
+# Option 'Highlight players on mini map'
+Y:highlight_players
+
+# Option 'Show monsters attack (Graphical mode)'
+Y:slash_fx
+
+# Option 'Show monsters attack (ASCII mode)'
+Y:slash_fx_ascii
+
+# Option 'Animations'
+Y:animations
+
+# Option 'Show weather'
+Y:weather_display
 
 # Hitpoint warning (0-9)
 O:hp_warn_factor:6
