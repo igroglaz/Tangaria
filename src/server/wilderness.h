@@ -245,6 +245,8 @@ extern struct worldpos *start_wpos(void);
 extern bool in_start_town(struct worldpos *wpos);
 extern struct worldpos *base_wpos(void);
 extern bool in_base_town(struct worldpos *wpos);
+extern struct worldpos *ironman_wpos(void);
+extern bool in_ironman_town(struct worldpos *wpos);
 extern struct location *get_town(struct worldpos *wpos);
 extern bool in_town(struct worldpos *wpos);
 extern bool in_wild(struct worldpos *wpos);

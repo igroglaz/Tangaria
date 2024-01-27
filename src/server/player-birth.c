@@ -944,6 +944,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
+    // TODO: give ironman food, light, etc
     // as in T houses become permanent - no need to give free stuff
     /*
     // Give the player a deed of property
@@ -1175,7 +1176,7 @@ static int init_ladder(struct player *p)
 }
 
 
-static void player_setup(struct player *p, int id, uint32_t account, bool no_recall)
+static void player_setup(struct player *p, int id, uint32_t account, bool ironman, bool no_recall)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool reposition = false, push_up = false;
@@ -1272,6 +1273,10 @@ static void player_setup(struct player *p, int id, uint32_t account, bool no_rec
     {
         /* Hack -- DM redesigning the level (no_recall players) */
         if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
+
+        // Put us in ironman town
+        else if (ironman)
+            memcpy(&p->wpos, ironman_wpos(), sizeof(struct worldpos));
 
         /* Put us in base town */
         else if ((cfg_diving_mode > 1) || no_recall)
@@ -1814,7 +1819,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         }
 
         /* Set his location, panel, etc. */
-        player_setup(p, id, account, options[OPT_birth_no_recall]);
+        player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
@@ -1851,7 +1856,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Loading succeeded */
-    player_setup(p, id, account, options[OPT_birth_no_recall]);
+    player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
     return p;
 }
 
