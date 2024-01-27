@@ -866,6 +866,7 @@ static void process_world(struct player *p, struct chunk *c)
     // if (cfg_diving_mode == 3) respawn_rate = 4;
 
     // Monster respawn rate based on number of players at the level
+    // TODO: make ironman dungeon respawn rate increase in time
     if (dungeon && c->wpos.depth)
     {
         int num_on_depth = 0, i;

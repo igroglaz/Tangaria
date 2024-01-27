@@ -1209,8 +1209,8 @@ static void player_setup(struct player *p, int id, uint32_t account, bool ironma
     {
         reposition = true;
 
-        /* No-recall players are simply pushed up one level (should be safe) */
-        if ((cfg_diving_mode == 3) || no_recall) push_up = true;
+        // No-recall/ironman players are simply pushed up one level (should be safe)
+        if ((cfg_diving_mode == 3) || no_recall || ironman) push_up = true;
     }
 
     /*
