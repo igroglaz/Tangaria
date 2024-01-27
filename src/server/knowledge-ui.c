@@ -3020,11 +3020,17 @@ void do_cmd_check_players(struct player *p, int line)
         file_putf(fff, "%c", attr);
 
         /* Challenge options */
-        strnfmt(brave, sizeof(brave), "the%s%s%s%s",
-            (OPT(q, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-            (OPT(q, birth_no_recall) && (cfg_diving_mode < 3))? " ironfoot": "",
-            (OPT(q, birth_hardcore))? " hardcore": "",
-            (OPT(q, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
+        if (OPT(q, birth_ironman))
+        {
+            strnfmt(brave, sizeof(brave), "the%s ironman",
+                (OPT(q, birth_hardcore))? " hardcore": "");
+        } else {
+            strnfmt(brave, sizeof(brave), "the%s%s%s%s",
+                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
+                (OPT(q, birth_hardcore))? " hardcore": "",
+                (OPT(q, birth_force_descend))? " diving": "",
+                (OPT(q, birth_no_recall))? " ironfoot": "");
+        }
 
         winner[0] = '\0';
         if (q->total_winner) strnfmt(winner, sizeof(winner), "%s, ", get_title(q));

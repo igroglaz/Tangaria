@@ -315,11 +315,16 @@ static void console_who(int ind, char *dummy)
         char *entry;
 
         /* Challenge options */
+        if (OPT(p, birth_ironman)) {
+            strnfmt(brave, sizeof(brave), "the%s ironman",
+                (OPT(p, birth_hardcore))? " hardcore": "");
+        } else {
         strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
-            (OPT(p, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-            (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " ironfoot": "",
+            (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
             (OPT(p, birth_hardcore))? " hardcore": "",
-            (OPT(p, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
+            (OPT(p, birth_force_descend))? " diving": "",
+            (OPT(p, birth_no_recall))? " ironfoot": "");
+        }
 
         if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
 
@@ -396,11 +401,16 @@ static void console_whois(int ind, char *name)
     }
 
     /* Output player information */
-    strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
-        (OPT(p, birth_no_ghost) && !cfg_no_ghost)? " brave": "",
-        (OPT(p, birth_no_recall) && (cfg_diving_mode < 3))? " ironfoot": "",
-        (OPT(p, birth_hardcore))? " hardcore": "",
-        (OPT(p, birth_force_descend) && (cfg_limit_stairs < 3))? " diving": "");
+        if (OPT(p, birth_ironman)) {
+            strnfmt(brave, sizeof(brave), "the%s ironman",
+                (OPT(p, birth_hardcore))? " hardcore": "");
+        } else {
+        strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
+            (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
+            OPT(p, birth_hardcore)? " hardcore": "",
+            OPT(p, birth_force_descend)? " diving": "",
+            OPT(p, birth_no_recall)? " ironfoot": "");
+        }
     if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
 
     /* General character description */
