@@ -2104,9 +2104,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             new_grid.x = 1;
         }
 
-        // don't allow non-ironman chars visit Carn Dum
-        if (new_world_grid.x == -43 && new_world_grid.y == 43 &&
-            !(OPT(p, birth_no_recall))) {
+        // don't allow regular chars visit Brave/Ironman locs
+        if (new_world_grid.x == 0 && (new_world_grid.y == 6 || new_world_grid.y == -6) && !(OPT(p, birth_no_recall))) {
             msg(p, "You shall not pass!");
             return;
         }

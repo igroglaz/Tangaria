@@ -1374,6 +1374,21 @@ bool in_base_town(struct worldpos *wpos)
 }
 
 
+// ironman location coords
+struct worldpos *ironman_wpos(void)
+{
+    /* Assume index of 1 */
+    return &towns[2].wpos;
+}
+
+
+// Are we in the Ironman location (not town really..)
+bool in_ironman_town(struct worldpos *wpos)
+{
+    return (wpos_eq(wpos, ironman_wpos()));
+}
+
+
 /*
  * Return the current town (structure).
  */

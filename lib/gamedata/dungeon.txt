@@ -277,11 +277,22 @@ perma:E3 P dungeon wall f:1150
 #
 rule:10000:1
 
-# Ironman (no-recall) dungeon in Carn Dum... in V it's called "Main Angband dungeon")
-name:The Ironman
-short:Ironman
-wpos:-43:43
+# Carn Dum dungeon (in V it's called "Main Angband dungeon")
+# Brave mode (no-recall + force_descend)
+name:Angmar
+short:Angmar
+wpos:0:-6
+max-level:1
 flags:STREAMS
+rule:10000:1
+
+# Ironman (no-recall + force_descend + timelimit)
+name:The Jail
+short:Jail
+wpos:0:6
+max-level:1
+flags:STREAMS
+stairs:2+1d2:0
 rule:10000:1
 
 ########################## 1

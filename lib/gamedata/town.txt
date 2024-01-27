@@ -21,10 +21,16 @@ max-townies:40
 symbol:newbie star
 
 name:Carn Dum
-# Base town containing the Ironman dungeon (`no-recall` birth option chars appears there)
+# Base town for Brave dungeon (no-recall + force_descend birth option)
 short:Carn
-wpos:-43:43
-max-townies:100
+wpos:0:-6
+max-townies:0
+
+name:The Thangorodrim
+# Base town (jail) for Ironman (no-recall + force_descend + timelimit)
+short:Thangorodrim
+wpos:0:6
+max-townies:0
 
 ############################### 0
 
