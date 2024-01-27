@@ -6381,6 +6381,18 @@ static int Enter_player(int ind)
      * resend the equipment indices
      */
     if (roller < 0) set_redraw_equip(p, NULL);
+
+    ////////////////////////////////////////////////////
+    // HACKS for new characters options
+    // (before we can not check options without passing them to functions as arguments)
+   
+    // no gold in ironman jail
+    if (p->exp == 0 && OPT(p, birth_ironman)) {
+        msg(p, "Where am I?.. Oh no.. It seems I was taken to Thangorodrim jail!");
+        p->au = 0;
+    }
+    ////////////////////////////////////////////////////
+
     redraw_stuff(p);
 
     /* Handle the cfg_secret_dungeon_master option */
