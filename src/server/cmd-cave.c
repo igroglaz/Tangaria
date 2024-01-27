@@ -55,7 +55,11 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* Force down */
-    if ((cfg_limit_stairs >= 2) || OPT(p, birth_force_descend))
+    if (OPT(p, birth_ironman))
+    {
+        msg(p, "Ironman! You can not go back. Can not.");
+        return;
+    } else if ((cfg_limit_stairs >= 2) || OPT(p, birth_force_descend))
     {
         /* Going up is forbidden (except ghosts) */
         if (!p->ghost)

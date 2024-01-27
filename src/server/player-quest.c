@@ -358,6 +358,8 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
 /*
  * Check if a level is an active "quest" level
  */
+// this is not regular quests to kill `n` monsters!
+// It's "QUEST" to kill Sauron (99 dlvl) or Morgoth (100 dlvl)
 bool is_quest_active(struct player *p, int level)
 {
     int i;

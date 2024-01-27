@@ -5657,15 +5657,21 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         int target_depth;
         int base_depth = context->origin->player->wpos.depth;
 
+        // ironman can not go up
+        if (OPT(context->origin->player, birth_ironman))
+        {
+            up = false;
         /* No going up with force_descend or on the surface */
-        if ((cfg_limit_stairs >= 2) || OPT(context->origin->player, birth_force_descend) ||
+        } else if ((cfg_limit_stairs >= 2) || OPT(context->origin->player, birth_force_descend) ||
             !base_depth)
         {
             up = false;
         }
 
         /* No forcing player down to quest levels if they can't leave */
-        if ((cfg_limit_stairs == 3) || OPT(context->origin->player, birth_force_descend))
+        // "quest lvl" means that it's Sauron (99) or Morgy (100) dlvl
+        if ((cfg_limit_stairs == 3) || OPT(context->origin->player, birth_force_descend) ||
+            OPT(context->origin->player, birth_ironman))
         {
             target_depth = dungeon_get_next_level(context->origin->player,
                 context->origin->player->max_depth, 1);
