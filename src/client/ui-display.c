@@ -2862,12 +2862,6 @@ void do_slashfx_ascii(void)
                             case 4: a = COLOUR_ORANGE; break;
                         }
 
-                        if (sfx_info_d[i][j] == 1 || sfx_info_d[i][j] == 9) c = '\\';
-                        else if (sfx_info_d[i][j] == 2 || sfx_info_d[i][j] == 8) c = '|';
-                        else if (sfx_info_d[i][j] == 3 || sfx_info_d[i][j] == 7) c = '/';
-                        else if (sfx_info_d[i][j] == 4 || sfx_info_d[i][j] == 6) c = '-';
-                        else if (sfx_info_d[i][j] == 5) c = '+';
-
                         // Display
                         (void)((*main_term->text_hook)(COL_MAP + (j - player->offset_grid.x), 
                             ROW_MAP + (i - player->offset_grid.y), 1, a, &c));

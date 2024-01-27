@@ -269,6 +269,7 @@ static void write_character_dump(ang_file *fff, void *data)
             case OP_MANGBAND: title = "MAngband"; break;
             case OP_BIRTH: title = "Birth"; break;
             case OP_ADVANCED: title = "Advanced"; break;
+            case OP_EXTRA: title = "Extra"; break;
         }
 
         file_putf(fff, "  [%s]\n\n", title);

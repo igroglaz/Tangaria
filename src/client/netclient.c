@@ -203,27 +203,30 @@ void do_keepalive(void)
     }
 
     // Timer -- Update slash fx
-    if (OPT(player, slash_fx))
+    if (use_graphics)
     {
-        if (use_graphics)
+        if (OPT(player, slash_fx))
         {
             // attempt to keep track of 'ticks' (200ms resolution)
             if ((ticks - slashfx_ticks) > 2)
             {
                 slashfx_ticks = ticks;
 
-                //* Slash fx *//
+                //* Slash fx (Graphical mode) *//
                 if (Setup.initialized) do_slashfx();
             }
         }
-        else
+    }
+    else
+    {
+        if (OPT(player, slash_fx_ascii))
         {
             // attempt to keep track of 'ticks' (100ms resolution)
             if ((ticks - slashfx_ticks) > 1)
             {
                 slashfx_ticks = ticks;
 
-                //* Slash fx ASCII mode *//
+                //* Slash fx (ASCII mode) *//
                 if (Setup.initialized) do_slashfx_ascii();
             }
         }

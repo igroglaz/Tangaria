@@ -15,6 +15,7 @@ enum
     OP_MANGBAND,
     OP_BIRTH,
     OP_ADVANCED,
+    OP_EXTRA,
 
     OP_MAX
 };

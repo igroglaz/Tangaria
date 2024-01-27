@@ -3425,7 +3425,8 @@ int Send_slash_fx(struct player *p, int y, int x, int dir)
     connection_t *connp = get_connp(p, "slash_fx");
     if (connp == NULL) return 0;
 
-    if (!OPT(p, slash_fx)) return 1;
+    if (!OPT(p, slash_fx) && p->use_graphics) return 1;
+    if (!OPT(p, slash_fx_ascii) && !p->use_graphics) return 1;
 
     return Packet_printf(&connp->c, "%b%b%b%b", (unsigned)PKT_SLASH_FX, (unsigned)y, (unsigned)x, (unsigned)dir);
 }

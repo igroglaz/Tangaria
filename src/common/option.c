@@ -56,6 +56,7 @@ const char *option_type_name(int page)
         case OP_MANGBAND: result = "mangband"; break;
         case OP_BIRTH: result = "birth"; break;
         case OP_ADVANCED: result = "advanced"; break;
+        case OP_EXTRA: result = "extra"; break;
         default: result = "unknown"; break;
     }
 

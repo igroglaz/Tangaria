@@ -2336,6 +2336,7 @@ static menu_action option_actions[] =
     {0, 'b', "MAngband options", option_toggle_menu},
     {0, 'c', "Birth (difficulty) options", option_toggle_menu},
     {0, 'x', "Advanced options", option_toggle_menu},
+    {0, 'j', "Extra options", option_toggle_menu},
     {0, 'w', "Subwindow setup", do_cmd_options_win},
     {0, 'i', "Item ignoring setup", do_cmd_options_item},
     {0, 0, NULL, NULL},
