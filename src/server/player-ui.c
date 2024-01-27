@@ -380,8 +380,12 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "Timestamp: %ld\n", p->death_info.time);        
         file_putf(fff, "Account score: %u\n", p->account_score);
 
+        if (OPT(p, birth_ironman)) {
+            file_putf(fff, "Ironman\n");
+        }
+
         if (OPT(p, birth_hardcore)) {
-            file_putf(fff, "Hardcore character\n");
+            file_putf(fff, "Hardcore\n");
         } else if (p->lives > 0) {
             file_putf(fff, "Still got %d chance(s)\n", p->lives);
         }

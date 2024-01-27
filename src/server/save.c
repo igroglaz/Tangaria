@@ -476,6 +476,7 @@ void wr_player_misc(void *data)
     wr_hturn(&turn);
     wr_s16b(p->ghost);
     wr_byte(p->lives);
+    wr_byte(OPT(p, birth_ironman));
     wr_byte(OPT(p, birth_force_descend));
     wr_byte(OPT(p, birth_no_recall));
     wr_byte(OPT(p, birth_no_artifacts));

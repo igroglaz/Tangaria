@@ -91,6 +91,9 @@ X:wrap_messages
 # Option 'Compare equipment when examining items'
 X:expand_inspect
 
+# Option 'Ironman'
+X:birth_ironman
+
 # Option 'Force player descent'
 X:birth_force_descend
 
