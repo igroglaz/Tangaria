@@ -2063,8 +2063,17 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             return;
         }
 
+        // forbid leaving ironman "town"
+        if (in_ironman_town(&p->wpos))
+        {
+            if (OPT(p, birth_ironman))
+            {
+                msg(p, ONE_OF(comment_ironman));
+                disturb(p, 0);
+                return;
+            }
         /* Leaving base town */
-        if (in_base_town(&p->wpos))
+        } else if (in_base_town(&p->wpos))
         {
             /* Forbid */
             if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall))
