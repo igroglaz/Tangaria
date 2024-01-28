@@ -2718,6 +2718,10 @@ void do_cmd_fountain(struct player *p, int item)
             msg(p, "You drink from the fountain.");
             poly_bat(p, 100, NULL);
 
+            // on ironman drinking from fountains gives plenty of satiation
+            if (OPT(p, birth_ironman))
+                player_inc_timed(p, TMD_FOOD, 750, false, false);
+
             /* Done */
             return;
         }
@@ -2880,6 +2884,11 @@ void do_cmd_fountain(struct player *p, int item)
         }
         object_delete(&obj);
     }
+
+    // on ironman drinking from fountains gives plenty of satiation
+    // (works even if using bottles)
+    if (fountain && OPT(p, birth_ironman))
+        player_inc_timed(p, TMD_FOOD, 750, false, false);
 
     /* Fountain dries out */
     if (fountain && one_in_(3))
