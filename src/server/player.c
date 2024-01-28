@@ -321,9 +321,14 @@ static void adjust_level(struct player *p)
             // For 10-20-30-40-50 levels for hardcore characters - award an extra point(s)
             if (OPT(p, birth_hardcore)) {
                 if (p->max_lev % 10 == 0 && p->max_lev >= 10) {
-                    int bonusPoints = p->max_lev / 10;
-                    p->account_score += bonusPoints;
-                    msg(p, "You've earned %d extra account point(s) for being in hardcore!", bonusPoints);
+                    // if account_score already is greater than 25...
+                    if (p->account_score > 25 && p->max_lev == 10) {
+                        ; // ... do not award bonus points for level 10
+                    } else {
+                        int bonusPoints = p->max_lev / 10;
+                        p->account_score += bonusPoints;
+                        msg(p, "You've earned %d extra account point(s) for being in hardcore!", bonusPoints);
+                    }
                 }
             }
 
