@@ -784,9 +784,14 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // decrease ironman timer till next auto > (no need to check for ironman opt)
     if (p->iron_timer && p->wpos.depth < 127) {
         p->iron_timer--;
-        
+
         // move ironman player down
         if (!p->iron_timer) {
+
+            if (p->exp == 0) // new player. just teleported from "town" to jail
+            { // TODO: add sound
+                msg(p, "Where am I?.. Oh no.. It seems I was abducted to Thangorodrim!");
+            }
 
             // no > if in a shop OR if waiting for confirmation
             if (in_store(p) || (p->current_value == ITEM_PENDING)) {
@@ -797,8 +802,10 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
                 source_player(who, get_player_index(get_connection(p->conn)), p);
 
-                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL))
+                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
+                    p->iron_timer = 500; // TODO: use table
                     return; // success
+                }
 
                 // if fail (not sure how it can happen, but..) - try again next turn
                 p->iron_timer++;

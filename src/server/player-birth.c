@@ -1274,9 +1274,11 @@ static void player_setup(struct player *p, int id, uint32_t account, bool ironma
         /* Hack -- DM redesigning the level (no_recall players) */
         if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
 
-        // Put us in ironman town
-        else if (ironman)
+        // Start iron_timer and put us in ironman town
+        else if (ironman) {
+            p->iron_timer = 5; // almost immediately after respawn - teleport to jail
             memcpy(&p->wpos, ironman_wpos(), sizeof(struct worldpos));
+        }
 
         /* Put us in base town */
         else if ((cfg_diving_mode > 1) || no_recall)

@@ -6387,10 +6387,8 @@ static int Enter_player(int ind)
     // (before we can not check options without passing them to functions as arguments)
    
     // no gold in ironman jail
-    if (p->exp == 0 && OPT(p, birth_ironman)) {
-        msg(p, "Where am I?.. Oh no.. It seems I was taken to Thangorodrim jail!");
+    if (p->exp == 0 && OPT(p, birth_ironman))
         p->au = 0;
-    }
     ////////////////////////////////////////////////////
 
     redraw_stuff(p);
