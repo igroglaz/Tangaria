@@ -2723,47 +2723,6 @@ void do_cmd_fountain(struct player *p, int item)
         }
     }
 
-    /* Summon water creature */
-    if (one_in_(20))
-    {
-        static const struct summon_chance_t
-        {
-            const char *race;
-            uint8_t minlev;
-            uint8_t chance;
-        } summon_chance[] =
-        {
-            {"giant green frog", 0, 100},
-            {"giant red frog", 7, 90},
-            {"water spirit", 17, 80},
-            {"water vortex", 21, 70},
-            {"water elemental", 33, 60},
-            {"water hound", 35, 50},
-            {"seahorse", 37, 40},                
-            {"Djinn", 45, 5}            
-        };
-        int i;
-
-        msg(p, "Something pops out of the water!");
-        do {i = randint0(N_ELEMENTS(summon_chance));}
-        while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
-        summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
-
-        /* Done */
-        return;
-    }
-
-    /* Fall in */
-    if (fountain && one_in_(20))
-    {
-        msg(p, "You slip and fall in the water.");
-        if (!player_passwall(p) && !can_swim(p))
-            take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a fountain");
-
-        /* Done */
-        return;
-    }
-
     /* Message */
     if ((item == -1) && fountain)
         msg(p, "You drink from the fountain.");
@@ -2927,6 +2886,47 @@ void do_cmd_fountain(struct player *p, int item)
     {
         msg(p, "The fountain suddenly dries up.");
         square_dry_fountain(c, &p->grid);
+    }
+    
+    /* Summon water creature */
+    if (one_in_(20))
+    {
+        static const struct summon_chance_t
+        {
+            const char *race;
+            uint8_t minlev;
+            uint8_t chance;
+        } summon_chance[] =
+        {
+            {"giant green frog", 0, 100},
+            {"giant red frog", 7, 90},
+            {"water spirit", 17, 80},
+            {"water vortex", 21, 70},
+            {"water elemental", 33, 60},
+            {"water hound", 35, 50},
+            {"seahorse", 37, 40},                
+            {"Djinn", 45, 5}            
+        };
+        int i;
+
+        msg(p, "Something pops out of the water!");
+        do {i = randint0(N_ELEMENTS(summon_chance));}
+        while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
+        summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
+
+        /* Done */
+        return;
+    }
+
+    /* Fall in */
+    if (fountain && one_in_(20))
+    {
+        msg(p, "You slip and fall in the water.");
+        if (!player_passwall(p) && !can_swim(p))
+            take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a fountain");
+
+        /* Done */
+        return;
     }
 }
 
