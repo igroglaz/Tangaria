@@ -2379,6 +2379,44 @@ bool effect_handler_DARKEN_LEVEL(effect_handler_context_t *context)
 }
 
 
+// Teleports Ironman player 1 level down
+bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
+{
+    int target_depth;
+    struct wild_type *w_ptr = get_wt_info_at(&context->origin->player->wpos.grid);
+    struct worldpos wpos;
+
+    context->ident = true;
+
+    target_depth = dungeon_get_next_level(context->origin->player,
+        context->origin->player->max_depth, 1); // 1 level down
+
+    wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
+
+    /* Hack -- DM redesigning the level */
+    // in Tangaria we do not design levels.. but just in case
+    if (chunk_inhibit_players(&wpos))
+    {
+        context->origin->player->iron_timer = 100;
+        return true;
+    }
+
+    /* Determine the level */
+    if (target_depth > context->origin->player->wpos.depth)
+    {
+        /* Change location */
+        disturb(context->origin->player, 0);
+        msgt(context->origin->player, MSG_TPLEVEL, "The floor opens beneath you!");
+        msg_misc(context->origin->player, " sinks through the floor!");
+        dungeon_change_level(context->origin->player, context->cave, &wpos, LEVEL_RAND);
+        return true;
+    }
+
+    // moving to next level failed
+    return false;
+}
+
+
 /*
  * Teleports 5 dungeon levels down (from max_depth)
  *
@@ -5731,10 +5769,6 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
         new_level_method = LEVEL_RAND;
     }
-
-    // Unsummon minions after teleport to prevent cheezing (killing unaware mobs by minions)
-    if (context->origin->player->slaves > 0)
-        player_inc_timed(context->origin->player, TMD_UNSUMMON_MINIONS, 1, false, false);
 
     /* Tell the player */
     msgt(context->origin->player, MSG_TPLEVEL, message);

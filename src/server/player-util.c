@@ -121,6 +121,10 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
         p->upkeep->redraw |= (PR_STATE);
     }
 
+    // Unsummon minions after teleport to prevent cheezing (killing unaware mobs by minions)
+    if (p->slaves > 0)
+        player_inc_timed(p, TMD_UNSUMMON_MINIONS, 1, false, false);
+
     // Stop weather
     Send_weather(p, 255, 0, 0);
 

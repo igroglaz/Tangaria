@@ -782,23 +782,27 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         p->y_cooldown--;
 
     // decrease ironman timer till next auto > (no need to check for ironman opt)
-    if (p->iron_timer) {
+    if (p->iron_timer && p->wpos.depth < 127) {
         p->iron_timer--;
         
         // move ironman player down
         if (!p->iron_timer) {
-            struct source who_body;
-            struct source *who = &who_body;
 
-            // no > if in a shop
-            if (in_store(p))
+            // no > if in a shop OR if waiting for confirmation
+            if (in_store(p) || (p->current_value == ITEM_PENDING)) {
                 p->iron_timer++;
-            // no > if waiting for confirmation
-            else if (p->current_value == ITEM_PENDING)
-                p->iron_timer++;
+            } else {
+                struct source who_body;
+                struct source *who = &who_body;
 
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_TELEPORT_LEVEL, who, "0", 0, 0, 0, 0, 0, NULL);
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+
+                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL))
+                    return; // success
+
+                // if fail (not sure how it can happen, but..) - try again next turn
+                p->iron_timer++;
+            }
         }
     }
 }
