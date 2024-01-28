@@ -2719,7 +2719,8 @@ void do_cmd_fountain(struct player *p, int item)
             poly_bat(p, 100, NULL);
 
             // on ironman drinking from fountains gives plenty of satiation
-            if (OPT(p, birth_ironman))
+            if (OPT(p, birth_ironman) ||
+                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
                 player_inc_timed(p, TMD_FOOD, 750, false, false);
 
             /* Done */
@@ -2887,7 +2888,8 @@ void do_cmd_fountain(struct player *p, int item)
 
     // on ironman drinking from fountains gives plenty of satiation
     // (works even if using bottles)
-    if (fountain && OPT(p, birth_ironman))
+    if (fountain && (OPT(p, birth_ironman) ||
+        (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))))
         player_inc_timed(p, TMD_FOOD, 750, false, false);
 
     /* Fountain dries out */
