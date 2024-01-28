@@ -936,6 +936,7 @@ struct player
     uint32_t account_score;         // account score (for ladder)
     uint8_t supporter;              // supporter's account lvl
     uint8_t y_cooldown;             // cooldown for racial abilities
+    uint16_t iron_timer;             // time until next auto > for ironman
 
     // Weather
     uint8_t weather_type;           // type of weather

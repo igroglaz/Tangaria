@@ -503,6 +503,7 @@ void wr_player_misc(void *data)
     wr_u32b(p->account_score);
     wr_byte(p->supporter);
     wr_byte(p->y_cooldown);
+    wr_u16b(p->iron_timer);
 
     if (p->is_dead) return;
 

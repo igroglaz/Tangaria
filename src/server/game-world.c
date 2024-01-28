@@ -780,6 +780,10 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // decrease racial ability cooldown
     if (p->y_cooldown > 0 && !(p->wpos.depth == 0))
         p->y_cooldown--;
+
+    // decrease ironman timer till next auto >
+    if (p->iron_timer > 0 && !(p->wpos.depth == 0))
+        p->iron_timer--;
 }
 
 
