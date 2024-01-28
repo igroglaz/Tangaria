@@ -220,6 +220,28 @@ void do_cmd_go_down(struct player *p)
         new_level_method = LEVEL_GHOST;
     }
 
+    // when ironman use stairs down - it resets iron_timer (auto > player)
+    if (OPT(p, birth_ironman)) {
+        int depth = p->wpos.depth;
+        int timer;
+
+        if (depth <= 10) {
+            timer = 11 * depth + 289;  // 1=300, 5=345, 10=400
+        } else if (depth <= 20) {
+            timer = 10 * depth + 300;  // 11=410, 15=450, 20=500
+        } else if (depth <= 30) {
+            timer = 20 * depth + 100;  // 21=520, 25=600, 30=700
+        } else if (depth <= 50) {
+            timer = 15 * depth + 250;  // 31=715, 40=850, 50=1000
+        } else if (depth <= 100) {
+            timer = 20 * depth;        // 51=1020, 75=1500, 100=2000
+        } else {
+            timer = 37 * depth - 1704; // 101=2040, 110=2403, 127=3000
+        }
+
+        p->iron_timer = timer;
+    }
+
     /* Change level */
     dungeon_change_level(p, c, &wpos, new_level_method);
 }
