@@ -383,6 +383,11 @@ static void play_ambient_sound(struct player *p)
         else
             sound(p, wf_info[get_wt_info_at(&p->wpos.grid)->type].sound_idx);
     }
+    else if (p->wpos.depth == 1)
+        ; // seems these sounds played every time when you enter level.
+          // At 1st dlvl we have ironman, old ruins etc dungeons and
+          // they have their own entrance sounds... so this one we turn off.
+          // Not sure, maybe we need fix all these dungeon "ambient" sounds..
     else if (p->wpos.depth <= 20)
         sound(p, MSG_AMBIENT_DNG1);
     else if (p->wpos.depth <= 40)
