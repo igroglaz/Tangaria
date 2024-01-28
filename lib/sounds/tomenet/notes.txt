@@ -19,7 +19,6 @@ player/commands/knock
 player/commands/throw/snowball
 
 player/commands/staircase/pad
-player/commands/staircase/rider
 
 player/commands/tunnel/hit_floor
 

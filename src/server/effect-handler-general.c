@@ -2406,8 +2406,10 @@ bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
     {
         /* Change location */
         disturb(context->origin->player, 0);
-        msgt(context->origin->player, MSG_TPLEVEL, "The floor opens beneath you!");
-        msg_misc(context->origin->player, " sinks through the floor!");
+        if (context->origin->player->wpos.depth) { // we play sound MSG_IRONMAN_START in other place
+            msgt(context->origin->player, MSG_TPLEVEL, "The floor opens beneath you!");
+            msg_misc(context->origin->player, " sinks through the floor!");
+        }
         dungeon_change_level(context->origin->player, context->cave, &wpos, LEVEL_RAND);
         return true;
     }

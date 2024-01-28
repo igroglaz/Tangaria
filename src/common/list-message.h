@@ -348,6 +348,7 @@ MSG(WILD_RAIN_LIGHT, "wild_rain_light")
 MSG(WILD_THUNDER_LIGHT, "wild_thunder_light")
 MSG(WILD_THUNDER, "wild_thunder")
 MSG(SECOND_CHANCE, "second_chance")
+MSG(IRONMAN_START, "ironman_start")
 
 // client T sounds
 MSG(BROWSE_BOOK, "browse_book")

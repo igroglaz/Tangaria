@@ -788,11 +788,6 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         // move ironman player down
         if (!p->iron_timer) {
 
-            if (p->exp == 0) // new player. just teleported from "town" to jail
-            { // TODO: add sound
-                msg(p, "Where am I?.. Oh no.. It seems I was abducted to Thangorodrim!");
-            }
-
             // no > if in a shop OR if waiting for confirmation
             if (in_store(p) || (p->current_value == ITEM_PENDING)) {
                 p->iron_timer++;
@@ -2315,6 +2310,11 @@ static void generate_new_level(struct player *p)
 
     if (p->wpos.grid.x == 1 && p->wpos.grid.y == 0 && p->wpos.depth == 5)
         sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
+    else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 6 && p->wpos.depth == 1)
+    {
+        // Ironman entrance
+        msgt(p, MSG_IRONMAN_START, "Where am I?.. Oh no.. It seems I was abducted to Thangorodrim!");
+    }
     else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 0 && p->wpos.depth == 1)
     {
         player_inc_timed(p, TMD_BLIND, 5, false, false); // kinda 'splash' screen
