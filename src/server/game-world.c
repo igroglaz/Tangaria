@@ -803,7 +803,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
                 source_player(who, get_player_index(get_connection(p->conn)), p);
 
                 if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
-                    p->iron_timer = 500; // TODO: use table
+                    p->iron_timer = set_ironman_timer(p->wpos.depth);
                     return; // success
                 }
 
