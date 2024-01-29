@@ -944,6 +944,20 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
+    // extra items for ironman
+    if (options[OPT_birth_ironman])
+    {
+        int sval = lookup_sval(TV_POTION, "Cure Light Wounds");
+        struct object_kind *kind = lookup_kind(TV_POTION, sval);
+        my_assert(kind);
+        player_outfit_aux(p, kind, 10, true);
+
+        sval = lookup_sval(TV_SCROLL, "Phase Door");
+        kind = lookup_kind(TV_SCROLL, sval);
+        my_assert(kind);
+        player_outfit_aux(p, kind, 10, true);
+    }
+
     // TODO: give ironman food, light, etc
     // as in T houses become permanent - no need to give free stuff
     /*
