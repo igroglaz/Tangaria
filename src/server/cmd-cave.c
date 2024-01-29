@@ -2546,6 +2546,11 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     p->upkeep->running_firststep = false;
 
+    // each step decrease iron_timer by -2 (in addition to -1 by turn pass)
+    if (OPT(p, birth_ironman)) {
+        p->iron_timer -= 2;
+    }
+
     /* Hack -- we're done if player is gone (trap door) */
     if (p->upkeep->new_level_method) return;
 

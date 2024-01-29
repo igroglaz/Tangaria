@@ -786,13 +786,13 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     if (p->y_cooldown > 0 && !(p->wpos.depth == 0))
         p->y_cooldown--;
 
-    // decrease ironman timer till next auto > (no need to check for ironman opt)
-    if (p->iron_timer && p->wpos.depth < 127) {
+    // decrease ironman timer till next auto >
+    if (OPT(p, birth_ironman)) {
         p->iron_timer--;
 
-        // move ironman player down
-        if (!p->iron_timer) {
-
+        // if timer is gone - move ironman player down
+        // (timer can have negative value cause we decrease it on movement too)
+        if (p->iron_timer < 0 && p->wpos.depth < 126) {
             // no > if in a shop OR if waiting for confirmation
             if (in_store(p) || (p->current_value == ITEM_PENDING)) {
                 p->iron_timer++;
