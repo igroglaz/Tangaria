@@ -1343,6 +1343,13 @@ static void add_stairs(struct chunk *c, int feat)
     /* Require that the stairs be at least 1/4th of the level's diameter apart */
     int minsep = MAX(MIN(c->width, c->height) / 4, 0);
 
+    // hack for ironman/brave dungeons
+    if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // ironman
+        (c->wpos.grid.x == 0 && c->wpos.grid.y == -6))   // brave
+    {
+        feat = FEAT_MORE; // down
+    }
+
     /* Get number of stairs from dungeon profile */
     if (feat == FEAT_MORE) dir = &((struct cave_profile *)dun->profile)->down;
     else dir = &((struct cave_profile *)dun->profile)->up;
