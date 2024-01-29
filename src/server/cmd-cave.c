@@ -2101,8 +2101,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         /* Leaving base town */
         } else if (in_base_town(&p->wpos))
         {
-            /* Forbid */
-            if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall))
+            // Forbid for brave
+            if ((cfg_diving_mode > 1) ||
+                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
             {
                 if (cfg_diving_mode > 1)
                     msg(p, "There is a wall blocking your way.");
@@ -2146,7 +2147,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             {
                 msg(p, "You shall not pass!");
                 return;
-            } else if (new_world_grid.y == -6 && !(OPT(p, birth_no_recall)))
+            } else if (new_world_grid.y == -6 &&
+                !(OPT(p, birth_no_recall) || OPT(p, birth_force_descend)))
             {
                 msg(p, "You shall not pass!");
                 return;

@@ -370,6 +370,7 @@ struct monster_race *get_mon_num(struct chunk *c, int generated_level, bool summ
     alloc_entry *table = alloc_race_table;
 
     /* No monsters in the base town (no_recall servers) */
+    // this can be done in town.txt.. but still
     if ((cfg_diving_mode == 3) && in_base_town(&c->wpos)) return (0);
 
     /* No monsters in dynamically generated towns */
