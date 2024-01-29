@@ -3039,8 +3039,8 @@ void do_cmd_check_players(struct player *p, int line)
             strnfmt(brave, sizeof(brave), "the%s%s%s%s",
                 (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
                 (OPT(q, birth_hardcore))? " hardcore": "",
-                (OPT(q, birth_force_descend))? " diving": "",
-                (OPT(q, birth_no_recall))? " ironfoot": "");
+                (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
+                (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
         }
 
         winner[0] = '\0';

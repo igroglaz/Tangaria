@@ -322,8 +322,8 @@ static void console_who(int ind, char *dummy)
         strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
             (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
             (OPT(p, birth_hardcore))? " hardcore": "",
-            (OPT(p, birth_force_descend))? " diving": "",
-            (OPT(p, birth_no_recall))? " ironfoot": "");
+            (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
+            (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
         }
 
         if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
@@ -407,9 +407,9 @@ static void console_whois(int ind, char *name)
         } else {
         strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
             (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
-            OPT(p, birth_hardcore)? " hardcore": "",
-            OPT(p, birth_force_descend)? " diving": "",
-            OPT(p, birth_no_recall)? " ironfoot": "");
+            (OPT(p, birth_hardcore))? " hardcore": "",
+            (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
+            (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
         }
     if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
 
