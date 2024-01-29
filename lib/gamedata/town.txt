@@ -26,9 +26,9 @@ short:Carn
 wpos:0:-6
 max-townies:0
 
-name:The Thangorodrim
-# Base town (jail) for Ironman (no-recall + force_descend + timelimit)
-short:Thangorodrim
+name:The Gondolin
+# Base town for Ironman (no-recall + force_descend + timelimit)
+short:Gondolin
 wpos:0:6
 max-townies:0
 

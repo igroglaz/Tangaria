@@ -287,8 +287,8 @@ flags:STREAMS
 rule:10000:1
 
 # Ironman (no-recall + force_descend + timelimit)
-name:The Jail
-short:Jail
+name:The Thangorodrim
+short:Thangorodrim
 wpos:0:6
 max-level:1
 flags:STREAMS
