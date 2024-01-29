@@ -24,18 +24,16 @@
 int set_ironman_timer(int depth) {
     int timer;
 
-    if (depth <= 10) {
-        timer = 11 * depth + 289;  // 1=300, 5=345, 10=400
-    } else if (depth <= 20) {
-        timer = 10 * depth + 300;  // 11=410, 15=450, 20=500
+    if (depth <= 20) {
+        timer = 53 * depth + 947;  // 1=1000, 10=1500, 20=2000
     } else if (depth <= 30) {
-        timer = 20 * depth + 100;  // 21=520, 25=600, 30=700
+        timer = 100 * depth;       // 21=2100, 25=2500, 30=3000
     } else if (depth <= 50) {
-        timer = 15 * depth + 250;  // 31=715, 40=850, 50=1000
+        timer = 100 * depth;       // 31=3100, 40=4000, 50=5000
     } else if (depth <= 100) {
-        timer = 20 * depth;        // 51=1020, 75=1500, 100=2000
+        timer = 80 * depth + 1000; // 51=5100, 75=7000, 100=9000
     } else {
-        timer = 37 * depth - 1704; // 101=2040, 110=2403, 127=3000
+        timer = 222 * depth - 13222; // 101=9500, 110=11200, 127=15000
     }
 
     return timer;
