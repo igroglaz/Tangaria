@@ -709,7 +709,7 @@ static void get_ahw(struct player *p)
 /*
  * Get the player's starting money
  */
-static void get_money(struct player *p, bool no_recall)
+static void get_money(struct player *p, bool no_recall, bool force_descend)
 {
     p->au = z_info->start_gold;
 
@@ -722,7 +722,7 @@ static void get_money(struct player *p, bool no_recall)
         p->au += p->account_score / 10;
 
     /* Give double starting gold to no_recall characters */
-    if ((cfg_diving_mode == 3) || no_recall) p->au *= 2;
+    if ((cfg_diving_mode == 3) || (no_recall && force_descend)) p->au *= 2;
 }
 
 
@@ -1176,7 +1176,7 @@ static int init_ladder(struct player *p)
 }
 
 
-static void player_setup(struct player *p, int id, uint32_t account, bool ironman, bool no_recall)
+static void player_setup(struct player *p, int id, uint32_t account, bool ironman, bool no_recall, bool force_descend)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool reposition = false, push_up = false;
@@ -1274,14 +1274,14 @@ static void player_setup(struct player *p, int id, uint32_t account, bool ironma
         /* Hack -- DM redesigning the level (no_recall players) */
         if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
 
-        // Start iron_timer and put us in ironman town
+        // ironman: start iron_timer and put us in ironman town
         else if (ironman) {
             p->iron_timer = 5; // almost immediately after respawn - teleport to jail
             memcpy(&p->wpos, ironman_wpos(), sizeof(struct worldpos));
         }
 
-        /* Put us in base town */
-        else if ((cfg_diving_mode > 1) || no_recall)
+        /* brave: put us in base town */
+        else if ((cfg_diving_mode > 1) || (no_recall && force_descend))
             memcpy(&p->wpos, base_wpos(), sizeof(struct worldpos));
 
         /* Put us in starting town */
@@ -1593,7 +1593,7 @@ const char *savefile_get_name(char *savefile, char *panicfile)
  *
  * Returns 1 if quick start is possible, 0 if quick start is not possible, -1 if an error occurs.
  */
-static int quickstart_ok(struct player *p, const char *name, int conn, bool ironman, bool no_recall)
+static int quickstart_ok(struct player *p, const char *name, int conn, bool ironman, bool no_recall, bool force_descend)
 {
     char previous[NORMAL_WID];
     const char *loadpath;
@@ -1603,7 +1603,7 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool iron
     if (!get_previous_incarnation(previous, sizeof(previous))) return 0;
 
     /* Clear old information */
-    init_player(p, conn, false, ironman, no_recall);
+    init_player(p, conn, false, ironman, no_recall, force_descend);
 
     /* Copy his name */
     my_strcpy(p->name, previous, sizeof(p->name));
@@ -1664,7 +1664,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     if (stat_roll[STAT_MAX] == BR_QDYNA)
     {
         int ret = quickstart_ok(p, name, conn, options[OPT_birth_ironman],
-            options[OPT_birth_no_recall]);
+            options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         if (ret == -1)
         {
@@ -1677,7 +1677,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Clear old information */
-    init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
+    init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+        options[OPT_birth_force_descend]);
 
     /* Copy his name */
     my_strcpy(p->name, name, sizeof(p->name));
@@ -1741,7 +1742,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
 
         /* Hack -- rewipe the player info if load failed */
-        init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
+        init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+            options[OPT_birth_force_descend]);
 
         /* Copy his name and connection info */
         my_strcpy(p->name, name, sizeof(p->name));
@@ -1804,7 +1806,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         player_embody(p);
 
         /* Give the player some money */
-        get_money(p, options[OPT_birth_no_recall]);
+        get_money(p, options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         /* Outfit the player, if they can sell the stuff */
         player_outfit(p, options);
@@ -1822,7 +1824,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         }
 
         /* Set his location, panel, etc. */
-        player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
+        player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+            options[OPT_birth_force_descend]);
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
@@ -1859,7 +1862,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Loading succeeded */
-    player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall]);
+    player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+        options[OPT_birth_force_descend]);
     return p;
 }
 

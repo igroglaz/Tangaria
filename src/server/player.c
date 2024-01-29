@@ -709,7 +709,7 @@ void player_cave_new(struct player *p, int height, int width)
 /*
  * Initialize player struct
  */
-void init_player(struct player *p, int conn, bool old_history, bool ironman, bool no_recall)
+void init_player(struct player *p, int conn, bool old_history, bool ironman, bool no_recall, bool force_descend)
 {
     int i;
     char history[N_HIST_LINES][N_HIST_WRAP];
@@ -817,7 +817,7 @@ void init_player(struct player *p, int conn, bool old_history, bool ironman, boo
     p->feeling = -1;
 
     /* Update the wilderness map */
-    if ((cfg_diving_mode > 1) || no_recall)
+    if ((cfg_diving_mode > 1) || (no_recall && force_descend))
     {
         wild_set_explored(p, base_wpos());
     } else if (ironman)
