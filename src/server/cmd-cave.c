@@ -74,7 +74,7 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* Force down */
-    if (OPT(p, birth_ironman))
+    if (OPT(p, birth_ironman) && !is_dm_p(p))
     {
         msg(p, "Ironman! You can not go back. Can not.");
         return;
