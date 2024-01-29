@@ -4506,11 +4506,21 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
 
     context->ident = true;
 
-    // No recall
-        if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
-		OPT(context->origin->player, birth_ironman) ||
-        player_has(context->origin->player, PF_NO_RECALL)) &&
+    // ironman characters instead of recall - teleport
+    if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
+        OPT(context->origin->player, birth_ironman)) &&
         !context->origin->player->total_winner)
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+        source_player(who, get_player_index(get_connection(context->origin->player->conn)),
+            context->origin->player);
+        effect_simple(EF_TELEPORT, who, "200", 0, 0, 0, 0, 0, NULL);
+    }
+
+    // player NO_RECALL flag
+    if (player_has(context->origin->player, PF_NO_RECALL) &&
+    !context->origin->player->total_winner)
     {
         msg(context->origin->player, "Nothing happens.");
         return false;
