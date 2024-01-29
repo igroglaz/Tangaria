@@ -2387,9 +2387,9 @@ bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
     struct worldpos wpos;
 
     context->ident = true;
-
+    
     target_depth = dungeon_get_next_level(context->origin->player,
-        context->origin->player->max_depth, 1); // 1 level down
+        context->origin->player->wpos.depth, 1); // 1 level down
 
     wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
 
