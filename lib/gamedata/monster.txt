@@ -13393,7 +13393,7 @@ name:Ulfang the Black
 base:person
 color:U
 speed:120
-hit-points:3000
+hit-points:2000
 light:2
 hearing:20
 armor-class:108
@@ -13412,7 +13412,7 @@ flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_DEPTH
 flags:SRES_LIGHT
 drop:food:Flagon of mead:100:3:4
-spell-freq:9
+spell-freq:10
 spells:S_KIN
 friends:60:1d3:mumak
 friends:100:3d3:Easterling champion:bodyguard
@@ -14198,7 +14198,7 @@ name:The Wight-King of the Barrow-downs
 base:wraith
 color:R
 speed:120
-hit-points:2500
+hit-points:3000
 hearing:30
 armor-class:60
 sleepiness:0
