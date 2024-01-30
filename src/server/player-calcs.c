@@ -2063,7 +2063,27 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_d += getAvgDam(p->poly_race);
 
         /* Fruit bat mode: get regular speed bonus */
-        if (OPT(p, birth_fruit_bat)) state->speed += (p->poly_race->speed - 110);
+        // no need to give +10 right on which will make gameplay dull
+        // and lets buff 50 lvl boni, as getting there as bat - is a real deal
+        if (OPT(p, birth_fruit_bat)) {
+            int speed_bonus = 0;
+
+            if (p->lev >= 50) {
+                speed_bonus = 15;
+            } else if (p->lev >= 40) {
+                speed_bonus = 10;
+            } else if (p->lev >= 30) {
+                speed_bonus = 8;
+            } else if (p->lev >= 20) {
+                speed_bonus = 6;
+            } else if (p->lev >= 10) {
+                speed_bonus = 4;
+            } else if (p->lev >= 1) {
+                speed_bonus = 2;
+            }
+
+            state->speed += speed_bonus;
+        }
 
         /* At low level, we get MOVES instead */
         else if (p->lev < 20) extra_moves = (p->poly_race->speed - 110) / 2;
