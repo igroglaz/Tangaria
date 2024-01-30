@@ -2396,3 +2396,14 @@ bool player_is_trapsafe(const struct player *p)
     if (p->poly_race && streq(p->poly_race->name, "rat-form") && magik(30 + p->lev)) return true;
     return false;
 }
+
+
+/*
+ * Check if the player has restricted use of stairs
+ */
+bool player_force_descend(struct player *p, int lvl)
+{
+    if (is_dm_p(p)) return false;
+    if ((cfg_limit_stairs >= lvl) || OPT(p, birth_force_descend)) return true;
+    return false;
+}

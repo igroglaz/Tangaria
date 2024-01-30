@@ -886,11 +886,8 @@ static bool set_recall_depth(struct player *p, quark_t note, int current_value, 
     }
 
     /* Force descent to a lower level if allowed */
-    if (((cfg_limit_stairs == 3) || OPT(p, birth_force_descend)) &&
-        (p->max_depth < z_info->max_depth - 1))
-    {
+    if (player_force_descend(p, 3) && (p->max_depth < z_info->max_depth - 1))
         p->recall_wpos.depth = dungeon_get_next_level(p, p->max_depth, 1);
-    }
 
     return true;
 }
@@ -4527,7 +4524,7 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
     }
 
     /* No recall from quest levels with force_descend while the quest is active */
-    if (((cfg_limit_stairs == 3) || OPT(context->origin->player, birth_force_descend)) &&
+    if (player_force_descend(context->origin->player, 3) &&
         is_quest_active(context->origin->player, context->origin->player->wpos.depth))
     {
         msg(context->origin->player, "Nothing happens.");
@@ -4555,7 +4552,7 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
         }
 
         /* Warn the player if they're descending to an unrecallable level */
-        if (((cfg_limit_stairs == 3) || OPT(context->origin->player, birth_force_descend)) &&
+        if (player_force_descend(context->origin->player, 3) &&
             surface_of_dungeon(&context->origin->player->wpos) &&
             is_quest_active(context->origin->player, context->origin->player->recall_wpos.depth) &&
             (context->origin->player->current_value == ITEM_REQUEST))
@@ -5712,15 +5709,14 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         {
             up = false;
         /* No going up with force_descend or on the surface */
-        } else if ((cfg_limit_stairs >= 2) || OPT(context->origin->player, birth_force_descend) ||
-            !base_depth)
+        } else if (player_force_descend(context->origin->player, 2) || !base_depth)
         {
             up = false;
         }
 
         /* No forcing player down to quest levels if they can't leave */
         // "quest lvl" means that it's Sauron (99) or Morgy (100) dlvl
-        if ((cfg_limit_stairs == 3) || OPT(context->origin->player, birth_force_descend) ||
+        if (player_force_descend(context->origin->player, 3) ||
             OPT(context->origin->player, birth_ironman))
         {
             target_depth = dungeon_get_next_level(context->origin->player,

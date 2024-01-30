@@ -830,8 +830,8 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
                         navalloc += navalloc;
                         av = mem_realloc(av, navalloc * sizeof(*av));
                     }
-                    nav++;
                     loc_copy(&av[nav], &grid);
+                    nav++;
                 }
             }
         }
@@ -874,8 +874,8 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
                         navalloc += navalloc;
                         av = mem_realloc(av, navalloc * sizeof(*av));
                     }
-                    nav++;
                     loc_copy(&av[nav], &grid);
+                    nav++;
                 }
                 found = true;
             }

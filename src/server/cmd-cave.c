@@ -78,7 +78,7 @@ void do_cmd_go_up(struct player *p)
     {
         msg(p, "Ironman! You can not go back. Can not.");
         return;
-    } else if ((cfg_limit_stairs >= 2) || OPT(p, birth_force_descend))
+    } else if (player_force_descend(p, 2))
     {
         /* Going up is forbidden (except ghosts) */
         if (!p->ghost)
@@ -89,8 +89,7 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* No going up from quest levels with force_descend while the quest is active */
-    if (((cfg_limit_stairs == 3) || OPT(p, birth_force_descend)) &&
-        is_quest_active(p, p->wpos.depth))
+    if (player_force_descend(p, 3) && is_quest_active(p, p->wpos.depth))
     {
         msg(p, "Something prevents you from going up...");
         return;
@@ -199,7 +198,7 @@ void do_cmd_go_down(struct player *p)
     descend_to = dungeon_get_next_level(p, p->wpos.depth, 1);
 
     /* Warn a force_descend player if they're going to a quest level */
-    if ((cfg_limit_stairs == 3) || OPT(p, birth_force_descend))
+    if (player_force_descend(p, 3))
     {
         descend_to = dungeon_get_next_level(p, p->max_depth, 1);
 
