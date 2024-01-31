@@ -220,7 +220,7 @@ void do_cmd_breath(struct player *p, int dir)
 
     // check cooldown
     // for now only PIXIE race
-    if (p->y_cooldown > 0) {
+    if (p->y_cooldown) {
         msg(p, "Racial ability cooldown: %u.", p->y_cooldown);
         sound(p, MSG_SPELL_FAIL);
         return;

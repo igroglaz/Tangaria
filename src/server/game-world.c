@@ -553,8 +553,8 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
     
-    // decrease racial ability cooldown
-    if (p->y_cooldown > 0 && !(p->wpos.depth == 0))
+    // decrease racial ability cooldown (only in dungeon)
+    if (p->y_cooldown && p->wpos.depth)
         p->y_cooldown--;
 }
 
