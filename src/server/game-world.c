@@ -1432,6 +1432,9 @@ static void process_player_world(struct player *p, struct chunk *c)
 
                 if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
                     p->iron_timer = set_ironman_timer(p->wpos.depth);
+                    // Cancel any WOR spells
+                    p->word_recall = 0;
+                    p->deep_descent = 0;
                     return; // success
                 }
 

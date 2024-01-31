@@ -1229,7 +1229,7 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
                 {
                     if (!one_in_(5))
                         msg(p, "You fail to drop cursed item this time. Try ones more..");
-                        return;
+                        return false;
                 }
                 if (c[i].power < 100)
                 {
