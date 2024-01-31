@@ -43,6 +43,7 @@ Gameplay changes
 PWMAngband:
 
 - Don't restrict use of stairs for Dungeon Master
+- Implement MORE_TOWNS as a dungeon flag
 
 Bugs fixed
 ----------

@@ -1518,6 +1518,21 @@ bool random_level(struct worldpos *wpos)
  */
 bool dynamic_town(struct worldpos *wpos)
 {
+    struct worldpos dpos;
+    struct location *dungeon;
+
+    /* Get the dungeon */
+    wpos_init(&dpos, &wpos->grid, 0);
+    dungeon = get_dungeon(&dpos);
+
+    /* Dungeon has static dungeon towns */
+    if (dungeon && df_has(dungeon->flags, DF_MORE_TOWNS))
+    {
+        /* Every 1000ft */
+        return ((wpos->depth == 20) || (wpos->depth == 40) || (wpos->depth == 60) ||
+            (wpos->depth == 80));
+    }
+
     /* Only on no_recall servers if there is no static pre-designed dungeon town loaded */
     if (special_town(wpos) || (cfg_diving_mode < 3)) return false;
 

@@ -16,5 +16,5 @@ DF(LAVA_RIVER, "May have lava streams")
 DF(WATER_RIVER, "May have water streams")
 DF(SAND_VEIN, "May have sand streams")
 DF(FAST_SPAWN, "Spawn monsters faster")
+DF(MORE_TOWNS, "Has static dungeon towns")
 DF(OPEN_SKY, "Dungeon under open sky")
-
