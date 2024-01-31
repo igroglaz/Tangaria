@@ -546,7 +546,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     for (i = 0; i < p->clazz->magic.total_spells; i++)
     {
         // cooldown restores only inside in the dungeon!
-        if (p->spell_cooldown[i] && !(p->wpos.depth == 0))
+        if (p->spell_cooldown[i] && p->wpos.depth)
         {
             p->spell_cooldown[i]--;
             if (!p->spell_cooldown[i]) p->upkeep->redraw |= (PR_SPELL);
@@ -1149,7 +1149,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     // Imp got 'perma-curse' - rng teleport
     // at first it's more often and at bigger distance, but later
     // it becomes more stable
-    if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
+    if (streq(p->race->name, "Imp") && p->wpos.depth)
     {
         int tele_chance = 200 + (p->lev * 2);
         if (one_in_(tele_chance))
@@ -1201,7 +1201,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     else if (streq(p->race->name, "Beholder") && one_in_(200 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
     /* Damned constantly hunted by monsters */
-    else if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
+    else if (streq(p->race->name, "Damned") && p->wpos.depth &&
         one_in_(200 + (p->lev * 10)))
     {
         struct source who_body;
@@ -1216,7 +1216,7 @@ static void process_player_world(struct player *p, struct chunk *c)
 ///////// SUMMONING EFFECTS /////////
 /////////////////////////////////////
     /* Traveller's dog */
-    if (streq(p->clazz->name, "Traveller") && !(p->wpos.depth == 0) && p->slaves < 1)
+    if (streq(p->clazz->name, "Traveller") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
@@ -1228,7 +1228,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
     }
     /* Trader's cat */
-    else if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Trader") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
@@ -1240,7 +1240,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
     }
     /* Scavenger's rat */
-    else if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Scavenger") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev > 9 && p->lev < 32)
             summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
@@ -1250,7 +1250,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
     }
     /* Tamer class: pets */
-    else if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->clazz->name, "Tamer") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 5)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
@@ -1276,7 +1276,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
     }
     /* Necromancer class golem */
-    else if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
+    else if (p->timed[TMD_GOLEM] && p->wpos.depth && (p->slaves < (p->lev / 10) + 1))
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -1309,7 +1309,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
     /* Assassins class sentry */
-    else if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
+    else if (p->timed[TMD_SENTRY] && p->wpos.depth)
     {
         for (i = 1; i < cave_monster_max(c); i++)
         {
@@ -1346,7 +1346,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
     /* Thunderlord race: eagle-companion */
-    else if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
+    else if (streq(p->race->name, "Thunderlord") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);

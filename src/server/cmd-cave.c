@@ -300,7 +300,7 @@ static bool do_cmd_open_test(struct player *p, struct chunk *c, struct loc *grid
     /* Handle polymorphed players */
     
     // can't open only if player is inside dungeon (to have access to houses)
-    if (p->poly_race && !OPT(p, birth_fruit_bat) && !(p->wpos.depth == 0))
+    if (p->poly_race && !OPT(p, birth_fruit_bat) && p->wpos.depth)
     {
         bool can_open = rf_has(p->poly_race->flags, RF_OPEN_DOOR);
         bool can_bash = rf_has(p->poly_race->flags, RF_BASH_DOOR);
@@ -686,7 +686,7 @@ static bool do_cmd_close_test(struct player *p, struct chunk *c, struct loc *gri
     /* Handle polymorphed players */
     
     // can't close only if player is inside dungeon (to have access to houses)
-    if (p->poly_race && !OPT(p, birth_fruit_bat) && !(p->wpos.depth == 0))
+    if (p->poly_race && !OPT(p, birth_fruit_bat) && p->wpos.depth)
     {
         bool can_open = rf_has(p->poly_race->flags, RF_OPEN_DOOR);
         bool can_bash = rf_has(p->poly_race->flags, RF_BASH_DOOR);
@@ -1198,7 +1198,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             /* Make Rare Herb or Crafting Material */
             if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
                  (streq(p->clazz->name, "Crafter")   && one_in_(3))) &&
-                !(p->wpos.depth == 0))
+                  p->wpos.depth)
             {
                 struct object *dig_reagent;
 
@@ -1284,7 +1284,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         // make Rare Mineral or Crafting Material
         else if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
                   (streq(p->clazz->name, "Crafter")   && one_in_(2))) &&
-                  !(p->wpos.depth == 0))
+                   p->wpos.depth)
         {
             struct object *dig_reagent;
 
