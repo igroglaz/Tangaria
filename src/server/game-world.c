@@ -512,236 +512,6 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
-    // polymorphed into 'fruit bats' can run.. but sometimes get side effects
-    if (p->poly_race) {
-        // to check bat we need get_race 1st
-        struct monster_race *race_fruit_bat = get_race("fruit bat");
-        if (p->poly_race == race_fruit_bat) {
-            if (p->wpos.depth && !OPT(p, birth_fruit_bat)) {
-                // ~ chance for both is 13
-                if (one_in_(40))
-                    player_inc_timed(p, TMD_CONFUSED, randint1(3), false, false);
-                else if (one_in_(20))
-                    player_inc_timed(p, TMD_IMAGE, randint1(3), false, false);
-            }
-        }
-    }
-
-    /////////////////////////////////////
-    //////// RACIAL MISC EFFECTS ////////
-    /////////////////////////////////////
-    // Imp got 'perma-curse' - rng teleport
-    // at first it's more often and at bigger distance, but later
-    // it becomes more stable
-    if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
-    {
-        int tele_chance = 200 + (p->lev * 2);
-        if (one_in_(tele_chance))
-        {
-            char dice[5];
-            int tele_dist = (200 - (p->lev * 4)) + 2;
-            int msg_imp = randint1(13);
-            struct source who_body;
-            struct source *who = &who_body;
-            
-            // learn black speech.. more or less canonic:
-            if (msg_imp == 1) msgt(p, MSG_IMP, "How do you like it?");
-            else if (msg_imp == 2) msgt(p, MSG_IMP, "Lat brogb za amol?");
-            else if (msg_imp == 3) msgt(p, MSG_IMP, "Brogbzalat amol?");
-            else if (msg_imp == 4) msgt(p, MSG_IMP, "Guz latur za?");
-            else if (msg_imp == 5) msgt(p, MSG_IMP, "Gur latur za?");
-            else if (msg_imp == 6) msgt(p, MSG_IMP, "Mor kiyu moz?");
-            else if (msg_imp == 7) msgt(p, MSG_IMP, "Amol latu za?");
-            // mixed:
-            else if (msg_imp == 8) msgt(p, MSG_IMP, "Amol kiyu ajog?");
-            else if (msg_imp == 9) msgt(p, MSG_IMP, "Arz lat alag?");
-            else if (msg_imp == 10) msgt(p, MSG_IMP, "Gur sun za?");
-            else if (msg_imp == 11) msgt(p, MSG_IMP, "Guz kiyu zab?");
-            else if (msg_imp == 12) msgt(p, MSG_IMP, "Narz lat zalo?");
-            else if (msg_imp == 13) msgt(p, MSG_IMP, "Amol sun zaurz?");
-
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            strnfmt(dice, sizeof(dice), "%d", tele_dist);
-            effect_simple(EF_TELEPORT, who, dice, 0, 0, 0, 0, 0, NULL);
-        }
-    }
-
-    // Werewolves howl from time to time at night waking everyone :D
-    else if (streq(p->race->name, "Werewolf") && !is_daytime())
-    {
-        int howl_chance = 200 + (p->lev * 2);
-        if (one_in_(howl_chance))
-        {
-            struct source who_body;
-            struct source *who = &who_body;
-
-            msgt(p, MSG_HOWL, "You can't handle your animal nature and "
-            "howl on top of your lungs!");
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
-        }
-    }
-    // Beholders may hallucinate from time to time
-    else if (streq(p->race->name, "Beholder") && one_in_(200 + (p->lev * 15)))
-        player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
-    /* Damned constantly hunted by monsters */
-    else if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
-        one_in_(200 + (p->lev * 10)))
-    {
-        struct source who_body;
-        struct source *who = &who_body;
-
-        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
-    }   
-
-/////////////////////////////////////
-///////// SUMMONING EFFECTS /////////
-/////////////////////////////////////
-    /* Traveller's dog */
-    if (streq(p->clazz->name, "Traveller") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev < 20)
-            summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
-        else if (p->lev < 30)
-            summon_specific_race_aux(p, c, &p->grid, get_race("puppy"), 1, true);
-        else if (p->lev < 50)
-            summon_specific_race_aux(p, c, &p->grid, get_race("dog"), 1, true);
-        else if (p->lev > 49)
-            summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
-    }
-    /* Trader's cat */
-    else if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev < 20)
-            summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
-        else if (p->lev < 30)
-            summon_specific_race_aux(p, c, &p->grid, get_race("cat"), 1, true);
-        else if (p->lev < 50)
-            summon_specific_race_aux(p, c, &p->grid, get_race("housecat"), 1, true);
-        else if (p->lev > 49)
-            summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
-    }
-    /* Scavenger's rat */
-    else if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev > 9 && p->lev < 32)
-            summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
-        else if (p->lev < 44)
-            summon_specific_race_aux(p, c, &p->grid, get_race("rat"), 1, true);
-        else if (p->lev > 43)
-            summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
-    }
-    /* Tamer class: pets */
-    else if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev < 5)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
-        else if (p->lev < 10)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed snake"), 1, true);
-        else if (p->lev < 15)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hawk"), 1, true);
-        else if (p->lev < 20)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed boar"), 1, true);
-        else if (p->lev < 25)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
-        else if (p->lev < 30)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed bear"), 1, true);
-        else if (p->lev < 35)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed reptile"), 1, true);
-        else if (p->lev < 40)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hellcat"), 1, true);
-        else if (p->lev < 45)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young unicorn"), 1, true);
-        else if (p->lev < 50)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed drake"), 1, true);
-        else if (p->lev > 49)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
-    }
-    /* Necromancer class golem */
-    else if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
-    {
-        for (i = 1; i < cave_monster_max(c); i++)
-        {
-            struct monster *mon = cave_monster(c, i);
-
-            if (mon->race)
-            {
-                // if we already got golem - no need to summon another one
-                if (streq(mon->race->name, "clay_golem")) break;
-                if (streq(mon->race->name, "stone_golem")) break;
-                if (streq(mon->race->name, "iron_golem")) break;
-                if (streq(mon->race->name, "fire_golem")) break;
-                if (streq(mon->race->name, "drolem_")) break;
-            }
-
-            // if we checked all monsters and no golem among them: summon one!
-            if (i+1 == cave_monster_max(c))
-            {
-                if (p->lev < 20 && p->lev > 9)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("clay_golem"), 1, true);
-                else if (p->lev < 30)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("stone_golem"), 1, true);
-                else if (p->lev < 40)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("iron_golem"), 1, true);
-                else if (p->lev < 50)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("fire_golem"), 1, true);
-                else if (p->lev > 49)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("drolem_"), 1, true);
-            }
-        }
-    }
-    /* Assassins class sentry */
-    else if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
-    {
-        for (i = 1; i < cave_monster_max(c); i++)
-        {
-            struct monster *mon = cave_monster(c, i);
-
-            if (mon->race)
-            {
-                // if we already got sentry - no need to summon another one
-                if (streq(mon->race->name, "blade sentry")) break;
-                if (streq(mon->race->name, "dart sentry")) break;
-                if (streq(mon->race->name, "spear sentry")) break;
-                if (streq(mon->race->name, "acid sentry")) break;
-                if (streq(mon->race->name, "fire sentry")) break;
-                if (streq(mon->race->name, "lightning sentry")) break;
-            }
-
-            // if we checked all monsters and no sentry among them: summon one!
-            if (i+1 == cave_monster_max(c))
-            {
-                if (p->lev < 10)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("blade sentry"), 1, true);
-                else if (p->lev < 20)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("dart sentry"), 1, true);
-                else if (p->lev < 30)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("spear sentry"), 1, true);
-                else if (p->lev < 40)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("acid sentry"), 1, true);
-                else if (p->lev < 50)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("fire sentry"), 1, true);
-                else if (p->lev > 49)
-                    summon_specific_race_aux(p, c, &p->grid, get_race("lightning sentry"), 1, true);
-                sound(p, MSG_SENTRY);
-            }
-        }
-    }
-    /* Thunderlord race: eagle-companion */
-    else if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
-    {
-        if (p->lev < 20)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
-        else if (p->lev < 30) // else if, so no need to set lower border req.
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
-        else if (p->lev < 50)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
-        else if (p->lev > 49)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
-    }
-
     /* Curse effects always decrement by 1 */
     for (i = 0; i < p->body.count; i++)
     {
@@ -786,33 +556,6 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
     // decrease racial ability cooldown
     if (p->y_cooldown > 0 && !(p->wpos.depth == 0))
         p->y_cooldown--;
-
-    // decrease ironman timer till next auto >
-    if (OPT(p, birth_ironman)) {
-        p->iron_timer--;
-
-        // if timer is gone - move ironman player down
-        // (timer can have negative value cause we decrease it on movement too)
-        if (p->iron_timer < 0 && p->wpos.depth < 126) {
-            // no > if in a shop OR if waiting for confirmation
-            if (in_store(p) || (p->current_value == ITEM_PENDING)) {
-                p->iron_timer++;
-            } else {
-                struct source who_body;
-                struct source *who = &who_body;
-
-                source_player(who, get_player_index(get_connection(p->conn)), p);
-
-                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
-                    p->iron_timer = set_ironman_timer(p->wpos.depth);
-                    return; // success
-                }
-
-                // if fail (not sure how it can happen, but..) - try again next turn
-                p->iron_timer++;
-            }
-        }
-    }
 }
 
 
@@ -1380,6 +1123,246 @@ static void process_player_world(struct player *p, struct chunk *c)
     if (!(turn.turn % 100))
         equip_learn_after_time(p);
 
+// T stuff
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+    // polymorphed into 'fruit bats' can run.. but sometimes get side effects
+    if (p->poly_race) {
+        // to check bat we need get_race 1st
+        struct monster_race *race_fruit_bat = get_race("fruit bat");
+        if (p->poly_race == race_fruit_bat) {
+            if (p->wpos.depth && !OPT(p, birth_fruit_bat)) {
+                // ~ chance for both is 13
+                if (one_in_(40))
+                    player_inc_timed(p, TMD_CONFUSED, randint1(3), false, false);
+                else if (one_in_(20))
+                    player_inc_timed(p, TMD_IMAGE, randint1(3), false, false);
+            }
+        }
+    }
+
+    /////////////////////////////////////
+    //////// RACIAL MISC EFFECTS ////////
+    /////////////////////////////////////
+    // Imp got 'perma-curse' - rng teleport
+    // at first it's more often and at bigger distance, but later
+    // it becomes more stable
+    if (streq(p->race->name, "Imp") && !(p->wpos.depth == 0))
+    {
+        int tele_chance = 200 + (p->lev * 2);
+        if (one_in_(tele_chance))
+        {
+            char dice[5];
+            int tele_dist = (200 - (p->lev * 4)) + 2;
+            int msg_imp = randint1(13);
+            struct source who_body;
+            struct source *who = &who_body;
+            
+            // learn black speech.. more or less canonic:
+            if (msg_imp == 1) msgt(p, MSG_IMP, "How do you like it?");
+            else if (msg_imp == 2) msgt(p, MSG_IMP, "Lat brogb za amol?");
+            else if (msg_imp == 3) msgt(p, MSG_IMP, "Brogbzalat amol?");
+            else if (msg_imp == 4) msgt(p, MSG_IMP, "Guz latur za?");
+            else if (msg_imp == 5) msgt(p, MSG_IMP, "Gur latur za?");
+            else if (msg_imp == 6) msgt(p, MSG_IMP, "Mor kiyu moz?");
+            else if (msg_imp == 7) msgt(p, MSG_IMP, "Amol latu za?");
+            // mixed:
+            else if (msg_imp == 8) msgt(p, MSG_IMP, "Amol kiyu ajog?");
+            else if (msg_imp == 9) msgt(p, MSG_IMP, "Arz lat alag?");
+            else if (msg_imp == 10) msgt(p, MSG_IMP, "Gur sun za?");
+            else if (msg_imp == 11) msgt(p, MSG_IMP, "Guz kiyu zab?");
+            else if (msg_imp == 12) msgt(p, MSG_IMP, "Narz lat zalo?");
+            else if (msg_imp == 13) msgt(p, MSG_IMP, "Amol sun zaurz?");
+
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            strnfmt(dice, sizeof(dice), "%d", tele_dist);
+            effect_simple(EF_TELEPORT, who, dice, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+
+    // Werewolves howl from time to time at night waking everyone :D
+    else if (streq(p->race->name, "Werewolf") && !is_daytime())
+    {
+        int howl_chance = 200 + (p->lev * 2);
+        if (one_in_(howl_chance))
+        {
+            struct source who_body;
+            struct source *who = &who_body;
+
+            msgt(p, MSG_HOWL, "You can't handle your animal nature and "
+            "howl on top of your lungs!");
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+        }
+    }
+    // Beholders may hallucinate from time to time
+    else if (streq(p->race->name, "Beholder") && one_in_(200 + (p->lev * 15)))
+        player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 
+    /* Damned constantly hunted by monsters */
+    else if (streq(p->race->name, "Damned") && !(p->wpos.depth == 0) &&
+        one_in_(200 + (p->lev * 10)))
+    {
+        struct source who_body;
+        struct source *who = &who_body;
+
+        msgt(p, MSG_VERSION, "Gods sent another emissary to deal with you...");
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+    }   
+
+/////////////////////////////////////
+///////// SUMMONING EFFECTS /////////
+/////////////////////////////////////
+    /* Traveller's dog */
+    if (streq(p->clazz->name, "Traveller") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("puppy"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("dog"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
+    }
+    /* Trader's cat */
+    else if (streq(p->clazz->name, "Trader") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("cat"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("housecat"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("big cat"), 1, true);
+    }
+    /* Scavenger's rat */
+    else if (streq(p->clazz->name, "Scavenger") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev > 9 && p->lev < 32)
+            summon_specific_race_aux(p, c, &p->grid, get_race("baby rat"), 1, true);
+        else if (p->lev < 44)
+            summon_specific_race_aux(p, c, &p->grid, get_race("rat"), 1, true);
+        else if (p->lev > 43)
+            summon_specific_race_aux(p, c, &p->grid, get_race("fancy rat"), 1, true);
+    }
+    /* Tamer class: pets */
+    else if (streq(p->clazz->name, "Tamer") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 5)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed frog"), 1, true);
+        else if (p->lev < 10)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed snake"), 1, true);
+        else if (p->lev < 15)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hawk"), 1, true);
+        else if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed boar"), 1, true);
+        else if (p->lev < 25)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
+        else if (p->lev < 30)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed bear"), 1, true);
+        else if (p->lev < 35)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed reptile"), 1, true);
+        else if (p->lev < 40)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hellcat"), 1, true);
+        else if (p->lev < 45)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young unicorn"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed drake"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed dragon"), 1, true);
+    }
+    /* Necromancer class golem */
+    else if (p->timed[TMD_GOLEM] && !(p->wpos.depth == 0) && (p->slaves < (p->lev / 10) + 1))
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got golem - no need to summon another one
+                if (streq(mon->race->name, "clay_golem")) break;
+                if (streq(mon->race->name, "stone_golem")) break;
+                if (streq(mon->race->name, "iron_golem")) break;
+                if (streq(mon->race->name, "fire_golem")) break;
+                if (streq(mon->race->name, "drolem_")) break;
+            }
+
+            // if we checked all monsters and no golem among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 20 && p->lev > 9)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("clay_golem"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("stone_golem"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("iron_golem"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire_golem"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("drolem_"), 1, true);
+            }
+        }
+    }
+    /* Assassins class sentry */
+    else if (p->timed[TMD_SENTRY] && !(p->wpos.depth == 0))
+    {
+        for (i = 1; i < cave_monster_max(c); i++)
+        {
+            struct monster *mon = cave_monster(c, i);
+
+            if (mon->race)
+            {
+                // if we already got sentry - no need to summon another one
+                if (streq(mon->race->name, "blade sentry")) break;
+                if (streq(mon->race->name, "dart sentry")) break;
+                if (streq(mon->race->name, "spear sentry")) break;
+                if (streq(mon->race->name, "acid sentry")) break;
+                if (streq(mon->race->name, "fire sentry")) break;
+                if (streq(mon->race->name, "lightning sentry")) break;
+            }
+
+            // if we checked all monsters and no sentry among them: summon one!
+            if (i+1 == cave_monster_max(c))
+            {
+                if (p->lev < 10)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("blade sentry"), 1, true);
+                else if (p->lev < 20)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("dart sentry"), 1, true);
+                else if (p->lev < 30)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("spear sentry"), 1, true);
+                else if (p->lev < 40)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("acid sentry"), 1, true);
+                else if (p->lev < 50)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("fire sentry"), 1, true);
+                else if (p->lev > 49)
+                    summon_specific_race_aux(p, c, &p->grid, get_race("lightning sentry"), 1, true);
+                sound(p, MSG_SENTRY);
+            }
+        }
+    }
+    /* Thunderlord race: eagle-companion */
+    else if (streq(p->race->name, "Thunderlord") && !(p->wpos.depth == 0) && p->slaves < 1)
+    {
+        if (p->lev < 20)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed young eagle"), 1, true);
+        else if (p->lev < 30) // else if, so no need to set lower border req.
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed eagle"), 1, true);
+        else if (p->lev < 50)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed great eagle"), 1, true);
+        else if (p->lev > 49)
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed giant eagle"), 1, true);
+    }
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// END T stuff
+
     /*** Involuntary Movement ***/
 
     /* Delayed Word-of-Recall */
@@ -1427,6 +1410,33 @@ static void process_player_world(struct player *p, struct chunk *c)
 
                 /* Failure */
                 p->deep_descent++;
+            }
+        }
+    }
+
+    // decrease ironman timer till next auto >
+    if (OPT(p, birth_ironman)) {
+        p->iron_timer--;
+
+        // if timer is gone - move ironman player down
+        // (timer can have negative value cause we decrease it on movement too)
+        if (p->iron_timer < 0 && p->wpos.depth < 126) {
+            // no > if in a shop OR if waiting for confirmation
+            if (in_store(p) || (p->current_value == ITEM_PENDING)) {
+                p->iron_timer++;
+            } else {
+                struct source who_body;
+                struct source *who = &who_body;
+
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+
+                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
+                    p->iron_timer = set_ironman_timer(p->wpos.depth);
+                    return; // success
+                }
+
+                // if fail (not sure how it can happen, but..) - try again next turn
+                p->iron_timer++;
             }
         }
     }
