@@ -1223,6 +1223,14 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
             {
                 if (c[i].power == 0) continue;
+                
+                if (OPT(p, birth_ironman) ||
+                   (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
+                {
+                    if (!one_in_(5))
+                        msg(p, "You fail to drop cursed item this time. Try ones more..");
+                        return;
+                }
                 if (c[i].power < 100)
                 {
                    msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
