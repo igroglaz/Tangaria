@@ -1847,7 +1847,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
  * context->value.base should be the minimum, and
  * context->value.m_bonus the percentage
  */
-bool effect_handler_HEAL_HP(effect_handler_context_t *context)
+ // this is only for consumables - potions, scrolls, food. No spells, staves, wands etc
+bool effect_handler_HEAL_HP_ONCE(effect_handler_context_t *context)
 {
     int num, minh;
     int current_hp_percent;
@@ -1896,6 +1897,40 @@ bool effect_handler_HEAL_HP(effect_handler_context_t *context)
         }
     }
 
+    if (num <= 0) return true;
+
+    if (context->self_msg) msg(context->origin->player, context->self_msg);
+    hp_player(context->origin->player, num);
+
+    context->self_msg = NULL;
+    return true;
+}
+
+
+/*
+ * Heal the player by a given percentage of their wounds, or a minimum
+ * amount, whichever is larger.
+ *
+ * context->value.base should be the minimum, and
+ * context->value.m_bonus the percentage
+ */
+bool effect_handler_HEAL_HP(effect_handler_context_t *context)
+{
+    int num, minh;
+
+    /* Always ID */
+    context->ident = true;
+
+    /* No healing needed */
+    if (context->origin->player->chp >= context->origin->player->mhp) return true;
+
+    /* Figure percentage healing level */
+    num = ((context->origin->player->mhp - context->origin->player->chp) *
+        context->value.m_bonus) / 100;
+
+    /* Enforce minimum */
+    minh = context->value.base + damroll(context->value.dice, context->value.sides);
+    if (num < minh) num = minh;
     if (num <= 0) return true;
 
     if (context->self_msg) msg(context->origin->player, context->self_msg);

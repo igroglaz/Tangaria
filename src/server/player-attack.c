@@ -1963,7 +1963,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                     while (e)
                     {
-                        if (e->index == EF_HEAL_HP)
+                        if (e->index == EF_HEAL_HP_ONCE)
                         {
                             random_value v;
                             char dice[5];
@@ -1977,7 +1977,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                                 effect_simple(EF_MON_HEAL_HP, who, dice, 0, 0, 0, 0, 0, NULL);
                             }
                             else if (who->player)
-                                effect_simple(EF_HEAL_HP, who, dice, 0, 0, 0, 0, 0, NULL);
+                                effect_simple(EF_HEAL_HP_ONCE, who, dice, 0, 0, 0, 0, 0, NULL);
                             break;
                         }
                         e = e->next;

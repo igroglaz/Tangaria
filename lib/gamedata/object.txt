@@ -246,7 +246,7 @@ effect:CURE:BLACKBREATH
 effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CUT
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:5d2
 effect:NOURISH:INC_BY
 dice:5
@@ -393,7 +393,7 @@ cost:0
 alloc:3:30 to 100
 pile:10:1d2
 effect:CURE:POISONED
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:4d8
 effect:NOURISH:INC_BY
 dice:40
@@ -492,7 +492,7 @@ weight:2
 cost:0
 alloc:3:20 to 100
 pile:10:1d3
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:3
 effect:TIMED_INC:FAST:0:5
 dice:2d2
@@ -545,7 +545,7 @@ effect:CURE:BLIND
 effect:CURE:POISONED
 effect:CURE:CUT
 effect:CURE:STUN
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:30
 effect:NOURISH:INC_BY
 dice:3
@@ -593,7 +593,7 @@ weight:1
 cost:150
 alloc:10:5 to 100
 pile:70:1d4
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:200
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_COLD
@@ -3523,7 +3523,7 @@ dice:10
 effect:TIMED_DEC:CUT
 dice:20
 effect:CURE:BLIND
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:20
 effect:TIMED_INC:OPP_CONF
 dice:1d1
@@ -3549,7 +3549,7 @@ dice:2
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:CURE:CUT
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:40
 effect:TIMED_INC:OPP_CONF
 dice:1d1
@@ -3574,7 +3574,7 @@ effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:60
 effect:TIMED_INC:OPP_CONF
 dice:1d1
@@ -3595,7 +3595,7 @@ effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:300+m35
 effect:TIMED_INC:OPP_CONF
 dice:1d1
@@ -3617,7 +3617,7 @@ effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:1200
 effect:TIMED_INC:OPP_CONF
 dice:1d1
@@ -3633,7 +3633,7 @@ level:60
 weight:4
 cost:6000
 alloc:20:60 to 100
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:2000
 effect:UPDATE_STUFF
 effect:RESTORE_STAT:CHR
@@ -3822,7 +3822,7 @@ dice:25+1d25
 effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:10
 
 name:Berserk Strength
@@ -3846,7 +3846,7 @@ dice:25+1d25
 effect:TIMED_SET:BOLD
 dice:25+1d25
 effect:CURE:AFRAID
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:30
 
 name:Boldness
@@ -6061,7 +6061,7 @@ cost:0
 alloc:40:0 to 100
 pile:25:1d2
 effect:CURE:POISONED
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:1d50
 effect:NOURISH:INC_BY
 dice:5
@@ -6236,7 +6236,9 @@ weight:4
 cost:0
 alloc:50:0 to 100
 pile:70:1d3
-#hardcoded
+#hardcoded (satiation)
+# ironman: do not give additional healing boni on drinking water..
+# so regular HEAL_HP instead of HEAL_HP_ONCE.
 effect:HEAL_HP
 dice:1
 msg_self:You feel less thirsty. Could be especially useful if hungry.
@@ -7124,7 +7126,8 @@ level:1
 weight:2
 cost:0
 effect:CURE:POISONED
-effect:HEAL_HP
+# ironman: it gives endless supply of 30% healing potions to alchemist. ok?
+effect:HEAL_HP_ONCE
 dice:10
 desc:Cures 10 points of damage and neutralizes poison.
 
@@ -7160,7 +7163,7 @@ type:potion
 level:20
 weight:4
 cost:0
-effect:HEAL_HP
+effect:HEAL_HP_ONCE
 dice:200+m35
 effect:RESTORE_MANA
 dice:50
