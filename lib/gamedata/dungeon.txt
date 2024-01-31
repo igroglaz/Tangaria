@@ -278,12 +278,12 @@ perma:E3 P dungeon wall f:1150
 rule:10000:1
 
 # Carn Dum dungeon (in V it's called "Main Angband dungeon")
-# Brave mode (no-recall + force_descend)
+# Brave mode (no-recall + force_descend). It has towns every 1000ft 
 name:Angmar
 short:Angmar
 wpos:0:-6
 max-level:1
-flags:STREAMS
+flags:STREAMS | MORE_TOWNS
 rule:10000:1
 
 # Ironman (no-recall + force_descend + timelimit)
