@@ -1867,8 +1867,23 @@ bool effect_handler_HEAL_HP(effect_handler_context_t *context)
     minh = context->value.base + damroll(context->value.dice, context->value.sides);
     if (num < minh) num = minh;
 
+    // all healing at ironman restores min 30% HP (even 40% if on low HP)
+    if (OPT(context->origin->player, birth_ironman)) {
+        // 1) Calculate how much % from full hp
+        current_hp_percent = (context->origin->player->chp * 100) / context->origin->player->mhp;
+
+        // 2) Calculate min healing percentage
+        min_heal_percent = (minh * 100) / context->origin->player->mhp;
+
+        // 3) If minh restores less than 30% - restore up to 30%
+        if (min_heal_percent < 30) {
+            num = context->origin->player->mhp / 3;
+            // +10% boni for ironman on low hp (if not hardcore)
+            if (current_hp_percent < 10 && !OPT(context->origin->player, birth_hardcore))
+                num += context->origin->player->mhp / 9;
+        }
     // additional heal for non-HC characters
-    if (!OPT(context->origin->player, birth_hardcore)) {
+    } else if (!OPT(context->origin->player, birth_hardcore)) {
         // 1) Calculate how much % from full hp
         current_hp_percent = (context->origin->player->chp * 100) / context->origin->player->mhp;
 
