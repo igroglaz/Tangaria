@@ -1590,13 +1590,31 @@ static bool do_cmd_use_end(struct player *p, struct object *obj, bool ident, boo
             else
                 obj->timeout = randcalc(obj->time, 0, RANDOMISE);
         }
-        else if (use == USE_SINGLE)
+        else if (use == USE_SINGLE) // potions, scrolls, food etc
         {
-            /* Log ownership change (in case we use item from the floor) */
-            object_audit(p, obj);
+            // ironman consume Phase Door in x% cases
+            bool useScroll = true;
+            
+            if (OPT(p, birth_ironman))
+            {
+                if (obj->tval == TV_SCROLL)
+                {
+                    if (obj->kind == lookup_kind_by_name(TV_SCROLL, "Phase Door")) {
+                        int chance = 30 - (p->lev / 2); 
+                        useScroll = magik(chance); // 30% -> 5%
+                    }
+                }
+            }
 
-            /* Destroy an item */
-            none_left = use_object(p, obj, 1, true);
+            // Regular use of single-use objects
+            if (useScroll)
+            {
+                /* Log ownership change (in case we use item from the floor) */
+                object_audit(p, obj);
+
+                /* Destroy an item */
+                none_left = use_object(p, obj, 1, true);
+            }
         }
     }
 
