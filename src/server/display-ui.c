@@ -2274,9 +2274,7 @@ static void player_funeral(struct player *p)
 void player_dump(struct player *p, bool server)
 {
     char dumpname[42];
-    char dirpath[MSG_LEN];
-    char path[MSG_LEN];
-    char ladderpath[MSG_LEN];
+    char ladderpath[80];
 
     /* Only record the original death */
     if (p->ghost == 1) return;
@@ -2299,22 +2297,18 @@ void player_dump(struct player *p, bool server)
         // now save dump copy for website ladder (for 10+lvls)
         if (p->lev > 9)
         {
-            path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_USER, "ladder");
-
-            // Ensure ladder directory exists under user directory, and if not, create it
-            if (!dir_exists(dirpath))
+            // Ensure ladder directory exists under .\lib\user\, and if not, create it
+            if (!dir_exists(".\\lib\\user\\ladder"))
             {
-                if (!dir_create(dirpath))
+                if (!dir_create(".\\lib\\user\\ladder"))
                 {
-                    plog_fmt("Failed to create directory ladder under '%s'!", ANGBAND_DIR_USER);
+                    plog("Failed to create directory ladder under .\\lib\\user\\!");
                     return;  // Panic-exit the function if we can't create the directory
                 }
             }
 
-            path_build(path, sizeof(path), dirpath, "%s-%s.txt");
-
             // Save another copy in ladder directory
-            strnfmt(ladderpath, sizeof(ladderpath), path, p->name, buf_tm);
+            strnfmt(ladderpath, sizeof(ladderpath), "ladder\\%s-%s.txt", p->name, buf_tm);
             if (dump_save(p, ladderpath, true))
                 msg(p, "Character LADDER-dump successful in ladder directory (server).");
             else
