@@ -70,6 +70,7 @@ static int ticks10 = 0; // 'deci-ticks', counting just 0..9 in 10ms intervals
 static int weather_ticks = 0; // weather ticks
 static int animation_ticks = 0; // animation ticks
 static int slashfx_ticks = 0; // slashfx ticks
+static int slashfx_ascii_ticks = 0; // slashfx ascii ticks
 
 static bool request_redraw;
 static sockbuf_t rbuf, wbuf, qbuf;
@@ -221,13 +222,20 @@ void do_keepalive(void)
     {
         if (OPT(player, slash_fx_ascii))
         {
-            // attempt to keep track of 'ticks' (100ms resolution)
-            if ((ticks - slashfx_ticks) > 1)
+            // attempt to keep track of 'deci-ticks' (10ms resolution)
+            if (ticks10 != slashfx_ticks)
             {
-                slashfx_ticks = ticks;
+                slashfx_ticks = ticks10;
+                slashfx_ascii_ticks++;
 
-                //* Slash fx (ASCII mode) *//
-                if (Setup.initialized) do_slashfx_ascii();
+                // check to see if it has been 50ms
+                if (slashfx_ascii_ticks > 5)
+                {
+                    slashfx_ascii_ticks = 0;
+
+                    //* Slash fx (ASCII mode) *//
+                    if (Setup.initialized) do_slashfx_ascii();
+                }
             }
         }
     }
@@ -4633,7 +4641,9 @@ static int Receive_slash_fx(void)
     else slashfx_refresh_char_ascii(x, y);
 
     // Remember new information
-    sfx_move[y][x] = 4;
+    if (use_graphics) sfx_move[y][x] = 4;
+    else sfx_move[y][x] = 16;
+
     sfx_info_d[y][x] = dir;
     slashfx_save_char(x, y);
 
