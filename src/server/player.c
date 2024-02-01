@@ -318,13 +318,13 @@ static void adjust_level(struct player *p)
                 }
             }
 
-            // For 10-20-30-40-50 levels for hardcore characters - award an extra point
+            // award an extra point for hardcore heroes
             if (OPT(p, birth_hardcore)) {
-                if (p->max_lev % 10 == 0 && p->max_lev >= 10) {
-                    if (!(p->account_score > 25 && p->max_lev == 10)) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being hardcore!");
-                    }
+                if (p->max_lev == 19 || p->max_lev == 29 || 
+                    p->max_lev == 39 || p->max_lev == 49) {
+                    p->account_score++;
+                    msg(p, "You've earned an extra account point for being hardcore!");
+                    msg(p, "You have %lu account points.", p->account_score);
                 }
             }
 
@@ -332,16 +332,26 @@ static void adjust_level(struct player *p)
             if (OPT(p, birth_ironman)) {
                 if (p->max_lev % 10 == 0 && p->max_lev >= 10) {
                     int bonusPoints = p->max_lev / 10; // 20 lvl +2; 30 lvl +3...
+                    // not too much extra point for playing "easy" classes
+                    // for "easy": 10-20 = 1 points; 30 = 2; 40 = 3; 50 = 4
+                    if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+                        streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever") ||
+                        streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
+                        streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
+                            bonusPoints--;
+                    if (bonusPoints < 1) bonusPoints = 1;
                     p->account_score += bonusPoints;
                     msg(p, "You've earned %d extra account points for being ironman!", bonusPoints);
                 }
             // brave got extra points too
             } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
-                if (p->max_lev % 10 == 0 && p->max_lev >= 10) {
-                    if (!(p->account_score > 25 && p->max_lev == 10)) {
+                if (p->max_lev == 15 || p->max_lev == 25 || 
+                    p->max_lev == 35 || p->max_lev == 45 || p->max_lev == 50) {
+                    p->account_score++;
+                    if (p->max_lev == 45 || p->max_lev == 50) // one more point for 45 and 50
                         p->account_score++;
-                        msg(p, "You've earned an extra account point for being brave!");
-                    }
+                    msg(p, "You've earned an extra account point for being brave!");
+                    msg(p, "You have %lu account points.", p->account_score);
                 }
             }
 
