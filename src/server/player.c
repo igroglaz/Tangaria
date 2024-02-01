@@ -212,6 +212,7 @@ static void adjust_level(struct player *p)
         /* Save the highest level */
         if (p->lev > p->max_lev)
         {
+            bool extraPoint = false;
             struct source who_body;
             struct source *who = &who_body;
 
@@ -343,33 +344,21 @@ static void adjust_level(struct player *p)
             if (OPT(p, birth_hardcore)) {
                 int classPower = class_power(p->clazz->name);
                 if (classPower == 3) {
-                    if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being hardcore!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                    if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50)
+                            extraPoint = true;
                 } else if (classPower == 2) {
                     if (p->max_lev == 19 || p->max_lev == 29 || 
-                        p->max_lev == 39 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being hardcore!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                        p->max_lev == 39 || p->max_lev == 50)
+                            extraPoint = true;
                 } else if (classPower == 1) {
                     if (p->max_lev == 19 || p->max_lev == 29 ||
-                        p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being hardcore!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                        p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50)
+                            extraPoint = true;
                 } else {
                     if (p->max_lev == 14 || p->max_lev == 24 || 
                         p->max_lev == 34 || p->max_lev == 44 ||
-                        p->max_lev == 49 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being hardcore!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                        p->max_lev == 49 || p->max_lev == 50)
+                            extraPoint = true;
                 }
             }
 
@@ -378,47 +367,33 @@ static void adjust_level(struct player *p)
                 int classPower = class_power(p->clazz->name);
                 if (classPower == 3) {
                     if (p->max_lev == 20 || p->max_lev == 30 || 
-                        p->max_lev == 40 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being ironman!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                        p->max_lev == 40 || p->max_lev == 50)
+                            extraPoint = true;
                 } else if (classPower == 2) { // 15-20-25-30-35-40-45-50
-                    if (p->max_lev >= 15 && p->max_lev % 5 == 0) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being ironman!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                    if (p->max_lev >= 15 && p->max_lev % 5 == 0)
+                            extraPoint = true;
                 } else { // no need classPower == 1 check for this mode.. too hard
-                    if (p->max_lev >= 10 && p->max_lev % 5 == 0) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being ironman!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                    if (p->max_lev >= 10 && p->max_lev % 5 == 0)
+                            extraPoint = true;
                 }
             // brave got extra points too
             } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
                 int classPower = class_power(p->clazz->name);
                 if (classPower == 3) {
                     if (p->max_lev == 24 || p->max_lev == 34 ||
-                        p->max_lev == 44 || p->max_lev == 50) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being brave!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                        p->max_lev == 44 || p->max_lev == 50)
+                            extraPoint = true;
                 } else if (classPower == 2) { // 20-25-30-35-40-45-50
-                    if (p->max_lev >= 20 && p->max_lev % 5 == 0) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being brave!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                    if (p->max_lev >= 20 && p->max_lev % 5 == 0)
+                            extraPoint = true;
                 } else { // no classPower==1 check. // 15-20-25-30-35-40-45-50
-                    if (p->max_lev >= 15 && p->max_lev % 5 == 0) {
-                        p->account_score++;
-                        msg(p, "You've earned an extra account point for being brave!");
-                        msg(p, "You have %lu account points.", p->account_score);
-                    }
+                    if (p->max_lev >= 15 && p->max_lev % 5 == 0)
+                            extraPoint = true;
                 }
+            }
+
+            if (extraPoint) {
+                msg(p, "Extra point awarded for your hard-mode challenge! You have %lu points.", ++p->account_score);
             }
 
             /* Message */
