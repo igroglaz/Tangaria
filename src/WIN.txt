@@ -1,9 +1,9 @@
 How to build all libraries required to run the WIN client:
 
-- Download and unzip ZLIB 1.2.11 in the same root directory as your \PWMAngband folder:
+- Download and unzip ZLIB 1.2.11 in the same root directory as your \Tangaria-dev folder:
 	http://zlib.net
-- Download and unzip LIBPNG 1.6.37 in the same root directory as your \PWMAngband folder:
+- Download and unzip LIBPNG 1.6.37 in the same root directory as your \Tangaria-dev folder:
 	http://sourceforge.net/projects/libpng/files
-- Replace the pngwrite.c file by the one from the \PWMAngband\src\fix folder to fix a linker error
+- Replace the pngwrite.c file by the one from the \Tangaria-dev\src\fix folder to fix a linker error
 - Find ZLIB_DIR in lpng1637\scripts\makefile.bc32 and set ZLIB_DIR=..\zlib-1.2.11 instead
-- Run \PWMAngband\src\WIN.bat
+- Run \Tangaria-dev\src\WIN.bat
