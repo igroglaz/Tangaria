@@ -52,6 +52,27 @@ const char *stat_idx_to_name(int type)
 }
 
 
+// to find out how class powerful - used for checking account points
+int class_power(const char* clazz) {
+    // very strong
+    if (streq(clazz, "Warrior") || streq(clazz, "Monk") ||
+        streq(clazz, "Shapechanger") || streq(clazz, "Unbeliever"))
+        return 1;
+    // strong
+    else if (streq(clazz, "Rogue") || streq(clazz, "Paladin") ||
+             streq(clazz, "Blackguard") || streq(clazz, "Archer"))
+        return 2;
+    // medium
+    else if (streq(clazz, "Mage") || streq(clazz, "Sorceror") ||
+             streq(clazz, "Tamer") || streq(clazz, "Necromancer") ||
+             streq(clazz, "Wizard"))
+        return 3;
+    // all others
+    else
+        return 0;
+}
+
+
 /*
  * Increases a stat
  */
@@ -320,11 +341,35 @@ static void adjust_level(struct player *p)
 
             // award an extra point for hardcore heroes
             if (OPT(p, birth_hardcore)) {
-                if (p->max_lev == 19 || p->max_lev == 29 || 
-                    p->max_lev == 39 || p->max_lev == 49) {
-                    p->account_score++;
-                    msg(p, "You've earned an extra account point for being hardcore!");
-                    msg(p, "You have %lu account points.", p->account_score);
+                int classPower = class_power(p->clazz->name);
+                if (classPower == 3) {
+                    if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50) {
+                        p->account_score++;
+                        msg(p, "You've earned an extra account point for being hardcore!");
+                        msg(p, "You have %lu account points.", p->account_score);
+                    }
+                } else if (classPower == 2) {
+                    if (p->max_lev == 19 || p->max_lev == 29 || 
+                        p->max_lev == 39 || p->max_lev == 50) {
+                        p->account_score++;
+                        msg(p, "You've earned an extra account point for being hardcore!");
+                        msg(p, "You have %lu account points.", p->account_score);
+                    }
+                } else if (classPower == 1) {
+                    if (p->max_lev == 19 || p->max_lev == 29 ||
+                        p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50) {
+                        p->account_score++;
+                        msg(p, "You've earned an extra account point for being hardcore!");
+                        msg(p, "You have %lu account points.", p->account_score);
+                    }
+                } else {
+                    if (p->max_lev == 14 || p->max_lev == 24 || 
+                        p->max_lev == 34 || p->max_lev == 44 ||
+                        p->max_lev == 49 || p->max_lev == 50) {
+                        p->account_score++;
+                        msg(p, "You've earned an extra account point for being hardcore!");
+                        msg(p, "You have %lu account points.", p->account_score);
+                    }
                 }
             }
 
