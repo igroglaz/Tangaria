@@ -2846,7 +2846,8 @@ void do_cmd_fountain(struct player *p, int item)
         // Magic fountains nourishment (only ent and merfolk)
         if (streq(p->race->name, "Ent") && fountain)
         {
-            player_inc_timed(p, TMD_FOOD, 300, false, false);
+            if (p->timed[TMD_FOOD] < 8000)
+                player_inc_timed(p, TMD_FOOD, 300, false, false);
             hp_player(p, p->wpos.depth / 2);
         }
         else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
@@ -2870,7 +2871,8 @@ void do_cmd_fountain(struct player *p, int item)
             if (p->timed[TMD_FOOD] < 700)
                 player_inc_timed(p, TMD_FOOD, 100, false, false);
         }
-        
+
+        // bad water (eg in Sewers dungeon)
         if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_BAD_WATER) && !streq(p->race->name, "Ent"))
         {
             msg(p, "This water is no good!");
@@ -2879,7 +2881,7 @@ void do_cmd_fountain(struct player *p, int item)
         else if (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_FOUL_WATER))
         {
             msg(p, "What a sickening liquid!");
-            player_inc_timed(p, TMD_CONFUSED, 10 + randint0(20), true, false);
+            player_inc_timed(p, TMD_CONFUSED, 5 + randint0(10), true, false);
             player_inc_timed(p, TMD_IMAGE, randint1(10), true, false);
             player_inc_timed(p, TMD_POISONED, 10, true, false);
         }
@@ -2888,9 +2890,9 @@ void do_cmd_fountain(struct player *p, int item)
 
     // on ironman drinking from fountains gives plenty of satiation
     // (works even if using bottles)
-    if (fountain && (OPT(p, birth_ironman) ||
+    if (fountain && (p->timed[TMD_FOOD] < 8000) && (OPT(p, birth_ironman) ||
         (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))))
-        player_inc_timed(p, TMD_FOOD, 750, false, false);
+        player_inc_timed(p, TMD_FOOD, 250, false, false);
 
     /* Fountain dries out */
     if (fountain && one_in_(3))
