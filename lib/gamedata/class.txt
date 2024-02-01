@@ -4850,10 +4850,12 @@ hitdie:5
 max-attacks:4
 min-weight:35
 strength-multiplier:3
-equip:food:Ration of Food:1:3:none
 equip:light:Wooden Torch:1:3:none
-equip:sword:Dagger:1:1:none
-equip:scroll:Word of Recall:1:1:birth_no_recall
+equip:hafted:Club:1:1:none
+equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):3:3:none
+equip:potion:Cure Light Wounds:2:3:birth_no_recall
+equip:scroll:Phase Door:3:4:birth_no_recall
 player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
 obj-flag:0:CLUMSY
 # - CLUMSY (so a bit harder to play than PWMA)
