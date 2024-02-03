@@ -139,7 +139,7 @@ enum grid_light_level
     LIGHTING_MAX
 };
 
-typedef uint8_t byte_lit[LIGHTING_MAX];
+typedef int16_t byte_lit[LIGHTING_MAX];
 typedef char char_lit[LIGHTING_MAX];
 
 typedef char char_note[4];
@@ -150,9 +150,9 @@ typedef struct
     int16_t settings[SETTING_MAX];
     uint8_t *flvr_x_attr;
     char *flvr_x_char;
-    uint8_t (*f_attr)[LIGHTING_MAX];
+    int16_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    uint8_t (*t_attr)[LIGHTING_MAX];
+    int16_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
     uint8_t *k_attr;
     char *k_char;

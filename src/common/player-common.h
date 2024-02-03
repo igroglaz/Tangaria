@@ -770,9 +770,9 @@ struct player
     uint8_t play_det[MAX_PLAYERS];                  /* Were these players detected by this player? */
     uint8_t *d_attr;
     char *d_char;
-    uint8_t (*f_attr)[LIGHTING_MAX];
+    int16_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    uint8_t (*t_attr)[LIGHTING_MAX];
+    int16_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
     uint8_t *k_attr;
     char *k_char;
@@ -942,6 +942,10 @@ struct player
     uint8_t weather_type;           // type of weather
     uint8_t weather_wind;           // current gust of wind
     uint8_t weather_intensity;      // density of raindrops/snowflakes
+
+    // Lighting
+    uint8_t l_attr[LIGHTING_MAX];
+    char l_char[LIGHTING_MAX];
 };
 
 extern struct player_body *bodies;

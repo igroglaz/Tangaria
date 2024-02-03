@@ -1105,6 +1105,7 @@ static void render_tile_rect_scaled(const struct subwindow *subwindow,
 static void render_tile_font_scaled(const struct subwindow *subwindow,
         int col, int row, int a, int c, bool fill)
 {
+    int lighting = 0;
     struct graphics *graphics = &subwindow->window->graphics;
 
     SDL_Rect dst = {
@@ -1121,6 +1122,11 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     SDL_Rect src = {0, 0, graphics->tile_pixel_w, graphics->tile_pixel_h};
 
     SDL_SetRenderTarget(subwindow->window->renderer, subwindow->texture);
+
+    // Lighting range
+    if (a > 0xff && a <= 0x1ff) lighting = 2; // lit
+    else if (a > 0x1ff && a <= 0x2ff) lighting = 3; // dark
+    else if (a > 0x2ff && a <= 0x3ff) lighting = 1; // torch
 
     int src_row = a & 0x7f;
     int src_col = c & 0x7f;
@@ -1149,6 +1155,17 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     } else {
         SDL_RenderCopy(subwindow->window->renderer,
                 graphics->texture, &src, &dst);
+
+        //// Lighting ////
+        if (lighting > 0)
+        {
+            int src_row = player->l_attr[lighting] & 0x7f;
+            int src_col = player->l_char[lighting] & 0x7f;
+            src.x = src_col * src.w;
+            src.y = src_row * src.h;
+            SDL_RenderCopy(subwindow->window->renderer,
+                    graphics->texture, &src, &dst);
+        }
     }
 }
 

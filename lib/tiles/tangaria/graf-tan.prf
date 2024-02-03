@@ -12,6 +12,20 @@
 #dark = when out of los and dark       / out of order
 
 
+##### Lighting #####
+
+# tiles attr in range 256
+# los:<0xFF>:0x80
+# lit:<0x1FF = 0xFF + 256>:0x80
+# dark:<0x2FF = 0xFF + (256 * 2)>:0x80
+# torch:<0x3FF = 0xFF + (256 * 3)>:0x80
+
+# lighting:n:attr:char with alpha channel
+lighting:lit:0x80:0x83
+lighting:dark:0x80:0x84
+lighting:torch:0x80:0x85
+
+
 ##### Spell effect types #####
 
 GF:*:static:0x81:0xD4

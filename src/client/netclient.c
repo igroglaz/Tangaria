@@ -4659,7 +4659,7 @@ static int Receive_slash_fx(void)
 int Send_features(int lighting, int off)
 {
     int n, i, size, max, offset = off;
-    uint8_t a;
+    int16_t a;
     char c;
 
     /* Paranoia */
@@ -4681,7 +4681,7 @@ int Send_features(int lighting, int off)
         a = Client_setup.f_attr[i][lighting];
         c = Client_setup.f_char[i][lighting];
 
-        if ((n = Packet_printf(&wbuf, "%b%c", (unsigned)a, (int)c)) <= 0)
+        if ((n = Packet_printf(&wbuf, "%hu%c", (unsigned)a, (int)c)) <= 0)
             return n;
     }
 
@@ -4692,7 +4692,7 @@ int Send_features(int lighting, int off)
 int Send_verify(int type)
 {
     int n, i, size;
-    uint8_t a;
+    int16_t a;
     char c;
 
     /* Size */
@@ -4736,7 +4736,7 @@ int Send_verify(int type)
                 break;
         }
 
-        if ((n = Packet_printf(&wbuf, "%b%c", (unsigned)a, (int)c)) <= 0)
+        if ((n = Packet_printf(&wbuf, "%hu%c", (unsigned)a, (int)c)) <= 0)
             return n;
     }
 

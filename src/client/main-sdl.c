@@ -5630,6 +5630,7 @@ static errr sdl_BuildTileset(term_window *win)
 static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Rect *prc, uint16_t a,
     char c, bool background)
 {
+    int lighting = 0;
     int j = (a & 0x7F);
     SDL_Rect src;
 
@@ -5640,6 +5641,11 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
     /* Default background to darkness */
     src.x = 0;
     src.y = 0;
+
+    // Lighting range
+    if (a > 0xff && a <= 0x1ff) lighting = 2; // lit
+    else if (a > 0x1ff && a <= 0x2ff) lighting = 3; // dark
+    else if (a > 0x2ff && a <= 0x3ff) lighting = 1; // torch
 
     //// Slash fx ////
     if (sfx_effect && !background) slashfx_move(&rc.x, &rc.y);
@@ -5688,6 +5694,43 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
     /* Draw the tile */
     else
         SDL_BlitSurface(win->tiles, &src, win->surface, &rc);
+
+    //// Lighting ////
+    if (lighting > 0)
+    {
+        // Use the terrain picture only if mapped
+        if ((a & 0x80) || !background)
+        {
+            src.x = (player->l_char[lighting] & 0x7F) * src.w;
+            src.y = (player->l_attr[lighting] & 0x7F) * src.h;
+        }
+
+        // Draw a portion of the tile
+        if (prc)
+        {
+            int dx = prc->x - rc.x;
+            int dy = prc->y - rc.y;
+
+            if (dx > 0)
+            {
+                src.x += dx;
+                rc.x = prc->x;
+            }
+            rc.w -= abs(dx);
+            src.w = rc.w;
+            if (dy > 0)
+            {
+                src.y += dy;
+                rc.y = prc->y;
+            }
+            rc.h -= abs(dy);
+            src.h = rc.h;
+            SDL_BlitSurface(win->tiles, &src, win->surface, &rc);
+        }
+        // Draw the tile
+        else
+            SDL_BlitSurface(win->tiles, &src, win->surface, &rc);
+    }
 }
 
 

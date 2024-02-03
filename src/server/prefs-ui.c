@@ -25,9 +25,9 @@ uint8_t *monster_x_attr;
 char *monster_x_char;
 uint8_t *kind_x_attr;
 char *kind_x_char;
-uint8_t (*feat_x_attr)[LIGHTING_MAX];
+int16_t (*feat_x_attr)[LIGHTING_MAX];
 char (*feat_x_char)[LIGHTING_MAX];
-uint8_t (*trap_x_attr)[LIGHTING_MAX];
+int16_t (*trap_x_attr)[LIGHTING_MAX];
 char (*trap_x_char)[LIGHTING_MAX];
 uint8_t *flavor_x_attr;
 char *flavor_x_char;
@@ -242,14 +242,14 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
 
     if (light_idx < LIGHTING_MAX)
     {
-        feat_x_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
+        feat_x_attr[idx][light_idx] = (int16_t)parser_getint(p, "attr");
         feat_x_char[idx][light_idx] = (char)parser_getint(p, "char");
     }
     else
     {
         for (light_idx = 0; light_idx < LIGHTING_MAX; light_idx++)
         {
-            feat_x_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
+            feat_x_attr[idx][light_idx] = (int16_t)parser_getint(p, "attr");
             feat_x_char[idx][light_idx] = (char)parser_getint(p, "char");
         }
     }
@@ -274,7 +274,7 @@ static enum parser_error parse_prefs_feat_win(struct parser *p)
 }
 
 
-static void set_trap_graphic(int trap_idx, int light_idx, uint8_t attr, char ch)
+static void set_trap_graphic(int trap_idx, int light_idx, int16_t attr, char ch)
 {
     if (light_idx < LIGHTING_MAX)
     {
@@ -299,7 +299,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     int trap_idx;
     int light_idx;
     struct prefs_data *d = parser_priv(p);
-    uint8_t attr;
+    int16_t attr;
     char chr;
 
     my_assert(d != NULL);
@@ -332,7 +332,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     else
         return PARSE_ERROR_INVALID_LIGHTING;
 
-    attr = (uint8_t)parser_getint(p, "attr");
+    attr = (int16_t)parser_getint(p, "attr");
     chr = (char)parser_getint(p, "char");
 
     if (trap_idx == -1)

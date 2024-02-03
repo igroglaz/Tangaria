@@ -779,14 +779,14 @@ static enum parser_error parse_prefs_feat_aux(struct parser *p)
 
     if (light_idx < LIGHTING_MAX)
     {
-        Client_setup.f_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
+        Client_setup.f_attr[idx][light_idx] = (int16_t)parser_getint(p, "attr");
         Client_setup.f_char[idx][light_idx] = (char)parser_getint(p, "char");
     }
     else
     {
         for (light_idx = 0; light_idx < LIGHTING_MAX; light_idx++)
         {
-            Client_setup.f_attr[idx][light_idx] = (uint8_t)parser_getint(p, "attr");
+            Client_setup.f_attr[idx][light_idx] = (int16_t)parser_getint(p, "attr");
             Client_setup.f_char[idx][light_idx] = (char)parser_getint(p, "char");
         }
     }
@@ -832,7 +832,7 @@ static enum parser_error parse_prefs_glyph(struct parser *p)
 }
 
 
-static void set_trap_graphic(int trap_idx, int light_idx, uint8_t attr, char ch)
+static void set_trap_graphic(int trap_idx, int light_idx, int16_t attr, char ch)
 {
     if (light_idx < LIGHTING_MAX)
     {
@@ -857,7 +857,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     int trap_idx;
     int light_idx;
     struct prefs_data *d = parser_priv(p);
-    uint8_t attr;
+    int16_t attr;
     char chr;
 
     assert(d != NULL);
@@ -890,7 +890,7 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     else
         return PARSE_ERROR_INVALID_LIGHTING;
 
-    attr = (uint8_t)parser_getint(p, "attr");
+    attr = (int16_t)parser_getint(p, "attr");
     chr = (char)parser_getint(p, "char");
 
     if (trap_idx == -1)
@@ -902,6 +902,36 @@ static enum parser_error parse_prefs_trap(struct parser *p)
     }
     else
         set_trap_graphic(trap_idx, light_idx, attr, chr);
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_prefs_lighting(struct parser *p)
+{
+    const char *idx;
+    int light_idx;
+    struct prefs_data *d = parser_priv(p);
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    idx = parser_getsym(p, "idx");
+    if (streq(idx, "torch"))
+        light_idx = LIGHTING_TORCH;
+    else if (streq(idx, "los"))
+        light_idx = LIGHTING_LOS;
+    else if (streq(idx, "lit"))
+        light_idx = LIGHTING_LIT;
+    else if (streq(idx, "dark"))
+        light_idx = LIGHTING_DARK;
+    else if (streq(idx, "*"))
+        light_idx = LIGHTING_MAX;
+    else
+        return PARSE_ERROR_INVALID_LIGHTING;
+
+    player->l_attr[light_idx] = (uint8_t)parser_getint(p, "attr");
+    player->l_char[light_idx] = (char)parser_getint(p, "char");
 
     return PARSE_ERROR_NONE;
 }
@@ -1283,6 +1313,7 @@ static struct parser *init_parse_prefs(bool user)
     parser_reg(p, "feat-win sym idx sym lighting int attr int char", parse_prefs_feat_win);
     parser_reg(p, "glyph sym idx int char", parse_prefs_glyph);
     parser_reg(p, "trap sym idx sym lighting int attr int char", parse_prefs_trap);
+    parser_reg(p, "lighting sym idx int attr int char", parse_prefs_lighting);
     parser_reg(p, "GF sym type sym direction uint attr uint char", parse_prefs_gf);
     parser_reg(p, "flavor uint idx int attr int char", parse_prefs_flavor);
     parser_reg(p, "inscribe sym tval sym sval str text", parse_prefs_inscribe);

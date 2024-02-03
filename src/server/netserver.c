@@ -957,9 +957,9 @@ static void wipe_connection(connection_t *connp)
     char *k_char;
     uint8_t *r_attr;
     char *r_char;
-    uint8_t (*f_attr)[LIGHTING_MAX];
+    int16_t (*f_attr)[LIGHTING_MAX];
     char (*f_char)[LIGHTING_MAX];
-    uint8_t (*t_attr)[LIGHTING_MAX];
+    int16_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
     uint8_t *flvr_x_attr;
     char *flvr_x_char;
@@ -3531,7 +3531,7 @@ static int Receive_features(int ind)
     char lighting;
     int16_t len, off;
     bool discard = false;
-    uint8_t a;
+    int16_t a;
     char c;
 
     if ((n = Packet_scanf(&connp->r, "%b%c%hd%hd", &ch, &lighting, &len, &off)) <= 0)
@@ -3549,7 +3549,7 @@ static int Receive_features(int ind)
     /* Finally read the data */
     for (i = off; i < off + len; i++)
     {
-        if ((n = Packet_scanf(&connp->r, "%b%c", &a, &c)) <= 0)
+        if ((n = Packet_scanf(&connp->r, "%hu%c", &a, &c)) <= 0)
         {
             if (n == -1) Destroy_connection(ind, "Receive_features read error");
             return n;
@@ -3578,7 +3578,7 @@ static int Receive_verify(int ind)
     char type;
     int16_t size;
     bool discard = false;
-    uint8_t a;
+    int16_t a;
     char c;
 
     type = size = 0;
@@ -3604,7 +3604,7 @@ static int Receive_verify(int ind)
     /* Finally read the data */
     for (i = 0; i < size; i++)
     {
-        if ((n = Packet_scanf(&connp->r, "%b%c", &a, &c)) <= 0)
+        if ((n = Packet_scanf(&connp->r, "%hu%c", &a, &c)) <= 0)
         {
             if (n == -1) Destroy_connection(ind, "Receive_verify read error");
             return n;
