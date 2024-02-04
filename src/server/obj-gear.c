@@ -1228,9 +1228,10 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
                 if (OPT(p, birth_ironman) ||
                    (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
                 {
-                    if (!one_in_(5))
+                    if (!one_in_(6)) {
                         msg(p, "You fail to drop cursed item this time. Try ones more..");
                         return false;
+                    }
                 // regular game mode
                 } else if (c[i].power < 100)
                 {
