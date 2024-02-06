@@ -1911,6 +1911,7 @@ bool peruse_file(void)
 //                (1 west, 2 east, 3 strong west, 4 strong east)
 // weather_intensity - density of raindrops/snowflakes low(1)/med(2)/hi(3)
 //
+#define WEATHER_ELEMENTS 1024 // number of weather elements
 void do_weather(void)
 {
     term *main_term = angband_term[0];
@@ -1925,12 +1926,10 @@ void do_weather(void)
     uint16_t ta;
     char tc;
 
-    // number of weather elements
-    const int weather_elements = 1024;
-    static int weather_element_x[1024];
-    static int weather_element_y[1024];
-    static int weather_frame_x[1024];
-    static int weather_frame_y[1024];
+    static int weather_element_x[WEATHER_ELEMENTS];
+    static int weather_element_y[WEATHER_ELEMENTS];
+    static int weather_frame_x[WEATHER_ELEMENTS];
+    static int weather_frame_y[WEATHER_ELEMENTS];
 
     static int weather_speed_ticks = 0;
     static int weather_strength = 0;
@@ -1984,7 +1983,7 @@ void do_weather(void)
     if (weather_clear)
     {
         // Clear array weather elements
-        for (i = 0; i < weather_elements; i++)
+        for (i = 0; i < WEATHER_ELEMENTS; i++)
         {
             weather_element_x[i] = -1;
             weather_element_y[i] = -1;
@@ -1996,7 +1995,7 @@ void do_weather(void)
     }
 
     //// Redraw - restore old tile before moving the weather element
-    for (i = 0; i < weather_elements; i++)
+    for (i = 0; i < WEATHER_ELEMENTS; i++)
     {
         // Only for elements within visible panel screen area
         if (weather_frame_x[i] >= 0 && weather_frame_x[i] < w &&
@@ -2234,7 +2233,7 @@ void do_weather(void)
         // Create weather elements
         if (make_weather)
         {
-            for (j = 0; j < weather_elements; j++)
+            for (j = 0; j < WEATHER_ELEMENTS; j++)
             {
                 if (weather_element_x[j] == -1 && 
                     weather_element_y[j] == -1)
@@ -2253,7 +2252,7 @@ void do_weather(void)
     }
 
     //// Draw the weather ////
-    for (i = 0; i < weather_elements; i++)
+    for (i = 0; i < WEATHER_ELEMENTS; i++)
     {
         // Only for elements within visible panel screen area
         if (weather_element_x[i] >= 0 && weather_element_x[i] < w &&
