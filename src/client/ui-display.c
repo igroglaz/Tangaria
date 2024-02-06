@@ -107,9 +107,9 @@ uint8_t sfx_move[256][256]; // move timer
 static uint16_t opt_anim_obj_w = 1;
 static uint16_t opt_anim_obj = 1;
 static uint16_t opt_anim_npc = 1;
-static uint16_t s_obj[1024][256]; // search objects
-static uint16_t anim_obj_a[1024][256]; // animate objects 'a'
-static char anim_obj_c[1024][256]; // animate objects 'c'
+static uint16_t s_obj[256][256]; // search objects
+static uint16_t anim_obj_a[256][256]; // animate objects 'a'
+static char anim_obj_c[256][256]; // animate objects 'c'
 
 
 /*** Sidebar display functions ***/
@@ -2510,14 +2510,14 @@ void do_animations(void)
                 // Convert char to uint8_t [0 - 255]
                 nc = (uint8_t) c;
 
-                // Check for overflow s_obj[1024][256]
-                if (a > 1024 || nc > 256) continue;
+                // Check for overflow s_obj[256][256]
+                if (a > 256 || nc > 256) continue;
 
                 // Convert char to uint8_t [0 - 255]
                 ntc = (uint8_t) tc;
 
-                // Check for overflow s_obj[1024][256]
-                if (ta > 1024 || ntc > 256) continue;
+                // Check for overflow s_obj[256][256]
+                if (ta > 256 || ntc > 256) continue;
 
                 // Check foreground/background tile
                 if (a == ta && c == tc)
