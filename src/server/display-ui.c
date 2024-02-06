@@ -2274,9 +2274,6 @@ static void player_funeral(struct player *p)
 void player_dump(struct player *p, bool server)
 {
     char dumpname[42];
-    char dirpath[MSG_LEN];
-    char laddername[42];
-    char ladderpath[MSG_LEN];
 
     /* Only record the original death */
     if (p->ghost == 1) return;
@@ -2299,6 +2296,10 @@ void player_dump(struct player *p, bool server)
         // now save dump copy for website ladder (for 10+lvls)
         if (p->lev > 9)
         {
+            char dirpath[MSG_LEN];
+            char laddername[42];
+            char ladderpath[MSG_LEN];
+
             path_build(dirpath, sizeof(dirpath), ANGBAND_DIR_USER, "ladder");
 
             // Ensure ladder directory exists under user directory, and if not, create it
