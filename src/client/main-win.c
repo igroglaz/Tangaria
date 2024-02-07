@@ -996,10 +996,7 @@ static bool init_graphics(int v)
 
         overdraw = mode->overdrawRow;
         overdrawmax = mode->overdrawMax;
-        // alphablend = mode->alphablend;
-        // Hack -- for drawing tiles (void)((*main_term->pict_hook)
-        // do_animations(), do_slashfx() functions
-        alphablend = 0;
+        alphablend = mode->alphablend;
     }
     else
     {
@@ -2103,7 +2100,12 @@ static void Term_pict_win_aux(int x, int y, int n, const uint16_t *ap, const cha
                         blendfn);
                 }
                 else
+                {
+                    //// Slash fx ////
+                    if (sfx_effect) slashfx_move(&x2, &y2);
+
                     AlphaBlend(hdc, x2, y2, tw2, th2, hdcSrc, x1, y1, w1, h1, blendfn);
+                }
             }
         }
         else
@@ -2241,7 +2243,7 @@ static errr Term_pict_win(int x, int y, int n, const uint16_t *ap, const char *c
     /* Redraw the top tiles */
     for (i = 0; i < n; i++)
     {
-        if ((alphablend || overdraw) &&
+        if (overdraw &&
             !Term_info(x + i * tile_wid, y - tile_hgt, &a, &c, &ta, &tc))
         {
             if (a & 0x80)
