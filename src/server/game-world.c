@@ -2598,8 +2598,11 @@ static void process_worn(struct player *p, struct object *ring)
 
         // apply curse 1 minute into the cycle
         if (current_phase == 64) {
-            msg(p, "Your %s darkens. You shudder.", o_name);
+            // remove curses
+            remove_all_curses(p, ring)
+            // add new curse
             perma_curse(ring);
+            msg(p, "Your %s darkens. You shudder.", o_name);
         }
         // remove stickiness 9 minutes into the cycle
         else if (current_phase == 576) {

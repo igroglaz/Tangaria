@@ -302,6 +302,23 @@ void perma_curse(struct object *obj)
 }
 
 
+// remove all curses from object (for Nazgul RoP)
+void remove_all_curses(struct player *p, struct object *obj)
+{
+    if (obj->curses != NULL)
+    {
+        for (int i = 0; i < z_info->curse_max; i++)
+        {
+            if (obj->curses[i].power)
+            {
+                remove_object_curse(p, obj, i, false);
+            }
+        }
+    }
+    // we do not include "upkeep->update" etc cause we do it later in process_worn()
+}
+
+
 /*
  * Removes an individual curse from an object.
  */
