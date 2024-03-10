@@ -9,6 +9,7 @@ extern uint16_t flavor_max;
 extern int16_t section_icky_col;
 extern uint8_t section_icky_row;
 extern bool allow_disturb_icky;
+extern bool sdl_popup;
 extern int cursor_x;
 extern int cursor_y;
 extern int party_n;

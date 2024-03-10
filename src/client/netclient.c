@@ -49,6 +49,10 @@ uint8_t section_icky_row;
 bool allow_disturb_icky = true;
 
 
+// SDL popup windows
+bool sdl_popup = false;
+
+
 /* Hack -- player position for the minimap */
 int cursor_x = 0;
 int cursor_y = 0;
@@ -156,27 +160,12 @@ static void update_ticks(void)
 }
 
 
-/* Write a keepalive packet to the output queue every second */
-void do_keepalive(void)
+//// Timers ////
+void do_keepalive_timers(void)
 {
-    /* Keep track of time in milliseconds */
-    update_ticks();
+    if (sdl_popup) return;
 
-    /* Check to see if it has been 1 second since we last sent anything */
-    if ((ticks - last_sent) > 10)
-    {
-        if ((last_received < last_sent) && (conn_state == CONN_PLAYING))
-        {
-            lag_mark = 10;
-            player->upkeep->redraw |= (PR_LAG);
-        }
-        last_sent = ticks;
-        Send_keepalive();
-    }
-
-    //// Timers ////
-
-    // Timer -- Update weather
+    //// Weather ////
     if (player->weather_type != 0)
     {
         // attempt to keep track of 'deci-ticks' (10ms resolution)
@@ -189,7 +178,7 @@ void do_keepalive(void)
         }
     }
 
-    // Timer -- Update animation
+    //// Animations ////
     if (OPT(player, animations))
     {
         // attempt to keep track of 'ticks' (800ms resolution)
@@ -203,7 +192,7 @@ void do_keepalive(void)
         }
     }
 
-    // Timer -- Update slash fx
+    //// Slash fx ////
     if (use_graphics)
     {
         if (OPT(player, slash_fx))
@@ -239,6 +228,29 @@ void do_keepalive(void)
             }
         }
     }
+}
+
+
+/* Write a keepalive packet to the output queue every second */
+void do_keepalive(void)
+{
+    /* Keep track of time in milliseconds */
+    update_ticks();
+
+    /* Check to see if it has been 1 second since we last sent anything */
+    if ((ticks - last_sent) > 10)
+    {
+        if ((last_received < last_sent) && (conn_state == CONN_PLAYING))
+        {
+            lag_mark = 10;
+            player->upkeep->redraw |= (PR_LAG);
+        }
+        last_sent = ticks;
+        Send_keepalive();
+    }
+
+    // Timers
+    do_keepalive_timers();
 }
 
 

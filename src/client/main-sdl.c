@@ -1426,8 +1426,8 @@ static void RemovePopUp(void)
     popped = false;
     sdl_BlitAll();
 
-    // Hack -- weather
-    if (player->weather_type == 0) player->weather_type = 255;
+    // Hack -- sdl popup
+    sdl_popup = false;
 }
 
 
@@ -4811,9 +4811,9 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
                 res = sdl_ButtonBankMouseDown(&window->buttons,
                     mouse.x - window->left, mouse.y - window->top);
 
-                // Hack -- weather
-                if (popped && res && player->weather_type != 0)
-                    player->weather_type = 0;
+                // Hack -- sdl popup
+                if (popped && res && !sdl_popup)
+                    sdl_popup = true;
 
                 /* If pop-up window active and no reaction, cancel the popup */
                 if (popped && !res)
@@ -4866,7 +4866,13 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
                 mouse.righty = event->button.y;
 
                 /* Right-click always cancels the popup */
-                if (popped) popped = false;
+                if (popped)
+                {
+                    popped = false;
+
+                    // Hack -- sdl popup
+                    sdl_popup = false;
+                }
             }
 
             break;
@@ -4888,9 +4894,9 @@ static void sdl_HandleMouseEvent(SDL_Event *event)
                 res = sdl_ButtonBankMouseUp(&window->buttons, mouse.x - window->left,
                     mouse.y - window->top);
 
-                // Hack -- weather
-                if (popped && res && player->weather_type != 0)
-                    player->weather_type = 0;
+                // Hack -- sdl popup
+                if (popped && res && !sdl_popup)
+                    sdl_popup = true;
 
                 /* Cancel popup */
                 if (popped && !res) RemovePopUp();
