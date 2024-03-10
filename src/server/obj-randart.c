@@ -2958,7 +2958,7 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
     int power = Rand_sample(data->avg_tv_power[art->tval], data->max_tv_power[art->tval],
         data->min_tv_power[art->tval], 20, 20);
 
-    if (art->aidx >= (uint32_t)z_info->a_max) power = AGGR_POWER * (50 + randint0(21)) / 100;
+    if (art->aidx >= (uint32_t)z_info->a_max) power = AGGR_POWER * (70 + randint0(41)) / 100;
 
     /* Choose a name */
     /* PWMAngband: easier to regenerate the name from the randart seed when needed */
