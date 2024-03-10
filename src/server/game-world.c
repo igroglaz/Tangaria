@@ -2562,7 +2562,7 @@ static void pre_turn_game_loop(void)
 }
 
 
-// only rings for now
+// Only rings for now
 static void process_worn(struct player *p, struct object *ring)
 {
     if (!ring) return;
@@ -2570,49 +2570,37 @@ static void process_worn(struct player *p, struct object *ring)
     /* Increment worn turn counter */
     ht_add(&ring->worn_turn, 1);
 
-    if (ring->worn_turn.turn % 64 != 0) return; // checks every 64 turns
+    if (ring->worn_turn.turn % 64 != 0) return; // Checks every 64 turns
 
     if (ring->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
     {
-        uint32_t cycle_duration;
-        if (ring->worn_turn.turn <= 512) { // 8 minutes
-            cycle_duration = 512; 
-        } else if (ring->worn_turn.turn <= 2048) { // 32 minutes
-            cycle_duration = 2048; 
-        } else if (ring->worn_turn.turn <= 4096) { // 64 minutes
-            cycle_duration = 4096;
-        } else if (ring->worn_turn.turn <= 8192) { // 128 minutes
-            cycle_duration = 8192; 
-        } else if (ring->worn_turn.turn <= 16384) { // 256 minutes
-            cycle_duration = 16384; 
-        } else if (ring->worn_turn.turn <= 32768) { // 512 minutes
-            cycle_duration = 32768;
-        } else { // >1024 minutes
-            cycle_duration = 65536;
-        }
+        uint32_t cycle_duration = 2048; // Every 32 minutes (2048 turns)
 
         char o_name[NORMAL_WID];
         object_desc(p, o_name, sizeof(o_name), ring, ODESC_BASE);
 
         uint32_t current_phase = ring->worn_turn.turn % cycle_duration;
 
-        // apply curse 1 minute into the cycle
-        if (current_phase == 64) {
-            // remove curses
-            remove_all_curses(p, ring)
-            // add new curse
-            perma_curse(ring);
+        // Apply STICKY at the start of each new cycle
+        if (current_phase == 0) {
+            of_on(ring->flags, OF_STICKY);
+            msg(p, "Your %s clings tightly.", o_name);
+        }
+        // Apply curse 1 minute into any cycle
+        else if (current_phase == 64) {
+            remove_all_curses(p, ring); // Remove any existing curses first
+            perma_curse(ring); // Add new curse
             msg(p, "Your %s darkens. You shudder.", o_name);
         }
-        // remove stickiness 9 minutes into the cycle
+        // Remove STICKY 9 minutes into the cycle
         else if (current_phase == 576) {
             msg(p, "Your %s loosens its grip slightly.", o_name);
             of_off(ring->flags, OF_STICKY);
         }
-        // reapply stickiness at the start of the new cycle, except the first
-        else if (current_phase == 0 && ring->worn_turn.turn > 512) {
-            msg(p, "Your %s glows red! It clings tightly.", o_name);
+        // Reapply STICKY 10 minutes into the cycle
+        else if (current_phase == 640) {
             of_on(ring->flags, OF_STICKY);
+            msg(p, "Your %s clings tightly...", o_name);
         }
 
         object_learn_obvious(p, ring, false);

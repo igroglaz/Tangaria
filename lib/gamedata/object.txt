@@ -6372,7 +6372,7 @@ type:ring
 level:0
 weight:2
 cost:0
-flags:STICKY | HUNGER | HUNGER_2
+flags:HUNGER | HUNGER_2
 flags:INSTA_ART
 values:CHR[-5]
 desc:"Nine rings for mortal men doomed to die."
