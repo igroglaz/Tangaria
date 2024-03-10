@@ -571,6 +571,7 @@ struct object
     uint8_t bypass_aware;               /* Bypasses the "aware" flag */
     uint8_t soulbound;                  /* Can't drop this item */    
     quark_t origin_player;              /* Original owner */
+    hturn worn_turn;                    /* Number of turns object has been worn (in the dungeon) */
 };
 
 typedef bool (*item_tester)(struct player *, const struct object *);

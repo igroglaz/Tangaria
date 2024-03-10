@@ -1451,7 +1451,7 @@ int apply_magic(struct player *p, struct chunk *c, struct object *obj, int lev,
 
     /* Give it a chance to be cursed */
     if (one_in_(20) && tval_is_wearable(obj))
-        lev = append_object_curse(obj, lev, obj->tval);
+        lev = apply_curse(obj, lev, obj->tval);
     if (lev >= z_info->max_depth) lev = z_info->max_depth - 1;
 
     /* Apply magic */

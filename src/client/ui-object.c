@@ -259,11 +259,30 @@ static void build_obj_list(int last, struct object **list, item_tester tester, i
         /* Format equipment slot labels (or quiver in subwindow) */
         if (equip)
         {
-            strnfmt(entry->equip_label, sizeof(entry->equip_label), "%-14s: ", equip_mention(player, i));
+            const char *mention = equip_mention(player, i);
+            size_t u8len = utf8_strlen(mention);
+
+            if (u8len < 14)
+            {
+                strnfmt(entry->equip_label, sizeof(entry->equip_label), "%s%*s", mention,
+                    (int)(14 - u8len), " ");
+            }
+            else
+            {
+                char *mention_copy = string_make(mention);
+
+                if (u8len > 14) utf8_clipto(mention_copy, 14);
+                strnfmt(entry->equip_label, sizeof(entry->equip_label), "%s", mention_copy);
+                string_free(mention_copy);
+            }
+
             my_strcap(entry->equip_label);
         }
         else if (in_term && quiver)
-            strnfmt(entry->equip_label, sizeof(entry->equip_label), "%-14s: ", format("In quiver [f%d]", i));
+        {
+            strnfmt(entry->equip_label, sizeof(entry->equip_label), "%-14s: ",
+                format("In quiver [f%d]", i));
+        }
         else
             entry->equip_label[0] = 0;
 

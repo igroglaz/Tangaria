@@ -2243,8 +2243,7 @@ static errr Term_pict_win(int x, int y, int n, const uint16_t *ap, const char *c
     /* Redraw the top tiles */
     for (i = 0; i < n; i++)
     {
-        if (overdraw &&
-            !Term_info(x + i * tile_wid, y - tile_hgt, &a, &c, &ta, &tc))
+        if (overdraw && !Term_info(x + i * tile_wid, y - tile_hgt, &a, &c, &ta, &tc))
         {
             if (a & 0x80)
                 Term_pict_win_aux(x + i * tile_wid, y - tile_hgt, 1, &a, &c, &ta, &tc);

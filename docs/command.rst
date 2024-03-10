@@ -885,7 +885,7 @@ Help (``?``)
   just text files in a particular format, and that other help files may be
   available on the Net. In particular, there are a variety of spoiler files
   which do not come with the standard distribution. Check the place you got
-  PWMAngband from or ask on the Angband forums, angband.oook.cz, about them.
+  PWMAngband from or ask on the Angband forums, angband.live, about them.
 
 ..
 
@@ -918,7 +918,7 @@ Save screen dump (|``)``|)
   This command dumps a "snap-shot" of the current screen to a file,
   including encoded color information. The command has two variants: html,
   suitable for viewing in a web browser; forum embedded html for vBulletin,
-  suitable for pasting in web forums like http://angband.oook.cz/forums.
+  suitable for pasting in web forums like https://angband.live/forums/.
 
 ..
 

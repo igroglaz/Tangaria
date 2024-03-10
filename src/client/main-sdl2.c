@@ -163,9 +163,9 @@ struct ttf {
  *     print qq(\t"$s"\n);
  * }
  * and then manually hacked to substitute the escape codes for the non-null
- * control characters (0x01 to 0x1f) so the graphics characters at those
- * indices in Angband's packaged .fon files remain available, if the user
- * wants to access them (those characters are likely the ones specified by
+ * control characters (0x01 to 0x1f, and 0x7f) so the graphics characters at
+ * those indices in Angband's packaged .fon files remain available, if the
+ * user wants to access them (those characters are likely the ones specified by
  * code page 437, https://en.wikipedia.org/wiki/Code_page_437 ).
  */
 static const char g_ascii_codepoints_for_cache[] =
@@ -173,7 +173,7 @@ static const char g_ascii_codepoints_for_cache[] =
     "\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
     " !\"#$%&'()*+,-./0123456789:;<=>?"
     "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
-    "`abcdefghijklmnopqrstuvwxyz{|}~ ";
+    "`abcdefghijklmnopqrstuvwxyz{|}~\x7f";
 /* Simple font cache. Only for ascii (which is like 99.99% (?) of what the game
  * displays, anyway) */
 #define ASCII_CACHE_SIZE \
@@ -1228,6 +1228,22 @@ static SDL_Texture *make_subwindow_texture(const struct sdlpui_window *window,
     return texture;
 }
 
+static void get_minimum_subwindow_size(bool is_main, int cell_w, int cell_h,
+        int *minw, int *minh)
+{
+    int min_cols, min_rows;
+
+    if (is_main) {
+        min_cols = MIN_COLS_MAIN;
+        min_rows = MIN_ROWS_MAIN;
+    } else {
+        min_cols = MIN_COLS_OTHER;
+        min_rows = MIN_ROWS_OTHER;
+    }
+    *minw = min_cols * cell_w + 2 * DEFAULT_BORDER;
+    *minh = min_rows * cell_h + 2 * DEFAULT_BORDER;
+}
+
 static void get_minimum_window_size(struct sdlpui_window *window,
         int *minw, int *minh)
 {
@@ -1245,21 +1261,15 @@ static void get_minimum_window_size(struct sdlpui_window *window,
 
     for (i = 0; i < MAX_SUBWINDOWS; ++i) {
         if (window->subwindows[i]) {
-            int cols, rows;
+            int this_min_w, this_min_h;
 
-            if (window->subwindows[i]->index == MAIN_SUBWINDOW) {
-                cols = MIN_COLS_MAIN;
-                rows = MIN_ROWS_MAIN;
-            } else {
-                cols = MIN_COLS_OTHER;
-                rows = MIN_ROWS_OTHER;
-            }
-            max_sub_w = MAX(max_sub_w,
-                window->subwindows[i]->font->ttf.glyph.w
-                * cols + 2 * DEFAULT_BORDER);
-            max_sub_h = MAX(max_sub_h,
-                window->subwindows[i]->font->ttf.glyph.h
-                * rows + 2 * DEFAULT_BORDER);
+            get_minimum_subwindow_size(
+                window->subwindows[i]->index == MAIN_SUBWINDOW,
+                window->subwindows[i]->font->ttf.glyph.w,
+                window->subwindows[i]->font->ttf.glyph.h,
+                &this_min_w, &this_min_h);
+            max_sub_w = MAX(max_sub_w, this_min_w);
+            max_sub_h = MAX(max_sub_h, this_min_h);
             have_sub = true;
         }
     }
@@ -1269,8 +1279,8 @@ static void get_minimum_window_size(struct sdlpui_window *window,
          * There's no currently configured subwindows; leave room
          * for one.
          */
-        max_sub_w = MIN_COLS_OTHER * window->app->def_font_w;
-        max_sub_h = MIN_ROWS_OTHER * window->app->def_font_h;
+        get_minimum_subwindow_size(false, window->app->def_font_w,
+            window->app->def_font_h, &max_sub_w, &max_sub_h);
     }
 
     *minw = MAX(*minw, max_sub_w);
@@ -1293,18 +1303,9 @@ static bool is_usable_font_for_subwindow(const struct font *font,
 
     if (!is_ok_col_row(subwindow, &bounds, font->ttf.glyph.w,
             font->ttf.glyph.h)) {
-        int min_cols, min_rows;
-
-        if (subwindow->index == MAIN_SUBWINDOW) {
-            min_cols = MIN_COLS_MAIN;
-            min_rows = MIN_ROWS_MAIN;
-        } else {
-            min_cols = MIN_COLS_OTHER;
-            min_rows = MIN_ROWS_OTHER;
-        }
-
-        bounds.w = min_cols * font->ttf.glyph.w + 2 * DEFAULT_BORDER;
-        bounds.h = min_rows * font->ttf.glyph.h + 2 * DEFAULT_BORDER;
+        get_minimum_subwindow_size(subwindow->index == MAIN_SUBWINDOW,
+            font->ttf.glyph.w, font->ttf.glyph.h,
+            &bounds.w, &bounds.h);
     }
 
     if (bounds.w > subwindow->window->inner_rect.w
@@ -1629,6 +1630,51 @@ static struct sdlpui_control *find_shortcut_editor_control_containing(
     return c;
 }
 
+static void query_shortcut_editor_natural_size(struct sdlpui_dialog *d,
+        struct sdlpui_window *w, int *width, int *height)
+{
+    struct shortcut_editor_data *pse;
+    int dw = 0, dh = 0, cw, ch, roww, rowh;
+
+    SDL_assert(d->type_code == SHORTCUT_EDITOR_CODE && d->priv);
+    pse = d->priv;
+    (*pse->labels[0].ftb->query_natural_size)(&pse->labels[0],
+        d, w, &roww, &rowh);
+    /*
+     * The shortcut display will be three times the width of the label that
+     * precedes it.
+     */
+    roww *= 3;
+    (*pse->change_buttons[0].ftb->query_natural_size)(
+        &pse->change_buttons[0], d, w, &cw, &ch);
+    /*
+     * Leave 1/8 of the width (rounded up) as space between the change and
+     * clear buttons.
+     */
+    roww += (9 * cw + 7) / 8;
+    rowh = MAX(rowh, ch);
+    (*pse->clear_buttons[0].ftb->query_natural_size)(&pse->clear_buttons[0],
+        d, w, &cw, &ch);
+    roww += cw;
+    rowh = MAX(rowh, ch);
+    dw = MAX(dw, roww);
+    dh += MAX_WINDOWS * rowh;
+    (*pse->close_button.ftb->query_natural_size)(&pse->close_button,
+        d, w, &roww, &rowh);
+    (*pse->reset_button.ftb->query_natural_size)(&pse->reset_button,
+        d, w, &cw, &ch);
+    roww = 4 * MAX(roww, cw);
+    rowh = MAX(rowh, ch);
+    dw = MAX(dw, roww);
+    /*
+     * Leave space between the buttons at the bottom of the dialog and the
+     * rest.
+     */
+    dh += 3 * rowh;
+    *width = dw;
+    *height = dh;
+}
+
 static void resize_shortcut_editor(struct sdlpui_dialog *d,
         struct sdlpui_window *w, int width, int height)
 {
@@ -1637,7 +1683,7 @@ static void resize_shortcut_editor(struct sdlpui_dialog *d,
 
     SDL_assert(d->type_code == SHORTCUT_EDITOR_CODE && d->priv);
     pse = d->priv;
-#ifdef NDEBUG
+#ifndef NDEBUG
     {
         int dw, dh;
 
@@ -1759,51 +1805,6 @@ static void resize_shortcut_editor(struct sdlpui_dialog *d,
 
     d->rect.w = width;
     d->rect.h = height;
-}
-
-static void query_shortcut_editor_natural_size(struct sdlpui_dialog *d,
-        struct sdlpui_window *w, int *width, int *height)
-{
-    struct shortcut_editor_data *pse;
-    int dw = 0, dh = 0, cw, ch, roww, rowh;
-
-    SDL_assert(d->type_code == SHORTCUT_EDITOR_CODE && d->priv);
-    pse = d->priv;
-    (*pse->labels[0].ftb->query_natural_size)(&pse->labels[0],
-        d, w, &roww, &rowh);
-    /*
-     * The shortcut display will be three times the width of the label that
-     * precedes it.
-     */
-    roww *= 3;
-    (*pse->change_buttons[0].ftb->query_natural_size)(
-        &pse->change_buttons[0], d, w, &cw, &ch);
-    /*
-     * Leave 1/8 of the width (rounded up) as space between the change and
-     * clear buttons.
-     */
-    roww += (9 * cw + 7) / 8;
-    rowh = MAX(rowh, ch);
-    (*pse->clear_buttons[0].ftb->query_natural_size)(&pse->clear_buttons[0],
-        d, w, &cw, &ch);
-    roww += cw;
-    rowh = MAX(rowh, ch);
-    dw = MAX(dw, roww);
-    dh += MAX_WINDOWS * rowh;
-    (*pse->close_button.ftb->query_natural_size)(&pse->close_button,
-        d, w, &roww, &rowh);
-    (*pse->reset_button.ftb->query_natural_size)(&pse->reset_button,
-        d, w, &cw, &ch);
-    roww = 4 * MAX(roww, cw);
-    rowh = MAX(rowh, ch);
-    dw = MAX(dw, roww);
-    /*
-     * Leave space between the buttons at the bottom of the dialog and the
-     * rest.
-     */
-    dh += 3 * rowh;
-    *width = dw;
-    *height = dh;
 }
 
 static void cleanup_shortcut_editor(struct sdlpui_dialog *d)
@@ -3069,6 +3070,43 @@ static void fit_rect_in_rect_proportional(SDL_Rect *small, const SDL_Rect *big)
     if (small->h > big->h) {
         small->w = small->w * big->h / small->h;
         small->h = big->h;
+    }
+}
+
+/*
+ * Like fit_rect_in_rect_by_xy() but allow changing the size as well as position
+ * of small.  If not possible to fit one dimension of small in big while leaving
+ * the size at least the minimum size specified, leave the size in that
+ * dimension as it is.
+ */
+static void coerce_rect_in_rect(SDL_Rect *small, const SDL_Rect *big,
+        int min_w, int min_h)
+{
+    if (small->x < big->x) {
+        small->x = big->x;
+    }
+    if (small->y < big->y) {
+        small->y = big->y;
+    }
+    if (small->x + small->w > big->x + big->w) {
+        if (small->w <= big->w) {
+            small->x = big->x + big->w - small->w;
+        } else {
+            small->x = big->x;
+            if (min_w <= big->w) {
+                small->w = big->w;
+            }
+        }
+    }
+    if (small->y + small->h > big->y + big->h) {
+        if (small->h <= big->h) {
+            small->y = big->y + big->h - small->h;
+        } else {
+            small->y = big->y;
+            if (min_h <= big->h) {
+                small->h = big->h;
+            }
+        }
     }
 }
 
@@ -4725,8 +4763,17 @@ static const struct font_info *find_font_info(const struct font_info *fonts,
 static void make_font_cache(const struct sdlpui_window *window,
         struct font *font)
 {
+    const int glyph_w = font->ttf.glyph.w;
+    const int glyph_h = font->ttf.glyph.h;
+    /*
+     * Limit the horizontal size of the texture for the cached font to
+     * avoid bumping into limits in the renderer.
+     */
+    const size_t ncol = 16;
+
     font->cache.texture = make_subwindow_texture(window,
-            (int) ASCII_CACHE_SIZE * font->ttf.glyph.w, font->ttf.glyph.h);
+        (int)ncol * glyph_w,
+        (int)((ASCII_CACHE_SIZE + (ncol - 1)) / ncol) * glyph_h);
     assert(font->cache.texture != NULL);
         
     /* fill texture with white transparent pixels */
@@ -4735,10 +4782,7 @@ static void make_font_cache(const struct sdlpui_window *window,
     /* restore the alpha; we will render glyphs in white */
     white.a = 0xFF;
 
-    const int glyph_w = font->ttf.glyph.w;
-    const int glyph_h = font->ttf.glyph.h;
-
-    for (size_t i = 0; i < ASCII_CACHE_SIZE; i++) {
+    for (size_t i = 0, icol = 0, irow = 0; i < ASCII_CACHE_SIZE; i++) {
         SDL_Surface *surface = TTF_RenderGlyph_Blended(font->ttf.handle,
                 (Uint8) g_ascii_codepoints_for_cache[i], white);
         if (surface == NULL) {
@@ -4755,7 +4799,7 @@ static void make_font_cache(const struct sdlpui_window *window,
         }
 
         SDL_Rect src = {0, 0, surface->w, surface->h};
-        SDL_Rect dst = {glyph_w * i, 0, glyph_w, glyph_h};
+        SDL_Rect dst = {glyph_w * icol, glyph_h * irow, glyph_w, glyph_h};
 
         crop_rects(&src, &dst);
 
@@ -4765,6 +4809,13 @@ static void make_font_cache(const struct sdlpui_window *window,
 
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
+
+        if (icol < ncol - 1) {
+            ++icol;
+        } else {
+            icol = 0;
+            ++irow;
+        }
     }
 }
 
@@ -4795,7 +4846,10 @@ static struct font *make_font(const struct sdlpui_window *window,
 static bool reload_font(struct subwindow *subwindow,
         const struct font_info *info)
 {
-    struct font *new_font = make_font(subwindow->window, info->name, info->size);
+    struct font *new_font =
+        make_font(subwindow->window, info->name, info->size);
+    int min_w, min_h;
+
     if (new_font == NULL) {
         return false;
     }
@@ -4806,7 +4860,10 @@ static bool reload_font(struct subwindow *subwindow,
         return false;
     }
 
-    fit_rect_in_rect_by_xy(&subwindow->sizing_rect, &subwindow->window->inner_rect);
+    get_minimum_subwindow_size(subwindow->index == MAIN_SUBWINDOW,
+        new_font->ttf.glyph.w, new_font->ttf.glyph.h, &min_w, &min_h);
+    coerce_rect_in_rect(&subwindow->sizing_rect,
+        &subwindow->window->inner_rect, min_w, min_h);
 
     free_font(subwindow->font);
     subwindow->font = new_font;
@@ -4864,15 +4921,12 @@ static void free_font(struct font *font)
 static bool is_ok_col_row(const struct subwindow *subwindow,
         const SDL_Rect *rect, int cell_w, int cell_h)
 {
-    const int min_col =
-        subwindow->index == MAIN_SUBWINDOW ? MIN_COLS_MAIN : MIN_COLS_OTHER;
-    const int min_row =
-        subwindow->index == MAIN_SUBWINDOW ? MIN_ROWS_MAIN : MIN_ROWS_OTHER;
+    int min_w, min_h;
 
-    if ((rect->w - DEFAULT_BORDER * 2) / cell_w < min_col) {
-        return false;
-    }
-    if ((rect->h - DEFAULT_BORDER * 2) / cell_h < min_row) {
+    get_minimum_subwindow_size(subwindow->index == MAIN_SUBWINDOW,
+        cell_w, cell_h, &min_w, &min_h);
+
+    if (rect->w < min_w || rect->h < min_h) {
         return false;
     }
 
@@ -5201,7 +5255,13 @@ static void reload_status_bar(struct sdlpui_window *window)
 static void fit_subwindow_in_window(const struct sdlpui_window *window,
         struct subwindow *subwindow)
 {
-    fit_rect_in_rect_by_xy(&subwindow->full_rect, &window->inner_rect);
+    int min_w, min_h;
+
+    get_minimum_subwindow_size(subwindow->index == MAIN_SUBWINDOW,
+        subwindow->font->ttf.glyph.w, subwindow->font->ttf.glyph.h,
+        &min_w, &min_h);
+    coerce_rect_in_rect(&subwindow->full_rect, &window->inner_rect,
+        min_w, min_h);
     if (!is_rect_in_rect(&subwindow->full_rect, &window->inner_rect)) {
         subwindow->borders.error = true;
         render_borders(subwindow);
@@ -5855,10 +5915,9 @@ static bool wipe_subwindow(struct subwindow *subwindow)
     subwindow->index = index;
 
     /* XXX 80x24 is essential for main */
-    subwindow->full_rect.w = MIN_COLS_MAIN * subwindow->app->def_font_w
-        + DEFAULT_BORDER * 2;
-    subwindow->full_rect.h = MIN_ROWS_MAIN * subwindow->app->def_font_h
-        + DEFAULT_BORDER * 2;
+    get_minimum_subwindow_size(true,
+        subwindow->app->def_font_w, subwindow->app->def_font_h,
+        &subwindow->full_rect.w, &subwindow->full_rect.h);
     if (subwindow->index != MAIN_SUBWINDOW) {
         subwindow->full_rect.w /= 2;
         subwindow->full_rect.h /= 2;

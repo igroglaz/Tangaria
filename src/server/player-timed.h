@@ -77,7 +77,7 @@ struct timed_effect_parse_state
     struct timed_effect_data *t;
 
     /* Points to the most recent effect chain being modified in the timed effect. May be NULL. */
-    struct effect* e;
+    struct effect *e;
 };
 
 /*

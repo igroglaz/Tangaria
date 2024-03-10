@@ -45,7 +45,7 @@ With the following exceptions:
   Currently some of the tiles in the 64x64.png tilesheet were resized from tiles
   made by David Gervais for the 32x32 set.
 
-* The sounds are licenced under the Creative Commons Attribution-NonCommercial-Sharealike
+* The sounds are licenced under the Creative Commons Attribution 4.0
   licence. They were created by Dubtrain <angband@dubtrain.com>. You can find
   them in Wave format at http://www.dubtrain.com/angband/.
 

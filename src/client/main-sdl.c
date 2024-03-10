@@ -3794,24 +3794,20 @@ static void MoreDraw(sdl_Window *win)
     y += 20;
 
     /* Only allow changes to the graphics mode in initial phase */
-    if (!Setup.initialized) sdl_WindowText(win, AltUnselColour, 20, y, "Available Graphics:");
-
-    mode = graphics_modes;
-    while (mode)
+    if (!Setup.initialized)
     {
-        if (mode->menuname[0])
+        sdl_WindowText(win, AltUnselColour, 20, y, "Available Graphics:");
+        mode = graphics_modes;
+        while (mode)
         {
-            button = sdl_ButtonBankGet(&win->buttons, GfxButtons[mode->grafID]);
-            if (!Setup.initialized)
+            if (mode->menuname[0])
             {
+                button = sdl_ButtonBankGet(&win->buttons, GfxButtons[mode->grafID]);
                 sdl_ButtonMove(button, 150, y);
-                sdl_ButtonVisible(button, true);
                 y += 20;
             }
-            else
-                sdl_ButtonVisible(button, false);
+            mode = mode->pNext;
         }
-        mode = mode->pNext;
     }
 
     sdl_WindowText(win, AltUnselColour, 20, y, "Nice graphics is:");
@@ -3871,8 +3867,16 @@ static void MoreDraw(sdl_Window *win)
 
     button = sdl_ButtonBankGet(&win->buttons, MoreFullscreen);
     sdl_WindowText(win, AltUnselColour, 20, y, "Fullscreen is:");
-
-    sdl_ButtonMove(button, 150, y);
+    if (!Setup.initialized)
+    {
+        sdl_ButtonMove(button, 150, y);
+        sdl_ButtonVisible(button, true);
+    }
+    else
+    {
+        sdl_ButtonVisible(button, false);
+        sdl_WindowText(win, AltSelColour, 150, y, (button->tag? "On": "Off"));
+    }
     y += 20;
 
     sdl_WindowText(win, AltUnselColour, 20, y, format("Window borders is %d.", window->windowborders));

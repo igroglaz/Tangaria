@@ -1167,6 +1167,9 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
                         /* Attempt to change the object into a random artifact */
                         if (!create_randart_drop(p, c, &obj, i, false)) continue;
 
+                        /* Add a random permanent curse */
+                        perma_curse(obj);
+
                         /* Success */
                         ok = true;
                         break;

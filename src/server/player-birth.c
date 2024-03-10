@@ -175,8 +175,7 @@ static bool sell_stat(int choice, int16_t stats_local[STAT_MAX], int points_spen
 
 /*
  * This picks some reasonable starting values for stats based on the
- * current race/class combo, etc. using the discussion from
- * http://angband.oook.cz/forum/showthread.php?t=1691:
+ * current race/class combo, etc...
  *
  * 0. buy base STR 17
  * 1. buy base DEX of up to 17, stopping at the last breakpoint for blows

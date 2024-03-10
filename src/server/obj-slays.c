@@ -169,41 +169,6 @@ bool copy_brands(bool **dest, bool *source)
 
 
 /*
- * Append a random brand, currently to a randart
- *
- * current the list of brands the object already has
- */
-bool append_random_brand(bool **current, struct brand **brand, bool is_ammo)
-{
-    int pick;
-
-    /* No life leech brand on ammo */
-    do
-    {
-        pick = randint0(z_info->brand_max);
-        *brand = &brands[pick];
-    }
-    while (is_ammo && streq((*brand)->name, "life leech"));
-
-    return append_brand(current, pick);
-}
-
-
-/*
- * Append a random slay, currently to a randart
- *
- * current the list of slays the object already has
- */
-bool append_random_slay(bool **current, struct slay **slay)
-{
-    int pick = randint0(z_info->slay_max);
-
-    *slay = &slays[pick];
-    return append_slay(current, pick);
-}
-
-
-/*
  * Count a set of brands
  */
 int brand_count(const bool *brands_on)

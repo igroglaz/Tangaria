@@ -1,16 +1,10 @@
 ﻿================
-PWMAngband 1.6.0
+PWMAngband 1.6.1
 ================
 
-Main changes ported from Angband 4.2.4:
-- use C99 types instead of the angband special types
-- improvements to the birth process
-- improvements to changing of background colours
-- adding of a panic directory for panic saves
-- re-organisation of effects code
-- lots of tidying and neatening
+This release mainly tweaks how Black Rings of Power (Nazgul drops) work.
 
-And many bug fixes and code improvements from Angband 4.2.5...
+And still many bug fixes and code improvements from Angband 4.2.5...
 
 For a full list of changes made in older versions, check the Official
 PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
@@ -18,392 +12,44 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.0 build 2
+New features in PWMAngband 1.6.1 build 1
 ========================================
 
-User interface
---------------
-
-Angband 4.2.x:
-
-- Generalize handling of ^
-- Add a clause to digging to mention weapon/digger
-- Replace suicide with retire
-
-PWMAngband:
-
-- Windows client SDL_mixer
-- SDL2 update
-- Fix sounds amb_bell_metal
-- Highlight players '@' on mini map
-
 Gameplay changes
 ----------------
 
 PWMAngband:
 
-- Don't restrict use of stairs for Dungeon Master
-- Implement MORE_TOWNS as a dungeon flag
-
-Bugs fixed
-----------
-
-PWMAngband:
-
-- Properly show level coordinates on tombstone/retirement screen if negative
-- Fix moronic bug in stair generation
-
-Coding changes
---------------
-
-Angband 4.2.x:
-
-- When appending spells to monster lore, set ref_race for expressions
-- Don't suppress vulnerabilities in artifact creation
-- For instant artifact kinds, inherit the flags and element info of the tval
-- Check unshifted shape rather than current shape when testing for Banish
-- SDL: avoid discarded const warning
-
-Compilation/documentation
--------------------------
-
-- Remove keys-gcu.prf
-
-Features in PWMAngband 1.6.0 build 1
-====================================
-
-User interface
---------------
-
-Angband 4.2.x:
-
-- Show spell description by default when browsing
-- Update scalable 16x16xw.woff to the newest upstream version
-- Allow '@' to fast forward the birth process using random choices and a default
-  point buy for the statistics
-- Change keymap terminator to =
-- Change key to reset birth options to the Angband defaults
-- Changed purchase message to show if a book is not usable
-- More consistent background handling
-- Allow yes/no interface options to carry over between characters
-- Generate sounds when entering or leaving stores
-- Reorder checks/confirmations so they happen before additional prompts
-- In open targeting mode, allow running keys to step 10 grids at a time
-- Use the color table values in screenshots for COLOUR_DARK and COLOUR_WHITE
-- GCU: also set background color on standard screen
-- Add option to include monster list in screenshots
-- Print total number in pack/quiver when dropping, picking up, or consuming
-  an item that's in the pack/quiver or ends up there
-- Improve "puff of smoke" messaging
-- Allow monster races to customize the spell casting messages
-- Clarify rejection message for the fire command
-- Add comma to monster's name where appropriate
-- Change messages when a new keymap is entered
-- Drop phrase in monster name when forming a possessive
-- GCU: for 256 or 88 color terminals, default to using init_color() for the
-  color table
-- SDL2: fix handling of '=' key
-- Allow more menus to use the rogue-like movement keys for navigation
-- Change message from "You see" to "You recall" when targeting an unseen grid
-- Add borders around option menu prompts that don't clear the screen
-- Suppress "You have ..." message for artifact jewelry when all non-curse runes
-  are known
-- Modify text when player is aware of a monster via detection or telepathy
-- Change default Enter key behavior in stores
-- Don't beep when escape is pressed while '*' targeting
-- Adjust description of Mana Channel
-- Move artifact light sources to top of item list if unidentified
-- SDL: make use of scalable fixed-width fonts in lib/fonts
-- Windows: allow "Enable nice graphics" to use all tile multipliers available
-  in the menu
-- Align store item's context menu keys with the command keys in the store
-- Better match store's in-game help description to the keys available
-- Have lurkers and trappers become noticeable in ASCII
-- Remove ctrl-c keymap
-- In inventory item context menu, change "Drop All" command key to 'A'
-- Only redraw the store if you bought something
-- Customize spell messages for monsters incapable of speech
-- Drop "light" from the descriptions of some quylthulg varieties
-- Only show the "Throw" context menu option for objects that can be thrown
-- Display spell points even if encumbrance drops maximum to zero
-- Character sheet: use '~' for something with resist and vulnerability
-
-PWMAngband:
-
-- Allow negative cost for object kinds to tag them "not for buying" in stores
-- Add option to hide controlled monsters in monster lists
-- Add /race and /class custom commands to display race and class stats during
-  play
-- Clarify message when creating a character with a name that is already taken
-- Revert default ignoring options to "no ignore"
-- MotD shown on login in message window (from motd.txt in /lib/screens)
-- Add slays/brands to character sheet
-- Allow to polymorph directly using form name with the V command
-- Add swear word protection for names and messages
-- Don't refresh monster list after a pause due to detecting some monsters
-- Add /dps command to display average normal damage per round
-- Always display all character symbols on the minimap
-- Highlight party members in blue on the minimap
-- Display ASCII symbols for distorted tiles in knowledge screens
-- Don't clear monster/player detection counter if using the 'L' command
-  after detection until the player has finished looking around
-- Add a loading screen between character selection and MotD display
-- Allow to color portions of a message using $ and ^ tags
-- SDL: rearrange options menu like for the Win client and only allow changing
-  tile options during setup phase
-- SDL2: only allow changing tile options during setup phase
-
-Gameplay changes
-----------------
-
-Angband 4.2.x:
-
-- Apply temporary and off-weapon slays and brands to unarmed combat
-- Reduce monsters passing through or tunneling walls
-- For special artifacts, remove additional out-of-depth check on the kind
-- Have DETECT_DOORS detect all types of doors, not just secret ones
-- Forget remembered impassable terrain at the player's grid if the player is
-  blind
-- Don't disturb the player when a chest trap is detected
-- Factor in player trap immunity for failed attempts to disable chest traps
-- Broaden the possible grids for teleport destinations
-- Adjust calculation for holding summoned monsters
-- Don't deduct energy in move_player() when the player doesn't move
-- Set Wooden Torches to appear on all levels
-- Hydras now just bash rather than open doors
-- Restrict entrances to the Fire Festival vault
-- Have waybread heal 4d8
-- Give hafted weapons bonuses if the character has the BLESS_WEAPON property
-- Drop OPEN_DOOR and BASH_DOOR on ethereal dragons
-- Drop OPEN_DOOR on Kavlax, mature and ancient dragons
-- Impose a distance constraint for non-entry stairs of the same type
-- Trap: skip extra effect or other side effects if the player is dead
-
-PWMAngband:
-
-- Limit ESP_RADIUS to 75% of z_info->max_sight if LIMITED_ESP is set
-- Drastically reduce dark elven warlock group size
-- Allow curative spells/potions to heal controlled monsters
-- Allow permanently polymorphed DMs, turn ghost mode off in that case
-- Tweak dragons a bit, reduce HP bonus from high level forms by roughly 5%
-- Prevent entry to shallow dungeons based on max level instead of current level
-- Buffed The Lost Silmaril of Maglor
-- Take half a turn when taking off/dropping/refilling an item (ported from V)
-- Make pit walls much less likely to be pierced by steamers deep in the dungeon
-- Exclude wearing from !* inscription
-- Implement RAND_100 flag and assign it to goldfishes
-- Remove level requirement from shops
-- Rework level requirement to depend only on object level and power
-- Increase the number of fountains in dungeons
-- New formula for average damage per attack for polymorphed players
-- Polymorphed monks get half the to-dam bonus
-- Allow monsters to cross one tile of damaging terrain if it doesn't kill them
-- Allow multiple values for race/class abilities depending on level
-- Allow chance of generating features in wilderness to be as low as 1/10000
-- Use time bubble when digging
-- Give UNLIGHT players extra infravision
-- Add INC_BY_FIXED and DEC_BY_FIXED to increase/decrease satiation by a fixed
-  amount instead of using percentage
-- Apply V's SELECT effect as an average of all effects
-- New class: Villager
+- Rework Black Rings of Power
 
 Bugs fixed
 ----------
 
 Angband 4.2.x:
 
-- A couple of minor fixes
-- Stop monsters hasting themselves
-- Set kind's cost for special artifacts
-- Allow dumping a color with all zero components if in the basic colors
-- Only identify teleport away/scare/dispel/sleep/turn effects if the monster is
-  seen
-- Fix Triple diamond room
-- Fix awkward word in the description for Create Arrows
-- Learn feather falling if equipped and exposed to fiery terrain
-- hit_trap(): interaction with disturb() and learning trap immunity rune
-- Check for resistance before issuing message about confusion from strong light
-  or sound attacks
-- Fix incorrect scaling of monster hearing and smell
-- SDL2: limit the number of builtin fonts tracked
-- SDL2: return early in pict hook if tiles aren't enabled
-- Fix Venn diagram room template
-- Have HEAL_HP effect work if there's no base or bonus in the amount
+- Scan full pile for detecting objects
 
 PWMAngband:
 
-- Fix unarmed rogues able to "stab" monsters
-- Fix crash when enabling/disabling tiles during character creation
-- Fix crash during ego/artifact generation by saving ego/artifact indexes as
-  u16b instead of byte
-- Prevent calling exit_game_panic() after shutdown_server() succeeds
-- Add missing checks when switching place with a friendly monster or another
-  player
-- Prevent switching place with another player if standing on potentially harmful
-  terrain
-- Check for dead monster/player when fading detect over time
-- Fix out of bounds crash when generating a death dump from a small labyrinth
-  level
-- Fix moronic crash when looking at a pile of floor-size items on the floor
-- Fix moronic bug allowing players to walk while paralyzed
-- Fix spell info/description for spells using SET_VALUE or spell power
-  (elementalists)
-- Fix Cloud room template
-- Correctly set mana pool cap to +10 from items and +15 overall
-- Add spell name to spell info sent to client to allow keymap by spell to work
-  properly
-- Fix object_all_modifiers_are_known()
-- Redraw equip subwindow when inscribing items in the quiver
-- Fix crash in file_newer()
-- Learn "on wield" runes when picking up ammo
-- Fix attacking while walking/jumping/running with extra moves not spending
-  a full turn of energy
-- Fix READ_MINDS
-- Fix some va_arg argument types in vstrnfmt
-- Learn FEATHER flag when walking on water
-- Fix monster AI bug
-- Fix crash when targeting a healing spell with a friendly monster in sight
-- Fix Dungeon Master pet attacking other monsters
-- Fix pets attacking non-hostile player pets
-- Fix PROJECT_BEAM error making limited length beams not working
-- Hardcode poison effect on potions of poison to avoid identifying issues
-- Consider spells on cooldown as okay to cast by the client
-- Update browse book screen when a spell enters or goes off cooldown
-- Fix wilderness mapping
-- Prevent trying to add a player to the "Neutral" party
-- Fix double free in Receive_minipos()
-- Fix allocation/deallocation of player body
+- Fix bugged SDL client options buttons
 
 Coding changes
 --------------
 
 Angband 4.2.x:
 
-- Add a return value to new_player_spot() to indicate success/failure
-- Restart cave generation in case of failure in new_player_spot() instead of
-  generating a panic save
-- Tidy up vault_chunk()
-- In ranged_helper() get the object description after the knowledge updates
-- Split effect handlers into multiple files
-- Move choice between the old and new vaults to dungeon_profile.txt
-- In TAP_UNLIFE, cancel the target set if the creature dies
-- Rewrite scatter() and add an extended version
-- Make calc_inventory() more efficient
-- Simplify prepare_next_level()
-- Split target_set_interactive_aux()
-- Move the modifiable bits of the artifact structure into their own structure
-  and make the artifact structure const
-- Limit the maximum number of attempts at rooms for modified and moria chunks
-- Cache the result of is_quest() in the dun_data structure for cave generation
-- Don't set player upkeep flags when using an item from the floor
-- Relax assumption that ignore_type_of() for all ego items is not ITYPE_MAX
-- Tidy logic for message about revealed object when rubble cleared
-- Use TF_LOS, remove square_iswall()
-- Perform the extra color table set up for more than 16 colors in init_gcu
-- Improve object origin merging
-- Remove some suspect uses of format()
-- Refactor object_similar()
-- Refine combining origins
-- Account for SET_VALUE/CLEAR_VALUE effects in get_spell_info()
-- Remember cursor size
-- Stop treating quiver items as wielded for learning of runes
-- Add Term_redraw_all()
-- Don't overwrite a normal save with a panic save
-- Fix some comments in z-file.c
-- Constrain search in drop_find_grid() to avoid out-of-bounds access
-- Make highscore_read return value consistent
-- Use C99 types for the fixed size integers
-- Avoid most integer conversion warnings from Visual Studio
-- Add a mode to object_desc() that allows overriding obj->number
-- Move effect datafile functions to the right place
-- Mark dice_t* arguments as const if the function doesn't modify them
-- Add const to pointer arguments for functions in z-util.h
-- Add an iterator-like version of cave_find_in_range()
-- Move remove_object_curse() to obj-curse.c
-- Make ui-player-properties
-- Move logic for bookkeeping after a player's move from move_player() to its
-  own function so it can be called in other cases when the player moves
-- Avoid platform-dependent right shift of negative values
-- Drop use of Mix_Init() to test for sound file compatibility
-- Protect calculation in monster/object rating against overflow
-- Protect calculation in object_value_real() against overflow
-- Check against overflow when boosting the value of out-of-depth object
-- Correct some comments related to the sound system
-- Remove sound.cfg
-- Changes to UN_KTRL and ENCODE_KTRL
-- Return early from process_world() if the player takes fatal damage
-- Damage player last so messages are ordered properly if the player dies
-- Fix places where monster_is_mimicking() was used as a synonym for
-  monster_is_camouflaged()
-- Tweak obj-init.c for robustness, consistency, and formatting
-- Small optimization for lookup_sval()
-- Tighten parsing in z-expression.c
-- Tweak init.c for robustness and consistency
-- Replace my_strcpy(b, format(...), sizeof(b)) with strnfmt(b, sizeof(b), ...)
-- Don't modify names in projections array while parsing player_property.txt
-- Tighten parsing in mon-init.c
-- Have expression_base_value_f functions return an int32_t to match declaration
-- Move more special cases hard coded in player-timed.c to player_timed.txt
-- z-virt: remove memory poisoning support
-- ui-term: remove attr_blank & char_blank
-- Tidy some monster-related parsing
-- SDL2: keep track of subwindow visibility in sdl2init.txt
-- When _WIN32 is set, use GetCurrentProcessId() to mutate the seed in
-  Rand_simple() and Rand_init()
-- Use codes rather than the printable names in data files
-- Configure categories for the monster knowledge menu from a data file
-- Add to default keymaps so shift+numeric keypad works for running on more
-  systems
-- Loosen coupling between MAX_COLORS and the BG_* constants
-- Rework choose_nearby_injured_kin() and remove z-set
-- Avoid using sscanf()
-- Put constants for criticals in constants.txt
-- Clean up message handling on targeted earthquakes
-- Generation failures: protect against artifact loss and better messages
-- Avoid use of floating-point values
-- Keep generated levels in the bounds set by constants.txt
-- Add diagnostics for missing monster spell messages
-
-PWMAngband:
-
-- Remove random roller, use default roller instead
-- Fix potential crash with standard roller
-- Implement SHORT_BEAM effect, replace BOLT_MELEE effect by SHORT_BEAM with
-  length 1
-- Remove bogus END_INFO effect
-- Remove square_hack_iscloseddoor() hack
-- Don't display "Could not accept TCP Connection, socket error = 0" messages in
-  the log
-- Rework account management
-- Add file_get_savefile() and port Rand_simple() from V
+- Fix some code formatting
+- Rename DETECT_GOLD to DETECT_ORE
+- player_know_object(): forget traits no longer present
+- Remove append_random_brand() and append_random_slay()
+- Handle padding of text that could contain multibyte UTF-8 characters
+- Some client fixes and improvements
 
 Compilation/documentation
 -------------------------
 
-- Support for SDL2 client (compiling using Embarcadero C++ 7.30)
-- Modify the comment about room cutoffs in dungeon_profile.txt
-- Update attack.rst
-- Put in first draft of "how it works" documentation for dungeon generation
-- Update comments in artifact.txt, ego_item.txt and object.txt
-- Adjust brief description for commands
-- Update comment about swap weapons keymap in pref.prf
-- Add configure option to store gamedata on libpath
-- Add panic directory to windows packaging
-- Update lib/readme.txt
-- Use a top-level help file customized for the chosen keyset
-- For the specialized pref files, fix a typo and change some markup
-- In the documentation, use lowercase letters with ^ (or Ctrl/ctrl)
-- Add descriptions of all the knowledge menu entries to the documentation
-  for the '~' command
-- Fix some compiler warnings
-- Extend and update comments in player_timed.txt
-- Extend comments in brand.txt and slay.txt
-- Add to the comments in monster_spell.txt
-- Extend comments in projection.txt
-- Remove stdint.h check
-- Avoid most of the "redundant declaration" warnings
-- Update documentation for keymaps
-- Drop mention of wielding ammunition in the documentation
-- Update documentation for Holy Avenger and Blessed egos
-- Update documentation to match new handling of gold and starting kit
-- Docs: mention the toggle ignore command in the ignoring section
+Angband 4.2.x:
+
+- Fix typos in the comments for the player's timed effects data file
+- Correct some typos in the manual
+- Update Angband forums url

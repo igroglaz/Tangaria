@@ -79,5 +79,5 @@ How do I contribute to the game?
 
 Post about it on the forum.
 
-.. _Angband forum: http://angband.oook.cz/forum
+.. _Angband forum: https://angband.live/forums/
 .. _MAngband forum: https://mangband.org/forum/

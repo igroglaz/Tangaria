@@ -595,7 +595,7 @@ static void Contact(int fd, int arg)
     Sockbuf_clear(&ibuf);
     if ((bytes = DgramReceiveAny(fd, ibuf.buf, ibuf.size)) <= 1)
     {
-        /* If 0 bytes have been sent than the client has probably closed the connection */
+        /* If 0 bytes have been sent then the client has probably closed the connection */
         if (bytes == 0) remove_input(fd);
 
         /* On Windows we may get a socket error without errno being set */

@@ -6,7 +6,7 @@
 #
 
 NAME = PWMAngband
-VERSION = 1.6.0
+VERSION = 1.6.1
 COPYRIGHT = (c) 1995-2024 PWMAngband contributors
 PROGNAME = pwmangband
 CLIENT_PROGNAME = pwmangclient

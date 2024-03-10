@@ -66,7 +66,7 @@
 /*
  * Magic bits at beginning of savefile
  */
-static const uint8_t savefile_magic[4] = {1, 6, 0, 0};
+static const uint8_t savefile_magic[4] = {1, 6, 1, 0};
 static const uint8_t savefile_name[4] = "PWMG";
 
 

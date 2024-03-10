@@ -192,7 +192,7 @@ static bool object_curse_conflicts(struct object *obj, int pick)
  * pick the curse to append
  * power the power of the new curse
  */
-static bool append_object_curse_aux(struct object *obj, int pick, int power)
+static bool append_object_curse(struct object *obj, int pick, int power)
 {
     struct curse *c = &curses[pick];
     int i;
@@ -247,7 +247,11 @@ static bool append_object_curse_aux(struct object *obj, int pick, int power)
 }
 
 
-int append_object_curse(struct object *obj, int lev, int tval)
+/*
+ * Attempt to apply curses to an object, with a corresponding increase in
+ * generation level of the object
+ */
+int apply_curse(struct object *obj, int lev, int tval)
 {
     int max_curses = randint1(4);
     int power = randint1(9) + 10 * m_bonus(9, lev);
@@ -267,7 +271,7 @@ int append_object_curse(struct object *obj, int lev, int tval)
 
             if (curses[pick].poss && curses[pick].poss[tval])
             {
-                if (append_object_curse_aux(obj, pick, power))
+                if (append_object_curse(obj, pick, power))
                     new_lev += randint1(1 + power / 10);
                 break;
             }
@@ -275,6 +279,26 @@ int append_object_curse(struct object *obj, int lev, int tval)
     }
 
     return new_lev;
+}
+
+
+/*
+ * Attempt to add a permanent curse to an object.
+ */
+void perma_curse(struct object *obj)
+{
+    int tries = 20;
+
+    /* Try to curse it */
+    while (tries--)
+    {
+        int pick = randint0(z_info->curse_max);
+
+        if (curses[pick].poss && curses[pick].poss[obj->tval])
+        {
+            if (append_object_curse(obj, pick, 100)) break;
+        }
+    }
 }
 
 

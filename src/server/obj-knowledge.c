@@ -922,6 +922,8 @@ void player_know_object(struct player *p, struct object *obj)
     {
         if (p->obj_k->modifiers[i])
             obj->known->modifiers[i] = 1;
+        else
+            obj->known->modifiers[i] = 0;
     }
 
     /* Set elements */
@@ -929,9 +931,12 @@ void player_know_object(struct player *p, struct object *obj)
     {
         if (p->obj_k->el_info[i].res_level[0] == 1)
             obj->known->el_info[i].res_level[0] = 1;
+        else
+            obj->known->el_info[i].res_level[0] = 0;
     }
 
     /* Set object flags */
+    of_wipe(obj->known->flags);
     for (flag = of_next(p->obj_k->flags, FLAG_START); flag != FLAG_END;
         flag = of_next(p->obj_k->flags, flag + 1))
     {
@@ -940,24 +945,69 @@ void player_know_object(struct player *p, struct object *obj)
     }
 
     /* Set brands */
-    for (i = 0; obj->brands && (i < z_info->brand_max); i++)
+    if (obj->brands)
     {
-        if (player_knows_brand(p, i) && obj->brands[i])
-            append_brand(&obj->known->brands, i);
+        bool known_brand = false;
+
+        for (i = 0; i < z_info->brand_max; i++)
+        {
+            if (player_knows_brand(p, i) && obj->brands[i])
+            {
+                append_brand(&obj->known->brands, i);
+                known_brand = true;
+            }
+            else if (obj->known->brands)
+                obj->known->brands[i] = false;
+        }
+        if (!known_brand && obj->known->brands)
+        {
+            mem_free(obj->known->brands);
+            obj->known->brands = NULL;
+        }
     }
 
     /* Set slays */
-    for (i = 0; obj->slays && (i < z_info->slay_max); i++)
+    if (obj->slays)
     {
-        if (player_knows_slay(p, i) && obj->slays[i])
-            append_slay(&obj->known->slays, i);
+        bool known_slay = false;
+
+        for (i = 0; i < z_info->slay_max; i++)
+        {
+            if (player_knows_slay(p, i) && obj->slays[i])
+            {
+                append_slay(&obj->known->slays, i);
+                known_slay = true;
+            }
+            else if (obj->known->slays)
+                obj->known->slays[i] = false;
+        }
+        if (!known_slay && obj->known->slays)
+        {
+            mem_free(obj->known->slays);
+            obj->known->slays = NULL;
+        }
     }
 
     /* Set curses */
-    for (i = 0; obj->curses && (i < z_info->curse_max); i++)
+    if (obj->curses)
     {
-        if (player_knows_curse(p, i) && obj->curses[i].power)
-            append_curse(obj->known, obj, i);
+        bool known_cursed = false;
+
+        for (i = 0; i < z_info->curse_max; i++)
+        {
+            if (player_knows_curse(p, i) && obj->curses[i].power)
+            {
+                append_curse(obj->known, obj, i);
+                known_cursed = true;
+            }
+            else if (obj->known->curses)
+                obj->known->curses[i].power = 0;
+        }
+        if (!known_cursed && obj->known->curses)
+        {
+            mem_free(obj->known->curses);
+            obj->known->curses = NULL;
+        }
     }
 
     /* Set ego type if known */
@@ -966,6 +1016,8 @@ void player_know_object(struct player *p, struct object *obj)
         seen = p->ego_everseen[obj->ego->eidx];
         obj->known->ego = (struct ego_item *)1;
     }
+    else
+        obj->known->ego = NULL;
 
     /* PWMAngband: special case for flavored items */
     if (tval_can_have_flavor(obj))

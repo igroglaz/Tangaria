@@ -1084,7 +1084,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             struct source *who = &who_body;
 
             source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_DETECT_GOLD, who, "0", 0, 0, 0, 3, 3, NULL);
+            effect_simple(EF_DETECT_ORE, who, "0", 0, 0, 0, 3, 3, NULL);
         }
     }
 
@@ -2562,6 +2562,33 @@ static void pre_turn_game_loop(void)
 }
 
 
+static void process_worn(struct player *p, struct object *ring)
+{
+    uint32_t hour = (uint32_t)(cfg_fps * 3600);
+
+    if (!ring) return;
+
+    /* Increment worn turn counter */
+    ht_add(&ring->worn_turn, 1);
+
+    /* Add up to two random permanent curses every hour */
+    if ((ring->worn_turn.turn == hour) || (ring->worn_turn.turn == 2 * hour))
+    {
+        if (ring->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
+        {
+            char o_name[NORMAL_WID];
+
+            object_desc(p, o_name, sizeof(o_name), ring, ODESC_BASE);
+            msg(p, "Your %s glows black!", o_name);
+            perma_curse(ring);
+            object_learn_obvious(p, ring, false);
+            p->upkeep->update |= (PU_BONUS);
+            set_redraw_equip(p, ring);
+        }
+    }
+}
+
+
 /*
  * Post-turn game loop.
  */
@@ -2698,6 +2725,16 @@ static void post_turn_game_loop(void)
         {
             Send_turn(p, ht_div(&p->game_turn, cfg_fps), ht_div(&p->player_turn, 1),
                 ht_div(&p->active_turn, 1));
+        }
+
+        /* Increment worn turn counter if inside a dungeon */
+        if (p->wpos.depth > 0)
+        {
+            struct object *right = slot_object(p, slot_by_name(p, "right hand"));
+            struct object *left = slot_object(p, slot_by_name(p, "left hand"));
+
+            process_worn(p, right);
+            process_worn(p, left);
         }
     }
 

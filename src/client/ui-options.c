@@ -98,9 +98,22 @@ static void option_toggle_display(struct menu *m, int oid, bool cursor, int row,
 {
     uint8_t attr = curs_attrs[CURS_KNOWN][cursor != 0];
     bool *options = menu_priv(m);
+    const char *desc = option_desc(oid);
+    size_t u8len = utf8_strlen(desc);
 
-    c_prt(attr, format("%-45s: %s  (%s)", option_desc(oid),
-        options[oid] ? "yes" : "no ", option_name(oid)), row, col);
+    if (u8len < 45)
+        c_prt(attr, format("%s%*s", desc, (int)(45 - u8len), " "), row, col);
+    else
+    {
+        char *desc_copy = string_make(desc);
+
+        if (u8len > 45) utf8_clipto(desc_copy, 45);
+        c_prt(attr, desc_copy, row, col);
+        string_free(desc_copy);
+    }
+
+    c_prt(attr, format(": %s  (%s)", options[oid] ? "yes" : "no ",
+		option_name(oid)), row, col + 45);
 }
 
 
@@ -1516,8 +1529,20 @@ static void quality_display(struct menu *menu, int oid, bool cursor, int row, in
     uint8_t level = player->opts.ignore_lvl[oid + 1];
     const char *level_name = quality_values[level].name;
     uint8_t attr = (cursor? COLOUR_L_BLUE: COLOUR_WHITE);
+    size_t u8len = utf8_strlen(name);
 
-    c_put_str(attr, format("%-30s : %s", name, level_name), row, col);
+    if (u8len < 30)
+        c_put_str(attr, format("%s%*s", name, (int)(30 - u8len), " "), row, col);
+    else
+    {
+        char *name_copy = string_make(name);
+
+        if (u8len > 30) utf8_clipto(name_copy, 30);
+        c_put_str(attr, name_copy, row, col);
+        string_free(name_copy);
+    }
+
+    c_put_str(attr, format(" : %s", level_name), row, col + 30);
 }
 
 

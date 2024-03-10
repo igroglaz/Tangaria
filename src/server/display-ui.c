@@ -470,6 +470,7 @@ void dump_spells(struct player *p, struct object *obj)
     const char *comment = help;
     uint8_t line_attr;
     char spell_name[31];
+    size_t u8len;
 
     /* Get the book */
     int bidx = object_to_book_index(p, obj);
@@ -555,8 +556,19 @@ void dump_spells(struct player *p, struct object *obj)
         }
         else
             my_strcpy(spell_name, spell->name, sizeof(spell_name));
-        strnfmt(out_val, sizeof(out_val), "%-30s%2d %4d %3d%%%s", spell_name, spell->slevel,
-            spell->smana, spell_chance(p, spell_index), comment);
+        u8len = utf8_strlen(spell_name);
+        if (u8len < 30)
+            strnfmt(out_val, sizeof(out_val), "%s%*s", spell_name, (int)(30 - u8len), " ");
+        else
+        {
+            char *name_copy = string_make(spell_name);
+
+            if (u8len > 30) utf8_clipto(name_copy, 30);
+            my_strcpy(out_val, name_copy, sizeof(out_val));
+            string_free(name_copy);
+        }
+        my_strcat(out_val, format("%2d %4d %3d%%%s", spell->slevel, spell->smana,
+            spell_chance(p, spell_index), comment), sizeof(out_val));
         spell_description(p, spell_index, -1, true, out_desc, sizeof(out_desc));
         my_strcpy(out_name, spell->name, sizeof(out_name));
 

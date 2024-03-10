@@ -991,7 +991,7 @@ static bool obj_known_damage(struct player *p, const struct object *obj, int *no
         }
     }
 
-    /* Get damage for each brand on the objects */
+    /* Get damage for each brand that is active */
     for (i = 0; i < z_info->brand_max; i++)
     {
         int index = -1, multiplier = brands[i].multiplier;
@@ -1011,7 +1011,7 @@ static bool obj_known_damage(struct player *p, const struct object *obj, int *no
             brand_damage[index] = calc_damage(p, &state, obj, bow, weapon, ammo, multiplier * 2);
     }
 
-    /* Get damage for each slay on the objects */
+    /* Get damage for each slay that is active */
     for (i = 0; i < z_info->slay_max; i++)
     {
         /* Must have the slay */

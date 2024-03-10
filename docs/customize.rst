@@ -131,7 +131,7 @@ Inscribing an item with '=g':
     picking up ammunition after a shootout. If there is a number
     immediately after the 'g', then the amount picked up automatically
     will be limited. If you have inscribed a spellbook with '=g4' and have
-    four or more copies in your pack, you will not automatially pick up
+    four or more copies in your pack, you will not automatically pick up
     any more copies when you have the 'pickup if in inventory' option
     enabled. If you have three copies in your pack with that inscription
     and happen to find a pile of two copies, you'll automatically pick up

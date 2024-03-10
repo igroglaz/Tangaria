@@ -280,8 +280,8 @@ static struct object *rd_item(void)
     rd_s16b(&obj->decay);
     rd_byte(&obj->bypass_aware);
     rd_byte(&obj->soulbound);
-
     rd_quark(&obj->origin_player);
+    // rd_hturn(&obj->worn_turn); TODO: uncomment after wipe
 
     /* Dummy item */
     if (!obj->tval && !obj->sval)

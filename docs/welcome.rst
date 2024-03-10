@@ -23,7 +23,7 @@ experiences. Don't be shy!
 
 PWMAngband forum: http://www.mangband.org/forum/viewforum.php?f=9
 
-Angband forum: http://angband.oook.cz
+Angband forum: https://angband.live/forums/
 
 .. sectnum::
 

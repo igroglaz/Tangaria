@@ -275,13 +275,22 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "  [%s]\n\n", title);
         for (opt = 0; opt < OPT_MAX; opt++)
         {
+            const char *desc;
+            size_t u8len;
+
             if (option_type(opt) != i) continue;
 
             /* Hack -- only display server options */
             if (!option_server(opt)) continue;
 
-            file_putf(fff, "%-45s: %s (%s)\n", option_desc(opt), p->opts.opt[opt]? "yes": "no ",
-                option_name(opt));
+            desc = option_desc(opt);
+            u8len = utf8_strlen(desc);
+            if (u8len < 45)
+                file_putf(fff, "%s%*s", desc, (int)(45 - u8len), " ");
+            else
+                file_putf(fff, "%s", desc);
+
+            file_putf(fff, ": %s (%s)\n", p->opts.opt[opt]? "yes": "no ", option_name(opt));
         }
 
         /* Skip some lines */
