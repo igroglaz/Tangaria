@@ -152,6 +152,10 @@ static void do_quit(int ind)
     struct worldpos wpos;
     bool dungeon_master = false;
 
+    /* Hack -- don't reenter if we're waiting for the timeout to complete */
+    if (connp->state == CONN_QUIT && streq(connp->quit_msg, "Client quit") && connp->w.sock == -1)
+        return;
+
     memset(&wpos, 0, sizeof(wpos));
 
     if (connp->id != -1)

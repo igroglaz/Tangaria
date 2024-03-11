@@ -32,6 +32,7 @@ Angband 4.2.x:
 PWMAngband:
 
 - Fix bugged SDL client options buttons
+- Fix "remove illegal input handler" error
 
 Coding changes
 --------------
