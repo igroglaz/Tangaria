@@ -2569,52 +2569,26 @@ static void process_worn(struct player *p, struct object *ring)
     if (!ring) return;
 
     /* Increment worn turn counter */
-    ht_add(&ring->worn_turn, 1);
+    ring->worn_turn++;
+
+    if (ring->worn_turn % 1920 != 0) return; // Checks every 30 minutes
 
     if (ring->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
     {
-        uint16_t cycle_duration = 2048; // Every 32 minutes (2048 turns)
-        uint16_t turns = ring->worn_turn.turn % cycle_duration;
+        uint16_t turns = ring->worn_turn;
 
         char o_name[NORMAL_WID];
         object_desc(p, o_name, sizeof(o_name), ring, ODESC_BASE);
 
-        // Apply STICKY at the start of each new cycle
-        if (turns == 0) {
-            // remove_all_curses(p, ring);
-            of_on(ring->flags, OF_STICKY);
-            msg(p, "Your %s clings tightly.", o_name);
-
-            object_learn_obvious(p, ring, false);
-            p->upkeep->update |= (PU_BONUS);
-            set_redraw_equip(p, ring);
+        // 1) remove HUNGER 2
+        if (turns == 1920) {
+            of_off(ring->flags, OF_HUNGER_2);
+            msg(p, "Your %s changes your metabolism.", o_name);
         }
-        // Apply curse 1 minute into any cycle
-        else if (turns == 64) {
-            perma_curse(ring); // Add new curse
-            msg(p, "Your %s darkens. You shudder.", o_name);
-
-            object_learn_obvious(p, ring, false);
-            p->upkeep->update |= (PU_BONUS);
-            set_redraw_equip(p, ring);
-        }
-        // Remove STICKY 9 minutes into the cycle
-        else if (turns == 576) {
-            msg(p, "Your %s loosens its grip slightly.", o_name);
-            of_off(ring->flags, OF_STICKY);
-
-            object_learn_obvious(p, ring, false);
-            p->upkeep->update |= (PU_BONUS);
-            set_redraw_equip(p, ring);
-        }
-        // Reapply STICKY 10 minutes into the cycle
-        else if (turns == 640) {
-            of_on(ring->flags, OF_STICKY);
-            msg(p, "Your %s clings tightly...", o_name);
-
-            object_learn_obvious(p, ring, false);
-            p->upkeep->update |= (PU_BONUS);
-            set_redraw_equip(p, ring);
+        // 2) remove HUNGER
+        else if (turns == 3840) {
+            of_off(ring->flags, OF_HUNGER);
+            msg(p, "Your %s changes your metabolism.", o_name);
         }
     }
 }

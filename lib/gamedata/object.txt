@@ -6375,6 +6375,7 @@ cost:0
 flags:HUNGER | HUNGER_2
 flags:INSTA_ART
 values:CHR[-5]
+curse:nazgul:100
 desc:"Nine rings for mortal men doomed to die."
 
 name:*Teleport Level*
