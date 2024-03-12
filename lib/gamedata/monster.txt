@@ -32417,7 +32417,7 @@ spell-freq:1
 blow:HIT:FORGET:10d1
 flags:NEVER_MOVE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-drop:ring:Black Ring of Power:100:1:1
+#drop:ring:Black Ring of Power:100:1:1
 #drop:sword:'Stormbringer':100:1:1
 desc:A golem used for testing purposes.
 

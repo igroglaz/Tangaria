@@ -385,6 +385,9 @@ values:CHR[-5]
 desc:distorts your features
 
 # for nazgul rings (and other rings too)
+# ~ combined rate of any effect happening at a given point in time is approximately 
+# 0.0421 per turn.
+# (means that one of these effects to occur ~ about once every 24 turns)
 name:nazgul
 type:ring
 effect:SUMMON:MONSTER:0:-2
