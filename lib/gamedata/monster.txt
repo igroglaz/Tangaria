@@ -32399,7 +32399,7 @@ spell-freq:50
 spell-power:10
 spells:BA_FIRE
 flags:NEVER_MOVE | ANTI_MAGIC
-desc:An indestructible golem used for testing purposes.
+desc:A golem used for testing purposes.
 
 name:Test drop
 base:golem
@@ -32417,8 +32417,8 @@ spell-freq:1
 blow:HIT:FORGET:10d1
 flags:NEVER_MOVE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
-#drop:ring:Black Ring of Power:100:1:1
+drop:ring:Black Ring of Power:100:1:1
 #drop:sword:'Stormbringer':100:1:1
-desc:An indestructible golem used for testing purposes.
+desc:A golem used for testing purposes.
 
 # # leave empty line for EOF

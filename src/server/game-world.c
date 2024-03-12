@@ -2562,20 +2562,19 @@ static void pre_turn_game_loop(void)
 }
 
 
-// Only rings for now
+// Only rings for now.
+// We use there real seconds, no need to convert cfg_fps
 static void process_worn(struct player *p, struct object *ring)
 {
     if (!ring) return;
-    
+
     /* Increment worn turn counter */
     ht_add(&ring->worn_turn, 1);
 
-    if (ring->worn_turn.turn % 64 != 0) return; // Checks every 64 turns
-
     if (ring->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
     {
-        uint32_t cycle_duration = 2048; // Every 32 minutes (2048 turns)
-        uint32_t current_phase = ring->worn_turn.turn % cycle_duration;
+        uint16_t cycle_duration = 2048; // Every 32 minutes (2048 turns)
+        uint16_t current_phase = ring->worn_turn.turn % cycle_duration;
 
         char o_name[NORMAL_WID];
         object_desc(p, o_name, sizeof(o_name), ring, ODESC_BASE);
@@ -2585,26 +2584,38 @@ static void process_worn(struct player *p, struct object *ring)
             remove_all_curses(p, ring); // Remove any existing curses first
             of_on(ring->flags, OF_STICKY);
             msg(p, "Your %s clings tightly.", o_name);
+
+            object_learn_obvious(p, ring, false);
+            p->upkeep->update |= (PU_BONUS);
+            set_redraw_equip(p, ring);
         }
         // Apply curse 1 minute into any cycle
         else if (current_phase == 64) {
             perma_curse(ring); // Add new curse
             msg(p, "Your %s darkens. You shudder.", o_name);
+
+            object_learn_obvious(p, ring, false);
+            p->upkeep->update |= (PU_BONUS);
+            set_redraw_equip(p, ring);
         }
         // Remove STICKY 9 minutes into the cycle
         else if (current_phase == 576) {
             msg(p, "Your %s loosens its grip slightly.", o_name);
             of_off(ring->flags, OF_STICKY);
+
+            object_learn_obvious(p, ring, false);
+            p->upkeep->update |= (PU_BONUS);
+            set_redraw_equip(p, ring);
         }
         // Reapply STICKY 10 minutes into the cycle
         else if (current_phase == 640) {
             of_on(ring->flags, OF_STICKY);
             msg(p, "Your %s clings tightly...", o_name);
-        }
 
-        object_learn_obvious(p, ring, false);
-        p->upkeep->update |= (PU_BONUS);
-        set_redraw_equip(p, ring);
+            object_learn_obvious(p, ring, false);
+            p->upkeep->update |= (PU_BONUS);
+            set_redraw_equip(p, ring);
+        }
     }
 }
 
@@ -2745,16 +2756,17 @@ static void post_turn_game_loop(void)
         {
             Send_turn(p, ht_div(&p->game_turn, cfg_fps), ht_div(&p->player_turn, 1),
                 ht_div(&p->active_turn, 1));
-        }
 
-        /* Increment worn turn counter if inside a dungeon */
-        if (p->wpos.depth > 0)
-        {
-            struct object *right = slot_object(p, slot_by_name(p, "right hand"));
-            struct object *left = slot_object(p, slot_by_name(p, "left hand"));
+            // moved up to save CPU and avoid big numbers
+            /* Increment worn turn counter if inside a dungeon */
+            if (p->wpos.depth > 0)
+            {
+                struct object *right = slot_object(p, slot_by_name(p, "right hand"));
+                struct object *left = slot_object(p, slot_by_name(p, "left hand"));
 
-            process_worn(p, right);
-            process_worn(p, left);
+                process_worn(p, right);
+                process_worn(p, left);
+            }
         }
     }
 

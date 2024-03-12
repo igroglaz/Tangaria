@@ -212,7 +212,7 @@ static void wr_item(struct object *obj)
     wr_byte(obj->bypass_aware);
     wr_byte(obj->soulbound);
     wr_quark(obj->origin_player);
-    wr_hturn(&obj->worn_turn);
+    wr_u16b(&obj->worn_turn);
 }
 
 

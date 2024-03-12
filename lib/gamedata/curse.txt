@@ -308,7 +308,7 @@ type:soft armour
 type:hard armour
 type:dragon armour
 type:amulet
-type:ring
+# type:ring // to prevent on Nazgul rings
 flags:NO_TELEPORT
 desc:prevents you from teleporting
 conflict:teleportation
