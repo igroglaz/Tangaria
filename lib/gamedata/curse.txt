@@ -230,7 +230,7 @@ type:hard armour
 type:dragon armour
 type:light
 type:amulet
-type:ring
+# type:ring remove from Nazgul rings (they will have their own)
 effect:TIMED_INC:PARALYZED
 dice:5+1d5
 time:1d1000
@@ -383,3 +383,29 @@ type:helm
 type:crown
 values:CHR[-5]
 desc:distorts your features
+
+# for nazgul rings (and other rings too)
+name:nazgul howl
+type:ring
+effect:SUMMON:MONSTER:0:-2
+dice:1
+time:1d500
+msg:The ring whispers something!
+desc:occasionally summons creatures
+
+name:insanity
+type:ring
+effect:DAMAGE
+dice:d$S
+expr:S:PLAYER_LEVEL:+ 0
+time:1d300
+msg:The ring drives you to madness!
+desc:occasionally makes emotional damage
+
+name:transfixion
+type:ring
+effect:TIMED_INC:PARALYZED
+dice:1+1d2
+time:1d200
+msg:The ring controls your mind!
+desc:paralyses you every now and then
