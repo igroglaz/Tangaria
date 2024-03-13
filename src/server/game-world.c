@@ -2581,12 +2581,12 @@ static void process_worn(struct player *p, struct object *ring)
         object_desc(p, o_name, sizeof(o_name), ring, ODESC_BASE);
 
         // 1) remove HUNGER 2
-        if (turns == 1920) {
+        if (turns == 1920 && of_has(ring->flags, OF_HUNGER_2)) {
             of_off(ring->flags, OF_HUNGER_2);
             msg(p, "Your %s changes your metabolism.", o_name);
         }
         // 2) remove HUNGER
-        else if (turns == 3840) {
+        else if (turns == 3840 && of_has(ring->flags, OF_HUNGER)) {
             of_off(ring->flags, OF_HUNGER);
             msg(p, "Your %s changes your metabolism.", o_name);
         }
