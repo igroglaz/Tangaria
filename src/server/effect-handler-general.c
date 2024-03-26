@@ -4519,7 +4519,7 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
         struct source *who = &who_body;
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
-        effect_simple(EF_TELEPORT, who, "200", 0, 0, 0, 0, 0, NULL);
+        effect_simple(EF_TELEPORT, who, "100", 0, 0, 0, 0, 0, NULL);
         return true;
     }
 

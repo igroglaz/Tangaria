@@ -2413,7 +2413,7 @@ void player_death(struct player *p)
 
         // gtfo
         source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_TELEPORT, who, "200", 0, 0, 0, 0, 0, NULL);
+        effect_simple(EF_TELEPORT, who, "100", 0, 0, 0, 0, 0, NULL);
 
         /* Feed him (maybe he died from starvation) */
         if (p->timed[TMD_FOOD] < 1500) {
