@@ -1415,7 +1415,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     }
 
     // decrease ironman timer till next auto >
-    if (OPT(p, birth_ironman)) {
+    if (OPT(p, birth_ironman) && !p->is_dead && p->chp >= 0) {
         p->iron_timer--;
 
         // if timer is gone - move ironman player down

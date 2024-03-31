@@ -2558,7 +2558,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     p->upkeep->running_firststep = false;
 
     // each step decrease iron_timer by -2 (in addition to -1 by turn pass)
-    if (OPT(p, birth_ironman)) {
+    if (OPT(p, birth_ironman) && !p->is_dead && p->chp >= 0) {
         p->iron_timer -= 2;
     }
 

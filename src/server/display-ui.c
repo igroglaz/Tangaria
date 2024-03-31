@@ -2433,6 +2433,9 @@ void player_death(struct player *p)
         if (p->deep_descent) {
             p->deep_descent++;
         }
+        if (OPT(p, birth_ironman) && p->iron_timer < 0) {
+            p->iron_timer = 0;
+        }
 
         // after ress you become more enigmatic
         player_stat_dec(p, STAT_CON, true);
