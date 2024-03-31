@@ -2397,11 +2397,15 @@ void player_death(struct player *p)
     // T: give second chance
     if (p->alive && p->lives > 0 && !OPT(p, birth_hardcore)) {
 
+        plog_fmt("player_death(): [%s] got %d lives -> start resurrection", p->name, p->lives);
+
         /* Handle polymorphed players */
         if (p->poly_race) do_cmd_poly(p, NULL, false, true);
+        plog_fmt("player_death(): [%s] made do_cmd_poly()", p->name);
 
         /* Cancel current effects */
         for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
+        plog_fmt("player_death(): [%s] made player_clear_timed()", p->name);
 
         // heal/mana a bit
         p->chp = p->mhp / 3;
@@ -2414,6 +2418,7 @@ void player_death(struct player *p)
         // gtfo
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_TELEPORT, who, "100", 0, 0, 0, 0, 0, NULL);
+        plog_fmt("player_death(): [%s] made effect_simple(EF_TELEPORT...)", p->name);
 
         /* Feed him (maybe he died from starvation) */
         if (p->timed[TMD_FOOD] < 1500) {
@@ -2440,6 +2445,7 @@ void player_death(struct player *p)
         // after ress you become more enigmatic
         player_stat_dec(p, STAT_CON, true);
         player_stat_inc(p, 5);
+        plog_fmt("player_death(): [%s] made stats adjustments", p->name);
 
         msg(p, "Death nearly grasped you, but in the last moment....");
         msg(p, "........something pulled you into the aether........");
@@ -2448,6 +2454,8 @@ void player_death(struct player *p)
 
         // Redraw stats, HP, mana etc
         p->upkeep->redraw |= PR_BASIC;
+
+        plog_fmt("player_death(): [%s] finishes resurrection, now return", p->name);
 
         return;
     }

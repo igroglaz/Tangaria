@@ -241,6 +241,7 @@ void do_cmd_go_down(struct player *p)
     // when ironman use stairs down - it resets iron_timer (auto > player)
     if (OPT(p, birth_ironman)) {
         p->iron_timer = set_ironman_timer(p->wpos.depth);
+        plog_fmt("do_cmd_go_down(): Ironman [%s] resets iron_time by using stairs", p->name);
     }
 
     /* Change level */
