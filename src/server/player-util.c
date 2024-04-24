@@ -145,14 +145,17 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
  */
 int player_apply_damage_reduction(struct player *p, int dam, bool non_physical)
 {
-    /* Permanent invulnerability */
-    if ((p->timed[TMD_INVULN] == -1) || p->timed[TMD_SAFELOGIN]) return 0;
+    // in T this applies ONLY for _pure_ physical damage, with the only exception - GoI
 
-    /* Globe of invulnerability protects against non-physical attacks only */
-    if (p->timed[TMD_INVULN] && non_physical) dam -= dam * p->lev / 100;
+    /* Globe of invulnerability protects against non-physical attacks only OR safelogin */
+    if (non_physical || p->timed[TMD_SAFELOGIN]) {
+        if (p->timed[TMD_INVULN]) dam -= dam * p->lev / 100;
+    }
+    // in all other case - ONLY for _pure_ physical damage
+    else {
+        dam -= p->state.dam_red; // Apply damage reduction
+    }
 
-    /* Apply damage reduction */
-    dam -= p->state.dam_red;
     return ((dam < 0)? 0: dam);
 }
 
@@ -182,32 +185,6 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
     /* Become aware of player's presence */
     if (p->k_idx) aware_player(p, p);
 
-    /* Hack -- apply "invulnerability" */
-    if ((p->timed[TMD_INVULN] == -1) || p->timed[TMD_SAFELOGIN])
-    {
-        /* Permanent invulnerability */
-        damage = 0;
-    }
-    else if (p->timed[TMD_INVULN] && non_physical)
-    {
-        /* Globe of invulnerability protects against non-physical attacks only */
-        damage -= damage * p->lev / 100;
-    }
-
-    // Apply damage reduction: ONLY for _pure_ physical damage
-    if (p->state.dam_red != 0 && !non_physical && strcmp(hit_from, "fading") &&
-        strcmp(hit_from, "hypoxia") && strcmp(hit_from, "poison") &&
-        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation") &&
-        strcmp(hit_from, "an earthquake") && strcmp(hit_from, "adrenaline poisoning") &&
-        strcmp(hit_from, "over-exertion") && strcmp(hit_from, "drowning"))
-            damage -= p->state.dam_red;
-
-    if (damage <= 0)
-    {
-        p->died_flavor[0] = '\0';
-        return false;
-    }
-
     // instead of DAM_RED (raw reducement), hc % reducement
     // 1) to ALL dmg
     if (streq(p->race->name, "Gargoyle"))
@@ -218,6 +195,12 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
     // 3) magic dmg
     else if (streq(p->race->name, "Golem") && non_physical)
         damage = (damage * 9) / 10;
+
+    if (damage <= 0)
+    {
+        p->died_flavor[0] = '\0';
+        return false;
+    }
 
     /* Disturb */
     if (strcmp(hit_from, "fading") && strcmp(hit_from, "hypoxia") && !nodisturb) disturb(p, 0);
