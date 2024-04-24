@@ -844,9 +844,6 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
     /* Place "num" stairs */
     for (i = 0; i < num; i++)
     {
-        bool walls_count = true;
-        walls = 3; // Reset walls for each stair placement attempt
-
         /* Gradually reduce number of walls if having trouble */
         while (true)
         {
@@ -857,7 +854,7 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
             {
                 if (!square_isempty(c, &grid)) continue;
                 if (square_isvault(c, &grid) || square_isno_stairs(c, &grid)) continue;
-                if (walls_count && square_num_walls_adjacent(c, &grid) != walls) continue;
+                if (square_num_walls_adjacent(c, &grid) != walls) continue;
                 if (minsep > 0)
                 {
                     int k;
@@ -888,17 +885,14 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
                 break;
             }
 
-            if (walls_count && walls == 0)
+            /* Require fewer walls */
+            if (walls == 0)
             {
-                walls_count = false; // Stop considering wall count
-                cave_find_reset(state);
+                mem_free(state);
+                quit("Failed to place stairs!");
             }
-            else
-            {
-                if (walls_count)
-                    walls--;
-                cave_find_reset(state);
-            }
+            walls--;
+            cave_find_reset(state);
         }
     }
 
