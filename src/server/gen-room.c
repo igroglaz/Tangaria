@@ -1038,10 +1038,12 @@ bool mon_pit_hook(struct monster_race *race)
 {
     bool match_base = true;
     bool match_color = true;
-    int freq_spell = dun->pit_type->freq_spell;
+    int freq_spell;
 
     my_assert(dun->pit_type);
     my_assert(race);
+
+    freq_spell = dun->pit_type->freq_spell;
 
     /* Decline unique monsters */
     if (race_is_unique(race)) return false;

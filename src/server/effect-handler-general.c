@@ -160,6 +160,8 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     /* Failure - unlucky fragile object is destroyed */
     else if (one_in_(4))
     {
+        int dam = damroll(5, 5);
+
         msg(p, "There is a bang and a flash!");
 
         /* Preserve any artifact */
@@ -167,7 +169,10 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
         if (obj->artifact) history_lose_artifact(p, obj);
 
         none_left = use_object(p, obj, 1, false);
-        take_hit(p, damroll(5, 5), "a failed attempt at uncursing", false,
+        dam = player_apply_damage_reduction(p, dam, false);
+        if (dam && OPT(p, show_damage))
+            msg(p, "You take $r%d^r damage.", dam);
+        take_hit(p, dam, "a failed attempt at uncursing",
             "was killed by a failed attempt at uncursing");
     }
 
@@ -701,7 +706,10 @@ static void player_turn_undead(struct player *p)
     if (p->poly_race) do_cmd_poly(p, NULL, false, true);
 
     /* Cancel current effects */
-    for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
+    for (i = 0; i < TMD_MAX; i++)
+    {
+        if (i != TMD_FOOD) player_clear_timed(p, i, true);
+    }
 
     /* Turn him into an undead being */
     set_ghost_flag(p, 2, true);
@@ -1035,7 +1043,10 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Banishment", pself);
-    take_hit(context->origin->player, dam, "the strain of casting Banishment", false, df);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    if (dam && OPT(context->origin->player, show_damage))
+        msg(context->origin->player, "You take $r%d^r damage.", dam);
+    take_hit(context->origin->player, dam, "the strain of casting Banishment", df);
 
     /* Update monster list window */
     if (dam > 0) context->origin->player->upkeep->redraw |= (PR_MONLIST);
@@ -4190,7 +4201,10 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Mass Banishment", pself);
-    take_hit(context->origin->player, dam, "the strain of casting Mass Banishment", false, df);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    if (dam && OPT(context->origin->player, show_damage))
+        msg(context->origin->player, "You take $r%d^r damage.", dam);
+    take_hit(context->origin->player, dam, "the strain of casting Mass Banishment", df);
 
     /* Calculate result */
     result = (dam > 0)? true: false;
@@ -4349,10 +4363,14 @@ bool effect_handler_POLY_RACE(effect_handler_context_t *context)
     {
         const char *pself = player_self(context->origin->player);
         char df[160];
+        int dam = damroll(10, 10);
 
         msg(context->origin->player, "Your nerves and muscles feel weak and lifeless!");
         strnfmt(df, sizeof(df), "exhausted %s with polymorphing", pself);
-        take_hit(context->origin->player, damroll(10, 10), "the strain of polymorphing", false, df);
+        dam = player_apply_damage_reduction(context->origin->player, dam, false);
+        if (dam && OPT(context->origin->player, show_damage))
+            msg(context->origin->player, "You take $r%d^r damage.", dam);
+        take_hit(context->origin->player, dam, "the strain of polymorphing", df);
         player_stat_dec(context->origin->player, STAT_DEX, true);
         player_stat_dec(context->origin->player, STAT_WIS, true);
         player_stat_dec(context->origin->player, STAT_CON, true);

@@ -351,6 +351,40 @@ void do_cmd_takeoff(struct player *p, int item)
 
 
 /*
+ * Hack -- prevent anyone but total winners (and the Dungeon Master) from wielding the Massive Iron
+ * Crown of Morgoth or the Mighty Hammer 'Grond'.
+ */
+static bool deny_winner_artifacts(struct player *p, struct object *obj)
+{
+    if (!p->total_winner && !is_dm_p(p))
+    {
+        /*
+         * Attempting to wear the crown if you are not a winner is a very,
+         * very bad thing to do.
+         */
+        if (true_artifact_p(obj) && strstr(obj->artifact->name, "of Morgoth"))
+        {
+            msg(p, "You are blasted by the Crown's power!");
+
+            /* This should pierce invulnerability */
+            take_hit(p, 10000, "the Massive Iron Crown of Morgoth",
+                "was blasted by the Massive Iron Crown of Morgoth");
+            return true;
+        }
+
+        /* Attempting to wield Grond isn't so bad. */
+        if (true_artifact_p(obj) && strstr(obj->artifact->name, "Grond"))
+        {
+            msg(p, "You are far too weak to wield the mighty Grond.");
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+/*
  * Wield or wear an item
  */
 void do_cmd_wield(struct player *p, int item, int slot)
@@ -443,6 +477,7 @@ void do_cmd_wield(struct player *p, int item, int slot)
     /* If the slot is open, wield and be done */
     if (!equip_obj)
     {
+        if (deny_winner_artifacts(p, obj)) return;
         inven_wield(p, obj, slot, NULL, 0);
         return;
     }
@@ -470,33 +505,7 @@ void do_cmd_wield(struct player *p, int item, int slot)
         return;
     }
 
-    /*
-     * Hack -- prevent anyone but total winners from wielding the Massive Iron
-     * Crown of Morgoth or the Mighty Hammer 'Grond'.
-     */
-    if (!p->total_winner)
-    {
-        /*
-         * Attempting to wear the crown if you are not a winner is a very,
-         * very bad thing to do.
-         */
-        if (true_artifact_p(obj) && strstr(obj->artifact->name, "of Morgoth"))
-        {
-            msg(p, "You are blasted by the Crown's power!");
-
-            /* This should pierce invulnerability */
-            take_hit(p, 10000, "the Massive Iron Crown of Morgoth", false,
-                "was blasted by the Massive Iron Crown of Morgoth");
-            return;
-        }
-
-        /* Attempting to wield Grond isn't so bad. */
-        if (true_artifact_p(obj) && strstr(obj->artifact->name, "Grond"))
-        {
-            msg(p, "You are far too weak to wield the mighty Grond.");
-            return;
-        }
-    }
+    if (deny_winner_artifacts(p, obj)) return;
 
     /* Describe the object */
     object_desc(p, o_name, sizeof(o_name), equip_obj, ODESC_PREFIX | ODESC_FULL);

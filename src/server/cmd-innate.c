@@ -108,6 +108,9 @@ void do_cmd_ghost(struct player *p, int ability, int dir)
     /* Take a turn */
     use_energy(p);
 
+    /* Paranoia -- don't kill the DM */
+    if (is_dm_p(p)) return;
+
     /* Too much can kill you */
     if (p->exp < spell->slevel * spell->smana)
     {
@@ -115,7 +118,9 @@ void do_cmd_ghost(struct player *p, int ability, int dir)
         char df[160];
 
         strnfmt(df, sizeof(df), "exhausted %s with ghostly spells", pself);
-        take_hit(p, 5000, "the strain of ghostly powers", false, df);
+
+        /* This should pierce invulnerability */
+        take_hit(p, 5000, "the strain of ghostly powers", df);
     }
 
     /* Take some experience */

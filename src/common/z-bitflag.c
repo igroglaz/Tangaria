@@ -56,8 +56,6 @@ bool flag_has_dbg(const bitflag *flags, const size_t size, const int flag, const
             fi, fl, flag, (unsigned int)size, (unsigned int)flag_offset, flag_binary);
     }
 
-    my_assert(flag_offset < size);
-
     if (flags[flag_offset] & flag_binary) return true;
 
     return false;
@@ -224,8 +222,6 @@ bool flag_on_dbg(bitflag *flags, const size_t size, const int flag, const char *
         quit_fmt("Error in flag_on(%s, %s): FlagID[%d] Size[%u] FlagOff[%u] FlagBV[%d]",
             fi, fl, flag, (unsigned int)size, (unsigned int)flag_offset, flag_binary);
     }
-
-    my_assert(flag_offset < size);
 
     if (flags[flag_offset] & flag_binary) return false;
 

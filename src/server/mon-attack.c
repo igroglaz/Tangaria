@@ -667,8 +667,6 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         int damage = 0;
         int do_cut = 0;
         int do_stun = 0;
-        int sound_msg = MSG_GENERIC;
-        const char *act = NULL;
         bool do_conf = false, do_fear = false, do_blind = false, do_para = false;
         bool dead = false;
 
@@ -713,11 +711,8 @@ bool make_attack_normal(struct monster *mon, struct source *who)
                 }
             }
 
-            /* Describe the attack method */
-            act = monster_blow_method_action(method);
             do_cut = method->cut;
             do_stun = method->stun;
-            sound_msg = method->msgt;
             if (!who->monster) flav = method->flavor;
             if (!flav) flav = "killed";
 
@@ -733,31 +728,6 @@ bool make_attack_normal(struct monster *mon, struct source *who)
             /* PWMAngband: freezing aura reduces damage  */
             if ((who->player->timed[TMD_ICY_AURA] > 0) && !who->monster)
                 damage = (damage * 90) / 100;
-
-            /* Message */
-            if (act)
-            {
-                const char *fullstop = ".";
-                const char *act_text = "";
-                const char *dmg_text = "";
-
-                if (suffix(act, "'") || suffix(act, "!")) fullstop = "";
-
-                if (method->act_msg)
-                {
-                    act_text = format(act, target_m_name);
-                    if (OPT(who->player, show_damage))
-                        dmg_text = format(" for $r%d^r damage", damage);
-                }
-                else if (strstr(act, "%s"))
-                    act_text = format(act, target_m_name);
-                else if (who->monster)
-                    act_text = format("insults %s!", target_m_name);
-                else
-                    act_text = act;
-
-                msgt(who->player, sound_msg, "%s %s%s%s", m_name, act_text, dmg_text, fullstop);
-            }
 
             /* Perform the actual effect. */
             effect_handler = melee_handler_for_blow_effect(effect->name);

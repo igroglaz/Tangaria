@@ -15,6 +15,13 @@ changes and fixes are specific to PWMAngband.
 New features in PWMAngband 1.6.1 build 1
 ========================================
 
+User interface
+--------------
+
+Angband 4.2.x:
+
+- Improve the show_damage option
+
 Gameplay changes
 ----------------
 
@@ -33,6 +40,10 @@ PWMAngband:
 
 - Fix bugged SDL client options buttons
 - Fix "remove illegal input handler" error
+- Don't clear TMD_FOOD when a character dies to avoid meaningless messages
+- Fix mundane players able to use the Crown and Grond if not having anything
+  in the corresponding equipment slot
+- Fix Dungeon Master being blasted by the Crown's power
 
 Coding changes
 --------------
@@ -45,6 +56,11 @@ Angband 4.2.x:
 - Remove append_random_brand() and append_random_slay()
 - Handle padding of text that could contain multibyte UTF-8 characters
 - Some client fixes and improvements
+- Add predicate for squares that could be used as feeling squares
+- Use rf_union() rather than mflag_union() in lore_update()
+- player-calcs: use updated flags rather than flags from prior state
+- Move some assertions
+- Include number in stack for monster's reaction to player theft
 
 Compilation/documentation
 -------------------------

@@ -327,6 +327,7 @@ extern bool square_is_monster_walkable(struct chunk *c, struct loc *grid);
 extern bool square_ispassable(struct chunk *c, struct loc *grid);
 extern bool square_ispassable_p(struct player *p, struct loc *grid);
 extern bool square_isprojectable(struct chunk *c, struct loc *grid);
+extern bool square_allowsfeel(struct chunk *c, struct loc *grid);
 extern bool square_allowslos(struct chunk *c, struct loc *grid);
 extern bool square_isstrongwall(struct chunk *c, struct loc *grid);
 extern bool square_isbright(struct chunk *c, struct loc *grid);

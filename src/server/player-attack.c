@@ -853,7 +853,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
 
     char verb[30], hit_extra[30];
     uint32_t msg_type = MSG_HIT;
-    int dmg, d_dam;
+    int dmg, d_dam, reduced;
 
     /* Information about the attacker */
     char killer_name[NORMAL_WID];
@@ -1177,17 +1177,33 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     /* Special messages */
     if (target->monster)
     {
+        reduced = dmg;
+
         /* Stabbing attacks */
-        if (effects->stab_sleep)
+        if (reduced && effects->stab_sleep)
             my_strcpy(verb, "cruelly stab", sizeof(verb));
-        if (effects->stab_flee)
+        if (reduced && effects->stab_flee)
             my_strcpy(verb, "backstab", sizeof(verb));
     }
     else
     {
+        /*
+         * Player damage reduction does not affect the damage used for
+         * side effect calculations so leave dmg as is.
+         */
+        reduced = player_apply_damage_reduction(target->player, dmg, false);
+        if (!reduced)
+        {
+            msg_type = MSG_MISS;
+            my_strcpy(verb, "fail to harm", sizeof(verb));
+            hit_extra[0] = '\0';
+        }
+
         /* Tell the target what happened */
-        if (!dmg)
+        if (!reduced)
             msg(target->player, "%s fails to harm you.", killer_name);
+        else if (OPT(target->player, show_damage))
+            msg(target->player, "%s hits you for $r%d^r damage.", killer_name, reduced);
         else
             msg(target->player, "%s hits you.", killer_name);
     }
@@ -1198,7 +1214,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         const char *dmg_text = "";
 
         if (msg_type != melee_hit_types[i].msg_type) continue;
-        if (OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", dmg);
+        if (reduced && OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", reduced);
         if (melee_hit_types[i].text)
         {
             msgt(p, msg_type, "You %s %s%s%s. %s", verb, target_name, hit_extra, dmg_text,
@@ -1228,7 +1244,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         char df[160];
 
         strnfmt(df, sizeof(df), "was brutally murdered by %s", p->name);
-        stop = take_hit(target->player, dmg, p->name, false, df);
+        stop = take_hit(target->player, reduced, p->name, df);
 
         /* Handle freezing aura */
         if (!stop && target->player->timed[TMD_ICY_AURA])
@@ -1995,7 +2011,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 char m_name[NORMAL_WID];
                 int note_dies = MON_MSG_DIE;
                 struct attack_result result = attack(p, obj, &grid);
-                int dmg = result.dmg;
+                int dmg = result.dmg, reduced;
                 uint32_t msg_type = result.msg_type;
                 const char *verb = result.verb;
 
@@ -2036,6 +2052,34 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                         verb = "fails to harm";
                     }
 
+                    reduced = dmg;
+
+                    /* Message */
+                    if (who->player)
+                    {
+                        char killer_name[NORMAL_WID];
+
+                        reduced = player_apply_damage_reduction(who->player, dmg, false);
+                        if (!reduced)
+                        {
+                            msg_type = MSG_MISS;
+                            verb = "fails to harm";
+                        }
+
+                        /* Killer name */
+                        player_desc(who->player, killer_name, sizeof(killer_name), p, true);
+
+                        if (!reduced)
+                            msg(who->player, "%s throws a %s at you.", killer_name, o_name);
+                        else if (OPT(who->player, show_damage))
+                        {
+                            msg(who->player, "%s hits you with a %s for $r%d^r damage.",
+                                killer_name, o_name, reduced);
+                        }
+                        else
+                            msg(who->player, "%s hits you with a %s.", killer_name, o_name);
+                    }
+
                     if (!visible)
                     {
                         /* Invisible monster/player */
@@ -2051,7 +2095,8 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                             const char *dmg_text = "";
 
                             if (msg_type != hit_types[type].msg_type) continue;
-                            if (OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", dmg);
+                            if (reduced && OPT(p, show_damage))
+                                dmg_text = format(" for $g%d^g damage", reduced);
                             if (hit_types[type].text)
                             {
                                 msgt(p, msg_type, "Your %s %s %s%s. %s", o_name, verb, m_name,
@@ -2069,17 +2114,6 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                         health_track(p->upkeep, who);
                     }
 
-                    /* Message */
-                    if (who->player)
-                    {
-                        char killer_name[NORMAL_WID];
-
-                        /* Killer name */
-                        player_desc(who->player, killer_name, sizeof(killer_name), p, true);
-
-                        msg(who->player, "%s hits you with a %s.", killer_name, o_name);
-                    }
-
                     /* Hit the target, check for death */
                     if (who->monster)
                     {
@@ -2094,7 +2128,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                             p->name);
 
                         /* Hit the player, check for death */
-                        dead = take_hit(who->player, dmg, p->name, false, df);
+                        dead = take_hit(who->player, reduced, p->name, df);
                     }
 
                     /* Message */

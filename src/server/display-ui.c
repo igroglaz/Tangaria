@@ -2576,7 +2576,10 @@ void player_death(struct player *p)
     if (p->poly_race) do_cmd_poly(p, NULL, false, true);
 
     /* Cancel current effects */
-    for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
+    for (i = 0; i < TMD_MAX; i++)
+    {
+        if (i != TMD_FOOD) player_clear_timed(p, i, true);
+    }
 
     /* Turn him into a ghost */
     set_ghost_flag(p, 1, true);

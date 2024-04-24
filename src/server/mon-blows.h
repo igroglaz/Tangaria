@@ -85,7 +85,6 @@ struct blow_effect
 extern struct blow_effect *blow_effects;
 
 /* Functions */
-extern const char *monster_blow_method_action(struct blow_method *method);
 extern melee_effect_handler_f melee_handler_for_blow_effect(const char *name);
 extern uint8_t blow_method_index(const char *name);
 extern uint8_t blow_effect_index(const char *name);

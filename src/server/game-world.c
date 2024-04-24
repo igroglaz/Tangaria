@@ -925,21 +925,22 @@ static void process_player_world(struct player *p, struct chunk *c)
     /* Take damage from permanent wraithform while inside walls */
     if ((p->timed[TMD_WRAITHFORM] == -1) && !square_ispassable(c, &p->grid))
     {
-        take_hit(p, 1, "hypoxia", false, "was entombed into solid terrain");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "hypoxia",
+            "was entombed into solid terrain");
         if (p->is_dead) return;
     }
 
     /* Take damage from Undead Form */
     if (player_undead(p))
     {
-        take_hit(p, 1, "fading", false, "faded away");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "fading", "faded away");
         if (p->is_dead) return;
     }
 
     /* Take damage from poison */
     if (p->timed[TMD_POISONED])
     {
-        take_hit(p, 1, "poison", false, "died of blood poisoning");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "poison", "died of blood poisoning");
         if (p->is_dead) return;
     }
 
@@ -955,7 +956,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         else i = 1;
 
         /* Take damage */
-        take_hit(p, i, "a fatal wound", false, "bled to death");
+        take_hit(p, player_apply_damage_reduction(p, i, false), "a fatal wound", "bled to death");
         if (p->is_dead) return;
     }
 
@@ -1058,7 +1059,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         i = (PY_FOOD_STARVE - p->timed[TMD_FOOD]) / 10;
 
         /* Take damage */
-        take_hit(p, i, "starvation", false, "starved to death");
+        take_hit(p, player_apply_damage_reduction(p, i, false), "starvation", "starved to death");
         if (p->is_dead) return;
     }
 

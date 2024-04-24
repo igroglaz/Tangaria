@@ -889,6 +889,8 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
             if (walls == 0)
             {
                 mem_free(state);
+                mem_free(av);
+                dump_level_simple(NULL, "Stair Placement Failure", c);
                 quit("Failed to place stairs!");
             }
             walls--;
