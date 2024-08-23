@@ -810,6 +810,11 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
     struct loc grid;
     struct loc top_left, bottom_right;
 
+    // temp crush fix
+    if (num > 7) {
+        num = 7;
+    }
+
     nav = 0;
     if (minsep > 0)
     {
