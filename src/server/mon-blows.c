@@ -351,7 +351,7 @@ static bool monster_damage_target(melee_effect_handler_context_t *context)
      * Player damage reduction does not affect the damage used for
      * side effect calculations so leave context->damage as is.
      */
-    reduced = player_apply_damage_reduction(context->p, context->damage, false);
+    reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
     display_blow_message(context, reduced);
 
     /* Take damage */
@@ -416,7 +416,7 @@ static bool melee_effect_elemental(melee_effect_handler_context_t *context, int 
          * Player damage reduction does not affect the damage used for
          * side effect calculations so leave context->damage as is.
          */
-        int reduced = player_apply_damage_reduction(context->p, context->damage, false);
+        int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
         display_blow_message(context, reduced);
 
@@ -449,7 +449,7 @@ static void melee_effect_timed(melee_effect_handler_context_t *context, int type
      * Player damage reduction does not affect the damage used for
      * side effect calculations so leave context->damage as is.
      */
-    int reduced = player_apply_damage_reduction(context->p, context->damage, false);
+    int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
     display_blow_message(context, reduced);
 
@@ -1289,7 +1289,7 @@ static void melee_effect_handler_SHATTER(melee_effect_handler_context_t *context
          * Player damage reduction does not affect the damage used for
          * side effect calculations so leave context->damage as is.
          */
-        int reduced = player_apply_damage_reduction(context->p, context->damage, false);
+        int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
         display_blow_message(context, reduced);
 
@@ -1427,7 +1427,7 @@ static void melee_effect_handler_HALLU(melee_effect_handler_context_t *context)
      * Player damage reduction does not affect the damage used for
      * side effect calculations so leave context->damage as is.
      */
-    reduced = player_apply_damage_reduction(context->p, context->damage, false);
+    reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
     display_blow_message(context, reduced);
 
@@ -1558,7 +1558,7 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
      * Player damage reduction does not affect the damage used for
      * side effect calculations so leave context->damage as is.
      */
-    int reduced = player_apply_damage_reduction(context->p, context->damage, false);
+    int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
     display_blow_message(context, reduced);
 
@@ -1904,7 +1904,7 @@ static void melee_effect_handler_SEDUCE(melee_effect_handler_context_t *context)
      * Player damage reduction does not affect the damage used for
      * side effect calculations so leave context->damage as is.
      */
-    reduced = player_apply_damage_reduction(context->p, context->damage, false);
+    reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
     display_blow_message(context, reduced);
 

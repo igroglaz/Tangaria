@@ -367,7 +367,7 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
             /* Breathing damages health instead of costing mana */
             strnfmt(df, sizeof(df), "exhausted %s with breathing", pself);
             take_hit(context->origin->player,
-                player_apply_damage_reduction(context->origin->player, context->origin->player->mhp / 20, false),
+                player_apply_damage_reduction(context->origin->player, context->origin->player->mhp / 20, false, "the strain of breathing"),
                 "the strain of breathing", df);
             if (context->origin->player->is_dead) return !used;
 
@@ -1196,7 +1196,7 @@ bool effect_handler_CURSE(effect_handler_context_t *context)
         char killer[NORMAL_WID];
         char df[160];
 
-        dam = player_apply_damage_reduction(target_who->player, dam, true);
+        dam = player_apply_damage_reduction(target_who->player, dam, true, "curse effect");
         if (dam && OPT(context->origin->player, show_damage))
         {
             msg(context->origin->player, "You curse %s for $g%d^g damage.",
@@ -1303,7 +1303,7 @@ bool effect_handler_DAMAGE(effect_handler_context_t *context)
     }
 
     /* Hit the player */
-    dam = player_apply_damage_reduction(context->origin->player, dam, non_physical);
+    dam = player_apply_damage_reduction(context->origin->player, dam, non_physical, "damage effect");
     if (dam && OPT(context->origin->player, show_damage))
         msg(context->origin->player, "You take $r%d^r damage.", dam);
     take_hit(context->origin->player, dam, killer, df);
@@ -1844,7 +1844,7 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         struct player *player = player_get(abs(hurt[j]));
 
         /* Apply damage to player; done here so messages are ordered properly if the player dies. */
-        damage[j] = player_apply_damage_reduction(player, damage[j], false);
+        damage[j] = player_apply_damage_reduction(player, damage[j], false, "an earthquake");
         if (damage[j] && OPT(player, show_damage))
             msg(player, "You take $r%d^r damage.", damage[j]);
         take_hit(player, damage[j], "an earthquake", "was crushed by tons of falling rocks");
@@ -2667,7 +2667,7 @@ bool effect_handler_TAP_UNLIFE(effect_handler_context_t *context)
         }
 
         /* Hurt the player */
-        amount = player_apply_damage_reduction(target_who->player, amount, true);
+        amount = player_apply_damage_reduction(target_who->player, amount, true, "tap unlife effect");
         if (amount && OPT(context->origin->player, show_damage))
         {
             msg(context->origin->player, "You draw power from %s for $g%d^g damage.",

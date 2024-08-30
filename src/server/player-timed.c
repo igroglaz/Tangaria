@@ -894,7 +894,7 @@ static bool set_adrenaline(struct player *p, int v)
 
         v = 100;
         dam = damroll(2, v);
-        dam = player_apply_damage_reduction(p, dam, false);
+        dam = player_apply_damage_reduction(p, dam, false, "adrenaline poisoning");
 
         /* Too much adrenaline causes damage */
         msg(p, "Your body can't handle that much adrenaline!");
@@ -929,7 +929,7 @@ static bool set_adrenaline(struct player *p, int v)
                 {
                     int dam = damroll(2, v);
 
-                    dam = player_apply_damage_reduction(p, dam, false);
+                    dam = player_apply_damage_reduction(p, dam, false, "adrenaline poisoning");
                     if (dam && OPT(p, show_damage))
                         msg(p, "You take $r%d^r damage.", dam);
                     player_clear_timed(p, TMD_BIOFEEDBACK, true);

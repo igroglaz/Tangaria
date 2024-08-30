@@ -1706,7 +1706,7 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
              * affect the side effects (i.e. player_handler), so leave
              * context.dam unmodified.
              */
-            reduced = player_apply_damage_reduction(p, dam, false);
+            reduced = player_apply_damage_reduction(p, dam, false, killer);
             if (reduced && OPT(p, show_damage))
                 msg(p, "You take $r%d^r damage.", reduced);
 
@@ -1730,7 +1730,7 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
              * affect the side effects (i.e. player_handler), so leave
              * context.dam unmodified.
              */
-            reduced = player_apply_damage_reduction(p, dam, true);
+            reduced = player_apply_damage_reduction(p, dam, true, killer);
             if (reduced && OPT(p, show_damage))
                 msg(p, "You take $r%d^r damage.", reduced);
 
@@ -1766,7 +1766,7 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
                  * affect the side effects (i.e. player_handler), so leave
                  * context.dam unmodified.
                  */
-                reduced = player_apply_damage_reduction(p, dam, non_physical);
+                reduced = player_apply_damage_reduction(p, dam, non_physical, killer);
                 if (reduced && OPT(p, show_damage))
                     msg(p, "You take $r%d^r damage.", reduced);
 
@@ -1800,7 +1800,7 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         char df[160];
 
         strnfmt(df, sizeof(df), "was %s by %s", what, killer);
-        xtra = player_apply_damage_reduction(p, xtra, true);
+        xtra = player_apply_damage_reduction(p, xtra, true, killer);
 		if (xtra > 0 && OPT(p, show_damage))
             msg(p, "You take an extra $r%d^r damage.", xtra);
 		take_hit(p, xtra, killer, df);

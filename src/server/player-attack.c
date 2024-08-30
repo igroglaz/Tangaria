@@ -1176,7 +1176,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
          * Player damage reduction does not affect the damage used for
          * side effect calculations so leave dmg as is.
          */
-        reduced = player_apply_damage_reduction(target->player, dmg, false);
+        reduced = player_apply_damage_reduction(target->player, dmg, false, "strange melee blow");
         if (!reduced)
         {
             msg_type = MSG_MISS;
@@ -2045,7 +2045,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                     {
                         char killer_name[NORMAL_WID];
 
-                        reduced = player_apply_damage_reduction(who->player, dmg, false);
+                        reduced = player_apply_damage_reduction(who->player, dmg, false, "strange ranged attack");
                         if (!reduced)
                         {
                             msg_type = MSG_MISS;

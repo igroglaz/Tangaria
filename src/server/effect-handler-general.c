@@ -169,7 +169,7 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
         if (obj->artifact) history_lose_artifact(p, obj);
 
         none_left = use_object(p, obj, 1, false);
-        dam = player_apply_damage_reduction(p, dam, false);
+        dam = player_apply_damage_reduction(p, dam, false, "a failed attempt at uncursing");
         if (dam && OPT(p, show_damage))
             msg(p, "You take $r%d^r damage.", dam);
         take_hit(p, dam, "a failed attempt at uncursing",
@@ -1043,7 +1043,7 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Banishment", pself);
-    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false, "the strain of casting Banishment");
     if (dam && OPT(context->origin->player, show_damage))
         msg(context->origin->player, "You take $r%d^r damage.", dam);
     take_hit(context->origin->player, dam, "the strain of casting Banishment", df);
@@ -4201,7 +4201,7 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Mass Banishment", pself);
-    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false, "the strain of casting Mass Banishment");
     if (dam && OPT(context->origin->player, show_damage))
         msg(context->origin->player, "You take $r%d^r damage.", dam);
     take_hit(context->origin->player, dam, "the strain of casting Mass Banishment", df);
@@ -4367,7 +4367,7 @@ bool effect_handler_POLY_RACE(effect_handler_context_t *context)
 
         msg(context->origin->player, "Your nerves and muscles feel weak and lifeless!");
         strnfmt(df, sizeof(df), "exhausted %s with polymorphing", pself);
-        dam = player_apply_damage_reduction(context->origin->player, dam, false);
+        dam = player_apply_damage_reduction(context->origin->player, dam, false, "the strain of polymorphing");
         if (dam && OPT(context->origin->player, show_damage))
             msg(context->origin->player, "You take $r%d^r damage.", dam);
         take_hit(context->origin->player, dam, "the strain of polymorphing", df);

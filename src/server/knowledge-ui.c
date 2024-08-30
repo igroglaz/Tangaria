@@ -2766,7 +2766,7 @@ void do_cmd_fountain(struct player *p, int item)
         {
             int dam = damroll(4, 5);
 
-            dam = player_apply_damage_reduction(p, dam, false);
+            dam = player_apply_damage_reduction(p, dam, false, "drowning");
             if (dam && OPT(p, show_damage))
                 msg(p, "You take $r%d^r damage.", dam);
             take_hit(p, dam, "drowning", "slipped and fell in a fountain");

@@ -143,7 +143,7 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
  * p is the player of interest.
  * dam is the incoming damage amount.
  */
-int player_apply_damage_reduction(struct player *p, int dam, bool non_physical)
+int player_apply_damage_reduction(struct player *p, int dam, bool non_physical, const char *hit_from)
 {
     /* Permanent invulnerability */
     if ((p->timed[TMD_INVULN] == -1) || p->timed[TMD_SAFELOGIN]) return 0;
@@ -807,8 +807,7 @@ void player_over_exert(struct player *p, int flag, int chance, int amount)
     {
         const char *pself = player_self(p);
         char df[160];
-        ///////////////////////////////// <<<<<<<<<<<<< new PMWA dmg red
-        int dam = player_apply_damage_reduction(p, randint1(amount), false);
+        int dam = player_apply_damage_reduction(p, randint1(amount), false, "over-exertion");
 
         msg(p, "You cry out in sudden pain!");
         if (dam && OPT(p, show_damage))
@@ -975,7 +974,7 @@ void player_take_terrain_damage(struct player *p, struct chunk *c)
 	 * the raw incoming damage and not the value accounting for the
 	 * player's damage reduction.
 	 */
-    dam_reduced = player_apply_damage_reduction(p, dam_taken, false);
+    dam_reduced = player_apply_damage_reduction(p, dam_taken, false, "suffocating");
     if (dam_reduced && OPT(p, show_damage))
         msg(p, "You take $r%d^r damage.", dam_reduced);
     if (square_isfiery(c, &p->grid)) inven_damage(p, PROJ_FIRE, dam_taken);
@@ -1617,7 +1616,7 @@ bool hp_player(struct player *p, int num)
 
     if (player_undead(p))
     {
-        int dam = player_apply_damage_reduction(p, num, false);
+        int dam = player_apply_damage_reduction(p, num, false, "a bad healing medicine");
 
         if (dam && OPT(p, show_damage))
             msg(p, "You take $r%d^r damage.", dam);

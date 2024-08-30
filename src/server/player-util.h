@@ -62,7 +62,7 @@ typedef bool (*player_predicate)(struct player *q);
 extern int dungeon_get_next_level(struct player *p, int dlev, int added);
 extern void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *new_wpos,
     uint8_t new_level_method);
-extern int player_apply_damage_reduction(struct player *p, int dam, bool non_physical);
+extern int player_apply_damage_reduction(struct player *p, int dam, bool non_physical, const char *hit_from);
 extern bool take_hit(struct player *p, int damage, const char *kb_str, const char *died_flavor);
 extern int energy_per_move(struct player *p);
 extern bool has_energy_per_move(struct player *p);
