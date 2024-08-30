@@ -9,7 +9,28 @@
 /** Monster flags **/
 
 /*
- * The monster flag types
+ * Special Monster Flags (all temporary)
+ */
+
+#define mflag_has(f, flag)        flag_has_dbg(f, MFLAG_SIZE, flag, #f, #flag)
+#define mflag_next(f, flag)       flag_next(f, MFLAG_SIZE, flag)
+#define mflag_is_empty(f)         flag_is_empty(f, MFLAG_SIZE)
+#define mflag_is_full(f)          flag_is_full(f, MFLAG_SIZE)
+#define mflag_is_inter(f1, f2)    flag_is_inter(f1, f2, MFLAG_SIZE)
+#define mflag_is_subset(f1, f2)   flag_is_subset(f1, f2, MFLAG_SIZE)
+#define mflag_is_equal(f1, f2)    flag_is_equal(f1, f2, MFLAG_SIZE)
+#define mflag_on(f, flag)         flag_on_dbg(f, MFLAG_SIZE, flag, #f, #flag)
+#define mflag_off(f, flag)        flag_off(f, MFLAG_SIZE, flag)
+#define mflag_wipe(f)             flag_wipe(f, MFLAG_SIZE)
+#define mflag_setall(f)           flag_setall(f, MFLAG_SIZE)
+#define mflag_negate(f)           flag_negate(f, MFLAG_SIZE)
+#define mflag_copy(f1, f2)        flag_copy(f1, f2, MFLAG_SIZE)
+#define mflag_union(f1, f2)       flag_union(f1, f2, MFLAG_SIZE)
+#define mflag_inter(f1, f2)       flag_inter(f1, f2, MFLAG_SIZE)
+#define mflag_diff(f1, f2)        flag_diff(f1, f2, MFLAG_SIZE)
+
+/*
+ * Categories for the monster race flags
  */
 enum monster_flag_type
 {
@@ -31,27 +52,6 @@ enum monster_flag_type
 
     RFT_MAX
 };
-
-/*
- * Special Monster Flags (all temporary)
- */
-
-#define mflag_has(f, flag)        flag_has_dbg(f, MFLAG_SIZE, flag, #f, #flag)
-#define mflag_next(f, flag)       flag_next(f, MFLAG_SIZE, flag)
-#define mflag_is_empty(f)         flag_is_empty(f, MFLAG_SIZE)
-#define mflag_is_full(f)          flag_is_full(f, MFLAG_SIZE)
-#define mflag_is_inter(f1, f2)    flag_is_inter(f1, f2, MFLAG_SIZE)
-#define mflag_is_subset(f1, f2)   flag_is_subset(f1, f2, MFLAG_SIZE)
-#define mflag_is_equal(f1, f2)    flag_is_equal(f1, f2, MFLAG_SIZE)
-#define mflag_on(f, flag)         flag_on_dbg(f, MFLAG_SIZE, flag, #f, #flag)
-#define mflag_off(f, flag)        flag_off(f, MFLAG_SIZE, flag)
-#define mflag_wipe(f)             flag_wipe(f, MFLAG_SIZE)
-#define mflag_setall(f)           flag_setall(f, MFLAG_SIZE)
-#define mflag_negate(f)           flag_negate(f, MFLAG_SIZE)
-#define mflag_copy(f1, f2)        flag_copy(f1, f2, MFLAG_SIZE)
-#define mflag_union(f1, f2)       flag_union(f1, f2, MFLAG_SIZE)
-#define mflag_inter(f1, f2)       flag_inter(f1, f2, MFLAG_SIZE)
-#define mflag_diff(f1, f2)        flag_diff(f1, f2, MFLAG_SIZE)
 
 /*
  * Monster property and ability flags (race flags)

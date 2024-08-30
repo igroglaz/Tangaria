@@ -576,12 +576,11 @@ static bool source_can_light_wall(struct chunk *c, struct player *p, struct loc 
  * c Is the chunk in which to do the evaluation.
  * p Is the player to test.
  * wgrid Is the location of the wall.
- * sunlit Is true if the level is lit by the sun.
  *
  * Return true if the wall will appear to be lit for the player.
  * Otherwise, return false.
  */
-static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *wgrid, bool sunlit)
+static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *wgrid)
 {
     struct loc pn, chk;
 
@@ -590,10 +589,10 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
     if (loc_eq(&pn, wgrid)) return true;
 
     /*
-     * If the grid in the direction of the player is not a wall, is either
-     * sunlit or in a room, and is glowing, it'll illuminate the wall.
+     * If the grid in the direction of the player is not a wall and is
+     * glowing, it'll illuminate the wall.
      */
-    if (square_allowslos(c, &pn) && (sunlit || square_isroom(c, &pn)) && square_isglow(c, &pn))
+    if (square_allowslos(c, &pn) && square_isglow(c, &pn))
         return true;
 
     /*
@@ -608,15 +607,15 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
         {
             chk.x = pn.x;
             chk.y = wgrid->y;
-            if (square_allowslos(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
-                square_isglow(c, &chk) && source_can_light_wall(c, p, &chk, wgrid))
+            if (square_allowslos(c, &chk) && square_isglow(c, &chk) &&
+                source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
             }
             chk.x = wgrid->x;
             chk.y = pn.y;
-            if (square_allowslos(c, &chk) && (sunlit || square_isroom(c, &chk)) &&
-                square_isglow(c, &chk) && source_can_light_wall(c, p, &chk, wgrid))
+            if (square_allowslos(c, &chk) && square_isglow(c, &chk) &&
+                source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
             }
@@ -625,15 +624,13 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
         {
             chk.x = pn.x;
             chk.y = wgrid->y - 1;
-            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
-                (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
+            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) && square_isglow(c, &chk) &&
                 source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
             }
             chk.y = wgrid->y + 1;
-            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
-                (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
+            if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) && square_isglow(c, &chk) &&
                 source_can_light_wall(c, p, &chk, wgrid))
             {
                 return true;
@@ -644,15 +641,13 @@ static bool glow_can_light_wall(struct chunk *c, struct player *p, struct loc *w
     {
         chk.y = pn.y;
         chk.x = wgrid->x - 1;
-        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
-            (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
+        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) && square_isglow(c, &chk) &&
             source_can_light_wall(c, p, &chk, wgrid))
         {
             return true;
         }
         chk.x = wgrid->x + 1;
-        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) &&
-            (sunlit || square_isroom(c, &chk)) && square_isglow(c, &chk) &&
+        if (square_in_bounds(c, &chk) && square_allowslos(c, &chk) && square_isglow(c, &chk) &&
             source_can_light_wall(c, p, &chk, wgrid))
         {
             return true;
@@ -728,7 +723,6 @@ static void calc_lighting(struct player *p, struct chunk *c)
     int light = p->state.cur_light;
     int radius; // T: fill later, after reassigning 'light'
     int old_light = p->square_light;
-    bool sunlit = (c->wpos.depth == 0) && is_daytime();
     struct loc begin, end;
     struct loc_iterator iter;
     int max_vision = z_info->max_sight; // Tangaria
@@ -775,7 +769,7 @@ static void calc_lighting(struct player *p, struct chunk *c)
     do
     {
         if (square_isglow(c, &iter.cur) &&
-            (square_allowslos(c, &iter.cur) || glow_can_light_wall(c, p, &iter.cur, sunlit)))
+            (square_allowslos(c, &iter.cur) || glow_can_light_wall(c, p, &iter.cur)))
         {
             square_p(p, &iter.cur)->light = 1;
         }

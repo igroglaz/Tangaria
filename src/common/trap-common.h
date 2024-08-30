@@ -82,8 +82,8 @@ struct trap
 
     struct loc grid;            /* Location of trap */
 
-    uint8_t power;                 /* Power for door locks, visibility for traps */
-    uint8_t timeout;               /* Timer for disabled traps */
+    uint8_t power;              /* Power for door locks, visibility for traps */
+    uint8_t timeout;            /* Timer for disabled traps */
 
     bitflag flags[TRF_SIZE];    /* Trap flags (only this particular trap) */
 };

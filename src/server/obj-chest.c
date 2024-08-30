@@ -625,15 +625,8 @@ bool do_cmd_open_chest(struct player *p, struct chunk *c, struct loc *grid, stru
         /* Get the "disarm" factor */
         i = p->state.skills[SKILL_DISARM_PHYS];
 
-        /* Penalize some conditions */
-        if (p->timed[TMD_BLIND] || no_light(p)) i = i / 10;
-        if (p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE]) i = i / 10;
-
         /* Extract the difficulty */
-        j = i - obj->pval;
-
-        /* Always have a small chance of success */
-        if (j < 2) j = 2;
+        j = calc_skill(p, i, obj->pval, no_light(p));
 
         /* Success -- may still have traps */
         if (magik(j))
@@ -715,15 +708,8 @@ bool do_cmd_disarm_chest(struct player *p, struct chunk *c, struct loc *grid, st
 			skill = p->state.skills[SKILL_DISARM_MAGIC];
 	}
 
-    /* Penalize some conditions */
-    if (p->timed[TMD_BLIND] || no_light(p)) skill /= 10;
-    if (p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE]) skill /= 10;
-
     /* Extract the difficulty */
-    diff = skill - obj->pval;
-
-    /* Always have a small chance of success */
-    if (diff < 2) diff = 2;
+    diff = calc_skill(p, skill, obj->pval, no_light(p));
 
     /* Must find the trap first. */
     if (!object_is_known(p, obj))

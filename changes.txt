@@ -12,11 +12,48 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.1 build 1
+New features in PWMAngband 1.6.1 build 2
 ========================================
+
+User interface
+--------------
+
+Angband 4.2.x:
+
+- Fixing Main Gauche plural to be in line with proper french
+
+Coding changes
+--------------
+
+Angband 4.2.x:
+
+- Rename square_isnotknown()
+- Have player calculations use resist and flag-synonym from player-timed.txt
+- SDL: plug potential leak of directory handle
+- Correct path_normalize() for Windows
+- For exits due to a signal, use non-zero exit code
+- sum_angel_song -> sum_ainu_song
+- Avoid assert failure for negative bash damage
+- Prevent out-of-bounds write to stack array in earthquake handler
+- Set an object to assessed that has all its runes known
+- Allow glowing terrain that's not in a room or on the surface to light a wall
+
+Features in PWMAngband 1.6.1 build 1
+====================================
+
+User interface
+--------------
+
+Angband 4.2.x:
+
+- Improve the show_damage option
 
 Gameplay changes
 ----------------
+
+Angband 4.2.x:
+
+- Tweak edges of the Cracks Of Doom
 
 PWMAngband:
 
@@ -33,6 +70,11 @@ PWMAngband:
 
 - Fix bugged SDL client options buttons
 - Fix "remove illegal input handler" error
+- Don't clear TMD_FOOD when a character dies to avoid meaningless messages
+- Fix mundane players able to use the Crown and Grond if not having anything
+  in the corresponding equipment slot
+- Fix Dungeon Master being blasted by the Crown's power
+- Fix crash in SDL client when selecting 16x16xw.woff font
 
 Coding changes
 --------------
@@ -45,6 +87,13 @@ Angband 4.2.x:
 - Remove append_random_brand() and append_random_slay()
 - Handle padding of text that could contain multibyte UTF-8 characters
 - Some client fixes and improvements
+- Add predicate for squares that could be used as feeling squares
+- Use rf_union() rather than mflag_union() in lore_update()
+- player-calcs: use updated flags rather than flags from prior state
+- Move some assertions
+- Include number in stack for monster's reaction to player theft
+- Have more logic accommodate multiple traps in a square
+- Correct some logic where square_isknown() is used
 
 Compilation/documentation
 -------------------------

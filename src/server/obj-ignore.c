@@ -62,11 +62,7 @@ static int cmp_object_trait(int bonus, random_value base)
 static int is_object_good(const struct object *obj)
 {
     int good = 0;
-    int16_t to_h, to_d, to_a;
-
-    object_to_h(obj, &to_h);
-    object_to_d(obj, &to_d);
-    object_to_a(obj, &to_a);
+    int16_t to_h = object_to_hit(obj), to_d = object_to_dam(obj), to_a = object_to_ac(obj);
 
     good += 4 * cmp_object_trait(to_d, obj->kind->to_d);
     good += 2 * cmp_object_trait(to_h, obj->kind->to_h);

@@ -2290,7 +2290,8 @@ static void RefreshFontBrowser(sdl_Button *sender)
 
 				if (dir2)
                 {
-					if (FontBrowserDirCount == FontBrowserDirAlloc)
+					my_dclose(dir2);
+                    if (FontBrowserDirCount == FontBrowserDirAlloc)
                     {
 						if (FontBrowserDirAlloc > ((size_t) -1) / (2 * sizeof(char*)))
                         {
@@ -2311,7 +2312,6 @@ static void RefreshFontBrowser(sdl_Button *sender)
 					FontBrowserDirEntries[FontBrowserDirCount] =
 						string_make(file_part);
 					++FontBrowserDirCount;
-					my_dclose(dir2);
 				}
 			}
 		}
@@ -4523,7 +4523,7 @@ static errr load_window_prefs(void)
 				}
                 else
                 {
-					win->req_font.name = string_make(s);
+					win->req_font.alloc_name = string_make(s);
 					fsz = 0;
 				}
 			}

@@ -925,21 +925,22 @@ static void process_player_world(struct player *p, struct chunk *c)
     /* Take damage from permanent wraithform while inside walls */
     if ((p->timed[TMD_WRAITHFORM] == -1) && !square_ispassable(c, &p->grid))
     {
-        take_hit(p, 1, "hypoxia", false, "was entombed into solid terrain");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "hypoxia",
+            "was entombed into solid terrain");
         if (p->is_dead) return;
     }
 
     /* Take damage from Undead Form */
     if (player_undead(p))
     {
-        take_hit(p, 1, "fading", false, "faded away");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "fading", "faded away");
         if (p->is_dead) return;
     }
 
     /* Take damage from poison */
     if (p->timed[TMD_POISONED])
     {
-        take_hit(p, 1, "poison", false, "died of blood poisoning");
+        take_hit(p, player_apply_damage_reduction(p, 1, false), "poison", "died of blood poisoning");
         if (p->is_dead) return;
     }
 
@@ -955,7 +956,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         else i = 1;
 
         /* Take damage */
-        take_hit(p, i, "a fatal wound", false, "bled to death");
+        take_hit(p, player_apply_damage_reduction(p, i, false), "a fatal wound", "bled to death");
         if (p->is_dead) return;
     }
 
@@ -1058,7 +1059,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         i = (PY_FOOD_STARVE - p->timed[TMD_FOOD]) / 10;
 
         /* Take damage */
-        take_hit(p, i, "starvation", false, "starved to death");
+        take_hit(p, player_apply_damage_reduction(p, i, false), "starvation", "starved to death");
         if (p->is_dead) return;
     }
 
@@ -3501,11 +3502,16 @@ static void handle_signal_suspend(int sig)
  */
 static void handle_signal_simple(int sig)
 {
+    char msg[48];
+
     /* Disable handler */
     signal(sig, SIG_IGN);
 
+    /* Construct the exit message in case it is needed */
+    strnfmt(msg, sizeof(msg), "Exiting on signal %d!", sig);
+
     /* Nothing to save, just quit */
-    if (!server_generated) quit(NULL);
+    if (!server_generated) quit(msg);
 
     /* Hack -- on SIGTERM, quit right away */
     if (sig == SIGTERM) signal_count = 5;
@@ -3535,14 +3541,19 @@ static void handle_signal_simple(int sig)
  */
 static void handle_signal_abort(int sig)
 {
+    char msg[48];
+
     /* We are *not* reentrant */
     if (signalbusy) raise(sig);
     signalbusy = 1;
 
     plog("Unexpected signal, panic saving.");
 
+    /* Construct the exit message */
+    strnfmt(msg, sizeof(msg), "Exiting on signal %d!", sig);
+
     /* Nothing to save, just quit */
-    if (!server_generated) quit(NULL);
+    if (!server_generated) quit(msg);
 
     /* Save everybody */
     exit_game_panic();

@@ -66,12 +66,7 @@ int chance_of_melee_hit_base(const struct player *p, const struct object *weapon
     int bonus = p->state.to_h;
 
     if (weapon)
-    {
-        int16_t to_h;
-
-        object_to_h(weapon, &to_h);
-        bonus += to_h;
-    }
+        bonus += object_to_hit(weapon);
 
     return p->state.skills[SKILL_TO_HIT_MELEE] + bonus * BTH_PLUS_ADJ;
 }
@@ -106,7 +101,7 @@ static int chance_of_melee_hit(const struct player *p, const struct object *weap
 static int chance_of_missile_hit_base(struct player *p, struct object *missile,
     struct object *launcher)
 {
-    int bonus = missile->to_h;
+    int bonus = object_to_hit(missile);
     int chance;
 
     if (!launcher)
@@ -133,10 +128,7 @@ static int chance_of_missile_hit_base(struct player *p, struct object *missile,
     }
     else
     {
-        int16_t to_h;
-
-        object_to_h(launcher, &to_h);
-        bonus += p->state.to_h + to_h;
+        bonus += p->state.to_h + object_to_hit(launcher);
         chance = p->state.skills[SKILL_TO_HIT_BOW] + bonus * BTH_PLUS_ADJ;
         
         // magic classes are bad in shooting until high lvl
@@ -399,7 +391,6 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
     struct source *target, struct delayed_effects *effects, int *d_dam)
 {
     int dmg = randcalc(dice, 0, RANDOMISE);
-    int16_t to_d;
 
     /* Base damage for Shadow touch and cuts/stuns */
     *d_dam = dmg;
@@ -417,8 +408,7 @@ static int melee_damage(struct player *p, struct object *obj, random_value dice,
         if (effects->stab_flee) dmg = dmg * 3 / 2;
     }
 
-    object_to_d(obj, &to_d);
-    dmg += to_d;
+    dmg += object_to_dam(obj);
 
     return dmg;
 }
@@ -443,14 +433,12 @@ static int ranged_damage(struct player *p, struct object *missile, struct object
 
     /* Apply damage: multiplier, slays, bonuses */
     dam = damroll(missile->dd, missile->ds);
-    dam += missile->to_d;
+
+    dam += object_to_dam(missile);
 
     if (launcher)
     {
-        int16_t to_d;
-
-        object_to_d(launcher, &to_d);
-        dam += to_d;
+        dam += object_to_dam(launcher);
         
         // magic classes are bad in shooting until high lvl
         // also BAD_SHOOTER are bad in using weapons
@@ -853,7 +841,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
 
     char verb[30], hit_extra[30];
     uint32_t msg_type = MSG_HIT;
-    int dmg, d_dam;
+    int dmg, d_dam, reduced;
 
     /* Information about the attacker */
     char killer_name[NORMAL_WID];
@@ -1134,10 +1122,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             /* For now, exclude criticals on unarmed combat */
             if (obj)
             {
-                int16_t to_h;
-
-                object_to_h(obj, &to_h);
-                dmg = critical_melee(p, target, weight, to_h, dmg, &msg_type);
+                dmg = critical_melee(p, target, weight, object_to_hit(obj), dmg, &msg_type);
 
                 /* Learn by use for the weapon */
                 object_notice_attack_plusses(p, obj);
@@ -1177,17 +1162,33 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     /* Special messages */
     if (target->monster)
     {
+        reduced = dmg;
+
         /* Stabbing attacks */
-        if (effects->stab_sleep)
+        if (reduced && effects->stab_sleep)
             my_strcpy(verb, "cruelly stab", sizeof(verb));
-        if (effects->stab_flee)
+        if (reduced && effects->stab_flee)
             my_strcpy(verb, "backstab", sizeof(verb));
     }
     else
     {
+        /*
+         * Player damage reduction does not affect the damage used for
+         * side effect calculations so leave dmg as is.
+         */
+        reduced = player_apply_damage_reduction(target->player, dmg, false);
+        if (!reduced)
+        {
+            msg_type = MSG_MISS;
+            my_strcpy(verb, "fail to harm", sizeof(verb));
+            hit_extra[0] = '\0';
+        }
+
         /* Tell the target what happened */
-        if (!dmg)
+        if (!reduced)
             msg(target->player, "%s fails to harm you.", killer_name);
+        else if (OPT(target->player, show_damage))
+            msg(target->player, "%s hits you for $r%d^r damage.", killer_name, reduced);
         else
             msg(target->player, "%s hits you.", killer_name);
     }
@@ -1198,7 +1199,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         const char *dmg_text = "";
 
         if (msg_type != melee_hit_types[i].msg_type) continue;
-        if (OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", dmg);
+        if (reduced && OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", reduced);
         if (melee_hit_types[i].text)
         {
             msgt(p, msg_type, "You %s %s%s%s. %s", verb, target_name, hit_extra, dmg_text,
@@ -1228,7 +1229,7 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
         char df[160];
 
         strnfmt(df, sizeof(df), "was brutally murdered by %s", p->name);
-        stop = take_hit(target->player, dmg, p->name, false, df);
+        stop = take_hit(target->player, reduced, p->name, df);
 
         /* Handle freezing aura */
         if (!stop && target->player->timed[TMD_ICY_AURA])
@@ -1318,6 +1319,7 @@ static bool attempt_shield_bash(struct player *p, struct chunk *c, struct monste
     bash_dam += adj_str_td[p->state.stat_ind[STAT_STR]];
 
     /* Paranoia. */
+    if (bash_dam <= 0) return false;
     bash_dam = MIN(bash_dam, 125);
 
     if (OPT(p, show_damage)) msgt(p, MSG_HIT, "You get in a shield bash for $g%d^g damage!", bash_dam);
@@ -1995,7 +1997,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 char m_name[NORMAL_WID];
                 int note_dies = MON_MSG_DIE;
                 struct attack_result result = attack(p, obj, &grid);
-                int dmg = result.dmg;
+                int dmg = result.dmg, reduced;
                 uint32_t msg_type = result.msg_type;
                 const char *verb = result.verb;
 
@@ -2036,6 +2038,34 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                         verb = "fails to harm";
                     }
 
+                    reduced = dmg;
+
+                    /* Message */
+                    if (who->player)
+                    {
+                        char killer_name[NORMAL_WID];
+
+                        reduced = player_apply_damage_reduction(who->player, dmg, false);
+                        if (!reduced)
+                        {
+                            msg_type = MSG_MISS;
+                            verb = "fails to harm";
+                        }
+
+                        /* Killer name */
+                        player_desc(who->player, killer_name, sizeof(killer_name), p, true);
+
+                        if (!reduced)
+                            msg(who->player, "%s throws a %s at you.", killer_name, o_name);
+                        else if (OPT(who->player, show_damage))
+                        {
+                            msg(who->player, "%s hits you with a %s for $r%d^r damage.",
+                                killer_name, o_name, reduced);
+                        }
+                        else
+                            msg(who->player, "%s hits you with a %s.", killer_name, o_name);
+                    }
+
                     if (!visible)
                     {
                         /* Invisible monster/player */
@@ -2051,7 +2081,8 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                             const char *dmg_text = "";
 
                             if (msg_type != hit_types[type].msg_type) continue;
-                            if (OPT(p, show_damage)) dmg_text = format(" for $g%d^g damage", dmg);
+                            if (reduced && OPT(p, show_damage))
+                                dmg_text = format(" for $g%d^g damage", reduced);
                             if (hit_types[type].text)
                             {
                                 msgt(p, msg_type, "Your %s %s %s%s. %s", o_name, verb, m_name,
@@ -2069,17 +2100,6 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                         health_track(p->upkeep, who);
                     }
 
-                    /* Message */
-                    if (who->player)
-                    {
-                        char killer_name[NORMAL_WID];
-
-                        /* Killer name */
-                        player_desc(who->player, killer_name, sizeof(killer_name), p, true);
-
-                        msg(who->player, "%s hits you with a %s.", killer_name, o_name);
-                    }
-
                     /* Hit the target, check for death */
                     if (who->monster)
                     {
@@ -2094,7 +2114,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                             p->name);
 
                         /* Hit the player, check for death */
-                        dead = take_hit(who->player, dmg, p->name, false, df);
+                        dead = take_hit(who->player, reduced, p->name, df);
                     }
 
                     /* Message */
@@ -2321,7 +2341,7 @@ static struct attack_result make_ranged_shot(struct player *p, struct object *am
     }
 
     result.dmg = ranged_damage(p, ammo, bow, best_mult, multiplier);
-    result.dmg = critical_shot(p, target, ammo->weight, ammo->to_h, result.dmg, true,
+    result.dmg = critical_shot(p, target, ammo->weight, object_to_hit(ammo), result.dmg, true,
         &result.msg_type);
 
     missile_learn_on_ranged_attack(p, bow);
@@ -2343,7 +2363,6 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
     struct source *target = &target_body;
     bool visible;
     int ac;
-    int16_t to_h;
 
     memset(&result, 0, sizeof(result));
     my_strcpy(result.verb, "hits", sizeof(result.verb));
@@ -2372,8 +2391,8 @@ static struct attack_result make_ranged_throw(struct player *p, struct object *o
         sizeof(result.verb), true);
 
     result.dmg = ranged_damage(p, obj, NULL, best_mult, multiplier);
-    object_to_h(obj, &to_h);
-    result.dmg = critical_shot(p, target, obj->weight, to_h, result.dmg, false, &result.msg_type);
+    result.dmg = critical_shot(p, target, obj->weight, object_to_hit(obj), result.dmg, false,
+        &result.msg_type);
 
     /* Direct adjustment for exploding things (flasks of oil) */
     if (of_has(obj->flags, OF_EXPLODE)) result.dmg *= 3;

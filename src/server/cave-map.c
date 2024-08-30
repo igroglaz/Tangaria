@@ -531,8 +531,8 @@ void wiz_light(struct player *p, struct chunk *c, int mode)
             default: break;
         }
 
-        /* Forget unprocessed, unknown grids in the mapping area */
-        if (!square_ismark(p, &iter.cur) && square_isnotknown(p, c, &iter.cur))
+        /* Forget grids that are both unprocessed and misremembered in the mapping area. */
+        if (!square_ismark(p, &iter.cur) && square_ismemorybad(p, c, &iter.cur))
             square_forget(p, &iter.cur);
     }
     while (loc_iterator_next_strict(&iter));
@@ -612,8 +612,8 @@ void wiz_dark(struct player *p, struct chunk *c, bool full)
         if (full) square_know_pile(p, c, &iter.cur);
         else square_sense_pile(p, c, &iter.cur);
 
-        /* Forget unprocessed, unknown grids in the mapping area */
-        if (!square_ismark(p, &iter.cur) && square_isnotknown(p, c, &iter.cur))
+        /* Forget grids that are both unprocessed and misremembered in the mapping area. */
+        if (!square_ismark(p, &iter.cur) && square_ismemorybad(p, c, &iter.cur))
             square_forget(p, &iter.cur);
     }
     while (loc_iterator_next_strict(&iter));

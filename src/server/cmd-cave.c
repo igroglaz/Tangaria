@@ -295,6 +295,11 @@ static bool do_cmd_open_test(struct player *p, struct chunk *c, struct loc *grid
     if (!square_iscloseddoor(c, grid))
     {
         msgt(p, MSG_NOTHING_TO_OPEN, "You see nothing there to open.");
+        if (square_iscloseddoor_p(p, grid))
+        {
+            square_forget(p, grid);
+            square_light_spot_aux(p, c, grid);
+        }
         return false;
     }
 
@@ -326,7 +331,6 @@ static bool do_cmd_open_test(struct player *p, struct chunk *c, struct loc *grid
  */
 static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
 {
-    int i, j, k;
     bool more = false;
     struct house_type *house;
     bool can_open = (OPT(p, birth_fruit_bat) || !p->poly_race ||
@@ -340,6 +344,8 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
     /* Player Houses */
     if (square_home_iscloseddoor(c, grid))
     {
+        int i, k;
+
         i = pick_house(&p->wpos, grid);
         if (i == -1)
         {
@@ -418,24 +424,10 @@ static bool do_cmd_open_aux(struct player *p, struct chunk *c, struct loc *grid)
     /* Locked door */
     else if (square_islockeddoor(c, grid))
     {
-        /* Disarm factor */
-        i = p->state.skills[SKILL_DISARM_PHYS];
-
-        /* Penalize some conditions */
-        if (p->timed[TMD_BLIND] || no_light(p) || p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
-            i = i / 10;
-
-        /* Extract the door power */
-        j = square_door_power(c, grid);
-
-        /* Extract the difficulty XXX XXX XXX */
-        j = i - (j * 4);
-
-        /* Always have a small chance of success */
-        if (j < 2) j = 2;
+        int chance = calc_unlocking_chance(p, square_door_power(c, grid), no_light(p));
 
         /* Success */
-        if (magik(j))
+        if (magik(chance))
         {
             if (can_bash && !can_open)
             {
@@ -680,6 +672,12 @@ static bool do_cmd_close_test(struct player *p, struct chunk *c, struct loc *gri
         /* Message */
         msg(p, "You see nothing there to close.");
 
+        if (square_isopendoor_p(p, grid) || square_isbrokendoor_p(p, grid))
+        {
+            square_forget(p, grid);
+            square_light_spot_aux(p, c, grid);
+        }
+
         /* Nope */
         return false;
     }
@@ -863,6 +861,11 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
         !square_isfountain(c, grid))
     {
         msg(p, "You see nothing there to tunnel.");
+        if (square_seemsdiggable_p(p, grid))
+        {
+            square_forget(p, grid);
+            square_light_spot_aux(p, c, grid);
+        }
         return false;
     }
 
@@ -1004,6 +1007,12 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             msg(p, "You cannot tunnel through that.");
         else
             msg(p, "This seems to be permanent rock.");
+
+        if (!square_isperm_p(p, grid))
+        {
+            square_memorize(p, c, grid);
+            square_light_spot_aux(p, c, grid);
+        }
     }
     
     /* No diggins walls in towns */
@@ -1674,18 +1683,11 @@ static bool do_cmd_lock_door(struct player *p, struct chunk *c, struct loc *grid
     /* Get the "disarm" factor */
     i = p->state.skills[SKILL_DISARM_PHYS];
 
-    /* Penalize some conditions */
-    if (p->timed[TMD_BLIND] || no_light(p) || p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
-        i = i / 10;
-
     /* Calculate lock "power" */
     power = m_bonus(7, p->wpos.depth);
 
-    /* Extract the difficulty */
-    j = i - power;
-
-    /* Always have a small chance of success */
-    if (j < 2) j = 2;
+    /* Extract the percentage success */
+    j = calc_skill(p, i, power, no_light(p));
 
     /* Success */
     if (magik(j))
@@ -1742,18 +1744,11 @@ static bool do_cmd_disarm_aux(struct player *p, struct chunk *c, struct loc *gri
     else
         skill = p->state.skills[SKILL_DISARM_PHYS];
 
-    /* Penalize some conditions */
-    if (p->timed[TMD_BLIND] || no_light(p) || p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
-        skill = skill / 10;
-
     /* Extract trap power */
     power = MAX(c->wpos.depth, 0) / 5;
 
     /* Extract the percentage success */
-    chance = skill - power;
-
-    /* Always have a small chance of success */
-    if (chance < 2) chance = 2;
+    chance = calc_skill(p, skill, power, no_light(p));
 
     /* Two chances - one to disarm, one not to set the trap off */
     if (magik(chance))
@@ -1762,7 +1757,10 @@ static bool do_cmd_disarm_aux(struct player *p, struct chunk *c, struct loc *gri
         player_exp_gain(p, 1 + power);
 
         /* Trap is gone */
-        square_destroy_trap(c, grid);
+        if (!square_remove_trap(c, grid, trap, true))
+        {
+            my_assert(0);
+        }
     }
     else if (magik(chance))
     {
@@ -2403,34 +2401,45 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 /* Rubble */
                 if (square_isrubble(c, &grid))
                 {
-                    msgt(p, MSG_HITWALL, "You feel a pile of rubble blocking your way.");
-                    square_memorize(p, c, &grid);
-                    square_light_spot_aux(p, c, &grid);
+                    msgt(p, MSG_HITWALL, "There is a pile of rubble blocking your way.");
+                    if (!square_isrubble_p(p, &grid))
+                    {
+                        square_memorize(p, c, &grid);
+                        square_light_spot_aux(p, c, &grid);
+                    }
                 }
 
-                /* Closed door */
+                /* Closed doors */
                 else if (square_iscloseddoor(c, &grid))
                 {
-                    msgt(p, MSG_HITWALL, "You feel a door blocking your way.");
-                    square_memorize(p, c, &grid);
-                    square_light_spot_aux(p, c, &grid);
+                    msgt(p, MSG_HITWALL, "There is a door blocking your way.");
+                    if (!square_iscloseddoor_p(p, &grid))
+                    {
+                        square_memorize(p, c, &grid);
+                        square_light_spot_aux(p, c, &grid);
+                    }
                 }
 
                 /* Tree */
                 else if (square_istree(c, &grid))
                 {
-                    msgt(p, MSG_HITWALL, "You feel a tree blocking your way.");
-                    square_memorize(p, c, &grid);
-                    square_light_spot_aux(p, c, &grid);
+                    msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
+                    if (!square_istree_p(p, &grid))
+                    {
+                        square_memorize(p, c, &grid);
+                        square_light_spot_aux(p, c, &grid);
+                    }
                 }
 
                 /* Wall (or secret door) */
                 else
                 {
-                    msgt(p, MSG_HITWALL, "You feel a wall blocking your way.");
-                    square_memorize(p, c, &grid);
-                    square_light_spot_aux(p, c, &grid);
-                }
+                    msgt(p, MSG_HITWALL, "There is a wall blocking your way.");
+                    if (square_ispassable_p(p, &grid))
+                    {
+                        square_forget(p, &grid);
+                        square_light_spot_aux(p, c, &grid);
+                    }
             }
 
             /* Mention known obstacles */
@@ -2927,7 +2936,14 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
     {
         /* Rubble */
         if (square_isrubble(c, grid))
+        {
             msgt(p, MSG_HITWALL, "There is a pile of rubble in the way!");
+            if (!square_isrubble_p(p, grid))
+            {
+                square_memorize(p, c, grid);
+                square_light_spot_aux(p, c, grid);
+            }
+        }
 
         /* Door */
         else if (square_iscloseddoor(c, grid))
@@ -2935,11 +2951,25 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
 
         /* Tree */
         else if (square_istree(c, grid))
+        {
             msgt(p, MSG_HITWALL, "There is a tree in the way!");
+            if (!square_istree_p(p, grid))
+            {
+                square_memorize(p, c, grid);
+                square_light_spot_aux(p, c, grid);
+            }
+        }
 
         /* Wall */
         else
+        {
             msgt(p, MSG_HITWALL, "There is a wall in the way!");
+            if (square_ispassable_p(p, grid))
+            {
+                square_forget(p, grid);
+                square_light_spot_aux(p, c, grid);
+            }
+        }
 
         /* Cancel repeat */
         disturb(p, 1);

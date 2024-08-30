@@ -755,7 +755,7 @@ void place_secret_door(struct chunk *c, struct loc *grid)
  */
 void place_closed_door(struct chunk *c, struct loc *grid)
 {
-    square_close_door(c, grid);
+    square_create_closed_door(c, grid);
     if (one_in_(4))
         square_set_door_lock(c, grid, randint1(7));
 }
@@ -783,10 +783,10 @@ void place_random_door(struct chunk *c, struct loc *grid)
     if (dungeon && c->wpos.depth && df_has(dungeon->flags, DF_NO_DOORS)) return;
 
     /* Create open door */
-    if (tmp < 30) square_open_door(c, grid);
+    if (tmp < 30) square_create_open_door(c, grid);
 
     /* Create broken door */
-    else if (tmp < 40) square_smash_door(c, grid);
+    else if (tmp < 40) square_create_smashed_door(c, grid);
 
     /* Create closed door */
     else place_closed_door(c, grid);

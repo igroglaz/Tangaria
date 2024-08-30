@@ -897,7 +897,7 @@ int draw_path(struct player *p, uint16_t path_n, struct loc *path_g, struct loc 
                 colour = COLOUR_YELLOW;
 
             /* The camouflaged monster looks like a wall. */
-            else if (!square_isprojectable(c, &path_g[i]))
+            else if (square_isknown(p, &path_g[i]) && !square_isprojectable_p(p, &path_g[i]))
                 colour = COLOUR_BLUE;
 
             /* The camouflaged monster looks like an unoccupied square. */
@@ -924,14 +924,11 @@ int draw_path(struct player *p, uint16_t path_n, struct loc *path_g, struct loc 
             colour = COLOUR_YELLOW;
 
         /* Known walls are blue. */
-        else if (!square_isprojectable(c, &path_g[i]) &&
-            (square_isknown(p, &path_g[i]) || square_isseen(p, &path_g[i])))
-        {
+        else if (square_isknown(p, &path_g[i]) && !square_isprojectable_p(p, &path_g[i]))
             colour = COLOUR_BLUE;
-        }
 
         /* Unknown squares are grey. */
-        else if (!square_isknown(p, &path_g[i]) && !square_isseen(p, &path_g[i]))
+        else if (!square_isknown(p, &path_g[i]))
         {
             pastknown = true;
             colour = COLOUR_L_DARK;

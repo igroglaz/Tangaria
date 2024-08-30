@@ -366,8 +366,9 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
 
             /* Breathing damages health instead of costing mana */
             strnfmt(df, sizeof(df), "exhausted %s with breathing", pself);
-            take_hit(context->origin->player, context->origin->player->mhp / 20,
-                "the strain of breathing", false, df);
+            take_hit(context->origin->player,
+                player_apply_damage_reduction(context->origin->player, context->origin->player->mhp / 20, false),
+                "the strain of breathing", df);
             if (context->origin->player->is_dead) return !used;
 
             /* Breathing also consumes food */
@@ -1170,6 +1171,14 @@ bool effect_handler_CURSE(effect_handler_context_t *context)
 
     if (target_who->monster)
     {
+        if (dam && OPT(context->origin->player, show_damage))
+        {
+            char m_name[NORMAL_WID];
+
+            monster_desc(context->origin->player, m_name, sizeof(m_name), target_who->monster,
+                MDESC_DEFAULT);
+            msg(context->origin->player, "You curse the %s for $g%d^g damage.", m_name, dam);
+        }
         dead = mon_take_hit(context->origin->player, context->cave, target_who->monster, dam, &fear,
             MON_MSG_DIE);
         if (!dead && monster_is_visible(context->origin->player, target_who->monster->midx))
@@ -1187,9 +1196,17 @@ bool effect_handler_CURSE(effect_handler_context_t *context)
         char killer[NORMAL_WID];
         char df[160];
 
+        dam = player_apply_damage_reduction(target_who->player, dam, true);
+        if (dam && OPT(context->origin->player, show_damage))
+        {
+            msg(context->origin->player, "You curse %s for $g%d^g damage.",
+                target_who->player->name, dam);
+        }
         my_strcpy(killer, context->origin->player->name, sizeof(killer));
         strnfmt(df, sizeof(df), "was killed by %s", killer);
-        dead = take_hit(target_who->player, dam, killer, false, df);
+        if (dam && OPT(target_who->player, show_damage))
+            msg(target_who->player, "You take $r%d^r damage.", dam);
+        dead = take_hit(target_who->player, dam, killer, df);
         if ((dam > 0) && !dead)
             player_pain(context->origin->player, target_who->player, dam);
     }
@@ -1286,7 +1303,10 @@ bool effect_handler_DAMAGE(effect_handler_context_t *context)
     }
 
     /* Hit the player */
-    take_hit(context->origin->player, dam, killer, non_physical, df);
+    dam = player_apply_damage_reduction(context->origin->player, dam, non_physical);
+    if (dam && OPT(context->origin->player, show_damage))
+        msg(context->origin->player, "You take $r%d^r damage.", dam);
+    take_hit(context->origin->player, dam, killer, df);
 
     context->self_msg = NULL;
     return true;
@@ -1788,7 +1808,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         /* Get player */
         struct player *player = player_get(abs(hurt[j]));
 
-        map[16 + player->grid.y - centre.y][16 + player->grid.x - centre.x] = false;
+        if (ABS(player->grid.x - centre.x) <= 15 && ABS(player->grid.y - centre.y) <= 15)
+            map[16 + player->grid.y - centre.y][16 + player->grid.x - centre.x] = false;
     }
 
     /* Examine the quaked region and damage marked grids if possible */
@@ -1823,11 +1844,10 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         struct player *player = player_get(abs(hurt[j]));
 
         /* Apply damage to player; done here so messages are ordered properly if the player dies. */
-        if (damage[j])
-        {
-            take_hit(player, damage[j], "an earthquake", false,
-                "was crushed by tons of falling rocks");
-        }
+        damage[j] = player_apply_damage_reduction(player, damage[j], false);
+        if (damage[j] && OPT(player, show_damage))
+            msg(player, "You take $r%d^r damage.", damage[j]);
+        take_hit(player, damage[j], "an earthquake", "was crushed by tons of falling rocks");
 
         /* Fully update the visuals */
         player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
@@ -2607,7 +2627,13 @@ bool effect_handler_TAP_UNLIFE(effect_handler_context_t *context)
         /* Hurt the monster */
         monster_desc(context->origin->player, m_name, sizeof(m_name), target_who->monster,
             MDESC_DEFAULT);
-        msg(context->origin->player, "You draw power from the %s.", m_name);
+        if (amount && OPT(context->origin->player, show_damage))
+        {
+            msg(context->origin->player, "You draw power from the %s for $g%d^g damage.", m_name,
+                amount);
+        }
+        else
+            msg(context->origin->player, "You draw power from the %s.", m_name);
         drain = MIN(target_who->monster->hp, amount) / 4;
         dead = mon_take_hit(context->origin->player, context->cave, target_who->monster, amount,
             &fear, MON_MSG_DESTROYED);
@@ -2641,11 +2667,20 @@ bool effect_handler_TAP_UNLIFE(effect_handler_context_t *context)
         }
 
         /* Hurt the player */
-        msg(context->origin->player, "You draw power from %s.", target_who->player->name);
+        amount = player_apply_damage_reduction(target_who->player, amount, true);
+        if (amount && OPT(context->origin->player, show_damage))
+        {
+            msg(context->origin->player, "You draw power from %s for $g%d^g damage.",
+                target_who->player->name, amount);
+        }
+        else
+            msg(context->origin->player, "You draw power from %s.", target_who->player->name);
         drain = MIN(target_who->player->chp, amount) / 4;
         my_strcpy(killer, context->origin->player->name, sizeof(killer));
         strnfmt(df, sizeof(df), "was killed by %s", killer);
-        dead = take_hit(target_who->player, amount, killer, false, df);
+        if (amount && OPT(target_who->player, show_damage))
+            msg(target_who->player, "You take $r%d^r damage.", amount);
+        dead = take_hit(target_who->player, amount, killer, df);
         if (dead)
             memset(&context->origin->player->target, 0, sizeof(context->origin->player->target));
         else if (amount > 0)

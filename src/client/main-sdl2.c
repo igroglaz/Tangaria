@@ -1089,8 +1089,11 @@ static void render_tile_rect_scaled(const struct subwindow *subwindow,
     int src_row = a & 0x7f;
     int src_col = c & 0x7f;
 
-    src.x = src_col * src.w;
-    src.y = src_row * src.h;
+    if (a & 0x80)
+    {
+        src.x = src_col * src.w;
+        src.y = src_row * src.h;
+    }
 
     if (graphics->overdraw_row != 0
             && src_row >= graphics->overdraw_row
@@ -1129,8 +1132,11 @@ static void render_tile_font_scaled(const struct subwindow *subwindow,
     int src_row = a & 0x7f;
     int src_col = c & 0x7f;
 
-    src.x = src_col * src.w;
-    src.y = src_row * src.h;
+    if (a & 0x80)
+    {
+        src.x = src_col * src.w;
+        src.y = src_row * src.h;
+    }
 
     //// Slash fx ////
     if (sfx_effect && !fill) slashfx_move(&dst.x, &dst.y);
@@ -4535,9 +4541,9 @@ static void term_view_map_tile(struct subwindow *subwindow)
 
     render_clear(subwindow->window, map, &subwindow->color);
 
-    for (int y = 0; y < subwindow->rows - (ROW_MAP + 1); y++) {
+    for (int y = 0; y < Setup.max_row; y++) {
         tile.y = y * tile.w;
-        for (int x = 0; x < subwindow->cols - (COL_MAP + 1); x++) {
+        for (int x = 0; x < Setup.max_col; x++) {
             tile.x = x * tile.h;
             render_grid_cell_tile(subwindow, map, tile, x, y);
         }
@@ -4585,8 +4591,8 @@ static void term_view_map_text(struct subwindow *subwindow)
 
     render_clear(subwindow->window, map, &subwindow->color);
 
-    for (int y = 0; y < subwindow->rows - (ROW_MAP + 1); y++) {
-        for (int x = 0; x < subwindow->cols - (COL_MAP + 1); x++) {
+    for (int y = 0; y < Setup.max_row; y++) {
+        for (int x = 0; x < Setup.max_col; x++) {
             render_grid_cell_text(subwindow, map, x, y);
         }
     }

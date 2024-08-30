@@ -1699,9 +1699,19 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         if (dam)
         {
             char df[160];
+            int reduced;
+
+            /*
+             * Account for the player's damage reduction. That does not
+             * affect the side effects (i.e. player_handler), so leave
+             * context.dam unmodified.
+             */
+            reduced = player_apply_damage_reduction(p, dam, false);
+            if (reduced && OPT(p, show_damage))
+                msg(p, "You take $r%d^r damage.", reduced);
 
             trap_msg_death(p, origin->trap, df, sizeof(df));
-            dead = take_hit(p, dam, killer, false, df);
+            dead = take_hit(p, reduced, killer, df);
         }
     }
 
@@ -1713,9 +1723,19 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         if (dam)
         {
             char df[160];
+            int reduced;
+
+            /*
+             * Account for the player's damage reduction. That does not
+             * affect the side effects (i.e. player_handler), so leave
+             * context.dam unmodified.
+             */
+            reduced = player_apply_damage_reduction(p, dam, true);
+            if (reduced && OPT(p, show_damage))
+                msg(p, "You take $r%d^r damage.", reduced);
 
             strnfmt(df, sizeof(df), "was %s by %s", what, killer);
-            dead = take_hit(p, dam, killer, true, df);
+            dead = take_hit(p, reduced, killer, df);
         }
     }
 
@@ -1739,14 +1759,23 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
             if (dam && (projections[typ].flags & ATT_DAMAGE))
             {
                 char df[160];
+                int reduced;
+
+                /*
+                 * Account for the player's damage reduction. That does not
+                 * affect the side effects (i.e. player_handler), so leave
+                 * context.dam unmodified.
+                 */
+                reduced = player_apply_damage_reduction(p, dam, non_physical);
+                if (reduced && OPT(p, show_damage))
+                    msg(p, "You take $r%d^r damage.", reduced);
 
                 strnfmt(df, sizeof(df), "was %s by %s", what, killer);
-                dead = take_hit(p, dam, killer, non_physical, df);
-            }
+                dead = take_hit(p, reduced, killer, df);
 
-            /* Give a message */
-            if (dam && (projections[typ].flags & ATT_DAMAGE) && !dead)
-                player_pain(origin->player, p, dam);
+                /* Give a message */
+                if (reduced && !dead) player_pain(origin->player, p, reduced);
+            }
 
             /* Projected spell */
             if (projections[typ].flags & ATT_RAW) dam = index;
@@ -1771,7 +1800,10 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         char df[160];
 
         strnfmt(df, sizeof(df), "was %s by %s", what, killer);
-        if (xtra) take_hit(p, xtra, killer, true, df);
+        xtra = player_apply_damage_reduction(p, xtra, true);
+		if (xtra > 0 && OPT(p, show_damage))
+            msg(p, "You take an extra $r%d^r damage.", xtra);
+		take_hit(p, xtra, killer, df);
     }
 
     obvious = context.obvious;

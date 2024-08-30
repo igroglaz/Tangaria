@@ -137,10 +137,45 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
 
 
 /*
- * Decreases players hit points and sets death flag if necessary
+ * Returns what an incoming damage amount would be after applying a player's
+ * damage reduction.
+ *
+ * p is the player of interest.
+ * dam is the incoming damage amount.
  */
-bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physical,
-    const char *died_flavor)
+int player_apply_damage_reduction(struct player *p, int dam, bool non_physical)
+{
+    /* Permanent invulnerability */
+    if ((p->timed[TMD_INVULN] == -1) || p->timed[TMD_SAFELOGIN]) return 0;
+
+    /* Globe of invulnerability protects against non-physical attacks only */
+    if (p->timed[TMD_INVULN] && non_physical) dam -= dam * p->lev / 100;
+
+    // Apply damage reduction: ONLY for _pure_ physical damage
+    if (p->state.dam_red != 0 && !non_physical && strcmp(hit_from, "fading") &&
+        strcmp(hit_from, "hypoxia") && strcmp(hit_from, "poison") &&
+        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation") &&
+        strcmp(hit_from, "an earthquake") && strcmp(hit_from, "adrenaline poisoning") &&
+        strcmp(hit_from, "over-exertion") && strcmp(hit_from, "drowning"))
+    {
+        /* Apply damage reduction */
+        dam -= p->state.dam_red;
+        return ((dam < 0)? 0: dam);
+    }
+}
+
+
+/*
+ * Decreases players hit points and sets death flag if necessary
+ *
+ * p is the player of interest.
+ * dam is the amount of damage to apply. If dam is less than
+ * or equal to zero, nothing will be done. The amount of damage should have
+ * been processed with player_apply_damage_reduction(); that is not done
+ * internally here so the caller can display messages that include the amount of
+ * damage.
+ */
+bool take_hit(struct player *p, int damage, const char *hit_from, const char *died_flavor)
 {
     int old_chp = p->chp;
     int warning = (p->mhp * p->opts.hitpoint_warn / 10);
@@ -155,25 +190,6 @@ bool take_hit(struct player *p, int damage, const char *hit_from, bool non_physi
     /* Become aware of player's presence */
     if (p->k_idx) aware_player(p, p);
 
-    /* Hack -- apply "invulnerability" */
-    if ((p->timed[TMD_INVULN] == -1) || p->timed[TMD_SAFELOGIN])
-    {
-        /* Permanent invulnerability */
-        damage = 0;
-    }
-    else if (p->timed[TMD_INVULN] && non_physical)
-    {
-        /* Globe of invulnerability protects against non-physical attacks only */
-        damage -= damage * p->lev / 100;
-    }
-
-    // Apply damage reduction: ONLY for _pure_ physical damage
-    if (p->state.dam_red != 0 && !non_physical && strcmp(hit_from, "fading") &&
-        strcmp(hit_from, "hypoxia") && strcmp(hit_from, "poison") &&
-        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation") &&
-        strcmp(hit_from, "an earthquake") && strcmp(hit_from, "adrenaline poisoning") &&
-        strcmp(hit_from, "over-exertion") && strcmp(hit_from, "drowning"))
-            damage -= p->state.dam_red;
     if (damage <= 0)
     {
         p->died_flavor[0] = '\0';
@@ -791,10 +807,14 @@ void player_over_exert(struct player *p, int flag, int chance, int amount)
     {
         const char *pself = player_self(p);
         char df[160];
+        ///////////////////////////////// <<<<<<<<<<<<< new PMWA dmg red
+        int dam = player_apply_damage_reduction(p, randint1(amount), false);
 
         msg(p, "You cry out in sudden pain!");
+        if (dam && OPT(p, show_damage))
+            msg(p, "You take $r%d^r damage.", dam);
         strnfmt(df, sizeof(df), "over-exerted %s", pself);
-        take_hit(p, randint1(amount), "over-exertion", false, df);
+        take_hit(p, dam, "over-exertion", df);
     }
 }
 
@@ -943,16 +963,24 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 void player_take_terrain_damage(struct player *p, struct chunk *c)
 {
     int dam_taken = player_check_terrain_damage(p, c, true);
+    int dam_reduced;
     struct feature *feat = square_feat(c, &p->grid);
 
     if (!dam_taken) return;
 
     msg(p, feat->hurt_msg? feat->hurt_msg: "You are suffocating!");
 
-    /* Damage the player and inventory */
+    /*
+	 * Damage the player and inventory; inventory damage is based on
+	 * the raw incoming damage and not the value accounting for the
+	 * player's damage reduction.
+	 */
+    dam_reduced = player_apply_damage_reduction(p, dam_taken, false);
+    if (dam_reduced && OPT(p, show_damage))
+        msg(p, "You take $r%d^r damage.", dam_reduced);
     if (square_isfiery(c, &p->grid)) inven_damage(p, PROJ_FIRE, dam_taken);
     else if (square_islava(c, &p->grid)) inven_damage(p, PROJ_FIRE, MIN(dam_taken * 5, 300));
-    take_hit(p, dam_taken, feat->die_msg? feat->die_msg: "suffocating", false,
+    take_hit(p, dam_reduced, feat->die_msg? feat->die_msg: "suffocating",
         feat->died_flavor? feat->died_flavor: "suffocated");
 }
 
@@ -1589,7 +1617,11 @@ bool hp_player(struct player *p, int num)
 
     if (player_undead(p))
     {
-        take_hit(p, num, "a bad healing medicine", false, "was killed by a bad healing medicine");
+        int dam = player_apply_damage_reduction(p, num, false);
+
+        if (dam && OPT(p, show_damage))
+            msg(p, "You take $r%d^r damage.", dam);
+        take_hit(p, dam, "a bad healing medicine", "was killed by a bad healing medicine");
         return true;
     }
 

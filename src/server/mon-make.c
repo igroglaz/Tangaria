@@ -1067,8 +1067,8 @@ static bool mon_drop_carry(struct player *p, struct object **obj_address, struct
 static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *mon, uint8_t origin)
 {
     const struct monster_drop *drop;
-    struct monster_lore *lore = (p? get_lore(p, mon->race): NULL);
-    const struct monster_race *effective_race = (mon->original_race? mon->original_race: mon->race);
+    struct monster_lore *lore;
+    const struct monster_race *effective_race;
     bool great, good, gold_ok, item_ok;
     bool extra_roll = false;
     bool any = false;
@@ -1077,6 +1077,9 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
     quark_t quark = 0;
 
     my_assert(mon);
+
+    lore = (p? get_lore(p, mon->race): NULL);
+    effective_race = (mon->original_race? mon->original_race: mon->race);
 
     great = rf_has(effective_race->flags, RF_DROP_GREAT);
     good = (rf_has(effective_race->flags, RF_DROP_GOOD) || great);
@@ -1458,7 +1461,7 @@ int16_t place_monster(struct player *p, struct chunk *c, struct monster *mon, ui
                 push_object(p, c, &mon->grid);
 
                 /* Create a door */
-                square_close_door(c, &mon->grid);
+                square_create_closed_door(c, &mon->grid);
 
                 break;
             }

@@ -327,71 +327,74 @@ void object_modifiers(const struct object *obj, int32_t modifiers[OBJ_MOD_MAX])
 
 
 /*
- * Obtain the to-hit for an item
+ * Return the hit bonus for an object, including any of its curses.
  */
-void object_to_h(const struct object *obj, int16_t *to_h)
+int16_t object_to_hit(const struct object *obj)
 {
     size_t i;
+    int16_t result;
 
-    *to_h = 0;
-
-    if (!obj) return;
+    if (!obj) return 0;
 
     /* Add object to-hit */
-    *to_h = obj->to_h;
+    result = obj->to_h;
 
     /* Add curse to-hit */
     for (i = 0; obj->curses && (i < (size_t)z_info->curse_max); i++)
     {
         if (obj->curses[i].power == 0) continue;
-        *to_h += obj->curses[i].to_h;
+        result += obj->curses[i].to_h;
     }
+
+    return result;
 }
 
 
 /*
- * Obtain the to-dam for an item
+ * Return the damage bonus for an object, including any of its curses.
  */
-void object_to_d(const struct object *obj, int16_t *to_d)
+int16_t object_to_dam(const struct object *obj)
 {
     size_t i;
+    int16_t result;
 
-    *to_d = 0;
-
-    if (!obj) return;
+    if (!obj) return 0;
 
     /* Add object to-dam */
-    *to_d = obj->to_d;
+    result = obj->to_d;
 
     /* Add curse to-dam */
     for (i = 0; obj->curses && (i < (size_t)z_info->curse_max); i++)
     {
         if (obj->curses[i].power == 0) continue;
-        *to_d += obj->curses[i].to_d;
+        result += obj->curses[i].to_d;
     }
+
+    return result;
 }
 
 
 /*
- * Obtain the to-ac for an item
+ * Return the armor class bonus for an object, including any of its curses.
  */
-void object_to_a(const struct object *obj, int16_t *to_a)
+int16_t object_to_ac(const struct object *obj)
 {
     size_t i;
+    int16_t result;
 
-    *to_a = 0;
-
-    if (!obj) return;
+    if (!obj) return 0;
 
     /* Add object to-ac */
-    *to_a = obj->to_a;
+    result = obj->to_a;
 
     /* Add curse to-ac */
     for (i = 0; obj->curses && (i < (size_t)z_info->curse_max); i++)
     {
         if (obj->curses[i].power == 0) continue;
-        *to_a += obj->curses[i].to_a;
+        result += obj->curses[i].to_a;
     }
+
+    return result;
 }
 
 

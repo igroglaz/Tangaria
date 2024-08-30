@@ -45,6 +45,8 @@ extern int weight_remaining(struct player *p);
 extern void calc_bonuses(struct player *p, struct player_state *state, bool known_only, bool update);
 extern void calc_digging_chances(struct player *p, struct player_state *state,
     int chances[DIGGING_MAX]);
+extern int calc_unlocking_chance(const struct player *p, int lock_power, bool lock_unseen);
+extern int calc_skill(const struct player *p, int skill, int power, bool unseen);
 extern void health_track(struct player_upkeep *upkeep, struct source *who);
 extern void monster_race_track(struct player_upkeep *upkeep, struct source *who);
 extern void track_object(struct player_upkeep *upkeep, struct object *obj);

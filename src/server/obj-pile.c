@@ -350,6 +350,9 @@ bool object_similar(struct player *p, const struct object *obj1, const struct ob
     if (p && object_is_equipped(p->body, obj1)) return false;
     if (p && object_is_equipped(p->body, obj2)) return false;
 
+    /* Mimicked items do not stack */
+    if (obj1->mimicking_m_idx || obj2->mimicking_m_idx) return false;
+
     /* If either item is unknown, do not stack */
     if ((mode & OSTACK_LIST) && object_marked_aware(p, obj1)) return false;
     if ((mode & OSTACK_LIST) && object_marked_aware(p, obj2)) return false;
@@ -1474,7 +1477,7 @@ void push_object(struct player *p, struct chunk *c, struct loc *grid)
     }
 
     /* Set feature to an open door */
-    square_open_door(c, grid);
+    square_create_open_door(c, grid);
 
     /* Drop objects back onto the floor */
     while (q_len(queue) > 0)

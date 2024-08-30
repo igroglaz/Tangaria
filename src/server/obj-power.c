@@ -49,7 +49,7 @@ static int object_power_calculation_TO_DAM(void *data)
     struct object *power_obj = calc->obj;
     int16_t to_d = 0;
 
-    if (power_obj->known->to_d) object_to_d(power_obj, &to_d);
+    if (power_obj->known->to_d) to_d = object_to_dam(power_obj);
     return to_d;
 }
 
@@ -246,7 +246,7 @@ static int object_power_calculation_TO_HIT(void *data)
     struct object *power_obj = calc->obj;
     int16_t to_h = 0;
 
-    if (power_obj->known->to_h) object_to_h(power_obj, &to_h);
+    if (power_obj->known->to_h) to_h = object_to_hit(power_obj);
     return to_h;
 }
 
@@ -273,9 +273,8 @@ static int object_power_calculation_TOTAL_ARMOR(void *data)
 {
     struct power_calc_data *calc = (struct power_calc_data *)data;
     struct object *power_obj = calc->obj;
-    int16_t to_a;
+    int16_t to_a = object_to_ac(power_obj);
 
-    object_to_a(power_obj, &to_a);
     return power_obj->ac + to_a;
 }
 
@@ -295,7 +294,7 @@ static int object_power_calculation_TO_ARMOR(void *data)
     struct object *power_obj = calc->obj;
     int16_t to_a = 0;
 
-    if (power_obj->known->to_a) object_to_a(power_obj, &to_a);
+    if (power_obj->known->to_a) to_a = object_to_ac(power_obj);
     return to_a;
 }
 

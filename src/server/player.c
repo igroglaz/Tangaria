@@ -644,6 +644,14 @@ void player_flags(struct player *p, bitflag f[OF_SIZE])
  */
 void player_flags_timed(struct player *p, bitflag f[OF_SIZE])
 {
+    int i;
+
+    for (i = 0; i < TMD_MAX; ++i)
+    {
+        if (p->timed[i] && timed_effects[i].oflag_dup != OF_NONE && i != TMD_TRAPSAFE)
+            of_on(f, timed_effects[i].oflag_dup);
+    }
+/* old PWMA code (might be useful for customization)
     if (p->timed[TMD_BOLD]) of_on(f, OF_PROT_FEAR);
     if (p->timed[TMD_HOLD_LIFE]) of_on(f, OF_HOLD_LIFE);
     if (p->timed[TMD_FLIGHT]) of_on(f, OF_FLYING);
@@ -653,6 +661,7 @@ void player_flags_timed(struct player *p, bitflag f[OF_SIZE])
     if (p->timed[TMD_AFRAID] || p->timed[TMD_TERROR]) of_on(f, OF_AFRAID);
     if (p->timed[TMD_OPP_CONF]) of_on(f, OF_PROT_CONF);
     if (p->timed[TMD_OPP_AMNESIA]) of_on(f, OF_PROT_AMNESIA);
+*/
 }
 
 

@@ -317,10 +317,7 @@ static size_t obj_desc_chest(const struct object *obj, char *buf, size_t max, si
 static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, size_t end,
     bool known)
 {
-    int16_t to_h, to_d;
-
-    object_to_h(obj, &to_h);
-    object_to_d(obj, &to_d);
+    int16_t to_h, to_d, to_a;
 
     /* Display damage dice if they are known */
     if (kf_has(obj->kind->kind_flags, KF_SHOW_DICE))
@@ -347,6 +344,10 @@ static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, s
     /* No more if the object hasn't been assessed */
     if (!(object_was_sensed(obj) || known)) return end;
 
+    to_h = object_to_hit(obj);
+    to_d = object_to_dam(obj);
+    to_a = object_to_ac(obj);
+
     /* Special treatment for body armor with only a to-hit penalty */
     if ((obj->to_h < 0) && object_has_standard_to_h(obj))
         strnfcat(buf, max, &end, " (%+d)", obj->to_h);
@@ -372,10 +373,6 @@ static size_t obj_desc_combat(const struct object *obj, char *buf, size_t max, s
     /* Show armor bonuses */
     if (known || obj->known->to_a)
     {
-        int16_t to_a;
-
-        object_to_a(obj, &to_a);
-
         if (obj_desc_show_armor(obj))
         {
             if (known || obj->known->ac)

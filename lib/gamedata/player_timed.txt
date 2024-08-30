@@ -8,16 +8,16 @@
 # It should only be done when list-player-timed.h (and other code) is also being
 # changed, and the game recompiled.
 # Changing a resist line will have to match to one of the hard-coded elements
-# from list-elements.h; currently, those resist lines are used to filter out
-# unnecessary messages when timed effects lapse and to affect selection of
-# randart activations.
+# from list-elements.h; currently, those resist lines are used in player
+# resistance calculations, to filter out unnecessary messages when timed
+# effects lapse and to affect selection of randart activations.
 # Changing a brand or slay line will have to match to an entry in brand.txt or
 # slay.txt, respectively; besides the effect on combat, those lines also
 # affect selection of randart activations.
 # Changing a flag-synonym line will have to match to an entry, of type flag, in
-# object_property.txt; those lines are currently used to filter out unnecessary
-# messages when timed effects lapse and to affect selection of randart
-# activations.
+# object_property.txt; those lines are currently used in player calculations,
+# to filter out unnecessary messages when timed effects lapse and to affect
+# selection of randart activations.
 
 # === Understanding player_timed.txt ===
 
@@ -248,6 +248,7 @@ near-begin: cowers in fear.
 near-end: appears bolder now.
 msgt:AFRAID
 fail:1:PROT_FEAR
+flag-synonym:AFRAID:1
 
 name:IMAGE
 desc:hallucinations
@@ -487,6 +488,7 @@ on-end:The urge to run dissipates.
 near-begin: feels the need to run away, and fast!
 near-end:'s urge to run dissipates.
 msgt:AFRAID
+flag-synonym:AFRAID:0
 
 name:SPRINT
 desc:sprinting ({+10} to speed, then {-10} to speed)
@@ -791,6 +793,7 @@ on-increase:You feel even safer from life draining attacks!
 on-decrease:You feel less safe from life draining attacks.
 near-begin: feels safe from life draining attacks.
 near-end: no longer feels safe from life draining attacks.
+flag-synonym:HOLD_LIFE:1
 
 name:HOLD_WEAPON
 grade:G:10000:HoldWep:You feel safe from disarming attacks!
@@ -819,6 +822,7 @@ grade:G:10000:Flight:You can fly!
 on-end:Your not longer fly.
 near-begin: start floating in the air.
 near-end: getting down from the air.
+#flag-synonym:FEATHER:0
 
 name:SAFELOGIN
 grade:G:10000:Safe:xxx

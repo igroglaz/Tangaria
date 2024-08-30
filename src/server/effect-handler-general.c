@@ -160,6 +160,8 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     /* Failure - unlucky fragile object is destroyed */
     else if (one_in_(4))
     {
+        int dam = damroll(5, 5);
+
         msg(p, "There is a bang and a flash!");
 
         /* Preserve any artifact */
@@ -167,7 +169,10 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
         if (obj->artifact) history_lose_artifact(p, obj);
 
         none_left = use_object(p, obj, 1, false);
-        take_hit(p, damroll(5, 5), "a failed attempt at uncursing", false,
+        dam = player_apply_damage_reduction(p, dam, false);
+        if (dam && OPT(p, show_damage))
+            msg(p, "You take $r%d^r damage.", dam);
+        take_hit(p, dam, "a failed attempt at uncursing",
             "was killed by a failed attempt at uncursing");
     }
 
@@ -701,7 +706,10 @@ static void player_turn_undead(struct player *p)
     if (p->poly_race) do_cmd_poly(p, NULL, false, true);
 
     /* Cancel current effects */
-    for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
+    for (i = 0; i < TMD_MAX; i++)
+    {
+        if (i != TMD_FOOD) player_clear_timed(p, i, true);
+    }
 
     /* Turn him into an undead being */
     set_ghost_flag(p, 2, true);
@@ -1035,7 +1043,10 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Banishment", pself);
-    take_hit(context->origin->player, dam, "the strain of casting Banishment", false, df);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    if (dam && OPT(context->origin->player, show_damage))
+        msg(context->origin->player, "You take $r%d^r damage.", dam);
+    take_hit(context->origin->player, dam, "the strain of casting Banishment", df);
 
     /* Update monster list window */
     if (dam > 0) context->origin->player->upkeep->redraw |= (PR_MONLIST);
@@ -2629,7 +2640,7 @@ bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
 
         /* Detect other types of doors. */
         else if (square_isdoor(context->cave, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_memorize(context->origin->player, context->cave, &iter.cur);
             square_light_spot(context->cave, &iter.cur);
@@ -2638,9 +2649,9 @@ bool effect_handler_DETECT_DOORS(effect_handler_context_t *context)
             redraw = true;
         }
 
-        /* Forget unknown doors in the mapping area */
+        /* Forget misremembered doors in the mapping area */
         if (square_isdoor_p(context->origin->player, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_forget(context->origin->player, &iter.cur);
             square_light_spot(context->cave, &iter.cur);
@@ -2823,9 +2834,9 @@ bool effect_handler_DETECT_ORE(effect_handler_context_t *context)
             redraw = true;
         }
 
-        /* Forget unknown gold in the mapping area */
+        /* Forget misremembered gold in the mapping area */
         if (square_hasgoldvein_p(context->origin->player, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_forget(context->origin->player, &iter.cur);
             square_light_spot(context->cave, &iter.cur);
@@ -3054,9 +3065,9 @@ bool effect_handler_DETECT_STAIRS(effect_handler_context_t *context)
             redraw = true;
         }
 
-        /* Forget unknown stairs in the mapping area */
+        /* Forget misremembered stairs in the mapping area */
         if (square_isstairs_p(context->origin->player, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_forget(context->origin->player, &iter.cur);
             square_light_spot(context->cave, &iter.cur);
@@ -3239,9 +3250,9 @@ bool effect_handler_DETECT_TREASURES(effect_handler_context_t *context)
             gold_buried = true;
         }
 
-        /* Forget unknown gold in the mapping area */
+        /* Forget misremembered gold in the mapping area */
         if (square_hasgoldvein_p(context->origin->player, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_forget(context->origin->player, &iter.cur);
             square_light_spot(context->cave, &iter.cur);
@@ -4056,9 +4067,9 @@ bool effect_handler_MAP_AREA(effect_handler_context_t *context)
             }
         }
 
-        /* Forget unprocessed, unknown grids in the mapping area */
+        /* Forget grids that are both unprocessed and misremembered in the mapping area. */
         if (!square_ismark(context->origin->player, &iter.cur) &&
-            square_isnotknown(context->origin->player, context->cave, &iter.cur))
+            square_ismemorybad(context->origin->player, context->cave, &iter.cur))
         {
             square_forget(context->origin->player, &iter.cur);
         }
@@ -4190,7 +4201,10 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
 
     /* Hurt the player */
     strnfmt(df, sizeof(df), "exhausted %s with Mass Banishment", pself);
-    take_hit(context->origin->player, dam, "the strain of casting Mass Banishment", false, df);
+    dam = player_apply_damage_reduction(context->origin->player, dam, false);
+    if (dam && OPT(context->origin->player, show_damage))
+        msg(context->origin->player, "You take $r%d^r damage.", dam);
+    take_hit(context->origin->player, dam, "the strain of casting Mass Banishment", df);
 
     /* Calculate result */
     result = (dam > 0)? true: false;
@@ -4349,10 +4363,14 @@ bool effect_handler_POLY_RACE(effect_handler_context_t *context)
     {
         const char *pself = player_self(context->origin->player);
         char df[160];
+        int dam = damroll(10, 10);
 
         msg(context->origin->player, "Your nerves and muscles feel weak and lifeless!");
         strnfmt(df, sizeof(df), "exhausted %s with polymorphing", pself);
-        take_hit(context->origin->player, damroll(10, 10), "the strain of polymorphing", false, df);
+        dam = player_apply_damage_reduction(context->origin->player, dam, false);
+        if (dam && OPT(context->origin->player, show_damage))
+            msg(context->origin->player, "You take $r%d^r damage.", dam);
+        take_hit(context->origin->player, dam, "the strain of polymorphing", df);
         player_stat_dec(context->origin->player, STAT_DEX, true);
         player_stat_dec(context->origin->player, STAT_WIS, true);
         player_stat_dec(context->origin->player, STAT_CON, true);
@@ -4945,7 +4963,8 @@ bool effect_handler_RUBBLE(effect_handler_context_t *context)
      * necessary.
      */
     int rubble_grids = randint1(3);
-    int open_grids = count_feats(context->origin->player, context->cave, NULL, square_isempty, false);
+    int open_grids = count_neighbors(NULL, context->cave, &context->origin->player->grid,
+        square_isempty, false);
 
     /* Avoid infinite loops */
     int iterations = 0;

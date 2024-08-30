@@ -317,13 +317,8 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
         /* If known, add the wielded weapon bonuses */
         if (obj->known->to_h && obj->known->to_d)
         {
-            int16_t to_h, to_d;
-
-            object_to_h(obj, &to_h);
-            object_to_d(obj, &to_d);
-
-            *mhit += to_h;
-            *mdam += to_d;
+            *mhit += object_to_hit(obj);
+            *mdam += object_to_dam(obj);
         }
     }
 
@@ -334,13 +329,8 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
         /* If known, add the wielded bow bonuses */
         if (obj->known->to_h && obj->known->to_d)
         {
-            int16_t to_h, to_d;
-
-            object_to_h(obj, &to_h);
-            object_to_d(obj, &to_d);
-
-            *shit += to_h;
-            *sdam += to_d;
+            *shit += object_to_hit(obj);
+            *sdam += object_to_dam(obj);
         }
     }
 }

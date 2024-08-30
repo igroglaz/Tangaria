@@ -1463,6 +1463,33 @@ void calc_digging_chances(struct player *p, struct player_state *state, int chan
 }
 
 
+/*
+ * Return the chance, out of 100, for unlocking a locked door with the given
+ * lock power.
+ *
+ * p is the player trying to unlock the door.
+ * lock_power is the power of the lock.
+ * lock_unseen, if true, assumes the player does not have sufficient
+ * light to work with the lock.
+ */
+int calc_unlocking_chance(const struct player *p, int lock_power, bool lock_unseen)
+{
+    int skill = p->state.skills[SKILL_DISARM_PHYS];
+
+    return calc_skill(p, skill, 4 * lock_power, lock_unseen);
+}
+
+
+int calc_skill(const struct player *p, int skill, int power, bool unseen)
+{
+    if (unseen || p->timed[TMD_BLIND]) skill /= 10;
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE]) skill /= 10;
+
+    /* Always have a small chance of success */
+    return MAX(2, skill - power);
+}
+
+
 bool obj_kind_can_browse(struct player *p, const struct object_kind *kind)
 {
     int i;
@@ -1887,7 +1914,7 @@ static void adjust_skill_scale(int *v, int num, int den, int minv)
     else
     {
         /*
-         * To mimic what (value * (den * num)) / num would give for
+         * To mimic what (value * (den + num)) / den would give for
          * positive value, need to round up the adjustment.
          */
         *v -= (MAX(minv, ABS(*v)) * -num + den - 1) / den;
@@ -2191,12 +2218,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
         /* Apply the bonuses to armor class */
         if (!known_only || object_is_known(p, obj) || obj->known->to_a)
-        {
-            int16_t to_a;
-
-            object_to_a(obj, &to_a);
-            eq_to_a += to_a;
-        }
+            eq_to_a += object_to_ac(obj);
 
         /* Do not apply weapon and bow bonuses until combat calculations */
         if (slot_type_is(p, i, EQUIP_WEAPON)) continue;
@@ -2207,8 +2229,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         {
             int16_t to_h, to_d;
 
-            object_to_h(obj, &to_h);
-            object_to_d(obj, &to_d);
+            to_h = object_to_hit(obj);
+            to_d = object_to_dam(obj);
 
             state->to_h += to_h;
             state->to_d += to_d;
@@ -2745,9 +2767,23 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         of_diff(state->flags, f2);
         of_on(state->flags, OF_ESP_ALL);
     }
+
     // Terror prevents you to attack, cast spells etc. Only run
     if (p->timed[TMD_TERROR])
         state->speed += 10;
+
+    /* used in PMWA:
+    for (i = 0; i < TMD_MAX; ++i)
+    {
+        if (p->timed[i] && timed_effects[i].temp_resist != -1 &&
+            state->el_info[timed_effects[i].temp_resist].res_level[0] < 2)
+        {
+            state->el_info[timed_effects[i].temp_resist].res_level[0]++;
+        }
+    }
+    but T use custom stuff:
+    */
+///////////////////////////////////////// block: TMD_MAX resistances
     if (p->timed[TMD_OPP_ACID])
     {
         if (state->el_info[ELEM_ACID].res_level[0] < 2)
@@ -2787,6 +2823,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_POIS].res_level[0] < 2)
             state->el_info[ELEM_POIS].res_level[0]++;
     }
+///////////////////////////////////////// end_block: TMD_MAX resistances
+
     if (p->timed[TMD_ANCHOR])
     {
         state->el_info[ELEM_TIME].res_level[0]++;
@@ -2989,7 +3027,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
 
         /* Divine weapon bonus for blessed weapons */
-        if (player_has(p, PF_BLESS_WEAPON) &&
+        if (pf_has(state->pflags, PF_BLESS_WEAPON) &&
             (weapon->tval == TV_HAFTED || of_has(state->flags, OF_BLESSED)))
         {
             state->to_h += 2;

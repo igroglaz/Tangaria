@@ -771,42 +771,25 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
     /* Calculate damage */
     dam = ((sides + 1) * dice * 5);
 
+    if (obj->known->to_h) plus = object_to_hit(obj);
+
     /* Apply melee slays & brands */
     if (weapon) dam *= mult;
 
     /* Add object to-dam (x10) */
     if (obj->known->to_d)
-    {
-        int16_t to_d;
-
-        object_to_d(obj, &to_d);
-        dam += to_d * 10;
-    }
+        dam += object_to_dam(obj) * 10;
 
     /* Apply melee critical hits */
     if (weapon)
-    {
-        if (obj->known->to_h)
-        {
-            int16_t to_h;
-
-            object_to_h(obj, &to_h);
-            plus = to_h;
-        }
         dam = calculate_melee_crits(p, state, obj->weight, plus, dam);
-    }
 
     /* Add player to-dam (x10) for melee weapons */
     if (weapon) dam += state->to_d * 10;
 
     /* Add shooter to-dam (x10) for missile weapons */
     if (ammo && bow && bow->known->to_d)
-    {
-        int16_t to_d;
-
-        object_to_d(bow, &to_d);
-        dam += to_d * 10;
-    }
+        dam += object_to_dam(bow) * 10;
 
     /* Apply throwing multiplier */
     if (!weapon && !ammo)
@@ -838,10 +821,7 @@ static int calc_damage(struct player *p, struct player_state *state, const struc
 
     /* Apply missile critical hits */
     if (!weapon)
-    {
-        if (obj->known->to_h) plus = obj->to_h;
         dam = calculate_missile_crits(p, &p->state, obj->weight, plus, ammo, dam);
-    }
 
     /* Don't show negative damage */
     if (dam < 0) dam = 0;

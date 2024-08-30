@@ -890,12 +890,17 @@ static bool set_adrenaline(struct player *p, int v)
     /* Limit duration (100 turns / 20 turns at 5th stage) */
     if (v > 100)
     {
+        int dam;
+
         v = 100;
+        dam = damroll(2, v);
+        dam = player_apply_damage_reduction(p, dam, false);
 
         /* Too much adrenaline causes damage */
         msg(p, "Your body can't handle that much adrenaline!");
-        take_hit(p, damroll(2, v), "adrenaline poisoning", false,
-            "had a heart attack due to too much adrenaline");
+        if (dam && OPT(p, show_damage))
+            msg(p, "You take $r%d^r damage.", dam);
+        take_hit(p, dam, "adrenaline poisoning", "had a heart attack due to too much adrenaline");
         notice = true;
     }
 
@@ -922,8 +927,13 @@ static bool set_adrenaline(struct player *p, int v)
                 /* Adrenaline doesn't work well when biofeedback is activated */
                 if (p->timed[TMD_BIOFEEDBACK])
                 {
+                    int dam = damroll(2, v);
+
+                    dam = player_apply_damage_reduction(p, dam, false);
+                    if (dam && OPT(p, show_damage))
+                        msg(p, "You take $r%d^r damage.", dam);
                     player_clear_timed(p, TMD_BIOFEEDBACK, true);
-                    take_hit(p, damroll(2, v), "adrenaline poisoning", false,
+                    take_hit(p, dam, "adrenaline poisoning",
                         "had a heart attack due to too much adrenaline");
                 }
                 break;

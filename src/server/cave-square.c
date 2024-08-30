@@ -354,6 +354,16 @@ bool square_isperm(struct chunk *c, struct loc *grid)
 }
 
 
+/*
+ * True if the square is a permanent wall.
+ */
+bool square_isperm_p(struct player *p, struct loc *grid)
+{
+    return (tf_has(f_info[square_p(p, grid)->feat].flags, TF_PERMANENT) &&
+        tf_has(f_info[square_p(p, grid)->feat].flags, TF_ROCK));
+}
+
+
 bool square_isunpassable(struct chunk *c, struct loc *grid)
 {
     return (square_isperm(c, grid) || square_ispermfake(c, grid));
@@ -476,6 +486,16 @@ bool square_isrubble(struct chunk *c, struct loc *grid)
 
 
 /*
+ * True if the square is rubble.
+ */
+bool square_isrubble_p(struct player *p, struct loc *grid)
+{
+    return (!tf_has(f_info[square_p(p, grid)->feat].flags, TF_WALL) &&
+        tf_has(f_info[square_p(p, grid)->feat].flags, TF_ROCK));
+}
+
+
+/*
  * True if the square is hard rubble.
  */
 bool square_ishardrubble(struct chunk *c, struct loc *grid)
@@ -507,6 +527,15 @@ bool square_isopendoor(struct chunk *c, struct loc *grid)
 }
 
 
+/*
+ * True if the square is an open door.
+ */
+bool square_isopendoor_p(struct player *p, struct loc *grid)
+{
+    return (tf_has(f_info[square_p(p, grid)->feat].flags, TF_CLOSABLE));
+}
+
+
 bool square_home_isopendoor(struct chunk *c, struct loc *grid)
 {
     return (tf_has(f_info[square(c, grid)->feat].flags, TF_DOOR_HOME) &&
@@ -520,6 +549,15 @@ bool square_home_isopendoor(struct chunk *c, struct loc *grid)
 bool square_iscloseddoor(struct chunk *c, struct loc *grid)
 {
     return tf_has(f_info[square(c, grid)->feat].flags, TF_DOOR_CLOSED);
+}
+
+
+/*
+ * True if the square is a closed door.
+ */
+bool square_iscloseddoor_p(struct player *p, struct loc *grid)
+{
+    return tf_has(f_info[square_p(p, grid)->feat].flags, TF_DOOR_CLOSED);
 }
 
 
@@ -542,6 +580,14 @@ bool square_isbrokendoor(struct chunk *c, struct loc *grid)
     return (tf_has(f_info[square(c, grid)->feat].flags, TF_DOOR_ANY) &&
         tf_has(f_info[square(c, grid)->feat].flags, TF_PASSABLE) &&
         !tf_has(f_info[square(c, grid)->feat].flags, TF_CLOSABLE));
+}
+
+
+bool square_isbrokendoor_p(struct player *p, struct loc *grid)
+{
+    return (tf_has(f_info[square_p(p, grid)->feat].flags, TF_DOOR_ANY) &&
+        tf_has(f_info[square_p(p, grid)->feat].flags, TF_PASSABLE) &&
+        !tf_has(f_info[square_p(p, grid)->feat].flags, TF_CLOSABLE));
 }
 
 
@@ -652,9 +698,9 @@ bool square_isknown(struct player *p, struct loc *grid)
  * True if the player's knowledge of the terrain of the square is wrong
  * or missing
  */
-bool square_isnotknown(struct player *p, struct chunk *c, struct loc *grid)
+bool square_ismemorybad(struct player *p, struct chunk *c, struct loc *grid)
 {
-    return (square_p(p, grid)->feat != square(c, grid)->feat);
+    return (!square_isknown(p, grid) || (square_p(p, grid)->feat != square(c, grid)->feat));
 }
 
 
@@ -672,6 +718,12 @@ bool square_ismark(struct player *p, struct loc *grid)
 bool square_istree(struct chunk *c, struct loc *grid)
 {
     return tf_has(f_info[square(c, grid)->feat].flags, TF_TREE);
+}
+
+
+bool square_istree_p(struct player *p, struct loc *grid)
+{
+    return tf_has(f_info[square_p(p, grid)->feat].flags, TF_TREE);
 }
 
 
@@ -1095,6 +1147,26 @@ bool square_seemsdiggable(struct chunk *c, struct loc *grid)
 
 
 /*
+ * True if a square seems diggable: this includes diggable squares as well as permanent walls,
+ * closed doors and mountain tiles.
+ */
+bool square_seemsdiggable_p(struct player *p, struct loc *grid)
+{
+    int feat = square_p(p, grid)->feat;
+
+    return ((tf_has(f_info[feat].flags, TF_GRANITE) && !tf_has(f_info[feat].flags, TF_DOOR_ANY)) ||
+        feat_is_magma(feat) || feat_is_quartz(feat) || tf_has(f_info[feat].flags, TF_SAND) ||
+        tf_has(f_info[feat].flags, TF_ICE) || tf_has(f_info[feat].flags, TF_DARK) ||
+        (tf_has(f_info[feat].flags, TF_DOOR_ANY) && tf_has(f_info[feat].flags, TF_ROCK)) ||
+        (!tf_has(f_info[feat].flags, TF_WALL) && tf_has(f_info[feat].flags, TF_ROCK)) ||
+        tf_has(f_info[feat].flags, TF_TREE) || tf_has(f_info[feat].flags, TF_WEB) ||
+        (tf_has(f_info[feat].flags, TF_DOOR_CLOSED) && !tf_has(f_info[feat].flags, TF_DOOR_HOME)) ||
+        (tf_has(f_info[feat].flags, TF_PERMANENT) && tf_has(f_info[feat].flags, TF_ROCK)) ||
+        tf_has(f_info[feat].flags, TF_MOUNTAIN));
+}
+
+
+/*
  * True if the square can be webbed.
  */
 bool square_iswebbable(struct chunk *c, struct loc *grid)
@@ -1147,6 +1219,26 @@ bool square_isprojectable(struct chunk *c, struct loc *grid)
     if (!square_in_bounds(c, grid)) return false;
 
     return feat_is_projectable(square(c, grid)->feat);
+}
+
+
+/*
+ * True if any projectable can pass through the square.
+ */
+bool square_isprojectable_p(struct player *p, struct loc *grid)
+{
+    if (!player_square_in_bounds(p, grid)) return false;
+
+    return feat_is_projectable(square_p(p, grid)->feat);
+}
+
+
+/*
+ * True if the square could be used as a feeling square.
+ */
+bool square_allowsfeel(struct chunk *c, struct loc *grid)
+{
+    return square_ispassable(c, grid) && !square_isdamaging(c, grid);
 }
 
 
@@ -1995,11 +2087,21 @@ void square_add_stairs(struct chunk *c, struct loc *grid, int feat_stairs)
 
 void square_open_door(struct chunk *c, struct loc *grid)
 {
+    struct trap_kind *lock = lookup_trap("door lock");
+
+    my_assert(square_iscloseddoor(c, grid) || square_issecretdoor(c, grid));
+    my_assert(lock);
+    square_remove_all_traps_of_type(c, grid, lock->tidx);
+
+    square_create_open_door(c, grid);
+}
+
+
+void square_create_open_door(struct chunk *c, struct loc *grid)
+{
     int feat = FEAT_OPEN;
     struct worldpos dpos;
     struct location *dungeon;
-
-    square_remove_all_traps(c, grid);
 
     /* Get the dungeon */
     wpos_init(&dpos, &c->wpos.grid, 0);
@@ -2032,6 +2134,14 @@ void square_open_homedoor(struct chunk *c, struct loc *grid)
 
 
 void square_close_door(struct chunk *c, struct loc *grid)
+{
+    my_assert(square_isopendoor(c, grid));
+
+    square_create_closed_door(c, grid);
+}
+
+
+void square_create_closed_door(struct chunk *c, struct loc *grid)
 {
     int feat = FEAT_CLOSED;
     struct worldpos dpos;
@@ -2079,6 +2189,18 @@ void square_close_door(struct chunk *c, struct loc *grid)
 
 
 void square_smash_door(struct chunk *c, struct loc *grid)
+{
+    struct trap_kind *lock = lookup_trap("door lock");
+
+    my_assert(square_isdoor(c, grid));
+    my_assert(lock);
+    square_remove_all_traps_of_type(c, grid, lock->tidx);
+
+    square_create_smashed_door(c, grid);
+}
+
+
+void square_create_smashed_door(struct chunk *c, struct loc *grid)
 {
     int feat = FEAT_BROKEN;
     struct worldpos dpos;
@@ -2153,7 +2275,11 @@ void square_destroy_door(struct chunk *c, struct loc *grid)
 {
     int feat = ((c->wpos.depth > 0)? FEAT_FLOOR: FEAT_DIRT);
 
-    square_remove_all_traps(c, grid);
+    struct trap_kind *lock = lookup_trap("door lock");
+
+    my_assert(square_isdoor(c, grid));
+    my_assert(lock);
+    square_remove_all_traps_of_type(c, grid, lock->tidx);
     square_set_floor(c, grid, feat);
 }
 
@@ -2173,7 +2299,10 @@ void square_disable_trap(struct player *p, struct chunk *c, struct loc *grid)
 
 void square_destroy_decoy(struct player *p, struct chunk *c, struct loc *grid)
 {
-    square_remove_all_traps(c, grid);
+    struct trap_kind *decoy_kind = lookup_trap("decoy");
+
+    my_assert(decoy_kind);
+    square_remove_all_traps_of_type(c, grid, decoy_kind->tidx);
     loc_init(&c->decoy, 0, 0);
 
     if (!p) return;

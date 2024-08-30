@@ -1772,12 +1772,15 @@ static bool monster_turn_attack_glyph(struct player *p, struct monster *mon, str
     /* Break the ward */
     if (CHANCE(mon->level, z_info->glyph_hardness))
     {
+        struct trap_kind *rune = lookup_trap("glyph of warding");
+
         /* Describe observable breakage */
         if (square_isseen(p, grid))
             msg(p, "The rune of protection is broken!");
 
         /* Break the rune */
-        square_destroy_trap(chunk_get(&p->wpos), grid);
+        my_assert(rune);
+        square_remove_all_traps_of_type(chunk_get(&p->wpos), grid, rune->tidx);
 
         return true;
     }
