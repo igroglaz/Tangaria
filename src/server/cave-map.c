@@ -713,7 +713,7 @@ void wiz_forget(struct player *p, struct chunk *c)
     do
     {
         /* Forget grids in the mapping area */
-        if (!square_isnotknown(p, c, &iter.cur))
+        if (!square_ismemorybad(p, c, &iter.cur))
             square_forget(p, &iter.cur);
     }
     while (loc_iterator_next_strict(&iter));
