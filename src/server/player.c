@@ -150,6 +150,222 @@ bool player_stat_dec(struct player *p, int stat, bool permanent)
 }
 
 
+// extra gold reward system for account progress
+static void award_gold_for_account_points(struct player *p) {
+
+    int extra_gold = 0;
+
+    switch (p->max_lev)
+    {
+        case 2:
+            extra_gold = MIN(p->account_score * 1, 100);
+            break;
+
+        case 3:
+            extra_gold = MIN(p->account_score * 1.2, 120);
+            break;
+
+        case 4:
+            extra_gold = MIN(p->account_score * 1.4, 140);
+            break;
+
+        case 5:
+            extra_gold = MIN(p->account_score * 1.6, 160);
+            break;
+
+        case 6:
+            extra_gold = MIN(p->account_score * 1.8, 180);
+            break;
+
+        case 7:
+            extra_gold = MIN(p->account_score * 2, 200);
+            break;
+
+        case 8:
+            extra_gold = MIN(p->account_score * 2.2, 220);
+            break;
+
+        case 9:
+            extra_gold = MIN(p->account_score * 2.4, 240);
+            break;
+
+        case 10:
+            extra_gold = MIN(p->account_score * 3, 300);
+            break;
+
+        case 11:
+            extra_gold = MIN(p->account_score * 3.5, 350);
+            break;
+
+        case 12:
+            extra_gold = MIN(p->account_score * 4, 400);
+            break;
+
+        case 13:
+            extra_gold = MIN(p->account_score * 4.5, 450);
+            break;
+
+        case 14:
+            extra_gold = MIN(p->account_score * 5, 500);
+            break;
+
+        case 15:
+            extra_gold = MIN(p->account_score * 5.5, 550);
+            break;
+
+        case 16:
+            extra_gold = MIN(p->account_score * 6, 600);
+            break;
+
+        case 17:
+            extra_gold = MIN(p->account_score * 6.5, 650);
+            break;
+
+        case 18:
+            extra_gold = MIN(p->account_score * 7, 700);
+            break;
+
+        case 19:
+            extra_gold = MIN(p->account_score * 7.5, 750);
+            break;
+
+        case 20:
+            extra_gold = MIN(p->account_score * 8, 1000);
+            break;
+
+        case 21:
+            extra_gold = MIN(p->account_score * 8.5, 1100);
+            break;
+
+        case 22:
+            extra_gold = MIN(p->account_score * 9, 1200);
+            break;
+
+        case 23:
+            extra_gold = MIN(p->account_score * 9.5, 1300);
+            break;
+
+        case 24:
+            extra_gold = MIN(p->account_score * 10, 1400);
+            break;
+
+        case 25:
+            extra_gold = MIN(p->account_score * 10.5, 1500);
+            break;
+
+        case 26:
+            extra_gold = MIN(p->account_score * 11, 1600);
+            break;
+
+        case 27:
+            extra_gold = MIN(p->account_score * 11.5, 1700);
+            break;
+
+        case 28:
+            extra_gold = MIN(p->account_score * 12, 1800);
+            break;
+
+        case 29:
+            extra_gold = MIN(p->account_score * 12.5, 1900);
+            break;
+
+        case 30:
+            extra_gold = MIN(p->account_score * 13, 2400);
+            break;
+
+        case 31:
+            extra_gold = MIN(p->account_score * 14, 3000);
+            break;
+
+        case 32:
+            extra_gold = MIN(p->account_score * 15, 3200);
+            break;
+
+        case 33:
+            extra_gold = MIN(p->account_score * 16, 3400);
+            break;
+
+        case 34:
+            extra_gold = MIN(p->account_score * 17, 3600);
+            break;
+
+        case 35:
+            extra_gold = MIN(p->account_score * 18, 3800);
+            break;
+
+        case 36:
+            extra_gold = MIN(p->account_score * 19, 4000);
+            break;
+
+        case 37:
+            extra_gold = MIN(p->account_score * 20, 4200);
+            break;
+
+        case 38:
+            extra_gold = MIN(p->account_score * 21, 4400);
+            break;
+
+        case 39:
+            extra_gold = MIN(p->account_score * 22, 4600);
+            break;
+
+        case 40:
+            extra_gold = MIN(p->account_score * 23, 6000);
+            break;
+
+        case 41:
+            extra_gold = MIN(p->account_score * 24, 7000);
+            break;
+
+        case 42:
+            extra_gold = MIN(p->account_score * 25, 8000);
+            break;
+
+        case 43:
+            extra_gold = MIN(p->account_score * 26, 9000);
+            break;
+
+        case 44:
+            extra_gold = MIN(p->account_score * 27, 10000);
+            break;
+
+        case 45:
+            extra_gold = MIN(p->account_score * 28, 11000);
+            break;
+
+        case 46:
+            extra_gold = MIN(p->account_score * 29, 12000);
+            break;
+
+        case 47:
+            extra_gold = MIN(p->account_score * 30, 13000);
+            break;
+
+        case 48:
+            extra_gold = MIN(p->account_score * 31, 14000);
+            break;
+
+        case 49:
+            extra_gold = MIN(p->account_score * 32, 15000);
+            break;
+
+        case 50:
+            extra_gold = MIN(p->account_score * 33, 20000);
+            break;
+
+        default:
+            extra_gold = 0;
+            break;
+    }
+
+    p->gold += extra_gold;
+
+    if (extra_gold > 0) {
+        msg(p, "You've earned %d extra gold for having %d account points!", extra_gold, p->account_score);
+    }
+}
+
+
 /*
  * Advance experience levels and print experience
  */
@@ -395,6 +611,9 @@ static void adjust_level(struct player *p)
             if (extraPoint) {
                 msg(p, "Extra point awarded for your hard-mode challenge! You have %lu points.", ++p->account_score);
             }
+            
+            // extra gold for account points
+            award_gold_for_account_points(p);
 
             /* Message */
             if (p->max_lev == 50)
