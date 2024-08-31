@@ -1120,7 +1120,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         {
             msg(p, "You slip and fall in the water.");
             if (!player_passwall(p) && !can_swim(p))
-                take_hit(p, damroll(4, 5), "drowning", false, "slipped and fell in a water");
+                take_hit(p, damroll(4, 5), "drowning", "slipped and fell in a water");
             return false;
         }        
         else if (one_in_(2))
@@ -2440,26 +2440,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                         square_forget(p, &grid);
                         square_light_spot_aux(p, c, &grid);
                     }
-            }
-
-            /* Mention known obstacles */
-            else
-            {
-                /* Rubble */
-                if (square_isrubble(c, &grid))
-                    msgt(p, MSG_HITWALL, "There is a pile of rubble blocking your way.");
-
-                /* Closed doors */
-                else if (square_iscloseddoor(c, &grid))
-                    msgt(p, MSG_HITWALL, "There is a door blocking your way.");
-
-                /* Tree */
-                else if (square_istree(c, &grid))
-                    msgt(p, MSG_HITWALL, "There is a tree blocking your way.");
-
-                /* Wall (or secret door) */
-                else
-                    msgt(p, MSG_HITWALL, "There is a wall blocking your way.");
+                }
             }
 
             /* No move but do not refund energy */

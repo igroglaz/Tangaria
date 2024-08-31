@@ -1450,6 +1450,12 @@ static void melee_effect_handler_HALLU(melee_effect_handler_context_t *context)
  */
 static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *context)
 {
+    /*
+     * Player damage reduction does not affect the damage used for
+     * side effect calculations so leave context->damage as is.
+     */
+    int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
+
     // later: archers and ranger classes - shooter should be destroyed..
 
     // Nazgul attack may destroy your weapon
@@ -1553,12 +1559,6 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
             }
         }
     }
-
-    /*
-     * Player damage reduction does not affect the damage used for
-     * side effect calculations so leave context->damage as is.
-     */
-    int reduced = player_apply_damage_reduction(context->p, context->damage, false, context->ddesc);
 
     display_blow_message(context, reduced);
 

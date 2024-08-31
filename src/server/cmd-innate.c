@@ -281,7 +281,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         player_dec_timed(p, TMD_FOOD, (100 - p->lev), false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
-        take_hit(p, p->mhp / 4, "overbreeding", false, "bred without sparing itself");
+        take_hit(p, p->mhp / 4, "overbreeding", "bred without sparing itself");
 
         return;
     }
@@ -1262,7 +1262,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         player_dec_timed(p, TMD_FOOD, (350 - (p->lev * 5)), false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
-        take_hit(p, p->mhp / 9, "exhaustion", false, "exhausted from gardening");
+        take_hit(p, p->mhp / 9, "exhaustion", "exhausted from gardening");
 
         return;
     }
