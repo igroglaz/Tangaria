@@ -366,6 +366,183 @@ static void award_gold_for_account_points(struct player *p) {
 }
 
 
+// account score when gain lvls
+// it's in rotation with mon-util.c (killing uniques)
+static void award_account_points(struct player *p)
+{
+    bool extraPoint = false;
+
+    if (p->max_lev == 50)
+    {
+        p->account_score += 5;
+        msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
+    }
+    else if (p->account_score == 0 && p->max_lev == 3)
+    {
+        p->account_score++;
+        msgt(p, MSG_FANFARE, "You've earned 1 account point! These points preserve even after death.");
+        msg(p, "To earn account points - earn levels and defeat unique monsters.");
+        msg(p, "Account points allows to buy bigger houses, increase storage space,");
+        msg(p, "give access to more races/classes and provide other advantages.");
+        msg(p, "You will get next account point after getting 3 levels more.");
+    }
+    else if (p->account_score <= 5)
+    {
+        if (!(p->max_lev % 3))
+        {
+            p->account_score++;
+            msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
+            msg(p, "You will get next account point after getting 3 levels more.");
+            if (p->account_score == 2)
+            {
+                msg(p, "Hint: later on it will be every 5 levels or even less often");
+                msg(p, "(the more points you have - the harder it is to get new ones).");
+            }
+        }
+    }
+    else if (p->account_score <= 10)
+    {
+        if (!(p->max_lev % 5))
+        {
+            p->account_score++;
+            msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
+            if (p->account_score != 10)
+            {
+                msg(p, "You will get next account point after getting 5 levels more");
+                if (p->account_score == 6)
+                    msg(p, "(Hint: the more points you have - the harder it is to get new ones).");
+            }
+        }
+        // gratoz
+        if (p->account_score == 10)
+        {
+            msg(p, "Great job! Now you can build your own house!");
+            msg(p, "(check the guide on the website to find out how to do it).");
+            msg(p, "Also please note that from now on it will be harder to earn points:");
+            msg(p, "you will get even/odd account point for levels and");
+            msg(p, "for defeating unique monster (please check website for details).");
+        }
+    }
+    // only at even score
+    else if (!(p->account_score % 2))
+    {
+        if (p->account_score < 25)
+        {
+            if (!(p->max_lev % 10))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
+                msg(p, "You will get even/odd account point for levels and");
+                msg(p, "for defeating unique monster.");
+            }
+        }
+        else if (p->account_score < 50)
+        {
+            if (one_in_(51 - p->max_lev) || !(p->max_lev % 15))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+        else if (p->account_score < 100)
+        {
+            if (p->max_lev >= 10 && (one_in_(51 - p->max_lev) || !(p->max_lev % 20)))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+        else if (p->account_score < 200)
+        {
+            if (p->max_lev >= 15 && (one_in_(51 - p->max_lev) || !(p->max_lev % 25)))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+        else if (p->account_score < 500)
+        {
+            if (p->max_lev >= 20 && (one_in_(51 - p->max_lev) || !(p->max_lev % 30)))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+        else if (p->account_score < 999)
+        {
+            if (p->max_lev >= 25 && (one_in_(51 - p->max_lev) || !(p->max_lev % 35)))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+        else if (p->max_lev >= 30)
+        {
+            if (one_in_(51 - p->max_lev) || !(p->max_lev % 40))
+            {
+                p->account_score++;
+                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+            }
+        }
+    }
+
+    // award an extra point for hardcore heroes
+    if (OPT(p, birth_hardcore)) {
+        int classPower = class_power(p->clazz->name);
+        if (classPower == 3) {
+            if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50)
+                    extraPoint = true;
+        } else if (classPower == 2) {
+            if (p->max_lev == 19 || p->max_lev == 29 || 
+                p->max_lev == 39 || p->max_lev == 50)
+                    extraPoint = true;
+        } else if (classPower == 1) {
+            if (p->max_lev == 19 || p->max_lev == 29 ||
+                p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50)
+                    extraPoint = true;
+        } else {
+            if (p->max_lev == 14 || p->max_lev == 24 || 
+                p->max_lev == 34 || p->max_lev == 44 ||
+                p->max_lev == 49 || p->max_lev == 50)
+                    extraPoint = true;
+        }
+    }
+
+    // ironman characters - award an extra points
+    if (OPT(p, birth_ironman)) {
+        int classPower = class_power(p->clazz->name);
+        if (classPower == 3) {
+            if (p->max_lev == 20 || p->max_lev == 30 || 
+                p->max_lev == 40 || p->max_lev == 50)
+                    extraPoint = true;
+        } else if (classPower == 2) { // 15-20-25-30-35-40-45-50
+            if (p->max_lev >= 15 && p->max_lev % 5 == 0)
+                    extraPoint = true;
+        } else { // no need classPower == 1 check for this mode.. too hard
+            if (p->max_lev >= 10 && p->max_lev % 5 == 0)
+                    extraPoint = true;
+        }
+    // brave got extra points too
+    } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
+        int classPower = class_power(p->clazz->name);
+        if (classPower == 3) {
+            if (p->max_lev == 24 || p->max_lev == 34 ||
+                p->max_lev == 44 || p->max_lev == 50)
+                    extraPoint = true;
+        } else if (classPower == 2) { // 20-25-30-35-40-45-50
+            if (p->max_lev >= 20 && p->max_lev % 5 == 0)
+                    extraPoint = true;
+        } else { // no classPower==1 check. // 15-20-25-30-35-40-45-50
+            if (p->max_lev >= 15 && p->max_lev % 5 == 0)
+                    extraPoint = true;
+        }
+    }
+
+    if (extraPoint) {
+        msg(p, "Extra point awarded for your hard-mode challenge! You have %lu points.", ++p->account_score);
+    }
+}
+
 /*
  * Advance experience levels and print experience
  */
@@ -428,7 +605,6 @@ static void adjust_level(struct player *p)
         /* Save the highest level */
         if (p->lev > p->max_lev)
         {
-            bool extraPoint = false;
             struct source who_body;
             struct source *who = &who_body;
 
@@ -439,179 +615,9 @@ static void adjust_level(struct player *p)
                 p->lives = 1;
             }
 
-            // account score when gain lvls
-            // it's in rotation with mon-util.c (killing uniques)
+            // award account points
+            award_account_points(p);
 
-            if (p->max_lev == 50)
-            {
-                p->account_score += 5;
-                msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
-            }
-            else if (p->account_score == 0 && p->max_lev == 3)
-            {
-                p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned 1 account point! These points preserve even after death.");
-                msg(p, "To earn account points - earn levels and defeat unique monsters.");
-                msg(p, "Account points allows to buy bigger houses, increase storage space,");
-                msg(p, "give access to more races/classes and provide other advantages.");
-                msg(p, "You will get next account point after getting 3 levels more.");
-            }
-            else if (p->account_score <= 5)
-            {
-                if (!(p->max_lev % 3))
-                {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
-                    msg(p, "You will get next account point after getting 3 levels more.");
-                    if (p->account_score == 2)
-                    {
-                        msg(p, "Hint: later on it will be every 5 levels or even less often");
-                        msg(p, "(the more points you have - the harder it is to get new ones).");
-                    }
-                }
-            }
-            else if (p->account_score <= 10)
-            {
-                if (!(p->max_lev % 5))
-                {
-                    p->account_score++;
-                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
-                    if (p->account_score != 10)
-                    {
-                        msg(p, "You will get next account point after getting 5 levels more");
-                        if (p->account_score == 6)
-                            msg(p, "(Hint: the more points you have - the harder it is to get new ones).");
-                    }
-                }
-                // gratoz
-                if (p->account_score == 10)
-                {
-                    msg(p, "Great job! Now you can build your own house!");
-                    msg(p, "(check the guide on the website to find out how to do it).");
-                    msg(p, "Also please note that from now on it will be harder to earn points:");
-                    msg(p, "you will get even/odd account point for levels and");
-                    msg(p, "for defeating unique monster (please check website for details).");
-                }
-            }
-            // only at even score
-            else if (!(p->account_score % 2))
-            {
-                if (p->account_score < 25)
-                {
-                    if (!(p->max_lev % 10))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
-                        msg(p, "You will get even/odd account point for levels and");
-                        msg(p, "for defeating unique monster.");
-                    }
-                }
-                else if (p->account_score < 50)
-                {
-                    if (one_in_(51 - p->max_lev) || !(p->max_lev % 15))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-                else if (p->account_score < 100)
-                {
-                    if (p->max_lev >= 10 && (one_in_(51 - p->max_lev) || !(p->max_lev % 20)))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-                else if (p->account_score < 200)
-                {
-                    if (p->max_lev >= 15 && (one_in_(51 - p->max_lev) || !(p->max_lev % 25)))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-                else if (p->account_score < 500)
-                {
-                    if (p->max_lev >= 20 && (one_in_(51 - p->max_lev) || !(p->max_lev % 30)))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-                else if (p->account_score < 999)
-                {
-                    if (p->max_lev >= 25 && (one_in_(51 - p->max_lev) || !(p->max_lev % 35)))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-                else if (p->max_lev >= 30)
-                {
-                    if (one_in_(51 - p->max_lev) || !(p->max_lev % 40))
-                    {
-                        p->account_score++;
-                        msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
-                    }
-                }
-            }
-
-            // award an extra point for hardcore heroes
-            if (OPT(p, birth_hardcore)) {
-                int classPower = class_power(p->clazz->name);
-                if (classPower == 3) {
-                    if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50)
-                            extraPoint = true;
-                } else if (classPower == 2) {
-                    if (p->max_lev == 19 || p->max_lev == 29 || 
-                        p->max_lev == 39 || p->max_lev == 50)
-                            extraPoint = true;
-                } else if (classPower == 1) {
-                    if (p->max_lev == 19 || p->max_lev == 29 ||
-                        p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50)
-                            extraPoint = true;
-                } else {
-                    if (p->max_lev == 14 || p->max_lev == 24 || 
-                        p->max_lev == 34 || p->max_lev == 44 ||
-                        p->max_lev == 49 || p->max_lev == 50)
-                            extraPoint = true;
-                }
-            }
-
-            // ironman characters - award an extra points
-            if (OPT(p, birth_ironman)) {
-                int classPower = class_power(p->clazz->name);
-                if (classPower == 3) {
-                    if (p->max_lev == 20 || p->max_lev == 30 || 
-                        p->max_lev == 40 || p->max_lev == 50)
-                            extraPoint = true;
-                } else if (classPower == 2) { // 15-20-25-30-35-40-45-50
-                    if (p->max_lev >= 15 && p->max_lev % 5 == 0)
-                            extraPoint = true;
-                } else { // no need classPower == 1 check for this mode.. too hard
-                    if (p->max_lev >= 10 && p->max_lev % 5 == 0)
-                            extraPoint = true;
-                }
-            // brave got extra points too
-            } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
-                int classPower = class_power(p->clazz->name);
-                if (classPower == 3) {
-                    if (p->max_lev == 24 || p->max_lev == 34 ||
-                        p->max_lev == 44 || p->max_lev == 50)
-                            extraPoint = true;
-                } else if (classPower == 2) { // 20-25-30-35-40-45-50
-                    if (p->max_lev >= 20 && p->max_lev % 5 == 0)
-                            extraPoint = true;
-                } else { // no classPower==1 check. // 15-20-25-30-35-40-45-50
-                    if (p->max_lev >= 15 && p->max_lev % 5 == 0)
-                            extraPoint = true;
-                }
-            }
-
-            if (extraPoint) {
-                msg(p, "Extra point awarded for your hard-mode challenge! You have %lu points.", ++p->account_score);
-            }
-            
             // extra gold for account points
             award_gold_for_account_points(p);
 
