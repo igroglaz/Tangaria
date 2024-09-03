@@ -159,7 +159,7 @@ static void award_gold_for_account_points(struct player *p) {
     {
         case 2:
             if (p->account_score <= 50) {
-                extra_gold = p->account_score; // 50
+                extra_gold = p->account_score; // max gold: 50
             } else if (p->account_score <= 250) {
                 extra_gold = ((p->account_score - 50) / 20) + 50; // 60
             } else if (p->account_score <= 500) {
@@ -284,7 +284,14 @@ static void award_gold_for_account_points(struct player *p) {
             break;
 
         default:
-            float multiplier = 1.0 + 0.001 * (p->max_lev - 10) * (p->max_lev - 10) * (p->max_lev - 10);
+            float multiplier;
+            if (p->max_lev <= 15) { // 11-15 lvls
+                multiplier = 1.3 + (p->max_lev * 0.02);
+            } else if (p->max_lev <= 20) { // 16-20 lvls
+                multiplier = 1.4 + (p->max_lev * 0.03);
+            } else {
+                multiplier = 1.0 + 0.001 * (p->max_lev - 10) * (p->max_lev - 10) * (p->max_lev - 10);
+            }
 
             if (p->account_score <= 50) {          
                 extra_gold = p->account_score * 2 * multiplier;
@@ -309,10 +316,9 @@ static void award_gold_for_account_points(struct player *p) {
             }
     }
 
-    p->gold += extra_gold;
-
     if (extra_gold > 0) {
-        extra_gold += 10; // min 10 gold
+        extra_gold += 10; // for low account_score values
+        p->gold += extra_gold;
         msg(p, "You've earned %d extra gold for having %d account points!", extra_gold, p->account_score);
     }
 }
@@ -571,7 +577,8 @@ static void adjust_level(struct player *p)
             award_account_points(p);
 
             // extra gold for account points
-            award_gold_for_account_points(p);
+            if (p->account_score > 1) // in case of ".. / log10(p->account_score)"
+                award_gold_for_account_points(p);
 
             /* Message */
             if (p->max_lev == 50)
