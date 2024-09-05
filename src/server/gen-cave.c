@@ -1365,7 +1365,17 @@ static void add_stairs(struct chunk *c, int feat)
         num = num + dir->base + damroll(dir->dice, dir->sides);
     }
 
-    alloc_stairs(c, feat, num, minsep);
+    /* Try to place some staircases near walls, reduce minsep if needed */
+    while (num > 0)
+    {
+        int count = alloc_stairs(c, feat, num, minsep);
+
+        if (count == num) break;
+        num -= count;
+
+        /* Reduce minsep if all stairs cannot be placed due to high density */
+        minsep /= 2;
+    }
 }
 
 

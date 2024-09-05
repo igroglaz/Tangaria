@@ -801,10 +801,12 @@ void place_random_door(struct chunk *c, struct loc *grid)
  * num number of staircases to place
  * minsep If greater than zero, the stairs must be more than minsep
  * grids in x or y from other staircases.
+ *
+ * Returns the number of allocated stairs
  */
-void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
+int alloc_stairs(struct chunk *c, int feat, int num, int minsep)
 {
-    int i, navalloc = 0, nav, walls = 3;
+    int i, navalloc = 0, nav, walls = 3, count = 0;
     struct loc *av = NULL;
     int *state;
     struct loc grid;
@@ -882,6 +884,7 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
             if (found)
             {
                 place_stairs(c, &grid, feat);
+                count++;
                 break;
             }
 
@@ -890,6 +893,10 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
             {
                 mem_free(state);
                 mem_free(av);
+
+                /* Allow another pass if we have minsep set */
+                if (minsep > 0) return count;
+
                 dump_level_simple(NULL, "Stair Placement Failure", c);
                 quit("Failed to place stairs!");
             }
@@ -900,6 +907,8 @@ void alloc_stairs(struct chunk *c, int feat, int num, int minsep)
 
     mem_free(state);
     mem_free(av);
+
+    return count;
 }
 
 

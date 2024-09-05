@@ -396,7 +396,7 @@ extern void place_gold(struct player *p, struct chunk *c, struct loc *grid, int 
 extern void place_secret_door(struct chunk *c, struct loc *grid);
 extern void place_closed_door(struct chunk *c, struct loc *grid);
 extern void place_random_door(struct chunk *c, struct loc *grid);
-extern void alloc_stairs(struct chunk *c, int feat, int num, int minsep);
+extern int alloc_stairs(struct chunk *c, int feat, int num, int minsep);
 extern void vault_objects(struct player *p, struct chunk *c, struct loc *grid, int num);
 extern void vault_traps(struct chunk *c, struct loc *grid, int yd, int xd, int num);
 extern void vault_monsters(struct player *p, struct chunk *c, struct loc *grid, int depth,
