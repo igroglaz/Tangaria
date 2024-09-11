@@ -154,6 +154,7 @@ bool player_stat_dec(struct player *p, int stat, bool permanent)
 static void award_gold_for_account_points(struct player *p) {
 
     int extra_gold = 0;
+    float multiplier;
 
     switch (p->max_lev)
     {
@@ -284,7 +285,6 @@ static void award_gold_for_account_points(struct player *p) {
             break;
 
         default:
-            float multiplier;
             if (p->max_lev <= 15) { // 11-15 lvls
                 multiplier = 1.3 + (p->max_lev * 0.02);
             } else if (p->max_lev <= 20) { // 16-20 lvls
@@ -318,7 +318,7 @@ static void award_gold_for_account_points(struct player *p) {
 
     if (extra_gold > 0) {
         extra_gold += 10; // for low account_score values
-        p->gold += extra_gold;
+        p->au += extra_gold;
         msg(p, "You've earned %d extra gold for having %d account points!", extra_gold, p->account_score);
     }
 }
@@ -578,7 +578,7 @@ static void adjust_level(struct player *p)
 
             // extra gold for account points
             if (p->account_score > 1) // in case of ".. / log10(p->account_score)"
-                award_gold_for_account_points(p);
+                ; // award_gold_for_account_points(p); will turn on later
 
             /* Message */
             if (p->max_lev == 50)
