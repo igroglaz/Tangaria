@@ -409,7 +409,7 @@ extern void dump_level_header(ang_file *fo, const char *title);
 extern void dump_level_body(ang_file *fo, const char *title, struct chunk *c, int **dist);
 extern void dump_level_footer(ang_file *fo);
 
-extern void alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num,
+extern int alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num,
     int depth, uint8_t origin);
 extern bool alloc_object(struct player *p, struct chunk *c, int set, int typ, int depth,
     uint8_t origin);

@@ -38,6 +38,13 @@ Angband 4.2.x:
 - Set an object to assessed that has all its runes known
 - Allow glowing terrain that's not in a room or on the surface to light a wall
 
+Compilation/documentation
+-------------------------
+
+Angband 4.2.x:
+
+- Remove some warnings
+
 Features in PWMAngband 1.6.1 build 1
 ====================================
 

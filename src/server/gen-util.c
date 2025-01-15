@@ -923,9 +923,11 @@ int alloc_stairs(struct chunk *c, int feat, int num, int minsep)
  * depth generation depth
  * origin item origin (if appropriate)
  *
+ * Return the number of entites that were not allocated.
+ *
  * See alloc_object() for more information.
  */
-void alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num, int depth,
+int alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num, int depth,
     uint8_t origin)
 {
     int k, l = 0;
@@ -936,6 +938,8 @@ void alloc_objects(struct player *p, struct chunk *c, int set, int typ, int num,
 
          if (!ok) l++;
     }
+
+    return l;
 }
 
 

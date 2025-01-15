@@ -188,7 +188,6 @@ bool init_graphics_modes(void)
     ang_file *f;
     struct parser *p;
     errr e = 0;
-    int line_no = 0;
 
     /* Build the filename */
     path_build(buf, sizeof(buf), ANGBAND_DIR_TILES, "list.txt");
@@ -206,8 +205,6 @@ bool init_graphics_modes(void)
         p = init_parse_grafmode();
         while (file_getl(f, line, sizeof line))
         {
-            line_no++;
-
             e = parser_parse(p, line);
             if (e != PARSE_ERROR_NONE)
             {

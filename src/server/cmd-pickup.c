@@ -702,11 +702,14 @@ uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct
             return objs_picked_up;
         }
 
-        /* Pick up the object */
-        player_pickup_aux(p, c, current, 0, domsg);
+        if (inven_carry_num(p, current) > 0)
+        {
+            /* Pick up the object */
+            player_pickup_aux(p, c, current, 0, domsg);
 
-        /* Indicate an object picked up. */
-        objs_picked_up = 1;
+            /* Indicate an object picked up. */
+            objs_picked_up = 1;
+        }
     }
 
     /*

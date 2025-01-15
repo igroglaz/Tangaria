@@ -1362,13 +1362,10 @@ static bool process_pref_file_named(const char *path, bool quiet, bool user)
     else
     {
         char line[MSG_LEN];
-        int line_no = 0;
         struct parser *p = init_parse_prefs(user);
 
         while (file_getl(f, line, sizeof(line)))
         {
-            line_no++;
-
             e = parser_parse(p, line);
             if (e != PARSE_ERROR_NONE)
             {
