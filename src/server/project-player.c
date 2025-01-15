@@ -3,7 +3,7 @@
  * Purpose: Projection effects on players
  *
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * Copyright (c) 2024 MAngband and PWMAngband Developers
+ * Copyright (c) 2025 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

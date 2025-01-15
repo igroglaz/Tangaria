@@ -2,7 +2,7 @@
  * File: control.c
  * Purpose: Support for the "remote console"
  *
- * Copyright (c) 2024 MAngband and PWMAngband Developers
+ * Copyright (c) 2025 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:

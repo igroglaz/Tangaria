@@ -3,7 +3,7 @@
  * Purpose: Functions to deal with object properties
  *
  * Copyright (c) 2014 Chris Carr, Nick McConnell
- * Copyright (c) 2024 MAngband and PWMAngband Developers
+ * Copyright (c) 2025 MAngband and PWMAngband Developers
  *
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of either:
