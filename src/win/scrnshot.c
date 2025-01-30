@@ -171,7 +171,7 @@ BOOL SaveWindow_PNG(HWND hWnd, LPSTR lpFileName)
     for (y = 0; y < height; ++y) free(row_pointers[y]);
     free(row_pointers);
 
-    /* We are done with the file pointer, so release all the the PNG Structures */
+    /* We are done with the file pointer, so release all the PNG Structures */
     if (info_ptr)
     {
         png_destroy_write_struct(&png_ptr, &info_ptr);

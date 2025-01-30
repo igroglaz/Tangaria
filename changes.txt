@@ -21,6 +21,27 @@ User interface
 Angband 4.2.x:
 
 - Fixing Main Gauche plural to be in line with proper french
+- Use known version of equipment for combat information on character sheet
+
+Gameplay changes
+----------------
+
+Angband 4.2.x:
+
+- Update object.txt (mithril ammo)
+
+Bugs fixed
+----------
+
+Angband 4.2.x:
+
+- Avoid crash when locking file for high scores could not be opened
+- SDL2 fixes
+- Account for empty object groups in ego knowledge displayDoom
+
+PWMAngband:
+
+- Fix bug when displaying ego item knowledge
 
 Coding changes
 --------------
@@ -37,6 +58,7 @@ Angband 4.2.x:
 - Prevent out-of-bounds write to stack array in earthquake handler
 - Set an object to assessed that has all its runes known
 - Allow glowing terrain that's not in a room or on the surface to light a wall
+- Avoid SDL_Color initialisation error
 
 Compilation/documentation
 -------------------------
@@ -44,6 +66,9 @@ Compilation/documentation
 Angband 4.2.x:
 
 - Remove some warnings
+- Windows: set both WINVER and _WIN32_WINNT to enforce minimum version
+- Fix typos
+- Document v parameter for player_set_timed()
 
 Features in PWMAngband 1.6.1 build 1
 ====================================

@@ -782,6 +782,7 @@ static void do_cmd_knowledge_ego_items(struct player *p, int line)
         {
             struct object_kind *kind = &k_info[poss->kidx];
 
+            my_assert(obj_group_order[kind->tval] >= 0);
             tval[obj_group_order[kind->tval]]++;
         }
 
@@ -790,8 +791,15 @@ static void do_cmd_knowledge_ego_items(struct player *p, int line)
         {
             int gid = obj_group_order[j];
 
-            /* Ignore duplicate gids */
-            if ((j > 0) && (gid == default_join[e_count - 1].gid)) continue;
+            /* Skip if nothing in this group */
+            if (gid < 0) continue;
+
+            /* Ignore duplicates */
+            if ((e_count > 0) && (gid == default_join[e_count - 1].gid) &&
+                (i == default_join[e_count - 1].oid))
+            {
+                continue;
+            }
 
             if (tval[gid])
             {

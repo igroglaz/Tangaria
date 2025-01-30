@@ -369,7 +369,7 @@ BOOL ReadDIB2_PNG(HWND hWnd, LPSTR lpFileName, DIBINIT *pInfo, DIBINIT *pMask, B
     for (y = 0; y < height; ++y) free(row_pointers[y]);
     free(row_pointers);
     
-    /* Release all the the PNG Structures */
+    /* Release all the PNG Structures */
     if (info_ptr)
     {
         png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);

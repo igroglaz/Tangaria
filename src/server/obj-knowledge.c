@@ -1272,6 +1272,52 @@ void player_learn_flag(struct player *p, int flag)
 
 
 /*
+ * Learn a slay.
+ */
+void player_learn_slay(struct player *p, int index)
+{
+    /* Learn about the slay */
+    if (!player_knows_slay(p, index))
+    {
+        int i;
+
+        /* Find the rune index */
+        for (i = 0; i < z_info->slay_max; i++)
+        {
+            if (same_monsters_slain(i, index)) break;
+        }
+        my_assert(i < z_info->slay_max);
+
+        /* Learn the rune */
+        player_learn_rune(p, rune_index(RUNE_VAR_SLAY, i), true);
+    }
+}
+
+
+/*
+ * Learn a brand.
+ */
+void player_learn_brand(struct player *p, int index)
+{
+    /* Learn about the brand */
+    if (!player_knows_brand(p, index))
+    {
+        int i;
+
+        /* Find the rune index */
+        for (i = 0; i < z_info->brand_max; i++)
+        {
+            if (streq(brands[i].name, brands[index].name)) break;
+        }
+        my_assert(i < z_info->brand_max);
+
+        /* Learn the rune */
+        player_learn_rune(p, rune_index(RUNE_VAR_BRAND, i), true);
+    }
+}
+
+
+/*
  * Learn all innate runes
  *
  * p is the player
@@ -1649,58 +1695,6 @@ void object_learn_on_use(struct player *p, struct object *obj)
     player_exp_gain(p, (lev + (p->lev >> 1)) / p->lev);
 
     p->upkeep->notice |= PN_IGNORE;
-}
-
-
-/*
- * Notice any slays on a particular object which affect a particular monster race.
- *
- * p is the player
- * index is index of the slay we are learning
- */
-void object_learn_slay(struct player *p, int index)
-{
-    /* Learn about the slay */
-    if (!player_knows_slay(p, index))
-    {
-        int i;
-
-        /* Find the rune index */
-        for (i = 0; i < z_info->slay_max; i++)
-        {
-            if (same_monsters_slain(i, index)) break;
-        }
-        my_assert(i < z_info->slay_max);
-
-        /* Learn the rune */
-        player_learn_rune(p, rune_index(RUNE_VAR_SLAY, i), true);
-    }
-}
-
-
-/*
- * Notice any brands on a particular object which affect a particular monster race.
- *
- * p is the player
- * index is index of the brand we are learning
- */
-void object_learn_brand(struct player *p, int index)
-{
-    /* Learn about the brand */
-    if (!player_knows_brand(p, index))
-    {
-        int i;
-
-        /* Find the rune index */
-        for (i = 0; i < z_info->brand_max; i++)
-        {
-            if (streq(brands[i].name, brands[index].name)) break;
-        }
-        my_assert(i < z_info->brand_max);
-
-        /* Learn the rune */
-        player_learn_rune(p, rune_index(RUNE_VAR_BRAND, i), true);
-    }
 }
 
 

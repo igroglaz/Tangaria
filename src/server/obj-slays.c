@@ -250,7 +250,7 @@ static void object_notice_brand(struct player *p, struct object *obj, int i)
     msg(p, "Your %s %s!", o_name, verb);
 
     /* Learn about the brand */
-    object_learn_brand(p, i);
+    player_learn_brand(p, i);
 
     object_check_for_ident(p, obj);
 }
@@ -278,7 +278,7 @@ static void object_notice_slay(struct player *p, struct object *obj, int i)
     msg(p, "Your %s glows%s!", o_name, ((slays[i].multiplier > 3)? " brightly": ""));
 
     /* Learn about the slay */
-    object_learn_slay(p, i);
+    player_learn_slay(p, i);
 
     object_check_for_ident(p, obj);
 }

@@ -311,8 +311,17 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
     /* Get the wielded weapon */
     else if (obj)
     {
-        *dd = obj->dd;
-        *ds = obj->ds;
+        /* Use displayed dice if real dice not known */
+        if (obj->known->dd && obj->known->ds)
+        {
+            *dd = obj->dd;
+            *ds = obj->ds;
+        }
+        else
+        {
+            *dd = obj->kind->dd;
+            *ds = obj->kind->ds;
+        }
 
         /* If known, add the wielded weapon bonuses */
         if (obj->known->to_h && obj->known->to_d)

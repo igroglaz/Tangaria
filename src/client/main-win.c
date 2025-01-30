@@ -18,9 +18,18 @@
  *    are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Make sure the WINVER allows the AlphaBlend function */
-#if (WINVER < 0x0500)
+/* Set the minimum version of Windows to accept so AlphaBlend() is available */
+#ifndef WINVER
 #define WINVER 0x0500
+#elif WINVER < 0x0500
+#undef WINVER
+#define WINVER 0x0500
+#endif
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0500
+#elif _WIN32_WINNT < 0x0500
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0500
 #endif
 
 #include "c-angband.h"

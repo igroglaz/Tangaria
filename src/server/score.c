@@ -133,13 +133,14 @@ static void highscore_write(const struct high_score scores[], size_t sz)
     }
 
     lok = file_open(lok_name, MODE_WRITE, FTYPE_RAW);
-    file_lock(lok);
 
     if (!lok)
     {
         plog("Failed to create lock for scorefile; not writing.");
         return;
     }
+    else
+        file_lock(lok);
 
     /* Open the new file for writing */
     scorefile = file_open(new_name, MODE_WRITE, FTYPE_RAW);

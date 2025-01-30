@@ -94,7 +94,7 @@
 
 #define DEFAULT_DIALOG_FONT "8x13x.fon"
 
-#define MAX_VECTOR_FONT_SIZE 36
+#define MAX_VECTOR_FONT_SIZE 64
 #define MIN_VECTOR_FONT_SIZE 4
 
 /* update period in window delays (160 milliseconds, assuming 60 fps) */
@@ -940,7 +940,7 @@ static void redraw_window_while_menu_active(struct sdlpui_window *window)
 /* this function is mostly used while normally playing the game */
 static void redraw_window(struct sdlpui_window *window)
 {
-    if (window->d_mouse || window->d_key) {
+    if (window->move_state.moving || window->size_state.sizing || window->d_mouse || window->d_key) {
         redraw_window_while_menu_active(window);
         return;
     }
@@ -1392,7 +1392,7 @@ static void calculate_subwindow_font_size_bounds(struct subwindow *subwindow,
         int try;
 
         if (lo == hi - 1) {
-            *max_size = lo;
+            *max_size = hi;
             return;
         }
         try = (lo + hi) / 2;
@@ -2238,7 +2238,7 @@ static struct sdlpui_dialog *handle_menu_windows(struct sdlpui_control *ctrl,
         dlg, ctrl, MAX_WINDOWS, true, false, NULL, 0);
     unsigned int i;
 
-    for (i = 0; i < MAX_WINDOWS; ++i) {
+    for (i = 1; i < MAX_WINDOWS; ++i) {
         struct sdlpui_control *c = sdlpui_get_simple_menu_next_unused(
             result, SDLPUI_MFLG_NONE);
 
@@ -2256,57 +2256,67 @@ static struct sdlpui_dialog *handle_menu_windows(struct sdlpui_control *ctrl,
 static void handle_menu_fullscreen(struct sdlpui_control *ctrl,
         struct sdlpui_dialog *dlg, struct sdlpui_window *window)
 {
-    SDL_Rect tmp_rect;
-    size_t i;
+    bool was_fullscreen = (window->flags & SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_Rect tmp_rect;
 
-    sdlpui_popdown_dialog(dlg, window, true);
+	sdlpui_popdown_dialog(dlg, window, true);
 
-    tmp_rect = window->stored_rect;
-    SDL_GetWindowPosition(window->window, &window->full_rect.x,
-        &window->full_rect.y);
-    window->stored_rect = window->full_rect;
-    window->full_rect = tmp_rect;
-    for (i = 0; i < N_ELEMENTS(window->subwindows); ++i) {
-        struct subwindow *subwindow = window->subwindows[i];
+	SDL_GetWindowSize(window->window, &tmp_rect.w, &tmp_rect.h);
+	SDL_GetWindowPosition(window->window, &tmp_rect.x, &tmp_rect.y);
+	if (!SDL_SetWindowFullscreen(window->window, (was_fullscreen) ?
+			0 : SDL_WINDOW_FULLSCREEN_DESKTOP)) {
+		/* Succeeded.  Swap cached sizes. */
+		size_t i;
 
-        if (subwindow != NULL) {
-            tmp_rect = subwindow->stored_rect;
-            subwindow->stored_rect = subwindow->full_rect;
-            subwindow->full_rect = tmp_rect;
-            if (!subwindow->full_rect.w
-                    || !subwindow->full_rect.h) {
-                /*
-                 * Nothing configured so far for this mode, so
-                 * use the configuration from the other mode.
-                 */
-                subwindow->full_rect = subwindow->stored_rect;
-            }
-        }
-    }
+		window->full_rect = window->stored_rect;
+		window->stored_rect = tmp_rect;
+		for (i = 0; i < N_ELEMENTS(window->subwindows); ++i) {
+			struct subwindow *subwindow = window->subwindows[i];
 
-    if (window->flags & SDL_WINDOW_FULLSCREEN_DESKTOP) {
-        int minw, minh;
+			if (subwindow != NULL) {
+				tmp_rect = subwindow->stored_rect;
+				subwindow->stored_rect = subwindow->full_rect;
+				subwindow->full_rect = tmp_rect;
+				if (!subwindow->full_rect.w
+						|| !subwindow->full_rect.h) {
+					/*
+					 * Nothing configured so far for this
+					 * mode, so use the configuration from
+					 * the other mode.
+					 */
+					subwindow->full_rect =
+						subwindow->stored_rect;
+				}
+			}
+		}
 
-        SDL_SetWindowFullscreen(window->window, 0);
-        get_minimum_window_size(window, &minw, &minh);
-        SDL_SetWindowMinimumSize(window->window, minw, minh);
-        /*
-         * If there is a previously configured size, use it.
-         * Otherwise, rely on SDL's default behavior.
-         */
-        if (window->full_rect.w && window->full_rect.h) {
-            SDL_SetWindowSize(window->window, window->full_rect.w,
-                window->full_rect.h);
-            resize_window(window, window->full_rect.w,
-                window->full_rect.h);
-            SDL_SetWindowPosition(window->window,
-                window->full_rect.x, window->full_rect.y);
-        }
-    } else {
-        SDL_SetWindowFullscreen(window->window,
-            SDL_WINDOW_FULLSCREEN_DESKTOP);
-    }
-    window->flags = SDL_GetWindowFlags(window->window);
+		if (was_fullscreen) {
+			int minw, minh;
+
+			get_minimum_window_size(window, &minw, &minh);
+			SDL_SetWindowMinimumSize(window->window, minw, minh);
+			/*
+			 * If there is a previously configured size, use it.
+			 * Otherwise, rely on SDL's default behavior.
+			 */
+			if (window->full_rect.w && window->full_rect.h) {
+				SDL_SetWindowSize(window->window,
+					window->full_rect.w,
+					window->full_rect.h);
+				resize_window(window, window->full_rect.w,
+					window->full_rect.h);
+				SDL_SetWindowPosition(window->window,
+					window->full_rect.x,
+					window->full_rect.y);
+			}
+		}
+		window->flags = SDL_GetWindowFlags(window->window);
+	} else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_WARNING,
+			"Fullscreen failure",
+			format("Could not change fullscreen setting:\n%s",
+			SDL_GetError()), window->window);
+	}
 }
 
 static void handle_menu_kp_mod(struct sdlpui_control *ctrl,
@@ -3673,43 +3683,31 @@ static bool handle_mousebutton(struct my_app *a,
     int button, col, row;
     uint8_t mods;
     term *old;
+    bool touched;
 
     if (!a->w_mouse) {
         return false;
     }
 
-    if (a->w_mouse->move_state.active || a->w_mouse->size_state.active) {
-        if (mouse->state == SDL_RELEASED) {
-            if (a->w_mouse->move_state.active
-                    && a->w_mouse->move_state.moving) {
-                a->w_mouse->move_state.moving = false;
-                return true;
-            } else if (a->w_mouse->size_state.active
-                    && a->w_mouse->size_state.sizing) {
-                a->w_mouse->size_state.sizing = false;
-                if (a->w_mouse->size_state.subwindow) {
-                    resize_subwindow(a->w_mouse->size_state.subwindow);
-                }
-                return true;
-            }
-        } else {
-            subwindow = get_subwindow_by_xy(a->w_mouse, mouse->x,
-                mouse->y);
-            if (subwindow && is_rect_in_rect(&subwindow->full_rect,
-                    &a->w_mouse->inner_rect)) {
-                if (a->w_mouse->move_state.active
-                        && !a->w_mouse->move_state.moving) {
-                    start_moving(a->w_mouse, subwindow, mouse);
-                } else if (a->w_mouse->size_state.active
-                        && !a->w_mouse->size_state.sizing) {
-                    start_sizing(a->w_mouse, subwindow, mouse);
-                }
-                return true;
-            }
-        }
-    }
+    /* Terminate moving/sizing on a mouse release. */
+	if (mouse->state == SDL_RELEASED
+			&& (a->w_mouse->move_state.moving
+			|| a->w_mouse->size_state.sizing)) {
+		if (a->w_mouse->move_state.moving) {
+			SDL_assert(a->w_mouse->move_state.active);
+			a->w_mouse->move_state.moving = false;
+		} else {
+			SDL_assert(a->w_mouse->size_state.active);
+			a->w_mouse->size_state.sizing = false;
+			if (a->w_mouse->size_state.subwindow) {
+				resize_subwindow(a->w_mouse->size_state.subwindow);
+			}
+		}
+		return true;
+	}
 
     /* Have a menu or dialog handle the event if appropriate. */
+    touched = false;
     if (a->w_mouse->d_mouse) {
         /*
          * Press events outside of the dialog will act as if the dialog 
@@ -3725,24 +3723,41 @@ static bool handle_mousebutton(struct my_app *a,
                     a->w_mouse->d_mouse, a->w_mouse,
                     NULL, NULL);
             }
-            return true;
-        }
-        if (a->w_mouse->d_mouse->ftb->handle_mouseclick
+            touched = true;
+        } else if (a->w_mouse->d_mouse->ftb->handle_mouseclick
                 && (*a->w_mouse->d_mouse->ftb->handle_mouseclick)(
                 a->w_mouse->d_mouse, a->w_mouse, mouse)) {
             return true;
         }
     }
 
+    /* If requested, start moving/sizing on a press. */
+	if (mouse->state != SDL_RELEASED
+			&& (a->w_mouse->move_state.active
+			|| a->w_mouse->size_state.active)) {
+		subwindow = get_subwindow_by_xy(a->w_mouse, mouse->x, mouse->y);
+		if (subwindow && is_rect_in_rect(&subwindow->full_rect,
+				&a->w_mouse->inner_rect)) {
+			if (a->w_mouse->move_state.active
+					&& !a->w_mouse->move_state.moving) {
+				start_moving(a->w_mouse, subwindow, mouse);
+			} else if (a->w_mouse->size_state.active
+					&& !a->w_mouse->size_state.sizing) {
+				start_sizing(a->w_mouse, subwindow, mouse);
+			}
+			return true;
+		}
+	}
+
     /* Otherwise only react to the button press and not the release. */
     if (mouse->state == SDL_RELEASED) {
-        return false;
+        return touched;
     }
 
     subwindow = get_subwindow_by_xy(a->w_mouse, mouse->x, mouse->y);
     if (subwindow == NULL) {
         /* not an error, the user clicked in some random place */
-        return false;
+        return touched;
     }
     if (!subwindow->top) {
         bring_to_top(a->w_mouse, subwindow);
@@ -3755,7 +3770,7 @@ static bool handle_mousebutton(struct my_app *a,
      * lives in the main window.
      */
     if (a->w_mouse->index != MAIN_WINDOW) {
-        return false;
+        return touched;
     }
 
     /* all magic numbers are from ui-term.c and ui-context.c :) */
@@ -3768,11 +3783,11 @@ static bool handle_mousebutton(struct my_app *a,
             break;
         default:
             /* XXX other buttons? */
-            return false;
+            return touched;
     }
 
     if (!get_colrow_from_xy(subwindow, mouse->x, mouse->y, &col, &row)) {
-        return false;
+        return touched;
     }
 
     mods = translate_key_mods(SDL_GetModState());
@@ -4840,7 +4855,8 @@ static void make_font_cache(const struct sdlpui_window *window,
             quit_fmt("font cache rendering failed for '%c'"
                 " (ASCII %lu) in font '%s': %s",
                 g_ascii_codepoints_for_cache[i],
-                (unsigned long) i, font->name, TTF_GetError());
+                (unsigned long)g_ascii_codepoints_for_cache[i],
+				font->name, TTF_GetError());
         }
 
         SDL_Texture *texture = SDL_CreateTextureFromSurface(window->renderer, surface);
@@ -5858,7 +5874,8 @@ static void load_subwindow(struct sdlpui_window *window,
             ++n_tries;
         }
         try_names[n_tries] = DEFAULT_FONT;
-        try_sizes[n_tries] = 0;
+        try_sizes[n_tries] = (suffix_i(DEFAULT_FONT, ".fon")) ?
+			0 : DEFAULT_VECTOR_FONT_SIZE;
         ++n_tries;
         if (window->app->font_count > 0 && window->app->fonts[0].name) {
             try_names[n_tries] = window->app->fonts[0].name;
@@ -6087,8 +6104,8 @@ static int sort_cb_font_info(const void *infoa, const void *infob)
             lv = strtol(ew + 1, &facea, 10);
             if (facea != ew + 1 && lv > INT_MIN && lv < INT_MAX) {
                 ha = (int)lv;
-                exta = strchr(namea, '.');
-                if (exta == namea) {
+                exta = strchr(facea, '.');
+                if (exta == facea) {
                     exta = NULL;
                 }
             }
