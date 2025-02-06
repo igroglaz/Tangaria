@@ -37,7 +37,7 @@ Angband 4.2.x:
 
 - Avoid crash when locking file for high scores could not be opened
 - SDL2 fixes
-- Account for empty object groups in ego knowledge displayDoom
+- Account for empty object groups in ego knowledge display
 
 PWMAngband:
 
