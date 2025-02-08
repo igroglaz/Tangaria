@@ -1,0 +1,50 @@
+FROM alpine:3.21 AS builder
+ARG url='https://github.com/draconisPW/PWMAngband'
+
+RUN apk -U --no-progress --no-cache upgrade \
+ && apk -U --no-progress --no-cache add git gcc make libc-dev dos2unix autoconf automake m4 bash patch wget
+
+RUN git clone "$url" \
+&& cd /PWMAngband\
+&& ./autogen.sh \
+&& ./configure --prefix=/pwmangband --disable-curses --disable-x11 \
+&& make \
+&& make install \
+&& cp setup/mangband.cfg /pwmangband/ \
+&& rm -rf /PWMAngband
+
+FROM alpine:3.21
+
+RUN apk -U --no-progress --no-cache upgrade \
+ && apk -U --no-progress --no-cache add bash
+
+COPY --from=builder /pwmangband /install
+
+ENV USER=pwmangband
+ENV GROUPNAME=$USER
+ENV UID=1000
+ENV GID=1000
+
+RUN addgroup \
+    --gid "$GID" \
+    "$GROUPNAME" \
+&&  adduser \
+    --disabled-password \
+    --gecos "" \
+    --home /home/"$USER" \
+    --ingroup "$GROUPNAME" \
+    --uid "$UID" \
+    $USER \
+&&  mkdir /pwmangband \
+&&  chown -R 1000:1000 /pwmangband /install \
+&&  find /install -name "*.txt" -exec dos2unix '{}' \; \
+&&  find /install -name "*.prf" -exec dos2unix '{}' \; \
+&&  find /install -name "*.cfg" -exec dos2unix '{}' \;
+
+EXPOSE 18346
+VOLUME [ "/pwmangband" ]
+USER "$USER"
+WORKDIR /pwmangband
+
+COPY docker-entrypoint.sh /
+ENTRYPOINT [ "/docker-entrypoint.sh" ]

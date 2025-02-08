@@ -1,0 +1,11 @@
+--- src/common/util.c	2025-01-26 13:11:12.638256314 +0400
++++ src/common/util.c	2025-01-26 14:04:05.913492478 +0400
+@@ -393,7 +393,7 @@
+ 
+         if (!kind || !kind->name || kind->tval != tval) continue;
+ 
+-        obj_desc_name_format(cmp_name, sizeof(cmp_name), NULL, kind->name, 0, false);
++        obj_desc_name_format(cmp_name, sizeof(cmp_name), 0, kind->name, 0, false);
+ 
+         /* Found a match */
+         if (!my_stricmp(cmp_name, name)) return kind->sval;
