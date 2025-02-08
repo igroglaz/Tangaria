@@ -18,7 +18,7 @@ ifneq (${VERSION},)
 	CFLAGS += -DBUILD_ID=${VERSION}
 endif
 
-CFLAGS += -I. -std=c99 -O0
+CFLAGS += -I. -std=gnu99 -O0
 # Replace above line with the two below and then look at gmon.out
 # to do performance monitoring
 # CFLAGS += -g -pg -I. -std=c99 -O0
