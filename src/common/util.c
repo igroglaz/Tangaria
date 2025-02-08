@@ -393,7 +393,7 @@ static int lookup_sval_aux(int tval, const char *name, bool silent)
 
         if (!kind || !kind->name || kind->tval != tval) continue;
 
-        obj_desc_name_format(cmp_name, sizeof(cmp_name), NULL, kind->name, 0, false);
+        obj_desc_name_format(cmp_name, sizeof(cmp_name), 0, kind->name, 0, false);
 
         /* Found a match */
         if (!my_stricmp(cmp_name, name)) return kind->sval;
