@@ -223,7 +223,8 @@ static uint8_t multi_hued_attr_breath(struct monster_race *race)
 }
 
 
-static uint8_t get_flicker_attr(struct player *p, const struct monster_race *race, const uint8_t base_attr)
+static uint8_t get_flicker_attr(struct player *p, const struct monster_race *race,
+    const uint8_t base_attr, bool update_flicker)
 {
     uint8_t attr;
 
@@ -236,7 +237,12 @@ static uint8_t get_flicker_attr(struct player *p, const struct monster_race *rac
     /* Fall back to the static attribute if cycling fails. */
     if (attr == BASIC_COLORS) attr = base_attr;
 
-    p->flicker++;
+    if (update_flicker)
+    {
+        if (p->flicker == 255) p->flicker = 0;
+        else p->flicker++;
+    }
+    else p->did_flicker = true;
 
     return attr;
 }
@@ -451,7 +457,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             if (rf_has(q->poly_race->flags, RF_ATTR_MULTI))
                 *a = multi_hued_attr_breath(q->poly_race);
             else if (rf_has(q->poly_race->flags, RF_ATTR_FLICKER))
-                *a = get_flicker_attr(p, q->poly_race, (uint8_t)*a);
+                *a = get_flicker_attr(p, q->poly_race, (uint8_t)*a, true);
         }
     }
 
@@ -879,7 +885,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
                     if (rf_has(mon->race->flags, RF_ATTR_MULTI))
                         a = multi_hued_attr_breath(mon->race);
                     else if (rf_has(mon->race->flags, RF_ATTR_FLICKER))
-                        a = get_flicker_attr(p, mon->race, da);
+                        a = get_flicker_attr(p, mon->race, da, false);
 
                     /* Redraw monster list if needed */
                     if (mon->attr != a) p->upkeep->redraw |= PR_MONLIST;

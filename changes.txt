@@ -22,6 +22,7 @@ Angband 4.2.x:
 
 - Fixing Main Gauche plural to be in line with proper french
 - Use known version of equipment for combat information on character sheet
+- Apply purple_uniques to monster list glyphs
 
 Gameplay changes
 ----------------
@@ -42,6 +43,8 @@ Angband 4.2.x:
 PWMAngband:
 
 - Fix bug when displaying ego item knowledge
+- Fix flickering being very slow sometimes
+- Fix info on tombstone for retiring Dungeon Masters
 
 Coding changes
 --------------

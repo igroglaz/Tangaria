@@ -906,6 +906,7 @@ struct player
     int16_t square_light;           /* Square light (for display) */
     char terrain[40];               /* Displayed terrain */
     uint8_t flicker;                /* A counter to select the step color from the flicker table */
+    bool did_flicker;
     bool no_disturb_icky;
     bool placed;                    /* Player is properly placed on the level */
     int monwidth;                   /* Monster list subwindow width */

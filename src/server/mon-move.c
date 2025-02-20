@@ -2988,6 +2988,13 @@ void process_monsters(struct chunk *c, bool more_energy)
     /* Every 5 game turns */
     if (turn.turn % 5) return;
 
+    for (j = 1; j <= NumPlayers; j++)
+    {
+        struct player *q = player_get(j);
+
+        q->did_flicker = false;
+    }
+
     /* Shimmer multi-hued monsters */
     for (i = 1; i < cave_monster_max(c); i++)
     {
@@ -3006,6 +3013,17 @@ void process_monsters(struct chunk *c, bool more_energy)
 
             /* Actually light that spot for that player */
             if (monster_allow_shimmer(q)) square_light_spot_aux(q, c, &mon->grid);
+        }
+    }
+
+    for (j = 1; j <= NumPlayers; j++)
+    {
+        struct player *q = player_get(j);
+
+        if (q->did_flicker)
+        {
+            if (q->flicker == 255) q->flicker = 0;
+            else q->flicker++;
         }
     }
 }

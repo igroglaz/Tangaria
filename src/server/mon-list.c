@@ -176,10 +176,8 @@ void monster_list_collect(struct player *p, monster_list_t *list)
         /* Always collect the latest monster attribute so that flicker animation works. */
         if (p->tile_distorted)
             entry->attr = mon->race->d_attr;
-        else if (mon->attr)
-            entry->attr = mon->attr;
         else
-            entry->attr = p->r_attr[mon->race->ridx];
+            entry->attr = mon->attr;
 
 		/* Check for LOS using projectable() */
 		los = (projectable(p, c, &p->grid, &mon->grid, PROJECT_NONE, true) &&

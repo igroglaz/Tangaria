@@ -313,6 +313,30 @@ static void monster_list_format_textblock(struct player *p, const monster_list_t
 
 
 /*
+ * Get correct monster glyphs.
+ */
+static void monster_list_get_glyphs(struct player *p, monster_list_t *list)
+{
+    int i;
+
+    /* Run through all monsters in the list. */
+    for (i = 0; i < (int)list->entries_size; i++)
+    {
+        monster_list_entry_t *entry = &list->entries[i];
+
+        if (entry->race == NULL) continue;
+
+        /* If no monster attribute use the standard UI picture. */
+        if (!entry->attr) entry->attr = p->r_attr[entry->race->ridx];
+
+        /* If purple_uniques is relevant, apply it. */
+        if (!(entry->attr & 0x80) && OPT(p, purple_uniques) && rf_has(entry->race->flags, RF_UNIQUE))
+            entry->attr = COLOUR_VIOLET;
+    }
+}
+
+
+/*
  * Display the monster list statically. This will force the list to be displayed to
  * the provided dimensions. Contents will be adjusted accordingly.
  *
@@ -338,6 +362,7 @@ void monster_list_show_subwindow(struct player *p, int height, int width)
 
 	monster_list_reset(p, list);
     monster_list_collect(p, list);
+    monster_list_get_glyphs(p, list);
 	monster_list_sort(list, monster_list_standard_compare);
 
 	/* Draw the list to exactly fit the subwindow. */
@@ -372,6 +397,7 @@ void monster_list_show_interactive(struct player *p, int height, int width)
     text_out_init(p);
 
 	monster_list_collect(p, list);
+    monster_list_get_glyphs(p, list);
 	monster_list_sort(list, OPT(p, sort_exp)? monster_list_compare_exp:
         monster_list_standard_compare);
 

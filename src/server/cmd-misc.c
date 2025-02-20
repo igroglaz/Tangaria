@@ -31,7 +31,7 @@ void do_cmd_retire(struct player *p)
     my_strcpy(p->died_from, "Retiring", sizeof(p->died_from));
 
     /* Record the original (pre-ghost) cause of death */
-    if (p->ghost != 1) player_death_info(p, "Retiring");
+    if (p->ghost != 1 || is_dm_p(p)) player_death_info(p, "Retiring");
 
     /* Mark as quitter */
     if ((p->ghost != 1) && !p->total_winner) p->noscore = 1;
