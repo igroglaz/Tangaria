@@ -49,7 +49,7 @@ static void wr_tval_sval(uint16_t tval, uint16_t sval)
     {
         char name[MSG_LEN];
 
-        obj_desc_name_format(name, sizeof(name), NULL, lookup_kind(tval, sval)->name, 0, false);
+        obj_desc_name_format(name, sizeof(name), 0, lookup_kind(tval, sval)->name, NULL, false);
         wr_string(name);
     }
     else
