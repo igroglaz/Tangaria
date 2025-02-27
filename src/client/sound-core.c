@@ -415,3 +415,13 @@ void play_intro_music(void)
 {
     if (hooks.play_sound_hook) hooks.play_sound_hook(NULL);
 }
+
+
+/**
+ * Return true if there has been a succesful call to init_sound() without
+ * a later call to close_sound().  Otherwse, return false.
+ */
+bool is_sound_inited(void)
+{
+	return next_sound_id != 0;
+}

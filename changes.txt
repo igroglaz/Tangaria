@@ -23,6 +23,7 @@ Angband 4.2.x:
 - Fixing Main Gauche plural to be in line with proper french
 - Use known version of equipment for combat information on character sheet
 - Apply purple_uniques to monster list glyphs
+- SDL2: provide ways to summarize details about the SDL2 installation
 
 Gameplay changes
 ----------------
@@ -72,6 +73,7 @@ Angband 4.2.x:
 - Windows: set both WINVER and _WIN32_WINNT to enforce minimum version
 - Fix typos
 - Document v parameter for player_set_timed()
+- Docs: mention how window.prf is used
 
 Features in PWMAngband 1.6.1 build 1
 ====================================
