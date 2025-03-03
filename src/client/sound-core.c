@@ -27,7 +27,7 @@ struct sound_module
 {
     const char *name;
     const char *help;
-    errr (*init)(struct sound_hooks *hooks);
+    errr (*init)(struct sound_hooks *hooks, int argc, char **argv);
 };
 
 
@@ -351,7 +351,7 @@ static void play_sound(game_event_type type, game_event_data *data, void *user)
 /*
  * Init the sound "module".
  */
-errr init_sound(void)
+errr init_sound(int argc, char **argv)
 {
     int i = 0;
     bool done = false;
@@ -362,7 +362,7 @@ errr init_sound(void)
     /* Try the modules in the order specified by sound_modules[] */
     while (sound_modules[i].init && !done)
     {
-        if (0 == sound_modules[i].init(&hooks)) done = true;
+        if (0 == sound_modules[i].init(&hooks, argc, argv)) done = true;
         i++;
     }
 

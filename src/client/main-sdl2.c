@@ -6944,7 +6944,7 @@ static void hook_plog(const char *str)
     return;
 }
 
-errr init_sdl2(void)
+errr init_sdl2(int argc, char **argv)
 {
     int i;
 

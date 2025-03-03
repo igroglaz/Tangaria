@@ -226,7 +226,7 @@ static const struct sound_file_type *supported_files_win(void)
 /*
  * Init the Windows sound "module".
  */
-errr init_sound_win(struct sound_hooks *hooks)
+errr init_sound_win(struct sound_hooks *hooks, int argc, char **argv)
 {
     hooks->open_audio_hook = open_audio_win;
     hooks->supported_files_hook = supported_files_win;

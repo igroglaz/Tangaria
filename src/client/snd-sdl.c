@@ -597,7 +597,7 @@ static const struct sound_file_type *supported_files_sdl(void)
 /*
  * Init the SDL sound "module".
  */
-errr init_sound_sdl(struct sound_hooks *hooks)
+errr init_sound_sdl(struct sound_hooks *hooks, int argc, char **argv)
 {
     hooks->open_audio_hook = open_audio_sdl;
     hooks->supported_files_hook = supported_files_sdl;

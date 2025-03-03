@@ -59,7 +59,7 @@ extern int sound_volume;
 extern int current_music_volume;
 extern int music_volume;
 
-extern errr init_sound(void);
+extern errr init_sound(int argc, char **argv);
 extern void close_sound(void);
 extern void play_intro_music(void);
 extern bool is_sound_inited(void);

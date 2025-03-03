@@ -1087,7 +1087,7 @@ static BOOL CtrlHandler(DWORD fdwCtrlType)
  *
  * Someone should really check the semantics of "initscr()"
  */
-errr init_gcu(void)
+errr init_gcu(int argc, char **argv)
 {
     int i;
     int rows, cols, y, x;

@@ -36,7 +36,7 @@ extern char *char_expiry;
 
 extern void init_file_paths(const char *configpath, const char *libpath, const char *datapath);
 extern void create_needed_dirs(void);
-extern void client_init(bool new_game);
+extern void client_init(bool new_game, int argc, char **argv);
 extern void client_ready(bool newchar);
 extern bool gather_settings(void);
 extern void cleanup_floor(void);

@@ -6423,7 +6423,7 @@ static void init_paths(void)
 /*
  * The SDL port's "main()" function.
  */
-errr init_sdl(void)
+errr init_sdl(int argc, char **argv)
 {
     /* Remove W8080 warnings: SDL_Swap16/64 is declared but never used */
     SDL_Swap16(0);

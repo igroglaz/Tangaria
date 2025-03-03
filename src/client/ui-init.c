@@ -513,7 +513,7 @@ static char *server_version(uint16_t version, uint16_t beta)
 /*
  * Initialize everything, contact the server, and start the loop.
  */
-void client_init(bool new_game)
+void client_init(bool new_game, int argc, char **argv)
 {
     sockbuf_t ibuf;
     char status, num_types, expiry;
@@ -537,7 +537,7 @@ void client_init(bool new_game)
         textui_input_init();
 
         /* Initialise sound */
-        init_sound();
+        init_sound(argc, argv);
 
         /* Set up the display handlers and things. */
         init_display();
@@ -770,7 +770,7 @@ void client_init(bool new_game)
         cleanup_player();
         Setup.initialized = false;
         Setup.ready = false;
-        client_init(false);
+        client_init(false, argc, argv);
     }
 }
 

@@ -29,7 +29,7 @@
 #include <SDL.h>
 #endif
 
-static errr init_error(void)
+static errr init_error(int argc, char **argv)
 {
     return 1;
 }
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
     /* Try the modules in the order specified by modules[] */
     for (i = 0; i < (int)N_ELEMENTS(modules); i++)
     {
-        if (0 == modules[i].init())
+        if (0 == modules[i].init(argc, argv))
         {
             ANGBAND_SYS = modules[i].name;
             done = true;
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
     Rand_init();
 
     /* Initialize everything, contact the server, and start the loop */
-    client_init(true);
+    client_init(true, argc, argv);
 
     /* Quit */
     quit(NULL);
