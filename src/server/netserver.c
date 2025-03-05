@@ -6265,6 +6265,14 @@ static int Enter_player(int ind)
     p->window_flag = connp->Client_setup.settings[SETTING_WINDOW_FLAG];
     p->opts.hitpoint_warn = connp->Client_setup.settings[SETTING_HITPOINT_WARN];
 
+    /* Hack -- refuse connection if tileset used is not compatible with server presets */
+    if (p->use_graphics > presets_count)
+    {
+        plog_fmt("Invalid tileset index %d -- maximum allowed index is %d", p->use_graphics, presets_count);
+        Destroy_connection(ind, "Tileset used is not compatible with server presets");
+        return -1;
+    }
+
     /*
      * Hack -- when processing a quickstart character, attr/char pair for
      * player picture is incorrect

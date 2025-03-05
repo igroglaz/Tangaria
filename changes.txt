@@ -46,6 +46,7 @@ PWMAngband:
 - Fix bug when displaying ego item knowledge
 - Fix flickering being very slow sometimes
 - Fix info on tombstone for retiring Dungeon Masters
+- Refuse connection if tileset used is not compatible with server presets
 
 Coding changes
 --------------
