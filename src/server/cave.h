@@ -24,15 +24,6 @@ enum
 /* Maximum number of objects on the level (198x66) */
 #define MAX_OBJECTS 13068
 
-struct preset
-{
-    cave_view_type **player_presets[MAX_SEXES];
-    cave_view_type player_numbers[8];
-    cave_view_type player_bubbles[8];
-    struct preset *next;
-    int cidx, ridx;
-};
-
 /*
  * Information about terrain features.
  *
@@ -185,9 +176,6 @@ extern void fill_dirt(struct chunk *c, struct loc *grid1, struct loc *grid2);
 extern void add_crop(struct chunk *c, struct loc *grid1, struct loc *grid2, int orientation);
 extern int add_building(struct chunk *c, struct loc *grid1, struct loc *grid2, int type);
 extern void add_moat(struct chunk *c, struct loc *grid1, struct loc *grid2, struct loc drawbridge[3]);
-
-extern struct preset *presets;
-extern int presets_count;
 
 /* cave-map.c */
 extern void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_data *g);

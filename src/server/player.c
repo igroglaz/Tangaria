@@ -968,7 +968,7 @@ void player_cave_new(struct player *p, int height, int width)
  */
 void init_player(struct player *p, int conn, bool old_history, bool ironman, bool no_recall, bool force_descend)
 {
-    int i;
+    int i, preset_max = player_cmax() * player_rmax();
     char history[N_HIST_LINES][N_HIST_WRAP];
     connection_t *connp = get_connection(conn);
 
@@ -1031,6 +1031,8 @@ void init_player(struct player *p, int conn, bool old_history, bool ironman, boo
     p->f_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
     p->t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
     p->t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
+    p->pr_attr = mem_zalloc(preset_max * sizeof(byte_sx));
+    p->pr_char = mem_zalloc(preset_max * sizeof(char_sx));
     p->k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
     p->k_char = mem_zalloc(z_info->k_max * sizeof(char));
     p->d_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
@@ -1209,6 +1211,10 @@ void cleanup_player(struct player *p)
     p->t_attr = NULL;
     mem_free(p->t_char);
     p->t_char = NULL;
+    mem_free(p->pr_attr);
+    p->pr_attr = NULL;
+    mem_free(p->pr_char);
+    p->pr_char = NULL;
     mem_free(p->k_attr);
     p->k_attr = NULL;
     mem_free(p->k_char);

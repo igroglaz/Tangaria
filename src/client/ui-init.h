@@ -6,6 +6,8 @@
 #ifndef INCLUDED_UI_INIT_H
 #define INCLUDED_UI_INIT_H
 
+#define MAX_VERIFY  8
+
 /*
  * Information about terrain features.
  *

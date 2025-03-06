@@ -437,7 +437,7 @@ void client_ready(bool newchar)
     Send_autoinscriptions();
 
     /* Send visual preferences */
-    for (i = 0; i < 5; i++) Send_verify(i);
+    for (i = 0; i < MAX_VERIFY; i++) Send_verify(i);
 
     loading_screen(0);
 
@@ -849,6 +849,10 @@ void cleanup_angband(void)
     Client_setup.t_attr = NULL;
     mem_free(Client_setup.t_char);
     Client_setup.t_char = NULL;
+    mem_free(Client_setup.pr_attr);
+    Client_setup.pr_attr = NULL;
+    mem_free(Client_setup.pr_char);
+    Client_setup.pr_char = NULL;
     mem_free(Client_setup.flvr_x_attr);
     Client_setup.flvr_x_attr = NULL;
     mem_free(Client_setup.flvr_x_char);

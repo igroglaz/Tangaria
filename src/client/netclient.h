@@ -6,6 +6,7 @@
 extern bool send_quit;
 extern struct angband_constants z_info_struct;
 extern uint16_t flavor_max;
+extern uint16_t preset_max;
 extern int16_t section_icky_col;
 extern uint8_t section_icky_row;
 extern bool allow_disturb_icky;

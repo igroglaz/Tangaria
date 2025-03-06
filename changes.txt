@@ -46,7 +46,6 @@ PWMAngband:
 - Fix bug when displaying ego item knowledge
 - Fix flickering being very slow sometimes
 - Fix info on tombstone for retiring Dungeon Masters
-- Refuse connection if tileset used is not compatible with server presets
 
 Coding changes
 --------------
@@ -64,6 +63,7 @@ Angband 4.2.x:
 - Set an object to assessed that has all its runes known
 - Allow glowing terrain that's not in a room or on the surface to light a wall
 - Avoid SDL_Color initialisation error
+- Load race/class presets from the client instead of fixing them on the server
 
 Compilation/documentation
 -------------------------

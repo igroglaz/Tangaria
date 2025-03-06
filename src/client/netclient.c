@@ -40,6 +40,12 @@ struct angband_constants z_info_struct;
 uint16_t flavor_max;
 
 
+/*
+ * Maximum number of presets
+ */
+uint16_t preset_max;
+
+
 /* Section is icky */
 int16_t section_icky_col;
 uint8_t section_icky_row;
@@ -435,9 +441,9 @@ static int Receive_struct_info(void)
             uint16_t a_max, e_max, k_max, r_max, trap_max, pack_size, quiver_size, floor_size,
                 quiver_slot_size, store_inven_max, curse_max;
 
-            if ((n = Packet_scanf(&rbuf, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", &a_max, &e_max,
+            if ((n = Packet_scanf(&rbuf, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", &a_max, &e_max,
                 &k_max, &r_max, &trap_max, &flavor_max, &pack_size, &quiver_size,
-                &floor_size, &quiver_slot_size, &store_inven_max, &curse_max)) <= 0)
+                &floor_size, &quiver_slot_size, &store_inven_max, &curse_max, &preset_max)) <= 0)
             {
                 /* Rollback the socket buffer */
                 Sockbuf_rollback(&rbuf, bytes_read);
@@ -445,7 +451,7 @@ static int Receive_struct_info(void)
                 /* Packet isn't complete, graceful failure */
                 return n;
             }
-            bytes_read += 24;
+            bytes_read += 26;
 
             /* z_info */
             z_info = &z_info_struct;
@@ -474,6 +480,10 @@ static int Receive_struct_info(void)
             z_info->trap_max = trap_max;
             Client_setup.t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
             Client_setup.t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
+
+            /* Presets */
+            Client_setup.pr_attr = mem_zalloc(preset_max * sizeof(byte_sx));
+            Client_setup.pr_char = mem_zalloc(preset_max * sizeof(char_sx));
 
             /* Flavors */
             Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(uint8_t));
@@ -4715,6 +4725,9 @@ int Send_verify(int type)
         case 2: size = z_info->r_max; break;
         case 3: size = PROJ_MAX * BOLT_MAX; break;
         case 4: size = z_info->trap_max * LIGHTING_MAX; break;
+        case 5: size = preset_max * MAX_SEXES; break;
+        case 6: size = MAX_XPREF; break;
+        case 7: size = MAX_XPREF; break;
         default: return 0;
     }
 
@@ -4745,6 +4758,18 @@ int Send_verify(int type)
             case 4:
                 a = Client_setup.t_attr[i / LIGHTING_MAX][i % LIGHTING_MAX];
                 c = Client_setup.t_char[i / LIGHTING_MAX][i % LIGHTING_MAX];
+                break;
+            case 5:
+                a = Client_setup.pr_attr[i / MAX_SEXES][i % MAX_SEXES];
+                c = Client_setup.pr_char[i / MAX_SEXES][i % MAX_SEXES];
+                break;
+            case 6:
+                a = Client_setup.number_attr[i];
+                c = Client_setup.number_char[i];
+                break;
+            case 7:
+                a = Client_setup.bubble_attr[i];
+                c = Client_setup.bubble_char[i];
                 break;
         }
 

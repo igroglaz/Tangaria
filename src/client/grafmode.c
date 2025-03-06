@@ -44,6 +44,7 @@ static enum parser_error parse_graf_name(struct parser *p)
     mode->overdrawMax = 0;
     my_strcpy(mode->file, "", 32);
     my_strcpy(mode->pref, "none", 32);
+    my_strcpy(mode->ppref, "none", 32);
 
     parser_setpriv(p, mode);
     return PARSE_ERROR_NONE;
@@ -88,6 +89,17 @@ static enum parser_error parse_graf_pref(struct parser *p)
 }
 
 
+static enum parser_error parse_graf_ppref(struct parser *p)
+{
+    graphics_mode *mode = parser_priv(p);
+
+    if (!mode) return PARSE_ERROR_INVALID_VALUE;
+    my_strcpy(mode->ppref, parser_getstr(p, "prefname"), 32);
+
+    return PARSE_ERROR_NONE;
+}
+
+
 static enum parser_error parse_graf_extra(struct parser *p)
 {
     graphics_mode *mode = parser_priv(p);
@@ -110,6 +122,7 @@ static struct parser *init_parse_grafmode(void)
     parser_reg(p, "directory sym dirname", parse_graf_directory);
     parser_reg(p, "size uint wid uint hgt str filename", parse_graf_size);
     parser_reg(p, "pref str prefname", parse_graf_pref);
+    parser_reg(p, "ppref str prefname", parse_graf_ppref);
     parser_reg(p, "extra uint alpha uint row uint max", parse_graf_extra);
 
     return p;
@@ -155,8 +168,9 @@ static errr finish_parse_grafmode(struct parser *p)
     graphics_modes[count].alphablend = 0;
     graphics_modes[count].overdrawRow = 0;
     graphics_modes[count].overdrawMax = 0;
-    my_strcpy(graphics_modes[count].pref, "none", 8);
-    my_strcpy(graphics_modes[count].path, "", 32);
+    my_strcpy(graphics_modes[count].pref, "none", 32);
+    my_strcpy(graphics_modes[count].ppref, "none", 32);
+    my_strcpy(graphics_modes[count].path, "", 256);
     my_strcpy(graphics_modes[count].file, "", 32);
     my_strcpy(graphics_modes[count].menuname, "None", 32);
 

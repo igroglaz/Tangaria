@@ -256,7 +256,6 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
 {
     int life, timefactor;
     bool show_as_number = true;
-    int mode = p->use_graphics - 1;
 
     /* Get the "player" attr */
     if (q == p)
@@ -270,7 +269,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
         /* Handle other */
         *a = player_color(q);
         if (p->use_graphics && !server)
-            *a = presets[mode].player_presets[q->psex][q->clazz->cidx][q->race->ridx].a;
+            *a = p->pr_attr[q->clazz->cidx * player_rmax() + q->race->ridx][q->psex];
 
         /* Hack -- elementalists */
         if (!p->use_graphics && (*a == COLOUR_MULTI))
@@ -306,7 +305,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
         if (server) *c = monster_x_char[0];
         else *c = p->r_char[0];
         if (p->use_graphics && !server)
-            *c = presets[mode].player_presets[q->psex][q->clazz->cidx][q->race->ridx].c;
+            *c = p->pr_char[q->clazz->cidx * player_rmax() + q->race->ridx][q->psex];
     }
 
     // hc appearence of some races
@@ -584,14 +583,14 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
             /* Use presets in gfx mode */
             if (p->use_graphics && !server)
             {
-                *a = presets[mode].player_numbers[life].a;
-                *c = presets[mode].player_numbers[life].c;
+                *a = p->number_attr[life];
+                *c = p->number_char[life];
 
                 /* Use bubble presets */
                 if (p->bubble_colour)
                 {
-                    *a = presets[mode].player_bubbles[life].a;
-                    *c = presets[mode].player_bubbles[life].c;
+                    *a = p->bubble_attr[life];
+                    *c = p->bubble_char[life];
                 }
             }
         }

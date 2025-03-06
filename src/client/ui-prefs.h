@@ -16,6 +16,7 @@ struct prefs_data
     bool user;
     bool loaded_window_flag[ANGBAND_TERM_MAX];
     uint32_t window_flags[ANGBAND_TERM_MAX];
+    int idx;
 };
 
 extern int use_graphics;

@@ -402,6 +402,7 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
         if (!connp->has_setup)
         {
             uint16_t flavor_max = get_flavor_max();
+            uint16_t preset_max = player_cmax() * player_rmax();
 
             connp->Client_setup.k_attr = mem_zalloc(z_info->k_max * sizeof(uint8_t));
             connp->Client_setup.k_char = mem_zalloc(z_info->k_max * sizeof(char));
@@ -411,6 +412,8 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
             connp->Client_setup.f_char = mem_zalloc(FEAT_MAX * sizeof(char_lit));
             connp->Client_setup.t_attr = mem_zalloc(z_info->trap_max * sizeof(byte_lit));
             connp->Client_setup.t_char = mem_zalloc(z_info->trap_max * sizeof(char_lit));
+            connp->Client_setup.pr_attr = mem_zalloc(preset_max * sizeof(byte_sx));
+            connp->Client_setup.pr_char = mem_zalloc(preset_max * sizeof(char_sx));
             connp->Client_setup.flvr_x_attr = mem_zalloc(flavor_max * sizeof(uint8_t));
             connp->Client_setup.flvr_x_char = mem_zalloc(flavor_max * sizeof(char));
             connp->Client_setup.note_aware = mem_zalloc(z_info->k_max * sizeof(char_note));
@@ -965,6 +968,8 @@ static void wipe_connection(connection_t *connp)
     char (*f_char)[LIGHTING_MAX];
     uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
+    uint8_t (*pr_attr)[MAX_SEXES];
+    char (*pr_char)[MAX_SEXES];
     uint8_t *flvr_x_attr;
     char *flvr_x_char;
     char (*note_aware)[4];
@@ -977,11 +982,13 @@ static void wipe_connection(connection_t *connp)
         r_attr = connp->Client_setup.r_attr;
         f_attr = connp->Client_setup.f_attr;
         t_attr = connp->Client_setup.t_attr;
+        pr_attr = connp->Client_setup.pr_attr;
         flvr_x_attr = connp->Client_setup.flvr_x_attr;
         k_char = connp->Client_setup.k_char;
         r_char = connp->Client_setup.r_char;
         f_char = connp->Client_setup.f_char;
         t_char = connp->Client_setup.t_char;
+        pr_char = connp->Client_setup.pr_char;
         flvr_x_char = connp->Client_setup.flvr_x_char;
         note_aware = connp->Client_setup.note_aware;
     }
@@ -997,11 +1004,13 @@ static void wipe_connection(connection_t *connp)
         connp->Client_setup.r_attr = r_attr;
         connp->Client_setup.f_attr = f_attr;
         connp->Client_setup.t_attr = t_attr;
+        connp->Client_setup.pr_attr = pr_attr;
         connp->Client_setup.flvr_x_attr = flvr_x_attr;
         connp->Client_setup.k_char = k_char;
         connp->Client_setup.r_char = r_char;
         connp->Client_setup.f_char = f_char;
         connp->Client_setup.t_char = t_char;
+        connp->Client_setup.pr_char = pr_char;
         connp->Client_setup.flvr_x_char = flvr_x_char;
         connp->Client_setup.note_aware = note_aware;
     }
@@ -1093,6 +1102,8 @@ void Stop_net_server(void)
             mem_free(connp->Client_setup.f_char);
             mem_free(connp->Client_setup.t_attr);
             mem_free(connp->Client_setup.t_char);
+            mem_free(connp->Client_setup.pr_attr);
+            mem_free(connp->Client_setup.pr_char);
             mem_free(connp->Client_setup.flvr_x_attr);
             mem_free(connp->Client_setup.flvr_x_char);
             mem_free(connp->Client_setup.note_aware);
@@ -1349,6 +1360,7 @@ int Send_limits_struct_info(int ind)
     connection_t *connp = get_connection(ind);
     uint16_t dummy = 0;
     uint16_t flavor_max = get_flavor_max();
+    uint16_t preset_max = player_cmax() * player_rmax();
 
     if (connp->state != CONN_SETUP)
     {
@@ -1364,12 +1376,12 @@ int Send_limits_struct_info(int ind)
         return -1;
     }
 
-    if (Packet_printf(&connp->c, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", (unsigned)z_info->a_max,
+    if (Packet_printf(&connp->c, "%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu%hu", (unsigned)z_info->a_max,
         (unsigned)z_info->e_max, (unsigned)z_info->k_max, (unsigned)z_info->r_max,
         (unsigned)z_info->trap_max, (unsigned)flavor_max,
         (unsigned)z_info->pack_size, (unsigned)z_info->quiver_size, (unsigned)z_info->floor_size,
         (unsigned)z_info->quiver_slot_size, (unsigned)z_info->store_inven_max,
-        (unsigned)z_info->curse_max) <= 0)
+        (unsigned)z_info->curse_max, (unsigned)preset_max) <= 0)
     {
         Destroy_connection(ind, "Send_limits_struct_info write error");
         return -1;
@@ -3601,6 +3613,9 @@ static int Receive_verify(int ind)
         case 2: local_size = z_info->r_max; break;
         case 3: local_size = PROJ_MAX * BOLT_MAX; break;
         case 4: local_size = z_info->trap_max * LIGHTING_MAX; break;
+        case 5: local_size = player_cmax() * player_rmax() * MAX_SEXES; break;
+        case 6: local_size = MAX_XPREF; break;
+        case 7: local_size = MAX_XPREF; break;
         default: discard = true;
     }
     if (local_size != size) discard = true;
@@ -3637,6 +3652,18 @@ static int Receive_verify(int ind)
             case 4:
                 connp->Client_setup.t_attr[i / LIGHTING_MAX][i % LIGHTING_MAX] = a;
                 connp->Client_setup.t_char[i / LIGHTING_MAX][i % LIGHTING_MAX] = c;
+                break;
+            case 5:
+                connp->Client_setup.pr_attr[i / MAX_SEXES][i % MAX_SEXES] = a;
+                connp->Client_setup.pr_char[i / MAX_SEXES][i % MAX_SEXES] = c;
+                break;
+            case 6:
+                connp->Client_setup.number_attr[i] = a;
+                connp->Client_setup.number_char[i] = c;
+                break;
+            case 7:
+                connp->Client_setup.bubble_attr[i] = a;
+                connp->Client_setup.bubble_char[i] = c;
                 break;
         }
     }
@@ -6015,7 +6042,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
 
 static void update_graphics(struct player *p, connection_t *connp)
 {
-    int i, j;
+    int i, j, preset_max = player_cmax() * player_rmax();
 
     /* Desired features */
     for (i = 0; i < FEAT_MAX; i++)
@@ -6122,6 +6149,47 @@ static void update_graphics(struct player *p, connection_t *connp)
         {
             p->r_attr[i] = monster_x_attr[i];
             p->r_char[i] = monster_x_char[i];
+        }
+    }
+
+    /* Desired presets */
+    for (i = 0; i < preset_max; i++)
+    {
+        for (j = 0; j < MAX_SEXES; j++)
+        {
+            p->pr_attr[i][j] = connp->Client_setup.pr_attr[i][j];
+            p->pr_char[i][j] = connp->Client_setup.pr_char[i][j];
+
+            /* Use player picture by default */
+            if (!(p->pr_attr[i][j] && p->pr_char[i][j]))
+            {
+                p->pr_attr[i][j] = p->r_attr[0];
+                p->pr_char[i][j] = p->r_char[0];
+            }
+        }
+    }
+    for (i = 0; i < MAX_XPREF; i++)
+    {
+        p->number_attr[i] = connp->Client_setup.number_attr[i];
+        p->number_char[i] = connp->Client_setup.number_char[i];
+
+        /* Use player picture by default */
+        if (!(p->number_attr[i] && p->number_char[i]))
+        {
+            p->number_attr[i] = p->r_attr[0];
+            p->number_char[i] = p->r_char[0];
+        }
+    }
+    for (i = 0; i < MAX_XPREF; i++)
+    {
+        p->bubble_attr[i] = connp->Client_setup.bubble_attr[i];
+        p->bubble_char[i] = connp->Client_setup.bubble_char[i];
+
+        /* Use player picture by default */
+        if (!(p->bubble_attr[i] && p->bubble_char[i]))
+        {
+            p->bubble_attr[i] = p->r_attr[0];
+            p->bubble_char[i] = p->r_char[0];
         }
     }
 
@@ -6265,14 +6333,6 @@ static int Enter_player(int ind)
     p->window_flag = connp->Client_setup.settings[SETTING_WINDOW_FLAG];
     p->opts.hitpoint_warn = connp->Client_setup.settings[SETTING_HITPOINT_WARN];
 
-    /* Hack -- refuse connection if tileset used is not compatible with server presets */
-    if (p->use_graphics > presets_count)
-    {
-        plog_fmt("Invalid tileset index %d -- maximum allowed index is %d", p->use_graphics, presets_count);
-        Destroy_connection(ind, "Tileset used is not compatible with server presets");
-        return -1;
-    }
-
     /*
      * Hack -- when processing a quickstart character, attr/char pair for
      * player picture is incorrect
@@ -6282,8 +6342,8 @@ static int Enter_player(int ind)
         uint8_t cidx = p->clazz->cidx;
         uint8_t ridx = p->race->ridx;
 
-        p->r_attr[0] = presets[p->use_graphics - 1].player_presets[p->psex][cidx][ridx].a;
-        p->r_char[0] = presets[p->use_graphics - 1].player_presets[p->psex][cidx][ridx].c;
+        p->r_attr[0] = p->pr_attr[cidx * player_rmax() + ridx][p->psex];
+        p->r_char[0] = p->pr_char[cidx * player_rmax() + ridx][p->psex];
     }
 
     verify_panel(p);

@@ -8,6 +8,7 @@
 # directory: directory name
 # size: tile width : tile height : tileset file name
 # pref: preference file name
+# ppref: preset preference file name
 # extra: alphablending : start row : end row of double high tiles
 
 # 'name' indicates the beginning of an entry. The serial number must
@@ -23,6 +24,9 @@
 # 'pref' is for preference file name - the name of the preference file which
 # allocates tiles to game items.
 
+# 'ppref' is for preset preference file name - the name of the preference file
+# for special player pictures.
+
 # 'extra' is for extra information - alpha is a flag if the tileset needs to use
 # alpha blending. Double high tiles are ones that have twice the tile height
 # as a typical tile. "start row" is the first row that uses double high tiles.
@@ -35,4 +39,5 @@ name:1:Tangaria's tileset
 directory:tangaria
 size:32:32:32x32.png
 pref:graf-tan.prf
+ppref:preset-tan.prf
 extra:1:0:0

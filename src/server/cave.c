@@ -1129,8 +1129,3 @@ void add_moat(struct chunk *c, struct loc *grid1, struct loc *grid2, struct loc 
     square_set_feat(c, &drawbridge[2], FEAT_DRAWBRIDGE);
     sqinfo_on(square(c, &drawbridge[2])->info, SQUARE_VAULT);
 }
-
-
-/* Player images for graphic mode */
-struct preset *presets;
-int presets_count;

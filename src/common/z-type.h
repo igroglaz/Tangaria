@@ -142,7 +142,20 @@ enum grid_light_level
 typedef uint8_t byte_lit[LIGHTING_MAX];
 typedef char char_lit[LIGHTING_MAX];
 
+/*
+ * Maximum number of player "sex" types
+ */
+#define MAX_SEXES   3
+
+typedef uint8_t byte_sx[MAX_SEXES];
+typedef char char_sx[MAX_SEXES];
+
 typedef char char_note[4];
+
+/*
+ * Maximum number of extra preferences
+ */
+#define MAX_XPREF   8
 
 /* The setup data that the client transmits to the server */
 typedef struct
@@ -154,6 +167,8 @@ typedef struct
     char (*f_char)[LIGHTING_MAX];
     uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
+    uint8_t (*pr_attr)[MAX_SEXES];
+    char (*pr_char)[MAX_SEXES];
     uint8_t *k_attr;
     char *k_char;
     uint8_t *r_attr;
@@ -161,6 +176,10 @@ typedef struct
     uint8_t proj_attr[PROJ_MAX][BOLT_MAX];
     char proj_char[PROJ_MAX][BOLT_MAX];
     char (*note_aware)[4];
+    uint8_t number_attr[MAX_XPREF];
+    char number_char[MAX_XPREF];
+    uint8_t bubble_attr[MAX_XPREF];
+    char bubble_char[MAX_XPREF];
 } client_setup_t;
 
 extern client_setup_t Client_setup;

@@ -18,7 +18,6 @@ extern uint8_t *flavor_x_attr;
 extern char *flavor_x_char;
 
 extern bool process_pref_file(const char *name, bool quiet);
-extern bool process_pref_file_xtra(const char *name);
 extern void textui_prefs_init(void);
 extern void textui_prefs_free(void);
 

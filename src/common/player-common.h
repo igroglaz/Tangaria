@@ -24,11 +24,6 @@
 /** Sexes **/
 
 /*
- * Maximum number of player "sex" types (see "table.c", etc)
- */
-#define MAX_SEXES   3
-
-/*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */
 #define SEX_MALE  0
@@ -774,12 +769,18 @@ struct player
     char (*f_char)[LIGHTING_MAX];
     uint8_t (*t_attr)[LIGHTING_MAX];
     char (*t_char)[LIGHTING_MAX];
+    uint8_t (*pr_attr)[MAX_SEXES];
+    char (*pr_char)[MAX_SEXES];
     uint8_t *k_attr;
     char *k_char;
     uint8_t *r_attr;
     char *r_char;
     uint8_t proj_attr[PROJ_MAX][BOLT_MAX];
     char proj_char[PROJ_MAX][BOLT_MAX];
+    uint8_t number_attr[MAX_XPREF];
+    char number_char[MAX_XPREF];
+    uint8_t bubble_attr[MAX_XPREF];
+    char bubble_char[MAX_XPREF];
     uint8_t use_graphics;
     uint8_t screen_cols;
     uint8_t screen_rows;

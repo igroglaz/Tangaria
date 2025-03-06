@@ -25,6 +25,7 @@ typedef struct _graphics_mode
     uint16_t cell_height;   /* Height of an individual tile in pixels */
     char path[256];     /* Path of prf file */
     char pref[32];      /* Name of prf file */
+    char ppref[32];     /* Name of pprf file */
     char file[32];      /* Name of png file (if any) */
     char menuname[32];  /* Name of the tileset in menu */
 } graphics_mode;

@@ -1340,14 +1340,215 @@ errr process_pref_file_command(const char *s)
 }
 
 
+static enum parser_error parse_xprefs_expr(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    /* Hack -- do not load any Evaluated Expressions */
+    parser_getstr(p, "expr");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_xprefs_monster(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+    int i;
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    parser_getsym(p, "name");
+
+    d->idx++;
+
+    /* Stop parsing once preset_max is reached -- the end of file is for custom presets */
+    if (d->idx == (int)preset_max) return PARSE_ERROR_NONE;
+
+    /* Hack -- default player presets */
+    for (i = 0; i < MAX_SEXES; i++)
+    {
+        Client_setup.pr_attr[d->idx][i] = (uint16_t)parser_getint(p, "attr");
+        Client_setup.pr_char[d->idx][i] = (char)parser_getint(p, "char");
+    }
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_xprefs_rf(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    parser_getsym(p, "name");
+
+    /* Stop parsing once preset_max is reached -- the end of file is for custom presets */
+    if (d->idx == (int)preset_max) return PARSE_ERROR_NONE;
+
+    /* Hack -- player presets for female characters */
+    Client_setup.pr_attr[d->idx][SEX_FEMALE] = (uint16_t)parser_getint(p, "attr");
+    Client_setup.pr_char[d->idx][SEX_FEMALE] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static struct parser *init_parse_xprefs(void)
+{
+    struct parser *p = parser_new();
+    struct prefs_data *d = mem_zalloc(sizeof(struct prefs_data));
+
+    d->idx = -1;
+
+    parser_setpriv(p, d);
+    parser_reg(p, "? str expr", parse_xprefs_expr);
+    parser_reg(p, "monster sym name int attr int char", parse_xprefs_monster);
+    parser_reg(p, "RF sym name int attr int char", parse_xprefs_rf);
+
+    return p;
+}
+
+
+static void print_error(const char *name, struct parser *p)
+{
+    struct parser_state s;
+
+    parser_getstate(p, &s);
+    plog_fmt("Parse error in %s line %d column %d: %s: %s", name,
+        s.line, s.col, s.msg, parser_error_str[s.error]);
+}
+
+
+/*
+ * Process the "user pref file" with the given name
+ *
+ * Returns true if everything worked OK, false otherwise
+ */
+static bool process_pref_file_xtra_aux(const char *dir, const char *name)
+{
+    char path[MSG_LEN], buf[MSG_LEN];
+    ang_file *f;
+    struct parser *p;
+    errr e = 0;
+    int line_no = 0;
+
+    /* Build a usable path */
+    path_build(path, sizeof(path), ANGBAND_DIR_TILES, dir);
+
+    /* Build the filename */
+    path_build(buf, sizeof(buf), path, name);
+
+    f = file_open(buf, MODE_READ, FTYPE_TEXT);
+    if (!f)
+        plog_fmt("Cannot open '%s'.", buf);
+    else
+    {
+        char line[MSG_LEN];
+
+        p = init_parse_xprefs();
+
+        while (file_getl(f, line, sizeof(line)))
+        {
+            line_no++;
+
+            e = parser_parse(p, line);
+            if (e != PARSE_ERROR_NONE)
+            {
+                print_error(buf, p);
+                break;
+            }
+        }
+
+        file_close(f);
+        mem_free(parser_priv(p));
+        parser_destroy(p);
+    }
+
+    /* Result */
+    return (e == PARSE_ERROR_NONE);
+}
+
+
+static enum parser_error parse_pprefs_p(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    /* Read player presets from pref files */
+    process_pref_file_xtra_aux(parser_getsym(p, "dirname"), parser_getstr(p, "file"));
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_pprefs_n(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+    int idx;
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    idx = parser_getint(p, "idx");
+    if ((idx < 0) || (idx >= MAX_XPREF)) return PARSE_ERROR_OUT_OF_BOUNDS;
+
+    Client_setup.number_attr[idx] = (uint16_t)parser_getint(p, "attr");
+    Client_setup.number_char[idx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_pprefs_b(struct parser *p)
+{
+    struct prefs_data *d = parser_priv(p);
+    int idx;
+
+    assert(d != NULL);
+    if (d->bypass) return PARSE_ERROR_NONE;
+
+    idx = parser_getint(p, "idx");
+    if ((idx < 0) || (idx >= MAX_XPREF)) return PARSE_ERROR_OUT_OF_BOUNDS;
+
+    Client_setup.bubble_attr[idx] = (uint16_t)parser_getint(p, "attr");
+    Client_setup.bubble_char[idx] = (char)parser_getint(p, "char");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static struct parser *init_parse_pprefs(void)
+{
+    struct parser *p = parser_new();
+    struct prefs_data *pd = mem_zalloc(sizeof(*pd));
+
+    parser_setpriv(p, pd);
+    parser_reg(p, "P sym dirname str file", parse_pprefs_p);
+    parser_reg(p, "N int idx int attr int char", parse_pprefs_n);
+    parser_reg(p, "B int idx int attr int char", parse_pprefs_b);
+
+    return p;
+}
+
+
 /*
  * Process the user pref file with a given path.
  *
  * name is the name of the pref file.
  * quiet means "don't complain about not finding the file".
  * user should be true if the pref file is user-specific and not a game default.
+ * ppref should be true if the pref file is a preset file.
  */
-static bool process_pref_file_named(const char *path, bool quiet, bool user)
+static bool process_pref_file_named(const char *path, bool quiet, bool user, bool ppref)
 {
     ang_file *f = file_open(path, MODE_READ, FTYPE_TEXT);
     errr e = 0;
@@ -1362,7 +1563,10 @@ static bool process_pref_file_named(const char *path, bool quiet, bool user)
     else
     {
         char line[MSG_LEN];
-        struct parser *p = init_parse_prefs(user);
+        struct parser *p;
+
+        if (ppref) p = init_parse_pprefs();
+        else p = init_parse_prefs(user);
 
         while (file_getl(f, line, sizeof(line)))
         {
@@ -1373,7 +1577,7 @@ static bool process_pref_file_named(const char *path, bool quiet, bool user)
                 break;
             }
         }
-        finish_parse_prefs(p);
+        if (!ppref) finish_parse_prefs(p);
 
         file_close(f);
         mem_free(parser_priv(p));
@@ -1416,7 +1620,7 @@ static bool process_pref_file_layered(const char *name, bool quiet, bool user,
         if (used_fallback != NULL) *used_fallback = true;
     }
 
-    return process_pref_file_named(buf, quiet, user);
+    return process_pref_file_named(buf, quiet, user, false);
 }
 
 
@@ -1536,6 +1740,8 @@ void reset_visuals(bool load_prefs)
     memset(Client_setup.f_char, 0, FEAT_MAX * sizeof(char_lit));
     memset(Client_setup.t_attr, 0, z_info->trap_max * sizeof(byte_lit));
     memset(Client_setup.t_char, 0, z_info->trap_max * sizeof(char_lit));
+    memset(Client_setup.pr_attr, 0, preset_max * sizeof(byte_sx));
+    memset(Client_setup.pr_char, 0, preset_max * sizeof(char_sx));
     memset(Client_setup.k_attr, 0, z_info->k_max * sizeof(uint8_t));
     memset(Client_setup.k_char, 0, z_info->k_max * sizeof(char));
     memset(Client_setup.r_attr, 0, z_info->r_max * sizeof(uint8_t));
@@ -1556,7 +1762,12 @@ void reset_visuals(bool load_prefs)
         /* Build path to the pref file */
         path_build(buf, sizeof(buf), mode->path, mode->pref);
 
-        process_pref_file_named(buf, false, false);
+        process_pref_file_named(buf, false, false, false);
+
+        /* Build path to the ppref file */
+        path_build(buf, sizeof(buf), mode->path, mode->ppref);
+
+        process_pref_file_named(buf, false, false, true);
     }
 
     /* Normal symbols */
