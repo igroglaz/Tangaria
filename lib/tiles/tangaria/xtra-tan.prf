@@ -13,6 +13,10 @@
 
 ##### Remap the player icon #####
 
+# Important: DO NOT modify this part, it is used to load the special player
+# pictures and is parsed sequentially per class then per race. If you want to
+# add custom player pictures, add them at the end of the file.
+
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Half-Troll] ]
 monster:<player>:0x83:0x87
 ?:[AND [EQU $CLASS Warrior] [EQU $RACE Half-Troll] [EQU $GENDER Female] ]
@@ -9181,3 +9185,13 @@ monster:<player>:0x94:0x98
 monster:<player>:0x94:0x98
 ?:[AND [EQU $CLASS Ghost] [EQU $RACE Ooze] ]
 monster:<player>:0x94:0x98
+
+
+##### Custom mappings #####
+
+# Add custom player pictures here. Note: these are only parsed when reading
+# the "graf-xxx" pref files, not the "preset-xxx" pref files, and therefore
+# can only be used to display an alternate picture of one's own character.
+# For example:
+# ?:[AND [EQU $PLAYER <nickname>] ]
+# monster:<player>:0xFF:0xFF
