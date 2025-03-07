@@ -3592,14 +3592,14 @@ static int Receive_verify(int ind)
     int n, i, local_size = 0;
     uint8_t ch;
     char type;
-    int16_t size;
+    int16_t size, offset, top;
     bool discard = false;
     uint8_t a;
     char c;
 
     type = size = 0;
 
-    if ((n = Packet_scanf(&connp->r, "%b%c%hd", &ch, &type, &size)) <= 0)
+    if ((n = Packet_scanf(&connp->r, "%b%c%hd%hd%hd", &ch, &type, &size, &offset, &top)) <= 0)
     {
         if (n == -1) Destroy_connection(ind, "Receive_verify read error");
         return n;
@@ -3621,7 +3621,7 @@ static int Receive_verify(int ind)
     if (local_size != size) discard = true;
 
     /* Finally read the data */
-    for (i = 0; i < size; i++)
+    for (i = offset; i < top; i++)
     {
         if ((n = Packet_scanf(&connp->r, "%b%c", &a, &c)) <= 0)
         {

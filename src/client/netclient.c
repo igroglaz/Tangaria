@@ -4713,7 +4713,7 @@ int Send_features(int lighting, int off)
 
 int Send_verify(int type)
 {
-    int n, i, size;
+    int n, i, size, offset = 0, top;
     uint8_t a;
     char c;
 
@@ -4731,54 +4731,65 @@ int Send_verify(int type)
         default: return 0;
     }
 
-    if ((n = Packet_printf(&wbuf, "%b%c%hd", (unsigned)PKT_VERIFY, type, size)) <= 0)
-        return n;
-
-    /* Send attr/char streams */
-    for (i = 0; i < size; i++)
+    /* Hack -- if size is too big, split in chunks */
+    while (offset < size)
     {
-        switch (type)
+        top = MIN(offset + 1024, size);
+
+        if ((n = Packet_printf(&wbuf, "%b%c%hd%hd%hd", (unsigned)PKT_VERIFY, type, size, offset,
+            top)) <= 0)
         {
-            case 0:
-                a = Client_setup.flvr_x_attr[i];
-                c = Client_setup.flvr_x_char[i];
-                break;
-            case 1:
-                a = Client_setup.k_attr[i];
-                c = Client_setup.k_char[i];
-                break;
-            case 2:
-                a = Client_setup.r_attr[i];
-                c = Client_setup.r_char[i];
-                break;
-            case 3:
-                a = Client_setup.proj_attr[i / BOLT_MAX][i % BOLT_MAX];
-                c = Client_setup.proj_char[i / BOLT_MAX][i % BOLT_MAX];
-                break;
-            case 4:
-                a = Client_setup.t_attr[i / LIGHTING_MAX][i % LIGHTING_MAX];
-                c = Client_setup.t_char[i / LIGHTING_MAX][i % LIGHTING_MAX];
-                break;
-            case 5:
-                a = Client_setup.pr_attr[i / MAX_SEXES][i % MAX_SEXES];
-                c = Client_setup.pr_char[i / MAX_SEXES][i % MAX_SEXES];
-                break;
-            case 6:
-                a = Client_setup.number_attr[i];
-                c = Client_setup.number_char[i];
-                break;
-            case 7:
-                a = Client_setup.bubble_attr[i];
-                c = Client_setup.bubble_char[i];
-                break;
+            return n;
         }
 
-        if ((n = Packet_printf(&wbuf, "%b%c", (unsigned)a, (int)c)) <= 0)
-            return n;
-    }
+        /* Send attr/char streams */
+        for (i = offset; i < top; i++)
+        {
+            switch (type)
+            {
+                case 0:
+                    a = Client_setup.flvr_x_attr[i];
+                    c = Client_setup.flvr_x_char[i];
+                    break;
+                case 1:
+                    a = Client_setup.k_attr[i];
+                    c = Client_setup.k_char[i];
+                    break;
+                case 2:
+                    a = Client_setup.r_attr[i];
+                    c = Client_setup.r_char[i];
+                    break;
+                case 3:
+                    a = Client_setup.proj_attr[i / BOLT_MAX][i % BOLT_MAX];
+                    c = Client_setup.proj_char[i / BOLT_MAX][i % BOLT_MAX];
+                    break;
+                case 4:
+                    a = Client_setup.t_attr[i / LIGHTING_MAX][i % LIGHTING_MAX];
+                    c = Client_setup.t_char[i / LIGHTING_MAX][i % LIGHTING_MAX];
+                    break;
+                case 5:
+                    a = Client_setup.pr_attr[i / MAX_SEXES][i % MAX_SEXES];
+                    c = Client_setup.pr_char[i / MAX_SEXES][i % MAX_SEXES];
+                    break;
+                case 6:
+                    a = Client_setup.number_attr[i];
+                    c = Client_setup.number_char[i];
+                    break;
+                case 7:
+                    a = Client_setup.bubble_attr[i];
+                    c = Client_setup.bubble_char[i];
+                    break;
+            }
 
-    /* Hack -- flush the network output buffer */
-    Net_flush();
+            if ((n = Packet_printf(&wbuf, "%b%c", (unsigned)a, (int)c)) <= 0)
+                return n;
+        }
+
+        /* Hack -- flush the network output buffer */
+        Net_flush();
+
+        offset += 1024;
+    }
 
     return 1;
 }
