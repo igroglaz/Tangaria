@@ -1,68 +1,27 @@
-MKPATH=../mk/
-include $(MKPATH)buildsys.mk
+# Minimal makefile for Sphinx documentation
+#
 
-HELPSRCPATH := ../lib/help/
+# You can set these variables from the command line.
+SPHINXOPTS    =
+SPHINXBUILD   = sphinx-build
+SOURCEDIR     = .
+BUILDDIR      = _build
 
-MAKEINDEX := makeindex
+# Put it first so that "make" without argument is like "make help".  $(O) here
+# and in the other rules below is meant as a shortcut for adding options to
+# what's in $(SPHINXOPTS).
+help:
+	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-DOC = manual.html manual.pdf
+# Catch-all target: route all unknown targets to Sphinx using the new
+# "make mode" option.
+.DEFAULT:
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-SECTIONS := general birth playing attack dungeon customize option command \
-            debug ../../thanks version
+# Explicitly handle this one to take care of the empty directory for the
+# built documents.
+clean:
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O) clean
+	@if test -f $(BUILDDIR) || test -d $(BUILDDIR); then rm -fr $(BUILDDIR); fi
 
-INDEX := index
-
-CLEAN = manual.ind manual.ilg manual.toc manual.tex manual.log manual.aux \
-	manual.tex manual.pdf manual.html manual.out
-
-RSTFILESWITHOUTPATH := $(addsuffix .txt, $(SECTIONS))
-RSTINDEXWITHOUTPATH := $(addsuffix .txt, $(INDEX))
-
-RSTFILES := $(addprefix $(HELPSRCPATH), $(RSTFILESWITHOUTPATH))
-RSTINDEX := $(addprefix $(HELPSRCPATH), $(RSTINDEXWITHOUTPATH))
-
-STY := $(addprefix $(HELPSRCPATH), angband.sty)
-CSS := $(addprefix $(HELPSRCPATH), angband.css)
-
-ifneq ($(RST2HTML),NOTFOUND)
-manual.html: $(RSTINDEX) $(RSTFILES) $(CSS)
-	${COMPILE_STATUS}
-	@if $(RST2HTML) $(HELPSRCPATH)/index.txt --stylesheet-path $(CSS) > manual.html; then \
-		${COMPILE_OK}; \
-	else \
-		${COMPILE_FAILED}; \
-	fi
-else
-manual.html:
-	echo rst2html not found. Cannot build HTML manual
-endif
-
-ifneq ($(RST2LATEX),NOTFOUND)
-manual.tex: $(RSTINDEX) $(RSTFILES) $(STY)
-	${COMPILE_STATUS}
-	@if $(RST2LATEX) $(HELPSRCPATH)/index.txt > manual.tex --stylesheet-path=$(STY) --documentclass=scrartcl; then \
-		${COMPILE_OK}; \
-	else \
-		${COMPILE_FAILED}; \
-	fi
-
-ifneq ($(PDFLATEX),NOTFOUND)
-manual.pdf: manual.tex
-	${COMPILE_STATUS}
-	@$(PDFLATEX) manual.tex > /dev/null
-	@$(MAKEINDEX) manual.tex > /dev/null 2>&1
-	@if $(PDFLATEX) manual.tex > /dev/null; then \
-		${COMPILE_OK}; \
-	else \
-		${COMPILE_FAILED}; \
-	fi
-else
-manual.pdf: manual.tex
-	echo pdflatex not found. Cannot build PDF manual
-endif
-else
-manual.pdf:
-	echo rst2latex not found. Cannot build PDF manual
-endif
-
-install: manual.html
+.PHONY: help clean

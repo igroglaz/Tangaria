@@ -2,9 +2,9 @@ Dockerfiles
 -
 Build container:
 
-for build 1.6.1 (Build 1) (https://github.com/draconisPW/PWMAngband/releases/tag/1.6.1-build-1)
+for build x.y.z (Build t) (https://github.com/draconisPW/PWMAngband/releases/tag/x.y.z-build-t)
 
-`docker build -f ./Dockerfile-1.6.1-build-1 -t pwmangband:1.6.1-build-1 .`
+`docker build -f ./Dockerfile-x.y.z-build-t -t pwmangband:x.y.z-build-t .`
 
 for build current git (https://github.com/draconisPW/PWMAngband)
 
@@ -20,9 +20,9 @@ Add required permissions:
 
 Run container:
 
-for 1.6.1 (Build 1):
+for x.y.z (Build t):
 
-`docker run --name pwmangband -p 18346:18346 -v $(pwd)/pwmangband:/pwmangband -d pwmangband:1.6.1-build-1`
+`docker run --name pwmangband -p 18346:18346 -v $(pwd)/pwmangband:/pwmangband -d pwmangband:x.y.z-build-t`
 
 for current git:
 

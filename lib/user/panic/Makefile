@@ -1,13 +1,13 @@
 MKPATH=../../../mk/
 include $(MKPATH)buildsys.mk
 
-PACKAGE = user/panic
+PACKAGE = panic
 
 install-extra:
 	if [ "x$(SETEGID)" != "x" ]; then \
 		if [ "x$(DRY)" = "x" ]; then \
-			${MKDIR_P} ${DESTDIR}${vardatadir}${PACKAGE}; \
-			chown root:${SETEGID} ${DESTDIR}${vardatadir}${PACKAGE}; \
-			chmod 770 ${DESTDIR}${vardatadir}${PACKAGE}; \
+			${MKDIR_P} ${DESTDIR}${varshareddatadir}${PACKAGE}; \
+			chown root:${SETEGID} ${DESTDIR}${varshareddatadir}${PACKAGE}; \
+			chmod 770 ${DESTDIR}${varshareddatadir}${PACKAGE}; \
 		fi; \
 	fi

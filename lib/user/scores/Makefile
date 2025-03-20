@@ -1,14 +1,13 @@
 MKPATH=../../../mk/
 include $(MKPATH)buildsys.mk
 
-PACKAGE = user/scores
+PACKAGE = scores
 
 install-extra:
 	if [ "x$(SETEGID)" != "x" ]; then \
 		if [ "x$(DRY)" = "x" ]; then \
-			${MKDIR_P} ${DESTDIR}${vardatadir}${PACKAGE}; \
-			touch ${DESTDIR}${vardatadir}${PACKAGE}/scores.raw; \
-			chown -R root:${SETEGID} ${DESTDIR}${vardatadir}${PACKAGE}; \
-			chmod -R 770 ${DESTDIR}${vardatadir}${PACKAGE}; \
+			${MKDIR_P} ${DESTDIR}${varshareddatadir}${PACKAGE}; \
+			chown root:${SETEGID} ${DESTDIR}${varshareddatadir}${PACKAGE}; \
+			chmod 770 ${DESTDIR}${varshareddatadir}${PACKAGE}; \
 		fi; \
 	fi

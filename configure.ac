@@ -1,29 +1,31 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(PWMAngband, 1.6.1, team@mangband.org)
+AC_INIT([PWMAngband],[1.6.2],[team@mangband.org])
 AC_CONFIG_SRCDIR(src)
+AC_CONFIG_MACRO_DIR([m4])
 
-AC_CANONICAL_HOST
-AC_CANONICAL_TARGET
+for i in configure.ac m4/*; do
+	AS_IF([test $i -nt configure], [
+		AC_MSG_ERROR([$i is newer than configure! Run ./autogen.sh!])
+	])
+done
 
 BUILDSYS_INIT
-BUILDSYS_TOUCH_DEPS
 
 AC_SUBST(PACKAGE, pwmangband)
 
 AC_CONFIG_HEADERS(src/autoconf.h)
 
-AC_CONFIG_MACRO_DIR([m4])
 
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE", [Name of package])
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION", [Version number of package])
 
 AC_ARG_WITH(setgid,
-	[  --with-setgid=NAME      install pwmangband as group NAME],
+	[AS_HELP_STRING([--with-setgid=NAME], [install pwmangband as group NAME])],
 	[wsetgid=yes])
 AC_ARG_WITH(private_dirs,
-	[  --with-private-dirs     use private scorefiles/savefiles])
+	[AS_HELP_STRING([--with-private-dirs], [use private scorefiles/savefiles])])
 AC_ARG_WITH(no_install,
-	[  --with-no-install       don't install, just run in-place])
+	[AS_HELP_STRING([--with-no-install], [don't install, just run in-place])])
 
 if test "x$with_setgid" = "xyes"; then
 	AC_MSG_ERROR([Please specify a group to install as.])
@@ -67,47 +69,64 @@ if test "x$with_no_install" = "x"; then
 "
 fi
 
-AC_PROG_CC
+AC_ARG_WITH(sphinx,
+	[AS_HELP_STRING([--with-sphinx], [build the documentation with sphinx-build])])
+AC_PATH_PROGS([SPHINXBUILD],
+	[sphinx-build sphinx-build3 sphinx-build2],
+	[NOTFOUND],
+	[$PATH$PATH_SEPARATOR/usr/share/sphinx/scripts/python3$PATH_SEPARATOR/usr/share/sphinx/scripts/python2])
+AC_ARG_VAR([SPHINXBUILD], [full path to sphinx-build for building documentation; overrides auto-detected path])
+AC_ARG_VAR([DOC_HTML_THEME], [the builtin Sphinx HTML theme to use or, if not set or empty, use the theme configured in docs/conf.py (currently the better theme)])
+if test "x$with_sphinx" = "xyes"; then
+    if test x"$SPHINXBUILD" = x || test x"$SPHINXBUILD" = xNOTFOUND ; then
+        AC_MSG_ERROR([--with-sphinx specified but could not locate sphinx-build.  Set SPHINXBUILD to the full path to sphinx-build.])
+    fi
+else
+    SPHINXBUILD=
+fi
+
+# Prefer cc to gcc (default behavior is the opposite) for better compatibility
+# with OpenBSD and FreeBSD.
+AC_PROG_CC([cc gcc clang])
+AC_PROG_CPP
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
 AC_CHECK_TOOL(RC, windres, no)
-AC_ARG_VAR([RST2HTML], [command for converting reStructuredText to HTML])
-AC_CHECK_PROGS([RST2HTML], [rst2html.py rst2html], [NOTFOUND])
-AC_SUBST(RST2HTML)
-AC_ARG_VAR([RST2LATEX], [command for converting reStructuredText to LaTeX])
-AC_CHECK_PROGS([RST2LATEX], [rst2latex.py rst2latex], [NOTFOUND])
-AC_SUBST(RST2LATEX)
-AC_CHECK_PROGS([PDFLATEX], [pdflatex], [NOTFOUND])
-AC_SUBST(PDFLATEX)
-
 AC_PATH_PROG(RM, rm)
 AC_PATH_PROG(MV, mv)
 AC_PATH_PROG(CP, cp)
 
 AC_HEADER_DIRENT
-AC_CHECK_HEADERS([fcntl.h stdint.h])
+AC_CHECK_HEADERS([fcntl.h])
 AC_HEADER_STDBOOL
-AC_C_CONST
-AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([mkdir setresgid setegid stat])
 
 dnl needed because h-basic.h checks for this define for autoconf support.
-CFLAGS="$CFLAGS -DHAVE_CONFIG_H"
+CPPFLAGS="$CPPFLAGS -DHAVE_CONFIG_H"
 CPPFLAGS="$CPPFLAGS -I." 
+
+AC_ARG_ENABLE(release,
+	[AS_HELP_STRING([--enable-release], [enable a release build])],
+	[AS_CASE(${enableval},
+		[yes], [release=yes],
+		[no], [release=no],
+		[AC_MSG_ERROR([bad value ${enableval} for --enable-release])])],
+	[release=no])
+
+if test x"$release" = xyes ; then
+	dnl Currently only adding -DNDEBUG to CFLAGS.  Also leave something
+	dnl in autoconf.h so reconfiguring with or without release build will
+	dnl trigger rebuilds without running make clean.
+	CFLAGS="$CFLAGS -DNDEBUG"
+	AC_DEFINE(RELEASE_BUILD, 1, [Define to mark as a release build with extra optimizations.])
+fi
 
 if test "$GCC" = "yes"; then
 	CFLAGS="$CFLAGS -W -Wall -Wextra -Wno-unused-parameter -pedantic"
-	AC_MSG_CHECKING([if gcc supports -Wno-missing-field-initializers])
-	_gcc_cflags_save=$CFLAGS
-	CFLAGS="-Wno-missing-field-initializers"
-	AC_COMPILE_IFELSE([AC_LANG_SOURCE([])],_gcc_wopt=yes,_gcc_wopt=no)
-	AC_MSG_RESULT($_gcc_wopt)
-	CFLAGS=$_gcc_cflags_save;
-	if test x"$_gcc_wopt" = xyes ; then
-		CFLAGS="$CFLAGS -Wno-missing-field-initializers"
-	fi
+	CFLAGS="$CFLAGS -Wstrict-prototypes -Wmissing-prototypes -Wwrite-strings"
+	CFLAGS="$CFLAGS -Wnested-externs -Wshadow"
 fi
 
 MY_PROG_MAKE_SYSVINC
@@ -132,27 +151,39 @@ fi
 
 if test "x$with_no_install" != "x"; then
 	configpath="${PWD}/lib/"
+elif test "x$enable_win" = xyes; then
+	configpath=".\\\\lib\\\\"
 else
 	configpath="${sysconfdir}/${PACKAGE}/"
 fi
 
-case "/$configpath" in
-	*/) MY_EXPAND_DIR(configdir, "$configpath")  ;;
-	*)  MY_EXPAND_DIR(configdir, "$configpath/") ;;
-esac
+if test "x$enable_win" != xyes; then
+	case "/$configpath" in
+		*/) MY_EXPAND_DIR(configdir, "$configpath")  ;;
+		*)  MY_EXPAND_DIR(configdir, "$configpath/") ;;
+	esac
+else
+	configdir="$configpath"
+fi
 
 
 if test "x$with_no_install" != "x"; then
 	libpath="${PWD}/lib/"
 	bindir=".."
+elif test "x$enable_win" = xyes; then
+	libpath=".\\\\lib\\\\"
 else
 	libpath="${datarootdir}/${PACKAGE}/"
 fi
 
-case "/$libpath" in
-	*/) MY_EXPAND_DIR(libdatadir, "$libpath")  ;;
-	*)  MY_EXPAND_DIR(libdatadir, "$libpath/") ;;
-esac
+if test "x$enable_win" != xyes; then
+	case "/$libpath" in
+		*/) MY_EXPAND_DIR(libdatadir, "$libpath")  ;;
+		*)  MY_EXPAND_DIR(libdatadir, "$libpath/") ;;
+	esac
+else
+	libdatadir="$libpath"
+fi
 
 if test "x$with_no_install" != "x"; then
 	docdir="${PWD}/doc/"
@@ -170,69 +201,137 @@ esac
 
 if test "x$with_no_install" != "x"; then
 	varpath="${PWD}/lib/"
+elif test "x$enable_win" = xyes; then
+	varpath=".\\\\lib\\\\"
 else
 	varpath="${localstatedir}/games/${PACKAGE}/"
 fi
 
-case "/$varpath" in
-	*/) MY_EXPAND_DIR(vardatadir, "$varpath")  ;;
-	*)  MY_EXPAND_DIR(vardatadir, "$varpath/") ;;
-esac
+if test "x$enable_win" != xyes; then
+	case "/$varpath" in
+		*/) MY_EXPAND_DIR(vardatadir, "$varpath")  ;;
+		*)  MY_EXPAND_DIR(vardatadir, "$varpath/") ;;
+	esac
+else
+	vardatadir="$varpath"
+fi
 
+if test "x$with_private_dirs" != "x"; then
+	varshareddatadir="${vardatadir}user/"
+else
+	varshareddatadir="${vardatadir}"
+fi
+
+AC_ARG_WITH(gamedata_in_lib,
+	[AS_HELP_STRING([--with-gamedata-in-lib], [store the game data in the lib path.])])
+
+GAMEDATA_IN_LIB="false"
+if test "x$with_gamedata_in_lib" = "xyes"; then
+	GAMEDATA_IN_LIB="true"
+	AC_DEFINE(GAMEDATA_IN_LIB, 1, [Define to store the game data in the lib path.])
+fi
+AC_SUBST(GAMEDATA_IN_LIB)
 
 AC_SUBST([configdir])
 AC_SUBST([libdatadir])
 AC_SUBST([vardatadir])
+AC_SUBST([varshareddatadir])
 AC_SUBST([docdatadir])
 
 AC_DEFINE_UNQUOTED([DEFAULT_CONFIG_PATH], "${configdir}", [Path to the game's configuration data])
 AC_DEFINE_UNQUOTED([DEFAULT_LIB_PATH], "${libdatadir}", [Path to the game's lib directory])
 AC_DEFINE_UNQUOTED([DEFAULT_DATA_PATH], "${vardatadir}", [Path to the game's variable data])
 
-NOINSTALL="$with_noinstall"; AC_SUBST(NOINSTALL)
+NOINSTALL="$with_no_install"; AC_SUBST(NOINSTALL)
 SETEGID="$with_setgid";      AC_SUBST(SETEGID)
+if test "x$wsetgid" = "xyes"; then
+	AC_DEFINE(SETGID, 1, [Define if running as a central install on a multiuser system that has setresgid or setegid support.])
+fi
+
+dnl Borg
+AC_ARG_ENABLE(borg,
+	[AS_HELP_STRING([--enable-borg], [enable Borg (default enabled)])],
+	[enable_borg=$enableval],
+	[enable_borg=yes])
+AC_ARG_ENABLE(borg_high_scores,
+	[AS_HELP_STRING([--enable-borg-high-scores], [allow Borg characters to appear in the high scores (default: disabled)])],
+	[enable_borg_high_scores=$enableval],
+	[enable_borg_high_scores=no])
+
+if test x"$enable_borg" = xyes ; then
+	AC_DEFINE(ALLOW_BORG, 1, [Define if you want Borg support compiled.])
+fi
+if test x"$enable_borg_high_scores" = xyes; then
+	AC_DEFINE(SCORE_BORGS, 1, [Define if you Borg characters to appear in the high scores.])
+fi
 
 dnl Frontends
 AC_ARG_ENABLE(curses,
-	[AS_HELP_STRING([--enable-curses],    [Enables Curses frontend (default: enabled)])],
+	[AS_HELP_STRING([--enable-curses], [enable Curses frontend (default: enabled)])],
 	[enable_curses=$enableval],
-	[enable_curses=yes])
+	[enable_curses=default])
 AC_ARG_ENABLE(x11,
-	[AS_HELP_STRING([--enable-x11],       [Enables X11 frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-x11], [enable X11 frontend (default: disabled)])],
 	[enable_x11=$enableval],
 	[enable_x11=no])
 AC_ARG_ENABLE(sdl2,
-	[AS_HELP_STRING([--enable-sdl2],      [Enables SDL2 frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-sdl2], [enable SDL2 frontend (default: disabled)])],
 	[enable_sdl2=$enableval],
 	[enable_sdl2=no])
 AC_ARG_ENABLE(sdl,
-	[AS_HELP_STRING([--enable-sdl],       [Enables SDL frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-sdl], [enable SDL frontend (default: disabled)])],
 	[enable_sdl=$enableval],
 	[enable_sdl=no])
 AC_ARG_ENABLE(win,
-	[AS_HELP_STRING([--enable-win],       [Enables Windows frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-win], [enable Windows frontend (default: disabled)])],
 	[enable_win=$enableval],
 	[enable_win=no])
 AC_ARG_ENABLE(test,
-	[AS_HELP_STRING([--enable-test],      [Enables test frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-test], [enable test frontend (default: disabled)])],
 	[enable_test=$enableval],
 	[enable_test=no])
 AC_ARG_ENABLE(stats,
-	[AS_HELP_STRING([--enable-stats],     [Enables stats frontend (default: disabled)])],
+	[AS_HELP_STRING([--enable-stats], [enable stats frontend (default: disabled)])],
 	[enable_stats=$enableval],
 	[enable_stats=no])
+AC_ARG_ENABLE(spoil,
+	[AS_HELP_STRING([--enable-spoil], [enable command-line spoiler generation (default: disabled)])],
+	[enable_spoil=$enableval],
+	[enable_spoil=no])
 
 dnl Sound modules
 AC_ARG_ENABLE(sdl2_mixer,
-	[AS_HELP_STRING([--enable-sdl2-mixer], [Enables SDL2 mixer sound support (default: disabled unless SDL2 enabled)])],
+	[AS_HELP_STRING([--enable-sdl2-mixer], [enable SDL2 mixer sound support (default: disabled unless SDL2 enabled)])],
 	[enable_sdl2_mixer=$enable_sdl2_mixer],
 	[enable_sdl2_mixer=$enable_sdl2])
 AC_ARG_ENABLE(sdl_mixer,
-	[AS_HELP_STRING([--enable-sdl-mixer], [Enables SDL mixer sound support (default: disabled unless SDL enabled)])],
+	[AS_HELP_STRING([--enable-sdl-mixer], [enable SDL mixer sound support (default: disabled unless SDL enabled)])],
 	[enable_sdl_mixer=$enable_sdl_mixer],
 	[enable_sdl_mixer=$enable_sdl])
 
 MAINFILES="\$(BASEMAINFILES)"
+
+dnl The libraries needed when linking the test cases start out the same
+dnl as what is needed to link the game but, typically, do not need to pick
+dnl up the extra dependencies needed by the front ends.
+TEST_LIBS="${LIBS}"
+
+dnl The Windows front end does not allow access to the others so disable them
+dnl unless explicitly told to build them.
+if test x"$enable_win" = xyes; then
+	default_override=no
+else
+	default_override=yes
+fi
+if test x"$enable_curses" = xdefault; then
+	enable_curses="$default_override"
+fi
+if test x"$enable_x11" = xdefault; then
+	enable_x11="$default_override"
+fi
+if test x"$enable_spoil" = xdefault; then
+	enable_spoil="$default_override"
+fi
 
 dnl curses checking
 if test "$enable_curses" = "yes"; then
@@ -240,7 +339,7 @@ if test "$enable_curses" = "yes"; then
 	if test "$with_curses" = "yes"; then
 		AC_DEFINE(USE_NCURSES, 1, [Define to 1 if NCurses is found.])
 		AC_DEFINE(USE_GCU, 1, [Define to 1 if using the Curses frontend.])
-		CFLAGS="${CFLAGS} ${NCURSES_CFLAGS}"
+		CPPFLAGS="${CPPFLAGS} ${NCURSES_CFLAGS}"
 		LIBS="${LIBS} ${NCURSES_LIBS}"
 		MAINFILES="${MAINFILES} \$(GCUMAINFILES)"
 	else
@@ -259,115 +358,103 @@ fi
 AC_CHECK_FUNCS([mvwaddnwstr use_default_colors can_change_color])
 
 dnl X11 checking
+with_x11=no
 if test "$enable_x11" = "yes"; then
 	AC_PATH_XTRA
 
-	if test "x$have_x" != "xyes"; then
-		with_x11=no
-	else
+	if test "x$have_x" = "xyes"; then
 		AC_DEFINE(USE_X11, 1, [Define to 1 if using the X11 frontend and X11 libraries are found.])
-		CFLAGS="$CFLAGS $X_CFLAGS"
+		CPPFLAGS="$CPPFLAGS $X_CFLAGS"
 		LIBS="${LIBS} ${X_PRE_LIBS} ${X_LIBS} -lX11 ${X_EXTRA_LIBS}"
 		MAINFILES="${MAINFILES} \$(X11MAINFILES)"
 		with_x11=yes
 	fi
 fi
+ENABLEX11="$with_x11"; AC_SUBST(ENABLEX11)
 
-dnl SDL2 checking
-if test "$enable_sdl2" = "yes"; then
+with_sdl2=no
+if test "$enable_sdl2" = "yes" || test "$enable_sdl2_mixer" = "yes"; then
+	dnl SDL2 checking
 	AM_PATH_SDL2(2.0.0,,)
 
-	if test "$SDL2_CONFIG" = "no"; then
-		with_sdl2=no
-	else
-		AC_CHECK_LIB(SDL2_image, IMG_LoadPNG_RW, with_sdl2=yes, with_sdl2=no)
-		AC_CHECK_LIB(SDL2_ttf, TTF_Init, with_sdl2x=yes, with_sdl2=no)
-
-		if test "$with_sdl2" = "yes"; then
-			AC_DEFINE(USE_SDL2, 1, [Define to 1 if using the SDL2 interface and SDL2 is found.])
-			CFLAGS="${CFLAGS} ${SDL2_CFLAGS} -D_GNU_SOURCE=1"
-			LIBS="${LIBS} ${SDL2_LIBS} -lSDL2_image -lSDL2_ttf"
-			MAINFILES="${MAINFILES} \$(SDL2MAINFILES)"
-			enable_sdl=no
-			enable_sdl_mixer=no
+	found_sdl2_mixer=no
+	if test "$SDL2_CONFIG" != "no"; then
+		hold_CPPFLAGS="${CPPFLAGS}"
+		hold_LIBS="${LIBS}"
+		CPPFLAGS="${CPPFLAGS} ${SDL2_CFLAGS}"
+		LIBS="${LIBS} ${SDL2_LIBS}"
+		if test "$enable_sdl2" = "yes"; then
+			AC_CHECK_LIB(SDL2_image, IMG_LoadPNG_RW, with_sdl2=yes, with_sdl2=no)
+			AC_CHECK_LIB(SDL2_ttf, TTF_Init, with_sdl2x=yes, with_sdl2=no)
+			if test "$with_sdl2" = "yes"; then
+				AC_DEFINE(USE_SDL2, 1, [Define to 1 if using the SDL2 interface and SDL2 is found.])
+				LIBS="${LIBS} -lSDL2_image -lSDL2_ttf"
+				MAINFILES="${MAINFILES} \$(SDL2MAINFILES)"
+			fi
+		fi
+		if test "$enable_sdl2_mixer" = "yes"; then
+			AC_CHECK_LIB(SDL2_mixer, Mix_OpenAudio, found_sdl2_mixer=yes, found_sdl2_mixer=no)
+			if test "$found_sdl2_mixer" = "yes"; then
+				AC_DEFINE(SOUND_SDL2, 1, [Define to 1 if using SDL2_mixer sound support and it's found.])
+				AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
+				LIBS="${LIBS} -lSDL2_mixer"
+				MAINFILES="${MAINFILES} \$(SNDSDLFILES)"
+			fi
+		fi
+		if test "$with_sdl2" = "yes" || test "$found_sdl2_mixer" = "yes"; then
+			if test "$enable_sdl" = "yes"; then
+				AC_MSG_WARN([disabling SDL:  --enable-sdl2 or --enable-sdl2-mixer also set and SDL2 was found; can not mix SDL2 and SDL])
+				enable_sdl=no
+			fi
+			if test "$enable_sdl_mixer" = "yes"; then
+				AC_MSG_WARN([disabling SDL mixer:  --enable-sdl2 or --enable-sdl2-mixer also set and SDL2 was found; can not mix SDL2 and SDL])
+				enable_sdl_mixer=no
+			fi
+		else
+			dnl Not using SDL2 so restore flags.
+			CPPFLAGS="${hold_CPPFLAGS}"
+			LIBS="${hold_LIBS}"
 		fi
 	fi
-else
+fi
+ENABLESDL2="$with_sdl2"; AC_SUBST(ENABLESDL2)
+with_sdl=no
+if test "$enable_sdl" = "yes" || test "$enable_sdl_mixer" = "yes"; then
 	dnl SDL checking
-	if test "$enable_sdl" = "yes"; then
-	   AM_PATH_SDL(1.2.10,,)
+	AM_PATH_SDL(1.2.10,,)
 
-	   if test "$SDL_CONFIG" = "no"; then
-		  with_sdl=no
-	   else
+	found_sdl_mixer=no
+	if test "$SDL_CONFIG" != "no"; then
+		hold_CPPFLAGS="${CPPFLAGS}"
+		hold_LIBS="${LIBS}"
+		CPPFLAGS="${CPPFLAGS} ${SDL_CFLAGS}"
+		LIBS="${LIBS} ${SDL_LIBS}"
+		if test "$enable_sdl" = "yes"; then
 			AC_CHECK_LIB(SDL_image, IMG_LoadPNG_RW, with_sdl=yes, with_sdl=no)
 			AC_CHECK_LIB(SDL_ttf, TTF_Init, with_sdlx=yes, with_sdl=no)
-
 			if test "$with_sdl" = "yes"; then
-			   		AC_DEFINE(USE_SDL, 1, [Define to 1 if using the SDL interface and SDL is found.])
-					CFLAGS="${CFLAGS} ${SDL_CFLAGS}"
-					LIBS="${LIBS} ${SDL_LIBS} -lSDL_image -lSDL_ttf"
-					MAINFILES="${MAINFILES} \$(SDLMAINFILES)"
-		    fi
-	    fi
-	fi
-fi
-
-dnl Windows checking
-if test "$enable_win" = "yes"; then
-	AC_DEFINE(USE_WIN, 1, [Define to 1 if using the Windows interface.])
-	AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
-	CFLAGS="${CFLAGS} -DWINDOWS -static -Iwin/include"
-	LDFLAGS="${LDFLAGS} -Lwin/lib"
-	LIBS="${LIBS} -mwindows -lwinmm -lzlib -llibpng -lmsimg32"
-dnl Note complete replacement of all main files
-	MAINFILES="\$(WINMAINFILES)"
-fi
-
-dnl SDL2 mixer checking
-if test "$enable_sdl2_mixer" = "yes"; then
-	if test "$enable_sdl_mixer" = "yes"; then
-		AC_MSG_ERROR(both --enable-sdl-mixer and --enable-sdl2-mixer set, 1)
-	fi
-	AC_CHECK_LIB(SDL2_mixer, Mix_OpenAudio, found_sdl2_mixer=yes, found_sdl2_mixer=no)
-
-	if test "$found_sdl2_mixer" = "yes"; then
-		AC_DEFINE(SOUND_SDL2, 1, [Define to 1 if using SDL2_mixer sound support and it's found.])
-		AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
-		if test "$with_sdl2" = "yes"; then
-			LIBS="${LIBS} -lSDL2_mixer"
-		else
-			SDL2_CFLAGS=`sdl2-config --cflags`
-			CFLAGS="${CFLAGS} ${SDL2_CFLAGS}"
-			SDL2_LIBS=`sdl2-config --libs`
-			LIBS="${LIBS} ${SDL2_LIBS} -lSDL2_mixer"
+				AC_DEFINE(USE_SDL, 1, [Define to 1 if using the SDL interface and SDL is found.])
+				LIBS="${LIBS} -lSDL_image -lSDL_ttf"
+				MAINFILES="${MAINFILES} \$(SDLMAINFILES)"
+			fi
 		fi
-		MAINFILES="${MAINFILES} \$(SNDSDLFILES)"
-	fi
-fi
-
-dnl SDL mixer checking
-if test "$enable_sdl_mixer" = "yes"; then
-	AC_CHECK_LIB(SDL_mixer, Mix_OpenAudio, found_sdl_mixer=yes, found_sdl_mixer=no)
-
-	if test "$found_sdl_mixer" = "yes"; then
-		AC_DEFINE(SOUND_SDL, 1, [Define to 1 if using SDL_mixer sound support and it's found.])
-		AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
-		if test "$with_sdl" = "yes"; then
-			LIBS="${LIBS} -lSDL_mixer"
-		else
-			SDL_CFLAGS=`sdl-config --cflags`
-			CFLAGS="${CFLAGS} ${SDL_CFLAGS}"
-			SDL_LIBS=`sdl-config --libs`
-			LIBS="${LIBS} ${SDL_LIBS} -lSDL_mixer"
+		if test "$enable_sdl_mixer" = "yes"; then
+			AC_CHECK_LIB(SDL_mixer, Mix_OpenAudio, found_sdl_mixer=yes, found_sdl_mixer=no)
+			if test "$found_sdl_mixer" = "yes"; then
+				AC_DEFINE(SOUND_SDL, 1, [Define to 1 if using SDL_mixer sound support and it's found.])
+				AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
+				LIBS="${LIBS} -lSDL_mixer"
+				MAINFILES="${MAINFILES} \$(SNDSDLFILES)"
+			fi
 		fi
-		MAINFILES="${MAINFILES} \$(SNDSDLFILES)"
+		if test "$with_sdl" = "no" && test "$found_sdl_mixer" = "no"; then
+			dnl Not using SDL so restore flags.
+			CPPFLAGS="${hold_CPPFLAGS}"
+			LIB="${hold_LIBS}"
+		fi
 	fi
 fi
-
-
-LIBS="${LIBS} -lm"
-
+ENABLESDL="$with_sdl"; AC_SUBST(ENABLESDL)
 
 dnl Test checking
 if test "$enable_test" = "yes"; then
@@ -376,7 +463,6 @@ if test "$enable_test" = "yes"; then
 fi
 
 dnl Stats checking
-
 LDFLAGS_SAVE="$LDFLAGS"
 if test "$enable_stats" = "yes"; then
 	# SQLite3 detection
@@ -415,9 +501,9 @@ if test "$enable_stats" = "yes"; then
 	fi
 	if test "x$SQLITE3_OK" = xyes; then
 		AC_DEFINE(USE_STATS, 1, [Define to 1 to build the stats frontend])
-		CFLAGS="${CFLAGS} ${SQLITE3_CFLAGS}"
+		CPPFLAGS="${CPPFLAGS} ${SQLITE3_CFLAGS}"
 		LDFLAGS="${LDFLAGS_SAVE} ${SQLITE3_LDFLAGS}"
-		LIBS="${LIBS} ${SQLITE3_LIBS}"
+		LIBS="${LIBS} ${SQLITE3_LIBS} -lm"
 		MAINFILES="${MAINFILES} \$(STATSMAINFILES)"
 		AC_SUBST(USE_STATS, 1)
 	else
@@ -429,8 +515,61 @@ if test "$enable_stats" = "yes"; then
 	fi
 fi
 
+dnl Spoiler checking
+if test "$enable_spoil" = "yes"; then
+	AC_DEFINE(USE_SPOIL, 1, [Define to 1 to build the command-line spoiler generation])
+	MAINFILES="${MAINFILES} \$(SPOILMAINFILES)"
+fi
+
+dnl Windows checking
+if test "$enable_win" = "yes"; then
+	if test x"$with_no_install" != x || test x"$with_setgid" != x ; then
+		AC_MSG_ERROR([--enable-win is not compatible with --with-no-install or --with-setgid])
+	fi
+	AC_DEFINE(USE_WIN, 1, [Define to 1 if using the Windows interface.])
+	AC_DEFINE(SOUND, 1, [Define to 1 if including sound support.])
+	CPPFLAGS="${CPPFLAGS} -DWINDOWS -Iwin/include"
+	CFLAGS="${CFLAGS} -static"
+	LDFLAGS="${LDFLAGS} -Lwin/lib"
+	LIBS="${LIBS} -mwindows -lwinmm -lzlib -llibpng -lmsimg32"
+	TEST_LIBS="${TEST_LIBS} -mwindows"
+dnl Note complete replacement of all main files
+	MAINFILES="\$(WINMAINFILES)"
+fi
+# Set up for Windows-specific behavior in the Makefiles.
+ENABLEWIN="$enable_win"; AC_SUBST(ENABLEWIN)
+
+dnl Remember if we are cross compiling.  Currently used so "make tests" only
+dnl compiles but does not run test cases when cross compiling.
+if test x"$build_alias" = x"$host_alias" ; then
+	CROSS_COMPILE=no
+else
+	CROSS_COMPILE=yes
+fi
+AC_SUBST(CROSS_COMPILE)
+
+dnl If installing elsewhere or using the Windows front end, allow the test
+dnl cases which use set_file_paths() to find the data files.  This relies on
+dnl the setting for TEST_DEFAULT_PATH in src/tests/unit-test.h which uses a
+dnl relative path and has the drawback that a test case will not work if it
+dnl uses set_file_paths() and the working directory is not the top level
+dnl directory of a distribution.  Also set TEST_WORKING_DIRECTORY so, that
+dnl when run by src/tests/run-tests, the working directory will match that.
+if test x"$with_no_install" = x || test x"$enable_win" = xyes ; then
+	CFLAGS="${CFLAGS} -DTEST_OVERRIDE_PATHS"
+	case "$srcdir" in
+		.) TEST_WORKING_DIRECTORY="$PWD" ;;
+		[\\/]* | ?:[\\/]* ) TEST_WORKING_DIRECTORY="$srcdir" ;;
+		*) TEST_WORKING_DIRECTORY="$PWD/$srcdir" ;;
+	esac
+else
+	TEST_WORKING_DIRECTORY=
+fi
+AC_SUBST(TEST_WORKING_DIRECTORY)
+
 AC_SUBST(MAINFILES, ${MAINFILES})
-AC_CONFIG_FILES([mk/buildsys.mk mk/extra.mk mk/sinc@&t@lude.mk])
+AC_SUBST(TEST_LIBS, ${TEST_LIBS})
+AC_CONFIG_FILES([mk/buildsys.mk mk/extra.mk])
 AC_OUTPUT
 
 if test "x$with_private_dirs" = "xyes"; then
@@ -439,35 +578,58 @@ else
 	displayedvardatadir="$vardatadir"
 fi
 
-if test "x$with_no_install" = "xyes"; then
+if test "x$with_no_install" = "xyes" || test "x$enable_win" = "xyes"; then
 	displayedprefix="(not used)"
+	displayedbindir="(not used)"
+	displayeddocdir="(not used)"
 else
-	displayedprefix="$prefix"
+	displayedprefix="${prefix}"
+	displayedbindir="${bindir}"
+	displayeddocdir="${docdatadir}"
+fi
+
+if test "x$enable_win" = "xyes"; then
+	displayedconfigdir="./lib"
+	displayedlibdatadir="./lib"
+else
+	displayedconfigdir="${configdir}"
+	displayedlibdatadir="${libdatadir}"
 fi
 
 echo
 echo "Configuration:"
 echo
 echo "  Install path:                           ${displayedprefix}"
-echo "  binary path:                            ${bindir}"
-echo "  config path:                            ${configdir}"
-echo "  lib path:                               ${libdatadir}"
-echo "  doc path:                               ${docdatadir}"
+echo "  binary path:                            ${displayedbindir}"
+echo "  config path:                            ${displayedconfigdir}"
+echo "  lib path:                               ${displayedlibdatadir}"
+echo "  doc path:                               ${displayeddocdir}"
 echo "  var path:                               ${displayedvardatadir}"
-
+if test "x$with_gamedata_in_lib" = "xyes"; then
+	echo "  gamedata path:                          ${displayedlibdatadir}"
+else
+	echo "  gamedata path:                          ${displayedconfigdir}"
+fi
 if test "x$wsetgid" = "xyes"; then
 	echo "  (as group ${SETEGID})"
-elif test "x$with_private_dirs" = "xyes"; then
+elif test "x$with_private_dirs" = "xyes" && test ! "x$enable_win" = "xyes"; then
 	echo "  (with private save and score files in ~/.pwmangband/PWMAngband/)"
+fi
+if test "x$with_sphinx" = "xyes"; then
+	echo "  documentation:                          Yes"
+else
+	echo "  documentation:                          No"
 fi
 
 echo
 echo "-- Frontends --"
+local_player_frontends=""
 if test "$enable_curses" = "yes"; then
 	if test "$with_curses" = "no"; then
 		echo "- Curses                                  No; missing libraries"
 	else
 		echo "- Curses                                  Yes"
+		local_player_frontends="$local_player_frontends"+
 	fi
 else
 	echo "- Curses                                  Disabled"
@@ -477,6 +639,7 @@ if test "$enable_x11" = "yes"; then
 		echo "- X11                                     No; missing libraries"
 	else
 		echo "- X11                                     Yes"
+		local_player_frontends="$local_player_frontends"+
 	fi
 else
 	echo "- X11                                     Disabled"
@@ -486,6 +649,7 @@ if test "$enable_sdl2" = "yes"; then
 		echo "- SDL2                                    No; missing libraries"
 	else
 		echo "- SDL2                                    Yes"
+		local_player_frontends="$local_player_frontends"+
 	fi
 else
 	echo "- SDL2                                    Disabled"
@@ -495,17 +659,15 @@ if test "$enable_sdl" = "yes"; then
 		echo "- SDL                                     No; missing libraries"
 	else
 		echo "- SDL                                     Yes"
+		local_player_frontends="$local_player_frontends"+
 	fi
 else
 	echo "- SDL                                     Disabled"
 fi
 
 if test "$enable_win" = "yes"; then
-	if test "$with_sdl" = "no"; then
-		echo "- Windows                                 No; missing libraries"
-	else
-		echo "- Windows                                 Yes"
-	fi
+	echo "- Windows                                 Yes"
+	local_player_frontends="$local_player_frontends"+
 else
 	echo "- Windows                                 Disabled"
 fi
@@ -520,6 +682,12 @@ if test "$enable_stats" = "yes"; then
 	echo "- Stats                                   Yes"
 else
     echo "- Stats                                   No"
+fi
+
+if test "$enable_spoil" = "yes"; then
+	echo "- Spoilers                                Yes"
+else
+    echo "- Spoilers                                No"
 fi
 
 echo
@@ -541,4 +709,8 @@ if test "$enable_sdl_mixer" = "yes"; then
 	fi
 else
 	echo "- SDL sound                               Disabled"
+fi
+
+if test x"$local_player_frontends" = "x" ; then
+	AC_MSG_WARN([No player frontends are enabled.  Check your --enable options and prerequisites for the frontends.])
 fi

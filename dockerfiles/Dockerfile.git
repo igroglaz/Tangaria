@@ -16,7 +16,7 @@ RUN git clone "$url" \
 FROM alpine:3.21
 
 RUN apk -U --no-progress --no-cache upgrade \
- && apk -U --no-progress --no-cache add bash
+ && apk -U --no-progress --no-cache add sudo bash
 
 COPY --from=builder /pwmangband /install
 
@@ -35,6 +35,7 @@ RUN addgroup \
     --ingroup "$GROUPNAME" \
     --uid "$UID" \
     $USER \
+&&  echo "%"$USER" ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 &&  mkdir /pwmangband \
 &&  chown -R 1000:1000 /pwmangband /install \
 &&  find /install -name "*.txt" -exec dos2unix '{}' \; \

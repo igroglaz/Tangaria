@@ -1,20 +1,16 @@
 FROM alpine:3.21 AS builder
 
 ARG url='https://github.com/draconisPW/PWMAngband/archive/refs/tags'
-ARG rel='1.6.1-build-1'
+ARG rel='x.y.z-build-t'
 
 RUN apk -U --no-progress --no-cache upgrade \
  && apk -U --no-progress --no-cache add git gcc make libc-dev dos2unix autoconf automake m4 bash patch wget
-
-COPY *.patch."$rel" /
 
 RUN wget --quiet "$url"/"$rel".tar.gz \
 && tar -xzvf /"$rel".tar.gz \
 && cd /PWMAngband-"$rel"\
 && ./autogen.sh \
 && ./configure --prefix=/pwmangband --disable-curses --disable-x11 \
-&& patch src/common/util.c /util.c.patch."$rel" \
-&& patch src/Makefile /Makefile.patch."$rel" \
 && make \
 && make install \
 && cp setup/mangband.cfg /pwmangband/ \
@@ -24,7 +20,7 @@ RUN wget --quiet "$url"/"$rel".tar.gz \
 FROM alpine:3.21
 
 RUN apk -U --no-progress --no-cache upgrade \
- && apk -U --no-progress --no-cache add bash
+ && apk -U --no-progress --no-cache add sudo bash
 
 COPY --from=builder /pwmangband /install
 
@@ -43,6 +39,7 @@ RUN addgroup \
     --ingroup "$GROUPNAME" \
     --uid "$UID" \
     $USER \
+&&  echo "%"$USER" ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 &&  mkdir /pwmangband \
 &&  chown -R 1000:1000 /pwmangband /install \
 &&  find /install -name "*.txt" -exec dos2unix '{}' \; \

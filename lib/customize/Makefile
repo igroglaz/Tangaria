@@ -6,6 +6,6 @@ CONFIG = \
        font-win.prf font-win.prf.default \
        font.prf font-tng.prf \
        message.prf pref.prf user.prf sound.prf \
-       class.prf presets.prf race.prf
+       class.prf race.prf
 
 PACKAGE = customize

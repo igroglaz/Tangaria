@@ -151,7 +151,7 @@ h7 {
 <header id="pageheader">
     <div style="display: flex; align-items: baseline;">
         <h1>The PWMAngband Manual</h1>
-        <span class="version">v1.6.1</span>
+        <span class="version">v1.6.2</span>
     </div>
     <img src="lib/icons/att.svg" style="height: 4rem;">
 </header>
@@ -7014,6 +7014,7 @@ have graphics turned on, then the game will also load some settings from
 <tt class="docutils literal">lib/tiles/</tt>.</p>
 <p>After these are complete, the game will try to load (in order):</p>
 <ul class="simple">
+<li>window.prf - loaded for all characters</li>
 <li><em>race</em>.prf - where <em>race</em> is your character's race, so something like <tt class="docutils literal">Dwarf.prf</tt></li>
 <li><em>class</em>.prf - where <em>class</em> is your character's class, so something like <tt class="docutils literal">Paladin.prf</tt></li>
 <li><em>name</em>.prf - where <em>name</em> is your character's name, so something like <tt class="docutils literal">Balin.prf</tt></li>
@@ -7407,11 +7408,11 @@ the next time you start the SDL2 interface.</p>
 <h1><a class="toc-backref" href="#id182">4&nbsp;&nbsp;&nbsp;Meta</a></h1>
 <div class="section" id="version-information">
 <h2><a class="toc-backref" href="#id183">4.1&nbsp;&nbsp;&nbsp;Version Information</a></h2>
-<p>PWMAngband 1.6.1 is based on Angband 4.2.x and MAngband 1.5.x. The latest
-build for PWMAngband 1.6.1 is build 1.</p>
+<p>PWMAngband 1.6.2 is based on Angband 4.2.x and MAngband 1.5.x. The latest
+build for PWMAngband 1.6.2 is build 1.</p>
 <p>Angband information was last updated for Angband 4.2.x.
 MAngband information was last updated for MAngband 1.5.x.
-PWMAngband information was last updated for PWMAngband 1.6.1.</p>
+PWMAngband information was last updated for PWMAngband 1.6.2.</p>
 <div class="section" id="angband-version-information">
 <h3><a class="toc-backref" href="#id184">4.1.1&nbsp;&nbsp;&nbsp;Angband Version Information</a></h3>
 <p>Detailed information about current and previous versions can be found at
@@ -8137,6 +8138,7 @@ vanilla Angband and MAngband.</p>
 <li>PWMAngband 1.4.0    : 09/08/2020 (Angband 4.2.x  + MAngband 1.4.0)</li>
 <li>PWMAngband 1.5.0    : 09/10/2021 (Angband 4.2.x  + MAngband 1.5.x)</li>
 <li>PWMAngband 1.6.0    : 09/20/2023 (Angband 4.2.x  + MAngband 1.5.x)</li>
+<li>PWMAngband 1.6.1    : 05/24/2024 (Angband 4.2.x  + MAngband 1.5.x)</li>
 </ul>
 </div>
 </div>
@@ -8447,10 +8449,11 @@ this file if you understand the way they are used (defined in obj-power.c).</dd>
 <dt>player_timed.txt</dt>
 <dd>This file defines some of the properties of timed effects (such as haste and
 confusion) that can apply to the player. It chiefly contains the messages
-on changes in these effects, and player attributes which prevent the effects.
-To add new timed effects or change the way existing ones operate, you will
-have to alter list-player-timed.h and probably other files, and
-re-compile the game.</dd>
+on changes in these effects, links a timed effect to a resistance or
+object flag, and specifies player attributes which prevent the effects.
+To add new timed effects or change the way existing ones operate beyond
+what can be specified in player_timed.txt, you will have to alter
+src/list-player-timed.h and probably other files, and re-compile the game.</dd>
 </dl>
 <!--  -->
 <dl class="docutils">

@@ -1,8 +1,11 @@
 ﻿================
-PWMAngband 1.6.1
+PWMAngband 1.6.2
 ================
 
-This release mainly tweaks how Black Rings of Power (Nazgul drops) work.
+This release mainly changes the way race/class presets are handled. Presets are
+now loaded from the client instead of being fixed on the server. For this to
+work with a large amount of data, the network protocol has been altered so that
+the VERIFY packet is sent/received in chunks of 1024 lines of data.
 
 And still many bug fixes and code improvements from Angband 4.2.5...
 
@@ -12,7 +15,7 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.1 build 2
+New features in PWMAngband 1.6.2 build 1
 ========================================
 
 User interface
@@ -80,68 +83,6 @@ Angband 4.2.x:
 - Document v parameter for player_set_timed()
 - Docs: mention how window.prf is used
 
-Features in PWMAngband 1.6.1 build 1
-====================================
-
-User interface
---------------
-
-Angband 4.2.x:
-
-- Improve the show_damage option
-
-Gameplay changes
-----------------
-
-Angband 4.2.x:
-
-- Tweak edges of the Cracks Of Doom
-
 PWMAngband:
 
-- Rework Black Rings of Power
-
-Bugs fixed
-----------
-
-Angband 4.2.x:
-
-- Scan full pile for detecting objects
-
-PWMAngband:
-
-- Fix bugged SDL client options buttons
-- Fix "remove illegal input handler" error
-- Don't clear TMD_FOOD when a character dies to avoid meaningless messages
-- Fix mundane players able to use the Crown and Grond if not having anything
-  in the corresponding equipment slot
-- Fix Dungeon Master being blasted by the Crown's power
-- Fix crash in SDL client when selecting 16x16xw.woff font
-
-Coding changes
---------------
-
-Angband 4.2.x:
-
-- Fix some code formatting
-- Rename DETECT_GOLD to DETECT_ORE
-- player_know_object(): forget traits no longer present
-- Remove append_random_brand() and append_random_slay()
-- Handle padding of text that could contain multibyte UTF-8 characters
-- Some client fixes and improvements
-- Add predicate for squares that could be used as feeling squares
-- Use rf_union() rather than mflag_union() in lore_update()
-- player-calcs: use updated flags rather than flags from prior state
-- Move some assertions
-- Include number in stack for monster's reaction to player theft
-- Have more logic accommodate multiple traps in a square
-- Correct some logic where square_isknown() is used
-
-Compilation/documentation
--------------------------
-
-Angband 4.2.x:
-
-- Fix typos in the comments for the player's timed effects data file
-- Correct some typos in the manual
-- Update Angband forums url
+- Add some docker files to build in alpine docker container

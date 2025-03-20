@@ -13,5 +13,5 @@ addons:
 
 script:
   - ./autogen.sh
-  - ./configure --disable-curses --disable-x11 --enable-sdl
+  - ./configure --disable-curses --enable-sdl
   - make
