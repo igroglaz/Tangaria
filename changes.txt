@@ -27,6 +27,7 @@ Angband 4.2.x:
 - Use known version of equipment for combat information on character sheet
 - Apply purple_uniques to monster list glyphs
 - SDL2: provide ways to summarize details about the SDL2 installation
+- Add GameController support to SDL2 backend
 
 Gameplay changes
 ----------------
@@ -71,6 +72,7 @@ PWMAngband:
 
 - Load race/class presets from the client instead of fixing them on the server
 - Split VERIFY packet in chunks
+- Add class parser for SKILL_TO_HIT_THROW, port values from V
 
 Compilation/documentation
 -------------------------
@@ -82,6 +84,7 @@ Angband 4.2.x:
 - Fix typos
 - Document v parameter for player_set_timed()
 - Docs: mention how window.prf is used
+- Docs: correct some details for shooting/throwing
 
 PWMAngband:
 

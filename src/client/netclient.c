@@ -160,7 +160,7 @@ static void update_ticks(void)
 	if (newticks < ticks) newticks += 10;
 	ticks = newticks;
 
-    /* Wrap every day */
+    /* Wrap */
     if ((ticks < last_sent) || (ticks < last_received))
         last_sent = last_received = 0;
 }

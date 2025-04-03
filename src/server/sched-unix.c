@@ -38,7 +38,7 @@ void core(const char* msg)
 }
 void remove_timer_tick(void)
 {
-    //..
+    /* .. */
 }
 
 /*char sched_version[] = VERSION;*/

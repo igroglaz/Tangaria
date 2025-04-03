@@ -718,6 +718,15 @@ static size_t format_len[FORMAT_CYCLE_MAX] = { 0 };
 #ifdef WINDOWS
 #define VA_COPY(DST, SRC) (DST) = (SRC)
 #else
+/* va_copy is a C99 feature. In C89 implementations, it's sometimes
+   available as __va_copy. If not, memcpy() should do the trick. */
+#ifndef va_copy
+# ifdef __va_copy
+#  define va_copy __va_copy
+# else
+#  define va_copy(a, b) memcpy(&(a), &(b), sizeof(va_list))
+# endif
+#endif
 #define VA_COPY(DST, SRC) va_copy(DST, SRC)
 #endif
 

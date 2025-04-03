@@ -1,6 +1,6 @@
 /*
  * File: list-terrain.h
- * Purpose: List the terrain (features) types that can appear
+ * Purpose: List the terrain (feature) types that can appear
  *
  * These are how the code and data files refer to terrain. Any changes will
  * break savefiles.

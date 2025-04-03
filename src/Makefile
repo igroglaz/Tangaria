@@ -15,7 +15,7 @@ PROG = $(SERVER_PROGNAME) $(CLIENT_PROGNAME)
 # Will dynamically generate version.h with the build number.
 CFLAGS += -DHAVE_VERSION_H
 
-CFLAGS += -I. -fPIC -std=gnu99 -O0
+CFLAGS += -I. -fPIC -std=c99 -O0
 # Replace above line with the two below and then look at gmon.out
 # to do performance monitoring
 # CFLAGS += -g -pg -I. -fPIC -std=c99 -O0

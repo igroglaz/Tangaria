@@ -1572,7 +1572,7 @@ void lore_append_attack(struct player *p, const struct monster_race *race,
     }
 
     described_count = 0;
-    total_centidamage = 99; // round up the final result to the next higher point
+    total_centidamage = 99; /* round up the final result to the next higher point */
 
     /* Describe each melee attack */
     for (i = 0; i < z_info->mon_blows_max; i++)

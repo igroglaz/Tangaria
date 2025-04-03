@@ -656,11 +656,21 @@ Fighting
 ..
  
 Shooting Ability
-  Using ranged missile weapons (and throwing objects) is included in this
-  skill. Different stats apply to different weapons, but this ability may
-  modify the distance an object is thrown/fired, the amount of damage done,
-  and the ability to hit a creature. This skill increases with the level of
-  the character.
+  Firing ammunition with a bow, sling, or crossbow is included in this skill.
+  Dexterity and this skill affect the chance to hit when firing. It does
+  not influence how far ammunition can be fired (that is set by the damage
+  multiplier for the bow, sling, or crossbow) or the amount of damage a hit
+  causes. This skill increases with the level of the character.
+
+..
+ 
+Throwing Skill
+  Throwing a weapon or ammunition is included in this skill. Weapons or
+  ammunition specially designed for throwing are much better when thrown
+  than other weapons or ammunition. Dexterity and this skill affect the chance
+  to hit when throwing. It does not influence how far an item can be thrown
+  (that is set by strength and the weight of the thrown item) or the amount
+  of damage a hit causes. This skill increases with the level of the character.
 
 ..
  
@@ -817,7 +827,9 @@ level of the skill, while the second figure (in parentheses) is the bonus
 that the character gains to this skill every ten levels. So, to find out
 the total skill value of any character's skills, add the race value to the
 class value, and then the bonus once for every ten levels that the
-character has.
+character has. Throwing skill is not shown as its adjustments for race
+and class are the same as for the shooting skill except for rogues (72(+45)),
+rangers (66(+30)), and blackguards (40(+30)).
 
 Please note, however, that these numbers are only good for comparing 
 characters to each other in the absence of other bonuses from high stats 

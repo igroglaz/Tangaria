@@ -141,6 +141,8 @@
  * Include the library header files
  */
 
+#ifdef WINDOWS
+
 /** ANSI C headers **/
 
 #include <ctype.h>
@@ -156,17 +158,7 @@
 #include <time.h>
 #include <limits.h>
 
-/** Other headers **/
-
-#ifdef WINDOWS
-#include <io.h>
-#include <fcntl.h>
-#endif
-
-/* Basic networking stuff */
-#include "h-net.h"
-
-#ifndef WINDOWS
+#else
 
 /* Use various POSIX functions if available */
 #undef _GNU_SOURCE
@@ -199,6 +191,16 @@
 #endif
 
 #endif
+
+/** Other headers **/
+
+#ifdef WINDOWS
+#include <io.h>
+#include <fcntl.h>
+#endif
+
+/* Basic networking stuff */
+#include "h-net.h"
 
 /*
  * Define the basic game types

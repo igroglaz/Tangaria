@@ -10,6 +10,7 @@
 # skill-search:base:increment
 # skill-melee:base:increment
 # skill-shoot:base:increment
+# skill-throw:base:increment
 # skill-dig:base:increment
 # hitdie:increment
 # max-attacks:count
@@ -179,6 +180,7 @@ skill-stealth:0:0
 skill-search:10:12
 skill-melee:70:45
 skill-shoot:55:45
+skill-throw:55:45
 skill-dig:0:0
 hitdie:10
 max-attacks:6
@@ -275,6 +277,7 @@ skill-stealth:3:1
 skill-search:20:16
 skill-melee:44:44
 skill-shoot:30:36
+skill-throw:60:30
 skill-dig:10:5
 hitdie:8
 equip:light:Wooden Torch:1:3:none
@@ -331,6 +334,7 @@ skill-stealth:2:0
 skill-search:10:12
 skill-melee:35:15
 skill-shoot:20:15
+skill-throw:20:15
 skill-dig:0:0
 hitdie:1
 max-attacks:4
@@ -669,6 +673,7 @@ skill-stealth:3:0
 skill-search:12:12
 skill-melee:45:20
 skill-shoot:40:30
+skill-throw:40:30
 skill-dig:0:0
 hitdie:2
 max-attacks:4
@@ -984,6 +989,7 @@ skill-stealth:2:0
 skill-search:10:14
 skill-melee:45:20
 skill-shoot:35:20
+skill-throw:35:20
 skill-dig:0:0
 hitdie:2
 max-attacks:4
@@ -1310,6 +1316,7 @@ skill-stealth:2:0
 skill-search:10:12
 skill-melee:35:25
 skill-shoot:20:15
+skill-throw:20:15
 skill-dig:0:0
 hitdie:1
 max-attacks:4
@@ -1659,6 +1666,7 @@ skill-stealth:0:0
 skill-search:10:12
 skill-melee:65:40
 skill-shoot:40:30
+skill-throw:40:30
 skill-dig:0:0
 hitdie:7
 max-attacks:5
@@ -1896,6 +1904,7 @@ skill-stealth:3:1
 skill-search:20:16
 skill-melee:35:45
 skill-shoot:66:30
+skill-throw:72:45
 skill-dig:0:0
 hitdie:4
 # got exp 10% (harder). hardcoded in player.c
@@ -2157,6 +2166,7 @@ skill-stealth:3:0
 skill-search:15:15
 skill-melee:60:40
 skill-shoot:72:45
+skill-throw:66:30
 skill-dig:0:0
 hitdie:6
 max-attacks:5
@@ -2339,6 +2349,7 @@ skill-stealth:-1:-1
 skill-search:8:10
 skill-melee:65:40
 skill-shoot:35:15
+skill-throw:40:30
 skill-dig:0:0
 hitdie:9
 max-attacks:5
@@ -2573,6 +2584,7 @@ skill-stealth:1:0
 skill-search:10:12
 skill-melee:30:11
 skill-shoot:20:15
+skill-throw:20:15
 skill-dig:0:0
 hitdie:0
 max-attacks:1
@@ -2929,7 +2941,8 @@ skill-stealth:0:0
 skill-search:18:15
 skill-melee:70:45
 skill-shoot:55:45
-skill-dig:5:2
+skill-throw:55:45
+skill-dig:0:0
 hitdie:9
 max-attacks:6
 min-weight:30
@@ -2986,6 +2999,7 @@ skill-stealth:2:0
 skill-search:15:15
 skill-melee:56:30
 skill-shoot:82:55
+skill-throw:82:55
 skill-dig:0:0
 hitdie:4
 max-attacks:2
@@ -3147,6 +3161,7 @@ skill-stealth:1:0
 skill-search:15:15
 skill-melee:42:20
 skill-shoot:30:20
+skill-throw:30:20
 skill-dig:0:0
 hitdie:3
 max-attacks:4
@@ -3497,6 +3512,7 @@ skill-stealth:2:0
 skill-search:10:12
 skill-melee:34:15
 skill-shoot:20:15
+skill-throw:20:15
 skill-dig:0:0
 hitdie:1
 max-attacks:3
@@ -3953,6 +3969,7 @@ skill-stealth:2:0
 skill-search:10:14
 skill-melee:34:15
 skill-shoot:20:15
+skill-throw:20:15
 skill-dig:0:0
 hitdie:0
 max-attacks:1
@@ -4198,6 +4215,7 @@ skill-stealth:1:0
 skill-search:10:12
 skill-melee:60:40
 skill-shoot:66:30
+skill-throw:66:30
 skill-dig:0:0
 hitdie:5
 max-attacks:5
@@ -4845,6 +4863,7 @@ skill-stealth:1:0
 skill-search:14:13
 skill-melee:50:28
 skill-shoot:51:35
+skill-throw:51:35
 skill-dig:0:25
 hitdie:5
 max-attacks:4
