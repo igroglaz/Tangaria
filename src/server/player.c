@@ -1,4 +1,4 @@
-/*
+ /*
  * File: player.c
  * Purpose: Player implementation
  *
@@ -576,9 +576,9 @@ static void adjust_level(struct player *p)
             // award account points
             award_account_points(p);
 
-            // extra gold for account points
-            if (p->account_score > 1) // in case of ".. / log10(p->account_score)"
-                ; // award_gold_for_account_points(p); will turn on later
+            // extra gold for account points for NON-hardcore players
+            if (p->account_score > 1 && !OPT(p, birth_hardcore)) // in case of ".. / log10(p->account_score)"
+                award_gold_for_account_points(p);
 
             /* Message */
             if (p->max_lev == 50)
