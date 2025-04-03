@@ -29,15 +29,21 @@
 
 /*
  * Check to see if the player can use a rod/wand/staff/activatable object.
+ *
+ * Return a positive value if the given object can be used; return zero if
+ * the object cannot be used but might succeed on repetition (i.e. device's
+ * failure check did not pass but the failure rate is less than 100%); return
+ * a negative value if the object cannot be used and repetition won't help
+ * (no charges, requires recharge, or failure rate is 100% or more).
  */
-static bool check_devices(struct player *p, struct object *obj)
+static int check_devices(struct player *p, struct object *obj)
 {
     int fail;
     const char *action;
     bool activated = false;
 
     /* Horns are not magical and therefore never fail */
-    if (tval_is_horn(obj)) return true;
+    if (tval_is_horn(obj)) return 1;
 
     /* Get the right string */
     if (tval_is_rod(obj))
@@ -59,13 +65,13 @@ static bool check_devices(struct player *p, struct object *obj)
     if (CHANCE(fail, 1000))
     {
         msg(p, "You failed to %s properly.", action);
-        return false;
+        return ((fail < 1000)? 0 :-1);
     }
 
     /* Notice activations */
     if (activated) object_notice_effect(p, obj);
 
-    return true;
+    return 1;
 }
 
 
@@ -1742,17 +1748,20 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
 
 /*
  * Use an object the right way.
+ *
+ * Returns true if repeated commands may continue.
  */
-static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
+static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
 {
     struct object *obj = object_from_index(p, item, true, true);
     struct effect *effect;
-    bool ident = false, used = false, can_use = true;
+    bool ident = false, used = false;
+    int can_use = 1;
     bool notice = false;
     int aim;
 
     /* Paranoia: requires an item */
-    if (!obj) return;
+    if (!obj) return false;
 
     /* Clear current */
     current_clear(p);
@@ -1766,18 +1775,18 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         !(p_cmd->player_undead && player_undead(p) && object_is_carried(p, obj)))
     {
         msg(p, p_cmd->msg_ghost);
-        return;
+        return false;
     }
 
     /* Check preventive inscription */
     if ((p_cmd->p_note >= 0) && check_prevent_inscription(p, p_cmd->p_note))
     {
         msg(p, "The item's inscription prevents it.");
-        return;
+        return false;
     }
 
     /* Hack -- restrict to equipped items */
-    if (p_cmd->eq_only && !object_is_equipped(p->body, obj)) return;
+    if (p_cmd->eq_only && !object_is_equipped(p->body, obj)) return false;
 
     /* Some checks */
     if (!object_is_carried(p, obj))
@@ -1786,32 +1795,32 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         if (!is_owner(p, obj))
         {
             msg(p, "This item belongs to someone else!");
-            return;
+            return false;
         }
 
         /* Must meet level requirement */
         if (!has_level_req(p, obj))
         {
             msg(p, "You don't have the required level!");
-            return;
+            return false;
         }
 
         /* Check preventive inscription '!g' */
         if (object_prevent_inscription(p, obj, INSCRIPTION_PICKUP, false))
         {
             msg(p, "The item's inscription prevents it.");
-            return;
+            return false;
         }
     }
 
     /* Paranoia: requires a proper object */
-    if (!p_cmd->item_tester_hook(p, obj)) return;
+    if (!p_cmd->item_tester_hook(p, obj)) return false;
 
     /* Check preventive inscription */
     if (object_prevent_inscription(p, obj, p_cmd->g_note, false))
     {
         msg(p, "The item's inscription prevents it.");
-        return;
+        return false;
     }
 
     /* Antimagic field (except horns which are not magical) */
@@ -1819,7 +1828,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         check_antimagic(p, chunk_get(&p->wpos), NULL))
     {
         use_energy(p);
-        return;
+        return false;
     }
 
     /* The player is aware of the object's flavour */
@@ -1839,7 +1848,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     if ((effect->index == EF_IDENTIFY) && p->was_aware && !spell_identify_unknown_available(p))
     {
         msg(p, "You have nothing to identify.");
-        return;
+        return false;
     }
 
     aim = obj_needs_aim(p, obj);
@@ -1860,7 +1869,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         can_use = check_devices(p, obj);
 
     /* Execute the effect */
-    if (can_use)
+    if (can_use > 0)
     {
         //////////////////////////////////////////////////////////////
         // Hack to reduce MD chances for wands, staves, rods for some classes:
@@ -1896,7 +1905,7 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         sound(p, p_cmd->snd);
         activation_message(p, obj);
 
-        if (execute_effect(p, &obj, effect, dir, "", &ident, &used, &notice)) return;
+        if (execute_effect(p, &obj, effect, dir, "", &ident, &used, &notice)) return false;
     }
 
     /* Take a turn if device failed */
@@ -1972,51 +1981,103 @@ static void use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     }
 
     /* If the item is a null pointer or has been wiped, be done now */
-    if (!obj) return;
+    if (!obj) return false;
 
     if (notice) object_notice_effect(p, obj);
 
     // notice: there MD will lose it's change:
     /* Use the object, check if none left */
-    if (do_cmd_use_end(p, obj, ident, used, p_cmd->use)) return;
+    if (do_cmd_use_end(p, obj, ident, used, p_cmd->use)) return false;
 
     /* Hack -- rings of polymorphing get destroyed when activated */
     if (tval_is_poly(obj) && used)
     {
         msg(p, "Your ring explodes in a bright flash of light!");
         use_object(p, obj, 1, true);
+        return false;
     }
+
+    return (can_use == 0);
 }
 
 
 /* Use a staff */
-void do_cmd_use_staff(struct player *p, int item, int dir)
+bool do_cmd_use_staff(struct player *p, int item, int dir)
 {
-    use_aux(p, item, dir, &cmd_params[CMD_USE]);
+    /* Cancel repeat */
+    if (!p->device_request) return true;
+
+    /* Check energy */
+    if (!has_energy(p, true)) return false;
+
+    /* Use the object, disable autorepetition when successful */
+    if (!use_aux(p, item, dir, &cmd_params[CMD_USE]))
+        p->device_request = 0;
+
+    /* Repeat */
+    if (p->device_request > 0) p->device_request--;
+    if (p->device_request > 0) cmd_use(p, item, dir);
+    return true;
 }
 
 
 /* Aim a wand */
-void do_cmd_aim_wand(struct player *p, int item, int dir)
+bool do_cmd_aim_wand(struct player *p, int item, int dir)
 {
-    /* Use the object */
-    use_aux(p, item, dir, &cmd_params[CMD_AIM]);
+    /* Cancel repeat */
+    if (!p->device_request) return true;
+
+    /* Check energy */
+    if (!has_energy(p, true)) return false;
+
+    /* Use the object, disable autorepetition when successful */
+    if (!use_aux(p, item, dir, &cmd_params[CMD_AIM]))
+        p->device_request = 0;
+
+    /* Repeat */
+    if (p->device_request > 0) p->device_request--;
+    if (p->device_request > 0) cmd_aim_wand(p, item, dir);
+    return true;
 }
 
 
 /* Zap a rod */
-void do_cmd_zap_rod(struct player *p, int item, int dir)
+bool do_cmd_zap_rod(struct player *p, int item, int dir)
 {
-    /* Use the object */
-    use_aux(p, item, dir, &cmd_params[CMD_ZAP]);
+    /* Cancel repeat */
+    if (!p->device_request) return true;
+
+    /* Check energy */
+    if (!has_energy(p, true)) return false;
+
+    /* Use the object, disable autorepetition when successful */
+    if (!use_aux(p, item, dir, &cmd_params[CMD_ZAP]))
+        p->device_request = 0;
+
+    /* Repeat */
+    if (p->device_request > 0) p->device_request--;
+    if (p->device_request > 0) cmd_zap(p, item, dir);
+    return true;
 }
 
 
 /* Activate a wielded object */
-void do_cmd_activate(struct player *p, int item, int dir)
+bool do_cmd_activate(struct player *p, int item, int dir)
 {
-    /* Use the object */
-    use_aux(p, item, dir, &cmd_params[CMD_ACTIVATE]);
+    /* Cancel repeat */
+    if (!p->device_request) return true;
+
+    /* Check energy */
+    if (!has_energy(p, true)) return false;
+
+    /* Use the object, disable autorepetition when successful */
+    if (!use_aux(p, item, dir, &cmd_params[CMD_ACTIVATE]))
+        p->device_request = 0;
+
+    /* Repeat */
+    if (p->device_request > 0) p->device_request--;
+    if (p->device_request > 0) cmd_activate(p, item, dir);
+    return true;
 }
 
 
@@ -2079,24 +2140,50 @@ void do_cmd_read_scroll(struct player *p, int item, int dir)
 
 
 /* Use an item */
-void do_cmd_use_any(struct player *p, int item, int dir)
+bool do_cmd_use_any(struct player *p, int item, int dir)
 {
     struct object *obj = object_from_index(p, item, true, true);
 
     /* Paranoia: requires an item */
-    if (!obj) return;
+    if (!obj) return true;
+
+    /* Check energy */
+    if (!has_energy(p, true)) return false;
+
+    /*
+     * If this is not a staff, wand, rod, or activatable item, always
+     * disable autorepetition. The functions for handling a staff, wand
+     * rod, or activatable item take care of autorepetition for those
+     * objects.
+     */
 
     /* Fire a missile */
-    if (obj->tval == p->state.ammo_tval) do_cmd_fire(p, dir, item);
+    if (obj->tval == p->state.ammo_tval)
+    {
+        do_cmd_fire(p, dir, item);
+        p->device_request = 0;
+    }
 
     /* Eat some food */
-    else if (item_tester_hook_eat(p, obj)) do_cmd_eat_food(p, item);
+    else if (item_tester_hook_eat(p, obj))
+    {
+        do_cmd_eat_food(p, item);
+        p->device_request = 0;
+    }
 
     /* Quaff a potion */
-    else if (item_tester_hook_quaff(p, obj)) do_cmd_quaff_potion(p, item, dir);
+    else if (item_tester_hook_quaff(p, obj))
+    {
+        do_cmd_quaff_potion(p, item, dir);
+        p->device_request = 0;
+    }
 
     /* Read a scroll */
-    else if (item_tester_hook_read(p, obj)) do_cmd_read_scroll(p, item, dir);
+    else if (item_tester_hook_read(p, obj))
+    {
+        do_cmd_read_scroll(p, item, dir);
+        p->device_request = 0;
+    }
 
     /* Use a staff */
     else if (item_tester_hook_use(p, obj)) do_cmd_use_staff(p, item, dir);
@@ -2112,7 +2199,13 @@ void do_cmd_use_any(struct player *p, int item, int dir)
         do_cmd_activate(p, item, dir);
 
     /* Oops */
-    else msg(p, "You cannot use that!");
+    else
+    {
+        msg(p, "You cannot use that!");
+        p->device_request = 0;
+    }
+
+    return true;
 }
 
 

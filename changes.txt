@@ -35,6 +35,7 @@ Gameplay changes
 Angband 4.2.x:
 
 - Update object.txt (mithril ammo)
+- Autorepeat using a wand/staff/rod/activatable item on failure
 
 Bugs fixed
 ----------

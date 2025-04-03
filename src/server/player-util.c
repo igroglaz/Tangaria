@@ -1463,6 +1463,7 @@ void disturb(struct player *p, int unused_flag)
     if ((p->dm_flags & DM_NEVER_DISTURB) && !player_intent) return;
 
     /* Cancel repeated commands */
+    p->device_request = 0;
     p->digging_request = 0;
     if (p->cancel_firing) p->firing_request = false;
     else p->cancel_firing = true;

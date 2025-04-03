@@ -200,6 +200,10 @@ extern int cmd_ignore_drop(struct player *p);
 extern int cmd_run(struct player *p, int dir);
 extern int cmd_rest(struct player *p, int16_t resting);
 extern int cmd_tunnel(struct player *p);
+extern int cmd_zap(struct player *p, int item, int dir);
+extern int cmd_use(struct player *p, int item, int dir);
+extern int cmd_aim_wand(struct player *p, int item, int dir);
+extern int cmd_activate(struct player *p, int item, int dir);
 extern int cmd_fire_at_nearest(struct player *p);
 extern int cmd_cast(struct player *p, int16_t book, int16_t spell, int dir);
 

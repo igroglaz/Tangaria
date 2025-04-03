@@ -883,6 +883,7 @@ struct player
     bool has_energy;                /* Player has energy */
     hturn idle_turn;                /* Turn since last game command */
     bool full_refresh;              /* Full refresh (includes monster/object lists) */
+    uint8_t device_request;
     uint8_t digging_request;
     uint8_t digging_dir;
     bool firing_request;
