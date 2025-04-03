@@ -3,6 +3,10 @@
  * Purpose: Options
  */
 
+/* normal - whether the option is ON by default */
+/* server - whether the option is relevant for server 
+(note: it doesn't work for hardcoded stuff, eg birth_no_ghost */
+
 /* name  description  type  normal  server */
 OP(none, "", MAX, false, false)
 OP(rogue_like_commands, "Use the roguelike command keyset", INTERFACE, false, true)
@@ -34,12 +38,12 @@ OP(birth_force_descend, "Force player descent", BIRTH, false, true)
 OP(birth_no_recall, "Word of Recall has no effect", BIRTH, false, true)
 OP(birth_no_artifacts, "Restrict creation of artifacts", BIRTH, false, true)
 OP(birth_feelings, "Show level feelings", BIRTH, true, true)
-OP(birth_no_selling, "Increase gold drops but disable selling", BIRTH, true, true)
+OP(birth_no_selling, "---- (cannot be disabled: More $ drop, no selling)", BIRTH, true, true)
 OP(birth_start_kit, "Start with a kit of useful gear", BIRTH, true, true)
 OP(birth_no_stores, "Restrict the use of stores/home", BIRTH, false, true)
-OP(birth_no_ghost, "Death is permanent", BIRTH, false, true)
+OP(birth_no_ghost, "---- (cannot be disabled: Death is permanent)", BIRTH, true, true)
 OP(birth_fruit_bat, "Play as a fruit bat", BIRTH, false, true)
-OP(birth_hardcore, "Without Second Chance and extra low-HP heal", BIRTH, false, true)
+OP(birth_hardcore, "HC: no extra gold, 2ndChance & low-HP heal", BIRTH, false, true)
 OP(disturb_icky, "Get out of icky screens when disturbed", ADVANCED, false, true)
 OP(active_auto_retaliator, "Active auto-retaliator", ADVANCED, true, true)
 OP(disturb_bash, "Disturb whenever monsters bash down doors", ADVANCED, true, true)

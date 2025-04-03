@@ -121,7 +121,7 @@ Y:birth_no_ghost
 # Option 'Play as a fruit bat'
 X:birth_fruit_bat
 
-# Option 'Hardcore (no second chance and extra low-hp heal)'
+# Option 'Hardcore (No extra gold, 2nd Chance & low-HP heal)'
 X:birth_hardcore
 
 # Option 'Get out of icky screens when disturbed'
