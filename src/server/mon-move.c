@@ -2631,15 +2631,17 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
         }
     }
 
-    else if ((streq(p->race->name, "Minotaur") || streq(p->clazz->name, "Knight") || 
-              streq(p->race->name, "Naga")) && (mon_distance > 0 && mon_distance < 3))
-                monster_wake(p, mon, true, 100);
-
-    else if (streq(p->race->name, "Hydra") && (mon_distance > 0 && mon_distance < 21))
-        monster_wake(p, mon, true, 100);
-
-    else if (streq(p->race->name, "Balrog") && (mon_distance > 0 && mon_distance < 41))
-        monster_wake(p, mon, true, 100);
+    else if (mon_distance > 0)
+    {
+        if (mon_distance < 3 && (streq(p->race->name, "Minotaur") || streq(p->race->name, "Naga")))
+            monster_wake(p, mon, true, 100);
+        else if (mon_distance < 2 && streq(p->clazz->name, "Knight"))
+            monster_wake(p, mon, true, 100);
+        else if (mon_distance < 21 && streq(p->race->name, "Hydra"))
+            monster_wake(p, mon, true, 100);
+        else if (mon_distance < 41 && streq(p->race->name, "Balrog"))
+            monster_wake(p, mon, true, 100);
+    }
 }
 
 
