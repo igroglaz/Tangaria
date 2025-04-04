@@ -1885,7 +1885,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
                 {
                     msg(p, "You failed to activate an item, but its charge preserved.");
                     use_energy(p);
-                    return;
+                    return false;
                 }
             }
             else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
@@ -1895,7 +1895,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
                 {
                     msg(p, "You failed to activate an item, but its charge preserved.");
                     use_energy(p);
-                    return;
+                    return false;
                 }
             }
         }
