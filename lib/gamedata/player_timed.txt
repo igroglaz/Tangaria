@@ -890,3 +890,23 @@ on-end:You feel yourself slow down.
 near-begin: starts moving faster.
 near-end: slows down.
 msgt:SPEED
+
+name:FIERY_STANCE
+desc:fiery stance
+grade:r:10000:Fiery:Fiery stance.
+#msgt:FIERY_STANCE
+
+name:COLDY_STANCE
+desc:coldy stance
+grade:w:10000:Coldy:Coldy stance.
+#msgt:COLDY_STANCE
+
+name:ELECTRY_STANCE
+desc:electry stance
+grade:b:10000:Electry:Electry stance.
+#msgt:ELECTRY_STANCE
+
+name:ACIDY_STANCE
+desc:acidy stance
+grade:s:10000:Acidy:Acidy stance.
+#msgt:ACIDY_STANCE

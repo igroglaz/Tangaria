@@ -1304,6 +1304,16 @@ bool effect_handler_DAMAGE(effect_handler_context_t *context)
 
     /* Hit the player */
     dam = player_apply_damage_reduction(context->origin->player, dam, non_physical, "damage effect");
+
+    // Spellblade "Silence" spell halves HP (no dam reduction)
+    if (streq(context->origin->player->clazz->name, "Spellblade"))
+    {
+        if (context->origin->player->spell_cost == 30)
+        {
+            dam += context->origin->player->chp / 2;
+        }
+    }
+
     if (dam && OPT(context->origin->player, show_damage))
         msg(context->origin->player, "You take $r%d^r damage.", dam);
     take_hit(context->origin->player, dam, killer, df);
