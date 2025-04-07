@@ -1412,6 +1412,32 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
         player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
     }
 
+    // Spellblade class stances
+    if (idx == TMD_FIERY_STANCE)
+    {
+        player_clear_timed(p, TMD_COLDY_STANCE, false);
+        player_clear_timed(p, TMD_ELECTRY_STANCE, false);
+        player_clear_timed(p, TMD_ACIDY_STANCE, false);
+    }
+    else if (idx == TMD_COLDY_STANCE)
+    {
+        player_clear_timed(p, TMD_FIERY_STANCE, false);
+        player_clear_timed(p, TMD_ELECTRY_STANCE, false);
+        player_clear_timed(p, TMD_ACIDY_STANCE, false);
+    }
+    else if (idx == TMD_ELECTRY_STANCE)
+    {
+        player_clear_timed(p, TMD_FIERY_STANCE, false);
+        player_clear_timed(p, TMD_COLDY_STANCE, false);
+        player_clear_timed(p, TMD_ACIDY_STANCE, false);
+    }
+    else if (idx == TMD_ACIDY_STANCE)
+    {
+        player_clear_timed(p, TMD_FIERY_STANCE, false);
+        player_clear_timed(p, TMD_COLDY_STANCE, false);
+        player_clear_timed(p, TMD_ELECTRY_STANCE, false);
+    }
+
     /* Hack -- call other functions, reveal hidden players if noticed */
     if ((idx == TMD_STUN) && (p->dm_flags & DM_INVULNERABLE))
     {
