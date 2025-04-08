@@ -579,7 +579,7 @@ static void heal_monster(struct player *p, struct monster *mon, struct source *o
     /* Get the monster possessive ("his"/"her"/"its") */
     monster_desc(p, m_poss, sizeof(m_poss), mon, MDESC_PRO_VIS | MDESC_POSS);
 
-    seen = (!p->timed[TMD_BLIND] && monster_is_visible(p, mon->midx));
+    seen = (!p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL] && monster_is_visible(p, mon->midx));
 
     /* Heal some */
     mon->hp += amount;
@@ -805,7 +805,9 @@ bool effect_handler_BEAM(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, true);
 
     fire_beam(context->origin, context->subtype, context->dir, dam, false);
-    if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
+    if (!context->origin->player->timed[TMD_BLIND] && !context->origin->player->timed[TMD_BLIND_REAL])
+        context->ident = true;
+
     return true;
 }
 
@@ -1106,7 +1108,9 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
         fire_beam(context->origin, context->subtype, context->dir, dam, false);
     else
         fire_bolt(context->origin, context->subtype, context->dir, dam, false);
-    if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
+    if (!context->origin->player->timed[TMD_BLIND] && !context->origin->player->timed[TMD_BLIND_REAL])
+        context->ident = true;
+
     return true;
 }
 
@@ -2090,8 +2094,10 @@ bool effect_handler_LINE(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, true);
     int y, num = (context->value.m_bonus? context->value.m_bonus: 1);
 
-    if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
-        msg(context->origin->player, context->self_msg);
+    if (context->self_msg && !context->origin->player->timed[TMD_BLIND] &&
+       !context->origin->player->timed[TMD_BLIND_REAL])
+           msg(context->origin->player, context->self_msg);
+
     for (y = 0; y < num; y++)
     {
         if (light_line_aux(context->origin, context->dir, context->subtype, dam))
@@ -2462,13 +2468,17 @@ bool effect_handler_STAR(effect_handler_context_t *context)
             dam *= context->origin->player->lev / 5;
     }
 
-    if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
+    if (context->self_msg && !context->origin->player->timed[TMD_BLIND] &&
+       !context->origin->player->timed[TMD_BLIND_REAL])
         msg(context->origin->player, context->self_msg);
+
     context->origin->player->do_visuals = true;
     for (i = 0; i < 8; i++)
         light_line_aux(context->origin, ddd[i], context->subtype, dam);
     context->origin->player->do_visuals = false;
-    if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
+    if (!context->origin->player->timed[TMD_BLIND] && !context->origin->player->timed[TMD_BLIND_REAL]
+        context->ident = true;
+
 
     context->self_msg = NULL;
     return true;
@@ -2485,14 +2495,17 @@ bool effect_handler_STAR_BALL(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, true);
     int i;
 
-    if (context->self_msg && !context->origin->player->timed[TMD_BLIND])
-        msg(context->origin->player, context->self_msg);
+    if (context->self_msg && !context->origin->player->timed[TMD_BLIND] &&
+       !context->origin->player->timed[TMD_BLIND_REAL])
+            msg(context->origin->player, context->self_msg);
+
     for (i = 0; i < 8; i++)
     {
         fire_ball(context->origin->player, context->subtype, ddd[i], dam, context->radius, false,
             false);
     }
-    if (!context->origin->player->timed[TMD_BLIND]) context->ident = true;
+    if (!context->origin->player->timed[TMD_BLIND] && !context->origin->player->timed[TMD_BLIND_REAL])
+        context->ident = true;
 
     context->self_msg = NULL;
     return true;

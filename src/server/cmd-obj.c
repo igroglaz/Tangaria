@@ -2118,7 +2118,7 @@ void do_cmd_quaff_potion(struct player *p, int item, int dir)
 /* Determine if the player can read scrolls. */
 static bool can_read_scroll(struct player *p)
 {
-    if (p->timed[TMD_BLIND])
+    if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL])
     {
         msg(p, "You can't see anything.");
         return false;

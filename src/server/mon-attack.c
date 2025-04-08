@@ -482,7 +482,9 @@ bool make_ranged_attack(struct source *who, struct chunk *c, struct monster *mon
 {
     struct monster_lore *lore = get_lore(who->player, mon->race);
     int thrown_spell;
-    bool seen = ((who->player->timed[TMD_BLIND] == 0) && monster_is_visible(who->player, mon->midx));
+    bool seen = ((who->player->timed[TMD_BLIND] == 0) &&
+                 (who->player->timed[TMD_BLIND_REAL] == 0) &&
+                  monster_is_visible(who->player, mon->midx));
 
     /* Stop if player is dead or gone */
     if (!who->player->alive || who->player->is_dead || who->player->upkeep->new_level_method)

@@ -2306,7 +2306,7 @@ void square_destroy_decoy(struct player *p, struct chunk *c, struct loc *grid)
     loc_init(&c->decoy, 0, 0);
 
     if (!p) return;
-    if (los(c, &p->grid, grid) && !p->timed[TMD_BLIND])
+    if (los(c, &p->grid, grid) && !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL])
         msg(p, "The decoy is destroyed!");
 }
 

@@ -1048,7 +1048,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
 
         /* Skip irrelevant players */
         if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-        if (p->timed[TMD_BLIND]) continue;
+        if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
 
         /* Add one to the count */
         if (drawing[j]) p->did_visuals = true;

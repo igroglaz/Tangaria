@@ -381,7 +381,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
         }
 
         /* Normal line of sight and player is not blind */
-        if (square_isview(p, &mon->grid) && !p->timed[TMD_BLIND])
+        if (square_isview(p, &mon->grid) && !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL])
         {
             /* Use "infravision" */
             if (d <= p->state.see_infra)
@@ -2082,7 +2082,7 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
         }
 
         /* Normal line of sight, and not blind */
-        if (square_isview(p, &q->grid) && !p->timed[TMD_BLIND])
+        if (square_isview(p, &q->grid) && !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL])
         {
             /* Use "infravision" */
             if (d <= p->state.see_infra)

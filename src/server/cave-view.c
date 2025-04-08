@@ -1001,7 +1001,7 @@ static void update_one(struct player *p, struct chunk *c, struct loc *grid)
     bool was_lit = sqinfo_has(square_p(p, grid)->info, SQUARE_WASLIT);
 
     /* Remove view if blind, check visible squares for traps */
-    if (p->timed[TMD_BLIND])
+    if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL])
     {
         sqinfo_off(square_p(p, grid)->info, SQUARE_SEEN);
         sqinfo_off(square_p(p, grid)->info, SQUARE_CLOSE_PLAYER);
@@ -1080,7 +1080,8 @@ void update_view(struct player *p, struct chunk *c)
      * If the player is blind and in terrain that was remembered to be
      * impassable, forget the remembered terrain.
      */
-    if (p->timed[TMD_BLIND] && square_isknown(p, &p->grid) && !square_ispassable_p(p, &p->grid))
+    if ((p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) && square_isknown(p, &p->grid) &&
+        !square_ispassable_p(p, &p->grid))
     {
         /* PWMAngband: player must not be able to move through impassable terrain */
         if (!player_passwall(p)) square_forget(p, &p->grid);

@@ -198,7 +198,8 @@ static void prt_health(struct player *p)
         is_held = (health_who->player->timed[TMD_PARALYZED]? true: false);
         is_poisoned = (health_who->player->timed[TMD_POISONED]? true: false);
         is_bleeding = (health_who->player->timed[TMD_CUT]? true: false);
-        is_blind =  (health_who->player->timed[TMD_BLIND]? true: false);
+        is_blind = (health_who->player->timed[TMD_BLIND] ||
+                    health_who->player->timed[TMD_BLIND_REAL]) ? true : false;
 
         /* Extract the "percent" of health */
         pct = 100L * health_who->player->chp / health_who->player->mhp;
@@ -6015,7 +6016,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
 
             /* Skip irrelevant players */
             if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-            if (p->timed[TMD_BLIND]) continue;
+            if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
             if (!panel_contains(p, &blast_grid[i])) continue;
             if (p->did_visuals && !p->do_visuals) continue;
 
@@ -6051,7 +6052,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
 
                 /* Skip irrelevant players */
                 if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-                if (p->timed[TMD_BLIND]) continue;
+                if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
 
                 /* Delay to show this radius appearing */
                 if (drawing[j] || drawn[j])
@@ -6071,7 +6072,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
 
         /* Skip irrelevant players */
         if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-        if (p->timed[TMD_BLIND]) continue;
+        if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
 
         /* Erase and flush */
         if (drawn[j])
@@ -6102,7 +6103,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
 
         /* Skip irrelevant players */
         if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-        if (p->timed[TMD_BLIND]) continue;
+        if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
 
         /* Add one to the count */
         if (drawn[j]) p->did_visuals = true;
@@ -6124,7 +6125,7 @@ void display_bolt(struct chunk *cv, struct bolt *data, bool *drawing)
 
         /* Skip irrelevant players */
         if (!wpos_eq(&p->wpos, &cv->wpos)) continue;
-        if (p->timed[TMD_BLIND]) continue;
+        if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) continue;
         if (!panel_contains(p, &data->grid)) continue;
         if (p->did_visuals && !p->do_visuals) continue;
 

@@ -2252,7 +2252,8 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     if (context->target_mon)
     {
         loc_copy(&target, &context->target_mon->grid);
-        if (!context->origin->player->timed[TMD_BLIND])
+        if (!context->origin->player->timed[TMD_BLIND] &&
+            !context->origin->player->timed[TMD_BLIND_REAL])
         {
             char m_name[NORMAL_WID];
 
@@ -2270,7 +2271,8 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
         {
             loc_copy(&target, decoy);
             if (!los(context->cave, &context->origin->player->grid, decoy) ||
-                context->origin->player->timed[TMD_BLIND])
+                context->origin->player->timed[TMD_BLIND] ||
+                context->origin->player->timed[TMD_BLIND_REAL])
             {
                 decoy_unseen = true;
             }
@@ -2278,7 +2280,8 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
                 msg(context->origin->player, "Darkness surrounds the decoy.");
         }
 
-        else if (!context->origin->player->timed[TMD_BLIND])
+        else if (!context->origin->player->timed[TMD_BLIND] &&
+                 !context->origin->player->timed[TMD_BLIND_REAL])
             msg(context->origin->player, "Darkness surrounds you.");
     }
 
@@ -3442,7 +3445,8 @@ bool effect_handler_DRAIN_LIGHT(effect_handler_context_t *context)
         if (obj->timeout < 1) obj->timeout = 1;
 
         /* Notice */
-        if (!context->origin->player->timed[TMD_BLIND])
+        if (!context->origin->player->timed[TMD_BLIND] &&
+            !context->origin->player->timed[TMD_BLIND_REAL])
         {
             msgt(context->origin->player, MSG_MON_DEVOUR, "O__* Your light dims.");
             context->ident = true;
@@ -3502,7 +3506,8 @@ bool effect_handler_DRAIN_MANA(effect_handler_context_t *context)
         struct loc *decoy = cave_find_decoy(context->cave);
 
         seen = (!context->origin->player->timed[TMD_BLIND] &&
-            monster_is_visible(context->origin->player, mon->midx));
+                !context->origin->player->timed[TMD_BLIND_REAL] &&
+                monster_is_visible(context->origin->player, mon->midx));
         source_monster(who, mon);
 
         /* Target is another monster - disenchant it */
@@ -3921,7 +3926,8 @@ bool effect_handler_IDENTIFY(effect_handler_context_t *context)
 bool effect_handler_LIGHT_AREA(effect_handler_context_t *context)
 {
     /* Message */
-    if (!context->origin->player->timed[TMD_BLIND])
+    if (!context->origin->player->timed[TMD_BLIND] &&
+        !context->origin->player->timed[TMD_BLIND_REAL])
         msg(context->origin->player, "You are surrounded by a white light.");
 
     /* Hack -- elementalists */
@@ -4798,7 +4804,8 @@ bool effect_handler_RESILIENCE(effect_handler_context_t *context)
         monster_desc(context->origin->player, m_name, sizeof(m_name), mon, MDESC_STANDARD);
 
         seen = (!context->origin->player->timed[TMD_BLIND] &&
-            monster_is_visible(context->origin->player, mon->midx));
+                !context->origin->player->timed[TMD_BLIND_REAL] &&
+                monster_is_visible(context->origin->player, mon->midx));
 
         /* Skip already resilient slaves */
         if (mon->resilient)
@@ -5181,7 +5188,8 @@ bool effect_handler_SUMMON(effect_handler_context_t *context)
     context->ident = true;
 
     /* Message for the blind */
-    if (count && context->origin->player->timed[TMD_BLIND])
+    if (count && (context->origin->player->timed[TMD_BLIND] ||
+        context->origin->player->timed[TMD_BLIND_REAL]))
     {
         msgt(context->origin->player, message_type, "You hear %s appear nearby.",
             ((count > 1)? "many things": "something"));

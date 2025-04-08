@@ -714,7 +714,7 @@ void player_update_light(struct player *p)
             }
 
             /* Hack -- special treatment when blind */
-            if (p->timed[TMD_BLIND])
+            if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL])
             {
                 /* Hack -- save some light for later */
                 if (obj->timeout == 0) obj->timeout++;
@@ -1145,7 +1145,8 @@ void player_resting_complete_special(struct player *p)
         case REST_COMPLETE:
         case REST_COMPLETE_NODISTURB:
         {
-            if ((p->chp == p->mhp) && (p->csp == p->msp) && !p->timed[TMD_BLIND] &&
+            if ((p->chp == p->mhp) && (p->csp == p->msp) &&
+                !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL] &&
                 !p->timed[TMD_CONFUSED] && !p->timed[TMD_POISONED] && !p->timed[TMD_AFRAID] &&
                 !p->timed[TMD_TERROR] && !p->timed[TMD_STUN] && !p->timed[TMD_CUT] &&
                 !p->timed[TMD_SLOW] && !p->timed[TMD_PARALYZED] && !p->timed[TMD_IMAGE] &&
@@ -1221,7 +1222,7 @@ uint8_t player_cannot_cast(struct player *p, bool show_msg)
         return 1;
     }
 
-    if (p->timed[TMD_BLIND] || no_light(p))
+    if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL] || no_light(p))
     {
         if (show_msg) msg(p, "You cannot see!");
         return 2;
@@ -1515,8 +1516,9 @@ void search(struct player *p, struct chunk *c)
     struct loc_iterator iter;
 
     /* Various conditions mean no searching */
-    if (p->timed[TMD_BLIND] || no_light(p) || p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
-        return;
+    if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL] || no_light(p) ||
+        p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
+            return;
 
     /* Paranoia */
     if (loc_is_zero(&p->grid)) return;

@@ -1610,7 +1610,7 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     if ((origin->player == p) && (typ != PROJ_MON_POLY) && (typ != PROJ_MON_HEAL)) return;
 
     /* Obtain player info */
-    blind = (p->timed[TMD_BLIND]? true: false);
+    blind = (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) ? true : false;
     seen = !blind;
 
     my_strcpy(killer, "something strange", sizeof(killer));
