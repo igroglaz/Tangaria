@@ -2684,17 +2684,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_FIRE].res_level[0] < 2)
             state->el_info[ELEM_FIRE].res_level[0]++;
 
-        if (p->lev > 30) // all base res after lvl 30
-        {
-            if (state->el_info[ELEM_COLD].res_level[0] < 2)
-                state->el_info[ELEM_COLD].res_level[0]++;
-            if (state->el_info[ELEM_ELEC].res_level[0] < 2)
-                state->el_info[ELEM_ELEC].res_level[0]++;
-            if (state->el_info[ELEM_POIS].res_level[0] < 2)
-                state->el_info[ELEM_POIS].res_level[0]++;
-            if (state->el_info[ELEM_ACID].res_level[0] < 2)
-                state->el_info[ELEM_ACID].res_level[0]++;
-        }
     }
     else if (p->timed[TMD_COLDY_STANCE])
     {
@@ -2702,17 +2691,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_COLD].res_level[0] < 2)
             state->el_info[ELEM_COLD].res_level[0]++;
 
-        if (p->lev > 30)
-        {
-            if (state->el_info[ELEM_FIRE].res_level[0] < 2)
-                state->el_info[ELEM_FIRE].res_level[0]++;
-            if (state->el_info[ELEM_ELEC].res_level[0] < 2)
-                state->el_info[ELEM_ELEC].res_level[0]++;
-            if (state->el_info[ELEM_POIS].res_level[0] < 2)
-                state->el_info[ELEM_POIS].res_level[0]++;
-            if (state->el_info[ELEM_ACID].res_level[0] < 2)
-                state->el_info[ELEM_ACID].res_level[0]++;
-        }
     }
     else if (p->timed[TMD_ELECTRY_STANCE])
     {
@@ -2720,17 +2698,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_ELEC].res_level[0] < 2)
             state->el_info[ELEM_ELEC].res_level[0]++;
         
-        if (p->lev > 30)
-        {
-            if (state->el_info[ELEM_COLD].res_level[0] < 2)
-                state->el_info[ELEM_COLD].res_level[0]++;
-            if (state->el_info[ELEM_FIRE].res_level[0] < 2)
-                state->el_info[ELEM_FIRE].res_level[0]++;
-            if (state->el_info[ELEM_POIS].res_level[0] < 2)
-                state->el_info[ELEM_POIS].res_level[0]++;
-            if (state->el_info[ELEM_ACID].res_level[0] < 2)
-                state->el_info[ELEM_ACID].res_level[0]++;
-        }
     }
     else if (p->timed[TMD_ACIDY_STANCE])
     {
@@ -2738,17 +2705,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->el_info[ELEM_ACID].res_level[0] < 2)
             state->el_info[ELEM_ACID].res_level[0]++;
         
-        if (p->lev > 30)
-        {
-            if (state->el_info[ELEM_COLD].res_level[0] < 2)
-                state->el_info[ELEM_COLD].res_level[0]++;
-            if (state->el_info[ELEM_ELEC].res_level[0] < 2)
-                state->el_info[ELEM_ELEC].res_level[0]++;
-            if (state->el_info[ELEM_POIS].res_level[0] < 2)
-                state->el_info[ELEM_POIS].res_level[0]++;
-            if (state->el_info[ELEM_FIRE].res_level[0] < 2)
-                state->el_info[ELEM_FIRE].res_level[0]++;
-        }
     }
 
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
