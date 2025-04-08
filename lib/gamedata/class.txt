@@ -8306,7 +8306,7 @@ title:Grandmaster
 
 magic:1:550:1
 
-book:shadow book:town:[Shadows for Beginners]:9:shadow
+book:shadow book:town:[Shadows for Beginners]:10:shadow
 equip:shadow book:[Shadows for Beginners]:1:1:none
 
 ###### ATT
@@ -8347,14 +8347,30 @@ desc: Cooldown 2 turns.
 
 ####### DEF
 
-spell:Nothingness:30:6:35:5:0
+spell:Nothingness:25:6:35:5:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
-effect:TIMED_INC_NO_RES:CONFUSED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 msg_other: teleports away.
 desc:Teleports you randomly within the current level and dazes afterwards.
+
+spell:Resistance:30:10:65:20:0
+effect:CLEAR_VALUE
+effect:TIMED_SET:OPP_POIS
+effect:TIMED_SET:OPP_COLD
+effect:TIMED_SET:OPP_FIRE
+effect:TIMED_SET:OPP_ELEC
+effect:TIMED_SET:OPP_ACID
+effect:SET_VALUE
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:TIMED_INC_NO_RES:SLOW_REAL
+dice:$B
+expr:B:PLAYER_LEVEL:/ 5
+desc:Grants you resistance to acid, cold, fire, lightning and poison,
+desc: but makes you slow for some time.
 
 spell:Thunder Shadows:35:1:1:1:0
 effect:TIMED_SET:SPEEDY:0:5
@@ -8380,16 +8396,9 @@ expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_SET:INVIS:0:5
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-# must be non-curable blindness (as now it's possible simply drink potion)
-# (same to other skills)
-effect:TIMED_INC_NO_RES:BLIND
+effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC_NO_RES:SLOW
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-effect:DAMAGE
-dice:10
 msg_other: vanishes into the fog.
 desc:Makes you invisible - and also blind and sluggish.
 
@@ -8399,7 +8408,7 @@ dice:10+1d10
 # dmg hardcoded (p->chp / 2)
 effect:DAMAGE
 dice:10
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:20
 desc:Prevents summoning around you for a level-dependent duration.
 desc: Recoil from this spell might even kill the caster and makes you dizzy.
