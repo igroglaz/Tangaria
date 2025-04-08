@@ -1914,7 +1914,6 @@ min-weight:20
 strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -2951,7 +2950,6 @@ strength-multiplier:5
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
@@ -4225,7 +4223,6 @@ strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
@@ -5340,7 +5337,6 @@ strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:potion:Berserk Strength:1:1:birth_no_recall
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -5728,7 +5724,6 @@ min-weight:35
 strength-multiplier:3
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -7035,7 +7030,6 @@ min-weight:25
 strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
@@ -8270,7 +8264,6 @@ min-weight:20
 strength-multiplier:4
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
-equip:soft armour:Soft Leather Armour:1:1:birth_no_recall
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
