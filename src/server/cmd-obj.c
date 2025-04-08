@@ -2130,7 +2130,7 @@ static bool can_read_scroll(struct player *p)
         return false;
     }
 
-    if (p->timed[TMD_CONFUSED])
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL])
     {
         msg(p, "You are too confused to read!");
         return false;

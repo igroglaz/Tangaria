@@ -2111,7 +2111,8 @@ void do_cmd_steal(struct player *p, int dir)
 
     /* Not when under some status conditions */
     if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL] ||
-        p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
+        p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL] ||
+        p->timed[TMD_IMAGE])
     {
         msg(p, "Your current condition prevents you from stealing anything.");
         return;

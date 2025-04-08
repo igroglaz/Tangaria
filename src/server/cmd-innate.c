@@ -36,7 +36,7 @@ void do_cmd_ghost(struct player *p, int ability, int dir)
     if (!p->ghost || player_can_undead(p)) return;
 
     /* Not when confused */
-    if (p->timed[TMD_CONFUSED])
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL])
     {
         msg(p, "You are too confused!");
         return;

@@ -192,7 +192,8 @@ static void prt_health(struct player *p)
         is_dead = ((health_who->player->chp < 0)? true: false);
         is_afraid = (player_of_has(health_who->player, OF_AFRAID)? true: false);
         is_disenchanted = false;
-        is_confused = (health_who->player->timed[TMD_CONFUSED]? true: false);
+        is_confused = (health_who->player->timed[TMD_CONFUSED] ||
+                       health_who->player->timed[TMD_CONFUSED_REAL]) ? true : false;
         is_stunned = (health_who->player->timed[TMD_PARALYZED]? true: false);
         is_asleep = (health_who->player->timed[TMD_PARALYZED]? true: false);
         is_held = (health_who->player->timed[TMD_PARALYZED]? true: false);

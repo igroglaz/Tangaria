@@ -997,8 +997,9 @@ bool player_confuse_dir(struct player *p, int *dp)
     int dir = *dp;
 
     /* Random direction */
-    if (p->timed[TMD_CONFUSED] && ((dir == DIR_TARGET) || magik(75)))
-        dir = ddd[randint0(8)];
+    if ((p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL]) &&
+        ((dir == DIR_TARGET) || magik(75)))
+            dir = ddd[randint0(8)];
 
     if (*dp != dir)
     {
@@ -1147,7 +1148,8 @@ void player_resting_complete_special(struct player *p)
         {
             if ((p->chp == p->mhp) && (p->csp == p->msp) &&
                 !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL] &&
-                !p->timed[TMD_CONFUSED] && !p->timed[TMD_POISONED] && !p->timed[TMD_AFRAID] &&
+                !p->timed[TMD_CONFUSED] && !p->timed[TMD_CONFUSED_REAL] &&
+                !p->timed[TMD_POISONED] && !p->timed[TMD_AFRAID] &&
                 !p->timed[TMD_TERROR] && !p->timed[TMD_STUN] && !p->timed[TMD_CUT] &&
                 !p->timed[TMD_SLOW] && !p->timed[TMD_SLOW_REAL] && !p->timed[TMD_PARALYZED] &&
                 !p->timed[TMD_IMAGE] &&
@@ -1229,7 +1231,7 @@ uint8_t player_cannot_cast(struct player *p, bool show_msg)
         return 2;
     }
 
-    if (p->timed[TMD_CONFUSED])
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL])
     {
         if (show_msg) msg(p, "You are too confused!");
         return 3;
@@ -1261,7 +1263,7 @@ uint8_t player_cannot_cast_mimic(struct player *p, bool show_msg)
     }
 
     /* Not when confused */
-    if (p->timed[TMD_CONFUSED])
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL])
     {
         if (show_msg) msg(p, "You are too confused!");
         return 2;
@@ -1518,7 +1520,8 @@ void search(struct player *p, struct chunk *c)
 
     /* Various conditions mean no searching */
     if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL] || no_light(p) ||
-        p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE])
+        p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL] ||
+        p->timed[TMD_IMAGE])
             return;
 
     /* Paranoia */
@@ -2156,7 +2159,7 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     if (p->dm_flags & DM_MONSTER_FRIEND) return false;
 
     /* Not while confused */
-    if (p->timed[TMD_CONFUSED]) return false;
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL]) return false;
 
     /* Don't auto-retalitate with commands queued */
     if (get_connection(p->conn)->q.len > 0) return false;

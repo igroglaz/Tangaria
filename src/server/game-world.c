@@ -1149,7 +1149,8 @@ static void process_player_world(struct player *p, struct chunk *c)
     if (player_has(p, PF_SEE_ORE))
     {
         /* Only if they are in good shape */
-        if (!p->timed[TMD_IMAGE] && !p->timed[TMD_CONFUSED] &&
+        if (!p->timed[TMD_IMAGE] &&
+            !p->timed[TMD_CONFUSED] && !p->timed[TMD_CONFUSED_REAL] &&
             !p->timed[TMD_AMNESIA] && !p->timed[TMD_STUN] &&
             !p->timed[TMD_PARALYZED] && !p->timed[TMD_TERROR] &&
             !p->timed[TMD_AFRAID])

@@ -2677,8 +2677,9 @@ static bool player_confuse_dir_nomsg(struct player *p, int *dp)
     int dir = *dp;
 
     /* Random direction */
-    if (p->timed[TMD_CONFUSED] && ((dir == DIR_TARGET) || magik(75)))
-        dir = ddd[randint0(8)];
+    if ((p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL]) &&
+        ((dir == DIR_TARGET) || magik(75)))
+            dir = ddd[randint0(8)];
 
     if (*dp != dir)
     {
@@ -3012,7 +3013,7 @@ bool do_cmd_run(struct player *p, int dir)
     if (!has_energy_per_move(p)) return false;
 
     /* Not while confused */
-    if (p->timed[TMD_CONFUSED])
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL])
     {
         msg(p, "You are too confused!");
         return true;
