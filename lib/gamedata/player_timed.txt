@@ -910,3 +910,39 @@ name:ACIDY_STANCE
 desc:acidy stance
 grade:s:10000:Acidy:Acidy stance.
 #msgt:ACIDY_STANCE
+
+name:BLIND_REAL
+desc:blindness
+grade:o:10000:Blind:You are BLIND!
+on-end:You blink and your eyes clear.
+near-begin: gropes around BLINDLY.
+near-end: can see again.
+msgt:BLIND
+
+name:SLOW_REAL
+desc:slowness ({-10} to speed)
+grade:U:10000:Slow:You feel yourself moving SLOWER!
+on-end:You feel yourself speed up.
+near-begin: starts moving SLOWER.
+near-end: speeds up.
+msgt:SLOW
+
+name:CONFUSED_REAL
+desc:confusion
+grade:o:10000:Confused:You are CONFUSED!
+on-end:You are no longer confused.
+on-increase:You are more confused!
+on-decrease:You feel a little less confused.
+near-begin: appears CONFUSED.
+near-end: appears less confused.
+msgt:CONFUSED
+
+name:IMAGE_REAL
+desc:hallucinations
+grade:o:10000:Hallu:You feel DRUGGED!
+on-end:You can see clearly again.
+on-increase:You feel more drugged!
+on-decrease:You feel less drugged.
+near-begin: appears DRUGGED.
+near-end: can see clearly again.
+msgt:DRUGGED
