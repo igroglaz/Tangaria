@@ -2853,6 +2853,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->speed -= 10;
     }
 
+    // non-curable slow (only wait till time pass)
+    if (p->timed[TMD_SLOW_REAL])
+    {
+            state->speed -= 10;
+    }
+
     if (p->timed[TMD_MOVE_FAST]) extra_moves += 10;
     if (p->timed[TMD_SINFRA]) state->see_infra += 5;
     if (of_has(state->flags, OF_ESP_ALL))

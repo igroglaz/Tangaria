@@ -1149,7 +1149,8 @@ void player_resting_complete_special(struct player *p)
                 !p->timed[TMD_BLIND] && !p->timed[TMD_BLIND_REAL] &&
                 !p->timed[TMD_CONFUSED] && !p->timed[TMD_POISONED] && !p->timed[TMD_AFRAID] &&
                 !p->timed[TMD_TERROR] && !p->timed[TMD_STUN] && !p->timed[TMD_CUT] &&
-                !p->timed[TMD_SLOW] && !p->timed[TMD_PARALYZED] && !p->timed[TMD_IMAGE] &&
+                !p->timed[TMD_SLOW] && !p->timed[TMD_SLOW_REAL] && !p->timed[TMD_PARALYZED] &&
+                !p->timed[TMD_IMAGE] &&
                 !p->word_recall && !p->deep_descent)
             {
                 done = true;
