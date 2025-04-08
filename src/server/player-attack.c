@@ -243,9 +243,9 @@ static bool is_debuffed(struct source *target)
     }
     if (target->player)
     {
-        return (target->player->timed[TMD_CONFUSED] || target->player->timed[TMD_PARALYZED] ||
-            player_of_has(target->player, OF_AFRAID) || target->player->timed[TMD_BLIND] ||
-            target->player->timed[TMD_BLIND_REAL]);
+        return (target->player->timed[TMD_CONFUSED] || target->player->timed[TMD_CONFUSED_REAL] ||
+            target->player->timed[TMD_PARALYZED] || player_of_has(target->player, OF_AFRAID) ||
+            target->player->timed[TMD_BLIND] || target->player->timed[TMD_BLIND_REAL]);
     }
     return false;
 }
@@ -997,7 +997,8 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 if (player_has(p, PF_MARTIAL_ARTS) && (attacks == p->clazz->attacks) &&
                     (attack->effect != MA_NONE))
                 {
-                    ok = !p->timed[TMD_STUN] && !p->timed[TMD_CONFUSED] && monk_armor_ok(p);
+                    ok = !p->timed[TMD_STUN] && !p->timed[TMD_CONFUSED] &&
+                         !p->timed[TMD_CONFUSED_REAL] && monk_armor_ok(p);
                 }
 
                 /* Apply minimum level */

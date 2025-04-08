@@ -111,7 +111,7 @@ void look_player_desc(struct player *p, char *buf, size_t max)
 
     /* Effect status */
     if (p->timed[TMD_PARALYZED]) my_strcat(buf, ", paralyzed", max);
-    if (p->timed[TMD_CONFUSED]) my_strcat(buf, ", confused", max);
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL]) my_strcat(buf, ", confused", max);
     if (player_of_has(p, OF_AFRAID) || p->timed[TMD_AFRAID]) my_strcat(buf, ", afraid", max);
     if (p->timed[TMD_STUN]) my_strcat(buf, ", stunned", max);
     if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) my_strcat(buf, ", blind", max);
