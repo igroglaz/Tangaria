@@ -377,7 +377,7 @@ static int see_floor_items(struct player *p, struct chunk *c, int pickup,
     struct object **floor_list, int floor_max)
 {
     size_t floor_num = 0;
-    bool blind = (p->timed[TMD_BLIND] || no_light(p));
+    bool blind = (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL] || no_light(p));
     const char *prompt = "see";
     bool can_pickup = false, can_lift = false, allow_pickup = false;
     size_t i;

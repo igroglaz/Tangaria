@@ -1482,7 +1482,7 @@ int calc_unlocking_chance(const struct player *p, int lock_power, bool lock_unse
 
 int calc_skill(const struct player *p, int skill, int power, bool unseen)
 {
-    if (unseen || p->timed[TMD_BLIND]) skill /= 10;
+    if (unseen || p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) skill /= 10;
     if (p->timed[TMD_CONFUSED] || p->timed[TMD_IMAGE]) skill /= 10;
 
     /* Always have a small chance of success */

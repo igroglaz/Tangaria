@@ -244,7 +244,8 @@ static bool is_debuffed(struct source *target)
     if (target->player)
     {
         return (target->player->timed[TMD_CONFUSED] || target->player->timed[TMD_PARALYZED] ||
-            player_of_has(target->player, OF_AFRAID) || target->player->timed[TMD_BLIND]);
+            player_of_has(target->player, OF_AFRAID) || target->player->timed[TMD_BLIND] ||
+            target->player->timed[TMD_BLIND_REAL]);
     }
     return false;
 }

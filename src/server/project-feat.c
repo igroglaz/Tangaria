@@ -877,7 +877,7 @@ bool project_f(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     {
         line_sight = square_isview(origin->player, grid);
         line_sound = square_isseen(origin->player, grid);
-        is_blind = origin->player->timed[TMD_BLIND];
+        is_blind = origin->player->timed[TMD_BLIND] || origin->player->timed[TMD_BLIND_REAL];
     }
 
     context.origin = origin;
