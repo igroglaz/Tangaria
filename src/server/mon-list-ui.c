@@ -201,7 +201,7 @@ static void monster_list_format_section(struct player *p, const monster_list_t *
 static bool monster_list_format_special(struct player *p, const monster_list_t *list, bool tb,
     int max_lines, int max_width, size_t *max_height_result, size_t *max_width_result)
 {
-	if (p->timed[TMD_IMAGE] > 0)
+	if (p->timed[TMD_IMAGE] > 0 || p->timed[TMD_IMAGE_REAL] > 0)
     {
 		/* Hack -- message needs newline to calculate width properly. */
 		const char *message = "Your hallucinations are too wild to see things clearly.\n";

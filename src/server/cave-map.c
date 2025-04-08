@@ -84,7 +84,7 @@ void map_info(struct player *p, struct chunk *c, struct loc *grid, struct grid_d
     g->in_view = square_isseen(p, grid);
     g->is_player = ((q == p)? true: false);
     g->m_idx = ((g->is_player)? 0: square(c, grid)->mon);
-    g->hallucinate = (p->timed[TMD_IMAGE]? true: false);
+    g->hallucinate = (p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL]) ? true : false;
 
     if (g->in_view)
     {

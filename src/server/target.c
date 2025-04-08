@@ -147,12 +147,14 @@ bool target_able(struct player *p, struct source *who)
         return (wpos_eq(&p->wpos, &who->player->wpos) && player_is_visible(p, who->idx) &&
             !who->player->k_idx &&
             projectable(p, c, &p->grid, &who->player->grid, PROJECT_NONE,
-                !square_istree(c, &who->player->grid)) && !p->timed[TMD_IMAGE]);
+                !square_istree(c, &who->player->grid)) &&
+            !p->timed[TMD_IMAGE] && !p->timed[TMD_IMAGE_REAL]);
     }
 
     return (who->monster->race && monster_is_obvious(p, who->idx, who->monster) &&
         projectable(p, c, &p->grid, &who->monster->grid, PROJECT_NONE,
-            !square_istree(c, &who->monster->grid)) && !p->timed[TMD_IMAGE]);
+            !square_istree(c, &who->monster->grid)) &&
+        !p->timed[TMD_IMAGE] && !p->timed[TMD_IMAGE_REAL]);
 }
 
 
@@ -399,7 +401,7 @@ bool target_accept(struct player *p, struct loc *grid)
     if (who->player && (p == who->player)) return true;
 
     /* Handle hallucination */
-    if (p->timed[TMD_IMAGE]) return false;
+    if (p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL]) return false;
 
     /* Obvious players */
     if (who->player && player_is_visible(p, who->idx) && !who->player->k_idx)

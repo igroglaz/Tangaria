@@ -227,7 +227,7 @@ static void prt_health(struct player *p)
     }
 
     /* Tracking an unseen, hallucinatory, or dead monster (or player) */
-    if (is_unseen || p->timed[TMD_IMAGE] || is_dead)
+    if (is_unseen || p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL] || is_dead)
     {
         /* Indicate that the monster (or player) health is "unknown" */
         Send_monster_health(p, 0, COLOUR_WHITE);
