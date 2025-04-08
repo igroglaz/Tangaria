@@ -937,7 +937,9 @@ static void process_player_world(struct player *p, struct chunk *c)
     }
 
     /* Hack -- semi-constant hallucination (but not in stores) */
-    if (p->timed[TMD_IMAGE] && !in_store(p)) p->upkeep->redraw |= (PR_MAP);
+    if ((p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL]) && !in_store(p))
+            p->upkeep->redraw |= (PR_MAP);
+
 
     /*** Damage (or healing) over Time ***/
 
@@ -1149,7 +1151,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     if (player_has(p, PF_SEE_ORE))
     {
         /* Only if they are in good shape */
-        if (!p->timed[TMD_IMAGE] &&
+        if (!p->timed[TMD_IMAGE] && !p->timed[TMD_IMAGE_REAL] &&
             !p->timed[TMD_CONFUSED] && !p->timed[TMD_CONFUSED_REAL] &&
             !p->timed[TMD_AMNESIA] && !p->timed[TMD_STUN] &&
             !p->timed[TMD_PARALYZED] && !p->timed[TMD_TERROR] &&

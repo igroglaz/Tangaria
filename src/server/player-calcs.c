@@ -1483,8 +1483,9 @@ int calc_unlocking_chance(const struct player *p, int lock_power, bool lock_unse
 int calc_skill(const struct player *p, int skill, int power, bool unseen)
 {
     if (unseen || p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL]) skill /= 10;
-    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL] || p->timed[TMD_IMAGE])
-        skill /= 10;
+    if (p->timed[TMD_CONFUSED] || p->timed[TMD_CONFUSED_REAL] ||
+        p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL])
+            skill /= 10;
 
     /* Always have a small chance of success */
     return MAX(2, skill - power);
@@ -2936,7 +2937,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 5, 0);
     if (p->timed[TMD_POISONED])
         adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 20, 0);
-    if (p->timed[TMD_IMAGE])
+    if (p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL])
         adjust_skill_scale(&state->skills[SKILL_DEVICE], -1, 5, 0);
     if (p->timed[TMD_BLOODLUST])
     {

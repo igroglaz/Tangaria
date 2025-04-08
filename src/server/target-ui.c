@@ -233,7 +233,7 @@ static enum target_aux_result aux_hallucinate(struct chunk *c, struct player *p,
     char out_val[256];
 
     /* Hallucination messes things up */
-    if (!p->timed[TMD_IMAGE]) return TAR_NEXT;
+    if (!p->timed[TMD_IMAGE] && !p->timed[TMD_IMAGE_REAL]) return TAR_NEXT;
 
     /* Display a message */
     strnfmt(out_val, sizeof(out_val), "%s%s%s, %s.", auxst->phrase1, auxst->phrase2, name_strange,
