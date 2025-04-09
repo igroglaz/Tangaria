@@ -9074,53 +9074,53 @@ RF:<player>:0x97:0xAA
 
 
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Troll] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Troll] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Human] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Human] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Elf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Elf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Elf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Elf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Halfling] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Halfling] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gnome] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gnome] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dwarf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dwarf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Orc] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Orc] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dunadan] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dunadan] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE High-Elf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE High-Elf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Kobold] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Kobold] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Yeek] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Yeek] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Ent] ]
 monster:<player>:0x84:0xB6
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Ent] [EQU $GENDER Female] ]
@@ -9141,29 +9141,29 @@ RF:<player>:0x80:0x80
 #
 #
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Black_Numenorean] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Black_Numenorean] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Damned] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Damned] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Merfolk] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Merfolk] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Barbarian] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Barbarian] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Black_Dwarf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Black_Dwarf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Goblin] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Goblin] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Giant] ]
 monster:<player>:0x97:0x86
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Half-Giant] [EQU $GENDER Female] ]
@@ -9177,49 +9177,49 @@ monster:<player>:0x97:0x88
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Troll] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x88
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Orc] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Orc] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Forest_Goblin] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Forest_Goblin] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dark_Elf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Dark_Elf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Werewolf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Werewolf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Undead] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Undead] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Vampire] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Vampire] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Maiar] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Maiar] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Demonic] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Demonic] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Balrog] ]
 monster:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Balrog] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x92
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Celestial] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Celestial] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Nephalem] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Nephalem] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gargoyle] ]
 monster:<player>:0x97:0x94
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gargoyle] [EQU $GENDER Female] ]
@@ -9242,17 +9242,17 @@ monster:<player>:0x97:0x98
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Titan] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x98
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Wood-Elf] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Wood-Elf] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Elemental] ]
 monster:<player>:0x97:0x9A
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Elemental] [EQU $GENDER Female] ]
 RF:<player>:0x97:0x9A
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Frostmen] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Frostmen] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Centaur] ]
 monster:<player>:0x97:0x9C
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Centaur] [EQU $GENDER Female] ]
@@ -9282,13 +9282,13 @@ monster:<player>:0x97:0xA2
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Naga] [EQU $GENDER Female] ]
 RF:<player>:0x97:0xA2
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gnoll] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Gnoll] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Lizardmen] ]
-monster:<player>:0x8B:0x9D
+monster:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Lizardmen] [EQU $GENDER Female] ]
-RF:<player>:0x8B:0x9D
+RF:<player>:0x8B:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Wisp] ]
 monster:<player>:0x97:0xA5
 ?:[AND [EQU $CLASS Heretic] [EQU $RACE Wisp] [EQU $GENDER Female] ]
