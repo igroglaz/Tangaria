@@ -217,6 +217,16 @@ help: equipment. |
 help: Some races that have their own polymorph or shape forms got certain
 help: restrictions on being shapechangers.
 
+class:Villager
+help:Villagers are common folks, versatile and able to do anything, but also
+help: average at everything they do. They have no strengths nor weaknesses.
+help: Villagers use stamina given by their constitution to perform common tasks
+help: and can be accompanied by a single pet that they can summon at their leisure.
+help: They can chop wood and mine ore more easily as they advance in levels. They
+help: are able to turn terrain into crops and farm food from them which is rare
+help: gift nowadays as not many can cultivate fields which become fell under
+help: dark curses of the Enemy.
+
 class:Tamer
 help:Scar-covered hands of tamer - person devoted his life and (remaining) limbs
 help: to take care of wild creatures - is an evidence what a tideous and dangerous
@@ -390,12 +400,4 @@ help: suppression of all magic in the area around them. |
 help:They prefer not to use weapons, but to break bones with their bare hands... |
 help:Inquisitors replenish their life forces by hurting victims who fear them.
 
-class:Villager
-help:Villagers are common folks, versatile and able to do anything, but also
-help: average at everything they do. They have no strengths nor weaknesses.
-help: Villagers use stamina given by their constitution to perform common tasks
-help: and can be accompanied by a single pet that they can summon at their leisure.
-help: They can chop wood and mine ore more easily as they advance in levels. They
-help: are able to turn terrain into crops and farm food from them which is rare
-help: gift nowadays as not many can cultivate fields which become fell under
-help: dark curses of the Enemy.
+
