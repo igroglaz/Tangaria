@@ -2696,7 +2696,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_h += p->lev;
     }
 
-    // Spellblade class
+    // Heretic class
     if (p->timed[TMD_FIERY_STANCE])
     {
         player_set_timed(p, TMD_ATT_FIRE, 2, false);

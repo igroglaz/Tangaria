@@ -8256,8 +8256,8 @@ desc:Bring retribution to heretics...
 desc: Cooldown 100 turns.
 
 
-############### CLASS TEMPLATE for Spellblade ###############
-name:Spellblade
+############### CLASS TEMPLATE for Heretic ## Spellblade, Hexrat, Ruinist
+name:Heretic
 color:w
 skill-disarm-phys:20:6
 skill-disarm-magic:20:10
@@ -8284,7 +8284,6 @@ value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-2]
-# boni to swords, malus to all other weap types (rename and revamp Phaseblade)
 player-flags:0:CHOOSE_SPELLS | BACK_STAB
 title:Rookie
 title:Initiate
@@ -8349,7 +8348,7 @@ dice:2
 msg_other: teleports away.
 desc:Teleports you randomly within the current level and dazes afterwards.
 
-spell:Resistance:30:10:65:20:0
+spell:Shroud:30:10:65:20:0
 effect:CLEAR_VALUE
 effect:TIMED_SET:OPP_POIS
 effect:TIMED_SET:OPP_COLD
@@ -8359,13 +8358,12 @@ effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC_NO_RES:SLOW_REAL
-dice:$B
-expr:B:PLAYER_LEVEL:/ 5
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:3+1d3
 desc:Grants you resistance to acid, cold, fire, lightning and poison,
-desc: but makes you slow for some time.
+desc: but makes you blind for some time.
 
-spell:Thunder Shadows:35:1:1:1:0
+spell:Thunder Burst:35:15:50:1:0
 effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
@@ -8373,7 +8371,7 @@ effect:WAKE
 msg_other: surges with lightning.
 desc:Calls the thunder to boost your speed. It's not quiet.
 
-spell:Arcane Stitches:40:1:1:1:0
+spell:Arcane Stitches:40:7:50:1:0
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
@@ -8382,18 +8380,17 @@ dice:4+1d5
 msg_other: heals, but becomes still.
 desc:Heals your wounds, but paralyzes you.
 
-spell:Magic Fog:45:1:1:1:0
+spell:Magic Fog:45:20:40:1:0
 effect:TIMED_SET:STEALTH
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_SET:INVIS:0:5
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:10+1d15
 msg_other: vanishes into the fog.
-desc:Makes you invisible - and also blind and sluggish.
+desc: Makes you invisible, but alters your perception of the world.
 
 spell:Silence:50:30:75:70:0
 effect:TIMED_SET:ANTISUMMON
@@ -8401,10 +8398,10 @@ dice:10+1d10
 # dmg hardcoded (p->chp / 2)
 effect:DAMAGE
 dice:10
-effect:TIMED_INC_NO_RES:IMAGE_REAL
+effect:TIMED_INC_NO_RES:SLOW_REAL
 dice:20
-desc:Prevents summoning around you for a level-dependent duration.
-desc: Recoil from this spell might even kill the caster and makes you dizzy.
+desc:Prevents summoning around you for a some time.
+desc: Recoil from this spell might even kill the caster and slow you down.
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
