@@ -946,3 +946,18 @@ on-decrease:You feel less drugged.
 near-begin: appears DRUGGED.
 near-end: can see clearly again.
 msgt:DRUGGED
+
+name:PIERCING_STANCE
+desc:piercing stance
+grade:r:10000:Piercing:Piercing stance.
+#msgt:PIERCING_STANCE
+
+name:CUTTING_STANCE
+desc:cutting stance
+grade:w:10000:Cutting:Cutting stance.
+#msgt:CUTTING_STANCE
+
+name:CRUSHING_STANCE
+desc:crushing stance
+grade:b:10000:Crushing:Crushing stance.
+#msgt:CRUSHING_STANCE

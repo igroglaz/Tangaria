@@ -1438,6 +1438,23 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
         player_clear_timed(p, TMD_ELECTRY_STANCE, false);
     }
 
+    // Cuttroat stances
+    if (idx == TMD_PIERCING_STANCE)
+    {
+        player_clear_timed(p, TMD_CUTTING_STANCE, false);
+        player_clear_timed(p, TMD_CRUSHING_STANCE, false);
+    }
+    else if (idx == TMD_CUTTING_STANCE)
+    {
+        player_clear_timed(p, TMD_PIERCING_STANCE, false);
+        player_clear_timed(p, TMD_CRUSHING_STANCE, false);
+    }
+    else if (idx == TMD_CRUSHING_STANCE)
+    {
+        player_clear_timed(p, TMD_PIERCING_STANCE, false);
+        player_clear_timed(p, TMD_CUTTING_STANCE, false);
+    }
+
     /* Hack -- call other functions, reveal hidden players if noticed */
     if ((idx == TMD_STUN) && (p->dm_flags & DM_INVULNERABLE))
     {
