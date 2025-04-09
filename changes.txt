@@ -29,6 +29,10 @@ Angband 4.2.x:
 - SDL2: provide ways to summarize details about the SDL2 installation
 - Add GameController support to SDL2 backend
 
+PWMAngband:
+
+- Allow swapping items with similar @w1-@w9 inscriptions
+
 Gameplay changes
 ----------------
 

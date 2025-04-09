@@ -5226,12 +5226,14 @@ static bool obj_is_ring(struct player *p, const struct object *obj)
 
 /*
  * Check if the object is inscribed @0 or @w0.
+ *
+ * PWMAngband: we also check for @w1-@w9 inscriptions matching similar inscriptions.
  */
-static bool has_swap_tag(int slot)
+static bool has_swap_tag(int slot, char *name)
 {
-    const char *s;
+    const char *s, *t;
     char *buf = player->body.slots[slot].obj->info_xtra.name;
-    char *buf2;
+    char *buf2, *buf3;
 
     /* Skip empty objects */
     if (!buf[0]) return false;
@@ -5254,10 +5256,25 @@ static bool has_swap_tag(int slot)
         }
 
         /* Check the special tags */
-        if ((s[1] == 'w') && (s[2] == '0'))
+        if (s[1] == 'w')
         {
             /* Success */
-            return true;
+            if (s[2] == '0') return true;
+
+            /* Check for matching inscriptions */
+            if ((s[2] >= '1') && (s[2] <= '9'))
+            {
+                buf3 = strchr(name, '{');
+                if (buf3)
+                {
+                    t = strchr(buf3, '@');
+                    while (t)
+                    {
+                        if ((t[1] == 'w') && (t[2] == s[2])) return true;
+                        t = strchr(t + 1, '@');
+                    }
+                }
+            }
         }
 
         /* Find another '@' */
@@ -5300,9 +5317,11 @@ int Send_wield(struct command *cmd)
      */
     if (equip_obj && tval_is_ring(obj))
     {
+        char *name = obj->info_xtra.name;
+
         /* Look up the tag */
-        if (has_swap_tag(slot + 1)) slot++;
-        else if (!has_swap_tag(slot))
+        if (has_swap_tag(slot + 1, name)) slot++;
+        else if (!has_swap_tag(slot, name))
         {
             const char *q = "Replace which ring? ";
             const char *s = "Error in Send_wield(), please report";
