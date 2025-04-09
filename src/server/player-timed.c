@@ -1412,7 +1412,7 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
         player_clear_timed(p, TMD_DEFENSIVE_STANCE, false);
     }
 
-    // Spellblade class stances
+    // Heretic class stances
     if (idx == TMD_FIERY_STANCE)
     {
         player_clear_timed(p, TMD_COLDY_STANCE, false);
