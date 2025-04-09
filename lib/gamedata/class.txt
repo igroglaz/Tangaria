@@ -8279,11 +8279,11 @@ equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[1]
-value:0:INT[0]
+value:0:INT[1]
 value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[0]
-value:0:CHR[-2]
+value:0:CHR[-5]
 player-flags:0:CHOOSE_SPELLS | BACK_STAB
 title:Rookie
 title:Initiate
@@ -8309,6 +8309,8 @@ spell:Fiery:1:1:1:1:0
 cooldown:2
 effect:TIMED_SET:FIERY_STANCE
 dice:9999
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:2
 msg_other: fiery.
 desc:Makes your melee attacks branded and grants resistance.
 desc: Cooldown 2 turns.
@@ -8317,6 +8319,8 @@ spell:Coldy:1:1:1:1:0
 cooldown:2
 effect:TIMED_SET:COLDY_STANCE
 dice:9999
+effect:TIMED_INC_NO_RES:SLOW_REAL
+dice:2
 msg_other: coldy.
 desc:Makes your melee attacks branded and grants resistance.
 desc: Cooldown 2 turns.
@@ -8325,6 +8329,8 @@ spell:Electry:1:1:1:1:0
 cooldown:2
 effect:TIMED_SET:ELECTRY_STANCE
 dice:9999
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:2
 msg_other: electry.
 desc:Makes your melee attacks branded and grants resistance.
 desc: Cooldown 2 turns.
@@ -8333,6 +8339,8 @@ spell:Acidy:1:1:1:1:0
 cooldown:2
 effect:TIMED_SET:ACIDY_STANCE
 dice:9999
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:2
 msg_other: acidy.
 desc:Makes your melee attacks branded and grants resistance.
 desc: Cooldown 2 turns.
@@ -8400,6 +8408,13 @@ effect:DAMAGE
 dice:10
 effect:TIMED_INC_NO_RES:SLOW_REAL
 dice:20
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:20
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:2+1d2
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:2
+effect:WAKE
 desc:Prevents summoning around you for a some time.
 desc: Recoil from this spell might even kill the caster and slow you down.
 
