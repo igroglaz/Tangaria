@@ -8284,7 +8284,8 @@ value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-5]
-player-flags:0:CHOOSE_SPELLS | BACK_STAB
+player-flags:0:CHOOSE_SPELLS
+player-flags:40:BACK_STAB
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -8428,26 +8429,27 @@ skill-device:18:7
 skill-save:20:10
 skill-stealth:0:1
 skill-search:10:12
-skill-melee:40:45
+skill-melee:45:45
 skill-shoot:20:15
 skill-dig:0:0
-hitdie:4
-max-attacks:5
+hitdie:6
+max-attacks:6
 min-weight:20
-strength-multiplier:4
+strength-multiplier:5
 equip:light:Wooden Torch:1:3:none
 equip:hafted:Club:1:1:none
 equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[1]
-value:0:INT[-1]
-value:0:WIS[-1]
+value:0:STR[2]
+value:0:INT[-2]
+value:0:WIS[-2]
 value:0:DEX[2]
-value:0:CON[0]
-value:0:CHR[-5]
-player-flags:0:BACK_STAB
+value:0:CON[1]
+value:0:CHR[-4]
+player-flags:0:CHOOSE_SPELLS
+player-flags:30:BACK_STAB
 title:Rookie
 title:Initiate
 title:Neophyte
@@ -8458,6 +8460,37 @@ title:Expert
 title:Adept
 title:Master
 title:Grandmaster
+
+magic:1:550:1
+
+book:shadow book:town:[Shadows for Beginners]:3:shadow
+equip:shadow book:[Shadows for Beginners]:1:1:none
+
+# using dirty blows
+spell:Piercing Blows:1:1:1:1:0
+cooldown:2
+effect:TIMED_SET:PIERCING_STANCE
+dice:9999
+msg_other: prepares to skewer.
+desc:Your melee attacks are effective against heavily armored targets.
+desc: Cooldown 2 turns.
+
+spell:Slashing Blows:1:1:1:1:0
+cooldown:2
+effect:TIMED_SET:CUTTING_STANCE
+dice:9999
+msg_other: readies to shred.
+desc:Your melee attacks slice and cause bleeding wounds.
+desc: Cooldown 2 turns.
+
+spell:Crushing Blows:1:1:1:1:0
+cooldown:2
+effect:TIMED_SET:CRUSHING_STANCE
+dice:9999
+msg_other: raises weapon to smash.
+desc:Your melee attacks stun and disorient your enemies.
+desc: Cooldown 2 turns.
+
 
 #effect:MELEE_BLOWS:MISSILE
 #dice:$B
