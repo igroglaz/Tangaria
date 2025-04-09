@@ -559,6 +559,11 @@ static void blow_side_effects(struct player *p, struct source *target,
         msg(p, "Your hands stop glowing.");
         do_conf = true;
     }
+    // ... and Cutthroat stance check
+    else if (p->timed[TMD_CRUSHING_STANCE] && magik(p->lev / 5)) // 0 -> 10%
+    {
+        do_conf = true;
+    }
 
     /* Handle polymorphed players */
     if (p->poly_race && obj)
@@ -617,6 +622,9 @@ static void blow_side_effects(struct player *p, struct source *target,
     // Werewolves got CUT at night
     if (streq(p->race->name, "Werewolf") && !is_daytime() && p->lev > 14)
         seffects->do_cut = true;
+    // ... and Cutthroat stance check
+    else if (p->timed[TMD_CUTTING_STANCE] && magik(p->lev)) // 1 -> 50%
+         seffects->do_cut = true;
 
     /* Hack -- only one of cut or stun */
     if (seffects->do_cut && seffects->do_stun)
@@ -915,18 +923,26 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     /* If a miss, skip this hit */
     if (!success)
     {
-        effects->stab_sleep = false;
-        msgt(p, MSG_MISS, "You miss %s.", target_name);
-        if (target->player) msg(target->player, "%s misses you.", killer_name);
-
-        /* Small chance of bloodlust side-effects */
-        if (p->timed[TMD_BLOODLUST] && one_in_(50))
+        //  Cutthroat penetrates AC (additional success in 0% -> 10%)
+        if (p->timed[TMD_PIERCING_STANCE] && magik(p->lev / 5))
         {
-            msg(p, "You feel strange...");
-            player_over_exert(p, PY_EXERT_SCRAMBLE, 20, 20);
+            ; // lucky stab
         }
+        else // YES, SKIP THIS HIT
+        {
+            effects->stab_sleep = false;
+            msgt(p, MSG_MISS, "You miss %s.", target_name);
+            if (target->player) msg(target->player, "%s misses you.", killer_name);
 
-        return false;
+            /* Small chance of bloodlust side-effects */
+            if (p->timed[TMD_BLOODLUST] && one_in_(50))
+            {
+                msg(p, "You feel strange...");
+                player_over_exert(p, PY_EXERT_SCRAMBLE, 20, 20);
+            }
+
+            return false;
+        }
     }
 
     /* Information about the attacker */
