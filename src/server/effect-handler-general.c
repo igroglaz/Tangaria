@@ -4701,7 +4701,7 @@ bool effect_handler_RECHARGE(effect_handler_context_t *context)
     else
     {
         /* Extract a "power" */
-        int ease_of_recharge = (100 - obj->kind->level) / 10;
+        int ease_of_recharge = (100 - obj->kind->difficulty) / 10;
 
         t = (strength / (10 - ease_of_recharge)) + 1;
 

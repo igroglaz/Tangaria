@@ -40,6 +40,12 @@ Angband 4.2.x:
 
 - Update object.txt (mithril ammo)
 - Autorepeat using a wand/staff/rod/activatable item on failure
+- Increase the curse removal power of a staff of remove curse
+- Rebalance activation difficulty for standard items
+
+PWMAngband:
+
+- Add level to ego items
 
 Bugs fixed
 ----------
@@ -49,12 +55,14 @@ Angband 4.2.x:
 - Avoid crash when locking file for high scores could not be opened
 - SDL2 fixes
 - Account for empty object groups in ego knowledge display
+- Apply BLESS_WEAPON to-hit bonus only to melee, not ranged
 
 PWMAngband:
 
 - Fix bug when displaying ego item knowledge
 - Fix flickering being very slow sometimes
 - Fix info on tombstone for retiring Dungeon Masters
+- Fix recharge_failure_chance()
 
 Coding changes
 --------------
@@ -78,6 +86,7 @@ PWMAngband:
 - Load race/class presets from the client instead of fixing them on the server
 - Split VERIFY packet in chunks
 - Add class parser for SKILL_TO_HIT_THROW, port values from V
+- Split level and difficulty level for activation (base items/egos/artifacts)
 
 Compilation/documentation
 -------------------------

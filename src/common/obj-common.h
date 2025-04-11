@@ -306,6 +306,7 @@ struct object_kind
     int alloc_min;                  /* Highest normal dungeon level */
     int alloc_max;                  /* Lowest normal dungeon level */
     int level;                      /* Level */
+    int difficulty;                 /* Difficulty level for activation */
     struct effect *effect;          /* Effect this item produces (effects.c) */
     struct activation *activation;  /* Activation */
     random_value time;              /* Recharge time (if appropriate) */
@@ -340,7 +341,8 @@ struct artifact
     bool *brands;
     bool *slays;
     int *curses;                    /* Array of curse powers */
-    int level;                      /* Difficulty level for activation */
+    int level;                      /* Level */
+    int difficulty;                 /* Difficulty level for activation */
     int alloc_prob;                 /* Chance of being generated (i.e. rarity) */
     int alloc_min;                  /* Minimum depth (can appear earlier) */
     int alloc_max;                  /* Maximum depth (will NEVER appear deeper) */
@@ -388,6 +390,8 @@ struct ego_item
     bool *slays;
     int *curses;                    /* Array of curse powers */
     int rating;                     /* Level rating boost */
+    int level;                      /* Level */
+    int difficulty;                 /* Difficulty level for activation */
     int alloc_prob;                 /* Chance of being generated (i.e. rarity) */
     int alloc_min;                  /* Minimum depth (can appear earlier) */
     int alloc_max;                  /* Maximum depth (will NEVER appear deeper) */

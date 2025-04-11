@@ -1784,8 +1784,8 @@ int Send_kind_struct_info(int ind)
         }
 
         /* Transfer other fields here */
-        if (Packet_printf(&connp->c, "%hu%hu%lu%hd", (unsigned)k_info[i].tval,
-            (unsigned)k_info[i].sval, k_info[i].kidx, (int)ac) <= 0)
+        if (Packet_printf(&connp->c, "%hu%hu%lu%hd%hd", (unsigned)k_info[i].tval,
+            (unsigned)k_info[i].sval, k_info[i].kidx, (int)ac, k_info[i].difficulty) <= 0)
         {
             Destroy_connection(ind, "Send_kind_struct_info write error");
             return -1;
@@ -2247,8 +2247,8 @@ int Send_plusses(struct player *p, int dd, int ds, int mhit, int mdam, int shit,
     connection_t *connp = get_connp(p, "plusses");
     if (connp == NULL) return 0;
 
-    return Packet_printf(&connp->c, "%b%hd%hd%hd%hd%hd%hd", (unsigned)PKT_PLUSSES, dd, ds, mhit,
-        mdam, shit, sdam);
+    return Packet_printf(&connp->c, "%b%hd%hd%hd%hd%hd%hd%hd", (unsigned)PKT_PLUSSES, dd, ds, mhit,
+        mdam, shit, sdam, (int)p->known_state.bless_wield);
 }
 
 

@@ -3213,20 +3213,39 @@ void init_randart_generator(void)
 }
 
 
-int get_artifact_level(struct player *p, const struct object *obj)
+int get_object_level(struct player *p, const struct object *obj, bool difficulty)
 {
-    if (obj->randart_seed)
+    int level;
+
+    /* Artifacts */
+    if (obj->artifact)
     {
-        int lev;
-        struct artifact *art = do_randart(p, obj->randart_seed, obj->artifact);
+        if (obj->randart_seed)
+        {
+            int lev;
+            struct artifact *art = do_randart(p, obj->randart_seed, obj->artifact);
 
-        lev = art->level;
-        free_artifact(art);
+            lev = (difficulty? art->difficulty: art->level);
+            free_artifact(art);
 
-        return lev;
+            return lev;
+        }
+
+        return (difficulty? obj->artifact->difficulty: obj->artifact->level);
     }
 
-    return obj->artifact->level;
+    level = (difficulty? obj->kind->difficulty: obj->kind->level);
+
+    /* Egos */
+    if (obj->ego)
+    {
+        int lev = (difficulty? obj->ego->difficulty: obj->ego->level);
+
+        return MAX(lev, level);
+    }
+
+    /* By default, use the kind level */
+    return level;
 }
 
 

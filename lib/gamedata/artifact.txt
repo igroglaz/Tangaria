@@ -3,7 +3,7 @@
 # name: item name
 # base-object: tval : sval
 # graphics: symbol : color
-# level: level
+# level: level : difficulty level
 # weight: weight
 # alloc: allocation probability : min " to " max
 # attack: base damage : plus to-hit : plus to-dam
@@ -27,7 +27,8 @@
 
 # 'graphics' is for symbol and color. It is needed for special artifacts.
 
-# 'level' indicates difficulty of any activation.
+# 'level' is the level of the artifact. difficulty indicates difficulty of any
+# activation.
 
 # 'weight' is in tenth-pounds.
 

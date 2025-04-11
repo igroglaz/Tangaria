@@ -1658,11 +1658,8 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
     struct source who_body;
     struct source *who = &who_body;
 
-    /* Get the level */
-    if ((*obj_address)->artifact)
-        level = get_artifact_level(p, *obj_address);
-    else
-        level = (*obj_address)->kind->level;
+    /* Get the level difficulty */
+    level = get_object_level(p, *obj_address, true);
 
     /* Boost damage effects if skill > difficulty */
     boost = MAX((p->state.skills[SKILL_DEVICE] - level) / 2, 0);

@@ -5,6 +5,7 @@
 
 # name: ego type
 # info: cost : rating
+# level: level : difficulty level
 # alloc: commonness : min " to " max
 # combat: to-hit : to-dam : to-ac
 # min-combat: min to-hit : min to-dam : min to-ac
@@ -39,6 +40,9 @@
 
 # 'info' is for item information. Cost is the item's value and rating
 # affects level feelings.
+
+# 'level' is the level of the ego item. difficulty indicates difficulty of any
+# activation.
 
 # 'alloc' is for allocation details. Commonness determines how common
 # the object is, min depth is the earliest it is normally found, max
@@ -110,6 +114,7 @@
 
 name:of Shadows
 info:1000:10
+level:10
 alloc:40:10 to 100
 item:light:Lantern
 item:light:Lamp
@@ -118,6 +123,7 @@ min-values:STEALTH[0] | LIGHT[-3]
 
 name:of Brightness
 info:2000:10
+level:1
 alloc:50:1 to 30
 item:light:Wooden Torch
 item:light:Lantern
@@ -126,6 +132,7 @@ min-values:LIGHT[1]
 
 name:(Everburning)
 info:2500:10
+level:1
 alloc:100:1 to 100
 item:light:Lantern
 item:light:Lamp
@@ -133,6 +140,7 @@ flags:NO_FUEL
 
 name:of True Sight
 info:10000:10
+level:20
 alloc:10:20 to 127
 item:light:Lantern
 item:light:Lamp
@@ -140,6 +148,7 @@ flags:PROT_BLIND | SEE_INVIS
 
 name:of Presentiment
 info:10000:20
+level:50
 alloc:10:20 to 127
 item:light:Wooden Torch
 values:STEALTH[1]
@@ -148,12 +157,14 @@ flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | RAND_ESP
 name:of *Brightness*
 info:6000:15
 alloc:15:20 to 60
+level:20
 item:light:Wooden Torch
 values:LIGHT[2] | RES_DARK[1] | STEALTH[1]
 min-values:LIGHT[2]
 
 name:of the Magi
 info:15000:25
+level:50
 alloc:5:50 to 127
 item:light:Wooden Torch
 flags:PROT_BLIND | SEE_INVIS | REGEN | HUNGER | RAND_HI_RES | RAND_POWER
@@ -162,6 +173,7 @@ min-values:INT[0] | WIS[0]
 
 name:of Perpetuity
 info:6000:25
+level:50
 alloc:2:30 to 127
 item:light:Wooden Torch
 flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR |
@@ -192,6 +204,7 @@ flags:NO_FUEL
 
 name:(Holy Avenger)
 info:20000:30
+level:15
 alloc:10:15 to 127
 combat:d6:d6:d4
 type:sword
@@ -218,6 +231,7 @@ min-values:STEALTH[0]
 
 name:(Blessed)
 info:5000:20
+level:1
 alloc:20:1 to 60
 type:sword
 type:polearm
@@ -244,6 +258,7 @@ slay:DRAGON_3
 
 name:of Westernesse
 info:20000:20
+level:10
 alloc:10:10 to 70
 combat:d5:d5:0
 type:sword
@@ -269,6 +284,7 @@ min-values:BLOWS[0]
 
 name:of Acid
 info:5000:20
+level:1
 alloc:30:1 to 60
 type:sword
 type:polearm
@@ -289,6 +305,7 @@ brand:ELEC_3
 
 name:of Flame
 info:3500:15
+level:1
 alloc:40:1 to 50
 type:sword
 type:polearm
@@ -299,6 +316,7 @@ brand:FIRE_3
 
 name:of Frost
 info:3000:15
+level:1
 alloc:40:1 to 50
 type:sword
 type:polearm
@@ -319,6 +337,7 @@ brand:POIS_3
 
 name:of Slay Animal
 info:3000:18
+level:1
 alloc:100:1 to 30
 type:sword
 type:polearm
@@ -327,6 +346,7 @@ slay:ANIMAL_2
 
 name:of Slay Evil
 info:3000:18
+level:1
 alloc:60:1 to 40
 type:sword
 type:polearm
@@ -353,6 +373,7 @@ slay:UNDEAD_3
 
 name:of Slay Demon
 info:3500:14
+level:1
 alloc:100:1 to 30
 type:sword
 type:polearm
@@ -377,6 +398,7 @@ slay:TROLL_3
 
 name:of Slay Giant
 info:2500:14
+level:1
 alloc:60:1 to 30
 type:sword
 type:polearm
@@ -395,6 +417,7 @@ slay:DRAGON_3
 
 name:of *Slay Animal*
 info:6000:20
+level:1
 alloc:40:1 to 45
 type:sword
 type:polearm
@@ -417,6 +440,7 @@ slay:EVIL_2
 
 name:of *Slay Undead*
 info:8000:24
+level:10
 alloc:30:10 to 60
 type:sword
 type:polearm
@@ -449,6 +473,7 @@ slay:DEMON_5
 
 name:of *Slay Orc*
 info:4000:14
+level:1
 alloc:60:1 to 40
 type:sword
 type:polearm
@@ -460,6 +485,7 @@ slay:ORC_3
 
 name:of *Slay Troll*
 info:4000:14
+level:1
 alloc:60:1 to 45
 type:sword
 type:polearm
@@ -471,6 +497,7 @@ slay:TROLL_3
 
 name:of *Slay Giant*
 info:4000:16
+level:1
 alloc:20:1 to 45
 type:sword
 type:polearm
@@ -482,6 +509,7 @@ slay:GIANT_3
 
 name:of *Slay Dragon*
 info:8000:24
+level:10
 alloc:30:10 to 60
 type:sword
 type:polearm
@@ -495,6 +523,7 @@ slay:DRAGON_5
 
 name:of Morgul
 info:1:0
+level:10
 alloc:10:10 to 80
 type:sword
 type:polearm
@@ -515,6 +544,7 @@ type:hafted
 
 name:of Accuracy
 info:1800:10
+level:5
 alloc:100:5 to 70
 combat:d15:d5:0
 min-combat:15:255:0
@@ -524,6 +554,7 @@ desc: high.
 
 name:of Power
 info:4500:10
+level:5
 alloc:100:30 to 70
 combat:d5:d15:0
 min-combat:255:15:0
@@ -533,6 +564,7 @@ desc: high.
 
 name:of Lothlorien
 info:35000:30
+level:20
 alloc:5:45 to 127
 combat:d10:d10:0
 item:bow:Short Bow
@@ -543,6 +575,7 @@ min-values:DEX[2] | MIGHT[1]
 
 name:of the Haradrim
 info:25000:30
+level:20
 alloc:5:30 to 127
 combat:d5:d5:0
 item:bow:Light Crossbow
@@ -552,6 +585,7 @@ min-values:MIGHT[1] | SHOTS[2]
 
 name:of Extra Might
 info:3000:20
+level:15
 alloc:20:10 to 100
 combat:d5:d10:0
 type:bow
@@ -560,6 +594,7 @@ min-values:MIGHT[0]
 
 name:of Extra Shots
 info:4000:20
+level:15
 alloc:10:15 to 100
 combat:d10:d5:0
 type:bow
@@ -569,6 +604,7 @@ min-values:SHOTS[2]
 # PWMAngband: SHOTS limited to +1 (+2 was too powerful)
 name:of Buckland
 info:30000:25
+level:20
 alloc:5:30 to 127
 combat:d8:d8:0
 item:bow:Sling
@@ -578,6 +614,7 @@ min-values:DEX[2] | SHOTS[2] | MIGHT[1]
 
 name:of the Nazgul
 info:0:0
+level:10
 alloc:10:10 to 80
 combat:d10:d10:0
 type:bow
@@ -586,6 +623,7 @@ flags:SEE_INVIS
 name:of Numenor
 info:30000:25
 alloc:5:25 to 127
+level:20
 combat:d10:d10:0
 type:bow
 flags:REGEN | RAND_HI_RES | HUNGER
@@ -597,6 +635,7 @@ min-values:MIGHT[0]
 
 name:of Slay Animal
 info:20:10
+level:1
 alloc:80:1 to 40
 type:rock
 type:shot
@@ -606,6 +645,7 @@ slay:ANIMAL_2
 
 name:of Slay Evil
 info:20:10
+level:10
 alloc:10:10 to 100
 type:rock
 type:shot
@@ -615,6 +655,7 @@ slay:EVIL_2
 
 name:of Slay Undead
 info:25:10
+level:5
 alloc:15:5 to 100
 type:rock
 type:shot
@@ -624,6 +665,7 @@ slay:UNDEAD_3
 
 name:of Slay Demon
 info:25:10
+level:5
 alloc:15:5 to 100
 type:rock
 type:shot
@@ -633,6 +675,7 @@ slay:DEMON_3
 
 name:of Acid
 info:50:10
+level:10
 alloc:5:10 to 100
 type:rock
 type:shot
@@ -643,6 +686,7 @@ brand:ACID_3
 
 name:of Lightning
 info:45:10
+level:10
 alloc:5:10 to 100
 type:rock
 type:shot
@@ -653,6 +697,7 @@ brand:ELEC_3
 
 name:of Slay Giant
 info:25:10
+level:5
 alloc:5:5 to 60
 type:rock
 type:shot
@@ -662,6 +707,7 @@ slay:GIANT_3
 
 name:of Slay Dragon
 info:40:10
+level:10
 alloc:10:10 to 100
 type:rock
 type:shot
@@ -671,6 +717,7 @@ slay:DRAGON_3
 
 name:of Holy Might
 info:60:20
+level:30
 alloc:2:30 to 127
 combat:d10:d10:0
 item:shot:Mithril Shot
@@ -685,6 +732,7 @@ slay:UNDEAD_3
 
 name:of Venom
 info:40:10
+level:10
 alloc:20:10 to 60
 type:rock
 type:shot
@@ -694,6 +742,7 @@ brand:POIS_3
 
 name:of Flame
 info:35:10
+level:10
 alloc:10:10 to 100
 type:rock
 type:shot
@@ -704,6 +753,7 @@ brand:FIRE_3
 
 name:of Frost
 info:30:10
+level:10
 alloc:10:10 to 100
 type:rock
 type:shot
@@ -714,6 +764,7 @@ brand:COLD_3
 
 name:of Wounding
 info:20:5
+level:15
 alloc:15:15 to 127
 combat:3+d5:3+d5:0
 type:rock
@@ -727,6 +778,7 @@ desc:Ammunition of Wounding often has unusually high to-hit and to-dam values.
 
 name:of Digging
 info:500:4
+level:1
 alloc:100:1 to 40
 type:digger
 values:TUNNEL[d4]
@@ -734,6 +786,7 @@ min-values:TUNNEL[1]
 
 name:of Earthquakes
 info:3000:8
+level:10
 alloc:10:10 to 127
 type:digger
 values:STR[d4] | TUNNEL[d6]
@@ -744,6 +797,7 @@ min-values:STR[1] | TUNNEL[1]
 
 name:of Levitation
 info:250:7
+level:1
 alloc:100:1 to 15
 type:boots
 flags:FEATHER
@@ -751,6 +805,7 @@ min-values:STEALTH[-1]
 
 name:of Stealth
 info:500:16
+level:15
 alloc:20:15 to 100
 item:boots:Pair of Leather Sandals
 item:boots:Pair of Leather Boots
@@ -760,6 +815,7 @@ min-values:STEALTH[0]
 
 name:of Free Action
 info:1000:15
+level:1
 alloc:20:1 to 40
 type:boots
 flags:FREE_ACT
@@ -768,6 +824,7 @@ min-values:STEALTH[-2]
 name:of Speed
 # price hc in store.c
 info:100000:25
+level:20
 alloc:3:20 to 127
 type:boots
 values:SPEED[2+M8]
@@ -775,6 +832,7 @@ min-values:STEALTH[-2] | SPEED[0]
 
 name:of Stability
 info:5000:20
+level:15
 alloc:10:15 to 100
 type:boots
 flags:FEATHER
@@ -783,6 +841,7 @@ min-values:STEALTH[-2]
 
 name:of Elvenkind
 info:200000:30
+level:60
 alloc:3:60 to 127
 item:boots:Pair of Leather Boots
 item:boots:Pair of Iron Shod Boots
@@ -792,6 +851,7 @@ min-values:STEALTH[1] | SPEED[1]
 
 name:of Mirkwood
 info:15000:35
+level:20
 alloc:10:20 to 100
 type:boots
 flags:FREE_ACT
@@ -803,6 +863,7 @@ min-values:STEALTH[-2]
 
 name:of Intelligence
 info:500:13
+level:1
 alloc:100:1 to 40
 type:helm
 flags:SUST_INT
@@ -811,6 +872,7 @@ min-values:INT[0]
 
 name:of Wisdom
 info:500:13
+level:1
 alloc:100:1 to 40
 type:helm
 flags:SUST_WIS
@@ -819,6 +881,7 @@ min-values:WIS[0]
 
 name:of the Magi
 info:7500:15
+level:20
 alloc:20:20 to 127
 type:crown
 flags:SUST_INT | RAND_POWER |
@@ -828,6 +891,7 @@ min-values:INT[0]
 
 name:of Might
 info:7500:19
+level:40
 alloc:10:40 to 127
 type:crown
 flags:SUST_STR | SUST_DEX | SUST_CON | FREE_ACT |
@@ -837,6 +901,7 @@ min-values:STR[1] | DEX[1] | CON[1]
 
 name:of Lordliness
 info:7500:17
+level:40
 alloc:20:40 to 100
 type:crown
 flags:SUST_WIS | SUST_CHR | PROT_FEAR | RAND_POWER |
@@ -846,6 +911,7 @@ min-values:WIS[1]
 
 name:of Seeing
 info:2000:8
+level:10
 alloc:50:10 to 60
 type:helm
 flags:PROT_BLIND | SEE_INVIS
@@ -854,6 +920,7 @@ min-values:SEARCH[0]
 
 name:of Infravision
 info:500:11
+level:1
 alloc:100:1 to 20
 type:helm
 values:INFRA[d5]
@@ -861,6 +928,7 @@ min-values:INFRA[0]
 
 name:of Light
 info:1000:6
+level:5
 alloc:50:5 to 30
 type:crown
 values:LIGHT[1] | RES_LIGHT[1]
@@ -868,18 +936,21 @@ min-values:LIGHT[1]
 
 name:of Telepathic Awareness
 info:50000:20
+level:40
 alloc:10:40 to 127
 type:helm
 flags:RAND_ESP
 
 name:of Regeneration
 info:1500:10
+level:1
 alloc:20:1 to 60
 type:helm
 flags:REGEN | HUNGER
 
 name:of Serenity
 info:4000:20
+level:20
 alloc:15:20 to 127
 type:crown
 flags:PROT_CONF | PROT_FEAR | PROT_STUN
@@ -887,6 +958,7 @@ values:RES_SOUND[1]
 
 name:of Night and Day
 info:4000:18
+level:10
 alloc:15:10 to 80
 type:crown
 flags:SEE_INVIS | PROT_BLIND | IGNORE_ACID
@@ -898,6 +970,7 @@ min-values:LIGHT[1]
 
 name:of Resist Acid
 info:1000:16
+level:1
 alloc:100:1 to 30
 min-combat:255:0:0
 type:soft armour
@@ -912,6 +985,7 @@ values:RES_ACID[1]
 
 name:of Resist Lightning
 info:400:10
+level:1
 alloc:100:1 to 30
 min-combat:255:0:0
 type:soft armour
@@ -926,6 +1000,7 @@ values:RES_ELEC[1]
 
 name:of Resist Fire
 info:800:14
+level:1
 alloc:100:1 to 30
 min-combat:255:0:0
 type:soft armour
@@ -940,6 +1015,7 @@ values:RES_FIRE[1]
 
 name:of Resist Cold
 info:600:12
+level:1
 alloc:100:1 to 30
 min-combat:255:0:0
 type:soft armour
@@ -954,6 +1030,7 @@ values:RES_COLD[1]
 
 name:of Resistance
 info:12500:20
+level:10
 alloc:50:10 to 100
 combat:0:0:d10
 min-combat:255:0:0
@@ -964,6 +1041,7 @@ values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 
 name:of Elvenkind
 info:15000:25
+level:30
 alloc:10:30 to 127
 combat:0:0:d10
 min-combat:255:0:0
@@ -978,6 +1056,7 @@ min-values:STEALTH[0]
 
 name:of Permanence
 info:30000:30
+level:30
 alloc:10:30 to 127
 combat:0:0:d20
 item:soft armour:Robe
@@ -991,6 +1070,7 @@ values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 
 name:(Dwarven)
 info:5000:18
+level:20
 alloc:20:20 to 127
 combat:0:0:d15
 min-combat:255:0:0
@@ -1005,6 +1085,7 @@ min-values:STR[1] | CON[1] | INFRA[1]
 
 name:of Protection
 info:1500:10
+level:1
 alloc:30:1 to 40
 combat:0:0:d10
 type:cloak
@@ -1013,6 +1094,7 @@ values:RES_SHARD[1]
 
 name:of Stealth
 info:500:10
+level:1
 alloc:60:1 to 70
 type:cloak
 values:STEALTH[d3]
@@ -1020,6 +1102,7 @@ min-values:STEALTH[0]
 
 name:of Aman
 info:4000:20
+level:20
 alloc:10:20 to 127
 combat:0:0:d20
 type:cloak
@@ -1030,6 +1113,7 @@ min-values:STEALTH[0]
 
 name:of the Magi
 info:2000:15
+level:30
 alloc:10:30 to 127
 combat:0:0:d4
 type:cloak
@@ -1048,6 +1132,7 @@ desc:It keeps you warm and helps identify the wearer through color-coding.
 
 name:of the Teleri
 info:20000:31
+level:30
 alloc:10:30 to 127
 combat:0:0:d10
 type:cloak
@@ -1055,6 +1140,7 @@ flags:HOLD_LIFE | FREE_ACT
 
 name:of Lordly Resistance
 info:150000:31
+level:40
 alloc:5:40 to 127
 combat:0:0:d20
 type:cloak
@@ -1065,6 +1151,7 @@ time:150+d50
 
 name:of Resistance
 info:12500:31
+level:25
 alloc:10:25 to 127
 combat:0:0:d10
 type:cloak
@@ -1076,12 +1163,14 @@ values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 
 name:of Free Action
 info:1000:11
+level:1
 alloc:100:1 to 60
 type:gloves
 flags:FREE_ACT
 
 name:of Slaying
 info:1500:17
+level:10
 alloc:20:10 to 75
 combat:d5:d5:0
 type:gloves
@@ -1089,6 +1178,7 @@ desc:They boost your to-hit and to-dam values.
 
 name:of Agility
 info:1000:14
+level:20
 alloc:10:20 to 50
 type:gloves
 values:DEX[d5]
@@ -1096,6 +1186,7 @@ min-values:DEX[0]
 
 name:of Power
 info:2500:22
+level:30
 alloc:5:30 to 127
 combat:d5:d5:0
 type:gloves
@@ -1104,6 +1195,7 @@ min-values:STR[0]
 
 name:of Thievery
 info:5000:22
+level:40
 alloc:5:40 to 127
 combat:d8:d3:0
 item:gloves:Set of Leather Gloves
@@ -1114,6 +1206,7 @@ min-values:DEX[1] | SEARCH[2]
 
 name:of Combat
 info:7000:22
+level:50
 alloc:5:50 to 127
 combat:d5:d8:0
 item:gloves:Set of Gauntlets
@@ -1124,6 +1217,7 @@ min-values:STR[1] | CON[1]
 
 name:of the Istari
 info:50000:34
+level:50
 alloc:4:50 to 127
 combat:0:0:d10
 item:gloves:Set of Leather Gloves
@@ -1137,6 +1231,7 @@ min-values:INT[0] | WIS[0]
 
 name:of the Magi
 info:50000:34
+level:50
 alloc:4:50 to 127
 combat:0:0:d10
 item:gloves:Set of Leather Gloves
@@ -1153,6 +1248,7 @@ min-values:MANA[0]
 
 name:(Dwarven)
 info:5000:20
+level:20
 alloc:20:20 to 127
 combat:1+M3:1+M3:d5
 item:shield:Small Metal Shield
@@ -1163,6 +1259,7 @@ min-values:STR[1] | CON[1]
 
 name:of Resist Acid
 info:1000:16
+level:1
 alloc:100:1 to 30
 type:shield
 flags:IGNORE_ACID
@@ -1170,6 +1267,7 @@ values:RES_ACID[1]
 
 name:of Resist Lightning
 info:400:10
+level:1
 alloc:100:1 to 30
 type:shield
 flags:IGNORE_ELEC
@@ -1177,6 +1275,7 @@ values:RES_ELEC[1]
 
 name:of Resist Fire
 info:800:14
+level:1
 alloc:100:1 to 30
 type:shield
 flags:IGNORE_FIRE
@@ -1184,6 +1283,7 @@ values:RES_FIRE[1]
 
 name:of Resist Cold
 info:600:12
+level:1
 alloc:100:1 to 30
 type:shield
 flags:IGNORE_COLD
@@ -1191,6 +1291,7 @@ values:RES_COLD[1]
 
 name:of Resistance
 info:12500:20
+level:10
 alloc:50:10 to 100
 combat:0:0:d10
 type:shield
@@ -1199,6 +1300,7 @@ values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 
 name:of Elvenkind
 info:18000:25
+level:30
 alloc:10:30 to 127
 combat:0:0:d10
 type:shield
@@ -1209,6 +1311,7 @@ min-values:STEALTH[0]
 
 name:of Preservation
 info:24000:25
+level:40
 alloc:5:40 to 127
 combat:0:0:d20
 type:shield
@@ -1219,6 +1322,7 @@ values:RES_DISEN[1]
 
 name:of the Avari
 info:80000:32
+level:40
 alloc:5:40 to 127
 combat:0:0:d15
 type:shield
@@ -1232,6 +1336,7 @@ min-values:CON[0]
 
 name:of Craftsmanship
 info:500:4
+level:20
 alloc:60:20 to 95
 combat:0:0:1d6M4
 min-combat:0:0:4
@@ -1240,6 +1345,7 @@ desc:This armour is finely wrought, tough yet unencumbering.
 
 name:of Stealth
 info:500:16
+level:20
 alloc:10:20 to 100
 min-combat:255:0:0
 type:dragon armour
@@ -1248,6 +1354,7 @@ min-values:STEALTH[0]
 
 name:of Resistance
 info:12500:10
+level:40
 alloc:5:40 to 100
 combat:0:0:d10
 min-combat:255:0:0
@@ -1263,6 +1370,7 @@ values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 
 name:of Elvenkind
 info:15000:25
+level:50
 alloc:3:50 to 127
 combat:0:0:d10
 min-combat:255:0:0
@@ -1280,6 +1388,7 @@ min-values:STEALTH[0]
 
 name:(Dwarven)
 info:5000:18
+level:40
 alloc:5:40 to 127
 combat:0:0:d15
 min-combat:255:0:5
@@ -1290,6 +1399,7 @@ min-values:STR[1] | CON[1] | INFRA[1]
 
 name:of Speed
 info:100000:25
+level:40
 alloc:2:40 to 127
 min-combat:255:0:0
 type:dragon armour
@@ -1301,6 +1411,7 @@ min-values:SPEED[0]
 
 name:of Mana
 info:10000:10
+level:1
 alloc:20:1 to 127
 type:mage staff
 values:MANA[d4]
@@ -1308,6 +1419,7 @@ min-values:MANA[0]
 
 name:of Power
 info:20000:20
+level:10
 alloc:10:10 to 127
 type:mage staff
 flags:SUST_INT | RAND_HI_RES
@@ -1316,6 +1428,7 @@ min-values:INT[0] | MANA[0]
 
 name:of Wizardry
 info:40000:30
+level:20
 alloc:5:20 to 127
 combat:0:0:d10
 type:mage staff
@@ -1329,6 +1442,7 @@ min-values:INT[0] | WIS[0] | MANA[0]
 
 name:(Indestructible)
 info:2000:2
+level:15
 alloc:20:15 to 127
 type:horn
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD

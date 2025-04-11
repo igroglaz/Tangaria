@@ -705,6 +705,7 @@ static struct panel *get_panel_combat(struct player *pplayer)
     bth = get_melee_skill(pplayer);
     dam = show_mdam;
     hit = show_mhit;
+    if (pplayer->known_state.bless_wield) hit += 2;
 
     panel_space(p);
     panel_line(p, COLOUR_L_BLUE, "Melee", "%dd%d,%+d", melee_dice, melee_sides, dam);

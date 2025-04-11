@@ -112,6 +112,7 @@ static enum parser_error write_dummy_object_record(struct artifact *art, const c
 
     /* Put nonsense for level and weight, so they are set properly later */
     dummy->level = -1;
+    dummy->difficulty = -1;
     dummy->weight = -1;
 
     /* PWMAngband: set bogus cost, so they don't appear as junk at the bottom of object list */
@@ -1918,6 +1919,8 @@ static enum parser_error parse_object_level(struct parser *p)
 
     if (!k) return PARSE_ERROR_MISSING_RECORD_HEADER;
     k->level = parser_getint(p, "level");
+    k->difficulty = k->level;
+    if (parser_hasval(p, "difficulty")) k->difficulty = parser_getint(p, "difficulty");
 
     return PARSE_ERROR_NONE;
 }
@@ -2324,7 +2327,7 @@ static struct parser *init_parse_object(void)
     parser_reg(p, "name str name", parse_object_name);
     parser_reg(p, "graphics char glyph sym color", parse_object_graphics);
     parser_reg(p, "type sym tval", parse_object_type);
-    parser_reg(p, "level int level", parse_object_level);
+    parser_reg(p, "level int level ?int difficulty", parse_object_level);
     parser_reg(p, "weight int weight", parse_object_weight);
     parser_reg(p, "cost int cost", parse_object_cost);
     parser_reg(p, "alloc int common str minmax", parse_object_alloc);
@@ -2457,6 +2460,19 @@ static enum parser_error parse_ego_info(struct parser *p)
 
     if (!e) return PARSE_ERROR_MISSING_RECORD_HEADER;
     e->rating = parser_getint(p, "rating");
+
+    return PARSE_ERROR_NONE;
+}
+
+
+static enum parser_error parse_ego_level(struct parser *p)
+{
+    struct ego_item *e = parser_priv(p);
+
+    if (!e) return PARSE_ERROR_MISSING_RECORD_HEADER;
+    e->level = parser_getint(p, "level");
+    e->difficulty = e->level;
+    if (parser_hasval(p, "difficulty")) e->difficulty = parser_getint(p, "difficulty");
 
     return PARSE_ERROR_NONE;
 }
@@ -2748,6 +2764,7 @@ static struct parser *init_parse_ego(void)
     parser_setpriv(p, NULL);
     parser_reg(p, "name str name", parse_ego_name);
     parser_reg(p, "info int cost int rating", parse_ego_info);
+    parser_reg(p, "level int level ?int difficulty", parse_ego_level);
     parser_reg(p, "alloc int common str minmax", parse_ego_alloc);
     parser_reg(p, "type sym tval", parse_ego_type);
     parser_reg(p, "item sym tval sym sval", parse_ego_item);
@@ -2922,9 +2939,12 @@ static enum parser_error parse_artifact_level(struct parser *p)
     k = lookup_kind(a->tval, a->sval);
     my_assert(k);
     a->level = parser_getint(p, "level");
+    a->difficulty = a->level;
+    if (parser_hasval(p, "difficulty")) a->difficulty = parser_getint(p, "difficulty");
 
     /* Set kind level for special artifacts */
     if (k->level == -1) k->level = a->level;
+    if (k->difficulty == -1) k->difficulty = a->difficulty;
 
     return PARSE_ERROR_NONE;
 }
@@ -3181,7 +3201,7 @@ static struct parser *init_parse_artifact(void)
     parser_reg(p, "name str name", parse_artifact_name);
     parser_reg(p, "base-object sym tval sym sval", parse_artifact_base_object);
     parser_reg(p, "graphics char glyph sym color", parse_artifact_graphics);
-    parser_reg(p, "level int level", parse_artifact_level);
+    parser_reg(p, "level int level ?int difficulty", parse_artifact_level);
     parser_reg(p, "weight int weight", parse_artifact_weight);
     parser_reg(p, "alloc int common str minmax", parse_artifact_alloc);
     parser_reg(p, "attack rand hd int to-h int to-d", parse_artifact_attack);

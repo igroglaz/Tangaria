@@ -135,7 +135,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             continue;
         }
 
-        level = (obj->artifact? get_artifact_level(p, obj): obj->kind->level);
+        level = get_object_level(p, obj, true);
         boost = MAX((p->state.skills[SKILL_DEVICE] - level) / 2, 0);
 
         memset(&value, 0, sizeof(value));

@@ -592,7 +592,7 @@ bool obj_can_fail(struct player *p, const struct object *o)
 /*
  * Failure rate for magic devices.
  * It uses a scaled, shifted version of the sigmoid function x/(1+|x|), namely
- * 380 - 370(x/(10+|x|)), where x is 2 * (device skill - device level) + 1,
+ * 380 - 370(x/(5+|x|)), where x is 2 * (device skill - device level) + 1,
  * to give fail rates out of 1000.
  */
 int get_use_device_chance(struct player *p, const struct object *obj)
@@ -601,17 +601,14 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     int skill = p->state.skills[SKILL_DEVICE];
 
     /* Extract the item level, which is the difficulty rating */
-    if (obj->artifact)
-        lev = get_artifact_level(p, obj);
-    else
-        lev = obj->kind->level;
+    lev = get_object_level(p, obj, true);
 
     /* Calculate x */
     x = 2 * (skill - lev) + 1;
 
     /* Now calculate the failure rate */
     fail = -370 * x;
-    fail /= (10 + ABS(x));
+    fail /= (5 + ABS(x));
     fail += 380;
     
     if (streq(p->clazz->name, "Unbeliever"))
@@ -1096,7 +1093,7 @@ void object_own(struct player *p, struct object *obj)
         */
 
         /* By default, use half the kind level */
-        int base = obj->kind->level / 2;
+        int base = get_object_level(p, obj, false) / 2;
 
         /* Artifacts */
         if (obj->artifact) base = get_artifact_level(p, obj) / 2;

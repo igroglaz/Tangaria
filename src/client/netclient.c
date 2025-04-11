@@ -1136,7 +1136,7 @@ static int Receive_struct_info(void)
         {
             uint16_t tval, sval;
             uint32_t kidx;
-            int16_t ac;
+            int16_t ac, difficulty;
             uint8_t flag;
 
             /* Alloc */
@@ -1163,7 +1163,8 @@ static int Receive_struct_info(void)
                 if (strlen(name)) kind->name = string_make(name);
 
                 /* Transfer other fields here */
-                if ((n = Packet_scanf(&rbuf, "%hu%hu%lu%hd", &tval, &sval, &kidx, &ac)) <= 0)
+                if ((n = Packet_scanf(&rbuf, "%hu%hu%lu%hd%hd", &tval, &sval, &kidx, &ac,
+                    &difficulty)) <= 0)
                 {
                     /* Rollback the socket buffer */
                     Sockbuf_rollback(&rbuf, bytes_read);
@@ -1171,7 +1172,7 @@ static int Receive_struct_info(void)
                     /* Packet isn't complete, graceful failure */
                     return n;
                 }
-                bytes_read += 10;
+                bytes_read += 12;
 
                 kind->tval = tval;
                 kind->sval = sval;
@@ -1179,6 +1180,8 @@ static int Receive_struct_info(void)
 
                 /* Hack -- put flavor index into unused field "ac" */
                 kind->ac = ac;
+
+                kind->difficulty = difficulty;
 
                 for (j = 0; j < KF_SIZE; j++)
                 {
@@ -1648,10 +1651,10 @@ static int Receive_plusses(void)
 {
     int n;
     uint8_t ch;
-    int16_t dd, ds, mhit, mdam, shit, sdam;
+    int16_t dd, ds, mhit, mdam, shit, sdam, bless_wield;
 
-    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd", &ch, &dd, &ds, &mhit, &mdam, &shit,
-        &sdam)) <= 0)
+    if ((n = Packet_scanf(&rbuf, "%b%hd%hd%hd%hd%hd%hd%hd", &ch, &dd, &ds, &mhit, &mdam, &shit,
+        &sdam, &bless_wield)) <= 0)
     {
         return n;
     }
@@ -1662,6 +1665,7 @@ static int Receive_plusses(void)
     dis_to_mdam = mdam;
     dis_to_shit = shit;
     dis_to_sdam = sdam;
+    player->known_state.bless_wield = (bool)bless_wield;
 
     /* Redraw */
     player->upkeep->redraw |= (PR_PLUSSES);

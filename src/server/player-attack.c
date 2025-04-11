@@ -65,8 +65,8 @@ int chance_of_melee_hit_base(const struct player *p, const struct object *weapon
 {
     int bonus = p->state.to_h;
 
-    if (weapon)
-        bonus += object_to_hit(weapon);
+    if (weapon) bonus += object_to_hit(weapon);
+    if (p->state.bless_wield) bonus += 2;
 
     return p->state.skills[SKILL_TO_HIT_MELEE] + bonus * BTH_PLUS_ADJ;
 }
