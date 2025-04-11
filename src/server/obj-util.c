@@ -1095,9 +1095,6 @@ void object_own(struct player *p, struct object *obj)
         /* By default, use half the kind level */
         int base = get_object_level(p, obj, false) / 2;
 
-        /* Artifacts */
-        if (obj->artifact) base = get_artifact_level(p, obj) / 2;
-
         /* Wearables and ammo have object power */
         if (tval_has_variable_power(obj))
         {
