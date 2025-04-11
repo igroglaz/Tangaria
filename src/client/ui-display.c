@@ -2676,10 +2676,7 @@ void do_slashfx(void)
                 else if (sfx_move[i][j] == 1 || sfx_move[i][j] == 3)
                 {
                     // Refresh slash effects. We will draw 4 nearby tiles.
-                    // sfx_info_d[y][x] = dir
-                    //  |1|2|3|
-                    //  |4|5|6|
-                    //  |7|8|9|
+                    // sfx_info_d[y][x] = sfx_dir
 
                     slashfx_dir_offset(&ox, &oy, sfx_info_d[i][j]);
 
@@ -2762,10 +2759,7 @@ void slashfx_refresh_char(int x, int y)
     h = (main_term->hgt - ROW_MAP - 1) / tile_height;
 
     // Refresh character. We will draw 4 nearby tiles.
-    // sfx_info_d[y][x] = dir
-    //  |1|2|3|
-    //  |4|5|6|
-    //  |7|8|9|
+    // sfx_info_d[y][x] = sfx_dir
 
     slashfx_dir_offset(&ox, &oy, sfx_info_d[y][x]);
 
@@ -2969,7 +2963,7 @@ void slashfx_save_char(int x, int y)
 
         if (use_graphics)
         {
-            // Check character visibility
+            // Check character
             if (a != ta && c != tc)
             {
                 sfx_info_a[y][x] = a;

@@ -54,6 +54,12 @@ void slash_fx(struct monster *mon, struct source *who)
         { 3, 2, 1 },
     };
 
+    bool seen = ((who->player->timed[TMD_BLIND] == 0) && 
+        monster_is_visible(who->player, mon->midx));
+
+    // Check the monster is visible to the player
+    if (!seen) return;
+
     mon_x = mon->grid.x;
     mon_y = mon->grid.y;
 
