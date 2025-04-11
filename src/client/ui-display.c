@@ -2657,7 +2657,7 @@ void do_slashfx(void)
             {
                 if (sfx_move[i][j] == 0) continue;
 
-                if (sfx_move[i][j] == 2 || sfx_move[i][j] == 4)
+                if (sfx_move[i][j] == 2)
                 {
                     // Check characters
                     Term_info(COL_MAP + (j - player->offset_grid.x) * tile_width, 
@@ -2673,7 +2673,7 @@ void do_slashfx(void)
                             ROW_MAP + (i - player->offset_grid.y) * tile_height, 1, &a, &c, &ta, &tc));
                     }
                 }
-                else if (sfx_move[i][j] == 1 || sfx_move[i][j] == 3)
+                else if (sfx_move[i][j] == 1)
                 {
                     // Refresh slash effects. We will draw 4 nearby tiles.
                     // sfx_info_d[y][x] = sfx_dir

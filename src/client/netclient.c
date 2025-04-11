@@ -4663,7 +4663,7 @@ static int Receive_slash_fx(void)
     else slashfx_refresh_char_ascii(x, y);
 
     // Remember new information
-    if (use_graphics) sfx_move[y][x] = 4;
+    if (use_graphics) sfx_move[y][x] = 2;
     else sfx_move[y][x] = 16;
 
     sfx_info_d[y][x] = dir;
