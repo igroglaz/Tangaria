@@ -341,7 +341,7 @@ void do_cmd_takeoff(struct player *p, int item)
     }
 
     // can't take off cursed items right on..
-    if (obj->curses && !one_in_(8))
+    if (obj->curses && (turn.turn % 8 != 0)) // // 7 out of 8 turns = 88% to fail
     {
         msg(p, "You fail to take off cursed item this time. Try ones more..");
         return;
