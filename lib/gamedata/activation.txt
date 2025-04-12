@@ -43,6 +43,27 @@
 
 # 'desc' is the activation description
 
+#dummy property for randarts; see add_activation()
+name:RANDY30
+aim:0
+power:30
+effect:WAKE
+
+name:RANDY20
+aim:0
+power:20
+effect:WAKE
+
+name:RANDY10
+aim:0
+power:10
+effect:WAKE
+
+name:RANDY5
+aim:0
+power:5
+effect:WAKE
+################ END dummy property for randarts
 
 name:ACID_BALL120
 aim:1

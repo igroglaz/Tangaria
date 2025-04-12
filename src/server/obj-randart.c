@@ -2195,6 +2195,30 @@ static void add_activation(struct artifact *art, int target_power, int max_power
         if (act->power > max_effect) max_effect = act->power;
     }
 
+    // 50% chance to try RANDY30..RANDY5 (indices 0..3) before we do the while-loop
+    // (this done cause in V randarts have too often and too powerful activations)
+    if (one_in_(2))
+    {
+        for (i = 0; i < 4; i++)
+        {
+            p = activations[i].power;
+
+            /*
+             * Check that activation is useful but not exploitable,
+             * and roughly proportionate to the overall power
+             */
+            if ((100 * p / max_effect > 50 * target_power / max_power) &&
+                (100 * p / max_effect < 200 * target_power / max_power))
+            {
+                art->activation = &activations[i];
+                art->time.base = (p * 8);
+                art->time.dice = ((p > 5) ? (p / 5) : 1);
+                art->time.sides = p;
+                return;
+            }
+        }
+    }
+
     /* Select an activation at random */
     while (count < MAX_TRIES)
     {
