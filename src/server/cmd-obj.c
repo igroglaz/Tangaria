@@ -496,6 +496,13 @@ void do_cmd_wield(struct player *p, int item, int slot)
         return;
     }
 
+    // when we swap items, we need also to check for curse
+    if (equip_obj->curses && (turn.turn % 8 != 0)) // 7 out of 8 turns = 88% to fail
+    {
+        msg(p, "You fail to take off cursed item this time. Try once more..");
+        return;
+    }
+
     /* Check preventive inscription '!t' */
     if (object_prevent_inscription(p, equip_obj, INSCRIPTION_TAKEOFF, false))
     {
