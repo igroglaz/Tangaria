@@ -2399,10 +2399,6 @@ void player_death(struct player *p)
 
         plog_fmt("player_death(): [%s] got %d lives -> start resurrection", p->name, p->lives);
 
-        /* Handle polymorphed players */
-        if (p->poly_race) do_cmd_poly(p, NULL, false, true);
-        plog_fmt("player_death(): [%s] made do_cmd_poly()", p->name);
-
         /* Cancel current effects */
         for (i = 0; i < TMD_MAX; i++) player_clear_timed(p, i, true);
         plog_fmt("player_death(): [%s] made player_clear_timed()", p->name);
