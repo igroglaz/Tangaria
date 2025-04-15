@@ -5319,7 +5319,7 @@ msg_other: invokes a stinking cloud.
 desc:Shoots a radius-3 poisonous cloud with toxic vapor in the center.
 
 
-############### CLASS TEMPLATE for Fighter ###############
+############### CLASS TEMPLATE for Fighter #.. like mercenary, so >coward than warr
 
 name:Fighter
 color:u
@@ -5346,10 +5346,11 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[2]
 value:0:INT[-1]
-value:0:WIS[-1]
+value:0:WIS[-2]
 value:0:DEX[1]
 value:0:CON[1]
-value:0:CHR[-1]
+value:0:CHR[-3]
+# add obj-flag:0:IMPAIR_MANA?
 # mana: STR+INT
 # can pseudo-ID curses
 # ... need to check his effect:TIMED_SET:DEADLY skill...
@@ -5413,10 +5414,8 @@ desc: and sometimes even dexterity.
 desc: Beware to sleep in sloppy places..
 
 spell:Focus:20:6:30:12:0
-effect:TIMED_SET:OPP_CONF
-dice:12+1d12
 effect:CURE:CONFUSED
-desc:You focus, becoming immune to confusion for some time.
+desc:You focus and remove confusion.
 
 spell:Weaponcare:25:20:80:120:0
 effect:ENCHANT:TODAM
@@ -5428,10 +5427,14 @@ dice:2+1d5
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
 desc: This tedious work reduce your nourishment.
 
-spell:Bandages:30:20:90:100:0
+spell:Bandages:30:10:90:100:0
 effect:HEAL_HP
-dice:50
-effect:CURE:CUT
+dice:6+$Dd6
+expr:D:PLAYER_LEVEL:/ 2
+effect:TIMED_DEC:CUT
+dice:20
+effect:TIMED_INC:OCCUPIED
+dice:2d3
 desc:You apply fast & dirty first aid to stop bleeding.
 
 spell:Armour Polish:35:20:85:150:0
