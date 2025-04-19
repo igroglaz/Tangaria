@@ -1416,14 +1416,18 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
         /* Leave now if not a breeder */
         if (!rf_has(mon->race->flags, RF_MULTIPLY)) return false;
 
-        // some monsters can multiply very rare (they got the flag; see above)
+        // some monsters can multiply more rarely (they got the flag; see above)
         if (streq(mon->race->name, "ectoplasm"))
         {
-            if (!one_in_(10)) return false;
+            if (!one_in_(10)) return false; // 10% to multiply
         }
         else if (streq(mon->race->name, "Doppleganger"))
         {
-            if (!one_in_(15)) return false;
+            if (!one_in_(15)) return false; // 7%
+        }
+        else if (streq(mon->race->name, "sandworm")) // 50%
+        {
+            if (one_in_(2)) return false;
         }
 
         /* Try to multiply */
