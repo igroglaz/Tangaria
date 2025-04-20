@@ -2393,7 +2393,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_STEALTH] -= 1;
                 state->skills[SKILL_SEARCH] += 2;
                 state->skills[SKILL_SAVE] += 5;
-                pf_on(p->clazz->pflags, PF_KNOW_MUSHROOM);
+                pf_on(state->pflags, PF_KNOW_MUSHROOM);
             }
             else if (streq(p->poly_race->name, "cat-form"))
             {
@@ -2401,7 +2401,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_STEALTH] += p->lev / 10;
                 state->see_infra += 2;
                 state->dam_red -= p->lev / 25;
-                pf_on(p->clazz->pflags, PF_BACK_STAB);
+                pf_on(state->pflags, PF_BACK_STAB);
             }
             else if (streq(p->poly_race->name, "wolf-form"))
             {
@@ -2412,7 +2412,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->to_d += 1 + p->lev / 5;
                 extra_blows += p->lev / 10;
                 state->see_infra += 1;
-                pf_on(p->clazz->pflags, PF_COMBAT_REGEN);
+                pf_on(state->pflags, PF_COMBAT_REGEN);
             }
             else if (streq(p->poly_race->name, "bear-form"))
             {
@@ -2422,7 +2422,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 state->skills[SKILL_STEALTH] -= p->lev / 10;
                 state->to_a += p->lev;
                 state->skills[SKILL_SAVE] += p->lev / 2;
-                pf_on(p->clazz->pflags, PF_SHIELD_BASH);
+                pf_on(state->pflags, PF_SHIELD_BASH);
                 // also reduce -10% inc damage
             }
         }
