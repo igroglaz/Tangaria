@@ -2647,16 +2647,17 @@ void square_colorize_door(struct chunk *c, struct loc *grid, int power)
     square_set_feat(c, grid, FEAT_HOME_CLOSED + power);
 }
 
-    /* get random wall feat for house building */
+
+// get random wall feat for house building
 void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_type, int wall_id)
 {
-    char wall[1][20] = {"house wall "};       // first part of the wall name
+    char wall[20] = "house wall ";       // first part of the wall name
  // wall_type - (given to this fuction) second part of the wall name
  // wall_id - specific wall (when we have several different walls in one row)
     int rng = 0;                              // preliminary third part of wall name
     char wall_glyph = '\0';                   // third part of wall name
-    char wall_index[2] = "";                   // buffer for 0-9 rng number
     int house_wall = 0;                       // result: index of terrain feature
+    int len; // measure length of a string
 
     // random choice of wall number
     rng = randint0(63);
@@ -3054,7 +3055,10 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         wall_type = 'i';
     }
 
-    strncat(wall, &wall_type, 1);
+    // Add wall_type (e.g. 'a', 'b', ...) to the name
+    len = strlen(wall);
+    wall[len] = wall_type;
+    wall[len+1] = '\0';
 
     // some walls not really good to be house-ones
     switch(rng)
@@ -3127,19 +3131,17 @@ void square_build_new_permhouse(struct chunk *c, struct loc *grid, char wall_typ
         default: rng = 0;
     }
 
+    // Convert rng to character (digit or tile glyph)
+    len = strlen(wall);
+
     if (rng <= 9)
-    {
-        // If we put int to char it will be set as 'hex' (0x..).
-        // So we need to convert it to 'int'
-        snprintf(wall_index, 2, "%d", rng);
-        // Combine two strings
-        strncat(wall, &wall_index, 1);
-    }
+        wall[len] = '0' + rng;   // 0..9 as '0'..'9'
     else
-        strncat(wall, &wall_glyph, 1);
+        wall[len] = wall_glyph; // use preselected glyph
+    wall[len + 1] = '\0';
 
     // look for the feat
-    house_wall = lookup_feat_code(wall[0]);
+    house_wall = lookup_feat_code(wall);
 
     square_set_feat(c, grid, house_wall);
 }
@@ -3195,7 +3197,7 @@ void square_add_wall(struct chunk *c, struct loc *grid)
 
 void square_add_tree(struct chunk *c, struct loc *grid)
 {
-    char tr33[1][30] = {"\0"};  // tree terrain feature
+    char tr33[30] = "";  // tree terrain feature
     int rng = 0;
     int tree_index = 0;         // result: index of terrain feature
 
@@ -3227,7 +3229,7 @@ void square_add_tree(struct chunk *c, struct loc *grid)
     }
     
     // look for the feat
-    tree_index = lookup_feat_code(tr33[0]);
+    tree_index = lookup_feat_code(tr33);
 
     square_set_feat(c, grid, tree_index);
 }
@@ -3244,15 +3246,15 @@ void square_add_grass(struct chunk *c, struct loc *grid)
     square_set_feat(c, grid, FEAT_GRASS);
 }
 
-    /* get random floor feat for house building */
+/* get random floor feat for house building */
 void square_add_new_safe(struct chunk *c, struct loc *grid)
 {
-    char floor[1][20] = {"house floor "}; // 1st part of floor name
+    char floor[20] = "house floor "; // 1st part of floor name
     char floor_type = '\0';     // second part of floor name (type)
     int rng = 0;                // third part of the floor name
     char floor_glyph = '\0';
-    char floor_index[2] = "";    // buffer for 0-9 rng number
     int house_floor = 0;         // result: index of terrain feature
+    int len; // measure length of a string
 
     rng = randint0(63); // random choice of floor number
 
@@ -3315,7 +3317,9 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
     }
 
     // combine 1st ("house floor ") and 2nd (type "a-i") part of the wall name
-    strncat(floor, &floor_type, 1);
+    len = strlen(floor);
+    floor[len] = floor_type;
+    floor[len + 1] = '\0';
 
     switch(rng)
     {   // 1st stroke in tileset
@@ -3387,20 +3391,17 @@ void square_add_new_safe(struct chunk *c, struct loc *grid)
         default: rng = 0;
     }
 
+    // Convert rng to character (digit or tile glyph)
+    len = strlen(floor);
+
     if (rng <= 9)
-    {
-        // If we put int to char it will be set as 'hex' (0x..).
-        // So we need to convert it to 'int'
-        snprintf(floor_index, 2, "%d", rng);
-        // Combine two strings:
-        // first two combined parts of floor name (eg "house floor a") with index
-        strncat(floor, &floor_index, 1);
-    }
+        floor[len] = '0' + rng; // 0..9 as '0'..'9'
     else
-        strncat(floor, &floor_glyph, 1);
+        floor[len] = floor_glyph; // use preselected glyph
+    floor[len + 1] = '\0';
 
     // look for the feat
-    house_floor = lookup_feat_code(floor[0]);
+    house_floor = lookup_feat_code(floor);
 
     square_set_feat(c, grid, house_floor);
 }
