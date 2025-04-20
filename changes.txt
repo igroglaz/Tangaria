@@ -32,6 +32,7 @@ Angband 4.2.x:
 PWMAngband:
 
 - Allow swapping items with similar @w1-@w9 inscriptions
+- Add support for F16-F24 keys in SDL2
 
 Gameplay changes
 ----------------
@@ -103,3 +104,4 @@ Angband 4.2.x:
 PWMAngband:
 
 - Add some docker files to build in alpine docker container
+- Simplify warning message in prf files

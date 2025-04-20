@@ -2298,7 +2298,7 @@ values:SEARCH[1+M5] | LIGHT[1] | RES_LIGHT[1]
 name:Flames
 graphics:=:d
 type:ring
-level:20
+level:20:30
 weight:2
 cost:500
 alloc:20:20 to 100
@@ -2314,7 +2314,7 @@ desc: even allows you to call forth a ball of flame.
 name:Acid
 graphics:=:d
 type:ring
-level:20
+level:20:25
 weight:2
 cost:500
 alloc:20:20 to 100
@@ -2331,7 +2331,7 @@ desc: foes.
 name:Ice
 graphics:=:d
 type:ring
-level:20
+level:20:28
 weight:2
 cost:500
 alloc:20:20 to 100
@@ -2348,7 +2348,7 @@ desc: foes.
 name:Lightning
 graphics:=:d
 type:ring
-level:20
+level:20:32
 weight:2
 cost:500
 alloc:20:20 to 100
@@ -2438,7 +2438,7 @@ armor:0:-8+4d3
 name:Open Wounds
 graphics:=:d
 type:ring
-level:10
+level:10:5
 weight:2
 cost:700
 alloc:20:10 to 50
@@ -2544,7 +2544,7 @@ desc: otherwise unseen.
 name:Digging
 graphics:=:d
 type:ring
-level:10
+level:10:5
 weight:2
 cost:800
 alloc:20:10 to 50
@@ -4392,7 +4392,7 @@ msg_other: fires a frost ball.
 name:Fire Balls
 graphics:-:d
 type:wand
-level:50
+level:50:55
 weight:10
 cost:1800
 alloc:20:50 to 100
@@ -4424,7 +4424,7 @@ msg_other: fires an acid ball.
 name:Slow Monster
 graphics:-:d
 type:wand
-level:5
+level:5:15
 weight:10
 cost:500
 alloc:20:5 to 100
@@ -4600,7 +4600,7 @@ expr:B:PLAYER_LEVEL:/ 5
 name:Dragon's Flame
 graphics:-:d
 type:wand
-level:50
+level:50:55
 weight:10
 cost:2400
 alloc:20:50 to 100
@@ -4802,7 +4802,7 @@ dice:5+1d5
 name:Slow Monsters
 graphics:_:d
 type:staff
-level:10
+level:10:20
 weight:50
 cost:800
 alloc:20:10 to 100
@@ -4855,7 +4855,7 @@ effect-yx:22:40
 name:Magic Mapping
 graphics:_:d
 type:staff
-level:20
+level:10:20
 weight:50
 cost:600
 alloc:40:10 to 100
@@ -4876,7 +4876,7 @@ dice:11+1d24
 name:Curing
 graphics:_:d
 type:staff
-level:10
+level:10:25
 weight:50
 cost:500
 alloc:30:10 to 100
@@ -5097,7 +5097,7 @@ effect:TOUCH:MAKE_DOOR:1
 name:Treasure Location
 graphics:-:d
 type:rod
-level:8
+level:8:10
 weight:15
 cost:1000
 alloc:30:8 to 75
@@ -5111,7 +5111,7 @@ time:50
 name:Detection
 graphics:-:d
 type:rod
-level:50
+level:50:30
 weight:15
 cost:30000
 alloc:1:50 to 100
@@ -5124,7 +5124,7 @@ time:100
 name:Magic Mapping
 graphics:-:d
 type:rod
-level:65
+level:35
 weight:15
 cost:2000
 alloc:30:35 to 100
@@ -5136,7 +5136,7 @@ time:100
 name:Probing
 graphics:-:d
 type:rod
-level:35
+level:35:30
 weight:15
 cost:1000
 alloc:20:35 to 100
@@ -5150,7 +5150,7 @@ time:100
 name:Fire Bolts
 graphics:-:d
 type:rod
-level:30
+level:30:35
 weight:15
 cost:3000
 alloc:20:30 to 80
@@ -5258,7 +5258,7 @@ time:27
 name:Slow Monster
 graphics:-:d
 type:rod
-level:30
+level:30:40
 weight:15
 cost:1500
 alloc:20:30 to 100
@@ -5284,7 +5284,7 @@ time:40
 name:Curing
 graphics:-:d
 type:rod
-level:10
+level:10:40
 weight:15
 cost:1000
 alloc:20:10 to 80
@@ -5348,7 +5348,7 @@ time:23
 name:Teleport Other
 graphics:-:d
 type:rod
-level:45
+level:45:35
 weight:15
 cost:0
 alloc:20:45 to 100
@@ -5360,7 +5360,7 @@ time:25
 name:Disable Traps
 graphics:-:d
 type:rod
-level:10
+level:10:35
 weight:15
 cost:30000
 alloc:1:10 to 100
@@ -5372,7 +5372,7 @@ time:30
 name:Light
 graphics:-:d
 type:rod
-level:5
+level:5:10
 weight:15
 cost:500
 alloc:30:5 to 100
@@ -5384,7 +5384,7 @@ time:9
 name:Illumination
 graphics:-:d
 type:rod
-level:10
+level:10:20
 weight:15
 cost:1000
 alloc:20:10 to 100
@@ -5409,7 +5409,7 @@ time:60
 name:Speed
 graphics:-:d
 type:rod
-level:80
+level:80:55
 weight:15
 cost:25000
 alloc:10:80 to 100
@@ -5589,7 +5589,7 @@ desc:The sorry, bony remains of some hapless creature.
 name:Black Dragon Scale Mail~
 graphics:[:s
 type:dragon armour
-level:35
+level:35:27
 weight:120
 cost:40000
 alloc:8:35 to 100
@@ -5605,7 +5605,7 @@ desc: powers.
 name:Blue Dragon Scale Mail~
 graphics:[:b
 type:dragon armour
-level:25
+level:25:30
 weight:100
 cost:40000
 alloc:8:25 to 100
@@ -5620,7 +5620,7 @@ desc:A piece of dragon hide fashioned into an armour, shimmering bright blue.
 name:White Dragon Scale Mail~
 graphics:[:w
 type:dragon armour
-level:30
+level:30:25
 weight:110
 cost:40000
 alloc:8:30 to 100
@@ -5635,7 +5635,7 @@ desc:An armour fashioned from dragon hide, glistening the white of snow.
 name:Red Dragon Scale Mail~
 graphics:[:r
 type:dragon armour
-level:40
+level:40:32
 weight:160
 cost:40000
 alloc:8:40 to 100
@@ -5651,7 +5651,7 @@ desc: radiates heat.
 name:Green Dragon Scale Mail~
 graphics:[:g
 type:dragon armour
-level:60
+level:60:30
 weight:140
 cost:60000
 alloc:8:60 to 100
@@ -5667,7 +5667,7 @@ desc: awful.
 name:Multi-Hued Dragon Scale Mail~
 graphics:[:x
 type:dragon armour
-level:75
+level:75:50
 weight:260
 cost:150000
 alloc:5:75 to 100
@@ -5683,7 +5683,7 @@ desc: white.
 name:Shadow Dragon Scale Mail~
 graphics:[:o
 type:dragon armour
-level:75
+level:75:37
 weight:200
 cost:60000
 alloc:6:75 to 100
@@ -5699,7 +5699,7 @@ desc: it darkness?
 name:Law Dragon Scale Mail~
 graphics:[:B
 type:dragon armour
-level:80
+level:80:45
 weight:220
 cost:80000
 alloc:6:80 to 100
@@ -5716,7 +5716,7 @@ desc: but you're not afraid of either.
 name:Gold Dragon Scale Mail~
 graphics:[:y
 type:dragon armour
-level:70
+level:70:30
 weight:180
 cost:40000
 alloc:8:70 to 100
@@ -5732,7 +5732,7 @@ desc: occasionally increases to a loud boom.
 name:Chaos Dragon Scale Mail~
 graphics:[:x
 type:dragon armour
-level:85
+level:85:45
 weight:240
 cost:80000
 alloc:5:85 to 100
@@ -5749,7 +5749,7 @@ desc: and are no longer afraid of your equipment losing its magic.
 name:Balance Dragon Scale Mail~
 graphics:[:v
 type:dragon armour
-level:95
+level:95:52
 weight:280
 cost:100000
 alloc:3:95 to 100
@@ -5766,7 +5766,7 @@ desc: fear either.
 name:Power Dragon Scale Mail~
 graphics:[:v
 type:dragon armour
-level:100
+level:100:57
 weight:300
 cost:300000
 alloc:1:100 to 100
@@ -6404,7 +6404,7 @@ effect:RESTORE_MANA
 name:Crystal Dragon Scale Mail~
 graphics:[:u
 type:dragon armour
-level:60
+level:60:30
 weight:140
 cost:40000
 alloc:8:60 to 100
@@ -6419,7 +6419,7 @@ desc:A suit of armour made of the hide of a dead crystal drake.
 name:Silver Dragon Scale Mail~
 graphics:[:W
 type:dragon armour
-level:65
+level:65:32
 weight:160
 cost:50000
 alloc:8:65 to 100
@@ -6435,7 +6435,7 @@ desc:A suit of armour made of the hide of a dead silver dragon.
 name:Ethereal Dragon Scale Mail~
 graphics:[:G
 type:dragon armour
-level:70
+level:70:35
 weight:180
 cost:80000
 alloc:8:70 to 100
@@ -6450,7 +6450,7 @@ desc:A suit of armour made of the hide of a dead ethereal drake.
 name:Dracolisk Scale Mail~
 graphics:[:R
 type:dragon armour
-level:75
+level:75:37
 weight:200
 cost:60000
 alloc:6:75 to 100
@@ -6513,7 +6513,7 @@ desc: In the hands of a spellcaster, it can be a deadly weapon.
 name:& Horn~
 graphics:/:W
 type:horn
-level:15
+level:15:1
 weight:30
 cost:10
 alloc:20:15 to 100
@@ -6526,7 +6526,7 @@ desc:It sounds loud and clear.
 name:Water Dragon Scale Mail~
 graphics:[:Z
 type:dragon armour
-level:75
+level:75:37
 weight:200
 cost:60000
 alloc:6:75 to 100

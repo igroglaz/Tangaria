@@ -240,7 +240,7 @@ desc: with the Blessed light.
 
 name:'Angrist'
 base-object:sword:Dagger
-level:20
+level:60
 weight:12
 alloc:2:60 to 100
 attack:2d7:18:16
@@ -481,7 +481,7 @@ desc: as the "Sickle of Harad", and a deadly foe to the undead.
 
 name:'Ringil'
 base-object:sword:Long Sword
-level:20
+level:20:40
 weight:130
 alloc:1:70 to 127
 attack:4d5:22:25
@@ -503,7 +503,7 @@ desc: again.
 
 name:'Anduril'
 base-object:sword:Long Sword
-level:20
+level:20:35
 weight:130
 alloc:3:25 to 127
 attack:3d5:10:15
@@ -865,7 +865,7 @@ desc: bathe it in the blood of your foes.
 
 name:'Firestar'
 base-object:hafted:Morning Star
-level:20
+level:20:35
 weight:150
 alloc:7:25 to 100
 attack:2d6:15:17
@@ -977,7 +977,7 @@ desc: auras of protection and thought.
 
 name:'Eriril'
 base-object:hafted:Quarterstaff
-level:20
+level:20:15
 weight:150
 alloc:5:25 to 100
 attack:1d11:13:15
@@ -992,7 +992,7 @@ desc: grants keen sight and clear knowledge of many hidden things.
 
 name:of Olórin
 base-object:hafted:Quarterstaff
-level:30
+level:30:20
 weight:150
 alloc:1:30 to 100
 attack:2d11:10:13
@@ -1132,7 +1132,7 @@ desc:Whatever the foe, if it has a skull it better watch out.
 
 name:'Aiglos'
 base-object:polearm:Spear
-level:15
+level:15:40
 weight:50
 alloc:2:30 to 100
 attack:3d6:15:25
@@ -1151,7 +1151,7 @@ desc: Against it, all the foul corruptions of Sauron dashed in vain.
 
 name:of Orome
 base-object:polearm:Spear
-level:15
+level:15:5
 weight:50
 alloc:2:25 to 127
 attack:4d6:15:15
@@ -1229,7 +1229,7 @@ desc: evil and undead.
 
 name:of Ulmo
 base-object:polearm:Trident
-level:30
+level:30:27
 weight:70
 alloc:1:35 to 127
 attack:4d10:15:19
@@ -1296,7 +1296,7 @@ desc: mad terror and showing no mercy to anything in its way.
 
 name:of Theoden
 base-object:polearm:Beaked Axe
-level:20
+level:20:30
 weight:180
 alloc:7:20 to 100
 attack:2d8:8:10
@@ -1467,7 +1467,7 @@ desc: evil at a word, and grants Maia-like powers of body and mind.
 
 name:'Avavir'
 base-object:polearm:Scythe
-level:45
+level:45:20
 weight:250
 alloc:12:45 to 100
 attack:5d3:18:12
@@ -1711,7 +1711,7 @@ desc: with flame unquenchable.
 
 name:of Umbar
 base-object:bow:Heavy Crossbow
-level:60
+level:60:45
 weight:200
 alloc:5:60 to 127
 attack:4d1:18:18
@@ -1944,7 +1944,7 @@ desc:The pick of Azog, which granted him strength and stamina.
 
 name:of Nain
 base-object:digger:Mattock
-level:60
+level:60:10
 weight:250
 alloc:12:60 to 100
 attack:1d8:0:0
@@ -1974,7 +1974,7 @@ desc: silent, hasted movement.
 
 name:of Feanor
 base-object:boots:Pair of Leather Boots
-level:40
+level:40:20
 weight:20
 alloc:1:40 to 127
 attack:1d1:0:0
@@ -1990,7 +1990,7 @@ desc: no other."
 
 name:'Dal-i-thalion'
 base-object:boots:Pair of Leather Boots
-level:50
+level:50:10
 weight:20
 alloc:4:50 to 100
 attack:1d1:0:0
@@ -2005,7 +2005,7 @@ desc: against the powers of corruption and withering.
 
 name:of Wormtongue
 base-object:boots:Pair of Leather Boots
-level:15
+level:15:10
 weight:20
 alloc:8:15 to 80
 attack:1d1:-1:-1
@@ -2033,7 +2033,7 @@ desc: boots possess the magic of Radagast, friend of birds and nature.
 
 name:of Gimli
 base-object:boots:Pair of Iron Shod Boots
-level:25
+level:25:30
 weight:35
 alloc:0:25 to 127
 attack:1d1:5:5
@@ -2058,7 +2058,7 @@ desc: Dwarven king-in-exile who wore them.
 
 name:'Stormwalker'
 base-object:boots:Pair of Mithril Shod Boots
-level:60
+level:60:30
 weight:40
 alloc:3:60 to 127
 attack:1d1:0:0
@@ -2179,7 +2179,7 @@ desc: needed succor.
 
 name:of Knowledge
 base-object:helm:Iron Helm
-level:42
+level:42:20
 weight:50
 alloc:0:42 to 127
 attack:1d3:0:0
@@ -2259,7 +2259,7 @@ desc: that its wearer will see nothing but the very truth.
 
 name:of Gondor
 base-object:crown:Golden Crown
-level:45
+level:45:40
 weight:30
 alloc:5:45 to 127
 attack:1d1:0:0
@@ -2383,7 +2383,7 @@ desc: winds, rendering him immune to any adverse effects of wind and weather.
 
 name:of Himring
 base-object:soft armour:Hard Leather Armour
-level:25
+level:25:30
 weight:120
 alloc:20:25 to 90
 attack:1d2:-1:0
@@ -2481,7 +2481,7 @@ desc:This chain mail has endured many many fights!
 
 name:of Caspanion
 base-object:hard armour:Augmented Chain Mail
-level:35
+level:35:25
 weight:270
 alloc:11:35 to 100
 attack:1d4:-2:0
@@ -2522,7 +2522,7 @@ desc: the Young, matchless in combat, you feel his spirit surround you.
 
 name:of the Wyrm Hunter
 base-object:hard armour:Partial Plate Armour
-level:40
+level:40:20
 weight:260
 alloc:0:40 to 127
 attack:1d6:-3:0
@@ -2571,7 +2571,7 @@ desc: surface. It also seems to absorb any form of energy.
 
 name:'Belegennon'
 base-object:hard armour:Mithril Chain Mail
-level:55
+level:55:20
 weight:150
 alloc:30:55 to 127
 attack:1d4:-1:0
@@ -2588,7 +2588,7 @@ desc: strangely less powerful.
 
 name:of Celeborn
 base-object:hard armour:Mithril Plate Mail
-level:65
+level:65:40
 weight:300
 alloc:30:65 to 127
 attack:2d4:-3:0
@@ -2771,7 +2771,7 @@ desc:Sacred gloves of an archpriest whose name is not remembered.
 
 name:'Paurhach'
 base-object:gloves:Set of Gauntlets
-level:10
+level:10:1
 weight:25
 alloc:40:10 to 60
 attack:1d1:0:0
@@ -2784,7 +2784,7 @@ desc:A set of gauntlets that smoulder with an unnatural heat.
 
 name:'Paurnimmen'
 base-object:gloves:Set of Gauntlets
-level:50
+level:50:1
 weight:25
 alloc:5:50 to 127
 attack:1d1:0:0
@@ -2798,7 +2798,7 @@ desc:A set of handgear, freezing with unnatural cold.
 
 name:'Pauraegen'
 base-object:gloves:Set of Gauntlets
-level:10
+level:10:1
 weight:25
 alloc:23:10 to 75
 attack:1d1:0:0
@@ -2811,7 +2811,7 @@ desc:A set of handgear with sparks that crackle across its knuckleguards.
 
 name:'Paurnen'
 base-object:gloves:Set of Gauntlets
-level:10
+level:10:1
 weight:25
 alloc:30:10 to 60
 attack:1d1:3:3
@@ -2851,7 +2851,7 @@ desc: magics he could channel in battle.
 
 name:'Wrath Verge'
 base-object:gloves:Set of Mithril Gauntlets
-level:50
+level:50:30
 weight:15
 alloc:0:50 to 127
 attack:1d1:5:5
@@ -2973,7 +2973,7 @@ desc: even Sauron could not corrupt.
 
 name:of Earendil
 base-object:shield:Knight's Shield
-level:65
+level:65:32
 weight:160
 alloc:6:65 to 127
 attack:1d6:0:0
@@ -2988,7 +2988,7 @@ desc: "scored with runes to keep all wounds and harm from him".
 
 name:of Gil-galad
 base-object:shield:Mithril Shield
-level:70
+level:70:30
 weight:100
 alloc:25:70 to 127
 attack:1d4:0:0
@@ -3031,7 +3031,7 @@ desc: form this ring, an ancient treasure of Isildur's house.
 name:of Tulkas
 base-object:ring:Band
 graphics:=:d
-level:70
+level:70:60
 weight:2
 alloc:2:70 to 127
 flags:PROT_FEAR
@@ -3043,7 +3043,7 @@ desc:The treasure of Tulkas, most fleet and wrathful of the Valar.
 name:'Narya'
 base-object:ring:Ring of Fire
 graphics:=:d
-level:70
+level:70:30
 weight:2
 alloc:2:70 to 127
 attack:0d0:2:2
@@ -3061,7 +3061,7 @@ desc: by the Elves from Sauron.
 name:'Nenya'
 base-object:ring:Ring of Adamant
 graphics:=:d
-level:80
+level:80:40
 weight:2
 alloc:2:80 to 127
 attack:0d0:3:3
@@ -3081,7 +3081,7 @@ desc: Celebrimbor and hidden by the Elves from Sauron.
 name:'Vilya'
 base-object:ring:Ring of Firmament
 graphics:=:d
-level:90
+level:90:80
 weight:2
 alloc:1:90 to 127
 attack:0d0:5:5
@@ -3102,7 +3102,7 @@ desc: by the Elves from Sauron.
 name:'The One Ring'
 base-object:ring:Ring of Power
 graphics:=:d
-level:100
+level:100:75
 weight:2
 alloc:1:100 to 127
 attack:0d0:15:15
@@ -3145,7 +3145,7 @@ desc:had a hand in its making, and so it is cursed, and draws evil towards it.
 name:of Carlammas
 base-object:amulet:Amulet
 graphics:":d
-level:50
+level:50:30
 weight:3
 alloc:10:50 to 100
 values:CON[3] | STR[1] | RES_FIRE[1]
@@ -3199,7 +3199,7 @@ desc: wearer brings healing after victory in battle.
 name:'Evenstar'
 base-object:amulet:Jewel
 graphics:":d
-level:40
+level:30:40
 weight:3
 alloc:2:30 to 70
 flags:HOLD_LIFE | SUST_CON | SUST_WIS | REGEN | HUNGER
@@ -3212,7 +3212,7 @@ desc: return to the Shire.
 name:'Toris Mejistos'
 base-object:amulet:Blue Stone
 graphics:":d
-level:60
+level:60:40
 weight:3
 alloc:0:60 to 127
 flags:SUST_INT | SUST_WIS | REGEN | SLOW_DIGEST | ESP_EVIL | HOLD_LIFE
@@ -3226,7 +3226,7 @@ desc: carries many secrets.
 name:of Maglor
 base-object:amulet:Lost Silmaril
 graphics:":d
-level:75
+level:75:50
 weight:3
 alloc:1:75 to 127
 flags:HOLD_LIFE | SEE_INVIS | ESP_ALL | SLOW_DIGEST |
@@ -3262,7 +3262,7 @@ desc:of the time.
 
 name:'Black Heart'
 base-object:dragon armour:Black Dragon Scale Mail
-level:35
+level:35:27
 weight:120
 alloc:0:35 to 127
 attack:2d4:-2:0
@@ -3276,7 +3276,7 @@ desc: powers.
 
 name:'Blue Heart'
 base-object:dragon armour:Blue Dragon Scale Mail
-level:25
+level:25:30
 weight:100
 alloc:0:25 to 127
 attack:2d4:-2:0
@@ -3289,7 +3289,7 @@ desc:A piece of dragon hide fashioned into an armour, shimmering bright blue.
 
 name:'White Heart'
 base-object:dragon armour:White Dragon Scale Mail
-level:30
+level:30:25
 weight:110
 alloc:0:30 to 127
 attack:2d4:-2:0
@@ -3302,7 +3302,7 @@ desc:An armour fashioned from dragon hide, glistening the white of snow.
 
 name:'Red Heart'
 base-object:dragon armour:Red Dragon Scale Mail
-level:40
+level:40:32
 weight:160
 alloc:0:40 to 127
 attack:2d4:-2:0
@@ -3316,7 +3316,7 @@ desc: radiates heat.
 
 name:'Green Heart'
 base-object:dragon armour:Green Dragon Scale Mail
-level:60
+level:60:30
 weight:140
 alloc:0:60 to 127
 attack:2d4:-2:0
@@ -3330,7 +3330,7 @@ desc: awful.
 
 name:'Razorback'
 base-object:dragon armour:Multi-Hued Dragon Scale Mail
-level:75
+level:75:60
 weight:260
 alloc:11:75 to 127
 attack:2d4:-2:0
@@ -3346,7 +3346,7 @@ desc: untamed Lightning as you put it on.
 
 name:'Shimmering Heart'
 base-object:dragon armour:Multi-Hued Dragon Scale Mail
-level:75
+level:75:50
 weight:260
 alloc:0:75 to 127
 attack:2d4:-2:0
@@ -3361,7 +3361,7 @@ desc: white.
 
 name:'Shadow Heart'
 base-object:dragon armour:Shadow Dragon Scale Mail
-level:75
+level:75:37
 weight:200
 alloc:0:75 to 127
 attack:2d4:-2:0
@@ -3375,7 +3375,7 @@ desc: it darkness?
 
 name:'Law Heart'
 base-object:dragon armour:Law Dragon Scale Mail
-level:80
+level:80:45
 weight:220
 alloc:0:80 to 127
 attack:2d4:-2:0
@@ -3390,7 +3390,7 @@ desc: but you're not afraid of either.
 
 name:'Gold Heart'
 base-object:dragon armour:Gold Dragon Scale Mail
-level:70
+level:70:30
 weight:180
 alloc:0:70 to 127
 attack:2d4:-2:0
@@ -3404,7 +3404,7 @@ desc: occasionally increases to a loud boom.
 
 name:'Chaos Heart'
 base-object:dragon armour:Chaos Dragon Scale Mail
-level:85
+level:85:45
 weight:240
 alloc:0:85 to 127
 attack:2d4:-2:0
@@ -3419,7 +3419,7 @@ desc: and are no longer afraid of your equipment losing its magic.
 
 name:'Mediator'
 base-object:dragon armour:Balance Dragon Scale Mail
-level:95
+level:95:60
 weight:280
 alloc:8:95 to 127
 attack:2d4:-2:0
@@ -3433,7 +3433,7 @@ desc: mightiest wyrms of Law and Chaos fear the judgement of its wearer.
 
 name:'Bladeturner'
 base-object:dragon armour:Power Dragon Scale Mail
-level:100
+level:100:55
 weight:300
 alloc:6:100 to 127
 attack:2d4:-3:0
@@ -3599,7 +3599,7 @@ desc:The fastest way to kill weak enemies.
 
 name:'Crystal Heart'
 base-object:dragon armour:Crystal Dragon Scale Mail
-level:60
+level:60:30
 weight:140
 alloc:0:60 to 127
 attack:2d4:-2:0
@@ -3612,7 +3612,7 @@ desc:A suit of armour made of the hide of a dead crystal drake.
 
 name:'Silver Heart'
 base-object:dragon armour:Silver Dragon Scale Mail
-level:65
+level:65:32
 weight:160
 alloc:0:65 to 127
 attack:2d4:-2:0
@@ -3625,7 +3625,7 @@ desc:A suit of armour made of the hide of a dead silver dragon.
 
 name:'Ethereal Heart'
 base-object:dragon armour:Ethereal Dragon Scale Mail
-level:70
+level:70:35
 weight:180
 alloc:0:70 to 127
 attack:2d4:-2:0
@@ -3638,7 +3638,7 @@ desc:A suit of armour made of the hide of a dead ethereal drake.
 
 name:'Heart of Basil'
 base-object:dragon armour:Dracolisk Scale Mail
-level:75
+level:75:37
 weight:200
 alloc:0:75 to 127
 attack:2d4:-2:0
@@ -3691,7 +3691,7 @@ desc: power.
 
 name:of Rohan
 base-object:horn:Horn
-level:15
+level:15:1
 weight:30
 alloc:0:15 to 127
 attack:1d1:0:0
@@ -3706,7 +3706,7 @@ desc: courage and command.
 
 name:of Helm
 base-object:horn:Horn
-level:15
+level:15:1
 weight:30
 alloc:0:15 to 127
 attack:1d1:0:0
@@ -3721,7 +3721,7 @@ desc: horn-blast in the dead of winter.
 
 name:of Boromir
 base-object:horn:Horn
-level:15
+level:15:1
 weight:30
 alloc:0:15 to 127
 attack:1d1:0:0
@@ -3737,7 +3737,7 @@ desc: hills... and then let all the foes of Gondor flee!"
 
 name:'Water Heart'
 base-object:dragon armour:Water Dragon Scale Mail
-level:75
+level:75:37
 weight:200
 alloc:0:75 to 127
 attack:2d4:-2:0

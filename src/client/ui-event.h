@@ -134,6 +134,17 @@ typedef enum
 #define KC_TAB          0x9D /* ASCII \t */
 #define KC_DELETE       0x9E
 #define KC_BACKSPACE    0x9F /* ASCII \h */
+
+#define KC_F16          0xA0
+#define KC_F17          0xA1
+#define KC_F18          0xA2
+#define KC_F19          0xA3
+#define KC_F20          0xA4
+#define KC_F21          0xA5
+#define KC_F22          0xA6
+#define KC_F23          0xA7
+#define KC_F24          0xA8
+
 #define ESCAPE          0xE000
 
 /*

@@ -4372,6 +4372,15 @@ static void keyboard_event_to_angband_key(const SDL_KeyboardEvent *key,
         case SDLK_F13:         *ch = KC_F13; break;
         case SDLK_F14:         *ch = KC_F14; break;
         case SDLK_F15:         *ch = KC_F15; break;
+        case SDLK_F16:         *ch = KC_F16; break;
+        case SDLK_F17:         *ch = KC_F17; break;
+        case SDLK_F18:         *ch = KC_F18; break;
+        case SDLK_F19:         *ch = KC_F19; break;
+        case SDLK_F20:         *ch = KC_F20; break;
+        case SDLK_F21:         *ch = KC_F21; break;
+        case SDLK_F22:         *ch = KC_F22; break;
+        case SDLK_F23:         *ch = KC_F23; break;
+        case SDLK_F24:         *ch = KC_F24; break;
     }
 
     if (kp_as_mod) {
