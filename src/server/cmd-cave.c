@@ -1960,12 +1960,14 @@ void do_cmd_alter(struct player *p, int dir)
     else if (square_isopendoor(c, &grid))
         more = do_cmd_close_aux(p, c, &grid);
 
-    /* Make farm */
+    /* Make farm --- comment out in T for now as we don't have wilderness 
+    // and Villager class can steal from fields
     else if (in_wild(&p->wpos) && !special_level(&p->wpos) && !town_area(&p->wpos) &&
         square_isgrass(c, &grid) && !square_object(c, &grid))
     {
         square_set_feat(c, &grid, FEAT_CROP);
     }
+    */
 
     /* Oops */
     else
