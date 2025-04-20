@@ -2611,6 +2611,46 @@ void do_cmd_locate(struct player *p, int dir)
 }
 
 
+// for Villager class in do_cmd_fountain() when _ on the fields
+const char* get_crop_message(int rng)
+{
+    switch(rng)
+    {
+    case 0: return "You munch on a tiny potato you found, tasting mostly dirt.";
+    case 1: return "You crunch through a gritty potato, hoping no one's watching.";
+    case 2: return "You bite into a stale potato, regretting it instantly.";
+    case 3: return "You nibble a forgotten potato; it's tough but fills you slightly.";
+    case 4: return "You tear into a wilted cabbage, its bitterness strong.";
+    case 5: return "You chew on a leftover cabbage head, surprisingly crunchy.";
+    case 6: return "You swallow bits of an old cabbage, your stomach protesting.";
+    case 7: return "You gnaw on a rubbery cabbage, barely edible.";
+    case 8: return "You managed to find an old carrot.. and almost break your teeth on it!";
+    case 9: return "You crunch on a hard carrot, dirt included.";
+    case 10: return "You chew a stubby carrot, wondering how long it's been there.";
+    case 11: return "You force down a tough carrot, your jaw aching.";
+    case 12: return "You bite into a bitter beet, immediately regretting your choices.";
+    case 13: return "You munch on a leathery beet, determined to finish it.";
+    case 14: return "You chew a forgotten beet; it's unpleasant but edible.";
+    case 15: return "You gnaw at a hard beet, fighting the earthy taste.";
+    case 16: return "You choke down a dry squash, missing better days.";
+    case 17: return "You eat a hardened squash, barely soft enough to swallow.";
+    case 18: return "You bravely chew an overlooked squash, flavor mostly gone.";
+    case 19: return "You struggle with a tough squash, but manage to finish.";
+    case 20: return "You bite dried corn off its stalk, kernels like tiny stones.";
+    case 21: return "You chew through a small ear of old corn, gritty but edible.";
+    case 22: return "You eat forgotten corn, thankful for even stale kernels.";
+    case 23: return "You manage to gnaw through tough corn, barely swallowing.";
+    case 24: return "You crunch old turnips, ignoring their pungent flavor.";
+    case 25: return "You bravely chew a withered radish, fighting bitterness.";
+    case 26: return "You force down a small onion, tears filling your eyes.";
+    case 27: return "You snack on wild garlic, breath turning pungent.";
+    case 28: return "You quickly eat wild berries, their sourness sharp.";
+    case 29: return "You gulp down some wild mushrooms, hoping they're safe.";
+    default: return "You nibble uncertain crops, hunger overcoming caution.";
+    }
+}
+
+
 static void drink_fountain(struct player *p, struct object *obj)
 {
     struct effect *effect;
@@ -2699,7 +2739,14 @@ void do_cmd_fountain(struct player *p, int item)
             player_inc_timed(p, TMD_FOOD, 100, false, false);
             use_energy(p);
             player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(3), true, false);
-            msg(p, "You managed to find old carrot.. and almost break your teeth on it!");
+            
+            // Get a random message
+            int rng = randint0(30);
+            msg(p, get_crop_message(rng));
+        }
+        else
+        {
+            msg(p, "You are not hungry enough to steal from other farmers' fields...");
         }
 
         return;
