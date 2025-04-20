@@ -7466,7 +7466,7 @@ code:floor_j_farm_field
 name:floor j farm field
 graphics:.:g
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | T_FARM_FIELD
 ################################################################################
 short-desc:farm field
 desc:.
@@ -7475,7 +7475,7 @@ code:floor_k_farm_field
 name:floor k farm field
 graphics:.:G
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | T_FARM_FIELD
 ################################################################################
 short-desc:farm field
 desc:.
@@ -7484,7 +7484,7 @@ code:floor_l_farm_field
 name:floor l farm field
 graphics:.:y
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | T_FARM_FIELD
 ################################################################################
 short-desc:farm field
 desc:.
@@ -7493,7 +7493,7 @@ code:floor_m_farm_field
 name:floor m farm field
 graphics:.:u
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | T_FARM_FIELD
 ################################################################################
 short-desc:farm field
 desc:.
@@ -7502,7 +7502,7 @@ code:floor_n_farm_field
 name:floor n farm field
 graphics:.:s
 priority:18
-flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP
+flags:LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH | TRAP | T_FARM_FIELD
 ################################################################################
 short-desc:farm field
 desc:.
