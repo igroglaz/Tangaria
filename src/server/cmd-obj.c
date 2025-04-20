@@ -2287,6 +2287,56 @@ bool use_oil(struct player *p)
             player_inc_timed(p, TMD_FOOD, food_amount, false, false);
             hp_player(p, p->wpos.depth / 2);
             fuel_found = true;
+            break;
+        }
+        // Special food items
+        else if (obj->tval == TV_FOOD)
+        {
+            int food_amount = 0;
+
+            if (obj->kind == lookup_kind_by_name(TV_FOOD, "Slime Mold")) {
+                food_amount = 2500;
+            } else if (obj->kind == lookup_kind_by_name(TV_FOOD, "Sprig of Athelas")) {
+                food_amount = 500;
+            } else if (obj->kind == lookup_kind_by_name(TV_FOOD, "Petty-dwarf roots")) {
+                food_amount = 1400; // (boss loot)
+            }
+
+            if (food_amount > 0) {
+                // Limit consumption to avoid overfeeding
+                food_amount = MIN(food_amount, max_safe_food);
+                
+                use_object(p, obj, 1, false);
+                // nourish (no heal)
+                player_inc_timed(p, TMD_FOOD, food_amount, false, false);
+                fuel_found = true;
+                break;
+            }
+        }
+        // Special mushrooms
+        else if (obj->tval == TV_MUSHROOM)
+        {
+            int food_amount = 0;
+            
+            // Shadows mushroom
+            if (obj->kind == lookup_kind_by_name(TV_MUSHROOM, "Shadows")) {
+                food_amount = 1000;  // Oily ones
+            }
+            // Stoneskin mushroom
+            else if (obj->kind == lookup_kind_by_name(TV_MUSHROOM, "Stoneskin")) {
+                food_amount = 300;  // Base food value for mushroom
+            }
+
+            if (food_amount > 0) {
+                // Limit consumption to avoid overfeeding
+                food_amount = MIN(food_amount, max_safe_food);
+                
+                use_object(p, obj, 1, false);
+                // nourish (no heal)
+                player_inc_timed(p, TMD_FOOD, food_amount, false, false);
+                fuel_found = true;
+                break;
+            }
         }
         // light with oil (lantern, lamp...)
         else if (obj->tval == TV_LIGHT && !of_has(obj->flags, OF_NO_FUEL) && obj->timeout > 0)
@@ -2304,11 +2354,11 @@ bool use_oil(struct player *p)
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
                 else if (streq(obj->ego->name, "of True Sight")) {
-                    fuel_amount *= 5;
+                    fuel_amount *= 2;
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
                 else if (streq(obj->ego->name, "of Shadows")) {
-                    fuel_amount *= 7;
+                    fuel_amount *= 5;
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
             }
@@ -2336,6 +2386,7 @@ bool use_oil(struct player *p)
             player_inc_timed(p, TMD_FOOD, fuel_amount, false, false);
             hp_player(p, p->wpos.depth / 2);
             fuel_found = true;
+            break;
         }
     }
 

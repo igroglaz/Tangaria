@@ -305,7 +305,7 @@ type:food
 level:5
 weight:2
 cost:0
-alloc:3:5 to 60
+alloc:3:5 to 127
 pile:100:1d2
 effect:NOURISH:INC_BY
 dice:25
@@ -687,7 +687,7 @@ type:mushroom
 level:50
 weight:1
 cost:0
-alloc:5:5 to 100
+alloc:5:5 to 127
 pile:70:1d3
 effect:TIMED_INC:STEALTH
 dice:10+1d10
