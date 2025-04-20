@@ -443,25 +443,28 @@ help: some energy.
 race:Golem
 help:Golem. Move. Only. Straight. Other. Movement. Denied.
 help: Golems - artificial magical creatures, made by powerful wizards to serve their
-help: will. When golems just created they do not understand their purpose and they
-help: just do what they told to do. But in time some golems could start asking 
-help: themself a question - why do they exist? Why they have to do the job which 
-help: humans obliged them to do? There was a golem rebellion in the past and it
-help: brought a lot of destruction. The result was a permission for golems to 
-help: buyout their freedom by working on their master for several decades. Every
-help: golem dream to get it's freedom. But not all mages are honest with them and
-help: not all people respect their 'feelings'. If you are 'born' as a golem, who 
-help: knows, would you ever get a liberty? 
+help: will. When golems are just created, they do not understand their purpose and
+help: they just do what they are told to do. But in time some golems could start
+help: asking themselves a question - why do they exist? Why do they have to do the
+help: tasks humans forced them to do? There was a golem rebellion in the past and
+help: it brought a lot of destruction. The result was permission for golems to 
+help: buy out their freedom by working for their master for several decades. Every
+help: golem dreams of getting its freedom. But not all mages are honest with them
+help: and not all people respect their 'feelings'. If you are 'born' as a golem,
+help: who knows, would you ever get liberty? 
 help: Should you deserve it or take it by force? |
-help: Golems are very strong, but a bit slow. They can sometimes overcome paralize, 
-help: and resists poison. They are good in digging. They are miserable
+help: Golems are very strong, but a bit slow. They can sometimes overcome paralyze, 
+help: and resist poison. They are good at digging. They are miserable
 help: in stealth at first, but advanced models could move quite silently.
-help: Golems good at fighting and somehow resistant to malicious spell effects.|
-help: They got less speed penalty due overweight. They don't need to breath.
+help: Golems are good at fighting and somewhat resistant to malicious magic.|
+help: They get less speed penalty from overweight. They don't need to breathe.|
+help: Golems are hard to kill - they take 10% less damage.
 help: They can create walls ('y' key) by spending some energy.
 help: Golems don't need food. But they consume fresh oil.
 help: Oil can be found in flasks or lanterns. Use '_' to drink from them, while
-help: you don't stand on top of the fountain.
+help: you don't stand on top of the fountain.|
+help: Below 5% satiation (10% on Ironman), escalation form initiates.
+help: Golem begins extracting energy from terrain while digging.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.

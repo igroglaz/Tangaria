@@ -1476,15 +1476,16 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else
             msg(p, "You have finished the tunnel %s.", with_clause);
 
-        // golem restores satiation by digging (especially Ironman)
-        if (streq(p->race->name, "Golem")) {
-            if (p->timed[TMD_FOOD] < 8000 && !in_town(&p->wpos)) {
-                if (OPT(p, birth_ironman) ||
-                    (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) {
+        // golem restores LOW satiation by digging (especially Ironman)
+        if (streq(p->race->name, "Golem") && !in_town(&p->wpos)) {
+            if (OPT(p, birth_ironman) ||
+               (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) {
+                if (p->timed[TMD_FOOD] < 1000) // at 10%
                     player_inc_timed(p, TMD_FOOD, 100, false, false);
-                } else {
-                    player_inc_timed(p, TMD_FOOD, 10, false, false);
-                }
+            } else if (p->timed[TMD_FOOD] < 500) { // at 5%
+                player_inc_timed(p, TMD_FOOD, 30, false, false);
+            } else { // in other cases restores 1 (makes success digging turn free)
+                player_inc_timed(p, TMD_FOOD, 2, false, false);
             }
         }
 
