@@ -2358,10 +2358,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (streq(p->clazz->name, "Druid"))
     {
         //HACK to solve problem that it's not possible to assign PF_ temporary
-        pf_off(p->clazz->pflags, PF_KNOW_MUSHROOM);
-        pf_off(p->clazz->pflags, PF_BACK_STAB);
-        pf_off(p->clazz->pflags, PF_COMBAT_REGEN);
-        pf_off(p->clazz->pflags, PF_SHIELD_BASH);
+        pf_off(state->pflags, PF_KNOW_MUSHROOM);
+        pf_off(state->pflags, PF_BACK_STAB);
+        pf_off(state->pflags, PF_COMBAT_REGEN);
+        pf_off(state->pflags, PF_SHIELD_BASH);
 
         if (p->poly_race)
         {

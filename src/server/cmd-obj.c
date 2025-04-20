@@ -2401,7 +2401,7 @@ bool use_oil(struct player *p)
     if (fuel_found == false) return false;
 
     // generate message
-    int rng = randint0(29); // Total number of messages in get_oil_message()
+    rng = randint0(29); // Total number of messages in get_oil_message()
     msg(p, get_oil_message(rng));
 
     // refresh inventory

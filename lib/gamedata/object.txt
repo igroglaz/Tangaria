@@ -4855,7 +4855,7 @@ effect-yx:22:40
 name:Magic Mapping
 graphics:_:d
 type:staff
-level:10:20
+level:20:20
 weight:50
 cost:600
 alloc:40:10 to 100
@@ -5124,7 +5124,7 @@ time:100
 name:Magic Mapping
 graphics:-:d
 type:rod
-level:35
+level:65
 weight:15
 cost:2000
 alloc:30:35 to 100

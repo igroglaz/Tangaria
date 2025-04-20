@@ -240,7 +240,7 @@ desc: with the Blessed light.
 
 name:'Angrist'
 base-object:sword:Dagger
-level:60
+level:35
 weight:12
 alloc:2:60 to 100
 attack:2d7:18:16

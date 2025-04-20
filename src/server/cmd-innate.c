@@ -243,7 +243,7 @@ void do_cmd_breath(struct player *p, int dir)
 
             /* Make the breath attack an effect */
             effect = mem_zalloc(sizeof(struct effect));
-            effect->index = EF_WEB_SPIDER;
+            effect->index = EF_WEB_SPIDER; // satiation spending included
 
             /* Cast the breath attack */
             source_player(who, get_player_index(get_connection(p->conn)), p);
@@ -261,7 +261,7 @@ void do_cmd_breath(struct player *p, int dir)
 
             /* Make the breath attack an effect */
             effect = mem_zalloc(sizeof(struct effect));
-            effect->index = EF_WEB;
+            effect->index = EF_WEB; // satiation spending included
 
             /* Cast the breath attack */
             source_player(who, get_player_index(get_connection(p->conn)), p);
