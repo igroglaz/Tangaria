@@ -2213,49 +2213,58 @@ bool do_cmd_use_any(struct player *p, int item, int dir)
 }
 
 
-/*
- * Refuelling
- */
-
-
 // Golem race can use oil for good
 bool use_oil(struct player *p)
 {
     bool fuel_found = false;
-	int num_messages;
-	int rng;
+    int num_messages;
+    int rng;
     int i;
-	const char* messages[] = {
-			"Oil. Consumed. Nourishment. Detected.",
-			"Lubricant. Absorbed. System. Rejuvenated.",
-			"Fuel. Consumed. Mechanism. Recharged.",
-			"Oil. Imbibed. Vitality. Boosted.",
-			"Hydraulic. Fluid. Assimilated. Strength. Renewed.",
-			"Energy. Infused. Golem. Reactivated.",
-			"Lubrication. Consumed. Power. Amplified.",
-			"Circuitry. Replenished. Oil. Utilized.",
-			"Machinery. Refueled. Golem. Empowered.",
-			"Oil. Lubricated. Vitality. Restored.",
-			"Grease. Digested. Components. Energized.",
-			"Golem. Reinvigorated. Oil. Consumed.",
-			"Lubricant. Processed. Energy. Restored.",
-			"Oil. Ingested. Mechanism. Rebooted.",
-			"Fuel. Consumed. Power. Regenerated.",
-			"Oil. Imbibed. Golem. Reenergized.",
-			"Hydraulic. Fluid. Assimilated. Function. Optimized.",
-			"Energy. Infused. System. Restarted.",
-			"Lubrication. Consumed. Machinery. Reinforced.",
-			"Circuitry. Replenished. Golem. Reactivated.",
-			"Golem. Refueled. Vitality. Boosted.",
-			"Grease. Digested. Power. Amplified.",
-			"Oil. Consumed. Function. Enhanced.",
-			"Fuel. Processed. Golem. Regenerated.",
-			"Hydraulic. Fluid. Ingested. Energy. Renewed.",
-			"Lubricant. Consumed. System. Recharged.",
-			"Circuitry. Replenished. Vitality. Restored.",
-			"Machinery. Reinvigorated. Oil. Absorbed.",
-			"Petroleum. Ingested. Golem. Revitalized."
-		};
+    const char* messages[] = {
+            "Oil. Consumed. Nourishment. Detected.",
+            "Lubricant. Absorbed. System. Rejuvenated.",
+            "Fuel. Consumed. Mechanism. Recharged.",
+            "Oil. Imbibed. Vitality. Boosted.",
+            "Hydraulic. Fluid. Assimilated. Strength. Renewed.",
+            "Energy. Infused. Golem. Reactivated.",
+            "Lubrication. Consumed. Power. Amplified.",
+            "Circuitry. Replenished. Oil. Utilized.",
+            "Machinery. Refueled. Golem. Empowered.",
+            "Oil. Lubricated. Vitality. Restored.",
+            "Grease. Digested. Components. Energized.",
+            "Golem. Reinvigorated. Oil. Consumed.",
+            "Lubricant. Processed. Energy. Restored.",
+            "Oil. Ingested. Mechanism. Rebooted.",
+            "Fuel. Consumed. Power. Regenerated.",
+            "Oil. Imbibed. Golem. Reenergized.",
+            "Hydraulic. Fluid. Assimilated. Function. Optimized.",
+            "Energy. Infused. System. Restarted.",
+            "Lubrication. Consumed. Machinery. Reinforced.",
+            "Circuitry. Replenished. Golem. Reactivated.",
+            "Golem. Refueled. Vitality. Boosted.",
+            "Grease. Digested. Power. Amplified.",
+            "Oil. Consumed. Function. Enhanced.",
+            "Fuel. Processed. Golem. Regenerated.",
+            "Hydraulic. Fluid. Ingested. Energy. Renewed.",
+            "Lubricant. Consumed. System. Recharged.",
+            "Circuitry. Replenished. Vitality. Restored.",
+            "Machinery. Reinvigorated. Oil. Absorbed.",
+            "Petroleum. Ingested. Golem. Revitalized."
+        };
+
+    // Calculate the maximum safe amount of food to add
+    int max_safe_food;
+    if (p->timed[TMD_FOOD] >= PY_FOOD_FULL) {
+        // Already full, be careful about overfeeding
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+        if (max_safe_food <= 0) {
+            msg(p, "Your oil reservoir is already full. Consumption aborted.");
+            return false;  // Already at maximum, don't consume oil
+        }
+    } else {
+        // Not yet full, can consume normally
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+    }
 
     // search for oil
     for (i = 0; i < z_info->pack_size; i++)
@@ -2268,9 +2277,14 @@ bool use_oil(struct player *p)
         // oil flasks
         if (obj->tval == TV_FLASK)
         {
+            int food_amount = 750;
+            
+            // Limit consumption to avoid overfeeding
+            food_amount = MIN(food_amount, max_safe_food);
+            
             use_object(p, obj, 1, false);
             // nourish and heal
-            player_inc_timed(p, TMD_FOOD, 750, false, false);
+            player_inc_timed(p, TMD_FOOD, food_amount, false, false);
             hp_player(p, p->wpos.depth / 2);
             fuel_found = true;
         }
@@ -2283,17 +2297,17 @@ bool use_oil(struct player *p)
             }
 
             // Check if the light source has ego properties
-            if (obj->ego) {
+            if (obj->ego && obj->ego->name) {
                 // Ego item handling
-                if (obj->ego->name && streq(obj->ego->name, "of Brightness")) {
+                if (streq(obj->ego->name, "of Brightness")) {
                     fuel_amount *= 3;
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
-                else if (obj->ego->name && streq(obj->ego->name, "of True Sight")) {
+                else if (streq(obj->ego->name, "of True Sight")) {
                     fuel_amount *= 5;
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
-                else if (obj->ego->name && streq(obj->ego->name, "of Shadows")) {
+                else if (streq(obj->ego->name, "of Shadows")) {
                     fuel_amount *= 7;
                     use_object(p, obj, 1, false); // destroy to prevent cheese
                 }
@@ -2315,6 +2329,9 @@ bool use_oil(struct player *p)
                 obj->timeout = 0;
             }
 
+            // Limit consumption to avoid overfeeding
+            fuel_amount = MIN(fuel_amount, max_safe_food);
+            
             // nourish and heal
             player_inc_timed(p, TMD_FOOD, fuel_amount, false, false);
             hp_player(p, p->wpos.depth / 2);
@@ -2325,10 +2342,10 @@ bool use_oil(struct player *p)
     // no fuel found -> quit
     if (fuel_found == false) return false;
 
-	// generate message
+    // generate message
     // sizeof(messages) - size of whole array in bytes
     // sizeof(messages[0]) - size of one 'word' (4 bytes)
-	num_messages = sizeof(messages) / sizeof(messages[0]);
+    num_messages = sizeof(messages) / sizeof(messages[0]);
     rng = randint0(num_messages);
     msg(p, messages[rng]);
 
