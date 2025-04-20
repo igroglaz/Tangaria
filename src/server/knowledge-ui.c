@@ -2734,9 +2734,12 @@ void do_cmd_fountain(struct player *p, int item)
         {
             int rng;
 
-            player_inc_timed(p, TMD_FOOD, 100, false, false);
+            // get plenty of extra satiation from stealing veggies
+            // (idea is to make it a bit better than satiation from races abilities..
+            // you kinda 'eat in advance' once, but can't repeat due <1500 limit)
+            player_inc_timed(p, TMD_FOOD, 750, false, false);
             use_energy(p);
-            player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(3), true, false);
+            player_inc_timed(p, TMD_OCCUPIED, 5 + randint0(3), true, false);
             
             // Get a random message
             rng = randint0(30);
