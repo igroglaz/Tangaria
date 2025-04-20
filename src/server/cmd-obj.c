@@ -2213,44 +2213,51 @@ bool do_cmd_use_any(struct player *p, int item, int dir)
 }
 
 
+// Number of cases HARDCODED in use_oil()
+const char* get_oil_message(int rng)
+{
+    switch(rng)
+    {
+        case 0: return "Oil. Consumed. Nourishment. Detected.";
+        case 1: return "Lubricant. Absorbed. System. Rejuvenated.";
+        case 2: return "Fuel. Consumed. Mechanism. Recharged.";
+        case 3: return "Oil. Imbibed. Vitality. Boosted.";
+        case 4: return "Hydraulic. Fluid. Assimilated. Strength. Renewed.";
+        case 5: return "Energy. Infused. Golem. Reactivated.";
+        case 6: return "Lubrication. Consumed. Power. Amplified.";
+        case 7: return "Circuitry. Replenished. Oil. Utilized.";
+        case 8: return "Machinery. Refueled. Golem. Empowered.";
+        case 9: return "Oil. Lubricated. Vitality. Restored.";
+        case 10: return "Grease. Digested. Components. Energized.";
+        case 11: return "Golem. Reinvigorated. Oil. Consumed.";
+        case 12: return "Lubricant. Processed. Energy. Restored.";
+        case 13: return "Oil. Ingested. Mechanism. Rebooted.";
+        case 14: return "Fuel. Consumed. Power. Regenerated.";
+        case 15: return "Oil. Imbibed. Golem. Reenergized.";
+        case 16: return "Hydraulic. Fluid. Assimilated. Function. Optimized.";
+        case 17: return "Energy. Infused. System. Restarted.";
+        case 18: return "Lubrication. Consumed. Machinery. Reinforced.";
+        case 19: return "Circuitry. Replenished. Golem. Reactivated.";
+        case 20: return "Golem. Refueled. Vitality. Boosted.";
+        case 21: return "Grease. Digested. Power. Amplified.";
+        case 22: return "Oil. Consumed. Function. Enhanced.";
+        case 23: return "Fuel. Processed. Golem. Regenerated.";
+        case 24: return "Hydraulic. Fluid. Ingested. Energy. Renewed.";
+        case 25: return "Lubricant. Consumed. System. Recharged.";
+        case 26: return "Circuitry. Replenished. Vitality. Restored.";
+        case 27: return "Machinery. Reinvigorated. Oil. Absorbed.";
+        case 28: return "Petroleum. Ingested. Golem. Revitalized.";
+        default: return "Oil consumed."; // Fallback message
+    }
+}
+
+
 // Golem race can use oil for good
 bool use_oil(struct player *p)
 {
     bool fuel_found = false;
-    int num_messages;
     int rng;
     int i;
-    const char* messages[] = {
-            "Oil. Consumed. Nourishment. Detected.",
-            "Lubricant. Absorbed. System. Rejuvenated.",
-            "Fuel. Consumed. Mechanism. Recharged.",
-            "Oil. Imbibed. Vitality. Boosted.",
-            "Hydraulic. Fluid. Assimilated. Strength. Renewed.",
-            "Energy. Infused. Golem. Reactivated.",
-            "Lubrication. Consumed. Power. Amplified.",
-            "Circuitry. Replenished. Oil. Utilized.",
-            "Machinery. Refueled. Golem. Empowered.",
-            "Oil. Lubricated. Vitality. Restored.",
-            "Grease. Digested. Components. Energized.",
-            "Golem. Reinvigorated. Oil. Consumed.",
-            "Lubricant. Processed. Energy. Restored.",
-            "Oil. Ingested. Mechanism. Rebooted.",
-            "Fuel. Consumed. Power. Regenerated.",
-            "Oil. Imbibed. Golem. Reenergized.",
-            "Hydraulic. Fluid. Assimilated. Function. Optimized.",
-            "Energy. Infused. System. Restarted.",
-            "Lubrication. Consumed. Machinery. Reinforced.",
-            "Circuitry. Replenished. Golem. Reactivated.",
-            "Golem. Refueled. Vitality. Boosted.",
-            "Grease. Digested. Power. Amplified.",
-            "Oil. Consumed. Function. Enhanced.",
-            "Fuel. Processed. Golem. Regenerated.",
-            "Hydraulic. Fluid. Ingested. Energy. Renewed.",
-            "Lubricant. Consumed. System. Recharged.",
-            "Circuitry. Replenished. Vitality. Restored.",
-            "Machinery. Reinvigorated. Oil. Absorbed.",
-            "Petroleum. Ingested. Golem. Revitalized."
-        };
 
     // Calculate the maximum safe amount of food to add
     int max_safe_food;
@@ -2394,11 +2401,8 @@ bool use_oil(struct player *p)
     if (fuel_found == false) return false;
 
     // generate message
-    // sizeof(messages) - size of whole array in bytes
-    // sizeof(messages[0]) - size of one 'word' (4 bytes)
-    num_messages = sizeof(messages) / sizeof(messages[0]);
-    rng = randint0(num_messages);
-    msg(p, messages[rng]);
+    int rng = randint0(29); // Total number of messages in get_oil_message()
+    msg(p, get_oil_message(rng));
 
     // refresh inventory
     p->upkeep->redraw |= (PR_INVEN);
