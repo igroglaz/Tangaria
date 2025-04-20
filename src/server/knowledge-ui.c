@@ -2687,6 +2687,23 @@ void do_cmd_fountain(struct player *p, int item)
 
         return;
     }
+    else if (streq(p->clazz->name, "Villager") && // can dig out old crops from T fields
+            (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_floor_j_farm_field) ||
+             tf_has(f_info[square(c, &p->grid)->feat].flags, TF_floor_k_farm_field) ||
+             tf_has(f_info[square(c, &p->grid)->feat].flags, TF_floor_l_farm_field) ||
+             tf_has(f_info[square(c, &p->grid)->feat].flags, TF_floor_m_farm_field) ||
+             tf_has(f_info[square(c, &p->grid)->feat].flags, TF_floor_n_farm_field)))
+    {
+        if (p->timed[TMD_FOOD] < 1500) // till upper threshold of "Hungry" status
+        {
+            player_inc_timed(p, TMD_FOOD, 100, false, false);
+            use_energy(p);
+            player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(3), true, false);
+            msg(p, "You managed to find old carrot.. and almost break your teeth on it!");
+        }
+
+        return;
+    }
     /* Allow only on water tiles */
     else if (!square_iswater(c, &p->grid) &&
             !tf_has(f_info[square(c, &p->grid)->feat].flags, TF_SHALLOW_WATER) &&
