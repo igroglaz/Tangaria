@@ -973,14 +973,27 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     if (!home && (s->stock_num < s->stock_size))
         return true;
 
-    // boni to storage from account points and CHR
+    // HOME: boni to storage from account points and CHR
+    
+    // 1) Storage space in home mainly depends on CHR
+    storage_factor += p->state.stat_ind[STAT_CHR];
+    
+    // 2) it also get boni from account points
+    if (p->account_score >= 5)
+        storage_factor++;
     if (p->account_score >= 10)
         storage_factor++;
-    if (p->account_score >= 25)
+    if (p->account_score >= 20)
+        storage_factor++;
+    if (p->account_score >= 35)
         storage_factor++;
     if (p->account_score >= 50)
         storage_factor++;
+    if (p->account_score >= 70)
+        storage_factor++;
     if (p->account_score >= 100)
+        storage_factor++;
+    if (p->account_score >= 150)
         storage_factor++;
     if (p->account_score >= 200)
         storage_factor++;
@@ -997,9 +1010,15 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     if (p->account_score >= 10000)
         storage_factor++;
 
-    storage_factor += p->state.stat_ind[STAT_CHR];
+    // 3) Trader class boni
+    if (streq(p->clazz->name, "Trader"))
+        storage_factor++;
 
-    // Storage space in home depends on CHR
+    // Apply hard cap to storage factor - limit to 24 (check constants.txt)
+    if (storage_factor > 24)
+        storage_factor = 24;
+
+    // Check storage space for home
     if (home && (s->stock_num < storage_factor))
         return true;
 
