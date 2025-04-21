@@ -284,30 +284,41 @@ help: At level 10, they become a bit more quiet on their feet.
 help: They can find nearby entrances ('y') by spending some energy.
 
 race:Goblin
-help:Goblins like to sneak around and take what lay on 'bad' spot. It's what people
-help: say about this race. Although it's not always truth, most of this folk 
-help: prefer living in night time, dwelling in tiny cavern and coming to the earth
-help: surface only for fishing.. or fighting. 
-help: Don't underestimate this creatures. Despite of their size they are more than
-help: capable of destruction. Goblins are resistant of darkness and very agile.
+help:Goblins like to sneak around and take what lies on 'bad' spot. It's what people
+help: say about this race. Although it's not always true, most of these folk 
+help: prefer living in night time, dwelling in tiny caverns and coming to the surface
+help: only for fishing.. or fighting. 
+help: Don't underestimate these creatures. Despite of their size they are more than
+help: capable of destruction. Goblins are resistant to darkness and very agile.
+help: They are fast on their feet and hard to catch. They are also surprisingly 
+help: good at digging through rock and rubble.
+help: At higher levels, they develop a sense for other orc-kind.|
 help: They can get into bloodlust ('y') by spending some energy.
 
 race:Half-Giant
-help:Half-Giant are descendants of Titans... And they still got pieces of their 
+help:Half-Giants are descendants of Titans... And they still got pieces of their 
 help: power. Huge size makes it hard for them to use full power of teleportation
-help: magic thought. At the same time they are protected from gravity effects, 
-help: could stun their opponents and are very hard to kill.
+help: magic though. At the same time they are protected from gravity effects, 
+help: can stun their opponents and are remarkably hard to kill.
+help: They are not the brightest, quite ugly, and certainly not subtle.
+help: Magic devices confuse them, and sneaking is not their thing.
+help: They tunnel through rock by brute force alone. The toughest of them barely
+help: need food anymore, but not much survive till that age.
+help: At the peak of their strength, their blood prevails and they smash dragons
+help: like sandcastles.|
 help: They can become resistant to magic ('y') by spending some energy.
 
 race:Ogre
-help:Ogres or swamp trolls - it's ancient race. Some say that they was the first of
-help: troll race. Slick and covered in slime with greenish skin, ogres are not the 
-help: most pleasan lot which you could meet under the sky. Not all of them are 
-help: 'bad' though, some 'families' came to live in the city and.. what makes them 
-help: quite special - become a not bad in magical arts, as ogres practice their 
-help: own, shamanic spell-weaving. Ogres sustain their intellegence even under big 
-help: pressure.
-help: They can restore bit of mana ('y') while resting actively.
+help:Ogres or swamp trolls - it's ancient race. Some say that they were the first
+help: of troll race. Slick and covered in slime with greenish skin, ogres are not
+help: the most pleasant lot which you could meet under the sky. Not all of them
+help: are 'bad' though. Some 'families' came to live in the city and.. turned out
+help: to be surprisingly decent at magical arts, as ogres practice their own,
+help: shamanic spell-weaving. Ogres sustain their intelligence even even under 
+help: heavy pressure.|
+help: They swim well and are naturally resistant to mental collapse. Despite their
+help: bulk, they can move quietly - sometimes.|
+help: They can restore a bit of mana while resting actively ('y').
 
 race:Troll
 help:Trolls - huge pieces of walking rock. Their skin is hard to pierce, even with 
@@ -326,42 +337,50 @@ help: As the saying goes: 'If a Troll won't find the door, he'll walk
 help: through the wall'.
 
 race:Orc
-help:Huge orc hordes settles to the southeren Banlands. They try to get their own 
-help: piece of fertile lands to live piecefully, but Empire of Strenght won't make 
-help: it happen. Orc resistant to darkness and poison.
+help:Huge orc hordes settled in the southern Banlands. They try to get their own 
+help: piece of fertile lands to live peacefully, but Empire of Strength won't make 
+help: it happen.|
+help: They are resistant to darkness and poison, and tough enough to take a hit.
+help: At higher levels, they move faster and a bit quieter than expected.
+help: They can sense other orcs from afar.
+help: Traps, magic, devices – not their strong suit. Thinking in general isn't.
+help: But those who live long enough tend to grow surprisingly wise.|
 help: They can summon warg ('y') by spending some energy.
 
 race:Forest Goblin
-help:Forest goblins – look like a nice little creatures. Indeed, some of them are 
+help:Forest goblins – look like nice little creatures. Indeed, some of them are 
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are 
-help: sneaky and fast, but quite weak in term of physical strenght.
-help: They can dodge melee attacks occasionally.
+help: sneaky and fast. While not strong, they are clever and unusually wise
+help: for their kind. They can dodge melee attacks occasionally.|
 help: They can cover tracks ('y') by spending some energy.
 
 race:Dark Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
-help: that they live undeground in caves and that's why they got pale dark skin. 
-help: It's not truth, though they doesn't have too much in common with 'green' elves
+help: that they live underground in caves and that's why they got pale dark skin. 
+help: It's not true, though they don't have too much in common with 'green' elves
 help: who dwell in forests. Dark elves are hermits who take their spot at Roaring 
-help: Mountains just recently.. just to survive. Not much of this folk left as 
+help: Mountains just recently.. just to survive. Not many of this folk are left as 
 help: for a long time they exterminate each other in families dissension. 
 help: Dark elves are good fighters, could see invisible, resistant to darkness, but 
-help: vulnerable to light magic.
+help: vulnerable to light magic. They move quietly, blending into the dark.
+help: Most folks hate them on sight - but if they prove useful, hatred can turn to
+help: wary respect.
 help: They can apply poison on their weapons ('y') by spending some energy.
 
 race:Werewolf
-help:Werewolves are strange folk who dwells to the east from Golden Forest on north. 
-help: Ascetic people, victims of misterious curse.. or desease.. They can not hold 
+help:Werewolves are strange folk who dwell to the east from Golden Forest on north.
+help: Ascetic people, victims of mysterious curse.. or disease.. They can not hold 
 help: their passion to wild life and nature. Some of them become to control it and 
-help: even consider it's as a gift. They have to hide from universal hostility as
-help: they are often on the edge of the extermination when discovered. |
+help: even consider it as a gift. They have to hide from universal hostility
+help: as they are often close to extermination when discovered. |
 help: Werewolf polymorphs into a horrific wolf-humanoid hybrid during night and
-help: become more terrible and powerful than ever before.. They could use their huge
-help: claws and teeth in battle to tear their enemies in pieces. They feel animals
-help: from the distance, could regenerate and resistant to dark. They don't like
-help: light magic though. |
-help: During the night they sometimes can't handle animal nature and howl on top
-help: of your lungs...
+help: become more terrible and powerful than ever before.. Their claws cut deep
+help: in the dark, but they lose precision with weapons and tools.
+help: They regenerate quickly and feel the presence of animals around them.
+help: Hated by light magic, they avoid it when they can. At their peak (50 lvl),
+help: they almost fully embrace the darkness and become highly resistant to it.
+help: During the night they sometimes can't handle animal nature and howl at 
+help: the top of their lungs.|
 help: They can get back to normal form ('y') to prevent unwanted polymorph.
 
 race:Undead

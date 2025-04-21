@@ -1002,8 +1002,8 @@ weight:125:5
 gift:food:Maggoty bread:1:1
 #1 -1 0 1 1
 value:0:STR[1]
-value:0:INT[-1]
-value:0:WIS[-1+1d45]
+    value:0:INT[-1]
+    value:0:WIS[-1+2d45]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-4]
