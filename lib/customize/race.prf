@@ -384,69 +384,89 @@ help: the top of their lungs.|
 help: They can get back to normal form ('y') to prevent unwanted polymorph.
 
 race:Undead
-help:Undeads occupy most of the far north at the moment. This is intelligent race 
-help: (at lest some part of undeads), they even got their own country which has to 
-help: protect itself from real, brainless undead hordes from Wildlands. Not very 
-help: pleasant looking, but resistant to nether and poison. They do not regenerate 
-help: their wounds, although they are able to help them. Quite slow at first 
-help: 'mature' undeads are able to move with normal speed. Susceptible to light 
-help: magic.
-help: They can detect living creatures ('y') by spending some energy.
-help: They can see in the darkness well, while using light sources actually can
-help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
+help:Undead occupy most of the far north at the moment. This is an intelligent
+help: race (at least some of them), they even got their own country which has
+help: to protect itself from real, brainless undead hordes from Wildlands.|
+help: They are very unpleasant to look at. They are immune to life draining and
+help: hard to poison or freeze. They are bad at almost everything - slow, clumsy,
+help: terrible at stealth and searching - but somewhat resistant to hostile magic.
+help: They do not heal naturally and must feast on the flesh of humanoids
+help: to recover and stay active.
+help: They have weakness to fire and light, but not as severe as one might think.
+help: At level 50, they become completely immune to nether attacks.
+help: They can detect living creatures ('y') by spending some energy.|
+help: They can see in the darkness well, while using light sources can actually
+help: reduce the radius of their vision. Their innate vision grows when they
+help: become more mature.
 
 race:Vampire
 help:Vampires live to the north from Honor Empire. Quite reasonable folk actually 
-help: although most of races scared of them. Indeed.. They are very powerful, but 
-help: not too many survived the Last War, which make them live quietly in their 
-help: lands.. Vampires don't regenerate, but they are able to restore their help 
-help: with a blood of slain enemies. They resist time, poison, nether and darkness. 
-help: They don't feel fear, got perfect infravision and could read minds...
+help: although most races are scared of them. Indeed.. They are very powerful, but
+help: not too many survived the Last War, which makes them live quietly in their
+help: lands..|
+help: Vampires don't regenerate or eat normal food - they restore their strength
+help: by drinking the blood of slain humanoids. As they grow, they gain resistance
+help: to poison, nether, darkness and even time itself. They don't feel fear,
+help: got perfect infravision and can read minds...
 help: Night creatures, they don't like light and feel bad during the day hours;
-help: but still they can tolerate daylight, thought become weakened.
-help: Vampires don't eat normal food.. they restore their thirst when they hunt
-help: humanoids in the dungeons.
-help: They can take form of vampiric mist to pass most of obstacles; also they are
-help: able to polymorph into bats.
+help: but still they can tolerate daylight, though they become weakened.
+help: They can take the form of vampiric mist to pass most obstacles, and can also
+help: polymorph into bats. They fear open water and avoid it unless flying.
 help: They can fly ('y') by spending some energy; it helps to pass trees and water.
-help: They especially dislike water and any touching it hurting them.
 help: They can see in the darkness well, while using light sources actually can
 help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
+help: more mature.|
+help: They are bad at digging — it's beneath them.
 
 race:Maiar
-help:Maiar - descendants of ancient powers. Not much know about them, except 
-help: that it's very hard to kill one of them. Resistant to numerous effects and 
-help: possessing god-like abilities, they are very slow on getting new skills 
-help: though. Another weak spot is that they receive their power not at once, but 
-help: after they become experienced in this 'mortal' world.
+help:Maiar - descendants of ancient powers. Not much is known about them, except 
+help: that they're very hard to kill. Resistant to numerous effects and 
+help: with powers close to divine, they are very slow to learn new skills, though. 
+help: Another weak spot is that they receive their power only after they gain
+help: enough experience in this 'mortal' world. At first they are very fragile...|
+help: As they grow stronger, they become resistant to fear, light and life drain.
+help: At higher levels, they can see invisible, levitate, and carry inner light.
+help: They are resistant to light, but dislike darkness.
+help: Their blows become deadly for evil creatures when they come to power.
+help: Speed boosts work less effectively for them.|
 help: They can cast lightning ('y') by spending some energy.
 
 race:Demonic
-help:Demonic - corrupted spirits, servants of First Gods. They are the same kind as
-help: maiar race, but to the other side of power. Resistant to chaos, they 
-help: are able to control nexus vibrations and possess very powerful abilities. 
-help: But there is a price for this - they are very hard to learn.. Chaos inside 
-help: of them makes it almost impossible to control their will to achieve their own 
-help: goals...|
-help: They can summon demon-slaves ('y') to serve them. Summoning ritual require some
-help: time and demonic's blood as sacrifice.
+help:Demonic - corrupted spirits, servants of First Gods. They are the same kind
+help: as the Maiar, but aligned with the other side of power. |
+help: Resistant to poison, chaos and darkness; but sensitive to light, they 
+help: float above ground, see invisible and feel no fear. Life drain doesn't
+help: work on them either. Their attacks are soaked in poison, and they are
+help: faster than most right away - though quite fragile... It's hard for them
+help: to learn something new and the stronger they become, the more damage
+help: they tend to attract which makes them unstable.
+help: They can summon demon-slaves ('y') to serve them. The summoning ritual
+help: requires some time and demonic blood as sacrifice.
 
 race:Balrog
-help:Balrog - undeground ancient 'race' or some would call them as a 'force'. 
-help: Main enemies of celestials, balrogs fought on Titans side to devastate 
-help: dragons.. Not much of them left unharmed, because dragons use not only fire 
-help: (for which balrogs are immune), but other elements.. Those who survived that 
-help: war though, become terror for all races of Tangaria. Only past ages, Balrogs 
-help: learned to control their roth.. and their appearence. So nowadays they learnt 
-help: to appear in 'human' form; there are even rumours that in Middle-earth there 
-help: is a balrog archmage who teach at Magic Academia. 
-help: But it's well-known that when balrog takes his true-form, he posses immense 
-help: fire magic, which makes everything go mad around it, so creatures could 'feel'
-help: balrog presence from upper medium distance, which makes this race hard to
-help: become unnoticed in the dungeons of Enemy.
-help: They can lash fiery whip ('y') by spending some energy.
+help:Balrog - underground ancient 'race' or some would call them a 'force'. 
+help: Main enemies of Celestials, Balrogs fought on the Titans' side to
+help: devastate dragons.. Not much of them left unharmed, because dragons
+help: use not only fire (for which Balrogs are immune), but other elements..
+help: Those who survived that war, though, become terror for all races.
+help: Only in recent ages have Balrogs learned to control their roth.. 
+help: and their appearance. So nowadays they have learned to appear in
+help: 'human' form; there are even rumours that in Middle-earth there is 
+help: a Balrog archmage who teaches at the Magic Academy.
+help: But it's well-known that when a Balrog takes its true form, he possesses 
+help: immense fire magic, which makes everything go mad around it, so creatures
+help: can 'feel' a Balrog's presence from upper medium range, which makes this
+help: race hard to go unnoticed in the dungeons of Enemy.|
+help: Balrogs are resistant to poison and life-draining effects, and they can see
+help: invisible creatures. They are vulnerable to cold and light, but resistant
+help: to fire and at level 35, they become immune to it.|
+help: Though mighty, they often react slowly in battle due to their overconfidence.
+help: The longer they live - the more reckless they become and receive more damage.
+help: Also they are bad at magic devices.|
+help: They can float above the ground and rarely need to eat.
+help: Their fiery presence enhances fire damage of their attacks, especially at
+help: higher levels.|
+help: They can lash a fiery whip ('y') by spending some energy.
 
 race:Celestial
 help:Celestials.. Some people call them 'angels', but they are not kind and helpful 

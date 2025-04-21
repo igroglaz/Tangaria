@@ -2880,8 +2880,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (streq(p->race->name, "Maiar"))
             state->speed -= (state->speed - 110) / 2;
-        else if (streq(p->race->name, "Demonic"))
-            state->speed -= (state->speed - 110) / 3;
     }
 
     /* Sanity check on extreme speeds */

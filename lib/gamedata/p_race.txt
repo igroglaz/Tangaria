@@ -1316,7 +1316,6 @@ value:0:MANA[5+-1d12]
 shape:30:succubi
 value:0:SPEED[1]
 #/// -
-# speed boni reduced by 1/3
 value:0:DAM_RED[-1+-1d4]
 
 #Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
@@ -2390,6 +2389,9 @@ value:33:RES_MANA[1]
 #shape:40:ooze
 #shape:50:mushroom
 
+
+
+# prevent speeding up with potion (like Maiar but completely)
 
 # NO ESP.. or -1/2, 1/3, etc
 #slay:32:50:TROLL_3
