@@ -26,7 +26,8 @@ help: There are a lot of different kinds of humans living in Tangaria, but most
 help: of them are just common folk, who being mediocre became powerful in
 help: a certain way, as they don't have drawbacks.
 help: At level 50 they got ascension bonus which affects all their stats.
-help: They can restore constitution ('y') by spending some energy.
+help: They can restore constitution ('y') by spending some energy. |
+help: They have more space in the storage for keeping items.
 
 race:Half-Elf
 help:Born of humans and elves, they walk between two worlds.
@@ -65,14 +66,16 @@ help: At level 50 they begin to need much less food.
 help: They can avoid traps ('y') by spending some energy.
 
 race:Gnome
-help:Gnomes are smaller than dwarves but larger than halflings. They, like the
+help:Some say gnomes invented magic just to avoid doing things the hard way.
+help: Gnomes are smaller than dwarves but larger than halflings. They, like the
 help: halflings, live in the earth in burrow-like homes. Gnomes make excellent
-help: mages, and have very good saving throws. They are good at searching,
+help: mages and have very good saving throws. They are good at searching,
 help: disarming, perception, and stealth. They have lower strength than humans
 help: so they are not very good at fighting with hand weapons. Gnomes have good
 help: infravision. Gnomes are intrinsically protected against paralysis and
 help: some slowing effects. Gnomes are excellent at using wands and staves
-help: and can identify them when found.
+help: and can identify them when found.|
+help: Gnomes can dig through earth surprisingly well for their size.
 help: They can clear hallucinations ('y') by spending some energy.
 
 race:Dwarf
@@ -86,28 +89,32 @@ help: They can never be blinded. Dwarves are excellent at digging, and can
 help: sense nearby buried treasure. They have one big drawback, though. Dwarves
 help: are loudmouthed and proud, singing in loud voices, arguing with
 help: themselves for no good reason, screaming out challenges at imagined foes.
-help: In other words, dwarves have a miserable stealth.
+help: In other words, dwarves have miserable stealth.
 help: They can detect treasures ('y') by spending some energy.
 help: Radius of treasure detection grows with levels.
 
 race:Half-Orc
-help:Half-Orcs make excellent warriors and decent priests, but are terrible at
+help:When a village burns and the strong survive, a Half-Orc is born.
+help: Half-Orcs make excellent warriors and decent priests, but are terrible at
 help: magic. They are as bad as dwarves at stealth, and horrible at searching,
 help: disarming, and perception. Half-Orcs are, let's face it, ugly. They tend
 help: to pay more for goods in town. Half-Orcs do make good warriors and
-help: rogues, for the simple reason that Half-Orcs tend to have great
-help: constitution and lots of hit points. Because of their preference to
+help: rogues, for the simple reason that they tend to have great
+help: constitution and lots of hit points. Because of their preference for
 help: living underground to on the surface, half-orcs resist darkness attacks.
-help: They have fair infravision.
+help: They have fair infravision.|
+help: If they live long enough, they get so tough they barely need to eat.
 help: They can restore strength ('y') by spending some energy.
 
 race:Dunadan
 help:Dunedains are hardy men from the West. This elder race surpasses
 help: human abilities in every field, especially constitution. However, being
 help: men of the world, very little is new to them, and levels are very hard to
-help: gain... their hardiness ensures that their constitution cannot be
-help: reduced. They have no infravision.
-help: They can cure blackbreath ('y') by spending some energy.
+help: gain. Their hardiness ensures that their constitution cannot be
+help: reduced. They can occasionally find a sprig of Athelas, said to soothe wounds
+help: of body and soul.|
+help: They can cure blackbreath ('y') by spending some energy.|
+help: They have more space in the storage for keeping items.
 
 race:High-Elf
 help:High-Elves are descended from those among the Elves who heard and
@@ -118,24 +125,27 @@ help: they are far superior in terms of abilities when compared to their lesser
 help: Elven kindred. They can also see into the invisible world of ghosts and
 help: wraiths. Like normal Elves, they resist attacks involving bright light.
 help: They have good infravision and can even see cold-blooded invisible
-help: creatures. |
-help: They can get infravision ('y') by spending some energy.
+help: creatures.|
+help: They can enhance their infravision ('y') by spending some energy.
 
 race:Kobold
 help:Kobolds are a race of small dog-headed humanoids that dwell underground.
 help: They have excellent infravision, and are intrinsically resistant to
-help: poisons of all kinds. They have a good dexterity and constitution.
+help: poisons of all kinds. They have good dexterity and constitution.
 help: However, they are weaker than humans, and also not noted for great
 help: intelligence. Furthermore, they are ugly, and not trusted in town. And
 help: while their constitution makes them tough, it still cannot prevent the
 help: fact that they are not the biggest of creatures, and have few hit points.
-help: They can get additional poison resist ('y') by spending some energy.
+help: If they survive long enough, they learn to live on scraps and gain a trace
+help: of magical talent.|
+help: They can get additional poison resistance ('y') by spending some energy.
 
 race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
-help: stats and bad health. Yeeks are average at everything, but they have an
+help: stats and poor health. Yeeks are average at everything, but they have an
 help: important advantage - they are so pitiful that they do not aggravate others.
+help: With time and trouble, even a Yeek can evolve into... other things.|
 help: They can become bold ('y') by spending some energy.
 
 race:Ent
@@ -144,124 +154,133 @@ help: of all animals or plants who inhabit Arda. Spirits of the land, they were
 help: summoned to guard the forests of Middle-earth. Being much like trees they are
 help: very slow but strong and do not have to eat as often.
 help: They make great fighters, priests and paladins. Unfortunately, as they're
-help: made almost exclusively of wood, so they're also vulnerable to fire.|
-help: They do not eat 'normal' food, but got refreshments from drinking from
-help: magic fountains. Also ents could get some nourishment by drinking from 
+help: made almost exclusively of wood, they're also vulnerable to fire.|
+help: They do not eat 'normal' food, but get refreshed from drinking from
+help: magic fountains. Ents can also gain some nourishment by drinking from 
 help: any source of water, including rivers and lakes; though it will not 
 help: make them full. Using water also somewhat helps them in healing wounds.|
-help: Ents immune to polymorph.|
+help: Ents are immune to polymorph. Also, they can move through trees easily.|
 help: Ents can be completely silent if they stand still.|
 help: As the Shepherds of the Trees, Ents can create forest around themselves with
 help: 'y' key. They spend satiation to do it, but in time they need much less
 help: effort for growing trees.|
-help: Can move through trees. |
-help: After 30 lvl become huornish and got malus to movement speed.
+help: They recover slowly and are terrible with devices and ranged weapons.|
+help: After level 30 they become huornish and got malus to movement speed.
 
 race:Thunderlord
-help:Thunderlords are an old and powerful race of dragon hunters. They have an
-help: intrinsic telepathic vision of all nearby creatures, the radius expands as
-help: they gain levels. At level 5, they can spot dragons anywhere. Thunderlords
-help: have tamed the Great Eagles of Middle-Earth and use them in their hunts.
+help:Some say they were once men who hunted dragons until they became like them.
+help: Thunderlords are an old and powerful race. They have an intrinsic telepathic
+help: vision of all nearby creatures, the radius expands as they gain levels. 
+help: At level 5, they can spot dragons anywhere. Thunderlords
+help: have tamed the Great Eagles of Middle-earth and use them in their hunts.
 help: They need to eat often to feed themselves and their eagle. |
 help: Thunderlords easily discovered by enemies as they sing their battle songs
-help: loudly and their eagle piercingly screams seeking for pray...
-help: They can breath fire in a narrow line which become more deadly with the age.
+help: loudly and their eagle screams, seeking prey...|
+help: Their presence is overwhelming, but not exactly charming.
 help: They can electrify ('y') by spending some energy.
 
 race:Dragon
-help:ATTENTION! If you decided to take dragon race:
-help: for new players it's strongly recommended to play Monk class in this case.
-help: Other classes are VERY hard to play being a dragon. |
-help: They are creatures legends are made of. Dragons have a great health, but bad
-help: stealth. They can fall like a feather and resist nexus intrinsically. The
-help: Dragon race is a very special race. Dragons evolve physically as they gain
-help: experience. At level 1, they start as newborn dragons. At level 5, the color
-help: of their scales is revealed and they polymorph into a baby dragon of that
-help: color. At level 15, they polymorph into a young dragon. At level 25, they
+help: NEW PLAYERS: Monk is the easiest class for Dragons - others are very tricky.|
+help: They are creatures legends are made of, but even the mightiest wyrm was once
+help: a squirming hatchling that had to earn every scale.|
+help: Dragons evolve physically as they gain experience.
+help: They start as newborn dragons, then at level 5, their scale color is revealed,
+help: and they polymorph into a baby dragon of that color. 
+help: At level 15, they polymorph into a young dragon. At level 25, they
 help: polymorph into a fully grown dragon. At level 35, they become an ancient
 help: dragon. At level 45, they polymorph into a mighty wyrm. Finally, at level 50,
-help: they become an ancient wyrm. Dragons cannot wield any weapons; they get
-help: special melee attacks instead (biting and clawing) that increase in power as
-help: they gain levels. Starting at level 5, Dragons are able to breathe their
+help: they become an ancient wyrm.|
+help: Dragons cannot wield any weapons; they get special melee attacks instead 
+help: (biting and clawing) that increase in power as they gain levels.
+help: Dragons are poor at stealth (obviously). But they float like a feather
+help: and are intrinsically resistant to nexus.
+help: Starting at level 5, Dragons are able to breathe their
 help: corresponding element ('y'), but using this ability costs them hit points and
 help: satiation. At that level, they also gain the innate resistances and
 help: abilities of their type.
 
 race:Hydra
-help:ATTENTION! If you decided to take hydra race:
-help: for new players it's strongly recommended to play Monk class in this case.
-help: Other classes are VERY hard to play being a hydra. |
+help: NEW PLAYERS: Monk is the easiest class for Hydras - others are very tricky.|
 help: They are also creatures legends are made of. Like Dragons, they evolve
-help: physically as they gain experience - growing in size. At level 1, they
+help: physically as they gain experience, growing in size. At level 1, they
 help: start as regular hydras. At level 10, they gain an extra head and polymorph
 help: into a 2-headed hydra. At levels 15, 20, 24, 28, 32, 36, 40, 42, 44, 46, 48
 help: and 50, they also gain an extra head to evolve finally into a 14-headed hydra.
 help: Hydras cannot wield any weapons, but get extra dice on their barehanded
 help: attacks as they gain levels. They can breathe ('y') several elements (poison,
-help: fire, acid) as they gain the corresponding head, and get the innate resistances
-help: and abilities of their type. Hydras vulnerable to cold and permanently
-help: aggravate at medium distance.
+help: fire, acid) as they grow the corresponding head, and get the innate
+help: resistances and abilities of their type.|
+help: Hydras are vulnerable to cold and permanently aggravate at medium distance.
 
 # this line measures max length of description...
 ####################################################################################
 
 race:Black Numenorean
-help:Black Numenoreans.. A High Men from ancient times, a renegades and.. ally of The 
-help: Dark Lord.. Not all of them was 'corrupted by many gifts and promises of 
-help: great power'. Some just wanted to have a free will and refused to accepted
-help: handouts of the west.. But nonetheless they had to choose a side, just to
-help: survive under the sky.. |
+help:Black Numenoreans.. High Men from ancient times, renegades and..
+help: ally of the Dark Lord.. Not all of them were 'corrupted by many gifts and
+help: promises of great power'. Some just wanted to have free will and refused
+help: to accept handouts of the west.. But nonetheless they had to choose a side,
+help: just to survive under the sky.. |
 help: Black Numenoreans could sense 'evil' creatures with extrasensory powers at
-help: certain stage of their developent.
-help: They can sense evil at level-dependend big distance ('y') by spending some
-help: energy. At level 35 they get permanent passive ESP for evil; but their manual
-help: ability might have bigger radius later on.
+help: certain stage of their development.
+help: They can sense evil at level-dependent big distance ('y') by spending some
+help: energy. At level 30 they get permanent passive ESP for evil; but their manual
+help: ability might have bigger radius later on. |
+help: At level 35, they gain slight resistance to damage and become better at
+help: digging.
 
 race:Damned
-help:Some call them Highlanders and there are a rumours of their great power.
-help: The truth is that endless life come not for free. Mortals who belong 'forever'
-help: live cursed life, getting much less them common human does. Nevertheless 
-help: they are resistant to aging effecs and life drain, and regenerate extra fast. |
-help: Cursed by gods, they struggle constant disaster which higher powers send
-help: to exterminate them...
+help:Some call them Highlanders and there are rumours of their great power.
+help: The truth is that endless life does not come for free.
+help: Mortals who belong 'forever' live a cursed life, getting much less than
+help: a common human does. Nevertheless they are resistant to aging effects and
+help: life drain, and regenerate extra fast. |
+help: Cursed by gods, they struggle with constant disasters which higher powers
+help: send to exterminate them...|
+help: They are immune to fear and slightly resistant to magic.|
 help: They can prevent summoning ('y') by spending some energy.
 help: (this ability works only if there are no other players at the level).
 
 race:Merfolk
-help:Merfolk - human-like water-dwelling creatures who lives on shores to the north 
-help: of Big Step coast, but plenty of then dwelles on river banks and sea shores. 
+help:Merfolk - human-like water-dwelling creatures who live on shores to the north 
+help: of Big Step coast, but plenty of them dwell on river banks and sea shores. 
 help: They spend a lot of time in water and know how to communicate with water 
 help: creatures. They know waters so well that they even get their own magic from 
-help: it's source. They are resistant to water and good in infravision. But digging 
-help: isn't really their big passion.|
-help: They got some nourishment from drinking from magic fountains and even a bit
+help: its source. They are resistant to water and good at infravision. But digging 
+help: isn't really their big passion. Their bodies recover quicker than most.|
+help: They get some nourishment from drinking from magic fountains and even a bit
 help: from drinking from any open water, though it will not make them full. 
 help: Using water also helps them in healing wounds.
 help: They can cure poison ('y') by spending some energy.
 
 race:Barbarian
 help:Barbarian - wildlings from the North who spread across all Tangaria after
-help: undeads have reasen in the past Dragon war. Barbarians came to all parts of
-help: the land willing to seek place for their tribes. At first they  came with a
-help: fire and steel, but nowadays, after they met Magic Council dread they become
-help: less aggressive and trying to find a compromise. Barbarians resistant to
-help: poison as they had to eat all kind of 'food' to survive in wildlands. 
-help: And of course, they are fearless.
-help: They can yell 'y' aggravating all creatures around and taunting them to
+help: undead have risen in the past Dragon war. Barbarians came to all parts of
+help: the land seeking a place for their tribes. At first they came with a
+help: fire and steel, but nowadays, after they faced the dread of the 
+help: Magic Council, they became less aggressive and tried to find a compromise.
+help: Barbarians resistant to poison as they had to eat all kinds of 'food' 
+help: to survive in wildlands. And of course, they are fearless.
+help: As they grow stronger, their bodies slowly harden and blows hurt them less.
+help: Those who endure long enough find they no longer need to eat as often.
+help: They can yell ('y'), aggravating all creatures around and taunting them to
 help: attack recklessly.
 
 race:Black Dwarf
-help:Black Dwarfs was once far stem of one forgotten dwarven clan. They didn't like
-help: deep cavern, prefering to live at hills. This made them outcast among 'true' 
-help: dwarfs and they made more contacts to other races, that to their mountain 
+help:Black Dwarves were once far stem of one forgotten dwarven clan. They didn't like
+help: deep cavern, preferring to live at hills. This made them outcast among 'true' 
+help: dwarves and they made more contacts to other races, than to their mountain
 help: kindred. They traded a lot with eastern human caliphates and even with some
-help: other outcast races (as they themself become one). Some say that they are not
-help: in a war with goblins.. Perhaps it was the reason why they became hated by 
+help: other outcast races (as they themselves became one). Some say that they are
+help: not in a war with goblins.. Perhaps it was the reason why they became hated by 
 help: mountain folk and nowadays their family ties lie forgotten.
 help: Their proximity to the daylight surface made them especially suffer from 
-help: past war amoung Dragons and Titans, which changed thair appearence, making 
+help: past war among Dragons and Titans, which changed their appearance, making 
 help: their skin darker. But with this they got special ability - they are resistant
-help: to ruination of disenhancement magic.
+help: to ruination of disenhancement magic. 
+help: They are decent at tunneling, like their kin. Also like other dwarves, 
+help: they can sense nearby ore veins once they gain some experience.
+help: At level 10, they become a bit more quiet on their feet.
 help: They can find nearby entrances ('y') by spending some energy.
 
 race:Goblin
@@ -295,7 +314,7 @@ help:Trolls - huge pieces of walking rock. Their skin is hard to pierce, even wi
 help: a sharp blade. They are slow, though. Don't fear poison (they eat literally 
 help: everything), and are resistant to magical shards. Regenerate VERY fast. 
 help: Very healthy. Very hungry. Not too bright, so they don't get level feelings...
-help: There are plenty of trolls in the Middle-lands; they often work as bodyguards,
+help: There are plenty of trolls in the Middle-earth; they often work as bodyguards,
 help: protecting caravans.
 help: Rumour has it, some trolls can become surprisingly agile with enough training.
 help: They can have extra-sensoric powers, but can't tell precise information about
@@ -402,7 +421,7 @@ help: dragons.. Not much of them left unharmed, because dragons use not only fir
 help: (for which balrogs are immune), but other elements.. Those who survived that 
 help: war though, become terror for all races of Tangaria. Only past ages, Balrogs 
 help: learned to control their roth.. and their appearence. So nowadays they learnt 
-help: to appear in 'human' form; there are even rumours that in Middle-lands there 
+help: to appear in 'human' form; there are even rumours that in Middle-earth there 
 help: is a balrog archmage who teach at Magic Academia. 
 help: But it's well-known that when balrog takes his true-form, he posses immense 
 help: fire magic, which makes everything go mad around it, so creatures could 'feel'
@@ -509,7 +528,7 @@ help: They loath dragons who were their mortal enemies from the birth of the wor
 help: They can crush walls ('y') by spending some energy.
 
 race:Wood-Elf
-help:Nandor of Telerin descent..  Silvan Elves or Green-elves.
+help:Nandor of Telerin descent.. Silvan Elves or Green-elves.
 help: They live in Lorien and Mirkwood. Very agile and skilled in combat.
 help: They could track animals from big distance. They don't like digging and
 help: tunneling, preferring to run in the wild.

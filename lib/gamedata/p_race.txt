@@ -369,6 +369,7 @@ value:0:DEX[1]
 value:0:CON[2]
 value:0:CHR[2]
 # 'y' cure blackbreath
+# TODO: can find sprig of Athelas sometimes when chopping trees
 obj-flag:1:SUST_CON
 
 #noble and proud
@@ -695,7 +696,7 @@ value:0:CHR[0+1d35]
 value:1:INFRA[1]
 value:35:TUNNEL[1]
 value:35:DAM_RED[1]
-obj-flag:35:ESP_EVIL
+obj-flag:30:ESP_EVIL
 
 #immortal human, highlander-like
 name:Damned
