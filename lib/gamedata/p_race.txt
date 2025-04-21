@@ -369,6 +369,7 @@ value:0:DEX[1]
 value:0:CON[2]
 value:0:CHR[2]
 # 'y' cure blackbreath
+# TODO: can find sprig of Athelas sometimes when chopping trees
 obj-flag:1:SUST_CON
 
 #noble and proud
@@ -695,7 +696,7 @@ value:0:CHR[0+1d35]
 value:1:INFRA[1]
 value:35:TUNNEL[1]
 value:35:DAM_RED[1]
-obj-flag:35:ESP_EVIL
+obj-flag:30:ESP_EVIL
 
 #immortal human, highlander-like
 name:Damned
@@ -1001,8 +1002,8 @@ weight:125:5
 gift:food:Maggoty bread:1:1
 #1 -1 0 1 1
 value:0:STR[1]
-value:0:INT[-1]
-value:0:WIS[-1+1d45]
+    value:0:INT[-1]
+    value:0:WIS[-1+2d45]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-4]
@@ -1315,7 +1316,6 @@ value:0:MANA[5+-1d12]
 shape:30:succubi
 value:0:SPEED[1]
 #/// -
-# speed boni reduced by 1/3
 value:0:DAM_RED[-1+-1d4]
 
 #Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
@@ -1479,6 +1479,7 @@ value:0:CHR[-4]
 # + AC hardcoded
 # + -5% _all_ damage hc
 # 'y' space/time anchor 5
+# TODO: add skill-throw (now it's in classes only)
 value:0:INFRA[1+1d9]
 value:0:RES_POIS[1]
 value:10:RES_ACID[1]
@@ -1712,8 +1713,8 @@ value:0:CHR[0+1d30]
 # 'y' see invisible
 value:0:INFRA[4]
 value:0:MOVES[1]
-value:50:SPEED[1]
-value:50:STEALTH[1]
+value:30:SPEED[1]
+value:30:STEALTH[1]
 slay:1:50:ANIMAL_2
 value:0:TUNNEL[-1+-1d24]
 
@@ -2389,6 +2390,9 @@ value:33:RES_MANA[1]
 #shape:40:ooze
 #shape:50:mushroom
 
+
+
+# prevent speeding up with potion (like Maiar but completely)
 
 # NO ESP.. or -1/2, 1/3, etc
 #slay:32:50:TROLL_3

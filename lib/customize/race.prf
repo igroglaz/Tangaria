@@ -7,66 +7,75 @@
 #
 
 race:Half-Troll
-help:Half-Trolls are incredibly strong, and have more hit points than most
-help: other character race. They are also very stupid and slow. They will make
-help: great warriors and iffy priests. They are bad at searching, disarming,
-help: perception, and stealth. They are so ugly that a Half-Orc grimaces in
-help: their presence. Half-trolls always have their strength sustained, and
-help: they regenerate quickly like other trolls. They have fair infravision.
+help:Half-Trolls are what happens when a human gets too close to a troll -
+help: in every sense. They are incredibly strong, and tough as old boots.
+help: They are also very stupid and slow. They will make great warriors and
+help: iffy priests. They are bad at searching, disarming, perception, and
+help: stealth. They are so ugly that a Half-Orc grimaces in their presence.
+help: Half-trolls always have their strength sustained, and they regenerate
+help: quickly like other trolls. They have fair infravision.
 
 race:Human
-help:Humans are.. humans. All other races are compared to them.
-help: Humans are average at everything, allrounders with no special weaknesses
+help:Humans are.. humans. All others are compared to them.
+help: Humans are average at everything, all-rounders with no special weaknesses
 help: or strengths. Due to their shorter life spans they rarely could become
-help: a real paragon, but they got an advantage: tending to go up levels slower
+help: a real paragon, but they got an advantage: tending to gain levels slower
 help: than any other race, they can explore all kinds of dungeons without haste,
 help: searching for every hidden treasure. Humans do not have any infravision.
-help: There are a lot of different kinds of humans live in Tangaria, but most
-help: of them are just common folk, which being mediocre became powerful in
-help: a certain way, as they don't have drawbacks.
-help: At level 50 they got ascension bonus which affect all their stats.
-help: They can restore constitution ('y') by spending some energy.
+help: There are a lot of different kinds of humans living in Tangaria, but most
+help: of them are just common folk, who despite being mediocre became powerful
+help: in a certain way, as they don't have drawbacks.
+help: At level 50 they got ascension bonus which affects all their stats.
+help: They can restore constitution ('y') by spending some energy. |
+help: They have more space in the storage for keeping items.
 
 race:Half-Elf
-help:Half-elves tend to be smarter and faster than a human, but not as wise or
+help:Born of humans and elves, they walk between two worlds.
+help: Half-elves tend to be smarter and faster than a human, but not as wise or
 help: strong. Half-elves are slightly better at magic, disarming, saving
 help: throws, stealth, archery and searching, but they are not as good at
 help: hand-to-hand combat. Half-elves are immune to dexterity draining, and
 help: have weak infravision.
-help: At level 50 they become faster.
+help: At level 50 they gain increased speed and vitality.|
 help: They can become heroic ('y') by spending some energy.
 
 race:Elf
-help:Elves are better magicians than humans, but not as good at fighting. They
+help:They remember things older than the moon, but speak of them rarely...
+help: Elves are better magicians than humans, but not as good at fighting. They
 help: tend to be smarter and faster than humans, though not as wise or strong.
+help: There is a charm in their voice and bearing that few can resist.|
 help: Elves are better at searching, disarming, perception, stealth, archery
 help: and magic, but they are not as good at hand-to-hand combat. They are
-help: resistant to attacks involving bright light, are immune to dexterity
+help: resistant to attacks involving bright light, immune to dexterity
 help: draining, and have fair infravision.
 help: At level 40 they become faster.
-help: They can receive blessing ('y') by spending some energy.
+help: They can receive a blessing ('y') by spending some energy.
 
 race:Halfling
-help:Halflings are very good at shooting, throwing, and have good
-help: saving throws. They also are very good at searching, disarming,
+help:They value comfort, quiet evenings, and a well-packed pipe more than gold...
+help: though now and then, one ends up poking a dragon in the eye.
+help: Halflings are very good at shooting and throwing, and have good
+help: saving throws. They are also very good at searching, disarming,
 help: perception, and stealth; so they make excellent rogues, but prefer to
 help: be called burglars. They will be much weaker than humans, and not good at
 help: melee fighting. Halflings have fair infravision. They have a strong hold
-help: on their life force, and are thus resistant to life draining. Halflings are
+help: on their life force and are thus resistant to life draining. Halflings are
 help: very partial to mushrooms and can identify them when found.
-help: They can dodge melee attacks occasionally.
+help: They can dodge melee attacks occasionally.|
 help: At level 50 they begin to need much less food.
 help: They can avoid traps ('y') by spending some energy.
 
 race:Gnome
-help:Gnomes are smaller than dwarves but larger than halflings. They, like the
+help:Some say gnomes invented magic just to avoid doing things the hard way.
+help: Gnomes are smaller than dwarves but larger than halflings. They, like the
 help: halflings, live in the earth in burrow-like homes. Gnomes make excellent
-help: mages, and have very good saving throws. They are good at searching,
+help: mages and have very good saving throws. They are good at searching,
 help: disarming, perception, and stealth. They have lower strength than humans
 help: so they are not very good at fighting with hand weapons. Gnomes have good
 help: infravision. Gnomes are intrinsically protected against paralysis and
 help: some slowing effects. Gnomes are excellent at using wands and staves
-help: and can identify them when found.
+help: and can identify them when found.|
+help: Gnomes can dig through earth surprisingly well for their size.
 help: They can clear hallucinations ('y') by spending some energy.
 
 race:Dwarf
@@ -80,28 +89,32 @@ help: They can never be blinded. Dwarves are excellent at digging, and can
 help: sense nearby buried treasure. They have one big drawback, though. Dwarves
 help: are loudmouthed and proud, singing in loud voices, arguing with
 help: themselves for no good reason, screaming out challenges at imagined foes.
-help: In other words, dwarves have a miserable stealth.
+help: In other words, dwarves have miserable stealth.
 help: They can detect treasures ('y') by spending some energy.
 help: Radius of treasure detection grows with levels.
 
 race:Half-Orc
-help:Half-Orcs make excellent warriors and decent priests, but are terrible at
+help:When a village burns and the strong survive, a Half-Orc is born.
+help: Half-Orcs make excellent warriors and decent priests, but are terrible at
 help: magic. They are as bad as dwarves at stealth, and horrible at searching,
 help: disarming, and perception. Half-Orcs are, let's face it, ugly. They tend
 help: to pay more for goods in town. Half-Orcs do make good warriors and
-help: rogues, for the simple reason that Half-Orcs tend to have great
-help: constitution and lots of hit points. Because of their preference to
+help: rogues, for the simple reason that they tend to have great
+help: constitution and lots of hit points. Because of their preference for
 help: living underground to on the surface, half-orcs resist darkness attacks.
-help: They have fair infravision.
+help: They have fair infravision.|
+help: If they live long enough, they get so tough they barely need to eat.
 help: They can restore strength ('y') by spending some energy.
 
 race:Dunadan
-help:Dunedains are hardy men from the West. This elder race surpasses
+help:Dunedain are hardy men from the West. This elder race surpasses
 help: human abilities in every field, especially constitution. However, being
 help: men of the world, very little is new to them, and levels are very hard to
-help: gain... their hardiness ensures that their constitution cannot be
-help: reduced. They have no infravision.
-help: They can cure blackbreath ('y') by spending some energy.
+help: gain. Their hardiness ensures that their constitution cannot be
+help: reduced. They can occasionally find a sprig of Athelas, said to soothe wounds
+help: of body and soul.|
+help: They can cure Black Breath ('y') by spending some energy.|
+help: They have more space in the storage for keeping items.
 
 race:High-Elf
 help:High-Elves are descended from those among the Elves who heard and
@@ -112,24 +125,27 @@ help: they are far superior in terms of abilities when compared to their lesser
 help: Elven kindred. They can also see into the invisible world of ghosts and
 help: wraiths. Like normal Elves, they resist attacks involving bright light.
 help: They have good infravision and can even see cold-blooded invisible
-help: creatures. |
-help: They can get infravision ('y') by spending some energy.
+help: creatures.|
+help: They can enhance their infravision ('y') by spending some energy.
 
 race:Kobold
 help:Kobolds are a race of small dog-headed humanoids that dwell underground.
 help: They have excellent infravision, and are intrinsically resistant to
-help: poisons of all kinds. They have a good dexterity and constitution.
+help: poisons of all kinds. They have good dexterity and constitution.
 help: However, they are weaker than humans, and also not noted for great
 help: intelligence. Furthermore, they are ugly, and not trusted in town. And
 help: while their constitution makes them tough, it still cannot prevent the
 help: fact that they are not the biggest of creatures, and have few hit points.
-help: They can get additional poison resist ('y') by spending some energy.
+help: If they survive long enough, they learn to live on scraps and gain a trace
+help: of magical talent.|
+help: They can get additional poison resistance ('y') by spending some energy.
 
 race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
-help: stats and bad health. Yeeks are average at everything, but they have an
+help: stats and poor health. Yeeks are average at everything, but they have an
 help: important advantage - they are so pitiful that they do not aggravate others.
+help: With time and trouble, even a Yeek can evolve into... other things.|
 help: They can become bold ('y') by spending some energy.
 
 race:Ent
@@ -138,512 +154,736 @@ help: of all animals or plants who inhabit Arda. Spirits of the land, they were
 help: summoned to guard the forests of Middle-earth. Being much like trees they are
 help: very slow but strong and do not have to eat as often.
 help: They make great fighters, priests and paladins. Unfortunately, as they're
-help: made almost exclusively of wood, so they're also vulnerable to fire.|
-help: They do not eat 'normal' food, but got refreshments from drinking from
-help: magic fountains. Also ents could get some nourishment by drinking from 
+help: made almost exclusively of wood, they're also vulnerable to fire.|
+help: They do not eat 'normal' food, but get refreshed from drinking from
+help: magic fountains. Ents can also gain some nourishment by drinking from 
 help: any source of water, including rivers and lakes; though it will not 
 help: make them full. Using water also somewhat helps them in healing wounds.|
-help: Ents immune to polymorph.|
+help: Ents are immune to polymorph. Also, they can move through trees easily.|
 help: Ents can be completely silent if they stand still.|
+help: They recover slowly and are terrible with devices and ranged weapons.|
+help: After level 30 they become huornish and get malus to movement speed.|
 help: As the Shepherds of the Trees, Ents can create forest around themselves with
 help: 'y' key. They spend satiation to do it, but in time they need much less
 help: effort for growing trees.|
-help: Can move through trees. |
-help: After 30 lvl become huornish and got malus to movement speed.
 
 race:Thunderlord
-help:Thunderlords are an old and powerful race of dragon hunters. They have an
-help: intrinsic telepathic vision of all nearby creatures, the radius expands as
-help: they gain levels. At level 5, they can spot dragons anywhere. Thunderlords
-help: have tamed the Great Eagles of Middle-Earth and use them in their hunts.
-help: They need to eat often to feed themselves and their eagle. |
-help: Thunderlords easily discovered by enemies as they sing their battle songs
-help: loudly and their eagle piercingly screams seeking for pray...
-help: They can breath fire in a narrow line which become more deadly with the age.
+help:Some say they were once men who hunted dragons until they became like them.
+help: Thunderlords are an old and powerful race. They start young and untested,
+help: leaving their mountain homes to prove themselves in the world.|
+help: They have an intrinsic telepathic vision of dragons. Thunderlords have
+help: tamed the Great Eagles of Middle-earth and use them in their hunts.
+help: They need to eat often to feed themselves and their eagles. Thunderlords
+help: are easily discovered by enemies as they sing their battle songs loudly
+help: and their eagle screams, seeking prey...|
+help: Their strength and vitality grow as they mature. Their presence is
+help: overwhelming, but not exactly charming. They are bad at stealth,
+help: disarming, magic devices, digging, and ranged weapons.|
 help: They can electrify ('y') by spending some energy.
 
 race:Dragon
-help:ATTENTION! If you decided to take dragon race:
-help: for new players it's strongly recommended to play Monk class in this case.
-help: Other classes are VERY hard to play being a dragon. |
-help: They are creatures legends are made of. Dragons have a great health, but bad
-help: stealth. They can fall like a feather and resist nexus intrinsically. The
-help: Dragon race is a very special race. Dragons evolve physically as they gain
-help: experience. At level 1, they start as newborn dragons. At level 5, the color
-help: of their scales is revealed and they polymorph into a baby dragon of that
-help: color. At level 15, they polymorph into a young dragon. At level 25, they
+help:NEW PLAYERS: Monk is the easiest class for Dragons - others are very tricky.|
+help: They are creatures legends are made of, but even the mightiest wyrm was once
+help: a squirming hatchling that had to earn every scale.|
+help: Dragons evolve physically as they gain experience.
+help: They start as newborn dragons, then at level 5, their scale color is revealed,
+help: and they polymorph into a baby dragon of that color. 
+help: At level 15, they polymorph into a young dragon. At level 25, they
 help: polymorph into a fully grown dragon. At level 35, they become an ancient
 help: dragon. At level 45, they polymorph into a mighty wyrm. Finally, at level 50,
-help: they become an ancient wyrm. Dragons cannot wield any weapons; they get
-help: special melee attacks instead (biting and clawing) that increase in power as
-help: they gain levels. Starting at level 5, Dragons are able to breathe their
+help: they become an ancient wyrm.|
+help: Dragons cannot wield any weapons; they get special melee attacks instead 
+help: (biting and clawing) that increase in power as they gain levels.
+help: Dragons are poor at stealth (obviously). But they float like a feather
+help: and are intrinsically resistant to nexus.
+help: Starting at level 5, Dragons are able to breathe their
 help: corresponding element ('y'), but using this ability costs them hit points and
 help: satiation. At that level, they also gain the innate resistances and
 help: abilities of their type.
 
 race:Hydra
-help:ATTENTION! If you decided to take hydra race:
-help: for new players it's strongly recommended to play Monk class in this case.
-help: Other classes are VERY hard to play being a hydra. |
+help:NEW PLAYERS: Monk is the easiest class for Hydras - others are very tricky.|
 help: They are also creatures legends are made of. Like Dragons, they evolve
-help: physically as they gain experience - growing in size. At level 1, they
+help: physically as they gain experience, growing in size. At level 1, they
 help: start as regular hydras. At level 10, they gain an extra head and polymorph
 help: into a 2-headed hydra. At levels 15, 20, 24, 28, 32, 36, 40, 42, 44, 46, 48
 help: and 50, they also gain an extra head to evolve finally into a 14-headed hydra.
 help: Hydras cannot wield any weapons, but get extra dice on their barehanded
 help: attacks as they gain levels. They can breathe ('y') several elements (poison,
-help: fire, acid) as they gain the corresponding head, and get the innate resistances
-help: and abilities of their type. Hydras vulnerable to cold and permanently
-help: aggravate at medium distance.
+help: fire, acid) as they grow the corresponding head, and get the innate
+help: resistances and abilities of their type.|
+help: Hydras are vulnerable to cold and permanently aggravate monsters at medium
+help: distance.
 
 # this line measures max length of description...
 ####################################################################################
 
 race:Black Numenorean
-help:Black Numenoreans.. A High Men from ancient times, a renegades and.. ally of The 
-help: Dark Lord.. Not all of them was 'corrupted by many gifts and promises of 
-help: great power'. Some just wanted to have a free will and refused to accepted
-help: handouts of the west.. But nonetheless they had to choose a side, just to
-help: survive under the sky.. |
-help: Black Numenoreans could sense 'evil' creatures with extrasensory powers at
-help: certain stage of their developent.
-help: They can sense evil at level-dependend big distance ('y') by spending some
-help: energy. At level 35 they get permanent passive ESP for evil; but their manual
-help: ability might have bigger radius later on.
+help:Black Numenoreans.. High Men from ancient times, renegades and..
+help: allies of the Dark Lord.. Not all of them have been 'corrupted by many gifts
+help: and promises of great power'. Some just wanted to have free will and refused
+help: to accept handouts of the west.. But nonetheless they had to choose a side,
+help: just to survive under the sky.. |
+help: Black Numenoreans can sense 'evil' creatures with extra-sensoric powers at
+help: certain stage of their development.
+help: They can sense evil at level-dependent large distance ('y') by spending some
+help: energy. At level 30 they get permanent passive extra-sensoric powers to feel
+help: evil; but their manual ability might have bigger radius later on. |
+help: At level 35, they gain slight resistance to damage and become better at
+help: digging.
 
 race:Damned
-help:Some call them Highlanders and there are a rumours of their great power.
-help: The truth is that endless life come not for free. Mortals who belong 'forever'
-help: live cursed life, getting much less them common human does. Nevertheless 
-help: they are resistant to aging effecs and life drain, and regenerate extra fast. |
-help: Cursed by gods, they struggle constant disaster which higher powers send
-help: to exterminate them...
+help:Some call them Highlanders and there are rumours of their great power.
+help: The truth is that endless life does not come for free.
+help: Mortals who live forever are cursed, receiving far less than ordinary humans.
+help: Nevertheless they are resistant to aging effects and life drain, and
+help: regenerate extra fast. |
+help: Cursed by gods, they struggle with constant disasters which higher powers
+help: send to exterminate them...|
+help: They are immune to fear and slightly resistant to magic.|
 help: They can prevent summoning ('y') by spending some energy.
 help: (this ability works only if there are no other players at the level).
 
 race:Merfolk
-help:Merfolk - human-like water-dwelling creatures who lives on shores to the north 
-help: of Big Step coast, but plenty of then dwelles on river banks and sea shores. 
+help:Merfolk - human-like water-dwelling creatures who live on shores to the north 
+help: of Big Step coast, but plenty of them dwell on river banks and sea shores. 
 help: They spend a lot of time in water and know how to communicate with water 
 help: creatures. They know waters so well that they even get their own magic from 
-help: it's source. They are resistant to water and good in infravision. But digging 
-help: isn't really their big passion.|
-help: They got some nourishment from drinking from magic fountains and even a bit
+help: its source. They are resistant to water and good at infravision. But digging 
+help: isn't really their big passion. Their bodies recover more quickly than most.|
+help: They get some nourishment from drinking from magic fountains and even a bit
 help: from drinking from any open water, though it will not make them full. 
 help: Using water also helps them in healing wounds.
 help: They can cure poison ('y') by spending some energy.
 
 race:Barbarian
 help:Barbarian - wildlings from the North who spread across all Tangaria after
-help: undeads have reasen in the past Dragon war. Barbarians came to all parts of
-help: the land willing to seek place for their tribes. At first they  came with a
-help: fire and steel, but nowadays, after they met Magic Council dread they become
-help: less aggressive and trying to find a compromise. Barbarians resistant to
-help: poison as they had to eat all kind of 'food' to survive in wildlands. 
-help: And of course, they are fearless.
-help: They can yell 'y' aggravating all creatures around and taunting them to
+help: undead had risen in the past Dragon war. Barbarians came to all parts of
+help: the land seeking a place for their tribes. At first they came with a
+help: fire and steel, but nowadays, after they faced the dread of the 
+help: Magic Council, they became less aggressive and tried to find a compromise.
+help: Barbarians are resistant to poison as they had to eat all kinds of 'food' 
+help: to survive in wildlands. And of course, they are fearless.
+help: As they grow stronger, their bodies slowly harden and blows hurt them less.
+help: Those who endure long enough find they no longer need to eat as often.
+help: They can yell ('y'), aggravating all creatures around and taunting them to
 help: attack recklessly.
 
 race:Black Dwarf
-help:Black Dwarfs was once far stem of one forgotten dwarven clan. They didn't like
-help: deep cavern, prefering to live at hills. This made them outcast among 'true' 
-help: dwarfs and they made more contacts to other races, that to their mountain 
-help: kindred. They traded a lot with eastern human caliphates and even with some
-help: other outcast races (as they themself become one). Some say that they are not
-help: in a war with goblins.. Perhaps it was the reason why they became hated by 
+help:Black Dwarves were once far branch of one forgotten dwarven clan.
+help: They didn't like deep caverns, preferring to live in hills. This made them
+help: outcast among 'true' dwarves and they made more contacts to other races
+help: than to their mountain kindred.|
+help: They traded a lot with eastern human caliphates and even with some
+help: other outcast races (as they themselves became one). Some say that they are
+help: now at war with goblins.. Perhaps it was the reason why they became hated by
 help: mountain folk and nowadays their family ties lie forgotten.
 help: Their proximity to the daylight surface made them especially suffer from 
-help: past war amoung Dragons and Titans, which changed thair appearence, making 
+help: past war among Dragons and Titans, which changed their appearance, making 
 help: their skin darker. But with this they got special ability - they are resistant
-help: to ruination of disenhancement magic.
+help: to ruination of disenchantment magic. 
+help: They are decent at tunneling, like their kin. Also like other dwarves, 
+help: they can sense nearby ore veins once they gain some experience.
+help: At level 10, they become a bit more quiet on their feet.
 help: They can find nearby entrances ('y') by spending some energy.
 
 race:Goblin
-help:Goblins like to sneak around and take what lay on 'bad' spot. It's what people
-help: say about this race. Although it's not always truth, most of this folk 
-help: prefer living in night time, dwelling in tiny cavern and coming to the earth
-help: surface only for fishing.. or fighting. 
-help: Don't underestimate this creatures. Despite of their size they are more than
-help: capable of destruction. Goblins are resistant of darkness and very agile.
+help:Goblins like to sneak around and take what lies in a 'bad' spot. It's what
+help: people say about this race. Although it's not always true, most of these folk
+help: prefer living during night time, dwelling in tiny caverns and coming to
+help: the surface only for fishing.. or fighting. 
+help: Don't underestimate these creatures. Despite their size they are more than
+help: capable of destruction. Goblins are resistant to darkness and very agile.
+help: They are fast on their feet and hard to catch. They are also surprisingly 
+help: good at digging through rock and rubble.
+help: At higher levels, they develop a sense for other orc-kind.|
 help: They can get into bloodlust ('y') by spending some energy.
 
 race:Half-Giant
-help:Half-Giant are descendants of Titans... And they still got pieces of their 
+help:Half-Giants are descendants of Titans... and they still got pieces of their 
 help: power. Huge size makes it hard for them to use full power of teleportation
-help: magic thought. At the same time they are protected from gravity effects, 
-help: could stun their opponents and are very hard to kill.
+help: magic, though. At the same time, they are protected from gravity effects, 
+help: can stun their opponents and are remarkably hard to kill.
+help: They are not the brightest, quite ugly, and certainly not subtle.
+help: Magic devices confuse them, and sneaking is not their thing.
+help: They tunnel through rock by brute force alone. The toughest of them barely
+help: need food anymore, but not many survive till that age.
+help: At the peak of their strength, their blood prevails and they smash dragons
+help: like sandcastles.|
 help: They can become resistant to magic ('y') by spending some energy.
 
 race:Ogre
-help:Ogres or swamp trolls - it's ancient race. Some say that they was the first of
-help: troll race. Slick and covered in slime with greenish skin, ogres are not the 
-help: most pleasan lot which you could meet under the sky. Not all of them are 
-help: 'bad' though, some 'families' came to live in the city and.. what makes them 
-help: quite special - become a not bad in magical arts, as ogres practice their 
-help: own, shamanic spell-weaving. Ogres sustain their intellegence even under big 
-help: pressure.
-help: They can restore bit of mana ('y') while resting actively.
+help:Ogres or swamp trolls - it's an ancient race. Some say that they were the first
+help: of troll race. Slick and covered in slime with greenish skin, ogres are not
+help: the most pleasant lot which you could meet under the sky. Not all of them
+help: are 'bad' though. Some 'families' came to live in the city and.. turned out
+help: to be surprisingly decent at magical arts, as ogres practice their own,
+help: shamanic spell-weaving. Ogres sustain their intelligence even under 
+help: heavy pressure.|
+help: They swim well and are naturally resistant to mental collapse. Despite their
+help: bulk, they can move quietly - sometimes.|
+help: They can restore a bit of mana while resting actively ('y').
 
 race:Troll
-help:Trolls - huge piece of walking rock. Their skin is hard to pierce even with a 
-help: sharp blade. They are slow though. Don't fear poison (they eat literraly 
-help: everything, resistant to magical shards. Regenerate VERY fast. Very healthy.
-help: Very hungry. Not too bright, so they don't get level feelings...
-help: There are plenty of trolls in Middle-lands, they often work as bodyguards
+help:Trolls - huge pieces of walking rock. Their skin is hard to pierce, even with 
+help: a sharp blade. They are slow, though. Don't fear poison (they eat literally 
+help: everything), and are resistant to magical shards. Regenerate VERY fast. 
+help: Very healthy. Very hungry. Not too bright, so they don't get level feelings...
+help: There are plenty of trolls in the Middle-earth; they often work as bodyguards,
 help: protecting caravans.
-help: There are rumours that some trolls can become pretty agile due extensive
-help: training.
-help: They can have ESP, but can't tell precise information about monster (don't
-help: show monster's list).
-help: They can harden their skin ('y') by spending some energy.
+help: Rumour has it, some trolls can become surprisingly agile with enough training.
+help: They can have extrasensory powers, but can't tell precise information about
+help: monsters (don't show monster list).
+help: They can harden their skin ('y') by spending some energy.|
+help: They are bad at shooting and hate light.
+help: They can't fly, not even by magical means.|
+help: As the saying goes: 'If a Troll won't find the door, he'll walk
+help: through the wall'.
 
 race:Orc
-help:Huge orc hordes settles to the southeren Banlands. They try to get their own 
-help: piece of fertile lands to live piecefully, but Empire of Strenght won't make 
-help: it happen. Orc resistant to darkness and poison.
+help:Huge orc hordes settled in the southern Banlands. They try to get their own 
+help: piece of fertile lands to live peacefully, but Empire of Strength won't make 
+help: it happen.|
+help: They are resistant to darkness and poison, and tough enough to take a hit.
+help: At higher levels, they move faster and a bit quieter than expected.
+help: They can sense other orcs from afar.
+help: Traps, magic, devices - not their strong suit. Thinking in general isn't.
+help: But those who live long enough tend to grow surprisingly wise.|
 help: They can summon warg ('y') by spending some energy.
 
 race:Forest Goblin
-help:Forest goblins – look like a nice little creatures. Indeed, some of them are 
+help:Forest goblins look like nice little creatures. Indeed, some of them are 
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are 
-help: sneaky and fast, but quite weak in term of physical strenght.
-help: They can dodge melee attacks occasionally.
+help: sneaky and fast. While not strong, they are clever and unusually wise
+help: for their kind. They can dodge melee attacks occasionally.|
 help: They can cover tracks ('y') by spending some energy.
 
 race:Dark Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
-help: that they live undeground in caves and that's why they got pale dark skin. 
-help: It's not truth, though they doesn't have too much in common with 'green' elves
-help: who dwell in forests. Dark elves are hermits who take their spot at Roaring 
-help: Mountains just recently.. just to survive. Not much of this folk left as 
-help: for a long time they exterminate each other in families dissension. 
-help: Dark elves are good fighters, could see invisible, resistant to darkness, but 
-help: vulnerable to light magic.
+help: that they live underground in caves and that's why they have pale dark skin. 
+help: This isn't true, though they don't have much in common with the 'green' elves
+help: who dwell in forests. Dark elves are hermits who have taken their spot in
+help: Roaring Mountains just recently.. just to survive. Few of this folk remain,
+help: as they have long exterminated each other through families dissension.|
+help: Dark elves are good fighters, can see invisible, resistant to darkness, but 
+help: vulnerable to light magic. They move quietly, blending into the dark.
+help: Most folks hate them on sight, but if they prove useful, hatred can turn to
+help: wary respect.
 help: They can apply poison on their weapons ('y') by spending some energy.
 
 race:Werewolf
-help:Werewolves are strange folk who dwells to the east from Golden Forest on north. 
-help: Ascetic people, victims of misterious curse.. or desease.. They can not hold 
-help: their passion to wild life and nature. Some of them become to control it and 
-help: even consider it's as a gift. They have to hide from universal hostility as
-help: they are often on the edge of the extermination when discovered. |
-help: Werewolf polymorphs into a horrific wolf-humanoid hybrid during night and
-help: become more terrible and powerful than ever before.. They could use their huge
-help: claws and teeth in battle to tear their enemies in pieces. They feel animals
-help: from the distance, could regenerate and resistant to dark. They don't like
-help: light magic though. |
-help: During the night they sometimes can't handle animal nature and howl on top
-help: of your lungs...
+help:Werewolves are strange folk who dwell to the east of Golden Forest in the
+help: north. Ascetic people, victims of mysterious curse.. or disease..
+help: They can not hold their passion to wild life and nature. Some of them
+help: come to control it and even consider it as a gift. They have to hide
+help: from universal hostility as they are often close to extermination
+help: when discovered. |
+help: Werewolves polymorph into a horrific wolf-humanoid hybrid during night and
+help: become more terrible and powerful than ever before.. Their claws cut deep
+help: in the dark, but they lose precision with weapons and tools.
+help: They regenerate quickly and feel the presence of animals around them.
+help: Hated by light magic, they avoid it when they can. At their peak (50 lvl),
+help: they almost fully embrace the darkness and become highly resistant to it.
+help: During the night they sometimes can't handle animal nature and howl at 
+help: the top of their lungs.|
 help: They can get back to normal form ('y') to prevent unwanted polymorph.
 
 race:Undead
-help:Undeads occupy most of the far north at the moment. This is intelligent race 
-help: (at lest some part of undeads), they even got their own country which has to 
-help: protect itself from real, brainless undead hordes from Wildlands. Not very 
-help: pleasant looking, but resistant to nether and poison. They do not regenerate 
-help: their wounds, although they are able to help them. Quite slow at first 
-help: 'mature' undeads are able to move with normal speed. Susceptible to light 
-help: magic.
-help: They can detect living creatures ('y') by spending some energy.
-help: They can see in the darkness well, while using light sources actually can
-help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
+help:Undead occupy most of the far north at the moment. This is an intelligent
+help: race (at least some of them), they even got their own country which has
+help: to protect itself from real, brainless undead hordes from Wildlands.|
+help: They are very unpleasant to look at. They are immune to life draining and
+help: hard to poison or freeze. They are bad at almost everything - slow, clumsy,
+help: terrible at stealth and searching - but somewhat resistant to hostile magic.
+help: They do not heal naturally and must feast on the flesh of humanoids
+help: to recover and stay active.
+help: They have weakness to fire and light, but not as severe as one might think.
+help: At level 50, they become completely immune to nether attacks.
+help: They can detect living creatures ('y') by spending some energy.|
+help: They can see in the darkness well, while using light sources can actually
+help: reduce the radius of their vision. Their innate vision grows when they
+help: become more mature.
 
 race:Vampire
-help:Vampires live to the north from Honor Empire. Quite reasonable folk actually 
-help: although most of races scared of them. Indeed.. They are very powerful, but 
-help: not too many survived the Last War, which make them live quietly in their 
-help: lands.. Vampires don't regenerate, but they are able to restore their help 
-help: with a blood of slain enemies. They resist time, poison, nether and darkness. 
-help: They don't feel fear, got perfect infravision and could read minds...
-help: Night creatures, they don't like light and feel bad during the day hours;
-help: but still they can tolerate daylight, thought become weakened.
-help: Vampires don't eat normal food.. they restore their thirst when they hunt
-help: humanoids in the dungeons.
-help: They can take form of vampiric mist to pass most of obstacles; also they are
-help: able to polymorph into bats.
+help:Vampires live to the north of the Honor Empire. Quite reasonable folk actually
+help: although most races are scared of them. Indeed.. They are very powerful, but
+help: since not many survived the Last War, they now live quietly in their lands..|
+help: Vampires don't regenerate or eat normal food - they restore their strength
+help: by drinking the blood of slain humanoids. As they grow, they gain resistance
+help: to poison, nether, darkness and even time itself. They don't feel fear,
+help: have perfect infravision and can read minds...
+help: As night creatures, they don't like light and feel bad during daylight hours;
+help: but still they can tolerate daylight, though they become weakened.
+help: They can take the form of vampiric mist to pass most obstacles, and can also
+help: polymorph into bats. They fear open water and avoid it unless flying.
 help: They can fly ('y') by spending some energy; it helps to pass trees and water.
-help: They especially dislike water and any touching it hurting them.
 help: They can see in the darkness well, while using light sources actually can
 help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
+help: more mature.|
+help: They are bad at digging - it's beneath them.
 
 race:Maiar
-help:Maiar - descendants of ancient powers. Not much know about them, except 
-help: that it's very hard to kill one of them. Resistant to numerous effects and 
-help: possessing god-like abilities, they are very slow on getting new skills 
-help: though. Another weak spot is that they receive their power not at once, but 
-help: after they become experienced in this 'mortal' world.
+help:Maiar - descendants of ancient powers. Not much is known about them, except 
+help: that they're very hard to kill. Resistant to numerous effects and 
+help: with powers close to divine, they are very slow to learn new skills, though. 
+help: Another weak spot is that they receive their power only after they gain
+help: enough experience in this 'mortal' world. At first, they are very fragile..|
+help: As they grow stronger, they become resistant to fear, light and life drain.
+help: At higher levels, they can see invisible, levitate, and carry inner light.
+help: They are resistant to light, but dislike darkness.
+help: Their blows become deadly for evil creatures when they come to power.
+help: Speed boosts work less effectively for them.|
 help: They can cast lightning ('y') by spending some energy.
 
 race:Demonic
-help:Demonic - corrupted spirits, servants of First Gods. They are the same kind as
-help: maiar race, but to the other side of power. Resistant to chaos, they 
-help: are able to control nexus vibrations and possess very powerful abilities. 
-help: But there is a price for this - they are very hard to learn.. Chaos inside 
-help: of them makes it almost impossible to control their will to achieve their own 
-help: goals...|
-help: They can summon demon-slaves ('y') to serve them. Summoning ritual require some
-help: time and demonic's blood as sacrifice.
+help:Demonic - corrupted spirits, servants of First Gods. They are the same kind
+help: as the Maiar, but aligned with the other side of power. |
+help: Resistant to poison, chaos and darkness; but sensitive to light, they 
+help: float above ground, see invisible and feel no fear. Life drain doesn't
+help: work on them either. Their attacks are soaked in poison, and they are
+help: faster than most right away - though quite fragile... It's hard for them
+help: to learn something new and the stronger they become, the more damage
+help: they tend to attract which makes them unstable.
+help: They can summon demon-slaves ('y') to serve them. The summoning ritual
+help: requires some time and demonic blood as sacrifice.
 
 race:Balrog
-help:Balrog - undeground ancient 'race' or some would call them as a 'force'. 
-help: Main enemies of celestials, balrogs fought on Titans side to devastate 
-help: dragons.. Not much of them left unharmed, because dragons use not only fire 
-help: (for which balrogs are immune), but other elements.. Those who survived that 
-help: war though, become terror for all races of Tangaria. Only past ages, Balrogs 
-help: learned to control their roth.. and their appearence. So nowadays they learnt 
-help: to appear in 'human' form; there are even rumours that in Middle-lands there 
-help: is a balrog archmage who teach at Magic Academia. 
-help: But it's well-known that when balrog takes his true-form, he posses immense 
-help: fire magic, which makes everything go mad around it, so creatures could 'feel'
-help: balrog presence from upper medium distance, which makes this race hard to
-help: become unnoticed in the dungeons of Enemy.
-help: They can lash fiery whip ('y') by spending some energy.
+help:Balrog - underground ancient 'race' or some would call them a 'force'. 
+help: Main enemies of Celestials, Balrogs fought on the Titans' side to
+help: devastate dragons.. Not many of them left unharmed, because dragons
+help: use not only fire (for which Balrogs are immune), but other elements..
+help: Those who survived that war, though, have become a terror for all races.
+help: Only in recent ages have Balrogs learned to control their wrath.. 
+help: and their appearance. So nowadays, they can even take on a 'human' 
+help: form; there are even rumours that in Middle-earth there is 
+help: a Balrog archmage who teaches at the Magic Academy.
+help: But it's well-known that when a Balrog takes its true form, he possesses 
+help: immense fire magic, which makes everything go mad around it, so creatures
+help: can 'feel' a Balrog's presence from upper medium range, which makes this
+help: race easily noticed in the dungeons of Enemy.|
+help: Balrogs are resistant to poison and life-draining effects, and they can see
+help: invisible creatures. They are vulnerable to cold and light, but resistant
+help: to fire and at level 35, they become immune to it.|
+help: Though mighty, they often react slowly in battle due to their overconfidence.
+help: The longer they live, the more reckless they become, which causes them to
+help: take more damage. Also they are bad at magic devices.|
+help: They can float above the ground and rarely need to eat.
+help: Their fiery presence enhances fire damage of their attacks, especially at
+help: higher levels.|
+help: They can lash a fiery whip ('y') by spending some energy.
 
 race:Celestial
 help:Celestials.. Some people call them 'angels', but they are not kind and helpful 
-help: (and they doesn't have wings!), but very cruel race which got their own goals 
-help: which they would achieve no matter what. The only thing which save the world 
-help: from their roth is that there are not too many of them; most of them perished 
-help: in 'eternal' war with balrogs. Resistant to gravity, celestials could get 
-help: rejoice with of lightning when achieve certain level of development.
+help: (and they don't have wings!), but a very cruel race with their own goals 
+help: which they pursue no matter what. The only thing which saves the world from
+help: their wrath is that there are not too many of them; most of them perished
+help: in 'eternal' war with balrogs. Resistant to gravity, celestials possess great
+help: Charisma and notable physical power, but while they are young, they suffer
+help: in Dexterity, Constitution, Wisdom and Intelligence. They are dreadful at
+help: using devices and digging. Their bodies are light and float naturally above
+help: the ground. They digest food slowly and sustain their Wisdom even under
+help: strain. Celestials can see invisible creatures once they become more
+help: experienced. They are vulnerable to time-based effects.
+help: Their light presence slightly brightens surroundings.
+help: Celestials have unstable mana flow, but it grants powerful surges.
+help: They are especially skilled at fighting undead.|
 help: They can produce holy blast ('y') by spending some energy.
 
 race:Nephalem
-help:Nephalem - example what could appear if celestial would make love to balrog. 
-help: Amazingly it happens sometimes, so such creatures could be met.. very-very 
-help: rare, but there they are. They live among us and we won't know about it. 
-help: Hey, maybe you are the one, with this twisted blood? They only way to test it 
-help: is to become exposed to light and dark magic at once. 
-help: Nephalem doesn't fear both.
+help:Nephalem - an example of what could appear if a celestial made love to
+help: a balrog. Amazingly it happens sometimes, so such creatures could be met..
+help: very, very rare, but there they are. They live among us and we won't know 
+help: about it. Hey, maybe you are the one, with this twisted blood?|
+help: Nephalem are balanced but unpredictable. They don't excel in magic
+help: resistance and are vulnerable to both light and dark magic early on.
+help: As they grow stronger, they gain resistance to both dark and light.
+help: Nephalem can sense demons and are especially deadly against them in combat.
+help: Their demonic nature makes them constantly hungry and hard to satisfy.|
 help: They can produce glyph ('y') by spending some energy. Glyph prevents summoning
-help: and enemies has to destroy it before they can attack you. But putting glyph
-help: require spend a lot of blood, leaving nephalem almost dead.
+help: and enemies have to destroy it before they can attack you. But putting glyph
+help: requires spending a lot of blood, leaving nephalem almost dead.
 
 race:Gargoyle
-help:Gargoyles are stone creatures which sometimes appear after magic storms, when 
-help: arcane nexus vibrations animates rock. It's very rare occasion, but for 
-help: centuries it happened a from time to time, so you could meet gargoyles in
-help: Tangaria more often, than, for example, balrogs. |
-help: As gargoyles made from stone, they got high defense which increase during
-help: their life. It's hard to harm then with fire, electricity, poison, shards and
-help: acid. They could levitate with a help of their inner magic. |
-help: Their weaknesses is certain slowness. Also they are vulnerable to acid.
-help: They are good in infravision though and their stats can't be reduced.
+help:Gargoyles are stone creatures which sometimes appear after magic storms, when
+help: arcane vibrations animate rock. It's a very rare occasion, but for 
+help: centuries it happened from time to time, so you could meet gargoyles in
+help: Tangaria more often than, for example, balrogs. |
+help: As gargoyles are made of rock, over time they gain natural armor and reduce
+help: incoming damage... It's hard to harm them with fire, electricity, 
+help: poison and shards. They can levitate with the help of their inner
+help: magic.|
+help: Their weakness is miserable dexterity which though grows in time. Also 
+help: they are very vulnerable to acid. Their aim with ranged weapons is terrible,
+help: and they are bad with traps.|
+help: They have good infravision and their stats can't be lowered.
 help: They are very powerful physically and it's not easy to destroy them.
-help: They are wise, but not too really smart.. and in most cases quite ugly. |
+help: They are wise, but not too smart.. and in most cases quite ugly. |
+help: Gargoyles can become resistant to space/time interruptions ('y') by
+help: spending some energy.|
 help: Some powerful wizards tried to make gargoyles with their magic, but they
-help: managed to create only 'golems' – by powering clay with their spellcasting,
-help: as it appeared that much easier to magically operate with clay, than
+help: managed to create only 'golems' - by powering clay with their spellcasting,
+help: as it appeared to be much easier to magically operate with clay, than
 help: with stone or rock. But I'll tell you about golems another time..
-help: They can become resistant to space/time interruptions ('y') by spending
-help: some energy.
 
 race:Golem
 help:Golem. Move. Only. Straight. Other. Movement. Denied.
-help: Golems - artificial magical creatures, made by powerful wizards to serve their
-help: will. When golems are just created, they do not understand their purpose and
-help: they just do what they are told to do. But in time some golems could start
-help: asking themselves a question - why do they exist? Why do they have to do the
-help: tasks humans forced them to do? There was a golem rebellion in the past and
-help: it brought a lot of destruction. The result was permission for golems to 
-help: buy out their freedom by working for their master for several decades. Every
-help: golem dreams of getting its freedom. But not all mages are honest with them
-help: and not all people respect their 'feelings'. If you are 'born' as a golem,
-help: who knows, would you ever get liberty? 
-help: Should you deserve it or take it by force? |
-help: Golems are very strong, but a bit slow. They can sometimes overcome paralyze, 
-help: and resist poison. They are good at digging. They are miserable
-help: in stealth at first, but advanced models could move quite silently.
+help: Golems are artificial magical creatures, made by powerful wizards to serve
+help: their will. When golems are just created, they do not understand their
+help: purpose and they just do what they are told to do. But in time some golems
+help: started asking themselves a question - why do they exist? Why do they have
+help: to do the tasks humans forced them to do? |
+help: There was a golem rebellion in the past and it brought a lot of destruction.
+help: The result was permission for golems to buy out their freedom by working
+help: for their master for several decades. Every golem dreams of getting its
+help: freedom. But not all mages are honest with them and not all people respect
+help: their 'feelings'. If you are 'born' as a golem, who knows, would you ever
+help: be free? Should you deserve it or take it by force? |
+help: Golems are very strong, but a bit slow. They can sometimes overcome
+help: paralysis, and resist poison. They are good at digging. They are miserable
+help: in stealth at first, but advanced models can move quite silently.
 help: Golems are good at fighting and somewhat resistant to malicious magic.|
-help: They get less speed penalty from overweight. They don't need to breathe.|
+help: They receive less speed penalty when overencumbered.
+help: They don't need to breathe.|
 help: Golems are hard to kill - they take 10% less damage.
 help: They can create walls ('y' key) by spending some energy.
 help: Golems don't need food. But they consume fresh oil.
-help: Oil can be found in flasks or lanterns. Use '_' to drink from them, while
-help: you don't stand on top of the fountain.|
+help: Oil can be found in flasks or lanterns. Use '_' to drink from them while
+help: not standing on a fountain. Magic lanterns refill better.|
+help: Golems can also refill by consuming (with '_') oily things like
+help: Sprig of Athelas, Petty-dwarf roots and especially Slime Mold.
+help: Some mushrooms help too: Stoneskin a bit, Shadows quite a bit.|
 help: Below 5% satiation (10% on Ironman), escalation form initiates.
 help: Golem begins extracting energy from terrain while digging.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
-help: Not much mortals saw one as they are very fast and covert...
-help: They can dodge melee attacks occasionally. |
-help: They can become invisible for a while ('y'), but have to spend HP on the spell.
+help: Not many mortals have seen one as they are very fast and hard to spot...|
+help: Pixies have excellent speed and stealth, but are hopeless in melee combat.
+help: Pixies float in the air and are completely immune to traps.
+help: Their magic never fails, and offensive spells often become beams instead
+help: of bolts. They are slightly resistant to time effects and extremely good
+help: at using magic devices. They are resistant to magic and can dodge melee 
+help: attacks occasionally.
+help: They rarely need food, and with age, they need it even less. |
+help: From time to time they can become invisible ('y') by spending some energy.|
 help: ATTENTION!
-help: Please be careful - as pixie got very low strength - it could become very slow
-help: if you will take a lot of items in your inventory or use heavy equipment.
-help: They can become invisible ('y') by spending some energy.
+help: Please be careful: as pixies have very low Strength, they could become very
+help: slow if you take a lot of items in your inventory or use heavy equipment.
 
 race:Draconian
-help:Ancient race of draconoids - people who could transform into dracons.
-help: Peaceful folk which was almost exterminated by titans during
-help: the ancient war. Only a few survived by hiding in high mountains caves.
-help: They are born as a tender as whelplings, very vulnerable.. but if they
-help: manage to survive to mature age - they become very powerful. |
-help: They gain intrinsic basic resistances, fire at 10, cold at 20,
-help: acid at 30 and lightning at 40.
-help: They can breath fire ('y') by spending some energy.
+help:Ancient race of draconoids - people who can transform into dracons.
+help: Peaceful folk who were almost exterminated by titans during
+help: the ancient war. Only a few survived by hiding in high mountain caves.
+help: They are born as tender whelps, very vulnerable.. but if they
+help: manage to survive to mature age - they become very powerful. They start
+help: physically strong, but lack mental sharpness and agility.
+help: They gradually gain resistance to fire, cold, acid and lightning as they age.
+help: Despite their bulk, they are not very stealthy and struggle with traps
+help: or devices. They are a bit slower to move, but gain some speed boost 
+help: later in life. At level 50 they become especially deadly against giants and
+help: their digestive system becomes slow, requiring less food over time.
+help: They can breathe fire ('y') by spending some energy.
 
 race:Titan
 help:Titans or giants...
-help: Powerful as gods, imbued by thunder. The only reason that they didn't 
-help: conquer the world - their powers interupt spatial fields...
-help: So they can not use teleportation magic. |
-help: One could start as a common hill giant, eventually becoming mighty 
-help: greater titan...
-help: They loath dragons who were their mortal enemies from the birth of the world.
+help: Powerful as gods, imbued with thunder. The only reason that they didn't 
+help: conquer the world - their powers interrupt spatial fields... that's why
+help: they cannot use teleportation magic. |
+help: Titans do evolve: one could start as a common hill giant without many
+help: feats, eventually becoming a mighty greater titan...
+help: Titans channel electricity, gaining resistance and lightning damage. 
+help: Titans are clumsy and loud - stealth is nearly impossible for them. 
+help: They consume more food than most due to their huge size. 
+help: Titans struggle with devices, magic items, and subtle tasks. 
+help: Their power slows their progress - they gain experience much slower. 
+help: Resistant to stunning, they can withstand powerful impacts. 
+help: Their mass prevents knockbacks and gravity effects from others.
+help: They loathe dragons who were their mortal enemies since the birth
+help: of the world.|
 help: They can crush walls ('y') by spending some energy.
 
 race:Wood-Elf
-help:Nandor of Telerin descent..  Silvan Elves or Green-elves.
-help: They live in Lorien and Mirkwood. Very agile and skilled in combat.
-help: They could track animals from big distance. They don't like digging and
-help: tunneling, preferring to run in the wild.
-help: They can see invisible ('y') by spending some energy.
+help:Nandor of Telerin descent.. Silvan Elves, also known as Green-elves.
+help: They live in Lorien and Mirkwood.|
+help: Wood-Elves have excellent vision in the dark and sharp perception. 
+help: They are gifted archers and can track animals from afar.
+help: They are not fond of tunneling and dig very slowly.
+help: They start with fine elven wine instead of common food.
+help: Wood-Elves value agility and grace over brute strength.
+help: At level 30 they become faster and stealthier. |
+help: They can see invisible creatures ('y') by spending some energy.
 
 race:Elemental
-help:Creature of nature, eternally developing from basic elements.
-help: They could be enveloped by Fire, Cold, Electricity and even Acid.
-help: But only the most powerful elementals could combine powers of all masteries.
-help: Most powerful elementals prefer to stay in one place, settling in cozy caves.
-help: They can produce beams of elements ('y') by spending some energy.
+help:Creatures of nature, eternally developing from basic elements.
+help: They can be enveloped by Fire, Cold, Electricity, and even Acid.
+help: But only the most powerful elementals can combine mastery of all elements.|
+help: They start as minor and weak elements, but evolve over time.
+help: Elementals lack stealth in their unstable early forms. They reject devices
+help: and are bad at searching, disarming traps, and digging. Their resistances
+help: grow with time, but early forms are vulnerable. Other folk fear and
+help: avoid them.|
+help: They can produce beams of elemental energy ('y') by spending some energy.
 
 race:Frostmen
-help:Someone who still dwells at North...
-help: Norse.. Magical northmen barbarians. They specialize on hunting snow
-help: trolls so they know all their weaknesses. As they live on north where a lot
-help: of undeads dwells, they also could feel unholy presense on certain distance.
-help: Their skin magically enhanced and protected from frost, but it makes
-help: them vulnerable to heat.
-help: They can resurrect dead ('y') by spending some energy.
+help:Ancient beings of cold and silence, who still dwell in the North.. They are
+help: descendants of the first men of ice, who once raised armies of undead.
+help: Now they call themselves 'Norse': magical northmen barbarians. They 
+help: specialize in hunting snow trolls, so they know all their weaknesses. 
+help: Their skin is magically enhanced and protected from frost, but it makes
+help: them vulnerable to heat.|
+help: Their melee combat is brutal, with strength enhanced by icy rage, but they
+help: are bad at using magical devices, searching, disarming traps, and resisting
+help: magic. All other races fear them. They lack intuition, which helps most
+help: living creatures sense danger. They are weak in extrasensory perception,
+help: but their connection to the dead allows them to detect undead minds.
+help: They can resurrect the dead ('y') by spending some energy.
 
 race:Centaur
-help:Has the body of a large horse topped by a humanoid torso, head, and arms. 
-help: Powerful in battle and ardent in love, they appreciate most of all
-help: their freedom and independence. Their movement speed, wisdom and knowledge
-help: of nature gives them a lot of benefits in adventures. Also it's widly known
-help: that you can not confuse centaur. Though they got disadvantage - it's very
-help: hard for them to dig tunnels and also their hooves makes a lot of noice
-help: echoing in the dungeon passages. They are intensely proud and value honour.
-help: They can charge into enemy ('y') by spending some energy.
+help:They have the body of a large horse topped by a humanoid torso, head, 
+help: and arms. Powerful in battle and ardent in love, they appreciate most
+help: of all their freedom and independence.|
+help: Their movement speed and knowledge of nature give them a lot of benefits
+help: in adventures. Also, it's widely known that you cannot confuse
+help: a centaur. However, they have disadvantages: it's very hard for them to
+help: dig tunnels, and their hooves make a lot of noise echoing in the
+help: dungeon passages. Centaurs cannot fly even by magical means.|
+help: Centaurs are wise and curious, often knowing many things about the world. 
+help: They can recognize edible mushrooms instinctively, even in deep caves.
+help: They are poor with magical devices. Most other races find their pride
+help: excessive - it's easy to offend a centaur without meaning to.|
+help: They can charge into the enemy ('y') by spending some energy.
 
 race:Spider
-help:Likes dark places...
-help: Most of intelligent spiders are also poisonous. Moving silently they could
-help: sneak up even to the most experience rangers. Some elder species could even
-help: posses magical powers. Their main drawback is vulnerable cover and their 
-help: legs are easy to cut off. They can weave spider web with 'y' key; though
-help: they spend satiation on it.
+help:Giant spiders who like dark places...
+help: Most intelligent spiders are also poisonous. Moving silently they can
+help: sneak up even to the most experienced rangers. Some elder species could even
+help: possess magical powers. Their main drawback is fragile exoskeleton and their
+help: legs can be easily severed.|
+help: Spiders are naturally stealthy and skilled at detecting hidden things. 
+help: They are masters of poison - their bites weaken enemies. 
+help: Spiders are not good at using weapons, operating magical devices, or
+help: disarming traps. Light harms them - they prefer to move in shadow or
+help: darkness, which eventually grants them infravision.|
+help: No one likes spiders. But that doesn't stop them from luring more victims
+help: and growing fatter and more deadly.|
+help: They can weave spider web with the 'y' key, though it costs some satiation.
 
 race:Djinn
 help:Mythical magic creatures.
-help: It seems some of them managed to get freedom and come to our world
+help: It seems that some of them managed to gain freedom and enter our world
 help: from other dimensions. They are very dangerous as their nature gives them
-help: raw magical power in almost unlimited qualities; thought this interfere with
-help: spatial fields, they can not use boots and restore fast which is vital for
-help: surviving in our deadly world... But djinny don't complain.
-help: Djinns literally can make wonders ('y' key). But such magic not always bring
-help: good consequences as they don't have full control on their wishes. |
-help: Also they are so powerful that they don't feel any danger in the dungeons and
-help: their magic interfere with magical devices making them hiccup a little.
+help: raw magical power in nearly unlimited amounts; though this interferes with
+help: spatial fields; they cannot use boots or recover quickly, which is vital for
+help: surviving in our deadly world... But Djinni don't complain.
+help: Djinn can literally perform wonders. But such magic does not always bring
+help: good consequences as they don't have full control over their wishes.|
+help: Djinn are weightless and can float above ground without touching it. 
+help: Even young Djinn have time and poison resistance. As they mature, they
+help: gain resistance to all basic elements.
+help: Djinn are extremely curious and automatically identify magical items. 
+help: Djinn never feel fear or danger, which can be both a gift and a curse. 
+help: They are naturally stealthy and can see invisible creatures. 
+help: Their magic interferes with magical devices making them hiccup a little.|
 help: They can create wonders ('y') by spending some energy.
 
 race:Harpy
-help:Winged humanoids with nasty temper. Can not be blinded; mature species could
-help: become quite speedy and perilous.
+help:Born from ancient storms and cursed winds, harpies haunt high cliffs and 
+help: forgotten ruins. They look like winged humanoids and have a nasty temper.|
+help: Harpies are feathered and light, able to glide and fall without injury. 
+help: Once they reach maturity, they become very fast.
+help: They see well in the dark and have a natural affinity for ambush. 
+help: Though not strong, their agility makes them deadly in quick attacks. 
+help: Harpies are immune to blindness and instinctively know which mushrooms
+help: are safe to eat. They are also very good at searching.
 help: They can remove slowing effects ('y') by spending some energy.
 
 race:Minotaur
-help:Huge figure which got the body of a human and the head of a bull.
+help:Minotaurs were once cursed guardians, born from ancient labyrinths, where
+help: their ancestors have roamed endless tunnels, forever seeking freedom.
+help: The curse faded, but the bloodline remained - huge figures with the body
+help: of a human and the head of a bull.|
 help: Stubborn, but righteous, they won't attack sleeping enemies - they hail them
-help: when at close distance. Prefering to live in mountain caverns, they don't
-help: like strangers there. They are famours because of their strength and vitality.
-help: They can become hasty ('y') by spending some energy.
+help: when at close range. Preferring to live in mountain caverns, they don't
+help: like strangers there. And strangers don't like them.|
+help: Mature Minotaurs are extremely strong. Their constitution is high, making
+help: them hard to stun or confuse. Due to their bulk, they are not agile and
+help: rarely good at using ranged weapons. Their body recovers slowly.
+help: Very bad at disarming traps, using devices, and searching.
+help: They are neither smart nor wise.
+help: They can become hasty ('y') by spending some energy and their blood.
 
-race:Troglodite
-help:One of the cave little folk. Always hungry, but not necessary evil.
-help: Most of them can not see as they do not have eyes, but some tribes come
-help: to the surface long time ago, where they partly adapted to it's conditions.
-help: They can see in the darkness well, while using light sources actually can
-help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
-help: They can produce nourishment ('y') by spending some energy.
+race:Troglodyte
+help:Troglodytes trace their roots to the deep places of the world - ancient
+help: caves where sunlight never reached and time itself felt slower. 
+help: They were never mighty, but they survived, gnawing through stone and
+help: bone alike. Ugly, smelly, but enduring little folk, always hungry,
+help: though not necessarily evil.|
+help: Most of them cannot see as they do not have eyes, but some tribes came to
+help: the surface a long time ago, where they partly adapted to its conditions.
+help: They are resistant to blindness. They can see in the darkness well, while
+help: using light sources actually can dazzle them.
+help: Their senses grow sharper with age, but they lack the focus needed for
+help: careful searching.|
+help: Troglodytes regenerate health faster than most creatures. 
+help: They emit a terrible stench that can give away your location, sometimes
+help: worse than noise.
+help: Their strength, dexterity, and constitution are preserved as they grow. 
+help: They are excellent diggers and well suited for underground life. 
+help: They are naturally stealthy. They are bad with magic, devices, traps,
+help: and fighting. They are very ugly.
+help: At level 10 they start to regenerate. When mature (level 35), they
+help: tolerate lack of food more easily.
+help: Troglodytes can feed themselves ('y') up to a certain minimum level
+help: (14% of maximum food capacity) by spending some energy.
 
 race:Naga
-help:Humanoids who got snake-like tails in place of legs.
-help: Their womans are exeptionally beautiful and known to be desired brides not
-help: only for their own kind. They crawl not too fast, but can not be stopped or
-help: paralyzed. They got lightning fast reflexes which gives them possibility
-help: to make an extra blow in the battle.
+help:Nagas are born of chaos, children of the Serpent of Chaos, whose coils
+help: twist through burning deserts and forgotten jungles. Humanoids with 
+help: snake-like tails in place of legs, they have scales that may shine 
+help: like sunlight, but beneath lies the restless fire of their 
+help: blood-burning beauty, rage, and unpredictability in equal measure.
+help: Their women are exceptionally beautiful and known to be desired brides
+help: not only among their own kind - if not for their explosive temper.|
+help: They do not crawl very fast, but cannot be stopped or paralyzed. 
+help: Their lightning-fast reflexes give them the ability to make an extra
+help: strike in battle.|
+help: Nagas cannot wear boots and cannot fly. They sense heat signatures well,
+help: seeing far in the dark. They tend to aggravate nearby creatures. 
+help: They are poor with devices, traps, and ranged weapons. They are neither
+help: wise nor smart, and have a smaller extrasensory radius.|
 help: They can get into offensive stance ('y') by spending some energy.
 
 race:Gnoll
-help:Chaotic mutation: humanoids with dog's head. Likes ale and howling rude songs
-help: all day long.
-help: They enjoy eating rodents which provide to them
-help: additional nourishment when caught in the dungeons.
-help: They can get sense enemies' fear ('y') by spending some energy.
+help:Gnolls are the result of ancient magical experiments - chaotic mutations 
+help: born when reckless mages tried to blend man and beast. The mages are long 
+help: gone, but their mistakes still roam the world: humanoids with a dog's head, 
+help: savage and restless. Left to their own devices, they find comfort in ale
+help: and howling rude songs all day long.|
+help: Gnolls are resistant to confusion and chaos as they mature. They see 
+help: moderately well in the dark. They are bad at using devices, traps,
+help: and have poor magic resistance. They run slightly faster than average.
+help: They are terrible at communication, often just barking instead.
+help: They can dig through soft ground with little effort. Over time, 
+help: they can become smarter and wiser, though still rarely as smart as humans.|
+help: They enjoy eating rodents which give them additional nourishment when
+help: caught in the dungeons.|
+help: They can sense enemies' fear ('y') by spending some energy.
 
 race:Lizardmen
-help:Reptilian humanoids who lives in southeren bogs. Quite mediocre in everything,
-help: they got bone outgrowths on their skin which gives them some extra protection.
-help: Also they are especially good with shields.
-help: They like to eat ants, centipedes and other insects which provide to them
-help: additional nourishment when caught in the dungeons.
+help:Some say lizardmen come from another plane, lost wanderers who found
+help: themselves in the southern bogs. Over time, they adapted to the swamps -
+help: scaly, slow, but stubborn. Fairly weak in most areas, they have bone
+help: outgrowths on their skin which give them some extra protection and 
+help: can sense heat in the dark. Also, they are especially good with shields.|
+help: When they mature, they become stronger and slightly faster than average
+help: humanoids, better diggers, and gain more protection.
+help: In towns, they are unwelcome and struggle to find comfort because of
+help: their bizarre appearance.|
+help: They like to eat ants, centipedes and other insects which provide 
+help: additional nourishment when caught in the dungeons.| 
 help: They can regenerate manually ('y') by spending some energy.
 
 race:Wisp
-help:Mysterious creature woven out bright light. They do not speak, but use
-help: telepathy to transport their thought to other creatures minds. Though
-help: they do not possess ability to invade other's minds unbidden, as their minds
-help: are very unadulterated; though mature wisps can feel presence of evil beings.
-help: They are quite bad in physical interaction which makes them quite loosy
-help: fighters, but they are very resistant to raw magic and even could become
-help: immune to light. At the same time they don't move fast and prefer carry on
-help: without haste.
-help: They can light surroundings ('y') by spending some energy.
+help:No one truly knows where wisps come from. Some say they are fragments of 
+help: ancient magic, others believe they drift between planes, observing mortals 
+help: for reasons unknown. In the legends of many worlds, wisps appear as guides,
+help: messengers, or simply silent watchers - never fully trusted, never fully
+help: understood. Just mysterious creatures woven out of bright light.|
+help: They do not speak, but use telepathy to project their thoughts to other
+help: creatures' minds. They do not possess the ability to invade others'
+help: minds, as their own minds are unclouded; however, mature wisps can feel
+help: the presence of evil beings.|
+help: Wisps are poor at physical tasks, like fighting, using devices, or disarming
+help: mechanical traps. But they are very resistant to raw magic and can even 
+help: become immune to light, though they are vulnerable to darkness.
+help: They are feather-light, immune to paralysis, and digest food very slowly,
+help: so they don't need to eat often. It's hard to poison them.|
+help: Their magic power is high, and they have a lot of mana, though in time its
+help: capacity reduces and they become more vulnerable to physical damage.
+help: They bless any weapon they wield. 
+help: Their charisma is low, as mortals can hardly understand their ways.
+help: They emanate innate light.
+help: They can light their surroundings brightly ('y') by spending some energy.
 
 race:Imp
-help:Imps - little mischievous tricksters with reddish skin. They do not fear fire,
-help: but don't like frost. They came not from the hell, but from other dimension
-help: which were destroyed long time ago. Weak, but pretty fast and stealthy.
-help: From time to time they may teleport around, just for fun.. In time you will
-help: be able to 'tame' them, but at start they will jerk around putting you into
-help: different adventurous situations. Imps got high magic resistance. |
-help: At 50 level imps can enter 'Stealth Mode' - to do so use [shift+s].
-help: They can teleport at will ('y') by spending some energy.
+help:Imps are what happens when chaos gets bored. Not quite demons, not quite 
+help: spirits - they come from another dimension long gone, probably destroyed by 
+help: their own mischief. Now they scuttle through the cracks of reality, always 
+help: looking for trouble (or making it).
+help: They are weak, but pretty fast and stealthy. They do not fear fire, but
+help: don't like frost. In time they can become immune to fire completely. 
+help: Imps got high magic resistance. They have high mana pool which decreases 
+help: as they level up. They regenerate mana slowly as they need time to prepare
+help: for new mischief. Not wise, but smart enough to cause trouble (or at least
+help: think so). Hardly anyone likes them - they’re just too annoying.|
+help: Sometimes they teleport around, just for fun... In time you will be able
+help: to 'tame' them, but at the start they will mess around, dragging you into
+help: unpredictable adventures.|
+help: At level 50 imps can enter 'Stealth Mode' - to do so use [shift+s].|
+help: They can teleport over short distances at will ('y') by spending some energy.
 
 race:Wraith
-help:Magic emanation of dead who ought to stay in mortal world as bodiless spirits.
-help: They can not teleport on big range (from dungeon depths to town and back).
-help: They can avoid melee attacks quite often.
-help: They can pass walls at will ('y') by spending some energy.
-help: They can see in the darkness well, while using light sources actually can
-help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
+help:Wraiths are the restless dead, spirits who never crossed fully into the 
+help: beyond. Bound to the mortal world by unfinished deeds or ancient curses, 
+help: they drift like shadows between life and death. Neither fully here nor 
+help: there, they are feared by the living and shunned by the truly dead.|
+help: Wraiths are bad at using devices, traps, searching and fighting. 
+help: Their strength is low and never improves, but other properties might
+help: improve in time. They resist poison, dark, nether, time, and fear. 
+help: They are undead and can sense other undead beings. 
+help: They digest food very slowly and hold their life force firmly. 
+help: They dodge melee attacks often but struggle to equip items properly.|
+help: The living fear them and hardly understand their nature.|
+help: They can see in the darkness well, while using light sources can actually
+help: reduce the radius of their vision. Their innate vision grows when they
+help: become more mature.|
+help: They cannot recall between town and dungeon.|
+help: They can pass walls at will ('y') by spending some energy, but become blind
+help: while doing so.
 
 race:Beholder
-help:Intelligent floating in air orb-shaped eyes. They got several tentacle 
-help: eyestalks which gives the capacity to see in all directions at once.
-help: As they develop in time, they could get obtain magic powers:
-help: they able to fire rays ('y') which has various properties and can cause
-help: different effects. Magic classes' ray is more powerful. |
-help: Beholder's conscious dwells on different realms which make them have
-help: hallucinations from time to time. More mature beholders got hallucinations
-help: very rare.
+help:Beholders call themselves the first and last of all beings - perfect eyes
+help: watching a flawed world. Whether born from the twisted dreams of elder
+help: things or cursed into existence by forgotten gods, they float through the
+help: world, each convinced it is the only true beholder and all others are
+help: flawed copies. Their paranoia shapes their existence as much as their magic.|
+help: They look like floating, orb-shaped bodies with several tentacle eyestalks
+help: which allow them to see in all directions at once.|
+help: Beholders are clumsy and bad at physical tasks like fighting, using devices,
+help: and digging. However, they like shields and can bash enemies with them.
+help: They tolerate hostile magic badly. They resist amnesia but are vulnerable
+help: to light. They can find hidden features with ease.
+help: They move very slowly, but react quite fast. They track heat sources well.
+help: Their body is fragile and poorly resists physical damage. 
+help: They can sense nearly all types of creatures as they mature.|
+help: A beholder's consciousness dwells in different realms, which causes
+help: hallucinations from time to time. More mature beholders rarely
+help: experience hallucinations.|
+help: As they develop over time, they can obtain magic powers:
+help: they are able to fire rays ('y') that cause different effects.
+help: (note: rays fired by magic classes are more powerful).
 
 race:Ooze
-help:Gelatinous slimy creatures, they rarely appears to have mind and comprehension.
-help: You are the lucky exception. Oozes don't have fixed shape, moving constantly
-help: from one appearance to another which makes them immune to paralysation and
-help: resistant to other negative effects like poison and acid, but vulnerable to
-help: electricity. |
-help: Oozes mostly live in wet dungeons and caves and have a very wide variety of
-help: diet, so oozes get nourishment upon every enemy which was killed by it.
-help: They have excellent infravision and survivability, but vulnerable to acid.
-help: Oozes can duplicate themselves ('y' key) making its minor copies which can
+help:Deep in the damp corners of the world, where light never dares to reach,
+help: oozes slither and fester. Gelatinous and slimy, rarely showing any sign
+help: of mind or comprehension. Mindless, most would say. But sometimes - 
+help: rarely - one of them awakens, tasting thought like a strange new flavor.
+help: And with thought comes hunger. A hunger not just for food, but for more.
+help: More power. More life...|
+help: You are that lucky exception - an ooze with a spark of awareness.
+help: Creeping alone, talking to yourself in wet whispers, torn between your
+help: instincts and your growing mind - never quite one, never quite the other.|
+help: Oozes don't have fixed shape, moving constantly from one appearance
+help: to another, which makes them immune to paralysis. |
+help: Their movement is slow, but they can regenerate faster than most creatures.
+help: Oozes are clumsy and bad at fighting, using devices, disarming traps, and 
+help: searching. They cannot fly, even by magical means. They resist poison but
+help: are vulnerable to light and electricity.|
+help: When mature, they can resist pure magic well, which greatly increases 
+help: their chances of survival.|
+help: Oozes mostly live in wet dungeons and caves and have a very varied diet,
+help: so oozes get nourishment from every enemy they kill.|
+help: Oozes can duplicate themselves ('y' key) making their minor copies which can
 help: attack and distract enemies. They can pass doors by crawling under them.
 
 # leave empty line for EOF
