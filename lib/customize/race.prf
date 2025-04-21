@@ -621,98 +621,141 @@ help: avoid them.|
 help: They can produce beams of elemental energy ('y') by spending some energy.
 
 race:Frostmen
-help:Someone who still dwells at North...
-help: Norse.. Magical northmen barbarians. They specialize on hunting snow
-help: trolls so they know all their weaknesses. As they live on north where a lot
-help: of undeads dwells, they also could feel unholy presense on certain distance.
-help: Their skin magically enhanced and protected from frost, but it makes
-help: them vulnerable to heat.
-help: They can resurrect dead ('y') by spending some energy.
+help:Ancient beings of cold and silence, who still dwell in the North.. They are
+help: descendants of the first men of ice, who once raised armies of undead.
+help: Now they call themselves 'Norse': magical northmen barbarians. They 
+help: specialize in hunting snow trolls so they know all their weaknesses. 
+help: Their skin is magically enhanced and protected from frost, but it makes
+help: them vulnerable to heat.|
+help: Their melee combat is brutal, with strength enhanced by icy rage, but they
+help: are bad at using magical devices, searching, disarming traps, and resisting
+help: magic. All other races fear them. They lack intuition, which helps most
+help: living creatures sense danger. They are are weak in extrasensory perception,
+help: but their connection to the dead allows them to detect undead minds.
+help: They can resurrect the dead ('y') by spending some energy.
 
 race:Centaur
 help:Has the body of a large horse topped by a humanoid torso, head, and arms. 
 help: Powerful in battle and ardent in love, they appreciate most of all
-help: their freedom and independence. Their movement speed, wisdom and knowledge
-help: of nature gives them a lot of benefits in adventures. Also it's widly known
-help: that you can not confuse centaur. Though they got disadvantage - it's very
-help: hard for them to dig tunnels and also their hooves makes a lot of noice
-help: echoing in the dungeon passages. They are intensely proud and value honour.
-help: They can charge into enemy ('y') by spending some energy.
+help: their freedom and independence.|
+help: Their movement speed and knowledge of nature give them a lot of benefits
+help: in adventures. Also it's widely known that you cannot confuse
+help: a centaur. Though they have a disadvantage: it's very hard for them to
+help: dig tunnels and also their hooves make a lot of noise echoing in the
+help: dungeon passages. Centaurs cannot fly even by magical means.|
+help: Centaurs are wise and curious, often knowing many things about the world.  
+help: They can recognize edible mushrooms instinctively, even in deep caves.
+help: Poor with magical devices. Most other races find their pride excessive -
+help: it's easy to offend a centaur without meaning to.|
+help: They can charge into the enemy ('y') by spending some energy.
 
 race:Spider
-help:Likes dark places...
-help: Most of intelligent spiders are also poisonous. Moving silently they could
-help: sneak up even to the most experience rangers. Some elder species could even
-help: posses magical powers. Their main drawback is vulnerable cover and their 
-help: legs are easy to cut off. They can weave spider web with 'y' key; though
-help: they spend satiation on it.
+help:Giant spiders who like dark places...
+help: Most intelligent spiders are also poisonous. Moving silently they can
+help: sneak up even to the most experienced rangers. Some elder species could even
+help: possess magical powers. Their main drawback is fragile exoskeleton and their
+help: legs can be easily severed.|
+help: Spiders are naturally stealthy and skilled at detecting hidden things.  
+help: They are masters of poison - their bites weaken enemies.  
+help: Spiders are not good at using weapons, operating magical devices, or
+help: disarming traps. Light harms them - they prefer to move in shadow or
+help: darkness, which eventually grants them infravision.|
+help: No one likes spiders. But that doesn't stop them from luring more victims
+help: and growing fatter and more deadly.|
+help: They can weave spider web with the 'y' key, though it costs some satiation.
 
 race:Djinn
 help:Mythical magic creatures.
-help: It seems some of them managed to get freedom and come to our world
+help: It seems that some of them managed to gain freedom and enter our world
 help: from other dimensions. They are very dangerous as their nature gives them
-help: raw magical power in almost unlimited qualities; thought this interfere with
-help: spatial fields, they can not use boots and restore fast which is vital for
-help: surviving in our deadly world... But djinny don't complain.
-help: Djinns literally can make wonders ('y' key). But such magic not always bring
-help: good consequences as they don't have full control on their wishes. |
-help: Also they are so powerful that they don't feel any danger in the dungeons and
-help: their magic interfere with magical devices making them hiccup a little.
+help: raw magical power in nearly unlimited amounts; though this interferes with
+help: spatial fields, they cannot use boots or recover quickly, which is vital for
+help: surviving in our deadly world... But Djinni don't complain.
+help: Djinn can literally perform wonders. But such magic does not always bring
+help: good consequences as they don't have full control over their wishes.|
+help: Djinn are weightless and can float above ground without touching it.  
+help: Even young Djinn have time and poison resistance. As they mature, they
+help: gain resistance to all basic elements.
+help: Djinn are extremely curious and automatically identify magical items.   
+help: Djinn never feel fear or danger, which can be both a gift and a curse.  
+help: They are naturally stealthy and can see invisible creatures.  
+help: Their magic interferes with magical devices making them hiccup a little.|
 help: They can create wonders ('y') by spending some energy.
 
 race:Harpy
-help:Winged humanoids with nasty temper. Can not be blinded; mature species could
-help: become quite speedy and perilous.
+help:Born from ancient storms and cursed winds, harpies haunt high cliffs and  
+help: forgotten ruins. They look like winged humanoids and have a nasty temper.|
+help: Harpies are feathered and light, able to glide and fall without injury.  
+help: Once they reach maturity, they become very fast.
+help: They see well in the dark and have a natural affinity for ambush.  
+help: Though not strong, their agility makes them deadly in quick attacks.  
+help: Harpies are immune to blindness and instinctively know which mushrooms
+help: are safe to eat. They are also very good at searching.
 help: They can remove slowing effects ('y') by spending some energy.
 
 race:Minotaur
-help:Huge figure which got the body of a human and the head of a bull.
+help:Huge figure with the body of a human and the head of a bull.
 help: Stubborn, but righteous, they won't attack sleeping enemies - they hail them
-help: when at close distance. Prefering to live in mountain caverns, they don't
-help: like strangers there. They are famours because of their strength and vitality.
-help: They can become hasty ('y') by spending some energy.
+help: when at close range. Preferring to live in mountain caverns, they don't
+help: like strangers there. And strangers don't like them.|
+help: Mature Minotaurs are extremely strong. Their constitution is high, making
+help: them hard to stun or confuse. Due to their bulk, they are not agile and
+help: rarely good at using ranged weapons. Their body recovers slowly.
+help: Very bad at disarming traps, using devices, and searching.
+help: They are neither smart nor wise.
+help: They can become hasty ('y') by spending some energy and their blood.
 
-race:Troglodite
-help:One of the cave little folk. Always hungry, but not necessary evil.
-help: Most of them can not see as they do not have eyes, but some tribes come
-help: to the surface long time ago, where they partly adapted to it's conditions.
-help: They can see in the darkness well, while using light sources actually can
-help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.
-help: They can produce nourishment ('y') by spending some energy.
+race:Troglodyte
+help:One of the cave little folk. Always hungry, but not necessarily evil.
+help: Most of them cannot see as they do not have eyes, but some tribes came to
+help: the surface a long time ago, where they partly adapted to its conditions.
+help: They are resistant to blindness. They can see in the darkness well, while
+help:  using light sources actually can reduce the radius of their vision.
+help: Their innate vision grows when they become more mature.|
+help: Troglodytes regenerate health faster than most creatures.  
+help: They emit a terrible stench and make more noise than you'd expect.  
+help: Their strength, dexterity, and constitution are preserved as they grow.  
+help: They are excellent diggers and well suited for underground life.  
+help: They are naturally stealthy. They are bad with magic, devices, traps,
+help: searching and fighting. They are very ugly.
+help: At level 10 they start to regenerate. When mature (level 35), they
+help: tolerate lack of food more easily.
+help: Troglodytes can feed themselves ('y') up to a certain minimum level
+help: (14% of maximum food capacity) by spending some energy.
 
 race:Naga
-help:Humanoids who got snake-like tails in place of legs.
-help: Their womans are exeptionally beautiful and known to be desired brides not
-help: only for their own kind. They crawl not too fast, but can not be stopped or
-help: paralyzed. They got lightning fast reflexes which gives them possibility
+help:Humanoids who have snake-like tails in place of legs.
+help: Their women are exceptionally beautiful and known to be desired brides not
+help: only among their own kind. They crawl not too fast, but cannot be stopped or
+help: paralyzed. They got lightning fast reflexes which gives them the ability
 help: to make an extra blow in the battle.
 help: They can get into offensive stance ('y') by spending some energy.
 
 race:Gnoll
-help:Chaotic mutation: humanoids with dog's head. Likes ale and howling rude songs
-help: all day long.
-help: They enjoy eating rodents which provide to them
-help: additional nourishment when caught in the dungeons.
-help: They can get sense enemies' fear ('y') by spending some energy.
+help:Chaotic mutation: humanoids with a dog's head. Like ale and howling rude songs
+help: all day long.|
+help: They enjoy eating rodents which give them additional nourishment when
+help: caught in the dungeons.|
+help: They can sense enemies' fear ('y') by spending some energy.
 
 race:Lizardmen
-help:Reptilian humanoids who lives in southeren bogs. Quite mediocre in everything,
-help: they got bone outgrowths on their skin which gives them some extra protection.
-help: Also they are especially good with shields.
-help: They like to eat ants, centipedes and other insects which provide to them
+help:Reptilian humanoids who live in southern bogs. Fairly average in most things,
+help: they have bone outgrowths on their skin which gives them some extra
+help: protection. Also they are especially good with shields.
+help: They like to eat ants, centipedes and other insects which provide them with
 help: additional nourishment when caught in the dungeons.
 help: They can regenerate manually ('y') by spending some energy.
 
 race:Wisp
-help:Mysterious creature woven out bright light. They do not speak, but use
-help: telepathy to transport their thought to other creatures minds. Though
-help: they do not possess ability to invade other's minds unbidden, as their minds
-help: are very unadulterated; though mature wisps can feel presence of evil beings.
-help: They are quite bad in physical interaction which makes them quite loosy
-help: fighters, but they are very resistant to raw magic and even could become
-help: immune to light. At the same time they don't move fast and prefer carry on
-help: without haste.
+help:Mysterious creatures woven out of bright light. They do not speak, but use
+help: telepathy to transport their thoughts to other creatures' minds.
+help: They do not possess the ability to invade others' minds, as their own minds
+help: are very unadulterated; however, mature wisps can feel the presence of 
+help: evil beings.|
+help: They are quite bad at physical interaction which makes them quite poor
+help: fighters, but they are very resistant to raw magic and even can become
+help: immune to light. At the same time they don't move fast and prefer to carry
+help: on without haste.
 help: They can light surroundings ('y') by spending some energy.
 
 race:Imp
