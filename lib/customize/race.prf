@@ -7,12 +7,13 @@
 #
 
 race:Half-Troll
-help:Half-Trolls are incredibly strong, and have more hit points than most
-help: other character race. They are also very stupid and slow. They will make
-help: great warriors and iffy priests. They are bad at searching, disarming,
-help: perception, and stealth. They are so ugly that a Half-Orc grimaces in
-help: their presence. Half-trolls always have their strength sustained, and
-help: they regenerate quickly like other trolls. They have fair infravision.
+help:Half-Trolls are what happens when a human gets too close to a troll -
+help: in every sense. They are incredibly strong, and tough as old boots.
+help: They are also very stupid and slow. They will make great warriors and
+help: iffy priests. They are bad at searching, disarming, perception, and
+help: stealth. They are so ugly that a Half-Orc grimaces in their presence.
+help: Half-trolls always have their strength sustained, and they regenerate
+help: quickly like other trolls. They have fair infravision.
 
 race:Human
 help:Humans are.. humans. All other races are compared to them.
@@ -21,14 +22,15 @@ help: or strengths. Due to their shorter life spans they rarely could become
 help: a real paragon, but they got an advantage: tending to go up levels slower
 help: than any other race, they can explore all kinds of dungeons without haste,
 help: searching for every hidden treasure. Humans do not have any infravision.
-help: There are a lot of different kinds of humans live in Tangaria, but most
-help: of them are just common folk, which being mediocre became powerful in
+help: There are a lot of different kinds of humans living in Tangaria, but most
+help: of them are just common folk, who being mediocre became powerful in
 help: a certain way, as they don't have drawbacks.
-help: At level 50 they got ascension bonus which affect all their stats.
+help: At level 50 they got ascension bonus which affects all their stats.
 help: They can restore constitution ('y') by spending some energy.
 
 race:Half-Elf
-help:Half-elves tend to be smarter and faster than a human, but not as wise or
+help:Born of humans and elves, they walk between two worlds.
+help: Half-elves tend to be smarter and faster than a human, but not as wise or
 help: strong. Half-elves are slightly better at magic, disarming, saving
 help: throws, stealth, archery and searching, but they are not as good at
 help: hand-to-hand combat. Half-elves are immune to dexterity draining, and
@@ -37,24 +39,28 @@ help: At level 50 they become faster.
 help: They can become heroic ('y') by spending some energy.
 
 race:Elf
-help:Elves are better magicians than humans, but not as good at fighting. They
+help:They remember things older than the moon, but speak of them rarely...
+help: Elves are better magicians than humans, but not as good at fighting. They
 help: tend to be smarter and faster than humans, though not as wise or strong.
+help: There is a charm in their voice and bearing that few can resist.|
 help: Elves are better at searching, disarming, perception, stealth, archery
 help: and magic, but they are not as good at hand-to-hand combat. They are
-help: resistant to attacks involving bright light, are immune to dexterity
+help: resistant to attacks involving bright light, immune to dexterity
 help: draining, and have fair infravision.
 help: At level 40 they become faster.
-help: They can receive blessing ('y') by spending some energy.
+help: They can receive a blessing ('y') by spending some energy.
 
 race:Halfling
-help:Halflings are very good at shooting, throwing, and have good
-help: saving throws. They also are very good at searching, disarming,
+help:They value comfort, quiet evenings, and a well-packed pipe more than gold...
+help: though now and then, one ends up poking a dragon in the eye.
+help: Halflings are very good at shooting and throwing, and have good
+help: saving throws. They are also very good at searching, disarming,
 help: perception, and stealth; so they make excellent rogues, but prefer to
 help: be called burglars. They will be much weaker than humans, and not good at
 help: melee fighting. Halflings have fair infravision. They have a strong hold
-help: on their life force, and are thus resistant to life draining. Halflings are
+help: on their life force and are thus resistant to life draining. Halflings are
 help: very partial to mushrooms and can identify them when found.
-help: They can dodge melee attacks occasionally.
+help: They can dodge melee attacks occasionally.|
 help: At level 50 they begin to need much less food.
 help: They can avoid traps ('y') by spending some energy.
 
@@ -285,17 +291,20 @@ help: pressure.
 help: They can restore bit of mana ('y') while resting actively.
 
 race:Troll
-help:Trolls - huge piece of walking rock. Their skin is hard to pierce even with a 
-help: sharp blade. They are slow though. Don't fear poison (they eat literraly 
-help: everything, resistant to magical shards. Regenerate VERY fast. Very healthy.
-help: Very hungry. Not too bright, so they don't get level feelings...
-help: There are plenty of trolls in Middle-lands, they often work as bodyguards
+help:Trolls - huge pieces of walking rock. Their skin is hard to pierce, even with 
+help: a sharp blade. They are slow, though. Don't fear poison (they eat literally 
+help: everything), and are resistant to magical shards. Regenerate VERY fast. 
+help: Very healthy. Very hungry. Not too bright, so they don't get level feelings...
+help: There are plenty of trolls in the Middle-lands; they often work as bodyguards,
 help: protecting caravans.
-help: There are rumours that some trolls can become pretty agile due extensive
-help: training.
-help: They can have ESP, but can't tell precise information about monster (don't
-help: show monster's list).
-help: They can harden their skin ('y') by spending some energy.
+help: Rumour has it, some trolls can become surprisingly agile with enough training.
+help: They can have extra-sensoric powers, but can't tell precise information about
+help: monsters (don't show monster list).
+help: They can harden their skin ('y') by spending some energy.|
+help: They are bad at shooting and hate light.
+help: They can't fly, not even by magical means.|
+help: As the saying goes: 'If a Troll won't find the door, he'll walk
+help: through the wall'.
 
 race:Orc
 help:Huge orc hordes settles to the southeren Banlands. They try to get their own 
@@ -451,7 +460,7 @@ help: it brought a lot of destruction. The result was permission for golems to
 help: buy out their freedom by working for their master for several decades. Every
 help: golem dreams of getting its freedom. But not all mages are honest with them
 help: and not all people respect their 'feelings'. If you are 'born' as a golem,
-help: who knows, would you ever get liberty? 
+help: who knows, would you ever be free?
 help: Should you deserve it or take it by force? |
 help: Golems are very strong, but a bit slow. They can sometimes overcome paralyze, 
 help: and resist poison. They are good at digging. They are miserable
@@ -462,7 +471,10 @@ help: Golems are hard to kill - they take 10% less damage.
 help: They can create walls ('y' key) by spending some energy.
 help: Golems don't need food. But they consume fresh oil.
 help: Oil can be found in flasks or lanterns. Use '_' to drink from them, while
-help: you don't stand on top of the fountain.|
+help: not standing on a fountain. Magic lanterns refill better.|
+help: Golems can also refill by consuming (with '_') oily things like
+help: Sprig of Athelas, Petty-dwarf roots and especially Slime Mold.
+help: Some mushrooms help too: Stoneskin a bit, Shadows quite a bit.|
 help: Below 5% satiation (10% on Ironman), escalation form initiates.
 help: Golem begins extracting energy from terrain while digging.
 
