@@ -416,7 +416,7 @@ help: They can fly ('y') by spending some energy; it helps to pass trees and wat
 help: They can see in the darkness well, while using light sources actually can
 help: reduce radius of their vision. Their innate vision grows when they become
 help: more mature.|
-help: They are bad at digging — it's beneath them.
+help: They are bad at digging - it's beneath them.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much is known about them, except 
@@ -470,65 +470,80 @@ help: They can lash a fiery whip ('y') by spending some energy.
 
 race:Celestial
 help:Celestials.. Some people call them 'angels', but they are not kind and helpful 
-help: (and they doesn't have wings!), but very cruel race which got their own goals 
-help: which they would achieve no matter what. The only thing which save the world 
+help: (and they don't have wings!), but very cruel race with their own goals 
+help: which they pursue no matter what. The only thing which saves the world 
 help: from their roth is that there are not too many of them; most of them perished 
-help: in 'eternal' war with balrogs. Resistant to gravity, celestials could get 
-help: rejoice with of lightning when achieve certain level of development.
+help: in 'eternal' war with balrogs. Resistant to gravity, celestials possess great
+help: Charisma and notable physical power, but while they are young, they suffer
+help: in Dexterity, Constitution, Wisdom and Intelligence. They are dreadful at
+help: using devices and digging. Their bodies are light and float naturally above
+help: the ground. They digest food slowly and sustain their Wisdom even under
+help: strain. Celestials can see invisible creatures once they become more
+help: experienced. They are vulnerable to time-based effects.
+help: Their light presence slightly brightens surroundings.
+help: Celestials have unstable mana flow, but it grants powerful surges.
+help: They are especially skilled at fighting undead.|
 help: They can produce holy blast ('y') by spending some energy.
 
 race:Nephalem
-help:Nephalem - example what could appear if celestial would make love to balrog. 
-help: Amazingly it happens sometimes, so such creatures could be met.. very-very 
-help: rare, but there they are. They live among us and we won't know about it. 
-help: Hey, maybe you are the one, with this twisted blood? They only way to test it 
-help: is to become exposed to light and dark magic at once. 
-help: Nephalem doesn't fear both.
+help:Nephalem - an example of what could appear if a celestial made love to
+help: a balrog. Amazingly it happens sometimes, so such creatures could be met..
+help: very, very rare, but there they are. They live among us and we won't know 
+help: about it. Hey, maybe you are the one, with this twisted blood?|
+help: Nephalem are balanced but unpredictable. They don't excel in magic
+help: resistance and are vulnerable to both light and dark magic early on.
+help: As they grow stronger, they gain resistance to both dark and light.
+help: Nephalem can sense demons and are especially deadly against them in combat.
+help: Their demonic nature makes them constantly hungry and hard to satisfy.|
 help: They can produce glyph ('y') by spending some energy. Glyph prevents summoning
-help: and enemies has to destroy it before they can attack you. But putting glyph
-help: require spend a lot of blood, leaving nephalem almost dead.
+help: and enemies have to destroy it before they can attack you. But putting glyph
+help: requires spending a lot of blood, leaving nephalem almost dead.
 
 race:Gargoyle
-help:Gargoyles are stone creatures which sometimes appear after magic storms, when 
-help: arcane nexus vibrations animates rock. It's very rare occasion, but for 
+help:Gargoyles are stone creatures which sometimes appear after magic storms, when
+help: arcane vibrations animate rock. It's a very rare occasion, but for 
 help: centuries it happened a from time to time, so you could meet gargoyles in
-help: Tangaria more often, than, for example, balrogs. |
-help: As gargoyles made from stone, they got high defense which increase during
-help: their life. It's hard to harm then with fire, electricity, poison, shards and
-help: acid. They could levitate with a help of their inner magic. |
-help: Their weaknesses is certain slowness. Also they are vulnerable to acid.
-help: They are good in infravision though and their stats can't be reduced.
-help: They are very powerful physically and it's not easy to destroy them.
-help: They are wise, but not too really smart.. and in most cases quite ugly. |
+help: Tangaria more often than, for example, balrogs. |
+help: As gargoyles are made of rock, over time they gain natural armor and reduce
+help: incoming damage... It's hard to harm them with fire, electricity, 
+help: poison, shards and acid. They could levitate with the help of their inner
+help: magic.|
+help: Their weakness is miserable dexterity which though grows in time. Also 
+help: they are very vulnerable to acid. Their aim with ranged weapons is terrible,
+help: and they are bad with traps.|
+help: They have good infravision though and their stats their stats can't
+help: be lowered. They are very powerful physically and it's not easy to
+help: destroy them. They are wise, but not too smart.. and in most cases
+help: quite ugly. |
+help: Gargoyles can become resistant to space/time interruptions ('y') by
+help: spending some energy.|
 help: Some powerful wizards tried to make gargoyles with their magic, but they
 help: managed to create only 'golems' – by powering clay with their spellcasting,
 help: as it appeared that much easier to magically operate with clay, than
 help: with stone or rock. But I'll tell you about golems another time..
-help: They can become resistant to space/time interruptions ('y') by spending
-help: some energy.
 
 race:Golem
 help:Golem. Move. Only. Straight. Other. Movement. Denied.
-help: Golems - artificial magical creatures, made by powerful wizards to serve their
-help: will. When golems are just created, they do not understand their purpose and
-help: they just do what they are told to do. But in time some golems could start
-help: asking themselves a question - why do they exist? Why do they have to do the
-help: tasks humans forced them to do? There was a golem rebellion in the past and
-help: it brought a lot of destruction. The result was permission for golems to 
-help: buy out their freedom by working for their master for several decades. Every
-help: golem dreams of getting its freedom. But not all mages are honest with them
-help: and not all people respect their 'feelings'. If you are 'born' as a golem,
-help: who knows, would you ever be free?
-help: Should you deserve it or take it by force? |
-help: Golems are very strong, but a bit slow. They can sometimes overcome paralyze, 
-help: and resist poison. They are good at digging. They are miserable
+help: Golems are artificial magical creatures, made by powerful wizards to serve
+help: their will. When golems are just created, they do not understand their
+help: purpose and they just do what they are told to do. But in time some golems
+help: started asking themselves a question - why do they exist? Why do they have
+help: to do the tasks humans forced them to do? |
+help: There was a golem rebellion in the past and it brought a lot of destruction.
+help: The result was permission for golems to buy out their freedom by working
+help: for their master for several decades. Every golem dreams of getting its
+help: freedom. But not all mages are honest with them and not all people respect
+help: their 'feelings'. If you are 'born' as a golem, who knows, would you ever
+help: be free? Should you deserve it or take it by force? |
+help: Golems are very strong, but a bit slow. They can sometimes overcome
+help: paralysis, and resist poison. They are good at digging. They are miserable
 help: in stealth at first, but advanced models could move quite silently.
 help: Golems are good at fighting and somewhat resistant to malicious magic.|
 help: They get less speed penalty from overweight. They don't need to breathe.|
 help: Golems are hard to kill - they take 10% less damage.
 help: They can create walls ('y' key) by spending some energy.
 help: Golems don't need food. But they consume fresh oil.
-help: Oil can be found in flasks or lanterns. Use '_' to drink from them, while
+help: Oil can be found in flasks or lanterns. Use '_' to drink from them while
 help: not standing on a fountain. Magic lanterns refill better.|
 help: Golems can also refill by consuming (with '_') oily things like
 help: Sprig of Athelas, Petty-dwarf roots and especially Slime Mold.
@@ -538,47 +553,72 @@ help: Golem begins extracting energy from terrain while digging.
 
 race:Pixie
 help:Pixies - wondrous tiny flying creatures who got fascinating magical powers.
-help: Not much mortals saw one as they are very fast and covert...
-help: They can dodge melee attacks occasionally. |
-help: They can become invisible for a while ('y'), but have to spend HP on the spell.
+help: Not many mortals have seen one as they are very fast and hard to spot...|
+help: Pixies have excellent speed and stealth, but are hopeless in melee combat.
+help: Pixies float in the air and are completely immune to traps.
+help: Their magic never fails, and offensive spells often become beams instead
+help: of bolts. They are slightly resistant to time effects and extremely good
+help: at using magic devices. They are resistant to magic and can dodge melee 
+help: attacks occasionally.
+help: They rarely need food, and with age, they need it even less. |
+help: From time to time they can become invisible ('y') by spending some energy.|
 help: ATTENTION!
-help: Please be careful - as pixie got very low strength - it could become very slow
-help: if you will take a lot of items in your inventory or use heavy equipment.
-help: They can become invisible ('y') by spending some energy.
+help: Please be careful: as pixies have very low Strength - they could become very
+help: slow if you take a lot of items in your inventory or use heavy equipment.
 
 race:Draconian
 help:Ancient race of draconoids - people who could transform into dracons.
-help: Peaceful folk which was almost exterminated by titans during
-help: the ancient war. Only a few survived by hiding in high mountains caves.
-help: They are born as a tender as whelplings, very vulnerable.. but if they
-help: manage to survive to mature age - they become very powerful. |
-help: They gain intrinsic basic resistances, fire at 10, cold at 20,
-help: acid at 30 and lightning at 40.
-help: They can breath fire ('y') by spending some energy.
+help: Peaceful folk who were almost exterminated by titans during
+help: the ancient war. Only a few survived by hiding in high mountain caves.
+help: They are born as tender whelps, very vulnerable.. but if they
+help: manage to survive to mature age - they become very powerful. They start
+help: physically strong, but lack mental sharpness and agility.
+help: They gradually gain resistance to fire, cold, acid and lightning as they age.
+help: Despite their bulk, they are not very stealthy and struggle with traps
+help: or devices. They are a bit slower to move, but gain some speed boost 
+help: later in life. At level 50 they become especially deadly against giants and
+help: their digestive system becomes slow, requiring less food over time.
+help: They can breathe fire ('y') by spending some energy.
 
 race:Titan
 help:Titans or giants...
 help: Powerful as gods, imbued by thunder. The only reason that they didn't 
-help: conquer the world - their powers interupt spatial fields...
-help: So they can not use teleportation magic. |
-help: One could start as a common hill giant, eventually becoming mighty 
-help: greater titan...
-help: They loath dragons who were their mortal enemies from the birth of the world.
+help: conquer the world - their powers interrupt spatial fields... that's why
+help: they cannot use teleportation magic. |
+help: Titans do evolve: one could start as a common hill giant without many
+help: feats, eventually becoming mighty greater titan...
+help: Titans channel electricity, gaining resistance and lightning damage.  
+help: Titans are clumsy and loud - stealth is nearly impossible for them.  
+help: They consume more food than most due to their huge size.  
+help: Titans struggle with devices, magic items, and subtle tasks.  
+help: Their power slows their progress - they gain experience much slower.  
+help: Resistant to stunning, they can withstand powerful impacts.  
+help: Their mass prevents knockbacks and gravity effects from others.
+help: They loathe dragons who were their mortal enemies since the birth
+help: of the world.|
 help: They can crush walls ('y') by spending some energy.
 
 race:Wood-Elf
-help:Nandor of Telerin descent.. Silvan Elves or Green-elves.
-help: They live in Lorien and Mirkwood. Very agile and skilled in combat.
-help: They could track animals from big distance. They don't like digging and
-help: tunneling, preferring to run in the wild.
-help: They can see invisible ('y') by spending some energy.
+help:Nandor of Telerin descent.. Silvan Elves, also known as Green-elves.
+help: They live in Lorien and Mirkwood.|
+help: Wood-Elves have excellent vision in the dark and sharp perception.  
+help: They are gifted archers and can track animals from afar.
+help: They are not fond of tunneling and dig very slowly.
+help: They start with fine elven wine instead of common food.
+help: Wood-Elves value agility and grace over brute strength.
+help: At level 30 they become faster and stealthier. |
+help: They can see invisible creatures ('y') by spending some energy.
 
 race:Elemental
 help:Creature of nature, eternally developing from basic elements.
-help: They could be enveloped by Fire, Cold, Electricity and even Acid.
-help: But only the most powerful elementals could combine powers of all masteries.
-help: Most powerful elementals prefer to stay in one place, settling in cozy caves.
-help: They can produce beams of elements ('y') by spending some energy.
+help: They can be enveloped by Fire, Cold, Electricity, and even Acid.
+help: But only the most powerful elementals could combine mastery of all elements.|
+help: They start as minor and weak elements, but evolve in time.
+help: Elementals lack stealth in their unstable early forms. They reject devices
+help: and are bad at searching, disarming traps, and digging. Their resistances
+help: grow with time, but early forms are vulnerable. Other folk fear and
+help: avoid them.|
+help: They can produce beams of elemental energy ('y') by spending some energy.
 
 race:Frostmen
 help:Someone who still dwells at North...
