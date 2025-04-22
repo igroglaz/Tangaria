@@ -5652,7 +5652,7 @@ static void sdl_DrawTile(term_window *win, int col, int row, SDL_Rect rc, SDL_Re
     src.y = 0;
 
     //// Slash fx ////
-    if (sfx_effect && !background) slashfx_move(&rc.x, &rc.y);
+    if (sfx_effect && !background) slashfx_move((int*)&rc.x, (int*)&rc.y);
 
     /* Use the terrain picture only if mapped */
     if ((a & 0x80) || !background)
