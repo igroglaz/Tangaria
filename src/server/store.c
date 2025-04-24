@@ -1010,7 +1010,13 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     if (p->account_score >= 10000)
         storage_factor++;
 
-    // 3) Trader class boni
+    // 3) Race boni
+    if (streq(p->race->name, "Human"))
+        storage_factor++;
+    else if (streq(p->race->name, "Dunadan"))
+        storage_factor++;
+
+    // 4) Class boni
     if (streq(p->clazz->name, "Trader"))
         storage_factor++;
 
