@@ -1200,48 +1200,49 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             square_set_feat(c, grid, FEAT_BROKEN);
         }
         /* Mow down the vegetation */
-        else if (tree)
-        {
-            sound(p, MSG_CHOP_TREE_FALL);
-            msg(p, "You hack your way through the vegetation %s.", with_clause);
-
-            /* Make Rare Herb or Crafting Material */
-            if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
-                 (streq(p->clazz->name, "Crafter")   && one_in_(3))) &&
-                  p->wpos.depth)
-            {
-                struct object *dig_reagent;
-
-                dig_reagent = object_new();
-
-                if (streq(p->clazz->name, "Alchemist"))
+        else if (tree) 
+        { 
+            sound(p, MSG_CHOP_TREE_FALL); 
+            msg(p, "You hack your way through the vegetation %s.", with_clause); 
+         
+            // CLASS lumber item generation (Rare Herb, Crafting Material etc)
+            if (p->wpos.depth) 
+            { 
+                struct object *dig_reagent = NULL;
+                
+                if (streq(p->clazz->name, "Alchemist") && one_in_(5))
+                {
+                    dig_reagent = object_new();
                     object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Herb"), 0, MINIMISE);
-                else if (streq(p->clazz->name, "Crafter"))
+                }
+                else if (streq(p->clazz->name, "Crafter") && one_in_(3))
+                {
+                    dig_reagent = object_new();
                     object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
-
-                /* Pack is too full */
-                if (!inven_carry_okay(p, dig_reagent))
-                {
-                    object_delete(&dig_reagent);
-                    msg(p, "Your backpack if too full to find herbs!");
-                    return false;
                 }
-
-                /* Pack is too heavy */
-                if (!weight_okay(p, dig_reagent))
+                
+                if (dig_reagent)
                 {
-                    object_delete(&dig_reagent);
-                    msg(p, "Your backpack if too heavy to get wood!");
-                    return false;
+                    /* Pack is too full or heavy */
+                    if (!inven_carry_okay(p, dig_reagent))
+                    {
+                        object_delete(&dig_reagent);
+                        msg(p, "Your backpack if too full to find herbs!");
+                        return false;
+                    }
+                    
+                    if (!weight_okay(p, dig_reagent))
+                    {
+                        object_delete(&dig_reagent);
+                        msg(p, "Your backpack if too heavy to get wood!");
+                        return false;
+                    }
+                    
+                    set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                    dig_reagent->soulbound = true;
+                    inven_carry(p, dig_reagent, true, true);
+                    handle_stuff(p);
                 }
-                set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
-                dig_reagent->soulbound = true;
-
-                /* Give it to the player */
-                inven_carry(p, dig_reagent, true, true);
-
-                /* Handle stuff */
-                handle_stuff(p);
             }
         }
 
