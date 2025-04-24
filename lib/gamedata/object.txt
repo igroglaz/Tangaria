@@ -249,7 +249,7 @@ effect:CURE:CUT
 effect:HEAL_HP_ONCE
 dice:5d2
 effect:NOURISH:INC_BY
-dice:5
+dice:1
 msg_self:Refreshing!..
 desc:Cures all cuts, poison, stunning and black breath.
 

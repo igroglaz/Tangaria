@@ -1220,21 +1220,27 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                     dig_reagent = object_new();
                     object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
                 }
-                
+                else if (streq(p->race->name, "Dunadan") && magik(1)) // 1%
+                {
+                    dig_reagent = object_new();
+                    object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_FOOD, "Sprig of Athelas"), 0, MINIMISE);
+                }
+
+                // player found reagent after chopping...
                 if (dig_reagent)
                 {
                     /* Pack is too full or heavy */
                     if (!inven_carry_okay(p, dig_reagent))
                     {
                         object_delete(&dig_reagent);
-                        msg(p, "Your backpack if too full to find herbs!");
+                        msg(p, "Your backpack is too full to add something there!");
                         return false;
                     }
                     
                     if (!weight_okay(p, dig_reagent))
                     {
                         object_delete(&dig_reagent);
-                        msg(p, "Your backpack if too heavy to get wood!");
+                        msg(p, "Your backpack is too heavy to add something there!");
                         return false;
                     }
                     
