@@ -701,6 +701,15 @@ static void digest_food(struct player *p)
     /* Don't use food near towns (to avoid starving in one's own house) */
     if (town_area(&p->wpos)) return;
 
+    // slow down digestion on low satiation
+    if (p->timed[TMD_FOOD] < 100 && !magik(10)) { // 90% to skip digestion
+        return;
+    } else if (p->timed[TMD_FOOD] < 400 && !magik(30)) { // 70% to skip digestion
+        return;
+    } else if (p->timed[TMD_FOOD] < 800 && magik(50)) { // 50% to skip digestion
+        return;
+    }
+
     /* Digest some food */
     player_dec_timed(p, TMD_FOOD, player_digest(p), false);
 }
