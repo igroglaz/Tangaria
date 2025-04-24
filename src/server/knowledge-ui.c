@@ -2681,8 +2681,27 @@ static void drink_fountain(struct player *p, struct object *obj)
 }
 
 
+/// drink from fountain or water can increase satiation
+void drink_water_satiation(struct player *p, int satiation) {
+
+    if (p->timed[TMD_FOOD] < 100) { // starving
+        satiation += 300;
+    } else if (p->timed[TMD_FOOD] < 400) { // faint
+        satiation += 200;
+    } else if (p->timed[TMD_FOOD] < 800) { // weak
+        satiation += 100;
+    } else if ((OPT(p, birth_ironman) || // ironman
+        (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
+         p->timed[TMD_FOOD] < 8000)
+            satiation += 750;
+
+    /* Apply the satiation */
+    player_inc_timed(p, TMD_FOOD, satiation, false, false);
+}
+
+
 /*
- * Drink from a fountain/fill an empty bottle
+///// Drink from fountain/fill an empty bottle OR drink from water tile
  */
 void do_cmd_fountain(struct player *p, int item)
 {
@@ -2791,11 +2810,7 @@ void do_cmd_fountain(struct player *p, int item)
             msg(p, "You drink from the fountain.");
             poly_bat(p, 100, NULL);
 
-            // on ironman drinking from fountains gives plenty of satiation
-            if (OPT(p, birth_ironman) ||
-                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
-                player_inc_timed(p, TMD_FOOD, 750, false, false);
-
+            drink_water_satiation(p, 1); // GULP
             /* Done */
             return;
         }
@@ -2827,6 +2842,7 @@ void do_cmd_fountain(struct player *p, int item)
         while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
         summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
 
+        drink_water_satiation(p, 1); // GULP
         /* Done */
         return;
     }
@@ -2845,6 +2861,7 @@ void do_cmd_fountain(struct player *p, int item)
             take_hit(p, dam, "drowning", "slipped and fell in a fountain");
         }
 
+        drink_water_satiation(p, 1); // GULP
         /* Done */
         return;
     }
@@ -2968,29 +2985,28 @@ void do_cmd_fountain(struct player *p, int item)
         if (streq(p->race->name, "Ent") && fountain)
         {
             if (p->timed[TMD_FOOD] < 8000)
-                player_inc_timed(p, TMD_FOOD, 300, false, false);
+                drink_water_satiation(p, 300); // GULP
             hp_player(p, p->wpos.depth / 2);
         }
         else if (streq(p->race->name, "Merfolk") && streq(kind->name, "Water") && fountain)
         {
-            player_inc_timed(p, TMD_FOOD, 75, false, false);
+            drink_water_satiation(p, 75); // GULP
             hp_player(p, p->wpos.depth);
         }
         // Now water tile. They provide nourishment until certain fed status
         else if (streq(p->race->name, "Ent"))
         {
             if (p->timed[TMD_FOOD] < 1500)
-                player_inc_timed(p, TMD_FOOD, 200, false, false);
+                drink_water_satiation(p, 200); // GULP
         }
         else if (streq(p->race->name, "Merfolk"))
         {
             if (p->timed[TMD_FOOD] < 1000)
-                player_inc_timed(p, TMD_FOOD, 150, false, false);
+                drink_water_satiation(p, 150); // GULP
         }
-        else // everyone else
+        else // everyone else get satiation only when "weak" or less
         {
-            if (p->timed[TMD_FOOD] < 700)
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
+            drink_water_satiation(p, 1); // GULP
         }
 
         // bad water (eg in Sewers dungeon)
@@ -3008,12 +3024,6 @@ void do_cmd_fountain(struct player *p, int item)
         }
         object_delete(&obj);
     }
-
-    // on ironman drinking from fountains gives plenty of satiation
-    // (works even if using bottles)
-    if (fountain && (p->timed[TMD_FOOD] < 8000) && (OPT(p, birth_ironman) ||
-        (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))))
-        player_inc_timed(p, TMD_FOOD, 250, false, false);
 
     /* Fountain dries out */
     if (fountain && one_in_(3))
