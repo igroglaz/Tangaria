@@ -60,9 +60,9 @@ help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm, and they will get fewer blows with melee weapons than
 help: other classes.|
 help: Their spells cover a wide range - from simple detection and teleportation
-help: to powerful elemental blasts and protective wards.
-help: Mages speciality is a spell of Fireball which they use especially well, and
-help: some of their other spells can pierce through multiple enemies in a line.|
+help: to powerful elemental blasts and protective wards, but their favorite is
+help: the Fireball spell, which they use especially well. They are also skilled
+help: at making some of their spells pierce through multiple enemies in a line.|
 help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shaman
@@ -73,8 +73,14 @@ help: transform into mightier beasts, from bears to mythical creatures.|
 help: Shaman skills are moderate, and they have some fighting ability, especially
 help: when transformed. A shaman will usually seek to shape the flow of events
 help: to their purpose rather than using devices or missiles, but at high levels
-help: they do gain access to potent nature-based magic. Shamans rely on their
-help: wisdom, and have good saving throws.|
+help: they do gain access to potent nature-based magic. They call upon the raw
+help: forces of nature, conjuring storms, quakes, and poison clouds. Shamans can
+help: calm, slow, or drive away their foes, bending even the wildest beasts to 
+help: their will. They harness the healing power of the wild, restoring health
+help: and vitality when needed. Their magic shapes the land itself — raising
+help: trees, splitting stone, and shaking the earth beneath their feet. Their
+help: senses stretch far beyond the eye, revealing life, hidden paths, and 
+help: forgotten lore. Shamans rely on their wisdom, and have good saving throws.|
 help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Priest
@@ -82,12 +88,17 @@ help:A Priest is a character of holy devotion. They explore the dungeon only
 help: to destroy the evil that lurks within, and if treasure just happens to
 help: fall into their packs, well, so much more to the glory of their temple!
 help: Priests receive their spells from a deity, and therefore do not choose
-help: which spells they will learn. They are familiar with magical devices,
-help: preferring to call them "instruments of God", but are not as good as a
-help: mage in their use. Priests have great saving throws, and make passable
-help: fighters, better if they can find a blessed weapon. Wisdom is the priest's
-help: primary stat and at high enough levels they can cast many prayers without
-help: a chance of failure. Priests have poor stealth.
+help: which spells they will learn. A priest's prayers heal and protect, but
+help: can also bring ruin to the wicked. They are especially strong against
+help: evil beings, standing firm with divine power. Over time, priests gain
+help: ways to shield themselves, support allies, and even reshape the world
+help: around them.|
+help: They are familiar with magical devices, preferring to call them
+help: "instruments of God", but are not as good as a mage in their use.
+help: Priests have great saving throws, and make passable fighters, better
+help: if they can find a blessed weapon. Wisdom is the priest's primary stat
+help: and at high enough levels they can cast many prayers without a chance
+help: of failure. Priests have poor stealth.|
 help: Although weak in the beginning, priests can become decent fighters 
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.|
