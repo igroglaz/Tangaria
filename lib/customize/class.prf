@@ -17,14 +17,14 @@ help: throwing, but bad at most other skills. A warrior has bad stealth and
 help: cannot learn any spells.
 
 class:Archer
-help:Archer could shoot squirrel in the eye so fur would not be spoiled. Very good
-help: in archery, they don't really know from which side to hold a sword; they 
-help: don't need one honestly. With the ability to hurl multiple arrows at long 
-help: distances, an Archer can inflict more damage in a single turn than any other
-help: character class, including mages. However, outside of his powerful bow,
-help: an Archer is relatively weak compared to the other classes. He does
-help: not have any healing nor defensive spells like the magical classes to
-help: compensate. Archers especially like bows; shooting with them, 
+help:An Archer could shoot a squirrel in the eye so fur would not be spoiled.
+help: Very good in archery, they don't really know from which side to hold a sword;
+help: they don't need one honestly. With the ability to hurl multiple arrows
+help: at long distances, an Archer can inflict more damage in a single turn than
+help: any other character class, including mages. However, outside of their
+help: powerful bow, Archers are relatively weak compared to the other classes.
+help: They don't have any healing nor defensive spells like the magical 
+help: classes to compensate. Archers especially like bows; shooting with them, 
 help: they could achieve incredible speed and precision; much better than with 
 help: a crossbow or a sling. They can see farther than others.
 
@@ -33,9 +33,9 @@ help:Monks are very different from all other classes. Monks are warriors who
 help: decide to fight barehanded and cannot use weapons or bows. However, their
 help: training in martial arts makes them much more powerful with no armour
 help: nor weapons. As they advance in levels, they gain some new martial arts
-help: techniques to hit their opponents more effectively. In time, monk can learn
-help: how to stun and slow his opponents. With levels, they also gain
-help: interesting abilities: at level 10, they learn to fall like a feather;
+help: techniques to hit their opponents more effectively. In time, a monk can
+help: learn how to stun and slow his opponents. With levels, they also gain
+help: unique abilities: at level 10, they learn to fall like a feather;
 help: at level 15, they become resistant to fear; at level 20, they become
 help: resistant to confusion; finally, at level 25, they learn to resist
 help: paralysis effects. They can't wield weapons, but get extra damage, defense 
@@ -44,14 +44,13 @@ help: light armor to stay unencumbered and fully benefit from their class bonuse
 help: It is rumoured that the monastic training even makes monks faster than any
 help: other character class!
 
-
 class:Mage
-help:A Mage must live by their wits. They cannot hope to simply hack their way
-help: through the dungeon, and so must therefore use their magic to defeat,
-help: deceive, confuse, and escape. A mage is not really complete without an
-help: assortment of magical devices to use in addition to his spells. They can
+help:A Mage relies on their wits to survive. They cannot hope to simply hack
+help: their way through the dungeon, and so must therefore use their magic to
+help: defeat, deceive, confuse, and escape. A mage is not really complete without
+help: an assortment of magical devices to use in addition to his spells. They can
 help: master the higher level magical devices far easier than anyone else, and
-help: has the excellent saving throws to resist effects of spells cast at him.
+help: have excellent saving throws to resist effects of spells cast at them.
 help: However, they are incredibly weak, getting few hit dice and suffering strong
 help: penalties to strength and constitution. Intelligence is their primary stat
 help: and at high levels they can cast many spells without a chance of failure.
@@ -81,7 +80,7 @@ help: mage in their use. Priests have great saving throws, and make passable
 help: fighters, better if they can find a blessed weapon. Wisdom is the priest's
 help: primary stat and at high enough levels they can cast many prayers without
 help: a chance of failure. Priests have poor stealth.
-help: Although weak in the beginning, priests could become decent fighters 
+help: Although weak in the beginning, priests can become decent fighters 
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.
 
@@ -111,7 +110,7 @@ class:Rogue
 help:A Rogue is a character that prefers to live by their cunning, but is
 help: capable of fighting their way out of a tight spot. The master of traps and
 help: locks, to the experienced rogue no device is impossible to overcome. A rogue
-help: has a high stealth enabling sneaking around many creatures without
+help: has high stealth enabling sneaking around many creatures without
 help: having to fight, or sneak up and get the first blow. They can steal items
 help: from monsters, but need to be wary of being caught in the act. Rogues'
 help: perception is higher than any other class, and many times they will notice
@@ -138,7 +137,7 @@ help: spells for the purpose of wreaking more destruction. Their lust for blood
 help: is legendary, with a blackguard in full cry nigh on impossible to kill.
 help: Blackguards scorn skills apart from slaughter, and require strength and
 help: intelligence (or rat-cunning) to thrive in the dungeon. Blackguard can 
-help: polymorph into werewolf, can heal by spending rage and got additional 
+help: polymorph into werewolf, can heal by spending rage and get additional 
 help: blows per round (BpR) by using his battle skills.
 
 class:Sorceror
@@ -169,9 +168,9 @@ help: curse from items.
 class:Hunter
 help:Hunters aren't good at fighting, but can deliver extremely high damage with
 help: their ranged weapons. They can die quickly too, however. Hunters are to arrows
-help: what warriors are to melee. They are the best class around with any
+help: what Warriors are to melee. They are the best class around with any
 help: bow, crossbow or sling. Hunter is very bad at melee, being only better than the
-help: Sorceror. Wisdom and dexterity are the archer's primary stats. They could 
+help: Sorceror. Wisdom and dexterity are the hunter's primary stats. They could 
 help: use wide-range of tricks, traps and even magic in their hunt in the dungeons.
 
 class:Telepath
@@ -209,22 +208,22 @@ help: from their current form (resists, melee brands, defense, speed and damage
 help: boosts...). Some of those forms will provide innate spells and even breath 
 help: attacks. Shapechangers get basic mana points to cast those spells (note that
 help: breath attacks, like for the Dragon race, don't cost mana, but hit points 
-help: instead...). The higher level the monster, the more the Mimic is required 
-help: to vanquish before he can assume their form. While transformed, they lose 
-help: their intrinsic abilities, and gain those of the creature they have 
-help: transformed into, plus whatever abilities and resistances provided by their
-help: equipment. |
+help: instead...). The higher level the monster, the more the Shapechanger is
+help: required to vanquish before he can assume their form. While transformed,
+help: they lose their intrinsic abilities, and gain those of the creature they
+help: have transformed into, plus whatever abilities and resistances provided
+help: by their equipment. |
 help: Some races that have their own polymorph or shape forms got certain
 help: restrictions on being shapechangers.
 
 class:Tamer
-help:Scar-covered hands of tamer - person devoted his life and (remaining) limbs
-help: to take care of wild creatures - is an evidence what a tideous and dangerous
-help: job it is. Going through dense dim-lit thickets, hot sands and insidious
-help: mountains to stalk a dragon in its den.. to make friends with it - this is
-help: your life ambition. |
+help:Scar-covered hands of a tamer - a person who devoted his life and (remaining)
+help: limbs to take care of wild creatures - is evidence of what a tedious and
+help: dangerous job it is. Going through dense dim-lit thickets, hot sands and
+help: insidious mountains to stalk a dragon in its den.. to make friends with it -
+help: this is your life ambition. |
 help:You will start not with dragons though, but with a frog companion. If you
-help: take good care of it - frog will eventually give you certain powers..
+help: take good care of it - the frog will eventually give you certain powers..
 help: Each new pet that you acquire will teach you something and fight for
 help: your life.
 
@@ -241,8 +240,8 @@ help: - RAT: harmless and stealthy, rats can find little cracks and holes in the
 help: walls to pass through them. They can avoid traps most of the time and able to
 help: sniff items to detect curses on them. Resistant to poison and can life drain. |
 help: - BOAR: find different edible plants which reduce its nourishment consumption;
-help: good in mushroom's identification. Boars are very wise, got high vitality and
-help: fearless. Can charge at its enemies from distance ('y'). |
+help: good in mushroom's identification. Boars are very wise, have high vitality
+help: and fearless. Can charge at its enemies from distance ('y'). |
 help: - CAT: stealthy and nimble. Can backstab sleeping target.
 help: Regenerate especially fast, but bad at mana restoring. |
 help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y').
@@ -250,30 +249,49 @@ help: Less resistant to magic, except dark arts. Reckless in defense,
 help: but generates rage while in combat. |
 help: - BEAR: tough and powerful, but very noisy and a bit clumsy.
 help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
-help:Druids hitpoints does not influenced by its forms and they cannot cast spells
-help: while in animal form, bad in trap disarming and magical devices.
+help:Druids' hitpoints does not influenced by its forms and they cannot cast spells
+help: while in animal form, bad at trap disarming and magical devices.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.
-help: Like all mercenaries, they are very good at armor and weapon care.
 help: Fighters are very superstitious and believe in fortune.
 help: As they care a lot about signs and omens, they may get lucky to survive
 help: blows that would be mortal wounds for anyone else.
-help: His mana pool depends on his intelligence and his strength.
-help: Also fighters can sense hidden weapon properties better than others.
+help: His mana pool depends on his intelligence and strength combined.
+help: Fighters can sense hidden weapon properties better than others and may
+help: identify cursed gear without using magical means.
+help: They fight dirty if needed, but rely on skill and instinct more than brute
+help: force. Known for their reckless attacks and sudden retreats, fighters balance
+help: between luck, experience, and survival instinct.
+help: As seasoned warriors, they value every calm moment and can take a nap
+help: here and there, which helps restore their strengths even after nasty moments.
 
 class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
 help: They cannot be confused and can use their shield with astonishing mastery.
+help: They can change stances: balanced, defensive, and offensive - switching
+help: tactics depending on the situation. Balanced stance steadies the mind,
+help: removing confusion. Defensive stance toughens them up, shrugging off
+help: stunning blows. Offensive stance fuels their courage, pushing away fear.
+help: Knights are resilient and disciplined, but lack stealth and magical
+help: finesse. They excel in melee combat and can handle crossbows when needed,
+help: turning raw strength and endurance into their greatest advantage. Their
+help: code of honour forbids them from attacking unaware enemies - they always
+help: hail before the fight.
 
 class:Traveller
 help:"Jack of all trades, master of none..."
-help:Common person who know some basic magic and are not too bad at fighting..
-help: He is not alone in his wanderings - he's got a four-legged friend.
-help: Travellers are pretty sure that they know well about navigation and 
-help: direction, maps and cardinal points...
-help: but often they come into real adventure due to this overconfidence.
-help: Travellers starts with additional useful items.
+help:A common soul who knows a bit of magic and isn't too bad with a weapon..
+help: He never walks alone - there's always a four-legged friend by his side.
+help: Travellers are sure they know everything about maps, directions and 
+help: cardinal points... but their overconfidence often leads to real trouble.
+help: They set out with a handful of useful items, just in case.
+help: Seasoned travellers are no strangers to fear; they can teleport, patch
+help: themselves up, or conjure a snack when hunger bites. They kindle bonfires
+help: to ward off beasts, sketch maps when lost, sense nearby evil, and hurl
+help: bolts of fire when words fail. They know how to bless themselves before
+help: a fight, stumble upon hidden paths between levels, blink away from danger,
+help: and even carve protective glyphs when things get rough.
 help: 
 help: p.s.
 help: "..though oftentimes better than master of one".
@@ -400,6 +418,6 @@ help: In dire moments, when hunger tightens its grip, a Villager may search
 help: through farmers' fields in the suburbs - once rich with harvest, now empty
 help: and bitter, touched by the gods' curse. No cattle remain, and the soil yields
 help: almost nothing. Still, with patience, a Villager might unearth a few
-help: forgotten roots or buried crops left behind. It is stealing —
+help: forgotten roots or buried crops left behind. It is stealing -
 help: but when the choice is between starving and digging up what a farmer forgot,
 help: even the crow pecks grain it didn't sow.
