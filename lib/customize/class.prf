@@ -26,7 +26,8 @@ help: powerful bow, Archers are relatively weak compared to the other classes.
 help: They don't have any healing nor defensive spells like the magical 
 help: classes to compensate. Archers especially like bows; shooting with them, 
 help: they could achieve incredible speed and precision; much better than with 
-help: a crossbow or a sling. They can see farther than others.
+help: a crossbow or a sling. Some Archers even coat their arrows with poison or
+help: use sharper tips to cut deeper. Also they can see farther than others.
 
 class:Monk
 help:Monks are very different from all other classes. Monks are warriors who
@@ -41,8 +42,9 @@ help: resistant to confusion; finally, at level 25, they learn to resist
 help: paralysis effects. They can't wield weapons, but get extra damage, defense 
 help: and attacks per round as they advance in levels. However, they must wear
 help: light armor to stay unencumbered and fully benefit from their class bonuses.
-help: It is rumoured that the monastic training even makes monks faster than any
-help: other character class!
+help: Monks don't use mana at all, but it is rumoured that the monastic training
+help: even makes monks faster than any other character class! Also they can throw
+help: objects with surprising accuracy.
 
 class:Mage
 help:A Mage relies on their wits to survive. They cannot hope to simply hack
@@ -56,18 +58,24 @@ help: penalties to strength and constitution. Intelligence is their primary stat
 help: and at high levels they can cast many spells without a chance of failure.
 help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm, and they will get fewer blows with melee weapons than
-help: other classes.
-help: Mages speciality is a spell of Fireball which they operate especially good.
+help: other classes.|
+help: Their spells cover a wide range - from simple detection and teleportation
+help: to powerful elemental blasts and protective wards.
+help: Mages speciality is a spell of Fireball which they use especially well, and
+help: some of their other spells can pierce through multiple enemies in a line.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
 help: have control of their environment and direct power over creatures, leading
-help: even to the ability to take their forms. Shaman skills are moderate, and
-help: they have some fighting ability, especially when transformed. A shaman will
-help: usually seek to shape the flow of events to their purpose rather than
-help: using devices or missiles, but at high levels they do gain access to
-help: potent nature-based magic. Shamans rely on their wisdom, and have good
-help: saving throws.
+help: even to the ability to take their forms. As they grow stronger, they can 
+help: transform into mightier beasts, from bears to mythical creatures.|
+help: Shaman skills are moderate, and they have some fighting ability, especially
+help: when transformed. A shaman will usually seek to shape the flow of events
+help: to their purpose rather than using devices or missiles, but at high levels
+help: they do gain access to potent nature-based magic. Shamans rely on their
+help: wisdom, and have good saving throws.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Priest
 help:A Priest is a character of holy devotion. They explore the dungeon only
@@ -82,7 +90,8 @@ help: primary stat and at high enough levels they can cast many prayers without
 help: a chance of failure. Priests have poor stealth.
 help: Although weak in the beginning, priests can become decent fighters 
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
-help: isn't blessed, they receive an additional severe penalty.
+help: isn't blessed, they receive an additional severe penalty.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Warlock
 help:A Warlock must live by his wits. He cannot hope to simply hack his way
@@ -95,7 +104,8 @@ help: shadows and hate light, automatically shrouding themselves in darkness.
 help: Their spells require high intelligence and frequently harm the caster or
 help: place them in danger. In return, they achieve awesome power at high levels.
 help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
-help: up a tyranny in his place.
+help: up a tyranny in his place.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Paladin
 help:A Paladin is a warrior/priest. Paladins are very good fighters, second
@@ -149,7 +159,8 @@ help: are the worst fighters, being unable to use any weapon but a Mage Staff
 help: comfortably, and still unable to be anything even remotely approaching
 help: effective with it. A Sorceror has very few hit points compared to other
 help: classes, making survival difficult in the beginning. That's why this class is
-help: not recommended for beginners. Intelligence is the sorceror's primary stat.
+help: not recommended for beginners. Intelligence is the sorceror's primary stat.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Unbeliever
 help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
@@ -189,7 +200,8 @@ help: on the powers of the four elements (Air, Fire, Earth, Water) and can combi
 help: them to cast powerful Elemental spells. Elementalists have the innate ability
 help: to increase the power of their spells by studying them again each time they
 help: level. As masters of the elements, they gain intrinsic basic resistances as
-help: they level, fire at 10, cold at 15, acid at 20 and lightning at 25.
+help: they level, fire at 10, cold at 15, acid at 20 and lightning at 25.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Summoner
 help:A Summoner is the weakest of all classes you may choose. They have pathetic
@@ -198,7 +210,8 @@ help: However, all these weaknesses don't trouble them much, because they can
 help: summon creatures to help them in battle, and still gain some experience from
 help: their kills. Summoners use wisdom to cast spells and summon allies, and to
 help: determine how many of them they can control and how effectively they can
-help: control them.
+help: control them.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shapechanger
 help:Shapechangers possess the ability to transform into various creatures by 
@@ -250,7 +263,8 @@ help: but generates rage while in combat. |
 help: - BEAR: tough and powerful, but very noisy and a bit clumsy.
 help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
 help:Druids' hitpoints does not influenced by its forms and they cannot cast spells
-help: while in animal form, bad at trap disarming and magical devices.
+help: while in animal form, bad at trap disarming and magical devices.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.
@@ -294,7 +308,8 @@ help: a fight, stumble upon hidden paths between levels, blink away from danger,
 help: and even carve protective glyphs when things get rough.
 help: 
 help: p.s.
-help: "..though oftentimes better than master of one".
+help: "..though oftentimes better than master of one".|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Bard
 help:Expert in musicianship and singing, you can not only give joy to people,
@@ -307,21 +322,25 @@ help: but also uses all melee fighting skills makes him universal death machine.
 help:There is no reason a Battlemage cannot become a good fighter, but magic
 help: is their true realm.
 help: Unlike other 'magic' users battlemage does not have problems with using
-help: ranged weapons and throwing.
+help: ranged weapons and throwing.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.
 help: Resistant to nether, he can summon power of bone and poison for his profit.
-help: The most powerful necromancers can also command golems.
+help: The most powerful necromancers can also command golems.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Hermit
 help:A spiritual guide, this holy monk has sworn not to take a weapon in his hand.
 help: This sacred vow does not interfere with his ability to crush enemies'
-help: skulls with his bare hands.
+help: skulls with his bare hands.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Wizard
 help:A legendary magician who obtained ancient secrets that were forgotten for ages.
-help: There is a rumour that wizards even can summon and control daemons.
+help: There is a rumour that wizards even can summon and control daemons.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Trader
 help:An enterprising merchant who went into the dungeon to fulfill his life ambition:
@@ -330,7 +349,8 @@ help: follows him during adventures. |
 help:Trader can sell items to NPC stores.
 help: With higher levels they have better prices. |
 help:They can not form a party with other players.|
-help:They got less speed penalty due overweight.
+help:They got less speed penalty due overweight.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Assassin
 help:Stealthy slayers who know 100500 different ways to kill its prey fast and
@@ -352,13 +372,15 @@ help: surrounding temperature to extremums. Not many creatures can endure their
 help: freezing roth which changes in a flash to blazing fire.
 help: They don't fear lava and can't slip on ice.
 help: At level 10 they obtain intrinsic ability to brand their melee blows in
-help: fire or cold element and at level 30 they got innate resistances to it.
+help: fire or cold element and at level 30 they got innate resistances to it.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Timeturner
 help:Extremely brittle, but lightning fast, they command time by void magic.
 help: Some call them 'Mesmers' as they also have battle telepathic powers.
 help: They become especially speedy after level 30.
-help: Their haste buff from the spell can stack its duration.
+help: Their haste buff from the spell can stack its duration.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Scavenger
 help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,
@@ -384,7 +406,8 @@ help:Brewed potions are soulbound and can be used only by creator; you can not
 help: neither trade it, nor drop it on the ground.
 help: To get rid of potions that you don't need:
 help: use 'k' key to destroy it or simply drink it or throw into enemies. |
-help:They can not form a party with other players.
+help:They can not form a party with other players.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Crafter
 help:Can gather resources by chopping trees for logs or mining mountains for ore,
@@ -406,7 +429,8 @@ help: Because they are so hateful towards magic, Inquisitors can prevent magical
 help: gates from opening around them, eventually extending to a complete
 help: suppression of all magic in the area around them. |
 help:They prefer not to use weapons, but to break bones with their bare hands... |
-help:Inquisitors replenish their life forces by hurting victims who fear them.
+help:Inquisitors replenish their life forces by hurting victims who fear them.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Villager
 help:Villagers are common folks, versatile and able to do anything, but also
@@ -420,4 +444,5 @@ help: and bitter, touched by the gods' curse. No cattle remain, and the soil yie
 help: almost nothing. Still, with patience, a Villager might unearth a few
 help: forgotten roots or buried crops left behind. It is stealing -
 help: but when the choice is between starving and digging up what a farmer forgot,
-help: even the crow pecks grain it didn't sow.
+help: even the crow pecks grain it didn't sow.|
+help: They're clumsy with ranged weapons until they become seasoned adventurers.
