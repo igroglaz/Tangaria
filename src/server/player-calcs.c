@@ -850,7 +850,7 @@ const int adj_chr_safe[STAT_RANGE] =
 
 /*
  * Average of the player's spell stats across all the realms they can cast
- * from, rounded up
+ * from, rounded up (check lib/gamedata/realm.txt)
  *
  * If the player can only cast from a single realm, this is simple the stat
  * for that realm
@@ -2743,7 +2743,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->timed[TMD_FAST] || p->timed[TMD_SPRINT])
     {
         if (streq(p->clazz->name, "Timeturner"))
-            state->speed += (50 - p->lev) / 5;
+            state->speed += ((50 - p->lev) / 5) + 1;
         else
             state->speed += 10;
     }

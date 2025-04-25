@@ -1333,6 +1333,7 @@ value:0:INT[3]
 value:0:CON[-2]
 value:0:CHR[-4]
 value:0:RES_DARK[1]
+# UNLIGHT means extra infravision and remembering dark squares after DARKNESS scrolls etc
 player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | SHAPECHANGE | UNDEAD_POWERS
 obj-flag:0:CLUMSY
 ########################### MOVE TO SEPARATE FORMS
@@ -4878,6 +4879,7 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
 obj-flag:0:CLUMSY
 # - CLUMSY (so a bit harder to play than PWMA)
+# summon (spell) pet
 # when Hungry - can steal veggies from T fields
 title:Rambler
 title:Walker
@@ -5173,7 +5175,7 @@ value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[-2]
 value:0:CON[-2]
-value:0:CHR[1]
+value:0:CHR[1+1d24]
 player-flags:0:MARTIAL_ARTS | SHAPECHANGE
 # hp independent from poly form
 obj-flag:0:CLUMSY
@@ -5564,8 +5566,8 @@ min-weight:35
 strength-multiplier:4
 equip:light:Wooden Torch:2:3:none
 equip:hafted:Club:1:1:none
-equip:scroll:Word of Recall (rugged):3:3:birth_no_recall
-equip:scroll:Satisfy Hunger (tattered):3:3:none
+equip:scroll:Word of Recall (rugged):3:4:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):3:4:none
 equip:scroll:Phase Door:4:5:birth_no_recall
 equip:potion:Cure Light Wounds:3:4:birth_no_recall
 obj-flag:0:CLUMSY
@@ -5577,7 +5579,7 @@ value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[0]
 value:0:CON[0]
-value:0:CHR[1]
+value:0:CHR[1+1d30]
 #/// + dog
 title:Rookie
 title:Initiate
@@ -5736,12 +5738,12 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[-1]
+value:0:STR[-1+1d40]
 value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[2]
-value:0:CON[-2]
-value:0:CHR[1]
+value:0:CON[-2+1d30]
+value:0:CHR[2+1d15]
 value:0:RES_SOUND[1]
 title:Rookie
 title:Initiate
@@ -6139,6 +6141,8 @@ value:0:CON[-1+-1d20]
 value:0:CHR[-2+-1d15]
 value:0:RES_NETHER[1]
 player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
+# raise undead monsters automatically upon their death
+# in melee got small additional life leech (traumaturgy) VS "living" monsters
 obj-flag:0:CLUMSY
 title:Rookie
 title:Initiate
@@ -7616,7 +7620,7 @@ msg_other: invokes a hellish storm.
 desc:Spews fire in a long narrow cone from you.
 desc: Cooldown 2 turns.
 
-############### CLASS TEMPLATE for Chronowarrior / Mesmer / Predictor
+############### CLASS TEMPLATE for Timeturner # Chronowarrior / Mesmer / Predictor
 name:Timeturner
 color:v
 skill-disarm-phys:28:8
@@ -7642,7 +7646,9 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
+# speed buffs stopping working at 50
 value:0:SPEED[0+1d5]
+# slow debuff affect them less (-5)
 player-flags:0:ZERO_FAIL
 obj-flag:0:CLUMSY
 value:50:RES_TIME[1]
@@ -7823,7 +7829,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[0]
+value:0:STR[0+1d30]
 value:0:INT[0]
 value:0:WIS[-2]
 value:0:DEX[2]
@@ -7831,7 +7837,7 @@ value:0:CON[0]
 value:0:CHR[-1]
 # got rat
 # cant join party
-# 20+ ego, 30 randart, 40 trueart
+# disassemble: 20+ ego, 30 randart, 40 trueart
 # + less speed penalty due overweight
 title:Rookie
 title:Initiate
@@ -8072,7 +8078,6 @@ value:0:WIS[0+1d32]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[0]
-# disassemble: 20+ ego, 30 randart, 40 trueart
 # can create items which are bound to player
 # if item not needed - it should be destroyed with 'k'
 # + less speed penalty due overweight
@@ -8148,6 +8153,7 @@ value:0:ANTI_MAGIC[1d1]
 player-flags:0:MARTIAL_ARTS
 obj-flag:0:CLUMSY
 # harming fearful enemies -> restore life
+# can cast through his ANTI-MAGIC field
 value:0:BLOWS[1d1]
 title:Rookie
 title:Initiate
