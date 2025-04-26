@@ -281,13 +281,24 @@ help: same spells again, making each one stronger and more potent.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Summoner
-help:A Summoner is the weakest of all classes you may choose. They have pathetic
-help: stats, no fighting abilities, and a few spells to kill enemies with magic.
-help: However, all these weaknesses don't trouble them much, because they can
-help: summon creatures to help them in battle, and still gain some experience from
-help: their kills. Summoners use wisdom to cast spells and summon allies, and to
-help: determine how many of them they can control and how effectively they can
-help: control them.|
+help:A Summoner begins their journey frail and defenseless, with little
+help: skill in combat and only a handful of minor spells to strike at foes.
+help: Yet, their true strength lies elsewhere. With a whispered word or a
+help: secret gesture, they call forth creatures who fight in their stead.
+help: Though the Summoner keeps a safe distance, the victories of their
+help: companions still nourish their growth.|
+help:Summoners know countless summoning rites: from jelly and vortex to hydra.
+help: They charm their minions, extend their lifespan, or even make them
+help: explode. Their magic isn't only about summoning. They can light up the
+help: darkest corners, sense lurking evil, heal their wounds, or open 
+help: a portal to step away from trouble. They shield themselves and grow
+help: stronger. Their thunderstorms bursts outward, and when needed, they can
+help: banish foes. Summoners prevent other creatures from calling reinforcements
+help: too. Some spells don't even drain mana, like calling a swarm of angry bees.
+help: Summoners use wisdom to cast spells and summon allies, and to determine
+help: how many they can control and how well they can command them.
+help: They are naturally charismatic, which helps them in spellcasting too.
+help: They favor clean, blessed weapons when they must wield one.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shapechanger
@@ -295,16 +306,21 @@ help:Shapechangers possess the ability to transform into various creatures by
 help: defeating them in battle. They are fighters that get abilities from the forms
 help: they can mimic. Basically, Shapechangers will melee a lot with the benefits
 help: from their current form (resists, melee brands, defense, speed and damage 
-help: boosts...). Some of those forms will provide innate spells and even breath 
-help: attacks. Shapechangers get basic mana points to cast those spells (note that
-help: breath attacks, like for the Dragon race, don't cost mana, but hit points 
-help: instead...). The higher level the monster, the more the Shapechanger is
-help: required to vanquish before he can assume their form. While transformed,
-help: they lose their intrinsic abilities, and gain those of the creature they
-help: have transformed into, plus whatever abilities and resistances provided
-help: by their equipment. |
-help:Some races that have their own polymorph or shape forms got certain
-help: restrictions on being shapechangers.
+help: boosts...). Some of those forms will provide innate spells - from simple
+help: strikes to storms, from healing touches to dark summons.. and even breath 
+help: attacks! Some forms whisper of powers that control, others of those that
+help: destroy. |
+help:Shapechangers get basic mana points to cast those spells*. 
+help: The higher level the monster, the more is the number of these
+help: creatures the Shapechanger is required to vanquish before he can assume
+help: their form. While transformed, they lose their intrinsic abilities, and
+help: gain those of the creature they have transformed into, plus whatever
+help: abilities and resistances provided by their equipment. |
+help:Outside of battle, Shapechangers rarely win hearts — their presence is
+help: unsettling, something not quite human lingering beneath the surface. |
+help: *Some breath attacks, like for the Dragon race, don't cost mana, but
+help: hit points instead. Also some races that have their own polymorph or
+help: shape forms got certain restrictions on being shapechangers.
 
 class:Tamer
 help:Scar-covered hands of a tamer - a person who devoted his life and (remaining)

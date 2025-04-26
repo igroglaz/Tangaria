@@ -225,14 +225,14 @@ int16_t spell_chance(struct player *p, int spell_index)
 
     /* Always a 5 percent chance of working */
     if (chance > 95) chance = 95;
-    
+
+    // reduce chance of _failure_ with higher CHA
     if (((streq(p->clazz->name, "Priest"  ))  ||
          (streq(p->clazz->name, "Paladin" ))  ||
          (streq(p->clazz->name, "Rogue"   ))  ||
          (streq(p->clazz->name, "Telepath"))  ||
          (streq(p->clazz->name, "Summoner"))) && (chance > 94))
         chance -= (p->state.stat_ind[STAT_CHR] / 8);
-        
 
     /* Return the chance */
     return (chance);
