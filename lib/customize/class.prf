@@ -427,13 +427,13 @@ help: them into confusion. When danger rises, they call upon ancient hymns to
 help: shield themselves or raise a glyph of protection. Some songs grant speed,
 help: some courage, and a few strike like a storm.|
 help:Bards are naturally charismatic, charming crowds with ease. Though quite
-help: slender, they’re surprisingly nimble and quick on their feet.|
+help: slender, they're surprisingly nimble and quick on their feet.|
 help: They are resistant to sound attacks.
 
 class:Battlemage
 help:Battlemages specialize in destroying enemies not only with the power of
 help: the elements, but also with skillful melee combat - making them a
-help: universal death machine. There’s no reason a Battlemage can’t become a
+help: universal death machine. There's no reason a Battlemage can't become a
 help: good fighter, but magic is their true realm.|
 help:Their spells rarely fail, and their magic bends toward battle - layering
 help: resistances, hurling lightning and ice, or pulling the earth itself apart.
@@ -473,8 +473,20 @@ help: every step and settles in every strike.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Wizard
-help:A legendary magician who obtained ancient secrets that were forgotten for ages.
-help: There is a rumour that wizards even can summon and control daemons.|
+help:A legendary magician, keeper of ancient secrets long forgotten by the world.
+help: Their magic isn't about simple fireballs - it warps the fabric of reality
+help: itself. A wizard snaps fingers, and the air ripples, twisting enemies into
+help: something else entirely - feeding on the chaotic energy left behind.
+help: They twist space to blink away, then pull it taut to tear open new paths.
+help: Their power distorts the world - sparks jump where none should, frost
+help: whispers in circles, and unseen hands shape the fight.
+help: When needed, they call the void - unleashing storms that break the ground
+help: or tearing the sky to rain down raw magic. Some whisper they've bargained
+help: with daemons, but no one dares ask twice. |
+help:Yet wielding such forces comes at a price: their body wears thin against
+help: the chaos they summon. Minds burning bright with arcane fire, they grow
+help: grumpy, subtle, and quick to anger. Some say they balance on the creeping
+help: edge of madness. |
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Trader
