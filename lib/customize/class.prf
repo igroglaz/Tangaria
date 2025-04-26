@@ -369,7 +369,8 @@ help: while in animal form, bad at trap disarming and magical devices.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Fighter
-help:Mercenary who uses different fighting tricks and blows to survive at all cost.
+help:Mercenary who uses different fighting tricks and blows to survive at all
+help: costs.
 help: They fight dirty if needed, but rely on skill and instinct more than brute
 help: force: they dodge, strike back, roll aside, and hit where it hurts the most.
 help: Known for their reckless attacks and sudden retreats, fighters balance
@@ -387,16 +388,17 @@ help: blows that would be mortal wounds for anyone else.
 
 class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
-help: They cannot be confused and can use their shield with astonishing mastery.
-help: They can change stances: balanced, defensive, and offensive - switching
-help: tactics depending on the situation. Balanced stance steadies the mind,
-help: removing confusion. Defensive stance toughens them up, shrugging off
-help: stunning blows. Offensive stance fuels their courage, pushing away fear.
-help: Knights are resilient and disciplined, but lack stealth and magical
+help: They cannot be confused and can use their shield with astonishing mastery.|
+help:They can change stances: balanced, defensive, and offensive - switching
+help: tactics depending on the situation.|
+help:Balanced stance steadies the mind, removing confusion.|
+help:Defensive stance toughens them up, shrugging off stunning blows.|
+help:Offensive stance fuels their courage, pushing away fear.|
+help:Knights are resilient and disciplined, but lack stealth and magical
 help: finesse. They excel in melee combat and can handle crossbows when needed,
-help: turning raw strength and endurance into their greatest advantage. Their
-help: code of honour forbids them from attacking unaware enemies - they always
-help: hail before the fight.
+help: turning raw strength and endurance into their greatest advantage.|
+help:Their code of honour forbids them from attacking unaware enemies - 
+help: they always hail before the fight.
 
 class:Traveller
 help:"Jack of all trades, master of none..."
@@ -410,7 +412,7 @@ help: themselves up, or conjure a snack when hunger bites. They kindle bonfires
 help: to ward off beasts, sketch maps when lost, sense nearby evil, and hurl
 help: bolts of fire when words fail. They know how to bless themselves before
 help: a fight, stumble upon hidden paths between levels, blink away from danger,
-help: and even carve protective glyphs when things get rough.
+help: and never forget the value of a well-placed glyph.
 help: 
 help: p.s.
 help: "..though oftentimes better than master of one".|
@@ -419,16 +421,28 @@ help:They're clumsy with ranged weapons until they become seasoned adventurers.
 class:Bard
 help:Expert in musicianship and singing, you can not only give joy to people,
 help: but also know how to use music magic to bring cure and wreak havoc.
-help: He is resistant to sound attacks.
+help: Bards weave magic into their music - from soothing tunes that mend wounds
+help: to thundering chords that shatter walls. Their voice can calm foes or drive
+help: them into confusion. When danger rises, they call upon ancient hymns to
+help: shield themselves or raise a glyph of protection. Some songs grant speed,
+help: some courage, and a few strike like a storm.|
+help:Bards are naturally charismatic, charming crowds with ease. Though quite
+help: slender, they’re surprisingly nimble and quick on their feet.|
+help: They are resistant to sound attacks.
 
 class:Battlemage
-help:Specialized in destruction of his enemies not only with power of elements,
-help: but also uses all melee fighting skills makes him universal death machine.
-help:There is no reason a Battlemage cannot become a good fighter, but magic
-help: is their true realm.
-help: Unlike other 'magic' users battlemage does not have problems with using
-help: ranged weapons and throwing.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:Battlemages specialize in destroying enemies not only with the power of
+help: the elements, but also with skillful melee combat — making them a
+help: universal death machine. There’s no reason a Battlemage can’t become a
+help: good fighter, but magic is their true realm.|
+help:Their spells rarely fail, and their magic bends toward battle — layering
+help: resistances, hurling lightning and ice, or pulling the earth itself apart.
+help: From a spark to a storm, from a stone to a black hole — their arsenal
+help: leaves little untouched when they teleport through the fray, strike from
+help: unexpected angles, and wield heavy weapons with brutal efficiency. When
+help: wounded, they know how to patch themselves up and keep going.|
+help:Unlike other magic users, Battlemages have no trouble wielding ranged
+help: weapons or throwing things.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.

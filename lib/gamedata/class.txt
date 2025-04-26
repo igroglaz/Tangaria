@@ -5173,7 +5173,7 @@ value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[-2]
 value:0:CON[-2]
-value:0:CHR[1]
+value:0:CHR[1+1d24]
 player-flags:0:MARTIAL_ARTS | SHAPECHANGE
 # hp independent from poly form
 obj-flag:0:CLUMSY
@@ -5564,8 +5564,8 @@ min-weight:35
 strength-multiplier:4
 equip:light:Wooden Torch:2:3:none
 equip:hafted:Club:1:1:none
-equip:scroll:Word of Recall (rugged):3:3:birth_no_recall
-equip:scroll:Satisfy Hunger (tattered):3:3:none
+equip:scroll:Word of Recall (rugged):3:4:birth_no_recall
+equip:scroll:Satisfy Hunger (tattered):3:4:none
 equip:scroll:Phase Door:4:5:birth_no_recall
 equip:potion:Cure Light Wounds:3:4:birth_no_recall
 obj-flag:0:CLUMSY
@@ -5577,7 +5577,7 @@ value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[0]
 value:0:CON[0]
-value:0:CHR[1]
+value:0:CHR[1+1d30]
 #/// + dog
 title:Rookie
 title:Initiate
@@ -5736,12 +5736,12 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[-1]
+value:0:STR[-1+1d40]
 value:0:INT[0]
 value:0:WIS[1]
 value:0:DEX[2]
-value:0:CON[-2]
-value:0:CHR[1]
+value:0:CON[-2+1d30]
+value:0:CHR[2+1d15]
 value:0:RES_SOUND[1]
 title:Rookie
 title:Initiate
