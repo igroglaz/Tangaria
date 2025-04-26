@@ -59,18 +59,18 @@ help: and at high levels they can cast many spells without a chance of failure.
 help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm, and they will get fewer blows with melee weapons than
 help: other classes.|
-help: Their spells cover a wide range - from simple detection and teleportation
+help:Their spells cover a wide range - from simple detection and teleportation
 help: to powerful elemental blasts and protective wards, but their favorite is
 help: the Fireball spell, which they use especially well. They are also skilled
 help: at making some of their spells pierce through multiple enemies in a line.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
 help: have control of their environment and direct power over creatures, leading
 help: even to the ability to take their forms. As they grow stronger, they can 
 help: transform into mightier beasts, from bears to mythical creatures.|
-help: Shaman skills are moderate, and they have some fighting ability, especially
+help:Shaman skills are moderate, and they have some fighting ability, especially
 help: when transformed. A shaman will usually seek to shape the flow of events
 help: to their purpose rather than using devices or missiles, but at high levels
 help: they do gain access to potent nature-based magic. They call upon the raw
@@ -81,7 +81,7 @@ help: and vitality when needed. Their magic shapes the land itself — raising
 help: trees, splitting stone, and shaking the earth beneath their feet. Their
 help: senses stretch far beyond the eye, revealing life, hidden paths, and 
 help: forgotten lore. Shamans rely on their wisdom, and have good saving throws.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Priest
 help:A Priest is a character of holy devotion. They explore the dungeon only
@@ -93,16 +93,16 @@ help: can also bring ruin to the wicked. They are especially strong against
 help: evil beings, standing firm with divine power. Over time, priests gain
 help: ways to shield themselves, support allies, and even reshape the world
 help: around them.|
-help: They are familiar with magical devices, preferring to call them
+help:They are familiar with magical devices, preferring to call them
 help: "instruments of God", but are not as good as a mage in their use.
 help: Priests have great saving throws, and make passable fighters, better
 help: if they can find a blessed weapon. Wisdom is the priest's primary stat
 help: and at high enough levels they can cast many prayers without a chance
 help: of failure. Priests have poor stealth.|
-help: Although weak in the beginning, priests can become decent fighters 
+help:Although weak in the beginning, priests can become decent fighters 
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Warlock
 help:A Warlock must live by his wits. He cannot hope to simply hack his way
@@ -112,11 +112,14 @@ help:A Warlock seeks to master the spirits of sentient creatures, creating
 help: servants of their own will. They have chosen a dark and wicked path, and
 help: run a continual risk of harm to their own body and mind. Warlocks love
 help: shadows and hate light, automatically shrouding themselves in darkness.
-help: Their spells require high intelligence and frequently harm the caster or
+help: They summon, command, and banish spirits, blurring the boundary between
+help: life and death. With time, they transcend mortal flesh, embracing darker
+help: forms...|
+help:Their spells require high intelligence and frequently harm the caster or
 help: place them in danger. In return, they achieve awesome power at high levels.
 help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
 help: up a tyranny in his place.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Paladin
 help:A Paladin is a warrior/priest. Paladins are very good fighters, second
@@ -141,7 +144,7 @@ help: rely on their performance. Rogues can also learn a few spells, but not the
 help: powerful offensive spells mages can use, and there will always be a chance
 help: of failure even with the simplest spells. A rogue's primary stats are
 help: dexterity and intelligence. |
-help: They gain experience a bit faster than others.
+help:They gain experience a bit faster than others.
 
 class:Ranger
 help:A Ranger is at home in nature, and good at turning the environment to
@@ -171,7 +174,7 @@ help: comfortably, and still unable to be anything even remotely approaching
 help: effective with it. A Sorceror has very few hit points compared to other
 help: classes, making survival difficult in the beginning. That's why this class is
 help: not recommended for beginners. Intelligence is the sorceror's primary stat.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Unbeliever
 help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
@@ -212,7 +215,7 @@ help: them to cast powerful Elemental spells. Elementalists have the innate abil
 help: to increase the power of their spells by studying them again each time they
 help: level. As masters of the elements, they gain intrinsic basic resistances as
 help: they level, fire at 10, cold at 15, acid at 20 and lightning at 25.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Summoner
 help:A Summoner is the weakest of all classes you may choose. They have pathetic
@@ -222,7 +225,7 @@ help: summon creatures to help them in battle, and still gain some experience fr
 help: their kills. Summoners use wisdom to cast spells and summon allies, and to
 help: determine how many of them they can control and how effectively they can
 help: control them.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shapechanger
 help:Shapechangers possess the ability to transform into various creatures by 
@@ -237,7 +240,7 @@ help: required to vanquish before he can assume their form. While transformed,
 help: they lose their intrinsic abilities, and gain those of the creature they
 help: have transformed into, plus whatever abilities and resistances provided
 help: by their equipment. |
-help: Some races that have their own polymorph or shape forms got certain
+help:Some races that have their own polymorph or shape forms got certain
 help: restrictions on being shapechangers.
 
 class:Tamer
@@ -256,26 +259,26 @@ help:Nature magic and can shift to animals. Good at martial arts and do not use
 help: weapons. Every 5 levels can learn a new animal form to transform; some
 help: forms have innate abilities (to use them, press 'y' key).
 help: Druid has to find spellbooks in the dungeons; such books are not for sale. |
-help:Druid forms:
-help: - BIRD: fast and able to fly over water and other terrain; can heal ('y').
+help:Druid forms:|
+help:- BIRD: fast and able to fly over water and other terrain; can heal ('y').
 help: Fragile and worthless in combat, but can dodge melee attacks well.
 help: Resistant to gravity. |
-help: - RAT: harmless and stealthy, rats can find little cracks and holes in the
+help:- RAT: harmless and stealthy, rats can find little cracks and holes in the
 help: walls to pass through them. They can avoid traps most of the time and able to
 help: sniff items to detect curses on them. Resistant to poison and can life drain. |
-help: - BOAR: find different edible plants which reduce its nourishment consumption;
+help:- BOAR: find different edible plants which reduce its nourishment consumption;
 help: good in mushroom's identification. Boars are very wise, have high vitality
 help: and fearless. Can charge at its enemies from distance ('y'). |
-help: - CAT: stealthy and nimble. Can backstab sleeping target.
+help:- CAT: stealthy and nimble. Can backstab sleeping target.
 help: Regenerate especially fast, but bad at mana restoring. |
-help: - WOLF: makes fast vicious attacks; can howl to summon allies ('y').
+help:- WOLF: makes fast vicious attacks; can howl to summon allies ('y').
 help: Less resistant to magic, except dark arts. Reckless in defense,
 help: but generates rage while in combat. |
-help: - BEAR: tough and powerful, but very noisy and a bit clumsy.
+help:- BEAR: tough and powerful, but very noisy and a bit clumsy.
 help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
 help:Druids' hitpoints does not influenced by its forms and they cannot cast spells
 help: while in animal form, bad at trap disarming and magical devices.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.
@@ -320,7 +323,7 @@ help: and even carve protective glyphs when things get rough.
 help: 
 help: p.s.
 help: "..though oftentimes better than master of one".|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Bard
 help:Expert in musicianship and singing, you can not only give joy to people,
@@ -334,24 +337,24 @@ help:There is no reason a Battlemage cannot become a good fighter, but magic
 help: is their true realm.
 help: Unlike other 'magic' users battlemage does not have problems with using
 help: ranged weapons and throwing.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Necromancer
 help:Weak and fragile, necromancer has powers to raise and command armies of dead.
 help: Resistant to nether, he can summon power of bone and poison for his profit.
 help: The most powerful necromancers can also command golems.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Hermit
 help:A spiritual guide, this holy monk has sworn not to take a weapon in his hand.
 help: This sacred vow does not interfere with his ability to crush enemies'
 help: skulls with his bare hands.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Wizard
 help:A legendary magician who obtained ancient secrets that were forgotten for ages.
 help: There is a rumour that wizards even can summon and control daemons.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Trader
 help:An enterprising merchant who went into the dungeon to fulfill his life ambition:
@@ -384,14 +387,14 @@ help: freezing roth which changes in a flash to blazing fire.
 help: They don't fear lava and can't slip on ice.
 help: At level 10 they obtain intrinsic ability to brand their melee blows in
 help: fire or cold element and at level 30 they got innate resistances to it.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Timeturner
 help:Extremely brittle, but lightning fast, they command time by void magic.
 help: Some call them 'Mesmers' as they also have battle telepathic powers.
 help: They become especially speedy after level 30.
 help: Their haste buff from the spell can stack its duration.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Scavenger
 help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,
@@ -400,7 +403,7 @@ help: He can salvage equipment into valuables right in the dungeon, so he does n
 help: need to get distracted by going to town every now and then.
 help: They are good at stealing, but not so good as rogues.
 help: Also they got a pet rat, which is trained to divert enemies' attention. |
-help: Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
+help:Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
 help: true artifacts at 40+ lvl. |
 help:The higher level it got - the more valuables he can get from salvaging. |
 help: They can not form a party with other players.|
@@ -418,7 +421,7 @@ help: neither trade it, nor drop it on the ground.
 help: To get rid of potions that you don't need:
 help: use 'k' key to destroy it or simply drink it or throw into enemies. |
 help:They can not form a party with other players.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Crafter
 help:Can gather resources by chopping trees for logs or mining mountains for ore,
@@ -441,7 +444,7 @@ help: gates from opening around them, eventually extending to a complete
 help: suppression of all magic in the area around them. |
 help:They prefer not to use weapons, but to break bones with their bare hands... |
 help:Inquisitors replenish their life forces by hurting victims who fear them.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Villager
 help:Villagers are common folks, versatile and able to do anything, but also
@@ -449,11 +452,11 @@ help: average at everything they do. They have no strengths nor weaknesses.
 help: Villagers use stamina given by their constitution to perform common tasks
 help: and can be accompanied by a single pet that they can summon at their leisure.
 help: They can chop wood and mine ore more easily as they advance in levels.|
-help: In dire moments, when hunger tightens its grip, a Villager may search
+help:In dire moments, when hunger tightens its grip, a Villager may search
 help: through farmers' fields in the suburbs - once rich with harvest, now empty
 help: and bitter, touched by the gods' curse. No cattle remain, and the soil yields
 help: almost nothing. Still, with patience, a Villager might unearth a few
 help: forgotten roots or buried crops left behind. It is stealing -
 help: but when the choice is between starving and digging up what a farmer forgot,
 help: even the crow pecks grain it didn't sow.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
