@@ -26,25 +26,28 @@ help: powerful bow, Archers are relatively weak compared to the other classes.
 help: They don't have any healing nor defensive spells like the magical 
 help: classes to compensate. Archers especially like bows; shooting with them, 
 help: they could achieve incredible speed and precision; much better than with 
-help: a crossbow or a sling. Some Archers even coat their arrows with poison or
-help: use sharper tips to cut deeper. Also they can see farther than others.
+help: a crossbow or a sling. Some Archers in time can learn how to coat their
+help: arrows with poison or use sharper tips to cut deeper.|
+help:Also they can see farther than others.
 
 class:Monk
 help:Monks are very different from all other classes. Monks are warriors who
 help: decide to fight barehanded and cannot use weapons or bows. However, their
 help: training in martial arts makes them much more powerful with no armour
-help: nor weapons. As they advance in levels, they gain some new martial arts
-help: techniques to hit their opponents more effectively. In time, a monk can
-help: learn how to stun and slow his opponents. With levels, they also gain
-help: unique abilities: at level 10, they learn to fall like a feather;
-help: at level 15, they become resistant to fear; at level 20, they become
-help: resistant to confusion; finally, at level 25, they learn to resist
-help: paralysis effects. They can't wield weapons, but get extra damage, defense 
-help: and attacks per round as they advance in levels. However, they must wear
-help: light armor to stay unencumbered and fully benefit from their class bonuses.
-help: Monks don't use mana at all, but it is rumoured that the monastic training
-help: even makes monks faster than any other character class! Also they can throw
-help: objects with surprising accuracy.
+help: nor weapons. As they advance in levels, they gain new martial arts
+help: techniques to hit their opponents more effectively.
+help: Monk abilities by level:|
+help:- Level 10: fall like a feather.|
+help:- Level 15: resistance to fear.|
+help:- Level 20: resistance to confusion.|
+help:- Level 25: resistance to paralysis.|
+help:In time, a monk can learn how to stun and slow his opponents.
+help: They can't wield weapons, but
+help: get extra damage, defense and attacks per round as they advance. However,
+help: they must wear light armor to stay unencumbered and fully benefit from
+help: their class bonuses. Monks don't use mana at all, but it is rumoured that
+help: the monastic training even makes monks faster than any other character
+help: class! Also they can throw objects with surprising accuracy.
 
 class:Mage
 help:A Mage relies on their wits to survive. They cannot hope to simply hack
@@ -170,7 +173,7 @@ help: from hunger.
 help: They excel at detection and navigation, able to sense nearby life and
 help: uncover hidden areas.|
 help:They blend archery and magic, and their arrows strike with deadly
-help: precision, often enhanced by nature's power. In battle, rangers
+help: precision, often enhanced by nature's power. In battle, Rangers
 help: can become swift and relentless, while their tactical skills allow
 help: them to shape the environment and stay one step ahead of their foes.|
 help:A Ranger has solid stealth, sharp perception, a knack for searching,
@@ -180,12 +183,18 @@ help: Their primary stats are strength, wisdom and dexterity.
 class:Blackguard
 help:A Blackguard is a brawler of no principle, who lives for the joy of maiming
 help: and killing. Blackguards prefer heavy weapons and shields, and learn a few
-help: spells for the purpose of wreaking more destruction. Their lust for blood
-help: is legendary, with a blackguard in full cry nigh on impossible to kill.
-help: Blackguards scorn skills apart from slaughter, and require strength and
-help: intelligence (or rat-cunning) to thrive in the dungeon. Blackguard can 
-help: polymorph into werewolf, can heal by spending rage and get additional 
-help: blows per round (BpR) by using his battle skills.
+help: spells for the purpose of wreaking more destruction. 
+help:They charge into battle, striking with brutal force, stunning, and
+help: scattering foes. They regenerate through sheer rage, strike faster,
+help: and crush foes with shield blows. Masters of fear, they taunt and break
+help: enemy spirits, while bolstering their own with demonic resilience.
+help: With time, they can embrace their inner beast, taking the form of a werewolf
+help: to wreak even greater havoc. They can summon dark minions, unleash 
+help: earthquakes, and even take flight when the battle demands.
+help: Their lust for blood is legendary, with a blackguard in full cry
+help: nigh on impossible to kill.|
+help:Blackguards scorn skills apart from slaughter, and require strength and
+help: intelligence (or rat-cunning) to thrive in the dungeon.
 
 class:Sorceror
 help:Sorcerers use intelligence primarily, determining how much mana they have to
