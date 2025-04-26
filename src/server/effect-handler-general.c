@@ -2283,6 +2283,7 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     /* Darken the room */
     light_room(context->origin->player, context->cave, &target, false);
 
+    // warlocks likes darkness
     if (streq(context->origin->player->clazz->name, "Warlock"))
         context->origin->player->chp += 1;
 

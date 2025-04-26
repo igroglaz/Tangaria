@@ -432,12 +432,12 @@ help: They are resistant to sound attacks.
 
 class:Battlemage
 help:Battlemages specialize in destroying enemies not only with the power of
-help: the elements, but also with skillful melee combat — making them a
+help: the elements, but also with skillful melee combat - making them a
 help: universal death machine. There’s no reason a Battlemage can’t become a
 help: good fighter, but magic is their true realm.|
-help:Their spells rarely fail, and their magic bends toward battle — layering
+help:Their spells rarely fail, and their magic bends toward battle - layering
 help: resistances, hurling lightning and ice, or pulling the earth itself apart.
-help: From a spark to a storm, from a stone to a black hole — their arsenal
+help: From a spark to a storm, from a stone to a black hole - their arsenal
 help: leaves little untouched when they teleport through the fray, strike from
 help: unexpected angles, and wield heavy weapons with brutal efficiency. When
 help: wounded, they know how to patch themselves up and keep going.|
@@ -445,15 +445,31 @@ help:Unlike other magic users, Battlemages have no trouble wielding ranged
 help: weapons or throwing things.
 
 class:Necromancer
-help:Weak and fragile, necromancer has powers to raise and command armies of dead.
-help: Resistant to nether, he can summon power of bone and poison for his profit.
-help: The most powerful necromancers can also command golems.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:Weak and fragile, necromancers wield the power to raise and command armies
+help: of the dead - fallen foes rise again at their side. Resistant to nether,
+help: they weaken minds, drain life, and summon bone and poison to their advantage.
+help: The most powerful necromancers even bind golems to their will.
+help: Withered in body and distant in spirit, they rely on intellect and the
+help: loyalty of the dead to keep them standing. Their spells rarely fail.
+help: With each level, their sight into the darkness sharpens - they see farther
+help: where others are blind.
+help: Though poor in melee, they siphon a touch of life from living foes - a hint
+help: of traumaturgy. And while they are not skilled fighters, they know how to
+help: dig (graves... a professional touch).|
+help:They are clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Hermit
-help:A spiritual guide, this holy monk has sworn not to take a weapon in his hand.
-help: This sacred vow does not interfere with his ability to crush enemies'
-help: skulls with his bare hands.|
+help:Once frail and burdened by sickness, the hermit turned to the path of light.
+help: His body never fully recovered, but his spirit grew unbreakable. A holy monk
+help: sworn never to wield a weapon - though his vow doesn't stop him from crushing
+help: skulls with bare hands.|
+help:Hermits fight through martial arts and channel sacred light to heal, protect,
+help: and strike down evil. Their magic pierces darkness, burns the wicked, and
+help: shields from harm. They know secret rituals to bless the ground beneath them
+help: or craft sacred water when needed.
+help: During their quiet, humble ways, hermits become stealthier as wind during
+help: their training. Their wisdom isn't worn on their sleeve, but it lingers in
+help: every step and settles in every strike.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Wizard

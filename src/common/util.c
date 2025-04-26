@@ -1497,6 +1497,7 @@ static const int adj_dex_blow[STAT_RANGE] =
  * The player gets blows/round equal to 100/this number, up to a maximum of
  * "num" blows/round, plus any "bonus" blows/round.
  */
+ //////////// no need to modify this table when adding classes. all set :)
 static const int blows_table[12][12] =
 {
     /* P/D */
