@@ -17,7 +17,7 @@ help: throwing, but bad at most other skills. A warrior has bad stealth and
 help: cannot learn any spells.
 
 class:Archer
-help:An Archer could shoot a squirrel in the eye so fur would not be spoiled.
+help:An Archer can shoot a squirrel in the eye so fur would not be spoiled.
 help: Very good in archery, they don't really know from which side to hold a sword;
 help: they don't need one honestly. With the ability to hurl multiple arrows
 help: at long distances, an Archer can inflict more damage in a single turn than
@@ -198,14 +198,20 @@ help: intelligence (or rat-cunning) to thrive in the dungeon.
 
 class:Sorceror
 help:Sorcerers use intelligence primarily, determining how much mana they have to
-help: cast spells and how low their failure rate is. They are the all-around best
-help: magicians, having the most powerful spells. A high-level Sorceror can be very
-help: powerful, but getting there can be a difficult journey. On the downside, they
-help: are the worst fighters, being unable to use any weapon but a Mage Staff
-help: comfortably, and still unable to be anything even remotely approaching
-help: effective with it. A Sorceror has very few hit points compared to other
-help: classes, making survival difficult in the beginning. That's why this class is
-help: not recommended for beginners. Intelligence is the sorceror's primary stat.|
+help: cast spells and how low their failure rate is. They are the greatest
+help: wielders of arcane power. Their spells range from simple missiles and
+help: beams to storms of mana, tidal waves, and chaotic blasts that tear through
+help: entire areas. They control the battlefield - teleporting, reshaping
+help: terrain, sealing spaces with runes while defending themselves with mana
+help: shields and wraithform. Their unmatched mana reserves and telepathic
+help: abilities make them supreme strategists in the dungeon.|
+help:Though a high-level Sorcerer can be very powerful, getting there can be
+help: a difficult journey. On the downside, they are the worst fighters, being
+help: unable to use any weapon but a Mage Staff comfortably, and still unable
+help: to be anything even remotely approaching effective with it.
+help: A Sorceror has very few hit points compared to other classes, making
+help: survival difficult in the beginning. That's why this class is
+help: not recommended for beginners. Intelligence is the Sorceror's primary stat.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Unbeliever
@@ -213,31 +219,50 @@ help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
 help: not only do they refuse to use magic spells, they refuse all training in the
 help: use of magic items, which leaves them totally incompetent when trying
 help: to use a magic item, although they can still quaff potions and read scrolls.
-help: Because they are so unattuned to magic, Unbelievers can prevent magical gates
-help: from opening around them, eventually extending to a complete suppression of
-help: teleportation abilities and all magic in the surrounding area.
-help: Unbelievers can replenish their forces when doing damage to non-natural 
-help: magic users. Also they can sense invisible creatures in melee range,
-help: can resist item's curses and cancel some other magic effects, eg when they
-help: drink from magic fountains, they often unmagic it. They can't remove
-help: curse from items.
+help: Their disbelief grants them an anti-magic aura, making magic fizzle nearby.
+help: Unbelievers can prevent magical gates from opening around them, eventually
+help: extending to a complete suppression of teleportation abilities and all
+help: magic in the surrounding area. Unbelievers can replenish their forces
+help: when fighting unnatural magic users. Also they can sense invisible
+help: creatures in melee range and cancel some other magic effects, e.g. when
+help: they drink from magic fountains, they often unmagic it. Their sheer will
+help: lets them resist most curses, though they can't lift them.
 
 class:Hunter
-help:Hunters aren't good at fighting, but can deliver extremely high damage with
-help: their ranged weapons. They can die quickly too, however. Hunters are to arrows
-help: what Warriors are to melee. They are the best class around with any
-help: bow, crossbow or sling. Hunter is very bad at melee, being only better than the
-help: Sorceror. Wisdom and dexterity are the hunter's primary stats. They could 
-help: use wide-range of tricks, traps and even magic in their hunt in the dungeons.
+help:Hunters aren't good at fighting, but can shoot and throw faster than others,
+help: landing multiple hits quickly. They can die quickly too, however. 
+help: Hunters are to arrows what Warriors are to melee. They are the best around
+help: with any bow, crossbow or sling. 
+help: They can use wide-range of tricks, traps and even magic
+help: in their hunt in the dungeons. Hunters wield elemental magic to empower
+help: their shots with fire, frost, lightning, acid, poison, and even sound.
+help: Their missiles can explode, confuse enemies, pierce armor or combine
+help: the forces of nature in a single deadly strike.
+help: They sense living creatures nearby, map surroundings,
+help: extend their vision, resist poison, cure ailments, and never starve
+help: thanks to their unique survival skills.|
+help:Hunter is very bad at melee, being only better than the old saggy sorcerers.
+help: Wisdom and dexterity are the hunter's primary stats.|
 
 class:Telepath
-help:The Telepath is a character who uses the powers of mind instead of magic;
+help:The Telepath is a hero who uses the powers of mind instead of magic;
 help: mindcrafters, they can weaken or even kill with their wits.
 help: Their powers vary from simple extrasensory powers to mental
-help: domination of others. A Telepath uses the Wisdom score to determine how 
-help: well he can perform these psychic powers. In solo combat, a Telepath is 
-help: slightly weaker than a Priest, although a Telepath is never penalized for
-help: wielding an edged weapon (unlike a Priest).
+help: domination of others.|
+help:Telepaths wield mental blasts, crush minds, confuse and stun their foes.
+help: They sense monsters, read thoughts, map surroundings and 
+help: can reveal hidden objects. Their minds can control light, heal their
+help: bodies, and resist many dangers. With telekinesis, they move objects and
+help: displace enemies from afar. They shield themselves with force fields and
+help: resist poison, elements and time. Advanced Telepaths can manipulate
+help: probability, travel through space-time, and unleash devastating waves
+help: of pure mental force. Telepaths channel their powers in steady beams,
+help: never missing their mark. And their minds are shielded from amnesia and
+help: memory loss. They use the Wisdom score to determine how 
+help: well they can perform these psychic powers. |
+help:In solo combat, a Telepath is slightly weaker than a Priest, although
+help: a Telepath is never penalized for wielding an edged weapon
+help: (unlike a Priest).
 
 class:Elementalist
 help:Elementalists are spellcasters specializing in offensive spells. They share
