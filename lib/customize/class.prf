@@ -529,7 +529,6 @@ help: Most powerful assassins specialize in sentries — magic traps that shoot
 help: poison, blades, or elemental bursts at anything crossing their path. |
 help:Assassins use two spellbooks: Shadows for Beginners and Dark Evocations.
 
-
 class:Phaseblade
 help:A warrior who dwells between worlds and feels no weight or space burden.
 help: They teleport freely and use phase techniques to slice enemies apart.
@@ -543,14 +542,17 @@ help: when things get too dangerous.|
 help:Their techniques never fail, and they can even teleport from places where
 help: others are trapped (with the exception of Titans and Half-Giants).
 
-
 class:Cryokinetic
 help:Some also call them 'Weathermasters'. Cryokinetic can instantly change
-help: surrounding temperature to extremums. Not many creatures can endure their
-help: freezing roth which changes in a flash to blazing fire.
-help: They don't fear lava and can't slip on ice.
-help: At level 10 they obtain intrinsic ability to brand their melee blows in
-help: fire or cold element and at level 30 they got innate resistances to it.|
+help: surrounding temperature to extremums. Few can endure their rapid shifts
+help: from burning heat to biting cold.|
+help:At first only their hands may burn or freeze on touch. But soon they start
+help: to command waves of flame, unleash plasma and blizzards,
+help: and sometimes summon both flame and ice at once. They regenerate fast, dash,
+help: and even seal themselves in invulnerable icy cocoon to recover.|
+help:At level 10 they brand their melee blows with fire or cold, and by level
+help: 30, they gain innate resistances to both.|
+help:They don't fear lava and can't slip on ice.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Timeturner
