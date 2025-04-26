@@ -303,35 +303,42 @@ help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Shapechanger
 help:Shapechangers possess the ability to transform into various creatures by 
-help: defeating them in battle. They are fighters that get abilities from the forms
-help: they can mimic. Basically, Shapechangers will melee a lot with the benefits
-help: from their current form (resists, melee brands, defense, speed and damage 
-help: boosts...). Some of those forms will provide innate spells - from simple
-help: strikes to storms, from healing touches to dark summons.. and even breath 
+help: defeating them in battle. They are fighters that gain abilities from the forms
+help: they can mimic. Basically, Shapechangers will melee a lot, benefiting
+help: from their current form (resists, melee brands, defense, speed, damage 
+help: boosts). Some of these forms provide innate spells - from simple
+help: strikes to storms, from healing touches to dark summons... and even breath 
 help: attacks! Some forms whisper of powers that control, others of those that
 help: destroy. |
-help:Shapechangers get basic mana points to cast those spells*. 
-help: The higher level the monster, the more is the number of these
-help: creatures the Shapechanger is required to vanquish before he can assume
-help: their form. While transformed, they lose their intrinsic abilities, and
+help:Shapechangers get basic mana points to cast these spells*. 
+help: The higher the level of the monster, the more of these
+help: creatures the Shapechanger is required to vanquish before they can assume
+help: their form. While transformed, they lose their intrinsic abilities and
 help: gain those of the creature they have transformed into, plus whatever
-help: abilities and resistances provided by their equipment. |
-help:Outside of battle, Shapechangers rarely win hearts — their presence is
+help: abilities and resistances are provided by their equipment. |
+help:Outside of battle, Shapechangers rarely win hearts - their presence is
 help: unsettling, something not quite human lingering beneath the surface. |
-help: *Some breath attacks, like for the Dragon race, don't cost mana, but
-help: hit points instead. Also some races that have their own polymorph or
-help: shape forms got certain restrictions on being shapechangers.
+help: *Some breath attacks, like for the Dragon race, don't cost mana but
+help: hit points instead. Also, some races that have their own polymorph or
+help: shape forms have certain restrictions on being Shapechangers.
 
 class:Tamer
 help:Scar-covered hands of a tamer - a person who devoted his life and (remaining)
-help: limbs to take care of wild creatures - is evidence of what a tedious and
-help: dangerous job it is. Going through dense dim-lit thickets, hot sands and
-help: insidious mountains to stalk a dragon in its den.. to make friends with it -
-help: this is your life ambition. |
-help:You will start not with dragons though, but with a frog companion. If you
-help: take good care of it - the frog will eventually give you certain powers..
-help: Each new pet that you acquire will teach you something and fight for
-help: your life.
+help: limbs to care for wild creatures - tell you everything about how tedious
+help: and dangerous this path is. Dense thickets, burning sands, treacherous
+help: mountains - you'll go anywhere to find a dragon in its den... and make
+help: friends with it. That is your life's ambition.|
+help:A tamer's body is fragile, but their companion stands between them and
+help: danger. Their strength lies in the bond they share with their beasts.
+help: Each beast you befriend teaches you something - a new way to fight,
+help: to heal, or to endure. A frog's leap through poison clouds, the sharp
+help: eye of a falcon, the calming warmth of a bear - all become part of you. |
+help:But tamers rely not only on their furry friends. They know a few tricks
+help: themselves - how to vanish in a blink, walk unseen, or even command
+help: the wilds to part.|
+help:It's not brute strength that tames a beast, but patience, wisdom, and a
+help: touch of charm. Animals feel it. They trust you. Sometimes. And with 
+help: time, maybe even the dragons will.
 
 class:Druid
 help:Nature magic and can shift to animals. Good at martial arts and do not use
