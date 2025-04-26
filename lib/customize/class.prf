@@ -490,14 +490,28 @@ help: edge of madness. |
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Trader
-help:An enterprising merchant who went into the dungeon to fulfill his life ambition:
-help: get enough money to open his own tavern. Trader proud of his cat, who
-help: follows him during adventures. |
-help:Trader can sell items to NPC stores.
-help: With higher levels they have better prices. |
-help:They can not form a party with other players.|
-help:They got less speed penalty due overweight.|
-help: They're clumsy with ranged weapons until they become seasoned adventurers.
+help:An enterprising merchant who went into the dungeon to fulfill his life
+help: ambition: get enough money to open his own tavern.
+help: Traders aren't fighters, but they know the value of a good bargain.
+help: As members of the Traders Guild, they can sell items to NPC stores - 
+help: something others can't do, since the authorities have declared all dungeon
+help: loot "cursed". A rookie trader drives a hard bargain... badly. But with
+help: experience, they learn to get better deals. |
+help:Traders aren't just merchants. They know how to patch armor, sharpen blades,
+help: and recharge magical devices - all for the right price.
+help: They sense hidden treasures and forgotten paths, guiding their steps.
+help: When words fail, they call upon old rituals, asking the gods for a little
+help: luck or a bit of chaos. Sometimes both.
+help: Their magic isn't flashy, but it keeps them alive - a light in the dark,
+help: a potion when needed, a way to carve through stone walls.
+help: And when all else fails, they know a trick or two to slip away unnoticed,
+help: or send in a decoy to haggle while they make their escape. |
+help:Trader proud of his cat, who follows him during adventures. Always nearby,
+help: watching, judging, perhaps luckier than he is. |
+help:They carry more than most, their steps less burdened by heavy packs. |
+help:They can't form a party with other players — the Traders Guild forbids it
+help:(and, honestly, they're too greedy to split the loot). |
+help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Assassin
 help:Stealthy slayers who know 100500 different ways to kill its prey fast and
