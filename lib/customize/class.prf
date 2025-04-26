@@ -514,12 +514,20 @@ help:(and, honestly, they're too greedy to split the loot). |
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Assassin
-help:Stealthy slayers who know 100500 different ways to kill its prey fast and
-help: effectively. Their ambushing is especially deadly to enemies who are not
-help: expecting an attack.
-help: Most powerful assassins specializes in sentries - special magic traps which
-help: shoot poison, blades and magic elements at enemies on sight.
-help: Assassin uses two spellbooks: Shadows for Beginners and Dark Evocations.
+help:Stealthy slayers who blend blades and shadow magic and know 100500
+help: different ways to kill their prey fast and effectively.
+help: While not true magicians, assassins weave some dark spells into their
+help: craft, choosing each one carefully to suit their silent trade.
+help: They move swiftly, closing distance in a blink or slipping deeper into the 
+help: dungeon unseen. Their strikes weaken, poison, and disorient, leaving prey 
+help: helpless before the final blow.
+help: In darker arts, they know how to drain life from foes, vanish into shadows, 
+help: or shield themselves with pure will. Where others fight openly, assassins 
+help: control the battlefield long before the enemy realizes - making sure the
+help: fight ends before it begins.
+help: Most powerful assassins specialize in sentries — magic traps that shoot
+help: poison, blades, or elemental bursts at anything crossing their path. |
+help:Assassins use two spellbooks: Shadows for Beginners and Dark Evocations.
 
 class:Phaseblade
 help:Warrior who dwells in two worlds and doesn't feel space/weight burden. It can
