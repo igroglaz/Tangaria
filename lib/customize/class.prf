@@ -341,8 +341,10 @@ help: touch of charm. Animals feel it. They trust you. Sometimes. And with
 help: time, maybe even the dragons will.
 
 class:Druid
-help:Nature magic and can shift to animals. Good at martial arts and do not use
-help: weapons. Every 5 levels can learn a new animal form to transform; some
+help:Druids are wanderers of the wild, attuned to the presence of nearby animals
+help: and even able to shift into their forms. Skilled in martial arts and
+help: avoiding weapons, they also wield nature magic.
+help: Every 5 levels can learn a new animal form to transform; some
 help: forms have innate abilities (to use them, press 'y' key).
 help: Druid has to find spellbooks in the dungeons; such books are not for sale. |
 help:Druid forms:|
@@ -368,17 +370,20 @@ help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all cost.
+help: They fight dirty if needed, but rely on skill and instinct more than brute
+help: force: they dodge, strike back, roll aside, and hit where it hurts the most.
+help: Known for their reckless attacks and sudden retreats, fighters balance
+help: between luck, experience, and survival instinct. Between fights, they patch
+help: themselves up - no wizardry, just rough hands and grit. And as seasoned
+help: warriors, they value every calm moment and can take a nap here and there,
+help: which helps restore their strengths even after nasty moments.|
+help: Fighters can sense hidden weapon properties better than others and may
+help: identify cursed gear without using magical means.
+help: Their focus ("mana" pool) depends on their strength and intelligence
+help: combined. |
 help: Fighters are very superstitious and believe in fortune.
 help: As they care a lot about signs and omens, they may get lucky to survive
 help: blows that would be mortal wounds for anyone else.
-help: His mana pool depends on his intelligence and strength combined.
-help: Fighters can sense hidden weapon properties better than others and may
-help: identify cursed gear without using magical means.
-help: They fight dirty if needed, but rely on skill and instinct more than brute
-help: force. Known for their reckless attacks and sudden retreats, fighters balance
-help: between luck, experience, and survival instinct.
-help: As seasoned warriors, they value every calm moment and can take a nap
-help: here and there, which helps restore their strengths even after nasty moments.
 
 class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
