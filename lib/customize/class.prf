@@ -529,11 +529,20 @@ help: Most powerful assassins specialize in sentries — magic traps that shoot
 help: poison, blades, or elemental bursts at anything crossing their path. |
 help:Assassins use two spellbooks: Shadows for Beginners and Dark Evocations.
 
+
 class:Phaseblade
-help:Warrior who dwells in two worlds and doesn't feel space/weight burden. It can
-help: teleport around and using its phase techniques to cut enemies to pieces.
-help: They prefer swords and are not good with other types of weapons.
-help: They can teleport from non/limited-teleport area.
+help:A warrior who dwells between worlds and feels no weight or space burden.
+help: They teleport freely and use phase techniques to slice enemies apart.
+help: Swords are their weapon of choice; other weapons feel awkward and slow.
+help: They are especially annoyed by ranged weapons.
+help: They blink around the battlefield, strike and vanish, phase straight
+help: into enemies to land a blow, or unleash waves of force that knock foes
+help: around. They can restore their strength while phasing, cause earthquakes,
+help: teleport monsters away, and even create a circle of warding glyphs
+help: when things get too dangerous.|
+help:Their techniques never fail, and they can even teleport from places where
+help: others are trapped (with the exception of Titans and Half-Giants).
+
 
 class:Cryokinetic
 help:Some also call them 'Weathermasters'. Cryokinetic can instantly change
