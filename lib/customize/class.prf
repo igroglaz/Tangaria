@@ -265,13 +265,19 @@ help: a Telepath is never penalized for wielding an edged weapon
 help: (unlike a Priest).
 
 class:Elementalist
-help:Elementalists are spellcasters specializing in offensive spells. They share
-help: the same stats as mages, but get almost no support spells at all. They rely
-help: on the powers of the four elements (Air, Fire, Earth, Water) and can combine
-help: them to cast powerful Elemental spells. Elementalists have the innate ability
-help: to increase the power of their spells by studying them again each time they
-help: level. As masters of the elements, they gain intrinsic basic resistances as
-help: they level, fire at 10, cold at 15, acid at 20 and lightning at 25.|
+help:Elementalists wield the four elements – Air, Fire, Earth, Water – bending
+help: them to their will. They share the bloodline of Mages, but walk a rougher
+help: path, caring little for support spells and focusing instead on raw
+help: destruction. Walls crumble, storms rage and flood the halls, the stone
+help: beneath their feet shifts and turns to mud. Their weapons crackle with
+help: elemental power, their bodies shielded from harm by flame, frost, acid
+help: and shock. Surges dance at their fingertips, unleashed in bolts, balls,
+help: waves and storms. Their elemental spells can form beams, hitting
+help: everything in their path. As masters of the elements, they gain intrinsic
+help: resistances as they grow: fire at 10, cold at 15, acid at 20,
+help: lightning at 25. |
+help:Each time they level up, they can sharpen their craft by studying the
+help: same spells again, making each one stronger and more potent.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Summoner
