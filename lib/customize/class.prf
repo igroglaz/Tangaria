@@ -77,7 +77,7 @@ help: they do gain access to potent nature-based magic. They call upon the raw
 help: forces of nature, conjuring storms, quakes, and poison clouds. Shamans can
 help: calm, slow, or drive away their foes, bending even the wildest beasts to 
 help: their will. They harness the healing power of the wild, restoring health
-help: and vitality when needed. Their magic shapes the land itself — raising
+help: and vitality when needed. Their magic shapes the land itself - raising
 help: trees, splitting stone, and shaking the earth beneath their feet. Their
 help: senses stretch far beyond the eye, revealing life, hidden paths, and 
 help: forgotten lore. Shamans rely on their wisdom, and have good saving throws.|
@@ -122,36 +122,59 @@ help: up a tyranny in his place.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Paladin
-help:A Paladin is a warrior/priest. Paladins are very good fighters, second
-help: only to the warrior class, but not very good at missile weapons. They
-help: receive prayers at a slower pace than the priest, but can use all but the
-help: most powerful prayers. A paladin lacks much in the way of abilities.
-help: Paladins have poor stealth, perception, searching, and magical device use.
+help:A Paladin is a holy warrior. Paladins are very good fighters, second
+help: only to the warrior class, but not very good at missile weapons. 
+help: In close combat, they can strike with their shield to disrupt
+help: foes. Paladins combine martial prowess with divine prayers. 
+help: They stand as champions against evil, smiting dark forces and shielding
+help: themselves with holy power. Though their magic comes slowly, it grants
+help: healing, protection, and strength in battle. Over time, they can bless
+help: their weapons and armor, see hidden threats, and find their way through
+help: darkness. They receive prayers at a slower pace than the priest, but can
+help: use all but the most powerful prayers.|
+help:Paladins have poor stealth, perception, searching, and magical device use.
 help: They have a decent saving throw due to their divine alliance. Their
-help: primary stats are strength and wisdom.
+help: primary stats are strength and wisdom. Their presence commands respect,
+help: though it varies among individuals.
 
 class:Rogue
-help:A Rogue is a character that prefers to live by their cunning, but is
-help: capable of fighting their way out of a tight spot. The master of traps and
-help: locks, to the experienced rogue no device is impossible to overcome. A rogue
-help: has high stealth enabling sneaking around many creatures without
-help: having to fight, or sneak up and get the first blow. They can steal items
-help: from monsters, but need to be wary of being caught in the act. Rogues'
-help: perception is higher than any other class, and many times they will notice
-help: a trap or secret door before having to search. A rogue is better than
-help: the more fighting oriented classes with magical devices, but still cannot
-help: rely on their performance. Rogues can also learn a few spells, but not the
-help: powerful offensive spells mages can use, and there will always be a chance
-help: of failure even with the simplest spells. A rogue's primary stats are
-help: dexterity and intelligence. |
+help:A Rogue is a character who prefers to live by their cunning. They blend
+help: agility, stealth, and a touch of magic to survive.
+help: A rogue capable of fighting their way out of a tight spot.
+help: The master of traps and has high stealth enabling sneaking around many
+help: creatures without having to fight, or sneak up and get the first blow.
+help: They can steal items from monsters, but need to be wary of being caught
+help: in the act. Rogues' perception is higher than any other class, and
+help: many times they will notice a trap or secret door before having to search.
+help: A rogue is better than the more fighting oriented classes with magical
+help: devices, but still cannot rely on their performance.|
+help:Rogues' spells are not the powerful offensive spells mages can use,
+help: and there will always be a chance of failure even with the simplest
+help: of them until they reach higher intelligence.
+help: They use poisons, traps, and darkness to gain the upper hand, slipping
+help: away when danger strikes. Their magic helps them navigate, evade, and
+help: control the battlefield - just don't ask them to carry your loot.
+help: They'll probably "lose" it on the way. |
 help:They gain experience a bit faster than others.
 
 class:Ranger
 help:A Ranger is at home in nature, and good at turning the environment to
-help: good use. Rangers are good fighters, and one of the best of all the classes
-help: with missile weapons, especially bows. The ranger learns chiefly spells of
-help: survival and forest craft. A ranger has good stealth, good perception,
-help: good searching, a good saving throw, and is good with magical devices.
+help: good use. Rangers balance melee prowess with deadly marksmanship,
+help: and one of the best of all the classes with missile weapons, especially
+help: bows.|
+help:Rangers are deeply attuned to nature, drawing strength and resilience from
+help: the wild. Forest magic keeps them going long after others would fall.
+help: Their connection to the land grants them powerful survival abilities -
+help: they can cure themselves with herbs, resist poisons, and never suffer
+help: from hunger.
+help: They excel at detection and navigation, able to sense nearby life and
+help: uncover hidden areas.|
+help:They blend archery and magic, and their arrows strike with deadly
+help: precision, often enhanced by nature's power. In battle, rangers
+help: can become swift and relentless, while their tactical skills allow
+help: them to shape the environment and stay one step ahead of their foes.|
+help:A Ranger has solid stealth, sharp perception, a knack for searching,
+help: strong saving throws, and handles magical devices better than most.
 help: Their primary stats are strength, wisdom and dexterity.
 
 class:Blackguard
