@@ -70,17 +70,17 @@ help:They're clumsy with ranged weapons until they become seasoned casters.
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
 help: have control over their environment and direct power over creatures, leading
-help: even to the ability to take their forms. As they grow stronger, they can 
+help: even to the ability to take their forms. As they grow stronger, they can
 help: transform into mightier beasts, from bears to mythical creatures.|
 help:Shaman skills are moderate, with some fighting ability, especially
-help: when transformed. They shape the flow of events to their purpose rather 
-help: than relying on devices or missiles, but at high levels gain access to 
-help: potent nature-based magic. They call upon raw natural forces, conjuring 
-help: storms, quakes, and poison clouds. Shamans can calm, slow, or drive away 
-help: foes, bending even the wildest beasts to their will. They harness the 
-help: healing power of the wild to restore health and vitality. Their magic 
-help: shapes the land itself - raising trees, splitting stone, and shaking 
-help: the earth. Their senses extend beyond normal sight, revealing life, hidden 
+help: when transformed. They shape the flow of events to their purpose rather
+help: than relying on devices or missiles, but at high levels gain access to
+help: potent nature-based magic. They call upon raw natural forces, conjuring
+help: storms, quakes, and poison clouds. Shamans can calm, slow, or drive away
+help: foes, bending even the wildest beasts to their will. They harness the
+help: healing power of the wild to restore health and vitality. Their magic
+help: shapes the land itself - raising trees, splitting stone, and shaking
+help: the earth. Their senses extend beyond normal sight, revealing life, hidden
 help: paths, and forgotten lore. Shamans rely on wisdom and possess good saving throws.|
 help:They're clumsy with ranged weapons until they become seasoned wardens.
 
@@ -180,13 +180,13 @@ help: Their primary stats are strength, wisdom and dexterity.
 class:Blackguard
 help:A Blackguard is a brawler of no principle, who lives for the joy of maiming
 help: and killing. Blackguards prefer heavy weapons and shields, and learn a few
-help: spells for the purpose of wreaking more destruction. 
+help: spells for the purpose of wreaking more destruction.
 help:They charge into battle, striking with brutal force, stunning, and
 help: scattering foes. They regenerate through sheer rage, strike faster,
 help: and crush foes with shield blows. Masters of fear, they taunt and break
 help: enemy spirits, while bolstering their own with demonic resilience.
 help: With time, they can embrace their inner beast, taking the form of a werewolf
-help: to wreak even greater havoc. They can summon dark minions, unleash 
+help: to wreak even greater havoc. They can summon dark minions, unleash
 help: earthquakes, and even take flight when the battle demands.
 help: Their lust for blood is legendary, with a blackguard in full cry
 help: nigh on impossible to kill.|
@@ -227,10 +227,10 @@ help: can't lift them.
 
 class:Hunter
 help:Hunters aren't good at fighting, but can shoot and throw faster than others,
-help: landing multiple hits quickly. They can die quickly too, however. 
+help: landing multiple hits quickly. They can die quickly too, however.
 help: Hunters are to arrows what Warriors are to melee. They are the best with
-help: any bow, crossbow or sling. 
-help: They can use wide-range of tricks and traps in their hunt in the dungeons. 
+help: any bow, crossbow or sling.
+help: They can use wide-range of tricks and traps in their hunt in the dungeons.
 help: Hunters blend archery and magic, to empower their shots with fire, frost,
 help: lightning, acid, poison, and even sound.
 help: Their missiles can explode, confuse enemies, pierce armor or combine
@@ -247,7 +247,7 @@ help: mindcrafters, they can weaken or even kill with their wits.
 help: Their abilities range from extrasensory perception to mental
 help: domination of others.|
 help:Telepaths wield mental blasts, crush minds, confuse and stun their foes.
-help: They sense monsters, read thoughts, map surroundings and 
+help: They sense monsters, read thoughts, map surroundings and
 help: reveal hidden objects. Their minds can control light, heal their
 help: bodies, and resist many dangers. Through telekinesis, they move objects and
 help: displace enemies from afar. They shield themselves with force fields,
@@ -255,7 +255,7 @@ help: resisting poison, elements and time. Advanced Telepaths manipulate
 help: probability, travel through space-time, and unleash devastating waves
 help: of pure mental force. Telepaths channel their powers in steady beams,
 help: never missing their mark, with minds shielded from amnesia and
-help: memory loss. They use the Wisdom score to determine how 
+help: memory loss. They use the Wisdom score to determine how
 help: well they can perform these psychic powers. |
 help:In solo combat, a Telepath is slightly weaker than a Priest, although
 help: a Telepath is never penalized for wielding an edged weapon
@@ -299,15 +299,15 @@ help: when forced into combat, they remain clumsy with ranged weapons until
 help: becoming seasoned masters.
 
 class:Shapechanger
-help:Shapechangers possess the ability to transform into various creatures by 
+help:Shapechangers possess the ability to transform into various creatures by
 help: defeating them in battle. They are fighters that gain abilities from the
 help: forms they can mimic. Shapechangers excel in melee combat, benefiting
 help: from their current form's advantages (resistances, melee brands, defense,
 help: speed, damage boosts). Some forms provide innate spells - from simple
-help: strikes to storms, from healing touches to dark summons... and even breath 
+help: strikes to storms, from healing touches to dark summons... and even breath
 help: attacks! Some forms whisper of powers that control, others of those that
 help: destroy. |
-help:Shapechangers receive basic mana points to cast these spells*. 
+help:Shapechangers receive basic mana points to cast these spells*.
 help: The higher the level of the monster, the more of these
 help: creatures the Shapechanger must vanquish before they can assume
 help: their form. While transformed, they lose their intrinsic abilities and
@@ -338,7 +338,7 @@ help:Tamers rely not only on their furry friends. They know their own tricks
 help: too - how to vanish in a blink, walk unseen, or even command
 help: the wilds to part.|
 help:It's not brute strength that tames a beast, but patience, wisdom, and a
-help: touch of charm. Animals feel it. They trust you. Sometimes. And with 
+help: touch of charm. Animals feel it. They trust you. Sometimes. And with
 help: time, maybe even the dragons will.
 
 class:Druid
@@ -395,20 +395,20 @@ help:Noble knight in heavy armour who charges into enemies with immense power.
 help: They cannot be confused and can use their shield with astonishing mastery.|
 help:They can change stances: balanced, defensive, and offensive - switching
 help: tactics depending on the situation.|
-help:Balanced stance steadies the mind, removing confusion.|
-help:Defensive stance toughens them up, shrugging off stunning blows.|
-help:Offensive stance fuels their courage, pushing away fear.|
+help:- Balanced stance steadies the mind, removing confusion.|
+help:- Defensive stance toughens them up, shrugging off stunning blows.|
+help:- Offensive stance fuels their courage, pushing away fear.|
 help:Knights are resilient and disciplined, but lack stealth and magical
 help: finesse. They excel in melee combat and can handle crossbows when needed,
 help: turning raw strength and endurance into their greatest advantages.|
-help:Their code of honour forbids them from attacking unaware enemies - 
+help:Their code of honour forbids them from attacking unaware enemies -
 help: they always announce themselves before engaging in combat.
 
 class:Traveller
-help:"Jack of all trades, master of none..."
+help:"Jack of all trades, master of none..."|
 help:A common soul who knows a bit of magic and isn't too bad with a weapon.
 help: They never walk alone - there's always a four-legged friend by their side.
-help: Travellers are sure they know everything about maps, directions and 
+help: Travellers are sure they know everything about maps, directions and
 help: cardinal points... but their overconfidence often leads to real trouble.
 help: They set out with a handful of useful items, just in case.
 help: Seasoned travellers are no strangers to fear; they can teleport, patch
@@ -416,11 +416,12 @@ help: themselves up, or conjure a snack when hunger bites. They kindle bonfires
 help: to ward off beasts, sketch maps when lost, sense nearby evil, and hurl
 help: bolts of fire when words fail. They know how to bless themselves before
 help: a fight, discover hidden paths between levels, blink away from danger,
-help: and never forget the value of a well-placed glyph.
-help: 
-help: p.s.
-help: "..though oftentimes better than master of one".|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help: and never forget the value of a well-placed glyph.|
+help:They're clumsy with ranged weapons until they become seasoned adventurers.|
+help: |
+help:p.s.|
+help:"..though oftentimes better than master of one".|
+
 
 class:Bard
 help:Expert in musicianship and singing, you can not only bring joy to people,
@@ -491,13 +492,13 @@ help:Yet wielding such forces comes at a price: their body wears thin against
 help: the chaos they summon. Minds burning bright with arcane fire, they grow
 help: grumpy, subtle, and quick to anger. Some say they balance on the creeping
 help: edge of madness. |
-help: They remain clumsy with ranged weapons until they become seasoned magi.
+help:They remain clumsy with ranged weapons until they become seasoned magi.
 
 class:Trader
 help:An enterprising merchant who went into the dungeon to fulfill his life
 help: ambition: get enough money to open his own tavern.
 help: Traders aren't fighters, but they know the value of a good bargain.
-help: As members of the Traders Guild, they can sell items to NPC stores - 
+help: As members of the Traders Guild, they can sell items to NPC stores -
 help: something others can't do, since the authorities have declared all dungeon
 help: loot "cursed". A rookie trader drives a hard bargain... badly. But with
 help: experience, they learn to get better deals. |
@@ -525,11 +526,11 @@ help:Stealthy slayers who blend blades and shadow magic and know 100500
 help: different ways to kill their prey fast and effectively.
 help: While not true magicians, assassins weave some dark spells into their
 help: craft, choosing each one carefully to suit their silent trade.
-help: They move swiftly, closing distance in a blink or slipping deeper into the 
-help: dungeon unseen. Their strikes weaken, poison, and disorient, leaving prey 
+help: They move swiftly, closing distance in a blink or slipping deeper into the
+help: dungeon unseen. Their strikes weaken, poison, and disorient, leaving prey
 help: helpless before the final blow.
-help: In darker arts, they know how to drain life from foes, vanish into shadows, 
-help: or shield themselves with pure will. Where others fight openly, assassins 
+help: In darker arts, they know how to drain life from foes, vanish into shadows,
+help: or shield themselves with pure will. Where others fight openly, assassins
 help: control the battlefield long before the enemy realizes - making sure the
 help: fight ends before it begins.
 help: Most powerful assassins specialize in sentries - magic traps that shoot
@@ -585,7 +586,7 @@ help: Scavengers can salvage ego items at level 20, random artifacts at 30, and
 help: true artifacts at 40 and beyond.
 help: Experience teaches them how to wring more gold from every scrap. |
 help:But they're not just picking through dungeon trash - they've learned
-help: a few dirty tricks along the way. 
+help: a few dirty tricks along the way.
 help: Scavengers can play dead to fool monsters or jump around like grasshoppers.
 help: They poison their blades and arrows, map out dungeons, and sniff out hidden
 help: treasure. If things get rough, they patch themselves up with bandages,
@@ -607,7 +608,7 @@ class:Alchemist
 help:Alchemists trust not in steel or sorcery, but in the power of what they brew.
 help: Masters of potions, they craft all kinds of mixtures: healing draughts,
 help: explosive flasks, corrosive acids, potent poisons, elixirs that boost speed
-help: or grant resistances. Some potions reshape the battlefield itself - 
+help: or grant resistances. Some potions reshape the battlefield itself -
 help: burning enemies, knocking them back, or even causing trees to sprout from
 help: the ground. Just throw them at foes to unleash their power!
 help: Other potions restore health or mana, cure poison, or transform
@@ -628,7 +629,7 @@ help:They're clumsy with ranged weapons until they become seasoned artisans.
 
 class:Crafter
 help:Crafters gather resources by chopping trees for logs or mining mountains
-help: for ore, then forge their own equipment, shaping weapons and 
+help: for ore, then forge their own equipment, shaping weapons and
 help: armor to suit their needs. Crafting can be done directly in the dungeon.
 help: The higher their level, the better the quality - from simple items to those
 help: with magical properties. However, true artifacts can never be crafted.
@@ -678,7 +679,7 @@ help: close or playfully tripping them at the most inconvenient moments.
 help: If seemingly slain, the faithful companion merely retreats to lick its
 help: wounds, ready to be called back when needed. As they survive challenges
 help: together, Villagers develop keen senses to detect hidden doors, stairs,
-help: traps, or lurking monsters while patrolling. In time, Villagers learn 
+help: traps, or lurking monsters while patrolling. In time, Villagers learn
 help: to coat their weapons or arrows with poison and, as seasoned brawlers,
 help: master the craft of door-making to block dangerous passages.
 help: Each of these tasks draws upon stamina provided by their constitution.
