@@ -330,6 +330,10 @@ help: danger. Their strength lies in the bond they share with their beasts.
 help: Each creature you befriend teaches you something new - a way to fight,
 help: to heal, or to endure. A frog's leap through poison clouds, the sharp
 help: eye of a falcon, the calming warmth of a bear - all become part of you. |
+help:When wounded in battle, a tamer's companions never truly perish - they retreat
+help: to recover, maintaining the mystical bond that allows them to be summoned
+help: again when needed. This resilient connection, forged through trust and
+help: respect, ensures that a tamer is never truly alone for long.|
 help:Tamers rely not only on their furry friends. They know their own tricks
 help: too - how to vanish in a blink, walk unseen, or even command
 help: the wilds to part.|
@@ -507,7 +511,10 @@ help: a potion when needed, a way to carve through stone walls.
 help: And when all else fails, they know a trick or two to slip away unnoticed,
 help: or send in a decoy to haggle while they make their escape. |
 help:The trader is proud of his cat, who follows him during adventures -
-help: always nearby, watching, judging, perhaps luckier than he is. |
+help: always nearby, watching, judging, perhaps luckier than he is.
+help: When danger strikes, this feline companion doesn't die but merely vanishes
+help: with an indignant flick of its tail, only to reappear later, utterly
+help: unimpressed by its master's heroics and ready to be summoned again. |
 help:They carry more than most, their steps less burdened by heavy packs. |
 help:They can't form a party with other players - the Traders Guild forbids it
 help:(and, honestly, they're too greedy to split the loot). |
@@ -589,8 +596,12 @@ help: though they'll never match a true rogue. But what they lack in finesse,
 help: they make up for in strength - able to carry more loot without breaking
 help: stride. |
 help:Scavengers are loners by nature - they can't form a party with other players
-help: and prefer to work alone. Their only friend is a scrappy little rat - clever,
-help: loyal, and always ready to cause a distraction when things get dicey.
+help: and prefer to work alone. Their only friend is a scrappy little rat - witty,
+help: mischievous, and surprisingly affectionate when no one's looking. This rodent
+help: companion doesn't truly die when struck down, but scurries off to the shadows
+help: with an offended squeak, ready to be called back once the danger passes.
+help: The rat's uncanny knack for finding shiny objects often leaves its master
+help: wondering who's really in charge of their peculiar partnership.
 
 class:Alchemist
 help:Alchemists trust not in steel or sorcery, but in the power of what they brew.
@@ -644,14 +655,14 @@ help: on their fists and unwavering determination. Their hatred for magic is so 
 help: that they suppress magical gates and, with experience, can block all arcane
 help: forces around them.|
 help:Despite their fanaticism, Inquisitors command forbidden powers through
-help: sheer will — either viewing them as divine gifts or acknowledging the truth
+help: sheer will - either viewing them as divine gifts or acknowledging the truth
 help: and wielding these abilities to achieve ruthless goals. Their anti-magic field
 help: suppresses external spells, while their own dark rites function within it.
 help: They torture minds, drain souls, and call forth hellfire to purge heresy.
 help: They descend deeper into the dungeon, drawing strength from tormenting the
 help: wicked and summon hounds to aid their crusade. Their curses weaken enemies, walls
 help: imprison sinners, and retribution inevitably finds all heretics.|
-help:Though they shun conventional magic, they still quaff potions and read scrolls —
+help:Though they shun conventional magic, they still quaff potions and read scrolls -
 help: minor evils necessary to combat greater ones.|
 help:They prefer breaking bones with their bare hands rather than using weapons...|
 help:They replenish their life force by harming foes who fear them, drawing power
@@ -662,19 +673,22 @@ class:Villager
 help:Villagers are common folk. Without special strengths, their simple life
 help: provides them with practical skills.
 help:Villagers journey with a loyal pet, which they can occasionally summon
-help: from the wilds. As they survive challenges, they develop keen senses
-help: to detect hidden doors, stairs, traps, or lurking monsters while patrolling.
-help: In time, they learn to coat their weapons or arrows with poison and, as
-help: seasoned brawlers, master the craft of door-making to block dangerous
-help: passages. Each of these tasks draws upon stamina provided by their
-help: constitution. Though modest, these skills help them endure where
-help: others might falter. |
+help: from the wilds. Their pet shows remarkable affection, often nuzzling
+help: close or playfully tripping them at the most inconvenient moments.
+help: If seemingly slain, the faithful companion merely retreats to lick its
+help: wounds, ready to be called back when needed. As they survive challenges
+help: together, Villagers develop keen senses to detect hidden doors, stairs,
+help: traps, or lurking monsters while patrolling. In time, Villagers learn 
+help: to coat their weapons or arrows with poison and, as seasoned brawlers,
+help: master the craft of door-making to block dangerous passages.
+help: Each of these tasks draws upon stamina provided by their constitution.
+help: Though modest, these skills help them endure where others might falter. |
 help:In desperate times, when hunger's grip tightens, a Villager may search
-help: through abandoned fields in the suburbs — once abundant with harvest,
+help: through abandoned fields in the suburbs - once abundant with harvest,
 help: now barren and forsaken, touched by the gods' curse. No livestock
 help: remains, and the soil yields almost nothing. Yet with persistence,
 help: a Villager might uncover a few forgotten roots or buried crops left
-help: behind. It is technically stealing — but when choosing between
+help: behind. It is technically stealing - but when choosing between
 help: starvation and salvaging what a farmer abandoned, even the crow
 help: claims grain it never sowed. |
 help:They can harvest wood and extract ore with increasing efficiency as
