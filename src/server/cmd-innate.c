@@ -344,7 +344,12 @@ void do_cmd_breath(struct player *p, int dir)
 
             player_dec_timed(p, TMD_FOOD, 25, false);
             player_inc_timed(p, TMD_IMAGE, 1 + randint0(1), false, false);
-            p->chp -= p->chp / 20; // take a slight hit
+            
+            if (p->mhp < 20)
+                p->chp -= 1;
+            else // take a slight hit (ok, only on full HP)
+                p->chp -= (p->mhp / 20);
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -382,7 +387,9 @@ void do_cmd_breath(struct player *p, int dir)
 
             player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(2), true, false);
             player_dec_timed(p, TMD_FOOD, (150 - p->lev), false);
-            p->chp -= p->chp / 3; // take a hit
+
+            p->chp -= p->mhp / 3; // take a hit (ok, only on full HP)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -459,7 +466,9 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
 
             player_dec_timed(p, TMD_FOOD, 25, false);
-            p->chp -= p->chp / 5; // take a hit
+
+            p->chp -= p->mhp / 5; // take a hit (ok, only on full HP)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -468,12 +477,14 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Undead"))
+    else if (streq(p->race->name, "Undead") && p->chp - (p->mhp / 15) > 0)
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_DETECT_LIVING_MONSTERS, who, 0, 0, 0, 0, 10 + p->lev / 2, 10 + p->lev / 2, NULL);
-        p->chp -= p->chp / 15; // take a hit
+
+        p->chp -= p->mhp / 15; // take a hit (ok, as we check hp above)
+
         player_dec_timed(p, TMD_FOOD, 1 + p->lev / 5, false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
         return;
@@ -526,16 +537,16 @@ void do_cmd_breath(struct player *p, int dir)
     else if (streq(p->race->name, "Lizardmen") && p->chp < p->mhp)
     {
         use_energy(p);
+        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
+
         // restore 3% HP or if almost full - restore all
         if (p->mhp < 30) // too small HP to be able to calculate 3%
-            p->chp++;
+            hp_player(p, 1);
         else if (p->chp + p->mhp / 30 < p->mhp)
-            p->chp += p->mhp / 30; // restore 3%
+            hp_player(p, p->mhp / 30); // restore 3%
         else
-            p->chp = p->mhp;
-        player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
-        p->upkeep->redraw |= (PR_HP);
-        p->upkeep->redraw |= (PR_MAP);
+            hp_player(p, p->mhp - p->chp); // restore to full HP
+
         return;
     }
     else if (streq(p->race->name, "Forest Goblin"))
@@ -554,12 +565,14 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
-    else if (streq(p->race->name, "Naga"))
+    else if (streq(p->race->name, "Naga") && p->chp - (p->mhp / 10) > 0)
     {
         use_energy(p);
         player_inc_timed(p, TMD_OFFENSIVE_STANCE, 5 + p->lev / 5, false, false);
         player_dec_timed(p, TMD_FOOD, 15, false);
-        p->chp -= p->chp / 10; // take a hit
+
+        p->chp -= p->mhp / 10; // take a hit (ok, checked above)
+
         p->upkeep->redraw |= (PR_HP);
         p->upkeep->redraw |= (PR_MAP);
         return;
@@ -616,7 +629,9 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
             player_inc_timed(p, TMD_FAST, 1 + p->lev / 5, false, false);
             player_dec_timed(p, TMD_FOOD, 15, false);
-            p->chp -= p->chp / 2; // take a hit
+
+            p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -651,7 +666,8 @@ void do_cmd_breath(struct player *p, int dir)
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
             free_effect(effect);
 
-            p->chp -= p->chp / 4; // take a hit
+            p->chp -= p->mhp / 4; // take a hit (ok, only of full hp)
+
             player_dec_timed(p, TMD_FOOD, 15, false);
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -681,8 +697,9 @@ void do_cmd_breath(struct player *p, int dir)
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
             free_effect(effect);
-            
-            p->chp -= p->chp / 3; // take a hit
+
+            p->chp -= p->mhp / 3; // take a hit (ok, only on full hp)
+
             player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
             p->upkeep->redraw |= (PR_HP);
@@ -747,7 +764,9 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
 
             player_dec_timed(p, TMD_FOOD, 25, false);
-            p->chp -= p->chp / 10; // take a slight hit
+
+            p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
+
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -824,8 +843,13 @@ void do_cmd_breath(struct player *p, int dir)
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
             free_effect(effect);
-            
-            p->chp = 1; // sacrifice
+
+            // sacrifice (leaves 1% hp)
+            p->chp = p->mhp / 100;
+            // low hp heroes: ensure at least 1 HP remains
+            if (p->chp < 1)
+                p->chp = 1;
+
             player_dec_timed(p, TMD_FOOD, 42, false);
             player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
             p->upkeep->redraw |= (PR_HP);
@@ -869,7 +893,9 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
 
             player_dec_timed(p, TMD_FOOD, 10, false);
-            p->chp -= p->chp / 15; // take a slight hit
+
+            p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -919,7 +945,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Maiar"))
+    else if (streq(p->race->name, "Maiar") && p->chp - (p->mhp / 15) > 0)
     {
         char dice_string[5];
         int dice_calc = p->lev;
@@ -956,7 +982,9 @@ void do_cmd_breath(struct player *p, int dir)
         free_effect(effect);
 
         player_dec_timed(p, TMD_FOOD, 25, false);
-        p->chp -= p->chp / 15;
+
+        p->chp -= p->mhp / 10; // // take a slight hit (ok, checked above)
+
         p->upkeep->redraw |= (PR_HP);
         p->upkeep->redraw |= (PR_MAP);
         return;
@@ -982,7 +1010,9 @@ void do_cmd_breath(struct player *p, int dir)
             player_inc_timed(p, TMD_ATT_POIS, 5 + p->lev / 5, false, false);
             player_dec_timed(p, TMD_FOOD, 5, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
-            p->chp -= p->chp / 10;
+
+            p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -1006,7 +1036,9 @@ void do_cmd_breath(struct player *p, int dir)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
 
             player_dec_timed(p, TMD_FOOD, 100, false);
-            p->chp -= p->chp / 3;
+
+            p->chp -= p->mhp / 3; // take a hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -1028,9 +1060,9 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
         if (p->msp > 0 && p->csp < p->msp)
-            p->csp++;
+            p->csp++; // ok
         else if (p->chp < p->mhp)
-            p->chp++;
+            p->chp++; // ok
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
@@ -1041,7 +1073,9 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
             player_inc_timed(p, TMD_SAFE, 2 + p->lev / 5, false, false);
             player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
-            p->chp -= p->chp / 4;
+
+            p->chp -= p->mhp / 4; // take a hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -1057,7 +1091,9 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
             player_inc_timed(p, TMD_BLOODLUST, 2, true, false);
             player_dec_timed(p, TMD_FOOD, 150 - p->lev, false);
-            p->chp -= p->chp / 2;
+
+            p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -1093,7 +1129,7 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
-    else if (streq(p->race->name, "Damned"))
+    else if (streq(p->race->name, "Damned") && p->chp - (p->mhp / 10) > 0)
     {
         int i, count = 0;
 
@@ -1120,7 +1156,9 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_ANTISUMMON, 2, false, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
-        p->chp -= p->chp / 10;
+
+        p->chp -= p->mhp / 10; // take a hit (ok, as we check hp above)
+
         p->upkeep->redraw |= (PR_HP);
         p->upkeep->redraw |= (PR_MAP);
         return;
@@ -1143,7 +1181,9 @@ void do_cmd_breath(struct player *p, int dir)
             player_inc_timed(p, TMD_OPP_ELEC, 2 + p->lev / 2, false, false);
             // shouldn't cheeze to charge up several times
             player_set_timed(p, TMD_ATT_ELEC, 2 + p->lev / 2, false);
-            p->chp -= p->chp / 4;
+
+            p->chp -= p->mhp / 4; // take a hit (ok, only on full hp)
+
             player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         }
@@ -1160,12 +1200,14 @@ void do_cmd_breath(struct player *p, int dir)
         player_dec_timed(p, TMD_FOOD, 7, false);
         return;
     }
-    else if (streq(p->race->name, "Kobold"))
+    else if (streq(p->race->name, "Kobold") && p->chp - (p->mhp / 5) > 0)
     {
         use_energy(p);
         player_inc_timed(p, TMD_OPP_POIS, 2 + p->lev / 5, false, false);
         player_dec_timed(p, TMD_FOOD, 5 + p->lev / 5, false);
-        p->chp -= p->chp / 5;
+
+        p->chp -= p->mhp / 5; // take a hit (ok, as we check hp above)
+
         return;
     }
     else if (streq(p->race->name, "Dunadan"))
@@ -1173,7 +1215,7 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         player_clear_timed(p, TMD_BLACKBREATH, false);
         if (p->chp < p->mhp)
-            p->chp++;
+            p->chp++; // ok
         player_dec_timed(p, TMD_FOOD, 5, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;

@@ -1978,7 +1978,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         if (p->chp == 1)
             p->chp = p->mhp;
         else
-            p->chp /= 2;
+            p->chp = (p->chp / 2) + 1; // don't kill player
 
         /* Display the hitpoints */
         p->upkeep->redraw |= (PR_HP);

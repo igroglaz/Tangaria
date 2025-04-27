@@ -1371,12 +1371,11 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             if (p->chp < p->mhp)
             {
                 if (p->mhp < 20) // too small HP to be able to calculate 5%
-                    p->chp++;
+                    hp_player(p, 1);
                 else if (p->chp + p->mhp / 20 < p->mhp)
-                    p->chp += p->mhp / 20; // restore 5%
+                    hp_player(p, p->mhp / 20); // restore 5%
                 else
-                    p->chp = p->mhp;
-                p->upkeep->redraw |= (PR_HP);
+                    hp_player(p, p->mhp - p->chp); // restore to full HP
             }
         }
     }
