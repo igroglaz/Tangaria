@@ -509,7 +509,7 @@ help: or send in a decoy to haggle while they make their escape. |
 help:Trader proud of his cat, who follows him during adventures. Always nearby,
 help: watching, judging, perhaps luckier than he is. |
 help:They carry more than most, their steps less burdened by heavy packs. |
-help:They can't form a party with other players — the Traders Guild forbids it
+help:They can't form a party with other players - the Traders Guild forbids it
 help:(and, honestly, they're too greedy to split the loot). |
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
@@ -525,7 +525,7 @@ help: In darker arts, they know how to drain life from foes, vanish into shadows
 help: or shield themselves with pure will. Where others fight openly, assassins 
 help: control the battlefield long before the enemy realizes - making sure the
 help: fight ends before it begins.
-help: Most powerful assassins specialize in sentries — magic traps that shoot
+help: Most powerful assassins specialize in sentries - magic traps that shoot
 help: poison, blades, or elemental bursts at anything crossing their path. |
 help:Assassins use two spellbooks: Shadows for Beginners and Dark Evocations.
 
@@ -570,17 +570,27 @@ help:At the peak of their power they gain resistance to time magic itself.
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Scavenger
-help:Vagabond who ventured to the dungeons to get his hands to monster's treasures,
+help:Vagabond who ventured to the dungeons to get his hands on monster treasures,
 help: but also won't say no to marauding corpses of other adventurers.
-help: He can salvage equipment into valuables right in the dungeon, so he does not
-help: need to get distracted by going to town every now and then.
-help: They are good at stealing, but not so good as rogues.
-help: Also they got a pet rat, which is trained to divert enemies' attention. |
-help:Scavengers can salvage ego items at lvl 20, random artifacts at 30 and
-help: true artifacts at 40+ lvl. |
-help:The higher level it got - the more valuables he can get from salvaging. |
-help: They can not form a party with other players.|
-help:They got less speed penalty due overweight.
+help: He's not one to waste time heading back to town - right there, in the
+help: depths, he salvages equipment into valuables and keeps moving.
+help: Scavengers can salvage ego items at level 20, random artifacts at 30, and
+help: true artifacts at 40 and beyond.
+help: Experience teaches them how to wring more gold from every scrap. |
+help:But they're not just picking through dungeon trash - they've learned
+help: a few dirty tricks along the way. 
+help: Scavengers can play dead to fool monsters or jump around like grasshoppers.
+help: They poison their blades and arrows, map out dungeons, and sniff out hidden
+help: treasure. If things get rough, they patch themselves up with bandages,
+help: cure poison, and most exprienced ones are skilled even to cause small
+help: earthquakes to shake things up. And if all else fails, they've got a
+help: backup meal to keep going. Life in the shadows taught them a bit of thievery,
+help: though they'll never match a true rogue. But what they lack in finesse,
+help: they make up for in strength - able to carry more loot without breaking
+help: stride. |
+help:Scavengers are loners by nature - they can't form a party with other players
+help: and prefer to work alone. Their only friend is a scrappy little rat - clever,
+help: loyal, and always ready to cause a distraction when things get dicey.
 
 class:Alchemist
 help:Can brew potions and concoct elixirs which can not only bring devastation and

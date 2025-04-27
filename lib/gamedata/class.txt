@@ -7828,7 +7828,7 @@ equip:scroll:Word of Recall (rugged):2:2:birth_no_recall
 equip:scroll:Satisfy Hunger (tattered):2:2:none
 equip:scroll:Phase Door:3:4:birth_no_recall
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
-value:0:STR[0]
+value:0:STR[0+1d30]
 value:0:INT[0]
 value:0:WIS[-2]
 value:0:DEX[2]
