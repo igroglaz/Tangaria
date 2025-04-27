@@ -7619,7 +7619,7 @@ msg_other: invokes a hellish storm.
 desc:Spews fire in a long narrow cone from you.
 desc: Cooldown 2 turns.
 
-############### CLASS TEMPLATE for Chronowarrior / Mesmer / Predictor
+############### CLASS TEMPLATE for Timeturner # Chronowarrior / Mesmer / Predictor
 name:Timeturner
 color:v
 skill-disarm-phys:28:8
@@ -7645,7 +7645,9 @@ value:0:STR[-2]
 value:0:WIS[2]
 value:0:DEX[1]
 value:0:CHR[0+1d15]
+# speed buffs stopping working at 50
 value:0:SPEED[0+1d5]
+# slow debuff affect them less (-5)
 player-flags:0:ZERO_FAIL
 obj-flag:0:CLUMSY
 value:50:RES_TIME[1]

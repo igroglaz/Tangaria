@@ -556,10 +556,17 @@ help:They don't fear lava and can't slip on ice.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Timeturner
-help:Extremely brittle, but lightning fast, they command time by void magic.
-help: Some call them 'Mesmers' as they also have battle telepathic powers.
-help: They become especially speedy after level 30.
-help: Their haste buff from the spell can stack its duration.|
+help:Extremely brittle but lightning fast, they command time through void magic.
+help: They age and weaken their enemies, draining life and mana from those with
+help: minds. Some foes crumble to dust as time collapses around them.
+help: They create shields of time to absorb damage and can rewind wounds,
+help: though side effects like blindness or confusion may follow.
+help: They slip between dungeon levels, fast forward to deeper depths, or
+help: unleash waves of chaotic time to break their foes.|
+help:Speed buffs (e.g. from potions) affect them weaker and weaker as they
+help: gain levels, since they develop an inner passive speed bonus over time.
+help: Also, slowing effects don't cripple them much.|
+help:At the peak of their power they gain resistance to time magic itself.
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Scavenger
