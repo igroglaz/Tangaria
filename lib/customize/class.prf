@@ -160,7 +160,7 @@ help:They gain experience a bit faster than others.
 class:Ranger
 help:A Ranger is at home in nature, and good at turning the environment to
 help: good use. Rangers balance melee prowess with deadly marksmanship,
-help: and one of the best of all the classes with missile weapons, especially
+help: and are among the best of all classes with missile weapons, especially
 help: bows.|
 help:Rangers are deeply attuned to nature, drawing strength and resilience from
 help: the wild. Forest magic keeps them going long after others would fall.
@@ -169,10 +169,10 @@ help: they can cure themselves with herbs, resist poisons, and never suffer
 help: from hunger.
 help: They excel at detection and navigation, able to sense nearby life and
 help: uncover hidden areas.|
-help:They blend archery and magic, and their arrows strike with deadly
-help: precision, often enhanced by nature's power. In battle, Rangers
-help: can become swift and relentless, while their tactical skills allow
-help: them to shape the environment and stay one step ahead of their foes.|
+help:Their arrows strike with deadly precision, often enhanced by nature's power.
+help: In battle, Rangers can become swift and relentless, while their tactical
+help: skills allow them to shape the environment and stay one step ahead of
+help: their foes.|
 help:A Ranger has solid stealth, sharp perception, a knack for searching,
 help: strong saving throws, and handles magical devices better than most.
 help: Their primary stats are strength, wisdom and dexterity.
@@ -203,36 +203,36 @@ help: terrain, sealing spaces with runes while defending themselves with mana
 help: shields and wraithform. Their unmatched mana reserves and telepathic
 help: abilities make them supreme strategists in the dungeon.|
 help:Though a high-level Sorcerer can be very powerful, getting there can be
-help: a difficult journey. On the downside, they are the worst fighters, being
-help: unable to use any weapon but a Mage Staff comfortably, and still unable
-help: to be anything even remotely approaching effective with it.
-help: A Sorceror has very few hit points compared to other classes, making
-help: survival difficult in the beginning. That's why this class is
-help: not recommended for beginners. Intelligence is the Sorceror's primary stat.|
+help: a difficult journey. They are the worst fighters, being unable to use any
+help: weapon but a Mage Staff comfortably, and still unable to be even remotely
+help: effective with it. A Sorceror has very few hit points compared to other
+help: classes, making survival difficult in the beginning. That's why this class
+help: is not recommended for beginners. Intelligence is the Sorceror's primary
+help: stat.|
 help:They're clumsy with ranged weapons until they become seasoned arcanists.
 
 class:Unbeliever
 help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
 help: not only do they refuse to use magic spells, they refuse all training in the
 help: use of magic items, which leaves them totally incompetent when trying
-help: to use a magic item, although they can still quaff potions and read scrolls.
+help: to use them, although they can still quaff potions and read scrolls.
 help: Their disbelief grants them an anti-magic aura, making magic fizzle nearby.
 help: Unbelievers can prevent magical gates from opening around them, eventually
-help: extending to a complete suppression of teleportation abilities and all
-help: magic in the surrounding area. Unbelievers can replenish their forces
-help: when fighting unnatural magic users. Also they can sense invisible
-help: creatures in melee range and cancel some other magic effects, e.g. when
-help: they drink from magic fountains, they often unmagic it. Their sheer will
-help: lets them resist most curses, though they can't lift them.
+help: extending to a complete suppression of teleportation and all magic in the
+help: surrounding area. They replenish their forces when fighting unnatural magic
+help: users and can sense invisible creatures in melee range. Their presence can
+help: cancel magic effects - when they drink from magic fountains, they often
+help: unmagic it. Their sheer will lets them resist most curses, though they
+help: can't lift them.
 
 class:Hunter
 help:Hunters aren't good at fighting, but can shoot and throw faster than others,
 help: landing multiple hits quickly. They can die quickly too, however. 
-help: Hunters are to arrows what Warriors are to melee. They are the best around
-help: with any bow, crossbow or sling. 
-help: They can use wide-range of tricks, traps and even magic
-help: in their hunt in the dungeons. Hunters wield elemental magic to empower
-help: their shots with fire, frost, lightning, acid, poison, and even sound.
+help: Hunters are to arrows what Warriors are to melee. They are the best with
+help: any bow, crossbow or sling. 
+help: They can use wide-range of tricks and traps in their hunt in the dungeons. 
+help: Hunters blend archery and magic, to empower their shots with fire, frost,
+help: lightning, acid, poison, and even sound.
 help: Their missiles can explode, confuse enemies, pierce armor or combine
 help: the forces of nature in a single deadly strike.
 help: They sense living creatures nearby, map surroundings,
@@ -618,20 +618,20 @@ help: for ore, then forge their own equipment, shaping weapons and
 help: armor to suit their needs. Crafting can be done directly in the dungeon.
 help: The higher their level, the better the quality - from simple items to those
 help: with magical properties. However, true artifacts can never be crafted.
-help: Crafting consumes materials and drains some of their stamina, so it's not
-help: something done lightly. |
-help:Crafter equipment is soulbound and can be used only by its creator; you can't
-help: trade it or drop it on the ground. To get rid of crafted equipment you no
-help: longer need: use the 'k' key to destroy it. |
-help:Crafters can deploy battle sentries, which evolve as they gain experience -
-help: starting from whirling blades and dart launchers, spear throwers, and later
-help: advancing to acid sprayers, fire turrets, and even storm pillars crackling
-help: with lightning. Sentries consume extra mana at higher levels, and failing
-help: to meet the cost can leave the crafter severely exhausted.
-help:They can also build walls in the heat of battle, shaping the terrain to
-help: block enemies or create cover, though it takes some time to complete. |
-help:Crafters carry heavy loads but suffer less from the weight. They prefer to
-help: work alone and can't form parties with others.
+help: Crafting consumes materials and drains stamina, so choose when to craft
+help: wisely. |
+help:Crafter equipment is soulbound and can be used only by its creator;
+help: you can't trade it or drop it on the ground.
+help: Use the 'k' key to destroy unwanted items. |
+help:Crafters can deploy battle sentries that evolve with experience -
+help: from whirling blades and dart launchers to spear throwers, advancing later
+help: to acid sprayers, fire turrets, and even storm pillars crackling with
+help: lightning. Advanced sentries consume more mana, and insufficient mana
+help: can leave the crafter severely exhausted. |
+help:They can also build walls during combat to shape the terrain,
+help: blocking enemies or creating cover, though construction takes time. |
+help:Crafters carry heavy loads with less penalty from weight. They are solitary
+help: by nature and cannot form parties with others.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.
