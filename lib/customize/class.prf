@@ -66,7 +66,7 @@ help:Their spells cover a wide range - from simple detection and teleportation
 help: to powerful elemental blasts and protective wards, but their favorite is
 help: the Fireball spell, which they use especially well. They are also skilled
 help: at making some of their spells pierce through multiple enemies in a line.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned casters.
 
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
@@ -84,7 +84,7 @@ help: and vitality when needed. Their magic shapes the land itself - raising
 help: trees, splitting stone, and shaking the earth beneath their feet. Their
 help: senses stretch far beyond the eye, revealing life, hidden paths, and 
 help: forgotten lore. Shamans rely on their wisdom, and have good saving throws.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned wardens.
 
 class:Priest
 help:A Priest is a character of holy devotion. They explore the dungeon only
@@ -105,7 +105,7 @@ help: of failure. Priests have poor stealth.|
 help:Although weak in the beginning, priests can become decent fighters 
 help: who strongly prefer blunt weapons over edged ones; if they wield one that
 help: isn't blessed, they receive an additional severe penalty.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned preachers.
 
 class:Warlock
 help:A Warlock must live by his wits. He cannot hope to simply hack his way
@@ -122,7 +122,7 @@ help:Their spells require high intelligence and frequently harm the caster or
 help: place them in danger. In return, they achieve awesome power at high levels.
 help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
 help: up a tyranny in his place.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned cultists.
 
 class:Paladin
 help:A Paladin is a holy warrior. Paladins are very good fighters, second
@@ -212,7 +212,7 @@ help: to be anything even remotely approaching effective with it.
 help: A Sorceror has very few hit points compared to other classes, making
 help: survival difficult in the beginning. That's why this class is
 help: not recommended for beginners. Intelligence is the Sorceror's primary stat.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned arcanists.
 
 class:Unbeliever
 help:The full opposite of Sorcerors, Unbelievers so strongly despise magic that
@@ -278,7 +278,7 @@ help: resistances as they grow: fire at 10, cold at 15, acid at 20,
 help: lightning at 25. |
 help:Each time they level up, they can sharpen their craft by studying the
 help: same spells again, making each one stronger and more potent.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned conduits.
 
 class:Summoner
 help:A Summoner begins their journey frail and defenseless, with little
@@ -299,7 +299,7 @@ help: Summoners use wisdom to cast spells and summon allies, and to determine
 help: how many they can control and how well they can command them.
 help: They are naturally charismatic, which helps them in spellcasting too.
 help: They favor clean, blessed weapons when they must wield one.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned masters.
 
 class:Shapechanger
 help:Shapechangers possess the ability to transform into various creatures by 
@@ -366,7 +366,7 @@ help:- BEAR: tough and powerful, but very noisy and a bit clumsy.
 help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
 help:Druids' hitpoints does not influenced by its forms and they cannot cast spells
 help: while in animal form, bad at trap disarming and magical devices.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned sages.
 
 class:Fighter
 help:Mercenary who uses different fighting tricks and blows to survive at all
@@ -456,7 +456,7 @@ help: where others are blind.
 help: Though poor in melee, they siphon a touch of life from living foes - a hint
 help: of traumaturgy. And while they are not skilled fighters, they know how to
 help: dig (graves... a professional touch).|
-help:They are clumsy with ranged weapons until they become seasoned adventurers.
+help:They are clumsy with ranged weapons until their souls wither.
 
 class:Hermit
 help:Once frail and burdened by sickness, the hermit turned to the path of light.
@@ -470,7 +470,7 @@ help: or craft sacred water when needed.
 help: During their quiet, humble ways, hermits become stealthier as wind during
 help: their training. Their wisdom isn't worn on their sleeve, but it lingers in
 help: every step and settles in every strike.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned pilgrims.
 
 class:Wizard
 help:A legendary magician, keeper of ancient secrets long forgotten by the world.
@@ -487,7 +487,7 @@ help:Yet wielding such forces comes at a price: their body wears thin against
 help: the chaos they summon. Minds burning bright with arcane fire, they grow
 help: grumpy, subtle, and quick to anger. Some say they balance on the creeping
 help: edge of madness. |
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned magi.
 
 class:Trader
 help:An enterprising merchant who went into the dungeon to fulfill his life
@@ -511,7 +511,7 @@ help: watching, judging, perhaps luckier than he is. |
 help:They carry more than most, their steps less burdened by heavy packs. |
 help:They can't form a party with other players - the Traders Guild forbids it
 help:(and, honestly, they're too greedy to split the loot). |
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned merchants.
 
 class:Assassin
 help:Stealthy slayers who blend blades and shadow magic and know 100500
@@ -553,7 +553,7 @@ help: and even seal themselves in invulnerable icy cocoon to recover.|
 help:At level 10 they brand their melee blows with fire or cold, and by level
 help: 30, they gain innate resistances to both.|
 help:They don't fear lava and can't slip on ice.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned.
 
 class:Timeturner
 help:Extremely brittle but lightning fast, they command time through void magic.
@@ -567,7 +567,7 @@ help:Speed buffs (e.g. from potions) affect them weaker and weaker as they
 help: gain levels, since they develop an inner passive speed bonus over time.
 help: Also, slowing effects don't cripple them much.|
 help:At the peak of their power they gain resistance to time magic itself.
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned seers.
 
 class:Scavenger
 help:Vagabond who ventured to the dungeons to get his hands on monster treasures,
@@ -613,7 +613,7 @@ help: and heal themselves using gathered herbs. They can even summon a golem
 help: to fight by their side!|
 help:They are loners by nature - alchemists trust their craft and their golem,
 help: but rarely trust other people. Forming a party with others? Not their way.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:They're clumsy with ranged weapons until they become seasoned artisans.
 
 class:Crafter
 help:Crafters gather resources by chopping trees for logs or mining mountains
@@ -638,16 +638,25 @@ help: work alone and can't form parties with others.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.
-help: They hate sorcery and witchcraft, which they judge as black magic and idolatry.
-help: They themselves refuse to use common magic, they refuse all
-help: training in the use of magic items, although they can still quaff potions
-help: and read scrolls, which they accept as minor evils to fight greater evil.
-help: Because they are so hateful towards magic, Inquisitors can prevent magical
-help: gates from opening around them, eventually extending to a complete
-help: suppression of all magic in the area around them. |
-help:They prefer not to use weapons, but to break bones with their bare hands... |
-help:Inquisitors replenish their life forces by hurting victims who fear them.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help: They hate sorcery and witchcraft, judging them as black magic and idolatry.
+help: Inquisitors refuse to wield magic or use magical devices, relying instead
+help: on their fists and determination. Their hatred for magic is so strong
+help: that they suppress magical gates and, with experience, can even block
+help: all magic around them.|
+help:Despite their fanatism, Inquisitors wield forbidden powers through
+help: sheer will — either thinking of them as divine gifts or knowing the truth
+help: and using these powers to reach ruthless goals. Their anti-magic field
+help: suppresses external spells, but their own dark rites still work within it.
+help: They torture minds, drain souls, and summon hellfire to burn heresy.
+help: They descend deeper into the dungeon, drawing strength from tormenting the
+help: wicked, and summon hounds to aid them. Their curses weaken enemies, walls
+help: imprison sinners, and retribution eventually finds all heretics.|
+help:Though they refuse to use common magic or train with magical devices, they
+help: still quaff potions and read scrolls — minor evils to fight greater ones.|
+help:They prefer not to use weapons, but to break bones with their bare hands...|
+help:They replenish their life by hurting foes who fear them, drawing strength
+help: from the terror they inspire.|
+help:They're clumsy with ranged weapons until they become seasoned persecutors.
 
 class:Villager
 help:Villagers are common folks, versatile and able to do anything, but also

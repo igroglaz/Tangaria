@@ -8152,6 +8152,7 @@ value:0:ANTI_MAGIC[1d1]
 player-flags:0:MARTIAL_ARTS
 obj-flag:0:CLUMSY
 # harming fearful enemies -> restore life
+# can cast through his ANTI-MAGIC field
 value:0:BLOWS[1d1]
 title:Rookie
 title:Initiate
