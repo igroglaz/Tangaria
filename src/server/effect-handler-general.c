@@ -2283,9 +2283,9 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     /* Darken the room */
     light_room(context->origin->player, context->cave, &target, false);
 
-    // warlocks likes darkness
+    // warlocks likes darkness (heals them a bit)
     if (streq(context->origin->player->clazz->name, "Warlock"))
-        context->origin->player->chp += 1;
+        hp_player(context->origin->player, 5);
 
     /* Hack -- blind the player directly if player-cast */
     if (!context->origin->monster)
