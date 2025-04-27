@@ -593,17 +593,26 @@ help: and prefer to work alone. Their only friend is a scrappy little rat - clev
 help: loyal, and always ready to cause a distraction when things get dicey.
 
 class:Alchemist
-help:Can brew potions and concoct elixirs which can not only bring devastation and
-help: exterminate all living creatures, but also may bring cure and hope.
-help: To make a potion, they should first gather a reagent. Some reagents are
-help: organic and may be found in plants. Some are minerals and may be gathered by
-help: mining. Brewing a potion takes some time and concentration, during which
-help: the alchemist is very vulnerable. |
-help:Brewed potions are soulbound and can be used only by creator; you can not
-help: neither trade it, nor drop it on the ground.
-help: To get rid of potions that you don't need:
-help: use 'k' key to destroy it or simply drink it or throw into enemies. |
-help:They can not form a party with other players.|
+help:Alchemists trust not in steel or sorcery, but in the power of what they brew.
+help: Masters of potions, they craft all kinds of mixtures: healing draughts,
+help: explosive flasks, corrosive acids, potent poisons, elixirs that boost speed
+help: or grant resistances. Some potions reshape the battlefield itself - 
+help: burning enemies, knocking them back, or even causing trees to sprout from
+help: the ground. Just throw them at foes to unleash their power!
+help: Other potions restore health or mana, cure poison, or transform
+help: the drinker into strange forms for a time. |
+help:To craft a potion, they first gather reagents. Some are organic, found in
+help: plants; others are minerals, mined from deep within the earth.
+help: Brewing takes time and focus, leaving the alchemist vulnerable while working.
+help: Brewed potions are soulbound - only the creator can use them. You can't
+help: trade or drop them.
+help: To get rid of potions you don’t need, press 'k' to destroy them, drink them,
+help: or throw them at enemies.|
+help:Beyond potions, alchemists can shroud foes in corrosive fog,
+help: and heal themselves using gathered herbs. They can even summon a golem
+help: to fight by their side!|
+help:They are loners by nature - alchemists trust their craft and their golem,
+help: but rarely trust other people. Forming a party with others? Not their way.|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Crafter
