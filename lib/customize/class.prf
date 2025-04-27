@@ -659,16 +659,29 @@ help: from the terror they inspire.|
 help:They're clumsy with ranged weapons until they become seasoned persecutors.
 
 class:Villager
-help:Villagers are common folks, versatile and able to do anything, but also
-help: average at everything they do. They have no strengths nor weaknesses.
-help: Villagers use stamina given by their constitution to perform common tasks
-help: and can be accompanied by a single pet that they can summon at their leisure.
-help: They can chop wood and mine ore more easily as they advance in levels.|
-help:In dire moments, when hunger tightens its grip, a Villager may search
-help: through farmers' fields in the suburbs - once rich with harvest, now empty
-help: and bitter, touched by the gods' curse. No cattle remain, and the soil yields
-help: almost nothing. Still, with patience, a Villager might unearth a few
-help: forgotten roots or buried crops left behind. It is stealing -
-help: but when the choice is between starving and digging up what a farmer forgot,
-help: even the crow pecks grain it didn't sow.|
-help:They're clumsy with ranged weapons until they become seasoned adventurers.
+help:Villagers are common folk. Without special strengths, their simple life
+help: provides them with practical skills.
+help:Villagers journey with a loyal pet, which they can occasionally summon
+help: from the wilds. As they survive challenges, they develop keen senses
+help: to detect hidden doors, stairs, traps, or lurking monsters while patrolling.
+help: In time, they learn to coat their weapons or arrows with poison and, as
+help: seasoned brawlers, master the craft of door-making to block dangerous
+help: passages. Each of these tasks draws upon stamina provided by their
+help: constitution. Though modest, these skills help them endure where
+help: others might falter. |
+help:In desperate times, when hunger's grip tightens, a Villager may search
+help: through abandoned fields in the suburbs — once abundant with harvest,
+help: now barren and forsaken, touched by the gods' curse. No livestock
+help: remains, and the soil yields almost nothing. Yet with persistence,
+help: a Villager might uncover a few forgotten roots or buried crops left
+help: behind. It is technically stealing — but when choosing between
+help: starvation and salvaging what a farmer abandoned, even the crow
+help: claims grain it never sowed. |
+help:They can harvest wood and extract ore with increasing efficiency as
+help: they gain experience. |
+help:They handle ranged weapons awkwardly until they mature into seasoned
+help: adventurers.
+
+
+
+

@@ -4879,6 +4879,7 @@ equip:scroll:Phase Door:3:4:birth_no_recall
 player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
 obj-flag:0:CLUMSY
 # - CLUMSY (so a bit harder to play than PWMA)
+# summon (spell) pet
 # when Hungry - can steal veggies from T fields
 title:Rambler
 title:Walker
