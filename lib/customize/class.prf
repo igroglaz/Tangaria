@@ -12,22 +12,23 @@ help:A Warrior is a hack-and-slash character, who solves most problems
 help: by cutting them to pieces, but will occasionally fall back on the help of
 help: a magical device. Their prime stats are strength, constitution, and
 help: dexterity, and they will strike more blows with melee weapons than any
-help: other class. A Warrior will be excellent at fighting, shooting and
-help: throwing, but bad at most other skills. A warrior has bad stealth and
+help: other class. Warriors excel at fighting, shooting and throwing, but
+help: perform poorly at most other skills. A warrior has bad stealth and
 help: cannot learn any spells.
 
 class:Archer
 help:An Archer can shoot a squirrel in the eye so fur would not be spoiled.
-help: Very good in archery, they don't really know from which side to hold a sword;
-help: they don't need one honestly. With the ability to hurl multiple arrows
-help: at long distances, an Archer can inflict more damage in a single turn than
-help: any other character class, including mages. However, outside of their
-help: powerful bow, Archers are relatively weak compared to the other classes.
-help: They don't have any healing nor defensive spells like the magical 
-help: classes to compensate. Archers especially like bows; shooting with them, 
-help: they could achieve incredible speed and precision; much better than with 
-help: a crossbow or a sling. Some Archers in time can learn how to coat their
-help: arrows with poison or use sharper tips to cut deeper.|
+help: Masters of ranged combat, they don't really know from which side to
+help: hold a sword; they don't need one honestly.
+help: With the ability to hurl multiple arrows at long distances, an Archer
+help: can inflict more damage in a single turn than any other character class,
+help: including mages. However, outside of their powerful bow, Archers are
+help: relatively weak compared to other classes.
+help: They lack healing and defensive spells that magical classes possess
+help: to compensate. Archers excel particularly with bows, achieving incredible
+help: speed and precision far superior to crossbows or slings. With experience,
+help: some Archers learn to coat their arrows with poison or use sharper tips
+help: to inflict deeper wounds.|
 help:Also they can see farther than others.
 
 class:Monk
@@ -638,23 +639,23 @@ help: work alone and can't form parties with others.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.
-help: They hate sorcery and witchcraft, judging them as black magic and idolatry.
-help: Inquisitors refuse to wield magic or use magical devices, relying instead
-help: on their fists and determination. Their hatred for magic is so strong
-help: that they suppress magical gates and, with experience, can even block
-help: all magic around them.|
-help:Despite their fanatism, Inquisitors wield forbidden powers through
-help: sheer will — either thinking of them as divine gifts or knowing the truth
-help: and using these powers to reach ruthless goals. Their anti-magic field
-help: suppresses external spells, but their own dark rites still work within it.
-help: They torture minds, drain souls, and summon hellfire to burn heresy.
+help: They despise sorcery and witchcraft, condemning them as black magic and idolatry.
+help: Inquisitors refuse to wield magic or use enchanted devices, relying instead
+help: on their fists and unwavering determination. Their hatred for magic is so strong
+help: that they suppress magical gates and, with experience, can block all arcane
+help: forces around them.|
+help:Despite their fanaticism, Inquisitors command forbidden powers through
+help: sheer will — either viewing them as divine gifts or acknowledging the truth
+help: and wielding these abilities to achieve ruthless goals. Their anti-magic field
+help: suppresses external spells, while their own dark rites function within it.
+help: They torture minds, drain souls, and call forth hellfire to purge heresy.
 help: They descend deeper into the dungeon, drawing strength from tormenting the
-help: wicked, and summon hounds to aid them. Their curses weaken enemies, walls
-help: imprison sinners, and retribution eventually finds all heretics.|
-help:Though they refuse to use common magic or train with magical devices, they
-help: still quaff potions and read scrolls — minor evils to fight greater ones.|
-help:They prefer not to use weapons, but to break bones with their bare hands...|
-help:They replenish their life by hurting foes who fear them, drawing strength
+help: wicked and summon hounds to aid their crusade. Their curses weaken enemies, walls
+help: imprison sinners, and retribution inevitably finds all heretics.|
+help:Though they shun conventional magic, they still quaff potions and read scrolls —
+help: minor evils necessary to combat greater ones.|
+help:They prefer breaking bones with their bare hands rather than using weapons...|
+help:They replenish their life force by harming foes who fear them, drawing power
 help: from the terror they inspire.|
 help:They're clumsy with ranged weapons until they become seasoned persecutors.
 
