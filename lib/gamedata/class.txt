@@ -7836,7 +7836,7 @@ value:0:CON[0]
 value:0:CHR[-1]
 # got rat
 # cant join party
-# 20+ ego, 30 randart, 40 trueart
+# disassemble: 20+ ego, 30 randart, 40 trueart
 # + less speed penalty due overweight
 title:Rookie
 title:Initiate
@@ -8077,7 +8077,6 @@ value:0:WIS[0+1d32]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[0]
-# disassemble: 20+ ego, 30 randart, 40 trueart
 # can create items which are bound to player
 # if item not needed - it should be destroyed with 'k'
 # + less speed penalty due overweight

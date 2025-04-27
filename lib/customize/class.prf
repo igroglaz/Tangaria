@@ -606,7 +606,7 @@ help: plants; others are minerals, mined from deep within the earth.
 help: Brewing takes time and focus, leaving the alchemist vulnerable while working.
 help: Brewed potions are soulbound - only the creator can use them. You can't
 help: trade or drop them.
-help: To get rid of potions you don’t need, press 'k' to destroy them, drink them,
+help: To get rid of potions you don't need, press 'k' to destroy them, drink them,
 help: or throw them at enemies.|
 help:Beyond potions, alchemists can shroud foes in corrosive fog,
 help: and heal themselves using gathered herbs. They can even summon a golem
@@ -616,14 +616,25 @@ help: but rarely trust other people. Forming a party with others? Not their way.
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Crafter
-help:Can gather resources by chopping trees for logs or mining mountains for ore,
-help: to use these materials in crafting equipment. |
-help:Crafter equipment is soulbound and can be fitted only on creator; you can not
-help: neither trade it, nor drop it on the ground. |
-help:To get rid of crafted equipment that you don't need:
-help: use 'k' key to destroy it. |
-help:They can not form a party with other players.|
-help:They got less speed penalty due overweight.
+help:Crafters gather resources by chopping trees for logs or mining mountains
+help: for ore, then forge their own equipment, shaping weapons and 
+help: armor to suit their needs. Crafting can be done directly in the dungeon.
+help: The higher their level, the better the quality - from simple items to those
+help: with magical properties. However, true artifacts can never be crafted.
+help: Crafting consumes materials and drains some of their stamina, so it's not
+help: something done lightly. |
+help:Crafter equipment is soulbound and can be used only by its creator; you can't
+help: trade it or drop it on the ground. To get rid of crafted equipment you no
+help: longer need: use the 'k' key to destroy it. |
+help:Crafters can deploy battle sentries, which evolve as they gain experience -
+help: starting from whirling blades and dart launchers, spear throwers, and later
+help: advancing to acid sprayers, fire turrets, and even storm pillars crackling
+help: with lightning. Sentries consume extra mana at higher levels, and failing
+help: to meet the cost can leave the crafter severely exhausted.
+help:They can also build walls in the heat of battle, shaping the terrain to
+help: block enemies or create cover, though it takes some time to complete. |
+help:Crafters carry heavy loads but suffer less from the weight. They prefer to
+help: work alone and can't form parties with others.
 
 class:Inquisitor
 help:Inquisitors exterminate heretics, witches and other sacrilege magic riffraff.

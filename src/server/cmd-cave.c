@@ -1316,7 +1316,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             if (!inven_carry_okay(p, dig_reagent))
             {
                 object_delete(&dig_reagent);
-                msg(p, "Your backpack if too full to find minerals!");
+                msg(p, "Your backpack is too full to add something there!");
                 return false;
             }
 
@@ -1324,7 +1324,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             if (!weight_okay(p, dig_reagent))
             {
                 object_delete(&dig_reagent);
-                msg(p, "Your backpack if too heavy to get materials!");
+                msg(p, "Your backpack is too heavy to add something there!");
                 return false;
             }
             set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
