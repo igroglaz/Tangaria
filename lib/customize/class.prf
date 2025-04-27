@@ -244,17 +244,17 @@ help: Wisdom and dexterity are the hunter's primary stats.|
 class:Telepath
 help:The Telepath is a hero who uses the powers of mind instead of magic;
 help: mindcrafters, they can weaken or even kill with their wits.
-help: Their powers vary from simple extrasensory powers to mental
+help: Their abilities range from extrasensory perception to mental
 help: domination of others.|
 help:Telepaths wield mental blasts, crush minds, confuse and stun their foes.
 help: They sense monsters, read thoughts, map surroundings and 
-help: can reveal hidden objects. Their minds can control light, heal their
-help: bodies, and resist many dangers. With telekinesis, they move objects and
-help: displace enemies from afar. They shield themselves with force fields and
-help: resist poison, elements and time. Advanced Telepaths can manipulate
+help: reveal hidden objects. Their minds can control light, heal their
+help: bodies, and resist many dangers. Through telekinesis, they move objects and
+help: displace enemies from afar. They shield themselves with force fields,
+help: resisting poison, elements and time. Advanced Telepaths manipulate
 help: probability, travel through space-time, and unleash devastating waves
 help: of pure mental force. Telepaths channel their powers in steady beams,
-help: never missing their mark. And their minds are shielded from amnesia and
+help: never missing their mark, with minds shielded from amnesia and
 help: memory loss. They use the Wisdom score to determine how 
 help: well they can perform these psychic powers. |
 help:In solo combat, a Telepath is slightly weaker than a Priest, although
@@ -284,54 +284,54 @@ help: Yet, their true strength lies elsewhere. With a whispered word or a
 help: secret gesture, they call forth creatures who fight in their stead.
 help: Though the Summoner keeps a safe distance, the victories of their
 help: companions still nourish their growth.|
-help:Summoners know countless summoning rites: from jelly and vortex to hydra.
-help: They charm their minions, extend their lifespan, or even make them
-help: explode. Their magic isn't only about summoning. They can light up the
-help: darkest corners, sense lurking evil, heal their wounds, or open 
-help: a portal to step away from trouble. They shield themselves and grow
-help: stronger. Their thunderstorms bursts outward, and when needed, they can
-help: banish foes. Summoners prevent other creatures from calling reinforcements
-help: too. Some spells don't even drain mana, like calling a swarm of angry bees.
-help: Summoners use wisdom to cast spells and summon allies, and to determine
-help: how many they can control and how well they can command them.
-help: They are naturally charismatic, which helps them in spellcasting too.
-help: They favor clean, blessed weapons when they must wield one.|
-help:They're clumsy with ranged weapons until they become seasoned masters.
+help:Summoners master countless summoning rites: from jellies and vortices
+help: to hydras. They charm their minions, extend their lifespan, or even
+help: make them explode. Their magic extends beyond summoning - they
+help: illuminate the darkest corners, sense lurking evil, heal wounds,
+help: or open portals to escape trouble. They shield themselves as they grow
+help: stronger. Their thunderstorms burst outward, and when needed, they can
+help: banish foes or prevent other creatures from calling reinforcements.
+help: Some spells don't even drain mana, like calling a swarm of angry bees.|
+help:Wisdom guides their spellcasting and determines how many allies they can
+help: control and how effectively they command them. Their natural charisma
+help: enhances their magical abilities. While they favor clean, blessed weapons
+help: when forced into combat, they remain clumsy with ranged weapons until
+help: becoming seasoned masters.
 
 class:Shapechanger
 help:Shapechangers possess the ability to transform into various creatures by 
-help: defeating them in battle. They are fighters that gain abilities from the forms
-help: they can mimic. Basically, Shapechangers will melee a lot, benefiting
-help: from their current form (resists, melee brands, defense, speed, damage 
-help: boosts). Some of these forms provide innate spells - from simple
+help: defeating them in battle. They are fighters that gain abilities from the
+help: forms they can mimic. Shapechangers excel in melee combat, benefiting
+help: from their current form's advantages (resistances, melee brands, defense,
+help: speed, damage boosts). Some forms provide innate spells - from simple
 help: strikes to storms, from healing touches to dark summons... and even breath 
 help: attacks! Some forms whisper of powers that control, others of those that
 help: destroy. |
-help:Shapechangers get basic mana points to cast these spells*. 
+help:Shapechangers receive basic mana points to cast these spells*. 
 help: The higher the level of the monster, the more of these
-help: creatures the Shapechanger is required to vanquish before they can assume
+help: creatures the Shapechanger must vanquish before they can assume
 help: their form. While transformed, they lose their intrinsic abilities and
-help: gain those of the creature they have transformed into, plus whatever
+help: gain those of the creature they've transformed into, plus whatever
 help: abilities and resistances are provided by their equipment. |
 help:Outside of battle, Shapechangers rarely win hearts - their presence is
 help: unsettling, something not quite human lingering beneath the surface. |
 help: *Some breath attacks, like for the Dragon race, don't cost mana but
-help: hit points instead. Also, some races that have their own polymorph or
-help: shape forms have certain restrictions on being Shapechangers.
+help: hit points instead. Additionally, some races with their own polymorph or
+help: shape-shifting abilities have certain restrictions on being Shapechangers.
 
 class:Tamer
-help:Scar-covered hands of a tamer - a person who devoted his life and (remaining)
+help:Scar-covered hands of a tamer - a person who devoted their life and (remaining)
 help: limbs to care for wild creatures - tell you everything about how tedious
 help: and dangerous this path is. Dense thickets, burning sands, treacherous
 help: mountains - you'll go anywhere to find a dragon in its den... and make
 help: friends with it. That is your life's ambition.|
 help:A tamer's body is fragile, but their companion stands between them and
 help: danger. Their strength lies in the bond they share with their beasts.
-help: Each beast you befriend teaches you something - a new way to fight,
+help: Each creature you befriend teaches you something new - a way to fight,
 help: to heal, or to endure. A frog's leap through poison clouds, the sharp
 help: eye of a falcon, the calming warmth of a bear - all become part of you. |
-help:But tamers rely not only on their furry friends. They know a few tricks
-help: themselves - how to vanish in a blink, walk unseen, or even command
+help:Tamers rely not only on their furry friends. They know their own tricks
+help: too - how to vanish in a blink, walk unseen, or even command
 help: the wilds to part.|
 help:It's not brute strength that tames a beast, but patience, wisdom, and a
 help: touch of charm. Animals feel it. They trust you. Sometimes. And with 
@@ -341,28 +341,31 @@ class:Druid
 help:Druids are wanderers of the wild, attuned to the presence of nearby animals
 help: and even able to shift into their forms. Skilled in martial arts and
 help: avoiding weapons, they also wield nature magic.
-help: Every 5 levels can learn a new animal form to transform; some
+help: Every 5 levels they can learn a new animal form to transform into; some
 help: forms have innate abilities (to use them, press 'y' key).
-help: Druid has to find spellbooks in the dungeons; such books are not for sale. |
+help: Druids must find spellbooks in the dungeons; such books are not for sale. |
 help:Druid forms:|
 help:- BIRD: fast and able to fly over water and other terrain; can heal ('y').
 help: Fragile and worthless in combat, but can dodge melee attacks well.
 help: Resistant to gravity. |
 help:- RAT: harmless and stealthy, rats can find little cracks and holes in the
-help: walls to pass through them. They can avoid traps most of the time and able to
-help: sniff items to detect curses on them. Resistant to poison and can life drain. |
-help:- BOAR: find different edible plants which reduce its nourishment consumption;
-help: good in mushroom's identification. Boars are very wise, have high vitality
-help: and fearless. Can charge at its enemies from distance ('y'). |
-help:- CAT: stealthy and nimble. Can backstab sleeping target.
-help: Regenerate especially fast, but bad at mana restoring. |
+help: walls to pass through them. They can avoid traps most of the time and are
+help: able to sniff items to detect curses on them. Resistant to poison and
+help: can life drain. |
+help:- BOAR: finds edible plants which reduce nourishment consumption;
+help: good at mushroom identification. Boars are very wise, have high vitality
+help: and are fearless. Can charge at enemies from a distance ('y'). |
+help:- CAT: stealthy and nimble. Can backstab sleeping targets.
+help: Regenerates especially fast, but poor at mana restoration. |
 help:- WOLF: makes fast vicious attacks; can howl to summon allies ('y').
 help: Less resistant to magic, except dark arts. Reckless in defense,
 help: but generates rage while in combat. |
 help:- BEAR: tough and powerful, but very noisy and a bit clumsy.
-help: Can survive even very harsh blows and curses. Can bash enemies and stun them. |
-help:Druids' hitpoints does not influenced by its forms and they cannot cast spells
-help: while in animal form, bad at trap disarming and magical devices.|
+help: Can survive even very harsh blows and curses.
+help: Can bash enemies and stun them. |
+help:Druids' hitpoints are not influenced by their forms and they cannot
+help: cast spells while in animal form.
+help: They are bad at trap disarming and using magical devices.|
 help:They're clumsy with ranged weapons until they become seasoned sages.
 
 class:Fighter
@@ -374,14 +377,14 @@ help: Known for their reckless attacks and sudden retreats, fighters balance
 help: between luck, experience, and survival instinct. Between fights, they patch
 help: themselves up - no wizardry, just rough hands and grit. And as seasoned
 help: warriors, they value every calm moment and can take a nap here and there,
-help: which helps restore their strengths even after nasty moments.|
-help: Fighters can sense hidden weapon properties better than others and may
+help: which helps restore their vigour even after nasty encounters.|
+help:Fighters can sense hidden weapon properties better than others and may
 help: identify cursed gear without using magical means.
-help: Their focus ("mana" pool) depends on their strength and intelligence
-help: combined. |
-help: Fighters are very superstitious and believe in fortune.
-help: As they care a lot about signs and omens, they may get lucky to survive
-help: blows that would be mortal wounds for anyone else.
+help: Their focus ("mana" pool) depends on the combination of their strength and
+help: intelligence. |
+help:Fighters are very superstitious and believe in fortune.
+help: As they care deeply about signs and omens, they may get lucky enough to
+help: survive blows that would be mortal wounds for anyone else.
 
 class:Knight
 help:Noble knight in heavy armour who charges into enemies with immense power.
@@ -393,14 +396,14 @@ help:Defensive stance toughens them up, shrugging off stunning blows.|
 help:Offensive stance fuels their courage, pushing away fear.|
 help:Knights are resilient and disciplined, but lack stealth and magical
 help: finesse. They excel in melee combat and can handle crossbows when needed,
-help: turning raw strength and endurance into their greatest advantage.|
+help: turning raw strength and endurance into their greatest advantages.|
 help:Their code of honour forbids them from attacking unaware enemies - 
-help: they always hail before the fight.
+help: they always announce themselves before engaging in combat.
 
 class:Traveller
 help:"Jack of all trades, master of none..."
-help:A common soul who knows a bit of magic and isn't too bad with a weapon..
-help: He never walks alone - there's always a four-legged friend by his side.
+help:A common soul who knows a bit of magic and isn't too bad with a weapon.
+help: They never walk alone - there's always a four-legged friend by their side.
 help: Travellers are sure they know everything about maps, directions and 
 help: cardinal points... but their overconfidence often leads to real trouble.
 help: They set out with a handful of useful items, just in case.
@@ -408,7 +411,7 @@ help: Seasoned travellers are no strangers to fear; they can teleport, patch
 help: themselves up, or conjure a snack when hunger bites. They kindle bonfires
 help: to ward off beasts, sketch maps when lost, sense nearby evil, and hurl
 help: bolts of fire when words fail. They know how to bless themselves before
-help: a fight, stumble upon hidden paths between levels, blink away from danger,
+help: a fight, discover hidden paths between levels, blink away from danger,
 help: and never forget the value of a well-placed glyph.
 help: 
 help: p.s.
@@ -416,16 +419,16 @@ help: "..though oftentimes better than master of one".|
 help:They're clumsy with ranged weapons until they become seasoned adventurers.
 
 class:Bard
-help:Expert in musicianship and singing, you can not only give joy to people,
+help:Expert in musicianship and singing, you can not only bring joy to people,
 help: but also know how to use music magic to bring cure and wreak havoc.
 help: Bards weave magic into their music - from soothing tunes that mend wounds
 help: to thundering chords that shatter walls. Their voice can calm foes or drive
 help: them into confusion. When danger rises, they call upon ancient hymns to
 help: shield themselves or raise a glyph of protection. Some songs grant speed,
-help: some courage, and a few strike like a storm.|
+help: some courage, and others strike like a storm.|
 help:Bards are naturally charismatic, charming crowds with ease. Though quite
 help: slender, they're surprisingly nimble and quick on their feet.|
-help: They are resistant to sound attacks.
+help:They are resistant to sound attacks.
 
 class:Battlemage
 help:Battlemages specialize in destroying enemies not only with the power of
@@ -433,13 +436,13 @@ help: the elements, but also with skillful melee combat - making them a
 help: universal death machine. There's no reason a Battlemage can't become a
 help: good fighter, but magic is their true realm.|
 help:Their spells rarely fail, and their magic bends toward battle - layering
-help: resistances, hurling lightning and ice, or pulling the earth itself apart.
+help: resistances, hurling lightning and ice, or tearing the earth itself apart.
 help: From a spark to a storm, from a stone to a black hole - their arsenal
-help: leaves little untouched when they teleport through the fray, strike from
+help: leaves little untouched as they teleport through the fray, strike from
 help: unexpected angles, and wield heavy weapons with brutal efficiency. When
 help: wounded, they know how to patch themselves up and keep going.|
 help:Unlike other magic users, Battlemages have no trouble wielding ranged
-help: weapons or throwing things.
+help: weapons or throwing objects.
 
 class:Necromancer
 help:Weak and fragile, necromancers wield the power to raise and command armies
@@ -451,7 +454,7 @@ help: loyalty of the dead to keep them standing. Their spells rarely fail.
 help: With each level, their sight into the darkness sharpens - they see farther
 help: where others are blind.
 help: Though poor in melee, they siphon a touch of life from living foes - a hint
-help: of traumaturgy. And while they are not skilled fighters, they know how to
+help: of traumaturgy. And while not skilled fighters, they know how to
 help: dig (graves... a professional touch).|
 help:They are clumsy with ranged weapons until their souls wither.
 
@@ -463,10 +466,10 @@ help: skulls with bare hands.|
 help:Hermits fight through martial arts and channel sacred light to heal, protect,
 help: and strike down evil. Their magic pierces darkness, burns the wicked, and
 help: shields from harm. They know secret rituals to bless the ground beneath them
-help: or craft sacred water when needed.
-help: During their quiet, humble ways, hermits become stealthier as wind during
-help: their training. Their wisdom isn't worn on their sleeve, but it lingers in
-help: every step and settles in every strike.|
+help: or craft sacred water when needed.|
+help:During their quiet, humble training, hermits become stealthier than wind.
+help: Their wisdom isn't worn on their sleeve, but it lingers in every step
+help: and settles in every strike.|
 help:They're clumsy with ranged weapons until they become seasoned pilgrims.
 
 class:Wizard
@@ -484,7 +487,7 @@ help:Yet wielding such forces comes at a price: their body wears thin against
 help: the chaos they summon. Minds burning bright with arcane fire, they grow
 help: grumpy, subtle, and quick to anger. Some say they balance on the creeping
 help: edge of madness. |
-help:They're clumsy with ranged weapons until they become seasoned magi.
+help: They remain clumsy with ranged weapons until they become seasoned magi.
 
 class:Trader
 help:An enterprising merchant who went into the dungeon to fulfill his life
@@ -503,8 +506,8 @@ help: Their magic isn't flashy, but it keeps them alive - a light in the dark,
 help: a potion when needed, a way to carve through stone walls.
 help: And when all else fails, they know a trick or two to slip away unnoticed,
 help: or send in a decoy to haggle while they make their escape. |
-help:Trader proud of his cat, who follows him during adventures. Always nearby,
-help: watching, judging, perhaps luckier than he is. |
+help:The trader is proud of his cat, who follows him during adventures -
+help: always nearby, watching, judging, perhaps luckier than he is. |
 help:They carry more than most, their steps less burdened by heavy packs. |
 help:They can't form a party with other players - the Traders Guild forbids it
 help:(and, honestly, they're too greedy to split the loot). |
@@ -527,7 +530,7 @@ help: poison, blades, or elemental bursts at anything crossing their path. |
 help:Assassins use two spellbooks: Shadows for Beginners and Dark Evocations.
 
 class:Phaseblade
-help:A warrior who dwells between worlds and feels no weight or space burden.
+help:A warrior who dwells between worlds and feels no weight or spatial burden.
 help: They teleport freely and use phase techniques to slice enemies apart.
 help: Swords are their weapon of choice; other weapons feel awkward and slow.
 help: They are especially annoyed by ranged weapons.
@@ -540,13 +543,13 @@ help:Their techniques never fail, and they can even teleport from places where
 help: others are trapped (with the exception of Titans and Half-Giants).
 
 class:Cryokinetic
-help:Some also call them 'Weathermasters'. Cryokinetic can instantly change
-help: surrounding temperature to extremums. Few can endure their rapid shifts
+help:Some also call them 'Weathermasters'. Cryokinetics can instantly change
+help: surrounding temperature to extremes. Few can endure their rapid shifts
 help: from burning heat to biting cold.|
 help:At first only their hands may burn or freeze on touch. But soon they start
 help: to command waves of flame, unleash plasma and blizzards,
 help: and sometimes summon both flame and ice at once. They regenerate fast, dash,
-help: and even seal themselves in invulnerable icy cocoon to recover.|
+help: and even seal themselves in invulnerable icy cocoons to recover.|
 help:At level 10 they brand their melee blows with fire or cold, and by level
 help: 30, they gain innate resistances to both.|
 help:They don't fear lava and can't slip on ice.|
@@ -560,10 +563,10 @@ help: They create shields of time to absorb damage and can rewind wounds,
 help: though side effects like blindness or confusion may follow.
 help: They slip between dungeon levels, fast forward to deeper depths, or
 help: unleash waves of chaotic time to break their foes.|
-help:Speed buffs (e.g. from potions) affect them weaker and weaker as they
+help:Speed buffs (e.g. from potions) affect them less and less as they
 help: gain levels, since they develop an inner passive speed bonus over time.
 help: Also, slowing effects don't cripple them much.|
-help:At the peak of their power they gain resistance to time magic itself.
+help:At the peak of their power they gain resistance to time magic itself.|
 help:They're clumsy with ranged weapons until they become seasoned seers.
 
 class:Scavenger
@@ -579,7 +582,7 @@ help: a few dirty tricks along the way.
 help: Scavengers can play dead to fool monsters or jump around like grasshoppers.
 help: They poison their blades and arrows, map out dungeons, and sniff out hidden
 help: treasure. If things get rough, they patch themselves up with bandages,
-help: cure poison, and most exprienced ones are skilled even to cause small
+help: cure poison, and most experienced ones are skilled enough to cause small
 help: earthquakes to shake things up. And if all else fails, they've got a
 help: backup meal to keep going. Life in the shadows taught them a bit of thievery,
 help: though they'll never match a true rogue. But what they lack in finesse,
@@ -605,7 +608,7 @@ help: Brewed potions are soulbound - only the creator can use them. You can't
 help: trade or drop them.
 help: To get rid of potions you don't need, press 'k' to destroy them, drink them,
 help: or throw them at enemies.|
-help:Beyond potions, alchemists can shroud foes in corrosive fog,
+help:Beyond potions, alchemists can shroud foes in corrosive fog
 help: and heal themselves using gathered herbs. They can even summon a golem
 help: to fight by their side!|
 help:They are loners by nature - alchemists trust their craft and their golem,
