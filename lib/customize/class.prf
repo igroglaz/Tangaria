@@ -32,59 +32,56 @@ help: to inflict deeper wounds.|
 help:Also they can see farther than others.
 
 class:Monk
-help:Monks are very different from all other classes. Monks are warriors who
-help: decide to fight barehanded and cannot use weapons or bows. However, their
-help: training in martial arts makes them much more powerful with no armour
-help: nor weapons. As they advance in levels, they gain new martial arts
-help: techniques to hit their opponents more effectively.
+help:Monks are warriors who fight barehanded, forgoing weapons and bows. Their
+help: training in martial arts makes them exceptionally powerful without armor
+help: or weapons. As they advance in levels, they gain new techniques to hit
+help: opponents more effectively and receive extra damage, defense, and attacks
+help: per round.
 help: Monk abilities by level:|
 help:- Level 10: fall like a feather.|
 help:- Level 15: resistance to fear.|
 help:- Level 20: resistance to confusion.|
 help:- Level 25: resistance to paralysis.|
-help:In time, a monk can learn how to stun and slow his opponents.
-help: They can't wield weapons, but
-help: get extra damage, defense and attacks per round as they advance. However,
-help: they must wear light armor to stay unencumbered and fully benefit from
-help: their class bonuses. Monks don't use mana at all, but it is rumoured that
-help: the monastic training even makes monks faster than any other character
-help: class! Also they can throw objects with surprising accuracy.
+help:In time, a monk can learn how to stun and slow opponents.
+help: They must wear light armor to stay unencumbered and fully benefit from
+help: their class bonuses. Monks don't use mana at all, but monastic training
+help: makes them faster than any other character class! They can also throw
+help: objects with surprising accuracy.
 
 class:Mage
 help:A Mage relies on their wits to survive. They cannot hope to simply hack
-help: their way through the dungeon, and so must therefore use their magic to
-help: defeat, deceive, confuse, and escape. A mage is not really complete without
-help: an assortment of magical devices to use in addition to his spells. They can
-help: master the higher level magical devices far easier than anyone else, and
+help: their way through the dungeon, and must therefore use magic to
+help: defeat, deceive, confuse, and escape. A mage is incomplete without
+help: an assortment of magical devices to complement their spells. They can
+help: master high-level magical devices far easier than anyone else, and
 help: have excellent saving throws to resist effects of spells cast at them.
 help: However, they are incredibly weak, getting few hit dice and suffering strong
 help: penalties to strength and constitution. Intelligence is their primary stat
-help: and at high levels they can cast many spells without a chance of failure.
+help: and at high levels they can cast many spells without chance of failure.
 help: There is no rule that says a mage cannot become a good fighter, but spells
 help: are their true realm, and they will get fewer blows with melee weapons than
 help: other classes.|
-help:Their spells cover a wide range - from simple detection and teleportation
-help: to powerful elemental blasts and protective wards, but their favorite is
-help: the Fireball spell, which they use especially well. They are also skilled
-help: at making some of their spells pierce through multiple enemies in a line.|
+help:Their spells range widely - from simple detection and teleportation
+help: to powerful elemental blasts and protective wards, with the Fireball spell
+help: being their specialty. They are also skilled at making some spells pierce
+help: through multiple enemies in a line.|
 help:They're clumsy with ranged weapons until they become seasoned casters.
 
 class:Shaman
 help:A Shaman is a lover of nature, and at one with the natural world. Shamans
-help: have control of their environment and direct power over creatures, leading
+help: have control over their environment and direct power over creatures, leading
 help: even to the ability to take their forms. As they grow stronger, they can 
 help: transform into mightier beasts, from bears to mythical creatures.|
-help:Shaman skills are moderate, and they have some fighting ability, especially
-help: when transformed. A shaman will usually seek to shape the flow of events
-help: to their purpose rather than using devices or missiles, but at high levels
-help: they do gain access to potent nature-based magic. They call upon the raw
-help: forces of nature, conjuring storms, quakes, and poison clouds. Shamans can
-help: calm, slow, or drive away their foes, bending even the wildest beasts to 
-help: their will. They harness the healing power of the wild, restoring health
-help: and vitality when needed. Their magic shapes the land itself - raising
-help: trees, splitting stone, and shaking the earth beneath their feet. Their
-help: senses stretch far beyond the eye, revealing life, hidden paths, and 
-help: forgotten lore. Shamans rely on their wisdom, and have good saving throws.|
+help:Shaman skills are moderate, with some fighting ability, especially
+help: when transformed. They shape the flow of events to their purpose rather 
+help: than relying on devices or missiles, but at high levels gain access to 
+help: potent nature-based magic. They call upon raw natural forces, conjuring 
+help: storms, quakes, and poison clouds. Shamans can calm, slow, or drive away 
+help: foes, bending even the wildest beasts to their will. They harness the 
+help: healing power of the wild to restore health and vitality. Their magic 
+help: shapes the land itself - raising trees, splitting stone, and shaking 
+help: the earth. Their senses extend beyond normal sight, revealing life, hidden 
+help: paths, and forgotten lore. Shamans rely on wisdom and possess good saving throws.|
 help:They're clumsy with ranged weapons until they become seasoned wardens.
 
 class:Priest
@@ -92,50 +89,50 @@ help:A Priest is a character of holy devotion. They explore the dungeon only
 help: to destroy the evil that lurks within, and if treasure just happens to
 help: fall into their packs, well, so much more to the glory of their temple!
 help: Priests receive their spells from a deity, and therefore do not choose
-help: which spells they will learn. A priest's prayers heal and protect, but
+help: which spells they will learn. Their prayers heal and protect, but
 help: can also bring ruin to the wicked. They are especially strong against
 help: evil beings, standing firm with divine power. Over time, priests gain
 help: ways to shield themselves, support allies, and even reshape the world
 help: around them.|
 help:They are familiar with magical devices, preferring to call them
-help: "instruments of God", but are not as good as a mage in their use.
-help: Priests have great saving throws, and make passable fighters, better
-help: if they can find a blessed weapon. Wisdom is the priest's primary stat
-help: and at high enough levels they can cast many prayers without a chance
+help: "instruments of God", but are not as skilled as mages in their use.
+help: Priests have great saving throws and make passable fighters, better
+help: if they can find a blessed weapon. Wisdom is their primary stat
+help: and at high levels they can cast many prayers without chance
 help: of failure. Priests have poor stealth.|
-help:Although weak in the beginning, priests can become decent fighters 
-help: who strongly prefer blunt weapons over edged ones; if they wield one that
-help: isn't blessed, they receive an additional severe penalty.|
+help:Though initially weak, priests can become decent fighters
+help: who strongly prefer blunt weapons over edged ones; wielding non-blessed
+help: weapons results in severe penalties.|
 help:They're clumsy with ranged weapons until they become seasoned preachers.
 
 class:Warlock
 help:A Warlock must live by his wits. He cannot hope to simply hack his way
 help: through the dungeon, and so must therefore use his magic to defeat,
 help: deceive, confuse, and escape. |
-help:A Warlock seeks to master the spirits of sentient creatures, creating
-help: servants of their own will. They have chosen a dark and wicked path, and
-help: run a continual risk of harm to their own body and mind. Warlocks love
-help: shadows and hate light, automatically shrouding themselves in darkness.
-help: They summon, command, and banish spirits, blurring the boundary between
+help:Warlocks seek to master the spirits of sentient creatures, creating
+help: servants of their own will. They walk a dark and wicked path, risking
+help: harm to their own body and mind. They love shadows and hate light,
+help: automatically shrouding themselves in darkness. Their magic summons,
+help: commands, and banishes spirits, blurring the boundary between
 help: life and death. With time, they transcend mortal flesh, embracing darker
 help: forms...|
-help:Their spells require high intelligence and frequently harm the caster or
+help:Their spells demand high intelligence and frequently harm the caster or
 help: place them in danger. In return, they achieve awesome power at high levels.
 help: The ultimate aim of the warlock is to supplant the Dark Enemy and set
 help: up a tyranny in his place.|
 help:They're clumsy with ranged weapons until they become seasoned cultists.
 
 class:Paladin
-help:A Paladin is a holy warrior. Paladins are very good fighters, second
-help: only to the warrior class, but not very good at missile weapons. 
+help:A Paladin is a holy warrior. Paladins are exceptional fighters, second
+help: only to the warrior class, but less proficient with missile weapons.
 help: In close combat, they can strike with their shield to disrupt
-help: foes. Paladins combine martial prowess with divine prayers. 
-help: They stand as champions against evil, smiting dark forces and shielding
-help: themselves with holy power. Though their magic comes slowly, it grants
+help: foes. They combine martial prowess with divine prayers, standing as
+help: champions against evil, smiting dark forces and shielding
+help: themselves with holy power. Though their magic develops slowly, it grants
 help: healing, protection, and strength in battle. Over time, they can bless
 help: their weapons and armor, see hidden threats, and find their way through
-help: darkness. They receive prayers at a slower pace than the priest, but can
-help: use all but the most powerful prayers.|
+help: darkness. Paladins receive prayers at a slower pace than priests, but can
+help: use all but the most powerful ones.|
 help:Paladins have poor stealth, perception, searching, and magical device use.
 help: They have a decent saving throw due to their divine alliance. Their
 help: primary stats are strength and wisdom. Their presence commands respect,
@@ -144,17 +141,16 @@ help: though it varies among individuals.
 class:Rogue
 help:A Rogue is a character who prefers to live by their cunning. They blend
 help: agility, stealth, and a touch of magic to survive.
-help: A rogue capable of fighting their way out of a tight spot.
-help: The master of traps and has high stealth enabling sneaking around many
-help: creatures without having to fight, or sneak up and get the first blow.
-help: They can steal items from monsters, but need to be wary of being caught
-help: in the act. Rogues' perception is higher than any other class, and
-help: many times they will notice a trap or secret door before having to search.
-help: A rogue is better than the more fighting oriented classes with magical
-help: devices, but still cannot rely on their performance.|
-help:Rogues' spells are not the powerful offensive spells mages can use,
-help: and there will always be a chance of failure even with the simplest
-help: of them until they reach higher intelligence.
+help: Though capable of fighting their way out of tight spots, rogues truly
+help: excel as masters of traps and stealth, enabling them to avoid many
+help: encounters or secure the first strike in combat.
+help: They can steal items from monsters, but need to be wary of being caught.
+help: Rogues possess unmatched perception, often noticing traps or secret doors
+help: before they even look for them.
+help: While better with magical devices than combat-focused classes, rogues
+help: cannot fully rely on their performance.|
+help:Their spells lack the offensive power of a mage's arsenal, and even the
+help: simplest magics may fail until they develop greater intelligence.
 help: They use poisons, traps, and darkness to gain the upper hand, slipping
 help: away when danger strikes. Their magic helps them navigate, evade, and
 help: control the battlefield - just don't ask them to carry your loot.
