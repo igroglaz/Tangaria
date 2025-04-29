@@ -2097,16 +2097,26 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
             if (p->lev >= 50) {
                 speed_bonus = 15;
+            } else if (p->lev >= 45) {
+                speed_bonus = 14;
             } else if (p->lev >= 40) {
+                speed_bonus = 12;
+            } else if (p->lev >= 35) {
                 speed_bonus = 10;
             } else if (p->lev >= 30) {
                 speed_bonus = 8;
-            } else if (p->lev >= 20) {
+            } else if (p->lev >= 25) {
                 speed_bonus = 6;
-            } else if (p->lev >= 10) {
+            } else if (p->lev >= 20) {
+                speed_bonus = 5;
+            } else if (p->lev >= 15) {
                 speed_bonus = 4;
-            } else if (p->lev >= 1) {
+            } else if (p->lev >= 10) {
+                speed_bonus = 3;
+            } else if (p->lev >= 5) {
                 speed_bonus = 2;
+            } else if (p->lev >= 1) {
+                speed_bonus = 1;
             }
 
             state->speed += speed_bonus;
