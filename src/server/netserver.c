@@ -485,11 +485,37 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
 
     if ((nick_name[0] < 'A') || (nick_name[0] > 'Z')) return E_INVAL;
 
-    /* Any weird characters here, bail out. We allow letters, numbers and space */
-    for (ptr = &nick_name[strlen(nick_name)]; ptr-- > nick_name; )
+    // Any weird characters here, bail out.
+    // We allow: letters only, with optional Roman numerals after a space
+
+    bool has_space = false;
+    bool space_found = false;
+    
+    for (ptr = nick_name; *ptr; ptr++)
     {
         if (!isascii(*ptr)) return E_INVAL;
-        if (!(isalpha(*ptr) || isdigit(*ptr) || (*ptr == ' '))) return E_INVAL;
+        
+        // Check for space - only one space allowed
+        if (*ptr == ' ')
+        {
+            if (space_found) return E_INVAL; // More than one space
+            space_found = true;
+            has_space = true;
+            continue;
+        }
+        
+        if (has_space)
+        {
+            // After space, only allow Roman numerals (I, V, X, L, C, D, M)
+            if (*ptr != 'I' && *ptr != 'V' && *ptr != 'X' && 
+                *ptr != 'L' && *ptr != 'C' && *ptr != 'D' && *ptr != 'M')
+                return E_INVAL;
+        }
+        else
+        {
+            // Before space (or if no space), only allow letters
+            if (!isalpha(*ptr)) return E_INVAL;
+        }
     }
 
     /* Right-trim nick */
@@ -524,6 +550,32 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
         }
     }
 
+    
+    // Format the nickname: first letter capital, rest lowercase,
+    // but keep Roman numerals uppercase
+    bool in_roman = false;
+    nick_name[0] = toupper((unsigned char)nick_name[0]);
+    
+    for (ptr = &nick_name[1]; *ptr; ptr++)
+    {
+        if (*ptr == ' ')
+        {
+            in_roman = true;
+            continue;
+        }
+        
+        if (in_roman)
+        {
+            // Keep Roman numerals uppercase
+            *ptr = toupper((unsigned char)*ptr);
+        }
+        else
+        {
+            // Main name part lowercase
+            *ptr = tolower((unsigned char)*ptr);
+        }
+    }
+    
     return SUCCESS;
 }
 
