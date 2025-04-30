@@ -1520,6 +1520,9 @@ static void artifact_prep(struct artifact *art, const struct object_kind *kind,
     art->activation = NULL;
     memset(&art->time, 0, sizeof(random_value));
 
+    /* If the kind has an activation, inherit that activation's level. */
+    if (kind->activation) art->difficulty = kind->activation->level;
+
     /* Artifacts ignore everything */
     for (i = ELEM_BASE_MIN; i < ELEM_HIGH_MIN; i++)
         art->el_info[i].flags |= EL_INFO_IGNORE;
@@ -2209,6 +2212,7 @@ static void add_activation(struct artifact *art, int target_power, int max_power
             (100 * p / max_effect < 200 * target_power / max_power))
         {
             art->activation = &activations[x];
+            art->difficulty = art->activation->level;
             art->time.base = (p * 8);
             art->time.dice = ((p > 5)? (p / 5): 1);
             art->time.sides = p;
@@ -3083,6 +3087,9 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
         art->alloc_max = MAX(art->alloc_max, MIN(art->alloc_min * 2, 127));
     }
 
+    /* PWMAngband: level is always equal to alloc_min */
+    art->level = art->alloc_min;
+
     /* Success */
     return true;
 }
@@ -3213,6 +3220,15 @@ void init_randart_generator(void)
 }
 
 
+/*
+ * Get the object level.
+ *
+ * Returns the difficulty level if difficulty is TRUE, otherwise returns the object level.
+ *
+ * For true artifacts, read the values from artifact.txt.
+ * For random artifacts, get the values from activation.txt.
+ * For ego items, read the values from ego_item.txt.
+ */
 int get_object_level(struct player *p, const struct object *obj, bool difficulty)
 {
     int level;

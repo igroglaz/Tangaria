@@ -245,6 +245,7 @@ struct activation
     char *name;
     unsigned int index;
     bool aim;
+    int level;
     int power;
     struct effect *effect;
     char *message;

@@ -33,6 +33,7 @@ PWMAngband:
 
 - Allow swapping items with similar @w1-@w9 inscriptions
 - Add support for F16-F24 keys in SDL2
+- Allow scrolling of long race/class descriptions using SPACE
 
 Gameplay changes
 ----------------
@@ -43,6 +44,7 @@ Angband 4.2.x:
 - Autorepeat using a wand/staff/rod/activatable item on failure
 - Increase the curse removal power of a staff of remove curse
 - Rebalance activation difficulty for standard items
+- Configure activation difficulty for randarts from activation.txt
 
 PWMAngband:
 
@@ -57,6 +59,7 @@ Angband 4.2.x:
 - SDL2 fixes
 - Account for empty object groups in ego knowledge display
 - Apply BLESS_WEAPON to-hit bonus only to melee, not ranged
+- Correct coordinate tested for monster lighting a wall
 
 PWMAngband:
 
@@ -88,6 +91,7 @@ PWMAngband:
 - Split VERIFY packet in chunks
 - Add class parser for SKILL_TO_HIT_THROW, port values from V
 - Split level and difficulty level for activation (base items/egos/artifacts)
+- Add parser for skill-throw in p_race.txt (unused)
 
 Compilation/documentation
 -------------------------

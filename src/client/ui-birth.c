@@ -825,27 +825,32 @@ static void menu_help(enum birth_stage current, int cursor)
 
     if ((e == PARSE_ERROR_NONE) && (helper->text != NULL) && !STRZERO(helper->text))
     {
-        int lines = 2;
+        char info[MAX_TXT_INFO][NORMAL_WID];
+        int cline, mline;
         char *s, *t;
 
-        screen_save();
-        clear_from(0);
+        /* Initialize */
+        cline = 0;
+        mline = 0;
 
-        c_prt(COLOUR_YELLOW, helper->name, 0, 0);
+        /* Save the screen */
+        screen_save();
 
         /* Split description in paragraphs */
         s = string_make(helper->text);
         t = strtok(s, "|");
         while (t)
         {
-            char out_val[2000];
             int j, k, l;
+
+            /* Paragraphs should not be longer than 20 lines */
+            char out_val[2000];
 
             /* Make a rewritable string */
             memset(out_val, 0, sizeof(out_val));
             my_strcpy(out_val, t, sizeof(out_val));
 
-            /* Print every paragraph with word wrap */
+            /* Build every paragraph with word wrap */
             j = strlen(out_val);
             k = 0;
             while (j)
@@ -857,19 +862,66 @@ static void menu_help(enum birth_stage current, int cursor)
                     while (out_val[k + l] != ' ') l--;
                     out_val[k + l] = '\0';
                 }
-                if (lines == 23) break;
-                prt(out_val + k, lines++, 2);
+                if (mline == MAX_TXT_INFO) break;
+                my_strcpy(info[mline], out_val + k, NORMAL_WID);
+                mline++;
                 k += (l + 1);
                 j = strlen(&out_val[k]);
             }
 
-            if (lines == 23) break;
-            prt("", lines++, 2);
             t = strtok(NULL, "|");
         }
         string_free(s);
 
-        inkey();
+        /* Show the stuff */
+        while (1)
+        {
+            int i;
+            ui_event ke;
+
+            /* Header */
+            clear_from(0);
+            c_prt(COLOUR_YELLOW, helper->name, 0, 0);
+
+            /* Print every paragraph with word wrap */
+            for (i = 0; i < 20; i++)
+            {
+                if (cline + i == mline) break;
+                prt(info[cline + i], i + 2, 2);
+            }
+
+            /* Get a keypress */
+            ke = inkey_ex();
+
+            /* Exit on abort */
+            if (is_abort(ke)) break;
+
+            /* Hack -- make any key escape if we're done */
+            if (cline + i == mline)
+            {
+                ke.type = EVT_KBRD;
+                ke.key.code = ESCAPE;
+                ke.key.mods = 0;
+            }
+
+            if (ke.type == EVT_KBRD)
+            {
+                switch (ke.key.code)
+                {
+                    /* Down a page */
+                    case ' ':
+                    {
+                        cline += 20;
+                        break;
+                    }
+                }
+            }
+
+            /* Exit on escape */
+            if (is_escape(ke)) break;
+        }
+
+        /* Restore the screen */
         screen_load(false);
     }
 

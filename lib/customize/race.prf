@@ -3,7 +3,9 @@
 #
 # This file defines the race descriptions on character creation screen.
 #
-# Descriptions should be limited to 20 lines.
+# Use the '|' symbol to split the description into paragraphs. Paragraphs should
+# be limited to 20 lines and the whole description should not be longer than
+# 384 lines.
 #
 
 race:Half-Troll

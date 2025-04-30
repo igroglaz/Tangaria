@@ -9,6 +9,7 @@
 # skill-search:base
 # skill-melee:base
 # skill-shoot:base
+# skill-throw:base
 # skill-dig:base
 # hitdie:hitdie
 # exp:expbase:classic expbase
@@ -29,7 +30,9 @@
 
 # 'skill-<skill name>' is for skills that get added at birth - physical
 # and magical disarming, magic devices, saving throws, stealth,
-# to hit (normal), to hit (bows), digging bonus.
+# to hit (normal), to hit (bows), to hit (throwing), digging bonus.
+# By default, if skill-throw is not present, the value is supposed to be equal
+# to skill-shoot.
 
 # 'hitdie' is for max. hitpoints gained per level.
 
