@@ -104,6 +104,8 @@
 
 # BLOWS[10] == 1 BpR.. [1] == 0.1 BrP
 
+# TODO: look through races with a new skill-throw:0 property.
+
 name:Half-Troll
 skill-disarm-phys:-5
 skill-disarm-magic:-5
@@ -1465,6 +1467,7 @@ skill-stealth:-2
 skill-search:-5
 skill-melee:3
 skill-shoot:-25
+skill-throw:0
 skill-dig:0
 hitdie:12
 exp:100:125
@@ -1483,7 +1486,7 @@ value:0:CHR[-4]
 # + AC hardcoded
 # + -5% _all_ damage hc
 # 'y' space/time anchor 5
-# TODO: add skill-throw (now it's in classes only)
+# bad shooting, but okay throwing
 value:0:INFRA[1+1d9]
 value:0:RES_POIS[1]
 value:10:RES_ACID[1]
