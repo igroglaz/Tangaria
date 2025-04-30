@@ -4191,7 +4191,7 @@ bool create_house(struct player *p, int house_variant)
     // Compare planned area_size and house variant (depends on type of house)
     if (p->account_score < 10)
     {
-        msg(p, "You need at least 15 account points to build a house (press Ctrl+r to check it).");
+        msg(p, "You need at least 10 account points to build a house (press Ctrl+r to check it).");
         return false;
     }
     else if (house_variant == 1) // cabin

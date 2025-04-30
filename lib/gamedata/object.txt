@@ -499,7 +499,7 @@ dice:2d2
 effect:NOURISH:INC_BY
 dice:5
 msg_self:It burns your throat.
-desc:This is a dirty brown color; you don't trust it.
+desc:This is a dirty brown color. You don't trust it.
 
 name:& Draught~ of the Ents
 graphics:,:Z
@@ -746,7 +746,7 @@ dice:10+2d7
 msg_self:You tried small piece... Blecch! The world spins and goes dark
 msg_other: pukes and slap against the ground!
 desc:Amanita phalloides or Death cap...
-desc: Even small bite is enough to put you on a verge of death.
+desc: Even small bite is enough to put you on the verge of death.
 
 
 ##### Weapons #####
@@ -774,7 +774,7 @@ cost:0
 alloc:3:0 to 100
 attack:1d2:-2:-2
 armor:0:0
-desc:A broken sword which was long and straight in it's better days.
+desc:A broken sword which was long and straight in its better days.
 desc: Now it's mainly good for break-opening chests or jamming doors.
 desc: Also it's rusty...
 
@@ -1752,8 +1752,8 @@ cost:0
 alloc:20:1 to 100
 attack:0d0:0:0
 armor:1:0
-desc:Stinky (and it's pointless to try to get rid of the smell as it magical)
-desc: and utterly filthy rags. You don't want to imagine who wore this rags
+desc:Stinky (and it's pointless to try to get rid of the smell as it is magical)
+desc: and utterly filthy rags. You don't want to imagine who wore these rags
 desc: before you...
 
 name:Old Rusty Chain Mail~
@@ -1765,8 +1765,8 @@ cost:550
 alloc:20:10 to 100
 attack:1d4:-5:0
 armor:27:0
-desc:An aaancient chain mail.. You grand grandfather is a little boy
-desc: compared to it. Nonetheless by the dens on it you could tell that it's
+desc:An aaancient chain mail.. Your grand grandfather is a little boy
+desc: compared to it. Nonetheless by the dents on it you could tell that it has
 desc: guarded its owners pretty well.
 
 name:& Robe~
@@ -2269,7 +2269,7 @@ alloc:50:40 to 100
 flags:EASY_KNOW
 values:RES_POIS[1]
 desc:This magical ring grants protection from poison.
-desc: It is rumoured that in deep dungeons monsters can kill you at once if you
+desc: It is rumoured that in deep dungeons monsters can kill you instantly if you
 desc: don't have poison resistance.
 
 name:Resist Fire and Cold
@@ -2702,9 +2702,9 @@ flags:IGNORE_ELEC | GOOD
 flags:HOLD_LIFE | SEE_INVIS
 values:SEARCH[1+d4M5] | STEALTH[1+d2M3] | INFRA[1+d4M5] | SPEED[2+d4M6] | MOVES[5]
 values:LIGHT[-1] | DAM_RED[-3] | WIS[-5]
-desc:This medallions were ones worn by one of Beruthiel's cats.
-desc:Maybe it will be good idea to try to wear it.. even though you are
-desc:definitely not a cat. 
+desc:These medallions were ones worn by one of Beruthiel's cats.
+desc:Maybe it will be a good idea to try to wear it.. even though you are
+desc:definitely not a cat.
 
 ### Ability boosts ###
 
@@ -4170,8 +4170,8 @@ expr:D:DUNGEON_LEVEL:* 4
 effect:DETECT_EVIL
 effect-yx:22:40
 desc:The last enemy that shall be destroyed is death...
-desc: Long time ago this potion was one of the most deadlies of all.
-desc: But it seems time took most of it's harm, it's not so strong anymore...
+desc: Long time ago this potion was one of the most deadliest of all.
+desc: But it seems time took most of its harm, it's not so strong anymore...
 msg_self:Once again you've cheated death!
 msg_other: beats in spasms!
 
@@ -5564,7 +5564,7 @@ alloc:1:5 to 30
 attack:1d3:-1:0
 armor:0:0
 desc:Old rusty blunt pickaxe with broken handle.
-desc: You notice blood on it's edge...
+desc: You notice blood on its edge...
 
 name:& Empty Bottle~
 graphics:!:w
@@ -6079,12 +6079,13 @@ dice:1
 desc:It creates a new house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with maximum of 3 floor tiles.
-desc: Please note that building a house require some additional gold.
-desc: ....... Account points (AP) requirements: .......
-desc: ....... 1 floor tiles -- 10 AP.....
-desc: ....... 2 floor tiles -- 25 AP.....
-desc: ....... 3 floor tiles -- 50 AP.....
+desc: Allows to build a house with maximum of 3 floor tiles.
+desc: Please note that building a house requires some additional gold.
+desc: ................................................................
+desc: Account points (AP) requirements:......................................
+desc: ........1 floor tiles -- 10 AP........................................
+desc: ........2 floor tiles -- 25 AP........................................
+desc: ........3 floor tiles -- 50 AP
 
 # 1x3
 
@@ -6100,11 +6101,12 @@ dice:2
 desc:It creates a new house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with a maximum of 6 floor tiles.
-desc: ....... Account points (AP) requirements: .......
-desc: ....... 4 floor tiles -- 100 AP.....
-desc: ....... 5 floor tiles -- 150 AP.....
-desc: ....... 6 floor tiles -- 225 AP.....
+desc: Allows to build a house with a maximum of 6 floor tiles.
+desc: ........................................................................
+desc: Account points (AP) requirements:......................................
+desc: ........4 floor tiles -- 100 AP........................................
+desc: ........5 floor tiles -- 150 AP........................................
+desc: ........6 floor tiles -- 225 AP
 # 2x3
 
 name:Medium House Creation
@@ -6119,11 +6121,12 @@ dice:3
 desc:It creates a new house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with a maximum of 9 floor tiles.
-desc: ....... Account points (AP) requirements: .......
-desc: ....... 7 floor tiles -- 300 AP.....
-desc: ....... 8 floor tiles -- 400 AP.....
-desc: ....... 9 floor tiles -- 500 AP.....
+desc: Allows to build a house with a maximum of 9 floor tiles.
+desc: ........................................................................
+desc: Account points (AP) requirements:......................................
+desc: ........7 floor tiles -- 300 AP........................................
+desc: ........8 floor tiles -- 400 AP........................................
+desc: ........9 floor tiles -- 500 AP
 # 3x3
 
 name:Big House Creation
@@ -6138,11 +6141,12 @@ dice:4
 desc:It creates a medium house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with a maximum of 25 floor tiles.
-desc: ....... Account points (AP) requirements: .......
-desc: ....... 15 floor tiles -- 650 AP.....
-desc: ....... 20 floor tiles -- 800 AP.....
-desc: ....... 25 floor tiles -- 1000 AP.....
+desc: Allows to build a house with a maximum of 25 floor tiles.
+desc: .......................................................................
+desc: Account points (AP) requirements:......................................
+desc: ........15 floor tiles -- 650 AP........................................
+desc: ........20 floor tiles -- 800 AP........................................
+desc: ........25 floor tiles -- 1000 AP.....
 # 5x5
 
 name:Villa Creation
@@ -6157,11 +6161,12 @@ dice:5
 desc:It creates a big house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with a maximum of 64 floor tiles.
-desc: ....... Account points (AP) requirements: .......
-desc: ....... 32 floor tiles -- 1250 AP.....
-desc: ....... 44 floor tiles -- 1500 AP.....
-desc: ....... 64 floor tiles -- 2000 AP.....
+desc: Allows to build a house with a maximum of 64 floor tiles.
+desc: .......................................................................
+desc: Account points (AP) requirements:......................................
+desc: ........32 floor tiles -- 1250 AP........................................
+desc: ........44 floor tiles -- 1500 AP........................................
+desc: ........64 floor tiles -- 2000 AP.....
 # 8x8
 
 name:Estate Creation
@@ -6176,7 +6181,8 @@ dice:6
 desc:It creates a big house, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build house with a maximum of 100 floor tiles.
+desc: Allows to build a house with a maximum of 100 floor tiles.
+desc: ................................................................
 desc: .......Requirement: 2500 account points.......
 # 10x10
 
@@ -6192,7 +6198,8 @@ dice:7
 desc:It creates a tower, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build tower with a maximum of 144 floor tiles.
+desc: Allows to build a tower with a maximum of 144 floor tiles.
+desc: ................................................................
 desc: .......Requirement: 3500 account points.......
 # 12x12
 
@@ -6208,7 +6215,8 @@ dice:8
 desc:It creates a huge keep, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
-desc: Allows to build keep with a maximum of 256 floor tiles.
+desc: Allows to build a keep with a maximum of 256 floor tiles.
+desc: ................................................................
 desc: .......Requirement: 5000 account points.......
 # 16x16
 
@@ -6225,6 +6233,7 @@ desc:It creates a new castle, starting at the House Foundation Stone
 desc: you are standing at, and expanding in all directions, until
 desc: no more House Foundation Stones are found.
 desc: Allows to build a huge castle.
+desc: ................................................................
 desc: .......Requirement: 10000 account points.......
 # 18x18+ (324)
 
@@ -6607,7 +6616,7 @@ attack:3d3:0:0
 flags:EXPLODE
 desc:An old glass light source with a crackling emerging from it.
 desc:It can be carried by a handle. You don't think it can be refilled.
-desc:It looks like good idea to throw it and burn your enemies!
+desc:It looks like a good idea to throw it and burn your enemies!
 
 name:& Ancient Vessel~
 graphics:,:U
@@ -6800,7 +6809,7 @@ type:reagent
 level:0
 weight:5
 cost:0
-desc:A very rare plant which can be used for potions brewing.
+desc:A very rare plant which can be used for potion brewing.
 
 name:& Rare Mineral~
 graphics:*:t
@@ -6845,7 +6854,7 @@ cost:0
 attack:1d3:0:0
 flags:BURNS_OUT | LIGHT_3 | IGNORE_FIRE
 desc:A tiny brass light source with a soft emerging from it,
-desc: protected from draughts by a sheet of dirty paper. It can be carried by
+desc: protected from draughts by a sheet of greasy paper. It can be carried by
 desc: a handle. It looks so old that you don't think it can be refilled.
 
 name:Satisfy Hunger (tattered)
@@ -7061,8 +7070,8 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:RESTORE_EXP
-msg_self:You feel how your wrinkles smoothing..
-desc:Legandary apples of immortality... You can't believe you found one.
+msg_self:You feel how your wrinkles are smoothing..
+desc:Legendary apples of immortality... You can't believe you found one.
 
 #small box of salt 
 
@@ -7075,7 +7084,7 @@ cost:0
 alloc:2:1 to 100
 attack:1d3:0:0
 armor:0:0
-desc:A simple oak club.. it's quite old, but still do the job.
+desc:A simple oak club.. it's quite old, but still does the job.
 
 # instead of ring 'of levitation' which now became 'of swimming'
 name:Flying
@@ -7924,6 +7933,7 @@ weight:5
 cost:-1
 desc:.
 
+# TODO: fix typo "it's"
 name:(the dog wing it's tail)
 graphics:?:y
 type:fortune cookie

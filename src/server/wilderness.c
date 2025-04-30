@@ -2893,6 +2893,10 @@ static void wild_furnish_dwelling(struct player *p, struct chunk *c, bool **plot
 }
 
 
+// "bool town" is for build_feature(),
+// which used for building houses in MAng town (not used in T) atm...
+// (TODO: but maybe in future it woul be worth making certain
+// locations more expensive?)
 int house_price(int area, bool town)
 {
     int price = 0;
