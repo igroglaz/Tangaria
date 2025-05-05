@@ -559,9 +559,9 @@ help: As they grow stronger, they gain resistance to both dark and light.
 help: Nephalem can sense demons and are especially deadly against them in combat.
 help: Their demonic nature makes them constantly hungry and hard to satisfy.|
 help: |
-help:They can produce glyph ('y') by spending some energy. Glyph prevents summoning
-help: and enemies have to destroy it before they can attack you. But putting glyph
-help: requires spending a lot of blood, leaving nephalem almost dead.
+help:Can perform a ritual by spoiling almost all their blood to place
+help: a glyph ('y') that prevents summoning and must be destroyed before
+help: enemies can attack.
 
 race:Gargoyle
 help:Gargoyles are stone creatures which sometimes appear after magic storms, when

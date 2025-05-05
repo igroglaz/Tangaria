@@ -149,12 +149,6 @@ void do_cmd_breath(struct player *p, int dir)
         return;
     }
 
-    // check cooldown
-    if (p->y_cooldown) {
-        msg(p, "%u turns till power recharges.", p->y_cooldown);
-        sound(p, MSG_SPELL_FAIL);
-        return;
-    }
 
     // Classes 'y' 1st - so races won't block them
     if (p->poly_race && streq(p->clazz->name, "Druid"))
@@ -209,6 +203,14 @@ void do_cmd_breath(struct player *p, int dir)
         // wolf - can summon wolf by loud howl
         else if (streq(p->poly_race->name, "wolf-form"))
         {
+            
+            // check cooldown (only for WOLF in case of classes abilities!)
+            if (p->y_cooldown) {
+                msg(p, "%u turns till power recharges.", p->y_cooldown);
+                sound(p, MSG_SPELL_FAIL);
+                return;
+            }
+
             struct chunk *c = chunk_get(&p->wpos);
 
             // cost full mana
@@ -231,6 +233,15 @@ void do_cmd_breath(struct player *p, int dir)
             return;
         }
     }
+
+
+    // check cooldown
+    if (p->y_cooldown) {
+        msg(p, "%u turns till power recharges.", p->y_cooldown);
+        sound(p, MSG_SPELL_FAIL);
+        return;
+    }
+
 
     // Now special races' effects
     

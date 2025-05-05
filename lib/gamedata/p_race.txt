@@ -1452,7 +1452,7 @@ value:0:WIS[0]
 value:0:DEX[-1+1d24]
 value:50:CON[-1]
 value:0:CHR[-1+1d24]
-# 'y' glyph (1 HP, 3 idle)
+# 'y' glyph (leaves you with !!1 HP!!, 3 idle)
 #value:35:RES_DARK[2]
 #value:35:RES_LIGHT[2]
 #value:0:RES_LIGHT[-1]
