@@ -104,7 +104,12 @@
 
 # BLOWS[10] == 1 BpR.. [1] == 0.1 BrP
 
-# TODO: look through races with a new skill-throw:0 property.
+# TODO:
+# - look through races with a new skill-throw:0 property.
+# - EF_WEB_SPIDER (single tile of web) to assassin, but test
+# - think of disabling weapons use for ooze, spider etc while making it able to
+#   use its properties and somehow modify dices
+
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -1869,6 +1874,7 @@ brand:15:50:POIS_2
 obj-flag:0:CLUMSY
 # value:0:RES_POIS[1]
 #value:30:RES_POIS[3] hardcoded
+# _CAN_ use weapons
 value:0:MANA[4+-1d12]
 value:0:DAM_RED[-1+-1d5]
 value:0:RES_LIGHT[-1]

@@ -6296,7 +6296,9 @@ bool effect_handler_WAKE(effect_handler_context_t *context)
 }
 
 
-// Player's SPIDER race creates WEB (one tile)
+// Used in the past for player's SPIDER race to create !one tile!
+// (while EF_WEB makes 8 tiles around p). But for now it's disabled
+// TODO: use it for classes spell (assassin?)
 bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
 {
     /* Always notice */
