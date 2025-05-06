@@ -998,7 +998,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     {
         struct object *cloak = slot_object(p, slot_by_name(p, "back"));
         int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-        int sun_damage = p->mhp / 100 + randint0(2); // randint0(2) gives 0-1
+        int sun_damage = p->mhp / 100 + (turn.turn % 2); // turns gives 0-1 "rng"
         bool take_damage = false;
         
         // apply resistance modifiers

@@ -2741,7 +2741,7 @@ void do_cmd_fountain(struct player *p, int item)
         if (use_oil(p))
         {
             use_energy(p);
-            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         }
 
         return;

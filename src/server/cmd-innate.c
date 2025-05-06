@@ -353,7 +353,7 @@ void do_cmd_breath(struct player *p, int dir)
             free_effect(effect);
 
             player_dec_timed(p, TMD_FOOD, 25, false);
-            player_inc_timed(p, TMD_IMAGE, 1 + randint0(1), false, false);
+            player_inc_timed(p, TMD_IMAGE, 1 + randint0(2), false, false);
             
             if (p->mhp < 20)
                 p->chp -= 1;
@@ -430,7 +430,7 @@ void do_cmd_breath(struct player *p, int dir)
         effect_simple(EF_WONDER, who, dice_string, 0, 0, 0, 0, 0, NULL);
 
         player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
-        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
 
         return;
     }
@@ -457,7 +457,7 @@ void do_cmd_breath(struct player *p, int dir)
         if (p->chp == p->mhp)
         {
             char dice_string[5];
-            int dice_calc = randint0(1) + p->lev * (1 + p->lev / 25);
+            int dice_calc = randint0(2) + p->lev * (1 + p->lev / 25);
 
             use_energy(p);
 
@@ -467,7 +467,7 @@ void do_cmd_breath(struct player *p, int dir)
                 effect->index = EF_SHORT_BEAM;
             else
                 effect->index = EF_BOLT_RADIUS;
-            effect->radius = 1 + p->lev / 5 + randint0(1);
+            effect->radius = 1 + p->lev / 5 + randint0(2);
 
             // init dice
             effect->dice = dice_new();
@@ -507,7 +507,7 @@ void do_cmd_breath(struct player *p, int dir)
         p->y_cooldown = 255; // cooldown
 
         player_dec_timed(p, TMD_FOOD, 1 + p->lev / 5, false);
-        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
     else if (streq(p->race->name, "Imp"))
@@ -515,7 +515,7 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_TELEPORT, who, "13", 0, 0, 0, 0, 0, NULL);
-        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         player_dec_timed(p, TMD_FOOD, 4, false);
         return;
     }
@@ -553,7 +553,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         effect_simple(EF_LIGHT_AREA, who, 0, 0, 0, 0, 0, 0, NULL);
         player_dec_timed(p, TMD_FOOD, 3, false);
-        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(1), true, false);
+        player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
     else if (streq(p->race->name, "Lizardmen") && p->chp < p->mhp)
@@ -861,7 +861,7 @@ void do_cmd_breath(struct player *p, int dir)
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         } else {
             player_dec_timed(p, TMD_FOOD, 20, false);
-            player_inc_timed(p, TMD_OCCUPIED,  1 + randint0(1), false, false);
+            player_inc_timed(p, TMD_OCCUPIED,  1 + randint0(2), false, false);
         }
 
         return;
