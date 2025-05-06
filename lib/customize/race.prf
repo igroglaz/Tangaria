@@ -462,18 +462,24 @@ help:Vampires don't regenerate or eat normal food - they restore their strength
 help: by drinking the blood of slain humanoids. As they grow, they gain resistance
 help: to poison, nether, darkness and even time itself. They don't feel fear,
 help: have perfect infravision and can read minds...
-help: As night creatures, they don't take well to daylight. It makes their skin itch,  
-help: their senses dull. Leave them under the sun too long, and they start to steam -  
-help: little curls of smoke rising off their backs like from wet firewood.  
-help: Hurts like hell, but doesn't kill. Just makes them meaner.  
 help: They can take the form of vampiric mist to pass most obstacles, and can also
 help: polymorph into bats. They fear open water and avoid it unless flying.
 help: They can fly ('y') by spending some energy; it helps to pass trees and water.
 help: They can see in the darkness well, while using light sources actually can
 help: reduce radius of their vision. Their innate vision grows when they become
-help: more mature.|
+help: more mature. They are bad at digging - it's beneath them.|
 help: |
-help:They are bad at digging - it's beneath them.
+help:As night creatures, they don't take well to daylight. It makes their skin
+help: itch, their senses dull. Leave them too long under the sun, and they start
+help: to steam - little curls of smoke rising off their backs like wet firewood.
+help: Hurts like hell, but doesn't kill. Just makes them meaner. Even a plain
+help: cloak helps, as long as it keeps the sun off. But gear with proper light
+help: resistance - that's a different story. With the right stuff, they might
+help: even pass for something close to comfortable.|
+help: |
+help:ATTENTION!
+help: You start with the cloak. Wear it right on ('w' key) to protect yourself
+help: against sunlight.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much is known about them, except

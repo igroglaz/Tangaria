@@ -203,6 +203,7 @@ void do_cmd_breath(struct player *p, int dir)
         // wolf - can summon wolf by loud howl
         else if (streq(p->poly_race->name, "wolf-form"))
         {
+            struct chunk *c = chunk_get(&p->wpos);
             
             // check cooldown (only for WOLF in case of classes abilities!)
             if (p->y_cooldown) {
@@ -210,8 +211,6 @@ void do_cmd_breath(struct player *p, int dir)
                 sound(p, MSG_SPELL_FAIL);
                 return;
             }
-
-            struct chunk *c = chunk_get(&p->wpos);
 
             // cost full mana
             if (p->csp == p->msp)
@@ -413,6 +412,7 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Djinn"))
     {
+        char dice_string[5];
         // dice.. see 'beholder' for explanation
         int dice_calc = p->lev / 5 + randint1(100);
 
@@ -420,8 +420,6 @@ void do_cmd_breath(struct player *p, int dir)
         if (p->lev >= 35 && dice_calc == 13) {
             dice_calc = 7;
         }
-
-        char dice_string[5];
 
         // convert int to char
         snprintf(dice_string, sizeof(dice_string), "%d", dice_calc);
