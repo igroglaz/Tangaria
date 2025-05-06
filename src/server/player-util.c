@@ -958,18 +958,11 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 
     // ADDITIONALLY: vampires evaporate in sunlight
     if (is_daytime() && streq(p->race->name, "Vampire") && 
-        sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW))
+        sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW) &&
+        p->chp >= dam_taken + ((p->mhp / 100) + 5)) // don't kill vamp with sunlight
     {
         struct object *cloak = slot_object(p, slot_by_name(p, "back"));
-
-        // vampires can't die due to sunlight if they're already near death
-        if (p->chp < 5 || p->chp < (p->mhp / 100) + 1)
-            return dam_taken;
-
-        // light resistance value (-1 -> 3)
         int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-        
-        // base damage for vampires in sunlight
         int sun_damage = p->mhp / 100 + randint0(1);
         
         // apply resistance modifiers
