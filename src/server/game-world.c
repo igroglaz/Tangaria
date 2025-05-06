@@ -998,7 +998,7 @@ static void process_player_world(struct player *p, struct chunk *c)
     {
         struct object *cloak = slot_object(p, slot_by_name(p, "back"));
         int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-        int sun_damage = p->mhp / 100 + randint0(1);
+        int sun_damage = p->mhp / 100 + randint0(2); // randint0(2) gives 0-1
         bool take_damage = false;
         
         // apply resistance modifiers
@@ -1006,11 +1006,11 @@ static void process_player_world(struct player *p, struct chunk *c)
             // double resistant or immune to light - damage VERY rarely (1% chance)
             take_damage = (turn.turn % 100 == 0);
         } else if (res_light > 0) {
-            // resistant to light - damage rarely (3.33% chance)
-            take_damage = (turn.turn % 30 == 0);
+            // resistant to light - damage rarely
+            take_damage = (turn.turn % 50 == 0);
         } else if (cloak) {
-            // wearing a cloak - some protection (6.67% chance)
-            take_damage = (turn.turn % 15 == 0);
+            // wearing a cloak - some protection
+            take_damage = (turn.turn % 30 == 0);
         } else {
             // vulnerable to light - damage every turn
             take_damage = true;
