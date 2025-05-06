@@ -955,40 +955,6 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             dam_taken /= 2;
     }
 
-
-    // ADDITIONALLY: vampires evaporate in sunlight
-    if (is_daytime() && streq(p->race->name, "Vampire") && 
-        sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW) &&
-        p->chp >= dam_taken + ((p->mhp / 100) + 5)) // don't kill vamp with sunlight
-    {
-        struct object *cloak = slot_object(p, slot_by_name(p, "back"));
-        int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-        int sun_damage = p->mhp / 100 + randint0(1);
-        
-        // apply resistance modifiers
-        if (res_light > 1) {
-            // double resistant or immune to light
-            // take damage VERY rarely (1% chance)
-            if (turn.turn % 100 == 0) {
-                dam_taken += sun_damage;
-            }
-        } else if (res_light > 0) {
-            // resistant to light (common high lvl case)
-            // take damage rarely (3.33% chance)
-            if (turn.turn % 30 == 0) {
-                dam_taken += sun_damage;
-            }
-            
-        } else if (cloak) { // not all heroes wear capes.. but vampires should
-            if (turn.turn % 15 == 0) {
-                dam_taken += sun_damage;
-            }
-        } else {
-            // vulnerable to light (default case)
-            dam_taken += sun_damage;
-        }
-    }
-
     return dam_taken;
 }
 

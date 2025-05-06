@@ -990,6 +990,38 @@ static void process_player_world(struct player *p, struct chunk *c)
 
     /* Player can be damaged by terrain */
     player_take_terrain_damage(p, c);
+
+    // Vampires evaporate in sunlight
+    if (is_daytime() && streq(p->race->name, "Vampire") && 
+        sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW) &&
+        p->chp >= ((p->mhp / 100) + 5)) // don't kill vamp with sunlight
+    {
+        struct object *cloak = slot_object(p, slot_by_name(p, "back"));
+        int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
+        int sun_damage = p->mhp / 100 + randint0(1);
+        bool take_damage = false;
+        
+        // apply resistance modifiers
+        if (res_light > 1) {
+            // double resistant or immune to light - damage VERY rarely (1% chance)
+            take_damage = (turn.turn % 100 == 0);
+        } else if (res_light > 0) {
+            // resistant to light - damage rarely (3.33% chance)
+            take_damage = (turn.turn % 30 == 0);
+        } else if (cloak) {
+            // wearing a cloak - some protection (6.67% chance)
+            take_damage = (turn.turn % 15 == 0);
+        } else {
+            // vulnerable to light - damage every turn
+            take_damage = true;
+        }
+        
+        if (take_damage) {
+            p->chp -= sun_damage;
+            p->upkeep->redraw |= (PR_HP | PR_MAP);
+        }
+    }
+
     if (p->is_dead) return;
 
     /* Effects of Black Breath */
