@@ -27,7 +27,8 @@ help: searching for every hidden treasure. Humans do not have any infravision.
 help: There are a lot of different kinds of humans living in Tangaria, but most
 help: of them are just common folk, who despite being mediocre became powerful
 help: in a certain way, as they don't have drawbacks.
-help: At level 50 they got ascension bonus which affects all their stats.
+help: At level 50 they got ascension bonus which affects all their stats and
+help: and their Charisma becomes unshakable.
 help: They can restore constitution ('y') by spending some energy. |
 help: |
 help:They have more space in the storage for keeping items.
@@ -107,7 +108,7 @@ help: magic. They are as bad as dwarves at stealth, and horrible at searching,
 help: disarming, and perception. Half-Orcs are, let's face it, ugly. They tend
 help: to pay more for goods in town. Half-Orcs do make good warriors and
 help: rogues, for the simple reason that they tend to have great
-help: constitution and lots of hit points. Because of their preference for
+help: constitution. Because of their preference for
 help: living underground to on the surface, half-orcs resist darkness attacks.
 help: They have fair infravision.|
 help: |
@@ -385,7 +386,7 @@ help:Huge orc hordes settled in the southern Banlands. They try to get their own
 help: piece of fertile lands to live peacefully, but Empire of Strength won't make
 help: it happen.|
 help: |
-help:They are resistant to darkness and poison, and tough enough to take a hit.
+help:They are resistant to darkness, hate light and tough enough to take a hit.
 help: At higher levels, they move faster and a bit quieter than expected.
 help: They can sense other orcs from afar.
 help: Traps, magic, devices - not their strong suit. Thinking in general isn't.

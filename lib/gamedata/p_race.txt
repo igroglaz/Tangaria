@@ -109,7 +109,7 @@
 # - EF_WEB_SPIDER (single tile of web) to assassin, but test
 # - think of disabling weapons use for ooze, spider etc while making it able to
 #   use its properties and somehow modify dices
-
+# - hc moar 50% immunities (eg undead's nether res++)
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -138,6 +138,7 @@ value:0:CHR[-4]
 obj-flag:1:SUST_STR
 obj-flag:1:REGEN
 player-flags:50:RACE_REGEN
+obj-flag:50:SLOW_DIGEST
 value:0:INFRA[3]
 player-flags:0:TROLL
 
@@ -165,6 +166,7 @@ value:50:WIS[1]
 value:50:DEX[1]
 value:50:CON[1]
 value:50:CHR[1]
+obj-flag:50:SUST_CHR
 # 'y' restore CON
 # + storage slot
 
@@ -190,7 +192,7 @@ weight:115:25
 gift:food:Elvish water:1:1
 value:0:STR[0+1d30]
 value:0:INT[1]
-value:0:WIS[-1]
+value:0:WIS[-1+1d49]
 value:0:DEX[1]
 value:0:CON[-1+1d24]
 value:0:CHR[1]
@@ -231,7 +233,7 @@ obj-flag:1:SUST_DEX
 value:0:INFRA[3]
 value:0:RES_LIGHT[1]
 value:0:MOVES[0+1d12]
-value:40:SPEED[1]
+value:40:SPEED[1+1d9]
 
 name:Halfling
 skill-disarm-phys:15
@@ -339,17 +341,16 @@ age:11:4
 height:64:2
 weight:135:15
 gift:food:Swig of Orcish Liquor:1:1
-value:0:STR[2]
+value:0:STR[1+1d30]
 value:0:INT[-1]
-value:0:CON[1]
+value:0:CON[0+1d30]
 value:0:CHR[-3]
 # 'y' restore STR
-value:0:INFRA[3]
-value:0:RES_DARK[1]
+value:0:INFRA[1+2d30]
+value:30:RES_DARK[1]
 value:0:TUNNEL[1]
-value:0:DAM_RED[2d24]
+value:30:DAM_RED[1+1d9]
 obj-flag:25:ESP_ORC
-value:50:SPEED[1]
 obj-flag:50:SLOW_DIGEST
 player-flags:0:ORC
 
@@ -380,7 +381,7 @@ value:0:CON[2]
 value:0:CHR[2]
 # 'y' cure blackbreath
 # + storage slot
-# TODO: can find sprig of Athelas sometimes when chopping trees
+# + can find sprig of Athelas sometimes when chopping trees
 obj-flag:1:SUST_CON
 
 #noble and proud
@@ -412,7 +413,7 @@ value:0:CON[1]
 value:0:CHR[1+1d15]
 # 'y' infravision
 value:0:INFRA[1+1d15]
-value:0:STEALTH[1+1d32]
+value:0:STEALTH[1+1d30]
 obj-flag:25:SEE_INVIS
 value:0:RES_LIGHT[1]
 
@@ -463,15 +464,15 @@ age:14:6
 height:23:3
 weight:36:6
 gift:crop:Beet:1:1
-value:0:STR[-5]
-value:0:INT[-5]
-value:0:WIS[-5]
-value:0:DEX[-5]
-value:0:CON[-5]
-value:0:CHR[-5]
+value:0:STR[-2+-1d15]
+value:0:INT[-1]
+value:0:WIS[-1]
+value:0:DEX[-1+-1d12]
+value:0:CON[-2+-1d15]
+value:0:CHR[-1]
 # 'y' become bold :) like real brave yeek!
 obj-flag:1:FEATHER
-# + no agro! you simply can't be angry on cute yeek..
+# + no agro when equipping aggo items! you simply can't be angry on cute yeek..
 player-flags:0:SHAPECHANGE
 shape:1:oook
 shape:12:eeek
@@ -508,7 +509,7 @@ value:0:CHR[-3]
 # + immune to polymorph
 # + stay at one place very silent
 # + can move through trees somewhat
-# - after 30 lvl got malus to MOVES up to -10 (&& -2 there)
+# - HCed: after 30 lvl got malus to MOVES up to -10 (&& -2 already there)
 value:0:INFRA[1+1d12]
 # very good at tunneling ("crushing stone")..
 #..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
@@ -518,7 +519,7 @@ obj-flag:0:SLOW_DIGEST
 player-flags:0:GIANT
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
-value:0:MANA[5+-1d10]
+value:0:MANA[5+-1d5M25]
 player-flags:0:CAN_SWIM
 obj-flag:1:CANT_FLY
 obj-flag:0:BAD_SHOOTER
@@ -530,7 +531,7 @@ value:0:RES_FIRE[-1]
 value:0:MOVES[-2+1d25]
 value:0:SPEED[0+-1d25]
 # barky
-value:0:DAM_RED[1+1d5]
+value:30:DAM_RED[3+3d9]
 obj-flag:0:IMPAIR_HP
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
@@ -705,8 +706,8 @@ value:0:CON[0+2d35]
 value:0:CHR[0+1d35]
 # 'y' detect evil
 value:1:INFRA[1]
-value:35:TUNNEL[1]
-value:35:DAM_RED[1]
+value:30:TUNNEL[1]
+value:30:DAM_RED[1]
 obj-flag:30:ESP_EVIL
 
 #immortal human, highlander-like
@@ -744,12 +745,12 @@ obj-flag:25:HOLD_LIFE
 # ? give expanded esp?
 
 name:Merfolk
-skill-disarm-phys:-2
-skill-disarm-magic:2
-skill-device:3
+skill-disarm-phys:-5
+skill-disarm-magic:-2
+skill-device:-3
 skill-save:1
 skill-stealth:0
-skill-search:2
+skill-search:-2
 skill-melee:-2
 skill-shoot:-4
 skill-dig:0
@@ -779,11 +780,11 @@ player-flags:0:CAN_SWIM
 
 name:Barbarian
 skill-disarm-phys:-2
-skill-disarm-magic:-2
+skill-disarm-magic:-15
 skill-device:-14
-skill-save:2
+skill-save:-2
 skill-stealth:0
-skill-search:1
+skill-search:-5
 skill-melee:12
 skill-shoot:6
 skill-dig:0
@@ -859,18 +860,18 @@ age:15:10
 height:40:3
 weight:66:4
 gift:food:Swig of Orcish Liquor:1:1
-#1 -1 -4 6 2
-value:0:STR[0+1d45]
+#0 -1 -4 6 2
+value:0:STR[0]
 value:0:INT[-1]
 value:0:WIS[-4]
 value:0:DEX[3+1d15]
 value:0:CON[1+1d30]
 value:0:CHR[-4]
 # 'y' bloodlust
-value:0:INFRA[4]
-value:10:RES_DARK[1]
+value:0:INFRA[1+1d15]
+value:30:RES_DARK[1]
 value:0:TUNNEL[1+1d30]
-value:0:SPEED[0+1d24]
+value:30:SPEED[1+1d19]
 obj-flag:20:ESP_ORC
 player-flags:0:ORC
 
@@ -878,8 +879,10 @@ player-flags:0:ORC
 name:Half-Giant
 skill-disarm-phys:-16
 skill-disarm-magic:-16
-skill-device:-10
-skill-save:-3
+# their blood interfere (though they are not stupid)
+skill-device:-18
+# can raise save with 'y'
+skill-save:-16
 skill-stealth:-2
 skill-search:-1
 skill-melee:20
@@ -909,10 +912,10 @@ obj-flag:1:LIMITED_TELE
 # - less gold at start
 value:0:MANA[5]
 value:0:TUNNEL[2+1d10]
-obj-flag:34:SUST_STR
-obj-flag:40:PROT_CONF
-obj-flag:48:PROT_STUN
-value:49:RES_GRAVITY[1]
+obj-flag:0:SUST_STR
+obj-flag:33:PROT_CONF
+value:40:RES_GRAVITY[1]
+obj-flag:50:PROT_STUN
 obj-flag:50:SLOW_DIGEST
 brand:50:50:STUN_1
 slay:50:50:DRAGON_3
@@ -923,7 +926,7 @@ skill-disarm-phys:-8
 skill-disarm-magic:-6
 skill-device:-3
 skill-save:-3
-skill-stealth:-2
+skill-stealth:0
 skill-search:-5
 skill-melee:15
 skill-shoot:-5
@@ -945,7 +948,7 @@ value:0:CHR[-5]
 # 'y' restore 1 mana or (if no mana) 1 hp
 value:0:INFRA[2+1d8]
 value:0:MOVES[-9]
-value:0:STEALTH[0+1d30]
+value:0:STEALTH[-2+1d30]
 obj-flag:0:CLUMSY
 obj-flag:1:SUST_INT
 player-flags:0:CAN_SWIM
@@ -971,11 +974,11 @@ age:20:10
 height:150:5
 weight:240:22
 gift:cobble:Cobble:7:13
-#7 -8 -8 -5 4
+#7 -8 -8 -5>0 4
 value:0:STR[3+1d12]
 value:0:INT[-4]
 value:0:WIS[-4]
-value:0:DEX[-5+1d10]
+value:0:DEX[-5+1d12]
 value:0:CON[1+1d8M30]
 value:0:CHR[-7]
 # 'y' +AC
@@ -989,13 +992,13 @@ value:0:MOVES[-1+-1d6]
 value:0:RES_POIS[1]
 value:25:RES_SHARD[1]
 value:0:RES_LIGHT[-1]
-value:0:DAM_RED[1+1d5]
+value:30:DAM_RED[3+3d9]
 player-flags:0:TROLL
 obj-flag:0:CLUMSY
 obj-flag:1:CANT_FLY
 
 name:Orc
-skill-disarm-phys:-8
+skill-disarm-phys:-3
 skill-disarm-magic:-8
 skill-device:-15
 skill-save:-5
@@ -1013,16 +1016,16 @@ weight:125:5
 gift:food:Maggoty bread:1:1
 #1 -1 0 1 1
 value:0:STR[1]
-    value:0:INT[-1]
-    value:0:WIS[-1+2d45]
+value:0:INT[-1]
+value:0:WIS[-1+2d45]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-4]
-# 'y' summon warg
+# !! 'y' summon warg !!
 value:0:INFRA[2+1d10M35]
 value:0:RES_DARK[1]
-value:10:RES_POIS[1]
-value:0:DAM_RED[0+1d24]
+value:0:RES_LIGHT[-1]
+value:30:DAM_RED[1+1d19]
 value:50:STEALTH[1]
 value:50:SPEED[1]
 obj-flag:15:ESP_ORC
@@ -1055,6 +1058,7 @@ value:0:CON[-1]
 value:0:CHR[-1]
 value:0:INFRA[1+1d15]
 value:0:MOVES[1]
+value:30:SPEED[1+1d19]
 # 'y' cover tracks
 # 5% dodge melee attacks
 obj-flag:0:SUST_DEX
@@ -1078,16 +1082,16 @@ height:58:6
 weight:111:8
 gift:food:Petty-dwarf roots:1:1
 #0 2 -1 3 1
-value:0:STR[0]
-value:0:INT[0+1d35]
-value:0:WIS[-2+1d35]
-value:0:DEX[1+1d35]
+value:0:STR[0+1d49]
+value:0:INT[0+1d30]
+value:0:WIS[-2+1d30]
+value:0:DEX[1+1d30]
 value:0:CON[1]
-value:0:CHR[-5+1d10]
+value:0:CHR[-5+1d15]
 # 'y' apply poison
 value:0:INFRA[0+1d6]
 obj-flag:25:SEE_INVIS
-value:35:RES_DARK[1]
+value:30:RES_DARK[1]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[1+1d15]
 
@@ -1119,8 +1123,7 @@ value:0:CON[0]
 value:0:CHR[0]
 value:0:INFRA[1]
 player-flags:0:RACE_REGEN
-obj-flag:1:HUNGER
-obj-flag:20:ESP_ANIMAL
+obj-flag:25:ESP_ANIMAL
 value:0:RES_LIGHT[-1]
 value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
@@ -1128,7 +1131,7 @@ player-flags:0:ANIMAL
 #/// 'night' bonuses + regen hp..
 #/// bad at shooting and other precise stuff at night..
 #/// hardcoded CUT_1 (15) & CUT_2 (50) at night
-#/// - howls at night
+#/// - howls (more often at night, but very rare during the day)
 #value:50:RES_DARK[++] at night
 #player-flags:0:SHAPECHANGE
 #shape:1:jackal_
@@ -1137,7 +1140,6 @@ player-flags:0:ANIMAL
 #shape:30:werewolf_
 #shape:40:hellwolf_
 #shape:50:volkodlak_
-# rfe: hunger reduce on flicker.. when polymorph
 # shapechange should work only at night (or auto-change)
 
 name:Undead
@@ -1160,8 +1162,8 @@ weight:140:12
 gift:food:Maggoty bread:1:1
 #2 -4 -4 -1 -5
 value:0:STR[2]
-value:0:INT[0+-1d12]
-value:0:WIS[0+-1d12]
+value:0:INT[0]
+value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1+-1d12]
 value:0:CHR[-9]
@@ -1179,7 +1181,7 @@ value:0:RES_FIRE[-1]
 value:0:RES_COLD[1]
 value:0:RES_LIGHT[-1]
 #value:0:RES_NETHER[1]
-#value:50:RES_NETHER[++] hardcoded
+#value:50:RES_NETHER[++] hardcoded player_elements() in 50% cases
 value:0:MOVES[-1]
 
 name:Vampire
@@ -1210,24 +1212,26 @@ value:0:CHR[-9+1d4]
 # + black breath
 # 'y' can FLY
 # darkness-loving (see in the dark, but light makes it worse)
-# - fear open water (only FLYING helps)
 #/// - during the day: -HP, regen HP, mana, skills; especially shooting
-# (during the day vamps should stay in the coffin kek)
+# TODO: debuff when walk in daylight
 #/// can't eat normal food. instead nourish when kill humanoids
 # ? make 'light' and holy spells (paladins..) more dealy
 value:0:INFRA[1+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
 obj-flag:10:HOLD_LIFE
-value:0:RES_LIGHT[-1]
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
 value:45:RES_NETHER[1]
 value:50:RES_TIME[1]
 # especially good vamp
 brand:1:50:VAMPIRIC
+obj-flag:50:SLOW_DIGEST
+#///  -
 value:0:DAM_RED[-1+-1d15]
 value:0:TUNNEL[-1+-1d30]
+value:0:RES_LIGHT[-1]
+# - fear open water (only FLYING helps)
 player-flags:0:SHAPECHANGE
 # in mist: can pass doors, rubbles, trees
 shape:5:vampiric mist_
@@ -1235,8 +1239,6 @@ shape:10:fruit bat_
 shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
-# ? revamp when will implement hurt from daylight
-# ? nourish from vampirism + !blood
 # ? add race 'human' for p.. flag WARM-BLOODED humanoid +soul -animal
 
 ############################## GODLIKE
@@ -1272,7 +1274,7 @@ value:0:CON[-5+1d8]
 value:0:CHR[3]
 # 'y' lightning
 # - speed boni reduced by 2x
-value:30:INFRA[5]
+value:0:INFRA[5]
 obj-flag:30:SLOW_DIGEST
 value:30:LIGHT[1]
 obj-flag:30:HOLD_LIFE
@@ -1453,10 +1455,8 @@ value:0:DEX[-1+1d24]
 value:50:CON[-1]
 value:0:CHR[-1+1d24]
 # 'y' glyph (leaves you with !!1 HP!!, 3 idle)
-#value:35:RES_DARK[2]
-#value:35:RES_LIGHT[2]
-#value:0:RES_LIGHT[-1]
-#value:0:RES_DARK[-1] hardcoded: -- 35++ 50++
+#value:0:RES_LIGHT[-1] -> 35lvl [1] -> 50lvl [2] in 50% cases (hardcoded)
+#value:0:RES_DARK[-1]  -> 35lvl [1] -> 50lvl [2] in 50% cases
 obj-flag:1:ESP_DEMON
 slay:35:50:DEMON_3
 obj-flag:1:HUNGER
@@ -1466,7 +1466,7 @@ obj-flag:1:HUNGER
 name:Gargoyle
 skill-disarm-phys:-14
 skill-disarm-magic:-14
-skill-device:-5
+skill-device:-15
 skill-save:9
 skill-stealth:-2
 skill-search:-5
@@ -1494,7 +1494,6 @@ value:0:CHR[-4]
 # bad shooting, but okay throwing
 value:0:INFRA[1+1d9]
 value:0:RES_POIS[1]
-value:10:RES_ACID[1]
 value:20:RES_FIRE[1]
 value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]

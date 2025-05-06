@@ -864,8 +864,9 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
     {
         if (el_info[ELEM_NETHER].res_level[0] < 3)
             el_info[ELEM_NETHER].res_level[0]++;
-        if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3)
-            el_info[ELEM_NETHER].res_level[0]++;
+        if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3 &&
+            turn.turn % 2 == 0) // 50%
+                el_info[ELEM_NETHER].res_level[0]++;
     }
 
     if (streq(p->race->name, "Balrog"))
@@ -889,7 +890,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
             if (el_info[ELEM_LIGHT].res_level[0] < 3)
                 el_info[ELEM_LIGHT].res_level[0]++;
         }
-        if (p->lev > 49)
+        if (p->lev > 49 && turn.turn % 2 == 0) // 50%
         {
             if (el_info[ELEM_DARK].res_level[0] < 3)
                 el_info[ELEM_DARK].res_level[0]++;
