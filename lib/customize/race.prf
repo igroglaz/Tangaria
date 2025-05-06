@@ -768,12 +768,13 @@ help: Djinn can literally perform wonders. But such magic does not always bring
 help: good consequences as they don't have full control over their wishes.|
 help: |
 help:Djinn are weightless and can float above ground without touching it.
-help: Even young Djinn have time and poison resistance. As they mature, they
-help: gain resistance to all basic elements.
-help: Djinn are extremely curious and automatically identify magical items.
-help: Djinn never feel fear or danger, which can be both a gift and a curse.
-help: They are naturally stealthy and can see invisible creatures.
-help: Their magic interferes with magical devices making them hiccup a little.|
+help: Even young Djinn have poison resistance. As they mature, they
+help: gain resistance to all basic elements - and even time itself
+help: Ancient Djinn are extremely curious and automatically identify magical items.
+help: They can see invisible creatures.
+help: Their magic interferes with magical devices making them hiccup a little.
+help: As they grow older, they become increasingly ethereal, which takes a toll
+help: on their physical form. But everything else swells like it’s on magic yeast.|
 help: |
 help:They can create wonders ('y') by spending some energy.
 
@@ -782,11 +783,10 @@ help:Born from ancient storms and cursed winds, harpies haunt high cliffs and
 help: forgotten ruins. They look like winged humanoids and have a nasty temper.|
 help: |
 help:Harpies are feathered and light, able to glide and fall without injury.
-help: Once they reach maturity, they become very fast.
+help: Once they reach maturity, they become very fast and quite stealthy.
 help: They see well in the dark and have a natural affinity for ambush.
 help: Though not strong, their agility makes them deadly in quick attacks.
-help: Harpies are immune to blindness and instinctively know which mushrooms
-help: are safe to eat. They are also very good at searching.
+help: Harpies are immune to blindness and very good at searching.
 help: They can remove slowing effects ('y') by spending some energy.
 
 race:Minotaur
@@ -921,15 +921,15 @@ help: looking for trouble (or making it).
 help: They are weak, but pretty fast and stealthy. They do not fear fire, but
 help: don't like frost. In time they can become immune to fire completely.
 help: Imps got high magic resistance. They have high mana pool which decreases
-help: as they level up. They regenerate mana slowly as they need time to prepare
-help: for new mischief. Not wise, but smart enough to cause trouble (or at least
+help: as they level up. Not wise, but smart enough to cause trouble (or at least
 help: think so). Hardly anyone likes them - they’re just too annoying.|
 help: |
 help:Sometimes they teleport around, just for fun... In time you will be able
 help: to 'tame' them, but at the start they will mess around, dragging you into
 help: unpredictable adventures.|
 help: |
-help:At level 50 imps can enter 'Stealth Mode' - to do so use [shift+s].|
+help:At level 50 imps can enter 'Stealth Mode' - to do so use [shift+s].
+help: But it makes them regenerate mana more slowly.|
 help: |
 help:They can teleport over short distances at will ('y') by spending some energy.
 
