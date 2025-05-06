@@ -863,7 +863,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 {
     int dam_taken = 0;
 
-    if (player_passwall(p)) return 0; // but should it be like this?..
+    if (player_passwall(p) && turn.turn % 2 == 0) return 0;  // wraithform helps in 50% cases
 
     // terrain in the wilderness (islava - is outside) --- Not exist in T!
     if (square_isfiery(c, &p->grid))
@@ -917,9 +917,12 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
 
-        // touching open water for vampire is bad. and FEATHER won't help really
-        if (streq(p->race->name, "Vampire") && !player_of_has(p, OF_FLYING))
-            dam_taken *= 2;
+        // even hovering over open water for vampire is bad, so FEATHER won't help really
+        if (streq(p->race->name, "Vampire"))
+        {
+            if (player_of_has(p, OF_FLYING)) // only flying helps
+                dam_taken = 0;
+        }
         else if (streq(p->race->name, "Golem")) // can't swim, but don't breath
             dam_taken = 0;
         else if (player_of_has(p, OF_FEATHER)) // feather helps a bit
@@ -950,6 +953,40 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         dam_taken = p->mhp / 100 + randint1(3);
         if (streq(p->race->name, "Merfolk"))
             dam_taken /= 2;
+    }
+
+
+    // ADDITIONALLY: vampires evaporate in sunlight
+    if (is_daytime() && streq(p->race->name, "Vampire") && 
+        sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW))
+    {
+        // vampires can't die due to sunlight if they're already near death
+        if (p->chp < 5 || p->chp < (p->mhp / 100) + 1)
+            return dam_taken;
+        
+        // light resistance value (-1 -> 3)
+        int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
+        
+        // base damage for vampires in sunlight
+        int sun_damage = p->mhp / 100 + randint0(1);
+        
+        // apply resistance modifiers
+        if (res_light > 1) {
+            // double resistant or immune to light
+            // take damage VERY rarely (1% chance)
+            if (turn.turn % 100 == 0) {
+                dam_taken += sun_damage;
+            }
+        } else if (res_light > 0) {
+            // resistant to light (common high lvl case)
+            // take damage rarely (3.33% chance)
+            if (turn.turn % 30 == 0) {
+                dam_taken += sun_damage;
+            }
+        } else {
+            // vulnerable to light (default case)
+            dam_taken += sun_damage;
+        }
     }
 
     return dam_taken;

@@ -1213,9 +1213,8 @@ value:0:CHR[-9+1d4]
 # 'y' can FLY
 # darkness-loving (see in the dark, but light makes it worse)
 #/// - during the day: -HP, regen HP, mana, skills; especially shooting
-# TODO: debuff when walk in daylight
+# damaged when walk in daylight -> player_check_terrain_damage()
 #/// can't eat normal food. instead nourish when kill humanoids
-# ? make 'light' and holy spells (paladins..) more dealy
 value:0:INFRA[1+1d3]
 obj-flag:1:PROT_FEAR
 obj-flag:5:FEATHER
@@ -1239,6 +1238,7 @@ shape:10:fruit bat_
 shape:20:vampire bat_
 shape:30:bat of Gorgoroth_
 shape:40:doombat_
+# ? make holy spells (paladins..) more dealy
 # ? add race 'human' for p.. flag WARM-BLOODED humanoid +soul -animal
 
 ############################## GODLIKE

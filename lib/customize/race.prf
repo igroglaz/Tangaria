@@ -462,8 +462,10 @@ help:Vampires don't regenerate or eat normal food - they restore their strength
 help: by drinking the blood of slain humanoids. As they grow, they gain resistance
 help: to poison, nether, darkness and even time itself. They don't feel fear,
 help: have perfect infravision and can read minds...
-help: As night creatures, they don't like light and feel bad during daylight hours;
-help: but still they can tolerate daylight, though they become weakened.
+help: As night creatures, they don't take well to daylight. It makes their skin itch,  
+help: their senses dull. Leave them under the sun too long, and they start to steam -  
+help: little curls of smoke rising off their backs like from wet firewood.  
+help: Hurts like hell, but doesn't kill. Just makes them meaner.  
 help: They can take the form of vampiric mist to pass most obstacles, and can also
 help: polymorph into bats. They fear open water and avoid it unless flying.
 help: They can fly ('y') by spending some energy; it helps to pass trees and water.
@@ -775,7 +777,7 @@ help: Ancient Djinn are extremely curious and automatically identify magical ite
 help: They can see invisible creatures.
 help: Their magic interferes with magical devices making them hiccup a little.
 help: As they grow older, they become increasingly ethereal, which takes a toll
-help: on their physical form. But everything else swells like it’s on magic yeast.|
+help: on their physical form. But everything else swells like it's on magic yeast.|
 help: |
 help:They can create wonders ('y') by spending some energy.
 
@@ -923,7 +925,7 @@ help: They are weak, but pretty fast and stealthy. They do not fear fire, but
 help: don't like frost. In time they can become immune to fire completely.
 help: Imps got high magic resistance. They have high mana pool which decreases
 help: as they level up. Not wise, but smart enough to cause trouble (or at least
-help: think so). Hardly anyone likes them - they’re just too annoying.|
+help: think so). Hardly anyone likes them - they're just too annoying.|
 help: |
 help:Sometimes they teleport around, just for fun... In time you will be able
 help: to 'tame' them, but at the start they will mess around, dragging you into
