@@ -1193,16 +1193,28 @@ static void process_player_world(struct player *p, struct chunk *c)
     }
 
     // Werewolves howl from time to time at night waking everyone :D
-    else if (streq(p->race->name, "Werewolf") && !is_daytime())
+    else if (streq(p->race->name, "Werewolf"))
     {
-        int howl_chance = 200 + (p->lev * 2);
+        // Base howl chance - include level bonus for both day and night
+        int howl_chance = is_daytime() ? (2000 - (p->lev * 2)) : (200 + (p->lev * 2));
+        
+        // Ensure minimum chance even at high levels
+        if (is_daytime() && howl_chance < 1000) howl_chance = 1000;
+        
         if (one_in_(howl_chance))
         {
             struct source who_body;
             struct source *who = &who_body;
-
-            msgt(p, MSG_HOWL, "You can't handle your animal nature and "
-            "howl on top of your lungs!");
+            
+            // Different message based on time of day
+            if (is_daytime()) {
+                msgt(p, MSG_HOWL, "Despite the daylight, you feel a primal urge and "
+                "let out an unexpected howl!");
+            } else {
+                msgt(p, MSG_HOWL, "You can't handle your animal nature and "
+                "howl on top of your lungs!");
+            }
+            
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
         }
