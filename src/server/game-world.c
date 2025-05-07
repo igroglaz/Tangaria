@@ -1000,25 +1000,47 @@ static void process_player_world(struct player *p, struct chunk *c)
         int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
         int sun_damage = p->mhp / 100 + (turn.turn % 2); // turns gives 0-1 "rng"
         bool take_damage = false;
-        
-        // apply resistance modifiers
+        int sun_protection = 0;
+
+        if (cloak) {
+            // Base protection from having any cloak
+            sun_protection = 30;
+
+            // Additional protection from cloak's armor class
+            if (cloak->ac > 0) {
+                sun_protection += cloak->ac;
+            }
+
+            // Additional protection from magical bonus
+            if (cloak->to_a > 0) {
+                sun_protection += cloak->to_a;
+            }
+        }
+
+        // Apply resistance modifiers
         if (res_light > 1) {
-            // double resistant or immune to light - damage VERY rarely (1% chance)
-            take_damage = (turn.turn % 100 == 0);
+            // Double resistant or immune to light - add strong protection
+            sun_protection += 100;
         } else if (res_light > 0) {
-            // resistant to light - damage rarely
-            take_damage = (turn.turn % 50 == 0);
-        } else if (cloak) {
-            // wearing a cloak - some protection
-            take_damage = (turn.turn % 30 == 0);
+            // Resistant to light - add moderate protection
+            sun_protection += 50;
+        }
+
+        // Determine if vampire takes damage this turn
+        if (sun_protection > 0) {
+            // Higher protection means damage occurs less frequently
+            take_damage = (turn.turn % sun_protection == 0);
         } else {
-            // vulnerable to light - damage every turn
+            // No protection - damage every turn
             take_damage = true;
         }
-        
+
         if (take_damage) {
             p->chp -= sun_damage;
             p->upkeep->redraw |= (PR_HP | PR_MAP);
+
+            if (!cloak && turn.turn % 10 == 0)
+                msg("Sunlight scorches your exposed skin! Wear a cloak for protection!");
         }
     }
 

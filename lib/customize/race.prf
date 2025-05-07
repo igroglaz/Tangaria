@@ -478,8 +478,15 @@ help: resistance - that's a different story. With the right stuff, they might
 help: even pass for something close to comfortable.|
 help: |
 help:ATTENTION!
-help: You start with the cloak. Wear it right on ('w' key) to protect yourself
-help: against sunlight.
+help: When you first awaken, you don't remember how you got to the tavern.
+help: Something feels wrong. Light stings. Sounds feel too sharp. You hate it.
+help: A pale face in the mirror gives you no reflection. You've been bitten.
+help: The tavern keeper outside sells cloaks - thick and dark.
+help: It might be a good idea to cover up before you step outside. Smoking
+help: vampires attract attention.|
+help:|
+help:When you buy ('p') a cloak - wear it ('w'). It protects you from sunlight.
+help: It's better not to take it off. Better cloaks give better protection.
 
 race:Maiar
 help:Maiar - descendants of ancient powers. Not much is known about them, except

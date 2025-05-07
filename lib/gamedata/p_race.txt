@@ -1201,7 +1201,7 @@ history:100
 age:11:4
 height:68:5
 weight:150:10
-gift:cloak:Cloak:1:1
+gift:scroll:Deep Descent:1:1
 #2 2 -1 2 0
 value:0:STR[2]
 value:0:INT[0+1d24]
