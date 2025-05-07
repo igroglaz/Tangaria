@@ -2261,6 +2261,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->skills[SKILL_SAVE] += 1;
         // ? state->num_moves += 1;
     }
+    else if (streq(p->race->name, "Troglodyte") && turn.turn % 10 == 0)
+    { // erratic speed boni
+        state->speed++;
+    }
 
     // in case if we wear 2H weapon without shield - BpR boni
     if (cumber_shield == 1) 
@@ -2552,6 +2556,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect movement speed */
         if (i == OBJ_MOD_MOVES) extra_moves += (r_adj + c_adj);
     }
+
+    /* shooting malus for Wraith (not sure that we need it)
+    if (extra_might > 2 && streq(p->race->name, "Wraith"))
+        extra_might--
+    */
 
     /* Unencumbered monks get extra ac for wearing very light or no armour at all */
     if (unencumbered_monk)
@@ -2877,11 +2886,19 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->speed -= ((j - (i / 2)) / (i / 10));
     }
 
-    /* Adding "stealth mode" for rogues */
+    /* Adding "stealth mode" (STEALTH_MODE) for rogues */
     if (p->stealthy)
     {
         state->speed -= 10;
         state->skills[SKILL_STEALTH] *= 3;
+
+        /* Imp non-rogues lose stealth bonus on odd turns */
+        if (streq(p->race->name, "Imp") &&
+            !streq(p->clazz->name, "Rogue") &&
+            turn.turn % 2)
+        {
+            state->skills[SKILL_STEALTH] /= 3;
+        }
     }
 
     // Some races need 2x boni to advance speed

@@ -526,6 +526,9 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
         player_inc_timed(p, TMD_BLIND, 5, false, false);
         player_dec_timed(p, TMD_FOOD, 5, false);
+        
+        p->y_cooldown = 60; // cooldown
+        
         return;
     }
     else if (streq(p->race->name, "Wisp"))

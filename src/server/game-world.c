@@ -735,6 +735,7 @@ static void make_noise(struct player *p)
 {
     struct loc next;
     int y, x, d;
+    // beware... Lower noise = louder (it's steps from player, not volume!)
     int noise = 0;
     int noise_increment = (p->timed[TMD_COVERTRACKS]? 4: 1);
     struct queue *queue = q_new(p->cave->height * p->cave->width);
@@ -751,9 +752,6 @@ static void make_noise(struct player *p)
     p->cave->noise.grids[next.y][next.x] = noise;
     q_push_int(queue, grid_to_i(&next, p->cave->width));
     noise += noise_increment;
-
-    if (streq(p->race->name, "Troglodyte"))
-        noise++;
 
     /* Propagate noise */
     while (q_len(queue) > 0)
@@ -832,8 +830,8 @@ static void update_scent(struct player *p)
         for (x = 1; x < p->cave->width - 1; x++)
         {
             // troglodytes leaves stench which stay strong for long time
-            // (so scent won't get old in half cases)
-            if (streq(p->race->name, "Troglodyte") && one_in_(2))
+            // (so scent won't get old 4x times longer)
+            if (streq(p->race->name, "Troglodyte") && turn.turn % 4 != 0)
                 continue;
             if (p->cave->scent.grids[y][x] > 0)
                 p->cave->scent.grids[y][x]++;
@@ -1040,7 +1038,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             p->upkeep->redraw |= (PR_HP | PR_MAP);
 
             if (!cloak && turn.turn % 10 == 0)
-                msg("Sunlight scorches your exposed skin! Wear a cloak for protection!");
+                msg(p, "Sunlight scorches your exposed skin! Wear a cloak for protection!");
         }
     }
 

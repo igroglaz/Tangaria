@@ -1166,16 +1166,18 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         soundfx = MSG_KILL_YEEK;
     else if (mon->race->base == lookup_monster_base("rodent"))
     {
-        if (streq(p->race->name, "Gnoll") && p->wpos.depth > 0 && mon->race->mexp)
-            player_inc_timed(p, TMD_FOOD, 10, false, false);
+        if ((streq(p->race->name, "Gnoll") || streq(p->race->name, "Troglodyte")) &&
+            p->wpos.depth > 0 && mon->race->mexp)
+                player_inc_timed(p, TMD_FOOD, 10, false, false);
         soundfx = MSG_KILL_RODENT;
     }
     else if (mon->race->base == lookup_monster_base("insect") ||
              mon->race->base == lookup_monster_base("ant") ||
              mon->race->base == lookup_monster_base("centipede"))
     {
-        if (streq(p->race->name, "Lizardmen") && p->wpos.depth > 0 && mon->race->mexp)
-            player_inc_timed(p, TMD_FOOD, 10, false, false);
+        if ((streq(p->race->name, "Lizardmen") || streq(p->race->name, "Troglodyte")) &&
+            p->wpos.depth > 0 && mon->race->mexp)
+                player_inc_timed(p, TMD_FOOD, 10, false, false);
         soundfx = MSG_KILL_INSECT;
     }
     else if (mon->race->base == lookup_monster_base("snake"))

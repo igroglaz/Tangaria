@@ -110,6 +110,8 @@
 # - think of disabling weapons use for ooze, spider etc while making it able to
 #   use its properties and somehow modify dices
 # - hc moar 50% immunities (eg undead's nether res++)
+# - make some not to be able to have immunity
+#   instead apply hard cap -> double resistance - eg Frostmen fire 35+lvl
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -214,6 +216,7 @@ skill-search:6
 skill-melee:-5
 skill-shoot:15
 skill-dig:0
+#/// !
 hitdie:9
 exp:120:125
 history:5
@@ -222,11 +225,11 @@ height:73:7
 weight:90:10
 gift:food:Elvish wine:1:1
 # -1 2 -1 1 -1
-value:0:STR[-1]
+value:0:STR[-1+1d30]
 value:0:INT[2]
 value:0:WIS[-1]
-value:0:DEX[1]
-value:0:CON[-1]
+value:0:DEX[1+1d49]
+value:0:CON[-1+1d49]
 value:0:CHR[2]
 # 'y' bless
 obj-flag:1:SUST_DEX
@@ -1573,7 +1576,6 @@ player-flags:5:BEAM
 ######perfect success rate with magic
 player-flags:10:ZERO_FAIL 
 obj-flag:1:FEATHER
-value:20:MIGHT[-1]
 # 'y' become invisible
 # 5% dodge melee attacks
 value:0:MANA[5+-1d12]
@@ -1715,7 +1717,7 @@ height:74:7
 weight:85:9
 gift:food:Pint of Fine Wine:1:1
 # 0 1 -2 2 -1
-value:0:STR[0]
+value:0:STR[0+1d30]
 value:0:INT[1]
 value:0:WIS[-2+1d25]
 value:0:DEX[2]
@@ -1747,13 +1749,13 @@ height:82:3
 weight:244:23
 gift:scroll:Phase Door:3:4
 ###########
-value:0:STR[-1]
+value:0:STR[-1+1d30]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[-5+1d9]
 value:0:CON[-5+1d9]
 value:0:CHR[-7+1d24]
-# 'y' ray of element
+# 'y' ray of element .... TODO? maybe make double resistance ability instead?
 ###########
 brand:20:29:ELEC_2
 brand:30:39:COLD_2
@@ -1770,6 +1772,9 @@ obj-flag:0:CLUMSY
 #value:40:RES_ACID[--]
 #value:50:RES_ACID[++] hardcoded
 #############
+# ++ means that if player has resistance - it will become double resistance..
+# while double resistance will become immunity (in 50% cases)
+# (vulnerability also 50% chance)
 value:0:STEALTH[-2+-1d8]
 value:0:MANA[5+-1d10]
 
@@ -1797,15 +1802,18 @@ value:0:WIS[-2]
 value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-9]
-# 'y' RAISE dead
-# hardcoded: no feelings (monster/object).
+#/// 'y' RAISE dead !
 # smaller ESP radius (-1/4)
+# can't be immute to fire (instead becomes double resistant)
 value:25:INFRA[1]
 #value:35:RES_FIRE[1]
 #value:0:RES_FIRE[-1]
 #value:0:RES_COLD[1]
 #value:35:RES_COLD[2] hardcoded
+# so.. fire vuln <35. than just not possible to gain fire imm,
+# gets double resist instead (becomes in 50% cases at lvl 50.
 brand:45:50:COLD_2
+value:0:MOVES[-1]
 value:0:MANA[3+-1d15]
 obj-flag:25:ESP_UNDEAD
 
@@ -1870,14 +1878,16 @@ value:0:CON[-2]
 value:0:CHR[-9]
 value:0:INFRA[1+1d6]
 brand:15:50:POIS_2
-obj-flag:0:CLUMSY
+# /// weaves web around
 # value:0:RES_POIS[1]
-#value:30:RES_POIS[3] hardcoded
+#value:30:RES_POIS[++] hardcoded (not immunity, but ++, so 1 -> 2 and 2 -> 3
 # _CAN_ use weapons
 value:0:MANA[4+-1d12]
-value:0:DAM_RED[-1+-1d5]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[1+1d12]
+# /// -
+value:0:DAM_RED[-1+-1d5]
+obj-flag:0:CLUMSY
 ############################## forms hced as deco in map-ui.c
 #player-flags:0:PERM_SHAPE
 #shape:1:s'spider
@@ -1927,7 +1937,6 @@ obj-flag:1:FEATHER
 obj-flag:25:SEE_INVIS
 value:0:INFRA[1+1d15]
 value:29:SPEED[1+1d4]
-value:30:STEALTH[1]
 player-flags:0:KNOW_ZAPPER
 # auto-id
 obj-flag:50:KNOWLEDGE
@@ -1974,7 +1983,7 @@ value:0:CHR[-2]
 value:0:STEALTH[0+1d24]
 obj-flag:1:FEATHER
 value:0:TUNNEL[-1]
-value:1:MOVES[1]
+value:0:MOVES[1+1d30]
 value:0:INFRA[2]
 value:40:SPEED[1+1d2]
 
@@ -2008,7 +2017,7 @@ value:0:CON[-3+1d8]
 value:0:CHR[-6]
 value:0:INFRA[2]
 obj-flag:1:PROT_CONF
-obj-flag:1:PROT_STUN
+obj-flag:30:PROT_STUN
 value:0:STEALTH[-4+-1d10]
 obj-flag:1:IMPAIR_HP
 value:0:MANA[4+-1d6M25]
@@ -2033,9 +2042,11 @@ height:30:2
 weight:56:3
 gift:food:Slime Mold:1:1
 # 'y' save from starving 14
-# - stench! and make more noise
+# get satiation from killing insects and rodents
+# - stench! leaves 'tracks' for long time
 # darkness-loving (see in the dark, but light makes it worse)
-value:0:STR[-1+1d24]
+# erratic +1 speed boni HCed
+value:0:STR[-1+1d30]
 value:0:INT[-1]
 value:0:WIS[-3]
 value:0:DEX[2+1d30]
@@ -2045,15 +2056,19 @@ value:0:INFRA[5]
 value:0:TUNNEL[1+1d24]
 value:0:STEALTH[1+1d30]
 obj-flag:1:PROT_BLIND
-value:0:RES_LIGHT[-1]
 value:0:RES_DARK[1]
 player-flags:10:RACE_REGEN
-obj-flag:1:HUNGER
-obj-flag:35:SLOW_DIGEST
+obj-flag:30:SLOW_DIGEST
 value:0:MANA[3+-1d15]
-obj-flag:35:SUST_STR
-obj-flag:40:SUST_DEX
-obj-flag:45:SUST_CON
+obj-flag:30:SUST_STR
+obj-flag:35:SUST_DEX
+obj-flag:40:SUST_CON
+# can't be worse..
+obj-flag:1:SUST_CHR
+player-flags:0:KNOW_MUSHROOM
+#/// -
+obj-flag:1:HUNGER
+value:0:RES_LIGHT[-1]
 
 name:Naga
 skill-disarm-phys:-14
@@ -2124,8 +2139,8 @@ value:0:CHR[-5]
 value:0:INFRA[1+1d10]
 value:0:MOVES[1]
 value:0:TUNNEL[1]
-obj-flag:35:PROT_CONF
-value:50:RES_CHAOS[1]
+obj-flag:30:PROT_CONF
+value:49:RES_CHAOS[1]
 
 name:Lizardmen
 skill-disarm-phys:-4
@@ -2192,15 +2207,14 @@ obj-flag:1:FREE_ACT
 obj-flag:1:SLOW_DIGEST
 obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
+value:0:MOVES[1]
+value:0:MANA[10+-1d5]
 # 'y' light around
 #value:0:RES_LIGHT[1]
 #value:35:RES_LIGHT[++] hardcoded
-# -
+#/// -
 obj-flag:0:CLUMSY
-value:0:MOVES[1]
 value:0:RES_DARK[-1]
-value:0:MANA[10+-1d5]
-#### -
 value:0:DAM_RED[0+-1d5]
 
 name:Imp
@@ -2235,7 +2249,8 @@ value:0:SPEED[1+1d15]
 value:0:RES_COLD[-1]
 # randomly teleports around from time to time
 obj-flag:50:IMPAIR_MANA
-player-flags:50:STEALTH_MODE
+# makes STEALTH very high in 50% cases
+player-flags:30:STEALTH_MODE
 value:0:MANA[8+-1d6]
 
 name:Wraith
@@ -2246,7 +2261,7 @@ skill-save:20
 skill-stealth:0
 skill-search:-20
 skill-melee:-15
-skill-shoot:-25
+skill-shoot:-15
 skill-dig:0
 hitdie:9
 # @49: 900%
@@ -2270,21 +2285,22 @@ obj-flag:1:PROT_FEAR
 obj-flag:1:ESP_UNDEAD
 obj-flag:1:FEATHER
 value:0:STEALTH[1+1d15]
-value:0:RES_LIGHT[-1]
-value:0:RES_POIS[1]
 obj-flag:1:HOLD_LIFE
 obj-flag:20:SEE_INVIS
-value:0:RES_TIME[1]
+value:0:RES_POIS[1]
 value:0:RES_NETHER[1]
+value:0:RES_TIME[1]
 value:0:RES_DARK[1]
-value:0:TUNNEL[-10]
 value:0:MANA[4+-1d12]
 # +
 # 25% dodge melee attacks
-# 'y' passwall (blind)
+# 'y' passwall (blind) with CD 60 turns
 # darkness-loving (see in the dark, but light makes it worse)
 ############################
-# -
+#/// -
+value:0:TUNNEL[-10]
+# TODO: can't get immunity to fire (cap is double resist)
+value:0:RES_LIGHT[-1]
 player-flags:0:NO_RECALL
 obj-flag:0:CLUMSY
 # - hard to equip items.. need several attempts

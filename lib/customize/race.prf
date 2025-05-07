@@ -726,10 +726,13 @@ race:Frostmen
 help:Ancient beings of cold and silence, who still dwell in the North.. They are
 help: descendants of the first men of ice, who once raised armies of undead.
 help: Now they call themselves 'Norse': magical northmen barbarians. They
-help: specialize in hunting snow trolls, so they know all their weaknesses.
-help: Their skin is magically enhanced and protected from frost, but it makes
-help: them vulnerable to heat.|
-help: |
+help: specialize in hunting snow trolls, so they know all their weaknesses.|
+help:|
+help:Their skin is magically enhanced and protected from frost. However, it makes
+help: them vulnerable to heat up to level 35. Beyond that, they are no longer
+help: vulnerable to heat, but can't gain immunity. Even if they equip an item
+help: with fire immunity, they get double resistance instead.|
+help:|
 help:Their melee combat is brutal, with strength enhanced by icy rage, but they
 help: are bad at using magical devices, searching, disarming traps, and resisting
 help: magic. All other races fear them. They lack intuition, which helps most
