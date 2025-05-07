@@ -805,62 +805,24 @@ static bool is_dragon_immune(struct monster_race *race)
 }
 
 
-/*
- * Obtain the "elements" for the player as if he was an item
- */
-void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
+
+
+// Apply racial element resistances based on race name and level
+static void hardcoded_race_resistances(struct player *p, struct element_info el_info[ELEM_MAX])
 {
-    int i;
-    bool vuln[ELEM_MAX];
-
-    /* Clear */
-    memset(el_info, 0, ELEM_MAX * sizeof(struct element_info));
-
-    /* Add racial flags */
-    for (i = 0; i < ELEM_MAX; i++)
-    {
-        int idx, lvl = -1, res_level;
-
-        vuln[i] = false;
-        for (idx = 0; idx < MAX_EL_INFO; idx++)
-        {
-            int curlvl = p->race->el_info[i].lvl[idx];
-
-            if (p->lev < curlvl) continue;
-            if (curlvl > lvl)
-            {
-                lvl = curlvl;
-                res_level = p->race->el_info[i].res_level[idx];
-            }
-        }
-        if (lvl >= 0)
-        {
-            if (res_level == -1)
-                vuln[i] = true;
-            else
-                el_info[i].res_level[0] = res_level;
-        }
-    }
-
     if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
         if (el_info[ELEM_DARK].res_level[0] < 3)
             el_info[ELEM_DARK].res_level[0]++;
     }
-
-    // currently in p_race.txt only one entry of the same resistance
-    // element is allowed; meaning that it's possible to assign an element
-    // to a race or class only once.
-
-    if (streq(p->race->name, "Merfolk"))
+    else if (streq(p->race->name, "Merfolk"))
     {
         if (el_info[ELEM_WATER].res_level[0] < 3)
             el_info[ELEM_WATER].res_level[0]++;
         if (p->lev > 49 && el_info[ELEM_WATER].res_level[0] < 3)
             el_info[ELEM_WATER].res_level[0]++;
     }
-
-    if (streq(p->race->name, "Undead"))
+    else if (streq(p->race->name, "Undead"))
     {
         if (el_info[ELEM_NETHER].res_level[0] < 3)
             el_info[ELEM_NETHER].res_level[0]++;
@@ -868,16 +830,14 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
             turn.turn % 2 == 0) // 50%
                 el_info[ELEM_NETHER].res_level[0]++;
     }
-
-    if (streq(p->race->name, "Balrog"))
+    else if (streq(p->race->name, "Balrog"))
     {
         if (el_info[ELEM_FIRE].res_level[0] < 1)
             el_info[ELEM_FIRE].res_level[0]++;
         if (p->lev > 34)
             el_info[ELEM_FIRE].res_level[0] = 3;
     }
-
-    if (streq(p->race->name, "Nephalem"))
+    else if (streq(p->race->name, "Nephalem"))
     {
         if (el_info[ELEM_DARK].res_level[0] > -1)
             el_info[ELEM_DARK].res_level[0]--;
@@ -898,9 +858,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
                 el_info[ELEM_LIGHT].res_level[0]++;
         }
     }
-
-    // Elemental race: apply resistances
-    if (streq(p->race->name, "Elemental"))
+    else if (streq(p->race->name, "Elemental"))
     {
         bool even_turn = (turn.turn % 2 == 0);
         
@@ -1015,9 +973,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
             }
         }
     }
-
-    // Frostmen race: apply resistances
-    if (streq(p->race->name, "Frostmen"))
+    else if (streq(p->race->name, "Frostmen"))
     {
         // Base Cold resistance (all levels)
         if (el_info[ELEM_COLD].res_level[0] < 3)
@@ -1036,8 +992,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         if (el_info[ELEM_FIRE].res_level[0] > 2 && (p->lev < 50 || turn.turn % 2 == 0))
             el_info[ELEM_FIRE].res_level[0] = 2;
     }
-
-    if (streq(p->race->name, "Spider"))
+    else if (streq(p->race->name, "Spider"))
     {
         // Base Poison resistance
         if (el_info[ELEM_POIS].res_level[0] < 1)
@@ -1046,16 +1001,14 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         if (p->lev > 29 && el_info[ELEM_POIS].res_level[0] < 3)
             el_info[ELEM_POIS].res_level[0]++;
     }
-
-    if (streq(p->race->name, "Wisp"))
+    else if (streq(p->race->name, "Wisp"))
     {
         if (el_info[ELEM_LIGHT].res_level[0] < 3)
             el_info[ELEM_LIGHT].res_level[0]++;
         if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3)
             el_info[ELEM_LIGHT].res_level[0]++;
     }
-
-    if (streq(p->race->name, "Imp"))
+    else if (streq(p->race->name, "Imp"))
     {
         if (p->lev > 19 && el_info[ELEM_FIRE].res_level[0] < 3)
             el_info[ELEM_FIRE].res_level[0]++;
@@ -1064,6 +1017,53 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         if (p->lev > 39 && el_info[ELEM_FIRE].res_level[0] < 3)
             el_info[ELEM_FIRE].res_level[0]++;
     }
+}
+
+
+/*
+ * Obtain the "elements" for the player as if he was an item
+ */
+void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
+{
+    int i;
+    bool vuln[ELEM_MAX];
+
+    /* Clear */
+    memset(el_info, 0, ELEM_MAX * sizeof(struct element_info));
+
+    /* Add racial flags */
+    for (i = 0; i < ELEM_MAX; i++)
+    {
+        int idx, lvl = -1, res_level;
+
+        vuln[i] = false;
+        for (idx = 0; idx < MAX_EL_INFO; idx++)
+        {
+            int curlvl = p->race->el_info[i].lvl[idx];
+
+            if (p->lev < curlvl) continue;
+            if (curlvl > lvl)
+            {
+                lvl = curlvl;
+                res_level = p->race->el_info[i].res_level[idx];
+            }
+        }
+        if (lvl >= 0)
+        {
+            if (res_level == -1)
+                vuln[i] = true;
+            else
+                el_info[i].res_level[0] = res_level;
+        }
+    }
+
+
+    // Apply race-specific resistances
+    hardcoded_race_resistances(p, el_info);
+    // Note: currently in p_race.txt only one entry of the same resistance
+    // element is allowed; meaning that it's possible to assign an element
+    // to a race or class only once.
+
 
     /* Add class flags */
     for (i = 0; i < ELEM_MAX; i++)
