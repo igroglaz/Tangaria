@@ -1018,6 +1018,11 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
         if (p->lev > 39 && el_info[ELEM_FIRE].res_level[0] < 3)
             el_info[ELEM_FIRE].res_level[0]++;
     }
+    else if (streq(p->race->name, "Wraith") && turn.turn % 2)
+    {
+        if (el_info[ELEM_FIRE].res_level[0] > 2)
+            el_info[ELEM_FIRE].res_level[0] = 2;
+    }
 }
 
 
