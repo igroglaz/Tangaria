@@ -155,32 +155,53 @@ void player_desc(struct player *p, char *desc, size_t max, struct player *q, boo
 
 // how player ESP NPC-monsters
 // alternative function: is_detected_p() which shows how one player ESP another players
+/* ------------------------------
+New T features: base and extended ESP radii
+   - ESP_ALL got base radius (like in PWMA)
+   - extended radius (+5) works on specific monster ESP AND Beholder race (except ESP evil)
+   (so it's now fun to wear ESP dragon item, it will give +5 extra ESP)
+   - ESP_RADIUS worse than all other ESP (including ESP_ALL), but very common to find
+ */
 static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d_esp)
 {
-    int radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
+    int base_radius = (cfg_limited_esp? z_info->max_sight * 3 / 4: z_info->max_sight);
+    int extended_radius = base_radius + 5; // Extended radius for specific ESP types
+    
+    // Racial ESP handicaps
+    if (streq(p->race->name, "Naga")) {
+        base_radius -= base_radius / 3;
+        extended_radius -= extended_radius / 3;
+    } else if (streq(p->race->name, "Frostmen")) {
+        base_radius -= base_radius / 4;
+        extended_radius -= extended_radius / 4;
+    } else if (streq(p->race->name, "Beholder")) // +5 radius
+        return (d_esp <= extended_radius);
 
-    // racial ESP hc
-    if (streq(p->race->name, "Naga"))
-        radius -= radius / 3; // return false;
-    else if (streq(p->race->name, "Frostmen"))
-        radius -= radius / 4;
 
-    /* Full ESP */
-    if (player_of_has(p, OF_ESP_ALL)) return true;
-
-    /* Partial ESP */
-    if (rf_has(mflags, RF_ORC) && player_of_has(p, OF_ESP_ORC)) return true;
-    if (rf_has(mflags, RF_TROLL) && player_of_has(p, OF_ESP_TROLL)) return true;
-    if (rf_has(mflags, RF_GIANT) && player_of_has(p, OF_ESP_GIANT)) return true;
-    if (rf_has(mflags, RF_DRAGON) && player_of_has(p, OF_ESP_DRAGON)) return true;
-    if (rf_has(mflags, RF_DEMON) && player_of_has(p, OF_ESP_DEMON)) return true;
-    if (rf_has(mflags, RF_UNDEAD) && player_of_has(p, OF_ESP_UNDEAD)) return true;
-    if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL)) return true;
-    if (rf_has(mflags, RF_ANIMAL) && player_of_has(p, OF_ESP_ANIMAL)) return true;
-
-    /* Radius ESP */
-    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= radius);
-
+    // Full ESP - limited by base radius
+    if (player_of_has(p, OF_ESP_ALL)) return (d_esp <= base_radius);
+    
+    // Partial ESP with extended radius (+5)
+    if (rf_has(mflags, RF_ORC) && player_of_has(p, OF_ESP_ORC)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_TROLL) && player_of_has(p, OF_ESP_TROLL)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_GIANT) && player_of_has(p, OF_ESP_GIANT)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_DRAGON) && player_of_has(p, OF_ESP_DRAGON)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_DEMON) && player_of_has(p, OF_ESP_DEMON)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_UNDEAD) && player_of_has(p, OF_ESP_UNDEAD)) 
+        return (d_esp <= extended_radius);
+    if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL)) 
+        return (d_esp <= base_radius); // base for Evil!
+    if (rf_has(mflags, RF_ANIMAL) && player_of_has(p, OF_ESP_ANIMAL)) 
+        return (d_esp <= extended_radius);
+    
+    // Radius ESP - worse then regular ESP
+    if (player_of_has(p, OF_ESP_RADIUS)) return (d_esp <= base_radius - 5);
+    
     /* No ESP */
     return false;
 }

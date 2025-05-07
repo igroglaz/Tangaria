@@ -1082,29 +1082,36 @@ type-mult:ring:2
 desc:Grants the ability to sense dragons
 short-desc:Esp Dragon
 
+# very rare standart ESP
 name:telepathy
 type:flag
 subtype:ESP flag
 id-type:on wield
 code:ESP_ALL
 power:70
-type-mult:horn:2
-type-mult:digger:2
-type-mult:boots:2
-type-mult:gloves:2
-type-mult:helm:2
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:1
 type-mult:crown:2
-type-mult:shield:2
-type-mult:cloak:2
-type-mult:soft armour:2
-type-mult:hard armour:2
-type-mult:dragon armour:2
-type-mult:light:2
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:light:1
 type-mult:amulet:2
-type-mult:ring:2
+type-mult:ring:1
 desc:Grants telepathy
 short-desc:Esp All
 
+# limited (-5) radius
 name:telepathic awareness
 type:flag
 subtype:ESP flag

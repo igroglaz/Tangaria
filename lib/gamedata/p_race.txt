@@ -512,7 +512,6 @@ value:0:CHR[-3]
 # + immune to polymorph
 # + stay at one place very silent
 # + can move through trees somewhat
-# - HCed: after 30 lvl got malus to MOVES up to -10 (&& -2 already there)
 value:0:INFRA[1+1d12]
 # very good at tunneling ("crushing stone")..
 #..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
@@ -524,20 +523,22 @@ player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
 value:0:MANA[5+-1d5M25]
 player-flags:0:CAN_SWIM
-obj-flag:1:CANT_FLY
-obj-flag:0:BAD_SHOOTER
-# stealth -6
-value:0:STEALTH[-1+-1d5M25]
-# perma vulnerability; fire imm makes it less harsh
-value:0:RES_FIRE[-1]
-# /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
-value:0:MOVES[-2+1d25]
-value:0:SPEED[0+-1d25]
 # barky
 value:30:DAM_RED[3+3d9]
+#/// -
+# stealth -6
+value:0:STEALTH[-1+-1d5M25]
+obj-flag:1:CANT_FLY
+obj-flag:0:BAD_SHOOTER
 obj-flag:0:IMPAIR_HP
+# perma vulnerability; fire imm makes it less harsh
+value:0:RES_FIRE[-1]
+value:0:SPEED[0+-1d25]
+# - HCed: after 30 lvl got malus to MOVES up to -10 (&& -2 already there)
+value:0:MOVES[-2+1d25]
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
+# /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
 #obj-flag:25:SEE_INVIS
 
 # big green dudes.. got a bird. live in mountains. use throwing weapons
@@ -2200,7 +2201,16 @@ value:0:DEX[2]
 value:0:CON[-1]
 value:0:CHR[-3]
 value:0:LIGHT[1+1d24]
-obj-flag:32:ESP_EVIL
+obj-flag:1:ESP_ANIMAL
+obj-flag:10:ESP_ORC
+obj-flag:20:ESP_TROLL
+obj-flag:25:ESP_GIANT
+obj-flag:30:ESP_EVIL
+obj-flag:35:ESP_DRAGON
+obj-flag:40:ESP_DEMON
+obj-flag:45:ESP_UNDEAD
+# regular, standart radius full EPS (not extended like Beholder's)
+obj-flag:50:ESP_ALL
 player-flags:0:BLESS_WEAPON
 obj-flag:1:FEATHER
 obj-flag:1:FREE_ACT
@@ -2208,10 +2218,9 @@ obj-flag:1:SLOW_DIGEST
 obj-flag:50:SLOW_DIGEST_2
 value:0:RES_POIS[1]
 value:0:MOVES[1]
-value:0:MANA[10+-1d5]
 # 'y' light around
 #value:0:RES_LIGHT[1]
-#value:35:RES_LIGHT[++] hardcoded
+#value:35:RES_LIGHT[++] hardcoded.. TODO 50%?
 #/// -
 obj-flag:0:CLUMSY
 value:0:RES_DARK[-1]
@@ -2299,7 +2308,7 @@ value:0:MANA[4+-1d12]
 ############################
 #/// -
 value:0:TUNNEL[-10]
-# TODO: can't get immunity to fire (cap is double resist)
+# TODO: can't get immunity to fire (cap is double resist) 50%
 value:0:RES_LIGHT[-1]
 player-flags:0:NO_RECALL
 obj-flag:0:CLUMSY
@@ -2332,36 +2341,27 @@ age:50:8
 height:47:4
 weight:60:12
 gift:mushroom:Stoneskin:1:1
-#-1 4 -2 -3 -2
-value:0:STR[-1]
+#-2 4 -2 -3 -2
+value:0:STR[-2]
 value:0:INT[0+1d12]
 value:0:WIS[-2]
 value:0:DEX[-3]
 value:0:CON[-2]
-value:0:CHR[-9+1d30]
-value:0:INFRA[1+1d5]
-value:0:TUNNEL[-5+-1d15]
-player-flags:0:SHIELD_BASH
-obj-flag:1:FEATHER
-obj-flag:1:ESP_ANIMAL
-obj-flag:5:ESP_ORC
-obj-flag:10:ESP_TROLL
-obj-flag:15:ESP_GIANT
-obj-flag:20:ESP_DRAGON
-obj-flag:25:ESP_EVIL
-obj-flag:30:ESP_DEMON
-obj-flag:35:ESP_UNDEAD
-obj-flag:40:ESP_RADIUS
-obj-flag:45:ESP_ALL
-obj-flag:1:PROT_AMNESIA
+value:0:CHR[-9]
+# + full ESP - harcoded (with extra +5 radius)
 value:0:SPEED[1]
-value:0:DAM_RED[0+-1d4]
+value:0:INFRA[1+1d5]
+obj-flag:1:FEATHER
 value:0:MANA[8+-1d6]
-value:0:RES_LIGHT[-1]
-value:0:MOVES[-5+-1d9]
+obj-flag:1:PROT_AMNESIA
 # hardcoded: hallucinating
 # 'y' can cast rays
+#/// -
 obj-flag:0:CLUMSY
+value:0:RES_LIGHT[-1]
+value:0:MOVES[-5+-1d9]
+value:0:TUNNEL[-5+-1d15]
+value:0:DAM_RED[0+-1d4]
 ############################## disabled polyforms for now as it can 'y' ray.. add them as pets later on?
 #player-flags:0:SHAPECHANGE
 #shape:1:floating eye'
