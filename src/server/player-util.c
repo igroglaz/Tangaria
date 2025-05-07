@@ -863,7 +863,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 {
     int dam_taken = 0;
 
-    if (player_passwall(p) && turn.turn % 2 == 0) return 0;  // wraithform helps in 50% cases
+    if (player_passwall(p) && turn.turn % 2) return 0;  // wraithform helps in 50% cases
 
     // terrain in the wilderness (islava - is outside) --- Not exist in T!
     if (square_isfiery(c, &p->grid))

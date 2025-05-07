@@ -810,6 +810,7 @@ static bool is_dragon_immune(struct monster_race *race)
 // Apply racial element resistances based on race name and level
 static void hardcoded_race_resistances(struct player *p, struct element_info el_info[ELEM_MAX])
 {
+
     if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
         if (el_info[ELEM_DARK].res_level[0] < 3)
@@ -827,7 +828,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
         if (el_info[ELEM_NETHER].res_level[0] < 3)
             el_info[ELEM_NETHER].res_level[0]++;
         if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3 &&
-            turn.turn % 2 == 0) // 50%
+            turn.turn % 2) // 50%
                 el_info[ELEM_NETHER].res_level[0]++;
     }
     else if (streq(p->race->name, "Balrog"))
@@ -850,7 +851,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             if (el_info[ELEM_LIGHT].res_level[0] < 3)
                 el_info[ELEM_LIGHT].res_level[0]++;
         }
-        if (p->lev > 49 && turn.turn % 2 == 0) // 50%
+        if (p->lev > 49 && turn.turn % 2) // 50%
         {
             if (el_info[ELEM_DARK].res_level[0] < 3)
                 el_info[ELEM_DARK].res_level[0]++;
@@ -860,12 +861,12 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     }
     else if (streq(p->race->name, "Elemental"))
     {
-        bool even_turn = (turn.turn % 2 == 0);
+        bool odd_turn = (turn.turn % 2);
         
         // Level 1-19: Electric vulnerability (50% chance)
         if (p->lev < 20)
         {
-            if (even_turn)
+            if (odd_turn)
                 el_info[ELEM_ELEC].res_level[0] = -1;
         }
         
@@ -877,11 +878,11 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
                 el_info[ELEM_ELEC].res_level[0] = 1;
                 
             // Improved Electric resistance (50% chance)
-            if (el_info[ELEM_ELEC].res_level[0] < 3 && even_turn)
+            if (el_info[ELEM_ELEC].res_level[0] < 3 && odd_turn)
                 el_info[ELEM_ELEC].res_level[0]++;
                 
             // Cold vulnerability (50% chance)
-            if (!even_turn)
+            if (!odd_turn)
                 el_info[ELEM_COLD].res_level[0] = -1;
         }
         
@@ -897,7 +898,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
                 el_info[ELEM_COLD].res_level[0] = 1;
                 
             // Improved Electric/Cold resistance (50% chance each)
-            if (even_turn)
+            if (odd_turn)
             {
                 if (el_info[ELEM_ELEC].res_level[0] < 3)
                     el_info[ELEM_ELEC].res_level[0]++;
@@ -909,7 +910,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             }
             
             // Fire vulnerability (50% chance)
-            if (even_turn && el_info[ELEM_FIRE].res_level[0] > -1)
+            if (odd_turn && el_info[ELEM_FIRE].res_level[0] > -1)
                 el_info[ELEM_FIRE].res_level[0]--;
         }
         
@@ -925,7 +926,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
                 el_info[ELEM_FIRE].res_level[0] = 1;
                 
             // Improved resistances (50% chance distributed)
-            if (even_turn)
+            if (odd_turn)
             {
                 if (el_info[ELEM_ELEC].res_level[0] < 3)
                     el_info[ELEM_ELEC].res_level[0]++;
@@ -939,7 +940,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             }
             
             // Acid vulnerability (50% chance)
-            if (!even_turn && el_info[ELEM_ACID].res_level[0] > -1)
+            if (!odd_turn && el_info[ELEM_ACID].res_level[0] > -1)
                 el_info[ELEM_ACID].res_level[0]--;
         }
         
@@ -957,7 +958,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
                 el_info[ELEM_ACID].res_level[0] = 1;
                 
             // Improved resistances (50% chance distributed)
-            if (even_turn)
+            if (odd_turn)
             {
                 if (el_info[ELEM_ELEC].res_level[0] < 3)
                     el_info[ELEM_ELEC].res_level[0]++;
@@ -989,7 +990,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             
         // Prevent Fire immunity - cap at high resistance
         // At level 50+, allow fire immunity in 50% of cases
-        if (el_info[ELEM_FIRE].res_level[0] > 2 && (p->lev < 50 || turn.turn % 2 == 0))
+        if (el_info[ELEM_FIRE].res_level[0] > 2 && (p->lev < 50 || turn.turn % 2))
             el_info[ELEM_FIRE].res_level[0] = 2;
     }
     else if (streq(p->race->name, "Spider"))
@@ -1062,7 +1063,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
     hardcoded_race_resistances(p, el_info);
     // Note: currently in p_race.txt only one entry of the same resistance
     // element is allowed; meaning that it's possible to assign an element
-    // to a race or class only once.
+    // to a race or class only once there. So we do it in here.
 
 
     /* Add class flags */
