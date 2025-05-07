@@ -899,52 +899,150 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         }
     }
 
+    // Elemental race: apply resistances
     if (streq(p->race->name, "Elemental"))
     {
+        bool even_turn = (turn.turn % 2 == 0);
+        
+        // Level 1-19: Electric vulnerability (50% chance)
         if (p->lev < 20)
-            el_info[ELEM_ELEC].res_level[0] = -1;
-        if (p->lev > 19)
         {
-            if (el_info[ELEM_ELEC].res_level[0] < 3)
+            if (even_turn)
+                el_info[ELEM_ELEC].res_level[0] = -1;
+        }
+        
+        // Level 20-29: Electric resistance, Cold vulnerability
+        if (p->lev >= 20 && p->lev < 30)
+        {
+            // Base Electric resistance
+            if (el_info[ELEM_ELEC].res_level[0] < 1)
+                el_info[ELEM_ELEC].res_level[0] = 1;
+                
+            // Improved Electric resistance (50% chance)
+            if (el_info[ELEM_ELEC].res_level[0] < 3 && even_turn)
                 el_info[ELEM_ELEC].res_level[0]++;
-            if (p->lev < 30)
+                
+            // Cold vulnerability (50% chance)
+            if (!even_turn)
                 el_info[ELEM_COLD].res_level[0] = -1;
         }
-        if (p->lev > 29)
+        
+        // Level 30-39: Electric+Cold resistance, Fire vulnerability
+        if (p->lev >= 30 && p->lev < 40)
         {
-            if (el_info[ELEM_COLD].res_level[0] < 3)
-                el_info[ELEM_COLD].res_level[0]++;
-            if (p->lev < 40 && el_info[ELEM_FIRE].res_level[0] > -1)
+            // Base Electric resistance
+            if (el_info[ELEM_ELEC].res_level[0] < 1)
+                el_info[ELEM_ELEC].res_level[0] = 1;
+                
+            // Base Cold resistance
+            if (el_info[ELEM_COLD].res_level[0] < 1)
+                el_info[ELEM_COLD].res_level[0] = 1;
+                
+            // Improved Electric/Cold resistance (50% chance each)
+            if (even_turn)
+            {
+                if (el_info[ELEM_ELEC].res_level[0] < 3)
+                    el_info[ELEM_ELEC].res_level[0]++;
+            }
+            else
+            {
+                if (el_info[ELEM_COLD].res_level[0] < 3)
+                    el_info[ELEM_COLD].res_level[0]++;
+            }
+            
+            // Fire vulnerability (50% chance)
+            if (even_turn && el_info[ELEM_FIRE].res_level[0] > -1)
                 el_info[ELEM_FIRE].res_level[0]--;
         }
-        if (p->lev > 39)
+        
+        // Level 40-49: Electric+Cold+Fire resistance, Acid vulnerability
+        if (p->lev >= 40 && p->lev < 50)
         {
-            if (el_info[ELEM_FIRE].res_level[0] < 3)
-                el_info[ELEM_FIRE].res_level[0]++;
-            if (p->lev < 50 && el_info[ELEM_ACID].res_level[0] > -1)
+            // Base resistances
+            if (el_info[ELEM_ELEC].res_level[0] < 1)
+                el_info[ELEM_ELEC].res_level[0] = 1;
+            if (el_info[ELEM_COLD].res_level[0] < 1)
+                el_info[ELEM_COLD].res_level[0] = 1;
+            if (el_info[ELEM_FIRE].res_level[0] < 1)
+                el_info[ELEM_FIRE].res_level[0] = 1;
+                
+            // Improved resistances (50% chance distributed)
+            if (even_turn)
+            {
+                if (el_info[ELEM_ELEC].res_level[0] < 3)
+                    el_info[ELEM_ELEC].res_level[0]++;
+                if (el_info[ELEM_FIRE].res_level[0] < 3)
+                    el_info[ELEM_FIRE].res_level[0]++;
+            }
+            else
+            {
+                if (el_info[ELEM_COLD].res_level[0] < 3)
+                    el_info[ELEM_COLD].res_level[0]++;
+            }
+            
+            // Acid vulnerability (50% chance)
+            if (!even_turn && el_info[ELEM_ACID].res_level[0] > -1)
                 el_info[ELEM_ACID].res_level[0]--;
         }
-        if (p->lev > 49)
+        
+        // Level 50+: All elemental resistances
+        if (p->lev >= 50)
         {
-            if (el_info[ELEM_ACID].res_level[0] < 3)
-                el_info[ELEM_ACID].res_level[0]++;
+            // Base resistances
+            if (el_info[ELEM_ELEC].res_level[0] < 1)
+                el_info[ELEM_ELEC].res_level[0] = 1;
+            if (el_info[ELEM_COLD].res_level[0] < 1)
+                el_info[ELEM_COLD].res_level[0] = 1;
+            if (el_info[ELEM_FIRE].res_level[0] < 1)
+                el_info[ELEM_FIRE].res_level[0] = 1;
+            if (el_info[ELEM_ACID].res_level[0] < 1)
+                el_info[ELEM_ACID].res_level[0] = 1;
+                
+            // Improved resistances (50% chance distributed)
+            if (even_turn)
+            {
+                if (el_info[ELEM_ELEC].res_level[0] < 3)
+                    el_info[ELEM_ELEC].res_level[0]++;
+                if (el_info[ELEM_FIRE].res_level[0] < 3)
+                    el_info[ELEM_FIRE].res_level[0]++;
+            }
+            else
+            {
+                if (el_info[ELEM_COLD].res_level[0] < 3)
+                    el_info[ELEM_COLD].res_level[0]++;
+                if (el_info[ELEM_ACID].res_level[0] < 3)
+                    el_info[ELEM_ACID].res_level[0]++;
+            }
         }
     }
 
+    // Frostmen race: apply resistances
     if (streq(p->race->name, "Frostmen"))
     {
+        // Base Cold resistance (all levels)
         if (el_info[ELEM_COLD].res_level[0] < 3)
             el_info[ELEM_COLD].res_level[0]++;
+            
+        // Fire vulnerability for levels 1-34
         if (p->lev < 35 && el_info[ELEM_FIRE].res_level[0] > -1)
             el_info[ELEM_FIRE].res_level[0]--;
+            
+        // Improved Cold resistance at level 35+
         if (p->lev > 34 && el_info[ELEM_COLD].res_level[0] < 3)
             el_info[ELEM_COLD].res_level[0]++;
+            
+        // Prevent Fire immunity - cap at high resistance
+        // At level 50+, allow fire immunity in 50% of cases
+        if (el_info[ELEM_FIRE].res_level[0] > 2 && (p->lev < 50 || turn.turn % 2 == 0))
+            el_info[ELEM_FIRE].res_level[0] = 2;
     }
 
     if (streq(p->race->name, "Spider"))
     {
-        if (el_info[ELEM_POIS].res_level[0] < 3)
-            el_info[ELEM_POIS].res_level[0]++;
+        // Base Poison resistance
+        if (el_info[ELEM_POIS].res_level[0] < 1)
+            el_info[ELEM_POIS].res_level[0] = 1;
+        // improve at 30+
         if (p->lev > 29 && el_info[ELEM_POIS].res_level[0] < 3)
             el_info[ELEM_POIS].res_level[0]++;
     }
