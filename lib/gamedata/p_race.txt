@@ -113,6 +113,7 @@
 # - make some not to be able to have immunity
 #   instead apply hard cap -> double resistance - eg Frostmen fire 35+lvl
 
+
 name:Half-Troll
 skill-disarm-phys:-5
 skill-disarm-magic:-5
@@ -137,12 +138,15 @@ value:0:WIS[-2]
 value:0:DEX[-4]
 value:0:CON[3]
 value:0:CHR[-4]
-obj-flag:1:SUST_STR
-obj-flag:1:REGEN
-player-flags:50:RACE_REGEN
-obj-flag:50:SLOW_DIGEST
+obj-flag:0:SUST_STR
 value:0:INFRA[3]
+obj-flag:0:REGEN
+obj-flag:50:SLOW_DIGEST
+value:50:DAM_RED[1]
+player-flags:50:RACE_REGEN
+#/// -
 player-flags:0:TROLL
+
 
 name:Human
 skill-disarm-phys:0
@@ -168,11 +172,11 @@ value:50:WIS[1]
 value:50:DEX[1]
 value:50:CON[1]
 value:50:CHR[1]
-obj-flag:50:SUST_CHR
-# 'y' restore CON
+# 'y' restore CON (at 30+ lvl with CD)
 # + storage slot
+obj-flag:50:SUST_CHR
+value:50:DAM_RED[1]
 
-# mediocre bonus.. versatile
 
 name:Half-Elf
 skill-disarm-phys:2
@@ -199,11 +203,12 @@ value:0:DEX[1]
 value:0:CON[-1+1d24]
 value:0:CHR[1]
 # 'y' hero
-obj-flag:1:SUST_DEX
-value:0:INFRA[2]
+obj-flag:0:SUST_DEX
 value:15:TUNNEL[1]
+value:0:INFRA[2]
 value:50:DAM_RED[1]
 value:50:SPEED[1]
+
 
 #Sindar, Grey Elves.. Elves of the Twilight
 name:Elf
@@ -232,11 +237,12 @@ value:0:DEX[1+1d49]
 value:0:CON[-1+1d49]
 value:0:CHR[2]
 # 'y' bless
-obj-flag:1:SUST_DEX
+obj-flag:0:SUST_DEX
 value:0:INFRA[3]
-value:0:RES_LIGHT[1]
 value:0:MOVES[0+1d12]
 value:40:SPEED[1+1d9]
+value:0:RES_LIGHT[1]
+
 
 name:Halfling
 skill-disarm-phys:15
@@ -264,11 +270,12 @@ value:0:DEX[3]
 value:0:CON[0+1d10M20]
 value:0:CHR[1]
 # 'y' trapsafe for 1 turn
-value:0:INFRA[1]
 # 5% dodge melee attacks
-obj-flag:1:HOLD_LIFE
-obj-flag:50:SLOW_DIGEST
 player-flags:0:KNOW_MUSHROOM
+value:0:INFRA[1]
+obj-flag:0:HOLD_LIFE
+obj-flag:50:SLOW_DIGEST
+
 
 name:Gnome
 skill-disarm-phys:10
@@ -293,10 +300,11 @@ value:0:DEX[2]
 value:0:CON[1]
 value:0:CHR[-1]
 # 'y' clear hallucinations
-value:0:INFRA[4]
-obj-flag:1:FREE_ACT
-value:0:TUNNEL[1+1d30]
 player-flags:0:KNOW_ZAPPER
+value:0:TUNNEL[1+1d30]
+value:0:INFRA[4]
+obj-flag:0:FREE_ACT
+
 
 name:Dwarf
 skill-disarm-phys:2
@@ -323,9 +331,10 @@ value:0:DEX[-2]
 value:0:CON[2]
 value:0:CHR[-2]
 # 'y' detect treasure in a small radius (not only gold veins)
-value:0:INFRA[5]
-obj-flag:1:PROT_BLIND
 player-flags:0:SEE_ORE
+value:0:INFRA[5]
+obj-flag:0:PROT_BLIND
+
 
 name:Half-Orc
 skill-disarm-phys:-3
@@ -349,13 +358,15 @@ value:0:INT[-1]
 value:0:CON[0+1d30]
 value:0:CHR[-3]
 # 'y' restore STR
-value:0:INFRA[1+2d30]
-value:30:RES_DARK[1]
 value:0:TUNNEL[1]
-value:30:DAM_RED[1+1d9]
+value:0:INFRA[1+2d30]
 obj-flag:25:ESP_ORC
+value:30:DAM_RED[1+1d9]
+value:30:RES_DARK[1]
 obj-flag:50:SLOW_DIGEST
+#/// -
 player-flags:0:ORC
+
 
 name:Dunadan
 skill-disarm-phys:4
@@ -385,7 +396,10 @@ value:0:CHR[2]
 # 'y' cure blackbreath
 # + storage slot
 # + can find sprig of Athelas sometimes when chopping trees
-obj-flag:1:SUST_CON
+obj-flag:0:SUST_CON
+obj-flag:50:SUST_CHR
+value:50:DAM_RED[1]
+
 
 #noble and proud
 name:High-Elf
@@ -420,6 +434,7 @@ value:0:STEALTH[1+1d30]
 obj-flag:25:SEE_INVIS
 value:0:RES_LIGHT[1]
 
+
 name:Kobold
 skill-disarm-phys:10
 skill-disarm-magic:10
@@ -444,10 +459,11 @@ value:0:CON[2]
 value:0:CHR[-2]
 # 'y' double pois resist
 value:0:INFRA[5]
-value:0:RES_POIS[1]
 value:0:TUNNEL[1+1d30]
+value:0:RES_POIS[1]
 value:50:MANA[1]
 obj-flag:50:SLOW_DIGEST
+
 
 #magister yoda like appearence..
 name:Yeek
@@ -474,13 +490,16 @@ value:0:DEX[-1+-1d12]
 value:0:CON[-2+-1d15]
 value:0:CHR[-1]
 # 'y' become bold :) like real brave yeek!
-obj-flag:1:FEATHER
 # + no agro when equipping aggo items! you simply can't be angry on cute yeek..
+obj-flag:0:FEATHER
+#/// -
+player-flags:0:ANIMAL
+##########################
 player-flags:0:SHAPECHANGE
 shape:1:oook
 shape:12:eeek
 shape:24:yaak
-player-flags:0:ANIMAL
+
 
 name:Ent
 skill-disarm-phys:-5
@@ -512,23 +531,19 @@ value:0:CHR[-3]
 # + immune to polymorph
 # + stay at one place very silent
 # + can move through trees somewhat
+# ? need to test food consumption.. maybe remove slow digest
 value:0:INFRA[1+1d12]
-# very good at tunneling ("crushing stone")..
-#..but won't cut trees (rfe), but can pass them.. or maybe trees "moves away" when it walk?
 value:0:TUNNEL[5]
-# > need to test food consumption.. maybe remove slow digest
 obj-flag:0:SLOW_DIGEST
-player-flags:0:GIANT
-player-flags:0:SHAPECHANGE
-shape:1:sleepy ent
 value:0:MANA[5+-1d5M25]
 player-flags:0:CAN_SWIM
-# barky
 value:30:DAM_RED[3+3d9]
+player-flags:0:SHAPECHANGE
+shape:1:sleepy ent
 #/// -
 # stealth -6
 value:0:STEALTH[-1+-1d5M25]
-obj-flag:1:CANT_FLY
+obj-flag:0:CANT_FLY
 obj-flag:0:BAD_SHOOTER
 obj-flag:0:IMPAIR_HP
 # perma vulnerability; fire imm makes it less harsh
@@ -536,10 +551,12 @@ value:0:RES_FIRE[-1]
 value:0:SPEED[0+-1d25]
 # - HCed: after 30 lvl got malus to MOVES up to -10 (&& -2 already there)
 value:0:MOVES[-2+1d25]
+player-flags:0:GIANT
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
 # /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
 #obj-flag:25:SEE_INVIS
+
 
 # big green dudes.. got a bird. live in mountains. use throwing weapons
 name:Thunderlord
@@ -570,12 +587,15 @@ value:0:CON[-6+1d4]
 value:0:CHR[-4]
 # 'y' electrify (res elec + brand)
 # + got eagle
-value:0:TUNNEL[-1+-1d15]
-obj-flag:1:AGGRAVATE
-obj-flag:1:HUNGER
-obj-flag:0:BAD_SHOOTER
 value:0:MANA[4+-1d6M25]
+#/// -
+obj-flag:0:AGGRAVATE
+obj-flag:0:HUNGER
+value:0:TUNNEL[-1+-1d15]
+obj-flag:0:BAD_SHOOTER
+player-flags:0:GIANT
 # player-flags:0:THUNDERLORD - is actually ESP_RADIUS (ESP with expanding radius)
+
 
 #dragon got 1/2 bonuses from dragons which form they take
 name:Dragon
@@ -596,7 +616,7 @@ age:255:70
 height:170:20
 weight:240:60
 gift:gold:gold:42:84
-obj-flag:1:FEATHER
+obj-flag:0:FEATHER
 value:0:INFRA[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
 value:0:STR[-20]
@@ -606,13 +626,14 @@ value:0:DEX[-20]
 value:0:CON[-10]
 value:0:CHR[-5]
 # 'y' breath
-# - hc monks: -1 BpR after lvl 10
-# - 1/13 hp
 value:0:MANA[5+-1d10M40]
-# the bigger dragon is - the more stealth penalty it should have
+#/// -
+# - 1/13 hp
+# - hc monks: -1 BpR after lvl 10
 value:0:STEALTH[0+-1d5]
 obj-flag:50:HUNGER
 obj-flag:0:CLUMSY
+##################################
 player-flags:0:DRAGON | PERM_SHAPE
 attack:claw:none:1:0:NONE
 attack:bite:none:5:4:DAM
@@ -622,6 +643,7 @@ attack:crush:none:45:40:CRUSH
 #35 ancient
 #45 wyrm
 #50 ancient wyrm
+
 
 name:Hydra
 skill-disarm-phys:-50
@@ -649,17 +671,21 @@ value:0:DEX[-20]
 value:0:CON[-20+20d25]
 value:0:CHR[-20+1d5]
 # 'y' breath
-# + AGGRAVATE 20 range hardcoded
-# - hc monks: -1 BpR after lvl 10
-value:15:SPEED[-10+2d7]
-value:15:MOVES[10+-2d7]
+player-flags:0:CAN_SWIM
 player-flags:0:RACE_REGEN
-value:50:DAM_RED[5]
 value:0:MANA[10]
 value:10:TUNNEL[1+1d10]
-value:35:RES_CHAOS[1]
-obj-flag:0:CLUMSY
 player-flags:25:SEE_ORE
+value:35:RES_CHAOS[1]
+value:50:DAM_RED[5]
+#/// -
+# + AGGRAVATE 20 range hardcoded
+# - hc monks: -1 BpR after lvl 10
+value:15:MOVES[10+-2d7]
+value:15:SPEED[-10+2d7]
+obj-flag:0:CLUMSY
+obj-flag:0:CANT_FLY
+##################################
 player-flags:0:HYDRA | PERM_SHAPE
 attack:bite: (circular):1:0:CIRCLE
 shape:1:hydra
@@ -676,12 +702,11 @@ shape:44:11-headed hydra
 shape:46:12-headed hydra
 shape:48:13-headed hydra
 shape:50:14-headed hydra
-player-flags:0:CAN_SWIM
-obj-flag:1:CANT_FLY
 # ? can eat scraps without fear
 # ? curse:siren:100
-# ? obj-flag:1:DRAIN_EXP
+# ? obj-flag:0:DRAIN_EXP
 # ? obj-flag:10:DRAIN_EXP do not deplete less then achieved lvl ?
+
 
 name:Black Numenorean
 skill-disarm-phys:2
@@ -709,10 +734,11 @@ value:0:DEX[1]
 value:0:CON[0+2d35]
 value:0:CHR[0+1d35]
 # 'y' detect evil
-value:1:INFRA[1]
+value:0:INFRA[1]
 value:30:TUNNEL[1]
 value:30:DAM_RED[1]
 obj-flag:30:ESP_EVIL
+
 
 #immortal human, highlander-like
 name:Damned
@@ -740,13 +766,15 @@ value:0:DEX[0+1d24]
 value:0:CON[0]
 value:0:CHR[1+1d27]
 # 'y' prevent summon for a moment
-# - hunted by gods (summon)...
-value:0:RES_TIME[1]
-obj-flag:0:PROT_FEAR
 player-flags:0:RACE_REGEN
+obj-flag:0:PROT_FEAR
+value:0:RES_TIME[1]
 obj-flag:25:HOLD_LIFE
+#/// -
+# - hunted by gods (summon)...
 # ? chance to survive fatal blow?
 # ? give expanded esp?
+
 
 name:Merfolk
 skill-disarm-phys:-5
@@ -775,12 +803,14 @@ value:0:CHR[-1]
 # 'y' cure poison
 # + water restore hp and satiation (in addition to food)
 # + value:0:RES_WATER[1]
-# + value:50:RES_WATER[3] hardcoded
-value:0:INFRA[1+1d7]
-value:0:TUNNEL[-1+-1d15]
-obj-flag:1:REGEN
+# + value:50:RES_WATER[3] hardcoded 50%
 player-flags:0:CAN_SWIM
+value:0:INFRA[1+1d7]
+obj-flag:0:REGEN
+#/// -
+value:0:TUNNEL[-1+-1d15]
 # ? make fast regen only in water
+
 
 name:Barbarian
 skill-disarm-phys:-2
@@ -808,12 +838,14 @@ value:0:CON[0+1d7M15]
 value:0:CHR[-2]
 # 'y' aggro yell for heroism and taunt
 value:0:INFRA[1]
-obj-flag:1:PROT_FEAR
+obj-flag:0:PROT_FEAR
+value:0:DAM_RED[0+1d15]
 value:0:RES_POIS[1]
-value:0:STEALTH[-2+1d15M16]
-value:0:DAM_RED[0+1d10]
 obj-flag:50:SLOW_DIGEST
+#/// -
+value:0:STEALTH[-2+1d15M16]
 # ? allow eat scraps of flesh.. and corpses?
+
 
 name:Black Dwarf
 skill-disarm-phys:1
@@ -841,10 +873,11 @@ value:25:CON[1]
 value:0:CHR[-2]
 # 'y' detect doors
 value:0:INFRA[3]
-value:35:RES_DISEN[1]
-player-flags:15:SEE_ORE
 value:5:TUNNEL[1+1d15]
+player-flags:15:SEE_ORE
 value:10:STEALTH[1]
+value:35:RES_DISEN[1]
+
 
 #tiny orcs.. meluzga. No HP or wow goblins! Lotr!
 name:Goblin
@@ -871,13 +904,15 @@ value:0:WIS[-4]
 value:0:DEX[3+1d15]
 value:0:CON[1+1d30]
 value:0:CHR[-4]
-# 'y' bloodlust
+# 'y' bloodlust // !
 value:0:INFRA[1+1d15]
-value:30:RES_DARK[1]
 value:0:TUNNEL[1+1d30]
+obj-flag:25:ESP_ORC
+value:30:RES_DARK[1]
 value:30:SPEED[1+1d19]
-obj-flag:20:ESP_ORC
+#/// -
 player-flags:0:ORC
+
 
 #giants blood, heritage
 name:Half-Giant
@@ -885,11 +920,10 @@ skill-disarm-phys:-16
 skill-disarm-magic:-16
 # their blood interfere (though they are not stupid)
 skill-device:-18
-# can raise save with 'y'
 skill-save:-16
 skill-stealth:-2
 skill-search:-1
-skill-melee:20
+skill-melee:10
 skill-shoot:-5
 skill-dig:0
 # exp factor at 49: 200%
@@ -906,23 +940,26 @@ value:0:WIS[-2]
 value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-4]
-# 'y' SAFE (+ m.resistance)
 gift:food:Hard Biscuit:1:1
+# 'y' SAFE (+ m.resistance)
 # + -7% phys damage hc
 # got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-obj-flag:0:CLUMSY
-obj-flag:1:LIMITED_TELE
-# allow certain escapes..
-# - less gold at start
 value:0:MANA[5]
 value:0:TUNNEL[2+1d10]
 obj-flag:0:SUST_STR
-obj-flag:33:PROT_CONF
+obj-flag:30:PROT_CONF
 value:40:RES_GRAVITY[1]
-obj-flag:50:PROT_STUN
 obj-flag:50:SLOW_DIGEST
-brand:50:50:STUN_1
 slay:50:50:DRAGON_3
+obj-flag:50:PROT_STUN
+brand:50:50:STUN_1
+#/// -
+# allow certain escapes..
+obj-flag:0:LIMITED_TELE
+obj-flag:0:CLUMSY
+player-flags:0:GIANT
+# - less gold at start
+
 
 #Swamp troll
 name:Ogre
@@ -932,7 +969,7 @@ skill-device:-3
 skill-save:-3
 skill-stealth:0
 skill-search:-5
-skill-melee:15
+skill-melee:5
 skill-shoot:-5
 skill-dig:0
 hitdie:12
@@ -951,13 +988,16 @@ value:0:CON[1+1d15M32]
 value:0:CHR[-5]
 # 'y' restore 1 mana or (if no mana) 1 hp
 value:0:INFRA[2+1d8]
-value:0:MOVES[-9]
-value:0:STEALTH[-2+1d30]
-obj-flag:0:CLUMSY
-obj-flag:1:SUST_INT
+obj-flag:0:SUST_INT
 player-flags:0:CAN_SWIM
 value:0:TUNNEL[1]
 value:0:MANA[1]
+#/// -
+value:0:STEALTH[-2+1d30]
+obj-flag:0:CLUMSY
+value:0:MOVES[-9]
+player-flags:0:TROLL
+
 
 name:Troll
 skill-disarm-phys:-18
@@ -967,7 +1007,7 @@ skill-save:-16
 skill-stealth:-5
 skill-search:-10
 # trolls isn't skillful in fight, but very strong
-skill-melee:5
+skill-melee:-5
 skill-shoot:-25
 skill-dig:1
 hitdie:13
@@ -988,18 +1028,20 @@ value:0:CHR[-7]
 # 'y' +AC
 # don't see monster list
 value:0:INFRA[1+1d10]
-obj-flag:1:SUST_STR
-obj-flag:1:REGEN
+obj-flag:0:SUST_STR
+obj-flag:0:REGEN
 player-flags:0:RACE_REGEN
-obj-flag:1:HUNGER
-value:0:MOVES[-1+-1d6]
 value:0:RES_POIS[1]
 value:25:RES_SHARD[1]
-value:0:RES_LIGHT[-1]
 value:30:DAM_RED[3+3d9]
-player-flags:0:TROLL
+#/// -
+value:0:RES_LIGHT[-1]
+obj-flag:0:HUNGER
+value:0:MOVES[-1+-1d6]
 obj-flag:0:CLUMSY
-obj-flag:1:CANT_FLY
+obj-flag:0:CANT_FLY
+player-flags:0:TROLL
+
 
 name:Orc
 skill-disarm-phys:-3
@@ -1028,12 +1070,14 @@ value:0:CHR[-4]
 # !! 'y' summon warg !!
 value:0:INFRA[2+1d10M35]
 value:0:RES_DARK[1]
-value:0:RES_LIGHT[-1]
+obj-flag:15:ESP_ORC
 value:30:DAM_RED[1+1d19]
 value:50:STEALTH[1]
 value:50:SPEED[1]
-obj-flag:15:ESP_ORC
+#/// -
+value:0:RES_LIGHT[-1]
 player-flags:0:ORC
+
 
 # in between of tiny orcs and forest 'kobolds'.. 
 name:Forest Goblin
@@ -1060,12 +1104,13 @@ value:0:WIS[1+1d30]
 value:0:DEX[3]
 value:0:CON[-1]
 value:0:CHR[-1]
-value:0:INFRA[1+1d15]
-value:0:MOVES[1]
-value:30:SPEED[1+1d19]
 # 'y' cover tracks
 # 5% dodge melee attacks
 obj-flag:0:SUST_DEX
+value:0:INFRA[1+1d15]
+value:0:MOVES[1]
+value:30:SPEED[1+1d19]
+
 
 name:Dark Elf
 skill-disarm-phys:5
@@ -1094,10 +1139,12 @@ value:0:CON[1]
 value:0:CHR[-5+1d15]
 # 'y' apply poison
 value:0:INFRA[0+1d6]
+value:0:STEALTH[1+1d15]
 obj-flag:25:SEE_INVIS
 value:30:RES_DARK[1]
+#/// -
 value:0:RES_LIGHT[-1]
-value:0:STEALTH[1+1d15]
+
 
 name:Werewolf
 skill-disarm-phys:0
@@ -1132,11 +1179,13 @@ value:0:RES_LIGHT[-1]
 value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
 # 'y' re-poly
-#/// 'night' bonuses + regen hp..
-#/// bad at shooting and other precise stuff at night..
-#/// hardcoded CUT_1 (15) & CUT_2 (50) at night
-#/// - howls (more often at night, but very rare during the day)
-#value:50:RES_DARK[++] at night
+# value:50:RES_DARK[++] at night HC 50%
+# 'night' bonuses + regen hp..
+# hardcoded CUT_1 (15) & CUT_2 (50) at night
+#/// -
+# - howls (more often at night, but very rare during the day)
+# - bad at shooting and other precise stuff at night..
+###########################
 #player-flags:0:SHAPECHANGE
 #shape:1:jackal_
 #shape:10:wolf_
@@ -1145,6 +1194,7 @@ player-flags:0:ANIMAL
 #shape:40:hellwolf_
 #shape:50:volkodlak_
 # shapechange should work only at night (or auto-change)
+
 
 name:Undead
 skill-disarm-phys:-15
@@ -1175,17 +1225,18 @@ value:0:INFRA[0+1d5]
 # 'y' detect living creatures
 # eating living humanoids nourish and heal
 # darkness-loving (see in the dark, but light makes it worse)
-obj-flag:1:HOLD_LIFE
-obj-flag:1:IMPAIR_HP
+# value:0:RES_NETHER[1]
+# value:50:RES_NETHER[++] hardcoded player_elements() in 50% cases
+obj-flag:0:HOLD_LIFE
+obj-flag:0:IMPAIR_HP
 value:0:RES_POIS[1]
+value:0:RES_COLD[1]
+#/// -
 # perma vulnerability; fire imm makes it less harsh..
 # !also undead's vuln less harsh than regular (5/4) vuln
 # and it's resist/double resist protect better than in common vuln case
 value:0:RES_FIRE[-1]
-value:0:RES_COLD[1]
 value:0:RES_LIGHT[-1]
-#value:0:RES_NETHER[1]
-#value:50:RES_NETHER[++] hardcoded player_elements() in 50% cases
 value:0:MOVES[-1]
 
 name:Vampire
@@ -1213,28 +1264,29 @@ value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[-5+1d9]
 value:0:CHR[-9+1d4]
-# + black breath
 # 'y' can FLY
 # darkness-loving (see in the dark, but light makes it worse)
-#/// - during the day: -HP, regen HP, mana, skills; especially shooting
-# damaged when walk in daylight -> player_check_terrain_damage()
-#/// can't eat normal food. instead nourish when kill humanoids
+# + black breath
+# can't eat normal food. instead nourish when kill humanoids
 value:0:INFRA[1+1d3]
-obj-flag:1:PROT_FEAR
+obj-flag:0:PROT_FEAR
 obj-flag:5:FEATHER
 obj-flag:10:HOLD_LIFE
 value:35:RES_DARK[1]
 value:40:RES_POIS[1]
 value:45:RES_NETHER[1]
+obj-flag:50:SLOW_DIGEST
 value:50:RES_TIME[1]
 # especially good vamp
 brand:1:50:VAMPIRIC
-obj-flag:50:SLOW_DIGEST
 #///  -
+# damaged when walk in daylight -> player_check_terrain_damage()
+# during the day: -HP, regen HP, mana, skills; especially shooting
 value:0:DAM_RED[-1+-1d15]
 value:0:TUNNEL[-1+-1d30]
 value:0:RES_LIGHT[-1]
 # - fear open water (only FLYING helps)
+##########################
 player-flags:0:SHAPECHANGE
 # in mist: can pass doors, rubbles, trees
 shape:5:vampiric mist_
@@ -1245,10 +1297,6 @@ shape:40:doombat_
 # ? make holy spells (paladins..) more dealy
 # ? add race 'human' for p.. flag WARM-BLOODED humanoid +soul -animal
 
-############################## GODLIKE
-# ? spirits.. of fire, elec, cold, 
-
-########## NEXT TIME: lower initial str, con, dex for extra powerful races
 
 #Enlightened.. Maya descendants of ancient powers;
 name:Maiar
@@ -1271,14 +1319,13 @@ weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[1+1d25]
-value:0:WIS[1+1d25]
+value:0:INT[1+1d30]
+value:0:WIS[1+1d30]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
 # 'y' lightning
-# - speed boni reduced by 2x
-value:0:INFRA[5]
+value:0:INFRA[1+4d30]
 obj-flag:30:SLOW_DIGEST
 value:30:LIGHT[1]
 obj-flag:30:HOLD_LIFE
@@ -1286,8 +1333,11 @@ obj-flag:30:PROT_FEAR
 obj-flag:30:FEATHER
 obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
-value:0:RES_DARK[-1]
 slay:30:50:EVIL_2
+#/// -
+value:0:RES_DARK[-1]
+# - speed boni reduced by 2x
+
 
 # cambion.. 'corrupted' descendants of ancient powers;
 name:Demonic
@@ -1317,25 +1367,26 @@ value:0:CON[-5+1d8]
 value:0:CHR[0+-1d10]
 # 'y' summon minor demons
 value:0:INFRA[0+1d5]
-obj-flag:1:HOLD_LIFE
-obj-flag:1:SLOW_DIGEST
-obj-flag:1:PROT_FEAR
-obj-flag:1:FEATHER
-obj-flag:1:SEE_INVIS
+obj-flag:0:HOLD_LIFE
+obj-flag:0:SLOW_DIGEST
+obj-flag:0:PROT_FEAR
+obj-flag:0:FEATHER
+obj-flag:0:SEE_INVIS
 value:0:RES_POIS[1]
-value:0:RES_LIGHT[-1]
 value:0:RES_DARK[1]
 value:0:RES_CHAOS[1]
 value:0:STEALTH[1]
 brand:1:50:POIS_2
-player-flags:0:SHAPECHANGE
 value:0:MANA[5+-1d12]
-shape:30:succubi
 value:0:SPEED[1]
+player-flags:30:SHAPECHANGE
+shape:30:succubi
 #/// -
 value:0:DAM_RED[-1+-1d4]
+value:0:RES_LIGHT[-1]
 
-#Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons;
+
+#Balrog – undeground ancient ‘race’ or some would call them as a ‘force’; in eternal war with dragons; note: no fear prot.. it run away from G after all
 name:Balrog
 skill-disarm-phys:-3
 skill-disarm-magic:-3
@@ -1362,30 +1413,31 @@ value:0:DEX[-6+1d6]
 value:0:CON[3]
 value:0:CHR[-10+1d25]
 # 'y' fiery whip
-value:0:INFRA[5]
 #value:0:RES_FIRE[1]
 #value:35:RES_FIRE[3] hardcoded
-value:0:RES_COLD[-1]
-value:0:RES_LIGHT[-1]
-# no fear prot.. it run away from G after all
-value:0:RES_POIS[1]
+value:0:MANA[5+-1d10]
+obj-flag:0:FEATHER
+value:0:INFRA[5]
+value:0:MOVES[1]
 obj-flag:0:SLOW_DIGEST
 value:0:RES_DARK[1]
+value:0:RES_POIS[1]
 obj-flag:25:SEE_INVIS
 obj-flag:25:HOLD_LIFE
 value:35:LIGHT[1]
-obj-flag:1:FEATHER
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
+#/// -
 # AGGRAVATE 40 range hardcoded
+# kinda vulnerable to steel (fight in depths)
+value:0:DAM_RED[-1+-1d5]
+value:0:RES_COLD[-1]
+value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+-1d10]
 #not speedy (reacted  too late at G)
 value:0:SPEED[-1]
-value:0:MOVES[1]
-# kinda vulnerable to steel (fight in depths)
-value:0:DAM_RED[-1+-1d5]
 # /rfe CON as mana stat
-value:0:MANA[5+-1d10]
+
 
 # Celestial.. re Angel.. Half-Angel
 # Some people call them ‘angels’, but they are not kind and helpful 
@@ -1419,17 +1471,19 @@ value:0:DEX[-4+1d10]
 value:0:CON[-4+1d8]
 value:0:CHR[6+-1d8]
 # 'y' holy blast
+value:0:MANA[5+-1d12]
+obj-flag:0:SUST_WIS
 value:0:INFRA[2+1d30]
-obj-flag:1:FEATHER
+obj-flag:0:FEATHER
 value:0:LIGHT[1]
-obj-flag:1:SUST_WIS
-obj-flag:1:SLOW_DIGEST
-obj-flag:30:SEE_INVIS
+obj-flag:0:SLOW_DIGEST
 value:0:RES_GRAVITY[1]
+obj-flag:30:SEE_INVIS
+slay:0:50:UNDEAD_3
+#/// -
 value:0:RES_TIME[-1]
 value:0:TUNNEL[-1+-1d10]
-value:0:MANA[5+-1d12]
-slay:1:50:UNDEAD_3
+
 
 # Nephalem – example what could appear if celestial would make love to balrog.
 # Amazingly it happens sometimes, so such creatures could be met..
@@ -1461,11 +1515,11 @@ value:0:CHR[-1+1d24]
 # 'y' glyph (leaves you with !!1 HP!!, 3 idle)
 #value:0:RES_LIGHT[-1] -> 35lvl [1] -> 50lvl [2] in 50% cases (hardcoded)
 #value:0:RES_DARK[-1]  -> 35lvl [1] -> 50lvl [2] in 50% cases
-obj-flag:1:ESP_DEMON
+obj-flag:0:ESP_DEMON
 slay:35:50:DEMON_3
-obj-flag:1:HUNGER
-#+vs angels
-#slay:49:50:DEMON_5
+#/// -
+obj-flag:0:HUNGER
+
 
 name:Gargoyle
 skill-disarm-phys:-14
@@ -1492,20 +1546,22 @@ value:0:WIS[-2+1d12]
 value:0:DEX[-10+1d7]
 value:0:CON[3]
 value:0:CHR[-4]
+# 'y' space/time anchor 5
 # + AC hardcoded
 # + -5% _all_ damage hc
-# 'y' space/time anchor 5
 # bad shooting, but okay throwing
 value:0:INFRA[1+1d9]
+value:0:MANA[10+-1d5]
+obj-flag:0:SLOW_DIGEST
 value:0:RES_POIS[1]
 value:20:RES_FIRE[1]
 value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
-value:0:MANA[10+-1d5]
-obj-flag:0:SLOW_DIGEST
 #/// -
 value:0:RES_ACID[-1]
+value:0:MOVES[-1]
+
 
 name:Golem
 skill-disarm-phys:-3
@@ -1525,9 +1581,8 @@ age:11:4
 height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
-#4 -3 -3 -2 0
-# --- can't move/act diagonally.. !!!! so can't use anti-summon corridors...
-# ...but can build it slowly with 'y' (create sand wall)
+#4 -3 -3 -2 0.
+# can build it slowly with 'y' (create sand wall)
 # + -10% phys damage hc
 # + less speed penalty due overweight
 # + got 50% chance to act when paralyzed
@@ -1540,10 +1595,13 @@ value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-3]
 value:0:RES_POIS[1]
-obj-flag:1:SLOW_DIGEST
+obj-flag:0:SLOW_DIGEST
 value:0:TUNNEL[0+1d10]
+#/// -
+# --- can't move/act diagonally.. !!!! so can't use anti-summon corridors..
+obj-flag:0:CANT_FLY
 # ? rfe reflection
-obj-flag:1:CANT_FLY
+
 
 name:Pixie
 skill-disarm-phys:10
@@ -1555,7 +1613,7 @@ skill-search:8
 skill-melee:-20
 skill-shoot:10
 skill-dig:-1
-hitdie:4
+hitdie:5
 exp:100:125
 history:100
 age:10:4
@@ -1570,20 +1628,21 @@ value:0:DEX[9]
 #replace with LIFE
 value:0:CON[0+-1d12]
 value:0:CHR[3]
+# 'y' become invisible
+# 5% dodge melee attacks
 value:0:INFRA[1+1d15]
+obj-flag:0:FEATHER
+value:0:MANA[5+-1d12]
+obj-flag:0:TRAP_IMMUNE
+obj-flag:0:SLOW_DIGEST
+value:0:RES_TIME[1]
 value:0:SPEED[1+1d9]
 ####### bolt spells frequently turn into beams
 player-flags:5:BEAM
 ######perfect success rate with magic
 player-flags:10:ZERO_FAIL 
-obj-flag:1:FEATHER
-# 'y' become invisible
-# 5% dodge melee attacks
-value:0:MANA[5+-1d12]
-value:1:RES_TIME[1]
-obj-flag:1:TRAP_IMMUNE
-obj-flag:1:SLOW_DIGEST
-obj-flag:35:SLOW_DIGEST_2
+obj-flag:30:SLOW_DIGEST_2
+
 
 # draconian - peaceful race which was almost exterminated by titans during
 # the ancient war. Only a few survived by hiding in high mountains caves.
@@ -1614,9 +1673,18 @@ value:0:DEX[-5+1d9]
 value:0:CON[-3+1d14]
 value:0:CHR[-3]
 # 'y' breath fire ray/bolt
-#############
-############# removed forms and added 'y' breath
-############# forms might be useful for a pet later on........
+value:0:MANA[4+-1d6M25]
+value:15:RES_FIRE[1]
+value:20:RES_COLD[1]
+value:25:RES_ELEC[1]
+value:30:RES_ACID[1]
+value:30:SPEED[1]
+obj-flag:50:SLOW_DIGEST
+slay:50:50:GIANT_3
+#/// -
+value:0:MOVES[-1]
+#######################
+############# removed forms.. might be useful for a pet later on...
 #player-flags:0:SHAPECHANGE
 #shape:1:newborn dracon
 #shape:10:baby dracon
@@ -1624,16 +1692,7 @@ value:0:CHR[-3]
 #shape:30:mature dracon
 #shape:40:ancient dracon
 #shape:50:great dracon
-slay:50:50:GIANT_3
-#temp
-value:10:RES_FIRE[1]
-value:20:RES_COLD[1]
-value:30:RES_ACID[1]
-value:40:RES_ELEC[1]
-value:30:SPEED[1]
-value:1:MOVES[-1]
-value:0:MANA[4+-1d6M25]
-obj-flag:50:SLOW_DIGEST
+
 
 name:Titan
 skill-disarm-phys:-50
@@ -1660,22 +1719,22 @@ value:0:WIS[-4+1d24]
 value:0:DEX[-2+1d30]
 value:0:CON[-10+1d2]
 value:0:CHR[0]
+# 'y' crush wall
 # monk, warr, unbel -1 BpR till 35 lvl, hardcoded
-value:30:MOVES[1+1d2]
+value:0:MANA[1d5]
+value:0:RES_GRAVITY[1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
 value:30:DAM_RED[0+1d1]
-brand:30:50:ELEC_2
+value:30:MOVES[1+1d2]
 value:30:RES_ELEC[3]
+brand:30:50:ELEC_2
+slay:35:50:DRAGON_3
 brand:40:49:STUN_1
 brand:50:50:STUN_2
-slay:35:50:DRAGON_3
-value:0:MANA[1d5]
-value:1:RES_GRAVITY[1]
-# 'y' crush wall
 # /// -
 # less money at start
-obj-flag:1:NO_TELEPORT
-obj-flag:1:HUNGER
+obj-flag:0:NO_TELEPORT
+obj-flag:0:HUNGER
 obj-flag:0:CLUMSY
 #obj-flag:5:SUST_STR
 #obj-flag:10:SUST_DEX
@@ -1697,6 +1756,7 @@ obj-flag:0:CLUMSY
 #shape:40:storm giant
 #shape:45:lesser titan
 #shape:50:greater titan
+
 
 # Nandor..  Silvan Elves and Green-elves
 # lives in Lorien and Mirkwood
@@ -1725,12 +1785,14 @@ value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[0+1d30]
 # 'y' see invisible
+slay:0:50:ANIMAL_2
 value:0:INFRA[4]
 value:0:MOVES[1]
-value:30:SPEED[1]
 value:30:STEALTH[1]
-slay:1:50:ANIMAL_2
+value:30:SPEED[1]
+#/// -
 value:0:TUNNEL[-1+-1d24]
+
 
 name:Elemental
 skill-disarm-phys:-50
@@ -1758,12 +1820,6 @@ value:0:CON[-5+1d9]
 value:0:CHR[-7+1d24]
 # 'y' ray of element .... TODO? maybe make double resistance ability instead?
 ###########
-brand:20:29:ELEC_2
-brand:30:39:COLD_2
-brand:40:49:FIRE_2
-brand:50:50:ACID_2
-obj-flag:0:CLUMSY
-###########
 #value:0:RES_ELEC[-1]
 #value:20:RES_ELEC[++]
 #value:20:RES_COLD[-1]
@@ -1776,8 +1832,15 @@ obj-flag:0:CLUMSY
 # ++ means that if player has resistance - it will become double resistance..
 # while double resistance will become immunity (in 50% cases)
 # (vulnerability also 50% chance)
+brand:20:29:ELEC_2
+brand:30:39:COLD_2
+brand:40:49:FIRE_2
+brand:50:50:ACID_2
+#/// -
+obj-flag:0:CLUMSY
 value:0:STEALTH[-2+-1d8]
 value:0:MANA[5+-1d10]
+
 
 # far descendants of night walkers
 name:Frostmen
@@ -1803,20 +1866,20 @@ value:0:WIS[-2]
 value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-9]
-#/// 'y' RAISE dead !
-# smaller ESP radius (-1/4)
-# can't be immute to fire (instead becomes double resistant)
-value:25:INFRA[1]
-#value:35:RES_FIRE[1]
-#value:0:RES_FIRE[-1]
+# 'y' RAISE dead // !
 #value:0:RES_COLD[1]
 #value:35:RES_COLD[2] hardcoded
+value:0:MANA[3+-1d15]
+value:30:INFRA[1]
+obj-flag:30:ESP_UNDEAD
+brand:45:50:COLD_2
+#/// -
+# smaller ESP radius (-1/4)
+#value:0:RES_FIRE[-1] -> 35lvl [1]
 # so.. fire vuln <35. than just not possible to gain fire imm,
 # gets double resist instead (becomes in 50% cases at lvl 50.
-brand:45:50:COLD_2
 value:0:MOVES[-1]
-value:0:MANA[3+-1d15]
-obj-flag:25:ESP_UNDEAD
+
 
 name:Centaur
 skill-disarm-phys:1
@@ -1843,13 +1906,15 @@ value:0:DEX[-1+1d30]
 value:0:CON[-1+1d24]
 value:0:CHR[-3]
 # 'y' charge to enemy
-value:0:INFRA[1]
-obj-flag:1:SUST_WIS
 player-flags:0:KNOW_MUSHROOM
+value:0:INFRA[1]
+obj-flag:0:SUST_WIS
 value:0:MOVES[3+1d10]
+#/// -
 value:0:STEALTH[-1+-1d15]
 value:0:TUNNEL[-1+-1d10]
-obj-flag:1:CANT_FLY
+obj-flag:0:CANT_FLY
+
 
 # should always use forms to compensate speed debuff
 name:Spider
@@ -1884,10 +1949,10 @@ brand:15:50:POIS_2
 #value:30:RES_POIS[++] hardcoded (not immunity, but ++, so 1 -> 2 and 2 -> 3
 # _CAN_ use weapons
 value:0:MANA[4+-1d12]
-value:0:RES_LIGHT[-1]
 value:0:STEALTH[1+1d12]
 # /// -
 value:0:DAM_RED[-1+-1d5]
+value:0:RES_LIGHT[-1]
 obj-flag:0:CLUMSY
 ############################## forms hced as deco in map-ui.c
 #player-flags:0:PERM_SHAPE
@@ -1908,6 +1973,7 @@ obj-flag:0:CLUMSY
 #attack:strike:none:15:6:STUN
 #attack:hit:none:20:7:CUT
 #attack:hit:none:45:16:CRUSH
+
 
 name:Djinn
 skill-disarm-phys:20
@@ -1934,25 +2000,24 @@ value:0:WIS[0+1d15]
 value:0:DEX[0+1d15]
 value:0:CON[0+-1d15]
 value:0:CHR[-1]
-obj-flag:1:FEATHER
-obj-flag:25:SEE_INVIS
-value:0:INFRA[1+1d15]
-value:29:SPEED[1+1d4]
+# 'y' can make WONDER
 player-flags:0:KNOW_ZAPPER
+obj-flag:0:FEATHER
+value:0:INFRA[1+1d15]
+value:0:RES_ELEC[1]
+value:0:RES_POIS[1]
+obj-flag:0:SEE_INVIS
+value:30:SPEED[1+1d4]
+value:30:RES_TIME[1]
 # auto-id
 obj-flag:50:KNOWLEDGE
-# 'y' can make WONDER 
-value:10:RES_POIS[1]
-value:20:RES_ELEC[1]
-value:30:RES_FIRE[1]
-value:40:RES_COLD[1]
-value:45:RES_ACID[1]
-value:49:RES_TIME[1]
-# -
+#/// -
 # got less gold at start
 # TODO: make them "eat" MD only (like upcoming mgolem race)
 player-flags:0:NO_BOOTS
-obj-flag:1:IMPAIR_HP
+obj-flag:0:IMPAIR_HP
+value:0:TUNNEL[-5]
+
 
 # bardi-rogueish.. can't really charmm but some are not too ugly
 name:Harpy
@@ -1981,12 +2046,14 @@ value:0:DEX[2+1d24]
 value:0:CON[-1+1d40]
 value:0:CHR[-2]
 # 'y' clear slow
-value:0:STEALTH[0+1d24]
-obj-flag:1:FEATHER
-value:0:TUNNEL[-1]
-value:0:MOVES[1+1d30]
+obj-flag:0:FEATHER
 value:0:INFRA[2]
+value:0:MOVES[1+1d30]
+value:0:STEALTH[0+1d24]
 value:40:SPEED[1+1d2]
+#/// -
+value:0:TUNNEL[-1]
+
 
 name:Minotaur
 skill-disarm-phys:-8
@@ -2006,23 +2073,25 @@ age:20:10
 height:120:19
 weight:290:75
 gift:potion:Cure Serious Wounds:1:1
-obj-flag:1:SUST_STR
-obj-flag:1:SUST_CON
+obj-flag:0:SUST_STR
+obj-flag:0:SUST_CON
 # 4 -4 -2 1 3
 value:0:STR[1+1d15]
 value:0:INT[-4]
 value:0:WIS[-2]
-# 'y' becoming hasty if full HP (1/2 hp cost)
 value:0:DEX[-2+1d15]
 value:0:CON[-3+1d8]
 value:0:CHR[-6]
-value:0:INFRA[2]
-obj-flag:1:PROT_CONF
-obj-flag:30:PROT_STUN
-value:0:STEALTH[-4+-1d10]
-obj-flag:1:IMPAIR_HP
+# 'y' becoming hasty if full HP (1/2 hp cost)
 value:0:MANA[4+-1d6M25]
+value:0:INFRA[2]
+obj-flag:0:PROT_CONF
+obj-flag:30:PROT_STUN
+#/// -
 # AGGRAVATE 3 range hardcoded (like knight)
+value:0:STEALTH[-4+-1d10]
+obj-flag:0:IMPAIR_HP
+
 
 name:Troglodyte
 skill-disarm-phys:-10
@@ -2042,34 +2111,34 @@ age:14:4
 height:30:2
 weight:56:3
 gift:food:Slime Mold:1:1
-# 'y' save from starving 14
-# get satiation from killing insects and rodents
-# - stench! leaves 'tracks' for long time
-# darkness-loving (see in the dark, but light makes it worse)
-# erratic +1 speed boni HCed
 value:0:STR[-1+1d30]
 value:0:INT[-1]
 value:0:WIS[-3]
 value:0:DEX[2+1d30]
 value:0:CON[-1+1d24]
 value:0:CHR[-6]
+# 'y' save from starving 14
+# get satiation from killing insects and rodents
+# darkness-loving (see in the dark, but light makes it worse)
+# erratic +1 speed boni HCed
+# CHR can't be worse..
+player-flags:0:KNOW_MUSHROOM
+value:0:MANA[3+-1d15]
+obj-flag:0:SUST_CHR
 value:0:INFRA[5]
 value:0:TUNNEL[1+1d24]
 value:0:STEALTH[1+1d30]
-obj-flag:1:PROT_BLIND
+obj-flag:0:PROT_BLIND
 value:0:RES_DARK[1]
 player-flags:10:RACE_REGEN
 obj-flag:30:SLOW_DIGEST
-value:0:MANA[3+-1d15]
 obj-flag:30:SUST_STR
-obj-flag:35:SUST_DEX
-obj-flag:40:SUST_CON
-# can't be worse..
-obj-flag:1:SUST_CHR
-player-flags:0:KNOW_MUSHROOM
+obj-flag:30:SUST_DEX
 #/// -
-obj-flag:1:HUNGER
+# - stench! leaves 'tracks' for long time
+obj-flag:0:HUNGER
 value:0:RES_LIGHT[-1]
+
 
 name:Naga
 skill-disarm-phys:-14
@@ -2090,24 +2159,26 @@ height:47:4
 weight:155:21
 gift:scroll:Monster Confusion:1:1
 # 1 -2 -2 3 -1
-# 'y' offensive stance (50% aoe, boni to att, malu to def/ST)
-# AGGRAVATE 3 range hardcoded (like knight and mino)
-# smaller ESP radius (-1/3)
 value:0:STR[1]
 value:0:INT[-2]
 value:0:WIS[-2]
 value:0:DEX[3]
 value:0:CON[1]
 value:0:CHR[-8]
+# 'y' offensive stance (50% aoe, boni to att, malu to def/ST)
 value:0:INFRA[6]
-obj-flag:1:FREE_ACT
+value:0:MANA[2+-1d24]
+obj-flag:0:FREE_ACT
 value:0:BLOWS[1d5]
 value:30:MOVES[-1+-1d2]
 value:30:SPEED[1+1d2]
+#/// -
+# AGGRAVATE 3 range hardcoded (like knight and mino)
+# smaller ESP radius (-1/3)
 value:0:TUNNEL[-1+-1d24]
 player-flags:0:NO_BOOTS
-value:0:MANA[2+-1d24]
-obj-flag:1:CANT_FLY
+obj-flag:0:CANT_FLY
+
 
 # chaos mutation, so resistant to it
 name:Gnoll
@@ -2129,19 +2200,21 @@ height:58:4
 weight:115:4
 gift:potion:Heroism:2:2
 # 0 0 -1 3 0
-# get nourishment from killing rodents
-# 'y' detect fearable monsters
 value:0:STR[0]
 value:0:INT[-2+1d35]
 value:0:WIS[-2+1d35]
 value:0:DEX[1+1d35]
 value:0:CON[0]
 value:0:CHR[-5]
+# 'y' detect fearable monsters
+# get nourishment from killing rodents
+value:0:TUNNEL[1]
 value:0:INFRA[1+1d10]
 value:0:MOVES[1]
-value:0:TUNNEL[1]
 obj-flag:30:PROT_CONF
 value:49:RES_CHAOS[1]
+#/// -
+
 
 name:Lizardmen
 skill-disarm-phys:-4
@@ -2161,18 +2234,20 @@ height:69:3
 weight:145:17
 gift:potion:Cure Light Wounds:3:4
 # 0 -1 -2 0 0
-# can eat insects
-# 'y' can regenerate
 value:0:STR[0+1d30]
 value:0:INT[-1]
 value:0:WIS[-2]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[-5]
+# 'y' can regenerate
+# can eat insects
 value:0:INFRA[4]
 value:30:DAM_RED[1]
 value:30:TUNNEL[1]
 value:30:SPEED[1]
+#/// -
+
 
 # mysterious creature woven out bright light
 name:Wisp
@@ -2198,10 +2273,12 @@ value:0:STR[-3]
 value:0:INT[1+1d25]
 value:0:WIS[-1]
 value:0:DEX[2]
-value:0:CON[-1]
+value:0:CON[-1+-1d25]
 value:0:CHR[-3]
-value:0:LIGHT[1+1d24]
-obj-flag:1:ESP_ANIMAL
+# 'y' light around
+#value:0:RES_LIGHT[1]
+#value:35:RES_LIGHT[++] hardcoded 50%
+obj-flag:0:ESP_ANIMAL
 obj-flag:10:ESP_ORC
 obj-flag:20:ESP_TROLL
 obj-flag:25:ESP_GIANT
@@ -2209,22 +2286,21 @@ obj-flag:30:ESP_EVIL
 obj-flag:35:ESP_DRAGON
 obj-flag:40:ESP_DEMON
 obj-flag:45:ESP_UNDEAD
-# regular, standart radius full EPS (not extended like Beholder's)
 obj-flag:50:ESP_ALL
-player-flags:0:BLESS_WEAPON
-obj-flag:1:FEATHER
-obj-flag:1:FREE_ACT
-obj-flag:1:SLOW_DIGEST
-obj-flag:50:SLOW_DIGEST_2
-value:0:RES_POIS[1]
+# ESP_ALL - regular (good), standart radius full EPS (not extended like Beholder's)
+obj-flag:0:FEATHER
+obj-flag:0:SLOW_DIGEST
 value:0:MOVES[1]
-# 'y' light around
-#value:0:RES_LIGHT[1]
-#value:35:RES_LIGHT[++] hardcoded.. TODO 50%?
+value:0:RES_POIS[1]
+obj-flag:0:FREE_ACT
+value:0:LIGHT[1+1d24]
+player-flags:0:BLESS_WEAPON
+obj-flag:50:SLOW_DIGEST_2
 #/// -
 obj-flag:0:CLUMSY
 value:0:RES_DARK[-1]
 value:0:DAM_RED[0+-1d5]
+
 
 name:Imp
 skill-disarm-phys:7
@@ -2250,17 +2326,19 @@ value:0:WIS[-3]
 value:0:DEX[4]
 value:0:CON[0]
 value:0:CHR[-8]
-value:0:SPEED[1+1d15]
+# 'y' short teleport
 #value:15:RES_FIRE[1]
 #value:30:RES_FIRE[2]
 #value:40:RES_FIRE[3] hardcoded
-# 'y' short teleport
-value:0:RES_COLD[-1]
-# randomly teleports around from time to time
-obj-flag:50:IMPAIR_MANA
-# makes STEALTH very high in 50% cases
-player-flags:30:STEALTH_MODE
+value:0:SPEED[1+1d15]
 value:0:MANA[8+-1d6]
+# makes STEALTH very high in 50% cases:
+player-flags:30:STEALTH_MODE
+#/// -
+value:0:RES_COLD[-1]
+# - randomly teleports around from time to time
+obj-flag:50:IMPAIR_MANA
+
 
 name:Wraith
 skill-disarm-phys:-50
@@ -2287,32 +2365,31 @@ value:0:WIS[-4+1d12]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[-9]
+# 'y' passwall (blind) with CD 60 turns
+# 25% dodge melee attacks
+# darkness-loving (see in the dark, but light makes it worse)
+value:0:MANA[4+-1d12]
 value:0:INFRA[5+1d5]
-obj-flag:1:SLOW_DIGEST
-obj-flag:1:SLOW_DIGEST_2
-obj-flag:1:PROT_FEAR
-obj-flag:1:ESP_UNDEAD
-obj-flag:1:FEATHER
+obj-flag:0:FEATHER
+obj-flag:0:HOLD_LIFE
+obj-flag:0:SLOW_DIGEST
+obj-flag:0:SLOW_DIGEST_2
+obj-flag:0:ESP_UNDEAD
+obj-flag:0:PROT_FEAR
+obj-flag:0:SEE_INVIS
 value:0:STEALTH[1+1d15]
-obj-flag:1:HOLD_LIFE
-obj-flag:20:SEE_INVIS
 value:0:RES_POIS[1]
 value:0:RES_NETHER[1]
 value:0:RES_TIME[1]
 value:0:RES_DARK[1]
-value:0:MANA[4+-1d12]
-# +
-# 25% dodge melee attacks
-# 'y' passwall (blind) with CD 60 turns
-# darkness-loving (see in the dark, but light makes it worse)
-############################
 #/// -
-value:0:TUNNEL[-10]
-# TODO: can't get immunity to fire (cap is double resist) 50%
-value:0:RES_LIGHT[-1]
 player-flags:0:NO_RECALL
-obj-flag:0:CLUMSY
+# smaller ESP radius (-1/3)
+# - hced can't get immunity to fire (cap is double resist) 50%
 # - hard to equip items.. need several attempts
+value:0:RES_LIGHT[-1]
+value:0:TUNNEL[-10]
+obj-flag:0:CLUMSY
 ##########################PASS_WALL forms... after 'y' - require rework into regular mobs
 #player-flags:0:SHAPECHANGE
 #shape:1:expulsion
@@ -2322,6 +2399,7 @@ obj-flag:0:CLUMSY
 #shape:40:spirit
 #shape:50:wraith'
 # make auto-forms
+
 
 name:Beholder
 skill-disarm-phys:-50
@@ -2348,15 +2426,15 @@ value:0:WIS[-2]
 value:0:DEX[-3]
 value:0:CON[-2]
 value:0:CHR[-9]
-# + full ESP - harcoded (with extra +5 radius)
-value:0:SPEED[1]
-value:0:INFRA[1+1d5]
-obj-flag:1:FEATHER
-value:0:MANA[8+-1d6]
-obj-flag:1:PROT_AMNESIA
-# hardcoded: hallucinating
 # 'y' can cast rays
+# + full ESP - harcoded (with extra +5 radius)
+value:0:MANA[8+-1d6]
+value:0:INFRA[1+1d5]
+obj-flag:0:FEATHER
+value:0:SPEED[1]
+obj-flag:0:PROT_AMNESIA
 #/// -
+# hardcoded: hallucinating
 obj-flag:0:CLUMSY
 value:0:RES_LIGHT[-1]
 value:0:MOVES[-5+-1d9]
@@ -2374,6 +2452,7 @@ value:0:DAM_RED[0+-1d4]
 #nadsmotrshik
 #shape:50:overseer'
 #+ mind flayer @ 50
+
 
 name:Ooze
 skill-disarm-phys:-50
@@ -2401,18 +2480,18 @@ value:0:CHR[-9]
 # 'y' can spawn oozes
 # get nourishment from kills
 # can pass doors
-obj-flag:1:HUNGER
-##################
 value:0:INFRA[2+1d5]
-obj-flag:1:FREE_ACT
+obj-flag:0:FREE_ACT
 value:0:RES_POIS[1]
+player-flags:0:RACE_REGEN
+value:30:RES_MANA[1]
+#/// -
+obj-flag:0:HUNGER
+obj-flag:0:CLUMSY
+obj-flag:0:CANT_FLY
 value:0:RES_LIGHT[-1]
 value:0:RES_ELEC[-1]
 value:0:MOVES[-1]
-player-flags:1:RACE_REGEN
-obj-flag:0:CLUMSY
-obj-flag:1:CANT_FLY
-value:33:RES_MANA[1]
 #player-flags:0:SHAPECHANGE
 #shape:10:mold
 #shape:20:slime
@@ -2430,8 +2509,8 @@ value:33:RES_MANA[1]
 #player-flags:25:RACE_REGEN
 # ? accidentally go deep descent..
 #obj-flag:50:DRAIN_EXP
-# slay:1:50:ORC_3 .. dunedains?
-#obj-flag:1:HUNGER_2
+# slay:0:50:ORC_3 .. dunedains?
+#obj-flag:0:HUNGER_2
 
 #player-flags:0:FAST_THROW
 

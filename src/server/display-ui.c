@@ -811,7 +811,8 @@ static bool is_dragon_immune(struct monster_race *race)
 static void hardcoded_race_resistances(struct player *p, struct element_info el_info[ELEM_MAX])
 {
 
-    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    if (streq(p->race->name, "Werewolf") && !is_daytime() &&
+            turn.turn % 2) // 50%
     {
         if (el_info[ELEM_DARK].res_level[0] < 3)
             el_info[ELEM_DARK].res_level[0]++;
@@ -820,7 +821,8 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     {
         if (el_info[ELEM_WATER].res_level[0] < 3)
             el_info[ELEM_WATER].res_level[0]++;
-        if (p->lev > 49 && el_info[ELEM_WATER].res_level[0] < 3)
+        if (p->lev > 49 && el_info[ELEM_WATER].res_level[0] < 3 &&
+            turn.turn % 2) // 50%
             el_info[ELEM_WATER].res_level[0]++;
     }
     else if (streq(p->race->name, "Undead"))
@@ -1006,8 +1008,9 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     {
         if (el_info[ELEM_LIGHT].res_level[0] < 3)
             el_info[ELEM_LIGHT].res_level[0]++;
-        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3)
-            el_info[ELEM_LIGHT].res_level[0]++;
+        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3 &&
+            turn.turn % 2)
+                el_info[ELEM_LIGHT].res_level[0]++;
     }
     else if (streq(p->race->name, "Imp"))
     {

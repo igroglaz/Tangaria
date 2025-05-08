@@ -788,14 +788,15 @@ help: Djinn can literally perform wonders. But such magic does not always bring
 help: good consequences as they don't have full control over their wishes.|
 help: |
 help:Djinn are weightless and can float above ground without touching it.
-help: Even young Djinn have poison resistance. As they mature, they
-help: gain resistance to all basic elements - and even time itself
+help: Even young Djinn have poison and air resistance. As they mature, they
+help: gain resistance to the time itself.
 help: Ancient Djinn are extremely curious and automatically identify magical items.
 help: They can see invisible creatures.
 help: Their magic interferes with magical devices making them hiccup a little.
 help: As they grow older, they become increasingly ethereal, which takes a toll
-help: on their physical form. But everything else swells like it's on magic yeast.|
-help: |
+help: on their physical form. But everything else swells like it's on magic yeast.
+help: Also they don't like digging. |
+help:|
 help:They can create wonders ('y') by spending some energy.
 
 race:Harpy
@@ -970,7 +971,7 @@ help:The living fear them and hardly understand their nature.|
 help: |
 help:They can see in the darkness well, while using light sources can actually
 help: reduce the radius of their vision. Their innate vision grows when they
-help: become more mature.|
+help: become more mature. Downside: their extrasensory range is reduced.|
 help: |
 help:They are vulnerable to light magic. They also can't gain full immunity
 help: to fire — it only works in half the cases.|

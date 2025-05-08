@@ -1365,12 +1365,18 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Human"))
     {
-        use_energy(p);
-        source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
-        player_dec_timed(p, TMD_FOOD, 25, false);
-        player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
-        return;
+        if (p->lev > 29) {
+            use_energy(p);
+            source_player(who, get_player_index(get_connection(p->conn)), p);
+            effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
+            player_dec_timed(p, TMD_FOOD, 25, false);
+            player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
+
+            p->y_cooldown = 20; // cooldown
+            
+            return;
+        } else
+            msg(p, "You need to reach level 30 to restore Constitution.");
     }
     else if (streq(p->race->name, "Half-Troll"))
     {

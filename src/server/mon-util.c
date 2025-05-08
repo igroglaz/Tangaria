@@ -168,7 +168,7 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     int extended_radius = base_radius + 5; // Extended radius for specific ESP types
     
     // Racial ESP handicaps
-    if (streq(p->race->name, "Naga")) {
+    if (streq(p->race->name, "Naga") || streq(p->race->name, "Wraith")) {
         base_radius -= base_radius / 3;
         extended_radius -= extended_radius / 3;
     } else if (streq(p->race->name, "Frostmen")) {
