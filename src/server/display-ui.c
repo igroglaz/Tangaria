@@ -2306,26 +2306,14 @@ static void account_score(struct player *p)
             if (check_name) name_ok = !my_stricmp(filebuf, p->account_name);
 
             file_putf(f_new, "%s\n", filebuf);
-            //file_write(f_new, (char *)filebuf, sizeof(filebuf));
 
             /* Yes, account name match */
             if (name_ok)
             {
                 // now get another line which should have numeric score
                 file_getl(fh, score_buf, sizeof(score_buf));
-
-                // as there is no strtoui() - make manual conversion from ulong to uint32_t
-                score_tmp = strtoul(score_buf, NULL, 10);
-                new_score = (uint32_t)score_tmp;
-
                 // record new score
-                new_score = p->account_score;
-
-                sprintf(score_buf, "%u", new_score);
-
-                file_putf(f_new, "%s\n", score_buf);
-                //file_write(f_new, (char *)score_buf, sizeof(score_buf));
-
+                file_putf(f_new, "%u\n", p->account_score);
                 // no need to check account names further, so flag become off
                 check_name = false;
                 name_ok = false;
