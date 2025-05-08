@@ -1110,7 +1110,7 @@ static bool depth_is_valid(struct wild_type *w_ptr, int depth)
 }
 
 
-// Give character account score or if it's 1st ever char - init ladder entry.
+// Load character account score
 static int birth_load_account_score(struct player *p)
 {
     ang_file *fh;
@@ -1120,7 +1120,7 @@ static int birth_load_account_score(struct player *p)
     unsigned long score_tmp = 0;
     uint32_t new_score = 0;
     bool name_ok = false;
-    char *str;
+    char str;
 
     /* Check account file */
     path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "ladder.raw");
@@ -1139,17 +1139,15 @@ static int birth_load_account_score(struct player *p)
         {
             /* Compare account name with buffer */
             name_ok = !my_stricmp(filebuf, p->account_name);
-
+            
             /* Account name match with entry in the ladder file */
             if (name_ok)
             {
                 // get next line after account name
                 file_getl(fh, score_buf, sizeof(score_buf));
-
                 // as there is no strtoui() - make manual conversion from long to uint32_t
                 score_tmp = strtoul(score_buf, NULL, 10);
                 new_score = (uint32_t)score_tmp;
-
                 // fill the score in p
                 p->account_score = new_score;
                 file_close(fh);
@@ -1161,30 +1159,8 @@ static int birth_load_account_score(struct player *p)
         file_close(fh);
     }
 
-    // There is no such account name in the ladder file, so lets create it
-
-    /* Append to the file */
-    fh = file_open(filename, MODE_APPEND, FTYPE_TEXT);
-    if (!fh)
-    {
-        plog("Failed to open ladder file!");
-        return 0L;
-    }
-
-    /* Lowercase account name */
-    my_strcpy(filebuf, p->account_name, sizeof(filebuf));
-    for (str = filebuf; *str; str++) *str = tolower((unsigned char)*str);
-
-    // store new account name in ladder file
-    file_putf(fh, "%s\n", filebuf);
-    // give zero account score to it
-    file_putf(fh, "%s\n", "0");
-    // init account score for new player (to avoid garbage values)
+    // If we get here, account was not found or file doesn't exist
     p->account_score = 0;
-
-    // Close 'MODE_APPEND' file
-    file_close(fh);
-
     return 0L;
 }
 

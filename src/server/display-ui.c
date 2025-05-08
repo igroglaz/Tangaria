@@ -2252,6 +2252,8 @@ static void death_save_account_score(struct player *p)
     unsigned long score_tmp = 0;
     uint32_t new_score = 0;
     bool check_name = true, name_ok = false;
+    bool account_found = false;
+    char str;
 
     /* Check ladder file */
     path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "ladder.raw");
@@ -2266,13 +2268,21 @@ static void death_save_account_score(struct player *p)
         plog("Lock file in place for ladder; not writing.");
         return;
     }
-
     lok = file_open(lok_name, MODE_WRITE, FTYPE_RAW);
     file_lock(lok);
-
     if (!lok)
     {
         plog("Failed to create lock for ladder file; not writing.");
+        return;
+    }
+
+    /* Open the new file for writing - to copy there old file content with account_score update */
+    f_new = file_open(new_filename, MODE_WRITE, FTYPE_TEXT);
+    if (!f_new)
+    {
+        plog("Failed to create new ladder file!");
+        file_close(lok);
+        file_delete(lok_name);
         return;
     }
 
@@ -2283,33 +2293,25 @@ static void death_save_account_score(struct player *p)
         if (!fh)
         {
             plog("Failed to open ladder file!");
+            file_close(f_new);
             file_close(lok);
             file_delete(lok_name);
             return;
         }
         
-        /* Open the new file for writing - to copy there old file content with account_score update */
-        f_new = file_open(new_filename, MODE_WRITE, FTYPE_TEXT);
-        if (!f_new)
-        {
-            plog("Failed to create new ladder file!");
-            file_close(fh);
-            file_close(lok);
-            file_delete(lok_name);
-            return;
-        }
-
         /* Process the file, get one-by-one line */
         while (file_getl(fh, filebuf, sizeof(filebuf)))
         {
             /* Account name match? */
             if (check_name) name_ok = !my_stricmp(filebuf, p->account_name);
-
             file_putf(f_new, "%s\n", filebuf);
-
+            
             /* Yes, account name match */
             if (name_ok)
             {
+                // Mark that we found this account
+                account_found = true;
+                
                 // now get another line which should have numeric score
                 file_getl(fh, score_buf, sizeof(score_buf));
                 // record new score
@@ -2318,18 +2320,41 @@ static void death_save_account_score(struct player *p)
                 check_name = false;
                 name_ok = false;
             }
+            else if (!check_name)
+            {
+                // Copy the score line for non-matching accounts
+                file_getl(fh, score_buf, sizeof(score_buf));
+                file_putf(f_new, "%s\n", score_buf);
+            }
         }
-
-        /* Close the file */
-        file_close(f_new);
+        
+        /* Close the read file */
         file_close(fh);
-
-        if (file_exists(filename) && !file_delete(filename))
-            plog("Couldn't delete old ladder file");
-
-        if (!file_move(new_filename, filename))
-            plog("Couldn't rename new ladder file");
     }
+    
+    /* If account wasn't found in the file, add it now */
+    if (!account_found)
+    {
+        /* Create lowercase version of account name */
+        char lcname[MSG_LEN];
+        my_strcpy(lcname, p->account_name, sizeof(lcname));
+        for (str = 0; lcname[str]; str++) 
+            lcname[str] = tolower((unsigned char)lcname[str]);
+            
+        /* Add the new account and score */
+        file_putf(f_new, "%s\n", lcname);
+        file_putf(f_new, "%u\n", p->account_score);
+    }
+    
+    /* Close the new file */
+    file_close(f_new);
+    
+    /* Replace old file with new one */
+    if (file_exists(filename) && !file_delete(filename))
+        plog("Couldn't delete old ladder file");
+    if (!file_move(new_filename, filename))
+        plog("Couldn't rename new ladder file");
+    
     /* Remove the lock */
     file_close(lok);
     file_delete(lok_name);
