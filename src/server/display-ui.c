@@ -2299,30 +2299,31 @@ static void death_save_account_score(struct player *p)
             return;
         }
         
-        /* Process the file, get one-by-one line */
+        /* Process the file - reading pairs of lines (name, then score) */
         while (file_getl(fh, filebuf, sizeof(filebuf)))
         {
-            /* Account name match? */
-            if (check_name) name_ok = !my_stricmp(filebuf, p->account_name);
+            /* First line is an account name - copy it to the new file */
             file_putf(f_new, "%s\n", filebuf);
             
-            /* Yes, account name match */
-            if (name_ok)
+            /* Check if it's our account name */
+            if (check_name && !my_stricmp(filebuf, p->account_name))
             {
-                // Mark that we found this account
+                /* Found our account */
                 account_found = true;
                 
-                // now get another line which should have numeric score
+                /* Read the score line */
                 file_getl(fh, score_buf, sizeof(score_buf));
-                // record new score
+                
+                /* Write our new score instead of the old one */
                 file_putf(f_new, "%u\n", p->account_score);
-                // no need to check account names further, so flag become off
+                
+                /* Stop checking for account names */
                 check_name = false;
-                name_ok = false;
             }
-            else if (!check_name)
+            else
             {
-                // Copy the score line for non-matching accounts
+                /* Either not our account or we already found our account */
+                /* Read the score line and copy it as is */
                 file_getl(fh, score_buf, sizeof(score_buf));
                 file_putf(f_new, "%s\n", score_buf);
             }
@@ -2332,7 +2333,7 @@ static void death_save_account_score(struct player *p)
         file_close(fh);
     }
     
-    /* If account wasn't found in the file, add it now */
+    /* If account wasn't found in the file */
     if (!account_found)
     {
         /* Create lowercase version of account name */
