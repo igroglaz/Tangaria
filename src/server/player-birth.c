@@ -1111,7 +1111,7 @@ static bool depth_is_valid(struct wild_type *w_ptr, int depth)
 
 
 // Give character account score or if it's 1st ever char - init ladder entry.
-static int init_ladder(struct player *p)
+static int birth_load_account_score(struct player *p)
 {
     ang_file *fh;
     char filename[MSG_LEN];
@@ -1773,8 +1773,9 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         my_strcpy(p->account_name, get_connection(p->conn)->nick_account, sizeof(p->account_name));
         // store account ID for housing
         p->account_id = account;
-        // init ladder file
-        init_ladder(p);
+        // init ladder file (if it's not there yet)..
+        // ..or load player account_points
+        birth_load_account_score(p);
         // give 1 life
         p->lives = 1;
 

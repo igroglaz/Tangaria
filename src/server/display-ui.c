@@ -2238,8 +2238,8 @@ static void player_strip(struct player *p, bool perma_death)
 
 
 // Add account points after character's death.
-// (ladder file itself initialized in init_ladder() at player-birth.c)
-static void account_score(struct player *p)
+// (loading goes @ birth_load_account_score() at player-birth.c)
+static void death_save_account_score(struct player *p)
 {
     ang_file *fh;
     ang_file *lok;
@@ -2656,7 +2656,8 @@ void player_death(struct player *p)
     if (perma_death)
     {
         // add account points
-        account_score(p);
+        if (p->account_score > 0)
+            death_save_account_score(p);
 
         player_funeral(p);
 
