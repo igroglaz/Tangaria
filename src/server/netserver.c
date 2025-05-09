@@ -461,6 +461,9 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
 /*
  * Check if we like the names.
  */
+///// real_name - account name (login)
+///// nick_name - character name
+// note: length is verified @ savefile_set_name() MAX_NAME_LEN
 static int Check_names(char *nick_name, char *real_name, char *host_name)
 {
     char *ptr;
@@ -471,11 +474,12 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
 
     if ((real_name[0] == 0) || (host_name[0] == 0)) return E_INVAL;
 
-    /* Replace weird characters with '?' */
-    for (ptr = &real_name[strlen(real_name)]; ptr-- > real_name; )
+    // Check that real_name contains only lowercase a-z
+    for (ptr = real_name; *ptr; ptr++) 
     {
-        if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
+        if (*ptr < 'a' || *ptr > 'z') return E_INVAL;
     }
+    /* Replace weird characters with '?' */
     for (ptr = &host_name[strlen(host_name)]; ptr-- > host_name; )
     {
         if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
@@ -736,6 +740,8 @@ static void Contact(int fd, int arg)
         }
 
         /* Paranoia */
+        // (if client will send eg real_name more than 1000 symbols
+        // it will protect us from buffer overflow)
         real_name[sizeof(real_name) - 1] = '\0';
         host_name[sizeof(host_name) - 1] = '\0';
         nick_name[sizeof(nick_name) - 1] = '\0';
