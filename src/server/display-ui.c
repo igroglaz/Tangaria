@@ -2780,7 +2780,7 @@ void player_death(struct player *p)
     if (perma_death)
     {
         // add account points
-        if (p->account_score > 0)
+        if (p->account_score > 0 && !is_dm_p(p))
             death_save_account_score(p);
 
         // remove from alive.raw ladder list

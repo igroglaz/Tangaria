@@ -725,7 +725,7 @@ static void adjust_level(struct player *p)
             player_learn_innate(p);
             
             // Update alive characters list
-            if (p->lev >= 10)
+            if (p->lev >= 10 && !is_dm_p(p))
                 alive_list_save_character(p);
         }
 
