@@ -501,6 +501,123 @@ static void award_account_points(struct player *p)
     }
 }
 
+
+
+// Upon lvl up for >10lvls: Add or update character entry in alive.raw
+// Records active characters with level, race and class information
+static void alive_list_save_character(struct player *p)
+{
+    ang_file *fh;
+    ang_file *lok;
+    ang_file *f_new;
+    char filename[MSG_LEN];
+    char new_filename[MSG_LEN];
+    char filebuf[MSG_LEN];
+    char lok_name[MSG_LEN];
+    bool character_found = false;
+    bool check_char = true;
+
+    /* Check alive characters file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "alive.raw");
+    path_build(new_filename, sizeof(new_filename), ANGBAND_DIR_SCORES, "alive.new");
+    path_build(lok_name, sizeof(lok_name), ANGBAND_DIR_SCORES, "alive.lok");
+
+    /* Lock file */
+    if (file_exists(lok_name))
+    {
+        plog("Lock file in place for alive characters; not writing.");
+        return;
+    }
+    lok = file_open(lok_name, MODE_WRITE, FTYPE_RAW);
+    file_lock(lok);
+    if (!lok)
+    {
+        plog("Failed to create lock for alive characters file; not writing.");
+        return;
+    }
+
+    /* Open the new file for writing */
+    f_new = file_open(new_filename, MODE_WRITE, FTYPE_TEXT);
+    if (!f_new)
+    {
+        plog("Failed to create new alive characters file!");
+        file_close(lok);
+        file_delete(lok_name);
+        return;
+    }
+
+    if (file_exists(filename))
+    {
+        /* Open the file */
+        fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+        if (!fh)
+        {
+            plog("Failed to open alive characters file!");
+            file_close(f_new);
+            file_close(lok);
+            file_delete(lok_name);
+            return;
+        }
+        
+        /* Process the file - reading lines of character info */
+        while (file_getl(fh, filebuf, sizeof(filebuf)))
+        {
+            /* Parse the line to check if it's our character */
+            char acc_name[MSG_LEN], char_name[MSG_LEN], race_name[MSG_LEN], class_name[MSG_LEN];
+            int char_level;
+            
+            if (sscanf(filebuf, "%[^,],%[^,],%[^,],%[^,],%d", 
+                      acc_name, char_name, race_name, class_name, &char_level) == 5)
+            {
+                /* Check if it's our character */
+                if (check_char && !my_stricmp(char_name, p->name) && 
+                    !my_stricmp(acc_name, p->account_name))
+                {
+                    /* Found our character - update with new info */
+                    character_found = true;
+                    
+                    /* Write updated character info */
+                    file_putf(f_new, "%s,%s,%s,%s,%d\n", 
+                             p->account_name, p->name, p->race->name, p->clazz->name, p->lev);
+                    
+                    /* Stop checking for character names */
+                    check_char = false;
+                }
+                else
+                {
+                    /* Not our character - copy the line as is */
+                    file_putf(f_new, "%s\n", filebuf);
+                }
+            }
+        }
+        
+        /* Close the read file */
+        file_close(fh);
+    }
+    
+    /* If character wasn't found in the file */
+    if (!character_found)
+    {
+        /* Add the new character entry */
+        file_putf(f_new, "%s,%s,%s,%s,%d\n", 
+                 p->account_name, p->name, p->race->name, p->clazz->name, p->lev);
+    }
+    
+    /* Close the new file */
+    file_close(f_new);
+    
+    /* Replace old file with new one */
+    if (file_exists(filename) && !file_delete(filename))
+        plog("Couldn't delete old alive characters file");
+    if (!file_move(new_filename, filename))
+        plog("Couldn't rename new alive characters file");
+    
+    /* Remove the lock */
+    file_close(lok);
+    file_delete(lok_name);
+}
+
+
 /*
  * Advance experience levels and print experience
  */
@@ -606,6 +723,10 @@ static void adjust_level(struct player *p)
 
             /* Player learns innate runes */
             player_learn_innate(p);
+            
+            // Update alive characters list
+            if (p->lev >= 10)
+                alive_list_save_character(p);
         }
 
         /* Redraw */

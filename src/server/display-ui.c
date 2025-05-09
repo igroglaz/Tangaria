@@ -2491,6 +2491,104 @@ void death_knowledge(struct player *p)
 }
 
 
+// Remove character entry from alive.raw when character dies
+static void alive_list_remove_character(struct player *p)
+{
+    ang_file *fh;
+    ang_file *lok;
+    ang_file *f_new;
+    char filename[MSG_LEN];
+    char new_filename[MSG_LEN];
+    char filebuf[MSG_LEN];
+    char lok_name[MSG_LEN];
+
+    /* Check alive characters file */
+    path_build(filename, sizeof(filename), ANGBAND_DIR_SCORES, "alive.raw");
+    path_build(new_filename, sizeof(new_filename), ANGBAND_DIR_SCORES, "alive.new");
+    path_build(lok_name, sizeof(lok_name), ANGBAND_DIR_SCORES, "alive.lok");
+
+    /* If no alive file exists, nothing to do */
+    if (!file_exists(filename))
+        return;
+
+    /* Lock file */
+    if (file_exists(lok_name))
+    {
+        plog("Lock file in place for alive characters; not writing.");
+        return;
+    }
+    lok = file_open(lok_name, MODE_WRITE, FTYPE_RAW);
+    file_lock(lok);
+    if (!lok)
+    {
+        plog("Failed to create lock for alive characters file; not writing.");
+        return;
+    }
+
+    /* Open the new file for writing */
+    f_new = file_open(new_filename, MODE_WRITE, FTYPE_TEXT);
+    if (!f_new)
+    {
+        plog("Failed to create new alive characters file!");
+        file_close(lok);
+        file_delete(lok_name);
+        return;
+    }
+
+    /* Open the file */
+    fh = file_open(filename, MODE_READ, FTYPE_TEXT);
+    if (!fh)
+    {
+        plog("Failed to open alive characters file!");
+        file_close(f_new);
+        file_close(lok);
+        file_delete(lok_name);
+        return;
+    }
+    
+    /* Process the file - reading lines of character info */
+    while (file_getl(fh, filebuf, sizeof(filebuf)))
+    {
+        /* Parse the line to check if it's our character */
+        char acc_name[MSG_LEN], char_name[MSG_LEN], race_name[MSG_LEN], class_name[MSG_LEN];
+        int char_level;
+        
+        if (sscanf(filebuf, "%[^,],%[^,],%[^,],%[^,],%d", 
+                  acc_name, char_name, race_name, class_name, &char_level) == 5)
+        {
+            /* If it's not our character, copy it to the new file */
+            if (my_stricmp(char_name, p->name) != 0 || 
+                my_stricmp(acc_name, p->account_name) != 0)
+            {
+                file_putf(f_new, "%s\n", filebuf);
+            }
+            /* Skip our character (don't copy to new file) */
+        }
+        else
+        {
+            /* Line format incorrect, copy anyway */
+            file_putf(f_new, "%s\n", filebuf);
+        }
+    }
+    
+    /* Close the read file */
+    file_close(fh);
+    
+    /* Close the new file */
+    file_close(f_new);
+    
+    /* Replace old file with new one */
+    if (file_exists(filename) && !file_delete(filename))
+        plog("Couldn't delete old alive characters file");
+    if (!file_move(new_filename, filename))
+        plog("Couldn't rename new alive characters file");
+    
+    /* Remove the lock */
+    file_close(lok);
+    file_delete(lok_name);
+}
+
+
 /*
  * Handle the death of a player and drop their stuff.
  *
@@ -2684,6 +2782,9 @@ void player_death(struct player *p)
         // add account points
         if (p->account_score > 0)
             death_save_account_score(p);
+
+        // remove from alive.raw ladder list
+        alive_list_remove_character(p);
 
         player_funeral(p);
 
