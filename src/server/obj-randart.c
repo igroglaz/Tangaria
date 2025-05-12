@@ -3233,6 +3233,7 @@ int get_object_level(struct player *p, const struct object *obj, bool difficulty
 {
     int level;
 
+    ////////// TMP FIX OF OLD ART CRUSH. TODO: revert on wipe
     /* Artifacts */
     if (obj->artifact)
     {
@@ -3241,13 +3242,17 @@ int get_object_level(struct player *p, const struct object *obj, bool difficulty
             int lev;
             struct artifact *art = do_randart(p, obj->randart_seed, obj->artifact);
 
-            lev = (difficulty? art->difficulty: art->level);
-            free_artifact(art);
+            if (art) {
+                lev = (difficulty ? art->difficulty : art->level);
+                free_artifact(art);
+            } else {
+                lev = 1; // fallback if randart generation failed
+            }
 
             return lev;
         }
 
-        return (difficulty? obj->artifact->difficulty: obj->artifact->level);
+        return (difficulty ? obj->artifact->difficulty : obj->artifact->level);
     }
 
     level = (difficulty? obj->kind->difficulty: obj->kind->level);
