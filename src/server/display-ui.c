@@ -2660,9 +2660,10 @@ void player_death(struct player *p)
 
         // after ress you become more enigmatic
         player_stat_dec(p, STAT_CON, true);
-        player_stat_inc(p, 5);
+        player_stat_inc(p, 5); // +charisma
         plog_fmt("player_death(): %s made stats adjustments", p->name);
 
+        msg(p, "@ %s (level %d) narrowly escaped from %s.", p->name, p->lev, p->died_from);
         msg(p, "Death nearly grasped you, but in the last moment....");
         msg(p, "........something pulled you into the aether........");
         
