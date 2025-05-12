@@ -1406,6 +1406,12 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Cheezy kills give neither xp nor loot! */
     if (!cheeze)
     {
+        int chance; // chance to get point
+        if (mon->level > 100)
+            chance = 129 - mon->level; // cause 127 max
+        else
+            chance = 102 - mon->level;
+
         monster_death(p, c, mon);
 
         // also legit kill of some monsters might award account points
@@ -1522,7 +1528,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 200)
                 {
-                    if (mon->level > 10 && one_in_(100 - mon->level))
+                    if (mon->level > 10 && one_in_(chance))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1533,7 +1539,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 300)
                 {
-                    if (mon->level > 20 && one_in_(100 - mon->level))
+                    if (mon->level > 20 && one_in_(chance))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1544,7 +1550,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 500)
                 {
-                    if (mon->level > 30 && one_in_(100 - mon->level))
+                    if (mon->level > 30 && one_in_(chance))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1555,7 +1561,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 999)
                 {
-                    if (mon->level > 40 && one_in_(100 - mon->level))
+                    if (mon->level > 40 && one_in_(chance))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1566,7 +1572,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (mon->level > 45)
                 {
-                    if (one_in_(100 - mon->level))
+                    if (one_in_(chance))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
