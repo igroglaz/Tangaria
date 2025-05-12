@@ -6228,8 +6228,29 @@ static void display_message_aux(struct player *p, int type, const char *msg)
             if (p->msg_hist_ptr == MAX_MSG_HIST)
                 p->msg_hist_ptr = 0;
 
-            /* Log the message */
-            plog_fmt("%s: %s", p->name, buf);
+            // Log the chat message without duplication
+            if (type == MSG_CHAT && strchr("[", *msg))
+            {
+                /* Extract the sender name from the message */
+                char sender_name[100];
+                /* Parse sender from message format [SenderName] message */
+                if (sscanf(buf, "[%[^]]", sender_name) == 1)
+                {
+                    /* Only log if the current player is the sender */
+                    if (streq(p->name, sender_name))
+                        plog_fmt("%s: %s", p->name, buf);
+                }
+                else
+                {
+                    /* Fallback if parsing fails */
+                    plog_fmt("%s: %s", p->name, buf);
+                }
+            }
+            /* Log ALL other types of messages normally */
+            else
+            {
+                plog_fmt("%s: %s", p->name, buf);
+            }
         }
         else if (log)
         {
