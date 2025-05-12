@@ -3670,7 +3670,7 @@ void do_cmd_purchase_house(struct player *p, int dir)
         msg(p, "@ %s bought a %s (%d tiles) for %d gold at (%d, %d).",
             p->name, house_type_desc, house_area_size,
             (check == 2 ? house->price : 0),
-            house->grid.x, house->grid.y);
+            p->wpos.grid.x, p->wpos.grid.y);
 
         /* Redraw */
         if (check == 2) p->upkeep->redraw |= (PR_GOLD);
@@ -4140,6 +4140,7 @@ bool create_house(struct player *p, int house_variant)
     int i; // to find house deed for <10k houses
     char wall_type = '\0';  // second part of floor name (type) for rng walls
     int wall_id = 0;  // specific wall (when we have several different walls in one row)
+    const char *house_type_desc; // house name for msg
 
     if (p->lev < 8)
     {
@@ -4418,6 +4419,13 @@ bool create_house(struct player *p, int house_variant)
         sqinfo_on(square(c, &iter.cur)->info, SQUARE_ROOM);
     }
     while (loc_iterator_next_strict(&iter));
+
+    // get house name
+    house_type_desc = get_house_type_desc(area_size);
+    // msg
+    msg(p, "@ %s built a %s (%d tiles) at (%d, %d).",
+        p->name, house_type_desc, area_size,
+        p->wpos.grid.x, p->wpos.grid.y);
 
     msg(p, "To create a door - 'T'unnel the wall in desirable place.");
 
