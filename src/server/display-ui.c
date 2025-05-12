@@ -2663,7 +2663,7 @@ void player_death(struct player *p)
         player_stat_inc(p, 5); // +charisma
         plog_fmt("player_death(): %s made stats adjustments", p->name);
 
-        msg(p, "@ %s (level %d) narrowly escaped from %s.", p->name, p->lev, p->died_from);
+        msg(p, "%s (level %d) narrowly escaped from %s.", p->name, p->lev, p->died_from);
         msg(p, "Death nearly grasped you, but in the last moment....");
         msg(p, "........something pulled you into the aether........");
         
@@ -2774,8 +2774,9 @@ void player_death(struct player *p)
     if (perma_death || !player_can_undead(p)) player_strip(p, perma_death);
 
     /* Tell him */
-    if ((p->ghost != 1) && p->alive)
-        msgt(p, MSG_DIED, "You have been killed by %s.", p->died_from);
+    if ((p->ghost != 1) && p->alive) {
+        msgt(p, MSG_DIED, "%s %s (level %d) was killed by %s.", get_title(p), p->name, p->lev, p->died_from);
+    }
 
     /* Handle permanent death */
     if (perma_death)

@@ -741,12 +741,9 @@ static void adjust_level(struct player *p)
             if (p->account_score > 1 && !OPT(p, birth_hardcore)) // in case of ".. / log10(p->account_score)"
                 award_gold_for_account_points(p);
 
-            /* Message */
-            if (p->max_lev == 50)
-                msgt(p, MSG_FANFARE, "Ding! Welcome to level %d.", p->lev);
-            else
-                msgt(p, MSG_LEVEL, "Welcome to level %d.", p->lev);
-            strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
+            // Message
+            msgt(p, MSG_LEVEL, "%s %s has attained level %d.", get_title(p), p->name, p->lev);
+            strnfmt(buf, sizeof(buf), "%s %s has attained level %d.", get_title(p), p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 
             // Restore stats (only on odd lvls)

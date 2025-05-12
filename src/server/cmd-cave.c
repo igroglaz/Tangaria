@@ -3667,7 +3667,7 @@ void do_cmd_purchase_house(struct player *p, int dir)
         // get name of house for msg
         house_type_desc = get_house_type_desc(house_area_size);
         // message
-        msg(p, "@ %s bought a %s (%d tiles) for %d gold at (%d, %d).",
+        msg(p, "# %s bought a %s (%d tiles) for %d gold at (%d, %d).",
             p->name, house_type_desc, house_area_size,
             (check == 2 ? house->price : 0),
             p->wpos.grid.x, p->wpos.grid.y);
@@ -4423,7 +4423,7 @@ bool create_house(struct player *p, int house_variant)
     // get house name
     house_type_desc = get_house_type_desc(area_size);
     // msg
-    msg(p, "@ %s built a %s (%d tiles) at (%d, %d).",
+    msg(p, "# %s built a %s (%d tiles) at (%d, %d).",
         p->name, house_type_desc, area_size,
         p->wpos.grid.x, p->wpos.grid.y);
 
