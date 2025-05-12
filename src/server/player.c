@@ -705,14 +705,16 @@ static void adjust_level(struct player *p)
             strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 
-            /* Restore stats */
-            source_player(who, get_player_index(get_connection(p->conn)), p);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_STR, 0, 0, 0, 0, NULL);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_INT, 0, 0, 0, 0, NULL);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_DEX, 0, 0, 0, 0, NULL);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
-            effect_simple(EF_RESTORE_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
+            // Restore stats (only on odd lvls)
+            if (p->lev % 2) {
+                source_player(who, get_player_index(get_connection(p->conn)), p);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_STR, 0, 0, 0, 0, NULL);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_INT, 0, 0, 0, 0, NULL);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_WIS, 0, 0, 0, 0, NULL);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_DEX, 0, 0, 0, 0, NULL);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
+                effect_simple(EF_RESTORE_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
+            }
 
             /* Record this event in the character history */
             if (!(p->lev % 5))
