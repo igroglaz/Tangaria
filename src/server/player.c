@@ -340,7 +340,7 @@ static void award_account_points(struct player *p)
         p->account_score++;
         msgt(p, MSG_FANFARE, "You've earned 1 account point! These points preserve even after death.");
         msg(p, "To earn account points - earn levels and defeat unique monsters.");
-        msg(p, "Account points allows to buy bigger houses, increase storage space,");
+        msg(p, "Account points allow to buy bigger houses, increase storage space,");
         msg(p, "give access to more races/classes and provide other advantages.");
         msg(p, "You will get next account point after getting 3 levels more.");
     }
@@ -349,7 +349,13 @@ static void award_account_points(struct player *p)
         if (!(p->max_lev % 3))
         {
             p->account_score++;
-            msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
+
+            if (p->account_score == 5)
+                msgt(p, MSG_FANFARE, "@ %s reaches 5 account points - the path unfolds.",
+                p->name);
+            else
+                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
+
             msg(p, "You will get next account point after getting 3 levels more.");
             if (p->account_score == 2)
             {
@@ -363,9 +369,10 @@ static void award_account_points(struct player *p)
         if (!(p->max_lev % 5))
         {
             p->account_score++;
-            msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
+            
             if (p->account_score != 10)
             {
+                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
                 msg(p, "You will get next account point after getting 5 levels more");
                 if (p->account_score == 6)
                     msg(p, "(Hint: the more points you have - the harder it is to get new ones).");
@@ -374,11 +381,12 @@ static void award_account_points(struct player *p)
         // gratoz
         if (p->account_score == 10)
         {
+            msgt(p, MSG_FANFARE, "@ %s now bears 10 account points - the journey deepens.",
+                p->name);
             msg(p, "Great job! Now you can build your own house!");
             msg(p, "(check the guide on the website to find out how to do it).");
             msg(p, "Also please note that from now on it will be harder to earn points:");
-            msg(p, "you will get even/odd account point for levels and");
-            msg(p, "for defeating unique monster (please check website for details).");
+            msg(p, "you will get even/odd point for levels and defeating uniques.");
         }
     }
     // only at even score
@@ -389,9 +397,15 @@ static void award_account_points(struct player *p)
             if (!(p->max_lev % 10))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu points.", p->account_score);
-                msg(p, "You will get even/odd account point for levels and");
-                msg(p, "for defeating unique monster.");
+
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
+
+                msg(p, "You'll get even/odd point for levels and defeating uniques.");
             }
         }
         else if (p->account_score < 50)
@@ -399,7 +413,12 @@ static void award_account_points(struct player *p)
             if (one_in_(51 - p->max_lev) || !(p->max_lev % 15))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
         else if (p->account_score < 100)
@@ -407,7 +426,12 @@ static void award_account_points(struct player *p)
             if (p->max_lev >= 10 && (one_in_(51 - p->max_lev) || !(p->max_lev % 20)))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
         else if (p->account_score < 200)
@@ -415,7 +439,12 @@ static void award_account_points(struct player *p)
             if (p->max_lev >= 15 && (one_in_(51 - p->max_lev) || !(p->max_lev % 25)))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
         else if (p->account_score < 500)
@@ -423,7 +452,12 @@ static void award_account_points(struct player *p)
             if (p->max_lev >= 20 && (one_in_(51 - p->max_lev) || !(p->max_lev % 30)))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
         else if (p->account_score < 999)
@@ -431,7 +465,12 @@ static void award_account_points(struct player *p)
             if (p->max_lev >= 25 && (one_in_(51 - p->max_lev) || !(p->max_lev % 35)))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
         else if (p->max_lev >= 30)
@@ -439,7 +478,12 @@ static void award_account_points(struct player *p)
             if (one_in_(51 - p->max_lev) || !(p->max_lev % 40))
             {
                 p->account_score++;
-                msgt(p, MSG_FANFARE, "You've earned account point! You have %lu points.", p->account_score);
+                if (p->account_score % 5 == 0)
+                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
+                    p->name, p->account_score);
+                else
+                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
+                    p->account_score);
             }
         }
     }
