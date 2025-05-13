@@ -2346,9 +2346,15 @@ bool use_oil(struct player *p)
             }
         }
         // light with oil (lantern, lamp...)
-        else if (obj->tval == TV_LIGHT && !of_has(obj->flags, OF_NO_FUEL) && obj->timeout > 0)
+        else if (obj->tval == TV_LIGHT)
         {
-            int fuel_amount = obj->timeout / 10;
+            int fuel_amount;
+
+            // exclude empty lights and NO_FUEL ones
+            if (of_has(obj->flags, OF_NO_FUEL) || obj->timeout < 1)
+                continue;
+                
+            fuel_amount = obj->timeout / 10;
             if (obj->timeout < 10) {
                 fuel_amount = 1;
             }
@@ -2398,7 +2404,7 @@ bool use_oil(struct player *p)
     }
 
     // no fuel found -> quit
-    if (fuel_found == false) return false;
+    if (!fuel_found) return false;
 
     // generate message
     rng = randint0(29); // Total number of messages in get_oil_message()
