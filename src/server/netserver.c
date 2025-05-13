@@ -6307,6 +6307,44 @@ static void show_motd(struct player *p)
 }
 
 
+/* Random character entry messages */
+static const char *entry_messages[] = {
+    "~ %s went where stories begin",
+    "~ %s entered the twilight realm",
+    "~ %s passed into ancient lands",
+    "~ %s took the long road east",
+    "~ %s came into the wild",
+    "~ %s stepped into shadowed lands",
+    "~ %s came by moonlight",
+    "~ %s heard the call of the east",
+    "~ %s entered the realm of dusk",
+    "~ %s sets foot upon forgotten soil",
+    "~ %s begins the journey under starlit sky",
+    "~ %s stands where stories unfold",
+    "~ %s steps onto the green road",
+    "~ %s steps through morning mist",
+    "~ %s arrives at dawn's edge",
+    "~ %s takes the path unseen",
+    "~ %s breathes the quiet air",
+    "~ %s steps beneath fading stars",
+    "~ %s opens the whispering gate",
+    "~ %s joins the winding trail",
+    "~ %s wakes to the distant sound of horns",
+    "~ %s enters the hush of broken towers",
+    "~ %s plants boot on the worn plank walk",
+    "~ %s adjusts cloak and faces the wilds",
+    "~ %s drifts from chatter to silent trail",
+    "~ %s moves from ale scents to pine wind",
+    "~ %s tests the weight of the pack and moves on",
+    "~ %s whistles softly and follows the winding path",
+    "~ %s brushes crumbs from hands and sets off",
+    "~ %s checks map corners and folds it shut",
+    "~ %s listens for the river and starts that way",
+    "~ %s breathes deep and tastes pine on the air",
+};
+static const size_t entry_messages_count = sizeof(entry_messages) / sizeof(entry_messages[0]);
+
+
 /*
  * A client has requested to start active play.
  * See if we can allocate a player structure for it
@@ -6519,7 +6557,7 @@ static int Enter_player(int ind)
     // (before we can not check options without passing them to functions as arguments)
    
     // no gold in ironman jail
-    if (p->exp == 0 && OPT(p, birth_ironman))
+    if (p->player_turn.turn == 0 && OPT(p, birth_ironman))
         p->au = 0;
     ////////////////////////////////////////////////////
 
@@ -6528,13 +6566,21 @@ static int Enter_player(int ind)
     /* Handle the cfg_secret_dungeon_master option */
     if (p->dm_flags & DM_SECRET_PRESENCE) return 0;
 
-    /* Tell everyone about our new player */
-    if (p->exp == 0)
-        strnfmt(buf, sizeof(buf), "%s begins a new game.", p->name);
-    else
-        strnfmt(buf, sizeof(buf), "%s has entered the game.", p->name);
+    // msg for discord (we might use: ht_zero(&p->player_turn)..
+    if (p->player_turn.turn == 0) { // .. or (ht_div(&p->player_turn, 1) < 2)
+        strnfmt(buf, sizeof(buf), entry_messages[turn.turn % entry_messages_count], p->name);
+        msg(p, buf);
+    }
 
-    msg_broadcast(p, buf, MSG_BROADCAST_ENTER_LEAVE);
+    // Tell everyone about our new player
+    if (NumPlayers > 1) {
+        if (p->player_turn.turn == 0)
+            strnfmt(buf, sizeof(buf), "%s steps into the world.", p->name);
+        else
+            strnfmt(buf, sizeof(buf), "%s returns to the world.", p->name);
+
+        msg_broadcast(p, buf, MSG_BROADCAST_ENTER_LEAVE);
+    }
 
     /* Tell the meta server about the new player */
     Report_to_meta(META_UPDATE);
