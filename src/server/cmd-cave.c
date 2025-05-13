@@ -3448,8 +3448,15 @@ void do_cmd_purchase_house(struct player *p, int dir)
                     msg(p, "You reset your house.");
                 else
                 {
+                    // ! Temporary disabling getting gold for selling a house,
+                    // as to fix selling house properly we need to store unique player ID
+                    // (not player name... which anyway now stores account name) into house struct;
+                    // as it will be only fair to sell home for full price to hero who
+                    // built it.. not other heroes (now it's potential cheeze, see below)
+                    ////////////////////////////////////////////////////////////////////////
                     // to prevent cheezing when player sell account's big house for new character
                     // we make possibility to sell it only for a very little if you are on low lvls
+                    /* -----commented out------
                     int price_h = house->price;
 
                     // as we are trying to fight high-lvl cheating with very expansive houses,
@@ -3465,6 +3472,8 @@ void do_cmd_purchase_house(struct player *p, int dir)
 
                     msg(p, "You sell your house for %ld gold.", price_h);
                     p->au += price_h;
+                       -----commented out------*/
+                    msg(p, "You no longer own this house");
                 }
 
                 /* House is no longer owned */
@@ -4307,6 +4316,12 @@ bool create_house(struct player *p, int house_variant)
         }
     }
 
+    // experienced adventurers can build smallest houses for free (only deed cost)
+    if (price < 10000 && p->account_score >= 30 && houses_owned(p) < 1)
+    {
+        price = 1;
+    }
+
     // check for enough funds:
     if (price > p->au)
     {
@@ -4686,6 +4701,8 @@ static bool allowed_foundation_area(struct player *p, struct chunk *c, struct lo
 /*
  * Create or extend a house.
  */
+// TURNED OFF TEMPORARY - use create_house() instead (though this PWMA version might be
+// better as it gives possibility to expand houses.. need to check)
 bool build_house(struct player *p)
 {
     int x1, x2, y1, y2, house, area, price, tax;

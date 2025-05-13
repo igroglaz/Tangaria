@@ -101,7 +101,8 @@ bool house_owned_by(struct player *p, int house)
     /* Paranoia */
     if ((house < 0) || (house >= houses_count())) return false;
 
-    return (houses[house].state && (houses[house].ownerid > 0) && (p->account_id == houses[house].ownerid));
+    return (houses[house].state && (houses[house].ownerid > 0) &&
+           (p->account_id == houses[house].ownerid));
 }
 
 
