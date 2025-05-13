@@ -867,9 +867,8 @@ void set_artifact_info(struct player *p, const struct object *obj, uint8_t info)
             break;
         case ARTS_ABANDONED:
         case ARTS_SOLD:
-            history_lose_artifact(p, obj);
             //////////////////////////////////
-            // msg that trueart is lost
+            // 1) msg that trueart is lost
             if (true_artifact_p(obj)) {
                 // compose name
                 char o_name[256];
@@ -883,6 +882,8 @@ void set_artifact_info(struct player *p, const struct object *obj, uint8_t info)
                 }
             }
             //////////////////////////////////
+            // 2) remove trueart
+            history_lose_artifact(p, obj);
             break;
     }
 
