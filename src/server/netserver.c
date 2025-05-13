@@ -6568,7 +6568,10 @@ static int Enter_player(int ind)
 
     // msg for discord (we might use: ht_zero(&p->player_turn)..
     if (p->player_turn.turn == 0) { // .. or (ht_div(&p->player_turn, 1) < 2)
-        strnfmt(buf, sizeof(buf), entry_messages[turn.turn % entry_messages_count], p->name);
+        char player_desc[100];
+        strnfmt(player_desc, sizeof(player_desc), "%s (%s %s)", // Bob (Human Warrior)
+                p->name, p->race->name, p->clazz->name);
+        strnfmt(buf, sizeof(buf), entry_messages[turn.turn % entry_messages_count], player_desc);
         msg(p, buf);
     }
 
