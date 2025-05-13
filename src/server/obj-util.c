@@ -868,6 +868,21 @@ void set_artifact_info(struct player *p, const struct object *obj, uint8_t info)
         case ARTS_ABANDONED:
         case ARTS_SOLD:
             history_lose_artifact(p, obj);
+            //////////////////////////////////
+            // msg that trueart is lost
+            if (true_artifact_p(obj)) {
+                // compose name
+                char o_name[256];
+                object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE | ODESC_ARTIFACT);
+                if (info == ARTS_ABANDONED) {
+                    msg(p, "%s %s (%d) no longer carries the %s.",
+                        get_title(p), p->name, p->lev, o_name);
+                } else { // ARTS_SOLD
+                    msg(p, "%s %s (%d) has sold the %s.",
+                        get_title(p), p->name, p->lev, o_name);
+                }
+            }
+            //////////////////////////////////
             break;
     }
 
@@ -1135,16 +1150,26 @@ void object_own(struct player *p, struct object *obj)
                 strstr(obj->kind->name, "Speed")) // rod of speed
                     obj->level_req = 25;
         }
-    }
+
+        // discord msg
+        if (true_artifact_p(obj)) {
+            char o_name[256];
+            // 1) mark owner
+            mark_artifact_owned(obj->artifact, p->id); 
+            // 2) send msg to the chat about it
+            // (to do so, 1st compose trueart name)
+            object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE | ODESC_ARTIFACT);
+            msg(p, "%s %s (%d) found famous %s!",
+                get_title(p), p->name, p->lev, o_name);
+        }
+
+    } //////////////// end of setting ownership of item for the _first time_
 
     /* Set original owner ONCE */
     if (obj->origin_player == 0) obj->origin_player = quark_add(p->name);
 
     /* Set ownership */
     obj->owner = p->id;
-
-    /* Artifact is now owned */
-    if (true_artifact_p(obj)) mark_artifact_owned(obj->artifact, p->id);
 }
 
 
