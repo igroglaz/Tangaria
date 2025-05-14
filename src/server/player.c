@@ -53,6 +53,7 @@ const char *stat_idx_to_name(int type)
 
 
 // to find out how class powerful - used for checking account points
+// TODO: add T classes
 int class_power(const char* clazz) {
     // very strong
     if (streq(clazz, "Warrior") || streq(clazz, "Monk") ||
@@ -491,52 +492,74 @@ static void award_account_points(struct player *p)
     // award an extra point for hardcore heroes
     if (OPT(p, birth_hardcore)) {
         int classPower = class_power(p->clazz->name);
-        if (classPower == 3) {
-            if (p->max_lev == 29 || p->max_lev == 39 || p->max_lev == 50)
+
+        switch (p->max_lev) {
+            case 20: // level 20: only new accounts
+                if ((classPower == 3 && p->account_score < 30) ||
+                    (classPower == 2 && p->account_score < 50) ||
+                    (classPower == 1 && p->account_score < 70)) {
                     extraPoint = true;
-        } else if (classPower == 2) {
-            if (p->max_lev == 19 || p->max_lev == 29 || 
-                p->max_lev == 39 || p->max_lev == 50)
-                    extraPoint = true;
-        } else if (classPower == 1) {
-            if (p->max_lev == 19 || p->max_lev == 29 ||
-                p->max_lev == 39 || p->max_lev == 49 || p->max_lev == 50)
-                    extraPoint = true;
-        } else {
-            if (p->max_lev == 14 || p->max_lev == 24 || 
-                p->max_lev == 34 || p->max_lev == 44 ||
-                p->max_lev == 49 || p->max_lev == 50)
-                    extraPoint = true;
+                }
+                break;
+            case 30:
+            case 40:
+            case 50:
+                // always award points @ 30, 40, 50
+                extraPoint = true;
+                break;
+            default: ; // no points for other levels
         }
     }
 
-    // ironman characters - award an extra points
+    // ironman (zeitnot) characters - award an extra points
     if (OPT(p, birth_ironman)) {
         int classPower = class_power(p->clazz->name);
-        if (classPower == 3) {
-            if (p->max_lev == 20 || p->max_lev == 30 || 
-                p->max_lev == 40 || p->max_lev == 50)
+        switch (p->max_lev) {
+            case 15: // level 15: only hard classes
+                if (classPower == 1 && p->account_score < 50) {
                     extraPoint = true;
-        } else if (classPower == 2) { // 15-20-25-30-35-40-45-50
-            if (p->max_lev >= 15 && p->max_lev % 5 == 0)
+                }
+                break;
+            case 20: // level 20: only new accounts
+                if ((classPower == 3 && p->account_score < 50) ||
+                    (classPower == 2 && p->account_score < 70) ||
+                    (classPower == 1 && p->account_score < 100)) {
                     extraPoint = true;
-        } else { // no need classPower == 1 check for this mode.. too hard
-            if (p->max_lev >= 10 && p->max_lev % 5 == 0)
-                    extraPoint = true;
+                }
+                break;
+            case 30:
+            case 35:
+            case 40:
+            case 45:
+            case 49:
+            case 50:
+                // always award points @ 30-50 lvls
+                extraPoint = true;
+                break;
+            default: ; // no points for other levels
         }
+
     // brave got extra points too
     } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
         int classPower = class_power(p->clazz->name);
-        if (classPower == 3) {
-            if (p->max_lev == 24 || p->max_lev == 34 ||
-                p->max_lev == 44 || p->max_lev == 50)
+        switch (p->max_lev) {
+            case 20: // level 20: only new accounts
+                if ((classPower == 3 && p->account_score < 30) ||
+                    (classPower == 2 && p->account_score < 50) ||
+                    (classPower == 1 && p->account_score < 70)) {
                     extraPoint = true;
-        } else if (classPower == 2) { // 20-25-30-35-40-45-50
-            if (p->max_lev >= 20 && p->max_lev % 5 == 0)
-                    extraPoint = true;
-        } else { // no classPower==1 check. // 15-20-25-30-35-40-45-50
-            if (p->max_lev >= 15 && p->max_lev % 5 == 0)
-                    extraPoint = true;
+                }
+                break;
+            case 30:
+            case 35:
+            case 40:
+            case 45:
+            case 49:
+            case 50:
+                // always award points @ 30-50 lvls
+                extraPoint = true;
+                break;
+            default: ; // no points for other levels
         }
     }
 
