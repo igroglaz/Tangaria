@@ -2427,7 +2427,8 @@ value:0:DEX[-3]
 value:0:CON[-2]
 value:0:CHR[-9]
 # 'y' can cast rays
-# + full ESP - harcoded (with extra +5 radius)
+# + full ESP - harcoded. 
+# from small (7) radius, to large (at the end - with extra +5 radius)
 value:0:MANA[8+-1d6]
 value:0:INFRA[1+1d5]
 obj-flag:0:FEATHER

@@ -174,8 +174,11 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     } else if (streq(p->race->name, "Frostmen")) {
         base_radius -= base_radius / 4;
         extended_radius -= extended_radius / 4;
-    } else if (streq(p->race->name, "Beholder")) // +5 radius
+    } else if (streq(p->race->name, "Beholder")) { // +5 max radius
+        // starts at 7 (level 1) and scales to 25 (level 50)
+        extended_radius = 7 + ((p->lev - 1) * 18) / 49;
         return (d_esp <= extended_radius);
+    }
 
 
     // Full ESP - limited by base radius
