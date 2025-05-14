@@ -776,7 +776,7 @@ static void adjust_level(struct player *p)
                 award_gold_for_account_points(p);
 
             // Message
-            msgt(p, MSG_LEVEL, "%s has attained level %d.", p->name, p->lev);
+            msgt(p, MSG_LEVEL, "^ %s has attained level %d.", p->name, p->lev);
             strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 

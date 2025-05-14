@@ -2775,7 +2775,7 @@ void player_death(struct player *p)
 
     /* Tell him */
     if ((p->ghost != 1) && p->alive) {
-        msgt(p, MSG_DIED, "%s %s (level %d) was killed by %s.", get_title(p), p->name, p->lev, p->died_from);
+        msgt(p, MSG_DIED, "! %s %s (level %d) was killed by %s.", get_title(p), p->name, p->lev, p->died_from);
     }
 
     /* Handle permanent death */

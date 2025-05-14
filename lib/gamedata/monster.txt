@@ -13392,8 +13392,8 @@ desc:Arrgghh! Don't mess with mutants or you will die like a maggot!
 name:Ulfang the Black
 base:person
 color:U
-speed:120
-hit-points:2000
+speed:119
+hit-points:1500
 light:2
 hearing:20
 armor-class:108
@@ -13402,10 +13402,10 @@ depth:34
 rarity:5
 weight:0
 experience:7500
-blow:HIT:HURT:5d6
-blow:HIT:HURT:5d6
-blow:HIT:HURT:5d6
-blow:HIT:HURT:5d6
+blow:HIT:HURT:5d5
+blow:HIT:HURT:5d5
+blow:HIT:HURT:5d5
+blow:HIT:HURT:5d5
 flags:UNIQUE | MALE | EVIL | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM

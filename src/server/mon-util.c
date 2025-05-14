@@ -1310,7 +1310,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
 
         /* Tell every player (including the killer because it's easy to miss in message window) */
         msg_broadcast(p, buf, type);
-        msg_print(p, buf, type);
+
+        { // create scope (area of variable's visibility..).
+          // good when you are lazy to put variable in beginning of func :D
+            // mark kill message with "& " for discord
+            char marked_buf[sizeof(buf) + 3]; /* +3 for "& " and null terminator */
+            strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
+            msg_print(p, marked_buf, type);
+        }
 
         /* Message for event history */
         // good/neutral monsters not slain, but defeated
