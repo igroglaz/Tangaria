@@ -358,15 +358,17 @@ help: to be surprisingly decent at magical arts, as ogres practice their own,
 help: shamanic spell-weaving. Ogres sustain their intelligence even under
 help: heavy pressure.|
 help: |
-help:They swim well and are naturally resistant to mental collapse. Despite their
-help: bulk, they can move quietly - sometimes.|
+help:They swim well and are naturally resistant to mental collapse.
+help: They don't like too much light though. Despite their bulk, they can move
+help: quietly - sometimes.|
 help: |
 help:They can restore a bit of mana while resting actively ('y').
 
 race:Troll
 help:Trolls - huge pieces of walking rock. Their skin is hard to pierce, even with
 help: a sharp blade. They are slow, though. Don't fear poison (they eat literally
-help: everything), and are resistant to magical shards. Regenerate VERY fast.
+help: everything) - and later on, resistant to cold and magical shards.. 
+help: Regenerate VERY fast. Don't know fear.
 help: Very healthy. Very hungry. Not too bright, so they don't get level feelings...
 help: There are plenty of trolls in the Middle-earth; they often work as bodyguards,
 help: protecting caravans.

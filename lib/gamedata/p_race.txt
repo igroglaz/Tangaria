@@ -735,8 +735,8 @@ value:0:CON[0+2d35]
 value:0:CHR[0+1d35]
 # 'y' detect evil
 value:0:INFRA[1]
-value:30:TUNNEL[1]
-value:30:DAM_RED[1]
+value:35:TUNNEL[1]
+value:35:DAM_RED[1]
 obj-flag:30:ESP_EVIL
 
 
@@ -780,7 +780,7 @@ name:Merfolk
 skill-disarm-phys:-5
 skill-disarm-magic:-2
 skill-device:-3
-skill-save:1
+skill-save:-5
 skill-stealth:0
 skill-search:-2
 skill-melee:-2
@@ -904,7 +904,7 @@ value:0:WIS[-4]
 value:0:DEX[3+1d15]
 value:0:CON[1+1d30]
 value:0:CHR[-4]
-# 'y' bloodlust // !
+# 'y' bloodlust // ! OP.. TODO: increase CD (needs wipe)..for now it requires 35 lvl
 value:0:INFRA[1+1d15]
 value:0:TUNNEL[1+1d30]
 obj-flag:25:ESP_ORC
@@ -923,8 +923,8 @@ skill-device:-18
 skill-save:-16
 skill-stealth:-2
 skill-search:-1
-skill-melee:10
-skill-shoot:-5
+skill-melee:-3
+skill-shoot:-10
 skill-dig:0
 # exp factor at 49: 200%
 hitdie:13
@@ -933,17 +933,16 @@ history:100
 age:20:10
 height:88:9
 weight:233:45
-#4 -2 -2 -2 3
-value:0:STR[4]
+#5 -2 -2 -1 3
+value:0:STR[4+1d49]
 value:0:INT[-2]
 value:0:WIS[-2]
-value:0:DEX[-2]
+value:0:DEX[-2+1d49]
 value:0:CON[3]
 value:0:CHR[-4]
 gift:food:Hard Biscuit:1:1
 # 'y' SAFE (+ m.resistance)
 # + -7% phys damage hc
-# got +1 BpR, except monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 value:0:MANA[5]
 value:0:TUNNEL[2+1d10]
 obj-flag:0:SUST_STR
@@ -993,6 +992,7 @@ player-flags:0:CAN_SWIM
 value:0:TUNNEL[1]
 value:0:MANA[1]
 #/// -
+value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+1d30]
 obj-flag:0:CLUMSY
 value:0:MOVES[-9]
@@ -1026,15 +1026,21 @@ value:0:DEX[-5+1d12]
 value:0:CON[1+1d8M30]
 value:0:CHR[-7]
 # 'y' +AC
-# don't see monster list
 value:0:INFRA[1+1d10]
 obj-flag:0:SUST_STR
 obj-flag:0:REGEN
-player-flags:0:RACE_REGEN
 value:0:RES_POIS[1]
-value:25:RES_SHARD[1]
+obj-flag:0:PROT_FEAR
+player-flags:30:RACE_REGEN
+value:30:RES_SHARD[1]
 value:30:DAM_RED[3+3d9]
+value:30:RES_COLD[1]
+obj-flag:50:PROT_CONF
 #/// -
+#/// todo? add stench like troglo? but then need some boni.. (and 1st make classes to 
+#/// use ID as streq() for stench is overheat.. so reorder races and ID them
+# don't see monster list
+# smaller ESP radius (-1/3)
 value:0:RES_LIGHT[-1]
 obj-flag:0:HUNGER
 value:0:MOVES[-1+-1d6]
@@ -1106,6 +1112,7 @@ value:0:CON[-1]
 value:0:CHR[-1]
 # 'y' cover tracks
 # 5% dodge melee attacks
+# erratic +1 speed boni HCed (like troglo)
 obj-flag:0:SUST_DEX
 value:0:INFRA[1+1d15]
 value:0:MOVES[1]
@@ -1232,7 +1239,7 @@ obj-flag:0:IMPAIR_HP
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
 #/// -
-# perma vulnerability; fire imm makes it less harsh..
+# perma vulnerability; fire imm makes it less harsh.. (as nether++ OP)
 # !also undead's vuln less harsh than regular (5/4) vuln
 # and it's resist/double resist protect better than in common vuln case
 value:0:RES_FIRE[-1]
@@ -1281,7 +1288,7 @@ value:50:RES_TIME[1]
 brand:1:50:VAMPIRIC
 #///  -
 # damaged when walk in daylight -> player_check_terrain_damage()
-# during the day: -HP, regen HP, mana, skills; especially shooting
+# during the day: -HP, regen HP, mana, skills; especially shooting // TODO: rework
 value:0:DAM_RED[-1+-1d15]
 value:0:TUNNEL[-1+-1d30]
 value:0:RES_LIGHT[-1]
@@ -1470,7 +1477,7 @@ value:0:WIS[-4+1d6]
 value:0:DEX[-4+1d10]
 value:0:CON[-4+1d8]
 value:0:CHR[6+-1d8]
-# 'y' holy blast
+# 'y' holy blast /// TODO: re.. too low stats. instead reduce ESP? max TMD_speed? think...
 value:0:MANA[5+-1d12]
 obj-flag:0:SUST_WIS
 value:0:INFRA[2+1d30]
@@ -1492,7 +1499,7 @@ name:Nephalem
 skill-disarm-phys:0
 skill-disarm-magic:0
 skill-device:0
-skill-save:-10
+skill-save:-20
 skill-stealth:0
 skill-search:0
 skill-melee:0
@@ -1514,7 +1521,7 @@ value:50:CON[-1]
 value:0:CHR[-1+1d24]
 # 'y' glyph (leaves you with !!1 HP!!, 3 idle)
 #value:0:RES_LIGHT[-1] -> 35lvl [1] -> 50lvl [2] in 50% cases (hardcoded)
-#value:0:RES_DARK[-1]  -> 35lvl [1] -> 50lvl [2] in 50% cases
+#value:0:RES_DARK[-1]  -> 35lvl [1] -> 50lvl [2] in 50% cases // very OP, so 'save' is -20
 obj-flag:0:ESP_DEMON
 slay:35:50:DEMON_3
 #/// -
@@ -1559,6 +1566,8 @@ value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 #/// -
+#//////// TODO: rebalance.. actually all vulnerable races should be re
+#//////// as vulnerability is dull (1 unlucky hit) way to make weakness
 value:0:RES_ACID[-1]
 value:0:MOVES[-1]
 
@@ -1581,6 +1590,8 @@ age:11:4
 height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
+#//////////// TODO: rebalance. make building walls - main feature
+#//////////// remove cost and CDs (but also bonuses)
 #4 -3 -3 -2 0.
 # can build it slowly with 'y' (create sand wall)
 # + -10% phys damage hc
@@ -1701,7 +1712,7 @@ skill-device:-50
 skill-save:-3
 skill-stealth:-16
 skill-search:-5
-skill-melee:25
+skill-melee:-5
 skill-shoot:-15
 skill-dig:0
 hitdie:14
@@ -1712,15 +1723,14 @@ age:90:40
 height:170:20
 weight:430:75
 gift:scroll:Detect Invisible:2:3
-#9 -2 -2 -1 5
+#9 -2 -2 -1 6
 value:0:STR[1+1d6]
 value:0:INT[-4+1d24]
 value:0:WIS[-4+1d24]
 value:0:DEX[-2+1d30]
-value:0:CON[-10+1d2]
+value:0:CON[-10+1d3]
 value:0:CHR[0]
 # 'y' crush wall
-# monk, warr, unbel -1 BpR till 35 lvl, hardcoded
 value:0:MANA[1d5]
 value:0:RES_GRAVITY[1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
@@ -1861,12 +1871,12 @@ height:170:20
 weight:240:60
 gift:food:Large Trout:1:1
 value:0:STR[2]
-value:0:INT[-4+1d24]
+value:0:INT[-3+1d24]
 value:0:WIS[-2]
 value:0:DEX[-2]
 value:0:CON[3]
 value:0:CHR[-9]
-# 'y' RAISE dead // !
+# 'y' RAISE dead // ! (ok.. 255 cd)
 #value:0:RES_COLD[1]
 #value:35:RES_COLD[2] hardcoded
 value:0:MANA[3+-1d15]
@@ -1944,7 +1954,7 @@ value:0:CON[-2]
 value:0:CHR[-9]
 value:0:INFRA[1+1d6]
 brand:15:50:POIS_2
-# /// weaves web around
+# /// weaves web around (255 CD, so ok)
 # value:0:RES_POIS[1]
 #value:30:RES_POIS[++] hardcoded (not immunity, but ++, so 1 -> 2 and 2 -> 3
 # _CAN_ use weapons
@@ -2049,7 +2059,7 @@ value:0:CHR[-2]
 obj-flag:0:FEATHER
 value:0:INFRA[2]
 value:0:MOVES[1+1d30]
-value:0:STEALTH[0+1d24]
+value:0:STEALTH[0+1d30]
 value:40:SPEED[1+1d2]
 #/// -
 value:0:TUNNEL[-1]
@@ -2082,11 +2092,11 @@ value:0:WIS[-2]
 value:0:DEX[-2+1d15]
 value:0:CON[-3+1d8]
 value:0:CHR[-6]
-# 'y' becoming hasty if full HP (1/2 hp cost)
+# 'y' becoming TMD_SPEEDY (+1-10 speed depend on lvl) if full HP (1/2 hp cost)
 value:0:MANA[4+-1d6M25]
 value:0:INFRA[2]
-obj-flag:0:PROT_CONF
-obj-flag:30:PROT_STUN
+obj-flag:30:PROT_CONF
+obj-flag:45:PROT_STUN
 #/// -
 # AGGRAVATE 3 range hardcoded (like knight)
 value:0:STEALTH[-4+-1d10]
@@ -2114,13 +2124,13 @@ gift:food:Slime Mold:1:1
 value:0:STR[-1+1d30]
 value:0:INT[-1]
 value:0:WIS[-3]
-value:0:DEX[2+1d30]
+value:0:DEX[0+1d15]
 value:0:CON[-1+1d24]
 value:0:CHR[-6]
 # 'y' save from starving 14
 # get satiation from killing insects and rodents
 # darkness-loving (see in the dark, but light makes it worse)
-# erratic +1 speed boni HCed
+# erratic +1 speed boni HCed (like forest goblin)
 # CHR can't be worse..
 player-flags:0:KNOW_MUSHROOM
 value:0:MANA[3+-1d15]
@@ -2363,7 +2373,7 @@ value:0:STR[-3]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d12]
 value:0:DEX[0]
-value:0:CON[0]
+value:0:CON[0+-1d15]
 value:0:CHR[-9]
 # 'y' passwall (blind) with CD 60 turns
 # 25% dodge melee attacks

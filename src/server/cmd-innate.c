@@ -664,7 +664,7 @@ void do_cmd_breath(struct player *p, int dir)
         if (p->chp == p->mhp)
         {
             use_energy(p);
-            player_inc_timed(p, TMD_FAST, 5 + p->lev / 3, false, false);
+            player_inc_timed(p, TMD_SPEEDY, 5 + p->lev / 3, false, false);
             player_dec_timed(p, TMD_FOOD, 15, false);
 
             p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
@@ -1142,15 +1142,17 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Goblin"))
+    else if (streq(p->race->name, "Goblin")) // req 35 lvl
     {
-        if (p->chp == p->mhp)
+        if (p->lev < 35)
+            msgt(p, MSG_SPELL_FAIL, "You should have 35 level to do it.");
+        else if (p->chp == p->mhp)
         {
             use_energy(p);
             player_inc_timed(p, TMD_BLOODLUST, 2 + p->lev / 7, true, false);
             player_dec_timed(p, TMD_FOOD, 150 - p->lev, false);
 
-            p->chp -= p->mhp / 3; // take a hit (ok, only on full hp)
+            p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
             
             p->y_cooldown = 255; // cooldown
 

@@ -2274,11 +2274,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
         extra_blows += (p->lev / 10) + 5;
 
-    // titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too)
+    /* titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too) -- rethink to other race.. naga got it slowly
     if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
     !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
     streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
         extra_blows += 10;
+    */
 
     // Dragon/Hydra (and Monks)
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
