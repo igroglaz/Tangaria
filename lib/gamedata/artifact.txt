@@ -3793,8 +3793,8 @@ attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL
 values:LIGHT[3] | MANA[1] | INT[1]
-# replace with mana regen
 act:STONE_OF_LORE
+# pretty long CD, good.. but problem: STONE_OF_LORE can appear on randarts :(
 time:500
 msg:The stone reveals hidden mysteries...
 desc:A great emerald that fills your mind with images of knowledge and dreadful

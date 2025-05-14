@@ -1568,9 +1568,11 @@ msg:The {kind} well{s} with clear bright light...
 
 name:STONE_OF_LORE
 aim:0
+level:100
 power:30
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:10d5
+effect:TIMED_INC_NO_RES:IMAGE
+dice:11+1d24
+# drain a stat temporarily
 effect:DRAIN_STAT:WIS
 dice:1
 effect:DRAIN_STAT:INT
@@ -1579,8 +1581,6 @@ effect:MAP_AREA
 effect-yx:15:32
 effect:NOURISH:DEC_BY
 dice:1+1d2
-effect:RANDOM
-dice:5
 effect:STAR_BALL:LIGHT_WEAK:3
 dice:2d8
 effect:IDENTIFY

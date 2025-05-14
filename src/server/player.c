@@ -775,8 +775,12 @@ static void adjust_level(struct player *p)
             if (p->account_score > 1 && !OPT(p, birth_hardcore)) // in case of ".. / log10(p->account_score)"
                 award_gold_for_account_points(p);
 
-            // Message
-            msgt(p, MSG_LEVEL, "^ %s has attained level %d.", p->name, p->lev);
+            // message
+            if (p->max_lev == 5 || p->max_lev == 10 || p->max_lev >= 15)
+                msgt(p, MSG_LEVEL, "+ %s has attained level %d.", p->name, p->lev);
+            else
+                msgt(p, MSG_LEVEL, "%s has attained level %d.", p->name, p->lev);
+            // message to all
             strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
             msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
 
