@@ -53,22 +53,29 @@ const char *stat_idx_to_name(int type)
 
 
 // to find out how class powerful - used for checking account points
-// TODO: add T classes
 int class_power(const char* clazz) {
     // very strong
-    if (streq(clazz, "Warrior") || streq(clazz, "Monk") ||
-        streq(clazz, "Shapechanger") || streq(clazz, "Unbeliever"))
+    if (streq(clazz, "Warrior")    || streq(clazz, "Monk")         ||
+        streq(clazz, "Unbeliever") || streq(clazz, "Shapechanger") ||
+        streq(clazz, "Druid")      || streq(clazz, "Fighter")      ||
+        streq(clazz, "Knight"))
         return 1;
     // strong
-    else if (streq(clazz, "Rogue") || streq(clazz, "Paladin") ||
-             streq(clazz, "Blackguard") || streq(clazz, "Archer"))
+    else if (streq(clazz, "Archer") || streq(clazz, "Paladin") ||
+             streq(clazz, "Rogue") || streq(clazz, "Ranger") ||
+             streq(clazz, "Blackguard") || streq(clazz, "Hunter") ||
+             streq(clazz, "Telepath") || streq(clazz, "Battlemage") ||
+             streq(clazz, "Hermit") || streq(clazz, "Phaseblade") ||
+             streq(clazz, "Inquisitor"))
         return 2;
     // medium
-    else if (streq(clazz, "Mage") || streq(clazz, "Sorceror") ||
-             streq(clazz, "Tamer") || streq(clazz, "Necromancer") ||
-             streq(clazz, "Wizard"))
+    else if (streq(clazz, "Shaman") || streq(clazz, "Priest") ||
+             streq(clazz, "Villager") || streq(clazz, "Tamer") || 
+             streq(clazz, "Traveller") || streq(clazz, "Bard") || 
+             streq(clazz, "Trader") || streq(clazz, "Assassin") || 
+             streq(clazz, "Cryokinetic") || streq(clazz, "Scavenger"))
         return 3;
-    // all others
+    // all others (mage, warlock etc)
     else
         return 0;
 }
@@ -497,8 +504,9 @@ static void award_account_points(struct player *p)
             case 20: // level 20: only new accounts
                 if ((classPower == 3 && p->account_score < 30) ||
                     (classPower == 2 && p->account_score < 50) ||
-                    (classPower == 1 && p->account_score < 70)) {
-                    extraPoint = true;
+                    (classPower == 1 && p->account_score < 70) ||
+                    (classPower == 0 && p->account_score < 100)) {
+                        extraPoint = true;
                 }
                 break;
             case 30:
@@ -516,15 +524,17 @@ static void award_account_points(struct player *p)
         int classPower = class_power(p->clazz->name);
         switch (p->max_lev) {
             case 15: // level 15: only hard classes
-                if (classPower == 1 && p->account_score < 50) {
+                if ((classPower == 1 && p->account_score < 50) ||
+                    (classPower == 0 && p->account_score < 70)) {
                     extraPoint = true;
                 }
                 break;
             case 20: // level 20: only new accounts
                 if ((classPower == 3 && p->account_score < 50) ||
                     (classPower == 2 && p->account_score < 70) ||
-                    (classPower == 1 && p->account_score < 100)) {
-                    extraPoint = true;
+                    (classPower == 1 && p->account_score < 100)||
+                    (classPower == 0 && p->account_score < 120)) {
+                        extraPoint = true;
                 }
                 break;
             case 30:
@@ -546,8 +556,9 @@ static void award_account_points(struct player *p)
             case 20: // level 20: only new accounts
                 if ((classPower == 3 && p->account_score < 30) ||
                     (classPower == 2 && p->account_score < 50) ||
-                    (classPower == 1 && p->account_score < 70)) {
-                    extraPoint = true;
+                    (classPower == 1 && p->account_score < 70) ||
+                    (classPower == 0 && p->account_score < 100)) {
+                        extraPoint = true;
                 }
                 break;
             case 30:
