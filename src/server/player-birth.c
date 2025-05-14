@@ -717,7 +717,7 @@ static void get_money(struct player *p, bool no_recall, bool force_descend)
         p->au += 10*(p->stat_birth[STAT_CHR] - 10);
 
     // nominal boni from account points
-    if (p->account_score >= 10)
+    if (p->account_score >= 10 && !OPT(p, birth_hardcore))
         p->au += p->account_score / 10;
 
     /* Give double starting gold to no_recall characters */
