@@ -4976,16 +4976,16 @@ value:0:CON[-1]
 value:0:CHR[1+1d15]
 player-flags:0:CHOOSE_SPELLS
 # got different pets
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Leashling
+title:Critterhand
+title:Beastfriend
+title:Muzzlebearer
+title:Whistler
+title:Packmate
+title:Caller
+title:Trailhowler
+title:Beastmaster
+title:Alpha
 
 magic:1:350:2
 
@@ -5191,16 +5191,16 @@ shape:15:cat-form
 shape:20:wolf-form
 shape:25:bear-form
 obj-flag:30:ESP_ANIMAL
-title:Wanderer
-title:Nurturer
-title:Gardener
-title:Forester
-title:Upbringer
-title:Creator
-title:Earth Warder
-title:Windrider
-title:Stormwielder
-title:High Mystic
+title:Mossfoot
+title:Thornwalker
+title:Burrower
+title:Hollowkin
+title:Furcaller
+title:Skinshifter
+title:Moonbound
+title:Gnarlroot
+title:Wildsoul
+title:Deephowl
 
 magic:1:350:3
 
@@ -5357,16 +5357,17 @@ value:0:CHR[-3]
 # mana: STR+INT
 # can pseudo-ID curses
 # ... need to check his effect:TIMED_SET:DEADLY skill...
-title:Rookie
-title:Soldier
-title:Swordsman
-title:Swashbuckler
-title:Veteran
-title:Myrmidon
-title:Commando
-title:Champion
-title:Hero
-title:Lord
+title:Greenhorn
+title:Brawler
+title:Enforcer
+title:Bruiser
+title:Hardman
+title:Ironback
+title:Sellsteel
+title:Blade-for-Hire
+title:Merc
+title:Warlord
+
 
 magic:1:550:1
 
@@ -5581,16 +5582,16 @@ value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[1+1d30]
 #/// + dog
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Footsore
+title:Roadling
+title:Pathfinder
+title:Campmaker
+title:Signreader
+title:Hillwalker
+title:Farstepper
+title:Trailwarden
+title:Worldworn
+title:Deeprover
 
 magic:1:350:1
 
@@ -5745,16 +5746,16 @@ value:0:DEX[2]
 value:0:CON[-2+1d30]
 value:0:CHR[2+1d15]
 value:0:RES_SOUND[1]
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Busker
+title:Stringrat
+title:Jinglejack
+title:Stagehand
+title:Tunebringer
+title:Soundweaver
+title:Chorusman
+title:Notehurler
+title:Skald
+title:Echoheart
 
 magic:1:350:1
 
@@ -5937,16 +5938,16 @@ value:0:CHR[-1]
 # ?to add can't wear shields?
 player-flags:0:ZERO_FAIL
 # + not CLUMSY..
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Gruntmage
+title:Sparkslinger
+title:Hexblade
+title:Runebasher
+title:Scorchhand
+title:Spellcleaver
+title:Ironchant
+title:Stormbrand
+title:Warcaster
+title:Spellreaper
 
 magic:1:350:1
 
@@ -6144,16 +6145,16 @@ player-flags:0:ZERO_FAIL | CHOOSE_SPELLS | UNLIGHT | BEAM
 # raise undead monsters automatically upon their death
 # in melee got small additional life leech (traumaturgy) VS "living" monsters
 obj-flag:0:CLUMSY
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Graveborn
+title:Fleshpriest
+title:Cryptcaller
+title:Marrowmancer
+title:Skinspeaker
+title:Bonethief
+title:Undying
+title:Ashmarked
+title:Wormtongue
+title:Rotheart
 
 magic:1:300:1
 
@@ -6524,10 +6525,10 @@ value:25:STEALTH[1]
 # restore mana when polymorph monsters
 player-flags:0:ZERO_FAIL | BEAM
 obj-flag:0:CLUMSY
-title:Novice
-title:Apprentice
-title:Trickster
-title:Illusionist
+title:Witling
+title:Cantricker
+title:Glyphrat
+title:Wandspiller
 title:Spellbinder
 title:Evoker
 title:Conjurer
@@ -6861,16 +6862,16 @@ value:0:CHR[0+1d10]
 # Cloak of Commerce - allow sell items right in the dungeon?
 # ---------------- reveal mimics?
 # ---------------- XBM prices lower 2x?
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Barrowrat
+title:Streetbroker
+title:Packhauler
+title:Tallyman
+title:Coinpicker
+title:Curiojack
+title:Dealbinder
+title:Tradeknave
+title:Vaultmind
+title:Gilded Hand
 
 magic:1:350:2
 
@@ -7292,16 +7293,16 @@ player-flags:0:ZERO_FAIL
 # - not good in wielding non-swords
 # - _very_ bad with ranged weapons
 # can teleport from non/limited-teleport grid (except Titans and Half-Giants)
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Flicker
+title:Stepper
+title:Edgewalker
+title:Ghoststeel
+title:Phasehand
+title:Slipblade
+title:Foldslicer
+title:Warpdancer
+title:Blinkfang
+title:Shatterstep
 
 magic:1:400:1
 
@@ -7475,16 +7476,16 @@ brand:10:50:FIRE_2
 brand:10:50:COLD_2
 value:30:RES_FIRE[2]
 value:30:RES_COLD[2]
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Chillflare
+title:Frostspark
+title:Icember
+title:Ashglaze
+title:Burnfrost
+title:Glowfreeze
+title:Scorchshard
+title:Blazebite
+title:Heatvein
+title:Elementied
 
 magic:1:350:1
 
@@ -7652,16 +7653,16 @@ value:0:SPEED[0+1d5]
 player-flags:0:ZERO_FAIL
 obj-flag:0:CLUMSY
 value:50:RES_TIME[1]
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Tickborn
+title:Timegazer
+title:Loopling
+title:Secondhand
+title:Phasewatcher
+title:Slipcaster
+title:Hourvein
+title:Fraycaller
+title:Chronorift
+title:Paradox
 
 magic:1:350:5
 
@@ -7839,16 +7840,16 @@ value:0:CHR[-1]
 # cant join party
 # disassemble: 20+ ego, 30 randart, 40 trueart
 # + less speed penalty due overweight
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Rattrap
+title:Scrapling
+title:Junkhand
+title:Tunnelfreak
+title:Corpsepicker
+title:Muckrider
+title:Stashrat
+title:Rusteye
+title:Grubmaster
+title:Grimeking
 
 magic:1:350:1
 
@@ -8081,16 +8082,16 @@ value:0:CHR[0]
 # can create items which are bound to player
 # if item not needed - it should be destroyed with 'k'
 # + less speed penalty due overweight
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Tinkerhand
+title:Greasebud
+title:Scrapwright
+title:Griptwist
+title:Charmbender
+title:Bindsmith
+title:Runesetter
+title:Mekker
+title:Weldmage
+title:Forgebound
 
 magic:1:350:1
 
@@ -8155,16 +8156,16 @@ obj-flag:0:CLUMSY
 # harming fearful enemies -> restore life
 # can cast through his ANTI-MAGIC field
 value:0:BLOWS[1d1]
-title:Rookie
-title:Initiate
-title:Neophyte
-title:Novice
-title:Apprentice
-title:Journeyman
-title:Expert
-title:Adept
-title:Master
-title:Grandmaster
+title:Whipling
+title:Chainer
+title:Torchbearer
+title:Binder
+title:Confessor
+title:Woundwright
+title:Interrogant
+title:Hereticbane
+title:Sealmaker
+title:Red Judge
 
 magic:1:350:1
 

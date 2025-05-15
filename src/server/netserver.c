@@ -6569,8 +6569,48 @@ static int Enter_player(int ind)
     // msg for discord (we might use: ht_zero(&p->player_turn)..
     if (p->player_turn.turn == 0) { // .. or (ht_div(&p->player_turn, 1) < 2)
         char player_desc[100];
+        char modes[50];
+        char mode_str[60];
+        bool is_hardcore;
+        bool is_ironman;
+        bool is_brave;
+        
         strnfmt(player_desc, sizeof(player_desc), "%s (%s %s)", // Bob (Human Warrior)
                 p->name, p->race->name, p->clazz->name);
+        
+        // Add special mode indicators to player description
+        is_hardcore = OPT(p, birth_hardcore);
+        is_ironman = OPT(p, birth_ironman);
+        is_brave = OPT(p, birth_no_recall) && OPT(p, birth_force_descend);
+        
+        if (is_hardcore || is_ironman || is_brave) {
+            modes[0] = '\0'; // Initialize empty string
+            
+            // Start with hardcore if it exists (as it can be in mix with any mode)
+            if (is_hardcore) {
+                my_strcat(modes, "hardcore", sizeof(modes));
+            }
+            
+            // Add ironman or brave
+            if (is_ironman) {
+                if (is_hardcore) {
+                    my_strcat(modes, " ironman", sizeof(modes));
+                } else {
+                    my_strcat(modes, "ironman", sizeof(modes));
+                }
+            } else if (is_brave) {
+                if (is_hardcore) {
+                    my_strcat(modes, " brave", sizeof(modes));
+                } else {
+                    my_strcat(modes, "brave", sizeof(modes));
+                }
+            }
+            
+            // Add the complete mode string in one set of parentheses
+            strnfmt(mode_str, sizeof(mode_str), " (%s)", modes);
+            my_strcat(player_desc, mode_str, sizeof(player_desc));
+        }
+        
         strnfmt(buf, sizeof(buf), entry_messages[turn.turn % entry_messages_count], player_desc);
         msg(p, buf);
     }
