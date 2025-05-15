@@ -735,12 +735,14 @@ help: them vulnerable to heat up to level 35. Beyond that, they are no longer
 help: vulnerable to heat, but can't gain immunity. Even if they equip an item
 help: with fire immunity, they get double resistance instead.
 help: At level 50, they can finally gain immunity - but only in half the cases.
+help: Also their intuition is dulled, and they can't feel which level is 
+help: dangerous and which one isn't.|
 help:|
 help:Their melee combat is brutal, with strength enhanced by icy rage, but they
 help: are bad at using magical devices, searching, disarming traps, and resisting
 help: magic. All other races fear them. They lack intuition, which helps most
-help: living creatures sense danger. They are weak in extrasensory perception,
-help: but their connection to the dead allows them to detect undead minds.
+help: living creatures sense danger. Their connection to the dead allows them 
+help: to detect undead minds.
 help: They can resurrect the dead ('y') by spending some energy.
 
 race:Centaur

@@ -101,9 +101,21 @@ void dusk_or_dawn(struct player *p, struct chunk *c, bool dawn)
     // only at daylight surface and mid-game+
     // as we don't wanna wipe grind 'info' and 'feat' in dungeon cause
     // of OPEN_SKY wiz_lit() (or it will erase all memorized squares).
-    // but at 25+ lvl it suits well - to make them more dangerous
-    if (p->wpos.depth == 0 || p->wpos.depth > 25)
+    if (p->wpos.depth == 0)
         player_cave_clear(p, false);
+    // when comes night - sometimes you forget all memorized squares
+    // (to make them more dangerous..)
+    else if (!dawn && !streq(p->race->name, "Dunadan")) {
+        // Calculate darkness chance: equals depth %, capped at 85% for deepest levels
+        int darkness_chance = p->wpos.depth;
+        if (darkness_chance > 85) darkness_chance = 85;
+
+        // Check if darkness effect triggers
+        if (turn.turn % 100 < darkness_chance) {
+            msg(p, "Dark Lord's shadow falls upon the land, erasing your memory of this place.");
+            player_cave_clear(p, false);
+        }
+    }
 
     /* Illuminate */
     cave_illuminate(p, c, dawn);
