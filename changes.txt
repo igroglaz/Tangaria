@@ -9,6 +9,10 @@ the VERIFY packet is sent/received in chunks of 1024 lines of data.
 
 And still many bug fixes and code improvements from Angband 4.2.5...
 
+Note: due to some changes in activation difficulties, savefiles have been made
+incompatible with the previous version. Please restart a clean server to play
+the new version.
+
 For a full list of changes made in older versions, check the Official
 PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 
@@ -45,6 +49,7 @@ Angband 4.2.x:
 - Increase the curse removal power of a staff of remove curse
 - Rebalance activation difficulty for standard items
 - Configure activation difficulty for randarts from activation.txt
+- Change target handling for Lightning Strike
 
 PWMAngband:
 
@@ -60,6 +65,7 @@ Angband 4.2.x:
 - Account for empty object groups in ego knowledge display
 - Apply BLESS_WEAPON to-hit bonus only to melee, not ranged
 - Correct coordinate tested for monster lighting a wall
+- Avoid extraneous path separator in the user and archive directories
 
 PWMAngband:
 
@@ -67,6 +73,10 @@ PWMAngband:
 - Fix flickering being very slow sometimes
 - Fix info on tombstone for retiring Dungeon Masters
 - Fix recharge_failure_chance()
+- Fix BREATH and PROJECT_LOS effects not showing damage when browsing spells
+- Fix a bug in get_spell_info()
+- Fix many incorrect spell descriptions
+- Prevent Villagers from making doors on static levels
 
 Coding changes
 --------------
@@ -104,6 +114,7 @@ Angband 4.2.x:
 - Document v parameter for player_set_timed()
 - Docs: mention how window.prf is used
 - Docs: correct some details for shooting/throwing
+- AngbandPlus link fix
 
 PWMAngband:
 

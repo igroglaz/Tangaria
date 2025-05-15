@@ -203,7 +203,13 @@ static struct menu *spell_menu_new(int book, bool (*is_valid)(int, int), bool sh
 {
     struct menu *m = menu_new(MN_SKIN_SCROLL, &spell_menu_iter);
     struct spell_menu_data *d = mem_alloc(sizeof(*d));
-    region loc = { -62, 1, 62, -99 };
+    size_t width = MAX(0, MIN(Term->wid - 15, NORMAL_WID));
+    region loc;
+
+    loc.col = 0 - width;
+    loc.row = 1;
+    loc.width = width;
+    loc.page_rows = -99;
 
     /* Collect spells from book */
     d->book = book;

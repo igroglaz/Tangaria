@@ -466,7 +466,7 @@ void dump_spells(struct player *p, struct object *obj)
     spell_flags flags;
     char out_val[NORMAL_WID];
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
-    char help[20];
+    char help[30];
     const char *comment = help;
     uint8_t line_attr;
     char spell_name[31];

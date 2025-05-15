@@ -662,7 +662,7 @@ void client_init(bool new_game, int argc, char **argv)
     /* Get user name */
     if (GetUserName(buffer, &nSize))
     {
-        buffer[16] = '\0';
+        buffer[MAX_NAME_LEN] = '\0';
         my_strcpy(real_name, buffer, sizeof(real_name));
     }
 #endif

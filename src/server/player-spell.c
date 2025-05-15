@@ -26,8 +26,10 @@
  */
 struct spell_info_iteration_state
 {
+    const char *pre_type;
+    random_value pre_rv;
     random_value shared_rv;
-    uint8_t have_shared;
+    bool have_shared;
 };
 
 
@@ -281,12 +283,12 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     source_player(data, 0, p);
 
     if (effect->index == EF_CLEAR_VALUE)
-        ist->have_shared = 0;
+        ist->have_shared = false;
     else if (effect->index == EF_SET_VALUE && effect->dice)
     {
         int16_t current_spell;
 
-        ist->have_shared = 1;
+        ist->have_shared = true;
 
         /* Hack -- set current spell (for effect_value_base_by_name) */
         current_spell = p->current_spell;
@@ -327,15 +329,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
         p->current_spell = current_spell;
     }
     else if (ist->have_shared)
-    {
-        /* PWMAngband: don't repeat shared info */
-        if (ist->have_shared == 1)
-        {
-            memcpy(&rv, &ist->shared_rv, sizeof(random_value));
-            ist->have_shared = 2;
-        }
-        else return;
-    }
+        memcpy(&rv, &ist->shared_rv, sizeof(random_value));
 
     /* Handle some special cases where we want to append some additional info. */
     switch (effect->index)
@@ -432,14 +426,38 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
             break;
     }
 
+    /* Only display if have dice and it isn't redundant with the previous one that was displayed. */
     if ((rv.base > 0) || (rv.dice > 0 && rv.sides > 0))
     {
-        if (!*offset) *offset = strnfmt(buf, len, " %s ", type);
-        else *offset += strnfmt(buf + *offset, len - *offset, "+");
-        *offset += append_random_value_string(buf + *offset, len - *offset, &rv);
+        if (*offset)
+        {
+            /* Different types */
+            if (strcmp(type, ist->pre_type))
+            {
+                *offset += strnfmt(buf + *offset, len - *offset, ";");
+                *offset += strnfmt(buf + *offset, len - *offset, " %s ", type);
+            }
 
+            /* Same type, different values */
+            else if ((rv.base != ist->pre_rv.base) || (rv.dice != ist->pre_rv.dice) ||
+                (rv.sides != ist->pre_rv.sides))
+            {
+                *offset += strnfmt(buf + *offset, len - *offset, "+");
+            }
+
+            /* Same type, same values */
+            else
+                return;
+        }
+        else
+            *offset = strnfmt(buf, len, " %s ", type);
+
+        *offset += append_random_value_string(buf + *offset, len - *offset, &rv);
         if (special[0])
             strnfmt(buf + *offset, len - *offset, "%s", special);
+
+        ist->pre_type = type;
+        memcpy(&ist->pre_rv, &rv, sizeof(random_value));
     }
 }
 
@@ -452,7 +470,10 @@ void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
     const struct class_spell *spell;
     size_t offset = 0;
 
-    ist.have_shared = 0;
+    ist.pre_type = NULL;
+    memset(&ist.pre_rv, 0, sizeof(random_value));
+    memset(&ist.shared_rv, 0, sizeof(random_value));
+    ist.have_shared = false;
 
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
@@ -464,16 +485,6 @@ void get_spell_info(struct player *p, int spell_index, char *buf, size_t len)
     while (effect)
     {
         spell_effect_append_value_info(p, effect, buf, len, spell, &offset, &ist);
-
-        /* Hack -- if next effect has the same tip, also append that info */
-        if (effect->next)
-        {
-            const char *type = effect_info(effect, spell->realm->name);
-            const char *nexttype = effect_info(effect->next, spell->realm->name);
-
-            if (type && nexttype && strcmp(nexttype, type)) return;
-        }
-
         effect = effect->next;
     }
 }
@@ -519,7 +530,7 @@ void show_ghost_spells(struct player *p)
     char out_val[NORMAL_WID];
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
     uint8_t line_attr;
-    char help[20];
+    char help[30];
     const char *comment = help;
     spell_flags flags;
 
@@ -872,7 +883,7 @@ void show_mimic_spells(struct player *p)
     char out_val[NORMAL_WID];
     char out_desc[MSG_LEN], out_name[NORMAL_WID];
     uint8_t line_attr;
-    char help[20];
+    char help[30];
     const char *comment = help;
     int flag;
     spell_flags flags;

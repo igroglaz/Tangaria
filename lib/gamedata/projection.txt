@@ -814,6 +814,7 @@ threat:always
 
 code:PSI
 type:monster
+desc:mental
 blind-desc:are hit by psionic energy
 obvious:1
 wake:1

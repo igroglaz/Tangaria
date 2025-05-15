@@ -2250,6 +2250,8 @@ bool effect_handler_PROJECT_LOS_AWARE(effect_handler_context_t *context)
  * Cast a defined length beam spell.
  * Affect the player, grids, objects, and monsters
  * context->subtype is element, context->radius radius
+ *
+ * PWMAngband: set context->other to 1 to prevent the effect on static levels
  */
 bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
 {
@@ -2261,6 +2263,13 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
     struct loc target;
     struct source who_body;
     struct source *who = &who_body;
+
+    /* Only on random levels */
+    if ((context->other == 1) && !random_level(&context->origin->player->wpos))
+    {
+        msg(context->origin->player, "Nothing happens.");
+        return true;
+    }
 
     /* Paranoia */
     if (rad > z_info->max_range) rad = z_info->max_range;
@@ -2489,9 +2498,10 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     struct loc target;
     struct source who_body;
     struct source *who = &who_body;
-    int flg = PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAY;
     const char *what = "annihilated";
-
+    /* Aim at the target. Hurt items on floor. */
+    int flg = PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAY;
+    
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
         // Flamestrike spell (mana 8)
@@ -2502,28 +2512,24 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
                 context->origin->player->csp = context->origin->player->csp * 96 / 100;
     }
 
+    /*
+     * If the target is not a passable grid in the line of sight or is a
+     * direction, target the player.
+     */
     loc_copy(&target, &context->origin->player->grid);
+    if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
+    {
+        target_get(context->origin->player, &target);
+        if (!projectable(context->origin->player, context->cave, &context->origin->player->grid,
+            &target, PROJECT_NONE, true))
+        {
+            loc_copy(&target, &context->origin->player->grid);
+        }
+    }
+
+    context->origin->player->current_sound = -2;
     source_player(who, get_player_index(get_connection(context->origin->player->conn)),
         context->origin->player);
-
-    /* Ask for a target; if no direction given, the player is struck  */
-    if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
-        target_get(context->origin->player, &target);
-    else
-    {
-        msg(context->origin->player, "You must have a target.");
-        return false;
-    }
-
-    /* Enforce line of sight */
-    if (!projectable(context->origin->player, context->cave, &context->origin->player->grid,
-        &target, PROJECT_NONE, true) || !square_isknown(context->origin->player, &target))
-    {
-        return false;
-    }
-
-    /* Aim at the target. Hurt items on floor. */
-    context->origin->player->current_sound = -2;
     if (project(who, context->radius, context->cave, &target, dam, context->subtype, flg, 0, 0, what))
         context->ident = true;
     context->origin->player->current_sound = -1;

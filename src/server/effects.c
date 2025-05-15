@@ -99,6 +99,12 @@ const char *effect_info(const struct effect *effect, const char *name)
     if ((effect->index == EF_BOLT_AWARE) && (effect->subtype == PROJ_DRAIN_MANA))
         return "heal";
 
+    /* Hack -- heal other ("damage" value is used for healing, so change the tip accordingly) */
+    if ((effect->index == EF_BLAST) && (effect->subtype == PROJ_MON_HEAL))
+        return "heal";
+    if ((effect->index == EF_BOLT_STATUS) && (effect->subtype == PROJ_MON_HEAL))
+        return "heal";
+
     return effects[effect->index].info;
 }
 
