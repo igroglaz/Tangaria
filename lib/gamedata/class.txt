@@ -1512,6 +1512,7 @@ desc: within its duration. It is especially useful when your character is
 desc: in Undead Form.
 
 spell:Dispel Life:22:20:50:10:0
+# 4th parameter means "only affect living"
 effect:PROJECT_LOS_AWARE:MON_DRAIN:0:1
 dice:1d$S
 expr:S:PLAYER_LEVEL:* 3
@@ -5043,8 +5044,8 @@ desc:Falcon strikes a target and then it will shares with you his prey by
 desc: restoring some satiation. It's not much, but still can save you
 desc: from starvation.
 desc: Also it grants you precision bonus for 25+1d25 turns.
-desc: Target grid must be targetable and known to the player.
-desc: no target grid will mean the player grid is hit.
+desc: If targeting a direction or the target is not a passable
+desc: grid in the line of sight, the player will be the target.
 desc: Cooldown 60 turns.
 
 spell:Sensitive Snout:15:10:42:15:0
@@ -6230,7 +6231,7 @@ dice:5+1d5
 desc:Curse your enemies into oblivion.
 
 spell:Exhaust Life:30:20:35:25:0
-effect:BLAST:MON_DRAIN:1
+effect:BLAST:MON_DRAIN:1:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: dispels life.
@@ -6661,8 +6662,8 @@ dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: strikes fire from below.
 desc:Strikes a target from below with a fire.
-desc: Target grid must be targetable and known to the player;
-desc: no target grid will mean the player grid is hit.
+desc: If targeting a direction or the target is not a passable
+desc: grid in the line of sight, the player will be the target.
 
 spell:Magic Reflection:20:15:11:25:0
 effect:NOURISH:DEC_BY
@@ -7600,8 +7601,8 @@ expr:B:PLAYER_LEVEL:* 6
 msg_other: strikes with cryofire.
 desc:Cryokinetic technique which makes target feel heat and cold at the
 desc: same time.
-desc: Target grid must be targetable and known to the player;
-desc: no target grid will mean the player grid is hit.
+desc: If targeting a direction or the target is not a passable
+desc: grid in the line of sight, the player will be the target.
 
 spell:Blizzard:45:30:35:100:0
 cooldown:2
@@ -8209,7 +8210,7 @@ desc: which you may use for a profit.
 
 spell:Drain Soul:20:5:33:10:0
 cooldown:6
-effect:STRIKE:MON_DRAIN:0
+effect:STRIKE:MON_DRAIN:0:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 msg_other: attempts to drain soul from victim.
