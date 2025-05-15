@@ -1417,6 +1417,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Cheezy kills give neither xp nor loot! */
     if (!cheeze)
     {
+        // hack: give Golem nourishment from killing boss (lore: absorbs divine energy)
+        if (rf_has(mon->race->flags, RF_FORCE_DEPTH) && streq(p->race->name, "Golem")) {
+            if (p->timed[TMD_FOOD] < 5000)
+                player_inc_timed(p, TMD_FOOD, 3000, false, false);
+            else
+                player_set_timed(p, TMD_FOOD, 8000, false);
+        }
+        
         int chance; // chance to get point
         if (mon->level > 100)
             chance = 129 - mon->level; // cause 127 max

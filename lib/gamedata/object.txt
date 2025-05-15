@@ -5023,10 +5023,11 @@ effect:DETECT_EVIL
 effect-yx:7:11
 msg_self:Light shoots in all directions!
 
+# should be ez to activate, so 1
 name:Teleportation
 graphics:_:d
 type:staff
-level:20
+level:20:1
 weight:50
 cost:2000
 alloc:50:20 to 100

@@ -2620,6 +2620,7 @@ base:humanoid
 color:U
 speed:120
 hit-points:60
+light:-2
 hearing:16
 armor-class:12
 sleepiness:30
@@ -8625,6 +8626,7 @@ base:person
 color:s
 speed:120
 hit-points:600
+light:-2
 hearing:20
 armor-class:60
 sleepiness:10
@@ -10458,6 +10460,7 @@ base:vampire
 color:W
 speed:120
 hit-points:1333
+light:-2
 hearing:20
 smell:20
 armor-class:67
@@ -14199,6 +14202,7 @@ base:wraith
 color:R
 speed:120
 hit-points:3000
+light:-2
 hearing:30
 armor-class:60
 sleepiness:0
