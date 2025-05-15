@@ -3216,7 +3216,8 @@ bool effect_handler_DETECT_TREASURES(effect_handler_context_t *context)
     struct loc_iterator iter;
 
     // DETECT_TREASURES doesn't work in labyrinths (#6 in list-dun-profiles.h)
-    if (context->cave->profile == 6)
+    if (context->cave->profile == 6 ||
+        (context->cave->wpos.grid.x == -1 && context->cave->wpos.grid.y == -1)) // Maze (minotaur) dungeon
     {
         msg(context->origin->player, "It is too tangled maze to detect something..");
         return true;
