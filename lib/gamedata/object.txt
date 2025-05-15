@@ -5100,14 +5100,14 @@ graphics:-:d
 type:rod
 level:8:10
 weight:15
-cost:1000
-alloc:30:8 to 75
+# should be expensive (was 1000)
+cost:10000
+# and rare (was alloc:30)
+alloc:10:8 to 75
 attack:1d1:0:0
 armor:0:0
 act:DETECT_TREASURE
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d11
-time:50
+time:150
 
 name:Detection
 graphics:-:d

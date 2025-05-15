@@ -499,11 +499,12 @@ effect-yx:22:40
 name:DETECT_TREASURE
 aim:0
 level:5
-power:6
+# was power:6 (to make it less often on randarts)
+power:30
 effect:DETECT_TREASURES
 effect-yx:22:40
 effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
+dice:11+6d2
 
 name:DISABLE_TRAPS
 aim:1
@@ -1571,7 +1572,7 @@ aim:0
 level:100
 power:30
 effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
+dice:5+1d7
 # drain a stat temporarily
 effect:DRAIN_STAT:WIS
 dice:1
