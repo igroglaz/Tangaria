@@ -5354,10 +5354,9 @@ value:0:WIS[-2]
 value:0:DEX[1]
 value:0:CON[1]
 value:0:CHR[-3]
-# add obj-flag:0:IMPAIR_MANA?
-# mana: STR+INT
+# mana: STR+INT... cheap skills, but very slow regen
+obj-flag:0:IMPAIR_MANA
 # can pseudo-ID curses
-# ... need to check his effect:TIMED_SET:DEADLY skill...
 title:Greenhorn
 title:Brawler
 title:Enforcer
@@ -5377,11 +5376,10 @@ equip:shadow book:[Shadows for Beginners]:1:1:none
 
 spell:Windmill:1:1:22:1:0
 cooldown:4
-effect:TELEPORT
-dice:1
+# includes BpR (state.num_blows counted!). so it's pretty good
 effect:SWEEP
 msg_other: makes a reckless attack.
-desc:Lunge a brave attack versus each adjacent enemy and then retreats.
+desc:Unleash a rain of blows in a killing dance on each adjacent enemy.
 desc: Cooldown 4 turns.
 
 spell:Sideroll:5:0:25:1:0
@@ -5399,9 +5397,9 @@ desc: Cooldown 2 turns.
 spell:Pain Point:10:2:22:1:0
 cooldown:7
 effect:TIMED_SET:DEADLY
-dice:2
-desc:Gives your next melee blow in current fight a high chance to score
-desc: a critical hit.
+dice:3
+desc:You find the spot that hurts the most and go for it.
+desc: For 3 turns, your melee blows may deal additional critical hits.
 desc: Cooldown 7 turns.
 
 spell:Take a nap:15:1:22:1:0
@@ -5418,7 +5416,7 @@ desc:Take a nap for some time and restores either strength or constitution..
 desc: and sometimes even dexterity.
 desc: Beware to sleep in sloppy places..
 
-spell:Focus:20:6:30:12:0
+spell:Focus:20:3:30:12:0
 effect:CURE:CONFUSED
 desc:You focus and remove confusion.
 
@@ -5432,7 +5430,8 @@ dice:2+1d5
 desc:Attempts to improve the to-hit bonus and the to-dam bonus of a weapon.
 desc: This tedious work reduce your nourishment.
 
-spell:Bandages:30:10:90:100:0
+spell:Bandages:30:15:90:100:0
+cooldown:11
 effect:HEAL_HP
 dice:6+$Dd6
 expr:D:PLAYER_LEVEL:/ 2
@@ -5441,6 +5440,7 @@ dice:20
 effect:TIMED_INC:OCCUPIED
 dice:2d3
 desc:You apply fast & dirty first aid to stop bleeding.
+desc: Cooldown 11 turns.
 
 spell:Armour Polish:35:20:85:150:0
 effect:ENCHANT:TOAC
@@ -5452,16 +5452,18 @@ dice:2+1d5
 desc:Attempts to improve the armour class bonus of a piece of armour.
 desc: This tedious work reduce your nourishment.
 
-spell:Eight:40:16:60:110:0
-effect:BLAST:MISSILE:2
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
-desc:Make rain of blows in a dance of killing machine.
+spell:Eight:40:3:1:110:0
+cooldown:3
+effect:TIMED_SET:HOLD_WEAPON
+dice:3
+desc:Grants extra blows sometimes and makes you immune to disarming
+desc: for 3 turns.
+desc: Cooldown 3 turns.
 
 spell:Royal Kick:45:16:50:150:0
 effect:MELEE_BLOWS:FORCE
 dice:2d$B
-expr:B:PLAYER_LEVEL:* 3
+expr:B:PLAYER_LEVEL:* 2
 desc:Attempts a skillful kick that knocking enemy back with a chance to stun it.
 
 spell:Thunderclap:49:30:30:35:0

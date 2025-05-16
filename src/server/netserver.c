@@ -6311,7 +6311,7 @@ static void show_motd(struct player *p)
 static const char *entry_messages[] = {
     "~ %s went where stories begin",
     "~ %s entered the twilight realm",
-    "~ %s passed into ancient lands",
+    "~ %s walks into ancient lands",
     "~ %s took the long road east",
     "~ %s came into the wild",
     "~ %s stepped into shadowed lands",
