@@ -190,7 +190,7 @@ weight:9
 alloc:1:30 to 100
 attack:1d2:14:19
 armor:0:7
-flags:FREE_ACT | REGEN | PROT_BLIND | HUNGER
+flags:FREE_ACT | REGEN | PROT_BLIND
 values:MANA[1] |
 values:BLOWS[1] | SPEED[1] | STEALTH[1] | RES_CHAOS[1] | LIGHT[-2]
 act:INVISIBILITY
@@ -936,12 +936,12 @@ weight:180
 alloc:7:20 to 100
 attack:4d4:10:11
 armor:0:8
-flags:BLESSED | REGEN | ESP_ORC | HUNGER
+flags:BLESSED | REGEN | ESP_ORC
 values:WIS[4] | INFRA[4] | LIGHT[1] | RES_COLD[3] | RES_LIGHT[1]
 brand:COLD_3
 slay:ORC_3
 act:DRAIN_LIFE
-time:40
+time:100
 desc:Once wielded by the High Priest of Meneltarma, this great mace gleams
 desc: coldly as though moonlit, and can strike equally mighty spiritual and
 desc: physical blows.
@@ -1018,7 +1018,7 @@ weight:55
 alloc:2:40 to 127
 attack:4d4:15:16
 armor:0:0
-flags:FREE_ACT | REGEN | HUNGER
+flags:FREE_ACT | REGEN
 values:DEX[3] | SPEED[3] | RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] |
 values:RES_COLD[1] | RES_SOUND[1]
 brand:POIS_3
@@ -1368,7 +1368,7 @@ weight:170
 alloc:7:30 to 100
 attack:3d8:8:11
 armor:0:5
-flags:FREE_ACT | PROT_BLIND | FEATHER | SEE_INVIS | REGEN | HUNGER
+flags:FREE_ACT | PROT_BLIND | FEATHER | SEE_INVIS | REGEN
 values:STR[3] | CON[3] | STEALTH[1] | RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] |
 values:RES_COLD[1]
 slay:DEMON_3
@@ -1571,7 +1571,7 @@ weight:250
 alloc:3:80 to 127
 attack:8d6:40:15
 armor:0:0
-flags:REGEN | HUNGER
+flags:REGEN
 values:INFRA[5] | RES_ACID[1]
 brand:ACID_3
 slay:ANIMAL_2
@@ -1600,7 +1600,7 @@ weight:5
 alloc:2:45 to 127
 attack:0d0:20:25
 armor:0:0
-flags:SUST_DEX | REGEN | ESP_ANIMAL | SEE_INVIS | HUNGER
+flags:SUST_DEX | REGEN | ESP_ANIMAL | SEE_INVIS
 values:DEX[3] | STEALTH[3] | MIGHT[1] | SHOTS[5]
 desc:More effort has gone into crafting this hunting weapon than you would
 desc: have expected. In fact there is no fault to be found in balance or power.
@@ -1625,7 +1625,7 @@ weight:30
 alloc:10:30 to 100
 attack:0d0:12:15
 armor:0:0
-flags:REGEN | HUNGER
+flags:REGEN
 values:STR[2] | CON[2] | MIGHT[2] | RES_FIRE[1] | RES_ELEC[1] | RES_COLD[1]
 desc:One of a pair of hunting bows once belonging to Feanor's two youngest
 desc: sons. The bows are like and yet unlike, much as the twin brothers were.
@@ -1730,7 +1730,7 @@ weight:200
 alloc:5:60 to 127
 attack:4d1:10:22
 armor:0:0
-flags:REGEN | HUNGER
+flags:REGEN
 values:MIGHT[1] | RES_DISEN[1]
 brand:COLD_3
 slay:DEMON_3
@@ -1744,7 +1744,7 @@ weight:200
 alloc:5:50 to 127
 attack:4d1:20:24
 armor:0:0
-flags:REGEN | HUNGER
+flags:REGEN
 values:STR[3] | MIGHT[1]
 desc:A tool to cut down elves, humans and dwarves and all enemies
 desc: of Mordor with relentless force.
@@ -2265,7 +2265,7 @@ alloc:5:45 to 127
 attack:1d1:0:0
 armor:0:15
 flags:PROT_BLIND | PROT_CONF | PROT_STUN |
-flags:SEE_INVIS | REGEN | HUNGER
+flags:SEE_INVIS | REGEN
 values:STR[3] | CON[3] | WIS[2] | LIGHT[1] | RES_COLD[1] | RES_FIRE[1] |
 values:RES_LIGHT[1]
 act:CURE_FULL500
@@ -2351,7 +2351,7 @@ weight:80
 alloc:0:25 to 127
 attack:0d0:0:0
 armor:8:20
-flags:PROT_CONF | FREE_ACT | HOLD_LIFE | REGEN | HUNGER
+flags:PROT_CONF | FREE_ACT | HOLD_LIFE | REGEN
 values:DEX[2] | STR[2] | RES_FIRE[1] | RES_COLD[1] | RES_ELEC[1]
 desc:Manufactured by the armourers of the Scarlet Order, this leather armour
 desc: aids every zealot in his struggle against the unholy forces.
@@ -2449,7 +2449,7 @@ alloc:0:50 to 127
 attack:1d4:-2:0
 armor:38:25
 flags:ESP_DRAGON | SUST_INT | SUST_CON | FREE_ACT | PROT_BLIND | PROT_CONF |
-flags:PROT_FEAR | REGEN | NO_TELEPORT | HUNGER
+flags:PROT_FEAR | REGEN | NO_TELEPORT
 values:STEALTH[4] | CON[4] | INT[4] | SPEED[4] | RES_NEXUS[1] | RES_ACID[1] |
 values:RES_ELEC[1] | RES_FIRE[1] | RES_COLD[3]
 desc:The flying suit of Flare, very powerful armour that protects
@@ -2475,7 +2475,7 @@ weight:220
 alloc:0:25 to 127
 attack:1d4:-2:0
 armor:32:-8
-flags:PROT_CONF | FREE_ACT | HOLD_LIFE | REGEN | HUNGER
+flags:PROT_CONF | FREE_ACT | HOLD_LIFE | REGEN
 values:RES_FIRE[1] | RES_ACID[1] | RES_COLD[1] | RES_ELEC[1] | RES_TIME[1]
 desc:This chain mail has endured many many fights!
 
@@ -2763,7 +2763,7 @@ weight:10
 alloc:0:40 to 127
 attack:0d0:0:0
 armor:1:19
-flags:ESP_UNDEAD | REGEN | FREE_ACT | HUNGER
+flags:ESP_UNDEAD | REGEN | FREE_ACT
 values:WIS[4]
 slay:UNDEAD_5
 brand:VAMPIRIC
@@ -2776,7 +2776,7 @@ weight:25
 alloc:40:10 to 60
 attack:1d1:0:0
 armor:3:14
-flags:REGEN | FREE_ACT | HUNGER
+flags:REGEN | FREE_ACT
 values:RES_FIRE[1]
 act:FIRE_BOLT
 time:8+d8
@@ -2886,7 +2886,7 @@ attack:1d1:-50:-50
 armor:5:30
 flags:AFRAID | SEE_INVIS | REGEN | FREE_ACT | ESP_ALL | PROT_BLIND |
 flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON |
-flags:FEATHER | HOLD_LIFE | HUNGER
+flags:FEATHER | HOLD_LIFE
 values:SEARCH[3] | INFRA[3] | STEALTH[3] | LIGHT[1] |
 values:RES_FIRE[1] | RES_COLD[1] | RES_ELEC[1] | RES_ACID[1] |
 values:RES_POIS[1] | RES_DISEN[1] | RES_NETHER[1] | RES_CHAOS[1]
@@ -2899,7 +2899,7 @@ weight:5
 alloc:0:50 to 127
 attack:1d1:0:0
 armor:0:15
-flags:REGEN | ESP_EVIL | FREE_ACT | SEE_INVIS | HUNGER
+flags:REGEN | ESP_EVIL | FREE_ACT | SEE_INVIS
 values:MANA[5]
 desc:The alchemist's best friend.
 
@@ -3048,8 +3048,8 @@ weight:2
 alloc:2:70 to 127
 attack:0d0:2:2
 armor:0:0
-flags:FREE_ACT | SEE_INVIS | SLOW_DIGEST | REGEN | ESP_ALL | 
-flags:SUST_STR | SUST_CON | SUST_CHR | PROT_FEAR | HUNGER
+flags:FREE_ACT | SEE_INVIS | SLOW_DIGEST | REGEN | ESP_ALL |
+flags:SUST_STR | SUST_CON | SUST_CHR | PROT_FEAR
 values:STR[1] | INT[1] | WIS[1] | DEX[1] | CON[1] | SPEED[5] | RES_FIRE[3]
 act:PROTEVIL
 time:200+4d50
@@ -3067,7 +3067,7 @@ alloc:2:80 to 127
 attack:0d0:3:3
 armor:0:0
 flags:HOLD_LIFE | FREE_ACT | SEE_INVIS |
-flags:FEATHER | REGEN | HUNGER
+flags:FEATHER | REGEN
 flags:SUST_INT | SUST_WIS | SUST_CON | SUST_CHR |
 flags:PROT_BLIND | ESP_ALL
 values:STR[2] | INT[2] | WIS[2] | DEX[2] | CON[2] | SPEED[5] | RES_COLD[3]
@@ -3108,7 +3108,7 @@ alloc:1:100 to 127
 attack:0d0:15:15
 armor:0:0
 flags:AGGRAVATE | DRAIN_EXP | SEE_INVIS | REGEN | ESP_ALL | STICKY |
-flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS | SUST_CHR | HUNGER
+flags:SUST_STR | SUST_DEX | SUST_CON | SUST_INT | SUST_WIS | SUST_CHR
 values:STR[5] | INT[5] | WIS[5] | DEX[5] | CON[5] | CHR[-5] | SPEED[5] |
 values:RES_FIRE[3] | RES_COLD[3] | RES_ELEC[3] | RES_ACID[3] | RES_DARK[1] |
 values:RES_DISEN[1] | RES_POIS[1] | RES_NETHER[1]
@@ -3172,7 +3172,7 @@ graphics:":d
 level:50
 weight:3
 alloc:2:50 to 127
-flags:SEE_INVIS | FREE_ACT | REGEN | PROT_FEAR | HUNGER
+flags:SEE_INVIS | FREE_ACT | REGEN | PROT_FEAR
 values:STR[3] | CON[3] | INFRA[5] | LIGHT[1]
 desc:The Nauglamir, a carcanet of gold set with a multitude of shining
 desc: gems of Valinor. The radiant Silmaril of Feanor hangs in its midst
@@ -3202,7 +3202,7 @@ graphics:":d
 level:30:40
 weight:3
 alloc:2:30 to 70
-flags:HOLD_LIFE | SUST_CON | SUST_WIS | REGEN | HUNGER
+flags:HOLD_LIFE | SUST_CON | SUST_WIS | REGEN
 values:WIS[2] | RES_DARK[1] | RES_COLD[1] | RES_NETHER[1]
 act:RESTORE_LIFE
 time:150
@@ -3267,7 +3267,7 @@ weight:120
 alloc:0:35 to 127
 attack:2d4:-2:0
 armor:16:25
-flags:SUST_STR | REGEN | ESP_ANIMAL | HUNGER
+flags:SUST_STR | REGEN | ESP_ANIMAL
 values:STR[3] | STEALTH[3] | RES_ACID[3] | RES_DISEN[1]
 act:DRAGON_BLACK
 time:50
@@ -3380,7 +3380,7 @@ weight:220
 alloc:0:80 to 127
 attack:2d4:-2:0
 armor:36:25
-flags:SUST_STR | REGEN | ESP_ANIMAL | HUNGER
+flags:SUST_STR | REGEN | ESP_ANIMAL
 values:STR[3] | STEALTH[3] | RES_SOUND[1] | RES_SHARD[1] | RES_LIGHT[1]
 act:DRAGON_LAW
 time:50
@@ -3438,7 +3438,7 @@ weight:300
 alloc:6:100 to 127
 attack:2d4:-3:0
 armor:60:35
-flags:HOLD_LIFE | REGEN | PROT_FEAR | PROT_BLIND | PROT_CONF | HUNGER
+flags:HOLD_LIFE | REGEN | PROT_FEAR | PROT_BLIND | PROT_CONF
 values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1] | RES_POIS[1] |
 values:RES_LIGHT[1] | RES_DARK[1] | RES_SOUND[1] | RES_SHARD[1] |
 values:RES_NETHER[1] | RES_NEXUS[1] | RES_CHAOS[1] | RES_DISEN[1]
@@ -3518,7 +3518,7 @@ weight:40
 alloc:0:48 to 127
 attack:0d0:0:0
 armor:1:15
-flags:REGEN | FREE_ACT | PROT_CONF | HUNGER
+flags:REGEN | FREE_ACT | PROT_CONF
 values:MANA[10] | RES_DISEN[1]
 desc:Finely woven silk gloves of the first high king of the Noldor, friend of
 desc: Thingol, who lead his people on the journey from Middle-earth to Valinor.
@@ -3656,7 +3656,7 @@ weight:12
 alloc:0:57 to 127
 attack:1d1:0:0
 armor:0:0
-flags:REGEN | ESP_EVIL | HUNGER
+flags:REGEN | ESP_EVIL
 values:MANA[2] | RES_DARK[1] | RES_NETHER[1] | RES_ELEC[1] | RES_COLD[1]
 act:DESTRUCTION2
 time:200+d200
@@ -3671,7 +3671,7 @@ weight:12
 alloc:0:60 to 127
 attack:1d1:0:0
 armor:0:0
-flags:REGEN | SEE_INVIS | PROT_FEAR | HUNGER
+flags:REGEN | SEE_INVIS | PROT_FEAR
 values:CON[3] | INT[3] | RES_COLD[3] | RES_ELEC[1] | RES_MANA[1] | MANA[1]
 desc:A stick of white marbled wood with a small blue crystal embedded at the top
 desc: which resembles a perfect globe showing no trace of inclusions and shines
@@ -3684,7 +3684,7 @@ weight:12
 alloc:0:70 to 127
 attack:1d1:0:0
 armor:0:0
-flags:KNOWLEDGE | REGEN | SEE_INVIS | ESP_EVIL | HUNGER
+flags:KNOWLEDGE | REGEN | SEE_INVIS | ESP_EVIL
 values:CON[3] | INT[3] | RES_FIRE[3] | RES_DISEN[1] | RES_ELEC[1] | MANA[1]
 desc:The ebony staff crowned by three rubies, which evoked the hellraiser's
 desc: power.
