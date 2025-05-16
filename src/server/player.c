@@ -53,13 +53,14 @@ const char *stat_idx_to_name(int type)
 
 
 // to find out how class powerful - used for checking account points
+// (more power = more number)
 int class_power(const char* clazz) {
     // very strong
     if (streq(clazz, "Warrior")    || streq(clazz, "Monk")         ||
         streq(clazz, "Unbeliever") || streq(clazz, "Shapechanger") ||
         streq(clazz, "Druid")      || streq(clazz, "Fighter")      ||
         streq(clazz, "Knight"))
-        return 1;
+        return 3;
     // strong
     else if (streq(clazz, "Archer") || streq(clazz, "Paladin") ||
              streq(clazz, "Rogue") || streq(clazz, "Ranger") ||
@@ -74,7 +75,7 @@ int class_power(const char* clazz) {
              streq(clazz, "Traveller") || streq(clazz, "Bard") || 
              streq(clazz, "Trader") || streq(clazz, "Assassin") || 
              streq(clazz, "Cryokinetic") || streq(clazz, "Scavenger"))
-        return 3;
+        return 1;
     // all others (mage, warlock etc)
     else
         return 0;
