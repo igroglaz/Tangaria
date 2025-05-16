@@ -6787,6 +6787,9 @@ values:STR[1] | CON[1] | RES_CHAOS[1] | RES_NETHER[1]
 brand:VAMPIRIC
 curse:treacherous weapon:100
 desc:Death is all. Beware, cursed is the wielder.
+desc: There is a rumour that this sword cannot be destroyed even by
+desc: the most powerful curses.
+
 
 name:& Cobble~
 graphics:*:s

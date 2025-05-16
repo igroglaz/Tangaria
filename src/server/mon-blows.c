@@ -1476,10 +1476,17 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
             object_desc(context->p, o_name, sizeof(o_name), obj, ODESC_FULL);
 
             // Artifacts
-            if (obj->artifact || (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'")))
+            // (must be VERY rare. as we don't have houses full of items which
+            // preserved after death. so it's hard to replace weapon.
+            // TODO: replace it with Stormy later on (make stormy as a boss in the dungeon
+            // and part of progress.. then we will be able to make chance much higher)
+            ///....... so for now we won't destroy it, but only damage the item
+            if (obj->artifact && one_in_(1000))
             {
+                if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'"))
+                    ; // you can not destroy Stormy (not a bug, but a feature)
                 // 2H arts additional resistance
-                if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED) && one_in_(5))
+                else if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED) && one_in_(5))
                     ;
                 // Dark Swords arts resist
                 else if (tval_is_dark_sword(obj) && one_in_(4))
@@ -1492,7 +1499,7 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
                     obj->to_d -= 1;
                     weap_change = 1;
                 }
-                // ~3.3%
+                /* temporary disable
                 else if (one_in_(10))
                 {
                     // Destroy artifact
@@ -1501,6 +1508,7 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
                     use_object(context->p, obj, 1, false);
                     weap_change = 1;
                 }
+                */
             }
             // Dark Swords
             else if (tval_is_dark_sword(obj))

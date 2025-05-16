@@ -16065,6 +16065,7 @@ desc: monk in an evil order.
 
 ### Dungeon level 40 ###
 
+###### TODO: remove SPACE in name! (after wipe)... and check picture as it's now a man
 name:flaming skull 
 base:skeleton
 color:s
