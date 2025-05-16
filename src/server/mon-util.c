@@ -1436,44 +1436,85 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         // also legit kill of some monsters might award account points
         if (unique_monster)
         {
+            // Special boss monsters
             if (streq(mon->race->name, "Sauron, the Sorcerer"))
             {
-                p->account_score +=3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore)) // non-HC at 100+ got less
+                    p->account_score += 1;
+                else
+                    p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (mon->race->base == lookup_monster_base("Morgoth")) // Morgy
             {
-                p->account_score += 10;
-                msgt(p, MSG_FANFARE, "You've earned 10 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 3;
+                else
+                    p->account_score += 10;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Tulkas, Champion of the Valar"))
             {
-                p->account_score += 3;
-                msgt(p, MSG_FANFARE, "You've earned 3 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 1;
+                else
+                    p->account_score += 3;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Varda, Queen of the Valar"))
             {
-                p->account_score += 4;
-                msgt(p, MSG_FANFARE, "You've earned 4 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 1;
+                else
+                    p->account_score += 4;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Manwe, King of the Valar"))
             {
-                p->account_score += 5;
-                msgt(p, MSG_FANFARE, "You've earned 5 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 1;
+                else
+                    p->account_score += 5;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Melkor, Lord of Darkness"))
             {
-                p->account_score += 7;
-                msgt(p, MSG_FANFARE, "You've earned 7 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 2;
+                else
+                    p->account_score += 7;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
             else if (streq(mon->race->name, "Eru Iluvatar"))
             {
-                p->account_score += 10;
-                msgt(p, MSG_FANFARE, "You've earned 10 account points! You have %lu points.", p->account_score);
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                    p->account_score += 3;
+                else
+                    p->account_score += 10;
+                msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
             }
-            // regular uniques - only at odd score
+            // Regular uniques - only at odd score
             else if (mon->level < 99 && p->account_score % 2)
             {
+                // Progressive penalty for non-hardcore players with high scores
+                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                {
+                    // Formula: chance to skip points increases with account score
+                    // 100-199: 1/2 chance to skip (50%)
+                    // 200-299: 2/3 chance to skip (67%)
+                    // 300-399: 3/4 chance to skip (75%)
+                    // 400-499: 4/5 chance to skip (80%)
+                    // 500+: 5/6 chance to skip (83%)
+                    int skip_denominator = 1 + (p->account_score / 100);
+                    if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
+                    
+                    if (!one_in_(skip_denominator))
+                    {
+                        // Skip awarding points
+                        return; // Skip all point awards for this kill
+                    }
+                }
+                
                 // it's in rotation with player.c (getting lvls)
                 if (p->account_score < 10)
                 {
