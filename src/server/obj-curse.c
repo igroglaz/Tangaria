@@ -302,7 +302,8 @@ void perma_curse(struct object *obj)
 }
 
 
-// remove all curses from object (for Nazgul RoP)
+// remove all curses from object
+///// (Not used atm. Was planned for Nazgul's RoP, but no needed)
 void remove_all_curses(struct player *p, struct object *obj)
 {
     int i;

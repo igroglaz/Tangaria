@@ -1171,7 +1171,8 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
                         if (!create_randart_drop(p, c, &obj, i, false)) continue;
 
                         /* Add a random permanent curse */
-                        perma_curse(obj);
+                        // don't add a curse there! we add special RoP curse via object.txt
+                        // perma_curse(obj);
 
                         /* Success */
                         ok = true;

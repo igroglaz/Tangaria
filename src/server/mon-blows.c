@@ -1458,7 +1458,7 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
 
     // later: archers and ranger classes - shooter should be destroyed..
 
-    // Nazgul attack may destroy your weapon
+    // Nazgul attack may destroy your weapon (arts can be only damaged)
     if (one_in_(3))
     {
         struct object *obj;
