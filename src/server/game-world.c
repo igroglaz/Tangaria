@@ -1508,7 +1508,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         // (timer can have negative value cause we decrease it on movement too)
         if (p->iron_timer < 0 && p->wpos.depth < 126) {
             
-            plog_fmt("process_player_world(): [%s] iron_timer < 0", p->name);
+            plog_fmt("process_player_world(): '%s' iron_timer < 0", p->name);
             
             // no > if in a shop OR if waiting for confirmation
             if (in_store(p) || (p->current_value == ITEM_PENDING)) {
@@ -1519,7 +1519,7 @@ static void process_player_world(struct player *p, struct chunk *c)
 
                 source_player(who, get_player_index(get_connection(p->conn)), p);
                 
-                plog_fmt("process_player_world(): [%s] starting attempt to EF_IRONMAN_DESCENT", p->name);
+                plog_fmt("process_player_world(): '%s' starting attempt to EF_IRONMAN_DESCENT", p->name);
 
                 if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
                     p->iron_timer = set_ironman_timer(p->wpos.depth);
@@ -1527,7 +1527,7 @@ static void process_player_world(struct player *p, struct chunk *c)
                     p->word_recall = 0;
                     p->deep_descent = 0;
                     
-                    plog_fmt("process_player_world(): [%s] finishes EF_IRONMAN_DESCENT, returning", p->name);
+                    plog_fmt("process_player_world(): '%s' finishes EF_IRONMAN_DESCENT, returning", p->name);
                     
                     return; // success
                 }

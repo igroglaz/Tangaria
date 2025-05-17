@@ -4980,7 +4980,7 @@ static void set_server_option(const char *option, char *value)
     {
         string_free(cfg_dungeon_master);
         cfg_dungeon_master = string_make(value);
-        plog_fmt("Dungeon Master Set as [%s]", cfg_dungeon_master);
+        plog_fmt("Dungeon Master Set as '%s'", cfg_dungeon_master);
     }
     else if (streq(option, "SECRET_DUNGEON_MASTER"))
         cfg_secret_dungeon_master = str_to_boolean(value);
