@@ -16309,20 +16309,16 @@ spells:FORGET
 desc:An unholy creature of darkness, the aura emanating from this evil being
 desc: saps your very soul.
 
-#old 9-headed hydra
 name:Chudo Yudo
 base:dragon
 color:r
 speed:121
-#650
 hit-points:1111
 hearing:20
 armor-class:114
 sleepiness:80
 depth:40
-#2
 rarity:5
-#800
 weight:1300
 experience:3000
 blow:BITE:HURT:3d10
@@ -16334,10 +16330,10 @@ flags:OPEN_DOOR | MOVE_BODY
 flags:IM_WATER
 flags:DROP_CORPSE | DROP_SKELETON | WILD_SHORE | WILD_SWAMP
 spell-freq:4
-innate-freq:50
+innate-freq:15
 spells:HEAL | BR_WATE
-desc:A strange reptilian creature with smouldering heads.
-desc:They say that it could heal it's heads...
+desc:A strange reptilian creature with moss-covered heads.
+desc:They say that it could heal its heads...
 
 name:enchantress
 base:person
@@ -18555,7 +18551,7 @@ hearing:30
 armor-class:100
 sleepiness:80
 depth:45
-rarity:3
+rarity:2
 weight:0
 experience:17000
 blow:CRUSH:ACID:8d8
@@ -20821,10 +20817,10 @@ spells:BRAIN_SMASH | WOUND | MIND_BLAST | SLOW | TRAPS
 spells:BA_WATE
 spells:BO_NETH | BO_PLAS
 spells:S_UNDEAD
-desc:A glowing with deadly white light it's possessed by sorcerous power. 
-desc:It need not move, but merely blast you with mighty magic as it hisses
+desc:A glowing with deadly white light, it's possessed by sorcerous power. 
+desc:It need not move, but merely blasts you with mighty magic as it hisses
 desc:the words of power.
-desc:It's lid creaks.
+desc:Its lid creaks.
 
 name:Fundin Bluecloak
 base:humanoid

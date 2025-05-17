@@ -1115,6 +1115,8 @@ bool effect_handler_BIZARRE(effect_handler_context_t *context)
         case 6:
         {
             /* Mana Ball */
+            // can it damage caster too?
+            // (if caster will appear in the radius of the ball impact)
             fire_ball(context->origin->player, PROJ_MANA, context->dir, 300, 3, false, false);
 
             break;
@@ -3459,9 +3461,9 @@ bool effect_handler_SPEND_MANA(effect_handler_context_t *context)
     int drain = effect_calculate_value(context, false);
     int old_num = get_player_num(context->origin->player);
 
-    // if no mana - paralyze
+    // if no mana - confuse
     if (!context->origin->player->csp)
-        player_inc_timed(context->origin->player, TMD_PARALYZED, 1, true, true);
+        player_inc_timed(context->origin->player, TMD_CONFUSED, 2, true, true);
 
     /* Drain the given amount if the player has that much, or all of it */
     if (drain >= context->origin->player->csp)

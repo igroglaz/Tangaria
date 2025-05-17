@@ -640,8 +640,22 @@ void do_cmd_drop(struct player *p, int item, int quantity)
     /* Cannot remove stuck items */
     if (object_is_equipped(p->body, obj) && !obj_can_takeoff(obj))
     {
-        msg(p, "Hmmm, it seems to be stuck.");
-        return;
+        // you can drop such item on the ground (on surface) on 10-20-30-40-49 lvl
+        // (except One Ring or Crown which are 100 lvl)
+        
+        // TODO: add possibility to take off such items in a very special cases...
+        // drop Ring to lava? or pay gold to priest?
+        // or able to do it during full moon only? :D some nethackish flavour
+        
+        // also it's now safe to make more items STICKY (TODO).
+        
+        if (obj->level_req < 100 && p->wpos.depth == 0 &&
+           (p->lev == 10 || p->lev == 20 || p->lev == 30 || p->lev == 40 || p->lev == 49))
+           ;
+        else {
+            msg(p, "Hmmm, it seems to be stuck.");
+            return;
+        }
     }
 
     /* Take half a turn */
