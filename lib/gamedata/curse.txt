@@ -69,6 +69,12 @@
 # used to specify all of the conflicting flags.
 
 
+
+
+#/// Note: if you don't specify any 'type' for a curse,
+#/// it won't appear on randarts or any other items (good for truearts/nazgul rings)
+
+
 name:vulnerability
 combat:0:0:-50
 type:cloak
@@ -386,32 +392,166 @@ desc:distorts your features
 
 # for nazgul rings (and other rings too)
 # ~ combined rate of any effect happening at a given point in time is approximately 
-# 0.0421 per turn.
-# (means that one of these effects to occur ~ about once every 24 turns)
+# 0.5% per turn. 1 in 200 turns will trigger something
+#
+# All harsh status effects must be possible to cure with pot, 
+# so eg confusion or blindness won't block 'r'eading 'teleport scroll for long in deadly situation
 name:nazgul
 type:ring
 effect:SUMMON:MONSTER:0:-2
 dice:1
-time:100+1d400
+time:100+1d1000
 effect:TELEPORT
 dice:40
-time:100+1d400
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1+1d2
-time:100+1d400
+time:100+1d2500
 effect:TIMED_INC_NO_RES:IMAGE
 dice:2+d8
-time:100+1d400
+time:100+1d2500
 effect:TIMED_INC_NO_RES:BLIND
-dice:1+1d3
-time:100+1d400
+dice:1+d8
+time:100+1d5000
 effect:TIMED_INC_NO_RES:CONFUSED
-dice:1+1d3
-time:100+1d400
+dice:1+d8
+time:100+1d5000
 effect:TIMED_INC_NO_RES:POISONED
 dice:10+d10
 time:1d1000
 effect:WAKE
-time:500+1d500
+time:100+1d5000
 msg:The ring whispers something!
 desc:bends your will
+
+name:misfortune
+type:boots
+combat:0:0:-5
+#effect:MAKE_TRAP:3:1  TODO...
+#time:1d300
+msg:You hear the sound of mechanisms clicking into place...
+desc:occasionally creates traps around you
+
+name:slippery grip
+#type:hafted
+#type:polearm
+#type:sword
+#type:mage staff
+combat:-15:0:0
+#effect:DISARM   TODO...
+# time:1d300
+msg:Your weapon suddenly slips from your grasp!
+desc:occasionally causes you to drop your weapon in combat
+
+name:provocation
+#type:hafted
+#type:polearm
+#type:sword
+#type:mage staff
+combat:-5:5:-15
+flags:AGGRAVATE | IMPAIR_HP
+values:SPEED[5]
+effect:SUMMON:MONSTER:0:-2
+dice:1+1d2
+time:1d500
+msg:Your equipment compels you to fight!
+desc:improves your combat abilities but weakens your defenses and
+desc: regularly summons enemies to fight
+
+name:chaos attunement
+#type:helm
+#type:crown
+#type:amulet
+#type:ring
+#type:mage staff
+# this confustion cureable with potion
+effect:TIMED_INC_NO_RES:CONFUSED
+dice:2+1d12
+time:1d400
+# this res will be not curable (TODO)
+effect:TIMED_INC_NO_RES:IMAGE
+dice:5+1d12
+time:1d400
+effect:SUMMON:DEMON:0:-2
+dice:1
+time:1d1500
+values:RES_CHAOS[1] | RES_DISEN[1]
+msg:Chaos swirls through your mind!
+desc:warps your mind with chaotic energy - clouds your thoughts,
+desc: distorts reality, and sometimes summons demons to hunt you
+
+name:ethereal weight
+#type:cloak
+#type:amulet
+#type:ring
+combat:5:-5:0
+values:STR[-3] | CON[-5]
+values:STEALTH[3] | SPEED[-5]
+flags:FEATHER
+effect:TIMED_INC:WRAITHFORM
+dice:5+1d5
+time:1d500
+msg:You lose substance and slip through the world.
+desc:makes you partially ethereal, improving stealth but reducing
+desc: physical impact and occasionally turning you intangible
+
+name:bloodthirst
+#type:hafted
+#type:polearm
+#type:sword
+#type:helm
+#type:crown
+combat:-5:-5:-50
+values:STR[5] | CON[-5] | INFRA[3]
+effect:TIMED_INC:BLOODLUST
+dice:10+d10
+time:1d2000
+msg:A savage rage fills you!
+desc:fills you with combat fury but drains your constitution and
+desc: occasionally sends you into uncontrolled rage
+
+name:shadow_binding
+#type:cloak
+combat:-5:0:15
+values:STEALTH[1] | LIGHT[-2] | SEARCH[-10]
+flags:AFRAID
+effect:TIMED_INC:INVIS
+dice:10+d10
+time:1d1000
+msg:Shadows envelop you.
+desc:binds shadows to you for protection and occasional invisibility
+desc: but instills fear and reduces vision
+
+name:mental intruder
+#type:helm
+#type:crown
+values:INT[-1] | WIS[-1] | CON[-1] | CHR[-1]
+flags:ESP_ALL
+effect:TIMED_INC_NO_RES:CONFUSED
+dice:3+1d6
+time:100+1d2000
+effect:TIMED_INC_NO_RES:IMAGE
+dice:2+d8
+time:100+1d2000
+effect:TIMED_INC_NO_RES:BLIND
+dice:1+d8
+time:100+1d2000
+effect:SPEND_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+time:1d2000
+msg:Your mind extends beyond your body!
+desc:grants telepathy and intelligence at the cost of wisdom and coordination
+conflict-flags:IMPAIR_MANA
+
+# idea is to cast it randomly (on contrast with One Ring activation)
+name:eldritch
+#type:amulet
+#type:ring
+#type:mage staff
+#type:light
+effect:TIMED_INC_NO_RES:IMAGE
+dice:2+d8
+time:100+1d1000
+effect:BIZARRE
+dice:1
+time:1d10000
+msg:Reality warps unpredictably around you!
+desc:warps reality around you, causing powerful but unpredictable magical effects
