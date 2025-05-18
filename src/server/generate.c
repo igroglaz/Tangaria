@@ -1055,6 +1055,14 @@ static const struct cave_profile *choose_profile(struct worldpos *wpos)
     else
         profile = find_cave_profile("wilderness");
 
+    /* Add message showing which profile was selected */
+    if (profile)
+        plog_fmt("Dungeon profile: ___ %s ___ @ %d depth)", 
+                profile->name, wpos->depth);
+    else
+        plog_fmt("choose_profile(): Failed to select profile (depth: %d, location: %d,%d)",
+                wpos->depth, wpos->grid.x, wpos->grid.y);
+
     /* Return the profile or fail horribly */
     if (profile) return profile;
 
@@ -1338,14 +1346,17 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
 
     if (random_level(&chunk->wpos))
     {
-        plog_fmt("New Level %dft at (%d, %d) Ratings obj:%lu/mon:%lu", chunk->wpos.depth * 50,
-            chunk->wpos.grid.x, chunk->wpos.grid.y, chunk->obj_rating / chunk->wpos.depth,
+        plog_fmt("New Level %dft at (%d, %d) Ratings obj:%lu/mon:%lu", 
+            chunk->wpos.depth * 50,
+            chunk->wpos.grid.x, chunk->wpos.grid.y, 
+            chunk->obj_rating / chunk->wpos.depth,
             chunk->mon_rating / chunk->wpos.depth);
     }
     else
     {
-        plog_fmt("New Level %dft at (%d, %d)", chunk->wpos.depth * 50, chunk->wpos.grid.x,
-            chunk->wpos.grid.y);
+        plog_fmt("New Level %dft at (%d, %d)", 
+            chunk->wpos.depth * 50, 
+            chunk->wpos.grid.x, chunk->wpos.grid.y);
     }
 
     /* Place dungeon squares to trigger feeling (not on the surface) */
