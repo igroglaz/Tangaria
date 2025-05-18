@@ -2181,6 +2181,143 @@ bool build_circular(struct player *p, struct chunk *c, struct loc *centre, int r
 
 
 /*
+////// T: Builds a vertical rectangular room (taller than it is wide).
+ *
+ * p the player
+ * c the chunk the room is being built in
+ * centre the room centre; out of chunk centre invokes find_space()
+ *
+ * Returns success
+ */
+bool build_vertical(struct player *p, struct chunk *c, struct loc *centre, int rating)
+{
+    int y1, x1, y2, x2;
+    int light = false;
+    int height;
+    int width;
+    struct worldpos dpos;
+    struct location *dungeon;
+
+    /* Get the dungeon */
+    wpos_init(&dpos, &c->wpos.grid, 0);
+    dungeon = get_dungeon(&dpos);
+
+    /* Avoid recursion with other room types */
+    c->gen_hack = false;
+
+    /* Pick a room size - prioritize height over width */
+    height = 6 + randint1(5) + randint1(5);  /* Taller rooms: 7-16 units */
+    width = 1 + randint1(3) + randint1(2);   /* Narrower rooms: 2-6 units */
+
+    /* Find and reserve some space in the dungeon. Get center of room. */
+    if ((centre->y >= c->height) || (centre->x >= c->width))
+    {
+        if (!find_space(centre, height + 2, width + 2))
+            return false;
+    }
+
+    /* Set bounds */
+    y1 = centre->y - height / 2;
+    x1 = centre->x - width / 2;
+    y2 = y1 + height - 1;
+    x2 = x1 + width - 1;
+
+    /* Occasional light */
+    if (c->wpos.depth <= randint1(25)) light = true;
+    
+    /* Generate new room */
+    generate_room(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, light);
+
+    /* Generate outer walls and inner floors */
+    draw_rectangle(c, y1 - 1, x1 - 1, y2 + 1, x2 + 1, FEAT_GRANITE, SQUARE_WALL_OUTER, false);
+    fill_rectangle(c, y1, x1, y2, x2, FEAT_FLOOR, SQUARE_NONE);
+
+    /* Sometimes add vertical pillars (columns) */
+    if (one_in_(15))
+    {
+        struct loc grid;
+        int pillar_spacing = 2;  /* Space between pillars */
+
+        /*
+         * If a dimension is even, vary the starting position to avoid 
+         * always putting pillars in the same corner pattern
+         */
+        int offx = ((x2 - x1) % 2 == 0)? 0: randint0(2);
+        int offy = ((y2 - y1) % 2 == 0)? 0: randint0(2);
+
+        /* Create multiple pillars down the center of the room if wide enough */
+        if (width >= 4) {
+            int center_x = (x1 + x2) / 2;
+            for (grid.y = y1 + 1 + offy; grid.y < y2; grid.y += pillar_spacing)
+            {
+                grid.x = center_x;
+                set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+            }
+        }
+        
+        /* For wider rooms, add side pillars as well */
+        if (width >= 6) {
+            for (grid.y = y1 + 1 + (offy ? 0 : 1); grid.y < y2; grid.y += pillar_spacing)
+            {
+                if (one_in_(2)) {
+                    grid.x = x1 + 1;
+                    set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+                }
+                if (one_in_(2)) {
+                    grid.x = x2 - 1;
+                    set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+                }
+            }
+        }
+    }
+
+    /* Sometimes add horizontal dividers to create a "stacked" room effect */
+    else if (one_in_(8))
+    {
+        struct loc grid;
+        int num_dividers = randint1(height / 4);  /* Number of horizontal dividers */
+        int min_section_height = 3;  /* Minimum height between dividers */
+        
+        /* Place dividers with doors in them */
+        for (int i = 0; i < num_dividers; i++) {
+            int div_y = y1 + min_section_height + i * ((height - min_section_height) / (num_dividers + 1));
+            
+            /* Create the divider wall */
+            for (grid.x = x1; grid.x <= x2; grid.x++) {
+                grid.y = div_y;
+                set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+            }
+            
+            /* Add a door in the divider */
+            grid.x = x1 + randint0(width);
+            grid.y = div_y;
+            place_closed_door(c, &grid);
+        }
+    }
+
+    /* Sometimes add alcoves to the sides */
+    else if (one_in_(6))
+    {
+        struct loc grid;
+        
+        for (grid.y = y1 + 2; grid.y <= y2 - 2; grid.y += 2)
+        {
+            if (one_in_(3)) {
+                grid.x = x1;
+                set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+            }
+            if (one_in_(3)) {
+                grid.x = x2;
+                set_marked_granite(c, &grid, SQUARE_WALL_INNER);
+            }
+        }
+    }
+
+    return true;
+}
+
+
+/*
  * Builds a normal rectangular room.
  *
  * p the player

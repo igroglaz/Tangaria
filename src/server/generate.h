@@ -347,6 +347,7 @@ extern void set_pit_type(int depth, int type);
 extern bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct vault *v,
     bool find);
 extern bool build_circular(struct player *p, struct chunk *c, struct loc *centre, int rating);
+extern bool build_vertical(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_simple(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_overlap(struct player *p, struct chunk *c, struct loc *centre, int rating);
 extern bool build_crossed(struct player *p, struct chunk *c, struct loc *centre, int rating);

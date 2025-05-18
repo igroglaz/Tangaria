@@ -5,6 +5,7 @@
 
 /* name  rows  cols  builder */
 ROOM("simple room", 0, 0, simple)
+ROOM("vertical room", 0, 0, vertical)
 ROOM("moria room", 0, 0, moria)
 ROOM("large room", 0, 0, large)
 ROOM("crossed room", 0, 0, crossed)
