@@ -288,6 +288,8 @@ extern struct room_template *room_templates;
 /* gen-cave.c */
 extern struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width, const char **p_error);
+extern struct chunk *t_vertical_gen(struct player *p, struct worldpos *wpos, int min_height,
+    int min_width, const char **p_error);
 extern struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_height,
     int min_width, const char **p_error);
 extern struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height,

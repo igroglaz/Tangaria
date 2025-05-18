@@ -1681,6 +1681,289 @@ static void customize_features(struct chunk *c)
 
 
 /*
+/////////// Based on 'classic' - uses vertical rooms
+///////////
+ * Generate a new dungeon level
+ *
+ * p is the player
+ * wpos is the position on the world map
+ * min_height is the minimum expected height, in grids, for the level.
+ * min_width is the minimum expected width, in grids, for the level.
+ * p_error will be dereferenced and set to a the address of a constant
+ * string describing the failure when the returned chunk is NULL.
+ *
+ * This level builder ignores the minimum height and width.
+ */
+struct chunk *t_vertical_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width,
+    const char **p_error)
+{
+    int i, j, k;
+    int by, bx = 0, tby, tbx, key, rarity, built;
+    int num_rooms, size_percent;
+    int dun_unusual = dun->profile->dun_unusual;
+    int lake_size = 0;
+    bool **blocks_tried;
+    struct chunk *c;
+
+    /*
+     * Possibly generate fewer rooms in a smaller area via a scaling factor.
+     * Since we scale row_blocks and col_blocks by the same amount, dun->profile->dun_rooms
+     * gives the same "room density" no matter what size the level turns out
+     * to be.
+     */
+    size_percent = percent_size(wpos);
+
+    // low lvls have chance to generate smaller versions
+    if (wpos->depth > 0)
+    {
+        if (wpos->depth < 11 && !one_in_(4))
+            size_percent = 75;
+        else if (wpos->depth < 21 && !one_in_(3))
+            size_percent = 75;
+        else if (wpos->depth < 31 && one_in_(2))
+            size_percent = 75;
+        else if (wpos->depth < 41 && one_in_(3))
+            size_percent = 75;
+    }
+
+    /* Scale the various generation variables */
+    num_rooms = dun->profile->dun_rooms * size_percent / 100;
+    dun->block_hgt = dun->profile->block_size;
+    dun->block_wid = dun->profile->block_size;
+    c = cave_new(z_info->dungeon_hgt, z_info->dungeon_wid);
+    memcpy(&c->wpos, wpos, sizeof(struct worldpos));
+    player_cave_new(p, z_info->dungeon_hgt, z_info->dungeon_wid);
+
+    /* Fill cave area with basic granite */
+    fill_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_GRANITE, SQUARE_NONE);
+
+    /* Actual maximum number of rooms on this level */
+    dun->row_blocks = c->height / dun->block_hgt;
+    dun->col_blocks = c->width / dun->block_wid;
+
+    /* Initialize the room table */
+    dun->room_map = mem_zalloc(dun->row_blocks * sizeof(bool*));
+    for (i = 0; i < dun->row_blocks; i++)
+        dun->room_map[i] = mem_zalloc(dun->col_blocks * sizeof(bool));
+
+    /* Initialize the block table */
+    blocks_tried = mem_zalloc(dun->row_blocks * sizeof(bool*));
+    for (i = 0; i < dun->row_blocks; i++)
+        blocks_tried[i] = mem_zalloc(dun->col_blocks * sizeof(bool));
+
+    /* No rooms yet, pits or otherwise. */
+    dun->pit_num = 0;
+    dun->cent_n = 0;
+    reset_entrance_data(c);
+
+    /*
+     * Build some rooms. Note that the theoretical maximum number of rooms
+     * in this profile is currently 36, so built never reaches num_rooms,
+     * and room generation is always terminated by having tried all blocks
+     */
+    built = 0;
+    while (built < num_rooms)
+    {
+        /* Count the room blocks we haven't tried yet. */
+        j = 0;
+        tby = 0;
+        tbx = 0;
+        for (by = 0; by < dun->row_blocks; by++)
+        {
+            for (bx = 0; bx < dun->col_blocks; bx++)
+            {
+                if (blocks_tried[by][bx]) continue;
+                j++;
+                if (one_in_(j))
+                {
+                    tby = by;
+                    tbx = bx;
+                }
+            }
+        }
+        bx = tbx;
+        by = tby;
+
+        /* If we've tried all blocks we're done. */
+        if (j == 0) break;
+
+        if (blocks_tried[by][bx]) quit("generation: inconsistent blocks");
+
+        /* Mark that we are trying this block. */
+        blocks_tried[by][bx] = true;
+
+        /* Roll for random key (to be compared against a profile's cutoff) */
+        key = randint0(100);
+
+        /*
+         * We generate a rarity number to figure out how exotic to make
+         * the room. This number has a (50+depth/2)/DUN_UNUSUAL chance
+         * of being > 0, a (50+depth/2)^2/DUN_UNUSUAL^2 chance of
+         * being > 1, up to MAX_RARITY.
+         */
+        i = 0;
+        rarity = 0;
+        while ((i == rarity) && (i < dun->profile->max_rarity))
+        {
+            if (randint0(dun_unusual) < 50 + wpos->depth / 2) rarity++;
+            i++;
+        }
+
+        /*
+         * Once we have a key and a rarity, we iterate through out list of
+         * room profiles looking for a match (whose cutoff > key and whose
+         * rarity > this rarity). We try building the room, and if it works
+         * then we are done with this iteration. We keep going until we find
+         * a room that we can build successfully or we exhaust the profiles.
+         */
+        for (i = 0; i < dun->profile->n_room_profiles; i++)
+        {
+            struct room_profile profile = dun->profile->room_profiles[i];
+
+            if (profile.rarity > rarity) continue;
+            if (profile.cutoff <= key) continue;
+
+            if (room_build(p, c, by, bx, profile, false))
+            {
+                built++;
+                break;
+            }
+        }
+    }
+
+    for (i = 0; i < dun->row_blocks; i++)
+    {
+        mem_free(blocks_tried[i]);
+        mem_free(dun->room_map[i]);
+    }
+    mem_free(blocks_tried);
+    mem_free(dun->room_map);
+    dun->room_map = NULL;
+
+    /* Generate permanent walls around the edge of the generated area */
+    draw_rectangle(c, 0, 0, c->height - 1, c->width - 1, FEAT_PERM, SQUARE_NONE, true);
+
+    /* Connect all the rooms together */
+    do_traditional_tunneling(c);
+    ensure_connectedness(c, true);
+
+    /* Add some magma streamers */
+    for (i = 0; i < dun->profile->str.mag; i++)
+        add_streamer(c, FEAT_MAGMA, DF_STREAMS, dun->profile->str.mc);
+
+    /* Add some quartz streamers */
+    for (i = 0; i < dun->profile->str.qua; i++)
+        add_streamer(c, FEAT_QUARTZ, DF_STREAMS, dun->profile->str.qc);
+
+    /* Add some streamers */
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_LAVA, DF_LAVA_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_WATER, DF_WATER_RIVER, 0);
+    }
+    k = 3 + randint0(3);
+    for (i = 0; i < k; i++)
+    {
+        if (one_in_(3)) add_streamer(c, FEAT_SANDWALL, DF_SAND_VEIN, 0);
+    }
+
+    /* Place stairs near some walls */
+    add_stairs(c, FEAT_MORE);
+    add_stairs(c, FEAT_LESS);
+
+    // Add lake
+    if (wpos->depth < 11 && one_in_(3))
+        lake_size = build_lake(c);
+    else if (one_in_(MIN(wpos->depth / 4, 10)))
+        lake_size = build_lake(c);
+
+    /* Remove holes in corridors that were not used for stair placement */
+    remove_unused_holes(c);
+
+    /* General amount of rubble, traps and monsters */
+    k = MAX(MIN(wpos->depth / 3, 10), 2);
+
+    /* Put some rubble in corridors */
+    alloc_objects(p, c, SET_CORR, TYP_RUBBLE, randint1(k) + 1, wpos->depth, 0);
+
+    /* Place some traps in the dungeon, reduce frequency by factor of 3 */
+    alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+
+    // Additional traps...
+
+    // corridors
+    if (one_in_(5))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+    // rooms
+    if (one_in_(5))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 3, wpos->depth, 0);
+    else if (one_in_(10))
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k) / 2, wpos->depth, 0);
+    else if (one_in_(20))
+    {
+        alloc_objects(p, c, SET_ROOM, TYP_TRAP, randint1(k), wpos->depth, 0);
+        alloc_objects(p, c, SET_CORR, TYP_TRAP, randint1(k), wpos->depth, 0);
+    }
+
+    /* Place some fountains in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_FOUNTAIN, randint0(1 + k / 2) + 2, wpos->depth, 0);
+
+    /* Customize */
+    customize_features(c);
+
+    /* Determine the character location */
+    if (!new_player_spot(c, p))
+    {
+        uncreate_artifacts(c);
+        cave_free(c);
+        *p_error = "could not place player";
+        return NULL;
+    }
+
+    /* Pick a base number of monsters */
+    i = z_info->level_monster_min + randint1(8) + k;
+
+    /* Put some monsters in the dungeon */
+    for (; i > 0; i--)
+        pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
+
+    /* Put some objects in rooms */
+    alloc_objects(p, c, SET_ROOM, TYP_OBJECT, Rand_normal(z_info->room_item_av, 3), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Put some objects/gold in the dungeon */
+    alloc_objects(p, c, SET_BOTH, TYP_OBJECT, Rand_normal(z_info->both_item_av, 3), wpos->depth,
+        ORIGIN_FLOOR);
+    alloc_objects(p, c, SET_BOTH, TYP_GOLD, Rand_normal(z_info->both_gold_av, 3), wpos->depth,
+        ORIGIN_FLOOR);
+
+    /* Apply illumination */
+    player_cave_clear(p, true);
+    cave_illuminate(p, c, true);
+
+    /* Hack -- set profile */
+    c->profile = dun_classic;
+
+    return c;
+}
+
+
+
+/*
  * Generate a new dungeon level
  *
  * p is the player

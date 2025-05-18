@@ -246,6 +246,7 @@ down:1d3
 min-level:50
 alloc:1
 
+##########################################
 
 ## T_Modified
 name:t_modified
@@ -289,6 +290,46 @@ room:room template:3:11:33:30:0:1:100
 # Normal rooms (rarity = 0)
 room:simple room:0:11:33:1:0:0:100
 
+#######################################
+
+## Vertical Caverns
+name:t_vertical
+#it's based on 'classic' so must have params:11 so it won't lag
+params:11:45:300:2
+tunnel:15:40:10:20:40
+streamer:5:2:3:90:2:40
+up:1d2
+down:2+1d2
+min-level:2
+alloc:85
+
+# Greater vaults only have rarity 0 but they have other checks
+room:Greater vault:0:44:66:35:0:0:50
+room:Greater vault (new):0:44:66:35:0:0:100
+
+# Very rare rooms (rarity = 2)
+room:monster pit:0:11:33:5:1:2:8
+room:monster nest:0:11:33:5:1:2:16
+room:room of chambers:0:44:66:10:0:2:25
+room:Medium vault:0:22:33:30:0:2:38
+room:Medium vault (new):0:22:33:30:0:2:45
+room:Lesser vault:0:22:33:20:0:2:55
+room:Lesser vault (new):0:22:33:20:0:2:65
+
+# Unusual rooms (rarity = 1)
+room:Interesting room:0:44:55:0:0:1:10
+room:large room:0:11:33:3:0:1:25
+room:crossed room:0:11:33:3:0:1:40
+room:circular room:0:22:22:1:0:1:55
+room:overlap room:0:11:33:1:0:1:70
+room:room template:1:11:33:1:0:1:95
+room:room template:2:11:33:10:0:1:99
+room:room template:3:11:33:30:0:1:100
+
+# Normal rooms (rarity = 0)
+room:vertical room:0:33:11:1:0:0:100
+
+######################################
 
 ## Wilderness
 name:wilderness
