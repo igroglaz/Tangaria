@@ -530,19 +530,33 @@ int count_chests(struct player *p, struct chunk *c, struct loc *grid, enum chest
  * large chests great items, out of depth for the level on which the chest
  * is generated.
  */
+//////// also gives some gold piles ;)
 static void chest_death(struct player *p, struct chunk *c, struct loc *grid, struct object *chest)
 {
     int number, level;
+    int gold_piles = 0;
     bool large = (strstr(chest->kind->name, "Large")? true :false);
 
     /* Zero pval means empty chest */
     if (!chest->pval) return;
 
     /* Determine how much to drop (see above) */
-    if (strstr(chest->kind->name, "wooden")) number = 1;
-    else if (strstr(chest->kind->name, "iron")) number = 2;
-    else if (strstr(chest->kind->name, "steel")) number = 3;
-    else number = randint1(3);
+    if (strstr(chest->kind->name, "wooden")) {
+        number = 1;
+        gold_piles = randint0(3); /* 0-2 piles for wooden chests */
+    }
+    else if (strstr(chest->kind->name, "iron")) {
+        number = 2;
+        gold_piles = randint0(4); /* 0-3 piles for iron chests */
+    }
+    else if (strstr(chest->kind->name, "steel")) {
+        number = 3;
+        gold_piles = randint0(5); /* 0-4 piles for steel chests */
+    }
+    else {
+        number = randint1(3);
+        gold_piles = randint0(3); /* 0-2 piles for other chests */
+    }
 
     /* Drop some valuable objects (non-chests) */
     level = chest->origin_depth + 5;
@@ -561,6 +575,11 @@ static void chest_death(struct player *p, struct chunk *c, struct loc *grid, str
         set_origin(treasure, ORIGIN_CHEST, chest->origin_depth, NULL);
         drop_near(p, c, &treasure, 0, grid, true, DROP_FADE, false);
         number--;
+    }
+
+    // Place gold piles based on chest type
+    for (int i = 0; i < gold_piles; i++) {
+        place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_CHEST);
     }
 
     /* Chest is now empty */
