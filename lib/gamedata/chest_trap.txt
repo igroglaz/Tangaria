@@ -27,6 +27,12 @@
 # Current disarming difficulty calculations depend on there being six types
 # of trap; if there are more than six, those calculations will need to change.
 
+
+# TODO: make chest the only source of... something valuable and interesting
+# eg runes like in D2.. or maybe CHR pots?
+
+#### There should be no more than 14 traps total!!! (so we are full already)
+
 name:locked
 code:NO_TRAP
 level:1
@@ -39,22 +45,32 @@ dice:10+1d20
 msg:A puff of green gas surrounds you!
 
 name:poison needle
-code:LOSE_STR
+code:LOSE_STAT
 level:2
+effect:DRAIN_STAT:STR
+effect:DRAIN_STAT:CON
+effect:RANDOM
+dice:2
 effect:DAMAGE
 dice:1d4
-effect:DRAIN_STAT:STR
 msg:A small needle has pricked you!
 msg-death:a poison needle
 
-name:poison needle
-code:LOSE_CON
+#///new
+name:siren's call
+code:SIREN
 level:3
-effect:DAMAGE
-dice:1d4
-effect:DRAIN_STAT:CON
-msg:A small needle has pricked you!
-msg-death:a poison needle
+effect:WAKE
+magic:1
+msg:A haunting melody emanates from the chest, alerting all nearby creatures!
+
+#///new
+name:blinding flash
+code:BLIND
+level:7
+effect:TIMED_INC:BLIND
+dice:10+1d20
+msg:A brilliant flash of light blinds you!
 
 name:summoning runes
 code:SUMMON
@@ -68,7 +84,7 @@ name:gas trap
 code:PARALYZE
 level:19
 effect:TIMED_INC:PARALYZED
-dice:10+1d20
+dice:10+1d10
 msg:A puff of yellow gas surrounds you!
 
 name:explosion device
@@ -79,3 +95,75 @@ dice:5d8
 destroy:1
 msg:There is a sudden explosion! Everything inside the chest is destroyed!
 msg-death:an exploding chest
+
+#///new
+name:acid spray
+code:ACID
+level:31
+effect:SPOT:ACID:1
+dice:4d$S
+expr:S:DUNGEON_LEVEL:/ 2
+msg:A spray of acid destroys the chest's contents and hits you!
+msg-death:being dissolved by acidic chest contents
+
+#///new
+name:darkness
+code:DARK
+level:35
+effect:DRAIN_LIGHT
+dice:3000
+effect:BALL:DARK:4
+dice:10d$S
+expr:S:DUNGEON_LEVEL:/ 5
+magic:1
+msg:Darkness pours out from the chest!
+
+#///new
+name:temporal shift
+code:TIMESHIFT
+level:40
+effect:TIMED_INC:FAST
+dice:20+1d20
+effect:TIMED_INC:SLOW
+dice:20+1d20
+effect:RANDOM
+dice:2
+effect:TELEPORT
+dice:75
+magic:1
+msg:Reality warps around you as time itself stutters!
+
+#///new
+name:mimic transformation
+code:MIMIC
+level:45
+effect:SUMMON:MONSTER:5:-2
+dice:1
+destroy:1
+msg:The chest contorts and transforms into a hungry mimic!
+msg-death:being devoured by a chest mimic
+
+#///new
+name:nether mist
+code:NETHER
+level:50
+effect:SPOT:NETHER:1
+dice:$B
+expr:B:DUNGEON_LEVEL:* 2
+magic:1
+msg:A cloud of nether mist engulfs you!
+msg-death:being consumed by nether energies from a trapped chest
+
+#///new
+name:runic binding
+code:BINDING
+level:54
+effect:GLYPH:WARDING
+effect:TIMED_INC_NO_RES:CONFUSED
+dice:5+1d15
+effect:DAMAGE
+dice:4d$S
+expr:S:DUNGEON_LEVEL:/ 2
+magic:1
+msg:Glowing runes spring from the chest and wrap around your limbs!
+msg-death:being crushed by magical bindings
