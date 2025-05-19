@@ -65,6 +65,10 @@ name:horn:Horn~
 graphics:white
 flags:HATES_ACID | HATES_FIRE
 
+name:belt:Belt~
+graphics:light umber
+flags:HATES_ACID | HATES_FIRE
+
 name:rock:Rock~
 graphics:light umber
 flags:HATES_ACID

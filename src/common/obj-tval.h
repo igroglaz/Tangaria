@@ -80,6 +80,7 @@ extern bool tval_is_corpse(const struct object *obj);
 extern bool tval_is_skeleton(const struct object *obj);
 extern bool tval_is_horn(const struct object *obj);
 extern bool tval_is_digger(const struct object *obj);
+extern bool tval_is_belt(const struct object *obj);
 extern bool tval_is_tool(const struct object *obj);
 extern bool tval_is_mstaff(const struct object *obj);
 extern bool tval_is_dark_sword(const struct object *obj);

@@ -334,6 +334,7 @@ operation:add
 name:tool power
 type:horn
 type:digger
+type:belt
 dice:5
 operation:add
 

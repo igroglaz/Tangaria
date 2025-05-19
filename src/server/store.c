@@ -1843,6 +1843,7 @@ static int16_t find_inven(struct player *p, struct object *obj)
             /* Weapons, Armor, Tools */
             case TV_BOW:
             case TV_DIGGING:
+            case TV_BELT:
             case TV_HORN:
             case TV_HAFTED:
             case TV_POLEARM:

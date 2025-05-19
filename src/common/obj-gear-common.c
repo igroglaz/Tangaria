@@ -215,6 +215,7 @@ bool obj_can_wear(struct player *p, const struct object *obj)
             return true;
         }
         case TV_DIGGING:
+        case TV_BELT:
         case TV_HORN: return true;
     }
 

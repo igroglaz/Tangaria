@@ -324,6 +324,7 @@ bool tval_has_variable_power(const struct object *obj)
         case TV_BOLT:
         case TV_BOW:
         case TV_DIGGING:
+        case TV_BELT:
         case TV_HORN:
         case TV_HAFTED:
         case TV_POLEARM:
@@ -354,6 +355,7 @@ bool tval_is_wearable(const struct object *obj)
     {
         case TV_BOW:
         case TV_DIGGING:
+        case TV_BELT:
         case TV_HAFTED:
         case TV_POLEARM:
         case TV_SWORD:
@@ -604,10 +606,15 @@ bool tval_is_digger(const struct object *obj)
     return (obj->tval == TV_DIGGING);
 }
 
+bool tval_is_belt(const struct object *obj)
+{
+    return (obj->tval == TV_BELT);
+}
 
 bool tval_is_tool(const struct object *obj)
 {
-    return ((obj->tval == TV_DIGGING) || (obj->tval == TV_HORN));
+    return ((obj->tval == TV_DIGGING) || (obj->tval == TV_HORN) ||
+            (obj->tval == TV_BELT));
 }
 
 

@@ -245,6 +245,7 @@ int16_t wield_slot(struct player *p, const struct object *obj)
         case TV_GLOVES: return slot_by_type(p, EQUIP_GLOVES, false);
         case TV_BOOTS: return slot_by_type(p, EQUIP_BOOTS, false);
         case TV_DIGGING:
+        case TV_BELT:
         case TV_HORN: return slot_by_type(p, EQUIP_TOOL, false);
     }
 

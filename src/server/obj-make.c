@@ -1552,6 +1552,7 @@ bool kind_is_good(const struct object_kind *kind)
 
         /* Tools */
         case TV_DIGGING:
+        case TV_BELT:
         case TV_HORN: return true;
 
         /* Ammo */

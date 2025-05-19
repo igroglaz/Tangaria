@@ -1017,6 +1017,7 @@ static quality_ignore_struct quality_mapping[] =
     {ITYPE_HANDGEAR, TV_GLOVES, ""},
     {ITYPE_FEET, TV_BOOTS, ""},
     {ITYPE_DIGGER, TV_DIGGING, ""},
+    {ITYPE_TOOL, TV_BELT, ""},
     {ITYPE_TOOL, TV_HORN, ""},
     {ITYPE_RING, TV_RING, ""},
     {ITYPE_AMULET, TV_AMULET, ""},
