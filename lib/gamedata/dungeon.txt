@@ -3735,11 +3735,12 @@ wpos:0:3
 min-depth:40
 max-depth:45
 max-level:35
-stairs:1d2:3+1d2
+stairs:3+1d2:3+1d2
+flags:STREAMS | WATER_RIVER | NO_DOORS
 #B3 DC (yellow ornament square in cirle)
 stair:9F stair down 0:9F stair up 1:10000
 #
-rubble:E6 dark floor rubble:E6 dark floor pass rubble:10000
+rubble:F3 shallow water e:F3 shallow water f:10000
 #
 fill:dark wall 0:10000
 #
@@ -3814,12 +3815,12 @@ floor:F4 shallow water Z:50
 floor:F4 shallow water ~:50
 floor:F4 shallow water `:50
 # B9
-wall:dark wall 0:3050
+wall:dark wall 0:3600
 wall:dark wall 1 narrow window:100
 wall:dark wall 2 window:100
-wall:dark wall 3 candelabra:100
-wall:dark wall 4 torch:100
-wall:dark wall 5 lamp:100
+#wall:dark wall 3 candelabra:100
+#wall:dark wall 4 torch:100
+#wall:dark wall 5 lamp:100
 wall:dark wall 6 niche:100
 wall:dark wall 7 swords:100
 wall:dark wall 8 shield:100
@@ -3842,8 +3843,10 @@ wall:dark wall u:100
 wall:dark wall v:100
 # BA ^5350 + 3200 + 1450
 wall:dark wall w:50
-wall:dark wall x:50
-wall:dark wall y:50
+# bulletin board
+#wall:dark wall x:50
+# fireplace
+#wall:dark wall y:50
 wall:dark wall z:50
 wall:dark wall A:50
 wall:dark wall B:50
@@ -3870,9 +3873,12 @@ wall:dark wall V:50
 wall:dark wall W:50
 wall:dark wall X:50
 wall:dark wall Y:50
-wall:dark wall Z:50
-wall:dark wall ~:50
-wall:dark wall `:50
+# brazier on the wall (fire)
+#wall:dark wall Z:50
+# candle on the wall
+#wall:dark wall ~:50
+# lamp on the wall
+#wall:dark wall `:50
 ######################### DF tiles will be moved..
 wall:DC dark stone S:1
 wall:DC dark stone T:1
@@ -3959,13 +3965,14 @@ wall:AA wall Y:1
 perma:P dark wall 0:10000
 #
 rule:2000:0
-rule-symbols:ph
-rule:5000:0
+rule-flags:IM_COLD
+rule:3500:0
 rule-flags:UNDEAD
+rule:2000:0
+rule-spells:BO_WATE | BA_WATE | BR_WATE
 rule:1000:0
-rule-flags:UNDEAD
-rule-symbols:V
-rule:2000:1
+rule-flags:IM_WATER
+rule:1500:1
 
 ########################## 35 (boss: Golgarach, the Living Rock)
 name:The Heart of the Earth

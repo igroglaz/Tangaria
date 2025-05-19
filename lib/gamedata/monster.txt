@@ -16916,7 +16916,7 @@ hit-points:1275
 light:2
 hearing:20
 armor-class:100
-sleepiness:50
+sleepiness:60
 depth:40
 rarity:4
 weight:3000
@@ -16928,7 +16928,7 @@ flags:ONLY_ITEM | DROP_1 | DROP_GOOD
 flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
-innate-freq:33
+innate-freq:30
 spells:BR_FIRE | BLINK | TELE_AWAY
 desc:A Thunderlord. Among the weaker breeds, but still dangerous.
 
@@ -18699,7 +18699,7 @@ hit-points:1830
 light:2
 hearing:20
 armor-class:100
-sleepiness:50
+sleepiness:55
 depth:45
 rarity:4
 weight:3000
@@ -18711,7 +18711,7 @@ flags:ONLY_ITEM | DROP_1 | DROP_GOOD
 flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
-innate-freq:33
+innate-freq:30
 spells:BR_FIRE | TPORT | BLINK
 desc:A Thunderlord. Among the weaker breeds, but still dangerous.
 
