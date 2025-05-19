@@ -360,6 +360,36 @@ help: *Some breath attacks, like for the Dragon race, don't cost mana but
 help: hit points instead. Additionally, some races with their own polymorph or
 help: shape-shifting abilities have certain restrictions on being Shapechangers.
 
+class:Villager
+help:Villagers are common folk. Without special strengths, their simple life
+help: provides them with practical skills.
+help:Villagers journey with a loyal pet, which they can occasionally summon
+help: from the wilds. Their pet shows remarkable affection, often nuzzling
+help: close or playfully tripping them at the most inconvenient moments.
+help: If seemingly slain, the faithful companion merely retreats to lick its
+help: wounds, ready to be called back when needed. As they survive challenges
+help: together, Villagers develop keen senses to detect hidden doors, stairs,
+help: traps, or lurking monsters while patrolling. In time, Villagers learn
+help: to coat their weapons or arrows with poison and, as seasoned brawlers,
+help: master the craft of door-making to block dangerous passages.
+help: Each of these tasks draws upon stamina provided by their constitution.
+help: Though modest, these skills help them endure where others might falter. |
+help: |
+help:In desperate times, when hunger's grip tightens, a Villager may search
+help: through abandoned fields in the suburbs - once abundant with harvest,
+help: now barren and forsaken, touched by the gods' curse. No livestock
+help: remains, and the soil yields almost nothing. Yet with persistence,
+help: a Villager might uncover a few forgotten roots or buried crops left
+help: behind. It is technically stealing - but when choosing between
+help: starvation and salvaging what a farmer abandoned, even the crow
+help: claims grain it never sowed. |
+help: |
+help:They can harvest wood and extract ore with increasing efficiency as
+help: they gain experience. |
+help: |
+help:They handle ranged weapons awkwardly until they mature into seasoned
+help: adventurers.
+
 class:Tamer
 help:Scar-covered hands of a tamer - a person who devoted their life and (remaining)
 help: limbs to care for wild creatures - tell you everything about how tedious
@@ -776,37 +806,5 @@ help:They replenish their life force by harming foes who fear them, drawing powe
 help: from the terror they inspire.|
 help: |
 help:They're clumsy with ranged weapons until they become seasoned persecutors.
-
-class:Villager
-help:Villagers are common folk. Without special strengths, their simple life
-help: provides them with practical skills.
-help:Villagers journey with a loyal pet, which they can occasionally summon
-help: from the wilds. Their pet shows remarkable affection, often nuzzling
-help: close or playfully tripping them at the most inconvenient moments.
-help: If seemingly slain, the faithful companion merely retreats to lick its
-help: wounds, ready to be called back when needed. As they survive challenges
-help: together, Villagers develop keen senses to detect hidden doors, stairs,
-help: traps, or lurking monsters while patrolling. In time, Villagers learn
-help: to coat their weapons or arrows with poison and, as seasoned brawlers,
-help: master the craft of door-making to block dangerous passages.
-help: Each of these tasks draws upon stamina provided by their constitution.
-help: Though modest, these skills help them endure where others might falter. |
-help: |
-help:In desperate times, when hunger's grip tightens, a Villager may search
-help: through abandoned fields in the suburbs - once abundant with harvest,
-help: now barren and forsaken, touched by the gods' curse. No livestock
-help: remains, and the soil yields almost nothing. Yet with persistence,
-help: a Villager might uncover a few forgotten roots or buried crops left
-help: behind. It is technically stealing - but when choosing between
-help: starvation and salvaging what a farmer abandoned, even the crow
-help: claims grain it never sowed. |
-help: |
-help:They can harvest wood and extract ore with increasing efficiency as
-help: they gain experience. |
-help: |
-help:They handle ranged weapons awkwardly until they mature into seasoned
-help: adventurers.
-
-
 
 
