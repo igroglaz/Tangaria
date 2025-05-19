@@ -7115,7 +7115,7 @@ flags:FORCE_SLEEP
 spell-freq:10
 spells:BLIND | BLINK | CONF | SCARE | TELE_LEVEL | TELE_TO
 spells:TPORT
-desc:The narrow mug ended in a pig’s snout that constantly twitched and
+desc:The narrow mug ended in a pig's snout that constantly twitched and
 desc:sniffed the air; the thin brittle legs, thin tail, small goatee and
 desc:and tiny horns - a little mischief-maker also known as "chort".
 
@@ -18141,7 +18141,7 @@ base:hybrid
 glyph:|
 color:v
 light:1
-speed:120
+speed:121
 # was hit-points:1500 before KO nerf
 hit-points:2500
 hearing:0
@@ -18149,7 +18149,7 @@ hearing:0
 armor-class:150
 sleepiness:20
 depth:45
-rarity:3
+rarity:2
 weight:0
 experience:13000
 blow:WAIL:TERRIFY
@@ -18159,7 +18159,7 @@ blow:WAIL:TERRIFY
 #blow:HIT:EXP_80:8d8
 blow:HIT:EXP_80:32d1
 blow:HIT:EXP_80:32d1
-flags:UNIQUE | EVIL | NONLIVING | LEVITATE
+flags:UNIQUE | EVIL | NONLIVING | LEVITATE | PWMANG_FIXED
 flags:COLD_BLOOD | EMPTY_MIND | UNAWARE
 flags:BASH_DOOR
 flags:ATTR_MULTI
@@ -18167,9 +18167,16 @@ flags:FORCE_SLEEP
 flags:NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | NO_CUT
 flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | RES_LIGHT
 flags:IM_NETHER
-desc:A deadly blade of chaos lurking for prey. Beware!
+flags:FORCE_DEPTH
+desc:Some whisper that this blade was once borne by the Enemy itself.
+desc: Though the Enemy preferred to break his foes with Grond,
+desc: he liked to torture the strongest among them with this particular sword.
+desc: And it remembers... Now it moves without its Master, seeking out
+desc: the warmth of life.
+desc: It hunts not just flesh, but minds - and waits until thoughts go quiet.
 drop:sword:'Stormbringer':100:1:1
 mimic:sword:Blade of Chaos
+locations:The Drowned Halls
 
 name:Mutant's leader
 base:person

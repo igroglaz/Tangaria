@@ -6786,10 +6786,11 @@ flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 values:STR[1] | CON[1] | RES_CHAOS[1] | RES_NETHER[1]
 brand:VAMPIRIC
 curse:treacherous weapon:100
-desc:Death is all. Beware, cursed is the wielder.
-desc: There is a rumour that this sword cannot be destroyed even by
-desc: the most powerful curses.
-
+desc:Death is all. Beware - cursed is the wielder.
+desc: This is no mere blade: it remembers every hand that tried to tame it.
+desc: There's a rumour it can't be destroyed, and even lava can not harm it.
+desc: Hold it too long and it might start holding you.
+desc: Wield it - and you'll never truly know whose will it follows.
 
 name:& Cobble~
 graphics:*:s
@@ -6976,7 +6977,7 @@ dice:19
 msg_self:Cold, but tasty!
 desc:But, funny little birds, they had no wings!
 desc: O what shall we do with the funny little things?
-desc: Roast ’em alive, or stew them in a pot;
+desc: Roast 'em alive, or stew them in a pot;
 desc: fry them, boil them and eat them hot?
 desc: ..
 desc: Who brought there the cold chicken? No pickles sadly...
@@ -7039,7 +7040,7 @@ dice:5
 msg_self:Did you just heard the barking of dogs?.. Ugh, no, it seemed..
 desc:You also have a passion for mushrooms?
 desc: For legendary mushrooms, mysteriously obtained, if not positively
-desc: ill gotten, is, as every one knows, any one’s for the finding,
+desc: ill gotten, is, as every one knows, any one's for the finding,
 desc: unless the search is interrupted.
 
 name:& Elvish water~
