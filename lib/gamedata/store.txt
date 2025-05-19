@@ -64,6 +64,8 @@ always:light:Wooden Torch
 always:digger:Spade
 always:rock:Throwing Rock
 always:light:Old Lantern
+always:belt:Belt
+always:belt:Floating Belt
 always:travel guide:[Basics]
 #always:potion:Stomach Water
 #always:digger:Shovel
@@ -84,6 +86,7 @@ buy:flask
 buy:digger
 buy:crop
 buy:horn
+buy:belt
 
 # Armoury
 store:STORE_ARMOR

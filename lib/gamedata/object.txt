@@ -2513,7 +2513,7 @@ graphics:=:d
 type:ring
 level:10
 weight:2
-cost:200
+cost:1000
 alloc:20:10 to 50
 flags:FEATHER | EASY_KNOW
 desc:When you put on this ring, you will be able to float just above the floor.
@@ -6805,6 +6805,32 @@ armor:0:0
 brand:STUN_1
 flags:THROWING
 desc:A simple piece of stone. It can be thrown.
+
+name:& Belt~
+graphics:/:U
+type:belt
+level:10
+weight:30
+cost:10
+alloc:20:10 to 50
+attack:1d1:0:0
+armor:1:0
+desc:A sturdy leather belt, worn by many a traveller.
+desc: It bears no mark, but serves faithfully on long roads.
+
+name:& Floating Belt~
+graphics:/:U
+type:belt
+level:10
+weight:30
+cost:200
+alloc:20:10 to 50
+attack:1d1:0:0
+armor:1:0
+flags:FEATHER | EASY_KNOW
+desc:This simple-looking belt turns out to be lightly enchanted.
+desc: When worn, it makes you float just above the ground.
+desc: It prevents you from drowning, and all your falls will be painless.
 
 # alchemy
 

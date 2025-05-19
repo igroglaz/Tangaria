@@ -25344,6 +25344,10 @@ monster:overseer':0x9A:0xF6
 
 object:cobble:Cobble:0x8A:0xB6
 
+#TODO: draw tiles
+object:belt:Belt:0x81:0x89
+object:belt:Floating Belt:0x81:0x89
+
 ###############
 #### HOUSE
 ###############
