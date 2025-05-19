@@ -396,27 +396,27 @@ static void award_account_points(struct player *p)
     }
     else if (p->account_score <= 10)
     {
-        if (!(p->max_lev % 5))
+        if (!(p->max_lev % 5)) // lvl 5, 10, 15, 20..
         {
             p->account_score++;
-            
-            if (p->account_score != 10)
+
+            // gratoz
+            if (p->account_score == 10)
+            {
+                msgt(p, MSG_FANFARE, "@ %s now bears 10 account points - the journey deepens.",
+                    p->name);
+                msg(p, "Great job! Now you can build your own house!");
+                msg(p, "(check the guide on the website to find out how to do it).");
+                msg(p, "Also please note that from now on it will be harder to earn points:");
+                msg(p, "you will get even/odd point for levels and defeating uniques.");
+            }
+            else 
             {
                 msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.", p->account_score);
                 msg(p, "You will get next account point after getting 5 levels more");
                 if (p->account_score == 6)
                     msg(p, "(Hint: the more points you have - the harder it is to get new ones).");
             }
-        }
-        // gratoz
-        if (p->account_score == 10)
-        {
-            msgt(p, MSG_FANFARE, "@ %s now bears 10 account points - the journey deepens.",
-                p->name);
-            msg(p, "Great job! Now you can build your own house!");
-            msg(p, "(check the guide on the website to find out how to do it).");
-            msg(p, "Also please note that from now on it will be harder to earn points:");
-            msg(p, "you will get even/odd point for levels and defeating uniques.");
         }
     }
     // only at even score
