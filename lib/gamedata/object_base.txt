@@ -239,6 +239,10 @@ name:travel guide:Travel Guide~
 graphics:light slate
 flags:HATES_FIRE | EASY_KNOW
 
+name:skillbook:Skillbook~
+graphics:light umber
+flags:HATES_FIRE | EASY_KNOW
+
 name:fortune cookie:Fortune Cookie~
 graphics:yellow
 break:100

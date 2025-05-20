@@ -67,6 +67,7 @@ always:light:Old Lantern
 always:belt:Belt
 always:belt:Floating Belt
 always:travel guide:[Basics]
+always:skillbook:[Mastery]
 #always:potion:Stomach Water
 #always:digger:Shovel
 #always:digger:Pick

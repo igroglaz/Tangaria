@@ -1294,7 +1294,7 @@ object:dragon armour:Water Dragon Scale Mail:0x80:0xBB
 object:deed:Deed of Property:0x87:0xCD
 object:scroll:Wilderness Mapping:0x87:0xDA
 object:fortune cookie:Fortune Cookie:0x82:0x82
-object:travel guide:[Basics]:0x86:0x80
+object:travel guide:[Basics]:0x86:0x89
 
 ##### Monster attr/char definitions #####
 
@@ -32509,11 +32509,13 @@ monster:Target dummy:0x8B:0xB0
 monster:Test dummy:0x8B:0xB0
 monster:Test drop:0x8B:0xB0
 
-#TODO: draw tiles
+###### TODO: draw tiles ######
 object:belt:Belt:0x9A:0x99
 object:belt:Floating Belt:0x9A:0x99
 object:belt:Mummy Wrappings:0x9A:0xAF
+##############################
 
+object:skillbook:[Mastery]:0x86:0x80
 
 # Load the special player pictures
 %:xtra-tan.prf

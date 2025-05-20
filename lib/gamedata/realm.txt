@@ -49,6 +49,12 @@ verb:perform
 spell-noun:task
 book-noun:travel guide
 
+name:skills
+stat:INT
+verb:perform
+spell-noun:skill
+book-noun:skillbook
+
 name:ghost
 verb:use
 spell-noun:power

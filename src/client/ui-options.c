@@ -1903,6 +1903,7 @@ static tval_desc sval_dependent[] =
     {TV_PSI_BOOK, "Psi Books"},
     {TV_ELEM_BOOK, "Elemental Books"},
     {TV_TRAVEL_BOOK, "Travel Guides"},
+    {TV_SKILLBOOK, "Skillbook"},
     {TV_FLASK, "Flasks of Oil"}
 };
 
@@ -2073,7 +2074,8 @@ static bool sval_menu(int tval, const char *desc)
         case TV_SHADOW_BOOK:
         case TV_PSI_BOOK:
         case TV_ELEM_BOOK:
-        case TV_TRAVEL_BOOK: break;
+        case TV_TRAVEL_BOOK:
+        case TV_SKILLBOOK: break;
 
         /* Sort by name */
         default: sort(choices, n_choices, sizeof(*choices), cmp_ignore);

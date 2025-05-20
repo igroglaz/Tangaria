@@ -3970,10 +3970,10 @@ pile:70:2d3
 attack:3d4:0:0
 armor:0:0
 effect:TIMED_INC:OCCUPIED
-dice:$B + 5
+dice:$B+5d1
 expr:B:PLAYER_LEVEL:/ 2
 effect:TIMED_INC:STEALTH
-dice:$B + 5
+dice:$B+5d1
 expr:B:PLAYER_LEVEL:/ 2
 effect:NOURISH:INC_BY
 dice:3

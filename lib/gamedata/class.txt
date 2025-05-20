@@ -5369,11 +5369,14 @@ title:Blade-for-Hire
 title:Merc
 title:Warlord
 
-
 magic:1:550:1
 
-book:shadow book:town:[Shadows for Beginners]:10:shadow
-equip:shadow book:[Shadows for Beginners]:1:1:none
+book:skillbook:town:[Mastery]:10:skills
+book-graphics:?:U
+book-properties:1:30:25
+book-alloc:40:1 to 100
+book-desc:A book containing practical techniques.
+equip:skillbook:[Mastery]:1:1:none
 
 spell:Windmill:1:1:22:1:0
 cooldown:4
