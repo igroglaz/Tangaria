@@ -2032,17 +2032,16 @@ desc:Prepares you to teleport a short distance after stealing.
 
 spell:Stair Creation:24:12:40:25:0
 effect:CREATE_STAIRS
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1d1
-effect:TIMED_INC_NO_RES:SLOW
-dice:5+1d10
+effect:TIMED_INC:OCCUPIED
+dice:7
 effect:NOURISH:DEC_BY
 dice:1
 desc:A stair (going up or down, chosen at random) is created on the space
 desc: where you are standing. This will destroy any terrain feature that
 desc: was there before. It will also destroy all items currently on the
 desc: floor where the spell is cast.
-desc: You've become tired after building stairs and it reduces your satiation a bit.
+desc: It takes 7 turns to build, during which you are vulnerable.
+desc: It also slightly reduces your satiation.
 
 spell:Reveal Creatures:25:3:40:8:0
 effect:DETECT_MONSTERS
@@ -2060,7 +2059,7 @@ book:shadow book:dungeon:[Dark Evocations]:5:shadow
 
 spell:Deep Nights:27:12:80:10:0
 effect:DARKEN_LEVEL:NONE:1
-effect:TIMED_INC_NO_RES:PARALYZED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:3d1
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
@@ -3454,7 +3453,7 @@ desc: The chance to get a beam goes up with your character level.
 
 spell:Clairvoyance:40:34:76:55:0
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:PARALYZED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:3d1
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
@@ -6629,20 +6628,18 @@ msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts first monster in its path.
 
 spell:Stone Curse:15:10:32:15:0
-# later: replace to stone wall
 cooldown:240
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:7d2
+# later: replace circle of walls to stone wall
 effect:CREATE_WALLS
 effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
-effect:TIMED_INC:INVULN
 dice:3
-effect:TIMED_INC:SHIELD
+effect:TIMED_SET:REVIVE
 dice:3
 msg_other: slowly nods.. and becomes stone statue.
-desc:Turns you into stone statue for some time.
-desc: While you are stoned, you have resistance against all attacks.
+desc:Turns you into a stone statue for 3 turns.
+desc: While petrified, you are invulnerable to all attacks.
 desc: After some time you recover from stone, but the stone rock still
 desc: stays in place protecting you.
 desc: This spell may causes internal injuries which recover after some time.
@@ -7529,28 +7526,30 @@ desc: The effect of this spell is cumulative with other means of regeneration.
 desc: Cooldown 120 turns.
 
 spell:Cryo Hibernation:15:10:32:10:0
-cooldown:150
+cooldown:500
 effect:TIMED_SET:SINFRA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC_NO_RES:PARALYZED
-dice:5d1
-effect:TIMED_INC:INVULN
-dice:5
+dice:4
+effect:TIMED_SET:REVIVE
+dice:4
 effect:TIMED_INC:ICY_AURA
-dice:5
+dice:4
 effect:CURE:STUN
 effect:CURE:CUT
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 msg_other: become frozen.
-desc:Freezes you into a globe of ice.
-desc: Cures a level-dependent percentage of your wounds and heals cuts and stunning.
+desc:Freezes you inside a globe of enchanted ice,
+desc: making you invulnerable for 4 turns.
+desc: Cures a level-dependent percentage of your wounds and heals
+desc: cuts and stunning.
 desc: Also grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
-desc: Cooldown 150 turns.
+desc: Cooldown 500 turns.
 
 spell:Pyrokinesis:20:8:32:20:0
 # hc up to x8
@@ -7871,14 +7870,15 @@ desc:Try to salvage item into valuable parts.
 
 spell:Feign Death:3:1:1:1:0
 cooldown:300
-effect:TIMED_INC_NO_RES:PARALYZED
+effect:TIMED_INC:OCCUPIED
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 effect:TIMED_SET:REVIVE
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 msg_other: collapses and lies still.
-desc:Feign death makes monsters to think you are dead for a while.
+desc:Feign death fools monsters into thinking you're dead.
+desc: Lasts 5–10 turns (depending on level).
 desc: Cooldown 300 turns.
 
 # hc min distance 2 (not 1-2 rng)
@@ -8384,10 +8384,11 @@ spell:Arcane Stitches:40:7:50:1:0
 effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
-effect:TIMED_INC_NO_RES:PARALYZED
+effect:TIMED_INC:OCCUPIED
 dice:4+1d5
 msg_other: heals, but becomes still.
-desc:Heals your wounds, but paralyzes you.
+desc:Heals your wounds. The procedure takes 5–9 turns,
+desc: during which you are vulnerable.
 
 spell:Magic Fog:45:20:40:1:0
 effect:TIMED_SET:STEALTH
