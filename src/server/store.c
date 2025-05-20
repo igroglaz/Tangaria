@@ -749,30 +749,42 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     // We use it because 'cost:' field in object.txt doesn't work;
     // only way to change price atm is to adjust power in object property file,
     // which can influence randart generation... So we use this way:
-    if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
-        obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
-                price = 248;
-    else if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
-        obj->kind == lookup_kind_by_name(TV_BOW, "Sling") && !obj->ego &&
-        obj->to_h == 0 && obj->to_d == 0)
-                price = 55;
-    else if (s->feat != FEAT_STORE_PLAYER && s->feat != FEAT_STORE_BLACK &&
-        (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
-        obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
-        obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
-                price = 800;
-    // ego: speed boots
-    else if (s->feat != FEAT_STORE_PLAYER && obj->ego &&
-            (strstr(obj->ego->name, "of Speed") ||
-             strstr(obj->ego->name, "of Elvenkind")))
-                price *= 5 / 2;
-    // regular items (speed ring, ring of flying etc)
-    else if (s->feat != FEAT_STORE_PLAYER)
-    {
-        if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
-                price *= 2;
-        else if (obj->kind == lookup_kind_by_name(TV_RING, "Flying"))
-                price = 34000;
+    if (s->feat != FEAT_STORE_PLAYER) {
+        if (s->feat != FEAT_STORE_BLACK &&
+            obj->kind == lookup_kind_by_name(TV_LIGHT, "Old Lantern"))
+                    price = 248;
+        else if (s->feat != FEAT_STORE_BLACK && // regular sling
+            obj->kind == lookup_kind_by_name(TV_BOW, "Sling") && !obj->ego &&
+            obj->to_h == 0 && obj->to_d == 0)
+                    price = 55;
+        else if (s->feat != FEAT_STORE_BLACK && // regular belt
+                 obj->kind == lookup_kind_by_name(TV_BELT, "Belt") && !obj->ego &&
+                 obj->ac == 1 && obj->to_a == 0)
+                    price = 4 + turn.turn % 2; // 4-5
+        else if (s->feat != FEAT_STORE_BLACK && // regular belt
+                 obj->kind == lookup_kind_by_name(TV_BELT, "Floating Belt") && !obj->ego &&
+                 obj->ac == 1 && obj->to_a == 0)
+                    price = 47 + turn.turn % 2;
+        else if (s->feat != FEAT_STORE_BLACK &&
+            (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
+            obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
+            obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
+                    price = 800;
+        // ego: speed boots
+        else if (obj->ego &&
+                (strstr(obj->ego->name, "of Speed") ||
+                 strstr(obj->ego->name, "of Elvenkind")))
+                    price *= 5 / 2;
+        // regular items (speed ring, ring of flying etc)
+        else
+        {
+            if (obj->kind == lookup_kind_by_name(TV_RING, "Levitation"))
+                    price *= 3;
+            else if (obj->kind == lookup_kind_by_name(TV_RING, "Speed"))
+                    price *= 2;
+            else if (obj->kind == lookup_kind_by_name(TV_RING, "Flying"))
+                    price = 34000;
+        }
     }
 
     /* CHArisma shouldn't influence player store prices */

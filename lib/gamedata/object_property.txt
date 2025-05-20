@@ -390,7 +390,7 @@ type:flag
 subtype:misc ability
 id-type:on effect
 code:FEATHER
-power:1
+power:5
 msg:Your {name} makes you float just above the floor.
 desc:Makes you float just above the floor
 short-desc:Levit

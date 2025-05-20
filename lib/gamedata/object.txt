@@ -6812,7 +6812,7 @@ type:belt
 level:10
 weight:30
 cost:10
-alloc:20:10 to 50
+alloc:20:1 to 100
 attack:1d1:0:0
 armor:1:0
 desc:A sturdy leather belt, worn by many a traveller.
