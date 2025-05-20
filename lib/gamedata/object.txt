@@ -409,22 +409,10 @@ level:0
 weight:5
 cost:75
 alloc:5:0 to 50
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:11+1d8
-effect:TIMED_INC:BLIND
-dice:11+1d8
-effect:TIMED_INC:IMAGE
-dice:11+1d5
-effect:TIMED_INC:AMNESIA
-dice:11+1d8
-effect:TIMED_INC:POISONED
-dice:8+1d8
-effect:TIMED_INC:SLOW
-dice:11+1d11
+effect:TIMED_INC:OCCUPIED
+dice:3
 effect:NOURISH:INC_BY
 dice:1
-effect:RANDOM
-dice:7
 effect:TIMED_INC:CONFUSED
 dice:8+1d8
 effect:TIMED_INC:BOLD
@@ -444,20 +432,8 @@ level:0
 weight:10
 cost:300
 alloc:10:0 to 50
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1+1d8
-effect:TIMED_INC:BLIND
-dice:1+1d4
-effect:TIMED_INC:IMAGE
-dice:1+1d2
-effect:TIMED_INC:AMNESIA
-dice:1+1d8
-effect:TIMED_INC:POISONED
-dice:1+1d12
-effect:TIMED_INC:SLOW
-dice:1+1d8
-effect:RANDOM
-dice:6
+effect:TIMED_INC:OCCUPIED
+dice:3
 effect:NOURISH:INC_BY
 dice:2
 effect:TIMED_INC:CONFUSED
@@ -2872,8 +2848,8 @@ alloc:50:5 to 100
 pile:70:1d3
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
 effect:TIMED_INC_NO_RES:IMAGE
@@ -3526,7 +3502,7 @@ effect:CURE:BLIND
 effect:HEAL_HP_ONCE
 dice:20
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 
 name:Cure Serious Wounds
 graphics:!:d
@@ -3552,7 +3528,7 @@ effect:CURE:CUT
 effect:HEAL_HP_ONCE
 dice:40
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 
 name:Cure Critical Wounds
 graphics:!:d
@@ -3577,9 +3553,9 @@ effect:CURE:BLIND
 effect:HEAL_HP_ONCE
 dice:60
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 effect:TIMED_INC:OPP_AMNESIA
-dice:1d1
+dice:1
 
 name:Healing
 graphics:!:d
@@ -3598,9 +3574,9 @@ effect:CURE:BLIND
 effect:HEAL_HP_ONCE
 dice:300+m35
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 effect:TIMED_INC:OPP_AMNESIA
-dice:1d1
+dice:1
 effect:NOURISH:DEC_BY
 dice:1
 
@@ -3620,9 +3596,9 @@ effect:CURE:BLIND
 effect:HEAL_HP_ONCE
 dice:1200
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 effect:TIMED_INC:OPP_AMNESIA
-dice:1d1
+dice:1
 effect:NOURISH:INC_BY
 dice:1
 
@@ -3651,9 +3627,9 @@ effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:RESTORE_EXP
 effect:TIMED_INC:OPP_CONF
-dice:1d1
+dice:1
 effect:TIMED_INC:OPP_AMNESIA
-dice:1d1
+dice:1
 effect:NOURISH:INC_BY
 dice:1
 msg_self:You feel life flow through your body!
@@ -3764,14 +3740,14 @@ cost:0
 alloc:20:25 to 100
 effect:LIGHT_LEVEL:NONE:1
 effect:RESTORE_EXP
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:2d1
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:2
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:9+1d18
 effect:TIMED_INC_NO_RES:BLIND
 dice:3+1d6
-effect:TIMED_INC_NO_RES:IMAGE
-dice:9+1d18
 effect:NOURISH:DEC_BY
-dice:5
+dice:1
 
 name:*Enlightenment*
 graphics:!:d
@@ -3789,12 +3765,12 @@ effect:GAIN_STAT:INT
 effect:RESTORE_STAT:INT
 effect:LIGHT_LEVEL:NONE:1
 effect:RESTORE_EXP
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1d1
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:1
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:6+1d12
 effect:NOURISH:DEC_BY
-dice:5
+dice:2
 
 ### Buffs ###
 
@@ -3929,7 +3905,7 @@ dice:3
 effect:TIMED_SET:SINFRA
 dice:100+4d25
 effect:TIMED_INC:IMAGE
-dice:1d1
+dice:1
 msg_self:*Boom!* For a moment you had stars in your eyes..
 
 name:Invisibility
@@ -3955,16 +3931,11 @@ cost:0
 alloc:1:70 to 100
 attack:3d4:0:0
 effect:TIMED_INC:WRAITHFORM
-dice:$B+1d10
-expr:B:PLAYER_LEVEL:/ 3
-effect:TIMED_INC_NO_RES:BLIND
-dice:$B+1d20
-expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC_NO_RES:SLOW
-dice:$B+1d20
-expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1
+dice:10
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:10
+effect:TIMED_INC_NO_RES:SLOW_REAL
+dice:10
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:75+1d50
 effect:DRAIN_MANA
@@ -3998,10 +3969,12 @@ alloc:10:0 to 10
 pile:70:2d3
 attack:3d4:0:0
 armor:0:0
-effect:TIMED_INC:PARALYZED
-dice:5+1d5
+effect:TIMED_INC:OCCUPIED
+dice:$B + 5
+expr:B:PLAYER_LEVEL:/ 2
 effect:TIMED_INC:STEALTH
-dice:5+1d5
+dice:$B + 5
+expr:B:PLAYER_LEVEL:/ 2
 effect:NOURISH:INC_BY
 dice:3
 
@@ -4015,8 +3988,8 @@ alloc:10:0 to 10
 pile:70:2d3
 attack:3d4:0:0
 armor:0:0
-effect:TIMED_INC:BLIND
-dice:75+4d25
+effect:TIMED_INC_NO_RES:BLIND
+dice:20+1d20
 effect:TIMED_INC:ESP
 dice:1+1d2
 effect:NOURISH:INC_BY
@@ -4032,10 +4005,10 @@ alloc:10:0 to 10
 pile:70:2d3
 attack:3d4:0:0
 armor:0:0
-effect:TIMED_INC:CONFUSED
+effect:TIMED_INC_NO_RES:CONFUSED
 dice:10+4d5
 effect:TIMED_SET:SINFRA
-dice:30+4d25
+dice:20+1d20
 effect:NOURISH:INC_BY
 dice:1
 
@@ -4864,12 +4837,12 @@ armor:0:0
 charges:5+d5
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:3
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:11+1d15
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 
 ### Healing ###
 
@@ -5881,23 +5854,11 @@ level:0
 weight:5
 cost:150
 alloc:10:0 to 50
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:1+1d4
-effect:TIMED_INC:BLIND
-dice:1+1d8
-effect:TIMED_INC:IMAGE
-dice:1+1d4
-effect:TIMED_INC:AMNESIA
-dice:1+1d8
-effect:TIMED_INC:POISONED
-dice:8+1d8
-effect:TIMED_INC:SLOW
-dice:1+1d11
-effect:RANDOM
-dice:6
+effect:TIMED_INC:OCCUPIED
+dice:3
 effect:NOURISH:INC_BY
 dice:1
-effect:TIMED_INC:CONFUSED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:1+1d8
 effect:TIMED_INC:BOLD
 dice:30+1d20
@@ -6627,49 +6588,49 @@ weight:5
 cost:0
 alloc:10:20 to 100
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:-1
 dice:1d3
 effect:SUMMON:AINU:0:-1
@@ -6692,49 +6653,49 @@ cost:0
 alloc:5:60 to 100
 #last number is a chance to summon friendly djinn
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:50
-dice:1d1
+dice:1
 effect:SUMMON:AINU:0:-1
 dice:1d3
 effect:SUMMON:AINU:0:-1
@@ -6757,7 +6718,7 @@ cost:0
 alloc:1:1 to 30
 effect:BATTY
 effect:SUMMON:UNDEAD:0:-1
-dice:1d1
+dice:1
 #effect:UNDEAD_FORM
 effect:DARKEN_LEVEL:NONE:1
 #effect:READ_MINDS
