@@ -519,6 +519,14 @@ void do_cmd_breath(struct player *p, int dir)
         player_dec_timed(p, TMD_FOOD, 4, false);
         return;
     }
+    else if (streq(p->race->name, "Homunculus"))
+    {
+        use_energy(p);
+        source_player(who, get_player_index(get_connection(p->conn)), p);
+        effect_simple(EF_TELEPORT, who, "10", 0, 0, 0, 0, 0, NULL);
+        player_dec_timed(p, TMD_FOOD, 2, false);
+        return;
+    }
     else if (streq(p->race->name, "Wraith")) // TODO: test and rebalance
     {
         use_energy(p);
