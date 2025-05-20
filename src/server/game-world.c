@@ -1375,7 +1375,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         else if (p->lev < 35)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed reptile"), 1, true);
         else if (p->lev < 40)
-            summon_specific_race_aux(p, c, &p->grid, get_race("tamed hellcat"), 1, true);
+            summon_specific_race_aux(p, c, &p->grid, get_race("tamed firecat"), 1, true);
         else if (p->lev < 45)
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed young unicorn"), 1, true);
         else if (p->lev < 50)

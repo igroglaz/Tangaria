@@ -20266,6 +20266,37 @@ desc: spells as they echo hollowly through the dungeon.
 
 ### Dungeon level 55 ###
 
+name:hellcat
+base:feline
+color:r
+speed:121
+hit-points:900
+light:2
+hearing:50
+smell:30
+armor-class:100
+sleepiness:15
+depth:55
+rarity:3
+weight:50
+experience:1500
+blow:CLAW:FIRE:4d12
+blow:CLAW:FIRE:4d12
+blow:BITE:FIRE:4d12
+flags:NEUTRAL
+flags:RAND_25 | OPEN_DOOR | BASH_DOOR | MOVE_BODY
+flags:IM_FIRE | GROUP_AI | NO_CONF | NO_HOLD
+flags:FORCE_SLEEP
+flags:DROP_SKELETON
+spell-freq:5
+innate-freq:100
+spells:BR_FIRE
+friends:100:2d4:Same
+desc:Hellcats are flame-touched beasts said to stalk scorched ruins and battlefields.
+desc: Their fur smolders with slow fire, and their breath reeks of ash and burnt cloth.
+desc: Quick to temper, they pounce without warning and vanish into the smoke.
+desc: It is unwise to corner one - less so to try and tame it.
+
 name:quivering blob
 base:jelly
 color:s
@@ -22080,9 +22111,9 @@ flags:FORCE_SLEEP
 spell-freq:3
 spells:TELE_TO
 spells:S_KIN
-friends:100:2d4:tiger:servant
 friends:100:2d4:sabre-tooth tiger:servant
 friends:100:2d4:displacer beast:servant
+friends:100:2d4:hellcat:servant
 desc:Master of all things feline, the Cat Lord moves with unsurpassed stealth.
 desc: He delights in small torments and cunning stratagems, and laughs merrily
 desc: as he bats you about.
@@ -31567,7 +31598,7 @@ desc:A vile reptile that preys on unsuspecting travellers. Its eyes stare deeply
 desc: at your enemies soul starts to wilt..
 desc: It's a miracle that someone managed to tame it!
 
-name:tamed hellcat
+name:tamed firecat
 base:feline
 color:r
 speed:120
