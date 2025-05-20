@@ -6538,9 +6538,8 @@ flags:BASH_DOOR
 flags:DROP_CORPSE | WILD_GRASS | WILD_WOOD | WILD_MOUNTAIN
 desc:It is half lion, half eagle. It flies menacingly towards you.
 
-# TODO: rename to Familiar or Gremlin
-name:homunculus
-plural:homunculi
+# was: name:homunculus
+name:gremlin
 base:minor demon
 color:y
 speed:110
