@@ -1008,51 +1008,70 @@ static void process_player_world(struct player *p, struct chunk *c)
         sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW) &&
         p->chp >= ((p->mhp / 100) + 5)) // don't kill vamp with sunlight
     {
-        struct object *cloak = slot_object(p, slot_by_name(p, "back"));
-        int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-        int sun_damage = p->mhp / 100 + (turn.turn % 2); // turns gives 0-1 "rng"
-        bool take_damage = false;
-        int sun_protection = 0;
-
-        if (cloak) {
-            // Base protection from having any cloak
-            sun_protection = 30;
-
-            // Additional protection from cloak's armor class
-            if (cloak->ac > 0) {
-                sun_protection += cloak->ac;
-            }
-
-            // Additional protection from magical bonus
-            if (cloak->to_a > 0) {
-                sun_protection += cloak->to_a;
-            }
-        }
-
-        // Apply resistance modifiers
-        if (res_light > 1) {
-            // Double resistant or immune to light - add strong protection
-            sun_protection += 100;
-        } else if (res_light > 0) {
-            // Resistant to light - add moderate protection
-            sun_protection += 50;
-        }
-
-        // Determine if vampire takes damage this turn
-        if (sun_protection > 0) {
-            // Higher protection means damage occurs less frequently
-            take_damage = (turn.turn % sun_protection == 0);
-        } else {
-            // No protection - damage every turn
-            take_damage = true;
-        }
-
-        if (take_damage) {
-            p->chp -= sun_damage;
+        // always dmg on full hp
+        if (p->chp >= p->mhp) {
+            p->chp -= (p->mhp / 100) + 1;
             p->upkeep->redraw |= (PR_HP | PR_MAP);
+        } else {
+            
+            struct object *cloak = slot_object(p, slot_by_name(p, "back"));
+            struct object *tool = slot_object(p, slot_by_name(p, "tool"));
+            int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
+            int sun_damage = (p->mhp / 100) + 1;
+            bool take_damage = false;
+            int sun_protection = 0;
 
-            if (!cloak && turn.turn % 10 == 0)
-                msg(p, "Sunlight scorches your exposed skin! Wear a cloak for protection!");
+            if (cloak) {
+                // Base protection from having any cloak
+                sun_protection = 14 - (p->lev / 3.5);
+
+                // Additional protection from cloak's armor class
+                if (cloak->ac > 0) {
+                    sun_protection += cloak->ac / 5;
+                }
+
+                // Additional protection from magical bonus
+                if (cloak->to_a > 0) {
+                    sun_protection += cloak->to_a / 10;
+                }
+            }
+
+            // Mummy Wrappings
+            if (tool && tool->kind == lookup_kind_by_name(TV_BELT, "Mummy Wrappings")) {
+                sun_protection += 5;
+            }
+
+            // Apply resistance modifiers
+            if (res_light > 1) {
+                // Double resistant or immune to light - add strong protection
+                sun_protection += 10;
+            } else if (res_light > 0) {
+                // Resistant to light - add moderate protection
+                sun_protection += 5;
+            }
+
+            // Determine if vampire takes damage this turn
+            if (sun_protection > 0) {
+                // Higher protection means damage occurs less frequently
+                // in the past we used: 
+                // take_damage = (turn.turn % sun_protection == 0);
+                // but it won't work properly:
+                // numbers with many divisors (like 20) will result in more damage events
+                // than numbers with fewer divisors (like 21, which is the product
+                // of two primes). so use regular rng
+                take_damage = one_in_(sun_protection);
+            } else {
+                // No protection - damage every turn
+                take_damage = true;
+            }
+
+            if (take_damage) {
+                p->chp -= sun_damage;
+                p->upkeep->redraw |= (PR_HP | PR_MAP);
+
+                if (!cloak && turn.turn % 10 == 0)
+                    msg(p, "Sunlight scorches your exposed skin! Wear a cloak for protection!");
+            }
         }
     }
 

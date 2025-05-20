@@ -1271,7 +1271,7 @@ value:0:INT[0+1d24]
 value:0:WIS[-1]
 value:0:DEX[2]
 value:0:CON[-5+1d9]
-value:0:CHR[-9+1d4]
+value:0:CHR[-8+1d4]
 # 'y' can FLY
 # darkness-loving (see in the dark, but light makes it worse)
 # + black breath
@@ -1289,6 +1289,7 @@ value:50:RES_TIME[1]
 brand:1:50:VAMPIRIC
 #///  -
 # damaged when walk in daylight -> player_check_terrain_damage()
+# (protection from: cloak, mummy wrappings, light resistance[1], light resistance[2])
 # during the day: -HP, regen HP, mana, skills; especially shooting // TODO: rework
 value:0:DAM_RED[-1+-1d15]
 value:0:TUNNEL[-1+-1d30]
