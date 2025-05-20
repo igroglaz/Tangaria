@@ -25344,10 +25344,6 @@ monster:overseer':0x9A:0xF6
 
 object:cobble:Cobble:0x8A:0xB6
 
-#TODO: draw tiles
-object:belt:Belt:0x81:0x89
-object:belt:Floating Belt:0x81:0x89
-
 ###############
 #### HOUSE
 ###############
@@ -32507,6 +32503,12 @@ monster:Target dummy:0x8B:0xB0
 # test stuff
 monster:Test dummy:0x8B:0xB0
 monster:Test drop:0x8B:0xB0
+
+#TODO: draw tiles
+object:belt:Belt:0x81:0x89
+object:belt:Floating Belt:0x81:0x89
+object:belt:Mummy Wrappings:0x81:0xBA
+
 
 # Load the special player pictures
 %:xtra-tan.prf

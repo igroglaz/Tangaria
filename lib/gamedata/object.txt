@@ -6832,6 +6832,28 @@ desc:This simple-looking belt turns out to be lightly enchanted.
 desc: When worn, it makes you float just above the ground.
 desc: It prevents you from drowning, and all your falls will be painless.
 
+# ideas (- means not implemented yet)
+# - prevent invisibility (Nethack)
+# + sun prot for vampires
+# - AC if undead race
+# - def VS acid ruining armour (dmg wrappings instead)
+# - reduce bleed
+name:& Mummy Wrappings
+graphics:/:W
+type:belt
+level:10
+weight:30
+cost:0
+alloc:20:1 to 100
+attack:1d1:0:0
+armor:0:-2
+values:CHR[-1]
+desc:An old strip of yellowed linen, stained and brittle with age.
+desc: Once used to bind a corpse, it still carries a dry, musty scent.
+desc: It feels uncomfortable against your skin, like wearing a memory best
+desc: left buried.
+desc: Keeps the sun off your body - not that you'd want to be seen wearing it.
+
 # alchemy
 
 name:& Rare Herb~
