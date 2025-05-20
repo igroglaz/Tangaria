@@ -80,7 +80,7 @@
 
 # Note to maintainers/devteam: Light Violet (V) is currently used for the
 # "purple uniques" option. The option makes all uniques appear in this colour
-# (instead of only Castamir and Waldern). It is therefore unwise to use it 
+# (instead of only Castamir and Waldern). It is therefore unwise to use it
 # for non-unique monsters.
 
 # 'speed' is for speed; 110 is normal speed.
@@ -123,7 +123,7 @@
 # monster_base.txt, molds are given HURT_FIRE. We don't want the red mold
 # to have that, so we add a 'flags-off:HURT_FIRE' line to subtract that flag.
 
-# 'spell-freq' is for spell frequency - the number of monster turns, on 
+# 'spell-freq' is for spell frequency - the number of monster turns, on
 # average, before the monster will cast one of its spells. This must not be
 # zero. If it is 1, the monster will never move while the player
 # is in sight, and will thus never attack in melee, as it will cast spells
@@ -807,7 +807,7 @@ flags:DROP_40 | NO_SLEEP | WEIRD_MIND
 flags:IM_COLD | NEVER_MOVE
 spell-freq:5
 spells:BLINK
-desc:A very strange near-sentient tree, which has become hostile 
+desc:A very strange near-sentient tree, which has become hostile
 desc: to other living things.
 
 #was huorn
@@ -2640,10 +2640,10 @@ friends:100:1d3:rattlesnake:servant
 spell-freq:7
 spells:SHAPECHANGE
 shape:Vasilisa the Beautiful
-desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a 
-desc:jutting jaw that shows off her iron teeth.
-desc:She is skinny, like a skeleton, with a bony leg.
-desc:She knows how to turn from old into young in a blink of an eye.
+desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a
+desc: jutting jaw that shows off her iron teeth.
+desc: She is skinny, like a skeleton, with a bony leg.
+desc: She knows how to turn from old into young in a blink of an eye.
 desc: She likes her ssssnakes.
 locations:The Mountain Gorge
 
@@ -7187,8 +7187,8 @@ flags:MOVE_BODY
 flags:DROP_CORPSE | DROP_SKELETON | WILD_SHORE | WILD_SWAMP
 spell-freq:11
 spells:SCARE
-desc:A strange reptilian hybrid with one extra head, 
-desc:guarding its hoard.
+desc:A strange reptilian hybrid with one extra head,
+desc: guarding its hoard.
 
 name:water spirit
 base:elemental
@@ -7904,7 +7904,7 @@ spells:ANIM_DEAD | TRAPS | DARKNESS | HEAL_KIN | HEAL | SLOW
 spells:TELE_AWAY | TELE_LEVEL | SHRIEK
 spells:CONF | SLOW | BLIND | SCARE
 spells:BO_ELEC | BO_WATE | BR_ELEC | BR_GRAV | BR_DARK | BOULDER
-desc:It seems this obelisk stay still for centuries. 
+desc:It seems this obelisk stay still for centuries.
 desc: But silence surrounding it presence makes you uneasy.
 
 name:blood falcon
@@ -9195,9 +9195,9 @@ friends:100:4d2:orc archer
 friends:100:4d4:uruk:bodyguard
 friends:50:1d3:orc captain:servant
 friends:100:1d1:Bolg, Son of Azog
-desc:He is also known as the King of Khazad-dum, 
-desc:the King of the Uruk-Hai and the Enemy of the Dwarves.
-desc:His ego is renowned to be bigger than his head.
+desc:He is also known as the King of Khazad-dum,
+desc: the King of the Uruk-Hai and the Enemy of the Dwarves.
+desc: His ego is renowned to be bigger than his head.
 locations:The Orc Mountains
 
 name:outlaw
@@ -9781,7 +9781,7 @@ spells:CONF | SLOW | BLIND | SCARE
 spells:BO_ELEC | BO_WATE | BR_ELEC | BR_GRAV | BR_DARK | BOULDER
 desc:No one remember His name, but long time ago He had so much power
 desc: that entire nations worshipped Him and made this statues everywhere.
-desc: Now he is forgotten, but it doesn't mean that He is powerless. 
+desc: Now he is forgotten, but it doesn't mean that He is powerless.
 
 name:flamme
 base:minor demon
@@ -10935,8 +10935,8 @@ blow:BITE:HURT:5d5
 flags:MULTIPLY | PWMANG_BASE
 flags:RAND_25
 desc:Enormous size worms, up to 200 meters long with thick rough skin of orange
-desc:color covered by firm scales. Worms defend their territory of which they 
-desc:are very protective, so if you feel rhythmic vibrations on the surface - run.
+desc: color covered by firm scales. Worms defend their territory of which they
+desc: are very protective, so if you feel rhythmic vibrations on the surface - run.
 
 ### Dungeon level 28 ###
 
@@ -11907,8 +11907,8 @@ flags:DROP_1 | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:RES_LIGHT
 desc:Nazguls don't dissapear for ever.. They return. Always.
-desc:But till the moment when they will reclaim, 
-desc:they dwell aas shadowless shapes.
+desc: But till the moment when they will reclaim,
+desc: they dwell aas shadowless shapes.
 
 name:fire giant
 base:giant
@@ -13845,7 +13845,7 @@ flags:NO_CONF | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:4
 innate-freq:20
-spells:ARROW | BLINK 
+spells:ARROW | BLINK
 friends:80:1d2:ninja
 desc:A human warrior, moving with lightning speed.
 
@@ -15079,7 +15079,7 @@ innate-freq:50
 spell-power:10
 spell-freq:5
 spells:BR_GRAV | TELE_TO
-desc:Warrior who uses "signs" to kill weird monsters. 
+desc:Warrior who uses "signs" to kill weird monsters.
 desc: Why is he consireding you as one of them?
 
 name:ice elemental
@@ -16065,8 +16065,7 @@ desc: monk in an evil order.
 
 ### Dungeon level 40 ###
 
-###### TODO: remove SPACE in name! (after wipe)... and check picture as it's now a man
-name:flaming skull 
+name:flaming skull
 base:skeleton
 color:s
 speed:120
@@ -16923,8 +16922,8 @@ experience:6000
 blow:HIT:HURT:8d6
 blow:HIT:HURT:8d6
 flags:FEMALE | DROP_SKELETON | DROP_CORPSE | PWMANG_BASE | SPIRIT
-flags:ONLY_ITEM | DROP_1 | DROP_GOOD 
-flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
+flags:ONLY_ITEM | DROP_1 | DROP_GOOD
+flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
 innate-freq:30
@@ -18573,7 +18572,7 @@ drop:food:Large Trout:100:3:5
 spell-freq:3
 spells:BO_WATE | BO_ICE
 spells:HOLD | TELE_TO
-desc:A vile creature which seems to consist mostly of tentacles, it seeks to 
+desc:A vile creature which seems to consist mostly of tentacles, it seeks to
 desc: drag people to their doom in the water. Few have ever escaped its grasp.
 locations:The Small Watery Cave
 
@@ -18706,8 +18705,8 @@ experience:8000
 blow:HIT:HURT:8d7
 blow:HIT:HURT:8d7
 flags:MALE | SMART | DROP_SKELETON | DROP_CORPSE | PWMANG_BASE | SPIRIT
-flags:ONLY_ITEM | DROP_1 | DROP_GOOD 
-flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
+flags:ONLY_ITEM | DROP_1 | DROP_GOOD
+flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
 innate-freq:30
@@ -19412,8 +19411,8 @@ experience:10000
 blow:HIT:HURT:8d9
 blow:HIT:HURT:8d9
 flags:MALE | SMART | DROP_SKELETON | DROP_CORPSE | PWMANG_BASE | SPIRIT
-flags:ONLY_ITEM | DROP_2 | DROP_GOOD 
-flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
+flags:ONLY_ITEM | DROP_2 | DROP_GOOD
+flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
 innate-freq:33
@@ -20316,7 +20315,7 @@ blow:TOUCH:ACID:5d10
 flags:COLD_BLOOD
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
-flags:NO_CONF | NO_SLEEP | 
+flags:NO_CONF | NO_SLEEP
 flags:NEVER_MOVE | MULTIPLY
 spell-freq:2
 spells:BLINK
@@ -20855,10 +20854,10 @@ spells:BRAIN_SMASH | WOUND | MIND_BLAST | SLOW | TRAPS
 spells:BA_WATE
 spells:BO_NETH | BO_PLAS
 spells:S_UNDEAD
-desc:A glowing with deadly white light, it's possessed by sorcerous power. 
-desc:It need not move, but merely blasts you with mighty magic as it hisses
-desc:the words of power.
-desc:Its lid creaks.
+desc:A glowing with deadly white light, it's possessed by sorcerous power.
+desc: It need not move, but merely blasts you with mighty magic as it hisses
+desc: the words of power.
+desc: Its lid creaks.
 
 name:Fundin Bluecloak
 base:humanoid
@@ -21168,8 +21167,8 @@ experience:15000
 blow:HIT:HURT:10d9
 blow:HIT:HURT:10d9
 flags:MALE | SMART | DROP_SKELETON | DROP_CORPSE | PWMANG_BASE | SPIRIT
-flags:ONLY_ITEM | DROP_2 | DROP_GOOD 
-flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
+flags:ONLY_ITEM | DROP_2 | DROP_GOOD
+flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
 innate-freq:50
@@ -22633,7 +22632,7 @@ blow:TOUCH:FIRE:10d10
 blow:TOUCH:COLD:10d10
 blow:TOUCH:ELEC:10d10
 blow:TOUCH:ACID:10d10
-flags:COLD_BLOOD | KILL_BODY | KILL_ITEM | 
+flags:COLD_BLOOD | KILL_BODY | KILL_ITEM
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
 flags:NO_CONF | NO_SLEEP | NEVER_MOVE
@@ -22747,8 +22746,8 @@ blow:HIT:HURT:10d9
 blow:HIT:HURT:10d9
 blow:HIT:HURT:10d9
 flags:FEMALE | SMART | DROP_SKELETON | DROP_CORPSE | PWMANG_BASE | SPIRIT
-flags:ONLY_ITEM | DROP_2 | DROP_GOOD 
-flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR 
+flags:ONLY_ITEM | DROP_2 | DROP_GOOD
+flags:IM_FIRE | REGENERATE | OPEN_DOOR | BASH_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD | ATTR_FLICKER
 spell-freq:4
 innate-freq:29
@@ -23423,7 +23422,7 @@ spell-freq:3
 spells:TELE_TO
 spells:S_HI_DRAGON | S_HI_UNDEAD
 spells:S_HYDRA | S_MONSTERS
-desc:Strange black mass-like creature with turquoise bubble on it (is it eyes?).. 
+desc:Strange black mass-like creature with turquoise bubble on it (is it eyes?)..
 desc: It seems it's sleeping. At least this awful sound seems to be snoring
 desc: and walls tremble because of it.
 desc: Maybe it's good idea to do not wake trouble while it's still..
@@ -26037,7 +26036,7 @@ spells:TELE_TO | TPORT | TRAPS
 spells:BA_FIRE | BA_MANA | BA_NETH | BA_WATE
 spells:BO_ICE | BO_MANA | BO_PLAS
 spells:S_HI_DEMON | S_HI_DRAGON | S_HI_UNDEAD | S_MONSTERS
-desc:Wife of Manwe, Varda is the most beautiful of all the Valar... 
+desc:Wife of Manwe, Varda is the most beautiful of all the Valar...
 desc: She is also known as Elbereth - "Queen of the Stars".
 locations:Valinor
 
@@ -31352,7 +31351,7 @@ desc:A weird bloodshot disembodied eye, floating a few feet above the ground.
 desc:It blinks slowly and menacily.
 
 #///////////    ^^^ FORMS
-#///////////   
+#///////////
 
 
 #############
@@ -31476,7 +31475,7 @@ experience:0
 blow:BITE:POISON:1d1
 blow:BITE:HURT:2d4
 flags:IM_POIS
-desc:Tamed sssnake dangerousss for everyone excccept itsss massster. 
+desc:Tamed sssnake dangerousss for everyone excccept itsss massster.
 desc: It hass a copper head and sssharp venomouss fangssss.
 
 # nighthawk

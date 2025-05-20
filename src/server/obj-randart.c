@@ -1118,7 +1118,7 @@ static void count_abilities(const struct artifact *art, struct artifact_set_data
         /* Activation */
         data->art_probs[ART_IDX_GEN_ACTIV]++;
     }
-    
+
     if (of_has(art->flags, OF_HUNGER))
     {
         /* Hunger case - generic. */
@@ -2622,7 +2622,7 @@ static void add_ability_aux(struct artifact *art, int r, int target_power,
         case ART_IDX_GEN_MOVES:
             add_mod(art, OBJ_MOD_MOVES);
             break;
-        
+
         case ART_IDX_GEN_HUNGER:
             add_flag(art, OF_HUNGER);
             break;

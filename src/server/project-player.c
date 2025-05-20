@@ -1432,7 +1432,7 @@ static int project_player_handler_BLAST(project_player_handler_context_t *contex
         player_inc_timed(p, TMD_CONFUSED, 3 + randint1(4), true, true);
 
     /* Amnesia */
-    if (!player_of_has(p, OF_PROT_AMNESIA))    
+    if (!player_of_has(p, OF_PROT_AMNESIA))
         player_inc_timed(p, TMD_AMNESIA, 4, true, true);
 
     return 0;

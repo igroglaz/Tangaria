@@ -1184,7 +1184,7 @@ int object_value(struct player *p, const struct object *obj, int qty)
         value = object_value_base(p, obj) * qty;
 
 /*
-    // Custom prices 
+    // Custom prices
     ////// update: moved to store.c
     ////// might be useful in future to change value (to re item's generation),
     ////// but for prices better use store.c

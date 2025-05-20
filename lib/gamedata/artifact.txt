@@ -245,8 +245,8 @@ flags:LIMITED_TELE
 act:CLAIRVOYANCE
 time:50+d50
 msg:The palantir clouds, then clears...
-desc:A great globe with a heart of fire, the Palantir provides the wearer with 
-desc:sight of far places - at a cost...
+desc:A great globe with a heart of fire, the Palantir provides the wearer with
+desc: sight of far places - at a cost...
 
 ### Swords and Daggers ###
 
@@ -278,7 +278,7 @@ values:STR[1] | DEX[1] | RES_FIRE[1] | RES_DISEN[1]
 brand:FIRE_2
 act:RESIST_ALL
 time:113+d50
-desc:"Red and white flame", the Sword that was Broken. 
+desc:"Red and white flame", the Sword that was Broken.
 desc: It still holds part of the Power of the Ring which it cutted away...
 desc: This strange power will persist in the Sword till it will be reforged.
 
@@ -613,7 +613,7 @@ alloc:50:15 to 50
 attack:2d5:12:12
 armor:0:0
 flags:FEATHER | SEE_INVIS | ESP_ORC | ESP_TROLL
-values:DEX[2] | STEALTH[2] 
+values:DEX[2] | STEALTH[2]
 slay:TROLL_3
 slay:ORC_3
 desc:The "Singing Blade", whose wearer can slay Orcs and Trolls in the hidden
@@ -2294,9 +2294,9 @@ attack:1d3:0:0
 armor:9:30
 flags:PROT_FEAR | SUST_STR | SUST_CON | PROT_CONF | SEE_INVIS
 values:STR[3] | CON[3] | SEARCH[3] | LIGHT[1] | RES_FIRE[3]
-desc:A helm wrought with the image of what Durin saw when he first gazed 
-desc: into the Kheled-zaram. Passed down to each Lord of Khazad-dum, 
-desc: till Durin III was slain. Found by Balin son of Fundin, 
+desc:A helm wrought with the image of what Durin saw when he first gazed
+desc: into the Kheled-zaram. Passed down to each Lord of Khazad-dum,
+desc: till Durin III was slain. Found by Balin son of Fundin,
 desc: Uzbadkhazaddumu, the last Lord of Moria.
 
 name:of Beruthiel
@@ -2320,7 +2320,7 @@ alloc:0:90 to 127
 attack:1d1:0:0
 armor:0:27
 flags:PROT_FEAR | SEE_INVIS | PROT_BLIND | SUST_INT | SUST_WIS | SUST_CHR | KNOWLEDGE
-values:RES_CHAOS[1] | INFRA[5] | INT[5] | WIS[5] | SEARCH[5] | LIGHT[1] | 
+values:RES_CHAOS[1] | INFRA[5] | INT[5] | WIS[5] | SEARCH[5] | LIGHT[1]
 desc:This radiating and impervious head gear will ensure
 desc: that its wearer will see nothing but the very truth.
 
@@ -3918,7 +3918,7 @@ attack:10d10:0:0
 armor:0:0
 values:INT[3] | WIS[3] | CON[3] | INFRA[5] |  SEARCH[5] | RES_NETHER[1] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
-# - 
+# -
 flags:STICKY
 curse:undead summon:100
 #

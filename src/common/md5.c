@@ -352,4 +352,4 @@ void MD5Password(char *string)
     }
     *dst = 0;
     my_strcpy(string, temp, strlen(temp) + 1);
-}  
+}

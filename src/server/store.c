@@ -655,7 +655,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     {
         /* Disable selling true artifacts */
         if (true_artifact_p(obj)) return (0L);
-        
+
         // no nazgul rings for sale
 //        if (kf_has(obj->kind->kind_flags, KF_INSTA_ART)) return (0L);
         if (obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power")) return (0L);
@@ -682,13 +682,13 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
 
     /* Worthless items */
     if (price <= 0) return (0L);
-    
+
     /* Add in the charisma factor */
 	if (store_black_market(s))
         adjust = 150;
 	else
 		adjust = adj_chr_gold[p->state.stat_ind[STAT_CHR]];
-        
+
     /* Shop is buying */
     if (store_buying)
     {
@@ -719,7 +719,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     else
     {
         size_t i;
-        
+
         /* Angband V. 3.4 fix for factor.. no need @ Tangaria
 		if (adjust < 100) adjust = 100;
         */
@@ -987,10 +987,10 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
         return true;
 
     // HOME: boni to storage from account points and CHR
-    
+
     // 1) Storage space in home mainly depends on CHR
     storage_factor += p->state.stat_ind[STAT_CHR];
-    
+
     // 2) it also get boni from account points
     if (p->account_score >= 5)
         storage_factor++;
@@ -1493,7 +1493,7 @@ static bool store_create_random(struct store *s)
 
         /* Mass produce */
         mass_produce(obj);
-        
+
 /*//////// removed in PWMA
         // Hack -- set fake owner and level requirement
         obj->owner = -1;
@@ -2220,7 +2220,7 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     char short_name[20];
     struct store *s = store_at(p);
     const char *owner_name = s->owner->name;
-    int c; // charisma    
+    int c; // charisma
     int i; // number of welcome message
     char comment_format[NORMAL_WID];
     const char *chosen;
@@ -2247,7 +2247,7 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
 
     /* Get a welcome message according to level */
     c = p->state.stat_ind[STAT_CHR] + 3; // 0-40
-    
+
     if      (c <= 3)  i = 0;
     else if (c <= 6)  i = 1;
     else if (c <= 8)  i = 2;
@@ -2414,7 +2414,7 @@ static struct object *player_store_object(struct player *p, int item, struct obj
 }
 
 
-/*  
+/*
  * Remove the given item from the players house who owns it and credit
  * this player with some gold for the transaction.
  */
@@ -2458,11 +2458,11 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     else if (p->state.stat_ind[STAT_CHR] < 31)
         price = price * 12 / 13;
     else if (p->state.stat_ind[STAT_CHR] < 33)
-        price = price * 13 / 14;    
+        price = price * 13 / 14;
     else if (p->state.stat_ind[STAT_CHR] < 35)
-        price = price * 14 / 15;     
+        price = price * 14 / 15;
     else
-        price = price * 15 / 16;        
+        price = price * 15 / 16;
 
     // We use +1/-1 cause in Tangaria borders of houses belongs to walls, not floors.
     // Without +1/-1 adjustment gold will be dropped outside of the house
@@ -2706,7 +2706,7 @@ void do_cmd_buy(struct player *p, int item, int amt)
         //bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
 //////////////////////
 
-        /* Hack -- use o_name for audit :/ 
+        /* Hack -- use o_name for audit :/
            (send message to clog) */
         strnfmt(o_name, sizeof(o_name), "PS buyer char: %s-%d (acc: %s) | seller acc: %s $ %d",
                 p->name, (int)p->id, p->account_name, name, price);
@@ -3414,7 +3414,7 @@ void do_cmd_store(struct player *p, int pstore)
 
         p->store_num = z_info->store_max - 1;
         p->player_store_num = pstore;
-        
+
         // "bells" sound should be only in pstores
         sound(p, MSG_STORE_ENTER);
     }

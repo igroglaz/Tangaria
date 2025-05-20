@@ -93,7 +93,7 @@ static ui_event inkey_aux(char scan_cutoff)
 
         return empty;
     }
-    
+
     return (ke);
 }
 
@@ -217,7 +217,7 @@ ui_event inkey_ex(void)
 
     /* Hack -- restore the term */
     Term_activate(old);
-    
+
     /* Restore the cursor */
     Term_set_cursor(cursor_state);
 

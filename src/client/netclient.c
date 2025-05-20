@@ -1086,7 +1086,7 @@ static int Receive_struct_info(void)
             }
 
             break;
-        }  
+        }
 
         /* Socials */
         case STRUCT_INFO_SOCIALS:
@@ -2237,7 +2237,7 @@ static int Receive_state(void)
  *
  * See "rle_encode" for possible "mode" descriptions.
  *
- * Note -- if "lineref" is NULL, the packets will be read from   
+ * Note -- if "lineref" is NULL, the packets will be read from
  * the queue for no effect (useful for discarding)
  */
 static int rle_decode(sockbuf_t* buf, cave_view_type* lineref, int max_col, int mode,

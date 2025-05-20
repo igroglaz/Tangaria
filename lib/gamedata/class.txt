@@ -5682,7 +5682,7 @@ effect:RECALL
 dice:10+1d10
 desc:Moves you from the dungeon back to the town or from the town
 desc: to the deepest level you have visited in the dungeon.
-desc: The effect is somewhat delayed. During that delay, the effect 
+desc: The effect is somewhat delayed. During that delay, the effect
 desc: can be canceled by invoking the spell again.
 
 spell:Emergency Passage:45:25:1:1:0
@@ -6216,7 +6216,7 @@ effect:DETECT_EVIL
 effect-yx:22:40
 msg_other: blinks away.
 desc:Teleports you randomly over a medium distance.
-desc: This travel through the astral grants the ability to feel 
+desc: This travel through the astral grants the ability to feel
 desc: the presence of evil.
 
 spell:Cry of Cthulhu:25:15:30:15:0
@@ -6955,7 +6955,7 @@ dice:2+1d5
 effect:ENCHANT:TOBOTH
 dice:1
 desc:Ensuring one's blade is sharp can mean the difference between
-desc: success and failure. 
+desc: success and failure.
 desc: This prayer reduces your nourishment.
 desc: Cooldown 2 turns.
 
@@ -6970,7 +6970,7 @@ desc: Yet, the greater the device, the riskier the ritual...
 spell:Cartography:33:50:1:50:0
 effect:MAP_AREA
 effect-yx:16:32
-desc:The world is vast, and its secrets are many. With this spell, 
+desc:The world is vast, and its secrets are many. With this spell,
 desc: landscapes unfurl and mysteries become mere geography.
 
 spell:Merchant Insight:35:21:1:60:0
@@ -7005,7 +7005,7 @@ desc: They conjured a magical doppelganger, identical in appearance and
 desc: sound, to haggle and barter on their behalf. The original purpose
 desc: was to be in two places at once and never miss a lucrative deal.
 desc: Over time, however, the savvy merchants discovered its utility
-desc: in diverting attention and danger in more perilous situations. 
+desc: in diverting attention and danger in more perilous situations.
 desc: Deploying the Barter Buddy remains a testament to a trader's
 desc: cleverness, giving them a brief moment of respite or an advantage
 desc: in tight spots.
@@ -8202,7 +8202,7 @@ spell:Confession:15:1:33:7:0
 effect:TIMED_SET:TAUNT
 dice:13+1d13
 desc:After your confession everyone hates you so much that they run toward you
-desc: recklessly.. 
+desc: recklessly..
 desc: Fools! During their rage they use ranged attacks and magic less often,
 desc: which you may use to your advantage.
 

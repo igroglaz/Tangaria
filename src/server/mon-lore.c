@@ -835,7 +835,7 @@ void lore_append_kills(struct player *p, const struct monster_race *race,
 
         /* Dead unique (killed by the player) who never killed anyone */
         else if (lore->pkills)
-            text_out(p, "You have slain this foe. ");    
+            text_out(p, "You have slain this foe. ");
 
         /* Dead unique (killed by someone else) who never killed anyone */
         else if (lore->tkills)

@@ -2272,14 +2272,14 @@ bool can_charm_monster(struct player *p, int level, int stat)
     /* A high level will help a lot */
     if (!CHANCE(MAX(level - 5, 1), p->lev * 5)) return true;
 
-    /* A high stat will help a lot */  
+    /* A high stat will help a lot */
     if (magik(summon_friendly[p->state.stat_ind[stat]]))
         return true;
-    
-    /* In the end CHR could help */  
+
+    /* In the end CHR could help */
     if (magik(summon_chr_friendly[p->state.stat_ind[STAT_CHR]]))
         return true;
-            
+
     return false;
 }
 
@@ -2296,7 +2296,7 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     if (monster_is_unique(mon)) return MON_MSG_UNAFFECTED;
 
     /* Too enraged to be controlled */
-    if (player_of_has(p, OF_AGGRAVATE) || 
+    if (player_of_has(p, OF_AGGRAVATE) ||
     (p->state.stat_ind[STAT_CHR] <  randint0(150)))
         return MON_MSG_HATE;
 

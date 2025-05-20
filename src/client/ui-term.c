@@ -759,7 +759,7 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
             /* Skip */
             continue;
         }
-        
+
         /* Save new contents */
         old_aa[x] = na;
         old_cc[x] = nc;

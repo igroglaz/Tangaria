@@ -452,7 +452,7 @@ static int get_power_flags(const struct object *obj, bitflag flags[OF_SIZE])
         create_obj_flag_mask(flags, 0, OFT_PROT, OFT_MISC, OFT_ESP, OFT_MAX);
     if (kf_has(kind_flags, KF_RAND_ESP))
         create_obj_flag_mask(flags, 0, OFT_ESP, OFT_MAX);
-    
+
     /* Get resists */
     if (kf_has(kind_flags, KF_RAND_BASE_RES) || kf_has(kind_flags, KF_RAND_RES_POWER))
         return ELEM_ACID;

@@ -38,7 +38,7 @@ void set_chat_focus( void )
 #ifdef __MSVC__
     old_focus = GetFocus();
     SetFocus(editmsg);
-#endif 
+#endif
 }
 
 void unset_chat_focus( void )

@@ -178,7 +178,7 @@ static const char *obj_desc_get_basename(const struct object *obj, bool aware, b
             if (terse) return "& Guide~ #";
             return "& Travel Guide~ #";
         }
-        
+
         case TV_SKILLBOOK:
             return "& Skillbook~ #";
     }
@@ -574,7 +574,7 @@ static size_t obj_desc_aware(struct player *p, const struct object *obj, char *b
  *   ODESC_ARTIFACT results in a description for artifacts (aware + known + without flavor).
  *   ODESC_PREFIX prepends a 'the', 'a' or number.
  *   ODESC_SALE turns off unseen and ignore markers, for items purchased from floor
- *   ODESC_TERSE causes a terse name to be used. 
+ *   ODESC_TERSE causes a terse name to be used.
  *   ODESC_FLAVOR shows the flavor.
  *   ODESC_ALTNUM causes the high 16 bits of mode to be used as the number
  *   of objects instead of using obj->number. Note that using ODESC_ALTNUM

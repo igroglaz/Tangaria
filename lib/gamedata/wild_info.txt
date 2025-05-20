@@ -22,7 +22,7 @@
 
 # Town symbols should match locations in town.txt.
 
-# Bree was x 23 y 24 /// from center: -21, 
+# Bree was x 23 y 24 /// from center: -21,
 
 
 #                                                  4         3         2         1

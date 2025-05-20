@@ -610,7 +610,7 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail = -370 * x;
     fail /= (5 + ABS(x));
     fail += 380;
-    
+
     if (streq(p->clazz->name, "Unbeliever"))
         fail = 999;
 
@@ -1092,18 +1092,18 @@ void object_own(struct player *p, struct object *obj)
     /* Set level requirement on free objects */
     if (!obj->owner)
     {
-////////// old way of min.lvl req. calculation:       
+////////// old way of min.lvl req. calculation:
         int depth = max(min(p->wpos.depth / 2, 50), 1); // <- T: we still use it
         // obj->level_req = min(depth, p->lev);         // <- but don't use that
 //////////
-        
+
         /////////////////////
         /* new PWMA system //
         1) for regular objects, use half object level
         2) for artifacts, use half artifact level
         3) add 1/100th of object power
         4) bound between 1 and 50
-        
+
         Only manual correction applied is for rings of polymorphing, which use
         half race level for base and 1/50th of race experience as power.
         */

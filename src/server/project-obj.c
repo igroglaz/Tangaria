@@ -572,7 +572,7 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
     if (context->origin->player)
     {
         if (streq(context->origin->player->race->name, "Frostmen") &&
-           !streq(context->origin->player->clazz->name, "Warlock")) 
+           !streq(context->origin->player->clazz->name, "Warlock"))
             ; // racial ability cost HP
         else if (!OPT(context->origin->player, risky_casting) &&
             (race->level > (context->origin->player->csp - context->origin->player->spell_cost)))
@@ -693,7 +693,7 @@ bool project_o(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 {
     struct object *obj = square_object(c, grid), *next;
     bool obvious = false;
-    
+
     // do not affect/destroy objects on the safe floor
     if (square_issafefloor(c, grid)) return false;
 

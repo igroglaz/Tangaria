@@ -1076,14 +1076,14 @@ void store_purchase_end(void)
 {
     /* Cancel wait */
     store_command_wait = false;
-}    
+}
 
 
 void store_sell_end(void)
 {
     /* Cancel wait */
     store_command_wait = false;
-}        
+}
 
 
 void store_leave(void)

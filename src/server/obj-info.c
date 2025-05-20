@@ -2027,7 +2027,7 @@ void object_info_chardump(struct player *p, ang_file *f, const struct object *ob
         s = buf + strlen(buf);
         while ((s > buf) && (s[-1] == ' ')) --s;
         *s = '\0';
-        
+
         /* Dump buffer */
         file_putf(f, "%s\n", buf);
     }

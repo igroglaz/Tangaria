@@ -642,7 +642,7 @@ void client_init(bool new_game, int argc, char **argv)
                 strnfmt(trymsg, sizeof(trymsg),
                     "Connecting to server [%i]                      ", trycount++);
                 put_str(trymsg, 21, 1);
-                
+
                 /* Make sure the message is shown */
                 Term_redraw(); /* Hmm maybe not the proper way to force an os poll */
                 Term_flush();

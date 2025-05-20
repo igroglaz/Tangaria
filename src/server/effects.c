@@ -238,7 +238,7 @@ int effect_subtype(int index, const char *type)
         /* Stat name */
         case EF_DRAIN_STAT:
         case EF_GAIN_STAT:
-        case EF_LOSE_STAT:        
+        case EF_LOSE_STAT:
         case EF_LOSE_RANDOM_STAT:
         case EF_RESTORE_STAT:
         {

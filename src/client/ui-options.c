@@ -570,7 +570,7 @@ static void keymap_create(const char *title, int kmode)
     }
 
 // No need to forbid player to bind this hotkey (in PWMA it's "=", in T "-")
-/* 
+/*
     if (c.code == '-')
     {
         c_prt(COLOUR_L_RED, "The '-' key is reserved.", 16, 2);

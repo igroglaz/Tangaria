@@ -27,7 +27,7 @@
  * This file implements the user interface side of the birth process
  * for the classic terminal-based UI of Angband.
  *
- * It models birth as a series of steps which must be carried out in 
+ * It models birth as a series of steps which must be carried out in
  * a specified order, with the option of stepping backwards to revisit
  * past choices.
  */
@@ -105,7 +105,7 @@ static bool get_name_keypress(char *buf, size_t buflen, size_t *curs,
             result = false;
             break;
         }
-        
+
         default:
         {
             result = askfor_aux_keypress(buf, buflen, curs, len, keypress, firsttime);
@@ -634,7 +634,7 @@ static void setup_menus(void)
         race_help);
     mdata = race_menu.menu_data;
     for (r = races; r; r = r->next) mdata->items[r->ridx] = r->name;
-    
+
     // preliminary test code to exclude certain combos
     // ...just to play around for now
     /*
@@ -1079,7 +1079,7 @@ static enum birth_stage menu_question(enum birth_stage current, struct menu *cur
             }
         }
     }
-    
+
     return next;
 }
 

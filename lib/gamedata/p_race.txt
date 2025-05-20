@@ -1653,7 +1653,7 @@ value:0:SPEED[1+1d9]
 ####### bolt spells frequently turn into beams
 player-flags:5:BEAM
 ######perfect success rate with magic
-player-flags:10:ZERO_FAIL 
+player-flags:10:ZERO_FAIL
 obj-flag:30:SLOW_DIGEST_2
 
 

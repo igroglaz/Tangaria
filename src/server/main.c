@@ -18,7 +18,7 @@
  */
 
 
-#include "s-angband.h" 
+#include "s-angband.h"
 
 
 /* Daily log file */

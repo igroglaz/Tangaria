@@ -6927,7 +6927,7 @@ cost:0
 effect:NOURISH:INC_BY
 dice:14
 msg_self:That tastes like.. earth-bread.
-desc:An edible root known only to the Dwarves. 
+desc:An edible root known only to the Dwarves.
 desc: White and fleshy; just boil it and it will taste like bread.
 
 name:& Salted Pork~ from Isengard
@@ -7395,7 +7395,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Who are ya? What do ya need? Whaat? I can't hear 
+name:Who are ya? What do ya need? Whaat? I can't hear
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7435,7 +7435,7 @@ weight:5
 cost:-1
 desc:.
 
-name:this finest books about miracles. With them you 
+name:this finest books about miracles. With them you
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7443,7 +7443,7 @@ weight:5
 cost:-1
 desc:.
 
-name:would be able to conquer world!.. What?? 
+name:would be able to conquer world!.. What??
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7635,7 +7635,7 @@ weight:5
 cost:-1
 desc:.
 
-name:It was well guarded dwarven trade route.. 
+name:It was well guarded dwarven trade route..
 graphics:?:y
 type:fortune cookie
 level:0
@@ -7643,7 +7643,7 @@ weight:5
 cost:-1
 desc:.
 
-name:A lot of caravans traveled over this lands.. 
+name:A lot of caravans traveled over this lands..
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8180,7 +8180,7 @@ weight:5
 cost:-1
 desc:.
 
-name:our village. 
+name:our village.
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8236,7 +8236,7 @@ weight:5
 cost:-1
 desc:.
 
-name:... 
+name:...
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8260,7 +8260,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Mind to help us in this dire days? 
+name:Mind to help us in this dire days?
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8292,7 +8292,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Aa-ah. Anyway. We need a hand with all this 
+name:Aa-ah. Anyway. We need a hand with all this
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8556,7 +8556,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Fear neighter root nor bough! 
+name:Fear neighter root nor bough!
 graphics:?:y
 type:fortune cookie
 level:0
