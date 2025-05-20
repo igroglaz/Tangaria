@@ -6870,8 +6870,8 @@ title:Gilded Hand
 
 magic:1:350:2
 
-book:magic book:town:[Magic for Beginners]:15:arcane
-equip:magic book:[Magic for Beginners]:1:1:none
+book:travel guide:town:[Basics]:15:common
+equip:travel guide:[Basics]:1:1:none
 
 spell:Small Red Potion:1:1:1:32:0
 cooldown:10
@@ -7862,8 +7862,8 @@ magic:1:350:1
 # additional loot?
 # get additional gold from each killed mob based on exp? with some hard limit
 
-book:magic book:town:[Magic for Beginners]:11:arcane
-equip:magic book:[Magic for Beginners]:1:1:none
+book:skillbook:town:[Mastery]:11:skills
+equip:skillbook:[Mastery]:1:1:none
 
 spell:Salvage:1:1:1:1:0
 effect:SALVAGE
@@ -8094,8 +8094,8 @@ title:Forgebound
 
 magic:1:350:1
 
-book:nature book:town:[Lesser Charms]:3:nature
-equip:nature book:[Lesser Charms]:1:1:none
+book:travel guide:town:[Basics]:3:common
+equip:travel guide:[Basics]:1:1:none
 
 spell:Crafting Mastery:1:1:30:5:0
 effect:CRAFT
