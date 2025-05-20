@@ -978,7 +978,7 @@ help: reduce the radius of their vision. Their innate vision grows when they
 help: become more mature. Downside: their extrasensory range is reduced.|
 help: |
 help:They are vulnerable to light magic. They also can't gain full immunity
-help: to fire — it only works in half the cases.|
+help: to fire - it only works in half the cases.|
 help: |
 help:They cannot recall between town and dungeon.|
 help: |
@@ -1039,5 +1039,28 @@ help: so oozes get nourishment from every enemy they kill.|
 help: |
 help:Oozes can duplicate themselves ('y' key) making their minor copies which can
 help: attack and distract enemies. They can pass doors by crawling under them.
+
+race:Homunculus
+help:They were created - not born. Fleshy beings, assembled from strange
+help: substances and bound together by the will of their makers. In alchemical
+help: laboratories hidden from the eyes of ordinary folk, Homunculi are born in
+help: bubbling vats. Their creators hope to grow perfect servants: capable of
+help: magic, free from hunger, and never tired... But, as often happens, the
+help: result escapes control.|
+help: |
+help:Homi are soft, naive, and surprisingly durable. While they lack raw
+help: physical strength, their bodies are dense, stable, and resistant to stress.
+help: Their minds are sharp, with a natural attunement to magic and logic.
+help: Yet the physical world remains a challenge: their movements are awkward,
+help: and their spatial perception is flawed. They can't move diagonally and
+help: struggle in tight formations - but in return, they possess strange talents
+help: and magical resilience.|
+help: |
+help:Homi don't need food, but they consume magic, which they extract from
+help: magical devices - staves and wands. Use '_' to break a device and consume
+help: its magic (don't do it while standing on a magic fountain - it interferes).|
+help: |
+help:They can teleport over short distances at will ('y') by spending some energy.|
+
 
 # leave empty line for EOF

@@ -4,12 +4,16 @@
 # This file defines special attr/char mappings for use in "graphics" mode
 # with Tangaria's 32x32 tileset.
 #
-# Info and licence of tileset: http://tangaria.com/gamedev/tileset/
+# Info and licence of tileset: https://tangaria.com/tileset/
 #
 #torch = when you walk with your light / turned off in options by default
 #los = when in los                     / work as main light
 #lit = when permalit                   / work as main dark
 #dark = when out of los and dark       / out of order
+
+########  x8D:0x90
+######## vert:horiz
+
 
 
 ##### Spell effect types #####

@@ -4,6 +4,7 @@
 # This file defines special attr/char mappings for use in "graphics" mode for animation
 # with Tangaria's 32x32 tileset.
 #
+# Info and licence of tileset: https://tangaria.com/tileset/
 
 ##### Options #####
 # opt-anim_:0 - disable
