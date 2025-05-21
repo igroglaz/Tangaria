@@ -3474,16 +3474,7 @@ weight:4
 cost:20
 alloc:80:1 to 15
 pile:90:2d3
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:RANDOM
-dice:4
+# 25% to reduce satiation
 effect:TIMED_DEC:CONFUSED
 dice:10
 effect:TIMED_DEC:CUT
@@ -3502,14 +3493,7 @@ weight:4
 cost:70
 alloc:80:5 to 40
 pile:80:2d3
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:INC_BY
-dice:0
-effect:NOURISH:INC_BY
-dice:0
-effect:RANDOM
-dice:3
+# 33% to reduce satiation
 effect:TIMED_DEC:POISONED
 dice:2
 effect:CURE:CONFUSED
@@ -3528,12 +3512,7 @@ weight:4
 cost:200
 alloc:80:12 to 100
 pile:70:2d3
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:INC_BY
-dice:0
-effect:RANDOM
-dice:2
+# 50% to reduce satiation
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -3555,6 +3534,7 @@ weight:4
 cost:3000
 alloc:64:30 to 100
 pile:25:2
+# HC: -1 satiation
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -3566,8 +3546,6 @@ dice:300+m35
 effect:TIMED_INC:OPP_CONF
 dice:1
 effect:TIMED_INC:OPP_AMNESIA
-dice:1
-effect:NOURISH:DEC_BY
 dice:1
 
 name:*Healing*

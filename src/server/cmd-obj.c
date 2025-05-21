@@ -1953,6 +1953,20 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             else if (p->timed[TMD_FOOD] < 1000)
                 player_inc_timed(p, TMD_FOOD, 100, false, false);
         }
+        // healing potions spend satiation if not "Faint"
+        else if (p->timed[TMD_FOOD] > 500) {
+            if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds") &&
+                one_in_(4))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Serious Wounds") &&
+                one_in_(3))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Critical Wounds") &&
+                one_in_(2))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Healing"))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+        }
         // all other potions
         else
         {

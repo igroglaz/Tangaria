@@ -660,7 +660,7 @@ void do_cmd_breath(struct player *p, int dir)
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
             free_effect(effect);
             
-            p->y_cooldown = 255; // cooldown
+            p->y_cooldown = 1000; // cooldown
             
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
 
