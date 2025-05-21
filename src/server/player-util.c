@@ -910,35 +910,50 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         else if (streq(p->clazz->name, "Cryokinetic"))
             dam_taken = 0;
     }
-    // Note: feather (levitation) prevents drowning.. 
-    // it's not flying, but some support in the water; kinda floating a few inches up and down
+    // WATER
     else if (square_iswater(c, &p->grid))
     {
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
-
-        // even hovering over open water for vampire is bad, so FEATHER won't help really
-        if (streq(p->race->name, "Vampire"))
+        
+        // Special case for flying - always prevents water damage
+        if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
         {
-            if (player_of_has(p, OF_FLYING)) // only flying helps
-                dam_taken = 0;
-        }
-        else if (streq(p->race->name, "Golem")) // can't swim, but don't breath
             dam_taken = 0;
-        else if (player_of_has(p, OF_FEATHER)) // feather helps a bit
-        {
-            if (!player_of_has(p, OF_CANT_FLY))
-                dam_taken = 0;
-            if (actual) equip_learn_flag(p, OF_FEATHER);
+            if (actual) equip_learn_flag(p, OF_FLYING);
         }
-        else if (player_of_has(p, OF_FLYING))
+        else
         {
-            if (!player_of_has(p, OF_CANT_FLY))
-                dam_taken = 0;
-            if (actual) equip_learn_flag(p, OF_FEATHER);
+            // Count swimming abilities and penalties
+            int swim_count = 0;
+            
+            if (player_has(p, PF_CAN_SWIM)) swim_count++;
+            // if (player_of_has(p, OF_SWIMMER)) swim_count++;
+            if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) 
+            {
+                swim_count++;
+                if (actual) equip_learn_flag(p, OF_FEATHER);
+            }
+            if (can_swim(p)) swim_count++;
+            
+            // Negative factors - race penalties
+            if (streq(p->race->name, "Vampire")) swim_count--; // Vampires are poor swimmers
+            if (streq(p->race->name, "Golem")) 
+            {
+                if (one_in_(5))
+                    swim_count--; // Golems don't breath, but rust..
+            }
+            
+            // Determine damage based on final swim_count
+            if (swim_count >= 2)
+                dam_taken = 0; // Very good swimmers take no damage
+            else if (swim_count == 1 && turn.turn % 5) 
+                dam_taken = 0; // Decent swimmers take damage every 5 turns
+            else if (swim_count == 0 && turn.turn % 3)
+                dam_taken = 0; // Poor swimmers take damage every 3 turns
+            else if (swim_count < 0)
+                dam_taken *= 2; // Terrible swimmers take double damage
         }
-        else if (player_has(p, PF_CAN_SWIM) || can_swim(p))
-            dam_taken = 0;
     }
     else if (square_isnether(c, &p->grid))
     {
