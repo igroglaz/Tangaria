@@ -12,6 +12,9 @@
 
 ############### Tiled got INVERTED _Y_ AXIS!!!
 
+# player can't recall to loc which wasn't previously explored!
+# valid_inscription() -> wild_is_explored()
+
 
 name:Hunter's Valley
 # Starting town

@@ -2017,9 +2017,12 @@ void recall_player(struct player *p, struct chunk *c)
     }
 
     /* Nowhere to go */
+    // triggers if p hasn't explored this particular wilderness (open world loc) or
+    // depth (dungeon) yet.. or if recall is set to current position
+    // see: valid_inscription() -> wild_is_explored()
     else if (wpos_eq(&p->recall_wpos, &p->wpos))
     {
-        msg(p, "A tension leaves the air around you...");
+        msg(p, "A tension leaves the air around you... (nowhere to go)");
         msg_misc(p, "'s charged aura disappears...");
         p->upkeep->redraw |= (PR_STATE);
         return;
@@ -2031,7 +2034,7 @@ void recall_player(struct player *p, struct chunk *c)
         /* Winner-only/shallow dungeons */
         if (forbid_entrance_weak(p) || forbid_entrance_strong(p))
         {
-            msg(p, "A tension leaves the air around you...");
+            msg(p, "A tension leaves the air around you... (wrong power)");
             msg_misc(p, "'s charged aura disappears...");
             p->upkeep->redraw |= (PR_STATE);
             return;
