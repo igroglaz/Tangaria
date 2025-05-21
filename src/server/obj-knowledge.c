@@ -2526,6 +2526,8 @@ void object_notice_ego(struct player *p, struct object *obj)
  */
 void object_notice_effect(struct player *p, struct object *obj)
 {
+    if (p->wpos.depth == 0) return; // don't ID in town (dummy cheeze)
+    
     if (!obj->known->effect)
     {
         obj->known->effect = (struct effect *)1;

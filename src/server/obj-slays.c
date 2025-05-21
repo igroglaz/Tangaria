@@ -235,6 +235,8 @@ static void object_notice_brand(struct player *p, struct object *obj, int i)
     bool plural = ((obj->number > 1)? true: false);
     const char *verb = (plural? brands[i].active_verb_plural: brands[i].active_verb);
 
+    if (p->wpos.depth == 0) return; // don't ID in town (dummy cheeze)
+
     /* Already know it */
     if (obj->known->brands && obj->known->brands[i]) return;
 
@@ -265,6 +267,8 @@ static void object_notice_brand(struct player *p, struct object *obj, int i)
 static void object_notice_slay(struct player *p, struct object *obj, int i)
 {
     char o_name[NORMAL_WID];
+
+    if (p->wpos.depth == 0) return; // don't ID in town (dummy cheeze)
 
     /* Already know it */
     if (obj->known->slays && obj->known->slays[i]) return;
