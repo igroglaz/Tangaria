@@ -841,7 +841,9 @@ void copy_artifact_data(struct object *obj, const struct artifact *art)
         obj->activation = art->activation;
         memcpy(&obj->time, &art->time, sizeof(random_value));
     }
-    else if (kind->activation && !of_has(art->flags, OF_NO_ACTIVATION))
+    // When the template artifact has no activation,
+    // inherit it from the base kind with 50% chance (was 100% before)
+    else if ((kind->activation && one_in_(2)) && !of_has(art->flags, OF_NO_ACTIVATION))
     {
         obj->activation = kind->activation;
         memcpy(&obj->time, &kind->time, sizeof(random_value));
