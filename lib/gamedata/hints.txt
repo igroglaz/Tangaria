@@ -1,7 +1,7 @@
 # That said, it isn't difficult. Just keep each hint on one line, less than 80
 # characters, and start each line with H:
 
-# === Understanding hints.txt === 
+# === Understanding hints.txt ===
 
 # H : Hint text.
 

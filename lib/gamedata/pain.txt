@@ -9,7 +9,7 @@
 # increase for each new item.
 
 # 'message' is for the pain message. Each entry must have 7 messages --
-# each one corresponds to a range of health, with higher messages 
+# each one corresponds to a range of health, with higher messages
 # being displayed when a monster is damaged only a little, and lower
 # messages being displayed when a monster is near death.
 

@@ -9,7 +9,7 @@
 # That said, it isn't difficult. Just keep each word on one line, less than 80
 # characters, and start each line with W:
 
-# === Understanding swear.txt === 
+# === Understanding swear.txt ===
 
 # W : swear word (in lowercase); prefix with @ to check whole word instead of
 #     substring

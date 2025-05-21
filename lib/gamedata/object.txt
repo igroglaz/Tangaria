@@ -120,7 +120,7 @@
 # Mails and Horns to let random artifacts keep their base activation.
 
 # 'time' gives a random value to be used as the time to recharge for a rod or
-# activatable item.              
+# activatable item.
 
 # 'flags' is for flags, which can be either object flags (as found in
 # list-object-flags.h) or kind flags (list-kind-flags.h).  As many
@@ -4731,7 +4731,7 @@ effect:DARKEN_AREA
 effect:BLAST:DARK_WEAK:3
 dice:10
 
-### Destruction ### 
+### Destruction ###
 
 name:Earthquakes
 graphics:_:d
@@ -7087,7 +7087,7 @@ effect:RESTORE_EXP
 msg_self:You feel how your wrinkles are smoothing..
 desc:Legendary apples of immortality... You can't believe you found one.
 
-#small box of salt 
+#small box of salt
 
 name:& Club~
 graphics:\:u

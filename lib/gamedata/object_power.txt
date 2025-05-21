@@ -149,7 +149,7 @@ name:extra blows divisor
 dice:5
 operation:divide
 
-# assume nonweapon damage; 15 is a fudge, 5/2 is standard per damage point 
+# assume nonweapon damage; 15 is a fudge, 5/2 is standard per damage point
 name:extra blows bonus
 dice:$P
 expr:P:OBJ_POWER_EXTRA_BLOWS:* 15 * 5 / 2

@@ -216,7 +216,7 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 look-prefix:the entrance to the
 look-in-preposition:at
 desc:A shop for devices with magic trapped within, lined with shelves of
-desc: mystical tomes. 
+desc: mystical tomes.
 
 code:STORE_BOOK
 name:Bookseller
@@ -382,7 +382,7 @@ flags:NO_HOUSE | SHOP | LOS | PROJECT | PASSABLE | PERMANENT | INTERESTING | EAS
 ################################################################################
 short-desc:swarthy sneering fellow; he would sell anything to anybody
 desc:He has heavy black brows, and dark scornful eyes; his large mouth curled in
-desc: a sneer. He is smoking a short black pipe. As you approached 
+desc: a sneer. He is smoking a short black pipe. As you approached
 desc: he took it out of his mouth and spat.
 
 code:Boromir
@@ -1667,7 +1667,7 @@ code:98_wall_1
 name:98 wall 1
 graphics:#:s
 priority:11
-flags:NO_HOUSE | NO_GENERATION | NO_STAIRS | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH 
+flags:NO_HOUSE | NO_GENERATION | NO_STAIRS | LOS | PROJECT | PASSABLE | FLOOR_OTHER | OBJECT | BORING | EASY | TORCH
 ################################################################################
 digging:3
 short-desc:wall

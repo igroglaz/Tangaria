@@ -391,10 +391,10 @@ values:CHR[-5]
 desc:distorts your features
 
 # for nazgul rings (and other rings too)
-# ~ combined rate of any effect happening at a given point in time is approximately 
+# ~ combined rate of any effect happening at a given point in time is approximately
 # 0.5% per turn. 1 in 200 turns will trigger something
 #
-# All harsh status effects must be possible to cure with pot, 
+# All harsh status effects must be possible to cure with pot,
 # so eg confusion or blindness won't block 'r'eading 'teleport scroll for long in deadly situation
 name:nazgul
 type:ring

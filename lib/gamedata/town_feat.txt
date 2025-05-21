@@ -2,7 +2,7 @@
 
 # feat : symbol : special symbol : terrain type
 
-# 'feat' lines describe the type of terrain. 'Symbol' is the symbol used 
+# 'feat' lines describe the type of terrain. 'Symbol' is the symbol used
 # on the metamap (see town_XXX.txt files). 'Terrain type' is the feature
 # used to represent the terrain (see terrain.txt). 'Special symbol' is used
 # to distinguish different terrain types that are using the same symbol.

@@ -1,7 +1,7 @@
 # === Understanding dungeon_profile.txt ===
 # // how each type of dungeon level (and the town) are generated.
 
-# name: The profile name. This needs to match the corresponding entry in 
+# name: The profile name. This needs to match the corresponding entry in
 # list-dun-profiles.h so the correct level-building function can be called
 
 # params: block_size : rooms : unusual : rarity
@@ -46,7 +46,7 @@
 # min-level is the shallowest dungeon level on which the profile can be used
 
 # room: name : rating : height : width : level : pit : rarity : cutoff
-# name is the room name, which must match the name in list-rooms.h so the 
+# name is the room name, which must match the name in list-rooms.h so the
 # correct room-building function can be called.
 # rating is the rating of the room (used only for template rooms).
 # height and width are the maximum dimensions of the room, and define how much

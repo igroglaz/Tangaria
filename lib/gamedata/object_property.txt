@@ -1,10 +1,10 @@
 # === Understanding object_property.txt ===
 
 # name: the property name
-# type: the type of object property. Each property needs one, and it must 
+# type: the type of object property. Each property needs one, and it must
 #       appear before the code in this file
 # subtype: subtype of object property, currently only used by flags
-# id-type: how a property is identified, currently only used by flags 
+# id-type: how a property is identified, currently only used by flags
 # code: a code for the object property, which is used to associate it with its
 #       index among the other properties of that type
 # power: the value given to the property in object power calculations

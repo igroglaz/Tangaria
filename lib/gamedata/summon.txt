@@ -1,5 +1,5 @@
 # === Understanding summon.txt (Summon type details) ===
- 
+
 # name      - summon type name
 # msgt      - message type
 # uniques   - whether uniques are allowed
