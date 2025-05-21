@@ -7087,7 +7087,6 @@ attack:1d3:0:0
 armor:0:0
 desc:A simple oak club.. it's quite old, but still does the job.
 
-# instead of ring 'of levitation' which now became 'of swimming'
 name:Flying
 graphics:=:d
 type:ring
@@ -7096,7 +7095,7 @@ weight:1
 cost:3400
 # price hardcoded in store.c
 alloc:1:35 to 100
-# should be more useful? most of players will use swimming...
+# very good item as it gives immunity to drawning, smooth lava and give pass tree
 flags:FLYING | EASY_KNOW
 desc:When you put on this ring, you will be able to fly.
 
