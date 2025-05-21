@@ -500,10 +500,11 @@ spell:Identify Rune:12:7:25:8:0
 effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
-spell:Door Creation:13:9:40:12:0
-effect:TOUCH:MAKE_DOOR:1:1
-desc:A door is created on each empty floor space that is directly
-desc: adjacent to you. These doors are closed, but not locked.
+spell:Dune Creation:13:9:40:12:0
+cooldown:300
+effect:SAND_WALL
+desc:Raises a mound of sand beneath your feet, forming a temporary barrier.
+desc: Cooldown 300 turns.
 
 book:magic book:town:[Incantations and Illusions]:6:arcane
 book-graphics:?:R
@@ -553,7 +554,7 @@ msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
 
-book:magic book:dungeon:[Sorcery and Evocations]:6:arcane
+book:magic book:dungeon:[Sorcery and Evocations]:7:arcane
 book-graphics:?:r
 book-properties:40:30:20000
 book-alloc:15:40 to 100
@@ -620,6 +621,10 @@ effect:DETECT_TRAPS
 effect-yx:22:40
 desc:Detects all traps, doors, stairs and monsters in the
 desc: immediate area.
+
+spell:Wall Creation:33:33:40:12:0
+effect:SHORT_BEAM:STONE_WALL:1:1
+desc:Raises a wall one tile away in the chosen direction.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:5:arcane
 book-graphics:?:r
