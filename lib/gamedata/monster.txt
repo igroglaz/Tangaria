@@ -9393,6 +9393,33 @@ desc: different colours as you watch.
 
 ### Dungeon level 24 ###
 
+name:mad merchant
+base:humanoid
+color:t
+speed:111
+hit-points:250
+light:2
+hearing:20
+armor-class:50
+sleepiness:20
+depth:20
+rarity:10
+weight:200
+experience:150
+blow:HIT:HURT:5d5
+flags:FRIGHTENED | NEVER_BLOW | MALE | NEUTRAL | WEIRD_MIND
+flags:OPEN_DOOR | TAKE_ITEM
+flags:DROP_4 | ONLY_GOLD | DROP_CORPSE
+flags:NO_STUN | NO_CONF | NO_SLEEP | NO_SLOW
+flags:SWIM_GOOD
+spell-freq:4
+spells:TPORT | HEAL
+desc:Long ago, he sold overpriced lanterns in village markets.
+desc: Dreaming of riches, he entered the dungeon to cut out the middlemen..
+desc: ..and got lost there, in endless labyrinths.
+desc: He lost his mind too.
+desc: Now he wanders, muttering about bargains no one else understands.
+
 name:It
 glyph:.
 base:hybrid
@@ -11095,7 +11122,7 @@ experience:600
 blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
 blow:HIT:HURT:4d6
-flags:UNIQUE | MALE | EVIL
+flags:UNIQUE | MALE | EVIL | WEIRD_MIND
 flags:DROP_1 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:NO_STUN | NO_CONF | NO_SLEEP | NO_SLOW
