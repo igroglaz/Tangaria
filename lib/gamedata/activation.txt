@@ -189,11 +189,11 @@ aim:0
 level:50
 power:22
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
+effect:TIMED_INC_NO_RES:OCCUPIED
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 effect:NOURISH:DEC_BY
 dice:5
@@ -468,11 +468,11 @@ level:20
 power:10
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
+effect:TIMED_INC_NO_RES:OCCUPIED
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 effect:DETECT_MONSTERS
 effect-yx:22:40
@@ -503,7 +503,7 @@ level:5
 power:30
 effect:DETECT_TREASURES
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+6d2
 
 name:DISABLE_TRAPS
@@ -979,11 +979,11 @@ level:30
 power:10
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:PARALYZED
-dice:3d1
+effect:TIMED_INC_NO_RES:OCCUPIED
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 msg:The {kind} shine{s} brightly...
 
@@ -1328,9 +1328,9 @@ effect:TIMED_INC:OPP_FIRE
 effect:SET_VALUE
 dice:20+1d20
 effect:TIMED_INC:IMAGE
-dice:200+1d100
+dice:30+1d30
 desc:grants temporary resistance to fire and cold for {20+1d20} turns, cures
-desc: {200} points of damage, but also causes you to hallucinate for {200+1d100}
+desc: {200} points of damage, but also causes you to hallucinate for {30+1d30}
 desc: turns
 
 name:SHROOM_PURGING
@@ -1571,7 +1571,7 @@ name:STONE_OF_LORE
 aim:0
 level:100
 power:30
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:5+1d7
 # drain a stat temporarily
 effect:DRAIN_STAT:WIS

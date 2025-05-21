@@ -159,8 +159,8 @@ name:runic binding
 code:BINDING
 level:54
 effect:GLYPH:WARDING
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:5+1d15
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:5+1d7
 effect:DAMAGE
 dice:4d$S
 expr:S:DUNGEON_LEVEL:/ 2
