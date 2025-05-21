@@ -805,7 +805,7 @@ desc: is susceptible to rock remover takes 20+1d30 points of damage.
 spell:Sense Surroundings:9:4:35:6:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 desc:Maps out a portion of the level around you.
 desc: Induces temporary sensory overload.
@@ -1635,6 +1635,8 @@ effect:MAP_AREA
 effect-yx:15:32
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:5+1d13
 desc:Darkens, maps out, and detects all objects on the complete current
 desc: dungeon level.
 
@@ -1877,7 +1879,7 @@ desc: cut damage, neutralizes poison, and cures amnesia.
 
 spell:Clairvoyance:37:50:80:150:0
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 effect:NOURISH:DEC_BY
 dice:3
@@ -2065,10 +2067,10 @@ book:shadow book:dungeon:[Dark Evocations]:5:shadow
 spell:Deep Nights:27:12:80:10:0
 effect:DARKEN_LEVEL:NONE:1
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3d1
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 desc:Darkens, maps out, and detects all objects on the complete current
 desc: dungeon level.
@@ -2266,7 +2268,7 @@ book:nature book:town:[Creature Dominion]:4:nature
 spell:Sense Surroundings:20:8:35:8:0
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 desc:Maps out a portion of the level around you.
 desc: Induces temporary sensory overload.
@@ -2673,7 +2675,7 @@ effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
 effect:TIMED_INC_NO_RES:BLIND
-dice:1d3
+dice:3
 desc:Detects all traps, doors and stairs in the immediate area.
 
 spell:Fire Ball:3:2:17:3:0
@@ -2742,9 +2744,9 @@ spell:Map Area:13:10:45:7:0
 effect:MAP_AREA
 effect-yx:15:32
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d13
+dice:10
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:10
 desc:Maps out a portion of the level around you.
 desc: Induces temporary sensory overload.
 
@@ -3118,8 +3120,10 @@ book:nature book:dungeon:[Nature Craft]:4:nature
 spell:Sense Surroundings:28:14:56:28:0
 effect:MAP_AREA
 effect-yx:15:32
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:10
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
+dice:10
 desc:Maps out a portion of the level around you.
 
 spell:Piercing Shots:30:11:50:50:0
@@ -3459,10 +3463,10 @@ desc: The chance to get a beam goes up with your character level.
 spell:Clairvoyance:40:34:76:55:0
 effect:LIGHT_LEVEL
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3d1
+dice:3
 effect:TIMED_INC_NO_RES:BLIND
 dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:11+1d24
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
@@ -5147,8 +5151,8 @@ desc: wall. Deals 100+10d30 damage to monsters vulnerable to rock remover.
 
 spell:Dragon Friends:50:75:50:100:0
 cooldown:300
-effect:TIMED_INC_NO_RES:BLIND
-dice:1d2
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:2
 effect:TIMED_INC:ANTISUMMON
 dice:50+1d20
 effect:SUMMON:ANIMAL:0:1
@@ -6723,8 +6727,8 @@ desc: Cooldown 60 turns.
 spell:Dark Ritual:35:10:32:70:0
 cooldown:30
 # hc 1d5
-effect:TIMED_INC_NO_RES:BLIND
-dice:1d2
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:2
 effect:READ_MINDS
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:/ 10 + 1
@@ -6764,7 +6768,7 @@ effect:BOLT:PLASMA
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 effect:TIMED_INC_NO_RES:SLOW
-dice:1d2
+dice:2
 msg_other: fires an energy bolt.
 desc:Shoots an energy bolt which may explode upon impact.
 desc: This spell causes weakness which pass in short time.
@@ -7702,9 +7706,9 @@ desc: Cooldown 7 turns.
 
 spell:Revert Wounds:15:15:33:10:0
 cooldown:120
-effect:TIMED_INC_NO_RES:CONFUSED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
-effect:TIMED_INC_NO_RES:BLIND
+effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
 effect:RANDOM
 dice:2
@@ -7717,7 +7721,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 10
 msg_self:Your body begins to rapidly recover.
 desc:Cures damage, stunning, heals all cut damage, neutralizes poison, and cures amnesia.
-desc: Side-effects might include confusion or blindness.
+desc: Side-effects might include brief confusion or blindness.
 desc: Cooldown 120 turns.
 
 spell:Ray of Time:20:10:30:20:0
