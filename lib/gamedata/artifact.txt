@@ -1472,7 +1472,7 @@ values:STR[3] | DEX[3] | BLOWS[1] | RES_DISEN[1]
 slay:TROLL_3
 slay:ORC_3
 act:CURE_SERIOUS
-time:3+d3
+time:4+d3
 desc:A superbly crafted double-bladed axe once borne by Ceruthain, commander
 desc: of the Rangers of Arnor.
 
@@ -2270,7 +2270,7 @@ armor:7:20
 flags:KNOWLEDGE
 values:LIGHT[1]
 act:DETECT_ALL
-time:30+d30
+time:50+d50
 desc:This helm, designed by Petty-Dwarves ages ago to act as the brain of a
 desc: long lost project, is made of finest glass. Its light banishes all
 desc: secrets, and makes audible whispers from the deceased.

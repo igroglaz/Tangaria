@@ -5278,11 +5278,11 @@ type:rod
 level:45:35
 weight:15
 cost:0
-alloc:20:45 to 100
+alloc:15:45 to 100
 attack:1d1:0:0
 armor:0:0
 act:TELE_OTHER
-time:25
+time:50
 
 name:Disable Traps
 graphics:-:d

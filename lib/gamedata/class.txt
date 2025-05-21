@@ -754,9 +754,11 @@ desc:Detects all living monsters in the immediate area,
 desc: for one turn only.
 
 spell:Remove Hunger:2:2:25:2:0
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.
+desc: Can be used every 1000 turns.
 
 spell:Poison Cloud:3:2:27:4:0
 effect:BALL:POIS:2
@@ -939,7 +941,7 @@ expr:S:PLAYER_LEVEL:* 3
 msg_other: invokes an ice storm.
 desc:Strikes every monster in line of sight with sheets of ice from above.
 
-book:nature book:dungeon:[Wild Forces]:5:nature
+book:nature book:dungeon:[Wild Forces]:6:nature
 book-graphics:?:o
 book-properties:60:30:50000
 book-alloc:10:60 to 100
@@ -952,14 +954,18 @@ desc:Speed up digestion to increase regeneration of hitpoints for
 desc: the next 5+1d3 turns (or until hungry).
 
 spell:Herbal Curing:40:20:90:100:0
-effect:NOURISH:INC_TO
-dice:14
 effect:CURE:BLACKBREATH
 effect:CURE:STUN
 effect:CURE:POISONED
 effect:CURE:CUT
-desc:Cures all cuts, poison, stunning and black breath, and can save you
-desc: from starvation.
+desc:Cures all cuts, poison, stunning and black breath.
+
+spell:Fill Stomach:40:20:90:100:0
+cooldown:1000
+effect:NOURISH:INC_TO
+dice:14
+desc:Can save you from starvation.
+desc: Can be used every 1000 turns.
 
 spell:Volcanic Eruption:40:30:75:50:0
 effect:EARTHQUAKE:NONE:5
@@ -2219,9 +2225,11 @@ desc:Detects all living monsters in the immediate area,
 desc: for one turn only.
 
 spell:Remove Hunger:5:2:23:2:0
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.
+desc: Can be used every 1000 turns.
 
 spell:Detect Stairs:7:3:50:5:0
 effect:DETECT_STAIRS
@@ -3066,9 +3074,11 @@ dice:5
 desc:Covers your missiles with frost.
 
 spell:Remove Hunger:12:6:24:12:0
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.
+desc: Can be used every 1000 turns.
 
 book:nature book:town:[Gifts of Nature]:4:nature
 
@@ -3310,10 +3320,12 @@ effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
 spell:Remove Hunger:16:14:40:16:0
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 msg_self:You focus your mind to convert energy into food.
 desc:Magically saves you from starvation.
+desc: Can be used every 1000 turns.
 
 spell:Mass Stun:18:15:43:18:0
 effect:PROJECT_LOS_AWARE:MON_STUN
@@ -3778,7 +3790,7 @@ expr:B:BLAST_ELEMENT:+ 200
 msg_other: fires a force ball.
 desc:Shoots a force ball.
 
-book:elemental book:town:[Water]:8:elemental
+book:elemental book:town:[Water]:9:elemental
 book-graphics:?:x
 book-properties:5:30:100
 book-alloc:25:5 to 100
@@ -3807,6 +3819,13 @@ desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
+spell:Enchanted Water:11:5:27:5:0
+cooldown:1000
+effect:NOURISH:INC_TO
+dice:14
+desc:Summons enchanted water to nourish the body.
+desc: Can be used every 1000 turns.
+
 spell:Resist Cold:16:7:43:13:0
 effect:TIMED_SET:OPP_COLD
 dice:$B+1d$S
@@ -3815,8 +3834,6 @@ expr:S:PLAYER_SPELL_POWER:* 10
 desc:Grants you temporary resistance to cold.
 
 spell:Potion of Vitality:20:9:49:16:0
-effect:NOURISH:INC_TO
-dice:14
 effect:TIMED_SET:BOLD
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
@@ -3828,9 +3845,8 @@ effect:TIMED_SET:HERO
 dice:$B+1d$S
 expr:B:PLAYER_SPELL_POWER:* 10
 expr:S:PLAYER_SPELL_POWER:* 10
-desc:Conjures a magical brew that feeds you to prevent starvation,
-desc: cures 10 points of damage, removes fear and grants you temporary
-desc: heroism (resistance to fear and a bonus of +12 to-hit).
+desc:Conjures a magical brew that cures 10 points of damage, removes fear and
+desc: grants you temporary heroism (resistance to fear and a bonus of +12 to-hit).
 
 spell:Frost Ball:25:11:57:20:0
 effect:BALL:COLD:2
@@ -5043,11 +5059,15 @@ desc: Also neutralizes poison and grants you resistance to poison for 20+1d20 tu
 
 spell:Falcon Gift:10:5:37:10:0
 cooldown:60
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:2
 effect:STRIKE:MISSILE:0
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
-effect:NOURISH:INC_TO
-dice:14
+expr:B:PLAYER_LEVEL:* 3
 effect:TIMED_SET:HERO
 dice:25+1d25
 msg_self:Your falcon flew to the hunt...
@@ -5151,17 +5171,13 @@ desc: wall. Deals 100+10d30 damage to monsters vulnerable to rock remover.
 
 spell:Dragon Friends:50:75:50:100:0
 cooldown:300
-effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:2
-effect:TIMED_INC:ANTISUMMON
-dice:50+1d20
-effect:SUMMON:ANIMAL:0:1
-flag:S_ANIMAL
-dice:12
-msg_other: magically summons animals.
-desc:Attempts to summon up to twelve animals and then prevents summoning
-desc: around you for some time. Makes you blind for a brief moment.
-desc: You can use this skill once per 300 turns.
+effect:SUMMON:ANIMAL:0:80
+flag:S_DRAGON
+dice:1
+msg_other: summons a dragon!
+desc:Attempts to summon a dragon friend. In most cases it will be friendly,
+desc: but not always.
+desc: It takes 300 turns for dragons to heed your call again.
 
 
 ############### CLASS TEMPLATE for Druid ###############
@@ -5243,11 +5259,17 @@ effect-yx:14:27
 desc:Finds doors in the immediate area.
 
 spell:Herbal Tea:10:7:1:8:0
+cooldown:200
+effect:NOURISH:INC_BY
+dice:0
+effect:NOURISH:INC_BY
+dice:1
+effect:RANDOM
+dice:2
 effect:CURE:POISONED
 effect:CURE:BLACKBREATH
-effect:NOURISH:INC_TO
-dice:14
 desc:Cures poison, blackbreath and gives minimal nourishment.
+desc: Cooldown 200 turns.
 
 spell:Stone to Mud:15:8:1:12:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -5669,11 +5691,11 @@ desc: for one turn only.
 desc: Cooldown 100 turns.
 
 spell:Hand-to-Mouth:30:2:1:1:0
-cooldown:100
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.
-desc: Cooldown 100 turns.
+desc: Cooldown 1000 turns.
 
 spell:Buff:35:12:1:1:0
 cooldown:100
@@ -7951,9 +7973,11 @@ effect:EARTHQUAKE:NONE:1
 desc:Causes a earthquake centered around the player.
 
 spell:Emergency Ration:40:50:25:100:0
+cooldown:1000
 effect:NOURISH:INC_TO
 dice:14
 desc:Magically saves you from starvation.
+desc: Cooldown 1000 turns.
 
 
 ############### CLASS TEMPLATE for Alchemist ###############
