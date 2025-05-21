@@ -23,6 +23,9 @@
 # short-desc: a short description used for random powers/resists
 
 
+# TODO: atm type-mult:belt:0 got 0 in everything.. maybe change it to 2-3 (like horn)
+
+
 name:strength
 type:stat
 code:STR
@@ -69,6 +72,7 @@ type:stat
 code:CHR
 power:0
 mult:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -139,6 +143,7 @@ type:mod
 code:BLOWS
 power:0
 mult:50
+type-mult:belt:0
 type-mult:horn:3
 type-mult:bow:0
 type-mult:digger:3
@@ -160,6 +165,7 @@ type:mod
 code:SHOTS
 power:0
 mult:5
+type-mult:belt:0
 type-mult:horn:3
 type-mult:digger:3
 type-mult:hafted:0
@@ -184,6 +190,7 @@ type:mod
 code:MIGHT
 power:0
 mult:30
+type-mult:belt:0
 type-mult:horn:0
 type-mult:digger:0
 type-mult:hafted:0
@@ -221,6 +228,7 @@ type:mod
 code:POLY_RACE
 power:0
 mult:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -245,6 +253,7 @@ type:mod
 code:ANTI_MAGIC
 power:1
 mult:2
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -362,6 +371,7 @@ id-type:timed
 code:SLOW_DIGEST
 #power:2
 power:16
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -402,6 +412,7 @@ id-type:timed
 code:REGEN
 power:7
 msg:You note that your {name} is speeding up your recovery.
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -425,6 +436,7 @@ subtype:misc ability
 id-type:on wield
 code:SEE_INVIS
 power:6
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -449,6 +461,7 @@ id-type:on effect
 code:FREE_ACT
 power:8
 msg:Your {name} keeps you moving.
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -473,6 +486,7 @@ id-type:on effect
 code:HOLD_LIFE
 power:5
 msg:Your {name} warms your spirit.
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -497,6 +511,7 @@ id-type:on effect
 code:IMPACT
 power:10
 msg:Your {name} causes an earthquake!
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -520,6 +535,7 @@ subtype:melee
 id-type:on wield
 code:BLESSED
 power:1
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:hafted:0
@@ -544,6 +560,7 @@ subtype:light
 id-type:on wield
 code:BURNS_OUT
 power:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -569,6 +586,7 @@ subtype:light
 id-type:on wield
 code:TAKES_FUEL
 power:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -594,6 +612,7 @@ subtype:light
 id-type:on wield
 code:NO_FUEL
 power:5
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -672,6 +691,7 @@ subtype:bad
 id-type:timed
 code:DRAIN_EXP
 power:-5
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -716,6 +736,7 @@ subtype:light
 id-type:on wield
 code:LIGHT_2
 power:9
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -741,6 +762,7 @@ subtype:light
 id-type:on wield
 code:LIGHT_3
 power:18
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -766,6 +788,7 @@ subtype:light
 id-type:on wield
 code:LIGHT_4
 power:27
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -812,6 +835,7 @@ subtype:light
 id-type:on wield
 code:EXPLODE
 power:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -837,6 +861,7 @@ subtype:misc ability
 id-type:on effect
 code:TRAP_IMMUNE
 power:5
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -867,6 +892,7 @@ subtype:other
 id-type:on wield
 code:KNOWLEDGE
 power:60
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -904,6 +930,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_ANIMAL
 power:10
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -927,6 +954,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_EVIL
 power:35
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -950,6 +978,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_UNDEAD
 power:14
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -973,6 +1002,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_DEMON
 power:14
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -996,6 +1026,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_ORC
 power:3
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -1019,6 +1050,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_TROLL
 power:7
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -1042,6 +1074,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_GIANT
 power:10
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -1065,6 +1098,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_DRAGON
 power:14
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -1089,6 +1123,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_ALL
 power:70
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1118,6 +1153,7 @@ subtype:ESP flag
 id-type:on wield
 code:ESP_RADIUS
 power:35
+type-mult:belt:0
 type-mult:horn:2
 type-mult:digger:2
 type-mult:boots:2
@@ -1306,6 +1342,7 @@ subtype:bad
 id-type:timed
 code:HUNGER_2
 power:-3
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1354,6 +1391,7 @@ subtype:other
 id-type:on wield
 code:NO_DROP
 power:-5
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1382,6 +1420,7 @@ subtype:protection
 id-type:on effect
 code:PROT_AMNESIA
 power:16
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1412,6 +1451,7 @@ id-type:on wield
 code:FLYING
 power:50
 # only boots, cloak and pre-defined in object.txt ring
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1441,6 +1481,7 @@ subtype:other
 id-type:on wield
 code:CLUMSY
 power:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1470,6 +1511,7 @@ subtype:other
 id-type:on wield
 code:BAD_SHOOTER
 power:0
+type-mult:belt:0
 type-mult:horn:0
 type-mult:bow:0
 type-mult:digger:0
@@ -1491,3 +1533,32 @@ type-mult:ring:0
 type-mult:light:0
 msg:Your {name} makes you bad at shooting.
 desc:You are bad in shooting
+
+name:help swimming
+type:flag
+subtype:other
+id-type:on wield
+code:SWIM_HELP
+power:0
+type-mult:belt:0
+type-mult:horn:0
+type-mult:bow:0
+type-mult:digger:0
+type-mult:hafted:0
+type-mult:polearm:0
+type-mult:sword:0
+type-mult:mage staff:0
+type-mult:boots:0
+type-mult:gloves:0
+type-mult:helm:0
+type-mult:crown:0
+type-mult:shield:0
+type-mult:cloak:0
+type-mult:soft armour:0
+type-mult:hard armour:0
+type-mult:dragon armour:0
+type-mult:amulet:0
+type-mult:ring:0
+type-mult:light:0
+msg:Your {name} helps you swim better.
+desc:Improves your swimming ability

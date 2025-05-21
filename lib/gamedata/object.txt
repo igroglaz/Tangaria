@@ -6764,10 +6764,10 @@ cost:200
 alloc:20:10 to 50
 attack:1d1:0:0
 armor:1:0
-flags:FEATHER | EASY_KNOW
+flags:SWIM_HELP | EASY_KNOW
 desc:This simple-looking belt turns out to be lightly enchanted.
-desc: When worn, it makes you float just above the ground.
-desc: It prevents you from drowning, and all your falls will be painless.
+desc: When worn, it improves your swimming ability and reduces
+desc: the risk of drowning.
 
 # ideas (- means not implemented yet)
 # - prevent invisibility (Nethack)

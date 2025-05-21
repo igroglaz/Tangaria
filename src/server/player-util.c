@@ -928,7 +928,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             int swim_count = 0;
             
             if (player_has(p, PF_CAN_SWIM)) swim_count++;
-            // if (player_of_has(p, OF_SWIMMER)) swim_count++;
+            if (player_of_has(p, OF_SWIM_HELP)) swim_count++;
             if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) 
             {
                 swim_count++;
@@ -947,12 +947,15 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             // Determine damage based on final swim_count
             if (swim_count >= 2)
                 dam_taken = 0; // Very good swimmers take no damage
-            else if (swim_count == 1 && turn.turn % 5) 
+            else if (swim_count == 1 && one_in_(5))
                 dam_taken = 0; // Decent swimmers take damage every 5 turns
-            else if (swim_count == 0 && turn.turn % 3)
-                dam_taken = 0; // Poor swimmers take damage every 3 turns
+            else if (swim_count == 0)
+                dam_taken = 0; // Poor swimmers take damage every turn
             else if (swim_count < 0)
-                dam_taken *= 2; // Terrible swimmers take double damage
+            {
+                if (one_in_(2)) // Terrible swimmers take double damage sometimes
+                    dam_taken *= 2;
+            }
         }
     }
     else if (square_isnether(c, &p->grid))
