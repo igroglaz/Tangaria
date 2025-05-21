@@ -575,3 +575,19 @@ effect:TIMED_INC:POISONED
 dice:5+1d10
 time:1d1000
 msg:It whispers: 'Strike when they trust you most...'
+
+name:strangling
+type:gloves
+type:helm
+type:crown
+type:cloak
+type:soft armour
+type:hard armour
+type:dragon armour
+type:amulet
+effect:DAMAGE
+dice:$B
+expr:B:WEAPON_DAMAGE:+ 0
+time:1d200
+msg:Your equipment tries to strangle you!
+desc:your gear occasionally tries to strangle you

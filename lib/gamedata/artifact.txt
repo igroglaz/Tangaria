@@ -106,6 +106,22 @@
 
 ################## new stuff
 
+name:of the Withered King
+base-object:belt:Mummy Wrappings
+level:5
+weight:30
+alloc:10:1 to 100
+armor:0:-10
+flags:SEE_INVIS | HOLD_LIFE | ESP_UNDEAD | SUST_CON | NO_ACTIVATION
+values:CHR[-2] | CON[-1] | RES_NETHER[1] | RES_POIS[1]
+curse:strangling:100
+desc:An ancient strip of linen soaked with the rites of the dead.
+desc: Once wrapped around a long-forgotten monarch, it hums with a faint
+desc: pulse that isn't yours. Dry and scratchy, it clings to your skin
+desc: like a memory that refuses to fade.
+desc: As you wind it around your body, it tightens just a little
+desc: too much - as if testing how far it can go before you stop breathing.
+
 name:of Legolas
 base-object:belt:Belt
 level:5
