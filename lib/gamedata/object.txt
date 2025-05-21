@@ -165,6 +165,11 @@
 #
 ##################
 
+############
+############ effect:TIMED_INC:IMAGE
+############ dice:1 - works
+############ (while in code it might need to have min 2 if action processed after turn)
+
 
 ##### Non-kind (things treated like objects) #####
 
@@ -413,17 +418,18 @@ effect:TIMED_INC:OCCUPIED
 dice:3
 effect:NOURISH:INC_BY
 dice:1
-effect:TIMED_INC:CONFUSED
-dice:8+1d8
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:10+1d10
 effect:TIMED_INC:BOLD
 dice:50+1d20
-effect:RESTORE_STAT:STR
-effect:RESTORE_STAT:CON
+effect:RESTORE_STAT:WIS
 ######################
+# Drain a stat temporarily
 effect:DRAIN_STAT:INT
 dice:1
 msg_self:*Hic... Hic...*
 desc:It pretty strong and could raise your spirits.
+desc: Can restore wisdom, but not intelligence.
 
 name:& Pint~ of Fine Wine
 graphics:,:v
@@ -433,17 +439,17 @@ weight:10
 cost:300
 alloc:10:0 to 50
 effect:TIMED_INC:OCCUPIED
-dice:3
+dice:2
 effect:NOURISH:INC_BY
 dice:2
-effect:TIMED_INC:CONFUSED
-dice:1+1d8
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
+dice:5+1d5
 effect:TIMED_INC:BOLD
 dice:30+1d20
-effect:RESTORE_STAT:STR
 effect:RESTORE_STAT:CON
 msg_self:That tastes great! A fine vintage.
 desc:A fine way to wash down some otherwise unappetising rations.
+desc:May restore constitution - if taken in moderation.
 
 name:& Sip~ of Miruvor
 graphics:,:z
@@ -574,7 +580,7 @@ dice:200
 effect:CLEAR_VALUE
 effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
-effect:TIMED_INC:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 effect:SET_VALUE
 dice:25+5d5
 effect:NOURISH:INC_BY
@@ -588,7 +594,7 @@ weight:1
 cost:150
 alloc:5:5 to 40
 pile:70:1d4
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:25+5d5
 effect:TIMED_SET:TERROR
 dice:25+5d5
@@ -697,8 +703,8 @@ weight:1
 cost:0
 alloc:10:5 to 40
 pile:70:1d4
-effect:TIMED_INC_NO_RES:IMAGE
-dice:5+5d5
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:10+5d5
 effect:NOURISH:INC_BY
 dice:5
 desc:Not everyone can overcome madness of lengthy hallucination..
@@ -711,9 +717,9 @@ weight:1
 cost:0
 alloc:10:5 to 40
 pile:70:1d4
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:5+5d5
-effect:TIMED_INC_NO_RES:PARALYZED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 effect:NOURISH:SET_TO
 dice:5
@@ -2816,8 +2822,6 @@ cost:0
 alloc:15:20 to 100
 pile:10:2
 effect:TELEPORT_LEVEL:NONE:1
-effect:TIMED_INC_NO_RES:IMAGE
-dice:2+1d7
 
 name:Dimension Shake
 graphics:?:w
@@ -2827,12 +2831,6 @@ weight:5
 cost:0
 alloc:1:20 to 100
 effect:ALTER_REALITY:NONE:1
-effect:TIMED_INC_NO_RES:IMAGE
-dice:10+1d15
-effect:DISENCHANT
-effect:SPOT:ACID:0
-dice:4d$S
-expr:S:DUNGEON_LEVEL:/ 2
 msg_self:Suddenly world shatters!
 msg_other: trembles reality!
 
@@ -2843,17 +2841,11 @@ graphics:?:w
 type:scroll
 level:5
 weight:5
-cost:500
-alloc:50:5 to 100
+cost:0
+alloc:25:5 to 100
 pile:70:1d3
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE
-dice:11+1d24
 
 name:Treasure Detection
 graphics:?:w
@@ -3433,8 +3425,6 @@ cost:0
 alloc:1:30 to 100
 pile:10:2
 effect:LOSE_STAT:CHR
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:2d2
 msg_self:You feel that your features have changed.. to worse.
 msg_other: become ugly!
 
@@ -3737,17 +3727,9 @@ type:potion
 level:25
 weight:4
 cost:0
-alloc:20:25 to 100
+alloc:10:25 to 100
 effect:LIGHT_LEVEL:NONE:1
 effect:RESTORE_EXP
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:2
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:9+1d18
-effect:TIMED_INC_NO_RES:BLIND
-dice:3+1d6
-effect:NOURISH:DEC_BY
-dice:1
 
 name:*Enlightenment*
 graphics:!:d
@@ -3755,7 +3737,7 @@ type:potion
 level:70
 weight:4
 cost:0
-alloc:4:70 to 100
+alloc:3:70 to 100
 effect:DETECT_ALL_MONSTERS
 effect:DETECT_TREASURES:NONE:1
 effect-yx:22:40
@@ -3765,12 +3747,6 @@ effect:GAIN_STAT:INT
 effect:RESTORE_STAT:INT
 effect:LIGHT_LEVEL:NONE:1
 effect:RESTORE_EXP
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:1
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:6+1d12
-effect:NOURISH:DEC_BY
-dice:2
 
 ### Buffs ###
 
@@ -3882,8 +3858,8 @@ pile:25:2
 effect:TIMED_SET:SINVIS
 dice:50+2d6
 effect:CURE:BLIND
-effect:TIMED_INC:IMAGE
-dice:1d2
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:2
 msg_self:This tastes like slime mold juice.
 
 name:Infravision
@@ -3904,7 +3880,7 @@ effect:RANDOM
 dice:3
 effect:TIMED_SET:SINFRA
 dice:100+4d25
-effect:TIMED_INC:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:1
 msg_self:*Boom!* For a moment you had stars in your eyes..
 
@@ -3918,9 +3894,8 @@ alloc:1:70 to 100
 effect:TIMED_SET:INVIS:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:/ 2
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:$B+1d10
-expr:B:PLAYER_LEVEL:/ 2
+effect:TIMED_INC_NO_RES:IMAGE_REAL
+dice:1
 
 name:Wraith
 graphics:!:d
@@ -4207,7 +4182,7 @@ dice:5+2d10
 #good:
 effect:TIMED_SET:SHERO
 dice:25+1d25
-effect:CURE:IMAGE
+effect:CURE:AMNESIA
 msg_self:You are on fire!
 #msg_self:It's blow up on the attempt to drink it!
 msg_other: was blown by a detonation potion.
@@ -5060,7 +5035,7 @@ alloc:1:70 to 100
 attack:1d2:0:0
 armor:0:0
 charges:2+d2
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:5+5d5
 effect:TOUCH:MAKE_DOOR:1
 
@@ -5859,12 +5834,13 @@ dice:3
 effect:NOURISH:INC_BY
 dice:1
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:1+1d8
+dice:8+1d8
 effect:TIMED_INC:BOLD
 dice:30+1d20
 effect:RESTORE_STAT:STR
 msg_self:That tastes good.
 desc:A fine way to wash down some otherwise unappetising rations.
+desc: Restores strength.
 
 name:& Potato~
 graphics:,:u
@@ -6359,7 +6335,7 @@ alloc:2:95 to 100
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 effect:TIMED_SET:PROBTRAVEL
 dice:20+1d20
-effect:TIMED_INC_NO_RES:IMAGE
+effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:5+5d5
 desc:Won't work properly for Assassin class.
 
@@ -6949,16 +6925,26 @@ type:food
 level:1
 weight:1
 cost:0
+effect:CURE:AMNESIA
+effect:RESTORE_MANA
+dice:4
+effect:RESTORE_MANA
+dice:3
+effect:RESTORE_MANA
+dice:2
+effect:RESTORE_MANA
+dice:1
+effect:RANDOM
+dice:5
 effect:RESTORE_STAT:WIS
 effect:TIMED_INC:IMAGE
-dice:1
-effect:NOURISH:INC_BY
 dice:1
 msg_self:*You blow several smoke rings*
 msg_other: blows several smoke rings
 desc:Also called as sweet galenas or westmansweed.
 desc: Hm... Which sort is this one? Longbottom Leaf, Old Toby,
 desc: or Southern Star?
+desc: After a few good pipefuls, long-forgotten tales may come back to mind.
 
 name:& Elvish wine~
 graphics:,:U
@@ -6968,9 +6954,10 @@ weight:7
 cost:0
 effect:NOURISH:INC_BY
 dice:14
-effect:RESTORE_STAT:STR
-effect:TIMED_INC:CONFUSED
+effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:4+1d4
+effect:RESTORE_STAT:STR
+effect:RESTORE_STAT:CON
 msg_self:Ooogh.. It must be potent wine!
 desc:This wine origins from Dorwinion, to the south of Dale, carried up
 desc: along the River Running to Laketown and then to Thranduil.
