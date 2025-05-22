@@ -1343,8 +1343,8 @@ static void add_stairs(struct chunk *c, int feat)
     /* Require that the stairs be at least 1/4th of the level's diameter apart */
     int minsep = MAX(MIN(c->width, c->height) / 4, 0);
 
-    // hack for ironman/brave dungeons
-    if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // ironman
+    // hack for zeitnot/brave dungeons
+    if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // zeitnot
         (c->wpos.grid.x == 0 && c->wpos.grid.y == -6))   // brave
     {
         feat = FEAT_MORE; // down
@@ -4189,7 +4189,7 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
  * handles the physical layout. This level builder ignores the minimum height and width.
  *
  * PWMAngband: the layout for Angband's new town is also used to dynamically generate towns
- * for ironman servers at 1000ft, 2000ft, 3000ft and 4000ft.
+ * for zeitnot servers at 1000ft, 2000ft, 3000ft and 4000ft.
  */
 struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width,
     const char **p_error)

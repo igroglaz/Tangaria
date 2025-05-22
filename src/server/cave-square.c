@@ -2051,7 +2051,7 @@ void square_add_stairs(struct chunk *c, struct loc *grid, int feat_stairs)
     if (!feat) feat = FEAT_MORE;
 
     /* Choose staircase direction */
-    if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // ironman stairs all go down
+    if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // zeitnot stairs all go down
         (c->wpos.grid.x == 0 && c->wpos.grid.y == -6))   // brave too
     {
         desired_feat = FEAT_MORE; // down

@@ -389,8 +389,8 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "Timestamp: %ld\n", p->death_info.time);
         file_putf(fff, "Account score: %u\n", p->account_score);
 
-        if (OPT(p, birth_ironman)) {
-            file_putf(fff, "Ironman\n");
+        if (OPT(p, birth_zeitnot)) {
+            file_putf(fff, "Zeitnot\n");
         } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
             file_putf(fff, "Brave\n");
         }

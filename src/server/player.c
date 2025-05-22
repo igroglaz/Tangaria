@@ -541,8 +541,8 @@ static void award_account_points(struct player *p)
         }
     }
 
-    // ironman (zeitnot) characters - award an extra points
-    if (OPT(p, birth_ironman)) {
+    // zeitnot (zeitnot) characters - award an extra points
+    if (OPT(p, birth_zeitnot)) {
         int classPower = class_power(p->clazz->name);
         switch (p->max_lev) {
             case 15: // level 15: only hard classes
@@ -1190,7 +1190,7 @@ void player_cave_new(struct player *p, int height, int width)
 /*
  * Initialize player struct
  */
-void init_player(struct player *p, int conn, bool old_history, bool ironman, bool no_recall, bool force_descend)
+void init_player(struct player *p, int conn, bool old_history, bool zeitnot, bool no_recall, bool force_descend)
 {
     int i, preset_max = player_cmax() * player_rmax();
     char history[N_HIST_LINES][N_HIST_WRAP];
@@ -1303,9 +1303,9 @@ void init_player(struct player *p, int conn, bool old_history, bool ironman, boo
     if ((cfg_diving_mode > 1) || (no_recall && force_descend))
     {
         wild_set_explored(p, base_wpos());
-    } else if (ironman)
+    } else if (zeitnot)
     {
-        wild_set_explored(p, ironman_wpos());
+        wild_set_explored(p, zeitnot_wpos());
     } else
     {
         wild_set_explored(p, start_wpos());

@@ -2695,7 +2695,7 @@ void drink_water_satiation(struct player *p, int satiation) {
         satiation += 200;
     } else if (p->timed[TMD_FOOD] < 800) { // weak
         satiation += 100;
-    } else if ((OPT(p, birth_ironman) || // ironman
+    } else if ((OPT(p, birth_zeitnot) || // zeitnot
         (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
          p->timed[TMD_FOOD] < 8000)
             satiation += 750;
@@ -3128,9 +3128,9 @@ void do_cmd_check_players(struct player *p, int line)
         file_putf(fff, "%c", attr);
 
         /* Challenge options */
-        if (OPT(q, birth_ironman))
+        if (OPT(q, birth_zeitnot))
         {
-            strnfmt(brave, sizeof(brave), "the%s ironman",
+            strnfmt(brave, sizeof(brave), "the%s zeitnot",
                 (OPT(q, birth_hardcore))? " hardcore": "");
         } else {
             strnfmt(brave, sizeof(brave), "the%s%s%s%s",

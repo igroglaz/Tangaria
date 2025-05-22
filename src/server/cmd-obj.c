@@ -1628,10 +1628,10 @@ static bool do_cmd_use_end(struct player *p, struct object *obj, bool ident, boo
         }
         else if (use == USE_SINGLE) // potions, scrolls, food etc
         {
-            // ironman consume Phase Door in x% cases
+            // zeitnot consume Phase Door in x% cases
             bool useScroll = true;
             
-            if (OPT(p, birth_ironman))
+            if (OPT(p, birth_zeitnot))
             {
                 if (obj->tval == TV_SCROLL)
                 {

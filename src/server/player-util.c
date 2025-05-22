@@ -28,7 +28,7 @@
  * quests.
  *
  * PWMAngband: we also check for special levels when going down
- * to ensure ironman players have the opportunity to visit every
+ * to ensure zeitnot players have the opportunity to visit every
  * dungeon town.
  */
 int dungeon_get_next_level(struct player *p, int dlev, int added)

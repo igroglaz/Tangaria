@@ -1402,7 +1402,7 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
 
     /* Multiply slower in crowded areas */
     /* Hack -- multiply even more slowly on no_recall servers */
-    // TODO (?): Ironman.. make it slower?
+    // TODO (?): Zeitnot.. make it slower?
     // not sure as we auto > in time, so it's pretty possible to run away from breeders
     if (cfg_diving_mode == 3)
         allow_breed = ((k < 4) && one_in_((k + 1) * z_info->repro_monster_rate * 2));

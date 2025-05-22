@@ -3214,7 +3214,7 @@ int Send_birth_options(int ind, struct birth_options *options)
     }
 
     return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
-        (int)options->ironman, (int)options->force_descend, (int)options->no_recall,
+        (int)options->zeitnot, (int)options->force_descend, (int)options->no_recall,
         (int)options->no_artifacts, (int)options->feelings, (int)options->no_selling,
         (int)options->start_kit, (int)options->no_stores, (int)options->no_ghost,
         (int)options->fruit_bat, (int)options->hardcore);
@@ -6106,7 +6106,7 @@ static bool screen_compatible(int ind)
 
 static void get_birth_options(struct player *p, struct birth_options *options)
 {
-    options->ironman = OPT(p, birth_ironman);
+    options->zeitnot = OPT(p, birth_zeitnot);
     options->force_descend = OPT(p, birth_force_descend);
     options->no_recall = OPT(p, birth_no_recall);
     options->no_artifacts = OPT(p, birth_no_artifacts);
@@ -6125,7 +6125,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     /* Birth options: can only be set at birth */
     if (!ht_zero(&p->game_turn))
     {
-        OPT(p, birth_ironman) = options->ironman;
+        OPT(p, birth_zeitnot) = options->zeitnot;
         OPT(p, birth_force_descend) = options->force_descend;
         OPT(p, birth_no_recall) = options->no_recall;
         OPT(p, birth_no_artifacts) = options->no_artifacts;
@@ -6614,8 +6614,8 @@ static int Enter_player(int ind)
     // HACKS for new characters options
     // (before we can not check options without passing them to functions as arguments)
    
-    // no gold in ironman jail
-    if (p->player_turn.turn == 0 && OPT(p, birth_ironman))
+    // no gold in zeitnot jail
+    if (p->player_turn.turn == 0 && OPT(p, birth_zeitnot))
         p->au = 0;
     ////////////////////////////////////////////////////
 
@@ -6630,7 +6630,7 @@ static int Enter_player(int ind)
         char modes[50];
         char mode_str[60];
         bool is_hardcore;
-        bool is_ironman;
+        bool is_zeitnot;
         bool is_brave;
         
         strnfmt(player_desc, sizeof(player_desc), "%s (%s %s)", // Bob (Human Warrior)
@@ -6638,10 +6638,10 @@ static int Enter_player(int ind)
         
         // Add special mode indicators to player description
         is_hardcore = OPT(p, birth_hardcore);
-        is_ironman = OPT(p, birth_ironman);
+        is_zeitnot = OPT(p, birth_zeitnot);
         is_brave = OPT(p, birth_no_recall) && OPT(p, birth_force_descend);
         
-        if (is_hardcore || is_ironman || is_brave) {
+        if (is_hardcore || is_zeitnot || is_brave) {
             modes[0] = '\0'; // Initialize empty string
             
             // Start with hardcore if it exists (as it can be in mix with any mode)
@@ -6649,12 +6649,12 @@ static int Enter_player(int ind)
                 my_strcat(modes, "hardcore", sizeof(modes));
             }
             
-            // Add ironman or brave
-            if (is_ironman) {
+            // Add zeitnot or brave
+            if (is_zeitnot) {
                 if (is_hardcore) {
-                    my_strcat(modes, " ironman", sizeof(modes));
+                    my_strcat(modes, " zeitnot", sizeof(modes));
                 } else {
-                    my_strcat(modes, "ironman", sizeof(modes));
+                    my_strcat(modes, "zeitnot", sizeof(modes));
                 }
             } else if (is_brave) {
                 if (is_hardcore) {

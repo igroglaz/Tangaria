@@ -315,8 +315,8 @@ static void console_who(int ind, char *dummy)
         char *entry;
 
         /* Challenge options */
-        if (OPT(p, birth_ironman)) {
-            strnfmt(brave, sizeof(brave), "the%s ironman",
+        if (OPT(p, birth_zeitnot)) {
+            strnfmt(brave, sizeof(brave), "the%s zeitnot",
                 (OPT(p, birth_hardcore))? " hardcore": "");
         } else {
         strnfmt(brave, sizeof(brave), "a%s%s%s%s level",
@@ -401,8 +401,8 @@ static void console_whois(int ind, char *name)
     }
 
     /* Output player information */
-        if (OPT(p, birth_ironman)) {
-            strnfmt(brave, sizeof(brave), "the%s ironman",
+        if (OPT(p, birth_zeitnot)) {
+            strnfmt(brave, sizeof(brave), "the%s zeitnot",
                 (OPT(p, birth_hardcore))? " hardcore": "");
         } else {
         strnfmt(brave, sizeof(brave), "a%s%s%s%s level",

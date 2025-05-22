@@ -986,8 +986,8 @@ sound:offensive_stance:tomenet/combat/parry_weapon/parry_metal
 # You _almost_ die (second chance)
 sound:second_chance:tomenet/player/alert/warning/warning
 
-# ironman start
-sound:ironman_start:tomenet/player/commands/staircase/rider
+# zeitnot start
+sound:zeitnot_start:tomenet/player/commands/staircase/rider
 
 ######################
 ###################### client T sounds

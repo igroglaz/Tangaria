@@ -943,8 +943,8 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
     if ((cfg_diving_mode > 0) || options[OPT_birth_no_recall] || is_dm_p(p)) return;
 
-    // extra items for ironman
-    if (options[OPT_birth_ironman])
+    // extra items for zeitnot
+    if (options[OPT_birth_zeitnot])
     {
         int sval = lookup_sval(TV_POTION, "Cure Light Wounds");
         struct object_kind *kind = lookup_kind(TV_POTION, sval);
@@ -957,7 +957,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
         player_outfit_aux(p, kind, 10, true);
     }
 
-    // TODO: give ironman food, light, etc
+    // TODO: give zeitnot food, light, etc
     // as in T houses become permanent - no need to give free stuff
     /*
     // Give the player a deed of property
@@ -1165,7 +1165,7 @@ static int birth_load_account_score(struct player *p)
 }
 
 
-static void player_setup(struct player *p, int id, uint32_t account, bool ironman, bool no_recall, bool force_descend)
+static void player_setup(struct player *p, int id, uint32_t account, bool zeitnot, bool no_recall, bool force_descend)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool reposition = false, push_up = false;
@@ -1198,8 +1198,8 @@ static void player_setup(struct player *p, int id, uint32_t account, bool ironma
     {
         reposition = true;
 
-        // No-recall/ironman players are simply pushed up one level (should be safe)
-        if ((cfg_diving_mode == 3) || no_recall || ironman) push_up = true;
+        // No-recall/zeitnot players are simply pushed up one level (should be safe)
+        if ((cfg_diving_mode == 3) || no_recall || zeitnot) push_up = true;
     }
 
     /*
@@ -1263,10 +1263,10 @@ static void player_setup(struct player *p, int id, uint32_t account, bool ironma
         /* Hack -- DM redesigning the level (no_recall players) */
         if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
 
-        // ironman: start iron_timer and put us in ironman town
-        else if (ironman) {
-            p->iron_timer = 5; // almost immediately after respawn - teleport to jail
-            memcpy(&p->wpos, ironman_wpos(), sizeof(struct worldpos));
+        // zeitnot: start zeitnot_timer and put us in zeitnot town
+        else if (zeitnot) {
+            p->zeitnot_timer = 5; // almost immediately after respawn - teleport to jail
+            memcpy(&p->wpos, zeitnot_wpos(), sizeof(struct worldpos));
         }
 
         /* brave: put us in base town */
@@ -1582,7 +1582,7 @@ const char *savefile_get_name(char *savefile, char *panicfile)
  *
  * Returns 1 if quick start is possible, 0 if quick start is not possible, -1 if an error occurs.
  */
-static int quickstart_ok(struct player *p, const char *name, int conn, bool ironman, bool no_recall, bool force_descend)
+static int quickstart_ok(struct player *p, const char *name, int conn, bool zeitnot, bool no_recall, bool force_descend)
 {
     char previous[NORMAL_WID];
     const char *loadpath;
@@ -1592,7 +1592,7 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool iron
     if (!get_previous_incarnation(previous, sizeof(previous))) return 0;
 
     /* Clear old information */
-    init_player(p, conn, false, ironman, no_recall, force_descend);
+    init_player(p, conn, false, zeitnot, no_recall, force_descend);
 
     /* Copy his name */
     my_strcpy(p->name, previous, sizeof(p->name));
@@ -1652,7 +1652,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     /* Handle dynastic quick start */
     if (stat_roll[STAT_MAX] == BR_QDYNA)
     {
-        int ret = quickstart_ok(p, name, conn, options[OPT_birth_ironman],
+        int ret = quickstart_ok(p, name, conn, options[OPT_birth_zeitnot],
             options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         if (ret == -1)
@@ -1666,7 +1666,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Clear old information */
-    init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+    init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
         options[OPT_birth_force_descend]);
 
     /* Copy his name */
@@ -1726,8 +1726,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         /* Make new player */
         p->is_dead = false;
 
-        // hack: do not allow having both ironman and brave modes
-        if (options[OPT_birth_ironman] &&
+        // hack: do not allow having both zeitnot and brave modes
+        if (options[OPT_birth_zeitnot] &&
             (options[OPT_birth_no_recall] || options[OPT_birth_force_descend]))
         {
             options[OPT_birth_no_recall] = false;
@@ -1739,7 +1739,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
 
         /* Hack -- rewipe the player info if load failed */
-        init_player(p, conn, old_history, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+        init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
             options[OPT_birth_force_descend]);
 
         /* Copy his name and connection info */
@@ -1822,7 +1822,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         }
 
         /* Set his location, panel, etc. */
-        player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+        player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
             options[OPT_birth_force_descend]);
 
         /* Add new starting message */
@@ -1860,7 +1860,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Loading succeeded */
-    player_setup(p, id, account, options[OPT_birth_ironman], options[OPT_birth_no_recall],
+    player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
         options[OPT_birth_force_descend]);
     return p;
 }

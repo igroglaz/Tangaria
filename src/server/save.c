@@ -476,7 +476,7 @@ void wr_player_misc(void *data)
     wr_hturn(&turn);
     wr_s16b(p->ghost);
     wr_byte(p->lives);
-    wr_byte(OPT(p, birth_ironman));
+    wr_byte(OPT(p, birth_zeitnot));
     wr_byte(OPT(p, birth_force_descend));
     wr_byte(OPT(p, birth_no_recall));
     wr_byte(OPT(p, birth_no_artifacts));
@@ -503,7 +503,7 @@ void wr_player_misc(void *data)
     wr_u32b(p->account_score);
     wr_byte(p->supporter);
     wr_u16b(p->y_cooldown);
-    wr_s16b(p->iron_timer);
+    wr_s16b(p->zeitnot_timer);
 
     if (p->is_dead) return;
 

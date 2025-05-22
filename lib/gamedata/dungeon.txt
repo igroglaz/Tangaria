@@ -286,7 +286,7 @@ max-level:1
 flags:STREAMS | MORE_TOWNS
 rule:10000:1
 
-# Ironman (no-recall + force_descend + timelimit)
+# Zeitnot (no-recall + force_descend + timelimit)
 name:The Thangorodrim
 short:Thangorodrim
 wpos:0:6

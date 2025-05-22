@@ -2656,8 +2656,8 @@ void player_death(struct player *p)
         if (p->deep_descent) {
             p->deep_descent++;
         }
-        if (OPT(p, birth_ironman) && p->iron_timer < 0) {
-            p->iron_timer = 0;
+        if (OPT(p, birth_zeitnot) && p->zeitnot_timer < 0) {
+            p->zeitnot_timer = 0;
         }
 
         // after ress you become more enigmatic
@@ -2706,9 +2706,9 @@ void player_death(struct player *p)
     {
         char brave[40];
 
-        if (OPT(p, birth_ironman))
+        if (OPT(p, birth_zeitnot))
         {
-            strnfmt(brave, sizeof(brave), "The%s ironman",
+            strnfmt(brave, sizeof(brave), "The%s zeitnot",
                 (OPT(p, birth_hardcore))? " hardcore": "");
         } else if (OPT(p, birth_no_recall) || OPT(p, birth_force_descend) ||
             OPT(p, birth_hardcore))
@@ -2781,7 +2781,7 @@ void player_death(struct player *p)
         char modes[50];
         char mode_str[60];
         bool is_hardcore;
-        bool is_ironman;
+        bool is_zeitnot;
         bool is_brave;
         
         strnfmt(player_desc, sizeof(player_desc), "%s the %s %s", // Bob the Human Warrior
@@ -2789,10 +2789,10 @@ void player_death(struct player *p)
         
         // Add special mode indicators to player description
         is_hardcore = OPT(p, birth_hardcore);
-        is_ironman = OPT(p, birth_ironman);
+        is_zeitnot = OPT(p, birth_zeitnot);
         is_brave = OPT(p, birth_no_recall) && OPT(p, birth_force_descend);
         
-        if (is_hardcore || is_ironman || is_brave) {
+        if (is_hardcore || is_zeitnot || is_brave) {
             modes[0] = '\0'; // Initialize empty string
             
             // Start with hardcore if it exists (as it can be in mix with any mode)
@@ -2800,12 +2800,12 @@ void player_death(struct player *p)
                 my_strcat(modes, "hardcore", sizeof(modes));
             }
             
-            // Add ironman or brave
-            if (is_ironman) {
+            // Add zeitnot or brave
+            if (is_zeitnot) {
                 if (is_hardcore) {
-                    my_strcat(modes, " ironman", sizeof(modes));
+                    my_strcat(modes, " zeitnot", sizeof(modes));
                 } else {
-                    my_strcat(modes, "ironman", sizeof(modes));
+                    my_strcat(modes, "zeitnot", sizeof(modes));
                 }
             } else if (is_brave) {
                 if (is_hardcore) {
@@ -3403,9 +3403,9 @@ static void manual_design(struct player *p, struct chunk *c, bool new_level)
         if (q == p) continue;
         if (!wpos_eq(&q->wpos, &p->wpos)) continue;
 
-        // No-recall/ironman players are simply pushed up one level (should be safe)
+        // No-recall/zeitnot players are simply pushed up one level (should be safe)
         if ((cfg_diving_mode == 3) || OPT(q, birth_no_recall) ||
-			OPT(q, birth_ironman) || player_has(p, PF_NO_RECALL))
+			OPT(q, birth_zeitnot) || player_has(p, PF_NO_RECALL))
         {
             struct worldpos wpos;
 

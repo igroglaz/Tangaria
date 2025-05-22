@@ -798,7 +798,7 @@ static int valid_inscription(struct player *p, const char *inscription, int curr
                 {
                     // Forbid if no wilderness
                     if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall) ||
-						OPT(p, birth_ironman) || player_has(p, PF_NO_RECALL))
+						OPT(p, birth_zeitnot) || player_has(p, PF_NO_RECALL))
                     {
                         /* Deactivate recall */
                         memcpy(&p->recall_wpos, &p->wpos, sizeof(struct worldpos));
@@ -2393,8 +2393,8 @@ bool effect_handler_DARKEN_LEVEL(effect_handler_context_t *context)
 }
 
 
-// Teleports Ironman player 1 level down
-bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
+// Teleports Zeitnot player 1 level down
+bool effect_handler_ZEITNOT_DESCENT(effect_handler_context_t *context)
 {
     int target_depth;
     struct wild_type *w_ptr = get_wt_info_at(&context->origin->player->wpos.grid);
@@ -2411,7 +2411,7 @@ bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
     // in Tangaria we do not design levels.. but just in case
     if (chunk_inhibit_players(&wpos))
     {
-        context->origin->player->iron_timer = 100;
+        context->origin->player->zeitnot_timer = 100;
         return true;
     }
 
@@ -2420,7 +2420,7 @@ bool effect_handler_IRONMAN_DESCENT(effect_handler_context_t *context)
     {
         /* Change location */
         disturb(context->origin->player, 0);
-        if (context->origin->player->wpos.depth) { // we play sound MSG_IRONMAN_START in other place
+        if (context->origin->player->wpos.depth) { // we play sound MSG_ZEITNOT_START in other place
             msgt(context->origin->player, MSG_TPLEVEL, "The floor opens beneath you!");
             msg_misc(context->origin->player, " sinks through the floor!");
         }
@@ -4126,7 +4126,7 @@ bool effect_handler_MAP_WILD(effect_handler_context_t *context)
 
     /* Default to magic map if no wilderness */
     if ((cfg_diving_mode > 1) || OPT(context->origin->player, birth_no_recall) ||
-        OPT(context->origin->player, birth_ironman))
+        OPT(context->origin->player, birth_zeitnot))
     {
         effect_handler_MAP_AREA(context);
         return true;
@@ -4538,9 +4538,9 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
 
     context->ident = true;
 
-    // ironman characters instead of recall - teleport
+    // zeitnot characters instead of recall - teleport
     if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
-        OPT(context->origin->player, birth_ironman)) &&
+        OPT(context->origin->player, birth_zeitnot)) &&
         !context->origin->player->total_winner)
     {
         struct source who_body;
@@ -5743,8 +5743,8 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         int target_depth;
         int base_depth = context->origin->player->wpos.depth;
 
-        // ironman can not go up
-        if (OPT(context->origin->player, birth_ironman))
+        // zeitnot can not go up
+        if (OPT(context->origin->player, birth_zeitnot))
         {
             up = false;
         /* No going up with force_descend or on the surface */
@@ -5756,7 +5756,7 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
         /* No forcing player down to quest levels if they can't leave */
         // "quest lvl" means that it's Sauron (99) or Morgy (100) dlvl
         if (player_force_descend(context->origin->player, 3) ||
-            OPT(context->origin->player, birth_ironman))
+            OPT(context->origin->player, birth_zeitnot))
         {
             target_depth = dungeon_get_next_level(context->origin->player,
                 context->origin->player->max_depth, 1);

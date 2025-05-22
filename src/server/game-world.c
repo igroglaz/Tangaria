@@ -397,7 +397,7 @@ static void play_ambient_sound(struct player *p)
     }
     else if (p->wpos.depth == 1)
         ; // seems these sounds played every time when you enter level.
-          // At 1st dlvl we have ironman, old ruins etc dungeons and
+          // At 1st dlvl we have zeitnot, old ruins etc dungeons and
           // they have their own entrance sounds... so this one we turn off.
           // Not sure, maybe we need fix all these dungeon "ambient" sounds..
     else if (p->wpos.depth <= 20)
@@ -1522,40 +1522,40 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
 
-    // decrease ironman timer till next auto >
-    if (OPT(p, birth_ironman) && !p->is_dead && p->chp >= 0) {
-        p->iron_timer--;
+    // decrease zeitnot timer till next auto >
+    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0) {
+        p->zeitnot_timer--;
 
-        // if timer is gone - move ironman player down
+        // if timer is gone - move zeitnot player down
         // (timer can have negative value cause we decrease it on movement too)
-        if (p->iron_timer < 0 && p->wpos.depth < 126) {
+        if (p->zeitnot_timer < 0 && p->wpos.depth < 126) {
             
-            plog_fmt("process_player_world(): '%s' iron_timer < 0", p->name);
+            plog_fmt("process_player_world(): '%s' zeitnot_timer < 0", p->name);
             
             // no > if in a shop OR if waiting for confirmation
             if (in_store(p) || (p->current_value == ITEM_PENDING)) {
-                p->iron_timer++;
+                p->zeitnot_timer++;
             } else {
                 struct source who_body;
                 struct source *who = &who_body;
 
                 source_player(who, get_player_index(get_connection(p->conn)), p);
                 
-                plog_fmt("process_player_world(): '%s' starting attempt to EF_IRONMAN_DESCENT", p->name);
+                plog_fmt("process_player_world(): '%s' starting attempt to EF_ZEITNOT_DESCENT", p->name);
 
-                if (effect_simple(EF_IRONMAN_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
-                    p->iron_timer = set_ironman_timer(p->wpos.depth);
+                if (effect_simple(EF_ZEITNOT_DESCENT, who, "0", 0, 1, 0, 0, 0, NULL)) {
+                    p->zeitnot_timer = set_zeitnot_timer(p->wpos.depth);
                     // Cancel any WOR spells
                     p->word_recall = 0;
                     p->deep_descent = 0;
                     
-                    plog_fmt("process_player_world(): '%s' finishes EF_IRONMAN_DESCENT, returning", p->name);
+                    plog_fmt("process_player_world(): '%s' finishes EF_ZEITNOT_DESCENT, returning", p->name);
                     
                     return; // success
                 }
 
                 // if fail (not sure how it can happen, but..) - try again next turn
-                p->iron_timer++;
+                p->zeitnot_timer++;
             }
         }
     }
@@ -2446,8 +2446,8 @@ static void generate_new_level(struct player *p)
         sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
     else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 6 && p->wpos.depth == 1)
     {
-        // Ironman entrance
-        msgt(p, MSG_IRONMAN_START, "Where am I?.. Oh no.. It seems I was abducted to Thangorodrim!");
+        // Zeitnot entrance
+        msgt(p, MSG_ZEITNOT_START, "Where am I?.. Oh no.. It seems I was abducted to Thangorodrim!");
     }
     else if (p->wpos.grid.x == 0 && p->wpos.grid.y == 0 && p->wpos.depth == 1)
     {

@@ -6162,7 +6162,7 @@ cost:0
 alloc:50:0 to 100
 pile:70:1d3
 #hardcoded (satiation)
-# ironman: do not give additional healing boni on drinking water..
+# zeitnot: do not give additional healing boni on drinking water..
 # so regular HEAL_HP instead of HEAL_HP_ONCE.
 effect:HEAL_HP
 dice:1
@@ -7114,7 +7114,7 @@ level:1
 weight:2
 cost:0
 effect:CURE:POISONED
-# ironman: it gives endless supply of 30% healing potions to alchemist. ok?
+# zeitnot: it gives endless supply of 30% healing potions to alchemist. ok?
 effect:HEAL_HP_ONCE
 dice:10
 desc:Cures 10 points of damage and neutralizes poison.

@@ -11,7 +11,7 @@ extern void do_cmd_message(struct player *p, char *message);
 extern void do_cmd_chat(struct player *p, char *buf);
 
 /* cmd-cave.c */
-extern int set_ironman_timer(int depth);
+extern int set_zeitnot_timer(int depth);
 extern void do_cmd_go_up(struct player *p);
 extern void do_cmd_go_down(struct player *p);
 extern void do_cmd_toggle_stealth(struct player *p);

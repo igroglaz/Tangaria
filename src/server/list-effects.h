@@ -57,7 +57,7 @@ EFFECT(CURSE_WEAPON, false, NULL, 0, EFINFO_NONE, "curses your wielded melee wea
 EFFECT(DAMAGE, false, "hurt", 1, EFINFO_DICE, "damages the player for %s points of damage")
 EFFECT(DARKEN_AREA, false, NULL, 0, EFINFO_NONE, "darkens a radius-{3} area (plus the entire room if you are currently in one)")
 EFFECT(DARKEN_LEVEL, false, NULL, 0, EFINFO_NONE, "completely darkens up and magically maps the current level")
-EFFECT(IRONMAN_DESCENT, false, NULL, 0, EFINFO_NONE, "teleports you one level down")
+EFFECT(ZEITNOT_DESCENT, false, NULL, 0, EFINFO_NONE, "teleports you one level down")
 EFFECT(DEEP_DESCENT, false, NULL, 0, EFINFO_NONE, "teleports you up to five dungeon levels lower than the lowest point you have reached so far")
 EFFECT(DESTRUCTION, false, NULL, 1, EFINFO_QUAKE, "destroys a radius-%s circular area around you and blinds you for {10+1d10} turns")
 EFFECT(DETECT_ALL_MONSTERS, false, NULL, 0, EFINFO_NONE, "detects all creatures on the level")

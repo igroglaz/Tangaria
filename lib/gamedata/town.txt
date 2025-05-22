@@ -30,7 +30,7 @@ wpos:0:-6
 max-townies:0
 
 name:The Gondolin
-# Base town for Ironman (no-recall + force_descend + timelimit)
+# Base town for Zeitnot (no-recall + force_descend + timelimit)
 short:Gondolin
 wpos:0:6
 max-townies:0
@@ -288,7 +288,7 @@ max-townies:20
 #name:Bree
 #wpos:1:0
 
-# Starting town for non-ironman level 1 characters
+# Starting town for non-zeitnot level 1 characters
 # name:Hobbiton
 # wpos:-21:20
 

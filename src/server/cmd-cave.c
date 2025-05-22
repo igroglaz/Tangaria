@@ -45,7 +45,7 @@ static const char *get_house_type_desc(int area_size)
 }
 
 
-int set_ironman_timer(int depth) {
+int set_zeitnot_timer(int depth) {
     int timer;
 
     if (depth <= 20) {
@@ -98,9 +98,9 @@ void do_cmd_go_up(struct player *p)
     }
 
     /* Force down */
-    if (OPT(p, birth_ironman) && !is_dm_p(p))
+    if (OPT(p, birth_zeitnot) && !is_dm_p(p))
     {
-        msg(p, "Ironman! You can not go back. Can not.");
+        msg(p, "Zeitnot! You can not go back. Can not.");
         return;
     } else if (player_force_descend(p, 2))
     {
@@ -262,10 +262,10 @@ void do_cmd_go_down(struct player *p)
         new_level_method = LEVEL_GHOST;
     }
 
-    // when ironman use stairs down - it resets iron_timer (auto > player)
-    if (OPT(p, birth_ironman)) {
-        p->iron_timer = set_ironman_timer(p->wpos.depth);
-        plog_fmt("do_cmd_go_down(): Ironman '%s' resets iron_time by using stairs", p->name);
+    // when zeitnot use stairs down - it resets zeitnot_timer (auto > player)
+    if (OPT(p, birth_zeitnot)) {
+        p->zeitnot_timer = set_zeitnot_timer(p->wpos.depth);
+        plog_fmt("do_cmd_go_down(): Zeitnot '%s' resets iron_time by using stairs", p->name);
     }
 
     /* Change level */
@@ -1507,9 +1507,9 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         else
             msg(p, "You have finished the tunnel %s.", with_clause);
 
-        // golem restores LOW satiation by digging (especially Ironman)
+        // golem restores LOW satiation by digging (especially Zeitnot)
         if (streq(p->race->name, "Golem") && !in_town(&p->wpos)) {
-            if (OPT(p, birth_ironman) ||
+            if (OPT(p, birth_zeitnot) ||
                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) {
                 if (p->timed[TMD_FOOD] < 1000) // at 10%
                     player_inc_timed(p, TMD_FOOD, 100, false, false);
@@ -2017,7 +2017,7 @@ void do_cmd_alter(struct player *p, int dir)
 }
 
 
-static const char *comment_ironman[] =
+static const char *comment_zeitnot[] =
 {
     "You don't feel like going to pick flowers right now.",
     "Where do you think you are going?",
@@ -2135,12 +2135,12 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             return;
         }
 
-        // forbid leaving ironman "town"
-        if (in_ironman_town(&p->wpos))
+        // forbid leaving zeitnot "town"
+        if (in_zeitnot_town(&p->wpos))
         {
-            if (OPT(p, birth_ironman))
+            if (OPT(p, birth_zeitnot))
             {
-                msg(p, ONE_OF(comment_ironman));
+                msg(p, ONE_OF(comment_zeitnot));
                 disturb(p, 0);
                 return;
             }
@@ -2154,7 +2154,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 if (cfg_diving_mode > 1)
                     msg(p, "There is a wall blocking your way.");
                 else
-                    msg(p, ONE_OF(comment_ironman));
+                    msg(p, ONE_OF(comment_zeitnot));
                 disturb(p, 0);
                 return;
             }
@@ -2186,10 +2186,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             new_grid.x = 1;
         }
 
-        // don't allow regular chars visit Brave/Ironman locs
+        // don't allow regular chars visit Brave/Zeitnot locs
         if (new_world_grid.x == 0)
         {
-            if (new_world_grid.y == 6 && !(OPT(p, birth_ironman)))
+            if (new_world_grid.y == 6 && !(OPT(p, birth_zeitnot)))
             {
                 msg(p, "You shall not pass!");
                 return;
@@ -2582,9 +2582,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
     p->upkeep->running_firststep = false;
 
-    // each step decrease iron_timer by -2 (in addition to -1 by turn pass)
-    if (OPT(p, birth_ironman) && !p->is_dead && p->chp >= 0) {
-        p->iron_timer -= 2;
+    // each step decrease zeitnot_timer by -2 (in addition to -1 by turn pass)
+    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0) {
+        p->zeitnot_timer -= 2;
     }
 
     /* Hack -- we're done if player is gone (trap door) */

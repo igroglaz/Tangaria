@@ -1225,8 +1225,8 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             {
                 if (c[i].power == 0) continue;
 
-                // ironman/brave
-                if (OPT(p, birth_ironman) ||
+                // zeitnot/brave
+                if (OPT(p, birth_zeitnot) ||
                    (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
                 {
                     if (!one_in_(6)) {
