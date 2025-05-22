@@ -1726,16 +1726,6 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         /* Make new player */
         p->is_dead = false;
 
-        // hack: do not allow having both zeitnot and ironman modes
-        if (options[OPT_birth_zeitnot] &&
-           (options[OPT_birth_no_recall] || options[OPT_birth_force_descend] ||
-            options[OPT_birth_ironman]))
-        {
-            options[OPT_birth_no_recall] = false;
-            options[OPT_birth_force_descend] = false;
-            options[OPT_birth_ironman] = false;
-        }
-
         /* Handle quick start */
         if (stat_roll[STAT_MAX] == BR_QUICK)
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
