@@ -286,13 +286,21 @@ max-level:1
 flags:STREAMS | MORE_TOWNS
 rule:10000:1
 
-# Zeitnot (timelimit + no-recall + force_descend)
+# Zeitnot dungeon (timelimit + no-recall + force_descend)
 name:The Thangorodrim
 short:Thangorodrim
 wpos:0:6
 max-level:1
 flags:STREAMS
 stairs:2+1d2:0
+rule:10000:1
+
+# Deeptown dungeon (small loc single dungeon)
+name:The Shaft
+short:Shaft
+wpos:-6:0
+max-level:1
+flags:STREAMS
 rule:10000:1
 
 ########################## 1

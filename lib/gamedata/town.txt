@@ -35,6 +35,13 @@ short:Gondolin
 wpos:0:6
 max-townies:0
 
+name:The Deeptown
+# Base town for Deeptown dungeon (small loc single dungeon)
+short:Deeptown
+# (to the west from Utumno)
+wpos:-6:0
+max-townies:0
+
 ############################### 0
 
 name:Endless Sea
