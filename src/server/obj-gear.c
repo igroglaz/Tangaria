@@ -1225,9 +1225,8 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
             {
                 if (c[i].power == 0) continue;
 
-                // zeitnot/brave
-                if (OPT(p, birth_zeitnot) ||
-                   (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
+                // zeitnot/ironman
+                if (OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
                 {
                     if (!one_in_(6)) {
                         msg(p, "You fail to drop cursed item this time. Try ones more..");

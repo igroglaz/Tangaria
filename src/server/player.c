@@ -571,8 +571,8 @@ static void award_account_points(struct player *p)
             default: ; // no points for other levels
         }
 
-    // brave got extra points too
-    } else if (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)) {
+    // ironman got extra points too
+    } else if (OPT(p, birth_ironman)) {
         int classPower = class_power(p->clazz->name);
         switch (p->max_lev) {
             case 20: // level 20: only new accounts
@@ -1190,7 +1190,7 @@ void player_cave_new(struct player *p, int height, int width)
 /*
  * Initialize player struct
  */
-void init_player(struct player *p, int conn, bool old_history, bool zeitnot, bool no_recall, bool force_descend)
+void init_player(struct player *p, int conn, bool old_history, bool zeitnot, bool ironman, bool no_recall, bool force_descend)
 {
     int i, preset_max = player_cmax() * player_rmax();
     char history[N_HIST_LINES][N_HIST_WRAP];
@@ -1300,7 +1300,7 @@ void init_player(struct player *p, int conn, bool old_history, bool zeitnot, boo
     p->feeling = -1;
 
     /* Update the wilderness map */
-    if ((cfg_diving_mode > 1) || (no_recall && force_descend))
+    if ((cfg_diving_mode > 1) || (no_recall && force_descend) || ironman)
     {
         wild_set_explored(p, base_wpos());
     } else if (zeitnot)

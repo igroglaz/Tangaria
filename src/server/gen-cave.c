@@ -1343,9 +1343,9 @@ static void add_stairs(struct chunk *c, int feat)
     /* Require that the stairs be at least 1/4th of the level's diameter apart */
     int minsep = MAX(MIN(c->width, c->height) / 4, 0);
 
-    // hack for zeitnot/brave dungeons
+    // hack for zeitnot/ironman dungeons
     if  ((c->wpos.grid.x == 0 && c->wpos.grid.y == 6) || // zeitnot
-        (c->wpos.grid.x == 0 && c->wpos.grid.y == -6))   // brave
+        (c->wpos.grid.x == 0 && c->wpos.grid.y == -6))   // ironman
     {
         feat = FEAT_MORE; // down
     }

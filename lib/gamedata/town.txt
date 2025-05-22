@@ -24,13 +24,13 @@ max-townies:40
 symbol:newbie star
 
 name:Carn Dum
-# Base town for Brave dungeon (no-recall + force_descend birth option)
+# Base town for Ironman dungeon (no-recall + force_descend birth option)
 short:Carn
 wpos:0:-6
 max-townies:0
 
 name:The Gondolin
-# Base town for Zeitnot (no-recall + force_descend + timelimit)
+# Base town for Zeitnot dungeon (timelimit + no-recall + force_descend)
 short:Gondolin
 wpos:0:6
 max-townies:0

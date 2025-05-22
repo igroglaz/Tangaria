@@ -1165,7 +1165,7 @@ static int birth_load_account_score(struct player *p)
 }
 
 
-static void player_setup(struct player *p, int id, uint32_t account, bool zeitnot, bool no_recall, bool force_descend)
+static void player_setup(struct player *p, int id, uint32_t account, bool zeitnot, bool ironman, bool no_recall, bool force_descend)
 {
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
     bool reposition = false, push_up = false;
@@ -1269,8 +1269,8 @@ static void player_setup(struct player *p, int id, uint32_t account, bool zeitno
             memcpy(&p->wpos, zeitnot_wpos(), sizeof(struct worldpos));
         }
 
-        /* brave: put us in base town */
-        else if ((cfg_diving_mode > 1) || (no_recall && force_descend))
+        /* ironman: put us in base town */
+        else if ((cfg_diving_mode > 1) || (no_recall && force_descend) || ironman)
             memcpy(&p->wpos, base_wpos(), sizeof(struct worldpos));
 
         /* Put us in starting town */
@@ -1582,7 +1582,7 @@ const char *savefile_get_name(char *savefile, char *panicfile)
  *
  * Returns 1 if quick start is possible, 0 if quick start is not possible, -1 if an error occurs.
  */
-static int quickstart_ok(struct player *p, const char *name, int conn, bool zeitnot, bool no_recall, bool force_descend)
+static int quickstart_ok(struct player *p, const char *name, int conn, bool zeitnot, bool ironman, bool no_recall, bool force_descend)
 {
     char previous[NORMAL_WID];
     const char *loadpath;
@@ -1592,7 +1592,7 @@ static int quickstart_ok(struct player *p, const char *name, int conn, bool zeit
     if (!get_previous_incarnation(previous, sizeof(previous))) return 0;
 
     /* Clear old information */
-    init_player(p, conn, false, zeitnot, no_recall, force_descend);
+    init_player(p, conn, false, zeitnot, ironman, no_recall, force_descend);
 
     /* Copy his name */
     my_strcpy(p->name, previous, sizeof(p->name));
@@ -1652,7 +1652,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     /* Handle dynastic quick start */
     if (stat_roll[STAT_MAX] == BR_QDYNA)
     {
-        int ret = quickstart_ok(p, name, conn, options[OPT_birth_zeitnot],
+        int ret = quickstart_ok(p, name, conn, options[OPT_birth_zeitnot], options[OPT_birth_ironman],
             options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         if (ret == -1)
@@ -1666,8 +1666,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Clear old information */
-    init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
-        options[OPT_birth_force_descend]);
+    init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_ironman],
+    options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
     /* Copy his name */
     my_strcpy(p->name, name, sizeof(p->name));
@@ -1726,12 +1726,14 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         /* Make new player */
         p->is_dead = false;
 
-        // hack: do not allow having both zeitnot and brave modes
+        // hack: do not allow having both zeitnot and ironman modes
         if (options[OPT_birth_zeitnot] &&
-            (options[OPT_birth_no_recall] || options[OPT_birth_force_descend]))
+           (options[OPT_birth_no_recall] || options[OPT_birth_force_descend] ||
+            options[OPT_birth_ironman]))
         {
             options[OPT_birth_no_recall] = false;
             options[OPT_birth_force_descend] = false;
+            options[OPT_birth_ironman] = false;
         }
 
         /* Handle quick start */
@@ -1739,8 +1741,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
 
         /* Hack -- rewipe the player info if load failed */
-        init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
-            options[OPT_birth_force_descend]);
+        init_player(p, conn, old_history, options[OPT_birth_zeitnot], options[OPT_birth_ironman],
+        options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         /* Copy his name and connection info */
         my_strcpy(p->name, name, sizeof(p->name));
@@ -1822,8 +1824,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         }
 
         /* Set his location, panel, etc. */
-        player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
-            options[OPT_birth_force_descend]);
+        player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_ironman],
+        options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
 
         /* Add new starting message */
         history_add_unique(p, "Began the quest to destroy Morgoth", HIST_PLAYER_BIRTH);
@@ -1860,8 +1862,8 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
     }
 
     /* Loading succeeded */
-    player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_no_recall],
-        options[OPT_birth_force_descend]);
+    player_setup(p, id, account, options[OPT_birth_zeitnot], options[OPT_birth_ironman],
+    options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
     return p;
 }
 

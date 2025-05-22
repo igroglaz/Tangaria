@@ -2704,25 +2704,25 @@ void player_death(struct player *p)
     }
     else if (p->alive)
     {
-        char brave[40];
+        char mode_name[40];
 
         if (OPT(p, birth_zeitnot))
         {
-            strnfmt(brave, sizeof(brave), "The%s zeitnot",
+            strnfmt(mode_name, sizeof(mode_name), "The%s zeitnot",
                 (OPT(p, birth_hardcore))? " hardcore": "");
         } else if (OPT(p, birth_no_recall) || OPT(p, birth_force_descend) ||
             OPT(p, birth_hardcore))
         {
-            strnfmt(brave, sizeof(brave), "The%s%s%s%s",
-                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
+            strnfmt(mode_name, sizeof(mode_name), "The%s%s%s%s",
+                (OPT(p, birth_ironman))? " ironman": "",
                 (OPT(p, birth_hardcore))? " hardcore": "",
                 (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
                 (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
         }
         else
-            my_strcpy(brave, "The unfortunate", sizeof(brave));
+            my_strcpy(mode_name, "The unfortunate", sizeof(mode_name));
 
-        strnfmt(buf, sizeof(buf), "%s %s %s the level %i %s %s %s.", brave, prompt, p->name, p->lev,
+        strnfmt(buf, sizeof(buf), "%s %s %s the level %i %s %s %s.", mode_name, prompt, p->name, p->lev,
             p->race->name, p->clazz->name, p->died_flavor);
     }
     else if (streq(p->died_from, "divine wrath"))
@@ -2782,7 +2782,7 @@ void player_death(struct player *p)
         char mode_str[60];
         bool is_hardcore;
         bool is_zeitnot;
-        bool is_brave;
+        bool is_ironman;
         
         strnfmt(player_desc, sizeof(player_desc), "%s the %s %s", // Bob the Human Warrior
                 p->name, p->race->name, p->clazz->name);
@@ -2790,9 +2790,9 @@ void player_death(struct player *p)
         // Add special mode indicators to player description
         is_hardcore = OPT(p, birth_hardcore);
         is_zeitnot = OPT(p, birth_zeitnot);
-        is_brave = OPT(p, birth_no_recall) && OPT(p, birth_force_descend);
+        is_ironman = OPT(p, birth_ironman);
         
-        if (is_hardcore || is_zeitnot || is_brave) {
+        if (is_hardcore || is_zeitnot || is_ironman) {
             modes[0] = '\0'; // Initialize empty string
             
             // Start with hardcore if it exists (as it can be in mix with any mode)
@@ -2800,18 +2800,18 @@ void player_death(struct player *p)
                 my_strcat(modes, "hardcore", sizeof(modes));
             }
             
-            // Add zeitnot or brave
+            // Add zeitnot or ironman
             if (is_zeitnot) {
                 if (is_hardcore) {
                     my_strcat(modes, " zeitnot", sizeof(modes));
                 } else {
                     my_strcat(modes, "zeitnot", sizeof(modes));
                 }
-            } else if (is_brave) {
+            } else if (is_ironman) {
                 if (is_hardcore) {
-                    my_strcat(modes, " brave", sizeof(modes));
+                    my_strcat(modes, " ironman", sizeof(modes));
                 } else {
-                    my_strcat(modes, "brave", sizeof(modes));
+                    my_strcat(modes, "ironman", sizeof(modes));
                 }
             }
             

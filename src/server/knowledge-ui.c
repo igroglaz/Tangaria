@@ -3097,7 +3097,7 @@ void do_cmd_check_players(struct player *p, int line)
     {
         struct player *q = player_get(k);
         uint8_t attr = 'w';
-        char brave[30];
+        char mode_name[30];
         char winner[20];
         const char *batty = "";
 
@@ -3130,11 +3130,11 @@ void do_cmd_check_players(struct player *p, int line)
         /* Challenge options */
         if (OPT(q, birth_zeitnot))
         {
-            strnfmt(brave, sizeof(brave), "the%s zeitnot",
+            strnfmt(mode_name, sizeof(mode_name), "the%s zeitnot",
                 (OPT(q, birth_hardcore))? " hardcore": "");
         } else {
-            strnfmt(brave, sizeof(brave), "the%s%s%s%s",
-                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))? " brave": "",
+            strnfmt(mode_name, sizeof(mode_name), "the%s%s%s%s",
+                (OPT(p, birth_ironman))? " ironman": "",
                 (OPT(q, birth_hardcore))? " hardcore": "",
                 (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
                 (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
@@ -3145,7 +3145,7 @@ void do_cmd_check_players(struct player *p, int line)
         if (OPT(q, birth_fruit_bat)) batty = "batty, ";
 
         /* Print a message */
-        file_putf(fff, "     %s %s %s %s (%s%sLevel %d, %s)", q->name, brave, q->race->name,
+        file_putf(fff, "     %s %s %s %s (%s%sLevel %d, %s)", q->name, mode_name, q->race->name,
             q->clazz->name, winner, batty, q->lev, parties[q->party].name);
 
         /* Print extra info if these people are not 'red' aka hostile */

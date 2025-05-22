@@ -6639,7 +6639,7 @@ static int Enter_player(int ind)
         char mode_str[60];
         bool is_hardcore;
         bool is_zeitnot;
-        bool is_brave;
+        bool is_ironman;
         
         strnfmt(player_desc, sizeof(player_desc), "%s (%s %s)", // Bob (Human Warrior)
                 p->name, p->race->name, p->clazz->name);
@@ -6647,9 +6647,9 @@ static int Enter_player(int ind)
         // Add special mode indicators to player description
         is_hardcore = OPT(p, birth_hardcore);
         is_zeitnot = OPT(p, birth_zeitnot);
-        is_brave = OPT(p, birth_no_recall) && OPT(p, birth_force_descend);
+        is_ironman = OPT(p, birth_ironman);
         
-        if (is_hardcore || is_zeitnot || is_brave) {
+        if (is_hardcore || is_zeitnot || is_ironman) {
             modes[0] = '\0'; // Initialize empty string
             
             // Start with hardcore if it exists (as it can be in mix with any mode)
@@ -6657,18 +6657,18 @@ static int Enter_player(int ind)
                 my_strcat(modes, "hardcore", sizeof(modes));
             }
             
-            // Add zeitnot or brave
+            // Add zeitnot or ironman
             if (is_zeitnot) {
                 if (is_hardcore) {
                     my_strcat(modes, " zeitnot", sizeof(modes));
                 } else {
                     my_strcat(modes, "zeitnot", sizeof(modes));
                 }
-            } else if (is_brave) {
+            } else if (is_ironman) {
                 if (is_hardcore) {
-                    my_strcat(modes, " brave", sizeof(modes));
+                    my_strcat(modes, " ironman", sizeof(modes));
                 } else {
-                    my_strcat(modes, "brave", sizeof(modes));
+                    my_strcat(modes, "ironman", sizeof(modes));
                 }
             }
             

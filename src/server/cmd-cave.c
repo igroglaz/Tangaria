@@ -2145,11 +2145,10 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
                 return;
             }
         /* Leaving base town */
-        } else if (in_base_town(&p->wpos))
+        } else if (in_base_town(&p->wpos)) // there 'base' means 'ironman'
         {
-            // Forbid for brave
-            if ((cfg_diving_mode > 1) ||
-                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend)))
+            // Forbid for ironman
+            if (cfg_diving_mode > 1 || OPT(p, birth_ironman))
             {
                 if (cfg_diving_mode > 1)
                     msg(p, "There is a wall blocking your way.");
@@ -2186,15 +2185,14 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             new_grid.x = 1;
         }
 
-        // don't allow regular chars visit Brave/Zeitnot locs
+        // don't allow regular chars visit Zeitnot/Ironman locs
         if (new_world_grid.x == 0)
         {
             if (new_world_grid.y == 6 && !(OPT(p, birth_zeitnot)))
             {
                 msg(p, "You shall not pass!");
                 return;
-            } else if (new_world_grid.y == -6 &&
-                !(OPT(p, birth_no_recall) || OPT(p, birth_force_descend)))
+            } else if (new_world_grid.y == -6 && !(OPT(p, birth_ironman)))
             {
                 msg(p, "You shall not pass!");
                 return;
