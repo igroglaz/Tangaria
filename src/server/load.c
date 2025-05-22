@@ -749,6 +749,7 @@ int rd_player_misc(struct player *p)
     rd_s16b(&p->ghost);
     rd_byte(&p->lives);
     rd_bool(&OPT(p, birth_zeitnot));
+    rd_bool(&OPT(p, birth_ironman));
     rd_bool(&OPT(p, birth_force_descend));
     rd_bool(&OPT(p, birth_no_recall));
     rd_bool(&OPT(p, birth_no_artifacts));

@@ -94,6 +94,9 @@ X:expand_inspect
 # Option 'Zeitnot'
 X:birth_zeitnot
 
+# Option 'Ironman'
+X:birth_ironman
+
 # Option 'Force player descent'
 X:birth_force_descend
 

@@ -64,6 +64,7 @@ typedef struct
 struct birth_options
 {
     bool zeitnot;
+    bool ironman;
     bool force_descend;
     bool no_recall;
     bool no_artifacts;

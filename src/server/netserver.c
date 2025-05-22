@@ -3213,8 +3213,8 @@ int Send_birth_options(int ind, struct birth_options *options)
         return 0;
     }
 
-    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
-        (int)options->zeitnot, (int)options->force_descend, (int)options->no_recall,
+    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
+        (int)options->zeitnot, (int)options->ironman, (int)options->force_descend, (int)options->no_recall,
         (int)options->no_artifacts, (int)options->feelings, (int)options->no_selling,
         (int)options->start_kit, (int)options->no_stores, (int)options->no_ghost,
         (int)options->fruit_bat, (int)options->hardcore);
@@ -6107,6 +6107,7 @@ static bool screen_compatible(int ind)
 static void get_birth_options(struct player *p, struct birth_options *options)
 {
     options->zeitnot = OPT(p, birth_zeitnot);
+    options->ironman = OPT(p, birth_ironman);
     options->force_descend = OPT(p, birth_force_descend);
     options->no_recall = OPT(p, birth_no_recall);
     options->no_artifacts = OPT(p, birth_no_artifacts);
@@ -6126,6 +6127,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     if (!ht_zero(&p->game_turn))
     {
         OPT(p, birth_zeitnot) = options->zeitnot;
+        OPT(p, birth_ironman) = options->ironman;
         OPT(p, birth_force_descend) = options->force_descend;
         OPT(p, birth_no_recall) = options->no_recall;
         OPT(p, birth_no_artifacts) = options->no_artifacts;
@@ -6137,6 +6139,12 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_fruit_bat) = options->fruit_bat;
         OPT(p, birth_hardcore) = options->hardcore;
     }
+
+   // Ironman it is force_descent + no_recall and vice versa
+    if (OPT(p, birth_ironman))
+        OPT(p, birth_force_descend) = OPT(p, birth_no_recall) = true;
+    else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
+        OPT(p, birth_ironman) = true;
 
     /* Server options supercede birth options */
     if (cfg_limit_stairs == 3) OPT(p, birth_force_descend) = true;
