@@ -91,6 +91,9 @@ X:wrap_messages
 # Option 'Compare equipment when examining items'
 X:expand_inspect
 
+# Option 'Deeptown'
+X:birth_deeptown
+
 # Option 'Zeitnot'
 X:birth_zeitnot
 

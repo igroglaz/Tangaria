@@ -63,6 +63,7 @@ typedef struct
 
 struct birth_options
 {
+    bool deeptown;
     bool zeitnot;
     bool ironman;
     bool force_descend;

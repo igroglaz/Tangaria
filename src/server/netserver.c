@@ -3213,8 +3213,9 @@ int Send_birth_options(int ind, struct birth_options *options)
         return 0;
     }
 
-    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
-        (int)options->zeitnot, (int)options->ironman, (int)options->force_descend, (int)options->no_recall,
+    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
+        (int)options->deeptown, (int)options->zeitnot, (int)options->ironman,
+        (int)options->force_descend, (int)options->no_recall,
         (int)options->no_artifacts, (int)options->feelings, (int)options->no_selling,
         (int)options->start_kit, (int)options->no_stores, (int)options->no_ghost,
         (int)options->fruit_bat, (int)options->hardcore);
@@ -6106,6 +6107,7 @@ static bool screen_compatible(int ind)
 
 static void get_birth_options(struct player *p, struct birth_options *options)
 {
+    options->deeptown = OPT(p, birth_deeptown);
     options->zeitnot = OPT(p, birth_zeitnot);
     options->ironman = OPT(p, birth_ironman);
     options->force_descend = OPT(p, birth_force_descend);
@@ -6126,6 +6128,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     /* Birth options: can only be set at birth */
     if (!ht_zero(&p->game_turn))
     {
+        OPT(p, birth_deeptown) = options->deeptown;
         OPT(p, birth_zeitnot) = options->zeitnot;
         OPT(p, birth_ironman) = options->ironman;
         OPT(p, birth_force_descend) = options->force_descend;
@@ -6141,6 +6144,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     }
 
    // Ironman it is force_descent + no_recall and vice versa
+   // (so Ironman is simply alias for this combined 2 modes)
     if (OPT(p, birth_ironman))
         OPT(p, birth_force_descend) = OPT(p, birth_no_recall) = true;
     else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
@@ -6638,6 +6642,7 @@ static int Enter_player(int ind)
         char modes[50];
         char mode_str[60];
         bool is_hardcore;
+        bool is_deeptown;
         bool is_zeitnot;
         bool is_ironman;
         
@@ -6646,10 +6651,11 @@ static int Enter_player(int ind)
         
         // Add special mode indicators to player description
         is_hardcore = OPT(p, birth_hardcore);
+        is_deeptown = OPT(p, birth_deeptown);
         is_zeitnot = OPT(p, birth_zeitnot);
         is_ironman = OPT(p, birth_ironman);
         
-        if (is_hardcore || is_zeitnot || is_ironman) {
+        if (is_hardcore || is_deeptown || is_zeitnot || is_ironman) {
             modes[0] = '\0'; // Initialize empty string
             
             // Start with hardcore if it exists (as it can be in mix with any mode)
@@ -6657,8 +6663,14 @@ static int Enter_player(int ind)
                 my_strcat(modes, "hardcore", sizeof(modes));
             }
             
-            // Add zeitnot or ironman
-            if (is_zeitnot) {
+            // Add deeptown, zeitnot or ironman
+            if (is_deeptown) {
+                if (is_hardcore) {
+                    my_strcat(modes, " deeptown", sizeof(modes));
+                } else {
+                    my_strcat(modes, "deeptown", sizeof(modes));
+                }
+            } else if (is_zeitnot) {
                 if (is_hardcore) {
                     my_strcat(modes, " zeitnot", sizeof(modes));
                 } else {
