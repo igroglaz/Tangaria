@@ -1190,7 +1190,7 @@ void player_cave_new(struct player *p, int height, int width)
 /*
  * Initialize player struct
  */
-void init_player(struct player *p, int conn, bool old_history, bool zeitnot, bool ironman, bool no_recall, bool force_descend)
+void init_player(struct player *p, int conn, bool old_history, bool deeptown, bool zeitnot, bool ironman, bool no_recall, bool force_descend)
 {
     int i, preset_max = player_cmax() * player_rmax();
     char history[N_HIST_LINES][N_HIST_WRAP];
@@ -1306,12 +1306,15 @@ void init_player(struct player *p, int conn, bool old_history, bool zeitnot, boo
     } else if (zeitnot)
     {
         wild_set_explored(p, zeitnot_wpos());
+    } else if (deeptown)
+    {
+        wild_set_explored(p, deeptown_wpos());
     } else
     {
         wild_set_explored(p, start_wpos());
 
         /* On "fast" wilderness servers, we also know the location of the base town */
-        if (cfg_diving_mode == 1) wild_set_explored(p, base_wpos());
+        // if (cfg_diving_mode == 1) wild_set_explored(p, base_wpos());
     }
 
     /* Copy channels pointer */

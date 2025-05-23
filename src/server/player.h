@@ -103,7 +103,7 @@ extern struct player *player_get(int id);
 extern void player_set(int id, struct player *p);
 extern void player_death_info(struct player *p, const char *died_from);
 extern void player_safe_name(char *safe, size_t safelen, const char *name);
-extern void init_player(struct player *p, int conn, bool old_history, bool zeitnot, bool ironman, bool no_recall, bool force_descend);
+extern void init_player(struct player *p, int conn, bool old_history, bool deeptown, bool zeitnot, bool ironman, bool no_recall, bool force_descend);
 extern void cleanup_player(struct player *p);
 extern void player_cave_new(struct player *p, int height, int width);
 extern void player_cave_free(struct player *p);

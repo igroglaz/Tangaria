@@ -1377,7 +1377,6 @@ bool in_base_town(struct worldpos *wpos)
 // zeitnot location coords
 struct worldpos *zeitnot_wpos(void)
 {
-    /* Assume index of 1 */
     return &towns[2].wpos;
 }
 
@@ -1386,6 +1385,20 @@ struct worldpos *zeitnot_wpos(void)
 bool in_zeitnot_town(struct worldpos *wpos)
 {
     return (wpos_eq(wpos, zeitnot_wpos()));
+}
+
+
+// deeptown location coords
+struct worldpos *deeptown_wpos(void)
+{
+    return &towns[3].wpos;
+}
+
+
+// Are we in the Deeptown location
+bool in_deeptown_town(struct worldpos *wpos)
+{
+    return (wpos_eq(wpos, deeptown_wpos()));
 }
 
 
