@@ -1543,7 +1543,7 @@ bool savefile_set_name(struct player *p)
     player_safe_name(path, sizeof(path), p->name);
 
     /* Error */
-    if (strlen(path) > MAX_NAME_LEN)
+    if (strlen(path) > MAX_NAME_LEN) // MAX_NAME_LEN == 15
     {
         Destroy_connection(p->conn, "Your name is too long!");
         return false;

@@ -2241,6 +2241,136 @@ bool do_cmd_use_any(struct player *p, int item, int dir)
 }
 
 
+// Number of cases HARDCODED in consume_magic_items()
+const char* consume_magic_message(int rng)
+{
+    switch(rng)
+    {
+        case 0: return "Magic taken. Energy inside.";
+        case 1: return "Power eaten. Feel stronger.";
+        case 2: return "Magic gone. Me full now.";
+        case 3: return "Enchantment tasted. Good.";
+        case 4: return "Arcane force in. Glow bright.";
+        case 5: return "Magic touched me. Feel warm.";
+        case 6: return "Spell eaten. Head clear.";
+        case 7: return "Magic flow. Me hum.";
+        case 8: return "Spark inside. Me ready.";
+        case 9: return "Energy eaten. Body move.";
+        case 10: return "Magic chewed. Feel good.";
+        case 11: return "More power. Less tired.";
+        case 12: return "Arcane snack. Me awake.";
+        case 13: return "Took magic. Not empty.";
+        case 14: return "Power gulped. No crack.";
+        case 15: return "Magic drink. Me buzz.";
+        case 16: return "Arcane go in. Bones soft.";
+        case 17: return "Spell juice. Feel jumpy.";
+        case 18: return "Magic food. Me strong.";
+        case 19: return "Glow back. Not broken.";
+        case 20: return "Magic sip. Me happy.";
+        case 21: return "Arcane chew. Buzz big.";
+        case 22: return "Magic inside. Me good.";
+        case 23: return "Gulped glow. Still work.";
+        case 24: return "Tasty spark. Me ready.";
+        case 25: return "Power down throat. Me fine.";
+        case 26: return "Magic fill. Legs work.";
+        case 27: return "Buzz in belly. Like it.";
+        case 28: return "Magic burp. Feel better.";
+        default: return "Magic gone. Me happy.";
+    }
+}
+
+
+// Homunculus race can use wands and staves for nourishment
+bool consume_magic_items(struct player *p)
+{
+    bool mdevice_found = false;
+    int rng;
+    int i;
+
+    // Calculate the maximum safe amount of food to add
+    int max_safe_food;
+    if (p->timed[TMD_FOOD] >= PY_FOOD_FULL) {
+        // Already full, be careful about overfeeding
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+        if (max_safe_food <= 0) {
+            msg(p, "Your arcane reservoir is already full. Consumption aborted.");
+            return false;  // Already at maximum, don't consume magic
+        }
+    } else {
+        // Not yet full, can consume normally
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+    }
+
+    // search for wands and staves
+    for (i = 0; i < z_info->pack_size; i++)
+    {
+        struct object *obj = p->upkeep->inven[i];
+
+        if (!obj) continue;
+        if (!object_is_carried(p, obj)) continue;
+
+        // wands
+        if (obj->tval == TV_WAND)
+        {
+            int food_amount = 25; // Base food value for wands
+            int charge_bonus = 0;
+            
+            // Add bonus based on remaining charges
+            if (obj->pval > 0) {
+                charge_bonus = obj->pval * 25; // 25 food per charge
+            }
+            
+            food_amount += charge_bonus;
+            
+            // Limit consumption to avoid overfeeding
+            food_amount = MIN(food_amount, max_safe_food);
+            
+            use_object(p, obj, 1, false);
+            // nourish and heal
+            player_inc_timed(p, TMD_FOOD, food_amount, false, false);
+            hp_player(p, p->wpos.depth / 3);
+            mdevice_found = true;
+            break;
+        }
+        // staves
+        else if (obj->tval == TV_STAFF)
+        {
+            int food_amount = 30; // Base food value for staves
+            int charge_bonus = 0;
+            
+            // Add bonus based on remaining charges
+            if (obj->pval > 0) {
+                charge_bonus = obj->pval * 30; // 30 food per charge
+            }
+            
+            food_amount += charge_bonus;
+            
+            // Limit consumption to avoid overfeeding
+            food_amount = MIN(food_amount, max_safe_food);
+            
+            use_object(p, obj, 1, false);
+            // nourish and heal
+            player_inc_timed(p, TMD_FOOD, food_amount, false, false);
+            hp_player(p, p->wpos.depth / 3);
+            mdevice_found = true;
+            break;
+        }
+    }
+
+    // no magic items found -> quit
+    if (!mdevice_found) return false;
+
+    // generate message
+    rng = randint0(29); // Total number of messages in get_magic_message()
+    msg(p, consume_magic_message(rng));
+
+    // refresh inventory
+    p->upkeep->redraw |= (PR_INVEN);
+
+    return true;
+}
+
+
 // Number of cases HARDCODED in use_oil()
 const char* get_oil_message(int rng)
 {

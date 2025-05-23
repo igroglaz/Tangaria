@@ -463,7 +463,7 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
  */
 ///// real_name - account name (login)
 ///// nick_name - character name
-// note: length is verified @ savefile_set_name() MAX_NAME_LEN
+// note: character name length (15 max) is verified @ savefile_set_name() MAX_NAME_LEN
 static int Check_names(char *nick_name, char *real_name, char *host_name)
 {
     char *ptr;

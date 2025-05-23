@@ -2751,6 +2751,17 @@ void do_cmd_fountain(struct player *p, int item)
 
         return;
     }
+    // homunculus race consume wand/staves ! if not standing on fountain !
+    else if (streq(p->race->name, "Homunculus"))
+    {       
+        if (consume_magic_items(p))
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
+        }
+
+        return;
+    }
     else if (streq(p->clazz->name, "Villager") && // can dig out old crops from T fields
             (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_T_FARM_FIELD)))
     {
