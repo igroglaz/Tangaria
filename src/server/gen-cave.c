@@ -4189,7 +4189,7 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
  * handles the physical layout. This level builder ignores the minimum height and width.
  *
  * PWMAngband: the layout for Angband's new town is also used to dynamically generate towns
- * for zeitnot servers at 1000ft, 2000ft, 3000ft and 4000ft.
+ * for ironman servers at 1000ft, 2000ft, 3000ft and 4000ft.
  */
 struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width,
     const char **p_error)

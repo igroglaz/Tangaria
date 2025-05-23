@@ -602,8 +602,7 @@ always:fortune cookie:another problem. Scoundrels, rogues and bandits.
 always:fortune cookie:Someone say they got a headquaters in sewers.
 always:fortune cookie:Could you help us with it? I heard they got
 always:fortune cookie:plenty of gold..and what is more important - food
-always:fortune cookie:down there.. You will find sewers to the east of
-always:fortune cookie:our village.
+always:fortune cookie:down there..
 always:fortune cookie:Take care, friend.. And good luck to thee..
 #######################################################################
 normal:fortune cookie:There always were a lot of criminal.. But not so.

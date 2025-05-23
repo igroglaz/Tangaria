@@ -8136,15 +8136,7 @@ weight:5
 cost:-1
 desc:.
 
-name:down there.. You will find sewers to the east of
-graphics:?:y
-type:fortune cookie
-level:0
-weight:5
-cost:-1
-desc:.
-
-name:our village.
+name:down there..
 graphics:?:y
 type:fortune cookie
 level:0

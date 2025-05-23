@@ -1107,6 +1107,7 @@ feat:a:v:wooden walls v
 
 feat:a:w:wooden walls w
 feat:a:x:wooden walls x
+#fireplace
 feat:a:y:wooden walls y
 feat:a:z:wooden walls z
 feat:a:A:wooden walls A
