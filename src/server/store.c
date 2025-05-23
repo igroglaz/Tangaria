@@ -1664,9 +1664,8 @@ static void store_maint(struct store *s, bool force)
             /* Create the item if it doesn't exist */
             if (!obj) obj = store_create_item(s, kind);
 
-            /* Ensure a full stack (except cookies) */
-            if (obj->tval != TV_COOKIE)
-                obj->number = obj->kind->base->max_stack;
+            /* Ensure a full stack */
+            obj->number = obj->kind->base->max_stack;
         }
     }
 
@@ -2111,6 +2110,12 @@ static int display_inventory(struct player *p)
 
         /* Hack -- set index */
         obj->oidx = i;
+
+        // hack: remove number in cookie-msgs eg "3 Hello, adventurer!"
+        // (the only CPU-fast way to fix 'normal' cookies)
+        if (obj->tval == TV_COOKIE && obj->number > 1 &&
+            s->feat != FEAT_HOME && s->feat != FEAT_STORE_PLAYER)
+            obj->number = 1;
 
         /* Display that line */
         display_entry(p, obj, home);
