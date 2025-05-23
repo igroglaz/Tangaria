@@ -288,7 +288,12 @@ static void play_ambient_sound(struct player *p)
 {
     if (p->wpos.depth == 0)
     {
-        if (in_town(&p->wpos))
+        // deeptown && ironman modes - no weather and sounds in town (underground)
+        if ((p->wpos.grid.x == -6 && p->wpos.grid.y == 0) ||
+            (p->wpos.grid.x == 0 && p->wpos.grid.y == -6))
+        {
+            ;
+        } else if (in_town(&p->wpos))
         {
             if ((p->wpos.grid.x ==  0 && p->wpos.grid.y ==  1) && one_in_(3))
             {
@@ -438,8 +443,25 @@ static void play_ambient_sound(struct player *p)
  */
 static void play_ambient_sound_location(struct player *p)
 {
+
+    // deeptown-ironman-zeitnot modes dungeon ambient sounds
+    if (p->wpos.depth > 0 && 
+        ((p->wpos.grid.x == -6 && p->wpos.grid.y == 0) ||
+        (p->wpos.grid.x == 0 && p->wpos.grid.y == -6) ||
+        (p->wpos.grid.x == 0 && p->wpos.grid.y == 6)))
+    {
+        switch(randint1(100)) { // play sound very rare
+            case 1: sound(p, MSG_SEWERS1); break;
+            case 2: sound(p, MSG_SEWERS2); break;
+            case 3: sound(p, MSG_SEWERS3); break;
+            case 4: sound(p, MSG_SEWERS4); break;
+            case 5: sound(p, MSG_SEWERS5); break;
+            case 6: sound(p, MSG_SEWERS6); break;
+            default: break;
+        }
+    }
     // custom depth music-ambience for Sewers
-    if (streq(p->locname, "Sewers"))
+    else if (streq(p->locname, "Sewers"))
     {
         if (p->wpos.depth == 8) sound(p, MSG_SEWERS1);
         else if (p->wpos.depth == 9) sound(p, MSG_SEWERS2);
