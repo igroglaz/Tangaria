@@ -1418,8 +1418,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     {
         int chance; // chance to get point
 
-        // hack: give Golem nourishment from killing boss (lore: absorbs divine energy)
-        if (rf_has(mon->race->flags, RF_FORCE_DEPTH) && streq(p->race->name, "Golem")) {
+        // hack: give Golem/Homi nourishment from killing boss (lore: absorbs divine energy)
+        if (rf_has(mon->race->flags, RF_FORCE_DEPTH) && 
+           (streq(p->race->name, "Golem") || streq(p->race->name, "Homunculus"))) {
             if (p->timed[TMD_FOOD] < 5000)
                 player_inc_timed(p, TMD_FOOD, 3000, false, false);
             else

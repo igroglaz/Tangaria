@@ -875,7 +875,8 @@ void player_exp_gain(struct player *p, int32_t amount)
         else if (streq(p->race->name, "High-Elf") || streq(p->race->name, "Thunderlord") ||
                  streq(p->race->name, "Troll") || streq(p->race->name, "Naga") ||
                  streq(p->race->name, "Balrog") || streq(p->race->name, "Half-Giant") ||
-                 streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem"))
+                 streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem") ||
+                 streq(p->race->name, "Homunculus"))
             amount /= 2;
         else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
                  streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))

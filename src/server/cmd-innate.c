@@ -385,7 +385,7 @@ void do_cmd_breath(struct player *p, int dir)
                 case 1: summon_specific_race_aux(p, c, &p->grid, get_race("lemure"), 1, true); break; // 
                 case 2: summon_specific_race_aux(p, c, &p->grid, get_race("tengu"), 1, true); break; // 
                 case 3: summon_specific_race_aux(p, c, &p->grid, get_race("darkling"), 1, true); break; // 
-                case 4: summon_specific_race_aux(p, c, &p->grid, get_race("homunculus"), 1, true); break; // 
+                case 4: summon_specific_race_aux(p, c, &p->grid, get_race("gremlin"), 1, true); break; // 
                 case 5: summon_specific_race_aux(p, c, &p->grid, get_race("quasit"), 1, true); break; // 
                 case 6: summon_specific_race_aux(p, c, &p->grid, get_race("imp"), 1, true); break; // 
                 case 7: summon_specific_race_aux(p, c, &p->grid, get_race("flamme"), 1, true); break; // 
