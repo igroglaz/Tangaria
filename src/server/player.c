@@ -67,7 +67,8 @@ int class_power(const char* clazz) {
              streq(clazz, "Blackguard") || streq(clazz, "Hunter") ||
              streq(clazz, "Telepath") || streq(clazz, "Battlemage") ||
              streq(clazz, "Hermit") || streq(clazz, "Phaseblade") ||
-             streq(clazz, "Inquisitor"))
+             streq(clazz, "Inquisitor") || streq(clazz, "Heretic") ||
+             streq(clazz, "Cutthroat"))
         return 2;
     // medium
     else if (streq(clazz, "Shaman") || streq(clazz, "Priest") ||
@@ -893,7 +894,8 @@ void player_exp_gain(struct player *p, int32_t amount)
                  streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever"))
             amount /= 2;
         else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
-                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
+                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer") ||
+                 streq(p->clazz->name, "Heretic") || streq(p->clazz->name, "Cutthroat"))
             amount = (amount * 2) / 3;
         else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
                  streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||

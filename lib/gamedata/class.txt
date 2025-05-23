@@ -8335,8 +8335,8 @@ title:Grandmaster
 
 magic:1:550:1
 
-book:shadow book:town:[Shadows for Beginners]:10:shadow
-equip:shadow book:[Shadows for Beginners]:1:1:none
+book:magic book:town:[Magic for Beginners]:10:arcane
+equip:magic book:[Magic for Beginners]:1:1:none
 
 ###### ATT
 
@@ -8421,9 +8421,9 @@ effect:HEAL_HP
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
 effect:TIMED_INC:OCCUPIED
-dice:4+1d5
+dice:3+1d5
 msg_other: heals, but becomes still.
-desc:Heals your wounds. The procedure takes 5–9 turns,
+desc:Heals your wounds. The procedure takes 4–8 turns,
 desc: during which you are vulnerable.
 
 spell:Magic Fog:45:20:40:1:0
@@ -8441,20 +8441,21 @@ desc: Makes you invisible, but alters your perception of the world.
 spell:Silence:50:30:75:70:0
 effect:TIMED_SET:ANTISUMMON
 dice:10+1d10
-# dmg hardcoded (p->chp / 2)
-effect:DAMAGE
-dice:10
 effect:TIMED_INC_NO_RES:SLOW_REAL
 dice:20
 effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:20
-effect:TIMED_INC_NO_RES:BLIND_REAL
+# can be cured
+effect:TIMED_INC_NO_RES:BLIND
 dice:2+1d2
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 effect:WAKE
-desc:Prevents summoning around you for a some time.
-desc: Recoil from this spell might even kill the caster and slow you down.
+desc:Prevents summoning around you for a some time for a price..
+desc: You will be slowed, disoriented, and temporarily blinded.
+desc: A brief moment of confusion also occurs.
+desc: Only blindness can be cured - the rest must wear off by itself.
+desc: Also, this spell makes a lot of noise.
 
 
 ############### CLASS TEMPLATE for Cutthroat
@@ -8500,8 +8501,8 @@ title:Grandmaster
 
 magic:1:550:1
 
-book:shadow book:town:[Shadows for Beginners]:3:shadow
-equip:shadow book:[Shadows for Beginners]:1:1:none
+book:skillbook:town:[Mastery]:3:skills
+equip:skillbook:[Mastery]:1:1:none
 
 # using dirty blows
 spell:Piercing Blows:1:1:1:1:0
