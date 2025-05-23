@@ -469,16 +469,21 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
     char *ptr;
     struct hint *v;
     char nick_test[NORMAL_WID];
+    bool has_space = false;
+    bool space_found = false;
+
+    //plog_fmt("nick_name: %s, real_name: %s, host_name: %s", nick_name, real_name, host_name);
 
     /** Realname / Hostname **/
 
     if ((real_name[0] == 0) || (host_name[0] == 0)) return E_INVAL;
 
-    // Check that real_name contains only lowercase a-z
+    // Check that real_name contains only A-z
     for (ptr = real_name; *ptr; ptr++) 
     {
-        if (*ptr < 'a' || *ptr > 'z') return E_INVAL;
+        if (!isalpha(*ptr)) return E_INVAL;
     }
+
     /* Replace weird characters with '?' */
     for (ptr = &host_name[strlen(host_name)]; ptr-- > host_name; )
     {
@@ -487,13 +492,11 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
 
     /** Playername **/
 
-    if ((nick_name[0] < 'A') || (nick_name[0] > 'Z')) return E_INVAL;
+    // Check for empty nickname
+    if (nick_name[0] == 0) return E_INVAL;
 
     // Any weird characters here, bail out.
     // We allow: letters only, with optional Roman numerals after a space
-
-    bool has_space = false;
-    bool space_found = false;
     
     for (ptr = nick_name; *ptr; ptr++)
     {
