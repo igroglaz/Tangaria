@@ -946,11 +946,11 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             
             // Determine damage based on final swim_count
             if (swim_count >= 2)
-                dam_taken = 0; // Very good swimmers take no damage
+                dam_taken = 0;  // Very good swimmers take no damage
             else if (swim_count == 1 && one_in_(5))
-                dam_taken = 0; // Decent swimmers take damage every 5 turns
+                dam_taken = 0;  // Decent swimmers take damage every 5 turns
             else if (swim_count == 0)
-                dam_taken = 0; // Poor swimmers take damage every turn
+                ;               // Poor swimmers take damage every turn
             else if (swim_count < 0)
             {
                 if (one_in_(2)) // Terrible swimmers take double damage sometimes
