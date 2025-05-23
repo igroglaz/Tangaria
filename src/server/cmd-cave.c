@@ -2185,18 +2185,15 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             new_grid.x = 1;
         }
 
-        // don't allow regular chars visit Zeitnot/Ironman locs
-        if (new_world_grid.x == 0)
+        // don't allow regular chars visit Deeptown/Zeitnot/Ironman locs
+        if (
+            (new_world_grid.x == 0 && new_world_grid.y == 6 && !OPT(p, birth_zeitnot)) ||
+            (new_world_grid.x == 0 && new_world_grid.y == -6 && !OPT(p, birth_ironman)) ||
+            (new_world_grid.x == -6 && new_world_grid.y == 0 && !OPT(p, birth_deeptown))
+        )
         {
-            if (new_world_grid.y == 6 && !(OPT(p, birth_zeitnot)))
-            {
-                msg(p, "You shall not pass!");
-                return;
-            } else if (new_world_grid.y == -6 && !(OPT(p, birth_ironman)))
-            {
-                msg(p, "You shall not pass!");
-                return;
-            }
+            msg(p, "You shall not pass!");
+            return;
         }
 
         /* New location */
