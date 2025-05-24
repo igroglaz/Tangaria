@@ -1459,94 +1459,110 @@ static void melee_effect_handler_BLACK_BREATH(melee_effect_handler_context_t *co
     // later: archers and ranger classes - shooter should be destroyed..
 
     // Nazgul attack may DAMAGE (not destroy!) your weapon
-    if (one_in_(3))
+    struct object *obj;
+    char o_name[NORMAL_WID];
+
+    /* Choose the weapon */
+    obj = equipped_item_by_slot_name(context->p, "weapon");
+
+    if (obj)
     {
-        struct object *obj;
-        char o_name[NORMAL_WID];
+        int weap_change = 0; // flag - should we redraw or not
+        int dam_weap = randint1(100); // chance to damage weapon
+        int def = 0;
+        bool is_two_handed;
+        bool is_dark_sword;
+        bool is_artifact;
+        bool is_ego;
 
-        /* Choose the weapon */
-        obj = equipped_item_by_slot_name(context->p, "weapon");
+        /* Describe */
+        object_desc(context->p, o_name, sizeof(o_name), obj, ODESC_FULL);
+        
+        if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED))
+            is_two_handed = true;
+        if (tval_is_dark_sword(obj))
+            is_dark_sword = true;
+        if (obj->artifact)
+            is_artifact = true;
+        if (obj->ego)
+            is_ego = true;
 
-        if (obj)
+        // Stormbringer
+        if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'"))
         {
-            // flag - should we redraw or not
-            int weap_change = 0;
-            
-            /* Describe */
-            object_desc(context->p, o_name, sizeof(o_name), obj, ODESC_FULL);
+            ; // Stormy is immune to Nazgul influence
+        }
+        // Artifacts
+        else if (is_artifact)
+        {
+            if (is_two_handed)
+                def += 5;
+            else if (is_dark_sword)
+                def += 10;
 
-            // Artifacts
-            if (obj->artifact)
+            if (dam_weap > 85 + def)
             {
-                if (obj->kind == lookup_kind_by_name(TV_SWORD, "\'Stormbringer\'"))
-                    ; // Stormy is immune to Nazgul influence
-                // 2H arts additional resistance
-                else if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED) && one_in_(5))
-                    ;
-                // Dark Swords arts resist
-                else if (tval_is_dark_sword(obj) && one_in_(10))
-                    ;
-                // ~6.6% total chance (without counting 2H)
-                else if (one_in_(5))
-                {
-                    // Damage the artifact
-                    obj->to_h -= 1;
-                    obj->to_d -= 1;
-                    weap_change = 1;
-                }
-                /* disable destroying arts
-                else if (one_in_(10))
-                {
-                    // Destroy artifact
-                    preserve_artifact_aux(obj);
-                    history_lose_artifact(context->p, obj);
-                    use_object(context->p, obj, 1, false);
-                    weap_change = 1;
-                }
-                */
-            }
-            // Dark Swords
-            else if (tval_is_dark_sword(obj))
-            {
-                // Ego additional resist
-                if (obj->ego && one_in_(5))
-                    ;
-                // regular dark swords
-                else if (one_in_(10))
-                {
-                    obj->to_h -= 1;
-                    obj->to_d -= 1;
-                    weap_change = 1;
-                }
-            }
-            // Two-handed weapons
-            else if (kf_has(obj->kind->kind_flags, KF_TWO_HANDED))
-            {
-                if (one_in_(5))
-                {
-                    // Damage
-                    obj->to_h -= randint1(2);
-                    obj->to_d -= randint1(2);
-                    weap_change = 1;
-                }
-            }
-            // Regular weapons damage
-            else if (one_in_(4))
-            {
-                obj->to_h -= randint1(3);
-                obj->to_d -= randint1(3);
+                // Damage the artifact
+                obj->to_h -= randint0(2); // 0-1
+                obj->to_d -= randint0(2); // 0-1
                 weap_change = 1;
             }
-
-            // redraw if flag active
-            if (weap_change)
+            /* disable destroying arts
+            else if (dam_weap <= 10)
             {
-                /* Recalculate bonuses */
-                context->p->upkeep->update |= (PU_BONUS);
-
-                // Redraw
-                context->p->upkeep->redraw |= (PR_EQUIP);
+                // Destroy artifact
+                preserve_artifact_aux(obj);
+                history_lose_artifact(context->p, obj);
+                use_object(context->p, obj, 1, false);
+                weap_change = 1;
             }
+            */
+        }
+        // Dark Swords
+        else if (is_dark_sword)
+        {
+            if (is_ego)
+                def += 5;
+
+            if (dam_weap > 75 + def)
+            {
+                obj->to_h -= 1;           // 1
+                obj->to_d -= randint0(2); // 0-1
+                weap_change = 1;
+            }
+        }
+        // Two-handed weapons
+        else if (is_two_handed)
+        {
+            if (is_ego)
+                def += 10;
+
+            if (dam_weap > 65 + def)
+            {
+                obj->to_h -= randint1(2); // 1-2
+                obj->to_d -= randint0(3); // 0-2
+                weap_change = 1;
+            }
+        }
+        // Regular weapons damage
+        else
+        {
+            if (is_ego)
+                def += 20;
+
+            if (dam_weap > 50 + def)
+            {
+                obj->to_h -= randint1(3); // 1-3
+                obj->to_d -= randint0(4); // 0-3
+                weap_change = 1;
+            }
+        }
+
+        // redraw if weapon damaged
+        if (weap_change)
+        {
+            context->p->upkeep->update |= (PU_BONUS); // Recalculate bonuses
+            context->p->upkeep->redraw |= (PR_EQUIP); // Redraw
         }
     }
 
