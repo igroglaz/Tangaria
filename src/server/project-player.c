@@ -119,8 +119,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         // particular stage.. So cap just in case:
         if (dam > 1600) dam = 1600;
 
-        // custom vulnerable races
-        if (p && streq(p->race->name, "Ent") && (type == PROJ_FIRE))
+        // Djinn's immunity to cold isn't too good
+        if (p && streq(p->race->name, "Djinn") && (type == PROJ_COLD))
             dam /= 10;
         // everyone else with immunity
         else
@@ -160,7 +160,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     /* Vulnerable */
     if (resist == -1)
     {
-        if (streq(p->race->name, "Undead"))
+        if (type == PROJ_LIGHT && streq(p->race->name, "Undead"))
             return (dam * 5 / 4);
         return (dam * 4 / 3);
     }
@@ -188,6 +188,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         if (denom) dam = dam * projections[type].numerator / denom;
     }
 
+    /*
     // in case of vulnerability:
     // Resistance makes you neutral, double resist - resistant and immunity to get immune..
     // so for Undead race we wanna soften a bit resistance to fire and double resistance
@@ -198,6 +199,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         else if (resist == 1)  // undead got double resistance. instead of 0.11 he got 0.3 dmg
             dam -= dam / 3;    // make it 0.2
     }
+    */
 
     return dam;
 }

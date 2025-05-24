@@ -2298,9 +2298,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             extra_blows -= p->lev / 10;
     }
 
-    if (streq(p->race->name, "Ent") && p->lev > 30)
-        extra_moves -= (p->lev - 30) / 2;
-
     // naga assassin got additional BpRs not immediately
     if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))
         extra_blows -= ((50 - p->lev) * 2) / 10;

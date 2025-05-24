@@ -115,6 +115,19 @@
 
 # Asura?
 
+################# Vulnerabilities should be used only to make harder
+################# to get to lvl 35 for powerful (early on) races.
+################# At 35+ should be other ways to rebalance power
+################# OR... vulnerabilities should just increase FINAL damage (eg +10%),
+################# not reduce resistances scaling (eg from 'resistant'[1] to normal[0] as it is now)
+#################.... but for FIRE-COLD-ELEC-ACID - it's ok just to prevent possiblity for immunity
+################# ... so proper vulnerability - just disabling immunity to one of the base elements
+################# (as other elements immunities are super rare to aquire,
+#################  while basics are common at endgame)
+
+################# so.. for basic elements lets leave as it is. While for unusual elements (eg dark,
+################# light etc) - just reduce dmg... will require hardcoding (see Undead)
+
 name:Half-Troll
 skill-disarm-phys:-5
 skill-disarm-magic:-5
@@ -142,10 +155,11 @@ value:0:CHR[-4]
 obj-flag:0:SUST_STR
 value:0:INFRA[3]
 obj-flag:0:REGEN
-obj-flag:50:SLOW_DIGEST
-value:50:DAM_RED[1]
+obj-flag:35:SLOW_DIGEST
+# all races which are too easy at beginning (due too high HP etc) - should get -DAM_RED (extra phys damage)
 player-flags:50:RACE_REGEN
 #/// -
+value:0:DAM_RED[-1+1d35]
 player-flags:0:TROLL
 
 
@@ -362,7 +376,7 @@ value:0:CHR[-3]
 value:0:TUNNEL[1]
 value:0:INFRA[1+2d30]
 obj-flag:25:ESP_ORC
-value:30:DAM_RED[1+1d9]
+value:30:DAM_RED[1+1d19]
 value:30:RES_DARK[1]
 obj-flag:50:SLOW_DIGEST
 #/// -
@@ -510,8 +524,8 @@ skill-device:-16
 skill-save:20
 skill-stealth:0
 skill-search:-2
-skill-melee:15
-skill-shoot:-5
+skill-melee:-3
+skill-shoot:-15
 skill-dig:20
 hitdie:13
 # @49: 400%
@@ -522,14 +536,14 @@ height:170:20
 weight:240:60
 gift:bottle:Empty Bottle:3:4
 #6 -4 2 -4 8
-value:0:STR[0+1d8]
+value:0:STR[4+1d24]
 value:0:INT[-4]
 value:0:WIS[0+1d24]
 value:0:DEX[-4]
 value:0:CON[2+1d8]
 value:0:CHR[-3]
-# 'y' grow trees (5 lvl)
-# + don't eat normal food, but drink from fountains
+# 'y' grow trees (5 lvl) - 255 CD
+# + don't eat normal food, but drink from fountains (also pots help)
 # + immune to polymorph
 # + stay at one place very silent
 # + can move through trees somewhat
@@ -539,24 +553,22 @@ value:0:TUNNEL[5]
 obj-flag:0:SLOW_DIGEST
 value:0:MANA[5+-1d5M25]
 player-flags:0:CAN_SWIM
-value:30:DAM_RED[3+3d9]
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
 #/// -
-# stealth -6
-value:0:STEALTH[-1+-1d5M25]
+value:0:DAM_RED[-1]
+# HCed vulnerability to FIRE till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
+# after 35 lvl: no vulnerability, but can't be immune
+value:0:STEALTH[-6]
 obj-flag:0:CANT_FLY
 obj-flag:0:BAD_SHOOTER
 obj-flag:0:IMPAIR_HP
-# perma vulnerability; fire imm makes it less harsh
-value:0:RES_FIRE[-1]
 value:0:SPEED[0+-1d25]
-# - HCed: after 30 lvl got malus to MOVES up to -10 (&& -2 already there)
-value:0:MOVES[-2+1d25]
+value:0:MOVES[-1+-1d5]
 player-flags:0:GIANT
 # ? _ when staying in the water - feeding
 # ? /rfe 50% stun which got lowered each lvl
-# /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
+#   /rfe what about certain vuln to nether?.. while make fire vuln minor.. also dislike poison?
 #obj-flag:25:SEE_INVIS
 
 
@@ -591,6 +603,7 @@ value:0:CHR[-4]
 # + got eagle
 value:0:MANA[4+-1d6M25]
 #/// -
+value:0:DAM_RED[-1+1d35]
 obj-flag:0:AGGRAVATE
 obj-flag:0:HUNGER
 value:0:TUNNEL[-1+-1d15]
@@ -630,6 +643,7 @@ value:0:CHR[-5]
 # 'y' breath
 value:0:MANA[5+-1d10M40]
 #/// -
+value:0:DAM_RED[-1+1d35]
 # - 1/13 hp
 # - hc monks: -1 BpR after lvl 10
 value:0:STEALTH[0+-1d5]
@@ -841,7 +855,7 @@ value:0:CHR[-2]
 # 'y' aggro yell for heroism and taunt
 value:0:INFRA[1]
 obj-flag:0:PROT_FEAR
-value:0:DAM_RED[0+1d15]
+value:0:DAM_RED[0+1d24]
 value:0:RES_POIS[1]
 obj-flag:50:SLOW_DIGEST
 #/// -
@@ -955,6 +969,7 @@ slay:50:50:DRAGON_3
 obj-flag:50:PROT_STUN
 brand:50:50:STUN_1
 #/// -
+value:0:DAM_RED[-2+2d35]
 # allow certain escapes..
 obj-flag:0:LIMITED_TELE
 obj-flag:0:CLUMSY
@@ -994,6 +1009,7 @@ player-flags:0:CAN_SWIM
 value:0:TUNNEL[1]
 value:0:MANA[1]
 #/// -
+value:0:DAM_RED[-1+1d35]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+1d30]
 obj-flag:0:CLUMSY
@@ -1021,7 +1037,7 @@ height:150:5
 weight:240:22
 gift:cobble:Cobble:7:13
 #7 -8 -8 -5>0 4
-value:0:STR[3+1d12]
+value:0:STR[5+1d24]
 value:0:INT[-4]
 value:0:WIS[-4]
 value:0:DEX[-5+1d12]
@@ -1035,9 +1051,9 @@ value:0:RES_POIS[1]
 obj-flag:0:PROT_FEAR
 player-flags:30:RACE_REGEN
 value:30:RES_SHARD[1]
-value:30:DAM_RED[3+3d9]
 value:30:RES_COLD[1]
 obj-flag:50:PROT_CONF
+value:0:DAM_RED[-2+5d35]
 #/// -
 #/// todo? add stench like troglo? but then need some boni.. (and 1st make classes to
 #/// use ID as streq() for stench is overheat.. so reorder races and ID them
@@ -1241,12 +1257,12 @@ obj-flag:0:IMPAIR_HP
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
 #/// -
-# perma vulnerability; fire imm makes it less harsh.. (as nether++ OP)
-# !also undead's vuln less harsh than regular (5/4) vuln
-# and it's resist/double resist protect better than in common vuln case
-value:0:RES_FIRE[-1]
-value:0:RES_LIGHT[-1]
+# HCed vulnerability to FIRE till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
+# after 35 lvl: no vulnerability, but can't be immune
 value:0:MOVES[-1]
+# HCed: not so vulnerable to LIGHT as others adjust_dam()
+value:0:RES_LIGHT[-1]
+
 
 name:Vampire
 skill-disarm-phys:-2
@@ -1345,8 +1361,9 @@ obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
 slay:30:50:EVIL_2
 #/// -
+# - all speed boni reduced by 2x (pretty harsh).. require 2x more +speed to have same result as others
+value:0:DAM_RED[-1+1d30]
 value:0:RES_DARK[-1]
-# - speed boni reduced by 2x
 
 
 # cambion.. 'corrupted' descendants of ancient powers;
@@ -1392,7 +1409,8 @@ value:0:SPEED[1]
 player-flags:30:SHAPECHANGE
 shape:30:succubi
 #/// -
-value:0:DAM_RED[-1+-1d4]
+# - receive 11% more phys dmg
+value:0:DAM_RED[-1]
 value:0:RES_LIGHT[-1]
 
 
@@ -1419,7 +1437,7 @@ gift:potion:Infravision:2:3
 value:0:STR[3+1d15]
 value:0:INT[-4+1d8]
 value:0:WIS[-4]
-value:0:DEX[-6+1d6]
+value:0:DEX[2]
 value:0:CON[3]
 value:0:CHR[-10+1d25]
 # 'y' fiery whip
@@ -1428,7 +1446,6 @@ value:0:CHR[-10+1d25]
 value:0:MANA[5+-1d10]
 obj-flag:0:FEATHER
 value:0:INFRA[5]
-value:0:MOVES[1]
 obj-flag:0:SLOW_DIGEST
 value:0:RES_DARK[1]
 value:0:RES_POIS[1]
@@ -1438,14 +1455,13 @@ value:35:LIGHT[1]
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 #/// -
+# HCed vulnerability to COLD till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
+# after 35 lvl: no vulnerability, but can't be immune
 # AGGRAVATE 40 range hardcoded
-# kinda vulnerable to steel (fight in depths)
-value:0:DAM_RED[-1+-1d5]
-value:0:RES_COLD[-1]
+# - receive 11% more non-physical dmg
+value:0:DAM_RED[-1]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+-1d10]
-#not speedy (reacted  too late at G)
-value:0:SPEED[-1]
 # /rfe CON as mana stat
 
 
@@ -1465,7 +1481,7 @@ skill-search:2
 skill-melee:-5
 skill-shoot:0
 skill-dig:-40
-hitdie:11
+hitdie:10
 # -25%
 exp:100:100
 history:100
@@ -1477,10 +1493,10 @@ gift:scroll:Holy Prayer:1:2
 value:0:STR[2]
 value:0:INT[-4+1d12]
 value:0:WIS[-4+1d6]
-value:0:DEX[-4+1d10]
+value:0:DEX[1]
 value:0:CON[-4+1d8]
 value:0:CHR[6+-1d8]
-# 'y' holy blast /// TODO: re.. too low stats. instead reduce ESP? max TMD_speed? think...
+# 'y' holy blast (only on full HP.. +1 rad at lvl 30)
 value:0:MANA[5+-1d12]
 obj-flag:0:SUST_WIS
 value:0:INFRA[2+1d30]
@@ -1491,7 +1507,9 @@ value:0:RES_GRAVITY[1]
 obj-flag:30:SEE_INVIS
 slay:0:50:UNDEAD_3
 #/// -
+value:0:DAM_RED[-1]
 value:0:RES_TIME[-1]
+value:0:RES_DARK[-1]
 value:0:TUNNEL[-1+-1d10]
 
 
@@ -1569,9 +1587,7 @@ value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 #/// -
-#//////// TODO: rebalance.. actually all vulnerable races should be re
-#//////// as vulnerability is dull (1 unlucky hit) way to make weakness
-value:0:RES_ACID[-1]
+
 value:0:MOVES[-1]
 
 
@@ -1737,7 +1753,7 @@ value:0:CHR[0]
 value:0:MANA[1d5]
 value:0:RES_GRAVITY[1]
 # >>>>>>>>>>>>>>>>>>> will be replaced to -x%
-value:30:DAM_RED[0+1d1]
+value:30:DAM_RED[0+1d2]
 value:30:MOVES[1+1d2]
 value:30:RES_ELEC[3]
 brand:30:50:ELEC_2
@@ -2024,12 +2040,13 @@ value:30:SPEED[1+1d4]
 value:30:RES_TIME[1]
 # auto-id
 obj-flag:50:KNOWLEDGE
+value:0:DAM_RED[-1]
 #/// -
-# got less gold at start
-# TODO: make them "eat" MD only (like upcoming mgolem race)
+# get less dmg reduction from immunity to COLD: adjust_dam()
 player-flags:0:NO_BOOTS
 obj-flag:0:IMPAIR_HP
 value:0:TUNNEL[-5]
+# got less gold at start
 
 
 # bardi-rogueish.. can't really charmm but some are not too ugly

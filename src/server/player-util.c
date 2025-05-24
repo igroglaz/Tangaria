@@ -166,11 +166,15 @@ int player_apply_damage_reduction(struct player *p, int dam, bool non_physical, 
     if (streq(p->race->name, "Gargoyle"))
         dam = (dam * 17) / 18;
     // 2) to physical dmg
-    else if (streq(p->race->name, "Half-Giant") && !non_physical)
+    else if (!non_physical && streq(p->race->name, "Half-Giant"))
         dam = (dam * 12) / 13;
+    else if (!non_physical && streq(p->race->name, "Demonic"))
+        dam = (dam * 10) / 9; // + receive 11% more phys dmg
     // 3) magic dmg
-    else if (streq(p->race->name, "Golem") && non_physical)
+    else if (non_physical && streq(p->race->name, "Golem"))
         dam = (dam * 9) / 10;
+    else if (non_physical && streq(p->race->name, "Balrog"))
+        dam = (dam * 10) / 9; // + receive 11% more magic dmg
     
     return ((dam < 0)? 0: dam);
 }

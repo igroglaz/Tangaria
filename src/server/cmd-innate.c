@@ -930,7 +930,7 @@ void do_cmd_breath(struct player *p, int dir)
             effect = mem_zalloc(sizeof(struct effect));
             effect->index = EF_BLAST;
             effect->subtype = PROJ_HOLY_ORB;
-            effect->radius = 1;
+            effect->radius = 1 + (p->lev / 30); ////////// <<<< !
 
             // init dice
             effect->dice = dice_new();

@@ -1045,7 +1045,7 @@ static void process_player_world(struct player *p, struct chunk *c)
 
             if (cloak) {
                 // Base protection from having any cloak
-                sun_protection = 14 - (p->lev / 3.5);
+                sun_protection = 14 - ((p->lev * 10) / 35); // aka 14 - (p->lev / 3.5);
 
                 // Additional protection from cloak's armor class
                 if (cloak->ac > 0) {
