@@ -458,13 +458,14 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
 }
 
 
-/*
- * Check if we like the login, OS username and PC name.
+/* Used in two calls - to check login and to check character name:
+ *  1) Contact() check if we like the login, OS username and PC name
+ *  2) Receive_play() check character name (OS username and PC name ignored)
  */
-///// nick_name - login
+///// nick_name - login OR character name (depends on call)
 ///// real_name - OS username (eg 'user')
 ///// host_name - PC name (eg '@MyPC')
-// note: character name length is verified @ savefile_set_name() MAX_NAME_LEN
+// note: character name length also verified at savefile_set_name() MAX_NAME_LEN
 static int Check_names(char *nick_name, char *real_name, char *host_name)
 {
     char *ptr;
@@ -712,7 +713,7 @@ static void Contact(int fd, int arg)
         nick_name[sizeof(nick_name) - 1] = '\0';
         pass_word[sizeof(pass_word) - 1] = '\0';
 
-        /* Check if his names are valid */
+        /* Check if his login, OS username, PC name are valid */
         if (Check_names(nick_name, real_name, host_name))
             status = E_INVAL;
     }
@@ -6848,11 +6849,11 @@ static int Receive_play(int ind)
             get_next_incarnation(nick, sizeof(nick));
         }
 
-        /* Check if this name is valid */
+        /* Check if this character's name is valid */
         if (Check_names(nick, "dummy", "dummy"))
         {
-            plog("Invalid name");
-            Destroy_connection(ind, "Invalid name");
+            plog("Invalid character's name");
+            Destroy_connection(ind, "Invalid character's name (must be 2-15 symbols)");
             return -1;
         }
 
