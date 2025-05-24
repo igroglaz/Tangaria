@@ -475,43 +475,42 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
     /** Realname / Hostname **/
 
     if ((real_name[0] == 0) || (host_name[0] == 0)) return E_INVAL;
-
-    /* Replace weird characters with '?' */
-    for (ptr = &real_name[strlen(real_name)]; ptr-- > real_name; )
+    // replace weird characters with '?'
+    for (ptr = real_name; *ptr; ptr++)
     {
         if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
     }
-    for (ptr = &host_name[strlen(host_name)]; ptr-- > host_name; )
+    for (ptr = host_name; *ptr; ptr++)
     {
         if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
     }
-
+    
     /** Player login **/
 
-    if ((nick_name[0] < 'A') || (nick_name[0] > 'Z')) return E_INVAL;
+    if ((nick_name[0] < 'A') || (nick_name[0] > 'Z'))
+        return E_INVAL; // login capitalized on client at choose_account()
 
     /* Any weird characters here, bail out. We allow letters, numbers and space */
-    for (ptr = &nick_name[strlen(nick_name)]; ptr-- > nick_name; )
+    for (ptr = nick_name; *ptr; ptr++)
     {
         if (!isascii(*ptr)) return E_INVAL;
         if (!(isalpha(*ptr) || isdigit(*ptr) || (*ptr == ' '))) return E_INVAL;
     }
 
-    /* Right-trim login */
-    for (ptr = &nick_name[strlen(nick_name)]; ptr-- > nick_name; )
-    {
-        if (isascii(*ptr) && isspace(*ptr)) *ptr = '\0';
-        else break;
-    }
-
-    // Check length limits for login (MAX_NAME_LEN == 15)
+    // Right-trim nickname with inline trim:
+    // find end of string, walk backwards to remove trailing spaces */
     len = strlen(nick_name);
+    while (len > 0 && nick_name[len - 1] == ' ') {
+        len--;
+    }
+    nick_name[len] = '\0';  // Terminate at last non-space character
+    // Check length limits for login (MAX_NAME_LEN == 15)
     if (len < 3 || len > MAX_NAME_LEN) return E_INVAL;
 
     /* The "server", "account" and "players" names are reserved */
     if (!my_stricmp(nick_name, "server")  || !my_stricmp(nick_name, "account") ||
         !my_stricmp(nick_name, "players") || !my_stricmp(nick_name, "lock") ||
-        !my_stricmp(nick_name, "Makefile"))
+        !my_stricmp(nick_name, "makefile"))
     {
         return E_INVAL;
     }
