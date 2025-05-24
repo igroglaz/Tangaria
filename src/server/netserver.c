@@ -471,25 +471,28 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
     struct hint *v;
     char nick_test[NORMAL_WID];
     int space_count = 0;
-    int len;
+    int len = strlen(nick_name);
 
-    /** Realname / Hostname **/
-
+    if (!nick_name || !real_name || !host_name) return E_INVAL; // paranoia
     if ((real_name[0] == 0) || (host_name[0] == 0)) return E_INVAL;
-    // replace weird characters with '?'
-    for (ptr = real_name; *ptr; ptr++)
-    {
-        if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
-    }
-    for (ptr = host_name; *ptr; ptr++)
-    {
-        if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
-    }
-    
+
     /** Player login **/
+
+    // check length limits for login (MAX_NAME_LEN == 15)
+    if (len < 2 || len > MAX_NAME_LEN) return E_INVAL;
 
     if ((nick_name[0] < 'A') || (nick_name[0] > 'Z'))
         return E_INVAL; // login capitalized on client at choose_account()
+
+    // Right-trim nickname with inline trim:
+    // find end of string, walk backwards to remove trailing spaces */
+    while (len > 0 && nick_name[len - 1] == ' ') {
+        len--;
+    }
+    nick_name[len] = '\0';  // Terminate at last non-space character
+
+    // check min length after trimming
+    if (len < 2) return E_INVAL;
 
     // Any weird characters here, bail out. We allow letters, numbers and at most one space
     for (ptr = nick_name; *ptr; ptr++)
@@ -503,16 +506,6 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
             if (space_count > 1) return E_INVAL;
         }
     }
-
-    // Right-trim nickname with inline trim:
-    // find end of string, walk backwards to remove trailing spaces */
-    len = strlen(nick_name);
-    while (len > 0 && nick_name[len - 1] == ' ') {
-        len--;
-    }
-    nick_name[len] = '\0';  // Terminate at last non-space character
-    // check length limits for login (MAX_NAME_LEN == 15)
-    if (len < 2 || len > MAX_NAME_LEN) return E_INVAL;
 
     // The "server", "account" and "players" names are reserved
     if (!my_stricmp(nick_name, "server")  || !my_stricmp(nick_name, "account") ||
@@ -538,6 +531,18 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
         {
             if (strstr(nick_test, v->hint)) return E_INVAL;
         }
+    }
+
+    /** Realname / Hostname **/
+
+    // replace weird characters with '?'
+    for (ptr = real_name; *ptr; ptr++)
+    {
+        if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
+    }
+    for (ptr = host_name; *ptr; ptr++)
+    {
+        if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
     }
 
     return SUCCESS;
