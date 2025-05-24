@@ -459,13 +459,18 @@ static int Setup_connection(uint32_t account, char *real, char *nick, char *addr
 
 
 /*
- * Check if we like the names.
+ * Check if we like the login, OS username and PC name.
  */
+///// nick_name - login
+///// real_name - OS username (eg 'user')
+///// host_name - PC name (eg '@MyPC')
+// note: character name length is verified @ savefile_set_name() MAX_NAME_LEN
 static int Check_names(char *nick_name, char *real_name, char *host_name)
 {
     char *ptr;
     struct hint *v;
     char nick_test[NORMAL_WID];
+    int len;
 
     /** Realname / Hostname **/
 
@@ -481,7 +486,7 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
         if (!isascii(*ptr) || !isprint(*ptr)) *ptr = '?';
     }
 
-    /** Playername **/
+    /** Player login **/
 
     if ((nick_name[0] < 'A') || (nick_name[0] > 'Z')) return E_INVAL;
 
@@ -492,21 +497,26 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
         if (!(isalpha(*ptr) || isdigit(*ptr) || (*ptr == ' '))) return E_INVAL;
     }
 
-    /* Right-trim nick */
+    /* Right-trim login */
     for (ptr = &nick_name[strlen(nick_name)]; ptr-- > nick_name; )
     {
         if (isascii(*ptr) && isspace(*ptr)) *ptr = '\0';
         else break;
     }
 
+    // Check length limits for login (MAX_NAME_LEN == 15)
+    len = strlen(nick_name);
+    if (len < 3 || len > MAX_NAME_LEN) return E_INVAL;
+
     /* The "server", "account" and "players" names are reserved */
-    if (!my_stricmp(nick_name, "server") || !my_stricmp(nick_name, "account") ||
-        !my_stricmp(nick_name, "players"))
+    if (!my_stricmp(nick_name, "server")  || !my_stricmp(nick_name, "account") ||
+        !my_stricmp(nick_name, "players") || !my_stricmp(nick_name, "lock") ||
+        !my_stricmp(nick_name, "Makefile"))
     {
         return E_INVAL;
     }
 
-    /* Can't pick a name from the list of swear words */
+    /* Can't pick a login name from the list of swear words */
     my_strcpy(nick_test, nick_name, sizeof(nick_test));
     for (ptr = (char*)nick_test; *ptr; ptr++) *ptr = tolower((unsigned char)*ptr);
     for (v = swear; v; v = v->next)
