@@ -4206,9 +4206,14 @@ bool create_house(struct player *p, int house_variant)
         if      (area_size == 1 && p->account_score >= 10) ;
         else if (area_size == 2 && p->account_score >= 25) ;
         else if (area_size == 3 && p->account_score >= 50) ;
-        else
+        else if (area_size >= 1 && area_size <= 3)
         {
             msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Cabin deeds are for houses of 1-3 tiles.");
             return false;
         }
     }
@@ -4217,9 +4222,14 @@ bool create_house(struct player *p, int house_variant)
         if      (area_size == 4 && p->account_score >= 100) ;
         else if (area_size == 5 && p->account_score >= 150) ;
         else if (area_size == 6 && p->account_score >= 225) ;
-        else
+        else if (area_size >= 4 && area_size <= 6)
         {
             msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Small house deeds are for houses of 4-6 tiles.");
             return false;
         }
     }
@@ -4228,9 +4238,14 @@ bool create_house(struct player *p, int house_variant)
         if      (area_size == 7 && p->account_score >= 300) ;
         else if (area_size == 8 && p->account_score >= 400) ;
         else if (area_size == 9 && p->account_score >= 500) ;
-        else
+        else if (area_size >= 7 && area_size <= 9)
         {
             msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Medium house deeds are for houses of 7-9 tiles.");
             return false;
         }
     }
@@ -4239,9 +4254,14 @@ bool create_house(struct player *p, int house_variant)
         if      (area_size <= 15 && p->account_score >= 650) ;
         else if (area_size <= 20 && p->account_score >= 800) ;
         else if (area_size <= 25 && p->account_score >= 1000) ;
-        else
+        else if (area_size <= 25)
         {
             msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Big house deeds are for houses of up to 25 tiles.");
             return false;
         }
     }
@@ -4250,45 +4270,70 @@ bool create_house(struct player *p, int house_variant)
         if      (area_size <= 32 && p->account_score >= 1250) ;
         else if (area_size <= 44 && p->account_score >= 1500) ;
         else if (area_size <= 64 && p->account_score >= 2000) ;
-        else
+        else if (area_size <= 64)
         {
             msg(p, "You need more account points to build house of such size.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Villa deeds are for houses of up to 64 tiles.");
             return false;
         }
     }
     else if (house_variant == 6) // estate
     {
         if (area_size <= 100 && p->account_score >= 2500) ;
-        else
+        else if (area_size <= 100)
         {
             msg(p, "You need at least 2500 account points to build such house.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Estate deeds are for houses of up to 100 tiles.");
             return false;
         }
     }
     else if (house_variant == 7) // tower
     {
         if (area_size <= 144 && p->account_score >= 3500) ;
-        else
+        else if (area_size <= 144)
         {
             msg(p, "You need at least 3500 account points to build such house.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Tower deeds are for houses of up to 144 tiles.");
             return false;
         }
     }
     else if (house_variant == 8) // keep
     {
         if (area_size <= 256 && p->account_score >= 5000) ;
-        else
+        else if (area_size <= 256)
         {
             msg(p, "You need at least 5000 account points to build such house.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Keep deeds are for houses of up to 256 tiles.");
             return false;
         }
     }
     else if (house_variant == 9) // castle
     {
         if (area_size <= 324 && p->account_score >= 10000) ;
-        else
+        else if (area_size <= 324)
         {
             msg(p, "You need at least 10000 account points to build such house.");
+            return false;
+        }
+        else
+        {
+            msg(p, "This house deed cannot be used for a house of this size. Castle deeds are for houses of up to 324 tiles.");
             return false;
         }
     }

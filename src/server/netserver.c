@@ -6161,6 +6161,11 @@ static void update_birth_options(struct player *p, struct birth_options *options
     /* Update form */
     if (OPT(p, birth_fruit_bat) != options->fruit_bat)
         do_cmd_poly(p, (OPT(p, birth_fruit_bat)? get_race("fruit bat"): NULL), false, domsg);
+    
+    #ifdef TEST_MODE
+        if (is_dm_p(p))
+            p->account_score = 10000; // give acc points to admin in TEST_MODE
+    #endif
 }
 
 
