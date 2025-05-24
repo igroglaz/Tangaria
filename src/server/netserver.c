@@ -470,6 +470,7 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
     char *ptr;
     struct hint *v;
     char nick_test[NORMAL_WID];
+    int space_count = 0;
     int len;
 
     /** Realname / Hostname **/
@@ -490,11 +491,17 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
     if ((nick_name[0] < 'A') || (nick_name[0] > 'Z'))
         return E_INVAL; // login capitalized on client at choose_account()
 
-    /* Any weird characters here, bail out. We allow letters, numbers and space */
+    // Any weird characters here, bail out. We allow letters, numbers and at most one space
     for (ptr = nick_name; *ptr; ptr++)
     {
         if (!isascii(*ptr)) return E_INVAL;
         if (!(isalpha(*ptr) || isdigit(*ptr) || (*ptr == ' '))) return E_INVAL;
+        
+        // count spaces - allow only one space in the entire nickname
+        if (*ptr == ' ') {
+            space_count++;
+            if (space_count > 1) return E_INVAL;
+        }
     }
 
     // Right-trim nickname with inline trim:
@@ -504,10 +511,10 @@ static int Check_names(char *nick_name, char *real_name, char *host_name)
         len--;
     }
     nick_name[len] = '\0';  // Terminate at last non-space character
-    // Check length limits for login (MAX_NAME_LEN == 15)
-    if (len < 3 || len > MAX_NAME_LEN) return E_INVAL;
+    // check length limits for login (MAX_NAME_LEN == 15)
+    if (len < 2 || len > MAX_NAME_LEN) return E_INVAL;
 
-    /* The "server", "account" and "players" names are reserved */
+    // The "server", "account" and "players" names are reserved
     if (!my_stricmp(nick_name, "server")  || !my_stricmp(nick_name, "account") ||
         !my_stricmp(nick_name, "players") || !my_stricmp(nick_name, "lock") ||
         !my_stricmp(nick_name, "makefile"))
