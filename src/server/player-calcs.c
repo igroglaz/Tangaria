@@ -2064,7 +2064,12 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Extract race/class info */
     for (i = 0; i < SKILL_MAX; i++)
         state->skills[i] = p->race->r_skills[i] + p->clazz->c_skills[i];
-    player_elements(p, el_info);
+    /////////////////////////////////////////////
+    // Apply p_race.txt/class.txt resists/vuln //
+    // (which are separate from obj resists)   //
+    player_elements(p, el_info);               //
+    /////////////////////////////////////////////
+    // copy resist/vuln from race-class to state and mark vuln to local var
     for (i = 0; i < ELEM_MAX; i++)
     {
         vuln[i] = false;
@@ -2206,7 +2211,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect movement speed */
         extra_moves += modifiers[OBJ_MOD_MOVES];
 
-        /* Affect resists */
+        /* Affect resists from equipment */
         for (j = 0; j < ELEM_MAX; j++)
         {
             if (!known_only || object_is_known(p, obj) || object_element_is_known(obj, j, aware))

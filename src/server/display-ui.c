@@ -1062,6 +1062,21 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
 /*
  * Obtain the "elements" for the player as if he was an item
  */
+//////
+////// FOR RACIAL/CLASS PROPERTIES FROM p_race.txt and class.txt
+////// (as we assign there stuff like "value:0:RES_DARK[1]").
+////// It called @ player-calcs.c -> calc_bonuses() AND prt_resistance_panel()
+//////
+////// Note: struct element_info el_info[ELEM_MAX]
+//////
+////// struct element_info
+////// {
+//////     int16_t res_level[MAX_EL_INFO];
+//////     uint8_t lvl[MAX_EL_INFO];
+//////     bitflag flags;
+//////     uint8_t idx;
+////// };
+//////
 void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
 {
     int i;
@@ -1097,7 +1112,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
     }
 
 
-    // Apply race-specific resistances
+    // Apply RACE-specific resistances (only RACE!)
     hardcoded_race_resistances(p, el_info);
     // Note: currently in p_race.txt only one entry of the same resistance
     // element is allowed; meaning that it's possible to assign an element
@@ -1219,10 +1234,22 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
         if (rf_has(p->poly_race->flags, RF_IM_LIGHT))        el_info[ELEM_LIGHT].res_level[0] = 1;
     }
 
-    for (i = 0; i < ELEM_MAX; i++)
-    {
-        if (vuln[i] && (el_info[i].res_level[0] < 3))
-            el_info[i].res_level[0]--;
+    // PWMA: Important code - reduces element resistance due to vulnerability (-1).
+    // Resist(1) becomes neutral(0), double resistance 2) = resistant(2), BUT immunity = immune.
+    /////////////////////
+    // 1) in T it should work differently... as vulnerabilities to hard-to-find resistances
+    // (non-base ones) makes p to have 0 resistance even if you manage to find one,
+    // you get devastation dmg if, eg race vulnerable to LIGHT/DARK (most common case).
+    // ..so it should work only until player is ~ lvl 32 (high HP breathers appears) -
+    // while later on vulnerabilities should just give extra damage (moderate amount).
+    // 2) also if you have vulnerability - you shouldn't get immunity, but it seems it must
+    // be done in other place
+    if (p->lev < 33) {
+        for (i = 0; i < ELEM_MAX; i++)
+        {
+            if (vuln[i] && (el_info[i].res_level[0] < 3))
+                el_info[i].res_level[0]--;
+        }
     }
 }
 

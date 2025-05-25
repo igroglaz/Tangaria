@@ -19,9 +19,7 @@
 
 /*
 
-! This code _mainly_ for PvP
-
-eg in monster-spell.txt:
+Old note (?): some of code in this file is for PvP, eg in monster-spell.txt:
 
 effect:TIMED_INC:AMNESIA
 dice:8
@@ -30,8 +28,6 @@ dice:5+1d5
 
 first line is monster -> player
 second line is PvP.
-
-So all PROJECT is PvP.
 
 */
 
@@ -115,20 +111,25 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     // Immune
     if (resist == 3)
     {
-        // I'm not sure does resistances' limits (damage-cap) works at this
-        // particular stage.. So cap just in case:
-        if (dam > 1600) dam = 1600;
+        if (p)
+        {
+            // I'm not sure does resistances' limits (damage-cap) works at this
+            // particular stage.. So cap just in case:
+            if (dam > 1600) dam = 1600;
 
-        // Djinn's immunity to cold isn't too good
-        if (p && streq(p->race->name, "Djinn") && (type == PROJ_COLD))
-            dam /= 10;
-        // everyone else with immunity
-        else
-            dam /= 15;
+            // Djinn's immunity to cold isn't too good
+            if (p && streq(p->race->name, "Djinn") && (type == PROJ_COLD))
+                dam /= 10;
+            // everyone else with immunity
+            else
+                dam /= 15;
 
-        // should make at least 1 damage
-        if (dam < 1) dam = 1;
-        return dam;
+            // should make at least 1 damage
+            if (dam < 1) dam = 1;
+            return dam;
+        }
+
+        return 0; // common PWMA case
     }
 
     /* Hack -- acid damage is halved by armour */
@@ -151,18 +152,28 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
     }
 
-    // for (perma)polymorphed
+    // (Perma)polymorphed
     /* Hack -- no damage from certain attacks unless vulnerable */
     if (p && !is_susceptible(p->poly_race, type)) dam = 0;
     /* Hack -- extra damage from certain attacks if vulnerable */
     if (p && is_vulnerable(p->poly_race, type)) dam = dam * 4 / 3;
 
+
     /* Vulnerable */
+    //////////////////// later: type == PROJ_HOLY_ORB ... type == PROJ_LIGHT
     if (resist == -1)
     {
-        if (type == PROJ_LIGHT && streq(p->race->name, "Undead"))
-            return (dam * 5 / 4);
-        return (dam * 4 / 3);
+        if (p)
+        {
+            if (type == PROJ_FIRE || type == PROJ_COLD || type == PROJ_POIS)
+                return (dam * 4 / 3); // 33%
+            else if (type == PROJ_ACID || type == PROJ_ELEC)
+                return (dam * 5 / 4); // 25%
+            else // all other elements eg light, dark, etc
+                return (dam * 6 / 5); // 20%
+        }
+
+        return (dam * 4 / 3); // common PWMA case
     }
 
     /*
