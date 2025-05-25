@@ -90,6 +90,7 @@ static bool is_vulnerable(struct monster_race *race, int type)
  * dam_aspect is the calc we want (min, avg, max, random).
  * resist is the degree of resistance (-1 = vuln, 3 = immune).
  */
+// INCLUDES bolt, beam, ball, BREATH and other effects
 int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resist)
 {
     int i, denom = 0;
@@ -154,9 +155,13 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     // (Perma)polymorphed
     /* Hack -- no damage from certain attacks unless vulnerable */
-    if (p && !is_susceptible(p->poly_race, type)) dam = 0;
+    // (LIGHT_WEAK, KILL_WALL, DISP_..., DRAIN_...)
+    if (p && !is_susceptible(p->poly_race, type))
+        dam = 0;
     /* Hack -- extra damage from certain attacks if vulnerable */
-    if (p && is_vulnerable(p->poly_race, type)) dam = dam * 4 / 3;
+    // (FIRE, COLD, LIGHT)
+    if (p && is_vulnerable(p->poly_race, type))
+        dam = dam * 4 / 3;
 
 
     /* Vulnerable */

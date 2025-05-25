@@ -2076,6 +2076,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (el_info[i].res_level[0] == -1)
             vuln[i] = true;
         else
+            // there res level includes vulnerability from player_elements()
             state->el_info[i].res_level[0] = el_info[i].res_level[0];
     }
     pf_wipe(state->pflags);
@@ -2328,10 +2329,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->see_infra += 5;
         // extra_moves += (p->lev / 5);
         state->speed += 1 + (p->lev / 24);
-        /* resistances taken from both places: from there and from display-ui.c
-        // to prevent duplicates we will use only display-ui.c
-        if (state->el_info[ELEM_DARK].res_level[0] < 2)
-            state->el_info[ELEM_DARK].res_level[0]++; */
     }
     
     if (streq(p->race->name, "Vampire") && is_daytime())
@@ -2611,10 +2608,20 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
 
     /* Now deal with vulnerabilities */
+    // (both after race/class and objects effects applied)
+    // modified by T
+    // note: we also give additonal damage for vulnerabilities at 30+ lvls in 
     for (i = 0; i < ELEM_MAX; i++)
     {
-        if (vuln[i] && (state->el_info[i].res_level[0] < 3))
-            state->el_info[i].res_level[0]--;
+        if (vuln[i])
+        {
+            // 1) reduce resistances only till lvl 30
+            if (state->el_info[i].res_level[0] < 3 && p->lev <= 30)
+                state->el_info[i].res_level[0]--;
+            // 2) not possible get immunuty (becomes double resistance)
+            if (state->el_info[i].res_level[0] > 2)
+                state->el_info[i].res_level[0] = 2;
+        }
     }
 
     /* Effects of food outside the "Fed" range */
@@ -2698,35 +2705,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->to_h += p->lev;
     }
 
-    // Heretic class
-    if (p->timed[TMD_FIERY_STANCE])
-    {
-        player_set_timed(p, TMD_ATT_FIRE, 2, false);
-        if (state->el_info[ELEM_FIRE].res_level[0] < 2)
-            state->el_info[ELEM_FIRE].res_level[0]++;
-
-    }
-    else if (p->timed[TMD_COLDY_STANCE])
-    {
-        player_set_timed(p, TMD_ATT_COLD, 2, false);
-        if (state->el_info[ELEM_COLD].res_level[0] < 2)
-            state->el_info[ELEM_COLD].res_level[0]++;
-
-    }
-    else if (p->timed[TMD_ELECTRY_STANCE])
-    {
-        player_set_timed(p, TMD_ATT_ELEC, 2, false);
-        if (state->el_info[ELEM_ELEC].res_level[0] < 2)
-            state->el_info[ELEM_ELEC].res_level[0]++;
-        
-    }
-    else if (p->timed[TMD_ACIDY_STANCE])
-    {
-        player_set_timed(p, TMD_ATT_ACID, 2, false);
-        if (state->el_info[ELEM_ACID].res_level[0] < 2)
-            state->el_info[ELEM_ACID].res_level[0]++;
-        
-    }
 
     if (player_timed_grade_eq(p, TMD_STUN, "Heavy Stun"))
     {
@@ -2831,7 +2809,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (p->timed[TMD_TERROR])
         state->speed += 10;
 
+
+///////////////////////////////////////// block: TMD_MAX resistances
     /* used in PMWA:
+    // in player_timed.txt -> "resist:" field, eg resist:ACID
     for (i = 0; i < TMD_MAX; ++i)
     {
         if (p->timed[i] && timed_effects[i].temp_resist != -1 &&
@@ -2842,7 +2823,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
     but T use custom stuff:
     */
-///////////////////////////////////////// block: TMD_MAX resistances
     if (p->timed[TMD_OPP_ACID])
     {
         if (state->el_info[ELEM_ACID].res_level[0] < 2)
@@ -2883,6 +2863,38 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->el_info[ELEM_POIS].res_level[0]++;
     }
 ///////////////////////////////////////// end_block: TMD_MAX resistances
+
+
+//////// Heretic class: //////////////////////////////////
+    if (p->timed[TMD_FIERY_STANCE])
+    {
+        player_set_timed(p, TMD_ATT_FIRE, 2, false);
+        if (state->el_info[ELEM_FIRE].res_level[0] < 2)
+            state->el_info[ELEM_FIRE].res_level[0]++;
+    }
+    else if (p->timed[TMD_COLDY_STANCE])
+    {
+        player_set_timed(p, TMD_ATT_COLD, 2, false);
+        if (state->el_info[ELEM_COLD].res_level[0] < 2)
+            state->el_info[ELEM_COLD].res_level[0]++;
+
+    }
+    else if (p->timed[TMD_ELECTRY_STANCE])
+    {
+        player_set_timed(p, TMD_ATT_ELEC, 2, false);
+        if (state->el_info[ELEM_ELEC].res_level[0] < 2)
+            state->el_info[ELEM_ELEC].res_level[0]++;
+        
+    }
+    else if (p->timed[TMD_ACIDY_STANCE])
+    {
+        player_set_timed(p, TMD_ATT_ACID, 2, false);
+        if (state->el_info[ELEM_ACID].res_level[0] < 2)
+            state->el_info[ELEM_ACID].res_level[0]++;
+        
+    }
+/////// end Heretic class//////////////////////////////////
+
 
     if (p->timed[TMD_ANCHOR])
     {
