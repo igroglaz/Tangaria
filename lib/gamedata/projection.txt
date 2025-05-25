@@ -96,6 +96,9 @@
 # for the color or the full color name (case insensitive).
 
 
+########### damage-cap applied BEFORE resistances.
+
+
 code:ACID
 name:acid
 type:element
@@ -187,10 +190,10 @@ type:element
 desc:light
 blind-desc:are hit by something
 lash-desc:brightness
-numerator:6
-denominator:8+1d4
+numerator:5
+denominator:8+1d8
 divisor:6
-damage-cap:450
+damage-cap:425
 msgt:BR_LIGHT
 obvious:1
 wake:1
@@ -204,10 +207,10 @@ type:element
 desc:darkness
 blind-desc:are hit by something
 lash-desc:blackness
-numerator:6
-denominator:8+1d4
+numerator:5
+denominator:8+1d8
 divisor:6
-damage-cap:450
+damage-cap:425
 msgt:BR_DARK
 obvious:1
 wake:1

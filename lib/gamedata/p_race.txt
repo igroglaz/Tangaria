@@ -110,23 +110,16 @@
 # - think of disabling weapons use for ooze, spider etc while making it able to
 #   use its properties and somehow modify dices
 # - hc moar 50% immunities (eg undead's nether res++)
-# - make some not to be able to have immunity
-#   instead apply hard cap -> double resistance - eg Frostmen fire 35+lvl
+# - "Reflection" property for races: p->timed[TMD_BIOFEEDBACK], check code
 
 # Asura?
 
-################# Vulnerabilities should be used only to make harder
-################# to get to lvl 35 for powerful (early on) races.
-################# At 35+ should be other ways to rebalance power
-################# OR... vulnerabilities should just increase FINAL damage (eg +10%),
-################# not reduce resistances scaling (eg from 'resistant'[1] to normal[0] as it is now)
-#################.... but for FIRE-COLD-ELEC-ACID - it's ok just to prevent possiblity for immunity
-################# ... so proper vulnerability - just disabling immunity to one of the base elements
-################# (as other elements immunities are super rare to aquire,
-#################  while basics are common at endgame)
-
-################# so.. for basic elements lets leave as it is. While for unusual elements (eg dark,
-################# light etc) - just reduce dmg... will require hardcoding (see Undead)
+# we have new vuln system. Vulnerability to element:
+# 1) till 30 lvl: reduce resistance--, so resist(1) becomes neutral(0); double resistance(2) becomes resistant(1)
+# 2) not possible to get immunity ever
+# 3) for 30+ lvl: you get additional dmg (~+10%) via adjust_dam()
+# 
+# note: RES_POIS[3] etc will not work, it only works for fire/cold/elec/acid. need HCing
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -556,9 +549,8 @@ player-flags:0:CAN_SWIM
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
 #/// -
+value:0:RES_FIRE[-1]
 value:0:DAM_RED[-1]
-# HCed vulnerability to FIRE till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
-# after 35 lvl: no vulnerability, but can't be immune
 value:0:STEALTH[-6]
 obj-flag:0:CANT_FLY
 obj-flag:0:BAD_SHOOTER

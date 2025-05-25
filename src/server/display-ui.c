@@ -996,16 +996,6 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
         if (el_info[ELEM_COLD].res_level[0] > 2)
             el_info[ELEM_COLD].res_level[0] = 2;
     }
-    else if (streq(p->race->name, "Ent"))
-    {
-        // Fire vulnerability for levels 1-34
-        if (p->lev < 35 && el_info[ELEM_FIRE].res_level[0] > -1)
-            el_info[ELEM_FIRE].res_level[0]--;
-
-        // Prevent Fire immunity - cap at high resistance
-        if (el_info[ELEM_FIRE].res_level[0] > 2)
-            el_info[ELEM_FIRE].res_level[0] = 2;
-    }
     else if (streq(p->race->name, "Frostmen"))
     {
         // Base Cold resistance (all levels)
@@ -1244,7 +1234,7 @@ void player_elements(struct player *p, struct element_info el_info[ELEM_MAX])
     // while later on vulnerabilities should just give extra damage (moderate amount).
     // 2) also if you have vulnerability - you shouldn't get immunity, but it seems it must
     // be done in other place
-    if (p->lev < 33) {
+    if (p->lev < 30) {
         for (i = 0; i < ELEM_MAX; i++)
         {
             if (vuln[i] && (el_info[i].res_level[0] < 3))
