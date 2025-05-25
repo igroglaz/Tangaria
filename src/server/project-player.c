@@ -90,7 +90,9 @@ static bool is_vulnerable(struct monster_race *race, int type)
  * dam_aspect is the calc we want (min, avg, max, random).
  * resist is the degree of resistance (-1 = vuln, 3 = immune).
  */
-// INCLUDES bolt, beam, ball, BREATH and other effects
+// Notes:
+// 1) INCLUDES bolt, beam, ball, BREATH and other effects
+// 2) BREATH damage_cap listed in projection.txt. Other damage not capped!
 int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resist)
 {
     int i, denom = 0;
@@ -109,13 +111,14 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     if (dam <= 0) return 0;
 
-    // Immune
+    // IMMUNE
+    // Note: in T vulnerability prevents getting immunity
     if (resist == 3)
     {
         if (p)
         {
-            // I'm not sure does resistances' limits (damage-cap) works at this
-            // particular stage.. So cap just in case:
+            // damage-cap (it already exist in projection.txt for breath)..
+            // this one for spells (paranoia kinda as it's too high for spell anyway)
             if (dam > 1600) dam = 1600;
 
             // Djinn's immunity to cold isn't too good
@@ -127,16 +130,18 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
             // should make at least 1 damage
             if (dam < 1) dam = 1;
+
             return dam;
         }
 
         return 0; // common PWMA case
     }
 
-    /* Hack -- acid damage is halved by armour */
+    /* Hack -- ACID damage is halved by armour */
     if ((type == PROJ_ACID) && p && minus_ac(p)) dam = (dam + 1) / 2;
 
     /* Hack -- biofeedback halves "sharp" damage */
+    // TODO: this way we can make "Reflection" property for races
     if (p && p->timed[TMD_BIOFEEDBACK])
     {
         switch (type)
@@ -153,19 +158,16 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
     }
 
-    // (Perma)polymorphed
-    /* Hack -- no damage from certain attacks unless vulnerable */
+    /* (Perma)polymorphed #1 Hack -- no damage from certain attacks unless vulnerable */
     // (LIGHT_WEAK, KILL_WALL, DISP_..., DRAIN_...)
     if (p && !is_susceptible(p->poly_race, type))
         dam = 0;
-    /* Hack -- extra damage from certain attacks if vulnerable */
-    // (FIRE, COLD, LIGHT)
-    if (p && is_vulnerable(p->poly_race, type))
-        dam = dam * 4 / 3;
-
 
     /* Vulnerable */
-    //////////////////// later: type == PROJ_HOLY_ORB ... type == PROJ_LIGHT
+    // Note: it applied only to vulnerability - if it's not covered with resistances.
+    // ..while most common case that IT IS covered by resistance and not a vulnerability
+    // anymore (we take there stuff from p "state").
+    // So we must 'uncover' vulnerability (eg for vuln race at 30+ lvl) by hardcoding it
     if (resist == -1)
     {
         if (p)
@@ -179,6 +181,18 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
 
         return (dam * 4 / 3); // common PWMA case
+    }
+    /* (Perma)polymorphed #2 Hack -- extra damage from certain attacks if vulnerable */
+    // (FIRE, COLD, LIGHT)
+    else if (p && is_vulnerable(p->poly_race, type))
+        dam = dam * 4 / 3;
+    // p races vulnerabilities (covered) - must always give extra dmg after lvl 30
+    else if (p && p->lev >= 30)
+    {
+        if (type == PROJ_FIRE && streq(p->race->name, "Ent"))
+        {
+            dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
+        }
     }
 
     /*
@@ -199,23 +213,42 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             break;
     }
 
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    // now calculate final damage (for resist == 0, resist == 1, resist == 2)
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
+    // Examples:
+
+    // 1) Single Resistance (resist == 1):
+    // Loop runs 1 time
+    // dam = dam * numerator / denominator
+    // For acid: dam = dam * 1 / 3 = 33% damage
+
+    // 2)Double Resistance (resist == 2):
+    // Loop runs 2 times
+    // First iteration: dam = dam * 1 / 3
+    // Second iteration: dam = (dam * 1/3) * 1 / 3 = dam * 1/9
+    // Result: 11% damage
+
     for (i = resist; i > 0; i--)
     {
         if (denom) dam = dam * projections[type].numerator / denom;
     }
+    //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-    /*
-    // in case of vulnerability:
-    // Resistance makes you neutral, double resist - resistant and immunity to get immune..
-    // so for Undead race we wanna soften a bit resistance to fire and double resistance
-    if (streq(p->race->name, "Undead") && type == PROJ_FIRE)
+
+    // never kill fully healed player with 1 magic blow
+    if (p && p->chp == p->mhp)
     {
-        if (resist == 0)       // undead got normal resistance.. instead 0.3 he got 1 dmg
-            dam -= dam / 3;    // make it 0.7
-        else if (resist == 1)  // undead got double resistance. instead of 0.11 he got 0.3 dmg
-            dam -= dam / 3;    // make it 0.2
+            if (p->chp - dam < 1) // TODO: special case for p->timed[TMD_MANASHIELD] ?
+            {
+                msg(p, "%s (level %d) survived a magical blast of %d damage - by a hair!",
+                        p->name, p->lev, dam);
+                dam = p->chp - 1; // make damage which will leave 1 hp
+            }
     }
-    */
 
     return dam;
 }
