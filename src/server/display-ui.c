@@ -2569,6 +2569,37 @@ static void alive_list_remove_character(struct player *p)
 }
 
 
+// get player mode string 
+static void get_player_modes(struct player *p, char *modes, size_t len)
+{
+    bool is_hardcore = OPT(p, birth_hardcore);
+    bool is_zeitnot = OPT(p, birth_zeitnot);
+    bool is_ironman = OPT(p, birth_ironman);
+    bool is_diving = OPT(p, birth_force_descend) && !OPT(p, birth_no_recall);
+    bool is_ironfoot = OPT(p, birth_no_recall) && !OPT(p, birth_force_descend);
+    
+    modes[0] = '\0';
+    
+    if (is_hardcore) {
+        my_strcat(modes, "hardcore", len);
+    }
+    
+    if (is_zeitnot) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "zeitnot", len);
+    } else if (is_ironman) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "ironman", len);
+    } else if (is_diving) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "diving", len);
+    } else if (is_ironfoot) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "ironfoot", len);
+    }
+}
+
+
 /*
  * Handle the death of a player and drop their stuff.
  *
@@ -2674,7 +2705,7 @@ void player_death(struct player *p)
         }
     }
 
-    /* Tell everyone he died */
+    // Tell everyone he died (BROADCAST! Not to Discord! Discord below)
     if (p->ghost == 1)
     {
         strnfmt(buf, sizeof(buf), "%s %s's ghost was destroyed by %s.", prompt, p->name,
@@ -2682,26 +2713,11 @@ void player_death(struct player *p)
     }
     else if (p->alive)
     {
-        char mode_name[40];
-
-        if (OPT(p, birth_zeitnot))
-        {
-            strnfmt(mode_name, sizeof(mode_name), "The%s zeitnot",
-                (OPT(p, birth_hardcore))? " hardcore": "");
-        } else if (OPT(p, birth_no_recall) || OPT(p, birth_force_descend) ||
-            OPT(p, birth_hardcore))
-        {
-            strnfmt(mode_name, sizeof(mode_name), "The%s%s%s%s",
-                (OPT(p, birth_ironman))? " ironman": "",
-                (OPT(p, birth_hardcore))? " hardcore": "",
-                (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
-                (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
-        }
-        else
-            my_strcpy(mode_name, "The unfortunate", sizeof(mode_name));
-
-        strnfmt(buf, sizeof(buf), "%s %s %s the level %i %s %s %s.", mode_name, prompt, p->name, p->lev,
-            p->race->name, p->clazz->name, p->died_flavor);
+        char modes[50];
+        get_player_modes(p, modes, sizeof(modes));
+        
+        strnfmt(buf, sizeof(buf), "The %s %s the %s %s (%s) (level %i) %s.", 
+            prompt, p->name, p->race->name, p->clazz->name, modes, p->lev, p->died_flavor);
     }
     else if (streq(p->died_from, "divine wrath"))
         strnfmt(buf, sizeof(buf), "%s was killed by divine wrath.", p->name);
@@ -2710,12 +2726,26 @@ void player_death(struct player *p)
         strnfmt(buf, sizeof(buf), "%s retired.", p->name);
         retired = true;
         type = MSG_BROADCAST_ENTER_LEAVE;
+        
+        // also add discord message for 'retired' (as before there was only broadcase)
+        if (p->lev >= 10)
+        {
+            char modes[50];
+            get_player_modes(p, modes, sizeof(modes));
+            msgt(p, MSG_DIED, "( The weary %s the %s %s (%s) (level %d) was retired.", 
+                 p->name, p->race->name, p->clazz->name, modes, p->lev);
+        }
     }
     else
     {
+        char modes[50];
         strnfmt(buf, sizeof(buf), "The unbeatable %s has retired to a warm, sunny climate.",
             p->name);
         type = MSG_BROADCAST_WON;
+        // also add discord message for 'retired' (as before there was only broadcase)
+        get_player_modes(p, modes, sizeof(modes));
+        msgt(p, MSG_DIED, ") The unbeatable %s the %s %s (%s) (level %d) has retired to a warm, sunny climate.",
+             p->name, p->race->name, p->clazz->name, modes, p->lev);
     }
 
     /* Tell the players - handle the secret_dungeon_master option */
@@ -2755,50 +2785,11 @@ void player_death(struct player *p)
 
     /* Tell him */
     if ((p->ghost != 1) && p->alive) {
-        char player_desc[100];
         char modes[50];
-        char mode_str[60];
-        bool is_hardcore;
-        bool is_zeitnot;
-        bool is_ironman;
-        
-        strnfmt(player_desc, sizeof(player_desc), "%s the %s %s", // Bob the Human Warrior
-                p->name, p->race->name, p->clazz->name);
-        
-        // Add special mode indicators to player description
-        is_hardcore = OPT(p, birth_hardcore);
-        is_zeitnot = OPT(p, birth_zeitnot);
-        is_ironman = OPT(p, birth_ironman);
-        
-        if (is_hardcore || is_zeitnot || is_ironman) {
-            modes[0] = '\0'; // Initialize empty string
-            
-            // Start with hardcore if it exists (as it can be in mix with any mode)
-            if (is_hardcore) {
-                my_strcat(modes, "hardcore", sizeof(modes));
-            }
-            
-            // Add zeitnot or ironman
-            if (is_zeitnot) {
-                if (is_hardcore) {
-                    my_strcat(modes, " zeitnot", sizeof(modes));
-                } else {
-                    my_strcat(modes, "zeitnot", sizeof(modes));
-                }
-            } else if (is_ironman) {
-                if (is_hardcore) {
-                    my_strcat(modes, " ironman", sizeof(modes));
-                } else {
-                    my_strcat(modes, "ironman", sizeof(modes));
-                }
-            }
-            
-            // Add the complete mode string in one set of parentheses
-            strnfmt(mode_str, sizeof(mode_str), " (%s)", modes);
-            my_strcat(player_desc, mode_str, sizeof(player_desc));
-        }
-        
-        msgt(p, MSG_DIED, "! %s %s (level %d) was killed by %s.", get_title(p), player_desc, p->lev, p->died_from);
+        get_player_modes(p, modes, sizeof(modes));
+
+        msgt(p, MSG_DIED, "! %s %s the %s %s (%s) (level %d) was killed by %s.", 
+            get_title(p), p->name, p->race->name, p->clazz->name, modes, p->lev, p->died_from);
     }
 
     /* Handle permanent death */
