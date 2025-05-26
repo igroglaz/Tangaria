@@ -1824,9 +1824,10 @@ bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
     int house_variant = context->value.base;
     context->ident = true;
 
-    // can build only in town or to the west from it
+    // can build only in town or to the west from it + deeptown
     if ((context->origin->player->wpos.grid.x == 0 && context->origin->player->wpos.grid.y == 1) ||
-        (context->origin->player->wpos.grid.x == -1 && context->origin->player->wpos.grid.y == 1))
+        (context->origin->player->wpos.grid.x == -1 && context->origin->player->wpos.grid.y == 1) ||
+        (context->origin->player->wpos.grid.x == -6 && context->origin->player->wpos.grid.y == 0)) // deeptown
         ;
     else
     {
