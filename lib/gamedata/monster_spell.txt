@@ -1314,6 +1314,33 @@ lore-color-base:Light Red
 message-vis:{name} summons some spirits.
 message-invis:You feel hollow things appear nearby!
 
+# main dmg for dark attacks (good vs 'good' races)
+# NOTE: when testing - admin char 50 lvl can't be hit by BOLT...
+# so lets use BALL to always hit... Why not, Gandalf? Why not? :D
+name:BO_DARK
+hit:100
+effect:BALL:DARK:1
+dice:$B+6d8
+expr:B:SPELL_POWER:/ 3
+lore:produce darkness bolts
+lore-color-base:Orange
+lore-color-resist:Light Green
+message-vis:{name} casts a bolt of darkness.
+message-invis:Something mumbles darkly...
+
+# vs bad guys... we got plenty of them.
+# NOTE: DO NOT USE BA_DARK! it's @#$% dark storm :D
+name:BO_LIGHT
+hit:100
+effect:BALL:LIGHT:1
+dice:$B+6d8
+expr:B:SPELL_POWER:/ 3
+lore:produce light bolts
+lore-color-base:Orange
+lore-color-resist:Light Green
+message-vis:{name} casts a bolt of light.
+message-invis:Something hums brightly.
+
 name:BO_TEST
 hit:100
 effect:BOLT:DARK
