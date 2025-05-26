@@ -1855,6 +1855,13 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         use_energy(p);
         return false;
     }
+    // no scrolls for troll
+    else if (obj->tval == TV_SCROLL && streq(p->race->name, "Troll") &&
+             !(obj->kind == lookup_kind_by_name(TV_SCROLL, "Word of Recall")))
+    {
+        use_energy(p);
+        return false;
+    }
 
     /* The player is aware of the object's flavour */
     p->was_aware = object_flavor_is_aware(p, obj);

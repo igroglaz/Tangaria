@@ -132,12 +132,10 @@
 
 # New ideas for rebalance
 #
-# can't use scrolls? Trolls
 # can't use artifacts?
 # 'good' artifact should damage 'bad' races
 # less vision radius
 # can't pick up gold
-# get less gold (1/2)
 # summon on you (like Damned)
 # can't use rings.. or only art rings
 # can't polymoprh (suits for 'big' races)
@@ -147,6 +145,7 @@
 # can't use heavy armour
 # good INC_TIMED / 2... so buffs lasts twice less time.
 # random deep descend ('you were too heavy and fall down through ceiling'
+# Undead: extra life (2nd chance)
 
 
 
@@ -1049,7 +1048,7 @@ skill-disarm-phys:-18
 skill-disarm-magic:-18
 skill-device:-16
 # magic resistant, firm hide
-skill-save:10
+skill-save:15
 skill-stealth:-5
 skill-search:-10
 # trolls isn't skillful in fight, but very strong
@@ -1064,11 +1063,11 @@ age:20:10
 height:150:5
 weight:240:22
 gift:cobble:Cobble:7:13
-#7 -8 -8 -5>0 4
+#7 -8 -8 0 4
 value:0:STR[5+1d24]
 value:0:INT[-4]
 value:0:WIS[-4]
-value:0:DEX[-5+1d12]
+value:0:DEX[-1+1d30]
 value:0:CON[1+1d8M30]
 value:0:CHR[-7]
 # 'y' +AC
@@ -1083,7 +1082,7 @@ value:30:RES_COLD[1]
 obj-flag:50:PROT_CONF
 value:0:DAM_RED[-2+5d30]
 #/// -
-# - all speed boni reduced by 2x.. require 2x more +speed to have same result as others
+# can't read scrolls, except Recall
 # don't see monster list
 # smaller ESP radius (-1/3)
 value:0:RES_LIGHT[-1]
