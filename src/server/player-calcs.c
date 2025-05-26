@@ -2957,7 +2957,8 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     // Some races need 2x boni to advance speed
     if (state->speed > 111)
     {
-        if (streq(p->race->name, "Maiar"))
+        if (streq(p->race->name, "Ent") || streq(p->race->name, "Half-Giant") ||
+            streq(p->race->name, "Troll"))
             state->speed -= (state->speed - 110) / 2;
     }
 

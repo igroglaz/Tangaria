@@ -113,6 +113,10 @@ static void player_pickup_gold(struct player *p, struct chunk *c)
         /* Display the message */
         msgt(p, sound_msg, buf);
 
+        // Maiar pickup in dungeon only half gold
+        if (streq(p->race->name, "Maiar") && p->wpos.depth && total_gold > 1)
+            total_gold /= 2;
+
         /* Add gold to purse */
         p->au += total_gold;
 

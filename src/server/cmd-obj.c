@@ -1849,6 +1849,13 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         return false;
     }
 
+    // no potions for djinni
+    if (obj->tval == TV_POTION && streq(p->race->name, "Djinn"))
+    {
+        use_energy(p);
+        return false;
+    }
+
     /* The player is aware of the object's flavour */
     p->was_aware = object_flavor_is_aware(p, obj);
 

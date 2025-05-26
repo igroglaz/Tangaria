@@ -128,7 +128,30 @@
 # 1) till 30 lvl: reduce resistance--, so resist(1) becomes neutral(0); double resistance(2) becomes resistant(1)
 # 2) not possible to get immunity ever
 # 3) for 30+ lvl: you get additional dmg (~+10%) via adjust_dam()
-# 
+
+
+# New ideas for rebalance
+#
+# can't use scrolls? Trolls
+# can't use artifacts?
+# 'good' artifact should damage 'bad' races
+# less vision radius
+# can't pick up gold
+# get less gold (1/2)
+# summon on you (like Damned)
+# can't use rings.. or only art rings
+# can't polymoprh (suits for 'big' races)
+# can't remove curses without scroll
+# magic mapping / treasure det doesn't work
+# no ESP humanoid (or ESP all.. just regular species)
+# can't use heavy armour
+# good INC_TIMED / 2... so buffs lasts twice less time.
+# random deep descend ('you were too heavy and fall down through ceiling'
+
+
+
+# dragon and hydra req test and rebalance
+
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -158,10 +181,11 @@ obj-flag:0:SUST_STR
 value:0:INFRA[3]
 obj-flag:0:REGEN
 obj-flag:35:SLOW_DIGEST
-# all races which are too easy at beginning (due too high HP etc) - should get -DAM_RED (extra phys damage)
 player-flags:50:RACE_REGEN
 #/// -
-value:0:DAM_RED[-1+1d35]
+# all races which are too easy at beginning (due too high HP etc) -
+# should get temp -DAM_RED (extra phys damage)
+value:0:DAM_RED[-1+1d30]
 player-flags:0:TROLL
 
 
@@ -558,13 +582,12 @@ player-flags:0:CAN_SWIM
 player-flags:0:SHAPECHANGE
 shape:1:sleepy ent
 #/// -
+# - all speed boni reduced by 2x.. require 2x more +speed to have same result as others
 value:0:RES_FIRE[-1]
-value:0:DAM_RED[-1]
+value:0:DAM_RED[-2+5d30]
 value:0:STEALTH[-6]
 obj-flag:0:CANT_FLY
 obj-flag:0:BAD_SHOOTER
-obj-flag:0:IMPAIR_HP
-value:0:SPEED[0+-1d25]
 value:0:MOVES[-1+-1d5]
 player-flags:0:GIANT
 # ? _ when staying in the water - feeding
@@ -604,13 +627,13 @@ value:0:CHR[-4]
 # + got eagle
 value:0:MANA[4+-1d6M25]
 #/// -
-value:0:DAM_RED[-1+1d35]
+value:0:DAM_RED[-1+1d30]
 obj-flag:0:AGGRAVATE
 obj-flag:0:HUNGER
 value:0:TUNNEL[-1+-1d15]
 obj-flag:0:BAD_SHOOTER
 player-flags:0:GIANT
-# player-flags:0:THUNDERLORD - is actually ESP_RADIUS (ESP with expanding radius)
+# player-flags:0:THUNDERLORD - is actually ESP_RADIUS (ESP with expanding radius) - can be used for other race...
 
 
 #dragon got 1/2 bonuses from dragons which form they take
@@ -644,7 +667,7 @@ value:0:CHR[-5]
 # 'y' breath
 value:0:MANA[5+-1d10M40]
 #/// -
-value:0:DAM_RED[-1+1d35]
+value:0:DAM_RED[-2+2d30]
 # - 1/13 hp
 # - hc monks: -1 BpR after lvl 10
 value:0:STEALTH[0+-1d5]
@@ -696,6 +719,7 @@ player-flags:25:SEE_ORE
 value:35:RES_CHAOS[1]
 value:50:DAM_RED[5]
 #/// -
+value:0:DAM_RED[-2+2d30]
 # + AGGRAVATE 20 range hardcoded
 # - hc monks: -1 BpR after lvl 10
 value:15:MOVES[10+-2d7]
@@ -971,7 +995,8 @@ slay:50:50:DRAGON_3
 obj-flag:50:PROT_STUN
 brand:50:50:STUN_1
 #/// -
-value:0:DAM_RED[-2+2d35]
+# - all speed boni reduced by 2x.. require 2x more +speed to have same result as others
+value:0:DAM_RED[-2+2d30]
 # allow certain escapes..
 obj-flag:0:LIMITED_TELE
 obj-flag:0:CLUMSY
@@ -983,12 +1008,12 @@ player-flags:0:GIANT
 name:Ogre
 skill-disarm-phys:-8
 skill-disarm-magic:-6
-skill-device:-3
+skill-device:-10
 skill-save:-3
 skill-stealth:0
 skill-search:-5
-skill-melee:5
-skill-shoot:-5
+skill-melee:-2
+skill-shoot:-10
 skill-dig:0
 hitdie:12
 exp:100:125
@@ -1011,9 +1036,9 @@ player-flags:0:CAN_SWIM
 value:0:TUNNEL[1]
 value:0:MANA[1]
 #/// -
-value:0:DAM_RED[-1+1d35]
+value:0:DAM_RED[-1+1d30]
 value:0:RES_LIGHT[-1]
-value:0:STEALTH[-2+1d30]
+value:0:STEALTH[-3+1d30]
 obj-flag:0:CLUMSY
 value:0:MOVES[-9]
 player-flags:0:TROLL
@@ -1023,7 +1048,8 @@ name:Troll
 skill-disarm-phys:-18
 skill-disarm-magic:-18
 skill-device:-16
-skill-save:-16
+# magic resistant, firm hide
+skill-save:10
 skill-stealth:-5
 skill-search:-10
 # trolls isn't skillful in fight, but very strong
@@ -1055,10 +1081,9 @@ player-flags:30:RACE_REGEN
 value:30:RES_SHARD[1]
 value:30:RES_COLD[1]
 obj-flag:50:PROT_CONF
-value:0:DAM_RED[-2+5d35]
+value:0:DAM_RED[-2+5d30]
 #/// -
-#/// todo? add stench like troglo? but then need some boni.. (and 1st make classes to
-#/// use ID as streq() for stench is overheat.. so reorder races and ID them
+# - all speed boni reduced by 2x.. require 2x more +speed to have same result as others
 # don't see monster list
 # smaller ESP radius (-1/3)
 value:0:RES_LIGHT[-1]
@@ -1361,8 +1386,8 @@ obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
 slay:30:50:EVIL_2
 #/// -
+# pickup less gold (1/2) in the dungeon
 value:0:RES_DARK[-1]
-# - all speed boni reduced by 2x (pretty harsh).. require 2x more +speed to have same result as others
 value:0:DAM_RED[-1+1d30]
 
 
@@ -1458,7 +1483,7 @@ brand:40:50:FIRE_3
 value:0:RES_COLD[-1]
 # AGGRAVATE 40 range hardcoded
 # - receive 11% more non-physical dmg
-value:0:DAM_RED[-1]
+value:0:DAM_RED[-2+2d30]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+-1d10]
 # /rfe CON as mana stat
@@ -1590,6 +1615,7 @@ obj-flag:10:FEATHER
 #/// -
 ##### minor vuln - don't receive extra dmg at adjust_dam()!
 ##### (so only harsh <30 lvl. At 30+ can't get immunity, thats it.)
+value:0:DAM_RED[-1+1d30]
 value:0:RES_ACID[-1]
 value:0:MOVES[-1]
 
@@ -1702,7 +1728,7 @@ gift:crop:Carrot:1:1
 value:0:STR[0+1d15]
 value:0:INT[-4+1d7]
 value:0:WIS[-4+1d8]
-value:0:DEX[-5+1d9]
+value:0:DEX[0]
 value:0:CON[-3+1d14]
 value:0:CHR[-3]
 # 'y' breath fire ray/bolt
@@ -1715,6 +1741,8 @@ value:30:SPEED[1]
 obj-flag:50:SLOW_DIGEST
 slay:50:50:GIANT_3
 #/// -
+value:0:DAM_RED[-1+1d30]
+obj-flag:0:IMPAIR_HP
 value:0:MOVES[-1]
 #######################
 ############# removed forms.. might be useful for a pet later on...
@@ -1727,6 +1755,7 @@ value:0:MOVES[-1]
 #shape:50:great dracon
 
 
+# overconfident
 name:Titan
 skill-disarm-phys:-50
 skill-disarm-magic:-50
@@ -1746,35 +1775,29 @@ height:170:20
 weight:430:75
 gift:scroll:Detect Invisible:2:3
 #9 -2 -2 -1 6
-value:0:STR[1+1d6]
+value:0:STR[6+1d15]
 value:0:INT[-4+1d24]
 value:0:WIS[-4+1d24]
-value:0:DEX[-2+1d30]
+value:0:DEX[-1]
 value:0:CON[-10+1d3]
 value:0:CHR[0]
 # 'y' crush wall
 value:0:MANA[1d5]
 value:0:RES_GRAVITY[1]
-# >>>>>>>>>>>>>>>>>>> will be replaced to -x%
-value:30:DAM_RED[0+1d2]
 value:30:MOVES[1+1d2]
 value:30:RES_ELEC[3]
 brand:30:50:ELEC_2
 slay:35:50:DRAGON_3
 brand:40:49:STUN_1
 brand:50:50:STUN_2
+# +4 reduce dmg
+value:0:DAM_RED[-3+7d30]
 # /// -
-# less money at start
 obj-flag:0:NO_TELEPORT
 obj-flag:0:HUNGER
 obj-flag:0:CLUMSY
-#obj-flag:5:SUST_STR
-#obj-flag:10:SUST_DEX
-#obj-flag:15:SUST_CON
-#value:0:SPEED[-1+-1d30]
+# less money at start
 #value:25:LIGHT[1]
-#value:0:RES_NEXUS[1]
-#slay:50:50:DRAGON_5
 #value:0:BLOWS[0+10d45]
 #
 #player-flags:0:SHAPECHANGE
@@ -2010,14 +2033,14 @@ obj-flag:0:CLUMSY
 name:Djinn
 skill-disarm-phys:20
 skill-disarm-magic:20
-skill-device:-50
+skill-device:25
 skill-save:0
 skill-stealth:0
 skill-search:20
-skill-melee:-5
-skill-shoot:-5
+skill-melee:10
+skill-shoot:10
 skill-dig:0
-hitdie:10
+hitdie:11
 # @49: 500%
 exp:100:125
 history:100
@@ -2026,11 +2049,11 @@ height:170:20
 weight:33:11
 gift:wand:Wonder:1:1
 # 3
-value:0:STR[0+1d15]
+value:0:STR[3]
 value:0:INT[0+1d15]
 value:0:WIS[0+1d15]
-value:0:DEX[0+1d15]
-value:0:CON[0+-1d15]
+value:0:DEX[3]
+value:0:CON[3+-1d15]
 value:0:CHR[-1]
 # 'y' can make WONDER
 player-flags:0:KNOW_ZAPPER
@@ -2043,11 +2066,11 @@ value:30:SPEED[1+1d4]
 value:30:RES_TIME[1]
 # auto-id
 obj-flag:50:KNOWLEDGE
-value:0:DAM_RED[-1]
 #/// -
+# can't drink potions
 # get less dmg reduction from immunity to COLD: adjust_dam()
+value:0:DAM_RED[-1]
 player-flags:0:NO_BOOTS
-obj-flag:0:IMPAIR_HP
 value:0:TUNNEL[-5]
 # got less gold at start
 
@@ -2121,6 +2144,7 @@ value:0:INFRA[2]
 obj-flag:30:PROT_CONF
 obj-flag:45:PROT_STUN
 #/// -
+value:0:DAM_RED[-2+2d30]
 # AGGRAVATE 3 range hardcoded (like knight)
 value:0:STEALTH[-4+-1d10]
 obj-flag:0:IMPAIR_HP
@@ -2279,6 +2303,7 @@ value:0:INFRA[4]
 value:30:DAM_RED[1]
 value:30:TUNNEL[1]
 value:30:SPEED[1]
+value:50:RES_NEXUS[1]
 #/// -
 
 
@@ -2567,11 +2592,17 @@ value:0:STEALTH[1d12]
 
 
 
+# NOT USED:
+#player-flags:0:SHIELD_BASH
+#value:0:AFRAID - constant fear
+
+
+
 # prevent speeding up with potion (like Maiar but completely)
 
 # NO ESP.. or -1/2, 1/3, etc
 #slay:32:50:TROLL_3
-#player-flags:0:SHIELD_BASH
+
 #player-flags:25:RACE_REGEN
 # ? accidentally go deep descent..
 #obj-flag:50:DRAIN_EXP
@@ -2594,9 +2625,8 @@ value:0:STEALTH[1d12]
 #BACK_STAB
 #NO_MANA
 
-#IMPAIR_MANA
 #MANA
-#value:0:AFRAID
+
 #value:0:ANTIMAGIC[1+1d30]
 
 #new:
@@ -2621,11 +2651,5 @@ value:0:STEALTH[1d12]
 #IMPACT // earthquake
 
 #BLESSED //blessed melee
-
-#IMPAIR_HP // slowed regen
-
-#IMPAIR_MANA // slowed mana regen
-
-#AFRAID // constant fear
 
 # aggro only upon entering lvl.. ~yell of barbarian
