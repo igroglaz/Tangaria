@@ -104,6 +104,16 @@
 
 # BLOWS[10] == 1 BpR.. [1] == 0.1 BrP
 
+#########################################################
+### RESISTANCES NOTES:
+# 1) all [-1] and [3] works
+# 2) we can put up to _3_ items in resistance progression, eg
+#value:1:RES_LIGHT[-1]
+#value:10:RES_LIGHT[0]
+#value:15:RES_LIGHT[1]
+# (but more then _3_ won't work)
+#########################################################
+
 # TODO:
 # - look through races with a new skill-throw:0 property.
 # - EF_WEB_SPIDER (single tile of web) to assassin, but test
@@ -119,7 +129,6 @@
 # 2) not possible to get immunity ever
 # 3) for 30+ lvl: you get additional dmg (~+10%) via adjust_dam()
 # 
-# note: RES_POIS[3] etc will not work, it only works for fire/cold/elec/acid. need HCing
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -912,13 +921,14 @@ value:0:WIS[-4]
 value:0:DEX[3+1d15]
 value:0:CON[1+1d30]
 value:0:CHR[-4]
-# 'y' bloodlust // ! OP.. TODO: increase CD (needs wipe)..for now it requires 35 lvl
+# 'y' bloodlust // ! CD 1000
 value:0:INFRA[1+1d15]
 value:0:TUNNEL[1+1d30]
 obj-flag:25:ESP_ORC
 value:30:RES_DARK[1]
 value:30:SPEED[1+1d19]
 #/// -
+value:0:RES_LIGHT[-1]
 player-flags:0:ORC
 
 
@@ -1249,11 +1259,9 @@ obj-flag:0:IMPAIR_HP
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
 #/// -
-# HCed vulnerability to FIRE till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
-# after 35 lvl: no vulnerability, but can't be immune
-value:0:MOVES[-1]
-# HCed: not so vulnerable to LIGHT as others adjust_dam()
+value:0:RES_FIRE[-1]
 value:0:RES_LIGHT[-1]
+value:0:MOVES[-1]
 
 
 name:Vampire
@@ -1353,9 +1361,9 @@ obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
 slay:30:50:EVIL_2
 #/// -
+value:0:RES_DARK[-1]
 # - all speed boni reduced by 2x (pretty harsh).. require 2x more +speed to have same result as others
 value:0:DAM_RED[-1+1d30]
-value:0:RES_DARK[-1]
 
 
 # cambion.. 'corrupted' descendants of ancient powers;
@@ -1447,8 +1455,7 @@ value:35:LIGHT[1]
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 #/// -
-# HCed vulnerability to COLD till lvl 35 (Resistance makes you neutral; double resist to be resistant...)
-# after 35 lvl: no vulnerability, but can't be immune
+value:0:RES_COLD[-1]
 # AGGRAVATE 40 range hardcoded
 # - receive 11% more non-physical dmg
 value:0:DAM_RED[-1]
@@ -1535,6 +1542,8 @@ value:0:CHR[-1+1d24]
 # 'y' glyph (leaves you with !!1 HP!!, 3 idle)
 #value:0:RES_LIGHT[-1] -> 35lvl [1] -> 50lvl [2] in 50% cases (hardcoded)
 #value:0:RES_DARK[-1]  -> 35lvl [1] -> 50lvl [2] in 50% cases // very OP, so 'save' is -20
+##### DON'T RECEIVE EXTRA VULN damage at adjust_dam()! so this is a very minor vulns
+##### (so only harsh <30 lvl. At 30+ can't get immunity, thats it.)
 obj-flag:0:ESP_DEMON
 slay:35:50:DEMON_3
 #/// -
@@ -1579,7 +1588,9 @@ value:40:RES_ELEC[1]
 value:50:RES_SHARD[1]
 obj-flag:10:FEATHER
 #/// -
-
+##### minor vuln - don't receive extra dmg at adjust_dam()!
+##### (so only harsh <30 lvl. At 30+ can't get immunity, thats it.)
+value:0:RES_ACID[-1]
 value:0:MOVES[-1]
 
 

@@ -189,9 +189,40 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     // p races vulnerabilities (covered) - must always give extra dmg after lvl 30
     else if (p && p->lev >= 30)
     {
-        if (type == PROJ_FIRE && streq(p->race->name, "Ent"))
+        // FIRE
+        if (type == PROJ_FIRE && (streq(p->race->name, "Ent") ||
+            streq(p->race->name, "Undead")))
         {
             dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
+        }
+        
+        // COLD
+        if (type == PROJ_COLD && (streq(p->race->name, "Balrog")))
+        {
+            dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
+        }
+
+        // LIGHT
+        else if (type == PROJ_LIGHT && (streq(p->race->name, "Goblin") ||
+                 streq(p->race->name, "Ogre") || streq(p->race->name, "Troll") ||
+                 streq(p->race->name, "Orc") || streq(p->race->name, "Dark Elf") ||
+                 streq(p->race->name, "Undead") || streq(p->race->name, "Vampire") ||
+                 streq(p->race->name, "Demonic") || streq(p->race->name, "Balrog")))
+        {
+            dam = dam * 3 / 2; // 50%
+        }
+
+        // DARK
+        else if (type == PROJ_DARK && (streq(p->race->name, "Maiar") ||
+                 streq(p->race->name, "Celestial")))
+        {
+            dam = dam * 3 / 2; // 50%
+        }
+
+        // TIME
+        else if (type == PROJ_TIME && streq(p->race->name, "Celestial"))
+        {
+            dam = dam * 3 / 2; // 50%
         }
     }
 

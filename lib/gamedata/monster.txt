@@ -32451,7 +32451,7 @@ locations:Farfest
 name:Test dummy
 base:golem
 color:y
-speed:100
+speed:110
 hit-points:1000
 hearing:1
 armor-class:0
@@ -32460,9 +32460,9 @@ depth:30
 rarity:0
 weight:0
 experience:1
-spell-freq:50
-spell-power:10
-spells:BA_FIRE
+spell-freq:5
+spell-power:5
+spells:BA_NETH
 flags:NEVER_MOVE | ANTI_MAGIC
 desc:A golem used for testing purposes.
 

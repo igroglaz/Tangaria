@@ -856,7 +856,7 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             el_info[ELEM_DARK].res_level[0]--;
         if (el_info[ELEM_LIGHT].res_level[0] > -1)
             el_info[ELEM_LIGHT].res_level[0]--;
-        if (p->lev > 34)
+        if (p->lev >= 30)
         {
             if (el_info[ELEM_DARK].res_level[0] < 3)
                 el_info[ELEM_DARK].res_level[0]++;
