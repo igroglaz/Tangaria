@@ -829,26 +829,11 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     }
     else if (streq(p->race->name, "Undead"))
     {
-        // Fire vulnerability for levels 1-34
-        if (p->lev < 35 && el_info[ELEM_FIRE].res_level[0] > -1)
-            el_info[ELEM_FIRE].res_level[0]--;
-
-        // Prevent Fire immunity - cap at high resistance
-        if (el_info[ELEM_FIRE].res_level[0] > 2)
-            el_info[ELEM_FIRE].res_level[0] = 2;
-
         if (el_info[ELEM_NETHER].res_level[0] < 3)
             el_info[ELEM_NETHER].res_level[0]++;
         if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3 &&
             turn.turn % 2) // 50%
                 el_info[ELEM_NETHER].res_level[0]++;
-    }
-    else if (streq(p->race->name, "Balrog"))
-    {
-        if (el_info[ELEM_FIRE].res_level[0] < 1)
-            el_info[ELEM_FIRE].res_level[0]++;
-        if (p->lev > 34)
-            el_info[ELEM_FIRE].res_level[0] = 3;
     }
     else if (streq(p->race->name, "Nephalem"))
     {
@@ -986,44 +971,6 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
             }
         }
     }
-    else if (streq(p->race->name, "Balrog"))
-    {
-        // Cold vulnerability for levels 1-34
-        if (p->lev < 35 && el_info[ELEM_COLD].res_level[0] > -1)
-            el_info[ELEM_COLD].res_level[0]--;
-
-        // Prevent Cold immunity - cap at high resistance
-        if (el_info[ELEM_COLD].res_level[0] > 2)
-            el_info[ELEM_COLD].res_level[0] = 2;
-    }
-    else if (streq(p->race->name, "Frostmen"))
-    {
-        // Base Cold resistance (all levels)
-        if (el_info[ELEM_COLD].res_level[0] < 3)
-            el_info[ELEM_COLD].res_level[0]++;
-            
-        // Fire vulnerability for levels 1-34
-        if (p->lev < 35 && el_info[ELEM_FIRE].res_level[0] > -1)
-            el_info[ELEM_FIRE].res_level[0]--;
-            
-        // Improved Cold resistance at level 35+
-        if (p->lev > 34 && el_info[ELEM_COLD].res_level[0] < 3)
-            el_info[ELEM_COLD].res_level[0]++;
-            
-        // Prevent Fire immunity - cap at high resistance
-        // At level 50+, allow fire immunity in 50% of cases
-        if (el_info[ELEM_FIRE].res_level[0] > 2 && (p->lev < 50 || turn.turn % 2))
-            el_info[ELEM_FIRE].res_level[0] = 2;
-    }
-    else if (streq(p->race->name, "Spider"))
-    {
-        // Base Poison resistance
-        if (el_info[ELEM_POIS].res_level[0] < 1)
-            el_info[ELEM_POIS].res_level[0] = 1;
-        // improve at 30+
-        if (p->lev > 29 && el_info[ELEM_POIS].res_level[0] < 3)
-            el_info[ELEM_POIS].res_level[0]++;
-    }
     else if (streq(p->race->name, "Wisp"))
     {
         if (el_info[ELEM_LIGHT].res_level[0] < 3)
@@ -1031,20 +978,6 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
         if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3 &&
             turn.turn % 2)
                 el_info[ELEM_LIGHT].res_level[0]++;
-    }
-    else if (streq(p->race->name, "Imp"))
-    {
-        if (p->lev > 19 && el_info[ELEM_FIRE].res_level[0] < 3)
-            el_info[ELEM_FIRE].res_level[0]++;
-        if (p->lev > 29 && el_info[ELEM_FIRE].res_level[0] < 3)
-            el_info[ELEM_FIRE].res_level[0]++;
-        if (p->lev > 39 && el_info[ELEM_FIRE].res_level[0] < 3)
-            el_info[ELEM_FIRE].res_level[0]++;
-    }
-    else if (streq(p->race->name, "Wraith") && turn.turn % 2)
-    {
-        if (el_info[ELEM_FIRE].res_level[0] > 2)
-            el_info[ELEM_FIRE].res_level[0] = 2;
     }
 }
 
