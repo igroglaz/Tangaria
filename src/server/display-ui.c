@@ -816,43 +816,39 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     if (streq(p->race->name, "Werewolf") && !is_daytime() &&
             turn.turn % 2) // 50%
     {
-        if (el_info[ELEM_DARK].res_level[0] < 3)
-            el_info[ELEM_DARK].res_level[0]++;
+        if (el_info[ELEM_DARK].res_level[0] < 2)
+            el_info[ELEM_DARK].res_level[0]++; // double resistance
     }
     else if (streq(p->race->name, "Merfolk"))
     {
-        if (el_info[ELEM_WATER].res_level[0] < 3)
+        if (el_info[ELEM_WATER].res_level[0] < 1)
             el_info[ELEM_WATER].res_level[0]++;
-        if (p->lev > 49 && el_info[ELEM_WATER].res_level[0] < 3 &&
-            turn.turn % 2) // 50%
-            el_info[ELEM_WATER].res_level[0]++;
+        if (p->lev > 30 && el_info[ELEM_WATER].res_level[0] < 2 &&
+            turn.turn % 2)
+            el_info[ELEM_WATER].res_level[0]++; // 50% double resistance
     }
     else if (streq(p->race->name, "Undead"))
     {
-        if (el_info[ELEM_NETHER].res_level[0] < 3)
+        if (el_info[ELEM_NETHER].res_level[0] < 1)
             el_info[ELEM_NETHER].res_level[0]++;
-        if (p->lev > 49 && el_info[ELEM_NETHER].res_level[0] < 3 &&
-            turn.turn % 2) // 50%
-                el_info[ELEM_NETHER].res_level[0]++;
+        if (p->lev > 30 && el_info[ELEM_NETHER].res_level[0] < 2 &&
+            turn.turn % 2)
+                el_info[ELEM_NETHER].res_level[0]++; // 50% double resistance
     }
     else if (streq(p->race->name, "Nephalem"))
     {
-        if (el_info[ELEM_DARK].res_level[0] > -1)
-            el_info[ELEM_DARK].res_level[0]--;
-        if (el_info[ELEM_LIGHT].res_level[0] > -1)
-            el_info[ELEM_LIGHT].res_level[0]--;
-        if (p->lev >= 30)
+        if (p->lev < 30)
         {
-            if (el_info[ELEM_DARK].res_level[0] < 3)
-                el_info[ELEM_DARK].res_level[0]++;
-            if (el_info[ELEM_LIGHT].res_level[0] < 3)
-                el_info[ELEM_LIGHT].res_level[0]++;
+            if (el_info[ELEM_DARK].res_level[0] > -1)
+                el_info[ELEM_DARK].res_level[0]--;
+            if (el_info[ELEM_LIGHT].res_level[0] > -1)
+                el_info[ELEM_LIGHT].res_level[0]--;
         }
-        if (p->lev > 49 && turn.turn % 2) // 50%
+        else if (turn.turn % 2)
         {
-            if (el_info[ELEM_DARK].res_level[0] < 3)
+            if (el_info[ELEM_DARK].res_level[0] < 2)
                 el_info[ELEM_DARK].res_level[0]++;
-            if (el_info[ELEM_LIGHT].res_level[0] < 3)
+            if (el_info[ELEM_LIGHT].res_level[0] < 2)
                 el_info[ELEM_LIGHT].res_level[0]++;
         }
     }

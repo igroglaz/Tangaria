@@ -902,6 +902,8 @@ void do_cmd_breath(struct player *p, int dir)
             if (p->chp < 1)
                 p->chp = 1;
 
+            p->y_cooldown = 500; // cooldown
+
             player_dec_timed(p, TMD_FOOD, 42, false);
             player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
             p->upkeep->redraw |= (PR_HP);
