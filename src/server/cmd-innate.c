@@ -532,7 +532,7 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
         player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
-        player_inc_timed(p, TMD_BLIND, 5, false, false);
+        player_inc_timed(p, TMD_BLIND_REAL, 5, false, false); // no cure
         player_dec_timed(p, TMD_FOOD, 5, false);
         
         p->y_cooldown = 60; // cooldown

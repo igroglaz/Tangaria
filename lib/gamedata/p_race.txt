@@ -1230,7 +1230,7 @@ value:0:RES_LIGHT[-1]
 value:0:MANA[3+-1d15]
 player-flags:0:ANIMAL
 # 'y' re-poly
-# value:50:RES_DARK[++] at night HC 50%
+# value:0:RES_DARK[2] at night HC 50%
 # 'night' bonuses + regen hp..
 # hardcoded CUT_1 (15) & CUT_2 (50) at night
 #/// -
@@ -1387,7 +1387,7 @@ slay:30:50:EVIL_2
 #/// -
 # pickup less gold (1/2) in the dungeon
 value:0:RES_DARK[-1]
-# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# DARK minor vuln (up to 30 lvl; after can't get immunity),
 # but hardcoded xtra dmg from DARKNESS spell
 value:0:DAM_RED[-1+1d30]
 
@@ -1535,7 +1535,7 @@ slay:0:50:UNDEAD_3
 #/// -
 value:0:RES_TIME[-1]
 value:0:RES_DARK[-1]
-# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# DARK minor vuln (up to 30 lvl; after can't get immunity),
 # but hardcoded xtra dmg from DARKNESS spell
 value:0:TUNNEL[-1+-1d10]
 
@@ -2336,7 +2336,7 @@ value:0:CON[-1+-1d25]
 value:0:CHR[-3]
 # 'y' light around
 #value:0:RES_LIGHT[1]
-#value:35:RES_LIGHT[++] hardcoded 50%
+#value:30:RES_LIGHT[2] hardcoded 50%
 obj-flag:0:ESP_ANIMAL
 obj-flag:10:ESP_ORC
 obj-flag:20:ESP_TROLL
@@ -2358,7 +2358,7 @@ obj-flag:50:SLOW_DIGEST_2
 #/// -
 obj-flag:0:CLUMSY
 value:0:RES_DARK[-1]
-# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# DARK minor vuln (up to 30 lvl; after can't get immunity),
 # but hardcoded xtra dmg from DARKNESS spell
 value:0:DAM_RED[0+-1d5]
 

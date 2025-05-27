@@ -969,9 +969,9 @@ static void hardcoded_race_resistances(struct player *p, struct element_info el_
     }
     else if (streq(p->race->name, "Wisp"))
     {
-        if (el_info[ELEM_LIGHT].res_level[0] < 3)
+        if (el_info[ELEM_LIGHT].res_level[0] < 1)
             el_info[ELEM_LIGHT].res_level[0]++;
-        if (p->lev > 34 && el_info[ELEM_LIGHT].res_level[0] < 3 &&
+        if (p->lev > 30 && el_info[ELEM_LIGHT].res_level[0] < 2 &&
             turn.turn % 2)
                 el_info[ELEM_LIGHT].res_level[0]++;
     }
