@@ -92,7 +92,7 @@ static bool is_vulnerable(struct monster_race *race, int type)
  */
 // Notes:
 // 1) INCLUDES bolt, beam, ball, BREATH and other effects
-// 2) BREATH damage_cap listed in projection.txt. Other damage not capped!
+// 2) BREATH damage_cap listed in projection.txt. Other spell damage not capped!
 int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resist)
 {
     int i, denom = 0;
@@ -112,23 +112,12 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     if (dam <= 0) return 0;
 
     // IMMUNE
-    // Note: in T vulnerability prevents getting immunity
+    // Note: in T vulnerability prevents getting full immunity, some dmg must apply
     if (resist == 3)
     {
         if (p)
-        {
-            // damage-cap (it already exist in projection.txt for breath)..
-            // this one for spells (paranoia kinda as it's too high for spell anyway)
-            if (dam > 1600) dam = 1600;
-
-            // 10-20 times less damage for immunity
-            dam /= 10 + (p->lev / 5);
-
-            // should make at least 1 damage
-            if (dam < 1) dam = 1;
-
-            return dam; // after reducing dmg by imm - we don't process it with resistances
-        }
+            ; // later reduced in ~9 times by the loop "for (i = resist; i > 0; i--)"
+              // note: we must add (resist < 3) to other vuln if cases!
         else
             return 0; // common PWMA case
     }
@@ -160,30 +149,76 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         dam = 0;
 
     /* Vulnerable */
-    // Note: it applied only to vulnerability - if it's not covered with resistances.
-    // ..while most common case that IT IS covered by resistance and not a vulnerability
-    // anymore (we take there stuff from p "state").
-    // So we must 'uncover' vulnerability (eg for vuln race at 30+ lvl) by hardcoding it
+    // For p race vulnerability this case possible only till lvl 30 (cause after >30 
+    // we do not lower resistance value) OR if you wear cursed item.
+    // Note: (resist == -1) applied only to vulnerability - if it's not covered with
+    // resistances; while most common case that IT IS covered by resistance, so
+    // it stops being vulnerability anymore (as we take there stuff from p "state").
+    // So at 30+lvl we hardcode a new vulnerability with "else if (p && p->lev >= 30)"
     if (resist == -1)
     {
         if (p)
         {
-            // common elements (acid and elec are not common, no pots for double res)
-            if (type == PROJ_FIRE || type == PROJ_COLD || type == PROJ_POIS)
-                dam = dam * 4 / 3; // 33%
-            // all other elements eg light, dark, etc
+            // BA_LIGHT gives very small dmg, so increase it
+            if (type == PROJ_LIGHT)
+            {
+                if (p->lev < 30)
+                {
+                    dam = dam * 3 / 2; // 50%
+                }
+                // having -1 at 30+ lvl must be not better than being resistant
+                else
+                {
+                    if (dam * 2 > 425) // BR_LIGHT cap
+                        dam = 425 + p->lev; // -1 penalty: up to 50 dmg
+                    else
+                        dam = (dam * 2) + p->lev; // +100% + ~50
+                }
+            }
+
+            // so there only TIME
+            else if (type == PROJ_TIME)
+            {
+                if (dam * 3 / 2 > 150) // BR_TIME cap
+                    dam = 150 + p->lev; // -1 penalty
+                else
+                    dam = (dam * 3 / 2) + p->lev; // +50% + ~50
+            }
+            // all other elements. Note: for DARK_WEAK we have separate case below
+            // so there will be regular BR_DARK (as BA_DARK is 60+ lvl)
             else
-                dam = dam * 6 / 5; // 20%
+                dam = dam * 4 / 3; // 33%
         }
         else
             return (dam * 4 / 3); // common PWMA case
     }
     /* (Perma)polymorphed #2 Hack -- extra damage from certain attacks if vulnerable */
-    // (FIRE, COLD, LIGHT)
+    // (FIRE, COLD, ICE, LIGHT)
+    // (note: actually being poly is more dangerous as regular vuln xtra dmg
+    //  not applied if it kills you; while poly vuln applied always and in bigger number)
     else if (p && is_vulnerable(p->poly_race, type))
-        dam = dam * 4 / 3;
+    {
+        // LIGHT special
+        if (type == PROJ_LIGHT)
+        {
+            if (p->lev < 30)
+            {
+                dam = dam * 3 / 2; // 50%
+            }
+            // having -1 at 30+ lvl must be not better than being resistant
+            else
+            {
+                if (dam * 2 > 425) // BR_LIGHT cap
+                    dam = 425; //
+                else
+                    dam = (dam * 2); // +100%
+            }
+        }
+        else // FIRE, COLD, ICE
+            dam = dam * 4 / 3;
+    }
     // p races vulnerabilities (covered) - must always give extra dmg after lvl 30
-    else if (p && p->lev >= 30)
+    else if (p && p->lev >= 30 && resist < 3) // except immunity
     {
         int vuln_xtra_dmg = 0; // we don't want apply xtra vuln damage if it will kill p
 
@@ -193,7 +228,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         {
             vuln_xtra_dmg = dam / 8; // 12.5%
         }
-        
+
         // COLD
         else if (type == PROJ_COLD && (streq(p->race->name, "Balrog") ||
             streq(p->race->name, "Imp")))
@@ -242,7 +277,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             vuln_xtra_dmg = dam / 2; // 50%
         }
 
-        // Apply vulnerability extra damage only if it won't kill the player
+
+        // Now... Apply vulnerability extra damage ONLY if it won't kill the player
         if (vuln_xtra_dmg > 0)
         {
             if (p->chp - (dam + vuln_xtra_dmg) >= 1)
@@ -253,7 +289,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     // SPECIAL case for DARKNESS spell and dark-vulnerable p races
     // (there is no DARK_WEAK resistances.. so it's separate case)
-    if (type == PROJ_DARK_WEAK && p && (streq(p->race->name, "Maiar") ||
+    if (type == PROJ_DARK_WEAK && p && resist < 3 && (streq(p->race->name, "Maiar") ||
         streq(p->race->name, "Celestial") || streq(p->race->name, "Wisp")))
     {
         // DARKNESS spell makes 10 damage by default. We add 10% max HP extra
