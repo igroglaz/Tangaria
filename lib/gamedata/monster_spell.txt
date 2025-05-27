@@ -1074,6 +1074,8 @@ message-save:You feel unstable for a second, but it passes.
 name:DARKNESS
 hit:100
 effect:DARKEN_AREA
+# this effect not possible to add to p races resistances, so..
+# we simply hardcode damage to vuln p race in this EFFECT
 effect:BALL:DARK_WEAK:3
 dice:10
 lore:create darkness
@@ -1314,9 +1316,11 @@ lore-color-base:Light Red
 message-vis:{name} summons some spirits.
 message-invis:You feel hollow things appear nearby!
 
-# main dmg for dark attacks (good vs 'good' races)
-# NOTE: when testing - admin char 50 lvl can't be hit by BOLT...
-# so lets use BALL to always hit... Why not, Gandalf? Why not? :D
+# planned as main dmg for dark attacks (good vs 'good' races), but no need.
+# we will use DARKNESS effect to HC damage to 'light' p races 
+# right inside of EFFECT (the only way to avoid overcomplication...)
+# .. so this spell for now used only for 'Likho' high lvl mob
+# note: DO NOT USE BA_DARK! it's @#$% dark storm for Morgy with too high dmg :D
 name:BO_DARK
 hit:100
 effect:BALL:DARK:1
@@ -1328,8 +1332,14 @@ lore-color-resist:Light Green
 message-vis:{name} casts a bolt of darkness.
 message-invis:Something mumbles darkly...
 
-# vs bad guys... we got plenty of them.
-# NOTE: DO NOT USE BA_DARK! it's @#$% dark storm :D
+# This spell was planned vs light vuln p races, but we don't need it really.
+# we will use simple HCing BA_LIGHT (while BA_DARK can't be used due it's high-end spell)
+# Notes:
+# 1) we have BA_HOLY... which is VS evil monsters.. to make it VS 'evil' p races,
+# we need to add HOLY to a lot of monsters.. which is overcoplication
+# as we can use simply LIGHT.
+# 2) 'Light' (and holy_orb) make very low dmg. So we HC it VS vuln p races
+# 3) so for now this spell used only for 'Holy Virtue' mob (top non-unique angel).
 name:BO_LIGHT
 hit:100
 effect:BALL:LIGHT:1
@@ -1341,6 +1351,7 @@ lore-color-resist:Light Green
 message-vis:{name} casts a bolt of light.
 message-invis:Something hums brightly.
 
+# note: BOLTs won't hit admin char of 50 lvl from low lvl testing dummy. use BALL
 name:BO_TEST
 hit:100
 effect:BOLT:DARK

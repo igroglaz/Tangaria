@@ -296,8 +296,8 @@ stairs:2+1d2:0
 rule:10000:1
 
 # Deeptown dungeon (small loc single dungeon)
-name:The Shaft
-short:Shaft
+name:The Underdeep
+short:Underdeep
 wpos:-6:0
 max-level:1
 flags:STREAMS

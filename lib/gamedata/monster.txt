@@ -2977,6 +2977,32 @@ desc: scales without particular color.
 
 ### Dungeon level 6 ###
 
+name:cleric
+base:person
+color:g
+speed:110
+hit-points:25
+light:2
+hearing:20
+armor-class:15
+sleepiness:40
+depth:6
+rarity:1
+weight:150
+experience:23
+blow:HIT:HURT:1d4
+blow:HIT:HURT:1d5
+flags:MALE | SMART | GOOD
+flags:DROP_60
+flags:OPEN_DOOR
+flags:FORCE_SLEEP
+flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
+spell-freq:3
+spells:HEAL | SCARE | HEAL_KIN
+spells:BA_LIGHT
+desc:A man in faded robes, clutching his holy symbol like a shield.
+
 name:purple mushroom patch
 plural:purple mushroom patches
 base:mushroom
@@ -3185,6 +3211,31 @@ spells:BR_ACID
 desc:It is slowly making its way towards you, eating everything in its path...
 
 ### Dungeon level 7 ###
+
+name:novice paladin
+base:person
+color:w
+speed:110
+hit-points:70
+light:2
+hearing:20
+armor-class:48
+sleepiness:40
+depth:7
+rarity:1
+weight:170
+experience:35
+blow:HIT:HURT:1d5
+blow:HIT:HURT:1d6
+flags:MALE | GOOD
+flags:DROP_1
+flags:OPEN_DOOR | TAKE_ITEM
+flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
+spell-freq:5
+spell-power:5
+spells:HEAL | BA_LIGHT
+desc:A young paladin on a righteous mission - just not yours.
 
 #v
 name:crow of Durthang
@@ -8357,7 +8408,7 @@ experience:150
 blow:CLAW:HURT:6d3
 blow:CLAW:HURT:6d3
 blow:BITE:HURT:3d6
-flags:PWMANG_BASE | NEUTRAL
+flags:PWMANG_BASE | GOOD
 flags:WILD_MOUNTAIN | WILD_VOLCANO | WILD_WASTE | WILD_WOOD
 flags:WILD_DESERT | DROP_CORPSE
 desc:Greater and more intelligent than most of its kind, this great eagle is
@@ -9781,6 +9832,30 @@ spells:BR_POIS
 desc:This fish is among the most poisonous creatures there are.
 
 ### Dungeon level 25 ###
+
+name:dark cultist
+base:person
+color:g
+speed:111
+hit-points:55
+light:-2
+hearing:20
+armor-class:33
+sleepiness:25
+depth:25
+rarity:3
+weight:150
+experience:225
+blow:HIT:HURT:2d5
+blow:HIT:HURT:2d3
+flags:MALE | EVIL
+flags:DROP_60
+flags:OPEN_DOOR
+flags:FORCE_SLEEP
+flags:DROP_CORPSE | DROP_SKELETON
+spell-freq:4
+spells:DARKNESS | SCARE | BLIND
+desc:He serves something old, cruel, and very real.
 
 name:statue of ancient god
 base:hybrid
@@ -11911,6 +11986,32 @@ desc:A shimmering tornado of air and water, sparks crackle along its length.
 ########## DUNGEON LEVELS 30-39 ##########
 
 ### Dungeon level 30 ###
+
+name:holy fanatic
+base:person
+color:g
+speed:120
+hit-points:100
+light:2
+hearing:20
+armor-class:50
+sleepiness:10
+depth:30
+rarity:3
+weight:150
+experience:225
+blow:HIT:CONFUSE:5d5
+blow:HIT:FIRE:5d5
+flags:MALE | GOOD
+flags:DROP_60
+flags:OPEN_DOOR
+flags:FORCE_SLEEP
+flags:DROP_CORPSE | DROP_SKELETON
+flags:IM_LIGHT
+spell-freq:4
+spells:BA_LIGHT | WOUND
+desc:Eyes burning with faith, he strikes in the name of light -
+desc: and doesn't care who gets hurt.
 
 name:shadow of nazgul
 base:wraith
@@ -15071,7 +15172,7 @@ experience:500
 blow:BITE:PARALYZE:4d5
 blow:BITE:LOSE_DEX:4d5
 blow:BITE:LOSE_CON:4d5
-flags:PWMANG_BASE | WILD_SHORE | WILD_OCEAN | NEUTRAL
+flags:PWMANG_BASE | WILD_SHORE | WILD_OCEAN | GOOD
 flags:FORCE_SLEEP | IM_COLD | IM_POIS | IM_FIRE | IM_ELEC
 spell-freq:5
 spells:BO_WATE | BO_COLD | BO_ICE | BO_MANA
@@ -17344,7 +17445,7 @@ blow:BITE:HURT:2d12
 blow:BITE:HURT:2d12
 blow:BITE:HURT:2d8
 blow:BITE:HURT:2d8
-flags:UNIQUE | FEMALE | LEVITATE
+flags:UNIQUE | FEMALE | LEVITATE | GOOD
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | GROUP_AI
 flags:NO_CONF | NO_SLEEP
@@ -17924,7 +18025,7 @@ blow:KICK:HURT:4d4
 blow:BITE:HURT:4d4
 blow:TOUCH:LOSE_ALL:4d4
 blow:TOUCH:DRAIN_CHARGES
-flags:SMART
+flags:SMART | GOOD
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_FIRE | IM_COLD
 flags:IM_ACID | IM_ELEC | IM_POIS | RES_LIGHT
@@ -20018,7 +20119,7 @@ blow:CRUSH:HURT:8d8
 blow:CRUSH:HURT:8d8
 blow:HIT:SHATTER:4d8
 blow:HIT:SHATTER:4d8
-flags:DROP_40 | WEIRD_MIND
+flags:DROP_40 | WEIRD_MIND | GOOD
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS | IM_DISEN | IM_NETHER
 flags:IM_NEXUS | NO_CONF | NO_SLEEP | NO_HOLD | NO_SLOW | NO_STUN
 spell-freq:9
@@ -20044,7 +20145,7 @@ blow:CRUSH:HURT:8d8
 blow:CRUSH:HURT:8d8
 blow:HIT:SHATTER:4d8
 blow:HIT:SHATTER:4d8
-flags:DROP_40 | WEIRD_MIND | SMART
+flags:DROP_40 | WEIRD_MIND | SMART | GOOD
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS | IM_DISEN | IM_NETHER
 flags:IM_NEXUS | NO_CONF | NO_SLEEP | NO_HOLD | NO_SLOW | NO_STUN
 spell-freq:9
@@ -20070,7 +20171,7 @@ blow:BITE:FIRE:12d6
 blow:BITE:FIRE:12d6
 blow:HIT:FIRE:9d12
 blow:HIT:FIRE:9d12
-flags:UNIQUE | NEUTRAL
+flags:UNIQUE | GOOD
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
 flags:IM_ACID | IM_ELEC | IM_FIRE | IM_POIS | IM_PLASMA | NO_CONF
@@ -23423,6 +23524,35 @@ desc: all of a sudden.
 
 ### Dungeon level 75 ###
 
+name:holy virtue
+base:angel
+color:w
+speed:130
+hit-points:5000
+light:2
+hearing:45
+armor-class:200
+sleepiness:255
+depth:75
+rarity:8
+weight:0
+experience:20000
+blow:GAZE:TERRIFY:11d11
+blow:GAZE:TERRIFY:11d11
+blow:HIT:HURT:11d11
+blow:HIT:HURT:11d11
+flags:SMART | ATTR_FLICKER
+flags:DROP_4
+flags:MOVE_BODY
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | NO_FEAR | SMART
+flags:NO_STUN | NO_CONF | LEVITATE | IM_LIGHT
+spell-freq:3
+spells:WOUND | BA_LIGHT | TELE_TO | MISSILE | BO_MANA
+spells:S_ANGEL | BO_LIGHT | BR_LIGHT | BA_HOLY
+desc:It stands motionless, as if waiting for something. Its presence makes
+desc: you feel exposed, as though your thoughts are being weighed. You're not
+desc: sure if it's here to judge, to help, or simply to watch.
+
 name:Likho
 base:hybrid
 color:P
@@ -23431,7 +23561,7 @@ hit-points:4444
 light:2
 hearing:20
 armor-class:168
-sleepiness:100
+sleepiness:255
 depth:75
 rarity:7
 weight:9000
@@ -23446,7 +23576,7 @@ flags:KILL_BODY
 flags:IM_FIRE | IM_POIS | IM_ACID | NO_CONF | NO_SLEEP | NO_HOLD
 flags-off:HURT_COLD
 spell-freq:3
-spells:TELE_TO
+spells:TELE_TO | BO_DARK
 spells:S_HI_DRAGON | S_HI_UNDEAD
 spells:S_HYDRA | S_MONSTERS
 desc:Strange black mass-like creature with turquoise bubble on it (is it eyes?)..
@@ -23758,7 +23888,7 @@ blow:KICK:HURT:7d11
 blow:BITE:EXP_80:7d11
 blow:TOUCH:LOSE_ALL:7d11
 blow:TOUCH:DRAIN_CHARGES:7d11
-flags:UNIQUE | SMART | NEUTRAL
+flags:UNIQUE | SMART | GOOD
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
@@ -32462,8 +32592,9 @@ weight:0
 experience:1
 spell-freq:5
 spell-power:5
-spells:BA_NETH
-flags:NEVER_MOVE | ANTI_MAGIC
+spells:BO_DARK
+flags:NEVER_MOVE
+#flags:ANTI_MAGIC
 desc:A golem used for testing purposes.
 
 name:Test drop
