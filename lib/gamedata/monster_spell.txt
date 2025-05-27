@@ -612,6 +612,7 @@ lore-color-base:Orange
 message-vis:{name} casts an orb of draining.
 message-invis:Something chants.
 
+# don't use early on due too high dmg dice.. only for end-game mobs
 name:BA_DARK
 hit:100
 effect:BALL:DARK:2

@@ -121,12 +121,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             // this one for spells (paranoia kinda as it's too high for spell anyway)
             if (dam > 1600) dam = 1600;
 
-            // Djinn's immunity to cold isn't too good
-            if (p && streq(p->race->name, "Djinn") && (type == PROJ_COLD))
-                dam /= 10;
-            // everyone else with immunity
-            else
-                dam /= 15;
+            // 10-20 times less damage for immunity
+            dam /= 10 + (p->lev / 5);
 
             // should make at least 1 damage
             if (dam < 1) dam = 1;
@@ -172,11 +168,11 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     {
         if (p)
         {
+            // common elements (acid and elec are not common, no pots for double res)
             if (type == PROJ_FIRE || type == PROJ_COLD || type == PROJ_POIS)
                 return (dam * 4 / 3); // 33%
-            else if (type == PROJ_ACID || type == PROJ_ELEC)
-                return (dam * 5 / 4); // 25%
-            else // all other elements eg light, dark, etc
+            // all other elements eg light, dark, etc
+            else
                 return (dam * 6 / 5); // 20%
         }
 
@@ -197,7 +193,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
         
         // COLD
-        if (type == PROJ_COLD && (streq(p->race->name, "Balrog") ||
+        else if (type == PROJ_COLD && (streq(p->race->name, "Balrog") ||
             streq(p->race->name, "Imp")))
         {
             dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
@@ -216,18 +212,24 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             dam = dam * 3 / 2; // 50%
         }
 
-        // DARK
-        else if (type == PROJ_DARK && (streq(p->race->name, "Maiar") ||
-                 streq(p->race->name, "Celestial") || streq(p->race->name, "Wisp")))
-        {
-            dam = dam * 3 / 2; // 50%
-        }
-
         // TIME
         else if (type == PROJ_TIME && streq(p->race->name, "Celestial"))
         {
             dam = dam * 3 / 2; // 50%
         }
+    }
+
+    // SPECIAL case for DARKNESS spell and dark-vulnerable p races
+    // (there is no DARK_WEAK resistances.. so it's separate case)
+    if (type == PROJ_DARK_WEAK && p && (streq(p->race->name, "Maiar") ||
+        streq(p->race->name, "Celestial") || streq(p->race->name, "Wisp")))
+    {
+        // DARKNESS spell makes 10 damage by default. We add 10% max HP extra
+        int dark_weak_xtra_dmg = p->mhp / 10;
+        // Only add extra damage if it won't kill the player
+        // (but p still can die due regular 10 dmg)
+        if (p->chp - (dam + dark_weak_xtra_dmg) >= 1) 
+            dam += dark_weak_xtra_dmg;
     }
 
     /*
@@ -274,14 +276,17 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     //////////////////////////////////////////////////////////////////////////
 
 
-    // never kill fully healed player with 1 magic blow
-    if (p && p->chp == p->mhp)
+    // never kill fully healed player with 1 magic blow (if not on CD)
+    if (p && p->chp == p->mhp && p->y_cooldown == 0)
     {
             if (p->chp - dam < 1) // TODO: special case for p->timed[TMD_MANASHIELD] ?
             {
                 msg(p, "%s (level %d) survived a magical blast of %d damage - by a hair!",
                         p->name, p->lev, dam);
                 dam = p->chp - 1; // make damage which will leave 1 hp
+
+                // apply 'innate' CD so it won't repeat too often
+                p->y_cooldown = 1000;
             }
     }
 

@@ -1387,6 +1387,8 @@ slay:30:50:EVIL_2
 #/// -
 # pickup less gold (1/2) in the dungeon
 value:0:RES_DARK[-1]
+# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# but hardcoded xtra dmg from DARKNESS spell
 value:0:DAM_RED[-1+1d30]
 
 
@@ -1534,6 +1536,8 @@ slay:0:50:UNDEAD_3
 value:0:DAM_RED[-1]
 value:0:RES_TIME[-1]
 value:0:RES_DARK[-1]
+# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# but hardcoded xtra dmg from DARKNESS spell
 value:0:TUNNEL[-1+-1d10]
 
 
@@ -2069,7 +2073,6 @@ value:30:RES_TIME[1]
 obj-flag:50:KNOWLEDGE
 #/// -
 # can't drink potions
-# get less dmg reduction from immunity to COLD: adjust_dam()
 value:0:DAM_RED[-1]
 player-flags:0:NO_BOOTS
 value:0:TUNNEL[-5]
@@ -2358,6 +2361,8 @@ obj-flag:50:SLOW_DIGEST_2
 #/// -
 obj-flag:0:CLUMSY
 value:0:RES_DARK[-1]
+# DARK minor resistances (up to 30 lvl; after can't get immunity),
+# but hardcoded xtra dmg from DARKNESS spell
 value:0:DAM_RED[0+-1d5]
 
 

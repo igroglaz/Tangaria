@@ -23547,6 +23547,7 @@ flags:MOVE_BODY
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | NO_FEAR | SMART
 flags:NO_STUN | NO_CONF | LEVITATE | IM_LIGHT
 spell-freq:3
+innate-freq:15
 spells:WOUND | BA_LIGHT | TELE_TO | MISSILE | BO_MANA
 spells:S_ANGEL | BO_LIGHT | BR_LIGHT | BA_HOLY
 desc:It stands motionless, as if waiting for something. Its presence makes
