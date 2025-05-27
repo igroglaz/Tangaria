@@ -1163,15 +1163,6 @@ static void project_monster_handler_MON_HEAL(project_monster_handler_context_t *
 /* Speed Monster (Ignore "dam") */
 static void project_monster_handler_MON_SPEED(project_monster_handler_context_t *context)
 {
-
-    // affect only monsters (weird bug when SHRIEK monster spell made dice:25 to p and killed it)
-    if (!context->mon)
-    {
-        context->skipped = true;
-        context->dam = 0;
-        return;
-    }
-
     context->mon_timed[MON_TMD_FAST] = context->dam;
     context->dam = 0;
 }
