@@ -127,10 +127,10 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             // should make at least 1 damage
             if (dam < 1) dam = 1;
 
-            return dam;
+            return dam; // after reducing dmg by imm - we don't process it with resistances
         }
-
-        return 0; // common PWMA case
+        else
+            return 0; // common PWMA case
     }
 
     /* Hack -- ACID damage is halved by armour */
@@ -170,13 +170,13 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         {
             // common elements (acid and elec are not common, no pots for double res)
             if (type == PROJ_FIRE || type == PROJ_COLD || type == PROJ_POIS)
-                return (dam * 4 / 3); // 33%
+                dam = dam * 4 / 3; // 33%
             // all other elements eg light, dark, etc
             else
-                return (dam * 6 / 5); // 20%
+                dam = dam * 6 / 5; // 20%
         }
-
-        return (dam * 4 / 3); // common PWMA case
+        else
+            return (dam * 4 / 3); // common PWMA case
     }
     /* (Perma)polymorphed #2 Hack -- extra damage from certain attacks if vulnerable */
     // (FIRE, COLD, LIGHT)
@@ -185,21 +185,43 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     // p races vulnerabilities (covered) - must always give extra dmg after lvl 30
     else if (p && p->lev >= 30)
     {
+        int vuln_xtra_dmg = 0; // we don't want apply xtra vuln damage if it will kill p
+
         // FIRE
         if (type == PROJ_FIRE && (streq(p->race->name, "Ent") ||
             streq(p->race->name, "Undead") || streq(p->race->name, "Frostmen")))
         {
-            dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
+            vuln_xtra_dmg = dam / 8; // 12.5%
         }
         
         // COLD
         else if (type == PROJ_COLD && (streq(p->race->name, "Balrog") ||
             streq(p->race->name, "Imp")))
         {
-            dam = dam * 9 / 8; // 12.5% .. so 533 dmg will become 600
+            vuln_xtra_dmg = dam / 8; // 12.5%
         }
 
         // LIGHT
+        // Note: BA_LIGHT (main source of light dmg) it's very minor effect...
+        /*
+            Spell       | Average Damage (for 60 SPELL_POWER)
+            ------------|----------------
+            BA_ACID     | 105.0
+            BA_ELEC     | 53.0
+            BA_FIRE     | 115.0
+            BA_COLD     | 55.0
+            BA_POIS     | 82.5
+            BA_SHAR     | 55.0
+            BA_NETH     | 295.0
+            BA_WATE     | 125.0
+            BA_MANA     | 355.0
+            BA_HOLY     | 55.0
+            BA_DARK     | 295.0
+            BA_LIGHT    | 55.0
+            MIND_BLAST  | 36.0
+            WOUND       | 66.0
+        */
+        // so lets make it 2x as it's most popular vulnerability
         else if (type == PROJ_LIGHT && (streq(p->race->name, "Goblin") ||
                  streq(p->race->name, "Ogre") || streq(p->race->name, "Troll") ||
                  streq(p->race->name, "Orc") || streq(p->race->name, "Dark Elf") ||
@@ -209,15 +231,25 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
                  streq(p->race->name, "Wraith") || streq(p->race->name, "Beholder") ||
                  streq(p->race->name, "Ooze")))
         {
-            dam = dam * 3 / 2; // 50%
+            // Double damage, but cap total at 425 (BR_LIGHT cap)
+            if (dam * 2 <= 425)
+                vuln_xtra_dmg = dam; // Normal doubling
         }
 
         // TIME
         else if (type == PROJ_TIME && streq(p->race->name, "Celestial"))
         {
-            dam = dam * 3 / 2; // 50%
+            vuln_xtra_dmg = dam / 2; // 50%
+        }
+
+        // Apply vulnerability extra damage only if it won't kill the player
+        if (vuln_xtra_dmg > 0)
+        {
+            if (p->chp - (dam + vuln_xtra_dmg) >= 1)
+                dam += vuln_xtra_dmg;
         }
     }
+
 
     // SPECIAL case for DARKNESS spell and dark-vulnerable p races
     // (there is no DARK_WEAK resistances.. so it's separate case)
@@ -230,6 +262,10 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         // (but p still can die due regular 10 dmg)
         if (p->chp - (dam + dark_weak_xtra_dmg) >= 1) 
             dam += dark_weak_xtra_dmg;
+        
+        // note: it's the only case which ok to do so, as there are no
+        // resistance to DARK_WEAK, so we won't mess with processing dam with resistance
+        // loop below (if (denom) dam = ...)
     }
 
     /*
@@ -268,9 +304,12 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     // Second iteration: dam = (dam * 1/3) * 1 / 3 = dam * 1/9
     // Result: 11% damage
 
-    for (i = resist; i > 0; i--)
+    if (resist > 0) // -- we need this check so we won't use -1 vuln in this loop
     {
-        if (denom) dam = dam * projections[type].numerator / denom;
+        for (i = resist; i > 0; i--)
+        {
+            if (denom) dam = dam * projections[type].numerator / denom;
+        }
     }
     //////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////
