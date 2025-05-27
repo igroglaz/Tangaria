@@ -77,6 +77,9 @@ PWMAngband:
 - Fix a bug in get_spell_info()
 - Fix many incorrect spell descriptions
 - Prevent Villagers from making doors on static levels
+- Fix harmless PROJECT_LOS effects harming other players
+- Don't display empty message to nearby players when triggering an effect
+  without a "near" message
 
 Coding changes
 --------------

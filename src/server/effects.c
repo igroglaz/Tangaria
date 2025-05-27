@@ -89,6 +89,7 @@ const char *effect_info(const struct effect *effect, const char *name)
     if ((effect->index == EF_BOW_BRAND) && (effect->radius == 0)) return NULL;
 
     /* Hack -- non-damaging LOS effects (show nothing) */
+    if ((effect->index == EF_PROJECT_LOS) && (effect->subtype == PROJ_TURN_ALL)) return NULL;
     if ((effect->index == EF_PROJECT_LOS_AWARE) && (effect->other == 0)) return NULL;
 
     /* Hack -- illumination ("damage" value is used for radius, so change the tip accordingly) */

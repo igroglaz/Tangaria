@@ -1617,6 +1617,21 @@ static const project_player_handler_f player_handlers[] =
 };
 
 
+static bool project_m_is_threat(int type)
+{
+    bool threat = false;
+
+    /* Is this type of attack a threat? */
+    switch (type)
+    {
+        case PROJ_MON_SPEED: break;
+        default: threat = true; break;
+    }
+
+    return threat;
+}
+
+
 static bool project_p_is_threat(int type)
 {
     bool threat = false;
@@ -1624,6 +1639,7 @@ static bool project_p_is_threat(int type)
     /* Is this type of attack a threat? */
     switch (type)
     {
+        case PROJ_MON_SPEED:
         case PROJ_AWAY_ALL:
         case PROJ_PROJECT:
         case PROJ_MON_HEAL:
@@ -1732,10 +1748,15 @@ void project_p(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         monster_desc(p, killer, sizeof(killer), origin->monster, MDESC_DIED_FROM);
 
         /* Check hostility for threatening spells */
-        if (!pvm_check(p, origin->monster)) return;
+        if (project_m_is_threat(typ))
+        {
+            if (!pvm_check(p, origin->monster)) return;
 
-        /* Monster sees what is going on */
-        update_smart_learn(origin->monster, p, 0, 0, typ);
+            /* Monster sees what is going on */
+            update_smart_learn(origin->monster, p, 0, 0, typ);
+        }
+        else
+            dam = 0;
     }
 
     /* The caster is a player */
