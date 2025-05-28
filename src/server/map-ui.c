@@ -513,7 +513,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
     if (q == p)
     {
         timefactor = time_factor(p, cv);
-        if (timefactor < NORMAL_TIME)
+        if (timefactor < NORMAL_TIME && !OPT(p, birth_turbo))
         {
             /* Initialize bubble info */
             if (p->bubble_speed >= NORMAL_TIME)
@@ -553,7 +553,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
         p->bubble_speed = timefactor;
 
         /* Use bubble color */
-        if (p->bubble_colour && !p->use_graphics)
+        if (p->bubble_colour && !p->use_graphics && !OPT(p, birth_turbo))
         {
             if (*a == COLOUR_WHITE) *a = COLOUR_VIOLET;
             else *a = COLOUR_WHITE;

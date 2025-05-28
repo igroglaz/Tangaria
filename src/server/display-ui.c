@@ -3178,7 +3178,8 @@ static int base_time_factor(struct player *p, struct chunk *c, int slowest)
     if (health < MIN_TIME_SCALE) health = MIN_TIME_SCALE;
 
     /* Scale depending on health if HP are low enough */
-    if (health <= p->opts.hitpoint_warn * 10)
+    // ONLY if no-slowdown mode is disabled
+    if (health <= p->opts.hitpoint_warn * 10 && !OPT(p, birth_turbo))
     {
         if (cfg_constant_time_factor > 0)
             timefactor = timefactor / cfg_constant_time_factor;
