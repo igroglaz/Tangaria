@@ -1316,9 +1316,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
 
         { // create scope (area of variable's visibility..).
           // good when you are lazy to put variable in beginning of func :D
+
             // mark kill message with "& " for discord
             char marked_buf[sizeof(buf) + 3]; /* +3 for "& " and null terminator */
-            strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
+
+            if (rf_has(mon->race->flags, RF_FORCE_DEPTH) // dungeon boss
+                strnfmt(marked_buf, sizeof(marked_buf), "$ %s", buf);
+            else // regular unique
+                strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
             msg_print(p, marked_buf, type);
         }
 
