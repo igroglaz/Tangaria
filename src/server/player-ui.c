@@ -389,18 +389,28 @@ static void write_character_dump(ang_file *fff, void *data)
         file_putf(fff, "Timestamp: %ld\n", p->death_info.time);
         file_putf(fff, "Account score: %u\n", p->account_score);
 
-        if (OPT(p, birth_zeitnot)) {
+        if (OPT(p, birth_deeptown))
+            file_putf(fff, "Deeptown\n");
+        else if (OPT(p, birth_zeitnot))
             file_putf(fff, "Zeitnot\n");
-        } else if (OPT(p, birth_ironman)) {
+        else if (OPT(p, birth_ironman))
             file_putf(fff, "Ironman\n");
-        }
 
-        if (OPT(p, birth_hardcore)) {
+        if (OPT(p, birth_hardcore))
             file_putf(fff, "Hardcore\n");
-        } else if (p->lives > 0) {
-            file_putf(fff, "Still got %d chance(s)\n", p->lives);
-        }
-
+        else if (p->lives > 0)
+            file_putf(fff, "Still got a Second Chance\n");
+        
+        if (OPT(p, birth_turbo))
+            file_putf(fff, "Turbo\n");
+            
+        if (OPT(p, birth_force_descend) && !OPT(p, birth_no_recall))
+            file_putf(fff, "Diving\n");
+        else if (OPT(p, birth_no_recall) && !OPT(p, birth_force_descend))
+            file_putf(fff, "Ironfoot\n");
+        
+        if (OPT(p, birth_fruit_bat))
+            file_putf(fff, "Batty\n");
     }
 
     mem_free(home_list);
