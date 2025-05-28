@@ -1243,7 +1243,7 @@ void do_cmd_breath(struct player *p, int dir)
         p->upkeep->redraw |= (PR_MAP);
         return;
     }
-    else if (streq(p->race->name, "Black Numenorean"))
+    else if (streq(p->race->name, "Black Numenor"))
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);

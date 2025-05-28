@@ -748,7 +748,7 @@ shape:50:14-headed hydra
 # ? obj-flag:10:DRAIN_EXP do not deplete less then achieved lvl ?
 
 
-name:Black Numenorean
+name:Black Numenor
 skill-disarm-phys:2
 skill-disarm-magic:3
 skill-device:7
