@@ -2566,32 +2566,41 @@ static void alive_list_remove_character(struct player *p)
 
 
 // get player mode string 
-static void get_player_modes(struct player *p, char *modes, size_t len)
+void get_player_modes(struct player *p, char *modes, size_t len)
 {
-    bool is_hardcore = OPT(p, birth_hardcore);
-    bool is_zeitnot = OPT(p, birth_zeitnot);
-    bool is_ironman = OPT(p, birth_ironman);
-    bool is_diving = OPT(p, birth_force_descend) && !OPT(p, birth_no_recall);
-    bool is_ironfoot = OPT(p, birth_no_recall) && !OPT(p, birth_force_descend);
-    
     modes[0] = '\0';
-    
-    if (is_hardcore) {
+
+    if (OPT(p, birth_hardcore)) {
         my_strcat(modes, "hardcore", len);
     }
-    
-    if (is_zeitnot) {
+
+    if (OPT(p, birth_turbo)) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "turbo", len);
+    }
+
+    if (OPT(p, birth_deeptown)) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "deeptown", len);
+    } else if (OPT(p, birth_zeitnot)) {
         if (modes[0] != '\0') my_strcat(modes, " ", len);
         my_strcat(modes, "zeitnot", len);
-    } else if (is_ironman) {
+    } else if (OPT(p, birth_ironman)) {
         if (modes[0] != '\0') my_strcat(modes, " ", len);
         my_strcat(modes, "ironman", len);
-    } else if (is_diving) {
+    } 
+
+    if (OPT(p, birth_force_descend) && !OPT(p, birth_no_recall)) {
         if (modes[0] != '\0') my_strcat(modes, " ", len);
         my_strcat(modes, "diving", len);
-    } else if (is_ironfoot) {
+    } else if (OPT(p, birth_no_recall) && !OPT(p, birth_force_descend)) {
         if (modes[0] != '\0') my_strcat(modes, " ", len);
         my_strcat(modes, "ironfoot", len);
+    }
+    
+    if (OPT(p, birth_fruit_bat)) {
+        if (modes[0] != '\0') my_strcat(modes, " ", len);
+        my_strcat(modes, "batty", len);
     }
 }
 

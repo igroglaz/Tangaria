@@ -41,6 +41,7 @@ extern void redraw_stuff(struct player *p);
 extern void restore_hp(struct player *p);
 extern void restore_sp(struct player *p);
 extern void death_knowledge(struct player *p);
+extern void get_player_modes(struct player *p, char *modes, size_t len);
 extern void player_death(struct player *p);
 extern void resurrect_player(struct player *p, struct chunk *c);
 extern bool modify_panel(struct player *p, struct loc *grid);

@@ -294,7 +294,7 @@ void console_print(char *msg, int chan)
 static void console_who(int ind, char *dummy)
 {
     int k, num = 0;
-    char mode_name[30];
+    char modes[50];
     sockbuf_t *console_buf_w = (sockbuf_t*)console_buffer(ind, CONSOLE_WRITE);
 
     /* Hack -- count players */
@@ -311,26 +311,14 @@ static void console_who(int ind, char *dummy)
     for (k = 1; k <= NumPlayers; k++)
     {
         struct player *p = player_get(k);
-        const char *batty = "";
         char *entry;
 
-        /* Challenge options */
-        if (OPT(p, birth_zeitnot)) {
-            strnfmt(mode_name, sizeof(mode_name), "the%s zeitnot",
-                (OPT(p, birth_hardcore))? " hardcore": "");
-        } else {
-        strnfmt(mode_name, sizeof(mode_name), "a%s%s%s%s level",
-            (OPT(p, birth_ironman))? " ironman": "",
-            (OPT(p, birth_hardcore))? " hardcore": "",
-            (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
-            (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
-        }
-
-        if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
-
+        /* Build mode string */
+        get_player_modes(p, modes, sizeof(modes));
+        
         /* Add an entry */
-        entry = format("%s is %s %d %s %s %sat %d ft (%d, %d)\n", p->name, mode_name, p->lev,
-            p->race->name, p->clazz->name, batty, p->wpos.depth * 50,
+        entry = format("%s is the %s level %d %s %s at %d ft (%d, %d)\n", p->name, modes, p->lev,
+            p->race->name, p->clazz->name, p->wpos.depth * 50,
             p->wpos.grid.x, p->wpos.grid.y);
         Packet_printf(console_buf_w, "%S", entry);
     }
