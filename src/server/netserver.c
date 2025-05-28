@@ -3180,11 +3180,11 @@ int Send_birth_options(int ind, struct birth_options *options)
     }
 
     return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
-        (int)options->deeptown, (int)options->zeitnot, (int)options->ironman,
-        (int)options->force_descend, (int)options->no_recall,
+        (int)options->hardcore, (int)options->deeptown, (int)options->zeitnot,
+        (int)options->ironman, (int)options->force_descend, (int)options->no_recall,
         (int)options->no_artifacts, (int)options->feelings, (int)options->no_selling,
         (int)options->start_kit, (int)options->no_stores, (int)options->no_ghost,
-        (int)options->fruit_bat, (int)options->hardcore);
+        (int)options->fruit_bat);
 }
 
 
@@ -6073,6 +6073,7 @@ static bool screen_compatible(int ind)
 
 static void get_birth_options(struct player *p, struct birth_options *options)
 {
+    options->hardcore = OPT(p, birth_hardcore);
     options->deeptown = OPT(p, birth_deeptown);
     options->zeitnot = OPT(p, birth_zeitnot);
     options->ironman = OPT(p, birth_ironman);
@@ -6085,7 +6086,6 @@ static void get_birth_options(struct player *p, struct birth_options *options)
     options->no_stores = OPT(p, birth_no_stores);
     options->no_ghost = OPT(p, birth_no_ghost);
     options->fruit_bat = OPT(p, birth_fruit_bat);
-    options->hardcore = OPT(p, birth_hardcore);
 }
 
 
@@ -6094,6 +6094,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     /* Birth options: can only be set at birth */
     if (!ht_zero(&p->game_turn))
     {
+        OPT(p, birth_hardcore) = options->hardcore;
         OPT(p, birth_deeptown) = options->deeptown;
         OPT(p, birth_zeitnot) = options->zeitnot;
         OPT(p, birth_ironman) = options->ironman;
@@ -6106,7 +6107,6 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_no_stores) = options->no_stores;
         OPT(p, birth_no_ghost) = options->no_ghost;
         OPT(p, birth_fruit_bat) = options->fruit_bat;
-        OPT(p, birth_hardcore) = options->hardcore;
     }
 
     // Ironman it is force_descent + no_recall and vice versa

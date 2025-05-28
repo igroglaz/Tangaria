@@ -476,6 +476,7 @@ void wr_player_misc(void *data)
     wr_hturn(&turn);
     wr_s16b(p->ghost);
     wr_byte(p->lives);
+    wr_byte(OPT(p, birth_hardcore));
     wr_byte(OPT(p, birth_deeptown));
     wr_byte(OPT(p, birth_zeitnot));
     wr_byte(OPT(p, birth_ironman));
@@ -488,7 +489,6 @@ void wr_player_misc(void *data)
     wr_byte(OPT(p, birth_no_stores));
     wr_byte(OPT(p, birth_no_ghost));
     wr_byte(OPT(p, birth_fruit_bat));
-    wr_byte(OPT(p, birth_hardcore));
     wr_race(quest->race);
     wr_s16b(quest->cur_num);
     wr_s16b(quest->max_num);

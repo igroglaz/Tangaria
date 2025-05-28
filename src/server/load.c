@@ -748,6 +748,7 @@ int rd_player_misc(struct player *p)
     rd_hturn(&p->quit_turn);
     rd_s16b(&p->ghost);
     rd_byte(&p->lives);
+    rd_bool(&OPT(p, birth_hardcore));
     rd_bool(&OPT(p, birth_deeptown));
     rd_bool(&OPT(p, birth_zeitnot));
     rd_bool(&OPT(p, birth_ironman));
@@ -760,7 +761,6 @@ int rd_player_misc(struct player *p)
     rd_bool(&OPT(p, birth_no_stores));
     rd_bool(&OPT(p, birth_no_ghost));
     rd_bool(&OPT(p, birth_fruit_bat));
-    rd_bool(&OPT(p, birth_hardcore));
     quest->race = rd_race();
     rd_s16b(&quest->cur_num);
     rd_s16b(&quest->max_num);

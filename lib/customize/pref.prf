@@ -91,6 +91,9 @@ X:wrap_messages
 # Option 'Compare equipment when examining items'
 X:expand_inspect
 
+# Option 'Hardcore (No extra gold, 2nd Chance & low-HP heal)'
+X:birth_hardcore
+
 # Option 'Deeptown'
 X:birth_deeptown
 
@@ -126,9 +129,6 @@ Y:birth_no_ghost
 
 # Option 'Play as a fruit bat'
 X:birth_fruit_bat
-
-# Option 'Hardcore (No extra gold, 2nd Chance & low-HP heal)'
-X:birth_hardcore
 
 # Option 'Get out of icky screens when disturbed'
 X:disturb_icky
