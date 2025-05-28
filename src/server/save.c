@@ -477,6 +477,7 @@ void wr_player_misc(void *data)
     wr_s16b(p->ghost);
     wr_byte(p->lives);
     wr_byte(OPT(p, birth_hardcore));
+    wr_byte(OPT(p, birth_turbo));
     wr_byte(OPT(p, birth_deeptown));
     wr_byte(OPT(p, birth_zeitnot));
     wr_byte(OPT(p, birth_ironman));

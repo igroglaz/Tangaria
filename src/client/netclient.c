@@ -3802,12 +3802,12 @@ static int Receive_options(void)
 {
     int n;
     uint8_t ch;
-    char hardcore, deeptown, zeitnot, ironman, force_descend, no_recall,
+    char hardcore, turbo, deeptown, zeitnot, ironman, force_descend, no_recall,
          no_artifacts, feelings, no_selling, start_kit, no_stores,
          no_ghost, fruit_bat;
 
-    if ((n = Packet_scanf(&rbuf, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c", &ch,
-        &hardcore, &deeptown, &zeitnot, &ironman, &force_descend, &no_recall,
+    if ((n = Packet_scanf(&rbuf, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c%c", &ch,
+        &hardcore, &turbo, &deeptown, &zeitnot, &ironman, &force_descend, &no_recall,
         &no_artifacts, &feelings, &no_selling, &start_kit, &no_stores,
         &no_ghost, &fruit_bat)) <= 0)
     {
@@ -3815,6 +3815,7 @@ static int Receive_options(void)
     }
 
     OPT(player, birth_hardcore) = hardcore;
+    OPT(player, birth_turbo) = turbo;
     OPT(player, birth_deeptown) = deeptown;
     OPT(player, birth_zeitnot) = zeitnot;
     OPT(player, birth_ironman) = ironman;

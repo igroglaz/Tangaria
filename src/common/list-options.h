@@ -34,6 +34,7 @@ OP(pause_after_detect, "Freeze screen after detecting monsters", MANGBAND, true,
 OP(wrap_messages, "Wrap long messages in sub-windows", MANGBAND, false, false)
 OP(expand_inspect, "Compare equipment when examining items", MANGBAND, false, true)
 OP(birth_hardcore, "HC: no extra gold, 2ndChance & low-HP heal", BIRTH, false, true)
+OP(birth_turbo, "Turbo: no slow-time bubble", BIRTH, false, true)
 OP(birth_deeptown, "Deeptown mode", BIRTH, false, true)
 OP(birth_zeitnot, "Zeitnot mode", BIRTH, false, true)
 OP(birth_ironman, "Ironman mode", BIRTH, false, true)

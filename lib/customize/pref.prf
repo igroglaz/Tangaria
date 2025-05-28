@@ -94,6 +94,9 @@ X:expand_inspect
 # Option 'Hardcore (No extra gold, 2nd Chance & low-HP heal)'
 X:birth_hardcore
 
+# Option 'Turbo (No slow-time bubble)'
+X:birth_turbo
+
 # Option 'Deeptown'
 X:birth_deeptown
 

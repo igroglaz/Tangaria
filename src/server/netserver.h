@@ -64,6 +64,7 @@ typedef struct
 struct birth_options
 {
     bool hardcore;
+    bool turbo;
     bool deeptown;
     bool zeitnot;
     bool ironman;

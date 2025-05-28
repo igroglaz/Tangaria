@@ -3179,9 +3179,10 @@ int Send_birth_options(int ind, struct birth_options *options)
         return 0;
     }
 
-    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
-        (int)options->hardcore, (int)options->deeptown, (int)options->zeitnot,
-        (int)options->ironman, (int)options->force_descend, (int)options->no_recall,
+    return Packet_printf(&connp->c, "%b%c%c%c%c%c%c%c%c%c%c%c%c%c%c", (unsigned)PKT_OPTIONS,
+        (int)options->hardcore, (int)options->turbo, (int)options->deeptown, 
+        (int)options->zeitnot, (int)options->ironman,
+        (int)options->force_descend, (int)options->no_recall,
         (int)options->no_artifacts, (int)options->feelings, (int)options->no_selling,
         (int)options->start_kit, (int)options->no_stores, (int)options->no_ghost,
         (int)options->fruit_bat);
@@ -6074,6 +6075,7 @@ static bool screen_compatible(int ind)
 static void get_birth_options(struct player *p, struct birth_options *options)
 {
     options->hardcore = OPT(p, birth_hardcore);
+    options->turbo = OPT(p, birth_turbo);
     options->deeptown = OPT(p, birth_deeptown);
     options->zeitnot = OPT(p, birth_zeitnot);
     options->ironman = OPT(p, birth_ironman);
@@ -6095,6 +6097,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     if (!ht_zero(&p->game_turn))
     {
         OPT(p, birth_hardcore) = options->hardcore;
+        OPT(p, birth_turbo) = options->turbo;
         OPT(p, birth_deeptown) = options->deeptown;
         OPT(p, birth_zeitnot) = options->zeitnot;
         OPT(p, birth_ironman) = options->ironman;
