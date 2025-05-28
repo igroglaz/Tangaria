@@ -3108,9 +3108,8 @@ void do_cmd_check_players(struct player *p, int line)
     {
         struct player *q = player_get(k);
         uint8_t attr = 'w';
-        char mode_name[30];
+        char modes[50];
         char winner[20];
-        const char *batty = "";
 
         /* Only print connected players XXX */
         if (q->conn == -1) continue;
@@ -3138,26 +3137,15 @@ void do_cmd_check_players(struct player *p, int line)
         /* Output color uint8_t */
         file_putf(fff, "%c", attr);
 
-        /* Challenge options */
-        if (OPT(q, birth_zeitnot))
-        {
-            strnfmt(mode_name, sizeof(mode_name), "the%s zeitnot",
-                (OPT(q, birth_hardcore))? " hardcore": "");
-        } else {
-            strnfmt(mode_name, sizeof(mode_name), "the%s%s%s%s",
-                (OPT(p, birth_ironman))? " ironman": "",
-                (OPT(q, birth_hardcore))? " hardcore": "",
-                (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
-                (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
-        }
+        /* Build mode string */
+        get_player_modes(q, modes, sizeof(modes));
 
         winner[0] = '\0';
         if (q->total_winner) strnfmt(winner, sizeof(winner), "%s, ", get_title(q));
-        if (OPT(q, birth_fruit_bat)) batty = "batty, ";
 
         /* Print a message */
-        file_putf(fff, "     %s %s %s %s (%s%sLevel %d, %s)", q->name, mode_name, q->race->name,
-            q->clazz->name, winner, batty, q->lev, parties[q->party].name);
+        file_putf(fff, "     %s the %s %s %s (%sLevel %d, %s)", q->name, modes, q->race->name,
+            q->clazz->name, winner, q->lev, parties[q->party].name);
 
         /* Print extra info if these people are not 'red' aka hostile */
         /* Hack -- always show extra info to dungeon master */

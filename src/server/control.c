@@ -367,8 +367,7 @@ static void console_whois(int ind, char *name)
     int i, len;
     uint16_t major, minor, patch, extra;
     struct player *p = NULL, *p_ptr_search;
-    char mode_name[30];
-    const char *batty = "";
+    char modes[50];
     char *entry;
     sockbuf_t *console_buf_w = (sockbuf_t*)console_buffer(ind, CONSOLE_WRITE);
     char terminator = '\n';
@@ -388,22 +387,12 @@ static void console_whois(int ind, char *name)
         return;
     }
 
-    /* Output player information */
-        if (OPT(p, birth_zeitnot)) {
-            strnfmt(mode_name, sizeof(mode_name), "the%s zeitnot",
-                (OPT(p, birth_hardcore))? " hardcore": "");
-        } else {
-        strnfmt(mode_name, sizeof(mode_name), "a%s%s%s%s level",
-            (OPT(p, birth_ironman))? " ironman": "",
-            (OPT(p, birth_hardcore))? " hardcore": "",
-            (OPT(p, birth_force_descend) && !(OPT(p, birth_no_recall)))? " diving": "",
-            (OPT(p, birth_no_recall) && !(OPT(p, birth_force_descend)))? " ironfoot": "");
-        }
-    if (OPT(p, birth_fruit_bat)) batty = "(batty) ";
+    /* Build mode string */
+    get_player_modes(p, modes, sizeof(modes));
 
     /* General character description */
-    entry = format("%s is %s %d %s %s %sat %d ft (%d, %d)\n", p->name, mode_name, p->lev,
-            p->race->name, p->clazz->name, batty, p->wpos.depth * 50,
+    entry = format("%s is the %s level %d %s %s at %d ft (%d, %d)\n", p->name, modes, p->lev,
+            p->race->name, p->clazz->name, p->wpos.depth * 50,
             p->wpos.grid.x, p->wpos.grid.y);
     Packet_printf(console_buf_w, "%S", entry);
 
