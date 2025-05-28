@@ -1320,7 +1320,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             // mark kill message with "& " for discord
             char marked_buf[sizeof(buf) + 3]; /* +3 for "& " and null terminator */
 
-            if (rf_has(mon->race->flags, RF_FORCE_DEPTH) // dungeon boss
+            if (rf_has(mon->race->flags, RF_FORCE_DEPTH)) // dungeon boss
                 strnfmt(marked_buf, sizeof(marked_buf), "$ %s", buf);
             else // regular unique
                 strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
