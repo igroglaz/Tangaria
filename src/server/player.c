@@ -542,6 +542,29 @@ static void award_account_points(struct player *p)
         }
     }
 
+    // award an extra point for turbo heroes
+    if (OPT(p, birth_turbo)) {
+        int classPower = class_power(p->clazz->name);
+
+        switch (p->max_lev) {
+            case 20: // level 20: only new accounts
+                if ((classPower == 3 && p->account_score < 30) ||  // warrior, monk
+                    (classPower == 2 && p->account_score < 50) ||  // archer, rogue
+                    (classPower == 1 && p->account_score < 70) ||  // shaman, priest
+                    (classPower == 0 && p->account_score < 100)) { // mage, sorc
+                        extraPoint = true;
+                }
+                break;
+            case 30:
+            case 40:
+            case 50:
+                // always award points @ 30, 40, 50
+                extraPoint = true;
+                break;
+            default: ; // no points for other levels
+        }
+    }
+
     // zeitnot (zeitnot) characters - award an extra points
     if (OPT(p, birth_zeitnot)) {
         int classPower = class_power(p->clazz->name);
