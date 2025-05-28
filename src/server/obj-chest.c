@@ -533,6 +533,7 @@ int count_chests(struct player *p, struct chunk *c, struct loc *grid, enum chest
 //////// also gives some gold piles ;)
 static void chest_death(struct player *p, struct chunk *c, struct loc *grid, struct object *chest)
 {
+    int i;
     int number, level;
     int gold_piles = 0;
     bool large = (strstr(chest->kind->name, "Large")? true :false);
@@ -578,7 +579,7 @@ static void chest_death(struct player *p, struct chunk *c, struct loc *grid, str
     }
 
     // Place gold piles based on chest type
-    for (int i = 0; i < gold_piles; i++) {
+    for (i = 0; i < gold_piles; i++) {
         place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_CHEST);
     }
 

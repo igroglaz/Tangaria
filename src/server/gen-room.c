@@ -2274,12 +2274,13 @@ bool build_vertical(struct player *p, struct chunk *c, struct loc *centre, int r
     /* Sometimes add horizontal dividers to create a "stacked" room effect */
     else if (one_in_(8))
     {
+        int i;
         struct loc grid;
         int num_dividers = randint1(height / 4);  /* Number of horizontal dividers */
         int min_section_height = 3;  /* Minimum height between dividers */
         
         /* Place dividers with doors in them */
-        for (int i = 0; i < num_dividers; i++) {
+        for (i = 0; i < num_dividers; i++) {
             int div_y = y1 + min_section_height + i * ((height - min_section_height) / (num_dividers + 1));
             
             /* Create the divider wall */
