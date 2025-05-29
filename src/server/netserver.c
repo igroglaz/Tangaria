@@ -6118,15 +6118,11 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_force_descend) = OPT(p, birth_no_recall) = true;
     else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
         OPT(p, birth_ironman) = true;
-    
-    // do not allow having multiple mutually exclusive modes
+
+
+    //////////////////////////////////////////////////////////////
+    // Do not allow having multiple mutually exclusive modes
     // zeitnot, deeptown, and ironman are mutually exclusive
-    // Ironman it is force_descent + no_recall and vice versa
-    // (so Ironman is simply alias for this combined 2 modes)
-    if (OPT(p, birth_ironman))
-        OPT(p, birth_force_descend) = OPT(p, birth_no_recall) = true;
-    else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
-        OPT(p, birth_ironman) = true;
     
     // Priority-based mutual exclusion for game modes
     // Priority: deeptown > ironman > zeitnot > no_recall/force_descend
@@ -6146,6 +6142,8 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_no_recall) = false;
         OPT(p, birth_force_descend) = false;
     }
+    //////////////////////////////////////////////////////////////
+
 
     /* Server options supercede birth options */
     if (cfg_limit_stairs == 3) OPT(p, birth_force_descend) = true;
