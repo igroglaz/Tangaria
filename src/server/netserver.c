@@ -6119,6 +6119,10 @@ static void update_birth_options(struct player *p, struct birth_options *options
     else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
         OPT(p, birth_ironman) = true;
 
+    // deeptown: all races should have same exp factor (so no speed exp races)
+    // (as in deeptown there are not dungeon brackets)
+    if (OPT(p, birth_deeptown) && !streq(p->race->name, "Dragon"))
+        p->expfact = 125;
 
     //////////////////////////////////////////////////////////////
     // Do not allow having multiple mutually exclusive modes

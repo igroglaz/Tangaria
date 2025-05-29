@@ -892,7 +892,7 @@ static void adjust_level(struct player *p)
 void player_exp_gain(struct player *p, int32_t amount)
 {
     // Rogue class get exp faster (which make gameplay a bit harder)
-    if (streq(p->clazz->name, "Rogue") && p->lev < 50)
+    if (streq(p->clazz->name, "Rogue") && p->lev < 50 && !OPT(p, birth_deeptown))
         amount = (amount * 10) / 9;
 
     // Endgame exp factors
