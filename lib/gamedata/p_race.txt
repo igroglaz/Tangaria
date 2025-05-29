@@ -748,7 +748,7 @@ shape:50:14-headed hydra
 # ? obj-flag:10:DRAIN_EXP do not deplete less then achieved lvl ?
 
 
-name:Black Numenor
+name:Black-Numenor
 skill-disarm-phys:2
 skill-disarm-magic:3
 skill-device:7
@@ -887,7 +887,7 @@ value:0:STEALTH[-2+1d15M16]
 # ? allow eat scraps of flesh.. and corpses?
 
 
-name:Black Dwarf
+name:Black-Dwarf
 skill-disarm-phys:1
 skill-disarm-magic:3
 skill-device:11
@@ -1130,7 +1130,7 @@ player-flags:0:ORC
 
 
 # in between of tiny orcs and forest 'kobolds'..
-name:Forest Goblin
+name:Forest-Goblin
 skill-disarm-phys:0
 skill-disarm-magic:1
 skill-device:-3
@@ -1163,7 +1163,7 @@ value:0:MOVES[1]
 value:30:SPEED[1+1d19]
 
 
-name:Dark Elf
+name:Dark-Elf
 skill-disarm-phys:5
 skill-disarm-magic:3
 skill-device:2

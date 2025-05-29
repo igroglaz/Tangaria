@@ -246,7 +246,7 @@ help: distance.
 # this line measures max length of description...
 ####################################################################################
 
-race:Black Numenor
+race:Black-Numenor
 help:Black Numenoreans.. High Men from ancient times, renegades and..
 help: allies of the Dark Lord.. Not all of them have been 'corrupted by many gifts
 help: and promises of great power'. Some just wanted to have free will and refused
@@ -303,7 +303,7 @@ help: Those who endure long enough find they no longer need to eat as often.
 help: They can yell ('y'), aggravating all creatures around and taunting them to
 help: attack recklessly.
 
-race:Black Dwarf
+race:Black-Dwarf
 help:Black Dwarves were once far branch of one forgotten dwarven clan.
 help: They didn't like deep caverns, preferring to live in hills. This made them
 help: outcast among 'true' dwarves and they made more contacts to other races
@@ -396,15 +396,15 @@ help: But those who live long enough tend to grow surprisingly wise.|
 help: |
 help:They can summon warg ('y') by spending some energy.
 
-race:Forest Goblin
-help:Forest goblins look like nice little creatures. Indeed, some of them are
+race:Forest-Goblin
+help:Forest Goblins look like nice little creatures. Indeed, some of them are
 help: quite kind and friendly, but some are cruel.. depends on tribe. They are
 help: sneaky and fast. While not strong, they are clever and unusually wise
 help: for their kind. They can dodge melee attacks occasionally.|
 help: |
 help:They can cover tracks ('y') by spending some energy.
 
-race:Dark Elf
+race:Dark-Elf
 help:Dark Elves live in the south parts of forest behind Roaring Mountains. Some say
 help: that they live underground in caves and that's why they have pale dark skin.
 help: This isn't true, though they don't have much in common with the 'green' elves

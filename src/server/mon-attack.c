@@ -643,7 +643,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         return false;
     }
     // some races can dodge
-    else if ((streq(who->player->race->name, "Halfling") || streq(who->player->race->name, "Forest Goblin") ||
+    else if ((streq(who->player->race->name, "Halfling") || streq(who->player->race->name, "Forest-Goblin") ||
              streq(who->player->race->name, "Pixie")) && magik(5))
     {
         msg(who->player, "You dodge the attack!");

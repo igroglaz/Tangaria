@@ -582,7 +582,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Forest Goblin"))
+    else if (streq(p->race->name, "Forest-Goblin"))
     {
         use_energy(p);
         player_inc_timed(p, TMD_COVERTRACKS, 20 + p->lev, false, false);
@@ -1059,7 +1059,7 @@ void do_cmd_breath(struct player *p, int dir)
             do_cmd_poly(p, NULL, false, true);
             return;
     }
-    else if (streq(p->race->name, "Dark Elf"))
+    else if (streq(p->race->name, "Dark-Elf"))
     {
         if (p->chp == p->mhp)
         {
@@ -1172,7 +1172,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Black Dwarf"))
+    else if (streq(p->race->name, "Black-Dwarf"))
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
@@ -1243,7 +1243,7 @@ void do_cmd_breath(struct player *p, int dir)
         p->upkeep->redraw |= (PR_MAP);
         return;
     }
-    else if (streq(p->race->name, "Black Numenor"))
+    else if (streq(p->race->name, "Black-Numenor"))
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
