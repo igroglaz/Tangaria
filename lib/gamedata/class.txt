@@ -8295,10 +8295,10 @@ desc: Cooldown 100 turns.
 ############### CLASS TEMPLATE for Heretic ## Spellblade, Hexrat, Ruinist
 name:Heretic
 color:w
-skill-disarm-phys:20:6
+skill-disarm-phys:15:6
 skill-disarm-magic:20:10
-skill-device:18:7
-skill-save:20:10
+skill-device:20:8
+skill-save:24:10
 skill-stealth:0:1
 skill-search:10:12
 skill-melee:40:45
@@ -8461,14 +8461,14 @@ desc: Also, this spell makes a lot of noise.
 ############### CLASS TEMPLATE for Cutthroat
 name:Cutthroat
 color:w
-skill-disarm-phys:20:6
-skill-disarm-magic:20:10
+skill-disarm-phys:20:10
+skill-disarm-magic:15:6
 skill-device:18:7
-skill-save:20:10
+skill-save:18:10
 skill-stealth:0:1
-skill-search:10:12
+skill-search:18:14
 skill-melee:45:45
-skill-shoot:20:15
+skill-shoot:30:20
 skill-dig:0:0
 hitdie:6
 max-attacks:6
