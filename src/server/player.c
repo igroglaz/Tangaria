@@ -339,6 +339,17 @@ static void award_gold_for_account_points(struct player *p) {
 static void award_account_points(struct player *p)
 {
     bool extraPoint = false;
+    
+    //////////////////////////////////////////////////////////////////////
+    // !*! Formula: chance to skip points increases with account score !*!
+    // 100-199: 1/2 chance to skip (50%)
+    // 200-299: 2/3 chance to skip (67%)
+    // 300-399: 3/4 chance to skip (75%)
+    // 400-499: 4/5 chance to skip (80%)
+    // 500+: 5/6 chance to skip (83%)
+    int skip_denominator = 1 + (p->account_score / 100);
+    if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
+    //////////////////////////////////////////////////////////////////////
 
     if (p->max_lev == 50)
     {
@@ -348,23 +359,16 @@ static void award_account_points(struct player *p)
             p->account_score += 5;
         msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
     }
-    // Progressive penalty for non-hardcore players with high scores
-    else if (p->account_score > 100 && !OPT(p, birth_hardcore))
+    // !*! Progressive penalty for non-hardcore players with high scores !*!
+    else if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
+            !one_in_(skip_denominator))
     { 
-        // Formula: chance to skip points increases with account score
-        // 100-199: 1/2 chance to skip (50%)
-        // 200-299: 2/3 chance to skip (67%)
-        // 300-399: 3/4 chance to skip (75%)
-        // 400-499: 4/5 chance to skip (80%)
-        // 500+: 5/6 chance to skip (83%)
-        int skip_denominator = 1 + (p->account_score / 100);
-        if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
-        
-        if (!one_in_(skip_denominator))
-        {
-            // Skip awarding points
-            return;
-        }
+        ; // Skip awarding points (but leave xtra)
+    }
+    // Deeptown players get 20+ Account points only for killing uniques or xtra modes
+    else if (p->account_score > 20 && OPT(p, birth_deeptown))
+    {
+        ; // Skip awarding points (but leave xtra)
     }
     else if (p->account_score == 0 && p->max_lev == 3)
     {
@@ -525,10 +529,11 @@ static void award_account_points(struct player *p)
 
         switch (p->max_lev) {
             case 20: // level 20: only new accounts
-                if ((classPower == 3 && p->account_score < 30) ||  // warrior, monk
-                    (classPower == 2 && p->account_score < 50) ||  // archer, rogue
-                    (classPower == 1 && p->account_score < 70) ||  // shaman, priest
-                    (classPower == 0 && p->account_score < 100)) { // mage, sorc
+                if (!OPT(p, birth_deeptown) && 
+                    ((classPower == 3 && p->account_score < 30) ||  // warrior, monk
+                     (classPower == 2 && p->account_score < 50) ||  // archer, rogue
+                     (classPower == 1 && p->account_score < 70) ||  // shaman, priest
+                     (classPower == 0 && p->account_score < 100))) { // mage, sorc
                         extraPoint = true;
                 }
                 break;
@@ -548,10 +553,11 @@ static void award_account_points(struct player *p)
 
         switch (p->max_lev) {
             case 20: // level 20: only new accounts
-                if ((classPower == 3 && p->account_score < 30) ||  // warrior, monk
-                    (classPower == 2 && p->account_score < 50) ||  // archer, rogue
-                    (classPower == 1 && p->account_score < 70) ||  // shaman, priest
-                    (classPower == 0 && p->account_score < 100)) { // mage, sorc
+                if (!OPT(p, birth_deeptown) && 
+                    ((classPower == 3 && p->account_score < 30) ||  // warrior, monk
+                     (classPower == 2 && p->account_score < 50) ||  // archer, rogue
+                     (classPower == 1 && p->account_score < 70) ||  // shaman, priest
+                     (classPower == 0 && p->account_score < 100))) { // mage, sorc
                         extraPoint = true;
                 }
                 break;
