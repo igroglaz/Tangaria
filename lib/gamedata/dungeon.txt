@@ -299,7 +299,6 @@ rule:10000:1
 name:The Underdeep
 short:Underdeep
 wpos:-6:0
-max-level:1
 flags:STREAMS
 rule:10000:1
 
