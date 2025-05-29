@@ -41,7 +41,7 @@ name:The Deeptown
 short:Deeptown
 # (to the west from Utumno)
 wpos:-6:0
-max-townies:0
+max-townies:40
 
 ############################### 0
 
