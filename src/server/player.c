@@ -340,8 +340,8 @@ static void award_account_points(struct player *p)
 {
     bool extraPoint = false;
     
-    //////////////////////////////////////////////////////////////////////
-    // !*! Formula: chance to skip points increases with account score !*!
+    /////////////////////////////////////////////////////////////////////
+    // !*! Formula: chance to skip points increases with account score
     // 100-199: 1/2 chance to skip (50%)
     // 200-299: 2/3 chance to skip (67%)
     // 300-399: 3/4 chance to skip (75%)
@@ -349,7 +349,7 @@ static void award_account_points(struct player *p)
     // 500+: 5/6 chance to skip (83%)
     int skip_denominator = 1 + (p->account_score / 100);
     if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
-    //////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
 
     if (p->max_lev == 50)
     {
@@ -359,16 +359,16 @@ static void award_account_points(struct player *p)
             p->account_score += 5;
         msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
     }
-    // !*! Progressive penalty for non-hardcore players with high scores !*!
+    // !*! Progressive penalty for non-hardcore players with high scores
     else if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
             !one_in_(skip_denominator))
     { 
-        ; // Skip awarding points (but leave xtra)
+        ; // Skip awarding points (but leave xtra in the end)
     }
-    // Deeptown players get 20+ Account points only for killing uniques or xtra modes
-    else if (p->account_score > 20 && OPT(p, birth_deeptown))
+    // Deeptown players get points for lvling rarely
+    else if (p->account_score > 20 && OPT(p, birth_deeptown) && one_in_(2))
     {
-        ; // Skip awarding points (but leave xtra)
+        ; // Skip awarding points (but leave xtra in the end)
     }
     else if (p->account_score == 0 && p->max_lev == 3)
     {

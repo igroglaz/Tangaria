@@ -1505,27 +1505,31 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             // Regular uniques - only at odd score
             else if (mon->level < 99 && p->account_score % 2)
             {
-                // Progressive penalty for non-hardcore players with high scores
-                if (p->account_score > 100 && !OPT(p, birth_hardcore))
-                {
-                    // Formula: chance to skip points increases with account score
-                    // 100-199: 1/2 chance to skip (50%)
-                    // 200-299: 2/3 chance to skip (67%)
-                    // 300-399: 3/4 chance to skip (75%)
-                    // 400-499: 4/5 chance to skip (80%)
-                    // 500+: 5/6 chance to skip (83%)
-                    int skip_denominator = 1 + (p->account_score / 100);
-                    if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
-                    
-                    if (!one_in_(skip_denominator))
-                    {
-                        // Skip awarding points
-                        return; // Skip all point awards for this kill
-                    }
-                }
+                //////////////////////////////////////////////////////////////////////
+                // !*! Formula: chance to skip points increases with account score
+                // for non-hardcore
+                // 100-199: 1/2 chance to skip (50%)
+                // 200-299: 2/3 chance to skip (67%)
+                // 300-399: 3/4 chance to skip (75%)
+                // 400-499: 4/5 chance to skip (80%)
+                // 500+: 5/6 chance to skip (83%)
+                int skip_denominator = 1 + (p->account_score / 100);
+                if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
+                /////////////////////////////////////////////////////////////////////
                 
+                // !*! Progressive penalty for non-hardcore players with high scores
+                if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
+                    !one_in_(skip_denominator))
+                {
+                    ; // Skip awarding points
+                }
+                // Deeptown players get points only in 50% cases
+                else if (p->account_score > 20 && OPT(p, birth_deeptown) && one_in_(2))
+                {
+                    ; // Skip awarding points
+                }
                 // it's in rotation with player.c (getting lvls)
-                if (p->account_score < 10)
+                else if (p->account_score < 10)
                 {
                     ; // first points goes from leveling
                 }
