@@ -1210,6 +1210,17 @@ void cave_wipe(struct chunk *c)
 
 bool allow_location(struct monster_race *race, struct worldpos *wpos)
 {
+    // allow bosses at special dungeon-towns
+    // regardless of their location list
+    if ((wpos->grid.x == -6 && wpos->grid.y == 0) ||   // deeptown dungeon
+        (wpos->grid.x == 0 && wpos->grid.y == 6) ||    // zeitnot dungeon
+        (wpos->grid.x == 0 && wpos->grid.y == -6))     // ironman dungeon
+    {
+        /* Check if this is a boss monster */
+        if (rf_has(race->flags, RF_FORCE_DEPTH) && rf_has(race->flags, RF_UNIQUE))
+            return true;
+    }
+
     if ((cfg_diving_mode < 2) && race->locations)
     {
         bool found = false;
