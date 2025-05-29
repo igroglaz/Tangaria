@@ -284,6 +284,7 @@ short:Angmar
 wpos:0:-6
 max-level:1
 flags:STREAMS | MORE_TOWNS
+stairs:5+1d2:0
 rule:10000:1
 
 # Zeitnot dungeon (timelimit + no-recall + force_descend)
@@ -292,7 +293,7 @@ short:Thangorodrim
 wpos:0:6
 max-level:1
 flags:STREAMS
-stairs:2+1d2:0
+stairs:5+1d2:0
 rule:10000:1
 
 # Deeptown dungeon (small loc single dungeon)
@@ -300,6 +301,7 @@ name:The Underdeep
 short:Underdeep
 wpos:-6:0
 flags:STREAMS
+stairs:5+1d2:5+1d2
 rule:10000:1
 
 ########################## 1
