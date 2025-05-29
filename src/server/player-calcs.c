@@ -2929,6 +2929,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     j = p->upkeep->total_weight;
     if (j > (1 << 14)) j = (1 << 14);
     i = weight_limit(state);
+
+    // dragon/hydra 2x more weight (cause -STR)
+    if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+        i *= 2;
+
     if (j > i / 2)
     {
         // mitigate speed penalty due overweight for some races/classes
