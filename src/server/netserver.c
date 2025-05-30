@@ -6091,6 +6091,7 @@ static void get_birth_options(struct player *p, struct birth_options *options)
 }
 
 
+
 static void update_birth_options(struct player *p, struct birth_options *options, bool domsg)
 {
     /* Birth options: can only be set at birth */
@@ -6119,17 +6120,12 @@ static void update_birth_options(struct player *p, struct birth_options *options
     else if (OPT(p, birth_force_descend) && OPT(p, birth_no_recall))
         OPT(p, birth_ironman) = true;
 
-    // deeptown: all races should have same exp factor (so no speed exp races)
-    // (as in deeptown there are not dungeon brackets)
-    if (OPT(p, birth_deeptown) && !streq(p->race->name, "Dragon"))
-        p->expfact = 125;
-
     //////////////////////////////////////////////////////////////
     // Do not allow having multiple mutually exclusive modes
-    // zeitnot, deeptown, and ironman are mutually exclusive
+    // deeptown, zeitnot, and ironman are mutually exclusive
     
     // Priority-based mutual exclusion for game modes
-    // Priority: deeptown > ironman > zeitnot > no_recall/force_descend
+    // Priority: deeptown > zeitnot > ironman > no_recall/force_descend
     if (OPT(p, birth_deeptown))
     {
         OPT(p, birth_zeitnot) = false;
@@ -6137,17 +6133,18 @@ static void update_birth_options(struct player *p, struct birth_options *options
         OPT(p, birth_no_recall) = false;
         OPT(p, birth_force_descend) = false;
     }
-    else if (OPT(p, birth_ironman))
-    {
-        OPT(p, birth_zeitnot) = false;
-    }
     else if (OPT(p, birth_zeitnot))
     {
+        OPT(p, birth_ironman) = false;
         OPT(p, birth_no_recall) = false;
         OPT(p, birth_force_descend) = false;
     }
     //////////////////////////////////////////////////////////////
 
+    // deeptown: all races should have same exp factor (so no speed exp races)
+    // (as in deeptown there are not dungeon brackets)
+    if (OPT(p, birth_deeptown) && !streq(p->race->name, "Dragon"))
+        p->expfact = 125;
 
     /* Server options supercede birth options */
     if (cfg_limit_stairs == 3) OPT(p, birth_force_descend) = true;

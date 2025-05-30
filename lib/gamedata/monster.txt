@@ -206,6 +206,14 @@
 # === ! DUNGON BOSS HAS TO HAVE PWMANG_FIXED flag to appear in the dungeon
 
 
+# To give the player a sporting chance, some especially dangerous
+# monsters should be marked as "FORCE_SLEEP", which will
+# cause them to be placed with low energy. This helps ensure that
+# if such a monster suddenly appears in line-of-sight (due to a
+# summon, for instance), the player gets a chance to move before
+# they do. -- TODO: check all monsters
+
+
 ##### Non-race (contains the "player" picture) #####
 
 name:<player>
