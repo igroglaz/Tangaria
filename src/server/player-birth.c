@@ -1263,6 +1263,14 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         /* Hack -- DM redesigning the level (no_recall players) */
         if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
 
+        // ATTENTION! Order for modes is critical! It must match update_birth_options().
+        // Otherwise, a Deeptown hero can appear in Ironman town, etc.
+
+        // deeptown mode: put us to Deeptown location
+        else if (deeptown) {
+            memcpy(&p->wpos, deeptown_wpos(), sizeof(struct worldpos));
+        }
+
         // zeitnot: start zeitnot_timer and put us in zeitnot town
         else if (zeitnot) {
             p->zeitnot_timer = 5; // almost immediately after respawn - teleport to jail
@@ -1272,11 +1280,6 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         /* ironman: put us in base town */
         else if ((cfg_diving_mode > 1) || (no_recall && force_descend) || ironman)
             memcpy(&p->wpos, base_wpos(), sizeof(struct worldpos));
-
-        // deeptown mode: put us to Deeptown location
-        else if (deeptown) {
-            memcpy(&p->wpos, deeptown_wpos(), sizeof(struct worldpos));
-        }
 
         /* Put us in starting town */
         else
