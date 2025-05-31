@@ -930,7 +930,7 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         {
             // Count swimming abilities and penalties
             int swim_count = 0;
-            
+
             if (player_has(p, PF_CAN_SWIM)) swim_count++;
             if (player_of_has(p, OF_SWIM_HELP)) swim_count++;
             if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY)) 
@@ -939,18 +939,27 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
                 if (actual) equip_learn_flag(p, OF_FEATHER);
             }
             if (can_swim(p)) swim_count++;
-            
+
+            // races (additionally to OF_FEATHER - as they are _almost_ flying)
+            if (streq(p->race->name, "Pixie") || streq(p->race->name, "Wisp") ||
+                streq(p->race->name, "Djinn") || streq(p->race->name, "Celestial") ||
+                streq(p->race->name, "Gargoyle") || streq(p->race->name, "Beholder") ||
+                streq(p->race->name, "Dragon"))
+                    swim_count++;
+
             // Negative factors - race penalties
-            if (streq(p->race->name, "Vampire")) swim_count--; // Vampires are poor swimmers
-            if (streq(p->race->name, "Golem")) 
+            else if (streq(p->race->name, "Vampire")) swim_count--; // Vampires are poor swimmers
+            else if (streq(p->race->name, "Golem") || streq(p->race->name, "Balrog")) 
             {
                 if (one_in_(5))
-                    swim_count--; // Golems don't breath, but rust..
+                    swim_count--; // Golems don't breath, but rust.. Balrogs just don't like it
             }
-            
+
             // Determine damage based on final swim_count
-            if (swim_count >= 2)
+            if (swim_count >= 3)
                 dam_taken = 0;  // Very good swimmers take no damage
+            else if (swim_count == 2 && one_in_(10))
+                dam_taken = 0;  // Good swimmers take damage every 10 turns
             else if (swim_count == 1 && one_in_(5))
                 dam_taken = 0;  // Decent swimmers take damage every 5 turns
             else if (swim_count == 0)

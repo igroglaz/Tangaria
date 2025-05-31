@@ -655,6 +655,7 @@ height:170:20
 weight:240:60
 gift:gold:gold:42:84
 obj-flag:0:FEATHER
+obj-flag:30:FLYING
 value:0:INFRA[1]
 #stat increase doesn't work for dragons (hardcoded) 1d5
 value:0:STR[-20]
@@ -1697,6 +1698,7 @@ obj-flag:0:TRAP_IMMUNE
 obj-flag:0:SLOW_DIGEST
 value:0:RES_TIME[1]
 value:0:SPEED[1+1d9]
+obj-flag:30:FLYING
 ####### bolt spells frequently turn into beams
 player-flags:5:BEAM
 ######perfect success rate with magic
@@ -2354,6 +2356,7 @@ value:0:RES_POIS[1]
 obj-flag:0:FREE_ACT
 value:0:LIGHT[1+1d24]
 player-flags:0:BLESS_WEAPON
+obj-flag:30:FLYING
 obj-flag:50:SLOW_DIGEST_2
 #/// -
 obj-flag:0:CLUMSY
