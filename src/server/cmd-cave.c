@@ -4486,9 +4486,12 @@ bool create_house(struct player *p, int house_variant)
     // get house name
     house_type_desc = get_house_type_desc(area_size);
     // msg
-    msg(p, "# %s built a %s (%d tiles) at (%d, %d).",
+    msg(p, "# %s built a %s (%d tiles) at %s.",
         p->name, house_type_desc, area_size,
-        p->wpos.grid.x, p->wpos.grid.y);
+        (p->wpos.grid.x == -6 && p->wpos.grid.y == 0) ? "Deeptown" :
+        (p->wpos.grid.x == 0 && p->wpos.grid.y == 1) ? "Farfest" :
+        (p->wpos.grid.x == -1 && p->wpos.grid.y == 1) ? "Suburbs" :
+        "Unknown Location");
 
     msg(p, "To create a door - 'T'unnel the wall in desirable place.");
 
