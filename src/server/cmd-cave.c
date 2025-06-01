@@ -2188,14 +2188,16 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
 
 
         if (
-            // don't allow regular chars visit Deeptown/Zeitnot/Ironman locs
-            (new_world_grid.x == -6 && new_world_grid.y == 0 && !OPT(p, birth_deeptown)) ||
-            (new_world_grid.x == 0 && new_world_grid.y == 6 && !OPT(p, birth_zeitnot)) ||
-            (new_world_grid.x == 0 && new_world_grid.y == -6 && !OPT(p, birth_ironman)) ||
-            // and prevent mod heroes from leaving their designated locations
-            (!(new_world_grid.x == -6 && new_world_grid.y == 0) && OPT(p, birth_deeptown)) ||
-            (!(new_world_grid.x == 0 && new_world_grid.y == 6) && OPT(p, birth_zeitnot)) ||
-            (!(new_world_grid.x == 0 && new_world_grid.y == -6) && OPT(p, birth_ironman))
+            !is_dm_p(p) && (
+                // don't allow regular chars visit Deeptown/Zeitnot/Ironman locs
+                (new_world_grid.x == -6 && new_world_grid.y == 0 && !OPT(p, birth_deeptown)) ||
+                (new_world_grid.x == 0 && new_world_grid.y == 6 && !OPT(p, birth_zeitnot)) ||
+                (new_world_grid.x == 0 && new_world_grid.y == -6 && !OPT(p, birth_ironman)) ||
+                // and prevent mod heroes from leaving their designated locations
+                (!(new_world_grid.x == -6 && new_world_grid.y == 0) && OPT(p, birth_deeptown)) ||
+                (!(new_world_grid.x == 0 && new_world_grid.y == 6) && OPT(p, birth_zeitnot)) ||
+                (!(new_world_grid.x == 0 && new_world_grid.y == -6) && OPT(p, birth_ironman))
+            )
         )
         {
             msg(p, "You shall not pass!");
