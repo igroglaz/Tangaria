@@ -2737,7 +2737,7 @@ void player_death(struct player *p)
         {
             char modes[50];
             get_player_modes(p, modes, sizeof(modes));
-            msgt(p, MSG_DIED, "( The weary %s the %s %s (%s) (level %d) was retired.", 
+        msgt(p, MSG_DIED, "} The weary %s the %s %s (%s) (level %d) was retired.", 
                  p->name, p->race->name, p->clazz->name, modes, p->lev);
         }
     }

@@ -867,22 +867,6 @@ void set_artifact_info(struct player *p, const struct object *obj, uint8_t info)
             break;
         case ARTS_ABANDONED:
         case ARTS_SOLD:
-            //////////////////////////////////
-            // 1) msg that trueart is lost
-            if (true_artifact_p(obj)) {
-                // compose name
-                char o_name[256];
-                object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE | ODESC_ARTIFACT);
-                if (info == ARTS_ABANDONED) {
-                    msg(p, "%s %s (%d) no longer carries the %s.",
-                        get_title(p), p->name, p->lev, o_name);
-                } else { // ARTS_SOLD
-                    msg(p, "%s %s (%d) has sold the %s.",
-                        get_title(p), p->name, p->lev, o_name);
-                }
-            }
-            //////////////////////////////////
-            // 2) remove trueart
             history_lose_artifact(p, obj);
             break;
     }
@@ -1160,7 +1144,7 @@ void object_own(struct player *p, struct object *obj)
             // 2) send msg to the chat about it
             // (to do so, 1st compose trueart name)
             object_desc(p, o_name, sizeof(o_name), obj, ODESC_BASE | ODESC_ARTIFACT);
-            msg(p, "%s %s (%d) found famous %s!",
+            msg(p, "{ %s %s (%d) found famous %s!",
                 get_title(p), p->name, p->lev, o_name);
         }
 
