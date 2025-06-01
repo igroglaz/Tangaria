@@ -214,7 +214,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
                     dam = (dam * 2); // +100%
             }
         }
-        else // FIRE, COLD, ICE
+        else // FIRE, COLD, ICE etc
             dam = dam * 4 / 3;
     }
     // p races vulnerabilities (covered) - must always give extra dmg after lvl 30
@@ -276,7 +276,14 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         {
             vuln_xtra_dmg = dam / 2; // 50%
         }
-
+        // DARK (very powerful attacks sometimes)
+        else if (type == PROJ_DARK)
+        {
+            vuln_xtra_dmg = dam / 20; // 5%
+        }
+        // all other elements
+        else
+            vuln_xtra_dmg = dam / 10; // 10%
 
         // Now... Apply vulnerability extra damage ONLY if it won't kill the player
         if (vuln_xtra_dmg > 0)

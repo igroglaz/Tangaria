@@ -1483,6 +1483,7 @@ value:35:LIGHT[1]
 brand:1:50:FIRE_2
 brand:40:50:FIRE_3
 #/// -
+# might prevent protection VS ONE-MAGIC-SHOT-DEATH (see adjust_dam())
 value:0:RES_COLD[-1]
 # AGGRAVATE 40 range hardcoded
 # - receive 11% more non-physical dmg
