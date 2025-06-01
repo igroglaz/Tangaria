@@ -1508,7 +1508,7 @@ skill-search:2
 skill-melee:7
 skill-shoot:5
 skill-dig:-40
-hitdie:10
+hitdie:11
 # -25%
 exp:100:100
 history:100

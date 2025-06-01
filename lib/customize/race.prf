@@ -15,7 +15,8 @@ help: They are also very stupid and slow. They will make great warriors and
 help: iffy priests. They are bad at searching, disarming, perception, and
 help: stealth. They are so ugly that a Half-Orc grimaces in their presence.
 help: Half-trolls always have their strength sustained, and they regenerate
-help: quickly like other trolls. They have fair infravision.
+help: quickly like other trolls. They have fair infravision. They require
+help: extra food until they are mature.
 
 race:Human
 help:Humans are.. humans. All others are compared to them.
@@ -179,9 +180,11 @@ help:Ents are immune to polymorph. Also, they can move through trees easily.|
 help: |
 help:Ents can be completely silent if they stand still.|
 help: |
-help:They recover slowly and are terrible with devices and ranged weapons.|
+help:They are terrible with devices and ranged weapons.|
 help: |
 help:After level 30 they become huornish and get malus to movement speed.|
+help: |
+help:They gain less benefit from item-based speed boosts.|
 help: |
 help:As the Shepherds of the Trees, Ents can create forest around themselves with
 help: 'y' key. They spend satiation to do it, but in time they need much less
@@ -221,7 +224,10 @@ help: |
 help:Dragons cannot wield any weapons; they get special melee attacks instead
 help: (biting and clawing) that increase in power as they gain levels.
 help: Dragons are poor at stealth (obviously). But they float like a feather
-help: and are intrinsically resistant to nexus.
+help: and are intrinsically resistant to nexus.|
+help: |
+help:At level 30 they become proficient in flying. |
+help: |
 help: Starting at level 5, Dragons are able to breathe their
 help: corresponding element ('y'), but using this ability costs them hit points and
 help: satiation. At that level, they also gain the innate resistances and
@@ -333,6 +339,8 @@ help: They are fast on their feet and hard to catch. They are also surprisingly
 help: good at digging through rock and rubble.
 help: At higher levels, they develop a sense for other orc-kind.|
 help: |
+help: They are vulnerable to light magic.|
+help: |
 help:They can get into bloodlust ('y') by spending some energy.
 
 race:Half-Giant
@@ -346,6 +354,7 @@ help: They tunnel through rock by brute force alone. The toughest of them barely
 help: need food anymore, but not many survive till that age.
 help: At the peak of their strength, their blood prevails and they smash dragons
 help: like sandcastles.|
+help:They gain less benefit from item-based speed boosts.|
 help: |
 help:They can become resistant to magic ('y') by spending some energy.
 
@@ -379,6 +388,8 @@ help: They can harden their skin ('y') by spending some energy.|
 help: |
 help:They are bad at shooting and hate light.
 help: They can't fly, not even by magical means.|
+help: |
+help:They can't use magic scrolls.|
 help: |
 help:As the saying goes: 'If a Troll won't find the door, he'll walk
 help: through the wall'.
@@ -500,8 +511,9 @@ help: |
 help:As they grow stronger, they become resistant to fear, light and life drain.
 help: At higher levels, they can see invisible, levitate, and carry inner light.
 help: They are resistant to light, but dislike darkness.
-help: Their blows become deadly for evil creatures when they come to power.
-help: Speed boosts work less effectively for them.|
+help: Their blows become deadly for evil creatures when they come to power. |
+help: |
+help:They only receive half the gold found in the dungeon.
 help: |
 help:They can cast lightning ('y') by spending some energy.
 
@@ -558,7 +570,7 @@ help: in Dexterity, Constitution, Wisdom and Intelligence. They are dreadful at
 help: using devices and digging. Their bodies are light and float naturally above
 help: the ground. They digest food slowly and sustain their Wisdom even under
 help: strain. Celestials can see invisible creatures once they become more
-help: experienced. They are vulnerable to time-based effects.
+help: experienced. They are vulnerable to time-based effects and darkness.
 help: Their light presence slightly brightens surroundings.
 help: Celestials have unstable mana flow, but it grants powerful surges.
 help: They are especially skilled at fighting undead.|
@@ -659,6 +671,8 @@ help: They rarely need food, and with age, they need it even less. |
 help: |
 help:From time to time they can become invisible ('y') by spending some energy.|
 help: |
+help:At level 30 they become proficient in flying. |
+help: |
 help:ATTENTION!
 help: Please be careful: as pixies have very low Strength, they could become very
 help: slow if you take a lot of items in your inventory or use heavy equipment.
@@ -674,7 +688,10 @@ help: They gradually gain resistance to fire, cold, acid and lightning as they a
 help: Despite their bulk, they are not very stealthy and struggle with traps
 help: or devices. They are a bit slower to move, but gain some speed boost
 help: later in life. At level 50 they become especially deadly against giants and
-help: their digestive system becomes slow, requiring less food over time.
+help: their digestive system becomes slow, requiring less food over time. |
+help: |
+help:They regenerate worse than most races.
+help: |
 help: They can breathe fire ('y') by spending some energy.
 
 race:Titan
@@ -800,6 +817,8 @@ help: Their magic interferes with magical devices making them hiccup a little.
 help: As they grow older, they become increasingly ethereal, which takes a toll
 help: on their physical form. But everything else swells like it's on magic yeast.
 help: Also they don't like digging. |
+help:|
+help:They are unable to drink potions.|
 help:|
 help:They can create wonders ('y') by spending some energy.
 
@@ -931,6 +950,8 @@ help: become immune to light, though they are vulnerable to darkness.
 help: They are feather-light, immune to paralysis, and digest food very slowly,
 help: so they don't need to eat often. It's hard to poison them.|
 help: |
+help:At level 30 they become proficient in flying. |
+help: |
 help:Their magic power is high, and they have a lot of mana, though in time its
 help: capacity reduces and they become more vulnerable to physical damage.
 help: They bless any weapon they wield.
@@ -953,7 +974,7 @@ help:Sometimes they teleport around, just for fun... In time you will be able
 help: to 'tame' them, but at the start they will mess around, dragging you into
 help: unpredictable adventures.|
 help: |
-help:At level 50 imps can enter 'Stealth Mode' - to do so use [shift+s].
+help:At level 30 imps can enter 'Stealth Mode' - to do so use [shift+s].
 help: But it makes them regenerate mana more slowly.|
 help: |
 help:They can teleport over short distances at will ('y') by spending some energy.
