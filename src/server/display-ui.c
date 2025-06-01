@@ -2793,8 +2793,13 @@ void player_death(struct player *p)
         char modes[50];
         get_player_modes(p, modes, sizeof(modes));
 
-        msgt(p, MSG_DIED, "! %s %s the %s %s (%s) (level %d) was killed by %s.", 
-            get_title(p), p->name, p->race->name, p->clazz->name, modes, p->lev, p->died_from);
+        if (modes[0] != '\0') {
+            msgt(p, MSG_DIED, "! %s %s the %s %s (%s) (level %d) was killed by %s.", 
+                get_title(p), p->name, p->race->name, p->clazz->name, modes, p->lev, p->died_from);
+        } else {
+            msgt(p, MSG_DIED, "! %s %s the %s %s (level %d) was killed by %s.", 
+                get_title(p), p->name, p->race->name, p->clazz->name, p->lev, p->died_from);
+        }
     }
 
     /* Handle permanent death */
