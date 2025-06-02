@@ -1210,6 +1210,13 @@ void cave_wipe(struct chunk *c)
 
 bool allow_location(struct monster_race *race, struct worldpos *wpos)
 {
+    // #2/2 allow bosses in special dungeons (#1/2 in generate_new_level())
+    if (((wpos->grid.x == -6 && wpos->grid.y == 0) ||   // deeptown dungeon
+         (wpos->grid.x == 0 && wpos->grid.y == 6) ||    // zeitnot dungeon
+         (wpos->grid.x == 0 && wpos->grid.y == -6)) &&  // ironman dungeon
+        rf_has(race->flags, RF_FORCE_DEPTH) && rf_has(race->flags, RF_UNIQUE))
+        return true;
+
     if ((cfg_diving_mode < 2) && race->locations)
     {
         bool found = false;
@@ -1277,6 +1284,7 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
         }
 
         /* Ensure quest monsters and fixed encounters (wilderness) */
+        // dungeon boss spawning (if not killed yet)
         if (p)
         {
             for (i = 1; i < z_info->r_max; i++)
@@ -1295,7 +1303,16 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
                 if (race->lore.spawned) continue;
                 if (!quest_monster && !fixed_encounter) continue;
                 if (race->level != chunk->wpos.depth) continue;
-                if (!allow_location(race, &chunk->wpos)) continue;
+                
+                // 1) #1/2 check if we should allow this monster to spawn (#2/2 in allow_location())
+                if (((p->wpos.grid.x == -6 && p->wpos.grid.y == 0) ||   // deeptown dungeon
+                     (p->wpos.grid.x == 0 && p->wpos.grid.y == 6) ||    // zeitnot dungeon
+                     (p->wpos.grid.x == 0 && p->wpos.grid.y == -6)) &&  // ironman dungeon
+                    rf_has(race->flags, RF_FORCE_DEPTH) && rf_has(race->flags, RF_UNIQUE))
+                    ; // allow bosses at special dungeon-towns
+                // 2) or use PWMA check
+                else if (!allow_location(race, &chunk->wpos))
+                    continue;
 
                 /* Pick a location and place the monster */
                 while (tries-- && !found)
@@ -1306,6 +1323,26 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
                 }
                 if (found)
                 {
+                    msgt(p, MSG_BROADCAST_DIED, "This place belongs to someone...");
+
+                    // 1) custom messages-sounds
+                    if (p->wpos.depth == 5)
+                        sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
+                    else if (p->wpos.depth == 12)
+                        sound(p, MSG_ORC_CAVES); // hi from Solovei
+                    else if (p->wpos.depth == 20)
+                        sound(p, MSG_KIKIMORA); // hi from Kikimora
+                    else if (p->wpos.depth == 27)
+                        sound(p, MSG_MANOR); // hi from Koschei
+                    else if (p->wpos.depth == 30 && rf_has(race->flags, RF_FEMALE)) // Sandworm Queen
+                    {
+                        msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
+                        msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
+                    }
+                    else if (p->wpos.depth == 35)
+                        sound(p, MSG_ENTER_BARROW); // hi from Witch-King
+
+                    // 2) ok, place now.
                     place_new_monster(p, chunk, &grid, race, MON_ASLEEP | MON_GROUP, &info,
                         ORIGIN_DROP);
                 }
