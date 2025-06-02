@@ -697,7 +697,8 @@ void player_update_light(struct player *p)
         bool burn_fuel = true;
 
         /* Turn off the wanton burning of light during the day outside of the dungeon */
-        if ((p->wpos.depth == 0) && is_daytime())
+        // also don't spend light in Deeptown
+        if (p->wpos.depth == 0 && (is_daytime() || (p->wpos.grid.x == -6 && p->wpos.grid.y == 0)))
             burn_fuel = false;
 
         /* If the light has the NO_FUEL flag, well... */
