@@ -2149,9 +2149,11 @@ int player_digest(struct player *p)
     if (OPT(p, birth_deeptown))
     {
         if (p->lev < 30)
-            i += 2;
-        else
-            i++;
+            i *= 2;
+        else if (p->lev < 50) // +50%
+            i = i * 3 / 2;
+        else // at 50 lvl: +33%
+            i = i * 4 / 3;
     }
 
     /* Minimal digestion */
