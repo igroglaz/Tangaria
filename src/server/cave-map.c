@@ -743,8 +743,15 @@ void cave_illuminate(struct player *p, struct chunk *c, bool daytime)
     dungeon = get_dungeon(&dpos);
     ///
 
+
+    // light 1st dungeon level completely for non-HC players to ease difficulty
+    if (dungeon && p->wpos.depth == 1 && !OPT(p, birth_hardcore))
+    {
+        wiz_lit(p, c); // lit
+        return;
+    }
     // OPEN_SKY dungeons dynamic night/day change
-    if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY) && p->wpos.depth > 0)
+    else if (dungeon && df_has(dungeon->flags, DF_OPEN_SKY) && p->wpos.depth > 0)
     {
         // unlight everything (cause rooms lighten, eg build_room_template()
         daytime = is_daytime(); // we need to define it there cause some dungeons hardcode daytime = 0;
