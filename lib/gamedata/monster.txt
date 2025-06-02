@@ -2633,7 +2633,7 @@ hearing:16
 armor-class:12
 sleepiness:30
 depth:5
-rarity:3
+rarity:1
 weight:0
 experience:90
 blow:HIT:HURT:1d8
@@ -4594,7 +4594,7 @@ smell:20
 armor-class:90
 sleepiness:40
 depth:12
-rarity:3
+rarity:1
 weight:0
 experience:230
 blow:HIT:HURT:1d12
@@ -6313,7 +6313,7 @@ smell:10
 armor-class:65
 sleepiness:40
 depth:15
-rarity:3
+rarity:1
 weight:0
 experience:350
 blow:HIT:HURT:3d5
@@ -8690,7 +8690,7 @@ hearing:20
 armor-class:60
 sleepiness:10
 depth:20
-rarity:5
+rarity:1
 weight:0
 experience:750
 blow:CRAWL:POISON:3d4
@@ -9237,7 +9237,7 @@ smell:20
 armor-class:96
 sleepiness:20
 depth:23
-rarity:5
+rarity:1
 weight:0
 experience:750
 blow:HIT:HURT:5d5
@@ -10148,7 +10148,7 @@ hearing:20
 armor-class:100
 sleepiness:20
 depth:25
-rarity:3
+rarity:1
 weight:0
 experience:1500
 blow:TOUCH:PARALYZE:1d14
@@ -12296,7 +12296,7 @@ smell:30
 armor-class:84
 sleepiness:40
 depth:30
-rarity:7
+rarity:1
 weight:0
 experience:2000
 blow:HIT:HURT:6d6
@@ -12327,7 +12327,7 @@ smell:20
 armor-class:84
 sleepiness:50
 depth:30
-rarity:7
+rarity:1
 weight:0
 experience:2000
 blow:HIT:HURT:6d6
@@ -12358,7 +12358,7 @@ smell:20
 armor-class:84
 sleepiness:50
 depth:30
-rarity:7
+rarity:1
 weight:0
 experience:2000
 blow:HIT:HURT:3d6
@@ -12410,7 +12410,7 @@ hearing:10
 armor-class:48
 sleepiness:80
 depth:30
-rarity:3
+rarity:1
 weight:0
 experience:5000
 blow:CLAW:ACID:5d4
@@ -13538,7 +13538,7 @@ hearing:20
 armor-class:108
 sleepiness:40
 depth:34
-rarity:5
+rarity:1
 weight:0
 experience:7500
 blow:HIT:HURT:5d5
@@ -16941,7 +16941,7 @@ smell:20
 armor-class:30
 sleepiness:10
 depth:40
-rarity:2
+rarity:1
 weight:0
 experience:13000
 blow:BUTT:HURT:4d6
@@ -18283,7 +18283,7 @@ hearing:0
 armor-class:150
 sleepiness:20
 depth:45
-rarity:2
+rarity:1
 weight:0
 experience:13000
 blow:WAIL:TERRIFY
@@ -18693,7 +18693,7 @@ hearing:30
 armor-class:100
 sleepiness:80
 depth:45
-rarity:2
+rarity:1
 weight:0
 experience:17000
 blow:CRUSH:ACID:8d8
@@ -18747,7 +18747,7 @@ hearing:20
 armor-class:120
 sleepiness:40
 depth:45
-rarity:2
+rarity:1
 weight:0
 experience:22500
 blow:HIT:HURT:5d6
@@ -19449,7 +19449,7 @@ hearing:20
 armor-class:150
 sleepiness:20
 depth:50
-rarity:3
+rarity:1
 weight:0
 experience:25000
 blow:HIT:FIRE:6d12
@@ -19482,7 +19482,7 @@ hearing:20
 armor-class:144
 sleepiness:40
 depth:50
-rarity:3
+rarity:1
 weight:0
 experience:30000
 blow:HIT:COLD:4d12
@@ -19911,7 +19911,7 @@ hearing:200
 armor-class:204
 sleepiness:10
 depth:52
-rarity:4
+rarity:1
 weight:0
 experience:33000
 blow:HIT:FORGET:4d6
@@ -20468,7 +20468,7 @@ hearing:30
 armor-class:180
 sleepiness:20
 depth:55
-rarity:3
+rarity:1
 weight:0
 experience:35000
 blow:CLAW:POISON:5d6
@@ -21931,7 +21931,7 @@ hearing:40
 armor-class:216
 sleepiness:10
 depth:64
-rarity:3
+rarity:1
 weight:0
 experience:45000
 blow:HIT:DISENCHANT:6d8
@@ -22084,7 +22084,7 @@ hearing:60
 armor-class:120
 sleepiness:10
 depth:65
-rarity:3
+rarity:1
 weight:0
 experience:47000
 blow:HIT:DISENCHANT:6d8
@@ -23295,7 +23295,7 @@ hearing:20
 armor-class:120
 sleepiness:80
 depth:72
-rarity:2
+rarity:1
 weight:0
 experience:50000
 blow:HIT:HURT:12d10
@@ -23738,7 +23738,7 @@ hearing:30
 armor-class:210
 sleepiness:20
 depth:75
-rarity:3
+rarity:1
 weight:0
 experience:53000
 blow:CLAW:HURT:6d12
@@ -23772,7 +23772,7 @@ hearing:60
 armor-class:120
 sleepiness:10
 depth:75
-rarity:3
+rarity:1
 weight:0
 experience:57000
 blow:HIT:DISENCHANT:6d8
@@ -23920,7 +23920,7 @@ hearing:20
 armor-class:127
 sleepiness:10
 depth:77
-rarity:2
+rarity:1
 weight:0
 experience:65000
 blow:TOUCH:EXP_80:6d12
@@ -24686,7 +24686,7 @@ hearing:70
 armor-class:165
 sleepiness:20
 depth:87
-rarity:2
+rarity:1
 weight:0
 experience:40000
 blow:HIT:HURT:9d9
