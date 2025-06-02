@@ -2132,6 +2132,55 @@ void monster_give_xp(struct player *p, struct chunk *c, struct monster *mon, boo
     /* Amount of experience earned */
     amount_exp = (long)mon->race->mexp * mon->level;
 
+    // Deeptown mode: less exp for farming on shallow depths
+    if (OPT(p, birth_deeptown)) {
+
+        int depth_penalty = p->lev - p->wpos.depth;
+
+        if (p->lev >= 15)
+        {
+            if (depth_penalty > 10)
+                return;                          // no exp
+            if (depth_penalty == 10)
+                amount_exp /= 6;                 // 17%
+            else if (depth_penalty >= 8)
+                amount_exp /= 3;                 // 33%
+            else if (depth_penalty >= 6)
+                amount_exp /= 2;                 // 50%
+            else if (depth_penalty >= 4)
+                amount_exp = amount_exp * 3 / 4; // 75%
+            else if (depth_penalty >= 2)
+                amount_exp = amount_exp * 5 / 6; // 83%
+            // no penalty when depth is within 1 level of player level
+        }
+        else if (p->lev >= 10)
+        {
+            if (depth_penalty > 7)
+                return;                          // no exp
+            else if (depth_penalty == 7)
+                amount_exp /= 3;                 // 33%
+            else if (depth_penalty >= 5)
+                amount_exp /= 2;                 // 50%
+            else if (depth_penalty >= 3)
+                amount_exp = amount_exp * 3 / 4; // 75%
+            else if (depth_penalty >= 2)
+                amount_exp = amount_exp * 5 / 6; // 83%
+
+            // no penalty when depth is within 1 level of player level - 100%
+        }
+        else if (p->lev >= 5)
+        {
+            if (depth_penalty >= 4)
+                return;                          // no exp
+            else if (depth_penalty >= 3)
+                amount_exp /= 2;                 // 50%
+            else if (depth_penalty >= 2)
+                amount_exp = amount_exp * 3 / 4; // 75%
+            else if (depth_penalty == 1)
+                amount_exp = amount_exp * 5 / 6; // 83%
+        }
+    }
+
     /* Split experience between master and slaves */
     if (amount_exp && split) master_exp_gain(p, c, &amount_exp);
 
