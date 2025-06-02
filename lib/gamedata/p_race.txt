@@ -89,10 +89,6 @@
 ###it stuck with speed and it seems doesn't have limit
 ### at high lvls (as speed has).. so p might move much faster than eg Morgoth
 
-# Note: currently in p_race.txt only one entry of the same resistance
-# element is allowed; meaning that it's possible to assign
-# an element to a race or class only once. So we hardcode such cases.
-
 # can't fly:
 #Ent
 #Hydra
@@ -147,9 +143,8 @@
 # random deep descend ('you were too heavy and fall down through ceiling'
 # Undead: extra life (2nd chance)
 
-
-
-# dragon and hydra req test and rebalance
+# note: don't make skill-melee: < than -10 (or give then higher shooting skill).
+# with <-10 it will be very hard to hit something
 
 
 name:Half-Troll
@@ -729,6 +724,7 @@ obj-flag:0:CANT_FLY
 ##################################
 player-flags:0:HYDRA | PERM_SHAPE
 attack:bite: (circular):1:0:CIRCLE
+# after wipe: start with 2-headed hydra. make it change every 5lvl to ez
 shape:1:hydra
 shape:10:2-headed hydra
 shape:15:3-headed hydra
@@ -1255,7 +1251,7 @@ skill-device:-15
 skill-save:5
 skill-stealth:-3
 skill-search:-10
-skill-melee:-11
+skill-melee:-10
 skill-shoot:-25
 skill-dig:0
 hitdie:9
@@ -2319,7 +2315,7 @@ skill-device:-50
 skill-save:20
 skill-stealth:4
 skill-search:0
-skill-melee:-15
+skill-melee:-7
 skill-shoot:-25
 skill-dig:0
 hitdie:7
@@ -2412,7 +2408,7 @@ skill-device:-50
 skill-save:20
 skill-stealth:0
 skill-search:-20
-skill-melee:-15
+skill-melee:-10
 skill-shoot:-15
 skill-dig:0
 hitdie:9
@@ -2474,7 +2470,7 @@ skill-device:-50
 skill-save:-10
 skill-stealth:1
 skill-search:15
-skill-melee:-15
+skill-melee:-10
 skill-shoot:-15
 skill-dig:-40
 hitdie:10
@@ -2528,7 +2524,7 @@ skill-device:-50
 skill-save:0
 skill-stealth:1
 skill-search:-50
-skill-melee:-15
+skill-melee:-10
 skill-shoot:-25
 skill-dig:0
 hitdie:9

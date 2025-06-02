@@ -5247,7 +5247,7 @@ dice:d$S
 expr:S:PLAYER_LEVEL:* 2
 effect:BLAST:POIS:4
 dice:d$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 2
 msg_other: emits a poison cloud.
 desc:Creates vast sphere of poison around you.
 desc: Beware: you suffer from it too.
@@ -7700,7 +7700,7 @@ spell:Aging Hex:1:0:5:1:0
 cooldown:2
 effect:BOLT:TIME:0
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 2
 desc:Causes magical aging to the target. Does not require mana.
 desc: Cooldown 2 turns.
 
