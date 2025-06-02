@@ -2144,6 +2144,15 @@ int player_digest(struct player *p)
     if (p->lev > 49 && speed > 110)
         i -= (speed - 110) / 4;
 
+    // Deeptown require more food (as there are too much of it)
+    if (OPT(p, birth_deeptown))
+    {
+        if (p->lev < 30)
+            i += 2;
+        else
+            i++;
+    }
+
     /* Minimal digestion */
     if (i < 1) i = 1;
 
