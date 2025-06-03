@@ -1307,24 +1307,28 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
                 }
                 if (found)
                 {
-                    msgt(p, MSG_BROADCAST_DIED, "This place belongs to someone...");
-
                     // 1) custom messages-sounds
-                    if (p->wpos.depth == 5)
-                        sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
-                    else if (p->wpos.depth == 12)
-                        sound(p, MSG_ORC_CAVES); // hi from Solovei
-                    else if (p->wpos.depth == 20)
-                        sound(p, MSG_KIKIMORA); // hi from Kikimora
-                    else if (p->wpos.depth == 27)
-                        sound(p, MSG_MANOR); // hi from Koschei
-                    else if (p->wpos.depth == 30 && rf_has(race->flags, RF_FEMALE)) // Sandworm Queen
+                    struct monster_lore *lore = get_lore(p, race);
+                    if (!lore->pkills) // only if not killed this boss yet
                     {
-                        msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
-                        msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
+                        msgt(p, MSG_BROADCAST_DIED, "This place belongs to someone...");
+
+                        if (p->wpos.depth == 5)
+                            sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
+                        else if (p->wpos.depth == 12)
+                            sound(p, MSG_ORC_CAVES); // hi from Solovei
+                        else if (p->wpos.depth == 20)
+                            sound(p, MSG_KIKIMORA); // hi from Kikimora
+                        else if (p->wpos.depth == 27)
+                            sound(p, MSG_MANOR); // hi from Koschei
+                        else if (p->wpos.depth == 30 && rf_has(race->flags, RF_FEMALE)) // Sandworm Queen
+                        {
+                            msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
+                            msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
+                        }
+                        else if (p->wpos.depth == 35)
+                            sound(p, MSG_ENTER_BARROW); // hi from Witch-King
                     }
-                    else if (p->wpos.depth == 35)
-                        sound(p, MSG_ENTER_BARROW); // hi from Witch-King
 
                     // 2) ok, place now.
                     place_new_monster(p, chunk, &grid, race, MON_ASLEEP | MON_GROUP, &info,
