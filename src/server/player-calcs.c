@@ -2932,7 +2932,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
     // dragon/hydra 2x more weight (cause -STR)
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
-        i *= 2;
+        i *= 3;
 
     if (j > i / 2)
     {
