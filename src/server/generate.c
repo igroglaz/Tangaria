@@ -1210,13 +1210,6 @@ void cave_wipe(struct chunk *c)
 
 bool allow_location(struct monster_race *race, struct worldpos *wpos)
 {
-    // #2/2 allow bosses in special dungeons (#1/2 in generate_new_level())
-    if (((wpos->grid.x == -6 && wpos->grid.y == 0) ||   // deeptown dungeon
-         (wpos->grid.x == 0 && wpos->grid.y == 6) ||    // zeitnot dungeon
-         (wpos->grid.x == 0 && wpos->grid.y == -6)) &&  // ironman dungeon
-        rf_has(race->flags, RF_FORCE_DEPTH) && rf_has(race->flags, RF_UNIQUE))
-        return true;
-
     if ((cfg_diving_mode < 2) && race->locations)
     {
         bool found = false;
@@ -1303,16 +1296,7 @@ static struct chunk *cave_generate(struct player *p, struct worldpos *wpos, int 
                 if (race->lore.spawned) continue;
                 if (!quest_monster && !fixed_encounter) continue;
                 if (race->level != chunk->wpos.depth) continue;
-                
-                // 1) #1/2 check if we should allow this monster to spawn (#2/2 in allow_location())
-                if (((p->wpos.grid.x == -6 && p->wpos.grid.y == 0) ||   // deeptown dungeon
-                     (p->wpos.grid.x == 0 && p->wpos.grid.y == 6) ||    // zeitnot dungeon
-                     (p->wpos.grid.x == 0 && p->wpos.grid.y == -6)) &&  // ironman dungeon
-                    rf_has(race->flags, RF_FORCE_DEPTH) && rf_has(race->flags, RF_UNIQUE))
-                    ; // allow bosses at special dungeon-towns
-                // 2) or use PWMA check
-                else if (!allow_location(race, &chunk->wpos))
-                    continue;
+                if (!allow_location(race, &chunk->wpos)) continue;
 
                 /* Pick a location and place the monster */
                 while (tries-- && !found)
