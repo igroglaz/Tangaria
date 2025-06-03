@@ -1364,10 +1364,10 @@ void drop_near(struct player *p, struct chunk *c, struct object **dropped, int c
     }
 
     /* Recharge rods dropped in houses instantly */
-    if (tval_can_have_timeout(*dropped) && in_house) (*dropped)->timeout = 0;
+    // if (tval_can_have_timeout(*dropped) && in_house) (*dropped)->timeout = 0;
 
     /* Refuel lights dropped in houses to the standard amount */
-    if (tval_is_light(*dropped) && in_house) fuel_default(*dropped);
+    // if (tval_is_light(*dropped) && in_house) fuel_default(*dropped);
 
     if (square(c, &best)->mon < 0)
     {
