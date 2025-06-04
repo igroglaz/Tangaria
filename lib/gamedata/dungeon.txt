@@ -3177,7 +3177,7 @@ name:The Barrow-downs
 short:Barrow-downs
 wpos:0:2
 min-depth:28
-max-depth:35
+max-depth:36
 max-level:35
 stairs:1d2:2+1d2
 flags:STREAMS | EMPTY | OPEN_SKY

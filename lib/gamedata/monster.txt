@@ -14344,7 +14344,7 @@ light:-2
 hearing:30
 armor-class:60
 sleepiness:0
-depth:35
+depth:36
 rarity:1
 weight:0
 experience:10000

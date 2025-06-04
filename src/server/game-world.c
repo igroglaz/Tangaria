@@ -2388,8 +2388,8 @@ static void generate_new_level(struct player *p)
                             msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
                             msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");
                         }
-                        else if (p->wpos.depth == 35)
-                            sound(p, MSG_ENTER_BARROW); // hi from Witch-King
+                        else if (p->wpos.depth == 36)
+                            sound(p, MSG_ENTER_BARROW); // hi from Wight-King
                     }
 
                     // 2) ok, place now.
