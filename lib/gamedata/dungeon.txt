@@ -1340,7 +1340,7 @@ short:Fetid Swamps
 wpos:-1:0
 min-depth:12
 max-depth:19
-max-level:19
+max-level:20
 stairs:1+1d2:5+1d2
 flags:SAND_VEIN | WATER_RIVER | EMPTY | NO_DOORS | OPEN_SKY
 #
@@ -2280,9 +2280,9 @@ rule:2000:1
 name:The Sandworm Lair
 short:Sandworm Lair
 wpos:-2:2
-min-depth:23
-max-depth:31
-max-level:31
+min-depth:25
+max-depth:32
+max-level:30
 stairs:2+1d2:5+1d2
 flags:STREAMS | CAVERN | NO_DOORS
 stair:9F stair down 0:9F stair up 1:10000

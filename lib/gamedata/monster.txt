@@ -12411,7 +12411,7 @@ hit-points:600
 hearing:10
 armor-class:48
 sleepiness:80
-depth:31
+depth:32
 rarity:1
 weight:0
 experience:5000
