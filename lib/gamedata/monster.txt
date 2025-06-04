@@ -16943,7 +16943,7 @@ hearing:13
 smell:20
 armor-class:30
 sleepiness:10
-depth:41
+depth:39
 rarity:1
 weight:0
 experience:13000
@@ -18285,7 +18285,7 @@ hearing:0
 #armor-class:99
 armor-class:150
 sleepiness:20
-depth:45
+depth:42
 rarity:1
 weight:0
 experience:13000
@@ -18695,7 +18695,7 @@ hit-points:3500
 hearing:30
 armor-class:100
 sleepiness:80
-depth:45
+depth:44
 rarity:1
 weight:0
 experience:17000
@@ -18749,7 +18749,7 @@ hit-points:4500
 hearing:20
 armor-class:120
 sleepiness:40
-depth:45
+depth:46
 rarity:1
 weight:0
 experience:22500
@@ -19484,7 +19484,7 @@ light:2
 hearing:20
 armor-class:144
 sleepiness:40
-depth:50
+depth:48
 rarity:1
 weight:0
 experience:30000
@@ -20593,7 +20593,7 @@ light:2
 hearing:30
 armor-class:54
 sleepiness:255
-depth:55
+depth:57
 rarity:1
 weight:0
 experience:37000
@@ -21933,7 +21933,7 @@ light:2
 hearing:40
 armor-class:216
 sleepiness:10
-depth:64
+depth:63
 rarity:1
 weight:0
 experience:45000
@@ -23740,7 +23740,7 @@ light:2
 hearing:30
 armor-class:210
 sleepiness:20
-depth:75
+depth:74
 rarity:1
 weight:0
 experience:53000
@@ -23774,7 +23774,7 @@ hit-points:8200
 hearing:60
 armor-class:120
 sleepiness:10
-depth:75
+depth:76
 rarity:1
 weight:0
 experience:57000
@@ -23922,7 +23922,7 @@ hit-points:5000
 hearing:20
 armor-class:127
 sleepiness:10
-depth:77
+depth:78
 rarity:1
 weight:0
 experience:65000
@@ -26012,7 +26012,7 @@ hit-points:25000
 hearing:200
 armor-class:204
 sleepiness:0
-depth:124
+depth:123
 rarity:1
 weight:0
 experience:90000
@@ -26183,7 +26183,7 @@ light:2
 hearing:155
 armor-class:210
 sleepiness:0
-depth:124
+depth:125
 rarity:1
 weight:0
 experience:95000

@@ -3434,7 +3434,7 @@ name:The Maze
 short:Maze
 wpos:-1:-1
 min-depth:33
-max-depth:41
+max-depth:39
 max-level:35
 stairs:1:2+1d2
 flags:MAZE
@@ -3538,7 +3538,7 @@ name:The Small Watery Cave
 short:Small Watery Cave
 wpos:-1:3
 min-depth:35
-max-depth:45
+max-depth:44
 max-level:35
 stairs:1:1+1d2
 flags:STREAMS | WATER_RIVER | NO_DOORS
@@ -3742,8 +3742,8 @@ rule:1000:1
 name:The Drowned Halls
 short:Drowned Halls
 wpos:0:3
-min-depth:40
-max-depth:45
+min-depth:37
+max-depth:42
 max-level:35
 stairs:3+1d2:3+1d2
 flags:STREAMS | WATER_RIVER | NO_DOORS
@@ -3988,8 +3988,8 @@ rule:1500:1
 name:The Heart of the Earth
 short:Heart of the Earth
 wpos:-1:-2
-min-depth:38
-max-depth:45
+min-depth:39
+max-depth:46
 max-level:35
 stairs:1:1+1d2
 flags:STREAMS | SAND_VEIN | LAVA_RIVER
@@ -4036,7 +4036,7 @@ name:The Helcaraxe
 short:Helcaraxe
 wpos:0:4
 min-depth:42
-max-depth:50
+max-depth:48
 max-level:40
 stairs:1d2:1+1d3
 flags:STREAMS | WATER_RIVER | NO_DOORS
@@ -4844,7 +4844,7 @@ name:Numenor
 short:Numenor
 wpos:-2:3
 min-depth:47
-max-depth:55
+max-depth:57
 max-level:40
 stairs:1:1+1d2
 flags:STREAMS | WATER_RIVER | SAND_VEIN
@@ -5057,7 +5057,7 @@ name:Mirkwood
 short:Mirkwood
 wpos:0:-3
 min-depth:55
-max-depth:64
+max-depth:63
 max-level:45
 stairs:1:1+1d2
 flags:NO_DOORS | CIRCULAR_ROOMS | MAZE
@@ -6054,7 +6054,7 @@ name:Erebor
 short:Erebor
 wpos:-1:-3
 min-depth:62
-max-depth:75
+max-depth:74
 max-level:46
 stairs:1:1d2
 flags:STREAMS | CAVERN | WATER_RIVER | OPEN_SKY
@@ -6349,7 +6349,7 @@ name:Dol Guldur
 short:Dol Guldur
 wpos:-2:0
 min-depth:63
-max-depth:75
+max-depth:76
 max-level:47
 stairs:1:1d2
 flags:STREAMS
@@ -6541,7 +6541,7 @@ name:The Paths of the Dead
 short:Paths of the Dead
 wpos:-1:-4
 min-depth:66
-max-depth:77
+max-depth:78
 max-level:47
 stairs:1:1d2
 flags:WATER_RIVER
@@ -6859,7 +6859,7 @@ name:The Straight Road
 short:Straight Road
 wpos:-3:0
 min-depth:101
-max-depth:124
+max-depth:123
 stairs:1:1d2
 flags:STREAMS | LAVA_RIVER | WINNERS_ONLY |  WATER_RIVER | NO_DOORS
 #
@@ -6988,7 +6988,7 @@ perma:E1 P moss wall r:1500
 #
 rule:10000:1
 
-########################## XX (boss: Manwe)
+########################## XX (boss: Varda+Manwe)
 #
 # monsters could spawn in 'walls'.. feature?
 #
