@@ -12402,6 +12402,7 @@ flags:DROP_40 | DROP_CORPSE | DROP_SKELETON
 friends:100:2d7:Same
 desc:The largest breed of ogre, he is awesomely strong and awesomely ugly.
 
+# TODO: move to ### Dungeon level 31 ### section
 name:The Sandworm Queen
 base:sandworm
 color:o
@@ -12410,7 +12411,7 @@ hit-points:600
 hearing:10
 armor-class:48
 sleepiness:80
-depth:30
+depth:31
 rarity:1
 weight:0
 experience:5000

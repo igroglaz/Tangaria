@@ -2383,7 +2383,7 @@ static void generate_new_level(struct player *p)
                             sound(p, MSG_KIKIMORA); // hi from Kikimora
                         else if (p->wpos.depth == 27)
                             sound(p, MSG_MANOR); // hi from Koschei
-                        else if (p->wpos.depth == 30 && rf_has(race->flags, RF_FEMALE)) // Sandworm Queen
+                        else if (p->wpos.depth == 31 && rf_has(race->flags, RF_FEMALE)) // Sandworm Queen
                         {
                             msgt(p, MSG_BROADCAST_LEVEL, "Ecch.. You feel poisonous smell there!");
                             msgt(p, MSG_BROADCAST_LEVEL, "You may want to ensure that you've got poison resistance...");

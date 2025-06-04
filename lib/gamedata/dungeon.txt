@@ -2276,13 +2276,13 @@ rule-flags:UNDEAD
 rule-symbols:V
 rule:2000:1
 
-########################## 30 (boss: The Sandworm Queen)
+########################## 31 (boss: The Sandworm Queen)
 name:The Sandworm Lair
 short:Sandworm Lair
 wpos:-2:2
 min-depth:23
-max-depth:30
-max-level:30
+max-depth:31
+max-level:31
 stairs:2+1d2:5+1d2
 flags:STREAMS | CAVERN | NO_DOORS
 stair:9F stair down 0:9F stair up 1:10000
