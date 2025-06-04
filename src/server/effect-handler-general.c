@@ -2462,7 +2462,11 @@ bool effect_handler_DEEP_DESCENT(effect_handler_context_t *context)
     }
 
     /* Calculate target depth */
-    target_increment = (4 / z_info->stair_skip) + 1;
+    // ironman/zeitnot goes only on next lvl
+    if (OPT(context->origin->player, birth_zeitnot) || OPT(context->origin->player, birth_ironman))
+        target_increment = 1;
+    else
+        target_increment = (4 / z_info->stair_skip) + 1;
     target_depth = dungeon_get_next_level(context->origin->player,
         context->origin->player->max_depth, target_increment);
 
