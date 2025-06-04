@@ -292,7 +292,7 @@ name:The Thangorodrim
 short:Thangorodrim
 wpos:0:6
 max-level:1
-flags:STREAMS
+flags:STREAMS | MORE_TOWNS
 stairs:5+1d2:0
 rule:10000:1
 
