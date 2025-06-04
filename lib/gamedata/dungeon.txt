@@ -1333,13 +1333,14 @@ rule:2000:0
 rule-symbols:p
 rule:8000:1
 
-########################## 20 (boss: Kikimora)
+# do not use 20-40 dlvl cause of Ironman dungeon-towns on this depths
+########################## 19 (boss: Kikimora)
 name:Fetid Swamps
 short:Fetid Swamps
 wpos:-1:0
 min-depth:12
-max-depth:20
-max-level:20
+max-depth:19
+max-level:19
 stairs:1+1d2:5+1d2
 flags:SAND_VEIN | WATER_RIVER | EMPTY | NO_DOORS | OPEN_SKY
 #
@@ -3433,7 +3434,7 @@ name:The Maze
 short:Maze
 wpos:-1:-1
 min-depth:33
-max-depth:40
+max-depth:41
 max-level:35
 stairs:1:2+1d2
 flags:MAZE

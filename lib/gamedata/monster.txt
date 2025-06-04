@@ -8680,6 +8680,7 @@ desc: a mammal. And it is huge!
 
 ### Dungeon level 21 ###
 
+# TODO: move to ### Dungeon level 19 ### section
 name:Kikimora
 base:person
 color:s
@@ -8689,7 +8690,7 @@ light:-2
 hearing:20
 armor-class:60
 sleepiness:10
-depth:20
+depth:19
 rarity:1
 weight:0
 experience:750
@@ -16931,6 +16932,7 @@ desc:A mindcrafter of the highest order. Powerful and evil, and a dangerous
 desc: enemy: a master of mind over matter, of his own mind, and of the minds of
 desc: others, who slavishly follow him into battle when he calls them.
 
+# TODO: move to ### Dungeon level 41 ### section
 name:The Minotaur of the Labyrinth
 base:hybrid
 color:W
@@ -16940,7 +16942,7 @@ hearing:13
 smell:20
 armor-class:30
 sleepiness:10
-depth:40
+depth:41
 rarity:1
 weight:0
 experience:13000

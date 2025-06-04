@@ -2379,7 +2379,7 @@ static void generate_new_level(struct player *p)
                             sound(p, MSG_AMBIENT_VOICE); // hi from Yaga
                         else if (p->wpos.depth == 12)
                             sound(p, MSG_ORC_CAVES); // hi from Solovei
-                        else if (p->wpos.depth == 20)
+                        else if (p->wpos.depth == 19)
                             sound(p, MSG_KIKIMORA); // hi from Kikimora
                         else if (p->wpos.depth == 27)
                             sound(p, MSG_MANOR); // hi from Koschei
