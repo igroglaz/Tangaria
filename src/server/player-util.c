@@ -2105,6 +2105,41 @@ int player_digest(struct player *p)
     int i;
     int speed = p->state.speed;
     int excess = p->timed[TMD_FOOD] - PY_FOOD_FULL;
+    int digest_factor = 1; // Base digestion multiplier
+
+    /* Some effects require more food - calculate total factor */ 
+    if (p->timed[TMD_ADRENALINE]) digest_factor++; 
+    if (p->timed[TMD_HARMONY]) digest_factor++; 
+    if (p->timed[TMD_BIOFEEDBACK]) digest_factor++; 
+    if (p->timed[TMD_INVIS]) digest_factor++; 
+    if (p->timed[TMD_WRAITHFORM]) digest_factor++; 
+    if (p->timed[TMD_REGEN]) digest_factor++; 
+
+    /* HUNGER effects */ 
+    if (player_of_has(p, OF_HUNGER)) digest_factor++; 
+    if (player_of_has(p, OF_HUNGER_2)) digest_factor += 2; 
+
+    /* Regeneration takes more food */
+    // only without other factors (1 is no factor)
+    if (digest_factor == 1 && player_of_has(p, OF_REGEN)) digest_factor++; 
+
+    // Deeptown require more food (as there are too much of it)
+    if (OPT(p, birth_deeptown))
+    {
+        if (p->lev < 30)      // 1-29 lvl
+        {
+            if (digest_factor == 1)
+                digest_factor += 2;
+            else
+                digest_factor++;
+        }
+        else if (p->lev < 50) // 30-49 lvl
+        {
+            if (digest_factor == 1)
+                digest_factor++;
+        }
+        // (and at 50 lvl - no penalty)
+    }
 
     /* Basic digestion rate based on speed */
     /* PWMAngband: remove speed penalty from being Full to avoid double penalty */
@@ -2115,25 +2150,11 @@ int player_digest(struct player *p)
     }
     i = turn_energy(speed);
 
-    /* Some effects require more food */
-    if (p->timed[TMD_ADRENALINE]) i *= 2;
-    if (p->timed[TMD_HARMONY]) i *= 2;
-    if (p->timed[TMD_BIOFEEDBACK]) i *= 2;
-    if (p->timed[TMD_INVIS]) i *= 2;
-    if (p->timed[TMD_WRAITHFORM]) i *= 2;
-    if (p->timed[TMD_REGEN]) i *= 2;
+    // apply the calculated digestion factor
+    i *= digest_factor;
 
     /* Adjust for food value */
     i = (i * 100) / z_info->food_value;
-
-//  /* Regeneration takes more food */
-//  if (player_of_has(p, OF_REGEN)) i *= 2;
-
-    /* HUNGER need more food */
-    if (player_of_has(p, OF_HUNGER)) i *= 2;
-    
-    /* 2x HUNGER */
-    if (player_of_has(p, OF_HUNGER_2)) i *= 2;
 
     /* Slow digestion takes less food */
     if (player_of_has(p, OF_SLOW_DIGEST)) i /= 2;
@@ -2144,17 +2165,6 @@ int player_digest(struct player *p)
     // make high speed a bit less cruel for lvl 50 players
     if (p->lev > 49 && speed > 110)
         i -= (speed - 110) / 4;
-
-    // Deeptown require more food (as there are too much of it)
-    if (OPT(p, birth_deeptown))
-    {
-        if (p->lev < 30)
-            i *= 2;
-        else if (p->lev < 50) // +50%
-            i = i * 3 / 2;
-        else // at 50 lvl: +33%
-            i = i * 4 / 3;
-    }
 
     /* Minimal digestion */
     if (i < 1) i = 1;

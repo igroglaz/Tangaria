@@ -7049,6 +7049,8 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:RESTORE_EXP
+effect:HEAL_HP_ONCE
+dice:50
 msg_self:You feel how your wrinkles are smoothing..
 desc:Legendary apples of immortality... You can't believe you found one.
 
