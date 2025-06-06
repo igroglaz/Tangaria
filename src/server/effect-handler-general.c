@@ -4544,10 +4544,10 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
 
     context->ident = true;
 
-    // zeitnot characters instead of recall - teleport
+    // zeitnot/ironman/no_recall characters instead of recall - teleport
     if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
         OPT(context->origin->player, birth_zeitnot)) &&
-        !context->origin->player->total_winner)
+        !context->origin->player->total_winner && !is_dm_p(context->origin->player))
     {
         struct source who_body;
         struct source *who = &who_body;
