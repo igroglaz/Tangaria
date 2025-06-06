@@ -1648,13 +1648,13 @@ static bool do_cmd_use_end(struct player *p, struct object *obj, bool ident, boo
                     int preserve_chance = 0;
                     
                     if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds"))
-                        preserve_chance = MIN(80 + p->lev, 95); // 80% + 1% per level, capped at 95%
+                        preserve_chance = MIN(65 + p->lev, 95); // 65% + 1% per level, capped at 95%
                     else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Serious Wounds"))
-                        preserve_chance = MIN(70 + p->lev, 95); // 70% + 1% per level, capped at 95%
+                        preserve_chance = MIN(60 + p->lev, 95);
                     else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Critical Wounds"))
-                        preserve_chance = MIN(60 + p->lev, 95); // 60% + 1% per level, capped at 95%
+                        preserve_chance = MIN(55 + p->lev, 95);
                     else if (obj->kind == lookup_kind_by_name(TV_POTION, "Healing"))
-                        preserve_chance = MIN(50 + p->lev, 95); // 50% + 1% per level, capped at 95%
+                        preserve_chance = MIN(50 + p->lev, 95);
                     
                     if (preserve_chance > 0)
                         useScroll = !magik(preserve_chance);
