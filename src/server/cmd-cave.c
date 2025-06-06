@@ -1289,7 +1289,9 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             msg(p, "You have removed the rubble %s.", with_clause);
 
             /* Place an object */
-            if (magik(10) && !square_ishardrubble(c, grid))
+            // not on the surface! (ironman town cheeze.. a lot of rubble there)
+            if (p->wpos.depth && !dynamic_town(&p->wpos) &&
+                magik(10) && !square_ishardrubble(c, grid))
             {
                 struct object *new_obj;
 
