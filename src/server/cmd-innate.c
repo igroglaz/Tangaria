@@ -282,9 +282,9 @@ void do_cmd_breath(struct player *p, int dir)
             if (p->mhp < 20)
                 p->chp -= 5;
             else // take a hit (ok, only on full HP)
-                p->chp -= p->mhp / 2;
+                p->chp -= p->mhp / 3;
 
-            p->y_cooldown = 255; // cooldown
+            p->y_cooldown = 10; // cooldown
 
             // Redraw the player's health and map
             p->upkeep->redraw |= (PR_HP | PR_MAP);
