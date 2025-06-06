@@ -4366,10 +4366,13 @@ bool create_house(struct player *p, int house_variant)
         }
     }
 
-    // experienced adventurers can build smallest houses for free (only deed cost)
-    if (price < 10000 && p->account_score >= 30 && houses_owned(p) < 1)
+    // experienced adventurers can build small (1-2-3 tile) house for free (only deed cost)
+    if (price < 13000 && houses_owned(p) < 1)
     {
-        price = 1;
+        if ((p->account_score >= 70 && area_size == 3) ||
+            (p->account_score >= 50 && area_size == 2) ||
+            (p->account_score >= 30 && area_size == 1))
+                price = 1;
     }
 
     // check for enough funds:
