@@ -961,3 +961,11 @@ name:CRUSHING_STANCE
 desc:crushing stance
 grade:b:10000:Crushing:Crushing stance.
 #msgt:CRUSHING_STANCE
+
+name:REFLECTION
+desc:reflects projectiles
+grade:w:10000:Reflecting:You are surrounded by a reflective field.
+on-end:Your reflective field disappears.
+near-begin: is surrounded by a reflective field.
+near-end:'s reflective field disappears.
+#msgt:REFLECTION
