@@ -28,8 +28,6 @@
 # of trap; if there are more than six, those calculations will need to change.
 
 
-# TODO: make chest the only source of... something valuable and interesting
-# eg runes like in D2.. or maybe CHR pots?
 
 #### There should be no more than 14 traps total!!! (so we are full already)
 

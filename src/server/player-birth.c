@@ -957,7 +957,6 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
         player_outfit_aux(p, kind, 10, true);
     }
 
-    // TODO: give zeitnot food, light, etc
     // as in T houses become permanent - no need to give free stuff
     /*
     // Give the player a deed of property

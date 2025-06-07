@@ -7913,8 +7913,7 @@ weight:5
 cost:-1
 desc:.
 
-# TODO: fix typo "it's"
-name:(the dog wing it's tail)
+name:(the dog wing its tail)
 graphics:?:y
 type:fortune cookie
 level:0

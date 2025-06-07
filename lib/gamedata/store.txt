@@ -632,7 +632,7 @@ welcome:8:runs up wagging tail happily.
 normal:fortune cookie:(you are trying to pat the dog)
 normal:fortune cookie:(the dog carefully sniff your arm)
 normal:fortune cookie:(the dog allow you to pat it on the head)
-normal:fortune cookie:(the dog wing it's tail)
+normal:fortune cookie:(the dog wing its tail)
 normal:fortune cookie:Gaf-gaf!
 normal:fortune cookie:Bow-vo!
 normal:fortune cookie:Arf-arf!

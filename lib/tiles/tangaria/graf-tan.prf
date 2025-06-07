@@ -1680,6 +1680,7 @@ monster:Evil eye:0x90:0x88
 #monster:Lesser mimic:do not redefine
 monster:Door mimic:0x9D:0xB4
 monster:The Rat King:0x8E:0x9B
+monster:Kikimora:0x9C:0xA6
 monster:Shagrat, the Orc Captain:0x95:0x8C
 monster:Gorbag, the Orc Captain:0x95:0x8D
 monster:Stone golem:0x92:0x82
@@ -1722,7 +1723,6 @@ monster:Black dragon worm:0x91:0x9D
 monster:Red dragon worm:0x91:0x9C
 monster:Unbeliever:0x8B:0xF8
 monster:Old Forest unbeliever:0x8B:0xF8
-monster:Kikimora:0x9C:0xA6
 # komurik is like red dragon worm atm
 monster:Lugdush, the Uruk:0x95:0x8F
 monster:Blue dragon bat:0x90:0x83
@@ -1877,8 +1877,6 @@ monster:Killer slicer beetle:0x93:0x96
 monster:Ogre chieftain:0x8D:0xE0
 monster:Ghast:0x91:0xB0
 monster:Mountain ogre:0x8D:0x9C
-#hellworm monster:The Sandworm Queen:0x91:0xA9
-monster:The Sandworm Queen:0x92:0xDB
 monster:Psychedelic ball:0x81:0xB5
 monster:Young shadow drake:0xA0:0xA7
 monster:Young crystal drake:0x8C:0x8E
@@ -1890,6 +1888,8 @@ monster:young ent:0xA0:0x83
 monster:iron pig:0x8D:0xE7
 monster:Young chaos drake:0x8C:0xD0
 monster:Young law drake:0xA0:0xA8
+#hellworm monster:The Sandworm Queen:0x91:0xA9
+monster:The Sandworm Queen:0x92:0xDB
 monster:serpent of the brownlands:0x90:0x92
 monster:troll mage:0x92:0xBA
 monster:Nexus quylthulg:0x93:0x81
@@ -2025,6 +2025,7 @@ monster:Ettin:0x92:0xB8
 monster:Ancient Mountains ettin:0x92:0xB8
 monster:abyss spider:0x9B:0xFE
 monster:Mature balance drake:0xA0:0xAF
+monster:The Minotaur of the Labyrinth:0x8D:0x97
 monster:Cherub:0x9A:0xDC
 monster:southron archer:0x8B:0xD0
 monster:little girl horror:0xA0:0xDE
@@ -2066,7 +2067,6 @@ monster:Oriental vampire:0x94:0xB5
 monster:Shadowfax, steed of Gandalf:0x9B:0xA9
 monster:War troll:0x92:0xBD
 monster:Master mindcrafter:0x8E:0x8B
-monster:The Minotaur of the Labyrinth:0x8D:0x97
 #monster:Emperor Mimic:do not redefine
 monster:Swordsmaster:0x8E:0x85
 monster:8-headed hydra:0x90:0xA7

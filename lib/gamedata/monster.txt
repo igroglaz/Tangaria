@@ -7784,6 +7784,36 @@ desc:A massive rat. He is the leader of the pack.
 
 ### Dungeon level 19 ###
 
+name:Kikimora
+base:person
+color:s
+speed:120
+hit-points:600
+light:-2
+hearing:20
+armor-class:60
+sleepiness:10
+depth:19
+rarity:1
+weight:0
+experience:750
+blow:CRAWL:POISON:3d4
+blow:SWALLOW:EAT_FOOD:3d4
+blow:TOUCH:ACID:3d5
+blow:HIT:HURT:3d5
+flags:EVIL | WEIRD_MIND | UNIQUE | FEMALE | SMART | PWMANG_BASE
+flags:ONLY_ITEM | DROP_3 | DROP_GOOD | PWMANG_FIXED
+flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | FORCE_DEPTH | LEVITATE
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS
+drop:food:Stolen mushroom:100:7:9
+spell-freq:5
+spells:BLIND | CONF | SCARE | DARKNESS | WOUND
+friends-base:100:1d5:dragon worm
+friends-base:75:1d5:dragon worm
+friends-base:50:1d5:dragon worm
+desc: An old hag living in the swamps.. She likes to eat humans...
+locations:Fetid Swamps|Angmar|The Thangorodrim|The Underdeep
+
 name:Shagrat, the Orc Captain
 base:orc
 color:g
@@ -8679,37 +8709,6 @@ desc:Although it looks like a fish and lives in water, it is in fact
 desc: a mammal. And it is huge!
 
 ### Dungeon level 21 ###
-
-# TODO: move to ### Dungeon level 19 ### section
-name:Kikimora
-base:person
-color:s
-speed:120
-hit-points:600
-light:-2
-hearing:20
-armor-class:60
-sleepiness:10
-depth:19
-rarity:1
-weight:0
-experience:750
-blow:CRAWL:POISON:3d4
-blow:SWALLOW:EAT_FOOD:3d4
-blow:TOUCH:ACID:3d5
-blow:HIT:HURT:3d5
-flags:EVIL | WEIRD_MIND | UNIQUE | FEMALE | SMART | PWMANG_BASE
-flags:ONLY_ITEM | DROP_3 | DROP_GOOD | PWMANG_FIXED
-flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | FORCE_DEPTH | LEVITATE
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_POIS
-drop:food:Stolen mushroom:100:7:9
-spell-freq:5
-spells:BLIND | CONF | SCARE | DARKNESS | WOUND
-friends-base:100:1d5:dragon worm
-friends-base:75:1d5:dragon worm
-friends-base:50:1d5:dragon worm
-desc: An old hag living in the swamps.. She likes to eat humans...
-locations:Fetid Swamps|Angmar|The Thangorodrim|The Underdeep
 
 name:Lugdush, the Uruk
 base:orc
@@ -12402,40 +12401,6 @@ flags:DROP_40 | DROP_CORPSE | DROP_SKELETON
 friends:100:2d7:Same
 desc:The largest breed of ogre, he is awesomely strong and awesomely ugly.
 
-# TODO: move to ### Dungeon level 31 ### section
-name:The Sandworm Queen
-base:sandworm
-color:o
-speed:120
-hit-points:600
-hearing:10
-armor-class:48
-sleepiness:80
-depth:32
-rarity:1
-weight:0
-experience:5000
-blow:CLAW:ACID:5d4
-blow:CLAW:POISON:5d4
-blow:BITE:FIRE:5d4
-blow:BITE:ELEC:5d4
-flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
-flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | NEUTRAL
-flags:OPEN_DOOR | BASH_DOOR
-flags:NO_CONF | RES_LIGHT
-flags:FORCE_DEPTH
-drop:mushroom:Terror:100:7:9
-spell-freq:2
-innate-freq:50
-spells:BR_POIS
-spells:S_KIN
-friends-base:100:1d5:sandworm:servant
-friends:5:1d1:adult sandworm:servant
-friends-base:75:1d5:dragon worm:servant
-friends-base:50:1d5:dragon worm:servant
-desc:Queen and Mother of the sandworms, fear her and her prolific children.
-locations:The Sandworm Lair|Angmar|The Thangorodrim|The Underdeep
-
 name:psychedelic ball
 base:ball
 color:v
@@ -12705,6 +12670,39 @@ desc:It has a form that legends are made of. Its still-tender scales are
 desc: shimmering blue.
 
 ### Dungeon level 32 ###
+
+name:The Sandworm Queen
+base:sandworm
+color:o
+speed:120
+hit-points:600
+hearing:10
+armor-class:48
+sleepiness:80
+depth:32
+rarity:1
+weight:0
+experience:5000
+blow:CLAW:ACID:5d4
+blow:CLAW:POISON:5d4
+blow:BITE:FIRE:5d4
+blow:BITE:ELEC:5d4
+flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
+flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | NEUTRAL
+flags:OPEN_DOOR | BASH_DOOR
+flags:NO_CONF | RES_LIGHT
+flags:FORCE_DEPTH
+drop:mushroom:Terror:100:7:9
+spell-freq:2
+innate-freq:50
+spells:BR_POIS
+spells:S_KIN
+friends-base:100:1d5:sandworm:servant
+friends:5:1d1:adult sandworm:servant
+friends-base:75:1d5:dragon worm:servant
+friends-base:50:1d5:dragon worm:servant
+desc:Queen and Mother of the sandworms, fear her and her prolific children.
+locations:The Sandworm Lair|Angmar|The Thangorodrim|The Underdeep
 
 #V
 name:serpent of the brownlands
@@ -16004,6 +16002,32 @@ desc: spined legs.
 
 ### Dungeon level 39 ###
 
+name:The Minotaur of the Labyrinth
+base:hybrid
+color:W
+speed:130
+hit-points:1500
+hearing:13
+smell:20
+armor-class:30
+sleepiness:10
+depth:39
+rarity:1
+weight:0
+experience:13000
+blow:BUTT:HURT:4d6
+blow:BUTT:HURT:4d6
+blow:BUTT:HURT:3d6
+blow:BUTT:HURT:3d6
+flags:EVIL | UNIQUE | PWMANG_BASE | PWMANG_FIXED
+flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
+flags:BASH_DOOR | HYBRID
+flags:RES_LIGHT
+flags:FORCE_DEPTH
+drop:food:Strip of Beef Jerky:100:1:1
+desc:It is a cross between a human and a bull.
+locations:The Maze|Angmar|The Thangorodrim|The Underdeep
+
 name:Cherub
 base:angel
 color:G
@@ -16932,33 +16956,6 @@ friends:30:1d1:patriarch
 desc:A mindcrafter of the highest order. Powerful and evil, and a dangerous
 desc: enemy: a master of mind over matter, of his own mind, and of the minds of
 desc: others, who slavishly follow him into battle when he calls them.
-
-# TODO: move to ### Dungeon level 41 ### section
-name:The Minotaur of the Labyrinth
-base:hybrid
-color:W
-speed:130
-hit-points:1500
-hearing:13
-smell:20
-armor-class:30
-sleepiness:10
-depth:39
-rarity:1
-weight:0
-experience:13000
-blow:BUTT:HURT:4d6
-blow:BUTT:HURT:4d6
-blow:BUTT:HURT:3d6
-blow:BUTT:HURT:3d6
-flags:EVIL | UNIQUE | PWMANG_BASE | PWMANG_FIXED
-flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
-flags:BASH_DOOR | HYBRID
-flags:RES_LIGHT
-flags:FORCE_DEPTH
-drop:food:Strip of Beef Jerky:100:1:1
-desc:It is a cross between a human and a bull.
-locations:The Maze|Angmar|The Thangorodrim|The Underdeep
 
 name:Emperor Mimic
 base:random mimic
