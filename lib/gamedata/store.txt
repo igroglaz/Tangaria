@@ -1345,6 +1345,15 @@ owner:0:Player shop
 owner:0:Player shop
 owner:0:Player shop
 owner:0:Player shop
+welcome:0:The door creaks open as you step inside.
+welcome:1:A faint scent of wood and old coin lingers in the air.
+welcome:2:Quiet surrounds you. The shop awaits its visitors.
+welcome:3:Soft light filters through the dusty windows.
+welcome:4:You hear the floorboards creak beneath your feet.
+welcome:5:A small bell rings gently above the door.
+welcome:6:Simple shelves line the walls of the shop.
+welcome:7:The air holds a trace of past bargains and promises.
+welcome:8:Time seems to flow slower between these worn walls.
 
 ############# Tangaria
 

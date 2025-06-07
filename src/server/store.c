@@ -2216,6 +2216,30 @@ char *random_hint(void)
 }
 
 
+// Simple random welcome message for home (no NPCs, no complex logic)
+static void prt_welcome_random(struct player *p, char *welcome, size_t len)
+{
+    struct store *s = store_at(p);
+    int i;
+    const char *chosen;
+    
+    /* Only half of the time */
+    if (one_in_(2)) return;
+    
+    /* Pick a random welcome message (0-8) */
+    i = randint0(9);
+    
+    /* Use store-specific message if available, otherwise use default */
+    if (!STRZERO(s->comment_welcome[i])) 
+        chosen = s->comment_welcome[i];
+    else 
+        chosen = comment_welcome[i];
+    
+    /* Simple copy - no formatting needed for home messages */
+    my_strcpy(welcome, chosen, len);
+}
+
+
 /*
  * The greeting a shopkeeper gives the character says a lot about his
  * general attitude (modified for PWMAngband).
@@ -2355,8 +2379,11 @@ static void display_store(struct player *p, bool entering)
 
     /* Say a friendly hello. */
     memset(welcome, 0, sizeof(welcome));
-    if ((s->feat != FEAT_HOME) && (s->feat != FEAT_STORE_PLAYER))
+    if (s->feat == FEAT_HOME || s->feat == FEAT_STORE_PLAYER)
+        prt_welcome_random(p, welcome, sizeof(welcome));
+    else
         prt_welcome(p, welcome, sizeof(welcome));
+
 
     /* Send the store info */
     Send_store_info(p, s->feat, store_name, store_owner_name, welcome, stockcount, purse);
