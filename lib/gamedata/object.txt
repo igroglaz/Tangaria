@@ -8274,7 +8274,7 @@ weight:5
 cost:-1
 desc:.
 
-name:to the south-east to visit ancient volkhv, to ask
+name:to visit ancient volkhv, to ask
 graphics:?:y
 type:fortune cookie
 level:0

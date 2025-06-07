@@ -637,7 +637,7 @@ always:fortune cookie:recently.. I got only a few mushrooms per day..
 always:fortune cookie:Aa-ah. Anyway. We need a hand with all this
 always:fortune cookie:madness happening around. Old mayor is missing..
 always:fortune cookie:Last time he was seen coming to the Hunter Valley
-always:fortune cookie:to the south-east to visit ancient volkhv, to ask
+always:fortune cookie:to visit ancient volkhv, to ask
 always:fortune cookie:him to help us with wraiths from the north..
 always:fortune cookie:Maybe you can help to find him? I can't go myself
 always:fortune cookie:as I need to protect this town...
