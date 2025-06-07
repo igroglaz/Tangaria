@@ -58,6 +58,15 @@ owner:20000:Yersh the Slender (Half-Orc)
 owner:30000:Yersh the Slender (Half-Orc)
 slots:2:4
 turnover:2
+welcome:0:grunts and doesn't look up.
+welcome:1:squints at you with suspicion.
+welcome:2:says "Hurry up if you're buying."
+welcome:3:glances at you briefly.
+welcome:4:nods silently.
+welcome:5:says "Need something?"
+welcome:6:says "Ah, a customer. Come in."
+welcome:7:smiles faintly and says "Welcome, %s."
+welcome:8:grins and says "Good to see you, %s!"
 always:cloak:Cloak
 always:light:Wooden Torch
 #always:flask:Flask of Oil // only found in the dungeon (golems like this stuff!)
@@ -79,7 +88,6 @@ normal:bottle:Empty Bottle:1:500
 normal:food:Hard Biscuit:1:350
 normal:food:Handful of Dried Fruits:1:350
 normal:food:Ration of Food:1:290
-
 buy:light
 buy:food
 buy:mushroom
@@ -97,6 +105,15 @@ owner:25000:Dobrynya Dragon-Slayer (Dwarf)
 owner:30000:Dobrynya Dragon-Slayer (Dwarf)
 slots:6:18
 turnover:9
+welcome:0:grunts without looking up from his work.
+welcome:1:says "Don't touch anything you can't pay for."
+welcome:2:eyes you critically from under bushy brows.
+welcome:3:says "Well? Got coin?"
+welcome:4:nods briefly, wiping his hands.
+welcome:5:says "Looking for some proper armour?"
+welcome:6:smiles slightly and says "Come in, plenty to choose from."
+welcome:7:says "Ah, a good customer! Welcome, %s."
+welcome:8:grins and says "For you, %s, the best gear I have."
 normal:boots:Pair of Leather Sandals
 normal:boots:Pair of Leather Boots
 normal:boots:Pair of Iron Shod Boots
@@ -133,6 +150,15 @@ owner:25000:Muromets the Grim (Dunadan)
 owner:30000:Muromets the Grim (Dunadan)
 slots:3:14
 turnover:9
+welcome:0:barely glances at you and returns to sharpening a blade.
+welcome:1:says "Hmph. Make it quick."
+welcome:2:eyes you coldly from behind the counter.
+welcome:3:says "Well? You buying or wasting time?"
+welcome:4:nods curtly.
+welcome:5:says "Blades, bows, staves... take your pick."
+welcome:6:says "Welcome. Good steel here."
+welcome:7:says "Ah, %s. Always a pleasure to do business."
+welcome:8:smiles faintly and says "For you, %s, I've saved my finest work."
 ############################ add staves and hammers
 #normal:shot:Iron Shot
 #normal:arrow:Arrow
@@ -180,6 +206,15 @@ owner:25000:Monomakh the Wise
 owner:30000:Monomakh the Wise
 slots:6:16
 turnover:9
+welcome:0:barely acknowledges your presence.
+welcome:1:says "Not all are welcome here."
+welcome:2:glances at you with a measured look.
+welcome:3:says "Do you seek aid, traveler?"
+welcome:4:nods in quiet greeting.
+welcome:5:says "Peace upon you. How may I help?"
+welcome:6:says "Welcome to this humble place."
+welcome:7:says "Ah, %s. You walk in the light."
+welcome:8:smiles warmly and says "Welcome, %s. May your path be blessed."
 always:prayer book
 always:potion:Cure Light Wounds
 always:potion:Cure Serious Wounds
@@ -217,6 +252,15 @@ owner:15000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
 slots:6:11
 turnover:9
+welcome:0:mumbles to himself and ignores you.
+welcome:1:peers at you suspiciously over a stack of scrolls.
+welcome:2:says "Hmm? What do you want?"
+welcome:3:glances up briefly, then returns to his work.
+welcome:4:says "Ah, another seeker of secrets?"
+welcome:5:says "Come, come. Knowledge awaits."
+welcome:6:smiles slyly and says "Looking for something... special?"
+welcome:7:grins and says "Ah, %s. My favorite kind of customer."
+welcome:8:claps his hands and says "Welcome, %s! I have just the thing for you today."
 always:scroll:Word of Recall
 always:scroll:Phase Door
 #normal:scroll:Magic Mapping
@@ -243,6 +287,15 @@ owner:25000:Mikhaylo the Wizard
 owner:30000:Mikhaylo the Wizard
 slots:4:15
 turnover:9
+welcome:0:barely looks up from his spellbook.
+welcome:1:says "Not everyone is ready for true magic."
+welcome:2:eyes you coldly from beneath his hood.
+welcome:3:says "Do you even understand what you're seeking?"
+welcome:4:nods with a knowing smile.
+welcome:5:says "Looking for a spell... or a trinket?"
+welcome:6:says "Welcome. Magic is always in demand."
+welcome:7:says "Ah, %s. A fellow seeker of knowledge."
+welcome:8:smiles warmly and says "Welcome, %s. I see your aura shines brightly today."
 always:magic book
 normal:ring:Searching
 normal:ring:Levitation
@@ -280,15 +333,15 @@ owner:25000:Senya the Short
 owner:30000:Senya the Short
 slots:0:2
 turnover:0
-welcome:0:nods to you.
-welcome:1:says hello.
-welcome:2:"See anything you like, adventurer?"
-welcome:3:"How may I help you, %s?"
-welcome:4:"Welcome back, %s."
-welcome:5:"A pleasure to see you again, %s."
-welcome:6:"How may I be of assistance, %s?"
-welcome:7:"You do honour to my humble store, %s."
-welcome:8:"I am entirely at your service, %s."
+welcome:0:glances up briefly and returns to sorting books.
+welcome:1:says "Hmph. Don't damage the covers."
+welcome:2:eyes you warily over his glasses.
+welcome:3:says "Looking for something... readable?"
+welcome:4:nods quietly in greeting.
+welcome:5:says "Books are windows to the mind. Interested?"
+welcome:6:says "Welcome. Take your time browsing."
+welcome:7:says "Ah, %s. A fellow lover of the written word."
+welcome:8:smiles and says "Welcome, %s. I have some rare works today."
 always:nature book
 always:shadow book
 always:psi book
@@ -308,15 +361,15 @@ owner:5000:Halbarad, the gamekeeper
 owner:5000:Halbarad, the gamekeeper
 slots:0:1
 turnover:0
-welcome:0:wrinkled his forehead and gaze at you.
-welcome:1:curses.
-welcome:2:grunts.
-welcome:3:eyes you suspiciously.
-welcome:4:"There is an old mage living to the south west.."
-welcome:5:"Don't make me waste my time!"
-welcome:6:"Please hurry up, I need to chop wood for the fire."
-welcome:7:"Welcome..."
-welcome:8:"A pleasure to do business with you..."
+welcome:0:grunts and returns to stacking wood.
+welcome:1:mutters a curse under his breath.
+welcome:2:wrinkled his forehead and gaze at you.
+welcome:3:barely acknowledges you with a nod.
+welcome:4:nods briefly. "Well, what do you need?"
+welcome:5:sighs. "Make it quick, I'm busy."
+welcome:6:wipes his hands and says "Alright, take a look."
+welcome:7:says "Welcome... %s."
+welcome:8:smiles slightly. "Good to see you again, %s."
 #######################################################################
 always:fortune cookie:Hello, stranger. What are you doing there, in
 always:fortune cookie:this wild lands? You are not the first who came
@@ -326,7 +379,7 @@ always:fortune cookie:north-east from my tavern. But I don't complain..
 always:fortune cookie:Finally I could get a few coins by selling some
 always:fortune cookie:of this goods.. Take a look at them...
 #######################################################################
-#normal:fortune cookie:Be careful in Mountain Gorge to the east..
+#normal:fortune cookie:Be careful in Mountain Gorge..
 #normal:fortune cookie:I didn't visit town for some time already..
 #normal:fortune cookie:Maybe its time for me to go on adventure with you
 #######################################################################
@@ -350,15 +403,15 @@ owner:5000:Sonya (Cat)
 owner:5000:Sonya (Cat)
 slots:0:1
 turnover:1
-welcome:0:looks at you with interest.
-welcome:1:looks at you with interest.
-welcome:2:looks at you with interest.
-welcome:3:looks at you with interest.
+welcome:0:hisses softly and turns away.
+welcome:1:flicks her tail and ignores you.
+welcome:2:stares at you warily.
+welcome:3:blinks slowly, watching your movements.
 welcome:4:looks at you with interest.
-welcome:5:looks at you with interest.
-welcome:6:looks at you with interest.
-welcome:7:looks at you with interest.
-welcome:8:looks at you with interest.
+welcome:5:sniffs the air in your direction.
+welcome:6:approaches and rubs against your leg.
+welcome:7:purrs softly as you enter.
+welcome:8:greets you with a happy meow.
 #######################################################################
 always:fortune cookie:(you take the cat in your arms..)
 normal:fortune cookie:meow
@@ -373,6 +426,15 @@ owner:5000:Boyan the Volkhv
 owner:5000:Boyan the Volkhv
 slots:0:1
 turnover:1
+welcome:0:grumbles and doesn't notice you.
+welcome:1:squints. "Eh? Another one? Hmph."
+welcome:2:mumbles "Too many strangers these days..."
+welcome:3:eyes you with suspicion.
+welcome:4:nods slowly. "You can read, right?"
+welcome:5:chuckles. "Looking for some wisdom?"
+welcome:6:says "Come in, the books are waiting."
+welcome:7:grins toothlessly. "Ah, %s. You again!"
+welcome:8:smiles warmly. "Welcome, %s. I kept something special for you."
 #######################################################################
 always:fortune cookie:Who are ya? What do ya need? Whaat? I can't hear
 always:fortune cookie:you.. *grumbles* They come.. and go.. come.. and
@@ -409,6 +471,15 @@ owner:5000:Barry the guard
 owner:5000:Barry the guard
 slots:0:1
 turnover:1
+welcome:0:you hear a deep grunt behind the door.
+welcome:1:low voice says "Stay where I can see ya."
+welcome:2:sharp voice: "State your business!"
+welcome:3:peers through the slit, eyes narrowed.
+welcome:4:sighs. "Another wanderer... place ain't safe."
+welcome:5:muttering: "You look half sane... good enough."
+welcome:6:door creaks slightly open. "Speak, then."
+welcome:7:recognizes you. "Ah, %s. Still walking, eh?"
+welcome:8:voice softens. "Good to see a known face, %s."
 #######################################################################
 always:fortune cookie:(You hear shuffling) *growl* Arr.. Who is there?
 always:fortune cookie:(small narrow window on the door opened)
@@ -443,6 +514,15 @@ owner:5000:Ivan the villager
 owner:5000:Ivan the villager
 slots:0:1
 turnover:1
+welcome:0:looks at you with a worried expression.
+welcome:1:says softly: "Please... no trouble."
+welcome:2:glances at your weapons nervously.
+welcome:3:sighs. "Strange times... strange folk."
+welcome:4:murmurs: "Not much left for honest folk."
+welcome:5:shakes his head. "I have nothing to sell you."
+welcome:6:says quietly: "Stay safe out there... if you can."
+welcome:7:nods slowly. "Ah, %s. Still walking these cursed streets?"
+welcome:8:manages a tired smile. "Good to see you again, %s."
 #######################################################################
 always:fortune cookie:Hello, stranger. Don't you mind to put your
 always:fortune cookie:weapons away, to sheath them.. I don't like
@@ -467,6 +547,15 @@ owner:5000:Milena the villager
 owner:5000:Milena the villager
 slots:0:1
 turnover:1
+welcome:0:looks at you nervously.
+welcome:1:says softly: "Oh... please, no fighting here."
+welcome:2:glances down, avoiding your gaze.
+welcome:3:sighs. "So many strangers these days..."
+welcome:4:says gently: "I hope you bring no trouble."
+welcome:5:says quietly: "We have so little... forgive us."
+welcome:6:nods. "Stay safe, traveler."
+welcome:7:smiles faintly. "Ah, %s. It's good to see a kind face."
+welcome:8:says warmly: "Welcome back, %s. Please, be careful out there."
 #######################################################################
 always:fortune cookie:Oh, dear.. It's a pity I can't feed you.
 always:fortune cookie:We barely survive from hunger by our-self..
@@ -483,6 +572,15 @@ owner:5000:Shtukensia the tavernkeeper
 owner:5000:Shtukensia the tavernkeeper
 slots:8:9
 turnover:1
+welcome:0:eyes you from under her lashes. "Hm... another one."
+welcome:1:smirks. "Looking for trouble... or a drink?"
+welcome:2:tilts head. "Come in... if you dare."
+welcome:3:says with a crooked smile. "Seats are free... for now."
+welcome:4:leans closer. "Still some good booze left... for you."
+welcome:5:chuckles. "Ah, you have that thirsty look."
+welcome:6:winks. "Sit down... I might have something special."
+welcome:7:grins. "Ah, %s. My favorite guest returns."
+welcome:8:purrs softly. "Welcome back, %s... missed my tavern?"
 #######################################################################
 always:fortune cookie:Hi.. Don't look at me with such hungry eyes..
 always:fortune cookie:Didn't you know about catastrophe?
@@ -521,15 +619,15 @@ owner:5000:Danny (Dog)
 owner:5000:Danny (Dog)
 slots:0:1
 turnover:1
-welcome:0:looks at you with suspicion.
-welcome:1:looks at you with suspicion.
-welcome:2:looks at you with suspicion.
-welcome:3:looks at you with suspicion.
-welcome:4:looks at you with suspicion.
-welcome:5:looks at you with suspicion.
-welcome:6:looks at you with suspicion.
-welcome:7:looks at you with suspicion.
-welcome:8:looks at you with suspicion.
+welcome:0:growls softly.
+welcome:1:bares teeth and growls.
+welcome:2:stares at you with wary eyes.
+welcome:3:ears twitch, watching your every move.
+welcome:4:sniffs the air cautiously.
+welcome:5:tilts head, watching you.
+welcome:6:wags tail once, still alert.
+welcome:7:wags tail and steps closer to you.
+welcome:8:runs up wagging tail happily.
 #######################################################################
 normal:fortune cookie:(you are trying to pat the dog)
 normal:fortune cookie:(the dog carefully sniff your arm)
@@ -548,6 +646,15 @@ owner:5000:Arthur the Archer
 owner:5000:Arthur the Archer
 slots:10:11
 turnover:9
+welcome:0:eyes you sharply. "Hope you ain't here to cause trouble."
+welcome:1:grins coldly. "Not every fool can handle a bow."
+welcome:2:snorts. "Show me your aim first."
+welcome:3:glances at your quiver. "Running low? I've got stock."
+welcome:4:says "Arrows, bolts, stones - take what works."
+welcome:5:grins. "Need gear to stay alive, eh?"
+welcome:6:nods. "Good choice - better to shoot first."
+welcome:7:smiles. "Ah, %s. Back for more?"
+welcome:8:grins widely. "Welcome, %s. Good archers need good tools."
 #######################################################################
 always:fortune cookie:I'd shoot rat in the eye, so I wont spoil its fur
 always:fortune cookie:Hm. Hello. I'm Archy - and who are you?
@@ -590,6 +697,15 @@ owner:5000:Deckard Coin
 owner:5000:Deckard Coin
 slots:0:10
 turnover:1
+welcome:0:blinks. "Who... who's there?"
+welcome:1:squints. "Come no closer unless you're a friend."
+welcome:2:leans on his staff. "Another traveler... times are dark."
+welcome:3:nods slowly. "We could use good folk around here."
+welcome:4:sighs. "Too much trouble in these parts..."
+welcome:5:says quietly: "May your path be safe, stranger."
+welcome:6:smiles faintly. "Ah... a friendly face. Welcome."
+welcome:7:grins warmly. "Ah, %s. Back again? Good to see you."
+welcome:8:says gently: "Welcome back, %s. May fortune favor you."
 #######################################################################
 always:fortune cookie:Stay awhile.. Er.. Wait.. Come closer, young men
 always:fortune cookie:or woman? I can not see well.. Damn manuscripts!
@@ -624,6 +740,15 @@ owner:5000:Boris the Guard
 owner:5000:Boris the Guard
 slots:0:1
 turnover:1
+welcome:0:stares at you coldly. "Move along."
+welcome:1:says firmly: "Keep your hands where I can see them."
+welcome:2:eyes you carefully. "Not looking for trouble, I hope."
+welcome:3:nods. "Town's not safe these days. Be smart."
+welcome:4:says quietly: "Stay sharp. Wraiths everywhere."
+welcome:5:grunts. "If you can fight, we could use help."
+welcome:6:says: "You seem reliable. Watch your back out there."
+welcome:7:smiles faintly. "Ah, %s. Still standing. Good."
+welcome:8:says: "Good to see you again, %s. We need people like you."
 #######################################################################
 always:fortune cookie:Stranger, don't make trouble in our town..
 always:fortune cookie:Or I'll take care of you.
@@ -638,7 +763,7 @@ always:fortune cookie:Aa-ah. Anyway. We need a hand with all this
 always:fortune cookie:madness happening around. Old mayor is missing..
 always:fortune cookie:Last time he was seen coming to the Hunter Valley
 always:fortune cookie:to visit ancient volkhv, to ask
-always:fortune cookie:him to help us with wraiths from the north..
+always:fortune cookie:him to help us with wraiths..
 always:fortune cookie:Maybe you can help to find him? I can't go myself
 always:fortune cookie:as I need to protect this town...
 #######################################################################
@@ -653,14 +778,14 @@ owner:5000:Tom Bombadil
 slots:12:13
 turnover:7
 welcome:0:blinks!
-welcome:1:smiles!
-welcome:2:grinds!
+welcome:1:tilts head!
+welcome:2:grins!
 welcome:3:giggles!
 welcome:4:chuckles!
 welcome:5:snickers!
 welcome:6:sniggers!
 welcome:7:chortles!
-welcome:8:laughs!
+welcome:8:laughs and sings!
 #######################################################################
 normal:fortune cookie:Hey dol! merry dol! ring a dong dillo!
 normal:fortune cookie:Ring a dong! hop along! Fal lal the willow!
@@ -732,6 +857,15 @@ owner:5000:Mr. Underhill
 owner:5000:Mr. Underhill
 slots:8:9
 turnover:5
+welcome:0:peers at you from beneath bushy brows.
+welcome:1:says carefully: "New face, hmm?"
+welcome:2:tilts head. "Not many strangers these days."
+welcome:3:smiles softly. "Looking for a bit of cheer?"
+welcome:4:nods. "Come in, sit awhile."
+welcome:5:says warmly: "Every guest is welcome here."
+welcome:6:smiles. "Ah, a friendly traveler!"
+welcome:7:grins. "Ah, %s! A song or a pint today?"
+welcome:8:claps hands. "Welcome back, %s! The hearth is warm for you."
 #######################################################################
 normal:fortune cookie:There is an inn, a merry old inn
 normal:fortune cookie:beneath an old grey hill,
@@ -805,6 +939,15 @@ owner:5000:Gildor
 owner:5000:Gildor
 slots:0:1
 turnover:1
+welcome:0:watches you in silence.
+welcome:1:speaks softly: "A stranger... or a seeker?"
+welcome:2:eyes you with calm curiosity.
+welcome:3:says quietly: "Tread carefully in darkening times."
+welcome:4:nods faintly. "The road before you is your own."
+welcome:5:says softly: "Be mindful of your choices."
+welcome:6:inclines head. "You walk with courage."
+welcome:7:smiles slightly. "Ah, %s. Wisdom comes to the patient."
+welcome:8:speaks warmly: "Welcome, %s. May your path be clear."
 #######################################################################
 always:fortune cookie:Elves seldom give unguarded advice...
 always:fortune cookie:Advice is a dangerous gift,
@@ -824,6 +967,15 @@ owner:5000:Squint-eyed Southerner
 owner:5000:Squint-eyed Southerner
 slots:0:1
 turnover:1
+welcome:0:squints at you suspiciously.
+welcome:1:grunts. "What d'you want?"
+welcome:2:spits on the ground.
+welcome:3:murmurs. "Not seen you before..."
+welcome:4:eyes you warily. "Keep yer hands to yerself."
+welcome:5:sniffs. "Town's full of fools these days."
+welcome:6:says low: "You ain't one of them, I hope."
+welcome:7:nods slightly. "Hmph. %s... still around."
+welcome:8:grins crookedly. "Heh. %s. You know where to look."
 #######################################################################
 always:fortune cookie:Errr...
 #######################################################################
@@ -840,6 +992,15 @@ owner:5000:Bill Ferny
 owner:5000:Bill Ferny
 slots:0:1
 turnover:1
+welcome:0:sneers. "What d'you want?"
+welcome:1:spits and says nothing.
+welcome:2:mutters. "Hmph. Another nosey fool."
+welcome:3:eyes you sideways. "You buyin' or spying?"
+welcome:4:says with a smirk: "Plenty for sale... if you can pay."
+welcome:5:grins unpleasantly. "Don't ask too many questions."
+welcome:6:says low: "You look like you know which side you're on."
+welcome:7:nods slyly. "Ah, %s. Still poking around?"
+welcome:8:grins crookedly. "Well well, %s. Back for more, eh?"
 #######################################################################
 always:fortune cookie:Need a pony? Twelve silver pennies and its yours!
 #######################################################################
@@ -855,6 +1016,15 @@ owner:5000:Boromir
 owner:5000:Boromir
 slots:0:1
 turnover:1
+welcome:0:glances at you briefly, then returns to training.
+welcome:1:says curtly: "State your purpose."
+welcome:2:eyes you sharply. "I hope you're not here to waste time."
+welcome:3:nods. "Discipline is the strength of men."
+welcome:4:says: "Be swift. I have little time for talk."
+welcome:5:grunts. "Looking for guidance? Earn it."
+welcome:6:nods with respect. "You carry yourself with purpose."
+welcome:7:measures you for a moment. "Ah, %s. You train well."
+welcome:8:says firmly: "Welcome, %s. Stand proud, as one of the West."
 #######################################################################
 always:fortune cookie:I'm training there.. Don't mess around.
 #######################################################################
@@ -868,6 +1038,15 @@ owner:5000:Barliman
 owner:5000:Barliman
 slots:0:2
 turnover:1
+welcome:0:blinks. "Oh - I didn't see you come in!"
+welcome:1:hurries past. "Yes, yes - just a moment!"
+welcome:2:says quickly: "I'll be with you in a tick!"
+welcome:3:glances your way. "Now then - what can I do for you?"
+welcome:4:nods cheerfully. "Welcome! Mind the step."
+welcome:5:smiles. "Ah, good to see another friendly face."
+welcome:6:wipes hands on apron. "You're always welcome here."
+welcome:7:grins. "Ah, %s! You're back - splendid!"
+welcome:8:beams. "Welcome back, %s! Just find a seat, I'll be with you."
 #######################################################################
 always:fortune cookie:Barliman is my name.
 always:fortune cookie:Barliman Butterbur at your service!
@@ -893,6 +1072,15 @@ owner:5000:Torog
 owner:5000:Torog
 slots:0:1
 turnover:1
+welcome:0:growls. "No like you."
+welcome:1:bares teeth. "Go. Now."
+welcome:2:grunts. "You... food?"
+welcome:3:sniffs loudly. "You got food?"
+welcome:4:licks lips. "You give food?"
+welcome:5:says: "Torog hungry. You got?"
+welcome:6:grins toothily. "You good. Maybe share food."
+welcome:7:snorts. "Ahh... %s. You bring food?"
+welcome:8:chuckles. "Good %s. You not food. Friend."
 #######################################################################
 always:fortune cookie:Give. Eat. Me. Hungry.
 #######################################################################
@@ -906,6 +1094,15 @@ owner:5000:Nob, a servant
 owner:5000:Nob, a servant
 slots:0:1
 turnover:1
+welcome:0:hurries by. "Oh! Didn't see you, sir!"
+welcome:1:says quickly: "Right with you in a moment!"
+welcome:2:grins. "Welcome! Busy day it is!"
+welcome:3:smiles. "Need anything, master?"
+welcome:4:nods cheerfully. "Rooms ready, supper soon."
+welcome:5:beams. "Good to have you here!"
+welcome:6:says warmly. "A fine guest, indeed!"
+welcome:7:grins brightly. "Ah, %s! Always a pleasure!"
+welcome:8:claps hands. "Welcome back, %s! We've missed you!"
 #######################################################################
 normal:fortune cookie:Coming! Coming!
 normal:fortune cookie:*grins*
@@ -921,6 +1118,15 @@ owner:5000:Rose
 owner:5000:Rose
 slots:0:1
 turnover:1
+welcome:0:looks at you shyly.
+welcome:1:glances down. "Um... hello."
+welcome:2:smiles nervously. "Good day, sir."
+welcome:3:says softly. "Welcome... are you an adventurer?"
+welcome:4:smiles. "It's nice to see friendly faces."
+welcome:5:says cheerfully. "Oh! Hello! How can I help?"
+welcome:6:grins. "Welcome! You must have many stories!"
+welcome:7:claps hands. "Ah, %s! You're back! Tell me about your travels!"
+welcome:8:beams. "Welcome back, %s! I've missed your stories!"
 #######################################################################
 always:fortune cookie:*smiles*
 #######################################################################
@@ -934,6 +1140,15 @@ owner:5000:New mayor
 owner:5000:New mayor
 slots:0:1
 turnover:0
+welcome:0:clears throat. "Ah. Yes. Welcome... citizen."
+welcome:1:says stiffly: "Ahem. What is your business here?"
+welcome:2:glances at papers. "I trust you are here with good purpose."
+welcome:3:says formally: "You are welcome in our town."
+welcome:4:nods. "Our doors are open to you."
+welcome:5:says warmly: "We stand ready to assist you."
+welcome:6:smiles. "You are most welcome here."
+welcome:7:grins. "Ah, %s! A pleasure to see you again."
+welcome:8:clasps hands. "Welcome back, %s! Our town is honored by your presence."
 #######################################################################
 always:fortune cookie:I say unto you... welcome!
 always:fortune cookie:Welcome and thrice welcome, Hero of the Farfest!
@@ -1075,7 +1290,15 @@ owner:25000:Durwin the Shifty (Half-Orc)
 owner:30000:Drago the Fair (Elf)
 slots:6:18
 turnover:9
-
+welcome:0:glowers. "You got coin?"
+welcome:1:snarls. "No coin - no talk."
+welcome:2:eyes you coldly. "You sure you belong here?"
+welcome:3:says low: "Look fast. Don't ask questions."
+welcome:4:mutters. "Everything has a price."
+welcome:5:says with a sly grin. "Good goods... for those who pay."
+welcome:6:grins. "You look like you know the rules."
+welcome:7:says: "Ah, %s. Back for more risk and reward?"
+welcome:8:smiles thinly. "Welcome back, %s. Let's not waste time."
 
 # Expensive Black Market x8 price - no stock given but we still need slot/turnover info
 store:STORE_XBM
@@ -1086,14 +1309,14 @@ owner:30000:Lenny the Half-Witted (Human)
 slots:8:16
 turnover:9
 welcome:0:spits on the floor.
-welcome:1:curses.
-welcome:2:grunts.
+welcome:1:curses under breath.
+welcome:2:grunts. "Gold talks."
 welcome:3:eyes you suspiciously.
-welcome:4:"Buy something or leave!"
-welcome:5:"Don't make me waste my time!"
-welcome:6:"Tell me if you see any thieves!"
-welcome:7:"Welcome back, %s."
-welcome:8:"A pleasure to do business with you, %s."
+welcome:4:growls. "Buy or get lost."
+welcome:5:says coldly. "Don't waste my time."
+welcome:6:sneers. "Watch your pockets here."
+welcome:7:grins thinly. "Ah, %s. Back to pay the price?"
+welcome:8:smirks. "Good coin talks, %s."
 
 store:STORE_TAVERN
 owner:0:Tavern
@@ -1106,6 +1329,15 @@ owner:0:Your home
 owner:0:Your home
 owner:0:Your home
 owner:0:Your home
+welcome:0:The door creaks softly as you enter your home.
+welcome:1:A familiar scent of wood and dust fills the air.
+welcome:2:The quiet of your home wraps around you.
+welcome:3:You close the door behind you with a tired sigh.
+welcome:4:Sunlight filters through the window, dust dancing in the beam.
+welcome:5:It feels good to be back in your own space.
+welcome:6:You glance around - everything is where you left it.
+welcome:7:A faint smile crosses your face. This is your place.
+welcome:8:You are home. Safe, for now.
 
 # Player shop
 store:STORE_PLAYER

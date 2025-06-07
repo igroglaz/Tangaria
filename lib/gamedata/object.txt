@@ -7313,7 +7313,7 @@ weight:5
 cost:-1
 desc:.
 
-name:Be careful in Mountain Gorge to the east..
+name:Be careful in Mountain Gorge..
 graphics:?:y
 type:fortune cookie
 level:0
@@ -8282,7 +8282,7 @@ weight:5
 cost:-1
 desc:.
 
-name:him to help us with wraiths from the north..
+name:him to help us with wraiths..
 graphics:?:y
 type:fortune cookie
 level:0
