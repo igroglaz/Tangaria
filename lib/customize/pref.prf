@@ -98,7 +98,7 @@ X:birth_hardcore
 X:birth_turbo
 
 # Option 'Deeptown'
-X:birth_deeptown
+Y:birth_deeptown
 
 # Option 'Zeitnot'
 X:birth_zeitnot
