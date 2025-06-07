@@ -885,7 +885,9 @@ static bool set_recall_depth(struct player *p, quark_t note, int current_value, 
     }
 
     /* Check for a valid inscription */
-    if (inscription)
+    // except modes (it's for deeptown. for others - just in case..)
+    if (inscription && !OPT(p, birth_deeptown) && !OPT(p, birth_ironman) && 
+        !OPT(p, birth_zeitnot))
     {
         int result = valid_inscription(p, inscription, current_value, where);
 
