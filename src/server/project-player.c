@@ -126,20 +126,35 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     if ((type == PROJ_ACID) && p && minus_ac(p)) dam = (dam + 1) / 2;
 
     /* Hack -- biofeedback halves "sharp" damage */
-    // TODO: this way we can make "Reflection" property for races
-    if (p && p->timed[TMD_BIOFEEDBACK])
+    if (p)
     {
-        switch (type)
+        if (p->timed[TMD_BIOFEEDBACK])
         {
-            case PROJ_MISSILE:
-            case PROJ_SHOT:
-            case PROJ_ARROW:
-            case PROJ_BOLT:
-            case PROJ_BOULDER:
-            case PROJ_SHARD:
-            case PROJ_SOUND:
-                dam = (dam + 1) / 2;
-                break;
+            switch (type)
+            {
+                case PROJ_MISSILE:
+                case PROJ_SHOT:
+                case PROJ_ARROW:
+                case PROJ_BOLT:
+                case PROJ_BOULDER:
+                case PROJ_SHARD:
+                case PROJ_SOUND:
+                    dam = (dam + 1) / 2;
+                    break;
+            }
+        }
+        // reflection class skill -- only applies if biofeedback is not active
+        else if (p->timed[TMD_REFLECTION])
+        {
+            switch (type)
+            {
+                case PROJ_MISSILE:
+                case PROJ_SHOT:
+                case PROJ_ARROW:
+                case PROJ_BOLT:
+                    dam = (dam + 1) / 2;
+                    break;
+            }
         }
     }
 

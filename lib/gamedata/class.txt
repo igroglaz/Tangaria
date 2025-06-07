@@ -5538,7 +5538,7 @@ title:Glorious Lord
 
 magic:1:600:1
 
-book:prayer book:town:[Beginners Handbook]:3:divine
+book:prayer book:town:[Beginners Handbook]:4:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
@@ -5564,6 +5564,14 @@ dice:9999
 msg_other: took offensive stance.
 desc:You are preparing for more offensive tactics.
 desc: Getting into this stance removes fear.
+
+spell:Steel Mirror:35:1:25:1:0
+cooldown:300
+effect:TIMED_INC:REFLECTION
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+desc:You are preparing to reflect incoming projectiles.
+desc: Cooldown 300 turns.
 
 
 ############### CLASS TEMPLATE for Traveller ###############
@@ -7175,7 +7183,7 @@ desc:Explodes around thick 7-8 radius poison cloud and teleports away.
 desc: Requires additional mana when you get each level.
 desc: If you cast the spell without enough mana - you suffer severe exhaustion.
 
-spell:Shield of Blades:30:10:27:20:0
+spell:Snake Coil:30:10:27:20:0
 effect:BLAST:MISSILE:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 3
@@ -7227,7 +7235,7 @@ desc: the eight directions starting from your character.
 desc: Cooldown 10 turns.
 
 # 1st dungeon book
-book:shadow book:dungeon:[Dark Evocations]:6:shadow
+book:shadow book:dungeon:[Dark Evocations]:7:shadow
 
 spell:Vampirism:25:15:40:25:0
 cooldown:360
@@ -7248,6 +7256,14 @@ spell:Sneak to Depths:30:10:30:30:0
 effect:TIMED_INC:PROBTRAVEL
 dice:2
 desc:Allows you to go 1 level down at will immediately.
+
+spell:Shield of Blades:33:15:25:1:0
+cooldown:300
+effect:TIMED_INC:REFLECTION
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+desc:You are preparing to reflect incoming projectiles.
+desc: Cooldown 300 turns.
 
 spell:Inception:35:20:22:40:0
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
