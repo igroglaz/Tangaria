@@ -2202,7 +2202,11 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             )
         )
         {
-            msg(p, "You shall not pass!");
+            if (p->wpos.grid.x == -6 && p->wpos.grid.y == 0)
+                msg(p,
+                "You hear a whisper: 'Do not leave.. there is still much to be done here...'");
+            else
+                msg(p, "You shall not pass!");
             return;
         }
 
