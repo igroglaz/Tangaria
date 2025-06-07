@@ -219,7 +219,52 @@ void do_cmd_go_down(struct player *p)
         return;
     }
 
-    descend_to = dungeon_get_next_level(p, p->wpos.depth, 1);
+    // deeptown: from surface you can go down only on certain lvls
+    // (prevent low lvl farm)
+    if (OPT(p, birth_deeptown) && p->wpos.depth == 0)
+    {
+        if (p->lev == 50)
+            descend_to = 75;
+        else if (p->lev == 49)
+            descend_to = 70;
+        else if (p->lev == 48)
+            descend_to = 66;
+        else if (p->lev == 47)
+            descend_to = 63;
+        else if (p->lev == 46)
+            descend_to = 60;
+        else if (p->lev == 45)
+            descend_to = 55;
+        else if (p->lev >= 40)
+            descend_to = 42;
+        else if (p->lev >= 35)
+            descend_to = 30;
+        else if (p->lev >= 30)
+            descend_to = 23;
+        else if (p->lev >= 25)
+            descend_to = 18;
+        else if (p->lev >= 20)
+            descend_to = 12;
+        else if (p->lev >= 15)
+            descend_to = 8;
+        else if (p->lev >= 10)
+            descend_to = 4;
+        else if (p->lev >= 5)
+            descend_to = 2;
+        else
+            descend_to = 1;
+        
+        // ensure descend_to doesn't exceed player's maximum depth
+        if (descend_to > p->max_depth)
+            descend_to = p->max_depth;
+
+        // but if player hasn't explored any dungeons yet, allow level 1
+        if (descend_to == 0)
+            descend_to = 1;
+    }
+    // regular PWMA case
+    else
+        descend_to = dungeon_get_next_level(p, p->wpos.depth, 1);
 
     /* Warn a force_descend player if they're going to a quest level */
     if (player_force_descend(p, 3))
