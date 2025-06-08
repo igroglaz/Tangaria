@@ -1972,19 +1972,32 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     {
         if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
         {
+            int satiation = 0;
+            
+            // Calculate base satiation bonus based on hunger level
+            if (p->timed[TMD_FOOD] < 100) { // starving
+                satiation += 400;  // regular water: 300
+            } else if (p->timed[TMD_FOOD] < 400) { // faint
+                satiation += 300;  // regular water: 200
+            } else if (p->timed[TMD_FOOD] < 800) { // weak
+                satiation += 200;  // regular water: 100
+            } else if ((OPT(p, birth_zeitnot) || // zeitnot
+                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
+                 p->timed[TMD_FOOD] < 8000)
+                    satiation += 1000; // regular water: 750
+            
             if (streq(p->race->name, "Ent"))
             {   // main source of food
-                player_inc_timed(p, TMD_FOOD, 200, false, false);
+                player_inc_timed(p, TMD_FOOD, 300 + satiation, false, false);
                 hp_player(p, p->wpos.depth / 2);
             }
             else if (streq(p->race->name, "Merfolk"))
             {
-                if (p->timed[TMD_FOOD] < 1500)
-                    player_inc_timed(p, TMD_FOOD, 150, false, false);
+                player_inc_timed(p, TMD_FOOD, 200 + satiation, false, false);
                 hp_player(p, p->wpos.depth);
             }
-            else if (p->timed[TMD_FOOD] < 1000)
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
+            else // all other races
+                player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
         }
         // healing potions spend satiation if not "Faint"
         else if (p->timed[TMD_FOOD] > 500) {
