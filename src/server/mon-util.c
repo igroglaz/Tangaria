@@ -1409,14 +1409,14 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         // vampires drink blood from fallen humanoids
         else if (streq(p->race->name, "Vampire") && p->wpos.depth > 0 &&
                  is_humanoid(mon->race) && (p->timed[TMD_FOOD] < 6666))
-            player_inc_timed(p, TMD_FOOD, (p->lev * 2), false, false);
+            player_inc_timed(p, TMD_FOOD, MAX(25, p->lev * 2), false, false);
         // undeads eat flesh.. or brains? :E~~
         else if (streq(p->race->name, "Undead") && p->wpos.depth > 0 &&
                  is_humanoid(mon->race))
         {
             if (p->timed[TMD_FOOD] < 6666)
-                player_inc_timed(p, TMD_FOOD, (p->lev * 2), false, false);
-            // restore 5% HP or if almost full - restore all
+                player_inc_timed(p, TMD_FOOD, MAX(25, p->lev * 2), false, false);
+            // restore 5% HP
             if (p->chp < p->mhp)
             {
                 if (p->mhp < 20) // too small HP to be able to calculate 5%
@@ -1424,7 +1424,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 else if (p->chp + p->mhp / 20 < p->mhp)
                     hp_player(p, p->mhp / 20); // restore 5%
                 else
-                    hp_player(p, p->mhp - p->chp); // restore to full HP
+                    hp_player(p, p->mhp - p->chp); // if almost full HP - restore to all
             }
         }
     }
