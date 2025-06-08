@@ -16,6 +16,12 @@
 #=#=#=#=#=#=#=#=#=#=# OPTIONS #=#=#=#=#=#=#=#=#=#=#
 #=#=#=#=#=#=#=#=#=#=##=#=#=#=#=#=#=#=#=#=##=#=#=#=#
 
+##### For devs: setting options there (eg deeptown) won't make them default on the server!
+##### (use src\common\list-options.h)
+#####################################
+##### For players: to set default settings, use character file:
+##### Tangaria\lib\user\<yourname>.prf
+
 # Option ''
 X:none
 

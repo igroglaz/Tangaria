@@ -3,9 +3,12 @@
  * Purpose: Options
  */
 
-/* normal - whether the option is ON by default */
-/* server - whether the option is relevant for server 
-(note: it doesn't work for hardcoded stuff, eg birth_no_ghost */
+/* normal - whether the option is ON by default  (WORKS!) */
+/* server - whether the option is relevant for server  (don't work for HCed stuff like birth_no_ghost)
+ */
+
+////// there we can set options to be turned ON/OFF by default on the server
+////// (pref.prf doesn't work for it!)
 
 /* name  description  type  normal  server */
 OP(none, "", MAX, false, false)
@@ -35,7 +38,7 @@ OP(wrap_messages, "Wrap long messages in sub-windows", MANGBAND, false, false)
 OP(expand_inspect, "Compare equipment when examining items", MANGBAND, false, true)
 OP(birth_hardcore, "HC: no extra gold, 2ndChance & low-HP heal", BIRTH, false, true)
 OP(birth_turbo, "Turbo: no slow-time bubble", BIRTH, false, true)
-OP(birth_deeptown, "Deeptown mode", BIRTH, false, true)
+OP(birth_deeptown, "Deeptown mode", BIRTH, true, true)
 OP(birth_zeitnot, "Zeitnot mode", BIRTH, false, true)
 OP(birth_ironman, "Ironman mode", BIRTH, false, true)
 OP(birth_force_descend, "Force player descent", BIRTH, false, true)
