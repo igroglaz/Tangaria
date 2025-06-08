@@ -5187,6 +5187,16 @@ bool effect_handler_SUMMON(effect_handler_context_t *context)
 
         /* Summon them */
         mlvl = monster_level(&context->origin->player->wpos);
+        
+        // villager class should summon not too OP animals
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Villager"))
+        {
+           if (context->origin->player->wpos.depth == 0)
+               mlvl = 1; // Very weak summons on surface
+           else
+                mlvl = MIN(context->origin->player->wpos.depth, context->origin->player->lev);
+        }
+
         count = summon_monster_aux(context->origin->player, context->cave,
             &context->origin->player->grid, summon_type, mlvl + level_boost, summon_max,
             context->other, NULL);
