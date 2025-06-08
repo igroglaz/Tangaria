@@ -326,6 +326,14 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         // loop below (if (denom) dam = ...)
     }
 
+    // SPECIAL case for LIGHT_WEAK and Vampire race
+    else if (type == PROJ_LIGHT_WEAK && p && resist < 3 && streq(p->race->name, "Vampire"))
+    {
+        int light_weak_xtra_dmg = p->mhp / 10;
+        if (p->chp - (dam + light_weak_xtra_dmg) >= 1)
+            dam += light_weak_xtra_dmg;
+    }
+
     /*
      * Variable resists vary the denominator, so we need to invert the logic
      * of dam_aspect. (m_bonus is unused)
