@@ -1999,8 +1999,26 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             else // all other races
                 player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
         }
-        // healing potions spend satiation if not "Faint"
-        else if (p->timed[TMD_FOOD] > 500) {
+        else if (streq(p->race->name, "Ent"))
+        {
+           int ent_food = 0;
+           int c0st = obj->kind->cost;
+
+           if      (c0st <= 10)   ent_food = 2;
+           else if (c0st <= 25)   ent_food = 4;
+           else if (c0st <= 50)   ent_food = 8;
+           else if (c0st <= 100)  ent_food = 15;
+           else if (c0st <= 200)  ent_food = 30;
+           else if (c0st <= 500)  ent_food = 50;
+           else if (c0st <= 1000) ent_food = 75;
+           else if (c0st <= 5000) ent_food = 100;
+           else if (c0st > 5000)  ent_food = 150;
+
+           player_inc_timed(p, TMD_FOOD, ent_food, false, false);
+        }
+        // healing potions spend satiation if not too hungry
+        else if (p->timed[TMD_FOOD] >= 700)
+        {
             if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds") &&
                 one_in_(4))
                 player_dec_timed(p, TMD_FOOD, 100, false);
@@ -2013,26 +2031,15 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             else if (obj->kind == lookup_kind_by_name(TV_POTION, "Healing"))
                 player_dec_timed(p, TMD_FOOD, 100, false);
         }
-        // all other potions
+        // drinking any other potions when hungry helps a bit
         else
         {
-            if (streq(p->race->name, "Ent"))
-            {
-               int ent_food = 0;
-               int c0st = obj->kind->cost;
-
-               if      (c0st <= 10)   ent_food = 2;
-               else if (c0st <= 25)   ent_food = 4;
-               else if (c0st <= 50)   ent_food = 8;
-               else if (c0st <= 100)  ent_food = 15;
-               else if (c0st <= 200)  ent_food = 30;
-               else if (c0st <= 500)  ent_food = 50;
-               else if (c0st <= 1000) ent_food = 75;
-               else if (c0st <= 5000) ent_food = 100;
-               else if (c0st > 5000)  ent_food = 150;
-
-               player_inc_timed(p, TMD_FOOD, ent_food, false, false);
-            }
+            if (p->timed[TMD_FOOD] < 100) // starving
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
+            else if (p->timed[TMD_FOOD] < 400) // faint
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
+            else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
+                player_inc_timed(p, TMD_FOOD, 50, false, false);
         }
     }
 
