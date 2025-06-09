@@ -4637,6 +4637,7 @@ friends:90:5d4:orc tracker:servant
 friends:10:5d4:hill orc:servant
 desc:He is a cunning and devious orc with a chaotic nature.
 
+#too high AC.. intended? TODO (think)
 name:giant white tick
 base:spider
 color:w

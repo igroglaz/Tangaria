@@ -1406,16 +1406,29 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 msg(p, "You absorb the life of the dying soul.");
             hp_player_safe(p, 1 + drain / 2);
         }
-        // vampires drink blood from fallen humanoids
-        else if (streq(p->race->name, "Vampire") && p->wpos.depth > 0 &&
-                 is_humanoid(mon->race) && (p->timed[TMD_FOOD] < 6666))
-            player_inc_timed(p, TMD_FOOD, MAX(25, p->lev * 2), false, false);
+    // vampires drink blood from fallen humanoids 
+    else if (streq(p->race->name, "Vampire") && p->wpos.depth > 0 && 
+             is_humanoid(mon->race) && (p->timed[TMD_FOOD] < 6666)) 
+    {
+        int base_satiation = MAX(25, p->lev * 2);
+        int hunger_bonus = 0;
+
+        if (p->timed[TMD_FOOD] < 100) { // starving 
+            hunger_bonus += 300;
+        } else if (p->timed[TMD_FOOD] < 400) { // faint 
+            hunger_bonus += 200;
+        } else if (p->timed[TMD_FOOD] < 800) { // weak 
+            hunger_bonus += 100;
+        }
+
+        player_inc_timed(p, TMD_FOOD, base_satiation + hunger_bonus, false, false);
+    }
         // undeads eat flesh.. or brains? :E~~
         else if (streq(p->race->name, "Undead") && p->wpos.depth > 0 &&
                  is_humanoid(mon->race))
         {
             if (p->timed[TMD_FOOD] < 6666)
-                player_inc_timed(p, TMD_FOOD, MAX(25, p->lev * 2), false, false);
+                player_inc_timed(p, TMD_FOOD, MAX(50, p->lev * 2), false, false);
             // restore 5% HP
             if (p->chp < p->mhp)
             {
