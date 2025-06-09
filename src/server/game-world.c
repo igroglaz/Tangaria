@@ -1025,21 +1025,42 @@ static void process_player_world(struct player *p, struct chunk *c)
     /* Player can be damaged by terrain */
     player_take_terrain_damage(p, c);
 
+
     // Vampires evaporate in sunlight
     if (is_daytime() && streq(p->race->name, "Vampire") && 
         sqinfo_has(square(c, &p->grid)->info, SQUARE_GLOW) &&
         p->chp >= ((p->mhp / 100) + 5)) // don't kill vamp with sunlight
     {
+        // Calculate base damage and damage multiplier based on current HP
+        int base_damage = (p->mhp / 100) + 1;
+        int damage_multiplier = 1;
+        int sun_damage;
+
+        // HP-based damage scaling - more cruel as HP increases
+        if (p->chp >= 150) {
+            damage_multiplier = 4;  // 150+ HP: 4x damage
+        } else if (p->chp >= 100) {
+            damage_multiplier = 3;  // 100+ HP: 3x damage  
+        } else if (p->chp >= 50) {
+            damage_multiplier = 2;  // 50+ HP: 2x damage
+        }
+
+        sun_damage = base_damage * damage_multiplier;
+
         // always dmg on full hp
         if (p->chp >= p->mhp) {
-            p->chp -= (p->mhp / 100) + 1;
+            // Ensure we don't kill - leave at least the safety threshold
+            int safety_threshold = ((p->mhp / 100) + 5);
+            int max_safe_damage = p->chp - safety_threshold;
+            sun_damage = (sun_damage > max_safe_damage) ? max_safe_damage : sun_damage;
+
+            p->chp -= sun_damage;
             p->upkeep->redraw |= (PR_HP | PR_MAP);
         } else {
             
             struct object *cloak = slot_object(p, slot_by_name(p, "back"));
             struct object *tool = slot_object(p, slot_by_name(p, "tool"));
             int res_light = p->state.el_info[ELEM_LIGHT].res_level[0];
-            int sun_damage = (p->mhp / 100) + 1;
             bool take_damage = false;
             int sun_protection = 0;
 
@@ -1088,6 +1109,11 @@ static void process_player_world(struct player *p, struct chunk *c)
             }
 
             if (take_damage) {
+                // Ensure we don't kill - leave at least the safety threshold
+                int safety_threshold = ((p->mhp / 100) + 5);
+                int max_safe_damage = p->chp - safety_threshold;
+                sun_damage = (sun_damage > max_safe_damage) ? max_safe_damage : sun_damage;
+
                 p->chp -= sun_damage;
                 p->upkeep->redraw |= (PR_HP | PR_MAP);
 
@@ -1096,6 +1122,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             }
         }
     }
+
 
     if (p->is_dead) return;
 

@@ -1049,8 +1049,7 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_FLIGHT, 5 + p->lev / 2, false, false);
         
         p->y_cooldown = 255; // cooldown
-        
-        player_dec_timed(p, TMD_FOOD, 25, false);
+
         return;
     }
     else if (streq(p->race->name, "Werewolf"))
