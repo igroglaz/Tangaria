@@ -119,7 +119,74 @@ void do_cmd_go_up(struct player *p)
         return;
     }
 
-    ascend_to = dungeon_get_next_level(p, p->wpos.depth, -1);
+    // deeptown: special going up rules based on player level
+    // allow going up to 1 level above minimum required depth, or directly to surface
+    if (OPT(p, birth_deeptown))
+    {
+        int allowed_shallow_depth;
+        int min_depth_for_level = 0;
+
+        if (p->lev == 50)
+            min_depth_for_level = 75;
+        else if (p->lev == 49)
+            min_depth_for_level = 70;
+        else if (p->lev == 48)
+            min_depth_for_level = 66;
+        else if (p->lev == 47)
+            min_depth_for_level = 63;
+        else if (p->lev == 46)
+            min_depth_for_level = 60;
+        else if (p->lev == 45)
+            min_depth_for_level = 55;
+        else if (p->lev >= 40)
+            min_depth_for_level = 42;
+        else if (p->lev >= 35)
+            min_depth_for_level = 30;
+        else if (p->lev >= 30)
+            min_depth_for_level = 23;
+        else if (p->lev >= 25)
+            min_depth_for_level = 18;
+        else if (p->lev >= 20)
+            min_depth_for_level = 12;
+        else if (p->lev >= 15)
+            min_depth_for_level = 8;
+        else if (p->lev >= 10)
+            min_depth_for_level = 4;
+        else if (p->lev >= 5)
+            min_depth_for_level = 2;
+        else
+            min_depth_for_level = 1;
+
+        allowed_shallow_depth = min_depth_for_level - 1;
+        if (allowed_shallow_depth < 1) allowed_shallow_depth = 1;
+
+        // if player is deeper than allowed shallow depth, can go up normally
+        if (p->wpos.depth > allowed_shallow_depth)
+        {
+            // normal ascension
+        }
+        // if player is exactly at allowed shallow depth, teleport to surface
+        else if (p->wpos.depth == allowed_shallow_depth)
+        {
+            ascend_to = 0; // go directly to surface
+        }
+        // if player is above allowed shallow depth (shouldn't happen, but safety check)
+        else
+        {
+            msg(p, "You must delve deeper into the darkness.");
+            return;
+        }
+    }
+
+    // calculate ascend_to after deeptown logic
+    if (OPT(p, birth_deeptown) && ascend_to == 0)
+    {
+        // already set to surface by deeptown logic
+    }
+    else
+    {
+        ascend_to = dungeon_get_next_level(p, p->wpos.depth, -1);
+    }
 
     wpos_init(&wpos, &p->wpos.grid, ascend_to);
 
