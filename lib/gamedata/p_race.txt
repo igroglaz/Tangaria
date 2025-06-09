@@ -1247,7 +1247,7 @@ player-flags:0:ANIMAL
 name:Undead
 skill-disarm-phys:-15
 skill-disarm-magic:-15
-skill-device:-15
+skill-device:-50
 skill-save:5
 skill-stealth:-3
 skill-search:-10
@@ -1288,7 +1288,7 @@ value:0:MOVES[-1]
 name:Vampire
 skill-disarm-phys:-2
 skill-disarm-magic:-2
-skill-device:-3
+skill-device:-50
 skill-save:20
 skill-stealth:2
 skill-search:-10
