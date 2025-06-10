@@ -3937,6 +3937,20 @@ bool effect_handler_LIGHT_AREA(effect_handler_context_t *context)
         !context->origin->player->timed[TMD_BLIND_REAL])
         msg(context->origin->player, "You are surrounded by a white light.");
 
+    // vampires take damage by using light (illumination) items
+    // (work for all except act:LIGHT_LINE which is LINE:LIGHT_WEAK)
+    if (context->origin->player && streq(context->origin->player->race->name, "Vampire"))
+    {
+        // damage but don't kill vamp
+        int dmg = context->origin->player->mhp / 5;
+        context->origin->player->chp -= dmg;
+        if (context->origin->player->chp < 1)
+            context->origin->player->chp = 1;
+
+        context->origin->player->upkeep->redraw |= (PR_HP);
+        msg(context->origin->player, "The bright light burns your undead flesh!");
+    }
+
     /* Hack -- elementalists */
     if (context->beam.spell_power)
     {
