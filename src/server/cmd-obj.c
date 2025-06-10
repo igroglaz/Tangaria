@@ -1686,6 +1686,20 @@ static bool do_cmd_use_end(struct player *p, struct object *obj, bool ident, boo
 }
 
 
+// apply light damage to vampires
+static void vampire_light_damage(struct player *p)
+{
+    // damage but don't kill the player
+    int dmg = p->mhp / 5;
+    p->chp -= dmg;
+    if (p->chp < 1)
+        p->chp = 1;
+    
+    p->upkeep->redraw |= (PR_HP);
+    msg(p, "The bright light burns your undead flesh!");
+}
+
+
 bool execute_effect(struct player *p, struct object **obj_address, struct effect *effect, int dir,
     const char *inscription, bool *ident, bool *used, bool *notice)
 {
@@ -1757,6 +1771,15 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
                 /* Monster race */
                 boost = (*obj_address)->modifiers[OBJ_MOD_POLY_RACE];
 
+                break;
+            }
+
+            // when vamp uses light LINE items
+            case EF_LINE:
+            {
+                // vampires take damage from using light objects
+                if (e->subtype == PROJ_LIGHT_WEAK && streq(p->race->name, "Vampire"))
+                    vampire_light_damage(p);
                 break;
             }
         }
