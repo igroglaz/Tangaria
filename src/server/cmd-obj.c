@@ -1970,7 +1970,8 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
 /// potion of water. gives additional satiation (+ to object.txt) if hungry
     if (obj->tval == TV_POTION)
     {
-        if (obj->kind == lookup_kind_by_name(TV_POTION, "Water"))
+        if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
+            !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead"))
         {
             int satiation = 0;
             
@@ -2045,7 +2046,8 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
 
     if (streq(obj->kind->name, "Scrap of Flesh"))
     {
-        if (streq(p->race->name, "Hydra"))
+        if (streq(p->race->name, "Hydra") || streq(p->race->name, "Vampire") ||
+            streq(p->race->name, "Undead"))
             player_inc_timed(p, TMD_FOOD, 2000, false, false);
         else if (one_in_(3))
             player_dec_timed(p, TMD_FOOD, 2000, false);
@@ -2060,6 +2062,13 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             p->chp = p->mhp;
         else
             p->chp = (p->chp / 2) + 1; // don't kill player
+
+        // heal and feed vamps and corpses
+        if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
+        {
+            p->chp = p->mhp;
+            player_inc_timed(p, TMD_FOOD, 2334, false, false);
+        }
 
         /* Display the hitpoints */
         p->upkeep->redraw |= (PR_HP);
