@@ -67,36 +67,33 @@ int set_zeitnot_timer(int depth) {
 // get the minimum required depth for a given player level in deeptown mode
 static int get_deeptown_min_depth(int player_level)
 {
-    if (player_level == 50)
-        return 75;
-    else if (player_level == 49)
-        return 70;
-    else if (player_level == 48)
-        return 66;
-    else if (player_level == 47)
-        return 63;
-    else if (player_level == 46)
-        return 60;
-    else if (player_level == 45)
-        return 55;
-    else if (player_level >= 40)
-        return 42;
-    else if (player_level >= 35)
-        return 30;
-    else if (player_level >= 30)
-        return 23;
-    else if (player_level >= 25)
-        return 18;
-    else if (player_level >= 20)
-        return 12;
-    else if (player_level >= 15)
-        return 8;
-    else if (player_level >= 10)
-        return 4;
-    else if (player_level >= 5)
-        return 2;
-    else
-        return 1;
+    // Lookup table for levels 1-50 (index 0 unused for clarity)
+    static const int depth_table[] = {
+        0,  // index 0 (unused)
+        1,  // level 1 -> depth 1
+        1,  // level 2 -> depth 1  
+        2,  // level 3 -> depth 2
+        2,  // level 4 -> depth 2
+        3,  // level 5 -> depth 3
+        3,  // level 6 -> depth 3
+        4,  // level 7 -> depth 4
+        4,  // level 8 -> depth 4
+        5,  // level 9 -> depth 5
+        5,  // level 10 -> depth 5
+        6, 6, 7, 7, 8,              // levels 11-15
+        9, 10, 11, 12, 13,          // levels 16-20
+        14, 15, 16, 17, 18,         // levels 21-25
+        19, 20, 21, 22, 23,         // levels 26-30
+        24, 25, 26, 27, 28,         // levels 31-35
+        30, 32, 34, 36, 38,         // levels 36-40
+        41, 44, 47, 50, 53,         // levels 41-45
+        57, 61, 65, 70, 75          // levels 46-50
+    };
+    
+    if (player_level >= 1 && player_level <= 50)
+        return depth_table[player_level];
+    
+    return 1; // fallback for invalid levels
 }
 
 
