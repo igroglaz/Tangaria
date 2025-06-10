@@ -2000,6 +2000,24 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             else // all other races
                 player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
         }
+        else if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
+        {
+            // cheated death? :)
+            if (p->chp == 1)
+                p->chp = p->mhp;
+            else
+                p->chp = (p->chp / 2) + 1; // don't kill player
+
+            // heal and feed vamps and corpses
+            if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
+            {
+                p->chp = p->mhp;
+                player_inc_timed(p, TMD_FOOD, 2334, false, false);
+            }
+
+            /* Display the hitpoints */
+            p->upkeep->redraw |= (PR_HP);
+        }
         else if (streq(p->race->name, "Ent"))
         {
            int ent_food = 0;
@@ -2053,25 +2071,6 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
             player_dec_timed(p, TMD_FOOD, 2000, false);
         else
             player_inc_timed(p, TMD_FOOD, 2000, false, false);
-    }
-
-    if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
-    {
-        // cheated death? :)
-        if (p->chp == 1)
-            p->chp = p->mhp;
-        else
-            p->chp = (p->chp / 2) + 1; // don't kill player
-
-        // heal and feed vamps and corpses
-        if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
-        {
-            p->chp = p->mhp;
-            player_inc_timed(p, TMD_FOOD, 2334, false, false);
-        }
-
-        /* Display the hitpoints */
-        p->upkeep->redraw |= (PR_HP);
     }
 
     /* If the item is a null pointer or has been wiped, be done now */
