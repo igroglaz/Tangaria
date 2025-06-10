@@ -1826,12 +1826,19 @@ bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
     int house_variant = context->value.base;
     context->ident = true;
 
-    // can build only in town or to the west from it + deeptown
-    if ((context->origin->player->wpos.grid.x == 0 && context->origin->player->wpos.grid.y == 1) ||
-        (context->origin->player->wpos.grid.x == -1 && context->origin->player->wpos.grid.y == 1) ||
-        (context->origin->player->wpos.grid.x == -6 && context->origin->player->wpos.grid.y == 0)) // deeptown
-        ;
-    else
+    // Deeptown housing
+    if (context->origin->player->wpos.grid.x == -6 && context->origin->player->wpos.grid.y == 0)
+    {
+        if (context->origin->player->grid.x < 70)
+        {
+            msg(context->origin->player, "In Deeptown, you can build houses only east of the dungeon.");
+            return false;
+        }
+        // ; OK, can build
+    }
+    // no-mode: can build only in town or to the west from it
+    else if (!((context->origin->player->wpos.grid.x == 0 && context->origin->player->wpos.grid.y == 1) ||
+               (context->origin->player->wpos.grid.x == -1 && context->origin->player->wpos.grid.y == 1)))
     {
         msg(context->origin->player, "You can build house only in Farfest town or its rural areas to the west.");
         return false;
