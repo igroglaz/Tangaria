@@ -64,6 +64,42 @@ int set_zeitnot_timer(int depth) {
 }
 
 
+// get the minimum required depth for a given player level in deeptown mode
+static int get_deeptown_min_depth(int player_level)
+{
+    if (player_level == 50)
+        return 75;
+    else if (player_level == 49)
+        return 70;
+    else if (player_level == 48)
+        return 66;
+    else if (player_level == 47)
+        return 63;
+    else if (player_level == 46)
+        return 60;
+    else if (player_level == 45)
+        return 55;
+    else if (player_level >= 40)
+        return 42;
+    else if (player_level >= 35)
+        return 30;
+    else if (player_level >= 30)
+        return 23;
+    else if (player_level >= 25)
+        return 18;
+    else if (player_level >= 20)
+        return 12;
+    else if (player_level >= 15)
+        return 8;
+    else if (player_level >= 10)
+        return 4;
+    else if (player_level >= 5)
+        return 2;
+    else
+        return 1;
+}
+
+
 /*
  * Go up one level
  */
@@ -124,38 +160,7 @@ void do_cmd_go_up(struct player *p)
     if (OPT(p, birth_deeptown))
     {
         int allowed_shallow_depth;
-        int min_depth_for_level = 0;
-
-        if (p->lev == 50)
-            min_depth_for_level = 75;
-        else if (p->lev == 49)
-            min_depth_for_level = 70;
-        else if (p->lev == 48)
-            min_depth_for_level = 66;
-        else if (p->lev == 47)
-            min_depth_for_level = 63;
-        else if (p->lev == 46)
-            min_depth_for_level = 60;
-        else if (p->lev == 45)
-            min_depth_for_level = 55;
-        else if (p->lev >= 40)
-            min_depth_for_level = 42;
-        else if (p->lev >= 35)
-            min_depth_for_level = 30;
-        else if (p->lev >= 30)
-            min_depth_for_level = 23;
-        else if (p->lev >= 25)
-            min_depth_for_level = 18;
-        else if (p->lev >= 20)
-            min_depth_for_level = 12;
-        else if (p->lev >= 15)
-            min_depth_for_level = 8;
-        else if (p->lev >= 10)
-            min_depth_for_level = 4;
-        else if (p->lev >= 5)
-            min_depth_for_level = 2;
-        else
-            min_depth_for_level = 1;
+        int min_depth_for_level = get_deeptown_min_depth(p->lev);
 
         allowed_shallow_depth = min_depth_for_level - 1;
         if (allowed_shallow_depth < 1) allowed_shallow_depth = 1;
@@ -290,36 +295,7 @@ void do_cmd_go_down(struct player *p)
     // (prevent low lvl farm)
     if (OPT(p, birth_deeptown) && p->wpos.depth == 0)
     {
-        if (p->lev == 50)
-            descend_to = 75;
-        else if (p->lev == 49)
-            descend_to = 70;
-        else if (p->lev == 48)
-            descend_to = 66;
-        else if (p->lev == 47)
-            descend_to = 63;
-        else if (p->lev == 46)
-            descend_to = 60;
-        else if (p->lev == 45)
-            descend_to = 55;
-        else if (p->lev >= 40)
-            descend_to = 42;
-        else if (p->lev >= 35)
-            descend_to = 30;
-        else if (p->lev >= 30)
-            descend_to = 23;
-        else if (p->lev >= 25)
-            descend_to = 18;
-        else if (p->lev >= 20)
-            descend_to = 12;
-        else if (p->lev >= 15)
-            descend_to = 8;
-        else if (p->lev >= 10)
-            descend_to = 4;
-        else if (p->lev >= 5)
-            descend_to = 2;
-        else
-            descend_to = 1;
+        descend_to = get_deeptown_min_depth(p->lev);
         
         // ensure descend_to doesn't exceed player's maximum depth
         if (descend_to > p->max_depth)
