@@ -239,6 +239,30 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
         /* Display the spellpoints */
         p->upkeep->redraw |= (PR_MANA);
     }
+    // auto-manashield damage absorption for Wizards at low HP
+    else if (streq(p->clazz->name, "Wizard") && 
+        p->csp > 0 && 
+        p->chp > 0 && 
+        p->chp <= (p->mhp * 30 / 100))
+    {
+        /* Wizard's emergency mana shield: damage is subtracted from mana first */
+        if (p->csp > damage)
+        {
+            /* Mana fully absorbs the damage */
+            p->csp -= damage;
+            damage = 0;
+        }
+        else
+        {
+            /* Mana partially absorbs the damage */
+            damage -= p->csp;
+            p->csp = 0;
+            p->csp_frac = 0;
+        }
+        
+        /* Display the spellpoints */
+        p->upkeep->redraw |= (PR_MANA);
+    }
 
     /* Hurt the player */
     p->chp -= damage;
