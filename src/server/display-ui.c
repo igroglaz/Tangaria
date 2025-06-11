@@ -2733,7 +2733,7 @@ void player_death(struct player *p)
         type = MSG_BROADCAST_ENTER_LEAVE;
         
         // also add discord message for 'retired' (as before there was only broadcase)
-        if (p->lev >= 10)
+        if (p->lev >= 10 && !is_dm_p(p))
         {
             char modes[50];
             get_player_modes(p, modes, sizeof(modes));
