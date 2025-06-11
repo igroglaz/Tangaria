@@ -2289,7 +2289,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         extra_blows += 10;
     */
 
-    // Dragon/Hydra (and Monks)
+    // Dragon/Hydra (and drag/hydra monks)
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
     {
         // blessing from gods for newborn dragons and hydras to help them survive early on
