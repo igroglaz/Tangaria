@@ -6576,7 +6576,7 @@ magic:1:300:2
 
 # spells hardcoded (hc) by mana cost! (to ease adding new spells)
 
-### !! Also Polymorph hardcoded by spell number (#2)!
+### !! Also Polymorph hardcoded by spell number (#3)!
 ### Careful in changing order of first 3 spells!
 
 #add 'Sometimes ray fizzles and it spell appear other forms'.
@@ -6584,7 +6584,8 @@ magic:1:300:2
 book:magic book:town:[Magic for Beginners]:19:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Air Fist:1:0:5:1:0
+# actually costs 1 mana. but then can be used for free
+spell:Air Fist:1:0:1:1:0
 effect:STRIKE:MISSILE:0
 dice:1d$D
 expr:D:PLAYER_LEVEL:/ 5 + 3
@@ -6593,21 +6594,20 @@ desc:Fires magic fist to the target.
 desc: Target grid must be targetable and known to the player.
 desc: Does not require mana.
 
-spell:Magic Blade:1:1:12:1:0
+spell:Magic Blade:1:1:1:1:0
 #hc 1d7 .. mana 1->6
-effect:TELEPORT
-dice:1
 effect:SHORT_BEAM:MISSILE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 3
+expr:B:PLAYER_LEVEL:+ 4
 msg_other: bends index finger.. Blades appear from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: irresistible damage.
-desc: Distance of the attack and damage depend on your level.
-desc: Each cast cause a recoil which shifts you to random direction.
+desc:At level 11 and higher, damage is greatly increased (every 7 levels).
+desc:The range of the blades increases every 10 levels, up to 5 squares.
+desc:At level 10+, each cast also consumes a small amount of extra mana.
 
-spell:Electrocute:2:3:27:2:0
-# hc 1d5; distance -> ~15; mana -> 8
+spell:Electrocute:2:2:27:2:0
+# hc 1d5; distance -> ~15; mana -> 9
 effect:SHORT_BEAM:ELEC:6
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6623,8 +6623,8 @@ msg_other: holds out a hand... Lightning!
 desc:Summon lighting upon an enemies.
 desc: At first you summon short bolt of lightning; it become longer with levels.
 
-# number 2 spell.. hc for mana restore in project-mon.c
-spell:Polymorph:3:1:20:3:0
+# number 3 spell.. hc for mana restore in project-mon.c
+spell:Polymorph:3:0:20:3:0
 cooldown:5
 effect:BOLT_AWARE:MON_POLY:1
 dice:$B
@@ -6634,7 +6634,7 @@ desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
 desc: Ordering chaotic energy restores your magic power.
 desc: Cooldown 5 turns.
 
-spell:Teleport:5:4:35:5:0
+spell:Teleport:5:3:1:5:0
 effect:RESTORE_MANA
 dice:2
 effect:RESTORE_MANA
@@ -6662,7 +6662,7 @@ desc: light-sensitive monster in its path.
 desc: If you are in a room, the entire room will be lit up as well.
 desc: Cooldown 10 turns.
 
-spell:Cold Ray:10:3:30:10:0
+spell:Cold Ray:10:5:30:10:0
 # hc 1d5 .. mana -> 13
 effect:BOLT_OR_BEAM:COLD
 dice:$B
@@ -6670,25 +6670,25 @@ expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts first monster in its path.
 
-spell:Stone Curse:15:10:32:15:0
+spell:Stone Curse:15:6:32:15:0
 cooldown:240
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:7d2
-# later: replace circle of walls to stone wall
-effect:CREATE_WALLS
+effect:GRANITE
 effect:TIMED_INC_NO_RES:PARALYZED
-dice:3
+dice:6
+#don't put too much as it might be cheezed to tank when playing in party
 effect:TIMED_SET:REVIVE
-dice:3
+dice:6
 msg_other: slowly nods.. and becomes stone statue.
-desc:Turns you into a stone statue for 3 turns.
+desc:Turns you into a stone statue for 6 turns.
 desc: While petrified, you are invulnerable to all attacks.
 desc: After some time you recover from stone, but the stone rock still
 desc: stays in place protecting you.
 desc: This spell may causes internal injuries which recover after some time.
 desc: Cooldown 240 turns.
 
-spell:Flamestrike:17:8:33:20:0
+spell:Flamestrike:17:7:33:20:0
 # hc 1d5; mana -> 13
 effect:STRIKE:FIRE:0
 dice:$B
@@ -6723,7 +6723,7 @@ desc:Grants you resistance to fire (20), cold (25), lightning (30), poison (35),
 desc: acid (40) for 20+1d20 turns. Also increase magic resistance.
 desc: Require some satiation.
 
-spell:Manablast:25:10:30:30:0
+spell:Manablast:25:9:30:30:0
 cooldown:3
 #hc dam 1d10 and rad 1-4
 effect:BLAST:MANA:0
@@ -6742,7 +6742,7 @@ desc:Teleports you 1 level up or 1 level down (chosen at random) and
 desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Cooldown 100 turns.
 
-spell:Acid Breath:33:10:30:50:0
+spell:Acid Breath:33:11:30:50:0
 cooldown:60
 # hc 1d4 (up to x12)
 effect:TIMED_INC_NO_RES:STUN
@@ -6755,7 +6755,7 @@ desc:Breathes acid.
 desc: This spell makes you stunned for a moment.
 desc: Cooldown 60 turns.
 
-spell:Dark Ritual:35:10:32:70:0
+spell:Dark Ritual:35:12:32:70:0
 cooldown:30
 # hc 1d5
 effect:TIMED_INC_NO_RES:BLIND_REAL
@@ -6854,6 +6854,8 @@ desc: have resistance to blindness or dark.
 desc: Each cast of this spell brings a big reputation loss and
 desc: reduces your charisma.
 
+#TODO: effect:BLAST:STONE_WALL:0
+# spell will create huge mound of walls.. name:"Create Mountain"?
 
 ############### CLASS TEMPLATE for Trader ###############
 name:Trader

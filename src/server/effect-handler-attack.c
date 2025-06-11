@@ -386,8 +386,8 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
         if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard") &&
             !context->origin->player->poly_race)
         {
-            // Acid Breath spell (mana 10)
-            if (context->origin->player->spell_cost == 10)
+            // Acid Breath spell (mana 11)
+            if (context->origin->player->spell_cost == 11)
                 dam *= context->origin->player->lev / 4;
         }
 
@@ -841,8 +841,8 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     {
         if (streq(context->origin->player->clazz->name, "Wizard"))
         {   
-            // Manablast spell (mana 10)
-            if (context->origin->player->spell_cost == 10)
+            // Manablast spell (mana 9)
+            if (context->origin->player->spell_cost == 9)
             {
                 rad += context->origin->player->lev / 12;
                 dam *= context->origin->player->lev / 10;
@@ -1096,8 +1096,8 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
 
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Cold Ray spell (mana 3)
-        if (context->origin->player->spell_cost == 3)
+        // Cold Ray spell (mana 5)
+        if (context->origin->player->spell_cost == 5)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
         if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
@@ -2334,8 +2334,8 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (context->origin->player->lev > 10)
                         dam *= context->origin->player->lev / 3;
                 }
-                // Electrocute spell (mana 3)
-                else if (context->origin->player->spell_cost == 3)
+                // Electrocute spell (mana 2)
+                else if (context->origin->player->spell_cost == 2)
                 {
                     rad += context->origin->player->lev / 5;
                     dam *= context->origin->player->lev / 5;
@@ -2454,8 +2454,8 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Dark Ritual spell (mana 10)
-        if (context->origin->player->spell_cost == 10)
+        // Dark Ritual spell (mana 12)
+        if (context->origin->player->spell_cost == 12)
             dam *= context->origin->player->lev / 5;
     }
 
@@ -2518,8 +2518,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Flamestrike spell (mana 8)
-        if (context->origin->player->spell_cost == 8)
+        // Flamestrike spell (mana 7)
+        if (context->origin->player->spell_cost == 7)
             dam *= context->origin->player->lev / 5;
         // spend additional mana
         if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
