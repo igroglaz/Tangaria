@@ -245,8 +245,7 @@ void do_cmd_breath(struct player *p, int dir)
     // Now special races' effects
     
     // Spider weaves 8 webs around it
-    // (hm.. why !shapechanger? don't recall. need a comment there)
-    if (streq(p->race->name, "Spider") && !streq(p->clazz->name, "Shapechanger"))
+    if (streq(p->race->name, "Spider"))
     {
         /* Take a turn */
         use_energy(p);
@@ -255,7 +254,10 @@ void do_cmd_breath(struct player *p, int dir)
         effect = mem_zalloc(sizeof(struct effect));
         effect->index = EF_WEB; // satiation spending included
         
-        p->y_cooldown = 255; // cooldown
+        if (p->msp)
+            p->y_cooldown = 120; // magic users less CD
+        else
+            p->y_cooldown = 240; // fighters CD
 
         /* Cast the breath attack */
         source_player(who, get_player_index(get_connection(p->conn)), p);
@@ -276,7 +278,6 @@ void do_cmd_breath(struct player *p, int dir)
             // (summoning more than 2 glitch - one stuck in place. so we summon max 2)
             summon_specific_race_aux(p, c, &p->grid, get_race("oozling"), 1 + p->lev / 30, true);
 
-            player_dec_timed(p, TMD_FOOD, (100 - p->lev), false);
             player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
             
             if (p->mhp < 20)
@@ -284,7 +285,10 @@ void do_cmd_breath(struct player *p, int dir)
             else // take a hit (ok, only on full HP)
                 p->chp -= p->mhp / 3;
 
-            p->y_cooldown = 10; // cooldown
+            if (p->msp)
+                p->y_cooldown = 30; // magic users less CD
+            else
+                p->y_cooldown = 60; // fighters CD
 
             // Redraw the player's health and map
             p->upkeep->redraw |= (PR_HP | PR_MAP);
@@ -301,7 +305,7 @@ void do_cmd_breath(struct player *p, int dir)
         if (p->chp == p->mhp)
         {
             // element for ray
-            int b_elem = randint0(1 + p->lev / 5);
+            int b_elem = randint1(p->lev / 10);
             // Dmg dice.. We need array with eg 5 elements because we will parse the number (eg 50)
             // to a separate array elements (string). So eg int 50 will become {'5','0'} - which means
             // array with two numbers (eg dice_string[2]).. We take [5] just in case for bigger numbers.
@@ -317,11 +321,14 @@ void do_cmd_breath(struct player *p, int dir)
             effect->radius = 3 + p->lev / 25; // up to 5
 
             // magic users got boni dmg
-            if (p->msp > 0)
+            if (p->msp)
             {
                 dice_calc *= 2;
                 effect->radius += p->lev / 10;
+                p->y_cooldown = 30; // cooldown
             }
+            else
+                p->y_cooldown = 60; // cooldown fighters
             
             // init dice
             effect->dice = dice_new();
@@ -333,18 +340,12 @@ void do_cmd_breath(struct player *p, int dir)
             // element
             switch (b_elem)
             {
-                case 0: effect->subtype = PROJ_TURN_ALL; break; // scare
-                case 1: effect->subtype = PROJ_MON_CONF; break; // conf
-                case 2: effect->subtype = PROJ_MON_BLIND; break; // blind
-                case 3: effect->subtype = PROJ_MON_STUN; break;// stun
-                case 4: effect->subtype = PROJ_INERTIA; break;// slow
-                case 5: effect->subtype = PROJ_MON_HOLD; break;// mob can't move
-                case 6: effect->subtype = PROJ_SLEEP_ALL; break;// sleep
-                case 7: effect->subtype = PROJ_DARK; break;
-                case 8: effect->subtype = PROJ_PSI; break;
-                case 9: effect->subtype = PROJ_PSI_DRAIN; break;
-                case 10: effect->subtype = PROJ_TIME; break;
-                case 11: effect->subtype = PROJ_DISEN; break;// spellcasters less successful
+                case 1: effect->subtype = PROJ_TIME; break;
+                case 2: effect->subtype = PROJ_NEXUS; break;
+                case 3: effect->subtype = PROJ_DISEN; break;
+                case 4: effect->subtype = PROJ_DARK; break;
+                case 5: effect->subtype = PROJ_FORCE; break;
+                default: effect->subtype = PROJ_TIME; break; // paranoia
             }
 
             source_player(who, get_player_index(get_connection(p->conn)), p);
@@ -352,7 +353,6 @@ void do_cmd_breath(struct player *p, int dir)
 
             free_effect(effect);
 
-            player_dec_timed(p, TMD_FOOD, 25, false);
             player_inc_timed(p, TMD_IMAGE, 1 + randint0(2), false, false);
             
             if (p->mhp < 20)
@@ -396,11 +396,13 @@ void do_cmd_breath(struct player *p, int dir)
             }
 
             player_inc_timed(p, TMD_OCCUPIED, 3 + randint0(2), true, false);
-            player_dec_timed(p, TMD_FOOD, (150 - p->lev), false);
 
             p->chp -= p->mhp / 3; // take a hit (ok, only on full HP)
             
-            p->y_cooldown = 255; // cooldown
+            if (p->msp)
+                p->y_cooldown = 60; // magic users less CD
+            else
+                p->y_cooldown = 120; // fighters CD
 
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -429,8 +431,12 @@ void do_cmd_breath(struct player *p, int dir)
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_WONDER, who, dice_string, 0, 0, 0, 0, 0, NULL);
 
-        player_dec_timed(p, TMD_FOOD, (50 - p->lev / 2), false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
+
+        if (p->msp)
+            p->y_cooldown = 10; // magic users less CD
+        else
+            p->y_cooldown = 20; // fighters CD
 
         return;
     }
@@ -442,7 +448,7 @@ void do_cmd_breath(struct player *p, int dir)
         // msg in violet color
         msgt(p, MSG_GENERIC, " $v%s^v", "You've become as intangible as a wisp of cloud in the sky.");
 
-        p->y_cooldown = 255; // cooldown
+        p->y_cooldown = 255;
 
         // update visual after invis
         p->upkeep->update |= PU_MONSTERS;
@@ -482,9 +488,12 @@ void do_cmd_breath(struct player *p, int dir)
 
             free_effect(effect);
 
-            player_dec_timed(p, TMD_FOOD, 25, false);
-
             p->chp -= p->mhp / 5; // take a hit (ok, only on full HP)
+
+            if (p->msp)
+                p->y_cooldown = 15; // magic users less CD
+            else
+                p->y_cooldown = 30; // fighters CD
 
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -506,7 +515,6 @@ void do_cmd_breath(struct player *p, int dir)
         
         p->y_cooldown = 255; // cooldown
 
-        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 5, false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
@@ -516,15 +524,13 @@ void do_cmd_breath(struct player *p, int dir)
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_TELEPORT, who, "13", 0, 0, 0, 0, 0, NULL);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
-        player_dec_timed(p, TMD_FOOD, 4, false);
         return;
     }
     else if (streq(p->race->name, "Homunculus"))
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_TELEPORT, who, "10", 0, 0, 0, 0, 0, NULL);
-        player_dec_timed(p, TMD_FOOD, 2, false);
+        effect_simple(EF_TELEPORT, who, "9", 0, 0, 0, 0, 0, NULL);
         return;
     }
     else if (streq(p->race->name, "Wraith")) // TODO: test and rebalance
@@ -533,7 +539,6 @@ void do_cmd_breath(struct player *p, int dir)
         source_player(who, get_player_index(get_connection(p->conn)), p);
         player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
         player_inc_timed(p, TMD_BLIND_REAL, 5, false, false); // no cure
-        player_dec_timed(p, TMD_FOOD, 5, false);
         
         p->y_cooldown = 60; // cooldown
         
@@ -563,7 +568,6 @@ void do_cmd_breath(struct player *p, int dir)
         free_effect(effect);
 
         effect_simple(EF_LIGHT_AREA, who, 0, 0, 0, 0, 0, 0, NULL);
-        player_dec_timed(p, TMD_FOOD, 3, false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
@@ -601,7 +605,6 @@ void do_cmd_breath(struct player *p, int dir)
         
         p->y_cooldown = 255; // cooldown
         
-        player_dec_timed(p, TMD_FOOD, 25, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -609,7 +612,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_OFFENSIVE_STANCE, 5 + p->lev / 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 10 + p->lev, false);
 
         p->y_cooldown = 255; // cooldown
 
@@ -637,8 +639,7 @@ void do_cmd_breath(struct player *p, int dir)
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
             free_effect(effect);
-            
-            player_dec_timed(p, TMD_FOOD, 15, false);
+            p->y_cooldown = 2;
             return;
     }
     else if (streq(p->race->name, "Troglodyte"))
@@ -673,7 +674,6 @@ void do_cmd_breath(struct player *p, int dir)
         {
             use_energy(p);
             player_inc_timed(p, TMD_SPEEDY, 5 + p->lev / 3, false, false);
-            player_dec_timed(p, TMD_FOOD, 15, false);
 
             p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
 
@@ -691,7 +691,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_clear_timed(p, TMD_SLOW, false);
-        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
         p->upkeep->redraw |= (PR_STATE);
         return;
     }
@@ -715,7 +714,8 @@ void do_cmd_breath(struct player *p, int dir)
 
             p->chp -= p->mhp / 4; // take a hit (ok, only of full hp)
 
-            player_dec_timed(p, TMD_FOOD, 15, false);
+            p->y_cooldown = 30;
+
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
         }
@@ -747,9 +747,11 @@ void do_cmd_breath(struct player *p, int dir)
 
             p->chp -= p->mhp / 3; // take a hit (ok, only on full hp)
             
-            p->y_cooldown = 255; // cooldown
+            if (p->msp)
+                p->y_cooldown = 255; // magic users less CD
+            else
+                p->y_cooldown = 180; // fighters CD
 
-            player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -812,9 +814,12 @@ void do_cmd_breath(struct player *p, int dir)
 
             free_effect(effect);
 
-            player_dec_timed(p, TMD_FOOD, 25, false);
-
             p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
+
+            if (p->msp)
+                p->y_cooldown = 15; // magic users less CD
+            else
+                p->y_cooldown = 30; // fighters CD
 
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
             p->upkeep->redraw |= (PR_HP);
@@ -829,7 +834,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_SINVIS, 2 + p->lev, false, false);
-        player_dec_timed(p, TMD_FOOD, 15, false);
         player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
         return;
     }
@@ -837,7 +841,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_SINFRA, 5 + p->lev, false, false);
-        player_dec_timed(p, TMD_FOOD, 10, false);
         player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
         return;
     }
@@ -904,7 +907,6 @@ void do_cmd_breath(struct player *p, int dir)
 
             p->y_cooldown = 500; // cooldown
 
-            player_dec_timed(p, TMD_FOOD, 42, false);
             player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -946,9 +948,12 @@ void do_cmd_breath(struct player *p, int dir)
 
             free_effect(effect);
 
-            player_dec_timed(p, TMD_FOOD, 10, false);
-
             p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
+
+            if (p->msp)
+                p->y_cooldown = 15; // magic users less CD
+            else
+                p->y_cooldown = 30; // fighters CD
 
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -995,7 +1000,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        player_dec_timed(p, TMD_FOOD, 15, false);
+        p->y_cooldown = 15;
 
         return;
     }
@@ -1035,7 +1040,10 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        player_dec_timed(p, TMD_FOOD, 25, false);
+        if (p->msp)
+            p->y_cooldown = 10; // magic users less CD
+        else
+            p->y_cooldown = 20; // fighters CD
 
         p->chp -= p->mhp / 10; // // take a slight hit (ok, checked above)
 
@@ -1048,7 +1056,10 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         player_inc_timed(p, TMD_FLIGHT, 5 + p->lev / 2, false, false);
         
-        p->y_cooldown = 255; // cooldown
+        if (p->msp)
+            p->y_cooldown = 180; // magic users less CD
+        else
+            p->y_cooldown = 255; // fighters CD
 
         return;
     }
@@ -1064,7 +1075,6 @@ void do_cmd_breath(struct player *p, int dir)
         {
             use_energy(p);
             player_inc_timed(p, TMD_ATT_POIS, 10 + p->lev / 2, false, false);
-            player_dec_timed(p, TMD_FOOD, 5, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
 
             p->chp -= p->mhp / 10; // take a slight hit (ok, only on full hp)
@@ -1093,9 +1103,7 @@ void do_cmd_breath(struct player *p, int dir)
             // summon
             summon_specific_race_aux(p, c, &p->grid, get_race("tamed wolf"), 1, true);
             
-            p->y_cooldown = 255; // cooldown
-
-            player_dec_timed(p, TMD_FOOD, 100, false);
+            p->y_cooldown = 300; // cooldown
 
             p->chp -= p->mhp / 3; // take a hit (ok, only on full hp)
 
@@ -1111,10 +1119,9 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_SHIELD, 10 + p->lev / 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 10 + p->lev / 2, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         
-        p->y_cooldown = 255; // cooldown
+        p->y_cooldown = 300; // cooldown
 
         return;
     }
@@ -1137,11 +1144,10 @@ void do_cmd_breath(struct player *p, int dir)
             
             // magic resistance
             player_inc_timed(p, TMD_SAFE, 7 + p->lev / 5, false, false);
-            player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
 
             p->chp -= p->mhp / 4; // take a hit (ok, only on full hp)
 
-            p->y_cooldown = 255; // cooldown
+            p->y_cooldown = 300; // cooldown
 
             p->upkeep->redraw |= (PR_HP);
             p->upkeep->redraw |= (PR_MAP);
@@ -1157,7 +1163,6 @@ void do_cmd_breath(struct player *p, int dir)
         {
             use_energy(p);
             player_inc_timed(p, TMD_BLOODLUST, 2 + p->lev / 7, true, false);
-            player_dec_timed(p, TMD_FOOD, 150 - p->lev, false);
 
             p->chp -= p->mhp / 2; // take a hit (ok, only on full hp)
             
@@ -1180,8 +1185,7 @@ void do_cmd_breath(struct player *p, int dir)
         effect_simple(EF_DETECT_DOORS, who, 0, 0, 0, 0, 10 + p->lev, 10 + p->lev, NULL);
 
         p->y_cooldown = 255; // cooldown        
-        
-        player_dec_timed(p, TMD_FOOD, 10, false);
+
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -1192,8 +1196,7 @@ void do_cmd_breath(struct player *p, int dir)
             effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
             player_inc_timed(p, TMD_HERO, 10 + p->lev / 2, false, false);
             player_inc_timed(p, TMD_TAUNT, 10 + p->lev / 2, false, false);
-            player_dec_timed(p, TMD_FOOD, 25, false);
-            
+
             p->y_cooldown = 255; // cooldown
             
             return;
@@ -1202,7 +1205,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_clear_timed(p, TMD_POISONED, false);
-        player_dec_timed(p, TMD_FOOD, 10, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -1232,9 +1234,8 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         player_inc_timed(p, TMD_ANTISUMMON, 2 + p->lev / 7, false, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 100 - p->lev, false);
 
-        p->y_cooldown = 255; // cooldown
+        p->y_cooldown = 500; // cooldown
 
         p->chp -= p->mhp / 10; // take a hit (ok, as we check hp above)
 
@@ -1250,9 +1251,8 @@ void do_cmd_breath(struct player *p, int dir)
         // big radius, but CD
         effect_simple(EF_DETECT_EVIL, who, 0, 0, 0, 0, 10 + p->lev, 10 + p->lev, NULL);
 
-        p->y_cooldown = 255; // cooldown
+        p->y_cooldown = 300; // cooldown
 
-        player_dec_timed(p, TMD_FOOD, 10 + p->lev, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
         return;
     }
@@ -1268,9 +1268,8 @@ void do_cmd_breath(struct player *p, int dir)
 
             p->chp -= p->mhp / 4; // take a hit (ok, only on full hp)
 
-            p->y_cooldown = 255; // cooldown
+            p->y_cooldown = 300; // cooldown
 
-            player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         }
         else
@@ -1283,14 +1282,12 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         player_clear_timed(p, TMD_AFRAID, false);
         player_inc_timed(p, TMD_BOLD, 1 + p->lev, false, false);
-        player_dec_timed(p, TMD_FOOD, 7, false);
         return;
     }
     else if (streq(p->race->name, "Kobold") && p->chp - (p->mhp / 5) > 0)
     {
         use_energy(p);
         player_inc_timed(p, TMD_OPP_POIS, 10 + p->lev / 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 10 + p->lev / 2, false);
 
         p->y_cooldown = 255; // cooldown
 
@@ -1304,7 +1301,6 @@ void do_cmd_breath(struct player *p, int dir)
         player_clear_timed(p, TMD_BLACKBREATH, false);
         if (p->chp < p->mhp)
             p->chp++; // ok
-        player_dec_timed(p, TMD_FOOD, 5, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -1313,7 +1309,6 @@ void do_cmd_breath(struct player *p, int dir)
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_simple(EF_RESTORE_STAT, who, "0", STAT_STR, 0, 0, 0, 0, NULL);
-        player_dec_timed(p, TMD_FOOD, 10, false);
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -1325,8 +1320,7 @@ void do_cmd_breath(struct player *p, int dir)
         effect_simple(EF_DETECT_TREASURES, who, 0, 0, 0, 0, 10 + p->lev, 10 + p->lev, NULL);
         
         p->y_cooldown = 255; // cooldown
-        
-        player_dec_timed(p, TMD_FOOD, 10 + p->lev, false);
+
         player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
         return;
     }
@@ -1334,7 +1328,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_clear_timed(p, TMD_IMAGE, false);
-        player_dec_timed(p, TMD_FOOD, 1 + p->lev / 2, false);
         p->upkeep->redraw |= (PR_STATE);
         return;
     }
@@ -1344,7 +1337,6 @@ void do_cmd_breath(struct player *p, int dir)
         {
             use_energy(p);
             player_inc_timed(p, TMD_TRAPSAFE, 3, false, false);
-            player_dec_timed(p, TMD_FOOD, 25, false);
             return;
         }
         else
@@ -1356,7 +1348,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_BLESSED, 10 + p->lev / 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 5 + p->lev / 2, false);
         
         p->y_cooldown = 255; // cooldown
         
@@ -1366,7 +1357,6 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         player_inc_timed(p, TMD_HERO, 10 + p->lev / 2, false, false);
-        player_dec_timed(p, TMD_FOOD, 5 + p->lev / 2, false);
         
         p->y_cooldown = 255; // cooldown
         
@@ -1378,7 +1368,6 @@ void do_cmd_breath(struct player *p, int dir)
             use_energy(p);
             source_player(who, get_player_index(get_connection(p->conn)), p);
             effect_simple(EF_RESTORE_STAT, who, "0", STAT_CON, 0, 0, 0, 0, NULL);
-            player_dec_timed(p, TMD_FOOD, 25, false);
             player_inc_timed(p, TMD_OCCUPIED, 2, true, false);
 
             p->y_cooldown = 20; // cooldown
@@ -1408,11 +1397,10 @@ void do_cmd_breath(struct player *p, int dir)
 
         free_effect(effect);
 
-        player_dec_timed(p, TMD_FOOD, (350 - (p->lev * 5)), false);
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint1(4), true, false);
         take_hit(p, p->mhp / 9, "exhaustion", "exhausted from gardening");
 
-        p->y_cooldown = 255; // cooldown
+        p->y_cooldown = 300; // cooldown
 
         return;
     }
