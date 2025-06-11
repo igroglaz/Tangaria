@@ -303,9 +303,9 @@ void get_plusses(struct player *p, struct player_state *state, int* dd, int* ds,
         *dd = 1 + p->lev / 10;
         *ds = 3 + p->lev / 10;
 
-        // endgame boni dmg for those monks who are not dragons or other OP forms
-        if (!(p->poly_race) && p->lev == 50)
-            *dd += 1;
+        // boni dmg for those monks who are not dragons or other OP forms
+        if (!p->poly_race && p->lev >= 15)
+            *dd += 1; // do not use *dd++ - as it means *(dd++)
     }
 
     /* Get the wielded weapon */
