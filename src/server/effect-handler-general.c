@@ -3871,13 +3871,26 @@ bool effect_handler_GLYPH(effect_handler_context_t *context)
 
 bool effect_handler_GRANITE(effect_handler_context_t *context)
 {
-    struct trap *trap = context->origin->trap;
+    // ancient mechanism trap
+    if (context->origin->trap)
+    {
+        struct trap *trap = context->origin->trap;
 
-    square_add_wall(context->cave, &trap->grid);
-    if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &trap->grid, is_daytime());
+        square_add_wall(context->cave, &trap->grid);
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &trap->grid, is_daytime());
 
-    context->origin->player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
-    context->origin->player->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
+        context->origin->player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+        context->origin->player->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
+    }
+    // eg Stone Curse 'Wizard' class spell
+    else if (context->origin->player)
+    {
+        square_add_wall(context->cave, &context->origin->player->grid);
+        if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &context->origin->player->grid, is_daytime());
+
+        context->origin->player->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+        context->origin->player->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
+    }
 
     return true;
 }
