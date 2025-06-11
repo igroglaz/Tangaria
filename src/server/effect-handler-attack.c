@@ -861,20 +861,20 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
         {
             // Cryokinetic Whirl spell (mana 2)
             if (context->origin->player->spell_cost == 2)
-                {
-                    // distance
-                    rad += randint1(2);
+            {
+                // distance
+                rad += randint1(2);
 
-                    // dam
-                    if (context->origin->player->lev < 15)
-                        dam *= rad - 1;
-                    else
-                        dam *= rad;
+                // dam
+                if (context->origin->player->lev < 15)
+                    dam *= rad - 1;
+                else
+                    dam *= rad;
 
-                    // -mana if rolled +rad
-                    if (rad > 1 && context->origin->player->csp > context->origin->player->lev / 10)
-                        context->origin->player->csp -= context->origin->player->lev / 10;
-                }
+                // -mana if rolled +rad
+                if (rad > 1 && context->origin->player->csp > context->origin->player->lev / 10)
+                    context->origin->player->csp -= context->origin->player->lev / 10;
+            }
         }
         else if (streq(context->origin->player->clazz->name, "Timeturner"))
         {   
@@ -1098,10 +1098,12 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
     {   
         // Cold Ray spell (mana 5)
         if (context->origin->player->spell_cost == 5)
+        {
             dam *= context->origin->player->lev / 5;
-        // spend additional mana
-        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
-                context->origin->player->csp = context->origin->player->csp * 96 / 100;
+            // spend additional mana
+            if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                    context->origin->player->csp = context->origin->player->csp * 96 / 100;
+        }
     }
 
     if (magik(beam))
@@ -1494,11 +1496,11 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
         {
             // Fire in the Hole (mana 40)
             if (context->origin->player->spell_cost == 40)
-                {
-                    // distance
-                    context->radius += context->origin->player->lev / 10;
-                    if (context->radius > 5) context->radius = 5;
-                }
+            {
+                // distance
+                context->radius += context->origin->player->lev / 10;
+                if (context->radius > 5) context->radius = 5;
+            }
         }
     }
 
@@ -2315,18 +2317,18 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
             {
                 // Magic Blade spell (mana 1)
                 if (context->origin->player->spell_cost == 1)
-                    {
-                        // distance
-                        rad += context->origin->player->lev / 10;
-                        if (rad > 5) rad = 5;
-                        // dmg
-                        if (context->origin->player->lev > 10)
-                            dam *= context->origin->player->lev / 7;
-                        // spend additional mana
-                        if (context->origin->player->lev > 9 &&
-                            context->origin->player->csp > context->origin->player->lev / 10)
-                                context->origin->player->csp -= context->origin->player->lev / 10;
-                    }
+                {
+                    // distance
+                    rad += context->origin->player->lev / 10;
+                    if (rad > 5) rad = 5;
+                    // dmg
+                    if (context->origin->player->lev > 10)
+                        dam *= context->origin->player->lev / 7;
+                    // spend additional mana
+                    if (context->origin->player->lev > 9 &&
+                        context->origin->player->csp > context->origin->player->lev / 10)
+                            context->origin->player->csp -= context->origin->player->lev / 10;
+                }
                 // Luminous Fog spell (mana 5)
                 else if (context->origin->player->spell_cost == 5)
                 {
@@ -2334,8 +2336,8 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (context->origin->player->lev > 10)
                         dam *= context->origin->player->lev / 3;
                 }
-                // Electrocute spell (mana 2)
-                else if (context->origin->player->spell_cost == 2)
+                // Electrocute spell (mana 3)
+                else if (context->origin->player->spell_cost == 3)
                 {
                     rad += context->origin->player->lev / 5;
                     dam *= context->origin->player->lev / 5;
@@ -2348,32 +2350,31 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
             {
                 // Holy Fire spell (mana 11)
                 if (context->origin->player->spell_cost == 11)
+                {
+                    // spend additional mana to get boni
+                    if (context->origin->player->csp > context->origin->player->lev / 10)
                     {
-                        // spend additional mana to get boni
-                        if (context->origin->player->csp > context->origin->player->lev / 10)
-                        {
-                            context->origin->player->csp -= context->origin->player->lev / 10;
-                            // distance
-                            rad += context->origin->player->lev / 50;
-                            // dmg
-                            dam *= context->origin->player->lev / 12;
-                        }
-
+                        context->origin->player->csp -= context->origin->player->lev / 10;
+                        // distance
+                        rad += context->origin->player->lev / 50;
+                        // dmg
+                        dam *= context->origin->player->lev / 12;
                     }
+                }
             }
             if (streq(context->origin->player->clazz->name, "Cryokinetic"))
             {
                 // Pyrokinetic Touch spell (mana 1)
                 if (context->origin->player->spell_cost == 1)
+                {
+                    rad += randint0(4);
+                    dam += rad;
+                    if (context->origin->player->lev > 15)
                     {
-                        rad += randint0(4);
-                        dam += rad;
-                        if (context->origin->player->lev > 15)
-                        {
-                            rad += randint0(3);
-                            rad *= 2;
-                        }
+                        rad += randint0(3);
+                        rad *= 2;
                     }
+                }
             }
         }
 
@@ -2520,10 +2521,12 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     {   
         // Flamestrike spell (mana 7)
         if (context->origin->player->spell_cost == 7)
+        {
             dam *= context->origin->player->lev / 5;
-        // spend additional mana
-        if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
-                context->origin->player->csp = context->origin->player->csp * 96 / 100;
+            // spend additional mana
+            if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                    context->origin->player->csp = context->origin->player->csp * 96 / 100;
+        }
     }
 
     /*

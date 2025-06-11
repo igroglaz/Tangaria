@@ -6585,7 +6585,6 @@ magic:1:300:2
 book:magic book:town:[Magic for Beginners]:19:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-# actually costs 1 mana. but then can be used for free
 spell:Air Fist:1:0:1:1:0
 effect:STRIKE:MISSILE:0
 dice:1d$D
@@ -6599,7 +6598,7 @@ spell:Magic Blade:1:1:1:1:0
 #hc 1d7 .. mana 1->6
 effect:SHORT_BEAM:MISSILE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 4
+expr:B:PLAYER_LEVEL:+ 3
 msg_other: bends index finger.. Blades appear from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: irresistible damage.
@@ -6607,7 +6606,7 @@ desc: At level 11 and higher, damage is greatly increased (every 7 levels).
 desc: The range of the blades increases every 10 levels, up to 5 squares.
 desc: At level 10+, each cast also consumes a small amount of extra mana.
 
-spell:Electrocute:2:2:27:2:0
+spell:Electrocute:2:3:27:2:0
 # hc 1d5; distance -> ~15; mana -> 9
 effect:SHORT_BEAM:ELEC:6
 dice:$B
@@ -6628,7 +6627,7 @@ desc: Range increases every 5 levels, up to ~15 squares.
 desc: At each cast, an additional portion of remaining mana is consumed.
 
 # number 3 spell.. hc for mana restore in project-mon.c
-spell:Polymorph:3:0:20:3:0
+spell:Polymorph:3:1:20:3:0
 cooldown:5
 effect:BOLT_AWARE:MON_POLY:1
 dice:$B
