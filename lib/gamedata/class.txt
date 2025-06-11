@@ -6558,7 +6558,8 @@ value:0:INT[5]
 value:0:CON[-2]
 value:0:CHR[-2]
 value:25:STEALTH[1]
-# restore mana when polymorph monsters
+# 1) restore mana when polymorph monsters
+# 2) on <30% HP got auto MANASHIELD
 player-flags:0:ZERO_FAIL | BEAM
 obj-flag:0:CLUMSY
 title:Witling
@@ -6602,9 +6603,9 @@ expr:B:PLAYER_LEVEL:+ 4
 msg_other: bends index finger.. Blades appear from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: irresistible damage.
-desc:At level 11 and higher, damage is greatly increased (every 7 levels).
-desc:The range of the blades increases every 10 levels, up to 5 squares.
-desc:At level 10+, each cast also consumes a small amount of extra mana.
+desc: At level 11 and higher, damage is greatly increased (every 7 levels).
+desc: The range of the blades increases every 10 levels, up to 5 squares.
+desc: At level 10+, each cast also consumes a small amount of extra mana.
 
 spell:Electrocute:2:2:27:2:0
 # hc 1d5; distance -> ~15; mana -> 9
@@ -6621,7 +6622,10 @@ effect:RANDOM
 dice:3
 msg_other: holds out a hand... Lightning!
 desc:Summon lighting upon an enemies.
-desc: At first you summon short bolt of lightning; it become longer with levels.
+desc: At first you summon short bolt of lightning.
+desc: The length and damage of the lightning increase with the caster's level.
+desc: Range increases every 5 levels, up to ~15 squares.
+desc: At each cast, an additional portion of remaining mana is consumed.
 
 # number 3 spell.. hc for mana restore in project-mon.c
 spell:Polymorph:3:0:20:3:0
@@ -6632,6 +6636,7 @@ expr:B:PLAYER_LEVEL:+ 0
 msg_other: snaps fingers. Polymorph!
 desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
 desc: Ordering chaotic energy restores your magic power.
+desc: The amount of restored mana increases with your level.
 desc: Cooldown 5 turns.
 
 spell:Teleport:5:3:1:5:0
@@ -6659,6 +6664,7 @@ msg_self:A line of bright yellowish fog appears.
 msg_other: claps hands together.. Bright yellowish fog appears!
 desc:Fires a beam of magic fog which lights up each square and hurts each
 desc: light-sensitive monster in its path.
+desc: The range and damage of the fog increase with your level (range up to ~20).
 desc: If you are in a room, the entire room will be lit up as well.
 desc: Cooldown 10 turns.
 
@@ -6668,7 +6674,9 @@ effect:BOLT_OR_BEAM:COLD
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a cold ray.
-desc:Fires a cold ray that hurts first monster in its path.
+desc:Fires a cold ray that hurts the first monster in its path.
+desc: The damage of the ray increases with your level.
+desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Stone Curse:15:6:32:15:0
 cooldown:240
@@ -6694,9 +6702,11 @@ effect:STRIKE:FIRE:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: strikes fire from below.
-desc:Strikes a target from below with a fire.
+desc:Strikes a target from below with fire.
+desc: The damage increases with your level.
 desc: If targeting a direction or the target is not a passable
-desc: grid in the line of sight, the player will be the target.
+desc: grid in line of sight, you will be the target instead.
+desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Magic Reflection:20:15:11:25:0
 effect:NOURISH:DEC_BY
@@ -6730,7 +6740,8 @@ effect:BLAST:MANA:0
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: explodes with power.
-desc:Expands a sphere of power that explode around you.
+desc:Expands a sphere of power that explodes around you.
+desc: The radius and damage of the blast increase with your level (radius up to 4).
 desc: Cooldown 3 turns.
 
 spell:Dimension Shift:30:17:35:40:0
@@ -6751,8 +6762,9 @@ effect:BREATH:ACID:0:30
 dice:$Dd8
 expr:D:PLAYER_LEVEL:+ 0
 msg_other: breathes acid.
-desc:Breathes acid.
-desc: This spell makes you stunned for a moment.
+desc:Breathes acid in a wide cone.
+desc: The damage of the breath increases with your level (up to x12).
+desc: Casting this spell stuns you for a moment.
 desc: Cooldown 60 turns.
 
 spell:Dark Ritual:35:12:32:70:0
@@ -6770,15 +6782,15 @@ effect:STAR:DARK
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: exhales sharply.. dark cloud fill surroundings!
-desc:Strikes surroundings with a dark magic.
-desc: This spell causes blindness which pass almost instantly.
-desc: Detects all monsters which have a spirit in the surrounding area,
-desc: and then maps in a region around them, increasing in size with
-desc: character level.
+desc:Strikes surroundings with dark magic.
+desc: This spell causes brief no-resistable blindness.
+desc: Reveals all monsters with a spirit nearby and maps the area around them.
+desc: The mapped area grows larger with your level.
+desc: The damage of the dark magic increases with your level.
 desc: Cooldown 30 turns.
 
 spell:Energy Bolt:40:13:27:90:0
-#stun monsters, slow and burn caster, 10x dps
+#stun monsters, slow and burn caster
 effect:DAMAGE
 dice:2
 effect:BALL:PLASMA:1
@@ -6836,7 +6848,7 @@ desc:Draws a protecting pentagram and attempts to summon a daemon.
 desc: Cooldown 150 turns.
 
 spell:Armageddon:50:42:35:666:0
-# add rng variations
+# TODO: add rng variations
 effect:DRAIN_STAT:CHR
 dice:1
 effect:WIPE_AREA:NONE:3
