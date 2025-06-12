@@ -650,7 +650,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         return false;
     }
     // Wraiths can DODGE
-    else if (streq(who->player->race->name, "Wraith") && magik(25))
+    else if (streq(who->player->race->name, "Wraith") && magik(10))
     {
         msg(who->player, "The attack pass through you without causing any damage!");
         return false;
