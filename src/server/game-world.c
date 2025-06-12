@@ -1354,6 +1354,13 @@ static void process_player_world(struct player *p, struct chunk *c)
             effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
         }
     }
+    // Wraiths may phase through multiple floors accidentally
+    else if (streq(p->race->name, "Wraith") && p->wpos.depth &&
+        one_in_(200 + (p->lev * 35)))
+    {
+        msgt(p, MSG_TPLEVEL, "Your ethereal form phases through the floor below!");
+        p->deep_descent++;
+    }
     // Beholders may hallucinate from time to time
     else if (streq(p->race->name, "Beholder") && one_in_(200 + (p->lev * 15)))
         player_inc_timed(p, TMD_IMAGE, randint1(10), true, false); 

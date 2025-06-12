@@ -1009,6 +1009,9 @@ help: stopped breathing. Instead, they just rest ('R').|
 help: |
 help:They cannot recall between town and dungeon.|
 help: |
+help:From time to time, they phase through the floor - and appear on a deeper
+help: dungeon level.|
+help: |
 help:They can pass walls at will ('y') by spending some energy, but become blind
 help: while doing so.
 
