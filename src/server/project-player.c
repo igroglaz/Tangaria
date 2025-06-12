@@ -239,7 +239,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
         // FIRE
         if (type == PROJ_FIRE && (streq(p->race->name, "Ent") ||
-            streq(p->race->name, "Undead") || streq(p->race->name, "Frostmen")))
+            streq(p->race->name, "Undead") || streq(p->race->name, "Frostmen") ||
+            streq(p->race->name, "Wraith")))
         {
             vuln_xtra_dmg = dam / 8; // 12.5%
         }

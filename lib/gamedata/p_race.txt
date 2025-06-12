@@ -2447,13 +2447,13 @@ value:0:RES_DARK[1]
 # DON'T eat. need 'R'est to restore satiation
 #/// -
 value:0:RES_FIRE[-1]
+value:0:RES_LIGHT[-1]
 value:0:RES_DISEN[-1]
-### minor fire vuln (<30; after can't get immunity only)
+### minor DISEN vuln (<30; after can't get immunity only)
 player-flags:0:NO_RECALL
 # smaller ESP radius (-1/3)
 # - hard to equip items.. need several attempts
 value:0:DAM_RED[-1]
-value:0:RES_LIGHT[-1]
 value:0:TUNNEL[-10]
 value:0:MOVES[-1]
 obj-flag:0:CLUMSY
