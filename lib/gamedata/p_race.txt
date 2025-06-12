@@ -1275,6 +1275,7 @@ value:0:INFRA[0+1d5]
 # darkness-loving (see in the dark, but light makes it worse)
 # value:0:RES_NETHER[1]
 # value:30:RES_NETHER[2] hardcoded player_elements() in 50% cases
+###### TODO: add nourishment only when eating corpses
 obj-flag:0:HOLD_LIFE
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
@@ -2433,8 +2434,8 @@ value:0:MANA[4+-1d12]
 value:0:INFRA[5+1d5]
 obj-flag:0:FEATHER
 obj-flag:0:HOLD_LIFE
-obj-flag:0:SLOW_DIGEST
-obj-flag:0:SLOW_DIGEST_2
+obj-flag:0:HUNGER
+obj-flag:0:HUNGER_2
 obj-flag:0:ESP_UNDEAD
 obj-flag:0:PROT_FEAR
 obj-flag:0:SEE_INVIS
@@ -2443,8 +2444,10 @@ value:0:RES_POIS[1]
 value:0:RES_NETHER[1]
 value:0:RES_TIME[1]
 value:0:RES_DARK[1]
+# DON'T eat. need 'R'est to restore satiation
 #/// -
 value:0:RES_FIRE[-1]
+value:0:RES_DISEN[-1]
 ### minor fire vuln (<30; after can't get immunity only)
 player-flags:0:NO_RECALL
 # smaller ESP radius (-1/3)

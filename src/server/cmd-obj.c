@@ -1994,7 +1994,8 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     if (obj->tval == TV_POTION)
     {
         if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
-            !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead"))
+            !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
+            !streq(p->race->name, "Wraith"))
         {
             int satiation = 0;
             

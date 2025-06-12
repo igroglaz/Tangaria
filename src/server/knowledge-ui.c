@@ -2689,6 +2689,10 @@ static void drink_fountain(struct player *p, struct object *obj)
 /// drink from fountain or water can increase satiation
 void drink_water_satiation(struct player *p, int satiation) {
 
+    if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead") ||
+        streq(p->race->name, "Wraith"))
+        return;
+
     if (p->timed[TMD_FOOD] < 100) { // starving
         satiation += 300;
     } else if (p->timed[TMD_FOOD] < 400) { // faint

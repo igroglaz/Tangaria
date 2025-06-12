@@ -4338,6 +4338,7 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
         streq(context->origin->player->race->name, "Vampire") ||
         streq(context->origin->player->race->name, "Undead") ||
         streq(context->origin->player->race->name, "Golem") ||
+        streq(context->origin->player->race->name, "Wraith") ||
         streq(context->origin->player->race->name, "Homunculus"))
         special_race = 1;
 

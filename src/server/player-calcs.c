@@ -2357,6 +2357,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (streq(p->race->name, "Gargoyle"))
         state->to_a += p->lev;
 
+    // Wraith restore satiation by 'R'esting
+    if (p->upkeep->resting && p->timed[TMD_FOOD] < 1300 && p->wpos.depth &&
+        streq(p->race->name, "Wraith"))
+            player_inc_timed(p, TMD_FOOD, 10, false, false);
+
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))
     {

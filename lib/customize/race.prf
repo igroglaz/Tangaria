@@ -992,7 +992,7 @@ help:Wraiths are bad at using devices, traps, searching and fighting.
 help: Their strength is low and never improves, but other properties might
 help: improve in time. They resist poison, dark, nether, time, and fear.
 help: They are undead and can sense other undead beings.
-help: They digest food very slowly and hold their life force firmly.
+help: They hold their life force firmly.
 help: They dodge melee attacks often but struggle to equip items properly.|
 help: |
 help:The living fear them and hardly understand their nature.|
@@ -1003,6 +1003,9 @@ help: become more mature. Downside: their extrasensory range is reduced.|
 help: |
 help:They are vulnerable to light magic. They also can't gain full immunity
 help: to fire - it only works in half the cases.|
+help: |
+help:Nutrition: Their relationship with food got complicated ever since they
+help: stopped breathing. Instead, they just rest ('R').|
 help: |
 help:They cannot recall between town and dungeon.|
 help: |
