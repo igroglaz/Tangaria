@@ -167,17 +167,12 @@ void do_cmd_go_up(struct player *p)
         {
             // normal ascension
         }
-        // if player is at depth 1, always allow going to surface
-        else if (p->wpos.depth == 1)
+        // if player is at or below allowed shallow depth, teleport to surface
+        else if (p->wpos.depth <= allowed_shallow_depth)
         {
             ascend_to = 0; // go directly to surface
         }
-        // if player is exactly at allowed shallow depth, teleport to surface
-        else if (p->wpos.depth == allowed_shallow_depth)
-        {
-            ascend_to = 0; // go directly to surface
-        }
-        // if player is above allowed shallow depth (shouldn't happen, but safety check)
+        // fallback (shouldn't be reachable)
         else
         {
             msg(p, "You must delve deeper into the darkness.");
