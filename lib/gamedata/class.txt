@@ -2989,6 +2989,7 @@ player-flags:0:NO_MANA
 # + make curse works rare (like save)
 # + drink from fountains mainly water
 # - can't uncurse items
+# - can't use MD (exception: tp staff with 70% fail)
 ########################
 #player-flags:0:CAN_SWIM .. make swimming movement slower.. rework it.
 #obj-flag:0:CANT_FLY

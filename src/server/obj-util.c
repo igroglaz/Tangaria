@@ -599,6 +599,7 @@ int get_use_device_chance(struct player *p, const struct object *obj)
 {
     int lev, fail, x;
     int skill = p->state.skills[SKILL_DEVICE];
+    bool is_unbeliever = streq(p->clazz->name, "Unbeliever");
 
     /* Extract the item level, which is the difficulty rating */
     lev = get_object_level(p, obj, true);
@@ -611,8 +612,17 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail /= (5 + ABS(x));
     fail += 380;
 
-    if (streq(p->clazz->name, "Unbeliever"))
+    if (is_unbeliever)
         fail = 999;
+
+    // tele staves ez to activate for everyone (even Unbeliever)
+    if (obj->tval == TV_STAFF && fail > 100 &&
+        obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
+    {
+        fail = 100;
+        if (is_unbeliever)
+            fail = 300;
+    }
 
     return fail;
 }

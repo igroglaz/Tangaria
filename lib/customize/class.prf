@@ -253,7 +253,10 @@ help: surrounding area. They replenish their forces when fighting unnatural magi
 help: users and can sense invisible creatures in melee range. Their presence can
 help: cancel magic effects - when they drink from magic fountains, they often
 help: unmagic it. Their sheer will lets them resist most curses, though they
-help: can't lift them.
+help: can't lift them.|
+help: |
+help:Even though they despise magical devices, they get along with using staves
+help: of teleportation in dire times (though with quite bad fail rate).
 
 class:Hunter
 help:Hunters aren't good at fighting, but can shoot and throw faster than others,
