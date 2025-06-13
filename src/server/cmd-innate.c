@@ -530,7 +530,7 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
-        effect_simple(EF_TELEPORT, who, "9", 0, 0, 0, 0, 0, NULL);
+        effect_simple(EF_TELEPORT, who, "10", 0, 0, 0, 0, 0, NULL);
         return;
     }
     else if (streq(p->race->name, "Wraith")) // TODO: test and rebalance

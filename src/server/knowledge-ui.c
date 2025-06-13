@@ -2690,7 +2690,8 @@ static void drink_fountain(struct player *p, struct object *obj)
 void drink_water_satiation(struct player *p, int satiation) {
 
     if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead") ||
-        streq(p->race->name, "Wraith"))
+        streq(p->race->name, "Golem") || streq(p->race->name, "Wraith") ||
+        streq(p->race->name, "Homunculus"))
         return;
 
     if (p->timed[TMD_FOOD] < 100) { // starving

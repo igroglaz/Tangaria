@@ -6762,6 +6762,7 @@ cost:0
 alloc:20:1 to 100
 attack:1d1:0:0
 armor:0:-2
+flags:EASY_KNOW
 values:CHR[-1]
 desc:An old strip of yellowed linen, stained and brittle with age.
 desc: Once used to bind a corpse, it still carries a dry, musty scent.

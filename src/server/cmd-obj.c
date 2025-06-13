@@ -1988,7 +1988,8 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     {
         if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
             !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
-            !streq(p->race->name, "Wraith"))
+            !streq(p->race->name, "Golem") && !streq(p->race->name, "Wraith") && 
+            !streq(p->race->name, "Homunculus"))
         {
             int satiation = 0;
             
@@ -2390,12 +2391,12 @@ bool consume_magic_items(struct player *p)
         // wands
         if (obj->tval == TV_WAND)
         {
-            int food_amount = 25; // Base food value for wands
+            int food_amount = 10; // Base food value for wands
             int charge_bonus = 0;
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
-                charge_bonus = obj->pval * 25; // 25 food per charge
+                charge_bonus = obj->pval * 7; // 7 food per charge
             }
             
             food_amount += charge_bonus;
@@ -2413,12 +2414,12 @@ bool consume_magic_items(struct player *p)
         // staves
         else if (obj->tval == TV_STAFF)
         {
-            int food_amount = 30; // Base food value for staves
+            int food_amount = 15; // Base food value for staves
             int charge_bonus = 0;
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
-                charge_bonus = obj->pval * 30; // 30 food per charge
+                charge_bonus = obj->pval * 10; // 10 food per charge
             }
             
             food_amount += charge_bonus;
