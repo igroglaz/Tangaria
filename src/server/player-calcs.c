@@ -2305,10 +2305,10 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
 
     // naga assassin got additional BpRs not immediately
-    if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))
+    else if (streq(p->race->name, "Naga") && streq(p->clazz->name, "Assassin"))
         extra_blows -= ((50 - p->lev) * 2) / 10;
 
-    if (streq(p->race->name, "Werewolf") && !is_daytime())
+    else if (streq(p->race->name, "Werewolf") && !is_daytime())
     {
         state->skills[SKILL_DISARM_PHYS] -= 15;
         state->skills[SKILL_DISARM_MAGIC] -= 25;
@@ -2331,7 +2331,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         state->speed += 1 + (p->lev / 24);
     }
     
-    if (streq(p->race->name, "Vampire") && is_daytime())
+    else if (streq(p->race->name, "Vampire") && is_daytime())
     {
         if (p->lev > 5)
         {
@@ -2354,13 +2354,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
     }
 
-    if (streq(p->race->name, "Gargoyle"))
+    else if (streq(p->race->name, "Gargoyle"))
         state->to_a += p->lev;
 
-    // Wraith restore satiation by 'R'esting
-    if (p->upkeep->resting && p->timed[TMD_FOOD] < 1300 && p->wpos.depth &&
-        streq(p->race->name, "Wraith"))
+    // Wraith restore satiation by 'R'esting with level-based cap
+    else if (p->upkeep->resting && p->wpos.depth && streq(p->race->name, "Wraith"))
+    {
+        int food_cap = 1000 + ((p->lev / 5) * 100);  // Base 1000 + 100 per 5 levels
+        if (p->timed[TMD_FOOD] < food_cap)
             player_inc_timed(p, TMD_FOOD, 10, false, false);
+    }
 
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))

@@ -1005,7 +1005,9 @@ help:They are vulnerable to light magic. They also can't gain full immunity
 help: to fire - it only works in half the cases.|
 help: |
 help:Nutrition: Their relationship with food got complicated ever since they
-help: stopped breathing. Instead, they just rest ('R').|
+help: stopped breathing. Instead, they just rest ('R'). They can't be fully
+help: satisfied and remain almost always hungry. As they grow in power, they
+help: can sustain themselves for longer periods.|
 help: |
 help:They cannot recall between town and dungeon.|
 help: |
