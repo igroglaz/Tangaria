@@ -5982,6 +5982,7 @@ dice:1d50
 effect:NOURISH:INC_BY
 dice:5
 effect:RESTORE_EXP
+effect:SPOT:LIGHT_WEAK:0
 
 name:Cabin Creation
 graphics:?:s

@@ -2586,7 +2586,7 @@ history:100
 age:10:5
 height:55:4
 weight:70:8
-gift:wand:Wonder:1:1
+gift:scroll:Life:1:1
 value:0:STR[-1]
 value:0:INT[2+1d30]
 value:0:WIS[1+1d25]
