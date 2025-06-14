@@ -1449,7 +1449,13 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
 
         // hack: give Golem/Homi nourishment from killing boss (lore: absorbs divine energy)
         if (rf_has(mon->race->flags, RF_FORCE_DEPTH) && 
-           (streq(p->race->name, "Golem") || streq(p->race->name, "Homunculus"))) {
+           (streq(p->race->name, "Ent") ||
+            streq(p->race->name, "Vampire") ||
+            streq(p->race->name, "Undead") ||
+            streq(p->race->name, "Golem") ||
+            streq(p->race->name, "Wraith") ||
+            streq(p->race->name, "Djinn")))
+        {
             if (p->timed[TMD_FOOD] < 5000)
                 player_inc_timed(p, TMD_FOOD, 3000, false, false);
             else

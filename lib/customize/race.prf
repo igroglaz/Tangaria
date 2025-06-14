@@ -823,6 +823,10 @@ help: Also they don't like digging. |
 help:|
 help:They are unable to drink potions.|
 help:|
+help:They don't need food, but they consume magic, which they extract from
+help: magical devices - staves and wands. Use '_' to break a device and consume
+help: its magic (don't do it while standing on a magic fountain - it interferes).|
+help: |
 help:They can create wonders ('y') by spending some energy.
 
 race:Harpy
@@ -1087,10 +1091,6 @@ help: Yet the physical world remains a challenge: their movements are awkward,
 help: and their spatial perception is flawed. They can't move diagonally and
 help: struggle in tight formations - but in return, they possess strange talents
 help: and magical resilience.|
-help: |
-help:Homi don't need food, but they consume magic, which they extract from
-help: magical devices - staves and wands. Use '_' to break a device and consume
-help: its magic (don't do it while standing on a magic fountain - it interferes).|
 help: |
 help:They can teleport over short distances at will ('y') by spending some energy.|
 

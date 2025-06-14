@@ -1989,7 +1989,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
             !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
             !streq(p->race->name, "Golem") && !streq(p->race->name, "Wraith") && 
-            !streq(p->race->name, "Homunculus"))
+            !streq(p->race->name, "Djinn"))
         {
             int satiation = 0;
             
@@ -2325,41 +2325,41 @@ const char* consume_magic_message(int rng)
 {
     switch(rng)
     {
-        case 0: return "Magic taken. Energy inside.";
-        case 1: return "Power eaten. Feel stronger.";
-        case 2: return "Magic gone. Me full now.";
-        case 3: return "Enchantment tasted. Good.";
-        case 4: return "Arcane force in. Glow bright.";
-        case 5: return "Magic touched me. Feel warm.";
-        case 6: return "Spell eaten. Head clear.";
-        case 7: return "Magic flow. Me hum.";
-        case 8: return "Spark inside. Me ready.";
-        case 9: return "Energy eaten. Body move.";
-        case 10: return "Magic chewed. Feel good.";
-        case 11: return "More power. Less tired.";
-        case 12: return "Arcane snack. Me awake.";
-        case 13: return "Took magic. Not empty.";
-        case 14: return "Power gulped. No crack.";
-        case 15: return "Magic drink. Me buzz.";
-        case 16: return "Arcane go in. Bones soft.";
-        case 17: return "Spell juice. Feel jumpy.";
-        case 18: return "Magic food. Me strong.";
-        case 19: return "Glow back. Not broken.";
-        case 20: return "Magic sip. Me happy.";
-        case 21: return "Arcane chew. Buzz big.";
-        case 22: return "Magic inside. Me good.";
-        case 23: return "Gulped glow. Still work.";
-        case 24: return "Tasty spark. Me ready.";
-        case 25: return "Power down throat. Me fine.";
-        case 26: return "Magic fill. Legs work.";
-        case 27: return "Buzz in belly. Like it.";
-        case 28: return "Magic burp. Feel better.";
-        default: return "Magic gone. Me happy.";
+        case 0: return "The arcane essence flows into my being like desert wind.";
+        case 1: return "Ancient power courses through me, granting strength.";
+        case 2: return "My mystical hunger is satisfied by this enchantment.";
+        case 3: return "The magic tastes of starlight and forgotten wishes.";
+        case 4: return "Ethereal flames dance within, illuminating my essence.";
+        case 5: return "Warmth of a thousand suns fills my spectral form.";
+        case 6: return "The spell's wisdom clears the mists from my mind.";
+        case 7: return "I resonate with the consumed arcane frequencies.";
+        case 8: return "Lightning of the ancients sparks within my core.";
+        case 9: return "Mystical energy awakens every fiber of my being.";
+        case 10: return "The magic dissolves sweetly upon my astral tongue.";
+        case 11: return "Power eternal banishes the weariness from my soul.";
+        case 12: return "This arcane morsel awakens my slumbering might.";
+        case 13: return "The void within me fills with captured enchantment.";
+        case 14: return "Raw power flows down my throat like liquid starfire.";
+        case 15: return "The magic intoxicates me with its pure essence.";
+        case 16: return "Arcane energy seeps into my bones like morning dew.";
+        case 17: return "The spell's nectar makes my spirit dance with joy.";
+        case 18: return "This magical feast strengthens my ethereal form.";
+        case 19: return "My inner light blazes anew with consumed power.";
+        case 20: return "A single taste of magic brings bliss to my essence.";
+        case 21: return "The arcane substance thrills every part of my being.";
+        case 22: return "Magic settles within me like precious amber.";
+        case 23: return "I drink deep of the glowing enchantment's power.";
+        case 24: return "This delicious spark prepares me for great deeds.";
+        case 25: return "Pure energy slides down my throat like desert honey.";
+        case 26: return "The magic suffuses my limbs with renewed vigor.";
+        case 27: return "Euphoria bubbles within as the power settles.";
+        case 28: return "I release the magic's essence with satisfaction.";
+        default: return "The consumed magic brings peace to my ancient soul.";
     }
 }
 
 
-// Homunculus race can use wands and staves for nourishment
+// Djinn race can use wands and staves for nourishment
 bool consume_magic_items(struct player *p)
 {
     bool mdevice_found = false;
@@ -2372,7 +2372,7 @@ bool consume_magic_items(struct player *p)
         // Already full, be careful about overfeeding
         max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
         if (max_safe_food <= 0) {
-            msg(p, "Your arcane reservoir is already full. Consumption aborted.");
+            msg(p, "You are full of arcane energy already.");
             return false;  // Already at maximum, don't consume magic
         }
     } else {
@@ -2396,7 +2396,7 @@ bool consume_magic_items(struct player *p)
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
-                charge_bonus = obj->pval * 7; // 7 food per charge
+                charge_bonus = obj->pval * 10; // 10 food per charge
             }
             
             food_amount += charge_bonus;
@@ -2419,7 +2419,7 @@ bool consume_magic_items(struct player *p)
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
-                charge_bonus = obj->pval * 10; // 10 food per charge
+                charge_bonus = obj->pval * 15; // 15 food per charge
             }
             
             food_amount += charge_bonus;

@@ -2691,7 +2691,7 @@ void drink_water_satiation(struct player *p, int satiation) {
 
     if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead") ||
         streq(p->race->name, "Golem") || streq(p->race->name, "Wraith") ||
-        streq(p->race->name, "Homunculus"))
+        streq(p->race->name, "Djinn"))
         return;
 
     if (p->timed[TMD_FOOD] < 100) { // starving
@@ -2756,8 +2756,8 @@ void do_cmd_fountain(struct player *p, int item)
 
         return;
     }
-    // homunculus race consume wand/staves ! if not standing on fountain !
-    else if (streq(p->race->name, "Homunculus"))
+    // Djinn race consume wand/staves ! if not standing on fountain !
+    else if (streq(p->race->name, "Djinn"))
     {       
         if (consume_magic_items(p))
         {
