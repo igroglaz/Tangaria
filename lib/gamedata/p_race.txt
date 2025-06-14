@@ -2568,11 +2568,12 @@ value:0:MOVES[-1]
 #shape:40:ooze
 #shape:50:mushroom
 
+# todo: add new glyph of warding.. temporary. which will decay in time
 name:Homunculus
 skill-disarm-phys:-2
 skill-disarm-magic:3
 skill-device:-50
-skill-save:15
+skill-save:0
 skill-stealth:0
 skill-search:7
 skill-melee:-4
@@ -2593,9 +2594,9 @@ value:0:DEX[1]
 value:0:CON[2]
 value:0:CHR[-3]
 value:0:INFRA[1]
-player-flags:0:KNOW_ZAPPER
 value:0:STEALTH[1d12]
-# can phase door with 'y' (free)
+# 'y' can make magic spider web
+# + can carry 2x weight
 #/// -
 # --- can't move/act diagonally.. !!!! so can't use anti-summon corridors...
 

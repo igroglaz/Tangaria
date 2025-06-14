@@ -6390,7 +6390,10 @@ bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
     square_add_web(context->cave, &context->origin->player->grid);
     msg_misc(context->origin->player, " weaves a web.");
 
-    player_dec_timed(context->origin->player, TMD_FOOD, 75 - context->origin->player->lev, false);
+    if (context->origin->player &&
+        !streq(context->origin->player->race->name, "Homunculus"))
+            player_dec_timed(context->origin->player, TMD_FOOD,
+            75 - context->origin->player->lev, false);
 
     return true;
 }
