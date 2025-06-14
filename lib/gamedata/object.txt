@@ -5519,7 +5519,7 @@ type:dragon armour
 level:35:27
 weight:120
 cost:40000
-alloc:8:35 to 100
+alloc:4:35 to 100
 attack:2d4:-2:0
 armor:16:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5535,7 +5535,7 @@ type:dragon armour
 level:25:30
 weight:100
 cost:40000
-alloc:8:25 to 100
+alloc:4:25 to 100
 attack:2d4:-2:0
 armor:12:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5550,7 +5550,7 @@ type:dragon armour
 level:30:25
 weight:110
 cost:40000
-alloc:8:30 to 100
+alloc:4:30 to 100
 attack:2d4:-2:0
 armor:14:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5565,7 +5565,7 @@ type:dragon armour
 level:40:32
 weight:160
 cost:40000
-alloc:8:40 to 100
+alloc:4:40 to 100
 attack:2d4:-2:0
 armor:24:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5581,7 +5581,7 @@ type:dragon armour
 level:60:30
 weight:140
 cost:60000
-alloc:8:60 to 100
+alloc:4:60 to 100
 attack:2d4:-2:0
 armor:20:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5597,7 +5597,7 @@ type:dragon armour
 level:75:50
 weight:260
 cost:150000
-alloc:5:75 to 100
+alloc:3:75 to 100
 attack:2d4:-2:0
 armor:45:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5613,7 +5613,7 @@ type:dragon armour
 level:75:37
 weight:200
 cost:60000
-alloc:6:75 to 100
+alloc:3:75 to 100
 attack:2d4:-2:0
 armor:32:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5629,7 +5629,7 @@ type:dragon armour
 level:80:45
 weight:220
 cost:80000
-alloc:6:80 to 100
+alloc:3:80 to 100
 attack:2d4:-2:0
 armor:36:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5646,7 +5646,7 @@ type:dragon armour
 level:70:30
 weight:180
 cost:40000
-alloc:8:70 to 100
+alloc:4:70 to 100
 attack:2d4:-2:0
 armor:28:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5662,7 +5662,7 @@ type:dragon armour
 level:85:45
 weight:240
 cost:80000
-alloc:5:85 to 100
+alloc:3:85 to 100
 attack:2d4:-2:0
 armor:40:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -5679,7 +5679,7 @@ type:dragon armour
 level:95:52
 weight:280
 cost:100000
-alloc:3:95 to 100
+alloc:2:95 to 100
 attack:2d4:-2:0
 armor:50:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -6332,7 +6332,7 @@ type:dragon armour
 level:60:30
 weight:140
 cost:40000
-alloc:8:60 to 100
+alloc:4:60 to 100
 attack:2d4:-2:0
 armor:20:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -6347,7 +6347,7 @@ type:dragon armour
 level:65:32
 weight:160
 cost:50000
-alloc:8:65 to 100
+alloc:4:65 to 100
 attack:2d4:-2:0
 armor:24:10
 flags:FREE_ACT |
@@ -6363,7 +6363,7 @@ type:dragon armour
 level:70:35
 weight:180
 cost:80000
-alloc:8:70 to 100
+alloc:4:70 to 100
 attack:2d4:-2:0
 armor:28:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -6378,7 +6378,7 @@ type:dragon armour
 level:75:37
 weight:200
 cost:60000
-alloc:6:75 to 100
+alloc:3:75 to 100
 attack:2d4:-2:0
 armor:32:10
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
@@ -6454,7 +6454,7 @@ type:dragon armour
 level:75:37
 weight:200
 cost:60000
-alloc:6:75 to 100
+alloc:3:75 to 100
 attack:2d4:-2:0
 armor:32:10
 flags:PROT_CONF | PROT_STUN |
