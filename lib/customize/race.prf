@@ -1090,9 +1090,11 @@ help: Their minds are sharp, with a natural attunement to magic and logic.
 help: Yet the physical world remains a challenge: their movements are awkward,
 help: and their spatial perception is flawed. They can't move diagonally and
 help: struggle in tight formations - but in return, they possess strange talents
-help: and magical resilience.|
+help: and magical resilience. Also they can carry more weight than most.|
 help: |
-help:They can teleport over short distances at will ('y') by spending some energy.|
+help:They're dreadful with magic devices, as their own magic interferes with them.|
+help: |
+help:They can conjure ('y') a magic web to create a safe spot.
 
 
 # leave empty line for EOF

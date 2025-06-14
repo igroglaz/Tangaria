@@ -2809,8 +2809,8 @@ bool do_cmd_walk(struct player *p, int dir)
     /* If we're in a web, deal with that */
     if (square_iswebbed(c, &p->grid))
     {
-        // spider race pass web
-		if (streq(p->race->name, "Spider"))
+        // spider/homi race pass web
+		if (streq(p->race->name, "Spider") || streq(p->race->name, "Homunculus"))
             ;
 		/* Handle polymorphed players */
         else if (p->poly_race)

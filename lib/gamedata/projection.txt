@@ -951,3 +951,5 @@ obvious:0
 wake:0
 color:White
 threat:never
+
+# TODO: add WEB_SPIDER
