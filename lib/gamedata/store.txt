@@ -730,7 +730,8 @@ normal:scroll:*Remove Curse*:10:350
 normal:scroll:Teleport Level:10:400
 normal:scroll:Deep Descent:10:350
 normal:scroll:Enchant Weapon To-Hit:1:350
-normal:scroll:Enchant Weapon To-Dam:1:350
+# 250% is Black market price
+normal:scroll:Enchant Weapon To-Dam:1:250
 normal:scroll:Enchant Armour:1:350
 buy:flask
 
