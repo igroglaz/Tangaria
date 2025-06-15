@@ -770,13 +770,37 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
             obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
             obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))
                     price = 800;
-        // ego: speed boots
-        else if (obj->ego &&
+        // ego items
+        else if (obj->ego)
+        {
+            // ego boots
+            if (obj->tval == TV_BOOTS &&
                 (strstr(obj->ego->name, "of Speed") ||
                  strstr(obj->ego->name, "of Elvenkind")))
-                    price *= 5 / 2;
+                 {
+                     if (s->feat == FEAT_STORE_BLACK)
+                        price *= 5 / 2;
+                    // price *= 5 / 2 (250%) in Armourer will be 115k, which is way too low
+                     else
+                         price *= 4;
+                 }
+                
+            // ego bows
+            // (must be expensive and rare.. as player SHOULD use enh to-dam 1st)
+            else if (obj->tval == TV_BOW)
+            {
+                if (strstr(obj->ego->name, "of Extra Shots"))
+                    price *= 3;
+                else if (strstr(obj->ego->name, "of Extra Might"))
+                    price *= 3;
+                else if (strstr(obj->ego->name, "of Power"))
+                    price *= 3;
+                else if (strstr(obj->ego->name, "of Accuracy"))
+                    price *= 3;
+            }
+        }
         // regular items (speed ring, ring of flying etc)
-        else
+        else if (obj->tval == TV_RING)
         {
             if (obj->kind == lookup_kind_by_name(TV_RING, "Levitation"))
                     price *= 3;
