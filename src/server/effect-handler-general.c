@@ -6460,7 +6460,7 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     if (!mon && context->origin->player)
     {   
         if (streq(context->origin->player->race->name, "Spider"))
-            player_dec_timed(context->origin->player, TMD_FOOD, 100 - context->origin->player->lev, false);
+            ;
         else
             player_dec_timed(context->origin->player, TMD_FOOD, 300, false);
     }
