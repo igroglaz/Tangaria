@@ -6599,6 +6599,12 @@ static int Enter_player(int ind)
     //msg(p, "  ");
     //msg(p, "   ");
 
+    if (streq(p->clazz->name, "Archer"))
+    {
+        msg(p, "Archer! Turn off auto-ret in options and inscribe your weapon");
+        msg(p, "with ^O to prevent auto-retaliation until around level 30!");
+    }
+
     /* Report delayed info */
     Send_poly(p, (p->poly_race? p->poly_race->ridx: 0));
     p->delayed_display = true;

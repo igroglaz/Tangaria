@@ -616,12 +616,12 @@ int get_use_device_chance(struct player *p, const struct object *obj)
         fail = 999;
 
     // tele staves ez to activate for everyone (even Unbeliever)
-    if (obj->tval == TV_STAFF && fail > 100 &&
+    if (obj->tval == TV_STAFF && fail > 50 &&
         obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
     {
-        fail = 100;
+        fail = 50;
         if (is_unbeliever)
-            fail = 300;
+            fail = 200;
     }
 
     return fail;

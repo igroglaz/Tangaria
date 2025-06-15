@@ -2599,6 +2599,7 @@ value:0:STEALTH[1d12]
 # + can carry 2x weight
 #/// -
 # --- can't move/act diagonally.. !!!! so can't use anti-summon corridors...
+# can't use MD (HCed)
 
 
 
