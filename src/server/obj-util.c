@@ -612,7 +612,7 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail /= (5 + ABS(x));
     fail += 380;
 
-    if (is_unbeliever)
+    if (is_unbeliever || streq(p->race->name, "Homunculus"))
         fail = 999;
 
     // tele staves ez to activate for everyone (even Unbeliever)

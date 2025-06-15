@@ -1623,7 +1623,7 @@ value:0:MOVES[-1]
 name:Golem
 skill-disarm-phys:-3
 skill-disarm-magic:-5
-skill-device:-50
+skill-device:-10
 skill-save:5
 skill-stealth:0
 skill-search:5
