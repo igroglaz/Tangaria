@@ -2072,11 +2072,11 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         else
         {
             if (p->timed[TMD_FOOD] < 100) // starving
-                player_inc_timed(p, TMD_FOOD, 150, false, false);
+                player_inc_timed(p, TMD_FOOD, 200, false, false);
             else if (p->timed[TMD_FOOD] < 400) // faint
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
             else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
-                player_inc_timed(p, TMD_FOOD, 50, false, false);
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
         }
     }
 
