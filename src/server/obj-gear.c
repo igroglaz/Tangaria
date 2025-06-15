@@ -1195,25 +1195,18 @@ bool inven_drop(struct player *p, struct object *obj, int amt, bool bypass_inscr
     {
         struct location *dungeon = get_dungeon(&p->wpos);
 
-        // If we outside - we can drop cursed item, but only light curses and only during the day 
+        // If we outside - we can drop cursed item, but only light curses
         if (p->wpos.depth == 0 || (dungeon && df_has(dungeon->flags, DF_OPEN_SKY)))
         {
             for (i = 0; c && (i < (size_t)z_info->curse_max); i++)
             {
                 if (c[i].power == 0) continue;
 
-                // can drop only light cursed items at night
-                if (c[i].power > 35 && c[i].power < 100 && !is_daytime())
-                {
-                   msg(p, "You can not drop this item. It seems it's cursed. Try to uncurse it or");
-                   msg(p, "wait till the day cames to bring it under the sunlight to weaken the curse.");
-                   return false;
-                }
-                // no drop moderately cursed items even at daytime
-                else if (c[i].power > 45 && c[i].power < 100)
+                // no drop moderately cursed items in town
+                if (c[i].power > 45 && c[i].power < 100)
                 {
                    msg(p, "You can not drop this item. It seems it's heavely cursed. Current curse is");
-                   msg(p, "too strong, so even sunlight don't weaken it. Try to uncurse it by other means.");
+                   msg(p, "too strong, so even surface don't weaken it. Try to uncurse it by other means.");
                    return false;
                 }
             }
