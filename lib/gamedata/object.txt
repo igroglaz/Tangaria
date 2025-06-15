@@ -6501,7 +6501,7 @@ alloc:40:1 to 100
 effect:MAP_WILD
 effect-yx:22:40
 effect:MAP_AREA
-effect-yx:7:7
+effect-yx:32:15
 
 name:& Fortune Cookie~
 graphics:,:U

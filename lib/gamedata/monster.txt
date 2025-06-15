@@ -5699,14 +5699,14 @@ speed:111
 hit-points:75
 light:-2
 hearing:20
-armor-class:42
+armor-class:33
 sleepiness:35
 depth:13
 rarity:4
 weight:140
 experience:75
-blow:DEVOUR:EAT_LIGHT:1d7
-blow:DEVOUR:EAT_LIGHT:1d7
+blow:DEVOUR:EAT_LIGHT:1d6
+blow:DEVOUR:EAT_LIGHT:1d6
 flags:OPEN_DOOR | BASH_DOOR
 flags:DROP_40
 flags:NO_FEAR
