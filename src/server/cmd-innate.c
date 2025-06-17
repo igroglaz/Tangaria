@@ -526,7 +526,8 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
-    else if (streq(p->race->name, "Homunculus") && p->chp - (p->mhp / 10) > 0)
+    else if (streq(p->race->name, "Homunculus") && p->chp - (p->mhp / 10) > 0 &&
+             p->lev > 34)
     {
         /* Take a turn */
         use_energy(p);
@@ -875,7 +876,7 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
         return;
     }
-    else if (streq(p->race->name, "Golem"))
+    else if (streq(p->race->name, "Golem") && p->lev > 34)
     {
         use_energy(p);
         

@@ -648,7 +648,7 @@ help:They receive less speed penalty when overencumbered.
 help: They don't need to breathe.|
 help: |
 help:Golems are hard to kill - they take 10% less damage.
-help: They can create walls ('y' key) by spending some energy.
+help: They can create walls ('y' key) by spending some energy after level 35.
 help: Golems don't need food. But they consume fresh oil.
 help: Oil can be found in flasks or lanterns. Use '_' to drink from them while
 help: not standing on a fountain. Magic lanterns refill better.|
@@ -1094,7 +1094,7 @@ help: and magical resilience. Also they can carry more weight than most.|
 help: |
 help:They're dreadful with magic devices, as their own magic interferes with them.|
 help: |
-help:They can conjure ('y') a magic web to create a safe spot.
+help:They can conjure ('y') a magic web to create a safe spot after level 35.
 
 
 # leave empty line for EOF
