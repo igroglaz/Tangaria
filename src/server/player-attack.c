@@ -2278,6 +2278,13 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
             /* Chance of breakage (during attacks) */
             j = breakage_chance(missile, hit_target);
 
+            // 5% to break projectile in zeitnot till lvl 15
+            // (non-nced ammo only)
+            if (j > 5 && p->lev < 15 &&
+                obj->to_h == 0 && obj->to_d == 0 &&
+                tval_is_ammo(obj) && OPT(p, birth_zeitnot))
+                    j = 5;
+
             /* Handle the newbies_cannot_drop option */
             if (newbies_cannot_drop(p)) j = 100;
 
