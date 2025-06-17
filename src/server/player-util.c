@@ -2150,14 +2150,14 @@ int player_digest(struct player *p)
     // Deeptown require more food (as there are too much of it)
     if (OPT(p, birth_deeptown))
     {
-        if (p->lev < 25)      // 1-24 lvl
+        if (p->lev < 40)      // 1-39 lvl
         {
             if (digest_factor == 1)
                 digest_factor += 2;
             else
                 digest_factor++;
         }
-        else if (p->lev < 50) // 25-49 lvl
+        else if (p->lev < 50) // 40-49 lvl
         {
             if (digest_factor == 1)
                 digest_factor++;
