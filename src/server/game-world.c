@@ -546,44 +546,53 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
         }
     }
 
-    /* Curse effects always decrement by 1 */
-    for (i = 0; i < p->body.count; i++)
+    // we process curses CDs only on depths
+    // (prevent cheating and annoying effects while in town)
+    if (p->wpos.depth)
     {
-        struct curse_data *curse = NULL;
-        int j;
-
-        if (p->body.slots[i].obj == NULL) continue;
-        curse = p->body.slots[i].obj->curses;
-
-        if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
-            curse = 0;
-
-        for (j = 0; curse && (j < z_info->curse_max); j++)
+        /* Curse effects always decrement by 1 */
+        for (i = 0; i < p->body.count; i++)
         {
-            if (curse[j].power == 0) continue;
-            if (curse[j].timeout == 0) continue;
-            curse[j].timeout--;
+            struct curse_data *curse = NULL;
+            int j;
 
-            // hardcode cursed Ring of Teleportation for more often tp
-            if (streq(p->body.slots[i].obj->kind->name, "Teleportation") && one_in_(4))
-                curse[j].timeout = 0;
+            if (p->body.slots[i].obj == NULL) continue;
+            curse = p->body.slots[i].obj->curses;
 
-            if (!curse[j].timeout)
+            if (streq(p->clazz->name, "Unbeliever") && one_in_(2))
+                curse = 0;
+
+            for (j = 0; curse && (j < z_info->curse_max); j++)
             {
-                do_curse_effect(p, j);
-                curse[j].timeout = randcalc(curses[j].obj->time, 0, RANDOMISE);
+                if (curse[j].power == 0) continue;
+                if (curse[j].timeout == 0) continue;
+                curse[j].timeout--;
+
+                // hardcode cursed Ring of Teleportation for more often tp
+                if (streq(p->body.slots[i].obj->kind->name, "Teleportation") && one_in_(4))
+                    curse[j].timeout = 0;
+
+                if (!curse[j].timeout)
+                {
+                    do_curse_effect(p, j);
+                    curse[j].timeout = randcalc(curses[j].obj->time, 0, RANDOMISE);
+                }
             }
         }
     }
 
     /* Spell cooldown */
-    for (i = 0; i < p->clazz->magic.total_spells; i++)
+    // inside dungeon only
+    if (p->wpos.depth)
     {
-        // cooldown restores only inside in the dungeon!
-        if (p->spell_cooldown[i] && p->wpos.depth)
+        for (i = 0; i < p->clazz->magic.total_spells; i++)
         {
-            p->spell_cooldown[i]--;
-            if (!p->spell_cooldown[i]) p->upkeep->redraw |= (PR_SPELL);
+            // cooldown restores only inside in the dungeon!
+            if (p->spell_cooldown[i])
+            {
+                p->spell_cooldown[i]--;
+                if (!p->spell_cooldown[i]) p->upkeep->redraw |= (PR_SPELL);
+            }
         }
     }
     
