@@ -7040,6 +7040,7 @@ type:food
 level:0
 weight:3
 cost:0
+flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 effect:NOURISH:INC_BY
 dice:13
 effect:RESTORE_STAT:CON

@@ -1293,6 +1293,9 @@ static void process_player_world(struct player *p, struct chunk *c)
                     player_inc_timed(p, TMD_CONFUSED, randint1(3), false, false);
                 else if (one_in_(20))
                     player_inc_timed(p, TMD_IMAGE, randint1(3), false, false);
+
+                // also polymorphed batty immune to paralyze
+                player_set_timed(p, TMD_FREE_ACT, 2, false);
             }
         }
     }
