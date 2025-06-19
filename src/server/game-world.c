@@ -1591,7 +1591,9 @@ static void process_player_world(struct player *p, struct chunk *c)
     }
 
     // decrease zeitnot timer till next auto >
-    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0) {
+    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0 &&
+        (p->wpos.depth != 20 && p->wpos.depth != 40 &&
+         p->wpos.depth != 60 && p->wpos.depth != 80)) {
         p->zeitnot_timer--;
 
         // if timer is gone - move zeitnot player down

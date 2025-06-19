@@ -2677,7 +2677,9 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
     p->upkeep->running_firststep = false;
 
     // each step decrease zeitnot_timer by -2 (in addition to -1 by turn pass)
-    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0) {
+    if (OPT(p, birth_zeitnot) && !p->is_dead && p->chp >= 0 &&
+        (p->wpos.depth != 20 && p->wpos.depth != 40 && // except dungeon-towns
+         p->wpos.depth != 60 && p->wpos.depth != 80)) {
         p->zeitnot_timer -= 2;
     }
 
