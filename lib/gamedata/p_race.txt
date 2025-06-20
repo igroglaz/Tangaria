@@ -1641,7 +1641,7 @@ gift:flask:Flask of oil:3:4
 #//////////// TODO: rebalance. make building walls - main feature
 #//////////// remove cost and CDs (but also bonuses)
 #4 -3 -3 -2 0.
-# can build it slowly with 'y' (create sand wall)
+# can build it slowly with 'y' (create sand wall) at 35lvl+
 # + -10% phys damage hc
 # + less speed penalty due overweight
 # + got 50% chance to act when paralyzed
@@ -2595,7 +2595,7 @@ value:0:CON[2]
 value:0:CHR[-3]
 value:0:INFRA[1]
 value:0:STEALTH[1d12]
-# 'y' can make magic spider web
+# 'y' can make magic spider web at 35lvl+
 # + can carry 2x weight
 #/// -
 # --- can't move/act diagonally.. !!!! so can't use anti-summon corridors...

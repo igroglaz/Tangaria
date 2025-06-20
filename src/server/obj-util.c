@@ -624,6 +624,11 @@ int get_use_device_chance(struct player *p, const struct object *obj)
             fail = 200;
     }
 
+    // to ID certain rings (of Flames, of Acid etc), amu of the moon
+    if (!obj->known->effect && 
+        (tval_is_ring(obj) || tval_is_amulet(obj)))
+        fail = 500;
+
     return fail;
 }
 
