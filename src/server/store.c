@@ -3365,7 +3365,7 @@ void store_order(struct player *p, const char *buf)
 void do_cmd_store(struct player *p, int pstore)
 {
     int which, i;
-    struct store *s;
+    struct store *s = NULL;  // NULL init to prevent possible crush for sounds
     struct chunk *c = chunk_get(&p->wpos);
 
     /* Normal store */
@@ -3475,127 +3475,130 @@ void do_cmd_store(struct player *p, int pstore)
         sound(p, MSG_STORE_ENTER);
     }
 
-    // storage entrance sound
-    if (s->feat == FEAT_HOME)
-        sound(p, MSG_STORE_HOME);
-
-    /* Music volume down */
-    sound(p, MSG_SILENT100);
-
-    /* Background sounds for stores */
-    switch (s->feat)
+    if (s != NULL && s->feat)
     {
-        case FEAT_STORE_GENERAL:
-            sound(p, MSG_STORE_GENERAL_SOUND);
-            break;
-        case FEAT_STORE_ARMOR:
-            sound(p, MSG_NPC_ARMOR);
-            break;
-        case FEAT_STORE_WEAPON:
-            sound(p, MSG_STORE_WEAPON);
-            break;
-        case FEAT_STORE_TEMPLE:
-            sound(p, MSG_STORE_TEMPLE);
-            break;
-        case FEAT_STORE_ALCHEMY:
-            if (one_in_(6))
-                sound(p, MSG_STORE_ALCHEMY_BOOM);
-            else
-                sound(p, MSG_STORE_ALCHEMY);
-            break;
-        case FEAT_STORE_MAGIC:
-            sound(p, MSG_STORE_MAGIC_TOWER);
-            break;
-        case FEAT_STORE_BOOK:
-            sound(p, MSG_STORE_BOOKSELLER);
-            break;
-        case FEAT_STORE_BLACK:
-            sound(p, MSG_STORE_B_MARKET_SOUND);
-            break;
-        case FEAT_STORE_XBM:
-            sound(p, MSG_STORE_XBM_SOUND);
-            break;
-        case FEAT_STORE_TAVERN:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_HOME:
-            if (one_in_(6))
-                sound(p, MSG_STORE_HOME_CUCKOO);
+        // storage entrance sound
+        if (s->feat == FEAT_HOME)
             sound(p, MSG_STORE_HOME);
-            break;
-        case FEAT_STORE_PLAYER:
-            sound(p, MSG_STORE_PLAYER_SOUND);
-            break;
-        case FEAT_Halbarad_the_gamekeeper:
-            sound(p, MSG_NPC_HI);
-            break;
-        case FEAT_Sonya_the_cat:
-            sound(p, MSG_NPC_CAT);
-            break;
-        case FEAT_Boyan_the_Volkhv:
-            sound(p, MSG_STORE_MAGIC);
-            break;
-        case FEAT_Old_guard_Barry:
-            sound(p, MSG_NPC_VET);
-            break;
-        case FEAT_Ivan_the_villager:
-            sound(p, MSG_NPC_WELCOME);
-            break;
-        case FEAT_Milena_the_villager:
-            sound(p, MSG_NPC_MARTA);
-            break;
-        case FEAT_Shtukensia_the_tavernkeeper:
-            sound(p, MSG_NPC_GIRL);
-            break;
-        case FEAT_Danny_the_dog:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Arthur_the_Archer:
-            sound(p, MSG_NPC_ARROW);
-            break;
-        case FEAT_Deckard_Coin:
-            sound(p, MSG_NPC_CAIN);
-            break;
-        case FEAT_Boris_the_Guard:
-            sound(p, MSG_NPC_ROUGH);
-            break;
-        case FEAT_Tom_Bombadil:
-            sound(p, MSG_NPC_TOM);
-            break;
-        case FEAT_Mr_Underhill:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Gildor:
-            sound(p, MSG_NPC_DUEL);
-            break;
-        case FEAT_Squint_eyed_Southerner:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Bill_Ferny:
-            if (one_in_(2))
-                sound(p, MSG_NPC_DRUNK);
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Boromir:
-            sound(p, MSG_NPC_WARR);
-            break;
-        case FEAT_Barliman:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Torog:
-            sound(p, MSG_NPC_BELCH);
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Nob_a_servant:
-            sound(p, MSG_TAVERN);
-            break;
-        case FEAT_Rose:
-            sound(p, MSG_NPC_ROSE);
-            break;
-        case FEAT_Mayor:
-            sound(p, MSG_NPC_MAYOR);
-            break;
-        // don't add DEFAULT - it produce crush when player checks player store
+
+        /* Music volume down */
+        sound(p, MSG_SILENT100);
+
+        /* Background sounds for stores */
+        switch (s->feat)
+        {
+            case FEAT_STORE_GENERAL:
+                sound(p, MSG_STORE_GENERAL_SOUND);
+                break;
+            case FEAT_STORE_ARMOR:
+                sound(p, MSG_NPC_ARMOR);
+                break;
+            case FEAT_STORE_WEAPON:
+                sound(p, MSG_STORE_WEAPON);
+                break;
+            case FEAT_STORE_TEMPLE:
+                sound(p, MSG_STORE_TEMPLE);
+                break;
+            case FEAT_STORE_ALCHEMY:
+                if (one_in_(6))
+                    sound(p, MSG_STORE_ALCHEMY_BOOM);
+                else
+                    sound(p, MSG_STORE_ALCHEMY);
+                break;
+            case FEAT_STORE_MAGIC:
+                sound(p, MSG_STORE_MAGIC_TOWER);
+                break;
+            case FEAT_STORE_BOOK:
+                sound(p, MSG_STORE_BOOKSELLER);
+                break;
+            case FEAT_STORE_BLACK:
+                sound(p, MSG_STORE_B_MARKET_SOUND);
+                break;
+            case FEAT_STORE_XBM:
+                sound(p, MSG_STORE_XBM_SOUND);
+                break;
+            case FEAT_STORE_TAVERN:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_HOME:
+                if (one_in_(6))
+                    sound(p, MSG_STORE_HOME_CUCKOO);
+                sound(p, MSG_STORE_HOME);
+                break;
+            case FEAT_STORE_PLAYER:
+                sound(p, MSG_STORE_PLAYER_SOUND);
+                break;
+            case FEAT_Halbarad_the_gamekeeper:
+                sound(p, MSG_NPC_HI);
+                break;
+            case FEAT_Sonya_the_cat:
+                sound(p, MSG_NPC_CAT);
+                break;
+            case FEAT_Boyan_the_Volkhv:
+                sound(p, MSG_STORE_MAGIC);
+                break;
+            case FEAT_Old_guard_Barry:
+                sound(p, MSG_NPC_VET);
+                break;
+            case FEAT_Ivan_the_villager:
+                sound(p, MSG_NPC_WELCOME);
+                break;
+            case FEAT_Milena_the_villager:
+                sound(p, MSG_NPC_MARTA);
+                break;
+            case FEAT_Shtukensia_the_tavernkeeper:
+                sound(p, MSG_NPC_GIRL);
+                break;
+            case FEAT_Danny_the_dog:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Arthur_the_Archer:
+                sound(p, MSG_NPC_ARROW);
+                break;
+            case FEAT_Deckard_Coin:
+                sound(p, MSG_NPC_CAIN);
+                break;
+            case FEAT_Boris_the_Guard:
+                sound(p, MSG_NPC_ROUGH);
+                break;
+            case FEAT_Tom_Bombadil:
+                sound(p, MSG_NPC_TOM);
+                break;
+            case FEAT_Mr_Underhill:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Gildor:
+                sound(p, MSG_NPC_DUEL);
+                break;
+            case FEAT_Squint_eyed_Southerner:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Bill_Ferny:
+                if (one_in_(2))
+                    sound(p, MSG_NPC_DRUNK);
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Boromir:
+                sound(p, MSG_NPC_WARR);
+                break;
+            case FEAT_Barliman:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Torog:
+                sound(p, MSG_NPC_BELCH);
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Nob_a_servant:
+                sound(p, MSG_TAVERN);
+                break;
+            case FEAT_Rose:
+                sound(p, MSG_NPC_ROSE);
+                break;
+            case FEAT_Mayor:
+                sound(p, MSG_NPC_MAYOR);
+                break;
+            // don't add DEFAULT - it produce crush when player checks player store
+        }
     }
 
     /* Display the store */
