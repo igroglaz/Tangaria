@@ -17722,7 +17722,7 @@ desc:Tiny and beautiful fey with glowing wings.
 
 #v was name:Maia of Mandos / jinn
 name:Boggart
-base:ainu
+base:minor demon
 color:s
 speed:120
 hit-points:1250
@@ -17737,7 +17737,11 @@ blow:HIT:HURT:4d5
 blow:HIT:HURT:4d5
 blow:HIT:HURT:4d5
 blow:HIT:HURT:4d5
-flags:MALE | INVISIBLE
+flags:MALE
+flags:LEVITATE
+flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
+flags:FORCE_SLEEP
+flags:ONLY_ITEM
 flags:DROP_2
 spell-freq:3
 spells:BLIND | HASTE | HOLD | CONF
@@ -21092,7 +21096,7 @@ desc: he is tall even among giants, and his name is cursed in many lands.
 
 #was name:Maia of Yavanna
 name:Ancient witch
-base:ainu
+base:person
 color:g
 speed:120
 hit-points:2000
@@ -21109,6 +21113,11 @@ blow:HIT:HURT:6d5
 blow:HIT:HURT:4d6
 blow:HIT:HURT:6d5
 flags:FEMALE
+flags:POWERFUL | SMART | LEVITATE | EVIL
+flags:TAKE_ITEM
+flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
+flags:FORCE_SLEEP
+flags:ONLY_ITEM
 flags:DROP_3
 flags:IM_ACID
 spell-freq:10
@@ -21116,7 +21125,8 @@ spells:BO_MANA | BO_WATE
 spells:S_AINU | S_ANIMAL
 spells:SHAPECHANGE
 shape:Young witch
-desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a desc:jutting jaw that shows off her iron teeth.
+desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a
+desc:jutting jaw that shows off her iron teeth.
 desc:She is skinny, like a skeleton, with a bony leg.
 desc:She knows how to turn from old into young in a blink of an eye.
 
