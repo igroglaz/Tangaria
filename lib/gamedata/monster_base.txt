@@ -51,7 +51,8 @@ desc:Ancient Dragon/Wyrm
 # Ainur in Angband typically have shapechanges and many possible other spells,
 # but typically don't breathe
 name:ainu
-glyph:A
+# in T we use 'N' glyph for them as it's we go for Angels mostly
+glyph:N
 pain:1
 flags:POWERFUL | SPIRIT | SMART | LEVITATE | NEUTRAL
 flags:ONLY_ITEM
