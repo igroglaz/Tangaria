@@ -2030,9 +2030,9 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                     if (streq(who->monster->race->base->name, "angel") && turn.turn % 2)
                     {                       
                         if (visible)
-                            msg(p, "The %s reflects your attack!", m_name);
+                            msgt(p, MSG_RESIST_A_LOT, "The %s reflects your attack!", m_name);
                         else
-                            msg(p, "Your attack is reflected!");
+                            msgt(p, MSG_RESIST_A_LOT, "Your attack is reflected!");
 
                         more = true;
                         continue;
