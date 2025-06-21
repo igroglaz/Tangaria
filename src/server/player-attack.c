@@ -2024,6 +2024,22 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
                 {
                     visible = monster_is_obvious(p, who->idx, who->monster);
                     monster_desc(p, m_name, sizeof(m_name), who->monster, MDESC_OBJE);
+
+                    /////////////////////////////////////////////
+                    // < REFLECT: some monster can reflect (eg Angels)
+                    if (streq(who->monster->race->base->name, "angel") && turn.turn % 2)
+                    {                       
+                        if (visible)
+                            msg(p, "The %s reflects your attack!", m_name);
+                        else
+                            msg(p, "Your attack is reflected!");
+
+                        more = true;
+                        continue;
+                    }
+                    // REFLECT >
+                    ////////////////////////////////////////////
+
                     if (monster_is_destroyed(who->monster->race))
                         note_dies = MON_MSG_DESTROYED;
                 }
