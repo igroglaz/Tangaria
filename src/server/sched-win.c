@@ -23,6 +23,7 @@
 
 
 static volatile long timer_ticks;
+volatile long gticks; // GLOBAL variable for rng
 static long frame_count;
 static long timer_freq; /* frequency (Hz) at which timer ticks. */
 static void (*timer_handler)(void);
@@ -39,6 +40,7 @@ static void CALLBACK timer_callback(UINT wTimerID, UINT msg, DWORD dwUser, DWORD
     DWORD dw2)
 {
     timer_ticks++;
+    gticks = timer_ticks;
 }
 
 

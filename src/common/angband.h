@@ -66,5 +66,7 @@
 # define max(A, B) (A > B ? A : B)
 #endif
 
+// global timer ticks for randomization
+extern volatile long gticks;
 
 #endif
