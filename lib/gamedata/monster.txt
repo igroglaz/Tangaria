@@ -18690,7 +18690,7 @@ desc:A tangible but ghostly form, made of grey fog. The air around it feels
 desc: deathly cold.
 
 name:The Watcher in the Water
-base:aquatic
+base:hybrid
 color:v
 speed:120
 hit-points:3500
@@ -18704,7 +18704,8 @@ experience:17000
 blow:CRUSH:ACID:8d8
 blow:CRUSH:POISON:8d8
 blow:CRUSH:PARALYZE:8d8
-flags:UNIQUE | EVIL | COLD_BLOOD | PWMANG_BASE | PWMANG_FIXED
+flags:UNIQUE | EVIL | ANIMAL | COLD_BLOOD | PWMANG_BASE | PWMANG_FIXED
+flags:IM_WATER | NO_PASS_TREE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_ACID | IM_COLD | IM_POIS
 flags:NO_CONF | NO_FEAR
