@@ -369,11 +369,6 @@ static void award_account_points(struct player *p)
     { 
         ; // Skip awarding points (but leave xtra in the end)
     }
-    // Deeptown players get points for lvling rarely
-    else if (p->account_score > 20 && OPT(p, birth_deeptown) && one_in_(2))
-    {
-        ; // Skip awarding points (but leave xtra in the end)
-    }
     else if (p->account_score == 0 && p->max_lev == 3)
     {
         p->account_score++;
@@ -538,6 +533,7 @@ static void award_account_points(struct player *p)
                      (classPower == 2 && p->account_score < 50) ||  // archer, rogue
                      (classPower == 1 && p->account_score < 70) ||  // shaman, priest
                      (classPower == 0 && p->account_score < 100))) { // mage, sorc
+                        p->account_score++;
                         extraPoint = true;
                 }
                 break;
@@ -545,6 +541,7 @@ static void award_account_points(struct player *p)
             case 40:
             case 50:
                 // always award points @ 30, 40, 50
+                p->account_score++;
                 extraPoint = true;
                 break;
             default: ; // no points for other levels
@@ -562,6 +559,7 @@ static void award_account_points(struct player *p)
                      (classPower == 2 && p->account_score < 50) ||  // archer, rogue
                      (classPower == 1 && p->account_score < 70) ||  // shaman, priest
                      (classPower == 0 && p->account_score < 100))) { // mage, sorc
+                        p->account_score++;
                         extraPoint = true;
                 }
                 break;
@@ -569,19 +567,21 @@ static void award_account_points(struct player *p)
             case 40:
             case 50:
                 // always award points @ 30, 40, 50
+                p->account_score++;
                 extraPoint = true;
                 break;
             default: ; // no points for other levels
         }
     }
 
-    // zeitnot (zeitnot) characters - award an extra points
+    // zeitnot characters - award an extra points
     if (OPT(p, birth_zeitnot)) {
         int classPower = class_power(p->clazz->name);
         switch (p->max_lev) {
             case 15: // level 15: only hard classes
                 if ((classPower == 1 && p->account_score < 50) ||
                     (classPower == 0 && p->account_score < 70)) {
+                    p->account_score++;
                     extraPoint = true;
                 }
                 break;
@@ -590,6 +590,7 @@ static void award_account_points(struct player *p)
                     (classPower == 2 && p->account_score < 50) ||
                     (classPower == 1 && p->account_score < 70) ||
                     (classPower == 0 && p->account_score < 100)) {
+                        p->account_score++;
                         extraPoint = true;
                 }
                 break;
@@ -600,6 +601,7 @@ static void award_account_points(struct player *p)
             case 49:
             case 50:
                 // always award points @ 30-50 lvls
+                p->account_score++;
                 extraPoint = true;
                 break;
             default: ; // no points for other levels
@@ -614,6 +616,7 @@ static void award_account_points(struct player *p)
                     (classPower == 2 && p->account_score < 50) ||
                     (classPower == 1 && p->account_score < 70) ||
                     (classPower == 0 && p->account_score < 100)) {
+                        p->account_score++;
                         extraPoint = true;
                 }
                 break;
@@ -624,17 +627,33 @@ static void award_account_points(struct player *p)
             case 49:
             case 50:
                 // always award points @ 30-50 lvls
+                p->account_score++;
+                extraPoint = true;
+                break;
+            default: ; // no points for other levels
+        }
+    } 
+    // 'Exploration' players get extra points for lvls (but not for boss kills)
+    else if (!OPT(p, birth_deeptown))
+    {
+        switch (p->max_lev) {
+            case 30:
+            case 35:
+            case 40:
+            case 45:
+            case 49:
+            case 50:
+                // always award points @ 30-50 lvls
+                p->account_score++;
                 extraPoint = true;
                 break;
             default: ; // no points for other levels
         }
     }
 
-    if (extraPoint) {
-        msg(p, "Extra point awarded for your hard-mode challenge! You have %lu points.", ++p->account_score);
-    }
+    if (extraPoint)
+        msg(p, "Extra score awarded! You have %lu points.", p->account_score);
 }
-
 
 
 // Upon lvl up for >10lvls: Add or update character entry in alive.raw

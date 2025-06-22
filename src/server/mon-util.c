@@ -1550,11 +1550,6 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 {
                     ; // Skip awarding points
                 }
-                // Deeptown players get points only in 50% cases
-                else if (p->account_score > 20 && OPT(p, birth_deeptown) && one_in_(2))
-                {
-                    ; // Skip awarding points
-                }
                 // it's in rotation with player.c (getting lvls)
                 else if (p->account_score < 10)
                 {
