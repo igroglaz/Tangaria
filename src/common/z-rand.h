@@ -3,10 +3,10 @@
  * Purpose: A Random Number Generator for Angband
  */
 
-/////// Fast CPU LCG pseudo-RNG ////////
+/////// Fast CPU xorshift32 pseudo-RNG ////////
 static uint32_t _rng = 1;
-#define LCG (_rng = _rng * 1103515245U + 12345U)
-////////////////////////////////////////
+#define RNG (_rng ^= _rng << 13, _rng ^= _rng >> 17, _rng ^= _rng << 5, _rng)
+///////////////////////////////////////////////
 
 #ifndef INCLUDED_Z_RAND_H
 #define INCLUDED_Z_RAND_H

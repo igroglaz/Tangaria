@@ -2027,7 +2027,7 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                     /////////////////////////////////////////////
                     // < REFLECT: some monster can reflect (eg Angels)
-                    if (streq(who->monster->race->base->name, "angel") && LCG % 2)
+                    if (streq(who->monster->race->base->name, "angel") && RNG % 2)
                     {                       
                         if (visible)
                             msgt(p, MSG_RESIST_A_LOT, "The %s reflects your attack!", m_name);
