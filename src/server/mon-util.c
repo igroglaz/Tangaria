@@ -1325,7 +1325,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             if (rf_has(mon->race->flags, RF_FORCE_DEPTH)) // dungeon boss
                 strnfmt(marked_buf, sizeof(marked_buf), "- %s", buf);
             else if (mon->race->drops && mon->race->drops->kind && // nazgul % symbol
-                     streq(mon->race->drops->kind->name, "Black Ring of Power"))
+                mon->race->drops->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
                 strnfmt(marked_buf, sizeof(marked_buf), "%% %s", buf);
             else                                          // regular unique
                 strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
