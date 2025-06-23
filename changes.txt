@@ -19,8 +19,21 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.2 build 1
+New features in PWMAngband 1.6.2 build 2
 ========================================
+
+Bugs fixed
+----------
+
+PWMAngband:
+
+- Fix undiscovered mimics preventing "fast" running
+- Limit the size of the stack of objects the Dungeon Master can generate to 40
+- Limit the number of monsters the Dungeon Master can summon to 40
+- Fix not being able to macro spells starting from the eighth spell in a book
+
+Features in PWMAngband 1.6.2 build 1
+====================================
 
 User interface
 --------------

@@ -405,7 +405,10 @@ int textui_get_spell(int book, const char *verb, bool (*spell_filter)(int, int))
             /* Accept lowercase letters */
             if (islower(which.code))
             {
-                spell = A2I(which.code);
+                for (spell = 0; spell < (int)strlen(all_letters_nohjkl); spell++)
+                {
+                    if ((int)which.code == all_letters_nohjkl[spell]) break;
+                }
                 if (spell >= num) spell = -1;
             }
 
