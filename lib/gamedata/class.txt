@@ -253,8 +253,7 @@ value:0:CHR[-2]
 value:0:SHOTS[1d6]
 player-flags:0:FAST_SHOT
 # class brands works both on melee and ranged. races - only on melee!
-brand:5:29:POIS_2
-brand:30:50:CUT_1
+brand:5:50:POIS_2
 title:Fletcher
 title:Shooter
 title:Dead Shot
@@ -8145,6 +8144,8 @@ value:0:CHR[0]
 # can create items which are bound to player
 # if item not needed - it should be destroyed with 'k'
 # + less speed penalty due overweight
+# 30+lvl: can sharpen his weapons and projectiles (got cut_1 to melee and ranged attacks)
+brand:30:50:CUT_1
 title:Tinkerhand
 title:Greasebud
 title:Scrapwright
@@ -8187,11 +8188,10 @@ desc: You don't need additional material to create it.
 desc: Cooldown 6 turns.
 
 spell:Build Walls:10:5:44:30:0
-effect:CREATE_WALLS
+effect:SHORT_BEAM:STONE_WALL:1:1
 effect:TIMED_INC:OCCUPIED
-dice:5+1d10
-desc:For several turns you create a wall on each empty floor space that is directly
-desc: adjacent to you.
+dice:5+1d5
+desc:Raises a wall one tile away in the chosen direction.
 
 
 ############### Inquisitor ###############
