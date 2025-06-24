@@ -14355,6 +14355,7 @@ flags:SMART | UNIQUE | PWMANG_BASE | PWMANG_FIXED | LEVITATE
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
 flags:SRES_LIGHT
+drop:food:Elvish wine:100:2:3
 spell-freq:4
 spells:WOUND | HOLD | SCARE
 spells:BO_NETH
@@ -18307,6 +18308,7 @@ flags:NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | NO_CUT
 flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | RES_LIGHT
 flags:IM_NETHER
 flags:FORCE_DEPTH
+drop:food:Slime Mold:100:2:3
 desc:Some whisper that this blade was once borne by the Enemy itself.
 desc: Though the Enemy preferred to break his foes with Grond,
 desc: he liked to torture the strongest among them with this particular sword.
@@ -19445,6 +19447,7 @@ desc:A mighty spirit of darkness of vaguely humanoid form. Razor-edged claws
 desc: reach out to end your life as it glides towards you, seeking to suck the
 desc: energy from your soul to feed its power.
 
+# TODO move to proper place
 name:The Balrog of Moria
 base:major demon
 color:v
@@ -19467,6 +19470,7 @@ flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:MOVE_BODY
 flags:IM_FIRE
 flags:FORCE_DEPTH
+drop:food:Slime Mold:100:2:3
 spell-freq:4
 spells:CONF | SCARE
 spells:BA_FIRE
@@ -19501,6 +19505,7 @@ flags:MOVE_BODY | KILL_WALL | LEVITATE
 flags:IM_COLD | IM_POIS
 flags:ATTR_MULTI
 flags:FORCE_DEPTH
+drop:food:Slime Mold:100:2:3
 spell-freq:4
 spells:BLIND | BRAIN_SMASH | CONF
 spells:BA_NETH
@@ -19929,6 +19934,7 @@ flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | METAL
 flags:BASH_DOOR | KILL_WALL
 flags:IM_FIRE | IM_ELEC | NO_STUN
 flags:FORCE_DEPTH
+drop:food:Slime Mold:100:2:3
 spell-freq:4
 innate-freq:22
 spells:SHRIEK | TELE_LEVEL
@@ -20485,6 +20491,7 @@ flags:UNIQUE | FEMALE | NAME_COMMA | EVIL | ANIMAL | SMART | SPIRIT | PWMANG_FIX
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:HURT_LIGHT | IM_ACID | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_DEPTH | FORCE_SLEEP
+drop:food:Slime Mold:100:2:3
 spell-freq:4
 innate-freq:30
 spells:BLIND | WOUND | CONF | HEAL | SCARE
@@ -25577,6 +25584,7 @@ flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:MOVE_BODY | KILL_WALL
 flags:IM_ELEC | IM_FIRE | IM_PLASMA
 flags:FORCE_DEPTH
+drop:food:Slime Mold:100:2:3
 spell-freq:2
 innate-freq:50
 spells:BR_FIRE | BR_PLAS
