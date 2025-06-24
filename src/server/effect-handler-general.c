@@ -1638,7 +1638,7 @@ bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     if (!inven_carry_okay(context->origin->player, new_potion))
     {
         object_delete(&new_potion);
-        msg(context->origin->player, "Your backpack if too full!");
+        msg(context->origin->player, "Your backpack is too full!");
         return false;
     }
 
@@ -1646,7 +1646,7 @@ bool effect_handler_ALCHEMY(effect_handler_context_t *context)
     if (!weight_okay(context->origin->player, new_potion))
     {
         object_delete(&new_potion);
-        msg(context->origin->player, "Your backpack if too heavy!");
+        msg(context->origin->player, "Your backpack is too heavy!");
         return false;
     }
 
@@ -1726,7 +1726,7 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
     do
     {
         // wipe it for trueart case (in 'while')
-        if (new_obj->artifact)
+        if (new_obj && new_obj->artifact)
         {
             preserve_artifact_aux(new_obj);
             history_lose_artifact(context->origin->player, new_obj);
@@ -1762,10 +1762,12 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
         else if (context->origin->player->lev > 49)
             new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
     }
-    // as we make sounbounded items, the only way to get rid of them is 'k'
+    // as we make soulbound items, the only way to get rid of them is 'k'
     // but 'k' won't work on true arts, so we reroll if we crafted it
     // (also crafting true arts is bad for lore)
-    while (true_artifact_p(new_obj));
+    //.... SO.. 
+    // Keep looping WHILE (we failed to make an object) OR (we made a true artifact)
+    while (!new_obj || true_artifact_p(new_obj));
 
     set_origin(new_obj, ORIGIN_ACQUIRE, context->origin->player->wpos.depth, NULL);
 
@@ -1781,7 +1783,7 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
             history_lose_artifact(context->origin->player, new_obj);
         }
         object_delete(&new_obj);
-        msg(context->origin->player, "Your backpack if too full!");
+        msg(context->origin->player, "Your backpack is too full!");
         return false;
     }
 
@@ -1794,7 +1796,7 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
             history_lose_artifact(context->origin->player, new_obj);
         }
         object_delete(&new_obj);
-        msg(context->origin->player, "Your backpack if too heavy!");
+        msg(context->origin->player, "Your backpack is too heavy!");
         return false;
     }
 
