@@ -6392,8 +6392,7 @@ bool effect_handler_WEB_SPIDER(effect_handler_context_t *context)
     square_add_web(context->cave, &context->origin->player->grid);
     msg_misc(context->origin->player, " weaves a web.");
 
-    if (context->origin->player &&
-        !streq(context->origin->player->race->name, "Homunculus"))
+    if (context->origin->player)
             player_dec_timed(context->origin->player, TMD_FOOD,
             75 - context->origin->player->lev, false);
 
@@ -6461,7 +6460,8 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     // if player weave web - reduce his satiation greatly
     if (!mon && context->origin->player)
     {   
-        if (streq(context->origin->player->race->name, "Spider"))
+        if (streq(context->origin->player->race->name, "Spider") ||
+            streq(context->origin->player->race->name, "Homunculus"))
             ;
         else
             player_dec_timed(context->origin->player, TMD_FOOD, 300, false);

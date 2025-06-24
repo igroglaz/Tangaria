@@ -531,32 +531,16 @@ void do_cmd_breath(struct player *p, int dir)
     {
         /* Take a turn */
         use_energy(p);
-
         /* Make the breath attack an effect */
         effect = mem_zalloc(sizeof(struct effect));
-        effect->index = EF_WEB_SPIDER; // no satiation spending for Homi
-
+        effect->index = EF_WEB; // no satiation for homi
         /* Cast the breath attack */
         source_player(who, get_player_index(get_connection(p->conn)), p);
         effect_do(effect, who, &ident, false, dir, NULL, 0, 0, NULL);
 
         free_effect(effect);
 
-        p->y_cooldown = 11 - (p->lev / 5); // cooldown: 11 turns on 1 lvl, 1 turns on 50 lvl
-
-        if (p->lev < 10) {
-            player_inc_timed(p, TMD_OCCUPIED, 6, false, false);
-        } else if (p->lev < 20) {
-            player_inc_timed(p, TMD_OCCUPIED, 5, false, false);
-        } else if (p->lev < 30) {
-            player_inc_timed(p, TMD_OCCUPIED, 4, false, false);
-        } else if (p->lev < 40) {
-            player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
-        } else if (p->lev < 50) {
-            player_inc_timed(p, TMD_OCCUPIED, 2, false, false);
-        } else {
-            player_inc_timed(p, TMD_OCCUPIED,  1 + randint0(2), false, false);
-        }
+        p->y_cooldown = 30;
 
         p->chp -= p->mhp / 10; // take a hit (ok, checked above)
 
