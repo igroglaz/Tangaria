@@ -6436,6 +6436,18 @@ bool effect_handler_WEB(effect_handler_context_t *context)
     if (spell_power > 40) rad++;
     if (spell_power > 80) rad++;
 
+    // if player weave web - reduce his satiation greatly
+    if (!mon && context->origin->player)
+    {   
+        if (streq(context->origin->player->race->name, "Spider") ||
+            streq(context->origin->player->race->name, "Homunculus"))
+            ;
+        else
+            player_dec_timed(context->origin->player, TMD_FOOD, 300, false);
+
+        rad = 1;
+    }
+
     loc_init(&begin, grid.x - rad, grid.y - rad);
     loc_init(&end, grid.x + rad, grid.y + rad);
     loc_iterator_first(&iter, &begin, &end);
@@ -6456,16 +6468,6 @@ bool effect_handler_WEB(effect_handler_context_t *context)
         square_add_web(context->cave, &iter.cur);
     }
     while (loc_iterator_next(&iter));
-
-    // if player weave web - reduce his satiation greatly
-    if (!mon && context->origin->player)
-    {   
-        if (streq(context->origin->player->race->name, "Spider") ||
-            streq(context->origin->player->race->name, "Homunculus"))
-            ;
-        else
-            player_dec_timed(context->origin->player, TMD_FOOD, 300, false);
-    }
 
     return true;
 }
