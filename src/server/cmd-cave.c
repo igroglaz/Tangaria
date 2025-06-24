@@ -3577,6 +3577,10 @@ void do_cmd_purchase_house(struct player *p, int dir)
                 /* House is no longer owned */
                 reset_house(i);
 
+                // drink Heroism potions to wipe house right on
+                if (p->timed[TMD_HERO])
+                    wipe_old_houses(&p->wpos);
+
                 /* Redraw */
                 p->upkeep->redraw |= (PR_GOLD);
                 set_redraw_inven(p, NULL);
