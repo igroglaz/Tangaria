@@ -204,7 +204,7 @@ owner:15000:Monomakh the Wise
 owner:20000:Monomakh the Wise
 owner:25000:Monomakh the Wise
 owner:30000:Monomakh the Wise
-slots:6:16
+slots:6:15
 turnover:9
 welcome:0:barely acknowledges your presence.
 welcome:1:says "Not all are welcome here."
@@ -221,6 +221,7 @@ always:potion:Cure Serious Wounds
 always:potion:Cure Critical Wounds
 always:potion:Healing
 always:scroll:Remove Curse
+always:scroll:Light
 normal:hafted:Whip
 normal:hafted:Quarterstaff
 normal:hafted:Mace
@@ -231,7 +232,6 @@ normal:hafted:Flail
 normal:hafted:Lead-Filled Mace
 normal:scroll:Blessing
 normal:scroll:Holy Chant
-normal:scroll:Light
 normal:potion:Boldness
 normal:potion:Heroism
 normal:potion:Neutralize Poison
