@@ -595,11 +595,11 @@ bool obj_can_fail(struct player *p, const struct object *o)
  * 380 - 370(x/(5+|x|)), where x is 2 * (device skill - device level) + 1,
  * to give fail rates out of 1000.
  */
+// max fail there is ~750... Not sure why it's made like it. maybe should be redesigned.
 int get_use_device_chance(struct player *p, const struct object *obj)
 {
     int lev, fail, x;
     int skill = p->state.skills[SKILL_DEVICE];
-    bool is_unbeliever = streq(p->clazz->name, "Unbeliever");
 
     /* Extract the item level, which is the difficulty rating */
     lev = get_object_level(p, obj, true);
@@ -611,23 +611,6 @@ int get_use_device_chance(struct player *p, const struct object *obj)
     fail = -370 * x;
     fail /= (5 + ABS(x));
     fail += 380;
-
-    if (is_unbeliever || streq(p->race->name, "Homunculus"))
-        fail = 999;
-
-    // tele staves ez to activate for everyone (even Unbeliever)
-    if (obj->tval == TV_STAFF && fail > 50 &&
-        obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
-    {
-        fail = 50;
-        if (is_unbeliever)
-            fail = 200;
-    }
-
-    // to ID certain rings (of Flames, of Acid etc), amu of the moon
-    if (!obj->known->effect && 
-        (tval_is_ring(obj) || tval_is_amulet(obj)))
-        fail = 500;
 
     return fail;
 }

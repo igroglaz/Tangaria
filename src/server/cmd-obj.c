@@ -41,6 +41,8 @@ static int check_devices(struct player *p, struct object *obj)
     int fail;
     const char *action;
     bool activated = false;
+    bool is_unbeliever = streq(p->clazz->name, "Unbeliever");
+    bool is_homi = streq(p->race->name, "Homunculus");
 
     /* Horns are not magical and therefore never fail */
     if (tval_is_horn(obj)) return 1;
@@ -61,11 +63,64 @@ static int check_devices(struct player *p, struct object *obj)
     /* Figure out how hard the item is to use */
     fail = get_use_device_chance(p, obj);
 
-    /* Roll for usage */
-    if (CHANCE(fail, 1000))
+    ///////////////////////////////////////////////////////////
+    // Hack to reduce MD chances for some classes:
+    if (is_unbeliever || is_homi)
     {
-        msg(p, "You failed to %s properly.", action);
-        return ((fail < 1000)? 0 :-1);
+        fail = 999;
+        // allow ID certain rings (of Flames, of Acid etc), amu of the moon
+        if (!obj->known->effect && (tval_is_ring(obj) || tval_is_amulet(obj)))
+            fail = 500;
+    }
+    else if (fail < 700 - (p->lev * 10) &&
+             (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+              streq(p->clazz->name, "Shapechanger")))
+    {
+        fail = 700 - (p->lev * 10); // 70% -> 20%
+    }
+    else if (fail < 510 - (p->lev * 10) &&
+             (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
+             streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer") ||
+             streq(p->clazz->name, "Heretic") || streq(p->clazz->name, "Cutthroat")))
+    {
+        fail = 510 - (p->lev * 10); // 50% -> 1%
+    }
+    ///////////////////////////////////////////////////////////
+
+    /* Roll for usage */
+    // CHANCE(x, 1000) always rolls a die 0-999.
+    // fail < 1000: return 0 (can retry)
+    // fail >= 1000: return -1 (no point retrying) - but it won't happen in current code (?) as fail can't be >750
+    // (except out Unbeliever or Homi cases)
+    if (CHANCE(fail, 1000)) // <-- if it's true - we failed to use item
+    {
+        // tele staves ez to activate for everyone (even Unbeliever)
+        if (obj->tval == TV_STAFF && obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
+        {
+            if (is_unbeliever)
+            {
+                if (one_in_(5)) // 20% fail unbeliever
+                {
+                    msg(p, "You failed to %s properly.", action);
+                    return -1;
+                }
+            }
+            else if (one_in_(20)) // 5% fail for everyone
+            {
+                msg(p, "You failed to %s properly.", action);
+                return -1;
+            }
+
+            // for second chance of using tp staff - consume another charge (except last one)
+            if (obj->pval > 1)
+                obj->pval--;
+        }
+        // regular case
+        else
+        {
+            msg(p, "You failed to %s properly.", action);
+            return ((fail < 1000)? 0 : -1);
+        }
     }
 
     /* Notice activations */
@@ -1938,36 +1993,6 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     /* Execute the effect */
     if (can_use > 0)
     {
-        //////////////////////////////////////////////////////////////
-        // Hack to reduce MD chances for wands, staves, rods for some classes:
-        // it won't spend charge of the item (too cruel), so we are not going to do_cmd_use_end()..
-        // but it will still consume energy (also teleport staves are OK)
-        if ((obj->tval == TV_WAND || obj->tval == TV_STAFF || obj->tval == TV_ROD) &&
-             !(obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation")))
-        {
-            if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-                streq(p->clazz->name, "Shapechanger"))
-            {
-                if (magik(70 - p->lev)) // 70% -> 20%
-                {
-                    msg(p, "You failed to activate an item, but its charge preserved.");
-                    use_energy(p);
-                    return false;
-                }
-            }
-            else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
-                     streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer"))
-            {
-                if (magik(51 - p->lev)) // 50% -> 1%
-                {
-                    msg(p, "You failed to activate an item, but its charge preserved.");
-                    use_energy(p);
-                    return false;
-                }
-            }
-        }
-        //////////////////////////////////////////////////////////////
-
         /* Sound and/or message */
         sound(p, p_cmd->snd);
         activation_message(p, obj);
