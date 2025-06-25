@@ -610,7 +610,7 @@ bool run_step(struct player *p, int dir)
     struct chunk *c = chunk_get(&p->wpos);
 
     /* Trapsafe player will treat the trap as if it isn't there */
-    bool disarm = player_is_trapsafe(p);
+    bool disarm = !player_is_trapsafe(p);
 
     /* Start or continue run */
     if (dir)
