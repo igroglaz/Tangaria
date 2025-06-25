@@ -553,7 +553,7 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
     }
 
     /* Give a chance of getting a powerful dracolich from dragon corpses */
-    else if (streq(context->origin->player->clazz->name, "Warlock")) // only Warlock
+    else if (context->origin->player && streq(context->origin->player->clazz->name, "Warlock")) // only Warlock
     {
         struct monster_race *corpse = &r_info[context->obj->pval];
 
