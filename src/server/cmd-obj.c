@@ -98,17 +98,44 @@ static int check_devices(struct player *p, struct object *obj)
         if (obj->tval == TV_STAFF && !OPT(p, birth_hardcore) &&
             obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
         {
-            bool final_failure = is_unbeliever ? one_in_(5)   // 20% fail for unbelievers
-                                               : one_in_(20);  // 5% fail for everyone else
+            int dice_roll = randint1(20); // roll 1-20
+            int charges_to_consume = 1; // default
+            bool final_failure = false;
+            
+            if (is_unbeliever) {
+                // 20% fail for unbelievers (rolls 1-4 out of 20)
+                if (dice_roll <= 4) {
+                    final_failure = true;
+                } else if (dice_roll <= 8) {
+                    charges_to_consume = 3; // rolls 5-8: consume 3 charges
+                } else if (dice_roll <= 14) {
+                    charges_to_consume = 2; // rolls 9-14: consume 2 charges
+                } else {
+                    charges_to_consume = 1; // rolls 15-20: consume 1 charge
+                }
+            } else {
+                // 5% fail for everyone else (roll 1 out of 20)
+                if (dice_roll == 1) {
+                    final_failure = true;
+                } else if (dice_roll <= 5) {
+                    charges_to_consume = 3; // rolls 2-5: consume 3 charges
+                } else if (dice_roll <= 10) {
+                    charges_to_consume = 2; // rolls 6-10: consume 2 charges
+                } else {
+                    charges_to_consume = 1; // rolls 11-20: consume 1 charge
+                }
+            }
 
             if (final_failure) {
                 msg(p, "You failed to %s properly.", action);
                 return -1;
             }
 
-            // for save-chance of using tp staff - consume another charge (except last one)
-            if (obj->pval > 1) {
-                obj->pval--;
+            // consume charges (but not below 1)
+            if (obj->pval > charges_to_consume) {
+                obj->pval -= charges_to_consume;
+            } else if (obj->pval > 1) {
+                obj->pval = 1; // leave at least 1 charge
             }
         }
         // regular case
