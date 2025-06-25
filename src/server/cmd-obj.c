@@ -94,7 +94,7 @@ static int check_devices(struct player *p, struct object *obj)
     // (except out Unbeliever or Homi cases)
     if (CHANCE(fail, 1000)) // <-- if it's true - we failed to use item
     {
-        // non-HC: tele staves ez to activate for everyone (even Unbeliever)
+        // non-HC: another chance for tele staves (even Unbeliever)
         if (obj->tval == TV_STAFF && !OPT(p, birth_hardcore) &&
             obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
         {
@@ -135,7 +135,7 @@ static int check_devices(struct player *p, struct object *obj)
             if (obj->pval > charges_to_consume) {
                 obj->pval -= charges_to_consume;
             } else if (obj->pval > 1) {
-                obj->pval = 1; // leave at least 1 charge
+                obj->pval -= 1; // consume at least 1 charge (but leave 1 always)
             }
         }
         // regular case
