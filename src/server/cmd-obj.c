@@ -94,26 +94,22 @@ static int check_devices(struct player *p, struct object *obj)
     // (except out Unbeliever or Homi cases)
     if (CHANCE(fail, 1000)) // <-- if it's true - we failed to use item
     {
-        // tele staves ez to activate for everyone (even Unbeliever)
-        if (obj->tval == TV_STAFF && obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
+        // non-HC: tele staves ez to activate for everyone (even Unbeliever)
+        if (obj->tval == TV_STAFF && !OPT(p, birth_hardcore) &&
+            obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
         {
-            if (is_unbeliever)
-            {
-                if (one_in_(5)) // 20% fail unbeliever
-                {
-                    msg(p, "You failed to %s properly.", action);
-                    return -1;
-                }
-            }
-            else if (one_in_(20)) // 5% fail for everyone
-            {
+            bool final_failure = is_unbeliever ? one_in_(5)   // 20% fail for unbelievers
+                                               : one_in_(20);  // 5% fail for everyone else
+
+            if (final_failure) {
                 msg(p, "You failed to %s properly.", action);
                 return -1;
             }
 
-            // for second chance of using tp staff - consume another charge (except last one)
-            if (obj->pval > 1)
+            // for save-chance of using tp staff - consume another charge (except last one)
+            if (obj->pval > 1) {
                 obj->pval--;
+            }
         }
         // regular case
         else
