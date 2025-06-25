@@ -940,7 +940,8 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             dam_taken = 0;
     }
     // WATER
-    else if (square_iswater(c, &p->grid))
+    else if (square_iswater(c, &p->grid) &&
+     !(p->poly_race && rf_has(p->poly_race->flags, RF_AQUATIC)))
     {
         /* Drowning damage */
         dam_taken = p->mhp / 100 + randint1(3);
