@@ -5115,5 +5115,5 @@ void display_time(struct player *p)
     else if (hour == 2) suffix = "nd";
     else if (hour == 3) suffix = "rd";
 
-    msg(p, "It is the %d%s hour of the %s.", hour, suffix, (is_daytime()? "day": "night"));
+    msg(p, "It is the %d%s hour of the %s. Account points: %d", hour, suffix, (is_daytime()? "day": "night"), p->account_score);
 }
