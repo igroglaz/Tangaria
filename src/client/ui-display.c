@@ -2509,14 +2509,14 @@ void do_animations(void)
                 // Convert char to uint8_t [0 - 255]
                 nc = (uint8_t) c;
 
-                // Check for overflow s_obj[256][256]
-                if (a > 256 || nc > 256) continue;
+                // Check tiles 0x80 - 0xFF
+                if (a < 128 || a > 255 || nc < 128 || nc > 255) continue;
 
                 // Convert char to uint8_t [0 - 255]
                 ntc = (uint8_t) tc;
 
-                // Check for overflow s_obj[256][256]
-                if (ta > 256 || ntc > 256) continue;
+                // Check tiles 0x80 - 0xFF
+                if (ta < 128 || ta > 255 || ntc < 128 || ntc > 255) continue;
 
                 // Check foreground/background tile
                 if (a == ta && c == tc)
