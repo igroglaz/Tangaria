@@ -978,8 +978,14 @@ static void process_player_world(struct player *p, struct chunk *c)
     if ((p->timed[TMD_WRAITHFORM] == -1) && !square_ispassable(c, &p->grid) &&
         !square_isshop(c, &p->grid)) // also not while in shop
     {
-        take_hit(p, player_apply_damage_reduction(p, 1, false, "hypoxia"), "hypoxia",
-            "was entombed into solid terrain");
+        int dam_taken = 1;
+
+        if (streq(p->clazz->name, "Shapechanger"))
+            dam_taken = p->mhp / 100 + randint1(3);
+
+        take_hit(p, player_apply_damage_reduction(p, dam_taken, false, "hypoxia"), "hypoxia",
+        "was entombed into solid terrain");
+
         if (p->is_dead) return;
     }
 
