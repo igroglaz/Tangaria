@@ -1011,14 +1011,11 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             dam_taken /= 2;
     }
 
-    // if player stays inside of the wall - dmg (eg Wraithform)
+    // if player stays inside of the wall - take dmg (eg Wraithform)
     if (square_ismineral(c, &p->grid))
     {
-        if (p->timed[TMD_WRAITHFORM] == -1) // permanent wraithform
-            dam_taken = p->mhp / 100 + randint1(3);
-        else if (p->timed[TMD_WRAITHFORM]) // magic wraithforms
-            dam_taken = 1;
-            
+        dam_taken = p->mhp / 100 + randint1(3);
+
         take_hit(p, player_apply_damage_reduction(p, dam_taken, false, "hypoxia"), "hypoxia",
         "was entombed into solid terrain");
     }
