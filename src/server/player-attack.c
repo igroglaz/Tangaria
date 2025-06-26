@@ -2464,7 +2464,7 @@ bool do_cmd_fire(struct player *p, int dir, int item)
     if (!obj) return false;
 
     /* Restrict ghosts */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You cannot fire missiles!");
         return false;
@@ -2572,7 +2572,7 @@ bool do_cmd_throw(struct player *p, int dir, int item)
     if (!obj) return false;
 
     /* Restrict ghosts */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You cannot throw items!");
         return false;

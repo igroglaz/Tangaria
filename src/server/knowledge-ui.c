@@ -2106,7 +2106,7 @@ void do_cmd_steal(struct player *p, int dir)
     square_actor(c, &grid, who);
 
     /* Restrict ghosts */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_BODY))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You need a tangible body to steal items!");
         return;

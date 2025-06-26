@@ -143,7 +143,7 @@ void do_cmd_breath(struct player *p, int dir)
     struct source *who = &who_body;
 
     /* Restrict ghosts */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_BODY))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You need a tangible body to breathe!");
         return;

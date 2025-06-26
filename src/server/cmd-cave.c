@@ -387,7 +387,7 @@ void do_cmd_toggle_stealth(struct player *p)
 static bool do_cmd_open_test(struct player *p, struct chunk *c, struct loc *grid)
 {
     /* Ghosts cannot open things */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You cannot open things!");
         return false;
@@ -749,7 +749,7 @@ void do_cmd_open(struct player *p, int dir, bool easy)
 static bool do_cmd_close_test(struct player *p, struct chunk *c, struct loc *grid)
 {
     /* Ghosts cannot close things */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         /* Message */
         msg(p, "You cannot close things!");
@@ -1749,7 +1749,7 @@ bool do_cmd_tunnel(struct player *p)
 static bool do_cmd_disarm_test(struct player *p, struct chunk *c, struct loc *grid)
 {
     /* Ghosts cannot disarm */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You cannot disarm things!");
         return false;
