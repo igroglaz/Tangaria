@@ -944,7 +944,7 @@ static bool do_cmd_tunnel_test(struct player *p, struct chunk *c, struct loc *gr
 {
     /* Ghosts cannot tunnel */
     // wraithform players too (it includes not only mages, but also eg Shapechangers)
-    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM] == -1)
+    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
     {
         msg(p, "You cannot tunnel.");
         return false;
