@@ -892,8 +892,6 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
 {
     int dam_taken = 0;
 
-    if (player_passwall(p) && turn.turn % 2) return 0;  // wraithform helps in 50% cases
-
     // terrain in the wilderness (islava - is outside) --- Not exist in T!
     if (square_isfiery(c, &p->grid))
     {
@@ -903,19 +901,18 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         /* Fire damage */
         dam_taken = adjust_dam(p, ELEM_FIRE, base_dam, RANDOMISE, res);
 
-        /* Levitation makes one lightfooted. */
-        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
-        {
-            dam_taken /= 2;
-            if (actual) equip_learn_flag(p, OF_FEATHER);
-        }
+        if (player_passwall(p) || streq(p->clazz->name, "Cryokinetic"))
+            dam_taken = 0;
         else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
         {
             dam_taken /= 3;
             if (actual) equip_learn_flag(p, OF_FLYING);            
         }
-        else if (streq(p->clazz->name, "Cryokinetic"))
-            dam_taken = 0;
+        else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
+        {
+            dam_taken /= 2;
+            if (actual) equip_learn_flag(p, OF_FEATHER);
+        }
     }
     // terrain in the dungeon (isfiery - is the wilderness)
     else if (square_islava(c, &p->grid))
@@ -925,21 +922,20 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         /* Fire damage */
         dam_taken = adjust_dam(p, PROJ_FIRE, damage, RANDOMISE, 0);
 
-        /* Levitation makes one lightfooted. */
-        if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
-        {
-            dam_taken /= 2;
-            if (actual) equip_learn_flag(p, OF_FEATHER);
-        }
+        if (player_passwall(p) || streq(p->clazz->name, "Cryokinetic"))
+            dam_taken = 0;
         else if (player_of_has(p, OF_FLYING) && !player_of_has(p, OF_CANT_FLY))
         {
             dam_taken /= 3;
             if (actual) equip_learn_flag(p, OF_FLYING);            
         }
-        else if (streq(p->clazz->name, "Cryokinetic"))
-            dam_taken = 0;
+        else if (player_of_has(p, OF_FEATHER) && !player_of_has(p, OF_CANT_FLY))
+        {
+            dam_taken /= 2;
+            if (actual) equip_learn_flag(p, OF_FEATHER);
+        }
     }
-    // WATER
+    // WATER (note: p wraiths fear water)
     else if (square_iswater(c, &p->grid) &&
      !(p->poly_race && rf_has(p->poly_race->flags, RF_AQUATIC)))
     {
@@ -1003,6 +999,9 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         dam_taken = p->mhp / 100 + randint1(3);
         if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
             dam_taken /= 2;
+
+        if (player_passwall(p))
+            dam_taken = 0;
     }
     else if (!square_iswater(c, &p->grid) && p->poly_race && rf_has(p->poly_race->flags, RF_AQUATIC))
     {
@@ -1011,12 +1010,13 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         if (streq(p->race->name, "Merfolk"))
             dam_taken /= 2;
     }
+
     // if player stays inside of the wall - dmg (eg Wraithform)
-    else if (square_ismineral(c, &p->grid))
+    if (square_ismineral(c, &p->grid))
     {
         if (p->timed[TMD_WRAITHFORM] == -1) // permanent wraithform
             dam_taken = p->mhp / 100 + randint1(3);
-        else (p->timed[TMD_WRAITHFORM]) // magic wraithforms
+        else if (p->timed[TMD_WRAITHFORM]) // magic wraithforms
             dam_taken = 1;
             
         take_hit(p, player_apply_damage_reduction(p, dam_taken, false, "hypoxia"), "hypoxia",
