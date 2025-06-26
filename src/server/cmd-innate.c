@@ -549,7 +549,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Wraith")) // TODO: test and rebalance
+    else if (streq(p->race->name, "Wraith"))
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);

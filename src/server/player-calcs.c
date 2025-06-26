@@ -3161,6 +3161,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 */////////
     }
 
+    if (p->timed[TMD_WRAITHFORM])
+    {
+        state->to_h /= 2;
+        state->to_d /= 2;
+    }
+        
+
     /* Assume no shield encumberance */
     state->cumber_shield = false;
 
