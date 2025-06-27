@@ -128,7 +128,7 @@ world:feeling-total:100
 
 # Squares needed to see to get first feeling
 # check FAQ "How is obj_feeling calculated?": https://tangaria.com/gamedesign/
-world:feeling-need:30
+world:feeling-need:25
 
 # Number of levels for each stair
 world:stair-skip:1
