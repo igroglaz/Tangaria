@@ -1010,12 +1010,13 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
         if (streq(p->race->name, "Merfolk"))
             dam_taken /= 2;
     }
-
-    // if player stays inside of the wall - take dmg (eg Wraithform)
-    if (square_ismineral(c, &p->grid))
+    // if player stays inside of the wall - take dmg (with or without Wraithform)
+    else if (square_ismineral(c, &p->grid))
     {
-        if (p->mhp < 50)
+        if (p->mhp < 25)
             dam_taken = RNG % 2;       // 0-1
+        if (p->mhp < 50)
+            dam_taken = 1;             // 1
         else if (p->mhp < 100)
             dam_taken = 1 + RNG % 2;   // 1-2
         else if (p->mhp < 150)
@@ -1028,6 +1029,10 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             dam_taken = 3 + (RNG % 3); // 3-5
         else
             dam_taken = p->mhp / 100 + randint1(3); // 300-399 HP: 4-6 damage /// 400-499 HP: 5-7 damage...
+
+        // in 50% cases Wraith race don't receive dmg inside of walls
+        if (streq(p->race->name, "Wraith") && one_in_(2))
+            dam_taken = 0;
     }
 
     return dam_taken;
