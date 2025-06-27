@@ -2357,12 +2357,23 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     else if (streq(p->race->name, "Gargoyle"))
         state->to_a += p->lev;
 
-    // Wraith restore satiation by 'R'esting with level-based cap
-    else if (p->upkeep->resting && p->wpos.depth && streq(p->race->name, "Wraith"))
+    // Wraith race timed effects
+    else if (streq(p->race->name, "Wraith"))
     {
-        int food_cap = 1000 + ((p->lev / 5) * 100);  // Base 1000 + 100 per 5 levels
-        if (p->timed[TMD_FOOD] < food_cap)
-            player_inc_timed(p, TMD_FOOD, 10, false, false);
+        // Wraith forms ('y' to switch)
+        if (p->timed[TMD_WRAITHFORM] > 0)
+        {
+            player_inc_timed(p, TMD_WRAITHFORM, 1, false, false);
+            player_inc_timed(p, TMD_BLIND_REAL, 1, false, false); // no cure
+        }
+
+        // Wraith restore satiation by 'R'esting with level-based cap
+        if (p->upkeep->resting && p->wpos.depth)
+        {
+            int food_cap = 1000 + ((p->lev / 5) * 100);  // Base 1000 + 100 per 5 levels
+            if (p->timed[TMD_FOOD] < food_cap)
+                player_inc_timed(p, TMD_FOOD, 10, false, false);
+        }
     }
 
     /* Handle polymorphed players */

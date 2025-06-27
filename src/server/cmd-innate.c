@@ -143,7 +143,7 @@ void do_cmd_breath(struct player *p, int dir)
     struct source *who = &who_body;
 
     /* Restrict ghosts */
-    if ((p->ghost && !(p->dm_flags & DM_GHOST_HANDS)) || p->timed[TMD_WRAITHFORM])
+    if (p->ghost && !(p->dm_flags & DM_GHOST_HANDS))
     {
         msg(p, "You need a tangible body to breathe!");
         return;
@@ -553,11 +553,19 @@ void do_cmd_breath(struct player *p, int dir)
     {
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
-        player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
-        player_inc_timed(p, TMD_BLIND_REAL, 5, false, false); // no cure
-        
-        p->y_cooldown = 60; // cooldown
-        
+
+        // switch between wraith and regular forms
+        if (p->timed[TMD_WRAITHFORM])
+        {
+            player_clear_timed(p, TMD_WRAITHFORM, false);
+            player_clear_timed(p, TMD_BLIND_REAL, false);
+        }
+        else
+        {
+            player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
+            player_inc_timed(p, TMD_BLIND_REAL, 5, false, false); // no cure
+        }
+
         return;
     }
     else if (streq(p->race->name, "Wisp"))
