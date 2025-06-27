@@ -154,7 +154,7 @@ void do_cmd_go_up(struct player *p)
 
     // deeptown: special going up rules based on player level
     // allow going up to 1 level above minimum required depth, or directly to surface
-    if (OPT(p, birth_deeptown))
+    if (OPT(p, birth_deeptown) && !is_dm_p(p))
     {
         int allowed_shallow_depth;
         int min_depth_for_level = get_deeptown_min_depth(p->lev);
@@ -290,7 +290,7 @@ void do_cmd_go_down(struct player *p)
 
     // deeptown: from surface you can go down only on certain lvls
     // (prevent low lvl farm)
-    if (OPT(p, birth_deeptown) && p->wpos.depth == 0)
+    if (OPT(p, birth_deeptown) && p->wpos.depth == 0 && !is_dm_p(p))
     {
         descend_to = get_deeptown_min_depth(p->lev);
         
