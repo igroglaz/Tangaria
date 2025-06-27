@@ -1315,7 +1315,7 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             sound(p, MSG_CHOP_TREE_FALL); 
             msg(p, "You hack your way through the vegetation %s.", with_clause); 
          
-            // CLASS lumber item generation (Rare Herb, Crafting Material etc)
+            // CLASS lumber item generation (Rare Herb, Sprig of Athelas etc)
             if (p->wpos.depth) 
             { 
                 struct object *dig_reagent = NULL;
@@ -1324,11 +1324,6 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {
                     dig_reagent = object_new();
                     object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Herb"), 0, MINIMISE);
-                }
-                else if (streq(p->clazz->name, "Crafter") && one_in_(3))
-                {
-                    dig_reagent = object_new();
-                    object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
                 }
                 else if (streq(p->race->name, "Dunadan") && magik(1)) // 1%
                 {
@@ -1397,10 +1392,47 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
         /* Found treasure */
         else if (gold)
         {
-            /* Place some gold */
-            place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
-            sound(p, MSG_DIG_TREASURE);
-            msg(p, "You have found something digging %s!", with_clause);
+            // make Crafting Material
+            if (streq(p->clazz->name, "Crafter") && one_in_(2) && p->wpos.depth)
+            {
+                struct object *dig_reagent;
+
+                dig_reagent = object_new();
+
+                object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
+
+                /* Pack is too full */
+                if (!inven_carry_okay(p, dig_reagent))
+                {
+                    object_delete(&dig_reagent);
+                    msg(p, "Your backpack is too full to add something there!");
+                    return false;
+                }
+
+                /* Pack is too heavy */
+                if (!weight_okay(p, dig_reagent))
+                {
+                    object_delete(&dig_reagent);
+                    msg(p, "Your backpack is too heavy to add something there!");
+                    return false;
+                }
+                set_origin(dig_reagent, ORIGIN_ACQUIRE, p->wpos.depth, NULL);
+                dig_reagent->soulbound = true;
+
+                /* Give it to the player */
+                inven_carry(p, dig_reagent, true, true);
+
+                /* Handle stuff */
+                handle_stuff(p);
+            }
+            // regular case when digging treasure
+            else
+            {
+                /* Place some gold */
+                place_gold(p, c, grid, object_level(&p->wpos), ORIGIN_FLOOR);
+                sound(p, MSG_DIG_TREASURE);
+                msg(p, "You have found something digging %s!", with_clause);
+            }
         }
 
         /* No cobbles and stones to find in town */
@@ -1410,19 +1442,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
             msg(p, "You have finished the tunnel.");
         }
 
-        // make Rare Mineral or Crafting Material
-        else if (((streq(p->clazz->name, "Alchemist") && one_in_(5)) ||
-                  (streq(p->clazz->name, "Crafter")   && one_in_(2))) &&
-                   p->wpos.depth)
+        // make Rare Mineral
+        else if (streq(p->clazz->name, "Alchemist") && one_in_(5) && p->wpos.depth)
         {
             struct object *dig_reagent;
 
             dig_reagent = object_new();
 
-            if (streq(p->clazz->name, "Alchemist"))
-                object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Mineral"), 0, MINIMISE);
-            else if (streq(p->clazz->name, "Crafter"))
-                object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Crafting Material"), 0, MINIMISE);
+            object_prep(p, c, dig_reagent, lookup_kind_by_name(TV_REAGENT, "Rare Mineral"), 0, MINIMISE);
 
             /* Pack is too full */
             if (!inven_carry_okay(p, dig_reagent))
