@@ -906,7 +906,8 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     struct chunk *c = chunk_get(&p->wpos);
 
     // Wraith race: hard to equip items on ghostly body.. takes time (except cursed items)
-    if ((streq(p->race->name, "Wraith") && !obj->curses) && turn.turn % 7 != 0)
+    // (allow ez equipping on surface)
+    if ((streq(p->race->name, "Wraith") && !obj->curses && p->wpos.depth != 0) && turn.turn % 7 != 0)
     {
         msg(p, "You fail to equip an item on your spectral body this time. Try ones more..");
         return;

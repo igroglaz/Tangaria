@@ -2450,6 +2450,7 @@ value:0:RES_DARK[1]
 # deep_descend 1 lvl from time to time
 value:0:RES_FIRE[-1]
 value:0:RES_LIGHT[-1]
+# can recall only if most of the dungeon lvl explored
 player-flags:0:NO_RECALL
 value:0:DAM_RED[-1]
 # - hard to equip items.. need several attempts
