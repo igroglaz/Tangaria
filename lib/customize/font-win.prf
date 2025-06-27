@@ -131,13 +131,14 @@ monster-char:Gabriel, the Messenger:165
 monster-char:Michael, the Guardian:165
 
 #monster-char:The Phoenix:166
-#monster-char:Grip, Farmer Maggot's dog:167
-#monster-char:Wolf, Farmer Maggot's dog:167
-#monster-char:Fang, Farmer Maggot's dog:167
-#monster-char:Bloodfang, the Wolf:167
-#monster-char:Draugluin, Sire of All Werewolves:167
-#monster-char:Carcharoth, the Jaws of Thirst:167
-#monster-char:Huan, Wolfhound of the Valar:167
+
+monster-char:Grip, Farmer Maggot's Dog:167
+monster-char:Wolf, Farmer Maggot's Dog:167
+monster-char:Fang, Farmer Maggot's Dog:167
+monster-attr:Bloodfang, the Wolf:R:167
+monster-attr:Draugluin, Sire of All Werewolves:W:167
+monster-attr:Carcharoth, the Jaws of Thirst:U:167
+monster-attr:Huan, Wolfhound of the Valar:R:167
 
 #monster-char:Kavlax the Many-Headed:168
 #monster-char:The Lernaean Hydra:168
