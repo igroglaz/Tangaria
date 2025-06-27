@@ -1028,9 +1028,6 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
             dam_taken = 3 + (RNG % 3); // 3-5
         else
             dam_taken = p->mhp / 100 + randint1(3); // 300-399 HP: 4-6 damage /// 400-499 HP: 5-7 damage...
-
-        take_hit(p, player_apply_damage_reduction(p, dam_taken, false, "hypoxia"), "hypoxia",
-        "was entombed into solid terrain");
     }
 
     return dam_taken;
