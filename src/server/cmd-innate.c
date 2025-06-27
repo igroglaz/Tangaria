@@ -565,10 +565,6 @@ void do_cmd_breath(struct player *p, int dir)
             /* Redraw whole map, monster list */
             p->upkeep->redraw |= (PR_MAP | PR_MONLIST | PR_ITEMLIST | PR_STATUS);
 
-            p->full_refresh = true;  // Full refresh (includes monster/object lists)
-            handle_stuff(p);         // Handle Window stuff
-            p->full_refresh = false; // Normal refresh (without monster/object lists)
-
             msgt(p, MSG_RED_INK, "OFF WRAITH ------------------------------");
         }
         else
