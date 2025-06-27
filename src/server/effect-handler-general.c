@@ -4658,8 +4658,13 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
     if (player_has(context->origin->player, PF_NO_RECALL) &&
     !context->origin->player->total_winner)
     {
-        msg(context->origin->player, "Nothing happens.");
-        return false;
+        if (context->origin->player->cave->feeling_squares > 35) // z_info->feeling_need is 25 atm
+            ;
+        else
+        {
+            msg(context->origin->player, "Nothing happens. You must explore more before recalling out.");
+            return false;
+        }
     }
 
     /* No recall from quest levels with force_descend while the quest is active */
