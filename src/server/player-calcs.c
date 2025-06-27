@@ -2362,10 +2362,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         // Wraith forms ('y' to switch)
         if (p->timed[TMD_WRAITHFORM] > 0)
-        {
             player_inc_timed(p, TMD_WRAITHFORM, 1, false, false);
-            player_inc_timed(p, TMD_BLIND_REAL, 1, false, false); // no cure
-        }
 
         // Wraith restore satiation by 'R'esting with level-based cap
         if (p->upkeep->resting && p->wpos.depth)

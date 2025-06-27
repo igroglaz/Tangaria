@@ -755,7 +755,16 @@ static void calc_lighting(struct player *p, struct chunk *c)
         if (light < 0)
             light = 0;
     }
-    
+
+    // Wraithform limits light radius (rfe: give additional infrav?)
+    if (p->timed[TMD_WRAITHFORM])
+    {
+        if (RNG % 2)
+            light = 0;
+        else
+            light = 1;
+    }
+
     radius = ABS(light) - 1;
 
     loc_init(&begin, 0, 0);
