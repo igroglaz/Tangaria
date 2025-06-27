@@ -1003,7 +1003,7 @@ help:The living fear them and hardly understand their nature.|
 help: |
 help:They can see in the darkness well, while using light sources can actually
 help: reduce the radius of their vision. Their innate vision grows when they
-help: become more mature. Downside: their extrasensory range is reduced.|
+help: become more mature.|
 help: |
 help:They are vulnerable to light magic. They also can't gain full immunity
 help: to fire - it only works in half the cases.|
@@ -1019,7 +1019,7 @@ help:From time to time, they phase through the floor - and appear on a deeper
 help: dungeon level.|
 help: |
 help:They can pass walls at will ('y') by spending some energy, but become blind
-help: while doing so.
+help: while doing so. Press 'y' again to return to solid form.
 
 race:Beholder
 help:Beholders call themselves the first and last of all beings - perfect eyes

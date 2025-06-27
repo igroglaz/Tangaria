@@ -559,11 +559,26 @@ void do_cmd_breath(struct player *p, int dir)
         {
             player_clear_timed(p, TMD_WRAITHFORM, false);
             player_clear_timed(p, TMD_BLIND_REAL, false);
+
+            /* Fully update the visuals */
+            p->upkeep->update |= (PU_UPDATE_VIEW | PU_MONSTERS);
+            /* Redraw whole map, monster list */
+            p->upkeep->redraw |= (PR_MAP | PR_MONLIST | PR_ITEMLIST | PR_STATUS);
+
+            p->full_refresh = true;  // Full refresh (includes monster/object lists)
+            handle_stuff(p);         // Handle Window stuff
+            p->full_refresh = false; // Normal refresh (without monster/object lists)
+
+            msgt(p, MSG_RED_INK, "OFF WRAITH ------------------------------");
         }
         else
         {
             player_inc_timed(p, TMD_WRAITHFORM, 5, false, false);
             player_inc_timed(p, TMD_BLIND_REAL, 5, false, false); // no cure
+
+            p->upkeep->redraw |= PR_STATUS;
+
+            msg(p, "ON WRAITH +++++++++++++++++++++++++++++++++++");
         }
 
         return;
