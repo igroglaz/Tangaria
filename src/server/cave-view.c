@@ -759,10 +759,29 @@ static void calc_lighting(struct player *p, struct chunk *c)
     // Wraithform limits light radius (rfe: give additional infrav?)
     if (p->timed[TMD_WRAITHFORM])
     {
-        if (RNG % 2)
+        // 49-50 lvl rad 3
+        if (p->lev >= 49)
+            light = 3;
+        // 1-49 lvl
+        else if (RNG % 2) // 50% no light
             light = 0;
-        else
-            light = 1;
+        else if (p->lev > 29) // 30-48: 0-1-2
+        {
+            int chance = randint0(3);
+            if (chance == 0)
+                light = 1;
+            else if (chance == 1)
+                light = 2;
+            else
+                light = 3;
+        }
+        else // 1-30 lvl 50% // 1-30: 0-1
+        {
+            if (one_in_(2))
+                light = 1;
+            else
+                light = 2;
+        }
     }
 
     radius = ABS(light) - 1;
