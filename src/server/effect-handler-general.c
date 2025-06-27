@@ -1669,6 +1669,14 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
 {
     struct object *obj, *new_obj;
     int amt;
+    // Calculate bonuses based on material amount: //
+    int level_bonus = 0;
+    int good_bonus = 0;
+    int great_bonus = 0;
+    bool force_good = false;
+    bool force_great = false;
+    int craft_level = 0;
+    /////////////////////////////////////////////////
 
     /* Only on random levels */
     if (!random_level(&context->origin->player->wpos))
@@ -1709,18 +1717,44 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
     /* Paranoia: requires a reagent item */
     if (!tval_is_reagent(obj)) return false;
 
-    /* Amount */
-    amt = obj->number;
-    
-    // type and number of reagent
-    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material")) && amt < 40)
+    // type of reagent
+    if (!(obj->kind == lookup_kind_by_name(TV_REAGENT, "Crafting Material")))
     {
-        msg(context->origin->player, "You need at least 40 crafting materials!");
+        msg(context->origin->player, "You need a crafting material!");
         return false;
     }
 
     // init object (to be able to wipe it)
     new_obj = object_new();
+
+    // amount of material
+    amt = obj->number;
+    
+    // Material quantity bonuses (diminishing returns)
+    if (amt >= 3) level_bonus++;
+    if (amt >= 5) level_bonus += 2;
+    if (amt >= 10) level_bonus += 3;
+    if (amt >= 20) level_bonus += 5;
+    if (amt >= 30) level_bonus += 7;
+    if (amt >= 40) level_bonus += 10;
+    
+    // Quality chance bonuses based on material amount
+    good_bonus = amt * 10;
+
+    if (amt >= 10) great_bonus += 15;
+    if (amt >= 15) great_bonus += 15;
+    if (amt >= 20) great_bonus += 15;
+    if (amt >= 25) great_bonus += 15;
+    if (amt >= 30) great_bonus += 15;
+    if (amt >= 35) great_bonus += 15;
+    if (amt >= 40) {
+        great_bonus = 100;
+        force_great = true;  // Guarantee great items at 40 materials
+    }
+    
+    // Calculate effective object level (capped at reasonable maximum)
+    craft_level = object_level(&context->origin->player->wpos) + level_bonus;
+    if (craft_level > 98) craft_level = 98;
 
     // lets craft an item
     do
@@ -1732,35 +1766,57 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
             history_lose_artifact(context->origin->player, new_obj);
             object_wipe(new_obj);
         }
-        // now crafting progress with leveling
+
+        // make_object(p, c, lev, good, great, extra_roll, int32_t *value, int tval)
+        
         //1-9
         if (context->origin->player->lev < 10)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        {
+            bool use_good = force_good || randint0(100) < good_bonus;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, false, NULL, 0);
+        }
         //10-19
-        else if (context->origin->player->lev < 20 && one_in_(3))
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
         else if (context->origin->player->lev < 20)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        {
+            bool use_good = force_good || randint0(100) < 10 + good_bonus;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, false, NULL, 0);
+        }
         //20-29
-        else if (context->origin->player->lev < 30 && one_in_(2))
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
         else if (context->origin->player->lev < 30)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), false, false, false, NULL, 0);
+        {
+            bool use_good = force_good || randint0(100) < 20 + good_bonus;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, false, NULL, 0);
+        }
         // 30-39
         else if (context->origin->player->lev < 40)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        {
+            bool use_good = force_good || randint0(100) < 30 + good_bonus;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, false, NULL, 0);
+        }
         // 40-49
-        else if (context->origin->player->lev < 50 && one_in_(3))
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
         else if (context->origin->player->lev < 50)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        {
+            bool use_good = force_good || randint0(100) < 40 + good_bonus;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, false, NULL, 0);
+        }
         // 50
-        else if (context->origin->player->lev > 49 && one_in_(3))
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, true, NULL, 0);
-        else if (context->origin->player->lev > 49 && one_in_(2))
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, true, false, NULL, 0);
-        else if (context->origin->player->lev > 49)
-            new_obj = make_object(context->origin->player, context->cave, object_level(&context->origin->player->wpos), true, false, false, NULL, 0);
+        else
+        {
+            bool use_good = true;
+            bool use_great = force_great || randint0(100) < 1 + great_bonus;
+            bool use_extra = force_great;
+            new_obj = make_object(context->origin->player, context->cave, craft_level, use_good, use_great, use_extra, NULL, 0);
+        }
     }
     // as we make soulbound items, the only way to get rid of them is 'k'
     // but 'k' won't work on true arts, so we reroll if we crafted it
