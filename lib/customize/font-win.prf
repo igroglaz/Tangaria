@@ -58,10 +58,10 @@ feat:Danny the dog:*:15:167
 ### Monster ###
 
 # if we don't need color:
-# monster-char-char : name : char
+# monster-char : name : char
 #
 # if we need color:
-# monster-char-attr:name:attr:char
+# monster-attr:name:attr:char
 #
 # NO TILES:
 # It
@@ -132,13 +132,14 @@ monster-char:Michael, the Guardian:165
 
 #monster-char:The Phoenix:166
 
+# DOGS (+Wolf-Sauron in bosses)
 monster-char:Grip, Farmer Maggot's Dog:167
 monster-char:Wolf, Farmer Maggot's Dog:167
 monster-char:Fang, Farmer Maggot's Dog:167
-monster-attr:Bloodfang, the Wolf:R:167
+monster-char:Bloodfang, the Wolf:167
 monster-attr:Draugluin, Sire of All Werewolves:W:167
-monster-attr:Carcharoth, the Jaws of Thirst:U:167
-monster-attr:Huan, Wolfhound of the Valar:R:167
+monster-attr:Carcharoth, the Jaws of Thirst:r:167
+monster-attr:Huan, Wolfhound of the Valar:w:167
 
 #monster-char:Kavlax the Many-Headed:168
 #monster-char:The Lernaean Hydra:168
@@ -154,5 +155,4 @@ monster-char:Hoarmurath of Dir:205
 monster-char:Khamul, the Black Easterling:205
 
 monster-char:The Witch-King of Angmar:2
-
 

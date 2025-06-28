@@ -8,6 +8,9 @@
 # the use of special pseudo-graphic pictures for walls and such.
 #
 
+
+
+
 ### Terrain features ###
 
 # Floors (white : centered dot)
@@ -18,6 +21,9 @@ feat:open floor:*:1:7
 # glyph : terrain name : symbol
 # glyph:open floor:7
 
+###################
+###################
+###################
 
 
 ### NPC
@@ -126,13 +132,14 @@ monster-char:Michael, the Guardian:165
 
 #monster-char:The Phoenix:166
 
+# DOGS (+Wolf-Sauron in bosses)
 monster-char:Grip, Farmer Maggot's Dog:167
 monster-char:Wolf, Farmer Maggot's Dog:167
 monster-char:Fang, Farmer Maggot's Dog:167
-monster-attr:Bloodfang, the Wolf:R:167
+monster-char:Bloodfang, the Wolf:167
 monster-attr:Draugluin, Sire of All Werewolves:W:167
-monster-attr:Carcharoth, the Jaws of Thirst:U:167
-monster-attr:Huan, Wolfhound of the Valar:R:167
+monster-attr:Carcharoth, the Jaws of Thirst:r:167
+monster-attr:Huan, Wolfhound of the Valar:w:167
 
 #monster-char:Kavlax the Many-Headed:168
 #monster-char:The Lernaean Hydra:168

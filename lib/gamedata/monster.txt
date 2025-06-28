@@ -1644,7 +1644,7 @@ desc:A small humanoid figure.
 
 name:Grip, Farmer Maggot's Dog
 base:canine
-color:y
+color:U
 speed:120
 hit-points:25
 hearing:30
@@ -1664,7 +1664,7 @@ desc: mushrooms.
 
 name:Fang, Farmer Maggot's Dog
 base:canine
-color:y
+color:D
 speed:120
 hit-points:30
 hearing:30
@@ -1778,7 +1778,7 @@ desc:It is a hooded crow, gray except for the black wings and head.
 
 name:Wolf, Farmer Maggot's Dog
 base:canine
-color:y
+color:W
 speed:120
 hit-points:40
 hearing:30
@@ -25049,7 +25049,7 @@ desc: Carcharoth, the terrible wolf of Angband.
 
 name:Carcharoth, the Jaws of Thirst
 base:canine
-color:p
+color:R
 speed:130
 hit-points:8000
 light:2
