@@ -6595,19 +6595,18 @@ desc: Target grid must be targetable and known to the player.
 desc: Does not require mana.
 
 spell:Magic Blade:1:1:1:1:0
-#hc 1d7 .. mana 1->6
+#hc 1d7 dmg.. mana 1->6..
 effect:SHORT_BEAM:MISSILE:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 3
+expr:B:PLAYER_LEVEL:+ 5
 msg_other: bends index finger.. Blades appear from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: irresistible damage.
-desc: At level 11 and higher, damage is greatly increased (every 7 levels).
-desc: The range of the blades increases every 10 levels, up to 5 squares.
+desc: Damage is greatly increased every 5 levels (up to level 35).
 desc: At level 10+, each cast also consumes a small amount of extra mana.
 
-spell:Electrocute:2:3:27:2:0
-# hc 1d5; distance -> ~15; mana -> 9
+spell:Electrocute:2:2:27:2:0
+# hc 1d5; distance -> ~15; mana -> 8
 effect:SHORT_BEAM:ELEC:6
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6634,8 +6633,8 @@ dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: snaps fingers. Polymorph!
 desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
-desc: Ordering chaotic energy restores your magic power.
-desc: The amount of restored mana increases with your level.
+desc: Ordering chaotic energy restores your magic power and health.
+desc: The amount of restored resource increases with your level.
 desc: Cooldown 5 turns.
 
 spell:Teleport:5:3:1:5:0
@@ -6647,7 +6646,7 @@ effect:RANDOM
 dice:2
 effect:TELEPORT
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 3
 msg_other: winks... and disappears!
 desc:Teleports you randomly within medium distance.
 desc: It takes some mana before displacement, but some of it become restored

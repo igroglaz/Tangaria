@@ -1816,9 +1816,20 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
 
             // Wizard polymorph spell (spell position in class.txt: 3) restore mana
             if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard") &&
-                context->origin->player->current_spell == 3 &&
-                context->origin->player->csp < context->origin->player->msp)
-                    context->origin->player->csp += context->origin->player->lev + 5;
+                context->origin->player->current_spell == 3)
+            {
+                // restore mana
+                if (context->origin->player->csp < context->origin->player->msp)
+                {
+                    if (context->origin->player->csp + context->origin->player->lev + 5 > context->origin->player->msp)
+                        context->origin->player->csp = context->origin->player->msp;
+                    else
+                        context->origin->player->csp += context->origin->player->lev + 5;
+                }
+
+                // heal
+                hp_player_safe(context->origin->player, 1 + (context->origin->player->lev));
+            }
 
             /* Delete the old monster, and return a new one */
             delete_monster_idx(context->cave, *m_idx);

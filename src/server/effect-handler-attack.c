@@ -2318,12 +2318,12 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 // Magic Blade spell (mana 1)
                 if (context->origin->player->spell_cost == 1)
                 {
-                    // distance
-                    rad += context->origin->player->lev / 10;
-                    if (rad > 5) rad = 5;
-                    // dmg
-                    if (context->origin->player->lev > 10)
-                        dam *= context->origin->player->lev / 7;
+                    // damage
+                    int dam_mult = 1 + context->origin->player->lev / 5;
+                    if (dam_mult > 7)
+                        dam_mult = 7;
+                    dam *= dam_mult;
+
                     // spend additional mana
                     if (context->origin->player->lev > 9 &&
                         context->origin->player->csp > context->origin->player->lev / 10)
