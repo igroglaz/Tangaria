@@ -6558,7 +6558,7 @@ value:0:INT[5]
 value:0:CON[-2]
 value:0:CHR[-2]
 value:25:STEALTH[1]
-# 1) restore mana when polymorph monsters
+# 1) restore hp&mana when polymorph monsters
 # 2) on <30% HP got auto MANASHIELD
 player-flags:0:ZERO_FAIL | BEAM
 obj-flag:0:CLUMSY
@@ -6677,22 +6677,30 @@ desc: The damage of the ray increases with your level.
 desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Stone Curse:15:6:32:15:0
-cooldown:240
+cooldown:300
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:7d2
+effect:CREATE_WALLS
 effect:GRANITE
 effect:TIMED_INC_NO_RES:PARALYZED
 dice:6
 #don't put too much as it might be cheezed to tank when playing in party
 effect:TIMED_SET:REVIVE
 dice:6
+effect:CURE:POISONED
+effect:CURE:CUT
+effect:CURE:STUN
+effect:HEAL_HP
+dice:1000
 msg_other: slowly nods.. and becomes stone statue.
 desc:Turns you into a stone statue for 6 turns.
+desc: All your wounds will be healed.
 desc: While petrified, you are invulnerable to all attacks.
 desc: After some time you recover from stone, but the stone rock still
-desc: stays in place protecting you.
+desc: stays in place protecting you. You need to move out of it quickly -  
+desc: otherwise you'll start to suffocate.  
 desc: This spell may causes internal injuries which recover after some time.
-desc: Cooldown 240 turns.
+desc: Cooldown 300 turns.
 
 spell:Flamestrike:17:7:33:20:0
 # hc 1d5; mana -> 13
