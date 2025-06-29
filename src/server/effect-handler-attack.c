@@ -2329,18 +2329,23 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                         context->origin->player->csp > context->origin->player->lev / 10)
                             context->origin->player->csp -= context->origin->player->lev / 10;
                 }
-                // Luminous Fog spell (mana 5)
-                else if (context->origin->player->spell_cost == 5)
+                // Luminous Fog spell (mana 3)
+                else if (context->origin->player->spell_cost == 3)
                 {
                     rad += context->origin->player->lev / 5;
                     if (context->origin->player->lev > 10)
                         dam *= context->origin->player->lev / 3;
                 }
-                // Electrocute spell (mana 3)
-                else if (context->origin->player->spell_cost == 3)
+                // Electrocute spell (mana 2)
+                else if (context->origin->player->spell_cost == 2)
                 {
+                    // damage
+                    int dam_mult = 1 + context->origin->player->lev / 5;
+                    if (dam_mult > 7)
+                        dam_mult = 7;
+                    dam *= dam_mult;
+
                     rad += context->origin->player->lev / 5;
-                    dam *= context->origin->player->lev / 5;
                     // spend additional mana
                     if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
                             context->origin->player->csp = context->origin->player->csp * 96 / 100;

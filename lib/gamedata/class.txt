@@ -6594,8 +6594,9 @@ desc:Fires magic fist to the target.
 desc: Target grid must be targetable and known to the player.
 desc: Does not require mana.
 
+# feature: irresistible
 spell:Magic Blade:1:1:1:1:0
-#hc 1d7 dmg.. mana 1->6..
+#hc 1d5 dmg.. mana 1->6..
 effect:SHORT_BEAM:MISSILE:2
 dice:$B
 expr:B:PLAYER_LEVEL:+ 5
@@ -6609,13 +6610,13 @@ spell:Electrocute:2:2:27:2:0
 # hc 1d5; distance -> ~15; mana -> 8
 effect:SHORT_BEAM:ELEC:6
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 3
 effect:SHORT_BEAM:ELEC:5
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 4
 effect:SHORT_BEAM:ELEC:4
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 5
 effect:RANDOM
 dice:3
 msg_other: holds out a hand... Lightning!
@@ -6652,7 +6653,7 @@ desc:Teleports you randomly within medium distance.
 desc: It takes some mana before displacement, but some of it become restored
 desc: upon getting to destination.
 
-spell:Luminous Fog:7:5:35:7:0
+spell:Luminous Fog:7:3:35:7:0
 cooldown:10
 # hc distance (max dist should be 20) and damage 1d3
 effect:SHORT_BEAM:LIGHT_WEAK:10
@@ -6670,7 +6671,7 @@ spell:Cold Ray:10:5:30:10:0
 # hc 1d5 .. mana -> 13
 effect:BOLT_OR_BEAM:COLD
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 5
 msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts the first monster in its path.
 desc: The damage of the ray increases with your level.
@@ -6808,7 +6809,7 @@ desc: damage to each monster in its area of effect.
 desc: If this kills the monster that blocked the path to the target
 desc: location, the next meteor may continue to find another target.
 
-spell:Summon Daemon:49:100:42:200:0
+spell:Summon Daemon:49:60:42:200:0
 cooldown:150
 effect:SUMMON:DEMON:0:100
 dice:1
