@@ -180,7 +180,6 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
         return (d_esp <= extended_radius);
     }
 
-
     // Full ESP - limited by base radius
     if (player_of_has(p, OF_ESP_ALL)) return (d_esp <= base_radius);
     
@@ -197,8 +196,15 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
         return (d_esp <= extended_radius);
     if (rf_has(mflags, RF_UNDEAD) && player_of_has(p, OF_ESP_UNDEAD)) 
         return (d_esp <= extended_radius);
-    if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL)) 
+    if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL))
+    {
+        if (streq(p->clazz->name, "Wizard")) {
+            base_radius = p->lev + 1;
+            if (base_radius > 20) base_radius = 20;
+        }
+
         return (d_esp <= base_radius); // base for Evil!
+    }
     if (rf_has(mflags, RF_ANIMAL) && player_of_has(p, OF_ESP_ANIMAL)) 
         return (d_esp <= extended_radius);
     

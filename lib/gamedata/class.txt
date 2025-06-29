@@ -6561,6 +6561,8 @@ value:25:STEALTH[1]
 # 1) restore hp&mana when polymorph monsters
 # 2) on <30% HP got auto MANASHIELD
 player-flags:0:ZERO_FAIL | BEAM
+# 3) ESP_EVIL evolves with lvls (1->20)
+obj-flag:0:ESP_EVIL
 obj-flag:0:CLUMSY
 title:Witling
 title:Cantricker
@@ -8039,7 +8041,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 #desc:Prepare to look for rare reagents used in alchemy.
 
 spell:Acid Fog:1:0:5:1:0
-effect:SHORT_BEAM:ACID:1
+effect:SHORT_BEAM:ACID:2
 dice:1d$D
 expr:D:PLAYER_LEVEL:/ 5 + 3
 msg_other: splashed some acid.
@@ -8387,16 +8389,18 @@ desc: Cooldown 2 turns.
 
 ####### DEF
 
-spell:Nothingness:25:6:35:5:0
+spell:Nothingness:10:6:35:5:0
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 2
+effect:TIMED_SET:STEALTH
+dice:3
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 msg_other: teleports away.
 desc:Teleports you randomly within the current level and dazes afterwards.
 
-spell:Shroud:30:10:65:20:0
+spell:Shroud:20:10:65:20:0
 effect:CLEAR_VALUE
 effect:TIMED_SET:OPP_POIS
 effect:TIMED_SET:OPP_COLD
@@ -8411,7 +8415,7 @@ dice:3+1d3
 desc:Grants you resistance to acid, cold, fire, lightning and poison,
 desc: but makes you blind for some time.
 
-spell:Thunder Burst:35:15:50:1:0
+spell:Thunder Burst:30:15:50:1:0
 effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
