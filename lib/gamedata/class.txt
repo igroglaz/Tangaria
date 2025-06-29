@@ -805,12 +805,11 @@ desc: unless it is a permanent wall. Each monster caught in the beam that
 desc: is susceptible to rock remover takes 20+1d30 points of damage.
 
 spell:Sense Surroundings:9:4:35:6:0
+cooldown:120
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
 desc:Maps out a portion of the level around you.
-desc: Induces temporary sensory overload.
+desc: Can be used every 120 turns.
 
 spell:Lightning Strike:12:6:35:8:0
 effect:STRIKE:SOUND:3
@@ -1636,15 +1635,13 @@ desc:Fires a chaos beam, arc or ball in the chosen direction, wakes everything
 desc: in the area, and attempts to frighten everything in line of sight.
 
 spell:Fume of Mordor:40:50:80:150:0
+cooldown:120
 effect:DARKEN_LEVEL:NONE:1
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:5+1d13
 desc:Darkens, maps out, and detects all objects on the complete current
 desc: dungeon level.
+desc: Can be used every 120 turns.
 
 spell:Curse:40:50:60:180:0
 effect:DAMAGE
@@ -2274,12 +2271,12 @@ desc:Grants you stat growth for 20+1d20 turns.
 book:nature book:town:[Creature Dominion]:4:nature
 
 spell:Sense Surroundings:20:8:35:8:0
+cooldown:120
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
 desc:Maps out a portion of the level around you.
 desc: Induces temporary sensory overload.
+desc: Can be used every 120 turns.
 
 spell:Cover Tracks:20:20:40:40:0
 effect:TIMED_SET:COVERTRACKS:0:5
@@ -2750,13 +2747,8 @@ desc:Reveals an unknown rune on an object.
 
 spell:Map Area:13:10:45:7:0
 effect:MAP_AREA
-effect-yx:15:32
-effect:TIMED_INC_NO_RES:BLIND
-dice:10
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10
+effect-yx:22:40
 desc:Maps out a portion of the level around you.
-desc: Induces temporary sensory overload.
 
 spell:Radiate Fear:14:12:45:8:0
 effect:BLAST_OBVIOUS:TURN_ALL:5
@@ -3129,13 +3121,11 @@ desc:Covers your missiles with venom.
 book:nature book:dungeon:[Nature Craft]:4:nature
 
 spell:Sense Surroundings:28:14:56:28:0
+cooldown:120
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:10
-effect:TIMED_INC_NO_RES:BLIND
-dice:10
 desc:Maps out a portion of the level around you.
+desc: Can be used every 120 turns.
 
 spell:Piercing Shots:30:11:50:50:0
 effect:BOW_BRAND:ARROW
@@ -5634,13 +5624,11 @@ desc:Makes you able to run faster for some time.
 desc: Cooldown 100 turns.
 
 spell:Cartography:3:1:1:1:0
-cooldown:100
 # hc, radius increases with lvls
 effect:MAP_AREA
 effect-yx:5:5
 desc:You map out a portion of the level around.
 desc: Your mapping abilities depend on your level.
-desc: Cooldown 100 turns.
 
 spell:Travel:5:2:1:1:0
 effect:TELEPORT_LEVEL
