@@ -6717,11 +6717,20 @@ desc: Cooldown 3 turns.
 
 spell:Dimension Shift:30:17:35:40:0
 cooldown:100
+effect:DETECT_STAIRS
+effect-yx:22:40
+effect:DETECT_DOORS
+effect-yx:22:40
+effect:DETECT_TRAPS
+effect-yx:22:40
+effect:MAP_AREA
+effect-yx:22:40
 effect:TIMED_INC:WRAITHFORM
 dice:5
 effect:TELEPORT_LEVEL
 desc:Teleports you 1 level up or 1 level down (chosen at random) and
 desc: grants you the ability to pass through non-permanent walls for a moment.
+desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 100 turns.
 
 spell:Acid Breath:33:11:30:50:0
