@@ -499,7 +499,8 @@ spell:Identify Rune:12:7:25:8:0
 effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
-spell:Dune Creation:13:9:40:12:0
+# later on there is 'Wall Creation' spell.. so this one is low lvl, mana free
+spell:Dune Creation:13:1:40:12:0
 cooldown:300
 effect:SAND_WALL
 desc:Raises a mound of sand beneath your feet, forming a temporary barrier.
