@@ -1881,14 +1881,11 @@ desc:Cures 2000 points of damage, cures all stunning, heals all
 desc: cut damage, neutralizes poison, and cures amnesia.
 
 spell:Clairvoyance:37:50:80:150:0
+cooldown:100
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
-effect:NOURISH:DEC_BY
-dice:3
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
-desc: Induces temporary sensory overload.
+desc: Cooldown 100 turns.
 
 spell:Restoration:40:80:90:250:1
 effect:RESTORE_STAT:CHR
@@ -2068,16 +2065,11 @@ desc:Shoots a radius-3 poison ball.
 book:shadow book:dungeon:[Dark Evocations]:5:shadow
 
 spell:Deep Nights:27:12:80:10:0
+cooldown:100
 effect:DARKEN_LEVEL:NONE:1
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
 desc:Darkens, maps out, and detects all objects on the complete current
 desc: dungeon level.
-desc: Induces temporary sensory overload.
+desc: Cooldown 100 turns.
 
 spell:Cloak of Changement:28:15:75:15:0
 effect:CLOAK_CHANGT
@@ -2679,8 +2671,6 @@ effect:DETECT_DOORS
 effect-yx:22:40
 effect:DETECT_TRAPS
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:BLIND
-dice:3
 desc:Detects all traps, doors and stairs in the immediate area.
 
 spell:Fire Ball:3:2:17:3:0
@@ -3464,16 +3454,11 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Clairvoyance:40:34:76:55:0
+cooldown:100
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
-desc: Induces temporary sensory overload.
+desc: Cooldown 100 turns.
 
 spell:Kinetic Wave:42:20:79:59:0
 effect:BLAST:FORCE:3:10
@@ -6725,15 +6710,12 @@ desc: Cooldown 100 turns.
 spell:Acid Breath:33:11:30:50:0
 cooldown:60
 # hc 1d4 (up to x12)
-effect:TIMED_INC_NO_RES:STUN
-dice:1d2
 effect:BREATH:ACID:0:30
 dice:$Dd8
 expr:D:PLAYER_LEVEL:+ 0
 msg_other: breathes acid.
 desc:Breathes acid in a wide cone.
 desc: The damage of the breath increases with your level (up to x12).
-desc: Casting this spell stuns you for a moment.
 desc: Cooldown 60 turns.
 
 spell:Dark Ritual:35:12:32:70:0
@@ -8407,9 +8389,9 @@ effect:SET_VALUE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:3+1d3
+dice:2
 desc:Grants you resistance to acid, cold, fire, lightning and poison,
-desc: but makes you blind for some time.
+desc: but makes you blind for a moment.
 
 spell:Thunder Burst:30:15:50:1:0
 effect:TIMED_SET:SPEEDY:0:5
