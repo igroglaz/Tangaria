@@ -419,9 +419,9 @@ dice:3
 effect:NOURISH:INC_BY
 dice:1
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:10+1d10
+dice:5+1d5
 effect:TIMED_INC:BOLD
-dice:50+1d20
+dice:30+1d20
 effect:RESTORE_STAT:WIS
 ######################
 # Drain a stat temporarily
@@ -582,7 +582,7 @@ effect:TIMED_INC:OPP_COLD
 effect:TIMED_INC:OPP_FIRE
 effect:TIMED_INC_NO_RES:IMAGE_REAL
 effect:SET_VALUE
-dice:25+5d5
+dice:15+1d15
 effect:NOURISH:INC_BY
 dice:3
 
@@ -595,9 +595,9 @@ cost:150
 alloc:5:5 to 40
 pile:70:1d4
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:25+5d5
+dice:15+1d15
 effect:TIMED_SET:TERROR
-dice:25+5d5
+dice:15+1d15
 effect:NOURISH:INC_BY
 dice:4
 desc:It allows you to run for your life.
@@ -686,9 +686,9 @@ cost:0
 alloc:5:5 to 40
 pile:70:1d4
 effect:TIMED_INC_NO_RES:AFRAID
-dice:25+5d5
+dice:15+1d15
 effect:TIMED_INC:STEALTH
-dice:5+1d5
+dice:15+1d15
 effect:NOURISH:INC_BY
 dice:3
 desc:Mirkwood mushrooms.. Eat it and you will be terrified to the bones..
@@ -704,7 +704,7 @@ cost:0
 alloc:10:5 to 40
 pile:70:1d4
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10+5d5
+dice:15+1d15
 effect:NOURISH:INC_BY
 dice:5
 desc:Not everyone can overcome madness of lengthy hallucination..
@@ -717,8 +717,10 @@ weight:1
 cost:0
 alloc:10:5 to 40
 pile:70:1d4
+effect:TIMED_INC:ESP
+dice:12
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:5+5d5
+dice:10
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 effect:NOURISH:SET_TO
@@ -3886,7 +3888,7 @@ attack:3d4:0:0
 effect:TIMED_INC:WRAITHFORM
 dice:10
 effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:10
+dice:5
 effect:TIMED_INC_NO_RES:SLOW_REAL
 dice:10
 effect:TIMED_INC_NO_RES:SCRAMBLE
@@ -3942,7 +3944,7 @@ pile:70:2d3
 attack:3d4:0:0
 armor:0:0
 effect:TIMED_INC_NO_RES:BLIND
-dice:20+1d20
+dice:15+1d15
 effect:TIMED_INC:ESP
 dice:1+1d2
 effect:NOURISH:INC_BY
@@ -4126,7 +4128,7 @@ dice:1
 effect:TIMED_INC_NO_RES:SCRAMBLE
 dice:20+1d20
 effect:TIMED_INC_NO_RES:SLOW
-dice:5+1d20
+dice:5+1d15
 #good:
 effect:TIMED_SET:SINVIS
 dice:50+2d6
@@ -4790,12 +4792,10 @@ armor:0:0
 charges:5+d5
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:3
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d15
+dice:10+1d5
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
+dice:5
 
 ### Healing ###
 
@@ -5014,7 +5014,7 @@ attack:1d2:0:0
 armor:0:0
 charges:2+d2
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:5+5d5
+dice:10+1d5
 effect:TOUCH:MAKE_DOOR:1
 
 ##### Rods #####
@@ -5812,7 +5812,7 @@ dice:3
 effect:NOURISH:INC_BY
 dice:1
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:8+1d8
+dice:5+1d5
 effect:TIMED_INC:BOLD
 dice:30+1d20
 effect:RESTORE_STAT:STR
@@ -6315,7 +6315,7 @@ flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 effect:TIMED_SET:PROBTRAVEL
 dice:20+1d20
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:5+5d5
+dice:10+1d5
 desc:Won't work properly for Assassin class.
 
 name:*Restore Mana*

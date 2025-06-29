@@ -192,11 +192,11 @@ effect:LIGHT_LEVEL
 effect:TIMED_INC_NO_RES:OCCUPIED
 dice:3
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
+dice:5+1d5
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
+dice:10+1d5
 effect:NOURISH:DEC_BY
-dice:5
+dice:3
 msg:The {kind} form{s} an image in your mind...
 desc:completely lights up and magically maps the current level, sensing all
 desc: objects
@@ -471,9 +471,9 @@ effect-yx:15:32
 effect:TIMED_INC_NO_RES:OCCUPIED
 dice:3
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
+dice:5+1d5
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
+dice:10+1d5
 effect:DETECT_MONSTERS
 effect-yx:22:40
 #effect:DETECT_TREASURES
@@ -504,7 +504,7 @@ power:30
 effect:DETECT_TREASURES
 effect-yx:22:40
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+6d2
+dice:10+1d5
 
 name:DISABLE_TRAPS
 aim:1
@@ -982,9 +982,9 @@ effect-yx:15:32
 effect:TIMED_INC_NO_RES:OCCUPIED
 dice:3
 effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d13
+dice:5+1d5
 effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:11+1d24
+dice:10+1d5
 msg:The {kind} shine{s} brightly...
 
 name:MISSILE
