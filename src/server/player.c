@@ -871,6 +871,13 @@ static void adjust_level(struct player *p)
                 effect_simple(EF_RESTORE_STAT, who, "0", STAT_CHR, 0, 0, 0, 0, NULL);
             }
 
+            // non-HC: restore HP and mana on lvlup
+            if (!OPT(p, birth_hardcore))
+            {
+                p->chp = p->mhp;
+                p->csp = p->msp;
+            }
+
             /* Record this event in the character history */
             if (!(p->lev % 5))
             {
