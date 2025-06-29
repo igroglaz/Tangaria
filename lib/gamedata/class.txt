@@ -6596,7 +6596,7 @@ desc: Does not require mana.
 
 spell:Magic Blade:1:1:1:1:0
 #hc 1d7 dmg.. mana 1->6..
-effect:SHORT_BEAM:MISSILE:1
+effect:SHORT_BEAM:MISSILE:2
 dice:$B
 expr:B:PLAYER_LEVEL:+ 5
 msg_other: bends index finger.. Blades appear from thin air!
@@ -6698,29 +6698,10 @@ desc: grid in line of sight, you will be the target instead.
 desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Magic Reflection:20:15:11:25:0
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:NOURISH:DEC_BY
-dice:0
-effect:RANDOM
-dice:8
-effect:TIMED_SET:OPP_FIRE
-dice:20+1d20
-desc:Grants you resistance to fire (20), cold (25), lightning (30), poison (35),
-desc: acid (40) for 20+1d20 turns. Also increase magic resistance.
-desc: Require some satiation.
+effect:TIMED_SET:OPP_ELEC
+dice:30
+desc:Grants you resistance to fire, cold, lightning, poison,
+desc: acid for 30 turns. Also increase magic resistance.
 
 spell:Manablast:25:9:30:30:0
 cooldown:3

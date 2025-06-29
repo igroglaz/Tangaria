@@ -2848,25 +2848,25 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     {
         if (state->el_info[ELEM_ELEC].res_level[0] < 2)
             state->el_info[ELEM_ELEC].res_level[0]++;
-    }
-    if (p->timed[TMD_OPP_FIRE])
-    {
-        if (state->el_info[ELEM_FIRE].res_level[0] < 2)
-            state->el_info[ELEM_FIRE].res_level[0]++;
 
         // Wizard "Magic Reflection" spell or !fire
         if (streq(p->clazz->name, "Wizard"))
         {
             state->skills[SKILL_SAVE] += p->lev / 2;
-            if (p->lev > 24 && state->el_info[ELEM_COLD].res_level[0] < 2)
+            if (state->el_info[ELEM_FIRE].res_level[0] < 2)
+                state->el_info[ELEM_FIRE].res_level[0]++;
+            if (state->el_info[ELEM_COLD].res_level[0] < 2)
                 state->el_info[ELEM_COLD].res_level[0]++;
-            if (p->lev > 29 && state->el_info[ELEM_ELEC].res_level[0] < 2)
-                state->el_info[ELEM_ELEC].res_level[0]++;
-            if (p->lev > 34 && state->el_info[ELEM_POIS].res_level[0] < 2)
+            if (state->el_info[ELEM_POIS].res_level[0] < 2)
                 state->el_info[ELEM_POIS].res_level[0]++;
-            if (p->lev > 39 && state->el_info[ELEM_ACID].res_level[0] < 2)
+            if (state->el_info[ELEM_ACID].res_level[0] < 2)
                 state->el_info[ELEM_ACID].res_level[0]++;
         }
+    }
+    if (p->timed[TMD_OPP_FIRE])
+    {
+        if (state->el_info[ELEM_FIRE].res_level[0] < 2)
+            state->el_info[ELEM_FIRE].res_level[0]++;
     }
     if (p->timed[TMD_OPP_COLD])
     {
