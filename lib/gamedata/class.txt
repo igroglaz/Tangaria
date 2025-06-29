@@ -6612,13 +6612,13 @@ spell:Electrocute:2:2:27:2:0
 # hc 1d5; distance -> ~15; mana -> 8
 effect:SHORT_BEAM:ELEC:6
 dice:$B
-expr:B:PLAYER_LEVEL:+ 3
+expr:B:PLAYER_LEVEL:+ 0
 effect:SHORT_BEAM:ELEC:5
 dice:$B
-expr:B:PLAYER_LEVEL:+ 4
+expr:B:PLAYER_LEVEL:+ 1
 effect:SHORT_BEAM:ELEC:4
 dice:$B
-expr:B:PLAYER_LEVEL:+ 5
+expr:B:PLAYER_LEVEL:+ 2
 effect:RANDOM
 dice:3
 msg_other: holds out a hand... Lightning!
@@ -6656,7 +6656,6 @@ desc: It takes some mana before displacement, but some of it become restored
 desc: upon getting to destination.
 
 spell:Luminous Fog:7:3:35:7:0
-cooldown:10
 # hc distance (max dist should be 20) and damage 1d3
 effect:SHORT_BEAM:LIGHT_WEAK:10
 dice:4d4
@@ -6667,7 +6666,6 @@ desc:Fires a beam of magic fog which lights up each square and hurts each
 desc: light-sensitive monster in its path.
 desc: The range and damage of the fog increase with your level (range up to ~20).
 desc: If you are in a room, the entire room will be lit up as well.
-desc: Cooldown 10 turns.
 
 spell:Cold Ray:10:5:30:10:0
 # hc 1d5 .. mana -> 13

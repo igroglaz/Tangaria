@@ -2333,8 +2333,7 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 else if (context->origin->player->spell_cost == 3)
                 {
                     rad += context->origin->player->lev / 5;
-                    if (context->origin->player->lev > 10)
-                        dam *= context->origin->player->lev / 3;
+                    dam *= context->origin->player->lev / 3;
                 }
                 // Electrocute spell (mana 2)
                 else if (context->origin->player->spell_cost == 2)
