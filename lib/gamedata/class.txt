@@ -1281,9 +1281,10 @@ desc: This prayer has no effect when used in the town.
 spell:Clairvoyance:37:50:80:150:0
 effect:LIGHT_LEVEL
 effect:NOURISH:DEC_BY
-dice:3
+dice:1
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
+desc: This prayer reduces your nourishment.
 
 spell:Holy Word:39:32:95:20:0
 effect:CURE:AFRAID
@@ -2905,9 +2906,10 @@ desc: and does irresistible damage.
 spell:Clairvoyance:40:50:95:200:0
 effect:LIGHT_LEVEL
 effect:NOURISH:DEC_BY
-dice:2
+dice:1
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
+desc: The spell reduces your nourishment.
 
 spell:Mana Storm:42:16:50:200:0
 effect:BALL:MANA:3
@@ -7250,7 +7252,7 @@ cooldown:300
 effect:WAKE
 effect:SAFE_GUARD
 effect:NOURISH:DEC_BY
-dice:4
+dice:1
 desc:Inscribes a Dark Mark beneath you.
 desc: Summoned monsters can't appear on the Dark Mark.
 desc: If a monster tries to move onto the mark or melee you while
