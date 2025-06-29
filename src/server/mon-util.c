@@ -199,7 +199,7 @@ static bool is_detected_m(struct player *p, const bitflag mflags[RF_SIZE], int d
     if (rf_has(mflags, RF_EVIL) && player_of_has(p, OF_ESP_EVIL))
     {
         if (streq(p->clazz->name, "Wizard")) {
-            base_radius = p->lev + 1;
+            base_radius = (p->lev / 2) + 2;
             if (base_radius > 20) base_radius = 20;
         }
 
