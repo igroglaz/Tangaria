@@ -288,18 +288,24 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
 
         // TIME
-        else if (type == PROJ_TIME && streq(p->race->name, "Celestial"))
+        else if (type == PROJ_TIME && streq(p->race->name, "Undead"))
         {
             vuln_xtra_dmg = dam / 2; // 50%
         }
         // DARK (very powerful attacks sometimes)
-        else if (type == PROJ_DARK)
+        else if (type == PROJ_DARK && streq(p->race->name, "Celestial"))
         {
             vuln_xtra_dmg = dam / 20; // 5%
         }
-        // all other elements
+        
+        // NOTE: wew shouldn't put there stuff like:
+        /*
+        "all other elements
         else
             vuln_xtra_dmg = dam / 10; // 10%
+        */
+        // because there we don't have vuln check! So general 'else' will just increase ALL dmg.
+        // So each racial vuln must be hardcoded with the race name
 
         // Now... Apply vulnerability extra damage ONLY if it won't kill the player
         if (vuln_xtra_dmg > 0)
@@ -328,7 +334,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     }
 
     // SPECIAL case for LIGHT_WEAK and Vampire race
-    else if (type == PROJ_LIGHT_WEAK && p && resist < 3 && streq(p->race->name, "Vampire"))
+    else if (type == PROJ_LIGHT_WEAK && p && resist < 3 &&
+             (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead")))
     {
         int light_weak_xtra_dmg = p->mhp / 10;
         if (p->chp - (dam + light_weak_xtra_dmg) >= 1)
