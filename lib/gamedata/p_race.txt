@@ -1248,7 +1248,7 @@ name:Undead
 skill-disarm-phys:-15
 skill-disarm-magic:-15
 skill-device:-50
-skill-save:5
+skill-save:-10
 skill-stealth:-3
 skill-search:-10
 skill-melee:-10
@@ -1263,11 +1263,11 @@ height:68:5
 weight:140:12
 gift:food:Maggoty bread:1:1
 #2 -4 -4 -1 -2
-value:0:STR[2]
+value:0:STR[2+-1d15]
 value:0:INT[0]
 value:0:WIS[0]
-value:0:DEX[-1]
-value:0:CON[-1+-1d30]
+value:0:DEX[2+-1d15]
+value:0:CON[2+-1d15]
 value:0:CHR[-9]
 value:0:INFRA[0+1d5]
 # 'y' detect living creatures
@@ -1280,7 +1280,6 @@ obj-flag:0:HOLD_LIFE
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
 #/// -
-obj-flag:0:IMPAIR_HP
 value:0:RES_FIRE[-1]
 value:0:RES_LIGHT[-1]
 value:0:MOVES[-1]
