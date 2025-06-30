@@ -3943,7 +3943,7 @@ bool effect_handler_GRANITE(effect_handler_context_t *context)
         context->origin->player->upkeep->redraw |= (PR_MONLIST | PR_ITEMLIST);
     }
     // eg Stone Curse 'Wizard' class spell
-    else if (context->origin->player)
+    else if (context->origin->player && context->cave->wpos.depth)
     {
         square_add_wall(context->cave, &context->origin->player->grid);
         if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &context->origin->player->grid, is_daytime());
