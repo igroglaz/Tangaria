@@ -368,7 +368,7 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Demonic") && p->lev > 5)
+    else if (streq(p->race->name, "Demonic") && p->lev > 35)
     {
         struct chunk *c = chunk_get(&p->wpos); // for summon
 

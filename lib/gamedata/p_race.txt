@@ -1370,7 +1370,7 @@ gift:food:Cold chicken:1:1
 #2 3 3 1 1
 value:0:STR[2]
 value:0:INT[1+1d30]
-value:0:WIS[1+1d30]
+value:0:WIS[2+1d30]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
@@ -1393,11 +1393,13 @@ value:0:DAM_RED[-1+1d30]
 
 
 # cambion.. 'corrupted' descendants of ancient powers;
+# they don't know about their origin at start.. thinking they are just exceptional human
+# only unfolding at 30lvl
 name:Demonic
 skill-disarm-phys:2
 skill-disarm-magic:4
 skill-device:10
-skill-save:3
+skill-save:0
 skill-stealth:0
 skill-search:1
 skill-melee:15
@@ -1413,26 +1415,20 @@ weight:160:23
 gift:food:Stolen mushroom:2:3
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[-4+1d7]
-value:0:WIS[-4+1d7]
+value:0:INT[2+1d30]
+value:0:WIS[1+1d30]
 value:0:DEX[1]
+# in time aquire power
 value:0:CON[-5+1d8]
-value:0:CHR[0+-1d10]
-# 'y' summon minor demons
-# ! restore 5% HP when kill living creatures
+#at first evil hidden under guise of a wise and noble
+value:0:CHR[3+-1d6]
+# 35+lvl learn to 'y' summon minor demons (60 CD caster, 120 CD fighter)
+# ! restore 5% HP when kill living creatures (sweeet corruption)
 value:0:INFRA[0+1d5]
-obj-flag:0:HOLD_LIFE
-obj-flag:0:SLOW_DIGEST
-obj-flag:0:PROT_FEAR
-obj-flag:0:FEATHER
-obj-flag:0:SEE_INVIS
-value:0:RES_POIS[1]
-value:0:RES_DARK[1]
-value:0:RES_CHAOS[1]
-value:0:STEALTH[1]
-brand:1:50:POIS_2
-value:0:MANA[5+-1d12]
-value:0:SPEED[1]
+value:0:STEALTH[1+1d30]
+obj-flag:30:FEATHER
+obj-flag:30:SEE_INVIS
+value:30:SPEED[1]
 player-flags:30:SHAPECHANGE
 shape:30:succubi
 #/// -
@@ -2003,7 +1999,7 @@ value:0:DEX[5]
 value:0:CON[-2]
 value:0:CHR[-9]
 value:0:INFRA[1+1d6]
-brand:15:50:POIS_2
+brand:5:50:POIS_2
 # /// weaves web around (255 CD, so ok)
 value:0:RES_POIS[1]
 value:30:RES_POIS[2]
