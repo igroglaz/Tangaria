@@ -970,7 +970,8 @@ int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
                     swim_count++;
 
             // Negative factors - race penalties
-            else if (streq(p->race->name, "Vampire")) swim_count--; // Vampires are poor swimmers
+            else if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
+                swim_count--; // Undead fears water
             else if (streq(p->race->name, "Golem") || streq(p->race->name, "Balrog")) 
             {
                 if (one_in_(5))

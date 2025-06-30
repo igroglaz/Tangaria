@@ -141,7 +141,6 @@
 # can't use heavy armour
 # good INC_TIMED / 2... so buffs lasts twice less time.
 # random deep descend ('you were too heavy and fall down through ceiling'
-# Undead: extra life (2nd chance)
 
 # note: don't make skill-melee: < than -10 (or give then higher shooting skill).
 # with <-10 it will be very hard to hit something
@@ -1262,7 +1261,7 @@ age:11:4
 height:68:5
 weight:140:12
 gift:food:Maggoty bread:1:1
-#2 -4 -4 -1 -2
+# rot in time
 value:0:STR[2+-1d15]
 value:0:INT[0]
 value:0:WIS[0]
@@ -1270,19 +1269,23 @@ value:0:DEX[2+-1d15]
 value:0:CON[2+-1d15]
 value:0:CHR[-9]
 value:0:INFRA[0+1d5]
-# 'y' detect living creatures
-# eating living humanoids nourish and heal
-# darkness-loving (see in the dark, but light makes it worse)
-# value:0:RES_NETHER[1]
-# value:30:RES_NETHER[2] hardcoded player_elements() in 50% cases
-###### TODO: add nourishment only when eating corpses
+# + EXTRA life (in non-HC)
+# + 'y' detect living creatures
+# + darkness-loving (see in the dark, but light makes it worse)
+# + value:0:RES_NETHER[1]
+#   value:30:RES_NETHER[2] hardcoded player_elements() in 50% cases
 obj-flag:0:HOLD_LIFE
 value:0:RES_POIS[1]
 value:0:RES_COLD[1]
+# + eating corpses nourish and heal
 #/// -
+# - fears water
 value:0:RES_FIRE[-1]
 value:0:RES_LIGHT[-1]
+obj-flag:0:CLUMSY
 value:0:MOVES[-1]
+value:35:STEALTH[-1]
+value:35:DAM_RED[-1]
 
 
 name:Vampire
@@ -1416,6 +1419,7 @@ value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[0+-1d10]
 # 'y' summon minor demons
+# ! restore 5% HP when kill living creatures
 value:0:INFRA[0+1d5]
 obj-flag:0:HOLD_LIFE
 obj-flag:0:SLOW_DIGEST
