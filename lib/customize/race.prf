@@ -455,16 +455,23 @@ help: to protect itself from real, brainless undead hordes from Wildlands.|
 help: |
 help:They are very unpleasant to look at. They are immune to life draining and
 help: hard to poison or freeze. They are bad at almost everything - slow, clumsy,
-help: terrible at stealth and searching - but somewhat resistant to hostile magic.
-help: They do not heal naturally and must feast on the flesh of humanoids
-help: to recover and stay active.
-help: They have weakness to fire and light, but not as severe as one might think.
-help: At level 50, they become completely immune to nether attacks.
+help: terrible at stealth and searching.
+help: They have weakness to fire and light.
+help: At level 30, they become especially resistant to nether attacks.
 help: They can detect living creatures ('y') by spending some energy.|
 help: |
 help:They can see in the darkness well, while using light sources can actually
 help: reduce the radius of their vision. Their innate vision grows when they
 help: become more mature.
+help: |
+help:They must feast on the flesh of humanoids to stay nourished (use '_' key).
+help: |
+help:They start quite powerful, but gradually rot over time, eventually becoming
+help: slightly weaker than regular humans - though still decent.
+help: |
+help:They fear water.
+help: |
+help:They got additional life (only in non-Hardcore mode).
 
 race:Vampire
 help:Vampires live to the north of the Honor Empire. Quite reasonable folk actually
@@ -524,14 +531,16 @@ race:Demonic
 help:Demonic - corrupted spirits, servants of First Gods. They are the same kind
 help: as the Maiar, but aligned with the other side of power. |
 help: |
-help:Resistant to poison, chaos and darkness; but sensitive to light, they
-help: float above ground, see invisible and feel no fear. Life drain doesn't
-help: work on them either. Their attacks are soaked in poison, and they are
-help: faster than most right away - though quite fragile... It's hard for them
-help: to learn something new and the stronger they become, the more damage
-help: they tend to attract which makes them unstable.
-help: They can summon demon-slaves ('y') to serve them. The summoning ritual
-help: requires some time and demonic blood as sacrifice.
+help:At first, they believe they're just a gifted human. Their real origin is
+help: revealed at level 30 when they learn to transform into demon, can float above
+help: ground, see invisible, and they become faster than most right away - though 
+help: quite fragile...
+help: They learn to summon demon-slaves ('y') to serve them at level 35.
+help: The summoning ritual requires some time and demonic blood as sacrifice.|
+help:|
+help: They absorb living souls, regaining life from slain living beings.
+help:|
+help: They are sensitive to light from birth.
 
 race:Balrog
 help:Balrog - underground ancient 'race' or some would call them a 'force'.
@@ -575,7 +584,6 @@ help: the ground. They digest food slowly and sustain their Wisdom even under
 help: strain. Celestials can see invisible creatures once they become more
 help: experienced. They are vulnerable to time-based effects and darkness.
 help: Their light presence slightly brightens surroundings.
-help: Celestials have unstable mana flow, but it grants powerful surges.
 help: They are especially skilled at fighting undead.|
 help: |
 help:They can produce holy blast ('y') by spending some energy.

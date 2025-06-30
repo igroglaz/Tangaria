@@ -1521,7 +1521,6 @@ value:0:DEX[1]
 value:0:CON[2]
 value:0:CHR[6+-1d8]
 # 'y' holy blast (only on full HP.. +1 rad at lvl 30)
-value:0:MANA[5+-1d12]
 obj-flag:0:SUST_WIS
 value:0:INFRA[2+1d30]
 obj-flag:0:FEATHER
@@ -1531,10 +1530,8 @@ value:0:RES_GRAVITY[1]
 obj-flag:30:SEE_INVIS
 slay:0:50:UNDEAD_3
 #/// -
-value:0:RES_TIME[-1]
 value:0:RES_DARK[-1]
-# DARK minor vuln (up to 30 lvl; after can't get immunity),
-# but hardcoded xtra dmg from DARKNESS spell
+value:0:RES_TIME[-1]
 value:0:TUNNEL[-1+-1d10]
 
 

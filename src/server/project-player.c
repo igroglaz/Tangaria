@@ -288,7 +288,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         }
 
         // TIME
-        else if (type == PROJ_TIME && streq(p->race->name, "Undead"))
+        else if (type == PROJ_TIME && streq(p->race->name, "Celestial"))
         {
             vuln_xtra_dmg = dam / 2; // 50%
         }
