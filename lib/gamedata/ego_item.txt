@@ -118,7 +118,7 @@ level:10
 alloc:40:10 to 100
 item:light:Lantern
 item:light:Lamp
-values:STEALTH[d2] | RES_LIGHT[1] | LIGHT[-3]
+values:STEALTH[d2] | RES_LIGHT[1] | LIGHT[-1]
 min-values:STEALTH[0] | LIGHT[-3]
 
 name:of Brightness
