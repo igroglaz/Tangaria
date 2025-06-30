@@ -2767,6 +2767,17 @@ void do_cmd_fountain(struct player *p, int item)
 
         return;
     }
+    // Undead race consume corpses ! if not standing on fountain !
+    else if (streq(p->race->name, "Undead"))
+    {       
+        if (consume_corpse(p))
+        {
+            use_energy(p);
+            player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
+        }
+
+        return;
+    }
     else if (streq(p->clazz->name, "Villager") && // can dig out old crops from T fields
             (tf_has(f_info[square(c, &p->grid)->feat].flags, TF_T_FARM_FIELD)))
     {

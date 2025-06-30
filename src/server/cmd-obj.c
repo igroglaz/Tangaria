@@ -2407,6 +2407,106 @@ const char* consume_magic_message(int rng)
 }
 
 
+const char* consume_corpse_message(int rng)
+{
+    switch(rng)
+    {
+        case 0: return "The flesh goes down rough, but it fills the void.";
+        case 1: return "Still warm... just how I like it.";
+        case 2: return "The meat squelches nicely between my teeth.";
+        case 3: return "Rot or not, it hits the spot.";
+        case 4: return "I can almost taste the fear still clinging to it.";
+        case 5: return "Chewing is optional. Swallowing is instinct.";
+        case 6: return "My jaws remember what hunger felt like.";
+        case 7: return "It's not gourmet, but it's food.";
+        case 8: return "The marrow still whispers life as I consume it.";
+        case 9: return "Sinew snaps just right. Satisfying.";
+        case 10: return "The corpse doesn't complain. I like that.";
+        case 11: return "It slides down like wet moss. Familiar.";
+        case 12: return "I eat not for joy, but for need.";
+        case 13: return "The crunch of bone is oddly comforting.";
+        case 14: return "Dead meat. Still better than nothing.";
+        case 15: return "Tastes like regret. And muscle.";
+        case 16: return "I don't need seasoning. Just silence.";
+        case 17: return "It's not fresh, but neither am I.";
+        case 18: return "Nothing like a midnight corpse snack.";
+        case 19: return "I eat so I don't think.";
+        case 20: return "The hunger quiets... for now.";
+        case 21: return "More skin than flavor, but it'll do.";
+        case 22: return "Chewing through rot keeps the mind busy.";
+        case 23: return "Each bite reminds me I'm still here.";
+        case 24: return "The taste of old blood never leaves.";
+        case 25: return "Feeding the hunger makes the world quieter.";
+        case 26: return "This one had dreams once. Not anymore.";
+        case 27: return "My belly's empty, but this helps me forget.";
+        case 28: return "I take what's left. It's enough.";
+        case 29: return "The meat sags, the hunger doesn't.";
+        default: return "The corpse is gone. The hunger remains.";
+    }
+}
+
+
+// Undead race consume corpses for nourishment
+bool consume_corpse(struct player *p)
+{
+    bool corpse_found = false;
+    int rng;
+    int i;
+
+    // Calculate the maximum safe amount of food to add
+    int max_safe_food;
+    if (p->timed[TMD_FOOD] >= PY_FOOD_FULL) {
+        // Already full, be careful about overfeeding
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+        if (max_safe_food <= 0) {
+            msg(p, "You can't eat any more..");
+            return false;  // Already at maximum, don't consume
+        }
+    } else {
+        // Not yet full, can consume normally
+        max_safe_food = PY_FOOD_MAX - p->timed[TMD_FOOD];
+    }
+
+    // search for corpses
+    for (i = 0; i < z_info->pack_size; i++)
+    {
+        struct object *obj = p->upkeep->inven[i];
+
+        if (!obj) continue;
+        if (!object_is_carried(p, obj)) continue;
+
+        // yum yum
+        if (obj->tval == TV_CORPSE)
+        {
+            // TODO: think - do we need to take into account obj->origin_depth
+            int food_amount = 1000;
+
+            // Limit consumption to avoid overfeeding
+            food_amount = MIN(food_amount, max_safe_food);
+            
+            use_object(p, obj, 1, false);
+            // nourish and heal
+            player_inc_timed(p, TMD_FOOD, food_amount, false, false);
+            hp_player(p, p->wpos.depth / 3);
+            corpse_found = true;
+            break;
+        }
+    }
+
+    // no corpses found -> quit
+    if (!corpse_found) return false;
+
+    // generate message
+    rng = randint0(29); // Total number of messages in consume_corpse_message()
+    msg(p, consume_corpse_message(rng));
+
+    // refresh inventory
+    p->upkeep->redraw |= (PR_INVEN);
+
+    return true;
+}
+
+
 // Djinn race can use wands and staves for nourishment
 bool consume_magic_items(struct player *p)
 {
