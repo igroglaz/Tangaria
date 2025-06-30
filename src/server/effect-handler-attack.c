@@ -839,16 +839,7 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
 
     if (context->origin->player)
     {
-        if (streq(context->origin->player->clazz->name, "Wizard"))
-        {   
-            // Manablast spell (mana 9)
-            if (context->origin->player->spell_cost == 9)
-            {
-                rad += context->origin->player->lev / 12;
-                dam *= context->origin->player->lev / 10;
-            }
-        }
-        else if (streq(context->origin->player->clazz->name, "Battlemage"))
+        if (streq(context->origin->player->clazz->name, "Battlemage"))
         {   
             // Phase Nova spell (mana 2)
             if (context->origin->player->spell_cost == 2)
@@ -1096,8 +1087,8 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
 
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Cold Ray spell (mana 5)
-        if (context->origin->player->spell_cost == 5)
+        // Cold Ray spell (mana 3)
+        if (context->origin->player->spell_cost == 3)
         {
             dam *= context->origin->player->lev / 5;
             // spend additional mana
@@ -2344,7 +2335,7 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                         dam_mult = 7;
                     dam *= dam_mult;
 
-                    rad += context->origin->player->lev / 5;
+                    rad += context->origin->player->lev / 10;
                     // spend additional mana
                     if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
                             context->origin->player->csp = context->origin->player->csp * 96 / 100;
@@ -2523,8 +2514,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
     
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
-        // Flamestrike spell (mana 7)
-        if (context->origin->player->spell_cost == 7)
+        // Flamestrike spell (mana 4)
+        if (context->origin->player->spell_cost == 4)
         {
             dam *= context->origin->player->lev / 5;
             // spend additional mana

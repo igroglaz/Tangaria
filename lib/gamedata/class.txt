@@ -6574,10 +6574,10 @@ desc: Does not require mana.
 
 # feature: irresistible
 spell:Magic Blade:1:1:1:1:0
-#hc 1d5 dmg.. mana 1->6..
+#hc 1d5 dmg
 effect:SHORT_BEAM:MISSILE:2
 dice:$B
-expr:B:PLAYER_LEVEL:+ 5
+expr:B:PLAYER_LEVEL:+ 4
 msg_other: bends index finger.. Blades appear from thin air!
 desc:Strikes with a magic blade that always hits its target and does
 desc: irresistible damage.
@@ -6585,23 +6585,23 @@ desc: Damage is greatly increased every 5 levels (up to level 35).
 desc: At level 10+, each cast also consumes a small amount of extra mana.
 
 spell:Electrocute:2:2:27:2:0
-# hc 1d5; distance -> ~15; mana -> 8
+# hc 1d5; distance -> ~10
 effect:SHORT_BEAM:ELEC:6
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:SHORT_BEAM:ELEC:5
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 0
 effect:SHORT_BEAM:ELEC:4
 dice:$B
-expr:B:PLAYER_LEVEL:+ 2
+expr:B:PLAYER_LEVEL:+ 0
 effect:RANDOM
 dice:3
 msg_other: holds out a hand... Lightning!
 desc:Summon lighting upon an enemies.
 desc: At first you summon short bolt of lightning.
 desc: The length and damage of the lightning increase with the caster's level.
-desc: Range increases every 5 levels, up to ~15 squares.
+desc: Range increases every 5 levels, up to ~10 squares.
 desc: At each cast, an additional portion of remaining mana is consumed.
 
 # number 3 spell.. hc for mana restore in project-mon.c
@@ -6643,11 +6643,11 @@ desc: light-sensitive monster in its path.
 desc: The range and damage of the fog increase with your level (range up to ~20).
 desc: If you are in a room, the entire room will be lit up as well.
 
-spell:Cold Ray:10:5:30:10:0
-# hc 1d5 .. mana -> 13
+spell:Cold Ray:10:3:30:10:0
+# hc 1d5
 effect:BOLT_OR_BEAM:COLD
 dice:$B
-expr:B:PLAYER_LEVEL:+ 5
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires a cold ray.
 desc:Fires a cold ray that hurts the first monster in its path.
 desc: The damage of the ray increases with your level.
@@ -6662,11 +6662,11 @@ desc:Seals you inside a block of stone.
 desc: You need to move out quickly, or you'll start suffocating.
 desc: Cooldown 30 turns.
 
-spell:Flamestrike:17:7:33:20:0
-# hc 1d5; mana -> 13
+spell:Flamestrike:17:4:33:20:0
+# hc 1d5
 effect:STRIKE:FIRE:0
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:+ 10
 msg_other: strikes fire from below.
 desc:Strikes a target from below with fire.
 desc: The damage increases with your level.
@@ -6680,16 +6680,12 @@ dice:30
 desc:Grants you resistance to fire, cold, lightning, poison,
 desc: acid for 30 turns. Also increase magic resistance.
 
-spell:Manablast:25:9:30:30:0
-cooldown:3
-#hc dam 1d10 and rad 1-4
-effect:BLAST:MANA:0
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: explodes with power.
-desc:Expands a sphere of power that explodes around you.
-desc: The radius and damage of the blast increase with your level (radius up to 4).
-desc: Cooldown 3 turns.
+spell:Mana Bolt:25:5:30:30:0
+effect:BOLT:MANA
+dice:$Dd8
+expr:D:PLAYER_LEVEL:- 10
+msg_other: fires a mana bolt!
+desc:Shoots a bolt that does irresistible damage.
 
 spell:Dimension Shift:30:17:35:40:0
 cooldown:100
@@ -6746,28 +6742,14 @@ spell:Energy Bolt:40:13:27:90:0
 #stun monsters, slow and burn caster
 effect:DAMAGE
 dice:2
-effect:BALL:PLASMA:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
 effect:BALL:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
-effect:BALL:PLASMA:3
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
 effect:BOLT:PLASMA
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
-effect:RANDOM
-dice:4
-effect:BOLT:PLASMA
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:TIMED_INC_NO_RES:SLOW
-dice:2
 msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which may explode upon impact.
-desc: This spell causes weakness which pass in short time.
+desc:Shoots an energy bolt which explode upon impact.
 
 spell:Frozen Orb:45:40:40:100:0
 effect:ARC:ICE:0:30
@@ -6801,7 +6783,8 @@ desc:Draws a protecting pentagram and attempts to summon a daemon.
 desc: Cooldown 150 turns.
 
 spell:Armageddon:50:42:35:666:0
-# TODO: add rng variations
+effect:TIMED_INC_NO_RES:BLIND_REAL
+dice:1
 effect:DRAIN_STAT:CHR
 dice:1
 effect:WIPE_AREA:NONE:3
@@ -6814,8 +6797,9 @@ desc: Medium area: causes an earthquake.
 desc: At the distance: Destroys everything in a certain radius.
 desc: All monsters, objects and terrain features in the area of
 desc: effect are destroyed, except stairs and permanent walls.
-desc: You will also be blinded for 10+1d10 turns, unless you
-desc: have resistance to blindness or dark.
+desc: You will also be blinded for 10+1d10 turns unless you have
+desc: resistance to blindness or darkness, and for 1 turns by
+desc: irresistible blindness.
 desc: Each cast of this spell brings a big reputation loss and
 desc: reduces your charisma.
 
