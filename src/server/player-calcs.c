@@ -2946,11 +2946,23 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (j > (1 << 14)) j = (1 << 14);
     i = weight_limit(state);
 
-    // dragon/hydra 2x more weight (cause -STR)
+    // dragon/hydra more weight (cause -STR)
     if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
-        i *= 3;
+    {
+       // Progressive compensation: 1-4 lvl = STR 14, 5-9 = STR 15, 10-14 = STR 16, 15+ = STR 17
+       int min_str = 14 + (p->lev - 1) / 5;  // every 5 levels +1 STR
+       if (min_str > 18) min_str = 18;       // cap at 18
+       if (state->stat_ind[STAT_STR] < min_str)
+           i = adj_str_wgt[min_str] * 100;
+    }
     else if (streq(p->race->name, "Homunculus"))
-        i *= 2;
+    {
+       // Progressive compensation: 1-4 lvl = STR 15, 5-9 = STR 16, 10-14 = STR 17, 15+ = STR 18
+       int min_str = 15 + (p->lev - 1) / 5;  // every 5 levels +1 STR
+       if (min_str > 21) min_str = 21;       // cap at 21
+       if (state->stat_ind[STAT_STR] < min_str)
+           i = adj_str_wgt[min_str] * 100;
+    }
 
     if (j > i / 2)
     {
