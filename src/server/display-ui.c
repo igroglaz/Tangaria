@@ -2641,11 +2641,8 @@ void player_death(struct player *p)
 
         // heal/mana a bit
         p->chp = p->mhp / 3;
-        p->chp_frac = 0;
-        if (p->csp < p->msp / 3) {
+        if (p->csp < p->msp / 3)
             p->csp = p->msp / 3;
-            p->csp_frac = 0;
-        }
 
         // gtfo
         source_player(who, get_player_index(get_connection(p->conn)), p);
