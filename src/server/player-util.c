@@ -1508,7 +1508,7 @@ void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, 
 
             /* Give him some gold */
             if (!is_dm_p(p) && !player_can_undead(p) && (p->lev >= 5))
-                p->au = 100 * (p->lev - 4) / p->lives;
+                p->au = 100 * p->lev;
         }
     }
 

@@ -2657,7 +2657,7 @@ void player_death(struct player *p)
             player_set_timed(p, TMD_FOOD, 1500, false);
         }
 
-        p->lives = 0; // loose the life
+        p->lives -= 1; // loose the life
         if (p->au > 0) { // the fee
             p->au = 0; 
         }
@@ -2890,7 +2890,7 @@ void resurrect_player(struct player *p, struct chunk *c)
     player_exp_lose(p, p->max_exp / 2, true);
 
     /* Lose some CON */
-    if (magik(p->lives))
+    if (magik(p->lev))
     {
         /* Sometimes decrease it permanently */
         msg(p, "The process leaves you extremely weak and tired!");

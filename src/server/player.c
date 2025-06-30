@@ -838,9 +838,17 @@ static void adjust_level(struct player *p)
 
             p->max_lev = p->lev;
 
-            // restore life every 10th lvl
-            if ((p->lives == 0) && !(p->max_lev % 10)) {
-                p->lives = 1;
+            // restore life every 10th level
+            if (!(p->max_lev % 10))
+            {
+                if (streq(p->race->name, "Undead"))
+                {
+                    p->lives = 2;  // undeads always get 2 lives
+                }
+                else
+                {
+                    p->lives = 1;  // non-undeads only get 1 life
+                }
             }
 
             // award account points

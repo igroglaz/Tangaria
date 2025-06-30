@@ -1756,6 +1756,9 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         birth_load_account_score(p);
         // give 1 life
         p->lives = 1;
+        // undeads gain 2 lifes
+        if (streq(p->race->name, "Undead"))
+            p->lives = 2;
 
         /* Reprocess his name */
         if (!savefile_set_name(p))
