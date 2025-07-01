@@ -158,7 +158,8 @@ static bool uncurse_object(struct player *p, struct object *obj, int strength)
     }
 
     /* Failure - unlucky fragile object is destroyed */
-    else if (one_in_(4))
+    // low lvl heavy cursed items easy to destroy
+    else if (obj->level_req < 20 || one_in_(4))
     {
         int dam = damroll(5, 5);
 
