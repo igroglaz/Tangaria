@@ -1301,9 +1301,12 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
         }
     }
 
+    /*
+    
     plog_fmt("DEBUG: %s - unique=%s, pkills=%d, RF_FORCE_DEPTH=%s", 
              mon->race->name, unique_monster ? "Y" : "N", lore->pkills, 
              rf_has(mon->race->flags, RF_FORCE_DEPTH) ? "Y" : "N");
+    */
 
     /* Take note of the killer (only the first time!) */
     if (unique_monster && !lore->pkills)
@@ -1335,7 +1338,6 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 strnfmt(marked_buf, sizeof(marked_buf), "%% %s", buf);
             else                                          // regular unique
                 strnfmt(marked_buf, sizeof(marked_buf), "& %s", buf);
-            plog_fmt("DEBUG: Final message: %s", marked_buf);
             msg(p, "%s", marked_buf);
         }
 
