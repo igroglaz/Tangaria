@@ -31,6 +31,8 @@ PWMAngband:
 - Limit the size of the stack of objects the Dungeon Master can generate to 40
 - Limit the number of monsters the Dungeon Master can summon to 40
 - Fix not being able to macro spells starting from the eighth spell in a book
+- Fix running into trap
+- Clear command buffer when command inside a keymap fails
 
 Features in PWMAngband 1.6.2 build 1
 ====================================

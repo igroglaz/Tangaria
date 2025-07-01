@@ -313,6 +313,13 @@ static void textui_process_command_aux(ui_event e)
             else if (cmd->cmd)
                 process_command(cmd->cmd);
         }
+
+        /* Clear command queue during keymap if one component fails */
+        else if (inkey_next)
+        {
+            inkey_next = NULL;
+            first_escape = false;
+        }
     }
 
     /* Error */
