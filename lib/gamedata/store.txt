@@ -726,7 +726,7 @@ normal:fortune cookie:We thought the worse was lack of food...
 normal:fortune cookie:Outlaws, robbers..and even monsters. Gods save us
 normal:scroll:Recharging
 normal:scroll:Identify:1:350
-normal:scroll:*Remove Curse*:10:350
+normal:scroll:*Remove Curse*:1:350
 normal:scroll:Teleport Level:10:400
 normal:scroll:Deep Descent:10:350
 normal:scroll:Enchant Weapon To-Hit:1:350
