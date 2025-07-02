@@ -456,7 +456,11 @@ static int ranged_damage(struct player *p, struct object *missile, struct object
 
         // magic classes are VERY bad in throwing until high lvl
         if (player_of_has(p, OF_CLUMSY) && one_in_(2))
-            dam /= 3 - p->lev / 15;
+        {
+            int divisor = 3 - p->lev / 15;
+            if (divisor < 1) divisor = 1; // avoid division by 0 or negative
+            dam /= divisor;
+        }
 
         dam *= might;
     }
