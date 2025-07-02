@@ -158,7 +158,7 @@ skill-shoot:-10
 skill-dig:0
 hitdie:12
 # @49: 200%
-exp:133:125
+exp:130:125
 history:21
 age:20:10
 height:90:16
@@ -756,7 +756,7 @@ skill-shoot:7
 skill-dig:0
 hitdie:10
 # @49: 150%
-exp:100:125
+exp:140:125
 history:100
 age:60:25
 height:80:4
@@ -823,7 +823,7 @@ skill-melee:-2
 skill-shoot:-4
 skill-dig:0
 hitdie:10
-exp:100:125
+exp:125:125
 history:100
 age:14:6
 height:67:5
@@ -859,7 +859,7 @@ skill-melee:12
 skill-shoot:6
 skill-dig:0
 hitdie:11
-exp:100:125
+exp:125:125
 history:100
 age:14:6
 height:76:7
@@ -894,7 +894,7 @@ skill-melee:-5
 skill-shoot:-5
 skill-dig:20
 hitdie:10
-exp:100:125
+exp:125:125
 history:100
 age:35:15
 height:44:3
@@ -943,7 +943,6 @@ value:0:CHR[-4]
 # 'y' bloodlust // ! CD 1000
 value:0:INFRA[1+1d15]
 value:0:TUNNEL[1+1d30]
-obj-flag:25:ESP_ORC
 value:30:RES_DARK[1]
 value:30:SPEED[1+1d19]
 #/// -
@@ -965,7 +964,7 @@ skill-shoot:-10
 skill-dig:0
 # exp factor at 49: 200%
 hitdie:13
-exp:100:125
+exp:177:125
 history:100
 age:20:10
 height:88:9
@@ -1011,15 +1010,15 @@ skill-melee:-2
 skill-shoot:-10
 skill-dig:0
 hitdie:12
-exp:100:125
+exp:188:125
 history:100
 age:20:10
 height:85:9
 weight:230:45
 gift:mushroom:Vigor:1:1
-#3 0 -1 -1 3
+#3 1 -1 -1 3
 value:0:STR[2+1d15M16]
-value:0:INT[-1+1d30]
+value:0:INT[-1+1d24]
 value:0:WIS[-4+1d15]
 value:0:DEX[0+-1d30M32]
 value:0:CON[1+1d15M32]
@@ -1053,7 +1052,7 @@ skill-shoot:-25
 skill-dig:1
 hitdie:13
 # @49: 300%
-exp:100:125
+exp:222:125
 history:21
 age:20:10
 height:150:5
@@ -1100,7 +1099,7 @@ skill-melee:10
 skill-shoot:2
 skill-dig:0
 hitdie:10
-exp:100:125
+exp:125:125
 history:100
 age:11:4
 height:63:4
@@ -1116,7 +1115,6 @@ value:0:CHR[-4]
 # !! 'y' summon warg !!
 value:0:INFRA[2+1d10M35]
 value:0:RES_DARK[1]
-obj-flag:15:ESP_ORC
 value:30:DAM_RED[1+1d19]
 value:50:STEALTH[1]
 value:50:SPEED[1]
@@ -1137,7 +1135,7 @@ skill-melee:-10
 skill-shoot:5
 skill-dig:0
 hitdie:8
-exp:100:125
+exp:110:125
 history:100
 age:15:10
 height:38:3
@@ -1206,7 +1204,7 @@ skill-dig:0
 ##// + night
 hitdie:10
 # +10%
-exp:100:135
+exp:125:135
 history:100
 age:14:6
 height:69:5
@@ -1255,7 +1253,7 @@ skill-shoot:-25
 skill-dig:0
 hitdie:9
 # +10%
-exp:100:135
+exp:200:135
 history:19
 age:11:4
 height:68:5
@@ -1352,7 +1350,7 @@ shape:40:doombat_
 name:Maiar
 skill-disarm-phys:15
 skill-disarm-magic:15
-skill-device:15
+skill-device:18
 skill-save:5
 skill-stealth:0
 skill-search:7
@@ -1369,15 +1367,15 @@ weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[2]
+value:0:INT[2+1d30]
 value:0:WIS[3]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
 # 'y' lightning
+value:0:LIGHT[1]
 value:0:INFRA[1+4d30]
 obj-flag:0:SLOW_DIGEST
-value:30:LIGHT[1]
 obj-flag:30:HOLD_LIFE
 obj-flag:30:PROT_FEAR
 obj-flag:30:FEATHER
@@ -1385,7 +1383,7 @@ obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
 slay:30:50:EVIL_2
 #/// -
-# pickup less gold (1/2) in the dungeon
+# pickup less gold (1/2) in the dungeon (non-exploration mode only - due exp nerf)
 value:0:RES_DARK[-1]
 # DARK minor vuln (up to 30 lvl; after can't get immunity),
 # but hardcoded xtra dmg from DARKNESS spell
@@ -1407,7 +1405,7 @@ skill-shoot:7
 skill-dig:0
 hitdie:11
 # +10% exp
-exp:100:135
+exp:250:135
 history:100
 age:11:4
 height:72:5
@@ -1415,7 +1413,7 @@ weight:160:23
 gift:food:Stolen mushroom:2:3
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[2+1d30]
+value:0:INT[3]
 value:0:WIS[1+1d30]
 value:0:DEX[1]
 # in time aquire power
@@ -1450,7 +1448,7 @@ skill-shoot:-5
 skill-dig:0
 hitdie:13
 # @49: 300%
-exp:100:125
+exp:300:125
 history:100
 age:11:4
 height:145:8
@@ -1483,7 +1481,7 @@ brand:40:50:FIRE_3
 value:0:RES_COLD[-1]
 # AGGRAVATE 40 range hardcoded
 # - receive 11% more non-physical dmg
-value:0:DAM_RED[-2+2d30]
+value:0:DAM_RED[-1+2d30]
 value:0:RES_LIGHT[-1]
 value:0:STEALTH[-2+-1d10]
 # /rfe CON as mana stat
@@ -1507,7 +1505,7 @@ skill-shoot:5
 skill-dig:-40
 hitdie:11
 # -25%
-exp:100:100
+exp:225:100
 history:100
 age:11:4
 height:81:5
@@ -1549,7 +1547,7 @@ skill-melee:0
 skill-shoot:0
 skill-dig:0
 hitdie:10
-exp:100:125
+exp:125:125
 history:100
 age:14:6
 height:69:5
@@ -1583,7 +1581,7 @@ skill-shoot:-25
 skill-throw:0
 skill-dig:0
 hitdie:12
-exp:100:125
+exp:200:125
 history:100
 age:11:4
 height:85:5
@@ -1628,14 +1626,13 @@ skill-shoot:-4
 skill-dig:10
 hitdie:11
 # +10% exp
-exp:100:135
+exp:135:135
 history:100
 age:11:4
 height:82:3
 weight:244:23
 gift:flask:Flask of oil:3:4
 #//////////// TODO: rebalance. make building walls - main feature
-#//////////// remove cost and CDs (but also bonuses)
 #4 -3 -3 -2 0.
 # can build it slowly with 'y' (create sand wall) at 35lvl+
 # + -10% phys damage hc
@@ -1669,7 +1666,7 @@ skill-melee:-20
 skill-shoot:10
 skill-dig:-1
 hitdie:6
-exp:100:125
+exp:150:125
 history:100
 age:10:4
 height:21:2
@@ -1764,7 +1761,7 @@ skill-shoot:-15
 skill-dig:0
 hitdie:14
 # + 300% exp at 49 lvl
-exp:100:125
+exp:300:125
 history:100
 age:90:40
 height:170:20
@@ -1787,7 +1784,7 @@ slay:35:50:DRAGON_3
 brand:40:49:STUN_1
 brand:50:50:STUN_2
 # +4 reduce dmg
-value:0:DAM_RED[-3+7d30]
+value:0:DAM_RED[-2+6d30]
 # /// -
 obj-flag:0:NO_TELEPORT
 obj-flag:0:HUNGER
@@ -1822,7 +1819,7 @@ skill-melee:-2
 skill-shoot:20
 skill-dig:0
 hitdie:10
-exp:100:125
+exp:135:125
 history:100
 age:60:55
 height:74:7
@@ -1856,17 +1853,17 @@ skill-melee:0
 skill-shoot:0
 skill-dig:-40
 hitdie:10
-exp:100:125
+exp:175:125
 history:100
 age:11:4
 height:82:3
 weight:244:23
 gift:scroll:Phase Door:3:4
 ###########
-value:0:STR[-1+1d30]
-value:0:INT[-4+1d12]
-value:0:WIS[-4+1d12]
-value:0:DEX[-5+1d9]
+value:0:STR[0]
+value:0:INT[0]
+value:0:WIS[0]
+value:0:DEX[0]
 value:0:CON[-5+1d9]
 value:0:CHR[-7+1d24]
 # 'y' ray of element .... TODO? maybe make double resistance ability instead?
@@ -1908,16 +1905,16 @@ skill-melee:5
 skill-shoot:3
 skill-dig:0
 hitdie:11
-exp:100:125
+exp:175:125
 history:100
 age:14:6
 height:170:20
 weight:240:60
 gift:food:Large Trout:1:1
 value:0:STR[2]
-value:0:INT[-3+1d24]
+value:0:INT[-1]
 value:0:WIS[-2]
-value:0:DEX[-2]
+value:0:DEX[-1]
 value:0:CON[3]
 value:0:CHR[-9]
 # 'y' RAISE dead // ! (ok.. 255 cd)
@@ -1925,10 +1922,10 @@ value:0:RES_COLD[1]
 value:35:RES_COLD[2]
 value:0:MANA[3+-1d15]
 value:30:INFRA[1]
-obj-flag:30:ESP_UNDEAD
-brand:45:50:COLD_2
+obj-flag:0:ESP_UNDEAD
+brand:1:50:COLD_2
 #/// -
-# /// dont' get danger/obj feeling
+# /// dont' get danger/obj feeling - VERY major minus!
 value:0:RES_FIRE[-1]
 value:0:MOVES[-1]
 
@@ -1944,7 +1941,7 @@ skill-melee:4
 skill-shoot:10
 skill-dig:-5
 hitdie:11
-exp:100:125
+exp:135:125
 history:100
 age:30:11
 height:47:4
@@ -1981,7 +1978,7 @@ skill-melee:-10
 skill-shoot:-25
 skill-dig:0
 hitdie:9
-exp:100:125
+exp:175:125
 history:100
 age:10:5
 height:28:3
@@ -2031,7 +2028,7 @@ name:Djinn
 skill-disarm-phys:20
 skill-disarm-magic:20
 skill-device:25
-skill-save:0
+skill-save:20
 skill-stealth:0
 skill-search:20
 skill-melee:10
@@ -2039,7 +2036,7 @@ skill-shoot:10
 skill-dig:0
 hitdie:11
 # @49: 500%
-exp:100:125
+exp:225:125
 history:100
 age:10:4
 height:170:20
@@ -2047,8 +2044,8 @@ weight:33:11
 gift:wand:Wonder:1:1
 # 3
 value:0:STR[3]
-value:0:INT[0+1d15]
-value:0:WIS[0+1d15]
+value:0:INT[3]
+value:0:WIS[3]
 value:0:DEX[3]
 value:0:CON[3+-1d30]
 value:0:CHR[-1]
@@ -2061,6 +2058,7 @@ value:0:RES_POIS[1]
 obj-flag:0:SEE_INVIS
 value:30:SPEED[1+1d4]
 value:30:RES_TIME[1]
+value:0:STEALTH[4]
 # auto-id
 obj-flag:30:KNOWLEDGE
 # can only consume wands/staves to nourish
@@ -2086,7 +2084,7 @@ skill-dig:0
 gift:amulet:Adornment:1:1
 hitdie:9
 # +25%
-exp:100:150
+exp:115:150
 history:100
 age:24:3
 height:40:2
@@ -2120,7 +2118,7 @@ skill-shoot:-25
 skill-dig:0
 hitdie:13
 # @49: 150%
-exp:100:125
+exp:175:125
 history:100
 age:20:10
 height:120:19
@@ -2159,7 +2157,7 @@ skill-shoot:-5
 skill-dig:20
 hitdie:9
 # +25%
-exp:100:150
+exp:110:150
 history:100
 age:14:4
 height:30:2
@@ -2206,7 +2204,7 @@ skill-shoot:-10
 skill-dig:0
 hitdie:11
 # @49: 300%
-exp:100:125
+exp:160:125
 history:100
 age:81:14
 height:47:4
@@ -2247,7 +2245,7 @@ skill-shoot:1
 skill-dig:0
 hitdie:9
 # +15%
-exp:100:140
+exp:115:140
 history:100
 age:17:5
 height:58:4
@@ -2281,7 +2279,7 @@ skill-melee:-1
 skill-shoot:-6
 skill-dig:0
 hitdie:10
-exp:100:125
+exp:115:125
 history:100
 age:13:2
 height:69:3
@@ -2317,7 +2315,7 @@ skill-shoot:-25
 skill-dig:0
 hitdie:7
 # @49: 500%
-exp:100:125
+exp:135:125
 history:100
 age:63:7
 height:35:2
@@ -2372,7 +2370,7 @@ skill-shoot:-3
 skill-dig:0
 hitdie:7
 # +25%
-exp:100:150
+exp:125:150
 history:100
 age:13:1
 height:34:2
@@ -2410,7 +2408,7 @@ skill-shoot:-15
 skill-dig:0
 hitdie:9
 # @49: 900%
-exp:100:125
+exp:150:125
 history:100
 age:255:33
 height:98:4
@@ -2475,7 +2473,7 @@ skill-shoot:-15
 skill-dig:-40
 hitdie:10
 # @49: 400%
-exp:100:125
+exp:175:125
 history:100
 age:50:8
 height:47:4
@@ -2528,7 +2526,7 @@ skill-melee:-10
 skill-shoot:-25
 skill-dig:0
 hitdie:9
-exp:100:125
+exp:140:125
 history:100
 age:1:1
 height:30:4
@@ -2576,7 +2574,7 @@ skill-shoot:-2
 skill-dig:4
 hitdie:11
 # +10% exp
-exp:100:135
+exp:125:135
 history:100
 age:10:5
 height:55:4
