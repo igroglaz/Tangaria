@@ -16,34 +16,34 @@
 
 dragon:white:0
 wyrm:ice:0
-info:1:100:1
+info:1:125:1
 
 dragon:blue:0
 wyrm:storm:0
-info:1:100:1
+info:1:125:1
 
 dragon:red:0
 wyrm:hell:0
-info:1:100:1
+info:1:125:1
 
 dragon:black:0
 wyrm:bile:0
-info:1:100:1
+info:1:125:1
 
 #NOT IMMUNE!
 #dragon:green:0
 #wyrm:swamp:0
-#info:1:100:0
+#info:1:125:0
 
 #br_iner: only br_iner mobs will resist
 #res_cold
 dragon:silver:0
 wyrm:Radiance:1
-info:1:100:0
+info:1:125:0
 
 #dragon:gold:0
 #wyrm:Thunder:1
-#info:1:100:0
+#info:1:125:0
 
 #dragon:shadow:1
 #wyrm:shadow:0
