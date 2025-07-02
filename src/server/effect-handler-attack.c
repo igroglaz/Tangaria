@@ -2310,10 +2310,14 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 if (context->origin->player->spell_cost == 1)
                 {
                     // damage
-                    int dam_mult = 1 + context->origin->player->lev / 5;
+                    int dam_mult = context->origin->player->lev / 5;
                     if (dam_mult > 7)
                         dam_mult = 7;
                     dam *= dam_mult;
+
+                    // low lvl boost
+                    if (context->origin->player->lev >= 5)
+                        dam += 5;
 
                     // spend additional mana
                     if (context->origin->player->lev > 9 &&
@@ -2330,10 +2334,14 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 else if (context->origin->player->spell_cost == 2)
                 {
                     // damage
-                    int dam_mult = 1 + context->origin->player->lev / 5;
+                    int dam_mult = context->origin->player->lev / 5;
                     if (dam_mult > 7)
                         dam_mult = 7;
                     dam *= dam_mult;
+
+                    // low lvl boost
+                    if (context->origin->player->lev >= 5)
+                        dam += 4;
 
                     rad += context->origin->player->lev / 10;
                     // spend additional mana
