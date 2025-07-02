@@ -157,7 +157,7 @@ void do_cmd_go_up(struct player *p)
     if (OPT(p, birth_deeptown) && !is_dm_p(p))
     {
         int allowed_shallow_depth;
-        int min_depth_for_level = get_deeptown_min_depth(p->lev);
+        int min_depth_for_level = get_deeptown_min_depth(p->max_lev);
 
         allowed_shallow_depth = min_depth_for_level - 1;
         if (allowed_shallow_depth < 1) allowed_shallow_depth = 1;
@@ -292,7 +292,7 @@ void do_cmd_go_down(struct player *p)
     // (prevent low lvl farm)
     if (OPT(p, birth_deeptown) && p->wpos.depth == 0 && !is_dm_p(p))
     {
-        descend_to = get_deeptown_min_depth(p->lev);
+        descend_to = get_deeptown_min_depth(p->max_lev);
         
         // ensure descend_to doesn't exceed player's maximum depth
         if (descend_to > p->max_depth)
