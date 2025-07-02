@@ -80,6 +80,12 @@
 # also negative values are possible:
 # value:0:CON[1+-1d5M10]
 
+
+# exp:100:125  --- > # exp:modes expbase:classic expbase (exploration no-modes)
+# -> 1st value - deeptown, IM, ZN (//!!! this doesn't work, as we can parse only 1 value)
+# /// so we hardcode exp factor in code
+# -> 2nd value - exploration
+
 # MOVES works: +10 moves is like +10 speed, but movement only
 ### be careful with high moves..
 ###it stuck with speed and it seems doesn't have limit
@@ -140,11 +146,6 @@
 
 # note: don't make skill-melee: < than -10 (or give then higher shooting skill).
 # with <-10 it will be very hard to hit something
-
-
-# exp:100:125  --- > # exp:modes expbase:classic expbase (exploration no-modes)
-# -> 1st value - deeptown, IM, ZN
-# -> 2nd value - exploration
 
 name:Half-Troll
 skill-disarm-phys:-5
