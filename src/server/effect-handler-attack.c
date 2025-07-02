@@ -867,16 +867,6 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                     context->origin->player->csp -= context->origin->player->lev / 10;
             }
         }
-        else if (streq(context->origin->player->clazz->name, "Timeturner"))
-        {   
-            // Quantum Trap spell (mana 4)
-            if (context->origin->player->spell_cost == 4)
-            {
-                rad += context->origin->player->lev / 8;
-                if (context->origin->player->lev > 10)
-                    dam *= context->origin->player->lev / 10;
-            }
-        }
         else if (streq(context->origin->player->clazz->name, "Bard"))
         {   
             // Discord spell (mana 1) + agro
@@ -2344,6 +2334,22 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                         dam += 4;
 
                     rad += context->origin->player->lev / 10;
+                    // spend additional mana
+                    if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                            context->origin->player->csp = context->origin->player->csp * 96 / 100;
+                }
+            }
+            else if (streq(context->origin->player->clazz->name, "Timeturner"))
+            {   
+                // Quantum Trap spell (mana 2)
+                if (context->origin->player->spell_cost == 2)
+                {
+                    // damage
+                    int dam_mult = 1 + context->origin->player->lev / 5;
+                    if (dam_mult > 7)
+                        dam_mult = 7;
+                    dam *= dam_mult;
+
                     // spend additional mana
                     if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
                             context->origin->player->csp = context->origin->player->csp * 96 / 100;
