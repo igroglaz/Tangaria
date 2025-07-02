@@ -158,7 +158,7 @@ skill-shoot:-10
 skill-dig:0
 hitdie:12
 # @49: 200%
-exp:120:125
+exp:133:125
 history:21
 age:20:10
 height:90:16
@@ -224,7 +224,7 @@ skill-shoot:5
 skill-dig:0
 hitdie:10
 # +10%
-exp:120:135
+exp:115:135
 history:4
 age:24:16
 height:71:8
@@ -322,7 +322,7 @@ skill-melee:-8
 skill-shoot:12
 skill-dig:0
 hitdie:9
-exp:120:125
+exp:125:125
 history:13
 age:50:40
 height:40:5
@@ -352,7 +352,7 @@ skill-shoot:0
 skill-dig:40
 hitdie:11
 # +10%
-exp:120:135
+exp:130:135
 history:16
 age:35:15
 height:47:4
@@ -414,7 +414,7 @@ skill-dig:0
 hitdie:10
 # -15%
 # @49: 150%
-exp:120:110
+exp:155:110
 history:1
 age:50:20
 height:80:6
@@ -481,7 +481,7 @@ skill-melee:-5
 skill-shoot:10
 skill-dig:0
 hitdie:8
-exp:120:125
+exp:115:125
 history:23
 age:15:10
 height:37:4
@@ -519,8 +519,8 @@ height:23:3
 weight:36:6
 gift:crop:Beet:1:1
 value:0:STR[-2+-1d15]
-value:0:INT[-1]
-value:0:WIS[-1]
+value:0:INT[-1+-1d12]
+value:0:WIS[-1+-1d12]
 value:0:DEX[-1+-1d12]
 value:0:CON[-2+-1d15]
 value:0:CHR[-1]
@@ -548,7 +548,7 @@ skill-shoot:-15
 skill-dig:20
 hitdie:13
 # @49: 400%
-exp:165:125
+exp:255:125
 history:94
 age:255:70
 height:170:20
@@ -927,7 +927,7 @@ skill-melee:0
 skill-shoot:5
 skill-dig:2
 hitdie:9
-exp:100:125
+exp:120:125
 history:100
 age:15:10
 height:40:3
@@ -1171,22 +1171,22 @@ skill-shoot:15
 skill-dig:0
 hitdie:10
 # @49: 150%
-exp:100:125
+exp:140:125
 history:100
 age:75:75
 height:58:6
 weight:111:8
 gift:food:Petty-dwarf roots:1:1
 #0 2 -1 3 1
-value:0:STR[0+1d49]
-value:0:INT[0+1d30]
-value:0:WIS[-2+1d30]
-value:0:DEX[1+1d30]
+value:50:STR[1]
+value:0:INT[1+1d30]
+value:0:WIS[-2+1d15]
+value:0:DEX[2+1d30]
 value:0:CON[1]
 value:0:CHR[-5+1d15]
 # 'y' apply poison
 value:0:INFRA[0+1d6]
-value:0:STEALTH[1+1d15]
+value:0:STEALTH[2+1d24]
 obj-flag:25:SEE_INVIS
 value:30:RES_DARK[1]
 #/// -
@@ -1300,7 +1300,7 @@ skill-shoot:-15
 skill-dig:0
 hitdie:11
 # @49: 200%
-exp:100:125
+exp:235:125
 history:100
 age:11:4
 height:68:5
@@ -1361,7 +1361,7 @@ skill-shoot:3
 skill-dig:0
 hitdie:11
 # @49: 300%
-exp:100:125
+exp:350:125
 history:100
 age:11:4
 height:70:5
@@ -1369,14 +1369,14 @@ weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[1+1d30]
-value:0:WIS[2+1d30]
+value:0:INT[2]
+value:0:WIS[3]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
 value:0:CHR[3]
 # 'y' lightning
 value:0:INFRA[1+4d30]
-obj-flag:30:SLOW_DIGEST
+obj-flag:0:SLOW_DIGEST
 value:30:LIGHT[1]
 obj-flag:30:HOLD_LIFE
 obj-flag:30:PROT_FEAR
@@ -1709,22 +1709,22 @@ skill-disarm-phys:-16
 skill-disarm-magic:-16
 skill-device:-8
 skill-save:8
-skill-stealth:-8
+skill-stealth:-6
 skill-search:5
 skill-melee:5
 skill-shoot:0
 skill-dig:0
 hitdie:12
-exp:100:125
+exp:290:125
 history:100
 age:22:8
 height:190:25
 weight:220:50
 gift:crop:Carrot:1:1
 # 3 1 2 0 0
-value:0:STR[0+1d15]
-value:0:INT[-4+1d7]
-value:0:WIS[-4+1d8]
+value:0:STR[1+1d24]
+value:0:INT[-1+1d24]
+value:0:WIS[1+1d30]
 value:0:DEX[0]
 value:0:CON[-3+1d14]
 value:0:CHR[-3]
@@ -1739,7 +1739,6 @@ obj-flag:50:SLOW_DIGEST
 slay:50:50:GIANT_3
 #/// -
 value:0:DAM_RED[-1+1d30]
-obj-flag:0:IMPAIR_HP
 value:0:MOVES[-1]
 #######################
 ############# removed forms.. might be useful for a pet later on...
