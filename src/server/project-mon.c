@@ -1816,7 +1816,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
 
             // Wizard polymorph spell (spell position in class.txt: 3) restore mana
             // (except multipy monsters)
-            if (!rf_has(context->mon->original_race->flags, RF_MULTIPLY) && context->origin->player &&
+            if (!rf_has(context->mon->race->flags, RF_MULTIPLY) && context->origin->player &&
                 streq(context->origin->player->clazz->name, "Wizard") &&
                 context->origin->player->current_spell == 3)
             {
