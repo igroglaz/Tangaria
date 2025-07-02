@@ -80,10 +80,6 @@
 # also negative values are possible:
 # value:0:CON[1+-1d5M10]
 
-##### WE USE CLASSIC EXP FACTOR
-# exp:100:125  --- > # exp:expbase:classic expbase
-# -> 2nd value
-
 # MOVES works: +10 moves is like +10 speed, but movement only
 ### be careful with high moves..
 ###it stuck with speed and it seems doesn't have limit
@@ -145,6 +141,10 @@
 # note: don't make skill-melee: < than -10 (or give then higher shooting skill).
 # with <-10 it will be very hard to hit something
 
+
+# exp:100:125  --- > # exp:modes expbase:classic expbase (exploration no-modes)
+# -> 1st value - deeptown, IM, ZN
+# -> 2nd value - exploration
 
 name:Half-Troll
 skill-disarm-phys:-5
@@ -248,10 +248,10 @@ value:50:SPEED[1]
 name:Elf
 skill-disarm-phys:5
 skill-disarm-magic:5
-skill-device:6
+skill-device:10
 skill-save:6
 skill-stealth:2
-skill-search:6
+skill-search:10
 skill-melee:-5
 skill-shoot:15
 skill-dig:0
@@ -281,14 +281,14 @@ value:0:RES_LIGHT[1]
 name:Halfling
 skill-disarm-phys:15
 skill-disarm-magic:15
-skill-device:18
+skill-device:9
 skill-save:18
 skill-stealth:4
-skill-search:6
+skill-search:11
 skill-melee:-10
 skill-shoot:20
 skill-dig:0
-hitdie:7
+hitdie:8
 # +10%
 exp:120:135
 history:10
@@ -298,8 +298,8 @@ weight:55:5
 gift:food:Pipe-weed:40:40
 # original: -2 2 1 3 2
 value:0:STR[-2]
-value:0:INT[0+1d24]
-value:0:WIS[0+1d30]
+value:0:INT[1+1d30]
+value:0:WIS[1]
 value:0:DEX[3]
 value:0:CON[0+1d10M20]
 value:0:CHR[1]
@@ -317,11 +317,11 @@ skill-disarm-magic:10
 skill-device:22
 skill-save:12
 skill-stealth:3
-skill-search:4
+skill-search:5
 skill-melee:-8
 skill-shoot:12
 skill-dig:0
-hitdie:8
+hitdie:9
 exp:120:125
 history:13
 age:50:40
@@ -346,7 +346,7 @@ skill-disarm-magic:2
 skill-device:9
 skill-save:9
 skill-stealth:-1
-skill-search:2
+skill-search:-4
 skill-melee:15
 skill-shoot:0
 skill-dig:40
@@ -371,31 +371,30 @@ obj-flag:0:PROT_BLIND
 
 
 name:Half-Orc
-skill-disarm-phys:-3
+skill-disarm-phys:1
 skill-disarm-magic:-3
 skill-device:-3
 skill-save:-3
 skill-stealth:-1
-skill-search:-3
+skill-search:-1
 skill-melee:12
 skill-shoot:-5
 skill-dig:0
-hitdie:10
+hitdie:11
 exp:120:125
 history:19
 age:11:4
 height:64:2
 weight:135:15
 gift:food:Swig of Orcish Liquor:1:1
-value:0:STR[1+1d30]
+value:0:STR[2]
 value:0:INT[-1]
-value:0:CON[0+1d30]
+value:0:CON[1]
 value:0:CHR[-3]
 # 'y' restore STR
 value:0:TUNNEL[1]
-value:0:INFRA[1+2d30]
-obj-flag:25:ESP_ORC
-value:30:DAM_RED[1+1d19]
+value:0:INFRA[3]
+value:30:DAM_RED[1]
 value:30:RES_DARK[1]
 obj-flag:50:SLOW_DIGEST
 #/// -
@@ -421,11 +420,11 @@ age:50:20
 height:80:6
 weight:190:20
 gift:food:Sprig of Athelas:1:1
-value:0:STR[0+1d30]
-value:0:INT[0+1d30]
-value:0:WIS[0+1d30]
-value:0:DEX[0+1d30]
-value:0:CON[0+2d30]
+value:0:STR[1]
+value:0:INT[1]
+value:0:WIS[1]
+value:0:DEX[1]
+value:0:CON[1+1d30]
 value:0:CHR[2]
 # 'y' cure blackbreath
 # + storage slot
@@ -437,6 +436,7 @@ value:50:DAM_RED[1]
 
 
 #noble and proud
+#start young?
 name:High-Elf
 skill-disarm-phys:4
 skill-disarm-magic:4
@@ -450,7 +450,7 @@ skill-dig:0
 hitdie:10
 # -30% (harder)
 # @49: 300%
-exp:120:95
+exp:200:95
 history:7
 age:100:30
 height:77:6
@@ -511,7 +511,7 @@ skill-search:0
 skill-melee:0
 skill-shoot:0
 skill-dig:0
-hitdie:6
+hitdie:7
 exp:80:125
 history:1
 age:14:6
@@ -1668,7 +1668,7 @@ skill-search:8
 skill-melee:-20
 skill-shoot:10
 skill-dig:-1
-hitdie:5
+hitdie:6
 exp:100:125
 history:100
 age:10:4

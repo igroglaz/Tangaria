@@ -1333,10 +1333,14 @@ void do_cmd_breath(struct player *p, int dir)
     }
     else if (streq(p->race->name, "Dwarf"))
     {
+        int radius = 0;
+
+        radius = p->lev / 2;
+
         use_energy(p);
         source_player(who, get_player_index(get_connection(p->conn)), p);
-              
-        effect_simple(EF_DETECT_TREASURES, who, 0, 0, 0, 0, 10 + p->lev, 10 + p->lev, NULL);
+        // ... y, x, NULL
+        effect_simple(EF_DETECT_TREASURES, who, 0, 0, 0, 0, 5 + radius, 10 + radius, NULL);
         
         p->y_cooldown = 255; // cooldown
 
