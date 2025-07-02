@@ -1061,7 +1061,7 @@ static void player_generate(struct player *p, uint8_t psex, const struct player_
     p->max_lev = p->lev = 1;
 
     /* Experience factor */
-    // for deeptown, IM, ZN
+    // for no-modes (exploration)
     p->expfact = p->race->r_exp;
 
     /* Hitdice */

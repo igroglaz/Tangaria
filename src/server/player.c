@@ -930,8 +930,9 @@ void player_exp_gain(struct player *p, int32_t amount)
     if (streq(p->clazz->name, "Rogue") && p->lev < 50 && !OPT(p, birth_deeptown))
         amount = (amount * 10) / 9;
 
-    // Endgame exp factors
-    if (p->lev > 48 && amount > 10)
+    // Endgame exp factors (no-modes)
+    if (p->lev > 48 && amount > 10 &&
+        !OPT(p, birth_deeptown) && !OPT(p, birth_zeitnot) && !OPT(p, birth_ironman))
     {
         // ... races:
         if      (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||

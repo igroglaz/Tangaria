@@ -82,9 +82,9 @@
 
 
 # exp:100:125  --- > # exp:modes expbase:classic expbase (exploration no-modes)
-# -> 1st value - deeptown, IM, ZN (works and turned on by default) 
-# -> 2nd value - exploration (// !!! this doesn't work, as we can parse only 1 value)
-#                            /// so we hardcode exp factor in code)
+# -> 1st value - deeptown, IM, ZN  (this doesn't work, as we can parse only 1 value)
+#                                   so we hardcode exp factor in code)
+# -> 2nd value - exploration (works and turned on by default)  
 
 # MOVES works: +10 moves is like +10 speed, but movement only
 ### be careful with high moves..
@@ -395,7 +395,6 @@ value:0:CHR[-3]
 # 'y' restore STR
 value:0:TUNNEL[1]
 value:0:INFRA[3]
-value:30:DAM_RED[1]
 value:30:RES_DARK[1]
 obj-flag:50:SLOW_DIGEST
 #/// -
@@ -520,8 +519,8 @@ height:23:3
 weight:36:6
 gift:crop:Beet:1:1
 value:0:STR[-2+-1d15]
-value:0:INT[-1+-1d12]
-value:0:WIS[-1+-1d12]
+value:0:INT[-1]
+value:0:WIS[-1]
 value:0:DEX[-1+-1d12]
 value:0:CON[-2+-1d15]
 value:0:CHR[-1]
@@ -1368,7 +1367,7 @@ weight:165:22
 gift:food:Cold chicken:1:1
 #2 3 3 1 1
 value:0:STR[2]
-value:0:INT[2+1d30]
+value:0:INT[1+1d24]
 value:0:WIS[3]
 value:0:DEX[1]
 value:0:CON[-5+1d8]
@@ -1384,7 +1383,7 @@ obj-flag:30:SEE_INVIS
 value:30:RES_LIGHT[1]
 slay:30:50:EVIL_2
 #/// -
-# pickup less gold (1/2) in the dungeon (non-exploration mode only - due exp nerf)
+# pickup less gold (1/2) in the dungeon
 value:0:RES_DARK[-1]
 # DARK minor vuln (up to 30 lvl; after can't get immunity),
 # but hardcoded xtra dmg from DARKNESS spell
