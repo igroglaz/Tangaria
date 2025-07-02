@@ -6141,10 +6141,9 @@ static void update_birth_options(struct player *p, struct birth_options *options
     }
     //////////////////////////////////////////////////////////////
 
-    // Modes: have special exp factor
-    // (as in deeptown there are not dungeon brackets)
-    // TODO: do it on character creation, no there... there we do it cause
-    // there are existing characters and we want to update it.
+    // temp code.. we do it cause
+    // there are existing characters and we want to update it
+    // TODO: delete this code later on
     if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
     {
         if (streq(p->clazz->name, "Half-Troll"))
@@ -6239,6 +6238,42 @@ static void update_birth_options(struct player *p, struct birth_options *options
             p->expfact = 135;
         else if (streq(p->clazz->name, "Spider"))
             p->expfact = 175;
+        else
+            p->expfact = 125;
+    }
+    /////////// now.. THIS IS GOOD CODE: (don't delete it)
+    // No-Modes (exploration): has special exp factor
+    // (due dungeon brackets)
+    else if (!OPT(p, birth_deeptown) && !OPT(p, birth_zeitnot) && !OPT(p, birth_ironman))
+    {
+        if (streq(p->clazz->name, "Human"))
+            p->expfact = 175;
+        else if (streq(p->clazz->name, "Half-Elf"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Halfling"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Dwarf"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Dunadan"))
+            p->expfact = 110;
+        else if (streq(p->clazz->name, "High-Elf"))
+            p->expfact = 95;
+        else if (streq(p->clazz->name, "Hydra"))
+            p->expfact = 140;
+        else if (streq(p->clazz->name, "Damned"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Werewolf"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Undead"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Maiar"))
+            p->expfact = 125;
+        else if (streq(p->clazz->name, "Demonic"))
+            p->expfact = 135;
+        else if (streq(p->clazz->name, "Celestial"))
+            p->expfact = 100;
+        else if (streq(p->clazz->name, "Golem"))
+            p->expfact = 135;
         else
             p->expfact = 125;
     }

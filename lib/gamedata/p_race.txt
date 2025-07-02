@@ -82,9 +82,9 @@
 
 
 # exp:100:125  --- > # exp:modes expbase:classic expbase (exploration no-modes)
-# -> 1st value - deeptown, IM, ZN (//!!! this doesn't work, as we can parse only 1 value)
-# /// so we hardcode exp factor in code
-# -> 2nd value - exploration
+# -> 1st value - deeptown, IM, ZN (works and turned on by default) 
+# -> 2nd value - exploration (// !!! this doesn't work, as we can parse only 1 value)
+#                            /// so we hardcode exp factor in code)
 
 # MOVES works: +10 moves is like +10 speed, but movement only
 ### be careful with high moves..
