@@ -7665,18 +7665,24 @@ magic:1:350:5
 book:psi book:town:of Telepathy:12:psi
 equip:psi book:of Telepathy:1:1:none
 
-spell:Aging Hex:1:0:5:1:0
-cooldown:2
-effect:BOLT:TIME:0
-dice:$B
-expr:B:PLAYER_LEVEL:+ 2
-desc:Causes magical aging to the target. Does not require mana.
-desc: Cooldown 2 turns.
+spell:Aging Hex:1:1:5:1:0
+# 6-42  @ 24 (~24)
+# 9-108 @ 50 (~58)
+effect:BOLT_OR_BEAM:TIME:0:-10
+dice:$Dd$S
+expr:D:PLAYER_LEVEL:- 1 / 5 + 3
+expr:S:PLAYER_LEVEL:/ 10 + 4
+msg_other: fires a magic missile.
+desc:Causes magical aging to the target.
+desc: This spell always hits its target.
+desc: Sometimes a beam is fired instead that hurts each monster
+desc: in its path.
+desc: The chance to get a beam goes up with your character level.
 
 spell:Instant Recall:5:5:35:5:0
 cooldown:90
 effect:RECALL
-dice:5+1d7
+dice:7+1d11
 desc:Rewinds time moving you from the dungeon back to the town or from the town
 desc: to the deepest level you have visited in the dungeon.
 desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
