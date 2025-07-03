@@ -720,10 +720,24 @@ void do_cmd_drop(struct player *p, int item, int quantity)
         
         // also it's now safe to make more items STICKY (TODO).
         
-        if (obj->level_req < 100 && p->wpos.depth == 0 &&
-           (p->lev == 10 || p->lev == 20 || p->lev == 30 || p->lev == 40 || p->lev == 49))
-           ;
-        else {
+        bool can_remove = false;
+        
+        if (obj->level_req < 100 && 
+            (p->lev == 10 || p->lev == 20 || p->lev == 30 || p->lev == 40 || p->lev == 49))
+        {
+            // deeptown or no-modes
+            if (p->wpos.depth == 0)
+            {
+                can_remove = true;
+            }
+            // IM and ZN should be able in depths
+            else if (OPT(p, birth_ironman) || OPT(p, birth_zeitnot))
+            {
+                can_remove = true;
+            }
+        }
+        
+        if (!can_remove) {
             msg(p, "Hmmm, it seems to be stuck.");
             return;
         }
