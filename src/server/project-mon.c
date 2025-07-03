@@ -1831,9 +1831,6 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
                     else
                         context->origin->player->csp += context->origin->player->lev + 5;
                 }
-
-                // heal
-                hp_player_safe(context->origin->player, 1 + (context->origin->player->lev));
             }
 
             /* Delete the old monster, and return a new one */
