@@ -7676,16 +7676,20 @@ msg_other: wiggles one crooked finger.
 desc:Causes magical aging to the target.
 desc: This spell always hits its target.
 
-spell:Instant Recall:3:5:35:5:0
-cooldown:90
-effect:RECALL
-dice:7+1d11
-desc:Rewinds time moving you from the dungeon back to the town or from the town
-desc: to the deepest level you have visited in the dungeon.
-desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
-desc: During that delay, the effect can be canceled by invoking the prayer
-desc: of recall again.
-desc: Cooldown 90 turns.
+spell:Rewind Phase:3:0:35:5:0
+effect:DAMAGE
+dice:d$S
+expr:S:PLAYER_LEVEL:+ 1
+effect:RESTORE_MANA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:+ 10
+msg_other: moves backwards awkwardly.
+desc:Shifts you to a random location on the current level.
+desc: Restores some mana based on your level.
+desc: May cause minor damage due to temporal instability.
 
 spell:Quantum Trap:5:2:1:7:0
 cooldown:7
@@ -7795,8 +7799,15 @@ desc: for 10 turns!
 desc: Cooldown 120 turns.
 
 spell:Time Forward:45:1:30:250:0
-effect:DEEP_DESCENT
-desc:Sends you to the deepest depths of the dungeon.
+cooldown:90
+effect:RECALL
+dice:7+1d10
+desc:Rewinds time moving you from the dungeon back to the town or from the town
+desc: to the deepest level you have visited in the dungeon.
+desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
+desc: During that delay, the effect can be canceled by invoking the prayer
+desc: of recall again.
+desc: Cooldown 90 turns.
 
 spell:Time Wave:50:25:46:300:0
 cooldown:11
