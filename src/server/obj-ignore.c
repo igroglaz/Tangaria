@@ -295,6 +295,9 @@ bool object_is_ignored(struct player *p, const struct object *obj)
     /* Do ignoring by kind */
     if (object_flavor_is_aware(p, obj) && p->kind_ignore[obj->kind->kidx]) return true;
 
+    /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+    if (object_flavor_is_aware(p, obj) && p->kind_ignore[0] && tval_is_book(obj)) return true;
+
     type = ignore_type_of(obj);
     if (type == ITYPE_MAX) return false;
 

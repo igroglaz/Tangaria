@@ -1903,19 +1903,19 @@ static tval_desc sval_dependent[] =
     {TV_PSI_BOOK, "Psi Books"},
     {TV_ELEM_BOOK, "Elemental Books"},
     {TV_TRAVEL_BOOK, "Travel Guides"},
-    {TV_SKILLBOOK, "Skillbook"},
-    {TV_FLASK, "Flasks of Oil"}
+    {TV_SKILLBOOK, "Skillbook"}
 };
 
 
 /*
- * Determines whether a MAngband tval is eligible for sval-ignoring.
+ * Determines whether a tval is eligible for sval-ignoring.
  */
 static bool ignore_tval_extra(int tval)
 {
     /* PWMAngband: allow crops and junk to be ignored */
     switch (tval)
     {
+        case TV_FLASK:
         case TV_SKELETON:
         case TV_BOTTLE:
         case TV_CORPSE:
@@ -2131,7 +2131,7 @@ static bool seen_tval(int tval)
 
 
 /*
- * Collect all other MAngband tvals in the big ignore_choice array
+ * Collect all other tvals in the big ignore_choice array
  */
 static int ignore_collect_kind_extra(ignore_choice **ch)
 {
@@ -2176,7 +2176,7 @@ static int ignore_collect_kind_extra(ignore_choice **ch)
 
 
 /*
- * Display list of MAngband svals to be ignored
+ * Display list of svals to be ignored
  */
 static void sval_menu_extra(void)
 {
@@ -2218,6 +2218,17 @@ static void sval_menu_extra(void)
 
 
 /*
+ * Ignore books
+ */
+static void ignore_books(void)
+{
+    /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+    player->kind_ignore[0] = 1 - player->kind_ignore[0];
+    Send_ignore();
+}
+
+
+/*
  * Extra options on the "item options" menu
  */
 static struct
@@ -2228,7 +2239,8 @@ static struct
 } extra_item_options[] = {
     {'Q', "Quality ignoring options", quality_menu},
     {'E', "Ego ignoring options", ego_menu},
-    {'T', "Other MAngband tval-ignoring options", sval_menu_extra}
+    {'T', "Other tval-ignoring options", sval_menu_extra},
+    {'B', "Always ignore books", ignore_books}
 };
 
 
@@ -2291,7 +2303,16 @@ static void display_options_item(struct menu *menu, int oid, bool cursor, int ro
         line = line - N_ELEMENTS(sval_dependent) - 1;
 
         if (line < N_ELEMENTS(extra_item_options))
-            c_prt(attr, extra_item_options[line].name, row, col);
+        {
+            /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+            if (streq(extra_item_options[line].name, "Always ignore books"))
+            {
+                c_prt(attr, format("%s: %s", extra_item_options[line].name,
+                    (player->kind_ignore[0] == 1)? "yes": "no"), row, col);
+            }
+            else
+                c_prt(attr, extra_item_options[line].name, row, col);
+        }
     }
 }
 

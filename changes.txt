@@ -22,6 +22,17 @@ changes and fixes are specific to PWMAngband.
 New features in PWMAngband 1.6.2 build 2
 ========================================
 
+User interface
+--------------
+
+Angband 4.2.x:
+
+- cumber_armor message clarity
+
+PWMAngband:
+
+- Add "Always ignore books" option
+
 Bugs fixed
 ----------
 
@@ -33,6 +44,24 @@ PWMAngband:
 - Fix not being able to macro spells starting from the eighth spell in a book
 - Fix running into trap
 - Clear command buffer when command inside a keymap fails
+- Don't redraw the screen when exiting a menu with distorted graphics
+
+Coding changes
+--------------
+
+Angband 4.2.x:
+
+- Avoid warnings on msys2 about truncation when initializing array from string
+- Better match death logic for projections or non-player hits to mon_take_hit()
+
+Compilation/documentation
+-------------------------
+
+Angband 4.2.x:
+
+- Fix missing word in the documentation about configuring SDL2
+- Correct some typos in comments
+- Dev How It Works documentation: command queue
 
 Features in PWMAngband 1.6.2 build 1
 ====================================

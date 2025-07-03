@@ -923,7 +923,7 @@ int alloc_stairs(struct chunk *c, int feat, int num, int minsep)
  * depth generation depth
  * origin item origin (if appropriate)
  *
- * Return the number of entites that were not allocated.
+ * Return the number of entities that were not allocated.
  *
  * See alloc_object() for more information.
  */

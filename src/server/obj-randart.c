@@ -2739,7 +2739,7 @@ static void remove_contradictory_activation(struct player *p, struct artifact *a
                 default:
                 {
                     /*
-                     * effect_summarize_properties() gave use
+                     * effect_summarize_properties() gave us
                      * something unexpected. Assume the effect is
                      * useful.
                      */

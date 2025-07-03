@@ -148,14 +148,12 @@ h7 {
 </style>
 </head>
 <body>
-<header id="pageheader">
-    <div style="display: flex; align-items: baseline;">
-        <h1>The PWMAngband Manual</h1>
-        <span class="version">v1.6.2</span>
-    </div>
-    <img src="lib/icons/att.svg" style="height: 4rem;">
-</header>
 <div class="document">
+
+
+<pre class="literal-block">
+# Delete this section and add the \docs\_templates\layout.html code just after the &lt;body&gt; tag
+</pre>
 <div class="section" id="welcome-to-pwmangband">
 <h1><a class="toc-backref" href="#id18">1&nbsp;&nbsp;&nbsp;Welcome to PWMAngband</a></h1>
 <p>PWMAngband is a complex multiplayer dungeon simulation. A player (you!)
@@ -7354,8 +7352,10 @@ the next time you start the SDL interface.</p>
 <p>With the SDL2 front end, the application has one window that can contain the
 main window and any of the subwindows.  The application may also have up to
 three additional windows which can contain any of the subwindows.  A subwindow
-may not appear in more than of those application windows.  Unused portions of
-an application window are tiled with repetitions of the game's logo.</p>
+may not appear in more than one of those application windows:  adding a
+subwindow to a window automatically removes it from the other window, if any,
+that had it.  Unused portions of an application window are tiled with
+repetitions of the game's logo.</p>
 <p>Each of the application windows has a menu bar along the top.  The &quot;Menu&quot;
 entry at the left end of the menu bar has the main menu for controlling
 aspects of the SDL2 interface.</p>
@@ -9147,7 +9147,15 @@ player commands to the game engine, and events, which indicate to the UI that
 the state of the game changed.</p>
 <div class="section" id="the-command-queue">
 <h4><a class="toc-backref" href="#id227">5.4.4.1&nbsp;&nbsp;&nbsp;The command queue</a></h4>
-<p>TBD</p>
+<p>The command queue is a first-in, first-out queue that holds and processes
+commands from the player. It is implemented in <tt class="docutils literal"><span class="pre">cmd-core.c</span></tt>. The UI frontends
+add commands to this queue, which are then read and processed by the main game
+loop in <a class="reference internal" href="#game-world-c-process-player">game-world.c - process_player()</a>. This decouples the game engine from
+the user interface, making it easier to support different frontends,
+keymaps, repeat actions, and automate certain behaviors (e.g., run or rest to
+full). The command queue stops processing when the player is interrupted by
+monsters or other significant events via the <tt class="docutils literal">disturb()</tt> function, ensuring
+the player always has a chance to respond to danger.</p>
 </div>
 </div>
 <div class="section" id="files">

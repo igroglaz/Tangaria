@@ -1591,6 +1591,9 @@ bool project_m_monster_attack_aux(struct monster *attacker, struct chunk *c, str
             /* If he's not here, skip him */
             if (!wpos_eq(&p->wpos, &mon->wpos)) continue;
 
+            /* Shapechanged monsters revert on death */
+            monster_revert_shape(p, mon);
+
             /* Give detailed messages if destroyed */
             if (!seen)
                 die_msg = MON_MSG_MORIA_DEATH;
