@@ -702,7 +702,7 @@ value:0:STR[-20]
 value:0:INT[-4]
 value:0:WIS[-4]
 value:0:DEX[-20]
-value:0:CON[-20+20d25]
+value:0:CON[-20+20d26]
 value:0:CHR[-20+1d5]
 # 'y' breath
 player-flags:0:CAN_SWIM
@@ -711,7 +711,6 @@ value:0:MANA[10]
 value:10:TUNNEL[1+1d10]
 player-flags:25:SEE_ORE
 value:35:RES_CHAOS[1]
-value:50:DAM_RED[5]
 #/// -
 value:0:DAM_RED[-2+2d30]
 # + AGGRAVATE 20 range hardcoded

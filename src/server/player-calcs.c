@@ -2290,9 +2290,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     */
 
     // Dragon/Hydra (and drag/hydra monks)
-    if (streq(p->race->name, "Dragon") || streq(p->race->name, "Hydra"))
+    if (streq(p->race->name, "Dragon"))
     {
-        // blessing from gods for newborn dragons and hydras to help them survive early on
+        // blessing from gods for newborn dragons to help them survive early on
         if (p->lev < 10)
         {
             state->skills[SKILL_TO_HIT_MELEE] += 10;
@@ -2302,6 +2302,33 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // afterward life is harsh for Monks.. as they are OP :)
         else if (streq(p->clazz->name, "Monk"))
             extra_blows -= p->lev / 10;
+    }
+    
+    else if (streq(p->race->name, "Hydra"))
+    {
+        // blessing from gods for newborn hydras to help them survive early on
+        if (p->lev < 10)
+        {
+            state->skills[SKILL_TO_HIT_MELEE] += 10;
+            state->skills[SKILL_SAVE] += 10;
+            state->to_d += 1;
+        }
+        // afterward life is harsh for Monks.. as they are OP :)
+        else if (streq(p->clazz->name, "Monk"))
+            extra_blows -= p->lev / 10;
+
+        // at lvl 40+ make it simplier (as hydra got low HP)
+        if (p->lev >= 40)
+        {
+            int lvldiff = p->lev - 39;
+
+            state->stat_add[STAT_STR] += lvldiff;
+            state->stat_add[STAT_DEX] += lvldiff;
+            state->stat_add[STAT_CON] += lvldiff;
+            state->dam_red += 1 + (lvldiff / 2);
+            state->skills[SKILL_SAVE] += lvldiff;
+            state->skills[SKILL_SEARCH] += lvldiff;
+        }
     }
 
     // naga assassin got additional BpRs not immediately
