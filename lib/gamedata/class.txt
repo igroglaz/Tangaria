@@ -7734,9 +7734,6 @@ msg_other: emit a ray of time.
 desc:Fires a beam of pure time that affects each monster in its path.
 desc: It may additionally damage minded creatures and has a chance to blind,
 desc: confuse, put to sleep or slow affected monsters.
-desc: Drains part of the life-force from a nearby monsters and replenishes
-desc: your mana with it. Does not affect undead, demons, golems, elementals or
-desc: vortices.
 
 spell:Decay:20:11:35:30:0
 cooldown:240
