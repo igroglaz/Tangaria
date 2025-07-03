@@ -7682,7 +7682,7 @@ dice:d$S
 expr:S:PLAYER_LEVEL:+ 1
 effect:RESTORE_MANA
 dice:$B
-expr:B:PLAYER_LEVEL:+ 1
+expr:B:PLAYER_LEVEL:+ 5
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:+ 10
