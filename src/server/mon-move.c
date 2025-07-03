@@ -2642,9 +2642,33 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
         else if (mon_distance < 2 && streq(p->clazz->name, "Knight"))
             monster_wake(p, mon, true, 100);
         else if (mon_distance < 21 && streq(p->race->name, "Hydra"))
-            monster_wake(p, mon, true, 100);
+        {
+            int aggro_distance = 20;
+            // Reduce aggro distance by 2 for each level starting from 40
+            if (p->lev >= 40)
+            {
+                int level_reduction = (p->lev - 40) * 2;
+                aggro_distance = 20 - level_reduction;
+                
+                // Ensure aggro_distance doesn't go below 1
+                if (aggro_distance < 1)
+                    aggro_distance = 1;
+            }
+            if (mon_distance < aggro_distance)
+                monster_wake(p, mon, true, 100);
+        }
         else if (mon_distance < 41 && streq(p->race->name, "Balrog"))
-            monster_wake(p, mon, true, 100);
+        {
+            int aggro_distance = 40;
+            // Reduce aggro distance by 2 for each level starting from 40
+            if (p->lev >= 40)
+            {
+                int level_reduction = (p->lev - 40) * 2;
+                aggro_distance = 40 - level_reduction;
+            }
+            if (mon_distance < aggro_distance)
+                monster_wake(p, mon, true, 100);
+        }
     }
 }
 

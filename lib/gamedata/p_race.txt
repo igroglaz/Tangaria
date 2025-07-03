@@ -715,6 +715,8 @@ value:50:DAM_RED[5]
 #/// -
 value:0:DAM_RED[-2+2d30]
 # + AGGRAVATE 20 range hardcoded
+# (after lvl 40 we reduce aggro by 2 every lvl.. so at 50 hydra dont have aggro at all)
+# ============
 # - hc monks: -1 BpR after lvl 10
 value:15:MOVES[10+-2d7]
 value:15:SPEED[-10+2d7]
@@ -1480,6 +1482,7 @@ brand:40:50:FIRE_3
 # might prevent protection VS ONE-MAGIC-SHOT-DEATH (see adjust_dam())
 value:0:RES_COLD[-1]
 # AGGRAVATE 40 range hardcoded
+# (after lvl 40 we reduce aggro by 2 every lvl.. so at 50 hydra dont have 20 aggro rad)
 # - receive 11% more non-physical dmg
 value:0:DAM_RED[-1+2d30]
 value:0:RES_LIGHT[-1]
