@@ -25744,6 +25744,7 @@ flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_FEAR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_DEPTH | FORCE_SLEEP
 flags:IM_NETHER | NO_STUN | IM_PLASMA | IM_DISEN
+drop:potion:*Healing*:100:10:20
 spell-freq:3
 spells:BRAIN_SMASH
 spells:BA_MANA | BA_NETH
