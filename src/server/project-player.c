@@ -293,7 +293,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
             vuln_xtra_dmg = dam / 2; // 50%
         }
         // DARK (very powerful attacks sometimes)
-        else if (type == PROJ_DARK && streq(p->race->name, "Celestial"))
+        else if (type == PROJ_DARK && (streq(p->race->name, "Celestial") ||
+                 streq(p->race->name, "Maiar")))
         {
             vuln_xtra_dmg = dam / 20; // 5%
         }

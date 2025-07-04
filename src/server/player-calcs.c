@@ -2262,6 +2262,19 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         }
     }
 
+    // in case if we wear 2H weapon without shield - BpR boni
+    if (cumber_shield == 1) 
+        extra_blows += (p->lev / 12) + 1;
+
+    /* titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too) -- rethink to other race.. naga got it slowly
+    if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
+    !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+    streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
+        extra_blows += 10;
+    */
+
+//////////////// RACES
+
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
     {
         state->stat_add[STAT_DEX] += 2;
@@ -2273,24 +2286,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     { // erratic speed boni
         state->speed++;
     }
-
-    // in case if we wear 2H weapon without shield - BpR boni
-    if (cumber_shield == 1) 
-        extra_blows += (p->lev / 12) + 1;
-
-    // Battlemage boni for heavier weapons
-    if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
-        extra_blows += (p->lev / 10) + 5;
-
-    /* titan/half-giant got +1 BpR (except war-monk-unb <34 lvl.. after 34 - they got it too) -- rethink to other race.. naga got it slowly
-    if ((streq(p->race->name, "Titan") || streq(p->race->name, "Half-Giant")) &&
-    !((streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-    streq(p->clazz->name, "Unbeliever")) && p->lev < 35))
-        extra_blows += 10;
-    */
-
-    // Dragon/Hydra (and drag/hydra monks)
-    if (streq(p->race->name, "Dragon"))
+    else if (streq(p->race->name, "Dragon"))
     {
         // blessing from gods for newborn dragons to help them survive early on
         if (p->lev < 10)
@@ -2303,7 +2299,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         else if (streq(p->clazz->name, "Monk"))
             extra_blows -= p->lev / 10;
     }
-    
     else if (streq(p->race->name, "Hydra"))
     {
         // blessing from gods for newborn hydras to help them survive early on
@@ -2383,7 +2378,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
 
     else if (streq(p->race->name, "Gargoyle"))
         state->to_a += p->lev;
-
     // Wraith race timed effects
     else if (streq(p->race->name, "Wraith"))
     {
@@ -2399,6 +2393,18 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
                 player_inc_timed(p, TMD_FOOD, 10, false, false);
         }
     }
+    // human 50 lvl boni on exploration mode
+    else if (p->lev == 50 && streq(p->race->name, "Human") &&
+             !OPT(p, birth_deeptown) && !OPT(p, birth_zeitnot) && !OPT(p, birth_ironman))
+    {
+        state->stat_add[STAT_STR] += 1;
+        state->stat_add[STAT_INT] += 1;
+        state->stat_add[STAT_WIS] += 1;
+        state->stat_add[STAT_DEX] += 1;
+        state->stat_add[STAT_CON] += 1;
+        state->stat_add[STAT_CHR] += 1;
+        state->dam_red += 1;
+    }
 
     /* Handle polymorphed players */
     if (p->poly_race && (p->poly_race->ac > eq_to_a))
@@ -2412,8 +2418,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     of_union(state->flags, collect_f);
 
 
+/////////// CLASSES
+
+    // Battlemage boni for heavier weapons
+    if (weapon && weapon->weight > 150 && streq(p->clazz->name, "Battlemage"))
+        extra_blows += (p->lev / 10) + 5;
     // druid forms
-    if (streq(p->clazz->name, "Druid"))
+    else if (streq(p->clazz->name, "Druid"))
     {
         //HACK to solve problem that it's not possible to assign PF_ temporary
         pf_off(state->pflags, PF_KNOW_MUSHROOM);
