@@ -385,6 +385,7 @@ void screen_load(bool flush)
     if (flush) Flush_queue();
 
     /* Redraw distorted graphics */
+    // https://github.com/draconisPW/PWMAngband/issues/663
     if (!player->screen_save_depth && full_icky_screen) Term_redraw();
     /*if (!player->screen_save_depth && (tile_distorted || full_icky_screen)) Term_redraw();*/
 }
