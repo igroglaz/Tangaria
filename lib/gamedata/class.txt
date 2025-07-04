@@ -181,7 +181,7 @@ skill-stealth:0:0
 skill-search:10:12
 skill-melee:70:45
 skill-shoot:55:45
-skill-throw:55:45
+skill-throw:45:35
 skill-dig:0:0
 hitdie:10
 max-attacks:6
@@ -230,6 +230,7 @@ skill-stealth:3:0
 skill-search:10:12
 skill-melee:35:15
 skill-shoot:82:55
+skill-throw:45:35
 skill-dig:0:0
 hitdie:5
 max-attacks:2
@@ -276,7 +277,7 @@ skill-save:28:10
 skill-stealth:3:1
 skill-search:20:16
 skill-melee:44:44
-skill-shoot:30:36
+skill-shoot:30:20
 skill-throw:60:30
 skill-dig:10:5
 hitdie:8
@@ -4963,7 +4964,8 @@ skill-save:28:9
 skill-stealth:0:0
 skill-search:10:12
 skill-melee:30:11
-skill-shoot:25:15
+skill-shoot:35:20
+skill-throw:25:15
 skill-dig:0:0
 hitdie:1
 max-attacks:2
@@ -4978,7 +4980,7 @@ equip:potion:Cure Light Wounds:2:3:birth_no_recall
 value:0:STR[-2]
 value:0:INT[-1]
 value:0:WIS[3]
-value:0:DEX[-1]
+value:0:DEX[0]
 value:0:CON[-1]
 value:0:CHR[1+1d15]
 player-flags:0:CHOOSE_SPELLS
@@ -5058,7 +5060,7 @@ desc: If targeting a direction or the target is not a passable
 desc: grid in the line of sight, the player will be the target.
 desc: Cooldown 60 turns.
 
-spell:Sensitive Snout:15:10:42:15:0
+spell:Sensitive Snout:15:9:42:15:0
 effect:DETECT_ANIMALS
 effect-yx:22:40
 effect:TIMED_SET:SINVIS
@@ -5150,12 +5152,11 @@ desc: wall. Deals 100+10d30 damage to monsters vulnerable to rock remover.
 
 spell:Dragon Friends:50:75:50:100:0
 cooldown:300
-effect:SUMMON:ANIMAL:0:80
+effect:SUMMON:ANIMAL:0:100
 flag:S_DRAGON
 dice:1
 msg_other: summons a dragon!
-desc:Attempts to summon a dragon friend. In most cases it will be friendly,
-desc: but not always.
+desc:Attempts to summon a dragon friend.
 desc: It takes 300 turns for dragons to heed your call again.
 
 
