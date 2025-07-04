@@ -332,6 +332,9 @@ static void award_gold_for_account_points(struct player *p) {
         if (OPT(p, birth_deeptown)) // deeptown AP gold boni 2x less
             extra_gold /= 2;
 
+        if (streq(p->race->name, "Maiar"))
+            extra_gold /= 2;
+
         p->au += extra_gold;
         msg(p, "You've earned %d extra gold for having %d account points!", extra_gold, p->account_score);
     }
