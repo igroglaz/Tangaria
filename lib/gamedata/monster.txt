@@ -25617,6 +25617,7 @@ flags:DROP_4 | DROP_GOOD | DROP_GREAT
 flags:MOVE_BODY
 flags:IM_ELEC | NO_FEAR
 flags:FORCE_DEPTH
+drop:potion:Healing:100:20:40
 spell-freq:2
 spell-power:130
 spells:BRAIN_SMASH | WOUND | TELE_LEVEL | TPORT
