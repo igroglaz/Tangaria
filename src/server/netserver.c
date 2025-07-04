@@ -6144,9 +6144,16 @@ static void update_birth_options(struct player *p, struct birth_options *options
     // exp factors for modes
     if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
     {
-        p->expfact = 125 + (p->lev * 3);
-        if (p->lev > 48)
-            p->expfact += 50;
+        if (streq(p->race->name, "Human"))
+            p->expfact = 125;
+        else if (streq(p->race->name, "Yeek"))
+            p->expfact = 100;
+        else // all other races
+        {
+            p->expfact = 125 + (p->lev * 3);
+            if (p->lev > 48)
+                p->expfact += 50;
+        }
     }
 
     /* Server options supercede birth options */
