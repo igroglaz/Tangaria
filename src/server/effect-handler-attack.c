@@ -2300,10 +2300,13 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 if (context->origin->player->spell_cost == 1)
                 {
                     // damage
-                    int dam_mult = context->origin->player->lev / 5;
-                    if (dam_mult > 7)
-                        dam_mult = 7;
-                    dam *= dam_mult;
+                    if (context->origin->player->lev >= 10)
+                    {
+                        int dam_mult = context->origin->player->lev / 5;
+                        if (dam_mult > 7)
+                            dam_mult = 7;
+                        dam *= dam_mult;
+                    }
 
                     // low lvl boost
                     if (context->origin->player->lev >= 5)
@@ -2323,11 +2326,14 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                 // Electrocute spell (mana 2)
                 else if (context->origin->player->spell_cost == 2)
                 {
-                    // damage
-                    int dam_mult = context->origin->player->lev / 5;
-                    if (dam_mult > 7)
-                        dam_mult = 7;
-                    dam *= dam_mult;
+                    if (context->origin->player->lev >= 10)
+                    {
+                        // damage
+                        int dam_mult = context->origin->player->lev / 5;
+                        if (dam_mult > 7)
+                            dam_mult = 7;
+                        dam *= dam_mult;
+                    }
 
                     // low lvl boost
                     if (context->origin->player->lev >= 5)
