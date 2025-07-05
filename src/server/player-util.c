@@ -240,8 +240,9 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
         p->upkeep->redraw |= (PR_MANA);
     }
     // auto-manashield damage absorption for Wizards at low HP
+    // (don't got below 10 mana - for TP)
     else if (streq(p->clazz->name, "Wizard") && 
-        p->csp > 0 && 
+        p->csp > 10 && 
         p->chp > 0 && 
         p->chp <= (p->mhp * 30 / 100))
     {
