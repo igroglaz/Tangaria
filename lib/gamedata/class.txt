@@ -8018,6 +8018,7 @@ equip:magic book:[Magic for Beginners]:1:1:none
 #msg_other: carefully looking around.
 #desc:Prepare to look for rare reagents used in alchemy.
 
+# spell:name:level:mana:fail:exp:sproj
 spell:Acid Fog:1:0:5:1:0
 effect:SHORT_BEAM:ACID:2
 dice:1d$D
@@ -8027,7 +8028,7 @@ desc:Envelops target with a sparse acid fog.
 desc: Target grid must be targetable and known to the player.
 desc: Does not require mana.
 
-spell:Herbalism:1:1:15:32:0
+spell:Herbalism:1:1:15:1:0
 cooldown:75
 effect:HEAL_HP
 dice:$B+m$M
@@ -8037,7 +8038,7 @@ desc:You collect magical healing herbs from time to time which, when applied,
 desc: cures your wounds.
 desc: Cooldown 75 turns.
 
-spell:Brew a Potion:1:1:30:5:0
+spell:Brew a Potion:1:1:30:1:0
 effect:ALCHEMY
 effect:TIMED_INC:OCCUPIED
 dice:$B
@@ -8114,7 +8115,7 @@ magic:1:350:1
 book:travel guide:town:[Basics]:3:common
 equip:travel guide:[Basics]:1:1:none
 
-spell:Crafting Mastery:1:1:30:5:0
+spell:Crafting Mastery:1:1:30:1:0
 effect:CRAFT
 msg_other: starts recrafting an item.
 desc:You try to recraft an item.

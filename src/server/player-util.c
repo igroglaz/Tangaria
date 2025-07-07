@@ -2264,6 +2264,9 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     /* Don't auto-retalitate after a clear request */
     if (p->first_escape) return false;
 
+    // TODO: add new option to disable auto-ret
+    if (streq(p->clazz->name, "Wizard")) return false;
+
     /* Check preventive inscription '^O' */
     if (check_prevent_inscription(p, INSCRIPTION_RETALIATE) && (mode == AR_NORMAL)) return false;
 
