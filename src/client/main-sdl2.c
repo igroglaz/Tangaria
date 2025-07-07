@@ -7051,10 +7051,16 @@ static void init_systems(void)
  */
 static void hook_plog(const char *str)
 {
+#ifdef WINDOWS
+    /* Warning */
+    if (str && str[0])
+        MessageBox(NULL, str, "Warning", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
+#else
     if (SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, VERSION_NAME, str, NULL) < 0) {
         SDL_Log("error displaying message box");
     }
     printf("%s\n", str);
+#endif
     return;
 }
 

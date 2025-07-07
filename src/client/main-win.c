@@ -4084,7 +4084,8 @@ static void hack_quit(const char *str)
 static void hook_plog(const char *str)
 {
     /* Warning */
-    if (str && str[0]) MessageBox(data[0].w, str, "Warning", MB_ICONEXCLAMATION | MB_OK);
+    if (str && str[0])
+        MessageBox(data[0].w, str, "Warning", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 }
 
 

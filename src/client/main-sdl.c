@@ -1135,7 +1135,8 @@ static void hook_plog(const char *str)
 {
 #ifdef WINDOWS
     /* Warning */
-    if (str) MessageBox(NULL, str, "Warning", MB_ICONEXCLAMATION | MB_OK);
+    if (str && str[0])
+        MessageBox(NULL, str, "Warning", MB_ICONEXCLAMATION | MB_OK | MB_SYSTEMMODAL);
 #else
     printf("%s\n", str);
 #endif

@@ -32,6 +32,7 @@ Angband 4.2.x:
 PWMAngband:
 
 - Add "Always ignore books" option
+- Make death popup message MB_SYSTEMMODAL
 
 Bugs fixed
 ----------
