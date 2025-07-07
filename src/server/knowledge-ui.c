@@ -2702,7 +2702,7 @@ void drink_water_satiation(struct player *p, int satiation) {
         satiation += 100;
     } else if ((OPT(p, birth_zeitnot) || // zeitnot
         (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
-         p->timed[TMD_FOOD] < 8000)
+         p->timed[TMD_FOOD] < 3000)
             satiation += 750;
 
     /* Apply the satiation */
