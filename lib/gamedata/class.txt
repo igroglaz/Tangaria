@@ -8019,24 +8019,26 @@ equip:magic book:[Magic for Beginners]:1:1:none
 #desc:Prepare to look for rare reagents used in alchemy.
 
 # spell:name:level:mana:fail:exp:sproj
-spell:Acid Fog:1:0:5:1:0
+spell:Acid Fog:1:0:1:1:0
+effect:SHORT_BEAM:KILL_WALL:1
+dice:10
 effect:SHORT_BEAM:ACID:2
 dice:1d$D
-expr:D:PLAYER_LEVEL:/ 5 + 3
+expr:D:PLAYER_LEVEL:/ 5 + 5
 msg_other: splashed some acid.
 desc:Envelops target with a sparse acid fog.
-desc: Target grid must be targetable and known to the player.
+desc: Its strange mix eats through stone and crumbles walls.
 desc: Does not require mana.
 
-spell:Herbalism:1:1:15:1:0
-cooldown:75
+spell:Herbalism:1:1:1:1:0
+cooldown:60
 effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 1
 expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:You collect magical healing herbs from time to time which, when applied,
 desc: cures your wounds.
-desc: Cooldown 75 turns.
+desc: Cooldown 60 turns.
 
 spell:Brew a Potion:1:1:30:1:0
 effect:ALCHEMY
@@ -8120,7 +8122,7 @@ effect:CRAFT
 msg_other: starts recrafting an item.
 desc:You try to recraft an item.
 
-spell:Create Sentry:5:1:20:1:0
+spell:Create Sentry:1:1:1:1:0
 cooldown:6
 effect:TIMED_INC:SENTRY
 dice:2
