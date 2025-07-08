@@ -2054,7 +2054,7 @@ value:0:INFRA[1+1d15]
 value:0:RES_ELEC[1]
 value:0:RES_POIS[1]
 obj-flag:0:SEE_INVIS
-value:30:SPEED[1+1d4]
+value:0:SPEED[1+1d10]
 value:30:RES_TIME[1]
 value:0:STEALTH[4]
 # auto-id

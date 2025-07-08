@@ -7677,7 +7677,7 @@ msg_other: wiggles one crooked finger.
 desc:Causes magical aging to the target.
 desc: This spell always hits its target.
 
-spell:Rewind Phase:3:0:35:5:0
+spell:Rewind Phase:3:0:1:5:0
 effect:DAMAGE
 dice:d$S
 expr:S:PLAYER_LEVEL:+ 1
