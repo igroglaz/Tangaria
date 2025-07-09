@@ -7622,9 +7622,9 @@ desc: Cooldown 2 turns.
 name:Timeturner
 color:v
 skill-disarm-phys:28:8
-skill-disarm-magic:28:8
+skill-disarm-magic:37:10
 skill-device:18:7
-skill-save:18:10
+skill-save:25:10
 skill-stealth:1:0
 skill-search:15:15
 skill-melee:45:20
@@ -7704,13 +7704,9 @@ desc: Damage is greatly increased every 5 levels (up to level 35).
 desc: At level 10+, each cast also consumes a small amount of extra mana.
 desc: Cooldown 7 turns.
 
-spell:Revert Wounds:10:10:33:10:0
-cooldown:120
-effect:TIMED_INC_NO_RES:CONFUSED_REAL
-dice:2
+spell:Revert Wounds:10:3:1:10:0
+cooldown:30
 effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:2
-effect:RANDOM
 dice:2
 effect:CURE:CUT
 effect:CURE:STUN
@@ -7721,8 +7717,8 @@ dice:$B
 expr:B:PLAYER_LEVEL:* 10
 msg_self:Your body begins to rapidly recover.
 desc:Cures damage, stunning, heals all cut damage, neutralizes poison, and cures amnesia.
-desc: Side-effects might include brief confusion or blindness.
-desc: Cooldown 120 turns.
+desc: Side-effects might include brief blindness.
+desc: Cooldown 30 turns.
 
 spell:Ray of Time:15:10:30:20:0
 effect:BEAM:SMASH:0
