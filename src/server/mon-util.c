@@ -1537,6 +1537,9 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             // Regular uniques - only at odd score
             else if (mon->level < 99 && p->account_score % 2)
             {
+                int min_level_required = 1;
+                int skip_denominator = 1 + (p->account_score / 100);
+
                 //////////////////////////////////////////////////////////////////////
                 // !*! Formula: chance to skip points increases with account score
                 // for non-hardcore
@@ -1545,12 +1548,25 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 // 300-399: 3/4 chance to skip (75%)
                 // 400-499: 4/5 chance to skip (80%)
                 // 500+: 5/6 chance to skip (83%)
-                int skip_denominator = 1 + (p->account_score / 100);
                 if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
                 /////////////////////////////////////////////////////////////////////
                 
+                /////////////////////////////////////////////////////////////////////
+                // !*! Minimum level requirements based on account score
+                // Prevents farming low-level characters after earning many points
+                if (p->account_score >= 100) min_level_required = 35;
+                else if (p->account_score >= 70) min_level_required = 30;
+                else if (p->account_score >= 50) min_level_required = 25;
+                else if (p->account_score >= 30) min_level_required = 20;
+                /////////////////////////////////////////////////////////////////////
+                
+                // !*! Block low-level farming for accounts with many points
+                if (p->account_score >= 30 && p->max_lev < min_level_required)
+                {
+                    ; // Skip awarding points for low-level characters with high account scores
+                }
                 // !*! Progressive penalty for non-hardcore players with high scores
-                if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
+                else if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
                     !one_in_(skip_denominator))
                 {
                     ; // Skip awarding points
