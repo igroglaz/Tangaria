@@ -9796,15 +9796,30 @@ weight:5
 cost:-1
 desc:.
 
+name:& Magical Blindfold~
+graphics:/:W
+type:belt
+level:20
+weight:10
+cost:2500
+alloc:3:15 to 100
+attack:0d0:0:0
+armor:0:0
+flags:PROT_BLIND
+desc:This ordinary-looking blindfold has faint magical properties.
+desc: While worn, it protects the wearer from blindness without
+desc: obscuring vision. Its light enchantment offers practical
+desc: use in dangerous or dark environments.
+
 # admin cookie for testing
-name:& Testing~
-graphics:,:d
-type:fortune cookie
-level:0
-weight:1
-cost:0
-effect:GAIN_EXP
-dice:500000
+#name:& Testing~
+#graphics:,:d
+#type:fortune cookie
+#level:0
+#weight:1
+#cost:0
+#effect:GAIN_EXP
+#dice:500000
 #effect:RESTORE_EXP
 #self-inducing dmg doesn't work; for such test - check test dummy
 #effect:FORGET_LEVEL:NONE:1

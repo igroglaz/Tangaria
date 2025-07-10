@@ -297,6 +297,7 @@ welcome:6:says "Welcome. Magic is always in demand."
 welcome:7:says "Ah, %s. A fellow seeker of knowledge."
 welcome:8:smiles warmly and says "Welcome, %s. I see your aura shines brightly today."
 always:magic book
+always:belt:Magical Blindfold
 normal:ring:Searching
 normal:ring:Levitation
 normal:ring:Protection
@@ -725,7 +726,7 @@ normal:fortune cookie:There always were a lot of criminal.. But not so.
 normal:fortune cookie:We thought the worse was lack of food...
 normal:fortune cookie:Outlaws, robbers..and even monsters. Gods save us
 normal:scroll:Recharging
-normal:scroll:Identify:1:350
+normal:scroll:Identify:1:250
 normal:scroll:*Remove Curse*:1:350
 normal:scroll:Teleport Level:10:400
 normal:scroll:Deep Descent:10:350

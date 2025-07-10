@@ -765,6 +765,10 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
                  obj->kind == lookup_kind_by_name(TV_BELT, "Floating Belt") && !obj->ego &&
                  obj->ac == 1 && obj->to_a == 0)
                     price = 47 + turn.turn % 2;
+        else if (s->feat != FEAT_STORE_BLACK && // Magical Blindfold
+                 obj->kind == lookup_kind_by_name(TV_BELT, "Magical Blindfold") && !obj->ego &&
+                 obj->ac == 0 && obj->to_a == 0)
+                    price = 2500 + (RNG % 50);
         else if (s->feat != FEAT_STORE_BLACK &&
             (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
             obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
