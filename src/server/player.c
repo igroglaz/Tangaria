@@ -387,6 +387,27 @@ static void award_account_points(struct player *p)
     { 
         ; // Skip awarding points (but leave xtra in the end)
     }
+    ////// Major milestone rewards (for experienced players)
+    else if (p->max_lev >= 20 && p->account_score < 10) // First time reaching level 20
+    {
+        p->account_score = 10; // Guarantee house buying capability
+        msgt(p, MSG_FANFARE, "@ %s reaches level 20 - a true adventurer emerges! Awarded 10 account points!", p->name);
+        msg(p, "You've proven your dedication and can now build your own house!");
+        msg(p, "(check the guide on the website to find out how to do it).");
+    }
+    else if (p->max_lev == 15 && p->account_score < 7) // Intermediate milestone
+    {
+        p->account_score = 7;
+        msgt(p, MSG_FANFARE, "@ %s reaches level 15 - the path of mastery begins! Awarded account points!", p->name);
+        msg(p, "You're making real progress! Keep going to unlock more benefits.");
+    }
+    else if (p->max_lev == 10 && p->account_score < 5) // Early major milestone
+    {
+        p->account_score = 5;
+        msgt(p, MSG_FANFARE, "@ %s reaches level 10 - the first major milestone! Awarded 5 account points!", p->name);
+        msg(p, "You've shown real commitment to your character's growth!");
+    }
+    ////// Regular milestones (for new players)
     else if (p->account_score == 0 && p->max_lev == 3)
     {
         p->account_score++;
