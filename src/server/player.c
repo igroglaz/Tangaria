@@ -346,7 +346,9 @@ static void award_gold_for_account_points(struct player *p) {
 static void award_account_points(struct player *p)
 {
     bool extraPoint = false;
-    
+    int skip_denominator = 1 + (p->account_score / 100);
+    int min_level_required = 1;
+
     /////////////////////////////////////////////////////////////////////
     // !*! Formula: chance to skip points increases with account score
     // 100-199: 1/2 chance to skip (50%)
@@ -354,8 +356,16 @@ static void award_account_points(struct player *p)
     // 300-399: 3/4 chance to skip (75%)
     // 400-499: 4/5 chance to skip (80%)
     // 500+: 5/6 chance to skip (83%)
-    int skip_denominator = 1 + (p->account_score / 100);
     if (skip_denominator > 6) skip_denominator = 6; // Cap at 5/6 chance
+    /////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////
+    // !*! Minimum level requirements based on account score
+    // Prevents farming low-level characters after earning many points
+    if (p->account_score >= 100) min_level_required = 35;
+    else if (p->account_score >= 70) min_level_required = 30;
+    else if (p->account_score >= 50) min_level_required = 25;
+    else if (p->account_score >= 30) min_level_required = 20;
     /////////////////////////////////////////////////////////////////////
 
     if (p->max_lev == 50)
@@ -366,8 +376,13 @@ static void award_account_points(struct player *p)
             p->account_score += 5;
         msgt(p, MSG_FANFARE, "You've earned account points! You have %lu points.", p->account_score);
     }
+    // !*! Block low-level farming for accounts with many points
+    else if (p->account_score >= 30 && p->max_lev < min_level_required)
+    {
+        ; // Skip awarding points for low-level characters with high account scores
+    }
     // !*! Progressive penalty for non-hardcore players with high scores
-    else if (p->account_score > 100 && !OPT(p, birth_hardcore) &&
+    else if (p->account_score >= 100 && !OPT(p, birth_hardcore) &&
             !one_in_(skip_denominator))
     { 
         ; // Skip awarding points (but leave xtra in the end)
