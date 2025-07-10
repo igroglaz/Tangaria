@@ -3091,6 +3091,7 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
     art->level = art->alloc_min;
 
     // Speed limit based on player level
+    // (note: we have separate value for common obj. Search: "sp33d")
     if (art->modifiers[OBJ_MOD_SPEED] > 0)
     {
         int max_speed;
