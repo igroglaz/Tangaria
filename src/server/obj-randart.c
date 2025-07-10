@@ -3090,6 +3090,21 @@ static bool design_artifact(struct player *p, struct artifact *art, struct artif
     /* PWMAngband: level is always equal to alloc_min */
     art->level = art->alloc_min;
 
+    // Speed limit based on player level
+    if (art->modifiers[OBJ_MOD_SPEED] > 0)
+    {
+        int max_speed;
+        if (p->lev <= 10) max_speed = 2;
+        else if (p->lev <= 20) max_speed = 3;
+        else if (p->lev <= 25) max_speed = 4;
+        else if (p->lev <= 30) max_speed = 5;
+        else if (p->lev <= 35) max_speed = 7;
+        else if (p->lev <= 40) max_speed = 10;
+        
+        if (art->modifiers[OBJ_MOD_SPEED] > max_speed)
+            art->modifiers[OBJ_MOD_SPEED] = max_speed;
+    }
+
     /* Success */
     return true;
 }
