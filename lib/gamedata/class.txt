@@ -6513,7 +6513,7 @@ name:Wizard
 color:Z
 skill-disarm-phys:35:9
 skill-disarm-magic:50:12
-skill-device:40:15
+skill-device:0:0
 skill-save:30:9
 skill-stealth:1:0
 skill-search:10:12
