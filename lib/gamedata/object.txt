@@ -6777,7 +6777,7 @@ name:& Rare Herb~
 graphics:*:g
 type:reagent
 level:0
-weight:5
+weight:1
 cost:0
 desc:A very rare plant which can be used for potion brewing.
 
@@ -6785,7 +6785,7 @@ name:& Rare Mineral~
 graphics:*:t
 type:reagent
 level:0
-weight:10
+weight:1
 cost:0
 desc:A very rare mineral used in alchemy.
 
@@ -6793,7 +6793,7 @@ name:& Crafting Material~
 graphics:*:u
 type:reagent
 level:0
-weight:10
+weight:1
 cost:0
 desc:Ore, wood and other resources may be used for creating new items by crafters.
 
