@@ -1732,12 +1732,12 @@ bool effect_handler_CRAFT(effect_handler_context_t *context)
     amt = obj->number;
     
     // Material quantity bonuses (diminishing returns)
-    if (amt >= 3) level_bonus++;
-    if (amt >= 5) level_bonus += 2;
-    if (amt >= 10) level_bonus += 3;
-    if (amt >= 20) level_bonus += 5;
-    if (amt >= 30) level_bonus += 7;
-    if (amt >= 40) level_bonus += 10;
+    if (amt >= 3) level_bonus += 5;
+    if (amt >= 5) level_bonus += 7;
+    if (amt >= 10) level_bonus += 10;
+    if (amt >= 20) level_bonus += 15;
+    if (amt >= 30) level_bonus += 20;
+    if (amt >= 40) level_bonus += 25;
     
     // Quality chance bonuses based on material amount
     good_bonus = amt * 10;

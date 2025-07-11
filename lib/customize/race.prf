@@ -28,9 +28,9 @@ help: searching for every hidden treasure. Humans do not have any infravision.
 help: There are a lot of different kinds of humans living in Tangaria, but most
 help: of them are just common folk, who despite being mediocre became powerful
 help: in a certain way, as they don't have drawbacks.
-help: At level 50 they got ascension bonus which affects all their stats and
-help: and their Charisma becomes unshakable.
-help: They can restore constitution ('y') by spending some energy. |
+help: At a moderate age, they can restore Constitution ('y').|
+help: |
+help: Humans gain experience quickly, learning faster than most other races.|
 help: |
 help:They have more space in the storage for keeping items.
 
@@ -158,8 +158,10 @@ race:Yeek
 help:Yeeks are a race of small furry humanoids. They are very light, therefore
 help: they can fall like a feather. Also known as Weaklings, they have the lowest
 help: stats and poor health. Yeeks are average at everything, but they have an
-help: important advantage - they are so pitiful that they do not aggravate others.
+help: important advantage - they are so pitiful that they rarely aggravate others.
 help: With time and trouble, even a Yeek can evolve into... other things.|
+help: |
+help:They gain experience faster than any other race, learning at lightning speed.|
 help: |
 help:They can become bold ('y') by spending some energy.
 
@@ -822,7 +824,7 @@ help: |
 help:Djinn are weightless and can float above ground without touching it.
 help: Even young Djinn have poison and air resistance. As they mature, they
 help: gain resistance to the time itself.
-help: Ancient Djinn are extremely curious and automatically identify magical items.
+help: Mature Djinn are extremely curious and automatically identify magical items.
 help: They can see invisible creatures.
 help: Their magic interferes with magical devices making them hiccup a little.
 help: As they grow older, they become increasingly ethereal, which takes a toll
