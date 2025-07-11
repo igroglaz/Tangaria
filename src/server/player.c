@@ -388,24 +388,45 @@ static void award_account_points(struct player *p)
         ; // Skip awarding points (but leave xtra in the end)
     }
     ////// Major milestone rewards (for experienced players)
+    else if (p->max_lev >= 50 && p->account_score < 50) // Level 50 mega milestone
+    {
+       p->account_score = 50;
+       msgt(p, MSG_FANFARE, "@ %s reaches level 50 - a legendary hero is born! Awarded 50 account points!", p->name);
+       msg(p, "Behold! You have ascended to the halls of legend!");
+       msg(p, "The halls of eternity echo with your name.");
+    }
+    else if (p->max_lev >= 40 && p->account_score < 30) // Level 40 major milestone
+    {
+       p->account_score = 30;
+       msgt(p, MSG_FANFARE, "@ %s reaches level 40 - a master adventurer! Awarded 30 account points!", p->name);
+       msg(p, "You have become a master of blade and wisdom!");
+       msg(p, "The final threshold awaits your courage, brave soul.");
+    }
+    else if (p->max_lev >= 30 && p->account_score < 20) // Level 30 milestone
+    {
+       p->account_score = 20;
+       msgt(p, MSG_FANFARE, "@ %s reaches level 30 - a veteran emerges! Awarded 20 account points!", p->name);
+       msg(p, "Songs shall be sung of your valorous deeds!");
+       msg(p, "The road ahead leads to greater glory still.");
+    }
     else if (p->max_lev >= 20 && p->account_score < 10) // First time reaching level 20
     {
-        p->account_score = 10; // Guarantee house buying capability
-        msgt(p, MSG_FANFARE, "@ %s reaches level 20 - a true adventurer emerges! Awarded 10 account points!", p->name);
-        msg(p, "You've proven your dedication and can now build your own house!");
-        msg(p, "(check the guide on the website to find out how to do it).");
+       p->account_score = 10; // Guarantee house buying capability
+       msgt(p, MSG_FANFARE, "@ %s reaches level 20 - a true adventurer emerges! Awarded 10 account points!", p->name);
+       msg(p, "You have earned the right to claim your own hearth!");
+       msg(p, "Seek the ancient lore upon the scrolls of wisdom.");
     }
-    else if (p->max_lev == 15 && p->account_score < 7) // Intermediate milestone
+    else if (p->max_lev >= 15 && p->account_score < 7) // Intermediate milestone
     {
-        p->account_score = 7;
-        msgt(p, MSG_FANFARE, "@ %s reaches level 15 - the path of mastery begins! Awarded account points!", p->name);
-        msg(p, "You're making real progress! Keep going to unlock more benefits.");
+       p->account_score = 7;
+       msgt(p, MSG_FANFARE, "@ %s reaches level 15 - the path of mastery begins! Awarded account points!", p->name);
+       msg(p, "Your journey grows ever more perilous and rewarding!");
     }
-    else if (p->max_lev == 10 && p->account_score < 5) // Early major milestone
+    else if (p->max_lev >= 10 && p->account_score < 5) // Early major milestone
     {
-        p->account_score = 5;
-        msgt(p, MSG_FANFARE, "@ %s reaches level 10 - the first major milestone! Awarded 5 account points!", p->name);
-        msg(p, "You've shown real commitment to your character's growth!");
+       p->account_score = 5;
+       msgt(p, MSG_FANFARE, "@ %s reaches level 10 - the first major milestone! Awarded 5 account points!", p->name);
+       msg(p, "Well met, steadfast wanderer of the realm!");
     }
     ////// Regular milestones (for new players)
     else if (p->account_score == 0 && p->max_lev == 3)
