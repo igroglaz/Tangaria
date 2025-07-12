@@ -242,7 +242,7 @@ flags:MALE
 flags:RAND_25 | OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:Ugly doesn't begin to describe him.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:raving lunatic
 base:townsfolk
@@ -261,7 +261,7 @@ flags:MALE
 flags:RAND_25 | OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:Drooling and comical, but then, what do you expect?
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:filthy street urchin
 base:townsfolk
@@ -284,7 +284,7 @@ friends:50:2d1:scrawny cat
 friends:50:2d1:stray dog
 friends:100:3d4:Same
 desc:He looks squalid and thoroughly revolting.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:scrawny cat
 base:feline
@@ -304,7 +304,7 @@ flags:RAND_25 | NEUTRAL
 flags:DROP_CORPSE | DROP_SKELETON
 flags:NO_PASS_TREE
 desc:A skinny little furball with sharp claws and a menacing look.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 #name:scruffy little dog
 name:stray dog
@@ -325,7 +325,7 @@ flags:RAND_25 | NEUTRAL
 flags:DROP_CORPSE | DROP_SKELETON
 flags:NO_PASS_TREE
 desc:A thin flea-ridden mutt, growling as you get close.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:Farmer Maggot
 base:humanoid
@@ -368,7 +368,7 @@ flags:MALE
 flags:RAND_25 | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:He tends to blubber a lot.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:boil-covered wretch
 plural:boil-covered wretches
@@ -388,7 +388,7 @@ flags:MALE
 flags:RAND_25 | OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:Ugly doesn't begin to describe him.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:village idiot
 base:townsfolk
@@ -407,7 +407,7 @@ flags:MALE
 flags:RAND_25 | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:Drooling and comical, but then, what do you expect?
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:pitiful-looking beggar
 base:townsfolk
@@ -426,7 +426,7 @@ flags:MALE
 flags:RAND_25 | OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:You just can't help feeling sorry for him.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:mangy-looking leper
 base:townsfolk
@@ -446,7 +446,7 @@ flags:MALE
 flags:RAND_25 | OPEN_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:You feel it isn't safe to touch him.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:squint-eyed rogue
 base:townsfolk
@@ -467,7 +467,7 @@ flags:MALE | EVIL
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:A hardy, street-wise crook that knows an easy catch when it sees one.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:singing, happy drunk
 base:townsfolk
@@ -488,7 +488,7 @@ flags:DROP_40 | ONLY_GOLD
 flags:RAND_50 | OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:DROP_CORPSE | DROP_SKELETON
 desc:He makes you glad to be sober.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:aimless-looking merchant
 base:townsfolk
@@ -511,7 +511,7 @@ flags:DROP_CORPSE | DROP_SKELETON
 friends:30:2d2:filthy street urchin
 desc:The typical ponce around town, with purse jingling, and looking for more
 desc: amulets of adornment to buy.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:mean-looking mercenary
 plural:mean-looking mercenaries
@@ -534,7 +534,7 @@ flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:NO_FEAR | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WANDERER
 desc:No job is too low for him.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:battle-scarred veteran
 base:townsfolk
@@ -556,7 +556,7 @@ flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM
 flags:NO_FEAR | NO_SLEEP
 flags:DROP_CORPSE | DROP_SKELETON | WANDERER
 desc:He doesn't take to strangers kindly.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:sparrow
 base:bird
@@ -576,7 +576,7 @@ flags:PASS_WALL
 flags:DROP_SKELETON
 flags:RAND_25
 desc:Utterly harmless, and really cautious.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 #### NEW PWMA
 name:horse
@@ -595,7 +595,7 @@ blow:MOAN
 flags:ANIMAL | FRIENDLY | PWMANG_BASE | FRIGHTENED
 flags:NO_PASS_TREE
 desc:A common horse.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 #had clone: name:Otho Sackville-Baggins
 name:Lobelia Sackville-Baggins
@@ -638,7 +638,7 @@ blow:BITE:HURT:1d1
 flags:FRIGHTENED | PWMANG_BASE | FRIENDLY
 flags:RAND_100 | COLD_BLOOD | NO_SLEEP
 desc:Beautiful red fish in ponds.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 #plotva
 name:roach fish
@@ -1216,7 +1216,7 @@ flags:ONLY_GOLD | DROP_40
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
 flags:FRIENDLY
 desc:He has a strong axe with a sharp edge.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 #was name:woodsman
 name:Mad woodsman
@@ -27159,7 +27159,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:brown horse
 base:quadruped
@@ -27178,7 +27178,7 @@ blow:MOAN
 flags:ANIMAL | RAND_50 | PWMANG_BASE | FRIGHTENED
 flags:FRIENDLY
 desc:A common horse.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:white horse
 base:quadruped
@@ -27197,7 +27197,7 @@ blow:MOAN
 flags:ANIMAL | RAND_50 | PWMANG_BASE | FRIGHTENED
 flags:FRIENDLY
 desc:A common horse.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:spotted horse
 base:quadruped
@@ -27216,7 +27216,7 @@ blow:MOAN
 flags:ANIMAL | RAND_50 | PWMANG_BASE | FRIGHTENED
 flags:FRIENDLY
 desc:A common horse.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:deer
 base:townsfolk
@@ -27236,7 +27236,7 @@ flags:SMART | REGENERATE
 flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:chicken
 base:townsfolk
@@ -27257,7 +27257,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:cow
 base:townsfolk
@@ -27279,7 +27279,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:donkey
 base:townsfolk
@@ -27300,7 +27300,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:wagtail bird
 base:townsfolk
@@ -27321,7 +27321,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:thrush bird
 base:townsfolk
@@ -27342,7 +27342,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:sparrow bird
 base:townsfolk
@@ -27363,7 +27363,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:tit bird
 base:townsfolk
@@ -27384,7 +27384,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:woodpecker bird
 base:townsfolk
@@ -27405,7 +27405,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:waxwing bird
 base:townsfolk
@@ -27426,7 +27426,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:blue jay bird
 base:townsfolk
@@ -27447,7 +27447,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:red cardinal bird
 base:townsfolk
@@ -27468,7 +27468,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:blue big jay bird
 base:townsfolk
@@ -27489,7 +27489,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:black cat
 base:townsfolk
@@ -27511,7 +27511,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:spotted cat
 base:townsfolk
@@ -27533,7 +27533,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:yellow dog
 base:townsfolk
@@ -27555,7 +27555,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:ginger pussycat
 base:townsfolk
@@ -27577,7 +27577,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:green snake
 base:townsfolk
@@ -27598,7 +27598,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:yellow snake
 base:townsfolk
@@ -27619,7 +27619,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:black and white cat
 base:townsfolk
@@ -27641,7 +27641,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:grey cat
 base:townsfolk
@@ -27663,7 +27663,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:ginger cat
 base:townsfolk
@@ -27685,7 +27685,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:white pussycat
 base:townsfolk
@@ -27707,7 +27707,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:cat bully
 base:townsfolk
@@ -27729,7 +27729,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:squirrel
 base:townsfolk
@@ -27750,7 +27750,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:turtle
 base:townsfolk
@@ -27770,7 +27770,7 @@ flags:SMART | REGENERATE
 flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:moose
 base:townsfolk
@@ -27790,7 +27790,7 @@ flags:SMART | REGENERATE
 flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 ### dog - in other place of tileset
 name:small dog
@@ -27812,7 +27812,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 desc:It doesn't like strangers.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 name:mouse
 base:townsfolk
@@ -27833,7 +27833,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:Small ears, beady eyes, fleshy nose and wormy tail.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:frog
 base:townsfolk
@@ -27854,7 +27854,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:cockroach
 base:townsfolk
@@ -27875,7 +27875,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:sheep
 base:townsfolk
@@ -27896,7 +27896,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:pig
 base:townsfolk
@@ -27917,7 +27917,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:fox
 base:townsfolk
@@ -27938,7 +27938,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:wasp
 base:townsfolk
@@ -27959,7 +27959,7 @@ flags:NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:hedgehog
 base:townsfolk
@@ -27981,7 +27981,7 @@ flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 flags:PASS_WALL
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:scruffy little dog
 base:townsfolk
@@ -28002,7 +28002,7 @@ flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 flags:FRIENDLY
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 name:bear
 base:townsfolk
@@ -28022,7 +28022,7 @@ flags:SMART | REGENERATE
 flags:NO_FEAR | NO_SLEEP
 flags:ANIMAL | RAND_50 | FRIGHTENED
 desc:It doesn't like strangers.
-locations:Hunter's Valley|Farfest
+locations:Hunter's Valley|Farfest|The Deeptown
 
 ###########################################################################
 ################### Carn Dum
@@ -28102,7 +28102,7 @@ desc:It is a tangible but ghostly form made of white fog.
 locations:Deadmen hills
 
 ###########################################################################
-################### Farfest
+################### Farfest|The Deeptown
 ###########################################################################
 # TOWN
 ################# THERE ARE  ALREADY MORE GUYS IN MAIN SECTION (townies)
@@ -28117,7 +28117,7 @@ hearing:40
 armor-class:4
 sleepiness:80
 depth:0
-rarity:3
+rarity:5
 weight:90
 experience:0
 blow:HYPNOTIZE:SEDUCE
@@ -28132,7 +28132,7 @@ spell-freq:15
 spell-power:3
 spells:BLINK
 desc:Very beautiful girl... She looks at you with interest.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 
 ###########################################################################
@@ -32604,7 +32604,7 @@ flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
 flags:PWMANG_EXTRA | PWMANG_FIXED
 #flags:IM_FIRE | IM_ELEC | IM_POIS | UNDEAD | HURT_ROCK | IM_LIGHT | HURT_LIGHT
 desc:An indestructible golem used for target practice.
-locations:Farfest
+locations:Farfest|The Deeptown
 
 #######
 ###############
