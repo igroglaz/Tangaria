@@ -1979,8 +1979,24 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     // no potions for djinni
     if (obj->tval == TV_POTION && streq(p->race->name, "Djinn"))
     {
-        use_energy(p);
-        return false;
+        bool has_gain_stat = false;
+        struct effect *effect;
+        
+        // except stat potions
+        for (effect = obj->effect; effect; effect = effect->next)
+        {
+            if (effect->index == EF_GAIN_STAT)
+            {
+                has_gain_stat = true;
+                break;
+            }
+        }
+        
+        if (!has_gain_stat)
+        {
+            use_energy(p);
+            return false;
+        }
     }
     // no scrolls for troll
     else if (obj->tval == TV_SCROLL && streq(p->race->name, "Troll") &&
