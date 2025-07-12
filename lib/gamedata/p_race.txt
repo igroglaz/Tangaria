@@ -2048,6 +2048,7 @@ value:0:DEX[3]
 value:0:CON[3+-1d30]
 value:0:CHR[-1]
 # 'y' can make WONDER
+player-flags:0:CAN_SWIM
 player-flags:0:KNOW_ZAPPER
 obj-flag:0:FEATHER
 value:0:INFRA[1+1d15]
