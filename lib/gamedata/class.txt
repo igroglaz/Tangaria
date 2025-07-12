@@ -8127,7 +8127,7 @@ effect:SPEND_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:/ 3
 msg_other: activates sentry.
-desc:Setup battle sentry.
+desc:Deploys a stationary sentry that attacks enemies automatically.
 desc:  1 level: blade sentry
 desc: 10 level: dart sentry
 desc: 20 level: spear sentry
@@ -8136,7 +8136,9 @@ desc: 40 level: fire sentry
 desc: 50 level: lightning sentry
 desc: Requires additional mana when you get each level.
 desc: If you cast the spell without enough mana - you suffer severe exhaustion.
-desc: You don't need additional material to create it.
+desc: No additional materials are needed to create it.
+desc: You can detonate the sentry manually using the '_' key.
+desc: Its explosion damage increases every 5 levels.
 desc: Cooldown 6 turns.
 
 spell:Build Walls:10:5:44:30:0

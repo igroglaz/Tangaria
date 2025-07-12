@@ -781,7 +781,8 @@ help:Crafters can deploy battle sentries that evolve with experience -
 help: from whirling blades and dart launchers to spear throwers, advancing later
 help: to acid sprayers, fire turrets, and even storm pillars crackling with
 help: lightning. Advanced sentries consume more mana, and insufficient mana
-help: can leave the crafter severely exhausted. |
+help: can leave the crafter severely exhausted.
+help: You can detonate a sentry manually with the '_' key.|
 help: |
 help:They can also build walls during combat to shape the terrain,
 help: blocking enemies or creating cover, though construction takes time. |
