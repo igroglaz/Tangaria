@@ -745,6 +745,14 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
             }
+            // Ray of Time spell (Timeturner class)
+            if (context->origin->player && streq(context->origin->player->clazz->name, "Timeturner") &&
+                context->origin->player->spell_cost == 3)
+            {
+                // dmg
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 10;
+            }
 
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
                 context->origin->player);

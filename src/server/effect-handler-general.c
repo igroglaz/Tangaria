@@ -4288,7 +4288,11 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
     }
 
     if (streq(context->origin->player->clazz->name, "Timeturner"))
-        context->radius = context->origin->player->lev / 5;
+    {
+        context->radius = 2 + context->origin->player->lev / 5;
+        if (context->radius > 10)
+            context->radius = 10;
+    }
 
     /* Delete the (nearby) monsters */
     for (i = 1; i < cave_monster_max(context->cave); i++)
