@@ -2832,6 +2832,25 @@ bool use_oil(struct player *p)
 }
 
 
+// Crafter can detonate his sentry
+bool detonate_sentry(struct player *p)
+{
+    struct effect *effect;
+    struct source who_body;
+    struct source *who = &who_body;
+    bool dummy_ident = false;
+
+    effect = mem_zalloc(sizeof(struct effect));
+    effect->index = EF_DETONATE;
+
+    source_player(who, get_player_index(get_connection(p->conn)), p);
+    effect_do(effect, who, &dummy_ident, false, 0, NULL, 0, 0, NULL);
+
+    free_effect(effect);
+    return true;
+}
+
+
 /*
  * Hook for refilling lamps
  */

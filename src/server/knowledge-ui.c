@@ -2734,6 +2734,15 @@ void do_cmd_fountain(struct player *p, int item)
         return;
     }
 
+    ///////////////////////////////////////// <<< separate case
+    // Crafter can detonate sentry
+    if (streq(p->clazz->name, "Crafter"))
+    {       
+        if (detonate_sentry(p))
+            use_energy(p);
+    }
+    ///////////////////////////////////////// <<< separate case (so it will be possible to drink from fountains)
+
     /* If we stand on a fountain, ensure it is not dried out */
     if (square_isfountain(c, &p->grid))
     {
