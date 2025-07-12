@@ -982,7 +982,8 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
     context->ident = true;
 
     /* Not in dynamically generated towns */
-    if (dynamic_town(&context->cave->wpos))
+    // + not in town
+    if (dynamic_town(&context->cave->wpos) || context->cave->wpos.depth == 0)
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
@@ -4279,7 +4280,8 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
     context->ident = true;
 
     /* Not in dynamically generated towns */
-    if (dynamic_town(&context->cave->wpos))
+    // + not in town
+    if (dynamic_town(&context->cave->wpos) || context->cave->wpos.depth == 0)
     {
         msg(context->origin->player, "Nothing happens.");
         return true;
