@@ -1818,10 +1818,11 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
                 add_monster_message(context->origin->player, context->mon, MON_MSG_CHANGE, false);
 
             // Wizard polymorph spell (spell position in class.txt: 3) restore mana
-            // (except multipy monsters)
+            // (except multiply monsters and monsters that were already polymorphed)
             if (!rf_has(context->mon->race->flags, RF_MULTIPLY) && context->origin->player &&
                 streq(context->origin->player->clazz->name, "Wizard") &&
-                context->origin->player->current_spell == 3)
+                context->origin->player->current_spell == 3 &&
+                !context->mon->original_race)  // only grant mana if monster hasn't been polymorphed before
             {
                 // restore mana
                 if (context->origin->player->csp < context->origin->player->msp)
