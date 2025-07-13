@@ -583,7 +583,11 @@ static bool store_will_buy(struct player *p, struct store *s, const struct objec
     if ((s->feat == FEAT_STORE_GENERAL) && !object_fully_known(p, obj)) return false;
 
     /* PWMAngband: store doesn't buy anything */
-    if (cfg_limited_stores == 2 && !streq(p->clazz->name, "Trader")) return false;
+    // except trader OR crafter (he can sell only crafter items)
+    if (cfg_limited_stores == 2 &&
+        !streq(p->clazz->name, "Trader") && 
+        !(streq(p->clazz->name, "Crafter") && obj->soulbound))
+        return false;
 
     /* Ignore "worthless" items */
     unknown = ((cfg_limited_stores || OPT(p, birth_no_selling)) && tval_has_variable_power(obj) &&
