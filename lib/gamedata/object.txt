@@ -9808,8 +9808,40 @@ armor:0:0
 flags:PROT_BLIND
 desc:This ordinary-looking blindfold has faint magical properties.
 desc: While worn, it protects the wearer from blindness without
-desc: obscuring vision. Its light enchantment offers practical
-desc: use in dangerous or dark environments.
+desc: obscuring vision. At times, it tingles against your skin or
+desc: tightens slightly, as if reacting to unseen things around you.
+
+name:& Old Wizard Hat~
+graphics:]:W
+type:helm
+level:20
+weight:30
+cost:2500
+alloc:3:15 to 100
+attack:0d0:0:0
+armor:1:0
+values:INT[2]
+desc:A tall, floppy hat made of worn leather, with a slightly bent tip and
+desc: faded stitching. Once owned by a wandering wizard, it boosts clarity
+desc: of thought and still smells faintly of old books and dried herbs.
+desc: Occasionally, it mutters something in a raspy voice -
+desc: offering unsolicited advice or half-remembered spells.
+
+name:& Magical Flute~
+graphics:\:u
+type:hafted
+level:20
+weight:25
+cost:2500
+alloc:3:15 to 100
+attack:1d2:0:0
+armor:0:0
+flags:ESP_ANIMAL
+desc:A battered wooden flute with faded carvings of birds and beasts.
+desc: When held, it seems to tune your senses to the minds of nearby animals -
+desc: you start catching faint traces of their thoughts: hunger, fear, curiosity...
+desc: Though made for music, it's solid enough to whack something in a pinch.
+
 
 # admin cookie for testing
 #name:& Testing~
@@ -9862,6 +9894,6 @@ desc: use in dangerous or dark environments.
 #effect:DESTRUCTION:LIGHT:15
 #effect:MASS_BANISH
 #effect:DARKEN_LEVEL:NONE:1
-desc:.
+#desc:.
 
 # add empty line EOF

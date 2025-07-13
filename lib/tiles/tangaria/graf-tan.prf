@@ -32520,6 +32520,9 @@ monster:Test drop:0x8B:0xB0
 object:belt:Belt:0x9A:0x99
 object:belt:Floating Belt:0x9A:0x99
 object:belt:Mummy Wrappings:0x9A:0xAF
+object:belt:Magical Blindfold:0x9A:0x9D
+object:helm:Old Wizard Hat:0x80:0x8C
+object:hafted:Magical Flute:0x9A:0x9A
 ##############################
 
 object:skillbook:[Mastery]:0x86:0x80

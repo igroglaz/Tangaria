@@ -770,6 +770,14 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
                  obj->ac == 0 && obj->to_a == 0)
                     price = 2500 + (RNG % 50);
         else if (s->feat != FEAT_STORE_BLACK &&
+                 obj->kind == lookup_kind_by_name(TV_HELM, "Old Wizard Hat") && !obj->ego &&
+                 obj->ac == 1 && obj->to_a == 0)
+                    price = 2500 + (RNG % 50);
+        else if (s->feat != FEAT_STORE_BLACK && // 
+                 obj->kind == lookup_kind_by_name(TV_HAFTED, "Magical Flute") && !obj->ego &&
+                 obj->ac == 0 && obj->to_a == 0)
+                    price = 2500 + (RNG % 50);
+        else if (s->feat != FEAT_STORE_BLACK &&
             (obj->kind == lookup_kind_by_name(TV_ARROW, "Magic Arrow") ||
             obj->kind == lookup_kind_by_name(TV_BOLT, "Magic Bolt") ||
             obj->kind == lookup_kind_by_name(TV_SHOT, "Magic Shot")))

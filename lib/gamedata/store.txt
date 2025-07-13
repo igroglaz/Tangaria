@@ -298,6 +298,8 @@ welcome:7:says "Ah, %s. A fellow seeker of knowledge."
 welcome:8:smiles warmly and says "Welcome, %s. I see your aura shines brightly today."
 always:magic book
 always:belt:Magical Blindfold
+always:helm:Old Wizard Hat
+always:hafted:Magical Flute
 normal:ring:Searching
 normal:ring:Levitation
 normal:ring:Protection
