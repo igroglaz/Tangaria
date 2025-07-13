@@ -1543,6 +1543,10 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
     /* Safe floor */
     if (square_issafefloor(c, grid)) return false;
 
+    // don't allow townies to step on player's houses closed doors
+    // (might make problem with monsters who appears in the wildedrness generated houses, but in T we don't have such)
+    if (c->wpos.depth == 0 && square_iscloseddoor(c, grid)) return false;
+
     /* Floor is open? */
     if (square_ispassable(c, grid)) return true;
 
