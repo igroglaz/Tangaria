@@ -1700,14 +1700,11 @@ static void store_maint(struct store *s, bool force)
             /* Create the item if it doesn't exist */
             if (!obj) obj = store_create_item(s, kind);
 
-            /* Ensure a full stack */
-            obj->number = obj->kind->base->max_stack;
-
-            // don't put 40 'magical' objects (ruins narrative)
-            if (obj->kind == lookup_kind_by_name(TV_HELM, "Old Wizard Hat") || 
-                obj->kind == lookup_kind_by_name(TV_BELT, "Magical Blindfold") ||
-                obj->kind == lookup_kind_by_name(TV_HAFTED, "Magical Flute"))
-                    obj->number = 1;
+            // only certain items should have 40 in stack (cause having 40 magical books is weird)
+            if (obj->tval == TV_POTION || obj->tval == TV_SCROLL || obj->tval == TV_ROCK ||
+                obj->tval == TV_SHOT ||  obj->tval == TV_ARROW ||  obj->tval == TV_BOLT)
+                /* Ensure a full stack */
+                obj->number = obj->kind->base->max_stack;
         }
     }
 
