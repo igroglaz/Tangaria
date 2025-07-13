@@ -1702,6 +1702,12 @@ static void store_maint(struct store *s, bool force)
 
             /* Ensure a full stack */
             obj->number = obj->kind->base->max_stack;
+
+            // don't put 40 'magical' objects (ruins narrative)
+            if (obj->kind == lookup_kind_by_name(TV_HELM, "Old Wizard Hat") || 
+                obj->kind == lookup_kind_by_name(TV_BELT, "Magical Blindfold") ||
+                obj->kind == lookup_kind_by_name(TV_HAFTED, "Magical Flute"))
+                    obj->number = 1;
         }
     }
 
