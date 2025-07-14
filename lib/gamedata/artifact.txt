@@ -93,6 +93,13 @@
 # compatibility for ALL savefiles.
 # (3.) Adding a new artifact, WILL now affect savefile compatibility for all
 # savefiles.
+################
+# Subnotes:
+# 1) it's ok to change arts: the only thing it changes is that the new artifact 
+# will have a different power, so anyone having a randart filthy rag will get a different one
+# 2) it's ok to add new truearts in the end of the list, but any added will affect all randarts
+# of that type currently owned by players
+
 
 
 

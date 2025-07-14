@@ -1054,17 +1054,16 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
 
     /* Verify legality */
     if (!do_cmd_tunnel_test(p, c, grid)) return false;
-    
-    if (in_town(&p->wpos) && p->timed[TMD_FOOD] < 2000)
-    {
-        msg(p, "You are too tired and hungry for mining. Eat some food.");
-        return false;        
-    }
-        
 
     /* Mountain in town */
     if (square_ismountain(c, grid) && in_town(&p->wpos) && p->lev > 7)
     {
+
+        if (p->timed[TMD_FOOD] < 2000)
+        {
+            msg(p, "You are too tired and hungry for mining mountains. Eat some food.");
+            return false;        
+        }
 
         // digging in town makes you more hungry (first was '50', too ezpz.. making more harsh)
         player_dec_timed(p, TMD_FOOD, 200, false);
