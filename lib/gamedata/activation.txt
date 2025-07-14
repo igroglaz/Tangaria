@@ -187,7 +187,7 @@ desc:raises your constitution at the expense of a random attribute
 name:CLAIRVOYANCE
 aim:0
 level:50
-power:22
+power:30
 effect:LIGHT_LEVEL
 effect:TIMED_INC_NO_RES:OCCUPIED
 dice:3

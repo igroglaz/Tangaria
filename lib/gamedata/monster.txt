@@ -624,7 +624,7 @@ desc: heritage.
 
 name:goldfish
 base:aquatic
-color:r
+color:Y
 speed:90
 hit-points:1
 hearing:30
@@ -643,7 +643,7 @@ locations:Hunter's Valley|Farfest|The Deeptown
 #plotva
 name:roach fish
 base:aquatic
-color:r
+color:w
 speed:95
 hit-points:1
 hearing:30
@@ -661,7 +661,7 @@ desc:A small fish.
 #ersh
 name:ruff fish
 base:aquatic
-color:r
+color:m
 speed:100
 hit-points:1
 hearing:30
@@ -679,7 +679,7 @@ desc:A small fish.
 #karas
 name:crucian fish
 base:aquatic
-color:r
+color:M
 speed:100
 hit-points:1
 hearing:30
@@ -697,7 +697,7 @@ desc:A small fish.
 #okun
 name:perch fish
 base:aquatic
-color:r
+color:g
 speed:100
 hit-points:1
 hearing:30
@@ -715,7 +715,7 @@ desc:A small fish.
 #karp
 name:carp fish
 base:aquatic
-color:r
+color:U
 speed:95
 hit-points:1
 hearing:30
@@ -27141,8 +27141,8 @@ locations:Utumno, Portal to the Void|Angmar|The Thangorodrim|The Underdeep
 
 
 name:huge bee
-base:townsfolk
-color:B
+base:stinger
+color:M
 speed:110
 hit-points:7
 hearing:10
@@ -27163,7 +27163,7 @@ locations:Hunter's Valley|Farfest|The Deeptown
 
 name:brown horse
 base:quadruped
-color:y
+color:U
 speed:110
 hit-points:50
 hearing:30
@@ -27182,7 +27182,7 @@ locations:Hunter's Valley|Farfest|The Deeptown
 
 name:white horse
 base:quadruped
-color:y
+color:w
 speed:110
 hit-points:50
 hearing:30
@@ -27219,8 +27219,8 @@ desc:A common horse.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:deer
-base:townsfolk
-color:B
+base:quadruped
+color:U
 speed:110
 hit-points:35
 hearing:10
@@ -27239,8 +27239,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:chicken
-base:townsfolk
-color:B
+base:bird
+color:M
 speed:100
 hit-points:13
 hearing:10
@@ -27260,8 +27260,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:cow
-base:townsfolk
-color:B
+base:quadruped
+color:U
 speed:70
 hit-points:40
 hearing:10
@@ -27282,8 +27282,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:donkey
-base:townsfolk
-color:B
+base:quadruped
+color:u
 speed:90
 hit-points:17
 hearing:10
@@ -27303,8 +27303,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:wagtail bird
-base:townsfolk
-color:B
+base:bird
+color:D
 speed:110
 hit-points:20
 hearing:10
@@ -27324,8 +27324,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:thrush bird
-base:townsfolk
-color:B
+base:bird
+color:U
 speed:110
 hit-points:20
 hearing:10
@@ -27345,8 +27345,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:sparrow bird
-base:townsfolk
-color:B
+base:bird
+color:D
 speed:110
 hit-points:20
 hearing:10
@@ -27367,7 +27367,7 @@ locations:Hunter's Valley|Farfest|The Deeptown
 
 name:tit bird
 base:townsfolk
-color:B
+color:Y
 speed:110
 hit-points:20
 hearing:10
@@ -27387,8 +27387,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:woodpecker bird
-base:townsfolk
-color:B
+base:bird
+color:r
 speed:110
 hit-points:20
 hearing:10
@@ -27408,8 +27408,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:waxwing bird
-base:townsfolk
-color:B
+base:bird
+color:W
 speed:110
 hit-points:20
 hearing:10
@@ -27429,7 +27429,7 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:blue jay bird
-base:townsfolk
+base:bird
 color:B
 speed:110
 hit-points:20
@@ -27450,8 +27450,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:red cardinal bird
-base:townsfolk
-color:B
+base:bird
+color:R
 speed:110
 hit-points:20
 hearing:10
@@ -27471,7 +27471,7 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:blue big jay bird
-base:townsfolk
+base:bird
 color:B
 speed:110
 hit-points:20
@@ -27492,8 +27492,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:black cat
-base:townsfolk
-color:B
+base:feline
+color:D
 speed:110
 hit-points:9
 hearing:10
@@ -27514,8 +27514,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:spotted cat
-base:townsfolk
-color:B
+base:feline
+color:s
 speed:110
 hit-points:9
 hearing:10
@@ -27536,8 +27536,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:yellow dog
-base:townsfolk
-color:B
+base:canine
+color:Y
 speed:110
 hit-points:11
 hearing:10
@@ -27558,8 +27558,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:ginger pussycat
-base:townsfolk
-color:B
+base:feline
+color:o
 speed:105
 hit-points:9
 hearing:10
@@ -27580,8 +27580,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:green snake
-base:townsfolk
-color:B
+base:snake
+color:G
 speed:110
 hit-points:22
 hearing:10
@@ -27601,8 +27601,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:yellow snake
-base:townsfolk
-color:B
+base:snake
+color:Y
 speed:110
 hit-points:22
 hearing:10
@@ -27622,8 +27622,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:black and white cat
-base:townsfolk
-color:B
+base:feline
+color:s
 speed:110
 hit-points:9
 hearing:10
@@ -27644,8 +27644,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:grey cat
-base:townsfolk
-color:B
+base:feline
+color:D
 speed:105
 hit-points:9
 hearing:10
@@ -27666,8 +27666,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:ginger cat
-base:townsfolk
-color:B
+base:feline
+color:o
 speed:110
 hit-points:9
 hearing:10
@@ -27688,8 +27688,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:white pussycat
-base:townsfolk
-color:B
+base:feline
+color:w
 speed:105
 hit-points:9
 hearing:10
@@ -27710,8 +27710,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:cat bully
-base:townsfolk
-color:B
+base:feline
+color:m
 speed:110
 hit-points:9
 hearing:10
@@ -27732,8 +27732,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:squirrel
-base:townsfolk
-color:B
+base:rodent
+color:o
 speed:110
 hit-points:11
 hearing:10
@@ -27753,8 +27753,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:turtle
-base:townsfolk
-color:B
+base:reptile
+color:g
 speed:40
 hit-points:30
 hearing:10
@@ -27773,8 +27773,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:moose
-base:townsfolk
-color:B
+base:quadruped
+color:m
 speed:110
 hit-points:60
 hearing:10
@@ -27794,8 +27794,8 @@ locations:Hunter's Valley|Farfest|The Deeptown
 
 ### dog - in other place of tileset
 name:small dog
-base:townsfolk
-color:B
+base:canine
+color:u
 speed:110
 hit-points:20
 hearing:10
@@ -27815,8 +27815,8 @@ desc:It doesn't like strangers.
 locations:Farfest|The Deeptown
 
 name:mouse
-base:townsfolk
-color:B
+base:rodent
+color:W
 speed:110
 hit-points:4
 hearing:10
@@ -27836,8 +27836,8 @@ desc:Small ears, beady eyes, fleshy nose and wormy tail.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:frog
-base:townsfolk
-color:B
+base:reptile
+color:m
 speed:105
 hit-points:9
 hearing:10
@@ -27857,8 +27857,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:cockroach
-base:townsfolk
-color:B
+base:killer beetle
+color:U
 speed:105
 hit-points:2
 hearing:10
@@ -27878,8 +27878,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:sheep
-base:townsfolk
-color:B
+base:quadruped
+color:w
 speed:90
 hit-points:15
 hearing:10
@@ -27899,8 +27899,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:pig
-base:townsfolk
-color:B
+base:quadruped
+color:I
 speed:100
 hit-points:15
 hearing:10
@@ -27920,8 +27920,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:fox
-base:townsfolk
-color:B
+base:canine
+color:o
 speed:110
 hit-points:20
 hearing:10
@@ -27941,8 +27941,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:wasp
-base:townsfolk
-color:B
+base:stinger
+color:M
 speed:110
 hit-points:10
 hearing:10
@@ -27962,8 +27962,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:hedgehog
-base:townsfolk
-color:B
+base:rodent
+color:u
 speed:100
 hit-points:11
 hearing:10
@@ -27984,8 +27984,8 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:scruffy little dog
-base:townsfolk
-color:B
+base:canine
+color:m
 speed:110
 hit-points:17
 hearing:10
@@ -28005,7 +28005,7 @@ desc:It doesn't like strangers.
 locations:Hunter's Valley|Farfest|The Deeptown
 
 name:bear
-base:townsfolk
+base:quadruped
 color:u
 speed:110
 hit-points:120
