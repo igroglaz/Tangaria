@@ -5694,9 +5694,9 @@ dice:10+1d10
 desc:Grants a bonus to attack, AC and speed.
 desc: Cooldown 100 turns.
 
-spell:Heartstone:40:37:1:1:0
+spell:Heartstone:40:20:1:1:0
 effect:RECALL
-dice:10+1d10
+dice:12+1d10
 desc:Moves you from the dungeon back to the town or from the town
 desc: to the deepest level you have visited in the dungeon.
 desc: The effect is somewhat delayed. During that delay, the effect
@@ -6890,7 +6890,7 @@ desc: Cooldown 42 turns.
 
 spell:Town Portal:5:3:1:5:0
 effect:RECALL
-dice:10+1d20
+dice:12+1d10
 desc:A portal between the bustling town and the treacherous dungeon's depths.
 desc: Teleports you from the dungeon to the town or from the town to the
 desc: deepest level you have visited in the dungeon.
@@ -7763,12 +7763,14 @@ desc:Creates a time shield around you that absorbs all damage
 desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
 
-spell:Curvature of Space:25:25:90:50:0
-effect:TIMED_SET:PROBTRAVEL
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: breaks the space/time continuum.
-desc:Allows you to rewind time to move up to previous levels.
+spell:Time Forward:25:25:1:50:0
+effect:RECALL
+dice:12+1d10
+desc:Rewinds time moving you from the dungeon back to the town or from the town
+desc: to the deepest level you have visited in the dungeon.
+desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
+desc: During that delay, the effect can be canceled by invoking the prayer
+desc: of recall again.
 
 spell:Reformation:30:40:35:100:0
 cooldown:4
@@ -7793,16 +7795,12 @@ desc: Watch out, this also prevents any means of teleportation around you
 desc: for 10 turns!
 desc: Cooldown 120 turns.
 
-spell:Time Forward:40:1:30:200:0
-cooldown:90
-effect:RECALL
-dice:7+1d10
-desc:Rewinds time moving you from the dungeon back to the town or from the town
-desc: to the deepest level you have visited in the dungeon.
-desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
-desc: During that delay, the effect can be canceled by invoking the prayer
-desc: of recall again.
-desc: Cooldown 90 turns.
+spell:Curvature of Space:40:25:90:50:0
+effect:TIMED_SET:PROBTRAVEL
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: breaks the space/time continuum.
+desc:Allows you to rewind time to move up to previous levels.
 
 spell:Time Wave:45:25:46:300:0
 cooldown:11
