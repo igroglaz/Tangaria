@@ -48,6 +48,14 @@
 # 'desc' is the activation description
 
 
+
+##################
+# power of some activations HCed for randarts activation:
+# 31 - means that CD (recharge) is 300
+# 32 - 600
+# 33 - 900
+##################
+
 name:ACID_BALL120
 aim:1
 level:55
@@ -95,7 +103,7 @@ msg:Your {kind} form{s} a magical arrow...
 name:BANISHMENT
 aim:0
 level:50
-power:20
+power:32
 effect:BANISH
 msg:Your {kind} glow{s} deep blue...
 
@@ -142,7 +150,7 @@ dice:24+1d48
 name:BRAWN
 aim:0
 level:35
-power:30
+power:33
 effect:LOSE_RANDOM_STAT:STR
 effect:GAIN_STAT:STR
 effect:RESTORE_STAT:STR
@@ -151,7 +159,7 @@ desc:raises your strength at the expense of a random attribute
 name:INTELLECT
 aim:0
 level:31
-power:25
+power:33
 effect:LOSE_RANDOM_STAT:INT
 effect:GAIN_STAT:INT
 effect:RESTORE_STAT:INT
@@ -160,7 +168,7 @@ desc:raises your intelligence at the expense of a random attribute
 name:CONTEMPLATION
 aim:0
 level:31
-power:25
+power:33
 effect:LOSE_RANDOM_STAT:WIS
 effect:GAIN_STAT:WIS
 effect:RESTORE_STAT:WIS
@@ -169,7 +177,7 @@ desc:raises your wisdom at the expense of a random attribute
 name:NIMBLENESS
 aim:0
 level:31
-power:25
+power:33
 effect:LOSE_RANDOM_STAT:DEX
 effect:GAIN_STAT:DEX
 effect:RESTORE_STAT:DEX
@@ -178,7 +186,7 @@ desc:raises your dexterity at the expense of a random attribute
 name:TOUGHNESS
 aim:0
 level:35
-power:30
+power:33
 effect:LOSE_RANDOM_STAT:CON
 effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
@@ -187,16 +195,8 @@ desc:raises your constitution at the expense of a random attribute
 name:CLAIRVOYANCE
 aim:0
 level:50
-power:30
+power:32
 effect:LIGHT_LEVEL
-effect:TIMED_INC_NO_RES:OCCUPIED
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d5
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10+1d5
-effect:NOURISH:DEC_BY
-dice:3
 msg:The {kind} form{s} an image in your mind...
 desc:completely lights up and magically maps the current level, sensing all
 desc: objects
@@ -346,7 +346,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL300
 aim:0
 level:80
-power:12
+power:31
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -361,7 +361,7 @@ desc: damage, neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL500
 aim:0
 level:65
-power:14
+power:32
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -377,7 +377,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL1000
 aim:0
 level:80
-power:16
+power:33
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -393,7 +393,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL1200
 aim:0
 level:90
-power:18
+power:33
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -408,7 +408,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_NONORLYBIG
 aim:0
 level:100
-power:21
+power:33
 effect:HEAL_HP
 dice:5000
 effect:UPDATE_STUFF
@@ -459,21 +459,15 @@ msg:Your {kind} glow{s} bright red...
 name:DESTRUCTION2
 aim:0
 level:57
-power:12
+power:32
 effect:DESTRUCTION:LIGHT:15
 
 name:DETECT_ALL
 aim:0
 level:20
-power:10
+power:32
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:OCCUPIED
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d5
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10+1d5
 effect:DETECT_MONSTERS
 effect-yx:22:40
 #effect:DETECT_TREASURES
@@ -500,11 +494,9 @@ name:DETECT_TREASURE
 aim:0
 level:5
 # was power:6 (to make it less often on randarts)
-power:30
+power:31
 effect:DETECT_TREASURES
 effect-yx:22:40
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10+1d5
 
 name:DISABLE_TRAPS
 aim:1
@@ -818,10 +810,8 @@ dice:1d3
 name:ENLIGHTENMENT
 aim:0
 level:60
-power:25
+power:32
 effect:LIGHT_LEVEL:NONE:1
-effect:NOURISH:DEC_BY
-dice:5
 
 name:FIRE_BALL72
 aim:1
@@ -869,7 +859,7 @@ msg:Your {kind} {is} covered in fire...
 name:FOOD_WAYBREAD
 aim:0
 level:15
-power:4
+power:33
 effect:CURE:POISONED
 effect:HEAL_HP
 dice:4d8
@@ -881,7 +871,7 @@ desc: fed
 name:HASTE
 aim:0
 level:20
-power:10
+power:31
 effect:TIMED_SET:FAST:0:5
 dice:20+1d20
 msg:Your {kind} glow{s} bright green...
@@ -889,7 +879,7 @@ msg:Your {kind} glow{s} bright green...
 name:HASTE2
 aim:0
 level:60
-power:13
+power:31
 effect:TIMED_SET:FAST:0:5
 dice:75+1d75
 msg:The {kind} glow{s} brightly...
@@ -947,7 +937,7 @@ dice:5+1d5
 name:LOSKILL
 aim:0
 level:40
-power:25
+power:32
 effect:MASS_BANISH
 msg:Your {kind} let{s} out a long, shrill note...
 
@@ -976,15 +966,9 @@ msg:Your {kind} glow{s} white...
 name:MAPPING
 aim:0
 level:30
-power:10
+power:31
 effect:MAP_AREA
 effect-yx:15:32
-effect:TIMED_INC_NO_RES:OCCUPIED
-dice:3
-effect:TIMED_INC_NO_RES:BLIND
-dice:5+1d5
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:10+1d5
 msg:The {kind} shine{s} brightly...
 
 name:MISSILE
@@ -1284,7 +1268,7 @@ effect:GLYPH:WARDING
 name:SATISFY
 aim:0
 level:10
-power:7
+power:31
 effect:NOURISH:INC_TO
 dice:14
 desc:magically gives possibility to survive starvation
@@ -1570,18 +1554,9 @@ msg:The {kind} well{s} with clear bright light...
 name:STONE_OF_LORE
 aim:0
 level:100
-power:30
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:5+1d7
-# drain a stat temporarily
-effect:DRAIN_STAT:WIS
-dice:1
-effect:DRAIN_STAT:INT
-dice:1
+power:32
 effect:MAP_AREA
-effect-yx:15:32
-effect:NOURISH:DEC_BY
-dice:1+1d2
+effect-yx:22:40
 effect:STAR_BALL:LIGHT_WEAK:3
 dice:2d8
 effect:IDENTIFY

@@ -2213,9 +2213,32 @@ static void add_activation(struct artifact *art, int target_power, int max_power
         {
             art->activation = &activations[x];
             art->difficulty = art->activation->level;
-            art->time.base = (p * 8);
-            art->time.dice = ((p > 5)? (p / 5): 1);
-            art->time.sides = p;
+            
+            // activation.txt HCed power 31-32-33:
+            if (p == 31) {
+                // CD = 300 turns
+                art->time.base = 300;
+                art->time.dice = 1;
+                art->time.sides = 1;
+            }
+            else if (p == 32) {
+                // CD = 600 turns
+                art->time.base = 600;
+                art->time.dice = 1;
+                art->time.sides = 1;
+            }
+            else if (p == 33) {
+                // CD = 900 turns
+                art->time.base = 900;
+                art->time.dice = 1;
+                art->time.sides = 1;
+            }
+            else {
+                /* Default calculation for other powers */
+                art->time.base = (p * 8);
+                art->time.dice = ((p > 5)? (p / 5): 1);
+                art->time.sides = p;
+            }
             return;
         }
         count++;
