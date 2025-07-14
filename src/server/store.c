@@ -708,7 +708,11 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
 
         // Trader class can sell for miserable price
         if (streq(p->clazz->name, "Trader"))
-            price /= 7 - (p->lev / 10);
+        {
+            price /= 6 - (p->lev / 10);
+            if (price < 1)
+                price = 1;
+        }
 
         /* Black markets suck */
         if (s->feat == FEAT_STORE_BLACK) price = floor(price / 2);
@@ -716,7 +720,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
 
         /* Check for no_selling option */
         if ((cfg_limited_stores || OPT(p, birth_no_selling)) &&
-            !streq(p->clazz->name, "Trader")) return (0L);
+            !streq(p->clazz->name, "Trader") && !(streq(p->clazz->name, "Crafter") && obj->soulbound)) return (0L);
     }
 
     /* Shop is selling */
@@ -3172,7 +3176,8 @@ void store_confirm(struct player *p)
     object_desc(p, o_name, sizeof(o_name), sold_item, ODESC_PREFIX | ODESC_FULL);
 
     /* Describe the result (in message buffer) */
-    if ((cfg_limited_stores || OPT(p, birth_no_selling)) && !streq(p->clazz->name, "Trader"))
+    if ((cfg_limited_stores || OPT(p, birth_no_selling))
+        && !streq(p->clazz->name, "Trader") && !(streq(p->clazz->name, "Crafter") && obj->soulbound))
         msg(p, "You had %s (%c).", o_name, label);
     else
     {
