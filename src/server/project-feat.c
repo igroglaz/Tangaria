@@ -532,6 +532,21 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
         /* Destroy the wall */
         square_destroy_wall(context->cave, &grid);
 
+        // dig House Foundation Stone (magically you can do it only with magma or quartz)
+        if (one_in_(2))
+        {
+            struct object *dig_stone;
+            /* Make house stone */
+            dig_stone = make_object(context->origin->player, context->cave, 1, false, false, false, NULL, TV_STONE);
+
+            if (dig_stone)
+            {
+                set_origin(dig_stone, ORIGIN_FLOOR, context->cave->wpos.depth, NULL);
+                /* Drop house stone */
+                drop_near(context->origin->player, context->cave, &dig_stone, 0, &context->origin->player->grid, true, DROP_FADE, false);
+            }
+        }
+
         /* On the surface, new terrain may be exposed to the sun. */
         if (context->cave->wpos.depth == 0) expose_to_sun(context->cave, &grid, is_daytime());
 
