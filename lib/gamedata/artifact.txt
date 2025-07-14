@@ -217,6 +217,7 @@ attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION
 values:LIGHT[4] | STEALTH[-5] | CON[-4] | CHR[-4] | SPEED[2]
+curse:siren:30
 curse:teleportation:100
 desc:It appears like the Phial of Galadriel at first - but wait! It
 desc: is a cursed phial created by an evil wizard to lure adventurers
@@ -262,6 +263,8 @@ attack:10d10:0:0
 armor:0:0
 values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND | PROT_STUN |
+# todo: remove this flag
+flags:LIMITED_TELE
 #
 act:CLAIRVOYANCE
 time:50+d50
@@ -3915,6 +3918,8 @@ armor:0:0
 values:CHR[-3] | INT[3] | WIS[1] | INFRA[4] |  SEARCH[2] | RES_DISEN[1] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 # -
+#TODO: remove IMPAR MANA flag
+flags:IMPAIR_MANA
 curse:siren:100
 #
 act:CLAIRVOYANCE
@@ -3939,6 +3944,7 @@ values:INT[3] | WIS[3] | CON[3] | INFRA[5] |  SEARCH[5] | RES_NETHER[1] | LIGHT[
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 # -
 flags:STICKY
+curse:undead summon:30
 curse:nazgul:100
 act:CLAIRVOYANCE
 time:50+d50
@@ -3960,7 +3966,10 @@ armor:0:0
 values:INT[2] | WIS[1] | INFRA[1] |  SEARCH[1] | LIGHT[4] | RES_CHAOS[1]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 # -
+# todo: remove afraid
+flags:AFRAID
 curse:hallucination:100
+curse:siren:30
 #
 act:CLAIRVOYANCE
 time:50+d50
