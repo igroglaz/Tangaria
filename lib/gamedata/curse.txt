@@ -507,6 +507,7 @@ msg:A savage rage fills you!
 desc:fills you with combat fury but drains your constitution and
 desc: occasionally sends you into uncontrolled rage
 
+# TODO: rename
 name:shadow_binding
 #type:cloak
 combat:-5:0:15
@@ -570,7 +571,7 @@ desc:clouds your thoughts and draws hostile creatures near
 name:treachery
 effect:DAMAGE
 dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
+expr:B:WEAPON_DAMAGE:+ 1
 time:1d2000
 effect:TIMED_INC:POISONED
 dice:5+1d10
@@ -589,7 +590,7 @@ type:dragon armour
 type:amulet
 effect:DAMAGE
 dice:$B
-expr:B:WEAPON_DAMAGE:+ 0
+expr:B:WEAPON_DAMAGE:+ 1
 time:1d200
 msg:Your equipment tries to strangle you!
 desc:your gear occasionally tries to strangle you
