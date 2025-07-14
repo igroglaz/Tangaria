@@ -104,6 +104,11 @@
 #The Elf's Dagger
 #The Adamant of Henna
 
+
+# TODO: 
+# 1) buff gollum rags and other new arts
+# 2) add new art for new items: Old Wizard Hat, Magic Flute, Blindfold
+
 ################## new stuff
 
 name:of the Withered King
@@ -158,10 +163,13 @@ attack:0d0:0:0
 armor:1:10
 flags:REGEN | SLOW_DIGEST | NO_ACTIVATION
 values:STEALTH[3] | CON[-2] | CHR[-4]
+#values:STEALTH[3] | DAM_RED[1] | INFRA[1] | SPEED[1] | CHR[-4]
 curse:whispers:100
 desc:An old, greasy scrap of cloth, more sack than garment.
 desc: Smells of fish bones, swamp mud, and fear. Gollum wore it as clothing,
 desc: though it's fit more as a warning than protection.
+#desc: It clings to your skin and almost seems to move with you.
+#desc: In its folds lingers the tenacity of something that refuses to die.
 
 name:of Grima
 base-object:sword:Broken Dagger
@@ -274,7 +282,7 @@ flags:FREE_ACT | REGEN | PROT_BLIND
 values:MANA[1] |
 values:BLOWS[1] | SPEED[1] | STEALTH[1] | RES_CHAOS[1] | LIGHT[-2]
 act:INVISIBILITY
-time:100+d800
+time:100+d400
 desc:Old dented and cracked dagger without a tip with runes
 desc: of unknown language...
 desc: It absorb light in its cracks with soft crackling sound.
@@ -2692,7 +2700,7 @@ flags:HOLD_LIFE | SUST_CON | PROT_FEAR
 values:CON[2] | RES_ACID[1] | RES_COLD[1] | RES_DARK[1] | RES_NETHER[1] |
 values:RES_NEXUS[1] | RES_CHAOS[1]
 act:CURE_FULL1000
-time:444
+time:300
 desc:A suit of imperishable adamant with unconquerable strength to endure evil
 desc: and disruptive magics. It protects the life force of its wearer as
 desc: nothing else can.
@@ -3874,8 +3882,7 @@ armor:0:0
 flags:NO_FUEL
 values:LIGHT[3] | MANA[1] | INT[1]
 act:STONE_OF_LORE
-# pretty long CD, good.. but problem: STONE_OF_LORE can appear on randarts :(
-time:500
+time:50
 msg:The stone reveals hidden mysteries...
 desc:A great emerald that fills your mind with images of knowledge and dreadful
 desc: understanding as you stare into its depths.

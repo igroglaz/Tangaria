@@ -346,7 +346,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL300
 aim:0
 level:80
-power:31
+power:30
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -361,7 +361,7 @@ desc: damage, neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL500
 aim:0
 level:65
-power:32
+power:31
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -377,7 +377,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL1000
 aim:0
 level:80
-power:33
+power:31
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -393,7 +393,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_FULL1200
 aim:0
 level:90
-power:33
+power:31
 effect:CURE:AMNESIA
 effect:CURE:CUT
 effect:CURE:STUN
@@ -408,7 +408,7 @@ desc: neutralizes poison, and cures blindness, confusion and amnesia
 name:CURE_NONORLYBIG
 aim:0
 level:100
-power:33
+power:31
 effect:HEAL_HP
 dice:5000
 effect:UPDATE_STUFF
@@ -871,7 +871,7 @@ desc: fed
 name:HASTE
 aim:0
 level:20
-power:31
+power:10
 effect:TIMED_SET:FAST:0:5
 dice:20+1d20
 msg:Your {kind} glow{s} bright green...
@@ -879,7 +879,7 @@ msg:Your {kind} glow{s} bright green...
 name:HASTE2
 aim:0
 level:60
-power:31
+power:13
 effect:TIMED_SET:FAST:0:5
 dice:75+1d75
 msg:The {kind} glow{s} brightly...
