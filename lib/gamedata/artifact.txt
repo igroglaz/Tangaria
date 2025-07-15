@@ -657,10 +657,11 @@ weight:130
 alloc:10:20 to 127
 attack:4d5:-22:-25
 armor:0:0
-flags:ESP_UNDEAD | SEE_INVIS | FREE_ACT | AGGRAVATE
+flags:ESP_UNDEAD | SEE_INVIS | FREE_ACT
 values:SPEED[10] | STR[-10] | WIS[-10] | CON[-10] | WIS[-10]
 brand:FIRE_3
 brand:VAMPIRIC
+curse:nazgul:100
 desc:Dark flames wreath the naked steel of the Witch-King of Angmar.
 desc: A mighty curse to all those who wield it apart from its master,
 desc: the torture of the wraithworld awaits those who dare.
