@@ -2598,7 +2598,14 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     }
 
     /* If player hasn't acted, 1/100 chance to make noise */
-    else if (one_in_(100) && !streq(p->race->name, "Ent")) player_noise = ((uint32_t)1) << (30 - stealth);
+    else if (one_in_(100))
+    {
+        /* Ent is always silent when not acting */
+        if (streq(p->race->name, "Ent"))
+            player_noise = 0;
+        else
+            player_noise = ((uint32_t)1) << (30 - stealth);
+    }
 
     /* Player is totally silent */
     else player_noise = 0;
