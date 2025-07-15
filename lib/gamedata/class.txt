@@ -6609,15 +6609,18 @@ desc: At each cast, an additional portion of remaining mana is consumed.
 # number 3 spell.. hc for mana restore in project-mon.c
 spell:Polymorph:3:1:20:3:0
 cooldown:5
+effect:DAMAGE
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:BOLT_AWARE:MON_POLY:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: snaps fingers. Polymorph!
-desc:Attempts to imbue surrounding chaos energy to polymorph an enemy.
-desc: Ordering chaotic energy restores your magic power and health.
-desc: The amount of restored resource increases with your level.
-desc: Note: you won't restore resources from multiplying creatures.
-desc: Cooldown 5 turns.
+desc:Attempts to order chaotic energy to polymorph an enemy and restore some
+desc: of your magic power. The restored amount increases with your level.
+desc: Causes minor damage.
+desc: Does not restore mana if used on multiplying or already polymorphed creatures.
+desc: Cooldown: 5 turns.
 
 spell:Teleport:5:3:1:5:0
 effect:RESTORE_MANA
@@ -7679,10 +7682,11 @@ desc:Causes magical aging to the target.
 desc: Nonliving creatures may resist to some extent.
 desc: This spell always hits its target.
 
-spell:Rewind Phase:3:0:1:5:0
+spell:Rewind Phase:3:1:1:5:0
+cooldown:5
 effect:DAMAGE
-dice:d$S
-expr:S:PLAYER_LEVEL:+ 1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:RESTORE_MANA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 5
@@ -7693,6 +7697,7 @@ msg_other: moves backwards awkwardly.
 desc:Shifts you to a random location on the current level.
 desc: Restores some mana based on your level.
 desc: May cause minor damage due to temporal instability.
+desc: Cooldown: 5 turns.
 
 spell:Quantum Trap:5:2:1:7:0
 # dam HCed up to *7
