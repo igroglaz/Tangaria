@@ -2592,8 +2592,8 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
     {
         player_noise = ((uint32_t)1) << (30 - stealth);
 
-        // base:person affected by CHR a bit
-        if (player_noise > 50 && streq(mon->race->base->name, "person"))
+        // base:person affected by CHR a bit (if not evil)
+        if (player_noise > 50 && (streq(mon->race->base->name, "person") && !race_is_evil(mon->race)))
             player_noise -= p->state.stat_ind[STAT_CHR];
     }
 
