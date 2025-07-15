@@ -66,6 +66,7 @@ extern bool do_cmd_use_any(struct player *p, int item, int dir);
 extern bool consume_corpse(struct player *p);
 extern bool consume_magic_items(struct player *p);
 extern bool use_oil(struct player *p);
+extern bool detonate_sentry(struct player *p);
 extern void do_cmd_refill(struct player *p, int item);
 extern bool do_cmd_read_scroll_end(struct player *p, struct object *obj, bool ident, bool used);
 extern void do_cmd_use_staff_discharge(struct player *p, struct object *obj, bool ident, bool used);
