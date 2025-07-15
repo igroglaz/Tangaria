@@ -3445,7 +3445,7 @@ book-properties:60:30:50000
 book-alloc:10:60 to 100
 book-desc:A stone glowing brightly, engraved with runes of power.
 
-spell:Time Bolt:38:23:73:51:0
+spell:Time Bolt:38:15:73:51:0
 effect:BOLT_OR_BEAM:TIME
 dice:$Dd$S
 expr:D:PLAYER_LEVEL:/ 12 + 10
@@ -3455,6 +3455,7 @@ desc:Fires a time bolt that always hits its target.
 desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
+desc: Nonliving creatures may resist to some extent.
 
 spell:Clairvoyance:40:34:76:55:0
 cooldown:100
@@ -7675,6 +7676,7 @@ expr:D:PLAYER_LEVEL:- 1 / 5 + 3
 expr:S:PLAYER_LEVEL:/ 10 + 4
 msg_other: wiggles one crooked finger.
 desc:Causes magical aging to the target.
+desc: Nonliving creatures may resist to some extent.
 desc: This spell always hits its target.
 
 spell:Rewind Phase:3:0:1:5:0
@@ -7693,6 +7695,7 @@ desc: Restores some mana based on your level.
 desc: May cause minor damage due to temporal instability.
 
 spell:Quantum Trap:5:2:1:7:0
+# dam HCed up to *7
 cooldown:7
 effect:SHORT_BEAM:TIME:5
 dice:$B
@@ -7702,6 +7705,7 @@ desc:Rewind time back and forward making aging damage again and again
 desc: to everything that is in a line of 5 tiles.
 desc: Damage is greatly increased every 5 levels (up to level 35).
 desc: At level 10+, each cast also consumes a small amount of extra mana.
+desc: Nonliving creatures may resist to some extent.
 desc: Cooldown 7 turns.
 
 spell:Revert Wounds:7:3:1:10:0
@@ -7727,6 +7731,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:+ 10
 msg_other: emit a ray of time.
 desc:Fires a ray of temporal energy that explodes on impact.
+desc: Nonliving creatures may resist to some extent.
 desc: Becomes stronger every 10 levels.
 
 #spell:Ray of Time:10:10:1:15:0
@@ -7741,7 +7746,16 @@ desc: Becomes stronger every 10 levels.
 #desc: It may additionally damage minded creatures and has a chance to blind,
 #desc: confuse, put to sleep or slow affected monsters.
 
-spell:Decay:15:10:1:20:0
+spell:Time Forward:15:10:1:20:0
+effect:RECALL
+dice:12+1d10
+desc:Rewinds time moving you from the dungeon back to the town or from the town
+desc: to the deepest level you have visited in the dungeon.
+desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
+desc: During that delay, the effect can be canceled by invoking the prayer
+desc: of recall again.
+
+spell:Decay:20:15:1:30:0
 cooldown:240
 effect:TIMED_SET:ANCHOR
 dice:5
@@ -7755,7 +7769,35 @@ desc: You take 1d3 points of damage for every monster removed.
 desc: Side-effect: you won't be able to teleport for 5 turns.
 desc: Cooldown 240 turns.
 
-spell:Time Shield:20:15:48:30:0
+spell:Erase:25:4:1:50:0
+# HCed mana
+effect:SHORT_BEAM:MISSILE:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+effect:SHORT_BEAM:TIME:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+effect:SHORT_BEAM:MON_POLY:2
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+effect:RANDOM
+dice:3
+msg_other: snaps fingers toward the target.
+desc:Attempts to erase the target from the current timeline.
+desc: May hit up to two nearby creatures within 2 tiles,
+desc: though it may sometimes polymorph them instead.
+desc: Deals time damage that scales with your level and
+desc: is sometimes irresistible.
+desc: Each use drains a bit of extra mana.
+
+spell:Curvature of Space:30:25:70:100:0
+effect:TIMED_SET:PROBTRAVEL
+dice:3
+msg_other: breaks the space/time continuum.
+desc:Allows you to rewind time to move up to previous levels.
+desc: This effect lasts for 3 turns.
+
+spell:Time Shield:35:25:1:150:0
 effect:TIMED_SET:MANASHIELD
 dice:$B
 expr:B:PLAYER_LEVEL:+ 10
@@ -7763,44 +7805,13 @@ desc:Creates a time shield around you that absorbs all damage
 desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
 
-spell:Time Forward:25:25:1:50:0
-effect:RECALL
-dice:12+1d10
-desc:Rewinds time moving you from the dungeon back to the town or from the town
-desc: to the deepest level you have visited in the dungeon.
-desc: The effect can be almost immediate, but sometimes it's somewhat delayed.
-desc: During that delay, the effect can be canceled by invoking the prayer
-desc: of recall again.
-
-spell:Reformation:30:40:35:100:0
-cooldown:4
-effect:MELEE_BLOWS:PSI_DRAIN
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
-desc:Drains part of the life-force from a nearby target and replenishes
-desc: your mana with it. Does not affect undead, demons, golems, elementals or
-desc: vortices.
-desc: Cooldown 4 turns.
-
-spell:Temporal Paradox:35:50:35:150:0
+spell:Temporal Paradox:40:50:35:200:0
 cooldown:120
-effect:TIMED_SET:ANCHOR
-dice:10
 effect:TIMED_INC:FASTCAST
 dice:$B+1d20
 expr:B:PLAYER_LEVEL:+ 0
-desc:Temporary doubles spellcasting speed and grants you resistance to
-desc: gravity and time.
-desc: Watch out, this also prevents any means of teleportation around you
-desc: for 10 turns!
+desc:Increases spellcasting speed by 33% some time.
 desc: Cooldown 120 turns.
-
-spell:Curvature of Space:40:25:90:50:0
-effect:TIMED_SET:PROBTRAVEL
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: breaks the space/time continuum.
-desc:Allows you to rewind time to move up to previous levels.
 
 spell:Time Wave:45:25:46:300:0
 cooldown:11

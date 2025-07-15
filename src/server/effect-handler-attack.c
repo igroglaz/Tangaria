@@ -2381,6 +2381,13 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                     if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
                             context->origin->player->csp = context->origin->player->csp * 96 / 100;
                 }
+                // Erase spell (mana 4)
+                else if (context->origin->player->spell_cost == 4)
+                {
+                    // spend additional mana
+                    if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                            context->origin->player->csp = context->origin->player->csp * 96 / 100;
+                }
             }
             else if (streq(context->origin->player->clazz->name, "Hermit"))
             {
