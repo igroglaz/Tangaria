@@ -379,8 +379,10 @@ static void project_monster_hurt_only(project_monster_handler_context_t *context
  * context is the project_m context.
  * flag is the RSF_ flag that the monster must have.
  * factor is the multiplier for the base damage.
+ * 
+ * Returns true if damage reduction was applied, false otherwise.
  */
-static void project_monster_breath(project_monster_handler_context_t *context, int flag, int factor)
+static bool project_monster_breath(project_monster_handler_context_t *context, int flag, int factor)
 {
     if (rsf_has(context->mon->race->spell_flags, flag))
     {
@@ -390,7 +392,11 @@ static void project_monster_breath(project_monster_handler_context_t *context, i
         context->hurt_msg = MON_MSG_RESIST;
         context->dam *= factor;
         context->dam /= (randint1(6) + 6);
+        
+        return true;
     }
+    
+    return false;
 }
 
 
@@ -862,7 +868,16 @@ static void project_monster_handler_FORCE(project_monster_handler_context_t *con
 /* Time -- breathers resist */
 static void project_monster_handler_TIME(project_monster_handler_context_t *context)
 {
-    project_monster_breath(context, RSF_BR_TIME, 3);
+    if (project_monster_breath(context, RSF_BR_TIME, 3))
+        ;
+    else if (monster_is_nonliving(context->mon->race))
+    {
+        if (context->dam >= 2)
+        {
+            context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
+            context->dam /= 2;
+        }
+    }
 }
 
 
