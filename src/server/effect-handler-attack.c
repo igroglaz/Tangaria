@@ -2334,7 +2334,10 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
                         dam += 5;
 
                     // spend additional mana
-                    if (context->origin->player->lev > 9 &&
+                    if (context->origin->player->lev > 20 &&
+                        context->origin->player->csp > context->origin->player->lev / 5)
+                            context->origin->player->csp -= context->origin->player->lev / 5;
+                    else if (context->origin->player->lev > 9 &&
                         context->origin->player->csp > context->origin->player->lev / 10)
                             context->origin->player->csp -= context->origin->player->lev / 10;
                 }
@@ -2567,8 +2570,8 @@ bool effect_handler_STRIKE(effect_handler_context_t *context)
         {
             dam *= context->origin->player->lev / 5;
             // spend additional mana
-            if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
-                    context->origin->player->csp = context->origin->player->csp * 96 / 100;
+            if (context->origin->player->csp > context->origin->player->csp * 95 / 100)
+                    context->origin->player->csp = context->origin->player->csp * 95 / 100;
         }
     }
 
