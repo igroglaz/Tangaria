@@ -1419,15 +1419,15 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
         // some monsters can multiply more rarely (they got the flag; see above)
         if (streq(mon->race->name, "ectoplasm"))
         {
-            if (!one_in_(10)) return false; // 10% to multiply
+            if (RNG % 10 != 0) return false; // 10% to multiply
         }
         else if (streq(mon->race->name, "Doppleganger"))
         {
-            if (!one_in_(15)) return false; // 7%
+            if (RNG % 15 != 0) return false; // 7%
         }
-        else if (streq(mon->race->name, "sandworm")) // 50%
+        else if (streq(mon->race->name, "sandworm") || streq(mon->race->name, "malicious leprechaun")) // 50%
         {
-            if (one_in_(2)) return false;
+            if (RNG % 2 != 0) return false; // 50% chance
         }
 
         /* Try to multiply */
