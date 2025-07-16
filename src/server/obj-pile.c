@@ -357,12 +357,12 @@ bool object_similar(struct player *p, const struct object *obj1, const struct ob
     if ((mode & OSTACK_LIST) && object_marked_aware(p, obj1)) return false;
     if ((mode & OSTACK_LIST) && object_marked_aware(p, obj2)) return false;
 
-    /* Hack -- requires same location (object list) */
+    /* Requires same location (object list) */
     grid1 = &((struct object *)obj1)->grid;
     grid2 = &((struct object *)obj2)->grid;
     if ((mode & OSTACK_LIST) && !loc_eq(grid1, grid2)) return false;
 
-    /* Hack -- identical items cannot be stacked */
+    /* Identical items cannot be stacked */
     if (obj1 == obj2) return false;
 
     /* Require identical object kinds */
@@ -418,10 +418,10 @@ bool object_similar(struct player *p, const struct object *obj1, const struct ob
         /* Require identical curses */
         if (!curses_are_equal(obj1, obj2)) return false;
 
-        /* Hack -- require identical brands (for Elemental ego) */
+        /* Require identical brands (for Elemental ego) */
         if (!brands_are_equal(obj1, obj2)) return false;
 
-        /* Hack -- never stack recharging wearables */
+        /* Never stack recharging wearables */
         if ((obj1->timeout || obj2->timeout) && !tval_is_light(obj1))
             return false;
 
@@ -484,7 +484,7 @@ bool object_mergeable(struct player *p, const struct object *obj1, const struct 
 {
     int total;
 
-    /* Hack -- gold */
+    /* Gold */
     if (tval_is_money(obj1))
     {
         total = obj1->pval + obj2->pval;
@@ -701,7 +701,7 @@ void object_absorb(struct object *obj1, struct object *obj2)
 {
     int total;
 
-    /* Hack -- gold */
+    /* Gold */
     if (tval_is_money(obj1))
     {
         total = obj1->pval + obj2->pval;
@@ -932,7 +932,7 @@ static int grid_to_index(struct chunk *c, struct loc *grid, struct object *obj)
 
 
 /*
- * Hack -- obtain an index for a floor object
+ * Obtain an index for a floor object
  */
 static int floor_to_index(struct chunk *c)
 {
@@ -981,7 +981,7 @@ static int floor_to_index(struct chunk *c)
     /* Then do gold */
     do
     {
-        /* Hack -- skip gold in houses */
+        /* Skip gold in houses */
         if ((c->wpos.depth == 0) && square_isvault(c, &iter.cur)) continue;
 
         for (obj = square_object(c, &iter.cur); obj; obj = obj->next)
@@ -1044,7 +1044,7 @@ bool floor_carry(struct player *p, struct chunk *c, struct loc *grid, struct obj
             return false;
     }
 
-    /* Hack -- set index */
+    /* Set index */
     drop->oidx = floor_to_index(c);
     if (!drop->oidx) return false;
 
@@ -1081,7 +1081,7 @@ bool floor_add(struct chunk *c, struct loc *grid, struct object *drop)
     if (!square_in_bounds_fully(c, grid)) return false;
     if (!square_isobjectholding(c, grid)) return false;
 
-    /* Hack -- set index */
+    /* Set index */
     drop->oidx = floor_to_index(c);
     if (!drop->oidx) return false;
 
@@ -1122,7 +1122,7 @@ static void floor_carry_fail(struct player *p, struct object *drop, bool broke, 
     if (p) object_desc(p, o_name, sizeof(o_name), drop, ODESC_BASE);
     if (p) msg(p, "The %s %s.", o_name, verb);
 
-    /* Hack -- preserve artifacts */
+    /* Preserve artifacts */
     if (preserve && drop->artifact)
     {
         /* Only works when owner is ingame */
@@ -1182,7 +1182,7 @@ static bool drop_find_grid(struct player *p, struct chunk *c, struct object *dro
                 continue;
             }
 
-            /* Hack -- not where a NEVER_MOVE + NO_DEATH monster stands */
+            /* Not where a NEVER_MOVE + NO_DEATH monster stands */
             mon = square_monster(c, &loc_try);
             if (mon && rf_has(mon->race->flags, RF_NEVER_MOVE) &&
                 rf_has(mon->race->flags, RF_NO_DEATH))
@@ -1202,7 +1202,7 @@ static bool drop_find_grid(struct player *p, struct chunk *c, struct object *dro
             }
             if (!combine) num_shown++;
 
-            /* Hack: limit size of pile in houses */
+            /* Limit size of pile in houses */
             size = z_info->floor_size;
             if (location_in_house(&c->wpos, &loc_try)) size = cfg_house_floor_size;
 

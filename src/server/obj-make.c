@@ -104,7 +104,7 @@ static void alloc_init_objects(void)
         }
     }
 
-    /* Hack -- automatically compute art rarities for PWMAngband's artifacts */
+    /* Automatically compute art rarities for PWMAngband's artifacts */
     for (i = 0; i < z_info->a_max; i++)
     {
         struct artifact *art = &a_info[i];
@@ -927,7 +927,7 @@ static bool artifact_pass_checks(const struct artifact *art, int depth)
 
 
 /*
- * Hack -- attempt to create one of the "Special Objects"
+ * Attempt to create one of the "Special Objects"
  *
  * We are only called from "make_object()"
  *
@@ -1294,7 +1294,7 @@ static void apply_magic_armour(struct object *obj, int level, int power)
     {
         size_t i;
 
-        /* Hack -- reverse base bonuses */
+        /* Reverse base bonuses */
         for (i = 0; i < OBJ_MOD_MAX; i++)
         {
             if (obj->modifiers[i] > 0) obj->modifiers[i] = 0 - obj->modifiers[i];
@@ -1338,11 +1338,11 @@ void object_prep(struct player *p, struct chunk *c, struct object *obj, struct o
     for (i = 0; i < OBJ_MOD_MAX; i++)
         obj->modifiers[i] = randcalc(k->modifiers[i], lev, rand_aspect);
 
-    /* Hack -- amulets of speed can't give very much, and are rarely +5 */
+    /* Amulets of speed can't give very much, and are rarely +5 */
     if (tval_is_amulet(obj) && (obj->sval == lookup_sval(obj->tval, "Speed")))
         obj->modifiers[OBJ_MOD_SPEED] = randint1(obj->modifiers[OBJ_MOD_SPEED]);
 
-    /* Hack -- rings of polymorphing get a random race */
+    /* Rings of polymorphing get a random race */
     if (tval_is_poly(obj))
     {
         /* Pick a race based on current depth */
@@ -1528,7 +1528,7 @@ int apply_magic(struct player *p, struct chunk *c, struct object *obj, int lev,
 
 
 /*
- * Hack -- determine if a template is "good"
+ * Determine if a template is "good"
  */
 bool kind_is_good(const struct object_kind *kind)
 {

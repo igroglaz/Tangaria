@@ -860,7 +860,7 @@ static void project_monster_handler_FORCE(project_monster_handler_context_t *con
     who->player = context->origin->player;
     thrust_away(context->cave, who, &centre, 3 + context->dam / 20);
 
-    /* Hack -- get new location */
+    /* Get new location */
     loc_copy(&context->grid, &context->mon->grid);
 }
 
@@ -1423,7 +1423,7 @@ static void project_monster_handler_TELE_TO(project_monster_handler_context_t *c
         else
             context->obvious = false;
 
-        /* Hack -- get new location */
+        /* Get new location */
         loc_copy(&context->grid, &context->mon->grid);
     }
 
@@ -1894,7 +1894,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
             /* Wake the monster up, don't notice the player */
             monster_wake(context->origin->player, context->mon, false, 0);
 
-            /* Hack -- get new location */
+            /* Get new location */
             loc_copy(&context->grid, &context->mon->grid);
         }
 
@@ -1936,7 +1936,7 @@ static bool project_m_apply_side_effects(project_monster_handler_context_t *cont
         /* Wake the monster up, don't notice the player */
         monster_wake(context->origin->player, context->mon, false, 0);
 
-        /* Hack -- get new location */
+        /* Get new location */
         loc_copy(&context->grid, &context->mon->grid);
     }
     else
@@ -2042,7 +2042,7 @@ static bool project_m_is_threat(project_monster_handler_context_t *context)
  * Note that this function determines if the player can see anything that
  * happens by taking into account: blindness, line-of-sight, and illumination.
  *
- * Hack -- effects on grids which are memorized but not in view are also seen.
+ * Effects on grids which are memorized but not in view are also seen.
  */
 void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, int dam, int typ,
     int flg, bool *did_hit, bool *was_obvious, int *newy, int *newx)
@@ -2167,7 +2167,7 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     else if (origin->player)
         mon_died = project_m_player_attack(&context);
 
-    /* Hack -- avoid a crash in case polymorph goes bad */
+    /* Avoid a crash in case polymorph goes bad */
     if (!mon_died && project_m_apply_side_effects(&context, &m_idx))
     {
         *was_obvious = context.obvious;

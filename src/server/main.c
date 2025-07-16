@@ -71,7 +71,7 @@ static void init_stuff(void)
     my_strcpy(libpath, DEFAULT_LIB_PATH, sizeof(libpath));
     my_strcpy(datapath, DEFAULT_DATA_PATH, sizeof(datapath));
 
-    /* Hack -- add a path separator (only if needed) */
+    /* Add a path separator (only if needed) */
     if (!suffix(configpath, PATH_SEP))
         my_strcat(configpath, PATH_SEP, sizeof(configpath));
     if (!suffix(libpath, PATH_SEP))
@@ -193,7 +193,7 @@ static void server_log(const char *str)
             return;
         }
 
-        /* Hack -- clear the lock files */
+        /* Clear the lock files */
         clear_locks();
     }
 

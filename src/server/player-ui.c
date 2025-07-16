@@ -116,7 +116,7 @@ static void write_character_dump(ang_file *fff, void *data)
     int x1, x2, y1, y2;
     char attr;
     struct grid_data g;
-    bool victory = streq(p->death_info.died_from, "winner");
+    bool victory = streq(p->death_info.died_from, WINNING_HOW);
     bool final = (p->is_dead || !p->alive || victory);
     struct chunk *cv = chunk_get(&p->wpos);
     struct loc grid;

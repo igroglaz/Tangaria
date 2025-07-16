@@ -35,7 +35,7 @@ int effect_calculate_value(effect_handler_context_t *context, bool use_boost)
     /* Device boost */
     if (use_boost) final = final * (100 + context->boost) / 100;
 
-    /* Hack -- elementalists */
+    /* Elementalists */
     final = final * (20 + context->beam.elem_power) / 20;
 
     return final;
@@ -392,7 +392,7 @@ static void brand_object(struct player *p, struct object *obj, const char *brand
         /* Get the right ego type for the object */
         ego = ego_brand(obj, brand);
 
-        /* Hack -- BRAND_COOL */
+        /* BRAND_COOL */
         if (streq(brand, "BRAND_COOL")) ego = ego_elemental();
 
         if (!ego)
@@ -405,7 +405,7 @@ static void brand_object(struct player *p, struct object *obj, const char *brand
         obj->ego = ego;
         ego_apply_magic(obj, 0);
 
-        /* Hack -- BRAND_COOL */
+        /* BRAND_COOL */
         if (streq(brand, "BRAND_COOL"))
         {
             /* Brand the object */
@@ -569,7 +569,7 @@ static bool detect_monsters_invis(struct player *p, int y_dist, int x_dist, bool
     /* Describe result, and clean up */
     if (monsters && pause)
     {
-        /* Hack -- fix the monsters and players */
+        /* Fix the monsters and players */
         update_monsters(c, false);
         update_players();
 
@@ -586,7 +586,7 @@ static bool detect_monsters_invis(struct player *p, int y_dist, int x_dist, bool
         msg(p, "You sense the presence of invisible creatures!");
         party_msg_near(p, " senses the presence of invisible creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(p, pause_after_detect)) Send_pause(p);
     }
     else if (aware && !monsters)
@@ -610,7 +610,7 @@ static bool detect_monsters_normal(struct player *p, int y_dist, int x_dist, boo
     /* Describe and clean up */
     if (monsters && pause)
     {
-        /* Hack -- fix the monsters and players */
+        /* Fix the monsters and players */
         update_monsters(c, false);
         update_players();
 
@@ -627,7 +627,7 @@ static bool detect_monsters_normal(struct player *p, int y_dist, int x_dist, boo
         msg(p, "You sense the presence of creatures!");
         party_msg_near(p, " senses the presence of creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(p, pause_after_detect)) Send_pause(p);
     }
     else if (aware && !monsters)
@@ -699,7 +699,7 @@ static void player_turn_undead(struct player *p)
 {
     int i;
 
-    /* Hack -- note "death" */
+    /* Note "death" */
     msgt(p, MSG_DEATH, "You turn into an undead being.");
     message_flush(p);
 
@@ -930,7 +930,7 @@ bool effect_handler_ALTER_REALITY(effect_handler_context_t *context)
 {
     int i;
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->radius == 1);
 
     /* Always notice */
@@ -998,7 +998,7 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
-        /* Hack -- skip Unique Monsters */
+        /* Skip Unique Monsters */
         if (monster_is_unique(mon)) continue;
 
         /* Check distance */
@@ -1028,7 +1028,7 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
-        /* Hack -- skip Unique Monsters */
+        /* Skip Unique Monsters */
         if (monster_is_unique(mon)) continue;
 
         /*
@@ -1265,7 +1265,7 @@ bool effect_handler_BRAND_AMMO(effect_handler_context_t *context)
  */
 bool effect_handler_BRAND_WEAPON(effect_handler_context_t *context)
 {
-    /* Hack -- branded with fire? */
+    /* Branded with fire? */
     bool with_fire = (context->radius? false: true);
 
     struct object *obj = equipped_item_by_slot_name(context->origin->player, "weapon");
@@ -2362,7 +2362,7 @@ bool effect_handler_DARKEN_AREA(effect_handler_context_t *context)
     if (streq(context->origin->player->clazz->name, "Warlock"))
         hp_player(context->origin->player, 5);
 
-    /* Hack -- blind the player directly if player-cast */
+    /* Blind the player directly if player-cast */
     if (!context->origin->monster)
     {
         if (!player_resists(context->origin->player, ELEM_DARK))
@@ -2543,7 +2543,7 @@ bool effect_handler_DEEP_DESCENT(effect_handler_context_t *context)
 
     wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
 
-    /* Hack -- DM redesigning the level */
+    /* DM redesigning the level */
     if (chunk_inhibit_players(&wpos))
     {
         /* Don't apply effect while DM is redesigning the level */
@@ -2640,7 +2640,7 @@ bool effect_handler_DETECT_ALL_MONSTERS(effect_handler_context_t *context)
     /* Describe result, and clean up */
     if (detect)
     {
-        /* Hack -- fix the monsters and players */
+        /* Fix the monsters and players */
         update_monsters(context->cave, false);
         update_players();
 
@@ -2657,7 +2657,7 @@ bool effect_handler_DETECT_ALL_MONSTERS(effect_handler_context_t *context)
         msg(context->origin->player, "An image of all nearby life-forms appears in your mind!");
         party_msg_near(context->origin->player, " senses the presence of all nearby life-forms!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else
@@ -2772,7 +2772,7 @@ bool effect_handler_DETECT_EVIL(effect_handler_context_t *context)
     /* Note effects and clean up */
     if (monsters)
     {
-        /* Hack -- fix the monsters */
+        /* Fix the monsters */
         update_monsters(context->cave, false);
 
         /* Full refresh (includes monster/object lists) */
@@ -2788,7 +2788,7 @@ bool effect_handler_DETECT_EVIL(effect_handler_context_t *context)
         msg(context->origin->player, "You sense the presence of evil creatures!");
         party_msg_near(context->origin->player, " senses the presence of evil creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else if (context->aware)
@@ -2812,7 +2812,7 @@ bool effect_handler_DETECT_FEARFUL_MONSTERS(effect_handler_context_t *context)
     /* Note effects and clean up */
     if (monsters)
     {
-        /* Hack -- fix the monsters */
+        /* Fix the monsters */
         update_monsters(context->cave, false);
 
         /* Full refresh (includes monster/object lists) */
@@ -2828,7 +2828,7 @@ bool effect_handler_DETECT_FEARFUL_MONSTERS(effect_handler_context_t *context)
         msg(context->origin->player, "These monsters could provide good sport.");
         party_msg_near(context->origin->player, " senses the presence of fearful creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else if (context->aware)
@@ -2961,7 +2961,7 @@ bool effect_handler_DETECT_LIVING_MONSTERS(effect_handler_context_t *context)
     /* Note effects and clean up */
     if (monsters)
     {
-        /* Hack -- fix the monsters */
+        /* Fix the monsters */
         update_monsters(context->cave, false);
 
         /* Full refresh (includes monster/object lists) */
@@ -2977,7 +2977,7 @@ bool effect_handler_DETECT_LIVING_MONSTERS(effect_handler_context_t *context)
         msg(context->origin->player, "You sense life!");
         party_msg_near(context->origin->player, " senses life!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else if (context->aware)
@@ -3003,7 +3003,7 @@ bool effect_handler_DETECT_MONSTERS(effect_handler_context_t *context)
     /* Describe result, and clean up */
     if (detected_creatures || detected_invis)
     {
-        /* Hack -- fix the monsters and players */
+        /* Fix the monsters and players */
         update_monsters(context->cave, false);
         update_players();
 
@@ -3020,7 +3020,7 @@ bool effect_handler_DETECT_MONSTERS(effect_handler_context_t *context)
         msg(context->origin->player, "You sense the presence of creatures!");
         party_msg_near(context->origin->player, " senses the presence of creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
 
@@ -3041,7 +3041,7 @@ bool effect_handler_DETECT_NONEVIL(effect_handler_context_t *context)
     /* Note effects and clean up */
     if (monsters)
     {
-        /* Hack -- fix the monsters */
+        /* Fix the monsters */
         update_monsters(context->cave, false);
 
         /* Full refresh (includes monster/object lists) */
@@ -3057,7 +3057,7 @@ bool effect_handler_DETECT_NONEVIL(effect_handler_context_t *context)
         msg(context->origin->player, "You sense the presence of non-evil creatures!");
         party_msg_near(context->origin->player, " senses the presence of non-evil creatures!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else if (context->aware)
@@ -3081,7 +3081,7 @@ bool effect_handler_DETECT_SOUL(effect_handler_context_t *context)
     /* Note effects and clean up */
     if (monsters)
     {
-        /* Hack -- fix the monsters */
+        /* Fix the monsters */
         update_monsters(context->cave, false);
 
         /* Full refresh (includes monster/object lists) */
@@ -3097,7 +3097,7 @@ bool effect_handler_DETECT_SOUL(effect_handler_context_t *context)
         msg(context->origin->player, "You sense the presence of spirits!");
         party_msg_near(context->origin->player, " senses the presence of spirits!");
 
-        /* Hack -- pause */
+        /* Pause */
         if (OPT(context->origin->player, pause_after_detect)) Send_pause(context->origin->player);
     }
     else if (context->aware)
@@ -3242,7 +3242,7 @@ bool effect_handler_DETECT_TRAPS(effect_handler_context_t *context)
             /* Identify once */
             if (!object_is_known(context->origin->player, obj))
             {
-                /* Hack -- know the pile */
+                /* Know the pile */
                 square_know_pile(context->origin->player, context->cave, &iter.cur);
 
                 /* Know the trap */
@@ -3304,7 +3304,7 @@ bool effect_handler_DETECT_TREASURES(effect_handler_context_t *context)
         return true;
     }
 
-    /* Hack -- DM has full detection */
+    /* DM has full detection */
     if (context->origin->player->dm_flags & DM_SEE_LEVEL) full = true;
 
     /* Pick an area to map */
@@ -3893,7 +3893,7 @@ bool effect_handler_GLYPH(effect_handler_context_t *context)
 {
     struct loc *decoy = cave_find_decoy(context->cave);
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->radius == 1);
 
     /* Always notice */
@@ -4033,7 +4033,7 @@ bool effect_handler_LIGHT_AREA(effect_handler_context_t *context)
         msg(context->origin->player, "The bright light burns your undead flesh!");
     }
 
-    /* Hack -- elementalists */
+    /* Elementalists */
     if (context->beam.spell_power)
     {
         int rad = effect_calculate_value(context, false);
@@ -4303,7 +4303,7 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
-        /* Hack -- skip unique monsters */
+        /* Skip unique monsters */
         if (monster_is_unique(mon)) continue;
 
         /* Skip distant monsters */
@@ -4989,7 +4989,7 @@ bool effect_handler_RESTORE_MANA(effect_handler_context_t *context)
             context->origin->player->csp_frac = 0;
         }
 
-        /* Hack -- redraw picture */
+        /* Redraw picture */
         redraw_picture(context->origin->player, old_num);
 
         /* Redraw */
@@ -5229,7 +5229,7 @@ bool effect_handler_SUMMON(effect_handler_context_t *context)
     struct worldpos *wpos;
     struct monster *mon = context->origin->monster;
 
-    /* Hack -- no summons in Arena */
+    /* No summons in Arena */
     if (mon)
     {
         loc_copy(&grid, &mon->grid);
@@ -5408,7 +5408,7 @@ bool effect_handler_TAP_DEVICE(effect_handler_context_t *context)
             used = true;
             player_inc_timed(context->origin->player, TMD_STUN, randint1(2), true, true);
 
-            /* Hack -- redraw picture */
+            /* Redraw picture */
             redraw_picture(context->origin->player, old_num);
 
             context->origin->player->upkeep->redraw |= (PR_MANA);
@@ -5442,7 +5442,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->other == 1);
 
     context->ident = true;
@@ -5530,7 +5530,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
         return !used;
     }
 
-    /* Hack -- hijack teleport in Arena */
+    /* Hijack teleport in Arena */
     if (is_player && (context->origin->player->arena_num != -1))
     {
         int arena_num = context->origin->player->arena_num;
@@ -5731,7 +5731,7 @@ bool effect_handler_TELEPORT(effect_handler_context_t *context)
     /* Handle stuff */
     if (context->origin->player) handle_stuff(context->origin->player);
 
-    /* Hack -- fix store */
+    /* Fix store */
     if (is_player && in_store(context->origin->player)) Send_store_leave(context->origin->player);
 
     return !used;
@@ -5755,7 +5755,7 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
     uint8_t new_level_method;
     struct loc *decoy = cave_find_decoy(context->cave);
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->radius == 1);
 
     context->ident = true;
@@ -5902,7 +5902,7 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
             down = false;
         }
 
-        /* Hack -- DM redesigning the level */
+        /* DM redesigning the level */
         target_depth = dungeon_get_next_level(context->origin->player,
             context->origin->player->wpos.depth, -1);
         wpos_init(&wpos, &context->origin->player->wpos.grid, target_depth);
@@ -5959,7 +5959,7 @@ bool effect_handler_TELEPORT_LEVEL(effect_handler_context_t *context)
  * Teleport player or target monster to a grid near the given location
  * Setting context->y and context->x treats them as y and x coordinates
  * Setting context->subtype allows monsters to teleport toward a target.
- * Hack: setting context->other means we are about to enter an arena
+ * Setting context->other means we are about to enter an arena.
  *
  * This function is slightly obsessive about correctness.
  */
@@ -5970,7 +5970,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     int tries = 200;
     bool is_player;
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->radius == 1);
 
     context->ident = true;
@@ -6093,7 +6093,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
         /* No teleporting into vaults and such if the target is outside the vault */
         if (square_isvault(context->cave, &land) && !square_isvault(context->cave, &start))
         {
-            /* Hack -- we enter an arena by teleporting into it, so allow that */
+            /* We enter an arena by teleporting into it, so allow that */
             if (!context->other) legal = false;
         }
 
@@ -6131,7 +6131,7 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     /* Handle stuff */
     if (is_player) handle_stuff(context->origin->player);
 
-    /* Hack -- fix store */
+    /* Fix store */
     if (is_player && in_store(context->origin->player)) Send_store_leave(context->origin->player);
 
     return !used;
@@ -6303,7 +6303,7 @@ bool effect_handler_TIMED_SET(effect_handler_context_t *context)
 {
     int amount = effect_calculate_value(context, false);
 
-    /* Hack -- Day of the Misrule */
+    /* Day of the Misrule */
     if (context->self_msg)
     {
         const char *pm;
@@ -6318,7 +6318,7 @@ bool effect_handler_TIMED_SET(effect_handler_context_t *context)
         msg(context->origin->player, context->self_msg, pm);
     }
 
-    /* Hack -- Touch of Death */
+    /* Touch of Death */
     if (context->subtype == TMD_DEADLY)
     {
         if (streq(context->origin->player->clazz->name, "Warlock") &&
@@ -6379,7 +6379,7 @@ bool effect_handler_UNSCRAMBLE_STATS(effect_handler_context_t *context)
 }
 
 
-/* Hack -- recalculate max. hitpoints between CON and HP restoration */
+/* Recalculate max. hitpoints between CON and HP restoration */
 bool effect_handler_UPDATE_STUFF(effect_handler_context_t *context)
 {
     context->origin->player->upkeep->update |= (PU_BONUS);

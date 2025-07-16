@@ -334,7 +334,7 @@ void wr_artifacts(void *unused)
 {
     int i;
 
-    /* Hack -- dump the artifacts */
+    /* Dump the artifacts */
     wr_u16b(z_info->a_max);
     for (i = 0; i < z_info->a_max; i++)
     {
@@ -1408,7 +1408,7 @@ void wr_history(void *data)
 
 
 /*
- * Hack -- save basic player info
+ * Save basic player info
  */
 void wr_header(void *data)
 {

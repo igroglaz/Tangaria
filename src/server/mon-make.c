@@ -403,13 +403,13 @@ struct monster_race *get_mon_num(struct chunk *c, int generated_level, bool summ
         /* Get the chosen monster */
         race = &r_info[table[i].index];
 
-        /* Hack -- check if monster race can be generated at that location */
+        /* Check if monster race can be generated at that location */
         if (!allow_race(race, &c->wpos)) continue;
 
         /* Accept */
         table[i].prob3 = table[i].prob2;
 
-        /* Hack -- some dungeon types restrict the possible monsters (except for summons) */
+        /* Some dungeon types restrict the possible monsters (except for summons) */
         p = (summon? 10000: restrict_monster_to_dungeon(race, &c->wpos));
         table[i].prob3 = table[i].prob3 * p / 10000;
         if (p && table[i].prob2 && !table[i].prob3) table[i].prob3 = 1;
@@ -569,13 +569,13 @@ static void forget_monster(struct player *p, struct chunk *c, int m_idx)
     /* If he's not here, skip him */
     if (!clear_vis(p, &c->wpos, m_idx)) return;
 
-    /* Hack -- remove target monster */
+    /* Remove target monster */
     if (target_equals(p, who)) target_set_monster(p, NULL);
 
-    /* Hack -- remove tracked monster */
+    /* Remove tracked monster */
     if (source_equal(health_who, who)) health_track(p->upkeep, NULL);
 
-    /* Hack -- one less slave */
+    /* One less slave */
     if (p->id == mon->master) p->slaves--;
 }
 
@@ -883,7 +883,7 @@ void wipe_mon_list(struct chunk *c)
 
             clear_vis(p, &c->wpos, m_idx);
 
-            /* Hack -- one less slave */
+            /* One less slave */
             if (p->id == mon->master) p->slaves--;
         }
 
@@ -921,10 +921,10 @@ void wipe_mon_list(struct chunk *c)
         /* If he's not here, skip him */
         if (!wpos_eq(&p->wpos, &c->wpos)) continue;
 
-        /* Hack -- no more target */
+        /* No more target */
         target_set_monster(p, NULL);
 
-        /* Hack -- no more tracking */
+        /* No more tracking */
         health_track(p->upkeep, NULL);
     }
 }
@@ -1086,7 +1086,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
     gold_ok = !rf_has(effective_race->flags, RF_ONLY_ITEM);
     item_ok = !rf_has(effective_race->flags, RF_ONLY_GOLD);
 
-    /* Hack -- inscribe items that a unique drops */
+    /* Inscribe items that a unique drops */
     if (monster_is_unique(mon)) quark = quark_add(effective_race->name);
 
     /* Determine how much we can drop */
@@ -1156,7 +1156,7 @@ static bool mon_create_drop(struct player *p, struct chunk *c, struct monster *m
             obj = object_new();
             object_prep(p, c, obj, drop->kind, level, RANDOMISE);
 
-            /* Hack -- "Nine rings for mortal men doomed to die" */
+            /* "Nine rings for mortal men doomed to die" */
             if (drop_nazgul)
             {
                 /* Only if allowed */
@@ -1244,7 +1244,7 @@ void mon_create_mimicked_object(struct player *p, struct chunk *c, struct monste
     struct object_kind *kind = NULL;
     bool dummy = true;
 
-    /* Hack -- random mimics */
+    /* Random mimics */
     if (mon->race->base == lookup_monster_base("random mimic"))
     {
         /* Random symbol from object set */
@@ -1277,7 +1277,7 @@ void mon_create_mimicked_object(struct player *p, struct chunk *c, struct monste
         }
     }
 
-    /* Hack -- object mimics */
+    /* Object mimics */
     else if (mon->race->mimic_kinds)
     {
         struct monster_mimic *mimic_kind;
@@ -1446,7 +1446,7 @@ int16_t place_monster(struct player *p, struct chunk *c, struct monster *mon, ui
     /* Make mimics start mimicking */
     mon_create_mimicked_object(p, c, new_mon, m_idx);
 
-    /* Hack -- feature mimics */
+    /* Feature mimics */
     if (new_mon->race->base == lookup_monster_base("feature mimic"))
     {
         /* Save original feature */
@@ -1552,10 +1552,10 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
     /* No creation on glyphs */
     if (square_trap_flag(c, grid, TRF_GLYPH)) return false;
 
-    /* Hack -- no creation inside houses */
+    /* No creation inside houses */
     if (town_area(&c->wpos) && square_isvault(c, grid)) return false;
 
-    /* Hack -- check if monster race can be generated at that location */
+    /* Check if monster race can be generated at that location */
     if (!allow_race(race, &c->wpos)) return false;
     
     // allow water + monster-swimmer
@@ -1677,7 +1677,7 @@ static bool place_new_monster_one(struct player *p, struct chunk *c, struct loc 
     else
         mflag_off(mon->mflag, MFLAG_CAMOUFLAGE);
 
-    /* Hack -- increase the number of clones */
+    /* Increase the number of clones */
     if (mon_flag & MON_CLONE) mon->clone = 1;
 
     /* Set the group info */

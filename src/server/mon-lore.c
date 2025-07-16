@@ -990,7 +990,7 @@ void lore_append_movement(struct player *p, const struct monster_race *race,
         /* Adjective */
         text_out(p, " erratically");
 
-        /* Hack -- occasional conjunction */
+        /* Occasional conjunction */
         if (race->speed != 110) text_out(p, ", and");
     }
 
@@ -1650,10 +1650,10 @@ void get_global_lore(struct player *p, const struct monster_race *race,
     struct monster_lore *lp_ptr = get_lore(p, race);
     const struct monster_lore *lm_ptr = &race->lore;
 
-    /* Hack -- create a copy of the monster memory (player) */
+    /* Create a copy of the monster memory (player) */
     memcpy(lore, lp_ptr, sizeof(struct monster_lore));
 
-    /* Hack -- allocate space for the monster lore, copy again */
+    /* Allocate space for the monster lore, copy again */
     lore->blows = mem_zalloc(z_info->mon_blows_max * sizeof(uint8_t));
     memcpy(lore->blows, lp_ptr->blows, z_info->mon_blows_max * sizeof(uint8_t));
     lore->blow_known = mem_zalloc(z_info->mon_blows_max * sizeof(bool));

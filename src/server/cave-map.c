@@ -394,7 +394,7 @@ static void cave_unlight(struct chunk *c, struct point_set *ps)
                     square_memorize(p, c, &grid);
             }
 
-            /* Hack -- forget "boring" grids */
+            /* Forget "boring" grids */
             if (square_isview(p, &grid) && !square_isnormal(c, &grid))
                 square_forget(p, &grid);
         }
@@ -484,7 +484,7 @@ void wiz_light(struct player *p, struct chunk *c, int mode)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    /* Hack -- DM has full detection */
+    /* DM has full detection */
     if (p->dm_flags & DM_SEE_LEVEL) mode = 1;
 
     loc_init(&begin, 1, 1);
@@ -569,7 +569,7 @@ void wiz_dark(struct player *p, struct chunk *c, bool full)
     struct loc begin, end;
     struct loc_iterator iter;
 
-    /* Hack -- DM has full detection */
+    /* DM has full detection */
     if (p->dm_flags & DM_SEE_LEVEL) full = true;
 
     loc_init(&begin, 1, 1);

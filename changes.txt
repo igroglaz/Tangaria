@@ -54,6 +54,8 @@ Angband 4.2.x:
 
 - Avoid warnings on msys2 about truncation when initializing array from string
 - Better match death logic for projections or non-player hits to mon_take_hit()
+- Regularize score array after reading it
+- Remove some 'Hack' comments
 
 Compilation/documentation
 -------------------------
@@ -63,6 +65,8 @@ Angband 4.2.x:
 - Fix missing word in the documentation about configuring SDL2
 - Correct some typos in comments
 - Dev How It Works documentation: command queue
+- Dev How It Works documentation: Monster AI
+- Dev How It Works documentation: Pref Files
 
 Features in PWMAngband 1.6.2 build 1
 ====================================

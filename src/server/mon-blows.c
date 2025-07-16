@@ -473,7 +473,7 @@ static void melee_effect_timed(melee_effect_handler_context_t *context, int type
         {
             context->obvious = true;
 
-            /* Hack -- make level 1 monsters who paralyze also blink */
+            /* Make level 1 monsters who paralyze also blink */
             if (paralyze && context->mon->race->level == 1 && one_in_(7)) context->blinked = 1;
         }
     }
@@ -1268,7 +1268,7 @@ static void melee_effect_handler_SHATTER(melee_effect_handler_context_t *context
     /* Obvious */
 	context->obvious = true;
 
-    /* Hack -- reduce damage based on the player armor class */
+    /* Reduce damage based on the player armor class */
     context->damage = adjust_dam_armor(context->damage, context->ac);
 
     /* MvM */

@@ -60,7 +60,7 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
         attr = ((j == highlight)? 'G': 'w');
 
         /* Hack -- indicate winners in purple */
-        if (streq(score->how, "winner")) attr = 'v';
+        if (streq(score->how, WINNING_HOW)) attr = 'v';
 
         /* Extract the race/class */
         c = player_id2class(atoi(score->p_c));
@@ -89,7 +89,7 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
         file_putf(fff, "%c%s\n", attr, out_val);
 
         /* Died where? */
-        if (streq(score->how, "winner"))
+        if (streq(score->how, WINNING_HOW))
             strnfmt(out_val, sizeof(out_val), "Retired after a legendary career");
         else if (streq(score->how, "Retiring"))
             strnfmt(out_val, sizeof(out_val), "Retired prematurely");

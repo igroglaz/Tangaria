@@ -186,7 +186,7 @@ static void remove_bad_spells(struct player *p, struct chunk *c, struct monster 
     bitflag f2[RSF_SIZE];
     int tdist;
 
-    /* Hack -- MvM */
+    /* MvM */
     if (!p) return;
 
     monster_get_target_dist_grid(c, mon, mon->cdis, &tdist, NULL, NULL);
@@ -347,7 +347,7 @@ static int monster_spell_failrate(struct monster *mon, int thrown_spell)
 
     if (failrate < 0) failrate = 0;
 
-    /* Hack -- pets/slaves will be unlikely to summon */
+    /* Pets/slaves will be unlikely to summon */
     if (mon->master && is_spell_summon(thrown_spell)) failrate = 95;
 
     return failrate;
@@ -630,7 +630,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
         note_dies = MON_MSG_DESTROYED;
     }
 
-    /* Hack -- don't attack shoppers */
+    /* Don't attack shoppers */
     if (in_store(who->player)) return false;
 
     /* Not allowed to attack */
@@ -702,7 +702,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
             /* Always disturbing */
             disturb(who->player, 0);
 
-            /* Hack -- apply "protection from evil" */
+            /* Apply "protection from evil" */
             if ((who->player->timed[TMD_PROTEVIL] > 0) && !who->monster)
             {
                 /* Learn about the evil flag */
@@ -714,7 +714,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
                     /* Message */
                     msg(who->player, "%s is repelled.", m_name);
 
-                    /* Hack -- next attack */
+                    /* Next attack */
                     continue;
                 }
             }
@@ -724,7 +724,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
             if (!who->monster) flav = method->flavor;
             if (!flav) flav = "killed";
 
-            /* Hack -- assume all attacks are obvious */
+            /* Assume all attacks are obvious */
             obvious = true;
 
             /* Roll dice */
@@ -788,7 +788,7 @@ bool make_attack_normal(struct monster *mon, struct source *who)
             /* Handle effects (only if not dead) */
             if (!dead)
             {
-                /* Hack -- only one of cut or stun */
+                /* Only one of cut or stun */
                 if (do_cut && do_stun)
                 {
                     /* Cancel cut */

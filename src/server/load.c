@@ -612,10 +612,10 @@ int rd_player(struct player *p)
     rd_s16b(&p->max_lev);
     rd_s16b(&p->max_depth);
 
-    /* Hack -- repair maximum player level */
+    /* Repair maximum player level */
     if (p->max_lev < p->lev) p->max_lev = p->lev;
 
-    /* Hack -- repair maximum dungeon level */
+    /* Repair maximum dungeon level */
     if (p->max_depth < 0) p->max_depth = 0;
 
     wpos_init(&p->recall_wpos, &p->wpos.grid, p->max_depth);
@@ -733,7 +733,7 @@ int rd_player_misc(struct player *p)
     /* Read "death" */
     rd_bool(&p->is_dead);
 
-    /* Hack -- reset cause of death */
+    /* Reset cause of death */
     if (!p->is_dead && (p->chp >= 0))
         my_strcpy(p->died_from, "(alive and well)", sizeof(p->died_from));
 
@@ -1492,7 +1492,7 @@ static bool rd_monster_aux(struct chunk *c, struct monster *mon, rd_item_t rd_it
     rd_byte(&mon->mspeed);
     rd_s32b(&mon->energy);
 
-    /* Hack -- save previous monster location */
+    /* Save previous monster location */
     loc_copy(&mon->old_grid, &mon->grid);
 
     rd_byte(&tmp8u);
@@ -1607,7 +1607,7 @@ static int rd_monsters_aux(struct chunk *c)
     /* Read the monster count */
     rd_u16b(&limit);
 
-    /* Hack -- verify */
+    /* Verify */
     if (limit > z_info->level_monster_max)
     {
         plog_fmt("Too many (%d) monster entries!", limit);
@@ -1867,7 +1867,7 @@ int rd_null(struct player *unused)
 
 
 /*
- * Hack -- read basic player info
+ * Read basic player info
  */
 int rd_header(struct player *p)
 {

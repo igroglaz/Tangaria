@@ -221,6 +221,7 @@ SERVER_ANGFILES = \
 	server/project-obj.o \
 	server/project-player.o \
 	server/score.o \
+	server/score-util.o \
 	server/save.o \
 	server/savefile.o \
 	server/store.o \

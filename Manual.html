@@ -148,12 +148,14 @@ h7 {
 </style>
 </head>
 <body>
+<header id="pageheader">
+    <div style="display: flex; align-items: baseline;">
+        <h1>The PWMAngband Manual</h1>
+        <span class="version">v1.6.2</span>
+    </div>
+    <img src="lib/icons/att.svg" style="height: 4rem;">
+</header>
 <div class="document">
-
-
-<pre class="literal-block">
-# Delete this section and add the \docs\_templates\layout.html code just after the &lt;body&gt; tag
-</pre>
 <div class="section" id="welcome-to-pwmangband">
 <h1><a class="toc-backref" href="#id18">1&nbsp;&nbsp;&nbsp;Welcome to PWMAngband</a></h1>
 <p>PWMAngband is a complex multiplayer dungeon simulation. A player (you!)
@@ -471,18 +473,19 @@ experiences. Don't be shy!</p>
 <li><a class="reference internal" href="#keeping-the-ui-up-to-date" id="id243">5.4.6.11&nbsp;&nbsp;&nbsp;Keeping the UI up to date</a></li>
 <li><a class="reference internal" href="#game-world-c-process-world" id="id244">5.4.6.12&nbsp;&nbsp;&nbsp;game-world.c - process_world()</a></li>
 <li><a class="reference internal" href="#dungeon-generation" id="id245">5.4.6.13&nbsp;&nbsp;&nbsp;Dungeon Generation</a></li>
+<li><a class="reference internal" href="#monster-ai" id="id246">5.4.6.14&nbsp;&nbsp;&nbsp;Monster AI</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#documentation-on-documentation" id="id246">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a><ul class="auto-toc">
-<li><a class="reference internal" href="#conventions" id="id247">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a><ul class="auto-toc">
-<li><a class="reference internal" href="#markup-for-sectioning" id="id248">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></li>
-<li><a class="reference internal" href="#blank-and-spaces" id="id249">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></li>
+<li><a class="reference internal" href="#documentation-on-documentation" id="id247">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a><ul class="auto-toc">
+<li><a class="reference internal" href="#conventions" id="id248">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a><ul class="auto-toc">
+<li><a class="reference internal" href="#markup-for-sectioning" id="id249">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></li>
+<li><a class="reference internal" href="#blank-and-spaces" id="id250">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#inline-help-parser-syntax" id="id250">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></li>
-<li><a class="reference internal" href="#tricks" id="id251">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></li>
+<li><a class="reference internal" href="#inline-help-parser-syntax" id="id251">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></li>
+<li><a class="reference internal" href="#tricks" id="id252">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></li>
 </ul>
 </li>
 </ul>
@@ -9172,7 +9175,15 @@ static data arrays (see <a class="reference internal" href="#the-static-data">Th
 </div>
 <div class="section" id="pref-files">
 <h4><a class="toc-backref" href="#id230">5.4.5.2&nbsp;&nbsp;&nbsp;Pref Files</a></h4>
-<p>TBD</p>
+<p>Pref files (preference files) are simple text files used to customize the user
+interface and gameplay experience. Pref files are loaded at startup from both
+system and user locations, with user files overriding defaults. The loading of
+individual pref files is handled in <tt class="docutils literal"><span class="pre">ui-prefs.c</span></tt>. The specific order in
+which global and character-specific files are applied is determined by the
+sequence of <tt class="docutils literal">process_pref_file()</tt> calls in various parts of the code, such as
+<tt class="docutils literal"><span class="pre">ui-init.c</span></tt> and <tt class="docutils literal"><span class="pre">ui-display.c</span></tt>. For details on what can be customized, file
+locations on different platforms, and how to edit or create pref files, see
+<cite>User Pref Files</cite>.</p>
 </div>
 <div class="section" id="savefiles">
 <h4><a class="toc-backref" href="#id231">5.4.5.3&nbsp;&nbsp;&nbsp;Savefiles</a></h4>
@@ -9360,18 +9371,38 @@ features will have already been added through some of the types of rooms.</p>
 Many of them have portions that are caverns or labyrinths. Those are generated
 using cavern_chunk() or labyrinth_chunk(), respectively, in gen-cave.c.</p>
 </div>
+<div class="section" id="monster-ai">
+<h4><a class="toc-backref" href="#id246">5.4.6.14&nbsp;&nbsp;&nbsp;Monster AI</a></h4>
+<p>Monster AI determines how monsters act each turn. The logic is primarily
+implemented in <tt class="docutils literal"><span class="pre">mon-move.c</span></tt>, <tt class="docutils literal"><span class="pre">mon-attack.c</span></tt>, and <tt class="docutils literal"><span class="pre">cave-map.c</span></tt>.
+<a class="reference internal" href="#mon-move-c-process-monsters">mon-move.c - process_monsters()</a> is called in the main game loop.</p>
+<p>On its turn, a monster will:</p>
+<ol class="arabic simple">
+<li>Regenerate HP and recover from timed effects</li>
+<li>Attempt to multiply (if possible)</li>
+<li>Attempt to cast a spell or use a ranged attack</li>
+<li>Try to move towards the player</li>
+</ol>
+<p>Pathfinding uses a &quot;flow&quot; system implemented in <tt class="docutils literal"><span class="pre">cave-map.c</span></tt>. Each grid
+stores a <tt class="docutils literal">noise</tt> value (distance from the player) and a <tt class="docutils literal">scent</tt> value
+(recentness of information). Monsters follow the lowest noise value towards
+the player, using scent to break ties. One set of flow information is used for
+all monsters. It is efficient but means that monsters that can't open or bash
+down doors, or otherwise deal with obstacles, will find it impossible to flow
+around them and find a different way to the player.</p>
+</div>
 </div>
 </div>
 <div class="section" id="documentation-on-documentation">
-<h2><a class="toc-backref" href="#id246">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a></h2>
+<h2><a class="toc-backref" href="#id247">5.5&nbsp;&nbsp;&nbsp;Documentation on documentation</a></h2>
 <p>Documentation is now written in ReStructuredText, a lightweight and
 readable markup language designed for Python.</p>
 <div class="section" id="conventions">
-<h3><a class="toc-backref" href="#id247">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a></h3>
+<h3><a class="toc-backref" href="#id248">5.5.1&nbsp;&nbsp;&nbsp;Conventions</a></h3>
 <p>ReStructuredText leaves much freedom in the syntax - in our help files we
 try to stick to consistent conventions as in the following.</p>
 <div class="section" id="markup-for-sectioning">
-<h4><a class="toc-backref" href="#id248">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></h4>
+<h4><a class="toc-backref" href="#id249">5.5.1.1&nbsp;&nbsp;&nbsp;Markup for sectioning</a></h4>
 <pre class="literal-block">
 ==============
 Document title
@@ -9388,13 +9419,13 @@ Subsection title
 </pre>
 </div>
 <div class="section" id="blank-and-spaces">
-<h4><a class="toc-backref" href="#id249">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></h4>
+<h4><a class="toc-backref" href="#id250">5.5.1.2&nbsp;&nbsp;&nbsp;Blank and spaces</a></h4>
 <p>One blank line before and after every paragraph.
 Two-char indent in definition lists.</p>
 </div>
 </div>
 <div class="section" id="inline-help-parser-syntax">
-<h3><a class="toc-backref" href="#id250">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></h3>
+<h3><a class="toc-backref" href="#id251">5.5.2&nbsp;&nbsp;&nbsp;Inline help parser syntax</a></h3>
 <p>As to the time when this documentation was last updated, the online help
 parser programmed into PWMAngband does the following:</p>
 <ul class="simple">
@@ -9411,7 +9442,7 @@ with the following format (<tt class="docutils literal">g</tt> is the hotkey her
 </pre>
 </div>
 <div class="section" id="tricks">
-<h3><a class="toc-backref" href="#id251">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></h3>
+<h3><a class="toc-backref" href="#id252">5.5.3&nbsp;&nbsp;&nbsp;Tricks</a></h3>
 <p>Sometimes it is tricky to get a thing to display in the correct way in both
 the online help and the compiled RST. This is often due to the complex
 interaction between backslashes and backticks in RST. In particular, in

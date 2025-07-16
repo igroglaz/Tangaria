@@ -444,7 +444,7 @@ keymap-input:0:[Delete]
 keymap-input:0:{K}[Delete]
 keymap-input:0:{MK}[Delete]
 
-# Hack -- Swap equipment
+# Swap equipment
 keymap-act:w0
 keymap-input:0:x
 

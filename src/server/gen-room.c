@@ -498,7 +498,7 @@ static void generate_hole(struct chunk *c, int y1, int x1, int y2, int x2, int f
 
 /*
  * True if the square is normal open floor.
- * Hack -- that floor may contain a feature mimic!
+ * That floor may contain a feature mimic!
  *
  * c the current chunk
  * grid the square grid
@@ -1057,7 +1057,7 @@ bool mon_pit_hook(struct monster_race *race)
     /* Decline NO_PIT monsters */
     if (rf_has(race->flags, RF_NO_PIT)) return false;
 
-    /* Hack -- decline PWMANG_BASE dragons */
+    /* Decline PWMANG_BASE dragons */
     if (rf_has(race->flags, RF_DRAGON) && rf_has(race->flags, RF_PWMANG_BASE)) return false;
 
     if (!rf_is_subset(race->flags, dun->pit_type->flags)) return false;
@@ -1122,7 +1122,7 @@ void set_pit_type(int depth, int type)
     int i;
     struct pit_profile *pit_type = NULL;
 
-    /* Hack -- set initial distance large */
+    /* Set initial distance large */
     int pit_dist = 999;
 
     for (i = 0; i < z_info->pit_max; i++)
@@ -1537,7 +1537,7 @@ bool build_vault(struct player *p, struct chunk *c, struct loc *centre, struct v
     loc_init(&end, x2, y2);
     loc_iterator_first(&iter, &begin, &end);
 
-    /* Hack -- don't generate if we go out of bounds or if there is already something there */
+    /* Don't generate if we go out of bounds or if there is already something there */
     do
     {
         /* Be sure we are "in bounds" */
@@ -1922,7 +1922,7 @@ static bool build_vault_type(struct player *p, struct chunk *c, struct loc *cent
 
     if (v == NULL) return false;
 
-    /* Hack -- medium vaults with a high rating have a rarity of (rating / 10) */
+    /* Medium vaults with a high rating have a rarity of (rating / 10) */
     if (streq(v->typ, "Medium vault") && !one_in_(v->rat / 10)) return false;
 
     /* Build the vault */
@@ -2137,7 +2137,7 @@ bool build_circular(struct player *p, struct chunk *c, struct loc *centre, int r
         }
     }
 
-    /* Hack -- DF_CIRCULAR_ROOMS dungeons and arena levels use the old method */
+    /* DF_CIRCULAR_ROOMS dungeons and arena levels use the old method */
     if (c->gen_hack || (c->profile == dun_arena))
     {
         /* Generate outer walls and inner floors */

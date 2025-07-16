@@ -56,7 +56,7 @@ struct loc ddgrid_ddd[9] =
 
 
 /*
- * Hack -- precompute a bunch of calls to distance().
+ * Precompute a bunch of calls to distance().
  *
  * The pair of arrays dist_offsets_y[n] and dist_offsets_x[n] contain the
  * offsets of all the locations with a distance of n from a central point,

@@ -105,7 +105,7 @@
 #include "..\win\readdib.h"
 
 /*
- * Hack -- fake declarations from "dos.h" XXX XXX XXX
+ * Fake declarations from "dos.h" XXX XXX XXX
  */
 #define INVALID_FILE_NAME (DWORD)0xFFFFFFFF
 
@@ -161,7 +161,7 @@
 #define DEFAULT_FONT	"8X12x.FON"
 
 /*
- * Hack -- resizing
+ * Resizing
  */
 static bool resizing;
 
@@ -171,12 +171,12 @@ static bool resizing;
 static term_data data[MAX_TERM_DATA];
 
 /*
- * Hack -- global "window creation" pointer
+ * Global "window creation" pointer
  */
 static term_data *my_td;
 
 /*
- * Hack -- global edit control handle
+ * Global edit control handle
  */
 static HWND editmsg;
 static HWND old_focus = NULL;
@@ -350,7 +350,7 @@ static void show_win_error(void)
 
 
 /*
- * Hack -- given a simple filename, extract the "font size" info
+ * Given a simple filename, extract the "font size" info
  *
  * Return a pointer to a static buffer holding the capitalized base name.
  */
@@ -1217,7 +1217,7 @@ static errr term_force_font(term_data *td, const char *path)
     td->font_id = CreateFont(hgt, wid, 0, 0, FW_DONTCARE, 0, 0, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FIXED_PITCH | FF_DONTCARE, base);
 
-    /* Hack -- unknown size */
+    /* Unknown size */
     if (!wid || !hgt)
     {
         HDC hdcDesktop;
@@ -1264,7 +1264,7 @@ static void force_font(term_data *td, char *tmp, int len)
         td->tile_wid = td->font_wid;
         td->tile_hgt = td->font_hgt;
 
-        /* Hack -- assume bizarre */
+        /* Assume bizarre */
         td->bizarre = true;
     }
 
@@ -1326,7 +1326,7 @@ static void windows_map_aux(void);
 
 
 /*
- * Hack -- redraw a term_data
+ * Redraw a term_data
  */
 static void term_data_redraw(term_data *td)
 {
@@ -1350,7 +1350,7 @@ static void term_data_redraw(term_data *td)
 
 
 /*
- * Hack -- redraw a term_data
+ * Redraw a term_data
  */
 static void term_data_redraw_section(term_data *td, int x1, int y1, int x2, int y2)
 {
@@ -1457,7 +1457,7 @@ static errr Term_xtra_win_react(int v)
 
         if (arg_graphics_nice)
         {
-            /* Hack -- assume bizarre */
+            /* Assume bizarre */
             td->bizarre = true;
 
 			/* Analyze the font */
@@ -1471,7 +1471,7 @@ static errr Term_xtra_win_react(int v)
 		reset_visuals(true);
     }
 
-    /* Hack -- loading prefs */
+    /* Loading prefs */
     if (!initialized) return (0);
 
     /* Clean up windows */
@@ -1486,7 +1486,7 @@ static errr Term_xtra_win_react(int v)
             /* Activate */
             Term_activate(&td->t);
 
-            /* Hack -- resize the term */
+            /* Resize the term */
             Term_resize(td->cols, td->rows, td->rows);
 
             /* Redraw the contents */
@@ -1548,7 +1548,7 @@ static errr Term_xtra_win_flush(void)
         DispatchMessage(&msg);
     }
 
-    /* Hack -- resize the main window here */
+    /* Resize the main window here */
     if (resizing)
     {
         term_data *td = &data[0];
@@ -1595,7 +1595,7 @@ static errr Term_xtra_win_flush(void)
 
 
 /*
- * Hack -- clear the screen
+ * Clear the screen
  *
  * Make this more efficient XXX XXX XXX
  */
@@ -2978,7 +2978,7 @@ static void process_menus(WORD wCmd)
 
 			if (arg_graphics_nice)
 			{
-                /* Hack -- force redraw */
+                /* Force redraw */
                 Term_key_push(KTRL('R'));
 			}
 
@@ -3150,7 +3150,7 @@ static void process_menus(WORD wCmd)
 
             td = &data[0];
 
-            /* Hack -- assume bizarre */
+            /* Assume bizarre */
             td->bizarre = true;
 
             /* Analyze the font */
@@ -3705,7 +3705,7 @@ static LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
                         td->cols = cols;
                         td->rows = rows;
 
-                        /* Hack -- resize the main window later */
+                        /* Resize the main window later */
                         if (td == &data[0])
                         {
                             resizing = true;
@@ -3937,7 +3937,7 @@ static LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg, WPARAM wParam, L
                     stretch_chat_ctrl_win(wid, hgt);
                 }
 
-                /* Hack -- redraw all windows */
+                /* Redraw all windows */
                 if (Setup.initialized) do_cmd_redraw();
             }
 
@@ -4199,7 +4199,7 @@ static void init_stuff_win(void)
     /* Init the file paths */
     init_file_paths(path, path, path);
 
-    /* Hack -- validate the paths */
+    /* Validate the paths */
     validate_dir(ANGBAND_DIR_CUSTOMIZE);
     validate_dir(ANGBAND_DIR_SCREENS);
     validate_dir(ANGBAND_DIR_FONTS);
@@ -4212,7 +4212,7 @@ static void init_stuff_win(void)
     /* Build the filename */
     path_build(path, sizeof(path), ANGBAND_DIR_FONTS, DEFAULT_FONT);
 
-    /* Hack -- validate the basic font */
+    /* Validate the basic font */
     validate_file(path);
 }
 
@@ -4321,7 +4321,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, in
 }
 
 
-/* Hack -- edit control subclass */
+/* Edit control subclass */
 static LRESULT APIENTRY SubClassFunc(HWND hWnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
     char pmsgbuf[1000]; /* overkill */
@@ -4381,7 +4381,7 @@ static LRESULT APIENTRY SubClassFunc(HWND hWnd, UINT Message, WPARAM wParam, LPA
 /*** Externs ***/
 
 
-/* Hack -- set focus to chat message control */
+/* Set focus to chat message control */
 void set_chat_focus(void)
 {
     old_focus = GetFocus();

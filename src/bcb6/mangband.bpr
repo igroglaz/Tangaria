@@ -46,10 +46,10 @@
       ..\..\obj\project.obj ..\..\obj\project-feat.obj ..\..\obj\project-mon.obj 
       ..\..\obj\project-obj.obj ..\..\obj\project-player.obj ..\..\obj\save.obj 
       ..\..\obj\savefile.obj ..\..\obj\sched-win.obj ..\..\obj\score.obj 
-      ..\..\obj\score-ui.obj ..\..\obj\store.obj ..\..\obj\s-util.obj 
-      ..\..\obj\target.obj ..\..\obj\target-ui.obj ..\..\obj\trap.obj 
-      ..\..\obj\visuals-ui.obj ..\..\obj\wilderness.obj ..\..\obj\z-quark.obj 
-      ..\..\obj\z-queue.obj ..\..\obj\z-textblock.obj"/>
+      ..\..\obj\score-ui.obj ..\..\obj\score-util.obj ..\..\obj\store.obj 
+      ..\..\obj\s-util.obj ..\..\obj\target.obj ..\..\obj\target-ui.obj 
+      ..\..\obj\trap.obj ..\..\obj\visuals-ui.obj ..\..\obj\wilderness.obj 
+      ..\..\obj\z-quark.obj ..\..\obj\z-queue.obj ..\..\obj\z-textblock.obj"/>
     <RESFILES value="mangband.res ..\..\obj\angband.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -59,7 +59,7 @@
     <LIBRARIES value="rtl.lib"/>
     <SPARELIBS value="rtl.lib"/>
     <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi"/>
-    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server"/>
+    <PATHCPP value=".;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\common;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server;..\server"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;..\win;..\win"/>
     <PATHASM value=".;"/>
@@ -212,6 +212,7 @@
       <FILE FILENAME="..\server\sched-win.c" FORMNAME="" UNITNAME="sched-win.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\server\score.c" FORMNAME="" UNITNAME="score" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\server\score-ui.c" FORMNAME="" UNITNAME="score-ui" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\server\score-util.c" FORMNAME="" UNITNAME="score-util" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\server\store.c" FORMNAME="" UNITNAME="store.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\server\s-util.c" FORMNAME="" UNITNAME="s-util.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="..\server\target.c" FORMNAME="" UNITNAME="target" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>

@@ -12,6 +12,11 @@
 #define MAX_HISCORES    100
 
 /*
+ * What the how field of a score record or died_from field of struct player contains for a winner
+ */
+#define WINNING_HOW "winner"
+
+/*
  * Semi-Portable High Score List Entry (128 bytes)
  *
  * All fields listed below are null terminated ascii strings.
@@ -40,13 +45,17 @@ struct high_score
     char how[32];       /* Method of death (string) */
 };
 
+/* score.c */
 extern size_t highscore_read(struct high_score scores[], size_t sz);
-extern size_t highscore_where(const struct high_score *entry, const struct high_score scores[],
-    size_t sz);
 extern size_t highscore_add(const struct high_score *entry, struct high_score scores[], size_t sz);
 extern void build_score(struct player *p, struct high_score *entry, const char *died_from,
     time_t *death_time);
 extern void enter_score(struct player *p, time_t *death_time);
 extern long total_points(struct player *p, int32_t max_exp, int16_t max_depth);
+
+/* score-util.c */
+extern bool highscore_regularize(struct high_score scores[], size_t sz);
+extern size_t highscore_where(const struct high_score *entry, const struct high_score scores[],
+    size_t sz);
 
 #endif /* INCLUDED_SCORE_H */

@@ -101,7 +101,7 @@ static void free_file_paths(void)
  * by the user) will NOT end in the "PATH_SEP" string, see the special
  * "path_build()" function in "util.c" for more information.
  *
- * Hack -- first we free all the strings, since this is known
+ * First we free all the strings, since this is known
  * to succeed even if the strings have not been allocated yet,
  * as long as the variables start out as "NULL".  This allows
  * this function to be called multiple times, for example, to
@@ -271,7 +271,7 @@ void init_stuff(void)
     my_strcpy(libpath, DEFAULT_LIB_PATH, sizeof(libpath));
     my_strcpy(datapath, DEFAULT_DATA_PATH, sizeof(datapath));
 #endif
-    /* Hack -- add a path separator (only if needed) */
+    /* Add a path separator (only if needed) */
     if (!suffix(configpath, PATH_SEP))
         my_strcat(configpath, PATH_SEP, sizeof(configpath));
     if (!suffix(libpath, PATH_SEP))
@@ -326,7 +326,7 @@ static void input_callback_end(bool inmap)
 
     if (!inmap) return;
 
-    /* Hack -- don't redraw the screen until we have all of it */
+    /* Don't redraw the screen until we have all of it */
     if (last_line_info != -1) return;
 
     /* Flush input (now!) */
@@ -558,7 +558,7 @@ void client_init(bool new_game, int argc, char **argv)
     intro = conf_get_int("MAngband", "IntroMusic", 0);
     if (intro)
     {
-        /* Hack -- set location to "intro" */
+        /* Set location to "intro" */
         my_strcpy(player->locname, "intro", sizeof(player->locname));
 
         play_intro_music();
@@ -596,12 +596,12 @@ void client_init(bool new_game, int argc, char **argv)
         /* Get account name and pass */
         get_account_name();
 
-        /* Hack -- save account name */
+        /* Save account name */
         my_strcpy(account, nick, sizeof(account));
     }
     else
     {
-        /* Hack -- restore account name */
+        /* Restore account name */
         my_strcpy(nick, account, sizeof(nick));
     }
 
@@ -763,7 +763,7 @@ void client_init(bool new_game, int argc, char **argv)
     /* Main loop */
     Input_loop();
 
-    /* Hack -- restart game without quitting */
+    /* Restart game without quitting */
     if (play_again)
     {
         play_again = false;

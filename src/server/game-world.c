@@ -23,7 +23,7 @@
 
 bool server_generated;      /* The server exists */
 bool server_state_loaded;   /* The server state was loaded from a savefile */
-uint32_t seed_flavor;       /* Hack -- consistent object colors */
+uint32_t seed_flavor;       /* Consistent object colors */
 hturn turn;                 /* Current game turn */
 
 
@@ -520,7 +520,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
 
             case TMD_WRAITHFORM:
             {
-                /* Hack -- must be in bounds */
+                /* Must be in bounds */
                 if (!chunk_has_players(&c->wpos) || !square_in_bounds_fully(c, &p->grid))
                     decr = 0;
                 break;
@@ -534,7 +534,7 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             }
         }
 
-        /* Hack -- make -1 permanent */
+        /* Make -1 permanent */
         if (p->timed[i] == -1) decr = 0;
 
         /* Decrement the effect */
@@ -668,7 +668,7 @@ static void process_world(struct player *p, struct chunk *c)
         dusk_or_dawn(p, c, dawn);
     }
 
-    /* Hack -- DM redesigning the level */
+    /* DM redesigning the level */
     if (chunk_inhibit_players(&p->wpos)) return;
 
     /* Every ten turns */
@@ -933,7 +933,7 @@ static void process_player_world(struct player *p, struct chunk *c)
 {
     int i;
 
-    /* Hack -- fade monster detect over time (unless looking around) */
+    /* Fade monster detect over time (unless looking around) */
     for (i = 1; i < cave_monster_max(c); i++)
     {
         if (p->locating) continue;
@@ -950,7 +950,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
 
-    /* Hack -- fade player detect over time (unless looking around) */
+    /* Fade player detect over time (unless looking around) */
     for (i = 1; i <= NumPlayers; i++)
     {
         if (p->locating) continue;
@@ -967,7 +967,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         }
     }
 
-    /* Hack -- semi-constant hallucination (but not in stores) */
+    /* Semi-constant hallucination (but not in stores) */
     if ((p->timed[TMD_IMAGE] || p->timed[TMD_IMAGE_REAL]) && !in_store(p))
             p->upkeep->redraw |= (PR_MAP);
 
@@ -1193,7 +1193,7 @@ static void process_player_world(struct player *p, struct chunk *c)
             msg(p, "You faint from the lack of food.");
             disturb(p, 0);
 
-            /* Hack -- faint (bypass free action) */
+            /* Faint (bypass free action) */
             player_inc_timed(p, TMD_PARALYZED, 1 + randint0(5), true, false);
         }
     }
@@ -1542,11 +1542,11 @@ static void process_player_world(struct player *p, struct chunk *c)
         /* Activate the recall */
         if (!p->word_recall)
         {
-            /* Hack -- no recall if in a shop, or under the influence of space/time anchor */
+            /* No recall if in a shop, or under the influence of space/time anchor */
             if (in_store(p) || check_st_anchor(&p->wpos, &p->grid))
                 p->word_recall++;
 
-            /* Hack -- no recall if waiting for confirmation */
+            /* No recall if waiting for confirmation */
             else if (p->current_value == ITEM_PENDING)
                 p->word_recall++;
 
@@ -1565,7 +1565,7 @@ static void process_player_world(struct player *p, struct chunk *c)
         /* Activate the descent */
         if (!p->deep_descent)
         {
-            /* Hack -- not if in a shop, or under the influence of space/time anchor */
+            /* Not if in a shop, or under the influence of space/time anchor */
             if (in_store(p) || check_st_anchor(&p->wpos, &p->grid))
                 p->deep_descent++;
             else
@@ -1644,7 +1644,7 @@ static void process_player_cleanup(struct player *p)
     /* Notice stuff */
     notice_stuff(p);
 
-    /* Hack -- pack overflow */
+    /* Pack overflow */
     pack_overflow(p, c, NULL);
 
     /* Determine basic frequency of regen in game turns, then scale by players local time bubble */
@@ -1720,7 +1720,7 @@ static void process_player_cleanup(struct player *p)
             p->upkeep->redraw |= (PR_MONSTER);
         }
 
-        /* Hack -- save blow states, nullify */
+        /* Save blow states, nullify */
         blows = lore.blows;
         current_blows = p->current_lore.blows;
         blow_known = lore.blow_known;
@@ -1737,7 +1737,7 @@ static void process_player_cleanup(struct player *p)
             p->upkeep->redraw |= (PR_MONSTER);
         }
 
-        /* Hack -- restore blow states */
+        /* Restore blow states */
         lore.blows = blows;
         p->current_lore.blows = current_blows;
         lore.blow_known = blow_known;
@@ -1781,7 +1781,7 @@ static void on_new_level(void)
 {
     int i;
 
-    /* Hack -- reset current sound */
+    /* Reset current sound */
     for (i = 1; i <= NumPlayers; i++) player_get(i)->current_sound = -1;
 
     /*
@@ -1790,7 +1790,7 @@ static void on_new_level(void)
      * the energy given per game turn given the current player speed.
      */
 
-    /* Hack -- reset projection indicator every player turn */
+    /* Reset projection indicator every player turn */
     for (i = 1; i <= NumPlayers; i++)
     {
         struct player *p = player_get(i);
@@ -1832,7 +1832,7 @@ static void on_leave_level(void)
                 if (level_keep_allocated(w_ptr->chunk_list[i])) continue;
 
                 // also exist in admin menu
-                /* Hack -- deallocate custom houses */
+                /* Deallocate custom houses */
                 // ..in T we also do this at dusk_or_dawn() in wipe_old_houses()
                 wipe_custom_houses(&w_ptr->chunk_list[i]->wpos);
 
@@ -2036,7 +2036,7 @@ static void process_various(void)
     /* Update the stores */
     store_update();
 
-    /* Hack -- prevent wilderness monster "buildup" */
+    /* Prevent wilderness monster "buildup" */
     if (!(turn.turn % (10L * z_info->day_length)))
     {
         struct loc grid;
@@ -2099,7 +2099,7 @@ static void process_various(void)
         }
     }
 
-    /* Hack -- prevent surface levels from becoming a "trash dump" */
+    /* Prevent surface levels from becoming a "trash dump" */
     if (!(turn.turn % (10L * z_info->day_length)))
     {
         struct loc grid;
@@ -2139,7 +2139,7 @@ static void process_various(void)
 
                 do
                 {
-                    /* Hack -- skip objects in houses */
+                    /* Skip objects in houses */
                     if (square_isvault(c, &iter.cur) && !square_notrash(c, &iter.cur)) continue;
 
                     obj = square_object(c, &iter.cur);
@@ -2221,7 +2221,7 @@ static void remove_hounds(struct player *p, struct chunk *c)
         /* Paranoia -- skip dead monsters */
         if (!mon->race) continue;
 
-        /* Hack -- skip unique monsters */
+        /* Skip unique monsters */
         if (monster_is_unique(mon)) continue;
 
         /* Skip monsters other than hounds */
@@ -2450,7 +2450,7 @@ static void generate_new_level(struct player *p)
     /* Player gets to go first */
     if (p->upkeep->new_level_method != LEVEL_GHOST) set_energy(p, &p->wpos);
 
-    /* Hack -- enforce illegal panel */
+    /* Enforce illegal panel */
     loc_init(&p->offset_grid, z_info->dungeon_wid, z_info->dungeon_hgt);
 
     /* Determine starting location */
@@ -2515,7 +2515,7 @@ static void generate_new_level(struct player *p)
     /* Place the player */
     place_player(p, c, &grid);
 
-    /* Hack -- final check to ensure player is in bounds */
+    /* Final check to ensure player is in bounds */
     if (!square_in_bounds_fully(c, &p->grid))
     {
         plog_fmt("Unable to place player %s at position (%d,%d)", p->name, p->grid.x, p->grid.y);
@@ -2523,7 +2523,7 @@ static void generate_new_level(struct player *p)
         my_assert(0);
     }
 
-    /* Hack -- player position is valid now */
+    /* Player position is valid now */
     p->placed = true;
 
     /* PWMAngband: give a warning when entering a gauntlet level */
@@ -2629,7 +2629,7 @@ static void energize_player(struct player *p)
     /* Running speeds up time */
     if (p->upkeep->running && allow_running) energy = energy * RUNNING_FACTOR / 100;
 
-    /* Hack -- record that amount for player turn calculation */
+    /* Record that amount for player turn calculation */
     p->charge += energy;
 
     /* Make sure they don't have too much */
@@ -2639,7 +2639,7 @@ static void energize_player(struct player *p)
         p->energy += energy;
     }
 
-    /* Hack -- save the surplus in case we need more due to negative moves */
+    /* Save the surplus in case we need more due to negative moves */
     else if (p->energy + p->extra_energy < energy_per_move(p))
         p->extra_energy += energy;
 
@@ -2653,7 +2653,7 @@ static void energize_player(struct player *p)
             do_cmd_sleep(p);
     }
 
-    /* Hack -- if player has energy and we are in a slow time bubble, blink faster */
+    /* If player has energy and we are in a slow time bubble, blink faster */
     if ((p->bubble_speed < NORMAL_TIME) && (p->blink_speed <= (uint32_t)cfg_fps))
     {
         p->blink_speed = (uint32_t)cfg_fps;
@@ -3179,7 +3179,7 @@ void run_game_loop(void)
 void kingly(struct player *p)
 {
     /* Fake death */
-    my_strcpy(p->death_info.died_from, "winner", sizeof(p->death_info.died_from));
+    my_strcpy(p->death_info.died_from, WINNING_HOW, sizeof(p->death_info.died_from));
 
     /* Restore the experience */
     p->exp = p->max_exp;
@@ -3187,10 +3187,10 @@ void kingly(struct player *p)
     /* Restore the level */
     p->lev = p->max_lev;
 
-    /* Hack -- player gets an XP bonus for beating the game */
+    /* Player gets an XP bonus for beating the game */
     p->exp = p->max_exp += 10000000L;
 
-    /* Hack -- ensure we are retired */
+    /* Ensure we are retired */
     p->retire_timer = 0;
 }
 
@@ -3204,7 +3204,7 @@ bool level_keep_allocated(struct chunk *c)
     /* Don't deallocate special levels */
     if (special_level(&c->wpos)) return true;
 
-    /* Hack -- don't deallocate levels which contain owned houses */
+    /* Don't deallocate levels which contain owned houses */
     return level_has_owned_houses(&c->wpos);
 
     /* Hack -- don't deallocate levels which contain owned houses */
@@ -3297,7 +3297,7 @@ static void preserve_artifacts(void)
                 {
                     for (obj = square_object(c, &iter.cur); obj; obj = obj->next)
                     {
-                        /* Hack -- preserve artifacts */
+                        /* Preserve artifacts */
                         if (obj->artifact)
                         {
                             /* Only works when owner is ingame */
@@ -3525,10 +3525,10 @@ void exit_game_panic(void)
             continue;
         }
 
-        /* Hack -- turn off some things */
+        /* Turn off some things */
         disturb(p, 0);
 
-        /* Hack -- delay death */
+        /* Delay death */
         if (p->chp < 0) p->is_dead = false;
 
 #ifndef WINDOWS
@@ -3539,7 +3539,7 @@ void exit_game_panic(void)
         /* Indicate panic save */
         my_strcpy(p->died_from, "(panic save)", sizeof(p->died_from));
 
-        /* Hack -- unstatic if the DM left while manually designing a dungeon level */
+        /* Unstatic if the DM left while manually designing a dungeon level */
         if (chunk_inhibit_players(&p->wpos)) chunk_set_player_count(&p->wpos, 0);
 
         /*
@@ -3638,7 +3638,7 @@ void setup_exit_handler(void)
 #include <signal.h>
 static volatile sig_atomic_t signalbusy = 0;
 
-static int16_t signal_count = 0;   /* Hack -- count interrupts */
+static int16_t signal_count = 0;   /* Count interrupts */
 
 #ifdef SIGTSTP
 /*
@@ -3694,7 +3694,7 @@ static void handle_signal_simple(int sig)
     /* Nothing to save, just quit */
     if (!server_generated) quit(msg);
 
-    /* Hack -- on SIGTERM, quit right away */
+    /* On SIGTERM, quit right away */
     if (sig == SIGTERM) signal_count = 5;
 
     /* Count the signals */

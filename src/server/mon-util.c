@@ -336,8 +336,8 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
     /* Find the closest player */
     if (full)
     {
-        /* Hack -- skip him if he's shopping */
-        /* Hack -- make the dungeon master invisible to monsters */
+        /* Skip him if he's shopping */
+        /* Make the dungeon master invisible to monsters */
         /* Skip player if dead or gone */
         if ((!in_store(p) && !(p->dm_flags & DM_MONSTER_FRIEND) &&
             p->alive && !p->is_dead && !p->upkeep->new_level_method) || // OR if monster is unhurted WANDERER
@@ -459,7 +459,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
             /* Update health bar as needed */
             update_health(who);
 
-            /* Hack -- count "fresh" sightings */
+            /* Count "fresh" sightings */
             mon->race->lore.seen = 1;
             lore->pseen = 1;
 
@@ -505,7 +505,7 @@ static void update_mon_aux(struct player *p, struct monster *mon, struct chunk *
             if (OPT(p, disturb_near) && (mon->level > 0) && pvm_check(p, mon) &&
                 !monster_is_camouflaged(mon))
             {
-                /* Hack -- do not cancel fire_till_kill on appearance */
+                /* Do not cancel fire_till_kill on appearance */
                 if (p->firing_request) p->cancel_firing = false;
 
                 disturb(p, 1);
@@ -642,7 +642,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     int m1, m2;
     struct monster *mon;
 
-    /* Hack -- don't use grid1 and grid2 directly, they may refer to current player/monster grids */
+    /* Don't use grid1 and grid2 directly, they may refer to current player/monster grids */
     struct loc from, to;
 
     loc_copy(&from, grid1);
@@ -673,7 +673,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     {
         mon = cave_monster(c, m1);
 
-        /* Hack -- save previous monster location */
+        /* Save previous monster location */
         loc_copy(&mon->old_grid, &mon->grid);
 
         /* Move monster */
@@ -691,7 +691,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     {
         p = player_get(0 - m1);
 
-        /* Hack -- save previous player location */
+        /* Save previous player location */
         loc_copy(&p->old_grid, &p->grid);
 
         /* Move player */
@@ -718,7 +718,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     {
         mon = cave_monster(c, m2);
 
-        /* Hack -- save previous monster location */
+        /* Save previous monster location */
         loc_copy(&mon->old_grid, &mon->grid);
 
         /* Move monster */
@@ -736,7 +736,7 @@ void monster_swap(struct chunk *c, struct loc *grid1, struct loc *grid2)
     {
         p = player_get(0 - m2);
 
-        /* Hack -- save previous player location */
+        /* Save previous player location */
         loc_copy(&p->old_grid, &p->grid);
 
         /* Move player */
@@ -1044,7 +1044,7 @@ static void end_game(struct player *p, const struct monster *m)
             death_knowledge(player);
 
             /* Dump */
-            my_strcpy(player->death_info.died_from, "winner", sizeof(player->death_info.died_from));
+            my_strcpy(player->death_info.died_from, WINNING_HOW, sizeof(player->death_info.died_from));
             player_dump(player, true);
 
             /* Retire */
@@ -1102,13 +1102,13 @@ void monster_death(struct player *p, struct chunk *c, struct monster *mon)
     /* Reward the player with experience */
     monster_give_xp(p, c, mon, false);
 
-    /* Hack -- killing Melkor ends the game */
+    /* Killing Melkor ends the game */
     if (rf_has(mon->race->flags, RF_PWMANG_FINAL)) end_game(p, mon);
 
-    /* Hack -- killing Xakaze gives a better title */
+    /* Killing Xakaze gives a better title */
     if (mon->race->base == lookup_monster_base("nether")) better_title(p, mon);
 
-    /* Hack -- killing Morgoth marks some players as "winners" */
+    /* Killing Morgoth marks some players as "winners" */
     winners = quest_check(p, c, mon);
 
     /* Drop objects being carried */
@@ -1810,7 +1810,7 @@ static void monster_scared_by_damage(struct player *p, struct chunk *c, struct m
             int timer = randint1(10) +
                 (((dam >= mon->hp) && (percentage > 7))? 20: ((11 - percentage) * 5));
 
-            /* Hack -- note fear */
+            /* Note fear */
             (*fear) = true;
 
             mon_inc_timed(p, mon, MON_TMD_FEAR, timer, MON_TMD_FLG_NOMESSAGE | MON_TMD_FLG_NOFAIL);
@@ -1822,7 +1822,7 @@ static void monster_scared_by_damage(struct player *p, struct chunk *c, struct m
 /*
  * Decreases a monster's hit points by `dam` and handle monster death.
  *
- * Hack -- we "delay" fear messages by passing around a "fear" flag.
+ * We "delay" fear messages by passing around a "fear" flag.
  *
  * We announce monster death using an optional "death message" (`note`)
  * if given, and a otherwise a generic killed/destroyed message.
@@ -1862,7 +1862,7 @@ bool mon_take_hit(struct player *p, struct chunk *c, struct monster *mon, int da
     mon->hp -= dam;
     mflag_on(p->mflag[mon->midx], MFLAG_HURT);
 
-    /* Hack -- icy aura knocks unconscious instead of killing */
+    /* Icy aura knocks unconscious instead of killing */
     if (p->icy_aura && (mon->hp < 0)) mon->hp = 0;
 
     /* It is dead now */
@@ -2004,7 +2004,7 @@ bool monster_carry(struct monster *mon, struct object *obj, bool force)
     /* Forget location */
     loc_init(&obj->grid, 0, 0);
 
-    /* Hack -- reset index */
+    /* Reset index */
     obj->oidx = 0;
 
     /* Link the object to the monster */
@@ -2180,7 +2180,7 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
             path_analyse(p, c, &q->grid);
         }
 
-        /* Hack -- dungeon masters are invisible */
+        /* Dungeon masters are invisible */
         if (q->dm_flags & DM_SECRET_PRESENCE) easy = flag = false;
     }
 
@@ -2237,7 +2237,7 @@ static void update_player_aux(struct player *p, struct player *q, struct chunk *
             /* Disturb on appearance (except friendlies and hidden mimics) */
             if (OPT(p, disturb_near) && pvp_check(p, q, PVP_CHECK_ONE, true, 0x00) && !q->k_idx)
             {
-                /* Hack -- do not cancel fire_till_kill on appearance */
+                /* Do not cancel fire_till_kill on appearance */
                 if (p->firing_request) p->cancel_firing = false;
 
                 /* Disturb */
@@ -2321,7 +2321,7 @@ void update_players(void)
     {
         struct player *p = player_get(i);
 
-        /* Hack -- make sure he's properly placed */
+        /* Make sure he's properly placed */
         if (!p->placed) continue;
 
         /* Update the player */

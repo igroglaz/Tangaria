@@ -193,6 +193,7 @@ SERV_SRCS = \
   ..\server\sched-win.c \
   ..\server\score.c \
   ..\server\score-ui.c \
+  ..\server\score-util.c \
   ..\server\store.c \
   ..\server\s-util.c \
   ..\server\target.c \
@@ -325,6 +326,7 @@ SERV_OBJS = \
   ..\server\sched-win.obj \
   ..\server\score.obj \
   ..\server\score-ui.obj \
+  ..\server\score-util.obj \
   ..\server\store.obj \
   ..\server\s-util.obj \
   ..\server\target.obj \

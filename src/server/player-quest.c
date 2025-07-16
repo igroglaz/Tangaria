@@ -305,7 +305,7 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
             death_knowledge(player);
 
             /* Winner dump */
-            my_strcpy(player->death_info.died_from, "winner", sizeof(player->death_info.died_from));
+            my_strcpy(player->death_info.died_from, WINNING_HOW, sizeof(player->death_info.died_from));
             player_dump(player, true);
 
             /* Set his retire_timer if necessary */

@@ -52,7 +52,7 @@ int inven_damage(struct player *p, int type, int cperc)
             continue;
         }
 
-        /* Hack -- for now, skip artifacts */
+        /* For now, skip artifacts */
         if (obj->artifact)
         {
             obj = next;
@@ -601,7 +601,7 @@ static void project_object_handler_RAISE(project_object_handler_context_t *conte
 
             msg(context->origin->player, "A monster rises from the grave!");
 
-            /* Hack -- get new monster */
+            /* Get new monster */
             mon = square_monster(c, &grid);
 
             /* Try to control the monster */

@@ -110,7 +110,7 @@ static int active = 0;
 #ifdef A_COLOR
 
 /*
- * Hack -- define "A_BRIGHT" to be "A_BOLD", because on many
+ * Define "A_BRIGHT" to be "A_BOLD", because on many
  * machines, "A_BRIGHT" produces ugly "inverse" video.
  */
 #ifndef A_BRIGHT
@@ -220,7 +220,7 @@ static void Term_nuke_gcu(term *t)
     /* Count nuke's, handle last */
     if (--active != 0) return;
 
-    /* Hack -- make sure the cursor is visible */
+    /* Make sure the cursor is visible */
     Term_xtra(TERM_XTRA_SHAPE, 1);
 
 #ifdef A_COLOR
@@ -595,7 +595,7 @@ static void gcu_keypress(int i)
         {
             if (i < KEY_MIN) break;
 
-            /* Hack -- fold, spindle, and mutilate the keys to fit in 7 bits. */
+            /* Fold, spindle, and mutilate the keys to fit in 7 bits. */
             if (i >= 252) i = KEY_F(63) - (i - 252);
             if (i >= ARROW_DOWN) i += 4;
 
@@ -862,7 +862,7 @@ static errr Term_curs_gcu(int x, int y)
 
 /*
  * Erase a grid of space
- * Hack -- try to be "semi-efficient".
+ * Try to be "semi-efficient".
  */
 static errr Term_wipe_gcu(int x, int y, int n)
 {
@@ -898,13 +898,13 @@ static errr Term_text_gcu(int x, int y, int n, uint16_t a, const char *s)
     mbstowcs(buf, s, n);
 
 #ifdef WINDOWS
-    /* Hack -- replace magma/quartz by semi-solid blocks */
+    /* Replace magma/quartz by semi-solid blocks */
     for (i = 0; i < n; i++)
     {
         if (buf[i] == 0xAE) buf[i] = 0x2591;
     }
 
-    /* Hack -- full icky screen */
+    /* Full icky screen */
     if (full_icky_screen)
     {
         for (i = 0; i <= n; i++)
@@ -912,7 +912,7 @@ static errr Term_text_gcu(int x, int y, int n, uint16_t a, const char *s)
             int px = x + i + player->offset_grid.x - COL_MAP, py = y + player->offset_grid.y - ROW_MAP;
 
             /*
-             * Hack -- for the minimap, the @ may not be displayed with this function so check the
+             * For the minimap, the @ may not be displayed with this function so check the
              * position instead and add a "white smiling face" at player location
              */
             if (i == n)
@@ -921,13 +921,13 @@ static errr Term_text_gcu(int x, int y, int n, uint16_t a, const char *s)
                     buf[n++] = 0x263A;
             }
 
-            /* Hack -- display the @ as a "white smiling face" on icky screens */
+            /* Display the @ as a "white smiling face" on icky screens */
             else if (player->screen_save_depth)
             {
                 if (buf[i] == '@') buf[i] = 0x263A;
             }
 
-            /* Hack -- always display the player as a @ except when looking/targeting */
+            /* Always display the player as a @ except when looking/targeting */
             else if ((px == player->grid.x) && (py == player->grid.y) && !target_icky_screen)
                 buf[i] = '@';
         }

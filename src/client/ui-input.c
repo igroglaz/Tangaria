@@ -946,8 +946,10 @@ void flush_hack(void)
 
 /*
  * Extract a direction (or zero) from a character
+ *
+ * If cancelOnEscape is true, cancel direction if keypress is a keymap starting with an escape.
  */
-int target_dir(struct keypress ch)
+static int target_dir_aux(struct keypress ch, bool cancelOnEscape)
 {
     int d = 0;
 
@@ -981,6 +983,9 @@ int target_dir(struct keypress ch)
         {
             const struct keypress *cur;
 
+            /* Cancel direction if the keymap starts with an ESCAPE */
+            if (cancelOnEscape && act->code == ESCAPE) return -1;
+
             /* Convert to a direction */
             for (cur = act; cur->type == EVT_KBRD; cur++)
             {
@@ -994,6 +999,15 @@ int target_dir(struct keypress ch)
 
     /* Return direction */
     return (d);
+}
+
+
+/*
+ * Extract a direction (or zero) from a character
+ */
+int target_dir(struct keypress ch)
+{
+    return target_dir_aux(ch, false);
 }
 
 
@@ -1094,7 +1108,12 @@ static bool textui_get_aim_dir(int *dp)
                          * XXX Ideally show and move the cursor here to indicate
                          * the currently "Pending" direction. XXX
                          */
-                        this_dir = target_dir(ke.key);
+                        this_dir = target_dir_aux(ke.key, true);
+                        if (this_dir == -1)
+                        {
+                            dir = -1;
+                            break;
+                        }
 
                         if (this_dir)
                             dir = dir_transitions[dir][this_dir];
@@ -1120,7 +1139,7 @@ static bool textui_get_aim_dir(int *dp)
     }
 
     /* No direction */
-    if (!dir) return false;
+    if (!dir || (dir == -1)) return false;
 
     /* Save direction */
     (*dp) = dir;

@@ -340,7 +340,7 @@ static void free_file_paths(void)
  * by the user) will NOT end in the "PATH_SEP" string, see the special
  * "path_build()" function in "util.c" for more information.
  *
- * Hack -- first we free all the strings, since this is known
+ * First we free all the strings, since this is known
  * to succeed even if the strings have not been allocated yet,
  * as long as the variables start out as "NULL".  This allows
  * this function to be called multiple times, for example, to
@@ -3403,7 +3403,7 @@ static enum parser_error parse_class_book(struct parser *p)
     if (streq(quality, "dungeon")) b->dungeon = true;
     name = parser_getsym(p, "name");
 
-    /* Hack -- ghost/mimic spells have no sval */
+    /* Ghost/mimic spells have no sval */
     if ((tval != TV_GHOST_REALM) && (tval != TV_MIMIC_REALM))
         write_book_kind(b, name);
 
@@ -3703,7 +3703,7 @@ static enum parser_error parse_class_flag(struct parser *p)
     /* If there is no effect, assume that this is human and not parser error. */
     if (spell->effect == NULL) return PARSE_ERROR_NONE;
 
-    /* Hack -- mimic spells are defined by their RSF_XXX flag */
+    /* Mimic spells are defined by their RSF_XXX flag */
     if (grab_name("flag", parser_getsym(p, "flag"), r_info_spell_flags, RSF_MAX, &flag))
         return PARSE_ERROR_INVALID_FLAG;
     spell->effect->flag = flag;
@@ -4988,7 +4988,7 @@ static void set_server_option(const char *option, char *value)
     {
         cfg_fps = atoi(value);
 
-        /* Hack -- reinstall the timer handler to match the new FPS */
+        /* Reinstall the timer handler to match the new FPS */
         install_timer_tick(run_game_loop, cfg_fps);
     }
     else if (streq(option, "MAX_ACCOUNT_CHARS"))
@@ -5186,7 +5186,7 @@ static void load_server_cfg_aux(ang_file *cfg)
             {
                 value = newword;
 
-                /* Hack -- ignore "" around values */
+                /* Ignore "" around values */
                 if (value[0] == '"') value++;
                 if (value[strlen(value) - 1] == '"')
                     value[strlen(value) - 1] = '\0';

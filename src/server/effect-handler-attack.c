@@ -71,7 +71,7 @@ bool project_aimed(struct source *origin, int typ, int dir, int dam, int flg, co
 
     get_target(c, origin, dir, &grid);
 
-    /* Hack -- only one source */
+    /* Only one source */
     if (origin->monster)
         source_monster(who, origin->monster);
     else
@@ -242,7 +242,7 @@ bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obviou
 
     if (obvious) flg |= PROJECT_AWARE;
 
-    /* Hack -- heal self && blasts */
+    /* Heal self && blasts */
     if ((typ == PROJ_MON_HEAL) || constant) flg |= PROJECT_CONST;
 
     /* Ensure "dir" is in ddx/ddy array bounds */
@@ -251,7 +251,7 @@ bool fire_ball(struct player *p, int typ, int dir, int dam, int rad, bool obviou
     /* Use the given direction */
     next_grid(&target, &p->grid, dir);
 
-    /* Hack -- use an actual "target" */
+    /* Use an actual "target" */
     if ((dir == DIR_TARGET) && target_okay(p))
     {
         flg &= ~(PROJECT_STOP | PROJECT_THRU);
@@ -288,7 +288,7 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
     /* Distance breathed has no fixed limit. */
     int rad = z_info->max_range;
 
-    /* Hack -- already used up */
+    /* Already used up */
     bool used = (context->radius == 1);
 
     /* Ensure "dir" is in ddx/ddy array bounds */
@@ -399,10 +399,10 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
             target_get(context->origin->player, &target);
         else
         {
-            /* Hack -- no target available, default to random direction */
+            /* No target available, default to random direction */
             if (context->dir == DIR_TARGET) context->dir = 0;
 
-            /* Hack -- no direction given, default to random direction */
+            /* No direction given, default to random direction */
             if (!context->dir) context->dir = ddd[randint0(8)];
 
             /* Use the given direction */
@@ -476,7 +476,7 @@ static int wreck_havoc(effect_handler_context_t *context, int r, int *hurt, bool
         square_forget_all(context->cave, &iter.cur);
         square_light_spot(context->cave, &iter.cur);
 
-        /* Hack -- notice player affect */
+        /* Notice player affect */
         if (square(context->cave, &iter.cur)->mon < 0)
         {
             /* Hurt the player later */
@@ -487,7 +487,7 @@ static int wreck_havoc(effect_handler_context_t *context, int r, int *hurt, bool
             continue;
         }
 
-        /* Hack -- skip the epicenter */
+        /* Skip the epicenter */
         if (loc_eq(&iter.cur, &context->origin->player->grid)) continue;
 
         /* Delete the monster (if any) */
@@ -726,14 +726,14 @@ bool effect_handler_BALL(effect_handler_context_t *context)
         {
             if (context->other) rad += context->origin->player->lev / context->other;
 
-            /* Hack -- mimics */
+            /* Mimics */
             if (context->origin->player->poly_race &&
                 monster_is_powerful(context->origin->player->poly_race))
             {
                 rad++;
             }
 
-            /* Hack -- elementalists */
+            /* Elementalists */
             rad = rad + context->beam.spell_power / 2;
             rad = rad * (20 + context->beam.elem_power) / 20;
 
@@ -841,7 +841,7 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, false);
     int rad = context->radius + (context->other? (context->origin->player->lev / context->other): 0);
 
-    /* Hack -- elementalists */
+    /* Elementalists */
     rad = rad + context->beam.spell_power / 2;
     rad = rad * (20 + context->beam.elem_power) / 20;
 
@@ -994,7 +994,7 @@ bool effect_handler_BOLT(effect_handler_context_t *context)
 {
     int dam = effect_calculate_value(context, true);
 
-    /* Hack -- teleport other */
+    /* Teleport other */
     if (context->radius)
     {
         context->origin->player->current_sound = -2;
@@ -1070,7 +1070,7 @@ bool effect_handler_BOLT_OR_BEAM(effect_handler_context_t *context)
     int dam = effect_calculate_value(context, true);
     int beam = context->beam.beam + context->other;
 
-    /* Hack -- space/time anchor */
+    /* Space/time anchor */
     if (context->origin->player->timed[TMD_ANCHOR] && (context->subtype == PROJ_TIME))
     {
         if (one_in_(3))
@@ -1342,7 +1342,7 @@ bool effect_handler_DESTRUCTION(effect_handler_context_t *context)
     /* Big area of affect */
     count = wreck_havoc(context, r, hurt, false);
 
-    /* Hack -- affect players */
+    /* Affect players */
     for (k = 0; k < count; k++)
     {
         struct player *p = player_get(hurt[k]);
@@ -2029,10 +2029,10 @@ bool effect_handler_LASH(effect_handler_context_t *context)
             target_get(context->origin->player, &target);
         else
         {
-            /* Hack -- no target available, default to random direction */
+            /* No target available, default to random direction */
             if (context->dir == DIR_TARGET) context->dir = 0;
 
-            /* Hack -- no direction given, default to random direction */
+            /* No direction given, default to random direction */
             if (!context->dir) context->dir = ddd[randint0(8)];
 
             /* Use the given direction */
@@ -2115,7 +2115,7 @@ bool effect_handler_MELEE_BLOWS(effect_handler_context_t *context)
     /* Use the given direction */
     next_grid(&target, &context->origin->player->grid, context->dir);
 
-    /* Hack -- use an actual "target" */
+    /* Use an actual "target" */
     if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
     {
         target_get(context->origin->player, &target);
@@ -2432,10 +2432,10 @@ bool effect_handler_SHORT_BEAM(effect_handler_context_t *context)
             target_get(context->origin->player, &target);
         else
         {
-            /* Hack -- no target available, default to random direction */
+            /* No target available, default to random direction */
             if (context->dir == DIR_TARGET) context->dir = 0;
 
-            /* Hack -- no direction given, default to random direction */
+            /* No direction given, default to random direction */
             if (!context->dir) context->dir = ddd[randint0(8)];
 
             /* Use the given direction */
@@ -2625,7 +2625,7 @@ bool effect_handler_SWARM(effect_handler_context_t *context)
     /* Use the given direction */
     next_grid(&target, &context->origin->player->grid, context->dir);
 
-    /* Hack -- use an actual "target" */
+    /* Use an actual "target" */
     if ((context->dir == DIR_TARGET) && target_okay(context->origin->player))
         target_get(context->origin->player, &target);
 
@@ -2840,7 +2840,7 @@ bool effect_handler_WIPE_AREA(effect_handler_context_t *context)
     /* Check around the epicenter */
     count = wreck_havoc(context, r, hurt, true);
 
-    /* Hack -- affect players */
+    /* Affect players */
     for (k = 0; k < count; k++)
     {
         struct player *p = player_get(hurt[k]);

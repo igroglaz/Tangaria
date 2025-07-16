@@ -1619,7 +1619,7 @@ static void HelpWindowFontChange(term_window *window)
 
 	SetStatusButtons();
 
-    /* Hack -- set ANGBAND_FONTNAME for main window */
+    /* Set ANGBAND_FONTNAME for main window */
     if (window->Term_idx == 0) ANGBAND_FONTNAME = window->req_font.name;
 }
 
@@ -4288,7 +4288,7 @@ static void ResizeWin(term_window *win, int w, int h)
     if (win->Term_idx == 0)
         net_term_resize(win->cols, win->rows, win->max_rows);
 
-    /* Hack -- redraw all windows */
+    /* Redraw all windows */
     if (Setup.initialized) do_cmd_redraw();
 }
 
@@ -4957,7 +4957,7 @@ static void sdl_keypress(SDL_keysym keysym)
     bool kp = false;
     uint8_t mods = ((ma? KC_MOD_ALT: 0) | (mm? KC_MOD_META: 0));
 
-    /* Hack -- for keyboards with Alt-Gr translated into KMOD_RALT | KMOD_LCTRL */
+    /* For keyboards with Alt-Gr translated into KMOD_RALT | KMOD_LCTRL */
     /*if ((keysym.mod & KMOD_RALT) && (keysym.mod & KMOD_LCTRL)) mg = true;*/
 
     /* Ignore if main term is not initialized */
@@ -6227,7 +6227,7 @@ static void init_windows(void)
         /* Term 0 is at the top */
         Zorder[i] = ANGBAND_TERM_MAX - i - 1;
 
-        /* Hack -- set ANGBAND_FONTNAME for main window */
+        /* Set ANGBAND_FONTNAME for main window */
         if (i == 0) ANGBAND_FONTNAME = win->req_font.name;
     }
 
@@ -6386,7 +6386,7 @@ static void init_paths(void)
     char buf[MSG_LEN], path[MSG_LEN];
     ang_dir *dir;
 
-    /* Hack -- validate the basic font */
+    /* Validate the basic font */
     if (default_term_font.preset)
     {
 		/* Build the filename */

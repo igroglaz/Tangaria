@@ -274,7 +274,7 @@ static void textui_process_command_aux(ui_event e)
 
     if (e.type == EVT_KBRD)
     {
-        /* Hack -- discard some keys if not playing */
+        /* Discard some keys if not playing */
         switch (e.key.code)
         {
             case KC_ENTER:

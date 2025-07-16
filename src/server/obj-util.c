@@ -98,7 +98,7 @@ static void flavor_assign_random(uint16_t tval)
                 /* Mark the flavor as used */
                 f->sval = k_info[i].sval;
 
-                /* Hack -- set the scroll name if it's a scroll */
+                /* Set the scroll name if it's a scroll */
                 if (tval_is_scroll_k(&k_info[i]))
                     f->text = string_make(scroll_adj[k_info[i].sval]);
 
@@ -130,7 +130,7 @@ static void flavor_assign_random(uint16_t tval)
  * can happen is when the current title has 6 letters and the new word
  * has 8 letters, which would result in a 6 letter scroll title.
  *
- * Hack -- make sure everything stays the same for each saved game
+ * Make sure everything stays the same for each saved game
  * This is accomplished by the use of a saved "random seed", as in
  * "town_gen()".  Since no other functions are called while the special
  * seed is in effect, so this function is pretty "safe".
@@ -139,10 +139,10 @@ void flavor_init(void)
 {
     int i, j;
 
-    /* Hack -- use the "simple" RNG */
+    /* Use the "simple" RNG */
     Rand_quick = true;
 
-    /* Hack -- induce consistant flavors */
+    /* Induce consistant flavors */
     Rand_value = seed_flavor;
 
     flavor_assign_fixed();
@@ -196,13 +196,13 @@ void flavor_init(void)
 
     flavor_assign_random(TV_SCROLL);
 
-    /* Hack -- use the "complex" RNG */
+    /* Use the "complex" RNG */
     Rand_quick = false;
 }
 
 
 /*
- * Hack -- remove redundant bitflags
+ * Remove redundant bitflags
  */
 static void remove_redundant_flags(bitflag flags[OF_SIZE])
 {
@@ -259,7 +259,7 @@ void object_flags(const struct object *obj, bitflag flags[OF_SIZE])
 
     object_flags_aux(obj, flags);
 
-    /* Hack -- remove redundant bitflags */
+    /* Remove redundant bitflags */
     remove_redundant_flags(flags);
 }
 
@@ -293,7 +293,7 @@ void object_flags_known(const struct object *obj, bitflag flags[OF_SIZE], bool a
     if (obj->ego && easy_know(obj, aware))
         of_union(flags, obj->ego->flags);
 
-    /* Hack -- remove redundant bitflags */
+    /* Remove redundant bitflags */
     remove_redundant_flags(flags);
 
     /* Make sure all flags are present on the object */
@@ -628,7 +628,7 @@ void distribute_charges(struct object *source, struct object *dest, int amt)
     int charge_time = randcalc(source->time, 0, AVERAGE), max_time;
 
     /*
-     * Hack -- if staves or wands are dropped, the total maximum
+     * If staves or wands are dropped, the total maximum
      * charges need to be allocated between the two stacks.
      * If all the items are being dropped, it makes for a neater message
      * to leave the original stack's charges alone.
@@ -641,7 +641,7 @@ void distribute_charges(struct object *source, struct object *dest, int amt)
     }
 
     /*
-     * Hack -- rods also need to have their timeouts distributed.
+     * Rods also need to have their timeouts distributed.
      *
      * The dropped stack will accept all time remaining to charge up to
      * its maximum.
@@ -945,7 +945,7 @@ void shimmer_objects(struct player *p, struct chunk *c)
 
 
 /*
- * Hack -- process the objects
+ * Process the objects
  */
 void process_objects(struct chunk *c)
 {
@@ -1060,7 +1060,7 @@ void object_audit(struct player *p, struct object *obj)
         strnfmt(buf, sizeof(buf), "TR+%s", o_name);
         audit(buf);
 
-        /* Hack -- potion of experience */
+        /* Potion of experience */
         if (effect && (effect->index == EF_GAIN_EXP)) obj->askprice = 1;
     }
 }
@@ -1296,7 +1296,7 @@ bool object_marked_aware(struct player *p, const struct object *obj)
 }
 
 
-/* Hack -- get an item from its index */
+/* Get an item from its index */
 struct object *object_from_index(struct player *p, int item, bool prompt, bool check_ignore)
 {
     struct object *obj;

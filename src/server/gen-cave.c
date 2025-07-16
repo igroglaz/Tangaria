@@ -171,7 +171,7 @@ static void build_streamer(struct chunk *c, int feat, int chance)
     int dir;
     struct loc grid;
 
-    /* Hack -- choose starting point */
+    /* Choose starting point */
     loc_init(&grid, rand_spread(c->width / 2, 15), rand_spread(c->height / 2, 10));
 
     /* Choose a random direction */
@@ -567,10 +567,10 @@ static bool pierce_outer_locate(struct chunk *c, struct loc *tmp_grid, struct lo
     /* Stay in bounds */
     if (!square_in_bounds(c, &grid)) return false;
 
-    /* Hack -- avoid solid permanent walls */
+    /* Avoid solid permanent walls */
     if (square_isperm_outer(c, &grid)) return false;
 
-    /* Hack -- avoid outer/solid granite walls */
+    /* Avoid outer/solid granite walls */
     if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
     if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
 
@@ -653,7 +653,7 @@ static bool possible_wide_tunnel(struct chunk *c, struct loc *grid1, struct loc 
     if (!square_in_bounds_fully(c, &grid)) return false;
     if (!square_isrock(c, &grid)) return false;
 
-    /* Hack -- avoid outer/solid granite walls */
+    /* Avoid outer/solid granite walls */
     if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_OUTER)) return false;
     if (square_is_granite_with_flag(c, &grid, SQUARE_WALL_SOLID)) return false;
 
@@ -713,7 +713,7 @@ static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
     /* Keep going until done (or bored) */
     while (!loc_eq(&grid1, &grid2))
     {
-        /* Hack -- paranoia -- prevent infinite loops */
+        /* Paranoia -- prevent infinite loops */
         if (main_loop_count++ > 2000) break;
 
         /* Allow bends in the tunnel */
@@ -985,7 +985,7 @@ static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
                 door_flag = true;
             }
 
-            /* Hack -- allow pre-emptive tunnel termination */
+            /* Allow pre-emptive tunnel termination */
             if (!magik(dun->profile->tun.con))
             {
                 /* Offset between grid1 and start */
@@ -2236,7 +2236,7 @@ struct chunk *classic_gen(struct player *p, struct worldpos *wpos, int min_heigh
     player_cave_clear(p, true);
     cave_illuminate(p, c, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_classic;
 
     return c;
@@ -2501,7 +2501,7 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
         }
     }
 
-    /* Hack -- allow wide corridors */
+    /* Allow wide corridors */
     if (wide)
     {
         /* Simply stretch the original labyrinth area */
@@ -2544,7 +2544,7 @@ static struct chunk *labyrinth_chunk(struct player *p, struct worldpos *wpos, in
     {
         if (!square_isempty(c, &grid)) continue;
 
-        /* Hack -- for wide corridors, place two doors */
+        /* For wide corridors, place two doors */
         if (wide)
         {
             struct loc choice;
@@ -2631,7 +2631,7 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     if (!soft)
         alloc_objects(p, c, SET_BOTH, TYP_GREAT, Rand_normal(2, 1), wpos->depth, ORIGIN_LABYRINTH);
 
-    /* Hack -- allow wide corridors */
+    /* Allow wide corridors */
     if (wide)
     {
         h *= 2;
@@ -2714,7 +2714,7 @@ struct chunk *labyrinth_gen(struct player *p, struct worldpos *wpos, int min_hei
     player_cave_clear(p, true);
     if (known) c->light_level = true;
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_labyrinth;
 
     return c;
@@ -3113,7 +3113,7 @@ static void join_region(struct chunk *c, int *colors, int *counts, int color, in
                 }
                 n1 = previous[n1];
 
-                /* Hack -- create broad corridors */
+                /* Create broad corridors */
                 i_to_grid(n1, w, &gridp);
                 if (gridp.y != grid.y) grid.x++;
                 else grid.y++;
@@ -3380,7 +3380,7 @@ struct chunk *cavern_gen(struct player *p, struct worldpos *wpos, int min_height
     /* Clear the flags for each cave grid */
     player_cave_clear(p, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_cavern;
 
     return c;
@@ -3820,10 +3820,10 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
     uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
-    /* Hack -- use the "simple" RNG */
+    /* Use the "simple" RNG */
     Rand_quick = true;
 
-    /* Hack -- induce consistant town */
+    /* Induce consistant town */
     Rand_value = seed_wild + world_index(&c->wpos) * 600 + c->wpos.depth * 37;
 
     num_lava = 3 + randint0(3);
@@ -4164,7 +4164,7 @@ static bool town_gen_layout(struct player *p, struct chunk *c)
         }
     }
 
-    /* Hack -- use the "complex" RNG */
+    /* Use the "complex" RNG */
     Rand_value = tmp_seed;
     Rand_quick = rand_old;
 
@@ -4233,7 +4233,7 @@ struct chunk *town_gen(struct player *p, struct worldpos *wpos, int min_height, 
     for (i = 0; i < residents; i++)
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_town;
 
     return c;
@@ -4766,7 +4766,7 @@ struct chunk *modified_gen(struct player *p, struct worldpos *wpos, int min_heig
     player_cave_clear(p, true);
     cave_illuminate(p, c, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_modified;
 
     return c;
@@ -5076,7 +5076,7 @@ struct chunk *moria_gen(struct player *p, struct worldpos *wpos, int min_height,
     player_cave_clear(p, true);
     cave_illuminate(p, c, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_moria;
 
     return c;
@@ -5474,7 +5474,7 @@ struct chunk *hard_centre_gen(struct player *p, struct worldpos *wpos, int min_h
     /* Clear the flags for each cave grid */
     player_cave_clear(p, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_hard_centre;
 
     return c;
@@ -5708,7 +5708,7 @@ struct chunk *lair_gen(struct player *p, struct worldpos *wpos, int min_height, 
     player_cave_clear(p, true);
     cave_illuminate(p, c, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_lair;
 
     return c;
@@ -6004,7 +6004,7 @@ struct chunk *gauntlet_gen(struct player *p, struct worldpos *wpos, int min_heig
     /* Clear the flags for each cave grid */
     player_cave_clear(p, true);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_gauntlet;
 
     return c;
@@ -6047,7 +6047,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
 
     int feat = ((n < z_info->store_max - 2)? stores[n].feat: -1);
 
-    /* Hack -- make forest/tavern as large as possible */
+    /* Make forest/tavern as large as possible */
     if ((n == z_info->store_max - 1) || (feat == FEAT_STORE_TAVERN))
     {
         y1 = y0 - 3;
@@ -6078,7 +6078,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
     /* Build an invulnerable rectangular building */
     fill_rectangle(c, y1, x1, y2, x2, FEAT_PERM, SQUARE_NONE);
 
-    /* Hack -- make tavern empty */
+    /* Make tavern empty */
     if (feat == FEAT_STORE_TAVERN)
     {
         loc_init(&begin, x1 + 1, y1 + 1);
@@ -6097,7 +6097,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         }
         while (loc_iterator_next_strict(&iter));
 
-        /* Hack -- have everyone start in the tavern */
+        /* Have everyone start in the tavern */
         loc_init(&grid, (x1 + x2) / 2, (y1 + y2) / 2);
         square_set_join_down(c, &grid);
     }
@@ -6185,7 +6185,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         /* Remember price */
         price = house_price((x2 - x1 - 1) * (y2 - y1 - 1), true);
 
-        /* Hack -- only create houses that aren't already loaded from disk */
+        /* Only create houses that aren't already loaded from disk */
         loc_init(&grid, dx, dy);
         house = pick_house(&c->wpos, &grid);
         if (house == -1)
@@ -6244,7 +6244,7 @@ static void build_feature(struct chunk *c, int n, int yy, int xx)
         /* Place a staircase */
         square_set_downstairs(c, &grid, FEAT_MORE);
 
-        /* Hack -- the players start on the stairs while recalling */
+        /* The players start on the stairs while recalling */
         square_set_join_rand(c, &grid);
 
         return;
@@ -6337,10 +6337,10 @@ static void mang_town_gen_layout(struct chunk *c)
     uint32_t tmp_seed = Rand_value;
     bool rand_old = Rand_quick;
 
-    /* Hack -- use the "simple" RNG */
+    /* Use the "simple" RNG */
     Rand_quick = true;
 
-    /* Hack -- induce consistant town */
+    /* Induce consistant town */
     Rand_value = seed_wild + world_index(&c->wpos) * 600;
 
     /* Create boundary */
@@ -6356,7 +6356,7 @@ static void mang_town_gen_layout(struct chunk *c)
     loc_init(&end, c->width - 1, c->height - 1);
     loc_iterator_first(&iter, &begin, &end);
 
-    /* Hack -- start with basic floors */
+    /* Start with basic floors */
     do
     {
         /* Clear all features, set to "empty floor" */
@@ -6429,7 +6429,7 @@ static void mang_town_gen_layout(struct chunk *c)
 
     mem_free(rooms);
 
-    /* Hack -- use the "complex" RNG */
+    /* Use the "complex" RNG */
     Rand_value = tmp_seed;
     Rand_quick = rand_old;
 }
@@ -6447,7 +6447,7 @@ static void mang_town_gen_layout(struct chunk *c)
  * anything about the owners of the stores, nor the contents thereof. It only
  * handles the physical layout.
  *
- * Hack -- since boundary walls are a 'good thing' for many of the algorithms
+ * Since boundary walls are a 'good thing' for many of the algorithms
  * used, the feature FEAT_PERM_CLEAR was created. It is used to create an
  * invisible boundary wall for town and wilderness levels, keeping the
  * algorithms happy, and the players fooled.
@@ -6475,7 +6475,7 @@ struct chunk *mang_town_gen(struct player *p, struct worldpos *wpos, int min_hei
     for (i = 0; i < residents; i++)
         pick_and_place_distant_monster(p, c, 0, MON_ASLEEP);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_mang_town;
 
     return c;
@@ -6537,7 +6537,7 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
     dun->cent_n = 0;
     reset_entrance_data(c);
 
-    /* Hack -- set profile */
+    /* Set profile */
     c->profile = dun_arena;
 
     /*
