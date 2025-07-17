@@ -1271,8 +1271,6 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         else if (deeptown)
         {
             memcpy(&p->wpos, deeptown_wpos(), sizeof(struct worldpos));
-            // + assign expfactor for this mode for newborn hero (later on on each lvlup we will change it)
-            p->expfact = 125;
         }
 
         // zeitnot: start zeitnot_timer and put us in zeitnot town
@@ -1280,16 +1278,12 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         {
             p->zeitnot_timer = 5; // almost immediately after respawn - teleport to jail
             memcpy(&p->wpos, zeitnot_wpos(), sizeof(struct worldpos));
-            // + assign expfactor for this mode for newborn hero (later on on each lvlup we will change it)
-            p->expfact = 125;
         }
 
         /* ironman: put us in base town */
         else if ((cfg_diving_mode > 1) || (no_recall && force_descend) || ironman)
         {
             memcpy(&p->wpos, base_wpos(), sizeof(struct worldpos));
-            // + assign expfactor for this mode for newborn hero (later on on each lvlup we will change it)
-            p->expfact = 125;
         }
 
         /* Put us in starting town */

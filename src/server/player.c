@@ -898,31 +898,6 @@ static void adjust_level(struct player *p)
 
             p->max_lev = p->lev;
 
-            // exp factors for modes (TODO: rem exp fact in update_birth_options())
-            if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
-            {
-                if (streq(p->race->name, "Human"))
-                    p->expfact = 125;
-                else if (streq(p->race->name, "Yeek"))
-                    p->expfact = 100;
-                else // all other races
-                {
-                    p->expfact = 125 + (p->max_lev * 3);
-                    if (p->max_lev >= 45)
-                        p->expfact += 25;
-                    if (p->max_lev >= 46)
-                        p->expfact += 50;
-                    if (p->max_lev >= 47)
-                        p->expfact += 75;
-                    if (p->max_lev >= 48)
-                        p->expfact += 100;
-                    if (p->max_lev >= 49)
-                        p->expfact += 125;
-                    if (p->max_lev == 50)
-                        p->expfact += 150;
-                }
-            }
-
             // restore life every 10th level
             if (!(p->max_lev % 10))
             {
@@ -1011,52 +986,85 @@ static void adjust_level(struct player *p)
  */
 void player_exp_gain(struct player *p, int32_t amount)
 {
-    // Rogue class get exp faster (which make gameplay a bit harder)
-    if (streq(p->clazz->name, "Rogue") && p->lev < 50 && !OPT(p, birth_deeptown))
-        amount = (amount * 10) / 9;
-
-    // Endgame exp factors (no-modes)
-    if (p->lev > 48 && amount > 10 &&
-        !OPT(p, birth_deeptown) && !OPT(p, birth_zeitnot) && !OPT(p, birth_ironman))
+    // Exp factors for modes
+    if (amount > 10)
     {
-        // ... races:
-        if      (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||
-                 streq(p->race->name, "Dragon"))
-            amount /= 4;
-        else if (streq(p->race->name, "Ent") || streq(p->race->name, "Maiar") ||
-                 streq(p->race->name, "Beholder") || streq(p->race->name, "Wisp") ||
-                 streq(p->race->name, "Wraith"))
-            amount /= 3;
-        else if (streq(p->race->name, "High-Elf") || streq(p->race->name, "Thunderlord") ||
-                 streq(p->race->name, "Troll") || streq(p->race->name, "Naga") ||
-                 streq(p->race->name, "Balrog") || streq(p->race->name, "Half-Giant") ||
-                 streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem") ||
-                 streq(p->race->name, "Homunculus"))
-            amount /= 2;
-        else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
-                 streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
-            amount = (amount * 2) / 3;
-        else if (streq(p->race->name, "Black-Numenor") || streq(p->race->name, "Dunadan") ||
-                 streq(p->race->name, "Dark-Elf") || streq(p->race->name, "Draconian"))
-            amount = (amount * 3) / 4;
-        // buff
-        else if (streq(p->race->name, "Human"))
-            amount = (amount * 3) / 2;
+        if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
+        {
+            int expfact;
+            
+            if (streq(p->race->name, "Human"))
+                expfact = 125;
+            else if (streq(p->race->name, "Yeek"))
+                expfact = 100;
+            else // all other races
+            {
+                expfact = 125 + (p->max_lev * 3);
+                if (p->max_lev >= 45)
+                    expfact += 25;
+                if (p->max_lev >= 46)
+                    expfact += 50;
+                if (p->max_lev >= 47)
+                    expfact += 75;
+                if (p->max_lev >= 48)
+                    expfact += 100;
+                if (p->max_lev >= 49)
+                    expfact += 125;
+                if (p->max_lev == 50)
+                    expfact += 150;
+            }
+            
+            // Apply the experience factor (higher percentage = less exp)
+            amount = (amount * 100) / expfact;
+        }
+        
+        // NO-MODES now ('exploration')...
+        
+        // Rogue class get exp faster (which make gameplay a bit harder)
+        else if (streq(p->clazz->name, "Rogue") && p->lev < 49)
+            amount = (amount * 10) / 9;
+        // Endgame factor
+        else if (p->lev >= 49)
+        {
+            // ... races:
+            if      (streq(p->race->name, "Titan") || streq(p->race->name, "Djinn") ||
+                     streq(p->race->name, "Dragon"))
+                amount /= 4;
+            else if (streq(p->race->name, "Ent") || streq(p->race->name, "Maiar") ||
+                     streq(p->race->name, "Beholder") || streq(p->race->name, "Wisp") ||
+                     streq(p->race->name, "Wraith"))
+                amount /= 3;
+            else if (streq(p->race->name, "High-Elf") || streq(p->race->name, "Thunderlord") ||
+                     streq(p->race->name, "Troll") || streq(p->race->name, "Naga") ||
+                     streq(p->race->name, "Balrog") || streq(p->race->name, "Half-Giant") ||
+                     streq(p->race->name, "Gargoyle") || streq(p->race->name, "Golem") ||
+                     streq(p->race->name, "Homunculus"))
+                amount /= 2;
+            else if (streq(p->race->name, "Hydra") || streq(p->race->name, "Minotaur") ||
+                     streq(p->race->name, "Half-Troll") || streq(p->race->name, "Vampire"))
+                amount = (amount * 2) / 3;
+            else if (streq(p->race->name, "Black-Numenor") || streq(p->race->name, "Dunadan") ||
+                     streq(p->race->name, "Dark-Elf") || streq(p->race->name, "Draconian"))
+                amount = (amount * 3) / 4;
+            // buff
+            else if (streq(p->race->name, "Human"))
+                amount = (amount * 3) / 2;
 
-        // ... classes:
-        if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
-                 streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever"))
-            amount /= 2;
-        else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
-                 streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer") ||
-                 streq(p->clazz->name, "Heretic") || streq(p->clazz->name, "Cutthroat"))
-            amount = (amount * 2) / 3;
-        else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
-                 streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||
-                 streq(p->clazz->name, "Wizard"))
-            amount = (amount * 3) / 4;
+            // ... classes:
+            if (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
+                     streq(p->clazz->name, "Shapechanger") || streq(p->clazz->name, "Unbeliever"))
+                amount /= 2;
+            else if (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
+                     streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer") ||
+                     streq(p->clazz->name, "Heretic") || streq(p->clazz->name, "Cutthroat"))
+                amount = (amount * 2) / 3;
+            else if (streq(p->clazz->name, "Mage") || streq(p->clazz->name, "Sorceror") ||
+                     streq(p->clazz->name, "Tamer") || streq(p->clazz->name, "Necromancer") ||
+                     streq(p->clazz->name, "Wizard"))
+                amount = (amount * 3) / 4;
+        }
     }
-
+    
     /* Gain some experience */
     p->exp += amount;
 
