@@ -6142,6 +6142,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
     //////////////////////////////////////////////////////////////
 
     // exp factors for modes
+    // TODO: remove this... as we will update exp fact on lvlups (but for now leave it there to fix old player's exp)
     if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
     {
         if (streq(p->race->name, "Human"))
@@ -6150,9 +6151,19 @@ static void update_birth_options(struct player *p, struct birth_options *options
             p->expfact = 100;
         else // all other races
         {
-            p->expfact = 125 + (p->lev * 3);
-            if (p->lev > 48)
+            p->expfact = 125 + (p->max_lev * 3);
+            if (p->max_lev >= 45)
+                p->expfact += 25;
+            if (p->max_lev >= 46)
                 p->expfact += 50;
+            if (p->max_lev >= 47)
+                p->expfact += 75;
+            if (p->max_lev >= 48)
+                p->expfact += 100;
+            if (p->max_lev >= 49)
+                p->expfact += 125;
+            if (p->max_lev == 50)
+                p->expfact += 150;
         }
     }
 

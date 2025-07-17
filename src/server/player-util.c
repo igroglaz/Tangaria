@@ -1896,7 +1896,9 @@ void poly_dragon(struct player *p, bool msg)
         dn = get_dragon_form(race);
 
         /* Apply experience penalty */
-        p->expfact = p->expfact * dn->r_exp / 100;
+        // (except modes which have thier own exp factor)
+        if (!OPT(p, birth_deeptown) && !OPT(p, birth_zeitnot) && !OPT(p, birth_ironman))
+            p->expfact = p->expfact * dn->r_exp / 100;
     }
 
     /* New form */
