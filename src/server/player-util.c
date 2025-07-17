@@ -133,6 +133,9 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
 
     /* Hack -- player position is invalid */
     p->placed = false;
+
+    /* Level is not stale */
+    p->stale = false;
 }
 
 
@@ -2552,5 +2555,16 @@ bool player_force_descend(struct player *p, int lvl)
 {
     if (is_dm_p(p)) return false;
     if ((cfg_limit_stairs >= lvl) || OPT(p, birth_force_descend)) return true;
+    return false;
+}
+
+
+/*
+ * Check if the player has restricted use of recall
+ */
+bool player_no_recall(struct player *p, int lvl)
+{
+    if (is_dm_p(p)) return false;
+    if ((cfg_diving_mode >= lvl) || OPT(p, birth_no_recall)) return true;
     return false;
 }

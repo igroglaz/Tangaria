@@ -3384,7 +3384,7 @@ static void manual_design(struct player *p, struct chunk *c, bool new_level)
         if (!wpos_eq(&q->wpos, &p->wpos)) continue;
 
         // No-recall/zeitnot players are simply pushed up one level (should be safe)
-        if ((cfg_diving_mode == 3) || OPT(q, birth_no_recall) ||
+        if (player_no_recall(q, 3) || OPT(q, birth_no_recall) ||
 			OPT(q, birth_zeitnot) || player_has(p, PF_NO_RECALL))
         {
             struct worldpos wpos;

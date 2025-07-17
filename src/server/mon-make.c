@@ -2129,6 +2129,9 @@ void monster_give_xp(struct player *p, struct chunk *c, struct monster *mon, boo
 {
     int32_t new_exp, new_exp_frac, amount_exp;
 
+    /* No experience on stale levels */
+    if (player_force_descend(p, 3) && player_no_recall(p, 3) && p->stale) return;
+
     /* Amount of experience earned */
     amount_exp = (long)mon->race->mexp * mon->level;
 

@@ -631,6 +631,9 @@ message:VERSION:v
 # MSG_MOTD
 message:MOTD:w
 
+# MSG_STALE
+message:STALE:y
+
 # MAngband-specific
 
 # MSG_TALK

@@ -798,7 +798,7 @@ static int valid_inscription(struct player *p, const char *inscription, int curr
                     (2 == sscanf(inscription, "%d,%d", &grid.x, &grid.y)))
                 {
                     // Forbid if no wilderness
-                    if ((cfg_diving_mode > 1) || OPT(p, birth_no_recall) ||
+                    if (player_no_recall(p, 2) || OPT(p, birth_no_recall) ||
 						OPT(p, birth_zeitnot) || player_has(p, PF_NO_RECALL))
                     {
                         /* Deactivate recall */
@@ -4228,7 +4228,7 @@ bool effect_handler_MAP_WILD(effect_handler_context_t *context)
     int max_radius = radius_wild - 1;
 
     /* Default to magic map if no wilderness */
-    if ((cfg_diving_mode > 1) || OPT(context->origin->player, birth_no_recall) ||
+    if (player_no_recall(context->origin->player, 2) || OPT(context->origin->player, birth_no_recall) ||
         OPT(context->origin->player, birth_zeitnot))
     {
         effect_handler_MAP_AREA(context);
@@ -4649,7 +4649,7 @@ bool effect_handler_RECALL(effect_handler_context_t *context)
     context->ident = true;
 
     // zeitnot/ironman/no_recall characters instead of recall - teleport
-    if (((cfg_diving_mode == 3) || OPT(context->origin->player, birth_no_recall) ||
+    if ((player_no_recall(context->origin->player, 3) || OPT(context->origin->player, birth_no_recall) ||
         OPT(context->origin->player, birth_zeitnot)) &&
         !context->origin->player->total_winner && !is_dm_p(context->origin->player))
     {

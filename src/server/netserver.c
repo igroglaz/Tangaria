@@ -6640,6 +6640,11 @@ static int Enter_player(int ind)
     if (random_level(&p->wpos)) display_feeling(p, false);
     p->upkeep->redraw |= (PR_STATE);
 
+    /* Level is stale */
+    p->stale = true;
+    if (player_force_descend(p, 3) && player_no_recall(p, 3))
+        msgt(p, MSG_STALE, "This floor has become stale, take a staircase to move on!");
+
     /* PWMAngband: give a warning when entering a gauntlet level */
     if (square_limited_teleport(chunk_get(&p->wpos), &p->grid))
         msgt(p, MSG_ENTER_PIT, "The air feels very still!");

@@ -2263,7 +2263,7 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
         } else if (in_base_town(&p->wpos)) // there 'base' means 'ironman'
         {
             // Forbid for ironman
-            if (cfg_diving_mode > 1 || OPT(p, birth_ironman))
+            if (player_no_recall(p, 2) || OPT(p, birth_ironman))
             {
                 if (cfg_diving_mode > 1)
                     msg(p, "There is a wall blocking your way.");

@@ -911,6 +911,7 @@ struct player
     bool did_flicker;
     bool no_disturb_icky;
     bool placed;                    /* Player is properly placed on the level */
+    bool stale;                     /* Player is on a stale level */
     int monwidth;                   /* Monster list subwindow width */
     int32_t extra_energy;           /* Extra energy */
     bool first_escape;

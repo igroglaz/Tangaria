@@ -34,6 +34,13 @@ PWMAngband:
 - Add "Always ignore books" option
 - Make death popup message MB_SYSTEMMODAL
 
+Gameplay changes
+----------------
+
+PWMAngband:
+
+- Don't give experience to ironman characters on savescummed levels
+
 Bugs fixed
 ----------
 
@@ -46,6 +53,8 @@ PWMAngband:
 - Fix running into trap
 - Clear command buffer when command inside a keymap fails
 - Don't redraw the screen when exiting a menu with distorted graphics
+- Allow ESC at start of a keymap to cancel a previous keymap requiring a
+  direction
 
 Coding changes
 --------------
