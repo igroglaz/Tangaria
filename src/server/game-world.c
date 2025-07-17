@@ -744,6 +744,9 @@ static void digest_food(struct player *p)
     /* Don't use food near towns (to avoid starving in one's own house) */
     if (town_area(&p->wpos)) return;
 
+    // don't use food in Ironman/Zeitnot towns
+    if (dynamic_town(&p->wpos)) return;
+
     // slow down digestion on low satiation
     if (p->timed[TMD_FOOD] < 100 && !magik(10)) { // 90% to skip digestion
         return;

@@ -726,6 +726,10 @@ void player_update_light(struct player *p)
         if (p->wpos.depth == 0 && (is_daytime() || (p->wpos.grid.x == -6 && p->wpos.grid.y == 0)))
             burn_fuel = false;
 
+        // don't burn in Ironman/Zeitnot towns
+        if (dynamic_town(&p->wpos))
+            burn_fuel = false;
+
         /* If the light has the NO_FUEL flag, well... */
         if (of_has(obj->flags, OF_NO_FUEL))
             burn_fuel = false;
