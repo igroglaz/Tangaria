@@ -77,6 +77,8 @@
 ### DO NOT CHANGE ORDER OF CURSES.
 ### cause we use 'nazgul' curse id in the code - 28 (counting from 0)
 
+### time: - should be 1 per curse! affect whole curse, not effect
+
 name:vulnerability
 combat:0:0:-50
 type:cloak
@@ -438,6 +440,7 @@ msg:Your equipment compels you to fight!
 desc:improves your combat abilities but weakens your defenses and
 desc: regularly summons enemies to fight
 
+# TODO: rework.. (as only 1 time: works, so all effects triggered at once)
 name:chaos attunement
 #type:helm
 #type:crown
@@ -502,6 +505,7 @@ msg:Shadows envelop you.
 desc:binds shadows to you for protection and occasional invisibility
 desc: but instills fear and reduces vision
 
+# TODO: rework.. (as only 1 time: works, so all effects triggered at once)
 name:mental intruder
 #type:helm
 #type:crown
@@ -525,6 +529,7 @@ desc:grants telepathy and intelligence at the cost of wisdom and coordination
 conflict-flags:IMPAIR_MANA
 
 # idea is to cast it randomly (on contrast with One Ring activation)
+# TODO: rework.. (as only 1 time: works, so all effects triggered at once)
 name:eldritch
 #type:amulet
 #type:ring
@@ -539,11 +544,14 @@ time:1d10000
 msg:Reality warps unpredictably around you!
 desc:warps reality around you, causing powerful but unpredictable magical effects
 
+# TODO: rework.. (as only 1 time: works, so all effects triggered at once)
 name:whispers
 # curable
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:5+1d5
-time:1d1000
+#effect:TIMED_INC_NO_RES:CONFUSED
+#dice:5+1d5
+#time:1d1000
+effect:TIMED_INC:POISONED
+dice:5+1d10
 effect:SUMMON:MONSTER:0:-1
 dice:1
 time:100+1d1500
@@ -554,7 +562,6 @@ name:treachery
 effect:DAMAGE
 dice:$B
 expr:B:WEAPON_DAMAGE:+ 1
-time:1d2000
 effect:TIMED_INC:POISONED
 dice:5+1d10
 time:1d1000

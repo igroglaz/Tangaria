@@ -959,7 +959,7 @@ skill-save:-16
 skill-stealth:-2
 skill-search:-1
 skill-melee:-3
-skill-shoot:-10
+skill-shoot:-15
 skill-dig:0
 # exp factor at 49: 200%
 hitdie:13
