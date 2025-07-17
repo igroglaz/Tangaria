@@ -576,6 +576,44 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
                 {
                     do_curse_effect(p, j);
                     curse[j].timeout = randcalc(curses[j].obj->time, 0, RANDOMISE);
+
+                    // separately HC nazgul curse (id 28)
+                    if (j == 28)
+                    {
+                        struct source who_body;
+                        struct source *who = &who_body;
+
+                        int choose_curse = RNG % 7;
+
+                        // All harsh status effects must be possible to cure with pot,
+                        // so eg confusion or blindness won't block 'r'eading 'teleport scroll for long in deadly situation
+                        switch (choose_curse) {
+                            case 0: // summon monster
+                                source_player(who, get_player_index(get_connection(p->conn)), p);
+                                effect_simple(EF_SUMMON, who, "1", 0, 0, 0, 0, 0, NULL);
+                                break;
+                            case 1: // teleport
+                                source_player(who, get_player_index(get_connection(p->conn)), p);
+                                effect_simple(EF_TELEPORT, who, "40", 0, 0, 0, 0, 0, NULL);
+                                break;
+                            case 2: // image non-curable
+                                player_inc_timed(p, TMD_IMAGE_REAL, 2 + randint0(8), false, false);
+                                break;
+                            case 3: // blind curable
+                                player_inc_timed(p, TMD_BLIND, 5 + randint0(11), false, false);
+                                break;
+                            case 4: // confuse curable
+                                player_inc_timed(p, TMD_CONFUSED, 5 + randint0(11), false, false);
+                                break;
+                            case 5: // poison curable
+                                player_inc_timed(p, TMD_POISONED, 5 + randint0(11), false, false);
+                                break;
+                            case 6: // wake
+                                source_player(who, get_player_index(get_connection(p->conn)), p);
+                                effect_simple(EF_WAKE, who, 0, 0, 0, 0, 0, 0, NULL);
+                                break;
+                        }
+                    }
                 }
             }
         }

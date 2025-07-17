@@ -74,6 +74,8 @@
 #/// Note: if you don't specify any 'type' for a curse,
 #/// it won't appear on randarts or any other items (good for truearts/nazgul rings)
 
+### DO NOT CHANGE ORDER OF CURSES.
+### cause we use 'nazgul' curse id in the code - 28 (counting from 0)
 
 name:vulnerability
 combat:0:0:-50
@@ -393,33 +395,13 @@ desc:distorts your features
 # for nazgul rings (and other rings too)
 # ~ combined rate of any effect happening at a given point in time is approximately
 # 0.5% per turn. 1 in 200 turns will trigger something
-#
-# All harsh status effects must be possible to cure with pot,
-# so eg confusion or blindness won't block 'r'eading 'teleport scroll for long in deadly situation
+# id #28
 name:nazgul
 type:ring
-effect:SUMMON:MONSTER:0:-2
-dice:1
-time:100+1d1000
-effect:TELEPORT
-dice:40
-time:100+1d2500
-effect:TIMED_INC_NO_RES:IMAGE_REAL
-dice:2+d8
-time:100+1d2500
-effect:TIMED_INC_NO_RES:BLIND
-dice:1+d8
-time:100+1d5000
-# can be cured by !
-effect:TIMED_INC_NO_RES:CONFUSED
-dice:1+d8
-time:100+1d5000
-effect:TIMED_INC_NO_RES:POISONED
+effect:TIMED_INC:INVIS
 dice:10+d10
-time:1d1000
-effect:WAKE
-time:100+1d5000
-msg:The ring whispers something!
+time:1d200
+msg:The ring whispers something and turn you invisible!
 desc:bends your will
 
 name:misfortune
