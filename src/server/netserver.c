@@ -6621,7 +6621,7 @@ static int Enter_player(int ind)
     /* Level is stale */
     p->stale = true;
     if (player_force_descend(p, 3) && player_no_recall(p, 3))
-        msgt(p, MSG_STALE, "This floor has become stale, take a staircase to move on!");
+        msgt(p, MSG_STALE, "This floor's gone stale - no EXP or loot. Take the stairs to move on!");
 
     /* PWMAngband: give a warning when entering a gauntlet level */
     if (square_limited_teleport(chunk_get(&p->wpos), &p->grid))

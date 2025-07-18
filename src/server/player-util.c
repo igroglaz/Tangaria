@@ -2575,5 +2575,9 @@ bool player_no_recall(struct player *p, int lvl)
  */
 bool player_stale_level(struct player *p)
 {
+    // note: no_rec + force_desc in T automatically becomes Ironman...
+    // .. and Ironman is exclusive mode, so this hero can't be ZN.
+    // so all is good there :)
+    // but to find this place in search later: OPT(p, birth_ironman)
     return (player_force_descend(p, 3) && player_no_recall(p, 3) && p->stale);
 }

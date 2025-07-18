@@ -144,8 +144,8 @@ void do_cmd_go_up(struct player *p)
             return;
         }
 
-        /* Ironman ghosts don't go up either */
-        if (player_force_descend(p, 3) && player_no_recall(p, 3))
+        // Ironman/Zeitnot ghosts don't go up
+        if (OPT(p, birth_ironman) || OPT(p, birth_zeitnot))
         {
             msg(p, "Your fate awaits you in the darkness below.");
             return;
