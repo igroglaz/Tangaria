@@ -5118,20 +5118,18 @@ effect:TIMED_INC:REGEN_PET
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 1
 desc:You treat your pet so it regenerates its wounds.
-desc: You can use this skill once per 60 turns.
+desc: Cooldown 60 turns
 
 spell:Cat Magnetism:35:30:63:50:0
+cooldown:240
 effect:TIMED_SET:STEALTH
-dice:10+1d10
+dice:30+1d10
 effect:TIMED_SET:SINFRA
-dice:10+1d10
-effect:SPEND_MANA
-dice:$B
-expr:B:PLAYER_LEVEL:/ 2
+dice:30+1d10
 desc:Grants infravision and ability to walk silently.
-desc: The mana cost depends on your level.
+desc: Cooldown 240 turns
 
-spell:Shoo:40:75:55:50:0
+spell:Shoo:40:50:55:50:0
 effect:PROJECT_LOS_AWARE:AWAY_ANIMAL
 dice:100
 msg_self:The power of nature banishes animals!
