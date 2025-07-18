@@ -863,7 +863,7 @@ spell-freq:3
 innate-freq:100
 spells:WEAVE
 desc:Weaving it's web everywhere.. It don't need to run
-desc:for it's prey. Just sit quetly and wait till it get
+desc: for it's prey. Just sit quetly and wait till it get
 desc: there.. Then some venom - and dinner is ready...
 
 #was name:giant white louse
@@ -1238,7 +1238,7 @@ flags:RAND_25 | DROP_SKELETON | DROP_CORPSE | WILD_WOOD
 flags:ONLY_GOLD | DROP_1
 flags:TAKE_ITEM | OPEN_DOOR | BASH_DOOR
 desc:He has a strong axe with a sharp edge.
-desc:He looks pale.. and got strange crimson gleal in his eyes..
+desc: He looks pale.. and got strange crimson gleal in his eyes..
 
 name:newt
 base:reptile
@@ -2512,7 +2512,7 @@ blow:TOUCH:EAT_GOLD
 flags:DROP_CORPSE | WILD_WOOD
 # | LEVITATE
 desc:It is gray except for the black wings and head.
-desc:It likes shiny items.
+desc: It likes shiny items.
 
 name:yellow light
 base:ball
@@ -3701,7 +3701,7 @@ flags:NO_FEAR
 spell-freq:7
 spells:SCARE
 desc:It is a strange small humanoid. He looks hectic.
-desc:He scares you with his recklessness.
+desc: He scares you with his recklessness.
 
 name:giant salamander
 base:reptile
@@ -3777,7 +3777,7 @@ flags:OPEN_DOOR | BASH_DOOR
 flags:NO_FEAR
 friends:100:2d7:Same
 desc:It is the larval form of a major demon.
-desc:A minor but aggressive one...
+desc: A minor but aggressive one...
 
 #v
 name:orc tracker
@@ -5023,7 +5023,7 @@ spell-freq:15
 innate-freq:100
 spells:BOULDER
 desc:An unusual breed of goblins... It's got a huge sling
-desc:in it's long arms that nearly reach the floor.
+desc: in it's long arms that nearly reach the floor.
 
 name:hippogriff
 base:hybrid
@@ -5980,8 +5980,8 @@ spell-power:8
 spells:WHIP
 friends:100:1d5:Same
 desc:He is a large orc with powerful arms and deep black skin.
-desc:He wield crude crossbow.
-desc:Black orcs are known for poisoning their bolts..
+desc: He wield crude crossbow.
+desc: Black orcs are known for poisoning their bolts..
 
 name:ochre jelly
 plural:ochre jellies
@@ -6333,7 +6333,7 @@ spell-freq:4
 innate-freq:33
 spells:BLINK | SHOT | TRAPS | DARKNESS
 desc:Beautiful tiny girls with huge... eyes.
-desc:She winks at you.
+desc: She winks at you.
 locations:The Sewers|Angmar|The Thangorodrim|The Underdeep
 
 name:wererat
@@ -6934,7 +6934,7 @@ flags:IM_LIGHT
 spell-freq:7
 spells:HEAL
 desc:A short and swarthy mutant. He was paladin.
-desc:But was cursed... Still could do some holy magic.
+desc: But was cursed... Still could do some holy magic.
 
 name:quasit
 base:minor demon
@@ -6959,7 +6959,7 @@ spell-freq:10
 spells:BLIND | BLINK | CONF | SCARE | TELE_LEVEL | TELE_TO
 spells:TPORT
 desc:A demon of small stature with an annoying bite.
-desc:Also the chaotic evil master's favourite pet...
+desc: Also the chaotic evil master's favourite pet...
 
 name:uruk
 base:orc
@@ -7175,8 +7175,8 @@ spell-freq:10
 spells:BLIND | BLINK | CONF | SCARE | TELE_LEVEL | TELE_TO
 spells:TPORT
 desc:The narrow mug ended in a pig's snout that constantly twitched and
-desc:sniffed the air; the thin brittle legs, thin tail, small goatee and
-desc:and tiny horns - a little mischief-maker also known as "chort".
+desc: sniffed the air; the thin brittle legs, thin tail, small goatee and
+desc: and tiny horns - a little mischief-maker also known as "chort".
 
 name:forest troll
 base:troll
@@ -7439,9 +7439,9 @@ friends:35:1d2:purple mushroom patch
 friends:35:1d1:magic mushroom patch
 ####################################################################################
 desc:Barely a foot tall, mischievous and attractively childlike with pointed ears,
-desc:and wearing a tiny green outfit and pointed hat. It's skin, hair, and eyes come
-desc:in shades of greens of the leaves and grass.
-desc:It's buzzing something angrily at you.
+desc: and wearing a tiny green outfit and pointed hat. It's skin, hair, and eyes come
+desc: in shades of greens of the leaves and grass.
+desc: It's buzzing something angrily at you.
 
 name:orc captain
 base:orc
@@ -9024,7 +9024,7 @@ drop-base:food:50:1:2
 friends:100:2d4:half-orc
 friends:100:2d4:uruk:bodyguard
 desc:He will eat you alive...
-desc:"I'm starving. We ain't had 'nothing but maggoty bread
+desc: "I'm starving. We ain't had 'nothing but maggoty bread
 desc: for three stinking days!"
 
 name:killer stag beetle
@@ -10031,7 +10031,7 @@ spells:S_ANIMAL | S_MONSTER | S_SPIDER
 drop-base:nature book:8:1:1
 ################################################################################
 desc:A horned stocky creature with furry legs and cloven goats hooves.
-desc:It appears to have mighty nature-controlling enchantments.
+desc: It appears to have mighty nature-controlling enchantments.
 
 name:stone troll
 base:troll
@@ -10247,8 +10247,9 @@ friends:35:1d1:spotted mushroom patch
 friends:35:1d1:purple mushroom patch
 friends:35:1d2:unmagic mushroom patch
 ####################################################################################
-desc:Barely a foot tall, with butterfly wings and pointed ears. It's skin, hair, and eyes come in shades of greens of the leaves and grass.
-desc:It's buzzing something offensive at you.
+desc:Barely a foot tall, with butterfly wings and pointed ears.
+desc: It's skin, hair, and eyes come in shades of greens of the leaves and grass.
+desc: It's buzzing something offensive at you.
 
 name:giant grey ant
 base:ant
@@ -10295,7 +10296,7 @@ spell-power:26
 spells:BLINK | WOUND | DARKNESS | HEAL | SCARE
 drop-base:prayer book:5:1:1
 desc:He is a clever ogre. He found path to power.
-desc:Other ogres bring him food.
+desc: Other ogres bring him food.
 
 name:Mutant fighter
 base:person
@@ -10479,10 +10480,10 @@ spell-freq:3
 spell-power:26
 spells:BLIND | CONF | SCARE | FORGET
 desc:Who knows why you are now facing an angel as an enemy? Is it a punishment
-desc:from your own god for your sins, or a test of your mettle, or has this angel
-desc:been sent by another god on behalf of someone who wishes to claim the glory
-desc:for his own god? Perhaps you will never know: but it is here, and you must
-desc:fight it.
+desc: from your own god for your sins, or a test of your mettle, or has this angel
+desc: been sent by another god on behalf of someone who wishes to claim the glory
+desc: for his own god? Perhaps you will never know: but it is here, and you must
+desc: fight it.
 
 name:wolf chieftain
 base:canine
@@ -10722,7 +10723,7 @@ flags:IM_POIS
 flags:DROP_CORPSE | DROP_SKELETON | WILD_WOOD | WILD_SWAMP | WILD_MOUNTAIN
 friends:100:3d3:Same
 desc:Pale, bald, fat, hairless troll creatures. Ugly beyond description.
-desc:Not to mention how bad their breath smells...
+desc: Not to mention how bad their breath smells...
 
 name:vibration hound
 base:zephyr hound
@@ -11216,7 +11217,7 @@ spell-freq:7
 spells:BLIND | HOLD | SCARE
 spells:S_KIN
 desc:His daughter is missing. He believe she is killed.
-desc:He become mad because of grief.
+desc: He become mad because of grief.
 
 name:Uldor the Accursed
 base:person
@@ -12618,7 +12619,7 @@ spell-freq:8
 innate-freq:100
 spells:BR_POIS | SHRIEK
 desc:A huge creature made covered in dusky pig iron scales.
-desc:It squeals!
+desc: It squeals!
 
 name:young chaos drake
 base:dragon
@@ -12758,7 +12759,7 @@ spell-freq:3
 spells:MISSILE | HEAL
 drop-base:magic book:5:1:1
 desc:A hideous troll wrapped in black sorcerous robes.
-desc:He looks stupid, but nevertheless knows some magic.
+desc: He looks stupid, but nevertheless knows some magic.
 
 name:nexus quylthulg
 base:quylthulg
@@ -15872,7 +15873,7 @@ spell-freq:7
 spell-power:38
 spells:BLINK | WOUND | HOLD | TELE_AWAY | TELE_LEVEL | TELE_TO
 desc:It's a strange bright glowing sphere formed of living light.
-desc:There are rumours that following a wisp will lead you to a treasure.
+desc: There are rumours that following a wisp will lead you to a treasure.
 
 #v
 name:white wraith
@@ -16060,7 +16061,7 @@ spells:BLIND | HASTE | HEAL | MIND_BLAST | SCARE
 spells:BO_FIRE
 spells:S_MONSTERS
 desc:It is an angel moving very quickly, wielding a holy war hammer and casting
-desc:a volley of powerful spells in your direction.
+desc: a volley of powerful spells in your direction.
 
 #v
 name:southron archer
@@ -16497,7 +16498,7 @@ spell-freq:4
 innate-freq:15
 spells:HEAL | BR_WATE
 desc:A strange reptilian creature with moss-covered heads.
-desc:They say that it could heal its heads...
+desc: They say that it could heal its heads...
 
 name:enchantress
 base:person
@@ -18171,7 +18172,7 @@ spell-power:44
 innate-freq:20
 spells:BR_FIRE | BA_FIRE | BO_FIRE | BO_PLAS | BR_PLAS
 desc:Golem consisted entirely from living flame... summoned by
-desc:accelerating particles of the air at an ever increasing pace
+desc: accelerating particles of the air at an ever increasing pace
 desc: till the will ignite and the Golem crackles to the world of living to BURN..
 
 #v
@@ -18342,8 +18343,8 @@ flags:MOVE_BODY | OPEN_DOOR | LEVITATE
 flags:IM_FIRE | IM_PLASMA | IM_NETHER | NO_CONF | NO_SLEEP | NO_FEAR | IM_COLD
 flags:IM_POIS | NO_STUN | NO_HOLD
 desc:He is working undercover in the Resistance, to protect mutant's
-desc:right for living. You uncovered his identity. He doesn't have
-desc:choice but to kill you!
+desc: right for living. You uncovered his identity. He doesn't have
+desc: choice but to kill you!
 
 #v
 name:killer white beetle
@@ -18398,7 +18399,7 @@ spells:BO_MANA | BO_PLAS
 spells:S_ANGEL
 spells:S_MONSTERS
 desc:It is an angel, fast and strong. You are stunned by its extreme holiness
-desc:and try to resist all desires to obey it.
+desc: and try to resist all desires to obey it.
 
 #old V, now removed
 name:Wizard
@@ -20058,8 +20059,8 @@ flags:OPEN_DOOR
 flags:ONLY_ITEM | DROP_4
 flags:ANTI_MAGIC | NO_STUN
 desc:'Holy' warriors in grim orders... His goal is
-desc:to bring judgement, be it through absolution or through death.
-desc:He will torment you in the ways you do not want to know...
+desc: to bring judgement, be it through absolution or through death.
+desc: He will torment you in the ways you do not want to know...
 
 name:14-headed hydra
 base:hydra
@@ -20469,7 +20470,7 @@ flags:NEVER_MOVE | MULTIPLY
 spell-freq:2
 spells:BLINK
 desc:A huge amoeboid substance which is grow,
-desc:terrible and unstoppable.
+desc: terrible and unstoppable.
 
 name:Shelob, Spider of Darkness
 base:spider
@@ -20536,8 +20537,8 @@ spells:BLIND | WOUND | BA_LIGHT | SCARE | TELE_TO | HEAL | MISSILE
 spells:BO_MANA
 spells:S_ANGEL
 desc:Never a more heavenly being have you seen. The very holiness of its
-desc:presence makes you deeply respect it. Few creatures can match the powers
-desc:of an Archon; fewer still live to tell the tale after attacking one.
+desc: presence makes you deeply respect it. Few creatures can match the powers
+desc: of an Archon; fewer still live to tell the tale after attacking one.
 
 name:dracolich
 plural:dracoliches
@@ -20682,7 +20683,7 @@ spells:SPIT
 spells:BLIND | DARKNESS | MIND_BLAST | SLOW
 spells:S_MONSTERS
 desc:A weird bloodshot disembodied eye, floating a few feet above the ground.
-desc:It blinks slowly and menacily.
+desc: It blinks slowly and menacily.
 
 name:lesser titan
 base:giant
@@ -20914,8 +20915,8 @@ spells:BA_NETH
 spells:BO_MANA | BO_NETH
 spells:S_UNDEAD
 desc:A pitch black hand floating in the air.
-desc:It's looking for you. She knows where you are.
-desc:You can't hide from it.
+desc: It's looking for you. She knows where you are.
+desc: You can't hide from it.
 
 ### Dungeon level 59 ###
 
@@ -21135,9 +21136,9 @@ spells:S_AINU | S_ANIMAL
 spells:SHAPECHANGE
 shape:Young witch
 desc:Haggard ugly dirty old woman with a huge distorted hooked nose and a
-desc:jutting jaw that shows off her iron teeth.
-desc:She is skinny, like a skeleton, with a bony leg.
-desc:She knows how to turn from old into young in a blink of an eye.
+desc: jutting jaw that shows off her iron teeth.
+desc: She is skinny, like a skeleton, with a bony leg.
+desc: She knows how to turn from old into young in a blink of an eye.
 
 #Ancient witch sexy form
 name:Young witch
@@ -21192,8 +21193,8 @@ spells:SHAPECHANGE
 shape:shardstorm
 shape:great earth elemental
 desc:Dweller of the elemental planes, he was summoned to do the bidding.
-desc:But something went wrong... and now it's FREE!
-desc:RUN!
+desc: But something went wrong... and now it's FREE!
+desc: RUN!
 
 #v
 name:great earth elemental
@@ -21419,8 +21420,8 @@ spells:BO_FIRE | BO_MANA | BO_PLAS
 spells:BR_FIRE | BR_PLAS
 spells:S_ANGEL
 desc:A creature of godly appearance, you dare not challenge Uriel's supremacy.
-desc:Those who stood against him before are but a memory, cremated by his
-desc:mastery of elemental fire.
+desc: Those who stood against him before are but a memory, cremated by his
+desc: mastery of elemental fire.
 
 #was v name:Arien, Maia of the Sun
 name:Svarog, Spirit of the Sun
@@ -21485,7 +21486,7 @@ innate-freq:33
 spells:BA_FIRE | BO_PLAS
 spells:WHIP | BR_FIRE | BR_PLAS
 desc:It is a towering inferno of flames.
-desc:It can smelt stone.
+desc: It can smelt stone.
 
 name:bile demon
 base:major demon
@@ -21603,7 +21604,7 @@ spells:S_ANGEL
 desc:Encrusted with barnacles, slimy and dripping, the Giant of the untamed
 desc: waters has dragged himself down into the dungeon to send you
 desc: to a watery grave.
-desc:He is the most powerful and heartless of servants of nature and embodies
+desc: He is the most powerful and heartless of servants of nature and embodies
 desc: the untamed power of the ocean. Terror grows in your heart with each
 desc: squelching step of his approach.
 
@@ -21640,7 +21641,7 @@ friends:100:2d1:great water elemental:servant
 desc:Encrusted with barnacles, slimy and dripping, the Giant of the untamed
 desc: waters has dragged himself down into the dungeon to send you
 desc: to a watery grave.
-desc:He is the most powerful and heartless of servants of nature and embodies
+desc: He is the most powerful and heartless of servants of nature and embodies
 desc: the untamed power of the ocean. Terror grows in your heart with each
 desc: squelching step of his approach.
 
@@ -22880,9 +22881,9 @@ innate-freq:20
 spells:HEAL
 spells:BR_PLAS | BR_GRAV | BR_WALL
 desc:Gorynich is the ancient tree headed dragon..
-desc:He's heads like to speak to each other, discussing
-desc:how better to cook you for a delicious feast..
-desc:Gorynich got amazing healing powers.
+desc: He's heads like to speak to each other, discussing
+desc: how better to cook you for a delicious feast..
+desc: Gorynich got amazing healing powers.
 
 name:gold Thunderlord
 base:bird
@@ -22940,7 +22941,7 @@ spells:SHAPECHANGE
 shape:elemental
 shape:vortex
 desc:He was a servant of Gods util he breaks his freedom
-desc:to find his destiny in mortal world.
+desc: to find his destiny in mortal world.
 
 #v name:Maia of Varda // female djinn
 name:Jinni
@@ -22971,7 +22972,7 @@ spells:SHAPECHANGE
 shape:elemental
 shape:vortex
 desc:She was a servant of Gods util she breaks her freedom
-desc:to find her destiny in mortal world.
+desc: to find her destiny in mortal world.
 
 name:greater demonic quylthulg
 base:quylthulg
