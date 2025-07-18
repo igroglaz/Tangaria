@@ -1075,6 +1075,9 @@ expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
 desc: of cuts and stunning.
+desc: When you cast it, choose a target:
+desc: m1d(t to cast on another
+desc: m1d(5 to cast on yourself
 
 spell:Call Light:3:2:25:2:0
 effect:BLAST:LIGHT_WEAK:1:10
