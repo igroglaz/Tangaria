@@ -723,11 +723,14 @@ static void place_feature(struct player *p, struct chunk *c, int cur_feat)
         msg(p, "There is already an up staircase on this level!");
         return;
     }
+    
+    /* T: we want to be able to put more down stair case in Deeptown...
     if ((cur_feat == FEAT_MORE) && (c->join->up.y || c->join->up.x))
     {
         msg(p, "There is already a down staircase on this level!");
         return;
     }
+    */
 
     /* Remove a staircase */
     if (square_isupstairs(c, &p->grid))
