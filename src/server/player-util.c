@@ -2568,3 +2568,12 @@ bool player_no_recall(struct player *p, int lvl)
     if ((cfg_diving_mode >= lvl) || OPT(p, birth_no_recall)) return true;
     return false;
 }
+
+
+/*
+ * Check if the player is on a stale level
+ */
+bool player_stale_level(struct player *p)
+{
+    return (player_force_descend(p, 3) && player_no_recall(p, 3) && p->stale);
+}

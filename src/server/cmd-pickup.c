@@ -567,7 +567,7 @@ uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct
 {
     struct object *current = NULL;
     int floor_max = z_info->floor_size;
-    struct object **floor_list = mem_zalloc(floor_max * sizeof(*floor_list));
+    struct object **floor_list;
     int floor_num = 0;
     bool call_function_again = false;
     bool domsg = true;
@@ -576,20 +576,16 @@ uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct
     uint8_t objs_picked_up = 0;
 
     /* Nothing else to pick up -- return */
-    if (!square_object(c, &p->grid))
-    {
-        mem_free(floor_list);
-        return 0;
-    }
+    if (!square_object(c, &p->grid)) return 0;
 
     /* Normal ghosts cannot pick things up */
-    if (p->ghost && !(p->dm_flags & DM_GHOST_BODY))
-    {
-        mem_free(floor_list);
-        return 0;
-    }
+    if (p->ghost && !(p->dm_flags & DM_GHOST_BODY)) return 0;
+
+    /* Not on stale levels */
+    if (player_stale_level(p)) return 0;
 
     /* Tally objects that can be at least partially picked up.*/
+    floor_list = mem_zalloc(floor_max * sizeof(*floor_list));
     floor_num = see_floor_items(p, c, pickup, floor_list, floor_max);
     if (!floor_num)
     {
@@ -746,6 +742,9 @@ uint8_t do_autopickup(struct player *p, struct chunk *c, int pickup)
 
     /* Normal ghosts cannot pick things up */
     if (p->ghost && !(p->dm_flags & DM_GHOST_BODY)) return 0;
+
+    /* Not on stale levels */
+    if (player_stale_level(p)) return 0;
 
     /* Always pickup gold, effortlessly */
     /* Ghosts don't pick up gold automatically */

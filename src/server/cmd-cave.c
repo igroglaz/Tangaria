@@ -143,6 +143,13 @@ void do_cmd_go_up(struct player *p)
             msg(p, "Morgoth awaits you in the darkness below.");
             return;
         }
+
+        /* Ironman ghosts don't go up either */
+        if (player_force_descend(p, 3) && player_no_recall(p, 3))
+        {
+            msg(p, "Your fate awaits you in the darkness below.");
+            return;
+        }
     }
 
     /* No going up from quest levels with force_descend while the quest is active */

@@ -39,7 +39,8 @@ Gameplay changes
 
 PWMAngband:
 
-- Don't give experience to ironman characters on savescummed levels
+- Don't give experience/loot to ironman characters on savescummed levels
+- Prevent ironman characters from picking up items on savescummed levels
 
 Bugs fixed
 ----------
@@ -55,6 +56,7 @@ PWMAngband:
 - Don't redraw the screen when exiting a menu with distorted graphics
 - Allow ESC at start of a keymap to cancel a previous keymap requiring a
   direction
+- Prevent ironman ghosts from going up
 
 Coding changes
 --------------

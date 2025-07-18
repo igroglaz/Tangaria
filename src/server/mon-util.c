@@ -1384,6 +1384,8 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
     /* Killing an unique multiple times is cheezy! */
     /* Adding clones here to avoid cloning/breeding abuse */
     cheeze = ((unique_monster && lore->pkills) || mon->clone);
+    /* Also adding stale levels here to avoid replaying the same level as an ironman character */
+    if (player_stale_level(p)) cheeze = true;
 
     /* Take note of the kill */
     if (lore->pkills < SHRT_MAX)

@@ -131,5 +131,6 @@ extern bool player_is_living(struct player *q);
 extern bool player_is_trapsafe(const struct player *p);
 extern bool player_force_descend(struct player *p, int lvl);
 extern bool player_no_recall(struct player *p, int lvl);
+extern bool player_stale_level(struct player *p);
 
 #endif /* PLAYER_UTIL_H */
