@@ -267,8 +267,14 @@ void do_cmd_breath(struct player *p, int dir)
         
         return;        
     }
-    else if (streq(p->race->name, "Ooze") && p->lev > 5)
+    else if (streq(p->race->name, "Ooze"))
     {
+        if (p->lev < 5)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You need to be level 5+ to use this ability.");
+            return;
+        }
+
         // can be used only on full HPs
         if (p->chp == p->mhp)
         {
@@ -368,13 +374,19 @@ void do_cmd_breath(struct player *p, int dir)
 
         return;
     }
-    else if (streq(p->race->name, "Demonic") && p->lev > 35)
+    else if (streq(p->race->name, "Demonic"))
     {
-        struct chunk *c = chunk_get(&p->wpos); // for summon
+
+        if (p->lev < 35)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You need to be level 35+ to use this ability.");
+            return;
+        }
 
         // can be used only on full HPs
         if (p->chp == p->mhp)
         {
+            struct chunk *c = chunk_get(&p->wpos); // for summon
             int d_summ = randint0(1 + p->lev / 5); // demon type
 
             use_energy(p);
@@ -526,9 +538,14 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 1 + randint0(2), true, false);
         return;
     }
-    else if (streq(p->race->name, "Homunculus") && p->chp - (p->mhp / 10) > 0 &&
-             p->lev > 34)
+    else if (streq(p->race->name, "Homunculus") && p->chp - (p->mhp / 10) > 0)
     {
+        if (p->lev < 35)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You need to be level 35+ to use this ability.");
+            return;
+        }
+        
         /* Take a turn */
         use_energy(p);
         /* Make the breath attack an effect */
@@ -869,8 +886,14 @@ void do_cmd_breath(struct player *p, int dir)
         player_inc_timed(p, TMD_OCCUPIED, 3, false, false);
         return;
     }
-    else if (streq(p->race->name, "Golem") && p->lev > 34)
+    else if (streq(p->race->name, "Golem"))
     {
+        if (p->lev < 35)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You need to be level 35+ to use this ability.");
+            return;
+        }
+        
         use_energy(p);
         
         effect = mem_zalloc(sizeof(struct effect));
@@ -1407,9 +1430,14 @@ void do_cmd_breath(struct player *p, int dir)
         return;
     }
     // (again... why !shapechanger? don't remember. maybe just cause it imba?)
-    else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger") &&
-             p->lev > 5)
+    else if (streq(p->race->name, "Ent") && !streq(p->clazz->name, "Shapechanger"))
     {
+        if (p->lev < 5)
+        {
+            msgt(p, MSG_SPELL_FAIL, "You need to be level 5+ to use this ability.");
+            return;
+        }
+        
         use_energy(p);
             
         effect = mem_zalloc(sizeof(struct effect));
