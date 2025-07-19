@@ -383,14 +383,6 @@ static bool handler_breath(effect_handler_context_t *context, bool use_boost)
             }
         }
 
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard") &&
-            !context->origin->player->poly_race)
-        {
-            // Acid Breath spell (mana 11)
-            if (context->origin->player->spell_cost == 11)
-                dam *= context->origin->player->lev / 4;
-        }
-
         source_player(who, get_player_index(get_connection(context->origin->player->conn)),
             context->origin->player);
 

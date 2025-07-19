@@ -6694,14 +6694,18 @@ expr:D:PLAYER_LEVEL:- 10
 msg_other: fires a mana bolt!
 desc:Shoots a bolt that does irresistible damage.
 
-spell:Dimension Shift:30:17:35:40:0
-cooldown:100
-effect:DETECT_STAIRS
-effect-yx:22:40
-effect:DETECT_DOORS
-effect-yx:22:40
-effect:DETECT_TRAPS
-effect-yx:22:40
+spell:Make Passage:30:10:1:35:0
+effect:SHORT_BEAM:KILL_WALL:10
+dice:$B
+expr:B:PLAYER_LEVEL:* 4
+msg_other: makes a moving gesture.
+desc:Produces a beam that destroys the first section of wall it hits,
+desc: unless it is a permanent wall. Each monster caught in the beam that
+desc: is susceptible to rock remover takes damage.
+desc: Maximum beam range is 10 tiles.
+
+spell:Dimension Shift:33:17:35:40:0
+cooldown:300
 effect:MAP_AREA
 effect-yx:22:40
 effect:TIMED_INC:WRAITHFORM
@@ -6710,20 +6714,20 @@ effect:TELEPORT_LEVEL
 desc:Teleports you 1 level up or 1 level down (chosen at random) and
 desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
-desc: Cooldown 100 turns.
+desc: Cooldown 300 turns.
 
-spell:Acid Breath:33:11:30:50:0
-cooldown:60
-# hc 1d4 (up to x12)
-effect:BREATH:ACID:0:30
-dice:$Dd8
-expr:D:PLAYER_LEVEL:+ 0
-msg_other: breathes acid.
-desc:Breathes acid in a wide cone.
-desc: The damage of the breath increases with your level (up to x12).
-desc: Cooldown 60 turns.
+spell:Energy Bolt:35:13:27:90:0
+cooldown:11
+#stun monsters
+effect:BALL:PLASMA:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which explode upon impact.
+desc: It might stun target.
+desc: Cooldown 11 turns.
 
-spell:Dark Ritual:35:12:32:70:0
+spell:Dark Ritual:40:12:32:70:0
 cooldown:30
 # hc 1d5
 effect:TIMED_INC_NO_RES:BLIND_REAL
@@ -6745,25 +6749,19 @@ desc: The mapped area grows larger with your level.
 desc: The damage of the dark magic increases with your level.
 desc: Cooldown 30 turns.
 
-spell:Energy Bolt:40:13:27:90:0
-#stun monsters, slow and burn caster
-effect:DAMAGE
-dice:2
-effect:BALL:PLASMA:2
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:BOLT:PLASMA
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which explode upon impact.
-
-spell:Frozen Orb:45:40:40:100:0
-effect:ARC:ICE:0:30
+spell:Acid Breath:45:40:40:100:0
+effect:ARC:ACID:0:30
 dice:$B
 expr:B:PLAYER_LEVEL:* 7
-msg_other: subzeroes the air into sharp icicles.
-desc:Sends forward sharp icicle storm.
+msg_other: breathes acid.
+desc:Breathes acid in a wide cone.
+
+#spell:Frozen Orb:45:40:40:100:0
+#effect:ARC:ICE:0:30
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 7
+#msg_other: subzeroes the air into sharp icicles.
+#desc:Sends forward sharp icicle storm.
 
 spell:Pure Magic:47:50:40:150:0
 # testing note: won't work on the surface as number of Meteors depends of depth
