@@ -27,6 +27,61 @@
  */
 
 
+// find out whether the first non-passable tile on the line
+// from monster to player is a **tree or something else**.
+//
+// returns true  -> first blocking cell is a non-passable, non-tree obstacle
+// returns false -> no such obstacle – either clear path or only trees
+/*
+ * we call project_path() with the PROJECT_ROCK flag:
+ *
+ *   - without PROJECT_ROCK the routine stops the trace as soon as it meets
+ *     the first non-projectable grid (a solid wall, closed door, etc.).  
+ *     that means any trees that happen to lie *behind* such an obstacle are
+ *     never examined – the loop exits early.
+ *
+ *   - with PROJECT_ROCK the trace is allowed to march straight through rock
+ *     (exactly the same trick the original monster_near_permwall() uses).
+ *     in practice this just means "give me the full Bresenham line all the
+ *     way to the player, even if it crosses walls", so every tree that sits
+ *     on that geometric line will be seen and tested.
+ */
+static bool path_blocked_for_treewalker(struct player *p, const struct monster *mon, struct chunk *c)
+{
+    struct loc path[512];
+    int path_len, i;
+
+    // if the player is already in LOS we can follow the normal flow logic
+    if (projectable(p, c, &((struct monster *)mon)->grid, &p->grid, PROJECT_SHORT, false))
+        return false;
+
+    // build the straight-line path; allow it to cross rock
+    path_len = project_path(p, c, path, z_info->max_sight, &((struct monster *)mon)->grid, &p->grid, PROJECT_ROCK);
+
+    // scan the path for blocking trees (or our previous square)
+    for (i = 0; i < path_len; ++i)
+    {
+        // we hit a solid obstacle that the monster cannot cross (wall, permanent wall, closed door...)
+        // anything *behind* it is irrelevant
+        if (!square_ispassable(c, &path[i]) && !square_istree(c, &path[i]))
+            return true;
+
+        // stay in "tree-ghost" mode when the monster is already inside the tree belt
+        // if the line still crosses last turn's square (old_grid)
+        // pretend a blocking tree exists so we keep the through-trees path
+        if (loc_eq(&path[i], &((struct monster *)mon)->old_grid))
+            return true;
+
+        // reached the player without meeting any blocking non-tree tiles
+        if (loc_eq(&path[i], &p->grid))
+            return false;
+    }
+
+    // ran out of path – no blocking obstacles at all
+    return false;
+}
+
+
 /*
  * Find whether a monster is near a permanent wall
  *
@@ -597,6 +652,15 @@ static bool get_move_advance(struct player *p, struct chunk *c, struct monster *
 
     /* If the monster can pass through nearby walls, do that */
     if (monster_passes_walls(mon->race) && !monster_near_permwall(p, mon, c))
+    {
+        loc_copy(&mon->target.grid, &target);
+        *track = true;
+        return true;
+    }
+
+    // if the monster can move through trees, check that the direct line
+    // contains **no impassable non-tree tiles** – if so charge straight ahead
+    if (monster_passes_trees(mon->race) && !path_blocked_for_treewalker(p, mon, c))
     {
         loc_copy(&mon->target.grid, &target);
         *track = true;

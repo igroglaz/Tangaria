@@ -15,6 +15,7 @@ typedef bool (*monster_predicate)(const struct monster *mon);
 extern bool monster_is_undead(const struct monster_race *race);
 extern bool monster_is_nonliving(const struct monster_race *race);
 extern bool monster_is_destroyed(const struct monster_race *race);
+extern bool monster_passes_trees(const struct monster_race *race);
 extern bool monster_passes_walls(const struct monster_race *race);
 extern bool race_is_invisible(const struct monster_race *race);
 extern bool race_is_unique(const struct monster_race *race);

@@ -54,20 +54,23 @@ bool monster_is_destroyed(const struct monster_race *race)
 }
 
 
+// RF_WILD_WOOD, RF_ANIMAL monsters can pass through trees
+bool monster_passes_trees(const struct monster_race *race)
+{
+    if (flags_test(race->flags, RF_SIZE, RF_WILD_WOOD, RF_ANIMAL, FLAG_END))
+    {
+        return !flags_test(race->flags, RF_SIZE, RF_NO_PASS_TREE, FLAG_END);
+    }
+    return false;
+}
+
+
 /*
  * Monster can pass through walls
  */
 bool monster_passes_walls(const struct monster_race *race)
 {
-    if (flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, RF_WILD_WOOD, RF_ANIMAL, FLAG_END))
-    {
-        if (flags_test(race->flags, RF_SIZE, RF_NO_PASS_TREE, FLAG_END))
-            return false;
-        else
-            return true;
-    }
-    else
-        return false;
+    return flags_test(race->flags, RF_SIZE, RF_PASS_WALL, RF_KILL_WALL, RF_SMASH_WALL, FLAG_END);
 }
 
 
