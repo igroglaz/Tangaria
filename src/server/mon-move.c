@@ -27,6 +27,34 @@
  */
 
 
+// Find whether a monster is near a tree
+// (this decides whether tree-passing monsters use the monster flow code)
+// TODO: fix this code
+static bool monster_near_tree(struct player *p, const struct monster *mon, struct chunk *c)
+{
+    struct loc gp[512];
+    int path_grids, j;
+
+    /* If player is in LOS, there's no need to go around trees */
+    if (projectable(p, c, &((struct monster *)mon)->grid, &p->grid, PROJECT_SHORT, false))
+        return false;
+
+    /* Find the shortest path */
+    path_grids = project_path(p, c, gp, z_info->max_sight, &((struct monster *)mon)->grid, &p->grid,
+        PROJECT_ROCK);
+
+    // see if we can "see" the player without hitting trees
+    for (j = 0; j < path_grids; j++)
+    {
+        if (square_istree(c, &gp[j])) return true;
+        if (loc_eq(&gp[j], &((struct monster *)mon)->old_grid)) return true;
+        if (loc_eq(&gp[j], &p->grid)) return false;
+    }
+
+    return false;
+}
+
+
 /*
  * Find whether a monster is near a permanent wall
  *
@@ -602,6 +630,16 @@ static bool get_move_advance(struct player *p, struct chunk *c, struct monster *
         *track = true;
         return true;
     }
+
+    /* TODO: fix this code
+    // If the monster can pass through trees, do that
+    if (monster_passes_trees(mon->race) && monster_near_tree(p, mon, c))
+    {
+        loc_copy(&mon->target.grid, &target);
+        *track = true;
+        return true;
+    }
+    */
 
     /* If the player can see monster, set target and run towards them */
     if (monster_can_see_player(p, mon))
