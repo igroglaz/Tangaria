@@ -27,30 +27,71 @@
  */
 
 
-// Find whether a monster is near a tree
-// (this decides whether tree-passing monsters use the monster flow code)
-// TODO: fix this code
+// find whether *any* tree that actually matters lies on the straight line
+// between the monster and the player.
+//
+// "matters" means:
+//   – the tree is encountered *before* the first solid obstacle the monster
+//     cannot cross;
+//   – the player is not already in LOS (in that case the normal flow code is
+//     enough).
+//
+// if such a tree exists we return true, telling the caller "don't try to use
+// the normal scent/sound flow – walk straight through the trees instead".
+/*
+ * we call project_path() with the PROJECT_ROCK flag:
+ *
+ *   - without PROJECT_ROCK the routine stops the trace as soon as it meets
+ *     the first non-projectable grid (a solid wall, closed door, etc.).  
+ *     that means any trees that happen to lie *behind* such an obstacle are
+ *     never examined – the loop exits early.
+ *
+ *   - with PROJECT_ROCK the trace is allowed to march straight through rock
+ *     (exactly the same trick the original monster_near_permwall() uses).
+ *     in practice this just means "give me the full Bresenham line all the
+ *     way to the player, even if it crosses walls", so every tree that sits
+ *     on that geometric line will be seen and tested.
+ */
 static bool monster_near_tree(struct player *p, const struct monster *mon, struct chunk *c)
 {
-    struct loc gp[512];
-    int path_grids, j;
+    struct loc path[512];
+    int path_len, i;
 
-    /* If player is in LOS, there's no need to go around trees */
+    // if the player is already in LOS we can follow the normal flow logic
     if (projectable(p, c, &((struct monster *)mon)->grid, &p->grid, PROJECT_SHORT, false))
         return false;
 
-    /* Find the shortest path */
-    path_grids = project_path(p, c, gp, z_info->max_sight, &((struct monster *)mon)->grid, &p->grid,
-        PROJECT_ROCK);
+    // build the straight-line path; allow it to cross rock
+    path_len = project_path(p, c, path, z_info->max_sight, &((struct monster *)mon)->grid, &p->grid, PROJECT_ROCK);
 
-    // see if we can "see" the player without hitting trees
-    for (j = 0; j < path_grids; j++)
+    // scan the path for blocking trees (or our previous square)
+    for (i = 0; i < path_len; ++i)
     {
-        if (square_istree(c, &gp[j])) return true;
-        if (loc_eq(&gp[j], &((struct monster *)mon)->old_grid)) return true;
-        if (loc_eq(&gp[j], &p->grid)) return false;
+        // we hit a solid obstacle that the monster cannot cross (wall, permanent wall, closed door...)
+        // anything *behind* it is irrelevant
+        if (!square_ispassable(c, &path[i]) && !square_istree(c, &path[i]))
+            return false;
+
+        // cause we have perma-walls which are 'trees' (decoration)
+        if (square_isunpassable(c, &path[i]))
+            return false;
+
+        // we hit a tree – tell caller that trees are in the way
+        if (square_istree(c, &path[i]))
+            return true;
+
+        // if the path still runs through the grid we occupied last turn
+        // (monster->old_grid) prefer the 'tree-ghost' flow as well – it helps
+        // to keep movement smooth when the monster is already circling a grove
+        if (loc_eq(&path[i], &((struct monster *)mon)->old_grid))
+            return true;
+
+        // reached the player without meeting any blocking trees
+        if (loc_eq(&path[i], &p->grid))
+            return false;
     }
 
+    // ran out of path – no trees
     return false;
 }
 
@@ -631,15 +672,14 @@ static bool get_move_advance(struct player *p, struct chunk *c, struct monster *
         return true;
     }
 
-    /* TODO: fix this code
-    // If the monster can pass through trees, do that
+    // if the monster can pass through trees, check whether trees are what's
+    // *actually* blocking the direct line – if so aim straight for the player
     if (monster_passes_trees(mon->race) && monster_near_tree(p, mon, c))
     {
         loc_copy(&mon->target.grid, &target);
         *track = true;
         return true;
     }
-    */
 
     /* If the player can see monster, set target and run towards them */
     if (monster_can_see_player(p, mon))
