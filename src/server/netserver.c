@@ -6143,7 +6143,7 @@ static void update_birth_options(struct player *p, struct birth_options *options
 
     // exp factors for modes
     if (OPT(p, birth_deeptown) || OPT(p, birth_zeitnot) || OPT(p, birth_ironman))
-        p->expfact = 125;
+        p->expfact = 100;
 
     /* Server options supercede birth options */
     if (cfg_limit_stairs == 3) OPT(p, birth_force_descend) = true;
