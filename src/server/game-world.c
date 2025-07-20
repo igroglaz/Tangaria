@@ -785,6 +785,9 @@ static void digest_food(struct player *p)
     // don't use food in Ironman/Zeitnot towns
     if (dynamic_town(&p->wpos)) return;
 
+    // DM don't digest
+    if (is_dm_p(p)) return;
+
     // slow down digestion on low satiation
     if (p->timed[TMD_FOOD] < 100 && !magik(10)) { // 90% to skip digestion
         return;
