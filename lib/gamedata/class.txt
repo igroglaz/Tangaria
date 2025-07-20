@@ -6843,6 +6843,7 @@ value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
 #/// +cat
+# AUTO-ID when equip items
 # can sell items to NPC, but can't join parties
 # + less speed penalty due overweight
 # maybe add skills:
@@ -6882,14 +6883,13 @@ desc: its curative powers.
 desc: Cooldown 10 turns.
 desc: NOTE! Cooldowns restore ONLY while inside the dungeon.
 
-spell:Small Blue Potion:3:1:1:3:0
-cooldown:42
-effect:RESTORE_MANA
-dice:50
-desc:The cerulean luminescence of this potion speaks to its rarity.
-desc: Once earmarked for a lucrative deal, now it proves invaluable.
-desc: With a sip, a surge of arcane energy restores your dwindling reserves.
-desc: Cooldown 42 turns.
+spell:Bribe:3:1:1:3:0
+cooldown:30
+effect:SHORT_BEAM:COMMAND:1
+msg_other: tries to settle matters with coin.
+desc:Seeks to sway a single humanoid with coin and quiet words.
+desc: Unique beings remain steadfast.
+desc: Cooldown: 30 turns.
 
 spell:Town Portal:5:3:1:5:0
 effect:RECALL
@@ -6922,21 +6922,14 @@ expr:B:PLAYER_LEVEL:/ 5
 desc:In times of uncertainty, merchants beseech the old gods of trade and
 desc: fortune, hoping for a boon... or bracing for a curse.
 
-spell:Repair Armour:20:10:1:30:0
-cooldown:2
-effect:NOURISH:DEC_BY
-dice:1
-effect:NOURISH:DEC_BY
-dice:0
-effect:RANDOM
-dice:2
-effect:TIMED_INC:OCCUPIED
-dice:2+1d5
-effect:ENCHANT:TOAC
-dice:1
-desc:Armor, like any investment, requires care.
-desc: This prayer reduces your nourishment.
-desc: Cooldown 2 turns.
+spell:Small Blue Potion:20:1:1:30:0
+cooldown:42
+effect:RESTORE_MANA
+dice:50
+desc:The cerulean luminescence of this potion speaks to its rarity.
+desc: Once earmarked for a lucrative deal, now it proves invaluable.
+desc: With a sip, a surge of arcane energy restores your dwindling reserves.
+desc: Cooldown 42 turns.
 
 spell:Sharpen Weapon:25:10:1:30:0
 cooldown:2

@@ -1377,8 +1377,72 @@ static void project_monster_handler_DRAIN(project_monster_handler_context_t *con
 
 
 /* Command undead monsters */
+// ..or bribe ;)
 static void project_monster_handler_COMMAND(project_monster_handler_context_t *context)
 {
+    // Trader can bribe
+    if (streq(context->origin->player->clazz->name, "Trader"))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_HUMANOID);
+
+        /* Works only on humanoids */
+        if (rf_has(context->mon->race->flags, RF_HUMANOID))
+        {
+            int bribe_lvl = (context->mon->level + context->origin->player->lev) / 2;
+            int bribe_gold;
+
+            if (bribe_lvl > 90)
+                bribe_gold = bribe_lvl * 200;
+            else if (bribe_lvl > 75)
+                bribe_gold = bribe_lvl * 150;
+            else if (bribe_lvl > 50)
+                bribe_gold = bribe_lvl * 110;
+            else if (bribe_lvl > 40)
+                bribe_gold = bribe_lvl * 80;
+            else if (bribe_lvl > 30)
+                bribe_gold = bribe_lvl * 55;
+            else if (bribe_lvl > 20)
+                bribe_gold = bribe_lvl * 35;
+            else if (bribe_lvl > 10)
+                bribe_gold = bribe_lvl * 20;
+            else if (bribe_lvl > 0)
+                bribe_gold = bribe_lvl * 10;
+            else if (bribe_lvl == 0)
+                bribe_gold = 5; // townies kek
+
+            if (context->origin->player->au < bribe_gold)
+            {
+                char m_name[NORMAL_WID];
+                monster_desc(context->origin->player, m_name, sizeof(m_name), context->mon, MDESC_STANDARD);
+                msg(context->origin->player, "You need at least %d gold to bribe %s.", bribe_gold, m_name);
+                return;
+            }
+
+            /* Obvious */
+            if (context->seen) context->obvious = true;
+
+            /* Try to charm the monster */
+            context->hurt_msg = charm_monster(context->origin->player, context->mon, STAT_CHR);
+
+            if (context->hurt_msg == MON_MSG_REACT)
+                context->origin->player->au -= bribe_gold;
+
+            /* No obvious effect */
+            if (context->hurt_msg != MON_MSG_REACT) context->obvious = false;
+        }
+        else
+        {
+            char m_name[NORMAL_WID];
+            monster_desc(context->origin->player, m_name, sizeof(m_name), context->mon, MDESC_STANDARD);
+            msg(context->origin->player, "It's pointless to try to bribe %s.", m_name);
+        }
+
+        /* No "real" damage */
+        context->dam = 0;
+        
+        return;
+    }
+
     if (context->seen) rf_on(context->lore->flags, RF_UNDEAD);
 
     /* Works only on undead monsters */
