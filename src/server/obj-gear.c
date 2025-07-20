@@ -981,6 +981,10 @@ void inven_wield(struct player *p, struct object *obj, int slot, char *message, 
     /* Auto-id */
     if (of_has(wielded->flags, OF_KNOWLEDGE)) know_everything(p, c);
 
+    // Trader ID stuff when wield it (to prevent cheeze IDing other player's high lvl items)
+    if (streq(p->clazz->name, "Trader"))
+        know_everything(p, c);
+
     /* Where is the item now */
     if (tval_is_melee_weapon(wielded) || tval_is_mstaff(wielded))
         fmt = "You are wielding %s (%c).";
