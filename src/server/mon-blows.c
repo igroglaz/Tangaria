@@ -101,7 +101,16 @@ static const char *monster_blow_method_action(const struct blow_method *method)
 
 static void eat_gold(struct player *p, struct source *who)
 {
-    int32_t gold = (p->au / 10) + randint1(25);
+    int32_t gold;
+
+    // Trader class is immune to gold theft
+    if (streq(p->clazz->name, "Trader"))
+    {
+        msg(p, "Your trading instincts protect your purse.");
+        return;
+    }
+
+    gold = (p->au / 10) + randint1(25);
 
     if (gold < 2) gold = 2;
     if (gold > 5000) gold = (p->au / 20) + randint1(3000);
