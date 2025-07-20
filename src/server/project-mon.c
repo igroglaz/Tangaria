@@ -2378,8 +2378,11 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     /* Paranoia */
     if (!p) return MON_MSG_UNAFFECTED;
 
+    // Trader can bribe hostiles
+    if (streq(p->clazz->name, "Trader"))
+        ;
     /* Only if the monster has been summoned */
-    if (mon->status == MSTATUS_HOSTILE) return MON_MSG_UNAFFECTED;
+    else if (mon->status == MSTATUS_HOSTILE) return MON_MSG_UNAFFECTED;
 
     /* Uniques are unaffected */
     if (monster_is_unique(mon)) return MON_MSG_UNAFFECTED;
