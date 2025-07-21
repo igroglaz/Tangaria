@@ -6858,6 +6858,7 @@ value:0:CHR[0+1d10]
 #/// can sell items to NPC, but can't join parties
 #/// + less speed penalty due overweight
 #/// CHR give big boni to reduce fail chance for spellcasting
+#/// (also CHR is his main stat - mana amount depends on it (HCed))
 # maybe add skills:
 # Haggle or Golden Tongue - gives discount when buying items
 # Coin Call - Summons nearby loose coins and currency directly to the caster's hand.

@@ -916,17 +916,19 @@ make primary race stat bonuses work right.
         return (((p->state.stat_ind[STAT_WIS] * 90) +
                  (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
-
-    if (streq(p->clazz->name, "Rogue"))
+    else if (streq(p->clazz->name, "Rogue"))
     {
         return (((p->state.stat_ind[STAT_INT] * 90) +
                  (p->state.stat_ind[STAT_CHR] * 10)) / 100);
     }
-
-    if (streq(p->clazz->name, "Telepath"))
+    else if (streq(p->clazz->name, "Telepath"))
     {
         return (((p->state.stat_ind[STAT_WIS] * 90) +
                  (p->state.stat_ind[STAT_CHR] * 10)) / 100);
+    }
+    else if (streq(p->clazz->name, "Trader"))
+    {
+        return p->state.stat_ind[STAT_CHR];
     }
 
     for (i = 1; i < p->clazz->magic.num_books; i++)
