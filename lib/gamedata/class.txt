@@ -6871,34 +6871,62 @@ value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
-#/// AUTO-ID when equip items
-#/// can sell items to NPC, but can't join parties
-#/// + less speed penalty due overweight
-#/// CHR give big boni to reduce fail chance for spellcasting
-#/// (also CHR is his main stat - mana amount depends on it (HCed))
+#/// + AUTO-ID when equip items.
+#/// + can sell items to NPC, but can't join parties.
+#/// + less speed penalty due overweight.
+#/// + CHR give big boni to reduce fail chance for spellcasting
+#/// (also CHR is his main stat - mana amount depends on it (HCed)).
+#/// + don't loose gold on 2nd chance.
 # maybe add skills:
 # Haggle or Golden Tongue - gives discount when buying items
 # Coin Call - Summons nearby loose coins and currency directly to the caster's hand.
-# Guardian Ledger - Shields the caster's belongings and wealth from theft or damage.
 # Ephemeral Emporium - Conjures a temporary shop from thin air for the caster to trade goods.
 # Cloak of Commerce - allow sell items right in the dungeon?
 # ---------------- reveal mimics?
 # ---------------- XBM prices lower 2x?
 title:Barrowrat
+title:Pocketmonger
 title:Streetbroker
 title:Packhauler
-title:Tallyman
 title:Coinpicker
-title:Curiojack
-title:Dealbinder
-title:Tradeknave
-title:Vaultmind
+title:Smirkseller
+title:Dustshifter
+title:Whisperdealer
+title:Goldhoarder
 title:Gilded Hand
 
 magic:1:350:2
 
 book:travel guide:town:[Basics]:15:common
 equip:travel guide:[Basics]:1:1:none
+
+#spell:Fist of Gold:5:3:1:5:0
+#effect:BOLT_RADIUS:MON_HOLD:5
+#dice:3+1d$D
+#expr:D:PLAYER_LEVEL:/ 7
+#desc:Throw gold coins into monster which starts taking it from the floor.
+#desc: Holds non-resistant monster for a level-dependent number of turns.
+#desc: Costs gold.
+
+#spell:Hire Magic Protection:15:1:33:80:0
+#cooldown:300
+#effect:CURE:CUT
+#effect:CURE:STUN
+#effect:CURE:POISONED
+#effect:CURE:AMNESIA
+#effect:HEAL_HP
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 10
+#effect:CREATE_WALLS
+#effect:TELEPORT
+#dice:$B
+#expr:B:PLAYER_LEVEL:+ 0
+#msg_other: blinks away.
+#desc:An emergency incantation, taught to every trader for dire situations.
+#desc: Teleports you randomly to a certain distance (depending on your level).
+#desc: Cures damage, stunning, heals all cut damage, poison, and amnesia.
+#desc: This spell costs A LOT of gold
+#desc: Cooldown 300 turns.
 
 spell:Small Red Potion:1:1:1:1:0
 cooldown:10
