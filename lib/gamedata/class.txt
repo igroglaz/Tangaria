@@ -6539,6 +6539,13 @@ desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
 desc: Cooldown 255 turns.
 
+#TODO: add spell:
+#spell:Pray:15:11:1:20:0
+#effect:WONDER
+#dice:$B+1d100
+#expr:B:PLAYER_LEVEL:/ 5
+#desc:In times of uncertainty, hermits beseech the old gods and
+#desc: fortune, hoping for a boon... or bracing for a curse.
 
 ############### CLASS TEMPLATE for Wizard ###############
 
@@ -6967,7 +6974,7 @@ desc: The recall effect is not immediate; it is delayed by some turns.
 desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
-spell:Barter Buddy:7:3:1:5:0
+spell:Barter Buddy:7:3:1:15:0
 cooldown:120
 effect:GLYPH:DECOY
 desc:In the bustling markets of old, traders developed a cunning trick.
@@ -6989,14 +6996,16 @@ msg_other: blinks away.
 desc:An emergency incantation, taught to every trader for dire situations.
 desc: Teleports you randomly to a certain distance (depending on your level).
 
-spell:Pray:15:11:1:20:0
-effect:WONDER
-dice:$B+1d100
-expr:B:PLAYER_LEVEL:/ 5
-desc:In times of uncertainty, merchants beseech the old gods of trade and
-desc: fortune, hoping for a boon... or bracing for a curse.
+spell:Repair Armour:15:1:1:20:0
+cooldown:300
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
+effect:ENCHANT:TOAC
+dice:1
+desc:Armor, like any investment, requires care.
+desc: Cooldown 300 turns.
 
-spell:Sharpen Weapon:20:10:1:30:0
+spell:Sharpen Weapon:20:1:1:30:0
 cooldown:300
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
@@ -7013,13 +7022,23 @@ desc:Magic devices often wane, but a knowledgeable merchant knows the ancient
 desc: words to breathe life back into them.
 desc: Yet, the greater the device, the riskier the ritual...
 
-spell:Cartography:30:50:1:50:0
-effect:MAP_AREA
-effect-yx:16:32
-desc:The world is vast, and its secrets are many. With this spell,
-desc: landscapes unfurl and mysteries become mere geography.
+spell:Free Speed Potion:30:30:1:50:0
+cooldown:300
+effect:TIMED_SET:SPEEDY:0:5
+dice:$B+1d10
+expr:B:PLAYER_LEVEL:+ 0
+desc:A quick sip from your own stash puts an extra spring in your step.
+desc: Who says a trader can't sample the goods?
+desc: Cooldown 300 turns.
 
-spell:Merchant Insight:35:21:1:60:0
+spell:Tunnel:35:12:1:55:0
+effect:SHORT_BEAM:KILL_WALL:1
+dice:20+1d30
+desc:Not all paths are clear. With this spell, the very stones yield,
+desc: making way for the persistent merchant. Beyond just clearing a path,
+desc: the force can harm creatures born of rock and earth.
+
+spell:Merchant Insight:40:21:1:60:0
 effect:DETECT_STAIRS
 effect-yx:22:40
 effect:BLAST:LIGHT_WEAK:2
@@ -7031,35 +7050,25 @@ desc:A merchant's intuition, enhanced by magic, reveals hidden pathways and
 desc: banishes darkness. It's said that this spell channels the very first dawn,
 desc: revealing threats and secrets alike.
 
-spell:Free Speed Potion:37:37:1:80:0
-cooldown:60
-effect:TIMED_SET:SPEEDY:0:5
-dice:$B+1d20
-expr:B:PLAYER_LEVEL:+ 0
-desc:A quick sip from your own stash puts an extra spring in your step.
-desc: Who says a trader can't sample the goods?
-desc: Cooldown 60 turns.
+spell:Cartography:45:50:1:50:0
+effect:MAP_AREA
+effect-yx:16:32
+desc:The world is vast, and its secrets are many. With this spell,
+desc: landscapes unfurl and mysteries become mere geography.
 
-spell:Tunnel:40:12:1:25:0
-effect:SHORT_BEAM:KILL_WALL:1
-dice:20+1d30
-desc:Not all paths are clear. With this spell, the very stones yield,
-desc: making way for the persistent merchant. Beyond just clearing a path,
-desc: the force can harm creatures born of rock and earth.
-
-spell:Merchant Scent:45:25:1:70:0
+spell:Merchant Scent:49:25:1:70:0
 effect:DETECT_TREASURES
 effect-yx:22:40
 desc:Merchants with keen senses and this spell can feel the pull of treasures
 desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
 spell:Best Deal:50:100:1:200:0
-cooldown:10000
+cooldown:1000
 effect:ACQUIRE
 dice:1
 desc:The ultimate gambit for a merchant. By invoking this, they plunge
 desc: into peril, hoping to strike a deal of legendary value.
-desc: Cooldown 10000 turns.
+desc: Cooldown 1000 turns.
 
 
 ############### CLASS TEMPLATE for Assassin ###############
