@@ -718,8 +718,12 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
         }
 
         /* Black markets suck */
-        if (s->feat == FEAT_STORE_BLACK) price = floor(price / 2);
-        if (s->feat == FEAT_STORE_XBM) price = floor(price / factor);
+        // Trader class can SELL to BM at normal price (make stuff easier to them)
+        if (!streq(p->clazz->name, "Trader"))
+        {
+            if (s->feat == FEAT_STORE_BLACK) price = floor(price / 2);
+            if (s->feat == FEAT_STORE_XBM) price = floor(price / factor);
+        }
 
         /* Check for no_selling option */
         if ((cfg_limited_stores || OPT(p, birth_no_selling)) &&
@@ -3011,6 +3015,7 @@ void do_cmd_sell(struct player *p, int item, int amt)
     p->current_sell_price = price;
 
     /* Wait for confirmation before actually selling */
+    /// ... see store_confirm() below
 }
 
 
