@@ -390,11 +390,7 @@ help: behind. It is technically stealing - but when choosing between
 help: starvation and salvaging what a farmer abandoned, even the crow
 help: claims grain it never sowed. |
 help: |
-help:The villager is proud of his cat, who follows him during adventures -
-help: always nearby, watching, judging, perhaps luckier than he is.
-help: When danger strikes, this feline companion doesn't die but merely vanishes
-help: with an indignant flick of its tail, only to reappear later, utterly
-help: unimpressed by its master's heroics and ready to be summoned again. |
+help: They never walk alone - there's always a four-legged friend by their side. |
 help: |
 help:They can harvest wood and extract ore with increasing efficiency as
 help: they gain experience. |
@@ -512,7 +508,6 @@ class:Traveller
 help:"Jack of all trades, master of none..."|
 help: |
 help:A common soul who knows a bit of magic and isn't too bad with a weapon.
-help: They never walk alone - there's always a four-legged friend by their side.
 help: Travellers are sure they know everything about maps, directions and
 help: cardinal points... but their overconfidence often leads to real trouble.
 help: They set out with a handful of useful items, just in case.
@@ -522,6 +517,12 @@ help: to ward off beasts, sketch maps when lost, sense nearby evil, and hurl
 help: bolts of fire when words fail. They know how to bless themselves before
 help: a fight, discover hidden paths between levels, blink away from danger,
 help: and never forget the value of a well-placed glyph.|
+help: |
+help:The traveller is proud of his cat, who follows him during adventures -
+help: always nearby, watching, judging, perhaps luckier than he is.
+help: When danger strikes, this feline companion doesn't die but merely vanishes
+help: with an indignant flick of its tail, only to reappear later, utterly
+help: unimpressed by its master's heroics and ready to be summoned again. |
 help: |
 help:They're clumsy with ranged weapons until they become seasoned adventurers.|
 help: |

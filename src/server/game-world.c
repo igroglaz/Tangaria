@@ -1427,8 +1427,8 @@ static void process_player_world(struct player *p, struct chunk *c)
 /////////////////////////////////////
 ///////// SUMMONING EFFECTS /////////
 /////////////////////////////////////
-    /* Traveller's dog */
-    if (streq(p->clazz->name, "Traveller") && p->wpos.depth && p->slaves < 1)
+    /* Villager's dog */
+    if (streq(p->clazz->name, "Villager") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("cub"), 1, true);
@@ -1439,8 +1439,8 @@ static void process_player_world(struct player *p, struct chunk *c)
         else if (p->lev > 49)
             summon_specific_race_aux(p, c, &p->grid, get_race("hound"), 1, true);
     }
-    /* Villager's cat */
-    else if (streq(p->clazz->name, "Villager") && p->wpos.depth && p->slaves < 1)
+    /* Traveller's cat */
+    else if (streq(p->clazz->name, "Traveller") && p->wpos.depth && p->slaves < 1)
     {
         if (p->lev < 20)
             summon_specific_race_aux(p, c, &p->grid, get_race("kitten"), 1, true);
