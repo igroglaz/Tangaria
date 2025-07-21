@@ -1075,9 +1075,6 @@ expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
 desc: of cuts and stunning.
-desc: When you cast it, choose a target:
-desc: m1d(t to cast on another
-desc: m1d(5 to cast on yourself
 
 spell:Call Light:3:2:25:2:0
 effect:BLAST:LIGHT_WEAK:1:10
@@ -4066,6 +4063,9 @@ expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
 desc: of cuts and stunning.
+desc: When you cast it, choose a target:
+desc: m1d(t to cast on another
+desc: m1d(5 to cast on yourself
 
 spell:Portal:7:5:30:5:0
 effect:TELEPORT
@@ -4915,62 +4915,79 @@ book-alloc:40:1 to 100
 book-desc:A standard travel guide with a few tasks.
 equip:travel guide:[Basics]:1:1:none
 
-spell:Sun Song:1:1:1:1:0
-cooldown:7
-effect:BEAM:LIGHT_WEAK:10
+spell:Flash of Morning:1:1:1:1:0
+effect:BEAM:LIGHT_WEAK
 dice:2d$S
 expr:S:PLAYER_LEVEL:* 2
 effect:LIGHT_AREA
-msg_self:A streak of light flashes ahead
-msg_other: claps hands together - a flash of light bursts out!
-desc:Releases a narrow beam that lights up every tile it touches and burns
-desc: creatures that shun the light.
-desc: Also lights up the whole room if you're inside one.
-desc: Cooldown 7 turns.
+desc:You call out for the sun - and it answers with a warm flash.
+desc: Sends a narrow beam of light ahead and lights up the room if indoors.
+desc: Hurts creatures that don't like brightness.
 
-spell:Magic Seeds:3:1:1:1:0
+spell:Magic Seeds:5:1:1:1:0
 cooldown:15
 effect:CREATE_TREES
 desc:Grow trees around you.
 desc: Cooldown 15 turns.
 
-spell:Find Doors:5:1:10:4:0
-effect:DETECT_DOORS
-effect-yx:11:20
-desc:Finds doors in the immediate area.
-
-spell:Find Stairs:10:3:18:12:0
-effect:DETECT_STAIRS
-effect-yx:11:20
-desc:Finds stairs in the immediate area.
-
-spell:Find Traps:15:5:26:20:0
-effect:DETECT_TRAPS
-effect-yx:11:20
-desc:Finds traps in the immediate area.
-
-spell:Town Patrol:20:7:34:30:0
+spell:Sniff the Wind:10:1:10:4:0
+cooldown:120
 effect:DETECT_VISIBLE_MONSTERS
-effect-yx:11:20
-desc:Detects all non-invisible monsters in the immediate area,
+effect-yx:22:40
+effect:DETECT_DOORS
+effect-yx:22:40
+effect:DETECT_STAIRS
+effect-yx:22:40
+effect:DETECT_TRAPS
+effect-yx:22:40
+desc:Finds doors, stairs, traps in the immediate area.
+desc:Also detects all non-invisible monsters in the immediate area,
 desc: for one turn only.
+desc: Cooldown 120 turns.
 
-spell:Poison Brand:25:9:42:40:0
-effect:TIMED_SET:ATT_POIS:0:5
-dice:20+1d20
-effect:BOW_BRAND_SHOT:POIS
+spell:Skip-Hop:15:3:18:12:0
+cooldown:11
+effect:TELEPORT
 dice:5
-desc:Temporarily covers your weapon and missiles with poison.
+effect:TIMED_SET:SPEEDY:0:5
+dice:5+1d5
+desc:Teleports you several tiles and grants a brief speed boost.
+desc: Cooldown 11 turns.
 
-spell:Summon Pet:30:1:1:2:0
-cooldown:300
+spell:Dew Catcher:20:5:26:20:0
+cooldown:30
+effect:CURE:POISONED
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 3
+msg_other: gently cups hands and drinks morning dew.
+desc:Heals a tiny bit of HP by catching dew from the air. Cures poison.
+desc: Cooldown 30 turns.
+
+spell:Commanding Chant:25:9:42:40:0
+effect:SHORT_BEAM:SOUND:2
+dice:$B
+expr:B:PLAYER_LEVEL:* 7
+msg_other: chants firmly - the air around trembles!
+desc:A commanding chant ripples outward, forcing nearby creatures to obey - or break.
+desc: The power fades quickly; only those right beside you are struck.
+
+spell:Whistle Friend:30:30:1:2:0
 effect:SUMMON:ANIMAL:0:100
 dice:1
-msg_other: summons a pet.
-desc:Attempts to summon a friendly pet.
-desc: This spell has no effect when used in the town.
-desc: Cooldown 300 turns.
+msg_other: whistles into the wind - and something answers.
+desc:You let out a soft whistle or hum, just the way forest folk do.
+desc: Some friendly creature hears - and comes to walk beside you.
+desc: This spell does nothing in town.
 
+spell:Shoo Now:35:50:90:100:0
+cooldown:300
+effect:MASS_BANISH
+msg_other: murmurs something old - and things disappear one by one.
+desc:You sing a verse that leaves no room for argument.
+desc: Most creatures nearby simply vanish - sent somewhere far from here.
+desc: Each one gone takes a bit of your strength with it.
+desc: Cooldown 300 turns.
 
 ############### TAMER ###############
 name:Tamer
