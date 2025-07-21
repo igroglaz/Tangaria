@@ -4864,6 +4864,7 @@ desc: dungeon level.
 desc: This spell has no effect when used in the town (#%d).
 
 
+# one of Tom Bombadil apprentices.. call himself 'villager'...
 ############### VILLAGER ###############
 name:Villager
 color:W
@@ -4888,10 +4889,12 @@ equip:scroll:Satisfy Hunger (tattered):3:3:none
 equip:potion:Cure Light Wounds:2:3:birth_no_recall
 equip:scroll:Phase Door:3:4:birth_no_recall
 player-flags:0:CHOOSE_SPELLS | SUMMON_PERMA | CAN_FARM
+#/// +cat
+#/// pass trees
+#/// at 30+ can summon animal which is SUMMON_PERMA
+#/// when Hungry - can steal veggies from T fields
+# -
 obj-flag:0:CLUMSY
-# - CLUMSY (so a bit harder to play than PWMA)
-# summon (spell) pet
-# when Hungry - can steal veggies from T fields
 title:Rambler
 title:Walker
 title:Tripper
@@ -4912,14 +4915,23 @@ book-alloc:40:1 to 100
 book-desc:A standard travel guide with a few tasks.
 equip:travel guide:[Basics]:1:1:none
 
-## TODO: rework this. must be a dog. for now just limited in by lvl in code
-spell:Summon Pet:1:1:22:4:0
+spell:Sun Song:1:1:1:1:0
+cooldown:7
+effect:BEAM:LIGHT_WEAK:10
+dice:2d$S
+expr:S:PLAYER_LEVEL:* 2
+effect:LIGHT_AREA
+msg_self:A streak of light flashes ahead
+msg_other: claps hands together - a flash of light bursts out!
+desc:Releases a narrow beam that lights up every tile it touches and burns
+desc: creatures that shun the light.
+desc: Also lights up the whole room if you're inside one.
+desc: Cooldown 7 turns.
+
+spell:Magic Seeds:3:1:1:1:0
 cooldown:15
-effect:SUMMON:ANIMAL:0:100
-dice:1
-msg_other: summons a pet.
-desc:Attempts to summon one pet generated at the current dungeon level.
-desc: This spell has no effect when used in the town.
+effect:CREATE_TREES
+desc:Grow trees around you.
 desc: Cooldown 15 turns.
 
 spell:Find Doors:5:1:10:4:0
@@ -4946,16 +4958,18 @@ desc: for one turn only.
 spell:Poison Brand:25:9:42:40:0
 effect:TIMED_SET:ATT_POIS:0:5
 dice:20+1d20
-desc:Temporarily covers your weapon with poison.
-
-spell:Craft Door:30:11:50:50:0
-effect:SHORT_BEAM:MAKE_DOOR:1:1
-desc:Creates a door (closed, but not locked) next to you.
-
-spell:Poison Shots:40:18:66:80:0
 effect:BOW_BRAND_SHOT:POIS
 dice:5
-desc:Temporarily covers your missiles with poison.
+desc:Temporarily covers your weapon and missiles with poison.
+
+spell:Summon Pet:30:1:1:2:0
+cooldown:300
+effect:SUMMON:ANIMAL:0:100
+dice:1
+msg_other: summons a pet.
+desc:Attempts to summon a friendly pet.
+desc: This spell has no effect when used in the town.
+desc: Cooldown 300 turns.
 
 
 ############### TAMER ###############
@@ -6840,7 +6854,6 @@ value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
-#/// +cat
 # AUTO-ID when equip items
 # can sell items to NPC, but can't join parties
 # + less speed penalty due overweight
@@ -7841,7 +7854,7 @@ value:0:WIS[-2]
 value:0:DEX[2]
 value:0:CON[0]
 value:0:CHR[-1]
-# got rat
+#/// Rat pet
 # cant join party
 # disassemble: 20+ ego, 30 randart, 40 trueart
 # + less speed penalty due overweight
@@ -8145,6 +8158,11 @@ effect:SHORT_BEAM:STONE_WALL:1:1
 effect:TIMED_INC:OCCUPIED
 dice:5+1d5
 desc:Raises a wall one tile away in the chosen direction.
+
+# TODO.. ADD:
+#spell:Craft Door:30:11:50:50:0
+#effect:SHORT_BEAM:MAKE_DOOR:1:1
+#desc:Creates a door (closed, but not locked) next to you.
 
 
 ############### Inquisitor ###############

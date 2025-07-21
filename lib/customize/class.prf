@@ -364,17 +364,20 @@ help: hit points instead. Additionally, some races with their own polymorph or
 help: shape-shifting abilities have certain restrictions on being Shapechangers.
 
 class:Villager
-help:Villagers are common folk. Without special strengths, their simple life
-help: provides them with practical skills.
-help:Villagers journey with a loyal pet, which they can occasionally summon
-help: from the wilds. Their pet shows remarkable affection, often nuzzling
-help: close or playfully tripping them at the most inconvenient moments.
-help: If seemingly slain, the faithful companion merely retreats to lick its
-help: wounds, ready to be called back when needed. As they survive challenges
-help: together, Villagers develop keen senses to detect hidden doors, stairs,
+help:Villagers call themselves plain folk, yet most once spent a season
+help: learning under Tom Bombadil. He trusts them with quiet songs and
+help: clever seeds, then lets them wander the wider world in his stead.
+help: Out on the road they dress like labourers, hiding gifts that might
+help: make a stranger uneasy. |
+help:A Villager can press a thumb-sized seed into hard ground, hum a short
+help: tune, and by dawn a sapling stands guard where bare soil lay. In
+help: drizzle they whisper for clear skies; in drought they whistle up
+help: gentle rain. Their weather tricks are small — just enough to ease a
+help: journey or save a crop — but travellers swear by them all the same. |
+help: |
+help:Villagers develop keen senses to detect hidden doors, stairs,
 help: traps, or lurking monsters while patrolling. In time, Villagers learn
-help: to coat their weapons or arrows with poison and, as seasoned brawlers,
-help: master the craft of door-making to block dangerous passages.
+help: to coat their weapons or arrows with poison.
 help: Each of these tasks draws upon stamina provided by their constitution.
 help: Though modest, these skills help them endure where others might falter. |
 help: |
@@ -386,6 +389,12 @@ help: a Villager might uncover a few forgotten roots or buried crops left
 help: behind. It is technically stealing - but when choosing between
 help: starvation and salvaging what a farmer abandoned, even the crow
 help: claims grain it never sowed. |
+help: |
+help:The villager is proud of his cat, who follows him during adventures -
+help: always nearby, watching, judging, perhaps luckier than he is.
+help: When danger strikes, this feline companion doesn't die but merely vanishes
+help: with an indignant flick of its tail, only to reappear later, utterly
+help: unimpressed by its master's heroics and ready to be summoned again. |
 help: |
 help:They can harvest wood and extract ore with increasing efficiency as
 help: they gain experience. |
@@ -629,11 +638,7 @@ help: a potion when needed, a way to carve through stone walls.
 help: And when all else fails, they know a trick or two to slip away unnoticed,
 help: or send in a decoy to haggle while they make their escape. |
 help: |
-help:The trader is proud of his cat, who follows him during adventures -
-help: always nearby, watching, judging, perhaps luckier than he is.
-help: When danger strikes, this feline companion doesn't die but merely vanishes
-help: with an indignant flick of its tail, only to reappear later, utterly
-help: unimpressed by its master's heroics and ready to be summoned again. |
+help:They can bribe intelligent monsters to avoid a fight – if the price is right. |
 help: |
 help:They carry more than most, their steps less burdened by heavy packs. |
 help: |

@@ -2533,7 +2533,8 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             if (p->wpos.depth == 0 || (p->poly_race && (streq(p->poly_race->name, "bird-form") ||
                 streq(p->poly_race->name, "rat-form")))) ;
             // other cases
-            else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent")) &&
+            else if ((streq(p->clazz->name, "Druid") || streq(p->race->name, "Ent") ||
+                      streq(p->clazz->name, "Villager")) &&
                 magik(p->lev + 50)) ;
             else if ((streq(p->clazz->name, "Shaman") || streq(p->clazz->name, "Ranger")) &&
                 magik(p->lev)) ;

@@ -5296,7 +5296,7 @@ bool effect_handler_SUMMON(effect_handler_context_t *context)
         mlvl = monster_level(&context->origin->player->wpos);
         
         // villager class should summon not too OP animals
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Villager"))
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Tamer"))
         {
            if (context->origin->player->wpos.depth == 0)
                mlvl = 1; // Very weak summons on surface
