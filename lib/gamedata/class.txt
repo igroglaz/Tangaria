@@ -6877,7 +6877,7 @@ value:0:INT[0+1d30]
 value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1]
-value:0:CHR[0+1d10]
+value:0:CHR[5]
 #/// + AUTO-ID when equip items.
 #/// + can sell items to NPC, but can't join parties.
 #/// + less speed penalty due overweight.
@@ -6998,19 +6998,19 @@ desc: Teleports you randomly to a certain distance (depending on your level).
 
 spell:Repair Armour:15:1:1:20:0
 cooldown:300
-effect:TIMED_INC:OCCUPIED
-dice:2+1d5
 effect:ENCHANT:TOAC
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:Armor, like any investment, requires care.
 desc: Cooldown 300 turns.
 
 spell:Sharpen Weapon:20:1:1:30:0
 cooldown:300
-effect:TIMED_INC:OCCUPIED
-dice:2+1d5
 effect:ENCHANT:TOBOTH
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:2+1d5
 desc:A sharper blade means better damage... and a better price tag.
 desc: Cooldown 300 turns.
 

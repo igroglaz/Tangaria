@@ -2402,15 +2402,14 @@ int charm_monster(struct player *p, struct monster *mon, int stat)
     if (monster_is_unique(mon)) return MON_MSG_UNAFFECTED;
 
     /* Too enraged to be controlled */
-    if (player_of_has(p, OF_AGGRAVATE) ||
-    (p->state.stat_ind[STAT_CHR] <  randint0(150)))
-        return MON_MSG_HATE;
+    if (player_of_has(p, OF_AGGRAVATE)) return MON_MSG_HATE;
 
     /* Only if the monster is not already under the spell */
     if (mon->status == MSTATUS_CONTROLLED) return MON_MSG_UNAFFECTED;
 
     /* Monster is pacified */
-    if (can_charm_monster(p, mon->level, stat))
+    // Trader extra +5 stat boni
+    if (can_charm_monster(p, mon->level, stat + 5))
     {
         monster_set_master(mon, p, MSTATUS_CONTROLLED);
         return MON_MSG_REACT;
