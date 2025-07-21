@@ -706,10 +706,13 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
         /* Shops now pay 2/3 of true value */
         price = price * 2 / 3;
 
-        // Trader class can sell for miserable price
+        // Trader class can sell for a low price
         if (streq(p->clazz->name, "Trader"))
         {
-            price /= 6 - (p->lev / 10);
+            // price starts at 1/3 of the base value (level 0)
+            // and scales linearly up to 1/2 of the base value at level 50
+            price = price * (100 + p->lev) / 300;
+
             if (price < 1)
                 price = 1;
         }
