@@ -2655,9 +2655,14 @@ void player_death(struct player *p)
         }
 
         p->lives -= 1; // loose the life
-        if (p->au > 0) { // the fee
-            p->au = 0; 
+
+        // loose all gold (except Trader)
+        if (!streq(p->clazz->name, "Trader"))
+        {
+            if (p->au > 0)
+                p->au = 0;
         }
+
         p->is_dead = false; // resurrect
 
         // Make WoR/descent spell work a bit later if it was planned (just in case)
