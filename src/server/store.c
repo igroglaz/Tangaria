@@ -3209,6 +3209,14 @@ void store_confirm(struct player *p)
         return;
     }
 
+    // Trader sells items without trace (to make selling faster, or shop will be full)
+    if (streq(p->clazz->name, "Trader"))
+    {
+        object_delete(&sold_item);
+        store_prt_gold(p);
+        return;
+    }
+
     /* The store gets that (known) item */
     if (!store_carry(NULL, s, sold_item))
     {
