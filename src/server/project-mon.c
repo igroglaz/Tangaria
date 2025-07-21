@@ -1429,6 +1429,9 @@ static void project_monster_handler_COMMAND(project_monster_handler_context_t *c
 
             /* No obvious effect */
             if (context->hurt_msg != MON_MSG_REACT) context->obvious = false;
+
+            /* Redraw */
+            context->origin->player->upkeep->redraw |= (PR_MONSTER | PR_GOLD | PR_MONLIST);
         }
         else
         {
@@ -2282,7 +2285,7 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 
 void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 {
-    /* A high wisdom and charisma will allow more slaves to be controlled */
+    /* A high wisdom and charisma will allow more minions to be controlled */
     if (p && (mon->status <= MSTATUS_SUMMONED))
     {
         int maxslaves = 1 + (1 + p->state.stat_ind[STAT_WIS]) / 4;
@@ -2298,11 +2301,22 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 
     mon->master = (p? p->id: 0);
 
-    /* Villagers have a permanent pet */
+    ////// How long minions controlled
     mon->lifespan = 0;
-    if (p && !player_has(p, PF_SUMMON_PERMA)) mon->lifespan = mon->level + 5 + randint1(5);
+    if (p)
+    {
+        /* Villagers have a permanent pet */
+        if (!player_has(p, PF_SUMMON_PERMA))
+        {
+            mon->lifespan = mon->level + 5 + randint1(5);
 
+            // Trader boni
+            if (streq(p->clazz->name, "Trader"))
+                mon->lifespan += p->state.stat_ind[STAT_CHR];
+        }
+    }
     mon->resilient = 0;
+
     if (p && (mon->status <= MSTATUS_SUMMONED)) p->slaves++;
     mon->status = status;
 }
