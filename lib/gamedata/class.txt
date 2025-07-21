@@ -6854,9 +6854,10 @@ value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1]
 value:0:CHR[0+1d10]
-# AUTO-ID when equip items
-# can sell items to NPC, but can't join parties
-# + less speed penalty due overweight
+#/// AUTO-ID when equip items
+#/// can sell items to NPC, but can't join parties
+#/// + less speed penalty due overweight
+#/// CHR give big boni to reduce fail chance for spellcasting
 # maybe add skills:
 # Haggle or Golden Tongue - gives discount when buying items
 # Coin Call - Summons nearby loose coins and currency directly to the caster's hand.

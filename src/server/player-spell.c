@@ -229,14 +229,23 @@ int16_t spell_chance(struct player *p, int spell_index)
     if (chance > 95) chance = 95;
 
     // reduce chance of _failure_ with higher CHA
-    if (((streq(p->clazz->name, "Priest"  ))  ||
-         (streq(p->clazz->name, "Paladin" ))  ||
-         (streq(p->clazz->name, "Rogue"   ))  ||
-         (streq(p->clazz->name, "Telepath"))  ||
-         (streq(p->clazz->name, "Summoner"))) && (chance > 94))
-        chance -= (p->state.stat_ind[STAT_CHR] / 8);
+    if (chance > 94)
+    {
+        if (streq(p->clazz->name, "Priest"  ) ||
+            streq(p->clazz->name, "Paladin" ) ||
+            streq(p->clazz->name, "Rogue"   ) ||
+            streq(p->clazz->name, "Telepath") ||
+            streq(p->clazz->name, "Summoner"))
+                chance -= (p->state.stat_ind[STAT_CHR] / 8);
+    }
+    // Trader got very big boni from CHA - reducing fail chance
+    else if (chance > 50)
+    {
+        if (streq(p->clazz->name, "Trader"))
+            chance -= p->state.stat_ind[STAT_CHR];
+    }
 
-    /* Return the chance */
+    // Return the chance !of fail!
     return (chance);
 }
 
