@@ -6941,6 +6941,15 @@ desc: its curative powers.
 desc: Cooldown 10 turns.
 desc: NOTE! Cooldowns restore ONLY while inside the dungeon.
 
+spell:Small Blue Potion:1:1:1:1:0
+cooldown:42
+effect:RESTORE_MANA
+dice:50
+desc:The cerulean luminescence of this potion speaks to its rarity.
+desc: Once earmarked for a lucrative deal, now it proves invaluable.
+desc: With a sip, a surge of arcane energy restores your dwindling reserves.
+desc: Cooldown 42 turns.
+
 spell:Bribe:3:1:1:3:0
 effect:SHORT_BEAM:COMMAND:1
 msg_other: tries to settle matters with coin.
@@ -6948,13 +6957,7 @@ desc:Seeks to sway a single humanoid with coin and quiet words.
 desc: Must be close enough to make the deal feel personal.
 desc: Unique beings remain steadfast.
 
-spell:Merchant Scent:5:3:1:5:0
-effect:DETECT_TREASURES
-effect-yx:22:40
-desc:Merchants with keen senses and this spell can feel the pull of treasures
-desc: hidden by time and magic, making no hoard truly hidden from their gaze.
-
-spell:Town Portal:7:5:1:10:0
+spell:Town Portal:5:5:1:10:0
 effect:RECALL
 dice:12+1d10
 desc:A portal between the bustling town and the treacherous dungeon's depths.
@@ -6964,6 +6967,20 @@ desc: The recall effect is not immediate; it is delayed by some turns.
 desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
+spell:Barter Buddy:7:3:1:5:0
+cooldown:120
+effect:GLYPH:DECOY
+desc:In the bustling markets of old, traders developed a cunning trick.
+desc: They conjured a magical doppelganger, identical in appearance and
+desc: sound, to haggle and barter on their behalf. The original purpose
+desc: was to be in two places at once and never miss a lucrative deal.
+desc: Over time, however, the savvy merchants discovered its utility
+desc: in diverting attention and danger in more perilous situations.
+desc: Deploying the Barter Buddy remains a testament to a trader's
+desc: cleverness, giving them a brief moment of respite or an advantage
+desc: in tight spots.
+desc: Cooldown 120 turns.
+
 spell:Teleportation:10:7:1:15:0
 effect:TELEPORT
 dice:$B
@@ -6972,23 +6989,14 @@ msg_other: blinks away.
 desc:An emergency incantation, taught to every trader for dire situations.
 desc: Teleports you randomly to a certain distance (depending on your level).
 
-spell:Small Blue Potion:15:1:1:30:0
-cooldown:42
-effect:RESTORE_MANA
-dice:50
-desc:The cerulean luminescence of this potion speaks to its rarity.
-desc: Once earmarked for a lucrative deal, now it proves invaluable.
-desc: With a sip, a surge of arcane energy restores your dwindling reserves.
-desc: Cooldown 42 turns.
-
-spell:Pray:20:11:1:20:0
+spell:Pray:15:11:1:20:0
 effect:WONDER
 dice:$B+1d100
 expr:B:PLAYER_LEVEL:/ 5
 desc:In times of uncertainty, merchants beseech the old gods of trade and
 desc: fortune, hoping for a boon... or bracing for a curse.
 
-spell:Sharpen Weapon:25:10:1:30:0
+spell:Sharpen Weapon:20:10:1:30:0
 cooldown:300
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
@@ -6997,7 +7005,7 @@ dice:1
 desc:A sharper blade means better damage... and a better price tag.
 desc: Cooldown 300 turns.
 
-spell:Recharging:30:17:1:40:0
+spell:Recharging:25:17:1:40:0
 effect:RECHARGE
 dice:$B
 expr:B:PLAYER_LEVEL:/ 8 + 6
@@ -7005,7 +7013,7 @@ desc:Magic devices often wane, but a knowledgeable merchant knows the ancient
 desc: words to breathe life back into them.
 desc: Yet, the greater the device, the riskier the ritual...
 
-spell:Cartography:33:50:1:50:0
+spell:Cartography:30:50:1:50:0
 effect:MAP_AREA
 effect-yx:16:32
 desc:The world is vast, and its secrets are many. With this spell,
@@ -7039,19 +7047,11 @@ desc:Not all paths are clear. With this spell, the very stones yield,
 desc: making way for the persistent merchant. Beyond just clearing a path,
 desc: the force can harm creatures born of rock and earth.
 
-spell:Barter Buddy:45:25:1:70:0
-cooldown:100
-effect:GLYPH:DECOY
-desc:In the bustling markets of old, traders developed a cunning trick.
-desc: They conjured a magical doppelganger, identical in appearance and
-desc: sound, to haggle and barter on their behalf. The original purpose
-desc: was to be in two places at once and never miss a lucrative deal.
-desc: Over time, however, the savvy merchants discovered its utility
-desc: in diverting attention and danger in more perilous situations.
-desc: Deploying the Barter Buddy remains a testament to a trader's
-desc: cleverness, giving them a brief moment of respite or an advantage
-desc: in tight spots.
-desc: Cooldown 100 turns.
+spell:Merchant Scent:45:25:1:70:0
+effect:DETECT_TREASURES
+effect-yx:22:40
+desc:Merchants with keen senses and this spell can feel the pull of treasures
+desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
 spell:Best Deal:50:100:1:200:0
 cooldown:10000
