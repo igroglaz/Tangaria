@@ -301,7 +301,7 @@ max-townies:20
 # wpos:-21:20
 
 # Base town containing the main Angband dungeon
-# name:Carn Dûm
+# name:Carn Dum
 # wpos:-9:37
 
 # Lothlorien

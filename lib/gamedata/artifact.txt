@@ -197,7 +197,7 @@ curse:treachery:100
 desc:A thin, rust-pitted dagger with an oily sheen. The handle is wrapped in
 desc: rotting leather, and a faint sickly smell clings to the blade.
 desc: Whispers follow its movements, like voices arguing just out of hearing.
-desc: Once held by Gríma Wormtongue, it carries the residue of his deceit.
+desc: Once held by Grima Wormtongue, it carries the residue of his deceit.
 
 
 
@@ -500,7 +500,7 @@ slay:ANIMAL_2
 slay:TROLL_3
 slay:GIANT_3
 slay:ORC_3
-desc:An heirloom of the dauntless Lords of Rhûn far to the east, and a name
+desc:An heirloom of the dauntless Lords of Rhun far to the east, and a name
 desc: of dismay to creatures natural and unnatural.
 
 name:'Sting'
@@ -1093,7 +1093,7 @@ time:50+d50
 desc:The radiant golden staff of an Istar of legend, this wizard's companion
 desc: grants keen sight and clear knowledge of many hidden things.
 
-name:of Olórin
+name:of Olorin
 base-object:hafted:Quarterstaff
 level:30:20
 weight:150
@@ -1427,7 +1427,7 @@ slay:TROLL_3
 slay:DEMON_5
 act:BERSERKER
 time:80+d80
-desc:Wielded by Hurin Thalion, last lord of Dor-Lómin at the Battle
+desc:Wielded by Hurin Thalion, last lord of Dor-Lomin at the Battle
 desc: of Tears Unnumbered. He stood alone, his friends and kinsmen
 desc: dead about him, his axe smoking in the black blood of Gothmog's
 desc: troll-guard. No less than seventy times, as he slew his foes,
@@ -1546,7 +1546,7 @@ slay:TROLL_3
 slay:ORC_3
 desc:The twin massive axe heads of this ancient demon's dread gleam with
 desc: mithril inlay telling sagas of endurance. The powers of
-desc: Khazad-dûm protect its wielder and slay all evils found underground.
+desc: Khazad-dum protect its wielder and slay all evils found underground.
 
 name:of Eonwe
 base-object:polearm:Great Axe
@@ -2119,7 +2119,7 @@ act:TELE_PHASE
 time:20
 msg:Your {kind} twist{s} space around you.
 desc:A pair of running shoes once used by the treacherous Grima son of
-desc: Galmód, the Wormtongue of Edoras. They are aptly suited for a
+desc: Galmod, the Wormtongue of Edoras. They are aptly suited for a
 desc: messenger, a servant, a spy... or a coward.
 
 name:of Radagast
@@ -2147,7 +2147,7 @@ time:50+d50
 desc:A set of iron-shod boots stamped by Gimli's combat prowess, a peerless
 desc: ally to those journeying through halls of stone under mountains.
 
-name:of Thrór
+name:of Thror
 base-object:boots:Pair of Steel Shod Boots
 level:30
 weight:60
@@ -2237,7 +2237,7 @@ desc:A metal cap forged by the greatest Noldorin smith of the Second Age,
 desc: this helm serves equally well in battle or at the forge, and its
 desc: enchantment will never be diminished.
 
-name:of Dor-Lómin
+name:of Dor-Lomin
 base-object:helm:Iron Helm
 level:40
 weight:50
