@@ -156,7 +156,7 @@ alloc:2:5 to 100
 attack:1d1:1:3
 armor:0:0
 flags:LIMITED_TELE | SEE_INVIS | SLOW_DIGEST | PROT_CONF | NO_ACTIVATION
-values:INT[3] | CHR[-3] | MANA[5] | STEALTH[1]
+values:INT[3] | CHR[-3] | MANA[10] | STEALTH[1]
 desc:A worn staff that once belonged to a wizard who called himself Sharkey.
 desc: Whatever magic it once held is tainted by bitterness and petty malice.
 desc: Few trust it, though fewer can say exactly why.
@@ -169,7 +169,7 @@ alloc:2:5 to 100
 attack:0d0:0:0
 armor:1:10
 flags:REGEN | SLOW_DIGEST | NO_ACTIVATION
-values:STEALTH[3] | INFRA[1] | SPEED[1] | CHR[-4]
+values:STEALTH[3] | INFRA[1] | SPEED[2] | CHR[-4]
 curse:whispers:100
 desc:An old, greasy scrap of cloth, more sack than garment.
 desc: Smells of fish bones, swamp mud, and fear. Gollum wore it as clothing,

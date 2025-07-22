@@ -554,7 +554,7 @@ effect:TIMED_INC:POISONED
 dice:5+1d10
 effect:SUMMON:MONSTER:0:-1
 dice:1
-time:100+1d1500
+time:100+1d300
 msg:A hissing voice whispers: 'Mine... it's mine!'
 desc:clouds your thoughts and draws hostile creatures near
 
