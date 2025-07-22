@@ -151,7 +151,7 @@ info:10000:20
 level:50
 alloc:10:20 to 127
 item:light:Wooden Torch
-values:STEALTH[1]
+values:STEALTH[d4]
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD | RAND_ESP
 
 name:of *Brightness*
@@ -167,7 +167,7 @@ info:15000:25
 level:50
 alloc:5:50 to 127
 item:light:Wooden Torch
-flags:PROT_BLIND | SEE_INVIS | REGEN | HUNGER | RAND_HI_RES | RAND_POWER
+flags:PROT_BLIND | SEE_INVIS | REGEN | RAND_HI_RES | RAND_POWER
 values:INT[d3] | WIS[d3]
 min-values:INT[0] | WIS[0]
 
@@ -177,7 +177,7 @@ level:50
 alloc:2:30 to 127
 item:light:Wooden Torch
 flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON | SUST_CHR |
-flags:REGEN | HUNGER | HOLD_LIFE |
+flags:REGEN | HOLD_LIFE |
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 values:STEALTH[1]
 
@@ -224,7 +224,7 @@ combat:d4:d4:d8
 type:sword
 type:polearm
 type:hafted
-flags:FREE_ACT | SEE_INVIS | FEATHER | REGEN | RAND_SUSTAIN | HUNGER
+flags:FREE_ACT | SEE_INVIS | FEATHER | REGEN | RAND_SUSTAIN |
 flags:IGNORE_ACID | IGNORE_ELEC | IGNORE_FIRE | IGNORE_COLD
 values:STEALTH[d4] | RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1]
 min-values:STEALTH[0]
@@ -626,7 +626,7 @@ alloc:5:25 to 127
 level:20
 combat:d10:d10:0
 type:bow
-flags:REGEN | RAND_HI_RES | HUNGER
+flags:REGEN | RAND_HI_RES
 values:MIGHT[1]
 min-values:MIGHT[0]
 
