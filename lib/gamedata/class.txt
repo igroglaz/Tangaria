@@ -6574,7 +6574,6 @@ value:0:STR[-4]
 value:0:INT[5]
 value:0:CON[-2]
 value:0:CHR[-2]
-value:25:STEALTH[1]
 # 1) restore mana when polymorph monsters
 # 2) on <30% HP got auto MANASHIELD
 player-flags:0:ZERO_FAIL | BEAM
@@ -6699,13 +6698,13 @@ desc: The damage of the ray increases with your level.
 desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Stone Curse:15:6:32:15:0
-cooldown:30
+cooldown:300
 effect:CREATE_WALLS
 effect:GRANITE
 msg_other: slowly nods.. and is engulfed by a block of solid stone.
 desc:Seals you inside a block of stone.
 desc: You need to move out quickly, or you'll start suffocating.
-desc: Cooldown 30 turns.
+desc: Cooldown 300 turns.
 
 spell:Flamestrike:17:4:33:20:0
 # hc 1d5
@@ -6754,7 +6753,7 @@ desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 300 turns.
 
-spell:Energy Bolt:35:13:27:90:0
+spell:Energy Bolt:35:20:27:90:0
 cooldown:11
 #stun monsters
 effect:BALL:PLASMA:2
@@ -6766,7 +6765,7 @@ desc: It might stun target.
 desc: Cooldown 11 turns.
 
 spell:Dark Ritual:40:12:32:70:0
-cooldown:30
+cooldown:120
 # hc 1d5
 effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
@@ -6785,7 +6784,7 @@ desc: This spell causes brief no-resistable blindness.
 desc: Reveals all monsters with a spirit nearby and maps the area around them.
 desc: The mapped area grows larger with your level.
 desc: The damage of the dark magic increases with your level.
-desc: Cooldown 30 turns.
+desc: Cooldown 120 turns.
 
 spell:Acid Breath:45:40:40:100:0
 effect:ARC:ACID:0:30
