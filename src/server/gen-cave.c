@@ -120,10 +120,13 @@ static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int f
         // Water flow only through rocks, empty floors.. doors will drown.. 
         // + all passable to fix entrances
         // !do not allow to put WATER on STAIRS (so player won't drown)
-        if (square_in_bounds_fully(c, &change) && !(square_isstairs(c, &change)) &&
-           (square_isrock(c, &change) || square_isempty(c, &change) ||
-            square_isdoor(c, &change) || square_ispassable(c, &change) ||
-            square_istree(c, &change)))
+        if (square_in_bounds_fully(c, &change) && !(square_isstairs(c, &change) ||
+            square_isplayertrap(c, &change) || square_object(c, &change) ||
+            square(c, &change)->mon) && // <- pointer to the monster at location x,y on map
+            (square_isrock(c, &change) || square_isanyfloor(c, &change) ||
+             square_isdoor(c, &change) || square_ispassable(c, &change) ||
+             square_istree(c, &change)))
+            
         {
             /* PWMAngband: don't convert pit walls except sometimes on challenging levels */
             // T: also don't do it if too deep
