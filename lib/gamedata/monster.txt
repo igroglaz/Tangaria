@@ -12044,7 +12044,6 @@ blow:HIT:BLACK_BREATH:3d7
 flags:MALE | LEVITATE
 flags:DROP_1 | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:RES_LIGHT
 desc:Nazguls don't dissapear for ever.. They return. Always.
 desc: But till the moment when they will reclaim,
 desc: they dwell aas shadowless shapes.
@@ -12693,7 +12692,7 @@ blow:BITE:ELEC:5d4
 flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | NEUTRAL | METAL
 flags:OPEN_DOOR | BASH_DOOR
-flags:NO_CONF | RES_LIGHT
+flags:NO_CONF | SRES_LIGHT
 flags:FORCE_DEPTH
 drop:mushroom:Terror:100:7:9
 spell-freq:2
@@ -13552,7 +13551,6 @@ flags:UNIQUE | MALE | EVIL | PWMANG_FIXED
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | TAKE_ITEM
 flags:FORCE_DEPTH
-flags:SRES_LIGHT
 drop:food:Flagon of mead:100:3:4
 spell-freq:10
 spells:S_KIN
@@ -14356,7 +14354,6 @@ blow:TOUCH:EXP_80:4d8
 flags:SMART | UNIQUE | PWMANG_BASE | PWMANG_FIXED | LEVITATE
 flags:DROP_2 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:FORCE_DEPTH
-flags:SRES_LIGHT
 drop:food:Elvish wine:100:2:3
 spell-freq:4
 spells:WOUND | HOLD | SCARE
@@ -16026,7 +16023,7 @@ blow:BUTT:HURT:3d6
 flags:EVIL | UNIQUE | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR | HYBRID
-flags:RES_LIGHT
+flags:SRES_LIGHT
 flags:FORCE_DEPTH
 drop:food:Strip of Beef Jerky:100:1:1
 desc:It is a cross between a human and a bull.
@@ -16631,7 +16628,6 @@ blow:HIT:EXP_80:4d6
 flags:UNIQUE | MALE | LEVITATE
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:RES_LIGHT
 drop:ring:Black Ring of Power:100:1:1
 desc:A tall black cloaked Ringwraith, he is a master of horsemanship. He longs
 desc: to taste your blood.
@@ -17828,7 +17824,6 @@ flags:UNIQUE | FEMALE | INVISIBLE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:PASS_WALL | MOVE_BODY
 flags:FORCE_SLEEP
-flags:RES_LIGHT
 spell-freq:3
 spell-power:43
 spells:BLIND | WOUND | FORGET | HOLD | SCARE
@@ -18471,7 +18466,6 @@ flags:UNIQUE | MALE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:FORCE_SLEEP
-flags:RES_LIGHT
 spell-freq:3
 spell-power:45
 spells:BLIND | WOUND | DARKNESS | HOLD | SCARE
@@ -19047,7 +19041,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | INVISIBLE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_FIRE | RES_LIGHT
+flags:IM_FIRE
 flags:FORCE_SLEEP
 spell-freq:3
 spell-power:48
@@ -19873,7 +19867,7 @@ blow:TOUCH:EXP_40:6d7
 flags:UNIQUE | MALE | INVISIBLE | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_FIRE | RES_LIGHT
+flags:IM_FIRE
 flags:FORCE_SLEEP
 spell-freq:3
 spell-power:52
@@ -20734,7 +20728,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP | RES_LIGHT
+flags:FORCE_SLEEP
 spell-freq:3
 spell-power:56
 spells:BLIND | WOUND | HOLD | SCARE
@@ -21893,7 +21887,7 @@ blow:WAIL:TERRIFY:6d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP | RES_LIGHT
+flags:FORCE_SLEEP
 spell-freq:3
 spell-power:64
 spells:BLIND | WOUND | MISSILE | HOLD | MIND_BLAST | SCARE
@@ -23231,7 +23225,7 @@ blow:TOUCH:EXP_40:7d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:IM_ACID | IM_FIRE | RES_LIGHT
+flags:IM_ACID | IM_FIRE
 flags:FORCE_SLEEP
 spell-freq:2
 spell-power:72
@@ -24257,7 +24251,7 @@ blow:HIT:EXP_80:7d7
 flags:UNIQUE | MALE | SMART | LEVITATE
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
-flags:FORCE_SLEEP | RES_LIGHT
+flags:FORCE_SLEEP
 spell-freq:2
 spell-power:80
 spells:BLIND | BRAIN_SMASH | WOUND | HOLD | SCARE | TELE_AWAY
