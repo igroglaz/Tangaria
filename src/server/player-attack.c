@@ -492,7 +492,7 @@ static int player_damage_bonus(struct player_state *state)
 static void blow_side_effects(struct player *p, struct source *target,
     struct delayed_effects *effects, struct side_effects *seffects, bool do_conf,
     struct object *obj, char name[NORMAL_WID], bool do_blind, bool do_para, bool do_fear,
-    bool *do_quake, int dmg, random_value dice, int d_dam, bool do_slow)
+    bool *do_quake, int dmg, random_value dice, int d_dam, bool do_slow, bool do_circle)
 {
     /* Apply poison */
     if (seffects->do_poison)
@@ -516,6 +516,10 @@ static void blow_side_effects(struct player *p, struct source *target,
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
+        // circle attack gives less life leech
+        if (do_circle)
+            drain /= 2;
+
         if (monster_is_powerful(target->monster->race) && one_in_(2))
             ;
         else
@@ -526,6 +530,10 @@ static void blow_side_effects(struct player *p, struct source *target,
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
+        // circle attack gives less life leech
+        if (do_circle)
+            drain /= 2;
+
         hp_player_safe(p, 1 + drain / 3);
     }
     else if (streq(p->clazz->name, "Unbeliever") && target->monster &&
@@ -534,6 +542,10 @@ static void blow_side_effects(struct player *p, struct source *target,
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
+        // circle attack gives less life leech
+        if (do_circle)
+            drain /= 2;
+
         hp_player_safe(p, 1 + drain / 4);
     }
     else if (streq(p->clazz->name, "Inquisitor") && target->monster &&
@@ -541,13 +553,25 @@ static void blow_side_effects(struct player *p, struct source *target,
     {
         int drain = ((d_dam > target->monster->hp)? target->monster->hp: d_dam);
 
+        // circle attack gives less life leech
+        if (do_circle)
+            drain /= 2;
+
         hp_player_safe(p, 1 + drain / 4);
     }
 
     // Necromancer got small additional life leech (traumaturgy)
     if (streq(p->clazz->name, "Necromancer") && target->monster &&
         monster_is_living(target->monster))
-            hp_player_safe(p, 1 + (p->lev / 10));
+    {
+            int drain = p->lev / 10;
+
+            // circle attack gives less life leech
+            if (do_circle)
+                drain /= 2;
+
+            hp_player_safe(p, 1 + drain);
+    }
 
     // Mage's "Frost Shield" spell gives cold brand
     if (p->timed[TMD_ICY_AURA] && (streq(p->clazz->name, "Mage") ||
@@ -1239,9 +1263,17 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
 
     effects->stab_sleep = false;
 
+    // Knight offensive stance AoE
+    if (p->timed[TMD_OFFENSIVE_STANCE] && one_in_(2))
+    {
+        do_circle = true;
+        splash = dmg;
+    }
+
     /* Pre-damage side effects */
+    // added do_circle to check vampiric attacks
     blow_side_effects(p, target, effects, &seffects, do_conf, obj, name, do_blind, do_para, do_fear,
-        &do_quake, dmg, dice, d_dam, do_slow);
+        &do_quake, dmg, dice, d_dam, do_slow, do_circle);
 
     /* Damage, check for fear and death */
     if (target->monster)
@@ -1275,13 +1307,6 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     }
 
     if (stop) memset(effects, 0, sizeof(struct delayed_effects));
-
-    // Knight offensive stance AoE
-    if (p->timed[TMD_OFFENSIVE_STANCE] && one_in_(2))
-    {
-        do_circle = true;
-        splash = dmg;
-    }
 
     /* Post-damage effects */
     if (blow_after_effects(p, c, grid, do_circle, splash, do_quake))
