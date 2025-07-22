@@ -712,7 +712,7 @@ value:35:RES_CHAOS[1]
 #/// -
 value:0:DAM_RED[-2+2d30]
 # + AGGRAVATE 20 range hardcoded
-# (after lvl 40 we reduce aggro by 2 every lvl.. so at 50 hydra dont have aggro at all)
+# (after lvl 40 we reduce aggro.. so at 50 hydra have 5 aggro)
 # ============
 # - hc monks: -1 BpR after lvl 10
 value:15:MOVES[10+-2d7]

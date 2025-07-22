@@ -2301,6 +2301,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         else if (streq(p->clazz->name, "Monk"))
             extra_blows -= p->lev / 10;
     }
+    // note: 14-h hydra got life drain attacks (*circular dmg * BpR)
     else if (streq(p->race->name, "Hydra"))
     {
         // blessing from gods for newborn hydras to help them survive early on
@@ -2322,8 +2323,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->stat_add[STAT_STR] += lvldiff;
             state->stat_add[STAT_DEX] += lvldiff;
             state->stat_add[STAT_CON] += lvldiff;
-            state->dam_red += 1 + (lvldiff / 2);
-            state->skills[SKILL_SAVE] += lvldiff;
             state->skills[SKILL_SEARCH] += lvldiff;
         }
     }
