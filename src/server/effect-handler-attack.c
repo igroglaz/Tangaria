@@ -1492,8 +1492,8 @@ bool effect_handler_EARTHQUAKE(effect_handler_context_t *context)
             if (context->origin->player->spell_cost == 40)
             {
                 // distance
-                context->radius += context->origin->player->lev / 10;
-                if (context->radius > 5) context->radius = 5;
+                r += context->origin->player->lev / 10;
+                if (r > 5) r = 5;
             }
         }
     }
