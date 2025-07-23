@@ -2382,12 +2382,13 @@ void move_player(struct player *p, struct chunk *c, int dir, bool disarm, bool c
             /*
              * Players can switch places if:
              * - none of them is wraithed
-             * - they're moving toward each other
              * - player initiating the switch doesn't stand on potentially harmful terrain
+             * 
+             * // commented out in T: they're moving toward each other
              */
             bool can_switch = (!player_passwall(p) && !player_passwall(who->player) &&
-                (ddy[who->player->last_dir] == (0 - ddy[dir])) &&
-                (ddx[who->player->last_dir] == (0 - ddx[dir])) &&
+                /* (ddy[who->player->last_dir] == (0 - ddy[dir])) &&
+                   (ddx[who->player->last_dir] == (0 - ddx[dir])) && */
                 square_ispassable(c, &p->grid) && !square_isplayertrap(c, &p->grid) &&
                 !square_isdamaging(c, &p->grid));
 
