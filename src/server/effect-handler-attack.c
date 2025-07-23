@@ -948,7 +948,6 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
         {
             // hc distance Light Ray I/II
             rad += context->origin->player->lev / 2;
-            if (rad > 20) rad = 20;
         }
         else if (streq(context->origin->player->clazz->name, "Cryokinetic"))
         {
@@ -957,7 +956,6 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
             {
                 // distance
                 rad += context->origin->player->lev / 2;
-                if (rad > 20) rad = 20;
                 // dmg
                 dam *= context->origin->player->lev / 6;
                 // additional mana
@@ -966,6 +964,9 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
             }
         }
     }
+
+    // cap radius
+    if (rad > 20) rad = 20;
 
     // Aim at the target
     result = project(who, rad, context->cave, &target, dam, context->subtype, flg, 0, rad, "annihilated");
