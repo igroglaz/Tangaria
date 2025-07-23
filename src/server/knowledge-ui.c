@@ -2877,9 +2877,14 @@ void do_cmd_fountain(struct player *p, int item)
             {"Djinn", 50, 5}  
         };
         int i;
+        int attempts = 0;
 
         msg(p, "Something pops out of the water!");
-        do {i = randint0(N_ELEMENTS(summon_chance));}
+        do {
+            i = randint0(N_ELEMENTS(summon_chance));
+            attempts++;
+            if (attempts > 100) break; // Just pick whatever we got
+        }
         while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
         summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
 

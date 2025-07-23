@@ -1208,9 +1208,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"malicious leprechaun", 33, 30}
             };
             int i;
+            int attempts = 0;
 
             msg(p, "Something crawls out of the fountain rubbles!");
-            do {i = randint0(N_ELEMENTS(summon_chance));}
+            do {
+                i = randint0(N_ELEMENTS(summon_chance));
+                attempts++;
+                if (attempts > 100) break; // Just pick whatever we got
+            }
             while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
             summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
         }        
@@ -1272,9 +1277,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"Djinn", 45, 30}
             };
             int i;
+            int attempts = 0;
 
             msg(p, "Caramba! Something pops out of the fountain depths!");
-            do {i = randint0(N_ELEMENTS(summon_chance));}
+            do {
+                i = randint0(N_ELEMENTS(summon_chance));
+                attempts++;
+                if (attempts > 100) break; // Just pick whatever we got
+            }
             while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
             summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
         }
@@ -1541,9 +1551,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"great earth elemental", 60, 5}
             };
             int i;
+            int attempts = 0;
 
             msg(p, "Caramba! Something appears after you digged the sand!");
-            do {i = randint0(N_ELEMENTS(summon_chance));}
+            do {
+                i = randint0(N_ELEMENTS(summon_chance));
+                attempts++;
+                if (attempts > 100) break; // Just pick whatever we got
+            }
             while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
             summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
         }
@@ -1576,9 +1591,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"great ice wyrm", 60, 1}
             };
             int i;
+            int attempts = 0;
 
             msg(p, "Caramba! Something appears after you digged ice!");
-            do {i = randint0(N_ELEMENTS(summon_chance));}
+            do {
+                i = randint0(N_ELEMENTS(summon_chance));
+                attempts++;
+                if (attempts > 100) break; // Just pick whatever we got
+            }
             while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
             summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
         }
@@ -1616,9 +1636,14 @@ static bool do_cmd_tunnel_aux(struct player *p, struct chunk *c, struct loc *gri
                 {"great earth elemental", 60, 5}
             };
             int i;
+            int attempts = 0;
 
             msg(p, "Caramba! Something appears after you digged the wall!");
-            do {i = randint0(N_ELEMENTS(summon_chance));}
+            do {
+                i = randint0(N_ELEMENTS(summon_chance));
+                attempts++;
+                if (attempts > 100) break; // Just pick whatever we got
+            }
             while ((p->wpos.depth < summon_chance[i].minlev) || !magik(summon_chance[i].chance));
             summon_specific_race(p, c, &p->grid, get_race(summon_chance[i].race), 1);
         }
