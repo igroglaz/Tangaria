@@ -113,8 +113,7 @@
 
 
 # TODO: 
-# 1) buff gollum rags and other new arts
-# 2) add new art for new items: Old Wizard Hat, Magic Flute, Blindfold
+# add new art for new items: Old Wizard Hat, Magic Flute, Blindfold
 
 ################## new stuff
 
@@ -122,7 +121,7 @@ name:of the Withered King
 base-object:belt:Mummy Wrappings
 level:5
 weight:30
-alloc:10:1 to 100
+alloc:2:1 to 100
 armor:0:-10
 flags:SEE_INVIS | HOLD_LIFE | ESP_UNDEAD | SUST_CON | NO_ACTIVATION
 values:CHR[-2] | CON[-1] | RES_NETHER[1] | RES_POIS[1] | DAM_RED[1]
@@ -138,10 +137,10 @@ name:of Legolas
 base-object:belt:Belt
 level:5
 weight:6
-alloc:2:15 to 100
+alloc:2:1 to 30
 armor:1:3
 flags:SEE_INVIS | FEATHER | SUST_DEX
-values:DEX[2] | STEALTH[1]
+values:DEX[2] | STEALTH[1] | CHR[1] | WIS[1]
 desc:A light golden belt of woven threads, once given to Legolas by
 desc: the Lady of the Golden Wood.
 desc: It bears no rune, but lies upon the wearer with the ease of wind
@@ -152,7 +151,7 @@ name:of Sharkey
 base-object:mage staff:Mage Staff
 level:10
 weight:12
-alloc:2:5 to 100
+alloc:1:1 to 100
 attack:1d1:1:3
 armor:0:0
 flags:LIMITED_TELE | SEE_INVIS | SLOW_DIGEST | PROT_CONF | NO_ACTIVATION
@@ -169,7 +168,7 @@ name:of Gollum
 base-object:soft armour:Filthy Rag
 level:5
 weight:10
-alloc:2:5 to 100
+alloc:2:1 to 30
 attack:0d0:0:0
 armor:1:10
 flags:REGEN | SLOW_DIGEST | NO_ACTIVATION
@@ -183,9 +182,9 @@ desc: In its folds lingers the tenacity of something that refuses to die.
 
 name:of Grima
 base-object:sword:Broken Dagger
-level:19
+level:15
 weight:9
-alloc:1:30 to 100
+alloc:2:15 to 30
 attack:1d3:13:18
 armor:0:0
 flags:FREE_ACT | PROT_CONF
@@ -208,7 +207,7 @@ base-object:light:Phial
 graphics:~:y
 level:5
 weight:10
-alloc:4:5 to 100
+alloc:4:15 to 100
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL
@@ -226,10 +225,9 @@ weight:10
 alloc:40:5 to 100
 attack:1d1:0:0
 armor:0:0
-flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION
-values:LIGHT[4] | STEALTH[-5] | CON[-4] | CHR[-4] | SPEED[2]
+flags:NO_FUEL | ESP_UNDEAD | NO_ACTIVATION | SLOW_DIGEST_2
+values:LIGHT[4] | STEALTH[-5] | CON[-5] | CHR[-5] | SPEED[2]
 curse:siren:30
-curse:teleportation:100
 desc:It appears like the Phial of Galadriel at first - but wait! It
 desc: is a cursed phial created by an evil wizard to lure adventurers
 desc: into wielding it unknowingly.
@@ -274,8 +272,6 @@ attack:10d10:0:0
 armor:0:0
 values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND | PROT_STUN |
-# todo: remove this flag
-flags:LIMITED_TELE
 #
 act:CLAIRVOYANCE
 time:50+d50
@@ -289,11 +285,11 @@ name:'Shard'
 base-object:sword:Broken Dagger
 level:20
 weight:9
-alloc:1:30 to 100
+alloc:1:15 to 100
 attack:1d2:14:19
 armor:0:7
 flags:FREE_ACT | REGEN | PROT_BLIND
-values:MANA[1] |
+values:MANA[2] |
 values:BLOWS[1] | SPEED[1] | STEALTH[1] | RES_CHAOS[1] | LIGHT[-2]
 act:INVISIBILITY
 time:100+d400
@@ -321,11 +317,11 @@ name:Athame 'Elbereth'
 base-object:sword:Dagger
 level:20
 weight:12
-alloc:2:35 to 100
+alloc:2:15 to 50
 attack:1d7:17:17
 armor:0:7
 flags:BLESSED | FREE_ACT | REGEN | PROT_BLIND
-values:LIGHT[1] | SEARCH[3] | INFRA[3] | CON[2]
+values:LIGHT[1] | SEARCH[3] | INFRA[3] | CON[2] | INT[3]
 brand:CUT_1
 slay:EVIL_2
 desc:A Elbereth Gilthoniel,
@@ -364,7 +360,7 @@ weight:12
 alloc:40:15 to 50
 attack:2d4:9:12
 armor:0:10
-values:RES_FIRE[1]
+values:RES_FIRE[1] | INT[1] | WIS[1]
 brand:FIRE_3
 act:FIRE_BOLT
 time:8+d8
@@ -378,7 +374,7 @@ weight:12
 alloc:40:15 to 50
 attack:2d4:9:12
 armor:0:10
-values:RES_COLD[1]
+values:RES_COLD[1] | INT[1] | WIS[1]
 brand:COLD_3
 act:COLD_BOLT
 time:7+d7
@@ -392,7 +388,7 @@ weight:12
 alloc:40:15 to 50
 attack:2d4:9:12
 armor:0:10
-values:RES_ELEC[1]
+values:RES_ELEC[1] | INT[1] | WIS[1]
 brand:ELEC_3
 act:ELEC_BOLT
 time:6+d6
@@ -422,7 +418,7 @@ weight:12
 alloc:2:20 to 80
 attack:3d4:16:14
 armor:0:0
-flags:SEE_INVIS | REGEN
+flags:SEE_INVIS | SLOW_DIGEST | REGEN
 values:DEX[2] | RES_COLD[1]
 brand:COLD_3
 act:COLD_BALL48
@@ -528,7 +524,7 @@ weight:80
 alloc:12:25 to 80
 attack:1d7:13:11
 armor:0:0
-flags:REGEN
+flags:SLOW_DIGEST | REGEN
 values:BLOWS[2]
 brand:POIS_3
 slay:ANIMAL_2
@@ -556,7 +552,7 @@ weight:100
 alloc:3:25 to 100
 attack:2d4:12:16
 armor:0:0
-flags:BLESSED | PROT_BLIND | ESP_TROLL | ESP_GIANT
+flags:BLESSED | PROT_BLIND | SLOW_DIGEST | ESP_TROLL | ESP_GIANT
 values:SEARCH[1] | LIGHT[1] | RES_ELEC[1]
 brand:ELEC_3
 slay:ORC_3
@@ -585,7 +581,7 @@ name:'Ringil'
 base-object:sword:Long Sword
 level:20:40
 weight:130
-alloc:1:70 to 127
+alloc:1:50 to 127
 attack:4d5:22:25
 armor:0:0
 flags:PROT_FEAR | BLESSED | FREE_ACT | SEE_INVIS | REGEN |
@@ -630,7 +626,7 @@ weight:130
 alloc:3:20 to 127
 attack:2d5:10:12
 armor:0:0
-flags:AGGRAVATE | FREE_ACT | SEE_INVIS
+flags:AGGRAVATE | FREE_ACT | SEE_INVIS | SLOW_DIGEST_2
 values:SPEED[3] | STR[2] | CON[2] | BLOWS[1] | LIGHT[1] |
 values:RES_ELEC[1] | RES_LIGHT[1] | RES_DARK[1]
 brand:POIS_3
@@ -648,7 +644,7 @@ alloc:50:15 to 50
 attack:2d5:12:12
 armor:0:0
 flags:FEATHER | SEE_INVIS | ESP_ORC | ESP_TROLL
-values:DEX[2] | STEALTH[2]
+values:DEX[2] | STEALTH[2] | WIS[2]
 slay:TROLL_3
 slay:ORC_3
 desc:The "Singing Blade", whose wearer can slay Orcs and Trolls in the hidden
@@ -658,10 +654,10 @@ name:of Angmar
 base-object:sword:Long Sword
 level:20
 weight:130
-alloc:10:20 to 127
+alloc:10:30 to 127
 attack:4d5:-22:-25
 armor:0:0
-flags:ESP_UNDEAD | SEE_INVIS | FREE_ACT
+flags:ESP_UNDEAD | SEE_INVIS | SLOW_DIGEST | FREE_ACT
 values:SPEED[10] | STR[-10] | WIS[-10] | CON[-10] | WIS[-10]
 brand:FIRE_3
 brand:VAMPIRIC
@@ -706,7 +702,7 @@ weight:150
 alloc:2:25 to 100
 attack:3d5:20:12
 armor:0:0
-flags:FREE_ACT | FEATHER
+flags:FREE_ACT | FEATHER | SLOW_DIGEST
 values:DEX[4] | RES_COLD[1]
 slay:DEMON_3
 slay:ORC_3
@@ -723,7 +719,7 @@ weight:150
 alloc:5:25 to 80
 attack:2d5:10:15
 armor:0:0
-flags:BLESSED | ESP_DEMON
+flags:BLESSED | SLOW_DIGEST | ESP_DEMON
 values:SEARCH[1] | LIGHT[1] | RES_FIRE[1] | RES_LIGHT[1]
 brand:FIRE_3
 slay:ORC_3
@@ -755,7 +751,7 @@ weight:140
 alloc:7:30 to 127
 attack:3d7:0:20
 armor:0:0
-flags:AGGRAVATE | ESP_DRAGON
+flags:AGGRAVATE | ESP_DRAGON | SLOW_DIGEST_2
 values:CON[5] | RES_DISEN[1]
 slay:DRAGON_5
 slay:EVIL_2
@@ -803,7 +799,7 @@ weight:200
 alloc:3:30 to 100
 attack:3d8:13:17
 armor:0:0
-flags:FREE_ACT | REGEN | ESP_DRAGON
+flags:FREE_ACT | SLOW_DIGEST | REGEN | ESP_DRAGON
 values:STR[2] | RES_FIRE[1] | RES_POIS[1]
 brand:FIRE_3
 brand:POIS_3
@@ -819,7 +815,7 @@ weight:200
 alloc:1:30 to 127
 attack:3d10:19:21
 armor:0:0
-flags:FREE_ACT | SEE_INVIS | AGGRAVATE | ESP_DRAGON
+flags:FREE_ACT | SEE_INVIS | AGGRAVATE | ESP_DRAGON | SLOW_DIGEST_2
 values:STR[4] | INFRA[2] | RES_FIRE[1] | RES_CHAOS[1]
 brand:FIRE_3
 slay:DRAGON_5
@@ -870,7 +866,7 @@ weight:180
 alloc:4:70 to 127
 attack:4d7:18:28
 armor:0:-50
-flags:FREE_ACT | SEE_INVIS | ESP_ALL | AGGRAVATE
+flags:FREE_ACT | SEE_INVIS | ESP_ALL | AGGRAVATE | SLOW_DIGEST_2
 values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1] | RES_CHAOS[1]
 brand:COLD_3
 brand:VAMPIRIC
@@ -887,7 +883,7 @@ name:'Hunger Strike'
 base-object:sword:Blade of Chaos
 level:70
 weight:180
-alloc:1:85 to 127
+alloc:1:70 to 127
 attack:6d5:32:32
 armor:0:0
 flags:FREE_ACT | SEE_INVIS | REGEN
@@ -907,7 +903,7 @@ weight:30
 alloc:4:60 to 127
 attack:6d3:13:15
 armor:0:0
-flags:AGGRAVATE | ESP_DRAGON
+flags:AGGRAVATE | ESP_DRAGON | SLOW_DIGEST_2
 values:STR[3] | INT[-3] | DEX[-3] | WIS[-3] | LIGHT[1] |
 values:RES_FIRE[3] | RES_ELEC[1] | RES_DARK[1]
 brand:FIRE_3
@@ -1056,7 +1052,7 @@ weight:180
 alloc:5:30 to 127
 attack:6d3:11:23
 armor:0:20
-flags:AGGRAVATE | ESP_DRAGON | PROT_BLIND
+flags:AGGRAVATE | ESP_DRAGON | PROT_BLIND | SLOW_DIGEST_2
 values:STR[5] | TUNNEL[5] | INFRA[5] | RES_NEXUS[1] | RES_SOUND[1]
 brand:POIS_3
 brand:ELEC_3
@@ -1198,7 +1194,7 @@ weight:400
 alloc:3:80 to 127
 attack:7d10:18:18
 armor:0:0
-flags:AGGRAVATE | ESP_UNDEAD
+flags:AGGRAVATE | ESP_UNDEAD | SLOW_DIGEST_2
 values:STR[6] | TUNNEL[4] |
 values:RES_FIRE[3] | RES_DARK[1] | RES_CHAOS[1] | RES_DISEN[1]
 brand:FIRE_3
@@ -1292,7 +1288,7 @@ weight:50
 alloc:2:65 to 127
 attack:4d6:-12:20
 armor:0:0
-flags:AGGRAVATE | PROT_BLIND
+flags:AGGRAVATE | PROT_BLIND | SLOW_DIGEST_2
 values:STEALTH[-4] | WIS[-4] | RES_DARK[1] | RES_LIGHT[1] | RES_NETHER[1]
 brand:POIS_3
 brand:VAMPIRIC
@@ -1656,7 +1652,7 @@ weight:250
 alloc:3:90 to 127
 attack:10d6:40:0
 armor:0:0
-flags:AGGRAVATE | ESP_UNDEAD
+flags:AGGRAVATE | ESP_UNDEAD | SLOW_DIGEST_2
 values:RES_COLD[3] | RES_DARK[1] |
 values:RES_NETHER[1] | RES_CHAOS[1] | RES_DISEN[1] | RES_TIME[1]
 slay:UNDEAD_5
@@ -1819,7 +1815,7 @@ weight:200
 alloc:5:60 to 127
 attack:4d1:18:18
 armor:0:0
-flags:AGGRAVATE | PROT_BLIND
+flags:AGGRAVATE | PROT_BLIND | SLOW_DIGEST_2
 values:MIGHT[2] | STR[1] | CON[1] | RES_LIGHT[1] | RES_DARK[1] | RES_ELEC[1]
 act:ARROW
 time:20+d20
@@ -2275,7 +2271,7 @@ alloc:18:20 to 75
 attack:1d3:8:8
 armor:7:10
 flags:PROT_FEAR |
-flags:SEE_INVIS | FREE_ACT | AGGRAVATE
+flags:SEE_INVIS | FREE_ACT | AGGRAVATE | SLOW_DIGEST_2
 values:SEARCH[-5] | INT[-3] | WIS[-3]
 desc:A headpiece, gaudy and barbaric, that betrayed a warrior when he most
 desc: needed succor.
@@ -2417,7 +2413,7 @@ weight:20
 alloc:0:34 to 127
 attack:0d0:0:0
 armor:2:20
-flags:SUST_INT | SUST_WIS | FREE_ACT | SEE_INVIS
+flags:SUST_INT | SUST_WIS | FREE_ACT | SEE_INVIS | REGEN
 values:INT[3] | WIS[3] | SEARCH[3] | RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] |
 values:RES_COLD[1] | RES_MANA[1]
 desc:Gandalf's long, flowing robe. It provides insight and allows the
@@ -2679,7 +2675,7 @@ weight:150
 alloc:30:55 to 127
 attack:1d4:-1:0
 armor:28:20
-values:DAM_RED[5]
+values:DAM_RED[3] |
 values:RES_ACID[1] | RES_ELEC[1] | RES_FIRE[1] | RES_COLD[1] | RES_POIS[1]
 act:TELE_PHASE
 time:2
@@ -2892,7 +2888,7 @@ weight:25
 alloc:5:50 to 127
 attack:1d1:0:0
 armor:3:14
-flags:FREE_ACT
+flags:SLOW_DIGEST | FREE_ACT
 values:RES_COLD[1]
 brand:COLD_2
 act:COLD_BOLT
@@ -2920,7 +2916,7 @@ alloc:30:10 to 60
 attack:1d1:3:3
 armor:3:14
 flags:FEATHER | FREE_ACT
-values:RES_ACID[1]
+values:RES_ACID[1] | WIS[1] | INT[1]
 act:ACID_BOLT
 time:5+d5
 desc:A set of gauntlets that give off a foul, acrid odour yet remain
@@ -2933,7 +2929,7 @@ weight:25
 alloc:5:10 to 100
 attack:1d1:-12:-12
 armor:3:0
-flags:FREE_ACT | AGGRAVATE
+flags:FREE_ACT | AGGRAVATE | SLOW_DIGEST_2
 values:STR[-3] | DEX[-3] | RES_FIRE[1] | RES_DISEN[1] | SPEED[3]
 desc:A pair of weakening gauntlets, named after Beren, who returned to Thingol
 desc: having lost to Carcharoth the hand that clasped a Silmaril.
@@ -2945,7 +2941,7 @@ weight:25
 alloc:3:55 to 127
 attack:1d1:0:0
 armor:3:14
-flags:FREE_ACT | FEATHER | AGGRAVATE
+flags:FREE_ACT | FEATHER | AGGRAVATE | SLOW_DIGEST_2
 values:INT[3] | RES_ELEC[1] | RES_DARK[1] | RES_POIS[1] | RES_FIRE[3]
 act:MANA_BOLT
 time:30+d30
@@ -3111,7 +3107,7 @@ weight:100
 alloc:0:70 to 127
 attack:1d4:0:0
 armor:16:20
-flags:AGGRAVATE
+flags:AGGRAVATE | SLOW_DIGEST_2
 values:STR[2] | CON[2] | RES_ACID[3] | RES_FIRE[3] | RES_ELEC[1]
 desc:A shield of radiant mithril. Spells of protection flashing across
 desc: its surface, there is not a single dent in it. Its wielder will fear
@@ -3151,7 +3147,7 @@ weight:2
 alloc:2:70 to 127
 attack:0d0:2:2
 armor:0:0
-flags:FREE_ACT | SEE_INVIS | SLOW_DIGEST | REGEN | ESP_ALL |
+flags:FREE_ACT | SEE_INVIS | REGEN | ESP_ALL |
 flags:SUST_STR | SUST_CON | SUST_CHR | PROT_FEAR
 values:STR[1] | INT[1] | WIS[1] | DEX[1] | CON[1] | SPEED[5] | RES_FIRE[3]
 act:PROTEVIL
@@ -3332,7 +3328,7 @@ graphics:":d
 level:75:50
 weight:3
 alloc:1:75 to 127
-flags:HOLD_LIFE | SEE_INVIS | ESP_ALL | SLOW_DIGEST |
+flags:HOLD_LIFE | SEE_INVIS | ESP_ALL | SLOW_DIGEST_2 |
 flags:KNOWLEDGE | PROT_BLIND | AGGRAVATE | STICKY
 values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[2] | SPEED[3] |
 values:RES_FIRE[3] | CHR[5]
@@ -3351,8 +3347,8 @@ graphics:":d
 level:60
 weight:5
 alloc:0:60 to 127
-flags:NO_TELEPORT | HOLD_LIFE
-values:LIGHT[1] | RES_TIME[1]
+flags:NO_TELEPORT | HOLD_LIFE | SLOW_DIGEST
+values:LIGHT[1] | RES_TIME[1] | SPEED[3]
 act:HASTE
 time:100+d100
 msg:Your {kind} whirl a blazing white light around you...
@@ -3438,7 +3434,7 @@ weight:260
 alloc:11:75 to 127
 attack:2d4:-2:0
 armor:45:25
-flags:FREE_ACT | SEE_INVIS | AGGRAVATE
+flags:FREE_ACT | SEE_INVIS | AGGRAVATE | SLOW_DIGEST_2
 values:LIGHT[1] | RES_ELEC[3] | RES_DISEN[1] | RES_ACID[1] | RES_FIRE[1] |
 values:RES_COLD[1] | RES_POIS[1] | RES_LIGHT[1] | RES_DARK[1]
 act:STAR_BALL
@@ -3647,7 +3643,7 @@ weight:70
 alloc:0:30 to 100
 attack:5d7:0:0
 armor:0:0
-flags:SEE_INVIS | AGGRAVATE
+flags:SEE_INVIS | SLOW_DIGEST | AGGRAVATE
 flags:ESP_DRAGON | PROT_FEAR
 values:BLOWS[2] | SPEED[2] | RES_CHAOS[1] | RES_FIRE[3] | RES_DISEN[1] |
 values:ANTI_MAGIC[4]
@@ -3829,7 +3825,7 @@ weight:30
 alloc:0:15 to 127
 attack:1d1:0:0
 armor:0:0
-flags:PROT_FEAR | AGGRAVATE
+flags:PROT_FEAR | AGGRAVATE | SLOW_DIGEST_2
 values:STR[3] | CON[3] | RES_FIRE[1]
 act:ANNOY_MON
 time:5+d5
@@ -3862,7 +3858,7 @@ alloc:3:1 to 50
 attack:1d1:0:0
 armor:0:0
 flags:NO_FUEL
-values:STEALTH[1] | LIGHT[4]
+values:STEALTH[1] | LIGHT[4] | WIS[1]
 act:ILLUMINATION
 time:10+d10
 msg:The lantern wells with clear light...
@@ -3878,7 +3874,7 @@ alloc:3:40 to 100
 attack:1d1:0:0
 armor:0:0
 flags:SEE_INVIS | NO_FUEL
-values:LIGHT[3]
+values:LIGHT[3] | CHR[1]
 act:MAPPING
 time:40+d40
 msg:The pearl shines brightly...
@@ -3930,8 +3926,6 @@ armor:0:0
 values:CHR[-3] | INT[3] | WIS[1] | INFRA[4] |  SEARCH[2] | RES_DISEN[1] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 # -
-#TODO: remove IMPAR MANA flag
-flags:IMPAIR_MANA
 curse:siren:100
 #
 act:CLAIRVOYANCE
@@ -3953,7 +3947,7 @@ alloc:1:25 to 127
 attack:10d10:0:0
 armor:0:0
 values:INT[3] | WIS[3] | CON[3] | INFRA[5] |  SEARCH[5] | RES_NETHER[1] | LIGHT[4]
-flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
+flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND | SLOW_DIGEST
 # -
 flags:STICKY
 curse:undead summon:30
@@ -3978,8 +3972,6 @@ armor:0:0
 values:INT[2] | WIS[1] | INFRA[1] |  SEARCH[1] | LIGHT[4] | RES_CHAOS[1]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 # -
-# todo: remove afraid
-flags:AFRAID
 curse:hallucination:100
 curse:siren:30
 #
