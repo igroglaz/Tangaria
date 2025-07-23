@@ -102,7 +102,7 @@ static int get_deeptown_min_depth(int player_level)
  */
 void do_cmd_go_up(struct player *p)
 {
-    int ascend_to;
+    int ascend_to = -1; // init with -1
     uint8_t new_level_method;
     struct chunk *c = chunk_get(&p->wpos);
     struct worldpos wpos;
@@ -231,7 +231,7 @@ void do_cmd_go_up(struct player *p)
  */
 void do_cmd_go_down(struct player *p)
 {
-    int descend_to;
+    int descend_to = 1; // init with 1
     uint8_t new_level_method;
     struct chunk *c = chunk_get(&p->wpos);
     struct wild_type *w_ptr = get_wt_info_at(&p->wpos.grid);
