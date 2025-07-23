@@ -516,7 +516,55 @@ void cast_spell_end(struct player *p)
     if (player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, spell->smana << 16);
 
     /* A spell was cast */
-    sound(p, (pious? MSG_PRAYER: MSG_SPELL));
+    // spells' effect's indexes can be found:
+    // effects.c -> effect_subtype()
+    if (streq(p->clazz->name, "Knight"))
+        ; // Knight got separate sound (player_timed.txt)
+    else if (spell->effect->index == EF_BALL || spell->effect->index == EF_BALL_OBVIOUS ||
+        spell->effect->index == EF_STAR_BALL || spell->effect->index == EF_SWARM)
+        sound(p, MSG_BALL);
+    else if ((spell->effect->index >= EF_BOLT && spell->effect->index <= EF_BOLT_STATUS_DAM) ||
+              spell->effect->index == EF_BOLT_RADIUS)
+                sound(p, MSG_BOLT);
+    else if (spell->effect->index == EF_DAMAGE) // curse
+        sound(p, MSG_DAMAGE);
+    else if (spell->effect->index == EF_EARTHQUAKE)
+        sound(p, MSG_EARTHQUAKE);
+    else if (spell->effect->index == EF_DESTRUCTION)
+        sound(p, MSG_DESTRUCTION);
+    else if (spell->effect->index == EF_BLAST || spell->effect->index == EF_BLAST_OBVIOUS)
+        sound(p, MSG_BLAST);
+    else if (spell->effect->index == EF_BEAM || spell->effect->index == EF_BEAM_OBVIOUS || 
+             spell->effect->index == EF_SHORT_BEAM || spell->effect->index == EF_LINE)
+        sound(p, MSG_BEAM);
+    else if (spell->effect->index == EF_ARC)
+        sound(p, MSG_ARC);
+    else if (spell->effect->index == EF_STRIKE)
+        sound(p, MSG_STRIKE);
+    else if (spell->effect->index == EF_LASH)
+        sound(p, MSG_LASH);
+    else if (spell->effect->index == EF_MELEE_BLOWS)
+        sound(p, MSG_MELEE_BLOWS);
+    else if (spell->effect->index == EF_SPOT)
+        sound(p, MSG_SPOT);
+    else if (spell->effect->index == EF_STAR)
+        sound(p, MSG_STAR);
+    else if (spell->effect->index == EF_TOUCH || spell->effect->index == EF_TOUCH_AWARE)
+        sound(p, MSG_TOUCH);
+    else if (spell->effect->index == EF_CREATE_WALLS)
+        sound(p, MSG_CREATE_WALLS);
+    else if (spell->effect->index == EF_CREATE_TREES)
+        sound(p, MSG_CREATE_TREES);
+    else if (spell->effect->index == EF_GLYPH)
+        sound(p, MSG_GLYPH);
+    else if (spell->effect->index <= EF_PROJECT_LOS_AWARE)
+        sound(p, MSG_PROJECT);
+    else if (pious)
+        sound(p, MSG_PRAYER);
+    else
+        sound(p, MSG_SPELL); // including EF_PROJECT
+
+
     if (!(p->spell_flags[spell_index] & PY_SPELL_WORKED))
     {
         int e = spell->sexp;
