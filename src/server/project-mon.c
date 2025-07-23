@@ -1415,6 +1415,7 @@ static void project_monster_handler_COMMAND(project_monster_handler_context_t *c
                 char m_name[NORMAL_WID];
                 monster_desc(context->origin->player, m_name, sizeof(m_name), context->mon, MDESC_STANDARD);
                 msg(context->origin->player, "You need at least %d gold to bribe %s.", bribe_gold, m_name);
+                context->dam = 0;
                 return;
             }
 
