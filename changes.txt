@@ -57,6 +57,7 @@ PWMAngband:
 - Allow ESC at start of a keymap to cancel a previous keymap requiring a
   direction
 - Prevent ironman ghosts from going up
+- Fix cooldown not set properly on item manipulating spells
 
 Coding changes
 --------------

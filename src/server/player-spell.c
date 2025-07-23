@@ -504,13 +504,19 @@ void cast_spell_end(struct player *p)
     int spell_index = p->current_spell;
     const struct class_spell *spell;
     const struct player_class *c = p->clazz;
+    bool pious;
 
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
 
     /* Access the spell */
     spell = spell_by_index(&c->magic, spell_index);
+    pious = streq(spell->realm->name, "divine");
+
+    /* Reward COMBAT_REGEN with small HP recovery */
+    if (player_has(p, PF_COMBAT_REGEN)) convert_mana_to_hp(p, spell->smana << 16);
 
     /* A spell was cast */
+    sound(p, (pious? MSG_PRAYER: MSG_SPELL));
     if (!(p->spell_flags[spell_index] & PY_SPELL_WORKED))
     {
         int e = spell->sexp;
@@ -522,6 +528,13 @@ void cast_spell_end(struct player *p)
         player_exp_gain(p, e * spell->slevel);
 
         /* Redraw */
+        p->upkeep->redraw |= (PR_SPELL);
+    }
+
+    /* Put on cooldown */
+    if (spell->cooldown)
+    {
+        p->spell_cooldown[spell->sidx] = spell->cooldown;
         p->upkeep->redraw |= (PR_SPELL);
     }
 }
