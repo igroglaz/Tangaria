@@ -1980,7 +1980,6 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     if (obj->tval == TV_POTION && streq(p->race->name, "Djinn"))
     {
         bool has_gain_stat = false;
-        struct effect *effect;
         
         // except stat potions
         for (effect = obj->effect; effect; effect = effect->next)
