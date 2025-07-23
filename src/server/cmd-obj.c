@@ -1785,6 +1785,9 @@ static void vampire_light_damage(struct player *p)
 }
 
 
+// returns:
+// true  – item not used AND no new knowledge ("nothing happened")
+// false – item was used OR player learned something (handle as usual)
 bool execute_effect(struct player *p, struct object **obj_address, struct effect *effect, int dir,
     const char *inscription, bool *ident, bool *used, bool *notice)
 {
@@ -1888,6 +1891,126 @@ bool execute_effect(struct player *p, struct object **obj_address, struct effect
 
     /* Quit if the item wasn't used and no knowledge was gained */
     return (!*used && (p->was_aware || !*ident));
+}
+
+
+// apply extra side-effects after using an item
+static void apply_obj_post_use_hced_effects(struct player *p, struct object *obj)
+{
+    if (!obj) return;
+
+    ////////////////// FOOD
+    if (obj->kind == lookup_kind_by_name(TV_FOOD, "Draught of the Ents") &&
+        streq(p->race->name, "Ent"))
+            player_inc_timed(p, TMD_FOOD, 5000, false, false);
+    else if (streq(obj->kind->name, "Scrap of Flesh"))
+    {
+        if (streq(p->race->name, "Hydra") || streq(p->race->name, "Vampire") ||
+            streq(p->race->name, "Undead"))
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+        else if (one_in_(3))
+            player_dec_timed(p, TMD_FOOD, 2000, false);
+        else
+            player_inc_timed(p, TMD_FOOD, 2000, false, false);
+    }
+
+    ////////////////// POTIONS
+    // potion of water. gives additional satiation (+ to object.txt) if hungry
+    if (obj->tval == TV_POTION)
+    {
+        if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
+            !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
+            !streq(p->race->name, "Golem") && !streq(p->race->name, "Wraith") && 
+            !streq(p->race->name, "Djinn"))
+        {
+            int satiation = 0;
+            
+            // Calculate base satiation bonus based on hunger level
+            if (p->timed[TMD_FOOD] < 100) { // starving
+                satiation += 400;  // regular water: 300
+            } else if (p->timed[TMD_FOOD] < 400) { // faint
+                satiation += 300;  // regular water: 200
+            } else if (p->timed[TMD_FOOD] < 800) { // weak
+                satiation += 200;  // regular water: 100
+            } else if ((OPT(p, birth_zeitnot) || // zeitnot
+                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
+                 p->timed[TMD_FOOD] < 8000)
+                    satiation += 1000; // regular water: 750
+            
+            if (streq(p->race->name, "Ent"))
+            {   // main source of food
+                player_inc_timed(p, TMD_FOOD, 300 + satiation, false, false);
+                hp_player(p, p->wpos.depth / 2);
+            }
+            else if (streq(p->race->name, "Merfolk"))
+            {
+                player_inc_timed(p, TMD_FOOD, 200 + satiation, false, false);
+                hp_player(p, p->wpos.depth);
+            }
+            else // all other races
+                player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
+        }
+        else if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
+        {
+            // cheated death? :)
+            if (p->chp == 1)
+                p->chp = p->mhp;
+            else
+                p->chp = (p->chp / 2) + 1; // don't kill player
+
+            // heal and feed vamps and corpses
+            if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
+            {
+                p->chp = p->mhp;
+                player_inc_timed(p, TMD_FOOD, 2334, false, false);
+            }
+
+            /* Display the hitpoints */
+            p->upkeep->redraw |= (PR_HP);
+        }
+        else if (streq(p->race->name, "Ent"))
+        {
+           int ent_food = 0;
+           int c0st = obj->kind->cost;
+
+           if      (c0st <= 10)   ent_food = 2;
+           else if (c0st <= 25)   ent_food = 4;
+           else if (c0st <= 50)   ent_food = 8;
+           else if (c0st <= 100)  ent_food = 15;
+           else if (c0st <= 200)  ent_food = 30;
+           else if (c0st <= 500)  ent_food = 50;
+           else if (c0st <= 1000) ent_food = 75;
+           else if (c0st <= 5000) ent_food = 100;
+           else if (c0st > 5000)  ent_food = 150;
+
+           player_inc_timed(p, TMD_FOOD, ent_food, false, false);
+        }
+        // healing potions spend satiation if not too hungry
+        else if (p->timed[TMD_FOOD] >= 700)
+        {
+            if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds") &&
+                one_in_(4))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Serious Wounds") &&
+                one_in_(3))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Critical Wounds") &&
+                one_in_(2))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Healing"))
+                player_dec_timed(p, TMD_FOOD, 100, false);
+        }
+        // drinking any other potions when hungry helps a bit
+        else
+        {
+            if (p->timed[TMD_FOOD] < 100) // starving
+                player_inc_timed(p, TMD_FOOD, 200, false, false);
+            else if (p->timed[TMD_FOOD] < 400) // faint
+                player_inc_timed(p, TMD_FOOD, 150, false, false);
+            else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
+                player_inc_timed(p, TMD_FOOD, 100, false, false);
+        }
+    }
 }
 
 
@@ -2049,132 +2172,25 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         sound(p, p_cmd->snd);
         activation_message(p, obj);
 
-        if (execute_effect(p, &obj, effect, dir, "", &ident, &used, &notice)) return false;
+        if (execute_effect(p, &obj, effect, dir, "", &ident, &used, &notice))
+            return false;
+
+        // give extra nourishment etc
+        if (used)
+            apply_obj_post_use_hced_effects(p, obj);
     }
 
     /* Take a turn if device failed */
     else
         use_energy(p);
 
-    if (obj->kind == lookup_kind_by_name(TV_FOOD, "Draught of the Ents") &&
-        streq(p->race->name, "Ent"))
-            player_inc_timed(p, TMD_FOOD, 5000, false, false);
-
-/// potion of water. gives additional satiation (+ to object.txt) if hungry
-    if (obj->tval == TV_POTION)
-    {
-        if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
-            !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
-            !streq(p->race->name, "Golem") && !streq(p->race->name, "Wraith") && 
-            !streq(p->race->name, "Djinn"))
-        {
-            int satiation = 0;
-            
-            // Calculate base satiation bonus based on hunger level
-            if (p->timed[TMD_FOOD] < 100) { // starving
-                satiation += 400;  // regular water: 300
-            } else if (p->timed[TMD_FOOD] < 400) { // faint
-                satiation += 300;  // regular water: 200
-            } else if (p->timed[TMD_FOOD] < 800) { // weak
-                satiation += 200;  // regular water: 100
-            } else if ((OPT(p, birth_zeitnot) || // zeitnot
-                (OPT(p, birth_no_recall) && OPT(p, birth_force_descend))) &&
-                 p->timed[TMD_FOOD] < 8000)
-                    satiation += 1000; // regular water: 750
-            
-            if (streq(p->race->name, "Ent"))
-            {   // main source of food
-                player_inc_timed(p, TMD_FOOD, 300 + satiation, false, false);
-                hp_player(p, p->wpos.depth / 2);
-            }
-            else if (streq(p->race->name, "Merfolk"))
-            {
-                player_inc_timed(p, TMD_FOOD, 200 + satiation, false, false);
-                hp_player(p, p->wpos.depth);
-            }
-            else // all other races
-                player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
-        }
-        else if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
-        {
-            // cheated death? :)
-            if (p->chp == 1)
-                p->chp = p->mhp;
-            else
-                p->chp = (p->chp / 2) + 1; // don't kill player
-
-            // heal and feed vamps and corpses
-            if (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead"))
-            {
-                p->chp = p->mhp;
-                player_inc_timed(p, TMD_FOOD, 2334, false, false);
-            }
-
-            /* Display the hitpoints */
-            p->upkeep->redraw |= (PR_HP);
-        }
-        else if (streq(p->race->name, "Ent"))
-        {
-           int ent_food = 0;
-           int c0st = obj->kind->cost;
-
-           if      (c0st <= 10)   ent_food = 2;
-           else if (c0st <= 25)   ent_food = 4;
-           else if (c0st <= 50)   ent_food = 8;
-           else if (c0st <= 100)  ent_food = 15;
-           else if (c0st <= 200)  ent_food = 30;
-           else if (c0st <= 500)  ent_food = 50;
-           else if (c0st <= 1000) ent_food = 75;
-           else if (c0st <= 5000) ent_food = 100;
-           else if (c0st > 5000)  ent_food = 150;
-
-           player_inc_timed(p, TMD_FOOD, ent_food, false, false);
-        }
-        // healing potions spend satiation if not too hungry
-        else if (p->timed[TMD_FOOD] >= 700)
-        {
-            if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds") &&
-                one_in_(4))
-                player_dec_timed(p, TMD_FOOD, 100, false);
-            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Serious Wounds") &&
-                one_in_(3))
-                player_dec_timed(p, TMD_FOOD, 100, false);
-            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Critical Wounds") &&
-                one_in_(2))
-                player_dec_timed(p, TMD_FOOD, 100, false);
-            else if (obj->kind == lookup_kind_by_name(TV_POTION, "Healing"))
-                player_dec_timed(p, TMD_FOOD, 100, false);
-        }
-        // drinking any other potions when hungry helps a bit
-        else
-        {
-            if (p->timed[TMD_FOOD] < 100) // starving
-                player_inc_timed(p, TMD_FOOD, 200, false, false);
-            else if (p->timed[TMD_FOOD] < 400) // faint
-                player_inc_timed(p, TMD_FOOD, 150, false, false);
-            else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
-        }
-    }
-
-    if (streq(obj->kind->name, "Scrap of Flesh"))
-    {
-        if (streq(p->race->name, "Hydra") || streq(p->race->name, "Vampire") ||
-            streq(p->race->name, "Undead"))
-            player_inc_timed(p, TMD_FOOD, 2000, false, false);
-        else if (one_in_(3))
-            player_dec_timed(p, TMD_FOOD, 2000, false);
-        else
-            player_inc_timed(p, TMD_FOOD, 2000, false, false);
-    }
-
     /* If the item is a null pointer or has been wiped, be done now */
     if (!obj) return false;
 
     if (notice) object_notice_effect(p, obj);
 
-    // notice: there MD will lose it's change:
     /* Use the object, check if none left */
+    // (note: there MD will lose it's charge)
     if (do_cmd_use_end(p, obj, ident, used, p_cmd->use)) return false;
 
     /* Hack -- rings of polymorphing get destroyed when activated */
