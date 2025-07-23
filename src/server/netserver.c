@@ -3422,9 +3422,9 @@ int Send_flush(struct player *p, bool fresh, char delay)
 
     /* Hack -- don't display animations if fire_till_kill is enabled */
     // To ensure that rng won't bring fatal chance we also flush every half-turn
-    // Tests: !one_in_8 works with 60 speed & 4.4 shots/turn with Long bow max distance;
-    // but we will use !one_in_9 just in case.
-    if (p->firing_request && (!one_in_(8) || p->game_turn.turn % 32 == 0))
+    // Tests: RNG % 8 != 0 works with 60 speed & 4.4 shots/turn with Long bow max distance;
+    // but we will use RNG % 9 != 0 just in case (8/9 = 88.9% vs 7/8 = 87.5%)
+    if (p->firing_request && (RNG % 9 != 0 || p->game_turn.turn % 32 == 0))
         delay = 0;
 
     return Packet_printf(&connp->c, "%b%c%c", (unsigned)PKT_FLUSH, (int)fresh, (int)delay);
