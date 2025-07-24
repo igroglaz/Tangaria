@@ -1894,6 +1894,14 @@ bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
             msg(context->origin->player, "In Deeptown, you can build houses only east of the dungeon.");
             return false;
         }
+        // Prevent building in central area (e.g. shops, roads, etc.)
+        else if ((context->origin->player->grid.x >= 70 && context->origin->player->grid.y > 23) &&
+                 (context->origin->player->grid.x <= 140 && context->origin->player->grid.y <= 45))
+        {
+            msg(context->origin->player, "Can't build in the town center. Try placing it a bit off to the side.");
+            return false;
+        }
+                 
         // ; OK, can build
     }
     // no-mode: can build only in town or to the west from it
