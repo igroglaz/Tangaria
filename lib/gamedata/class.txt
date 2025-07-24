@@ -641,7 +641,7 @@ desc: You take 1d4 points of damage for every monster removed.
 
 spell:Globe of Invulnerability:35:70:95:250:0
 effect:TIMED_SET:INVULN
-dice:8+1d10
+dice:15+1d15
 desc:Grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
@@ -2891,7 +2891,7 @@ desc: breaking them or until you leave the level.
 
 spell:Disruption Shield:38:70:95:100:0
 effect:TIMED_INC:MANASHIELD
-dice:10+1d10
+dice:15+1d15
 desc:Creates a shield of mana around you that absorbs all damage
 desc: inflicted on your character... as long as you have mana
 desc: to fuel it.

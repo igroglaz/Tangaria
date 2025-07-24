@@ -41,6 +41,8 @@ PWMAngband:
 
 - Don't give experience/loot to ironman characters on savescummed levels
 - Prevent ironman characters from picking up items on savescummed levels
+- Increase duration of Globe of Invulnerabilty and Disruption Shield, add a
+  message and a different visual effect when they're about to wear off
 
 Bugs fixed
 ----------
@@ -68,6 +70,10 @@ Angband 4.2.x:
 - Better match death logic for projections or non-player hits to mon_take_hit()
 - Regularize score array after reading it
 - Remove some 'Hack' comments
+
+PWMAngband:
+
+- Rework level unstaticer code
 
 Compilation/documentation
 -------------------------

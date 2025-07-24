@@ -543,6 +543,13 @@ static void decrease_timeouts(struct player *p, struct chunk *c)
             p->no_disturb_icky = true;
             player_dec_timed(p, i, decr, false);
             p->no_disturb_icky = false;
+
+            /* Warn if some important effects are about to wear off */
+            if (((i == TMD_INVULN) || (i == TMD_MANASHIELD)) && (p->timed[i] == 10))
+            {
+                msg(p, "Your %s is about to wear off...", ((i == TMD_INVULN)?
+                    "globe of invulnerability": "disruption shield"));
+            }
         }
     }
 
@@ -1958,10 +1965,9 @@ static void process_various(void)
             }
         }
 
-        /* If the level unstaticer is not disabled */
+        /* Unstatic some levels */
         if (cfg_level_unstatic_chance >= 0)
         {
-            int depth;
             struct loc grid;
 
             /* For each dungeon level */
@@ -1970,22 +1976,17 @@ static void process_various(void)
                 for (grid.x = 0 - radius_wild; grid.x <= radius_wild; grid.x++)
                 {
                     struct wild_type *w_ptr = get_wt_info_at(&grid);
+                    int depth;
 
                     for (depth = w_ptr->min_depth; depth < w_ptr->max_depth; depth++)
                     {
-                        int num_on_depth = 0;
                         struct worldpos wpos;
-
-                        /* Random chance of the level unstaticing */
-                        /* The chance is one in (base_chance * depth) / 250 feet */
-                        int chance = (cfg_level_unstatic_chance * (depth + 5) / 5) - 1;
-
-                        /* Full unstaticer */
-                        if (!cfg_level_unstatic_chance) chance = 0;
+                        int num_on_depth = 0;
+                        bool unstatic = false;
 
                         wpos_init(&wpos, &grid, depth);
 
-                        /* If this depth is static */
+                        /* Skip if this depth is not static */
                         if (!chunk_has_players(&wpos)) continue;
 
                         /* Count the number of players actually in game on this level */
@@ -1997,8 +1998,25 @@ static void process_various(void)
                                 num_on_depth++;
                         }
 
-                        /* Unstatic the level if this level is static and no one is actually on it */
-                        if (!num_on_depth && one_in_(chance))
+                        /* Skip if level is played */
+                        if (num_on_depth) continue;
+
+                        /* Unstatic immediately */
+                        if (!cfg_level_unstatic_chance)
+                            unstatic = true;
+
+                        /* Random chance of the level unstaticing */
+                        else
+                        {
+                            /* The chance is one in (base_chance * depth) / 250 feet */
+                            int chance = (cfg_level_unstatic_chance * depth) / 5;
+
+                            if (chance < 1) chance = 1;
+                            if (one_in_(chance)) unstatic = true;
+                        }
+
+                        /* Unstatic the level */
+                        if (unstatic)
                             chunk_set_player_count(&wpos, 0);
                     }
                 }

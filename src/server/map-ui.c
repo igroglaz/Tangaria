@@ -494,7 +494,13 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
     {
         /* Give a visual effect to some spells */
         if (p->timed[TMD_MANASHIELD] || p->timed[TMD_INVULN] || p->timed[TMD_DEADLY])
+        {
             *a = COLOUR_VIOLET;
+
+            /* Warn if some important effects are about to wear off */
+            if (p->timed[TMD_INVULN] && (p->timed[TMD_INVULN] <= 10)) *a = COLOUR_L_VIOLET;
+            if (p->timed[TMD_MANASHIELD] && (p->timed[TMD_MANASHIELD] <= 10)) *a = COLOUR_L_VIOLET;
+        }
 
         /* Handle hp_changes_color option */
         else if (OPT(p, hp_changes_color))
