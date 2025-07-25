@@ -41,6 +41,7 @@ static int check_devices(struct player *p, struct object *obj)
     int fail;
     const char *action;
     bool activated = false;
+    bool is_tele_staff = false;
     bool is_unbeliever = streq(p->clazz->name, "Unbeliever");
     bool is_homi = streq(p->race->name, "Homunculus");
 
@@ -53,7 +54,11 @@ static int check_devices(struct player *p, struct object *obj)
     else if (tval_is_wand(obj))
         action = "use the wand";
     else if (tval_is_staff(obj))
+    {
+        if (obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
+            is_tele_staff = true;
         action = "use the staff";
+    }
     else
     {
         action = "activate it";
@@ -72,18 +77,20 @@ static int check_devices(struct player *p, struct object *obj)
         if (!obj->known->effect && (tval_is_ring(obj) || tval_is_amulet(obj)))
             fail = 500;
     }
-    else if (fail < 700 - (p->lev * 10) &&
+    else if (!is_tele_staff &&
              (streq(p->clazz->name, "Warrior") || streq(p->clazz->name, "Monk") ||
               streq(p->clazz->name, "Shapechanger")))
     {
-        fail = 700 - (p->lev * 10); // 70% -> 20%
+        fail += 300; // Add 30% failure penalty
+        if (fail > 950) fail = 950; // Cap at 95%
     }
-    else if (fail < 510 - (p->lev * 10) &&
+    else if (!is_tele_staff &&
              (streq(p->clazz->name, "Rogue") || streq(p->clazz->name, "Paladin") ||
              streq(p->clazz->name, "Blackguard") || streq(p->clazz->name, "Archer") ||
              streq(p->clazz->name, "Heretic") || streq(p->clazz->name, "Cutthroat")))
     {
-        fail = 510 - (p->lev * 10); // 50% -> 1%
+        fail += 150; // Add 15% failure penalty
+        if (fail > 950) fail = 950; // Cap at 95%
     }
     ///////////////////////////////////////////////////////////
 
@@ -95,15 +102,14 @@ static int check_devices(struct player *p, struct object *obj)
     if (CHANCE(fail, 1000)) // <-- if it's true - we failed to use item
     {
         // non-HC: another chance for tele staves (even Unbeliever)
-        if (obj->tval == TV_STAFF && !OPT(p, birth_hardcore) &&
-            obj->kind == lookup_kind_by_name(TV_STAFF, "Teleportation"))
+        if (is_tele_staff && !OPT(p, birth_hardcore))
         {
             int dice_roll = randint1(20); // roll 1-20
             int charges_to_consume = 1; // default
             bool final_failure = false;
             
-            if (is_unbeliever) {
-                // 20% fail for unbelievers (rolls 1-4 out of 20)
+            if (is_homi) { // <<<< this is 80% of total success.. as in 1st attempt homi 99.9% fail
+                // 20% fail for homi (rolls 1-4 out of 20)
                 if (dice_roll <= 4) {
                     final_failure = true;
                 } else if (dice_roll <= 8) {
@@ -113,17 +119,33 @@ static int check_devices(struct player *p, struct object *obj)
                 } else {
                     charges_to_consume = 1; // rolls 15-20: consume 1 charge
                 }
-            } else {
-                // 5% fail for everyone else (roll 1 out of 20)
-                if (dice_roll == 1) {
+            }   
+            else if (is_unbeliever) { // <<<< this is 70% of total. as in 1st attempt they 99.9% fail
+                // 30% fail for unbelievers (rolls 1-6 out of 20)
+                if (dice_roll <= 6) {
                     final_failure = true;
-                } else if (dice_roll <= 5) {
-                    charges_to_consume = 3; // rolls 2-5: consume 3 charges
-                } else if (dice_roll <= 10) {
-                    charges_to_consume = 2; // rolls 6-10: consume 2 charges
+                } else if (dice_roll <= 8) {
+                    charges_to_consume = 3; // rolls 7-8: consume 3 charges
+                } else if (dice_roll <= 14) {
+                    charges_to_consume = 2; // rolls 9-14: consume 2 charges
                 } else {
-                    charges_to_consume = 1; // rolls 11-20: consume 1 charge
+                    charges_to_consume = 1; // rolls 15-20: consume 1 charge
                 }
+            } else if (p->chp <= (p->mhp * 50 / 100)) { // all others <<<< this is !2nd attempt!
+                     // works only on 50% HP
+                     // 50% fail for everyone else (rolls 1-10 out of 20)
+                     // (otherway scrolls of TP become meaningless)
+                if (dice_roll <= 10) {
+                    final_failure = true;
+                } else if (dice_roll <= 13) {
+                    charges_to_consume = 3; // rolls 11-13: consume 3 charges
+                } else if (dice_roll <= 16) {
+                    charges_to_consume = 2; // rolls 14-16: consume 2 charges
+                } else {
+                    charges_to_consume = 1; // rolls 17-20: consume 1 charge
+                }
+            } else { // >50% HP - no 2nd chance for teleport
+                final_failure = true;
             }
 
             if (final_failure) {
