@@ -32,7 +32,7 @@
 # book-alloc:commonness:min to max
 # book-desc:description
 # spell:name:level:mana:fail:exp:sproj
-# cooldown:cooldown
+# cooldown:cooldown // MAX spell cooldown is 255
 # effect:effect:subtype (if needed):radius (if needed):parameter (if needed)
 # effect-yx:yrange:xrange
 # dice:dice string
@@ -502,10 +502,10 @@ desc:Reveals an unknown rune on an object.
 
 # later on there is 'Wall Creation' spell.. so this one is low lvl, mana free
 spell:Dune Creation:13:1:40:12:0
-cooldown:300
+cooldown:255
 effect:SAND_WALL
 desc:Raises a mound of sand beneath your feet, forming a temporary barrier.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 book:magic book:town:[Incantations and Illusions]:6:arcane
 book-graphics:?:R
@@ -755,11 +755,11 @@ desc:Detects all living monsters in the immediate area,
 desc: for one turn only.
 
 spell:Remove Hunger:2:2:25:2:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Magically saves you from starvation.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 spell:Poison Cloud:3:2:27:4:0
 effect:BALL:POIS:2
@@ -961,11 +961,11 @@ effect:CURE:CUT
 desc:Cures all cuts, poison, stunning and black breath.
 
 spell:Fill Stomach:40:20:90:100:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Can save you from starvation.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 spell:Volcanic Eruption:40:30:75:50:0
 effect:EARTHQUAKE:NONE:5
@@ -2216,11 +2216,11 @@ desc:Detects all living monsters in the immediate area,
 desc: for one turn only.
 
 spell:Remove Hunger:5:2:23:2:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Magically saves you from starvation.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 spell:Detect Stairs:7:3:50:5:0
 effect:DETECT_STAIRS
@@ -3060,11 +3060,11 @@ dice:5
 desc:Covers your missiles with frost.
 
 spell:Remove Hunger:12:6:24:12:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Magically saves you from starvation.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 book:nature book:town:[Gifts of Nature]:4:nature
 
@@ -3304,12 +3304,12 @@ effect:IDENTIFY
 desc:Reveals an unknown rune on an object.
 
 spell:Remove Hunger:16:14:40:16:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 msg_self:You focus your mind to convert energy into food.
 desc:Magically saves you from starvation.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 spell:Mass Stun:18:15:43:18:0
 effect:PROJECT_LOS_AWARE:MON_STUN
@@ -3800,11 +3800,11 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Enchanted Water:11:5:27:5:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Summons enchanted water to nourish the body.
-desc: Can be used every 1000 turns.
+desc: Can be used every 255 turns.
 
 spell:Resist Cold:16:7:43:13:0
 effect:TIMED_SET:OPP_COLD
@@ -4981,13 +4981,13 @@ desc: Some friendly creature hears - and comes to walk beside you.
 desc: This spell does nothing in town.
 
 spell:Shoo Now:35:50:90:100:0
-cooldown:300
+cooldown:255
 effect:MASS_BANISH
 msg_other: murmurs something old - and things disappear one by one.
 desc:You sing a verse that leaves no room for argument.
 desc: Most creatures nearby simply vanish - sent somewhere far from here.
 desc: Each one gone takes a bit of your strength with it.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 ############### TAMER ###############
 name:Tamer
@@ -5113,12 +5113,12 @@ desc:Your wolf makes a long, terrifying howl.
 desc: Cooldown 30 turns.
 
 spell:Rabbit's Feet:23:1:33:10:0
-cooldown:300
+cooldown:255
 effect:TIMED_INC:MOVE_FAST
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
 desc:Increases your movement speed for a short while.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Bear Therapy:25:20:53:30:0
 effect:CURE:BLACKBREATH
@@ -5155,13 +5155,13 @@ desc:You treat your pet so it regenerates its wounds.
 desc: Cooldown 60 turns
 
 spell:Cat Magnetism:35:30:63:50:0
-cooldown:240
+cooldown:255
 effect:TIMED_SET:STEALTH
 dice:30+1d10
 effect:TIMED_SET:SINFRA
 dice:30+1d10
 desc:Grants infravision and ability to walk silently.
-desc: Cooldown 240 turns
+desc: Cooldown 255 turns
 
 spell:Shoo:40:50:55:50:0
 effect:PROJECT_LOS_AWARE:AWAY_ANIMAL
@@ -5171,11 +5171,11 @@ msg_other: gives an order to nearby animals!
 desc:Teleports away each animal within line of sight.
 
 spell:Eagles Help:43:1:33:20:0
-cooldown:300
+cooldown:255
 effect:TELEPORT_LEVEL
 msg_other: blinks away.
 desc:Brings you far away from current spot to another level.
-desc: Cooldown 300 turns
+desc: Cooldown 255 turns
 
 spell:Burn A Hole:45:50:50:75:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -5184,13 +5184,13 @@ desc:Destroys an adjacent section of wall or rubble, unless it is a permanent
 desc: wall. Deals 100+10d30 damage to monsters vulnerable to rock remover.
 
 spell:Dragon Friends:50:75:50:100:0
-cooldown:300
+cooldown:255
 effect:SUMMON:ANIMAL:0:100
 flag:S_DRAGON
 dice:1
 msg_other: summons a dragon!
 desc:Attempts to summon a dragon friend.
-desc: It takes 300 turns for dragons to heed your call again.
+desc: It takes 255 turns for dragons to heed your call again.
 
 
 ############### CLASS TEMPLATE for Druid ###############
@@ -5272,7 +5272,7 @@ effect-yx:14:27
 desc:Finds doors in the immediate area.
 
 spell:Herbal Tea:10:7:1:8:0
-cooldown:200
+cooldown:255
 effect:NOURISH:INC_BY
 dice:0
 effect:NOURISH:INC_BY
@@ -5282,7 +5282,7 @@ dice:2
 effect:CURE:POISONED
 effect:CURE:BLACKBREATH
 desc:Cures poison, blackbreath and gives minimal nourishment.
-desc: Cooldown 200 turns.
+desc: Cooldown 255 turns.
 
 spell:Stone to Mud:15:8:1:12:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -5314,11 +5314,11 @@ msg_other: invokes a stinking cloud.
 desc:Shoots a radius-1 poisonous cloud.
 
 spell:Extra Growth:30:20:1:40:0
-cooldown:200
+cooldown:255
 effect:TIMED_SET:GROWTH
 dice:20+1d20
 desc:Grants you stat growth for 20+1d20 turns.
-desc: Cooldown 200 turns.
+desc: Cooldown 255 turns.
 
 spell:Stinking Cloud II:33:24:1:50:0
 effect:BALL:WATER:1
@@ -5502,11 +5502,11 @@ desc:Attempts a skillful kick that knocks the enemy back with a chance
 desc: to stun it.
 
 spell:Get Lucky:50:70:90:90:0
-cooldown:777
+cooldown:255
 effect:TIMED_INC:REVIVE
 dice:7+1d7
 desc:As you've come so far.. you might avoid death once in a while.
-desc: Can be used every 777 turns.
+desc: Can be used every 255 turns.
 
 
 ############### CLASS TEMPLATE for Knight ###############
@@ -5579,12 +5579,12 @@ desc:You are preparing for more offensive tactics.
 desc: Getting into this stance removes fear.
 
 spell:Steel Mirror:35:1:25:1:0
-cooldown:300
+cooldown:255
 effect:TIMED_INC:REFLECTION
 dice:$B
 expr:B:PLAYER_LEVEL:/ 3
 desc:You are preparing to reflect incoming projectiles.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Traveller ###############
@@ -5710,11 +5710,11 @@ desc: for one turn only.
 desc: Cooldown 100 turns.
 
 spell:Hand-to-Mouth:30:2:1:1:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Magically saves you from starvation.
-desc: Cooldown 1000 turns.
+desc: Cooldown 255 turns.
 
 spell:Buff:35:12:1:1:0
 cooldown:100
@@ -5842,7 +5842,7 @@ desc:Cries a beam of sound which pierces enemies.
 desc: Cooldown 30 turns.
 
 spell:Elbereth Gilthoniel:20:10:30:11:0
-cooldown:500
+cooldown:255
 effect:GLYPH:WARDING
 effect:TIMED_INC:OCCUPIED
 dice:3
@@ -5854,7 +5854,7 @@ desc: Higher level monsters are more likely to break the glyph.
 desc: The glyph will remain where it is, until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: You sing this hymn some time during which you can not act.
-desc: Cooldown 500 turns.
+desc: Cooldown 255 turns.
 
 ### make it work on regular (non-summ) monster
 #spell:Charm:20:10:30:11:0
@@ -6698,13 +6698,13 @@ desc: The damage of the ray increases with your level.
 desc: Each cast consumes an additional portion of your remaining mana.
 
 spell:Stone Curse:15:6:32:15:0
-cooldown:300
+cooldown:255
 effect:CREATE_WALLS
 effect:GRANITE
 msg_other: slowly nods.. and is engulfed by a block of solid stone.
 desc:Seals you inside a block of stone.
 desc: You need to move out quickly, or you'll start suffocating.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Flamestrike:17:4:33:20:0
 # hc 1d5
@@ -6742,7 +6742,7 @@ desc: is susceptible to rock remover takes damage.
 desc: Maximum beam range is 10 tiles.
 
 spell:Dimension Shift:33:17:35:40:0
-cooldown:300
+cooldown:255
 effect:MAP_AREA
 effect-yx:22:40
 effect:TIMED_INC:WRAITHFORM
@@ -6751,7 +6751,7 @@ effect:TELEPORT_LEVEL
 desc:Teleports you 1 level up or 1 level down (chosen at random) and
 desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Energy Bolt:35:20:27:90:0
 cooldown:11
@@ -6996,22 +6996,22 @@ desc:An emergency incantation, taught to every trader for dire situations.
 desc: Teleports you randomly to a certain distance (depending on your level).
 
 spell:Repair Armour:15:11:1:20:0
-cooldown:900
+cooldown:255
 effect:ENCHANT:TOAC
-dice:5
+dice:3
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
 desc:Armor, like any investment, requires care.
-desc: Cooldown 900 turns.
+desc: Cooldown 255 turns.
 
 spell:Sharpen Weapon:20:11:1:30:0
-cooldown:900
+cooldown:255
 effect:ENCHANT:TOBOTH
-dice:5
+dice:3
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
 desc:A sharper blade means better damage... and a better price tag.
-desc: Cooldown 900 turns.
+desc: Cooldown 255 turns.
 
 spell:Recharging:25:17:1:40:0
 effect:RECHARGE
@@ -7022,13 +7022,13 @@ desc: words to breathe life back into them.
 desc: Yet, the greater the device, the riskier the ritual...
 
 spell:Free Speed Potion:30:30:1:50:0
-cooldown:300
+cooldown:255
 effect:TIMED_SET:SPEEDY:0:5
 dice:$B+1d10
 expr:B:PLAYER_LEVEL:+ 0
 desc:A quick sip from your own stash puts an extra spring in your step.
 desc: Who says a trader can't sample the goods?
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Tunnel:35:12:1:55:0
 effect:SHORT_BEAM:KILL_WALL:1
@@ -7062,12 +7062,14 @@ desc:Merchants with keen senses and this spell can feel the pull of treasures
 desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
 spell:Best Deal:50:100:1:200:0
-cooldown:1000
+cooldown:255
 effect:ACQUIRE
 dice:1
+effect:TIMED_INC:OCCUPIED
+dice:7+1d7
 desc:The ultimate gambit for a merchant. By invoking this, they plunge
 desc: into peril, hoping to strike a deal of legendary value.
-desc: Cooldown 1000 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Assassin ###############
@@ -7249,7 +7251,7 @@ desc: Cooldown 10 turns.
 book:shadow book:dungeon:[Dark Evocations]:7:shadow
 
 spell:Vampirism:25:15:40:25:0
-cooldown:360
+cooldown:255
 effect:TIMED_INC:STEALTH
 dice:10+1d10
 effect:TIMED_INC:ATT_VAMP
@@ -7261,7 +7263,7 @@ dice:1
 desc:You change your metabolism and get ability of draining life from
 desc: monsters when you hit them and become silent as night.
 desc: This spell requires satiation.
-desc: Cooldown 360 turns.
+desc: Cooldown 255 turns.
 
 spell:Sneak to Depths:30:10:30:30:0
 effect:TIMED_INC:PROBTRAVEL
@@ -7269,12 +7271,12 @@ dice:2
 desc:Allows you to go 1 level down at will immediately.
 
 spell:Shield of Blades:33:15:25:1:0
-cooldown:300
+cooldown:255
 effect:TIMED_INC:REFLECTION
 dice:$B
 expr:B:PLAYER_LEVEL:/ 3
 desc:You are preparing to reflect incoming projectiles.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Inception:35:20:22:40:0
 effect:PROJECT_LOS_AWARE:SLEEP_ALL
@@ -7291,7 +7293,7 @@ desc: High level, questor, invisible and injured monsters
 desc: can see through invisibility.
 
 spell:Dark Mark:45:50:33:120:0
-cooldown:300
+cooldown:255
 effect:WAKE
 effect:SAFE_GUARD
 effect:NOURISH:DEC_BY
@@ -7305,7 +7307,7 @@ desc: The mark will remain where it is until a monster succeeds in
 desc: breaking it or until you leave the level.
 desc: Inscribing the Dark Mark reduces your nourishment.
 desc: It wakes up surrounding monsters.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Inner Power:50:40:50:90:0
 cooldown:60
@@ -7471,17 +7473,17 @@ desc:You teleport around the battlefield bringing havoc and shredding your enemi
 desc: Cooldown 4 turns.
 
 spell:Quake:45:40:1:75:0
-cooldown:200
+cooldown:255
 effect:TELEPORT
 dice:$B
 expr:B:PLAYER_LEVEL:* 5
 effect:EARTHQUAKE:NONE:10
 desc:Causes a radius 10 earthquake centered around the player and
 desc: teleports you away within the current level.
-desc: Cooldown 200 turns.
+desc: Cooldown 255 turns.
 
 spell:Safe Spot:50:50:1:100:0
-cooldown:400
+cooldown:255
 effect:SAFE_GUARD
 effect:TELEPORT
 dice:$B
@@ -7495,7 +7497,7 @@ desc: standing on it, it must first break the glyph.
 desc: Higher level monsters are more likely to break the glyphs.
 desc: The glyphs will remain where they are, until a monster succeeds in
 desc: breaking them or until you leave the level.
-desc: Cooldown 400 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Weathermaster / Cryokinetic ###############
@@ -7587,7 +7589,7 @@ desc: The effect of this spell is cumulative with other means of regeneration.
 desc: Cooldown 120 turns.
 
 spell:Cryo Hibernation:15:10:32:10:0
-cooldown:500
+cooldown:255
 effect:TIMED_SET:SINFRA
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -7610,7 +7612,7 @@ desc: cuts and stunning.
 desc: Also grants you resistance against non-physical attacks.
 desc: The shield absorbs a percentage of damage from such attacks
 desc: equal to your character level.
-desc: Cooldown 500 turns.
+desc: Cooldown 255 turns.
 
 spell:Pyrokinesis:20:8:32:20:0
 # hc up to x8
@@ -7814,7 +7816,7 @@ desc: During that delay, the effect can be canceled by invoking the prayer
 desc: of recall again.
 
 spell:Decay:20:15:1:30:0
-cooldown:240
+cooldown:255
 effect:TIMED_SET:ANCHOR
 dice:5
 # banish: hc rad (effect_handler_MASS_BANISH)
@@ -7825,7 +7827,7 @@ desc: More experienced Timeturners increase radius up to 10 squares.
 desc: Uniques are not affected.
 desc: You take 1d3 points of damage for every monster removed.
 desc: Side-effect: you won't be able to teleport for 5 turns.
-desc: Cooldown 240 turns.
+desc: Cooldown 255 turns.
 
 spell:Erase:25:4:1:50:0
 # HCed mana
@@ -7949,7 +7951,7 @@ dice:1
 desc:Try to salvage item into valuable parts.
 
 spell:Feign Death:3:1:1:1:0
-cooldown:300
+cooldown:255
 effect:TIMED_INC:OCCUPIED
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 + 5
@@ -7959,7 +7961,7 @@ expr:B:PLAYER_LEVEL:/ 10 + 5
 msg_other: collapses and lies still.
 desc:Feign death fools monsters into thinking you're dead.
 desc: Lasts 5–10 turns (depending on level).
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 # hc min distance 2 (not 1-2 rng)
 spell:Roll:5:1:1:3:0
@@ -8019,11 +8021,11 @@ effect:EARTHQUAKE:NONE:1
 desc:Causes a earthquake centered around the player.
 
 spell:Emergency Ration:40:50:25:100:0
-cooldown:1000
+cooldown:255
 effect:NOURISH:INC_TO
-dice:14
+dice:10
 desc:Magically saves you from starvation.
-desc: Cooldown 1000 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Alchemist ###############
@@ -8123,11 +8125,11 @@ desc: Cooldown 7 turns.
 #spell:Acid Rain:50:40:5:16:0
 
 #spell:Elixir of Immortality:50:70:90:100:0
-#cooldown:1000
+#cooldown:255
 #effect:TIMED_INC:REVIVE
 #dice:5+1d5
 #desc:Allows you to avoid death once in a while.
-#desc: Can be used every 1000 turns.
+#desc: Can be used every 255 turns.
 
 
 ############### CLASS TEMPLATE for Crafter ###############
@@ -8317,13 +8319,13 @@ expr:B:PLAYER_LEVEL:+ 0
 desc:Grants you resistance to acid, cold, fire, lightning and poison.
 
 spell:Bloodhound:30:12:68:32:0
-cooldown:300
+cooldown:255
 effect:SUMMON:HOUND:0:100
 dice:1
 msg_other: summons a bloodhound.
 desc:Attempts to summon hound generated at the current dungeon level.
 desc: This spell has no effect when used in the town.
-desc: Cooldown 300 turns.
+desc: Cooldown 255 turns.
 
 spell:Inquisition Library:35:30:33:30:0
 effect:IDENTIFY
