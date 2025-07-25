@@ -6956,7 +6956,7 @@ desc: Once earmarked for a lucrative deal, now it proves invaluable.
 desc: With a sip, a surge of arcane energy restores your dwindling reserves.
 desc: Cooldown 42 turns.
 
-spell:Bribe:3:1:1:3:0
+spell:Bribe:3:3:1:3:0
 effect:SHORT_BEAM:COMMAND:1
 msg_other: tries to settle matters with coin.
 desc:Seeks to sway a single humanoid with coin and quiet words.
@@ -6995,23 +6995,23 @@ msg_other: blinks away.
 desc:An emergency incantation, taught to every trader for dire situations.
 desc: Teleports you randomly to a certain distance (depending on your level).
 
-spell:Repair Armour:15:1:1:20:0
-cooldown:300
+spell:Repair Armour:15:11:1:20:0
+cooldown:900
 effect:ENCHANT:TOAC
-dice:1
+dice:5
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
 desc:Armor, like any investment, requires care.
-desc: Cooldown 300 turns.
+desc: Cooldown 900 turns.
 
-spell:Sharpen Weapon:20:1:1:30:0
-cooldown:300
+spell:Sharpen Weapon:20:11:1:30:0
+cooldown:900
 effect:ENCHANT:TOBOTH
-dice:1
+dice:5
 effect:TIMED_INC:OCCUPIED
 dice:2+1d5
 desc:A sharper blade means better damage... and a better price tag.
-desc: Cooldown 300 turns.
+desc: Cooldown 900 turns.
 
 spell:Recharging:25:17:1:40:0
 effect:RECHARGE
