@@ -6876,7 +6876,7 @@ value:0:INT[0+1d30]
 value:0:WIS[0]
 value:0:DEX[-1]
 value:0:CON[-1]
-value:0:CHR[5]
+value:0:CHR[1d10]
 #/// + AUTO-ID when equip items.
 #/// + can sell items to NPC, but can't join parties.
 #/// + less speed penalty due overweight.
