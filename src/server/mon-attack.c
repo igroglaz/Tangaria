@@ -825,10 +825,33 @@ bool make_attack_normal(struct monster *mon, struct source *who)
                     }
                     else
                     {
+                        /* Apply the stun */
                         do_stun = get_stun(dice, damage);
 
-                        /* Apply the stun */
-                        if (do_stun) player_inc_timed(who->player, TMD_STUN, do_stun, true, true);
+                        // prevent insta-KO during the current turn
+                        if (do_stun > 0)
+                        {
+                            int stun_now;
+
+                            // reset stun counter if it's a new turn
+                            if (who->player->stun_turn != turn.turn)
+                            {
+                                who->player->stun_amt_this_turn = 0;
+                                who->player->stun_turn = turn.turn;
+                            }
+
+                            stun_now = who->player->timed[TMD_STUN] + who->player->stun_amt_this_turn;
+
+                            // prevent instant KO: cap stun increase per turn to 90
+                            if (stun_now + do_stun > 90)
+                                do_stun = MAX(0, 90 - who->player->stun_amt_this_turn);
+
+                            if (do_stun > 0)
+                            {
+                                player_inc_timed(who->player, TMD_STUN, do_stun, true, true);
+                                who->player->stun_amt_this_turn += do_stun;
+                            }
+                        }
                     }
                 }
 

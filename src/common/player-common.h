@@ -942,6 +942,10 @@ struct player
     uint16_t y_cooldown;            // cooldown for racial abilities
     int16_t zeitnot_timer;          // time until next auto > for zeitnot
 
+    // Tangaria temporary fields
+    int16_t stun_amt_this_turn; // accumulated stun during current turn.turn (to prevent insta-KO)
+    uint32_t stun_turn;         // last turn.turn when stun_amt_this_turn was updated (to prevent insta-KO)
+
     // Weather
     uint8_t weather_type;           // type of weather
     uint8_t weather_wind;           // current gust of wind
