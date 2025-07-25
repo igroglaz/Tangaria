@@ -222,6 +222,7 @@ always:potion:Cure Critical Wounds
 always:potion:Healing
 always:scroll:Remove Curse
 always:scroll:Light
+# DO NOT ADD always items there. use other shops (also Restore Life Levels is 'always' at Boyan)
 normal:hafted:Whip
 normal:hafted:Quarterstaff
 normal:hafted:Mace
