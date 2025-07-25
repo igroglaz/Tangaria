@@ -2954,7 +2954,8 @@ static void post_turn_game_loop(void)
     }
 
     /* Count game turns */
-    ht_add(&turn, 1);
+    // increment main game turn counter (global turn.turn)
+    ht_add(&turn, 1); // aka turn.turn++
     for (i = 1; i <= NumPlayers; i++)
     {
         struct player *p = player_get(i);
