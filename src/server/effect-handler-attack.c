@@ -2492,12 +2492,14 @@ bool effect_handler_STAR(effect_handler_context_t *context)
 
     if (context->radius) dam /= context->radius;
 
+    /*
     if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
     {   
         // Dark Ritual spell (mana 12)
         if (context->origin->player->spell_cost == 12)
             dam *= context->origin->player->lev / 5;
     }
+    */
 
     if (context->self_msg && !context->origin->player->timed[TMD_BLIND] &&
        !context->origin->player->timed[TMD_BLIND_REAL])

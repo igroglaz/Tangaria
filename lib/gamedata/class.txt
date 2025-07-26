@@ -6753,20 +6753,18 @@ desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 255 turns.
 
-spell:Energy Bolt:35:20:27:90:0
-cooldown:11
-#stun monsters
-effect:BALL:PLASMA:2
+spell:Acid Cloud:35:15:27:4:0
+effect:BALL:ACID:2
 dice:$B
-expr:B:PLAYER_LEVEL:* 10
-msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which explode upon impact.
-desc: It might stun target.
-desc: Cooldown 11 turns.
+expr:B:PLAYER_LEVEL:* 5
+effect:BOLT:ACID
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: fires an acid sphere.
+desc:Fires an acid sphere that explodes on impact in a radius-2 cloud.
 
-spell:Dark Ritual:40:12:32:70:0
+spell:Dark Ritual:37:12:32:70:0
 cooldown:120
-# hc 1d5
 effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
 effect:READ_MINDS
@@ -6775,23 +6773,27 @@ expr:D:PLAYER_LEVEL:/ 10 + 1
 expr:S:PLAYER_LEVEL:/ 10 + 1
 effect:DETECT_SOUL
 effect-yx:22:40
-effect:STAR:DARK
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
 msg_other: exhales sharply.. dark cloud fill surroundings!
-desc:Strikes surroundings with dark magic.
-desc: This spell causes brief no-resistable blindness.
-desc: Reveals all monsters with a spirit nearby and maps the area around them.
+desc:Reveals all monsters with a spirit nearby and maps the area around them.
 desc: The mapped area grows larger with your level.
-desc: The damage of the dark magic increases with your level.
+desc: This spell causes brief no-resistable blindness.
 desc: Cooldown 120 turns.
 
-spell:Acid Breath:45:40:40:100:0
-effect:ARC:ACID:0:30
+spell:Energy Bolt:40:20:27:90:0
+#stun monsters
+effect:BALL:PLASMA:3
 dice:$B
-expr:B:PLAYER_LEVEL:* 7
-msg_other: breathes acid.
-desc:Breathes acid in a wide cone.
+expr:B:PLAYER_LEVEL:* 10
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which explode upon impact.
+desc: It might stun target.
+
+#spell:Acid Breath:45:40:40:100:0
+#effect:ARC:ACID:0:30
+#dice:$B
+#expr:B:PLAYER_LEVEL:* 7
+#msg_other: breathes acid.
+#desc:Breathes acid in a wide cone.
 
 #spell:Frozen Orb:45:40:40:100:0
 #effect:ARC:ICE:0:30
@@ -6800,12 +6802,12 @@ desc:Breathes acid in a wide cone.
 #msg_other: subzeroes the air into sharp icicles.
 #desc:Sends forward sharp icicle storm.
 
-spell:Pure Magic:47:50:40:150:0
+spell:Meteor Shower:45:50:40:150:0
 # testing note: won't work on the surface as number of Meteors depends of depth
 effect:SWARM:MANA:1
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:* 3
-expr:M:DUNGEON_LEVEL:/ 30
+expr:M:PLAYER_LEVEL:/ 20 + 2
 msg_other: fires a swarm of mana meteors.
 desc:Shoots a swarm of 3 or 4 mana meteors.
 desc: Meteors will travel until hitting a wall, a monster
@@ -6829,9 +6831,9 @@ effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:1
 effect:DRAIN_STAT:CHR
 dice:1
-effect:WIPE_AREA:NONE:3
-effect:EARTHQUAKE:NONE:7
-effect:DESTRUCTION:DARK:15
+effect:WIPE_AREA:NONE:7
+effect:EARTHQUAKE:NONE:15
+effect:DESTRUCTION:DARK:20
 msg_other: wrecks havoc.
 desc:You bring devastation around you.
 desc: Epicenter: wipes everything in a close radius around you.
@@ -7855,6 +7857,7 @@ effect:TIMED_SET:PROBTRAVEL
 dice:3
 msg_other: breaks the space/time continuum.
 desc:Allows you to rewind time to move up to previous levels.
+desc: (after casting, use '<' to go up from anywhere).
 desc: This effect lasts for 3 turns.
 
 spell:Time Shield:35:25:1:150:0
