@@ -6580,15 +6580,15 @@ player-flags:0:ZERO_FAIL | BEAM
 # 3) ESP_EVIL evolves with lvls (1->20)
 obj-flag:0:ESP_EVIL
 obj-flag:0:CLUMSY
-title:Witling
+title:Fizzlehead
 title:Cantricker
+title:Sootfinger
+title:Charmslob
 title:Glyphrat
-title:Wandspiller
-title:Spellbinder
-title:Evoker
-title:Conjurer
-title:Magician
-title:Enchanter
+title:Manaworm
+title:Streetmage
+title:Spellgrip
+title:Ashmaker
 title:Wizard
 
 magic:1:300:2
