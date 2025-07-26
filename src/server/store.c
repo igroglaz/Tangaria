@@ -1033,6 +1033,13 @@ static bool store_check_num(struct player *p, struct store *s, struct object *ob
     bool home = ((s->feat == FEAT_HOME)? true: false);
     object_stack_t mode = ((s->feat == FEAT_HOME)? OSTACK_PACK: OSTACK_STORE);
 
+    // special case: allow Nazgul ring to be stored even when full, but respect 24 item limit
+    if (obj->tval == TV_RING && obj->kind->sval == lookup_sval(TV_RING, "Black Ring of Power"))
+    {
+        if (s->stock_num < 24)
+            return true;
+    }
+
     /* Free space is always usable (for stores) */
     if (!home && (s->stock_num < s->stock_size))
         return true;
