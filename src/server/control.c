@@ -49,6 +49,7 @@ static void console_reload(int ind, char *mod);
 static void console_shutdown(int ind, char *dummy);
 static void console_wrath(int ind, char *name);
 static void console_help(int ind, char *name);
+static void console_restart_warning(int ind, char *dummy);
 
 
 static console_command_ops console_commands[] =
@@ -63,7 +64,8 @@ static console_command_ops console_commands[] =
     {"reload", console_reload, 1, "config|news\nReload mangband.cfg or news.txt"},
     {"whois", console_whois, 1, "PLAYERNAME\nDetailed player information"},
     {"rngtest", console_rng_test, 0, "\nPerform RNG test"},
-    {"debug", console_debug, 0, "\nUnused"}
+    {"debug", console_debug, 0, "\nUnused"},
+    {"warn", console_restart_warning, 0, "\nWarn players about server restart"}
 };
 
 
@@ -652,6 +654,19 @@ static void console_help(int ind, char *name)
     if (!done)
         Packet_printf(console_buf_w, "%s%c", "Unrecognized command", (int)terminator);
 
+    Sockbuf_flush(console_buf_w);
+}
+
+
+static void console_restart_warning(int ind, char *dummy)
+{
+    sockbuf_t *console_buf_w = (sockbuf_t*)console_buffer(ind, CONSOLE_WRITE);
+    char terminator = '\n';
+    char *warning_message = "Server restart in a few seconds.. Please come to safe place...";
+
+    do_cmd_message(NULL, warning_message);
+
+    Packet_printf(console_buf_w, "%s%c", "Restart warning sent to all players", (int)terminator);
     Sockbuf_flush(console_buf_w);
 }
 
