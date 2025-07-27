@@ -663,10 +663,15 @@ static void console_restart_warning(int ind, char *dummy)
     sockbuf_t *console_buf_w = (sockbuf_t*)console_buffer(ind, CONSOLE_WRITE);
     char terminator = '\n';
     char *warning_message = "SERVER RESTART in a few seconds.......... Please come to safe place............";
+    int i;
 
-    msg_all(NULL, warning_message, MSG_RED_INK);
+    /* Send the warning message 3 times */
+    for (i = 0; i < 3; i++)
+    {
+        msg_all(NULL, warning_message, MSG_RED_INK);
+    }
 
-    Packet_printf(console_buf_w, "%s%c", "Restart warning sent to all players", (int)terminator);
+    Packet_printf(console_buf_w, "%s%c", "3 restart warnings sent to all players", (int)terminator);
     Sockbuf_flush(console_buf_w);
 }
 
