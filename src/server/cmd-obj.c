@@ -2549,13 +2549,21 @@ bool consume_magic_items(struct player *p)
         {
             int food_amount = 10; // Base food value for wands
             int charge_bonus = 0;
+            int level_bonus = 0;
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
                 charge_bonus = obj->pval * 10; // 10 food per charge
             }
             
-            food_amount += charge_bonus;
+            // Add bonus based on item level
+            // Level 1-10: no bonus
+            // Level 11+: +1, +2, +3, etc., max +5
+            if (obj->kind && obj->kind->level > 10) {
+                level_bonus = MIN(5, obj->kind->level / 10);
+            }
+            
+            food_amount += charge_bonus + level_bonus;
             
             // Limit consumption to avoid overfeeding
             food_amount = MIN(food_amount, max_safe_food);
@@ -2572,13 +2580,21 @@ bool consume_magic_items(struct player *p)
         {
             int food_amount = 15; // Base food value for staves
             int charge_bonus = 0;
+            int level_bonus = 0;
             
             // Add bonus based on remaining charges
             if (obj->pval > 0) {
                 charge_bonus = obj->pval * 15; // 15 food per charge
             }
             
-            food_amount += charge_bonus;
+            // Add bonus based on item level
+            // Level 1-10: no bonus
+            // Level 11+: +1, +2, +3, etc., max +5
+            if (obj->kind && obj->kind->level > 10) {
+                level_bonus = MIN(5, obj->kind->level / 10);
+            }
+            
+            food_amount += charge_bonus + level_bonus;
             
             // Limit consumption to avoid overfeeding
             food_amount = MIN(food_amount, max_safe_food);
