@@ -6724,12 +6724,13 @@ dice:30
 desc:Grants you resistance to fire, cold, lightning, poison,
 desc: acid for 30 turns. Also increase magic resistance.
 
-spell:Mana Bolt:25:8:30:30:0
-effect:BOLT:MANA
-dice:$Dd8
-expr:D:PLAYER_LEVEL:- 10
-msg_other: fires a mana bolt!
-desc:Shoots a bolt that does irresistible damage.
+spell:Acid Cloud:25:8:27:30:0
+# dmg*1d5 / mana 4% HC
+effect:BALL:ACID:2
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: fires an acid sphere.
+desc:Fires an acid sphere that explodes on impact in a radius-2 cloud.
 
 spell:Make Passage:30:10:1:35:0
 effect:SHORT_BEAM:KILL_WALL:10
@@ -6753,18 +6754,16 @@ desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 255 turns.
 
-spell:Acid Cloud:35:15:27:4:0
-effect:BALL:ACID:2
+spell:Energy Bolt:35:20:27:50:0
+# dmg*1d5 HCed .. can stun monsters
+effect:BOLT:PLASMA
 dice:$B
-expr:B:PLAYER_LEVEL:* 5
-effect:BOLT:ACID
-dice:$B
-expr:B:PLAYER_LEVEL:* 5
-msg_other: fires an acid sphere.
-desc:Fires an acid sphere that explodes on impact in a radius-2 cloud.
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which might stun target.
 
-spell:Dark Ritual:37:12:32:70:0
-cooldown:120
+spell:Dark Ritual:37:12:32:60:0
+cooldown:255
 effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
 effect:READ_MINDS
@@ -6777,75 +6776,46 @@ msg_other: exhales sharply.. dark cloud fill surroundings!
 desc:Reveals all monsters with a spirit nearby and maps the area around them.
 desc: The mapped area grows larger with your level.
 desc: This spell causes brief no-resistable blindness.
-desc: Cooldown 120 turns.
+desc: Cooldown 255 turns.
 
-spell:Energy Bolt:40:20:27:90:0
-#stun monsters
-effect:BALL:PLASMA:3
+spell:Chaos Storm:40:20:30:70:0
+effect:BALL:CHAOS:3
+dice:$B
+expr:B:PLAYER_LEVEL:* 2 + 350
+msg_other: invokes a chaos storm.
+desc:Shoots a ball which on impact releases chaotic energy in 3 tile radius.
+desc: May cause unpredictable side effects.
+
+spell:Frozen Orb:45:40:40:100:0
+effect:ARC:ICE:0:30
 dice:$B
 expr:B:PLAYER_LEVEL:* 10
-msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which explode upon impact.
-desc: It might stun target.
+msg_other: subzeroes the air into sharp icicles.
+desc:Sends forward sharp icicle storm.
 
-#spell:Acid Breath:45:40:40:100:0
-#effect:ARC:ACID:0:30
-#dice:$B
-#expr:B:PLAYER_LEVEL:* 7
-#msg_other: breathes acid.
-#desc:Breathes acid in a wide cone.
+spell:Summon Daemon:49:60:42:200:0
+cooldown:255
+effect:SUMMON:DEMON:0:100
+dice:1
+effect:GLYPH:WARDING
+msg_other: summons a daemon.
+desc:Draws a protecting pentagram and attempts to summon a daemon.
+desc: Cooldown 255 turns.
 
-#spell:Frozen Orb:45:40:40:100:0
-#effect:ARC:ICE:0:30
-#dice:$B
-#expr:B:PLAYER_LEVEL:* 7
-#msg_other: subzeroes the air into sharp icicles.
-#desc:Sends forward sharp icicle storm.
-
-spell:Meteor Shower:45:50:40:150:0
+spell:Meteors:50:50:40:250:0
 # testing note: won't work on the surface as number of Meteors depends of depth
-effect:SWARM:MANA:1
+effect:SWARM:METEOR:1
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:* 3
 expr:M:PLAYER_LEVEL:/ 20 + 2
-msg_other: fires a swarm of mana meteors.
-desc:Shoots a swarm of 3 or 4 mana meteors.
+msg_other: fires a swarm of meteors.
+desc:Shoots a swarm of 3 or 4 meteors.
 desc: Meteors will travel until hitting a wall, a monster
 desc: or reaching the target location.
 desc: Meteors will explode as a radius-1 ball that does
 desc: damage to each monster in its area of effect.
 desc: If this kills the monster that blocked the path to the target
 desc: location, the next meteor may continue to find another target.
-
-spell:Summon Daemon:49:60:42:200:0
-cooldown:150
-effect:SUMMON:DEMON:0:100
-dice:1
-effect:GLYPH:WARDING
-msg_other: summons a daemon.
-desc:Draws a protecting pentagram and attempts to summon a daemon.
-desc: Cooldown 150 turns.
-
-spell:Armageddon:50:42:35:666:0
-effect:TIMED_INC_NO_RES:BLIND_REAL
-dice:1
-effect:DRAIN_STAT:CHR
-dice:1
-effect:WIPE_AREA:NONE:7
-effect:EARTHQUAKE:NONE:15
-effect:DESTRUCTION:DARK:20
-msg_other: wrecks havoc.
-desc:You bring devastation around you.
-desc: Epicenter: wipes everything in a close radius around you.
-desc: Medium area: causes an earthquake.
-desc: At the distance: Destroys everything in a certain radius.
-desc: All monsters, objects and terrain features in the area of
-desc: effect are destroyed, except stairs and permanent walls.
-desc: You will also be blinded for 10+1d10 turns unless you have
-desc: resistance to blindness or darkness, and for 1 turns by
-desc: irresistible blindness.
-desc: Each cast of this spell brings a big reputation loss and
-desc: reduces your charisma.
 
 #TODO: effect:BLAST:STONE_WALL:0
 # spell will create huge mound of walls.. name:"Create Mountain"?
@@ -8502,7 +8472,10 @@ dice:10+1d15
 msg_other: vanishes into the fog.
 desc: Makes you invisible, but alters your perception of the world.
 
-spell:Silence:50:30:75:70:0
+spell:Armageddon:50:42:35:666:0
+cooldown:255
+effect:DRAIN_STAT:CHR
+dice:1
 effect:TIMED_SET:ANTISUMMON
 dice:10+1d10
 effect:TIMED_INC_NO_RES:SLOW_REAL
@@ -8515,11 +8488,27 @@ dice:2+1d2
 effect:TIMED_INC_NO_RES:CONFUSED_REAL
 dice:2
 effect:WAKE
-desc:Prevents summoning around you for a some time for a price..
+effect:WIPE_AREA:NONE:7
+effect:EARTHQUAKE:NONE:15
+effect:DESTRUCTION:DARK:20
+msg_other: wrecks havoc.
+desc:You bring devastation around you.
+desc: Epicenter: wipes everything in a close radius around you.
+desc: Medium area: causes an earthquake.
+desc: At the distance: Destroys everything in a certain radius.
+desc: All monsters, objects and terrain features in the area of
+desc: effect are destroyed, except stairs and permanent walls.
+desc: You will also be blinded for 10+1d10 turns unless you have
+desc: resistance to blindness or darkness, and for 1 turns by
+desc: irresistible blindness.
+desc: Afterwards it prevents summoning around you for a some time.
 desc: You will be slowed, disoriented, and temporarily blinded.
 desc: A brief moment of confusion also occurs.
 desc: Only blindness can be cured - the rest must wear off by itself.
 desc: Also, this spell makes a lot of noise.
+desc: Each cast of this spell brings a big reputation loss and
+desc: reduces your charisma.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Cutthroat

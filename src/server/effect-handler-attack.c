@@ -738,12 +738,34 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                     dam *= context->origin->player->lev / 10;
             }
             // Ray of Time spell (Timeturner class)
-            if (context->origin->player && streq(context->origin->player->clazz->name, "Timeturner") &&
+            else if (context->origin->player && streq(context->origin->player->clazz->name, "Timeturner") &&
                 context->origin->player->spell_cost == 3)
             {
                 // dmg
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
+            }
+            //////// Wizard class BALLs
+            else if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
+            {
+                // Acid Cloud spell
+                if (context->origin->player->spell_cost == 8)
+                {
+                    // dmg
+                    if (context->origin->player->lev > 10)
+                        dam *= context->origin->player->lev / 5;
+
+                    // spend additional mana
+                    if (context->origin->player->csp > context->origin->player->csp * 96 / 100)
+                            context->origin->player->csp = context->origin->player->csp * 96 / 100;
+                }
+                // Chaos Storm spell
+                else if (context->origin->player->spell_cost == 8)
+                {
+                    // dmg
+                    if (context->origin->player->lev > 10)
+                        dam *= context->origin->player->lev / 5;
+                }
             }
 
             source_player(who, get_player_index(get_connection(context->origin->player->conn)),
@@ -1022,7 +1044,21 @@ bool effect_handler_BOLT(effect_handler_context_t *context)
 
     /* Normal case */
     else if (fire_bolt(context->origin, context->subtype, context->dir, dam, false))
+    {
+        // Wizard class
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
+        {   
+            // Energy Bolt spell
+            if (context->origin->player->spell_cost == 20)
+            {
+                // dmg
+                if (context->origin->player->lev > 10)
+                    dam *= context->origin->player->lev / 5;
+            }
+        }
+
         context->ident = true;
+    }
 
     return true;
 }
