@@ -6742,7 +6742,15 @@ desc: unless it is a permanent wall. Each monster caught in the beam that
 desc: is susceptible to rock remover takes damage.
 desc: Maximum beam range is 10 tiles.
 
-spell:Dimension Shift:33:17:35:40:0
+spell:Energy Bolt:33:20:27:50:0
+# dmg*1d5 HCed .. can stun monsters
+effect:BOLT:PLASMA
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+msg_other: fires an energy bolt.
+desc:Shoots an energy bolt which might stun target.
+
+spell:Dimension Shift:35:17:35:40:0
 cooldown:255
 effect:MAP_AREA
 effect-yx:22:40
@@ -6754,15 +6762,33 @@ desc: grants you the ability to pass through non-permanent walls for a moment.
 desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 255 turns.
 
-spell:Energy Bolt:35:20:27:50:0
-# dmg*1d5 HCed .. can stun monsters
-effect:BOLT:PLASMA
+spell:Chaos Storm:37:20:30:70:0
+effect:BALL:CHAOS:3
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-msg_other: fires an energy bolt.
-desc:Shoots an energy bolt which might stun target.
+expr:B:PLAYER_LEVEL:* 2 + 350
+msg_other: invokes a chaos storm.
+desc:Shoots a ball which on impact releases chaotic energy in 3 tile radius.
+desc: May cause unpredictable side effects.
 
-spell:Dark Ritual:37:12:32:60:0
+spell:Magic Shield:40:30:25:90:0
+cooldown:255
+effect:TIMED_INC:REFLECTION
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+effect:TIMED_SET:SHIELD
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+desc:Conjures a magic shield that increases your AC and may reflect incoming projectiles.
+desc: Cooldown 255 turns.
+
+spell:Frozen Orb:45:40:40:100:0
+effect:ARC:ICE:0:30
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+msg_other: subzeroes the air into sharp icicles.
+desc:Sends forward sharp icicle storm.
+
+spell:Astral Sense:49:12:32:60:0
 cooldown:255
 effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
@@ -6778,31 +6804,7 @@ desc: The mapped area grows larger with your level.
 desc: This spell causes brief no-resistable blindness.
 desc: Cooldown 255 turns.
 
-spell:Chaos Storm:40:20:30:70:0
-effect:BALL:CHAOS:3
-dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 350
-msg_other: invokes a chaos storm.
-desc:Shoots a ball which on impact releases chaotic energy in 3 tile radius.
-desc: May cause unpredictable side effects.
-
-spell:Frozen Orb:45:40:40:100:0
-effect:ARC:ICE:0:30
-dice:$B
-expr:B:PLAYER_LEVEL:* 10
-msg_other: subzeroes the air into sharp icicles.
-desc:Sends forward sharp icicle storm.
-
-spell:Summon Daemon:49:60:42:200:0
-cooldown:255
-effect:SUMMON:DEMON:0:100
-dice:1
-effect:GLYPH:WARDING
-msg_other: summons a daemon.
-desc:Draws a protecting pentagram and attempts to summon a daemon.
-desc: Cooldown 255 turns.
-
-spell:Meteors:50:50:40:250:0
+spell:Meteor Shower:50:50:40:250:0
 # testing note: won't work on the surface as number of Meteors depends of depth
 effect:SWARM:METEOR:1
 dice:$B+m$M
@@ -8509,6 +8511,16 @@ desc: Also, this spell makes a lot of noise.
 desc: Each cast of this spell brings a big reputation loss and
 desc: reduces your charisma.
 desc: Cooldown 255 turns.
+
+# TODO: add
+#spell:Summon Daemon:49:60:42:200:0
+#cooldown:255
+#effect:SUMMON:DEMON:0:100
+#dice:1
+#effect:GLYPH:WARDING
+#msg_other: summons a daemon.
+#desc:Draws a protecting pentagram and attempts to summon a daemon.
+#desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Cutthroat

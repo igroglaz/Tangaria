@@ -1009,6 +1009,18 @@ bool effect_handler_BOLT(effect_handler_context_t *context)
 {
     int dam = effect_calculate_value(context, true);
 
+    // Wizard class
+    if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
+    {   
+        // Energy Bolt spell
+        if (context->origin->player->spell_cost == 20)
+        {
+            // dmg
+            if (context->origin->player->lev > 10)
+                dam *= context->origin->player->lev / 5;
+        }
+    }
+
     /* Teleport other */
     if (context->radius)
     {
@@ -1044,21 +1056,7 @@ bool effect_handler_BOLT(effect_handler_context_t *context)
 
     /* Normal case */
     else if (fire_bolt(context->origin, context->subtype, context->dir, dam, false))
-    {
-        // Wizard class
-        if (context->origin->player && streq(context->origin->player->clazz->name, "Wizard"))
-        {   
-            // Energy Bolt spell
-            if (context->origin->player->spell_cost == 20)
-            {
-                // dmg
-                if (context->origin->player->lev > 10)
-                    dam *= context->origin->player->lev / 5;
-            }
-        }
-
         context->ident = true;
-    }
 
     return true;
 }
