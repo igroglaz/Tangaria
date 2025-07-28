@@ -760,7 +760,7 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                             context->origin->player->csp = context->origin->player->csp * 96 / 100;
                 }
                 // Chaos Storm spell
-                else if (context->origin->player->spell_cost == 8)
+                else if (context->origin->player->spell_cost == 20)
                 {
                     // dmg
                     if (context->origin->player->lev > 10)

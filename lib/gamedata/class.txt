@@ -6750,7 +6750,7 @@ expr:B:PLAYER_LEVEL:+ 0
 msg_other: fires an energy bolt.
 desc:Shoots an energy bolt which might stun target.
 
-spell:Dimension Shift:35:17:35:40:0
+spell:Dimension Shift:35:10:35:40:0
 cooldown:255
 effect:MAP_AREA
 effect-yx:22:40
@@ -6763,9 +6763,10 @@ desc: Upon arrival, you know the place like the back of your hand.
 desc: Cooldown 255 turns.
 
 spell:Chaos Storm:37:20:30:70:0
+# dmg*1d5
 effect:BALL:CHAOS:3
 dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 350
+expr:B:PLAYER_LEVEL:+ 0
 msg_other: invokes a chaos storm.
 desc:Shoots a ball which on impact releases chaotic energy in 3 tile radius.
 desc: May cause unpredictable side effects.
@@ -6781,7 +6782,7 @@ expr:B:PLAYER_LEVEL:/ 3
 desc:Conjures a magic shield that increases your AC and may reflect incoming projectiles.
 desc: Cooldown 255 turns.
 
-spell:Frozen Orb:45:40:40:100:0
+spell:Frozen Orb:45:50:40:100:0
 effect:ARC:ICE:0:30
 dice:$B
 expr:B:PLAYER_LEVEL:* 10
@@ -7825,12 +7826,14 @@ desc: is sometimes irresistible.
 desc: Each use drains a bit of extra mana.
 
 spell:Curvature of Space:30:25:70:100:0
+cooldown:30
 effect:TIMED_SET:PROBTRAVEL
 dice:3
 msg_other: breaks the space/time continuum.
 desc:Allows you to rewind time to move up to previous levels.
 desc: (after casting, use '<' to go up from anywhere).
 desc: This effect lasts for 3 turns.
+desc: Cooldown 30 turns.
 
 spell:Time Shield:35:25:1:150:0
 effect:TIMED_SET:MANASHIELD
