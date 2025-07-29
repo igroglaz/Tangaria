@@ -6561,7 +6561,7 @@ skill-melee:30:11
 skill-shoot:20:15
 skill-dig:0:0
 hitdie:0
-max-attacks:3
+max-attacks:2
 min-weight:40
 strength-multiplier:2
 equip:light:Wooden Torch:1:3:none
@@ -7665,7 +7665,7 @@ skill-melee:35:15
 skill-shoot:20:14
 skill-dig:0:0
 hitdie:1
-max-attacks:4
+max-attacks:3
 min-weight:40
 strength-multiplier:2
 equip:light:Wooden Torch:1:3:none
