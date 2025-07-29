@@ -4064,8 +4064,8 @@ expr:M:PLAYER_LEVEL:/ 3 + 12
 desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
 desc: of cuts and stunning.
 desc: When you cast it, choose a target:
-desc: m1d(t to cast on another
-desc: m1d(5 to cast on yourself
+desc: m1e(t to cast on another
+desc: m1e(5 to cast on yourself
 
 spell:Portal:7:5:30:5:0
 effect:TELEPORT
