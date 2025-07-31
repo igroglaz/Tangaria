@@ -1889,7 +1889,9 @@ bool effect_handler_CREATE_HOUSE(effect_handler_context_t *context)
     // Deeptown housing
     if (context->origin->player->wpos.grid.x == -6 && context->origin->player->wpos.grid.y == 0)
     {
-        if (context->origin->player->grid.x < 70)
+        if (context->origin->player->grid.x < 70 &&  // restrict newbie zone (tavern + dungeon + lake)..
+            (context->origin->player->grid.y > 11 && // ..but allow graveyard on NW..
+             context->origin->player->grid.y < 58))  // ..and small place on SW
         {
             msg(context->origin->player, "In Deeptown, you can build houses only east of the dungeon.");
             return false;
