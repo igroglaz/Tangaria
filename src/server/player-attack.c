@@ -588,7 +588,7 @@ static void blow_side_effects(struct player *p, struct source *target,
         do_conf = true;
     }
     // ... and Cutthroat stance check
-    else if (p->timed[TMD_CRUSHING_STANCE] && magik(p->lev / 5)) // 0 -> 10%
+    else if (p->timed[TMD_CRUSHING_STANCE] && magik(1 + p->lev / 3)) // 1 -> 17%
     {
         do_conf = true;
     }
@@ -951,8 +951,8 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
     /* If a miss, skip this hit */
     if (!success)
     {
-        //  Cutthroat penetrates AC (additional success in 0% -> 10%)
-        if (p->timed[TMD_PIERCING_STANCE] && magik(p->lev / 5))
+        //  Cutthroat penetrates AC (additional success in 1% -> 17%)
+        if (p->timed[TMD_PIERCING_STANCE] && magik(1 + (p->lev / 3)))
         {
             ; // lucky stab
         }
