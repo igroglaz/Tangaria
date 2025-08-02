@@ -116,7 +116,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     if (resist == 3)
     {
         if (p)
-            ; // later reduced in ~9 times by the loop "for (i = resist; i > 0; i--)"
+            ; // later reduced in ~27 times by the loop "for (i = resist; i > 0; i--)"
               // note: we must add (resist < 3) to other vuln if cases!
         else
             return 0; // common PWMA case
