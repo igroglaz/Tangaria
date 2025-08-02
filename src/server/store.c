@@ -584,8 +584,9 @@ static bool store_will_buy(struct player *p, struct store *s, const struct objec
 
     /* PWMAngband: store doesn't buy anything */
     // except trader OR crafter (he can sell only crafter items)
+    // + trader can't sell House Foundation Stones (too good farm)
     if (cfg_limited_stores == 2 &&
-        !streq(p->clazz->name, "Trader") && 
+        (!streq(p->clazz->name, "Trader") || obj->tval == TV_STONE) &&
         !(streq(p->clazz->name, "Crafter") && obj->soulbound))
         return false;
 
