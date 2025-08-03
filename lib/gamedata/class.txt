@@ -8432,19 +8432,16 @@ msg_other: teleports away.
 desc:Teleports you randomly within the current level and dazes afterwards.
 
 spell:Shroud:20:10:65:20:0
-effect:CLEAR_VALUE
+effect:TIMED_SET:STEALTH
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_SET:OPP_POIS
-effect:TIMED_SET:OPP_COLD
-effect:TIMED_SET:OPP_FIRE
-effect:TIMED_SET:OPP_ELEC
-effect:TIMED_SET:OPP_ACID
-effect:SET_VALUE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC_NO_RES:BLIND_REAL
 dice:2
-desc:Grants you resistance to acid, cold, fire, lightning and poison,
-desc: but makes you blind for a moment.
+desc:Grants resistance to poison and increased stealth,
+desc: but causes temporary blindness.
 
 spell:Thunder Burst:30:15:50:1:0
 effect:TIMED_SET:SPEEDY:0:5
@@ -8464,17 +8461,17 @@ msg_other: heals, but becomes still.
 desc:Heals your wounds. The procedure takes 4–8 turns,
 desc: during which you are vulnerable.
 
-spell:Magic Fog:45:20:40:1:0
-effect:TIMED_SET:STEALTH
+spell:Power of the Ring:45:20:40:1:0
+effect:TIMED_SET:INVIS:0:5
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
-effect:TIMED_SET:INVIS:0:5
+effect:TIMED_SET:GROWTH
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC_NO_RES:IMAGE_REAL
 dice:10+1d15
-msg_other: vanishes into the fog.
-desc: Makes you invisible, but alters your perception of the world.
+msg_other: vanishes.
+desc: Makes you invisible and powerful, but alters your perception of the world.
 
 spell:Armageddon:50:42:35:666:0
 cooldown:255
@@ -8537,7 +8534,7 @@ skill-search:18:14
 skill-melee:45:45
 skill-shoot:30:20
 skill-dig:0:0
-hitdie:6
+hitdie:7
 max-attacks:6
 min-weight:20
 strength-multiplier:5
