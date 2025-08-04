@@ -745,7 +745,10 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                 if (context->origin->player->lev >= 45)
                     rad ++;
                 if (context->origin->player->lev >= 50)
+                {
                     rad ++;
+                    dam += 50;
+                }
             }
             // Ray of Time spell (Timeturner class)
             else if (context->origin->player && streq(context->origin->player->clazz->name, "Timeturner") &&

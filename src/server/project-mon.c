@@ -781,11 +781,23 @@ static void project_monster_handler_WATER(project_monster_handler_context_t *con
     }
     else
     {
-        /* Apply stunning */
-        context->mon_timed[MON_TMD_STUN] = adjust_radius(context, 5 + randint1(10));
+        // Sorceror's Tidal Wave spell shouldn't stun/conf right on
+        if (streq(context->origin->player->clazz->name, "Sorceror"))
+        {
+            /* Apply stunning at level 50+ for Sorceror */
+            if (context->origin->player->lev >= 50)
+                context->mon_timed[MON_TMD_STUN] = adjust_radius(context, 5 + randint1(10));
 
-        /* Apply confusion */
-        context->mon_timed[MON_TMD_CONF] = adjust_radius(context, 10 + randint1(10));
+            /* Apply confusion at level 45+ for Sorceror */
+            if (context->origin->player->lev >= 45)
+                context->mon_timed[MON_TMD_CONF] = adjust_radius(context, 10 + randint1(10));
+        }
+        else
+        {
+            /* All other classes get both effects always */
+            context->mon_timed[MON_TMD_STUN] = adjust_radius(context, 5 + randint1(10));
+            context->mon_timed[MON_TMD_CONF] = adjust_radius(context, 10 + randint1(10));
+        }
     }
 }
 
