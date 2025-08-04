@@ -880,6 +880,15 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
                 dam *= context->origin->player->lev / 10;
             }
         }
+        else if (streq(context->origin->player->clazz->name, "Sorceror"))
+        {   
+            // Plasma Blast spell (mana 21)
+            if (context->origin->player->spell_cost == 21)
+            {
+                if (context->origin->player->lev >= 45)
+                    rad++;
+            }
+        }
         else if (streq(context->origin->player->clazz->name, "Cryokinetic"))
         {
             // Cryokinetic Whirl spell (mana 2)

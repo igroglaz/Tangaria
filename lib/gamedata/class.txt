@@ -2871,11 +2871,13 @@ desc: Uniques are not affected.
 desc: You take 1d3 points of damage for every monster removed.
 
 spell:Plasma Blast:36:21:45:120:0
-effect:BLAST:PLASMA:3
+# HC +1 rad at 45
+effect:BLAST:PLASMA:2
 dice:$B
 expr:B:PLAYER_LEVEL:* 2 + 250
 msg_other: emits a plasma blast.
 desc:Creates a radius-3 plasma ball around you.
+desc: At level 45, its radius becomes 3.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
 
@@ -2897,6 +2899,7 @@ desc: inflicted on your character... as long as you have mana
 desc: to fuel it.
 
 spell:Tidal Wave:39:22:55:250:0
+# HC rad increase
 effect:BALL:WATER:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2 + 450
@@ -2936,8 +2939,7 @@ desc:Shoots a radius-3 chaos ball in all eight cardinal directions.
 
 spell:Annihilation Bolt:50:20:45:180:0
 effect:BOLT:MISSILE
-dice:$B
-expr:B:PLAYER_LEVEL:500
+dice:500
 msg_other: fires an annihilation bolt.
 desc:Fires a powerful magic missile that always hits its target
 desc: and does irresistible damage.
