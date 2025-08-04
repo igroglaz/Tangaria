@@ -737,6 +737,16 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
             }
+            // Tidal Wave spell (Sorceror class)
+            else if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror") &&
+                context->origin->player->spell_cost == 22)
+            {
+                // radius (initially it's kinda bolt)
+                if (context->origin->player->lev >= 45)
+                    rad ++;
+                if (context->origin->player->lev >= 50)
+                    rad ++;
+            }
             // Ray of Time spell (Timeturner class)
             else if (context->origin->player && streq(context->origin->player->clazz->name, "Timeturner") &&
                 context->origin->player->spell_cost == 3)
