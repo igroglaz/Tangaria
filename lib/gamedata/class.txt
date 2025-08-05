@@ -2871,13 +2871,13 @@ desc: Uniques are not affected.
 desc: You take 1d3 points of damage for every monster removed.
 
 spell:Plasma Blast:36:21:45:120:0
-# HC +1 rad at 45
-effect:BLAST:PLASMA:2
+# HC +1 rad at 45 and 50 lvl (BLAST 1 radius actually means 2 compared to balls :D)
+effect:BLAST:PLASMA:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2 + 250
 msg_other: emits a plasma blast.
 desc:Creates a radius-3 plasma ball around you.
-desc: At level 45, its radius becomes 3.
+desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
 

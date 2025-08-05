@@ -904,7 +904,10 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
             // Plasma Blast spell (mana 21)
             if (context->origin->player->spell_cost == 21)
             {
+                rad = 1; // reset default radius
                 if (context->origin->player->lev >= 45)
+                    rad++;
+                if (context->origin->player->lev >= 50)
                     rad++;
             }
         }
