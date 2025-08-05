@@ -2750,10 +2750,40 @@ bool effect_handler_SWARM(effect_handler_context_t *context)
 }
 
 
+// also: in T used for various effects for Cutthroat class
 bool effect_handler_SWEEP(effect_handler_context_t *context)
 {
     int d;
+    struct player *p = context->origin->player;
 
+    if (p && streq(p->clazz->name, "Cutthroat"))
+    {
+        // check cooldown
+        if (p->y_cooldown) {
+            return;
+        }
+
+        p->y_cooldown = 7;
+
+        if (p->timed[TMD_PIERCING_STANCE])
+        {
+            player_inc_timed(p, TMD_DEADLY, 2, false, false);
+            p->y_cooldown += 14;
+            return;
+        }
+        else if (p->timed[TMD_CUTTING_STANCE])
+        {
+            p->y_cooldown += 4;
+            // continue SWEEP normally
+        }
+        else if (p->timed[TMD_CRUSHING_STANCE])
+        {
+            player_inc_timed(p, TMD_ATT_CONF, 2, false, false);
+            return;
+        }
+    }
+
+    // common case
     for (d = 0; d < 8; d++)
     {
         struct loc adjacent;
