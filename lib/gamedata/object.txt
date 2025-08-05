@@ -9864,21 +9864,10 @@ type:fortune cookie
 level:0
 weight:1
 cost:0
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-effect:LOSE_EXP
-#effect:GAIN_EXP
-#dice:500000
+effect:GAIN_EXP
+dice:500000
 #effect:RESTORE_EXP
+#effect:LOSE_EXP
 #self-inducing dmg doesn't work; for such test - check test dummy
 #effect:FORGET_LEVEL:NONE:1
 #effect:SPOT:DARK:1

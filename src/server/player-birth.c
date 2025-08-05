@@ -979,7 +979,7 @@ static void player_outfit_dm(struct player *p)
     /* Initialize the DM with special powers */
     if (is_dm_p(p))
     {
-        p->exp = p->max_exp = 1800000; // 50000000
+        p->exp = p->max_exp = 1; // 50000000 -> eat Testing cookie
         if (player_has(p, PF_PERM_SHAPE))
         {
             for (i = 1; i <= PY_MAX_LEVEL; i++)
@@ -990,7 +990,7 @@ static void player_outfit_dm(struct player *p)
             }
         }
         else
-            p->lev = p->max_lev = PY_MAX_LEVEL;
+            p->lev = p->max_lev = 1; // PY_MAX_LEVEL -> eat Testing cookie
         if (p->dm_flags & DM_INVULNERABLE)
         {
             p->timed[TMD_INVULN] = -1;

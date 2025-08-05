@@ -17,6 +17,8 @@
 #equip:dragon armour:Power Dragon Scale Mail:2
 equip:potion:Augmentation:40
 equip:potion:Experience:40
+equip:fortune cookie:Testing:40
+equip:ring:Speed:6
 #equip:potion:Herbal Tea:10
 #equip:potion:Polymorph:10
 #equip:potion:Acid:10
@@ -34,11 +36,9 @@ equip:potion:Experience:40
 #equip:reagent:Crafting Material:40
 #equip:reagent:Crafting Material:40
 #equip:fortune cookie:Testing:40
-#equip:fortune cookie:Testing:40
 #equip:potion:Philosopher's stone:40
-equip:ring:Speed:6
 #equip:ring:Constitution:6
 #equip:rod:Recall:1
 #equip:light:Lantern:2
-equip:stone:House Foundation Stone:40
-equip:scroll:Small House Creation:5
+#equip:stone:House Foundation Stone:40
+#equip:scroll:Small House Creation:5

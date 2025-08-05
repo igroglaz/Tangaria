@@ -2892,7 +2892,7 @@ spell:Tidal Wave:39:22:55:250:0
 # HC rad increase (also 45-50 lvl gives +25 dmg)
 effect:BALL:WATER:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 375
+expr:B:PLAYER_LEVEL:* 2 + 400
 msg_other: invokes a tidal wave.
 desc:Shoots a water tide that increases its radius with levels.
 desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
