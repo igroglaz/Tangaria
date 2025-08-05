@@ -2881,16 +2881,6 @@ desc: At level 45, its radius becomes 3.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
 
-spell:Sea of Runes:36:60:60:40:0
-effect:SAFE_GUARD
-desc:Inscribes a circle of glyphs of warding around you.
-desc: Summoned monsters can't appear on the glyphs.
-desc: If a monster tries to move onto a glyph or melee you while you're
-desc: standing on it, it must first break the glyph.
-desc: Higher level monsters are more likely to break the glyphs.
-desc: The glyphs will remain where they are, until a monster succeeds in
-desc: breaking them or until you leave the level.
-
 spell:Disruption Shield:38:70:95:100:0
 effect:TIMED_INC:MANASHIELD
 dice:15+1d15
@@ -2907,21 +2897,32 @@ msg_other: invokes a tidal wave.
 desc:Shoots a water ball that increases its radius with levels.
 desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
 
-spell:Clairvoyance:40:50:95:200:0
+spell:Sea of Runes:43:60:60:40:0
+effect:SAFE_GUARD
+desc:Inscribes a circle of glyphs of warding around you.
+desc: Summoned monsters can't appear on the glyphs.
+desc: If a monster tries to move onto a glyph or melee you while you're
+desc: standing on it, it must first break the glyph.
+desc: Higher level monsters are more likely to break the glyphs.
+desc: The glyphs will remain where they are, until a monster succeeds in
+desc: breaking them or until you leave the level.
+
+spell:Mana Storm:45:16:50:200:0
+effect:BALL:MANA:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 2 + 350
+msg_other: invokes a mana storm.
+desc:Shoots a mana bolt that later turns into a powerful ball.
+desc:At level 47 it becomes a radius-2 ball, and at level 50 a radius-3 ball.
+desc:Deals almost irresistible damage to each monster in its area of effect.
+
+spell:Clairvoyance:47:50:95:200:0
 effect:LIGHT_LEVEL
 effect:NOURISH:DEC_BY
 dice:1
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
 desc: The spell reduces your nourishment.
-
-spell:Mana Storm:42:16:50:200:0
-effect:BALL:MANA:3
-dice:$B
-expr:B:PLAYER_LEVEL:* 2 + 350
-msg_other: invokes a mana storm.
-desc:Shoots a radius-3 mana ball that does irresistible
-desc: damage to each monster in its area of effect.
 
 #spell:Tidal Wave:45:22:55:250:0
 #effect:BALL:WATER:3
@@ -2930,7 +2931,7 @@ desc: damage to each monster in its area of effect.
 #msg_other: invokes a tidal wave.
 #desc:Shoots a radius-3 water ball.
 
-spell:Anarchy Force:47:31:55:250:0
+spell:Anarchy Force:49:31:55:250:0
 effect:STAR_BALL:CHAOS:3
 dice:$B+m8
 expr:B:PLAYER_LEVEL:* 2 + 100

@@ -737,17 +737,33 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                 if (context->origin->player->lev > 10)
                     dam *= context->origin->player->lev / 10;
             }
-            // Tidal Wave spell (Sorceror class)
-            else if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror") &&
-                context->origin->player->spell_cost == 22)
+            // Sorceror class BALLS
+            else if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror"))
             {
-                // radius (initially it's kinda bolt)
-                if (context->origin->player->lev >= 45)
-                    rad ++;
-                if (context->origin->player->lev >= 50)
+                // Tidal Wave spell
+                if (context->origin->player->spell_cost == 22)
                 {
-                    rad ++;
-                    dam += 50;
+                    rad = 1; // change default value (as by default it's 2)
+
+                    // radius (initially it's kinda bolt)
+                    if (context->origin->player->lev >= 45)
+                        rad ++;
+                    if (context->origin->player->lev >= 50)
+                    {
+                        rad ++;
+                        dam += 50;
+                    }
+                }
+                // Mana Storm spell
+                else if (context->origin->player->spell_cost == 16)
+                {
+                    rad = 1; // change default value (as by default it's 2)
+
+                    // radius (initially it's kinda bolt)
+                    if (context->origin->player->lev >= 47)
+                        rad ++;
+                    if (context->origin->player->lev >= 50)
+                        rad ++;
                 }
             }
             // Ray of Time spell (Timeturner class)
