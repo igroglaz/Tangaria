@@ -743,27 +743,62 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                 // Tidal Wave spell
                 if (context->origin->player->spell_cost == 22)
                 {
-                    rad = 1; // change default value (as by default it's 2)
-
-                    // radius (initially it's kinda bolt)
-                    if (context->origin->player->lev >= 45)
-                        rad ++;
-                    if (context->origin->player->lev >= 50)
+                    // initially it's bolt
+                    if (context->origin->player->lev < 45)
                     {
-                        rad ++;
-                        dam += 50;
+                        if (fire_bolt(context->origin, context->subtype, context->dir, dam, false))
+                        {
+                                context->ident = true;
+                                return true;
+                        }
+                    }
+                    // 45+ become ball
+                    else
+                    {
+                        rad = 1;
+
+                        // become 2 rad
+                        if (context->origin->player->lev >= 47)
+                        {
+                            rad++;
+                            dam += 25;
+                        }
+                        // become ball 3-rad ball
+                        if (context->origin->player->lev >= 50)
+                        {
+                            rad++;
+                            dam += 25;
+                        }
                     }
                 }
                 // Mana Storm spell
                 else if (context->origin->player->spell_cost == 16)
                 {
-                    rad = 1; // change default value (as by default it's 2)
+                    // initially it's bolt
+                    if (context->origin->player->lev < 47)
+                    {
+                        if (fire_bolt(context->origin, context->subtype, context->dir, dam, false))
+                        {
+                                context->ident = true;
+                                return true;
+                        }
+                    }
+                    // 47+ become ball
+                    else
+                    {
+                        rad = 1;
 
-                    // radius (initially it's kinda bolt)
-                    if (context->origin->player->lev >= 47)
-                        rad ++;
-                    if (context->origin->player->lev >= 50)
-                        rad ++;
+                        // become 2 rad
+                        if (context->origin->player->lev >= 49)
+                        {
+                            rad++;
+                        }
+                        // become ball 3-rad ball
+                        if (context->origin->player->lev >= 50)
+                        {
+                            rad++;
+                        }
+                    }
                 }
             }
             // Ray of Time spell (Timeturner class)
