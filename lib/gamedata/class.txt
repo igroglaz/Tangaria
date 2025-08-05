@@ -2773,8 +2773,10 @@ desc: The chance to get a beam goes up with your character level.
 
 spell:Meditation:20:5:30:15:0
 effect:TIMED_SET:MEDITATE
-dice:30+1d30
-desc:Helps increasing your mana capacity at the cost of hit points.
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
+desc:Helps increasing your mana capacity at the cost of hit points
+desc: for a level-dependent duration.
 
 spell:Stone Prison:20:15:44:30:0
 effect:CREATE_WALLS
@@ -2800,9 +2802,8 @@ desc: A failed attempt to recharge destroys one wand or staff from the stack.
 
 spell:Speed:25:12:55:20:1
 effect:TIMED_SET:SPEEDY:0:5
-dice:$B+1d$S
-expr:B:PLAYER_LEVEL:+ 30
-expr:S:PLAYER_LEVEL:+ 0
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Wipe:27:20:65:50:0
@@ -2830,9 +2831,10 @@ effect:TIMED_SET:OPP_FIRE
 effect:TIMED_SET:OPP_ELEC
 effect:TIMED_SET:OPP_ACID
 effect:SET_VALUE
-dice:30+1d30
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Grants you resistance to acid, cold, fire, lightning and poison for
-desc: 30+1d30 turns.
+desc: a level-dependent duration.
 
 spell:Recall:30:25:65:70:1
 effect:RECALL
@@ -2845,9 +2847,10 @@ desc: of recall again.
 
 spell:Wraithform:30:30:95:70:1
 effect:TIMED_SET:WRAITHFORM
-dice:$B+1d30
-expr:B:PLAYER_LEVEL:+ 30
-desc:Grants you the ability to pass through non-permanent walls.
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
+desc:Grants you the ability to pass through non-permanent walls
+desc: for a level-dependent duration.
 
 spell:Destruction:33:21:80:80:0
 effect:DESTRUCTION:LIGHT:15
@@ -2860,8 +2863,8 @@ desc: This spell has no effect when used in the town.
 
 spell:Telepathy:34:40:75:150:0
 effect:TIMED_SET:ESP
-dice:$B+1d30
-expr:B:PLAYER_LEVEL:+ 30
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Grants you the power of telepathy for a level-dependent duration.
 
 spell:Mass Banishment:35:75:90:100:0
@@ -2882,8 +2885,9 @@ desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
 book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
 
 spell:Disruption Shield:38:70:95:100:0
-effect:TIMED_INC:MANASHIELD
-dice:15+1d15
+effect:TIMED_SET:MANASHIELD
+dice:30+1d$S
+expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Creates a shield of mana around you that absorbs all damage
 desc: inflicted on your character... as long as you have mana
 desc: to fuel it.
