@@ -979,7 +979,7 @@ static void player_outfit_dm(struct player *p)
     /* Initialize the DM with special powers */
     if (is_dm_p(p))
     {
-        p->exp = p->max_exp = 50000000;
+        p->exp = p->max_exp = 1800000; // 50000000
         if (player_has(p, PF_PERM_SHAPE))
         {
             for (i = 1; i <= PY_MAX_LEVEL; i++)
