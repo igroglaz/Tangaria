@@ -1490,6 +1490,10 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
             }
             else if (mon->race->base == lookup_monster_base("Morgoth")) // Morgy
             {
+                // restore lives after killing Morgy
+                if (p->lives <= 0 && !OPT(p, birth_hardcore))
+                    p->lives++;
+
                 if (p->account_score > 100 && !OPT(p, birth_hardcore))
                     p->account_score += 3;
                 else
