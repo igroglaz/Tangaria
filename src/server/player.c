@@ -351,6 +351,7 @@ static void award_account_points(struct player *p)
 
     /////////////////////////////////////////////////////////////////////
     // !*! Formula: chance to skip points increases with account score
+    // it starts from 100 points (so for new players before 100 points - no penalties!)
     // 100-199: 1/2 chance to skip (50%)
     // 200-299: 2/3 chance to skip (67%)
     // 300-399: 3/4 chance to skip (75%)
@@ -502,9 +503,16 @@ static void award_account_points(struct player *p)
                 msg(p, "You'll get even/odd point for levels and defeating uniques.");
             }
         }
-        else if (p->account_score < 50)
+        else if (p->account_score < 50 && p->max_lev >= 20)
         {
-            if (one_in_(51 - p->max_lev) || !(p->max_lev % 15))
+            int chance = 6;
+            if (p->max_lev >= 20) chance = 5;
+            if (p->max_lev >= 25) chance = 4;
+            if (p->max_lev >= 30) chance = 3;
+            if (p->max_lev >= 35) chance = 2;
+            if (p->max_lev >= 40) chance = 1;
+
+            if (one_in_(chance))
             {
                 p->account_score++;
                 if (p->account_score % 5 == 0)
@@ -515,9 +523,18 @@ static void award_account_points(struct player *p)
                     p->account_score);
             }
         }
-        else if (p->account_score < 100)
+        else if (p->account_score < 70 && p->max_lev >= 25)
         {
-            if (p->max_lev >= 10 && (one_in_(51 - p->max_lev) || !(p->max_lev % 20)))
+            int chance = 8;
+            if (p->max_lev >= 25) chance = 7;
+            if (p->max_lev >= 30) chance = 6;
+            if (p->max_lev >= 35) chance = 5;
+            if (p->max_lev >= 40) chance = 4;
+            if (p->max_lev >= 45) chance = 3;
+            if (p->max_lev >= 47) chance = 2;
+            if (p->max_lev >= 49) chance = 1;
+
+            if (one_in_(chance))
             {
                 p->account_score++;
                 if (p->account_score % 5 == 0)
@@ -528,9 +545,20 @@ static void award_account_points(struct player *p)
                     p->account_score);
             }
         }
-        else if (p->account_score < 200)
+        else if (p->account_score < 100 && p->max_lev >= 30)
         {
-            if (p->max_lev >= 15 && (one_in_(51 - p->max_lev) || !(p->max_lev % 25)))
+            int chance = 10;
+            if (p->max_lev >= 25) chance = 9;
+            if (p->max_lev >= 30) chance = 8;
+            if (p->max_lev >= 35) chance = 7;
+            if (p->max_lev >= 40) chance = 6;
+            if (p->max_lev >= 45) chance = 5;
+            if (p->max_lev >= 46) chance = 4;
+            if (p->max_lev >= 47) chance = 3;
+            if (p->max_lev >= 48) chance = 2;
+            if (p->max_lev >= 49) chance = 1;
+
+            if (one_in_(chance))
             {
                 p->account_score++;
                 if (p->account_score % 5 == 0)
@@ -541,9 +569,9 @@ static void award_account_points(struct player *p)
                     p->account_score);
             }
         }
-        else if (p->account_score < 500)
+        else if (p->account_score < 1000 && p->max_lev >= 30)
         {
-            if (p->max_lev >= 20 && (one_in_(51 - p->max_lev) || !(p->max_lev % 30)))
+            if (one_in_(51 - p->max_lev))
             {
                 p->account_score++;
                 if (p->account_score % 5 == 0)
@@ -554,22 +582,9 @@ static void award_account_points(struct player *p)
                     p->account_score);
             }
         }
-        else if (p->account_score < 999)
+        else if (p->max_lev >= 35) // 1000+ p->account_score
         {
-            if (p->max_lev >= 25 && (one_in_(51 - p->max_lev) || !(p->max_lev % 35)))
-            {
-                p->account_score++;
-                if (p->account_score % 5 == 0)
-                    msgt(p, MSG_FANFARE, "@ %s has claimed their %dth account point!",
-                    p->name, p->account_score);
-                else
-                    msgt(p, MSG_FANFARE, "You've earned account point! Now you have %lu account points.",
-                    p->account_score);
-            }
-        }
-        else if (p->max_lev >= 30)
-        {
-            if (one_in_(51 - p->max_lev) || !(p->max_lev % 40))
+            if (one_in_(51 - p->max_lev))
             {
                 p->account_score++;
                 if (p->account_score % 5 == 0)
