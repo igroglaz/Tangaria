@@ -116,7 +116,7 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
     if (resist == 3)
     {
         if (p)
-            ; // later reduced in ~27 times by the loop "for (i = resist; i > 0; i--)"
+            ; // later reduced by the loop "for (i = resist; i > 0; i--)"
               // note: we must add (resist < 3) to other vuln if cases!
         else
             return 0; // common PWMA case
@@ -381,9 +381,30 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     if (resist > 0) // -- we need this check so we won't use -1 vuln in this loop
     {
-        for (i = resist; i > 0; i--)
+        // if we use regular for loop for resist == 3 - it will use ~27 times reduction
+        // so we use simple divider for this case, so immune won't be dull and boring
+        if (resist >= 3)
         {
-            if (denom) dam = dam * projections[type].numerator / denom;
+            if (type == PROJ_FIRE)
+                dam /= 20;
+            else if (type == PROJ_COLD)
+                dam /= 17;
+            else if (type == PROJ_POIS)
+                dam /= 15;
+            else if (type == PROJ_ELEC)
+                dam /= 11;
+            else if (type == PROJ_ACID)
+                dam /= 10;
+            else
+                dam /= 12;
+        }
+        // common case (3 or 9 times for resistance or double resistance)
+        else
+        {
+            for (i = resist; i > 0; i--)
+            {
+                if (denom) dam = dam * projections[type].numerator / denom;
+            }
         }
     }
     //////////////////////////////////////////////////////////////////////////
