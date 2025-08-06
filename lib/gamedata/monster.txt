@@ -21244,7 +21244,7 @@ spells:BR_FIRE | BR_GRAV | BR_INER | BR_LIGHT | BR_NETH | BR_NEXU
 spells:BR_PLAS | BR_POIS | BR_SHAR | BR_SOUN | BR_TIME | BR_WALL
 desc:An awesome vortex of pure magic, power radiates from its frame.
 
-# should be hard to kill for mages.. but sorc can use eg plasma
+# should be harder to kill for mages.. but sorc can use eg light or plasma
 name:Saruman of Many Colours
 base:ainu
 color:v
@@ -21265,7 +21265,7 @@ blow:HIT:HURT:5d5
 flags:UNIQUE | MALE | EVIL | METAL
 flags:DROP_4 | DROP_GOOD | DROP_GREAT
 flags:IM_FIRE | IM_COLD |  IM_ELEC | IM_ACID | IM_POIS
-flags:IM_LIGHT | IM_WATER
+flags:IM_WATER
 flags:ATTR_MULTI
 drop:food:Pipe-weed:100:3:4
 spell-freq:2
