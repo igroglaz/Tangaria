@@ -2901,15 +2901,13 @@ msg_other: invokes a tidal wave.
 desc:Shoots a water tide that increases its radius with levels.
 desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
 
-spell:Sea of Runes:43:60:60:40:0
-effect:SAFE_GUARD
-desc:Inscribes a circle of glyphs of warding around you.
-desc: Summoned monsters can't appear on the glyphs.
-desc: If a monster tries to move onto a glyph or melee you while you're
-desc: standing on it, it must first break the glyph.
-desc: Higher level monsters are more likely to break the glyphs.
-desc: The glyphs will remain where they are, until a monster succeeds in
-desc: breaking them or until you leave the level.
+spell:Clairvoyance:43:50:95:200:0
+effect:LIGHT_LEVEL
+effect:NOURISH:DEC_BY
+dice:1
+desc:Lights up, maps out and senses all objects on the complete current
+desc: dungeon level.
+desc: The spell reduces your nourishment.
 
 spell:Mana Storm:45:16:50:200:0
 # HC rad increase
@@ -2921,13 +2919,15 @@ desc:Shoots a mana bolt that later turns into a powerful ball.
 desc:At level 47 it becomes a radius-2 ball, and at level 50 a radius-3 ball.
 desc:Deals almost irresistible damage to each monster in its area of effect.
 
-spell:Clairvoyance:47:50:95:200:0
-effect:LIGHT_LEVEL
-effect:NOURISH:DEC_BY
-dice:1
-desc:Lights up, maps out and senses all objects on the complete current
-desc: dungeon level.
-desc: The spell reduces your nourishment.
+spell:Sea of Runes:47:60:60:40:0
+effect:SAFE_GUARD
+desc:Inscribes a circle of glyphs of warding around you.
+desc: Summoned monsters can't appear on the glyphs.
+desc: If a monster tries to move onto a glyph or melee you while you're
+desc: standing on it, it must first break the glyph.
+desc: Higher level monsters are more likely to break the glyphs.
+desc: The glyphs will remain where they are, until a monster succeeds in
+desc: breaking them or until you leave the level.
 
 #spell:Tidal Wave:45:22:55:250:0
 #effect:BALL:WATER:3
