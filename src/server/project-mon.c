@@ -782,7 +782,7 @@ static void project_monster_handler_WATER(project_monster_handler_context_t *con
     else
     {
         // Sorceror's Tidal Wave spell shouldn't stun/conf right on
-        if (streq(context->origin->player->clazz->name, "Sorceror"))
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror"))
         {
             /* Apply stunning at level 50+ for Sorceror */
             if (context->origin->player->lev >= 50)
