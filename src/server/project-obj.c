@@ -338,6 +338,9 @@ static void project_object_handler_MISSILE(project_object_handler_context_t *con
 /* Mana -- destroys everything */
 static void project_object_handler_MANA(project_object_handler_context_t *context)
 {
+    // don't destroy gold
+    if (tval_is_money(context->obj)) return;
+
     context->do_kill = true;
     context->note_kill = VERB_AGREEMENT(context->obj->number, "is destroyed", "are destroyed");
 }
