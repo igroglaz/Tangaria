@@ -290,7 +290,17 @@ static void project_object_handler_NEXUS(project_object_handler_context_t *conte
 static void project_object_handler_NETHER(project_object_handler_context_t *context) {}
 static void project_object_handler_CHAOS(project_object_handler_context_t *context) {}
 static void project_object_handler_DISEN(project_object_handler_context_t *context) {}
-static void project_object_handler_WATER(project_object_handler_context_t *context) {}
+
+
+// water always destroys scrolls regardless of resistance
+static void project_object_handler_WATER(project_object_handler_context_t *context) {
+
+    if (tval_is_scroll(context->obj))
+    {
+        context->do_kill = true;
+        context->note_kill = VERB_AGREEMENT(context->obj->number, "is destroyed", "are destroyed");
+    }
+}
 
 
 /* Ice -- potions and flasks */
