@@ -2898,8 +2898,8 @@ effect:BALL:WATER:1
 dice:$B
 expr:B:PLAYER_LEVEL:* 2 + 400
 msg_other: invokes a tidal wave.
-desc:Shoots a water tide that increases its radius with levels.
-desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
+desc:Shoots a water tide. Radius increases at levels 45 and 50.
+desc: Applies confusion at level 47, and stun at level 50.
 
 spell:Clairvoyance:43:50:95:200:0
 effect:LIGHT_LEVEL

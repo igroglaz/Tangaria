@@ -755,15 +755,10 @@ bool effect_handler_BALL(effect_handler_context_t *context)
                     // 45+ become ball
                     else
                     {
-                        rad = 1;
+                        rad = 1; // regular ball
+                        dam += 25;
 
-                        // become 2 rad
-                        if (context->origin->player->lev >= 47)
-                        {
-                            rad++;
-                            dam += 25;
-                        }
-                        // become ball 3-rad ball
+                        // become ball 2-rad ball
                         if (context->origin->player->lev >= 50)
                         {
                             rad++;
