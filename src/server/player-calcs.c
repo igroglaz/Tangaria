@@ -1340,6 +1340,11 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
     /* Get "1/100th hitpoint bonus per level" value */
     bonus = adj_con_mhp[state->stat_ind[STAT_CON]];
 
+    // don't give top casters so much HPs
+    if (p->lev >= 40 && (streq(p->clazz->name, "Sorceror") ||
+        streq(p->clazz->name, "Wizard")))
+        bonus = bonus * 3 / 4;
+
     /* Calculate hitpoints */
     mhp = p->player_hp[p->lev - 1] + (bonus * p->lev / 100);
 
