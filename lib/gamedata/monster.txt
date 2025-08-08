@@ -24517,7 +24517,7 @@ flags:IM_NETHER
 spell-freq:4
 innate-freq:33
 spells:CONF | BA_FIRE | BO_PLAS | BA_DARK
-spells:WHIP | BR_FIRE | BR_PLAS | RES_PLASMA
+spells:WHIP | BR_FIRE | BR_PLAS
 spells:S_HI_DEMON | S_UNDEAD
 desc:Originally of the semi-divine Maiar, this evil spirit swore allegiance to
 desc: Morgoth at the beginning of time and is now one of his most terrible

@@ -1827,7 +1827,7 @@ static struct object *make_object_aux(struct player *p, struct chunk *c, int lev
 
     // Apply speed limit based on player level
     // (note: we have separate value for randart. Search: "sp33d")
-    if (p->lev <= 40 && new_obj->modifiers[OBJ_MOD_SPEED] > 0)
+    if (p && p->lev <= 40 && new_obj->modifiers[OBJ_MOD_SPEED] > 0)
     {
         int max_speed;
         if (p->lev <= 10) max_speed = 3;
