@@ -7310,13 +7310,13 @@ desc: It wakes up surrounding monsters.
 desc: Cooldown 255 turns.
 
 spell:Inner Power:50:40:50:90:0
-cooldown:60
+cooldown:255
 effect:TIMED_INC:MANASHIELD
-dice:13+1d10
+dice:10+1d5
 desc:Creates a shield of mana around you that absorbs all damage
 desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
-desc: Cooldown 60 turns.
+desc: Cooldown 255 turns.
 
 
 ############### CLASS TEMPLATE for Phaseblade (Psyblade/Telekinetic/Teleporter)
@@ -7860,12 +7860,13 @@ desc: This effect lasts for 3 turns.
 desc: Cooldown 30 turns.
 
 spell:Time Shield:35:25:1:150:0
+cooldown:255
 effect:TIMED_SET:MANASHIELD
-dice:$B
-expr:B:PLAYER_LEVEL:+ 10
+dice:10+1d5
 desc:Creates a time shield around you that absorbs all damage
 desc: inflicted to your character... as long as you have mana
 desc: to fuel it.
+desc: Cooldown 255 turns.
 
 spell:Temporal Paradox:40:50:35:200:0
 cooldown:120
