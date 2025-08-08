@@ -548,7 +548,7 @@ static void project_monster_handler_ACID(project_monster_handler_context_t *cont
         context->dam /= 2;
     }            
     else    
-    project_monster_resist_element(context, RF_IM_ACID, 9);
+        project_monster_resist_element(context, RF_IM_ACID, 9);
 }
 
 
@@ -770,6 +770,13 @@ static void project_monster_handler_WATER(project_monster_handler_context_t *con
     /* Zero out the damage because this is an immunity flag. */
     project_monster_resist_other(context, RF_IM_WATER, 0, false, MON_MSG_IMMUNE);
 
+    if (rf_has(context->mon->race->flags, RF_RES_WATER))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_WATER);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }  
+
     /* Immune to stunning and confusion */
     if (rf_has(context->mon->race->flags, RF_IM_WATER))
     {
@@ -898,6 +905,13 @@ static void project_monster_handler_PLASMA(project_monster_handler_context_t *co
 {
     project_monster_resist_other(context, RF_IM_PLASMA, 3, true, MON_MSG_RESIST);
 
+    if (rf_has(context->mon->race->flags, RF_RES_PLASMA))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_PLASMA);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }            
+
     /* Immune to stunning */
     if (rf_has(context->mon->race->flags, RF_IM_PLASMA))
     {
@@ -919,6 +933,13 @@ static void project_monster_handler_MISSILE(project_monster_handler_context_t *c
 static void project_monster_handler_MANA(project_monster_handler_context_t *context)
 {
     project_monster_breath(context, RSF_BR_MANA, 3);
+
+    if (rf_has(context->mon->race->flags, RF_RES_MANA))
+    {
+        if (context->seen) rf_on(context->lore->flags, RF_RES_MANA);
+        context->hurt_msg = MON_MSG_RESIST;
+        context->dam /= 2;
+    }
 }
 
 
