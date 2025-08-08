@@ -21180,7 +21180,7 @@ blow:HIT:HURT:6d6
 blow:HIT:SHATTER:10d10
 flags:MALE | PASS_WALL
 flags:DROP_3
-flags:IM_ELEC
+flags:IM_ELEC | RES_MANA
 spell-freq:5
 innate-freq:50
 spells:BOULDER
@@ -22602,7 +22602,7 @@ blow:HIT:CONFUSE:12d12
 blow:HIT:CONFUSE:12d12
 flags:UNIQUE | MALE | NAME_COMMA | SMART | ATTR_FLICKER | LEVITATE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
-flags:TAKE_ITEM | IM_FIRE
+flags:TAKE_ITEM | IM_FIRE | RES_MANA
 flags:FORCE_SLEEP
 spell-freq:4
 innate-freq:25
@@ -23856,7 +23856,7 @@ blow:HIT:SHATTER:13d13
 blow:HIT:CONFUSE:13d13
 flags:UNIQUE | MALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD
-flags:IM_ACID | IM_ELEC
+flags:IM_ACID | IM_ELEC | RES_MANA
 spell-freq:4
 innate-freq:33
 spells:BLINK | BOULDER | TELE_TO
@@ -24677,7 +24677,7 @@ blow:HIT:CONFUSE:12d12
 flags:UNIQUE | FEMALE | NAME_COMMA
 flags:DROP_4 | DROP_GOOD
 flags:MOVE_BODY
-flags:IM_ACID | IM_ELEC | NO_CUT
+flags:IM_ACID | IM_ELEC | NO_CUT | RES_MANA
 spell-freq:5
 innate-freq:29
 innate-freq:30
