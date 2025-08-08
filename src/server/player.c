@@ -934,13 +934,16 @@ static void adjust_level(struct player *p)
                 award_gold_for_account_points(p);
 
             // message
-            if (p->max_lev == 5 || p->max_lev == 10 || p->max_lev >= 15)
-                msgt(p, MSG_LEVEL, "+ %s has attained level %d.", p->name, p->lev);
-            else
-                msgt(p, MSG_LEVEL, "%s has attained level %d.", p->name, p->lev);
-            // message to all
-            strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
-            msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
+            if (!is_dm_p(p))
+            {
+                if (p->max_lev == 5 || p->max_lev == 10 || p->max_lev >= 15)
+                    msgt(p, MSG_LEVEL, "+ %s has attained level %d.", p->name, p->lev);
+                else
+                    msgt(p, MSG_LEVEL, "%s has attained level %d.", p->name, p->lev);
+                // message to all
+                strnfmt(buf, sizeof(buf), "%s has attained level %d.", p->name, p->lev);
+                msg_broadcast(p, buf, MSG_BROADCAST_LEVEL);
+            }
 
             // Restore stats
             source_player(who, get_player_index(get_connection(p->conn)), p);
