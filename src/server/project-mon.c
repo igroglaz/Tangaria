@@ -2265,6 +2265,52 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
     /* Absolutely no effect */
     if (context.skipped) return;
 
+
+//////////////////////////////// BOLT REFLECT
+    if (monster_handler != NULL)
+    {
+        monster_handler(&context);
+        
+        // Only for bolt-type projectiles that do damage
+        if (context.dam > 0 && (flg & PROJECT_STOP) &&
+            (typ == EF_BOLT ||
+             typ == EF_BOLT_STATUS_DAM ||
+             typ == EF_BOLT_RADIUS ||
+             typ == EF_BOLT_OR_BEAM))
+        {
+            // Check if monster can reflect (e.g., Angels or monsters with RF_METAL flag)
+            if (rf_has(context.mon->race->flags, RF_METAL) && one_in_(2))
+            {
+                if (context.seen && origin->player)
+                {
+                    char m_name[80];
+                    monster_desc(origin->player, m_name, sizeof(m_name), context.mon, MDESC_STANDARD);
+                    msgt(origin->player, MSG_RESIST_A_LOT, "The %s reflects your attack!", m_name);
+                }
+                else if (origin->player)
+                {
+                    msgt(origin->player, MSG_RESIST_A_LOT, "Your attack is reflected!");
+                }
+                
+                // Set damage to 0 (simple reflection - no damage)
+                context.dam = 0;
+                context.obvious = true;
+                
+                // Skip the rest of damage processing
+                *did_hit = true;
+                *was_obvious = true;
+                return;
+            }
+        }
+    }
+    else if (!projections[typ].obvious)
+    {
+        context.skipped = true;
+        context.dam = 0;
+    }
+//////////////////////////////// end BOLT REFLECT
+
+
     /* Apply damage to the monster, based on who did the damage. */
     if (origin->monster)
         mon_died = project_m_monster_attack(&context);
