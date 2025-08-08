@@ -121,7 +121,7 @@ flags:COLD_BLOOD | METAL | UNAWARE | EMPTY_MIND
 flags:ONLY_GOLD
 flags:BASH_DOOR | CLEAR_WEB
 flags:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | RES_MANA
-flags:MIMIC_INV
+flags:MIMIC_INV | IM_WATER
 desc:Creeping Coins
 
 # Dragons are the most important breathing monsters in Angband, and their
@@ -346,7 +346,7 @@ pain:1
 flags:FEMALE | EVIL | HURT_COLD | SPIRIT
 flags:BASH_DOOR | CLEAR_WEB
 flags:HAS_LEGS | HYBRID
-flags:SWIM_GOOD
+flags:SWIM_GOOD | RES_WATER
 desc:Naga
 
 # Ogres are like small giants, or large orcs. Mostly straightforward melee
@@ -535,7 +535,7 @@ glyph:Y
 pain:1
 flags:ANIMAL
 flags:OPEN_DOOR | BASH_DOOR | CLEAR_WEB
-flags:IM_COLD
+flags:IM_COLD | RES_WATER
 flags:HUMANOID
 desc:Yeti
 
@@ -617,7 +617,7 @@ glyph:#
 pain:1
 flags:EVIL | EMPTY_MIND | COLD_BLOOD | CLEAR_WEB
 flags:RAND_25
-flags:IM_COLD | IM_POIS | IM_ACID
+flags:IM_COLD | IM_POIS | IM_ACID | IM_WATER
 desc:Mist
 
 name:nether
@@ -667,6 +667,7 @@ desc:Stinger
 name:vegetal
 glyph:l
 pain:1
+flags:RES_WATER
 desc:Vegetal
 
 name:sentry

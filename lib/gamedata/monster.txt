@@ -13932,7 +13932,7 @@ flags:MALE | REGENERATE
 flags:DROP_20
 flags:HURT_LIGHT | IM_COLD
 flags:DROP_CORPSE | DROP_SKELETON | WILD_SHORE | WILD_SWAMP
-flags:SWIM_GOOD
+flags:SWIM_GOOD | RES_WATER
 friends:50:1d5:water hound
 friends:100:4d4:Same
 desc:He is a troll that reeks of brine.
@@ -14650,7 +14650,7 @@ flags:BASH_DOOR | KILL_BODY | KILL_ITEM
 flags:IM_ACID | IM_COLD | IM_FIRE
 flags:FORCE_SLEEP
 flags:WILD_SHORE | WILD_SWAMP
-flags:SWIM_NORM
+flags:SWIM_NORM | RES_WATER
 spell-freq:5
 spells:BA_ACID
 spells:BO_ACID
@@ -16674,7 +16674,7 @@ flags:UNIQUE | SMART
 flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR
 flags:IM_ACID | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_WATER
 flags-off:HURT_COLD
 drop:fortune cookie:Fortune Cookie:50:1:1
 spell-freq:2
@@ -18986,7 +18986,7 @@ blow:SPORE:DISENCHANT:7d7
 blow:SPORE:EXP_80:5d5
 flags:EVIL
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE
-flags:FORCE_SLEEP | ATTR_FLICKER
+flags:FORCE_SLEEP | ATTR_FLICKER | RES_WATER
 flags-off:HURT_FIRE
 desc:It is the epitome of all that is evil, in a mold. Its lifeless form draws
 desc: power from sucking the souls of those that approach it, a nimbus of pure
@@ -24015,7 +24015,7 @@ experience:17000
 blow:CRUSH:HURT:15d10
 blow:CRUSH:CONFUSE:15d10
 flags:ATTR_MULTI | RAND_25
-flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL | RES_MANA
+flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL | RES_MANA | RES_WATER
 spell-freq:6
 innate-freq:33
 spells:BLINK | TELE_TO
@@ -25678,7 +25678,7 @@ flags:UNIQUE | MALE | EVIL
 flags:FORCE_SLEEP | FORCE_DEPTH
 flags:SMART | OPEN_DOOR | MOVE_BODY | REGENERATE
 flags:IM_POIS | IM_ACID | IM_ELEC | IM_COLD
-flags:NO_CONF | NO_SLEEP | NO_FEAR
+flags:NO_CONF | NO_SLEEP | NO_FEAR | IM_WATER
 spell-freq:4
 innate-freq:19
 spell-power:108
