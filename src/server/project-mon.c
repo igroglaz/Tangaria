@@ -2272,11 +2272,12 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
         monster_handler(&context);
         
         // Only for bolt-type projectiles that do damage
-        if (context.dam > 0 && (flg & PROJECT_STOP) &&
-            (typ == EF_BOLT ||
-             typ == EF_BOLT_STATUS_DAM ||
-             typ == EF_BOLT_RADIUS ||
-             typ == EF_BOLT_OR_BEAM))
+        if (context.dam > 0 &&
+            (flg & PROJECT_STOP) &&
+            !(flg & (PROJECT_BEAM | PROJECT_ARC |
+                     PROJECT_JUMP | PROJECT_GRID |
+                     PROJECT_ITEM)) &&
+            (r == 0))
         {
             // Check if monster can reflect (e.g., Angels or monsters with RF_METAL flag)
             if (rf_has(context.mon->race->flags, RF_METAL) && one_in_(2))
