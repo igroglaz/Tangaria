@@ -412,9 +412,9 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
 
     // never kill fully healed player with 1 magic blow (if not on CD)
-    if (p && p->chp == p->mhp && p->y_cooldown == 0)
+    if (p && !p->timed[TMD_MANASHIELD] && p->chp == p->mhp && p->y_cooldown == 0)
     {
-            if (p->chp - dam < 1) // TODO: special case for p->timed[TMD_MANASHIELD] ?
+            if (p->chp - dam < 1)
             {
                 msg(p, "%s (level %d) survived a magical blast of %d damage - by a hair!",
                         p->name, p->lev, dam);
