@@ -21533,7 +21533,7 @@ flags:REGENERATE | UNIQUE | MALE | PWMANG_BASE
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:KILL_WALL | KILL_BODY
 flags:IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | IM_ELEC | IM_COLD | IM_FIRE
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_WATER | RES_MANA
 desc:Ulik is the strongest troll who has ever lived. He could challenge the
 desc: immortals and pound them to dust with his great strength.
 
@@ -21694,7 +21694,7 @@ blow:BITE:FIRE:7d14
 flags:UNIQUE | MALE | METAL
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
-flags:IM_FIRE | RES_MANA
+flags:IM_FIRE | RES_MANA | RES_PLASMA
 spell-freq:4
 innate-freq:33
 spells:WOUND | CONF
@@ -22321,7 +22321,7 @@ blow:BITE:HURT:6d14
 flags:ATTR_FLICKER
 flags:ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_FIRE
+flags:IM_FIRE | RES_PLASMA
 flags:DROP_CORPSE
 spell-freq:4
 spell-power:67
@@ -23766,7 +23766,7 @@ blow:BITE:FIRE:8d14
 flags:UNIQUE | MALE | NAME_COMMA | PWMANG_FIXED
 flags:DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
-flags:IM_FIRE | IM_POIS
+flags:IM_FIRE | IM_POIS | RES_PLASMA
 flags:NO_STUN
 flags:FORCE_DEPTH
 drop:food:Cram Bread:100:1:2
@@ -23985,7 +23985,7 @@ blow:BITE:LOSE_CON:5d10
 flags:POWERFUL | REGENERATE | LEVITATE
 flags:DROP_4
 flags:MOVE_BODY
-flags:IM_FIRE | IM_POIS
+flags:IM_FIRE | IM_POIS | RES_PLASMA
 spell-freq:5
 innate-freq:38
 spells:WOUND | SCARE
@@ -24045,7 +24045,7 @@ blow:BITE:FIRE:5d12
 blow:BITE:FIRE:5d12
 flags:EVIL
 flags:RAND_25 | BASH_DOOR | MOVE_BODY
-flags:IM_FIRE | GROUP_AI
+flags:IM_FIRE | GROUP_AI | RES_PLASMA
 flags:FORCE_SLEEP
 flags:DROP_CORPSE
 spell-freq:5
@@ -24517,7 +24517,7 @@ flags:IM_NETHER
 spell-freq:4
 innate-freq:33
 spells:CONF | BA_FIRE | BO_PLAS | BA_DARK
-spells:WHIP | BR_FIRE | BR_PLAS
+spells:WHIP | BR_FIRE | BR_PLAS | RES_PLASMA
 spells:S_HI_DEMON | S_UNDEAD
 desc:Originally of the semi-divine Maiar, this evil spirit swore allegiance to
 desc: Morgoth at the beginning of time and is now one of his most terrible
@@ -24542,7 +24542,7 @@ blow:BITE:HURT:10d14
 flags:UNIQUE | MALE
 flags:DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
-flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS
+flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | RES_PLASMA
 spell-freq:3
 innate-freq:71
 spells:BR_ACID | BR_COLD | BR_ELEC | BR_FIRE | BR_POIS
@@ -24610,7 +24610,7 @@ flags:UNIQUE | POWERFUL
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:IM_COLD | IM_FIRE | IM_DISEN | NO_CONF | NO_SLEEP | NO_HOLD
-flags:ATTR_MULTI | FORCE_SLEEP
+flags:ATTR_MULTI | FORCE_SLEEP | RES_WATER | RES_MANA
 flags-off:HURT_COLD
 spell-freq:2
 innate-freq:100
@@ -24640,7 +24640,7 @@ flags:UNIQUE | MALE | SMART
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:MOVE_BODY | TAKE_ITEM
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_STUN | NO_CUT
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_PLASMA
 flags:SWIM_NORM
 spell-freq:3
 spell-power:87
@@ -24905,7 +24905,7 @@ blow:CRUSH:HURT:9d14
 flags:ATTR_FLICKER
 flags:ONLY_ITEM | DROP_CORPSE
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_FIRE
+flags:IM_FIRE | RES_PLASMA
 spell-freq:3
 spell-power:89
 innate-freq:17
@@ -25652,7 +25652,7 @@ flags:UNIQUE | MALE | EVIL | REGENERATE
 flags:FORCE_SLEEP | FORCE_DEPTH
 flags:SMART | OPEN_DOOR | BASH_DOOR | MOVE_BODY
 flags:IM_POIS | IM_ELEC | IM_FIRE | IM_COLD | IM_NETHER
-flags:NO_CONF | NO_SLEEP | NO_FEAR
+flags:NO_CONF | NO_SLEEP | NO_FEAR | RES_PLASMA
 spell-freq:3
 innate-freq:13
 spell-power:105
@@ -26493,7 +26493,7 @@ blow:CLAW:FIRE:8d8
 blow:HIT:FIRE:8d8
 blow:CLAW:FIRE:8d8
 flags:PWMANG_EXTRA
-flags:IM_FIRE
+flags:IM_FIRE | RES_PLASMA
 flags:FORCE_DEPTH
 spell-freq:3
 innate-freq:33
