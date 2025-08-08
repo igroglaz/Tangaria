@@ -2738,9 +2738,11 @@ dice:1
 desc:Reveals an unknown rune on an object.
 
 spell:Map Area:13:10:45:7:0
+cooldown:120
 effect:MAP_AREA
 effect-yx:22:40
 desc:Maps out a portion of the level around you.
+desc: Cooldown 120 turns.
 
 spell:Radiate Fear:14:12:45:8:0
 effect:BLAST_OBVIOUS:TURN_ALL:5
@@ -2784,12 +2786,14 @@ desc:A wall is created on each empty floor space that is directly
 desc: adjacent to you.
 
 spell:Teleport Other:23:12:50:15:0
+cooldown:15
 effect:BOLT_STATUS:AWAY_ALL:1
 dice:$B
 expr:B:MAX_SIGHT:* 5
 msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
+desc: Cooldown 15 turns.
 
 spell:Recharging:24:26:70:19:0
 effect:RECHARGE
@@ -2807,12 +2811,14 @@ expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Wipe:27:20:65:50:0
+cooldown:30
 effect:WIPE_AREA:NONE:10
 msg_other: wrecks havoc.
 desc:Wipes everything in a 10-square radius around you.
 desc: All monsters, objects and terrain features in the area of
 desc: effect are wiped, except stairs and permanent walls.
 desc: This spell has no effect when used in the town.
+desc: Cooldown 30 turns.
 
 spell:Sunfire:28:15:60:35:0
 effect:BALL:LIGHT:2
@@ -2853,6 +2859,7 @@ desc:Grants you the ability to pass through non-permanent walls
 desc: for a level-dependent duration.
 
 spell:Destruction:33:21:80:80:0
+cooldown:60
 effect:DESTRUCTION:LIGHT:15
 desc:Destroys everything in a 15-square radius circle around you.
 desc: All monsters, objects and terrain features in the area of
@@ -2860,6 +2867,7 @@ desc: effect are destroyed, except stairs and permanent walls.
 desc: You will also be blinded for 10+1d10 turns, unless you
 desc: have resistance to blindness or light.
 desc: This spell has no effect when used in the town.
+desc: Cooldown 60 turns.
 
 spell:Telepathy:34:40:75:150:0
 effect:TIMED_SET:ESP
@@ -2868,10 +2876,12 @@ expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Grants you the power of telepathy for a level-dependent duration.
 
 spell:Mass Banishment:35:75:90:100:0
+cooldown:120
 effect:MASS_BANISH
 desc:Removes all monsters within 20 squares of you.
 desc: Uniques are not affected.
 desc: You take 1d3 points of damage for every monster removed.
+desc: Cooldown 120 turns.
 
 spell:Plasma Blast:36:21:45:120:0
 # HC +1 rad at 45 and 50 lvl (BLAST 1 radius actually means 2 compared to balls :D)
@@ -2902,12 +2912,11 @@ desc:Shoots a water tide. Radius increases at levels 45 and 50.
 desc: Applies confusion at level 47, and stun at level 50.
 
 spell:Clairvoyance:43:50:95:200:0
+cooldown:300
 effect:LIGHT_LEVEL
-effect:NOURISH:DEC_BY
-dice:1
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
-desc: The spell reduces your nourishment.
+desc: Cooldown 300 turns.
 
 spell:Mana Storm:45:16:50:200:0
 # HC rad increase
