@@ -1012,9 +1012,9 @@ void player_exp_gain(struct player *p, int32_t amount)
             int expfact;
             
             if (streq(p->race->name, "Human"))
-                expfact = 125;
+                expfact = 125 + (p->max_lev * 2);
             else if (streq(p->race->name, "Yeek"))
-                expfact = 100;
+                expfact = 100 + (p->max_lev * 2);
             else // all other races
             {
                 expfact = 125 + (p->max_lev * 3);
