@@ -32587,7 +32587,7 @@ flags:HURT_LIGHT | IM_ACID | HURT_COLD | NO_CONF | NO_SLEEP
 desc:A small pulsing green ooze.
 
 name:Target Dummy
-base:golem
+base:hybrid
 color:y
 speed:110
 hit-points:1
@@ -32598,10 +32598,10 @@ depth:0
 rarity:1
 weight:0
 experience:0
-flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH
+flags:UNIQUE | NEVER_BLOW | NEVER_MOVE | NO_DEATH | METAL
 flags:PWMANG_EXTRA | PWMANG_FIXED
 #flags:IM_FIRE | IM_ELEC | IM_POIS | UNDEAD | HURT_ROCK | IM_LIGHT | HURT_LIGHT
-desc:An indestructible golem used for target practice.
+desc:An indestructible dummy used for target practice.
 locations:Farfest|The Deeptown
 
 #######
