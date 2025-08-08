@@ -68,7 +68,7 @@ flags:POWERFUL | SPIRIT | SMART | LEVITATE | GOOD | METAL
 flags:ONLY_ITEM
 flags:OPEN_DOOR | BASH_DOOR | TAKE_ITEM | CLEAR_WEB | IM_LIGHT
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD | NO_STUN
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_MANA
 desc:Angel
 
 # Ants have lowish HP but highish armor class, and powerful melee for their
@@ -120,7 +120,7 @@ pain:1
 flags:COLD_BLOOD | METAL | UNAWARE | EMPTY_MIND
 flags:ONLY_GOLD
 flags:BASH_DOOR | CLEAR_WEB
-flags:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP
+flags:IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP | RES_MANA
 flags:MIMIC_INV
 desc:Creeping Coins
 

@@ -9355,7 +9355,7 @@ weight:50
 experience:85
 blow:BITE:HURT:4d5
 flags:RAND_25
-flags:DROP_CORPSE | WILD_ALL
+flags:DROP_CORPSE | WILD_ALL | RES_MANA
 spell-freq:5
 spells:TELE_SELF_TO
 desc:It trying to get on your skin to suck your blood.
@@ -10879,7 +10879,7 @@ blow:HIT:HURT:3d8
 blow:HIT:HURT:3d8
 flags:COLD_BLOOD
 flags:BASH_DOOR
-flags:IM_POIS | IM_ACID | METAL
+flags:IM_POIS | IM_ACID | METAL | RES_MANA
 flags:FORCE_SLEEP
 flags:NO_STUN
 flags:SWIM_BAD
@@ -11071,7 +11071,7 @@ blow:ENGULF:HURT:1d10
 blow:ENGULF:HURT:1d10
 blow:ENGULF:HURT:1d10
 flags:SMART | LEVITATE
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_MANA
 spell-freq:3
 innate-freq:70
 spells:WHIP | BLINK | TELE_TO
@@ -11264,7 +11264,7 @@ flags:MALE | SMART
 flags:DROP_1 | ONLY_ITEM
 flags:OPEN_DOOR
 flags:FORCE_SLEEP
-flags:DROP_CORPSE | DROP_SKELETON
+flags:DROP_CORPSE | DROP_SKELETON | RES_MANA
 spell-freq:3
 spells:BLIND | CONF | TPORT | TELE_AWAY
 spells:BO_COLD | BO_ELEC | BO_FIRE
@@ -12093,7 +12093,7 @@ blow:HIT:HURT:5d5
 flags:COLD_BLOOD | METAL
 flags:DROP_2 | ONLY_GOLD
 flags:BASH_DOOR
-flags:IM_COLD | IM_FIRE | IM_POIS
+flags:IM_COLD | IM_FIRE | IM_POIS | RES_MANA
 flags:NO_STUN
 flags:SWIM_BAD
 desc:It is a massive statue of purest mithril. It looks expensive!
@@ -12692,7 +12692,7 @@ blow:BITE:ELEC:5d4
 flags:ANIMAL | UNIQUE | FEMALE | POWERFUL | PWMANG_BASE | PWMANG_FIXED
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM | NEUTRAL | METAL
 flags:OPEN_DOOR | BASH_DOOR
-flags:NO_CONF | SRES_LIGHT
+flags:NO_CONF | SRES_LIGHT | RES_MANA
 flags:FORCE_DEPTH
 drop:mushroom:Terror:100:7:9
 spell-freq:2
@@ -13673,7 +13673,7 @@ blow:HIT:HURT:6d6
 flags:COLD_BLOOD | METAL
 flags:DROP_2 | ONLY_GOLD
 flags:BASH_DOOR
-flags:IM_COLD | IM_FIRE | IM_POIS
+flags:IM_COLD | IM_FIRE | IM_POIS | RES_MANA
 flags:NO_STUN
 flags:SWIM_BAD
 desc:It is a massive deep brown statue, striding towards you with an
@@ -14564,7 +14564,7 @@ weight:0
 experience:900
 blow:HIT:ELEC:3d8
 blow:HIT:ELEC:3d8
-flags:COLD_BLOOD | LEVITATE | METAL
+flags:COLD_BLOOD | LEVITATE | METAL | RES_MANA
 flags:BASH_DOOR
 flags:IM_POIS | IM_LIGHT
 flags:FORCE_SLEEP
@@ -14766,7 +14766,7 @@ blow:HIT:HURT:6d6
 blow:HIT:HURT:6d6
 flags:COLD_BLOOD | METAL
 flags:BASH_DOOR
-flags:IM_COLD | IM_FIRE | IM_POIS
+flags:IM_COLD | IM_FIRE | IM_POIS | RES_MANA
 flags:NO_STUN
 flags:SWIM_BAD
 desc:An enormous construct resembling a titan made from stone. It strides
@@ -16550,7 +16550,7 @@ flags:DROP_3 | ONLY_ITEM
 flags:OPEN_DOOR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_SLEEP
-flags:DROP_CORPSE | DROP_SKELETON
+flags:DROP_CORPSE | DROP_SKELETON | RES_MANA
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | TELE_TO | TRAPS
 spells:BA_COLD | BA_FIRE
@@ -17215,7 +17215,7 @@ blow:HIT:HURT:2d8
 flags:MALE | EVIL | SMART
 flags:DROP_3 | ONLY_ITEM
 flags:HURT_LIGHT | NO_CONF | NO_SLEEP | NO_HOLD
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_MANA
 flags:DROP_CORPSE | DROP_SKELETON
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | DARKNESS | HEAL
@@ -18159,7 +18159,7 @@ blow:CLAW:HURT:3d10
 blow:BITE:FIRE:6d10
 blow:BITE:FIRE:6d10
 flags:OPEN_DOOR | BASH_DOOR
-flags:IM_FIRE | IM_POIS | RES_LIGHT
+flags:IM_FIRE | IM_POIS | RES_LIGHT | RES_PLASMA
 flags:NO_STUN
 flags:FORCE_SLEEP
 spell-freq:5
@@ -19282,7 +19282,7 @@ blow:HIT:HURT:3d8
 flags:UNIQUE | MALE | NAME_COMMA | EVIL | SMART | METAL
 flags:DROP_4 | DROP_GOOD | ONLY_ITEM
 flags:HURT_LIGHT | IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_MANA
 #drop:food:Lembas:50:1:1
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | DARKNESS | HEAL
@@ -20394,7 +20394,7 @@ blow:HIT:HURT:6d8
 flags:EVIL | MALE | PWMANG_BASE | SMART
 flags:ONLY_ITEM | DROP_4
 flags:OPEN_DOOR | TAKE_ITEM
-flags:NO_CONF | NO_SLEEP | NO_HOLD
+flags:NO_CONF | NO_SLEEP | NO_HOLD | RES_MANA
 flags:FORCE_SLEEP
 spell-freq:2
 spells:BLIND | BLINK | WOUND | CONF | TELE_TO | TRAPS
@@ -21265,7 +21265,7 @@ blow:HIT:HURT:5d5
 flags:UNIQUE | MALE | EVIL | METAL
 flags:DROP_4 | DROP_GOOD | DROP_GREAT
 flags:IM_FIRE | IM_COLD |  IM_ELEC | IM_ACID | IM_POIS
-flags:IM_WATER
+flags:IM_WATER | RES_MANA
 flags:ATTR_MULTI
 drop:food:Pipe-weed:100:3:4
 spell-freq:2
@@ -21693,7 +21693,7 @@ blow:BITE:FIRE:7d14
 flags:UNIQUE | MALE | METAL
 flags:DROP_1 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:BASH_DOOR
-flags:IM_FIRE
+flags:IM_FIRE | RES_MANA
 spell-freq:4
 innate-freq:33
 spells:WOUND | CONF
@@ -23918,7 +23918,7 @@ flags:UNIQUE | SMART | GOOD | METAL
 flags:REGENERATE | ANIMAL
 flags:NO_CONF | NO_SLEEP | NO_FEAR
 flags:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID | IM_POIS
-flags:NO_STUN | IM_PLASMA | IM_DISEN | RES_LIGHT
+flags:NO_STUN | IM_PLASMA | IM_DISEN | RES_LIGHT | RES_MANA
 drop-base:rod:50:1:2
 spell-freq:4
 innate-freq:15
@@ -24015,7 +24015,7 @@ experience:17000
 blow:CRUSH:HURT:15d10
 blow:CRUSH:CONFUSE:15d10
 flags:ATTR_MULTI | RAND_25
-flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL
+flags:DROP_CORPSE | DROP_SKELETON | WILD_ALL | RES_MANA
 spell-freq:6
 innate-freq:33
 spells:BLINK | TELE_TO
@@ -24714,7 +24714,7 @@ flags:UNIQUE | MALE | NAME_COMMA | EVIL | METAL
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:KILL_WALL | MOVE_BODY
 flags:IM_COLD | IM_FIRE | IM_POIS | NO_CONF | NO_SLEEP | NO_HOLD
-flags:FORCE_SLEEP
+flags:FORCE_SLEEP | RES_MANA
 flags:FORCE_DEPTH | PWMANG_FIXED
 drop:food:Elvish water:100:6:9
 spell-freq:5
@@ -25610,7 +25610,7 @@ blow:HIT:DISENCHANT:10d12
 blow:HIT:DRAIN_CHARGES:8d12
 blow:HIT:DRAIN_CHARGES:8d12
 flags:UNIQUE | QUESTOR | MALE | NAME_COMMA | EVIL | REGENERATE | METAL
-flags:DROP_4 | DROP_GOOD | DROP_GREAT
+flags:DROP_4 | DROP_GOOD | DROP_GREAT | RES_MANA
 flags:MOVE_BODY
 flags:IM_ELEC | NO_FEAR
 flags:FORCE_DEPTH
@@ -25740,7 +25740,7 @@ flags:SMASH_WALL | MOVE_BODY | ATTR_FLICKER | METAL
 flags:IM_ACID | IM_COLD | IM_ELEC | IM_FIRE | IM_POIS | NO_FEAR
 flags:NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_DEPTH | FORCE_SLEEP
-flags:IM_NETHER | NO_STUN | IM_PLASMA | IM_DISEN
+flags:IM_NETHER | NO_STUN | IM_PLASMA | IM_DISEN | RES_MANA
 drop:potion:*Healing*:100:10:20
 spell-freq:3
 spells:BRAIN_SMASH
