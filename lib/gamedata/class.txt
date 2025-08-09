@@ -2902,14 +2902,12 @@ desc:Creates a shield of mana around you that absorbs all damage
 desc: inflicted on your character... as long as you have mana
 desc: to fuel it.
 
-spell:Tidal Wave:39:22:55:250:0
-# HC rad increase (also 45-50 lvl gives +25 dmg)
-effect:BALL:WATER:1
+spell:Water Needle:39:22:55:250:0
+effect:BOLT:WATER
 dice:$B
 expr:B:PLAYER_LEVEL:* 2 + 400
-msg_other: invokes a tidal wave.
-desc:Shoots a water tide. Radius increases at levels 45 and 50.
-desc: Applies confusion at level 47, and stun at level 50.
+msg_other: sends forth a needle born of rain.
+desc:Unleashes a water-forged needle swift enough to pierce stone.
 
 spell:Clairvoyance:43:50:95:200:0
 cooldown:300
@@ -2928,7 +2926,7 @@ desc:Shoots a mana bolt that later turns into a powerful ball.
 desc:At level 47 it becomes a radius-2 ball, and at level 50 a radius-3 ball.
 desc:Deals almost irresistible damage to each monster in its area of effect.
 
-spell:Sea of Runes:47:60:70:40:0
+spell:Sea of Runes:47:60:75:40:0
 effect:SAFE_GUARD
 desc:Inscribes a circle of glyphs of warding around you.
 desc: Summoned monsters can't appear on the glyphs.
@@ -2952,12 +2950,13 @@ expr:B:PLAYER_LEVEL:* 2 + 100
 msg_other: invokes a chaos storm.
 desc:Shoots a radius-3 chaos ball in all eight cardinal directions.
 
-spell:Annihilation Bolt:50:20:55:180:0
-effect:BOLT:MISSILE
+spell:Annihilation Bolt:50:20:60:180:0
+# evil not not resistant.. only undead
+effect:BOLT:NETHER
 dice:500
 msg_other: fires an annihilation bolt.
 desc:Fires a powerful magic missile that always hits its target
-desc: and does irresistible damage.
+desc: and does nether damage.
 
 
 ############### UNBELIEVER ###############

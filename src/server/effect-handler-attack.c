@@ -740,34 +740,8 @@ bool effect_handler_BALL(effect_handler_context_t *context)
             // Sorceror class BALLS
             else if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror"))
             {
-                // Tidal Wave spell
-                if (context->origin->player->spell_cost == 22)
-                {
-                    // initially it's bolt
-                    if (context->origin->player->lev < 45)
-                    {
-                        if (fire_bolt(context->origin, context->subtype, context->dir, dam, false))
-                        {
-                                context->ident = true;
-                                return true;
-                        }
-                    }
-                    // 45+ become ball
-                    else
-                    {
-                        rad = 1; // regular ball
-                        dam += 25;
-
-                        // become ball 2-rad ball
-                        if (context->origin->player->lev >= 50)
-                        {
-                            rad++;
-                            dam += 25;
-                        }
-                    }
-                }
                 // Mana Storm spell
-                else if (context->origin->player->spell_cost == 16)
+                if (context->origin->player->spell_cost == 16)
                 {
                     // initially it's bolt
                     if (context->origin->player->lev < 47)

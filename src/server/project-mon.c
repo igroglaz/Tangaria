@@ -709,24 +709,16 @@ static void project_monster_handler_NETHER(project_monster_handler_context_t *co
         context->dam *= 3;
         context->dam /= (randint1(6) + 6);
     }
-	// adding it in case if BR_NETHER made by not by player, but by monster AND it hit other monsters.
-	// eg ethereal drake breath at player, but also hit some surrounding monsters
-	// so.. if BR_NETHER was made by a monster - player will not exist in the structure (context->origin->player)
-	// which cause streq() crush, so we have to make the check:
-	else if (context->origin->player)
+	else if (monster_is_evil(context->mon))
     {
-        if (!streq(context->origin->player->clazz->name, "Necromancer"))
+        // evil monsters not resistant to Sorceror annih bolt
+        if (context->origin->player && streq(context->origin->player->clazz->name, "Sorceror"))
+            ;
+        else
         {
             context->dam /= 2;
             context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
         }
-    }
-	// next price is PWMA universal case.. without class check it works alright.
-	// but as we have class check above, we will use this case for monster vs monster attack:
-	else if (monster_is_evil(context->mon))
-    {
-        context->dam /= 2;
-        context->hurt_msg = MON_MSG_RESIST_SOMEWHAT;
     }
 }
 
