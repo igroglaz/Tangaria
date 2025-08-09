@@ -2894,7 +2894,7 @@ desc: At level 45, its radius becomes 2; at level 50, radius becomes 3.
 
 book:magic book:dungeon:[Wizard's Tome of Power]:7:arcane
 
-spell:Disruption Shield:38:70:95:100:0
+spell:Disruption Shield:38:70:90:100:0
 effect:TIMED_SET:MANASHIELD
 dice:30+1d$S
 expr:S:PLAYER_LEVEL:/ 2 + 5
@@ -2918,7 +2918,7 @@ desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
 desc: Cooldown 300 turns.
 
-spell:Mana Storm:45:16:50:200:0
+spell:Mana Storm:45:16:75:200:0
 # HC rad increase
 effect:BALL:MANA:1
 dice:$B
@@ -2928,7 +2928,7 @@ desc:Shoots a mana bolt that later turns into a powerful ball.
 desc:At level 47 it becomes a radius-2 ball, and at level 50 a radius-3 ball.
 desc:Deals almost irresistible damage to each monster in its area of effect.
 
-spell:Sea of Runes:47:60:60:40:0
+spell:Sea of Runes:47:60:70:40:0
 effect:SAFE_GUARD
 desc:Inscribes a circle of glyphs of warding around you.
 desc: Summoned monsters can't appear on the glyphs.
@@ -2945,14 +2945,14 @@ desc: breaking them or until you leave the level.
 #msg_other: invokes a tidal wave.
 #desc:Shoots a radius-3 water ball.
 
-spell:Anarchy Force:49:31:55:250:0
+spell:Anarchy Force:49:31:65:250:0
 effect:STAR_BALL:CHAOS:3
 dice:$B+m8
 expr:B:PLAYER_LEVEL:* 2 + 100
 msg_other: invokes a chaos storm.
 desc:Shoots a radius-3 chaos ball in all eight cardinal directions.
 
-spell:Annihilation Bolt:50:20:45:180:0
+spell:Annihilation Bolt:50:20:55:180:0
 effect:BOLT:MISSILE
 dice:500
 msg_other: fires an annihilation bolt.
