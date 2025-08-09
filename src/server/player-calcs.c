@@ -1342,9 +1342,9 @@ static void calc_hitpoints(struct player *p, struct player_state *state, bool up
 
     // don't give top casters so much HPs
     // (sorc, summ, necr, wiz p->clazz->c_mhp == 0)
-    if (bonus > 800 && (streq(p->clazz->name, "Sorceror") ||
+    if (bonus > 650 && (streq(p->clazz->name, "Sorceror") ||
         streq(p->clazz->name, "Wizard")))
-        bonus = 800;
+        bonus = 650;
 
     /* Calculate hitpoints */
     mhp = p->player_hp[p->lev - 1] + (bonus * p->lev / 100);
