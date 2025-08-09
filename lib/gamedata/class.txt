@@ -2951,7 +2951,7 @@ msg_other: invokes a chaos storm.
 desc:Shoots a radius-3 chaos ball in all eight cardinal directions.
 
 spell:Annihilation Bolt:50:20:60:180:0
-# evil not not resistant.. only undead
+# HCed: evil not not resistant.. only undead
 effect:BOLT:NETHER
 dice:500
 msg_other: fires an annihilation bolt.

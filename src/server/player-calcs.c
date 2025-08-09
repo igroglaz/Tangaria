@@ -3250,6 +3250,21 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (tool && tval_is_digger(tool))
         state->skills[SKILL_DIGGING] += (tool->weight / 10);
 
+    // Sorc AC must be limited
+    if (state->ac + state->to_a > 100 && streq(p->clazz->name, "Sorceror"))
+    {
+        int excess = (state->ac + state->to_a) - 100; // total AC above limit
+        int ac_to_remove = (excess < state->ac) ? excess : state->ac; // reduce AC first
+
+        state->ac -= ac_to_remove; // cut from base AC
+        excess -= ac_to_remove;    // remaining excess
+
+        if (excess > 0) {
+            state->to_a -= excess; // cut rest from AC bonus
+            if (state->to_a < 0) state->to_a = 0; // no negative bonus
+        }
+    }
+
     /* Movement speed */
     state->num_moves = extra_moves;
     if (update && (p->state.num_moves != state->num_moves))
