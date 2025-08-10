@@ -296,20 +296,23 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
             /* Redraw the "title" */
             player->upkeep->redraw |= (PR_TITLE);
 
+            // DO NOT make dump on win, it cause duplicate ladder
+            // entry on web-ladder when hero dies
+
             /* Congratulations */
-            msg(player, "*** CONGRATULATIONS ***");
-            msg(player, "You have won the game!");
-            msg(player, "You may retire when you are ready.");
+            // msg(player, "*** CONGRATULATIONS ***");
+            // msg(player, "You have won the game!");
+            // msg(player, "You may retire when you are ready.");
 
             /* Know inventory and home items upon victory */
-            death_knowledge(player);
+            // death_knowledge(player);
 
             /* Winner dump */
-            my_strcpy(player->death_info.died_from, WINNING_HOW, sizeof(player->death_info.died_from));
-            player_dump(player, true);
+            // my_strcpy(player->death_info.died_from, WINNING_HOW, sizeof(player->death_info.died_from));
+            // player_dump(player, true);
 
             /* Set his retire_timer if necessary */
-            if (cfg_retire_timer >= 0) player->retire_timer = cfg_retire_timer;
+            // if (cfg_retire_timer >= 0) player->retire_timer = cfg_retire_timer;
 
             /* Winners don't keep their true artifacts */
             while (obj)
@@ -344,10 +347,10 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
             set_redraw_inven(p, NULL);
 
             /* Hack -- instantly retire any new winners if necessary */
-            if (cfg_retire_timer == 0) do_cmd_retire(player);
-
+            // if (cfg_retire_timer == 0) do_cmd_retire(player);
             /* If not, generate the rewards for that player */
-            else winners++;
+            // else 
+            winners++;
         }
     }
 
