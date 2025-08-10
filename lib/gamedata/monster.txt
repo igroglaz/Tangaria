@@ -26045,6 +26045,8 @@ flags:PWMANG_BASE | PWMANG_FIXED
 flags:DROP_4 | DROP_GOOD | DROP_GREAT | ONLY_ITEM
 flags:IM_FIRE | IM_ACID | IM_ELEC
 flags:FORCE_DEPTH | ATTR_MULTI
+drop:potion:*Healing*:100:10:20
+drop:potion:*Restore Mana*:100:7:10
 spell-freq:2
 innate-freq:8
 spells:BA_MANA | BA_NETH
@@ -26219,6 +26221,7 @@ flags:KILL_WALL | KILL_BODY
 flags:IM_ACID | IM_ELEC | IM_NETHER
 flags:NO_FEAR
 flags:FORCE_DEPTH
+drop:potion:*Restore Mana*:100:7:10
 spell-freq:2
 spells:BLIND | WOUND | FORGET | HASTE | HEAL | MIND_BLAST
 spells:TELE_TO | TPORT | TRAPS
@@ -26254,6 +26257,7 @@ flags:KILL_WALL | KILL_BODY | KILL_ITEM
 flags:IM_WATER | IM_PLASMA | IM_NEXUS | NO_CONF | NO_SLEEP | NO_FEAR | NO_STUN
 flags:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | IM_NETHER | NO_HOLD
 flags:FORCE_DEPTH
+drop:potion:*Healing*:100:10:20
 spell-freq:2
 spells:BLIND | BRAIN_SMASH | WOUND | CONF | FORGET | HASTE | HEAL
 spells:HOLD | SLOW | TELE_TO | TPORT
@@ -27072,6 +27076,8 @@ flags:KILL_WALL | MOVE_BODY | ATTR_FLICKER
 flags:IM_ACID | IM_ELEC | NO_FEAR
 flags:IM_NETHER | IM_PLASMA | IM_DISEN
 flags:FORCE_DEPTH
+drop:potion:*Healing*:100:10:20
+drop:potion:*Restore Mana*:100:7:10
 drop:fortune cookie:Fortune Cookie:100:1:1
 spell-freq:4
 innate-freq:11
