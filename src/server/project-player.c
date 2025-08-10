@@ -386,11 +386,11 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
         if (resist >= 3)
         {
             if (type == PROJ_FIRE)
-                dam /= 20;
-            else if (type == PROJ_COLD)
-                dam /= 17;
-            else if (type == PROJ_POIS)
                 dam /= 15;
+            else if (type == PROJ_COLD)
+                dam /= 14;
+            else if (type == PROJ_POIS)
+                dam /= 13;
             else if (type == PROJ_ELEC)
                 dam /= 11;
             else if (type == PROJ_ACID)
