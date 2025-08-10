@@ -6608,6 +6608,7 @@ value:0:CHR[-2]
 # 2) on <30% HP got auto MANASHIELD
 player-flags:0:ZERO_FAIL | BEAM
 # 3) ESP_EVIL evolves with lvls (1->20)
+# (when comparing to Sorc: note that Sorc got +5 MANA, can use MD, got loads removal etc)
 obj-flag:0:ESP_EVIL
 obj-flag:0:CLUMSY
 title:Fizzlehead
