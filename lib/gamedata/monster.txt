@@ -25616,6 +25616,7 @@ flags:MOVE_BODY
 flags:IM_ELEC | NO_FEAR
 flags:FORCE_DEPTH
 drop:potion:Healing:100:20:40
+drop:potion:Restore Mana:100:15:20
 spell-freq:2
 spell-power:130
 spells:BRAIN_SMASH | WOUND | TELE_LEVEL | TPORT
@@ -25743,6 +25744,7 @@ flags:NO_CONF | NO_SLEEP | NO_HOLD
 flags:FORCE_DEPTH | FORCE_SLEEP
 flags:IM_NETHER | NO_STUN | IM_PLASMA | IM_DISEN | RES_MANA
 drop:potion:*Healing*:100:10:20
+drop:potion:*Restore Mana*:100:7:10
 spell-freq:3
 spells:BRAIN_SMASH
 spells:BA_MANA | BA_NETH
