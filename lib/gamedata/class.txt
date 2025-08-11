@@ -2586,8 +2586,9 @@ desc:Causes a radius 13 earthquake centered around the player.
 ############### SORCERER ###############
 name:Sorceror
 color:R
-skill-disarm-phys:35:9
-skill-disarm-magic:50:12
+# uses spell instead. logic: sorc is too lazy to do stuff 'by hands'
+skill-disarm-phys:10:6
+skill-disarm-magic:10:6
 skill-device:40:15
 skill-save:30:9
 skill-stealth:2:0
@@ -2722,8 +2723,8 @@ desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
 spell:Dig:10:7:34:8:0
-effect:LINE:KILL_WALL
 # regular damage, not vuln
+effect:LINE:KILL_WALL
 dice:$B
 expr:B:PLAYER_LEVEL:/ 10 * 50
 msg_other: makes a moving gesture.
@@ -2738,6 +2739,7 @@ dice:1
 desc:Reveals an unknown rune on an object.
 
 spell:Map Area:13:10:45:7:0
+# CD so player will use Find Traps, Doors & Stairs sometimes
 cooldown:120
 effect:MAP_AREA
 effect-yx:22:40
@@ -2773,13 +2775,18 @@ desc: Sometimes a beam is fired instead that hurts each monster
 desc: in its path.
 desc: The chance to get a beam goes up with your character level.
 
+# TODO: implement CD + mana restore after we will add CD ending indicator to UI
 spell:Meditation:20:5:30:15:0
+#cooldown:255
+#effect:RESTORE_MANA
+#dice:500
 effect:TIMED_SET:MEDITATE
 dice:$B+1d$S
 expr:B:PLAYER_LEVEL:+ 10
 expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Helps increasing your mana capacity at the cost of hit points
 desc: for a level-dependent duration.
+#desc: Cooldown 255 turns.
 
 spell:Stone Prison:20:15:44:30:0
 effect:CREATE_WALLS
@@ -2787,14 +2794,12 @@ desc:A wall is created on each empty floor space that is directly
 desc: adjacent to you.
 
 spell:Teleport Other:23:12:50:15:0
-cooldown:15
 effect:BOLT_STATUS:AWAY_ALL:1
 dice:$B
 expr:B:MAX_SIGHT:* 5
 msg_other: makes a rush gesture.
 desc:Produces a bolt that teleports the first monster in its path
 desc: up to 100 squares away.
-desc: Cooldown 15 turns.
 
 spell:Recharging:24:26:70:19:0
 effect:RECHARGE
@@ -2813,6 +2818,7 @@ expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Hastes you up to (+10 to speed) for a level-dependent duration.
 
 spell:Wipe:27:20:65:50:0
+# CD so player will use Teleport Other sometimes
 cooldown:30
 effect:WIPE_AREA:NONE:10
 msg_other: wrecks havoc.
@@ -2863,6 +2869,7 @@ desc:Grants you the ability to pass through non-permanent walls
 desc: for a level-dependent duration.
 
 spell:Destruction:33:21:80:80:0
+# CD so player will use Wipe sometimes
 cooldown:60
 effect:DESTRUCTION:LIGHT:15
 desc:Destroys everything in a 15-square radius circle around you.
@@ -2881,6 +2888,7 @@ expr:S:PLAYER_LEVEL:/ 2 + 5
 desc:Grants you the power of telepathy for a level-dependent duration.
 
 spell:Mass Banishment:35:75:90:100:0
+# CD so player will use Destruction sometimes
 cooldown:120
 effect:MASS_BANISH
 desc:Removes all monsters within 20 squares of you.
@@ -2916,11 +2924,9 @@ msg_other: sends forth a needle born of rain.
 desc:Unleashes a water-forged needle swift enough to pierce stone.
 
 spell:Clairvoyance:43:50:95:200:0
-cooldown:300
 effect:LIGHT_LEVEL
 desc:Lights up, maps out and senses all objects on the complete current
 desc: dungeon level.
-desc: Cooldown 300 turns.
 
 spell:Mana Storm:45:16:75:200:0
 # HC rad increase
@@ -8603,7 +8609,7 @@ equip:skillbook:[Mastery]:1:1:none
 # using dirty blows
 spell:Piercing Blows:1:1:1:1:0
 cooldown:2
-# Sweep hardcoded
+# Sweep -> critical hit hardcoded
 effect:SWEEP
 effect:TIMED_SET:PIERCING_STANCE
 dice:9999
@@ -8629,7 +8635,7 @@ desc: Cooldown 2 turns.
 
 spell:Crushing Blows:1:1:1:1:0
 cooldown:2
-# Sweep hardcoded
+# Sweep -> confuse hardcoded
 effect:SWEEP
 effect:TIMED_SET:CRUSHING_STANCE
 dice:9999
