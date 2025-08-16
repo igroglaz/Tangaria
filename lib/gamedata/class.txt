@@ -6025,10 +6025,10 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:12:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Defensive Telekinesis:1:0:5:1:0
+spell:Offensive Telekinesis:1:0:5:1:0
 effect:STRIKE:MISSILE:0
 dice:1d$D
-expr:D:PLAYER_LEVEL:/ 5 + 4
+expr:D:PLAYER_LEVEL:/ 5 + 5
 msg_other: flings a piece of rock.
 desc:Fires surrounding rubble or piece of rock to the target.
 desc: Target grid must be targetable and known to the player.
@@ -6041,25 +6041,27 @@ dice:20+1d20
 desc:Makes your melee attacks branded with fire and grants fire resistance.
 
 spell:Frozen Nova:10:3:5:3:0
-#hc dam 1d10 and rad 1-3
-cooldown:3
+#hc dam 1d7 and rad 1-3
+cooldown:30
 effect:BLAST:COLD:1
 dice:$B
-expr:B:PLAYER_LEVEL:+ 7
+expr:B:PLAYER_LEVEL:+ 15
 effect:TIMED_SET:OPP_COLD
 dice:20+1d20
 msg_other: blinks away.
 desc:Casts frozen nova around you and grants cold resistance.
-desc: Cooldown 3 turns.
+desc: Cooldown 30 turns.
 
-spell:Stoneskin I:15:5:5:20:0
+spell:Defensive Telekinesis:15:5:5:20:0
+cooldown:255
 effect:TIMED_SET:SHIELD
-dice:20+1d20
-effect:TIMED_SET:OPP_POIS
-dice:20+1d20
-effect:CURE:POISONED
-desc:Grants you AC based on your level, cure poison and you become
-desc: resistant to poison for 20+1d20 turns.
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+effect:TIMED_INC:REFLECTION
+dice:$B
+expr:B:PLAYER_LEVEL:/ 3
+desc:Use telekinetic force to block attacks and possibly reflect incoming projectiles.
+desc: Cooldown 255 turns.
 
 spell:Astral Scouting:20:1:5:7:0
 cooldown:10
@@ -6121,21 +6123,53 @@ msg_other: conjures a lightning Storm.
 desc:Congures a lightning Storm around you and whirl it toward target.
 desc: Cooldown 30 turns.
 
-spell:Stoneskin II:30:15:55:20:0
-effect:CLEAR_VALUE
+spell:Toxic Ray:30:15:5:5:0
+# HC dmg x1d7
+cooldown:30
+effect:BEAM:POIS
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_SET:OPP_POIS
-effect:TIMED_SET:OPP_COLD
-effect:TIMED_SET:OPP_FIRE
-effect:TIMED_SET:OPP_ELEC
-effect:TIMED_SET:OPP_ACID
-effect:TIMED_SET:SHIELD
-effect:SET_VALUE
 dice:20+1d20
 effect:CURE:POISONED
-desc:Grants resistance to acid, cold, fire, lightning and poison for
-desc: 20+1d20 turns; also grants bonus AC.
+desc:Directs a toxic ray at the target. Also cures poison and
+desc:grants poison resistance.
+desc: Cooldown 30 turns.
 
-spell:Black Hole:35:20:5:25:0
+spell:Teleport Other:33:12:60:12:0
+cooldown:30
+effect:BOLT_STATUS:AWAY_ALL:1
+dice:$B
+expr:B:MAX_SIGHT:* 5
+msg_other: makes a rush gesture.
+desc:Produces a bolt that teleports the first monster in its path
+desc: up to 100 squares away.
+desc: Cooldown 30 turns.
+
+spell:Battle Healing:35:25:25:4:0
+cooldown:10
+effect:CURE:CUT
+effect:CURE:STUN
+effect:HEAL_HP
+dice:$B+m$M
+expr:B:PLAYER_LEVEL:+ 10
+expr:M:PLAYER_LEVEL:/ 3 + 12
+desc:Cures a level-dependent percentage of your wounds and heals cuts and stunning.
+desc: Cooldown 10 turns.
+
+spell:Thunderclap:40:20:30:35:0
+cooldown:30
+effect:BLAST:ELEC:1
+dice:$B
+expr:B:PLAYER_LEVEL:* 2
+effect:BLAST:FORCE:1
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:Stomp floor with lightning power to push back surrounding enemies.
+desc: Cooldown 30 turns.
+
+spell:Black Hole:45:20:5:25:0
+cooldown:30
 effect:EARTHQUAKE:NONE:7
 effect:EARTHQUAKE:NONE:6
 effect:EARTHQUAKE:NONE:5
@@ -6151,33 +6185,6 @@ expr:D:PLAYER_LEVEL:+ 0
 msg_other: conjures a gravity black hole.
 desc:Produces a zone of huge gravity which invoke earthquake within
 desc: radius 8 and has a chance of teleporting monsters away.
-
-spell:Battle Healing:40:25:25:4:0
-cooldown:10
-effect:CURE:CUT
-effect:CURE:STUN
-effect:HEAL_HP
-dice:$B+m$M
-expr:B:PLAYER_LEVEL:+ 10
-expr:M:PLAYER_LEVEL:/ 3 + 12
-desc:Cures a level-dependent percentage of your wounds and heals cuts and stunning.
-desc: Cooldown 10 turns.
-
-spell:Toxic Ray:45:30:5:5:0
-effect:BEAM:POIS
-dice:$B
-expr:B:PLAYER_LEVEL:* 10
-desc:Directs a ray of radiation towards target.
-
-spell:Thunderclap:49:30:30:35:0
-cooldown:30
-effect:BLAST:ELEC:1
-dice:$B
-expr:B:PLAYER_LEVEL:* 2
-effect:BLAST:FORCE:1
-dice:$B
-expr:B:PLAYER_LEVEL:+ 0
-desc:Stomp floor with lightning power to push back surrounding enemies.
 desc: Cooldown 30 turns.
 
 spell:Battle Telekinesis:50:15:5:40:0

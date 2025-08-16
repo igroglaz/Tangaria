@@ -859,6 +859,18 @@ bool effect_handler_BEAM(effect_handler_context_t *context)
 {
     int dam = effect_calculate_value(context, true);
 
+    if (context->origin->player)
+    {
+        if (streq(context->origin->player->clazz->name, "Battlemage"))
+        {   
+            // Toxic Ray spell (mana 15)
+            if (context->origin->player->spell_cost == 15)
+            {
+                dam *= context->origin->player->lev / 7;
+            }
+        }
+    }
+
     fire_beam(context->origin, context->subtype, context->dir, dam, false);
     if (!context->origin->player->timed[TMD_BLIND] && !context->origin->player->timed[TMD_BLIND_REAL])
         context->ident = true;
@@ -896,11 +908,11 @@ bool effect_handler_BLAST(effect_handler_context_t *context)
     {
         if (streq(context->origin->player->clazz->name, "Battlemage"))
         {   
-            // Phase Nova spell (mana 2)
-            if (context->origin->player->spell_cost == 2)
+            // Frozen Nova spell (mana 3)
+            if (context->origin->player->spell_cost == 3)
             {
                 rad += context->origin->player->lev / 15;
-                dam *= context->origin->player->lev / 10;
+                dam *= context->origin->player->lev / 7;
             }
         }
         else if (streq(context->origin->player->clazz->name, "Sorceror"))
