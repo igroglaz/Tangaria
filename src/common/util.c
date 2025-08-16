@@ -1242,7 +1242,9 @@ void free_body(struct player *p)
             string_free(p->body.slots[i].name);
             p->body.slots[i].obj = NULL;
         }
-        mem_free(p->body.slots);
+        // temporary disable due crush
+        // https://github.com/draconisPW/PWMAngband/issues/678
+        // mem_free(p->body.slots);
         p->body.slots = NULL;
     }
     string_free(p->body.name);
