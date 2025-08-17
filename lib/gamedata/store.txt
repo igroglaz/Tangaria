@@ -52,10 +52,10 @@ welcome:8:nods to you.
 
 # General store
 store:STORE_GENERAL
-owner:5000:Yersh the Slender (Half-Orc)
-owner:10000:Yersh the Slender (Half-Orc)
-owner:20000:Yersh the Slender (Half-Orc)
-owner:30000:Yersh the Slender (Half-Orc)
+owner:15000:Yersh the Slender (Half-Orc)
+owner:15000:Yersh the Slender (Half-Orc)
+owner:15000:Yersh the Slender (Half-Orc)
+owner:15000:Yersh the Slender (Half-Orc)
 slots:2:4
 turnover:2
 welcome:0:grunts and doesn't look up.
@@ -99,10 +99,10 @@ buy:belt
 
 # Armoury
 store:STORE_ARMOR
-owner:5000:Dobrynya Dragon-Slayer (Dwarf)
-owner:10000:Dobrynya Dragon-Slayer (Dwarf)
-owner:25000:Dobrynya Dragon-Slayer (Dwarf)
-owner:30000:Dobrynya Dragon-Slayer (Dwarf)
+owner:15000:Dobrynya Dragon-Slayer (Dwarf)
+owner:15000:Dobrynya Dragon-Slayer (Dwarf)
+owner:15000:Dobrynya Dragon-Slayer (Dwarf)
+owner:15000:Dobrynya Dragon-Slayer (Dwarf)
 slots:6:18
 turnover:9
 welcome:0:grunts without looking up from his work.
@@ -144,10 +144,10 @@ buy:dragon armour
 
 # Weaponsmith
 store:STORE_WEAPON
-owner:5000:Muromets the Grim (Dunadan)
-owner:10000:Muromets the Grim (Dunadan)
-owner:25000:Muromets the Grim (Dunadan)
-owner:30000:Muromets the Grim (Dunadan)
+owner:15000:Muromets the Grim (Dunadan)
+owner:15000:Muromets the Grim (Dunadan)
+owner:15000:Muromets the Grim (Dunadan)
+owner:15000:Muromets the Grim (Dunadan)
 slots:3:14
 turnover:9
 welcome:0:barely glances at you and returns to sharpening a blade.
@@ -201,9 +201,9 @@ buy:mage staff
 # Temple
 store:STORE_TEMPLE
 owner:15000:Monomakh the Wise
-owner:20000:Monomakh the Wise
-owner:25000:Monomakh the Wise
-owner:30000:Monomakh the Wise
+owner:15000:Monomakh the Wise
+owner:15000:Monomakh the Wise
+owner:15000:Monomakh the Wise
 slots:6:15
 turnover:9
 welcome:0:barely acknowledges your presence.
@@ -247,8 +247,8 @@ buy-flag:BLESSED:polearm
 
 # Alchemist
 store:STORE_ALCHEMY
-owner:10000:Dmitri the Chaotic (Half-Elf)
-owner:10000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
+owner:15000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
 owner:15000:Dmitri the Chaotic (Half-Elf)
 slots:6:11
@@ -283,9 +283,9 @@ buy:potion
 # Magic-user's
 store:STORE_MAGIC
 owner:15000:Mikhaylo the Wizard
-owner:20000:Mikhaylo the Wizard
-owner:25000:Mikhaylo the Wizard
-owner:30000:Mikhaylo the Wizard
+owner:15000:Mikhaylo the Wizard
+owner:15000:Mikhaylo the Wizard
+owner:15000:Mikhaylo the Wizard
 slots:4:15
 turnover:9
 welcome:0:barely looks up from his spellbook.
@@ -332,9 +332,9 @@ buy:potion
 # Bookseller
 store:STORE_BOOK
 owner:15000:Senya the Short
-owner:20000:Senya the Short
-owner:25000:Senya the Short
-owner:30000:Senya the Short
+owner:15000:Senya the Short
+owner:15000:Senya the Short
+owner:15000:Senya the Short
 slots:0:2
 turnover:0
 welcome:0:glances up briefly and returns to sorting books.
@@ -1289,10 +1289,10 @@ buy:flask
 
 # Black Market - x3 price no stock given but we still need slot/turnover info
 store:STORE_BLACK
-owner:15000:Lo-Hak the Awful (Half-Troll)
-owner:20000:Histor the Goblin (Kobold)
+owner:25000:Lo-Hak the Awful (Half-Troll)
+owner:25000:Histor the Goblin (Kobold)
 owner:25000:Durwin the Shifty (Half-Orc)
-owner:30000:Drago the Fair (Elf)
+owner:25000:Drago the Fair (Elf)
 slots:6:18
 turnover:9
 welcome:0:glowers. "You got coin?"
@@ -1307,10 +1307,10 @@ welcome:8:smiles thinly. "Welcome back, %s. Let's not waste time."
 
 # Expensive Black Market x8 price - no stock given but we still need slot/turnover info
 store:STORE_XBM
-owner:15000:Eek the Yeek (Yeek)
-owner:20000:Zak the Kobold (Kobold)
+owner:25000:Eek the Yeek (Yeek)
+owner:25000:Zak the Kobold (Kobold)
 owner:25000:Fat-Pig the Snaga (Half-Orc)
-owner:30000:Lenny the Half-Witted (Human)
+owner:25000:Lenny the Half-Witted (Human)
 slots:8:16
 turnover:9
 welcome:0:spits on the floor.
