@@ -1042,6 +1042,33 @@ bool effect_handler_BOLT_RADIUS(effect_handler_context_t *context)
                         context->origin->player->csp -= context->origin->player->lev / 10;
             }
         }
+        else if (streq(context->origin->player->clazz->name, "Battlemage"))
+        {
+            // Offensive Telekinesis (mana 1)
+            if (context->origin->player->spell_cost == 1)
+            {
+                // damage
+                if (context->origin->player->lev >= 10)
+                {
+                    int dam_mult = context->origin->player->lev / 5;
+                    if (dam_mult > 7)
+                        dam_mult = 7;
+                    dam *= dam_mult;
+                }
+
+                // low lvl boost
+                if (context->origin->player->lev >= 5)
+                    dam += 5;
+
+                // spend additional mana
+                if (context->origin->player->lev > 20 &&
+                    context->origin->player->csp > context->origin->player->lev / 5)
+                        context->origin->player->csp -= context->origin->player->lev / 5;
+                else if (context->origin->player->lev > 9 &&
+                    context->origin->player->csp > context->origin->player->lev / 10)
+                        context->origin->player->csp -= context->origin->player->lev / 10;
+            }
+        }
     }
 
     // cap radius

@@ -6005,6 +6005,11 @@ value:0:WIS[0]
 value:0:DEX[0]
 value:0:CON[0]
 value:0:CHR[-1]
+value:50:RES_FIRE[1]
+value:50:RES_COLD[1]
+value:50:RES_ACID[1]
+value:50:RES_ELEC[1]
+value:50:DAM_RED[1]
 # especially good with 2H weapons ((p->lev / 10) + 5 blows)
 # ?to add can't wear shields?
 player-flags:0:ZERO_FAIL
@@ -6025,13 +6030,17 @@ magic:1:350:1
 book:magic book:town:[Magic for Beginners]:12:arcane
 equip:magic book:[Magic for Beginners]:1:1:none
 
-spell:Offensive Telekinesis:1:0:5:1:0
-effect:STRIKE:MISSILE:0
-dice:1d$D
-expr:D:PLAYER_LEVEL:/ 5 + 5
+spell:Offensive Telekinesis:1:1:5:1:0
+cooldown:7
+#hc 1d5 dmg (2x starts with lvl 10)
+effect:BOLT_RADIUS:MISSILE:5
+dice:$B
+expr:B:PLAYER_LEVEL:+ 5
 msg_other: flings a piece of rock.
 desc:Fires surrounding rubble or piece of rock to the target.
-desc: Target grid must be targetable and known to the player.
+desc: Damage is greatly increased every 5 levels (up to level 35).
+desc: At level 10+, each cast also consumes a small amount of extra mana.
+desc: Cooldown 7 turns.
 
 spell:Fiery Brand:5:2:5:1:0
 effect:TIMED_SET:ATT_FIRE:0:5
@@ -6050,16 +6059,17 @@ effect:TIMED_SET:OPP_COLD
 dice:20+1d20
 msg_other: blinks away.
 desc:Casts frozen nova around you and grants cold resistance.
+desc: Damage and radius scale with level.
 desc: Cooldown 30 turns.
 
 spell:Defensive Telekinesis:15:5:5:20:0
 cooldown:255
 effect:TIMED_SET:SHIELD
 dice:$B
-expr:B:PLAYER_LEVEL:/ 3
+expr:B:PLAYER_LEVEL:/ 2
 effect:TIMED_INC:REFLECTION
 dice:$B
-expr:B:PLAYER_LEVEL:/ 3
+expr:B:PLAYER_LEVEL:/ 2
 desc:Use telekinetic force to block attacks and possibly reflect incoming projectiles.
 desc: Cooldown 255 turns.
 
@@ -6113,7 +6123,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:STAR:ELEC
 dice:$B
-expr:B:PLAYER_LEVEL:+ 0
+expr:B:PLAYER_LEVEL:* 2
 effect:BREATH:ELEC:0:20
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
