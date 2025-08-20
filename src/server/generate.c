@@ -970,8 +970,25 @@ static bool arena_check(struct worldpos *wpos)
     dungeon = get_dungeon(&dpos);
 
     /* Some dungeons have a chance at generating arenas */
-    if (dungeon && wpos->depth && df_has(dungeon->flags, DF_EMPTY) && one_in_(15))
-        return true;
+    // ..there was df_has(dungeon->flags, DF_EMPTY) check which makes
+    // arenas not to appear in 99% cases
+    if (dungeon && wpos->depth)
+    {
+        int d = wpos->depth;
+        int chance; // percent chance based on depth
+
+        if (d >= 100)      chance = 3;
+        else if (d >= 70)  chance = 5;
+        else if (d >= 50)  chance = 10;
+        else if (d >= 40)  chance = 15;
+        else if (d >= 30)  chance = 20;
+        else if (d >= 20)  chance = 25;
+        else if (d >= 10)  chance = 30;
+        else               chance = 50; // depth 1..9
+
+        if ((RNG % 100) < chance)
+            return true;
+    }
 
     return false;
 }
