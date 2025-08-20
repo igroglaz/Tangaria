@@ -243,7 +243,7 @@ armor:0:0
 flags:SEE_INVIS | NO_FUEL
 values:LIGHT[4]
 act:MAPPING
-time:50+d50
+time:200+d50
 desc:The shining Star of the North, a treasured heirloom of Elendil's house.
 
 name:of Thrain
@@ -257,7 +257,7 @@ armor:0:0
 flags:SEE_INVIS | HOLD_LIFE | NO_FUEL
 values:LIGHT[4] | RES_LIGHT[1] | RES_DARK[1]
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 desc:A great globe seemingly filled with moonlight, the famed Heart of the
 desc: Mountain. It splinters the light that falls upon it into ten thousand
 desc: sparks of white radiance shot with glints of the rainbow.
@@ -274,7 +274,7 @@ values:INT[2] | WIS[2] | INFRA[3] |  SEARCH[3] | LIGHT[4]
 flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND | PROT_STUN |
 #
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 msg:The palantir clouds, then clears...
 desc:A great globe with a heart of fire, the Palantir provides the wearer with
 desc: sight of far places - at a cost...
@@ -1085,7 +1085,7 @@ flags:SEE_INVIS | ESP_EVIL
 values:INT[4] | WIS[4] | LIGHT[1] | RES_LIGHT[1]
 slay:EVIL_2
 act:DETECT_TREASURE
-time:50+d50
+time:100+d50
 desc:The radiant golden staff of an Istar of legend, this wizard's companion
 desc: grants keen sight and clear knowledge of many hidden things.
 
@@ -2139,7 +2139,7 @@ attack:1d1:5:5
 armor:4:30
 values:STR[3] | INFRA[3] | SEARCH[3] | TUNNEL[3]
 act:MAPPING
-time:50+d50
+time:200+d50
 desc:A set of iron-shod boots stamped by Gimli's combat prowess, a peerless
 desc: ally to those journeying through halls of stone under mountains.
 
@@ -3230,7 +3230,7 @@ flags:HOLD_LIFE | ESP_EVIL | SUST_STR | SUST_CON | LIMITED_TELE
 values:STR[2] | CON[2] | BLOWS[1]
 values:RES_COLD[1] | RES_ACID[1] | RES_DARK[1] | RES_CHAOS[1] | RES_NETHER[1]
 act:DETECT_TREASURE
-time:50+d50
+time:100+d50
 msg:{name} flashs with a blue sparkle...
 desc:The greatest of the Seven Rings of the Dwarf-lords, and the last to be
 desc:lost. Alone among the Seven, it was not taken by Sauron when he made
@@ -3333,7 +3333,7 @@ flags:KNOWLEDGE | PROT_BLIND | AGGRAVATE | STICKY
 values:INT[2] | WIS[2] | SEARCH[3] | INFRA[3] | LIGHT[2] | SPEED[3] |
 values:RES_FIRE[3] | CHR[5]
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 desc:A red jewel, one of the two Silmarils that were reclaimed by the last sons
 desc: of Feanor after the War of Wrath. If the Silmaril taken by Maedhros was
 desc: lost forever into a fiery pit, this Silmaril, once held by Maglor and
@@ -3876,7 +3876,7 @@ armor:0:0
 flags:SEE_INVIS | NO_FUEL
 values:LIGHT[3] | CHR[1]
 act:MAPPING
-time:40+d40
+time:200+d40
 msg:The pearl shines brightly...
 desc:The greatest pearl from the Bay of Balar, its sheen was as starlight on the
 desc: foam of the sea.  It was given to the chieftain of the Dwarves of Belegost
@@ -3929,7 +3929,7 @@ flags:NO_FUEL | SEE_INVIS | ESP_ALL | PROT_BLIND |
 curse:siren:100
 #
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 msg:The palantir clouds, then clears...
 desc:A shining white ball of unbreakable crystal, the ancient Palantiri
 desc: were used by kings of Numenor and later by the Exiles for rapid
@@ -3953,7 +3953,7 @@ flags:STICKY
 curse:undead summon:30
 curse:nazgul:100
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 msg:The palantir clouds, then clears...
 desc:A shining white ball of unbreakable crystal, the ancient Palantiri
 desc: were used by kings of Numenor and later by the Exiles for rapid
@@ -3976,7 +3976,7 @@ curse:hallucination:100
 curse:siren:30
 #
 act:CLAIRVOYANCE
-time:50+d50
+time:300+d50
 msg:The palantir clouds, then clears...
 desc:A shining white ball of unbreakable crystal, the ancient Palantiri
 desc: were used by kings of Numenor and later by the Exiles for rapid

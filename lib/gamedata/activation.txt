@@ -195,7 +195,7 @@ desc:raises your constitution at the expense of a random attribute
 name:CLAIRVOYANCE
 aim:0
 level:50
-power:32
+power:33
 effect:LIGHT_LEVEL
 msg:The {kind} form{s} an image in your mind...
 desc:completely lights up and magically maps the current level, sensing all
@@ -810,7 +810,7 @@ dice:1d3
 name:ENLIGHTENMENT
 aim:0
 level:60
-power:32
+power:33
 effect:LIGHT_LEVEL:NONE:1
 
 name:FIRE_BALL72
@@ -1262,7 +1262,7 @@ desc:grants temporary resistance to electricity. Stack duration with other effec
 name:GLYPH
 aim:0
 level:70
-power:20
+power:30
 effect:GLYPH:WARDING
 
 name:SATISFY
@@ -1554,7 +1554,7 @@ msg:The {kind} well{s} with clear bright light...
 name:STONE_OF_LORE
 aim:0
 level:100
-power:32
+power:33
 effect:MAP_AREA
 effect-yx:22:40
 effect:STAR_BALL:LIGHT_WEAK:3
