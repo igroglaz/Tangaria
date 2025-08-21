@@ -4093,12 +4093,15 @@ effect:HEAL_HP
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
+desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
+desc: of cuts and stunning.
+
+spell:Heal Other:5:3:27:4:0
 effect:BOLT_STATUS:MON_HEAL
 dice:$B+m$M
 expr:B:PLAYER_LEVEL:+ 10
 expr:M:PLAYER_LEVEL:/ 3 + 12
-desc:Cures a level-dependent percentage of your wounds and heals 20 points worth
-desc: of cuts and stunning.
+desc:Cures a level-dependent amount of damage points.
 desc: When you cast it, choose a target:
 desc: m1e(t to cast on another
 desc: m1e(5 to cast on yourself

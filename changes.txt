@@ -19,8 +19,20 @@ PWMAngband Forum: http://www.mangband.org/forum/viewforum.php?f=9
 Features from Angband 4.x and MAngband 1.x are explicitely mentioned. Other
 changes and fixes are specific to PWMAngband.
 
-New features in PWMAngband 1.6.2 build 2
+New features in PWMAngband 1.6.2 build 3
 ========================================
+
+Gameplay changes
+----------------
+
+PWMAngband:
+
+- Drastically increase the lifespan of controlled monsters
+- Split summoner's Minor Healing spell into Minor Healing (for self + party
+  members -- similar to priest/paladin) and Heal Other (for controlled monsters)
+
+Features in PWMAngband 1.6.2 build 2
+====================================
 
 User interface
 --------------
