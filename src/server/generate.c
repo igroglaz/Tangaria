@@ -970,23 +970,34 @@ static bool arena_check(struct worldpos *wpos)
     dungeon = get_dungeon(&dpos);
 
     /* Some dungeons have a chance at generating arenas */
-    // ..there was df_has(dungeon->flags, DF_EMPTY) check which makes
-    // arenas not to appear in 99% cases
     if (dungeon && wpos->depth)
     {
-        int d = wpos->depth;
-        int chance; // percent chance based on depth
+        // special chances
+        if ((wpos->grid.x == -6 && wpos->grid.y == 0) || // deeptown
+            (wpos->grid.x == 0 && wpos->grid.y == 6)  || // zeitnot
+            (wpos->grid.x == 0 && wpos->grid.y == -6))   // ironman
+        {
+            int d = wpos->depth;
+            int chance; // percent chance based on depth
 
-        if (d >= 100)      chance = 3;
-        else if (d >= 70)  chance = 5;
-        else if (d >= 50)  chance = 10;
-        else if (d >= 40)  chance = 15;
-        else if (d >= 30)  chance = 20;
-        else if (d >= 20)  chance = 25;
-        else if (d >= 10)  chance = 30;
-        else               chance = 50; // depth 1..9
+            if (d >= 124)      chance = 1;   // endgame bosses
+            else if (d >= 120) chance = 3;
+            else if (d >  100) chance = 5;
+            else if (d == 100) chance = 1;   // morgy
+            else if (d >= 90)  chance = 10;  // 1%
+            else if (d >= 70)  chance = 30;
+            else if (d >= 50)  chance = 50;
+            else if (d >= 40)  chance = 100;
+            else if (d >= 30)  chance = 150;
+            else if (d >= 20)  chance = 200;
+            else if (d >= 10)  chance = 250;
+            else               chance = 500; // 50% depth 1..9
 
-        if ((RNG % 100) < chance)
+            if ((RNG % 1000) < chance)
+                return true;
+        }
+        // all other dungeons
+        else if (df_has(dungeon->flags, DF_EMPTY)) // arena lvl flag
             return true;
     }
 
