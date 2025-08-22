@@ -6913,6 +6913,7 @@ value:0:CHR[1d10]
 #/// + CHR give big boni to reduce fail chance for spellcasting
 #/// (also CHR is his main stat - mana amount depends on it (HCed)).
 #/// + don't loose gold on 2nd chance.
+#/// + 49+ lvl get town +20 CHR boni (so no CHR item set needed for selling)
 # maybe add skills:
 # Haggle or Golden Tongue - gives discount when buying items
 # Coin Call - Summons nearby loose coins and currency directly to the caster's hand.
@@ -7098,6 +7099,7 @@ dice:$B
 expr:B:PLAYER_LEVEL:/ 2
 desc:You put on your most persuasive smile, trying to charm
 desc: others into accepting your deals at unbeatable prices.
+desc: At the same time, you feel generally better and more confident.
 desc: Cooldown 255 turns.
 
 

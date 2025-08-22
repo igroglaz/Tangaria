@@ -2544,6 +2544,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         {
             state->stat_add[STAT_INT] += 2;
             state->stat_add[STAT_WIS] += 2;
+            state->stat_add[STAT_CON] += 2;
             state->stat_add[STAT_CHR] += 10;
             // no need to care about overflow as we have modify_stat_value() later
         }
@@ -2556,6 +2557,13 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->stat_add[STAT_CON] += 3;
             state->stat_add[STAT_CHR] -= 1;
         }
+    }
+
+    // Trader 49-50 lvl on surface got top CHR (so he won't need CHR item set hassle)
+    if (p->lev >= 49 && p->wpos.depth == 0 && streq(p->clazz->name, "Trader"))
+    {
+        state->stat_add[STAT_CHR] += 20;
+        // no need to care about overflow as we have modify_stat_value() later
     }
 
     /* Calculate the various stat values */
