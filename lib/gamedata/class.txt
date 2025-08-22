@@ -7091,14 +7091,13 @@ effect-yx:22:40
 desc:Merchants with keen senses and this spell can feel the pull of treasures
 desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
-spell:Best Deal:50:100:1:200:0
+spell:Best Deal:50:50:1:200:0
 cooldown:255
-effect:ACQUIRE
-dice:1
-effect:TIMED_INC:OCCUPIED
-dice:7+1d7
-desc:The ultimate gambit for a merchant. By invoking this, they plunge
-desc: into peril, hoping to strike a deal of legendary value.
+effect:TIMED_SET:GROWTH
+dice:$B
+expr:B:PLAYER_LEVEL:/ 2
+desc:You put on your most persuasive smile, trying to charm
+desc: others into accepting your deals at unbeatable prices.
 desc: Cooldown 255 turns.
 
 

@@ -2539,12 +2539,23 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     /* Extra growth */
     if (p->timed[TMD_GROWTH])
     {
-        state->stat_add[STAT_STR] += 3;
-        state->stat_add[STAT_INT] += 3;
-        state->stat_add[STAT_WIS] += 3;
-        state->stat_add[STAT_DEX] += 3;
-        state->stat_add[STAT_CON] += 3;
-        state->stat_add[STAT_CHR] -= 1;
+        // Trader's Best Deal skill
+        if (streq(p->clazz->name, "Trader"))
+        {
+            state->stat_add[STAT_INT] += 2;
+            state->stat_add[STAT_WIS] += 2;
+            state->stat_add[STAT_CHR] += 10;
+            // no need to care about overflow as we have modify_stat_value() later
+        }
+        else
+        {
+            state->stat_add[STAT_STR] += 3;
+            state->stat_add[STAT_INT] += 3;
+            state->stat_add[STAT_WIS] += 3;
+            state->stat_add[STAT_DEX] += 3;
+            state->stat_add[STAT_CON] += 3;
+            state->stat_add[STAT_CHR] -= 1;
+        }
     }
 
     /* Calculate the various stat values */
