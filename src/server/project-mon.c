@@ -2381,7 +2381,10 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
         /* Villagers have a permanent pet */
         if (!player_has(p, PF_SUMMON_PERMA))
         {
-            mon->lifespan = mon->level * 2 + 25 + randint1(25);
+            if (mon->level > 1) // regular case
+                mon->lifespan = mon->level + 5 + randint1(5);
+            else // lvl 1 monsters (player constant pets)
+                mon->lifespan = mon->level * 2 + 25 + randint1(25);
 
             // Trader boni
             if (streq(p->clazz->name, "Trader"))
