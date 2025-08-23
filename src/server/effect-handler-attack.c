@@ -2768,7 +2768,7 @@ bool effect_handler_SWEEP(effect_handler_context_t *context)
     {
         // check cooldown
         if (p->y_cooldown) {
-            return;
+            return false;
         }
 
         p->y_cooldown = 7;
@@ -2777,7 +2777,7 @@ bool effect_handler_SWEEP(effect_handler_context_t *context)
         {
             player_inc_timed(p, TMD_DEADLY, 2, false, false);
             p->y_cooldown += 14;
-            return;
+            return true;
         }
         else if (p->timed[TMD_CUTTING_STANCE])
         {
@@ -2787,7 +2787,7 @@ bool effect_handler_SWEEP(effect_handler_context_t *context)
         else if (p->timed[TMD_CRUSHING_STANCE])
         {
             player_inc_timed(p, TMD_ATT_CONF, 2, false, false);
-            return;
+            return true;
         }
     }
 
