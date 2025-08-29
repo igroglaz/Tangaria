@@ -1494,7 +1494,10 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 if (p->lives <= 0 && !OPT(p, birth_hardcore))
                     p->lives++;
 
-                if (p->account_score > 100 && !OPT(p, birth_hardcore))
+                // 1st Morgoth kill == 100 account points! (can build 4 tile house)
+                if (p->account_score < 100)
+                    p->account_score = 100;
+                else if (p->account_score > 100 && !OPT(p, birth_hardcore))
                     p->account_score += 3;
                 else
                     p->account_score += 10;
@@ -1584,7 +1587,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 25)
                 {
-                    if (one_in_(4))
+                    if (one_in_(2))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1595,7 +1598,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 40)
                 {
-                    if (one_in_(5))
+                    if (one_in_(3))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1606,7 +1609,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 60)
                 {
-                    if (one_in_(6))
+                    if (one_in_(4))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1617,7 +1620,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 80)
                 {
-                    if (one_in_(7))
+                    if (one_in_(5))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1628,7 +1631,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 100)
                 {
-                    if (one_in_(8))
+                    if (one_in_(6))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1639,7 +1642,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 150)
                 {
-                    if (one_in_(9))
+                    if (one_in_(7))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1650,7 +1653,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 200)
                 {
-                    if (mon->level > 10 && one_in_(chance))
+                    if (mon->level > 35 && one_in_(8))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1661,7 +1664,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 300)
                 {
-                    if (mon->level > 20 && one_in_(chance))
+                    if (mon->level > 35 && one_in_(9))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1672,7 +1675,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 500)
                 {
-                    if (mon->level > 30 && one_in_(chance))
+                    if (mon->level > 35 && one_in_(10))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1683,7 +1686,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                 }
                 else if (p->account_score < 999)
                 {
-                    if (mon->level > 40 && one_in_(chance))
+                    if (mon->level > 35 && one_in_(11))
                     {
                         p->account_score++;
                         if (p->account_score % 5 == 0)
@@ -1692,7 +1695,7 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                             msgt(p, MSG_FANFARE, "You've earned an account point! You have %lu points.", p->account_score);
                     }
                 }
-                else if (mon->level > 45)
+                else
                 {
                     if (one_in_(chance))
                     {
