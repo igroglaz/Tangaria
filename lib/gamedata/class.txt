@@ -6052,7 +6052,7 @@ desc:Makes your melee attacks branded with fire and grants fire resistance.
 
 spell:Frozen Nova:10:3:5:3:0
 #hc dam 1d7 and rad 1-3
-cooldown:30
+cooldown:15
 effect:BLAST:COLD:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 15
@@ -6061,16 +6061,16 @@ dice:20+1d20
 msg_other: blinks away.
 desc:Casts frozen nova around you and grants cold resistance.
 desc: Damage and radius scale with level.
-desc: Cooldown 30 turns.
+desc: Cooldown 15 turns.
 
 spell:Defensive Telekinesis:15:5:5:20:0
 cooldown:255
 effect:TIMED_SET:SHIELD
 dice:$B
-expr:B:PLAYER_LEVEL:/ 2
+expr:B:PLAYER_LEVEL:+ 0
 effect:TIMED_INC:REFLECTION
 dice:$B
-expr:B:PLAYER_LEVEL:/ 2
+expr:B:PLAYER_LEVEL:+ 0
 desc:Use telekinetic force to block attacks and possibly reflect incoming projectiles.
 desc: Cooldown 255 turns.
 
@@ -6118,13 +6118,13 @@ desc: If you visit a room, it will be lit up.
 desc: Cooldown 10 turns.
 
 spell:Lightning Storm:25:10:5:15:0
-cooldown:30
+cooldown:11
 effect:BLAST:ELEC:10
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 effect:STAR:ELEC
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 3
 effect:BREATH:ELEC:0:20
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6132,11 +6132,11 @@ effect:TIMED_SET:OPP_ELEC
 dice:20+1d20
 msg_other: conjures a lightning Storm.
 desc:Congures a lightning Storm around you and whirl it toward target.
-desc: Cooldown 30 turns.
+desc: Cooldown 11 turns.
 
 spell:Toxic Ray:30:15:5:5:0
 # HC dmg x1d7
-cooldown:30
+cooldown:7
 effect:BEAM:POIS
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6145,7 +6145,7 @@ dice:20+1d20
 effect:CURE:POISONED
 desc:Directs a toxic ray at the target. Also cures poison and
 desc:grants poison resistance.
-desc: Cooldown 30 turns.
+desc: Cooldown 7 turns.
 
 spell:Teleport Other:33:12:60:12:0
 cooldown:30
@@ -6172,7 +6172,7 @@ spell:Thunderclap:40:20:30:35:0
 cooldown:30
 effect:BLAST:ELEC:1
 dice:$B
-expr:B:PLAYER_LEVEL:* 2
+expr:B:PLAYER_LEVEL:* 10
 effect:BLAST:FORCE:1
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
@@ -6202,14 +6202,14 @@ spell:Battle Telekinesis:50:15:5:40:0
 # lowcost
 effect:LINE:KILL_WALL
 dice:20+1d30
-effect:BOLT:MISSILE
+effect:BOLT:SHARD
 dice:$B
 expr:B:PLAYER_LEVEL:* 4
-effect:BOLT:SHARD
+effect:BOLT:FORCE
 dice:$B
 expr:B:PLAYER_LEVEL:+ 0
 msg_other: flings a sharp piece of rock.
-desc:Almost effortlessly hurls a sharp piece of rock into the target.
+desc:Almost effortlessly hurls huge objects at the target, pushing them back.
 desc: Also this spell excellent on tunneling walls.
 
 
