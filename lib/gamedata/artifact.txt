@@ -2929,8 +2929,9 @@ weight:25
 alloc:5:10 to 100
 attack:1d1:-12:-12
 armor:3:0
-flags:FREE_ACT | AGGRAVATE | SLOW_DIGEST_2
+flags:FREE_ACT | SLOW_DIGEST | SLOW_DIGEST_2
 values:STR[-3] | DEX[-3] | RES_FIRE[1] | RES_DISEN[1] | SPEED[3]
+curse:nazgul:100
 desc:A pair of weakening gauntlets, named after Beren, who returned to Thingol
 desc: having lost to Carcharoth the hand that clasped a Silmaril.
 
