@@ -2982,6 +2982,7 @@ base-object:gloves:Set of Caestus
 level:40
 weight:40
 alloc:0:40 to 127
+# enough to give malus to shooting
 attack:1d1:-50:-50
 armor:5:30
 flags:AFRAID | SEE_INVIS | REGEN | FREE_ACT | ESP_ALL | PROT_BLIND |
@@ -2989,7 +2990,9 @@ flags:SUST_STR | SUST_INT | SUST_WIS | SUST_DEX | SUST_CON |
 flags:FEATHER | HOLD_LIFE
 values:SEARCH[3] | INFRA[3] | STEALTH[3] | LIGHT[1] |
 values:RES_FIRE[1] | RES_COLD[1] | RES_ELEC[1] | RES_ACID[1] |
-values:RES_POIS[1] | RES_DISEN[1] | RES_NETHER[1] | RES_CHAOS[1]
+values:RES_POIS[1] | RES_DISEN[1] | RES_NETHER[1] | RES_CHAOS[1] |
+# as AFRAID doesn't prevent casting (only ^fail chance), some nerf:
+values:WIS[-5] | INT[-5]
 desc:When danger reared its ugly head, he bravely turned his tail and fled...
 
 name:of the Warlock
