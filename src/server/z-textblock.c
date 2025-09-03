@@ -109,7 +109,7 @@ static void text_out_aux(struct player *p, uint8_t a, const char *str)
             /* If we are at the start of a new line */
             if (p->info_grid.x == 0) len = n;
 
-            /* Hack -- output punctuation at the end of the line */
+            /* Output punctuation at the end of the line */
             else if ((s[0] == ' ') || (s[0] == ',') || (s[0] == '.')) len = 1;
 
             else

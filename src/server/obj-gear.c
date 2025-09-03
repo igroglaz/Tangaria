@@ -344,6 +344,9 @@ bool minus_ac(struct player *p)
 
 /*
  * Remove an object from the gear list, leaving it unattached
+ *
+ * p the player to affect
+ * obj the object to remove
  */
 void gear_excise_object(struct player *p, struct object *obj)
 {

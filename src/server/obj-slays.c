@@ -169,7 +169,10 @@ bool copy_brands(bool **dest, bool *source)
 
 
 /*
- * Count a set of brands
+ * Return the number of brands present
+ *
+ * brands_on is an array of z_info->brand_max booleans indicating
+ * whether each brand is present
  */
 int brand_count(const bool *brands_on)
 {
@@ -186,7 +189,10 @@ int brand_count(const bool *brands_on)
 
 
 /*
- * Count a set of slays
+ * Return the number of slays present
+ *
+ * slays_on is an array of z_info->slay_max booleans indicating whether
+ * each slay is present
  */
 int slay_count(const bool *slays_on)
 {

@@ -1872,10 +1872,10 @@ struct object *square_known_pile(struct player *p, struct chunk *c, struct loc *
 
 
 /*
- * Return how many cardinal directions around (x, y) contain (real) walls.
+ * Return how many cardinal directions around a grid contain walls.
  *
  * c current chunk
- * y, x co-ordinates
+ * grid is the location in c to examine
  *
  * Returns the number of walls
  */

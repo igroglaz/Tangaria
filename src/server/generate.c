@@ -1263,6 +1263,8 @@ bool allow_location(struct monster_race *race, struct worldpos *wpos)
  *
  * p is the current player struct
  * wpos is the location where we're trying to generate a level
+ * height is the minimum height, in grids, for the level
+ * width is the minimum width, in grids, for the level
  *
  * Return a pointer to the new level
  */

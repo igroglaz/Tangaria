@@ -73,7 +73,7 @@
  * Check whether a square has one of the tunnelling helper flags
  *
  * c is the current chunk
- * (y, x) are the co-ordinates
+ * grid is the coordinates of the point to check
  * flag is the relevant flag
  */
 static bool square_is_granite_with_flag(struct chunk *c, struct loc *grid, int flag)
@@ -415,7 +415,7 @@ static void pierce_outer_wall(struct chunk *c, struct loc *grid)
  * door_flag At entry, *door_flag is the current setting for whether a
  * door can be added. At exit, *door_flag is the setting for whether a door
  * can be added in the next iteration of tunnel building.
- * bend_invl At entry, *bend_intvl is the current setting for the number
+ * bend_intvl At entry, *bend_intvl is the current setting for the number
  * of tunnel iterations to wait before applying a bend. At exit, *bend_intvl
  * is what that interval should be for the next iteration of tunnel building.
  */
@@ -1046,7 +1046,7 @@ static void build_tunnel(struct chunk *c, struct loc *first, struct loc *second)
  * in rooms.
  *
  * c is the current chunk
- * grid1 is the location
+ * grid1 is the coordinates of the grid of interest
  *
  * TODO: count stairs, open doors, closed doors?
  */
@@ -1077,7 +1077,7 @@ static int next_to_corr(struct chunk *c, struct loc *grid1)
  * Returns whether a doorway can be built in a space.
  *
  * c is the current chunk
- * grid is the location
+ * grid is the coordinates of the point to check
  *
  * To have a doorway, a space must be adjacent to at least two corridors and be
  * between two walls.
@@ -1146,10 +1146,10 @@ static bool possible_wide_doorway(struct chunk *c, struct loc *grid, struct loc 
 
 
 /*
- * Places door or trap at y, x position if at least 2 walls found
+ * Places door or trap at a position if at least 2 walls found
  *
  * c is the current chunk
- * grid is the location
+ * grid is the location to potentially place the door or trap
  */
 static void try_door(struct chunk *c, struct loc *grid)
 {
@@ -2846,7 +2846,7 @@ static void array_filler(int *data, int value, int size)
  *
  * c is the current chunk
  * colors is the array of current point colors
- * grid is the location
+ * grid is the coordinates of the point of interest
  */
 static int ignore_point(struct chunk *c, int *colors, struct loc *grid)
 {
@@ -3174,7 +3174,7 @@ static void join_region(struct chunk *c, int *colors, int *counts, int color, in
  * c is the current chunk
  * colors is the array of current point colors
  * counts is the array of current color counts
- * allow_vault_disconnect If true, allows vaults to be included in
+ * allow_vault_disconnect will, if true, allow vaults to be included in
  * path planning which can leave regions disconnected.
  */
 static void join_regions(struct chunk *c, int *colors, int *counts, bool allow_vault_disconnect)
@@ -3202,6 +3202,8 @@ static void join_regions(struct chunk *c, int *colors, int *counts, bool allow_v
  * Make sure that all the regions of the dungeon are connected.
  *
  * c is the current chunk
+ * allow_vault_disconnect will, if true, allow vaults to be included in
+ * path planning which can leave regions disconnected
  *
  * This function colors each connected region of the dungeon, then uses that
  * information to join them into one connected region.
@@ -3491,7 +3493,9 @@ static bool lot_has_shop(struct chunk *c, struct loc *xroads, struct loc *lot,
  * c is the current chunk
  * n is which shop it is
  * xroads is the location of the town crossroads
- * lot the location of this store in the town layout
+ * lot the upper left corner of this store in the town layout
+ * lot_wid is the width, in grids, for the store
+ * lot_hgt is the height, in grids, for the store
  */
 static void build_store(struct chunk *c, int n, struct loc *xroads, struct loc *lot,
     int lot_wid, int lot_hgt, int town_wid, int town_hgt)
@@ -6490,6 +6494,8 @@ struct chunk *mang_town_gen(struct player *p, struct worldpos *wpos, int min_hei
  *
  * p is the player
  * wpos is the position on the world map
+ * min_height is the minimum expected height, in grids, for the level
+ * min_width is the minimum expected width, in grids, for the level
  */
 struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height, int min_width,
     const char **p_error)

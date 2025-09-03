@@ -398,10 +398,11 @@ static bool square_suits_stairs(struct chunk *c, struct loc *grid, int walls, in
 
 
 /*
- * Determine whether the given coordinate is a valid starting location.
+ * Locate a valid starting point for the player in a chunk
  *
- * c current chunk
- * grid found grid
+ * c is the chunk of interest
+ * grid is, when the search is successful, dereferenced and set to the
+ * coordinates of the starting location
  *
  * Returns success
  */

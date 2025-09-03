@@ -171,11 +171,18 @@ int code_index_in_array(const char *code_name[], const char *code)
 /*
  * Gets a name and argument for a value expression of the form NAME[arg]
  *
- * name_and_value is the expression
- * string is the random value string to return (NULL if not required)
- * nstring is the maximum number of bytes to write to string; not used
- * if string is NULL
- * num is the integer to return (NULL if not required)
+ * value_name points to the expression to parse; on return it will be
+ * modified to replace the opening bracket with a null character.
+ * string will, if not NULL, receive the contents of what appears
+ * between the brackets.
+ * nstring is the maximum number of bytes to write to string. It is
+ * not used when string is NULL.
+ * num is dereferenced and set to integer parsed from between the
+ * brackets. num may be NULL. num is not used when string is not NULL.
+ *
+ * Return true if the expression was successfully parsed. Otherwise, return
+ * false. Note that if string and num are NULL, the expression will never be
+ * successfully parsed.
  */
 static bool find_value_arg(char *value_name, char *string, size_t nstring, int *num)
 {

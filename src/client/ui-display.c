@@ -816,7 +816,7 @@ static void update_messages_subwindow(game_event_type type, game_event_data *dat
         else if (count == 0) msg = " ";
         else msg = format("%s <%dx>", str, count);
 
-        /* Hack -- re-color message from string template */
+        /* Re-color message from string template */
         message_color_hack(msg, &color);
 
 #if defined(USE_GCU) || defined(USE_SDL) || defined(USE_SDL2)
@@ -927,7 +927,7 @@ static void update_message_chat_subwindow(game_event_type type, game_event_data 
         if (count <= 1) msg = str;
         else msg = format("%s <%dx>", str, count);
 
-        /* Hack -- re-color message from string template */
+        /* Re-color message from string template */
         message_color_hack(msg, &color);
 
         /* Filters */
@@ -943,13 +943,13 @@ static void update_message_chat_subwindow(game_event_type type, game_event_data 
         }
         else if (type == MSG_TALK)
         {
-            /* Hack -- "&say" */
+            /* "&say" */
             tab = find_whisper_tab("&say", text, sizeof(text));
             if (!tab || tab != view_channel) continue;
         }
         else if (type == MSG_YELL)
         {
-            /* Hack -- "&yell" */
+            /* "&yell" */
             tab = find_whisper_tab("&yell", text, sizeof(text));
             if (!tab || tab != view_channel) continue;
         }
@@ -978,7 +978,7 @@ static void update_message_chat_subwindow(game_event_type type, game_event_data 
 
 
 /*
- * Hack -- display dungeon map view in sub-windows.
+ * Display dungeon map view in sub-windows.
  */
 static void update_minimap_subwindow(game_event_type type, game_event_data *data, void *user)
 {
@@ -1042,7 +1042,7 @@ static void update_status_subwindow(game_event_type type, game_event_data *data,
 
 
 /*
- * Hack -- display some recall in some sub-windows
+ * Display some recall in some sub-windows
  */
 static void fix_remote_term(uint8_t rterm)
 {
@@ -1193,7 +1193,7 @@ static int dump_spells(int book, int y, int col)
 
 
 /*
- * Hack -- display spell list in sub-windows.
+ * Display spell list in sub-windows.
  */
 static void update_spell_subwindow(game_event_type type, game_event_data *data, void *user)
 {
@@ -1513,7 +1513,7 @@ static void subwindow_set_flags(int win_idx, uint32_t new_flags)
     /* Activate */
     Term_activate(angband_term[win_idx]);
 
-    /* Hack -- request resize for dungeon */
+    /* Request resize for dungeon */
     if (win_idx == 0) net_term_resize(0, 0, 0);
     
     /* Erase */
@@ -1688,7 +1688,7 @@ int find_whisper_tab(const char *msg, char *text, size_t len)
         strnfmt(text, len, "[%s] %s", from_us, pmsg);
     }
 
-    /* Hack -- "&xxx" */
+    /* "&xxx" */
     else if (msg[0] == '&')
     {
         /* Dest. */
@@ -1721,7 +1721,7 @@ void show_splashscreen(void)
     int i, yoffset, xoffset;
     ui_event ch;
 
-    /* Hack -- full icky screen */
+    /* Full icky screen */
     full_icky_screen = conf_get_int("MAngband", "FullIckyScreen", 0);
     player->screen_save_depth++;
 
@@ -1788,7 +1788,7 @@ bool peruse_file(void)
         /* Exit on abort */
         if (is_abort(ke)) break;
 
-        /* Hack -- make any key escape if we're in popup mode */
+        /* Make any key escape if we're in popup mode */
         if ((max_line < max_hgt - 4) && (special_line_type == SPECIAL_FILE_OTHER))
         {
             ke.type = EVT_KBRD;

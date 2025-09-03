@@ -534,7 +534,7 @@ void ignore_spells(bitflag *f, int types)
  * flags is the set of flags we're testing
  * pflags is the set of player flags we're testing
  * el is the attack element
- * race is the monster type we're operating on
+ * mon is the monster whose spells we are considering
  */
 void unset_spells(struct player *p, bitflag *spells, bitflag *flags, bitflag *pflags,
     struct element_info *el, const struct monster *mon)

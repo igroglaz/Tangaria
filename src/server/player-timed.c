@@ -1343,7 +1343,7 @@ static bool player_of_has_not_timed(struct player *p, int flag)
  * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
  * v is the new value for the effect. Internally, v is coerced to lie
  * within the range of acceptable values for the effect.
- * notify, if true, allows for messages, updates to the user interface,
+ * notify allows, if true, for messages, updates to the user interface,
  * and player disturbance if setting the effect doesn't duplicate an effect
  * already present. If false, prevents messages, updates to the user interface,
  * and player disturbance unless setting the effect increases the effect's
@@ -1611,7 +1611,7 @@ bool player_set_timed(struct player *p, int idx, int v, bool notify)
  *
  * p is the player to check.
  * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
- * lore, if true, modifies the check so it is appropriate for filling
+ * lore modifies, if true, the check so it is appropriate for filling
  * in details of monster recall.
  *
  * Returns whether the player can be affected by the effect.
@@ -1749,13 +1749,14 @@ bool player_inc_timed_aux(struct player *p, struct monster *mon, int idx, int v,
  *
  * p is the player to affect.
  * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
- * notify, if true, allows for messages, updates to the user interface,
+ * v is the amount by which to increase the effect's duration.
+ * notify allows, if true, for messages, updates to the user interface,
  * and player disturbance if increasing the duration doesn't duplicate an effect
  * already present. If false, prevents messages, updates to the user interface,
  * and player disturbance unless increasing the duration increases the effect's
  * gradation or decreases the effect's gradation when the effect has messages
  * for the gradations that lapse.
- * check, if true, allows for the player to resist the effect if
+ * check allows, if true, for the player to resist the effect if
  * player_inc_check(p, idx, false) is true.
  *
  * Returns whether increasing the duration caused the player to be notified.
@@ -1772,8 +1773,8 @@ bool player_inc_timed(struct player *p, int idx, int v, bool notify, bool check)
  * p is the player to affect.
  * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
  * v is the amount to subtract from the effect's duration.
- * notify, if true or v is greater than or equal to the effect's current
- * duration, allows for messages, updates to the user interface, and player
+ * notify allows, if true or v is greater than or equal to the effect's current
+ * duration, for messages, updates to the user interface, and player
  * disturbance. If false and v is less than the effect's current duration,
  * prevents messages, updates to the user interface, and player disturbance
  * unless the change to the duration increases the effect's gradation or
@@ -1804,7 +1805,7 @@ bool player_dec_timed(struct player *p, int idx, int v, bool notify)
  *
  * p is the player to affect.
  * idx is the index, greater than equal to zero and less than TMD_MAX, for the effect.
- * notify, if true, allows for messages, updates to the user interface,
+ * notify allows, if true, for messages, updates to the user interface,
  * and player disturbance if clearing the effect doesn't duplicate an effect
  * already present. If false, prevents messages, updates to the user interface,
  * and player disturbance unless clearing the effect decreases the effect's

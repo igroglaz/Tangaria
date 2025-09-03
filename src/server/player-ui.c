@@ -280,7 +280,7 @@ static void write_character_dump(ang_file *fff, void *data)
 
             if (option_type(opt) != i) continue;
 
-            /* Hack -- only display server options */
+            /* Only display server options */
             if (!option_server(opt)) continue;
 
             desc = option_desc(opt);
@@ -342,7 +342,7 @@ static void write_character_dump(ang_file *fff, void *data)
                 map_info(p, cv, &grid, &g);
                 grid_data_as_text(p, cv, true, &g, &a, &c, &a, &c);
 
-                /* Hack for the player who is already dead and gone */
+                /* The player is already dead and gone */
                 if (player_is_at(p, &grid))
                 {
                     c = (victory? '@': '@');

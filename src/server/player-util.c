@@ -63,7 +63,7 @@ int dungeon_get_next_level(struct player *p, int dlev, int added)
 
         wpos_init(&wpos, &p->wpos.grid, i);
 
-        /* Hack -- stop on special levels */
+        /* Stop on special levels */
         if ((i > dlev) && special_level(&wpos)) return i;
     }
 
@@ -131,7 +131,7 @@ void dungeon_change_level(struct player *p, struct chunk *c, struct worldpos *ne
     // empty sound to halt playback on all channels .ogg (see: SDL_CHUNK)
     sound(p, MSG_SILENT);
 
-    /* Hack -- player position is invalid */
+    /* Player position is invalid */
     p->placed = false;
 
     /* Level is not stale */
@@ -271,7 +271,7 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
     /* Hurt the player */
     p->chp -= damage;
 
-    /* Hack -- revive */
+    /* Revive */
     if (p->timed[TMD_REVIVE] && (p->chp < 0))
     {
         /* Avoid death once */
@@ -292,7 +292,7 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
         player_adjust_mana_precise(p, sp_gain);
     }
 
-    /* Hack -- redraw picture */
+    /* Redraw picture */
     redraw_picture(p, old_num);
 
     /* Display the hitpoints */
@@ -497,7 +497,7 @@ void player_regen_hp(struct player *p, struct chunk *c)
     /* Notice changes */
     if (old_chp != p->chp)
     {
-        /* Hack -- redraw picture */
+        /* Redraw picture */
         redraw_picture(p, old_num);
 
         /* Redraw */
@@ -541,7 +541,7 @@ void player_regen_mana(struct player *p)
     /* Notice changes */
     if (old_csp != p->csp)
     {
-        /* Hack -- redraw picture */
+        /* Redraw picture */
         redraw_picture(p, old_num);
 
         /* Redraw */
@@ -747,17 +747,17 @@ void player_update_light(struct player *p)
             /* Decrease life-span */
             obj->timeout--;
 
-            /* Hack -- notice interesting fuel steps */
+            /* Notice interesting fuel steps */
             if ((obj->timeout < 100) || (!(obj->timeout % 100)))
             {
                 /* Redraw */
                 set_redraw_equip(p, obj);
             }
 
-            /* Hack -- special treatment when blind */
+            /* Special treatment when blind */
             if (p->timed[TMD_BLIND] || p->timed[TMD_BLIND_REAL])
             {
-                /* Hack -- save some light for later */
+                /* Save some light for later */
                 if (obj->timeout == 0) obj->timeout++;
             }
 
@@ -801,7 +801,7 @@ void player_over_exert(struct player *p, int flag, int chance, int amount)
     /* CON damage */
     if ((flag & PY_EXERT_CON) && (randint0(100) < chance))
     {
-        /* Hack - only permanent with high chance (no-mana casting) */
+        /* Only permanent with high chance (no-mana casting) */
         bool perm = ((randint0(100) < chance / 2) && (chance >= 50));
 
         msg(p, "You have damaged your health!");
@@ -885,7 +885,7 @@ void use_mana(struct player *p)
         player_over_exert(p, PY_EXERT_CON, 50, 0);
     }
 
-    /* Hack -- redraw picture */
+    /* Redraw picture */
     redraw_picture(p, old_num);
 
     /* Redraw mana */
@@ -897,7 +897,7 @@ void use_mana(struct player *p)
  * See how much damage the player will take from terrain.
  *
  * p is the player to check
- * actual, if true, will cause the player to learn the appropriate
+ * actual will, if true, cause the player to learn the appropriate
  * runes if equipment or effects mitigate the damage.
  */
 int player_check_terrain_damage(struct player *p, struct chunk *c, bool actual)
@@ -1145,6 +1145,7 @@ int16_t player_resting_count(const struct player *p)
 /*
  * Set the number of resting turns.
  *
+ * p is the player trying to rest.
  * count is the number of turns to rest or one of the REST_ constants.
  */
 void player_resting_set_count(struct player *p, int16_t count)
@@ -1483,7 +1484,7 @@ void cancel_running(struct player *p)
  * Take care of bookkeeping after moving the player with monster_swap().
  *
  * p is the player that was moved.
- * eval_trap, if true, will cause evaluation (possibly affecting the
+ * eval_trap will, if true, cause evaluation (possibly affecting the
  * player) of the traps in the grid.
  */
 void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, bool check_pickup,
@@ -1494,7 +1495,7 @@ void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, 
     {
         disturb(p, 0);
 
-        /* Hack -- enter store */
+        /* Enter store */
         do_cmd_store(p, -1);
     }
     if (square(c, &p->grid)->obj)
@@ -1536,7 +1537,7 @@ void player_handle_post_move(struct player *p, struct chunk *c, bool eval_trap, 
         msg(p, "A fountain is located at this place.");
     }
 
-    /* Hack -- we're done if player is gone (trap door) */
+    /* We're done if player is gone (trap door) */
     if (p->upkeep->new_level_method) return;
 
     /* Update view and search */
@@ -1691,7 +1692,7 @@ bool hp_player_safe(struct player *p, int num)
             p->chp_frac = 0;
         }
 
-        /* Hack -- redraw picture */
+        /* Redraw picture */
         redraw_picture(p, old_num);
 
         /* Redraw */
@@ -2045,7 +2046,7 @@ void drain_mana(struct player *p, struct source *who, int drain, bool seen)
     else
         p->csp -= drain;
 
-    /* Hack -- redraw picture */
+    /* Redraw picture */
     redraw_picture(p, old_num);
 
     /* Heal the monster */
@@ -2136,7 +2137,7 @@ void recall_player(struct player *p, struct chunk *c)
         new_level_method = LEVEL_OUTSIDE_RAND;
     }
 
-    /* Hack -- DM redesigning the level */
+    /* DM redesigning the level */
     if (chunk_inhibit_players(&p->recall_wpos))
     {
         msg(p, "A tension leaves the air around you...");
@@ -2155,7 +2156,7 @@ void recall_player(struct player *p, struct chunk *c)
     /* Change location */
     dungeon_change_level(p, c, &p->recall_wpos, new_level_method);
 
-    /* Hack -- replace the player */
+    /* Replace the player */
     p->arena_num = -1;
 
     /* Redraw the state (later) */
@@ -2235,7 +2236,7 @@ void use_energy_aux(struct player *p, int perc_turn)
     /* Paranoia */
     if (p->energy < 0) p->energy = 0;
 
-    /* Hack -- reset the surplus in case we need more due to negative moves */
+    /* Reset the surplus in case we need more due to negative moves */
     p->extra_energy = 0;
 }
 
@@ -2262,7 +2263,7 @@ bool auto_retaliate(struct player *p, struct chunk *c, int mode)
     struct object *launcher = ((mode == AR_BLOODLUST)? NULL:
         equipped_item_by_slot_name(p, "shooting"));
 
-    /* Hack -- shoppers don't auto-retaliate */
+    /* Shoppers don't auto-retaliate */
     if (in_store(p)) return false;
 
     /* The dungeon master does not auto-retaliate */

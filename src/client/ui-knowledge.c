@@ -284,7 +284,7 @@ void do_cmd_message_one(void)
     if (count <= 1) msg = str;
     else msg = format("%s <%dx>", str, count);
 
-    /* Hack -- re-color message from string template */
+    /* Re-color message from string template */
     message_color_hack(msg, &color);
 
     /* Recall one message XXX XXX XXX */
@@ -351,7 +351,7 @@ void do_cmd_messages(void)
             if (count <= 1) msg = str;
             else msg = format("%s <%dx>", str, count);
 
-            /* Hack -- re-color message from string template */
+            /* Re-color message from string template */
             message_color_hack(msg, &attr);
 
             /* Apply horizontal scroll */

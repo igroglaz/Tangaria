@@ -1851,6 +1851,7 @@ void calc_inventory(struct player *p)
 /*
  * Calculate the blows a player would get.
  *
+ * p is the player of interest
  * obj is the object for which we are calculating blows
  * state is the player state for which we are calculating blows
  * extra_blows is the number of +blows available from this object and this state

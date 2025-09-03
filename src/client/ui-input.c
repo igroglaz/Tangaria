@@ -99,7 +99,7 @@ static ui_event inkey_aux(char scan_cutoff)
 
 
 /*
- * Hack -- special "inkey_next" pointer.  XXX XXX XXX
+ * Special "inkey_next" pointer.  XXX XXX XXX
  *
  * This special pointer allows a sequence of keys to be "inserted" into
  * the stream of keys returned by "inkey()".  We use it to implement keymaps.
@@ -151,7 +151,7 @@ ui_event inkey_ex(void)
         inkey_xtra = false;
     }
 
-    /* Hack -- use the "inkey_next" pointer */
+    /* Use the "inkey_next" pointer */
     if (inkey_next && inkey_next->code)
     {
         /* Get next character, and advance */
@@ -179,26 +179,26 @@ ui_event inkey_ex(void)
     if (!inkey_scan && (!inkey_flag || player->screen_save_depth))
         Term_set_cursor(true);
 
-    /* Hack -- activate main screen */
+    /* Activate main screen */
     Term_activate(term_screen);
 
     /* Get a key */
     while (ke.type == EVT_NONE)
     {
-        /* Hack -- handle (inkey_scan == SCAN_INSTANT) */
+        /* Handle (inkey_scan == SCAN_INSTANT) */
         if ((inkey_scan == SCAN_INSTANT) && (0 != Term_inkey(&kk, false, false)))
             break;
 
-        /* Hack -- flush output once when no key ready */
+        /* Flush output once when no key ready */
         if (!done && (0 != Term_inkey(&kk, false, false)))
         {
-            /* Hack -- activate proper term */
+            /* Activate proper term */
             Term_activate(old);
 
             /* Flush output */
             Term_fresh();
 
-            /* Hack -- activate main screen */
+            /* Activate main screen */
             Term_activate(term_screen);
 
             /* Only once */
@@ -215,7 +215,7 @@ ui_event inkey_ex(void)
         if (ke.type == EVT_ERROR) quit(NULL);
     }
 
-    /* Hack -- restore the term */
+    /* Restore the term */
     Term_activate(old);
 
     /* Restore the cursor */
@@ -740,7 +740,7 @@ static bool textui_get_check(const char *prompt)
     /* Option -- "auto_accept" */
     if (OPT(player, auto_accept)) return true;
 
-    /* Hack -- build a "useful" prompt */
+    /* Build a "useful" prompt */
     strnfmt(buf, NORMAL_WID - 2, "%.70s[y/n] ", prompt);
 
     /* The top line is "icky" */
@@ -782,7 +782,7 @@ static int textui_get_check_ex(const char *prompt)
     /* Option -- "auto_accept" */
     if (OPT(player, auto_accept)) return 0;
 
-    /* Hack -- build a "useful" prompt */
+    /* Build a "useful" prompt */
     strnfmt(buf, NORMAL_WID - 2, "%.70s[y/n] ", prompt);
 
     /* The top line is "icky" */
@@ -1263,7 +1263,7 @@ void cavestr(cave_view_type* dest, const char *str, uint8_t attr, int max_col)
 
 
 /*
- * Hack -- given a pathname, point at the filename
+ * Given a pathname, point at the filename
  */
 const char *extract_file_name(const char *s)
 {
@@ -1483,7 +1483,7 @@ struct timed_grade *get_grade(int i)
 
 
 /*
- * Hack -- special buffer to hold the action of the current keymap
+ * Special buffer to hold the action of the current keymap
  */
 static struct keypress request_command_buffer[256];
 

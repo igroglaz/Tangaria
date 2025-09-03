@@ -127,7 +127,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
 
     if (event->type == EVT_SELECT)
     {
-        /* Hack -- birth options can not be toggled after birth */
+        /* Birth options can not be toggled after birth */
         if (!(m->flags == MN_NO_TAGS))
             option_set(player->opts.opt, option_name(oid), !player->opts.opt[oid]);
     }
@@ -145,13 +145,13 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
         }
         else if (event->key.code == 't' || event->key.code == 'T')
         {
-            /* Hack -- birth options can not be toggled after birth */
+            /* Birth options can not be toggled after birth */
             if (!(m->flags == MN_NO_TAGS))
                 option_set(player->opts.opt, option_name(oid), !player->opts.opt[oid]);
         }
         else if (event->key.code == 's' || event->key.code == 'S')
         {
-            /* Hack -- birth options can not be saved after birth */
+            /* Birth options can not be saved after birth */
             if (!(m->flags == MN_NO_TAGS))
             {
                 struct keypress dummy;
@@ -166,7 +166,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
         }
         else if (event->key.code == 'r' || event->key.code == 'R')
         {
-            /* Hack -- birth options can not be restored after birth */
+            /* Birth options can not be restored after birth */
             if (!(m->flags == MN_NO_TAGS))
             {
                 screen_save();
@@ -186,7 +186,7 @@ static bool option_toggle_handle(struct menu *m, const ui_event *event, int oid)
         }
         else if (event->key.code == 'x' || event->key.code == 'X')
         {
-            /* Hack -- birth options can not be reset after birth */
+            /* Birth options can not be reset after birth */
             if (!(m->flags == MN_NO_TAGS))
             {
                 options_restore_maintainer(player->opts.opt, page);
@@ -455,7 +455,7 @@ static int keymap_get_trigger(struct keypress *c)
     /* Convert to ascii */
     keypress_to_text(tmp, sizeof(tmp), buf, false);
 
-    /* Hack -- display the trigger */
+    /* Display the trigger */
     Term_addstr(-1, COLOUR_WHITE, tmp);
 
     /* Flush */
@@ -539,7 +539,7 @@ static void ui_keymap_query(const char *title, int row)
 
 static bool obj_is_macroable(struct player *p, const struct object *obj)
 {
-    /* Hack -- must be identified to avoid leaking flavors! */
+    /* Must be identified to avoid leaking flavors! */
     if (!obj->info_xtra.identified) return false;
 
     return (obj_is_useable(p, obj) || tval_is_ammo(obj) || obj_can_wear(p, obj));
@@ -1048,7 +1048,7 @@ static void colors_modify(const char *title, int row)
     /* Prompt */
     prt("Command: Modify colors", 8, 0);
 
-    /* Hack -- query until done */
+    /* Query until done */
     while (1)
     {
         const char *name;
@@ -1138,10 +1138,10 @@ static void colors_modify(const char *title, int row)
             }
         }
 
-        /* Hack -- react to changes */
+        /* React to changes */
         Term_xtra(TERM_XTRA_REACT, use_graphics);
 
-        /* Hack -- redraw */
+        /* Redraw */
         Term_redraw_all();
     }
 
@@ -2222,7 +2222,7 @@ static void sval_menu_extra(void)
  */
 static void ignore_books(void)
 {
-    /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+    /* The "Always ignore books" option is stored in player->kind_ignore[0] */
     player->kind_ignore[0] = 1 - player->kind_ignore[0];
     Send_ignore();
 }
@@ -2304,7 +2304,7 @@ static void display_options_item(struct menu *menu, int oid, bool cursor, int ro
 
         if (line < N_ELEMENTS(extra_item_options))
         {
-            /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+            /* The "Always ignore books" option is stored in player->kind_ignore[0] */
             if (streq(extra_item_options[line].name, "Always ignore books"))
             {
                 c_prt(attr, format("%s: %s", extra_item_options[line].name,

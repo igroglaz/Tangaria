@@ -45,7 +45,7 @@ struct store_context *store_ctx = NULL;
 static bool store_command_wait = false;
 
 
-/* Hack -- eject player from store */
+/* Eject player from store */
 static bool leave_store;
 
 
@@ -189,7 +189,7 @@ static void store_display_entry(struct menu *menu, int oid, bool cursor, int row
         if (x == 0)
             c_put_str(COLOUR_SLATE, "N/A", row, ctx->scr_places_x[LOC_PRICE] + 5);
 
-        /* Hack -- objects in stores not for buying have price of PY_MAX_GOLD */
+        /* Objects in stores not for buying have price of PY_MAX_GOLD */
         else if (x < PY_MAX_GOLD)
             c_put_str(colour, out_val, row, ctx->scr_places_x[LOC_PRICE]);
     }
@@ -523,7 +523,7 @@ static bool store_purchase(struct store_context *ctx, int item)
     else
         strnfmt(o_name, sizeof(o_name), "%s how many? (max %d%s) ", verb, amt, can_use);
 
-    /* Hack -- get single items directly from home */
+    /* Get single items directly from home */
     if ((s->feat == FEAT_HOME) && (amt == 1)) {}
 
     /* Get a quantity */
@@ -593,7 +593,7 @@ static void store_menu_recalc(struct menu *m)
  */
 static bool store_process_command_key(struct keypress kp)
 {
-    /* Hack -- no flush needed */
+    /* No flush needed */
     prt("", 0, 0);
 
     /* Process the keycode */
@@ -722,7 +722,7 @@ static bool context_menu_store_item(struct store_context *ctx, const int oid)
     menu_dynamic_add_label(m, "Describe", 'D', ACT_DESCRIBE, labels);
     menu_dynamic_add_label(m, home? "Take": "Buy", 'p', ACT_BUY, labels);
 
-    /* Hack -- 'g' acts like 'p' (as it does when there isn't a selected item) */
+    /* 'g' acts like 'p' (as it does when there isn't a selected item) */
     mod_iter = *m->row_funcs;
     mod_iter.row_handler = handle_g_context_store_item;
     m->row_funcs = &mod_iter;
@@ -869,7 +869,7 @@ static bool store_menu_handle(struct menu *m, const ui_event *event, int oid)
 
             case '&':
             {
-                /* Hack -- redisplay */
+                /* Redisplay */
                 ctx->flags |= STORE_INIT_CHANGE;
                 break;
             }
@@ -1050,7 +1050,7 @@ void store_sell_accept(int32_t price, int16_t reset)
         return;
     }
 
-    /* Hack -- redisplay (unless selling a house) */
+    /* Redisplay (unless selling a house) */
     if (store_ctx)
     {
         store_ctx->flags |= STORE_INIT_CHANGE;
@@ -1104,7 +1104,7 @@ bool check_store_leave(bool refresh)
     if (leave_store) Term_event_push(&ea);
     else if (store_ctx)
     {
-        /* Hack -- redisplay */
+        /* Redisplay */
         store_ctx->flags |= STORE_INIT_CHANGE;
         if (refresh) Term_key_push('&');
     }

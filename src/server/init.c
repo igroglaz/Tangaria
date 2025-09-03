@@ -54,6 +54,7 @@ bool cfg_limit_player_connections = true;
 int32_t cfg_tcp_port = 18346;
 int16_t cfg_quit_timeout = 5;
 uint32_t cfg_disconnect_fainting = 180;
+bool cfg_lazy_connections = false;
 bool cfg_chardump_color = false;
 int16_t cfg_pvp_hostility = PVP_SAFE;
 bool cfg_base_monsters = true;
@@ -5033,6 +5034,8 @@ static void set_server_option(const char *option, char *value)
     }
     else if (streq(option, "DISCONNECT_FAINTING"))
         cfg_disconnect_fainting = atoi(value);
+    else if (streq(option, "LAZY_CONNECTIONS"))
+        cfg_lazy_connections = str_to_boolean(value);
     else if (streq(option, "CHARACTER_DUMP_COLOR"))
         cfg_chardump_color = str_to_boolean(value);
     else if (streq(option, "PVP_HOSTILITY"))

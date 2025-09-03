@@ -240,13 +240,13 @@ uint8_t get_color(uint8_t a, int attr, int n)
  * usually is closest to 1.7.  The converted value for each of the five
  * different "quarter" values is given below:
  *
- *  Given     Gamma 1.0       Gamma 1.5       Gamma 1.7     Hex 1.7
- *  -----       ----            ----            ----          ---
- *   0/4        0.00            0.00            0.00          #00
- *   1/4        0.25            0.27            0.28          #47
- *   2/4        0.50            0.55            0.56          #8f
- *   3/4        0.75            0.82            0.84          #d7
- *   4/4        1.00            1.00            1.00          #ff
+ *   Given  | Gamma 1.0 | Gamma 1.5 | Gamma 1.7 | Hex 1.7
+ *  :-----: | :-------: | :-------: | :-------: | :-----:
+ *    0/4   |    0.00   |    0.00   |    0.00   |   0x00
+ *    1/4   |    0.25   |    0.27   |    0.28   |   0x47
+ *    2/4   |    0.50   |    0.55   |    0.56   |   0x8f
+ *    3/4   |    0.75   |    0.82   |    0.84   |   0xd7
+ *    4/4   |    1.00   |    1.00   |    1.00   |   0xff
  *
  * Note that some machines (i.e. most IBM machines) are limited to a
  * hard-coded set of colors, and so the information above is useless.

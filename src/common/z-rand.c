@@ -179,7 +179,7 @@ uint32_t Rand_div(uint32_t m)
 
     my_assert(m <= 0x10000000);
 
-    /* Hack -- simple case */
+    /* Simple case */
     if (m <= 1) return (0);
 
     /* Partition size */
@@ -601,7 +601,7 @@ uint32_t Rand_mod(uint32_t m)
 {
     uint32_t r;
 
-    /* Hack -- simple case */
+    /* Simple case */
     if (m <= 1) return (0);
 
     /* Use the "simple" RNG */

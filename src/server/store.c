@@ -641,7 +641,7 @@ static bool store_will_buy(struct player *p, struct store *s, const struct objec
  * object, and should be less than 100 when the player is "selling" it.
  * ^^^ NOT FOR NO_SELLING.
  *
- * Hack -- black markets always charge 2x and 5x/10x the normal price.
+ * Black markets always charge 2x and 5x/10x the normal price.
  */
 int32_t price_item(struct player *p, struct object *obj, bool store_buying, int qty)
 {
@@ -651,7 +651,7 @@ int32_t price_item(struct player *p, struct object *obj, bool store_buying, int 
     struct owner *proprietor = s->owner;
     int factor;
 
-    /* Hack -- expensive BM factor */
+    /* Expensive BM factor */
     if (cfg_diving_mode == 3) factor = 4;
     else factor = 8;
 
@@ -1011,7 +1011,7 @@ static void store_object_absorb(struct object *obj, struct object *new_obj)
     /* Combine quantity, lose excess items */
     obj->number = MIN(total, obj->kind->base->max_stack);
 
-    /* Hack -- if wands/staves are stacking, combine the charges */
+    /* If wands/staves are stacking, combine the charges */
     if (tval_can_have_charges(obj))
         obj->pval += new_obj->pval;
 
@@ -1283,7 +1283,7 @@ static void store_delete(struct store *s, struct object *obj, int amt)
     {
         pile_excise(&s->stock, obj);
 
-        /* Hack -- excise object index */
+        /* Excise object index */
         obj->oidx = 0;
 
         /* Remove the corresponding order */
@@ -1348,7 +1348,7 @@ static void store_delete_random(struct store *s)
     obj = s->stock;
     while (what--) obj = obj->next;
 
-    /* Hack -- ordered items stay in the shop until bought or expired */
+    /* Ordered items stay in the shop until bought or expired */
     if (obj->ordered)
     {
         struct store_order *order = &store_orders[obj->ordered - 1];
@@ -1389,7 +1389,7 @@ static void store_delete_random(struct store *s)
             /* 25% of the time, destroy all objects */
             else num = obj->number;
 
-            /* Hack -- decrement the total charges of staves and wands. */
+            /* Decrement the total charges of staves and wands. */
             if (tval_can_have_charges(obj))
                 obj->pval -= num * obj->pval / obj->number;
         }
@@ -2119,7 +2119,7 @@ static void display_entry(struct player *p, struct object *obj, bool home)
     /* Find the number of this item in the inventory */
     num = find_inven(p, obj);
 
-    /* Hack -- objects in stores not for buying */
+    /* Objects in stores not for buying */
     if (obj->kind->cost == PY_MAX_GOLD) price = PY_MAX_GOLD;
 
     /* Send the info */
@@ -2157,7 +2157,7 @@ static int display_inventory(struct player *p)
     /* Stock -- sorted array of stock items */
     struct object **stock_list = mem_zalloc(sizeof(struct object *) * z_info->store_inven_max);
 
-    /* Hack -- map the Home to each player */
+    /* Map the Home to each player */
     if (home) s = p->home;
 
     store_stock_list(p, s, stock_list, z_info->store_inven_max);
@@ -2170,7 +2170,7 @@ static int display_inventory(struct player *p)
         /* Do not display "dead" items */
         if (!obj) break;
 
-        /* Hack -- set index */
+        /* Set index */
         obj->oidx = i;
 
         // hack: remove number in cookie-msgs eg "3 Hello, adventurer!"
@@ -2227,7 +2227,7 @@ static int display_live_inventory(struct player *p)
                 /* Know everything but flavor, no origin yet */
                 object_notice_everything_aux(p, copy, true, false);
 
-                /* Hack -- set index */
+                /* Set index */
                 copy->oidx = stocked;
 
                 /* Remove any inscription */
@@ -2530,7 +2530,7 @@ static void sell_player_item(struct player *p, struct object *original, struct o
     /* Partial purchase */
     else
     {
-        /* Hack -- reduce the number of charges in the original stack */
+        /* Reduce the number of charges in the original stack */
         if (tval_can_have_charges(original))
             original->pval -= bought->pval;
 
@@ -2800,7 +2800,7 @@ void do_cmd_buy(struct player *p, int item, int amt)
         //bought->owner = ((ptr && ht_zero(&ptr->death_turn))? ptr->id: 0);
 //////////////////////
 
-        /* Hack -- use o_name for audit :/
+        /* Use o_name for audit :/
            (send message to clog) */
         strnfmt(o_name, sizeof(o_name), "PS buyer char: %s-%d (acc: %s) | seller acc: %s $ %d",
                 p->name, (int)p->id, p->account_name, name, price);
@@ -2808,7 +2808,7 @@ void do_cmd_buy(struct player *p, int item, int amt)
         audit("PS+gold");
     }
 
-    /* Hack -- reduce the number of charges in the original stack */
+    /* Reduce the number of charges in the original stack */
     if ((s->feat != FEAT_STORE_PLAYER) && tval_can_have_charges(obj))
         obj->pval -= bought->pval;
 
@@ -2873,7 +2873,7 @@ void do_cmd_retrieve(struct player *p, int item, int amt)
         return;
     }
 
-    /* Hack -- map the Home to each player */
+    /* Map the Home to each player */
     s = p->home;
 
     /* Get the actual object */
@@ -3046,7 +3046,7 @@ void do_cmd_stash(struct player *p, int item, int amt)
         return;
     }
 
-    /* Hack -- map the Home to each player */
+    /* Map the Home to each player */
     s = p->home;
 
     /* Paranoia */
@@ -3267,7 +3267,7 @@ void store_examine(struct player *p, int item, bool describe)
     /* Normal stores */
     else
     {
-        /* Hack -- map the Home to each player */
+        /* Map the Home to each player */
         if (s->feat == FEAT_HOME) s = p->home;
 
         /* Get the actual item */
@@ -3430,7 +3430,7 @@ void do_cmd_store(struct player *p, int pstore)
         which = square_shopnum(c, &p->grid);
         s = &stores[which];
 
-        /* Hack -- ignore the tavern */
+        /* Ignore the tavern */
         if (s->feat == FEAT_STORE_TAVERN) return;
 
         /* Check if we can enter the store */
@@ -3462,10 +3462,10 @@ void do_cmd_store(struct player *p, int pstore)
             which_player = square_shopnum(cave, &player->grid);
             s = &stores[which_player];
 
-            /* Hack -- ignore the tavern */
+            /* Ignore the tavern */
             if (s->feat == FEAT_STORE_TAVERN) continue;
 
-            /* Hack -- ignore the Home */
+            /* Ignore the Home */
             if (s->feat == FEAT_HOME) continue;
 
             /* Store is closed if someone is already in the shop */

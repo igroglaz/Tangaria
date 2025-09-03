@@ -1798,12 +1798,14 @@ static bool project_p_is_threat(int type)
  * Called for projections with the PROJECT_PLAY flag set, which includes
  * bolt, beam, ball and breath effects.
  *
- * origin is the origin of the effect
+ * origin describes what generated the projection
  * r is the distance from the centre of the effect
  * c is the current cave
- * (y, x) the coordinates of the grid being handled
+ * grid is the coordinates of the grid being handled
  * dam is the "damage" from the effect at distance r from the centre
  * typ is the projection (PROJ_) type
+ * power is, if the origin of the projection is a monster, the spell
+ * power of that monster
  * what is the message to other players if the target dies
  * did_hit is true if a player was hit
  * was_obvious is true if the effects were obvious

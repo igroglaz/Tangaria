@@ -34,6 +34,7 @@ extern bool cfg_limit_player_connections;
 extern int32_t cfg_tcp_port;
 extern int16_t cfg_quit_timeout;
 extern uint32_t cfg_disconnect_fainting;
+extern bool cfg_lazy_connections;
 extern bool cfg_chardump_color;
 extern int16_t cfg_pvp_hostility;
 extern bool cfg_base_monsters;

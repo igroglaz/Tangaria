@@ -561,7 +561,8 @@ static bool floor_purchase(struct player *p, struct chunk *c, int pickup, struct
  * Note the lack of chance for the character to be disturbed by unmarked
  * objects. They are truly "unknown".
  *
- * obj is the floor item to pick up.
+ * p is the player picking up the item.
+ * o is the object to pick up.
  */
 uint8_t player_pickup_item(struct player *p, struct chunk *c, int pickup, struct object *o)
 {

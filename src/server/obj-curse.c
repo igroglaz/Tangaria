@@ -189,7 +189,7 @@ static bool object_curse_conflicts(struct object *obj, int pick)
  * Append a given curse with a given power to an object
  *
  * obj the object to curse
- * pick the curse to append
+ * pick the index of the curse to append
  * power the power of the new curse
  */
 static bool append_object_curse(struct object *obj, int pick, int power)
@@ -403,7 +403,7 @@ static bool artifact_curse_conflicts(struct artifact *art, int pick)
  * Append a given curse with a given power to an artifact
  *
  * art the artifact to curse
- * pick the curse to append
+ * pick the index of the curse to append
  * power the power of the new curse
  */
 static bool append_artifact_curse_aux(struct artifact *art, int pick, int power)

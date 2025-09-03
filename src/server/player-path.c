@@ -172,21 +172,21 @@
 
 
 /*
- * Hack -- allow quick "cycling" through the legal directions
+ * Allow quick "cycling" through the legal directions
  */
 static const uint8_t cycle[] =
 { 1, 2, 3, 6, 9, 8, 7, 4, 1, 2, 3, 6, 9, 8, 7, 4, 1 };
 
 
 /*
- * Hack -- map each direction into the "middle" of the "cycle[]" array
+ * Map each direction into the "middle" of the "cycle[]" array
  */
 static const uint8_t chome[] =
 { 0, 8, 9, 10, 7, 0, 11, 6, 5, 4 };
 
 
 /*
- * Hack -- check for a "known wall" (see below)
+ * Check for a "known wall" (see below)
  */
 static bool see_wall(struct player *p, struct chunk *c, int dir, struct loc *grid)
 {
@@ -407,7 +407,7 @@ static bool run_test(struct player *p, struct chunk *c)
             if (!ignore_item_ok(p, obj)) return true;
         }
 
-        /* Hack -- handle damaging terrain */
+        /* Handle damaging terrain */
         if (square_isdamaging(c, &grid) && player_check_terrain_damage(p, c, false)) return true;
 
         /* Assume unknown */
@@ -517,7 +517,7 @@ static bool run_test(struct player *p, struct chunk *c)
     /* Looking for open area */
     if (p->run_open_area)
     {
-        /* Hack -- look again */
+        /* Look again */
         for (i = -max; i < 0; i++)
         {
             /* New direction */
@@ -541,7 +541,7 @@ static bool run_test(struct player *p, struct chunk *c)
             }
         }
 
-        /* Hack -- look again */
+        /* Look again */
         for (i = max; i > 0; i--)
         {
             new_dir = cycle[chome[prev_dir] + i];
@@ -586,7 +586,7 @@ static bool run_test(struct player *p, struct chunk *c)
             /* Primary option */
             p->run_cur_dir = option;
 
-            /* Hack -- allow curving */
+            /* Allow curving */
             p->run_old_dir = option2;
         }
     }
@@ -618,7 +618,7 @@ bool run_step(struct player *p, int dir)
         /* Initialize */
         run_init(p, c, dir);
 
-        /* Hack -- set the run counter */
+        /* Set the run counter */
         p->upkeep->running = true;
 
         /* Calculate torch radius */

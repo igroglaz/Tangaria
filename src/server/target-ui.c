@@ -159,7 +159,7 @@ static bool target_info(struct player *p, struct loc *grid, const char *info, co
     /* Do nothing on quit */
     if ((query == 'q') || (query == ESCAPE)) return false;
 
-    /* Hack -- is there something targetable above our position? */
+    /* Is there something targetable above our position? */
     if (square_in_bounds_fully(chunk_get(&p->wpos), &above) && target_accept(p, &above))
         dble = false;
 
@@ -695,7 +695,7 @@ static enum target_aux_result aux_terrain(struct chunk *c, struct player *p,
     /* Pick prefix for the name */
     lphrase3 = square_apparent_look_prefix(p, c, auxst->grid);
 
-    /* Hack -- dungeon entrance */
+    /* Dungeon entrance */
     if (dungeon && square_isdownstairs(c, auxst->grid))
     {
         lphrase3 = "the entrance to ";
@@ -1087,7 +1087,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
     /* Remove old targeting path */
     if (p->path_drawn) load_path(p, p->path_n, p->path_g);
 
-    /* Hack -- auto-target if requested */
+    /* Auto-target if requested */
     if ((mode & (TARGET_AIM)) && OPT(p, use_old_target) && target_okay(p))
     {
         memcpy(old_target, &p->target, sizeof(struct target));
@@ -1106,7 +1106,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
     {
         loc_copy(&p->tt_grid, &p->grid);
 
-        /* Hack -- auto-target if requested */
+        /* Auto-target if requested */
         if (auto_target) loc_copy(&p->tt_grid, &old_target->grid);
     }
 
@@ -1124,7 +1124,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
     {
         set_target_index(p, 0);
 
-        /* Hack -- auto-target if requested */
+        /* Auto-target if requested */
         if (auto_target)
         {
             int i;
@@ -1183,7 +1183,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
 
                     loc_init(&grid, p->grid.x, p->grid.y - 1);
 
-                    /* Hack -- is there something targetable above our position? */
+                    /* Is there something targetable above our position? */
                     if (square_in_bounds_fully(c, &grid) && target_accept(p, &grid))
                         dble = false;
 
@@ -1248,7 +1248,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                 if (p->target_index == point_set_size(targets)) set_target_index(p, 0);
             }
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else if (event_is_key(press, '-'))
@@ -1260,7 +1260,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                 if (p->target_index == -1) set_target_index(p, point_set_size(targets) - 1);
             }
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else if (event_is_key(press, 'p'))
@@ -1273,7 +1273,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
             verify_panel(p);
             handle_stuff(p);
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else if (event_is_key(press, 'o'))
@@ -1281,7 +1281,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
             /* Switch to free mode */
             p->show_interesting = false;
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else if (event_is_key(press, 'm'))
@@ -1311,7 +1311,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                 if (min_dist == 999) p->show_interesting = false;
             }
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else if (event_is_key(press, 't') || event_is_key(press, '5') || event_is_key(press, '0') ||
@@ -1362,7 +1362,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                 }
             }
 
-            /* Hack -- acknowledge */
+            /* Acknowledge */
             press = '\0';
         }
         else
@@ -1372,7 +1372,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
 
             if (!dir)
             {
-                /* Hack -- acknowledge */
+                /* Acknowledge */
                 if (press != KC_ENTER) press = '\0';
             }
             else if (use_interesting_mode)
@@ -1415,7 +1415,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                 /* Use interesting grid if found */
                 if (new_index >= 0) set_target_index(p, new_index);
 
-                /* Hack -- acknowledge */
+                /* Acknowledge */
                 press = '\0';
             }
             else
@@ -1438,7 +1438,7 @@ bool target_set_interactive(struct player *p, int mode, uint32_t press, int step
                     targets = target_get_monsters(p, mode, true);
                 }
 
-                /* Hack -- acknowledge */
+                /* Acknowledge */
                 press = '\0';
             }
         }

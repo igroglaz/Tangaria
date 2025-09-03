@@ -2092,10 +2092,17 @@ static bool project_m_is_threat(project_monster_handler_context_t *context)
  * origin is the caster
  * r is the distance from the centre of the effect
  * c is the current cave
- * (y, x) the coordinates of the grid being handled
+ * grid is the coordinates of the grid being handled
  * dam is the "damage" from the effect at distance r from the centre
  * typ is the projection (PROJ_) type
  * flg consists of any relevant PROJECT_ flags
+ * did_hit is dereferenced and set to true if there is a monster in
+ * grid and the projection could affect it (note that does not account for
+ * things like a monster resistance). Otherwise, did_hit is dereferenced and
+ * set to false.
+ * was_obvious is dereferenced and set to true if the effects of the
+ * projection on a monster in grid were obvious to the player. Otherwise,
+ * was_obvious is dereferenced and set to false.
  *
  * Returns whether the effects were obvious
  *

@@ -870,7 +870,7 @@ desc: fed
 
 name:HASTE
 aim:0
-level:20
+level:40
 power:10
 effect:TIMED_SET:FAST:0:5
 dice:20+1d20

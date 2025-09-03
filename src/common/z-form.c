@@ -317,7 +317,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
             /* Handle "alphabetic" or "non-alphabetic"chars */
             if (isalpha((unsigned char)*s))
             {
-                /* Hack -- handle "short" request */
+                /* Handle "short" request */
                 if (*s == 'h')
                 {
                     /* Save the character */
@@ -327,7 +327,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                     do_short = true;
                 }
 
-                /* Hack -- handle "long" request */
+                /* Handle "long" request */
                 else if (*s == 'l')
                 {
                     /* Save the character */
@@ -344,7 +344,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                         do_long = true;
                 }
 
-                /* Hack -- handle "extra-long" request */
+                /* Handle "extra-long" request */
                 else if (*s == 'L')
                 {
                     /* Error -- illegal format char */
@@ -354,7 +354,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                     return (0);
                 }
 
-                /* Hack -- handle I64 request */
+                /* Handle I64 request */
                 else if (*s == 'I')
                 {
                     int numbits = 0;
@@ -416,7 +416,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
             }
             else
             {
-                /* Hack -- handle 'star' (for "variable length" argument) */
+                /* Handle 'star' (for "variable length" argument) */
                 if (*s == '*')
                 {
                     int arg;
@@ -424,10 +424,10 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                     /* Get the next argument */
                     arg = va_arg(vp, int);
 
-                    /* Hack -- append the "length" */
+                    /* Append the "length" */
                     snprintf(aux + q, sizeof(aux) - q, "%d", arg);
 
-                    /* Hack -- accept the "length" */
+                    /* Accept the "length" */
                     while (aux[q]) q++;
 
                     /* Skip the "*" */
@@ -602,7 +602,7 @@ size_t vstrnfmt(char *buf, size_t max, const char *fmt, va_list vp)
                 /* Get the next argument */
                 arg = va_arg(vp, const char *);
 
-                /* Hack -- convert NULL to EMPTY */
+                /* Convert NULL to EMPTY */
                 if (!arg) arg = "";
 
                 /* Prevent buffer overflows */

@@ -128,7 +128,7 @@ static void Term_what_hack(int x, int y, uint16_t *a, char *c)
     /* Get the attr/char */
     Term_what(x, y, a, c);
 
-    /* Hack -- display walls and floors properly */
+    /* Display walls and floors properly */
     if (*c == 7) *c = '.';
     if (*c == 8) *c = '.';
     if (*c == 127) *c = '#';
@@ -337,7 +337,7 @@ static void html_screenshot(const char *path, int mode, term *other_term)
 
 
 /*
- * Hack -- save a screen dump to a file in html format
+ * Save a screen dump to a file in html format
  */
 static void do_cmd_save_screen_html(int mode, term *other_term)
 {
@@ -356,7 +356,7 @@ static void do_cmd_save_screen_html(int mode, term *other_term)
 
 
 /*
- * Hack -- save a screen dump to a file
+ * Save a screen dump to a file
  */
 void do_cmd_save_screen(void)
 {
@@ -435,7 +435,7 @@ static bool is_running_keymap(struct keypress ch)
  * panels which are adjacent to the one currently scanned, but this is
  * overkill for this function.  XXX XXX
  *
- * Hack -- targeting/observing an "outer border grid" may induce
+ * Targeting/observing an "outer border grid" may induce
  * problems, so this is not currently allowed.
  *
  * The player can use the direction keys to move among "interesting"
@@ -490,7 +490,7 @@ bool cmd_target_interactive(int mode)
         query = inkey();
         if (!query.code) continue;
 
-        /* Hack -- roguelike keyset */
+        /* Roguelike keyset */
         code = (keycode_t)target_dir(query);
         if (code == 0) code = query.code;
 

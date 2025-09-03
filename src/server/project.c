@@ -188,7 +188,7 @@ int project_path(struct player *p, struct chunk *c, struct loc *gp, int range, s
             loc_init(&gp[n], x, y);
             n++;
 
-            /* Hack -- check maximum range */
+            /* Check maximum range */
             if ((n + (k >> 1)) >= range) break;
 
             /* Sometimes stop at finish grid */
@@ -260,7 +260,7 @@ int project_path(struct player *p, struct chunk *c, struct loc *gp, int range, s
             loc_init(&gp[n], x, y);
             n++;
 
-            /* Hack -- check maximum range */
+            /* Check maximum range */
             if ((n + (k >> 1)) >= range) break;
 
             /* Sometimes stop at finish grid */
@@ -326,7 +326,7 @@ int project_path(struct player *p, struct chunk *c, struct loc *gp, int range, s
             loc_init(&gp[n], x, y);
             n++;
 
-            /* Hack -- check maximum range */
+            /* Check maximum range */
             if ((n + (n >> 1)) >= range) break;
 
             /* Sometimes stop at finish grid */
@@ -432,7 +432,7 @@ uint8_t proj_color(int type)
 {
     if (type < 0 || type >= PROJ_MAX) return COLOUR_WHITE;
 
-    /* Hack -- magic missile and chaos are multihued */
+    /* Magic missile and chaos are multihued */
     if ((type == PROJ_MISSILE) || (type == PROJ_CHAOS))
         return mh_attr();
 
@@ -640,9 +640,9 @@ void origin_get_loc(struct loc *ploc, struct source *origin)
  * projection path. Note that in general, the player will *always* see part
  * of the path, since it either starts at the player or ends on the player.
  *
- * Hack -- we assume that every "projection" is "self-illuminating".
+ * We assume that every "projection" is "self-illuminating".
  *
- * Hack -- when only a single monster is affected, we automatically track
+ * When only a single monster is affected, we automatically track
  * (and recall) that monster, unless "PROJECT_JUMP" is used.
  *
  * Note that we must call "handle_stuff()" after affecting terrain features
@@ -741,7 +741,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
         loc_copy(&grid, &start);
 
         /* Calculate the projection path */
-        /* Hack -- remove PROJECT_STOP flag to handle friendly targets separately */
+        /* Remove PROJECT_STOP flag to handle friendly targets separately */
         num_path_grids = project_path(NULL, cv, path_grid, z_info->max_range, &start, finish,
             (flg & ~PROJECT_STOP));
 
@@ -764,7 +764,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
                 /* PWMAngband: BALL attacks should also be applied to wraithed players */
                 bool proj_wall = (origin->target && loc_eq(&origin->target->grid, &path_grid[i]));
 
-                /* Hack -- balls explode before reaching walls */
+                /* Balls explode before reaching walls */
                 if (!square_ispassable(cv, &path_grid[i]) && (rad > 0) && !(flg & (PROJECT_BEAM)) &&
                     !proj_wall)
                 {
@@ -1041,7 +1041,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
         display_explosion(cv, &data, drawing, ((flg & PROJECT_ARC)? true: false));
     }
 
-    /* Hack -- count how many projections we have seen */
+    /* Count how many projections we have seen */
     for (j = 1; j <= NumPlayers; j++)
     {
         struct player *p = player_get(j);
@@ -1176,7 +1176,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
 
                 source_player(p_act, 0 - m_idx, player_get(0 - m_idx));
 
-                /* Hack -- auto-track */
+                /* Auto-track */
                 if (player_is_visible(origin->player, 0 - m_idx))
                     health_track(origin->player->upkeep, p_act);
             }

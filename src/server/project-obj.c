@@ -693,7 +693,7 @@ static const project_object_handler_f object_handlers[] =
  * origin is the origin of the effect
  * r is the distance from the centre of the effect
  * c is the current cave
- * (y, x) the coordinates of the grid being handled
+ * grid is the coordinates of the grid being handled
  * dam is the "damage" from the effect at distance r from the centre
  * typ is the projection (PROJ_) type
  *

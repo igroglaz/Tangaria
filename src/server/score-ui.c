@@ -35,7 +35,7 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
     if (to < 0) to = 10;
     if (to > MAX_HISCORES) to = MAX_HISCORES;
 
-    /* Hack -- count the high scores */
+    /* Count the high scores */
     for (count = 0; count < MAX_HISCORES; count++)
     {
         if (!scores[count].what[0]) break;
@@ -56,10 +56,10 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
         struct player_class *c;
         struct player_race *r;
 
-        /* Hack -- indicate current in green */
+        /* Indicate current in green */
         attr = ((j == highlight)? 'G': 'w');
 
-        /* Hack -- indicate winners in purple */
+        /* Indicate winners in purple */
         if (streq(score->how, WINNING_HOW)) attr = 'v';
 
         /* Extract the race/class */
@@ -72,7 +72,7 @@ static void display_scores_aux(ang_file *fff, const struct high_score scores[], 
         cdun = atoi(score->cur_dun);
         mdun = atoi(score->max_dun);
 
-        /* Hack -- extract the gold and such */
+        /* Extract the gold and such */
         for (user = score->uid; isspace(*user); user++) /* loop */;
         for (when = score->day; isspace(*when); when++) /* loop */;
         for (gold = score->gold; isspace(*gold); gold++) /* loop */;
@@ -149,7 +149,7 @@ void do_cmd_knowledge_scores(struct player *p, int line)
     fff = file_temp(file_name, sizeof(file_name));
     if (!fff) return;
 
-    /* Hack -- display the top 25 scores */
+    /* Display the top 25 scores */
     if (j < 20)
         display_scores_aux(fff, scores, 0, 25, j);
 

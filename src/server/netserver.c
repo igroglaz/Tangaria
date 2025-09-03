@@ -611,7 +611,8 @@ static void Contact(int fd, int arg)
             if (errno && (errno != EWOULDBLOCK) && (errno != EAGAIN))
             {
                 plog_fmt("Could not accept TCP Connection, socket error = %d", errno);
-                quit("Couldn't accept TCP connection.");
+                if (!cfg_lazy_connections)
+                    quit("Couldn't accept TCP connection.");
             }
             return;
         }

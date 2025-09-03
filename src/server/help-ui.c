@@ -103,7 +103,7 @@ bool show_file(struct player *p, const char *name, const char *what, int line, i
         /* Close it */
         file_close(fff);
 
-        /* Hack -- re-open the file */
+        /* Re-open the file */
         fff = file_open(path, MODE_READ, FTYPE_TEXT);
         if (!fff) return false;
 
@@ -126,7 +126,7 @@ bool show_file(struct player *p, const char *name, const char *what, int line, i
     {
         uint8_t attr = COLOUR_WHITE;
 
-        /* Hack -- track the "first" line */
+        /* Track the "first" line */
         if (!i) line = next;
 
         /* Get a line of the file or stop */
@@ -304,7 +304,7 @@ void common_file_peruse(struct player *p, uint32_t query)
             /* Select that file */
             p->interactive_file = string_make(p->interactive_hook[k]);
 
-            /* Hack -- enforce update */
+            /* Enforce update */
             p->interactive_next = -1;
             next = 0;
 
@@ -321,7 +321,7 @@ void common_file_peruse(struct player *p, uint32_t query)
         else
             p->interactive_file = string_make("index.txt");
 
-        /* Hack -- enforce update */
+        /* Enforce update */
         p->interactive_next = -1;
         next = 0;
 

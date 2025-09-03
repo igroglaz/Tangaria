@@ -281,7 +281,14 @@ static void get_subject(char *buf, size_t buflen, struct monster_race *race, int
 /*
  * Formats a message based on the given message code and the plural flag.
  *
- * pos the position in buf to start writing the message into
+ * buf points to storage for the message
+ * buflen is the maximum number of characters, including the terminating
+ * null, that may be written to buf
+ * msg_code is the code number for the message to generate
+ * race points to the structure descibing the kind of monster generating
+ * the message
+ * do_plural will, if true, cause the plural forms in the message to
+ * be chosen over the singular ones
  */
 static void get_message_text(char *buf, size_t buflen, int msg_code,
     const struct monster_race *race, bool do_plural)

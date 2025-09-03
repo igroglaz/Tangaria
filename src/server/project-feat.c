@@ -204,7 +204,7 @@ static void project_feature_handler_DARK(project_feature_handler_context_t *cont
         /* If he's not here, skip him */
         if (!wpos_eq(&p->wpos, &context->cave->wpos)) continue;
 
-        /* Hack -- forget "boring" grids */
+        /* Forget "boring" grids */
         if (square_isview(p, &grid) && !square_isnormal(context->cave, &grid))
             square_forget(p, &grid);
     }
@@ -441,7 +441,7 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
         /* Fully update the flow */
         fully_update_flow(&context->cave->wpos);
 
-        /* Hack -- place an object */
+        /* Place an object */
         if (magik(10))
         {
             struct object *new_obj;
@@ -477,7 +477,7 @@ static void project_feature_handler_KILL_WALL(project_feature_handler_context_t 
             become_aware(context->origin->player, context->cave, mon);
         else
         {
-            /* Hack -- special message */
+            /* Special message */
             if (context->line_sound)
             {
                 msg(context->origin->player, "The door crumbles to dust!");
@@ -869,7 +869,7 @@ static const project_feature_handler_f feature_handlers[] =
  * origin is the origin of the effect
  * r is the distance from the centre of the effect
  * c is the current cave
- * (y, x) the coordinates of the grid being handled
+ * grid is the coordinates of the grid being handled
  * dam is the "damage" from the effect at distance r from the centre
  * typ is the projection (PROJ_) type
  *

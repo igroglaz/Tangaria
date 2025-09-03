@@ -22,7 +22,7 @@
 
 
 /*
- * Hack -- hallucinatory monster
+ * Hallucinatory monster
  */
 static void hallucinatory_monster(struct player *p, bool server, uint16_t *a, char *c)
 {
@@ -53,7 +53,7 @@ static void hallucinatory_monster(struct player *p, bool server, uint16_t *a, ch
 
 
 /*
- * Hack -- hallucinatory object
+ * Hallucinatory object
  */
 static void hallucinatory_object(struct player *p, bool server, uint16_t *a, char *c)
 {
@@ -78,7 +78,7 @@ static void hallucinatory_object(struct player *p, bool server, uint16_t *a, cha
             *c = p->k_char[i];
         }
 
-        /* Hack -- skip empty entries */
+        /* Skip empty entries */
         if ((*a == 0) || (*c == 0)) continue;
 
         return;
@@ -162,7 +162,7 @@ static uint8_t multi_hued_attr_breath(struct monster_race *race)
     /* Monsters with no ranged attacks can be any color */
     if (!race->freq_spell) return randint1(BASIC_COLORS - 1);
 
-    /* Hack -- require correct "breath attack" */
+    /* Require correct "breath attack" */
     rsf_copy(mon_breath, race->spell_flags);
     set_breath(mon_breath);
 
@@ -271,7 +271,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
         if (p->use_graphics && !server)
             *a = p->pr_attr[q->clazz->cidx * player_rmax() + q->race->ridx][q->psex];
 
-        /* Hack -- elementalists */
+        /* Elementalists */
         if (!p->use_graphics && (*a == COLOUR_MULTI))
         {
             /* Set default attr */
@@ -481,7 +481,7 @@ static void player_pict(struct player *p, struct chunk *cv, struct player *q, bo
         if (!p->use_graphics && (*a == COLOUR_MULTI)) *a = COLOUR_VIOLET;
     }
 
-    /* Hack -- highlight party leader! */
+    /* Highlight party leader! */
     if (!p->use_graphics && (q != p) && is_party_owner(p, q) && OPT(p, highlight_leader) &&
         magik(50))
     {
@@ -734,7 +734,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
         c = p->f_char[g->f_idx][g->lighting];
     }
 
-    /* Hack -- use basic lighting for unmapped tiles */
+    /* Use basic lighting for unmapped tiles */
     use_graphics = (p->use_graphics && (a & 0x80));
 
     /* Apply text lighting effects */
@@ -852,7 +852,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
             char dc;
 
             /* Desired attr & char */
-            /* Hack -- use ASCII symbols instead of tiles if wanted */
+            /* Use ASCII symbols instead of tiles if wanted */
             if (server || OPT(p, ascii_mon))
             {
                 da = monster_x_attr[mon->race->ridx];
@@ -904,7 +904,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
             }
             else if (a & 0x80)
             {
-                /* Hack -- bizarre grid under monster */
+                /* Bizarre grid under monster */
                 a = da;
                 c = dc;
             }
@@ -919,7 +919,7 @@ void grid_data_as_text(struct player *p, struct chunk *cv, bool server, struct g
                 a = da;
             }
 
-            /* Hack -- random mimics */
+            /* Random mimics */
             if (mon->mimicked_k_idx)
             {
                 if (server)
@@ -1065,7 +1065,7 @@ void display_map(struct player *p, bool subwindow)
     map_hgt = p->max_hgt - ROW_MAP - 1;
     map_wid = p->screen_cols;
 
-    /* Hack -- classic mini-map */
+    /* Classic mini-map */
     if (subwindow)
     {
         map_hgt = NORMAL_HGT;
@@ -1130,7 +1130,7 @@ void display_map(struct player *p, bool subwindow)
         /* Save "best" */
         if (mp[row][col] < tp)
         {
-            /* Hack -- make every grid on the map lit */
+            /* Make every grid on the map lit */
             g.lighting = LIGHTING_LIT;
             grid_data_as_text(p, cv, false, &g, &a, &c, &ta, &tc);
 
