@@ -2375,8 +2375,9 @@ obj-flag:1:IMPAIR_HP
 value:0:STR[2]
 value:0:WIS[-3]
 value:0:CON[2]
-value:0:CHR[0+-1d15]
+value:0:CHR[0+-1d10]
 player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
+# can't have positive stealth (even with items boni)
 obj-flag:0:CLUMSY
 shape:20:werewolf
 shape:40:volkodlak

@@ -3196,8 +3196,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
             state->to_d -= 2;
             state->skills[SKILL_SAVE] -= 10;
         }
-
-        if (streq(p->clazz->name, "Phaseblade") && !(weapon->tval == TV_SWORD))
+        else if (streq(p->clazz->name, "Phaseblade") && !(weapon->tval == TV_SWORD))
         {
             state->to_h -= 10;
             state->to_d -= 2;
@@ -3289,6 +3288,11 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // limit dam red to 1
         if (state->dam_red > 1)
             state->dam_red = 1;
+    }
+    // BG can't have good stealth
+    else if (streq(p->clazz->name, "Blackguard") && state->skills[SKILL_STEALTH] > 0)
+    {
+        state->skills[SKILL_STEALTH] = 0;
     }
 
     /* Movement speed */
