@@ -2749,6 +2749,12 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
             if (mon_distance < aggro_distance)
                 monster_wake(p, mon, true, 100);
         }
+
+
+        // + classes hArDcOde
+        // volkodlak (and all other forms or polymorph)
+        if (mon_distance < 41 && p->poly_race && streq(p->clazz->name, "Blackguard"))
+            monster_wake(p, mon, true, 100);
     }
 }
 

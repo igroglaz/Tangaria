@@ -3290,10 +3290,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (state->dam_red > 1)
             state->dam_red = 1;
     }
-    // BG can't have good stealth
-    else if (streq(p->clazz->name, "Blackguard") && state->skills[SKILL_STEALTH] > 0)
+    // Blackguard
+    else if (streq(p->clazz->name, "Blackguard"))
     {
-        state->skills[SKILL_STEALTH] = 0;
+        // can't have good stealth
+        if (state->skills[SKILL_STEALTH] > 0)
+            state->skills[SKILL_STEALTH] = 0;
+        
+        // limit max blows
+        if (state->num_blows > 600)
+            state->num_blows = 600;
     }
 
     /* Movement speed */

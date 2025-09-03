@@ -2361,6 +2361,7 @@ skill-melee:65:40
 skill-shoot:1:1
 skill-dig:0:0
 hitdie:9
+# max attacks HCed limit to 6 as he can have additional change on extra blow which not showed in 'C' stats
 max-attacks:5
 min-weight:100
 strength-multiplier:5
@@ -2377,7 +2378,8 @@ value:0:WIS[-3]
 value:0:CON[2]
 value:0:CHR[0+-1d10]
 player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
-# can't have positive stealth (even with items boni)
+# 1) can't have positive stealth (even with items boni)
+# 2) any polymorph form causes agro (40 rad) and hunger
 obj-flag:0:CLUMSY
 shape:20:werewolf
 shape:40:volkodlak

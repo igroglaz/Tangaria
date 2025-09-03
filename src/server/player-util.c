@@ -2181,7 +2181,11 @@ int player_digest(struct player *p)
 
     /* HUNGER effects */ 
     if (player_of_has(p, OF_HUNGER)) digest_factor++; 
-    if (player_of_has(p, OF_HUNGER_2)) digest_factor += 2; 
+    if (player_of_has(p, OF_HUNGER_2)) digest_factor += 2;
+
+    // if in volkodlak (and any other) form
+    if (streq(p->clazz->name, "Blackguard") && p->poly_race)
+        digest_factor += 2;
 
     /* Regeneration takes more food */
     // only without other factors (1 is no factor)
