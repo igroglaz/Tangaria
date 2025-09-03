@@ -2184,7 +2184,7 @@ int player_digest(struct player *p)
     if (player_of_has(p, OF_HUNGER_2)) digest_factor += 2;
 
     // if in volkodlak (and any other) form
-    if (streq(p->clazz->name, "Blackguard") && p->poly_race)
+    if (streq(p->clazz->name, "Blackguard") && p->poly_race && p->lev > 39)
         digest_factor += 2;
 
     /* Regeneration takes more food */
