@@ -280,7 +280,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
                  streq(p->race->name, "Demonic") || streq(p->race->name, "Balrog") ||
                  streq(p->race->name, "Spider") || streq(p->race->name, "Troglodyte") ||
                  streq(p->race->name, "Wraith") || streq(p->race->name, "Beholder") ||
-                 streq(p->race->name, "Ooze")))
+                 streq(p->race->name, "Ooze") ||
+                 streq(p->clazz->name, "Blackguard"))) // class
         {
             // Double damage, but cap total at 425 (BR_LIGHT cap)
             if (dam * 2 <= 425)
@@ -336,7 +337,8 @@ int adjust_dam(struct player *p, int type, int dam, aspect dam_aspect, int resis
 
     // SPECIAL case for LIGHT_WEAK and Vampire race
     else if (type == PROJ_LIGHT_WEAK && p && resist < 3 &&
-             (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead")))
+             (streq(p->race->name, "Vampire") || streq(p->race->name, "Undead") ||
+              streq(p->clazz->name, "Blackguard"))) // class
     {
         int light_weak_xtra_dmg = p->mhp / 10;
         if (p->chp - (dam + light_weak_xtra_dmg) >= 1)
