@@ -2380,6 +2380,10 @@ value:0:CHR[0+-1d10]
 player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
 # 1) can't have positive stealth (even with items boni)
 # 2) any polymorph form causes agro (40 rad) and hunger at 40+lvl
+value:25:RES_LIGHT[-1]
+value:40:DAM_RED[-1]
+#value:40:STEALTH[-1]
+#value:40:MOVES[-1]
 obj-flag:0:CLUMSY
 shape:20:werewolf
 shape:40:volkodlak
@@ -2469,7 +2473,7 @@ book:shadow book:town:[Shadows and Illusions]:5:shadow
 spell:Phantom's Weapon:20:10:40:20:0
 effect:TIMED_SET:HOLD_WEAPON
 dice:20+1d20
-desc:Grants extra blows sometimes and makes you immune to disarming
+desc:Grants extra damage each turn and makes you immune to disarming
 desc: for 20+1d20 turns.
 
 spell:Soul Harvest:22:11:44:22:0
@@ -2486,7 +2490,7 @@ dice:12+1d12
 desc:Makes any monster that can move more inclined to run toward you, and less
 desc: likely to use a ranged attack (including spells and innate abilities).
 
-spell:Expertise:25:12:48:24:0
+spell:Demonic Soul:25:12:48:24:0
 effect:TIMED_SET:SAFE
 dice:20+1d20
 effect:TIMED_SET:GROWTH
@@ -2582,8 +2586,10 @@ desc: Level 10: +10 to AC
 desc: Level 40: reduce malus to stealth and movement
 
 spell:Quake:44:39:55:175:0
+cooldown:255
 effect:EARTHQUAKE:NONE:13
 desc:Causes a radius 13 earthquake centered around the player.
+desc: Cooldown 255 turns.
 
 
 ############### SORCERER ###############
@@ -5530,7 +5536,7 @@ spell:Eight:35:3:1:110:0
 cooldown:3
 effect:TIMED_SET:HOLD_WEAPON
 dice:3
-desc:Grants extra blows sometimes and makes you immune to disarming
+desc:Grants extra damage sometimes and makes you immune to disarming
 desc: for 3 turns.
 desc: Cooldown 3 turns.
 
@@ -5548,6 +5554,7 @@ dice:7+1d7
 desc:As you've come so far.. you might avoid death once in a while.
 desc: Can be used every 255 turns.
 
+#Expertise skill
 
 ############### CLASS TEMPLATE for Knight ###############
 name:Knight

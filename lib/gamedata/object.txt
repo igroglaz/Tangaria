@@ -3545,7 +3545,7 @@ effect:CURE:POISONED
 effect:CURE:CONFUSED
 effect:CURE:BLIND
 effect:HEAL_HP_ONCE
-dice:300+m35
+dice:300
 effect:TIMED_INC:OPP_CONF
 dice:1
 effect:TIMED_INC:OPP_AMNESIA
