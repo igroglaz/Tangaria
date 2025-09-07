@@ -1424,8 +1424,13 @@ void do_cmd_breath(struct player *p, int dir)
     else if (streq(p->race->name, "Half-Troll"))
     {
         use_energy(p);
+        if (p->lev > 29)
+        {
+            player_clear_timed(p, TMD_AFRAID, false);
+            player_inc_timed(p, TMD_BOLD, p->lev / 3, false, false);
+        }
         sound(p, MSG_NPC_BELCH);
-        p->y_cooldown = randint1(30); // cooldown
+        p->y_cooldown = 30; // cooldown
         return;
     }
     // (again... why !shapechanger? don't remember. maybe just cause it imba?)
