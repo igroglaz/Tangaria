@@ -2361,8 +2361,10 @@ skill-melee:65:40
 skill-shoot:1:1
 skill-dig:0:0
 hitdie:9
-# max attacks HCed limit to 6 as he can have additional change on extra blow which not showed in 'C' stats
-max-attacks:5
+# 1) max attacks HCed limit to 6 as he can have additional change on extra blow which not showed in 'C' stats
+# 2) simple hardcoding doesn't work well as buffs (eg bloodlust) are useless
+# when player got extra BpR from weapons/gloves. so we limit max-attacks (was 5)
+max-attacks:4
 min-weight:100
 strength-multiplier:5
 equip:light:Wooden Torch:1:3:none
@@ -2382,6 +2384,7 @@ player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
 # 2) any polymorph form causes agro (40 rad) and hunger at 40+lvl
 value:25:RES_LIGHT[-1]
 value:40:DAM_RED[-1]
+obj-flag:40:IMPAIR_MANA
 #value:40:STEALTH[-1]
 #value:40:MOVES[-1]
 obj-flag:0:CLUMSY
