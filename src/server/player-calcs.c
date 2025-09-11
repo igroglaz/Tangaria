@@ -2640,6 +2640,18 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         if (i == OBJ_MOD_MOVES) extra_moves += (r_adj + c_adj);
     }
 
+    // limit Blackguard extra blows from equipment
+    // (to make bloodlust desirable..
+    // .. otherwise +2BpR gloves or weapons make it useless)
+    if (extra_blows > 40 && streq(p->clazz->name, "Blackguard"))
+    {
+        extra_blows = 40;
+        
+        // also powerful BGs can't have good stealth
+        if (state->skills[SKILL_STEALTH] > 0)
+            state->skills[SKILL_STEALTH] = 0;
+    }
+
     /* shooting malus for Wraith (not sure that we need it)
     if (extra_might > 2 && streq(p->race->name, "Wraith"))
         extra_might--
@@ -3289,17 +3301,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         // limit dam red to 1
         if (state->dam_red > 1)
             state->dam_red = 1;
-    }
-    // Blackguard
-    else if (streq(p->clazz->name, "Blackguard"))
-    {
-        // can't have good stealth
-        if (state->skills[SKILL_STEALTH] > 0)
-            state->skills[SKILL_STEALTH] = 0;
-        
-        // limit max blows
-        if (state->num_blows > 600)
-            state->num_blows = 600;
     }
 
     /* Movement speed */

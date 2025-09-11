@@ -16,7 +16,8 @@ help: iffy priests. They are bad at searching, disarming, perception, and
 help: stealth. They are so ugly that a Half-Orc grimaces in their presence.
 help: Half-trolls always have their strength sustained, and they regenerate
 help: quickly like other trolls. They have fair infravision. They require
-help: extra food until they are mature.
+help: extra food until they are mature. |
+help: At a moderate age, they can recover from fear ('y').
 
 race:Human
 help:Humans are.. humans. All others are compared to them.
