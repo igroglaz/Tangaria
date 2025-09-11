@@ -1871,7 +1871,7 @@ static int calc_blows(struct player *p, const struct object *obj, struct player_
         blows = calc_blows_aux(p, weight, state->stat_ind[STAT_STR], state->stat_ind[STAT_DEX]);
 
     /* Require at least one blow */
-    return MAX(blows + 10 * extra_blows, 100);
+    return MAX(blows + (10 * extra_blows), 100);
 }
 
 
@@ -2063,6 +2063,7 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     struct element_info el_info[ELEM_MAX];
     struct object *tool = equipped_item_by_slot_name(p, "tool");
     int eq_to_a = 0;
+    bool blackguard = streq(p->clazz->name, "Blackguard");
 
     create_obj_flag_mask(f2, 0, OFT_ESP, OFT_MAX);
 
@@ -2639,18 +2640,16 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         /* Affect movement speed */
         if (i == OBJ_MOD_MOVES) extra_moves += (r_adj + c_adj);
     }
+    ///////// END race/class modifiers
 
-    // limit Blackguard extra blows from equipment
+
+    // limit Blackguard extra blows from items/class/races.
     // (to make bloodlust desirable..
-    // .. otherwise +2BpR gloves or weapons make it useless)
-    if (extra_blows > 40 && streq(p->clazz->name, "Blackguard"))
-    {
-        extra_blows = 40;
-        
-        // also powerful BGs can't have good stealth
-        if (state->skills[SKILL_STEALTH] > 0)
-            state->skills[SKILL_STEALTH] = 0;
-    }
+    // .. otherwise +2BpR gloves/weapons make it useless)
+    // note: BpR counted mainly on calc_blows_aux() based on STR/DEX,
+    // so there we only limit boni from items/class/races
+    if (blackguard)
+        extra_blows = 20;
 
     /* shooting malus for Wraith (not sure that we need it)
     if (extra_might > 2 && streq(p->race->name, "Wraith"))
@@ -3281,8 +3280,20 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (tool && tval_is_digger(tool))
         state->skills[SKILL_DIGGING] += (tool->weight / 10);
 
+    // must be another check there cause we want to limit
+    // race/class/lvl BpR, but leave extra BpR
+    // for Bloodlust buff
+    if (blackguard)
+    {
+        if (state->num_blows > 700)
+            state->num_blows = 700;
+        
+        // also powerful BGs can't have good stealth
+        if (state->skills[SKILL_STEALTH] > 0)
+            state->skills[SKILL_STEALTH] = 0;
+    }
     // Sorc AC must be limited
-    if (streq(p->clazz->name, "Sorceror"))
+    else if (streq(p->clazz->name, "Sorceror"))
     {
         if (state->ac + state->to_a > 100)
             {

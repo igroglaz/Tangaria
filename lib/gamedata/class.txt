@@ -2364,7 +2364,7 @@ hitdie:9
 # 1) max attacks HCed limit to 6 as he can have additional change on extra blow which not showed in 'C' stats
 # 2) simple hardcoding doesn't work well as buffs (eg bloodlust) are useless
 # when player got extra BpR from weapons/gloves. so we limit max-attacks (was 5)
-max-attacks:4
+max-attacks:3
 min-weight:100
 strength-multiplier:5
 equip:light:Wooden Torch:1:3:none
