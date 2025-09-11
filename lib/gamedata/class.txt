@@ -2382,9 +2382,9 @@ value:0:CHR[0+-1d10]
 player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
 # 1) can't have positive stealth (even with items boni)
 # 2) any polymorph form causes agro (40 rad) and hunger at 40+lvl
+# 3) at 40+ degen mana faster (as they generate too much rage-mana at 40+)
 value:25:RES_LIGHT[-1]
 value:40:DAM_RED[-1]
-obj-flag:40:IMPAIR_MANA
 #value:40:STEALTH[-1]
 #value:40:MOVES[-1]
 obj-flag:0:CLUMSY

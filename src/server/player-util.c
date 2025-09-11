@@ -527,7 +527,14 @@ void player_regen_mana(struct player *p)
     }
 
     /* Some things slow it down */
-    if (player_has(p, PF_COMBAT_REGEN)) percent /= -2;
+    if (player_has(p, PF_COMBAT_REGEN))
+    {
+        // blackguards 40+ got too much mana
+        if (p->lev > 39)
+            percent *= -2;
+        else
+            percent /= -2;
+    }
     else if (player_of_has(p, OF_IMPAIR_MANA)) percent /= 2;
 
     /* Regenerate mana */
