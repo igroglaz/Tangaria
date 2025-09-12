@@ -1279,9 +1279,18 @@ static void calc_mana(struct player *p, struct player_state *state, bool update)
     
     if (streq(p->race->name, "Halfling") && !equipped_item_by_slot_name(p, "feet"))
         exmsp += 1;
-
-    if (streq(p->race->name, "Vampire") && is_daytime())
+    else if (streq(p->race->name, "Vampire") && is_daytime())
         exmsp -= 1;
+
+    // no extra 'mana' for BG (he uses rage :)
+    if (streq(p->clazz->name, "Blackguard"))
+    {
+        exmsp = 0;
+
+        // and actually reduce rage amount at 25+ (without it it has 400+ rage at 50 lvl)
+        if (p->lev > 24)
+            exmsp -= (p->lev + 5) / 10;
+    }
 
     // Cap extra mana capacity from _racial_ boni at +15..
     if (exmsp > 15) exmsp = 15;

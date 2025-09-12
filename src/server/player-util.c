@@ -533,7 +533,7 @@ void player_regen_mana(struct player *p)
     {
         // blackguards 40+ got too much mana
         if (p->lev > 39)
-            percent *= -2;
+            percent *= -3;
         else
             percent /= -2;
     }
