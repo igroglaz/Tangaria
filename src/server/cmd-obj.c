@@ -1878,9 +1878,9 @@ static void apply_obj_post_use_hced_effects(struct player *p, struct object *obj
     }
 
     ////////////////// POTIONS
-    // potion of water. gives additional satiation (+ to object.txt) if hungry
     if (obj->tval == TV_POTION)
     {
+        // <WATER POTION> gives additional satiation (+ to object.txt) if hungry
         if (obj->kind == lookup_kind_by_name(TV_POTION, "Water") &&
             !streq(p->race->name, "Vampire") && !streq(p->race->name, "Undead") &&
             !streq(p->race->name, "Golem") && !streq(p->race->name, "Wraith") && 
@@ -1913,6 +1913,7 @@ static void apply_obj_post_use_hced_effects(struct player *p, struct object *obj
             else // all other races
                 player_inc_timed(p, TMD_FOOD, 100 + satiation, false, false);
         }
+        // <DEATH POTION>
         else if (obj->kind == lookup_kind_by_name(TV_POTION, "Death"))
         {
             // cheated death? :)
@@ -1931,24 +1932,7 @@ static void apply_obj_post_use_hced_effects(struct player *p, struct object *obj
             /* Display the hitpoints */
             p->upkeep->redraw |= (PR_HP);
         }
-        else if (streq(p->race->name, "Ent"))
-        {
-           int ent_food = 0;
-           int c0st = obj->kind->cost;
-
-           if      (c0st <= 10)   ent_food = 2;
-           else if (c0st <= 25)   ent_food = 4;
-           else if (c0st <= 50)   ent_food = 8;
-           else if (c0st <= 100)  ent_food = 15;
-           else if (c0st <= 200)  ent_food = 30;
-           else if (c0st <= 500)  ent_food = 50;
-           else if (c0st <= 1000) ent_food = 75;
-           else if (c0st <= 5000) ent_food = 100;
-           else if (c0st > 5000)  ent_food = 150;
-
-           player_inc_timed(p, TMD_FOOD, ent_food, false, false);
-        }
-        // healing potions spend satiation if not too hungry
+        // <HEALING POTION> spend satiation if not too hungry
         else if (p->timed[TMD_FOOD] >= 700)
         {
             if (obj->kind == lookup_kind_by_name(TV_POTION, "Cure Light Wounds") &&
@@ -1964,14 +1948,31 @@ static void apply_obj_post_use_hced_effects(struct player *p, struct object *obj
                 player_dec_timed(p, TMD_FOOD, 100, false);
         }
         // drinking any other potions when hungry helps a bit
-        else
+        else if (p->timed[TMD_FOOD] < 100) // starving
+            player_inc_timed(p, TMD_FOOD, 200, false, false);
+        else if (p->timed[TMD_FOOD] < 400) // faint
+            player_inc_timed(p, TMD_FOOD, 150, false, false);
+        else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
+            player_inc_timed(p, TMD_FOOD, 100, false, false);
+
+
+        // ENT RACE additional satiation
+        if (streq(p->race->name, "Ent"))
         {
-            if (p->timed[TMD_FOOD] < 100) // starving
-                player_inc_timed(p, TMD_FOOD, 200, false, false);
-            else if (p->timed[TMD_FOOD] < 400) // faint
-                player_inc_timed(p, TMD_FOOD, 150, false, false);
-            else if (p->timed[TMD_FOOD] < 700) // (weak is 800, but we use 700 there)
-                player_inc_timed(p, TMD_FOOD, 100, false, false);
+           int ent_food = 0;
+           int c0st = obj->kind->cost;
+
+           if      (c0st <= 10)   ent_food = 2;
+           else if (c0st <= 25)   ent_food = 4;
+           else if (c0st <= 50)   ent_food = 8;
+           else if (c0st <= 100)  ent_food = 15;
+           else if (c0st <= 200)  ent_food = 30;
+           else if (c0st <= 500)  ent_food = 50;
+           else if (c0st <= 1000) ent_food = 75;
+           else if (c0st <= 5000) ent_food = 100;
+           else if (c0st > 5000)  ent_food = 150;
+
+           player_inc_timed(p, TMD_FOOD, ent_food, false, false);
         }
     }
 }
