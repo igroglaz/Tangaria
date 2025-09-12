@@ -283,8 +283,10 @@ bool take_hit(struct player *p, int damage, const char *hit_from, const char *di
     }
 
     /* Reward COMBAT_REGEN characters with mana for their lost hitpoints */
-    if (player_has(p, PF_COMBAT_REGEN) && strcmp(hit_from, "poison") &&
-        strcmp(hit_from, "a fatal wound") && strcmp(hit_from, "starvation"))
+    // only in dungeon
+    if (player_has(p, PF_COMBAT_REGEN) && p->wpos.depth > 0 &&
+        strcmp(hit_from, "poison") && strcmp(hit_from, "a fatal wound") &&
+        strcmp(hit_from, "starvation"))
     {
         /* lose X% of hitpoints get X% of spell points */
         int32_t sp_gain = (((int32_t)MAX(p->msp, 10)) * 65536) / (int32_t)p->mhp * damage;

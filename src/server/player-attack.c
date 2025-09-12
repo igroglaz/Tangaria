@@ -1440,7 +1440,8 @@ void py_attack(struct player *p, struct chunk *c, struct loc *grid)
     p->frac_blow = (p->state.num_blows + p->frac_blow) % 100;
 
     /* Reward blackguards with 5% of max SPs, min 1/2 point */
-    if (player_has(p, PF_COMBAT_REGEN))
+    // only in dungeon
+    if (player_has(p, PF_COMBAT_REGEN) && p->wpos.depth > 0)
     {
         int32_t sp_gain = (((int32_t)MAX(p->msp, 10)) * 16384) / 5;
 
