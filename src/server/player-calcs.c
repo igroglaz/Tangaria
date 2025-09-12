@@ -2063,7 +2063,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     struct element_info el_info[ELEM_MAX];
     struct object *tool = equipped_item_by_slot_name(p, "tool");
     int eq_to_a = 0;
-    bool blackguard = streq(p->clazz->name, "Blackguard");
 
     create_obj_flag_mask(f2, 0, OFT_ESP, OFT_MAX);
 
@@ -2642,14 +2641,6 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     }
     ///////// END race/class modifiers
 
-
-    // limit Blackguard extra blows from items/class/races.
-    // (to make bloodlust desirable..
-    // .. otherwise +2BpR gloves/weapons make it useless)
-    // note: BpR counted mainly on calc_blows_aux() based on STR/DEX,
-    // so there we only limit boni from items/class/races
-    if (blackguard)
-        extra_blows = 20;
 
     /* shooting malus for Wraith (not sure that we need it)
     if (extra_might > 2 && streq(p->race->name, "Wraith"))
@@ -3280,14 +3271,40 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (tool && tval_is_digger(tool))
         state->skills[SKILL_DIGGING] += (tool->weight / 10);
 
-    // must be another check there cause we want to limit
-    // race/class/lvl BpR, but leave extra BpR
-    // for Bloodlust buff
-    if (blackguard)
+    // BG can have like 10 BpR ez... so we limit it by AC reducing
+    if (streq(p->clazz->name, "Blackguard"))
     {
-        if (state->num_blows > 700)
-            state->num_blows = 700;
-        
+        if (state->num_blows > 1000)
+        {
+            state->to_a -= 275;
+            state->dam_red -= 6;
+        }
+        else if (state->num_blows > 900)
+        {
+            state->to_a -= 250;
+            state->dam_red -= 5;
+        }
+        else if (state->num_blows > 800)
+        {
+            state->to_a -= 225;
+            state->dam_red -= 4;
+        }
+        else if (state->num_blows > 700)
+        {
+            state->to_a -= 200;
+            state->dam_red -= 3;
+        }
+        else if (state->num_blows > 600)
+        {
+            state->to_a -= 150;
+            state->dam_red -= 2;
+        }
+        else if (state->num_blows > 500)
+        {
+            state->to_a -= 100;
+            state->dam_red -= 1;
+        }
+
         // also powerful BGs can't have good stealth
         if (state->skills[SKILL_STEALTH] > 0)
             state->skills[SKILL_STEALTH] = 0;
