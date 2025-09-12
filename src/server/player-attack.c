@@ -1174,9 +1174,12 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
                 object_notice_attack_plusses(p, obj);
             }
 
+
             /* Splash damage and earthquakes */
             splash = (weight * dmg) / 100;
-            if (player_of_has(p, OF_IMPACT) && (dmg > 50))
+
+            // Grond... quake was every turn. so now it's 5% chance to apply
+            if (player_of_has(p, OF_IMPACT) && dmg > 50 && RNG % 20 == 0)
             {
                 do_quake = true;
                 equip_learn_flag(p, OF_IMPACT);
