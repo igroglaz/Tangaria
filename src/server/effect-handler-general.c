@@ -4984,6 +4984,10 @@ bool effect_handler_RESTORE_MANA(effect_handler_context_t *context)
 
     if (!amount) amount = context->origin->player->msp;
 
+    // BG shouldn't use !mana to generate rage
+    if (streq(context->origin->player->clazz->name, "Blackguard"))
+        amount = 1;
+
     /* Healing needed */
     if (context->origin->player->csp < context->origin->player->msp)
     {

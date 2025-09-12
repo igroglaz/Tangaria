@@ -2384,7 +2384,7 @@ player-flags:0:CHOOSE_SPELLS | SHIELD_BASH | COMBAT_REGEN | SHAPECHANGE
 value:25:RES_LIGHT[-1]
 value:40:DAM_RED[-1]
 value:40:STEALTH[-1]
-value:40:MOVES[-1]
+#value:40:MOVES[-1]
 obj-flag:0:CLUMSY
 shape:20:werewolf
 shape:40:volkodlak
