@@ -3271,50 +3271,64 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     if (tool && tval_is_digger(tool))
         state->skills[SKILL_DIGGING] += (tool->weight / 10);
 
-    // BG can have like 10 BpR ez... so we limit it by AC reducing
+
+    // BG can have like 10+ BpR (5 based + 4+ from items/race + 2.3 from Bloodlust)...
+    // so we balance it by glasscanonish way
     if (streq(p->clazz->name, "Blackguard"))
     {
+        int total_ac_reduction = 0;
+        
         if (state->num_blows > 1000)
         {
-            state->to_a -= 275;
+            total_ac_reduction = 150;
             state->dam_red -= 6;
             state->skills[SKILL_SAVE] -= 60;
         }
         else if (state->num_blows > 900)
         {
-            state->to_a -= 250;
+            total_ac_reduction = 125;
             state->dam_red -= 5;
             state->skills[SKILL_SAVE] -= 50;
         }
         else if (state->num_blows > 800)
         {
-            state->to_a -= 225;
+            total_ac_reduction = 100;
             state->dam_red -= 4;
             state->skills[SKILL_SAVE] -= 40;
         }
         else if (state->num_blows > 700)
         {
-            state->to_a -= 200;
+            total_ac_reduction = 75;
             state->dam_red -= 3;
             state->skills[SKILL_SAVE] -= 30;
         }
         else if (state->num_blows > 600)
         {
-            state->to_a -= 150;
+            total_ac_reduction = 50;
             state->dam_red -= 2;
             state->skills[SKILL_SAVE] -= 20;
         }
         else if (state->num_blows > 500)
         {
-            state->to_a -= 100;
+            total_ac_reduction = 35;
             state->dam_red -= 1;
             state->skills[SKILL_SAVE] -= 10;
         }
 
-        if (state->num_blows > 500)
+        // Apply AC reduction
+        if (total_ac_reduction > 0)
         {
-            if (state->to_a < 0)
-                state->to_a = 0;
+            int ac_to_remove = (total_ac_reduction < state->ac) ? total_ac_reduction : state->ac;
+            
+            state->ac -= ac_to_remove;          // reduce base AC first
+            total_ac_reduction -= ac_to_remove; // remaining reduction
+            
+            if (total_ac_reduction > 0) {
+                state->to_a -= total_ac_reduction; // reduce AC bonus with remainder
+                if (state->to_a < 0) state->to_a = 0; // no negative bonus
+            }
+            
+            // Ensure minimums
             if (state->skills[SKILL_SAVE] < 0)
                 state->skills[SKILL_SAVE] = 0;
         }
