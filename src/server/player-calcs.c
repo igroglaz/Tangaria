@@ -3278,31 +3278,45 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
         {
             state->to_a -= 275;
             state->dam_red -= 6;
+            state->skills[SKILL_SAVE] -= 60;
         }
         else if (state->num_blows > 900)
         {
             state->to_a -= 250;
             state->dam_red -= 5;
+            state->skills[SKILL_SAVE] -= 50;
         }
         else if (state->num_blows > 800)
         {
             state->to_a -= 225;
             state->dam_red -= 4;
+            state->skills[SKILL_SAVE] -= 40;
         }
         else if (state->num_blows > 700)
         {
             state->to_a -= 200;
             state->dam_red -= 3;
+            state->skills[SKILL_SAVE] -= 30;
         }
         else if (state->num_blows > 600)
         {
             state->to_a -= 150;
             state->dam_red -= 2;
+            state->skills[SKILL_SAVE] -= 20;
         }
         else if (state->num_blows > 500)
         {
             state->to_a -= 100;
             state->dam_red -= 1;
+            state->skills[SKILL_SAVE] -= 10;
+        }
+
+        if (state->num_blows > 500)
+        {
+            if (state->to_a < 0)
+                state->to_a = 0;
+            if (state->skills[SKILL_SAVE] < 0)
+                state->skills[SKILL_SAVE] = 0;
         }
 
         // also powerful BGs can't have good stealth
