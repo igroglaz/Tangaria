@@ -344,12 +344,11 @@ static void store_display_help(struct store_context *ctx)
         text_out(")", help_loc_y, &help_loc_x);
         if (OPT(player, birth_no_selling) && !is_home)
         {
-            text_out(" gives an item to the store in return for its identification.",
-                help_loc_y, &help_loc_x);
-            text_end(&help_loc_y, &help_loc_x);
+            // text_out(" gives an item to the store in return for its identification.", help_loc_y, &help_loc_x);
+            // text_end(&help_loc_y, &help_loc_x);
 
             /* Display help (line 3) */
-            text_out("Some wands and staves will also be recharged. ", help_loc_y, &help_loc_x);
+            // text_out("Some wands and staves will also be recharged. ", help_loc_y, &help_loc_x);
             text_out_c(COLOUR_L_GREEN, "ESC", help_loc_y, &help_loc_x);
             text_out(" exits the building.", help_loc_y, &help_loc_x);
         }
