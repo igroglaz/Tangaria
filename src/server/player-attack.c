@@ -1178,11 +1178,17 @@ static bool py_attack_real(struct player *p, struct chunk *c, struct loc *grid,
             /* Splash damage and earthquakes */
             splash = (weight * dmg) / 100;
 
-            // Grond... quake was every turn. so now it's 5% chance to apply
-            if (player_of_has(p, OF_IMPACT) && dmg > 50 && RNG % 20 == 0)
+            // Grond... quake chance halves with each additional BpR (1 BpR = 20%, 2 BpR = 10%, etc.)
+            if (player_of_has(p, OF_IMPACT) && dmg > 50)
             {
-                do_quake = true;
-                equip_learn_flag(p, OF_IMPACT);
+                // Base chance is 20% (1 in 5), then halves for each BpR..
+                // 2 BpR: 10% chance (1 in 10).. 3 BpR: 5% chance (1 in 20).. etc
+                uint32_t chance_threshold = 5 << ((p->state.num_blows / 100) - 1);
+                if ((RNG % chance_threshold) == 0)
+                {
+                    do_quake = true;
+                    equip_learn_flag(p, OF_IMPACT);
+                }
             }
         }
     }
