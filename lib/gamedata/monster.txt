@@ -25911,7 +25911,7 @@ name:valkyrie
 base:ainu
 color:D
 speed:140
-hit-points:6000
+hit-points:3000
 hearing:60
 armor-class:140
 sleepiness:10
