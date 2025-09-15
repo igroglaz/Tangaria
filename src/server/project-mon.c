@@ -2395,7 +2395,12 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
 
             // Trader boni
             if (streq(p->clazz->name, "Trader"))
-                mon->lifespan += p->state.stat_ind[STAT_CHR];
+            {
+                // endgame got max value
+                if (p->lev > 49)
+                    mon->lifespan = 215;
+                mon->lifespan += p->state.stat_ind[STAT_CHR]; // 40 max
+            }
         }
     }
     mon->resilient = 0;
