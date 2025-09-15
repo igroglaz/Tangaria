@@ -578,8 +578,8 @@ static void chest_death(struct player *p, struct chunk *c, struct loc *grid, str
         number--;
     }
 
-    // Place gold piles based on chest type (IRONMAN / ZEITNOT only)
-    if (OPT(p, birth_ironman) || OPT(p, birth_zeitnot)) {
+    // Place gold piles based on chest type (IRONMAN/ZEITNOT or ENDGAME)
+    if (p->wpos.depth > 75 || OPT(p, birth_ironman) || OPT(p, birth_zeitnot)) {
         for (i = 0; i < gold_piles; i++) {
             struct object *money = make_gold(p, c, level, "any");
             if (money) {
