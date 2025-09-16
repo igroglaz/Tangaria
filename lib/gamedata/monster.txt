@@ -26227,7 +26227,7 @@ spells:BLIND | WOUND | FORGET | HASTE | HEAL | MIND_BLAST
 spells:TELE_TO | TPORT | TRAPS
 spells:BA_FIRE | BA_MANA | BA_NETH | BA_WATE
 spells:BO_ICE | BO_MANA | BO_PLAS
-spells:S_HI_DEMON | S_HI_DRAGON | S_HI_UNDEAD | S_MONSTERS
+spells:S_HI_DRAGON | S_UNIQUE
 desc:Wife of Manwe, Varda is the most beautiful of all the Valar...
 desc: She is also known as Elbereth - "Queen of the Stars".
 locations:Valinor|Angmar|The Thangorodrim|The Underdeep
@@ -26264,7 +26264,7 @@ spells:HOLD | SLOW | TELE_TO | TPORT
 spells:BA_DARK | BA_MANA | BA_NETH | BA_WATE
 spells:BO_ICE | BO_MANA | BO_PLAS
 spells:ANIM_DEAD
-spells:S_HI_DEMON | S_HI_DRAGON | S_HI_UNDEAD | S_UNIQUE | S_ABOMINATION
+spells:S_MONSTERS | S_ABOMINATION
 desc:Husband of Varda, brother of Melkor and the leader of the Ainur.
 desc: He was also known as Sulimo, commander of winds and air.
 desc: He is the one who will crush you to The Void!
