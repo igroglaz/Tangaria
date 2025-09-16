@@ -6956,26 +6956,6 @@ equip:travel guide:[Basics]:1:1:none
 #desc: Holds non-resistant monster for a level-dependent number of turns.
 #desc: Costs gold.
 
-#spell:Hire Magic Protection:15:1:33:80:0
-#cooldown:300
-#effect:CURE:CUT
-#effect:CURE:STUN
-#effect:CURE:POISONED
-#effect:CURE:AMNESIA
-#effect:HEAL_HP
-#dice:$B
-#expr:B:PLAYER_LEVEL:* 10
-#effect:CREATE_WALLS
-#effect:TELEPORT
-#dice:$B
-#expr:B:PLAYER_LEVEL:+ 0
-#msg_other: blinks away.
-#desc:An emergency incantation, taught to every trader for dire situations.
-#desc: Teleports you randomly to a certain distance (depending on your level).
-#desc: Cures damage, stunning, heals all cut damage, poison, and amnesia.
-#desc: This spell costs A LOT of gold
-#desc: Cooldown 300 turns.
-
 spell:Small Red Potion:1:1:1:1:0
 cooldown:10
 effect:HEAL_HP
@@ -7079,27 +7059,36 @@ desc:Not all paths are clear. With this spell, the very stones yield,
 desc: making way for the persistent merchant. Beyond just clearing a path,
 desc: the force can harm creatures born of rock and earth.
 
-spell:Merchant Insight:40:21:1:60:0
-effect:DETECT_STAIRS
-effect-yx:22:40
+#spell:Merchant Insight:40:21:1:60:0
+#effect:DETECT_STAIRS
+#effect-yx:22:40
+#effect:BLAST:LIGHT_WEAK:2
+#dice:2d$S
+#expr:S:PLAYER_LEVEL:/ 2
+#effect:LIGHT_AREA
+#msg_other: calls light.
+#desc:A merchant's intuition, enhanced by magic, reveals hidden pathways and
+#desc: banishes darkness. It's said that this spell channels the very first dawn,
+#desc: revealing threats and secrets alike.
+
+#spell:Cartography:45:50:1:50:0
+#effect:MAP_AREA
+#effect-yx:16:32
+#desc:The world is vast, and its secrets are many. With this spell,
+#desc: landscapes unfurl and mysteries become mere geography.
+
+#TODO: split spells... add more.. I had to shrink them in 1 to add more spells on endgame
+spell:Merchant Scent:49:25:1:70:0
 effect:BLAST:LIGHT_WEAK:2
 dice:2d$S
 expr:S:PLAYER_LEVEL:/ 2
 effect:LIGHT_AREA
-msg_other: calls light.
-desc:A merchant's intuition, enhanced by magic, reveals hidden pathways and
-desc: banishes darkness. It's said that this spell channels the very first dawn,
-desc: revealing threats and secrets alike.
-
-spell:Cartography:45:50:1:50:0
-effect:MAP_AREA
-effect-yx:16:32
-desc:The world is vast, and its secrets are many. With this spell,
-desc: landscapes unfurl and mysteries become mere geography.
-
-spell:Merchant Scent:49:25:1:70:0
+effect:DETECT_STAIRS
+effect-yx:22:40
 effect:DETECT_TREASURES
 effect-yx:22:40
+effect:MAP_AREA
+effect-yx:16:32
 desc:Merchants with keen senses and this spell can feel the pull of treasures
 desc: hidden by time and magic, making no hoard truly hidden from their gaze.
 
@@ -7112,6 +7101,55 @@ desc:You put on your most persuasive smile, trying to charm
 desc: others into accepting your deals at unbeatable prices.
 desc: At the same time, you feel generally better and more confident.
 desc: Cooldown 255 turns.
+
+spell:Hire Magic Protection:50:1:1:200:0
+cooldown:255
+effect:CURE:CUT
+effect:CURE:STUN
+effect:CURE:POISONED
+effect:CURE:AMNESIA
+effect:HEAL_HP
+dice:$B
+expr:B:PLAYER_LEVEL:* 10
+effect:SAFE_GUARD
+effect:TELEPORT
+dice:$B
+expr:B:PLAYER_LEVEL:* 5
+msg_other: blinks away.
+desc:You hire the best magic protection money can buy - a circle of old hags.
+desc: They lurk in the shadows, waiting for your signal to whisk you away.
+desc: 1) Teleport you randomly to a far distance.
+desc: 2) Inscribes a circle of glyphs of warding around you.
+desc: Summoned monsters can't appear on the glyphs.
+desc: If a monster tries to move onto a glyph or melee you while you're
+desc: standing on it, it must first break the glyph.
+desc: Higher level monsters are more likely to break the glyphs.
+desc: The glyphs will remain where they are, until a monster succeeds in
+desc: breaking them or until you leave the level.
+desc: 3) Cure damage, stunning, heals all cut damage, poison, and amnesia.
+desc: Cooldown 255 turns.
+
+spell:Wand of Death:50:13:1:200:0
+cooldown:3
+effect:BOLT:MISSILE
+dice:555
+effect:BEAM:CHAOS
+dice:777
+effect:BALL:HOLY_ORB
+dice:444
+effect:ARC:NETHER
+dice:666
+effect:RANDOM
+dice:4
+msg_other: unleashes a surge of chaotic magic.
+desc:After countless trades, you've finally laid hands on one of the most valuable magic wands...
+desc: Being a trader, you can hardly control its powers, but even with your crude hands,
+desc: it's devastating!
+desc: "Its tale is stained with blood, yet such may be the fate of all things greatly
+desc: coveted, that stir the hearts of wizards to longing and strife. Of vast power it is,
+desc: perilous in unworthy hands, and a wonder of such deep enchantment that few who behold
+desc: it can turn away their gaze..."
+desc: Cooldown 3 turns.
 
 
 ############### CLASS TEMPLATE for Assassin ###############
