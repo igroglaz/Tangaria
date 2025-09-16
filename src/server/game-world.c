@@ -1564,6 +1564,11 @@ static void process_player_world(struct player *p, struct chunk *c)
             }
         }
     }
+    // Trader class end-game bodyguard
+    else if (p->lev > 49 && p->wpos.depth && p->slaves < 1 && streq(p->clazz->name, "Trader"))
+    {
+        summon_specific_race_aux(p, c, &p->grid, get_race("bodyguard"), 1, true);
+    }
     /* Thunderlord race: eagle-companion */
     else if (streq(p->race->name, "Thunderlord") && p->wpos.depth && p->slaves < 1)
     {

@@ -26199,7 +26199,7 @@ locations:Valinor
 name:Varda, Queen of the Valar
 base:ainu
 color:G
-speed:140
+speed:139
 hit-points:30000
 light:2
 hearing:155
@@ -32654,5 +32654,29 @@ flags:DROP_2 | DROP_GOOD | ONLY_ITEM
 #drop:ring:Black Ring of Power:100:1:1
 #drop:sword:'Stormbringer':100:1:1
 desc:A golem used for testing purposes.
+
+# grand swordsmaster
+name:bodyguard
+base:person
+color:Z
+speed:130
+hit-points:1000
+light:1
+hearing:40
+armor-class:120
+sleepiness:5
+depth:60
+rarity:0
+weight:0
+experience:0
+blow:HIT:HURT:10d8
+blow:HIT:HURT:10d8
+blow:HIT:DISARM:10d8
+blow:HIT:DISARM:10d8
+flags:METAL
+flags:OPEN_DOOR
+flags:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | NO_CONF | NO_SLEEP
+desc:A warrior tempered by many battles, carrying the quiet pride of those
+desc: who live only by the sword.
 
 # # leave empty line for EOF

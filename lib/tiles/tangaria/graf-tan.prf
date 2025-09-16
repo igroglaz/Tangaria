@@ -32530,6 +32530,9 @@ object:helm:Old Wizard Hat:0x80:0x8C
 object:hafted:Magical Flute:0x9A:0x9A
 ##############################
 
+# Trader's minion
+monster:bodyguard:0x83:0x86
+
 object:skillbook:[Mastery]:0x86:0x80
 
 # Load the special player pictures
