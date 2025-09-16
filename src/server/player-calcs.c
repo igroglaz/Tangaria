@@ -3349,9 +3349,9 @@ void calc_bonuses(struct player *p, struct player_state *state, bool known_only,
     // Sorc AC must be limited
     else if (streq(p->clazz->name, "Sorceror"))
     {
-        if (state->ac + state->to_a > 100)
+        if (state->ac + state->to_a > 80)
             {
-            int excess = (state->ac + state->to_a) - 100; // total AC above limit
+            int excess = (state->ac + state->to_a) - 80; // total AC above limit
             int ac_to_remove = (excess < state->ac) ? excess : state->ac; // reduce AC first
 
             state->ac -= ac_to_remove; // cut from base AC
