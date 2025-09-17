@@ -195,12 +195,12 @@ void notify_player(struct player *p, char *header, uint16_t term, bool symbol)
     {
         int i, j;
 
-        /* Hack -- use special term */
+        /* Use special term */
         Send_term_info(p, NTERM_ACTIVATE, NTERM_WIN_SPECIAL);
 
         for (i = 0; i < p->last_info_line; i++)
         {
-            /* Hack -- we have a symbol as first character */
+            /* We have a symbol as first character */
             if (symbol)
             {
                 /* Shift data by 2 characters to the right */
@@ -213,7 +213,7 @@ void notify_player(struct player *p, char *header, uint16_t term, bool symbol)
                 p->info[i][1].c = p->info[i][0].c;
                 p->info[i][0].c = (char)p->info[i][0].a;
 
-                /* Hack -- special coloring */
+                /* Special coloring */
                 p->info[i][0].a = COLOUR_SYMBOL;
             }
 
@@ -273,7 +273,7 @@ int16_t get_speed(struct player *p)
 {
     int16_t speed = p->state.speed;
 
-    /* Hack -- visually "undo" the "Stealth Mode" slowdown */
+    /* Visually "undo" the "Stealth Mode" slowdown */
     if (p->stealthy) speed += 10;
 
     return speed - 110;
@@ -455,7 +455,7 @@ void clean_name(char *buf, char *name)
     dst = buf;
     for (str = name; *str; str++)
     {
-        /* Hack -- notice '&' */
+        /* Notice '&' */
         if (*str == '&')
             amp = true;
         else
@@ -468,7 +468,7 @@ void clean_name(char *buf, char *name)
             else if (isdigit(*str) || (*str == '-') || (*str == '*') || (*str == '\''))
                 *dst++ = *str;
 
-            /* Hack -- allow space if not after '&' */
+            /* Allow space if not after '&' */
             else if ((*str == ' ') && !amp)
                 *dst++ = *str;
 

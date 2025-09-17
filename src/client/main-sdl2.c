@@ -93,7 +93,7 @@
     (DEFAULT_BORDER * 2)
 #define DEFAULT_VISIBLE_BORDER 2
 
-/* XXX hack: the widest character present in a font
+/* XXX the widest character present in a font
  * for determining font advance (width) */
 #define GLYPH_FOR_ADVANCE 'W'
 #define DEFAULT_VECTOR_FONT_SIZE 12
@@ -5425,7 +5425,7 @@ static bool reload_font(struct subwindow *subwindow,
 
     resize_subwindow(subwindow);
 
-    /* Hack -- set ANGBAND_FONTNAME for main window */
+    /* Set ANGBAND_FONTNAME for main window */
     if (subwindow->index == MAIN_SUBWINDOW) {
         ANGBAND_FONTNAME = subwindow->font->name;
     }
@@ -5764,7 +5764,7 @@ static void handle_button_open_subwindow(struct sdlpui_control *ctrl,
     if (subwindow != NULL) {
         subwindow->visible = !subwindow->visible;
 
-        /* Hack -- chat window (term_chat) */
+        /* Chat window (term_chat) */
         if (subwindow->index == CHAT_SUBWINDOW && subwindow->visible) {
             load_term(subwindow);
             /* Reinitialize all subwindows */
@@ -6514,7 +6514,7 @@ static void load_subwindow(struct sdlpui_window *window,
                 subwindow->index, window->index, SDL_GetError());
     }
 
-    /* Hack -- set ANGBAND_FONTNAME for main window */
+    /* Set ANGBAND_FONTNAME for main window */
     if (subwindow->index == MAIN_SUBWINDOW) {
         ANGBAND_FONTNAME = subwindow->font->name;
     }
@@ -7325,7 +7325,7 @@ static void load_terms(struct my_app *a)
 {
     for (size_t i = 0; i < N_ELEMENTS(a->subwindows); i++) {
         if (a->subwindows[i].loaded) {
-            /* Hack -- don't load chat window (term_chat) if visible = false */
+            /* Don't load chat window (term_chat) if visible = false */
             if (a->subwindows[i].index == CHAT_SUBWINDOW && !a->subwindows[i].visible) {
                 continue;
             }

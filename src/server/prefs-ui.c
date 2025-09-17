@@ -70,7 +70,7 @@ static enum parser_error parse_prefs_expr(struct parser *p)
 
     my_assert(d != NULL);
 
-    /* Hack -- do not load any Evaluated Expressions */
+    /* Do not load any Evaluated Expressions */
     parser_getstr(p, "expr");
 
     /* Set flag */
@@ -463,7 +463,7 @@ static enum parser_error parse_prefs_flavor(struct parser *p)
 
 static enum parser_error parse_prefs_rf(struct parser *p)
 {
-    /* Hack -- parser hook for female player presets */
+    /* Parser hook for female player presets */
     return parse_prefs_monster(p);
 }
 
@@ -487,7 +487,7 @@ static struct parser *init_parse_prefs(void)
     parser_reg(p, "GF sym type sym direction uint attr uint char", parse_prefs_gf);
     parser_reg(p, "flavor uint idx int attr int char", parse_prefs_flavor);
 
-    /* Hack -- parser hook for female player presets */
+    /* Parser hook for female player presets */
     parser_reg(p, "RF sym name int attr int char", parse_prefs_rf);
 
     return p;

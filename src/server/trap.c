@@ -496,7 +496,7 @@ void hit_trap(struct player *p, struct loc *grid, int delayed)
                 valid = false;
             }
 
-            /* Hack -- DM redesigning the level */
+            /* DM redesigning the level */
             if (chunk_inhibit_players(&wpos))
             {
                 msg(p, "You feel quite certain something really awful just happened...");

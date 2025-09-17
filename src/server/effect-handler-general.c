@@ -4608,8 +4608,7 @@ bool effect_handler_RANDOM(effect_handler_context_t *context)
  * Map an area around the recently detected monsters.
  * The height to map above and below each monster is context->y,
  * the width either side of each monster context->x.
- * For player level dependent areas, we use the hack of applying value dice
- * and sides as the height and width.
+ * For player level dependent areas, we apply value dice and sides as the height and width.
  */
 bool effect_handler_READ_MINDS(effect_handler_context_t *context)
 {

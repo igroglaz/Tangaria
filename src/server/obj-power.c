@@ -1087,7 +1087,7 @@ int object_value_real(struct player *p, const struct object *obj, int qty)
 
     int min_value = (obj->artifact? 1: 0);
 
-    /* Hack -- worthless objects */
+    /* Worthless objects */
     if (obj->origin == ORIGIN_WORTHLESS) return min_value;
 
     /* Wearables and ammo have prices that vary by individual item properties */

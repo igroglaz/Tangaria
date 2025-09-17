@@ -425,7 +425,7 @@ static size_t obj_desc_mods(const struct object *obj, char *buf, size_t max, siz
 
     object_modifiers(obj, modifiers);
 
-    /* Hack -- rings of polymorphing append the race name instead of its modifier */
+    /* Rings of polymorphing append the race name instead of its modifier */
     if (tval_is_poly(obj))
     {
         struct monster_race *race = &r_info[obj->modifiers[OBJ_MOD_POLY_RACE]];
@@ -670,10 +670,10 @@ size_t object_desc(struct player *p, char *buf, size_t max, const struct object 
 
         end = obj_desc_charges(obj, buf, max, end, aware);
 
-        /* Hack -- corpses slowly decompose */
+        /* Corpses slowly decompose */
         if (tval_is_corpse(obj))
         {
-            /* Hack -- dump " (rotten)" if relevant */
+            /* Dump " (rotten)" if relevant */
             if (obj->decay <= obj->timeout / 5)
                 strnfcat(buf, max, &end, "%s", " (rotten)");
         }

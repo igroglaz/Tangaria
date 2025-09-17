@@ -84,7 +84,7 @@ static int spell_book_count_spells(const struct object *obj, bool (*tester)(int,
 
 bool obj_can_browse(struct player *p, const struct object *obj)
 {
-    /* Hack -- "tval_first" holds the tval of the first book of the realm */
+    /* "tval_first" holds the tval of the first book of the realm */
     return (obj->tval == p->clazz->magic.tval_first);
 }
 
@@ -252,7 +252,7 @@ bool obj_cast_pre(void)
             default: break;
         }
 
-        /* Hack -- don't get out of icky screen if disturbed */
+        /* Don't get out of icky screen if disturbed */
         allow_disturb_icky = false;
 
         /* Pick a page */

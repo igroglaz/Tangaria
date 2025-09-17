@@ -409,7 +409,7 @@ static const char *process_pref_file_expr(char **sp, char *fp)
                 p = t;
                 t = process_pref_file_expr(&s, &f);
 
-                /* Hack -- replace '_' by ' ' for races described by two words */
+                /* Replace '_' by ' ' for races described by two words */
                 ptr = strstr(t, "_");
                 if (ptr)
                 {
@@ -1179,7 +1179,7 @@ static enum parser_error parse_prefs_window(struct parser *p)
 
     value = parser_getuint(p, "value");
 
-    /* Hack -- the main window is fixed: PW_PLAYER_2 + PW_STATUS */
+    /* The main window is fixed: PW_PLAYER_2 + PW_STATUS */
     if (window == 0)
     {
         bool good_flag = ((((uint32_t)1 << flag) == PW_PLAYER_2) ||
@@ -1189,7 +1189,7 @@ static enum parser_error parse_prefs_window(struct parser *p)
             return PARSE_ERROR_OUT_OF_BOUNDS;
     }
 
-    /* Hack -- the chat window is fixed: PW_MESSAGE_CHAT */
+    /* The chat window is fixed: PW_MESSAGE_CHAT */
     if (window == PMSG_TERM)
     {
         bool good_flag = (((uint32_t)1 << flag) == PW_MESSAGE_CHAT);
@@ -1253,7 +1253,7 @@ static enum parser_error parse_prefs_o(struct parser *p)
 
 static enum parser_error parse_prefs_rf(struct parser *p)
 {
-    /* Hack -- parser hook for female player presets */
+    /* Parser hook for female player presets */
     return parse_prefs_monster(p);
 }
 
@@ -1292,7 +1292,7 @@ static struct parser *init_parse_prefs(bool user)
     parser_reg(p, "Y str option", parse_prefs_y);
     parser_reg(p, "O sym name uint value", parse_prefs_o);
 
-    /* Hack -- parser hook for female player presets */
+    /* Parser hook for female player presets */
     parser_reg(p, "RF sym name int attr int char", parse_prefs_rf);
 
     return p;
@@ -1343,7 +1343,7 @@ static enum parser_error parse_xprefs_expr(struct parser *p)
     assert(d != NULL);
     if (d->bypass) return PARSE_ERROR_NONE;
 
-    /* Hack -- do not load any Evaluated Expressions */
+    /* Do not load any Evaluated Expressions */
     parser_getstr(p, "expr");
 
     return PARSE_ERROR_NONE;
@@ -1365,7 +1365,7 @@ static enum parser_error parse_xprefs_monster(struct parser *p)
     /* Stop parsing once preset_max is reached -- the end of file is for custom presets */
     if (d->idx == (int)preset_max) return PARSE_ERROR_NONE;
 
-    /* Hack -- default player presets */
+    /* Default player presets */
     for (i = 0; i < MAX_SEXES; i++)
     {
         Client_setup.pr_attr[d->idx][i] = (uint16_t)parser_getint(p, "attr");
@@ -1388,7 +1388,7 @@ static enum parser_error parse_xprefs_rf(struct parser *p)
     /* Stop parsing once preset_max is reached -- the end of file is for custom presets */
     if (d->idx == (int)preset_max) return PARSE_ERROR_NONE;
 
-    /* Hack -- player presets for female characters */
+    /* Player presets for female characters */
     Client_setup.pr_attr[d->idx][SEX_FEMALE] = (uint16_t)parser_getint(p, "attr");
     Client_setup.pr_char[d->idx][SEX_FEMALE] = (char)parser_getint(p, "char");
 

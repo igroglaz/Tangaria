@@ -381,7 +381,7 @@ static bool monster_damage_target(melee_effect_handler_context_t *context)
  *
  * context is information for the current attack.
  * type is the PROJ_ constant for the element.
- * pure_element should be true if no side effects (mostly a hack for poison).
+ * pure_element should be true if no side effects (mostly for poison).
  */
 static bool melee_effect_elemental(melee_effect_handler_context_t *context, int type,
     bool pure_element, const char *flav_msg)

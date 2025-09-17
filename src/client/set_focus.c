@@ -1,6 +1,6 @@
 /*
  * File: set_focus.c
- * Purpose: A gross hack to allow the client to scroll the dungeon display
+ * Purpose: Allow the client to scroll the dungeon display
  *
  * Copyright (c) 2025 MAngband and PWMAngband Developers
  *
@@ -32,7 +32,7 @@
  * We only need scrolling along the x axis.
  */
 
-/* Hack -- set focus to chat message control */
+/* Set focus to chat message control */
 void set_chat_focus( void )
 {
 #ifdef __MSVC__

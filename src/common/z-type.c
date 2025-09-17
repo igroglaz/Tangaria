@@ -22,14 +22,14 @@
 
 
 /*
- * Hack -- the special Angband "System Suffix"
+ * The special Angband "System Suffix"
  * This variable is used to choose an appropriate "pref-xxx" file
  */
 const char *ANGBAND_SYS = "xxx";
 
 
 /*
- * Hack -- the font used
+ * The font used
  * This variable is used to choose an appropriate "pref-xxx" file
  */
 const char *ANGBAND_FONTNAME = "xxx";

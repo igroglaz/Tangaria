@@ -311,7 +311,7 @@ void build_gamma_table(int gamma)
      */
     long value, diff;
 
-    /* Hack -- convergence is bad in these cases. */
+    /* Convergence is bad in these cases. */
     gamma_table[0] = 0;
     gamma_table[255] = 255;
 

@@ -338,14 +338,14 @@ static void improve_attack_modifier_brand(struct player *p, struct object *obj, 
     {
         bool random_effect = false;
 
-        /* Hack -- double damage if vulnerable to fire or cold */
+        /* Double damage if vulnerable to fire or cold */
         if ((rf_has(race->flags, RF_HURT_FIRE) && streq(b->name, "fire")) ||
             (rf_has(race->flags, RF_HURT_COLD) && streq(b->name, "cold")))
         {
             multiplier *= 2;
         }
 
-        /* Hack -- status effect */
+        /* Status effect */
         if (*best_mult < multiplier) effects->count = 0;
         if (streq(b->name, "poison") || streq(b->name, "stunning") || streq(b->name, "cutting") ||
             streq(b->name, "life leech"))
@@ -374,7 +374,7 @@ static void improve_attack_modifier_brand(struct player *p, struct object *obj, 
             if (range)
                 my_strcat(verb, "s", len);
 
-            /* Hack -- poison, stun, cut */
+            /* Poison, stun, cut */
             effects->do_poison = streq(b->name, "poison");
             effects->do_stun = (streq(b->name, "stunning")? 1: 0);
             effects->do_cut = (streq(b->name, "cutting")? 1: 0);

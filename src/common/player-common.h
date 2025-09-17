@@ -888,10 +888,10 @@ struct player
     uint8_t digging_dir;
     bool firing_request;
     bool cancel_firing;
-    bool shimmer;                   /* Hack -- optimize multi-hued code (players) */
-    bool delayed_display;           /* Hack -- delay messages after character creation */
-    bool did_visuals;               /* Hack -- projection indicator (visuals) */
-    bool do_visuals;                /* Hack -- projection indicator (visuals) */
+    bool shimmer;                   /* Optimize multi-hued code (players) */
+    bool delayed_display;           /* Delay messages after character creation */
+    bool did_visuals;               /* Projection indicator (visuals) */
+    bool do_visuals;                /* Projection indicator (visuals) */
     struct loc old_grid;            /* Previous player location */
     bool path_drawn;                /* NPP's visible targeting */
     int path_n;

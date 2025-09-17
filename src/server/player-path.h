@@ -6,7 +6,7 @@
 #ifndef PLAYER_PATH_H
 #define PLAYER_PATH_H
 
-/* Hack -- ensure a variable fits into ddx/ddy array bounds */
+/* Ensure a variable fits into ddx/ddy array bounds */
 #define VALID_DIR(D) (((D) >= 0) && ((D) < 10))
 
 extern bool run_step(struct player *p, int dir);

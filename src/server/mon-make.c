@@ -1769,7 +1769,7 @@ static bool place_new_monster_group(struct player *p, struct chunk *c, struct lo
             /* Attempt to place another monster */
             if (place_new_monster_one(p, c, &loc_try, race, mon_flag, group_info, origin))
             {
-                /* Add it to the "hack" set */
+                /* Add it to the set of locations */
                 loc_copy(&loc_list[loc_num], &loc_try);
                 loc_num++;
             }

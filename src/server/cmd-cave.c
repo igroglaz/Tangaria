@@ -199,7 +199,7 @@ void do_cmd_go_up(struct player *p)
 
     wpos_init(&wpos, &p->wpos.grid, ascend_to);
 
-    /* Hack -- DM redesigning the level */
+    /* DM redesigning the level */
     if (chunk_inhibit_players(&wpos))
     {
         msg(p, "Something prevents you from going up...");
@@ -3092,7 +3092,7 @@ static bool do_cmd_run_test(struct player *p, struct loc *grid)
     /* Ghosts run right through everything */
     if (player_passwall(p)) return true;
 
-    /* Do wilderness hack, keep running from one outside level to another */
+    /* Wilderness: keep running from one outside level to another */
     if (!square_in_bounds_fully(c, grid) && (p->wpos.depth == 0)) return true;
 
     /* Illegal grids are not known walls XXX XXX XXX */

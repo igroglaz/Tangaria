@@ -181,7 +181,7 @@ void build_score(struct player *p, struct high_score *entry, const char *died_fr
     memset(&score_info, 0, sizeof(score_info));
     if (death_time)
     {
-        /* Hack -- take the saved cause of death of the character, not the ghost */
+        /* Take the saved cause of death of the character, not the ghost */
         memcpy(&score_info, &p->death_info, sizeof(struct player_death_info));
     }
     else

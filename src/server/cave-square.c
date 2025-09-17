@@ -1617,7 +1617,7 @@ void square_excise_object(struct chunk *c, struct loc *grid, struct object *obj)
     my_assert(square_in_bounds(c, grid));
     pile_excise(&square(c, grid)->obj, obj);
 
-    /* Hack -- excise object index */
+    /* Excise object index */
     c->o_gen[0 - (obj->oidx + 1)] = false;
     obj->oidx = 0;
 
@@ -1654,7 +1654,7 @@ void square_excise_pile(struct chunk *c, struct loc *grid)
         /* Preserve unseen artifacts */
         preserve_artifact(obj);
 
-        /* Hack -- excise object index */
+        /* Excise object index */
         c->o_gen[0 - (obj->oidx + 1)] = false;
         obj->oidx = 0;
 
@@ -1864,7 +1864,7 @@ void square_forget_pile(struct player *p, struct loc *grid)
 
 struct object *square_known_pile(struct player *p, struct chunk *c, struct loc *grid)
 {
-    /* Hack -- DM has full knowledge */
+    /* DM has full knowledge */
     if (p->dm_flags & DM_SEE_LEVEL) return square_object(c, grid);
 
     return square_p(p, grid)->obj;
@@ -3473,7 +3473,7 @@ void square_illuminate(struct player *p, struct chunk *c, struct loc *grid, bool
     {
         square_unglow(c, grid);
 
-        /* Hack -- like cave_unlight(), forget "boring" grids */
+        /* Like cave_unlight(), forget "boring" grids */
         if (p && square_isview(p, grid) && !square_isnormal(c, grid))
             square_forget(p, grid);
     }
@@ -3528,7 +3528,7 @@ void square_memorize_trap(struct player *p, struct chunk *c, struct loc *grid)
 
 struct trap *square_known_trap(struct player *p, struct chunk *c, struct loc *grid)
 {
-    /* Hack -- DM has full knowledge */
+    /* DM has full knowledge */
     if (p->dm_flags & DM_SEE_LEVEL) return square_top_trap(c, grid);
 
     return square_p(p, grid)->trap;

@@ -78,7 +78,7 @@
  * ##.##
  * #.#
  *
- * Note that a minor hack is inserted to make the angled corridor
+ * Note that some code is inserted to make the angled corridor
  * entry (with one side blocked near and the other side blocked
  * further away from the runner) work correctly. The runner moves
  * diagonally, but then saves the previous direction as being
@@ -201,7 +201,7 @@ static bool see_wall(struct player *p, struct chunk *c, int dir, struct loc *gri
     /* Ghosts run right through everything */
     if (player_passwall(p)) return false;
 
-    /* Do wilderness hack, keep running from one outside level to another */
+    /* Wilderness: keep running from one outside level to another */
     if (!square_in_bounds_fully(c, &next) && (p->wpos.depth == 0)) return false;
 
     /* Illegal grids are not known walls XXX XXX XXX */
@@ -426,7 +426,7 @@ static bool run_test(struct player *p, struct chunk *c)
         }
 
         /* Analyze unknown grids and floors */
-        /* Wilderness hack to run from one level to the next */
+        /* Wilderness: run from one level to the next */
         if (inv || square_ispassable(c, &grid) ||
             (!square_in_bounds_fully(c, &grid) && (p->wpos.depth == 0)))
         {

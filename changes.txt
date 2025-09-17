@@ -40,7 +40,7 @@ Coding changes
 
 Angband 4.2.x:
 
-- Remove some more 'Hack' comments
+- Remove rest of 'Hack' comments
 
 PWMAngband:
 

@@ -191,7 +191,7 @@ static void generate_stats(struct player *p, int16_t st[STAT_MAX], int spent[STA
     int step = 0;
     bool maxed[STAT_MAX];
 
-    /* Hack - for now, just use stat of first book */
+    /* For now, just use stat of first book */
     int spell_stat = (p->clazz->magic.total_spells? p->clazz->magic.books[0].realm->stat: 0);
 
     bool caster = (p->clazz->max_attacks < 5? true: false);
@@ -779,7 +779,7 @@ static void player_outfit_aux(struct player *p, struct object_kind *k, uint8_t n
     object_prep(p, chunk_get(&p->wpos), obj, k, 0, MINIMISE);
     if (number) obj->number = number;
 
-    /* Hack -- ring of speed (for DM) */
+    /* Ring of speed (for DM) */
     if (tval_is_ring(obj) && (obj->sval == lookup_sval(obj->tval, "Speed")))
         obj->modifiers[OBJ_MOD_SPEED] = 30;
 
@@ -930,7 +930,7 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
 
         my_assert(kind);
 
-        /* Hack -- money gift */
+        /* Money gift */
         if (tval_is_money_k(kind)) p->au += num;
         else player_outfit_aux(p, kind, (uint8_t)num, true);
     }
@@ -1193,7 +1193,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         chunk_set_player_count(&p->wpos, count_players(p));
     }
 
-    /* Hack -- DM redesigning the level */
+    /* DM redesigning the level */
     else if (chunk_inhibit_players(&p->wpos))
     {
         reposition = true;
@@ -1260,9 +1260,10 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
     /* If we need to reposition the player, do it */
     if (reposition)
     {
-        /* Hack -- DM redesigning the level (no_recall players) */
+        /* DM redesigning the level (no_recall players) */
         if (push_up)
             p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
+        if (push_up) p->wpos.depth = dungeon_get_next_level(p, p->wpos.depth, -1);
 
         // ATTENTION! Order for modes is critical! It must match update_birth_options().
         // Otherwise, a Deeptown hero can appear in Ironman town, etc.
@@ -1343,14 +1344,14 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
             chunk_increase_player_count(&p->wpos);
         }
 
-        /* Hack -- night time in wilderness */
+        /* Night time in wilderness */
         if (in_wild(&p->wpos) && !join_daytime)
         {
             player_cave_clear(p, false);
             done = true;
         }
 
-        /* Hack -- player that saved during day and comes back at night (or vice versa) */
+        /* Player that saved during day and comes back at night (or vice versa) */
         if ((quit_daytime && !join_daytime) || (!quit_daytime && join_daytime))
         {
             player_cave_clear(p, false);
@@ -1405,7 +1406,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         }
     }
 
-    /* Hack -- set previous player location */
+    /* Set previous player location */
     loc_copy(&p->old_grid, &p->grid);
 
     /* Add the player */
@@ -1449,7 +1450,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
         p->party = 0;
     }
 
-    /* Hack -- give 2 turns of invulnerability */
+    /* Give 2 turns of invulnerability */
     p->timed[TMD_SAFELOGIN] = 2;
 
     /* Update and redraw stuff (all of these are probably not needed...) */
@@ -1474,7 +1475,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
     /* This guy is alive now */
     p->alive = true;
 
-    /* Hack -- player position is valid now */
+    /* Player position is valid now */
     p->placed = true;
 
     /* Default width for monster list subwindow */
@@ -1484,7 +1485,7 @@ static void player_setup(struct player *p, int id, uint32_t account, bool deepto
 
 static void player_admin(struct player *p)
 {
-    /* Hack -- set Dungeon Master flags */
+    /* Set Dungeon Master flags */
 #ifdef DEBUG_MODE
     p->dm_flags |= (DM___MENU | DM_CAN_MUTATE_SELF);
 #endif
@@ -1745,7 +1746,7 @@ struct player *player_birth(int id, uint32_t account, const char *name, const ch
         if (stat_roll[STAT_MAX] == BR_QUICK)
             quickstart_roll(p, character_existed, &ridx, &cidx, &psex, &old_history, stat_roll);
 
-        /* Hack -- rewipe the player info if load failed */
+        /* Rewipe the player info if load failed */
         init_player(p, conn, old_history,
         options[OPT_birth_deeptown], options[OPT_birth_zeitnot], options[OPT_birth_ironman],
         options[OPT_birth_no_recall], options[OPT_birth_force_descend]);
@@ -1895,7 +1896,7 @@ void server_birth(void)
     /* Seed for wilderness layout */
     seed_wild = randint0(0x10000000);
 
-    /* Hack -- enter the world */
+    /* Enter the world */
     ht_reset(&turn);
     ht_add(&turn, 1);
 

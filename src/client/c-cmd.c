@@ -150,7 +150,7 @@ static void view_map_aux(uint8_t mode)
 {
     ui_event ke = EVENT_EMPTY;
 
-    /* Hack -- if the screen is already icky, ignore this command */
+    /* If the screen is already icky, ignore this command */
     if (player->screen_save_depth) return;
 
     /* Save the screen */
@@ -189,7 +189,7 @@ void do_cmd_view_map_w(void)
 {
     ui_event ke = EVENT_EMPTY;
 
-    /* Hack -- if the screen is already icky, ignore this command */
+    /* If the screen is already icky, ignore this command */
     if (player->screen_save_depth) return;
 
     /* Reset the line counter */
@@ -488,7 +488,7 @@ static uint8_t char_screen_mode = 0;
 
 
 /*
- * Hack -- change name
+ * Change name
  *
  * PWMAngband: character name cannot be changed; instead, you can generate a local character dump,
  * or even modify character history
@@ -561,7 +561,7 @@ static void do_cmd_interactive(int hook, const char *header)
 {
     ui_event ke;
 
-    /* Hack -- if the screen is already icky, ignore this command */
+    /* If the screen is already icky, ignore this command */
     if (player->screen_save_depth) return;
 
     /* Set the hook */
@@ -673,7 +673,7 @@ void send_msg_chunks(char *pmsgbuf, int msglen)
     char *startmsg;
     int CUTOFF = 0;
 
-    /* Hack -- pre-process message to look for "/" commands */
+    /* Pre-process message to look for "/" commands */
     if (pmsgbuf[0] == '/')
     {
         /* Purchase a house */
@@ -1006,7 +1006,7 @@ void do_cmd_message(void)
     bool ok;
 
 #if !defined(USE_GCU) && !defined(USE_SDL) && !defined(USE_SDL2)
-    /* Hack to just change the window focus in Windows client */
+    /* Just change the window focus in Windows client */
     if (term_chat->user)
     {
 #ifdef WINDOWS

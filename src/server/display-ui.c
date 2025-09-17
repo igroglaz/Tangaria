@@ -142,7 +142,7 @@ static void prt_ac(struct player *p)
  */
 static void prt_hp(struct player *p)
 {
-    /* Hack -- redraw player, since the player's color now indicates approximate health. */
+    /* Redraw player, since the player's color now indicates approximate health. */
     if (OPT(p, hp_changes_color) && !p->use_graphics)
         square_light_spot(chunk_get(&p->wpos), &p->grid);
 
@@ -359,7 +359,7 @@ static void prt_status(struct player *p)
 
     prt_tmd(p);
 
-    /* Hack -- timed flags display */
+    /* Timed flags display */
     prt_player_flag_info(p);
     for (i = 0; i < N_HISTORY_FLAGS; i++) Send_objflags(p, i);
 }
@@ -581,7 +581,7 @@ void dump_spells(struct player *p, struct object *obj)
 
 
 /*
- * Hack -- fix spells
+ * Fix spells
  */
 static void fix_spell(struct player *p)
 {
@@ -606,7 +606,7 @@ static void fix_spell(struct player *p)
         return;
     }
 
-    /* Hack -- must be literate */
+    /* Must be literate */
     if (!p->clazz->magic.total_spells) return;
 
     flags.line_attr = COLOUR_WHITE;
@@ -644,7 +644,7 @@ static void fix_spell(struct player *p)
 
 
 /*
- * Hack -- display mini-map view in sub-windows
+ * Display mini-map view in sub-windows
  *
  * Note that the "player" symbol does NOT appear on the map.
  */
@@ -655,7 +655,7 @@ static void fix_map(struct player *p)
 
 
 /*
- * Hack -- display monster recall in sub-windows
+ * Display monster recall in sub-windows
  */
 static void fix_monster(struct player *p)
 {
@@ -674,7 +674,7 @@ static void fix_monster(struct player *p)
 
 
 /*
- * Hack -- display monsters in sub-windows
+ * Display monsters in sub-windows
  */
 static void fix_monlist(struct player *p)
 {
@@ -687,7 +687,7 @@ static void fix_monlist(struct player *p)
 
 
 /*
- * Hack -- display object recall in sub-windows
+ * Display object recall in sub-windows
  */
 static void fix_object(struct player *p)
 {
@@ -731,7 +731,7 @@ static void fix_object(struct player *p)
 
 
 /*
- * Hack -- display objects in sub-windows
+ * Display objects in sub-windows
  */
 static void fix_objlist(struct player *p)
 {
@@ -1240,7 +1240,7 @@ static void cursor_redraw(struct player *p)
 
         loc_init(&above, grid.x, grid.y - 1);
 
-        /* Hack -- is there something targetable above our position? */
+        /* Is there something targetable above our position? */
         if (square_in_bounds_fully(c, &above) && target_accept(p, &above))
             vis = 2;
 
@@ -1789,7 +1789,7 @@ static void prt_resistance_panel(struct player *p, int which, const struct playe
             else if (timed) {sym = '!'; attr = COLOUR_L_GREEN;}
             else if (!known && !rune) sym = '?';
 
-            /* Hack -- rune is known */
+            /* Rune is known */
             if (rune) attr += BASIC_COLORS;
 
             p->hist_flags[off + i][j].a = attr;
@@ -1972,7 +1972,7 @@ void redraw_stuff(struct player *p)
     /* Character is not ready yet, no screen updates */
     if (!p->alive) return;
 
-    /* Hack -- while running, only update monster/object lists when panel changes */
+    /* While running, only update monster/object lists when panel changes */
     if (p->upkeep->running)
         p->full_refresh = p->upkeep->running_update;
     p->upkeep->running_update = false;
@@ -2046,7 +2046,7 @@ void restore_hp(struct player *p)
     p->chp = p->mhp;
     p->chp_frac = 0;
 
-    /* Hack -- redraw picture */
+    /* Redraw picture */
     redraw_picture(p, old_num);
 
     /* Redraw */
@@ -2065,7 +2065,7 @@ void restore_sp(struct player *p)
     p->csp = p->msp;
     p->csp_frac = 0;
 
-    /* Hack -- redraw picture */
+    /* Redraw picture */
     redraw_picture(p, old_num);
 
     /* Redraw */
@@ -2433,7 +2433,7 @@ void player_dump(struct player *p, bool server)
         ////////////////////////////////////////////////////
     }
 
-    /* Hack -- compatibility with Angband ladder */
+    /* Compatibility with Angband ladder */
     p->dump_gen = true;
 
     /* Save a client-side character dump */
@@ -2461,7 +2461,7 @@ void death_knowledge(struct player *p)
 
     history_unmask_unknown(p);
 
-    /* Hack -- recalculate bonuses */
+    /* Recalculate bonuses */
     p->upkeep->update |= (PU_BONUS);
     handle_stuff(p);
 }
@@ -2622,7 +2622,7 @@ void player_death(struct player *p)
     struct source who_body;
     struct source *who = &who_body;
 
-    /* Hack -- don't die in Arena! */
+    /* Don't die in Arena! */
     if (p->alive && (p->arena_num != -1))
     {
         p->is_dead = false;
@@ -2698,7 +2698,7 @@ void player_death(struct player *p)
     // empty sound to break sound loop .ogg.0
     sound(p, MSG_SILENT0);
 
-    /* Hack -- note death */
+    /* Note death */
     msgt(p, MSG_DEATH, (p->ghost? "Your incorporeal body fades away - FOREVER.": "You die."));
     message_flush(p);
     if (p->ghost != 1)
@@ -2863,7 +2863,7 @@ void player_death(struct player *p)
  */
 void resurrect_player(struct player *p, struct chunk *c)
 {
-    /* Hack -- the dungeon master cannot resurrect */
+    /* The dungeon master cannot resurrect */
     if (is_dm_p(p)) return;
 
     /* Message */
@@ -2947,8 +2947,7 @@ static bool panel_should_modify(struct player *p, struct loc *grid)
  *
  * Note that monsters are no longer affected in any way by panel changes.
  *
- * As a total hack, whenever the current panel changes, we assume that
- * the "overhead view" window should be updated.
+ * Whenever the current panel changes, we assume that the "overhead view" window should be updated.
  */
 bool modify_panel(struct player *p, struct loc *grid)
 {
@@ -2964,7 +2963,7 @@ bool modify_panel(struct player *p, struct loc *grid)
         /* Redraw map */
         p->upkeep->redraw |= (PR_MAP);
 
-        /* Hack -- while running, only update object/monster lists when panel changes */
+        /* While running, only update object/monster lists when panel changes */
         if (p->upkeep->running) p->upkeep->running_update = true;
       
         /* Changed */
@@ -3101,7 +3100,7 @@ static uint16_t level_speeds[] =
 
 
 /*
- * Hack -- since the framerate has been boosted by five times since version
+ * Since the framerate has been boosted by five times since version
  * 0.6.0 to make game movement more smooth, we return the old level speed
  * times five to keep the same movement rate.
  */
@@ -3112,7 +3111,7 @@ int move_energy(int depth)
 
 
 /*
- * Hack -- return TRUE if there are monsters in LoS, FALSE otherwise.
+ * Return TRUE if there are monsters in LoS, FALSE otherwise.
  */
 bool monsters_in_los(struct player *p, struct chunk *c)
 {
@@ -3209,13 +3208,13 @@ static int base_time_factor(struct player *p, struct chunk *c, int slowest)
     /* If nothing in LoS */
     los = monsters_in_los(p, c);
 
-    /* Hack -- prevent too much manual slowdown */
+    /* Prevent too much manual slowdown */
     if ((p->opts.hitpoint_warn > 9) && !los) timefactor = NORMAL_TIME;
 
     /* Resting speeds up time disregarding health time scaling */
     if (player_is_resting(p) && !los) timefactor = MAX_TIME_SCALE;
 
-    /* Hack -- digging also speeds up time */
+    /* Digging also speeds up time */
     if (p->digging_request && !los) timefactor = MAX_TIME_SCALE;
 
     /*
@@ -3507,7 +3506,7 @@ static void exit_design(struct player *p, struct chunk *c, bool town)
 
     msg(p, "Exiting manual design mode...");
 
-    /* Hack -- clear player count */
+    /* Clear player count */
     chunk_set_player_count(&p->wpos, 0);
 
     /* Save manually-designed dungeon level to file */
@@ -3731,7 +3730,7 @@ static void master_summon(struct player *p, char *parms)
         /* Paranoia */
         if (count > 40) count = 40;
 
-        /* Hack -- since monster_parms is a string, throw it on the end */
+        /* Since monster_parms is a string, throw it on the end */
         my_strcpy(monster_parms, &parms[3], sizeof(monster_parms));
     }
 
@@ -3743,7 +3742,7 @@ static void master_summon(struct player *p, char *parms)
             /* For each monster we are summoning */
             for (i = 0; i < count; i++)
             {
-                /* Hack -- monster_type 'b' specifies mass banishment */
+                /* Monster_type 'b' specifies mass banishment */
                 if (monster_type == 'b')
                 {
                     struct source who_body;
@@ -3910,7 +3909,7 @@ static bool kind_match_char(struct object_kind *kind, char d_char)
 {
     if (!d_char) return true;
 
-    /* Hack -- use '*' for rods since '-' will always look for a wand */
+    /* Use '*' for rods since '-' will always look for a wand */
     if (d_char == '*') return (kind->tval == TV_ROD);
 
     return (d_char == kind->d_char);
@@ -4297,7 +4296,7 @@ static void mod_add(struct object *obj, int mod, int incr)
     /* Make a "test" copy */
     value = obj->modifiers[mod];
 
-    /* Hack -- check monster race for rings of polymorphing */
+    /* Check monster race for rings of polymorphing */
     if (tval_is_poly(obj))
     {
         struct monster_race *race;
@@ -4416,7 +4415,7 @@ static void apply_base_magic(struct object *obj)
         {
             size_t i;
 
-            /* Hack -- reverse base bonus */
+            /* Reverse base bonus */
             for (i = 0; i < OBJ_MOD_MAX; i++)
             {
                 if (obj->modifiers[i] > 0) obj->modifiers[i] = 0 - obj->modifiers[i];
@@ -4425,10 +4424,10 @@ static void apply_base_magic(struct object *obj)
     }
     else if (tval_is_chest(obj))
     {
-        /* Hack -- skip ruined chests */
+        /* Skip ruined chests */
         if (obj->kind->level > 0)
         {
-            /* Hack -- pick a "difficulty" */
+            /* Pick a "difficulty" */
             obj->pval = randint1(obj->kind->level);
 
             /* Never exceed "difficulty" of 55 to 59 */
@@ -5072,7 +5071,7 @@ static void master_player(struct player *p, char *parms)
             else
                 dm_ptr->dm_flags &= ~new_flag;
 
-            /* Hack -- for *invulnerable* set "invuln" */
+            /* For *invulnerable* set "invuln" */
             if (new_flag == DM_INVULNERABLE)
             {
                 if (dm_ptr->dm_flags & new_flag)
@@ -5159,7 +5158,7 @@ static void master_visuals(struct player *p)
         size_t i;
         const char *proj_name = proj_idx_to_name(type);
 
-        /* Hack -- special coloring */
+        /* Special coloring */
         p->info[type][0].a = COLOUR_SPECIAL;
         for (i = 1; i < NORMAL_WID; i++) p->info[type][i].a = COLOUR_WHITE;
 
@@ -5742,7 +5741,7 @@ void do_cmd_social(struct player *p, const char *buf, int dir)
         grid.x = p->grid.x + 99 * ddx[dir];
         grid.y = p->grid.y + 99 * ddy[dir];
 
-        /* Hack -- use an actual "target" */
+        /* Use an actual "target" */
         if (dir == DIR_TARGET)
         {
             flg &= ~PROJECT_STOP;
@@ -5998,7 +5997,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
     /* Draw the blast from inside out */
     for (i = 0; i < num_grids; i++)
     {
-        /* Hack -- don't draw over breather */
+        /* Don't draw over breather */
         if (arc && !distance_to_grid[i]) continue;
 
         /* Do visuals for all players that can see the blast */
@@ -6072,7 +6071,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
             /* Erase the explosion drawn above */
             for (i = 0; i < num_grids; i++)
             {
-                /* Hack -- don't draw over breather */
+                /* Don't draw over breather */
                 if (arc && !distance_to_grid[i]) continue;
 
                 /* Skip irrelevant players */
@@ -6088,7 +6087,7 @@ void display_explosion(struct chunk *cv, struct explosion *data, const bool *dra
         }
     }
 
-    /* Hack -- count how many blasts we have seen */
+    /* Count how many blasts we have seen */
     for (j = 1; j <= NumPlayers; j++)
     {
         struct player *p = player_get(j);
@@ -6295,7 +6294,7 @@ static void display_message_aux(struct player *p, int type, const char *msg)
         }
     }
 
-    /* Hack -- repeated message of the same type */
+    /* Repeated message of the same type */
     if (dup && (type == p->msg_last_type))
     {
         /* Send a SPACE character instead */

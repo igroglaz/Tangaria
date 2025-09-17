@@ -142,9 +142,8 @@ void Conn_set_state(connection_t *connp, int state, long timeout)
 
 
 /*
- * Actually quit. This was separated as a hack to allow us to
- * "quit" when a quit packet has not been received, such as when
- * our TCP connection is severed.
+ * Actually quit. This was separated to allow us to "quit" when a quit packet has not been received,
+ * such as when our TCP connection is severed.
  */
 static void do_quit(int ind)
 {
@@ -152,7 +151,7 @@ static void do_quit(int ind)
     struct worldpos wpos;
     bool dungeon_master = false;
 
-    /* Hack -- don't reenter if we're waiting for the timeout to complete */
+    /* Don't reenter if we're waiting for the timeout to complete */
     if (connp->state == CONN_QUIT && streq(connp->quit_msg, "Client quit") && connp->w.sock == -1)
         return;
 
@@ -197,7 +196,7 @@ static int Send_reliable(int ind)
     int num_written;
 
     /*
-     * Hack -- make sure we have a valid socket to write to.
+     * Make sure we have a valid socket to write to.
      * -1 is used to specify a player that has disconnected but is still "in game".
      */
     if (connp->w.sock == -1) return 0;
@@ -272,7 +271,7 @@ static void Handle_input(int fd, int arg)
     process_pending_commands(ind);
 
     /*
-     * Hack -- don't update the player info if the number of players since
+     * Don't update the player info if the number of players since
      * the beginning of this function call has changed, which might indicate
      * that our player has left the game.
      */
@@ -591,7 +590,7 @@ static void Contact(int fd, int arg)
     /*
      * Create a TCP socket for communication with whoever contacted us
      *
-     * Hack -- check if this data has arrived on the contact socket or not.
+     * Check if this data has arrived on the contact socket or not.
      * If it has, then we have not created a connection with the client yet,
      * and so we must do so.
      */
@@ -662,7 +661,7 @@ static void Contact(int fd, int arg)
     /* For console, switch routines */
     if (conntype == CONNTYPE_CONSOLE)
     {
-        /* Hack -- check local access */
+        /* Check local access */
         if (cfg_console_local_only && (sin.sin_addr.s_addr != htonl(INADDR_LOOPBACK)))
         {
             Contact_cancel(fd, format("Non-local console attempt from %s", host_addr));
@@ -898,7 +897,7 @@ static void Delete_player(int id)
     /* Leave chat channels */
     channels_leave(p);
 
-    /* Hack -- unstatic if the DM left while manually designing a dungeon level */
+    /* Unstatic if the DM left while manually designing a dungeon level */
     if (chunk_inhibit_players(&p->wpos)) chunk_set_player_count(&p->wpos, 0);
 
     /* Try to save his character */
@@ -921,7 +920,7 @@ static void Delete_player(int id)
         msg_broadcast(p, buf, MSG_BROADCAST_ENTER_LEAVE);
     }
 
-    /* Hack -- don't track this player anymore */
+    /* Don't track this player anymore */
     for (i = 1; i <= NumPlayers; i++)
     {
         struct player *q = player_get(i);
@@ -980,7 +979,7 @@ static void Delete_player(int id)
 
 
 /*
- * Hack -- reset all connection values
+ * Reset all connection values
  *  but keep visual verify tables
  */
 static void wipe_connection(connection_t *connp)
@@ -1112,7 +1111,7 @@ void Stop_net_server(void)
 {
     int i;
 
-    /* Hack -- free client setup tables */
+    /* Free client setup tables */
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         connection_t* connp = get_connection(i);
@@ -1436,7 +1435,7 @@ int Send_race_struct_info(int ind)
         return -1;
     }
 
-    /* Hack -- send limits for client compatibility */
+    /* Send limits for client compatibility */
     if (Packet_printf(&connp->c, "%hd%hd%hd%hd%hd%hd%hd", (int)OBJ_MOD_MAX, (int)SKILL_MAX,
         (int)PF_SIZE, (int)PF__MAX, (int)OF_SIZE, (int)OF_MAX, (int)ELEM_MAX) <= 0)
     {
@@ -1544,7 +1543,7 @@ int Send_class_struct_info(int ind)
         return -1;
     }
 
-    /* Hack -- send limits for client compatibility */
+    /* Send limits for client compatibility */
     if (Packet_printf(&connp->c, "%hd%hd%hd%hd%hd%hd%hd", (int)OBJ_MOD_MAX, (int)SKILL_MAX,
         (int)PF_SIZE, (int)PF__MAX, (int)OF_SIZE, (int)OF_MAX, (int)ELEM_MAX) <= 0)
     {
@@ -1799,7 +1798,7 @@ int Send_kind_struct_info(int ind)
     {
         int16_t ac = 0;
 
-        /* Hack -- put flavor index into unused field "ac" */
+        /* Put flavor index into unused field "ac" */
         if (k_info[i].flavor) ac = (int16_t)k_info[i].flavor->fidx;
 
         if (Packet_printf(&connp->c, "%s", (k_info[i].name? k_info[i].name: "")) <= 0)
@@ -2925,7 +2924,7 @@ int Send_pause(struct player *p)
     connection_t *connp = get_connp(p, "pause");
     if (connp == NULL) return 0;
 
-    /* Hack -- set locating (to avoid losing detection while pausing) */
+    /* Set locating (to avoid losing detection while pausing) */
     p->locating = true;
 
     return Packet_printf(&connp->c, "%b", (unsigned)PKT_PAUSE);
@@ -3054,7 +3053,7 @@ int Send_term_info(struct player *p, int mode, uint16_t arg)
     connection_t *connp = get_connp(p, "term info");
     if (connp == NULL) return 0;
 
-    /* Hack -- do not change terms too often */
+    /* Do not change terms too often */
     if (mode == NTERM_ACTIVATE)
     {
         if (p->remote_term == (uint8_t)arg) return 1;
@@ -3421,7 +3420,7 @@ int Send_flush(struct player *p, bool fresh, char delay)
     connection_t *connp = get_connp(p, "flush");
     if (connp == NULL) return 0;
 
-    /* Hack -- don't display animations if fire_till_kill is enabled */
+    /* Don't display animations if fire_till_kill is enabled */
     // To ensure that rng won't bring fatal chance we also flush every half-turn
     // Tests: RNG % 8 != 0 works with 60 speed & 4.4 shots/turn with Long bow max distance;
     // but we will use RNG % 9 != 0 just in case (8/9 = 88.9% vs 7/8 = 87.5%)
@@ -3763,7 +3762,7 @@ static int Receive_icky(int ind)
 
         p->screen_save_depth = icky;
 
-        /* Hack -- unset locating (if it was set by pausing) */
+        /* Unset locating (if it was set by pausing) */
         if (!icky) p->locating = false;
     }
 
@@ -5445,7 +5444,7 @@ static int Receive_clear(int ind)
     {
         p = player_get(get_player_index(connp));
 
-        /* Hack -- set clear request */
+        /* Set clear request */
         p->first_escape = ((mode == ES_BEGIN_MACRO)? true: false);
 
         /* Cancel repeated commands */
@@ -6054,7 +6053,7 @@ static bool screen_compatible(int ind)
     int tile_wid = connp->Client_setup.settings[SETTING_TILE_WID];
     int tile_hgt = connp->Client_setup.settings[SETTING_TILE_HGT];
 
-    /* Hack -- ensure his settings are allowed, disconnect otherwise */
+    /* Ensure his settings are allowed, disconnect otherwise */
     if ((cols < Setup.min_col) || (cols > Setup.max_col * tile_wid) ||
         (rows < Setup.min_row) || (rows > Setup.max_row * tile_hgt))
     {
@@ -6449,10 +6448,10 @@ static int Enter_player(int ind)
         }
     }
 
-    /* Hack -- ensure his settings are allowed, disconnect otherwise */
+    /* Ensure his settings are allowed, disconnect otherwise */
     if (!screen_compatible(ind)) return -1;
 
-    /* Hack -- do not allow new characters to be created? */
+    /* Do not allow new characters to be created? */
     if (cfg_instance_closed)
     {
         errno = 0;
@@ -6491,7 +6490,7 @@ static int Enter_player(int ind)
     /* Update graphics */
     update_graphics(p, connp);
 
-    /* Hack -- process "settings" */
+    /* Process "settings" */
     p->use_graphics = connp->Client_setup.settings[SETTING_USE_GRAPHICS];
     p->screen_cols = connp->Client_setup.settings[SETTING_SCREEN_COLS];
     p->screen_rows = connp->Client_setup.settings[SETTING_SCREEN_ROWS];
@@ -6503,7 +6502,7 @@ static int Enter_player(int ind)
     p->opts.hitpoint_warn = connp->Client_setup.settings[SETTING_HITPOINT_WARN];
 
     /*
-     * Hack -- when processing a quickstart character, attr/char pair for
+     * When processing a quickstart character, attr/char pair for
      * player picture is incorrect
      */
     if ((roller < 0) && p->use_graphics)
@@ -6629,7 +6628,7 @@ static int Enter_player(int ind)
         msgt(p, MSG_ENTER_PIT, "The air feels very still!");
 
     /*
-     * Hack -- when processing a quickstart character, body has changed so we need to
+     * When processing a quickstart character, body has changed so we need to
      * resend the equipment indices
      */
     if (roller < 0) set_redraw_equip(p, NULL);
@@ -7102,7 +7101,7 @@ static int sync_settings(struct player *p)
         p->upkeep->redraw |= (PR_MAP);
     }
 
-    /* Hack -- process "settings" */
+    /* Process "settings" */
     p->use_graphics = connp->Client_setup.settings[SETTING_USE_GRAPHICS];
     p->tile_wid = connp->Client_setup.settings[SETTING_TILE_WID];
     p->tile_hgt = connp->Client_setup.settings[SETTING_TILE_HGT];
@@ -7325,7 +7324,7 @@ static void Handle_item(struct player *p, int item, int curse, const char *inscr
             struct source who_body;
             struct source *who = &who_body;
 
-            /* Hack -- select a single curse for uncursing */
+            /* Select a single curse for uncursing */
             p->current_action = curse;
 
             if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
@@ -7365,7 +7364,7 @@ static void Handle_item(struct player *p, int item, int curse, const char *inscr
         /* Paranoia: requires an item */
         if (!obj) return;
 
-        /* Hack -- select a single curse for uncursing */
+        /* Select a single curse for uncursing */
         p->current_action = curse;
 
         /* The player is aware of the object's flavour */
@@ -7716,7 +7715,7 @@ static int Receive_store_leave(int ind)
 
             p->store_num = -1;
 
-            /* Hack -- don't stand in the way */
+            /* Don't stand in the way */
             if (s->feat != FEAT_STORE_PLAYER)
             {
                 bool look = true;
@@ -8087,11 +8086,7 @@ bool process_pending_commands(int ind)
     struct player *p;
     int type, result, old_energy = 0;
     const receive_handler_f *receive_tbl;
-
-    /* Hack to see if we have quit in this function */
     int num_players_start = NumPlayers;
-
-    /* Hack to buffer data */
     int last_pos, data_advance = 0;
 
     /* Paranoia: ignore input from client if not in SETUP or PLAYING state */
@@ -8105,7 +8100,7 @@ bool process_pending_commands(int ind)
     else receive_tbl = &playing_receive[0];
 
     /*
-     * Hack -- take any pending commands from the command queue connp->q
+     * Take any pending commands from the command queue connp->q
      * and move them to connp->r, where the Receive functions get their
      * data from.
      */
@@ -8124,7 +8119,7 @@ bool process_pending_commands(int ind)
     /* If we have no commands to execute return */
     if (connp->r.len <= 0) return false;
 
-    /* Hack -- if our player id has not been set then do WITHOUT player */
+    /* If our player id has not been set then do WITHOUT player */
     if (connp->id == -1)
     {
         while ((connp->r.ptr < connp->r.buf + connp->r.len))
@@ -8190,7 +8185,7 @@ bool process_pending_commands(int ind)
         /* We didn't have enough energy to execute an important command. */
         if (result == 0)
         {
-            /* Hack -- if we tried to do something while resting, wake us up. */
+            /* If we tried to do something while resting, wake us up. */
             if ((type != PKT_REST) && player_is_resting(p)) disturb(p, 1);
 
             /*
@@ -8202,7 +8197,7 @@ bool process_pending_commands(int ind)
              * (such as quitting, or talking) should be executed
              * ASAP.
              *
-             * Hack -- save our old energy and set our energy
+             * Save our old energy and set our energy
              * to 0. This will allow us to execute "out of game"
              * actions such as talking while we wait for enough
              * energy to execute our next queued in game action.
@@ -8219,7 +8214,7 @@ bool process_pending_commands(int ind)
 
     /*
      * Make sure that the player structure hasn't been deallocated in this time due to a quit request.
-     * Hack -- to do this we check if the number of players has changed while this loop has been
+     * To do this we check if the number of players has changed while this loop has been
      * executing. This would be a BAD thing to do if we ever went multithreaded.
      */
     if ((NumPlayers == num_players_start) && !p->energy)

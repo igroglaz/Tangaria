@@ -259,7 +259,7 @@ BOOL ReadDIB2_PNG(HWND hWnd, LPSTR lpFileName, DIBINIT *pInfo, DIBINIT *pMask, B
         
     if (hBitmap)
     {
-        /* Hack for large PNG files */
+        /* Large PNG files */
         byte errline = 2;
 
         for (y = 0; y < height; ++y)
@@ -267,7 +267,7 @@ BOOL ReadDIB2_PNG(HWND hWnd, LPSTR lpFileName, DIBINIT *pInfo, DIBINIT *pMask, B
             if (SetDIBits(hDC, hBitmap, height - y - 1, 1, row_pointers[y], &biSrc,
                 DIB_RGB_COLORS) != 1)
             {
-                /* Hack -- replace unreadable line by data from previous line */
+                /* Replace unreadable line by data from previous line */
                 if (!errline)
                 {
                     errline = 1;
@@ -279,7 +279,7 @@ BOOL ReadDIB2_PNG(HWND hWnd, LPSTR lpFileName, DIBINIT *pInfo, DIBINIT *pMask, B
                     }
                 }
 
-                /* Hack -- don't allow multiple unreadable lines */
+                /* Don't allow multiple unreadable lines */
                 else errline = 2;
             }
             else errline = 0;

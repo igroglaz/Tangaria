@@ -489,14 +489,14 @@ void msg_flush(void)
  * result in the loss of information if the screen is cleared, or if anything
  * is displayed on the top line.
  *
- * Hack -- note that "msg(NULL)" will clear the top line even if no
+ * Note that "msg(NULL)" will clear the top line even if no
  * messages are pending.
  */
 void c_msg_print_aux(const char *msg, uint16_t type, bool memorize)
 {
     int n, maxcol;
 
-    /* Hack -- reset */
+    /* Reset */
     prt("", 0, 0);
 
     /* Redraw */

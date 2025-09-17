@@ -82,25 +82,25 @@ const char *effect_info(const struct effect *effect, const char *name)
 {
     if (!effect_valid(effect)) return NULL;
 
-    /* Hack -- teleport other (show nothing) */
+    /* Teleport other (show nothing) */
     if ((effect->index == EF_BOLT) && (effect->subtype == PROJ_AWAY_ALL)) return NULL;
 
-    /* Hack -- non-explosive branded shots (show nothing) */
+    /* Non-explosive branded shots (show nothing) */
     if ((effect->index == EF_BOW_BRAND) && (effect->radius == 0)) return NULL;
 
-    /* Hack -- non-damaging LOS effects (show nothing) */
+    /* Non-damaging LOS effects (show nothing) */
     if ((effect->index == EF_PROJECT_LOS) && (effect->subtype == PROJ_TURN_ALL)) return NULL;
     if ((effect->index == EF_PROJECT_LOS_AWARE) && (effect->other == 0)) return NULL;
 
-    /* Hack -- illumination ("damage" value is used for radius, so change the tip accordingly) */
+    /* Illumination ("damage" value is used for radius, so change the tip accordingly) */
     if ((effect->index == EF_LIGHT_AREA) && streq(name, "elemental"))
         return "range";
 
-    /* Hack -- mana drain ("damage" value is used for healing, so change the tip accordingly) */
+    /* Mana drain ("damage" value is used for healing, so change the tip accordingly) */
     if ((effect->index == EF_BOLT_AWARE) && (effect->subtype == PROJ_DRAIN_MANA))
         return "heal";
 
-    /* Hack -- heal other ("damage" value is used for healing, so change the tip accordingly) */
+    /* Heal other ("damage" value is used for healing, so change the tip accordingly) */
     if ((effect->index == EF_BLAST) && (effect->subtype == PROJ_MON_HEAL))
         return "heal";
     if ((effect->index == EF_BOLT_STATUS) && (effect->subtype == PROJ_MON_HEAL))

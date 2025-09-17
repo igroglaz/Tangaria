@@ -363,7 +363,7 @@ void object_list_format_name(struct player *p, const object_list_entry_t *entry,
     object_is_recognized_artifact = (entry->object->artifact &&
         (entry->object->known->artifact || object_is_known(p, entry->object)));
 
-    /* Hack -- these don't have a prefix when there is only one, so just pad with a space. */
+    /* These don't have a prefix when there is only one, so just pad with a space. */
     switch (entry->object->kind->tval)
     {
         case TV_SOFT_ARMOR:

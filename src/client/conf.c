@@ -136,7 +136,7 @@ void conf_set_int(const char *section, const char *name, int32_t value)
 }
 
 
-/* Hack -- append section */
+/* Append section */
 void conf_append_section(const char *sectionFrom, const char *sectionTo, const char *filename)
 {
     char keys[2 * MSG_LEN];
@@ -154,7 +154,7 @@ void conf_append_section(const char *sectionFrom, const char *sectionTo, const c
             GetPrivateProfileString(sectionFrom, &keys[i], "", value, sizeof(value),
                 filename);
 
-            /* Hack -- append key to original config */
+            /* Append key to original config */
             value[100] = '\0'; /* FIXME: change "strings" len */
             conf_set_string(sectionTo, &keys[i], value);
         }
@@ -490,14 +490,14 @@ void conf_init(void* param)
      * Get File name 
      */
 
-    /* EMX Hack */
+    /* EMX */
 #ifdef USE_EMX
     strcpy(buf, "\\pwmang.rc");
 #else
     strcpy(buf, "/.pwmangrc");
 #endif
 
-    /* Hack -- make this file easier to find */
+    /* Make this file easier to find */
 #if defined(__APPLE__) || defined(ON_XDG) || defined(ON_ANDROID)
     strcpy(buf, "/pwmangclient.ini");
 #endif
@@ -666,7 +666,7 @@ void conf_timer(int ticks)
     }
 }
 
-/* HACK: Append section from other file */
+/* Append section from other file */
 void conf_append_section(const char* sectionFrom, const char *sectionTo, const char* filename)
 {
     ang_file* config;
@@ -722,7 +722,7 @@ static int clia_find(const char *key)
             if (awaiting_argument && key_matched)
             {
                 /*
-                 * Hack -- if this is second --longopt in a row, and the
+                 * If this is second --longopt in a row, and the
                  * last one was matching our key, assume we're done!
                  */
                 return i - 1;

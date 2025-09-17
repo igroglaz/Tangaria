@@ -178,7 +178,7 @@ static int find_chat_target(const char *search, char *error, size_t maxlen)
         return 0;
     }
 
-    /* Hack -- pack player targets and virtual channels together */
+    /* Pack player targets and virtual channels together */
     if (target > 0 && !channel_trap) target += VIRTUAL_CHANNELS;
 
     return target;
@@ -228,11 +228,11 @@ void channel_join(struct player *p, const char *channel, bool quiet)
             /* Not present on this channel */
             if (!on_channel(p, i))
             {
-                /* Hack -- can't join due to modes? */
+                /* Can't join due to modes? */
                 if (((channels[i].mode & CM_KEYLOCK) && !is_dm_p(p)) ||
                     (p->on_channel[i] & UCM_BAN))
                 {
-                    /* Hack -- route to "unable to join" message */
+                    /* Route to "unable to join" message */
                     last_free = 0;
                     break;
                 }
@@ -465,7 +465,7 @@ static void player_talk_aux(struct player *p, const char *message)
             return;
         }
 
-        /* Hack -- empty 'party hinter' hints to own party */
+        /* Empty 'party hinter' hints to own party */
         if ((search[0] == '^') && p && p->party && (search[1] == '\0'))
             my_strcpy(search, parties[p->party].name, sizeof(search));
 
@@ -664,7 +664,7 @@ void do_cmd_chat(struct player *p, char *buf)
     {
         channel_join(p, buf, true);
 
-        /* Hack -- Secondary channel */
+        /* Secondary channel */
         p->second_channel[0] = '\0';
     }
     else

@@ -145,10 +145,10 @@ static bool describe_stats(struct player *p, const struct object *obj, bool awar
         const char *desc = lookup_obj_property(OBJ_PROPERTY_MOD, i)->name;
         int val = modifiers[i];
 
-        /* Hack -- don't show pointless "poly race" modifier */
+        /* Don't show pointless "poly race" modifier */
         if (i == OBJ_MOD_POLY_RACE) continue;
 
-        /* Hack -- antimagic is described elsewhere */
+        /* Antimagic is described elsewhere */
         if (i == OBJ_MOD_ANTI_MAGIC) continue;
 
         if (!val) continue;
@@ -982,7 +982,7 @@ static bool obj_known_damage(struct player *p, const struct object *obj, int *no
 
         brand_damage[i] = calc_damage(p, &state, obj, bow, weapon, ammo, multiplier);
 
-        /* Hack -- double damage if vulnerable to fire or cold */
+        /* Double damage if vulnerable to fire or cold */
         if (streq(brands[i].name, "fire"))
             index = z_info->brand_max + multiplier - 2;
         if (streq(brands[i].name, "cold"))
@@ -1874,7 +1874,7 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
     bool terse = ((mode & OINFO_TERSE)? true: false);
     int am, i;
 
-    /* Hack -- "wearable" items other than weapons/ammo add slays/brands to melee attacks */
+    /* "Wearable" items other than weapons/ammo add slays/brands to melee attacks */
     bool fulldesc = (tval_has_variable_power(obj) && !tval_is_enchantable_weapon(obj));
 
     /* Unaware objects get simple descriptions */
@@ -1904,7 +1904,7 @@ static void object_info_out(struct player *p, const struct object *obj, int mode
         something = true;
     }
 
-    /* Hack -- don't display misc magic flags from curses (description is enough) */
+    /* Don't display misc magic flags from curses (description is enough) */
     of_copy(flags_misc, flags);
     for (i = 0; obj->known->curses && (i < z_info->curse_max); i++)
     {

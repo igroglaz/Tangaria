@@ -245,13 +245,13 @@ static void spell_message(struct player *p, struct monster *mon, const struct mo
     }
     strnfcat(buf, sizeof(buf), &end, "%s", in_cursor);
 
-    /* Hack -- replace "your" by "some" */
+    /* Replace "your" by "some" */
     if (target_mon) strrep(tmp, sizeof(tmp), buf, "your", "some");
 
     if (spell->msgt) msgt(p, spell->msgt, buf);
     else msg(p, buf);
 
-    /* Hack -- print message to nearby players */
+    /* Print message to nearby players */
     if (level->near_message && !target_mon)
     {
         int i;

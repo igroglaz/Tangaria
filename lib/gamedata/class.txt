@@ -4308,7 +4308,7 @@ title:Ult. Changer
 
 magic:0:400:1
 
-# Hack -- mimic realm spells
+# Mimic realm spells
 # Spells are all put in one book, and they use RSF_XXX flags as effect flag
 book:mimic realm:xxx:xxx:73:mimic
 
@@ -8829,7 +8829,7 @@ desc: Cooldown 2 turns.
 
 
 ############### GHOST ###############
-# Hack -- not a real class, used for ghost realm spells
+# Not a real class, used for ghost realm spells
 name:Ghost
 
 magic:0:0:1

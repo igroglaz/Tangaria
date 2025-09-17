@@ -357,7 +357,7 @@ void gear_excise_object(struct player *p, struct object *obj)
     /* Change the weight */
     p->upkeep->total_weight -= (obj->number * obj->weight);
 
-    /* Hack -- excise object index */
+    /* Excise object index */
     obj->oidx = 0;
 
     /* Make sure it isn't still equipped */

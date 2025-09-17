@@ -27,7 +27,7 @@
 struct book_info book_info[MAX_PAGES];
 
 
-/* Hack -- last row of text on the screen */
+/* Last row of text on the screen */
 static int last_row;
 
 
@@ -99,7 +99,7 @@ static void spell_menu_erase(void)
 
     Term_locate(&x, &y);
 
-    /* Hack -- always finish at the end of a tile in bigtile mode */
+    /* Always finish at the end of a tile in bigtile mode */
     if (tile_height > 1)
     {
         int ymax = ((y - ROW_MAP) / tile_height) * tile_height + ROW_MAP + tile_height - 1;
@@ -107,7 +107,7 @@ static void spell_menu_erase(void)
         while (++y <= ymax) Term_erase(x - 1, y, 255);
     }
 
-    /* Hack -- if we use a distorted display, don't refresh the last rows */
+    /* If we use a distorted display, don't refresh the last rows */
     if (Term->max_hgt != Term->hgt)
     {
         if (--y > last_row)
@@ -240,7 +240,7 @@ static struct menu *spell_menu_new(int book, bool (*is_valid)(int, int), bool sh
     loc.page_rows = d->n_spells + 1;
     menu_layout(m, &loc);
 
-    /* Hack -- reset last row */
+    /* Reset last row */
     last_row = 0;
 
     return m;
@@ -254,7 +254,7 @@ static void spell_menu_destroy(struct menu *m)
 {
     struct spell_menu_data *d = menu_priv(m);
 
-    /* Hack -- reset last row */
+    /* Reset last row */
     last_row = 0;
 
     mem_free(d);
@@ -589,7 +589,7 @@ int textui_obj_cast(int book, int *dir)
 {
     int result;
 
-    /* Hack -- don't get out of icky screen if disturbed */
+    /* Don't get out of icky screen if disturbed */
     allow_disturb_icky = false;
 
     result = textui_obj_cast_aux(book, false, dir);
@@ -622,13 +622,13 @@ errr get_spell_by_name(int *book, int *spell)
     size_t len;
     char *prompt = "Spell name: ";
 
-    /* Hack -- show opening quote symbol */
+    /* Show opening quote symbol */
     if (prompt_quote_hack) prompt = "Spell name: \"";
 
     buf[0] = '\0';
     if (!get_string(prompt, buf, NORMAL_WID)) return 1;
 
-    /* Hack -- remove final quote */
+    /* Remove final quote */
     len = strlen(buf);
     if (len == 0) return 1;
     if (buf[len - 1] == '"') buf[len - 1] = '\0';

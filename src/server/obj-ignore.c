@@ -135,7 +135,7 @@ static void sense_object(struct player *p, struct object *obj, bool tocarry)
     else
         cursed = (obj->curses && obj->known->curses);
 
-    /* Hack -- worthless objects */
+    /* Worthless objects */
     worthless = worthless_p(obj);
 
     /* Get marker */
@@ -295,7 +295,7 @@ bool object_is_ignored(struct player *p, const struct object *obj)
     /* Do ignoring by kind */
     if (object_flavor_is_aware(p, obj) && p->kind_ignore[obj->kind->kidx]) return true;
 
-    /* Hack: the "Always ignore books" option is stored in player->kind_ignore[0] */
+    /* The "Always ignore books" option is stored in player->kind_ignore[0] */
     if (object_flavor_is_aware(p, obj) && p->kind_ignore[0] && tval_is_book(obj)) return true;
 
     type = ignore_type_of(obj);

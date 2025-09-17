@@ -174,7 +174,7 @@ void display_inven(struct player *p)
         display_item(p, obj, 0);
     }
 
-    /* Hack -- wait for creation */
+    /* Wait for creation */
     if (!p->alive) return;
 
     /* Send quiver indices and count to client */
@@ -248,7 +248,7 @@ void display_equip(struct player *p)
         display_item(p, obj, 1);
     }
 
-    /* Hack -- wait for creation */
+    /* Wait for creation */
     if (!p->alive) return;
 
     /* Send equipment indices and count to client */
@@ -398,7 +398,7 @@ void display_object_recall_interactive(struct player *p, const struct object *ob
     /* Dump info into player */
     object_info(p, obj, OINFO_NONE);
 
-    /* Hack -- dump similar wielded object */
+    /* Dump similar wielded object */
     if (OPT(p, expand_inspect)) compare_object_info(p, obj);
 
     /* Restore height and width of current dungeon level */

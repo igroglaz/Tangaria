@@ -4859,7 +4859,7 @@ void init_angband(void)
 
 
 /*
- * Dirty hack -- unset server options
+ * Unset server options
  */
 static void unload_server_cfg(void)
 {

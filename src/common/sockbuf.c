@@ -774,7 +774,7 @@ int Packet_scanf(sockbuf_t *sbuf, char *fmt, ...)
                         }
                         else if (k >= max_str_size)
                         {
-                            /* Hack -- terminate our string and clear the sbuf */
+                            /* Terminate our string and clear the sbuf */
                             str[k - 1] = '\0';
                             break;
                         }

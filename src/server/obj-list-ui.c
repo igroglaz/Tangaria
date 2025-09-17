@@ -213,7 +213,7 @@ static bool object_list_format_special(struct player *p, const object_list_t *li
 {
 	if (p->timed[TMD_IMAGE] > 0 || p->timed[TMD_IMAGE_REAL] > 0)
     {
-		/* Hack -- message needs newline to calculate width properly. */
+		/* Message needs newline to calculate width properly. */
 		const char *message = "Your hallucinations are too wild to see things clearly.\n";
 
 		if (max_height_result != NULL)

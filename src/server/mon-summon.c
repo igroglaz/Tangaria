@@ -455,10 +455,10 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
     /* Look for a location, allow up to 4 squares away */
     if (!summon_location(c, &nearby, grid, 4)) return 0;
 
-    /* Hack -- monster summoned by the player */
+    /* Monster summoned by the player */
     if (chance) status = MSTATUS_SUMMONED;
 
-    /* Hack -- try to "charm" the monster (friendly summon) */
+    /* Try to "charm" the monster (friendly summon) */
     if (magik(chance) && can_charm_monster(p, summon_level, STAT_WIS))
     {
         status_player = MSTATUS_CONTROLLED;
@@ -569,7 +569,7 @@ int summon_specific(struct player *p, struct chunk *c, struct loc *grid, int lev
         }
     }
 
-    /* Hack -- monster summoned by the player */
+    /* Monster summoned by the player */
     if (status_player == MSTATUS_CONTROLLED) monster_set_master(mon, p, MSTATUS_CONTROLLED);
     else mon->status = status;
 

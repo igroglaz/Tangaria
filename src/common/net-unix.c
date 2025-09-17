@@ -646,7 +646,7 @@ int	fd;
     /* Added this loop to prevent accept from failing when
      * interrupted by MAngbands alarm handler. -APD
      *
-     * Hack -- This was causing the game to freze so I have added a max count
+     * This was causing the game to freze so I have added a max count
      * as a quick fix until I reaxamine this more thoroughly.
      */
     maxloop = 0;

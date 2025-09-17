@@ -854,19 +854,19 @@ static void adjust_level(struct player *p)
     char buf[NORMAL_WID];
     bool redraw = false;
 
-    /* Hack -- lower limit */
+    /* Lower limit */
     if (p->exp < 0) p->exp = 0;
 
-    /* Hack -- lower limit */
+    /* Lower limit */
     if (p->max_exp < 0) p->max_exp = 0;
 
-    /* Hack -- upper limit */
+    /* Upper limit */
     if (p->exp > PY_MAX_EXP) p->exp = PY_MAX_EXP;
 
-    /* Hack -- upper limit */
+    /* Upper limit */
     if (p->max_exp > PY_MAX_EXP) p->max_exp = PY_MAX_EXP;
 
-    /* Hack -- maintain "max" experience */
+    /* Maintain "max" experience */
     if (p->exp > p->max_exp) p->max_exp = p->exp;
 
     /* Redraw experience */

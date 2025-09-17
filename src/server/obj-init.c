@@ -1956,7 +1956,7 @@ static enum parser_error parse_object_cost(struct parser *p)
     if (!k) return PARSE_ERROR_MISSING_RECORD_HEADER;
     k->cost = parser_getint(p, "cost");
 
-    /* Hack -- objects in stores not for buying */
+    /* Objects in stores not for buying */
     if (k->cost < 0) k->cost = PY_MAX_GOLD;
 
     return PARSE_ERROR_NONE;
@@ -3266,7 +3266,7 @@ static errr finish_parse_artifact(struct parser *p)
         aup_info[aidx].aidx = aidx;
     }
 
-    /* Hack -- create 9 empty shelves for Rings of Power */
+    /* Create 9 empty shelves for Rings of Power */
     for (i = z_info->a_max; i < z_info->a_max + 9; i++)
     {
         a_info[i].aidx = i;

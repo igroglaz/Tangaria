@@ -57,7 +57,7 @@ dice:$P
 expr:P:OBJ_POWER_TO_DAM:* 5
 operation:add
 
-# dice power is a bit of a hack - the base is dice x (sides + 1), or 48 for
+# dice power - the base is dice x (sides + 1), or 48 for
 # assumed damage for non-weapons with slays or brands or + blows, might or shots
 name:dice power
 dice:$P

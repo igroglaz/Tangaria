@@ -21,7 +21,7 @@
 #include "c-angband.h"
 
 
-/* Hack -- icky screen */
+/* Icky screen */
 bool full_icky_screen;
 bool target_icky_screen;
 

@@ -184,7 +184,7 @@ static void play_music_sdl(void)
             played = play_music_aux(dirpath);
         }
 
-        /* Hack -- don't fall back for intro music */
+        /* Don't fall back for intro music */
         if (streq(player->locname, "intro")) return;
 
         /* If this didn't work, try default music subdirectory */
@@ -469,7 +469,7 @@ static bool play_sound_sdl(struct sound_data *data)
 
             case SDL_MUSIC:
             {
-                /* Hack -- force reload next time a sound is played */
+                /* Force reload next time a sound is played */
                 data->status = SOUND_ST_UNKNOWN;
 
                 if (sample->sample_data.music)

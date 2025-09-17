@@ -1028,7 +1028,7 @@ void player_know_object(struct player *p, struct object *obj)
             bool aware = object_flavor_is_aware(p, obj);
             struct object *copy;
 
-            /* Hack -- special case for normal jewelry with fixed bonuses */
+            /* Special case for normal jewelry with fixed bonuses */
             copy = object_new();
             object_copy(copy, obj);
             if (!obj->artifact)
@@ -1640,7 +1640,7 @@ void object_learn_on_wield(struct player *p, struct object *obj)
 
     object_learn_obvious(p, obj, true);
 
-    /* Hack -- know activation on rings of polymorphing to bypass (unfair) learning by use */
+    /* Know activation on rings of polymorphing to bypass (unfair) learning by use */
     if (tval_is_poly(obj)) object_notice_effect(p, obj);
 }
 

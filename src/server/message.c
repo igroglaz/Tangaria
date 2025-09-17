@@ -22,7 +22,7 @@
 
 
 /*
- * Hack -- make a (relevant?) sound
+ * Make a (relevant?) sound
  */
 void sound(struct player *p, int val)
 {

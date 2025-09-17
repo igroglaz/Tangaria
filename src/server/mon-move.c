@@ -209,10 +209,10 @@ bool race_hates_grid(struct chunk *c, struct monster_race *race, struct loc *gri
     // eg AQUATIC mobs are water immune
     if (square_isdamaging(c, grid) && !rf_has(race->flags, square_feat(c, grid)->resist_flag))
     {
-        /* Hack -- passwall creatures can cross any damaging terrain */
+        /* Passwall creatures can cross any damaging terrain */
         if (rf_has(race->flags, RF_PASS_WALL)) return false;
 
-        /* Hack -- levitating creatures can cross water */
+        /* Levitating creatures can cross water */
         if (square_iswater(c, grid) && rf_has(race->flags, RF_LEVITATE)) return false;
 
         return true;
@@ -1465,7 +1465,7 @@ static bool monster_turn_multiply(struct chunk *c, struct monster *mon)
     while (loc_iterator_next(&iter));
 
     /* Multiply slower in crowded areas */
-    /* Hack -- multiply even more slowly on no_recall servers */
+    /* Multiply even more slowly on no_recall servers */
     // TODO (?): Zeitnot.. make it slower?
     // not sure as we auto > in time, so it's pretty possible to run away from breeders
     if (cfg_diving_mode == 3)
@@ -1770,7 +1770,7 @@ static bool monster_turn_can_move(struct source *who, struct chunk *c, struct mo
 
                 square_smash_door(c, grid);
 
-                /* Hack -- print message to nearby players */
+                /* Print message to nearby players */
                 for (i = 1; i <= NumPlayers; i++)
                 {
                     /* Check this player */
@@ -2065,7 +2065,7 @@ static void monster_turn_grab_objects(struct player *p, struct chunk *c, struct 
         {
             int i;
 
-            /* Hack -- print message to nearby players */
+            /* Print message to nearby players */
             for (i = 1; i <= NumPlayers; i++)
             {
                 /* Check this player */
@@ -2094,7 +2094,7 @@ static void monster_turn_grab_objects(struct player *p, struct chunk *c, struct 
             {
                 int i;
 
-                /* Hack -- print message to nearby players */
+                /* Print message to nearby players */
                 for (i = 1; i <= NumPlayers; i++)
                 {
                     /* Check this player */
@@ -2127,7 +2127,7 @@ static void monster_turn_grab_objects(struct player *p, struct chunk *c, struct 
         {
             int i;
 
-            /* Hack -- print message to nearby players */
+            /* Print message to nearby players */
             for (i = 1; i <= NumPlayers; i++)
             {
                 /* Check this player */
@@ -2279,7 +2279,7 @@ static void monster_turn_move(struct source *who, struct chunk *c, struct monste
             /* Disturb (except townies, friendlies and hidden mimics) */
             if ((mon->level > 0) && pvm_check(who->player, mon) && !monster_is_camouflaged(mon))
             {
-                /* Hack -- do not cancel fire_till_kill on movement */
+                /* Do not cancel fire_till_kill on movement */
                 if (who->player->firing_request) who->player->cancel_firing = false;
 
                 disturb(who->player, 1);
@@ -2491,7 +2491,7 @@ static bool monster_check_active(struct chunk *c, struct monster *mon, int *targ
     can_smell = monster_can_smell(p, mon);
     source_player(who, get_player_index(get_connection(p->conn)), p);
 
-    /* Hack -- MvM */
+    /* MvM */
     if (mon->status == MSTATUS_CONTROLLED)
     {
         int target_dis;
@@ -2593,7 +2593,7 @@ static void monster_effects(struct player *p, struct monster *mon)
                     add_monster_message(p, mon, MON_MSG_CROAK, true);
                 }
 
-                /* Hack -- update the health bar */
+                /* Update the health bar */
                 if (monster_is_visible(p, mon->midx)) update_health(who);
             }
         }
@@ -2624,7 +2624,7 @@ static void monster_effects(struct player *p, struct monster *mon)
                     add_monster_message(p, mon, MON_MSG_CROAK, true);
                 }
 
-                /* Hack -- update the health bar */
+                /* Update the health bar */
                 if (monster_is_visible(p, mon->midx)) update_health(who);
             }
         }
@@ -2690,7 +2690,7 @@ static void monster_reduce_sleep(struct monster *mon, bool mvm)
         }
     }
 
-    /* Hack -- see if monster "notices" player */
+    /* See if monster "notices" player */
     else if ((notice * notice * notice) <= player_noise)
     {
         int sleep_reduction = 1;
@@ -2880,10 +2880,10 @@ static void get_closest_player(struct chunk *c, struct monster *mon)
         /* Make sure he's on the same dungeon level */
         if (!wpos_eq(&p->wpos, &mon->wpos)) continue;
 
-        /* Hack -- skip him if he's shopping */
+        /* Skip him if he's shopping */
         if (in_store(p)) continue;
 
-        /* Hack -- make the dungeon master invisible to monsters */
+        /* Make the dungeon master invisible to monsters */
         if (p->dm_flags & DM_MONSTER_FRIEND) continue;
 
         /* Skip player if dead or gone */
@@ -3067,7 +3067,7 @@ void process_monsters(struct chunk *c, bool more_energy)
         /* Use up "some" energy */
         mon->energy -= move_energy(mon->wpos.depth);
 
-        /* Hack -- controlled monsters have a limited lifespan */
+        /* Controlled monsters have a limited lifespan */
         if (mon->master && mon->lifespan)
         {
             mon->lifespan--;

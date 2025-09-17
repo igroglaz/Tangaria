@@ -335,7 +335,7 @@ static void birthmenu_display(struct menu *menu, int oid, bool cursor, int row, 
     uint8_t attr = curs_attrs[CURS_KNOWN][0 != cursor];
     int len = strlen(data->items[oid]);
 
-    /* Hack -- don't write past menu width */
+    /* Don't write past menu width */
     if (len > width)
         Term_putstr(col, row, width, attr, data->items[oid]);
     else
@@ -655,7 +655,7 @@ static void setup_menus(void)
     /* Count the classes */
     n = player_cmax();
 
-    /* Hack -- remove the fake "ghost" class */
+    /* Remove the fake "ghost" class */
     n--;
 
     /* Class menu similar to race. */
@@ -896,7 +896,7 @@ static void menu_help(enum birth_stage current, int cursor)
             /* Exit on abort */
             if (is_abort(ke)) break;
 
-            /* Hack -- make any key escape if we're done */
+            /* Make any key escape if we're done */
             if (cline + i == mline)
             {
                 ke.type = EVT_KBRD;

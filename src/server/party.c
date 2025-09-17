@@ -132,7 +132,7 @@ bool pvm_check(struct player *p, struct monster *mon)
     /* Paranoia */
     if (!mon->race) return false;
 
-    /* Hack -- dungeon master and his monsters */
+    /* Dungeon master and his monsters */
     if (p->dm_flags & DM_MONSTER_FRIEND) return false;
 
     /* Not hostile */

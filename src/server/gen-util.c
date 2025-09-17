@@ -460,7 +460,7 @@ void add_down_stairs(struct chunk *c)
     /* Place a staircase */
     square_set_downstairs(c, &grid, FEAT_MORE);
 
-    /* Hack -- the players start on the stairs while recalling */
+    /* The players start on the stairs while recalling */
     square_set_join_rand(c, &grid);
 }
 
@@ -495,7 +495,7 @@ bool new_player_spot(struct chunk *c, struct player *p)
         square_set_join_up(c, &grid);
     }
 
-    /* Hack -- stay in bounds (to avoid asserts during cave generation) */
+    /* Stay in bounds (to avoid asserts during cave generation) */
     p->grid.y = MIN(MAX(p->grid.y, 1), c->height - 2);
     p->grid.x = MIN(MAX(p->grid.x, 1), c->width - 2);
 

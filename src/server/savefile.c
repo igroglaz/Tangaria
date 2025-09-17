@@ -106,7 +106,7 @@ typedef struct
  */
 static const savefile_saver player_savers[] =
 {
-    /* Hack -- save basic player info */
+    /* Save basic player info */
     {"header", wr_header, 1},
 
     {"description", wr_description, 1},
@@ -153,7 +153,7 @@ static const savefile_saver server_savers[] =
 };
 
 
-/* Hack */
+/* Savefile saving functions (special) */
 static const savefile_saver special_savers[] =
 {
     {"dungeon", wr_level, 1}
@@ -172,7 +172,7 @@ static const savefile_saver account_savers[] =
  */
 static const struct blockinfo player_loaders[] =
 {
-    /* Hack -- save basic player info */
+    /* Save basic player info */
     {"header", rd_header, 1},
 
     {"description", rd_null, 1},
@@ -220,7 +220,7 @@ static const struct blockinfo server_loaders[] =
 };
 
 
-/* Hack */
+/* Savefile loading functions (special) */
 static const struct blockinfo special_loaders[] =
 {
     {"dungeon", rd_level, 1}
@@ -938,7 +938,7 @@ static bool try_load(struct player *p, ang_file *f, const struct blockinfo *load
             return false;
         }
 
-        /* Hack -- load any special static levels */
+        /* Load any special static levels */
         if (streq(b.name, "dungeons"))
         {
             if (!load_dungeon_special()) return false;

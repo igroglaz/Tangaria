@@ -228,7 +228,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                 format_dice_string(&value, z_info->food_value * multiplier / rate,
                     sizeof(turn_dice_string), turn_dice_string);
 
-                /* Hack -- check previous effect */
+                /* Check previous effect */
                 if (same_effect)
                 {
                     same_effect = false;
@@ -250,7 +250,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                 else
                     strnfmt(desc, sizeof(desc), effect_desc(e), fed, turn_dice_string, dice_string);
 
-                /* Hack -- check next effect */
+                /* Check next effect */
                 if (e->next && (e->next->index == e->index) && (e->next->subtype == e->subtype))
                 {
                     random_value nextvalue;
@@ -298,7 +298,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             {
                 const char *proj_desc = projections[e->subtype].desc;
 
-                /* Hack -- some effects have a duration */
+                /* Some effects have a duration */
                 if (strstr(proj_desc, "%s"))
                 {
                     char tmp[100];
@@ -314,7 +314,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             /* Summon effect description */
             case EFINFO_SUMM:
             {
-                /* Hack -- check previous effect */
+                /* Check previous effect */
                 if (same_effect)
                 {
                     same_effect = false;
@@ -325,7 +325,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                 else
                     strnfmt(desc, sizeof(desc), effect_desc(e), dice_string, summon_desc(e->subtype));
 
-                /* Hack -- check next effect */
+                /* Check next effect */
                 if (e->next && (e->next->index == e->index) && (e->next->subtype == e->subtype))
                 {
                     random_value nextvalue;
@@ -341,7 +341,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                     }
                 }
 
-                /* Hack -- only display suffix if last */
+                /* Only display suffix if last */
                 if (!e->next)
                     my_strcat(desc, " generated at the current dungeon level", sizeof(desc));
 
@@ -378,7 +378,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             /* PWMAngband: restore original description (effect + damage) */
             case EFINFO_BREATH:
             {
-                /* Hack -- check next effect */
+                /* Check next effect */
                 if (e->next && (e->next->index == e->index) && (e->index != EF_BREATH))
                 {
                     random_value nextvalue;
@@ -393,7 +393,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                     }
                 }
 
-                /* Hack -- check previous effect */
+                /* Check previous effect */
                 if (same_value)
                 {
                     if (same_effect) same_effect = false;
@@ -409,7 +409,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                         my_strcpy(desc, projections[e->subtype].desc, sizeof(desc));
                 }
 
-                /* Hack -- check next effect */
+                /* Check next effect */
                 else if (same_effect)
                 {
                     same_effect = false;
@@ -426,7 +426,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
                         dice_string);
                 }
 
-                /* Hack -- only display boost if last */
+                /* Only display boost if last */
                 if (!e->next)
                     append_damage(desc, sizeof(desc), value, ((e->index == EF_BREATH)? 0: boost));
 
@@ -454,7 +454,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             {
                 const char *proj_desc = projections[e->subtype].desc;
 
-                /* Hack -- some effects have a duration */
+                /* Some effects have a duration */
                 if (strstr(proj_desc, "%s"))
                 {
                     char tmp[100];
@@ -481,7 +481,7 @@ bool effect_describe(struct player *p, const struct object *obj, const struct ef
             {
                 const char *proj_desc = projections[e->subtype].desc;
 
-                /* Hack -- some effects have a duration */
+                /* Some effects have a duration */
                 if (strstr(proj_desc, "%s"))
                 {
                     char tmp[100];

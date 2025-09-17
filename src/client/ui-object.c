@@ -396,7 +396,7 @@ static void show_obj_list(int mode)
 
         if (col < 3) col = 0;
 
-        /* Hack -- full icky screen */
+        /* Full icky screen */
         if (full_icky_screen && (col > COL_MAP + 2)) col = COL_MAP + 2;
     }
 
@@ -445,7 +445,7 @@ static void show_obj_list(int mode)
         for (; i < Term->hgt; i++) prt("", row + i, MAX(col - 2, 0));
     }
 
-    /* Hack -- full icky screen */
+    /* Full icky screen */
     else if (full_icky_screen)
     {
         for (; (i > 0 && row + i < NORMAL_HGT); i++) prt("", row + i, MAX(col - 2, 0));
@@ -559,7 +559,7 @@ void show_equip(int mode, item_tester tester)
         build_obj_list(last_slot, player->upkeep->quiver, tester, mode);
     }
 
-    /* Hack -- display the first floor item */
+    /* Display the first floor item */
     if ((mode & OLIST_FLOOR) && floor_items[0])
     {
         /* Add a spacer between equipment and floor item */
@@ -723,7 +723,7 @@ static errr get_item_by_name(int *k)
     size_t len;
     char *prompt = "Item name: ";
 
-    /* Hack -- spellcasting mode (select book by spell) */
+    /* Spellcasting mode (select book by spell) */
     if (spellcasting)
     {
         int sn = -1;
@@ -736,13 +736,13 @@ static errr get_item_by_name(int *k)
         return failed;
     }
 
-    /* Hack -- show opening quote symbol */
+    /* Show opening quote symbol */
     if (prompt_quote_hack) prompt = "Item name: \"";
 
     buf[0] = '\0';
     if (!get_string(prompt, buf, NORMAL_WID)) return 1;
 
-    /* Hack -- remove final quote */
+    /* Remove final quote */
     len = strlen(buf);
     if (len == 0) return 1;
     if (buf[len - 1] == '"') buf[len - 1] = '\0';
@@ -1067,7 +1067,7 @@ static bool get_item_action(struct menu *menu, const ui_event *event, int oid)
                 r = get_item_by_name(&k);
                 if (!r)
                 {
-                    /* Hack -- spellcasting mode (select book by spell) */
+                    /* Spellcasting mode (select book by spell) */
                     if (spellcasting)
                     {
                         int i;
@@ -1109,7 +1109,7 @@ static bool get_item_action(struct menu *menu, const ui_event *event, int oid)
 }
 
 
-/* Hack -- last row of text on the screen */
+/* Last row of text on the screen */
 static int last_row;
 
 
@@ -1160,7 +1160,7 @@ static void item_menu_browser(int oid, void *data, const region *area)
 
     Term_locate(&x, &y);
 
-    /* Hack -- always finish at the end of a tile in bigtile mode */
+    /* Always finish at the end of a tile in bigtile mode */
     if (tile_height > 1)
     {
         int ymax = ((y - ROW_MAP) / tile_height) * tile_height + ROW_MAP + tile_height - 1;
@@ -1168,7 +1168,7 @@ static void item_menu_browser(int oid, void *data, const region *area)
         while (++y <= ymax) Term_erase(x - 1, y, 255);
     }
 
-    /* Hack -- if we use a distorted display, don't refresh the last rows */
+    /* If we use a distorted display, don't refresh the last rows */
     if (Term->max_hgt != Term->hgt)
     {
         if (--y > last_row)
@@ -1254,7 +1254,7 @@ static struct object *item_menu(cmd_code cmd, int prompt_size, int mode)
 
     menu_layout(m, &area);
 
-    /* Hack -- reset last row */
+    /* Reset last row */
     last_row = 0;
 
     /* Choose */
@@ -1557,7 +1557,7 @@ bool textui_get_item(struct object **choice, const char *pmt, const char *str, c
         /* If nothing to choose, use (empty) inventory */
         else command_wrk = USE_INVEN;
 
-        /* Hack -- display the first floor item */
+        /* Display the first floor item */
         if (f1 <= f2) olist_mode |= (OLIST_FLOOR);
 
         while (true)
@@ -1655,10 +1655,10 @@ bool textui_get_item(struct object **choice, const char *pmt, const char *str, c
             /* The top line is icky */
             topline_icky = true;
 
-            /* Hack -- disable quick floor on wield if no wieldable item in inventory */
+            /* Disable quick floor on wield if no wieldable item in inventory */
             hack_no_wield = ((cmd == CMD_WIELD) && (i1 > i2));
 
-            /* Hack -- quick floor for single items (except on pickup) */
+            /* Quick floor for single items (except on pickup) */
             if (OPT(player, quick_floor) && (command_wrk == USE_FLOOR) && (f1 == f2) &&
                 (cmd != CMD_PICKUP) && !hack_no_wield)
             {
@@ -1880,7 +1880,7 @@ void textui_cmd_ignore_menu(struct object *obj)
 
     menu_dynamic_calc_location(m);
 
-    /* Hack -- save object index */
+    /* Save object index */
     idx = index_from_oidx(obj->oidx);
 
     prt("(Enter to select, ESC) Ignore:", 0, 0);
@@ -1889,7 +1889,7 @@ void textui_cmd_ignore_menu(struct object *obj)
     menu_dynamic_free(m);
     screen_load(false);
 
-    /* Hack --  make sure the object still exists (corpses may have decomposed, ...) */
+    /* Make sure the object still exists (corpses may have decomposed, ...) */
     obj = object_from_index(idx);
     if (!obj) return;
 

@@ -250,7 +250,7 @@ static void loc_panel(struct player *p, struct loc *grid, struct loc *offset)
     int panel_wid = screen_wid / 2;
     int panel_hgt = screen_hgt / 2;
 
-    /* Hack -- enforce illegal panel */
+    /* Enforce illegal panel */
     loc_init(offset, z_info->dungeon_wid, z_info->dungeon_hgt);
 
     /* Scroll screen vertically when off-center */

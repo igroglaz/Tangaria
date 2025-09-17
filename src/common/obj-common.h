@@ -126,7 +126,7 @@ struct effect
     int other;          /* Extra parameter to be passed to the handler */
     int y;              /* Y coordinate or distance */
     int x;              /* X coordinate or distance */
-    int flag;           /* Hack -- flag for mimic spells */
+    int flag;           /* Flag for mimic spells */
     char *self_msg;     /* Message for affected player */
     char *other_msg;    /* Message for other players */
 };
@@ -430,7 +430,7 @@ enum
 };
 
 /*
- * Hack -- extra information used by the client
+ * Extra information used by the client
  */
 struct object_xtra
 {

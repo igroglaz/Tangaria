@@ -351,7 +351,7 @@ static void display_resistance_panel(struct player *p, const char **rec, const r
             char sym = (strlen(rec[i])? p->hist_flags[off + i][j].c: ' ');
             bool rune = false;
 
-            /* Hack -- rune is known */
+            /* Rune is known */
             if (attr >= BASIC_COLORS)
             {
                 attr -= BASIC_COLORS;
@@ -607,7 +607,7 @@ static const char *show_depth(struct player *p)
 
     if (p->max_depth == 0)
     {
-        /* Hack -- compatibility with Angband ladder */
+        /* Compatibility with Angband ladder */
         if (p->dump_gen) return "Town";
 
         return "Surface";

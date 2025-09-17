@@ -1164,7 +1164,7 @@ int16_t modify_stat_value(int value, int amount)
             /* Ten points at a time */
             if (value >= 18+10) value -= 10;
 
-            /* Hack -- prevent weirdness */
+            /* Prevent weirdness */
             else if (value > 18) value = 18;
 
             /* One point at a time */

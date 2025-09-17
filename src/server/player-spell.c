@@ -299,13 +299,13 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
 
         ist->have_shared = true;
 
-        /* Hack -- set current spell (for effect_value_base_by_name) */
+        /* Set current spell (for effect_value_base_by_name) */
         current_spell = p->current_spell;
         p->current_spell = spell->sidx;
 
         dice_roll(effect->dice, (void *)data, &ist->shared_rv);
 
-        /* Hack -- reset current spell */
+        /* Reset current spell */
         p->current_spell = current_spell;
     }
 
@@ -315,7 +315,7 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     memset(&rv, 0, sizeof(rv));
     special[0] = '\0';
 
-    /* Hack -- mana drain (show real value) */
+    /* Mana drain (show real value) */
     if ((effect->index == EF_BOLT_AWARE) && (effect->subtype == PROJ_DRAIN_MANA))
     {
         rv.base = 6;
@@ -328,13 +328,13 @@ static void spell_effect_append_value_info(struct player *p, const struct effect
     {
         int16_t current_spell;
 
-        /* Hack -- set current spell (for effect_value_base_by_name) */
+        /* Set current spell (for effect_value_base_by_name) */
         current_spell = p->current_spell;
         p->current_spell = spell->sidx;
 
         dice_roll(effect->dice, (void *)data, &rv);
 
-        /* Hack -- reset current spell */
+        /* Reset current spell */
         p->current_spell = current_spell;
     }
     else if (ist->have_shared)
@@ -1038,13 +1038,13 @@ bool cast_spell_proj(struct player *p, int cidx, int spell_index, bool silent)
     /* Set current spell */
     p->current_spell = spell_index;
 
-    /* Hack -- save the class of the caster */
+    /* Save the class of the caster */
     p->current_item = 0 - cidx;
 
     /* Message */
     if (spell->effect && spell->effect->other_msg && !silent)
     {
-        /* Hack -- formatted message */
+        /* Formatted message */
         switch (spell->effect->flag)
         {
             case RSF_HEAL:
@@ -1117,7 +1117,7 @@ void fill_beam_info(struct player *p, int spell_index, struct beam_info *beam)
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
 
-    /* Hack -- elemental spells */
+    /* Elemental spells */
     if (streq(spell->realm->name, "elemental"))
     {
         int i, j;
@@ -1175,7 +1175,7 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
     if (p->ghost && !player_can_undead(p)) c = lookup_player_class("Ghost");
     spell = spell_by_index(&c->magic, spell_index);
 
-    /* Hack -- set current spell (for effect_value_base_by_name) */
+    /* Set current spell (for effect_value_base_by_name) */
     current_spell = p->current_spell;
     p->current_spell = spell->sidx;
 
@@ -1231,6 +1231,6 @@ void spell_description(struct player *p, int spell_index, int flag, bool need_kn
         my_strcat(out_desc, " damage.", size);
     }
 
-    /* Hack -- reset current spell */
+    /* Reset current spell */
     p->current_spell = current_spell;
 }

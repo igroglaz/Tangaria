@@ -209,7 +209,7 @@ static void crumble_angband(struct player *p, struct chunk *c, struct loc *grid)
         square_forget_all(c, &iter.cur);
         square_light_spot(c, &iter.cur);
 
-        /* Hack -- notice player */
+        /* Notice player */
         if (square(c, &iter.cur)->mon < 0)
         {
             /* Notice the player later */
@@ -220,10 +220,10 @@ static void crumble_angband(struct player *p, struct chunk *c, struct loc *grid)
             continue;
         }
 
-        /* Hack -- skip the epicenter */
+        /* Skip the epicenter */
         if (player_is_at(p, &iter.cur)) continue;
 
-        /* Hack -- skip Morgoth (he will be removed later) */
+        /* Skip Morgoth (he will be removed later) */
         if (loc_eq(&iter.cur, grid)) continue;
 
         /* Delete the monster (if any) */
@@ -244,7 +244,7 @@ static void crumble_angband(struct player *p, struct chunk *c, struct loc *grid)
     }
     while (loc_iterator_next(&iter));
 
-    /* Hack -- update players */
+    /* Update players */
     for (j = 0; j < count; j++)
     {
         struct player *player = player_get(notice[j]);
@@ -269,7 +269,7 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
     int winners = 0;
     int i;
 
-    /* Hack -- killing Morgoth marks some players as "winners" */
+    /* Killing Morgoth marks some players as "winners" */
     if (m->race->base != lookup_monster_base("Morgoth")) return -1;
 
     /* A bad day for evil... */
@@ -346,7 +346,7 @@ int quest_check(struct player *p, struct chunk *c, const struct monster *m)
             set_redraw_equip(p, NULL);
             set_redraw_inven(p, NULL);
 
-            /* Hack -- instantly retire any new winners if necessary */
+            /* Instantly retire any new winners if necessary */
             // if (cfg_retire_timer == 0) do_cmd_retire(player);
             /* If not, generate the rewards for that player */
             // else 

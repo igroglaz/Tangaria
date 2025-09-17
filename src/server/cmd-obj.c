@@ -457,7 +457,7 @@ void do_cmd_takeoff(struct player *p, int item)
 
 
 /*
- * Hack -- prevent anyone but total winners (and the Dungeon Master) from wielding the Massive Iron
+ * Prevent anyone but total winners (and the Dungeon Master) from wielding the Massive Iron
  * Crown of Morgoth or the Mighty Hammer 'Grond'.
  */
 static bool deny_winner_artifacts(struct player *p, struct object *obj)
@@ -768,7 +768,7 @@ void do_cmd_drop(struct player *p, int item, int quantity)
     /* Take half a turn */
     use_energy_aux(p, 50);
 
-    /* Hack -- farmers plant seeds */
+    /* Farmers plant seeds */
     if (tval_is_crop(obj) && square_iscropbase(chunk_get(&p->wpos), &p->grid))
     {
         do_cmd_plant_seed(p, obj);
@@ -1726,7 +1726,7 @@ static bool do_cmd_use_end(struct player *p, struct object *obj, bool ident, boo
     set_redraw_equip(p, obj);
     set_redraw_inven(p, obj);
 
-    /* Hack -- delay pack updates when an item request is pending */
+    /* Delay pack updates when an item request is pending */
     if (p->current_value == ITEM_PENDING) p->upkeep->notice |= PN_WAIT;
     else p->upkeep->notice &= ~(PN_WAIT);
 
@@ -2017,7 +2017,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
         return false;
     }
 
-    /* Hack -- restrict to equipped items */
+    /* Restrict to equipped items */
     if (p_cmd->eq_only && !object_is_equipped(p->body, obj)) return false;
 
     /* Some checks */
@@ -2157,7 +2157,7 @@ static bool use_aux(struct player *p, int item, int dir, cmd_param *p_cmd)
     // (note: there MD will lose it's charge)
     if (do_cmd_use_end(p, obj, ident, used, p_cmd->use)) return false;
 
-    /* Hack -- rings of polymorphing get destroyed when activated */
+    /* Rings of polymorphing get destroyed when activated */
     if (tval_is_poly(obj) && used)
     {
         msg(p, "Your ring explodes in a bright flash of light!");

@@ -57,7 +57,7 @@
 #include "util.h"
 
 
-/* Horrible hack -- should we link lib math instead? */
+/* Should we link lib math instead? */
 
 #ifndef min
 # define min(A, B) (A < B ? A : B)

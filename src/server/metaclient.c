@@ -96,7 +96,7 @@ static void meta_write(int flag)
             meta_local_name, (int)cfg_tcp_port);
     }
 
-    /* Hack -- if we're shutting down, don't send player list and version */
+    /* If we're shutting down, don't send player list and version */
     if (flag & META_DIE)
     {
         /* Send address + whitespace, which metaserver recognizes as death report */
@@ -115,7 +115,7 @@ static void meta_write(int flag)
             my_strcat(buf_meta, "</notes>", sizeof(buf_meta));
         }
 
-        /* Hack -- count players */
+        /* Count players */
         for (k = 1; k <= NumPlayers; k++)
         {
             if (!(player_get(k)->dm_flags & DM_SECRET_PRESENCE)) num++;

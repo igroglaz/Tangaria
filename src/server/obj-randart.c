@@ -2005,7 +2005,7 @@ static void add_brand(struct artifact *art)
     int count;
     struct brand *brand = NULL;
 
-    /* Hack -- do not allow slays/brands on nonweapons other than rings and gloves */
+    /* Do not allow slays/brands on nonweapons other than rings and gloves */
     if (!art_is_weapon(art) && !art_is_ammo(art) && !art_is_ring(art) && (art->tval != TV_GLOVES))
         return;
 
@@ -2054,7 +2054,7 @@ static void add_slay(struct artifact *art)
     struct slay *slay = NULL;
     int i;
 
-    /* Hack -- do not allow slays/brands on nonweapons other than rings and gloves */
+    /* Do not allow slays/brands on nonweapons other than rings and gloves */
     if (!art_is_weapon(art) && !art_is_ammo(art) && !art_is_ring(art) && (art->tval != TV_GLOVES))
         return;
 
@@ -2248,7 +2248,7 @@ static void add_activation(struct artifact *art, int target_power, int max_power
 
 static void add_shots(struct artifact *art)
 {
-    /* Hack -- do not allow extra shots on nonweapons other than gloves */
+    /* Do not allow extra shots on nonweapons other than gloves */
     if ((art->tval != TV_BOW) && (art->tval != TV_GLOVES)) return;
 
     add_mod(art, OBJ_MOD_SHOTS);
@@ -2257,7 +2257,7 @@ static void add_shots(struct artifact *art)
 
 static void add_blows(struct artifact *art)
 {
-    /* Hack -- do not allow extra blows on nonweapons other than gloves */
+    /* Do not allow extra blows on nonweapons other than gloves */
     if (!art_is_melee_weapon(art) && (art->tval != TV_GLOVES)) return;
 
     add_mod(art, OBJ_MOD_BLOWS);
@@ -3154,7 +3154,7 @@ static struct artifact* create_artifact(struct player *p, const struct artifact 
     art->slays = NULL;
     art->curses = NULL;
 
-    /* Hack in some values for Rings of Power */
+    /* Define some values for Rings of Power */
     if (art->aidx >= (uint32_t)z_info->a_max)
     {
         art->tval = TV_RING;

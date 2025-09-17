@@ -472,7 +472,7 @@ bool askfor_aux(char *buf, int len, keypress_handler keypress_h)
         /* Get a key */
         ch = inkey();
 
-        /* Evil hack -- pretend quote is Return */
+        /* Pretend quote is Return */
         if (prompt_quote_hack && (ch.code == '"')) ch.code = KC_ENTER;
 
         /* Let the keypress handler deal with the keypress */
