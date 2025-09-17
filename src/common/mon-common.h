@@ -349,7 +349,7 @@ struct monster
     struct monster_blow *blow;          /* Melee blows */
     int16_t level;                      /* Level of creature */
     int16_t master;                     /* The player controlling this monster */
-    uint8_t lifespan;                   /* Lifespan of controlled creature */
+    uint16_t lifespan;                  /* Lifespan of controlled creature */
     uint8_t resilient;                  /* Controlled creature is resilient */
     uint8_t status;                     /* Monster status: hostile, guard, follower, attacker */
     uint8_t clone;                      /* Monster is a clone */
