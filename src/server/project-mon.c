@@ -2391,7 +2391,12 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
             if (mon->level > 1) // regular case
                 mon->lifespan = mon->level + 5 + randint1(5);
             else // lvl 1 monsters (player constant pets)
-                mon->lifespan = mon->level * 2 + 25 + randint1(25);
+            {
+                int monlvl = mon->level;
+                if (monlvl > 100)
+                    monlvl = 100;
+                mon->lifespan = monlvl * 2 + 25 + randint1(25);
+            }
 
             // Trader boni
             if (streq(p->clazz->name, "Trader"))
@@ -2399,7 +2404,8 @@ void monster_set_master(struct monster *mon, struct player *p, uint8_t status)
                 // endgame got max value
                 if (p->lev > 49)
                     mon->lifespan = 215;
-                mon->lifespan += p->state.stat_ind[STAT_CHR]; // 40 max
+                if (mon->lifespan <= 215)
+                    mon->lifespan += p->state.stat_ind[STAT_CHR]; // 40 max
             }
         }
     }

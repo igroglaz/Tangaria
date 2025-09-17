@@ -4941,7 +4941,7 @@ bool effect_handler_RESILIENCE(effect_handler_context_t *context)
         /* Double the lifespan (cap the value depending on monster level) */
         else
         {
-            mon->lifespan = mon->level * 4 + 100;
+            mon->lifespan = 255;
             mon->resilient = 1;
             if (seen) msg(context->origin->player, "%s looks more resilient.", m_name);
         }
