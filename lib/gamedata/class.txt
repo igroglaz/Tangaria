@@ -8675,21 +8675,8 @@ book:skillbook:town:[Mastery]:3:skills
 equip:skillbook:[Mastery]:1:1:none
 
 # using dirty blows
-spell:Piercing Blows:1:1:1:1:0
-cooldown:2
-# Sweep -> critical hit hardcoded
-effect:SWEEP
-effect:TIMED_SET:PIERCING_STANCE
-dice:9999
-msg_other: prepares to skewer.
-desc:Your melee attacks are effective against heavily armored targets.
-desc: The next attack after activating the ability will most likely be a critical hit;
-desc: it can't occur more often than once every 21 turns
-desc: (shared with racial ability and all other stance post-attack effects).
-desc: Cooldown 2 turns.
-
 spell:Slashing Blows:1:1:1:1:0
-cooldown:2
+cooldown:11
 # Sweep hardcoded
 effect:SWEEP
 effect:TIMED_SET:CUTTING_STANCE
@@ -8699,10 +8686,23 @@ desc:Your melee attacks slice and cause bleeding wounds.
 desc: The next attack after activating the ability will be a cleaving sweep;
 desc: it can't occur more often than once every 11 turns
 desc: (shared with racial ability and all other stance post-attack effects).
-desc: Cooldown 2 turns.
+desc: Cooldown 11 turns.
+
+spell:Piercing Blows:1:1:1:1:0
+cooldown:21
+# Sweep -> critical hit hardcoded
+effect:SWEEP
+effect:TIMED_SET:PIERCING_STANCE
+dice:9999
+msg_other: prepares to skewer.
+desc:Your melee attacks are effective against heavily armored targets.
+desc: The next attack after activating the ability will most likely be a critical hit;
+desc: it can't occur more often than once every 21 turns
+desc: (shared with racial ability and all other stance post-attack effects).
+desc: Cooldown 21 turns.
 
 spell:Crushing Blows:1:1:1:1:0
-cooldown:2
+cooldown:7
 # Sweep -> confuse hardcoded
 effect:SWEEP
 effect:TIMED_SET:CRUSHING_STANCE
@@ -8712,7 +8712,7 @@ desc:Your melee attacks stun and disorient your enemies.
 desc: The next attack after activating the ability will confuse target;
 desc: it can't occur more often than once every 7 turns
 desc: (shared with racial ability and all other stance post-attack effects).
-desc: Cooldown 2 turns.
+desc: Cooldown 7 turns.
 
 
 #effect:MELEE_BLOWS:MISSILE
