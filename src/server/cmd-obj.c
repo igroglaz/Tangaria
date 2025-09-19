@@ -758,6 +758,14 @@ void do_cmd_drop(struct player *p, int item, int quantity)
                 can_remove = true;
             }
         }
+        // at 50 lvl allow to drop for 100k gold while under !berserk
+        else if (p->lev == 50 && p->timed[TMD_SHERO] && p->au >= 100000)
+        {
+            p->au -= 100000;
+            p->upkeep->redraw |= (PR_GOLD);
+            msg(p, "Ancient Gods accept your tribute: the curse is unbound.");
+            can_remove = true;
+        }
         
         if (!can_remove) {
             msg(p, "Hmmm, it seems to be stuck.");
