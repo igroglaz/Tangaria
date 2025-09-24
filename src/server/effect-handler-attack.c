@@ -455,6 +455,9 @@ static int wreck_havoc(effect_handler_context_t *context, int r, int *hurt, bool
         /* Stay in the circle of death */
         if (k > r) continue;
 
+        // skip vault squares
+        if (square_isvault(context->cave, &iter.cur)) continue;
+
         /* Lose room and vault */
         sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_ROOM);
         sqinfo_off(square(context->cave, &iter.cur)->info, SQUARE_VAULT);

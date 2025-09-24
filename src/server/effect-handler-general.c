@@ -1001,6 +1001,9 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
         /* Skip Unique Monsters */
         if (monster_is_unique(mon)) continue;
 
+        // skip monsters in vaults
+        if (square_isvault(context->cave, &mon->grid)) continue;
+
         /* Check distance */
         if ((tmp = distance(&context->origin->player->grid, &mon->grid)) < d)
         {
@@ -1030,6 +1033,9 @@ bool effect_handler_BANISH(effect_handler_context_t *context)
 
         /* Skip Unique Monsters */
         if (monster_is_unique(mon)) continue;
+
+        // skip monsters in vaults
+        if (square_isvault(context->cave, &mon->grid)) continue;
 
         /*
          * Skip "wrong" monsters; for shape shifters
@@ -4315,6 +4321,9 @@ bool effect_handler_MASS_BANISH(effect_handler_context_t *context)
 
         /* Skip unique monsters */
         if (monster_is_unique(mon)) continue;
+
+        // skip monsters in vaults
+        if (square_isvault(context->cave, &mon->grid)) continue;
 
         /* Skip distant monsters */
         d = distance(&context->origin->player->grid, &mon->grid);
