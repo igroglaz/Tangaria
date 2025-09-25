@@ -22,8 +22,9 @@ extern struct store *stores;
 /* Store orders */
 struct store_order
 {
-    char order[NORMAL_WID];
-    hturn turn;
+    char order[NORMAL_WID]; /* Quicksearch string for item in store */
+    hturn turn;             /* Turn when the item appears in the store */
+    hturn order_turn;       /* Turn when order is emitted */
 };
 extern struct store_order store_orders[STORE_ORDERS];
 

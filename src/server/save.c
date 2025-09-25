@@ -660,13 +660,15 @@ void wr_stores(void *unused)
     }
 
     /* Note the store orders */
-    wr_u16b(STORE_ORDERS);
+    /* XXX we temporarily save STORE_ORDERS+1 to tell rd_stores() to load order_turn */
+    wr_u16b(STORE_ORDERS+1);
 
     /* Dump the store orders */
     for (i = 0; i < STORE_ORDERS; i++)
     {
         wr_string(store_orders[i].order);
         wr_hturn(&store_orders[i].turn);
+        wr_hturn(&store_orders[i].order_turn);
     }
 }
 

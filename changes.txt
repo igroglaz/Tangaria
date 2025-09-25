@@ -34,6 +34,8 @@ PWMAngband:
 - Drastically increase the lifespan of controlled monsters
 - Split summoner's Minor Healing spell into Minor Healing (for self + party
   members -- similar to priest/paladin) and Heal Other (for controlled monsters)
+- Add a 7-day timer on XBM orders and reduce the timer on completed orders to
+  1 day
 
 Coding changes
 --------------

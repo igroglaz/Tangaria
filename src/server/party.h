@@ -97,6 +97,7 @@ extern uint32_t player_id_count(uint32_t account);
 extern uint32_t player_id_list(int **list, uint32_t account);
 extern void purge_player_names(void);
 extern void wipe_player_names(void);
+extern int player_expiry_aux(hturn *death_turn, int delay);
 extern int player_expiry(hturn *death_turn);
 
 #endif /* INCLUDED_PARTY_H */

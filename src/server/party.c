@@ -1290,7 +1290,7 @@ void wipe_player_names(void)
  * Returns -1 if the character is still alive
  * Returns 0 if the character is dead and has expired
  */
-int player_expiry(hturn *death_turn)
+int player_expiry_aux(hturn *death_turn, int delay)
 {
     int dd, dh, dm;
     int sd, sh, sm;
@@ -1310,7 +1310,13 @@ int player_expiry(hturn *death_turn)
     dd = (sm - dm) / 1440;
 
     /* Character has expired */
-    if (dd > EXPIRY_DELAY_DEAD) dd = EXPIRY_DELAY_DEAD;
+    if (dd > delay) dd = delay;
 
-    return (EXPIRY_DELAY_DEAD - dd);
+    return (delay - dd);
+}
+
+
+int player_expiry(hturn *death_turn)
+{
+    return player_expiry_aux(death_turn, EXPIRY_DELAY_DEAD);
 }

@@ -1354,7 +1354,7 @@ static void store_delete_random(struct store *s)
         struct store_order *order = &store_orders[obj->ordered - 1];
 
         /* Remove expired orders */
-        if (!player_expiry(&order->turn))
+        if (!player_expiry_aux(&order->turn, 1))
         {
             memset(order, 0, sizeof(struct store_order));
             obj->ordered = 0;
@@ -1773,6 +1773,22 @@ static void store_maint(struct store *s, bool force)
  */
 void store_update(void)
 {
+    /* Purge the order list */
+    if (!(turn.turn % (cfg_fps * 60 * 60)))
+    {
+        int i;
+
+        for (i = 0; i < STORE_ORDERS; i++)
+        {
+            /* Discard empty and running orders */
+            if (STRZERO(store_orders[i].order)) continue;
+            if (!ht_zero(&store_orders[i].turn)) continue;
+
+            if (!player_expiry(&store_orders[i].order_turn))
+                memset(&store_orders[i], 0, sizeof(struct store_order));
+        }
+    }
+
     if (!(turn.turn % (10L * z_info->store_turns)))
     {
         int n;
@@ -3400,6 +3416,7 @@ void store_order(struct player *p, const char *buf)
     /* Not in stock: place an order */
     msg(p, "Order accepted.");
     my_strcpy(store_orders[idx].order, buf, NORMAL_WID);
+    ht_copy(&store_orders[idx].order_turn, &turn);
 }
 
 
