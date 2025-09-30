@@ -2066,15 +2066,24 @@ static bool ranged_helper(struct player *p, struct object *obj, int dir, int ran
 
                     /////////////////////////////////////////////
                     // < REFLECT: some monster can reflect (eg Angels)
-                    if (rf_has(who->monster->race->flags, RF_METAL) && RNG % 2)
-                    {                       
-                        if (visible)
-                            msgt(p, MSG_RESIST_A_LOT, "The %s reflects your attack!", m_name);
-                        else
-                            msgt(p, MSG_RESIST_A_LOT, "Your attack is reflected!");
-
-                        more = true;
-                        continue;
+                    if (rf_has(who->monster->race->flags, RF_METAL))
+                    {
+                        bool reflects;
+                        
+                        if (streq(who->monster->race->name, "The Stormbringer"))
+                            reflects = (RNG % 4) != 3;  // 75%
+                        else // 50% chance for other metal monsters
+                            reflects = (RNG % 2);
+                        
+                        if (reflects)
+                        {
+                            if (visible)
+                                msgt(p, MSG_RESIST_A_LOT, "The %s reflects your attack!", m_name);
+                            else
+                                msgt(p, MSG_RESIST_A_LOT, "Your attack is reflected!");
+                            more = true;
+                            continue;
+                        }
                     }
                     // REFLECT >
                     ////////////////////////////////////////////

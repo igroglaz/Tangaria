@@ -18274,14 +18274,14 @@ desc:A huge draconic form. Its scales are shimmering purple.
 
 ### Dungeon level 45 ###
 
+# TODO: remove 'the'
 name:The Stormbringer
 base:hybrid
 glyph:|
 color:v
 light:1
-speed:121
-# was hit-points:1500 before KO nerf
-hit-points:2500
+speed:130
+hit-points:1500
 hearing:0
 #armor-class:99
 armor-class:150
@@ -18303,7 +18303,7 @@ flags:BASH_DOOR
 flags:ATTR_MULTI
 flags:FORCE_SLEEP
 flags:NO_FEAR | NO_CONF | NO_SLEEP | NO_STUN | NO_CUT
-flags:IM_POIS | IM_COLD | IM_FIRE | IM_DISEN | RES_LIGHT
+flags:IM_POIS | IM_COLD | IM_FIRE | IM_ELEC | IM_ACID | IM_DISEN | RES_LIGHT
 flags:IM_NETHER
 flags:FORCE_DEPTH
 drop:food:Slime Mold:100:2:3
