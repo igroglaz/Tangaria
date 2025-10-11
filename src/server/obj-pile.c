@@ -607,7 +607,8 @@ static void object_absorb_known(struct object *known_obj1, struct object *known_
  *
  * These assumptions are enforced by the "object_mergeable()" code.
  */
-static void object_absorb_merge(struct object *obj1, struct object *obj2)
+static void object_absorb_merge(struct object *obj1, struct object *obj2,
+    bool combine_charges_timeouts)
 {
     /* First object gains any extra knowledge from second */
     object_absorb_known(obj1->known, obj2->known);
@@ -615,12 +616,15 @@ static void object_absorb_merge(struct object *obj1, struct object *obj2)
     /* Merge inscriptions */
     if (obj2->note) obj1->note = obj2->note;
 
-    /* Combine timeouts for rod stacking */
-    if (tval_can_have_timeout(obj1)) obj1->timeout += obj2->timeout;
+    if (combine_charges_timeouts)
+    {
+        /* Combine timeouts for rod stacking */
+        if (tval_can_have_timeout(obj1)) obj1->timeout += obj2->timeout;
 
-    /* Combine charges for wands and staves */
-    if (tval_can_have_charges(obj1))
-        obj1->pval += obj2->pval;
+        /* Combine charges for wands and staves */
+        if (tval_can_have_charges(obj1))
+            obj1->pval += obj2->pval;
+    }
 
     /* Combine origin data as best we can */
     object_origin_combine(obj1, obj2);
@@ -687,10 +691,11 @@ void object_absorb_partial(struct object *obj1, struct object *obj2, object_stac
         newsz2 = smallest - difference;
     }
 
+    distribute_charges(obj2, obj1, obj2->number - newsz2, false);
     obj1->number = newsz1;
     obj2->number = newsz2;
 
-    object_absorb_merge(obj1, obj2);
+    object_absorb_merge(obj1, obj2, tval_is_money(obj1));
 }
 
 
@@ -717,7 +722,7 @@ void object_absorb(struct object *obj1, struct object *obj2)
         obj1->number = MIN(total, obj1->kind->base->max_stack);
     }
 
-    object_absorb_merge(obj1, obj2);
+    object_absorb_merge(obj1, obj2, true);
     object_delete(&obj2);
 }
 
@@ -832,7 +837,7 @@ struct object *object_split(struct object *src, int amt)
     my_assert(src->number > amt);
 
     /* Distribute charges of wands, staves, or rods */
-    distribute_charges(src, dest, amt);
+    distribute_charges(src, dest, amt, true);
 
     /* Modify quantity */
     dest->number = amt;

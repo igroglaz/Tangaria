@@ -83,19 +83,60 @@ struct sdlpui_control_funcs {
      * Any can be NULL if the control doesn't do anything with that type
      * of event and wants the dialog or window to handle the event.
      */
+    /*
+     * Respond to a key event.  Return true if the event was handled and
+     * should not be passed on to another handler.  Otherwise, return false.
+     * Can be NULL if the control does not do anything with a key event
+     * and wants the dialog or window to handle the event.
+     */
     bool (*handle_key)(struct sdlpui_control *c, struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_KeyboardEvent *e);
+    /*
+     * Respond to a text input event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the control does not do anything with
+     * a text input event and wants the dialog or window to handle the
+     * event.
+     */
     bool (*handle_textin)(struct sdlpui_control *c, struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_TextInputEvent *e);
+    /*
+     * Respond to a text edit event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the control does not do anything with
+     * a text edit event and wants the dialog or window to handle the
+     * event.
+     */
     bool (*handle_textedit)(struct sdlpui_control *c,
         struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_TextEditingEvent *e);
+    /*
+     * Respond to a mouse button event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the control does not do anything with
+     * a mouse button event and wants the dialog or window to handle the
+     * event.
+     */
     bool (*handle_mouseclick)(struct sdlpui_control *c,
         struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_MouseButtonEvent *e);
+    /*
+     * Respond to a mouse motion event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the control does not do anything with
+     * a mouse motion event and wants the dialog or window to handle the
+     * event.
+     */
     bool (*handle_mousemove)(struct sdlpui_control *c,
         struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_MouseMotionEvent *e);
+    /*
+     * Respond to a mouse wheel event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the control does not do anything with
+     * a mouse wheel event and wants the dialog or window to handle the
+     * event.
+     */
     bool (*handle_mousewheel)(struct sdlpui_control *c,
         struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_MouseWheelEvent *e);
@@ -103,8 +144,8 @@ struct sdlpui_control_funcs {
      * Change the caption for the control.  May be NULL if the control
      * does not have a caption or otherwise does not want
      * sdlpui_change_caption() to work with the control.  Does resize
-         * the internals of the control for the new caption but does not
-         * change its external dimensions.
+     * the internals of the control for the new caption but does not
+     * change its external dimensions.
      */
     void (*change_caption)(struct sdlpui_control *c,
         struct sdlpui_dialog *d, struct sdlpui_window *w,

@@ -1013,8 +1013,10 @@ static bool arena_check(struct worldpos *wpos)
 static const struct cave_profile *choose_profile(struct worldpos *wpos)
 {
     const struct cave_profile *profile = NULL;
-    int moria_alloc = find_cave_profile("moria")->alloc;
-    int labyrinth_alloc = find_cave_profile("labyrinth")->alloc;
+    const struct cave_profile *moria_profile = find_cave_profile("moria");
+    const struct cave_profile *labyrinth_profile = find_cave_profile("labyrinth");
+    int moria_alloc = (moria_profile? moria_profile->alloc: 0);
+    int labyrinth_alloc = (labyrinth_profile? labyrinth_profile->alloc: 0);
 
     /* Make the profile choice */
     if (wpos->depth > 0)
@@ -1028,11 +1030,11 @@ static const struct cave_profile *choose_profile(struct worldpos *wpos)
         else if (cavern_check(wpos))
             profile = find_cave_profile("cavern");
         else if (labyrinth_check(wpos) && (labyrinth_alloc > 0 || labyrinth_alloc == -1))
-            profile = find_cave_profile("labyrinth");
+            profile = labyrinth_profile;
         else if ((wpos->depth >= 10) && (wpos->depth < 40) && one_in_(40) &&
             (moria_alloc > 0 || moria_alloc == -1))
         {
-            profile = find_cave_profile("moria");
+            profile = moria_profile;
         }
         // t_modified
         else if (wpos->depth < 10 && one_in_(2))

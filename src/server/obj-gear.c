@@ -1365,6 +1365,8 @@ static bool inven_can_stack_partial(struct player *p, const struct object *obj1,
         /* These's no reason to combine if already at the limit. */
         else if (obj1->number == obj1->kind->base->max_stack)
             return false;
+        else if (obj2->number == obj2->kind->base->max_stack)
+            return false;
     }
 
     return true;

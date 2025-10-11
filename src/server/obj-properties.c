@@ -100,6 +100,17 @@ void flag_message(struct player *p, int flag, char *name)
     size_t end = 0;
 
     /* See if we have a message */
+    if (!prop)
+    {
+        if (flag < 0 || flag >= OF_MAX)
+            plog_fmt("Bug: invalid flag index, %d, passed to flag_message().", flag);
+        else
+        {
+            plog_fmt("Bug: flag '%s' (index %d) noticed but has no entry in object_property.txt.",
+                list_obj_flag_names[flag], flag);
+        }
+        return;
+    }
     if (!prop->msg) return;
     in_cursor = prop->msg;
 

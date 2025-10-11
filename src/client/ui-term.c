@@ -1705,13 +1705,20 @@ errr Term_addstrex(int n, uint16_t a, const char *buf)
     if (!t) return Term_addstr(n, a, buf);
 
     /* Save current substring for display */
-    my_strcpy(str, t, sizeof(str));
+    if (buf[0] == '$' || buf[0] == '^')
+    {
+        my_strcpy(str, "", sizeof(str));
+        pos = 0;
+    }
+    else
+    {
+        my_strcpy(str, t, sizeof(str));
+        pos = strlen(t);
+        t = strtok(NULL, "$^");
 
-    pos = strlen(t);
-    t = strtok(NULL, "$^");
-
-    /* No tags */
-    if (!t) return Term_addstr(n, a, buf);
+        /* No tags */
+        if (!t) return Term_addstr(n, a, buf);
+    }
 
     /* If we start with end tag: use other attr */
     if (buf[pos] == '^') switched = true;

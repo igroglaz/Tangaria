@@ -340,7 +340,7 @@ size_t obj_desc_name_format(char *buf, size_t max, size_t end, const char *fmt, 
         }
 
         /* Add modstr, with pluralisation if relevant */
-        else if (*fmt == '#')
+        else if (*fmt == '#' && modstr)
             end = obj_desc_name_format(buf, max, end, modstr, NULL, pluralise);
 
         else

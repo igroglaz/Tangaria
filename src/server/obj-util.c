@@ -619,14 +619,14 @@ int get_use_device_chance(struct player *p, const struct object *obj)
 /*
  * Distribute charges of rods, staves, or wands.
  *
- * source = source item
- * dest = target item, must be of the same type as source
- * amt   = number of items that are transfered
+ * source is the source item
+ * dest is the target item, must be of the same type as source
+ * amt is the number of items that are transfered
+ * dest_new will, if true, ignore whatever charges or timeout, dest
+ * has (i.e. treat it as a new stack).
  */
-void distribute_charges(struct object *source, struct object *dest, int amt)
+void distribute_charges(struct object *source, struct object *dest, int amt, bool dest_new)
 {
-    int charge_time = randcalc(source->time, 0, AVERAGE), max_time;
-
     /*
      * If staves or wands are dropped, the total maximum
      * charges need to be allocated between the two stacks.
@@ -635,9 +635,13 @@ void distribute_charges(struct object *source, struct object *dest, int amt)
      */
     if (tval_can_have_charges(source))
     {
-        dest->pval = source->pval * amt / source->number;
+        int change = source->pval * amt / source->number;
 
-        if (amt < source->number) source->pval -= dest->pval;
+        if (dest_new)
+            dest->pval = change;
+        else
+            dest->pval += change;
+        if (amt < source->number) source->pval -= change;
     }
 
     /*
@@ -648,12 +652,27 @@ void distribute_charges(struct object *source, struct object *dest, int amt)
      */
     if (tval_can_have_timeout(source))
     {
+        int charge_time = randcalc(source->time, 0, AVERAGE), max_time;
+
         max_time = charge_time * amt;
 
-        if (source->timeout > max_time) dest->timeout = max_time;
-        else dest->timeout = source->timeout;
+        if (dest_new)
+        {
+            dest->timeout = (source->timeout > max_time)? max_time: source->timeout;
+            if (amt < source->number) source->timeout -= dest->timeout;
+        }
+        else
+        {
+            int change = (source->timeout > max_time)? max_time: source->timeout;
 
-        if (amt < source->number) source->timeout -= dest->timeout;
+            max_time = charge_time * (dest->number + amt);
+            if (dest->timeout < max_time)
+            {
+                if (change > max_time - dest->timeout) change = max_time - dest->timeout;
+                dest->timeout += change;
+                if (amt < source->number) source->timeout -= change;
+            }
+        }
     }
 }
 

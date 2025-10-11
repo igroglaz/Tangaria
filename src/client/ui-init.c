@@ -935,6 +935,8 @@ void cleanup_angband(void)
 
     /* Free the directories */
     free_file_paths();
+
+    option_free();
 }
 
 

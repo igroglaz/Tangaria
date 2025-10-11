@@ -24,10 +24,9 @@
 
 struct queue *q_new(size_t size)
 {
-    struct queue *q = (struct queue*)malloc(sizeof(struct queue));
+    struct queue *q = (struct queue*)mem_alloc(sizeof(struct queue));
 
-    if (!q) return NULL;
-    q->data = (uintptr_t*)malloc(sizeof(uintptr_t) * (size + 1));
+    q->data = (uintptr_t*)mem_alloc(sizeof(uintptr_t) * (size + 1));
     q->size = size + 1;
     q->head = 0;
     q->tail = 0;
@@ -67,6 +66,6 @@ uintptr_t q_pop(struct queue *q)
 
 void q_free(struct queue *q)
 {
-    free(q->data);
-    free(q);
+    mem_free(q->data);
+    mem_free(q);
 }

@@ -24,7 +24,7 @@
 /*
  * Option screen interface
  */
-int option_page[OP_MAX][OPT_PAGE_PER];
+int *option_page[OP_MAX];
 
 
 static struct option_entry
@@ -114,17 +114,39 @@ void option_init(void)
 {
     int opt, page;
 
+    option_free();
+
     /* Allocate options to pages */
     for (page = 0; page < OP_MAX; page++)
     {
-        int page_opts = 0;
+        int count = 0, i;
 
         for (opt = 0; opt < OPT_MAX; opt++)
         {
-            if ((options[opt].type == page) && (page_opts < OPT_PAGE_PER))
-                option_page[page][page_opts++] = opt;
+            if (options[opt].type == page) ++count;
         }
-        while (page_opts < OPT_PAGE_PER)
-            option_page[page][page_opts++] = OPT_none;
+        option_page[page] = mem_alloc((count + 1) * sizeof(*option_page[page]));
+        for (opt = 0, i = 0; opt < OPT_MAX; opt++)
+        {
+            if (options[opt].type == page)
+            {
+                my_assert(i < count);
+                option_page[page][i] = opt;
+                ++i;
+            }
+        }
+        option_page[page][count] = OPT_none;
+    }
+}
+
+
+void option_free(void)
+{
+    int page;
+
+    for (page = 0; page < OP_MAX; page++)
+    {
+        mem_free(option_page[page]);
+        option_page[page] = NULL;
     }
 }

@@ -6000,6 +6000,12 @@ bool effect_handler_TELEPORT_TO(effect_handler_context_t *context)
     /* Where are we coming from? */
     if (context->subtype)
     {
+        if (!context->origin->monster)
+        {
+            plog("Bug: TELEPORT_TO:SELF effect used that is not cast by a monster.");
+            return !used;
+        }
+
         /* Monster teleporting */
         loc_copy(&start, &context->origin->monster->grid);
         is_player = false;

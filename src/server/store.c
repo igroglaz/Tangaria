@@ -1006,14 +1006,12 @@ void store_stock_list(struct player *p, struct store *s, struct object **list, i
  */
 static void store_object_absorb(struct object *obj, struct object *new_obj)
 {
-    int total = obj->number + new_obj->number;
-
     /* Combine quantity, lose excess items */
-    obj->number = MIN(total, obj->kind->base->max_stack);
+    int change = (obj->number < obj->kind->base->max_stack)?
+        MIN(new_obj->number, obj->kind->base->max_stack - obj->number): 0;
 
-    /* If wands/staves are stacking, combine the charges */
-    if (tval_can_have_charges(obj))
-        obj->pval += new_obj->pval;
+    distribute_charges(new_obj, obj, change, false);
+    obj->number += change;
 
     object_origin_combine(obj, new_obj);
 
@@ -2282,10 +2280,10 @@ static void store_prt_gold(struct player *p)
 /* Return a random hint from the global hints list */
 char *random_hint(void)
 {
-    struct hint *v, *r = NULL;
+    struct hint *v, *r = hints;
     int n;
 
-    for (v = hints, n = 1; v; v = v->next, n++)
+    for (v = hints->next, n = 2; v; v = v->next, n++)
     {
         if (one_in_(n)) r = v;
     }
@@ -2336,7 +2334,7 @@ static void prt_welcome(struct player *p, char *welcome, size_t len)
     if (one_in_(2)) return;
 
     /* Get a hint */
-    if (one_in_(3))
+    if (hints && one_in_(3))
     {
         strnfmt(welcome, len, "\"%s\"", random_hint());
         return;
@@ -2924,7 +2922,7 @@ void do_cmd_retrieve(struct player *p, int item, int amt)
     }
 
     /* Distribute charges of wands, staves, or rods */
-    distribute_charges(obj, picked_item, amt);
+    distribute_charges(obj, picked_item, amt, true);
 
     /* Give it to the player */
     inven_carry(p, picked_item, true, true);
@@ -3056,7 +3054,7 @@ void do_cmd_stash(struct player *p, int item, int amt)
     bool none_left = false;
 
     /* Check we are somewhere we can stash items. */
-    if (s->feat != FEAT_HOME)
+    if (!s || s->feat != FEAT_HOME)
     {
         msg(p, "You are not in your home.");
         return;

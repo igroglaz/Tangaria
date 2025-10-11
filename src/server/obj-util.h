@@ -43,7 +43,7 @@ extern bool is_unknown_money(const struct object *obj);
 extern int compare_items(struct player *p, const struct object *o1, const struct object *o2);
 extern bool obj_can_fail(struct player *p, const struct object *o);
 extern int get_use_device_chance(struct player *p, const struct object *obj);
-extern void distribute_charges(struct object *source, struct object *dest, int amt);
+extern void distribute_charges(struct object *source, struct object *dest, int amt, bool dest_new);
 extern int number_charging(const struct object *obj);
 extern bool recharge_timeout(struct object *obj);
 extern bool obj_can_takeoff(const struct object *obj);

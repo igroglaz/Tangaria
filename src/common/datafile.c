@@ -177,7 +177,7 @@ int code_index_in_array(const char *code_name[], const char *code)
  * between the brackets.
  * nstring is the maximum number of bytes to write to string. It is
  * not used when string is NULL.
- * num is dereferenced and set to integer parsed from between the
+ * num is dereferenced and set to the integer parsed from between the
  * brackets. num may be NULL. num is not used when string is not NULL.
  *
  * Return true if the expression was successfully parsed. Otherwise, return

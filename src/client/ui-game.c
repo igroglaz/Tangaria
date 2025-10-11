@@ -314,7 +314,14 @@ static void textui_process_command_aux(ui_event e)
                 process_command(cmd->cmd);
         }
 
-        /* Clear command queue during keymap if one component fails */
+        /*
+         * If processing a keymap, skip the rest if a command
+         * lookup, confirmation, or prereq failed. For
+         * keymaps that specify multiple commands, the player
+         * might want to continue with the keymap, but that
+         * would require skipping over the keys in the keymap
+         * that provide input to the command that failed.
+         */
         else if (inkey_next)
         {
             inkey_next = NULL;
@@ -324,7 +331,20 @@ static void textui_process_command_aux(ui_event e)
 
     /* Error */
     else
+    {
         do_cmd_unknown();
+
+        /*
+         * As above, abandon the rest of a keymap when a
+         * command was expected and what we got was not
+         * recognized.
+         */
+        if (inkey_next)
+        {
+            inkey_next = NULL;
+            first_escape = false;
+        }
+    }
 }
 
 

@@ -22,14 +22,16 @@ extern Uint32 SDLPUI_DIALOG_SIMPLE_INFO;
 /* Set out possible flags that can be set for buttons in a simple menu. */
 enum sdlpui_menu_flags {
     SDLPUI_MFLG_NONE = 0,
-    SDLPUI_MFLG_END_GRAVITY = 1,    /* when the menu is bigger than needed
-                        for the buttons, the button
-                        prefers to have its position
-                        stack from the end of the
-                        menu */
-    SDLPUI_MFLG_CAN_HIDE = 2,    /* if the menu is smaller than its
-                        natural size, this button can
-                        be hidden */
+    /*
+     * When the menu is bigger than needed for the buttons, the button
+     * prefers to have its position stack from the end of the menu.
+     */
+    SDLPUI_MFLG_END_GRAVITY = 1,
+    /*
+     * If the menu is smaller than its natural size, this button can be
+     * hidden.
+     */
+    SDLPUI_MFLG_CAN_HIDE = 2
 };
 
 /* Holds a function table to be used for a class of dialogs. */
@@ -40,16 +42,57 @@ struct sdlpui_dialog_funcs {
      * Any can be NULL if the dialog and the controls it contains do not
      * do anything with that type of event and want the window to handle it.
      */
+    /*
+     * Respond to a key event.  Return true if the event was handled and
+     * should not be passed on to another handler.  Otherwise, return false.
+     * Can be NULL if the dialog and the controls it contains do not do
+     * anything with a key event and want the window to handle it.
+     */
     bool (*handle_key)(struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_KeyboardEvent *e);
+    /*
+     * Respond to a text input event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the dialog and the controls it
+     * contains do not do anything with a text input event and want the
+     * window to handle it.
+     */
     bool (*handle_textin)(struct sdlpui_dialog *d, struct sdlpui_window *w,
         const SDL_TextInputEvent *e);
+    /*
+     * Respond to a text edit event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the dialog and the controls it
+     * contains do not do anything with a text edit event and want the
+     * window to handle it.
+     */
     bool (*handle_textedit)(struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_TextEditingEvent *e);
+    /*
+     * Respond to a mouse button event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the dialog and the controls it
+     * contains do not do anything with a mouse button event and want the
+     * window to handle it.
+     */
     bool (*handle_mouseclick)(struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_MouseButtonEvent *e);
+    /*
+     * Respond to a mouse motion event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the dialog and the controls it
+     * contains do not do anything with a mouse motion event and want the
+     * window to handle it.
+     */
     bool (*handle_mousemove)(struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_MouseMotionEvent *e);
+    /*
+     * Respond to a mouse wheel event.  Return true if the event was
+     * handled and should not be passed on to another handler.  Otherwise,
+     * return false.  Can be NULL if the dialog and the controls it
+     * contains do not do anything with a mouse wheel event and want the
+     * window to handle it.
+     */
     bool (*handle_mousewheel)(struct sdlpui_dialog *d,
         struct sdlpui_window *w, const SDL_MouseWheelEvent *e);
     /*
@@ -118,10 +161,14 @@ struct sdlpui_dialog_funcs {
         struct sdlpui_dialog *d, struct sdlpui_window *w, Sint32 x,
         Sint32 y, int *comp_ind);
     /*
-     * For a nested menu, return the parent or child respectively for the
-     * menu.  May be NULL for a dialog that is not a nested menu.
+     * For a nested menu, return the parent for the menu.  May be NULL
+     * for a dialog that is not a nested menu.
      */
     struct sdlpui_dialog *(*get_parent)(struct sdlpui_dialog *d);
+    /*
+     * For a nested menu, return the active child for the menu.  May be NULL
+     * for a dialog that is not a nested menu.
+     */
     struct sdlpui_dialog *(*get_child)(struct sdlpui_dialog *d);
     /*
      * For a nested menu, get the parent control for the menu.  May be

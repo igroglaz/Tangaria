@@ -21,11 +21,6 @@ enum
 };
 
 /*
- * Information for "do_cmd_options()".
- */
-#define OPT_PAGE_PER    20
-
-/*
  * Option indexes
  */
 enum
@@ -70,7 +65,7 @@ struct player_options
     uint8_t ignore_lvl[ITYPE_MAX];     /* Auto-ignore level (0 to 4) */
 };
 
-extern int option_page[OP_MAX][OPT_PAGE_PER];
+extern int *option_page[OP_MAX];
 
 /*
  * Functions
@@ -82,5 +77,6 @@ extern int option_type(int opt);
 extern bool option_normal(int opt);
 extern bool option_server(int opt);
 extern void option_init(void);
+extern void option_free(void);
 
 #endif /* INCLUDED_OPTIONS_H */

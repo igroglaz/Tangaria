@@ -681,7 +681,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
     int distance_to_grid[256];
 
     /* Precalculated damage values for each distance. */
-    int *dam_at_dist = malloc((z_info->max_range + 1) * sizeof(*dam_at_dist));
+    int *dam_at_dist = mem_alloc((z_info->max_range + 1) * sizeof(*dam_at_dist));
 
     /* Assume the player has seen nothing */
     for (i = 0; i < MAX_PLAYERS; ++i) drawing[i] = false;
@@ -1203,7 +1203,7 @@ bool project(struct source *origin, int rad, struct chunk *cv, struct loc *finis
         sqinfo_off(square(cv, &blast_grid[i])->info, SQUARE_PROJECT);
     }
 
-    free(dam_at_dist);
+    mem_free(dam_at_dist);
 
     /* Return "something was noticed" */
     return (notice);
