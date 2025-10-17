@@ -2250,7 +2250,7 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 
     monster_handler = monster_handlers[typ];
 
-    if (monster_handler != NULL)
+    if (monster_handler != NULL) ////////////////// <<<<<<<<<<<<<<< (see below)
         monster_handler(&context);
     else if (!projections[typ].obvious)
     {
@@ -2266,10 +2266,8 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
 
 
 //////////////////////////////// BOLT REFLECT
-    if (monster_handler != NULL)
-    {
-        monster_handler(&context);
-        
+    if (monster_handler != NULL) ////////////////// <<<<<<<<<<<<<<< (see above) might need ref
+    {      
         // Only for bolt-type projectiles that do damage
         if (context.dam > 0 &&
             (flg & PROJECT_STOP) &&
@@ -2302,11 +2300,6 @@ void project_m(struct source *origin, int r, struct chunk *c, struct loc *grid, 
                 return;
             }
         }
-    }
-    else if (!projections[typ].obvious)
-    {
-        context.skipped = true;
-        context.dam = 0;
     }
 //////////////////////////////// end BOLT REFLECT
 
