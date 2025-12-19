@@ -5512,8 +5512,10 @@ desc: and sometimes even dexterity.
 desc: Beware to sleep in sloppy places..
 
 spell:Focus:20:3:30:12:0
-effect:CURE:CONFUSED
-desc:You focus and remove confusion.
+effect:TIMED_INC:OPP_CONF
+dice:$B
+expr:B:PLAYER_LEVEL:+ 0
+desc:You focus, resisting confusion for a time.
 
 spell:Bandages:25:15:90:100:0
 cooldown:11
@@ -5603,12 +5605,14 @@ book:prayer book:town:[Beginners Handbook]:4:divine
 equip:prayer book:[Beginners Handbook]:1:1:none
 
 spell:Balanced Stance:1:1:1:1:0
-effect:CURE:CONFUSED
+effect:TIMED_INC:OPP_CONF
+dice:$B
+expr:B:PLAYER_LEVEL:+ 1
 effect:TIMED_SET:BALANCED_STANCE
 dice:9999
 msg_other: took balanced stance.
 desc:You are preparing for balanced tactics.
-desc: Getting into this stance removes confusion.
+desc: Briefly protects you from confusion.
 
 spell:Defensive Stance:1:1:1:1:0
 effect:CURE:STUN
