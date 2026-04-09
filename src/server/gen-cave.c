@@ -6513,7 +6513,27 @@ struct chunk *arena_gen(struct player *p, struct worldpos *wpos, int min_height,
 //
 
     /* Most arena levels are lit */
-    bool lit = ((randint0(wpos->depth) < 25) || magik(90));
+    bool lit;
+
+    if ((wpos->grid.x == -6 && wpos->grid.y == 0) || // deeptown
+        (wpos->grid.x == 0 && wpos->grid.y == 6)  || // zeitnot
+        (wpos->grid.x == 0 && wpos->grid.y == -6))   // ironman
+    {
+        int d = wpos->depth;
+
+        if (d <= 2)
+            lit = true;                                        // d1-2 = 100%
+        else if (d <= 12)
+            lit = ((RNG % 1000) < (900 - (d - 3) * 89));       // d3=900 .. d12=99
+        else if (d <= 92)
+            lit = ((RNG % 1000) < (100 + (d - 12) * 10));      // d13=110 .. d92=900 (11%->90%)
+        else
+            lit = ((randint0(wpos->depth) < 25) || magik(90)); // deeper: v formula
+    }
+    else // regular mode: v formula
+    {
+        lit = ((randint0(wpos->depth) < 25) || magik(90));
+    }
 
     /* Scale the various generation variables */
     num_rooms = dun->profile->dun_rooms;
