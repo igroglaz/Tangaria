@@ -989,9 +989,10 @@ static bool arena_check(struct worldpos *wpos)
             else if (d >= 50)  chance = 25;  // 2.5%
             else if (d >= 40)  chance = 50;  // 5%
             else if (d >= 30)  chance = 75;  // 7.5%
-            else if (d >= 20)  chance = 100; // 10%
-            else if (d >= 10)  chance = 300 - (d * 10); // dlvl 10: 20% -> dlvl 20: 10%
-            else               chance = 300 - (d * 11); // dlvl  1: 30% -> dlvl 10: 20%
+            else if (d >= 20)  chance = 50;  // 5%
+            else if (d >= 10)  chance = 150 - (d * 5); // dlvl 10: 10% -> dlvl 19: ~5%
+            else if (d >= 3)   chance = (300 - (d * 11)) / 2; // dlvl 3: ~13% -> dlvl 9: ~11%
+            else               chance = 300 - (d * 11); // dlvl 1: ~29%, dlvl 2: ~28%
 
             if ((RNG % 1000) < chance)
                 return true;
