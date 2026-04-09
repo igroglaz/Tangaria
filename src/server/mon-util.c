@@ -1297,7 +1297,12 @@ static void player_kill_monster(struct player *p, struct chunk *c, struct source
                         msg_format_complex_near(p, MSG_GENERIC, "%s dies.", name);
                 }
             }
-            add_monster_message(p, mon, note, true);
+            // 'defeated' was already printed above for good/neutral/wanderers;
+            // skip add_monster_message to prevent the 'x dies' from overriding it
+            if (!(rf_has(mon->race->flags, RF_WANDERER) ||
+                  rf_has(mon->race->flags, RF_GOOD) ||
+                  rf_has(mon->race->flags, RF_NEUTRAL)))
+                add_monster_message(p, mon, note, true);
         }
     }
 
