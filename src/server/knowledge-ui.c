@@ -1961,9 +1961,11 @@ void do_cmd_redraw(struct player *p)
 void do_cmd_drop_gold(struct player *p, int32_t amt)
 {
     struct object *obj;
+    struct chunk *c = chunk_get(&p->wpos);
 
     // no drop on floor in town (don't try to hide your gold from thieves or death..)
-    if (p->wpos.depth == 0 && streq(p->terrain, "\tFloor\0")) {
+    if (square_issafefloor(c, &p->grid))
+    {
         msg(p, "You need to be outside the building to drop gold.");
         return;
     }
@@ -2004,7 +2006,7 @@ void do_cmd_drop_gold(struct player *p, int32_t amt)
 
     /* Setup the object */
     obj = object_new();
-    object_prep(p, chunk_get(&p->wpos), obj, money_kind("gold", amt), 0, MINIMISE);
+    object_prep(p, c, obj, money_kind("gold", amt), 0, MINIMISE);
 
     /* Setup the "worth" */
     obj->pval = amt;
@@ -2016,7 +2018,7 @@ void do_cmd_drop_gold(struct player *p, int32_t amt)
     obj->owner = p->id;
 
     /* Drop it */
-    drop_near(p, chunk_get(&p->wpos), &obj, 0, &p->grid, false, DROP_FADE, true);
+    drop_near(p, c, &obj, 0, &p->grid, false, DROP_FADE, true);
 }
 
 
