@@ -4438,10 +4438,15 @@ bool effect_handler_NOURISH(effect_handler_context_t *context)
     // NOURISH:INC_BY
     if (((context->subtype == 0) || (context->subtype == 4)) && !special_race)
         player_inc_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false, false);
-    /* Decrease food level by amount */
+    /* Decrease food level by amount, but leave at least 100 satiety */
     // NOURISH:DEC_BY
-    else if ((context->subtype == 1) || (context->subtype == 5))
-        player_dec_timed(context->origin->player, TMD_FOOD, MAX(amount, 0), false);
+    else if ((context->subtype == 1) || (context->subtype == 5)) {
+        int cur_food = context->origin->player->timed[TMD_FOOD];
+        int dec = MAX(amount, 0);
+        if (cur_food - dec < 100)
+            dec = MAX(cur_food - 100, 0);
+        player_dec_timed(context->origin->player, TMD_FOOD, dec, false);
+    }
     /* Set food level to amount, vomiting if necessary */
     // NOURISH:SET_TO
     else if (context->subtype == 2)
