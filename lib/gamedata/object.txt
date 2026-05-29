@@ -3637,6 +3637,9 @@ cost:400
 alloc:40:30 to 100
 pile:25:2
 effect:RESTORE_EXP
+effect:RESTORE_EXP
+effect:RESTORE_EXP
+# twice to make it a bit more effective
 
 ### Gain one/lose one potions ###
 
