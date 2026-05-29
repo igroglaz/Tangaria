@@ -2856,7 +2856,7 @@ type:scroll
 level:0
 weight:5
 cost:0
-alloc:50:0 to 70
+alloc:10:0 to 70
 pile:40:1d5
 effect:DETECT_TREASURES
 effect-yx:22:40
