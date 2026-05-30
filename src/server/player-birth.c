@@ -955,6 +955,16 @@ static void player_outfit(struct player *p, bool options[OPT_MAX])
         kind = lookup_kind(TV_SCROLL, sval);
         my_assert(kind);
         player_outfit_aux(p, kind, 10, true);
+
+        // extra arrows for newborn Archer class heroes
+        if (streq(p->clazz->name, "Archer") || streq(p->clazz->name, "Hunter"))
+        {
+            sval = lookup_sval(TV_ARROW, "Old Arrow");
+            kind = lookup_kind(TV_ARROW, sval);
+            my_assert(kind);
+            player_outfit_aux(p, kind, 40, true);
+            player_outfit_aux(p, kind, 40, true);
+        }
     }
 
     // as in T houses become permanent - no need to give free stuff
