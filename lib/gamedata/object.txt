@@ -461,6 +461,7 @@ cost:100
 alloc:5:10 to 50
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:STR
+effect:RESTORE_STAT:CHR
 effect:NOURISH:INC_BY
 dice:7
 msg_self:You feel your heart warm.
@@ -494,6 +495,7 @@ alloc:3:60 to 100
 effect:GAIN_STAT:CON
 effect:RESTORE_STAT:CON
 effect:RESTORE_STAT:STR
+effect:RESTORE_STAT:CHR
 effect:NOURISH:INC_BY
 dice:20
 msg_self:Refreshing!
