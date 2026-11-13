@@ -8016,6 +8016,9 @@ static int Receive_history(int ind)
     {
         p = player_get(get_player_index(connp));
 
+        /* Ignore invalid line numbers (the index comes from the client) */
+        if ((line < 0) || (line >= N_HIST_LINES)) return 1;
+
         /* Break mind link */
         break_mind_link(p);
 

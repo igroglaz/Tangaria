@@ -579,10 +579,6 @@ static void get_bonuses(struct player *p)
 }
 
 
-#define g_strcat(P, T) \
-    n = strlen((T)); my_strcpy((P), (T), n + 1); (P) += n
-
-
 /*
  * Get the racial history, and social class, using the "history charts".
  */
@@ -590,7 +586,7 @@ static void get_history(struct player *p)
 {
     struct history_entry *entry;
     int i, n;
-    char *s, *t;
+    char *s, *t, *end;
     char buf[240];
     struct history_chart *chart;
 
@@ -602,6 +598,9 @@ static void get_history(struct player *p)
 
     /* Set pointer */
     t = &buf[0];
+
+    /* Last writable position (keep room for the terminating '\0') */
+    end = buf + sizeof(buf) - 1;
 
     /* Starting place */
     chart = p->race->history;
@@ -619,27 +618,42 @@ static void get_history(struct player *p)
         }
         my_assert(entry);
 
-        /* Get the textual history */
-        my_strcat(buf, entry->text, sizeof(buf));
+        /* Get the textual history (expand the codes, never write past buf) */
         for (s = entry->text; *s; s++)
         {
-            switch (*s)
+            if ((*s == '$') || (*s == '~'))
             {
-                case '$':
-                case '~':
-                    s++;
-                    switch (*s)
-                    {
-                        case 'u': {g_strcat(t, "You"); break;}
-                        case 'r': {g_strcat(t, "Your"); break;}
-                        case 'a': {g_strcat(t, "are"); break;}
-                        case 'h': {g_strcat(t, "have"); break;}
-                        case 'w': {g_strcat(t, "were"); break;}
-                        default: continue;
-                    }
-                    break;
-                default:
-                    *t++ = *s;
+                const char *rep;
+
+                s++;
+
+                /* Truncated code at the end of the text */
+                if (!*s) break;
+
+                switch (*s)
+                {
+                    case 'u': rep = "You"; break;
+                    case 'r': rep = "Your"; break;
+                    case 'a': rep = "are"; break;
+                    case 'h': rep = "have"; break;
+                    case 'w': rep = "were"; break;
+                    default: continue;
+                }
+
+                n = (int)strlen(rep);
+
+                /* No more room: truncate */
+                if (t + n > end) break;
+
+                memcpy(t, rep, n);
+                t += n;
+            }
+            else
+            {
+                /* No more room: truncate */
+                if (t >= end) break;
+
+                *t++ = *s;
             }
         }
         *t = '\0';
@@ -660,8 +674,8 @@ static void get_history(struct player *p)
     /* Start at first line */
     i = 0;
 
-    /* Collect the history */
-    while (true)
+    /* Collect the history (never more than N_HIST_LINES lines) */
+    while (i < N_HIST_LINES)
     {
         /* Extract remaining length */
         n = strlen(s);
@@ -678,6 +692,9 @@ static void get_history(struct player *p)
 
         /* Find a reasonable break-point */
         for (n = N_HIST_WRAP - 1; ((n > 0) && (s[n - 1] != ' ')); n--) /* loop */;
+
+        /* No space found: hard break (avoids an endless loop) */
+        if (n == 0) n = N_HIST_WRAP - 1;
 
         /* Save next location */
         t = s + n;
